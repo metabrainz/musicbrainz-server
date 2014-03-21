@@ -27,6 +27,7 @@ use MusicBrainz::Server::Log qw( log_assertion log_debug );
 use MusicBrainz::Server::Validation 'normalise_strings';
 use MusicBrainz::Server::Translation qw ( N_l );
 use MusicBrainz::Server::Track qw ( format_track_length );
+use Set::Scalar;
 use Try::Tiny;
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
@@ -271,7 +272,7 @@ sub build_display_data
             $data->{tracklist_changes} = $tracklist_changes;
         }
 
-        if (any {$_->[1] && $_->[2] && $_->[1]->id ne $_->[2]->id} @$tracklist_changes) {
+        if (any { $_->[2] && !$_->[2]->id } @$tracklist_changes) {
             $data->{changed_mbids} = 1;
         }
 
@@ -284,13 +285,26 @@ sub build_display_data
             grep { $_->[0] ne '-' }
             @$tracklist_changes ];
 
+        my $old_recordings = Set::Scalar->new(
+            grep { $_ }
+             map { ($_->[1] // 0) && $_->[1]->recording_id // $_->[1]->recording->id }
+            @$tracklist_changes
+        );
+
+        my $new_recordings = Set::Scalar->new(
+            grep { $_ }
+             map { ($_->[2] // 0) && $_->[2]->recording_id // $_->[2]->recording->id }
+             # We only care about recording changes for existing tracks.
+             grep { $_->[2] && $_->[2]->id }
+            @$tracklist_changes
+        );
+
+        my $changed_recordings = $new_recordings->difference($old_recordings);
+
         $data->{recording_changes} = [
             grep {
-                (($_->[1] // 0) && $_->[1]->recording_id // $_->[1]->recording->id)
-                    !=
-                (($_->[2] // 0) && $_->[2]->recording_id // $_->[2]->recording->id)
+                $_->[2] ? $changed_recordings->has($_->[2]->recording_id // $_->[2]->recording->id) : 0
             }
-            grep { $_->[0] ne '+' && $_->[0] ne '-' }
             @$tracklist_changes ];
     }
 
