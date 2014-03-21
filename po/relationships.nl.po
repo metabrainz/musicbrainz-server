@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-02-28 08:12+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2014-03-18 03:22+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -185,26 +185,12 @@ msgstr "Geeft een artiest aan die voor langere tijd vocale ondersteuning biedt o
 msgid "Indicates a parent-child relationship."
 msgstr "Geeft een ouder-kind relatie aan."
 
-#: DB:link_type/description:248
-msgid ""
-"Indicates a person or agency that did the design/illustration for this work."
-" (<a "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr "Geeft een persoon of agentschap aan die het ontwerp of illustraties leverde voor deze compositie. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-
 #: DB:link_type/description:27
 msgid ""
 "Indicates a person or agency that did the graphic design for this album. (<a"
 " "
 "href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
 msgstr "Geeft een persoon of agentschap aan die het grafisch ontwerp leverde voor deze uitgave. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-
-#: DB:link_type/description:249
-msgid ""
-"Indicates a person or agency that did the graphics design support for this "
-"work. (<a "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr "Geeft een persoon of agentschap aan die het grafisch ontwerp leverde voor deze compositie. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
 
 #: DB:link_type/description:396
 msgid "Indicates a pictorial image (JPEG, GIF, PNG) of a place"
@@ -217,8 +203,8 @@ msgid ""
 msgstr "Geeft een afbeelding (JPEG, GIF, PNG) van een artiest aan. (<a href=\"http://musicbrainz.org/doc/Image_Relationship_Type\">Details</a>)"
 
 #: DB:link_type/description:94
-msgid "Indicates a webpage that reviews the work of an artist."
-msgstr "Geeft een internetpagina aan met een recensie van de compositie van een artiest."
+msgid "Indicates a webpage that reviews the release (group) in question."
+msgstr ""
 
 #: DB:link_type/description:75
 msgid ""
@@ -238,12 +224,6 @@ msgid ""
 "Indicates a webpage where you can download an artist's work for free. (<a "
 "href=\"http://musicbrainz.org/doc/Free_Download_Relationship_Type\">Details</a>)"
 msgstr "Geeft een internetpagina aan waar het werk van een artiest gratis gedownload kan worden. (<a href=\"http://musicbrainz.org/doc/Free_Download_Relationship_Type\">Details</a>)"
-
-#: DB:link_type/description:263
-msgid ""
-"Indicates an artist & repertoire support was included in this work. (<a "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr "Geeft aan dat A&R-ondersteuning betrokken was bij deze compositie.(<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
 
 #: DB:link_type/description:104
 msgid ""
@@ -420,10 +400,6 @@ msgid ""
 "Indicates the composer for this work, i.e. the artist who wrote the music "
 "(not necessarily the lyrics)."
 msgstr "Geeft de componist voor deze compositie aan, d.w.z. die persoon die de muziek (maar niet ook altijd de teksten) schreef."
-
-#: DB:link_type/description:264
-msgid "Indicates the creative direction support for this work."
-msgstr "Geeft ondersteuning in de creatieve leiding voor deze compositie aan."
 
 #: DB:link_type/description:28 DB:link_type/description:138
 msgid ""
@@ -874,12 +850,6 @@ msgid ""
 " production data, in some cases they consist of a blurb of text (article). "
 "This relationship type should be used in this last case."
 msgstr "Dit geeft de auteur van de tekst in het boekje van deze uitgave aan. Hoewel de meeste tekst bestaat uit personele informatie en gegevens over de productie, bevatten sommige boekjes een (uitgebreid) artikel. Deze relatie moet in dat laatste geval worden gebruikt."
-
-#: DB:link_type/description:61
-msgid ""
-"This credits the person or agency who arranged travel for the musicians and "
-"other staff, in order to get them into the right place to create the work."
-msgstr "Dit geeft een persoon of agentschap aan die voor de muzikanten en ander personeel de reis naar de plaats waar de compositie is gecreëerd verzorgde."
 
 #: DB:link_type/description:274
 msgid ""
@@ -1652,6 +1622,12 @@ msgid ""
 "href=\"http://musicbrainz.org/doc/Programming_Relationship_Type\">Details</a>)"
 msgstr "Deze relatie koppelt een opname of een uitgave aan een persoon die er elektronische instrumenten voor heeft geprogrammeerd. (<a href=\"http://musicbrainz.org/doc/Programming_Relationship_Type\">Details</a>)"
 
+#: DB:link_type/description:729
+msgid ""
+"This relationship links the release of a show's episode (for example a "
+"podcast) to the show notes for this episode."
+msgstr ""
+
 #: DB:link_type/description:728
 msgid ""
 "This relationship specifies that an artist is a <a "
@@ -1730,8 +1706,7 @@ msgid ""
 "Note about CD Baby: Many CD Baby releases are also available (usually with bigger covers) on Amazon.com."
 msgstr "Deze type relatie is <strong>verouderd</strong>! Upload afbeeldingen op de afbeeldingen tab voor de uitgave of voeg een ASIN-relatie toe.\n\nOpmerking over CD Baby: Veel uitgaves op CD Baby zijn ook beschikbaar (vaak met grotere afbeeldingen) op Amazon.com."
 
-#: DB:link_type/description:261 DB:link_type/description:270
-#: DB:link_type/description:252 DB:link_type/description:269
+#: DB:link_type/description:270
 msgid "This relationship type is <strong>deprecated</strong>."
 msgstr "Dit relatietype is <strong>verouderd</strong>."
 
@@ -1958,8 +1933,7 @@ msgid "arrangements"
 msgstr "arrangementen"
 
 #: DB:link_type/link_phrase:135 DB:link_type/link_phrase:62
-#: DB:link_type/link_phrase:263 DB:link_type/reverse_link_phrase:135
-#: DB:link_type/reverse_link_phrase:62 DB:link_type/reverse_link_phrase:263
+#: DB:link_type/reverse_link_phrase:135 DB:link_type/reverse_link_phrase:62
 msgid "artist & repertoire support"
 msgstr "A&R-ondersteuning"
 
@@ -2095,10 +2069,6 @@ msgstr "samensteller"
 msgid "composition"
 msgstr "compositie"
 
-#: DB:link_type/long_link_phrase:261
-msgid "contains miscellaneous support from"
-msgstr "bevat diverse ondersteuning van"
-
 #: DB:link_type/long_link_phrase:83 DB:link_type/long_link_phrase:258
 msgid "contains samples from the IMDb entry at"
 msgstr "bevat samples van het dit lemma op IMDB:"
@@ -2158,10 +2128,6 @@ msgstr "covers en versies"
 msgid "covers or other versions"
 msgstr "covers en andere versies"
 
-#: DB:link_type/link_phrase:264 DB:link_type/reverse_link_phrase:264
-msgid "creative direction"
-msgstr "creatieve leiding"
-
 #: DB:link_type/reverse_link_phrase:115
 msgid "creative persons"
 msgstr "creatieve personen"
@@ -2169,10 +2135,6 @@ msgstr "creatieve personen"
 #: DB:link_type/link_phrase:115
 msgid "creative position"
 msgstr "creatieve positie"
-
-#: DB:link_type/link_phrase:248 DB:link_type/reverse_link_phrase:248
-msgid "design/illustration"
-msgstr "ontwerp/illustratie"
 
 #: DB:link_type/link_phrase:88 DB:link_type/link_phrase:171
 #: DB:link_type/reverse_link_phrase:88 DB:link_type/reverse_link_phrase:171
@@ -2305,10 +2267,6 @@ msgstr "gratis muziek{video} streamingpagina van"
 #: DB:link_type/long_link_phrase:257
 msgid "get the music"
 msgstr "verkrijg de muziek"
-
-#: DB:link_type/link_phrase:249 DB:link_type/reverse_link_phrase:249
-msgid "graphic design"
-msgstr "grafisch ontwerp"
 
 #: DB:link_attribute_type/name:194
 msgid "guest"
@@ -2496,10 +2454,6 @@ msgstr "heeft anthem"
 msgid "has arrangement"
 msgstr "heeft arrangement"
 
-#: DB:link_type/long_link_phrase:263
-msgid "has artist & repertoire support by"
-msgstr "heeft artist & repertoire ondersteuning door"
-
 #: DB:link_type/long_link_phrase:66
 msgid "has business association with"
 msgstr "heeft een zakenrelatie met"
@@ -2507,18 +2461,6 @@ msgstr "heeft een zakenrelatie met"
 #: DB:link_type/long_link_phrase:78
 msgid "has cover art at"
 msgstr "heeft afbeeldingen op"
-
-#: DB:link_type/long_link_phrase:264
-msgid "has creative direction by"
-msgstr "heeft creatieve leiding door"
-
-#: DB:link_type/long_link_phrase:248
-msgid "has design/illustration by"
-msgstr "heeft ontwerp/illustratie door"
-
-#: DB:link_type/long_link_phrase:249
-msgid "has graphic design by"
-msgstr "heeft grafisch ontwerp door"
 
 #: DB:link_type/long_link_phrase:725
 msgid "has imprint"
@@ -2560,6 +2502,10 @@ msgstr "heeft een primaire concertzaal bij"
 #: DB:link_type/link_phrase:315 DB:link_type/long_link_phrase:315
 msgid "has revision"
 msgstr "heeft revisie"
+
+#: DB:link_type/long_link_phrase:729
+msgid "has show notes at"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:110
 msgid "has sibling(s)"
@@ -2966,13 +2912,11 @@ msgstr "secundair"
 
 #: DB:link_type/link_phrase:25 DB:link_type/link_phrase:129
 #: DB:link_type/link_phrase:162 DB:link_type/link_phrase:270
-#: DB:link_type/reverse_link_phrase:261
 msgid "miscellaneous roles"
 msgstr "diverse rollen"
 
-#: DB:link_type/link_phrase:261 DB:link_type/reverse_link_phrase:25
-#: DB:link_type/reverse_link_phrase:129 DB:link_type/reverse_link_phrase:162
-#: DB:link_type/reverse_link_phrase:270
+#: DB:link_type/reverse_link_phrase:25 DB:link_type/reverse_link_phrase:129
+#: DB:link_type/reverse_link_phrase:162 DB:link_type/reverse_link_phrase:270
 msgid "miscellaneous support"
 msgstr "diverse ondersteuning"
 
@@ -3217,10 +3161,6 @@ msgstr "verzorgde boekingen voor"
 msgid "provided legal representation for"
 msgstr "verzorgde juridische vertegenwoordiging voor"
 
-#: DB:link_type/long_link_phrase:61
-msgid "provided travel arrangements for"
-msgstr "verzorgde de reisorganisatie voor"
-
 #: DB:link_type/long_link_phrase:137 DB:link_type/long_link_phrase:18
 msgid "provided {additional} art direction on"
 msgstr "verzorgde {additional:aanvullende} artistieke leiding op"
@@ -3244,18 +3184,15 @@ msgstr "verzorgde {additional:aanvullende} fotografie voor"
 #: DB:link_type/link_phrase:362 DB:link_type/link_phrase:127
 #: DB:link_type/link_phrase:206 DB:link_type/link_phrase:32
 #: DB:link_type/link_phrase:208 DB:link_type/link_phrase:161
-#: DB:link_type/link_phrase:269 DB:link_type/reverse_link_phrase:252
 #: DB:link_type/long_link_phrase:362 DB:link_type/long_link_phrase:127
 #: DB:link_type/long_link_phrase:206 DB:link_type/long_link_phrase:32
 #: DB:link_type/long_link_phrase:208 DB:link_type/long_link_phrase:161
-#: DB:link_type/long_link_phrase:269
 msgid "published"
 msgstr "publiceerde"
 
-#: DB:link_type/link_phrase:252 DB:link_type/reverse_link_phrase:362
-#: DB:link_type/reverse_link_phrase:127 DB:link_type/reverse_link_phrase:206
-#: DB:link_type/reverse_link_phrase:32 DB:link_type/reverse_link_phrase:208
-#: DB:link_type/reverse_link_phrase:161 DB:link_type/reverse_link_phrase:269
+#: DB:link_type/reverse_link_phrase:362 DB:link_type/reverse_link_phrase:127
+#: DB:link_type/reverse_link_phrase:206 DB:link_type/reverse_link_phrase:32
+#: DB:link_type/reverse_link_phrase:208 DB:link_type/reverse_link_phrase:161
 msgid "publisher"
 msgstr "uitgever"
 
@@ -3375,6 +3312,14 @@ msgstr "bladmuziek"
 msgid "score for"
 msgstr "partituur van"
 
+#: DB:link_type/link_phrase:729
+msgid "show notes"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:729
+msgid "show notes for"
+msgstr ""
+
 #: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110
 msgid "siblings"
 msgstr "broer(s) of zus(sen)"
@@ -3465,14 +3410,6 @@ msgstr "{transliterated:getranscribeerde|vertaalde} nummerlijst van"
 msgid "transl{transliterated:iter}ated track listings"
 msgstr "{transliterated:getranscribeerde|vertaalde} nummerlijsten"
 
-#: DB:link_type/reverse_link_phrase:61
-msgid "travel arrangements"
-msgstr "reisarrangementen"
-
-#: DB:link_type/link_phrase:61
-msgid "travel arrangements for"
-msgstr "reisarrangementen voor"
-
 #: DB:link_type/link_phrase:65
 msgid "tribute albums"
 msgstr "hommagealbums"
@@ -3510,10 +3447,6 @@ msgstr "stem van"
 #: DB:link_type/reverse_link_phrase:292
 msgid "voiced by"
 msgstr "ingesproken door"
-
-#: DB:link_type/long_link_phrase:252
-msgid "was published by"
-msgstr "werd gepubliceerd door"
 
 #: DB:link_type/long_link_phrase:98 DB:link_type/long_link_phrase:260
 msgid "was recorded by studio at"

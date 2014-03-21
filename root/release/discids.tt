@@ -49,11 +49,5 @@
         <p>[% l('There are no disc IDs attached to this release; to find out more about how to add one, see {doc|How to Add Disc IDs}.', { doc => doc_link('How to Add Disc IDs') }) %]</p>
     [% END %]
 
-    [% IF c.user_exists %]
-    [% ELSE %]
-        <p>[% l('Please {login|log in} to edit the disc IDs for this release.',
-                { login => login_url() }) %]</p>
-    [% END %]
-
 [%- END -%]
 
