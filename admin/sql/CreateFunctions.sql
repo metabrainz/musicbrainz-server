@@ -161,15 +161,18 @@ $$ LANGUAGE 'plpgsql';
 -- recording triggers
 -----------------------------------------------------------------------
 
+CREATE OR REPLACE FUNCTION median_track_length(recording_id integer)
+RETURNS integer AS $$
+  SELECT median(track.length) FROM track WHERE recording = recording_id;
+$$ LANGUAGE SQL;
+
 CREATE OR REPLACE FUNCTION b_upd_recording() RETURNS TRIGGER AS $$
 BEGIN
   IF OLD.length IS DISTINCT FROM NEW.length
     AND EXISTS (SELECT TRUE FROM track WHERE recording = NEW.id)
-    AND NEW.length IS DISTINCT FROM (
-      SELECT median(track.length) FROM track WHERE recording = NEW.id
-    )
+    AND NEW.length IS DISTINCT FROM median_track_length(NEW.id)
   THEN
-    NEW.length = (SELECT median(track.length) FROM track WHERE recording = NEW.id);
+    NEW.length = median_track_length(NEW.id);
   END IF;
 
   NEW.last_updated = now();
@@ -1165,11 +1168,7 @@ CREATE OR REPLACE FUNCTION materialise_recording_length(recording_id INT)
 RETURNS void as $$
 BEGIN
   UPDATE recording SET length = median
-  FROM (
-    SELECT median(track.length)
-    FROM track
-    WHERE track.recording = recording_id
-  ) track
+   FROM (SELECT median_track_length(recording_id) median) track
   WHERE recording.id = recording_id
     AND recording.length IS DISTINCT FROM track.median;
 END;
