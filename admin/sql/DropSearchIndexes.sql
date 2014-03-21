@@ -5,6 +5,7 @@ DROP INDEX area_idx_name_txt;
 DROP INDEX artist_credit_idx_txt;
 DROP INDEX artist_credit_name_idx_txt;
 DROP INDEX artist_idx_txt;
+DROP INDEX instrument_idx_txt;
 DROP INDEX label_idx_txt;
 DROP INDEX recording_idx_txt;
 DROP INDEX release_group_idx_txt;

@@ -64,10 +64,31 @@ CREATE TRIGGER b_upd_editor BEFORE UPDATE ON editor
 CREATE TRIGGER a_ins_editor AFTER INSERT ON editor
     FOR EACH ROW EXECUTE PROCEDURE a_ins_editor();
 
+CREATE TRIGGER b_upd_instrument BEFORE UPDATE ON instrument
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON instrument
+    FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
+
+CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON instrument_alias
+    FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
+
+CREATE TRIGGER b_upd_instrument_alias BEFORE UPDATE ON instrument_alias
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON instrument_alias
+    FOR EACH ROW EXECUTE PROCEDURE unique_primary_instrument_alias();
+
+CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON instrument_alias
+    FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(2);
+
 CREATE TRIGGER b_upd_l_area_area BEFORE UPDATE ON l_area_area
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER b_upd_l_area_artist BEFORE UPDATE ON l_area_artist
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_area_instrument BEFORE UPDATE ON l_area_instrument
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER b_upd_l_area_label BEFORE UPDATE ON l_area_label
@@ -94,6 +115,9 @@ CREATE TRIGGER b_upd_l_area_work BEFORE UPDATE ON l_area_work
 CREATE TRIGGER b_upd_l_artist_artist BEFORE UPDATE ON l_artist_artist
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER b_upd_l_artist_instrument BEFORE UPDATE ON l_artist_instrument
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
 CREATE TRIGGER b_upd_l_artist_label BEFORE UPDATE ON l_artist_label
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
@@ -113,6 +137,30 @@ CREATE TRIGGER b_upd_l_artist_url BEFORE UPDATE ON l_artist_url
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER b_upd_l_artist_work BEFORE UPDATE ON l_artist_work
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_instrument_instrument BEFORE UPDATE ON l_instrument_instrument
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_instrument_label BEFORE UPDATE ON l_instrument_label
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_instrument_place BEFORE UPDATE ON l_instrument_place
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_instrument_recording BEFORE UPDATE ON l_instrument_recording
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_instrument_release BEFORE UPDATE ON l_instrument_release
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_instrument_release_group BEFORE UPDATE ON l_instrument_release_group
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_instrument_url BEFORE UPDATE ON l_instrument_url
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_instrument_work BEFORE UPDATE ON l_instrument_work
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER b_upd_l_label_label BEFORE UPDATE ON l_label_label
@@ -392,6 +440,21 @@ CREATE TRIGGER a_ins_edit_artist BEFORE INSERT ON edit_label
 CREATE TRIGGER ensure_work_attribute_type_allows_text BEFORE INSERT OR UPDATE ON work_attribute
     FOR EACH ROW EXECUTE PROCEDURE ensure_work_attribute_type_allows_text();
 
+CREATE TRIGGER nt_insertinstrument
+    AFTER INSERT ON musicbrainz.instrument
+    FOR EACH ROW
+    EXECUTE PROCEDURE n_insertinstrument();
+
+CREATE TRIGGER nt_updateinstrument
+    AFTER UPDATE ON musicbrainz.instrument
+    FOR EACH ROW
+    EXECUTE PROCEDURE n_updateinstrument();
+
+CREATE TRIGGER nt_deleteinstrument
+    AFTER DELETE ON musicbrainz.instrument
+    FOR EACH ROW
+    EXECUTE PROCEDURE n_deleteinstrument();
+
 --------------------------------------------------------------------------------
 CREATE CONSTRAINT TRIGGER remove_unused_links
     AFTER DELETE OR UPDATE ON l_area_area DEFERRABLE INITIALLY DEFERRED
@@ -399,6 +462,10 @@ CREATE CONSTRAINT TRIGGER remove_unused_links
 
 CREATE CONSTRAINT TRIGGER remove_unused_links
     AFTER DELETE OR UPDATE ON l_area_artist DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_area_instrument DEFERRABLE INITIALLY DEFERRED
     FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
 CREATE CONSTRAINT TRIGGER remove_unused_links
@@ -434,6 +501,10 @@ CREATE CONSTRAINT TRIGGER remove_unused_links
     FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
 CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_artist_instrument DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
     AFTER DELETE OR UPDATE ON l_artist_label DEFERRABLE INITIALLY DEFERRED
     FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
@@ -459,6 +530,38 @@ CREATE CONSTRAINT TRIGGER remove_unused_links
 
 CREATE CONSTRAINT TRIGGER remove_unused_links
     AFTER DELETE OR UPDATE ON l_artist_work DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_instrument_instrument DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_instrument_label DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_instrument_place DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_instrument_recording DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_instrument_release DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_instrument_release_group DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_instrument_url DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_instrument_work DEFERRABLE INITIALLY DEFERRED
     FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
 CREATE CONSTRAINT TRIGGER remove_unused_links
@@ -588,6 +691,14 @@ FOR EACH ROW EXECUTE PROCEDURE remove_unused_url();
 
 CREATE CONSTRAINT TRIGGER url_gc_a_del_l_artist_url
 AFTER DELETE ON l_artist_url DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW EXECUTE PROCEDURE remove_unused_url();
+
+CREATE CONSTRAINT TRIGGER url_gc_a_upd_l_instrument_url
+AFTER UPDATE ON l_instrument_url DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW EXECUTE PROCEDURE remove_unused_url();
+
+CREATE CONSTRAINT TRIGGER url_gc_a_del_l_instrument_url
+AFTER DELETE ON l_instrument_url DEFERRABLE INITIALLY DEFERRED
 FOR EACH ROW EXECUTE PROCEDURE remove_unused_url();
 
 CREATE CONSTRAINT TRIGGER url_gc_a_upd_l_label_url

@@ -3,6 +3,7 @@
 CREATE INDEX artist_idx_txt ON artist USING gin(to_tsvector('mb_simple', name));
 CREATE INDEX artist_credit_idx_txt ON artist_credit USING gin(to_tsvector('mb_simple', name));
 CREATE INDEX artist_credit_name_idx_txt ON artist_credit_name USING gin(to_tsvector('mb_simple', name));
+CREATE INDEX instrument_idx_txt ON instrument USING gin(to_tsvector('mb_simple', name));
 CREATE INDEX label_idx_txt ON label USING gin(to_tsvector('mb_simple', name));
 CREATE INDEX release_idx_txt ON release USING gin(to_tsvector('mb_simple', name));
 CREATE INDEX release_group_idx_txt ON release_group USING gin(to_tsvector('mb_simple', name));
