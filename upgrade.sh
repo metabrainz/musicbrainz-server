@@ -55,7 +55,6 @@ OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140212-ordering-columns.s
 
 echo `date` : 'DROP TABLE script_language;'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140208-drop-script_language.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
->>>>>>> origin/schema-change-2014-05
 
 ################################################################################
 # Re-enable replication
