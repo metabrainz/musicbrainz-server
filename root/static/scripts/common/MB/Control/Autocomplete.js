@@ -250,19 +250,23 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
 
     // Overrides $.ui.autocomplete.prototype._searchTimeout
     _searchTimeout: function (event) {
-        clearTimeout(this.searching);
-
-        var value = this._value();
-        var mbidMatch = value.match(this.mbidRegex);
+        var oldTerm = _.str.clean(this.term);
+        var newTerm = _.str.clean(this._value());
+        var mbidMatch = newTerm.match(this.mbidRegex);
 
         if (mbidMatch === null) {
-            if (!value) {
+            if (!newTerm) {
+                clearTimeout(this.searching);
                 this.close();
 
             // only search if the value has changed
-            } else if (this.term !== value) {
+            } else if (oldTerm !== newTerm && this.completedTerm !== newTerm) {
+                clearTimeout(this.searching);
+                this.completedTerm = oldTerm;
+
                 this.searching = this._delay(
                     function () {
+                        delete this.completedTerm;
                         this.selectedItem = null;
                         this.search(null, event);
                     },
@@ -270,6 +274,7 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
                 );
             }
         } else {
+            clearTimeout(this.searching);
             this._lookupMBID(mbidMatch[0]);
         }
     },
