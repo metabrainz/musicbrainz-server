@@ -153,7 +153,9 @@ MB.releaseEditor.trackParser = {
         if (hasTocs && newTracks.length < currentTrackCount) {
             var difference = currentTrackCount - newTracks.length;
 
-            while (difference-- > 0) newTracks.push({});
+            while (difference-- > 0) {
+                newTracks.push(MB.releaseEditor.fields.Track({}, medium));
+            }
         }
 
         return newTracks;

@@ -36,21 +36,21 @@
         return String(value).replace(specialLuceneChars, "\\$1");
     };
 
-    function constructLuceneField(values, key) {
+    utils.constructLuceneField = function (values, key) {
         return key + ":(" + values.join(" OR ") + ")";
     }
 
     utils.constructLuceneFieldConjunction = function (params) {
-        return _.map(params, constructLuceneField).join(" AND ");
+        return _.map(params, utils.constructLuceneField).join(" AND ");
     };
 
 
-    utils.search = function (resource, params, limit, offset) {
+    utils.search = function (resource, query, limit, offset) {
         var requestArgs = {
             url: "/ws/2/" + resource,
             data: {
                 fmt: "json",
-                query: utils.constructLuceneFieldConjunction(params)
+                query: query
             }
         };
 

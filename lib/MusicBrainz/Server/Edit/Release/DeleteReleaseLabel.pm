@@ -54,7 +54,7 @@ sub foreign_keys
 {
     my $self = shift;
 
-    my %fk = ( Release => { $self->release_id => [] } );
+    my %fk = ( Release => { $self->release_id => [ 'ArtistCredit' ] } );
 
     if ($self->data->{label} && $self->data->{label}{id})
     {

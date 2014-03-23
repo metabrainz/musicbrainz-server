@@ -212,7 +212,7 @@ END -%]
 [%- MACRO artist_credit(ac, opts) BLOCK -%]
     [%- FOREACH name IN ac.names -%]
         [%- IF name.artist.gid && !opts.plain -%]
-            [%- link_artist(name.artist, 'show', html_escape(name.name)) -%]
+            [%- link_artist(name.artist, 'show', name.name) -%]
         [%- ELSE -%]
             [%- name.name | html -%]
         [%- END -%]
@@ -299,7 +299,7 @@ END -%]
 [%- MACRO link_work(work, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/work/$action", [ work.gid ]);
-    text = text == '' ? html_escape(work.name) : text;
+    text = html_escape(text == '' ? work.name : text);
     '<span class="mp">' IF work.edits_pending AND action == 'show';
     '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
     '</span>' IF work.edits_pending AND action == 'show';
@@ -308,7 +308,7 @@ END -%]
 [%- MACRO link_label(label, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/label/$action", [ label.gid ]);
-    text = text == '' ? html_escape(label.name) : text;
+    text = html_escape(text == '' ? label.name : text);
     '<span class="mp">' IF label.edits_pending AND action == 'show';
     '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
     '</span>' IF label.edits_pending AND action == 'show';
@@ -321,7 +321,7 @@ END -%]
     IF artist.comment; hover = hover _ ' (' _ html_escape(artist.comment) _ ')'; END;
     '<span class="mp">' IF artist.edits_pending AND action == 'show';
     '<span class="name-variation">' IF text != '' AND text != artist.name AND action == 'show';
-    text = text == '' ? html_escape(artist.name) : text;
+    text = html_escape(text == '' ? artist.name : text);
     '<a href="' _ link _ '" title="' _ hover _ '"><bdi>' _ text _ '</bdi></a>';
     '</span>' IF text != artist.name AND action == 'show';
     '</span>' IF artist.edits_pending AND action == 'show';
@@ -330,7 +330,7 @@ END -%]
 [%- MACRO link_area(area, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/area/$action", [ area.gid ]);
-    text = text == '' ? html_escape(area.l_name) : text;
+    text = html_escape(text == '' ? area.l_name : text);
     flagclass = area.iso_3166_1.0 ? 'flag-' _ area.iso_3166_1.0 : '';
     '<span class="flag ' _ flagclass _ '">' IF flagclass AND action == 'show';
     '<span class="mp">' IF area.edits_pending AND action == 'show';
@@ -355,7 +355,7 @@ END -%]
 [%- MACRO link_place(place, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/place/$action", [ place.gid ]);
-    text = text == '' ? html_escape(place.name) : text;
+    text = html_escape(text == '' ? place.name : text);
     '<span class="mp">' IF place.edits_pending AND action == 'show';
     '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
     '</span>' IF place.edits_pending AND action == 'show';
@@ -364,14 +364,14 @@ END -%]
 [%- MACRO link_collection(collection, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/collection/$action", [ collection.gid ]);
-    text = text == '' ? html_escape(collection.name) : text;
+    text = html_escape(text == '' ? collection.name : text);
     '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
 END -%]
 
 [%- MACRO link_release(release, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/release/$action", [ release.gid ]);
-    text = text == '' ? html_escape(release.name) : text;
+    text = html_escape(text == '' ? release.name : text);
     '<span class="mp">' IF release.edits_pending AND action == 'show';
     '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
     '</span>' IF release.edits_pending AND action == 'show';
@@ -380,29 +380,22 @@ END -%]
 [%- MACRO link_release_group(rg, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/release_group/$action", [ rg.gid ]);
-    text = text == '' ? html_escape(rg.name) : text;
+    text = html_escape(text == '' ? rg.name : text);
     '<span class="mp">' IF rg.edits_pending AND action == 'show';
     '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
     '</span>' IF rg.edits_pending AND action == 'show';
 END -%]
 
-[%- MACRO link_recording(recording, action, text) BLOCK;
+[%- MACRO link_recording(recording, action, text, no_escape) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/recording/$action", [ recording.gid ]);
     hover = html_escape(recording.name) IF text != recording.name AND action == 'show';
     '<span class="mp">' IF recording.edits_pending AND action == 'show';
     '<span class="name-variation">' IF text != '' AND text != recording.name AND action == 'show';
-    text = text == '' ? html_escape(recording.name) : text;
+    text = no_escape ? text : html_escape(text == '' ? recording.name : text);
     '<a href="' _ link _ '" title="' _ hover _ '" class="' _ class _ '"><bdi>' _ text _ '</bdi></a>';
     '</span>' IF text != recording.name AND action == 'show';
     '</span>' IF recording.edits_pending AND action == 'show';
-END -%]
-
-[%- MACRO link_tracklist(tracklist, action, text) BLOCK;
-    action = action || 'show';
-    link = c.uri_for_action("/tracklist/$action", [ tracklist.id ]);
-    text = text == '' ? html_escape(tracklist.medium.name) : text;
-    '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
 END -%]
 
 [%- MACRO link_url(url, action, text) BLOCK;
@@ -423,7 +416,7 @@ END -%]
 [%- MACRO link_tag(tag, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/tag/$action", [ tag.name ]);
-    text = text == '' ? html_escape(tag.name) : text;
+    text = html_escape(text == '' ? tag.name : text);
     '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
 END -%]
 
@@ -448,21 +441,21 @@ END -%]
 [%- MACRO link_cdtoc(cdtoc, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/cdtoc/$action", [ cdtoc.discid ]);
-    text = text == '' ? html_escape(cdtoc.discid) : text;
+    text = html_escape(text == '' ? cdtoc.discid : text);
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
 [%- MACRO link_cdstub(cdstub, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/cdstub/$action", [ cdstub.discid ]);
-    text = text == '' ? html_escape(cdstub.discid) : text;
+    text = html_escape(text == '' ? cdstub.discid : text);
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
 [%- MACRO link_freedb(freedb, action, text) BLOCK;
     action = action || 'import';
     link = c.uri_for_action("/freedb/$action", [ freedb.category, freedb.discid ]);
-    text = text == '' ? html_escape(freedb.discid) : text;
+    text = html_escape(text == '' ? freedb.discid : text);
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
@@ -471,7 +464,7 @@ END -%]
 [%- MACRO link_editor(editor, action, text, size) BLOCK;
     action = action || 'profile';
     link = c.uri_for_action("/user/$action", [ editor.name ]);
-    text = text == '' ? html_escape(editor.name) : text;
+    text = html_escape(text == '' ? editor.name : text);
     size = size.defined ? size : 12;
     '<a href="' _ link _ '">';
     IF editor.preferences.show_gravatar;
@@ -492,7 +485,7 @@ END -%]
 [%- MACRO link_edit(edit, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/edit/$action", [ edit.id ]);
-    text = text == '' ? html_escape(edit.id) : text;
+    text = html_escape(text == '' ? edit.id : text);
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
@@ -554,7 +547,7 @@ END -%]
     seen = {};
     FOR label=labels;
       IF label.catalog_number AND !seen.${ label.catalog_number };
-        out.push(label.catalog_number);
+        out.push('<span class="catalog-number">' _ label.catalog_number _ '</span>');
         seen.${ label.catalog_number } = 1;
       END;
     END;
@@ -609,7 +602,8 @@ END -%]
 [%- MACRO relate_to_url(entity) BLOCK;
     uri = c.uri_for_action('/edit/relationship/create_url', {
                         type => entity_type(entity),
-                        entity => entity.gid
+                        entity => entity.gid,
+                        returnto => c.req.uri
                    });
     l('{uri|Relate to URL}', { uri => html_escape(uri) });
 END -%]
@@ -888,7 +882,9 @@ END -%]
 
 [%- MACRO sidebar_edit_annotation(entity) BLOCK -%]
   <li>
-    <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ entity.gid ]) %]">
+    <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ entity.gid ], {
+      returnto => c.req.uri
+    }) %]">
       [% entity.latest_annotation.text ? l('Edit annotation') : l('Add annotation') %]
     </a>
   </li>
@@ -1046,7 +1042,7 @@ END -%]
       country = event.country;
       parts = [];
       parts.push(link_entity(country)) IF country.id;
-      parts.push(date.format) UNLESS date.is_empty;
+      parts.push('<span class="release-date">' _ date.format _ '</span>') UNLESS date.is_empty;
       parts.join('<br />');
     END -%]
 
