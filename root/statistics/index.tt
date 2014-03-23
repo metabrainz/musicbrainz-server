@@ -534,14 +534,14 @@
    <th></th>
    <th>[% work_attribute_type.l_name %]</th>
    <td>[% add_commas(stats.statistic('count.work.attribute.' _ work_attribute_type.id)) %]</td>
-   <td>[% l('{n}%', { n => round1(stats.ratio('count.work.type.' _ work_type.id, 'count.work')) }) %]</td>
+   <td>[% l('{n}%', { n => round1(stats.ratio('count.work.attribute.' _ work_attribute_type.id, 'count.work')) }) %]</td>
 </tr>
 [% END %]
 <tr>
    <th></th>
    <th>[% l('None') %]</th>
-   <td>[% add_commas(stats.statistic('count.work.type.null')) %]</td>
-   <td>[% l('{n}%', { n => round1(stats.ratio('count.work.type.null', 'count.work')) }) %]</td>
+   <td>[% add_commas(stats.statistic('count.work.attribute.null')) %]</td>
+   <td>[% l('{n}%', { n => round1(stats.ratio('count.work.attribute.null', 'count.work')) }) %]</td>
 </tr>
 </tbody>
 </table>
