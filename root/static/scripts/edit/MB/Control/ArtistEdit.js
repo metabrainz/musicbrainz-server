@@ -47,6 +47,8 @@ MB.Control.ArtistEdit = function () {
            Unknown: 0
            Person: 1
            Group: 2
+           Orchestra: 5
+           Choir: 6
     */
     self.typeChanged = function() {
         switch (self.$type.val()) {
@@ -64,6 +66,8 @@ MB.Control.ArtistEdit = function () {
                 break;
 
             case '2':
+            case '5':
+            case '6':
                 self.changeDateText(MB.text.ArtistDate.Founded);
                 self.changeAreaText(MB.text.ArtistArea.Founded);
                 self.disableGender();
