@@ -231,6 +231,8 @@ sub create : Local Edit
     my $source = $source_model->get_by_gid($source_gid);
     my $dest   = $dest_model->get_by_gid($dest_gid);
 
+    $c->model('ArtistCredit')->load($source, $dest);
+
     if ($type0 eq $type1 && $source->id == $dest->id) {
         $c->stash( message => l('A relationship requires 2 different entities') );
         $c->detach('/error_500');
