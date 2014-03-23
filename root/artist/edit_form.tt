@@ -67,7 +67,7 @@
         [% form_row_date(r, 'period.begin_date', l('Begin date:')) %]
         [% WRAPPER form_row %]
           [% begin_area_field = form.field('begin_area.name') %]
-          <label for="id-edit-artist.begin_area.name">[% l('Begin Area:') %]</label>
+          <label id="label-id-edit-artist.begin_area.name" for="id-edit-artist.begin_area.name">[% l('Begin Area:') %]</label>
           <span id="begin_area" class="area autocomplete">
             <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
             [% r.hidden(form.field('begin_area').field('gid'), { class => 'gid' }) %]
@@ -80,7 +80,7 @@
         [% form_row_checkbox(r, 'period.ended', l('This artist has ended.')) %]
         [% WRAPPER form_row %]
           [% end_area_field = form.field('end_area.name') %]
-          <label for="id-edit-artist.end_area.name">[% l('End Area:') %]</label>
+          <label id="label-id-edit-artist.end_area.name" for="id-edit-artist.end_area.name">[% l('End Area:') %]</label>
           <span id="end_area" class="area autocomplete">
             <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
             [% r.hidden(form.field('end_area').field('gid'), { class => 'gid' }) %]
