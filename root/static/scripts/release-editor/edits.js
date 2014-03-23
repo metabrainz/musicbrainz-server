@@ -502,7 +502,13 @@
                             medium.id = addedData.id;
                         }
 
-                        medium.original(MB.edit.fields.medium(medium));
+                        var currentData = MB.edit.fields.medium(medium);
+
+                        // mediumReorder edits haven't been submitted yet,
+                        // so we must keep the old position.
+                        currentData.position = medium.original().position;
+
+                        medium.original(currentData);
                     });
 
                     newMediums.notifySubscribers(newMediums());
