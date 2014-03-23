@@ -251,6 +251,8 @@ my %stats = (
                 "count.artist.type.group"  => $dist{2} || 0,
                 "count.artist.type.other"  => $dist{3} || 0,
                 "count.artist.type.character"  => $dist{4} || 0,
+                "count.artist.type.orchestra"  => $dist{5} || 0,
+                "count.artist.type.choir"  => $dist{6} || 0,
                 "count.artist.type.null" => $dist{null} || 0
             };
         },
