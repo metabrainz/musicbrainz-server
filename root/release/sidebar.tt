@@ -51,7 +51,7 @@
            content=link_searchable_property('script', release.script.iso_code, 'release', release.script.l_name)
            class="script"
                IF release.script.name;
-        INCLUDE 'layout/sidebar/property.tt' label=l('Data Quality:')
+        INCLUDE 'layout/sidebar/property.tt' label=l('Data Quality:') class="data-quality"
            content=quality_name(release.quality) IF release.quality != -1;
     END %]
 
@@ -61,14 +61,14 @@
     [% FOR label=release.labels %]
       <li>
         [% link_label(label.label) _ '<br />' %]
-        [% html_escape(label.catalog_number) %]
+        <span class="catalog-number">[% html_escape(label.catalog_number) %]</span>
       </li>
     [% END %]
     </ul>
     [% END %]
 
     [% IF release.events.size %]
-    <h2>[% l('Release events') %]</h2>
+    <h2 class="release-events">[% l('Release events') %]</h2>
     [% release_events(release.events) %]
     [% END %]
 

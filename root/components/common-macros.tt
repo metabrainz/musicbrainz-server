@@ -547,7 +547,7 @@ END -%]
     seen = {};
     FOR label=labels;
       IF label.catalog_number AND !seen.${ label.catalog_number };
-        out.push(label.catalog_number);
+        out.push('<span class="catalog-number">' _ label.catalog_number _ '</span>');
         seen.${ label.catalog_number } = 1;
       END;
     END;
@@ -1042,7 +1042,7 @@ END -%]
       country = event.country;
       parts = [];
       parts.push(link_entity(country)) IF country.id;
-      parts.push(date.format) UNLESS date.is_empty;
+      parts.push('<span class="release-date">' _ date.format _ '</span>') UNLESS date.is_empty;
       parts.join('<br />');
     END -%]
 
