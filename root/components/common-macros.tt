@@ -901,19 +901,19 @@ END -%]
 [%- END -%]
 
 [%- MACRO artist_begin_label_from_type(type_id) BLOCK ~%]
-    [%~ type_id == 1 ? l('Born:') : type_id == 2 ? l('Founded:') : l('Begin date:') ~%]
+    [%~ type_id == 1 ? l('Born:') : (type_id ==  2 || type_id == 5 || type_id == 6) ? l('Founded:') : l('Begin date:') ~%]
 [%~ END -%]
 
 [%- MACRO artist_begin_area_label_from_type(type_id) BLOCK ~%]
-    [%~ type_id == 1 ? l('Born in:') : type_id == 2 ? l('Founded in:') : l('Begin area:') ~%]
+    [%~ type_id == 1 ? l('Born in:') : (type_id ==  2 || type_id == 5 || type_id == 6) ? l('Founded in:') : l('Begin area:') ~%]
 [%~ END -%]
 
 [%- MACRO artist_end_label_from_type(type_id) BLOCK ~%]
-    [%~ type_id == 1 ? l('Died:') : type_id == 2 ? l('Dissolved:') : l('End date:') ~%]
+    [%~ type_id == 1 ? l('Died:') : (type_id ==  2 || type_id == 5 || type_id == 6) ? l('Dissolved:') : l('End date:') ~%]
 [%~ END -%]
 
 [%- MACRO artist_end_area_label_from_type(type_id) BLOCK ~%]
-    [%~ type_id == 1 ? l('Died in:') : type_id == 2 ? l('Dissolved in:') : l('End area:') ~%]
+    [%~ type_id == 1 ? l('Died in:') : (type_id ==  2 || type_id == 5 || type_id == 6) ? l('Dissolved in:') : l('End area:') ~%]
 [%~ END -%]
 
 [%- MACRO show_wikipedia_extract BLOCK -%]

@@ -148,6 +148,18 @@
 </tr>
 <tr>
     <th></th>
+    <th>[% l('of type Orchestra:') %]</th>
+    <td>[% add_commas(stats.statistic('count.artist.type.orchestra')) %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.type.orchestra', 'count.artist')) }) %]</td>
+</tr>
+<tr>
+    <th></th>
+    <th>[% l('of type Choir:') %]</th>
+    <td>[% add_commas(stats.statistic('count.artist.type.choir')) %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.type.choir', 'count.artist')) }) %]</td>
+</tr>
+<tr>
+    <th></th>
     <th>[% l('of type Character:') %]</th>
     <td>[% add_commas(stats.statistic('count.artist.type.character')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.type.character', 'count.artist')) }) %]</td>
