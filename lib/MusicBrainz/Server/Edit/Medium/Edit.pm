@@ -27,7 +27,6 @@ use MusicBrainz::Server::Log qw( log_assertion log_debug );
 use MusicBrainz::Server::Validation 'normalise_strings';
 use MusicBrainz::Server::Translation qw ( N_l );
 use MusicBrainz::Server::Track qw ( format_track_length );
-use Set::Scalar;
 use Try::Tiny;
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
@@ -268,6 +267,18 @@ sub build_display_data
             ) }
         ];
 
+        my $i = 0;
+        while ($i < scalar(@$tracklist_changes)) {
+            my $change = $tracklist_changes->[$i];
+            my ($old, $new) = @$change[1, 2];
+
+            if ($change->[0] eq 'c' && $old->id != $new->id) {
+                splice @$tracklist_changes, $i, 1, ['-', $old, ''], ['+', '', $new];
+                $i++;
+            }
+            $i++;
+        }
+
         if (any {$_->[0] ne 'u' || $_->[1]->number ne $_->[2]->number } @$tracklist_changes) {
             $data->{tracklist_changes} = $tracklist_changes;
         }
@@ -285,25 +296,15 @@ sub build_display_data
             grep { $_->[0] ne '-' }
             @$tracklist_changes ];
 
-        my $old_recordings = Set::Scalar->new(
-            grep { $_ }
-             map { ($_->[1] // 0) && $_->[1]->recording_id // $_->[1]->recording->id }
-            @$tracklist_changes
-        );
-
-        my $new_recordings = Set::Scalar->new(
-            grep { $_ }
-             map { ($_->[2] // 0) && $_->[2]->recording_id // $_->[2]->recording->id }
-             # We only care about recording changes for existing tracks.
-             grep { $_->[2] && $_->[2]->id }
-            @$tracklist_changes
-        );
-
-        my $changed_recordings = $new_recordings->difference($old_recordings);
+        my %old_recordings = map {
+                $_->[1]->id => $_->[1]->recording_id // $_->[1]->recording->id
+            }
+            grep { $_->[1] }
+            @$tracklist_changes;
 
         $data->{recording_changes} = [
             grep {
-                $_->[2] ? $changed_recordings->has($_->[2]->recording_id // $_->[2]->recording->id) : 0
+                $_->[2] && $old_recordings{$_->[2]->id} != ($_->[2]->recording_id // $_->[2]->recording->id)
             }
             @$tracklist_changes ];
     }
