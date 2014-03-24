@@ -123,7 +123,7 @@
                [% new_track_length %]
              </td>
              [% IF edit.display_data.changed_mbids %]
-             <td>[% IF old_track.id != new_track.id %][% changed_mbid_icon %][% END %]</td>
+             <td>[% IF !new_track.id %][% changed_mbid_icon %][% END %]</td>
              [% END %]
            </tr>
            [% ELSIF change.0 == '+' %]
@@ -147,7 +147,7 @@
                [% track.length | format_length %]
              </td>
              [% IF edit.display_data.changed_mbids %]
-             <td>[% changed_mbid_icon %]</td>
+             <td>[% IF !track.id %][% changed_mbid_icon %][% END %]</td>
              [% END %]
            </tr>
            [% ELSIF change.0 == '-' %]
