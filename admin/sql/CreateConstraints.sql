@@ -92,8 +92,8 @@ ALTER TABLE work_alias
 
 ALTER TABLE artist
 ADD CONSTRAINT group_type_implies_null_gender CHECK (
-  (gender IS NULL AND type = 2)
-  OR type IS DISTINCT FROM 2
+  (gender IS NULL AND type IN (2, 5, 6))
+  OR type NOT IN (2, 5, 6)
 );
 
 ALTER TABLE release_label
