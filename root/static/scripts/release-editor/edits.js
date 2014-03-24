@@ -496,7 +496,7 @@
                                         .indexBy("position").value();
 
                     newMediums().each(function (medium) {
-                        var addedData = added[medium.tmpPosition];
+                        var addedData = added[medium.tmpPosition || medium.position()];
 
                         if (addedData) {
                             medium.id = addedData.id;
