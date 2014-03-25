@@ -1,5 +1,5 @@
 <table class="details add-disc-id">
-  [% UNLESS edit.preview %]
+  [% IF !edit.preview OR edit.display_data.medium %]
   <tr>
     <th>[% l('Medium:') %]</th>
     <td colspan="2">
