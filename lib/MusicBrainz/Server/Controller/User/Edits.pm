@@ -13,17 +13,16 @@ sub _edits {
     my ($self, $c, $loader) = @_;
 
     my $edits = $self->_load_paged($c, $loader);
+    $c->stash(
+        edits => $edits, # stash early in case an ISE occurs
+        template => 'user/edits.tt',
+        search => 0,
+    );
 
     $c->model('Edit')->load_all(@$edits);
     $c->model('Vote')->load_for_edits(@$edits);
     $c->model('EditNote')->load_for_edits(@$edits);
     $c->model('Editor')->load(map { ($_, @{ $_->votes, $_->edit_notes }) } @$edits);
-
-    $c->stash(
-        edits => $edits,
-        template => 'user/edits.tt',
-        search => 0
-    );
 
     return $edits;
 }

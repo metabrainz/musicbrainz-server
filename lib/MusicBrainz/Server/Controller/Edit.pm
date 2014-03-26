@@ -181,13 +181,13 @@ sub open : Local RequireAuth
          $c->model('Edit')->find_open_for_editor($c->user->id, shift, shift);
     });
 
+    $c->stash( edits => $edits ); # stash early in case an ISE occurs
+
     $c->model('Edit')->load_all(@$edits);
     $c->model('Vote')->load_for_edits(@$edits);
     $c->model('EditNote')->load_for_edits(@$edits);
     $c->model('Editor')->load(map { ($_, @{ $_->votes, $_->edit_notes }) } @$edits);
     $c->form(add_edit_note => 'EditNote');
-
-    $c->stash( edits => $edits );
 }
 
 sub search : Path('/search/edits') RequireAuth
@@ -216,16 +216,16 @@ sub search : Path('/search/edits') RequireAuth
             return $c->model('Edit')->run_query($query, shift, shift);
         });
 
+        $c->stash(
+            edits => $edits, # stash early in case an ISE occurs
+            template => 'edit/search_results.tt',
+        );
+
         $c->model('Edit')->load_all(@$edits);
         $c->model('Vote')->load_for_edits(@$edits);
         $c->model('EditNote')->load_for_edits(@$edits);
         $c->model('Editor')->load(map { ($_, @{ $_->votes, $_->edit_notes }) } @$edits);
         $c->form(add_edit_note => 'EditNote');
-
-        $c->stash(
-            edits    => $edits,
-            template => 'edit/search_results.tt'
-        );
     }
 }
 
@@ -235,15 +235,16 @@ sub subscribed : Local RequireAuth
     my $edits = $self->_load_paged($c, sub {
         $c->model('Edit')->subscribed_entity_edits($c->user->id, shift, shift);
     });
+
+    $c->stash(
+        edits => $edits, # stash early in case an ISE occurs
+        template => 'edit/subscribed.tt',
+    );
+
     $c->model('Edit')->load_all(@$edits);
     $c->model('Vote')->load_for_edits(@$edits);
     $c->model('EditNote')->load_for_edits(@$edits);
     $c->model('Editor')->load(map { ($_, @{ $_->votes, $_->edit_notes }) } @$edits);
-
-    $c->stash(
-        edits    => $edits,
-        template => 'edit/subscribed.tt'
-    );
 }
 
 sub subscribed_editors : Local RequireAuth
@@ -252,15 +253,16 @@ sub subscribed_editors : Local RequireAuth
     my $edits = $self->_load_paged($c, sub {
         $c->model('Edit')->subscribed_editor_edits($c->user->id, shift, shift);
     });
+
+    $c->stash(
+        edits => $edits, # stash early in case an ISE occurs
+        template => 'edit/subscribed-editors.tt',
+    );
+
     $c->model('Edit')->load_all(@$edits);
     $c->model('Vote')->load_for_edits(@$edits);
     $c->model('EditNote')->load_for_edits(@$edits);
     $c->model('Editor')->load(map { ($_, @{ $_->votes, $_->edit_notes }) } @$edits);
-
-    $c->stash(
-        edits    => $edits,
-        template => 'edit/subscribed-editors.tt'
-    );
 }
 
 =head2 conditions

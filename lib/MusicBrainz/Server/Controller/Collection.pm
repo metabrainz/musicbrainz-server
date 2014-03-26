@@ -137,14 +137,12 @@ sub _list_edits {
         $c->model('Edit')->find_by_collection($c->stash->{collection}->id, $limit, $offset, $status);
     });
 
+    $c->stash( edits => $edits ); # stash early in case an ISE occurs
+
     $c->model('Edit')->load_all(@$edits);
     $c->model('Vote')->load_for_edits(@$edits);
     $c->model('EditNote')->load_for_edits(@$edits);
     $c->model('Editor')->load(map { ($_, @{ $_->votes, $_->edit_notes }) } @$edits);
-
-    $c->stash(
-        edits => $edits,
-    );
 }
 
 sub _form_to_hash
