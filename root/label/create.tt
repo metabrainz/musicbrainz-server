@@ -1,6 +1,6 @@
 [%- WRAPPER 'layout.tt' title=l('Add Label') full_width=1 -%]
     <div id="content">
         <h1>[%- l('Add Label') -%]</h1>
-        [%- INCLUDE 'label/edit_form.tt' new=1 -%]
+        [%- INCLUDE 'label/edit_form.tt' -%]
     </div>
 [%- END -%]
