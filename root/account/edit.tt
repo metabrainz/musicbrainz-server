@@ -3,11 +3,9 @@
 
     <h1>[% l("Edit Profile") %]</h1>
 
-    [%- WRAPPER 'layout/guidelines.tt' -%]
-        [%- create_guideline(l('See also your {uri|user preferences}, which includes your privacy settings.', {uri => c.uri_for_action('/account/preferences')})) %]
-        [%- create_guideline(l('If you change your email address, you will be required to verify it. ')) %]
-        [%- create_guideline(l('If you would like to delete your account, go to {uri|the "Delete Account" tab in your profile}.',  {uri => c.uri_for_action("/admin/delete_user", user.name) }))%]
-    [% END %]
+    <p>
+        [%- l('See also your {uri|user preferences}, which includes your privacy settings.', {uri => c.uri_for_action('/account/preferences')}) %]
+    </p>
 
     [%- USE r = FormRenderer(form) -%]
 
@@ -16,6 +14,9 @@
         [%- warning(l('This is a development server. Your email address is not private or secure. Proceed with caution!')) -%]
       [%- END -%]
       [% form_row_text_long(r, 'email', l('Email:')) %]
+      <div class="no-label">
+        [% l('If you change your email address, you will be required to verify it.') %]
+      </div>
       [% form_row_text_long(r, 'website', l('Website:')) %]
       [% form_row_select(r, 'gender_id', l('Gender:')) %]
       [% WRAPPER form_row %]
@@ -27,15 +28,19 @@
           [% r.hidden ('area_id', class => 'id') %]
           [% r.text(area_field, class => 'name') %]
         </span>
-        [% l('You can pick the level you prefer here: your country, region or city. Be as specific as you want to!') %]
         [% field_errors(r.form, 'area.name') %]
       [% END %]
+      <div class="no-label">
+        [% l('You can pick the level you prefer here: your country, region or city. Be as specific as you want to!') %]
+        </div>
       [% WRAPPER form_row %]
         [% r.label('birth_date', l('Birth date:'), fake => 1) %]
         [% r.date('birth_date') %]
-        [% l('We will use your birth date to display your age in years on your profile page.') %]
         [% field_errors(r.form, 'birth_date') %]
       [% END %]
+      <div class="no-label">
+        [% l('We will use your birth date to display your age in years on your profile page.') %]
+      </div>
       [% WRAPPER form_row %]
         [% r.label('biography', l('Bio:')) %]
         [% r.textarea('biography', { cols => 80, rows => 5 }) %]
@@ -91,9 +96,15 @@
       //]]></script>
 
       <div class="row no-label" id="edit-profile-submit">
-      [% form_submit(l('Save')) %]
+        <span class="buttons">
+          <button class="positive" type="submit">[% l('Save') %]</button>
+        </span>
       </div>
     </form>
+
+    <h2>
+        [%- l('{uri|Delete my account}',  {uri => c.uri_for_action("/admin/delete_user", user.name) })%]
+    </h2>
 
     <script type="text/javascript">//<![CDATA[
       MB.Control.EntityAutocomplete({ inputs: $("span.area.autocomplete") });

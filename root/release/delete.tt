@@ -1,11 +1,6 @@
 [%- WRAPPER 'release/layout.tt' title=l('Remove') full_width=1 -%]
     <h2>[% l('Remove Release') %]</h2>
-    [%- WRAPPER 'layout/guidelines.tt' -%]
-        [%- create_guideline(l('Please review the {doc_remove|remove release edit-type} documentation before entering this edit.', {doc_remove => doc_link('Remove_Release_Edit')})) -%]
-    [%- END -%]
-    <p>
-        [%- l('Are you sure you wish to remove the release {release} from MusicBrainz?', { release => link_entity(release) }) -%]
-    </p>
+    <p>[%- l('Please review the {doc_remove|remove release edit-type} documentation before entering this edit.', {doc_remove => doc_link('Remove_Release_Edit')}) -%]</p>
     <form action="[% c.req.uri %]" method="post">
         [%- USE r = FormRenderer(form) -%]
         [%- INCLUDE 'forms/edit-note.tt' -%]
