@@ -173,6 +173,7 @@ sub delete
     $self->rating->delete($work_id);
     $self->c->model('ISWC')->delete_works($work_id);
     $self->remove_gid_redirects($work_id);
+    $self->sql->do('DELETE FROM work_attribute WHERE work = ?', $work_id);
     $self->sql->do('DELETE FROM work WHERE id = ?', $work_id);
     return;
 }
