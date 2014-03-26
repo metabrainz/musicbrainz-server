@@ -65,6 +65,12 @@ sub show : Chained('load') PathPart('') RequireAuth
     $c->stash->{template} = 'edit/index.tt';
 }
 
+sub data : Chained('load') RequireAuth
+{
+    my ($self, $c) = @_;
+    $c->stash->{template} = 'edit/data.tt';
+}
+
 sub enter_votes : Local RequireAuth DenyWhenReadonly
 {
     my ($self, $c) = @_;

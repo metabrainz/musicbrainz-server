@@ -55,6 +55,7 @@ sub _new_from_row
         expires_time => $row->{expire_time},
         auto_edit => $row->{autoedit},
         status => $row->{status},
+        raw_data => $row->{data},
         quality => $row->{quality},
     });
     $edit->language_id($row->{language}) if $row->{language};

@@ -1,0 +1,19 @@
+[%- WRAPPER 'layout.tt' title=l('Edit data for edit #{id}', { id => edit.id }) full_width=1 -%]
+
+    <h1>[% l('Edit data for edit #{id}', { id => edit.id }) %]</h1>
+
+    <p><strong>[% l('Type:') %]</strong> [% edit.l_edit_name %] ([% edit.edit_type %])</p>
+
+    <p><strong>[% l('Status:') %]</strong> [% edit.status_name %] ([% edit.status %])</p>
+
+    <p>
+        <strong>[% l('Data:') %]</strong>
+        <code>[% edit.raw_data | html %]</code>
+    </p>
+
+    <p>
+        [% l('This is the raw data for edit #{id}. It is available for debugging purposes.', { id => edit.id }) %]
+        [% link_edit(edit, 'show', l('View the human-readable rendering instead.')) %]
+    </p>
+
+[%- END -%]
