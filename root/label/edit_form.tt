@@ -16,7 +16,7 @@
           </p>
           <ul>
               [% FOREACH dupe=form.duplicates %]
-              <li>[% link_artist(dupe) %] [% disambiguation(dupe) %]</li>
+              <li>[% link_entity(dupe) %]</li>
               [% END %]
           </ul>
           [% form_row_checkbox(r, 'not_dupe', l('Yes, I still want to create a new label.')) %]
