@@ -56,7 +56,6 @@ sub _new_from_row
         auto_edit => $row->{autoedit},
         status => $row->{status},
         quality => $row->{quality},
-        c => $self->c,
     });
     $edit->language_id($row->{language}) if $row->{language};
     try {
