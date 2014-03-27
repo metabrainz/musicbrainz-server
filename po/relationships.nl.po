@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-03-18 03:22+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-03-25 21:37+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -204,7 +204,7 @@ msgstr "Geeft een afbeelding (JPEG, GIF, PNG) van een artiest aan. (<a href=\"ht
 
 #: DB:link_type/description:94
 msgid "Indicates a webpage that reviews the release (group) in question."
-msgstr ""
+msgstr "Geeft een internetpagina aan met een recensie van de uitgave(groep)."
 
 #: DB:link_type/description:75
 msgid ""
@@ -1626,7 +1626,7 @@ msgstr "Deze relatie koppelt een opname of een uitgave aan een persoon die er el
 msgid ""
 "This relationship links the release of a show's episode (for example a "
 "podcast) to the show notes for this episode."
-msgstr ""
+msgstr "Deze relatie koppelt een uitgave van een aflevering van een show (bijvoorbeeld een podcast) aan shownotities voor deze aflevering."
 
 #: DB:link_type/description:728
 msgid ""
@@ -2505,7 +2505,7 @@ msgstr "heeft revisie"
 
 #: DB:link_type/long_link_phrase:729
 msgid "has show notes at"
-msgstr ""
+msgstr "heeft shownotities op"
 
 #: DB:link_type/long_link_phrase:110
 msgid "has sibling(s)"
@@ -3314,11 +3314,11 @@ msgstr "partituur van"
 
 #: DB:link_type/link_phrase:729
 msgid "show notes"
-msgstr ""
+msgstr "shownotities"
 
 #: DB:link_type/reverse_link_phrase:729
 msgid "show notes for"
-msgstr ""
+msgstr "shownotities van"
 
 #: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110
 msgid "siblings"
@@ -3816,7 +3816,7 @@ msgstr "{additional:aanvullend} {vocal:%|vocals:vocalen} arrangeur"
 
 #: DB:link_type/reverse_link_phrase:305
 msgid "{assistant} {principal} {guest} conductor {emeritus}"
-msgstr "{assistant:assisterend} {emeritus:emeritus} {principal:hoofd} {guest:gast}dirigent"
+msgstr "{assistant:assisterend} {emeritus:emeritus} {principal:hoofd}{guest:gast}dirigent"
 
 #: DB:link_type/link_phrase:305
 msgid "{assistant} {principal} {guest} conductor {emeritus} for"
@@ -3852,7 +3852,7 @@ msgstr "{translated:vertaalde} {parody:parodie|cover} van"
 
 #: DB:link_type/reverse_link_phrase:241
 msgid "{translated} {parody} version of"
-msgstr "{translated:vertaalde} {parody:parodie}-versie van"
+msgstr "{translated:vertaalde} {parody:parodie}versie van"
 
 #: DB:link_type/long_link_phrase:85 DB:link_type/long_link_phrase:268
 msgid "{video} can be streamed for free at"

@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-03-17 20:19-0700\n"
-"PO-Revision-Date: 2014-03-18 03:22+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-03-19 17:32+0000\n"
+"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -615,7 +615,7 @@ msgstr "Teose aliase lisamine"
 #: ../root/work/edit_form.tt:71
 msgctxt "button/menu"
 msgid "Add Work Attribute"
-msgstr ""
+msgstr "Lisa teoseatribuut"
 
 #: ../root/area/create.tt:1 ../root/area/create.tt:3
 msgid "Add a New Area"
@@ -1926,7 +1926,7 @@ msgstr "Pooleldi sisestatud CD üksikasjad"
 
 #: ../root/release/edit/tracklist.tt:143
 msgid "CD stub import"
-msgstr "Pooleldi sisestatud CD importimine"
+msgstr "Pooleldi sisestatud CD-st"
 
 #: ../root/cdstub/layout.tt:2
 msgid "CD stub “{title}” by {artist}"
@@ -3368,7 +3368,7 @@ msgstr "Näited:"
 
 #: ../root/release/edit/tracklist.tt:142
 msgid "Existing tracklist"
-msgstr "Olemasolev lugude nimekiri"
+msgstr "Olemasolevast lugude nimekirjast"
 
 #: ../root/release/edit/tracklist.tt:83
 msgid "Expand"
@@ -3605,7 +3605,7 @@ msgstr "FreeDB ID:"
 
 #: ../root/release/edit/tracklist.tt:144
 msgid "FreeDB import"
-msgstr "Importimine FreeDB-st"
+msgstr "FreeDB-st"
 
 #: ../root/cdtoc/info.tt:15
 msgid "FreeDB:"
@@ -4565,7 +4565,7 @@ msgstr "Vaata, et mestitavate väljalasete kõik helikandjad oleks õiges kohas.
 
 #: ../root/release/edit/tracklist.tt:141
 msgid "Manual entry"
-msgstr "Käsitsi sisestamine"
+msgstr "Käsitsi"
 
 #: ../root/release/lookup.tt:8
 msgid "Match"
@@ -5682,7 +5682,7 @@ msgstr "Palun sisesta oma vana parool ja siis kaks korda uus."
 msgid ""
 "Please first navigate to the page of the artist who you wish to relate to "
 "recordings on this release and select \"use in relationship\""
-msgstr ""
+msgstr "Palun mine esmalt selle artisti lehele, keda soovid selle väljalaske salvestistega seostada, ja klõpsa linki „Kasuta seoses”."
 
 #: ../root/freedb/show.tt:47 ../root/freedb/show.tt:104
 msgid "Please login to import this FreeDB disc."
@@ -6741,7 +6741,7 @@ msgstr "Artisti aliase eemaldamine"
 
 #: ../root/work/edit_form.tt:54
 msgid "Remove attribute"
-msgstr ""
+msgstr "Eemalda atribuut"
 
 #: ../root/collection/delete.tt:2 ../root/collection/delete.tt:7
 msgid "Remove collection"
@@ -6888,7 +6888,7 @@ msgstr "Tulemused:"
 
 #: ../root/release/edit/recordings.tt:8
 msgid "Reuse previous recordings"
-msgstr ""
+msgstr "Kasuta algseid salvestisi"
 
 #: ../root/user/contact.tt:16
 msgid "Reveal my email address"
@@ -7351,7 +7351,7 @@ msgstr "SongKong Tagger"
 msgid ""
 "Sorry, <code>{discid}</code> does not match a CD stub. You can try "
 "{search_url|searching for it} instead."
-msgstr ""
+msgstr "Vabandust, <code>{discid}</code> ei vasta ühelegi pooleldi sisestatud CD-le. Võid proovida {search_url|seda otsida}."
 
 #: ../root/cdstub/error.tt:19
 msgid "Sorry, <code>{discid}</code> is not a valid disc ID."
@@ -8961,7 +8961,7 @@ msgid ""
 " recordings, this is inherited from an older version of MusicBrainz and "
 "should be fixed (both on the recordings and on the tracks!). Consult the "
 "{featured_artists|page about featured artists} to know more."
-msgstr ""
+msgstr "See aruanne loetleb salvestised, mille pealkirjas on „(feat. Artist)”. Klassikalise muusika puhul pea nõu {CSG|klassikalise muusika stiilijuhistega}. Kõige muu puhul pärineb see aga MusicBrainzi varasemast versioonist ja tuleks ära parandada (nii salvestiste pealkirjades kui väljalasete loonimekirjas!). Lisateavet saad {featured_artists|lehelt kaasa tegevate artistide kohta}."
 
 #: ../root/report/featuring_release_groups.tt:6
 msgid ""
@@ -10078,7 +10078,7 @@ msgstr "Teos"
 
 #: ../root/work/edit_form.tt:19
 msgid "Work Attributes"
-msgstr ""
+msgstr "Teose atribuudid"
 
 #: ../root/work/edit_form.tt:10
 msgid "Work Details"
@@ -11368,7 +11368,7 @@ msgstr "„{valink|Erinevad esitajad}” sobib väga harva salvestise artistiks,
 
 #: ../root/components/common-macros.tt:1077
 msgid "{variable}:"
-msgstr ""
+msgstr "{variable}:"
 
 #: ../root/components/common-macros.tt:727
 msgid "{yes} yes : {no} no"
@@ -12466,19 +12466,19 @@ msgstr "Harvem kasutatavad"
 
 #: ../lib/MusicBrainz/Server/Form/Work.pm:50
 msgid "Please select a work attribute type."
-msgstr ""
+msgstr "Palun vali teoseatribuudi tüüp."
 
 #: ../lib/MusicBrainz/Server/Form/Work.pm:57
 msgid "Please enter a work attribute value."
-msgstr ""
+msgstr "Palun sisesta teoseatribuudi väärtus."
 
 #: ../lib/MusicBrainz/Server/Form/Work.pm:91
 msgid "Unknown work attribute type."
-msgstr ""
+msgstr "Tundmatu teoseatribuudi tüüp."
 
 #: ../lib/MusicBrainz/Server/Form/Work.pm:104
 msgid "This value is not allowed for this work attribute type."
-msgstr ""
+msgstr "Valitud teoseatribuudi tüüp ei luba sellist väärtust."
 
 #: ../lib/MusicBrainz/Server/Release.pm:57
 msgid "(Special case)"

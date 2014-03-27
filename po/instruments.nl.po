@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-03-18 03:21+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-03-25 20:53+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -69,7 +69,7 @@ msgstr "EWI"
 
 #: DB:link_attribute_type/name:21
 msgid "English horn"
-msgstr "Engelse hoorn"
+msgstr "Althobo"
 
 #: DB:link_attribute_type/name:748
 msgid "Floppy Drive"
@@ -561,7 +561,7 @@ msgstr "chande"
 
 #: DB:link_attribute_type/name:764
 msgid "chap"
-msgstr ""
+msgstr "chap"
 
 #: DB:link_attribute_type/name:559
 msgid "charango"
@@ -577,7 +577,7 @@ msgstr "klokkenspel"
 
 #: DB:link_attribute_type/name:763
 msgid "ching"
-msgstr ""
+msgstr "ching"
 
 #: DB:link_attribute_type/name:521
 msgid "chromatic button accordion"
@@ -705,7 +705,7 @@ msgstr "cymbalom"
 
 #: DB:link_attribute_type/name:386
 msgid "cò ke"
-msgstr ""
+msgstr "cò ke"
 
 #: DB:link_attribute_type/name:495
 msgid "cümbüş"
@@ -825,7 +825,7 @@ msgstr "bekfluiten"
 
 #: DB:link_attribute_type/name:480
 msgid "duduk"
-msgstr "duduk"
+msgstr "doedoek"
 
 #: DB:link_attribute_type/name:606
 msgid "dulcian"
@@ -1269,15 +1269,15 @@ msgstr "khim"
 
 #: DB:link_attribute_type/name:766
 msgid "khong wong"
-msgstr ""
+msgstr "khong wong"
 
 #: DB:link_attribute_type/name:767
 msgid "khong wong lek"
-msgstr ""
+msgstr "khong wong lek"
 
 #: DB:link_attribute_type/name:768
 msgid "khong wong yai"
-msgstr ""
+msgstr "khong wong yai"
 
 #: DB:link_attribute_type/name:395
 msgid "khèn Mèo"
@@ -1681,7 +1681,7 @@ msgstr "ranat ek"
 
 #: DB:link_attribute_type/name:765
 msgid "ranat thum"
-msgstr ""
+msgstr "ranat thum"
 
 #: DB:link_attribute_type/name:211
 msgid "ratchet"
@@ -1793,11 +1793,11 @@ msgstr "satsuma biwa"
 
 #: DB:link_attribute_type/name:769
 msgid "saw duang"
-msgstr ""
+msgstr "saw duang"
 
 #: DB:link_attribute_type/name:770
 msgid "saw u"
-msgstr ""
+msgstr "saw u"
 
 #: DB:link_attribute_type/name:33
 msgid "saxophone"

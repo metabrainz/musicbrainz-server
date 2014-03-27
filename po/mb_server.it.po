@@ -22,8 +22,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-03-17 20:19-0700\n"
-"PO-Revision-Date: 2014-03-18 03:22+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-03-18 11:59+0000\n"
+"Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -622,7 +622,7 @@ msgstr "Aggiungi alias all'opera"
 #: ../root/work/edit_form.tt:71
 msgctxt "button/menu"
 msgid "Add Work Attribute"
-msgstr ""
+msgstr "Aggiungi attributo all'opera"
 
 #: ../root/area/create.tt:1 ../root/area/create.tt:3
 msgid "Add a New Area"
@@ -5689,7 +5689,7 @@ msgstr "Inserisci qui sotto la tua vecchia password e poi quella nuova."
 msgid ""
 "Please first navigate to the page of the artist who you wish to relate to "
 "recordings on this release and select \"use in relationship\""
-msgstr ""
+msgstr "Per prima cosa apri la pagina dell'artista che vuoi mettere in relazione con le registrazioni di questa pubblicazione e seleziona \"usa in una relazione\""
 
 #: ../root/freedb/show.tt:47 ../root/freedb/show.tt:104
 msgid "Please login to import this FreeDB disc."
@@ -6748,7 +6748,7 @@ msgstr "Rimuovi alias dall'artista"
 
 #: ../root/work/edit_form.tt:54
 msgid "Remove attribute"
-msgstr ""
+msgstr "Rimuovi attributo"
 
 #: ../root/collection/delete.tt:2 ../root/collection/delete.tt:7
 msgid "Remove collection"
@@ -6895,7 +6895,7 @@ msgstr "Risultati:"
 
 #: ../root/release/edit/recordings.tt:8
 msgid "Reuse previous recordings"
-msgstr ""
+msgstr "Riutilizza le registrazioni precedenti"
 
 #: ../root/user/contact.tt:16
 msgid "Reveal my email address"
@@ -7358,7 +7358,7 @@ msgstr "SongKong Tagger"
 msgid ""
 "Sorry, <code>{discid}</code> does not match a CD stub. You can try "
 "{search_url|searching for it} instead."
-msgstr ""
+msgstr "Spiacenti, <code>{discid}</code> non corrisponde a una bozza CD. Potresti provare a {search_url|usare la ricerca}."
 
 #: ../root/cdstub/error.tt:19
 msgid "Sorry, <code>{discid}</code> is not a valid disc ID."
@@ -8968,7 +8968,7 @@ msgid ""
 " recordings, this is inherited from an older version of MusicBrainz and "
 "should be fixed (both on the recordings and on the tracks!). Consult the "
 "{featured_artists|page about featured artists} to know more."
-msgstr ""
+msgstr "Questo report mostra le registrazioni con (feat. Artista) nel titolo. Per le registrazioni di musica classica, consulta le {CSG|linee guida di stile sulla musica classica}. Per le altre registrazioni, ciò deriva da una versione precedente di MusicBrainz e deve essere sistemato (sia nelle registrazioni che nelle tracce!). Consulta la {featured_artists|pagina sugli artisti con \"feat.\"} per saperne di più."
 
 #: ../root/report/featuring_release_groups.tt:6
 msgid ""
@@ -10085,7 +10085,7 @@ msgstr "Opera"
 
 #: ../root/work/edit_form.tt:19
 msgid "Work Attributes"
-msgstr ""
+msgstr "Attributi dell'opera"
 
 #: ../root/work/edit_form.tt:10
 msgid "Work Details"
@@ -11375,7 +11375,7 @@ msgstr "{valink|Artisti vari} non va normalmente usato nelle registrazioni: assi
 
 #: ../root/components/common-macros.tt:1077
 msgid "{variable}:"
-msgstr ""
+msgstr "{variable}:"
 
 #: ../root/components/common-macros.tt:727
 msgid "{yes} yes : {no} no"
@@ -12473,19 +12473,19 @@ msgstr "Altri"
 
 #: ../lib/MusicBrainz/Server/Form/Work.pm:50
 msgid "Please select a work attribute type."
-msgstr ""
+msgstr "Seleziona un tipo di attributo dell'opera."
 
 #: ../lib/MusicBrainz/Server/Form/Work.pm:57
 msgid "Please enter a work attribute value."
-msgstr ""
+msgstr "Seleziona un valore per l'attributo dell'opera."
 
 #: ../lib/MusicBrainz/Server/Form/Work.pm:91
 msgid "Unknown work attribute type."
-msgstr ""
+msgstr "Tipo di attributo dell'opera sconosciuto."
 
 #: ../lib/MusicBrainz/Server/Form/Work.pm:104
 msgid "This value is not allowed for this work attribute type."
-msgstr ""
+msgstr "Questo valore non è consentito per questo tipo di attributo dell'opera."
 
 #: ../lib/MusicBrainz/Server/Release.pm:57
 msgid "(Special case)"

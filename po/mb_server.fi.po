@@ -22,8 +22,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-03-17 20:19-0700\n"
-"PO-Revision-Date: 2014-03-18 03:22+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-03-19 08:19+0000\n"
+"Last-Translator: jozo <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -785,20 +785,20 @@ msgstr "Lisää julkaisuryhmä"
 
 #: ../root/report/duplicate_artists.tt:51
 msgid "Add selected artists for merging"
-msgstr "Lisää valitut artistit yhdistettäväksi"
+msgstr "Lisää valitut artistit sulautettaviksi"
 
 #: ../root/artist/recordings.tt:13 ../root/isrc/index.tt:37
 msgid "Add selected recordings for merging"
-msgstr "Lisää valitut äänitteet yhdistettäväksi"
+msgstr "Lisää valitut äänitteet sulautettaviksi"
 
 #: ../root/artist/releases.tt:13 ../root/label/index.tt:34
 #: ../root/release_group/index.tt:71
 msgid "Add selected releases for merging"
-msgstr "Lisää valitut julkaisut yhdistettäväksi"
+msgstr "Lisää valitut julkaisut sulautettaviksi"
 
 #: ../root/artist/works.tt:8 ../root/iswc/index.tt:60
 msgid "Add selected works for merging"
-msgstr "Lisää valitut teokset yhdistettäväksi"
+msgstr "Lisää valitut teokset sulautettaviksi"
 
 #: ../root/release/sidebar.tt:140
 msgid "Add to a new collection"
@@ -1677,7 +1677,7 @@ msgstr "Lisää yhteys kaikkiin valittuihin teoksiin"
 
 #: ../root/release/edit_relationships.tt:36
 msgid "Batch-create new works"
-msgstr "Luo uusi teos kaikkille valituille äänitteille"
+msgstr "Luo uusi teos kaikille valituille äänitteille"
 
 #: ../root/artist/subscribers.tt:30 ../root/collection/subscribers.tt:30
 #: ../root/label/subscribers.tt:30 ../root/user/subscribers.tt:35
@@ -3187,7 +3187,7 @@ msgstr "Käytä vinyylilevyjen kappalenumerointia"
 
 #: ../root/components/forms.tt:13 ../root/release/edit/editnote.tt:44
 msgid "Enable {autoed|auto-editor} privileges for this edit."
-msgstr "Valtuuta {autoed|auto-editorin} käyttöoikeudet tällä muokkaukselle."
+msgstr "Valtuuta {autoed|auto-editorin} käyttöoikeudet tälle muokkaukselle."
 
 #: ../root/cdtoc/info.tt:34 ../root/edit/details/merge_labels.tt:13
 #: ../root/edit/details/merge_labels.tt:50
@@ -3715,20 +3715,20 @@ msgstr "Luotu {date}"
 #: ../root/components/forms.tt:174 ../root/components/forms.tt:203
 msgctxt "button/menu"
 msgid "Guess case"
-msgstr "Kirjoitusasu"
+msgstr "Arvaa kirjoitusasu"
 
 #: ../root/components/forms.tt:169
 msgctxt "header"
 msgid "Guess case"
-msgstr "Kirjoitusasu"
+msgstr "Arvaa kirjoitusasu"
 
 #: ../root/release/edit/tracklist.tt:206
 msgid "Guess case disc title"
-msgstr "Kirjoitusasu nimelle"
+msgstr "Arvaa levyn nimen kirjoitusasu"
 
 #: ../root/release/edit/tracklist.tt:286
 msgid "Guess case track"
-msgstr "Kirjoitusasu kappaleelle"
+msgstr "Arvaa kappaleen kirjoitusasu"
 
 #: ../root/doc/relationship_type.tt:63
 msgid "Guidelines"
@@ -5421,7 +5421,7 @@ msgstr "Jotakin taisi mennä pieleen!"
 
 #: ../root/user/profile.tt:167 ../lib/MusicBrainz/Server/Edit/Utils.pm:267
 msgid "Open"
-msgstr "Avoin"
+msgstr "Avoimet"
 
 #: ../root/edit/open.tt:1 ../root/edit/open.tt:3
 #: ../root/user/profile/layout.tt:19
@@ -5799,7 +5799,7 @@ msgstr "Hidasta ja yritä uudelleen."
 
 #: ../root/components/forms.tt:200
 msgid "Please use the Guess Case button to fix common style errors."
-msgstr "Käytäthän Guess Case -nappia korjataksesi tavalliset tyylivirheet."
+msgstr "Käytäthän Arvaa kirjoitusasu -nappia korjataksesi tavalliset tyylivirheet."
 
 #: ../root/components/forms.tt:242
 msgid "Please use the Sort Name button to guess the sort name."
@@ -7173,7 +7173,7 @@ msgstr "Lähetä sähköpostia muokkauksista seuraamiini kohteisiin:"
 
 #: ../root/components/forms.tt:179 ../root/components/forms.tt:212
 msgid "Sentence"
-msgstr "Lause"
+msgstr "lause"
 
 #: ../root/release_group/set_cover_art.tt:1
 msgid "Set Release Group Cover Art"
@@ -10555,7 +10555,7 @@ msgstr "Sinun tulee sisäänkirjautua nähdeksesi tämän sivun."
 
 #: ../root/scripts/text_strings.tt:171
 msgid "You selected {area}."
-msgstr "Valitsit {area}."
+msgstr "Valitsit alueen {area}."
 
 #: ../root/scripts/text_strings.tt:145
 msgid "You selected {label}."
@@ -11877,7 +11877,7 @@ msgstr "Lisää tallennemuoto"
 
 #: ../lib/MusicBrainz/Server/Edit/Medium/Delete.pm:19
 msgid "Remove medium"
-msgstr "Poista tallennemuoto"
+msgstr "Poista tallenne"
 
 #: ../lib/MusicBrainz/Server/Edit/Medium/Edit.pm:40
 msgid "Edit medium"

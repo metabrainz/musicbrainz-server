@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-03-18 03:22+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-03-18 06:44+0000\n"
+"Last-Translator: jozo <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -742,7 +742,7 @@ msgstr "SoundCloud sivuna"
 
 #: DB:link_attribute_type/description:561
 msgid "Spoken vocals (speech)"
-msgstr "Puhutut vokaalit (puhe)"
+msgstr "Puhelaulu (puhe)"
 
 #: DB:link_type/description:38 DB:link_type/description:144
 msgid ""
@@ -2004,11 +2004,11 @@ msgstr "ladattavissa ilmaiseksi osoitteessa"
 
 #: DB:link_type/long_link_phrase:74 DB:link_type/long_link_phrase:254
 msgid "can be purchased for download at"
-msgstr "ladattavaksi ostettavissa"
+msgstr "ostettavisssa ladattavaksi osoitteesta"
 
 #: DB:link_type/long_link_phrase:79
 msgid "can be purchased for mail-order at"
-msgstr "ostettavissa postimyynnitse"
+msgstr "ostettavissa postimyynnitse osoitteesta"
 
 #: DB:link_type/link_phrase:212 DB:link_type/reverse_link_phrase:212
 msgid "catalog of records"
@@ -3353,7 +3353,7 @@ msgstr "sopraanolaulu"
 
 #: DB:link_attribute_type/name:561
 msgid "spoken vocals"
-msgstr "puhelaulu"
+msgstr "puhe"
 
 #: DB:link_type/link_phrase:194
 msgid "stream for free"

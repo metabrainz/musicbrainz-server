@@ -15,8 +15,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-03-18 03:22+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-03-20 02:33+0000\n"
+"Last-Translator: Alain-Olivier  Breysse\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -210,7 +210,7 @@ msgstr "Indique une représentation picturale (JPEG, GIF, PNG) d'un artiste. (<a
 
 #: DB:link_type/description:94
 msgid "Indicates a webpage that reviews the release (group) in question."
-msgstr ""
+msgstr "Indique une page Web qui critique la parution (groupe de) en question."
 
 #: DB:link_type/description:75
 msgid ""
@@ -1632,7 +1632,7 @@ msgstr "Cette relation relie une piste ou une parution à la personne qui a prog
 msgid ""
 "This relationship links the release of a show's episode (for example a "
 "podcast) to the show notes for this episode."
-msgstr ""
+msgstr "Cette relation lie la parution de l'épisode d'une émission (par exemple une balado) aux notes de l'émission pour cet épisode."
 
 #: DB:link_type/description:728
 msgid ""
@@ -2511,7 +2511,7 @@ msgstr "a une révision"
 
 #: DB:link_type/long_link_phrase:729
 msgid "has show notes at"
-msgstr ""
+msgstr "a des notes sur l'émission à"
 
 #: DB:link_type/long_link_phrase:110
 msgid "has sibling(s)"
@@ -3320,11 +3320,11 @@ msgstr "partition pour"
 
 #: DB:link_type/link_phrase:729
 msgid "show notes"
-msgstr ""
+msgstr "notes sur l'émission"
 
 #: DB:link_type/reverse_link_phrase:729
 msgid "show notes for"
-msgstr ""
+msgstr "notes sur l'émission pour"
 
 #: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110
 msgid "siblings"

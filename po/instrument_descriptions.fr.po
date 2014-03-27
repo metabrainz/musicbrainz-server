@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-03-18 01:41+0000\n"
+"PO-Revision-Date: 2014-03-24 17:56+0000\n"
 "Last-Translator: Alain-Olivier  Breysse\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -999,7 +999,7 @@ msgid ""
 "A barrel organ is a mechanical musical instrument typically operated by a "
 "person turning a crank which turns a barrel which has music encoded onto it."
 " (<a href=\"http://en.wikipedia.org/wiki/Barrel_organ\">Wikipedia</a>)"
-msgstr "Un orgue de Barbarie est un instrument musical mécanique qui est actionné habituellement par la rotation d'une manivelle qui fait tourner un rouleau sur lequel la musique est encodée.  (<a href=\"http://fr.wikipedia.org/wiki/Orgue_de_barbarie\">Wikipédia</a>)"
+msgstr "Un orgue de Barbarie est un instrument musical mécanique qui est actionné habituellement par la rotation d'une manivelle qui fait tourner un rouleau sur lequel la musique est encodée. (<a href=\"http://fr.wikipedia.org/wiki/Orgue_de_barbarie\">Wikipédia</a>)"
 
 #: DB:link_attribute_type/description:549
 msgid "A bass synthesizer is used to create sounds in the bass range."
@@ -1068,7 +1068,7 @@ msgstr "Le koto à 17 cordes (japonais : 十七絃 ou 十七弦, aussi jūshichi
 msgid ""
 "A larger version of tef, used to indicate the rhythmic structures (usul) in "
 "makam music."
-msgstr "Un plus grand tef, utilisé pour les structures rythmiques (usul) de la musique makam.  "
+msgstr "Une version plus grande du tef, utilisé pour les structures rythmiques (usul) de la musique makam. "
 
 #: DB:link_attribute_type/description:627
 msgid ""
@@ -1108,7 +1108,7 @@ msgid ""
 "objects (preparations) between or on the strings or on the hammers or "
 "dampers. (<a "
 "href=\"http://en.wikipedia.org/wiki/Prepared_piano\">Wikipedia</a>)"
-msgstr "Un piano préparé est un piano dont le son est altéré en plaçant des objets (préparations) entre ou sur les cordes et marteaux. (<a href=\"http://fr.wikipedia.org/wiki/Piano_pr%C3%A9par%C3%A9\">Wikipédia</a>)"
+msgstr "Un piano préparé est un piano dont le son est altéré en plaçant des objets (préparations) entre ou sur les cordes, les marteaux ou les étouffoirs. (<a href=\"http://fr.wikipedia.org/wiki/Piano_pr%C3%A9par%C3%A9\">Wikipédia</a>)"
 
 #: DB:link_attribute_type/description:192
 msgid ""
@@ -1163,7 +1163,7 @@ msgid ""
 "A valveless trumpet, in the model of the ones from the 16th to 18th "
 "centuries (<a "
 "href=\"http://en.wikipedia.org/wiki/Baroque_trumpet\">Wikipedia</a>)"
-msgstr "La trompette baroque est un instrument sans piston d'après ceux du 16e et 18e siècle. (<a href=\"http://en.wikipedia.org/wiki/Baroque_trumpet\">Wikipédia</a>)"
+msgstr "Une trompette sans piston basée sur celles du 16e au 18e siècle. (<a href=\"http://en.wikipedia.org/wiki/Baroque_trumpet\">Wikipédia</a>)"
 
 #: DB:link_attribute_type/description:739
 msgid ""
@@ -1335,7 +1335,7 @@ msgstr "Le cornet à bouquin  (<a href=\"https://fr.wikipedia.org/wiki/Cornet_%C
 msgid ""
 "Crumhorn used in the 14th to 17th centuries in Europe  (<a "
 "href=\"https://en.wikipedia.org/wiki/Crumhorn\">Wikipedia</a>)"
-msgstr "Le tournebout, utilisé en Europe du 14e au 17e siècle  (<a href=\"https://fr.wikipedia.org/wiki/Tournebout\">Wikipédia</a>)"
+msgstr "Le tournebout, utilisé en Europe du 14e au 17e siècle (<a href=\"https://fr.wikipedia.org/wiki/Tournebout\">Wikipédia</a>)"
 
 #: DB:link_attribute_type/description:326
 msgid ""
@@ -1348,7 +1348,7 @@ msgid ""
 "Darbuka, Derbuka, Darabuka or Tarabuka, darabouka, darbukah, demblik, "
 "doumbek, dümbelek, dumbek hourglass-shaped goblet drum from Greece, the "
 "Middle East and India"
-msgstr "Le darbouka, derbuka, darabuka ou tarabuka, darabouka, darbukah, demblik, doumbek, dümbelek, dumbek, un tambour en gobelet venant de Grèce, du Moyen-Orient etd'Inde"
+msgstr "Le darbouka, derbuka, darabuka ou tarabuka, darabouka, darbukah, demblik, doumbek, dümbelek, dumbek, un tambour en forme de sablier venant de Grèce, du Moyen-Orient et d'Inde"
 
 #: DB:link_attribute_type/description:496
 msgid ""
@@ -1525,7 +1525,7 @@ msgid ""
 "Mostly used to learn how to play the pipes, but are occasionally played in "
 "their own right.  (<a "
 "href=\"https://en.wikipedia.org/wiki/Practice_chanter\">Wikipedia</a>)"
-msgstr "Ressemble à une flûte à bec, mais à hanche double et un doigté de cornemuse. Utilisé principalement pour apprendre à jouer de la cornemuse, mais parfois utilisée comme instrument à part entière. (<a href=\"https://en.wikipedia.org/wiki/Practice_chanter\">Wikipédia</a>)"
+msgstr "Ressemble à une flûte à bec, mais avec une anche double et un doigté de cornemuse. Utilisé principalement pour apprendre à jouer de la cornemuse, mais parfois utilisée comme instrument à part entière. (<a href=\"https://en.wikipedia.org/wiki/Practice_chanter\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:242
 msgid ""
@@ -1730,7 +1730,7 @@ msgid ""
 "Slightly smaller, four-string version of the steel-string acoustic guitar or"
 " electric guitar  (<a "
 "href=\"https://en.wikipedia.org/wiki/Tenor_guitar\">Wikipedia</a>)"
-msgstr "Légèrement plus petite, version à quatre cordes de la guitare acoustique ou électrique à cordes d'acier (<a href=\"https://fr.wikipedia.org/wiki/Guitare_t%C3%A9nor\">Wikipédia</a>)"
+msgstr "Légèrement plus petite, version à quatre cordes de la guitare folk ou électro-acoustique (<a href=\"https://fr.wikipedia.org/wiki/Guitare_t%C3%A9nor\">Wikipédia</a>)"
 
 #: DB:link_attribute_type/description:446
 msgid ""
@@ -1844,7 +1844,7 @@ msgid ""
 "The agogô is a single or multiple bell used in samba music with origins in "
 "traditional Yoruba music. (<a "
 "href=\"http://en.wikipedia.org/wiki/Agogô\">Wikipedia</a>)"
-msgstr "L'agogô est un instrument à une ou  plusieurs cloches utilisé dans la samba avec des origines dans la musique traditionnelle Yoruba. (<a href=\" http://fr.wikipedia.org/wiki/Agogo\">Wikipédia</a>)"
+msgstr "L'agogô est un instrument à une ou plusieurs cloches utilisé dans la samba, ayant des origines dans la musique traditionnelle Yoruba. (<a href=\" http://fr.wikipedia.org/wiki/Agogo\">Wikipédia</a>)"
 
 #: DB:link_attribute_type/description:619
 msgid ""
@@ -1866,7 +1866,7 @@ msgid ""
 "The bandora is a large long-necked plucked string instrument that has been "
 "described as a kind of bass cittern. (<a "
 "href=\"http://en.wikipedia.org/wiki/Bandora_(instrument)\">Wikipedia</a>)"
-msgstr "La bandora est un instrument à cordes pincées à manche long  qui a été décrit comme une sorte de cistre basse. (<a href=\"http://fr.wikipedia.org/wiki/Tamb%C3%BBr\">Wikipédia</a>)"
+msgstr "La bandora est un instrument à cordes pincées à manche long parfois décrit comme une sorte de cistre basse. (<a href=\"http://fr.wikipedia.org/wiki/Tamb%C3%BBr\">Wikipédia</a>)"
 
 #: DB:link_attribute_type/description:693
 msgid ""
@@ -1885,7 +1885,7 @@ msgid ""
 "huqin family. It is also called banghu (Chinese: 梆胡, bānghú), for its use in"
 " bangzi opera. (<a "
 "href=\"http://en.wikipedia.org/wiki/Banhu\">Wikipedia</a>)"
-msgstr "Le banhu (chinois : 板胡, pinyin : bǎnhú) est un instrument à cordes frottées de la familles des huqins. Aussi appelé banghu (chinois : 梆胡, pinyin : bānghú) de par son utilisation dans l'opéra bangzi. (<a href=\"http://en.wikipedia.org/wiki/Banhu\">Wikipédia</a>)"
+msgstr "Le banhu (chinois : 板胡, pinyin : bǎnhú) est un instrument à cordes frottées de la familles des huqins. Aussi appelé banghu (chinois : 梆胡, pinyin : bānghú) de par son utilisation dans l'opéra bangzi. (<a href=\"https://fr.wikipedia.org/wiki/Banhu\">Wikipédia</a>)"
 
 #: DB:link_attribute_type/description:479
 msgid ""
@@ -1940,7 +1940,7 @@ msgid ""
 "The bulbul tarang (बुलबुल तरंग, Indian banjo) is a string instrument from "
 "India and Pakistan (<a href=\"http://en.wikipedia.org/wiki/Bulbul "
 "tarang\">Wikipedia</a>)"
-msgstr "The bulbul tarang (hindi : बुलबुल तरंग; Punjabi: بلبل ترنگ, banjo indien)  est un instrument à corde d'inde et du Pakistan. (<a href=\"http://fr.wikipedia.org/wiki/Bulbul_tarang\">Wikipédia</a>)"
+msgstr "Le bulbul tarang (hindi : बुलबुल तरंग; Punjabi: بلبل ترنگ, banjo indien)  est un instrument à corde d'inde et du Pakistan. (<a href=\"http://fr.wikipedia.org/wiki/Bulbul_tarang\">Wikipédia</a>)"
 
 #: DB:link_attribute_type/description:636
 msgid ""
@@ -1999,7 +1999,7 @@ msgid ""
 "The daegeum (Korean: 대금, also spelt taegŭm) is a large transverse flute from"
 " Korea which is made of bamboo. (<a "
 "href=\"http://en.wikipedia.org/wiki/Daegeum\">Wikipedia</a>)"
-msgstr "Le taegŭm (coréen : 대금, appelé aussi taego) est une grande flûte traversière de Corée fabriquée en bambou. (<a href=\"http://en.wikipedia.org/wiki/Daegeum\">Wikipédia</a>)"
+msgstr "Le taegŭm (coréen : 대금, appelé aussi taego) est une grande flûte traversière de Corée fabriquée en bambou. (<a href=\"https://fr.wikipedia.org/wiki/Taegum\">Wikipédia</a>)"
 
 #: DB:link_attribute_type/description:288
 msgid ""
@@ -2319,7 +2319,7 @@ msgstr "Le kotsuzumi (japonais : 小鼓) ou simplement tsuzumi (japonais : 鼓) 
 msgid ""
 "The kèn bầu is a double reed instrument from Vietnam. (<a "
 "href=\"https://en.wikipedia.org/wiki/Kèn_bầu\">Wikipedia</a>)"
-msgstr "Le kèn bầu est un instrument vietnamien a hanche double. (<a href=\"https://en.wikipedia.org/wiki/Kèn_bầu\">Wikipédia</a>)"
+msgstr "Le kèn bầu est un instrument vietnamien a anche double. (<a href=\"https://en.wikipedia.org/wiki/Kèn_bầu\">Wikipédia</a>)"
 
 #: DB:link_attribute_type/description:388
 msgid ""
@@ -2492,7 +2492,7 @@ msgid ""
 "The rudra veena (also spelled rudra vina/been/bin; Hindi: रुद्रवीणा) is a "
 "large plucked string instrument used in Hindustani classical music. (<a "
 "href=\"http://en.wikipedia.org/wiki/Rudra_veena\">Wikipedia</a>)"
-msgstr "La rudra vînâ (hindi: रुद्रवीणा, aussi bîn) est un grand instrument à cordes pincée utilisé dans la musique classique d'hindoustanie. (<a href=\"http://fr.wikipedia.org/wiki/V%C3%AEn%C3%A2#Rudra_v.C3.AEn.C3.A2\">Wikipédia</a>)"
+msgstr "La rudra vînâ (hindi: रुद्रवीणा, aussi bîn) est un grand instrument à cordes pincées utilisé dans la musique classique d'hindoustanie. (<a href=\"http://fr.wikipedia.org/wiki/V%C3%AEn%C3%A2#Rudra_v.C3.AEn.C3.A2\">Wikipédia</a>)"
 
 #: DB:link_attribute_type/description:762
 msgid ""
@@ -2733,7 +2733,7 @@ msgid ""
 "The tumbi or toombi is a high pitched, single string plucking instrument "
 "associated with folk music of Punjab (<a "
 "href=\"http://en.wikipedia.org/wiki/Tumbi\">Wikipedia</a>)"
-msgstr "Le  tumbi ou tuntina est un instrument aigu à une corde pincée typique de la musique folklorique du Punjab (<a href=\"http://fr.wikipedia.org/wiki/Tumbi\">Wikipédia</a>)"
+msgstr "Le tumbi ou tuntina est un instrument aigu à une corde pincée typique de la musique folklorique du Punjab (<a href=\"http://fr.wikipedia.org/wiki/Tumbi\">Wikipédia</a>)"
 
 #: DB:link_attribute_type/description:629
 msgid ""
@@ -2754,7 +2754,7 @@ msgid ""
 "The virginals is a smaller and simpler rectangular form of the harpsichord "
 "with only one string per note (<a "
 "href=\"http://en.wikipedia.org/wiki/Virginals\">Wikipedia</a>)"
-msgstr "Le virginal est une sorte de clavecin rectangulaire plus petit et plus simple à seulement un note par corde. (<a href=\"http://fr.wikipedia.org/wiki/Virginal\">Wikipédia</a>)"
+msgstr "Le virginal est une sorte de clavecin rectangulaire plus petit et plus simple à seulement une corde par note. (<a href=\"http://fr.wikipedia.org/wiki/Virginal\">Wikipédia</a>)"
 
 #: DB:link_attribute_type/description:593
 msgid ""
@@ -3025,7 +3025,7 @@ msgstr "La vièle (aussi viièle, viele, vielle ou viole). (<a href=\"https://fr
 
 #: DB:link_attribute_type/description:505
 msgid "Violone, The largest/deepest member of the Viol family"
-msgstr "Le violone, le plus grand, plus profond membre de la famille des violes"
+msgstr "Le violone, le plus grand et plus grave membre de la famille des violes"
 
 #: DB:link_attribute_type/description:354
 msgid ""
@@ -3134,15 +3134,15 @@ msgstr "Alto"
 msgid ""
 "an empty jug (usually made of glass or stoneware) played with the mouth (<a "
 "href=\"http://en.wikipedia.org/wiki/Jug_(instrument)\">Wikipedia</a>)"
-msgstr "Une cruche vide (habituellement de verre ou en grès) joué avec la bouche. (<a href=\"http://en.wikipedia.org/wiki/Jug_(instrument)\">Wikipédia</a>)"
+msgstr "Une cruche vide (habituellement en verre ou en grès) jouée avec la bouche. (<a href=\"http://en.wikipedia.org/wiki/Jug_(instrument)\">Wikipédia</a>)"
 
 #: DB:link_attribute_type/description:453
 msgid "ankle rattlers"
-msgstr "ankle rattlers"
+msgstr "hochets de cheville"
 
 #: DB:link_attribute_type/description:296
 msgid "archaic and other bowed string-instruments"
-msgstr "autres instrument à cordes frottées et archaîque"
+msgstr "instruments à cordes frottées archaïques et autres instruments à cordes frottées"
 
 #: DB:link_attribute_type/description:746
 msgid "as using drives for producing music, harddrives, floppy, cd or other."
@@ -3150,7 +3150,7 @@ msgstr "comme utiliser des lecteurs pour faire de la musique, disques durs, lect
 
 #: DB:link_attribute_type/description:512
 msgid "baglama"
-msgstr "saz"
+msgstr "baglama"
 
 #: DB:link_attribute_type/description:18
 msgid ""
@@ -3173,7 +3173,7 @@ msgstr "trombone basse"
 
 #: DB:link_attribute_type/description:151
 msgid "bells"
-msgstr "cloche"
+msgstr "cloches"
 
 #: DB:link_attribute_type/description:397
 msgid "brushes"
@@ -3282,7 +3282,7 @@ msgstr "anches"
 
 #: DB:link_attribute_type/description:449
 msgid "rhythm sticks"
-msgstr "bâtons de rythmes"
+msgstr "bâtons à rythmes"
 
 #: DB:link_attribute_type/description:418
 msgid "sapek clappers"
@@ -3306,7 +3306,7 @@ msgstr "violon soprano"
 
 #: DB:link_attribute_type/description:80
 msgid "steel guitar"
-msgstr "steel guitar"
+msgstr "guitare hawaïenne"
 
 #: DB:link_attribute_type/description:322
 msgid "struck string instruments"
@@ -3380,7 +3380,7 @@ msgstr "timbale classique"
 
 #: DB:link_attribute_type/description:118
 msgid "viola da gamba"
-msgstr "viol de gambe"
+msgstr "viole de gambe"
 
 #: DB:link_attribute_type/description:454
 msgid "wavedrum"
