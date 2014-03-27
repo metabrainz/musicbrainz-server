@@ -12,7 +12,7 @@
       <fieldset>
           <legend>[% l('Possible Duplicate Artists') %]</legend>
           <p>
-              [% l('We found the following artists with a very similar name:') %]
+              [% l('We found the following artists with very similar names:') %]
           </p>
           <ul>
               [% FOREACH dupe=form.duplicates %]

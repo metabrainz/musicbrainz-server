@@ -4,7 +4,7 @@
     <h1>[% l("Edit Profile") %]</h1>
 
     <p>
-        [%- l('See also your {uri|user preferences}, which includes your privacy settings.', {uri => c.uri_for_action('/account/preferences')}) %]
+        [%- l('See also your {uri|user preferences}, which include your privacy settings.', {uri => c.uri_for_action('/account/preferences')}) %]
     </p>
 
     [%- USE r = FormRenderer(form) -%]

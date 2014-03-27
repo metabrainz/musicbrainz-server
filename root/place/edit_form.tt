@@ -12,7 +12,7 @@
       <fieldset>
           <legend>[% l('Possible Duplicate Places') %]</legend>
           <p>
-              [% l('We found the following places with a very similar name:') %]
+              [% l('We found the following places with very similar names:') %]
           </p>
           <ul>
               [% FOREACH dupe=form.duplicates %]
