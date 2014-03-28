@@ -148,7 +148,7 @@ sub build_display_data {
     if ($self->data->{old}{parent_id} != $self->data->{new}{parent_id} || $self->data->{old}{parent_id} ne $self->data->{new}{parent_id}) {
         $display_data->{parent} = {
             map {
-                $_ => $loaded->{LinkType}{ $self->data->{$_}{parent_id} } // (looks_like_number($self->data->{$_}{parent_id}) ? undef : LinkType->new( name => $self->data->{$_}{parent_id} ));
+                $_ => $loaded->{LinkType}{ $self->data->{$_}{parent_id} } // (looks_like_number($self->data->{$_}{parent_id} // 0) ? undef : LinkType->new( name => $self->data->{$_}{parent_id} ));
             } qw( old new )
         }
     }
