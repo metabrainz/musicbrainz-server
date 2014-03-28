@@ -13,6 +13,8 @@ use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Translation qw ( N_l );
 use Scalar::Util qw( looks_like_number );
 
+use aliased 'MusicBrainz::Server::Entity::LinkType';
+
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Relationship';
 
@@ -104,6 +106,7 @@ sub foreign_keys {
                 @{ $self->data->{new}{attributes} }
             ],
         LinkType => [ $self->data->{link_id},
+            grep { looks_like_number($_) }
             map { $self->data->{$_}{parent_id} }
                 qw( old new )
             ]
@@ -142,10 +145,10 @@ sub build_display_data {
 
     $display_data->{link_type} = $loaded->{LinkType}{ $self->data->{link_id} };
 
-    if ($self->data->{old}{parent_id} != $self->data->{new}{parent_id}) {
+    if ($self->data->{old}{parent_id} != $self->data->{new}{parent_id} || $self->data->{old}{parent_id} ne $self->data->{new}{parent_id}) {
         $display_data->{parent} = {
             map {
-                $_ => $loaded->{LinkType}{ $self->data->{$_}{parent_id} }
+                $_ => $loaded->{LinkType}{ $self->data->{$_}{parent_id} } // (looks_like_number($self->data->{$_}{parent_id}) ? undef : LinkType->new( name => $self->data->{$_}{parent_id} ));
             } qw( old new )
         }
     }
@@ -209,9 +212,6 @@ before restore => sub {
         $data->{$side}{long_link_phrase} =
             delete $data->{$side}{short_link_phrase}
                 if exists $data->{$side}{short_link_phrase};
-
-        $data->{$side}{parent_id} = undef
-            if !looks_like_number($data->{$side}{parent_id});
     }
 };
 
