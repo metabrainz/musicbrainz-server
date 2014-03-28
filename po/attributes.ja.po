@@ -1,0 +1,733 @@
+# 
+# Translators:
+# nikki, 2014
+# Nozomu KURASAWA <email address hidden>, 2012-2013
+# th1rtyf0ur, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: MusicBrainz\n"
+"PO-Revision-Date: 2014-03-04 23:07+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
+"Language-Team: Japanese (http://www.transifex.com/projects/p/musicbrainz/language/ja/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: DB:medium_format/name:30
+msgctxt "medium_format"
+msgid "10\" Vinyl"
+msgstr "10インチレコード盤"
+
+#: DB:medium_format/name:31
+msgctxt "medium_format"
+msgid "12\" Vinyl"
+msgstr "12インチレコード盤"
+
+#: DB:medium_format/name:29
+msgctxt "medium_format"
+msgid "7\" Vinyl"
+msgstr "7インチレコード盤"
+
+#: DB:medium_format/name:34
+msgctxt "medium_format"
+msgid "8cm CD"
+msgstr "8cm CD"
+
+#: DB:medium_format/name:40
+msgctxt "medium_format"
+msgid "8cm CD+G"
+msgstr ""
+
+#: DB:release_group_primary_type/name:1
+msgctxt "release_group_primary_type"
+msgid "Album"
+msgstr "アルバム"
+
+#: DB:area_alias_type/name:1
+msgctxt "alias_type"
+msgid "Area name"
+msgstr "エリア名"
+
+#: DB:work_type/name:1
+msgctxt "work_type"
+msgid "Aria"
+msgstr "アリア"
+
+#: DB:artist_alias_type/name:1
+msgctxt "alias_type"
+msgid "Artist name"
+msgstr "アーティスト名"
+
+#: DB:work_type/name:25
+msgctxt "work_type"
+msgid "Audio drama"
+msgstr ""
+
+#: DB:release_group_secondary_type/name:5
+msgctxt "release_group_secondary_type"
+msgid "Audiobook"
+msgstr "オーディオブック"
+
+#: DB:cover_art_archive.art_type/name:2
+msgctxt "cover_art_type"
+msgid "Back"
+msgstr "背面"
+
+#: DB:work_type/name:2
+msgctxt "work_type"
+msgid "Ballet"
+msgstr "バレエ"
+
+#: DB:work_type/name:26
+msgctxt "work_type"
+msgid "Beijing opera"
+msgstr ""
+
+#: DB:medium_format/name:24
+msgctxt "medium_format"
+msgid "Betamax"
+msgstr "ベータマックス"
+
+#: DB:medium_format/name:20
+msgctxt "medium_format"
+msgid "Blu-ray"
+msgstr "Blu-ray"
+
+#: DB:medium_format/name:35
+msgctxt "medium_format"
+msgid "Blu-spec CD"
+msgstr ""
+
+#: DB:release_packaging/name:9
+msgctxt "release_packaging"
+msgid "Book"
+msgstr "本"
+
+#: DB:cover_art_archive.art_type/name:3
+msgctxt "cover_art_type"
+msgid "Booklet"
+msgstr "ブックレット"
+
+#: DB:release_status/name:3
+msgctxt "release_status"
+msgid "Bootleg"
+msgstr "海賊版"
+
+#: DB:label_type/name:5
+msgctxt "label_type"
+msgid "Bootleg Production"
+msgstr "海賊版作品"
+
+#: DB:release_group_primary_type/name:12
+msgctxt "release_group_primary_type"
+msgid "Broadcast"
+msgstr "放送"
+
+#: DB:medium_format/name:1
+msgctxt "medium_format"
+msgid "CD"
+msgstr "CD"
+
+#: DB:medium_format/name:39
+msgctxt "medium_format"
+msgid "CD+G"
+msgstr "CD+G"
+
+#: DB:medium_format/name:33
+msgctxt "medium_format"
+msgid "CD-R"
+msgstr "CD-R"
+
+#: DB:work_type/name:3
+msgctxt "work_type"
+msgid "Cantata"
+msgstr "カンタータ"
+
+#: DB:release_packaging/name:4
+msgctxt "release_packaging"
+msgid "Cardboard/Paper Sleeve"
+msgstr "紙ジャケット"
+
+#: DB:medium_format/name:9
+msgctxt "medium_format"
+msgid "Cartridge"
+msgstr "カートリッジ"
+
+#: DB:medium_format/name:8
+msgctxt "medium_format"
+msgid "Cassette"
+msgstr "カセット"
+
+#: DB:release_packaging/name:8
+msgctxt "release_packaging"
+msgid "Cassette Case"
+msgstr "カセットケース"
+
+#: DB:artist_type/name:4
+msgctxt "artist_type"
+msgid "Character"
+msgstr "キャラクター"
+
+#: DB:area_type/name:3
+msgctxt "area_type"
+msgid "City"
+msgstr "市"
+
+#: DB:release_group_secondary_type/name:1
+msgctxt "release_group_secondary_type"
+msgid "Compilation"
+msgstr "コンピレーション"
+
+#: DB:work_type/name:4
+msgctxt "work_type"
+msgid "Concerto"
+msgstr "協奏曲"
+
+#: DB:area_type/name:1
+msgctxt "area_type"
+msgid "Country"
+msgstr "国"
+
+#: DB:medium_format/name:11
+msgctxt "medium_format"
+msgid "DAT"
+msgstr "DAT"
+
+#: DB:medium_format/name:16
+msgctxt "medium_format"
+msgid "DCC"
+msgstr "DCC"
+
+#: DB:release_group_secondary_type/name:8
+msgctxt "release_group_secondary_type"
+msgid "DJ-mix"
+msgstr "DJミックス"
+
+#: DB:medium_format/name:2
+msgctxt "medium_format"
+msgid "DVD"
+msgstr "DVD"
+
+#: DB:medium_format/name:18
+msgctxt "medium_format"
+msgid "DVD-Audio"
+msgstr "DVD-Audio"
+
+#: DB:medium_format/name:19
+msgctxt "medium_format"
+msgid "DVD-Video"
+msgstr "DVD-Video"
+
+#: DB:release_packaging/name:3
+msgctxt "release_packaging"
+msgid "Digipak"
+msgstr "デジパック"
+
+#: DB:medium_format/name:12
+msgctxt "medium_format"
+msgid "Digital Media"
+msgstr "デジタルメディア"
+
+#: DB:release_packaging/name:13
+msgctxt "release_packaging"
+msgid "Discbox Slider"
+msgstr ""
+
+#: DB:label_type/name:1
+msgctxt "label_type"
+msgid "Distributor"
+msgstr "代理店"
+
+#: DB:area_type/name:5
+msgctxt "area_type"
+msgid "District"
+msgstr "地区"
+
+#: DB:medium_format/name:4
+msgctxt "medium_format"
+msgid "DualDisc"
+msgstr "DualDisc"
+
+#: DB:release_group_primary_type/name:3
+msgctxt "release_group_primary_type"
+msgid "EP"
+msgstr "EP"
+
+#: DB:release_packaging/name:10
+msgctxt "release_packaging"
+msgid "Fatbox"
+msgstr ""
+
+#: DB:gender/name:2
+msgctxt "gender"
+msgid "Female"
+msgstr "女性"
+
+#: DB:area_alias_type/name:2
+msgctxt "alias_type"
+msgid "Formal name"
+msgstr "正式名称"
+
+#: DB:cover_art_archive.art_type/name:1
+msgctxt "cover_art_type"
+msgid "Front"
+msgstr "前面"
+
+#: DB:release_packaging/name:12
+msgctxt "release_packaging"
+msgid "Gatefold Cover"
+msgstr ""
+
+#: DB:artist_type/name:2
+msgctxt "artist_type"
+msgid "Group"
+msgstr "グループ"
+
+#: DB:medium_format/name:17
+msgctxt "medium_format"
+msgid "HD-DVD"
+msgstr "HD-DVD"
+
+#: DB:medium_format/name:25
+msgctxt "medium_format"
+msgid "HDCD"
+msgstr "HDCD"
+
+#: DB:medium_format/name:37
+msgctxt "medium_format"
+msgid "HQCD"
+msgstr ""
+
+#: DB:label_type/name:2
+msgctxt "label_type"
+msgid "Holding"
+msgstr "持株会社"
+
+#: DB:medium_format/name:38
+msgctxt "medium_format"
+msgid "Hybrid SACD"
+msgstr ""
+
+#: DB:label_type/name:9
+msgctxt "label_type"
+msgid "Imprint"
+msgstr ""
+
+#: DB:place_type/name:5
+msgctxt "place_type"
+msgid "Indoor arena"
+msgstr ""
+
+#: DB:release_group_secondary_type/name:4
+msgctxt "release_group_secondary_type"
+msgid "Interview"
+msgstr "インタビュー"
+
+#: DB:release_packaging/name:1
+msgctxt "release_packaging"
+msgid "Jewel Case"
+msgstr "ジュエルケース"
+
+#: DB:release_packaging/name:6
+msgctxt "release_packaging"
+msgid "Keep Case"
+msgstr "キープケース"
+
+#: DB:label_alias_type/name:1
+msgctxt "alias_type"
+msgid "Label name"
+msgstr "レーベル名"
+
+#: DB:medium_format/name:5
+msgctxt "medium_format"
+msgid "LaserDisc"
+msgstr "レーザーディスク"
+
+#: DB:artist_alias_type/name:2
+msgctxt "alias_type"
+msgid "Legal name"
+msgstr "正式名称"
+
+#: DB:cover_art_archive.art_type/name:12
+msgctxt "cover_art_type"
+msgid "Liner"
+msgstr ""
+
+#: DB:release_group_secondary_type/name:6
+msgctxt "release_group_secondary_type"
+msgid "Live"
+msgstr "ライブ"
+
+#: DB:work_type/name:7
+msgctxt "work_type"
+msgid "Madrigal"
+msgstr "マドリガル"
+
+#: DB:gender/name:1
+msgctxt "gender"
+msgid "Male"
+msgstr "男性"
+
+#: DB:work_type/name:8
+msgctxt "work_type"
+msgid "Mass"
+msgstr "ミサ曲"
+
+#: DB:cover_art_archive.art_type/name:4
+msgctxt "cover_art_type"
+msgid "Medium"
+msgstr "メディア"
+
+#: DB:medium_format/name:6
+msgctxt "medium_format"
+msgid "MiniDisc"
+msgstr "MiniDisc"
+
+#: DB:release_group_secondary_type/name:9
+msgctxt "release_group_secondary_type"
+msgid "Mixtape/Street"
+msgstr "ミックステープ/ストリート"
+
+#: DB:work_type/name:9
+msgctxt "work_type"
+msgid "Motet"
+msgstr "モテット"
+
+#: DB:area_type/name:4
+msgctxt "area_type"
+msgid "Municipality"
+msgstr "市制"
+
+#: DB:release_packaging/name:7
+msgctxt "release_packaging"
+msgid "None"
+msgstr "なし"
+
+#: DB:cover_art_archive.art_type/name:5
+msgctxt "cover_art_type"
+msgid "Obi"
+msgstr "帯"
+
+#: DB:release_status/name:1
+msgctxt "release_status"
+msgid "Official"
+msgstr "公式"
+
+#: DB:work_type/name:10
+msgctxt "work_type"
+msgid "Opera"
+msgstr "オペラ"
+
+#: DB:work_type/name:24
+msgctxt "work_type"
+msgid "Operetta"
+msgstr "オペレッタ"
+
+#: DB:work_type/name:11
+msgctxt "work_type"
+msgid "Oratorio"
+msgstr "オラトリオ"
+
+#: DB:label_type/name:4
+msgctxt "label_type"
+msgid "Original Production"
+msgstr "オリジナル製品"
+
+#: DB:artist_type/name:3
+msgctxt "artist_type"
+msgid "Other"
+msgstr "その他"
+
+#: DB:place_type/name:3
+msgctxt "place_type"
+msgid "Other"
+msgstr ""
+
+#: DB:release_group_primary_type/name:11
+msgctxt "release_group_primary_type"
+msgid "Other"
+msgstr "その他"
+
+#: DB:medium_format/name:13
+msgctxt "medium_format"
+msgid "Other"
+msgstr "その他"
+
+#: DB:release_packaging/name:5
+msgctxt "release_packaging"
+msgid "Other"
+msgstr "その他"
+
+#: DB:gender/name:3
+msgctxt "gender"
+msgid "Other"
+msgstr "その他"
+
+#: DB:cover_art_archive.art_type/name:8
+msgctxt "cover_art_type"
+msgid "Other"
+msgstr "その他"
+
+#: DB:work_type/name:12
+msgctxt "work_type"
+msgid "Overture"
+msgstr "序曲"
+
+#: DB:work_type/name:13
+msgctxt "work_type"
+msgid "Partita"
+msgstr "パルティータ"
+
+#: DB:artist_type/name:1
+msgctxt "artist_type"
+msgid "Person"
+msgstr "個人"
+
+#: DB:medium_format/name:15
+msgctxt "medium_format"
+msgid "Piano Roll"
+msgstr "ピアノロール"
+
+#: DB:place_alias_type/name:1
+msgctxt "alias_type"
+msgid "Place name"
+msgstr ""
+
+#: DB:work_type/name:21
+msgctxt "work_type"
+msgid "Poem"
+msgstr "詩"
+
+#: DB:cover_art_archive.art_type/name:11
+msgctxt "cover_art_type"
+msgid "Poster"
+msgstr ""
+
+#: DB:label_type/name:3
+msgctxt "label_type"
+msgid "Production"
+msgstr "製品"
+
+#: DB:release_status/name:2
+msgctxt "release_status"
+msgid "Promotion"
+msgstr "プロモーション"
+
+#: DB:work_type/name:23
+msgctxt "work_type"
+msgid "Prose"
+msgstr "散文"
+
+#: DB:release_status/name:4
+msgctxt "release_status"
+msgid "Pseudo-Release"
+msgstr "擬似リリース"
+
+#: DB:label_type/name:7
+msgctxt "label_type"
+msgid "Publisher"
+msgstr "発行元"
+
+#: DB:work_type/name:14
+msgctxt "work_type"
+msgid "Quartet"
+msgstr "四重奏曲"
+
+#: DB:medium_format/name:10
+msgctxt "medium_format"
+msgid "Reel-to-reel"
+msgstr "オープンリール"
+
+#: DB:label_type/name:6
+msgctxt "label_type"
+msgid "Reissue Production"
+msgstr "再販品"
+
+#: DB:release_group_secondary_type/name:7
+msgctxt "release_group_secondary_type"
+msgid "Remix"
+msgstr "リミックス"
+
+#: DB:label_type/name:8
+msgctxt "label_type"
+msgid "Rights Society"
+msgstr "権利者団体"
+
+#: DB:medium_format/name:3
+msgctxt "medium_format"
+msgid "SACD"
+msgstr "SACD"
+
+#: DB:medium_format/name:36
+msgctxt "medium_format"
+msgid "SHM-CD"
+msgstr ""
+
+#: DB:medium_format/name:23
+msgctxt "medium_format"
+msgid "SVCD"
+msgstr "SVCD"
+
+#: DB:artist_alias_type/name:3 DB:label_alias_type/name:2
+#: DB:place_alias_type/name:2 DB:work_alias_type/name:2
+#: DB:area_alias_type/name:3
+msgctxt "alias_type"
+msgid "Search hint"
+msgstr "検索ヒント"
+
+#: DB:release_group_primary_type/name:2
+msgctxt "release_group_primary_type"
+msgid "Single"
+msgstr "シングル"
+
+#: DB:release_packaging/name:2
+msgctxt "release_packaging"
+msgid "Slim Jewel Case"
+msgstr "スリムジュエルケース"
+
+#: DB:release_packaging/name:11
+msgctxt "release_packaging"
+msgid "Snap Case"
+msgstr ""
+
+#: DB:work_type/name:5
+msgctxt "work_type"
+msgid "Sonata"
+msgstr "ソナタ"
+
+#: DB:work_type/name:17
+msgctxt "work_type"
+msgid "Song"
+msgstr "歌曲"
+
+#: DB:work_type/name:15
+msgctxt "work_type"
+msgid "Song-cycle"
+msgstr "ソングサイクル"
+
+#: DB:work_type/name:22
+msgctxt "work_type"
+msgid "Soundtrack"
+msgstr "サウンドトラック"
+
+#: DB:release_group_secondary_type/name:2
+msgctxt "release_group_secondary_type"
+msgid "Soundtrack"
+msgstr "サウンドトラック"
+
+#: DB:cover_art_archive.art_type/name:6
+msgctxt "cover_art_type"
+msgid "Spine"
+msgstr "背"
+
+#: DB:release_group_secondary_type/name:3
+msgctxt "release_group_secondary_type"
+msgid "Spokenword"
+msgstr "スポークンワード"
+
+#: DB:place_type/name:4
+msgctxt "place_type"
+msgid "Stadium"
+msgstr ""
+
+#: DB:cover_art_archive.art_type/name:10
+msgctxt "cover_art_type"
+msgid "Sticker"
+msgstr "ステッカー"
+
+#: DB:place_type/name:1
+msgctxt "place_type"
+msgid "Studio"
+msgstr ""
+
+#: DB:area_type/name:2
+msgctxt "area_type"
+msgid "Subdivision"
+msgstr "区分"
+
+#: DB:work_type/name:6
+msgctxt "work_type"
+msgid "Suite"
+msgstr "組曲"
+
+#: DB:work_type/name:18
+msgctxt "work_type"
+msgid "Symphonic poem"
+msgstr "交響詩"
+
+#: DB:work_type/name:16
+msgctxt "work_type"
+msgid "Symphony"
+msgstr "交響曲"
+
+#: DB:cover_art_archive.art_type/name:7
+msgctxt "cover_art_type"
+msgid "Track"
+msgstr "トラック"
+
+#: DB:cover_art_archive.art_type/name:9
+msgctxt "cover_art_type"
+msgid "Tray"
+msgstr "トレー"
+
+#: DB:medium_format/name:28
+msgctxt "medium_format"
+msgid "UMD"
+msgstr "UMD"
+
+#: DB:medium_format/name:26
+msgctxt "medium_format"
+msgid "USB Flash Drive"
+msgstr "USBフラッシュドライブ"
+
+#: DB:medium_format/name:22
+msgctxt "medium_format"
+msgid "VCD"
+msgstr "VCD"
+
+#: DB:medium_format/name:21
+msgctxt "medium_format"
+msgid "VHS"
+msgstr "VHS"
+
+#: DB:place_type/name:2
+msgctxt "place_type"
+msgid "Venue"
+msgstr ""
+
+#: DB:medium_format/name:32
+msgctxt "medium_format"
+msgid "Videotape"
+msgstr "ビデオテーブ"
+
+#: DB:medium_format/name:7
+msgctxt "medium_format"
+msgid "Vinyl"
+msgstr "レコード盤"
+
+#: DB:medium_format/name:14
+msgctxt "medium_format"
+msgid "Wax Cylinder"
+msgstr "ワックスシリンダー"
+
+#: DB:work_alias_type/name:1
+msgctxt "alias_type"
+msgid "Work name"
+msgstr "ワーク名"
+
+#: DB:work_type/name:19
+msgctxt "work_type"
+msgid "Zarzuela"
+msgstr "サルスエラ"
+
+#: DB:medium_format/name:27
+msgctxt "medium_format"
+msgid "slotMusic"
+msgstr "slotMusic"
+
+#: DB:work_type/name:20
+msgctxt "work_type"
+msgid "Étude"
+msgstr "エチュード"

@@ -1,8 +1,8 @@
-[% MACRO release_row(release) BLOCK; %]
+[%~ MACRO release_row(release) BLOCK; ~%]
   <tr>
     <td>[% link_entity(release) %]</td>
     <td>[% artist_credit(release.artist_credit) %]</td>
-    <td>[% release.combined_format_name %]</td>
+    <td>[% html_escape(release.combined_format_name) %]</td>
     <td>[% release.combined_track_count %]</td>
     <td>[% release_dates(release.events) %]</td>
     <td>[% release_countries(release.events) %]</td>
@@ -10,7 +10,7 @@
     <td>[% release_catno_list(release.labels) %]</td>
     <td>[% release.barcode.format %]</td>
   </tr>
-[% END %]
+[%~ END ~%]
 
 <table class="tbl merge-releases">
   <thead>
@@ -85,7 +85,48 @@
     </tr>
     [% release_row(edit.display_data.new) %]
   [% END %]
+  </tbody>
 </table>
+
+[%~ IF edit.data.merge_strategy == 2 ~%]
+[%~ IF edit.display_data.recording_merges.size ~%]
+    <table class="tbl">
+    <thead>
+        <tr>
+          <th colspan=5>[% l('Recording Merges') %]</th>
+        <tr>
+        <tr>
+          <th>[% l('Track #') %]</th>
+          <th colspan=2>[% l('Recording') %]</th>
+          <th colspan=2>[% l('Into:') %]</th>
+        </tr>
+    </thead>
+    <tbody>
+    [%~ FOR merge = edit.display_data.recording_merges ~%]
+        [%~ SET rowspan = merge.sources.size ~%]
+        [%~ SET ev = loop.count % 2 ~%]
+        <tr[% IF ev == 0 %] class="ev"[% END %]>
+            <td[% IF rowspan > 1 %] rowspan=[% rowspan %][% END %]>[% merge.medium %].[% merge.track %]</td>
+            <td>[% link_entity(merge.sources.0) %]</td>
+            <td>[% merge.sources.0.length | format_length %]</td>
+            <td[% IF rowspan > 1 %] rowspan=[% rowspan %][% END %]>[% link_entity(merge.destination) %]</td>
+            <td[% IF rowspan > 1 %] rowspan=[% rowspan %][% END %]>[% merge.destination.length | format_length %]</td>
+        </tr>
+        [% FOR source = merge.sources ~%]
+        [%~ UNLESS loop.first ~%]
+        <tr[% IF ev == 0 %] class="ev"[% END %]>
+            <td>[% link_entity(source) %]</td>
+            <td>[% source.length | format_length %]</td>
+        </tr>
+        [%~ END; END %]
+    [%~ END ~%]
+    </tbody></table>
+[%~ ELSIF edit.display_data.merges_are_calculated && !edit.is_open ~%]
+    <p><strong>[% l('This edit does not store recording merge information and is closed, so no recording merge information can be shown.') %]</strong></p>
+[%~ ELSE  ~%]
+    <p><strong>[% l('All recordings for these releases are already merged.') %]</strong></p>
+[%~ END ~%]
+[%~ END ~%]
 
 <table class="details">
   <tr>
@@ -97,7 +138,7 @@
     END %]
     </td>
   </tr>
-  
+
   [% IF edit.data.item('_edit_version') == 1 %]
     <tr>
       <th>Note:</th>

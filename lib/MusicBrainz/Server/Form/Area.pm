@@ -1,9 +1,11 @@
 package MusicBrainz::Server::Form::Area;
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Form::Utils qw( select_options );
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
+with 'MusicBrainz::Server::Form::Role::ExternalLinks';
 
 has '+name' => ( default => 'edit-area' );
 
@@ -59,7 +61,7 @@ sub edit_field_names
     return qw( name sort_name comment type_id period.begin_date period.end_date period.ended iso_3166_1 iso_3166_2 iso_3166_3 );
 }
 
-sub options_type_id     { shift->_select_all('AreaType') }
+sub options_type_id     { select_options(shift->ctx, 'AreaType') }
 
 sub dupe_model { shift->ctx->model('Area') }
 
@@ -82,7 +84,7 @@ sub _unique_iso_code {
     my $container = $self->field($iso_field);
 
     if (
-        my %areas = %{ $self->ctx->model('Area')->$method($container->value) }
+        my %areas = %{ $self->ctx->model('Area')->$method(@{ $container->value }) }
     ) {
         for my $f ($container->fields) {
             my $area_using_iso_code = $areas{$f->value} or next;

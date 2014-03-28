@@ -9,6 +9,7 @@ use MusicBrainz::Server::Translation qw ( N_l );
 use MusicBrainz::Server::Edit::Historic::Base;
 
 sub edit_name     { N_l('Add disc ID') }
+sub edit_kind     { 'add' }
 sub historic_type { 32 }
 sub edit_type     { $EDIT_HISTORIC_ADD_DISCID }
 sub edit_template { 'historic/add_disc_id' }

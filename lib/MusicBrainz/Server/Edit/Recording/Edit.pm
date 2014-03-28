@@ -15,6 +15,8 @@ use MusicBrainz::Server::Edit::Utils qw(
     artist_credit_from_loaded_definition
     verify_artist_credits
     merge_artist_credit
+    boolean_to_json
+    boolean_from_json
 );
 use MusicBrainz::Server::Track;
 use MusicBrainz::Server::Translation qw ( N_l );
@@ -69,6 +71,26 @@ has '+data' => (
     ]
 );
 
+sub to_hash {
+    my $data = shift->data;
+
+    for ($data->{old}, $data->{new}) {
+        $_->{video} = boolean_to_json($_->{video}) if exists $_->{video};
+    }
+
+    return $data;
+}
+
+sub restore {
+    my ($self, $data) = @_;
+
+    for ($data->{old}, $data->{new}) {
+        $_->{video} = boolean_from_json($_->{video}) if exists $_->{video};
+    }
+
+    $self->data($data);
+}
+
 sub current_instance {
     my $self = shift;
     return $self->c->model('Recording')->get_by_id($self->entity_id);
@@ -101,7 +123,7 @@ sub build_display_data
         name    => 'name',
         comment => 'comment',
         length  => 'length',
-        video      => 'video',
+        video   => 'video',
     );
 
     my $data = changed_display_data($self->data, $loaded, %map);
@@ -136,6 +158,8 @@ around 'initialize' => sub
     $opts{artist_credit} = clean_submitted_artist_credits($opts{artist_credit})
         if exists($opts{artist_credit});
 
+    $opts{video} = boolean_from_json($opts{video}) if exists $opts{video};
+
     $self->$orig(%opts);
 };
 
@@ -143,7 +167,7 @@ sub _mapping
 {
     return (
         artist_credit => sub {
-            artist_credit_to_ref(shift->artist_credit, [])
+            artist_credit_to_ref(shift->artist_credit)
         },
     );
 }
@@ -156,6 +180,9 @@ sub _edit_hash
 
     $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert($data->{artist_credit})
         if (exists $data->{artist_credit});
+
+    $data->{comment} //= '' if exists $data->{comment};
+
     return $data;
 }
 

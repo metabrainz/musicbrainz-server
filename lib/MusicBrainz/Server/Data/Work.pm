@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::Work;
 
 use Moose;
 use namespace::autoclean;
-use List::MoreUtils qw( uniq );
+use List::AllUtils qw( uniq zip );
 use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Data::Utils qw(
     defined_hash
@@ -23,10 +23,11 @@ extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'work' };
+with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'work' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'work' };
-with 'MusicBrainz::Server::Data::Role::BrowseVA';
+with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'work' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 
@@ -156,7 +157,7 @@ sub update
     my ($self, $work_id, $update) = @_;
     return unless %{ $update // {} };
     my $row = $self->_hash_to_row($update);
-    $self->sql->update_row('work', $row, { id => $work_id });
+    $self->sql->update_row('work', $row, { id => $work_id }) if %$row;
 }
 
 # Works can be unconditionally removed
@@ -187,6 +188,24 @@ sub _merge_impl
     $self->c->model('Edit')->merge_entities('work', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('work', $new_id, @old_ids);
     $self->c->model('ISWC')->merge_works($new_id, @old_ids);
+
+    $self->sql->do(
+        'WITH all_attributes AS (
+           DELETE FROM work_attribute WHERE work = any(?)
+           RETURNING work_attribute_type, work_attribute_text,
+           work_attribute_type_allowed_value
+         )
+         INSERT INTO work_attribute
+           (work, work_attribute_type, work_attribute_text,
+           work_attribute_type_allowed_value)
+         SELECT DISTINCT ON
+           (work_attribute_type,
+            coalesce(work_attribute_text, work_attribute_type_allowed_value::text))
+           ?, work_attribute_type, work_attribute_text,
+           work_attribute_type_allowed_value
+         FROM all_attributes',
+      [ $new_id, @old_ids ], $new_id
+    );
 
     merge_table_attributes(
         $self->sql => (
@@ -434,6 +453,8 @@ EOSQL
 sub load_attributes {
     my ($self, @works) = @_;
 
+    @works = grep { scalar $_->all_attributes == 0 } @works;
+
     my @work_ids = map { $_->id } @works;
 
     my $attributes = $self->sql->select_list_of_hashes(
@@ -494,6 +515,105 @@ sub set_attributes {
                     undef
         }, @attributes
     );
+}
+
+sub allowed_attribute_values {
+    my ($self, @type_ids) = @_;
+    return map {
+        my ($id, $allows_free_text, $allowed_values) = @$_;
+        (
+            $id => {
+                allows_value => do {
+                    if ($allows_free_text) {
+                        sub { 1 }
+                    }
+                    else {
+                        my %allowed = map { $_ => 1 } @$allowed_values;
+                        sub { exists $allowed{shift()} }
+                    }
+                },
+                allows_free_text => $allows_free_text
+            }
+        )
+    } @{
+        $self->sql->select_list_of_lists(
+            'SELECT wat.id, free_text, array_agg(watav.id) AS allowed_values
+                FROM work_attribute_type wat
+                LEFT JOIN work_attribute_type_allowed_value watav
+                  ON (wat.id = watav.work_attribute_type)
+                WHERE wat.id = any(?)
+                GROUP BY wat.id',
+            \@type_ids
+        )
+    };
+}
+
+sub all_work_attributes {
+    my $self = shift;
+    return map {
+        my ($id, $name, $allows_free_text, $allowed_ids, $allowed_values, $comment) = @$_;
+        (
+            $id => {
+                name => $name,
+                comment => $comment,
+                allowsFreeText => $allows_free_text,
+                values => do {
+                    if ($allows_free_text) {
+                        +{};
+                    }
+                    else {
+                        +{ zip @$allowed_ids, @$allowed_values }
+                    }
+                }
+            }
+        );
+    } @{
+        $self->sql->select_list_of_lists(
+            'SELECT wat.id, name, free_text,
+               array_agg(watav.id) AS allowed_value_ids,
+               array_agg(watav.value) AS allowed_value,
+               comment
+             FROM work_attribute_type wat
+             LEFT JOIN work_attribute_type_allowed_value watav
+             ON (wat.id = watav.work_attribute_type)
+             GROUP BY wat.id'
+        )
+    };
+}
+
+sub inflate_attributes {
+    my ($self, $attributes) = @_;
+
+    return [] unless @{ $attributes // [] };
+    return [
+        map {
+            MusicBrainz::Server::Entity::WorkAttribute->new(
+                type => MusicBrainz::Server::Entity::WorkAttributeType->new(
+                    name => $_->{name},
+                    comment => $_->{comment}
+                ),
+                value => $_->{value},
+                value_id => $_->{value_id}
+            )
+        } @{
+            $self->sql->select_list_of_hashes(
+                'SELECT wat.name, wat.comment, inflate.value_id,
+                   coalesce(watav.value, inflate.value_text) AS value
+                 FROM
+                   (VALUES ' . join(', ', ('(?::int, ?::int, ?)') x @$attributes) . ')
+                     inflate (type_id, value_id, value_text)
+                 JOIN work_attribute_type wat ON (wat.id = inflate.type_id)
+                 LEFT JOIN work_attribute_type_allowed_value watav
+                   ON (watav.work_attribute_type = wat.id AND
+                       watav.id = inflate.value_id)',
+                map {
+                    $_->{attribute_type_id},
+                    $_->{attribute_value_id},
+                    $_->{attribute_text}
+                } @$attributes
+            );
+        }
+    ];
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -16,6 +16,7 @@ use Data::Compare qw( Compare );
 
 sub edit_type { die 'Unimplemented' }
 sub edit_name { die 'Unimplemented' }
+sub edit_kind { die 'Unimplemented' }
 sub l_edit_name { l(shift->edit_name) }
 
 sub edit_template
@@ -225,9 +226,9 @@ sub can_cancel
 sub was_approved
 {
     my $self = shift;
-    
+
     return 0 if $self->is_open;
-    
+
     return scalar $self->_grep_votes(sub { $_->vote == $VOTE_APPROVE })
 }
 

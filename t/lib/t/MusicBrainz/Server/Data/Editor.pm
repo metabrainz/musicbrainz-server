@@ -42,13 +42,20 @@ test 'Remember me tokens' => sub {
 
     my $model = $test->c->model('Editor');
 
-    my $user_name = 'Alice';
-    my $token = $model->allocate_remember_me_token($user_name);
+    my $user_name = 'alice';
+    my ($normalized_name, $token) = $model->allocate_remember_me_token($user_name);
 
-    ok($model->consume_remember_me_token($user_name, $token),
+    ok($token, 'Token is returned with improper username capitalization');
+
+    is($normalized_name, 'Alice', 'Normalized name (with proper caps) is returned from allocating remember me token');
+
+    ok($model->consume_remember_me_token($normalized_name, $token),
        'Can consume "remember me" tokens');
 
-    ok( $test->c->redis->ttl("$user_name|$token") <= 5 * 60,
+    ok(!$model->consume_remember_me_token($user_name, $token),
+       'Remember me tokens with improper capitalization can\'t be consumed');
+
+    ok( $test->c->redis->ttl("$normalized_name|$token") <= 5 * 60,
         'TTL of remember me token at most 5 minutes' );
 
     ok(!exception { $model->consume_remember_me_token('Unknown User', $token) },

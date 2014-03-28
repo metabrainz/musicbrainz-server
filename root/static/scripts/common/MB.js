@@ -25,17 +25,11 @@ var MB = {
     // Utility functions
     utility: {},
 
-    // Predicates to be used in $.grep
-    predicate: {},
-
     // Hold translated text strings
     text: {},
 
     // Hold constants
-    constants: {},
-
-    // Hold any URLs that controls might use
-    url: {}
+    constants: {}
 };
 
 MB.constants.VARTIST_ID = 1;
@@ -44,11 +38,5 @@ MB.constants.VARTIST_NAME = 'Various Artists';
 
 MB.constants.ENTITIES = [ 'artist', 'editor', 'label', 'release', 'release-group', 'recording', 'work', 'area', 'place' ];
 
-MB.Object = function () {
-    var self = {};
-
-    return self;
-};
-
-// Add underscore.string functions to _ namespace
-_.mixin(_.str.exports());
+MB.constants.MAX_LENGTH_DIFFERENCE = 10500;
+MB.constants.MIN_NAME_SIMILARITY = 0.75;

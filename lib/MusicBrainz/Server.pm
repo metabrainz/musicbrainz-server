@@ -3,7 +3,7 @@ package MusicBrainz::Server;
 use Moose;
 BEGIN { extends 'Catalyst' }
 
-use Class::MOP;
+use Class::Load qw( load_class );
 use DBDefs;
 use Encode;
 use MusicBrainz::Server::Log qw( logger );
@@ -48,9 +48,7 @@ __PACKAGE__->config(
     "View::Default" => {
         FILTERS => {
             'release_date' => \&MusicBrainz::Server::Filters::release_date,
-            'date_xsd_type' => \&MusicBrainz::Server::Filters::date_xsd_type,
             'format_length' => \&MusicBrainz::Server::Filters::format_length,
-            'format_length_xsd' => \&MusicBrainz::Server::Filters::format_length_xsd,
             'format_distance' => \&MusicBrainz::Server::Filters::format_distance,
             'format_wikitext' => \&MusicBrainz::Server::Filters::format_wikitext,
             'format_editnote' => \&MusicBrainz::Server::Filters::format_editnote,
@@ -66,10 +64,11 @@ __PACKAGE__->config(
         PRE_PROCESS => [
             'components/common-macros.tt',
             'components/forms.tt',
-            'components/rdfa-macros.tt',
         ],
         ENCODING => 'UTF-8',
-        EVAL_PERL => 1
+        EVAL_PERL => 1,
+        COMPILE_EXT => '.ttc',
+        COMPILE_DIR => '/tmp/ttc'
     },
     'Plugin::Session' => {
         expires => DBDefs->SESSION_EXPIRE
@@ -173,6 +172,10 @@ else {
     __PACKAGE__->config->{'Plugin::Session'} = DBDefs->SESSION_STORE_ARGS;
 }
 
+if (DBDefs->STAT_TTL) {
+    __PACKAGE__->config->{'View::Default'}->{'STAT_TTL'} = DBDefs->STAT_TTL;
+}
+
 if (DBDefs->CATALYST_DEBUG) {
     push @args, "-Debug";
 }
@@ -229,7 +232,7 @@ sub form
     my ($c, $stash, $form_name, %args) = @_;
     die '$c->form required $stash => $form_name as arguments' unless $stash && $form_name;
     $form_name = "MusicBrainz::Server::Form::$form_name";
-    Class::MOP::load_class($form_name);
+    load_class($form_name);
     my $form = $form_name->new(%args, ctx => $c);
     $c->stash( $stash => $form );
     return $form;
@@ -408,9 +411,14 @@ around 'finalize_error' => sub {
             $c->stash->{stack_trace} = $c->_stacktrace;
             try { $c->stash->{hostname} = hostname; } catch {};
             $c->clear_errors;
-            $c->res->{body} = 'clear';
-            $c->view('Default')->process($c);
-            $c->res->{body} = encode('utf-8', $c->res->{body});
+            if ($c->stash->{error_body_in_stash}) {
+                $c->res->{body} = $c->stash->{body};
+                $c->res->{status} = $c->stash->{status};
+            } else {
+                $c->res->{body} = 'clear';
+                $c->view('Default')->process($c);
+                $c->res->{body} = encode('utf-8', $c->res->{body});
+            }
         }
     });
 };

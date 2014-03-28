@@ -11,6 +11,8 @@ use MooseX::Types::Structured qw( Dict );
 extends 'MusicBrainz::Server::Edit';
 requires '_merge_model';
 
+sub edit_kind { 'merge' }
+
 sub alter_edit_pending
 {
     my $self = shift;

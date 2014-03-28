@@ -8,6 +8,7 @@ use MusicBrainz::Server::Translation qw ( N_l );
 use MusicBrainz::Server::Edit::Historic::Base;
 
 sub edit_name     { N_l('Change artist quality (historic)') }
+sub edit_kind     { 'other' }
 sub historic_type { 52 }
 sub edit_type     { $EDIT_HISTORIC_CHANGE_ARTIST_QUALITY }
 sub edit_template { 'historic/change_artist_quality' }

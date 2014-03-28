@@ -9,6 +9,7 @@ use MusicBrainz::Server::Translation qw ( N_l );
 use MusicBrainz::Server::Edit::Historic::Base;
 
 sub edit_name     { N_l('Remove releases (historic)') }
+sub edit_kind     { 'remove' }
 sub historic_type { 24 }
 sub edit_type     { $EDIT_HISTORIC_REMOVE_RELEASES }
 sub edit_template { 'historic/remove_releases' }
@@ -33,7 +34,7 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
     return {
-        releases => [ 
+        releases => [
             map {
                 $loaded->{Release}{$_->{id}} ||
                     MusicBrainz::Server::Data::Release->new(
@@ -52,7 +53,7 @@ sub upgrade
     for (my $i = 0; ; $i++) {
         my $id = $self->new_value->{"AlbumId$i"} or last;
         my $name = $self->new_value->{"AlbumName$i"} or last;
- 
+
         if (my @ids = @{ $self->album_release_ids($id) }) {
             push @releases, map +{
                 id => $_, name => $name

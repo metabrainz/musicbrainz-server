@@ -72,14 +72,14 @@ sub affiliate_url { shift->url }
 sub url_is_scheme_independent { 0 }
 
 sub href_url {
-	my $self = shift;
-	my $url = $self->affiliate_url();
+    my $self = shift;
+    my $url = $self->affiliate_url();
 
-	if ($self->url_is_scheme_independent()) {
-		$url->scheme("");
-	}
+    if ($self->url_is_scheme_independent()) {
+        $url->scheme("");
+    }
 
-	return $url;
+    return $url;
 }
 
 __PACKAGE__->meta->make_immutable;

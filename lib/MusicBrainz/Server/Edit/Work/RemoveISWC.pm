@@ -14,6 +14,7 @@ with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Work';
 
 sub edit_name { N_l('Remove ISWC') }
+sub edit_kind { 'remove' }
 sub edit_type { $EDIT_WORK_REMOVE_ISWC }
 
 around edit_conditions => sub {

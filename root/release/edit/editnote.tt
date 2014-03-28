@@ -1,47 +1,57 @@
-[%- BLOCK layout_head -%]
-  <script type="text/javascript">//<![CDATA[
-    $('document').ready (function () {
-       MB.utility.setDefaultAction ('form.release-editor', '#id-save');
-    });
-  //]]></script>
-[%- END -%]
+<div id="form">
+  <!-- ko if: validation.errorsExistOtherThanAMissingEditNote -->
+    <div class="warning">
+      <p data-bind="text: MB.text.ErrorsPreventSubmission"></p>
+    </div>
+  <!-- /ko -->
 
-[%- WRAPPER 'release/edit/layout.tt' -%]
-   [%- USE r = FormRenderer(form) -%]
-   [% r.hidden('id') %]
+  <!-- ko if: allEdits().length === 0 && validation.errorCount() === 0 && !submissionInProgress() -->
+    <div class="warning">
+      <p data-bind="text: MB.text.NoChanges"></p>
+    </div>
+  <!-- /ko -->
 
-   [%# Do not display new entities as 'deleted'. See common-macros.tt
-       (link_entity) for more information. -%]
-   [% allow_new = 1 %]
+  <!-- ko if: loadingEditPreviews -->
+    <div class="loading-message">[% l('Loading edit previews...') %]</div>
+  <!-- /ko -->
 
-   <div id="form">
+  <!-- ko foreach: editPreviews -->
+    <div class="edit-list">
+      <h2 data-bind="text: editName"></h2>
+      <div class="edit-details" data-bind="html: preview"></div>
+    </div>
+  <!-- /ko -->
 
-       [%- FOREACH edit=edits -%]
-         <div class="edit-list">
-           <h2>[% edit.l_edit_name | html %]</h2>
+  <div class="half-width">
+    <fieldset class="editnote">
+      <legend>[%- l('Edit Note') -%]</legend>
+        <p>
+          [% l('Entering an {note|edit note} that describes where you got your information is highly recommended. Not only does it make it clear where you got your information, but it can also encourage other users to vote on your edit &#x2014; thus making your edit get applied faster.', { note => { href => doc_link('Edit_Note'), target => '_blank' } }) %]
+        </p>
+        <p>[% l('Even just providing a URL or two is helpful!') %]</p>
+      [% WRAPPER form_row %]
+        <label for="edit-note-text">[% l('Edit note:') %]</label>
+        <textarea id="edit-note-text" data-bind="value: rootField.editNote, valueUpdate: 'input'" rows="5" cols="80"></textarea>
+      [% END %]
+      <p class="error field-error" data-bind="showErrorRightAway: rootField.editNote"></p>
+    </fieldset>
 
-           <div class="edit-details">
-           [% IF edit.data.defined %]
-             [%-INCLUDE "edit/details/${edit.edit_template}.tt" %]
-           [% ELSE %]
-             <p>[% l('An error occured while loading this edit') %]</p>
-           [% END %]
-           </div>
+    <div class="row no-label">
+      [%- IF c.user.is_auto_editor -%]
+      <div class="auto-editor">
+        <label>
+          <input type="checkbox" data-bind="checked: rootField.asAutoEditor" />
+          [% l('Enable {autoed|auto-editor} privileges for this edit.', { autoed => { href => doc_link('Auto-Editor'), target => '_blank' } }) -%]
+        </label>
+      </div>
+      [%- END -%]
+      <div data-bind="if: submissionInProgress" class="loading-message">
+        [% l('Submitting edits...') %]
+      </div>
+    </div>
 
-         </div>
-       [%- END -%]
-
-       <div class="half-width editnote">
-         [%- INCLUDE 'forms/edit-note.tt' -%]
-         [%- as_auto_editor() -%]
-       </div>
-
-       <div class="row buttons ui-helper-clearfix">
-         [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
-         [% r.submit ('previous', l('« Previous')) %]
-         [% r.submit ('save', l('Enter edit'), class => 'positive') %]
-       </div>
-
-   </div>
-
-[%- END -%]
+    <!-- ko if: submissionError -->
+      <p class="error" data-bind="text: submissionError"></p>
+    <!-- /ko -->
+  </div>
+</div>

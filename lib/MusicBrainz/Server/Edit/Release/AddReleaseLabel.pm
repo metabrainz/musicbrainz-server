@@ -14,6 +14,7 @@ with 'MusicBrainz::Server::Edit::Release';
 with 'MusicBrainz::Server::Edit::Role::Insert';
 
 sub edit_name { N_l('Add release label') }
+sub edit_kind { 'add' }
 sub edit_type { $EDIT_RELEASE_ADDRELEASELABEL }
 sub alter_edit_pending { { Release => [ shift->release_id ] } }
 
@@ -48,13 +49,13 @@ sub release_id { shift->data->{release}{id} }
 sub initialize {
     my ($self, %opts) = @_;
 
-    unless ($self->preview) {
-        my $release = delete $opts{release} or die 'Missing "release" argument';
-        $opts{release} = {
-            id => $release->id,
-            name => $release->name
-        };
-    }
+    my $release = delete $opts{release};
+    die 'Missing "release" argument' unless ($release || $self->preview);
+
+    $opts{release} = {
+        id => $release->id,
+        name => $release->name
+    } if $release;
 
     $opts{label} = {
         id => $opts{label}->id,

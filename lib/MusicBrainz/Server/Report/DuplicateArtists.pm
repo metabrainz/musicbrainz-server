@@ -63,7 +63,7 @@ sub run
     $sql->do("CREATE TABLE $qualified_table ( key TEXT NOT NULL, artist_id INT NOT NULL, alias TEXT )");
 
     while (my ($k, $v) = each %artists) {
-		next unless keys(%$v) >= 2;
+        next unless keys(%$v) >= 2;
         my @dupes = values %$v;
 
         # Skip if all artists have comments
@@ -73,7 +73,7 @@ sub run
             $sql->do("INSERT INTO $qualified_table (key, artist_id, alias) VALUES (?, ?, ?)",
                      $k, $dupe->{id}, $dupe->{alias})
         }
-	}
+    }
 }
 
 sub inflate_rows

@@ -1,20 +1,20 @@
 [% BLOCK layout_head %]
-    [% meta_desc = [] %]
-    [% meta_desc.push(html_escape(place.comment)) IF place.comment %]
-    [% meta_desc.push(l('Type:') _ ' ' _ html_escape(place.type_name)) IF place.type %]
-    [% IF place.begin_date.format %]
-        [% meta_desc.push(l("Founded:") _ ' ' _ place.begin_date.format) %]
-    [% END %]
-    [% IF place.end_date.format %]
-        [% meta_desc.push(l("Defunct:") _ ' ' _ place.end_date.format) %]
-    [% END %]
+    [%~ meta_desc = [] ~%]
+    [%~ meta_desc.push(html_escape(place.comment)) IF place.comment ~%]
+    [%~ meta_desc.push(l('Type:') _ ' ' _ html_escape(place.type_name)) IF place.type ~%]
+    [%~ IF place.begin_date.format ~%]
+        [%~ meta_desc.push(l("Founded:") _ ' ' _ place.begin_date.format) ~%]
+    [%~ END ~%]
+    [%~ IF place.end_date.format ~%]
+        [%~ meta_desc.push(l("Defunct:") _ ' ' _ place.end_date.format) ~%]
+    [%~ END ~%]
     <meta name="description" content="[% comma_only_list(meta_desc) %]"/>
 [% END %]
 
 [%- WRAPPER "place/layout.tt" page='index' -%]
     [%- INCLUDE 'place/annotation.tt' summary=1 -%]
 
-    [% IF eligble_for_cleanup %]
+    [% IF eligible_for_cleanup %]
       <p class="cleanup">
           [% l('This place has no relationships and will be removed
                 automatically in the next few days. If this is not intended,

@@ -24,6 +24,7 @@
             <li><a href="[% c.uri_for_action('/report/show', 'DiscogsLinksWithMultipleArtists') %]">[% l('Discogs URLs linked to multiple artists') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'DuplicateRelationshipsArtists') %]">[% l('Artists with possible duplicate relationships') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'ArtistsWithMultipleOccurancesInArtistCredits') %]">[% l('Artists occuring multiple times in the same artist credit') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'DeprecatedRelationshipArtists') %]">[% l('Artists with deprecated relationships') %]</a></li>
         </ul>
 
         <h2>[% l('Labels') %]</h2>
@@ -31,6 +32,7 @@
         <ul>
             <li><a href="[% c.uri_for_action('/report/show', 'DiscogsLinksWithMultipleLabels') %]">[% l('Discogs URLs linked to multiple labels') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'DuplicateRelationshipsLabels') %]">[% l('Labels with possible duplicate relationships') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'DeprecatedRelationshipLabels') %]">[% l('Labels with deprecated relationships') %]</a></li>
         </ul>
 
         <h2>[% l('Release groups') %]</h2>
@@ -40,6 +42,7 @@
             <li><a href="[% c.uri_for_action('/report/show', 'FeaturingReleaseGroups') %]">[% l('Release groups with titles containing featuring artists') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'DiscogsLinksWithMultipleReleaseGroups') %]">[% l('Discogs URLs linked to multiple release groups') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'DuplicateRelationshipsReleaseGroups') %]">[% l('Release groups with possible duplicate relationships') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'DeprecatedRelationshipReleaseGroups') %]">[% l('Release Groups with deprecated relationships') %]</a></li>
         </ul>
 
         <h2>[% l('Releases') %]</h2>
@@ -72,6 +75,7 @@
             <li><a href="[% c.uri_for_action('/report/show', 'DuplicateRelationshipsReleases') %]">[% l('Releases with possible duplicate relationships') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'SingleMediumReleasesWithMediumTitles') %]">[% l('Releases with a single medium that has a name') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'ReleasesWithDownloadRelationships') %]">[% l('Non-digital releases with download relationships') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'DeprecatedRelationshipReleases') %]">[% l('Releases with deprecated relationships') %]</a></li>
         </ul>
 
         <h2>[% l('Recordings') %]</h2>
@@ -82,13 +86,28 @@
            <li><a href="[% c.uri_for_action('/report/show', 'FeaturingRecordings') %]">[% l('Recordings with titles containing featuring artists') %]</a></li>
            <li><a href="[% c.uri_for_action('/report/show', 'DuplicateRelationshipsRecordings') %]">[% l('Recordings with possible duplicate relationships') %]</a></li>
            <li><a href="[% c.uri_for_action('/report/show', 'RecordingsWithVaryingTrackLengths') %]">[% l('Recordings with varying track times') %]</a></li>
+           <li><a href="[% c.uri_for_action('/report/show', 'DeprecatedRelationshipRecordings') %]">[% l('Recordings with deprecated relationships') %]</a></li>
+        </ul>
+
+        <h2>[% l('Places') %]</h2>
+
+        <ul>
+            <li><a href="[% c.uri_for_action('/report/show', 'DeprecatedRelationshipPlaces') %]">[% l('Places with deprecated relationships') %]</a></li>
         </ul>
 
         <h2>[% l('Works') %]</h2>
 
         <ul>
             <li><a href="[% c.uri_for_action('/report/show', 'DuplicateRelationshipsWorks') %]">[% l('Works with possible duplicate relationships') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'DeprecatedRelationshipWorks') %]">[% l('Works with deprecated relationships') %]</a></li>
         </ul>
+
+        <h2>[% l('URLs') %]</h2>
+
+        <ul>
+            <li><a href="[% c.uri_for_action('/report/show', 'DeprecatedRelationshipURLs') %]">[% l('URLs with deprecated relationships') %]</a></li>
+        </ul>
+
 
         <h2>[% l('ISRCs') %]</h2>
 

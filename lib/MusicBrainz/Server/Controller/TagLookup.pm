@@ -144,11 +144,12 @@ sub external : Private
 
     my @search_modifiers;
     for my $term (keys %terms) {
+        my $value = escape_query($terms{$term});
         if ($term eq 'artist') {
-            push @search_modifiers, alias_query('artist', $terms{$term});
+            push @search_modifiers, alias_query('artist', $value);
         }
         else {
-            push @search_modifiers, "$term:" . q{"} . escape_query($terms{$term}) . q{"};
+            push @search_modifiers, "$term:" . q{"} . $value . q{"};
         }
     }
 

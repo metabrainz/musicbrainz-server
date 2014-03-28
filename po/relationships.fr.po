@@ -1,5 +1,6 @@
 # 
 # Translators:
+# nikki, 2014
 # Alain-Olivier  Breysse, 2013
 # Benjamin Sonntag <email address hidden>, 2011-2012
 # Benjamin Sonntag <email address hidden>, 2011
@@ -10,11 +11,11 @@
 # nikki, 2013
 # redapplz <email address hidden>, 2013
 # redapplz <email address hidden>, 2013
-# Alain-Olivier  Breysse, 2013
+# Alain-Olivier  Breysse, 2013-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-12-06 13:27+0000\n"
+"PO-Revision-Date: 2014-02-18 17:31+0000\n"
 "Last-Translator: Alain-Olivier  Breysse\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -45,75 +46,13 @@ msgstr "BBC Music"
 msgid "BBC Music page for"
 msgstr "page BBC Music de "
 
-#: DB:link_attribute_type/description:245
-msgid "Chamber orchestra"
-msgstr "Orchestre de chambre"
+#: DB:link_type/link_phrase:719 DB:link_type/link_phrase:718
+msgid "Bandcamp"
+msgstr "Bandcamp"
 
-#: DB:link_attribute_type/name:254
-msgid "Creative Commons"
-msgstr "Creative Commons"
-
-#: DB:link_attribute_type/description:256
-msgid "Creative Commons Attribution No Derivatives (by-nd) license"
-msgstr "Licence (by-nd) Creative Commons Paternité Pas de dérivé"
-
-#: DB:link_attribute_type/description:257
-msgid "Creative Commons Attribution Non-commercial (by-nc) license"
-msgstr "Licence (by-nd) Creative Commons Paternité Pas d'utilisation commerciale"
-
-#: DB:link_attribute_type/description:258
-msgid ""
-"Creative Commons Attribution Non-commercial No Derivatives (by-nc-nd) "
-"license"
-msgstr "Licence (by-nc-sa) Creative Commons Paternité Pas d'utilisation commerciale Pas de dérivé"
-
-#: DB:link_attribute_type/description:259
-msgid ""
-"Creative Commons Attribution Non-commercial Share Alike (by-nc-sa) license"
-msgstr "Licence (by-nc-sa) Creative Commons Paternité Pas d'utilisation commerciale Partage à l'identique"
-
-#: DB:link_attribute_type/description:260
-msgid "Creative Commons Attribution Share Alike (by-sa) license"
-msgstr "Licence (by-sa) Creative Commons Paternité Partage à l'identique"
-
-#: DB:link_attribute_type/description:374
-msgid "Creative Commons Noncommercial Sampling Plus licenses"
-msgstr "Licences Creative Commons Pas d'utilisation commercial Échantillonnage plus"
-
-#: DB:link_attribute_type/description:372
-msgid "Creative Commons Sampling License"
-msgstr "Licence Creative Commons Échantillonnage"
-
-#: DB:link_attribute_type/description:373
-msgid "Creative Commons Sampling Plus license"
-msgstr "Licence Creative Commons Échantillonnage plus"
-
-#: DB:link_type/link_phrase:84
-msgid "Creative Commons {license} licensed download"
-msgstr "Téléchargement sous licence {license} Creative Commons"
-
-#: DB:link_type/reverse_link_phrase:84
-msgid "Creative Commons {license} licensed download page for"
-msgstr "Page de téléchargement sous licence {license} Creative Commons pour"
-
-#: DB:link_attribute_type/description:255
-msgid "Creative commons attribution license"
-msgstr "Licence paternité Creative Commons"
-
-#: DB:link_attribute_type/description:254
-msgid "Creative commons licenses"
-msgstr "Licence Creative Commons"
-
-#: DB:link_type/description:24
-msgid ""
-"Credit an author for liner notes provided with the release (usually on the "
-"sleeve). While most time liner notes are just personnel information and "
-"production data, in some cases they consist of a blurb of text (article). "
-"This link should be used in this last case. This link should not be used to "
-"credit third party reviews / articles about the release that are not bundled"
-" with the media. (<a "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr "Donne crédit à un auteur pour le livret fourni avec la parution (habituellement sur la pochette). Alors que la plupart des livrets sont des informations personnelles et des données de production, ils consistent parfois d'un texte de présentation (article). Ce lien devrait être utilisé dans ce cas. Ce lien ne devrait pas être utilisé pour donner crédit à des critiques / articles de tiers sur la parution et qui ne viennent pas avec le support. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Détails</a>)"
+#: DB:link_type/reverse_link_phrase:719 DB:link_type/reverse_link_phrase:718
+msgid "Bandcamp page for"
+msgstr "Page Bandcamp pour"
 
 #: DB:link_type/link_phrase:8 DB:link_type/link_phrase:227
 msgid "DJ-mix of"
@@ -147,24 +86,26 @@ msgstr "{medium} DJ-mixeur"
 msgid "DJ-mixes"
 msgstr "DJ-mixes"
 
-#: DB:link_type/description:117
+#: DB:link_type/description:704
 msgid ""
-"Describes the fact a person was contracted by a label as a producer. (<a "
-"href=\"http://musicbrainz.org/doc/Producer_Position_Relationship_Type\">Details</a>)"
-msgstr "Décrit le fait qu'une personne ait été en contrat avec un label en tant que producteur. (<a href=\"http://musicbrainz.org/doc/Producer_Position_Relationship_Type\">Détails</a>)"
+"Describes the fact a person was contracted by a place as a mastering "
+"engineer."
+msgstr "Décrit le fait qu'une personne était engagée par un lieu en tant qu'ingénieur de matriçage."
 
-#: DB:link_type/description:120
+#: DB:link_type/description:703
 msgid ""
-"Describes the fact a person was contracted by a label as an engineer. (<a "
-"href=\"http://musicbrainz.org/doc/Engineer_Position_Relationship_Type\">Details</a>)"
-msgstr "Décrit le fait qu'une personne ait été engagée par un label en tant qu'ingénieur. (<a href=\"http://musicbrainz.org/doc/Engineer_Position_Relationship_Type\">Détails</a>)"
+"Describes the fact a person was contracted by a place as a mixing engineer."
+msgstr "Décrit le fait qu'une personne était engagée par un lieu en tant qu'ingénieur de mixage."
 
-#: DB:link_type/description:115
+#: DB:link_type/description:702
 msgid ""
-"Describes the fact a person was contracted by a label in a creative "
-"position. (<a "
-"href=\"http://musicbrainz.org/doc/Creative_Position_Relationship_Type\">Details</a>)"
-msgstr "Décrit le fait qu'une personne ait été engagée par  un label pour un poste de créatif. (<a href=\"http://musicbrainz.org/doc/Creative_Position_Relationship_Type\">Détails</a>)"
+"Describes the fact a person was contracted by a place as a recording "
+"engineer."
+msgstr "Décrit le fait qu'une personne était engagée par un lieu en tant qu'ingénieur du son."
+
+#: DB:link_type/description:701
+msgid "Describes the fact a person was contracted by a place as an engineer."
+msgstr "Décrit le fait qu'une personne était engagée par un lieu en tant qu'ingénieur."
 
 #: DB:link_type/description:357
 msgid "Designates that a work is or was the anthem for an area"
@@ -174,13 +115,15 @@ msgstr "Indique qu'une œuvre est ou était l'hymne d'une région."
 msgid "Designates that one area is contained by another."
 msgstr "Indique qu'une région est comprise dans une autre."
 
-#: DB:link_type/link_phrase:76 DB:link_type/link_phrase:180
-#: DB:link_type/link_phrase:90 DB:link_type/link_phrase:217
+#: DB:link_type/link_phrase:76 DB:link_type/link_phrase:217
+#: DB:link_type/link_phrase:180 DB:link_type/link_phrase:90
+#: DB:link_type/link_phrase:705
 msgid "Discogs"
 msgstr "Discogs"
 
-#: DB:link_type/reverse_link_phrase:76 DB:link_type/reverse_link_phrase:180
-#: DB:link_type/reverse_link_phrase:90 DB:link_type/reverse_link_phrase:217
+#: DB:link_type/reverse_link_phrase:76 DB:link_type/reverse_link_phrase:217
+#: DB:link_type/reverse_link_phrase:180 DB:link_type/reverse_link_phrase:90
+#: DB:link_type/reverse_link_phrase:705
 msgid "Discogs page for"
 msgstr "Page Discogs pour"
 
@@ -195,8 +138,16 @@ msgid ""
 "\"beats\" from hip-hop songs which may be reused with different lyrics."
 msgstr "Pour les œuvres avec paroles ceci indique que ces paroles n'ont pas pertinentes à cet enregistrement. Les exemples incluent les arrangements instrumentaux ou « beats » de chansons hip-hop qui peuvent être réutilisés avec des paroles différentes."
 
-#: DB:link_type/link_phrase:313 DB:link_type/link_phrase:178
-#: DB:link_type/link_phrase:97
+#: DB:link_type/link_phrase:713
+msgid "Geonames"
+msgstr "Geonames"
+
+#: DB:link_type/reverse_link_phrase:713
+msgid "Geonames page for"
+msgstr "Page Geonames pour"
+
+#: DB:link_type/link_phrase:178 DB:link_type/link_phrase:313
+#: DB:link_type/link_phrase:97 DB:link_type/link_phrase:706
 msgid "IMDb"
 msgstr "IMDb"
 
@@ -204,8 +155,8 @@ msgstr "IMDb"
 msgid "IMDb entry sampled in"
 msgstr "Entrée IMDb échantillonnée dans "
 
-#: DB:link_type/reverse_link_phrase:313 DB:link_type/reverse_link_phrase:178
-#: DB:link_type/reverse_link_phrase:97
+#: DB:link_type/reverse_link_phrase:178 DB:link_type/reverse_link_phrase:313
+#: DB:link_type/reverse_link_phrase:97 DB:link_type/reverse_link_phrase:706
 msgid "IMDb page for"
 msgstr "Page IMDb pour"
 
@@ -213,51 +164,6 @@ msgstr "Page IMDb pour"
 msgid "Indicates a bonus disc"
 msgstr "Signale un disque bonus"
 
-#: DB:link_type/description:152 DB:link_type/description:53
-msgid ""
-"Indicates a chorus master directed a choir or chorus on this work. (<a "
-"href=\"http://musicbrainz.org/doc/Chorus_Master_Relationship_Type\">Details</a>)"
-msgstr "Indique qu'un maître de chœur a dirigé le chœur ou la chorale sur cette œuvre (<a href=\"http://musicbrainz.org/doc/Chorus_Master_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:102
-msgid ""
-"Indicates a collaboration between two artist or among several artists. Use "
-"this for projects, single albums, or even tracks where some artists worked "
-"together, but did not form a lasting group. For groups you should use the "
-"membership type. (<a "
-"href=\"http://musicbrainz.org/doc/Collaboration_Relationship_Type\">Details</a>)"
-msgstr "Indique une collaboration entre deux artistes ou entre plusieurs artistes. À utiliser pour les projets, les simples ou même des pistes pour lesquelles des artistes ont travaillé ensemble, sans pour autant former un groupe ayant perduré. Pour les groupes vous devriez utiliser le type « membre de ». (<a href=\"http://musicbrainz.org/doc/Collaboration_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:15
-msgid ""
-"Indicates a cover version of a album. This means that another artist "
-"performed the same songs. Please take care to always point to the "
-"<strong>first</strong> version ever released! (<a "
-"href=\"http://musicbrainz.org/doc/Cover_Relationship_Type\">Details</a>)"
-msgstr "Indique une reprise d'un album. Cela signifie qu'un autre artiste a interprété les mêmes chansons. Veuillez prendre soin de toujours souligner la <strong>première</strong> version sortie ! (<a href=\"http://musicbrainz.org/doc/Cover_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:172
-msgid ""
-"Indicates a homepage by a fan for an artist. (<a "
-"href=\"http://musicbrainz.org/doc/Fanpage_Relationship_Type\">Details</a>)"
-msgstr "Indique une page Web tenue par un  fan pour un artiste. (<a href=\"http://musicbrainz.org/doc/Fanpage_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:111
-msgid ""
-"Indicates a marriage between two persons. (<a "
-"href=\"http://musicbrainz.org/doc/Married_Relationship_Type\">Details</a>)"
-msgstr "Indique un marriage entre deux personnes. (<a href=\"http://musicbrainz.org/doc/Married_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:103
-msgid ""
-"Indicates a membership in a band/orchestra. Use this for groups that exist "
-"over some period of time and possibly have a name. Do not use this for short"
-" time projects or cooperations of two artists on a few tracks or one album. "
-"Use the cooperation type for such cases. (<a "
-"href=\"http://musicbrainz.org/doc/Member_Of_Band_Relationship_Type\">Details</a>)"
-msgstr "Indique un membre d'un groupe/orchestre. À utiliser pour des groupes ayant existé pendant une période suffisante et ayant possiblement un nom. Ne pas utiliser ceci pour des projets de courte durée ou des coopérations entre deux artistes sur quelques pistes ou un album. Utilisez le type « coopération » pour ces cas-là. (<a href=\"http://musicbrainz.org/doc/Member_Of_Band_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:25 DB:link_type/description:129
 #: DB:link_type/description:162
 msgid ""
 "Indicates a miscellaneous support role. This is usually stated in the liner "
@@ -268,62 +174,22 @@ msgstr "Indique un rôle quelconque de soutien, généralement indiqué dans les
 #: DB:link_type/description:105
 msgid ""
 "Indicates a musician doing long-time instrumental support for another one on"
-" albums and/or at concerts. This is a person-person relationship and "
-"normally applies to well-known solo artists. (<a "
-"href=\"http://musicbrainz.org/doc/Supporting_Musician_Relationship_Type\">Details</a>)"
-msgstr "Indique un musicien apportant un soutien musical de longue durée à un autre pour des albums et/ou concerts. C'est une relation entre deux personnes qui s'applique normalement aux artistes solo réputés. (<a href=\"http://musicbrainz.org/doc/Supporting_Musician_Relationship_Type\">Détails</a>)"
+" albums and/or at concerts. This is a person-to-artist relationship that "
+"normally applies to well-known solo artists, although it can sometimes apply"
+" to groups."
+msgstr "Indique un musicien apportant un soutien instrumental à long terme à un autre musicien sur des albums et/ou en concert. C'est une relation de personne-à-artiste qui s'applique normalement à des artistes solo bien qu'elle puisse parfois s'appliquer à des groupes. "
 
 #: DB:link_type/description:107
 msgid ""
 "Indicates a musician doing long-time vocal support for another one on albums"
-" and/or at concerts. This is a person-person relationship and normally "
-"applies to well-known solo artists. (<a "
-"href=\"http://musicbrainz.org/doc/Supporting_Musician_Relationship_Type\">Details</a>)"
-msgstr "Indique un musicien apportant un soutien vocal  de longue durée à un autre pour des albums et/ou concerts. C'est une relation entre deux personnes, qui s'applique normalement aux artistes solo réputés. (<a href=\"http://musicbrainz.org/doc/Supporting_Musician_Relationship_Type\">Détails</a>)"
+" and/or at concerts. This is a person-to-artist relationship that normally "
+"applies to well-known solo artists, although it can sometimes apply to "
+"groups."
+msgstr "Indique un musicien apportant un soutien vocal à long terme à un autre musicien sur des albums et/ou en concert. C'est une relation de personne-à-artiste qui s'applique normalement à des artistes solo bien qu'elle puisse parfois s'appliquer à des groupes. "
 
 #: DB:link_type/description:109
-msgid ""
-"Indicates a parent-child relationship (<a "
-"href=\"http://musicbrainz.org/doc/Parent_Relationship_Type\">Details</a>)"
-msgstr "Indique une relation parent-enfant (<a href=\"http://musicbrainz.org/doc/Parent_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:20
-msgid ""
-"Indicates a person or agency that did photography for this album. (<a "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr "Indique une personne ou une agence qui a réalisé les photographies de cet album. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:250
-msgid ""
-"Indicates a person or agency that did photography for this work. (<a "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr "Indique une personne ou une agence qui a réalisé les photographies de cette œuvre. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:18
-msgid ""
-"Indicates a person or agency that did the art direction for this album. (<a "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr "Indique une personne ou une agence ayant effectuée la direction artistique de cet album. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:265
-msgid ""
-"Indicates a person or agency that did the art direction for this work. (<a "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr "Indique une personne ou une agence ayant effectuée la direction artistique de cette œuvre. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:63
-msgid ""
-"Indicates a person or agency that did the creative direction for this album."
-" (<a "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr "Indique une personne ou une agence ayant effectuée la direction créative de cet album. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:19
-msgid ""
-"Indicates a person or agency that did the design/illustration for this "
-"album. (<a "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr "Indique une personne ou une agence ayant créé la conception, l'illustration de cet album. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Détails</a>)"
+msgid "Indicates a parent-child relationship."
+msgstr "Indique une relation parent-enfant."
 
 #: DB:link_type/description:248
 msgid ""
@@ -346,26 +212,9 @@ msgid ""
 "href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
 msgstr "Indique une personne ou une agence ayant créé lla conception graphique de cette œuvre. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Détails</a>)"
 
-#: DB:link_type/description:62
-msgid ""
-"Indicates a person or agency that provided artist & repertoire support for "
-"this album. (<a "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr "Indique une personne ou une agence ayant fourni un soutien artiste & répertoire pour cet album. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:23
-msgid ""
-"Indicates a person or agency that provided booking support for this album. "
-"(<a "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr "Indique une personne ou agence ayant à fourni un soutien au placement pour cet album. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-
-#: DB:link_type/description:22
-msgid ""
-"Indicates a person or firm that provided legal representation for this "
-"album. (<a "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr "Indique une personne ou une agence ayant assuré une représentation juridique pour cet album. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Détails</a>)"
+#: DB:link_type/description:396
+msgid "Indicates a pictorial image (JPEG, GIF, PNG) of a place"
+msgstr "Indique une représentation picturale (JPEG, GIF, PNG) d'un lieu"
 
 #: DB:link_type/description:173
 msgid ""
@@ -373,17 +222,9 @@ msgid ""
 "href=\"http://musicbrainz.org/doc/Image_Relationship_Type\">Details</a>)"
 msgstr "Indique une représentation picturale (JPEG, GIF, PNG) d'un artiste. (<a href=\"http://musicbrainz.org/doc/Image_Relationship_Type\">Détails</a>)"
 
-#: DB:link_type/description:110
-msgid ""
-"Indicates a sibling relationship (i.e. brother or sister). (<a "
-"href=\"http://musicbrainz.org/doc/Sibling_Relationship_Type\">Details</a>)"
-msgstr "Indique une relation de fratrie (c.-à-d. frère ou sœur). (<a href=\"http://musicbrainz.org/doc/Sibling_Relationship_Type\">Détails</a>)"
-
 #: DB:link_type/description:94
-msgid ""
-"Indicates a webpage that reviews the work of an artist. (<a "
-"href=\"http://musicbrainz.org/doc/Review_Relationship_Type\">Details</a>)"
-msgstr "Indique une page Web publiant une critique de l'œuvre d'un artiste. (<a href=\"http://musicbrainz.org/doc/Review_Relationship_Type\">Détails</a>)"
+msgid "Indicates a webpage that reviews the work of an artist."
+msgstr "Indique une page Web qui critique l’œuvre d'un artiste."
 
 #: DB:link_type/description:75
 msgid ""
@@ -404,57 +245,6 @@ msgid ""
 "href=\"http://musicbrainz.org/doc/Free_Download_Relationship_Type\">Details</a>)"
 msgstr "Indique une page Web où vous pouvez télécharger l'œuvre d'un artiste gratuitement. (<a href=\"http://musicbrainz.org/doc/Free_Download_Relationship_Type\">Détails</a>)"
 
-#: DB:link_type/description:74
-msgid ""
-"Indicates a webpage where you can purchase a release for download. (<a "
-"href=\"http://musicbrainz.org/doc/Paid_Download_Relationship_Type\">Details</a>)"
-msgstr "Indique une page Web où vous pouvez acheter une parution pour la télécharger. (<a href=\"http://musicbrainz.org/doc/Paid_Download_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:79
-msgid ""
-"Indicates a webpage where you can purchase a release for mail-order. (<a "
-"href=\"http://musicbrainz.org/doc/Mail_Order_Relationship_Type\">Details</a>)"
-msgstr "Indique une page Web où vous pouvez acheter une parution par correspondance. (<a href=\"http://musicbrainz.org/doc/Mail_Order_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:254
-msgid ""
-"Indicates a webpage where you can purchase a single track for download. (<a "
-"href=\"http://musicbrainz.org/doc/Paid_Download_Relationship_Type\">Details</a>)"
-msgstr "Indique une page Web où vous pouvez acheter une seule piste et la télécharger. (<a href=\"http://musicbrainz.org/doc/Paid_Download_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:176
-msgid ""
-"Indicates a webpage where you can purchase an artist's work for download. "
-"(<a "
-"href=\"http://musicbrainz.org/doc/Paid_Download_Relationship_Type\">Details</a>)"
-msgstr "Indique une page Web où vous pouvez acheter l'œuvre d'un artiste et la télécharger. (<a href=\"http://musicbrainz.org/doc/Paid_Download_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:175
-msgid ""
-"Indicates a webpage where you can purchase an artist's work for mail-order. "
-"(<a "
-"href=\"http://musicbrainz.org/doc/Mail_Order_Relationship_Type\">Details</a>)"
-msgstr "Indique une page Web où vous pouvez acheter l'œuvre d'un artiste par correspondance. (<a href=\"http://musicbrainz.org/doc/Mail_Order_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:182
-msgid ""
-"Indicates a webpage with a biography of an artist. (<a "
-"href=\"http://musicbrainz.org/doc/Biography_Relationship_Type\">Details</a>)"
-msgstr "Indique une page Web avec la biographie d'un artiste. (<a href=\"http://musicbrainz.org/doc/Biography_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:184
-msgid ""
-"Indicates a webpage with a discography of an artist. (<a "
-"href=\"http://musicbrainz.org/doc/Discography_Relationship_Type\">Details</a>)"
-msgstr "Indique une page Web avec la discographie d'un artiste. (<a href=\"http://musicbrainz.org/doc/Discography_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:65
-msgid ""
-"Indicates an album that is a tribute to an artist - normally consisting of "
-"music being composed by the artist but performed by other artists. (<a "
-"href=\"http://musicbrainz.org/doc/Tribute_Relationship_Type\">Details</a>)"
-msgstr "Indique un album hommage à un artiste - normalement constitué de musiques composées par l'artiste mais interprétées par d'autres artistes. (<a href=\"http://musicbrainz.org/doc/Tribute_Relationship_Type\">Détails</a>)"
-
 #: DB:link_type/description:263
 msgid ""
 "Indicates an artist & repertoire support was included in this work. (<a "
@@ -464,70 +254,45 @@ msgstr "Indique qu'un soutien artiste & répertoire a été inclus dans cette œ
 #: DB:link_type/description:104
 msgid ""
 "Indicates an artist doing long-time instrumental or vocal support for "
-"another one on albums and/or at concerts. This is a artist-artist "
-"relationship and normally applies to well-known solo artists. (<a "
-"href=\"http://musicbrainz.org/doc/Supporting_Musician_Relationship_Type\">Details</a>)"
-msgstr "Indique un artiste apportant un long soutien instrumental ou vocal à un autre sur des albums et/ou concerts. Cette une relation d'artiste-à-artiste et s'appliquent normalement aux artistes solo réputés.  (<a href=\"http://musicbrainz.org/doc/Supporting_Musician_Relationship_Type\">Détails</a>)"
+"another one on albums and/or at concerts. This is a person-to-artist "
+"relationship that normally applies to well-known solo artists, although it "
+"can sometimes apply to groups."
+msgstr "Indique un artiste apportant un soutien instrumental ou vocal à long terme à un autre musicien sur des albums et/ou en concert. C'est une relation de personne-à-artiste qui s'applique normalement à des artistes solo bien qu'elle puisse parfois s'appliquer à des groupes. "
 
-#: DB:link_type/description:60 DB:link_type/description:149
-msgid ""
-"Indicates an artist performed in a particular voice on this work. (<a "
-"href=\"http://musicbrainz.org/doc/Performer_Relationship_Type\">Details</a>)"
-msgstr "Indique un artiste ayant interprété une voix particulière sur cette œuvre. (<a href=\"http://musicbrainz.org/doc/Performer_Relationship_Type\">Détails</a>)"
+#: DB:link_type/description:156
+msgid "Indicates an artist that performed on this recording."
+msgstr "Indique un artiste apparaissant sur cet enregistrement."
 
-#: DB:link_type/description:44 DB:link_type/description:148
-msgid ""
-"Indicates an artist that performed a particular instrument on this work. (<a"
-" "
-"href=\"http://musicbrainz.org/doc/Performer_Relationship_Type\">Details</a>)"
-msgstr "Indique un artiste ayant joué d'un instrument particulier sur cette œuvre. (<a href=\"http://musicbrainz.org/doc/Performer_Relationship_Type\">Détails</a>)"
+#: DB:link_type/description:51
+msgid "Indicates an artist that performed on this release."
+msgstr "Indique un artiste apparaissant sur cette parution."
 
-#: DB:link_type/description:51 DB:link_type/description:156
+#: DB:link_type/description:148
 msgid ""
-"Indicates an artist that performed on this work. (<a "
-"href=\"http://musicbrainz.org/doc/Performer_Relationship_Type\">Details</a>)"
-msgstr "Indique un artiste ayant participé à cette œuvre. (<a href=\"http://musicbrainz.org/doc/Performer_Relationship_Type\">Détails</a>)"
+"Indicates an artist that performed one or more instruments on this "
+"recording."
+msgstr "Indique un artiste ayant joué d'un ou plusieurs instruments sur cet enregistrement."
 
-#: DB:link_type/description:45 DB:link_type/description:150
+#: DB:link_type/description:44
 msgid ""
-"Indicates an orchestra that performed on this work. (<a "
-"href=\"http://musicbrainz.org/doc/Orchestra_Relationship_Type\">Details</a>)"
-msgstr "Indique un orchestre ayant participé à cette œuvre . (<a href=\"http://musicbrainz.org/doc/Orchestra_Relationship_Type\">Détails</a>)"
+"Indicates an artist that performed one or more instruments on this release."
+msgstr "Indique un artiste ayant joué d'un ou plusieurs instruments sur cette parution."
 
-#: DB:link_type/description:241
-msgid ""
-"Indicates another version of the work. Note: This should only be used when "
-"separate works are needed (e.g. when there are significant changes to the "
-"lyrics or music). In most cases, new versions of a work should simply be "
-"performances of the original work. (<a "
-"href=\"http://musicbrainz.org/doc/Other_Version_Relationship_Type\">Details</a>)"
-msgstr "Indique une autre version de l’œuvre. Note : ceci ne devrait être utilisé que lorsque des œuvres séparées sont nécessaires (par exemple quand il y a des changements substantiels aux paroles ou à la musique). Dans la plupart des cas, les nouvelles versions d'une œuvre devrait simplement être des interprétations de l'originale. (<a href=\"http://musicbrainz.org/doc/Other_Version_Relationship_Type\">Détails</a>)"
+#: DB:link_type/description:149
+msgid "Indicates an artist that performed vocals on this recording."
+msgstr "Indique un artiste ayant chanté sur cet enregistrement."
 
-#: DB:link_type/description:123
-msgid ""
-"Indicates that a person or agency did photography for this track. (<a "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr "Indique qu'une personne ou une agence a réalisé les photographies de cette piste. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Détails</a>)"
+#: DB:link_type/description:60
+msgid "Indicates an artist that performed vocals on this release."
+msgstr "Indique un artiste ayant chanté sur cette parution."
 
-#: DB:link_type/description:137
-msgid ""
-"Indicates that a person or agency did the art direction for this track. (<a "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr "Indique qu'une personne ou une agence a effectuée la direction artistique de cette piste. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Détails</a>)"
+#: DB:link_type/description:150
+msgid "Indicates an orchestra that performed on this recording."
+msgstr "Indique un orchestre apparaissant sur cet enregistrement."
 
-#: DB:link_type/description:146
-msgid ""
-"Indicates that a person or agency did the creative direction for this track "
-"(<a "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr "Indique qu'une personne ou une agence a effectuée la direction créative. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:130
-msgid ""
-"Indicates that a person or agency did the design/illustration for this "
-"track. (<a "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr "Indique q'une personne ou une agence a créé la conception / l'illustration de cette piste . (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Détails</a>)"
+#: DB:link_type/description:45
+msgid "Indicates an orchestra that performed on this release."
+msgstr "Indique un orchestre apparaissant sur cette parution."
 
 #: DB:link_type/description:125
 msgid ""
@@ -535,74 +300,6 @@ msgid ""
 " "
 "href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
 msgstr "Indique qu'une personne ou une agence a créé la conception graphique. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:135
-msgid ""
-"Indicates that a person or agency provided artist & repertoire support for "
-"this track (<a "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr "Indique une personne ou une agence ayant fourni un soutien artiste & répertoire pour cette piste. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:134
-msgid ""
-"Indicates that a person or agency provided booking support for this track "
-"(<a "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr "Indique une personne ou agence ayant à fourni un soutien au placement pour cette piste. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:142
-msgid ""
-"Indicates that a person or firm provided legal representation for this track"
-" (<a "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr "Indique qu'une personne ou une agence a assuré une représentation juridique pour cette piste. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:244
-msgid ""
-"Indicates that a recording is a medley of several songs. This means that the"
-" original works were rearranged to create a new recording in the form of a "
-"medley. (<a "
-"href=\"http://musicbrainz.org/doc/Medley_Relationship_Type\">Details</a>)"
-msgstr "Indique qu'un enregistrement est un pot-pourri de plusieurs chansons. Cela veut dire que les œuvres originales ont été réarrangées pour créer un nouvel enregistrement en pot-pourri. (<a href=\"http://musicbrainz.org/doc/Medley_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:11
-msgid ""
-"Indicates that a single or EP release group includes at least one track "
-"taken from an album or soundtrack release group.​ This allows a release "
-"group to be linked to its associated singles, EPs, and remix release groups."
-" (<a "
-"href=\"http://musicbrainz.org/doc/Single_From_Relationship_Type\">Details</a>)"
-msgstr "Indique qu'un groupe de parution de simple ou EP comprend au moins une piste provenant d'un groupe de parution d'album ou de bande originale. Ceci permet de relier un groupe de parution à ses simples associés, EP et groupes de parution de remixes. (<a href=\"http://musicbrainz.org/doc/Single_From_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:69
-msgid ""
-"Indicates that a track contains samples from an album. (<a "
-"href=\"http://musicbrainz.org/doc/Samples_Relationship_Type\">Details</a>)"
-msgstr "Indique qu'une piste contient des échantillons provenant d'un album. (<a href=\"http://musicbrainz.org/doc/Samples_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:231
-msgid ""
-"Indicates that a track contains samples from another (or more) tracks. (<a "
-"href=\"http://musicbrainz.org/doc/Samples_Relationship_Type\">Details</a>)"
-msgstr "Indique qu'une piste contient des échantillons provenant d'une (ou plusieurs) pistes. (<a href=\"http://musicbrainz.org/doc/Samples_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:228
-msgid ""
-"Indicates that a track is a compilation of several other tracks. This "
-"applies to one long track that contains multiple songs, one after the other,"
-" in which the audio material of the original tracks has not been altered. If"
-" the tracks are pitched or blended into each other, the DJ-Mix relationship "
-"type is more appropriate. (<a "
-"href=\"http://musicbrainz.org/doc/Compilation_Relationship_Type\">Details</a>)"
-msgstr "Indique qu'une piste est une compilation de plusieurs autres. Ceci s'applique à une longue piste qui contient plusieurs chansons, l'une après l'autre, sur laquelle le contenu audio n'a pas été altéré. Si la vitesse des pistes a été modifiée ou qu'elles se fondent l'une en l'autre, le type de relation DJ-mix est plus pertinent. (<a href=\"http://musicbrainz.org/doc/Compilation_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:226
-msgid ""
-"Indicates that a track is a karaoke version of another track. A karaoke "
-"version is a version of the song with the main vocals removed, designed to "
-"be used for karaoke. (<a "
-"href=\"/doc/Karaoke_Version_Relationship_Type\">Details</a>)"
-msgstr "Indique qu'une piste est une version karaoké d'une autre piste. Une version karaoké est une version de la chanson dont les voix principales ont été enlevées, conçue pour le karaoké. (<a href=\"/doc/Karaoke_Version_Relationship_Type\">Détails</a>)"
 
 #: DB:link_type/description:239
 msgid ""
@@ -632,18 +329,6 @@ msgid ""
 "href=\"http://musicbrainz.org/doc/DJ_Mix_Relationship_Type\">Details</a>)"
 msgstr "Indique que toutes (ou presque) les pistes d'un album ont été mélangées ensemble à partir de toutes (au presque) les pistes d'un autre album pour créer un DJ-Mix. Les pistes peuvent avoir été altérée en modifiant la vitesse (afin que le tempo d'une piste concorde avec le tempo de la suivante) ou avec un fondu (afin qu'une piste s'incorpore harmonieusement dans l'autre). Si les pistes ont été modifiées de manière plus substantielle, le type de relation « remix » est plus pertinent. (<a href=\"http://musicbrainz.org/doc/DJ_Mix_Relationship_Type\">Détails</a>)"
 
-#: DB:link_type/description:2
-msgid ""
-"Indicates that an album has translated or transliterated titles on another "
-"album release. This relationship does not indicate a cover where the lyrics "
-"have been translated (that should be indicated with \"cover\" instead, "
-"although both relationships could apply in some cases). This relationship "
-"should only be used when the number, order, and audio of the tracks on the "
-"two albums are identical, and each of the titles corresponds in meaning. (<a"
-" "
-"href=\"http://musicbrainz.org/doc/Translation_Transliteration_Relationship_Type\">Details</a>)"
-msgstr "Indique qu'un album a des titres traduits ou translittérés sur une autre parution d'album. Cette relation n'indique pas une reprise sur laquelle les paroles ont été traduites (ceci devrait plutôt être indiqué par « reprise », même si les deux relations peuvent s'appliquer dans certains cas). Cette relation ne devrait être utilisée que si le nombre, l'ordre et le contenu audio des pistes sur les deux albums sont identiques et que chaque titre veut dire la même chose. (<a href=\"http://musicbrainz.org/doc/Translation_Transliteration_Relationship_Type\">Détails</a>)"
-
 #: DB:link_type/description:9
 msgid ""
 "Indicates that an album includes remixed versions of all (or most of) the "
@@ -660,25 +345,6 @@ msgid ""
 "href=\"http://musicbrainz.org/doc/Remaster_Relationship_Type\">Details</a>)"
 msgstr "Indique qu'un album est le rematriçage d'un autre. Ceci veut dire que le contenu audio a été changé durant ce procédé mais que le même contenu d'enregistrement original a été utilisée, Veillez à toujours signaler la <strong>première</strong> version jamais parue ! (<a href=\"http://musicbrainz.org/doc/Remaster_Relationship_Type\">Détails</a>)"
 
-#: DB:link_type/description:17
-msgid ""
-"Indicates that an album was performed live and released as another album. "
-"Please use this relationship only if (almost) every track of the original "
-"recording was performed on the live version, not for normal live recordings."
-msgstr "Indique qu'un album a été interprété devant public et est paru comme autre album. Veuillez utiliser cette relation seulement si chaque (ou presque) piste de l'enregistrement originale a été interprété sur la version en public, pas pour des enregistrements normaux en public."
-
-#: DB:link_type/description:262
-msgid ""
-"Indicates that booking support was included in this work. (<a "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr "Indique une personne ou agence ayant à fourni un soutien au placement pour cette œuvre. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-
-#: DB:link_type/description:259
-msgid ""
-"Indicates that legal representation was included in this work. (<a "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr "Indique qu'une représentation juridique était intégrée dans cette œuvre. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Détails</a>)"
-
 #: DB:link_attribute_type/description:567
 msgid "Indicates that one entity is a cover of another entity"
 msgstr "Indique qu'une entité est la reprise d'une autre entité."
@@ -691,13 +357,27 @@ msgid ""
 "href=\"http://musicbrainz.org/doc/Remix_Relationship_Type\">Details</a>)"
 msgstr "Indique qu'une ou plusieurs pistes originales ont été modifiées substantiellement et mélangées avec un autre contenu pour créer une nouvelle piste. Les remixes de plusieurs pistes ou albums sont généralement appelés collages. (<a href=\"http://musicbrainz.org/doc/Remix_Relationship_Type\">Détails</a>)"
 
+#: DB:link_type/description:231
+msgid "Indicates that the recording contains samples from another."
+msgstr "Indique que l'enregistrement contient des échantillons provenant d'un autre."
+
+#: DB:link_type/description:154
+msgid ""
+"Indicates that the recording contains samples from material by the indicated"
+" artist. Use this only if you really cannot figure out the particular "
+"recording that has been sampled."
+msgstr "Indique que l'enregistrement contient des échantillons provenant d'un contenu par l'artiste indiqué. À n'utiliser que si vous ne pouvez vraiment pas trouver quel enregistrement a été échantillonné."
+
+#: DB:link_type/description:69
+msgid "Indicates that the recording contains samples from this release."
+msgstr "Indique que l'enregistrement contient des échantillons de cette parution."
+
 #: DB:link_type/description:49
 msgid ""
-"Indicates that the album contains samples from material that was originally "
-"performed by another artist. Use this only if you really cannot figure out "
-"the particular track that has been sampled. (<a "
-"href=\"http://musicbrainz.org/doc/Samples_Artist_Relationship_Type\">Details</a>)"
-msgstr "Indique que l'album contient des échantillons d'un contenu interprété à l'origine par un autre artiste. N'utiliser ceci que si vous ne pouvez vraiment pas déterminer qu'elle piste spécifique a été échantillonnée. (<a href=\"http://musicbrainz.org/doc/Samples_Artist_Relationship_Type\">Détails</a>)"
+"Indicates that the release contains samples from material by the indicated "
+"artist. Use this only if you really cannot figure out the particular "
+"recording that has been sampled."
+msgstr "Indique que la parution contient des échantillons provenant d'un contenu par l'artiste indiqué. À n'utiliser que si vous ne pouvez vraiment pas trouver quel enregistrement a été échantillonné."
 
 #: DB:link_type/description:232
 msgid ""
@@ -708,29 +388,15 @@ msgid ""
 "href=\"http://musicbrainz.org/doc/Mash-up_Relationship_Type\">Details</a>)"
 msgstr "Indique que la piste est composé de collages de contenu provenant de deux (ou plus) autres pistes. Ceci veut dire que deux pièces de musique par des artistes différents sont mélangées ensemble, l'une sur l'autre ou autrement combinées en une seule piste (habituellement par une troisième artiste, le remixeur). (<a href=\"http://musicbrainz.org/doc/Mash-up_Relationship_Type\">Détails</a>)"
 
-#: DB:link_type/description:154
-msgid ""
-"Indicates that the track contains samples from material that was originally "
-"performed by another artist. Use this only if you really cannot figure out "
-"the particular track that has been sampled. (<a "
-"href=\"http://musicbrainz.org/doc/Samples_Artist_Relationship_Type\">Details</a>)"
-msgstr "Indiques que la piste inclus des échantillons de contenu qui a été à l'origine interprété par un autre artiste. N'utiliser ceci que si vous ne pouvez vraiment pas déterminer qu'elle piste spécifique a été échantillonnée. (<a href=\"http://musicbrainz.org/doc/Samples_Artist_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:108
-msgid ""
-"Indicates that two artists are the same person. Take care to always link "
-"from the legal name (in doubt: birth certificate) of a person to his/her "
-"performance name. Do not create links between different performance names of"
-" the same person. (<a "
-"href=\"http://musicbrainz.org/doc/Performance_Name_Relationship_Type\">Details</a>)"
-msgstr "Indique que deux artistes sont la même personne. Veillez a toujours faire le lien à partir du nom légal (en cas de doute : certificat de naissance) d'une personne à son nom d'interprète. Ne pas créer de lien entre des noms d'interprète différents d'une même personne. (<a href=\"http://musicbrainz.org/doc/Performance_Name_Relationship_Type\">Détails</a>)"
-
 #: DB:link_type/description:112
 msgid ""
 "Indicates that two persons were romantically involved with each other "
-"without being married. (<a "
-"href=\"http://musicbrainz.org/doc/Involved_With_Relationship_Type\">Details</a>)"
-msgstr "Indique que deux personnes avaient une relation amoureuse sans être mariés. (<a href=\"http://musicbrainz.org/doc/Involved_With_Relationship_Type\">Détails</a>)"
+"without being married."
+msgstr "Indique que les deux personnes avaient une relation amoureuse sans être mariées."
+
+#: DB:link_type/description:715
+msgid "Indicates the area where the work had its first performance"
+msgstr "Indique le lieu de la première représentation de l’œuvre."
 
 #: DB:link_type/description:293 DB:link_type/description:282
 #: DB:link_type/description:295 DB:link_type/description:297
@@ -749,24 +415,21 @@ msgid ""
 "href=\"http://musicbrainz.org/doc/Engineer_Relationship_Type\">Details</a>)"
 msgstr "Indique l'ingénieur du son pour cette œuvre. (<a href=\"http://musicbrainz.org/doc/Engineer_Relationship_Type\">Détails</a>)"
 
-#: DB:link_type/description:168
-msgid ""
-"Indicates the composer for this work, i.e. the person who wrote the music "
-"(not necessarily the lyrics) of this work. (<a "
-"href=\"http://musicbrainz.org/doc/Composer_Relationship_Type\">Details</a>)"
-msgstr "Indique le compositeur de cette œuvre, c.-à-d. la personne qui a écrit la musique (pas automatiquement les paroles) de cette œuvre. (<a href=\"http://musicbrainz.org/doc/Composer_Relationship_Type\">Détails</a>)"
-
 #: DB:link_type/description:55
 msgid ""
-"Indicates the composer for this work. (<a "
-"href=\"http://musicbrainz.org/doc/Composer_Relationship_Type\">Details</a>)"
-msgstr "Indique le compositeur de cette œuvre. (<a href=\"http://musicbrainz.org/doc/Composer_Relationship_Type\">Détails</a>)"
+"Indicates the composer for this release, i.e. the artist who wrote the music"
+" (not necessarily the lyrics)."
+msgstr "Indique le compositeur pour cette parution, c.-à-d. l'artiste qui a écrit la musique (pas nécessairement les paroles)."
+
+#: DB:link_type/description:168
+msgid ""
+"Indicates the composer for this work, i.e. the artist who wrote the music "
+"(not necessarily the lyrics)."
+msgstr "Indique le compositeur pour cette œuvre, c.-à-d. l'artiste qui a écrit la musique (pas nécessairement les paroles)."
 
 #: DB:link_type/description:264
-msgid ""
-"Indicates the creative direction support for this work. (<a "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr "Indique le soutien de direction créative pour cette œuvre. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Détails</a>)"
+msgid "Indicates the creative direction support for this work."
+msgstr "Indique le soutien de direction créative de cette œuvre,"
 
 #: DB:link_type/description:28 DB:link_type/description:138
 msgid ""
@@ -805,18 +468,17 @@ msgid ""
 "href=\"http://musicbrainz.org/doc/Engineer_Relationship_Type\">Details</a>)"
 msgstr "Indique l'ingénieur de mixage pour cette œuvre. (<a href=\"http://musicbrainz.org/doc/Engineer_Relationship_Type\">Détails</a>)"
 
-#: DB:link_type/description:183
-msgid ""
-"Indicates the official homepage for an artist. (<a "
-"href=\"http://musicbrainz.org/doc/Official_Homepage_Relationship_Type\">Details</a>)"
-msgstr "Indique la page Web d'un artiste. (<a href=\"http://musicbrainz.org/doc/Official_Homepage_Relationship_Type\">Détails</a>)"
+#: DB:link_type/description:219
+msgid "Indicates the official homepage for a label."
+msgstr "Indique la page Web officielle d'un label."
 
-#: DB:link_type/description:61
-msgid ""
-"Indicates the person or agency that did the travel arrangements for this "
-"album. (<a "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr "Indique la personne ou agence ayant effectué les préparatifs de voyage pour cet album. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Détails</a>)"
+#: DB:link_type/description:363
+msgid "Indicates the official homepage for a place."
+msgstr "Indique la page Web officielle d'un lieu."
+
+#: DB:link_type/description:183
+msgid "Indicates the official homepage for an artist."
+msgstr "Indique la page Web officielle d'un artiste."
 
 #: DB:link_type/description:48
 msgid ""
@@ -890,11 +552,9 @@ msgid ""
 "href=\"http://musicbrainz.org/doc/Remixer_Relationship_Type\">Details</a>)"
 msgstr "Indique la personne ayant remixé la piste en prenant une ou des autres pistes, en les modifiant substantiellement et en les mélangeant avec du contenu supplémentaire. Prendre note que ceci est utilisé pour l'artiste ayant créé un collage ou ayant aussi utilisé des échantillons. (<a href=\"http://musicbrainz.org/doc/Remixer_Relationship_Type\">Détails</a>)"
 
-#: DB:link_type/description:46 DB:link_type/description:151
-msgid ""
-"Indicates the person who was the (additional) conductor for this work. (<a "
-"href=\"http://musicbrainz.org/doc/Conductor_Relationship_Type\">Details</a>)"
-msgstr "Indique le chef d'orchestre (suppléant) pour cette œuvre. (<a href=\"http://musicbrainz.org/doc/Conductor_Relationship_Type\">Détails</a>)"
+#: DB:link_type/description:716
+msgid "Indicates the place where the work had its first performance"
+msgstr "Indique le lieu de la première représentation de l’œuvre."
 
 #: DB:link_type/description:30
 msgid ""
@@ -910,14 +570,6 @@ msgid ""
 "recordings. (<a "
 "href=\"http://musicbrainz.org/doc/Producer_Relationship_Type\">Details</a>)"
 msgstr "Indique le producteur, coproducteur, producteur délégué. coproducteur délégué pour cette œuvre.Toujours spécifier les producteurs délégués sur les parutions, pas les enregistrements. (<a href=\"http://musicbrainz.org/doc/Producer_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:66
-msgid ""
-"Indicates the publisher of this album (<a "
-"href=\"http://musicbrainz.org/doc/Publisher_Relationship_Type\">Details</a>)<br/><br/>"
-" Note that this is <strong><em>NOT</em></strong> the record label, use the "
-"\"Label\" field in release events for record labels."
-msgstr "Indique l'éditeur pour cet album. (<a href=\"http://musicbrainz.org/doc/Publisher_Relationship_Type\">Détails</a>)<br/><br/> Prendre note que ce n'est <strong><em>PAS</em></strong>le label discographique. Utiliser le champs « label » des événements de parution pour les labels discographiques."
 
 #: DB:link_type/description:32
 msgid ""
@@ -961,18 +613,6 @@ msgid ""
 "href=\"http://musicbrainz.org/doc/Engineer_Relationship_Type\">Details</a>)"
 msgstr "Indique l'ingénieur du son pour cette œuvre. Il est responsable du transfert de la musique vers la bande, de l'enregistrement esthétique des sons provenant des musiciens. (<a href=\"http://musicbrainz.org/doc/Engineer_Relationship_Type\">Détails</a>)"
 
-#: DB:link_type/description:98
-msgid ""
-"Indicates the recording studio where (part of) this work was recorded (<a "
-"href=\"http://musicbrainz.org/doc/Recording_Studio_Relationship_Type\">Details</a>)"
-msgstr "Indique le studio d'enregistrement où l’œuvre a été enregistrée (partiellement). (<a href=\"http://musicbrainz.org/doc/Recording_Studio_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:260
-msgid ""
-"Indicates the recording studio where (part of) this work was recorded. (<a "
-"href=\"http://musicbrainz.org/doc/Recording_Studio_Relationship_Type\">Details</a>)"
-msgstr "Indique le studio d'enregistrement où l’œuvre a été enregistrée (partiellement). (<a href=\"http://musicbrainz.org/doc/Recording_Studio_Relationship_Type\">Détails</a>)"
-
 #: DB:link_type/description:29 DB:link_type/description:133
 msgid ""
 "Indicates the sound engineer for this work. (<a "
@@ -983,6 +623,44 @@ msgstr "Indique l'ingénieur du son pour cette œuvre. (<a href=\"http://musicbr
 msgid "Lead or solo vocal"
 msgstr "Chanteur principal, solo"
 
+#: DB:link_type/description:698
+msgid ""
+"Links a recording to the area it was recorded in. Use only when the place is"
+" unknown!"
+msgstr "Relie un enregistrement vers la région où il a été enregistré. À n'utiliser que si le lieu est inconnu!"
+
+#: DB:link_type/description:694
+msgid "Links a recording to the place it was mixed at."
+msgstr "Relie un enregistrement vers le lieu où il a été mixé."
+
+#: DB:link_type/description:693
+msgid "Links a recording to the place it was recorded at."
+msgstr "Relie un enregistrement vers le lieu où il a été enregistré."
+
+#: DB:link_type/description:699
+msgid ""
+"Links a release to the area it was recorded in. Use only when the place is "
+"unknown!"
+msgstr "Relie une parution vers la région où elle a été enregistrée. À n'utiliser que si le lieu est inconnu!"
+
+#: DB:link_type/description:697
+msgid "Links a release to the place it was mastered at."
+msgstr "Relie une parution vers le lieu ou elle a été matricée."
+
+#: DB:link_type/description:696
+msgid "Links a release to the place it was mixed at."
+msgstr "Relie une parution vers le lieu ou elle a été mixée."
+
+#: DB:link_type/description:695
+msgid "Links a release to the place it was recorded at."
+msgstr "Relie une parution vers le lieu ou elle a été enregistrée."
+
+#: DB:link_type/description:700
+msgid ""
+"Links an artist to a place where they held a concert. Please include as "
+"detailed a date as possible."
+msgstr "Relie un artiste vers le lieu ou il a été en concert. Veuillez indiquer une date aussi précise que possible."
+
 #: DB:link_type/link_phrase:91 DB:link_type/link_phrase:181
 msgid "MusicMoz"
 msgstr "MusicMoz"
@@ -992,120 +670,70 @@ msgid "MusicMoz page for"
 msgstr "Page MusicMoz pour"
 
 #: DB:link_type/link_phrase:189 DB:link_type/link_phrase:215
+#: DB:link_type/link_phrase:462
 msgid "Myspace"
 msgstr "Myspace"
 
 #: DB:link_type/reverse_link_phrase:189 DB:link_type/reverse_link_phrase:215
+#: DB:link_type/reverse_link_phrase:462
 msgid "Myspace page for"
 msgstr "Page Myspace pour"
-
-#: DB:link_attribute_type/description:246
-msgid "Other orchestra"
-msgstr "Autre orchestre"
 
 #: DB:link_attribute_type/description:461
 msgid "Other vocalizations"
 msgstr "Autres vocalisations"
 
-#: DB:link_type/description:310
-msgid ""
-"Points to the <a href=\"http://viaf.org/\">VIAF</a> page for this artist. "
-"(<a href=\"https://musicbrainz.org/doc/VIAF_Relationship_Type\">Details</a>)"
-msgstr "Dirige vers une page <a href=\"http://viaf.org/\">VIAF</a> pour cet artiste. (<a href=\"https://musicbrainz.org/doc/VIAF_Relationship_Type\">Détails</a>)"
+#: DB:link_type/description:713
+msgid "Points to the Geonames page for this area."
+msgstr "Dirige vers la page Geonames de cette région."
 
-#: DB:link_type/description:311
-msgid ""
-"Points to the <a href=\"http://viaf.org/\">VIAF</a> page for this label. (<a"
-" href=\"https://musicbrainz.org/doc/VIAF_Relationship_Type\">Details</a>)"
-msgstr "Dirige vers une page <a href=\"http://viaf.org/\">VIAF</a> pour ce label. (<a href=\"https://musicbrainz.org/doc/VIAF_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:312
-msgid ""
-"Points to the <a href=\"http://viaf.org/\">VIAF</a> page for this work. (<a "
-"href=\"https://musicbrainz.org/doc/VIAF_Relationship_Type\">Details</a>)"
-msgstr "Dirige vers une page <a href=\"http://viaf.org/\">VIAF</a> pour cette œuvre. (<a href=\"https://musicbrainz.org/doc/VIAF_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:76 DB:link_type/description:90
-msgid ""
-"Points to the Discogs page for this album. Always use the domain "
-"<code>www.discogs.com</code> and no genre subdomains. (<a "
-"href=\"http://musicbrainz.org/doc/Discogs_Relationship_Type\">Details</a>)"
-msgstr "Dirige vers la page Discogs pour cet album. Toujours utiliser le domaine code>www.discogs.com</code> et pas des sous-domaines de genre. (<a href=\"http://musicbrainz.org/doc/Discogs_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:180
-msgid ""
-"Points to the Discogs page for this artist. Always use the domain "
-"<code>www.discogs.com</code> and no genre subdomains. (<a "
-"href=\"http://musicbrainz.org/doc/Discogs_Relationship_Type\">Details</a>)"
-msgstr "Dirige vers la page Discogs pour cet artiste. Toujours utiliser le domaine code>www.discogs.com</code> et pas des sous-domaines de genre. (<a href=\"http://musicbrainz.org/doc/Discogs_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:178
-msgid ""
-"Points to the Internet Movie Database page for this artist. URLs should "
-"follow the format <code>http://www.imdb.com/name/ID/</code>. (<a "
-"href=\"http://musicbrainz.org/doc/IMDb_Relationship_Type\">Details</a>)"
-msgstr "Dirige vers la base de données Internet des films pour cet artiste. Les URLs devrait suivre le format <code>http://www.imdb.com/name/ID/</code>. (<a href=\"http://musicbrainz.org/doc/IMDb_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:313
-msgid ""
-"Points to the Internet Movie Database page for this label. URLs should "
-"follow the format <code>http://www.imdb.com/company/ID/</code>. (<a "
-"href=\"http://musicbrainz.org/doc/IMDb_Relationship_Type\">Details</a>)"
-msgstr "Dirige vers la base de données Internet des films pour ce label. Les URLs devrait suivre le format <code>http://www.imdb.com/company/ID/</code>. (<a href=\"http://musicbrainz.org/doc/IMDb_Relationship_Type\">Détails</a>)"
+#: DB:link_type/description:706
+msgid "Points to the Internet Movie Database page for this place."
+msgstr "Dirige vers la page IMDb pour ce lieu."
 
 #: DB:link_type/description:358
-msgid ""
-"Points to the Wikidata page for this area. (<a "
-"href=\"http://musicbrainz.org/doc/Wikidata_Relationship_Type\">Details</a>)"
-msgstr "Dirige vers la page Wikidata pour cette région. (<a href=\"http://musicbrainz.org/doc/Wikidata_Relationship_Type\">Détails</a>)"
+msgid "Points to the Wikidata page for this area."
+msgstr "Dirige vers la page Wikidata pour cette région."
 
 #: DB:link_type/description:352
-msgid ""
-"Points to the Wikidata page for this artist. (<a "
-"href=\"http://musicbrainz.org/doc/Wikidata_Relationship_Type\">Details</a>)"
-msgstr "Dirige vers la page Wikidata pour cet artiste. (<a href=\"http://musicbrainz.org/doc/Wikidata_Relationship_Type\">Détails</a>)"
+msgid "Points to the Wikidata page for this artist."
+msgstr "Dirige vers la page Wikidata pour cet artiste."
 
 #: DB:link_type/description:354
-msgid ""
-"Points to the Wikidata page for this label. (<a "
-"href=\"http://musicbrainz.org/doc/Wikidata_Relationship_Type\">Details</a>)"
-msgstr "Dirige vers la page Wikidata pour ce label. (<a href=\"http://musicbrainz.org/doc/Wikidata_Relationship_Type\">Détails</a>)"
+msgid "Points to the Wikidata page for this label."
+msgstr "Dirige vers la page Wikidata pour ce label."
+
+#: DB:link_type/description:594
+msgid "Points to the Wikidata page for this place"
+msgstr "Dirige vers la page Wikidata pour ce lieu."
 
 #: DB:link_type/description:353
-msgid ""
-"Points to the Wikidata page for this release group. (<a "
-"href=\"http://musicbrainz.org/doc/Wikidata_Relationship_Type\">Details</a>)"
-msgstr "Dirige vers la page Wikidata pour ce groupe de parution. (<a href=\"http://musicbrainz.org/doc/Wikidata_Relationship_Type\">Détails</a>)"
+msgid "Points to the Wikidata page for this release group."
+msgstr "Dirige vers la page Wikidata pour ce groupe de parution."
 
 #: DB:link_type/description:351
-msgid ""
-"Points to the Wikidata page for this work. (<a "
-"href=\"http://musicbrainz.org/doc/Wikidata_Relationship_Type\">Details</a>)"
-msgstr "Dirige vers la page Wikidata pour cette œuvre. (<a href=\"http://musicbrainz.org/doc/Wikidata_Relationship_Type\">Détails</a>)"
+msgid "Points to the Wikidata page for this work."
+msgstr "Dirige vers la page Wikidata pour cette œuvre."
 
 #: DB:link_type/description:89
-msgid ""
-"Points to the Wikipedia page for this album. (<a "
-"href=\"http://musicbrainz.org/doc/Wikipedia_Relationship_Type\">Details</a>)"
-msgstr "Dirige vers la page Wikipédia pour cet album. (<a href=\"http://musicbrainz.org/doc/Wikipedia_Relationship_Type\">Détails</a>)"
+msgid "Points to the Wikipedia page for this album."
+msgstr "Dirige vers la page Wikidata pour cet album."
 
 #: DB:link_type/description:355
-msgid ""
-"Points to the Wikipedia page for this area. (<a "
-"href=\"http://musicbrainz.org/doc/Wikipedia_Relationship_Type\">Details</a>)"
-msgstr "Dirige vers la page Wikipédia pour cette région. (<a href=\"http://musicbrainz.org/doc/Wikipedia_Relationship_Type\">Details</a>)"
+msgid "Points to the Wikipedia page for this area."
+msgstr "Dirige vers la page Wikipédia pour cette région."
 
 #: DB:link_type/description:179
-msgid ""
-"Points to the Wikipedia page for this artist. (<a "
-"href=\"http://musicbrainz.org/doc/Wikipedia_Relationship_Type\">Details</a>)"
-msgstr "Dirige vers la page Wikipédia pour cet artiste. (<a href=\"http://musicbrainz.org/doc/Wikipedia_Relationship_Type\">Détails</a>)"
+msgid "Points to the Wikipedia page for this artist."
+msgstr "Dirige vers la page Wikipédia pour cet artist."
+
+#: DB:link_type/description:595
+msgid "Points to the Wikipedia page for this place"
+msgstr "Dirige vers la page Wikipédia pour ce lieu."
 
 #: DB:link_type/description:279
-msgid ""
-"Points to the Wikipedia page for this work. (<a "
-"href=\"http://musicbrainz.org/doc/Wikipedia_Relationship_Type\">Details</a>)"
-msgstr "Dirige vers la page Wikipédia pour cette œuvre. (<a href=\"http://musicbrainz.org/doc/Wikipedia_Relationship_Type\">Détails</a>)"
+msgid "Points to the Wikipedia page for this work."
+msgstr "Dirige vers la page Wikipédia pour cette œuvre."
 
 #: DB:link_type/link_phrase:174
 msgid "PureVolume"
@@ -1114,14 +742,6 @@ msgstr "PureVolume"
 #: DB:link_type/reverse_link_phrase:174
 msgid "PureVolume page for"
 msgstr "Page PureVolume pour"
-
-#: DB:link_type/description:97
-msgid ""
-"Relates a soundtrack album to the Internet Movie Database page for the "
-"movie, show or game of which it is a soundtrack. URLs should follow the "
-"format <code>http://www.imdb.com/title/ID/</code>. (<a "
-"href=\"http://musicbrainz.org/doc/IMDb_Relationship_Type\">Details</a>)"
-msgstr "Relie un album de bande originale à la page de la base de données Internet des films pour ce film, spectacle ou jeu. Les URLs devraient suivre le format <code>http://www.imdb.com/title/ID/</code>. (<a href=\"http://musicbrainz.org/doc/IMDb_Relationship_Type\">Détails</a>)"
 
 #: DB:link_type/link_phrase:307 DB:link_type/link_phrase:308
 #: DB:link_type/reverse_link_phrase:280
@@ -1132,13 +752,6 @@ msgstr "SecondHandSongs"
 #: DB:link_type/reverse_link_phrase:308
 msgid "SecondHandSongs page for"
 msgstr "Page SecondHandSongs pour"
-
-#: DB:link_type/description:121
-msgid ""
-"Should be used to describe the fact an artist signed a recording contract "
-"with a label. (<a "
-"href=\"http://musicbrainz.org/doc/Recording_Contract_Relationship_Type\">Details</a>)"
-msgstr "Devrait être utilisé pour décrire le fait qu'un artiste à signé un contrat d'enregistrement avec un label. (<a href=\"http://musicbrainz.org/doc/Recording_Contract_Relationship_Type\">Details</a>)"
 
 #: DB:link_type/reverse_link_phrase:289
 msgid "Songfacts"
@@ -1160,10 +773,6 @@ msgstr "Page SoundCloud pour"
 msgid "Spoken vocals (speech)"
 msgstr "Mots parlés (discours)"
 
-#: DB:link_attribute_type/description:244
-msgid "Symphony orchestra"
-msgstr "Orchestre symphonique"
-
 #: DB:link_type/description:38 DB:link_type/description:144
 msgid ""
 "The editor is responsible for either connecting disparate elements of the "
@@ -1173,15 +782,7 @@ msgid ""
 "3 minute mark in order to make it suitable for radio play (a \"radio "
 "edit\"). (<a "
 "href=\"http://musicbrainz.org/doc/Engineer_Relationship_Type\">Details</a>)"
-msgstr "La responsabilité du monteur est de connecter des éléments disparates d'un enregistrement audio ou encore de redistribuer le contenu enregistrer lors des sessions. Ceci est habituellement secondaire ou complémentaire au travail effectué par l'ingénieur du son. Il peut aussi alléger une piste plus longue à environ 3 minutes pour l'adapter au passage à la radio, une « version radio ». (<a href=\"http://musicbrainz.org/doc/Engineer_Relationship_Type\">Details</a>)"
-
-#: DB:link_attribute_type/description:371
-msgid "The linked music has been placed into the Public Domain"
-msgstr "La musique reliée a été placée dans le domaine public."
-
-#: DB:link_attribute_type/description:243
-msgid "This attribute describes a type of orchestra."
-msgstr "Cet attribut décrit un type d'orchestre."
+msgstr "La responsabilité du chef monteur est de connecter des éléments disparates d'un enregistrement audio ou encore de redistribuer le contenu enregistrer lors des sessions. Ceci est habituellement secondaire ou complémentaire au travail effectué par l'ingénieur du son. Il peut aussi alléger une piste plus longue à environ 3 minutes pour l'adapter au passage à la radio (une « version radio »). (<a href=\"http://musicbrainz.org/doc/Engineer_Relationship_Type\">Details</a>)"
 
 #: DB:link_attribute_type/description:3
 msgid "This attribute describes a type of vocal performance."
@@ -1234,56 +835,196 @@ msgid ""
 "capacity."
 msgstr "Cet attribut doit être utilisé si le rôle était rempli en tant que dirigeant."
 
+#: DB:link_type/description:146
+msgid ""
+"This credits a person or agency who provided some kind of general creative "
+"inspiration during the recording of this recording, without actually "
+"contributing to the writing or performance."
+msgstr "Ceci crédite une personne ou agence qui a fourni une certaine inspiration créative générale durant l'enregistrement de cet enregistrement, sans toutefois contribuer à l'écriture ou à l'interprétation."
+
+#: DB:link_type/description:63
+msgid ""
+"This credits a person or agency who provided some kind of general creative "
+"inspiration during the recording of this release group, without actually "
+"contributing to the writing or performance."
+msgstr "Ceci crédite une personne ou agence qui a fourni une certaine inspiration créative générale durant l'enregistrement de ce groupe de parution, sans toutefois contribuer à l'écriture ou à l'interprétation."
+
+#: DB:link_type/description:123
+msgid ""
+"This credits a person or agency whose photographs are included as part of a "
+"recording."
+msgstr "Ceci crédite une personne ou agence dont les photographies sont incluses comme partie d'un enregistrement."
+
+#: DB:link_type/description:20
+msgid ""
+"This credits a person or agency whose photographs are included as part of a "
+"release."
+msgstr "Ceci crédite une personne ou agence dont les photographies sont incluses comme partie d'une parution."
+
+#: DB:link_type/description:134
+msgid ""
+"This credits a person who was responsible for booking the studio or "
+"performance venue where the recording was recorded."
+msgstr "Ceci crédite une personne qui était responsable de réserver le studio ou lieu de représentation où l'enregistrement a été fait."
+
+#: DB:link_type/description:23
+msgid ""
+"This credits a person who was responsible for booking the studio or "
+"performance venue where the release was recorded."
+msgstr "Ceci crédite une personne qui était responsable de réserver le studio ou lieu de représentation où l'enregistrement de la parution a été fait."
+
+#: DB:link_type/description:24
+msgid ""
+"This credits the author of liner notes provided with the release (usually on"
+" the sleeve). While most time liner notes are just personnel information and"
+" production data, in some cases they consist of a blurb of text (article). "
+"This relationship type should be used in this last case."
+msgstr "Ceci crédite l'auteur des notes de livret fournies avec cette parution (habituellement sur la pochette). Alors que la plupart des notes de livret sont juste des informations personnelles et des données de production, dans certains cas elles sont un texte de présentation (article). Ce type de relation devrait être utilisé dans ce dernier cas."
+
+#: DB:link_type/description:61
+msgid ""
+"This credits the person or agency who arranged travel for the musicians and "
+"other staff, in order to get them into the right place to create the work."
+msgstr "Ceci crédite la personne ou agence qui a organisé le transport des musiciens et autres équipiers afin de les amener sur les lieux de création de l’œuvre."
+
 #: DB:link_type/description:274
 msgid ""
-"This describes a URL where a score / sheet music for the work can be found. "
-"(<a "
-"href=\"http://musicbrainz.org/doc/Has_Score_At_Relationship_Type\">Details</a>)"
-msgstr "Ceci décrit une URL où une partition musicale de l’œuvre peut être trouvée. (<a href=\"http://musicbrainz.org/doc/Has_Score_At_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:83
-msgid ""
-"This describes a URL where the work on IMDB (the Internet Movie Database) "
-"that the track or release samples from can be found. (<a "
-"href=\"http://musicbrainz.org/doc/Samples_From_Relationship_Type\">Details</a>)"
-msgstr "Ceci décrit une URL vers l’œuvre sur IMDb (la base de données Internet des films) dont la piste ou la parution est un échantillon.(<a href=\"http://musicbrainz.org/doc/Samples_From_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:258
-msgid ""
-"This describes a URL where the work on IMDb (the Internet Movie Database) "
-"that the track or release samples from can be found. (<a "
-"href=\"http://musicbrainz.org/doc/Samples_From_Relationship_Type\">Details</a>)"
-msgstr "Ceci décrit une URL vers l’œuvre sur IMDb (la base de données Internet des films) dont la piste ou la parution est un échantillon.(<a href=\"http://musicbrainz.org/doc/Samples_From_Relationship_Type\">Détails</a>)"
+"This describes a URL where a score / sheet music for the work can be found."
+msgstr "Ceci décrit une URL où l'on peut trouver une partition de l’œuvre."
 
 #: DB:link_type/description:202
 msgid ""
-"This describes the fact that a label has changed its name, be it for purely "
-"aesthetic reasons, or following a buyout/sellout/spin-off. (<a "
-"href=\"http://musicbrainz.org/doc/Label_Rename_Relationship_Type\">Details</a>)"
-msgstr "Ceci décrit le fait qu'un label a changé son nom, que cela soit pour des raisons purement esthétique ou suite à un rachat/revente/scission. (<a href=\"http://musicbrainz.org/doc/Label_Rename_Relationship_Type\">Détails</a>)"
+"This describes a situation where a label has changed its name, either for "
+"purely aesthetic reasons or following a buyout/sellout/spin-off.​ Extra care"
+" should be taken with cases where complicated merge/split/restructure "
+"financial operations are done. For example, it's not a good idea to rename "
+"the label <a href=\"/label/99a24d71-54c1-4d3f-88cc-00fbcc4fce83\">Verve</a> "
+"into <a href=\"/label/4fb00dfd-7674-44c0-bf67-79daf8c61767\">The Verve Music"
+" Group</a>, as Verve continued its existence thereafter as an imprint."
+msgstr "Ceci décrit une situation où le label a changé de nom, soit pour des raisons purement esthétiques, soit suite à un rachat/vente/scission. Un soin particulier devrait être porté dans les cas où des opérations compliquées de fusion/fractionnement/restructuration ont lieu. Par exemple, ce n'est pas une bonne idée de renommer le label <a href=\"/label/99a24d71-54c1-4d3f-88cc-00fbcc4fce83\">« Verve »</a> en <a href=\"/label/4fb00dfd-7674-44c0-bf67-79daf8c61767\">« The Verve Music Group »</a> car « Verve » a continué d'exister par la suite en tant que marque."
 
 #: DB:link_type/description:200
 msgid ""
-"This describes the fact that a label is (or was) a subsidiary of another "
-"label, during a given period of time. This should be used either to describe"
-" the fact a label has been bought by another one, or that a label is a "
-"subdivision of another one. (<a "
-"href=\"http://musicbrainz.org/doc/Label_Ownership_Relationship_Type\">Details</a>)"
-msgstr "Ceci décrit le fait qu'un label est (ou était) une filiale d'un autre label durant une période donnée Ceci devrait être utilisé soit pour décrire le fait qu'un label a été acheté par un autre, soit qu'un label est une subdivision d'un autre. (<a href=\"http://musicbrainz.org/doc/Label_Ownership_Relationship_Type\">Détails</a>)"
+"This describes a situation where one label is (or was) a subsidiary of "
+"another label, during a given period of time.​ This should be used either to"
+" describe the fact a label is a subdivision of another one, or, through "
+"corporate acquisition of the former label, has become a subdivision of "
+"another one."
+msgstr "Ceci décrit une situation où un label est (ou était) une filiale d'un autre label pendant un certain temps. Ceci devrait être utilisé pour décrire le fait qu'un label est une subdivision d'un autre, ou que, de par l'acquisition dudit label, il est devenu une subdivision d'un autre label."
 
 #: DB:link_type/description:203
 msgid ""
-"This describes the fact that a label is distributing (part of) another label"
-" catalog, in a country/region of the world, during a period of time. (<a "
-"href=\"http://musicbrainz.org/doc/Label_Distribution_Relationship_Type\">Details</a>)"
-msgstr "Ceci décrit le fait qu'un label distribue (partiellement) le catalogue d'un autre label dans un pays/région du monde, durant une période. (<a href=\"http://musicbrainz.org/doc/Label_Distribution_Relationship_Type\">Détails</a>)"
+"This describes a situation where one label is distributing (part of) another"
+" label's catalog, in a country/region of the world, during a period of time."
+msgstr "Ceci décrit une situation où un label distribue (partiellement) le catalogue d'un autre label dans un pays/région du monde pour un certain temps."
 
 #: DB:link_type/description:201
 msgid ""
-"This describes the fact that a label is reissuing (part of) another label "
-"catalog under its own name. (<a "
-"href=\"http://musicbrainz.org/doc/Label_Reissue_Relationship_Type\">Details</a>)"
-msgstr "Ceci décrit le fait qu'un label réédite (partiellement) le catalogue d'un autre label sous son propre nom. (<a href=\"http://musicbrainz.org/doc/Label_Reissue_Relationship_Type\">Détails</a>)"
+"This describes a situation where one label is reissuing, under its own name, (part of) another label's catalog.​ This can happen in at least three cases:\n"
+"<ul>\n"
+"<li>A label acquires a lease on another label's catalog, for a period of time, in a specific region of the world.</li>\n"
+"<li>A label buys the rights to a defunct label's catalog, or buys a label (with its catalog) and dismantles it.</li>\n"
+"<li>A bootleg label reissues another label's catalog.</li>\n"
+"</ul>"
+msgstr "Ceci décrit une situation où un label réédite, sous son propre nom, (partiellement) le catalogue d'un autre label. Ceci a lieu dans au moins trois cas :\n<ul>\n<li>Un label loue le catalogue d'un autre label pour un certain temps, dans une région spécifique du monde.</li>\n<li>Un label achète les droits de catalogue d'un label défunt, ou achète un label (avec son catalogue) et le démantèle.</li>\n<li>Un label pirate réédite le catalogue d'un autre label.</li>\n</ul>"
+
+#: DB:link_type/description:103
+msgid "This indicates a person is a member of a group."
+msgstr "Ceci indique qu'une personne est membre d'un groupe."
+
+#: DB:link_type/description:135 DB:link_type/description:62
+msgid ""
+"This indicates a person or agency which is responsible for talent scouting, "
+"overseeing the artistic development of an artist, and acting as liaison "
+"between artists and the labels."
+msgstr "Ceci indique une personne ou agence qui est responsable du repérage de talents, supervise le développement artistique d'un artiste et agit en tant que liaison entre les artistes et les labels. "
+
+#: DB:link_type/description:19
+msgid ""
+"This indicates a person or agency who did design or illustration for the "
+"release."
+msgstr "Ceci indique une personne ou agence qui a fait de la conception ou de l'illustration pour cette parution."
+
+#: DB:link_type/description:130
+msgid ""
+"This indicates a person or agency who did design or illustration for the "
+"track."
+msgstr "Ceci indique une personne ou agence qui a fait de la conception ou de l'illustration pour cette piste."
+
+#: DB:link_type/description:723
+msgid ""
+"This indicates a personal production label for an artist. A personal label "
+"is a small label (usually a subdivision of a larger one) that exclusively "
+"handles releases by that artist."
+msgstr "Ceci indique un label de production personnel pour un artiste. Un label personnel est un petit label (habituellement une subdivision d'un plus grand) qui gère exclusivement les parutions de cet artiste."
+
+#: DB:link_type/description:724
+msgid ""
+"This indicates a personal publishing label for an artist. A personal "
+"publishing label is a small label (usually a subdivision of a larger one) "
+"that exclusively handles the rights to works by that artist."
+msgstr "Ceci indique un label d'édition personnel pour un artiste. Un label d'édition personnel est un petit label (habituellement une subdivision d'un plus grand) qui gère exclusivement les droits des œuvres de cet artiste."
+
+#: DB:link_type/description:151
+msgid ""
+"This indicates an artist who conducted an orchestra, band or choir on this "
+"recording."
+msgstr "Ceci indique un artiste qui a dirigé un orchestre ou une chorale pour cet enregistrement."
+
+#: DB:link_type/description:46
+msgid ""
+"This indicates an artist who conducted an orchestra, band or choir on this "
+"release."
+msgstr "Ceci indique un artiste qui a dirigé un orchestre ou une chorale pour cette parution."
+
+#: DB:link_type/description:305
+msgid "This indicates that a person is, or was, a conductor for a group.​"
+msgstr "Ceci indique qu'une personne est, ou était, le chef d'un orchestre."
+
+#: DB:link_type/description:137
+msgid ""
+"This indicates that a person or agency did the art direction for the "
+"recording."
+msgstr "Ceci indique qu'une personne ou agence a mené la direction artistique pour cet enregistrement."
+
+#: DB:link_type/description:18
+msgid ""
+"This indicates that a person or agency did the art direction for the "
+"release."
+msgstr "Ceci indique qu'une personne ou agence a mené la direction artistique pour cette parution."
+
+#: DB:link_type/description:142
+msgid ""
+"This indicates that a person or firm provided legal representation for the "
+"recording."
+msgstr "Ceci indique qu'une personne ou firme a fournit un représentation juridique pour cet enregistrement."
+
+#: DB:link_type/description:22
+msgid ""
+"This indicates that a person or firm provided legal representation for the "
+"release."
+msgstr "Ceci indique qu'une personne ou firme a fournit un représentation juridique pour cette parution.."
+
+#: DB:link_type/description:717
+msgid "This indicates that a place is part of another place."
+msgstr "Ceci indique que ce lieu fait partie d'un autre lieu."
+
+#: DB:link_type/description:725
+msgid ""
+"This indicates that a record label (company) owns or has the right to use an"
+" imprint."
+msgstr "Ceci indique qu'une maison de disques est propriétaire ou à le droit d'utiliser une marque."
+
+#: DB:link_type/description:228
+msgid ""
+"This indicates that a recording is a compilation of several other "
+"recordings.​ This applies to one long recording that contains multiple "
+"songs, one after the other, in which the audio material of the original "
+"recordings has not been altered. If the tracks are pitched or blended into "
+"each other, the <a href=\"https://musicbrainz.org/relationship/451076df-"
+"61cf-46ab-9921-555cab2f050d\">DJ-mix relationship type</a> may be more "
+"appropriate."
+msgstr "Ceci indique qu'un enregistrement est une compilation de plusieurs autres enregistrements, Ceci s'applique à un long enregistrement contenant plusieurs morceaux, l'un après l'autre, dans lequel le contenu audio des enregistrements originaux n'a pas été transformé. Si la hauteur des pistes est ajustée ou si elles sont fondues les unes dans les autres, le <a href=\"https://musicbrainz.org/relationship/451076df-61cf-46ab-9921-555cab2f050d\">type de relation DJ-mix</a> pourrait être plus approprié."
 
 #: DB:link_type/description:3
 msgid ""
@@ -1293,21 +1034,53 @@ msgid ""
 "increase sales of an album or to create publicity for an album."
 msgstr "Ceci indique une parution soutenant une autre parution. Ceci permet de relier une parution à ses parutions de simples, EP et remixes de soutien. Une « parution de soutien » est lancée pour augmenter les ventes d'un album ou pour faire de la publicité pour un album."
 
+#: DB:link_type/description:11
+msgid ""
+"This indicates that a single or EP release group includes at least one track"
+" taken from an album release group.​ This allows a release group to be "
+"linked to its associated singles and EPs."
+msgstr "Ceci indique qu'un groupe de parution de simple ou d'EP inclut au moins une piste provenant d'un groupe de parution d'album. Ceci permet a un groupe de parution d'être relié aux simples et EP qui lui sont associés."
+
 #: DB:link_type/description:281
 msgid ""
 "This indicates that a work is made up of multiple parts (e.g. an orchestral "
-"suite broken into movements) (<a "
-"href=\"http://musicbrainz.org/doc/Parts_Relationship_Type\">Details</a>)"
-msgstr "Ceci indique qu'une œuvre est constituée de plusieurs parties (par exemple une suite orchestrale coupée en mouvements). (<a href=\"http://musicbrainz.org/doc/Parts_Relationship_Type\">Détails</a>)"
+"suite broken into movements)"
+msgstr "Ceci indique qu'une œuvre est composée de plusieurs parties (c.-à-d. une suite orchestrale divisée en mouvements). "
 
-#: DB:link_type/description:305
+#: DB:link_type/description:121
+msgid "This indicates that an artist had a recording contract with a label."
+msgstr "Ceci indique qu'un artiste avait un contrat d'enregistrement avec un label."
+
+#: DB:link_type/description:117
 msgid ""
-"This indicates that an artist is, or was, a conductor for an artist.​ Not "
-"all conductors that perform with an orchestra/choir in one recording session"
-" should be linked with this: it should be used only for cases where the "
-"conductor held a position in the orchestra/choir. (<a "
-"href=\"http://musicbrainz.org/doc/Conductor_Position_Relationship_Type\">Details</a>)"
-msgstr "Ceci indique qu'un artiste est ou était chef d'orchestre pour un autre artiste. Tous les chefs d'orchestre se produisant avec un orchestre/chœur lors d'une session d'enregistrement ne devrait pas être relié ainsi : ceci devrait être utilisé seulement pour les cas où le chef d'orchestre occupait une fonction au sein de l'orchestre/chœur. (<a href=\"http://musicbrainz.org/doc/Conductor_Position_Relationship_Type\">Détails</a>)"
+"This indicates that an artist was officially employed by a label as a "
+"producer."
+msgstr "Ceci indique qu'un artiste était officiellement engagé par un label en tant que producteur."
+
+#: DB:link_type/description:120
+msgid ""
+"This indicates that an artist was officially employed by a label as an "
+"engineer."
+msgstr "Ceci indique qu'un artiste était officiellement engagé par un label en tant qu'ingénieur."
+
+#: DB:link_type/description:115
+msgid ""
+"This indicates that an artist was officially employed by a label in a "
+"creative position, such as photographer or graphic designer."
+msgstr "Ceci indique qu'un artiste était officiellement engagé par un label à un poste créatif tel que photographe ou concepteur graphique."
+
+#: DB:link_type/description:2
+msgid ""
+"This indicates that one release is identical to another release, but that "
+"the release title and track titles have been either translated (into another"
+" language) or transliterated (into another script).​"
+msgstr "Ceci indique qu'une parution est identique à une autre, mais que le tire de la parution et les titres des pistes ont soit été traduits (dans une autre langue) au translittérés (dans un autre système d'écriture)."
+
+#: DB:link_type/description:25 DB:link_type/description:129
+msgid ""
+"This indicates that the artist performed a role not covered by other "
+"relationship types."
+msgstr "Ceci indique que l'artiste a eu un rôle qui n'est pas couvert par d'autres types de relation."
 
 #: DB:link_attribute_type/description:618
 msgid ""
@@ -1326,34 +1099,183 @@ msgstr "Ceci indique qu'un enregistrement n'est pas une œuvre entière, par exe
 msgid "This indicates that the recording is of a live performance."
 msgstr "Ceci indique qu'un enregistrement est une représentation en public."
 
+#: DB:link_attribute_type/description:750
+msgid ""
+"This indicates that the recording is of a medley, of which the work is one "
+"part."
+msgstr "Ceci indique que c'est l'enregistrement d'un pot-pourri, dont l’œuvre fait partie."
+
 #: DB:link_attribute_type/description:545
 msgid ""
 "This indicates that the release group which is from the other release group "
 "is an EP rather than a single."
 msgstr "Ceci indique que le groupe de parution émanant d'un autre groupe de parution est un EP plutôt qu'un simple."
 
+#: DB:link_type/description:152
+msgid ""
+"This indicates the chorus master of a choir which performed on this "
+"recording."
+msgstr "Ceci indique le chef de chœur qui a travaillé sur cet enregistrement."
+
+#: DB:link_type/description:53
+msgid ""
+"This indicates the chorus master of a choir which performed on this release."
+msgstr "Ceci indique le chef de chœur qui a travaillé sur cette parution."
+
+#: DB:link_type/description:361
+msgid ""
+"This indicates the organization that distributes (or contracts out distribution). \n"
+"\n"
+"This is <strong>not</strong> the same concept as the <a href=\"/doc/Label\">record label</a>."
+msgstr "Ceci indique l'organisation qui distribue (ou gère la distribution).\n\nCe n'est <strong>pas</strong> le même concept que la <a href=\"/doc/Label\">maison de disques</a>."
+
+#: DB:link_type/description:360
+msgid ""
+"This indicates the organization that manufactures (or contracts out manufacturing). \n"
+"This is <strong>not</strong> the same concept as the <a href=\"/doc/Label\">record label</a>."
+msgstr "Ceci indique l'organisation qui fabrique (ou gère la fabrication).\nCe n'est <strong>pas</strong> le même concept que la <a href=\"/doc/Label\">maison de disques</a>."
+
+#: DB:link_type/description:359
+msgid ""
+"This indicates the organization that promotes (or contracts out promotion) "
+"for a release. This is <strong>not</strong> the same concept as the <a "
+"href=\"/doc/Label\">record label</a>."
+msgstr "Ceci indique l'organisation qui promeut (ou gère la promotion) d'une parution.\nCe n'est <strong>pas</strong> le même concept que la <a href=\"/doc/Label\">maison de disques</a>."
+
+#: DB:link_type/description:362
+msgid ""
+"This indicates the organization that releases a release. <br/><br/>\n"
+"This is <strong>not</strong> the same concept as the <a href=\"/doc/Label\">record label</a>."
+msgstr "Ceci indique l'organisation qui édite la parution. <br/><br/>\nCe n'est <strong>pas</strong> le même concept que la <a href=\"/doc/Label\">maison de disques</a>."
+
+#: DB:link_type/description:260
+msgid ""
+"This indicates the recording studio where at least part of this recording "
+"was recorded."
+msgstr "Ceci indique le studio d'enregistrement où l'enregistrement a eu lieu au moins en partie."
+
+#: DB:link_type/description:98
+msgid ""
+"This indicates the recording studio where at least part of this release "
+"group was recorded."
+msgstr "Ceci indique le studio d'enregistrement où l'enregistrement de ce groupe de parution a eu lieu au moins en partie."
+
 #: DB:link_type/description:349
 msgid ""
 "This indicates the rights society associated with a release.​ The rights "
 "society is an organization which collects royalties on behalf of the "
-"artists. (<a "
-"href=\"http://musicbrainz.org/doc/Rights_Society_Relationship_Type\">Details</a>)"
-msgstr "Ceci indique la société de gestion des droits associé à cette parution. La société de gestion des droits est une organisation qui collecte les droits d'auteur au nom des artistes. (<a href=\"http://musicbrainz.org/doc/Rights_Society_Relationship_Type\">Détails</a>)"
+"artists."
+msgstr "Ceci indique la société de gestion des droits associé à cette parution. La société de gestion des droits est une organisation qui collecte les droits d'auteur au nom des artistes"
 
-#: DB:link_type/description:217
+#: DB:link_type/description:17
 msgid ""
-"This is used to link a Label to the equivalent entry in Discogs. In addition"
-" to providing a link for users to find more information, this will hopefully"
-" eventually provide an index between the two systems, allowing MusicBrainz "
-"and Discogs to share data. (<a "
-"href=\"http://musicbrainz.org/doc/Discogs_Relationship_Type\">Details</a>)"
-msgstr "Ceci est utilisé pour relier un label à l'entrée équivalente dans Discogs. En plus d'offrir un lien offrant plus d'informations aux utilisateurs, espérons que ceci finira par fournir un index entre les deux systèmes permettant à MusicBrainz et Discogs de partager des données.  (<a href=\"http://musicbrainz.org/doc/Discogs_Relationship_Type\">Détails</a>)"
+"This is used to indicate that a release group is a live performance of a "
+"studio release group."
+msgstr "Ceci est utilisé pour indiqué qu'un groupe de parution est une interprétation en public d'un groupe de parution en studio."
+
+#: DB:link_type/description:226
+msgid ""
+"This is used to link a karaoke version of a song to the original song.​<br/><br/>\n"
+"A karaoke version is a version of the song with the main vocals removed, designed to be used for karaoke. These are generally produced from the original masters by muting the main vocal track or by using post-processing filters to remove the vocals. Karaoke versions can be found labelled in numerous different ways other than \"karaoke\": instrumental (even if backing vocals are still present), off vocal, backing track, etc."
+msgstr "Ceci est utilisé pour relier une version karaoké d'une chanson à son originale.<br/><br/>\nUne version karaoké est une version de la chanson sans les voix, conçue pour le karaoké. Elle est généralement produite à partir des matrices originales en rendant muette la piste de chant principale ou en utilisant des filtres de post-traitement qui enlèvent les voix. Les versions karaoké sont étiquetées de diverses façons autres que « karaoké », par exemple instrumental (même si les chœurs sont encore présents)."
+
+#: DB:link_type/description:213
+msgid "This is used to link a label to an image of its logo."
+msgstr "Ceci est utilisé pour relier un label à une image de son logo."
 
 #: DB:link_type/description:216
+msgid "This is used to link a label to its corresponding Wikipedia page."
+msgstr "Ceci est utilisé pour relier un label à une image de son logo."
+
+#: DB:link_type/description:218
 msgid ""
-"This is used to link a label to its corresponding Wikipedia page. (<a "
-"href=\"http://musicbrainz.org/doc/Wikipedia_Relationship_Type\">Details</a>)"
-msgstr "Ceci est utilisé pour relié un label à sa page Wikipédia correspondante. (<a href=\"http://musicbrainz.org/doc/Wikipedia_Relationship_Type\">Détails</a>)"
+"This is used to link a label to their page on a social networking site such "
+"as Facebook or Last.fm."
+msgstr "Ceci est utilisé pour relier un label à sa page sur un site de réseau social tel que Facebook ou Last.fm."
+
+#: DB:link_type/description:705
+msgid "This is used to link a place to the equivalent entry in Discogs."
+msgstr "Ceci est utilisé pour relier un lieu à l'entrée équivalente de Discogs."
+
+#: DB:link_type/description:285
+msgid ""
+"This is used to link a recording to its corresponding page on Allmusic."
+msgstr "Ceci est utilisé pour relier un enregistrement à sa page correspondante sur Allmusic."
+
+#: DB:link_type/description:284
+msgid ""
+"This is used to link a release group to its corresponding page on Allmusic."
+msgstr "Ceci est utilisé pour relier un groupe de parution à sa page correspondante sur Allmusic."
+
+#: DB:link_type/description:308
+msgid ""
+"This is used to link a release to its corresponding page in SecondHandSongs "
+"database."
+msgstr "Ceci est utilisé pour relier une parution à sa page correspondante dans la base de données de SecondHandSongs."
+
+#: DB:link_type/description:280
+msgid ""
+"This is used to link a work to its corresponding page in SecondHandSongs "
+"database."
+msgstr "Ceci est utilisé pour relier une œuvre à sa page correspondante dans la base de données de SecondHandSongs."
+
+#: DB:link_type/description:286
+msgid "This is used to link a work to its corresponding page on Allmusic."
+msgstr "Ceci est utilisé pour relier une œuvre à sa page correspondante sur Allmusic."
+
+#: DB:link_type/description:307
+msgid ""
+"This is used to link an artist to its corresponding page in SecondHandSongs "
+"database."
+msgstr "Ceci est utilisé pour relier un artiste à sa page correspondante dans la base de données de SecondHandSongs."
+
+#: DB:link_type/description:283
+msgid "This is used to link an artist to its corresponding page on Allmusic."
+msgstr "Ceci est utilisé pour relier une œuvre à sa page correspondante dans la base de données de SecondHandSongs."
+
+#: DB:link_type/description:714
+msgid "This is used to link an artist to its primary concert venue."
+msgstr "Ceci est utilisé pour relier un artiste à son lieu habituel de concert."
+
+#: DB:link_type/description:192
+msgid ""
+"This is used to link an artist to their page on a social networking site "
+"such as Facebook or Last.fm."
+msgstr "Ceci est utilisé pour relier un artiste à sa page sur un site de réseau social tel que Facebook ou Last.fm."
+
+#: DB:link_type/description:180
+msgid "This is used to link the Discogs page for this artist."
+msgstr "Ceci est utilisé pour relié la page Discogs de cet artiste."
+
+#: DB:link_type/description:217
+msgid "This is used to link the Discogs page for this label."
+msgstr "Ceci est utilisé pour relié la page Discogs de ce label."
+
+#: DB:link_type/description:90
+msgid "This is used to link the Discogs page for this release group."
+msgstr "Ceci est utilisé pour relié la page Discogs de ce groupe de parution."
+
+#: DB:link_type/description:76
+msgid "This is used to link the Discogs page for this release."
+msgstr "Ceci est utilisé pour relié la page Discogs de cette parution."
+
+#: DB:link_type/description:176
+msgid ""
+"This is used to link to a page where the artist's releases can be purchased "
+"for download."
+msgstr "Ceci est utilisé pour faire un lien vers une page où les parutions de l'artiste peuvent être achetées pour le téléchargement. "
+
+#: DB:link_type/description:254
+msgid ""
+"This is used to link to a page where the recording can be purchased for "
+"download."
+msgstr "Ceci est utilisé pour faire un lien vers une page où l'enregistrement peut être acheté pour le téléchargement. "
+
+#: DB:link_type/description:74
+msgid ""
+"This is used to link to a page where the release can be purchased for "
+"download."
+msgstr "Ceci est utilisé pour faire un lien vers une page où la parution peut être achetée pour le téléchargement. "
 
 #: DB:link_type/description:278
 msgid ""
@@ -1361,57 +1283,24 @@ msgid ""
 "href=\"http://musicbrainz.org/doc/Performance_Relationship_Type\">Details</a>)"
 msgstr "Ceci est utilisé pour relier des œuvres à leurs enregistrements. (<a href=\"http://musicbrainz.org/doc/Performance_Relationship_Type\">Détails</a>)"
 
-#: DB:link_type/description:213
+#: DB:link_type/description:102
 msgid ""
-"This is used to provide a logo for the label. (<a "
-"href=\"http://musicbrainz.org/doc/Logo_Relationship_Type\">Details</a>)"
-msgstr "Ceci est utilisé pour fournir un logo pour le label. (<a href=\"http://musicbrainz.org/doc/Logo_Relationship_Type\">DÉtails</a>)"
+"This is used to specify that an <a href=\"/doc/Artist\" "
+"title=\"Artist\">artist</a> collaborated on a short-term project, for cases "
+"where artist credits can't be used."
+msgstr "Ceci est utilisé pour spécifier qu'un<a href=\"/doc/Artist\" title=\"Artist\">artiste</a> a collaboré sur un projet à court-terme, dans les cas où les crédits d'artiste ne peuvent être utilisés."
 
-#: DB:link_type/description:192 DB:link_type/description:218
+#: DB:link_type/description:429
 msgid ""
 "This link is used to associate an artist or label with their page on a "
-"social networking site such as Facebook or Last.fm. (<a "
-"href=\"http://musicbrainz.org/doc/Social_Networking_Relationship_Type\">Details</a>)"
-msgstr "Ce lien est utilisé pour associer un artiste ou label à sa page sur un site de réseau social tel que Facebook ou Last.fm. (<a href=\"http://musicbrainz.org/doc/Social_Networking_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:190
-msgid ""
-"This link is used to link to specific artists on the /music pages at the BBC"
-" web site. (<a "
-"href=\"http://musicbrainz.org/doc/BBC_Music_Relationship_Type\">Details</a>)"
-msgstr "Ce lien est utilisé pour relié des artistes spécifiques sur les pages musicales du site Web de la BBC. (<a href=\"http://musicbrainz.org/doc/BBC_Music_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:214
-msgid ""
-"This link is used to relate to a label's fans site (<a "
-"href=\"http://musicbrainz.org/doc/Fanpage_Relationship_Type\">Details</a>)."
-msgstr "Ce lien est utilisé pour relier au site des fans d'un label. (<a href=\"http://musicbrainz.org/doc/Fanpage_Relationship_Type\">Détails</a>)."
-
-#: DB:link_type/description:219
-msgid ""
-"This link points to (one of) the official website(s) of the label (<a "
-"href=\"http://musicbrainz.org/doc/Official_Site_Relationship_Type\">Details</a>)."
-msgstr "Ce lien dirige vers le/un des site(s) Web officiel(s) d'un label. (<a href=\"http://musicbrainz.org/doc/Official_Site_Relationship_Type\">Détails</a>)."
+"social networking site such as Facebook or Twitter"
+msgstr "Ceci est utilisé pour associer un artiste ou label à sa page sur un site de réseau social tel que Facebook ou Twitter."
 
 #: DB:link_type/description:288
 msgid ""
 "This link points to a page for a particular release within a discography for"
-" an artist."
-msgstr "Ce lien dirige vers la page d'une parution particulière de la discographie d'un artiste."
-
-#: DB:link_type/description:211
-msgid ""
-"This link points to a site describing relevant facts about the label "
-"history. (<a "
-"href=\"http://musicbrainz.org/doc/History_Site_Relationship_Type\">Details</a>)"
-msgstr "Ce lien dirige vers un site décrivant des faits pertinents à l'histoire du label. (<a href=\"http://musicbrainz.org/doc/History_Site_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:212
-msgid ""
-"This link points to a site that contains a catalog (eg: list) of records "
-"published by the label. (<a "
-"href=\"http://musicbrainz.org/doc/Catalog_Site_Relationship_Type\">Details</a>)"
-msgstr "Ce lien dirige vers un site contenant un catalogue (c-à-d. liste) de disques publiés par un label. (<a href=\"http://musicbrainz.org/doc/Catalog_Site_Relationship_Type\">Détails</a>)"
+" an artist or label."
+msgstr "Ce lien dirige vers la page d'une parution particulière de la discographie d'un artiste ou label."
 
 #: DB:link_type/description:77
 msgid ""
@@ -1428,44 +1317,85 @@ msgid ""
 "site containing videos curated by it."
 msgstr "Ceci relie un label à une chaîne, liste de lecture ou page d'utilisateur sur un site de partage de vidéos contenant des vidéos que ce label organise."
 
-#: DB:link_type/description:290
+#: DB:link_type/description:214
+msgid "This links a label to a fan-created website."
+msgstr "Ceci relie un label à un site Web créé par un fan."
+
+#: DB:link_type/description:719
+msgid "This links a label to its page at Bandcamp."
+msgstr "Ceci relie un label à sa page sur Bandcamp."
+
+#: DB:link_type/description:313
 msgid ""
-"This links a label to its profile at SoundCloud. (<a "
-"href=\"http://musicbrainz.org/doc/SoundCloud_Relationship_Type\">Details</a>)"
-msgstr "Ceci relie un label à son profil sur SoundCloud. (<a href=\"http://musicbrainz.org/doc/SoundCloud_Relationship_Type\">Détails</a>)"
+"This links a label to its page in <a href=\"http://www.imdb.com/\">IMDb</a>."
+msgstr "Ceci relie un label à sa page sur <a href=\"http://www.imdb.com/\">IMDb</a>."
+
+#: DB:link_type/description:290
+msgid "This links a label to its profile at SoundCloud."
+msgstr "Ceci relie un label à son profil sur SoundCloud."
+
+#: DB:link_type/description:225
+msgid "This links a label to the equivalent entry at YouTube."
+msgstr "Ceci relie un label à l'entrée équivalente sur YouTube."
+
+#: DB:link_type/description:495
+msgid ""
+"This links a place to a channel, playlist, or user page on a video sharing "
+"site containing videos curated by it."
+msgstr "Ceci relie un label à une chaîne, liste de lecture ou page d'utilisateur sur un site de partage de vidéos contenant des vidéos que ce label organise."
 
 #: DB:link_type/description:302
 msgid "This links a recording to a license under which it is available."
 msgstr "Ceci relie un enregistrement à une licence sous laquelle il est disponible."
 
-#: DB:link_type/description:287
+#: DB:link_type/description:726
+msgid "This links a recording to the balance engineer who engineered it."
+msgstr "Ceci relie un enregistrement au régisseur musical de la production."
+
+#: DB:link_type/description:65
 msgid ""
-"This links a release group and the URL of that release group's official "
-"site. (<a "
-"href=\"http://musicbrainz.org/doc/Official_Homepage_Relationship_Type\">Details</a>)"
-msgstr "Ceci relie un groupe de parution et l'URL de son site officiel. (<a href=\"http://musicbrainz.org/doc/Official_Homepage_Relationship_Type\">Détails</a>)"
+"This links a release group to an artist, to indicate that it is a tribute "
+"album.​ Tribute albums often have a title in the form \"A Tribute to "
+"Artistname\". They normally consist of covers of songs by the target artist,"
+" played by other (sometimes very unknown) bands, to honor the target artist."
+" Often they are various artist compilations, but a single artist can perform"
+" the entire tribute album."
+msgstr "Ceci relie un groupe de parution à un artiste pour indiquer que c'est un album-hommage. Les albums-hommage on souvent un titre comme « Hommage à Nomd'artiste ». Ils sont habituellement constitués de reprises de chansons de l'artiste visé, jouées par d'autres groupes (parfois vraiment inconnus) pour honorer l'artiste visé. Ce sont souvent des compilations d'artistes divers, mais un artiste seul peut interpréter l'album-hommage en entier."
+
+#: DB:link_type/description:721
+msgid "This links a release group with the place that held its launch event."
+msgstr "Ceci relie un groupe de parution au lieu de son événement de lancement. "
 
 #: DB:link_type/description:301
 msgid "This links a release to a license under which it is available."
 msgstr "Ceci relie une parution  à une licence sous laquelle elle est disponible."
 
-#: DB:link_type/description:350
-msgid ""
-"This links a work to an arrangement of the work. (<a "
-"href=\"http://wiki.musicbrainz.org/Arrangement_Relationship_Type\">Details</a>)"
-msgstr "Ceci relie une œuvre à un arrangement de l'œuvre. (<a href=\"http://wiki.musicbrainz.org/Arrangement_Relationship_Type\">Détails</a>)"
+#: DB:link_type/description:727
+msgid "This links a release to the balance engineer who engineered it."
+msgstr "Ceci relie une parution au régisseur musical de la production."
 
-#: DB:link_type/description:316
+#: DB:link_type/description:720
+msgid "This links a release with the place that held its launch event."
+msgstr "Ceci relie une parution au lieu de son événement de lancement. "
+
+#: DB:link_type/description:97
 msgid ""
-"This links a work to an orchestration of the work. (<a "
-"href=\"http://wiki.musicbrainz.org/Orchestration_Relationship_Type\">Details</a>)"
-msgstr "Ceci relie une œuvre à une orchestration de l'œuvre. (<a href=\"http://wiki.musicbrainz.org/Orchestration_Relationship_Type\">Détails</a>)"
+"This links a soundtrack release to the <a "
+"href=\"http://www.imdb.com/\">IMDb</a> page for the movie, show or game of "
+"which it is a soundtrack."
+msgstr "Ceci relie une parution de bande originale à la page <a href=\"http://www.imdb.com/\">IMDb</a> pour le film, spectacle ou jeu dont il est la bande originale."
+
+#: DB:link_type/description:722
+msgid ""
+"This links a subgroup to the group from which it was created. This "
+"relationship type is the functional equivalent of the <a "
+"href=\"/relationship/5be4c609-9afa-4ea0-910b-12ffb71e3821\">member of band "
+"type</a> for group-group relationships."
+msgstr "Ceci relie un sous-groupe au groupe à partir duquel il a été créé. Ce type de relation est l'équivalent fonctionnel du <a  href=\"/relationship/5be4c609-9afa-4ea0-910b-12ffb71e3821\">type membre du groupe</a> pour les relations groupe-groupe."
 
 #: DB:link_type/description:292
-msgid ""
-"This links an (fictional) artist to the person that voice acted it. (<a "
-"href=\"http://musicbrainz.org/doc/Voice_Actor_Relationship_Type\">Details</a>)"
-msgstr "Ceci relie un artiste (fictif) à la personne ayant enregistré la voix. (<a href=\"http://musicbrainz.org/doc/Voice_Actor_Relationship_Type\">Détails</a>)"
+msgid "This links an (fictional) artist to the person that voice acted it."
+msgstr "Ceci relie un artiste (fictif) à la personne ayant prêté sa voix."
 
 #: DB:link_type/description:303
 msgid ""
@@ -1473,11 +1403,59 @@ msgid ""
 " site containing videos curated by it."
 msgstr "Ceci relie un artiste à une chaîne, liste de lecture ou page d'utilisateur sur un site de partage de vidéos contenant des vidéos que cet artiste organise."
 
-#: DB:link_type/description:291
+#: DB:link_type/description:172
+msgid "This links an artist to a fan-created website."
+msgstr "Ceci relie un artiste à un site Web créé par un fan."
+
+#: DB:link_type/description:707
 msgid ""
-"This links an artist to its profile at SoundCloud. (<a "
-"href=\"http://musicbrainz.org/doc/SoundCloud_Relationship_Type\">Details</a>)"
-msgstr "Ceci relie un artiste à son profil sur SoundCloud. (<a href=\"http://musicbrainz.org/doc/SoundCloud_Relationship_Type\">Détails</a>)"
+"This links an artist to an URL containing an interview with that artist."
+msgstr "Ceci relie un artiste à une URL contenant une entrevue avec cet artiste."
+
+#: DB:link_type/description:182
+msgid "This links an artist to an online biography for that artist."
+msgstr "Ceci relie un artiste à une une biographie en ligne de cet artiste."
+
+#: DB:link_type/description:184
+msgid ""
+"This links an artist to an online discography of their works.​ The "
+"discography should provide a summary of most, if not all, releases by the "
+"artist, and be as comprehensive as possible."
+msgstr "Ceci relie un artiste à une une discographie en ligne de ses œuvres. La discographie devrait fournir un résumé de la plupart, sinon toutes, les parutions par l'artiste, et être aussi complète que possible."
+
+#: DB:link_type/description:718
+msgid "This links an artist to its page at Bandcamp."
+msgstr "Ceci relie un artiste à sa page sur Bandcamp."
+
+#: DB:link_type/description:178
+msgid ""
+"This links an artist to its page in <a "
+"href=\"http://www.imdb.com/\">IMDb</a>."
+msgstr "Ceci relie un artiste à sa page sur <a href=\"http://www.imdb.com/\">IMDb</a>."
+
+#: DB:link_type/description:291
+msgid "This links an artist to its profile at SoundCloud."
+msgstr "Ceci relie un artiste à son profil sur SoundCloud."
+
+#: DB:link_type/description:190
+msgid ""
+"This links an artist to that artist's page at <a "
+"href=\"http://www.bbc.co.uk/music\">BBC Music</a>."
+msgstr "Ceci relie un artiste à la page le concernant sur <a href=\"http://www.bbc.co.uk/music\">« BBC Music »</a>."
+
+#: DB:link_type/description:174
+msgid "This links an artist to the equivalent entry at PureVolume."
+msgstr "Ceci relie un artiste à l'entrée équivalente de PureVolume."
+
+#: DB:link_type/description:193
+msgid "This links an artist to the equivalent entry at YouTube."
+msgstr "Ceci relie un artiste à l'entrée équivalente sur YouTube."
+
+#: DB:link_type/description:108
+msgid ""
+"This links an artist's performance name (a stage name or alias) with their "
+"legal name."
+msgstr "Ceci relie le nom d'interprète d'un artiste (un nom de scène ou alias) à son nom légal."
 
 #: DB:link_type/description:309
 msgid ""
@@ -1485,16 +1463,23 @@ msgid ""
 "relationship, can be a radio edit (which involves streamlining a longer "
 "track to around the 3 minute mark in order to make it suitable for radio "
 "play), or a shortened, censored, or otherwise edited version of the same "
-"material. (<a "
-"href=\"http://musicbrainz.org/doc/Edit_Relationship_Type\">Details</a>)"
-msgstr "Ceci relie un montage à son enregistrement original. Un montage, pour cette relation, peut être un montage radio (un allègement d'une piste plus longue à environ 3 minutes pour le rendre jouable à la radio), ou une version raccourcie, censurée ou autrement modifiée du même contenu. (<a href=\"http://musicbrainz.org/doc/Edit_Relationship_Type\">Détails</a>)"
+"material. The person who edited the recording can be linked using the <a "
+"href=\"/relationship/40dff87a-e475-4aa6-b615-9935b564d756\">editor "
+"relationship type</a>."
+msgstr "Ceci relie un montage à son enregistrement original. Un « montage », pour cette relation, peut être un montage radio (qui implique un allègement d'une piste plus longue à environ 3 minutes pour le rendre jouable à la radio), ou une version raccourcie, censurée ou autrement modifiée du même contenu. La personne ayant monté l'enregistrement peut être reliée en utilisant le <a href=\"/relationship/40dff87a-e475-4aa6-b615-9935b564d756\">type de relation chef monteur</a>."
 
 #: DB:link_type/description:289
 msgid ""
 "This links an entity to the appropriate listing in the Songfacts database, a"
-" user contributed database concerned with the stories behind the songs. (<a "
-"href=\"http://musicbrainz.org/doc/Songfacts_Relationship_Type\">Details</a>)"
-msgstr "Ceci relie une entité à la liste appropriée de la base de données Songfacts, une base de données auxquels les utilisateurs contribuent, se préoccupant des histoires derrière les chansons. (<a href=\"http://musicbrainz.org/doc/Songfacts_Relationship_Type\">Détails</a>)"
+" user contributed database concerned with the stories behind the songs."
+msgstr "Ceci relie une entité à la liste appropriée de la base de données Songfacts, une base de données auxquels les utilisateurs contribuent, se préoccupant des histoires derrière les chansons."
+
+#: DB:link_type/description:561
+msgid ""
+"This links an entity to the equivalent entry at another database. Please "
+"respect the <a "
+"href=\"/doc/Other_Databases_Relationship_Type/Whitelist\">whitelist</a>"
+msgstr "Ceci relie un entité à l'entrée équivalente dans une autre base de données. Veuillez respecter la <a href=\"/doc/Other_Databases_Relationship_Type/Whitelist\">liste blanche</a>."
 
 #: DB:link_type/description:96 DB:link_type/description:82
 #: DB:link_type/description:306 DB:link_type/description:222
@@ -1507,25 +1492,140 @@ msgid ""
 "href=\"http://musicbrainz.org/doc/Other_Databases_Relationship_Type\">Details</a>)"
 msgstr "Ceci relie un entité à son entrée équivalente dans une autre base de données. Veuillez respecter la <a href=\"http://musicbrainz.org/doc/Other_Databases_Relationship_Type/Whitelist\">liste blanche</a>. (<a href=\"http://musicbrainz.org/doc/Other_Databases_Relationship_Type\">Détails</a>)"
 
+#: DB:link_type/description:111
+msgid "This links artists who were married."
+msgstr "Ceci relie des artistes qui étaient mariés."
+
 #: DB:link_type/description:315
 msgid ""
-"This links different revisions of the same work. (<a "
-"href=\"http://wiki.musicbrainz.org/Revision_Relationship_Type\">Details</a>)"
-msgstr "Ceci relie des révisions différentes de la même œuvre. (<a href=\"http://wiki.musicbrainz.org/Revision_Relationship_Type\">Détails</a>)"
+"This links different revisions of the same <a href=\"/doc/Work\" "
+"title=\"Work\">work</a>."
+msgstr "Ceci relie différentes révisions de la même <a href=\"/doc/Work\" title=\"œuvre\">work</a>."
+
+#: DB:link_type/description:212
+msgid "This links to a catalog or list of records published by the label."
+msgstr "Ceci établi un lien vers un catalogue ou liste de disques édités par un label."
+
+#: DB:link_type/description:211
+msgid ""
+"This links to a site describing relevant details about a label's history."
+msgstr "Ceci établi un lien vers un site décrivant les détails pertinents de l'histoire d'un label."
+
+#: DB:link_type/description:350
+msgid ""
+"This links two <a href=\"/doc/Work\" title=\"Work\">works</a> where one work"
+" is an arrangement of the other."
+msgstr "Ceci relie deux <a href=\"/doc/Work\" title=\"Work\">œuvres</a> dont l'une est un arrangement de l'autre."
+
+#: DB:link_type/description:316
+msgid ""
+"This links two <a href=\"/doc/Work\" title=\"Work\">works</a> where one work"
+" is an orchestration of the other."
+msgstr "Ceci relie deux <a href=\"/doc/Work\" title=\"Work\">œuvres</a> dont l'une est une orchestration de l'autre."
 
 #: DB:link_type/description:314
 msgid ""
-"This links two works, where the second work is based on music or text from "
-"the first, but isn't directly a revision or an arrangement of it. (<a "
-"href=\"http://wiki.musicbrainz.org/Based_On_Relationship_Type\">Details</a>)"
-msgstr "Ceci relie deux œuvres quand la seconde œuvre est basée sur de la musique ou texte de la première, mais n'est pas directement une révision ou arrangement de celle-ci. (<a href=\"http://wiki.musicbrainz.org/Based_On_Relationship_Type\">Détails</a>)"
+"This links two <a href=\"/doc/Work\" title=\"Work\">works</a>, where the "
+"second work is based on music or text from the first, but isn't directly a "
+"revision or an arrangement of it."
+msgstr "Ceci relie deux <a href=\"/doc/Work\" title=\"Work\">œuvres</a> dont la seconde est basée sur de la musique ou du texte de la première, mais n'est pas un révision directe ou un arrangement de celle-ci."
 
-#: DB:link_type/description:85
+#: DB:link_type/description:110
+msgid "This links two siblings (brothers or sisters)."
+msgstr "Ceci relie deux personnes d'une fratrie (frères ou sœurs)."
+
+#: DB:link_type/description:241
+msgid "This links two versions of a <a href=\"/doc/Work\" title=\"Work\">work</a>."
+msgstr "Ceci relie deux versions d'une <a href=\"/doc/Work\" title=\"Work\">œuvre</a>."
+
+#: DB:link_type/description:310
 msgid ""
-"This relationship is used to link a release to a site where music can be "
-"legally streamed for free, such as Spotify or we7. (<a "
-"href=\"http://musicbrainz.org/doc/Streaming_Music_Relationship_Type\">Details</a>)"
-msgstr "Cette relation est utilisée pour relier une parution à un site où la musique peut être diffusée en flux gratuitement tel que Spotify ou we7. (<a href=\"http://musicbrainz.org/doc/Streaming_Music_Relationship_Type\">Détails</a>)"
+"This points to the <a href=\"//viaf.org/\">VIAF</a> page for this artist. "
+"VIAF is an international project to make a common authority file available "
+"to libraries across the world. An authority file is similar to an MBID for "
+"libraries. (<a "
+"href=\"//en.wikipedia.org/wiki/Virtual_International_Authority_File\">more "
+"information on Wikipedia</a>)"
+msgstr "Ceci dirige vers la page <a href=\"//viaf.org/\">VIAF</a>pour cet artiste. VIAF est un projet international de création d'un fichier d'autorité commun disponible aux bibliothèques du monde. Un fichier d'autorité est semblable à un MBID pour les bibliothèques. (<a href=\"//http://fr.wikipedia.org/wiki/Fichier_d%27autorit%C3%A9_international_virtuel\">Plus d'informations sur Wikipédia</a>)"
+
+#: DB:link_type/description:311
+msgid ""
+"This points to the <a href=\"//viaf.org/\">VIAF</a> page for this label. "
+"VIAF is an international project to make a common authority file available "
+"to libraries across the world. An authority file is similar to an MBID for "
+"libraries. (<a "
+"href=\"//en.wikipedia.org/wiki/Virtual_International_Authority_File\">more "
+"information on Wikipedia</a>)"
+msgstr "Ceci dirige vers la page <a href=\"//viaf.org/\">VIAF</a>pour ce label. VIAF est un projet international de création d'un fichier d'autorité commun disponible aux bibliothèques du monde. Un fichier d'autorité est semblable à un MBID pour les bibliothèques. (<a href=\"//http://fr.wikipedia.org/wiki/Fichier_d%27autorit%C3%A9_international_virtuel\">Plus d'informations sur Wikipédia</a>)"
+
+#: DB:link_type/description:312
+msgid ""
+"This points to the <a href=\"//viaf.org/\">VIAF</a> page for this work. VIAF is an international project to make a common authority file available to libraries across the world. An authority file is similar to an MBID for libraries. (<a href=\"//en.wikipedia.org/wiki/Virtual_International_Authority_File\">more information on Wikipedia</a>)\n"
+"<br/><br/>\n"
+"<strong>Note:</strong> Works in VIAF aren't very detailed. Only add links to MusicBrainz works if you're absolutely sure it's the same work."
+msgstr "Ceci dirige vers la page <a href=\"//viaf.org/\">VIAF</a>pour cette œuvre. VIAF est un projet international de création d'un fichier d'autorité commun disponible aux bibliothèques du monde. Un fichier d'autorité est semblable à un MBID pour les bibliothèques. (<a href=\"//http://fr.wikipedia.org/wiki/Fichier_d%27autorit%C3%A9_international_virtuel\">Plus d'informations sur Wikipédia</a>)\n<br/><br/>\n<strong>Note :</strong> Les œuvres ne sont pas très détaillées dans VIAF. N'ajouter des liens vers les œuvres MusicBrainz que si vous êtes absolument sûr que c'est la même œuvre."
+
+#: DB:link_type/description:197
+msgid ""
+"This relationship describes a URL where lyrics for the artist can be found. "
+"Only sites on the <a "
+"href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">whitelist</a> are "
+"permitted."
+msgstr "Cette relation décrit une URL où des paroles peuvent être trouvées pour cet artiste. Seul les sites de la <a href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">liste blanche</a> sont permis."
+
+#: DB:link_type/description:93
+msgid ""
+"This relationship describes a URL where lyrics for the release group can be "
+"found. Only sites on the <a "
+"href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">whitelist</a> are "
+"permitted."
+msgstr "Cette relation décrit une URL où des paroles peuvent être trouvées pour ce groupe de parution. Seul les sites de la <a href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">liste blanche</a> sont permis."
+
+#: DB:link_type/description:271
+msgid ""
+"This relationship describes a URL where lyrics for the work can be found. "
+"Only sites on the <a "
+"href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">whitelist</a> are "
+"permitted."
+msgstr "Cette relation décrit une URL où des paroles peuvent être trouvées pour cette œuvre. Seul les sites de la <a href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">liste blanche</a> sont permis."
+
+#: DB:link_type/description:710
+msgid ""
+"This relationship indicates the artist is the <a "
+"href=\"//en.wikipedia.org/wiki/Sound_recording_copyright_symbol\">phonographic"
+" copyright</a> holder for this release. ​"
+msgstr "Cette relation indique que l'artiste est le détenteur des <a href=\"//en.wikipedia.org/wiki/Sound_recording_copyright_symbol\">droits phonographiques d'auteur</a> pour cette parution."
+
+#: DB:link_type/description:709
+msgid ""
+"This relationship indicates the artist is the copyright holder for this "
+"release."
+msgstr "Cette relation indique que l'artiste est le détenteur des droits d'auteur pour cette parution."
+
+#: DB:link_type/description:712
+msgid ""
+"This relationship indicates the company that was the licensor of this "
+"release."
+msgstr "Cette relation indique la compagnie qui était le concédant de licence de cette parution."
+
+#: DB:link_type/description:711
+msgid ""
+"This relationship indicates the label is the <a "
+"href=\"//en.wikipedia.org/wiki/Sound_recording_copyright_symbol\">phonographic"
+" copyright</a> holder for this release. ​"
+msgstr "Cette relation indique que le label est le détenteur des <a href=\"//en.wikipedia.org/wiki/Sound_recording_copyright_symbol\">droits phonographiques d'auteur</a> pour cette parution."
+
+#: DB:link_type/description:708
+msgid ""
+"This relationship indicates the label is the copyright holder for this "
+"release."
+msgstr "Cette relation indique que le label est le détenteur des droits d'auteur pour cette parution."
+
+#: DB:link_type/description:244
+msgid ""
+"This relationship is deprecated, please use the \"medley\" attribute of "
+"\"recording of\" instead."
+msgstr "Cette relation est obsolète, veuillez plutôt utiliser l'attribut « pot-pourri » ou « enregistrement de »."
 
 #: DB:link_type/description:54
 msgid ""
@@ -1533,16 +1633,8 @@ msgid ""
 "writing the music and/or the words (lyrics, libretto, etc.), when no more "
 "specific information is available. If possible, the more specific composer, "
 "lyricist and/or librettist types should be used, rather than this "
-"relationship type. (<a "
-"href=\"http://musicbrainz.org/doc/Writer_Relationship_Type\">Details</a>)"
-msgstr "Cette relation est utilisée pour relier une parution à l'artiste ayant écrit la musique et/ou les mots (paroles, livret, etc...) quand plus aucune information spécifique n'est disponible. (<a href=\"http://musicbrainz.org/doc/Writer_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:268
-msgid ""
-"This relationship is used to link a track to a site where music can be "
-"legally streamed for free, such as Spotify or we7. (<a "
-"href=\"http://musicbrainz.org/doc/Streaming_Music_Relationship_Type\">Details</a>)"
-msgstr "Cette relation est utilisée pour relier une piste à un site où la musique peut être diffusée en flux gratuitement tel que Spotify ou we7. (<a href=\"http://musicbrainz.org/doc/Streaming_Music_Relationship_Type\">Détails</a>)"
+"relationship type."
+msgstr "Cette relation est utilisée pour relier une parution à l'artiste responsable de l'écriture de la musique et/ou des mots (paroles, livret, etc...) quand plus aucune information spécifique n'est disponible. Si possible, les types plus spécifiques de compositeur, parolier et/ou librettiste devraient être utilisés plutôt que ce type de relation. "
 
 #: DB:link_type/description:167
 msgid ""
@@ -1550,34 +1642,14 @@ msgid ""
 "writing the music and/or the words (lyrics, libretto, etc.), when no more "
 "specific information is available. If possible, the more specific composer, "
 "lyricist and/or librettist types should be used, rather than this "
-"relationship type. (<a "
-"href=\"http://musicbrainz.org/doc/Writer_Relationship_Type\">Details</a>)"
-msgstr "Cette relation est utilisée pour relier une œuvre à l'artiste ayant écrit la musique et/ou les mots (paroles, livret, etc...) quand plus aucune information spécifique n'est disponible. Si possible, les types plus spécifiques de chef d'orchestre, parolier et/ou librettiste devraient être utilisés plutôt que ce type de relation. (<a href=\"http://musicbrainz.org/doc/Writer_Relationship_Type\">Détails</a>)"
+"relationship type."
+msgstr "Cette relation est utilisée pour relier une œuvre à l'artiste responsable de l'écriture de la musique et/ou des mots (paroles, livret, etc...) quand plus aucune information spécifique n'est disponible. Si possible, les types plus spécifiques de compositeur, parolier et/ou librettiste devraient être utilisés plutôt que ce type de relation."
 
 #: DB:link_type/description:101
 msgid ""
 "This relationship is used to link an artist to a person who has compiled a "
-"catalogue of that artist's works. (<a "
-"href=\"http://musicbrainz.org/doc/Cataloguer_Relationship_Type\">Details</a>)"
-msgstr "Cette relation est utilisée pour relier un artiste à une personne ayant compilé un catalogue des œuvres de cet artiste. (<a href=\"http://musicbrainz.org/doc/Cataloguer_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:194
-msgid ""
-"This relationship is used to link an artist to a site where music can be "
-"legally streamed for free, such as Spotify or we7. (<a "
-"href=\"http://musicbrainz.org/doc/Streaming_Music_Relationship_Type\">Details</a>)"
-msgstr "Cette relation est utilisée pour relier un artiste à un site où la musique peut être diffusée en flux gratuitement tel que Spotify ou we7. (<a href=\"http://musicbrainz.org/doc/Streaming_Music_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:308
-msgid ""
-"This relationship links a release to its corresponding page in "
-"SecondHandSongs database. (<a "
-"href=\"http://musicbrainz.org/doc/Secondhandsongs_Relationship_Type\">Details</a>)"
-msgstr "Cette relation relie une parution à sa page correspondante dans la base de données SecondHandSongs. (<a href=\"http://musicbrainz.org/doc/Secondhandsongs_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:86
-msgid "This relationship links a release to its corresponding page on VGMdb."
-msgstr "Cette relation relie une parution sa page correspondante sur VGMdb."
+"catalogue of that artist's works."
+msgstr "Cette relation est utilisée pour relier un artiste à une personne ayant compilé un catalogue des œuvres de cet artiste."
 
 #: DB:link_type/description:37 DB:link_type/description:132
 msgid ""
@@ -1586,113 +1658,51 @@ msgid ""
 "href=\"http://musicbrainz.org/doc/Programming_Relationship_Type\">Details</a>)"
 msgstr "Cette relation relie une piste ou une parution à la personne qui a programmé les instruments électroniques. (<a href=\"http://musicbrainz.org/doc/Programming_Relationship_Type\">Détails</a>)"
 
-#: DB:link_type/description:280
+#: DB:link_type/description:728
 msgid ""
-"This relationship links a work to its corresponding page in SecondHandSongs "
-"database. (<a "
-"href=\"http://musicbrainz.org/doc/Secondhandsongs_Relationship_Type\">Details</a>)"
-msgstr "Cette relation relie une œuvre à sa page correspondante de la base de données SecondHandsongs. (<a href=\"http://musicbrainz.org/doc/Secondhandsongs_Relationship_Type\">Détails</a>)"
+"This relationship specifies that an artist is a <a "
+"href=\"http://en.wikipedia.org/wiki/Tribute_act\">tribute</a> to another "
+"specific artist/band; that is, it primarily performs covers of that artist.​"
+" They may also be referred to as cover bands. Some tribute artists may name "
+"themselves, dress, and/or act similarly to the artists they pay tribute to."
+msgstr "Cette relation spécifie qu'un artiste est un <a href=\"http://en.wikipedia.org/wiki/Tribute_act\">hommage</a> à un autre artiste spécifique/groupe; c.-à-d. qu'il interprète principalement des reprises de cet artiste. On y réfère aussi comme groupe de reprise. Certains de ces artistes peuvent s'habiller et se comporter comme les artistes auxquels ils rendent hommage."
 
-#: DB:link_type/description:307
-msgid ""
-"This relationship links an artist to its corresponding page in "
-"SecondHandSongs database. (<a "
-"href=\"http://musicbrainz.org/doc/Secondhandsongs_Relationship_Type\">Details</a>)"
-msgstr "Cette relation relie un artiste à sa page correspondante dans la base de données SecondHandSongs. (<a href=\"http://musicbrainz.org/doc/Secondhandsongs_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:191
-msgid "This relationship links an artist to its corresponding page on VGMdb."
-msgstr "Cette relation relie un artiste à sa page correspondante sur VGMdb."
-
-#: DB:link_type/description:283 DB:link_type/description:284
-#: DB:link_type/description:286 DB:link_type/description:285
-msgid ""
-"This relationship links an artist, release group, work or recording to its "
-"corresponding page on allmusic. (<a "
-"href=\"http://musicbrainz.org/doc/Allmusic_Relationship_Type\">Details</a>)"
-msgstr "Cette relation relie un artiste, groupe de parution, œuvre ou enregistrement à leur page correspondante sur allmusic. (<a href=\"http://musicbrainz.org/doc/Allmusic_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:189
+#: DB:link_type/description:462
 msgid ""
 "This relationship type can be used to link a MusicBrainz artist to the "
-"equivalent entry in Myspace. Please, use URLs in format "
-"<code>http://www.myspace.com/<artist></code> (<a "
-"href=\"http://musicbrainz.org/doc/Myspace_Relationship_Type\">Details</a>)"
-msgstr "Ce type de relation peut être utilisé pour relier un artiste de MusicBrainz à son entrée équivalente sur Myspace. Veuillez utiliser des URLs au format <code>http://www.myspace.com/<artist></code>. (<a href=\"http://musicbrainz.org/doc/Myspace_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:174
-msgid ""
-"This relationship type can be used to link a MusicBrainz artist to the "
-"equivalent entry in PureVolume. Please use URLs in the format "
-"<code>http://www.purevolume.com/&lt;artist&gt;</code> (<a "
-"href=\"http://musicbrainz.org/doc/PureVolume_Relationship_Type\">Details</a>)"
-msgstr "Ce type de relation peut être utilisé pour relier un artiste de MusicBrainz à son entrée équivalente sur PureVolume. Veuillez utiliser des URLs au format <code>http://www.purevolume.com/&lt;artist&gt;</code>.  (<a href=\"http://musicbrainz.org/doc/PureVolume_Relationship_Type\">Details</a>)"
-
-#: DB:link_type/description:198
-msgid ""
-"This relationship type can be used to link a MusicBrainz artist to their "
-"microblog on a service such as Twitter or identi.ca (<a "
-"href=\"http://musicbrainz.org/doc/Microblog_Relationship_Type\">Details</a>)."
-msgstr "Ce type de relation peut être utilisé pour relier un artiste de MusicBrainz à son microblogue sur un service tel que Twitter ou identi.ca. (<a href=\"http://musicbrainz.org/doc/Microblog_Relationship_Type\">Détails</a>)."
-
-#: DB:link_type/description:185
-msgid ""
-"This relationship type can be used to link a MusicBrainz artist to their "
-"online community pages. In addition to providing a link for users to find "
-"more information, and listen to music of the artist, online community sites "
-"are often used by many artists in lieu of, or additionally to, their "
-"official homepage. (<a "
-"href=\"http://musicbrainz.org/doc/Online_Community_Relationship_Type\">Details</a>)"
-msgstr "Ce type de relation peut-être utilisé pour relié un artiste de MusicBrainz aux pages de ses communautés en ligne. En plus de fournir un lien pour que les utilisateurs puissent trouver plus d'informations et écouter la musique de l'artiste, les sites de communautés en ligne sont souvent utilisé par les artistes au lieu ou en plus de leur page Web officielle. (<a href=\"http://musicbrainz.org/doc/Online_Community_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:215
-msgid ""
-"This relationship type can be used to link a MusicBrainz label to the "
-"equivalent entry in Myspace. (<a "
-"href=\"http://musicbrainz.org/doc/Myspace_Relationship_Type\">Details</a>)"
-msgstr "Ce type de relation peut être utilisé pour relier un label de MusicBrainz à son entrée équivalente sur Myspace. (<a href=\"http://musicbrainz.org/doc/Myspace_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:223
-msgid ""
-"This relationship type can be used to link a MusicBrainz label to their "
-"microblog on a service such as Twitter or identi.ca (<a "
-"href=\"http://musicbrainz.org/doc/Microblog_Relationship_Type\">Details</a>)."
-msgstr "Ce type de relation peut être utilisé pour relier un label de MusicBrainz à son microblogue sur un service tel que Twitter ou identi.ca. (<a href=\"http://musicbrainz.org/doc/Microblog_Relationship_Type\">Détails</a>)."
-
-#: DB:link_type/description:224
-msgid ""
-"This relationship type can be used to link a label to its blog (<a "
-"href=\"http://musicbrainz.org/doc/Blog_Relationship_Type\">Details</a>)."
-msgstr "Ce type de relation peut-être utilisé pour relié un label à son blogue. (<a href=\"http://musicbrainz.org/doc/Blog_Relationship_Type\">Détails</a>)."
-
-#: DB:link_type/description:225
-msgid ""
-"This relationship type can be used to link a label to the equivalent entry "
-"in YouTube. URLs should follow the format "
-"http://www.youtube.com/user/<username>. (<a "
-"href=\"http://musicbrainz.org/doc/YouTube_Relationship_Type\">Details</a>)"
-msgstr "Ce type de relation peut-être utilisé pour relié un label à son entrée équivalente sur YouTube. Les URLs devraient être au format <code>http://www.youtube.com/user/<username></code>. (<a href=\"http://musicbrainz.org/doc/YouTube_Relationship_Type\">Détails</a>)"
+"equivalent entry in Myspace."
+msgstr "Ce type de relation peut être utilisé pour relier un artiste MusicBrainz à l'entrée équivalente de Myspace."
 
 #: DB:link_type/description:116
 msgid ""
 "This relationship type can be used to link a label to the person(s) who "
-"founded it. (<a "
-"href=\"http://musicbrainz.org/doc/Label_Founder_Relationship_Type\">Details</a>)"
-msgstr "Ce type de relation peut-être utilisé pour relier un label à la personne(s) qui l'a fondé. (<a href=\"http://musicbrainz.org/doc/Label_Founder_Relationship_Type\">Détails</a>)"
+"founded it."
+msgstr "Ce type de relation peut être utilisé pour relier un label à la/aux personne(s) qui l'a/l'ont fondé."
 
-#: DB:link_type/description:193
+#: DB:link_type/description:627
+msgid "This relationship type can be used to link a place to its blog"
+msgstr "Ce type de relation peut être utilisé pour relier un lieu à son blogue."
+
+#: DB:link_type/description:528
 msgid ""
 "This relationship type can be used to link an artist to the equivalent entry"
 " in YouTube. URLs should follow the format "
-"http://www.youtube.com/user/<username>. (<a "
-"href=\"http://musicbrainz.org/doc/YouTube_Relationship_Type\">Details</a>)"
-msgstr "Ce type de relation peut-être utilisé pour relié un artiste à son entrée équivalente sur YouTube. Les URLs devraient être au format <code>http://www.youtube.com/user/<username></code>. (<a href=\"http://musicbrainz.org/doc/YouTube_Relationship_Type\">Détails</a>)"
+"http://www.youtube.com/user/<username>"
+msgstr "Ce type de relation peut être utilisé pour relier un artiste à l'entrée équivalente de YouTube. Les URLs devraient suivre le format shttp://www.youtube.com/user/<nom d’utilisateur>"
 
-#: DB:link_type/description:199
+#: DB:link_type/description:258
 msgid ""
-"This relationship type can be used to link an artist to their blog (<a "
-"href=\"http://musicbrainz.org/doc/Blog_Relationship_Type\">Details</a>)."
-msgstr "Ce type de relation peut-être utilisé pour relié un artiste à son blogue. (<a href=\"http://musicbrainz.org/doc/Blog_Relationship_Type\">Détails</a>)."
+"This relationship type describes that the recording contains samples taken from a movie, show or game, which has an IMDB page at the given URL.\n"
+"<br/><br/>\n"
+"To say that the recording is part of a soundtrack, please use the <a href=\"https://musicbrainz.org/relationship/85b0a010-3237-47c7-8476-6fcefd4761af/edit\">IMDB relationship type for release groups</a>."
+msgstr "Ce type de relation décrit que l'enregistrement contient des échantillons pris d'un film, spectacle ou jeu qui a une page IMDb à l'URL donnée.\n<br/><br/>\nPour signifier que l'enregistrement fait partie d'une bande originale, veuillez utiliser le <a href=\"https://musicbrainz.org/relationship/85b0a010-3237-47c7-8476-6fcefd4761af/edit\">type de relation IMDb pour les groupes de parutions</a>."
+
+#: DB:link_type/description:83
+msgid ""
+"This relationship type describes that the release contains samples taken from a movie, show or game, which has an IMDB page at the given URL.\n"
+"<br/><br/>\n"
+"To say that the release is a soundtrack, please use the <a href=\"https://musicbrainz.org/relationship/85b0a010-3237-47c7-8476-6fcefd4761af/edit\">IMDB relationship type for release groups</a>."
+msgstr "Ce type de relation décrit que la parution contient des échantillons pris d'un film, spectacle ou jeu qui a une page IMDb à l'URL donnée.\n<br/><br/>\nPour signifier que lla parution fait partie d'une bande originale, veuillez utiliser le <a href=\"https://musicbrainz.org/relationship/85b0a010-3237-47c7-8476-6fcefd4761af/edit\">type de relation IMDb pour les groupes de parutions</a>."
 
 #: DB:link_type/description:236
 msgid ""
@@ -1719,13 +1729,6 @@ msgid ""
 "release with multiple discs as a single release containing multiple discs."
 msgstr "Ce type de relation est <strong>obsolète</strong> ! Veuilles saisir une parution multi-disques en tant que parution simple contenant plusieurs disques."
 
-#: DB:link_type/description:84
-msgid ""
-"This relationship type is <strong>deprecated</strong>! Please enter separate"
-" relationships using the license relationship type and either the free "
-"download or paid download relationship type."
-msgstr "Ce type de relation est <strong>obsolète</strong> ! Veuillez saisir des relations séparées en utilisant le type de relation de licence et soit le type de relation de téléchargement gratuit soit celui de téléchargement payant."
-
 #: DB:link_type/description:78
 msgid ""
 "This relationship type is <strong>deprecated</strong>! Please upload covers on the cover art tab for the release and/or add an ASIN relationship.\n"
@@ -1733,7 +1736,7 @@ msgid ""
 "Note about CD Baby: Many CD Baby releases are also available (usually with bigger covers) on Amazon.com."
 msgstr "Ce type de relation est <strong>obsolète</strong> ! Veuillez téléverser des couvertures sur l'onglet d'illustration de la parution et/ou ajouter une relation d'ASIN.\n\nNote sur CD Baby : de nombreuses parutions de CD Baby sont aussi disponibles (habituellement avec des couvertures plus grandes) sur Amazon.com."
 
-#: DB:link_type/description:270 DB:link_type/description:261
+#: DB:link_type/description:261 DB:link_type/description:270
 #: DB:link_type/description:252 DB:link_type/description:269
 msgid "This relationship type is <strong>deprecated</strong>."
 msgstr "Ce type de relation est <strong>obsolète</strong> !"
@@ -1744,24 +1747,98 @@ msgid ""
 "on the release level."
 msgstr "Ce type de relation est <strong>obsolète</strong> ! Veuillez ajouter les notes de livret au niveau de la parution."
 
-#: DB:link_type/description:166 DB:link_type/description:39
-#: DB:link_type/description:299
-msgid ""
-"This relationship type is <strong>deprecated</strong>. Please use an "
-"(instrument) arranger relationship instead!"
-msgstr "Ce type de relation est <strong>obsolète</strong> ! Veuillez plutôt utiliser une relation d'arrangeur (d'instrument)."
-
 #: DB:link_type/description:91 DB:link_type/description:181
 msgid ""
 "This relationship type is <strong>deprecated</strong>. Use \"has a page in a"
 " database\" instead."
 msgstr "Ce type de relation est <strong>obsolète</strong> ! Veuillez plutôt utiliser « a une page dans une base de données »."
 
+#: DB:link_type/description:15
+msgid ""
+"This relationship type is used to indicate that a release group is a cover version of another release group, i.e. when an artist performs a new rendition of another artist's album.<br/>\n"
+"For individual songs, see the <a href=\"/relationship/a3005666-a872-32c3-ad06-98af558e99b0\">recording-work performance relationship type</a>."
+msgstr "Ce type de relation est utilisé pour indiquer qu'un groupe de parution est une reprise d'un autre groupe de parution, c.-à-d. quand un artiste fait une nouvelle interprétation de l'album d'un autre artiste."
+
+#: DB:link_type/description:224
+msgid "This relationship type is used to link a label to its blog."
+msgstr "Ce type de relation est utilisé pour relier un label à son blogue."
+
+#: DB:link_type/description:287
+msgid ""
+"This relationship type is used to link a release group to an official "
+"website created specifically for the release group."
+msgstr "Ce type de relation est utilisé pour relier un groupe de parution à un site Web officiel créé spécifiquement pour le groupe de parution."
+
+#: DB:link_type/description:85
+msgid ""
+"This relationship type is used to link a release to a site where the tracks "
+"can be legally streamed for free, e.g. Spotify."
+msgstr "Ce type de relation est utilisée pour relier une parution à un site où les pistes peuvent être légalement diffusées en flux gratuitement, par ex. Spotify."
+
+#: DB:link_type/description:268
+msgid ""
+"This relationship type is used to link a track to a site where the track can"
+" be legally streamed for free, such as Spotify for audio tracks or YouTube "
+"for videos."
+msgstr "Ce type de relation est utilisée pour relier une piste à un site où la piste peut être légalement diffusées en flux gratuitement, tel que Spotify pour les pistes audio ou YouTube pour les vidéos."
+
+#: DB:link_type/description:194
+msgid ""
+"This relationship type is used to link an artist to a site where music can "
+"be legally streamed for free, e.g. Spotify."
+msgstr "Ce type de relation est utilisée pour relier un artiste à un site où de la musique peut être légalement diffusées en flux gratuitement, par ex. Spotify."
+
+#: DB:link_type/description:199
+msgid "This relationship type is used to link an artist to their blog."
+msgstr "Ce type de relation est utilisé pour relier un artiste à son blogue."
+
+#: DB:link_type/description:175
+msgid ""
+"This relationship type is used to link to a page where the artist's releases"
+" can be purchased for mail order."
+msgstr "Ce type de relation est utilisé pour faire le lien vers une page où les parutions de l'artiste peuvent âtre achetées par correspondance."
+
+#: DB:link_type/description:79
+msgid ""
+"This relationship type is used to link to a page where the release can be "
+"purchased for mail order."
+msgstr "Ce type de relation est utilisé pour faire le lien vers une page où la parution peut être achetée par correspondance. "
+
+#: DB:link_type/description:215
+msgid "This relationship type links a label to its Myspace page."
+msgstr "Ce type de relation relie un label à sa page Myspace."
+
 #: DB:link_type/description:210
 msgid ""
 "This relationship type links a label to its corresponding page at <a "
-"href=\"http://vgmdb.net/\">VGMdb</a>."
-msgstr "Ce type de relation relie un label à sa page correspondante sur <a href=\"http://vgmdb.net/\">VGMdb</a>."
+"href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated"
+" to cataloguing the music of video games and anime."
+msgstr "Ce type de relation relie un label à sa page correspondante sur <a href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb est un projet communautaire dédié au catalogage de la musique des jeux vidéo et des dessins animés."
+
+#: DB:link_type/description:86
+msgid ""
+"This relationship type links a release to its corresponding page <a "
+"href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated"
+" to cataloguing the music of video games and anime."
+msgstr "Ce type de relation relie une parution à sa page correspondante sur <a href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb est un projet communautaire dédié au catalogage de la musique des jeux vidéo et des dessins animés."
+
+#: DB:link_type/description:191
+msgid ""
+"This relationship type links an artist to its corresponding page <a "
+"href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated"
+" to cataloguing the music of video games and anime."
+msgstr "Ce type de relation relie un artiste à sa page correspondante sur <a href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb est un projet communautaire dédié au catalogage de la musique des jeux vidéo et des dessins animés."
+
+#: DB:link_type/description:189
+msgid "This relationship type links an artist to their Myspace page."
+msgstr "Ce type de relation relie un artiste à sa page Myspace."
+
+#: DB:link_type/description:185
+msgid ""
+"This relationship type links an artist to their online community pages. An "
+"online community is a web site providing information, music, and/or news, "
+"and may act as an unofficial homepage for an entity."
+msgstr "Ce type de relation relie un artiste aux pages de sa communauté en ligne. Une communauté en ligne est un site Web fournissant des informations, de la musique, et/ou des nouvelles, et peut servir de page d'accueil non-officielle pour cette entité."
 
 #: DB:link_attribute_type/description:596
 msgid ""
@@ -1792,23 +1869,7 @@ msgstr "Ceci indique typiquement quelqu'un qui est moins expérimenté et qui tr
 msgid ""
 "Transliterated track listings don't change the language, just the script or "
 "spelling."
-msgstr "Les listes de pistes translittérés ne change pas la langue, juste le caractère d'écriture ou l'orthographe."
-
-#: DB:link_type/description:93
-msgid ""
-"Use this relationship to link to lyrics hosted by lyrics.wikia.com, "
-"directlyrics.com, lyricstatus.com, kasi-time.com or wikisource.org ONLY! (<a"
-" "
-"href=\"http://musicbrainz.org/doc/Has_Lyrics_At_Relationship_Type\">Details</a>)"
-msgstr "Utiliser cette relation pour relier des paroles hébergées SEULEMENT par lyrics.wikia.com, directlyrics.com, lyricstatus.com, kasi-time.com ou wikisource.org ! (<a href=\"http://musicbrainz.org/doc/Has_Lyrics_At_Relationship_Type\">Déetails</a>)"
-
-#: DB:link_type/description:197 DB:link_type/description:271
-msgid ""
-"Use this relationship to link to lyrics hosted by sites on the <a "
-"href=\"http://musicbrainz.org/doc/Style/Relationships/URLs/Lyrics_whitelist\">whitelist</a>"
-" ONLY! (<a "
-"href=\"http://musicbrainz.org/doc/Has_Lyrics_At_Relationship_Type\">Details</a>)"
-msgstr "Utiliser cette relation SEULEMENT pour relier des paroles hébergées par des sites sur la <a href=\"http://musicbrainz.org/doc/Style/Relationships/URLs/Lyrics_whitelist\">liste blanche</a> ! (<a href=\"http://musicbrainz.org/doc/Has_Lyrics_At_Relationship_Type\">Détails</a>)"
+msgstr "Les listes de pistes translittérés ne change pas la langue, juste le système d'écriture ou l'orthographe."
 
 #: DB:link_type/description:227
 msgid ""
@@ -1834,51 +1895,49 @@ msgstr "VGMdb"
 msgid "VGMdb page for"
 msgstr "Page VGMdb de"
 
-#: DB:link_type/link_phrase:310 DB:link_type/link_phrase:311
+#: DB:link_type/link_phrase:311 DB:link_type/link_phrase:310
 #: DB:link_type/reverse_link_phrase:312
 msgid "VIAF ID"
 msgstr "ID VIAF"
 
-#: DB:link_type/link_phrase:312 DB:link_type/reverse_link_phrase:310
-#: DB:link_type/reverse_link_phrase:311
+#: DB:link_type/link_phrase:312 DB:link_type/reverse_link_phrase:311
+#: DB:link_type/reverse_link_phrase:310
 msgid "VIAF ID for"
 msgstr "ID VIAF pour"
 
 #: DB:link_type/link_phrase:352 DB:link_type/link_phrase:353
-#: DB:link_type/link_phrase:358 DB:link_type/link_phrase:354
-#: DB:link_type/reverse_link_phrase:351
+#: DB:link_type/link_phrase:354 DB:link_type/link_phrase:358
+#: DB:link_type/link_phrase:594 DB:link_type/reverse_link_phrase:351
 msgid "Wikidata"
 msgstr "Wikidata"
 
 #: DB:link_type/link_phrase:351 DB:link_type/reverse_link_phrase:352
-#: DB:link_type/reverse_link_phrase:353 DB:link_type/reverse_link_phrase:358
-#: DB:link_type/reverse_link_phrase:354
+#: DB:link_type/reverse_link_phrase:353 DB:link_type/reverse_link_phrase:354
+#: DB:link_type/reverse_link_phrase:358 DB:link_type/reverse_link_phrase:594
 msgid "Wikidata page for"
 msgstr "Page Wikidata pour"
 
-#: DB:link_type/link_phrase:355 DB:link_type/link_phrase:89
-#: DB:link_type/link_phrase:179 DB:link_type/link_phrase:216
-#: DB:link_type/reverse_link_phrase:279
+#: DB:link_type/link_phrase:89 DB:link_type/link_phrase:216
+#: DB:link_type/link_phrase:179 DB:link_type/link_phrase:355
+#: DB:link_type/link_phrase:595 DB:link_type/reverse_link_phrase:279
 msgid "Wikipedia"
 msgstr "Wikipédia"
 
-#: DB:link_type/link_phrase:279 DB:link_type/reverse_link_phrase:355
-#: DB:link_type/reverse_link_phrase:89 DB:link_type/reverse_link_phrase:179
-#: DB:link_type/reverse_link_phrase:216
+#: DB:link_type/link_phrase:279 DB:link_type/reverse_link_phrase:89
+#: DB:link_type/reverse_link_phrase:216 DB:link_type/reverse_link_phrase:179
+#: DB:link_type/reverse_link_phrase:355 DB:link_type/reverse_link_phrase:595
 msgid "Wikipedia page for"
 msgstr "Page Wikipédia pour"
 
-#: DB:link_type/reverse_link_phrase:225 DB:link_type/reverse_link_phrase:193
+#: DB:link_type/reverse_link_phrase:193 DB:link_type/reverse_link_phrase:528
+#: DB:link_type/reverse_link_phrase:225
 msgid "YouTube channel for"
 msgstr "Chaîne YouTube de"
 
-#: DB:link_type/link_phrase:225 DB:link_type/link_phrase:193
+#: DB:link_type/link_phrase:193 DB:link_type/link_phrase:528
+#: DB:link_type/link_phrase:225
 msgid "YouTube channels"
 msgstr "Chaînes YouTube"
-
-#: DB:link_attribute_type/description:253
-msgid "a license used to release music under"
-msgstr "une licence utilisée pour les parutions musicales"
 
 #: DB:link_attribute_type/name:1
 msgid "additional"
@@ -1904,10 +1963,6 @@ msgstr "arrangement de"
 msgid "arrangements"
 msgstr "arrangements"
 
-#: DB:link_type/link_phrase:265 DB:link_type/reverse_link_phrase:265
-msgid "art direction"
-msgstr "direction artistique"
-
 #: DB:link_type/link_phrase:135 DB:link_type/link_phrase:62
 #: DB:link_type/link_phrase:263 DB:link_type/reverse_link_phrase:135
 #: DB:link_type/reverse_link_phrase:62 DB:link_type/reverse_link_phrase:263
@@ -1921,30 +1976,6 @@ msgstr "assistant"
 #: DB:link_attribute_type/name:527
 msgid "associate"
 msgstr "associé"
-
-#: DB:link_attribute_type/name:255
-msgid "attribution (by)"
-msgstr "paternité (par)"
-
-#: DB:link_attribute_type/name:256
-msgid "attribution no derivatives (by-nd)"
-msgstr "paternité pas de modification (by-nd) "
-
-#: DB:link_attribute_type/name:257
-msgid "attribution non-commercial (by-nc)"
-msgstr "paternité pas d'utilisation commerciale (by-nc)"
-
-#: DB:link_attribute_type/name:258
-msgid "attribution non-commercial no derivatives (by-nc-nd)"
-msgstr "paternité pas d'utilisation commerciale pas de modification (by-nc-nd)"
-
-#: DB:link_attribute_type/name:259
-msgid "attribution non-commercial share alike (by-nc-sa)"
-msgstr "paternité pas d'utilisation commerciale partage à l'identique (by-nc-sa)"
-
-#: DB:link_attribute_type/name:260
-msgid "attribution share alike (by-sa)"
-msgstr "paternité partage à l'identique (by-sa)"
 
 #: DB:link_attribute_type/description:12 DB:link_attribute_type/name:12
 msgid "background vocals"
@@ -1970,11 +2001,13 @@ msgstr "biographies"
 msgid "biography of"
 msgstr "biographie de "
 
-#: DB:link_type/reverse_link_phrase:224 DB:link_type/reverse_link_phrase:199
+#: DB:link_type/reverse_link_phrase:199 DB:link_type/reverse_link_phrase:224
+#: DB:link_type/reverse_link_phrase:627
 msgid "blog of"
 msgstr "blogue de"
 
-#: DB:link_type/link_phrase:224 DB:link_type/link_phrase:199
+#: DB:link_type/link_phrase:199 DB:link_type/link_phrase:224
+#: DB:link_type/link_phrase:627
 msgid "blogs"
 msgstr "blogues"
 
@@ -1983,15 +2016,18 @@ msgid "bonus"
 msgstr "bonus"
 
 #: DB:link_type/link_phrase:23 DB:link_type/link_phrase:134
-#: DB:link_type/link_phrase:262 DB:link_type/reverse_link_phrase:23
-#: DB:link_type/reverse_link_phrase:134 DB:link_type/reverse_link_phrase:262
+#: DB:link_type/reverse_link_phrase:23 DB:link_type/reverse_link_phrase:134
 msgid "booking"
 msgstr "placement"
 
-#: DB:link_type/link_phrase:205 DB:link_type/reverse_link_phrase:205
-#: DB:link_type/long_link_phrase:205
+#: DB:link_type/link_phrase:205 DB:link_type/link_phrase:66
+#: DB:link_type/reverse_link_phrase:205 DB:link_type/long_link_phrase:205
 msgid "business association"
 msgstr "association commerciale"
+
+#: DB:link_type/reverse_link_phrase:66
+msgid "business association with"
+msgstr "association commerciale avec"
 
 #: DB:link_type/long_link_phrase:75 DB:link_type/long_link_phrase:255
 msgid "can be downloaded for free at"
@@ -2012,10 +2048,6 @@ msgstr "catalogue de disques"
 #: DB:link_type/reverse_link_phrase:201
 msgid "catalog reissued by"
 msgstr "catalogue réédité par"
-
-#: DB:link_attribute_type/name:245
-msgid "chamber"
-msgstr "de chambre"
 
 #: DB:link_type/link_phrase:109
 msgid "children"
@@ -2042,13 +2074,11 @@ msgid "compilation of"
 msgstr "compilation de"
 
 #: DB:link_type/link_phrase:16 DB:link_type/link_phrase:52
-#: DB:link_type/link_phrase:159 DB:link_type/link_phrase:247
-#: DB:link_type/link_phrase:237 DB:link_type/reverse_link_phrase:16
-#: DB:link_type/reverse_link_phrase:52 DB:link_type/reverse_link_phrase:159
-#: DB:link_type/reverse_link_phrase:247 DB:link_type/reverse_link_phrase:237
+#: DB:link_type/link_phrase:159 DB:link_type/link_phrase:237
+#: DB:link_type/reverse_link_phrase:16 DB:link_type/reverse_link_phrase:52
+#: DB:link_type/reverse_link_phrase:159 DB:link_type/reverse_link_phrase:237
 #: DB:link_type/long_link_phrase:16 DB:link_type/long_link_phrase:52
-#: DB:link_type/long_link_phrase:159 DB:link_type/long_link_phrase:247
-#: DB:link_type/long_link_phrase:237
+#: DB:link_type/long_link_phrase:159 DB:link_type/long_link_phrase:237
 msgid "compilations"
 msgstr "compilations"
 
@@ -2087,17 +2117,13 @@ msgstr "contient les paroles pour"
 msgid "contains the score for"
 msgstr "contient la partition de "
 
-#: DB:link_type/reverse_link_phrase:49
+#: DB:link_type/reverse_link_phrase:49 DB:link_type/reverse_link_phrase:154
 msgid "contains {additional} samples by"
 msgstr "contient des échantillons {additional:supplémentaires} par"
 
 #: DB:link_type/long_link_phrase:231
 msgid "contains {additional} samples from"
 msgstr "contient des échantillons {additional:supplémentaires} de"
-
-#: DB:link_type/reverse_link_phrase:154
-msgid "contains {additional} {instrument} samples by"
-msgstr "contient des échantillons {additional:supplémentaires}  de/d' {instrument} par"
 
 #: DB:link_type/link_phrase:119 DB:link_type/reverse_link_phrase:119
 #: DB:link_type/long_link_phrase:119
@@ -2107,6 +2133,10 @@ msgstr "contrat"
 #: DB:link_attribute_type/description:230 DB:link_attribute_type/name:230
 msgid "contralto vocals"
 msgstr "Voix de contralto"
+
+#: DB:link_type/reverse_link_phrase:708 DB:link_type/reverse_link_phrase:709
+msgid "copyrighted by"
+msgstr "droits d'auteur par"
 
 #: DB:link_attribute_type/description:8 DB:link_attribute_type/name:8
 msgid "countertenor vocals"
@@ -2124,13 +2154,12 @@ msgstr "illustration"
 msgid "cover art for"
 msgstr "illustration pour"
 
-#: DB:link_type/long_link_phrase:12 DB:link_type/long_link_phrase:245
+#: DB:link_type/long_link_phrase:12
 msgid "covers and versions"
 msgstr "reprises et versions"
 
 #: DB:link_type/link_phrase:12 DB:link_type/link_phrase:4
-#: DB:link_type/link_phrase:245 DB:link_type/reverse_link_phrase:12
-#: DB:link_type/reverse_link_phrase:4 DB:link_type/reverse_link_phrase:245
+#: DB:link_type/reverse_link_phrase:12 DB:link_type/reverse_link_phrase:4
 #: DB:link_type/long_link_phrase:4
 msgid "covers or other versions"
 msgstr "reprises et autres versions"
@@ -2172,6 +2201,14 @@ msgstr "page discographique pour"
 #: DB:link_type/link_phrase:184
 msgid "discography pages"
 msgstr "pages discographiques"
+
+#: DB:link_type/link_phrase:361 DB:link_type/long_link_phrase:361
+msgid "distributed"
+msgstr "distribué"
+
+#: DB:link_type/reverse_link_phrase:361
+msgid "distributed by"
+msgstr "distribué par"
 
 #: DB:link_type/link_phrase:203
 msgid "distributor for"
@@ -2222,7 +2259,11 @@ msgstr "émérite"
 msgid "engineer position"
 msgstr "poste d'ingénieur"
 
-#: DB:link_type/reverse_link_phrase:120
+#: DB:link_type/link_phrase:701
+msgid "engineer position at"
+msgstr "poste d'ingénieur à"
+
+#: DB:link_type/reverse_link_phrase:120 DB:link_type/reverse_link_phrase:701
 msgid "engineers"
 msgstr "ingénieurs"
 
@@ -2255,10 +2296,13 @@ msgstr "fondateurs"
 msgid "free download page for"
 msgstr "page de téléchargement gratuit pour"
 
-#: DB:link_type/reverse_link_phrase:85 DB:link_type/reverse_link_phrase:268
 #: DB:link_type/reverse_link_phrase:194
+msgid "free music streaming page for"
+msgstr "diffusion de musique en flux gratuit pour"
+
+#: DB:link_type/reverse_link_phrase:85 DB:link_type/reverse_link_phrase:268
 msgid "free music {video} streaming page for"
-msgstr "diffusion en flux {video} pour"
+msgstr "page de diffusion musicale {video} en flux pour"
 
 #: DB:link_type/link_phrase:73 DB:link_type/link_phrase:187
 #: DB:link_type/link_phrase:257 DB:link_type/reverse_link_phrase:73
@@ -2300,7 +2344,11 @@ msgstr "a eu un/des {EP:EP|simple(s)} lié/liés"
 msgid "has Amazon ASIN"
 msgstr "a un ASIN d'Amazon"
 
-#: DB:link_type/long_link_phrase:310 DB:link_type/long_link_phrase:311
+#: DB:link_type/long_link_phrase:719 DB:link_type/long_link_phrase:718
+msgid "has Bandcamp page at"
+msgstr "a une page Bandcamp à"
+
+#: DB:link_type/long_link_phrase:311 DB:link_type/long_link_phrase:310
 msgid "has VIAF ID at"
 msgstr "a une ID VIAF à"
 
@@ -2308,16 +2356,22 @@ msgstr "a une ID VIAF à"
 msgid "has a BBC Music page at"
 msgstr "a une page musicale BBC à"
 
-#: DB:link_type/long_link_phrase:76 DB:link_type/long_link_phrase:180
-#: DB:link_type/long_link_phrase:90 DB:link_type/long_link_phrase:217
+#: DB:link_type/long_link_phrase:76 DB:link_type/long_link_phrase:217
+#: DB:link_type/long_link_phrase:180 DB:link_type/long_link_phrase:90
+#: DB:link_type/long_link_phrase:705
 msgid "has a Discogs page at"
 msgstr "a une page Discogs à"
+
+#: DB:link_type/long_link_phrase:713
+msgid "has a Geonames page at"
+msgstr "a une page Geonames à"
 
 #: DB:link_type/long_link_phrase:91 DB:link_type/long_link_phrase:181
 msgid "has a MusicMoz page at"
 msgstr "a une page MusicMoz à"
 
 #: DB:link_type/long_link_phrase:189 DB:link_type/long_link_phrase:215
+#: DB:link_type/long_link_phrase:462
 msgid "has a Myspace page at"
 msgstr "a une page Myspace à"
 
@@ -2339,12 +2393,14 @@ msgid "has a VGMdb page at"
 msgstr "a une page VGMdb à"
 
 #: DB:link_type/long_link_phrase:352 DB:link_type/long_link_phrase:353
-#: DB:link_type/long_link_phrase:358 DB:link_type/long_link_phrase:354
+#: DB:link_type/long_link_phrase:354 DB:link_type/long_link_phrase:358
+#: DB:link_type/long_link_phrase:594
 msgid "has a Wikidata page at"
 msgstr "a une page Wikidata à"
 
-#: DB:link_type/long_link_phrase:355 DB:link_type/long_link_phrase:89
-#: DB:link_type/long_link_phrase:179 DB:link_type/long_link_phrase:216
+#: DB:link_type/long_link_phrase:89 DB:link_type/long_link_phrase:216
+#: DB:link_type/long_link_phrase:179 DB:link_type/long_link_phrase:355
+#: DB:link_type/long_link_phrase:595
 msgid "has a Wikipedia page at"
 msgstr "a une page Wikipédia à"
 
@@ -2352,7 +2408,8 @@ msgstr "a une page Wikipédia à"
 msgid "has a biography page at"
 msgstr "a une page biographique à"
 
-#: DB:link_type/long_link_phrase:224 DB:link_type/long_link_phrase:199
+#: DB:link_type/long_link_phrase:199 DB:link_type/long_link_phrase:224
+#: DB:link_type/long_link_phrase:627
 msgid "has a blog at"
 msgstr "à un blogue à"
 
@@ -2380,22 +2437,18 @@ msgstr "à une version karaoké"
 msgid "has a logo at"
 msgstr "à un logo à"
 
-#: DB:link_type/long_link_phrase:198 DB:link_type/long_link_phrase:223
-msgid "has a microblog at"
-msgstr "à un microblogue à"
-
-#: DB:link_type/long_link_phrase:270 DB:link_type/long_link_phrase:25
-#: DB:link_type/long_link_phrase:129 DB:link_type/long_link_phrase:162
+#: DB:link_type/long_link_phrase:25 DB:link_type/long_link_phrase:129
+#: DB:link_type/long_link_phrase:162 DB:link_type/long_link_phrase:270
 msgid "has a miscellaneous role on"
 msgstr "a un rôle divers sur"
 
 #: DB:link_type/long_link_phrase:96 DB:link_type/long_link_phrase:82
 #: DB:link_type/long_link_phrase:306 DB:link_type/long_link_phrase:222
-#: DB:link_type/long_link_phrase:188
+#: DB:link_type/long_link_phrase:188 DB:link_type/long_link_phrase:561
 msgid "has a page in a database at"
 msgstr "à une page dans une base données à"
 
-#: DB:link_type/long_link_phrase:173
+#: DB:link_type/long_link_phrase:173 DB:link_type/long_link_phrase:396
 msgid "has a picture at"
 msgstr "à une photo à"
 
@@ -2404,6 +2457,7 @@ msgid "has a review page at"
 msgstr "à une page de critique à"
 
 #: DB:link_type/long_link_phrase:192 DB:link_type/long_link_phrase:218
+#: DB:link_type/long_link_phrase:429
 msgid "has a social networking page at"
 msgstr "à une page de réseau social à"
 
@@ -2412,21 +2466,27 @@ msgstr "à une page de réseau social à"
 msgid "has an Allmusic page at"
 msgstr "a une page Allmusic à"
 
-#: DB:link_type/long_link_phrase:313 DB:link_type/long_link_phrase:178
-#: DB:link_type/long_link_phrase:97
+#: DB:link_type/long_link_phrase:178 DB:link_type/long_link_phrase:313
+#: DB:link_type/long_link_phrase:97 DB:link_type/long_link_phrase:706
 msgid "has an IMDb page at"
 msgstr "à une page IMDb à"
 
-#: DB:link_type/long_link_phrase:225 DB:link_type/long_link_phrase:193
+#: DB:link_type/long_link_phrase:707
+msgid "has an interview at"
+msgstr "a une entrevue à"
+
+#: DB:link_type/long_link_phrase:193 DB:link_type/long_link_phrase:528
+#: DB:link_type/long_link_phrase:225
 msgid "has an official YouTube channel at"
 msgstr "a une chaîne officielle YouTube à"
 
 #: DB:link_type/long_link_phrase:287 DB:link_type/long_link_phrase:183
-#: DB:link_type/long_link_phrase:219
+#: DB:link_type/long_link_phrase:219 DB:link_type/long_link_phrase:363
 msgid "has an official homepage at"
 msgstr "à un site Web officiel à"
 
 #: DB:link_type/long_link_phrase:303 DB:link_type/long_link_phrase:304
+#: DB:link_type/long_link_phrase:495
 msgid "has an official video channel at"
 msgstr "à une chaîne vidéo officielle à"
 
@@ -2442,13 +2502,13 @@ msgstr "a un hymne"
 msgid "has arrangement"
 msgstr "a un arrangement"
 
-#: DB:link_type/long_link_phrase:265
-msgid "has art direction by"
-msgstr "direction artistique par"
-
 #: DB:link_type/long_link_phrase:263
 msgid "has artist & repertoire support by"
 msgstr "a un soutien artiste & répertoire par"
+
+#: DB:link_type/long_link_phrase:66
+msgid "has business association with"
+msgstr "à une association commerciale avec"
 
 #: DB:link_type/long_link_phrase:78
 msgid "has cover art at"
@@ -2466,13 +2526,17 @@ msgstr "conception/illustration par"
 msgid "has graphic design by"
 msgstr "conception graphique par"
 
+#: DB:link_type/long_link_phrase:725
+msgid "has imprint"
+msgstr "à une marque"
+
+#: DB:link_type/link_phrase:707
+msgid "has interview at"
+msgstr "a une entrevue à"
+
 #: DB:link_type/long_link_phrase:211
 msgid "has its history presented at"
 msgstr "son histoire est présentée par"
-
-#: DB:link_type/long_link_phrase:259
-msgid "has legal representation by"
-msgstr "a une représentation juridique par"
 
 #: DB:link_type/long_link_phrase:93 DB:link_type/long_link_phrase:197
 msgid "has lyrics available at"
@@ -2483,8 +2547,21 @@ msgid "has orchestration"
 msgstr "a une orchestration"
 
 #: DB:link_type/long_link_phrase:281 DB:link_type/long_link_phrase:356
+#: DB:link_type/long_link_phrase:717
 msgid "has part"
 msgstr "à une partie"
+
+#: DB:link_type/link_phrase:723 DB:link_type/long_link_phrase:723
+msgid "has personal label"
+msgstr "a un label personnel"
+
+#: DB:link_type/link_phrase:724 DB:link_type/long_link_phrase:724
+msgid "has personal publisher"
+msgstr "a un éditeur personnel"
+
+#: DB:link_type/long_link_phrase:714
+msgid "has primary concert venue at"
+msgstr "a une salle de concert principale à"
 
 #: DB:link_type/link_phrase:315 DB:link_type/long_link_phrase:315
 msgid "has revision"
@@ -2502,13 +2579,17 @@ msgstr "a une/des parution(s) de soutien"
 msgid "has tribute album(s)"
 msgstr "a un/des album(s) hommage"
 
-#: DB:link_type/long_link_phrase:250
-msgid "has {additional} photography by"
-msgstr "photographie {additional:supplémentaire} par"
-
 #: DB:link_type/long_link_phrase:69
-msgid "has/had {additional} {instrument} samples taken from"
-msgstr "a/avait des échantillons {instrument} {additional:supplémentaires} provenant de"
+msgid "has/had {additional} samples taken from"
+msgstr "a/avait des échantillons {additional:additionnels} provenant de"
+
+#: DB:link_type/long_link_phrase:700
+msgid "held a concert at"
+msgstr "à donné un concert à"
+
+#: DB:link_type/link_phrase:700
+msgid "held concerts at"
+msgstr "à donné des concerts à"
 
 #: DB:link_type/link_phrase:211
 msgid "history page"
@@ -2518,9 +2599,44 @@ msgstr "page historique"
 msgid "history page for"
 msgstr "page historique pour"
 
+#: DB:link_type/link_phrase:708 DB:link_type/link_phrase:709
+#: DB:link_type/long_link_phrase:708 DB:link_type/long_link_phrase:709
+msgid "holds copyright for"
+msgstr "détient les droits d'auteur pour"
+
+#: DB:link_type/link_phrase:710 DB:link_type/link_phrase:711
+#: DB:link_type/long_link_phrase:710 DB:link_type/long_link_phrase:711
+msgid "holds phonographic copyright for"
+msgstr "détient les droits phonographiques d'auteur pour"
+
+#: DB:link_type/reverse_link_phrase:700
+msgid "hosted concerts by"
+msgstr "a accueilli des concerts par"
+
+#: DB:link_type/link_phrase:721 DB:link_type/link_phrase:720
+#: DB:link_type/long_link_phrase:721 DB:link_type/long_link_phrase:720
+msgid "hosted launch event for"
+msgstr "a accueilli des événements de lancement pour"
+
+#: DB:link_type/long_link_phrase:716 DB:link_type/long_link_phrase:715
+msgid "hosted the premiere of"
+msgstr "a accueilli la première de"
+
+#: DB:link_type/reverse_link_phrase:725
+msgid "imprint of"
+msgstr "marque de"
+
+#: DB:link_type/link_phrase:725
+msgid "imprints"
+msgstr "marques"
+
 #: DB:link_attribute_type/name:580
 msgid "instrumental"
 msgstr "instrumental"
+
+#: DB:link_type/reverse_link_phrase:707
+msgid "interview with"
+msgstr "entrevue avec"
 
 #: DB:link_type/link_phrase:112 DB:link_type/reverse_link_phrase:112
 msgid "involved with"
@@ -2574,9 +2690,15 @@ msgstr "est un rematriçage de"
 msgid "is a remix of"
 msgstr "est un remix de"
 
+#: DB:link_type/long_link_phrase:728
+msgid "is a tribute to"
+msgstr "est un hommage à"
+
 #: DB:link_type/long_link_phrase:278
-msgid "is a {partial} {live} {instrumental} {cover} recording of"
-msgstr "est un enregistrement {partial:partiel} {live:en public} {instrumental} {cover:, une reprise} de"
+msgid ""
+"is a {live} {medley:medley including a} {partial} {instrumental} {cover} "
+"recording of"
+msgstr "est un {medley:pot-pourri} {live:en public} {medley:incluant un} enregistrement {partial:partiel} {instrumental:instrumental} {cover:une reprise} de"
 
 #: DB:link_type/long_link_phrase:15
 msgid "is a {translated} {parody} cover of"
@@ -2589,11 +2711,6 @@ msgstr "est une page Allmusic pour"
 #: DB:link_type/long_link_phrase:309
 msgid "is an edit of"
 msgstr "est un montage de"
-
-#: DB:link_type/long_link_phrase:84
-msgid ""
-"is available for download under the Creative Commons {license} license at"
-msgstr "est disponible au téléchargement sous licence Creative Commons {license} à"
 
 #: DB:link_type/reverse_link_phrase:314
 msgid "is based on"
@@ -2634,6 +2751,10 @@ msgstr "est la société de gestion des droits associé avec"
 #: DB:link_type/link_phrase:11 DB:link_type/long_link_phrase:11
 msgid "is {EP:an|a} {EP:EP|single} which was taken from"
 msgstr "Est {EP:un|un} {EP:EP|simple} provenant de"
+
+#: DB:link_type/long_link_phrase:722
+msgid "is/was a subgroup of"
+msgstr "est/était un sous-groupe de"
 
 #: DB:link_type/long_link_phrase:104
 msgid "is/was a supporting artist for"
@@ -2685,6 +2806,10 @@ msgstr "parutions plus récentes"
 msgid "later {translated} {parody} versions"
 msgstr "versions {translated:traduites} {parody:parodiées} plus récentes"
 
+#: DB:link_type/reverse_link_phrase:721 DB:link_type/reverse_link_phrase:720
+msgid "launch event at"
+msgstr "événement de lancement à"
+
 #: DB:link_attribute_type/name:4
 msgid "lead vocals"
 msgstr "voix de tête"
@@ -2694,23 +2819,25 @@ msgid "legal name"
 msgstr "nom légal"
 
 #: DB:link_type/link_phrase:22 DB:link_type/link_phrase:142
-#: DB:link_type/link_phrase:259 DB:link_type/reverse_link_phrase:22
-#: DB:link_type/reverse_link_phrase:142
+#: DB:link_type/reverse_link_phrase:22 DB:link_type/reverse_link_phrase:142
 msgid "legal representation"
 msgstr "représentation juridique"
 
-#: DB:link_type/reverse_link_phrase:259
-msgid "legal representation for"
-msgstr "représentation juridique pour"
-
-#: DB:link_attribute_type/name:253 DB:link_type/link_phrase:302
-#: DB:link_type/link_phrase:301
+#: DB:link_type/link_phrase:302 DB:link_type/link_phrase:301
 msgid "license"
 msgstr "licence"
 
 #: DB:link_type/reverse_link_phrase:302 DB:link_type/reverse_link_phrase:301
 msgid "license for"
 msgstr "licence pour"
+
+#: DB:link_type/link_phrase:712 DB:link_type/long_link_phrase:712
+msgid "licensed"
+msgstr "sous licence"
+
+#: DB:link_type/reverse_link_phrase:712
+msgid "licensed from"
+msgstr "sous licence de"
 
 #: DB:link_type/link_phrase:81 DB:link_type/reverse_link_phrase:81
 #: DB:link_type/long_link_phrase:81
@@ -2747,9 +2874,17 @@ msgstr "page des paroles"
 msgid "lyrics page for"
 msgstr "page des paroles pour"
 
-#: DB:link_type/reverse_link_phrase:79 DB:link_type/reverse_link_phrase:175
+#: DB:link_type/reverse_link_phrase:175 DB:link_type/reverse_link_phrase:79
 msgid "mail-order purchase page for"
 msgstr "page d'achat par correspondance pour"
+
+#: DB:link_type/link_phrase:360 DB:link_type/long_link_phrase:360
+msgid "manufactured"
+msgstr "fabriqué"
+
+#: DB:link_type/reverse_link_phrase:360
+msgid "manufactured by"
+msgstr "fabriqué par"
 
 #: DB:link_type/link_phrase:111 DB:link_type/reverse_link_phrase:111
 msgid "married"
@@ -2762,6 +2897,22 @@ msgstr "collage de"
 #: DB:link_type/reverse_link_phrase:232 DB:link_type/reverse_link_phrase:10
 msgid "mash-ups"
 msgstr "collages"
+
+#: DB:link_type/reverse_link_phrase:697
+msgid "mastered at"
+msgstr "matricé à"
+
+#: DB:link_type/link_phrase:704
+msgid "mastering engineer position at"
+msgstr "poste d'Ingénieur de matriçage à"
+
+#: DB:link_type/reverse_link_phrase:704
+msgid "mastering engineers"
+msgstr "ingénieurs de matriçage"
+
+#: DB:link_type/link_phrase:697
+msgid "mastering location for"
+msgstr "lieu de matriçage pour"
 
 #: DB:link_attribute_type/name:568
 msgid "medium"
@@ -2803,6 +2954,10 @@ msgstr "support 8"
 msgid "medium 9"
 msgstr "support 9"
 
+#: DB:link_attribute_type/name:750
+msgid "medley"
+msgstr "pot-pourri"
+
 #: DB:link_type/link_phrase:239 DB:link_type/link_phrase:244
 msgid "medley of"
 msgstr "pot-pourri de "
@@ -2811,29 +2966,37 @@ msgstr "pot-pourri de "
 msgid "mezzo-soprano vocals"
 msgstr "voix de mezzo-soprano"
 
-#: DB:link_type/reverse_link_phrase:198 DB:link_type/reverse_link_phrase:223
-msgid "microblog for"
-msgstr "microblogue pour"
-
-#: DB:link_type/link_phrase:198 DB:link_type/link_phrase:223
-msgid "microblogs"
-msgstr "microblogues"
-
 #: DB:link_attribute_type/name:2
 msgid "minor"
 msgstr "mineur"
 
-#: DB:link_type/link_phrase:270 DB:link_type/link_phrase:25
-#: DB:link_type/link_phrase:129 DB:link_type/link_phrase:162
+#: DB:link_type/link_phrase:25 DB:link_type/link_phrase:129
+#: DB:link_type/link_phrase:162 DB:link_type/link_phrase:270
 #: DB:link_type/reverse_link_phrase:261
 msgid "miscellaneous roles"
 msgstr "rôles divers"
 
-#: DB:link_type/link_phrase:261 DB:link_type/reverse_link_phrase:270
-#: DB:link_type/reverse_link_phrase:25 DB:link_type/reverse_link_phrase:129
-#: DB:link_type/reverse_link_phrase:162
+#: DB:link_type/link_phrase:261 DB:link_type/reverse_link_phrase:25
+#: DB:link_type/reverse_link_phrase:129 DB:link_type/reverse_link_phrase:162
+#: DB:link_type/reverse_link_phrase:270
 msgid "miscellaneous support"
 msgstr "soutien divers"
+
+#: DB:link_type/reverse_link_phrase:694 DB:link_type/reverse_link_phrase:696
+msgid "mixed at"
+msgstr "mixé à"
+
+#: DB:link_type/link_phrase:703
+msgid "mixing engineer position at"
+msgstr "poste d'ingénieur de mixage à"
+
+#: DB:link_type/reverse_link_phrase:703
+msgid "mixing engineers"
+msgstr "ingénieurs de mixage"
+
+#: DB:link_type/link_phrase:694 DB:link_type/link_phrase:696
+msgid "mixing location for"
+msgstr "lieu de mixage pour"
 
 #: DB:link_type/long_link_phrase:177
 msgid "music can be downloaded for free at"
@@ -2848,25 +3011,21 @@ msgid "music can be purchased for mail-order at"
 msgstr "la musique peut être acheter par correspondance sur"
 
 #: DB:link_type/long_link_phrase:194
-msgid "music {video:videos} can be streamed for free at"
-msgstr "des {video:vidéos} musicales peuvent-être diffusées en flux gratuitement sur"
+msgid "music can be streamed for free at"
+msgstr " la musique peut-être diffusée en flux gratuit sur"
 
 #: DB:link_type/link_phrase:106 DB:link_type/reverse_link_phrase:106
 #: DB:link_type/long_link_phrase:106
 msgid "musical relationship"
 msgstr "relation musicale"
 
-#: DB:link_attribute_type/name:374
-msgid "noncommercial sampling plus"
-msgstr "non commerciale échantillonnage plus"
-
 #: DB:link_type/reverse_link_phrase:287 DB:link_type/reverse_link_phrase:183
-#: DB:link_type/reverse_link_phrase:219
+#: DB:link_type/reverse_link_phrase:219 DB:link_type/reverse_link_phrase:363
 msgid "official homepage for"
 msgstr "site Web officiel de"
 
 #: DB:link_type/link_phrase:287 DB:link_type/link_phrase:183
-#: DB:link_type/link_phrase:219
+#: DB:link_type/link_phrase:219 DB:link_type/link_phrase:363
 msgid "official homepages"
 msgstr "sites Web officiels de"
 
@@ -2878,14 +3037,15 @@ msgstr "communautés en ligne"
 msgid "online community page for"
 msgstr "page de communauté en ligne pour"
 
-#: DB:link_type/link_phrase:221 DB:link_type/reverse_link_phrase:221
-#: DB:link_type/long_link_phrase:221
+#: DB:link_type/link_phrase:221 DB:link_type/link_phrase:660
+#: DB:link_type/reverse_link_phrase:221 DB:link_type/reverse_link_phrase:660
+#: DB:link_type/long_link_phrase:221 DB:link_type/long_link_phrase:660
 msgid "online data"
 msgstr "données en ligne"
 
-#: DB:link_attribute_type/name:243
-msgid "orchestra"
-msgstr "orchestre"
+#: DB:link_type/long_link_phrase:45 DB:link_type/long_link_phrase:150
+msgid "orchestra {additional:additionally} performed"
+msgstr "orchestre a {additional:aussi} interprété"
 
 #: DB:link_type/reverse_link_phrase:316
 msgid "orchestration of"
@@ -2895,16 +3055,13 @@ msgstr "orchestration de"
 msgid "orchestrations"
 msgstr "orchestrations"
 
-#: DB:link_attribute_type/name:246
-msgid "other"
-msgstr "autre"
-
 #: DB:link_type/link_phrase:96 DB:link_type/link_phrase:82
 #: DB:link_type/link_phrase:306 DB:link_type/link_phrase:222
 #: DB:link_type/link_phrase:273 DB:link_type/link_phrase:188
-#: DB:link_type/reverse_link_phrase:96 DB:link_type/reverse_link_phrase:82
-#: DB:link_type/reverse_link_phrase:306 DB:link_type/reverse_link_phrase:222
-#: DB:link_type/reverse_link_phrase:273 DB:link_type/reverse_link_phrase:188
+#: DB:link_type/link_phrase:561 DB:link_type/reverse_link_phrase:96
+#: DB:link_type/reverse_link_phrase:82 DB:link_type/reverse_link_phrase:306
+#: DB:link_type/reverse_link_phrase:222 DB:link_type/reverse_link_phrase:273
+#: DB:link_type/reverse_link_phrase:188 DB:link_type/reverse_link_phrase:561
 msgid "other databases"
 msgstr "autres bases de données"
 
@@ -2930,6 +3087,7 @@ msgid "parody"
 msgstr "parodie"
 
 #: DB:link_type/reverse_link_phrase:281 DB:link_type/reverse_link_phrase:356
+#: DB:link_type/reverse_link_phrase:717
 msgid "part of"
 msgstr "partie de"
 
@@ -2938,6 +3096,7 @@ msgid "partial"
 msgstr "partiel"
 
 #: DB:link_type/link_phrase:281 DB:link_type/link_phrase:356
+#: DB:link_type/link_phrase:717
 msgid "parts"
 msgstr "parties"
 
@@ -2956,7 +3115,7 @@ msgid "performed {additional} chorus master on"
 msgstr "était chef de chœur {additional:supplémentaire} sur"
 
 #: DB:link_type/long_link_phrase:44 DB:link_type/long_link_phrase:148
-msgid "performed {additional} {guest} {solo} {instrument} on"
+msgid "performed {additional} {guest} {solo} {instrument:%|instruments} on"
 msgstr "a {additional:aussi} interprété {instrument} {guest:en tant qu'invité} {solo} sur"
 
 #: DB:link_type/long_link_phrase:60
@@ -2971,35 +3130,59 @@ msgstr "a {additional:aussi} {vocal:chanté} {vocal} {guest:en tant qu'invité} 
 msgid "performs as"
 msgstr "est paru en tant que"
 
+#: DB:link_type/reverse_link_phrase:723
+msgid "personal label for"
+msgstr "label personnel pour"
+
+#: DB:link_type/reverse_link_phrase:724
+msgid "personal publisher for"
+msgstr "éditeur personnel pour"
+
 #: DB:link_type/link_phrase:113 DB:link_type/reverse_link_phrase:113
 #: DB:link_type/long_link_phrase:113
 msgid "personal relationship"
 msgstr "relation personnelle"
 
-#: DB:link_type/reverse_link_phrase:173
+#: DB:link_type/reverse_link_phrase:710 DB:link_type/reverse_link_phrase:711
+msgid "phonographic copyright by"
+msgstr "droits phonographiques d'auteur par"
+
+#: DB:link_type/reverse_link_phrase:173 DB:link_type/reverse_link_phrase:396
 msgid "picture of"
 msgstr "photo de"
 
-#: DB:link_type/link_phrase:173
+#: DB:link_type/link_phrase:173 DB:link_type/link_phrase:396
 msgid "pictures"
 msgstr "photos"
+
+#: DB:link_type/reverse_link_phrase:716 DB:link_type/reverse_link_phrase:715
+msgid "premiered at"
+msgstr "première à"
+
+#: DB:link_type/link_phrase:716 DB:link_type/link_phrase:715
+msgid "premieres hosted"
+msgstr "premières présentées"
 
 #: DB:link_type/reverse_link_phrase:1
 msgid "previous disc"
 msgstr "disque précédent"
 
+#: DB:link_type/link_phrase:714
+msgid "primary concert venue"
+msgstr "salle de concert principale"
+
+#: DB:link_type/reverse_link_phrase:714
+msgid "primary concert venue of"
+msgstr "salle de concert principale de"
+
 #: DB:link_attribute_type/name:618
 msgid "principal"
 msgstr "principal"
 
-#: DB:link_type/link_phrase:49 DB:link_type/long_link_phrase:49
+#: DB:link_type/link_phrase:49 DB:link_type/link_phrase:154
+#: DB:link_type/long_link_phrase:49 DB:link_type/long_link_phrase:154
 msgid "produced material that was {additional:additionally} sampled in"
 msgstr "a produit du contenu qui a {additional:aussi} été échantillonné sur"
-
-#: DB:link_type/link_phrase:154 DB:link_type/long_link_phrase:154
-msgid ""
-"produced {instrument} material that was {additional:additionally} sampled in"
-msgstr "a produit du contenu {instrument} qui a {additional:aussi} été échantillonné sur"
 
 #: DB:link_type/link_phrase:117
 msgid "producer position"
@@ -3019,6 +3202,14 @@ msgstr "producteurs"
 #: DB:link_type/long_link_phrase:256
 msgid "production"
 msgstr "production"
+
+#: DB:link_type/link_phrase:359 DB:link_type/long_link_phrase:359
+msgid "promoted"
+msgstr "a promu"
+
+#: DB:link_type/reverse_link_phrase:359
+msgid "promoted by"
+msgstr "promu par"
 
 #: DB:link_type/long_link_phrase:135 DB:link_type/long_link_phrase:62
 msgid "provided artist & repertoire support for"
@@ -3056,27 +3247,18 @@ msgstr "a assuré la conception graphique {additional:supplémentaire} sur"
 msgid "provided {additional} photography on"
 msgstr "a assuré la photographie {additional:supplémentaire} sur"
 
-#: DB:link_type/long_link_phrase:166 DB:link_type/long_link_phrase:39
-#: DB:link_type/long_link_phrase:299
-msgid "provided {additional} {instrument} instrumentation for"
-msgstr "a assuré l'instrumentation {instrument} {additional:supplémentaire} pour"
-
-#: DB:link_attribute_type/name:371
-msgid "public domain"
-msgstr "domaine public"
-
-#: DB:link_type/link_phrase:66 DB:link_type/link_phrase:127
+#: DB:link_type/link_phrase:362 DB:link_type/link_phrase:127
 #: DB:link_type/link_phrase:206 DB:link_type/link_phrase:32
 #: DB:link_type/link_phrase:208 DB:link_type/link_phrase:161
 #: DB:link_type/link_phrase:269 DB:link_type/reverse_link_phrase:252
-#: DB:link_type/long_link_phrase:66 DB:link_type/long_link_phrase:127
+#: DB:link_type/long_link_phrase:362 DB:link_type/long_link_phrase:127
 #: DB:link_type/long_link_phrase:206 DB:link_type/long_link_phrase:32
 #: DB:link_type/long_link_phrase:208 DB:link_type/long_link_phrase:161
 #: DB:link_type/long_link_phrase:269
 msgid "published"
 msgstr "publié"
 
-#: DB:link_type/link_phrase:252 DB:link_type/reverse_link_phrase:66
+#: DB:link_type/link_phrase:252 DB:link_type/reverse_link_phrase:362
 #: DB:link_type/reverse_link_phrase:127 DB:link_type/reverse_link_phrase:206
 #: DB:link_type/reverse_link_phrase:32 DB:link_type/reverse_link_phrase:208
 #: DB:link_type/reverse_link_phrase:161 DB:link_type/reverse_link_phrase:269
@@ -3098,6 +3280,27 @@ msgstr "acheter de la musique pour la télécharger"
 #: DB:link_type/link_phrase:175
 msgid "purchase music for mail-order"
 msgstr "acheter de la musique par correspondance"
+
+#: DB:link_type/reverse_link_phrase:695 DB:link_type/reverse_link_phrase:693
+msgid "recorded at"
+msgstr "enregistré à"
+
+#: DB:link_type/reverse_link_phrase:698 DB:link_type/reverse_link_phrase:699
+msgid "recorded in"
+msgstr "enregistré en"
+
+#: DB:link_type/link_phrase:702
+msgid "recording engineer position at"
+msgstr "poste d'ingénieur du son à"
+
+#: DB:link_type/reverse_link_phrase:702
+msgid "recording engineers"
+msgstr "ingénieurs du son "
+
+#: DB:link_type/link_phrase:695 DB:link_type/link_phrase:698
+#: DB:link_type/link_phrase:699 DB:link_type/link_phrase:693
+msgid "recording location for"
+msgstr "lieu d'enregistrement de"
 
 #: DB:link_type/link_phrase:98 DB:link_type/link_phrase:260
 #: DB:link_type/reverse_link_phrase:98 DB:link_type/reverse_link_phrase:260
@@ -3131,8 +3334,8 @@ msgstr "remix de"
 #: DB:link_type/link_phrase:13 DB:link_type/link_phrase:50
 #: DB:link_type/link_phrase:157 DB:link_type/link_phrase:234
 #: DB:link_type/reverse_link_phrase:13 DB:link_type/reverse_link_phrase:50
-#: DB:link_type/reverse_link_phrase:157 DB:link_type/reverse_link_phrase:230
-#: DB:link_type/reverse_link_phrase:234 DB:link_type/reverse_link_phrase:9
+#: DB:link_type/reverse_link_phrase:157 DB:link_type/reverse_link_phrase:234
+#: DB:link_type/reverse_link_phrase:230 DB:link_type/reverse_link_phrase:9
 #: DB:link_type/long_link_phrase:13 DB:link_type/long_link_phrase:50
 #: DB:link_type/long_link_phrase:157 DB:link_type/long_link_phrase:234
 msgid "remixes"
@@ -3170,14 +3373,6 @@ msgstr "société de gestion des droits associé avec"
 msgid "samples IMDb entry"
 msgstr "échantillonne  l'entrée IMDb "
 
-#: DB:link_attribute_type/name:372
-msgid "sampling"
-msgstr "échantillonage"
-
-#: DB:link_attribute_type/name:373
-msgid "sampling plus"
-msgstr "échantillonnage plus"
-
 #: DB:link_type/reverse_link_phrase:274
 msgid "score"
 msgstr "partition"
@@ -3199,10 +3394,12 @@ msgid "signed by"
 msgstr "signé par"
 
 #: DB:link_type/link_phrase:192 DB:link_type/link_phrase:218
+#: DB:link_type/link_phrase:429
 msgid "social networking"
 msgstr "réseau social"
 
 #: DB:link_type/reverse_link_phrase:192 DB:link_type/reverse_link_phrase:218
+#: DB:link_type/reverse_link_phrase:429
 msgid "social networking page for"
 msgstr "page de réseau social pour"
 
@@ -3218,10 +3415,21 @@ msgstr "voix de soprano"
 msgid "spoken vocals"
 msgstr "voix parlées"
 
-#: DB:link_type/link_phrase:85 DB:link_type/link_phrase:268
 #: DB:link_type/link_phrase:194
+msgid "stream for free"
+msgstr "diffusion en flux gratuite"
+
+#: DB:link_type/link_phrase:85 DB:link_type/link_phrase:268
 msgid "stream {video} for free"
 msgstr "diffusion en flux {video} gratuite"
+
+#: DB:link_type/link_phrase:722
+msgid "subgroup of"
+msgstr "sous-groupe de"
+
+#: DB:link_type/reverse_link_phrase:722
+msgid "subgroups"
+msgstr "sous-groupes"
 
 #: DB:link_type/link_phrase:200
 msgid "subsidiaries"
@@ -3242,10 +3450,6 @@ msgstr "soutien {instrument} par"
 #: DB:link_type/link_phrase:105
 msgid "supporting {instrument} for"
 msgstr "soutien {instrument} pour"
-
-#: DB:link_attribute_type/name:244
-msgid "symphony"
-msgstr "symphonie"
 
 #: DB:link_attribute_type/description:11 DB:link_attribute_type/name:11
 msgid "tenor vocals"
@@ -3279,7 +3483,11 @@ msgstr "préparatifs de voyage pour"
 msgid "tribute albums"
 msgstr "albums hommage"
 
-#: DB:link_type/reverse_link_phrase:65
+#: DB:link_type/reverse_link_phrase:728
+msgid "tribute artists"
+msgstr "artistes hommage"
+
+#: DB:link_type/link_phrase:728 DB:link_type/reverse_link_phrase:65
 msgid "tribute to"
 msgstr "hommage à"
 
@@ -3288,10 +3496,12 @@ msgid "video"
 msgstr "vidéo"
 
 #: DB:link_type/link_phrase:303 DB:link_type/link_phrase:304
+#: DB:link_type/link_phrase:495
 msgid "video channel"
 msgstr "chaîne vidéo"
 
 #: DB:link_type/reverse_link_phrase:303 DB:link_type/reverse_link_phrase:304
+#: DB:link_type/reverse_link_phrase:495
 msgid "video channel for"
 msgstr "chaîne vidéo pour"
 
@@ -3307,10 +3517,6 @@ msgstr "voix de"
 msgid "voiced by"
 msgstr "voix par"
 
-#: DB:link_type/long_link_phrase:262
-msgid "was booked by"
-msgstr "engagement par"
-
 #: DB:link_type/long_link_phrase:252
 msgid "was published by"
 msgstr "a été publié par"
@@ -3323,6 +3529,19 @@ msgstr "a été enregistré par le studio à"
 msgid "was renamed into"
 msgstr "a été renommé en"
 
+#: DB:link_type/long_link_phrase:697
+msgid "was the mastering location for"
+msgstr "était le lieu de matriçage de"
+
+#: DB:link_type/long_link_phrase:694 DB:link_type/long_link_phrase:696
+msgid "was the mixing location for"
+msgstr "était le lieu de mixage de"
+
+#: DB:link_type/long_link_phrase:695 DB:link_type/long_link_phrase:698
+#: DB:link_type/long_link_phrase:699 DB:link_type/long_link_phrase:693
+msgid "was the recording location for"
+msgstr "était le lieu d'enregistrement de"
+
 #: DB:link_type/long_link_phrase:101
 msgid "was {additional:additionally} catalogued by"
 msgstr "a été {additional:aussi} catalogué par"
@@ -3331,7 +3550,23 @@ msgstr "a été {additional:aussi} catalogué par"
 msgid "was/were released in support of"
 msgstr "est/sont paru(s) en soutien à "
 
-#: DB:link_type/long_link_phrase:24 DB:link_type/long_link_phrase:131
+#: DB:link_type/long_link_phrase:704
+msgid "works as a mastering engineer at"
+msgstr "travaille en tant qu'ingénieur de matriçage à"
+
+#: DB:link_type/long_link_phrase:703
+msgid "works as a mixing engineer at"
+msgstr "travaille en tant qu'ingénieur de mixage à"
+
+#: DB:link_type/long_link_phrase:702
+msgid "works as a recording engineer at"
+msgstr "travaille en tant qu'ingénieur du son à"
+
+#: DB:link_type/long_link_phrase:701
+msgid "works as an engineer at"
+msgstr "travaille en tant qu'ingénieur à"
+
+#: DB:link_type/long_link_phrase:131 DB:link_type/long_link_phrase:24
 msgid "wrote {additional} liner notes for"
 msgstr "a écrit des notes {additional:supplémentaires} de livret pour"
 
@@ -3343,8 +3578,8 @@ msgstr "a {additional:aussi} fait l'arrangement"
 
 #: DB:link_type/long_link_phrase:282 DB:link_type/long_link_phrase:158
 #: DB:link_type/long_link_phrase:41
-msgid "{additional:additionally} arranged {instrument} on"
-msgstr "a {additional:aussi} fait l'arrangement {instrument} sur"
+msgid "{additional:additionally} arranged {instrument:%|instruments} on"
+msgstr "a {additional:aussi} fait l'arrangement de {instrument:%|instruments} sur"
 
 #: DB:link_type/long_link_phrase:296 DB:link_type/long_link_phrase:298
 #: DB:link_type/long_link_phrase:294
@@ -3384,7 +3619,7 @@ msgstr "{additional:aussi} orchestrateur"
 msgid "{additional:additionally} remixed"
 msgstr "{additional:aussi} remixé"
 
-#: DB:link_type/reverse_link_phrase:231
+#: DB:link_type/reverse_link_phrase:69 DB:link_type/reverse_link_phrase:231
 msgid "{additional:additionally} sampled by"
 msgstr "{additional:aussi} échantillonné par"
 
@@ -3404,6 +3639,12 @@ msgstr "a {additional:aussi} programmé {instrument:%} {assistant:en tant qu'ass
 msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}audio engineered"
 msgstr "{additional:aussi} {co:co-}ingénieur du son {assistant} {associate:associé}"
+
+#: DB:link_type/link_phrase:727 DB:link_type/link_phrase:726
+#: DB:link_type/long_link_phrase:727 DB:link_type/long_link_phrase:726
+msgid ""
+"{additional:additionally} {assistant} {associate} {co:co-}balance engineered"
+msgstr "{additional:aussi} {co:co-}régisseur musical {assistant} {associate:associé} "
 
 #: DB:link_type/link_phrase:38 DB:link_type/link_phrase:144
 #: DB:link_type/long_link_phrase:38 DB:link_type/long_link_phrase:144
@@ -3455,12 +3696,8 @@ msgstr "{additional:aussi} interprété {guest:en tant qu'invité} {solo}"
 
 #: DB:link_type/link_phrase:282 DB:link_type/link_phrase:158
 #: DB:link_type/link_phrase:41
-msgid "{additional:additionally} {instrument} arranged"
-msgstr "{instrument} {additional:aussi} arrangé"
-
-#: DB:link_type/reverse_link_phrase:69
-msgid "{additional:additionally} {instrument} sampled by"
-msgstr "{instrument} {additional:aussi} échantillonné par"
+msgid "{additional:additionally} {instrument:%|instruments} arranged"
+msgstr "{instrument:%|instruments} {additional:aussi} arrangé"
 
 #: DB:link_type/long_link_phrase:57 DB:link_type/long_link_phrase:169
 msgid ""
@@ -3514,18 +3751,22 @@ msgstr "conception/illustration {additional:supplémentaire}"
 msgid "{additional} graphic design"
 msgstr "conception graphique {additional:supplémentaire}"
 
-#: DB:link_type/link_phrase:24 DB:link_type/link_phrase:131
-#: DB:link_type/reverse_link_phrase:24 DB:link_type/reverse_link_phrase:131
+#: DB:link_type/link_phrase:131 DB:link_type/link_phrase:24
+#: DB:link_type/reverse_link_phrase:131 DB:link_type/reverse_link_phrase:24
 msgid "{additional} liner notes"
 msgstr "notes de livret {additional:supplémentaires}"
+
+#: DB:link_type/link_phrase:45 DB:link_type/link_phrase:150
+#: DB:link_type/reverse_link_phrase:45 DB:link_type/reverse_link_phrase:150
+msgid "{additional} orchestra"
+msgstr "orchestre {additional:complémentaire}"
 
 #: DB:link_type/reverse_link_phrase:164 DB:link_type/reverse_link_phrase:300
 msgid "{additional} orchestrator"
 msgstr "orchestrateur {additional:supplémentaire}"
 
-#: DB:link_type/link_phrase:123 DB:link_type/link_phrase:250
-#: DB:link_type/link_phrase:20 DB:link_type/reverse_link_phrase:123
-#: DB:link_type/reverse_link_phrase:250 DB:link_type/reverse_link_phrase:20
+#: DB:link_type/link_phrase:123 DB:link_type/link_phrase:20
+#: DB:link_type/reverse_link_phrase:123 DB:link_type/reverse_link_phrase:20
 msgid "{additional} photography"
 msgstr "photographie {additional:supplémentaire}"
 
@@ -3537,6 +3778,10 @@ msgstr "remixeur {additional:supplémentaire}"
 msgid "{additional} samples"
 msgstr "échantillons {additional:supplémentaires}"
 
+#: DB:link_type/link_phrase:69
+msgid "{additional} samples from"
+msgstr "échantillons {additional:additionnels} provenant de"
+
 #: DB:link_type/reverse_link_phrase:54 DB:link_type/reverse_link_phrase:167
 msgid "{additional} writer"
 msgstr "auteur {additional:supplémentaire}"
@@ -3544,6 +3789,10 @@ msgstr "auteur {additional:supplémentaire}"
 #: DB:link_type/reverse_link_phrase:140 DB:link_type/reverse_link_phrase:31
 msgid "{additional} {assistant} {associate} {co:co-}audio engineer"
 msgstr "{co:co-}ingénieur du son {additional:supplémentaire} {assistant} {associate:associé}"
+
+#: DB:link_type/reverse_link_phrase:727 DB:link_type/reverse_link_phrase:726
+msgid "{additional} {assistant} {associate} {co:co-}balance engineer"
+msgstr "{co:co-}régisseur musical {assistant} {associate:associé} {additional:supplémentaire}"
 
 #: DB:link_type/reverse_link_phrase:38 DB:link_type/reverse_link_phrase:144
 msgid "{additional} {assistant} {associate} {co:co-}editor"
@@ -3589,10 +3838,14 @@ msgstr "{additional:autres} membres {founder:fondateurs}"
 msgid "{additional} {guest} {solo} performer"
 msgstr "interprète {additional:supplémentaire} {guest:invité} {solo}"
 
-#: DB:link_type/link_phrase:44 DB:link_type/link_phrase:148
-#: DB:link_type/reverse_link_phrase:44 DB:link_type/reverse_link_phrase:148
-msgid "{additional} {guest} {solo} {instrument}"
-msgstr "{instrument} {additional:supplémentaire} {guest:invité} {solo}"
+#: DB:link_type/link_phrase:44 DB:link_type/reverse_link_phrase:44
+#: DB:link_type/reverse_link_phrase:148
+msgid "{additional} {guest} {solo} {instrument:%|instruments}"
+msgstr "{instrument:%|instruments} {additional:supplémentaires} {guest:invités} {solo}"
+
+#: DB:link_type/link_phrase:148
+msgid "{additional} {guest} {solo} {instrument} {instrument:%|instruments}"
+msgstr "{instrument:%|instruments} {instrument} {additional:supplémentaires} {guest:invités} {solo}"
 
 #: DB:link_type/link_phrase:60 DB:link_type/link_phrase:149
 #: DB:link_type/reverse_link_phrase:60 DB:link_type/reverse_link_phrase:149
@@ -3601,18 +3854,8 @@ msgstr "{vocal:chant} {vocal} {additional:supplémentairel} {guest:invité} {sol
 
 #: DB:link_type/reverse_link_phrase:282 DB:link_type/reverse_link_phrase:158
 #: DB:link_type/reverse_link_phrase:41
-msgid "{additional} {instrument} arranger"
-msgstr "arrangeur {instrument} {additional:supplémentaire}"
-
-#: DB:link_type/link_phrase:166 DB:link_type/link_phrase:39
-#: DB:link_type/link_phrase:299 DB:link_type/reverse_link_phrase:166
-#: DB:link_type/reverse_link_phrase:39 DB:link_type/reverse_link_phrase:299
-msgid "{additional} {instrument} instrumentation"
-msgstr "instrumentation {instrument} {additional:supplémentaire}"
-
-#: DB:link_type/link_phrase:69
-msgid "{additional} {instrument} samples from"
-msgstr "échantillons {instrument} {additional:supplémentaire} provenant de"
+msgid "{additional} {instrument:%|instruments} arranger"
+msgstr "{additional:aussi} arrangeur de {instrument:%|instruments} "
 
 #: DB:link_type/link_phrase:102
 msgid "{additional} {minor} collaborator on"
@@ -3621,11 +3864,6 @@ msgstr "collaborateur {additional:supplémentaire} {minor:mineur} sur"
 #: DB:link_type/reverse_link_phrase:102
 msgid "{additional} {minor} collaborators"
 msgstr "collaborateurs {additional:supplémentaires} {minor:mineurs}"
-
-#: DB:link_type/link_phrase:45 DB:link_type/link_phrase:150
-#: DB:link_type/reverse_link_phrase:45 DB:link_type/reverse_link_phrase:150
-msgid "{additional} {orchestra} orchestra"
-msgstr "{orchestra} orchestre {additional:supplémentaire}"
 
 #: DB:link_type/link_phrase:57 DB:link_type/reverse_link_phrase:57
 #: DB:link_type/reverse_link_phrase:169
@@ -3665,17 +3903,17 @@ msgstr "disque {bonus:bonus|suivant}"
 msgid "{bonus:may be|is} part of a set, the next disc in the set is"
 msgstr "{bonus:fait peut-être|fait} partie d'un ensemble, le prochain disque de l'ensemble est"
 
-#: DB:link_type/long_link_phrase:45 DB:link_type/long_link_phrase:150
-msgid "{orchestra} orchestra {additional:additionally} performed"
-msgstr "{orchestra} orchestre a {additional:aussi} interprété"
-
 #: DB:link_type/link_phrase:278
-msgid "{partial} {live} {instrumental} {cover} recording of"
-msgstr "enregistrement {partial:partiel} {live:en public} {instrumental} {cover:, une reprise} de"
+msgid ""
+"{live} {medley:medley including a} {partial} {instrumental} {cover} "
+"recording of"
+msgstr "{medley:pot-pourri} {live:en public} {medley:incluant un} enregistrement {partial:partiel} {instrumental:instrumental} {cover:une reprise} de"
 
 #: DB:link_type/reverse_link_phrase:278
-msgid "{partial} {live} {instrumental} {cover} recordings"
-msgstr "enregistrements {partial} {live} {instrumental} {cover:, une reprise}"
+msgid ""
+"{live} {medley:medleys including} {partial} {instrumental} {cover} "
+"recordings"
+msgstr "{medley:pot-pourri} {live:en public} {medley:incluant des} enregistrements {partial:partiels} {instrumental:instrumentaux} {cover:des reprises}"
 
 #: DB:link_type/reverse_link_phrase:15
 msgid "{translated} {parody:parodies|covers}"
@@ -3691,7 +3929,7 @@ msgstr "version {translated:traduite} {parody:parodiée} de"
 
 #: DB:link_type/long_link_phrase:85 DB:link_type/long_link_phrase:268
 msgid "{video} can be streamed for free at"
-msgstr "{video} est diffusé en flux gratuitement à"
+msgstr "{video} est diffusée en flux gratuitement à"
 
 #: DB:link_type/reverse_link_phrase:107
 msgid "{vocal:%|vocals} support by"

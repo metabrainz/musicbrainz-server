@@ -1,18 +1,7 @@
-[%- BLOCK layout_head -%]
+[% WRAPPER 'artist/layout.tt' full_width=1 title=l('Edit Artist Credit') %]
   [% script_manifest('edit.js.manifest') %]
   [% script_manifest('guess-case.js.manifest') %]
 
-  <script type="text/javascript">//<![CDATA[
-    $('document').ready(function() {
-
-      var bubbles = MB.Control.BubbleCollection ();
-      MB.Control.initialize_artist_credit (bubbles);
-
-    });
-  //]]></script>
-[%- END -%]
-
-[% WRAPPER 'artist/layout.tt' full_width=1 title=l('Edit Artist Credit') %]
    [%- IF no_javascript -%]
      [%- warning( l("Javascript needs to be enabled."), "nojavascript" ) -%]
    [%- END -%]
@@ -25,7 +14,7 @@
        <p>
          [% l('This form allows you to edit the artist credit "{ac}".
                When the edit is accepted, all tracks, recordings, releases and release groups
-			   using this artist credit will be update to use the new one.',
+               using this artist credit will be update to use the new one.',
                { ac => artist_credit(ac) } ) %]
        </p>
        <fieldset>
@@ -43,4 +32,7 @@
      </div>
    </form>
 
+  <script type="text/javascript">//<![CDATA[
+      MB.Control.initialize_artist_credit();
+  //]]></script>
 [% END %]

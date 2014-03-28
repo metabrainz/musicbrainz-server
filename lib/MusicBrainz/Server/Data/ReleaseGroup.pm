@@ -22,12 +22,14 @@ use MusicBrainz::Server::Constants qw( $STATUS_OPEN $VARTIST_ID );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'release_group' };
+with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::Merge';
+with 'MusicBrainz::Server::Data::Role::Browse';
 
 sub _table
 {
@@ -121,47 +123,6 @@ sub load
     load_subobjects($self, 'release_group', @objs);
 }
 
-sub find_by_name_prefix
-{
-    my ($self, $prefix, $limit, $offset, $conditions, @bind) = @_;
-
-    my $query = "SELECT " . $self->_columns . ",
-                    rgm.release_count,
-                    rgm.rating_count,
-                    rgm.rating
-                 FROM " . $self->_table . "
-                    JOIN artist_credit_name acn
-                        ON acn.artist_credit = rg.artist_credit
-                 WHERE page_index(rg.name)
-                 BETWEEN page_index(?) AND page_index_max(?)";
-
-    $query .= " AND ($conditions)" if $conditions;
-    $query .= ' ORDER BY rg.name OFFSET ?';
-
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub {
-            my $row = $_[0];
-            my $rg = $self->_new_from_row(@_);
-            $rg->rating($row->{rating}) if defined $row->{rating};
-            $rg->rating_count($row->{rating_count}) if defined $row->{rating_count};
-            $rg->release_count($row->{release_count} || 0);
-            return $rg;
-        },
-        $query, $prefix, $prefix, @bind, $offset || 0);
-}
-
-sub find_by_name_prefix_va
-{
-    my ($self, $prefix, $limit, $offset) = @_;
-    return $self->find_by_name_prefix(
-        $prefix, $limit, $offset,
-        'rg.artist_credit IN (SELECT artist_credit FROM artist_credit_name ' .
-        'JOIN artist_credit ac ON ac.id = artist_credit ' .
-        'WHERE artist = ? AND artist_count = 1)',
-        $VARTIST_ID
-    );
-}
-
 sub find_artist_credits_by_artist
 {
     my ($self, $artist_id) = @_;
@@ -177,11 +138,16 @@ sub find_artist_credits_by_artist
 
 sub find_by_artist
 {
-    my ($self, $artist_id, $limit, $offset, %args) = @_;
+    my ($self, $artist_id, $show_all, $limit, $offset, %args) = @_;
 
     my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
 
     push @$conditions, "acn.artist = ?";
+    # Show only RGs with official releases by default, plus all-status-less ones so people fix the status
+    unless ($show_all) {
+        push @$conditions, "(EXISTS (SELECT 1 FROM release where release.release_group = rg.id AND release.status = '1') OR
+                            NOT EXISTS (SELECT 1 FROM release where release.release_group = rg.id AND release.status IS NOT NULL))";
+       }
     push @$params, $artist_id;
 
     my $query = "SELECT DISTINCT " . $self->_columns . ",
@@ -226,7 +192,15 @@ sub find_by_artist
 
 sub find_by_track_artist
 {
-    my ($self, $artist_id, $limit, $offset) = @_;
+    my ($self, $artist_id, $show_all, $limit, $offset) = @_;
+
+    my $extra_conditions = '';
+    # Show only RGs with official releases by default, plus all-status-less ones so people fix the status
+    unless ($show_all) {
+        $extra_conditions = " AND (EXISTS (SELECT 1 FROM release where release.release_group = rg.id AND release.status = '1') OR
+                            NOT EXISTS (SELECT 1 FROM release where release.release_group = rg.id AND release.status IS NOT NULL)) ";
+       }
+
     my $query = "SELECT DISTINCT " . $self->_columns . ",
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
@@ -260,6 +234,7 @@ sub find_by_track_artist
                        JOIN artist_credit_name acn
                          ON release_group.artist_credit = acn.artist_credit
                       WHERE acn.artist = ?)
+                   $extra_conditions
                  ORDER BY
                     rg.type, secondary_types,
                     rgm.first_release_date_year,
@@ -279,6 +254,7 @@ sub find_by_track_artist
         },
         $query, $artist_id, $artist_id, $offset || 0);
 }
+
 
 # This could be wrapped into find_by_artist, but it still needs to support filtering on VA releases
 sub filter_by_artist
@@ -570,8 +546,9 @@ sub _merge_impl
     );
 
     # Move releases to the new release group
-    $self->sql->do('UPDATE release SET release_group = ?
-              WHERE release_group IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
+    my $release_ids = $self->sql->select_single_column_array('UPDATE release SET release_group = ?
+              WHERE release_group IN ('.placeholders(@old_ids).') RETURNING id', $new_id, @old_ids);
+    $self->c->model('Release')->_delete_from_cache(@$release_ids);
 
     $self->_delete_and_redirect_gids('release_group', $new_id, @old_ids);
     return 1;

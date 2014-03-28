@@ -10,6 +10,8 @@ with 'MusicBrainz::Server::Edit::Role::Insert';
 
 requires '_create_model';
 
+sub edit_kind { 'add' }
+
 sub alter_edit_pending
 {
     my $self = shift;

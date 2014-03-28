@@ -27,7 +27,7 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
 MB.GuessCase.Mode.Place = function () {
     var self = MB.GuessCase.Mode.Base ();
 
-    self.setConfig('place mode', '', '');
+    self.setConfig('place mode', '');
 
     return self;
 };

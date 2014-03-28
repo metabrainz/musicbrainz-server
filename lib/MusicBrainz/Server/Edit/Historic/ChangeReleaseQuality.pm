@@ -10,6 +10,7 @@ use aliased 'MusicBrainz::Server::Entity::Release';
 use MusicBrainz::Server::Edit::Historic::Base;
 
 sub edit_name     { N_l('Change release quality') }
+sub edit_kind     { 'other' }
 sub historic_type { 63 }
 sub edit_type     { $EDIT_HISTORIC_CHANGE_RELEASE_QUALITY }
 sub edit_template { 'historic/change_release_quality' }

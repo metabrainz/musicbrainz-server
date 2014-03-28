@@ -6,7 +6,7 @@ use MusicBrainz::DataStore::Redis;
 use MusicBrainz::Server::Replication ':replication_type';
 use MusicBrainz::Server::CacheManager;
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory';
-use Class::MOP;
+use Class::Load qw( load_class );
 use LWP::UserAgent;
 
 has 'cache_manager' => (
@@ -70,7 +70,7 @@ sub model
         if ($name eq "Email") {
             $class_name =~ s/Data::Email/Email/;
         }
-        Class::MOP::load_class($class_name);
+        load_class($class_name);
         $model = $class_name->new(c => $self);
         $self->models->{$name} = $model;
     }

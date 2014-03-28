@@ -11,6 +11,7 @@ extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Relationship';
 
 sub edit_name { N_l('Add relationship type') }
+sub edit_kind { 'add' }
 sub edit_type { $EDIT_RELATIONSHIP_ADD_TYPE }
 
 has '+data' => (

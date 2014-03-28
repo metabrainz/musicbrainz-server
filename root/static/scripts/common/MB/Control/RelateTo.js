@@ -19,7 +19,7 @@
 */
 
 MB.Control.RelateTo = function () {
-    var self = MB.Object();
+    var self = {};
 
     self.$relate = $('div.relate-to');
 
@@ -122,7 +122,11 @@ MB.Control.RelateTo = function () {
     self.$create.bind ('click.mb', self.createRelationship);
 
     function setEntity (entity) {
-        self.$select.val(entity).trigger("change.mb");
+        if (self.$select.find('option[value="' + entity + '"]').length > 0) {
+            self.$select.val(entity).trigger("change.mb");
+        } else {
+            return false
+        }
     }
 
     self.autocomplete = MB.Control.EntityAutocomplete ({
@@ -151,17 +155,17 @@ MB.Control.RelateTo = function () {
         hovering = false;
     });
 
-    $("body").click(function (event) {
-        if (!hovering && self.$relate.is(":visible")) {
-            self.hide(event);
-        }
-    });
-
-    $(document).keyup(function (event) {
-        if (event.keyCode == 27 && self.$relate.is(":visible")) {
-            self.hide(event);
-        }
-    });
+    $(document)
+        .click(function (event) {
+            if (!hovering && !event.isDefaultPrevented() && self.$relate.is(":visible")) {
+                self.hide(event);
+            }
+        })
+        .keydown(function (event) {
+            if (event.keyCode === 27 && !event.isDefaultPrevented() && self.$relate.is(":visible")) {
+                self.hide(event);
+            }
+        });
 
     /* Opera triggers a click event whenever a select element is focused
        and a key is pressed, for no obvious reason. Prevent the box from

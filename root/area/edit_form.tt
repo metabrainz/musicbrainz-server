@@ -1,3 +1,6 @@
+[% script_manifest('guess-case.js.manifest') %]
+[% script_manifest('edit.js.manifest') %]
+
 <form action="[% c.req.uri %]" method="post" class="edit-area">
   [%- USE r = FormRenderer(form) -%]
 
@@ -23,6 +26,11 @@
       [% form_row_checkbox(r, 'period.ended', l('This area has ended.')) %]
     </fieldset>
 
+    <fieldset>
+      <legend>[% l('External Links') %]</legend>
+      [% external_links_editor(r.form, 'area') %]
+    </fieldset>
+
     [%- INCLUDE 'forms/edit-note.tt' -%]
     [%- enter_edit() -%]
 
@@ -31,10 +39,15 @@
   <div class="documentation">
     [%- guesscase_bubble(1) -%]
     [%- sortname_bubble() -%]
+    [%- external_link_bubble() -%]
   </div>
 
 </form>
 
-<script type="text/javascript">
-    MB.utility.setDefaultAction ('form.edit-area', 'button.submit.positive');
-</script>
+<script type="text/javascript">//<![CDATA[
+  (function () {
+    MB.Control.initialize_guess_case("area", "id-edit-area");
+
+    MB.utility.setDefaultAction("form.edit-area", "button.submit.positive");
+  }());
+//]]></script>

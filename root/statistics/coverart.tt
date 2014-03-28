@@ -3,7 +3,7 @@
 [% IF name == 'null' %][% default %][% ELSE %][% l(name) %][% END %]
 [%- END -%]
 
-[% WRAPPER 'statistics/layout.tt' title=l('Cover Art') full_width=1 page='coverart' %] 
+[% WRAPPER 'statistics/layout.tt' title=l('Cover Art') full_width=1 page='coverart' %]
 
 [% USE format %]
 [% round1 = format('%.1f') %]
@@ -43,7 +43,7 @@
 <table class="database-statistics">
 <tbody>
 <tr class="thead">
-    <th colspan="4">[% l('By Release Type') %]</th>
+    <th colspan="4">[% l('By Release Group Type') %]</th>
 </tr>
 <tr>
     <th colspan="2">[% l('Releases with cover art:') %]</th>
@@ -93,6 +93,29 @@
 </tbody>
 </table>
 [%- END -%]
+
+<h2>[% l('Release groups') %]</h2>
+<table class="database-statistics">
+<tbody>
+<tr>
+    <th colspan="2">[% l('Release groups with cover art:') %]</th>
+    <td>[% add_commas(stats.statistic('count.releasegroup.caa')) %]</td>
+    <td></td>
+</tr>
+<tr>
+    <th></th>
+    <th>[% l('manually selected:') %]</th>
+    <td>[% add_commas(stats.statistic('count.releasegroup.caa.manually_selected')) %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.releasegroup.caa.manually_selected', 'count.releasegroup.caa')) }) %]</td>
+</tr>
+<tr>
+    <th></th>
+    <th>[% l('automatically inferred:') %]</th>
+    <td>[% add_commas(stats.statistic('count.releasegroup.caa.inferred')) %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.releasegroup.caa.inferred', 'count.releasegroup.caa')) }) %]</td>
+</tr>
+</tbody>
+</table>
 
 <h2>[% l('Pieces of cover art') %]</h2>
 [%- IF stats.statistic('count.release.has_caa') < 1 -%]

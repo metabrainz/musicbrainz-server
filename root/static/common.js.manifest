@@ -5,12 +5,13 @@ lib/jquery/jquery.browser.js
 lib/jquery/jquery.tablesorter.js
 lib/jquery/jquery.cookie.js
 lib/jquery.ui/ui/jquery-ui.custom.js
-lib/thickbox/thickbox.js
 
-lib/underscore/underscore.js
-lib/underscore/underscore.string.js
+lib/lodash/lodash.compat.js
+lib/underscore.string/underscore.string.js
 
-lib/knockout
+lib/knockout/knockout-latest.debug.js
+lib/knockout/knockout-delegatedEvents.js
+lib/knockout/knockout-postbox.js
 
 lib/aclass/aclass.js
 

@@ -17,6 +17,7 @@ use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::Medium';
 
 sub edit_name { N_l('Move disc ID') }
+sub edit_kind { 'other' }
 sub edit_type { $EDIT_MEDIUM_MOVE_DISCID }
 
 has '+data' => (
@@ -63,7 +64,7 @@ sub alter_edit_pending
 sub _build_related_entities
 {
     my $self = shift;
-    return { 
+    return {
         release => [ $self->release_ids ],
     }
 }
@@ -118,6 +119,9 @@ sub initialize
         $self->c->model('CDTOC')->load($medium_cdtoc);
     }
 
+    MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
+        if $medium_cdtoc->medium->id == $new->id;
+
     $self->data({
         medium_cdtoc => {
             id => $medium_cdtoc->id,
@@ -157,9 +161,10 @@ sub accept
         )
     }
 
-    if ($self->c->model('MediumCDTOC')->medium_has_cdtoc(
-        $medium->id,
-        $medium_cdtoc->cdtoc
+    if ($self->data->{old_medium}{id} != $self->data->{new_medium}{id} &&
+        $self->c->model('MediumCDTOC')->medium_has_cdtoc(
+            $medium->id,
+            $medium_cdtoc->cdtoc
     )) {
         $self->c->model('MediumCDTOC')->delete(
             $self->data->{medium_cdtoc}{id}

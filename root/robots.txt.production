@@ -3,9 +3,8 @@ Disallow: /account/
 Disallow: /admin
 Disallow: /ajax/
 Disallow: /area/
-Disallow: /browse/
 Disallow: /cdstub/
-Disallow: /cdtoc/
+Disallow: /cdtoc/attach
 Disallow: /edit/
 Disallow: /election/
 Disallow: /elections
@@ -17,6 +16,7 @@ Disallow: /otherlookup
 Disallow: /partners/
 Disallow: /rating/
 Disallow: /recording/
+Disallow: /register
 Disallow: /report/
 Disallow: /reports
 Disallow: /search
@@ -24,8 +24,9 @@ Disallow: /tag/
 Disallow: /taglookup
 Disallow: /tags
 Disallow: /test/
-Disallow: /tracklist/
-Disallow: /unit_tests/
 Disallow: /url/
 Disallow: /user/
 Disallow: /ws
+
+User-agent: ia_archiver
+Allow: /

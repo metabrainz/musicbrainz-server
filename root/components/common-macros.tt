@@ -26,7 +26,7 @@ END -%]
 [%- END -%]
 
 [%- MACRO wiki_history_link(server, id, version) BLOCK -%]
-http://[%- server -%]/[%- id -%]?oldid=[%- version -%]
+//[%- server -%]/[%- id -%]?oldid=[%- version -%]
 [%- END -%]
 
 [%- USE Translation('mb_server') -%]
@@ -80,7 +80,9 @@ END; -%]
 
 [%- USE JavaScript -%]
 [%- MACRO display_artwork_image(artwork, fallback, message) BLOCK -%]
-    [%- IF no_javascript -%]
+    [%- IF artwork.mime_type == "application/pdf" -%]
+        <img src="[% c.uri_for("/static/images/icons/pdf-icon.png") %]" />
+    [%- ELSIF no_javascript -%]
         <img src="[% artwork.small_thumbnail %]" />
     [%- ELSE -%]
         <img[% IF artwork_hover(artwork) %] title="[% artwork_hover(artwork) %]"[% END %] />
@@ -108,7 +110,7 @@ END; -%]
 [% END %]
 
 [%- MACRO display_artwork(artwork, fallback, message, rel) BLOCK -%]
-    <a title="[% artwork_hover(artwork) %]" href="[% artwork.image %]"[% IF rel %] rel="[% rel %]"[% END %] class="thickbox">
+    <a title="[% artwork_hover(artwork) %]" href="[% artwork.image %]"[% IF rel %] rel="[% rel %]"[% END %] class="[% IF artwork.mime_type == "application/pdf" %]artwork-pdf[% ELSE %]artwork-image[% END %]">
       [% display_artwork_image(artwork, fallback, message) %]
     </a>
 [%- END -%]
@@ -195,9 +197,13 @@ END -%]
 
 [%- MACRO historical(entity) BLOCK -%]
     [%- IF entity.ended -%]
-        <span class="historical">(<bdi>historical
-            [%- IF entity.end_date.has_year -%]
-                [%- ', ' _ entity.begin_date.year _ '–' _ entity.end_date.year -%]
+        <span class="historical">(<bdi>
+            [%- IF entity.begin_date.has_year && entity.end_date.has_year -%]
+                [%- l("historical, {begin}-{end}", { begin => entity.begin_date.year, end => entity.end_date.year }) -%]
+            [%- ELSIF entity.end_date.has_year -%]
+                [%- l("historical, until {end}", { end => entity.end_date.year }) -%]
+            [%- ELSE -%]
+                [%- l("historical") -%]
             [%- END -%]
         [%- -%]</bdi>)</span>
     [%- END -%]
@@ -257,7 +263,7 @@ END -%]
     ELSE;
       link_deleted(entity, text);
     END;
-    disambiguation(entity) UNLESS text;
+    disambiguation(entity) IF text == '';
 END -%]
 
 [%- MACRO link_deleted(entity, text) BLOCK;
@@ -325,9 +331,12 @@ END -%]
     action = action || 'show';
     link = c.uri_for_action("/area/$action", [ area.gid ]);
     text = text == '' ? html_escape(area.l_name) : text;
+    flagclass = area.iso_3166_1.0 ? 'flag-' _ area.iso_3166_1.0 : '';
+    '<span class="flag ' _ flagclass _ '">' IF flagclass AND action == 'show';
     '<span class="mp">' IF area.edits_pending AND action == 'show';
     '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
     '</span>' IF area.edits_pending AND action == 'show';
+    '</span>' IF flagclass AND action == 'show';
 END -%]
 
 [%- MACRO link_area_containment(area) BLOCK;
@@ -420,18 +429,18 @@ END -%]
 
 [%- MACRO link_isrc(isrc, action, text) BLOCK;
     action = action || 'show';
-    link = c.uri_for_action("/isrc/$action", [ isrc ]);
+    link = c.uri_for_action("/isrc/$action", [ isrc.isrc ]);
     '<span class="mp">' IF isrc.edits_pending AND action == 'show';
-    text = text == '' ? '<code>' _ html_escape(isrc) _ '</code>' : text;
+    text = text == '' ? '<code>' _ html_escape(isrc.isrc) _ '</code>' : text;
     '<a href="' _ link _ '">' _ text _ '</a>';
     '</span>' IF isrc.edits_pending AND action == 'show';
 END -%]
 
 [%- MACRO link_iswc(iswc, action, text) BLOCK;
     action = action || 'show';
-    link = c.uri_for_action("/iswc/$action", [ iswc ]);
+    link = c.uri_for_action("/iswc/$action", [ iswc.iswc ]);
     '<span class="mp">' IF iswc.edits_pending AND action == 'show';
-    text = text == '' ? '<code>' _ html_escape(iswc) _ '</code>' : text;
+    text = text == '' ? '<code>' _ html_escape(iswc.iswc) _ '</code>' : text;
     '<a href="' _ link _ '">' _ text _ '</a>';
     '</span>' IF iswc.edits_pending AND action == 'show';
 END -%]
@@ -709,7 +718,7 @@ END -%]
                   exactdate => UserDate.format(datetime) }) -%]
         [%- END -%]
     [%- ELSE -%]
-        [% l('Already expired') %]
+        [%- l('Already expired') -%]
     [%- END -%]
 [%- END -%]
 
@@ -756,73 +765,20 @@ END -%]
         l('ended');
     END;
     IF relationship.${extra_attributes_field};
-        '(' _ relationship.${extra_attributes_field} _ ')' | html;
+        ' (' _ relationship.${extra_attributes_field} _ ')' | html;
     END; -%]
 [%- END -%]
 
-[%- MACRO trusted_domain(url) BLOCK;
-    url.url.host.search('discogs.com$')   ||
-    url.url.host.search('wikipedia.org$') ||
-    url.url.host.search('bbc.co.uk$')     ||
-    url.url.host.search('facebook.com$')  ||
-    url.url.host.search('myspace.com$')   ||
-    url.url.host.search('last.fm$')       ||
-    url.url.host.search('imdb.com$')      ||
-    url.url.host.search('myspace.com$')   ||
-    url.url.host.search('twitter.com$')   ||
-    url.url.host.search('youtube.com$')   ||
-    0;
-END -%]
-
-[%- MACRO favicon_class(url)
-       IF url.url.host.search('amazon'); 'amazon';
-    ELSIF url.url.host.search('allmusic.com'); 'allmusic';
-    ELSIF url.url.host.search('animenewsnetwork.com'); 'animenewsnetwork';
-    ELSIF url.url.host.search('wikipedia.org$'); 'wikipedia';
-    ELSIF url.url.host.search('facebook.com'); 'facebook';
-    ELSIF url.url.host.search('generasia.com'); 'generasia';
-    ELSIF url.url.host.search('last.fm'); 'lastfm';
-    ELSIF url.url.host.search('myspace.com'); 'myspace';
-    ELSIF url.url.host.search('twitter.com'); 'twitter';
-    ELSIF url.url.host.search('youtube.com'); 'youtube';
-    ELSIF url.url.host.search('discogs.com'); 'discogs';
-    ELSIF url.url.host.search('secondhandsongs.com'); 'secondhandsongs';
-    ELSIF url.url.host.search('songfacts.com'); 'songfacts';
-    ELSIF url.url.host.search('soundcloud.com'); 'soundcloud';
-    ELSIF url.url.host.search('ibdb.com'); 'ibdb';
-    ELSIF url.url.host.search('imslp.org'); 'imslp';
-    ELSIF url.url.host.search('tallinn.ester.ee'); 'ESTERTallinn';
-    ELSIF url.url.host.search('tartu.ester.ee'); 'ESTERTartu';
-    ELSIF url.url.host.search('worldcat.org'); 'worldcat';
-    ELSIF url.url.host.search('45cat.com'); 'fortyfivecat';
-    ELSIF url.url.host.search('rateyourmusic.com'); 'rateyourmusic';
-    ELSIF url.url.host.search('rolldabeats.com'); 'rolldabeats';
-    ELSIF url.url.host.search('psydb.net'); 'psydb';
-    ELSIF url.url.host.search('metal-archives.com'); 'metalarchives';
-    ELSIF url.url.host.search('spirit-of-metal.com'); 'spiritofmetal';
-    ELSIF url.url.host.search('theatricalia.com'); 'theatricalia';
-    ELSIF url.url.host.search('whosampled.com'); 'whosampled';
-    ELSIF url.url.host.search('ocremix.org'); 'ocremix';
-    ELSIF url.url.host.search('musik-sammler.de'); 'musiksammler';
-    ELSIF url.url.host.search('encyclopedisque.fr'); 'encyclopedisque';
-    ELSIF url.url.host.search('nla.gov.au'); 'trove';
-    ELSIF url.url.host.search('rockensdanmarkskort.dk'); 'rockensdanmarkskort';
-    ELSIF url.url.host.search('rockinchina.com'); 'ric';
-    ELSIF url.url.host.search('rockipedia.no'); 'rockipedia';
-    ELSIF url.url.host.search('viaf.org'); 'viaf';
-    ELSIF url.url.host.search('vk.com'); 'vk';
-    ELSIF url.url.host.search('dhhu.dk'); 'dhhu';
-    ELSIF url.url.host.search('thesession.org'); 'thesession';
-    ELSIF url.url.host.search('plus.google.com'); 'googleplus';
-    ELSIF url.url.host.search('openlibrary.org'); 'openlibrary';
-    ELSIF url.url.host.search('bandcamp.com'); 'bandcamp';
-    ELSIF url.url.host.search('itunes.apple.com'); 'iTunes';
-    ELSIF url.url.host.search('spotify.com'); 'spotify';
-    ELSIF url.url.host.search('soundtrackcollector.com'); 'STcollector';
-    ELSIF url.url.host.search('wikidata.org'); 'wikidata';
-    ELSIF url.url.as_string.search('recmusic.org/lieder'); 'lieder';
-    ELSE; '';
-END -%]
+[%- MACRO favicon_class(url) BLOCK -%]
+    [%- matching_class = '' -%]
+    [%- FOREACH icon IN favicon_css_classes -%]
+      [%- IF (icon.key.search('/') AND url.url.as_string.search(icon.key)) OR url.url.host.search(icon.key) -%]
+        [%- matching_class = icon.value -%]
+        [%- LAST -%]
+      [%- END -%]
+    [%- END -%]
+    [%- (matching_class OR 'no') _ '-favicon' -%]
+[%- END -%]
 
 [%- MACRO license_class(url)
        IF url.url.as_string.search('creativecommons.org/publicdomain/zero/'); 'CC0';
@@ -865,28 +821,28 @@ END -%]
 [%- END -%]
 
 [%- MACRO wiki_link(server, id) BLOCK -%]
-http://[%- server -%]/[%- id -%]
+//[%- server -%]/[%- id -%]
 [%- END -%]
 
-[%- MACRO script_manifest(manifest) BLOCK -%]
-  [%- IF server_details.developement_server -%]
-    [%- USE date -%]
-    [%- FOR file IN c.model('FileCache').manifest_files(manifest, 'js'); -%]
-        <script type="text/javascript" src="[% c.uri_for("/static/") %][%- file -%]?t=[% date.now %]"></script>
-    [%- END -%]
-  [%- ELSE -%]
+[%~ MACRO script_manifest(manifest) BLOCK ~%]
+  [%~ IF server_details.developement_server -%]
+    [%~ USE date ~%]
+    [%~ FOR file IN c.model('FileCache').manifest_files(manifest, 'js'); ~%]
+        <script type="text/javascript" src="[% c.uri_for("/static/") %][%- file -%]"></script>
+    [%~ END ~%]
+  [%~ ELSE ~%]
     <script src="[% c.uri_for("/static/") %][% c.model('FileCache').manifest_signature(manifest, 'js') %].js"></script>
-  [%- END -%]
-[%- END -%]
+  [%~ END ~%]
+[%~ END ~%]
 
-[%- MACRO css_manifest(manifest) BLOCK -%]
-  [%- IF server_details.developement_server -%]
-    [%- USE date -%]
-    <link rel="stylesheet/less" type="text/css" href="[% c.uri_for("/static/") %][%- manifest -%].less?t=[% date.now %]" />
-  [%- ELSE -%]
+[%~ MACRO css_manifest(manifest) BLOCK ~%]
+  [%~ IF server_details.developement_server ~%]
+    [%~ USE date -%]
+    <link rel="stylesheet/less" type="text/css" href="[% c.uri_for("/static/") %][%- manifest -%].less" />
+  [%~ ELSE ~%]
     <link rel="stylesheet" type="text/css" href="[% c.uri_for('/static/styles/') %][% c.model('FileCache').manifest_signature(manifest _ '.css.manifest', 'css') %].css" />
-  [%- END -%]
-[%- END -%]
+  [%~ END ~%]
+[%~ END ~%]
 
 [%- MACRO format_length(n) BLOCK; n | format_length; END -%]
 
@@ -897,6 +853,18 @@ http://[%- server -%]/[%- id -%]
 [%- MACRO medium_link(medium) BLOCK -%]
   [% medium_format_name(medium) %] [% medium.position %][% IF medium.name %]:
   [% medium.name | html %][% END %] on [% descriptive_link(medium.release) %]
+[%- END -%]
+
+[%- MACRO medium_in_release(release, medium) BLOCK -%]
+    [%- fragment = "disc" _ medium.position -%]
+    <a id="[%- fragment -%]"
+       href="[%- c.uri_for_action("/release/show", [ release.gid ]) _ '#' _ fragment -%]">
+    [%~ medium_format_name(medium) =%]
+    [%= medium.position ~%]
+    [%~ IF medium.name ~%]:
+       [%= medium.name | html ~%]
+    [%~ END ~%]
+    </a>
 [%- END -%]
 
 [%- MACRO filter_button BLOCK -%]
@@ -936,21 +904,21 @@ http://[%- server -%]/[%- id -%]
   [%- END -%]
 [%- END -%]
 
-[%- MACRO artist_begin_label_from_type(type_id) BLOCK -%]
-    [% type_id == 1 ? l('Born:') : type_id == 2 ? l('Founded:') : l('Begin date:') %]
-[%- END -%]
+[%- MACRO artist_begin_label_from_type(type_id) BLOCK ~%]
+    [%~ type_id == 1 ? l('Born:') : type_id == 2 ? l('Founded:') : l('Begin date:') ~%]
+[%~ END -%]
 
-[%- MACRO artist_begin_area_label_from_type(type_id) BLOCK -%]
-    [% type_id == 1 ? l('Born in:') : type_id == 2 ? l('Founded in:') : l('Begin area:') %]
-[%- END -%]
+[%- MACRO artist_begin_area_label_from_type(type_id) BLOCK ~%]
+    [%~ type_id == 1 ? l('Born in:') : type_id == 2 ? l('Founded in:') : l('Begin area:') ~%]
+[%~ END -%]
 
-[%- MACRO artist_end_label_from_type(type_id) BLOCK -%]
-    [% type_id == 1 ? l('Died:') : type_id == 2 ? l('Dissolved:') : l('End date:') %]
-[%- END -%]
+[%- MACRO artist_end_label_from_type(type_id) BLOCK ~%]
+    [%~ type_id == 1 ? l('Died:') : type_id == 2 ? l('Dissolved:') : l('End date:') ~%]
+[%~ END -%]
 
-[%- MACRO artist_end_area_label_from_type(type_id) BLOCK -%]
-    [% type_id == 1 ? l('Died in:') : type_id == 2 ? l('Dissolved in:') : l('End area:') %]
-[%- END -%]
+[%- MACRO artist_end_area_label_from_type(type_id) BLOCK ~%]
+    [%~ type_id == 1 ? l('Died in:') : type_id == 2 ? l('Dissolved in:') : l('End area:') ~%]
+[%~ END -%]
 
 [%- MACRO show_wikipedia_extract BLOCK -%]
     [%- IF wikipedia_extract -%]
@@ -1044,7 +1012,7 @@ http://[%- server -%]/[%- id -%]
         '<ul class="links">';
         FOR event=release_events;
           IF event.country;
-            '<li>' _ rdfa_release_country_abbr(event.country) _ '</li>';
+            '<li>' _ country_abbr(event.country) _ '</li>';
           END;
         END;
         '</ul>';
@@ -1056,7 +1024,7 @@ END -%]
         '<ul class="links">';
         FOR event=release_events;
           IF !event.date.is_empty;
-            '<li>' _ rdfa_release_event_date(event.date) _ '</li>';
+            '<li>' _ event.date.format _ '</li>';
           END;
         END;
         '</ul>';
@@ -1078,10 +1046,41 @@ END -%]
       country = event.country;
       parts = [];
       parts.push(link_entity(country)) IF country.id;
-      parts.push(rdfa_release_event_date(date)) UNLESS date.is_empty;
+      parts.push(date.format) UNLESS date.is_empty;
       parts.join('<br />');
     END -%]
 
 [%- MACRO format_isni(isni) BLOCK;
       isni.replace('(.{4})(.{4})(.{4})(.{4})', '$1 $2 $3 $4');
     END -%]
+
+[%- MACRO link_isni(isni) BLOCK -%]
+    <a href="http://isni-url.oclc.nl/isni/[% isni %]">
+        [%- format_isni(isni) -%]
+    </a>
+[%- END -%]
+
+[%- MACRO country_abbr(country) BLOCK -%]
+    <span class="flag flag-[% country.primary_code %]">
+    <abbr title="[% html_escape(country.l_name) %]">[% country.primary_code %]</abbr>
+    </span>
+[%- END -%]
+
+[%- MACRO set_header BLOCK -%]
+<!DOCTYPE html>
+<html lang="[%- current_language_html -%]">
+[%- END -%]
+
+[%- MACRO add_colon(variable) BLOCK;
+      l('{variable}:', { variable => variable });
+    END -%]
+
+[%- MACRO work_attributes_list(work) BLOCK -%]
+  [%- IF work.attributes %]
+    <ul>
+      [%- FOR attr=work.sorted_attributes %]
+      <li>[% attr.l_value | html %] ([% attr.type.l_name | html %])</li>
+      [%- END %]
+    </ul>
+  [%- END %]
+[%- END -%]

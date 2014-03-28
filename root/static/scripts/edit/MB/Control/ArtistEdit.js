@@ -19,7 +19,7 @@
 */
 
 MB.Control.ArtistEdit = function () {
-    var self = MB.Object ();
+    var self = {};
 
     self.$name   = $('#id-edit-artist\\.name');
     self.$begin  = $('#label-id-edit-artist\\.period\\.begin_date');
@@ -129,12 +129,9 @@ MB.Control.ArtistEdit = function () {
         });
     }
 
-    var bubbles = MB.Control.BubbleCollection ();
-    MB.Control.initialize_guess_case (bubbles, 'artist', 'id-edit-artist');
+    MB.Control.initialize_guess_case ('artist', 'id-edit-artist');
 
-    MB.Control.Area('#area', bubbles);
-    MB.Control.Area('#begin_area', bubbles);
-    MB.Control.Area('#end_area', bubbles);
+    MB.Control.Area("#area", "#begin_area", "#end_area");
 
     return self;
 };

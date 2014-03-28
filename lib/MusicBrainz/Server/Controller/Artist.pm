@@ -20,13 +20,13 @@ with 'MusicBrainz::Server::Controller::Role::Subscribe';
 with 'MusicBrainz::Server::Controller::Role::Cleanup';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::CommonsImage';
+with 'MusicBrainz::Server::Controller::Role::EditExternalLinks';
 
 use Data::Page;
 use HTTP::Status qw( :constants );
 use MusicBrainz::Server::Data::Utils qw( is_special_artist );
 use MusicBrainz::Server::Constants qw(
     $DARTIST_ID
-    $VARTIST_ID
     $EDITOR_MODBOT
     $EDIT_ARTIST_MERGE
     $EDIT_ARTIST_CREATE
@@ -105,7 +105,6 @@ after 'load' => sub
     $c->model('ArtistType')->load($artist);
     $c->model('Gender')->load($artist);
     $c->model('Area')->load($artist);
-    $c->model('Area')->load_codes($artist->area);
     $c->model('Area')->load_containment($artist->area, $artist->begin_area, $artist->end_area);
 
     $c->stash(
@@ -142,57 +141,55 @@ sub show : PathPart('') Chained('load')
     my $artist = $c->stash->{artist};
     my $release_groups;
     my $recordings;
-    if ($c->stash->{artist}->id == $VARTIST_ID)
-    {
-        my $index = $c->req->query_params->{index};
-        if ($index) {
-            $release_groups = $self->_load_paged($c, sub {
-                $c->model('ReleaseGroup')->find_by_name_prefix_va($index, shift,
-                                                                  shift);
-            });
-        }
-        $c->stash(
-            template => 'artist/browse_various.tt',
-            index    => $index,
-        );
+    my %filter = %{ $self->process_filter($c, sub {
+        return create_artist_release_groups_form($c, $artist->id);
+    }) };
+
+    if (%filter) {
+        $c->stash( has_filter => 1 );
     }
-    else
-    {
-        my %filter = %{ $self->process_filter($c, sub {
-            return create_artist_release_groups_form($c, $artist->id);
-        }) };
 
-        my $method = 'find_by_artist';
-        my $show_va = $c->req->query_params->{va};
-        if ($show_va) {
-            $method = 'find_by_track_artist';
-        }
+    my $show_va = $c->req->query_params->{va};
+    my $show_all = $c->req->query_params->{all};
 
-        $release_groups = $self->_load_paged($c, sub {
-                $c->model('ReleaseGroup')->$method($c->stash->{artist}->id, shift, shift, filter => \%filter);
-            });
+    my $make_attempt = sub {
+        my ($all, $va) = @_;
+        my $method = $va ? 'find_by_track_artist' : 'find_by_artist';
+        return $self->_load_paged($c, sub {
+            $c->model('ReleaseGroup')->$method($c->stash->{artist}->id, $all, shift, shift, filter => \%filter);
+        });
+    };
 
-        my $pager = $c->stash->{pager};
-        if (!$show_va && !%filter && $pager->total_entries == 0) {
-            $release_groups = $self->_load_paged($c, sub {
-                    $c->model('ReleaseGroup')->find_by_track_artist($c->stash->{artist}->id, shift, shift, filter => \%filter);
-                });
+    # Attempt from official non-va, to all non-va, to official va, to all va;
+    # filter out any attempt that contradicts a preference from a query param
+    my @attempts = grep { ($_->[0] || !$show_all) && ($_->[1] || !$show_va) } ([0,0], [1,0], [0,1], [1,1]);
+    for my $attempt (@attempts) {
+        my $all = $attempt->[0];
+        my $va = $attempt->[1];
+        $release_groups = $make_attempt->($all, $va);
+        # If filtering, only make one attempt
+        # otherwise, attempt until we find RGs or exhaust the possibilities
+        if (scalar @$release_groups || %filter) {
             $c->stash(
-                va_only => 1
+                including_all => $all,
+                including_va => $va
             );
+            last;
         }
-
-	if (!$show_va && $c->stash->{va_only} && !%filter && $pager->total_entries == 0) {
-            $recordings = $self->_load_paged($c, sub {
-                $c->model('Recording')->find_standalone($artist->id, shift, shift);
-            });
-	}
-
-        $c->stash(
-            show_va => $show_va,
-            template => 'artist/index.tt'
-        );
     }
+
+    # If there is no expressed preference (va, filter) and no RGs, find recordings
+    if (!$show_va && !%filter && scalar @$release_groups == 0) {
+        $recordings = $self->_load_paged($c, sub {
+            $c->model('Recording')->find_standalone($artist->id, shift, shift);
+        });
+    }
+
+    $c->stash(
+        show_va => $show_va,
+        show_all => $show_all,
+        template => 'artist/index.tt'
+    );
 
     if ($c->user_exists) {
         $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, @$release_groups);
@@ -201,7 +198,10 @@ sub show : PathPart('') Chained('load')
     $c->model('ArtistCredit')->load(@$release_groups);
     $c->model('ReleaseGroupType')->load(@$release_groups);
     $c->stash(
-	recordings => $recordings,
+        recordings => $recordings,
+        show_video => scalar (grep {
+            $_->video
+        } @$recordings),
         release_groups => $release_groups,
         show_artists => scalar grep {
             $_->artist_credit->name ne $artist->name
@@ -225,6 +225,7 @@ sub works : Chained('load')
     });
     $c->model('Work')->load_writers(@$works);
     $c->model('Work')->load_recording_artists(@$works);
+    $c->model('Work')->load_attributes(@$works);
     $c->model('ISWC')->load_for_works(@$works);
     $c->model('WorkType')->load(@$works);
     $c->model('Language')->load(@$works);
@@ -248,51 +249,35 @@ sub recordings : Chained('load')
     my $artist = $c->stash->{artist};
     my $recordings;
 
-    if ($artist->id == $VARTIST_ID)
-    {
-        my $index = $c->req->query_params->{index};
-        if ($index) {
-            $recordings = $self->_load_paged($c, sub {
-                $c->model('Recording')->find_by_name_prefix_va($index, shift, shift);
-            });
-        }
-        $c->stash(
-            template => 'artist/browse_various_recordings.tt',
-            index    => $index,
-        );
+    my %filter = %{ $self->process_filter($c, sub {
+        return create_artist_recordings_form($c, $artist->id);
+    }) };
+
+    if ($c->req->query_params->{standalone}) {
+        $recordings = $self->_load_paged($c, sub {
+            $c->model('Recording')->find_standalone($artist->id, shift, shift);
+        });
+        $c->stash( standalone_only => 1 );
     }
-    else
-    {
-        my %filter = %{ $self->process_filter($c, sub {
-            return create_artist_recordings_form($c, $artist->id);
-        }) };
-
-        if ($c->req->query_params->{standalone}) {
-            $recordings = $self->_load_paged($c, sub {
-                $c->model('Recording')->find_standalone($artist->id, shift, shift);
-            });
-            $c->stash( standalone_only => 1 );
-        }
-        elsif ($c->req->query_params->{video}) {
-            $recordings = $self->_load_paged($c, sub {
-                $c->model('Recording')->find_video($artist->id, shift, shift);
-            });
-            $c->stash( video_only => 1 );
-        }
-        else {
-            $recordings = $self->_load_paged($c, sub {
-                $c->model('Recording')->find_by_artist($artist->id, shift, shift, filter => \%filter);
-            });
-        }
-
-        $c->model('Recording')->load_meta(@$recordings);
-
-        if ($c->user_exists) {
-            $c->model('Recording')->rating->load_user_ratings($c->user->id, @$recordings);
-        }
-
-        $c->stash( template => 'artist/recordings.tt' );
+    elsif ($c->req->query_params->{video}) {
+        $recordings = $self->_load_paged($c, sub {
+            $c->model('Recording')->find_video($artist->id, shift, shift);
+        });
+        $c->stash( video_only => 1 );
     }
+    else {
+        $recordings = $self->_load_paged($c, sub {
+            $c->model('Recording')->find_by_artist($artist->id, shift, shift, filter => \%filter);
+        });
+    }
+
+    $c->model('Recording')->load_meta(@$recordings);
+
+    if ($c->user_exists) {
+        $c->model('Recording')->rating->load_user_ratings($c->user->id, @$recordings);
+    }
+
+    $c->stash( template => 'artist/recordings.tt' );
 
     $c->model('ISRC')->load_for_recordings(@$recordings);
     $c->model('ArtistCredit')->load(@$recordings);
@@ -321,50 +306,33 @@ sub releases : Chained('load')
     my $artist = $c->stash->{artist};
     my $releases;
 
-    if ($artist->id == $VARTIST_ID)
-    {
-        my $index = $c->req->query_params->{index};
-        if ($index) {
-            $releases = $self->_load_paged($c, sub {
-                $c->model('Release')->find_by_name_prefix_va($index, shift,
-                                                                  shift);
+    my %filter = %{ $self->process_filter($c, sub {
+        return create_artist_releases_form($c, $artist->id);
+    }) };
+
+    my $method = 'find_by_artist';
+    my $show_va = $c->req->query_params->{va};
+    if ($show_va) {
+        $method = 'find_by_track_artist';
+        $c->stash( show_va => 1 );
+    }
+
+    $releases = $self->_load_paged($c, sub {
+            $c->model('Release')->$method($artist->id, shift, shift, filter => \%filter);
+        });
+
+    my $pager = $c->stash->{pager};
+    if (!$show_va && $pager->total_entries == 0) {
+        $releases = $self->_load_paged($c, sub {
+                $c->model('Release')->find_by_track_artist($c->stash->{artist}->id, shift, shift, filter => \%filter);
             });
-        }
         $c->stash(
-            template => 'artist/browse_various_releases.tt',
-            index    => $index,
+            va_only => 1,
+            show_va => 1
         );
     }
-    else
-    {
-        my %filter = %{ $self->process_filter($c, sub {
-            return create_artist_releases_form($c, $artist->id);
-        }) };
 
-        my $method = 'find_by_artist';
-        my $show_va = $c->req->query_params->{va};
-        if ($show_va) {
-            $method = 'find_by_track_artist';
-            $c->stash( show_va => 1 );
-        }
-
-        $releases = $self->_load_paged($c, sub {
-                $c->model('Release')->$method($artist->id, shift, shift, filter => \%filter);
-            });
-
-        my $pager = $c->stash->{pager};
-        if (!$show_va && $pager->total_entries == 0) {
-            $releases = $self->_load_paged($c, sub {
-                    $c->model('Release')->find_by_track_artist($c->stash->{artist}->id, shift, shift, filter => \%filter);
-                });
-            $c->stash(
-                va_only => 1,
-                show_va => 1
-            );
-        }
-
-        $c->stash( template => 'artist/releases.tt' );
-    }
+    $c->stash( template => 'artist/releases.tt' );
 
     $c->model('ArtistCredit')->load(@$releases);
     $c->model('Medium')->load_for_releases(@$releases);
@@ -399,6 +367,7 @@ is done via L<MusicBrainz::Server::Form::Artist>
 with 'MusicBrainz::Server::Controller::Role::Create' => {
     form      => 'Artist',
     edit_type => $EDIT_ARTIST_CREATE,
+    dialog_template => 'artist/edit_form.tt',
 };
 
 =head2 edit
@@ -412,52 +381,53 @@ into the MusicBrainz database.
 
 =cut
 
-sub edit : Chained('load') Edit {
-    my ($self, $c) = @_;
-    my $artist = $c->stash->{artist};
+with 'MusicBrainz::Server::Controller::Role::Edit' => {
+    form      => 'ArtistEdit',
+    edit_type => $EDIT_ARTIST_EDIT,
 
-    my $artist_credits =$c->model('ArtistCredit')->find_by_artist_id($artist->id);
-    $c->stash( artist_credits => $artist_credits );
+    edit_arguments => sub {
+        my ($self, $c) = @_;
 
-    $self->edit_action(
-        $c,
-        form        => 'ArtistEdit',
-        form_args   => { artist_credits => $artist_credits },
-        type        => $EDIT_ARTIST_EDIT,
-        item        => $artist,
-        edit_args   => { to_edit => $artist },
-        on_creation => sub {
-            my ($edit, $form) = @_;
+        my $artist = $c->stash->{artist};
+        my $artist_credits = $c->model('ArtistCredit')->find_by_artist_id($artist->id);
+        $c->stash( artist_credits => $artist_credits );
 
-            my $editid = $edit->id;
-            my $name = $form->field('name')->value;
-            if ($name ne $artist->name) {
-                my %rename = %{ $form->rename_artist_credit_set };
-                for my $old_ac (@$artist_credits) {
-                    next unless $rename{$old_ac->id};
-                    my $ac = $old_ac->change_artist_name($artist, $name);
-                    next if $ac == $old_ac;
-                    my $ac_edit = $c->model('Edit')->create(
-                        edit_type     => $EDIT_ARTIST_EDITCREDIT,
-                        editor_id     => $c->user->id,
-                        to_edit       => $old_ac,
-                        artist_credit => $ac,
-                    );
-                    $c->model('EditNote')->add_note(
-                        $ac_edit->id,
-                        {
-                            text => "The artist name has been changed in edit #$editid.",
-                            editor_id => $EDITOR_MODBOT
-                        }
-                    );
+        return (
+            form_args   => { artist_credits => $artist_credits },
+            on_creation => sub {
+                my ($edit, $form) = @_;
+
+                my $editid = $edit->id;
+                my $name = $form->field('name')->value;
+                if ($name ne $artist->name) {
+                    my %rename = %{ $form->rename_artist_credit_set };
+                    for my $old_ac (@$artist_credits) {
+                        next unless $rename{$old_ac->id};
+                        my $ac = $old_ac->change_artist_name($artist, $name);
+                        next if $ac == $old_ac;
+                        my $ac_edit = $c->model('Edit')->create(
+                            edit_type     => $EDIT_ARTIST_EDITCREDIT,
+                            editor_id     => $c->user->id,
+                            to_edit       => $old_ac,
+                            artist_credit => $ac,
+                        );
+                        $c->model('EditNote')->add_note(
+                            $ac_edit->id,
+                            {
+                                text => "The artist name has been changed in edit #$editid.",
+                                editor_id => $EDITOR_MODBOT
+                            }
+                        );
+                    }
                 }
-            }
-
-            $c->res->redirect(
-                $c->uri_for_action('/artist/show', [ $artist->gid ]));
-        }
-    );
-}
+            },
+            redirect => sub {
+                $c->res->redirect(
+                    $c->uri_for_action('/artist/show', [ $artist->gid ]));
+            },
+        );
+    }
+};
 
 =head2 add_release
 
@@ -484,15 +454,16 @@ with 'MusicBrainz::Server::Controller::Role::Merge' => {
 };
 
 around _validate_merge => sub {
-    my ($orig, $self, $c, $form, $merger) = @_;
-    return unless $self->$orig($c, $form, $merger);
+    my ($orig, $self, $c, $form) = @_;
+    return unless $self->$orig($c, $form);
     my $target = $form->field('target')->value;
-    if (grep { is_special_artist($_) && $target != $_ } $merger->all_entities) {
+    my @all = map { $_->value } $form->field('merging')->fields;
+    if (grep { is_special_artist($_) && $target != $_ } @all) {
         $form->field('target')->add_error(l('You cannot merge a special purpose artist into another artist'));
         return 0;
     }
 
-    if (any { $_ == $DARTIST_ID } $merger->all_entities) {
+    if (any { $_ == $DARTIST_ID } @all) {
         $form->field('target')->add_error(l('You cannot merge into Deleted Artist'));
         return 0;
     }

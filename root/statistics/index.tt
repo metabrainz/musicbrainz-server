@@ -148,6 +148,12 @@
 </tr>
 <tr>
     <th></th>
+    <th>[% l('of type Character:') %]</th>
+    <td>[% add_commas(stats.statistic('count.artist.type.character')) %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.type.character', 'count.artist')) }) %]</td>
+</tr>
+<tr>
+    <th></th>
     <th>[% l('of type Other:') %]</th>
     <td>[% add_commas(stats.statistic('count.artist.type.other')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.type.other', 'count.artist')) }) %]</td>
@@ -513,6 +519,33 @@
 </tbody>
 </table>
 
+<table class="database-statistics">
+<tbody>
+<tr class="thead">
+    <th colspan="4">[% l('Attributes') %]</th>
+</tr>
+<tr>
+    <th colspan="2">[% l('Works:') %]</th>
+    <td>[% add_commas(stats.statistic('count.work')) %]</td>
+    <td></td>
+</tr>
+[% FOREACH work_attribute_type IN work_attribute_types %]
+<tr>
+   <th></th>
+   <th>[% work_attribute_type.l_name %]</th>
+   <td>[% add_commas(stats.statistic('count.work.attribute.' _ work_attribute_type.id)) %]</td>
+   <td>[% l('{n}%', { n => round1(stats.ratio('count.work.type.' _ work_type.id, 'count.work')) }) %]</td>
+</tr>
+[% END %]
+<tr>
+   <th></th>
+   <th>[% l('None') %]</th>
+   <td>[% add_commas(stats.statistic('count.work.type.null')) %]</td>
+   <td>[% l('{n}%', { n => round1(stats.ratio('count.work.type.null', 'count.work')) }) %]</td>
+</tr>
+</tbody>
+</table>
+
 <h2>[% l('Areas') %]</h2>
 <table class="database-statistics">
 <tbody>
@@ -589,7 +622,7 @@
 <tr>
     <th></th>
     <th></th>
-    <th colspan="2">[% l('who edited and/or voted last week:') %]</th>
+    <th colspan="2">[% l('who edited and/or voted in the last 7 days:') %]</th>
     <td>[% add_commas(stats.statistic('count.editor.activelastweek')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.editor.activelastweek', 'count.editor.valid.active')) }) %]</td>
 </tr>
@@ -597,7 +630,7 @@
     <th></th>
     <th></th>
     <th></th>
-    <th>[% l('who edited last week:') %]</th>
+    <th>[% l('who edited in the last 7 days:') %]</th>
     <td>[% add_commas(stats.statistic('count.editor.editlastweek')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.editor.editlastweek', 'count.editor.activelastweek')) }) %]</td>
 </tr>
@@ -605,7 +638,7 @@
     <th></th>
     <th></th>
     <th></th>
-    <th>[% l('who voted last week:') %]</th>
+    <th>[% l('who voted in the last 7 days:') %]</th>
     <td>[% add_commas(stats.statistic('count.editor.votelastweek')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.editor.votelastweek', 'count.editor.activelastweek')) }) %]</td>
 </tr>
@@ -741,7 +774,7 @@
 </tr>
 <tr>
     <th></th>
-    <th colspan="3">[% l('Last Week:') %]</th>
+    <th colspan="3">[% l('Last 7 days:') %]</th>
     <td>[% add_commas(stats.statistic('count.edit.perweek')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.edit.perweek', 'count.edit')) }) %]</td>
 </tr>
@@ -793,7 +826,7 @@
 </tr>
 <tr>
     <th></th>
-    <th colspan="3">[% l('Last Week:') %]</th>
+    <th colspan="3">[% l('Last 7 days:') %]</th>
     <td>[% add_commas(stats.statistic('count.vote.perweek')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.vote.perweek', 'count.vote')) }) %]</td>
 </tr>

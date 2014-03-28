@@ -1,8 +1,10 @@
 package MusicBrainz::Server::Form::Place;
 use HTML::FormHandler::Moose;
+use MusicBrainz::Server::Form::Utils qw( select_options );
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
+with 'MusicBrainz::Server::Form::Role::ExternalLinks';
 
 has '+name' => ( default => 'edit-place' );
 
@@ -44,7 +46,7 @@ sub edit_field_names
     return qw( name type_id address area_id comment coordinates period.begin_date period.end_date period.ended );
 }
 
-sub options_type_id     { shift->_select_all('PlaceType') }
+sub options_type_id { select_options(shift->ctx, 'PlaceType') }
 
 sub dupe_model { shift->ctx->model('Place') }
 

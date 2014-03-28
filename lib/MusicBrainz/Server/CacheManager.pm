@@ -2,7 +2,7 @@ package MusicBrainz::Server::CacheManager;
 
 use Moose;
 use MusicBrainz::Server::CacheWrapper;
-use Class::MOP;
+use Class::Load qw( load_class );
 
 has '_key_to_profile' => (
     is => 'ro',
@@ -38,7 +38,7 @@ sub BUILD
                 $self->_key_to_profile->{$key} = $name;
             }
         }
-        Class::MOP::load_class($profile->{class});
+        load_class($profile->{class});
         my $cache = $profile->{class}->new($profile->{options} || {});;
         if ($profile->{wrapped}) {
             $cache = MusicBrainz::Server::CacheWrapper->new(_orig => $cache);

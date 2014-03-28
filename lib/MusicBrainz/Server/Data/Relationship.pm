@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Data::Relationship;
 
 use Moose;
-use namespace::autoclean -also => [qw( _generate_table_list )];
+use namespace::autoclean;
 use Readonly;
 use Sql;
 use Carp qw( carp croak );
@@ -181,7 +181,6 @@ sub load_entities
     my ($self, @rels) = @_;
     my %ids_by_type;
     foreach my $rel (@rels) {
-        my $linktype = $rel->link->type->name;
         if ($rel->entity0_id && !defined($rel->entity0)) {
             my $type = $rel->link->type->entity0_type;
             $ids_by_type{$type} = [] if !exists($ids_by_type{$type});

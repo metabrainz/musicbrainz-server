@@ -2,14 +2,14 @@
 # Translators:
 # Phonebox, 2013
 # ListMyCDs.com Martikainen <>, 2012
+# Phonebox, 2014
 # Timo Martikainen <>, 2012
 # ListMyCDs.com Martikainen <email address hidden>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-10-17 20:35+0000\n"
-"Last-Translator: Phonebox\n"
+"PO-Revision-Date: 2014-03-04 00:45+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,7 +31,7 @@ msgstr "appalakkien dulcimer"
 
 #: DB:link_attribute_type/name:506
 msgid "Baltic psalteries"
-msgstr "Baltialaiset kantelesoittimet"
+msgstr "baltialaiset kantelesoittimet"
 
 #: DB:link_attribute_type/name:550
 msgid "Batá drum"
@@ -53,6 +53,10 @@ msgstr "kreetalainen lyyra"
 msgid "Denis d'or"
 msgstr ""
 
+#: DB:link_attribute_type/name:746
+msgid "Disk Drive"
+msgstr ""
+
 #: DB:link_attribute_type/name:161
 msgid "Dubreq Stylophone"
 msgstr "stylofoni"
@@ -65,6 +69,22 @@ msgstr ""
 msgid "EWI"
 msgstr ""
 
+#: DB:link_attribute_type/name:21
+msgid "English horn"
+msgstr ""
+
+#: DB:link_attribute_type/name:748
+msgid "Floppy Drive"
+msgstr ""
+
+#: DB:link_attribute_type/name:44
+msgid "French horn"
+msgstr ""
+
+#: DB:link_attribute_type/name:436
+msgid "German harp"
+msgstr ""
+
 #: DB:link_attribute_type/name:306
 msgid "Greek baglama"
 msgstr "baglamas"
@@ -72,6 +92,10 @@ msgstr "baglamas"
 #: DB:link_attribute_type/name:177
 msgid "Hammond organ"
 msgstr "Hammond-urut"
+
+#: DB:link_attribute_type/name:747
+msgid "Harddisk"
+msgstr ""
 
 #: DB:link_attribute_type/name:400
 msgid "Hawaiian guitar"
@@ -87,7 +111,7 @@ msgstr "irlantilainen buzuki"
 
 #: DB:link_attribute_type/name:435
 msgid "Irish harp / clàrsach"
-msgstr "Kelttiläinen harppu (cláirseach)"
+msgstr "kelttiläinen harppu (cláirseach)"
 
 #: DB:link_attribute_type/name:673
 msgid "Lyricon"
@@ -119,7 +143,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:182
 msgid "Rhodes piano"
-msgstr "Rhodes sähköpiano"
+msgstr "Rhodes-sähköpiano"
 
 #: DB:link_attribute_type/name:585
 msgid "Saraswati veena"
@@ -131,7 +155,7 @@ msgstr "Skotlannin säkkipilli"
 
 #: DB:link_attribute_type/name:206
 msgid "Spanish acoustic guitar"
-msgstr ""
+msgstr "espanjalainen akustinen kitara"
 
 #: DB:link_attribute_type/name:332
 msgid "Spanish vihuela"
@@ -167,7 +191,7 @@ msgstr "warr-kitara"
 
 #: DB:link_attribute_type/name:562
 msgid "Wurlitzer electric piano"
-msgstr "Wurlitzer sähköpiano"
+msgstr "Wurlitzer-sähköpiano"
 
 #: DB:link_attribute_type/name:675
 msgid "Xaphoon"
@@ -183,7 +207,7 @@ msgstr "akustinen bassokitara"
 
 #: DB:link_attribute_type/name:651
 msgid "acoustic fretless guitar"
-msgstr ""
+msgstr "otenauhaton akustinen kitara"
 
 #: DB:link_attribute_type/name:76
 msgid "acoustic guitar"
@@ -277,7 +301,7 @@ msgstr "bandoneón"
 msgid "bandora"
 msgstr "pandora"
 
-#: DB:link_attribute_type/name:475 DB:link_attribute_type/name:476
+#: DB:link_attribute_type/name:476 DB:link_attribute_type/name:475
 msgid "bandura"
 msgstr "bandura"
 
@@ -324,6 +348,10 @@ msgstr ""
 #: DB:link_attribute_type/name:600
 msgid "barrel organ"
 msgstr "posetiivi"
+
+#: DB:link_attribute_type/name:749
+msgid "baryton"
+msgstr ""
 
 #: DB:link_attribute_type/name:70
 msgid "bass"
@@ -803,7 +831,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:74
 msgid "electric bass guitar"
-msgstr ""
+msgstr "sähköbasso"
 
 #: DB:link_attribute_type/name:278
 msgid "electric cello"
@@ -811,7 +839,7 @@ msgstr "sähkösello"
 
 #: DB:link_attribute_type/name:650
 msgid "electric fretless guitar"
-msgstr ""
+msgstr "otenauhaton sähkökitara"
 
 #: DB:link_attribute_type/name:78
 msgid "electric guitar"
@@ -860,10 +888,6 @@ msgstr ""
 #: DB:link_attribute_type/name:28
 msgid "end-blown flute"
 msgstr "päästäpuhallettava huilu"
-
-#: DB:link_attribute_type/name:21
-msgid "english horn"
-msgstr "englannintorvi"
 
 #: DB:link_attribute_type/name:285
 msgid "erhu"
@@ -937,10 +961,6 @@ msgstr "kehärumpu"
 msgid "free reed"
 msgstr "vapaalehdykkäsoittimet"
 
-#: DB:link_attribute_type/name:44
-msgid "french horn"
-msgstr "käyrätorvi"
-
 #: DB:link_attribute_type/name:523
 msgid "fretless bass"
 msgstr "nauhaton basso"
@@ -988,10 +1008,6 @@ msgstr ""
 #: DB:link_attribute_type/name:100
 msgid "geomungo"
 msgstr "geomungo"
-
-#: DB:link_attribute_type/name:436
-msgid "german harp"
-msgstr ""
 
 #: DB:link_attribute_type/name:408
 msgid "ghatam"
@@ -1107,7 +1123,7 @@ msgstr "harppu"
 
 #: DB:link_attribute_type/name:174
 msgid "harpsichord"
-msgstr "Cembalo"
+msgstr "cembalo"
 
 #: DB:link_attribute_type/name:261
 msgid "heckelphone"
@@ -1120,6 +1136,10 @@ msgstr ""
 #: DB:link_attribute_type/name:547
 msgid "hi-hat"
 msgstr "hi-hat"
+
+#: DB:link_attribute_type/name:761
+msgid "hichiriki"
+msgstr ""
 
 #: DB:link_attribute_type/name:389
 msgid "hmông flute"
@@ -1229,8 +1249,8 @@ msgstr "kosketinbasso"
 msgid "keyed brass instruments"
 msgstr "vaskipuhaltimet läppäkoneistolla"
 
-#: DB:link_attribute_type/name:388
-msgid "khen la´"
+#: DB:link_attribute_type/name:756
+msgid "khene"
 msgstr ""
 
 #: DB:link_attribute_type/name:359
@@ -1293,6 +1313,10 @@ msgstr ""
 msgid "kèn bầu"
 msgstr ""
 
+#: DB:link_attribute_type/name:388
+msgid "kèn lá"
+msgstr ""
+
 #: DB:link_attribute_type/name:668
 msgid "kōauau"
 msgstr ""
@@ -1319,6 +1343,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:685
 msgid "limbe"
+msgstr ""
+
+#: DB:link_attribute_type/name:754
+msgid "liuqin"
 msgstr ""
 
 #: DB:link_attribute_type/name:482
@@ -1401,6 +1429,10 @@ msgstr ""
 msgid "morsing"
 msgstr ""
 
+#: DB:link_attribute_type/name:755
+msgid "mouth organ"
+msgstr ""
+
 #: DB:link_attribute_type/name:584
 msgid "mridangam"
 msgstr ""
@@ -1463,7 +1495,7 @@ msgstr "avainviulu"
 
 #: DB:link_attribute_type/name:678
 msgid "nylon guitar"
-msgstr ""
+msgstr "nailonkitara"
 
 #: DB:link_attribute_type/name:343
 msgid "não bạt / chập chõa"
@@ -1488,6 +1520,10 @@ msgstr "okariina"
 #: DB:link_attribute_type/name:456
 msgid "ocean drum"
 msgstr "merirumpu"
+
+#: DB:link_attribute_type/name:745
+msgid "octave mandolin"
+msgstr ""
 
 #: DB:link_attribute_type/name:352
 msgid "omnichord"
@@ -1543,6 +1579,10 @@ msgstr "panhuilu"
 
 #: DB:link_attribute_type/name:392
 msgid "pang gu ly hu hmông"
+msgstr ""
+
+#: DB:link_attribute_type/name:751
+msgid "pedal piano"
 msgstr ""
 
 #: DB:link_attribute_type/name:469
@@ -1605,12 +1645,20 @@ msgstr "psalttari"
 msgid "pí thiu"
 msgstr ""
 
+#: DB:link_attribute_type/name:758
+msgid "qilaut"
+msgstr ""
+
 #: DB:link_attribute_type/name:528
 msgid "quena"
 msgstr ""
 
 #: DB:link_attribute_type/name:455
 msgid "rainstick"
+msgstr ""
+
+#: DB:link_attribute_type/name:759
+msgid "ranat ek"
 msgstr ""
 
 #: DB:link_attribute_type/name:211
@@ -1667,6 +1715,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:611
 msgid "rudra veena"
+msgstr ""
+
+#: DB:link_attribute_type/name:762
+msgid "ryuteki"
 msgstr ""
 
 #: DB:link_attribute_type/name:198
@@ -1811,7 +1863,7 @@ msgstr "Vaskipuhaltimet luistilla"
 
 #: DB:link_attribute_type/name:79
 msgid "slide guitar"
-msgstr ""
+msgstr "slide-kitara"
 
 #: DB:link_attribute_type/name:268
 msgid "slide whistle"
@@ -1887,7 +1939,7 @@ msgstr "kontrabassonokkahuilu"
 
 #: DB:link_attribute_type/name:192
 msgid "suikinkutsu"
-msgstr ""
+msgstr "suikinkutsu"
 
 #: DB:link_attribute_type/name:660
 msgid "suona"
@@ -1985,6 +2037,10 @@ msgstr ""
 msgid "tape"
 msgstr ""
 
+#: DB:link_attribute_type/name:752
+msgid "tar (drum)"
+msgstr ""
+
 #: DB:link_attribute_type/name:560
 msgid "tar (lute)"
 msgstr ""
@@ -2021,6 +2077,10 @@ msgstr "tenorinokkahuilu"
 msgid "tenor saxophone"
 msgstr "tenorisaksofoni"
 
+#: DB:link_attribute_type/name:760
+msgid "tenor violin"
+msgstr ""
+
 #: DB:link_attribute_type/name:589
 msgid "thavil"
 msgstr ""
@@ -2045,10 +2105,6 @@ msgstr ""
 msgid "ti bwa"
 msgstr ""
 
-#: DB:link_attribute_type/name:401
-msgid "tieu flute"
-msgstr ""
-
 #: DB:link_attribute_type/name:132
 msgid "timbales"
 msgstr "timbaalit"
@@ -2063,6 +2119,10 @@ msgstr "tinapilli"
 
 #: DB:link_attribute_type/name:331
 msgid "tiple"
+msgstr ""
+
+#: DB:link_attribute_type/name:401
+msgid "tiêu"
 msgstr ""
 
 #: DB:link_attribute_type/name:555
@@ -2201,6 +2261,10 @@ msgstr "vibrafoni"
 msgid "vibraslap"
 msgstr ""
 
+#: DB:link_attribute_type/name:757
+msgid "vichitra veena"
+msgstr ""
+
 #: DB:link_attribute_type/name:116
 msgid "vielle"
 msgstr ""
@@ -2239,7 +2303,7 @@ msgstr "violotta"
 
 #: DB:link_attribute_type/name:621
 msgid "virginal"
-msgstr ""
+msgstr "virginaali"
 
 #: DB:link_attribute_type/name:354
 msgid "vocoder"
@@ -2362,7 +2426,7 @@ msgid "đing buốt"
 msgstr ""
 
 #: DB:link_attribute_type/name:396
-msgid "đing nǎm"
+msgid "đing năm"
 msgstr ""
 
 #: DB:link_attribute_type/name:321
@@ -2387,6 +2451,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:320
 msgid "đàn tranh"
+msgstr ""
+
+#: DB:link_attribute_type/name:753
+msgid "đàn tứ"
 msgstr ""
 
 #: DB:link_attribute_type/name:303

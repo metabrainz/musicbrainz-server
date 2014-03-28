@@ -136,7 +136,6 @@ sub allow_auto_edit
 sub current_instance {
     my $self = shift;
     my $area = $self->c->model('Area')->get_by_id($self->entity_id);
-    $self->c->model('Area')->load_codes($area);
     return $area;
 }
 

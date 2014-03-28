@@ -10,6 +10,7 @@ extends 'MusicBrainz::Server::Edit::Annotation::Edit';
 with 'MusicBrainz::Server::Edit::Area';
 
 sub edit_name { N_l('Add area annotation') }
+sub edit_kind { 'add' }
 sub edit_type { $EDIT_AREA_ADD_ANNOTATION }
 
 sub _build_related_entities { { area => [ shift->area_id ] } }

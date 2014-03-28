@@ -30,11 +30,11 @@ EOSQL
     $mech->get_ok('/relationships/artist-artist');
     my $tx = test_xpath_html ($mech->content);
 
-    $tx->ok('//html:a[contains(@href,"/relationship/77a0f1d3-f9ec-4055-a6e7-24d7258c21f7/edit")]',
+    $tx->ok('//a[contains(@href,"/relationship/77a0f1d3-f9ec-4055-a6e7-24d7258c21f7/edit")]',
             'has a link to edit the relationship type');
-    $tx->ok('//html:a[contains(@href,"/relationship/77a0f1d3-f9ec-4055-a6e7-24d7258c21f7/delete")]',
+    $tx->ok('//a[contains(@href,"/relationship/77a0f1d3-f9ec-4055-a6e7-24d7258c21f7/delete")]',
             'has a link to delete the relationship type');
-    $tx->ok('//html:a[contains(@href,"/relationships/artist-artist/create")]',
+    $tx->ok('//a[contains(@href,"/relationships/artist-artist/create")]',
             'has a link to create new relationship types');
 };
 
@@ -45,9 +45,9 @@ test 'Viewing /relationships shows a full tree' => sub {
     $mech->get_ok('/relationships');
     my $tx = test_xpath_html ($mech->content);
 
-    $tx->ok('//html:a[contains(@href,"/relationships/artist-artist")]',
+    $tx->ok('//a[contains(@href,"/relationships/artist-artist")]',
             'has a link to artist-artist relationships');
-    $tx->ok('//html:a[contains(@href,"/relationships/work-work")]',
+    $tx->ok('//a[contains(@href,"/relationships/work-work")]',
             'has a link to work-work relationships');
 };
 

@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Form::Field::ArtistCredit;
 use HTML::FormHandler::Moose;
 use Scalar::Util qw( looks_like_number );
+use Storable qw( dclone );
 use Text::Trim qw( );
 use JSON qw( to_json );
 extends 'HTML::FormHandler::Field::Compound';
@@ -9,8 +10,6 @@ use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
 use MusicBrainz::Server::Translation qw( l ln );
-
-has 'allow_unlinked' => ( isa => 'Bool', is => 'rw', default => '0' );
 
 has_field 'names'             => ( type => 'Repeatable', num_when_empty => 1 );
 has_field 'names.name'        => ( type => '+MusicBrainz::Server::Form::Field::Text');
@@ -51,18 +50,11 @@ around 'validate_field' => sub {
         }
         elsif (! $artist_id && ( $name || $artist_name ))
         {
-            if ($self->allow_unlinked)
-            {
-                $artists++;
-            }
-            else
-            {
-                # FIXME: better error message.
-                $self->add_error (
-                    l('Artist "{artist}" is unlinked, please select an existing artist.
-                       You may need to add a new artist to MusicBrainz first.',
-                      { artist => ($name || $artist_name) }));
-            }
+            # FIXME: better error message.
+            $self->add_error (
+                l('Artist "{artist}" is unlinked, please select an existing artist.
+                   You may need to add a new artist to MusicBrainz first.',
+                  { artist => ($name || $artist_name) }));
         }
         elsif (!$artist_id)
         {
@@ -115,10 +107,10 @@ sub json {
 
     if (defined $result) {
         if ($result->input) {
-            $names = $result->input->{names};
+            $names = dclone($result->input->{names});
 
         } elsif ($result->value) {
-            $names = $result->value->{names};
+            $names = dclone($result->value->{names});
         }
     }
 
@@ -131,6 +123,7 @@ sub json {
     my $artists = $c->model('Artist')->get_by_ids(map { $_->{artist}->{id} } @$names);
     for my $name (@$names) {
         $name->{artist}->{gid} = $artists->{$name->{artist}->{id}}->gid if $artists->{$name->{artist}->{id}};
+        $name->{joinPhrase} = delete $name->{join_phrase};
     }
 
     return to_json($names);

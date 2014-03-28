@@ -114,7 +114,7 @@ sub approve : Chained('load') RequireAuth(auto_editor) DenyWhenReadonly
 
             $c->model('Edit')->approve($edit, $c->user->id);
             $c->response->redirect(
-                $c->req->query_params->{url} || $c->uri_for_action('/edit/show', [ $edit->id ]));
+                $c->req->query_params->{returnto} || $c->uri_for_action('/edit/show', [ $edit->id ]));
         }
     });
 }
@@ -146,7 +146,7 @@ sub cancel : Chained('load') RequireAuth DenyWhenReadonly
             }
         });
 
-        $c->response->redirect($c->req->query_params->{url} || $c->uri_for_action('/edit/show', [ $edit->id ]));
+        $c->response->redirect($c->stash->{cancel_redirect} || $c->req->query_params->{returnto} || $c->uri_for_action('/edit/show', [ $edit->id ]));
         $c->detach;
     }
 }

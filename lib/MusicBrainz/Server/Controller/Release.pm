@@ -20,7 +20,10 @@ use List::MoreUtils qw( part uniq );
 use List::UtilsBy 'nsort_by';
 use MusicBrainz::Server::Translation qw ( l ln );
 use MusicBrainz::Server::Constants qw( :edit_type );
+use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
 use Scalar::Util qw( looks_like_number );
+use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash artist_credit_to_ref );
+use MusicBrainz::Server::Edit::Utils qw( calculate_recording_merges );
 
 use aliased 'MusicBrainz::Server::Entity::Work';
 
@@ -346,7 +349,7 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit
         $c->detach;
     }
 
-    my @artwork = @{ $c->model ('CoverArtArchive')->find_available_artwork($entity->gid) };
+    my @artwork = @{ $c->model('Artwork')->find_by_release($entity) };
 
     my $count = 1;
     my @positions = map {
@@ -438,14 +441,11 @@ sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') Edit
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_RELEASE_MERGE,
-    confirmation_template => 'release/merge_confirm.tt',
-    search_template => 'release/merge_search.tt',
     merge_form => 'Merge::Release',
 };
 
 sub _merge_form_arguments {
     my ($self, $c, @releases) = @_;
-    $c->model('Medium')->load_for_releases(@releases);
     $c->model('Track')->load_for_mediums(map { $_->all_mediums } @releases);
     $c->model('Recording')->load(map { $_->all_tracks } map { $_->all_mediums } @releases);
     $c->model('ArtistCredit')->load(map { $_->all_tracks } map { $_->all_mediums } @releases);
@@ -531,11 +531,44 @@ sub _merge_parameters {
                     mediums => $medium_changes{$_}
                 }, keys %medium_changes
             ]
-        )
+        );
+    } elsif ($form->field('merge_strategy')->value == $MusicBrainz::Server::Data::Release::MERGE_MERGE) {
+        my %release_map = map { $_->id => $_ } @$releases;
+
+        my $new_id = $form->field('target')->value;
+        my $new = $release_map{$new_id};
+        my $old = [map { $release_map{$_} } grep { $_ != $new_id } @{ $form->field('merging')->value }];
+
+        my $recording_merges = [map +{
+            medium => $_->{medium},
+            track => $_->{track},
+            destination => {
+                id => $_->{destination}->id,
+                name => $_->{destination}->name,
+                length => $_->{destination}->length
+            },
+            sources => [map +{
+                id => $_->id,
+                name => $_->name,
+                length => $_->length
+            }, @{ $_->{sources} }]
+        }, @{ calculate_recording_merges($new, $old) } ];
+
+        return (recording_merges => $recording_merges);
+    } else {
+        return ()
     }
-    else {
-        return ();
-    }
+}
+
+sub _extra_entity_data {
+    my ($self, $c, $form, $release) = @_;
+    my @args;
+    push(@args, barcode => $release->barcode->code) if $release->barcode;
+    push(@args, artist_credit => artist_credit_to_ref($release->artist_credit));
+    push(@args, events => [map +{ country_id => $_->country_id, date => partial_date_to_hash($_->date) }, $release->all_events]);
+    push(@args, mediums => [map +{ track_count => $_->track_count, format_name => $_->format_name }, $release->all_mediums]);
+    push(@args, labels => [map +{ label => ($_->label ? { id => $_->label->id, name => $_->label->name } : undef), catalog_number => $_->catalog_number }, $release->all_labels]);
+    return @args;
 }
 
 around _merge_submit => sub {
@@ -570,19 +603,20 @@ around _merge_submit => sub {
     }
 };
 
-after 'merge' => sub
+sub _merge_load_entities
 {
-    my ($self, $c) = @_;
-    my @to_merge = @{ $c->stash->{to_merge} };
-    $c->model('Release')->load_release_events(@to_merge);
-    $c->model('Medium')->load_for_releases(@to_merge);
-    $c->model('MediumFormat')->load(map { $_->all_mediums } @to_merge);
-    $c->model('ReleaseLabel')->load(@to_merge);
-    $c->model('Label')->load(map { $_->all_labels } @to_merge);
+    my ($self, $c, @releases) = @_;
+    $c->model('ArtistCredit')->load(@releases);
+    $c->model('Release')->load_release_events(@releases);
+    $c->model('Medium')->load_for_releases(@releases);
+    $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
+    $c->model('ReleaseLabel')->load(@releases);
+    $c->model('Label')->load(map { $_->all_labels } @releases);
 };
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {
-    edit_type      => $EDIT_RELEASE_DELETE,
+    edit_type        => $EDIT_RELEASE_DELETE,
+    create_edit_type => $EDIT_RELEASE_CREATE,
 };
 
 sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit
@@ -592,8 +626,9 @@ sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit
     my $entity = $c->stash->{entity};
 
     my @artwork = @{
-        $c->model ('CoverArtArchive')->find_available_artwork($entity->gid)
+        $c->model('Artwork')->find_by_release($entity)
     } or $c->detach('/error_404');
+    $c->model('CoverArtType')->load_for(@artwork);
 
     my $artwork = first { $_->id == $id } @artwork;
 
@@ -637,23 +672,26 @@ sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(1) Edit
 
     my $release = $c->stash->{entity};
     my $artwork = first { $_->id == $id }
-        @{ $c->model ('CoverArtArchive')->find_available_artwork($release->gid) }
+        @{ $c->model('Artwork')->find_by_release($release) }
             or $c->detach('/error_404');
 
     $c->stash( artwork => $artwork );
 
-    $self->edit_action($c,
-        form        => 'Confirm',
-        form_args   => { requires_edit_note => 1 },
-        type        => $EDIT_RELEASE_REMOVE_COVER_ART,
-        edit_args   => {
-            release   => $release,
-            to_delete => $artwork
-        },
-        on_creation => sub {
-            $c->response->redirect($c->uri_for_action('/release/cover_art', [ $release->gid ]));
-        }
-    )
+    my $edit = $c->model('Edit')->find_creation_edit($EDIT_RELEASE_ADD_COVER_ART, $artwork->id, id_field => 'cover_art_id');
+    cancel_or_action($c, $edit, $c->uri_for_action('/release/cover_art', [ $release->gid ]), sub {
+        $self->edit_action($c,
+            form        => 'Confirm',
+            form_args   => { requires_edit_note => 1 },
+            type        => $EDIT_RELEASE_REMOVE_COVER_ART,
+            edit_args   => {
+                release   => $release,
+                to_delete => $artwork
+            },
+            on_creation => sub {
+                $c->response->redirect($c->uri_for_action('/release/cover_art', [ $release->gid ]));
+            }
+        );
+    });
 }
 
 sub cover_art : Chained('load') PathPart('cover-art') {

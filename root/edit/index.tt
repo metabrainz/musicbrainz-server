@@ -30,9 +30,7 @@
                 <tr class="noborder">
                         <th>[% l('My vote:') %]</th>
                         <td class="vote">
-                          <div class="voteopts">
                             [% INCLUDE 'edit/vote.tt' %]
-                          </div>
                         </td>
                 </tr>
             [% END %]

@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::Alias;
 use Moose;
 use namespace::autoclean;
 
-use Class::MOP;
+use Class::Load qw( load_class );
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
     load_subobjects
@@ -82,7 +82,15 @@ sub find_by_entity_ids
     my $query = "SELECT $key parent_id, " . $self->_columns . "
                  FROM " . $self->_table . "
                  WHERE $key IN (" . placeholders(@ids) . ")
-                 ORDER BY locale NULLS LAST, musicbrainz_collate(sort_name), musicbrainz_collate(name)";
+                 ORDER BY locale NULLS LAST,
+                   begin_date_year NULLS LAST,
+                   begin_date_month NULLS LAST,
+                   begin_date_day NULLS LAST,
+                   end_date_year NULLS LAST,
+                   end_date_month NULLS LAST,
+                   end_date_day NULLS LAST,
+                   musicbrainz_collate(sort_name),
+                   musicbrainz_collate(name)";
 
     my %ret = map { $_ => [] } @ids;
 
@@ -146,7 +154,7 @@ sub insert
     my ($self, @alias_hashes) = @_;
     my ($table, $type, $class) = ($self->table, $self->type, $self->entity);
     my @created;
-    Class::MOP::load_class($class);
+    load_class($class);
     for my $hash (@alias_hashes) {
         my $row = {
             $type => $hash->{$type . '_id'},

@@ -1,7 +1,7 @@
 Installing MusicBrainz Server
 =============================
 
-The easiest method of installing a local MusicBrainz Server is to download the 
+The easiest method of installing a local MusicBrainz Server is to download the
 [pre-configured virtual machine](http://musicbrainz.org/doc/MusicBrainz_Server/Setup).
 
 If you want to manually set up MusicBrainz Server from source, read on!
@@ -11,8 +11,8 @@ Prerequisites
 
 1.  A Unix based operating system
 
-    The MusicBrainz development team uses a variety of Linux distributions, but 
-    Mac OS X will work just fine, if you're prepared to potentially jump through 
+    The MusicBrainz development team uses a variety of Linux distributions, but
+    Mac OS X will work just fine, if you're prepared to potentially jump through
     some hoops. If you are running Windows we recommend you set up a Ubuntu virtual
     machine.
 
@@ -118,6 +118,13 @@ Server configuration
         require manually importing a new database dump in order to bring it up to
         date with the master database. Local editing is available, but keep in
         mind that none of your changes will be pushed up to http://musicbrainz.org.
+
+    3. `RT_MASTER`
+
+        Almost certainly not what you want, this is what the main musicbrainz.org
+        site runs on. It's different from standalone in that it's able to *produce*
+        replication packets to be applied on slaves. For more details, see
+        INSTALL-MASTER.md
 
     If you chose RT_SLAVE, please ensure that there is a configuration for
     both READONLY and READWRITE, or the server will not function correctly.
@@ -294,7 +301,7 @@ server. Just run:
 Visiting http://your.machines.ip.address:5000 should now present you with
 your own running instance of the MusicBrainz Server.
 
-If you'd like a more permanent setup, 
+If you'd like a more permanent setup,
 [the plackup documentation](https://metacpan.org/module/plackup) may prove
 useful in setting up a server such as nginx, using FastCGI.
 
@@ -306,12 +313,12 @@ If you intend to run a server with translations, there are a few steps to follow
 1. Prerequisites
 
    Make sure gettext is installed (you need msgmerge and msgfmt, at least),
-   and the transifex client 'tx' 
+   and the transifex client 'tx'
    (http://help.transifex.com/features/client/index.html):
 
          sudo apt-get install gettext transifex-client
 
-   Configure a username and password in ~/.transifexrc using the format listed 
+   Configure a username and password in ~/.transifexrc using the format listed
    on the above page.
 
 2. Change to the po directory
@@ -322,14 +329,14 @@ If you intend to run a server with translations, there are a few steps to follow
 
          tx pull -l {a list of languages you want to pull}
 
-   This will download the .po files for your language(s) of choice to the po/ 
+   This will download the .po files for your language(s) of choice to the po/
    folder with the correct filenames.
 
 4. Install translations
 
          make install
 
-   This will compile and install the files to 
+   This will compile and install the files to
    lib/LocaleData/{language}/LC\_MESSAGES/{domain}.mo
 
 5. Add the languages to MB\_LANGUAGES in DBDefs.pm. These should be formatted
@@ -338,12 +345,13 @@ If you intend to run a server with translations, there are a few steps to follow
 6. Ensure you have a system locale for any languages you want to use, and for
    some languages, be wary of https://rt.cpan.org/Public/Bug/Display.html?id=78341
 
-   For many languages, this will suffice: 
+   For many languages, this will suffice:
 
          sudo apt-get install language-pack-{language code}
 
    To work around the linked CPAN bug, you may need to edit the file for Locale::Util
-   to add entries to LANG2COUNTRY. Suggested ones include: 
+   to add entries to LANG2COUNTRY. Suggested ones include:
+
    * es => 'ES'
    * et => 'EE'
    * el => 'GR'

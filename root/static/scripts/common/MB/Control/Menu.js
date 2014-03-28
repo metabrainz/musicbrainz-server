@@ -19,7 +19,7 @@
 */
 
 MB.Control.HeaderMenu = function () {
-    var self = MB.Object ();
+    var self = {};
 
     self.timeout = null;
     self.timeout_msecs = 200;

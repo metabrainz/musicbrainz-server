@@ -24,6 +24,8 @@ MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
 MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
 INSERT INTO iswc (work, iswc)
 VALUES ( (SELECT id FROM work WHERE gid = '3c37b9fa-a6c1-37d2-9e90-657a116d337c'), 'T-000.000.002-0');
+INSERT INTO work_attribute_type (id, name, free_text) VALUES (1, 'Key', true);
+INSERT INTO work_attribute VALUES (1, 1307406, 1, NULL, 'B major');
 EOSQL
 
 ws_test 'basic work lookup',
@@ -89,6 +91,18 @@ ws_test 'work lookup with recording relationships',
         </recording>
       </relation>
     </relation-list>
+  </work>
+</metadata>';
+
+ws_test 'work lookup with attributes',
+    '/work/7981d409-8e76-33df-be27-ef625d81c501' =>
+    '<?xml version="1.0"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+  <work id="7981d409-8e76-33df-be27-ef625d81c501">
+    <title>Shine We Are!</title>
+    <attribute-list>
+      <attribute type="Key">B major</attribute>
+    </attribute-list>
   </work>
 </metadata>';
 

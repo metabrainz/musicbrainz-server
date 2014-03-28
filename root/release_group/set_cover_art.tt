@@ -1,8 +1,5 @@
-[%- BLOCK layout_head -%]
-  [%- script_manifest('edit.js.manifest') -%]
-[%- END -%]
-
 [%- WRAPPER 'release_group/layout.tt' title=l('Set Release Group Cover Art') full_width=1 page='edit' -%]
+[%- script_manifest('edit.js.manifest') -%]
 
 <h2>[%- l('Set cover art') -%]</h2>
 
@@ -24,7 +21,7 @@
             [%- IF image.release.country -%]
               ([%- link_searchable_property('country', image.release.country.iso_code, 'release', image.release.country.iso_code) -%])
             [%- END -%]<br />
-            <span style="display: inline-block">[%- image.release.combined_format_name -%],</span>
+            <span style="display: inline-block">[%- html_escape(image.release.combined_format_name) -%],</span>
             <span style="display: inline-block">[%- l('Tracks:') %] [% image.release.combined_track_count -%]</span><br />
             <span style="display: inline-block">[% release_label_list(image.release.labels) -%]
               [%- IF release_label_list(image.release.labels) AND release_catno_list(image.release.labels) -%];
@@ -39,14 +36,6 @@
         </div>
       [% END %]
       </div>
-      <script type="text/javascript">
-         $('button.set-cover-art').bind ('click.mb', function (event) {
-             event.preventDefault ();
-             $('#id-set-cover-art\\.release').val ($(this).data ("gid"));
-             $('div.editimage').removeClass ("selected");
-             $(this).closest ('div.editimage').addClass ("selected");
-         });
-      </script>
     </div>
 
     <div style="clear: left;"> </div>
@@ -60,8 +49,17 @@
 
 [%- ELSE -%]
   <p>
-    [%- l('No releases have cover art, cannot set cover art.') -%]
+    [%- l('No releases have cover art marked as "Front", cannot set cover art.') -%]
   </p>
 [%- END -%]
+
+<script type="text/javascript">//<![CDATA[
+  $('button.set-cover-art').bind ('click.mb', function (event) {
+    event.preventDefault ();
+    $('#id-set-cover-art\\.release').val ($(this).data ("gid"));
+    $('div.editimage').removeClass ("selected");
+    $(this).closest ('div.editimage').addClass ("selected");
+  });
+//]]></script>
 
 [%- END -%]

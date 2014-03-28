@@ -15,6 +15,7 @@ with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Recording';
 
 sub edit_name { N_l('Remove ISRC') }
+sub edit_kind { 'remove' }
 sub edit_type { $EDIT_RECORDING_REMOVE_ISRC }
 
 around edit_conditions => sub {

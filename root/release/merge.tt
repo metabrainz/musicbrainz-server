@@ -1,17 +1,3 @@
-[% BLOCK layout_head %]
-<script type="text/javascript">
-    function updateStrategy(val) {
-        $('.merge-strategy').hide();
-        $('#merge-strategy-' + val).show();
-    }
-
-    $(function() {
-        $('#id-merge\\.merge_strategy').change(function() { updateStrategy($(this).val()) });
-        updateStrategy($('#id-merge\\.merge_strategy').val());
-    });
-</script>
-[% END %]
-
 [% WRAPPER 'layout.tt' title=l('Merge Releases') full_width=1 %]
     <div id="content">
     <h1>[% l('Merge Releases') %]</h1>
@@ -35,40 +21,29 @@
                     <th>[% l('Barcode') %]</th>
                 </tr>
             </thead>
-            [% IF rdfa_made %]
-              <tbody [%- rdfa_about_attr(rdfa_artist_curi(artist)) -%]>
-            [% ELSE %]
-              <tbody>
-            [% END %]
+            <tbody>
             [%- FOR release=to_merge -%]
-              <tr[% ' class="ev"' IF loop.count % 2 == 0 %] [% rdfa_release_ns(release) %][% ' ' _ rdfa_release_group_ns(rdfa_this_rg) IF rdfa_this_rg %]>
+              <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                 <td>
                   <input type="hidden" name="merge.merging.[% loop.index %]" value="[% release.id %]" />
                   <input type="radio" name="merge.target" value="[% release.id %]" />
                 </td>
-                [% IF rdfa_made %]
                   <td>
-                    [% rdfa_made_release_link(release) %]
+                    [% link_release(release) %]
                     [% disambiguation(release) %]
                   </td>
-                [% ELSE %]
-                  <td>
-                    [% rdfa_event_product_release_link(release) %]
-                    [% disambiguation(release) %]
-                  </td>
-                [% END %]
                   <td>[% artist_credit(release.artist_credit) %]</td>
-                  <td>[% rdfa_release_format(release) or "-" %]</td>
+                  <td>[% html_escape(release.combined_format_name) or "-" %]</td>
                   <td>[% release.combined_track_count or "-" %]</td>
                   <td>[% release_dates(release.events) %]</td>
                   <td>[% release_countries(release.events) %]</td>
                   [%- IF filter_label -%]
-                      <td>[% rdfa_release_catno_list(release.filter_labels(filter_label)) %]</td>
+                      <td>[% release_catno_list(release.filter_labels(filter_label)) %]</td>
                   [%- ELSE -%]
-                      <td>[% rdfa_release_label_list(release.labels) %]</td>
-                      <td>[% rdfa_release_catno_list(release.labels) %]</td>
+                      <td>[% release_label_list(release.labels) %]</td>
+                      <td>[% release_catno_list(release.labels) %]</td>
                   [%- END -%]
-                  <td>[% rdfa_release_barcode(release.barcode.format) IF release.barcode.format %]</td>
+                  <td>[% release.barcode.format %]</td>
               </tr>
               [%- END -%]
             </tbody>
@@ -114,7 +89,7 @@
               [% FOR track=medium.tracks %]
               <tr class="[% 'ev' IF loop.index % 2 == 0 %]">
                 <td class="pos t">
-                  <span style="display: none">[% rdfa_track_number(track.position) %]</span>
+                  <span style="display: none">[% track.position %]</span>
                   [% track.number %]
                 </td>
                 <td>[% link_entity(track.recording, 'show', html_escape(track.name)) %]</td>
@@ -131,7 +106,7 @@
           <p>[% l('This merge strategy will merge all mediums together into a single set of mediums. Recordings
                    between mediums will also be merged, into the recordings used on the target mediums.') %]</p>
           <p>[% l('This requires that corresponding mediums have the same number of tracks.') %]</p>
-          <p>[% l('Make sure all mediums in the releases being merged are in the correct position. For example, to merge a medium into 
+          <p>[% l('Make sure all mediums in the releases being merged are in the correct position. For example, to merge a medium into
                    medium 2 of a release, it will need to be set as medium 2 of the release being merged.') %]</p>
 
           [% IF bad_recording_merges.size %]
@@ -152,4 +127,17 @@
         [% enter_edit('<button type="submit" name="submit" value="cancel" class="negative">' _ l('Cancel') _ '</button>') %]
     </form>
     </div>
+
+    <script type="text/javascript">//<![CDATA[
+      (function () {
+        function updateStrategy(val) {
+          $(".merge-strategy").hide();
+          $("#merge-strategy-" + val).show();
+        }
+
+        $("#id-merge\\.merge_strategy").change(function() { updateStrategy($(this).val()) });
+        updateStrategy($("#id-merge\\.merge_strategy").val());
+      }());
+    //]]></script>
+
 [% END %]

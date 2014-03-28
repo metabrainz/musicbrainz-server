@@ -1,3 +1,4 @@
+@import "colors.less";
 /* Edit pages ('edit/index.tt' and 'edit/list.tt') */
 
 .overall-vote {
@@ -30,8 +31,8 @@ table.vote-tally {
 }
 
 table.vote-tally tr {
-    border-top: 1px dotted #999999;
-    border-bottom: 1px dotted #DDDDDD;
+    border-top: 1px dotted @dark-border;
+    border-bottom: 1px dotted @light-border;
 }
 
 table.vote-tally tr.first {
@@ -50,7 +51,7 @@ table.vote-tally td.vote {
 
 table.vote-tally tr.superseded,
 table.vote-tally tr.superseded a {
-    color: #999999;
+    color: @dark-text;
 }
 
 table.vote-tally .date {
@@ -66,18 +67,18 @@ table.vote-tally .date {
 }
 
 .voteopts .vote-yes {
-    border: 1px solid #ccc;
-    background-color: #B1EBB0;
+    border: 1px solid @medium-border;
+    background-color: @positive-bg;
 }
 
 .voteopts .vote-no {
-    border: 1px solid #ccc;
-    background-color: #EBB1BA
+    border: 1px solid @medium-border;
+    background-color: @negative-bg;
 }
 
 .voteopts .vote-abs {
-    border: 1px solid #ccc;
-    background-color: #F2F0A5;
+    border: 1px solid @medium-border;
+    background-color: @abstain-bg;
 }
 
 .wrap-block {
@@ -98,16 +99,16 @@ table.vote-tally .date {
 }
 
 .edit-notes .modbot {
-    color: #666;
+    color: @very-dark-text;
 }
 
 .edit-notes .modbot a {
-    color: #999;
+    color: @dark-text;
 }
 
 .edit-notes .edit-note h3 {
     font-weight: normal;
-    background-color: #EAEAEA;
+    background-color: @very-light-bg;
     height: 16px;
     margin: 0 0 10px;
     padding: 5px 10px 5px 10px;
@@ -119,7 +120,7 @@ table.vote-tally .date {
 
 .edit-notes .edit-note .editor-class {
     font-weight: normal;
-    color: #999;
+    color: @dark-text;
 }
 
 .edit-notes h3 a img {
@@ -130,7 +131,7 @@ table.vote-tally .date {
     position: relative;
 }
 .edit-note h3.No a img {
-    border-color: #E55451;
+    border-color: @no-border;
 }
 
 .edit-note h3.No .voting-icon {
@@ -144,7 +145,7 @@ table.vote-tally .date {
 }
 
 .edit-note h3.Yes a img {
-    border-color: #87F717;
+    border-color: @yes-border;
 }
 
 .edit-note h3.Yes .voting-icon {
@@ -157,11 +158,11 @@ table.vote-tally .date {
     background-repeat: no-repeat;
 }
 .edit-note:target {
-    background: #F2F2b2;
+    background: @highlight-table-row;
 }
 
 .edit-notes .edit-note .date {
-    color: #333333;
+    color: @effectively-black-text;
     float: right;
     font-weight: normal;
 }
@@ -187,11 +188,10 @@ table.vote-tally .date {
 .edit-list {
     clear: both;
     margin: 20px 0;
-    background-color: #F7F7F7;
+    background-color: @effectively-white-bg;
 }
 
 .edit-list .edit-header {
-    background-color: #E5E5E5;
     border-right: 10px solid transparent;
     padding: 0 10px 10px 10px;
 }
@@ -218,12 +218,8 @@ table.vote-tally .date {
     font-weight: bold;
 }
 
-.edit-list .applied { border-right: solid 10px transparent; }
-.edit-list .open,
-.edit-list .cancelling { border-right: solid 10px gold; }
-.edit-list .cancelled { border-right: solid 10px #999999; }
-.edit-list .failed { border-right: solid 10px #FF0000; }
-.edit-list .error { border-right: solid 10px #660000; }
+.edit-list .failed { border-right: solid 10px @failed-header; }
+.edit-list .edit-error { border-right: solid 10px @error-header; }
 
 .edit-list .vote-count {
     text-align: right;
@@ -236,7 +232,7 @@ table.vote-tally .date {
 
 .edit-list .edit-actions {
     float: right;
-    background-color: #E5E5E5;
+    background-color: @light-bg;
     padding: 0 10px;
 }
 
@@ -270,8 +266,8 @@ table.vote-tally .date {
 .search-refine {
     display: none;
     padding: 5px;
-    border-bottom: 2px solid #999999;
-    background-color: #F7F7F7;
+    border-bottom: 2px solid @dark-border;
+    background-color: @effectively-white-bg;
 }
 
 .search-refine div.row {
@@ -279,20 +275,39 @@ table.vote-tally .date {
 }
 
 .search-help {
-    background-color: #E5E5E5;
+    background-color: @light-bg;
     margin-top: 1em;
     padding: 5px 10px;
+    width: 100%;
 }
 
-.search-help dl.properties {
-    margin: 0;
-}
-
-.search-help dl.properties dt {
-    width: 90px
+.search-help th {
+    text-align: right;
+    width: 90px;
 }
 
 .editnote p { margin-right: 2em; }
+
+/*
+** Edit header colors
+** Beware, ordering is significant.
+*/
+
+.edit-header.cancelled { background-color: @edit-cancelled-bg; }
+
+.open {
+    &.edit-add { background-color: @edit-add-bg; }
+    &.edit-edit { background-color: @edit-edit-bg; }
+    &.edit-remove { background-color: @edit-remove-bg; }
+    &.edit-merge { background-color: @edit-merge-bg; }
+    &.edit-other { background-color: @edit-other-bg; }
+}
+
+.edit-add { background-color: desaturate(@edit-add-bg, 35%); }
+.edit-edit { background-color: desaturate(@edit-edit-bg, 35%); }
+.edit-remove { background-color: desaturate(@edit-remove-bg, 35%); }
+.edit-merge { background-color: desaturate(@edit-merge-bg, 35%); }
+.edit-other { background-color: desaturate(@edit-other-bg, 35%); }
 
 /*
   Add / Edit Cover Art
@@ -302,7 +317,7 @@ table.vote-tally .date {
 span.fileinput-button { vertical-align: middle }
 #drop-zone {
     display: inline-block;
-    border: 2px dashed #bbb;
+    border: 2px dashed @medium-border;
     padding: 25px;
     text-align: center;
     margin-left: 24px;
@@ -346,8 +361,8 @@ div.thumb-position {
     margin: 3px;
     padding: 5px;
     float: left;
-    border: 1px solid #e0e0e0;
-    background: #eee;
+    border: 1px solid @light-border;
+    background: @very-light-bg;
     border-radius: 2px;
 }
 
@@ -367,7 +382,7 @@ div.thumb-position img {
 }
 
 div.thumb-position.moved {
-    background: #B1EBB0;
+    background: @positive-bg;
 }
 
 .voteopts .vote label {
@@ -396,13 +411,13 @@ div.thumb-position.moved {
     min-height: 140px;
     margin: 3px;
     padding: 5px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid @light-border;
     border-radius: 2px;
 }
 
 .set-cover-art div.editimage.selected {
-    background: #bbffbb;
-    border: 1px solid #889988;
+    background: @positive-bg;
+    border: 1px solid @dark-border;
 }
 
 div.editimage button.set-cover-art {
@@ -413,18 +428,27 @@ div.editimage p.currently-selected { display: none; }
 div.editimage.selected p.currently-selected { display: block; }
 
 .image-placeholder {
-    width: 125px;
-    height: 125px;
-    border: 2px solid gray;
+    width: 121px; /* plus border: 125px in total */
+    height: 121px;
+    border: 2px solid @dark-border;
+    margin-bottom: 4px;
 }
 
 .image-placeholder p {
     margin: 15% auto 0 auto;
     display: block;
-    font-size: 200%;
+    font-size: 180%;
     text-align: center;
 }
 
 .expanded-ac-list {
     padding-left: 1em;
+}
+
+#add-cover-art div.thumb-position.editimage,
+#reorder-cover-art div.thumb-position.editimage {
+    cursor: move;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+    cursor: grab;
 }

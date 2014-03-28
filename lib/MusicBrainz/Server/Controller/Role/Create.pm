@@ -1,5 +1,7 @@
 package MusicBrainz::Server::Controller::Role::Create;
 use MooseX::Role::Parameterized -metaclass => 'MusicBrainz::Server::Controller::Role::Meta::Parameterizable';
+use JSON::Any;
+use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
 
 parameter 'form' => (
     isa => 'Str',
@@ -17,6 +19,10 @@ parameter 'edit_arguments' => (
 );
 
 parameter 'path' => (
+    isa => 'Str'
+);
+
+parameter 'dialog_template' => (
     isa => 'Str'
 );
 
@@ -38,21 +44,48 @@ role {
     $extra{consumer}->name->config(
         action => {
             create => \%attrs
-        }
+        },
+        create_edit_type => $params->edit_type
     );
 
     method 'create' => sub {
-        my ($self, $c) = @_;
+        my ($self, $c, %args) = @_;
+
+        if ($params->dialog_template) {
+            $c->stash( dialog_template => $params->dialog_template );
+        }
+
+        my $model = $self->config->{model};
+        my $js_model = "MusicBrainz::Server::Controller::WS::js::$model";
+        my $entity;
+
         $self->edit_action($c,
             form        => $params->form,
             type        => $params->edit_type,
             on_creation => sub {
                 my $edit = shift;
 
-                my $entity = $c->model( $self->config->{model} )->get_by_id($edit->entity_id);
-                $c->response->redirect(
-                    $c->uri_for_action($self->action_for('show'), [ $entity->gid ]))
+                $entity = $c->model($model)->get_by_id($edit->entity_id);
+
+                return unless $args{within_dialog};
+                $js_model->_load_entities($c, $entity);
+
+                my $serialization_routine = $js_model->serialization_routine;
+                my $object = JSONSerializer->$serialization_routine($entity);
+                $object->{type} = $js_model->type;
+
+                my $json = JSON::Any->new( utf8 => 1 );
+                $c->stash( dialog_result => $json->encode($object) );
+
+                # XXX Delete the "Thank you, your edit has been..." message
+                # so it doesn't weirdly show up on the next page.
+                delete $c->flash->{message};
             },
+            redirect => sub {
+                $c->response->redirect($c->uri_for_action(
+                    $self->action_for('show'), [ $entity->gid ]));
+            },
+            no_redirect => $args{within_dialog},
             $params->edit_arguments->($self, $c)
         );
     };

@@ -4,60 +4,6 @@ BEGIN;
 -- We may want to create a CreateAggregate.sql script, but it seems silly to do that for one aggregate
 CREATE AGGREGATE array_accum (basetype = anyelement, sfunc = array_append, stype = anyarray, initcond = '{}');
 
--- This function calculates an integer based on the first 6
--- characters of the input. First, it strips accents, converts to upper case
--- and removes everything except ASCII characters A-Z and space. That means
--- we can fit one character into 5 bits and the first 6 characters into a
--- 32-bit integer.
-CREATE OR REPLACE FUNCTION page_index(txt varchar) RETURNS integer AS $$
-DECLARE
-    input varchar;
-    res integer;
-    i integer;
-    x varchar;
-BEGIN
-    input := regexp_replace(upper(substr(musicbrainz.musicbrainz_unaccent(txt), 1, 6)), '[^A-Z ]', '_', 'g');
-    res := 0;
-    FOR i IN 1..6 LOOP
-        x := substr(input, i, 1);
-        IF x = '_' OR x = '' THEN
-            res := (res << 5);
-        ELSIF x = ' ' THEN
-            res := (res << 5) | 1;
-        ELSE
-            res := (res << 5) | (ascii(x) - 63);
-        END IF;
-    END LOOP;
-    RETURN res;
-END;
-$$ LANGUAGE 'plpgsql' IMMUTABLE;
-
-CREATE OR REPLACE FUNCTION page_index_max(txt varchar) RETURNS integer AS $$
-DECLARE
-    input varchar;
-    res integer;
-    i integer;
-    x varchar;
-BEGIN
-    input := regexp_replace(upper(substr(musicbrainz_unaccent(txt), 1, 6)), '[^A-Z ]', '_', 'g');
-    res := 0;
-    FOR i IN 1..6 LOOP
-        x := substr(input, i, 1);
-        IF x = '' THEN
-            res := (res << 5) | 31;
-        ELSIF x = '_' THEN
-            res := (res << 5);
-        ELSIF x = ' ' THEN
-            res := (res << 5) | 1;
-        ELSE
-            res := (res << 5) | (ascii(x) - 63);
-        END IF;
-    END LOOP;
-    RETURN res;
-END;
-$$ LANGUAGE 'plpgsql' IMMUTABLE;
-
-
 -- Generates UUID version 4 (random-based)
 CREATE OR REPLACE FUNCTION generate_uuid_v4() RETURNS uuid
     AS $$
@@ -347,9 +293,9 @@ RETURNS trigger AS $$
     IF NEW.work_attribute_text IS NOT NULL
         AND NOT EXISTS (
            SELECT TRUE FROM work_attribute_type
-		WHERE work_attribute_type.id = NEW.work_attribute_type
-		AND free_text
-	)
+        WHERE work_attribute_type.id = NEW.work_attribute_type
+        AND free_text
+    )
     THEN
         RAISE EXCEPTION 'This attribute type can not contain free text';
     ELSE RETURN NEW;
@@ -885,6 +831,11 @@ BEGIN
     SELECT id FROM url url_row WHERE id = any(ids)
     AND NOT (
       EXISTS (
+        SELECT TRUE FROM l_area_url
+        WHERE entity1 = url_row.id
+        LIMIT 1
+      ) OR
+      EXISTS (
         SELECT TRUE FROM l_artist_url
         WHERE entity1 = url_row.id
         LIMIT 1
@@ -1067,6 +1018,8 @@ AS $$
       ) AND NOT EXISTS (
         SELECT TRUE FROM track WHERE track.recording = outer_r.id LIMIT 1
       ) AND NOT EXISTS (
+        SELECT TRUE FROM l_area_recording WHERE entity1 = outer_r.id
+          UNION ALL
         SELECT TRUE FROM l_artist_recording WHERE entity1 = outer_r.id
           UNION ALL
         SELECT TRUE FROM l_label_recording WHERE entity1 = outer_r.id

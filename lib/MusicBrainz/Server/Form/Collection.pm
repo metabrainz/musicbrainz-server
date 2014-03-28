@@ -13,7 +13,7 @@ has_field 'name' => (
 has_field 'description' => (
     type => 'TextArea',
     required => 0,
-    not_nullable => 1,    
+    not_nullable => 1,
 );
 
 has_field 'public' => (

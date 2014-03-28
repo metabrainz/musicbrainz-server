@@ -16,7 +16,7 @@ MB.Release = (function (Release) {
       init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         var value = ko.utils.unwrapObservable(valueAccessor()),
             properties = ko.bindingHandlers.foreachKv.transformObject(value);
-        ko.applyBindingsToNode(element, { foreach: properties });
+        ko.applyBindingsToNode(element, { foreach: properties }, bindingContext);
         return { controlsDescendantBindings: true };
       }
     };
@@ -82,6 +82,8 @@ MB.Release = (function (Release) {
   ViewModel = function (releaseData) {
     var model = this;
 
+    model.artistCredit = MB.entity.ArtistCredit(releaseData.artistCredit);
+
     this.mediums = _.map(
       releaseData.mediums,
       function(medium, mediumIndex) {
@@ -93,10 +95,6 @@ MB.Release = (function (Release) {
               releaseData.mediums[mediumIndex].tracks[trackIndex].recording;
 
             track.recording.relationships = inputRecording.relationships;
-
-            if (track.length === '') {
-              track.length = '?:??';
-            }
 
             track.recording.extend({
               "groupedRelationships": ko.computed({
@@ -116,33 +114,27 @@ MB.Release = (function (Release) {
       }
     );
 
-    this.showArtists = ko.computed(function () {
-      var allArtistCredits = _.flatten(
+    var allArtistCredits = _.flatten(
+      _.map(model.mediums, function(medium) {
+        return _.map(medium.tracks, function (track) {
+          return track.artistCredit;
+        });
+      })
+    );
+
+    this.showArtists = _.some(allArtistCredits, function(subject) {
+      return !subject.isEqual(model.artistCredit)
+    });
+
+    this.showVideo = _.any(
+      _.flatten(
         _.map(model.mediums, function(medium) {
           return _.map(medium.tracks, function (track) {
-            return track.artistCredit;
+            return track.recording.video;
           });
         })
-      );
-
-      var reference = new MB.entity.ArtistCredit(releaseData.artistCredit);
-
-      return _.some(allArtistCredits, function(subject) {
-        return !subject.isEqual(reference)
-      });
-    });
-
-    this.showVideo = ko.computed(function () {
-      return _.any(
-        _.flatten(
-          _.map(model.mediums, function(medium) {
-            return _.map(medium.tracks, function (track) {
-              return track.recording.video;
-            });
-          })
-        )
-      );
-    });
+      )
+    );
 
     return model;
   };

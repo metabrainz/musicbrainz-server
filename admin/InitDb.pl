@@ -117,6 +117,13 @@ sub HasPLPerlSupport
     return $sql->select_single_value('SELECT TRUE FROM pg_language WHERE lanname = ?', 'plperlu');
 }
 
+sub HasEditData
+{
+    my $mb = Databases->get_connection('READWRITE');
+    my $sql = Sql->new( $mb->conn );
+    return $sql->select_single_value('SELECT TRUE FROM edit LIMIT 1');
+}
+
 sub InstallExtension
 {
     my ($db, $ext, $schema) = @_;
@@ -300,6 +307,9 @@ sub CreateRelations
 
     RunSQLScript($DB, "caa/CreateFKConstraints.sql", "Adding CAA foreign key constraints ...")
         unless $REPTYPE == RT_SLAVE;
+
+    RunSQLScript($DB, "caa/CreateEditFKConstraints.sql", "Adding CAA foreign key constraint to edit table...")
+        unless ($REPTYPE == RT_SLAVE || !HasEditData());
 
     RunSQLScript($DB, "CreateConstraints.sql", "Adding table constraints ...")
         unless $REPTYPE == RT_SLAVE;

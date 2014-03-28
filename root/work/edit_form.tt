@@ -1,3 +1,7 @@
+[%- USE JSON.Escape %]
+[% script_manifest('guess-case.js.manifest') %]
+[% script_manifest('edit.js.manifest') %]
+
 <form action="[% c.req.uri %]" method="post" class="edit-work">
   [%- USE r = FormRenderer(form) -%]
 
@@ -11,6 +15,74 @@
       [%- form_row_text_list(r, 'iswcs', l('ISWCs:'), l('ISWC')) -%]
     </fieldset>
 
+    <fieldset>
+      <legend>[%- l('Work Attributes') -%]</legend>
+      <table id="work-attributes" class="row-form" data-bind="delegatedHandler: 'click'">
+        <tbody>
+        <!-- ko foreach: attributes -->
+          <tr>
+            <td>
+              <select data-bind="
+                  value: typeID,
+                  options: $parent.attributeTypes,
+                  optionsText: $parent.formatAttributeType,
+                  optionsCaption: '',
+                  attr: { name: 'edit-work.attributes.' + $index() + '.type_id' },
+                  hasFocus: typeHasFocus
+              ">
+              </select>
+            </td>
+            <td>
+              <!-- ko if: allowsFreeText -->
+              <input type="text" data-bind="
+                  value: attributeValue,
+                  attr: { name: 'edit-work.attributes.' + $index() + '.value' }
+              " />
+              <!-- /ko -->
+              <!-- ko ifnot: allowsFreeText -->
+              <select data-bind="
+                  value: attributeValue,
+                  options: allowedValues,
+                  optionsText: valueFormatter,
+                  optionsCaption: '',
+                  attr: { name: 'edit-work.attributes.' + $index() + '.value' }
+              ">
+              </select>
+              <!-- /ko -->
+            </td>
+            <td>
+              <button type="button" class="icon remove-item" title="[% l('Remove attribute') %]" data-click="remove"></button>
+            </td>
+          </tr>
+          <!-- ko if: errors().length -->
+          <tr>
+            <td></td>
+            <td colspan="2">
+              <ul class="errors" data-bind="foreach: errors" style="margin-left: 0">
+                <li data-bind="text: $data"></li>
+              </ul>
+            </td>
+          </tr>
+          <!-- /ko -->
+        <!-- /ko -->
+          <tr>
+            <td></td>
+            <td colspan="2" class="add-item">
+              [% caption = lp('Add Work Attribute', 'button/menu') %]
+              <button class="with-label add-item" title="[% caption | html %]" data-click="newAttribute">
+                [% caption | html %]
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+
+    <fieldset>
+      <legend>[% l('External Links') %]</legend>
+      [% external_links_editor(r.form, 'work') %]
+    </fieldset>
+
     [%- INCLUDE 'forms/edit-note.tt' -%]
     [%- enter_edit() -%]
 
@@ -19,15 +91,27 @@
   <div class="documentation">
     [%- guesscase_bubble() -%]
     [%- iswc_bubble(link_entity(work)) -%]
+    [%- external_link_bubble() -%]
   </div>
 
 </form>
 
-<script type="text/javascript">
-    $(function () {
-        var bubbles = MB.Control.BubbleCollection();
-        MB.Control.initialize_guess_case(bubbles, "work", "id-edit-work");
-        bubbles.add($("input[name=edit-work\\.iswcs\\.0]"), $("div.iswcs.bubble"));
-    });
-    MB.utility.setDefaultAction ('form.edit-work', 'button.submit.positive');
+<script type="text/javascript"
+    src="[% c.uri_for('/static/scripts/edit/WorkAttributes.js') %]">
 </script>
+
+<script type="text/javascript">
+  MB.WorkAttributes.init({
+      attributeTypes: [% workAttributeTypesJson %],
+      attributes: [% form.attributes_json %]
+  });
+</script>
+
+<script type="text/javascript">//<![CDATA[
+  (function () {
+    MB.Control.initialize_guess_case("work", "id-edit-work");
+    MB.Control.initializeBubble("#iswcs-bubble", "input[name=edit-work\\.iswcs\\.0]");
+
+    MB.utility.setDefaultAction("form.edit-work", "button.submit.positive");
+  }());
+//]]></script>

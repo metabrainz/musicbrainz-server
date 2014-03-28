@@ -2,7 +2,9 @@ package MusicBrainz::Server::Data::Statistics;
 use Moose;
 use namespace::autoclean;
 use namespace::autoclean;
+use warnings FATAL => 'all';
 
+use List::AllUtils qw( any );
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
 use MusicBrainz::Server::Constants qw( :edit_status :vote );
 use MusicBrainz::Server::Constants qw( $VARTIST_ID $EDITOR_MODBOT $EDITOR_FREEDB :quality );
@@ -248,6 +250,9 @@ my %stats = (
                 "count.artist.type.person" => $dist{1} || 0,
                 "count.artist.type.group"  => $dist{2} || 0,
                 "count.artist.type.other"  => $dist{3} || 0,
+                "count.artist.type.character"  => $dist{4} || 0,
+                "count.artist.type.orchestra"  => $dist{5} || 0,
+                "count.artist.type.choir"  => $dist{6} || 0,
                 "count.artist.type.null" => $dist{null} || 0
             };
         },
@@ -271,7 +276,7 @@ my %stats = (
             my $data = $sql->select_list_of_lists(
                 "SELECT COALESCE(gender::text, 'null'), COUNT(*) AS count
                 FROM artist
-                WHERE type IS DISTINCT FROM 2
+                WHERE (type NOT IN (2, 5, 6) OR type IS NULL)
                 GROUP BY gender
                 ",
             );
@@ -379,8 +384,8 @@ my %stats = (
             my %dist = map { @$_ } @$data;
 
             +{
-                "count.release.coverart.amazon" => $dist{1},
-                "count.release.coverart.relationship" => $dist{0}
+                "count.release.coverart.amazon" => $dist{1} // 0,
+                "count.release.coverart.relationship" => $dist{0} // 0
             };
         },
         NONREPLICATED => 1,
@@ -402,6 +407,7 @@ my %stats = (
         DESC => "Releases with no cover art",
         CALC => sub {
             my ($self, $sql) = @_;
+
             return $self->fetch('count.release') -
                    ($self->fetch('count.release.coverart.amazon') +
                     $self->fetch('count.release.coverart.caa') +
@@ -697,6 +703,29 @@ my %stats = (
             +{
                 map {
                     "count.work.type.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
+    "count.work.attribute" => {
+        DESC => "Distribution of works by attributes",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT COALESCE(work_attribute_type.id::text, 'null'),
+                   COUNT(DISTINCT work.id) AS count
+                 FROM work_attribute
+                 FULL OUTER JOIN work_attribute_type ON work_attribute_type.id = work_attribute.work_attribute_type
+                 FULL OUTER JOIN work ON work.id = work_attribute.work
+                 GROUP BY work_attribute_type.id",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.work.attribute.".$_ => $dist{$_}
                 } keys %dist
             };
         },
@@ -1013,6 +1042,30 @@ my %stats = (
             };
         },
     },
+    "count.releasegroup.caa" => {
+        DESC => "Count of release groups that have CAA artwork",
+        SQL => q{
+          SELECT count(DISTINCT release.release_group)
+          FROM cover_art_archive.index_listing
+          JOIN musicbrainz.release
+            ON musicbrainz.release.id = cover_art_archive.index_listing.release
+         WHERE is_front = true
+        }
+    },
+    "count.releasegroup.caa.manually_selected" => {
+        DESC => "Count of release groups that have CAA artwork manually selected",
+        SQL => 'SELECT count(DISTINCT release_group)
+                FROM cover_art_archive.release_group_cover_art'
+    },
+    "count.releasegroup.caa.inferred" => {
+        PREREQ => [qw[ count.releasegroup.caa count.releasegroup.caa.manually_selected ]],
+        DESC => "Releases groups with CAA artwork inferred from release artwork",
+        CALC => sub {
+            my ($self, $sql) = @_;
+            return $self->fetch('count.releasegroup.caa') -
+                $self->fetch('count.releasegroup.caa.manually_selected');
+        }
+    },
     "count.release.various" => {
         DESC => "Count of all 'Various Artists' releases",
         SQL => 'SELECT COUNT(*) FROM release
@@ -1133,14 +1186,14 @@ my %stats = (
         NONREPLICATED => 1,
     },
     "count.edit.type" => {
-	DESC => "Count of edits by type",
+        DESC => "Count of edits by type",
         CALC => sub {
             my ($self, $sql) = @_;
 
-	    my $data = $sql->select_list_of_lists(
+            my $data = $sql->select_list_of_lists(
                 "SELECT type, count(id) AS count
-		FROM edit GROUP BY type",
-	    );
+                FROM edit GROUP BY type",
+            );
 
             my %dist = map { @$_ } @$data;
 
@@ -1149,7 +1202,7 @@ my %stats = (
                     "count.edit.type.".$_ => $dist{$_}
                 } keys %dist
             };
-	}
+        }
     },
 
     "count.cdstub" => {
@@ -1436,7 +1489,7 @@ my %stats = (
     },
     "count.rating.raw.recording" => {
         DESC => "Count of all recording raw ratings",
-        PREREQ => [qw[ count.rating.track ]],
+        PREREQ => [qw[ count.rating.recording ]],
         PREREQ_ONLY => 1,
     },
     "count.rating.label" => {
@@ -1774,6 +1827,21 @@ sub recalculate_all
     my $self = shift;
     my $output_file = shift;
 
+    my %unsatisfiable_prereqs;
+    for my $stat (keys %stats) {
+        my @errors = grep { !exists $stats{$_} } @{ $stats{$stat}->{PREREQ} // [] }
+          or next;
+
+        $unsatisfiable_prereqs{$stat} = \@errors;
+    }
+
+    if (%unsatisfiable_prereqs) {
+        printf "Statistics cannot be computed due to missing dependencies\n";
+        printf "$_ depends on " . join(", ", @{$unsatisfiable_prereqs{$_}}) . ", but these dependencies do not exist\n"
+            for keys %unsatisfiable_prereqs;
+        exit (1);
+    }
+
     my %notdone = %stats;
     my %done;
 
@@ -1785,7 +1853,7 @@ sub recalculate_all
         # Work out which stats from %notdone we can do this time around
         for my $name (sort keys %notdone) {
             my $d = $stats{$name}{PREREQ} || [];
-            next if grep { $notdone{$_} } @$d;
+            next if any { !exists $done{$_} } @$d;
 
             # $name has no unsatisfied dependencies.  Let's do it!
             $self->recalculate($name, $output_file);

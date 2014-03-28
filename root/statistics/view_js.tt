@@ -76,8 +76,8 @@
             "count.editor.valid": { Label: '[% l('Editors (valid)') | js %]', Color: '#ff3333', Description: '[% l('Count of non-deleted editors') | js %]', Category: "edit-information", Hide: true },
             "count.editor.valid.active": { Label: '[% l('Editors (valid & active ever)') | js %]', Color: '#ff3333', Description: '[% l('Count of active editors') | js %]', Category: "edit-information", Hide: true },
             "count.editor.deleted": { Label: '[% l('Editors (deleted)') | js %]', Color: '#ffaaaa', Description: '[% l('Count of deleted editors') | js %]', Category: "edit-information", Hide: true },
-            "count.editor.editlastweek": { Label: '[% l('Active Editors') | js %]', Color: '#6600ff', Description: '[% l('Count of editors who have submitted edits during the last week') | js %]', Category: "edit-information" },
-            "count.editor.votelastweek": { Label: '[% l('Active Voters') | js %]', Color: '#cc00ff', Description: '[% l('Count of editors who have voted on during the last week') | js %]', Category: "edit-information" },
+            "count.editor.editlastweek": { Label: '[% l('Active Editors') | js %]', Color: '#6600ff', Description: '[% l('Count of editors who have submitted edits during the last 7 days') | js %]', Category: "edit-information" },
+            "count.editor.votelastweek": { Label: '[% l('Active Voters') | js %]', Color: '#cc00ff', Description: '[% l('Count of editors who have voted on during the last 7 days') | js %]', Category: "edit-information" },
             "count.editor.activelastweek": { Label: '[% l('Active Users') | js %]', Color: '#ff00cc', Description: '[% l('Count of active editors (editing or voting) during the last week') | js %]', Category: "edit-information" },
 
             "count.artist.country.null": { Label: '[% l('Unknown Country') | js %]', Color: '#ff0000', Description: '[% l('Artists with no country set') | js %]', Category: "artist-countries" },
@@ -114,6 +114,7 @@
             "count.artist.type.person": { Label: '[% l('Persons') | js %]', Color: '#ff0000', Description: '[% l('Artists with type set to person') | js %]', Category: 'artist-other' },
             "count.artist.type.group": { Label: '[% l('Groups') | js %]', Color: '#ff0000', Description: '[% l('Artists with type set to group') | js %]', Category: 'artist-other' },
             "count.artist.type.other": { Label: '[% l('Other-type Artists') | js %]', Color: '#ff0000', Description: '[% l('Artists with type set to other') | js %]', Category: 'artist-other' },
+            "count.artist.type.character": { Label: '[% l('Characters') | js %]', Color: '#ff0000', Description: '[% l('Artists with type set to character') | js %]', Category: 'artist-other' },
             "count.artist.type.null": { Label: '[% l('Unknown-type Artists') | js %]', Color: '#ff0000', Description: '[% l('Artists with type unset') | js %]', Category: 'artist-other' },
 
             "count.artist.has_credits": { Label: '[% l('Artists in ACs') | js %]', Color: '#ff0000', Description: '[% l('Artists with at least one artist credit appearance') | js %]', Category: 'artist-other' },
@@ -138,7 +139,7 @@
             "count.isrc.all": { Label: '[% l('ISRCs (all)') | js %]', Color: '#ff0000', Description: '[% l('Count of all ISRCs') | js %]', Category: 'other'},
             "count.iswc": { Label: '[% l('ISWCs') | js %]', Color: '#ff0000', Description: '[% l('Count of all ISWCs') | js %]', Category: 'other'},
             "count.iswc.all": { Label: '[% l('ISWCs (all)') | js %]', Color: '#ff0000', Description: '[% l('Count of all ISWCs') | js %]', Category: 'other'},
-      
+
             "count.release.has_discid": { Label: '[% l('Releases with Disc IDs') | js %]', Color: '#ff0000', Description: '[% l('Count of all Releases with Disc IDs') | js %]', Category: 'other'},
             "count.medium.has_discid": { Label: '[% l('Mediums with Disc IDs') | js %]', Color: '#ff0000', Description: '[% l('Count of all Mediums with Disc IDs') | js %]', Category: 'other'},
             "count.recording.has_isrc": { Label: '[% l('Recordings with ISRCs') | js %]', Color: '#ff0000', Description: '[% l('Count of all Recordings with ISRCs') | js %]', Category: 'other'},
@@ -180,7 +181,7 @@
             "count.tag.raw.work": { Label: '[% l('Work Tags (raw)') | js %]', Color: '#ff0000', Description: '[% l('Count of all Work Tags (raw)') | js %]', Category: 'ratings-tags'},
 
             "count.ar.links": { Label: '[% l('Relationships') | js %]', Color: '#ff0000', Description: '[% l('Count of all Relationships') | js %]', Category: 'relationships'},
-            
+
             [% FOREACH rel IN relationships %]
                 [% USE String(loop.count() * 3 ) %]
                 "count.ar.links.l_[% rel.0 %]_[% rel.1 %]": { Label: '[% l('l_{first}_{second} Relationships', { first => rel.0, second => rel.1 }) | js %]', Color: '#5[% String.format('%02d') %]F[% String.format('%02d') %]', Description: '[% l('l_{first}_{second} Relationships', { first => rel.0, second => rel.1 }) | js %]', Category: 'relationships' },

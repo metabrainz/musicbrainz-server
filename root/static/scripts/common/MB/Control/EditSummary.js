@@ -18,7 +18,7 @@
 */
 
 MB.Control.EditSummary = function(container) {
-    var self = MB.Object();
+    var self = {};
 
     var $container = $(container),
         $toggleEditNote = $container.find('.edit-note-toggle'),

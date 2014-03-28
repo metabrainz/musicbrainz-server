@@ -62,6 +62,36 @@ test 'Cannot move to non-existant medium' => sub {
         'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
 };
 
+test 'Moving a DiscID to the medium it already is attached to does not change anything (MBS-7043)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+cdtoc');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
+        DELETE FROM medium_cdtoc WHERE id = 2;
+EOSQL
+
+    my $medium = $c->model('Medium')->get_by_id(1);
+    my $medium_cdtoc = $c->model('MediumCDTOC')->get_by_id(1);
+    $c->model('Medium')->load($medium_cdtoc);
+    $c->model('Release')->load($medium, $medium_cdtoc->medium);
+
+    isa_ok exception {
+        my $edit = $c->model('Edit')->create(
+            edit_type => $EDIT_MEDIUM_MOVE_DISCID,
+            editor_id => 1,
+            new_medium => $medium,
+            medium_cdtoc => $medium_cdtoc,
+        );
+        accept_edit($c, $edit);
+    }, 'MusicBrainz::Server::Edit::Exceptions::NoChanges';
+
+    $medium_cdtoc = $c->model('MediumCDTOC')->get_by_id(1);
+    ok(defined $medium_cdtoc, 'DiscID still exists');
+    $c->model('Medium')->load($medium_cdtoc);
+    is($medium_cdtoc->medium_id, 1, 'DiscID still attached to the medium');
+};
+
 sub create_edit {
     my ($c, $new_medium, $medium_cdtoc) = @_;
     return $c->model('Edit')->create(

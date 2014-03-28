@@ -19,7 +19,7 @@ sub statistics : Path('')
 
     my $latest_stats = try_fetch_latest_statistics($c);
 
-# TODO: 
+# TODO:
 #       ALTER TABLE statistic ADD CONSTRAINT statistic_pkey PRIMARY KEY (id); fails
 #       for duplicate key 1
 #       count.quality.release.unknown is too high
@@ -31,6 +31,15 @@ sub statistics : Path('')
     my @area_types = sort_by { $_->l_name } $c->model('AreaType')->get_all();
     my @place_types = sort_by { $_->l_name } $c->model('PlaceType')->get_all();
 
+    my %work_attribute_type_map = $c->model('Work')->all_work_attributes();
+    my @work_attribute_types = sort_by { $_->l_name } map {
+        MusicBrainz::Server::Entity::WorkAttributeType->new(
+            id => $_,
+            name => $work_attribute_type_map{$_}->{name},
+            comment => $work_attribute_type_map{$_}->{comment}
+        );
+    } keys %work_attribute_type_map;
+
     $c->stash(
         template => 'statistics/index.tt',
         statuses => \%statuses,
@@ -40,6 +49,7 @@ sub statistics : Path('')
         work_types => \@work_types,
         area_types => \@area_types,
         place_types => \@place_types,
+        work_attribute_types => \@work_attribute_types,
         stats => $latest_stats
     );
 }
@@ -96,11 +106,10 @@ sub countries : Local
     my $release_country_prefix = 'count.release.country';
     my $label_country_prefix = 'count.label.country';
     my @countries = $c->model('CountryArea')->get_all();
-    $c->model('Area')->load_codes(@countries);
     my %countries = map { $_->country_code => $_ } grep { defined $_->country_code } @countries;
     foreach my $stat_name
         (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
-        if (my ($iso_code) = $stat_name =~ /^$artist_country_prefix\.(.*)$/) { 
+        if (my ($iso_code) = $stat_name =~ /^$artist_country_prefix\.(.*)$/) {
             my $release_stat = $stat_name;
             my $label_stat = $stat_name;
             $release_stat =~ s/$artist_country_prefix/$release_country_prefix/;
@@ -292,7 +301,7 @@ sub relationships : Path('relationships') {
     my $types = { map { (join '_', 'l', @$_) => { entity_types => \@$_, tree => $c->model('LinkType')->get_tree($_->[0], $_->[1]) } } @$pairs };
     $c->stash(
         types => $types,
-	stats => $stats
+        stats => $stats
     );
 }
 

@@ -12,6 +12,7 @@ extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Relationship';
 
 sub edit_name { N_l('Edit relationship attribute') }
+sub edit_kind { 'edit' }
 sub edit_type { $EDIT_RELATIONSHIP_ATTRIBUTE }
 
 sub change_fields

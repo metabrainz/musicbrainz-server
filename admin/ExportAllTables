@@ -1018,9 +1018,9 @@ sub optimise_replication_tables
 {
     print localtime() . " : Optimising replication tables\n";
     $sql->auto_commit;
-    $sql->do("VACUUM FULL ANALYZE dbmirror_pendingdata");
+    $sql->do("VACUUM ANALYZE dbmirror_pendingdata");
     $sql->auto_commit;
-    $sql->do("VACUUM FULL ANALYZE dbmirror_pending");
+    $sql->do("VACUUM ANALYZE dbmirror_pending");
 }
 
 sub copy_readme

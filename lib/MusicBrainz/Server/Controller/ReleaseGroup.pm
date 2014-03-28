@@ -24,6 +24,7 @@ with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::Cleanup';
+with 'MusicBrainz::Server::Controller::Role::EditExternalLinks';
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 
@@ -93,7 +94,8 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
         else {
             return ();
         }
-    }
+    },
+    dialog_template => 'release_group/edit_form.tt',
 };
 
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
@@ -103,30 +105,15 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_RELEASEGROUP_MERGE,
-    confirmation_template => 'release_group/merge_confirm.tt',
-    search_template       => 'release_group/merge_search.tt',
 };
 
-after 'merge' => sub
+sub _merge_load_entities
 {
-    my ($self, $c) = @_;
+    my ($self, $c, @rgs) = @_;
 
-    $c->model('ReleaseGroup')->load_meta(@{ $c->stash->{to_merge} });
-    $c->model('ReleaseGroupType')->load(@{ $c->stash->{to_merge} });
-    $c->model('ArtistCredit')->load(
-        $c->stash->{old}, $c->stash->{new}
-    );
-};
-
-around '_merge_search' => sub
-{
-    my $orig = shift;
-    my ($self, $c, $query) = @_;
-
-    my $results = $self->$orig($c, $query);
-    $c->model('ArtistCredit')->load(map { $_->entity } @$results);
-
-    return $results;
+    $c->model('ArtistCredit')->load(@rgs);
+    $c->model('ReleaseGroup')->load_meta(@rgs);
+    $c->model('ReleaseGroupType')->load(@rgs);
 };
 
 sub set_cover_art : Chained('load') PathPart('set-cover-art') Args(0) Edit

@@ -43,7 +43,7 @@ SELECT q.entity AS work_id, row_number() OVER (ORDER BY musicbrainz_collate(work
     GROUP BY link.link_type, lxx.entity0, lxx.entity1 HAVING COUNT(*) > 1
 
     UNION
-    
+
     SELECT link.link_type, lxx.entity0, lxx.entity1 AS entity
     FROM l_work_work lxx
     JOIN link ON link.id = lxx.link

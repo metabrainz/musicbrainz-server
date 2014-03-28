@@ -1,14 +1,10 @@
-[%- BLOCK layout_head -%]
+[%- WRAPPER "release/layout.tt" title=lp('Add Cover Art', 'header') page='add_cover_art' -%]
   [%- script_manifest('edit.js.manifest') -%]
 
   <script type="text/javascript">//<![CDATA[
-
     MB.cover_art_types_json = [% cover_art_types_json %];
-
   //]]></script>
-[%- END -%]
 
-[%- WRAPPER "release/layout.tt" title=lp('Add Cover Art', 'header') page='add_cover_art' -%]
   <h2>[%- lp('Add Cover Art', 'header') -%]</h2>
 
   <noscript>
@@ -37,10 +33,10 @@
       <tbody data-bind="foreach: files_to_upload">
         <tr>
           <td class="uploader-preview-column">
-              <img class="uploader-preview-image" data-bind="attr: {src: data_uri()}" />
-              <input type="button" class="icon file-up track-up"
+              <img class="uploader-preview-image" data-bind="attr: {src: data_uri()}, visible: data_uri() != ''" />
+              <input type="button" class="icon file-up"
                      title="[% l('Move file up') %]" style="float: right;" />
-              <input type="button" class="icon file-down track-down"
+              <input type="button" class="icon file-down"
                      title="[% l('Move file down') %]" style="clear: right; float: right;" />
           </td>
           <td>
@@ -132,7 +128,7 @@
         </div>
 
         <script type="text/javascript">
-            MB.CoverArt.image_position ();
+            MB.CoverArt.reorder_position ();
         </script>
       [%- END -%]
     </div>
@@ -153,4 +149,3 @@
     MB.utility.setDefaultAction ('form.cover-art', 'button.submit.positive');
   </script>
 [%- END -%]
-

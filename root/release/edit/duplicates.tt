@@ -1,49 +1,43 @@
-[% BLOCK layout_head %]
-  <script type="text/javascript">//<![CDATA[
-    $('document').ready (function () {
-       MB.utility.setDefaultAction ('form.release-editor', '#id-next');
-    });
-  //]]></script>
-[%- END -%]
+<fieldset>
+  <legend>[% l('Similar releases') %]</legend>
 
-[%- WRAPPER 'release/edit/layout.tt' -%]
-  [%- USE r = FormRenderer(form) -%]
-  <fieldset>
-    <legend>[% l('Similar releases') %]</legend>
-    <p>[% l('Based on the information you have provided, we have found the
-      following similar release to already exist in MusicBrainz. If you wish
-      to base your release on an existing release, select it below.') %]</p>
+  <p>[% l('Based on the information you have provided, we have found the following similar release to already exist in MusicBrainz. If you wish to base your release on an existing release, select it below.') %]</p>
 
-    [% BLOCK release_row_prefix %]
-    <td>
-      <input type="radio" name="[% form.field('duplicate_id').html_name %]"
-             value="[% release.id %]"
-             [% IF wizard.get_value('duplicates', 'duplicate_id') == release.id %]
-               checked="checked"
-             [% END %]/>
-    </td>
-    [% END %]
-    [% INCLUDE 'release_group/releases-list.tt' releases=similar_releases %]
+  <table class="tbl">
+    <thead>
+      <tr>
+        <th></th>
+        <th>[% l('Release') %]</th>
+        <th>[% l('Format') %]</th>
+        <th>[% l('Tracks') %]</th>
+        <th>[% l('Date') %]</th>
+        <th>[% l('Country') %]</th>
+        <th>[% l('Label') %]</th>
+        <th>[% l('Catalog#') %]</th>
+        <th>[% l('Barcode') %]</th>
+      </tr>
+    </thead>
+    <tbody data-bind="foreach: similarReleases">
+      <tr data-bind="css: { ev: $index() % 2 === 1 }">
+        <td>
+          <input type="radio" name="base-release" data-bind="attr: { value: gid }, checked: $parent.baseRelease" />
+        </td>
+        <td data-bind="html: html({ target: '_blank' })"></td>
+        <td data-bind="text: formats"></td>
+        <td data-bind="text: tracks"></td>
+        <td data-bind="html: dates.join('<br />')"></td>
+        <td data-bind="html: countries.join('<br />')"></td>
+        <td data-bind="html: _.invoke(labels, 'html').join('<br />')"></td>
+        <td data-bind="html: catalogNumbers.join('<br />')"></td>
+        <td data-bind="text: barcode"></td>
+      </tr>
+    </tbody>
+  </table>
 
-    <div class="row no-label">
-        [% made_selection = 0;
-           FOR similar_release=similar_releases;
-             IF similar_release.id == wizard.get_value('duplicates', 'duplicate_id');
-               made_selection = 1;
-             END;
-           END; %]
-
-        <input id="no-duplicate" name="[% form.field('duplicate_id').html_name %]"
-               value="" type="radio"
-               [% 'checked="checked"' IF !made_selection %]/>
-        <label for="no-duplicate" class="inline">
-          [% l('Do not use any of the above releases as a starting point') %]
-        </label>
-    </div>
-  </fieldset>
-  <div class="buttons ui-helper-clearfix">
-    [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
-    [% r.submit ('previous', l('« Previous')) %]
-    [% r.submit ('next', l('Next »')) %]
+  <div class="row no-label" style="padding: 0.5em">
+    <label>
+      <input type="radio" name="base-release" value="" data-bind="checked: baseRelease" />
+      [% l('Do not use any of the above releases as a starting point') %]
+    </label>
   </div>
-[%- END -%]
+</fieldset>

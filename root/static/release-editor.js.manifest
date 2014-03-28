@@ -1,3 +1,18 @@
 lib/json/
 lib/sha1/
-scripts/release-editor
+
+scripts/edit/confirmNavigationFallback.js
+
+# utils.js must be loaded first!
+scripts/release-editor/utils.js
+scripts/release-editor/actions.js
+scripts/release-editor/bubbles.js
+scripts/release-editor/dialogs.js
+scripts/release-editor/duplicates.js
+scripts/release-editor/edits.js
+scripts/release-editor/fields.js
+scripts/release-editor/init.js
+scripts/release-editor/recordingAssociation.js
+scripts/release-editor/seeding.js
+scripts/release-editor/trackParser.js
+scripts/release-editor/validation.js

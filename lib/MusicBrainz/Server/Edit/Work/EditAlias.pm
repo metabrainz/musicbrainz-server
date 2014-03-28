@@ -11,6 +11,7 @@ with 'MusicBrainz::Server::Edit::Work';
 sub _alias_model { shift->c->model('Work')->alias }
 
 sub edit_name { N_l('Edit work alias') }
+sub edit_kind { 'edit' }
 sub edit_type { $EDIT_WORK_EDIT_ALIAS }
 
 sub adjust_edit_pending

@@ -13,10 +13,11 @@
 # murdos <email address hidden>, 2011
 # redapplz <email address hidden>, 2013
 # redapplz <email address hidden>, 2013
+# Alain-Olivier  Breysse, 2013-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-12-05 23:03+0000\n"
+"PO-Revision-Date: 2014-03-04 23:22+0000\n"
 "Last-Translator: Alain-Olivier  Breysse\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -45,6 +46,11 @@ msgctxt "medium_format"
 msgid "8cm CD"
 msgstr "CD 8 cm"
 
+#: DB:medium_format/name:40
+msgctxt "medium_format"
+msgid "8cm CD+G"
+msgstr "CD+G 8 cm"
+
 #: DB:release_group_primary_type/name:1
 msgctxt "release_group_primary_type"
 msgid "Album"
@@ -65,6 +71,11 @@ msgctxt "alias_type"
 msgid "Artist name"
 msgstr "Nom de l'artiste"
 
+#: DB:work_type/name:25
+msgctxt "work_type"
+msgid "Audio drama"
+msgstr "Pièce de théâtre"
+
 #: DB:release_group_secondary_type/name:5
 msgctxt "release_group_secondary_type"
 msgid "Audiobook"
@@ -80,6 +91,11 @@ msgctxt "work_type"
 msgid "Ballet"
 msgstr "Ballet"
 
+#: DB:work_type/name:26
+msgctxt "work_type"
+msgid "Beijing opera"
+msgstr "Opéra de Pékin"
+
 #: DB:medium_format/name:24
 msgctxt "medium_format"
 msgid "Betamax"
@@ -89,6 +105,11 @@ msgstr "Betamax"
 msgctxt "medium_format"
 msgid "Blu-ray"
 msgstr "Blu-ray"
+
+#: DB:medium_format/name:35
+msgctxt "medium_format"
+msgid "Blu-spec CD"
+msgstr "CD Blu-spec"
 
 #: DB:release_packaging/name:9
 msgctxt "release_packaging"
@@ -120,6 +141,11 @@ msgctxt "medium_format"
 msgid "CD"
 msgstr "CD"
 
+#: DB:medium_format/name:39
+msgctxt "medium_format"
+msgid "CD+G"
+msgstr "CD+G"
+
 #: DB:medium_format/name:33
 msgctxt "medium_format"
 msgid "CD-R"
@@ -149,6 +175,11 @@ msgstr "Cassette"
 msgctxt "release_packaging"
 msgid "Cassette Case"
 msgstr "Boîtier de cassette"
+
+#: DB:artist_type/name:4
+msgctxt "artist_type"
+msgid "Character"
+msgstr "Personnage"
 
 #: DB:area_type/name:3
 msgctxt "area_type"
@@ -210,6 +241,11 @@ msgctxt "medium_format"
 msgid "Digital Media"
 msgstr "Média numérique"
 
+#: DB:release_packaging/name:13
+msgctxt "release_packaging"
+msgid "Discbox Slider"
+msgstr "Portefeuille en carton"
+
 #: DB:label_type/name:1
 msgctxt "label_type"
 msgid "Distributor"
@@ -230,6 +266,11 @@ msgctxt "release_group_primary_type"
 msgid "EP"
 msgstr "EP"
 
+#: DB:release_packaging/name:10
+msgctxt "release_packaging"
+msgid "Fatbox"
+msgstr "Gros boîtier"
+
 #: DB:gender/name:2
 msgctxt "gender"
 msgid "Female"
@@ -244,6 +285,11 @@ msgstr "Nom formel"
 msgctxt "cover_art_type"
 msgid "Front"
 msgstr "Devant"
+
+#: DB:release_packaging/name:12
+msgctxt "release_packaging"
+msgid "Gatefold Cover"
+msgstr "Pochette à encart intégré"
 
 #: DB:artist_type/name:2
 msgctxt "artist_type"
@@ -260,10 +306,30 @@ msgctxt "medium_format"
 msgid "HDCD"
 msgstr "HDCD"
 
+#: DB:medium_format/name:37
+msgctxt "medium_format"
+msgid "HQCD"
+msgstr "HQCD"
+
 #: DB:label_type/name:2
 msgctxt "label_type"
 msgid "Holding"
 msgstr "Holding"
+
+#: DB:medium_format/name:38
+msgctxt "medium_format"
+msgid "Hybrid SACD"
+msgstr "SACD hybride"
+
+#: DB:label_type/name:9
+msgctxt "label_type"
+msgid "Imprint"
+msgstr "Marque d'éditeur"
+
+#: DB:place_type/name:5
+msgctxt "place_type"
+msgid "Indoor arena"
+msgstr "Stade couvert"
 
 #: DB:release_group_secondary_type/name:4
 msgctxt "release_group_secondary_type"
@@ -294,6 +360,11 @@ msgstr "LaserDisc"
 msgctxt "alias_type"
 msgid "Legal name"
 msgstr "Nom officiel"
+
+#: DB:cover_art_archive.art_type/name:12
+msgctxt "cover_art_type"
+msgid "Liner"
+msgstr "Pochette"
 
 #: DB:release_group_secondary_type/name:6
 msgctxt "release_group_secondary_type"
@@ -380,18 +451,8 @@ msgctxt "artist_type"
 msgid "Other"
 msgstr "Autre"
 
-#: DB:cover_art_archive.art_type/name:8
-msgctxt "cover_art_type"
-msgid "Other"
-msgstr "Autre"
-
-#: DB:gender/name:3
-msgctxt "gender"
-msgid "Other"
-msgstr "Autre"
-
-#: DB:medium_format/name:13
-msgctxt "medium_format"
+#: DB:place_type/name:3
+msgctxt "place_type"
 msgid "Other"
 msgstr "Autre"
 
@@ -400,8 +461,23 @@ msgctxt "release_group_primary_type"
 msgid "Other"
 msgstr "Autre"
 
+#: DB:medium_format/name:13
+msgctxt "medium_format"
+msgid "Other"
+msgstr "Autre"
+
 #: DB:release_packaging/name:5
 msgctxt "release_packaging"
+msgid "Other"
+msgstr "Autre"
+
+#: DB:gender/name:3
+msgctxt "gender"
+msgid "Other"
+msgstr "Autre"
+
+#: DB:cover_art_archive.art_type/name:8
+msgctxt "cover_art_type"
 msgid "Other"
 msgstr "Autre"
 
@@ -425,10 +501,20 @@ msgctxt "medium_format"
 msgid "Piano Roll"
 msgstr "Rouleau de piano pneumatique"
 
+#: DB:place_alias_type/name:1
+msgctxt "alias_type"
+msgid "Place name"
+msgstr "Nom du lieu"
+
 #: DB:work_type/name:21
 msgctxt "work_type"
 msgid "Poem"
 msgstr "Poème"
+
+#: DB:cover_art_archive.art_type/name:11
+msgctxt "cover_art_type"
+msgid "Poster"
+msgstr "Affiche"
 
 #: DB:label_type/name:3
 msgctxt "label_type"
@@ -485,13 +571,19 @@ msgctxt "medium_format"
 msgid "SACD"
 msgstr "SACD"
 
+#: DB:medium_format/name:36
+msgctxt "medium_format"
+msgid "SHM-CD"
+msgstr "SHM-CD"
+
 #: DB:medium_format/name:23
 msgctxt "medium_format"
 msgid "SVCD"
 msgstr "SVCD"
 
 #: DB:artist_alias_type/name:3 DB:label_alias_type/name:2
-#: DB:work_alias_type/name:2 DB:area_alias_type/name:3
+#: DB:place_alias_type/name:2 DB:work_alias_type/name:2
+#: DB:area_alias_type/name:3
 msgctxt "alias_type"
 msgid "Search hint"
 msgstr "Indice de recherche"
@@ -505,6 +597,11 @@ msgstr "Monoplage"
 msgctxt "release_packaging"
 msgid "Slim Jewel Case"
 msgstr "Boîtier extra-plat "
+
+#: DB:release_packaging/name:11
+msgctxt "release_packaging"
+msgid "Snap Case"
+msgstr "Boîtier plastique-papier cartonné"
 
 #: DB:work_type/name:5
 msgctxt "work_type"
@@ -521,13 +618,13 @@ msgctxt "work_type"
 msgid "Song-cycle"
 msgstr "Série de chansons"
 
-#: DB:release_group_secondary_type/name:2
-msgctxt "release_group_secondary_type"
+#: DB:work_type/name:22
+msgctxt "work_type"
 msgid "Soundtrack"
 msgstr "Bande originale"
 
-#: DB:work_type/name:22
-msgctxt "work_type"
+#: DB:release_group_secondary_type/name:2
+msgctxt "release_group_secondary_type"
 msgid "Soundtrack"
 msgstr "Bande originale"
 
@@ -541,10 +638,20 @@ msgctxt "release_group_secondary_type"
 msgid "Spokenword"
 msgstr "Parole"
 
+#: DB:place_type/name:4
+msgctxt "place_type"
+msgid "Stadium"
+msgstr "Stade"
+
 #: DB:cover_art_archive.art_type/name:10
 msgctxt "cover_art_type"
 msgid "Sticker"
 msgstr "Autocollant"
+
+#: DB:place_type/name:1
+msgctxt "place_type"
+msgid "Studio"
+msgstr "Studio"
 
 #: DB:area_type/name:2
 msgctxt "area_type"
@@ -595,6 +702,11 @@ msgstr "VCD"
 msgctxt "medium_format"
 msgid "VHS"
 msgstr "VHS"
+
+#: DB:place_type/name:2
+msgctxt "place_type"
+msgid "Venue"
+msgstr "Salle"
 
 #: DB:medium_format/name:32
 msgctxt "medium_format"
