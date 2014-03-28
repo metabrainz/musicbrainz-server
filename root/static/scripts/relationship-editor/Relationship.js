@@ -192,10 +192,12 @@ Relationship.prototype.linkPhrase = function (source) {
     _.each(this.attrs(), function(observable, name) {
         var value = observable();
 
-        if (_.isArray(value) && value.length) {
-            attrs[name] = _.map(value, function(v) {
-                return Util.attrInfo(v).l_name;
-            });
+        if (_.isArray(value)) {
+            if (value.length) {
+                attrs[name] = _.map(value, function(v) {
+                    return Util.attrInfo(v).l_name;
+                });
+            }
         } else if (value) {
             attrs[name] = [Util.attrRoot(name).l_name];
         }

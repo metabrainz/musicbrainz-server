@@ -17,7 +17,7 @@ has 'gid' => (
 
 has 'parent_id' => (
     is => 'rw',
-    isa => 'Int',
+    isa => 'Maybe[Int]',
 );
 
 has 'parent' => (
@@ -52,7 +52,7 @@ sub l_name {
 
 has 'description' => (
     is => 'rw',
-    isa => 'Str',
+    isa => 'Maybe[Str]',
 );
 
 sub l_description {

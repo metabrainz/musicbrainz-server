@@ -179,6 +179,15 @@ subtype 'Work'
 subtype 'WorkAlias'
     => as class_type 'MusicBrainz::Server::Entity::WorkAlias';
 
+subtype 'WorkAttribute'
+    => as class_type 'MusicBrainz::Server::Entity::WorkAttribute';
+
+subtype 'WorkAttributeType'
+    => as class_type 'MusicBrainz::Server::Entity::WorkAttributeType';
+
+subtype 'WorkAttributeTypeAllowedValue'
+    => as class_type 'MusicBrainz::Server::Entity::WorkAttributeTypeAllowedValue';
+
 subtype 'WorkType'
     => as class_type 'MusicBrainz::Server::Entity::WorkType';
 

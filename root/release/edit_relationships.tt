@@ -229,7 +229,12 @@
       <tr>
         <td class="section">[% l('Type') %]:</td>
         <td>
-          <select id="link-type" data-bind="linkType: $data, value: relationship().link_type"></select>
+          <select id="link-type"
+           data-bind="options: $data.linkTypeOptions(),
+                      optionsValue: 'value',
+                      optionsText: 'text',
+                      optionsAfterRender: afterRenderLinkTypeOption,
+                      value: relationship().link_type"></select>
           <!-- ko if: sourceField()().type === targetField()().type -->
           <button data-bind="click: changeDirection, text: MB.text.ChangeDirection, disable: relationship().hasErrors"></button>
           <!-- /ko -->
@@ -256,7 +261,22 @@
             <!-- /ko -->
             <!-- ko if: type == 'select' -->
               <!-- ko text: data.l_name --><!-- /ko --><br />
-              <select data-bind="selectAttribute: $data"></select>
+              <select data-bind="options: $parent.attributeOptions($data),
+                                 optionsText: 'text',
+                                 optionsValue: 'value',
+                                 optionsCaption: '',
+                                 valueAllowUnset: true,
+                                 value: $data.value"></select>
+            <!-- /ko -->
+            <!-- ko if: type == 'multiselect' -->
+              <!-- ko text: data.l_name --><!-- /ko --><br />
+              <select multiple style="display: none;"
+               data-bind="options: $parent.attributeOptions($data),
+                          optionsText: 'text',
+                          optionsValue: 'value',
+                          valueAllowUnset: true,
+                          selectedOptions: $data.value,
+                          attributeMultiselect: $data"></select>
             <!-- /ko -->
             </label>
             <div class="error" data-bind="text: value.error"></div>

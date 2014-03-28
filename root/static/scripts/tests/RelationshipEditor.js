@@ -520,7 +520,7 @@ test("Relationship", function () {
             linkType: 154,
             backward: true,
             attrs: { instrument: [69, 75, 109, 302], additional: true },
-            expected: "contains additional strings, guitars, lyre and plucked string instruments samples by"
+            expected: "contains additional lyre, plucked string instruments, strings and guitars samples by"
         },
         // MBS-6129
         {
@@ -533,7 +533,7 @@ test("Relationship", function () {
             linkType: 149,
             backward: true,
             attrs: { additional: false, vocal: [] },
-            expected: "vocal"
+            expected: "vocals"
         }
     ];
 

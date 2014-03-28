@@ -6,23 +6,27 @@ with 'MusicBrainz::Server::Data::Role::Context';
 
 sub get_tree
 {
-    my ($self, $model) = @_;
+    my ($self) = @_;
 
-    my %id_to_obj;
-    my @objs;
-    for my $row (@{
+    my $mapping = $self->_column_mapping;
+    my @attrs = keys %$mapping;
+
+    my %id_to_obj = map {
+        my $row = $_;
+
+        $row->{id} => $self->_entity_class->new(
+            map { $_ => $row->{$mapping->{$_}} } @attrs
+        )
+    } @{
         $self->sql->select_list_of_hashes(
-            'SELECT '  .$self->_columns . ' FROM ' . $self->_table . '
+            'SELECT ' . $self->_columns . ' FROM ' . $self->_table . '
              ORDER BY child_order, id'
         )
-    }) {
-        my $obj = $self->_new_from_row($row);
-        $id_to_obj{$obj->id} = $obj;
-        push @objs, $obj;
-    }
+    };
 
     my $root = $self->_entity_class->new;
-    foreach my $obj (@objs) {
+
+    foreach my $obj (values %id_to_obj) {
         my $parent = $obj->parent_id ? $id_to_obj{$obj->parent_id} : $root;
         $parent->add_child($obj);
     }

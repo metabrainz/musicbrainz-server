@@ -70,8 +70,13 @@ after 'validate' => sub {
     $iswcs->value([ uniq sort grep { $_ } @{ $iswcs->value } ]);
 
     my $attributes = $self->field('attributes');
-    my %allowed_values = $self->ctx->model('Work')->allowed_attribute_values(
+
+    my $attribute_types = $self->ctx->model('WorkAttributeType')->get_by_ids(
         map { $_->{type_id} } @{ $attributes->value }
+    );
+
+    $self->ctx->model('WorkAttributeTypeAllowedValue')->load_for_work_attribute_types(
+        values %$attribute_types
     );
 
     for my $attribute_field ($attributes->fields) {
@@ -84,18 +89,20 @@ after 'validate' => sub {
         my $v = $attribute_field->value;
         my $value = $v->{value};
         my $type_id = $v->{type_id};
-        my $parser = $allowed_values{$v->{type_id}};
+        my $attribute_type = $attribute_types->{$type_id};
 
-        if (!defined($parser)) {
+        if (!defined($attribute_type)) {
             $attribute_field->field('type_id')->add_error(
                 l('Unknown work attribute type.')
             );
+            next;
         }
-        elsif ($parser->{allows_value}->($value)) {
+
+        if ($attribute_type->allows_value($value)) {
             # Convert the value to a format supported by Edit::Work::Edit
             $attribute_field->value({
-                attribute_text => $parser->{allows_free_text} ? $value : undef,
-                attribute_value_id => $parser->{allows_free_text} ? undef : $value,
+                attribute_text => $attribute_type->free_text ? $value : undef,
+                attribute_value_id => $attribute_type->free_text ? undef : $value,
                 attribute_type_id => $type_id
             });
         }
