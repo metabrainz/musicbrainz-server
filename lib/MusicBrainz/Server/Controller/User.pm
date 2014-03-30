@@ -343,6 +343,7 @@ sub rating_summary : Chained('load') PathPart('ratings') Args(0) HiddenOnSlaves
 
     my $ratings = $c->model('Editor')->summarize_ratings($user,
                         $c->stash->{viewing_own_profile});
+    $c->model('ArtistCredit')->load(map { @$_ } values %$ratings);
 
     $c->stash(
         ratings => $ratings,
@@ -377,6 +378,7 @@ sub ratings : Chained('load') PathPart('ratings') Args(1) HiddenOnSlaves
         $c->model($model)->rating->find_editor_ratings(
             $user->id, $c->user_exists && $user->id == $c->user->id, shift, shift)
     }, limit => 100);
+    $c->model('ArtistCredit')->load(@$ratings);
 
     $c->stash(
         ratings => $ratings,
