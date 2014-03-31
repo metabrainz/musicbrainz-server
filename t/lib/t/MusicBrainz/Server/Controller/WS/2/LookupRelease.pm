@@ -862,6 +862,13 @@ ws_test 'release lookup, track artists have no aliases',
                 <name-credit>
                   <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
                     <name>BoA</name><sort-name>BoA</sort-name>
+                    <alias-list count="5">
+                      <alias sort-name="Beat of Angel">Beat of Angel</alias>
+                      <alias sort-name="BoA Kwon">BoA Kwon</alias>
+                      <alias sort-name="Kwon BoA">Kwon BoA</alias>
+                      <alias sort-name="ボア">ボア</alias>
+                      <alias sort-name="보아">보아</alias>
+                    </alias-list>
                   </artist>
                 </name-credit>
               </artist-credit>
@@ -906,6 +913,13 @@ ws_test 'release lookup, track artists have no aliases',
                 <name-credit>
                   <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
                     <name>BoA</name><sort-name>BoA</sort-name>
+                    <alias-list count="5">
+                      <alias sort-name="Beat of Angel">Beat of Angel</alias>
+                      <alias sort-name="BoA Kwon">BoA Kwon</alias>
+                      <alias sort-name="Kwon BoA">Kwon BoA</alias>
+                      <alias sort-name="ボア">ボア</alias>
+                      <alias sort-name="보아">보아</alias>
+                    </alias-list>
                   </artist>
                 </name-credit>
               </artist-credit>
