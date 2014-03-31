@@ -410,9 +410,7 @@ msgid ""
 msgstr ""
 
 #: DB:link_type/description:42
-msgid ""
-"Indicates the mastering engineer for this work. (<a href=\"http://"
-"musicbrainz.org/doc/Engineer_Relationship_Type\">Details</a>)"
+msgid "Indicates the mastering engineer for this work."
 msgstr ""
 
 #: DB:link_type/description:143
@@ -755,8 +753,8 @@ msgstr ""
 
 #: DB:link_attribute_type/description:1
 msgid ""
-"This attribute describes if a particular performance role was considered "
-"normal or additional."
+"This attribute describes if a particular role was considered normal or "
+"additional."
 msgstr ""
 
 #: DB:link_attribute_type/description:194

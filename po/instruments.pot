@@ -1640,6 +1640,10 @@ msgstr ""
 msgid "plucked string instruments"
 msgstr ""
 
+#: DB:link_attribute_type/name:771
+msgid "post horn"
+msgstr ""
+
 #: DB:link_attribute_type/name:515
 msgid "practice chanter"
 msgstr ""
