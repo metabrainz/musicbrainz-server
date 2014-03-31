@@ -1327,6 +1327,21 @@ msgstr ""
 msgid "Chacha, west Indian rattle"
 msgstr ""
 
+#: DB:link_attribute_type/description:764
+msgid ""
+"Chap (Thai: ฉาบ, Khmer: ឆាប) are a pair of cymbals used in Thai and "
+"Cambodian music. They are larger, flatter and thinner than the cymbals known "
+"as ching. Other names: chhap, chab, sap, sab (<a href=\"https://en.wikipedia."
+"org/wiki/Chap_(instrument)\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:763
+msgid ""
+"Ching (Thai: ฉิ่ง, Khmer: ឈិង) are a pair of small hand cymbals used in Thai "
+"and Cambodian music. Other names: chhing, sing (<a href=\"https://en."
+"wikipedia.org/wiki/Ching_(instrument)\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:499
 msgid ""
 "Concert flute (also called C flute, Boehm flute, silver flute or simply just "
@@ -2010,6 +2025,15 @@ msgid ""
 "\"http://en.wikipedia.org/wiki/Cuíca\">Wikipedia</a>)"
 msgstr ""
 
+#: DB:link_attribute_type/description:386
+msgid ""
+"The cò ke is an instrument used by the Mường ethnic minority in Vietnam. It "
+"is similar to the đàn nhị, consisting of a cylindrical wooden soundbox "
+"covered in snakeskin and two strings which are played with a horsehair bow. "
+"Other names: koke (<a href=\"https://vi.wikipedia.org/wiki/Cò_ke_(nhạc_cụ)"
+"\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:602
 msgid ""
 "The daegeum (Korean: 대금, also spelt taegŭm) is a large transverse flute "
@@ -2062,10 +2086,9 @@ msgstr ""
 
 #: DB:link_attribute_type/description:742
 msgid ""
-"The dombra is a long-necked lute from central Asia. Other names include "
-"(домбыра, dombyra, dambura, dumbyra, tumbyra, danbura, dombıra, dumbura, "
-"dombira, 冬不拉 and dongbula. (<a href=\"http://en.wikipedia.org/wiki/Dombra"
-"\">Wikipedia</a>)"
+"The dombra is a long-necked lute from central Asia. Other names: домбыра, "
+"dombyra, dambura, dumbyra, tumbyra, danbura, dombıra, dumbura, dombira, 冬不"
+"拉, dongbula (<a href=\"http://en.wikipedia.org/wiki/Dombra\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:594
@@ -2287,6 +2310,30 @@ msgid ""
 "Cambodia. (<a href=\"http://en.wikipedia.org/wiki/Khim\">Wikipedia</a>)"
 msgstr ""
 
+#: DB:link_attribute_type/description:766
+msgid ""
+"The khong wong (Thai: ฆ้องวง) is a gong circle consisting of a number of "
+"gongs in a horizontal circular rattan frame. The player sits in the middle. "
+"Other names: khong vong"
+msgstr ""
+
+#: DB:link_attribute_type/description:767
+msgid ""
+"The khong wong lek (Thai: ฆ้องวงเล็ก) is a gong circle used in Thai classical "
+"music. It has 18 tuned bossed gongs and is smaller and higher in pitch than "
+"the khong wong yai. Other names: khong vong noi, khong wong ek (<a href="
+"\"https://en.wikipedia.org/wiki/Khong_wong_lek\n"
+"\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:768
+msgid ""
+"The khong wong yai (Thai: ฆ้องวงใหญ่) is a gong circle used in the music of "
+"Thailand. It has 16 tuned bossed gongs and is larger and lower in pitch than "
+"the khong wong lek. Other names: khong vong nyai (<a href=\"https://en."
+"wikipedia.org/wiki/Khong_wong_yai\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:395
 msgid ""
 "The khèn Mèo is a mouth organ used by the Hmong people. It has bamboo pipes "
@@ -2483,6 +2530,14 @@ msgid ""
 "wikipedia.org/wiki/Piri\">Wikipedia</a>)"
 msgstr ""
 
+#: DB:link_attribute_type/description:771
+msgid ""
+"The post horn is a valveless coiled brass instrument used to signal the "
+"arrival or departure of a post rider or mail coach. Other names: posthorn, "
+"post-horn, coach horn (<a href=\"https://en.wikipedia.org/wiki/Post_horn"
+"\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:758
 msgid ""
 "The qilaut is an Inuit frame drum which has a handle and is made of caribou "
@@ -2494,8 +2549,16 @@ msgstr ""
 msgid ""
 "The ranat ek (Thai: ระนาดเอก) is a Thai xylophone which consists of 21 "
 "wooden bars suspended by cords over a boat-shaped trough resonator and "
-"struck by two mallets.  (<a href=\"https://en.wikipedia.org/wiki/Ranat_ek"
-"\">Wikipedia</a>)"
+"struck by two mallets. Other names: lanat ék (<a href=\"https://en.wikipedia."
+"org/wiki/Ranat_ek\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:765
+msgid ""
+"The ranat thum (Thai: ระนาดทุ้ม) is a xylophone from Thailand consisting of 18 "
+"wooden bars suspended by cords over a boat-shaped trough resonator. It is "
+"similar to the ranat ek but lower in pitch. Other names: lanat thoum (<a "
+"href=\"https://en.wikipedia.org/wiki/Ranat_thum\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:680
@@ -2557,6 +2620,21 @@ msgstr ""
 msgid ""
 "The satsuma biwa (Japanese: 薩摩琵琶) is a biwa with four strings and frets "
 "popularised during the Edo period."
+msgstr ""
+
+#: DB:link_attribute_type/description:769
+msgid ""
+"The saw duang (Thai: ซอด้วง) is a two-stringed instrument used in traditional "
+"Thai music which has a cylindrical soundbox made of wood and a snakeskin "
+"resonator. Other names: so duang, so i (<a href=\"https://en.wikipedia.org/"
+"wiki/Saw_duang\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:770
+msgid ""
+"The saw u (Thai: ซออู้) is a Thai bowed string instrument which has a soundbox "
+"made from a coconut shell with a cowskin resonator. Other names: so u (<a "
+"href=\"https://en.wikipedia.org/wiki/Saw_u\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:566
@@ -2860,8 +2938,8 @@ msgid ""
 "The đàn nhị is a Vietnamese stringed instrument with a small, cylindrical "
 "body, covered at one end with snakeskin. The bow passes between the two "
 "strings and the instrument has no frets. This instrument is of Chinese "
-"descent but has relatives all over Asia. (<a href=\"http://en.wikipedia.org/"
-"wiki/Đàn_nhị\">Wikipedia</a>)"
+"descent but has relatives all over Asia. Other names: đàn cò (<a href="
+"\"http://en.wikipedia.org/wiki/Đàn_nhị\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:414
@@ -2957,7 +3035,7 @@ msgstr ""
 #: DB:link_attribute_type/description:402
 msgid ""
 "This is a three-stringed skin-covered bass plucked lute from North-Africa. "
-"Other names include سنتير‎, guembri, guimbri الكمبري‎, gimbri and hejhouj. (<a "
+"Other names: سنتير‎, guembri, guimbri, الكمبري‎, gimbri, hejhouj, sintir (<a "
 "href=\"http://en.wikipedia.org/wiki/Sintir\">Wikipedia</a>)"
 msgstr ""
 
@@ -3281,10 +3359,6 @@ msgstr ""
 
 #: DB:link_attribute_type/description:232
 msgid "keyboard"
-msgstr ""
-
-#: DB:link_attribute_type/description:386
-msgid "koke, can-shaped, covereed with snakeskin. played with a horsehair-bow"
 msgstr ""
 
 #: DB:link_attribute_type/description:189

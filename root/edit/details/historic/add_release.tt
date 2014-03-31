@@ -56,7 +56,7 @@
           [% FOR track=edit.display_data.tracks %]
           <tr>
             <td>[% track.position %]</td>
-            <td>[% link_entity(track.recording, 'show', html_escape(track.name)) %]</td>
+            <td>[% link_entity(track.recording, 'show', track.name) %]</td>
             <td>[% link_entity(track.artist) %]</td>
             <td>[% track.length | format_length %]</td>
           </tr>
