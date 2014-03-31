@@ -77,17 +77,17 @@
                 return;
             }
 
-            var queryParams = {
+            var query = utils.constructLuceneFieldConjunction({
                 release: [ utils.escapeLuceneValue(name) ],
 
                 arid: _(ac.names())
                         .invoke("artist").pluck("gid")
                         .map(utils.escapeLuceneValue).value()
-            };
+            });
 
             toggleLoadingIndicator(true);
 
-            utils.search("release", queryParams, 10).done(gotResults);
+            utils.search("release", query, 10).done(gotResults);
         }));
     };
 

@@ -79,7 +79,4 @@
            [% l('Add a new alias') %]
          </a>
        </p>
-    [% ELSIF !disallow_editing %]
-       <p>[% l('Please {log_in|log in} to add or edit aliases',
-               { log_in => login_url() }) %]</p>
     [% END %]

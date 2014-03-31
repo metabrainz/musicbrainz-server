@@ -10,7 +10,11 @@
         [%~ meta_desc.push(l('Writers:') _ ' ' _ html_escape(comma_only_list(writers))) ~%]
     [%~ END ~%]
     [%~ IF work.iswcs ~%]
-        [%~ meta_desc.push(l('ISWCs:') _ ' ' _ html_escape(comma_only_list(work.iswcs))) ~%]
+        [%~ iswcs = [] ~%]
+        [%~ FOR iswc = work.iswcs ~%]
+            [%~ iswcs.push(iswc.iswc) ~%]
+        [%~ END ~%]
+        [%~ meta_desc.push(l('ISWCs:') _ ' ' _ html_escape(comma_only_list(iswcs))) ~%]
     [%~ END ~%]
     <meta name="description" content="[% comma_only_list(meta_desc) %]"/>
 [% END %]
