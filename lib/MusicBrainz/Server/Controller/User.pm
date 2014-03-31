@@ -398,6 +398,7 @@ sub tags : Chained('load') PathPart('tags')
     }
 
     my $tags = $c->model('Editor')->get_tags ($user);
+    $c->model('ArtistCredit')->load(map { $_->entity } @$tags);
 
     $c->stash(
         user => $user,
@@ -427,6 +428,7 @@ sub tag : Chained('load') PathPart('tag') Args(1)
             $tag_in_use = 1 if @$entity_tags;
         }
     }
+    $c->model('ArtistCredit')->load(map { @$_ } values %tags);
 
     $c->stash(
         tag_name => $tag_name,
