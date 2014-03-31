@@ -536,8 +536,10 @@
             )
             .extend({ withError: true });
 
-            this.mediums.original = _.map(this.mediums(), function (medium) {
-                return { id: medium.id, position: medium.position() };
+            this.mediums.original = _.transform(this.mediums(), function (result, medium) {
+                if (medium.id) {
+                    result.push({ id: medium.id, position: medium.position() });
+                }
             });
 
             this.original = ko.observable(MB.edit.fields.release(this));

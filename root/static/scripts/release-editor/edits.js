@@ -425,7 +425,9 @@
 
             $.when(submitted)
                 .done(function (data) {
-                    data && current.callback && current.callback(data.edits);
+                    if (data && current.callback) {
+                        current.callback(release, data.edits);
+                    }
 
                     _.defer(nextSubmission);
                 })
@@ -449,6 +451,89 @@
     }
 
 
+    releaseEditor.orderedEditSubmissions = [
+        {
+            edits: releaseEditor.edits.releaseGroup,
+
+            callback: function (release, edits) {
+                release.releaseGroup(
+                    releaseEditor.fields.ReleaseGroup(edits[0].entity)
+                );
+            }
+        },
+        {
+            edits: releaseEditor.edits.release,
+
+            callback: function (release, edits) {
+                var entity = edits[0].entity;
+
+                if (entity) {
+                    release.id = entity.id;
+                    release.gid = entity.gid;
+                }
+
+                release.original(MB.edit.fields.release(release));
+                releaseField.notifySubscribers(release);
+            }
+        },
+        {
+            edits: releaseEditor.edits.releaseLabel,
+
+            callback: function (release) {
+                release.labels.original(
+                    _.map(release.labels.peek(), MB.edit.fields.releaseLabel)
+                );
+            }
+        },
+        {
+            edits: releaseEditor.edits.medium,
+
+            callback: function (release, edits) {
+                var added = _(edits).pluck("entity").compact()
+                                    .indexBy("position").value();
+
+                newMediums().each(function (medium) {
+                    var addedData = added[medium.tmpPosition || medium.position()];
+
+                    if (addedData) {
+                        medium.id = addedData.id;
+                    }
+
+                    var currentData = MB.edit.fields.medium(medium);
+
+                    // mediumReorder edits haven't been submitted yet,
+                    // so we must keep the old position.
+                    currentData.position = medium.original().position;
+
+                    medium.original(currentData);
+                });
+
+                newMediums.notifySubscribers(newMediums());
+            }
+        },
+        {
+            edits: releaseEditor.edits.mediumReorder
+        },
+        {
+            edits: releaseEditor.edits.discID,
+
+            callback: function (release) {
+                newMediums().invoke("toc", null);
+            }
+        },
+        {
+            edits: releaseEditor.edits.annotation,
+
+            callback: function (release) {
+                release.annotation.original(release.annotation());
+            }
+        },
+        {
+            edits: releaseEditor.edits.externalLinks
+        }
+    ];
+
+
     releaseEditor.submitEdits = function () {
         if (releaseEditor.submissionInProgress() ||
             releaseEditor.validation.errorCount() > 0) {
@@ -458,87 +543,7 @@
         releaseEditor.submissionInProgress(true);
         var release = releaseField();
 
-        chainEditSubmissions(release, [
-            {
-                edits: releaseEditor.edits.releaseGroup,
-
-                callback: function (edits) {
-                    release.releaseGroup(
-                        releaseEditor.fields.ReleaseGroup(edits[0].entity)
-                    );
-                }
-            },
-            {
-                edits: releaseEditor.edits.release,
-
-                callback: function (edits) {
-                    var entity = edits[0].entity;
-
-                    if (entity) {
-                        release.id = entity.id;
-                        release.gid = entity.gid;
-                    }
-
-                    release.original(MB.edit.fields.release(release));
-                    releaseField.notifySubscribers(release);
-                }
-            },
-            {
-                edits: releaseEditor.edits.releaseLabel,
-
-                callback: function () {
-                    release.labels.original(
-                        _.map(release.labels.peek(), MB.edit.fields.releaseLabel)
-                    );
-                }
-            },
-            {
-                edits: releaseEditor.edits.medium,
-
-                callback: function (edits) {
-                    var added = _(edits).pluck("entity").compact()
-                                        .indexBy("position").value();
-
-                    newMediums().each(function (medium) {
-                        var addedData = added[medium.tmpPosition || medium.position()];
-
-                        if (addedData) {
-                            medium.id = addedData.id;
-                        }
-
-                        var currentData = MB.edit.fields.medium(medium);
-
-                        // mediumReorder edits haven't been submitted yet,
-                        // so we must keep the old position.
-                        currentData.position = medium.original().position;
-
-                        medium.original(currentData);
-                    });
-
-                    newMediums.notifySubscribers(newMediums());
-                }
-            },
-            {
-                edits: releaseEditor.edits.mediumReorder
-            },
-            {
-                edits: releaseEditor.edits.discID,
-
-                callback: function () {
-                    newMediums().invoke("toc", null);
-                }
-            },
-            {
-                edits: releaseEditor.edits.annotation,
-
-                callback: function () {
-                    release.annotation.original(release.annotation());
-                }
-            },
-            {
-                edits: releaseEditor.edits.externalLinks
-            }
-        ]);
+        chainEditSubmissions(release, releaseEditor.orderedEditSubmissions);
     };
 
 }(MB.releaseEditor = MB.releaseEditor || {}));
