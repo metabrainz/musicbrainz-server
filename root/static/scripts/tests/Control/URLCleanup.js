@@ -987,6 +987,10 @@ MB.tests.URLCleanup.GuessType = function() {
                     'mora.jp/package/43000002/ANTCD-3106/',
                     'http://mora.jp/package/43000002/ANTCD-3106/',
                 ],
+                [
+                    'http://mora.jp/package/43000021/SQEX-20016_F/#',
+                    'http://mora.jp/package/43000021/SQEX-20016_F/',
+                ],
                 // Soundtrack Collector
                 [
                     'http://soundtrackcollector.com/composer/94/Hans+Zimmer',
