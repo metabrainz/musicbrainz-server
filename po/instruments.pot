@@ -552,6 +552,10 @@ msgstr ""
 msgid "chande"
 msgstr ""
 
+#: DB:link_attribute_type/name:764
+msgid "chap"
+msgstr ""
+
 #: DB:link_attribute_type/name:559
 msgid "charango"
 msgstr ""
@@ -562,6 +566,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:415
 msgid "chimes"
+msgstr ""
+
+#: DB:link_attribute_type/name:763
+msgid "ching"
 msgstr ""
 
 #: DB:link_attribute_type/name:521
@@ -686,6 +694,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:326
 msgid "cymbalum"
+msgstr ""
+
+#: DB:link_attribute_type/name:386
+msgid "cò ke"
 msgstr ""
 
 #: DB:link_attribute_type/name:495
@@ -1248,6 +1260,18 @@ msgstr ""
 msgid "khim"
 msgstr ""
 
+#: DB:link_attribute_type/name:766
+msgid "khong wong"
+msgstr ""
+
+#: DB:link_attribute_type/name:767
+msgid "khong wong lek"
+msgstr ""
+
+#: DB:link_attribute_type/name:768
+msgid "khong wong yai"
+msgstr ""
+
 #: DB:link_attribute_type/name:395
 msgid "khèn Mèo"
 msgstr ""
@@ -1266,10 +1290,6 @@ msgstr ""
 
 #: DB:link_attribute_type/name:608
 msgid "kkwaenggwari"
-msgstr ""
-
-#: DB:link_attribute_type/name:386
-msgid "koke"
 msgstr ""
 
 #: DB:link_attribute_type/name:293
@@ -1620,6 +1640,10 @@ msgstr ""
 msgid "plucked string instruments"
 msgstr ""
 
+#: DB:link_attribute_type/name:771
+msgid "post horn"
+msgstr ""
+
 #: DB:link_attribute_type/name:515
 msgid "practice chanter"
 msgstr ""
@@ -1650,6 +1674,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:759
 msgid "ranat ek"
+msgstr ""
+
+#: DB:link_attribute_type/name:765
+msgid "ranat thum"
 msgstr ""
 
 #: DB:link_attribute_type/name:211
@@ -1758,6 +1786,14 @@ msgstr ""
 
 #: DB:link_attribute_type/name:692
 msgid "satsuma biwa"
+msgstr ""
+
+#: DB:link_attribute_type/name:769
+msgid "saw duang"
+msgstr ""
+
+#: DB:link_attribute_type/name:770
+msgid "saw u"
 msgstr ""
 
 #: DB:link_attribute_type/name:33

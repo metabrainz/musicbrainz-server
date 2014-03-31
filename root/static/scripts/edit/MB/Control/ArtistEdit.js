@@ -25,8 +25,8 @@ MB.Control.ArtistEdit = function () {
     self.$begin  = $('#label-id-edit-artist\\.period\\.begin_date');
     self.$ended  = $('#label-id-edit-artist\\.period\\.ended');
     self.$end    = $('#label-id-edit-artist\\.period\\.end_date');
-    self.$beginarea    = $('#edit-artist\\.begin_area\\.label');
-    self.$endarea    = $('#edit-artist\\.end_area\\.label');
+    self.$beginarea    = $('#label-id-edit-artist\\.begin_area\\.name');
+    self.$endarea    = $('#label-id-edit-artist\\.end_area\\.name');
     self.$type   = $('#id-edit-artist\\.type_id');
     self.$gender = $('#id-edit-artist\\.gender_id');
     self.old_gender = self.$gender.val();
@@ -47,6 +47,8 @@ MB.Control.ArtistEdit = function () {
            Unknown: 0
            Person: 1
            Group: 2
+           Orchestra: 5
+           Choir: 6
     */
     self.typeChanged = function() {
         switch (self.$type.val()) {
@@ -64,6 +66,8 @@ MB.Control.ArtistEdit = function () {
                 break;
 
             case '2':
+            case '5':
+            case '6':
                 self.changeDateText(MB.text.ArtistDate.Founded);
                 self.changeAreaText(MB.text.ArtistArea.Founded);
                 self.disableGender();

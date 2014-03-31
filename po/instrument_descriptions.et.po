@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-03-04 00:46+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-03-20 19:51+0000\n"
+"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,964 +19,964 @@ msgstr ""
 msgid ""
 "(<a "
 "href=\"http://en.wikipedia.org/wiki/Continuum_(instrument)\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"http://en.wikipedia.org/wiki/Continuum_(instrument)\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:492
 msgid "(<a href=\"http://en.wikipedia.org/wiki/Zurna\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"http://en.wikipedia.org/wiki/Zurna\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:181
 msgid ""
 "(<a "
 "href=\"https://de.wikipedia.org/wiki/Flügel_(Tasteninstrument)\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://de.wikipedia.org/wiki/Flügel_(Tasteninstrument)\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:367
 msgid ""
 "(<a "
 "href=\"https://de.wikipedia.org/wiki/Kontrabassblockflöte\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://de.wikipedia.org/wiki/Kontrabassblockflöte\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:368
 msgid ""
 "(<a "
 "href=\"https://de.wikipedia.org/wiki/Subkontrabassblockflöte\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://de.wikipedia.org/wiki/Subkontrabassblockflöte\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:64
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Accordion\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Accordion\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:73
 msgid ""
 "(<a "
 "href=\"https://en.wikipedia.org/wiki/Acoustic_bass_guitar\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Acoustic_bass_guitar\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:76
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Acoustic_guitar\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Acoustic_guitar\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:89
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Aeolian_harp\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Aeolian_harp\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:41
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Alphorn\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Alphorn\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:24
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Alto_clarinet\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Alto_clarinet\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:45
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Alto_horn\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Alto_horn\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:35
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Alto_saxophone\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Alto_saxophone\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:451
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Angklung\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Angklung\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:90
 msgid ""
 "(<a "
 "href=\"https://en.wikipedia.org/wiki/Appalachian_dulcimer\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Appalachian_dulcimer\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:494
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Autoharp\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Autoharp\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:91
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Balalaika\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Balalaika\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:506
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Baltic_psaltery\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Baltic_psaltery\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:263
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Bandoneon\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Bandoneon\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:92
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Banjo\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Banjo\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:377
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Baritone_guitar\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Baritone_guitar\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:42
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Baritone_horn\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Baritone_horn\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:37
 msgid ""
 "(<a href=\"https://en.wikipedia.org/wiki/Baritone_saxophone\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Baritone_saxophone\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:699
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Barrel_drum\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Barrel_drum\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:25
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Bass_clarinet\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Bass_clarinet\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:518
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Bass_drum\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Bass_drum\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:484
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Bass_pedals\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Bass_pedals\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:489
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Basset_clarinet\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Basset_clarinet\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:490
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Basset_horn\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Basset_horn\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:19
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Bassoon\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Bassoon\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:520
 msgid ""
 "(<a href=\"https://en.wikipedia.org/wiki/Bayan_(accordion)\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Bayan_(accordion)\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:93
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Berimbau\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Berimbau\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:249
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Bodhrán\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Bodhrán\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:437
 msgid ""
 "(<a href=\"https://en.wikipedia.org/wiki/Bones_(instrument)\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Bones_(instrument)\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:128
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Bongo_drum\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Bongo_drum\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:95
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Bouzouki\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Bouzouki\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:299
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Bowed_psaltery\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Bowed_psaltery\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:275
 msgid ""
 "(<a "
 "href=\"https://en.wikipedia.org/wiki/Bowed_string_instrument\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Bowed_string_instrument\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:38
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Brass_instrument\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Brass_instrument\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:51
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Bugle\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Bugle\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:202
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Bullroarer\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Bullroarer\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:440
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Button_accordion\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Button_accordion\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:136
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Cabasa\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Cabasa\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:170
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Calliope_(music)\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Calliope_(music)\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:171
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Carillon\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Carillon\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:137
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Castanets\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Castanets\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:172
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Celesta\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Celesta\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:84
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Cello\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Cello\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:330
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Chamberlin\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Chamberlin\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:238
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Chapman_Stick\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Chapman_Stick\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:521
 msgid ""
 "(<a "
 "href=\"https://en.wikipedia.org/wiki/Chromatic_button_accordion\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Chromatic_button_accordion\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:376
 msgid ""
 "(<a "
 "href=\"https://en.wikipedia.org/wiki/Chromatic_harmonica\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Chromatic_harmonica\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:318
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Cithara\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Cithara\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:307
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Cittern\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Cittern\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:23
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Clarinet\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Clarinet\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:77
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Classical_guitar\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Classical_guitar\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:138
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Claves\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Claves\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:173
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Clavichord\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Clavichord\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:227
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Clavinet\">Wikipedia</a>)"
-msgstr ""
+msgstr "c(<a href=\"http://en.wikipedia.org/wiki/Zurna\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:65
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Concertina\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Concertina\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:127
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Conga\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Conga\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:26
 msgid ""
 "(<a "
 "href=\"https://en.wikipedia.org/wiki/Contrabass_clarinet\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Contrabass_clarinet\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:538
 msgid ""
 "(<a "
 "href=\"https://en.wikipedia.org/wiki/Contrabass_saxophone\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Contrabass_saxophone\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:20
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Contrabassoon\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Contrabassoon\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:39
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Cornet\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Cornet\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:208
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Cowbell\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Cowbell\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:214
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Crotales\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Crotales\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:98
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Crwth\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Crwth\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:342
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Cymbal\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Cymbal\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:140
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Dayereh\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Dayereh\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:160
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Denis_d'or\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Denis_d'or\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:204
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Didgeridoo\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Didgeridoo\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:335
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Djembe\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Djembe\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:17
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Double_reed\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Double_reed\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:125
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Drum\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Drum\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:126
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Drum_kit\">Wikipedia</a>)"
-msgstr ""
+msgstr "c(<a href=\"http://en.wikipedia.org/wiki/Zurna\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:162
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Drum_machine\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Drum_machine\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:404
 msgid "(<a href=\"https://en.wikipedia.org/wiki/EBow\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/EBow\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:278
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Electric_cello\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Electric_cello\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:78
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Electric_guitar\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Electric_guitar\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:432
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Electric_harp\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Electric_harp\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:329
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Electric_piano\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Electric_piano\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:316
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Electric_sitar\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Electric_sitar\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:72
 msgid ""
 "(<a "
 "href=\"https://en.wikipedia.org/wiki/Electric_upright_bass\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Electric_upright_bass\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:282
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Electric_violin\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Electric_violin\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:487
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Electronic_drum\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Electronic_drum\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:159
 msgid ""
 "(<a "
 "href=\"https://en.wikipedia.org/wiki/Electronic_musical_instrument\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Electronic_musical_instrument\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:539
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Electronic_organ\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Electronic_organ\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:199
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Euphonium\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Euphonium\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:85
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Fiddle\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Fiddle\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:43
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Flugelhorn\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Flugelhorn\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:27
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Flute\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Flute\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:465
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Fortepiano\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Fortepiano\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:421
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Frame_drum\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Frame_drum\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:63
 msgid ""
 "(<a "
 "href=\"https://en.wikipedia.org/wiki/Free_reed_aerophone\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Free_reed_aerophone\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:698
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Friction_drum\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Friction_drum\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:301
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Gadulka\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Gadulka\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:445
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Gamelan\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Gamelan\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:357
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Glass_harmonica\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Glass_harmonica\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:215
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Glockenspiel\">Wikipedia</a>)"
-msgstr ""
+msgstr "c(<a href=\"http://en.wikipedia.org/wiki/Zurna\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:300
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Gudok\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Gudok\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:229
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Guitar\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Guitar\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:141
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Güiro\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Güiro\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:101
 msgid ""
 "(<a href=\"https://en.wikipedia.org/wiki/Hammered_dulcimer\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Hammered_dulcimer\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:177
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Hammond_organ\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Hammond_organ\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:346
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Handbell\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Handbell\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:66
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Harmonica\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Harmonica\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:81
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Harp\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Harp\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:174
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Harpsichord\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Harpsichord\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:261
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Heckelphone\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Heckelphone\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:44
 msgid ""
 "(<a href=\"https://en.wikipedia.org/wiki/Horn_(instrument)\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Horn_(instrument)\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:697
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Hourglass_drum\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Hourglass_drum\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:103
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Hurdy_gurdy\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Hurdy_gurdy\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:491
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Irish_bouzouki\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Irish_bouzouki\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:104
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Jew's_harp\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Jew's_harp\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:188
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Kazoo\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Kazoo\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:442
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Keyboard_bass\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Keyboard_bass\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:317
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Kinnor\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Kinnor\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:106
 msgid ""
 "(<a href=\"https://en.wikipedia.org/wiki/Kora_(instrument)\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Kora_(instrument)\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:319
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Langeleik\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Langeleik\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:466
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Lap_steel_guitar\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Lap_steel_guitar\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:482
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Low_whistle\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Low_whistle\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:108
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Lute\">Wikipedia</a>)"
-msgstr ""
+msgstr "c(<a href=\"http://en.wikipedia.org/wiki/Zurna\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:109
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Lyre\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Lyre\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:308
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Mandola\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Mandola\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:96
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Mandolin\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Mandolin\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:142
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Maraca\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Maraca\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:216
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Marimba\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Marimba\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:56
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Mellophone\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Mellophone\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:175
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Mellotron\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Mellotron\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:428
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Metallophone\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Metallophone\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:349
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Minimoog\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Minimoog\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:348
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Moog_synthesizer\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Moog_synthesizer\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:97
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Musical_bow\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Musical_bow\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:190
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Musical_saw\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Musical_saw\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:298
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Nyckelharpa\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Nyckelharpa\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:29
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Ocarina\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Ocarina\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:456
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Ocean_drum\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Ocean_drum\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:352
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Omnichord\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Omnichord\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:163
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Ondes_Martenot\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Ondes_Martenot\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:57
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Ophicleide\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Ophicleide\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:176
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Organ_(music)\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Organ_(music)\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:431
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Pedal_harp\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Pedal_harp\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:469
 msgid ""
 "(<a href=\"https://en.wikipedia.org/wiki/Pedal_steel_guitar\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Pedal_steel_guitar\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:124
 msgid ""
 "(<a "
 "href=\"https://en.wikipedia.org/wiki/Percussion_instrument\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Percussion_instrument\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:180
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Piano\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Piano\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:439
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Piano_accordion\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Piano_accordion\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:31
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Piccolo\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Piccolo\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:486
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Piccolo_trumpet\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Piccolo_trumpet\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:179
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Pipe_organ\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Pipe_organ\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:302
 msgid ""
 "(<a "
 "href=\"https://en.wikipedia.org/wiki/Plucked_string_instrument\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Plucked_string_instrument\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:111
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Psaltery\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Psaltery\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:455
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Rainstick\">Wikipedia</a>)"
-msgstr ""
+msgstr "c(<a href=\"https://en.wikipedia.org/wiki/Rainstick\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:211
 msgid ""
 "(<a "
 "href=\"https://en.wikipedia.org/wiki/Ratchet_(instrument)\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Ratchet_(instrument)\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:411
 msgid ""
 "(<a "
 "href=\"https://en.wikipedia.org/wiki/Rattle_(percussion_instrument)\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Rattle_(percussion_instrument)\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:309
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Rebab\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Rebab\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:276
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Rebec\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Rebec\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:467
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Resonator_guitar\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Resonator_guitar\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:182
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Rhodes_piano\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Rhodes_piano\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:198
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Sackbut\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Sackbut\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:164
 msgid ""
 "(<a "
 "href=\"https://en.wikipedia.org/wiki/Sampler_(musical_instrument)\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Sampler_(musical_instrument)\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:250
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Sarod\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Sarod\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:33
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Saxophone\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Saxophone\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:197
 msgid ""
 "(<a "
 "href=\"https://en.wikipedia.org/wiki/Serpent_(instrument)\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Serpent_(instrument)\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:417
 msgid ""
 "(<a "
 "href=\"https://en.wikipedia.org/wiki/Shaker_(percussion)\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Shaker_(percussion)\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:60
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Shofar\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Shofar\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:191
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Singing_bowl\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Singing_bowl\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:113
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Sitar\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Sitar\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:537
 msgid ""
 "(<a "
 "href=\"https://en.wikipedia.org/wiki/Sopranino_saxophone\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Sopranino_saxophone\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:488
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Soprano_clarinet\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Soprano_clarinet\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:498
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Soprano_flute\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Soprano_flute\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:34
 msgid ""
 "(<a href=\"https://en.wikipedia.org/wiki/Soprano_saxophone\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Soprano_saxophone\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:200
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Sousaphone\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Sousaphone\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:210
 msgid ""
 "(<a "
 "href=\"https://en.wikipedia.org/wiki/Spoon_(musical_instrument)\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Spoon_(musical_instrument)\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:69
 msgid ""
 "(<a href=\"https://en.wikipedia.org/wiki/String_instrument\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/String_instrument\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:161
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Stylophone\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Stylophone\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:165
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Synclavier\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Synclavier\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:166
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Synthesizer\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Synthesizer\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:457
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Talking_drum\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Talking_drum\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:333
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Tambourine\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Tambourine\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:474
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Tamburica\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Tamburica\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:586
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Tanbur\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Tanbur\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:510
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Tangent_piano\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Tangent_piano\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:167
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Telharmonium\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Telharmonium\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:222
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Temple_block\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Temple_block\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:36
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Tenor_saxophone\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Tenor_saxophone\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:168
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Theremin\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Theremin\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:132
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Timbales\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Timbales\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:267
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Tin_whistle\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Tin_whistle\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:328
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Toy_piano\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Toy_piano\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:422
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Transverse_flute\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Transverse_flute\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:497
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Treble_flute\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Treble_flute\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:115
 msgid ""
 "(<a href=\"https://en.wikipedia.org/wiki/Tres_(instrument)\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Tres_(instrument)\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:133
 msgid ""
 "(<a "
 "href=\"https://en.wikipedia.org/wiki/Triangle_(instrument)\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Triangle_(instrument)\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:46
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Trombone\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Trombone\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:47
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Trumpet\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Trumpet\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:48
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Tuba\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Tuba\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:218
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Tubular_bells\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Tubular_bells\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:529
 msgid ""
 "(<a href=\"https://en.wikipedia.org/wiki/Twelve-"
 "string_guitar\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Twelve-string_guitar\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:114
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Ukulele\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Ukulele\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:375
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Vacuum_cleaner\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Vacuum_cleaner\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:219
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Vibraphone\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Vibraphone\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:212
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Vibraslap\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Vibraslap\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:87
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Viola\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Viola\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:119
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Viola_d'amore\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Viola_d'amore\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:297
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Viola_organista\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Viola_organista\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:86
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Violin\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Violin\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:82
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Violin_family\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Violin_family\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:120
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Violotta\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Violotta\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:201
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Wagner_tuba\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Wagner_tuba\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:323
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Warr_Guitars\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Warr_Guitars\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:209
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Washboard\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Washboard\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:121
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Washtub_bass\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Washtub_bass\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:351
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Waterphone\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Waterphone\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:134
 msgid ""
 "(<a href=\"https://en.wikipedia.org/wiki/Whip_(instrument)\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Whip_(instrument)\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:345
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Whistle\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Whistle\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:15
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Wind_instrument\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Wind_instrument\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:213
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Wood_block\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Wood_block\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:16
 msgid ""
 "(<a "
 "href=\"https://en.wikipedia.org/wiki/Woodwind_instrument\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Woodwind_instrument\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:562
 msgid ""
 "(<a "
 "href=\"https://en.wikipedia.org/wiki/Wurlitzer_electric_piano\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Wurlitzer_electric_piano\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:122
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Xalam\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Xalam\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:220
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Xylophone\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Xylophone\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:123
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Zither\">Wikipedia</a>)"
-msgstr ""
+msgstr "(<a href=\"https://en.wikipedia.org/wiki/Zither\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:528
 msgid ""
 "(bamboo) flute, also known as kena or qina  (<a "
 "href=\"https://en.wikipedia.org/wiki/Quena\">Wikipedia</a>)"
-msgstr ""
+msgstr "(bambus)flööt, tuntud ka kena või qina nime all (<a href=\"https://en.wikipedia.org/wiki/Quena\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:550
 msgid ""
@@ -1605,7 +1605,7 @@ msgstr ""
 msgid ""
 "Other flutes. If you can't find an instrument, please request it at "
 "http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree"
-msgstr "kui sa ei leia soovitud flööti, siis küsi seda lehel <a href=\"http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree>http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree</a>"
+msgstr "kui sa ei leia soovitud flööti, siis küsi seda lehel <a href=\"http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree\">http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree</a>"
 
 #: DB:link_attribute_type/description:185
 msgid ""
@@ -1629,7 +1629,7 @@ msgstr "kui sa ei leia soovitud löökpilli, siis küsi seda lehel <a href=\"htt
 msgid ""
 "Other string instruments. If you can't find an instrument, please request it"
 " at http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree"
-msgstr "kui sa ei leia soovitud keelpilli, siis küsi seda lehel <a href=\"http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree>http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree</a>"
+msgstr "kui sa ei leia soovitud keelpilli, siis küsi seda lehel <a href=\"http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree\">http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree</a>"
 
 #: DB:link_attribute_type/description:30
 msgid ""

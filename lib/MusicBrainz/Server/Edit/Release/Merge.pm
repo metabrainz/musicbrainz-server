@@ -177,7 +177,7 @@ override build_display_data => sub
             $entity->{labels} = [map { ReleaseLabel->new(
                     label => $_->{label} &&
                         ($loaded->{Label}->{$_->{label}{id}} //
-                         Label->new(name => $_->{label}{name})),
+                         ($_->{label}{name} ? Label->new(name => $_->{label}{name}) : undef)),
                     catalog_number => $_->{catalog_number}
                 ) } @{ delete $entity->{labels} }] if $entity->{labels};
             $entity->{artist_credit} = ArtistCredit->from_array(

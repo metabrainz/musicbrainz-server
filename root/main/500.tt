@@ -42,6 +42,11 @@
             [% END %]
         </p>
         [% END %]
+
+        <p>
+            <strong>[% l('Time:') %]</strong> [% USE date; date.format(date.now, format => '%Y-%m-%d %H:%M:%S', gmt => 1) %] UTC
+        </p>
+
         [% IF hostname %]
         <p>
             <strong>[% l('Host:') %]</strong> [% hostname %]

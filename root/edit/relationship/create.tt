@@ -25,7 +25,7 @@
             <tr>
                 <th class="label">[% entity_label(source_type) %]</th>
                 <td id="entity0">
-                  <span>[% link_entity(source) %]</span>
+                  <span>[% descriptive_link(source) %]</span>
                 </td>
             </tr>
             <tr>
@@ -51,7 +51,7 @@
             <tr>
                 <th class="label">[% entity_label(dest_type) %]</th>
                 <td id="entity1">
-                  <span>[% link_entity(dest) %]</span>
+                  <span>[% descriptive_link(dest) %]</span>
                 </td>
             </tr>
             <tr class="attributes-container">
