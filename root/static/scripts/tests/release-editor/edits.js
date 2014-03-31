@@ -284,16 +284,18 @@ test("mediumAddDiscID edits are generated for new release", function () {
     var mediums = this.release.mediums,
         medium = mediums()[0];
 
-    medium.toc = "1+5+146225+150+16102+49660+76357+111535";
+    medium.toc("1 5 146225 150 16102 49660 76357 111535");
 
     mediums.notifySubscribers(mediums());
 
     deepEqual(releaseEditor.edits.discID(this.release), [
       {
         medium_id: undefined,
-        cdtoc: "1+5+146225+150+16102+49660+76357+111535",
+        cdtoc: "1 5 146225 150 16102 49660 76357 111535",
         edit_type: 55,
-        hash: "8ffb378704a13a489814a47dbdd5837bce20a88c",
+        medium_position: 1,
+        release_name: "Vision Creation Newsun",
+        hash: "fb7101806c72ae80b63687b5aff2df0935f40046",
         release: undefined
       }
     ]);

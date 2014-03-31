@@ -268,7 +268,7 @@
                 return track.needsRecording();
             }));
 
-            if (medium.id && medium.cdtocs && !medium.canHaveDiscID()) {
+            if (medium.id && medium.hasToc() && !medium.canHaveDiscID()) {
                 medium.formatID.error(MB.text.MediumHasDiscID);
             }
             else {
