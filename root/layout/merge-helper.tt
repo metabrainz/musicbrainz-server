@@ -13,7 +13,7 @@
         </li>
       [% END %]
     </ul>
-    [% IF merge.reday_to_merge %]
+    [% IF merger.ready_to_merge %]
     <p>
       [% l('When you are ready to merge these, just click the Merge button.
       You may still add more to this merge queue by simply browsing to
