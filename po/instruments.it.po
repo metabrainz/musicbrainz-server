@@ -2,11 +2,12 @@
 # Translators:
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
+# momocat <email address hidden>, 2014
 # Luca Salini <email address hidden>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-03-18 03:21+0000\n"
+"PO-Revision-Date: 2014-03-31 21:30+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -45,7 +46,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:591
 msgid "Cretan lyra"
-msgstr ""
+msgstr "Lira cretese"
 
 #: DB:link_attribute_type/name:160
 msgid "Denis d'or"
@@ -97,11 +98,11 @@ msgstr ""
 
 #: DB:link_attribute_type/name:400
 msgid "Hawaiian guitar"
-msgstr ""
+msgstr "Chitarra hawaiiana"
 
 #: DB:link_attribute_type/name:502
 msgid "Indian bamboo flutes"
-msgstr ""
+msgstr "Flauto indiano di bamboo"
 
 #: DB:link_attribute_type/name:491
 msgid "Irish bouzouki"
@@ -109,7 +110,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:435
 msgid "Irish harp / clàrsach"
-msgstr ""
+msgstr "Arpa irlandese / clàrsach"
 
 #: DB:link_attribute_type/name:673
 msgid "Lyricon"
@@ -153,7 +154,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:206
 msgid "Spanish acoustic guitar"
-msgstr ""
+msgstr "Chitarra acustica spagnola"
 
 #: DB:link_attribute_type/name:332
 msgid "Spanish vihuela"
@@ -165,7 +166,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:350
 msgid "Tibetan water drum"
-msgstr ""
+msgstr "Tamburo ad acqua tibetano"
 
 #: DB:link_attribute_type/name:305
 msgid "Turkish baglama"
@@ -177,7 +178,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:399
 msgid "Vietnamese guitar"
-msgstr ""
+msgstr "Chitarra vietnamese"
 
 #: DB:link_attribute_type/name:201
 msgid "Wagner tuba"
@@ -201,7 +202,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:73
 msgid "acoustic bass guitar"
-msgstr ""
+msgstr "Basso acustico"
 
 #: DB:link_attribute_type/name:651
 msgid "acoustic fretless guitar"
@@ -209,7 +210,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:76
 msgid "acoustic guitar"
-msgstr ""
+msgstr "Chitarra acustica"
 
 #: DB:link_attribute_type/name:89
 msgid "aeolian harp"
@@ -277,7 +278,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:18
 msgid "bagpipe"
-msgstr ""
+msgstr "Cornamusa"
 
 #: DB:link_attribute_type/name:444
 msgid "balafon"
@@ -317,7 +318,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:92
 msgid "banjo"
-msgstr ""
+msgstr "Banjo"
 
 #: DB:link_attribute_type/name:251
 msgid "bansuri"
@@ -353,7 +354,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:70
 msgid "bass"
-msgstr ""
+msgstr "Basso"
 
 #: DB:link_attribute_type/name:25
 msgid "bass clarinet"
@@ -465,7 +466,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:128
 msgid "bongos"
-msgstr ""
+msgstr "Bonghi"
 
 #: DB:link_attribute_type/name:95
 msgid "bouzouki"
@@ -521,7 +522,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:171
 msgid "carillon"
-msgstr ""
+msgstr "Carillon"
 
 #: DB:link_attribute_type/name:137
 msgid "castanets"
@@ -541,7 +542,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:84
 msgid "cello"
-msgstr ""
+msgstr "Violoncello"
 
 #: DB:link_attribute_type/name:412
 msgid "chacha"
@@ -597,11 +598,11 @@ msgstr ""
 
 #: DB:link_attribute_type/name:23
 msgid "clarinet"
-msgstr ""
+msgstr "Clarinetto"
 
 #: DB:link_attribute_type/name:77
 msgid "classical guitar"
-msgstr ""
+msgstr "Chitarra classica"
 
 #: DB:link_attribute_type/name:654
 msgid "classical kemençe"
@@ -1645,6 +1646,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:302
 msgid "plucked string instruments"
+msgstr ""
+
+#: DB:link_attribute_type/name:771
+msgid "post horn"
 msgstr ""
 
 #: DB:link_attribute_type/name:515
