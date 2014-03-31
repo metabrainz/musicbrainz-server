@@ -3,6 +3,7 @@ use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_MERGE );
 use MusicBrainz::Server::Translation qw ( N_l );
+use List::MoreUtils qw( minmax );
 
 extends 'MusicBrainz::Server::Edit::Generic::Merge';
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities' => {
@@ -35,6 +36,20 @@ before build_display_data => sub {
     $self->c->model('ISRC')->load_for_recordings(
         grep { $_ && !$_->all_isrcs } map { $loaded->{Recording}{$_} } $self->recording_ids
     );
+};
+
+around build_display_data => sub {
+    my ($orig, $self, @args) = @_;
+
+    my $data = $self->$orig(@args);
+
+    my @recording_lengths = grep { defined $_ } map { $_->length } (@{ $data->{old} }, $data->{new});
+    if (@recording_lengths) {
+        my ($min, $max) = minmax(@recording_lengths);
+        $data->{large_spread} = 1 if $max - $min >= 15*1000; # 15 seconds
+    }
+
+    return $data;
 };
 
 __PACKAGE__->meta->make_immutable;
