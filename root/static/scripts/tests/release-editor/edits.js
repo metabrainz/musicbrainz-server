@@ -300,6 +300,32 @@ test("mediumAddDiscID edits are generated for new release", function () {
 });
 
 
+test("releaseReorderMediums edits are not generated for new releases", function () {
+    this.release = releaseEditor.fields.Release({
+        mediums: [
+            { position: 1, tracks: [ { name: "foo" } ] },
+            { position: 2, tracks: [ { name: "bar" } ]  },
+        ]
+    });
+
+    releaseEditor.rootField.release(this.release);
+
+    var createEdits = _.find(releaseEditor.orderedEditSubmissions, {
+        edits: releaseEditor.edits.medium
+    });
+
+    // Simulate edit submission.
+    createEdits.edits(this.release);
+
+    createEdits.callback(this.release, [
+        { entity: { id: 123, position: 1 } },
+        { entity: { id: 456, position: 2 } },
+    ]);
+
+    equal(releaseEditor.edits.mediumReorder(this.release).length, 0);
+});
+
+
 releaseEditor.test.module("edit-release edits", releaseEditor.test.setupReleaseEdit);
 
 
