@@ -208,19 +208,54 @@
             )
             .extend({ withError: true });
 
-            $.extend(this, _.pick(data, "id", "toc", "originalID"));
+            $.extend(this, _.pick(data, "id", "originalID"));
 
             // The medium is considered to be loaded if it has tracks, or if
             // there's no ID to load tracks from.
             var loaded = !!(this.tracks().length || !(this.id || this.originalID));
 
             this.cdtocs = data.cdtocs || 0;
+            this.toc = ko.observable(data.toc || null);
+            this.toc.subscribe(this.tocChanged, this);
+
             this.loaded = ko.observable(loaded);
             this.loading = ko.observable(false);
             this.collapsed = ko.observable(!loaded);
             this.collapsed.subscribe(this.collapsedChanged, this);
             this.addTrackCount = ko.observable("");
             this.original = ko.observable(MB.edit.fields.medium(this));
+        },
+
+        hasToc: function () {
+            return !!this.cdtocs || (this.toc() ? true : false);
+        },
+
+        tocChanged: function (toc) {
+            if (!_.isString(toc)) return;
+
+            toc = toc.split(/\s+/);
+
+            var tracks = this.tracks();
+            var trackCount = toc.length - 3;
+
+            if (tracks.length > trackCount) {
+                this.tracks(_.first(tracks, trackCount));
+            }
+            else if (tracks.length < trackCount) {
+                var self = this;
+
+                _.times(trackCount - tracks.length, function () {
+                    self.tracks.push(fields.Track({ position: tracks.length }, self));
+                });
+            }
+
+            _(tracks).first(trackCount).each(function (track, index) {
+                track.formattedLength(
+                    MB.utility.formatTrackLength(
+                        ((toc[index + 4] || toc[2]) - toc[index + 3]) / 75 * 1000
+                    )
+                );
+            });
         },
 
         collapsedChanged: function (collapsed) {
@@ -244,7 +279,17 @@
         },
 
         tracksLoaded: function (data) {
+            var tracks = data.tracks;
+
             this.tracks(utils.mapChild(this, data.tracks, fields.Track));
+
+            if (this.release.seededTocs) {
+                var toc = this.release.seededTocs[this.position()];
+
+                if (toc && (toc.split(/\s+/).length - 3) === tracks.length) {
+                    this.toc(toc);
+                }
+            }
 
             // We already have the original name, format, and position data,
             // which we don't want to overwrite - it could have been changed
@@ -560,8 +605,8 @@
 
     ko.bindingHandlers.disableBecauseDiscIDs = {
 
-        init: function (element, valueAccessor, allBindings, viewModel) {
-            var hasDiscID = viewModel.medium.cdtocs > 0;
+        update: function (element, valueAccessor, allBindings, viewModel) {
+            var hasDiscID = viewModel.medium.hasToc();
 
             $(element)
                 .prop("disabled", hasDiscID)

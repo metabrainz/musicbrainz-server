@@ -1,10 +1,5 @@
 [%- USE u = Utils -%]
 [%- PROCESS 'components/rating-macros.tt' -%]
-[%- MACRO create_guideline(text) BLOCK -%]
-    <li>
-        [%- text -%]
-    </li>
-[%- END -%]
 [%-# This next could use localization for alternating comma/period use per locale -%]
 [%- MACRO add_commas(n) GET n.chunk(-3).join(',') -%]
 [%- MACRO replace(text, search, replace) BLOCK; text | replace(search, replace); END -%]

@@ -266,12 +266,16 @@
             var edits = [];
 
             newMediums().each(function (medium) {
-                if (medium.toc && medium.canHaveDiscID()) {
+                var toc = medium.toc();
+
+                if (toc && medium.canHaveDiscID()) {
                     edits.push(
                         MB.edit.mediumAddDiscID({
-                            medium_id:  medium.id,
-                            release:    release.id,
-                            cdtoc:      medium.toc
+                            medium_id:          medium.id,
+                            medium_position:    medium.position(),
+                            release:            release.id,
+                            release_name:       release.name(),
+                            cdtoc:              toc
                         })
                     );
                 }
@@ -514,9 +518,7 @@
             edits: releaseEditor.edits.discID,
 
             callback: function (release) {
-                newMediums().each(function (medium) { delete medium.toc });
-
-                newMediums.notifySubscribers(newMediums());
+                newMediums().invoke("toc", null);
             }
         },
         {

@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-03-19 06:27+0000\n"
-"Last-Translator: jozo <email address hidden>\n"
+"PO-Revision-Date: 2014-03-31 21:30+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -385,6 +385,11 @@ msgstr ""
 msgctxt "artist_type"
 msgid "Character"
 msgstr "Kuvitteellinen hahmo"
+
+#: DB:artist_type/name:6
+msgctxt "artist_type"
+msgid "Choir"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:71
 msgctxt "work_attribute_type_allowed_value"
@@ -1475,6 +1480,11 @@ msgstr "Operetti"
 msgctxt "work_type"
 msgid "Oratorio"
 msgstr "Oratorio"
+
+#: DB:artist_type/name:5
+msgctxt "artist_type"
+msgid "Orchestra"
+msgstr ""
 
 #: DB:label_type/name:4
 msgctxt "label_type"

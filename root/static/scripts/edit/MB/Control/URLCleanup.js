@@ -226,7 +226,7 @@ MB.constants.CLEANUPS = {
         match: new RegExp("^(https?://)?([^/]+\\.)?mora\\.jp","i"),
         type: MB.constants.LINK_TYPES.downloadpurchase,
         clean: function(url) {
-            return url.replace(/^(?:https?:\/\/)?(?:[^.]+\.)?mora\.jp\/package\/([0-9]+)\/([a-zA-Z0-9-]+)(\/)?.*$/, "http://mora.jp/package/$1/$2/");
+            return url.replace(/^(?:https?:\/\/)?(?:[^.]+\.)?mora\.jp\/package\/([0-9]+)\/([a-zA-Z0-9_-]+)(\/)?.*$/, "http://mora.jp/package/$1/$2/");
         }
     },
     myspace: {

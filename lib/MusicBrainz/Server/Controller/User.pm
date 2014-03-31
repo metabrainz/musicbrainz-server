@@ -343,6 +343,7 @@ sub rating_summary : Chained('load') PathPart('ratings') Args(0) HiddenOnSlaves
 
     my $ratings = $c->model('Editor')->summarize_ratings($user,
                         $c->stash->{viewing_own_profile});
+    $c->model('ArtistCredit')->load(map { @$_ } values %$ratings);
 
     $c->stash(
         ratings => $ratings,
@@ -377,6 +378,7 @@ sub ratings : Chained('load') PathPart('ratings') Args(1) HiddenOnSlaves
         $c->model($model)->rating->find_editor_ratings(
             $user->id, $c->user_exists && $user->id == $c->user->id, shift, shift)
     }, limit => 100);
+    $c->model('ArtistCredit')->load(@$ratings);
 
     $c->stash(
         ratings => $ratings,
@@ -398,6 +400,7 @@ sub tags : Chained('load') PathPart('tags')
     }
 
     my $tags = $c->model('Editor')->get_tags ($user);
+    $c->model('ArtistCredit')->load(map { $_->entity } @$tags);
 
     $c->stash(
         user => $user,
@@ -427,6 +430,7 @@ sub tag : Chained('load') PathPart('tag') Args(1)
             $tag_in_use = 1 if @$entity_tags;
         }
     }
+    $c->model('ArtistCredit')->load(map { @$_ } values %tags);
 
     $c->stash(
         tag_name => $tag_name,

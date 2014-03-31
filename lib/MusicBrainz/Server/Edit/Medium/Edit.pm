@@ -272,7 +272,7 @@ sub build_display_data
             my $change = $tracklist_changes->[$i];
             my ($old, $new) = @$change[1, 2];
 
-            if ($change->[0] eq 'c' && $old->id != $new->id) {
+            if ($change->[0] eq 'c' && ($old->id // 0) != ($new->id // 0)) {
                 splice @$tracklist_changes, $i, 1, ['-', $old, ''], ['+', '', $new];
                 $i++;
             }
@@ -283,7 +283,10 @@ sub build_display_data
             $data->{tracklist_changes} = $tracklist_changes;
         }
 
-        if (any { $_->[2] && !$_->[2]->id } @$tracklist_changes) {
+        # Edits that predate track mbids do not store track ids at all.
+        my @changes_with_track_ids = grep { $_->[1] && $_->[1]->id } @$tracklist_changes;
+
+        if (scalar(@changes_with_track_ids) && any { $_->[2] && !$_->[2]->id } @$tracklist_changes) {
             $data->{changed_mbids} = 1;
         }
 
@@ -296,15 +299,22 @@ sub build_display_data
             grep { $_->[0] ne '-' }
             @$tracklist_changes ];
 
+        # Generate a map of track id => old recording id, for edits that store
+        # track ids, to detect if recordings have changed.
+
         my %old_recordings = map {
                 $_->[1]->id => $_->[1]->recording_id // $_->[1]->recording->id
             }
-            grep { $_->[1] }
-            @$tracklist_changes;
+            @changes_with_track_ids;
 
         $data->{recording_changes} = [
             grep {
-                $_->[2] && $old_recordings{$_->[2]->id} != ($_->[2]->recording_id // $_->[2]->recording->id)
+                my $old = $_->[1];
+                my $new = $_->[2];
+                my $old_recording = $old ? ($old->recording_id // $old->recording->id) : 0;
+                my $new_recording = $new ? ($new->recording_id // $new->recording->id) : 0;
+
+                $new && ($new->id ? $old_recordings{$new->id} : $old_recording) != $new_recording;
             }
             @$tracklist_changes ];
     }

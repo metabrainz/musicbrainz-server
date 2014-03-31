@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-03-19 21:29+0000\n"
-"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
+"PO-Revision-Date: 2014-03-31 21:30+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -377,6 +377,11 @@ msgstr "Cencu kāmbhōji"
 msgctxt "artist_type"
 msgid "Character"
 msgstr "tegelaskuju"
+
+#: DB:artist_type/name:6
+msgctxt "artist_type"
+msgid "Choir"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:71
 msgctxt "work_attribute_type_allowed_value"
@@ -1467,6 +1472,11 @@ msgstr "operett"
 msgctxt "work_type"
 msgid "Oratorio"
 msgstr "oratoorium"
+
+#: DB:artist_type/name:5
+msgctxt "artist_type"
+msgid "Orchestra"
+msgstr ""
 
 #: DB:label_type/name:4
 msgctxt "label_type"

@@ -347,4 +347,24 @@ EOSQL
     )
 };
 
+test 'Deleting a work with work attributes' => sub {
+    my $test = shift;
+
+    my $work_data = $test->c->model('Work');
+
+    $test->c->sql->do(<<EOSQL);
+INSERT INTO work_attribute_type (id, name, free_text) VALUES (1, 'Attribute', false);
+INSERT INTO work_attribute_type_allowed_value (id, work_attribute_type, value) VALUES (1, 1, 'Value');
+EOSQL
+
+    my $a = $work_data->insert({ name => 'Foo' });
+
+    $work_data->set_attributes(
+        $a->id,
+        { attribute_type_id => 1, attribute_value_id => 1 },
+    );
+
+    ok !exception { $work_data->delete($a->id); }
+};
+
 1;

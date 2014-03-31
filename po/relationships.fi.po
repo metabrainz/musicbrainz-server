@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-03-18 06:44+0000\n"
-"Last-Translator: jozo <email address hidden>\n"
+"PO-Revision-Date: 2014-03-31 21:30+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -421,9 +421,7 @@ msgid ""
 msgstr "Määrittää sanoittajan tällä teokselle. (<a href=\"http://musicbrainz.org/doc/Lyricist_Relationship_Type\">Lisätietoja</a>)"
 
 #: DB:link_type/description:42
-msgid ""
-"Indicates the mastering engineer for this work. (<a "
-"href=\"http://musicbrainz.org/doc/Engineer_Relationship_Type\">Details</a>)"
+msgid "Indicates the mastering engineer for this work."
 msgstr ""
 
 #: DB:link_type/description:143
@@ -767,8 +765,8 @@ msgstr ""
 
 #: DB:link_attribute_type/description:1
 msgid ""
-"This attribute describes if a particular performance role was considered "
-"normal or additional."
+"This attribute describes if a particular role was considered normal or "
+"additional."
 msgstr ""
 
 #: DB:link_attribute_type/description:194

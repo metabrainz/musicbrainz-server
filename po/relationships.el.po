@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-03-18 03:22+0000\n"
+"PO-Revision-Date: 2014-03-31 21:30+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -417,10 +417,8 @@ msgid ""
 msgstr "Υποδεικνύει το στιχουργό για αυτό το έργο. (<a href=\"http://musicbrainz.org/doc/Lyricist_Relationship_Type\">Λεπτομέρειες</a>)"
 
 #: DB:link_type/description:42
-msgid ""
-"Indicates the mastering engineer for this work. (<a "
-"href=\"http://musicbrainz.org/doc/Engineer_Relationship_Type\">Details</a>)"
-msgstr "Υποδεικνύει το μηχανικό mastering για αυτό το έργο. (<a href=\"http://musicbrainz.org/doc/Engineer_Relationship_Type\">Λεπτομέρειες</a>)"
+msgid "Indicates the mastering engineer for this work."
+msgstr ""
 
 #: DB:link_type/description:143
 msgid ""
@@ -763,9 +761,9 @@ msgstr ""
 
 #: DB:link_attribute_type/description:1
 msgid ""
-"This attribute describes if a particular performance role was considered "
-"normal or additional."
-msgstr "Το χαρακτηριστικό αυτό περιγράφει το αν ένας συγκεκριμένος εκτελεστικός ρόλος θεωρήθηκε κανονικός ή επιπρόσθετος."
+"This attribute describes if a particular role was considered normal or "
+"additional."
+msgstr ""
 
 #: DB:link_attribute_type/description:194
 msgid ""

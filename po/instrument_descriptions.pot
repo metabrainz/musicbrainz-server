@@ -2530,6 +2530,14 @@ msgid ""
 "wikipedia.org/wiki/Piri\">Wikipedia</a>)"
 msgstr ""
 
+#: DB:link_attribute_type/description:771
+msgid ""
+"The post horn is a valveless coiled brass instrument used to signal the "
+"arrival or departure of a post rider or mail coach. Other names: posthorn, "
+"post-horn, coach horn (<a href=\"https://en.wikipedia.org/wiki/Post_horn"
+"\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:758
 msgid ""
 "The qilaut is an Inuit frame drum which has a handle and is made of caribou "

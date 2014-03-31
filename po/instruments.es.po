@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-03-18 03:21+0000\n"
+"PO-Revision-Date: 2014-03-31 21:30+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -1650,6 +1650,10 @@ msgstr ""
 #: DB:link_attribute_type/name:302
 msgid "plucked string instruments"
 msgstr "instrumentos de cuerda pulsada"
+
+#: DB:link_attribute_type/name:771
+msgid "post horn"
+msgstr ""
 
 #: DB:link_attribute_type/name:515
 msgid "practice chanter"
