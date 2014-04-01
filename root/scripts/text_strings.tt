@@ -108,6 +108,7 @@
             recording:       "[% l('Recording') | js %]",
             release:         "[% l('Release') | js %]",
             release_group:   "[% l('Release group') | js %]",
+            series:          "[% l('Series') | js %]",
             url:             "[% l('URL') | js %]",
             work:            "[% l('Work') | js %]",
         },
@@ -178,6 +179,8 @@
             release:         "[% l('Add another release') | js %]",
             release_group:   "[% l('Add another release group') | js %]",
             work:            "[% l('Add another work') | js %]"
-        }
+        },
+        AttributeTextValue: '[% l('{attribute}: {value}') | js %]',
+        AttributeTextValueRequired: '[% l('A text value is required.') | js %]'
     });
 })(MB);

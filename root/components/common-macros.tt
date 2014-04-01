@@ -233,6 +233,7 @@ END -%]
       ELSIF entity.isa('MusicBrainz::Server::Entity::Release'); link_release(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::ReleaseGroup'); link_release_group(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Recording'); link_recording(entity, action, text);
+      ELSIF entity.isa('MusicBrainz::Server::Entity::Series'); link_series(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::URL'); link_url(entity, action, text);
       END;
     ELSIF entity.isa('MusicBrainz::Server::Entity::URL');
@@ -277,6 +278,7 @@ END -%]
     ELSIF entity.isa('MusicBrainz::Server::Entity::Release'); "release";
     ELSIF entity.isa('MusicBrainz::Server::Entity::ReleaseGroup'); "release_group";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Recording'); "recording";
+    ELSIF entity.isa('MusicBrainz::Server::Entity::Series'); "series";
     ELSIF entity.isa('MusicBrainz::Server::Entity::URL'); "url";
     END;
 END -%]
@@ -381,6 +383,15 @@ END -%]
     '<a href="' _ link _ '" title="' _ hover _ '" class="' _ class _ '"><bdi>' _ text _ '</bdi></a>';
     '</span>' IF text != recording.name AND action == 'show';
     '</span>' IF recording.edits_pending AND action == 'show';
+END -%]
+
+[%- MACRO link_series(series, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/series/$action", [ series.gid ]);
+    text = html_escape(text == '' ? series.name : text);
+    '<span class="mp">' IF series.edits_pending AND action == 'show';
+    '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
+    '</span>' IF series.edits_pending AND action == 'show';
 END -%]
 
 [%- MACRO link_url(url, action, text) BLOCK;
@@ -546,6 +557,7 @@ END -%]
     ELSIF type == 'release'; l('Release:');
     ELSIF type == 'release_group'; l('Release group:');
     ELSIF type == 'recording'; l('Recording:');
+    ELSIF type == 'series'; l('Series:');
     ELSIF type == 'work'; l('Work:');
     ELSIF type == 'url'; l('URL:');
     END;
@@ -558,6 +570,7 @@ END -%]
         ELSIF type_name == 'release'; l('Release');
         ELSIF type_name == 'recording'; l('Recording');
         ELSIF type_name == 'release_group'; l('Release Group');
+        ELSIF type_name == 'series'; l('Series');
         ELSIF type_name == 'work'; l('Work');
         ELSIF type_name == 'label'; l('Label');
         ELSIF type_name == 'url'; l('URL');

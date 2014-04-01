@@ -928,7 +928,8 @@ sub _serialize_relation_lists
     my ($self, $src_entity, $data, $gen, $rels, $inc, $stash) = @_;
 
     my %types = ();
-    foreach my $rel (@$rels)
+
+    foreach my $rel (sort { $a <=> $b } @$rels)
     {
         $types{$rel->target_type} = [] if !exists $types{$rel->target_type};
         push @{$types{$rel->target_type}}, $rel;
@@ -958,6 +959,7 @@ sub _serialize_relation
         push @list, $gen->target($rel->target_key);
     }
 
+    push @list, $gen->ordering_key($rel->link_order) if $rel->link_order;
     push @list, $gen->direction('backward') if ($rel->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD);
     push @list, $gen->begin($rel->link->begin_date->format) unless $rel->link->begin_date->is_empty;
     push @list, $gen->end($rel->link->end_date->format) unless $rel->link->end_date->is_empty;
@@ -979,6 +981,48 @@ sub _serialize_relation
     }
 
     push @$data, $gen->relation({ type => $type, "type-id" => $type_id }, @list);
+}
+
+sub _serialize_series_list
+{
+    my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
+
+    if (@{ $list->{items} })
+    {
+        my @list;
+        foreach my $series (sort_by { $_->gid } @{ $list->{items} })
+        {
+            $self->_serialize_series(\@list, $gen, $series, $inc, $stash, $toplevel);
+        }
+        push @$data, $gen->series_list($self->_list_attributes ($list), @list);
+    }
+}
+
+sub _serialize_series
+{
+    my ($self, $data, $gen, $series, $inc, $stash, $toplevel) = @_;
+
+    my $opts = $stash->store ($series);
+
+    my %attrs;
+    $attrs{id} = $series->gid;
+    $attrs{type} = $series->type->name if $series->type;
+
+    my @list;
+    push @list, $gen->name($series->name);
+    push @list, $gen->disambiguation($series->comment) if $series->comment;
+    push @list, $gen->ordering_attribute($series->ordering_attribute->name) if $series->ordering_attribute;
+
+    if ($toplevel) {
+        $self->_serialize_annotation(\@list, $gen, $series, $inc, $opts);
+    }
+
+    $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
+        if ($inc->aliases && $opts->{aliases});
+
+    $self->_serialize_relation_lists($series, \@list, $gen, $series->relationships, $inc, $stash) if ($inc->has_rels);
+
+    push @$data, $gen->series(\%attrs, @list);
 }
 
 sub _serialize_isrc_list
@@ -1221,6 +1265,15 @@ sub place_resource
     return $data->[0];
 }
 
+sub series_resource
+{
+    my ($self, $gen, $series, $inc, $stash) = @_;
+
+    my $data = [];
+    $self->_serialize_series($data, $gen, $series, $inc, $stash, 1);
+    return $data->[0];
+}
+
 sub url_resource
 {
     my ($self, $gen, $url, $inc, $stash) = @_;
@@ -1348,6 +1401,16 @@ sub rating_resource
 
     my $data = [];
     $self->_serialize_user_rating($data, $gen, $inc, $opts);
+
+    return $data->[0];
+}
+
+sub series_list_resource
+{
+    my ($self, $gen, $series, $inc, $stash) = @_;
+
+    my $data = [];
+    $self->_serialize_series_list($data, $gen, $series, $inc, $stash, 1);
 
     return $data->[0];
 }

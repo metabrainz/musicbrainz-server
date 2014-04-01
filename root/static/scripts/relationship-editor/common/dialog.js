@@ -320,21 +320,18 @@
 
         attributeError: function (rootInfo) {
             var relationship = this.relationship();
-            var attrInfo = relationship.linkTypeInfo().attributes;
+            var value = relationship.attributeValue(rootInfo.attribute.id)();
             var min = rootInfo.min;
 
             if (min > 0) {
-                var attributes = relationship.attributes();
-
-                for (var i = 0, count = 0, id; id = attributes[i]; i++) {
-                    if (MB.attrInfoByID[id].root === rootInfo.attribute) {
-                        count++;
-                    }
-                }
-
-                if (count < min) {
+                if (!value || (_.isArray(value) && value.length < min)) {
                     return MB.text.AttributeRequired;
                 }
+            }
+
+            if (rootInfo.attribute.freeText && value &&
+                    !ko.unwrap(relationship.attributeTextValues[value])) {
+                return MB.text.AttributeTextValueRequired;
             }
 
             return "";

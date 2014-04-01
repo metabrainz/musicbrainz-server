@@ -1,0 +1,3 @@
+[%- WRAPPER 'series/layout.tt' title=l('Edit Series') full_width=1 page='edit' -%]
+      [%- INCLUDE "series/edit_form.tt" -%]
+[%- END -%]

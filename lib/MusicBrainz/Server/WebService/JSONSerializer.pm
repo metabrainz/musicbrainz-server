@@ -2,6 +2,7 @@ package MusicBrainz::Server::WebService::JSONSerializer;
 
 use Moose;
 use JSON;
+use List::MoreUtils qw( any );
 use List::UtilsBy 'sort_by';
 use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash );
 use MusicBrainz::Server::WebService::WebServiceInc;
@@ -100,7 +101,12 @@ sub serialize_relationship {
         target          => $self->$entity( $_->target ),
         editsPending    => $relationship->edits_pending ? \1 : \0,
         verbosePhrase   => $relationship->verbose_phrase,
+        linkOrder       => $relationship->link_order,
     };
+
+    if (any { $_->free_text } $link->all_attributes) {
+        $out->{attributeTextValues} = $link->attribute_text_values;
+    }
 
     $out->{beginDate} = $link->begin_date->is_empty ? undef : partial_date_to_hash($link->begin_date);
     $out->{endDate} = $link->end_date->is_empty ? undef : partial_date_to_hash($link->end_date);
@@ -602,6 +608,37 @@ sub _artist_credit
         joinPhrase  => $_->join_phrase,
         $_->artist->name eq $_->name ? () : ( name => $_->name )
     }, $ac->all_names ];
+}
+
+sub _series {
+    my ($self, $series) = @_;
+
+    return {
+        name                => $series->name,
+        id                  => $series->id,
+        gid                 => $series->gid,
+        comment             => $series->comment,
+        typeID              => $series->type_id,
+        orderingAttributeID => $series->ordering_attribute_id,
+        orderingTypeID      => $series->ordering_type_id,
+        entityType          => 'series',
+    };
+}
+
+sub autocomplete_series {
+    my ($self, $results, $pager) = @_;
+
+    my $output = _with_primary_alias(
+        $results,
+        sub { $self->_series(shift->{entity}) }
+    );
+
+    push @$output, {
+        pages => $pager->last_page,
+        current => $pager->current_page
+    } if $pager;
+
+    return encode_json($output);
 }
 
 __PACKAGE__->meta->make_immutable;

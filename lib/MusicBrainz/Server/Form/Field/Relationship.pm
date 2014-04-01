@@ -29,6 +29,22 @@ has_field 'attributes.contains' => (
     type => 'Integer',
 );
 
+has_field 'attribute_text_values' => (
+    type => 'Repeatable',
+);
+
+has_field 'attribute_text_values.attribute' => (
+    type => 'Integer',
+);
+
+has_field 'attribute_text_values.text_value' => (
+    type => '+MusicBrainz::Server::Form::Field::Text',
+);
+
+has_field 'link_order' => (
+    type => 'Integer',
+);
+
 has_field 'period' => (
     type => '+MusicBrainz::Server::Form::Field::DatePeriod',
 );

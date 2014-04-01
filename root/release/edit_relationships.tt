@@ -182,7 +182,15 @@
     </script>
 
     <script type="text/html" id="template.relationships">
-      <div class="ars" data-bind="template: { name: 'template.relationship', foreach: displayRelationships($root) }">
+      <div class="ars" data-bind="
+           template: {
+              name: 'template.relationship',
+              foreach: _(displayRelationships($root))
+                          .sortBy(function (r) { return r.lowerCaseTargetName() })
+                          .sortBy(function (r) { return r.lowerCasePhrase($parent) })
+                          .sortBy(function (r) { return r.entityOrdering(r.target($parent)) })
+                          .value()
+            }">
       </div>
       <span class="add-rel btn" data-click="openAddDialog">
         <img src="/static/images/icons/add.png" class="bottom" /> [% l('Add relationship') %]

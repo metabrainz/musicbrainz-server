@@ -57,7 +57,8 @@ sub entities {
         'Label' => 'label',
         'URL' => 'url',
         'Area' => 'area',
-        'Place' => 'place'
+        'Place' => 'place',
+        'Series' => 'series',
     };
 }
 

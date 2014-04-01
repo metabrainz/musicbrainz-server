@@ -204,10 +204,6 @@
             return this.source.displayRelationships(this);
         },
 
-        around$sortedRelationships: function (supr, relationships) {
-            return _.sortBy(supr(relationships), linkIsEmpty);
-        },
-
         typesAreAccepted: function (sourceType, targetType) {
             return sourceType === "url" || targetType === "url";
         },

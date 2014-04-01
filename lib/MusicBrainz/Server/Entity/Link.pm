@@ -49,6 +49,14 @@ has 'attributes' => (
     }
 );
 
+has 'attribute_text_values' => (
+    is => 'rw',
+    isa => 'HashRef',
+    traits => [ 'Hash' ],
+    default => sub { +{} },
+    lazy => 1,
+);
+
 has 'formatted_date' => (
     is => 'ro',
     builder => '_build_formatted_date',

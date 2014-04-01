@@ -51,7 +51,8 @@ subtype 'LinkHash'
         entity1 => Nullable[Dict[
             id => Int,
             name => Str,
-        ]]
+        ]],
+        attribute_text_values => Optional[Dict],
     ];
 
 subtype 'RelationshipHash'
@@ -74,7 +75,8 @@ subtype 'RelationshipHash'
         entity1 => Nullable[Dict[
             id => NullableOnPreview[Int],
             name => Str,
-        ]]
+        ]],
+        attribute_text_values => Optional[Dict],
     ];
 
 has '+data' => (
@@ -145,6 +147,9 @@ sub _build_relationship
     my $entity1    = defined $change->{entity1}      ? $change->{entity1}      : $link->{entity1};
     my $lt         = defined $change->{link_type}    ? $change->{link_type}    : $link->{link_type};
 
+    my $attribute_text_values = defined $change->{attribute_text_values}
+        ? $change->{attribute_text_values} : $link->{attribute_text_values};
+
     return unless $entity0 && $entity1;
 
     return Relationship->new(
@@ -166,7 +171,8 @@ sub _build_relationship
                         ();
                     }
                 } @$attributes
-            ]
+            ],
+            attribute_text_values => $attribute_text_values // {},
         ),
         entity0 => $loaded->{$model0}{ $entity0->{id} } ||
             $self->c->model($model0)->_entity_class->new( name => $entity0->{name} ),
@@ -252,7 +258,8 @@ sub _mapping
         entity1 => sub {
             my $rel = shift;
             return { id => $rel->entity1->id, name => $rel->entity1->name };
-        }
+        },
+        attribute_text_values => sub { shift->link->attribute_text_values },
     );
 }
 
@@ -287,8 +294,10 @@ sub initialize
     my $type0 = $link->type->entity0_type;
     my $type1 = $link->type->entity1_type;
 
+    $opts{attribute_text_values} //= {};
+
     if (my $attributes = $opts{attributes}) {
-        $self->check_attributes($link->type, @$attributes);
+        $self->check_attributes($link->type, $attributes, $opts{attribute_text_values});
     }
 
     unless ($relationship->entity0 && $relationship->entity1) {

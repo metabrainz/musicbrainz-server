@@ -44,6 +44,8 @@
                              l('Automatically subscribe me to artists I create.')) %]
         [% form_row_checkbox(r, 'subscribe_to_created_labels',
                              l('Automatically subscribe me to labels I create.')) %]
+        [% form_row_checkbox(r, 'subscribe_to_created_series',
+                             l('Automatically subscribe me to series I create.')) %]
     </fieldset>
 
     <div class="no-label row">

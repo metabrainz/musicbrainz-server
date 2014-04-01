@@ -123,10 +123,6 @@
             return data.id ? (this.cache[cacheKey] = relationship) : relationship;
         },
 
-        sortedRelationships: function (relationships) {
-            return _.sortBy(relationships, lowerCasePhrase);
-        },
-
         typesAreAccepted: function () {
             return true;
         },
@@ -183,6 +179,15 @@
                     hidden.push({ name: prefix + ".attributes." + i, value: id });
                 });
 
+                var attrTextIndex = 0;
+
+                _.each(editData.attributeTextValues, function (value, id) {
+                    var attrTextPrefix = prefix + ".attribute_text_values." + (attrTextIndex++);
+
+                    hidden.push({ name: attrTextPrefix + ".attribute", value: id });
+                    hidden.push({ name: attrTextPrefix + ".text_value", value: value });
+                });
+
                 var beginDate = editData.beginDate;
                 var endDate = editData.endDate;
                 var ended = editData.ended;
@@ -212,10 +217,5 @@
             }));
         }
     });
-
-
-    function lowerCasePhrase(relationship) {
-        return _.result(relationship, "linkPhrase").toLowerCase();
-    }
 
 }(MB.relationshipEditor = MB.relationshipEditor || {}));

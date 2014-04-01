@@ -64,6 +64,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Relationship::EditLinkType
     MusicBrainz::Server::Edit::Relationship::RemoveLinkAttribute
     MusicBrainz::Server::Edit::Relationship::RemoveLinkType
+    MusicBrainz::Server::Edit::Relationship::Reorder
     MusicBrainz::Server::Edit::Release::AddAnnotation
     MusicBrainz::Server::Edit::Release::AddCoverArt
     MusicBrainz::Server::Edit::Release::AddReleaseLabel
@@ -86,6 +87,14 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::ReleaseGroup::Edit
     MusicBrainz::Server::Edit::ReleaseGroup::Merge
     MusicBrainz::Server::Edit::ReleaseGroup::SetCoverArt
+    MusicBrainz::Server::Edit::Series::AddAlias
+    MusicBrainz::Server::Edit::Series::DeleteAlias
+    MusicBrainz::Server::Edit::Series::AddAnnotation
+    MusicBrainz::Server::Edit::Series::Create
+    MusicBrainz::Server::Edit::Series::Delete
+    MusicBrainz::Server::Edit::Series::Edit
+    MusicBrainz::Server::Edit::Series::EditAlias
+    MusicBrainz::Server::Edit::Series::Merge
     MusicBrainz::Server::Edit::URL::Edit
     MusicBrainz::Server::Edit::WikiDoc::Change
     MusicBrainz::Server::Edit::Work::AddAlias

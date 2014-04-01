@@ -73,6 +73,7 @@ Readonly my %TYPE_TO_MODEL => (
     'recording'     => 'Recording',
     'release'       => 'Release',
     'release_group' => 'ReleaseGroup',
+    'series'        => 'Series',
     'url'           => 'URL',
     'work'          => 'Work',
     'isrc'          => 'ISRC',

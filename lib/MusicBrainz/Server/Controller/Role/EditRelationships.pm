@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::Role::EditRelationships;
 use JSON;
 use MooseX::Role::Parameterized;
 use MusicBrainz::Server::CGI::Expand qw( expand_hash );
+use MusicBrainz::Server::Constants qw( $SERIES_ORDERING_TYPE_MANUAL );
 use MusicBrainz::Server::Data::Utils qw( model_to_type ref_to_type type_to_model );
 use MusicBrainz::Server::Form::Utils qw( build_type_info build_attr_info );
 use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
@@ -89,6 +90,7 @@ role {
                     endDate     => $_->{period}->{end_date} // {},
                     ended       => $_->{period}->{ended} ? \1 : \0,
                     target      => $target // { entityType => $target_type },
+                    linkOrder   => $_->{link_order} // 0,
                 };
             }
 
@@ -105,7 +107,7 @@ role {
                 grep {
                     my $lt = $_->link->type;
 
-                    $source == $_->entity0
+                    $source->id == $_->entity0_id
                         ? $lt->entity0_cardinality == 0
                         : $lt->entity1_cardinality == 0;
 
@@ -179,6 +181,7 @@ role {
         my @edits;
         my @field_values = map { $_->value } @$fields;
         my $entity_map = load_entities($c, ref_to_type($source), @field_values);
+        my %reordered_relationships;
 
         for my $field (@field_values) {
             my $edit;
@@ -192,6 +195,17 @@ role {
             }
 
             $args{attributes} = $field->{attributes} if $field->{attributes};
+
+            if ($field->{attribute_text_values}) {
+                my %attribute_text_values;
+
+                for (@{ $field->{attribute_text_values} // [] }) {
+                    $attribute_text_values{$_->{attribute}} = $_->{text_value};
+                }
+
+                $args{attribute_text_values} = \%attribute_text_values;
+            }
+
             $args{ended} ||= 0;
 
             unless ($field->{removed}) {
@@ -222,11 +236,48 @@ role {
                     $edit = $self->delete_relationship($c, $form, %args);
                 } else {
                     $edit = $self->try_and_edit($c, $form, %args);
+
+                    my $orderable_direction = $link_type->orderable_direction;
+
+                    if ($orderable_direction != 0 && $field->{link_order} != $relationship->link_order) {
+                        my $orderable_entity;
+                        my $unorderable_entity;
+
+                        if ($orderable_direction == 1) {
+                            $orderable_entity = $relationship->entity1;
+                            $unorderable_entity = $relationship->entity0;
+                        }
+
+                        if ($orderable_direction == 2) {
+                            $orderable_entity = $relationship->entity0;
+                            $unorderable_entity = $relationship->entity1;
+                        }
+
+                        my $is_series = $unorderable_entity->isa('MusicBrainz::Server::Entity::Series');
+
+                        if (!$is_series || $unorderable_entity->ordering_type_id == $SERIES_ORDERING_TYPE_MANUAL) {
+                            my $key = join "-", $link_type->id, $unorderable_entity;
+
+                            push @{ $reordered_relationships{$key} //= [] }, {
+                                relationship_id => $relationship->id,
+                                new => $field->{link_order},
+                                old => $relationship->link_order,
+                            };
+                        }
+                    }
                 }
             } else {
                 $edit = $self->try_and_insert($c, $form, %args);
             }
             push @edits, $edit;
+        }
+
+        while (my ($link_type_id, $relationship_order) = each %reordered_relationships) {
+            push @edits, $self->reorder_relationships(
+                $c, $form,
+                link_type_id => $link_type_id,
+                relationship_order => $relationship_order,
+            );
         }
 
         return @edits;

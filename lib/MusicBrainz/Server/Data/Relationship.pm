@@ -33,6 +33,7 @@ Readonly my @TYPES => qw(
     recording
     release
     release_group
+    series
     url
     work
 );
@@ -60,7 +61,8 @@ sub _new_from_row
         edits_pending => $row->{edits_pending},
         entity0_id => $entity0,
         entity1_id => $entity1,
-        last_updated => $row->{last_updated}
+        last_updated => $row->{last_updated},
+        link_order => $row->{link_order},
     );
 
     my $weaken;
@@ -324,14 +326,16 @@ sub merge_entities
               SELECT
                 a.id, $entity0, rank()
                   OVER (
-                    PARTITION BY $entity1, link_type, attributes
+                    PARTITION BY $entity1, link_type, attributes, text_values
                     ORDER BY (begin_date_year IS NULL AND begin_date_month IS NULL AND begin_date_day IS NULL AND
                               end_date_year IS NULL AND end_date_month IS NULL AND end_date_day IS NULL AND NOT ended) ASC
                   ) > 1 AS redundant
               FROM (
-                SELECT id, link, entity0, entity1, array_agg(attribute_type ORDER BY attribute_type) attributes
+                SELECT id, link, entity0, entity1, array_agg(attribute_type ORDER BY attribute_type) attributes,
+                       array_agg(row(attribute_type, text_value) ORDER BY attribute_type, text_value) text_values
                 FROM $table
-                LEFT JOIN link_attribute USING (link)
+                LEFT JOIN link_attribute la USING (link)
+                LEFT JOIN link_attribute_text_value USING (link, attribute_type)
                 WHERE $entity0 IN (" .placeholders($target_id, @source_ids) .")
                 GROUP BY id, link, entity0, entity1
               ) a
@@ -394,6 +398,7 @@ sub exists
             end_date => $values->{end_date},
             ended => $values->{ended},
             attributes => $values->{attributes},
+            attribute_text_values => $values->{attribute_text_values},
         })
     );
 }
@@ -410,6 +415,7 @@ sub insert
             end_date => $values->{end_date},
             ended => $values->{ended},
             attributes => $values->{attributes},
+            attribute_text_values => $values->{attribute_text_values},
         }),
         entity0 => $values->{entity0_id},
         entity1 => $values->{entity1_id},
@@ -454,6 +460,22 @@ sub adjust_edit_pending
                  SET edits_pending = numeric_larger(0, edits_pending + ?)
                  WHERE id IN (" . placeholders(@ids) . ")";
     $self->sql->do($query, $adjust, @ids);
+}
+
+sub reorder {
+    my ($self, $type0, $type1, %ordering) = @_;
+
+    my @ids = keys %ordering;
+
+    $self->sql->do(
+        'UPDATE l_${type0}_${type1} SET link_order =
+            (SELECT link_order
+               FROM (VALUES ' . join(', ', ('(?::INTEGER, ?::INTEGER)') x @ids) . ')
+                 AS pos (relationship, link_order)
+              WHERE pos.relationship = l_${type0}_${type1}.id)
+          WHERE id IN (' . placeholders(@ids) . ')',
+        %ordering, @ids
+    );
 }
 
 =method lock_and_do

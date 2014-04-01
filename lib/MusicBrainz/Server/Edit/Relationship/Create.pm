@@ -46,7 +46,8 @@ has '+data' => (
         end_date     => Nullable[PartialDateHash],
         type0        => Str,
         type1        => Str,
-        ended        => Optional[Bool]
+        ended        => Optional[Bool],
+        attribute_text_values => Optional[Dict],
     ]
 );
 
@@ -62,9 +63,10 @@ sub initialize
 
     if (my $attributes = $opts{attributes}) {
         if (@$attributes) {
-            $self->check_attributes($lt, @$attributes);
+            $self->check_attributes($lt, $attributes, $opts{attribute_text_values} // {});
         } else {
             delete $opts{attributes};
+            delete $opts{attribute_text_values};
         }
     }
 

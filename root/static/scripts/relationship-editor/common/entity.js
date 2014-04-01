@@ -19,11 +19,11 @@
                 return;
             }
 
-            var newRelationships = viewModel.sortedRelationships(
-                $.map(relationships, function (data) {
-                    return viewModel.getRelationship(data, self);
-                })
-            );
+            var newRelationships = _(relationships)
+                .map(function (data) { return viewModel.getRelationship(data, self) })
+                .compact()
+                .sortBy(function (r) { return r.lowerCasePhrase(self) })
+                .value();
 
             var existingRelationships = this.relationships.peek();
             this.relationships(_.union(existingRelationships, newRelationships));
@@ -102,7 +102,7 @@
                 .groupBy(sortKey)
                 .each(function (relationships, key) {
                     var group = _.findWhere(oldGroups, { sortKey: key });
-                    var attributes = _.intersection.apply(_, _.invoke(relationships, "attributes"));
+                    var attributes = _.intersection.apply(_, _.invoke(relationships, "getAttributeIDs"));
 
                     if (group) {
                         group.relationships(relationships);
@@ -127,7 +127,7 @@
 
                                 var relationship = dialog.relationship();
                                 relationship.linkTypeID(keyParts[1]);
-                                relationship.attributes(attributes.slice(0));
+                                relationship.setAttributeIDs(attributes.slice(0));
 
                                 MB.utility.deferFocus("input.name", "#dialog");
 

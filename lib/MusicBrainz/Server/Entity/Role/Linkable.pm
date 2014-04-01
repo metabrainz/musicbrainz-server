@@ -11,9 +11,9 @@ has 'relationships' => (
     lazy => 1,
     traits => [ 'Array' ],
     handles => {
-        all_relationships   => 'elements',
-        add_relationship    => 'push',
-        clear_relationships => 'clear'
+        all_relationships       => 'elements',
+        add_relationship        => 'push',
+        clear_relationships     => 'clear'
     }
 );
 

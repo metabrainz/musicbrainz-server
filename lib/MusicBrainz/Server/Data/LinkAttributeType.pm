@@ -24,7 +24,12 @@ sub _table
 
 sub _columns
 {
-    return 'id, parent, child_order, gid, name, description, root';
+    return 'id, parent, child_order, gid, name, description, root, ' .
+           'COALESCE(
+                (SELECT true FROM link_text_attribute_type
+                 WHERE attribute_type = link_attribute_type.id),
+                false
+            ) AS free_text';
 }
 
 sub _column_mapping
@@ -37,6 +42,7 @@ sub _column_mapping
         child_order => 'child_order',
         name        => 'name',
         description => 'description',
+        free_text   => 'free_text',
     };
 }
 
@@ -48,7 +54,13 @@ sub _entity_class
 sub load
 {
     my ($self, @objs) = @_;
-    load_subobjects($self, 'type', @objs);
+
+    # XXX HACK HACK HACK
+    # 'type' conflicts with series types
+    my $series_class = "MusicBrainz::Server::Entity::Series";
+
+    load_subobjects($self, 'ordering_attribute', grep { $_->isa($series_class) } @objs);
+    load_subobjects($self, 'type', grep { !$_->isa($series_class) } @objs);
 }
 
 sub find_root
@@ -155,6 +167,11 @@ for my $method (qw( delete update )) {
     };
 }
 
+sub text_attribute_types {
+    my ($self) = @_;
+
+    return $self->get_tree('WHERE id IN (SELECT attribute_type FROM link_text_attribute_type)');
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

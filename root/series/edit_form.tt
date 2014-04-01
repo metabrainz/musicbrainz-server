@@ -1,0 +1,85 @@
+[% script_manifest('guess-case.js.manifest') %]
+[% script_manifest('edit.js.manifest') %]
+
+<p>[%- l('For more information, check the {doc_doc|documentation} and {doc_styleguide|style guidelines}.', {doc_doc => doc_link('Series'), doc_styleguide => doc_link('Style/Series')}) -%]</p>
+
+<form action="[% c.req.uri %]" method="post" class="edit-series">
+    [%- USE r = FormRenderer(form) -%]
+
+    <div class="half-width">
+
+      [% IF form.has_duplicates %]
+      <fieldset>
+          <legend>[% l('Possible Duplicate Series') %]</legend>
+          <p>
+              [% l('We found the following series with very similar names:') %]
+          </p>
+          <ul>
+              [% FOREACH dupe=form.duplicates %]
+              <li>[% link_entity(dupe) %]</li>
+              [% END %]
+          </ul>
+          [% form_row_checkbox(r, 'not_dupe', l('Yes, I still want to create a new series.')) %]
+          <p>
+              [%- l('Please enter a {doc_disambiguation|disambiguation} to help distinguish this series from the others.' {doc_disambiguation => doc_link('Disambiguation_Comment')}) -%]
+          </p>
+      </fieldset>
+      [% END %]
+
+      <fieldset>
+        <legend>[% l('Series Details') %]</legend>
+        [%- form_row_text_long(r, 'name', l('Name:')) -%]
+        [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
+        [%- form_row_select(r, 'type_id', l('Type:')) -%]
+        [%- form_row_select(r, 'ordering_attribute_id', l('Ordering Attribute:')) -%]
+        [%- form_row_select(r, 'ordering_type_id', l('Ordering Type:')) -%]
+      </fieldset>
+
+      [% PROCESS 'forms/relationship-editor.tt' %]
+
+      <fieldset>
+        <legend>[% l('External Links') %]</legend>
+        [% external_links_editor(r.form, 'series') %]
+      </fieldset>
+
+      [% INCLUDE 'forms/edit-note.tt' %]
+
+      [% enter_edit() %]
+  </div>
+
+  <div class="documentation">
+    [%- guesscase_bubble(1) -%]
+    [%- external_link_bubble() -%]
+  </div>
+
+</form>
+
+<script>
+(function () {
+  MB.Control.initialize_guess_case("series", "id-edit-series");
+  MB.utility.setDefaultAction("form.edit-series", "button.submit.positive");
+
+  // FIXME: Use knockout.
+  $("#id-edit-series\\.ordering_attribute_id").on("change", function () {
+    var series = MB.entityCache[MB.sourceEntityGID];
+
+    series.orderingAttributeID(+this.value);
+  });
+
+  $("#id-edit-series\\.ordering_type_id").on("change", function () {
+    var series = MB.entityCache[MB.sourceEntityGID];
+
+    series.orderingTypeID(+this.value);
+
+    if (this.value == MB.constants.SERIES_ORDERING_TYPE_AUTOMATIC) {
+      _.each(series.relationships(), function (r) {
+        var target = r.target(series);
+
+        if (r.entityIsOrdered && r.entityIsOrdered(target)) {
+          r.linkOrder(r.original.linkOrder);
+        }
+      });
+    }
+  });
+}());
+</script>

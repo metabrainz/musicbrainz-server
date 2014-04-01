@@ -13,15 +13,24 @@
   </legend>
 
   <table class="details row-form" style="width: 100%">
-    <tbody data-bind="foreach: $root.sortedRelationships(groupedRelationships($root))">
+    <tbody data-bind="foreach: _.sortBy(groupedRelationships($root), 'linkPhrase')">
       <tr>
         <th>
           <label data-bind="text: MB.i18n.expand(MB.text.AddColon, { variable: linkPhrase })"></label>
         </th>
-        <td class="relationship-list" data-bind="foreach: relationships">
+        <td class="relationship-list"
+            data-bind="foreach: _(relationships())
+                                  .sortBy(function (r) { return r.lowerCasePhrase($parent) })
+                                  .sortBy(function (r) { return r.lowerCaseTargetName() })
+                                  .sortBy(function (r) { return r.entityOrdering(r.target($parent)) })
+                                  .value()">
           <div>
             <button type="button" class="icon remove-item" data-bind="attr: { id: 'remove-' + uniqueID }" data-click="removeRelationship"></button>
             <button type="button" class="icon edit-item" data-bind="attr: { id: 'edit-' + uniqueID }, disable: removed" data-click="openEditDialog"></button>
+            <!-- ko if: entityCanBeReordered(target($parents[1])) -->
+              <button type="button" class="icon move-down" title="[% l('Move entity down') %]" data-click="moveEntityDown"></button>
+              <button type="button" class="icon move-up" title="[% l('Move entity up') %]" data-click="moveEntityUp"></button>
+            <!-- /ko -->
             <span data-bind="html: target($parents[1]).html({ target: '_blank' }), relationshipStyling: true"></span>
             <!-- ko with: phraseAndExtraAttributes($parents[2])[1] -->
               (<!-- ko text: $data --><!-- /ko -->)
@@ -51,7 +60,7 @@
     MB.relationshipEditor.exportTypeInfo([% type_info %], [% attr_info %]);
 
     var sourceData = [% source_entity %];
-    sourceData.gid = sourceData.gid || _.uniqueId("tmp-");
+    MB.sourceEntityGID = sourceData.gid = sourceData.gid || _.uniqueId("tmp-");
 
     var vm = MB.relationshipEditor.GenericEntityViewModel({
       sourceData: sourceData,

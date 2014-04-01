@@ -20,6 +20,7 @@ use Sub::Exporter -setup => {
                       build_grouped_options
                       build_type_info
                       build_attr_info
+                      build_options_tree
               )]
 };
 
@@ -121,12 +122,12 @@ sub select_options_tree
 
     return [
         map {
-            _build_options_tree($_, 'l_name', '')
+            build_options_tree($_, 'l_name', '')
         } $root_option->all_children
     ];
 }
 
-sub _build_options_tree
+sub build_options_tree
 {
     my ($root, $attr, $indent) = @_;
 
@@ -140,7 +141,7 @@ sub _build_options_tree
     $indent .= '&#xa0;&#xa0;&#xa0;';
 
     foreach my $child ($root->all_children) {
-        push @options, _build_options_tree($child, $attr, $indent);
+        push @options, build_options_tree($child, $attr, $indent);
     }
     return @options;
 }
@@ -176,16 +177,17 @@ sub build_type_info {
         } $root->all_attributes;
 
         my $result = {
-            id              => $root->id,
-            gid             => $root->gid,
-            phrase          => $root->l_link_phrase,
-            reversePhrase   => $root->l_reverse_link_phrase,
-            deprecated      => $root->is_deprecated ? \1 : \0,
-            hasDates        => $root->has_dates ? \1 : \0,
-            type0           => $root->entity0_type,
-            type1           => $root->entity1_type,
-            cardinality0    => $root->entity0_cardinality,
-            cardinality1    => $root->entity1_cardinality,
+            id                  => $root->id,
+            gid                 => $root->gid,
+            phrase              => $root->l_link_phrase,
+            reversePhrase       => $root->l_reverse_link_phrase,
+            deprecated          => $root->is_deprecated ? \1 : \0,
+            hasDates            => $root->has_dates ? \1 : \0,
+            type0               => $root->entity0_type,
+            type1               => $root->entity1_type,
+            cardinality0        => $root->entity0_cardinality,
+            cardinality1        => $root->entity1_cardinality,
+            orderableDirection  => $root->orderable_direction,
         };
 
         $result->{description} = $root->l_description if $root->description;
@@ -209,10 +211,11 @@ sub build_attr_info {
 
     sub build_attr {
         my $attr = {
-            id      => $_->id,
-            root_id => $_->root_id,
-            name    => $_->name,
-            l_name  => $_->l_name,
+            id          => $_->id,
+            root_id     => $_->root_id,
+            name        => $_->name,
+            l_name      => $_->l_name,
+            freeText    => $_->free_text ? \1 : \0,
         };
 
         $attr->{description} = $_->l_description if $_->description;

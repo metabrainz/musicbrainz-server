@@ -29,7 +29,9 @@ sub _columns
             entity_type0 AS entity0_type, entity_type1 AS entity1_type,
             reverse_link_phrase, description, priority,
             child_order, long_link_phrase, is_deprecated, has_dates,
-            entity0_cardinality, entity1_cardinality';
+            entity0_cardinality, entity1_cardinality,
+            COALESCE((SELECT direction FROM orderable_link_type
+                      WHERE link_type = id), 0) AS orderable_direction';
 }
 
 sub _entity_class
