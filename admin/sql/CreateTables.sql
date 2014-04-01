@@ -1166,7 +1166,7 @@ CREATE TABLE label_type (
     id                  SERIAL,
     name                VARCHAR(255) NOT NULL,
     parent              INTEGER, -- references label_type.id
-    child_order         INTEGER NOT NULL DEFAULT 0,,
+    child_order         INTEGER NOT NULL DEFAULT 0,
     description         TEXT
 );
 
@@ -1441,7 +1441,7 @@ CREATE TABLE place_alias_type (
     id SERIAL,
     name TEXT NOT NULL,
     parent              INTEGER, -- references place_alias_type.id
-    child_order         INTEGER NOT NULL DEFAULT 0,,
+    child_order         INTEGER NOT NULL DEFAULT 0,
     description         TEXT
 );
 
