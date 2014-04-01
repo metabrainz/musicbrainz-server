@@ -17,12 +17,12 @@ has 'child_order' => (
 
 has 'parent_id' => (
     is => 'rw',
-    isa => 'Int',
+    isa => 'Maybe[Int]',
 );
 
 has 'parent' => (
     is => 'rw',
-    isa => 'WorkType',
+    isa => 'Maybe[WorkType]',
 );
 
 has 'children' => (
@@ -40,7 +40,7 @@ has 'children' => (
 
 has 'description' => (
     is => 'rw',
-    isa => 'Str',
+    isa => 'Maybe[Str]',
 );
 
 sub l_name {

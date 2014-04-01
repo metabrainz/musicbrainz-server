@@ -15,7 +15,7 @@ sub get_tree
         my $row = $_;
 
         $row->{id} => $self->_entity_class->new(
-            map { $_ => $row->{$mapping->{$_}} } @attrs
+            map { $_ => $row->{$mapping->{$_} // $_} } (@attrs ? @attrs : keys %$row)
         )
     } @{
         $self->sql->select_list_of_hashes(
