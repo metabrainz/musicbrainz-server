@@ -262,7 +262,7 @@
 [%- MACRO isrc_bubble(recording) BLOCK -%]
     <div class="bubble" id="isrcs-bubble">
       <p>[% l('You are about to add an ISRC to this recording. The ISRC must be entered in
-               standard <code>CCXXXYYNNNNNN</code> format:') %]</p>
+               standard <code>CCXXXYYNNNNN</code> format:') %]</p>
       <ul>
         <li>[% l('"CC" is the appropriate for the registrant two-character country code.') %]</li>
         <li>[% l('"XXX" is a three character alphanumeric registrant code, uniquely identifying the organisation which registered the code.') %]</li>
