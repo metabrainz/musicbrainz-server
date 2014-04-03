@@ -47,10 +47,12 @@ method alter_edit_pending
 sub initialize {
     my ($self, %opts) = @_;
 
+    my $release_name = delete $opts{release_name} // "";
+
     if ($self->preview)
     {
        $self->entity_id(0);
-       $opts{release} = { id => 0, name => delete $opts{release_name} // "" };
+       $opts{release} = { id => 0, name => $release_name };
     }
     else {
         my $release = $opts{release} or die 'Missing "release" argument';
