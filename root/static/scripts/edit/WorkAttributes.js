@@ -43,11 +43,9 @@ WA.WorkAttribute = function (data) {
         }
         else {
             var root = {
-                children: [
-                    _.find(allowedValues.children, function (value) {
-                        return value.workAttributeTypeID == typeID;
-                    })
-                ]
+                children: _.filter(allowedValues.children, function (value) {
+                    return value.workAttributeTypeID == typeID;
+                })
             };
 
             return MB.forms.buildOptionsTree(root, "value", "id");
