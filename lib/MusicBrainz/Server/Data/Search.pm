@@ -90,14 +90,9 @@ sub search
     if ($type eq "artist") {
 
         my $where_deleted = "WHERE entity.id != ?";
-        if ($type eq "artist") {
-            $deleted_entity = $DARTIST_ID;
-        } else {
-            $where_deleted = "";
-        }
+        $deleted_entity = $DARTIST_ID;
 
-        my $extra_columns = '';
-        $extra_columns .= 'entity.gender, entity.area, entity.begin_area, entity.end_area,' if $type eq 'artist';
+        my $extra_columns = 'entity.gender, entity.area, entity.begin_area, entity.end_area,' if $type eq 'artist';
 
         $query = "
             SELECT
