@@ -24,8 +24,8 @@ sub grouped_attributes_by_type {
         MusicBrainz::Server::Entity::WorkAttribute->new(
             type_id => $_->{attribute_type_id},
             type => $attribute_types->{$_->{attribute_type_id}},
-            value => $_->{attribute_text} // $attribute_values->{$_->{value_id}}->value,
-            value_id => $_->{value_id}
+            value => $_->{attribute_text} // $attribute_values->{$_->{attribute_value_id}}->value,
+            value_id => $_->{attribute_value_id}
         )
     } @$attributes;
 }
