@@ -44,8 +44,6 @@ with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'label' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::Area';
 
-sub browse_column { 'name' }
-
 sub _table
 {
     my $self = shift;

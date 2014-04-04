@@ -48,8 +48,6 @@ sub _columns
            'iso_3166_3s.codes AS iso_3166_3';
 }
 
-sub browse_column { 'name' }
-
 sub _id_column
 {
     return 'area.id';
