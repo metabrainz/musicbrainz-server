@@ -95,7 +95,7 @@ sub find_new_releases {
 
     my $past_threshold = DateTime::Duration->new( weeks => 1 );
 
-    my $query = 
+    my $query =
         'SELECT DISTINCT ' . $self->c->model('Release')->_columns . '
            FROM ' . $self->c->model('Release')->_table . "
            JOIN release_group rg ON release_group = rg.id
@@ -123,7 +123,7 @@ sub find_new_releases {
 
 sub find_editors_to_notify {
     my ($self) = @_;
-    my $query = 
+    my $query =
         'SELECT DISTINCT editor.* FROM editor
            JOIN editor_watch_artist ewa ON ewa.editor = editor.id
            JOIN editor_watch_preferences ewp ON ewp.editor = ewa.editor

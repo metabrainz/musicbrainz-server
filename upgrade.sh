@@ -53,6 +53,9 @@ fi
 echo `date` : 'Adding has_dates flag to reltypes'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140310-dates.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
+echo `date` : 'DROP TABLE script_language;'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140208-drop-script_language.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 ################################################################################
 # Re-enable replication
 

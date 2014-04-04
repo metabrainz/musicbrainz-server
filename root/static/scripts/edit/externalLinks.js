@@ -69,6 +69,9 @@
                 if (typeInfo.deprecated == 1) {
                     this.cleanup.error(MB.text.RelationshipTypeDeprecated);
                 }
+                else if (this.cleanup.error() === MB.text.RelationshipTypeDeprecated) {
+                    this.cleanup.error("");
+                }
             }
             else {
                 this.label("");
@@ -108,11 +111,13 @@
                 this.linkTypeID(this.original.link_type);
                 this.entity0ID(this.original.entity0);
                 this.entity1ID(this.original.entity1);
-                this.error("");
             }
             else {
                 this.viewModel.links.remove(this);
             }
+
+            // Clear errors so the form can be submitted (MBS-7340).
+            this.error("");
 
             var linkToFocus = linksArray[index + 1] || linksArray[index - 1];
 

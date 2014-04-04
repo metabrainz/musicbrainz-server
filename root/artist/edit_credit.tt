@@ -14,7 +14,7 @@
        <p>
          [% l('This form allows you to edit the artist credit "{ac}".
                When the edit is accepted, all tracks, recordings, releases and release groups
-			   using this artist credit will be update to use the new one.',
+               using this artist credit will be update to use the new one.',
                { ac => artist_credit(ac) } ) %]
        </p>
        <fieldset>

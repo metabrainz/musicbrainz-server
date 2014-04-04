@@ -491,7 +491,9 @@
             )
             .extend({ withError: true });
 
-            this.mediums.originalIDs = _.pluck(this.mediums(), "id");
+            this.mediums.original = _.map(this.mediums(), function (medium) {
+                return { id: medium.id, position: medium.position() };
+            });
 
             this.original = ko.observable(MB.edit.fields.release(this));
 
@@ -533,6 +535,16 @@
         hasOneEmptyMedium: function () {
             var mediums = this.mediums();
             return mediums.length === 1 && !mediums[0].hasTracks();
+        },
+
+        tracksWithUnsetPreviousRecordings: function () {
+            return _.transform(this.mediums(), function (result, medium) {
+                _.each(medium.tracks(), function (track) {
+                    if (track.recording.saved && track.needsRecording()) {
+                        result.push(track);
+                    }
+                });
+            });
         }
     });
 

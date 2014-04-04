@@ -14,7 +14,7 @@ sub l_name {
     my $self = shift;
     return lp($self->name, 'release_group_secondary_type')
 }
- 
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

@@ -16,7 +16,19 @@
     <script type="text/javascript" charset="utf-8" src="../../lib/knockout/knockout-postbox.js"></script>
     <script type="text/javascript" charset="utf-8" src="../../lib/aclass/aclass.js"></script>
     <script type="text/javascript" charset="utf-8" src="../common/MB.js"></script>
-    <script type="text/javascript" charset="utf-8" src="../../../scripts/en/1/text.js"></script>
+    <script>
+      (function () {
+        var script = document.createElement("script");
+
+        script.setAttribute("type", "text/javascript");
+        script.setAttribute("charset", "utf-8");
+
+        script.src = /PhantomJS/.test(window.navigator.userAgent) ?
+            "../../tests/text.js" : "../../../scripts/en/1/text.js";
+
+        document.head.appendChild(script);
+      }());
+    </script>
     <script type="text/javascript" charset="utf-8" src="../common/MB/i18n.js"></script>
     <script type="text/javascript" charset="utf-8" src="../common/MB/utility.js"></script>
     <script type="text/javascript" charset="utf-8" src="../common/entity.js"></script>
@@ -27,7 +39,6 @@
 
     <!-- ArtistCredit -->
     <script type="text/javascript" charset="utf-8" src="../edit/MB/Control/ArtistCredit.js"></script>
-
 
     <!-- URL Cleanup -->
     <script type="text/javascript" charset="utf-8" src="../edit/MB/Control/URLCleanup.js"></script>

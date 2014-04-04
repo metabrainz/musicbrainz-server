@@ -1,5 +1,5 @@
 POTFILES=$(sort $(shell find ../lib -type f -name \*.pm)) \
-         $(sort $(shell find ../lib -type f -name \*.pl)) 
+         $(sort $(shell find ../lib -type f -name \*.pl))
 
 TT=$(sort $(shell find ../root -path ../root/statistics -prune -o -type f -name \*.tt -print))
 STATTT=$(sort $(shell find ../root/statistics -type f -name \*.tt -print))
@@ -31,15 +31,15 @@ install: $(MOFILES)
 pot: mb_server.pot statistics.pot languages.pot languages_notrim.pot scripts.pot relationships.pot attributes.pot instruments.pot instrument_descriptions.pot
 
 mb_server.pot: $(POTFILES) $(TT) $(wildcard extract_pot_templates)
-	@echo "Rebuilding the mb_server.pot file"; 
-	@echo "- Update templates .pot"; 
+	@echo "Rebuilding the mb_server.pot file";
+	@echo "- Update templates .pot";
 	@find ../root -path ../root/statistics -prune -o -type f -name \*.tt -print | sort | ./extract_pot_templates | msguniq -s > mb_server.pot;
 	@echo "- Update code .pot"
 	@xgettext --from-code utf-8 --keyword=__ --keyword=l --keyword=lp:1,2c --keyword=N_lp:1,2c --keyword=N_l --keyword=ln:1,2 --keyword=N_ln:1,2 --keyword=__x --keyword=__nx:1,2 --keyword=__n:1,2 -Lperl -o mb_server.pot --add-comments=translators -j $(POTFILES)
 
 statistics.pot: $(STATTT) $(wildcard extract_pot_db) $(wildcard extract_pot_templates)
 	@echo "Rebuilding the statistics.pot file";
-	@echo "- Update templates .pot"; 
+	@echo "- Update templates .pot";
 	@find ../root/statistics -type f -name \*.tt -print | sort | ./extract_pot_templates | msguniq -s > statistics_tmpl.pot;
 	@echo "- Update database .pot";
 	@./extract_pot_db statistics | msguniq -s > statistics_db.pot

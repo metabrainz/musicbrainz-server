@@ -3,7 +3,7 @@
 [% IF name == 'null' %][% default %][% ELSE %][% l(name) %][% END %]
 [%- END -%]
 
-[% WRAPPER 'statistics/layout.tt' title=l('Cover Art') full_width=1 page='coverart' %] 
+[% WRAPPER 'statistics/layout.tt' title=l('Cover Art') full_width=1 page='coverart' %]
 
 [% USE format %]
 [% round1 = format('%.1f') %]

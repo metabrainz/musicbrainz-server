@@ -2,7 +2,7 @@
     [% WRAPPER "user/profile/layout.tt" title=l('Delete User') page='delete' %]
     <h2>[% l('Delete Account') %]</h2>
     <p>[% l('Are you sure you want to delete all information about {e}? This cannot be undone!',
-	{ e => link_editor(user) }) %]</p>
+        { e => link_editor(user) }) %]</p>
     <form action="[% c.req.uri %]" method="post">
       <span class="buttons">
         <button class="negative" type="submit">[% l('Delete {e}', { e => user.name } ) %]</button>
@@ -14,7 +14,7 @@
     <h1>[% l('Delete Account') %]</h1>
 
     <p>[% l('For information about the account deletion process, please read the {uri|account FAQ}.',
-	   { uri => 'http://wiki.musicbrainz.org/Account_FAQ#How_do_I_delete_my_account.3F' }) %]
+           { uri => 'http://wiki.musicbrainz.org/Account_FAQ#How_do_I_delete_my_account.3F' }) %]
     </p>
 
     <p>[% l('Are you sure you want to delete your account? This cannot be undone!')%]</p>

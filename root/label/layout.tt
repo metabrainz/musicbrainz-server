@@ -1,10 +1,10 @@
-[%- WRAPPER "layout.tt" usesRDFa=1 title=title ? label.name _ " - ${title}" : label.name -%]
+[%- WRAPPER "layout.tt" title=title ? label.name _ " - ${title}" : label.name -%]
   [%- IF !full_width -%]
     [% WRAPPER 'layout/sidebar.tt' %]
         <h2 class="label-information">[% l('Label information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Sort name:')
-               content=rdfa_sort_name(label.sort_name) class="sort-name"
+               content=html_escape(label.sort_name) class="sort-name"
                    IF label.name != label.sort_name -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
                content=html_escape(label.l_type_name) class="type"
@@ -33,11 +33,11 @@
             [%- END -%]
             [%- FOR ipi_code IN label.ipi_codes -%]
               [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
-                 content=rdfa_label_ipi(ipi_code) class="ipi-code" %]
+                 content=html_escape(ipi_code.ipi) class="ipi-code" %]
             [%- END -%]
             [%- FOR isni_code IN label.isni_codes -%]
               [% INCLUDE 'layout/sidebar/property.tt' label=l('ISNI code:')
-                 content=rdfa_label_isni(isni_code) class="isni-code" %]
+                 content=link_isni(isni_code.isni) class="isni-code" %]
             [%- END -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Label code:')
                content=html_escape(label.format_label_code) class="label-code"

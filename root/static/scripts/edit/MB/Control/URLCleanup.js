@@ -81,7 +81,8 @@ MB.constants.LINK_TYPES = {
     image: {
         artist: 173,
         label: 213,
-        place: 396
+        place: 396,
+        work: 274 // This is the "score" type, which is here because of Wikipedia Commons URLs
     },
     discographyentry: {
         release: 288
@@ -349,10 +350,6 @@ MB.constants.CLEANUPS = {
         match: new RegExp("^(https?://)?(www\\.)?bbc\\.co\\.uk/music/artists/", "i"),
         type: MB.constants.LINK_TYPES.bbcmusic
     },
-    discography: {
-        match: new RegExp("^(https?://)?(www\\.)?metal-archives\\.com/band\\.php", "i"),
-        type: MB.constants.LINK_TYPES.discography
-    },
     image: {
         match: new RegExp("^(https?://)?(commons\\.wikimedia\\.org|upload\\.wikimedia\\.org/wikipedia/commons/)","i"),
         type: MB.constants.LINK_TYPES.image,
@@ -371,11 +368,11 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.mailorder
     },
     review: {
-        match: new RegExp("^(https?://)?(www\\.)?(bbc\\.co\\.uk/music/reviews/|metal-archives\\.com/review\\.php)", "i"),
+        match: new RegExp("^(https?://)?(www\\.)?(bbc\\.co\\.uk/music/reviews/|metal-archives\\.com/reviews/)", "i"),
         type: MB.constants.LINK_TYPES.review
     },
     score: {
-        match: new RegExp("^(https?://)?(www\\.)?(imslp\\.org/|neyzen\\.com)", "i"),
+        match: new RegExp("^(https?://)?((www\\.)?(imslp\\.org/|neyzen\\.com)|commons\\.wikimedia\\.org|www3?\\.cpdl\\.org)", "i"),
         type: MB.constants.LINK_TYPES.score
     },
     secondhandsongs: {
@@ -387,23 +384,22 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.songfacts
     },
     socialnetwork: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?(facebook\\.com|last\\.fm|lastfm\\.(at|br|de|es|fr|it|jp|pl|pt|ru|se|com\\.tr)|reverbnation\\.com|plus\\.google\\.com|vk\\.com|twitter\\.com)/", "i"),
+        match: new RegExp("^(https?://)?([^/]+\\.)?(facebook\\.com|(last\\.fm|lastfm\\.(at|br|de|es|fr|it|jp|pl|pt|ru|se|com\\.tr))/(music|label|venue|user|group)|reverbnation\\.com|plus\\.google\\.com|vk\\.com|twitter\\.com|instagram\\.com)/", "i"),
         type: MB.constants.LINK_TYPES.socialnetwork,
         clean: function(url) {
             url = url.replace(/^(https?:\/\/)?([^\/]+\.)?facebook\.com(\/#!)?/, "https://www.facebook.com");
-            if (url.match (/^https:\/\/www\.facebook\.com.*$/))
-            {
-                  // Remove ref (where the user came from) and sk (subpages in a page, since we want the main link)
-                  url = url.replace(/([&?])(sk|ref|fref)=([^?&]*)/, "$1");
-                  // Ensure the first parameter left uses ? not to break the URL
-                  url = url.replace(/([&?])&/, "$1");
-                  url = url.replace(/[&?]$/, "");
-                  // Remove trailing slashes
-                  if (url.match(/\?/)) {
-                      url = url.replace(/\/\?/, "?");
-                  } else {
-                      url = url.replace(/\/$/, "");
-                  }
+            if (url.match(/^https:\/\/www\.facebook\.com.*$/)) {
+                // Remove ref (where the user came from) and sk (subpages in a page, since we want the main link)
+                url = url.replace(/([&?])(sk|ref|fref)=([^?&]*)/, "$1");
+                // Ensure the first parameter left uses ? not to break the URL
+                url = url.replace(/([&?])&/, "$1");
+                url = url.replace(/[&?]$/, "");
+                // Remove trailing slashes
+                if (url.match(/\?/)) {
+                    url = url.replace(/\/\?/, "?");
+                } else {
+                    url = url.replace(/(facebook\.com\/.*)\/$/, "$1");
+                }
             }
             url = url.replace(/^(https?:\/\/)?((www|cn|m)\.)?(last\.fm|lastfm\.(at|br|de|es|fr|it|jp|pl|pt|ru|se|com\.tr))/, "http://www.last.fm");
             url = url.replace(/^http:\/\/www\.last\.fm\/music\/([^?]+).*/, "http://www.last.fm/music/$1");
@@ -420,7 +416,7 @@ MB.constants.CLEANUPS = {
         }
     },
     blog: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?(ameblo\\.jp|blog\\.livedoor\\.jp|([^./]+)\\.jugem\\.jp|([^./]+)\\.exblog\\.jp)", "i"),
+        match: new RegExp("^(https?://)?([^/]+\\.)?(ameblo\\.jp|blog\\.livedoor\\.jp|([^./]+)\\.jugem\\.jp|([^./]+)\\.exblog\\.jp|([^./]+)\\.tumblr\\.com)", "i"),
         type: MB.constants.LINK_TYPES.blog,
         clean: function(url) {
             url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ameblo\.jp\/([^\/]+).*$/, "http://ameblo.jp/$1/");
@@ -491,7 +487,7 @@ MB.constants.CLEANUPS = {
         }
     },
     otherdatabases: {
-        match: new RegExp("^(https?://)?(www\\.)?(rateyourmusic\\.com/|worldcat\\.org/|musicmoz\\.org/|45cat\\.com/|musik-sammler\\.de/|discografia\\.dds\\.it/|tallinn\\.ester\\.ee/|tartu\\.ester\\.ee/|encyclopedisque\\.fr/|discosdobrasil\\.com\\.br/|isrc\\.ncl\\.edu\\.tw/|rolldabeats\\.com/|psydb\\.net/|metal-archives\\.com/|spirit-of-metal\\.com/|ibdb\\.com/|lortel.\\org/|theatricalia\\.com/|ocremix\\.org/|(trove\\.)?nla\\.gov\\.au/|rockensdanmarkskort\\.dk|(wiki\\.)?rockinchina\\.com|(www\\.)?dhhu\\.dk|thesession\\.org|openlibrary\\.org|animenewsnetwork\\.com|generasia\\.com|soundtrackcollector\\.com|rockipedia\\.no|whosampled\\.com)", "i"),
+        match: new RegExp("^(https?://)?(www\\.)?(rateyourmusic\\.com/|worldcat\\.org/|musicmoz\\.org/|45cat\\.com/|musik-sammler\\.de/|discografia\\.dds\\.it/|tallinn\\.ester\\.ee/|tartu\\.ester\\.ee/|encyclopedisque\\.fr/|discosdobrasil\\.com\\.br/|isrc\\.ncl\\.edu\\.tw/|rolldabeats\\.com/|psydb\\.net/|metal-archives\\.com/(bands?|albums|artists|labels)|spirit-of-metal\\.com/|ibdb\\.com/|lortel.\\org/|theatricalia\\.com/|ocremix\\.org/|(trove\\.)?nla\\.gov\\.au/|rockensdanmarkskort\\.dk|(wiki\\.)?rockinchina\\.com|(www\\.)?dhhu\\.dk|thesession\\.org|openlibrary\\.org|animenewsnetwork\\.com|generasia\\.com/wiki/|soundtrackcollector\\.com|rockipedia\\.no|whosampled\\.com)", "i"),
         type: MB.constants.LINK_TYPES.otherdatabases,
         clean: function(url) {
             //Removing cruft from Worldcat URLs
@@ -813,8 +809,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorObse
 
     var linkTypeErrors = [
         MB.text.SelectURLType,
-        MB.text.URLNotAllowed,
-        MB.text.RelationshipTypeDeprecated
+        MB.text.URLNotAllowed
     ];
 
 

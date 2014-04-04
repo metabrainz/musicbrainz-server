@@ -232,6 +232,8 @@ sub create : Local Edit
     my $source = $source_model->get_by_gid($source_gid);
     my $dest   = $dest_model->get_by_gid($dest_gid);
 
+    $c->model('ArtistCredit')->load($source, $dest);
+
     if ($type0 eq $type1 && $source->id == $dest->id) {
         $c->stash( message => l('A relationship requires 2 different entities') );
         $c->detach('/error_500');
@@ -403,8 +405,9 @@ sub create_url : Local Edit
             ) or $self->detach_existing($c);
         });
 
-        my $redirect = $c->controller(type_to_model($type))->action_for('show');
-        $c->response->redirect($c->uri_for_action($redirect, [ $gid ]));
+        my $redirect = $c->req->params->{returnto} ||
+          $c->uri_for_action($c->controller(type_to_model($type))->action_for('show'), [ $gid ]);
+        $c->response->redirect($redirect);
         $c->detach;
     }
 }

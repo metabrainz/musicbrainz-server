@@ -377,7 +377,7 @@
             <!-- ko text: label() || (isOnlyLink() ? "[% l('Add link:') | html %]" : "[% l('Add another link:') | html %]") --><!-- /ko -->
           </label>
         <!-- /ko -->
-        <select data-bind="value: linkTypeID, visible: showTypeSelection()">
+        <select name="external_link_types" data-bind="value: linkTypeID, visible: showTypeSelection()">
           <option value="" selected="selected"> </option>
           [%- url_link_type_options = form.options_url_link_type_id || url_type_opts -%]
           [% FOR option IN url_link_type_options %]

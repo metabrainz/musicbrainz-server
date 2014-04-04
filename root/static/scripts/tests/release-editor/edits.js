@@ -570,7 +570,10 @@ test("mediumEdit and releaseReorderMediums edits are generated for non-loaded me
         "hash": "bee90ecf182e5b8f1a80b4393f2ded17c2d0109c",
         "name": "foo!",
         "to_edit": 123
-      },
+      }
+    ]);
+
+    deepEqual(releaseEditor.edits.mediumReorder(this.release), [
       {
         "edit_type": 313,
         "hash": "5c1f4183faf7eb84312bb90c2680309df25d4dc0",
@@ -584,6 +587,89 @@ test("mediumEdit and releaseReorderMediums edits are generated for non-loaded me
             "medium_id": 123,
             "new": 2,
             "old": 1
+          }
+        ],
+        "release": 123
+      }
+    ]);
+});
+
+
+test("mediumCreate edits are not given conflicting positions", function () {
+    this.release = releaseEditor.fields.Release({
+        id: 123,
+        mediums: [
+            { id: 123, position: 1 },
+            { id: 456, position: 3 },
+        ]
+    });
+
+    releaseEditor.rootField.release(this.release);
+
+    var mediums = this.release.mediums;
+    var medium1 = mediums()[0];
+    var medium3 = mediums()[1];
+
+    medium1.position(4);
+
+    var newMedium1 = releaseEditor.fields.Medium({
+        name: "foo",
+        position: 1
+    });
+
+    newMedium1.tracks.push(releaseEditor.fields.Track({}, newMedium1));
+
+    var newMedium2 = releaseEditor.fields.Medium({
+        name: "bar",
+        position: 2
+    });
+
+    newMedium2.tracks.push(releaseEditor.fields.Track({}, newMedium2));
+    mediums.push(newMedium1, newMedium2);
+
+    var mediumCreateEdits = _.map(
+        releaseEditor.edits.medium(this.release),
+        function (edit) {
+            // Don't care about this.
+            return _.omit(edit, "tracklist");
+        }
+    );
+
+    deepEqual(mediumCreateEdits, [
+      {
+        "edit_type": MB.edit.TYPES.EDIT_MEDIUM_CREATE,
+        "position": 4,
+        "name": "foo",
+        "release": 123,
+        "hash": "ae05a97cafc6bd4225f68ea3b3e7036aa8a1f72a"
+      },
+      {
+        "edit_type": MB.edit.TYPES.EDIT_MEDIUM_CREATE,
+        "position": 2,
+        "name": "bar",
+        "release": 123,
+        "hash": "1cd9c151add14012cf561751104823ca2f41f678"
+      }
+    ]);
+
+    newMedium1.id = 789;
+    newMedium2.id = 101112;
+    mediums.notifySubscribers(mediums());
+
+    deepEqual(releaseEditor.edits.mediumReorder(this.release), [
+      {
+        "edit_type": MB.edit.TYPES.EDIT_RELEASE_REORDER_MEDIUMS,
+        "hash": "d9a01c77f228a3ae4199a549ba1778c2b36b4a07",
+        "medium_positions": [
+          {
+            "medium_id": 123,
+            "new": 4,
+            "old": 1
+          },
+          {
+            "medium_id": 789,
+            "new": 1,
+            "old": 4
           }
         ],
         "release": 123

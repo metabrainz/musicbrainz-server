@@ -126,7 +126,6 @@ DROP TRIGGER reptg_release_group_secondary_type ON release_group_secondary_type;
 DROP TRIGGER reptg_release_group_secondary_type_join ON release_group_secondary_type_join;
 DROP TRIGGER reptg_replication_control ON replication_control;
 DROP TRIGGER reptg_script ON script;
-DROP TRIGGER reptg_script_language ON script_language;
 DROP TRIGGER reptg_tag ON tag;
 DROP TRIGGER reptg_track ON track;
 DROP TRIGGER reptg_track_gid_redirect ON track_gid_redirect;

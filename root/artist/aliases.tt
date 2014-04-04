@@ -34,7 +34,7 @@
                     [% IF c.user_exists %]
                     <td>
                         <a href="[% c.uri_for_action("artist/edit_credit", [ entity.gid, ac.id ]) %]">
-						[%- l('Edit') -%]
+                        [%- l('Edit') -%]
                         </a>
                     </td>
                     [% END %]

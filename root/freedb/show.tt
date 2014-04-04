@@ -85,7 +85,6 @@
 [% IF c.user_exists %]
   <form action="[% c.uri_for('/release/add') %]" method="post">
     <input type="hidden" name="name" value="[% entity.title %]" />
-    <input type="hidden" name="artist" value="[% entity.title %]" />
     <input type="hidden" name="mediums.0.format" value="CD" />
     <input type="hidden" name="artist_credit.names.0.name" value="[% entity.artist %]" />
 

@@ -15,9 +15,9 @@ test "/search portal" => sub {
     html_ok($mech->content);
 
     my $tx = test_xpath_html ($mech->content);
-    $tx->ok(selector_to_xpath('.searchform form', prefix => "html"),
+    $tx->ok(selector_to_xpath('.searchform form'),
             sub {
-                $_->not_ok(selector_to_xpath('.error', prefix => "html"),
+                $_->not_ok(selector_to_xpath('.error'),
                            'should not have any field errors')
             }, 'should have search form');
 };
