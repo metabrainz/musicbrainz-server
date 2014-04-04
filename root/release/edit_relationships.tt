@@ -265,7 +265,7 @@
         </td>
       </tr>
       <!-- /ko -->
-      <!-- ko if: MB.RelationshipEditor.Util.typeInfo(relationship().link_type()).has_dates -->
+      <!-- ko if: relationship().hasDates() -->
           <!-- ko with: relationship().period -->
           <tr>
             <td class="section">[% l('Begin date:') %]</td>
@@ -342,7 +342,7 @@
         <span class="remove-button">&#215;</span>
         <!-- ko template: {name: 'template.link.phrase', data: $data} --><!-- /ko -->:
         <span class="entity" data-bind="html: target($parents[0]).html({ 'target': '_blank' }), css: {'rel-edit': edits_pending}"></span>
-        <!-- ko if: dateRendering -->
+        <!-- ko if: hasDates() && dateRendering() -->
           (<!-- ko text: dateRendering --><!-- /ko -->)
         <!-- /ko -->
       </div>

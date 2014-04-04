@@ -146,7 +146,7 @@ ko.bindingHandlers.targetType = (function() {
     function change() {
         var ac = dialog.autocomplete,
             relationship = dialog.relationship(),
-            obj = relationship.toJSON();
+            obj = relationship.toJSON(true);
 
         obj.entity[dialog.target.gid === obj.entity[0].gid ? 0 : 1] = (
             MB.entity({ type: this.value, name: dialog.target.name })
