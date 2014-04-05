@@ -1,13 +1,6 @@
-[%- PROCESS "statistics/macros-header.tt" -%]
-[% USE date %]
-[%- MACRO graph_line(statistic) BLOCK -%]
-{label: MB.text.Timeline.Stat("[%- statistic -%]").Label,
- color: MB.text.Timeline.Stat("[%- statistic -%]").Color,
- category: MB.text.Timeline.Stat("[%- statistic -%]").Category
-},
-[% END %]
+[%~ PROCESS "statistics/macros-header.tt" ~%]
 
-[% BLOCK layout_head %]
+[%~ BLOCK layout_head ~%]
   <style type="text/css">
       h2#graph-toggle-header {
           margin-bottom: -10px;
@@ -30,19 +23,20 @@
           background: url('../../static/images/icons/loading.gif') no-repeat;
       }
   </style>
-[% END %]
+[%~ END ~%]
 
-[%- sidebar = BLOCK -%]
+[%~ sidebar = BLOCK ~%]
     <h2 id="graph-toggle-header">[% l('Legend') %]</h2>
         <div id="graph-lines">
         <h2>
-            <input type="checkbox" id="disable-events-checkbox" checked="checked" />
+            <input type="checkbox" id="disable-events-checkbox" data-bind="checked: options.events" />
             <label for="disable-events-checkbox">[% l('MusicBrainz Events') %]</label>
         </h2>
         <h2 class="collapse-top-margin">
-            <input type="checkbox" id="show-rate-graph" checked="checked" />
+            <input type="checkbox" id="show-rate-graph" data-bind="checked: options.rate" />
             <label for="show-rate-graph">[% l('Rate of Change Graph') %]</label>
         </h2>
+        <!-- ko template: {name: 'template.category', foreach: categories } --><!-- /ko -->
         </div>
     <h2>[% l('Controls') %]</h2><div id="graph-controls">
         <table class="timeline-controls">
@@ -51,16 +45,30 @@
             <tr><th>[% l('Add/remove lines:') %]</th><td>[% l('Check boxes above') %]</td></tr>
             <tr><th>[% l('MusicBrainz Events:') %]</th><td>[% l('Hover and click on vertical lines') %]</td></tr>
         </table>
-        <div id="overview"></div>
+        <div id="overview" data-bind="flot: 'overview'"></div>
     </div>
-[%- END -%]
+[%~ END ~%]
 
-[%- WRAPPER "statistics/layout.tt" title=l("Timeline Graph") sidebar=sidebar page='timeline' -%]
+[%~ WRAPPER "statistics/layout.tt" title=l("Timeline Graph") sidebar=sidebar page='timeline' ~%]
 <h2>[% l('Exact Values (items vs. day)') %]</h2>
-<div id="graph-container"></div>
-<h2>[% l('Rate of Change (average items/day vs. day)') %]</h2>
-<div id="rate-of-change-graph"></div>
-[%- PROCESS "statistics/macros-footer.tt" -%]
+<div id="graph-container" data-bind="flot: 'main'"></div>
+<h2 data-bind="visible: options.rate">[% l('Rate of Change (average items/day vs. day)') %]</h2>
+<div data-bind="flot: 'rate'" id="rate-of-change-graph"></div>
+
+<script type="text/html" id="template.category">
+    <h2 class="toggler">
+        <input type="checkbox" data-bind="checked: enabled, attr: {id: 'category-checker-' + name}">
+        <label data-bind="text: label, attr: {for: 'category-checker-' + name}"></label>
+    </h2>
+    <div class="graph-category" data-bind="visible: enabled, foreach: lines, attr: {id: 'category-' + name }">
+        <div class="graph-control" data-bind="css: { loading: loading }, attr: {id: 'graph-control-' + name}">
+            <input type="checkbox" data-bind="checked: enabled, disable: loading, attr: {id: 'graph-control-checker' + name }" />
+            <div class="graph-color-swatch" data-bind="style: { backgroundColor: color }"></div>
+            <span data-bind="text: label"></span>
+        </div> 
+    </div>
+</script>
+[%~ PROCESS "statistics/macros-footer.tt" ~%]
 
 <script type="text/javascript" src="
     [%- lang_hash = current_language;
@@ -71,31 +79,15 @@
             c.model('FileCache').template_signature('statistics/view_js.tt'),
             'statistics/view.js') -%]"></script>
 
-[% script_manifest('statistics.js.manifest') %]
+[%~ script_manifest('statistics.js.manifest') ~%]
 
-<script type="text/javascript">//<![CDATA[
-$(function () {
-  MB.Timeline.setupGraphing({[%- FOREACH dataset_key = stats -%]
-    "[%- dataset_key -%]": [%- graph_line(dataset_key) -%]
-    [%- END -%]},
-    { xaxis: { mode: "time",
-               timeformat: "%y/%0m/%0d",
-               minTickSize: [7, "day"]},
-      yaxis: { tickFormatter: function numberWithCommas(x) {
-                   return x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ",");
-               }},
-      selection: { mode: "xy" },
-      grid: { hoverable: true },
-      legend: { show: false }},
-    { legend: {show: false},
-      series: {lines: {lineWidth: 1}, shadowSize: 0},
-      xaxis: {mode: "time", minTickSize: [1, "year"]},
-      yaxis: {tickFormatter: function () { return '' }},
-      selection: {mode: "xy"}});
-  [% IF show_all %]
-  $('.toggler input:checkbox, .graph-control input:checkbox').prop('checked', true).change();
-  [% END %]
-});
-//]]></script>
+<script type="text/javascript">
+    MB.Timeline.TimelineViewModel.addLines([
+        [%~ FOREACH dataset_key = stats ~%]
+            "[%- dataset_key -%]"[%~ IF NOT loop.last() ~%],[%~ END ~%]
+        [%~ END ~%]
+    ]);
+    MB.Timeline.TimelineViewModel.setInitialHash();
+</script>
 
-[% END %]
+[%~ END ~%]

@@ -1,65 +1,286 @@
 MB.Timeline = {};
 
-$(function () {
-    var categoryIDPrefix = 'category-';
-    var controlIDPrefix = 'graph-control-';
-
-    var musicbrainzEventsOptions = {musicbrainzEvents: { currentEvent: {}, data: [], enabled: true}}
-    var graphOptions = {};
-    var overviewOptions = {};
-    var graphZoomOptions = {};
-
-    // Get MusicBrainz Events data
-    $.get('../../ws/js/events', function (data) {
-        musicbrainzEventsOptions.musicbrainzEvents.data = $.map(data, function (e) {
-            e.jsDate = Date.parse(e.date);
-            return e;
+MB.Timeline.TimelineViewModel = aclass({
+    init: function() {
+        var self = this;
+        self.categories = ko.observableArray([]);
+        self.enabledCategories = ko.computed(function () {
+            return _.filter(self.categories(),
+                function (category) { return category.enabled() });
         });
-        $(window).hashchange();
-    }, 'json');
-
-    // Called whenever plot is reset
-    function graphData () {
-        var alldata =  [];
-        var ratedata = [];
-        $("#graph-lines div input").filter(":checked").each(function () {
-            if ($(this).parents('div.graph-category').prev('.toggler').children('input:checkbox').prop('checked')) {
-                var datasetId = $(this).parent('div.graph-control').attr('id').substr(controlIDPrefix.length);
-                var $this_control = $(this).parents('div.graph-control');
-                if (!MB.Timeline.datasets[datasetId].data && !$this_control.hasClass('loading')) {
-                   $this_control.addClass('loading').find('input').prop('disabled', true);
-                   $.ajax({url: '../../statistics/dataset/' + datasetId,
-                       dataType: 'json',
-                       success: function (data) {
-                           MB.Timeline.datasets[datasetId].data = data;
-                           rateData(datasetId);
-                           $this_control.removeClass('loading').find('input').prop('disabled', false);
-                           $(window).hashchange();
-                   }});
-                } else if (MB.Timeline.datasets[datasetId].data) {
-                    alldata.push(MB.Timeline.datasets[datasetId]);
-                    ratedata.push(rateData(datasetId));
+        self.events = ko.observableArray([]).extend({ rateLimit: { method: "notifyWhenChangesStop", timeout: 50 } });
+        self.loadingEvents = ko.observable(false);
+        self.loadedEvents = ko.observable(false);
+        self.options = {
+            rate: ko.observable(false),
+            events: ko.observable(true)
+        };
+        // rateLimit so they'll all be updated before zoomHashPart is recalculated,
+        // and to ensure graph doesn't need repeated redrawing
+        self.zoom = {
+            xaxis: { min: ko.observable(null).extend({ rateLimit: { method: "notifyWhenChangesStop", timeout: 50 } }),
+                     max: ko.observable(null).extend({ rateLimit: { method: "notifyWhenChangesStop", timeout: 50 } }) },
+            yaxis: { min: ko.observable(null).extend({ rateLimit: { method: "notifyWhenChangesStop", timeout: 50 } }),
+                     max: ko.observable(null).extend({ rateLimit: { method: "notifyWhenChangesStop", timeout: 50 } }) }
+        };
+        self.zoomArray = ko.computed({
+            read: function () {
+                var parts = [self.zoom.xaxis.min(), self.zoom.xaxis.max()];
+                if (self.zoom.yaxis.min() || self.zoom.yaxis.max()) {
+                    parts.push(self.zoom.yaxis.min());
+                    parts.push(self.zoom.yaxis.max());
+                }
+                return parts;
+            },
+            write: function (array) {
+                self.zoom.xaxis.min(array[0]);
+                self.zoom.xaxis.max(array[1]);
+                if (array.length > 2) {
+                    self.zoom.yaxis.min(array[2]);
+                    self.zoom.yaxis.max(array[3]);
                 }
             }
         });
-        return [alldata, ratedata]
-    }
+        self.zoomHashPart = ko.computed({
+            read: function () {
+                var item_fix = function (item) { return (item !== null ? item : null) };
+                var parts = _.map(self.zoomArray(), item_fix);
+                if (_.filter(parts).length > 0) {
+                    return ['g'].concat(parts).join('/');
+                } else {
+                    return null;
+                }
+            },
+            write: function (part) {
+                if (part) {
+                    var item_fix = function (item) { return (item === 'null' ? null : parseFloat(item)) };
+                    self.zoomArray(_.map(part.split('/').slice(1), item_fix));
+                } else {
+                    self.zoomArray([null, null, null, null]);
+                }
+            }
+        });
+        // rateLimit to ensure graph doesn't need frequent redrawing
+        self.lines = ko.computed(function () {
+            return _.chain(self.enabledCategories())
+                .map(function (category) { return category.enabledLines() })
+                .flatten().value();
+        }).extend({
+            rateLimit: { method: "notifyWhenChangesStop", timeout: 1000 }
+        });
+        self.waitToGraph = ko.computed(function () {
+            if (_.chain(self.enabledCategories())
+                .map(function (category) { return category.hasLoadingLines() })
+                .find().value())
+                return true;
 
-    // Creates the proper data object for the rate-of-change graph
-    function rateData(datasetId) {
-        var dataset = MB.Timeline.datasets[datasetId];
-        var rateHash = $.extend({}, dataset);
-        if (!dataset.rateOfChange) {
-            MB.Timeline.datasets[datasetId].rateOfChange = weeklyRate(dataset.data);
-            dataset = MB.Timeline.datasets[datasetId];
+            if (self.options.events() && !self.loadedEvents())
+                return true;
+
+            return false;
+        }).extend({
+            rateLimit: { method: "notifyWhenChangesStop", timeout: 1000 }
+        });
+
+        self.rateZoomY = ko.computed(function () {
+            var bounds = _.reduce(self.lines(), function (accum, line) {
+                if (line.loaded()) {
+                    var rateBounds = line.calculateRateBounds(
+                        line.rateData().data,
+                        line.rateData().thresholds,
+                        {min: self.zoom.xaxis.min(), max: self.zoom.xaxis.max()});
+                    if (accum.min == null || rateBounds.min < accum.min) {
+                        accum.min = rateBounds.min;
+                    }
+                    if (accum.max == null || rateBounds.max > accum.max) {
+                        accum.max = rateBounds.max;
+                    }
+                }
+                return accum;
+            }, {min: null, max: null});
+            if (bounds.min)
+                bounds.min = bounds.min - Math.abs(bounds.min * 0.10);
+            if (bounds.max)
+                bounds.max = bounds.max + Math.abs(bounds.max * 0.10);
+            return bounds;
+        });
+
+        self.hash = ko.computed({
+            read: function () {
+                var optionParts = [];
+                if (self.options.rate()) { optionParts.push('r') }
+                if (!self.options.events()) { optionParts.push('-v') }
+                if (self.zoomHashPart()) { optionParts.push(self.zoomHashPart()) }
+                var categoryParts = _.chain(self.categories())
+                    .filter(function (category) { return category.enabledByDefault !== category.enabled() })
+                    .map(function (category) { return (category.enabled() ? '' : '-') + category.hashIdentifier })
+                    .value().sort();
+                var lineParts = _.chain(self.categories())
+                    .filter(function (category) { return category.enabled() })
+                    .map(function (category) { return category.lines() })
+                    .flatten()
+                    .filter(function (line) { return line.enabledByDefault !== line.enabled() })
+                    .map(function (line) { return (line.enabled() ? '' : '-') + line.hashIdentifier })
+                    .value().sort();
+                return optionParts.concat(categoryParts, lineParts).join('+');
+            },
+            write: function (value) {
+                // XXX: reset to defaults when preference is not expressed
+                var parts = _.filter(value.split('+'));
+                _.forEach(parts, function (part) {
+                    var match;
+                    if (match = part.match(/^(-)?([rv])-?$/)) { // trailing - for backwards-compatibility
+                        var meth = match[2] === 'r' ? 'rate' : 'events';
+                        self.options[meth](!(match[1] === '-'));
+                    } else if (match = part.match(/^(-)?c-(.*)$/)) {
+                        var category = _.find(self.categories(), { hashIdentifier: match[2] }).value();
+                        if (category) { category.enabled(!(match[1] === '-')) }
+                    } else if (match = part.match(/^g\/.*$/)) {
+                        self.zoomHashPart(part);
+                    } else {
+                        match = part.match(/^(-)?(.*)$/);
+                        var line = _.chain(self.categories())
+                            .map(function (category) { return category.lines() })
+                            .flatten().find({ hashIdentifier: match[2] }).value();
+                        if (line) { line.enabled(!(match[1] === '-')) }
+                    }
+                })
+            }
+        }).extend({
+            rateLimit: { method: "notifyWhenChangesStop", timeout: 1000 }
+        });
+        self.initialHash = location.hash.replace(/^#/, '');
+        self.updateHash = ko.computed(function () {
+            location.hash = self.hash();
+        });
+
+        // rateLimit to load asynchronously
+        self.loadWhenChecked = ko.computed(function () {
+            if (self.options.events() && !self.loadedEvents() && !self.loadingEvents()) {
+                self.loadEvents();
+            }
+        }).extend({
+            rateLimit: { method: "notifyWhenChangesStop", timeout: 1 }
+        });
+    },
+
+    addCategory: function(category) {
+        this.categories.push(category);
+        return category
+    },
+    addLine: function(name) {
+        var newLine = MB.text.Timeline.Stat(name)
+        var category = _.find(this.categories(), function (category) {
+            return category.name === newLine.Category
+        });
+
+        if (!category) {
+            var newCategory = MB.text.Timeline.Category[newLine.Category];
+            category = this.addCategory(MB.Timeline.TimelineCategory(newLine.Category, newCategory.Label, !newCategory.Hide));
         }
-        rateHash.data = dataset.rateOfChange.data;
-        rateHash.thresholds = dataset.rateOfChange.thresholds;
-        return rateHash
-    }
 
-    // Called once per dataset to calculate rates of change
-    function weeklyRate(data) {
+        category.addLine(MB.Timeline.TimelineLine(name, newLine.Label, newLine.Color, !newLine.Hide));
+    },
+    addLines: function(names) {
+        var self = this;
+        _.forEach(names, function (name) { self.addLine(name) });
+    },
+    setInitialHash: function() {
+        this.hash(this.initialHash);
+    },
+    loadEvents: function () {
+        var self = this;
+        self.loadingEvents(true);
+        $.ajax({
+            url: '../../ws/js/events',
+            dataType: 'json'
+        }).done(function (data, status, jqxhr) {
+            self.events(_.map(data, function (e) {
+                e.jsDate = Date.parse(e.date);
+                return e;
+            }));
+            self.loadedEvents(true);
+        }).fail(function () {
+            self.events([]);
+        }).always(function () {
+            self.loadingEvents(false);
+        });
+    }
+})();
+
+MB.Timeline.TimelineCategory = aclass({
+    init: function(name, label, enabledByDefault) {
+        var self = this;
+        if (enabledByDefault === undefined) {
+            enabledByDefault = false;
+        }
+        self.name = name;
+        self.hashIdentifier = 'c-' + name;
+        self.label = label;
+        self.enabledByDefault = !!enabledByDefault;
+        self.enabled = ko.observable(!!enabledByDefault);
+        // rateLimit to improve reponsiveness of checkboxes
+        self.lines = ko.observableArray([]).extend({
+            rateLimit: { method: "notifyWhenChangesStop", timeout: 50 }
+        });
+        self.enabledLines = ko.computed(function () {
+            return _.filter(self.lines(), function (line) { return line.enabled() && line.loaded() })
+        });
+        self.needLoadingLines = ko.computed(function () {
+            if (self.enabled()) {
+                return _.filter(self.lines(), function (line) { return line.enabled() && !line.loaded() && !line.loading() })
+            } else { return [] }
+        });
+        self.hasLoadingLines = ko.computed(function () {
+            return _.filter(self.lines(), function (line) { return line.enabled() && line.loading() }).length;
+        });
+
+        // rateLimit to load asynchronously
+        self.loadWhenChecked = ko.computed(function () {
+            _.forEach(self.needLoadingLines(), function (line) { line.loadData() });
+        }).extend({
+            rateLimit: { method: "notifyWhenChangesStop", timeout: 1 }
+        });
+    },
+    addLine: function(line) { this.lines.push(line); }
+});
+
+MB.Timeline.TimelineLine = aclass({
+    init: function(name, label, color, enabledByDefault) {
+        var self = this;
+        if (enabledByDefault === undefined) {
+            enabledByDefault = false;
+        }
+        self.color = color;
+        self.name = name;
+        self.hashIdentifier = name.replace(/^count\./, '');
+        self.label = label;
+        self.enabledByDefault = !!enabledByDefault;
+        self.enabled = ko.observable(!!enabledByDefault);
+        self.loading = ko.observable(false);
+        self.data = ko.observable(null);
+        self.loaded = ko.observable(null);
+        self.rateData = ko.computed(function () {
+            return self.calculateRateData(self.data());
+        });
+    },
+    loadData: function () {
+        var self = this;
+        self.loading(true);
+        $.ajax({
+            url: '../../statistics/dataset/' + self.name,
+            dataType: 'json'
+        }).done(function (data, status, jqxhr) {
+            self.data(data);
+            self.loaded(true);
+        }).fail(function () {
+            self.data(null);
+        }).always(function () {
+            self.loading(false);
+        });
+    },
+    calculateRateData: function (data) {
+        if (!data) { return null; }
         var weekData = [];
         var oneDay = 1000 * 60 * 60 * 24;
         var dataPrev = data[0][1];
@@ -92,19 +313,17 @@ $(function () {
         });
         mean = mean / count;
 
-        var deviationSum = 0;
-        $.each(weekData, function (index, value) {
-            var toSquare = value[1] - mean;
-            deviationSum = deviationSum + toSquare * toSquare;
-        });
+        var deviationSum = _.reduce(weekData, function(sum, next) {
+            var toSquare = next[1] - mean;
+            return sum + toSquare * toSquare;
+        }, 0);
         var standardDeviation = Math.sqrt(deviationSum / count);
         var thresholds = {min: mean - 3 * standardDeviation,
                           max: mean + 3 * standardDeviation};
 
         return {data: weekData, thresholds: thresholds};
-    }
-
-    function calculateRateBounds(data, thresholds, dateThresholds) {
+    },
+    calculateRateBounds: function(data, thresholds, dateThresholds) {
         var rateBounds = {min: thresholds.max, max: thresholds.min};
         $.each(data, function (index, value) {
                 if (value[1] > thresholds.min &&
@@ -125,50 +344,11 @@ $(function () {
         }
         return rateBounds;
     }
+});
 
-    function jq(myid) {
-        return '#' + myid.replace(/(:|\.)/g,'\\$1');
-    }
-
-    // Make selections zoom
-    $('#graph-container').bind('plotselected', function (event, ranges) {
-        // clamp the zooming to prevent eternal zoom
-        if (ranges.xaxis.to - ranges.xaxis.from < 86400000)
-            ranges.xaxis.to = ranges.xaxis.from + 86400000;
-        if (ranges.yaxis.to - ranges.yaxis.from < 1)
-            ranges.yaxis.to = ranges.yaxis.from + 1;
-
-        graphZoomOptions = {
-            xaxis: { min: ranges.xaxis.from, max: ranges.xaxis.to },
-            yaxis: { min: ranges.yaxis.from, max: ranges.yaxis.to }}
-
-        removeFromHash('g-([0-9.e]+/){3}[0-9.e]+');
-        changeHash(false, hashPartFromGeometry(graphZoomOptions), true);
-    });
-
-    $('#overview').bind('plotselected', function (event, ranges) {
-        plot.setSelection(ranges);
-    });
-
-    $('#rate-of-change-graph').bind('plotselected', function (event, ranges) {
-        var axis = plot.getAxes().yaxis;
-        plot.setSelection({xaxis: ranges.xaxis, yaxis: {from: axis.min, to: axis.max}});
-    });
-
-    // "Reset Graph" functionality
-    $('#graph-container, #overview, #rate-of-change-graph').bind('plotunselected', function () {
-        if (!plot.getOptions().musicbrainzEvents.currentEvent.link)
-        {
-            graphZoomOptions = {};
-            removeFromHash('g-([0-9.e]+/){3}[0-9.e]+');
-        } else {
-            // we're clicking on an event, should open the link instead
-            window.open(plot.getOptions().musicbrainzEvents.currentEvent.link);
-        }
-    });
-
-    // Hover-tooltip Utility Functions
-    function showTooltip(x, y, contents) {
+(function () {
+    // Closure over utility functions.
+    var showTooltip = function (x, y, contents) {
         $('<div id="tooltip">' + contents + '</div>').css( {
             position: 'absolute',
             display: 'none',
@@ -180,26 +360,14 @@ $(function () {
             opacity: 0.80
         }).appendTo("body").fadeIn(200);
     }
-    function removeTooltip() { $('#tooltip').remove(); }
-    function setCursor(type) {
+    var removeTooltip = function () { $('#tooltip').remove(); }
+
+    var setCursor = function (type) {
         if (!type) { type = ''; }
         $('body').css('cursor', type);
     }
-    function clearAll() {
-        setCursor();
-        removeTooltip();
-        previousPoint = null;
-        ratePreviousPoint = null;
-        changeCurrentEvent({});
-    }
 
-    // MusicBrainz Events Tooltip management functions
-    function changeCurrentEvent(item) {
-        musicbrainzEventsOptions.musicbrainzEvents.currentEvent = item;
-        plot.changeCurrentEvent(item);
-        if (rateplot) { rateplot.changeCurrentEvent(item); }
-    }
-    function setItemTooltip(item, extra, fixed) {
+    var setItemTooltip = function (item, extra, fixed) {
             if (!extra) { extra = '' };
             removeTooltip();
             setCursor();
@@ -216,273 +384,143 @@ $(function () {
 
             showTooltip(item.pageX, item.pageY,
                 date.getFullYear() + '-' + month + '-' + day + ": " + y + " " + item.series.label + extra);
-            changeCurrentEvent({});
     }
-    function setEventTooltip(plot, pos) {
-        var thisEvent = plot.getEvent(pos);
-        if (musicbrainzEventsOptions.musicbrainzEvents.currentEvent.jsDate != thisEvent.jsDate) {
-            removeTooltip();
-            setCursor('pointer');
-            showTooltip(pos.pageX, pos.pageY,
-                '<h2 style="margin-top: 0px; padding-top: 0px">' + thisEvent.title + '</h2>' + thisEvent.description);
-
-            changeCurrentEvent(thisEvent);
-        }
+    var setEventTooltip = function (thisEvent, pos) {
+        removeTooltip();
+        setCursor('pointer');
+        showTooltip(pos.pageX, pos.pageY,
+            '<h2 style="margin-top: 0px; padding-top: 0px">' + thisEvent.title + '</h2>' + thisEvent.description);
     }
 
-    // Hover functionality on main and rate-of-change graphs
-    var previousPoint = null;
-    $('#graph-container').bind('plothover', function (event, pos, item) {
-        if (item) {
-            if (previousPoint != item.dataIndex) {
-                previousPoint = item.dataIndex;
-                setItemTooltip(item);
-            }
-        }
-        else if (plot.getEvent(pos)) { setEventTooltip(plot, pos); }
-        else { clearAll(); }
-    });
-    var ratePreviousPoint = null;
-    $('#rate-of-change-graph').bind('plothover', function (event, pos, item) {
-        if (item) {
-            if (ratePreviousPoint != item.dataIndex) {
-                ratePreviousPoint = item.dataIndex;
-                setItemTooltip(item, MB.text.Timeline.RateTooltipCloser, 2);
-            }
-        }
-        else if (rateplot.getEvent(pos)) { setEventTooltip(rateplot, pos); }
-        else { clearAll(); }
-    });
-
-    // Zoom Level in location.hash, utility functions
-    function hashPartFromGeometry(g) {
-        return 'g-' + g.xaxis.min + '/' + g.xaxis.max +
-                '/' + g.yaxis.min + '/' + g.yaxis.max;
-    }
-    function geometryFromHashPart(hashPart){
-        var hashParts = hashPart.substr(2).split('/');
-        return { xaxis: { min: parseFloat(hashParts[0]),
-                          max: parseFloat(hashParts[1]) },
-                 yaxis: { min: parseFloat(hashParts[2]),
-                          max: parseFloat(hashParts[3]) }};
-    }
-
-    // Utility functions/variables for changing location.hash
-    var newHash = '';
-    var hashChangeTimeoutId = [];
-
-    // minus: should there be a '-' before it;
-    // newHashPart: identifier, sans '-' if applicable;
-    // hide: is this thing hidden by default
-    function changeHash(minus, newHashPart, hide) {
-        if (hashChangeTimeoutId.length > 0 ) { $.each(hashChangeTimeoutId, function (i, Id) { window.clearTimeout(Id); hashChangeTimeoutId.splice(i, 1); }); }
-
-        if (!new RegExp('(\\+|#|^)-?' + newHashPart + '(?=($|\\+))').test(newHash)) {
-            if (hide != minus) {
-                newHash = newHash + (newHash != '' ? '+' : '') + (minus ? '-' : '') + newHashPart;
-            }
-        } else {
-            if (hide != minus) {
-                newHash = newHash.replace(new RegExp('(\\+|#|^)-?' + newHashPart + '(?=($|\\+))'), '+' + (minus ? '-' : '') + newHashPart);
-            } else {
-                removeFromHash('-?' + newHashPart);
-            }
-        }
-
-        hashChangeTimeoutId.push(window.setTimeout(changeHashTimeout, 1000));
-    }
-    function removeFromHash(toRemove) {
-        if (hashChangeTimeoutId.length > 0 ) { $.each(hashChangeTimeoutId, function (i, Id) { window.clearTimeout(Id); hashChangeTimeoutId.splice(i, 1); }); }
-        var regex = new RegExp('(\\+|#|^)' + toRemove + '(?=($|\\+))')
-        newHash = newHash.replace(regex , '');
-        hashChangeTimeoutId.push(window.setTimeout(changeHashTimeout, 1000));
-    }
-    function changeHashTimeout() {
-            if (hashChangeTimeoutId.length > 0 ) { $.each(hashChangeTimeoutId, function (i, Id) { window.clearTimeout(Id);  }); }
-            window.location.hash = newHash;
-            hashChangeTimeoutId = [];
-    }
-
-    // Hashchange related functions
-    function check(elem, checked) {
-        elem.children('input:checkbox').prop('checked', checked).change();
-    }
-    $(window).hashchange(function () {
-            var hash = location.hash.replace( /^#/, '' );
-            var queries = hash.split('+');
-
-            $.each(queries, function (index, value) {
-                if (value.substr(0,2) == 'g-') {
-                    graphZoomOptions = geometryFromHashPart(value);
-                } else if (value.substr(0,3) == '-v-') {
-                    $('#disable-events-checkbox').prop('checked', false).change();
-                } else if (value.substr(0,2) == 'r-') {
-                    $('#show-rate-graph').prop('checked', true).change();
+    ko.bindingHandlers.flot = {
+        init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+            var graph = ko.unwrap(valueAccessor());
+            var previousPoint = null;
+            var currentEvent = null;
+            var reset = function() {
+                removeTooltip();
+                previousPoint = null;
+                currentEvent = null;
+                $(element).data('plot').changeCurrentEvent({});
+                setCursor();
+            };
+            $(element).bind('plothover', function (event, pos, item) {
+                if (item) {
+                    if (previousPoint != item.dataIndex) {
+                        reset();
+                        previousPoint = item.dataIndex;
+                        setItemTooltip(item,
+                            graph === 'rate' ? MB.text.Timeline.RateTooltipCloser : undefined,
+                            graph === 'rate' ? 2 : undefined);
+                    }
+                } else if ($(element).data('plot').getEvent(pos)) {
+                    var thisEvent = $(element).data('plot').getEvent(pos);
+                    if (!currentEvent || thisEvent.jsDate !== currentEvent.jsDate) {
+                        reset();
+                        currentEvent = thisEvent;
+                        $(element).data('plot').changeCurrentEvent(currentEvent);
+                        setEventTooltip(thisEvent, pos);
+                    }
                 } else {
-                    var checked = (value.substr(0,1) != '-');
-                    if (!checked) {
-                        value = value.substr(1);
-                    }
-                    if (value.substr(0,2) == 'c-') {
-                        value = value.substr(2);
-                        check($(jq(categoryIDPrefix + value)).prev('.toggler'), checked);
-                    } else {
-                        check($(jq(controlIDPrefix + 'count.' + value)), checked);
-                    }
+                    reset()
+                }
+            }).bind('plotselected', function (event, ranges) {
+                // Prevent eternal zoom
+                if (ranges.xaxis.to - ranges.xaxis.from < 86400000)
+                    ranges.xaxis.to = ranges.xaxis.from + 86400000;
+                if (ranges.yaxis.to - ranges.yaxis.from < 1)
+                    ranges.yaxis.to = ranges.yaxis.from + 1;
+
+                var zoomArr = [ranges.xaxis.from, ranges.xaxis.to];
+                if (graph === 'main' || graph === 'overview') {
+                    zoomArr.push(ranges.yaxis.from);
+                    zoomArr.push(ranges.yaxis.to);
+                }
+
+                bindingContext.$data.zoomArray(zoomArr);
+            }).bind('plotunselected', function () {
+                if (currentEvent && currentEvent.link) {
+                    window.open(currentEvent.link);
+                } else {
+                    bindingContext.$data.zoomArray([null, null, null, null])
                 }
             });
-            resetPlot();
-    });
-    function resetPlot () {
-        if ($('div.loading').length == 0) {
-            var data = graphData();
-            if ($('div.loading').length == 0) {
-                var plotOptions = $.extend(true, {}, graphOptions, graphZoomOptions, musicbrainzEventsOptions)
-                plot = $.plot($("#graph-container"), data[0], plotOptions);
+        },
+        update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+            var graph = ko.unwrap(valueAccessor());
+            if (!bindingContext.$data.waitToGraph()) {
+                var lines = bindingContext.$data.lines();
+                // Shared options
+                var options = {
+                    legend: {show: false},
+                };
+
+                // Main options (hoverability, axes, tick formatting, events, line size)
+                if (graph === 'main' || graph === 'rate') {
+                    options.grid = { hoverable: true };
+                    options.xaxis = { mode: "time", timeformat: "%y/%0m/%0d", minTickSize: [7, "day"]};
+                    options.yaxis = { tickFormatter: function (x) {
+                        return x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ","); // XXX: localized number formatting
+                    }};
+                    if (bindingContext.$data.options.events()) {
+                        options.musicbrainzEvents = {
+                            enabled: bindingContext.$data.options.events(),
+                            data: bindingContext.$data.events(),
+                            currentEvent: {}
+                        };
+                    }
+                } else if (graph === 'overview') {
+                    options.series = { lines: { lineWidth: 1 }, shadowSize: 0 };
+                    options.xaxis = { mode: "time", minTickSize: [1, "year"] };
+                    options.yaxis = { tickFormatter: function () { return '' } };
+                }
+
+                // Selection mode
+                if (graph === 'main' || graph === 'overview') {
+                    options.selection = { mode: "xy" };
+                } else if (graph === 'rate') {
+                    options.selection = { mode: "x" };
+                }
+
+                // zoom
+                if (graph === 'main') {
+                    options.xaxis.min = bindingContext.$data.zoom.xaxis.min();
+                    options.xaxis.max = bindingContext.$data.zoom.xaxis.max();
+                    options.yaxis.min = bindingContext.$data.zoom.yaxis.min();
+                    options.yaxis.max = bindingContext.$data.zoom.yaxis.max();
+                } else if (graph === 'rate') {
+                    options.xaxis.min = bindingContext.$data.zoom.xaxis.min();
+                    options.xaxis.max = bindingContext.$data.zoom.xaxis.max();
+                    options.yaxis.min = bindingContext.$data.rateZoomY().min;
+                    options.yaxis.max = bindingContext.$data.rateZoomY().max;
+                }
+
+                // This has to be done here, or the rate graph will end up huge and unwieldy.
+                if (graph === 'rate') {
+                    $(element).toggle(bindingContext.$data.options.rate());
+                }
+
+                var plot = $.plot($(element), _.map(lines, function (line) {
+                    if (graph === 'main' || graph === 'overview') {
+                        var data = line.data();
+                    } else if (graph === 'rate') {
+                        var data = line.rateData().data;
+                    }
+                    return {
+                        data: data,
+                        label: line.label,
+                        color: line.color
+                    }
+                }), options);
                 plot.triggerRedrawOverlay();
-
-                if ($('#show-rate-graph').prop('checked')) {
-                    var rateZoomOptions = {yaxis: {min: null, max: null}};
-                    $.each(data[1], function (index, value) {
-                       var thresholds = value.thresholds;
-                       var rateBounds = calculateRateBounds(value.data, thresholds, graphZoomOptions.xaxis);
-                       if (rateZoomOptions.yaxis.min == null || rateBounds.min < rateZoomOptions.yaxis.min) {
-                           rateZoomOptions.yaxis.min = rateBounds.min;
-                       }
-                       if (rateZoomOptions.yaxis.max == null || rateBounds.max > rateZoomOptions.yaxis.max) {
-                           rateZoomOptions.yaxis.max = rateBounds.max;
-                       }
-                    });
-                    if (rateZoomOptions.yaxis.min) {
-                        rateZoomOptions.yaxis.min = rateZoomOptions.yaxis.min - Math.abs(rateZoomOptions.yaxis.min * 0.10);
-                    }
-                    if (rateZoomOptions.yaxis.max) {
-                        rateZoomOptions.yaxis.max = rateZoomOptions.yaxis.max + Math.abs(rateZoomOptions.yaxis.max * 0.10);
-                    }
-                    var rateOptions = $.extend(true, {}, graphOptions, {xaxis: graphZoomOptions.xaxis, yaxis: rateZoomOptions.yaxis, selection: {mode: "x"}}, musicbrainzEventsOptions);
-                    rateplot = $.plot($("#rate-of-change-graph"), data[1], rateOptions);
-                    rateplot.triggerRedrawOverlay();
-                } else { rateplot = null; }
-
-                overview = $.plot($('#overview'), data[0], overviewOptions);
             }
         }
-    }
+    };
+})();
 
-    // Utility functions for MB.setupGraphing
-    function controlHtml(datasetId, label) {
-        var id = controlIDPrefix + 'checker' + datasetId;
-        var name = controlIDPrefix + datasetId;
-        var color = (MB.text.Timeline.Stat(datasetId) || { 'Color': '#ff0000' })['Color'];
-
-        return $("<div>").addClass("graph-control").attr({ id: name }).append(
-                $("<input/>").attr({ id: id, name: name, type: "checkbox", checked: "checked" }),
-                $("<label>").attr({ "for": id }).append(
-                    $("<div>").addClass("graph-color-swatch").css("background-color", color), label));
-    }
-    function categoryHtml(category) {
-        var id = categoryIDPrefix + 'checker-' + category;
-        var divId = categoryIDPrefix + category;
-        var label = (MB.text.Timeline.Category[category] || { Label : 'Unknown' })['Label'];
-
-        return $("<h2>").addClass("toggler").append(
-            $("<input/>").attr({ id: id, type: "checkbox", checked: "checked" }),
-            $("<label>").attr({ "for": id }).text(label))
-                .add($("<div>").addClass("graph-category").attr({ id: divId }));
-    }
-    function controlChange() {
-        var $this = $(this);
-        var minus = !$this.prop('checked');
-        var identifier = $this.parent('div').attr('id').substr(controlIDPrefix.length);
-        var newHashPart = identifier.substr('count.'.length);
-        var hide = (MB.text.Timeline.Stat(identifier).Hide ? true : false);
-        changeHash(minus, newHashPart, hide);
-
-        if (minus) {
-            $this.siblings('label').children('div.graph-color-swatch').css('background-color', '#ccc');
-        } else {
-            $this.siblings('label').children('div.graph-color-swatch').css('background-color',
-                MB.text.Timeline.Stat(identifier).Color);
-        }
-    }
-    function categoryChange() {
-        var $this = $(this);
-
-        var categoryId = $this.parent('.toggler').next('div.graph-category').attr('id');
-        var minus = !$this.prop('checked');
-        var newHashPart = categoryId.replace(new RegExp(categoryIDPrefix), 'c-');
-        var hide = (MB.text.Timeline.Category[categoryId.substr(categoryIDPrefix.length)].Hide ? true : false);
-        changeHash(minus, newHashPart, hide);
-
-        $this.parent('.toggler').next()[minus ? 'hide' : 'show']('slow');
-    }
-
-    MB.Timeline.addControls = function (id, dataset) {
-        if (!dataset) {
-            stat = MB.text.Timeline.Stat(id);
-            dataset = {
-                'label': stat.Label,
-                'color': stat.Color,
-                'category': stat.Category
-            }
-        }
-        if (!MB.Timeline.datasets[id]) {
-            MB.Timeline.datasets[id] = dataset;
-        }
-        if ($(jq(controlIDPrefix + id)).length == 0) {
-            if ($('#' + categoryIDPrefix + dataset.category).length == 0) {
-                $('#graph-lines').append(categoryHtml(dataset.category));
-                $('#graph-lines .toggler input:checkbox#' + categoryIDPrefix + 'checker-' + dataset.category).change(categoryChange);
-            }
-            $("#graph-lines #" + categoryIDPrefix + dataset.category).append(controlHtml(id, dataset.label));
-            $("#graph-lines div" + jq(controlIDPrefix + id) + " input:checkbox").change(controlChange);
-        }
-    }
-
-    MB.Timeline.setupGraphing = function (data, goptions, ooptions) {
-        MB.Timeline.datasets = data;
-        graphOptions = goptions;
-        overviewOptions = ooptions;
-
-        // Set up checkboxes/legend
-        $.each(MB.Timeline.datasets, MB.Timeline.addControls);
-
-        // toggler for MusicBrainz Events
-        $('#disable-events-checkbox').change(function () {
-            var minus = !$(this).prop('checked');
-            musicbrainzEventsOptions.musicbrainzEvents.enabled = !minus;
-            changeHash(minus, 'v-', false);
-        });
-
-        // toggler for Rate of Change graph, plus auto-hiding it
-        $('#show-rate-graph').change(function () {
-            var $graph = $('#rate-of-change-graph');
-            var $show = $(this).prop('checked');
-            $graph.css($show ? {position: 'relative', right: ''} : {position: 'absolute', right: 100000});
-            $graph.prev('h2')[$show ? 'show' : 'hide']();
-            changeHash(!$show, 'r-', true);
-        }).prop('checked', false).change();
-
-        // Turn off categories and lines that should be hidden by default
-        $('div.graph-category').each(function () {
-            var category = $(this).attr('id').substr(categoryIDPrefix.length);
-            if (MB.text.Timeline.Category[category].Hide && !(new RegExp('\\+?-?c-' + category + '(?=($|\\+))').test(location.hash))) {
-                $(this).prev('.toggler').children('input:checkbox').prop('checked', false).change();
-            }
-        });
-        $('div.graph-control').each(function () {
-            var identifier = $(this).attr('id').substr(controlIDPrefix.length);
-            if (MB.text.Timeline.Stat(identifier).Hide && !(new RegExp('\\+?-?' + identifier.substr('count.'.length) + '(?=($|\\+))').test(location.hash))) {
-                $(this).children('input:checkbox').prop('checked', false).change();
-            }
-        });
-
-        // Initialize our hash-management variable
-        newHash = location.hash;
-
-        // Trigger actually graphing things
-        $(window).hashchange();
-    }
-
-
+$(window).hashchange(function () {
+    var hash = location.hash.replace(/^#/, '');
+    MB.Timeline.TimelineViewModel.hash(hash);
 });
+
+ko.applyBindings(MB.Timeline.TimelineViewModel);
