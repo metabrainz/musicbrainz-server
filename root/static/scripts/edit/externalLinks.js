@@ -113,6 +113,7 @@
                 this.entity1ID(this.original.entity1);
             }
             else {
+                this.cleanup.toggleEvents("off");
                 this.viewModel.links.remove(this);
             }
 

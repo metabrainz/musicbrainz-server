@@ -872,14 +872,18 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorObse
         }
     };
 
-    self.typeControl.on("change", typeChanged);
-    self.urlControl.on("change keydown keyup input propertychange", urlChanged);
-
-    self.urlControl.on("blur", function () {
+    function trimInputValue() {
         this.value = _.str.trim(this.value);
-    });
+    }
 
-    self.urlControl.parents('form').submit(urlChanged);
+    self.toggleEvents = function (prop) {
+        self.typeControl[prop]("change", typeChanged);
+        self.urlControl[prop]("change keydown keyup input propertychange", urlChanged);
+        self.urlControl[prop]("blur", trimInputValue);
+        self.urlControl.parents('form')[prop]("submit", urlChanged);
+    };
+
+    self.toggleEvents("on");
 
     return self;
 };
