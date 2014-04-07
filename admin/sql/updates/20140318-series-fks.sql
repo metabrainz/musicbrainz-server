@@ -66,6 +66,10 @@ ALTER TABLE l_release_series ADD CONSTRAINT l_release_series_fk_link FOREIGN KEY
 ALTER TABLE l_release_series ADD CONSTRAINT l_release_series_fk_entity0 FOREIGN KEY (entity0) REFERENCES release(id);
 ALTER TABLE l_release_series ADD CONSTRAINT l_release_series_fk_entity1 FOREIGN KEY (entity1) REFERENCES series(id);
 
+ALTER TABLE l_series_series ADD CONSTRAINT l_series_series_fk_link FOREIGN KEY (link) REFERENCES link(id);
+ALTER TABLE l_series_series ADD CONSTRAINT l_series_series_fk_entity0 FOREIGN KEY (entity0) REFERENCES series(id);
+ALTER TABLE l_series_series ADD CONSTRAINT l_series_series_fk_entity1 FOREIGN KEY (entity1) REFERENCES series(id);
+
 ALTER TABLE l_series_url ADD CONSTRAINT l_series_url_fk_link FOREIGN KEY (link) REFERENCES link(id);
 ALTER TABLE l_series_url ADD CONSTRAINT l_series_url_fk_entity0 FOREIGN KEY (entity0) REFERENCES series(id);
 ALTER TABLE l_series_url ADD CONSTRAINT l_series_url_fk_entity1 FOREIGN KEY (entity1) REFERENCES url(id);

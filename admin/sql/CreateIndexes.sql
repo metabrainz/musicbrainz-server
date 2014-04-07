@@ -161,6 +161,7 @@ CREATE UNIQUE INDEX l_release_group_series_idx_uniq ON l_release_group_series (e
 CREATE UNIQUE INDEX l_release_group_url_idx_uniq ON l_release_group_url (entity0, entity1, link);
 CREATE UNIQUE INDEX l_release_group_work_idx_uniq ON l_release_group_work (entity0, entity1, link);
 
+CREATE UNIQUE INDEX l_series_series_idx_uniq ON l_series_series (entity0, entity1, link);
 CREATE UNIQUE INDEX l_series_url_idx_uniq ON l_series_url (entity0, entity1, link);
 CREATE UNIQUE INDEX l_series_work_idx_uniq ON l_series_work (entity0, entity1, link);
 
@@ -225,6 +226,7 @@ CREATE INDEX l_release_group_series_idx_entity1 ON l_release_group_series (entit
 CREATE INDEX l_release_group_url_idx_entity1 ON l_release_group_url (entity1);
 CREATE INDEX l_release_group_work_idx_entity1 ON l_release_group_work (entity1);
 
+CREATE INDEX l_series_series_idx_entity1 ON l_series_series (entity1);
 CREATE INDEX l_series_url_idx_entity1 ON l_series_url (entity1);
 CREATE INDEX l_series_work_idx_entity1 ON l_series_work (entity1);
 

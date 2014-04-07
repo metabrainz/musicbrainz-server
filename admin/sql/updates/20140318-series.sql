@@ -331,6 +331,7 @@ ALTER TABLE l_place_series ADD CONSTRAINT l_place_series_pkey PRIMARY KEY (id);
 ALTER TABLE l_recording_series ADD CONSTRAINT l_recording_series_pkey PRIMARY KEY (id);
 ALTER TABLE l_release_group_series ADD CONSTRAINT l_release_group_series_pkey PRIMARY KEY (id);
 ALTER TABLE l_release_series ADD CONSTRAINT l_release_series_pkey PRIMARY KEY (id);
+ALTER TABLE l_series_series ADD CONSTRAINT l_series_series_pkey PRIMARY KEY (id);
 ALTER TABLE l_series_url ADD CONSTRAINT l_series_url_pkey PRIMARY KEY (id);
 ALTER TABLE l_series_work ADD CONSTRAINT l_series_work_pkey PRIMARY KEY (id);
 ALTER TABLE link_attribute_text_value ADD CONSTRAINT link_attribute_text_value_pkey PRIMARY KEY (link, attribute_type);
@@ -351,6 +352,7 @@ CREATE UNIQUE INDEX l_place_series_idx_uniq ON l_place_series (entity0, entity1,
 CREATE UNIQUE INDEX l_recording_series_idx_uniq ON l_recording_series (entity0, entity1, link);
 CREATE UNIQUE INDEX l_release_series_idx_uniq ON l_release_series (entity0, entity1, link);
 CREATE UNIQUE INDEX l_release_group_series_idx_uniq ON l_release_group_series (entity0, entity1, link);
+CREATE UNIQUE INDEX l_series_series_idx_uniq ON l_series_series (entity0, entity1, link);
 CREATE UNIQUE INDEX l_series_url_idx_uniq ON l_series_url (entity0, entity1, link);
 CREATE UNIQUE INDEX l_series_work_idx_uniq ON l_series_work (entity0, entity1, link);
 
@@ -361,6 +363,7 @@ CREATE INDEX l_place_series_idx_entity1 ON l_place_series (entity1);
 CREATE INDEX l_recording_series_idx_entity1 ON l_recording_series (entity1);
 CREATE INDEX l_release_series_idx_entity1 ON l_release_series (entity1);
 CREATE INDEX l_release_group_series_idx_entity1 ON l_release_group_series (entity1);
+CREATE INDEX l_series_series_idx_entity1 ON l_series_series (entity1);
 CREATE INDEX l_series_url_idx_entity1 ON l_series_url (entity1);
 CREATE INDEX l_series_work_idx_entity1 ON l_series_work (entity1);
 
