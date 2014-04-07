@@ -9,7 +9,7 @@ use DateTime;
 use DateTime::Format::Pg;
 use Try::Tiny;
 use List::MoreUtils qw( uniq zip );
-use List::AllUtils qw( any );
+use List::AllUtils qw( any pairs );
 use MusicBrainz::Server::Constants qw( $QUALITY_UNKNOWN_MAPPED $EDITOR_MODBOT );
 use MusicBrainz::Server::Data::Editor;
 use MusicBrainz::Server::EditRegistry;
@@ -536,6 +536,8 @@ sub load_all
         }
     }
 
+    default_includes($objects_to_load, $post_load_models);
+
     my $loaded = {};
     my $load_arguments = {};
     while (my ($model, $ids) = each %$objects_to_load) {
@@ -578,6 +580,34 @@ sub load_all
 
     for my $edit (@edits) {
         $edit->display_data($edit->build_display_data($loaded));
+    }
+}
+
+sub default_includes {
+    # Additional models that should automatically be included with a model.
+    # NB: A list, not a hash, because order may be important.
+    my @includes = (
+    );
+
+    my ($objects_to_load, $post_load_models) = @_;
+    foreach (pairs @includes) {
+        my ($to, $add) = @$_;
+
+        # Add as a post-load model to top-level models
+        for my $id (@{ $objects_to_load->{$to} // [] }) {
+            $post_load_models->{$to}->{$id} ||= [];
+            push @{ $post_load_models->{$to}->{$id} }, $add
+              unless (any { $_ =~ /^$add(?: .*|)$/ } @{ $post_load_models->{$to}->{$id} });
+        }
+
+        # Add to existing post-load models
+        for my $id (values %$post_load_models) {
+            for my $models (values %$id) {
+                for my $entry (@$models) {
+                    $entry .= ' ' . $add if $entry =~ /^(?:.* |)$to$/;
+                }
+            }
+        }
     }
 }
 
