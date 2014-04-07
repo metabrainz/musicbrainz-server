@@ -298,13 +298,17 @@
             (error && error !== MB.text.RelationshipAlreadyExists);
     }
 
+    function linkIsRemoved(link) { return link.removed() }
+
     function linkIdentifier(link) { return link.linkTypeID() + _.str.trim(link.url()) }
 
     computeErrors(function (release) {
-        _(release.externalLinks.links())
-            .reject(linkIsInvalid).groupBy(linkIdentifier)
-            .each(function (group) {
-                var duplicate = group.length > 1;
+        var links = release.externalLinks.links();
+        var removedLinks = _(links).filter(linkIsRemoved).groupBy(linkIdentifier).value();
+
+        _(links).reject(linkIsInvalid).groupBy(linkIdentifier)
+            .each(function (group, id) {
+                var duplicate = group.length > 1 || _.has(removedLinks, id);
 
                 _(group).each(function (link) {
                     var msg = MB.text.RelationshipAlreadyExists;
