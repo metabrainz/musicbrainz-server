@@ -551,20 +551,28 @@ sub load_all
         }
     }
 
-    while (my ($model, $objs) = each %$load_arguments) {
-        my @objects = grep { defined $_ } @$objs;
-        # ArtistMeta, ReleaseMeta, etc are special models that indicate
-        # loading via Artist->load_meta, Release->load_meta, and so on.
-        # AreaContainment is another special model for loading via
-        # Area->load_containment.
-        if ($model =~ /^(.*)Meta$/) {
-            $self->c->model($1)->load_meta(@objects);
-        }
-        elsif ($model eq 'AreaContainment') {
-            $self->c->model('Area')->load_containment(@objects);
-        }
-        else {
-            $self->c->model($model)->load(@objects);
+    while (my ($models, $objs) = each %$load_arguments) {
+        # $models may be a list of space-separated models to be chain-loaded;
+        # i.e. "ModelA ModelB" means to first load via ModelA for the current
+        # set of objects, then via ModelB for the result of the first load.
+        my @objects = @$objs;
+        foreach my $model (split / /, $models) {
+            @objects = grep { defined $_ } @objects;
+            # ArtistMeta, ReleaseMeta, etc are special models that indicate
+            # loading via Artist->load_meta, Release->load_meta, and so on.
+            # AreaContainment is another special model for loading via
+            # Area->load_containment.
+            if ($model =~ /^(.*)Meta$/) {
+                $self->c->model($1)->load_meta(@objects);
+                @objects = (); # returns no objects
+            }
+            elsif ($model eq 'AreaContainment') {
+                $self->c->model('Area')->load_containment(@objects);
+                @objects = (); # returns no objects
+            }
+            else {
+                @objects = $self->c->model($model)->load(@objects);
+            }
         }
     }
 
