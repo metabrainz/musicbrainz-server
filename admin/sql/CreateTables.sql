@@ -1099,6 +1099,17 @@ CREATE TABLE l_release_group_work
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
+CREATE TABLE l_series_series
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references series.id
+    entity1             INTEGER NOT NULL, -- references series.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+);
+
 CREATE TABLE l_series_url
 (
     id                  SERIAL,

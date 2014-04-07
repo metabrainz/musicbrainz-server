@@ -77,6 +77,7 @@ SELECT setval('l_release_group_release_group_id_seq', (SELECT MAX(id) FROM l_rel
 SELECT setval('l_release_group_series_id_seq', (SELECT MAX(id) FROM l_release_group_series));
 SELECT setval('l_release_group_url_id_seq', (SELECT MAX(id) FROM l_release_group_url));
 SELECT setval('l_release_group_work_id_seq', (SELECT MAX(id) FROM l_release_group_work));
+SELECT setval('l_series_series_id_seq', (SELECT MAX(id) FROM l_series_series));
 SELECT setval('l_series_url_id_seq', (SELECT MAX(id) FROM l_series_url));
 SELECT setval('l_series_work_id_seq', (SELECT MAX(id) FROM l_series_work));
 SELECT setval('l_url_url_id_seq', (SELECT MAX(id) FROM l_url_url));

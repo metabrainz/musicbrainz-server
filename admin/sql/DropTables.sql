@@ -113,6 +113,7 @@ DROP TABLE l_release_release_group;
 DROP TABLE l_release_series;
 DROP TABLE l_release_url;
 DROP TABLE l_release_work;
+DROP TABLE l_series_series;
 DROP TABLE l_series_url;
 DROP TABLE l_series_work;
 DROP TABLE l_url_url;

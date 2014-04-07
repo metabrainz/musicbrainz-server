@@ -113,6 +113,7 @@ ALTER TABLE l_release_release_group DROP CONSTRAINT IF EXISTS l_release_release_
 ALTER TABLE l_release_series DROP CONSTRAINT IF EXISTS l_release_series_pkey;
 ALTER TABLE l_release_url DROP CONSTRAINT IF EXISTS l_release_url_pkey;
 ALTER TABLE l_release_work DROP CONSTRAINT IF EXISTS l_release_work_pkey;
+ALTER TABLE l_series_series DROP CONSTRAINT IF EXISTS l_series_series_pkey;
 ALTER TABLE l_series_url DROP CONSTRAINT IF EXISTS l_series_url_pkey;
 ALTER TABLE l_series_work DROP CONSTRAINT IF EXISTS l_series_work_pkey;
 ALTER TABLE l_url_url DROP CONSTRAINT IF EXISTS l_url_url_pkey;
