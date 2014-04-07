@@ -22,7 +22,7 @@ sub combine_with_query {
     my $sql;
     given($self->operator) {
         when('BETWEEN') {
-            $sql = $self->field_name . ' BETWEEN SYMMETRIC ? AND ?';
+            $sql = 'edit.' . $self->field_name . ' BETWEEN SYMMETRIC ? AND ?';
         }
         default {
            $sql = join(' ', 'edit.'.$self->field_name, $self->operator, '?')
