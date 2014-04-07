@@ -23,11 +23,6 @@ sub l_name {
     }
 }
 
-has 'sort_name' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
 has 'comment' => (
     is => 'rw',
     isa => 'Str'

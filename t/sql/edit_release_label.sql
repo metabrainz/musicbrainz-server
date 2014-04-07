@@ -7,9 +7,9 @@ INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Name', 1);
 INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
     VALUES (1, 1, 'Name', 0, '');
 
-INSERT INTO label (id, gid, name, sort_name, comment)
-    VALUES (1, 'f2a9a3c0-72e3-11de-8a39-0800200c9a66', 'Label', 'Label', 'Label 1'),
-           (2, '7214c460-97d7-11de-8a39-0800200c9a66', 'Label', 'Label', 'Label 2');
+INSERT INTO label (id, gid, name, comment)
+    VALUES (1, 'f2a9a3c0-72e3-11de-8a39-0800200c9a66', 'Label', 'Label 1'),
+           (2, '7214c460-97d7-11de-8a39-0800200c9a66', 'Label', 'Label 2');
 
 INSERT INTO release_group (id, gid, name, artist_credit)
     VALUES (1, '3b4faa80-72d9-11de-8a39-0800200c9a66', 'Release #1', 1);

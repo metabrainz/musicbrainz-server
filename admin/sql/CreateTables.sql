@@ -22,14 +22,16 @@ CREATE TABLE application
 
 CREATE TABLE area_type (
     id                  SERIAL, -- PK
-    name                VARCHAR(255) NOT NULL
+    name                VARCHAR(255) NOT NULL,
+    parent              INTEGER, -- references area_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT
 );
 
 CREATE TABLE area (
     id                  SERIAL, -- PK
     gid                 uuid NOT NULL,
     name                VARCHAR NOT NULL,
-    sort_name           VARCHAR NOT NULL,
     type                INTEGER, -- references area_type.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >=0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
@@ -66,7 +68,10 @@ CREATE TABLE area_gid_redirect
 
 CREATE TABLE area_alias_type (
     id SERIAL, -- PK,
-    name TEXT NOT NULL
+    name TEXT NOT NULL,
+    parent              INTEGER, -- references area_alias_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT
 );
 
 CREATE TABLE area_alias (
@@ -154,7 +159,10 @@ CREATE TABLE artist_deletion
 
 CREATE TABLE artist_alias_type (
     id SERIAL,
-    name TEXT NOT NULL
+    name TEXT NOT NULL,
+    parent              INTEGER, -- references artist_alias_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT
 );
 
 CREATE TABLE artist_alias
@@ -277,7 +285,10 @@ CREATE TABLE artist_gid_redirect
 
 CREATE TABLE artist_type (
     id                  SERIAL,
-    name                VARCHAR(255) NOT NULL
+    name                VARCHAR(255) NOT NULL,
+    parent              INTEGER, -- references artist_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT
 );
 
 CREATE TABLE autoeditor_election
@@ -510,7 +521,10 @@ CREATE TABLE editor_subscribe_editor
 
 CREATE TABLE gender (
     id                  SERIAL,
-    name                VARCHAR(255) NOT NULL
+    name                VARCHAR(255) NOT NULL,
+    parent              INTEGER, -- references gender.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT
 );
 
 CREATE TABLE iso_3166_1 (
@@ -999,7 +1013,6 @@ CREATE TABLE label (
     id                  SERIAL,
     gid                 UUID NOT NULL,
     name                VARCHAR NOT NULL,
-    sort_name           VARCHAR NOT NULL,
     begin_date_year     SMALLINT,
     begin_date_month    SMALLINT,
     begin_date_day      SMALLINT,
@@ -1053,7 +1066,10 @@ CREATE TABLE label_tag_raw
 
 CREATE TABLE label_alias_type (
     id SERIAL,
-    name TEXT NOT NULL
+    name TEXT NOT NULL,
+    parent              INTEGER, -- references label_alias_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT
 );
 
 CREATE TABLE label_alias
@@ -1146,7 +1162,10 @@ CREATE TABLE label_tag
 
 CREATE TABLE label_type (
     id                  SERIAL,
-    name                VARCHAR(255) NOT NULL
+    name                VARCHAR(255) NOT NULL,
+    parent              INTEGER, -- references label_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT
 );
 
 CREATE TABLE language
@@ -1336,7 +1355,8 @@ CREATE TABLE medium_format
     parent              INTEGER, -- references medium_format.id
     child_order         INTEGER NOT NULL DEFAULT 0,
     year                SMALLINT,
-    has_discids         BOOLEAN NOT NULL DEFAULT FALSE
+    has_discids         BOOLEAN NOT NULL DEFAULT FALSE,
+    description         TEXT
 );
 
 CREATE TABLE place (
@@ -1419,7 +1439,10 @@ CREATE TABLE place_alias
 
 CREATE TABLE place_alias_type (
     id SERIAL,
-    name TEXT NOT NULL
+    name TEXT NOT NULL,
+    parent              INTEGER, -- references place_alias_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT
 );
 
 CREATE TABLE place_annotation
@@ -1452,7 +1475,10 @@ CREATE TABLE place_tag_raw
 
 CREATE TABLE place_type (
     id                  SERIAL, -- PK
-    name                VARCHAR(255) NOT NULL
+    name                VARCHAR(255) NOT NULL,
+    parent              INTEGER, -- references place_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT
 );
 
 CREATE TABLE replication_control
@@ -1613,13 +1639,19 @@ CREATE TABLE release_label (
 CREATE TABLE release_packaging
 (
     id                  SERIAL,
-    name                VARCHAR(255) NOT NULL
+    name                VARCHAR(255) NOT NULL,
+    parent              INTEGER, -- references release_packaging.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT
 );
 
 CREATE TABLE release_status
 (
     id                  SERIAL,
-    name                VARCHAR(255) NOT NULL
+    name                VARCHAR(255) NOT NULL,
+    parent              INTEGER, -- references release_status.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT
 );
 
 CREATE TABLE release_tag
@@ -1689,12 +1721,18 @@ CREATE TABLE release_group_tag
 
 CREATE TABLE release_group_primary_type (
     id                  SERIAL,
-    name                VARCHAR(255) NOT NULL
+    name                VARCHAR(255) NOT NULL,
+    parent              INTEGER, -- references release_group_primary_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT
 );
 
 CREATE TABLE release_group_secondary_type (
     id SERIAL NOT NULL, -- pk
-    name TEXT NOT NULL
+    name TEXT NOT NULL,
+    parent              INTEGER, -- references release_group_secondary_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT
 );
 
 CREATE TABLE release_group_secondary_type_join (
@@ -1818,7 +1856,10 @@ CREATE TABLE work_tag_raw
 
 CREATE TABLE work_alias_type (
     id SERIAL,
-    name TEXT NOT NULL
+    name TEXT NOT NULL,
+    parent              INTEGER, -- references work_alias_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT
 );
 
 CREATE TABLE work_alias
@@ -1895,20 +1936,29 @@ CREATE TABLE work_tag
 
 CREATE TABLE work_type (
     id                  SERIAL,
-    name                VARCHAR(255) NOT NULL
+    name                VARCHAR(255) NOT NULL,
+    parent              INTEGER, -- references work_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT
 );
 
 CREATE TABLE work_attribute_type (
     id                  SERIAL,  -- PK
     name                VARCHAR(255) NOT NULL,
     comment             VARCHAR(255) NOT NULL DEFAULT '',
-    free_text           BOOLEAN NOT NULL
+    free_text           BOOLEAN NOT NULL,
+    parent              INTEGER, -- references work_attribute_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT
 );
 
 CREATE TABLE work_attribute_type_allowed_value (
     id                  SERIAL,  -- PK
     work_attribute_type INTEGER NOT NULL, -- references work_attribute_type.id
-    value               TEXT
+    value               TEXT,
+    parent              INTEGER, -- references work_attribute_type_allowed_value.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT
 );
 
 CREATE TABLE work_attribute (

@@ -9,6 +9,7 @@ use MusicBrainz::Server::Entity::ReleaseGroupSecondaryType;
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'release_group_secondary_type' };
 with 'MusicBrainz::Server::Data::Role::SelectAll' => { order_by => [ 'name'] };
+with 'MusicBrainz::Server::Data::Role::OptionsTree';
 
 sub _table
 {
@@ -17,7 +18,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, name';
+    return 'id, name, parent AS parent_id, child_order, description';
 }
 
 sub _entity_class

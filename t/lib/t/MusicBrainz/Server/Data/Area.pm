@@ -11,8 +11,8 @@ with 't::Context';
 
 my $AREA_GID = 'f03dd94f-a936-42eb-bb97-819102487899';
 my $INSERT_AREA = <<"EOSQL";
-INSERT INTO area (id, gid, name, sort_name)
-  VALUES (1, '$AREA_GID', 'Area', 'Area');
+INSERT INTO area (id, gid, name)
+  VALUES (1, '$AREA_GID', 'Area');
 EOSQL
 
 for my $test_data (
@@ -44,12 +44,12 @@ test 'Test load_containment' => sub {
     my $test = shift;
     $test->c->sql->do(<<'EOSQL');
 INSERT INTO area_type (id, name) VALUES (1, 'Country'), (2, 'Subdivision'), (3, 'City'), (4, 'District');
-INSERT INTO area (id, gid, name, sort_name, type) VALUES
-    (1, 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'descendant', 'descendant', 4),
-    (2, 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbaaaa', 'parent city', 'parent city', 3),
-    (3, 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbcccc', 'parent subdivision', 'parent subdivision', 2),
-    (4, 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', 'parent country', 'parent country', 1),
-    (5, 'cccccccc-cccc-cccc-cccc-cccccccccccc', 'incorrect parent country', 'incorrect parent country', 1);
+INSERT INTO area (id, gid, name, type) VALUES
+    (1, 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'descendant', 4),
+    (2, 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbaaaa', 'parent city', 3),
+    (3, 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbcccc', 'parent subdivision', 2),
+    (4, 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', 'parent country', 1),
+    (5, 'cccccccc-cccc-cccc-cccc-cccccccccccc', 'incorrect parent country', 1);
 
 INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, long_link_phrase) VALUES
     (356, 'dddddddd-dddd-dddd-dddd-dddddddddddd', 'area', 'area', 'part of', 'link', 'rev-link', 'long-link');

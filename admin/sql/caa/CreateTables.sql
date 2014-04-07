@@ -6,7 +6,10 @@ SET search_path = 'cover_art_archive';
 
 CREATE TABLE art_type (
     id SERIAL NOT NULL, -- PK
-    name TEXT NOT NULL
+    name TEXT NOT NULL,
+    parent              INTEGER, -- references art_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT
 );
 
 CREATE TABLE image_type (

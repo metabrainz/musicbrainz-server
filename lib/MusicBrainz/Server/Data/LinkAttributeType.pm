@@ -15,6 +15,7 @@ use MusicBrainz::Server::Data::Utils qw(
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'linkattrtype' };
+with 'MusicBrainz::Server::Data::Role::OptionsTree';
 
 sub _table
 {
@@ -48,32 +49,6 @@ sub load
 {
     my ($self, @objs) = @_;
     load_subobjects($self, 'type', @objs);
-}
-
-sub get_tree
-{
-    my ($self) = @_;
-
-    my @objs;
-    my %id_to_obj;
-    for my $row (@{
-        $self->sql->select_list_of_hashes(
-            'SELECT ' .$self->_columns . ' FROM ' . $self->_table . '
-             ORDER BY child_order, id'
-        )
-    }) {
-        my $obj = $self->_new_from_row($row);
-        $id_to_obj{$obj->id} = $obj;
-        push @objs, $obj;
-    }
-
-    my $root = MusicBrainz::Server::Entity::LinkAttributeType->new;
-    foreach my $obj (@objs) {
-        my $parent = $obj->parent_id ? $id_to_obj{$obj->parent_id} : $root;
-        $parent->add_child($obj);
-    }
-
-    return $root;
 }
 
 sub find_root

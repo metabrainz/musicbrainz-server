@@ -209,7 +209,7 @@ EOSQL
     is exception { $edit_2->accept }, undef, 'accepted edit 2';
 
     my $work = $c->model('Work')->get_by_id(1);
-    $c->model('Work')->load_attributes($work);
+    $c->model('WorkAttribute')->load_for_works($work);
     is ($work->name, 'Awesome work', 'work renamed');
     is ($work->all_attributes, 2, 'Work has two attributes');
 };
