@@ -38,7 +38,7 @@ sub valid {
     my $cardinality = $self->operator_cardinality($self->operator) or return 1;
     for my $arg_index (1..$cardinality) {
         my $arg = $self->argument($arg_index - 1);
-        looks_like_number($arg) or return;
+        looks_like_number($arg) && $arg <= 2147483647 or return;
     }
 
     return 1;
