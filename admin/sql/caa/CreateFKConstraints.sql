@@ -4,7 +4,7 @@
 SET search_path = 'cover_art_archive';
 
 ALTER TABLE art_type
-   ADD CONSTRAINT cover_art_archive.art_type_fk_parent
+   ADD CONSTRAINT art_type_fk_parent
    FOREIGN KEY (parent)
    REFERENCES cover_art_archive.art_type(id);
 
