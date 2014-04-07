@@ -1,7 +1,7 @@
 \set ON_ERROR_STOP 1
 BEGIN;
     ALTER TABLE link_type ADD COLUMN entity0_cardinality integer,
-                                      ADD COLUMN entity1_cardinality integer;
+                          ADD COLUMN entity1_cardinality integer;
 
     -- Type pairs where the info is central to entity1, but many-valued to entity0
     -- e.g. artist-recording (performer, mastering, etc.)
