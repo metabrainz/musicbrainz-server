@@ -3,7 +3,7 @@ use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_MERGE );
 use MusicBrainz::Server::Translation qw ( N_l );
-use List::MoreUtils qw( minmax );
+use MusicBrainz::Server::Edit::Utils qw( large_spread );
 
 extends 'MusicBrainz::Server::Edit::Generic::Merge';
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities' => {
@@ -43,11 +43,8 @@ around build_display_data => sub {
 
     my $data = $self->$orig(@args);
 
-    my @recording_lengths = grep { defined $_ } map { $_->length } (@{ $data->{old} }, $data->{new});
-    if (@recording_lengths) {
-        my ($min, $max) = minmax(@recording_lengths);
-        $data->{large_spread} = 1 if $max - $min >= 15*1000; # 15 seconds
-    }
+    my @recording_lengths = map { $_->length } (@{ $data->{old} }, $data->{new});
+    $data->{large_spread} = 1 if large_spread(@recording_lengths);
 
     return $data;
 };
