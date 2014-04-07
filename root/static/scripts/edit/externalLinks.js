@@ -113,7 +113,9 @@
                 this.entity1ID(this.original.entity1);
             }
             else {
-                this.cleanup.toggleEvents("off");
+                // this.cleanup is undefined for tests that don't deal with
+                // markup (since it's set by the urlCleanup bindingHandler).
+                this.cleanup && this.cleanup.toggleEvents("off");
                 this.viewModel.links.remove(this);
             }
 
