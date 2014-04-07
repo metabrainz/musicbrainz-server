@@ -14,11 +14,6 @@ has_field 'name' => (
     required => 1,
 );
 
-has_field 'sort_name' => (
-    type => '+MusicBrainz::Server::Form::Field::Text',
-    required => 1,
-);
-
 has_field 'type_id' => (
     type => 'Select',
 );
@@ -58,7 +53,7 @@ has_field 'comment' => (
 
 sub edit_field_names
 {
-    return qw( name sort_name comment type_id period.begin_date period.end_date period.ended iso_3166_1 iso_3166_2 iso_3166_3 );
+    return qw( name comment type_id period.begin_date period.end_date period.ended iso_3166_1 iso_3166_2 iso_3166_3 );
 }
 
 sub options_type_id     { select_options_tree(shift->ctx, 'AreaType') }

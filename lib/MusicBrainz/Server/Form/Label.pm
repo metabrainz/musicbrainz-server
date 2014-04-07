@@ -16,11 +16,6 @@ has_field 'name' => (
     required => 1,
 );
 
-has_field 'sort_name' => (
-    type => '+MusicBrainz::Server::Form::Field::Text',
-    required => 1,
-);
-
 has_field 'type_id' => (
     type => 'Select',
 );
@@ -44,7 +39,7 @@ has_field 'period' => (
 
 sub edit_field_names
 {
-    return qw( name sort_name comment type_id area_id period.begin_date
+    return qw( name comment type_id area_id period.begin_date
                period.end_date period.ended label_code ipi_codes isni_codes );
 }
 

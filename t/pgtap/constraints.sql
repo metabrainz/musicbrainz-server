@@ -43,39 +43,39 @@ SELECT lives_ok(
 --------------------------------------------------------------------------------
 -- Comments
 SELECT throws_ok(
-  'INSERT INTO label (id, gid, name, sort_name, comment)
-   VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Revolution Recordings'', ''Revolution Recordings'', ''A  comment'')');
+  'INSERT INTO label (id, gid, name, comment)
+   VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Revolution Recordings'', ''A  comment'')');
 SELECT throws_ok(
-  'INSERT INTO label (id, gid, name, sort_name, comment)
-   VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Revolution Recordings'', ''Revolution Recordings'', ''A comment '')');
+  'INSERT INTO label (id, gid, name, comment)
+   VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Revolution Recordings'', ''A comment '')');
 SELECT throws_ok(
-  'INSERT INTO label (id, gid, name, sort_name, comment)
-   VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Revolution Recordings'', ''Revolution Recordings'', '' A comment'')');
+  'INSERT INTO label (id, gid, name, comment)
+   VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Revolution Recordings'', '' A comment'')');
 
 -- Name & sortname
 SELECT throws_ok(
-  'INSERT INTO label (id, gid, name, sort_name, comment)
-   VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Revolution  Recordings'', ''Revolution Recordings'', ''A comment'')');
+  'INSERT INTO label (id, gid, name, comment)
+   VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Revolution  Recordings'', ''A comment'')');
 SELECT throws_ok(
-  'INSERT INTO label (id, gid, name, sort_name, comment)
-   VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Revolution Recordings'', ''Revolution  Recordings'', ''A comment'')');
+  'INSERT INTO label (id, gid, name, comment)
+   VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Revolution  Recordings'', ''A comment'')');
 SELECT throws_ok(
-  'INSERT INTO label (id, gid, name, sort_name, comment)
-   VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', '' Revolution Recordings'', ''Revolution Recordings'', ''A comment'')');
+  'INSERT INTO label (id, gid, name, comment)
+   VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', '' Revolution Recordings'', ''A comment'')');
 SELECT throws_ok(
-  'INSERT INTO label (id, gid, name, sort_name, comment)
-   VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Revolution Recordings'', '' Revolution Recordings'', ''A comment'')');
+  'INSERT INTO label (id, gid, name, comment)
+   VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', '' Revolution Recordings'', ''A comment'')');
 SELECT throws_ok(
-  'INSERT INTO label (id, gid, name, sort_name, comment)
-   VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Revolution Recordings '', ''Revolution Recordings'', ''A comment'')');
+  'INSERT INTO label (id, gid, name, comment)
+   VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Revolution Recordings '', ''A comment'')');
 SELECT throws_ok(
-  'INSERT INTO label (id, gid, name, sort_name, comment)
-   VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Revolution Recordings'', ''Revolution Recordings '', ''A comment'')');
+  'INSERT INTO label (id, gid, name, comment)
+   VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Revolution Recordings '', ''A comment'')');
 
 -- Everything okay
 SELECT lives_ok(
-  'INSERT INTO label (id, gid, name, sort_name, comment)
-   VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Revolution Recordings'', ''Revolution Recordings'', ''A comment'')');
+  'INSERT INTO label (id, gid, name, comment)
+   VALUES (10, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', ''Revolution Recordings'', ''A comment'')');
 
 --------------------------------------------------------------------------------
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'James Blake', 1);

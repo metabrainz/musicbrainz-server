@@ -32,7 +32,6 @@ CREATE TABLE area (
     id                  SERIAL, -- PK
     gid                 uuid NOT NULL,
     name                VARCHAR NOT NULL,
-    sort_name           VARCHAR NOT NULL,
     type                INTEGER, -- references area_type.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >=0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
@@ -1014,7 +1013,6 @@ CREATE TABLE label (
     id                  SERIAL,
     gid                 UUID NOT NULL,
     name                VARCHAR NOT NULL,
-    sort_name           VARCHAR NOT NULL,
     begin_date_year     SMALLINT,
     begin_date_month    SMALLINT,
     begin_date_day      SMALLINT,

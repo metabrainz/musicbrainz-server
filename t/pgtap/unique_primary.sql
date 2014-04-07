@@ -32,10 +32,10 @@ SELECT set_eq(
 
 --------------------------------------------------------------------------------
 -- Test for labels
-INSERT INTO label (id, gid, name, sort_name)
+INSERT INTO label (id, gid, name)
   VALUES
-    (1, 'a2902f82-c7d3-4445-b291-e3ec251d71b7', 'Label A', 'Label A'),
-    (2, 'bf905de0-a0f3-4417-bdc7-0d6eeb70397a', 'Label B', 'Label B');
+    (1, 'a2902f82-c7d3-4445-b291-e3ec251d71b7', 'Label A'),
+    (2, 'bf905de0-a0f3-4417-bdc7-0d6eeb70397a', 'Label B');
 
 INSERT INTO label_alias (id, label, name, sort_name, locale)
   VALUES (1, 1, 'English Alias 1', 'English Alias 1', 'en_GB'), (2, 1, 'English Alias 2', 'English Alias 2', 'en_GB'),
