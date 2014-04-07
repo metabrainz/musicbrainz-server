@@ -399,13 +399,14 @@ sub tags : Chained('load') PathPart('tags')
             unless $user->preferences->public_tags;
     }
 
-    my $tags = $c->model('Editor')->get_tags ($user);
-    $c->model('ArtistCredit')->load(map { $_->entity } @$tags);
+    my $tags = $c->model('Editor')->get_tags($user);
+    my @tags = @{ $tags->{tags} };
+    $c->model('ArtistCredit')->load(map { $_->entity } @tags);
 
     $c->stash(
         user => $user,
         tags => $tags,
-        tag_max_count => sum(map { $_->{count} } @{ $tags->{tags} }),
+        tag_max_count => sum(map { $_->{count} } @tags),
         template => 'user/tags.tt',
     );
 }
