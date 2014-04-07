@@ -51,6 +51,16 @@ sub options_type_id { select_options(shift->ctx, 'PlaceType') }
 
 sub dupe_model { shift->ctx->model('Place') }
 
+sub filter_duplicates {
+    my $self = shift;
+
+    my @duplicates = @{ $self->duplicates };
+    my @load_areas = $self->ctx->model('Area')->load(@duplicates);
+    $self->ctx->model('Area')->load_containment(@load_areas);
+
+    return 1;
+}
+
 1;
 
 =head1 COPYRIGHT
