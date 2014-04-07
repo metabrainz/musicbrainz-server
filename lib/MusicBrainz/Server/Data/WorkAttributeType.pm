@@ -1,43 +1,47 @@
-package MusicBrainz::Server::Data::ReleasePackaging;
+package MusicBrainz::Server::Data::WorkAttributeType;
 
 use Moose;
 use namespace::autoclean;
-use MusicBrainz::Server::Entity::ReleasePackaging;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects );
+use MusicBrainz::Server::Entity::WorkAttributeType;
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'rp' };
-with 'MusicBrainz::Server::Data::Role::SelectAll';
+with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'workattrtype' };
 with 'MusicBrainz::Server::Data::Role::OptionsTree';
+with 'MusicBrainz::Server::Data::Role::SelectAll';
 
 sub _table
 {
-    return 'release_packaging';
+    return 'work_attribute_type';
 }
 
 sub _columns
 {
-    return 'id, name, parent AS parent_id, child_order, description';
+    return 'id, name, free_text, parent, child_order, comment, description';
+}
+
+sub _column_mapping
+{
+    return {
+        id          => 'id',
+        name        => 'name',
+        comment     => 'comment',
+        free_text   => 'free_text',
+        parent_id   => 'parent',
+        child_order => 'child_order',
+        description => 'description',
+    };
 }
 
 sub _entity_class
 {
-    return 'MusicBrainz::Server::Entity::ReleasePackaging';
+    return 'MusicBrainz::Server::Entity::WorkAttributeType';
 }
 
 sub load
 {
     my ($self, @objs) = @_;
-    load_subobjects($self, 'packaging', @objs);
-}
-
-sub find_by_name
-{
-    my ($self, $name) = @_;
-    my $row = $self->sql->select_single_row_hash(
-        'SELECT ' . $self->_columns . ' FROM ' . $self->_table . '
-          WHERE lower(name) = lower(?)', $name);
-    return $row ? $self->_new_from_row($row) : undef;
+    load_subobjects($self, 'type', @objs);
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -46,7 +50,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2014 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

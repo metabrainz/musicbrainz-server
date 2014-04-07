@@ -16,6 +16,7 @@ use Sub::Exporter -setup => {
                       script_options
                       link_type_options
                       select_options
+                      select_options_tree
                       build_grouped_options
               )]
 };
@@ -108,6 +109,40 @@ sub select_options
         $sort_by_accessor ? $coll->getSortKey(l($_->$accessor)) : ''
     } $model_ref->get_all ];
 }
+
+sub select_options_tree
+{
+    my ($c, $model, %opts) = @_;
+
+    my $model_ref = ref($model) ? $model : $c->model($model);
+    my $root_option = $model_ref->get_tree;
+
+    return [
+        map {
+            _build_options_tree($_, 'l_name', '')
+        } $root_option->all_children
+    ];
+}
+
+sub _build_options_tree
+{
+    my ($root, $attr, $indent) = @_;
+
+    my @options;
+
+    push @options, {
+        value => $root->id,
+        label => $indent . $root->$attr,
+    } if $root->id;
+
+    $indent .= '&#xa0;&#xa0;&#xa0;';
+
+    foreach my $child ($root->all_children) {
+        push @options, _build_options_tree($child, $attr, $indent);
+    }
+    return @options;
+}
+
 
 # Used by the relationship and release editors, instead of FormHandler.
 sub build_grouped_options

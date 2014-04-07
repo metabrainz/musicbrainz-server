@@ -62,7 +62,7 @@ for my $action (qw( relationships aliases tags details )) {
         my $work = $c->stash->{work};
         $c->model('WorkType')->load($work);
         $c->model('Language')->load($work);
-        $c->model('Work')->load_attributes($work);
+        $c->model('WorkAttribute')->load_for_works($work);
     };
 }
 
@@ -97,17 +97,34 @@ before 'edit' => sub
     my ($self, $c) = @_;
     my $work = $c->stash->{work};
     $c->model('WorkType')->load($work);
-    $c->model('Work')->load_attributes($work);
+    $c->model('WorkAttribute')->load_for_works($work);
     stash_work_attribute_json($c);
 };
 
 sub stash_work_attribute_json {
     my ($c) = @_;
     state $json = JSON::Any->new( utf8 => 1 );
+
+    state $build_json;
+
+    $build_json = sub {
+        my ($root, $out) = @_;
+
+        $out //= {};
+
+        my @children = map { $build_json->($_, $_->to_json_hash) } $root->all_children;
+        $out->{children} = [ @children ] if scalar(@children);
+
+        return $out;
+    };
+
     $c->stash(
-        workAttributeTypesJson => $json->encode({
-            $c->model('Work')->all_work_attributes
-        })
+        workAttributeTypesJson => $json->encode(
+            $build_json->($c->model('WorkAttributeType')->get_tree)
+        ),
+        workAttributeValuesJson => $json->encode(
+            $build_json->($c->model('WorkAttributeTypeAllowedValue')->get_tree)
+        )
     );
 }
 
@@ -121,7 +138,7 @@ sub _merge_load_entities
     }
     $c->model('Work')->load_writers(@works);
     $c->model('Work')->load_recording_artists(@works);
-    $c->model('Work')->load_attributes(@works);
+    $c->model('WorkAttribute')->load_for_works(@works);
     $c->model('Language')->load(@works);
     $c->model('ISWC')->load_for_works(@works);
 };
