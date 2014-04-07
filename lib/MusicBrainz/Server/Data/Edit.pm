@@ -587,6 +587,8 @@ sub default_includes {
     # Additional models that should automatically be included with a model.
     # NB: A list, not a hash, because order may be important.
     my @includes = (
+        'Place' => 'Area',
+        'Area' => 'AreaContainment',
     );
 
     my ($objects_to_load, $post_load_models) = @_;

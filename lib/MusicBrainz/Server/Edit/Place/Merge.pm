@@ -19,7 +19,7 @@ sub foreign_keys
     return {
         Place => {
             map {
-                $_ => [ 'PlaceType', 'Area' ]
+                $_ => [ 'PlaceType' ]
             } (
                 $self->data->{new_entity}{id},
                 map { $_->{id} } @{ $self->data->{old_entities} },
