@@ -44,7 +44,7 @@ ALTER TABLE artist_credit_name
 
 ALTER TABLE label
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
-  ADD CONSTRAINT only_non_empty CHECK (name != ''),
+  ADD CONSTRAINT only_non_empty CHECK (name != '');
 
 ALTER TABLE label_alias
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
