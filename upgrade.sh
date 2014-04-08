@@ -50,11 +50,22 @@ fi
 ################################################################################
 # Scripts that should run on *all* nodes (master/slave/standalone)
 
+echo `date` : 'Adding ordering columns'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140212-ordering-columns.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 echo `date` : 'DROP TABLE script_language;'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140208-drop-script_language.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
+<<<<<<< HEAD
 echo `date` : 'Adding series'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140318-series.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+=======
+echo `date` : 'Remove area sortnames'
+OUTPUT=`./admin/psql READWRITE < admin/sql/updates/20140311-remove-area-sortnames.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+echo `date` : 'Remove label sortnames'
+OUTPUT=`./admin/psql READWRITE < admin/sql/updates/20140313-remove-label-sortnames.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+>>>>>>> schema-change-2014-05
 
 ################################################################################
 # Re-enable replication
@@ -70,11 +81,14 @@ fi
 
 if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
 then
-    echo `date` : Enabling last_updated triggers
-    ./admin/sql/EnableLastUpdatedTriggers.pl
+    echo `date` : 'Adding foreign keys for ordering columns'
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140308-ordering-columns-fk.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
     echo `date` : 'Adding constraints for series'
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140318-series-fks.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+    echo `date` : Enabling last_updated triggers
+    ./admin/sql/EnableLastUpdatedTriggers.pl
 fi
 
 ################################################################################

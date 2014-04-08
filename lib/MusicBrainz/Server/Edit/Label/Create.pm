@@ -28,7 +28,7 @@ sub label_id { shift->entity_id }
 has '+data' => (
     isa => Dict[
         name         => Str,
-        sort_name    => Str,
+        sort_name    => Optional[Str],
         type_id      => Nullable[Int],
         label_code   => Nullable[Int],
         begin_date   => Nullable[PartialDateHash],

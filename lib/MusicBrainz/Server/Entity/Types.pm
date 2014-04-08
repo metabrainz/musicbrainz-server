@@ -5,6 +5,9 @@ use Moose::Util::TypeConstraints;
 subtype 'AggregatedTag'
     => as class_type 'MusicBrainz::Server::Entity::AggregatedTag';
 
+subtype 'AliasType'
+    => as class_type 'MusicBrainz::Server::Entity::AliasType';
+
 subtype 'Annotation'
     => as class_type 'MusicBrainz::Server::Entity::Annotation';
 
@@ -55,6 +58,9 @@ subtype 'Collection'
 
 subtype 'Coordinates'
     => as class_type 'MusicBrainz::Server::Entity::Coordinates';
+
+subtype 'CoverArtType'
+    => as class_type 'MusicBrainz::Server::Entity::CoverArtType';
 
 subtype 'Edit'
     => as class_type 'MusicBrainz::Server::Edit';
@@ -131,6 +137,9 @@ subtype 'Relationship'
 subtype 'ReleaseGroup'
     => as class_type 'MusicBrainz::Server::Entity::ReleaseGroup';
 
+subtype 'ReleaseGroupSecondaryType'
+    => as class_type 'MusicBrainz::Server::Entity::ReleaseGroupSecondaryType';
+
 subtype 'ReleaseGroupType'
     => as class_type 'MusicBrainz::Server::Entity::ReleaseGroupType';
 
@@ -169,6 +178,15 @@ subtype 'Work'
 
 subtype 'WorkAlias'
     => as class_type 'MusicBrainz::Server::Entity::WorkAlias';
+
+subtype 'WorkAttribute'
+    => as class_type 'MusicBrainz::Server::Entity::WorkAttribute';
+
+subtype 'WorkAttributeType'
+    => as class_type 'MusicBrainz::Server::Entity::WorkAttributeType';
+
+subtype 'WorkAttributeTypeAllowedValue'
+    => as class_type 'MusicBrainz::Server::Entity::WorkAttributeTypeAllowedValue';
 
 subtype 'WorkType'
     => as class_type 'MusicBrainz::Server::Entity::WorkType';

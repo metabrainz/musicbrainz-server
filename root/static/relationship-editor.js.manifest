@@ -1,3 +1,4 @@
 lib/json/
 scripts/edit/confirmNavigationFallback.js
+scripts/edit/forms.js
 scripts/relationship-editor/

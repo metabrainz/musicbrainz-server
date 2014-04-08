@@ -3,9 +3,6 @@
     [% WRAPPER 'layout/sidebar.tt' %]
         <h2 class="label-information">[% l('Label information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('Sort name:')
-               content=html_escape(label.sort_name) class="sort-name"
-                   IF label.name != label.sort_name -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
                content=html_escape(label.l_type_name) class="type"
                    IF label.type -%]

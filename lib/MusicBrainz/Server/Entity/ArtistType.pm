@@ -10,6 +10,39 @@ has 'name' => (
     isa => 'Str'
 );
 
+has 'child_order' => (
+    is => 'rw',
+    isa => 'Int',
+);
+
+has 'parent_id' => (
+    is => 'rw',
+    isa => 'Maybe[Int]',
+);
+
+has 'parent' => (
+    is => 'rw',
+    isa => 'ArtistType',
+);
+
+has 'children' => (
+    is => 'rw',
+    isa => 'ArrayRef[ArtistType]',
+    lazy => 1,
+    default => sub { [] },
+    traits => [ 'Array' ],
+    handles => {
+        all_children => 'elements',
+        add_child => 'push',
+        clear_children => 'clear'
+    }
+);
+
+has 'description' => (
+    is => 'rw',
+    isa => 'Maybe[Str]',
+);
+
 sub l_name {
     my $self = shift;
     return lp($self->name, 'artist_type')

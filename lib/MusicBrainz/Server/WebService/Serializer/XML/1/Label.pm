@@ -34,7 +34,7 @@ sub serialize
     my @body;
 
     push @body, ($self->gen->name($entity->name));
-    push @body, ($self->gen->sort_name($entity->sort_name));
+    push @body, ($self->gen->sort_name($entity->name));
     push @body, ($self->gen->label_code($entity->label_code)) if $entity->label_code;
     push @body, ($self->gen->disambiguation($entity->comment)) if $entity->comment;
 

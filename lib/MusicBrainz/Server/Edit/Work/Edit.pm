@@ -175,7 +175,7 @@ sub allow_auto_edit
 sub current_instance {
     my $self = shift;
     my $work = $self->c->model('Work')->get_by_id($self->entity_id);
-    $self->c->model('Work')->load_attributes($work);
+    $self->c->model('WorkAttribute')->load_for_works($work);
     return $work;
 }
 

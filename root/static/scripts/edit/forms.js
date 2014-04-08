@@ -3,6 +3,34 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+MB.forms = {
+
+    buildOptionsTree: function (root, textAttr, valueAttr, callback) {
+        var options = [];
+        var nbsp = String.fromCharCode(160);
+
+        function buildOptions(parent, indent) {
+            var i = 0, children = parent.children, child;
+
+            while (child = children[i++]) {
+                var opt = {};
+
+                callback && callback(child, opt);
+                opt.value = child[valueAttr];
+                opt.text = _.str.repeat(nbsp, indent * 2) + child[textAttr];
+                options.push(opt);
+
+                if (child.children) {
+                    buildOptions(child, indent + 1);
+                }
+            }
+        }
+
+        buildOptions(root, 0);
+        return options;
+    }
+};
+
 
 /* Helper binding that matches an input and label (assuming a table layout)
    together in a foreach loop, by assigning an id composed of a prefix
