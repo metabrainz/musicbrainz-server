@@ -56,16 +56,14 @@ OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140212-ordering-columns.s
 echo `date` : 'DROP TABLE script_language;'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140208-drop-script_language.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
-<<<<<<< HEAD
 echo `date` : 'Adding series'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140318-series.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-=======
+
 echo `date` : 'Remove area sortnames'
 OUTPUT=`./admin/psql READWRITE < admin/sql/updates/20140311-remove-area-sortnames.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 echo `date` : 'Remove label sortnames'
 OUTPUT=`./admin/psql READWRITE < admin/sql/updates/20140313-remove-label-sortnames.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
->>>>>>> schema-change-2014-05
 
 ################################################################################
 # Re-enable replication
