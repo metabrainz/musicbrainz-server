@@ -11,8 +11,8 @@ test 'Test deleting a relationship' => sub {
     my $mech = $test->mech;
 
     $c->sql->do(<<'EOSQL');
-INSERT INTO label (id, gid, name, sort_name)
-    VALUES (1, '8900d437-6cc7-4b4c-bdd3-e83634c128df', 'label 1', 'label 1');
+INSERT INTO label (id, gid, name)
+    VALUES (1, '8900d437-6cc7-4b4c-bdd3-e83634c128df', 'label 1');
 
 INSERT INTO url (id, gid, url)
     VALUES (1, '1900d437-6cc7-4b4c-bdd3-e83634c128df', 'http://www.myspace.com/lizardopenmind');

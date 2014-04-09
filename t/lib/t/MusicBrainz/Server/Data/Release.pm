@@ -545,9 +545,9 @@ test 'find_by_artist orders by release date and country' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+release');
     $c->sql->do(<<EOSQL);
-INSERT INTO area (id, gid, name, sort_name, type) VALUES
-  (1, '8a754a16-0027-4a29-c6d7-2b40ea0481ed', 'Estonia', 'Estonia', 1),
-  (2, '8a754a16-0027-3a29-c6d7-2b40ea0481ed', 'France', 'France', 1);
+INSERT INTO area (id, gid, name, type) VALUES
+  (1, '8a754a16-0027-4a29-c6d7-2b40ea0481ed', 'Estonia', 1),
+  (2, '8a754a16-0027-3a29-c6d7-2b40ea0481ed', 'France', 1);
 INSERT INTO country_area (area) VALUES (1), (2);
 INSERT INTO iso_3166_1 (area, code) VALUES (1, 'EE'), (2, 'FR');
 
@@ -571,9 +571,9 @@ test 'find_by_label orders by release date, catalog_number, name, country, barco
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+release');
     $c->sql->do(<<EOSQL);
-INSERT INTO area (id, gid, name, sort_name, type) VALUES
-  (1, '8a754a16-0027-4a29-c6d7-2b40ea0481ed', 'Estonia', 'Estonia', 1),
-  (2, '8a754a16-0027-3a29-c6d7-2b40ea0481ed', 'France', 'France', 1);
+INSERT INTO area (id, gid, name, type) VALUES
+  (1, '8a754a16-0027-4a29-c6d7-2b40ea0481ed', 'Estonia', 1),
+  (2, '8a754a16-0027-3a29-c6d7-2b40ea0481ed', 'France', 1);
 INSERT INTO country_area (area) VALUES (1), (2);
 INSERT INTO iso_3166_1 (area, code) VALUES (1, 'EE'), (2, 'FR');
 
@@ -660,11 +660,11 @@ test 'merge release events' => sub {
     my $c = $test->c;
     MusicBrainz::Server::Test->prepare_test_database($c, '+release');
     $c->sql->do(<<'EOSQL');
-INSERT INTO area (id, gid, name, sort_name, type) VALUES
-    (  5, 'e01da61e-99a8-3c76-a27d-774c3f4982f0', 'Andorra', 'Andorra', 1),
-    (122, 'd2007481-eefe-37c0-be71-2256dfe148cb', 'Liechtenstein', 'Liechtenstein', 1),
-    (132, '050c94f7-1413-3a34-bb90-4a94f3bb2084', 'Malta', 'Malta', 1),
-    (182, 'd4dd44b6-fa46-30f5-b331-ce9e88d06242', 'San Marino', 'San Marino', 1);
+INSERT INTO area (id, gid, name, type) VALUES
+    (  5, 'e01da61e-99a8-3c76-a27d-774c3f4982f0', 'Andorra', 1),
+    (122, 'd2007481-eefe-37c0-be71-2256dfe148cb', 'Liechtenstein', 1),
+    (132, '050c94f7-1413-3a34-bb90-4a94f3bb2084', 'Malta', 1),
+    (182, 'd4dd44b6-fa46-30f5-b331-ce9e88d06242', 'San Marino', 1);
 INSERT INTO country_area (area) VALUES (5), (122), (132), (182);
 
 INSERT INTO release_country (release, country, date_year, date_month, date_day) VALUES
@@ -737,8 +737,8 @@ test 'Merging releases with the same date should discard unknown country events'
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+release');
     $c->sql->do(<<EOSQL);
-INSERT INTO area (id, gid, name, sort_name, type) VALUES
-  (1, '8a754a16-0027-4a29-c6d7-2b40ea0481ed', 'Estonia', 'Estonia', 1);
+INSERT INTO area (id, gid, name, type) VALUES
+  (1, '8a754a16-0027-4a29-c6d7-2b40ea0481ed', 'Estonia', 1);
 INSERT INTO country_area (area) VALUES (1);
 
 INSERT INTO release_unknown_country (release, date_year, date_month, date_day)

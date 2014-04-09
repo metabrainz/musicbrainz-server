@@ -229,36 +229,30 @@ Fields.PartialDate.prototype.partChanged = function() {
 };
 
 
-Fields.Attribute = function(attr, value, relationship) {
-    this.attr = attr;
-    this.value = ko.observable(this.convert(value));
-    this.relationship = relationship;
+Fields.Attribute = function(attr, initialValue, relationship) {
+    var value = (attr.children ? ko.observableArray : ko.observable)();
 
-    return (ko.computed({read: this.value, write: this.write, owner: this})
-        .extend({field: [relationship, "attrs." + attr.name, false]}));
-};
-
-Fields.Attribute.prototype.write = function(newValue) {
-    newValue = this.convert(ko.utils.unwrapObservable(newValue));
-
-    if (!_.isEqual(this.value(), newValue)) {
-        this.value(newValue);
-        var attrs = this.relationship.attrs;
-        attrs.notifySubscribers(attrs.peek());
+    function convert(newValue) {
+        if (attr.children) {
+            if (!_.isArray(newValue)) {
+                newValue = [newValue];
+            }
+            newValue = _(newValue).map(Number).compact().uniq().value().sort();
+        } else {
+            newValue = !!($.isNumeric(newValue) ? parseInt(newValue, 10) : newValue);
+        }
+        if (!_.isEqual(value.peek(), newValue)) {
+            value(newValue);
+        } else if (relationship) {
+            relationship.attrs.notifySubscribers(relationship.attrs.peek());
+        }
     }
-};
 
-Fields.Attribute.prototype.convert = function(value) {
-    if (this.attr.children) {
-        if (!_.isArray(value)) value = [value];
+    convert(initialValue);
+    value.subscribe(convert);
+    delete initialValue;
 
-        return (_.chain(value)
-            .map(function(n) {return parseInt(n, 10)})
-            .compact().uniq().value()
-            .sort(function(a, b) {return a - b}));
-    } else {
-        return Boolean($.isNumeric(value) ? parseInt(value, 10) : value);
-    }
+    return value.extend({field: [relationship, "attrs." + attr.name, false]});
 };
 
 // if the relationship's link type changes (in the edit dialog, for example),

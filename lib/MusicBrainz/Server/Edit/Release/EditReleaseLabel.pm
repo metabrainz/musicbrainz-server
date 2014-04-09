@@ -284,8 +284,8 @@ sub restore {
             }];
         }
         else {
-            my $countries = $self->c->model('Area')->search_by_names(
-                $country_name)->{$country_name};
+            my @countries = $self->c->model('Area')->find_by_name(
+                $country_name);
             $data->{release}{events} = [{
                 date => delete $data->{release}{date},
                 country_name => $country_name,
@@ -293,7 +293,7 @@ sub restore {
                 # $countries will be undefined if there is no search result. It's
                 # not possible for $countries to be the empty list
                 # (Data::Role::Alias immediately pushes to it).
-                country_id => $countries && $countries->[0]->id
+                country_id => @countries && $countries[0]->id
             }];
         }
     }

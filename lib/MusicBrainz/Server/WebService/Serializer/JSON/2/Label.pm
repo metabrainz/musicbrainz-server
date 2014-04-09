@@ -18,7 +18,7 @@ sub serialize
     my %body;
 
     $body{name} = $entity->name;
-    $body{"sort-name"} = $entity->sort_name;
+    $body{"sort-name"} = $entity->name;
     $body{"label-code"} = number ($entity->label_code);
     $body{disambiguation} = $entity->comment // "";
 

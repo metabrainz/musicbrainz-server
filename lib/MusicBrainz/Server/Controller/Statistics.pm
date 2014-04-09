@@ -31,14 +31,8 @@ sub statistics : Path('')
     my @area_types = sort_by { $_->l_name } $c->model('AreaType')->get_all();
     my @place_types = sort_by { $_->l_name } $c->model('PlaceType')->get_all();
 
-    my %work_attribute_type_map = $c->model('Work')->all_work_attributes();
-    my @work_attribute_types = sort_by { $_->l_name } map {
-        MusicBrainz::Server::Entity::WorkAttributeType->new(
-            id => $_,
-            name => $work_attribute_type_map{$_}->{name},
-            comment => $work_attribute_type_map{$_}->{comment}
-        );
-    } keys %work_attribute_type_map;
+    my @work_attribute_types = sort_by { $_->l_name }
+        $c->model('WorkAttributeType')->get_all;
 
     $c->stash(
         template => 'statistics/index.tt',

@@ -33,7 +33,6 @@ test all => sub {
                 "id" => 2,
                 "gid" => "46f0f4cd-8aab-4b33-b698-f459faf64190",
                 "name" => "Warp Records",
-                "sortName" => "Warp Records",
                 "primary_alias" => undef
               }, { "current" => 1, "pages" => 1 } ]);
 

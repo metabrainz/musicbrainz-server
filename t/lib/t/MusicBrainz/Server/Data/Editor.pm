@@ -191,8 +191,8 @@ test 'Deleting editors removes most information' => sub {
 
     $c->sql->do(<<'EOSQL');
 INSERT INTO area_type (id, name) VALUES (1, 'Country');
-INSERT INTO area (id, gid, name, sort_name, type) VALUES
-  (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 'United Kingdom', 1);
+INSERT INTO area (id, gid, name, type) VALUES
+  (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 1);
 INSERT INTO iso_3166_1 (area, code) VALUES (221, 'GB');
 INSERT INTO language (id, iso_code_3, name) VALUES (1, 'bob', 'Bobch');
 INSERT INTO gender (id, name) VALUES (1, 'Male');
@@ -328,8 +328,8 @@ test 'subscription_summary' => sub {
     $test->c->sql->do(<<EOSQL);
 INSERT INTO artist (id, gid, name, sort_name)
   VALUES (1, 'dd448d65-d7c5-4eef-8e13-12e1bfdacdc6', 'artist', 'artist');
-INSERT INTO label (id, gid, name, sort_name)
-  VALUES (1, 'dd448d65-d7c5-4eef-8e13-12e1bfdacdc6', 'label', 'label');
+INSERT INTO label (id, gid, name)
+  VALUES (1, 'dd448d65-d7c5-4eef-8e13-12e1bfdacdc6', 'label');
 
 INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES
 (1, 'Alice', '{CLEARTEXT}al1c3', 'd61b477a6269ddd11dbd70644335a943', '', now()),
