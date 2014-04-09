@@ -400,13 +400,11 @@ sub tags : Chained('load') PathPart('tags')
     }
 
     my $tags = $c->model('Editor')->get_tags($user);
-    my @tags = @{ $tags->{tags} };
-    $c->model('ArtistCredit')->load(map { $_->entity } @tags);
 
     $c->stash(
         user => $user,
         tags => $tags,
-        tag_max_count => sum(map { $_->{count} } @tags),
+        tag_max_count => sum(map { $_->{count} } @{ $tags->{tags} }),
         template => 'user/tags.tt',
     );
 }
