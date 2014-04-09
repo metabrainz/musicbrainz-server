@@ -277,7 +277,7 @@ sub _process_seeded_data
         my $position = 0;
 
         for my $medium (@{ $result->{mediums} // [] }) {
-            $medium->{position} = ++$position unless $medium->{position};
+            $medium->{position} = ++$position;
         }
     }
 
@@ -417,7 +417,7 @@ sub _seeded_medium
 {
     my ($c, $params, $field_name, $errors) = @_;
 
-    my @known_fields = qw( format position name track toc );
+    my @known_fields = qw( format name track toc );
     _report_unknown_fields($field_name, $params, $errors, @known_fields);
 
     my $result = { tracks => [] };
@@ -429,14 +429,6 @@ sub _seeded_medium
             $result->{formatID} = $format->id;
         } else {
             push @$errors, "Invalid $field_name.format: “$name”.";
-        }
-    }
-
-    if (my $position = $params->{position}) {
-        if (looks_like_number($position)) {
-            $result->{position} = $position;
-        } else {
-            push @$errors, "Invalid $field_name.position: “$position”.";
         }
     }
 
