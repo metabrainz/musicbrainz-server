@@ -19,8 +19,8 @@ test 'Can merge areas are used as entity areas' => sub {
 INSERT INTO artist (id, gid, name, sort_name, area, begin_area, end_area)
   VALUES (5, 'c5655a7c-bba0-46aa-a8fd-db707d47aa5c', 'Artist', 'Artist', 13, 13, 13);
 
-INSERT INTO label (id, gid, name, sort_name, area)
-  VALUES (5, 'c5655a7c-bba0-46aa-a8fd-db707d47aa5c', 'Artist', 'Artist', 13);
+INSERT INTO label (id, gid, name, area)
+  VALUES (5, 'c5655a7c-bba0-46aa-a8fd-db707d47aa5c', 'Artist', 13);
 EOSQL
 
     my $edit = $c->model('Edit')->create(

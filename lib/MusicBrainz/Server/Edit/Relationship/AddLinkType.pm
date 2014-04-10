@@ -34,7 +34,8 @@ has '+data' => (
             type => Optional[Int], # Used in the new edits
         ]],
         documentation => Optional[Str],
-        is_deprecated => Optional[Bool]
+        is_deprecated => Optional[Bool],
+        has_dates => Optional[Bool]
     ]
 );
 

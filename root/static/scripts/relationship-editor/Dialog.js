@@ -21,122 +21,20 @@ MB.RelationshipEditor = (function(RE) {
 
 var UI = RE.UI = RE.UI || {}, Util = RE.Util = RE.Util || {}, $w = $(window);
 
-// For select attributes and the link type field, we use a custom binding handler
-// for performance reasons (the instrument tree is huge, for example). We also
-// need to support the unaccented instrument names. the builtin options binding
-// doesn't allow anything like that.
 
-ko.bindingHandlers.selectAttribute = (function() {
+ko.bindingHandlers.attributeMultiselect = {
 
-    var dialog;
+    init: function (element, valueAccessor) {
+        var attr = valueAccessor();
+        var id = attr.data.id;
+        var placeholder = "";
 
-    function build(relationshipAttrs, attr, indent, doc) {
+        if (id == 14) placeholder = MB.text.FocusInstrument;
+        if (id == 3) placeholder = MB.text.FocusVocal;
 
-        for (var i = 0, child; child = attr.children[i]; i++) {
-            var opt = document.createElement("option"),
-                attrs = relationshipAttrs[child.name];
-
-            opt.value = child.id;
-            opt.innerHTML = _.str.repeat("&#160;&#160;", indent) + child.l_name;
-            if (child.unaccented) opt.setAttribute("data-unaccented", child.unaccented);
-            if (attrs && attrs.indexOf(child.id) > -1) opt.selected = true;
-            doc.appendChild(opt);
-
-            if (child.children) build(relationshipAttrs, child, indent + 1, doc);
-        }
+        $(element).multiselect(placeholder, id);
     }
-
-    var getOptions = _.memoize(function(attr) {
-        var doc = document.createDocumentFragment();
-        build(dialog.relationship().attrs(), attr.data, 0, doc);
-        return doc;
-
-    }, function(attr) {return attr.data.name});
-
-    return {
-        init: function (element, valueAccessor, allBindingsAccessor,
-                        viewModel, bindingContext) {
-
-            dialog = bindingContext.$parent;
-
-            var $element = $(element),
-                attr = valueAccessor(),
-                multi = (attr.max === null);
-
-            if (multi) {
-                element.multiple = true;
-                $element.hide();
-            } else {
-                $element.append('<option value=""></option>');
-            }
-
-            $element.append(getOptions(attr).cloneNode(true)).val(attr.value())
-                .change(function() {
-                    // for mutiselects, jQuery's val() returns an array
-                    var value = $(this).val();
-                    attr.value(multi ? $(this).val() : [value]);
-                });
-
-            if (multi) {
-                var id = attr.data.id, placeholder = "";
-                if (id == 14) placeholder = MB.text.FocusInstrument;
-                if (id == 3) placeholder = MB.text.FocusVocal;
-                $element.multiselect(placeholder, id);
-            }
-        }
-    };
-}());
-
-
-ko.bindingHandlers.linkType = (function() {
-
-    function build(root, indent, backward, doc) {
-        var phrase = backward ? root.reverse_phrase : root.phrase;
-
-        // remove {foo} {bar} junk, unless it's for a required attribute.
-        var orig_phrase = phrase, re = /\{(.*?)(?::(.*?))?\}/g, m, repl;
-        while (m = re.exec(orig_phrase)) {
-            var attr = Util.attrRoot(m[1]), info = attr ? root.attrs[attr.id] : [0];
-            if (info[0] < 1) {
-                repl = (m[2] ? m[2].split("|")[1] : "") || "";
-                phrase = phrase.replace(m[0], repl);
-            }
-        }
-        var opt = document.createElement("option");
-        opt.value = root.id;
-        opt.innerHTML = _.str.repeat("&#160;&#160;", indent) + _.str.clean(phrase);
-        root.descr || (opt.disabled = true);
-        doc.appendChild(opt);
-
-        root.children && $.each(root.children, function(i, child) {
-            build(child, indent + 1, backward, doc);
-        });
-    };
-
-    var getOptions = _.memoize(function(type, backward) {
-        var doc = document.createDocumentFragment();
-
-        $.each(Util.typeInfoByEntities(type), function(i, root) {
-            build(root, 0, backward, doc);
-        });
-        return doc;
-    }, function(type, backward) {return type + "-" + backward});
-
-    return {
-        update: function (element, valueAccessor) {
-            var dialog = valueAccessor(),
-                relationship = dialog.relationship(),
-                type = relationship.type,
-                backward = dialog.backward(),
-                doc = getOptions(type, backward).cloneNode(true);
-
-            $(element).empty().append(doc).val(relationship.link_type());
-
-            previousType = type;
-            previousDirection = backward;
-        }
-    };
-}());
+};
 
 
 ko.bindingHandlers.targetType = (function() {
@@ -146,7 +44,7 @@ ko.bindingHandlers.targetType = (function() {
     function change() {
         var ac = dialog.autocomplete,
             relationship = dialog.relationship(),
-            obj = relationship.toJSON();
+            obj = relationship.toJSON(true);
 
         obj.entity[dialog.target.gid === obj.entity[0].gid ? 0 : 1] = (
             MB.entity({ type: this.value, name: dialog.target.name })
@@ -468,9 +366,71 @@ var Dialog = aclass({
         relationship.entity[1](entity0);
     },
 
+    linkTypeOptions: function () {
+        var relationship = this.relationship();
+        var backward = this.backward();
+        var root = { children: Util.typeInfoByEntities(relationship.type) };
+        var textAttr = (backward ? "reverse_phrase" : "phrase") + "_clean";
+
+        function callback(data, option) {
+            if (!data.descr) {
+                option.disabled = true;
+            }
+
+            if (data[textAttr]) return;
+
+            var phrase = backward ? data.reverse_phrase : data.phrase;
+
+            // remove {foo} {bar} junk, unless it's for a required attribute.
+            var orig_phrase = phrase, re = /\{(.*?)(?::(.*?))?\}/g, m, repl;
+            while (m = re.exec(orig_phrase)) {
+                var attr = Util.attrRoot(m[1]), info = attr ? data.attrs[attr.id] : [0];
+                if (info[0] < 1) {
+                    repl = (m[2] ? m[2].split("|")[1] : "") || "";
+                    phrase = phrase.replace(m[0], repl);
+                }
+            }
+
+            data[textAttr] = phrase;
+        }
+
+        return MB.forms.buildOptionsTree(root, textAttr, "id", callback);
+    },
+
+    afterRenderLinkTypeOption: function (option, data) {
+        if (data.disabled) {
+            option.disabled = true;
+        }
+    },
+
     toggleLinkTypeHelp: function() {
         this.showLinkTypeHelp(!this.showLinkTypeHelp.peek());
         $("#link-type").parent().find("div.ar-descr a").attr("target", "_blank");
+    },
+
+    attributeOptions: function (attr) {
+        var root = attr.data;
+
+        function callback(data, option) {
+            option.attr = data;
+        }
+
+        return MB.forms.buildOptionsTree(root, "l_name", "id", callback);
+    },
+
+    afterRenderAttributeOption: function (option, data) {
+        var attr = data.attr;
+
+        if (attr.unaccented) {
+            option.setAttribute("data-unaccented", attr.unaccented);
+        }
+
+        var relationshipAttrs = this.relationship().attrs();
+        var attrs = ko.unwrap(relationshipAttrs[attr.name]);
+
+        if (attrs && attrs.indexOf(attr.id) > -1) {
+            option.selected = true;
+        }
     },
 
     positionBy: function (element) {
@@ -486,7 +446,7 @@ function DialogAttribute(relationship, attr, info) {
     this.data = attr;
     this.min = info[0];
     this.max = info[1];
-    this.type = attr.children ? "select" : "boolean";
+    this.type = attr.children ? (this.max === null ? "multiselect" : "select") : "boolean";
 }
 
 

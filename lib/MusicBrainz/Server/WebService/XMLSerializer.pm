@@ -749,7 +749,7 @@ sub _serialize_label
 
     my @list;
     push @list, $gen->name($label->name);
-    push @list, $gen->sort_name($label->sort_name) if $label->sort_name;
+    push @list, $gen->sort_name($label->name);
     push @list, $gen->disambiguation($label->comment) if $label->comment;
     push @list, $gen->label_code($label->label_code) if $label->label_code;
     push @list, $gen->ipi($label->ipi_codes->[0]->ipi) if ($label->all_ipi_codes);
@@ -811,7 +811,7 @@ sub _serialize_area_inner
 
     my @list;
     push @list, $gen->name($area->name);
-    push @list, $gen->sort_name($area->sort_name) if $area->sort_name;
+    push @list, $gen->sort_name($area->name);
     push @list, $gen->disambiguation($area->comment) if ($area->comment);
     if ($area->iso_3166_1_codes) {
         push @list, $gen->iso_3166_1_code_list(map {

@@ -25,7 +25,7 @@
             <tr>
                 <th class="label">[% entity_label(source_type) %]</th>
                 <td id="entity0">
-                  <span>[% link_entity(source) %]</span>
+                  <span>[% descriptive_link(source) %]</span>
                 </td>
             </tr>
             <tr>
@@ -51,7 +51,7 @@
             <tr>
                 <th class="label">[% entity_label(dest_type) %]</th>
                 <td id="entity1">
-                  <span>[% link_entity(dest) %]</span>
+                  <span>[% descriptive_link(dest) %]</span>
                 </td>
             </tr>
             <tr class="attributes-container">
@@ -79,17 +79,17 @@
                 [% END %]
                 </td>
             </tr>
-            <tr>
+            <tr class="date-field">
                 <th class="label">[% r.label('period.begin_date', l('Begin date:'), fake => 1) %]</th>
                 <td>[% r.date('period.begin_date') %]
                 [% field_errors(form, 'period.begin_date') %]</td>
             </tr>
-            <tr>
+            <tr class="date-field">
                 <th class="label">[% r.label('period.end_date', l('End date:'), fake => 1) %]</th>
                 <td>[% r.date('period.end_date') %]
                 [% field_errors(form, 'period.end_date') %]</td>
             </tr>
-            <tr>
+            <tr class="date-field">
               <td class="label">
               </td>
               <td>

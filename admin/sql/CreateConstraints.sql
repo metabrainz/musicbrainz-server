@@ -1,3 +1,4 @@
+\set ON_ERROR_STOP 1
 BEGIN;
 
 ALTER TABLE area          ADD CHECK (controlled_for_whitespace(comment));
@@ -55,9 +56,7 @@ ALTER TABLE instrument_alias
 
 ALTER TABLE label
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
-  ADD CONSTRAINT only_non_empty CHECK (name != ''),
-  ADD CONSTRAINT control_for_whitespace_sort_name CHECK (controlled_for_whitespace(sort_name)),
-  ADD CONSTRAINT only_non_empty_sort_name CHECK (sort_name != '');
+  ADD CONSTRAINT only_non_empty CHECK (name != '');
 
 ALTER TABLE label_alias
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
@@ -103,8 +102,9 @@ ALTER TABLE work_alias
 
 ALTER TABLE artist
 ADD CONSTRAINT group_type_implies_null_gender CHECK (
-  (gender IS NULL AND type = 2)
-  OR type IS DISTINCT FROM 2
+  (gender IS NULL AND type IN (2, 5, 6))
+  OR type NOT IN (2, 5, 6)
+  OR type IS NULL
 );
 
 ALTER TABLE release_label

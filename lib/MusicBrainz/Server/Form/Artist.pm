@@ -1,6 +1,6 @@
 package MusicBrainz::Server::Form::Artist;
 use HTML::FormHandler::Moose;
-use MusicBrainz::Server::Form::Utils qw( select_options );
+use MusicBrainz::Server::Form::Utils qw( select_options_tree );
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
@@ -60,8 +60,8 @@ sub edit_field_names
                ipi_codes isni_codes );
 }
 
-sub options_gender_id   { select_options(shift->ctx, 'Gender') }
-sub options_type_id     { select_options(shift->ctx, 'ArtistType') }
+sub options_gender_id   { select_options_tree(shift->ctx, 'Gender') }
+sub options_type_id     { select_options_tree(shift->ctx, 'ArtistType') }
 
 sub dupe_model { shift->ctx->model('Artist') }
 
@@ -72,6 +72,20 @@ sub validate {
         $self->field('type_id')->value == 2) {
         if ($self->field('gender_id')->value) {
             $self->field('gender_id')->add_error('Group artists cannot have a gender');
+        }
+    }
+
+    if ($self->field('type_id')->value &&
+        $self->field('type_id')->value == 5) {
+        if ($self->field('gender_id')->value) {
+            $self->field('gender_id')->add_error('Orchestras cannot have a gender');
+        }
+    }
+
+    if ($self->field('type_id')->value &&
+        $self->field('type_id')->value == 6) {
+        if ($self->field('gender_id')->value) {
+            $self->field('gender_id')->add_error('Choirs cannot have a gender');
         }
     }
 }

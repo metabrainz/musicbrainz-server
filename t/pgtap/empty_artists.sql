@@ -19,8 +19,8 @@ INSERT INTO artist (id, gid, name, sort_name, last_updated, edits_pending, comme
          (4, 'fbbf7950-eebe-49e5-86d6-058ecc2bf4ac', 'Test', 'Test', now(), 10, 'Artist 2');
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Test', 1);
 
-INSERT INTO label (id, gid, name, sort_name)
-  VALUES (1, '0c172831-ff88-4eff-9c58-47fa1408b6b2', 'Test', 'Test');
+INSERT INTO label (id, gid, name)
+  VALUES (1, '0c172831-ff88-4eff-9c58-47fa1408b6b2', 'Test');
 INSERT INTO recording (id, gid, name, artist_credit)
   VALUES (1, '0c172831-ff88-4eff-9c58-47fa1408b6b2', 'Test', 1);
 INSERT INTO release_group (id, gid, name, artist_credit)

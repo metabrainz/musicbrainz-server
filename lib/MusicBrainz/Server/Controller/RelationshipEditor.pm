@@ -13,7 +13,7 @@ use MusicBrainz::Server::Form::RelationshipEditor;
 use MusicBrainz::Server::Form::Utils qw(
     language_options
     build_grouped_options
-    select_options
+    select_options_tree
 );
 use MusicBrainz::Server::Translation qw( l );
 use List::UtilsBy qw( sort_by );
@@ -98,7 +98,7 @@ sub load : Private {
     $c->stash(
         attr_info => $json->encode($attr_info),
         type_info => $json->encode($self->build_type_info($c, @{ $form->link_type_tree })),
-        work_types => select_options($c, 'WorkType'),
+        work_types => select_options_tree($c, 'WorkType'),
         work_languages => build_grouped_options($c, $form->language_options),
     );
 }
@@ -118,6 +118,7 @@ sub build_type_info {
             phrase              => $root->l_link_phrase,
             reverse_phrase      => $root->l_reverse_link_phrase,
             deprecated          => $root->is_deprecated || 0,
+            has_dates           => $root->has_dates ? \1 : \0,
             scalar %attrs       ? (attrs    => \%attrs) : (),
             $root->description  ? (descr    => $root->l_description) : (),
             $root->all_children ? (children => _build_children($root, \&_build_type)) : (),

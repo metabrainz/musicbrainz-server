@@ -1,6 +1,6 @@
 package MusicBrainz::Server::Form::RelationshipEditor::CreateWorks;
 use HTML::FormHandler::Moose;
-use MusicBrainz::Server::Form::Utils qw( language_options select_options );
+use MusicBrainz::Server::Form::Utils qw( language_options select_options_tree );
 
 extends 'MusicBrainz::Server::Form';
 
@@ -30,7 +30,7 @@ has_field 'works.comment' => (
 );
 
 sub edit_field_names          { qw() }
-sub options_works_type_id     { select_options(shift->ctx, 'WorkType') }
+sub options_works_type_id     { select_options_tree(shift->ctx, 'WorkType') }
 sub options_works_language_id { return language_options (shift->ctx); }
 
 1;

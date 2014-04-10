@@ -251,6 +251,8 @@ my %stats = (
                 "count.artist.type.group"  => $dist{2} || 0,
                 "count.artist.type.other"  => $dist{3} || 0,
                 "count.artist.type.character"  => $dist{4} || 0,
+                "count.artist.type.orchestra"  => $dist{5} || 0,
+                "count.artist.type.choir"  => $dist{6} || 0,
                 "count.artist.type.null" => $dist{null} || 0
             };
         },
@@ -274,7 +276,7 @@ my %stats = (
             my $data = $sql->select_list_of_lists(
                 "SELECT COALESCE(gender::text, 'null'), COUNT(*) AS count
                 FROM artist
-                WHERE type IS DISTINCT FROM 2
+                WHERE (type NOT IN (2, 5, 6) OR type IS NULL)
                 GROUP BY gender
                 ",
             );

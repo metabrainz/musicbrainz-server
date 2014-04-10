@@ -17,7 +17,7 @@ sub l_name {
 
 has 'year' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Maybe[Int]'
 );
 
 has 'child_order' => (
@@ -27,7 +27,7 @@ has 'child_order' => (
 
 has 'parent_id' => (
     is => 'rw',
-    isa => 'Int',
+    isa => 'Maybe[Int]',
 );
 
 has 'parent' => (
@@ -51,6 +51,11 @@ has 'children' => (
         add_child => 'push',
         clear_children => 'clear'
     }
+);
+
+has 'description' => (
+    is => 'rw',
+    isa => 'Maybe[Str]',
 );
 
 __PACKAGE__->meta->make_immutable;

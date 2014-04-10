@@ -13,7 +13,7 @@ has 'gid' => (
 
 has 'parent_id' => (
     is => 'rw',
-    isa => 'Int',
+    isa => 'Maybe[Int]',
 );
 
 has 'parent' => (
@@ -138,6 +138,11 @@ sub published_examples {
 has 'is_deprecated' => (
     is => 'rw',
     isa => 'Bool'
+);
+
+has 'has_dates' => (
+    is => 'rw',
+    isa => 'Bool',
 );
 
 __PACKAGE__->meta->make_immutable;

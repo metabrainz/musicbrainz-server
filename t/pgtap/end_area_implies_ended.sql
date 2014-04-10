@@ -8,8 +8,8 @@ SELECT no_plan();
 INSERT INTO artist (id, gid, name, sort_name)
 VALUES (10, 'a4f27229-557b-4b32-be83-06a309903314', 'blah', 'blah');
 
-INSERT INTO area (id, gid, name, sort_name)
-VALUES (1, '8939baa6-d3ce-4355-8a6c-bb8345e44d45', 'A', 'A');
+INSERT INTO area (id, gid, name)
+VALUES (1, '8939baa6-d3ce-4355-8a6c-bb8345e44d45', 'A');
 
 SELECT is( (SELECT ended FROM artist WHERE id = 10), false);
 

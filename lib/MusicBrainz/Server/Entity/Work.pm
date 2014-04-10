@@ -3,6 +3,7 @@ package MusicBrainz::Server::Entity::Work;
 use List::UtilsBy qw( sort_by );
 use Moose;
 use MusicBrainz::Server::Entity::Types;
+use aliased 'MusicBrainz::Server::Entity::WorkAttribute';
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Taggable';
@@ -90,7 +91,7 @@ has 'iswcs' => (
 
 has attributes => (
     is => 'ro',
-    isa => 'ArrayRef',
+    isa => ArrayRef[WorkAttribute],
     default => sub { [] },
     traits => [ 'Array' ],
     handles => {

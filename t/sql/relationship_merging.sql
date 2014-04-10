@@ -1,7 +1,7 @@
-INSERT INTO label (id, name, sort_name, gid)
-    VALUES (1, 'A', 'A', '9b335b20-5f88-11e0-80e3-0800200c9a66'),
-           (2, 'B', 'B', 'a2b31070-5f88-11e0-80e3-0800200c9a66'),
-           (3, 'C', 'C', 'a9de8b40-5f88-11e0-80e3-0800200c9a66');
+INSERT INTO label (id, name, gid)
+    VALUES (1, 'A', '9b335b20-5f88-11e0-80e3-0800200c9a66'),
+           (2, 'B', 'a2b31070-5f88-11e0-80e3-0800200c9a66'),
+           (3, 'C', 'a9de8b40-5f88-11e0-80e3-0800200c9a66');
 
 INSERT INTO artist (id, gid, name, sort_name)
     VALUES (1, 'e2a083a9-9942-4d6e-b4d2-8397320b95f7', 'Artist 1', 'Artist 1'),

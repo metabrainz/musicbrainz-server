@@ -11,8 +11,8 @@ INSERT INTO language (id, iso_code_2t, iso_code_2b, iso_code_1, iso_code_3, name
     VALUES (1, 'deu', 'ger', 'de', 'deu', 'German');
 
 INSERT INTO area_type (id, name) VALUES (1, 'Country');
-INSERT INTO area (id, gid, name, sort_name, type) VALUES
-  (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 'United Kingdom', 1);
+INSERT INTO area (id, gid, name, type) VALUES
+  (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 1);
 INSERT INTO country_area (area) VALUES (221);
 INSERT INTO iso_3166_1 (area, code) VALUES (221, 'GB');
 
@@ -26,7 +26,7 @@ INSERT INTO release_country (release, country, date_year, date_month, date_day) 
 INSERT INTO release (id, gid, name, artist_credit, release_group) VALUES (2, '7a906020-72db-11de-8a39-0800200c9a66', 'Release #2', 1, 1);
 ;
 
-INSERT INTO label (id, gid, name, sort_name) VALUES (1, '00a23bd0-72db-11de-8a39-0800200c9a66', 'Label', 'Label');
+INSERT INTO label (id, gid, name) VALUES (1, '00a23bd0-72db-11de-8a39-0800200c9a66', 'Label');
 
 INSERT INTO release_label (id, release, label, catalog_number)
     VALUES (1, 1, 1, 'ABC-123'), (2, 1, 1, 'ABC-123-X');

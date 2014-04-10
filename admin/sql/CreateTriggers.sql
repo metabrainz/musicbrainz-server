@@ -280,6 +280,9 @@ CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON link
 CREATE TRIGGER deny_deprecated BEFORE UPDATE OR INSERT ON link
     FOR EACH ROW EXECUTE PROCEDURE deny_deprecated_links();
 
+CREATE TRIGGER check_has_dates BEFORE UPDATE OR INSERT ON link
+    FOR EACH ROW EXECUTE PROCEDURE check_has_dates();
+
 CREATE TRIGGER b_upd_link_attribute BEFORE UPDATE OR INSERT ON link_attribute
     FOR EACH ROW EXECUTE PROCEDURE prevent_invalid_attributes();
 

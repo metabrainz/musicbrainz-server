@@ -212,7 +212,7 @@ sub merge
               WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
 
     # Insert any aliases from old entity names
-    my $sortnamecol = ($type eq 'work' || $type eq 'place') ? 'name' : 'sort_name';
+    my $sortnamecol = ($type eq 'artist') ? 'sort_name' : 'name';
     $self->sql->do(
         "INSERT INTO $table (name, $type, sort_name)
             SELECT DISTINCT ON (old_entity.name) old_entity.name, new_entity.id, old_entity.$sortnamecol

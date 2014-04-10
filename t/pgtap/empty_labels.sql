@@ -29,9 +29,9 @@ INSERT INTO url (id, gid, url)
 INSERT INTO work (id, gid, name)
   VALUES (1, '0c172831-ff88-4eff-9c58-47fa1408b6b2', 'Test');
 
-INSERT INTO label (id, gid, name, sort_name, last_updated, edits_pending, comment)
-  VALUES (3, '159cb1fa-dbe9-4777-abf6-7ecb3ce84f91', 'Test Label', 'Test Label', now(), 0, 'Label 1'),
-         (4, 'fbbf7950-eebe-49e5-86d6-058ecc2bf4ac', 'Test Label', 'Test Label', now(), 10, 'Label 2');
+INSERT INTO label (id, gid, name, last_updated, edits_pending, comment)
+  VALUES (3, '159cb1fa-dbe9-4777-abf6-7ecb3ce84f91', 'Test Label', now(), 0, 'Label 1'),
+         (4, 'fbbf7950-eebe-49e5-86d6-058ecc2bf4ac', 'Test Label', now(), 10, 'Label 2');
 
 -- Disable triggers so we can actually update the last_updated field
 ALTER TABLE label DISABLE TRIGGER USER;
