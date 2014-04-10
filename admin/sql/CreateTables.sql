@@ -831,22 +831,22 @@ CREATE TABLE l_label_label
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE l_instrument_label
-(
-    id                  SERIAL,
-    link                INTEGER NOT NULL, -- references link.id
-    entity0             INTEGER NOT NULL, -- references instrument.id
-    entity1             INTEGER NOT NULL, -- references label.id
-    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
 CREATE TABLE l_instrument_instrument
 (
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references instrument.id
     entity1             INTEGER NOT NULL, -- references instrument.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE l_instrument_label
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references instrument.id
+    entity1             INTEGER NOT NULL, -- references label.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
