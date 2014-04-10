@@ -505,7 +505,15 @@ sub _seeded_track
     }
 
     if (my $length = $params->{length}) {
-        $result->{length} = ($length =~ /:/) ? unformat_track_length($length) : $length;
+        if ($length =~ /:/) {
+            try {
+                $result->{length} = unformat_track_length($length);
+            } catch {
+                push @$errors, "Invalid $field_name.length: “$length”.";
+            };
+        } else {
+            $result->{length} = $length;
+        }
     }
 
     if (my $gid = $params->{recording}) {
