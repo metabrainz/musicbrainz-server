@@ -181,11 +181,11 @@ CREATE TABLE l_instrument_work
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-INSERT INTO instrument_type (name) VALUES ('Wind instruments');
-INSERT INTO instrument_type (name) VALUES ('String instruments');
-INSERT INTO instrument_type (name) VALUES ('Percussion instruments');
-INSERT INTO instrument_type (name) VALUES ('Electronic instruments');
-INSERT INTO instrument_type (name) VALUES ('Other instruments');
+INSERT INTO instrument_type (name) VALUES ('Wind instrument');
+INSERT INTO instrument_type (name) VALUES ('String instrument');
+INSERT INTO instrument_type (name) VALUES ('Percussion instrument');
+INSERT INTO instrument_type (name) VALUES ('Electronic instrument');
+INSERT INTO instrument_type (name) VALUES ('Other instrument');
 
 INSERT INTO instrument_alias_type (name) VALUES ('Instrument name');
 INSERT INTO instrument_alias_type (name) VALUES ('Search hint');
