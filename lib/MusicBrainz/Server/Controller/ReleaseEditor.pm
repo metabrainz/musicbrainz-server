@@ -370,7 +370,7 @@ sub _seeded_event
     if (my $date = $params->{date}) {
         for my $prop (qw( year month day )) {
             if (my $num = delete $date->{$prop}) {
-                if ($num =~ /^\d+$/) {
+                if ($num =~ /^[0-9]+$/) {
                     $date->{$prop} = int($num);
                 } else {
                     push @$errors, "Invalid $field_name.date.$prop: “$num”.";
