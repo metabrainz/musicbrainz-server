@@ -5,7 +5,10 @@ BEGIN;
 
 CREATE TABLE instrument_type (
     id                  SERIAL, -- PK
-    name                VARCHAR(255) NOT NULL
+    name                VARCHAR(255) NOT NULL,
+    parent              INTEGER, -- references instrument_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT
 );
 
 CREATE TABLE instrument (
@@ -27,7 +30,10 @@ CREATE TABLE instrument_gid_redirect
 
 CREATE TABLE instrument_alias_type (
     id SERIAL, -- PK,
-    name TEXT NOT NULL
+    name TEXT NOT NULL,
+    parent              INTEGER, -- references instrument_alias_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT
 );
 
 CREATE TABLE instrument_alias (
