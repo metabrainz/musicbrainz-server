@@ -18,12 +18,6 @@ ALTER TABLE instrument
    FOREIGN KEY (type)
    REFERENCES instrument_type(id);
 
---ALTER TABLE instrument
---   ADD CONSTRAINT instrument_fk_gid
---   FOREIGN KEY (gid)
---   REFERENCES link_attribute_type(gid)
---   ON DELETE CASCADE;
-
 ALTER TABLE instrument_alias
    ADD CONSTRAINT instrument_alias_fk_instrument
    FOREIGN KEY (instrument)
@@ -199,5 +193,4 @@ ALTER TABLE l_instrument_work
    FOREIGN KEY (entity1)
    REFERENCES work(id);
 
---ROLLBACK;
 COMMIT;
