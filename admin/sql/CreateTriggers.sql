@@ -443,20 +443,14 @@ CREATE TRIGGER a_ins_edit_artist BEFORE INSERT ON edit_label
 CREATE TRIGGER ensure_work_attribute_type_allows_text BEFORE INSERT OR UPDATE ON work_attribute
     FOR EACH ROW EXECUTE PROCEDURE ensure_work_attribute_type_allows_text();
 
-CREATE TRIGGER nt_insertinstrument
-    AFTER INSERT ON musicbrainz.instrument
-    FOR EACH ROW
-    EXECUTE PROCEDURE n_insertinstrument();
+CREATE TRIGGER a_ins_instrument AFTER INSERT ON musicbrainz.instrument
+    FOR EACH ROW EXECUTE PROCEDURE a_ins_instrument();
 
-CREATE TRIGGER nt_updateinstrument
-    AFTER UPDATE ON musicbrainz.instrument
-    FOR EACH ROW
-    EXECUTE PROCEDURE n_updateinstrument();
+CREATE TRIGGER a_upd_instrument AFTER UPDATE ON musicbrainz.instrument
+    FOR EACH ROW EXECUTE PROCEDURE a_upd_instrument();
 
-CREATE TRIGGER nt_deleteinstrument
-    AFTER DELETE ON musicbrainz.instrument
-    FOR EACH ROW
-    EXECUTE PROCEDURE n_deleteinstrument();
+CREATE TRIGGER a_del_instrument AFTER DELETE ON musicbrainz.instrument
+    FOR EACH ROW EXECUTE PROCEDURE a_del_instrument();
 
 --------------------------------------------------------------------------------
 CREATE CONSTRAINT TRIGGER remove_unused_links
