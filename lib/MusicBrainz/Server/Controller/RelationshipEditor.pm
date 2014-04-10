@@ -118,6 +118,7 @@ sub build_type_info {
             phrase              => $root->l_link_phrase,
             reverse_phrase      => $root->l_reverse_link_phrase,
             deprecated          => $root->is_deprecated || 0,
+            has_dates           => $root->has_dates ? \1 : \0,
             scalar %attrs       ? (attrs    => \%attrs) : (),
             $root->description  ? (descr    => $root->l_description) : (),
             $root->all_children ? (children => _build_children($root, \&_build_type)) : (),

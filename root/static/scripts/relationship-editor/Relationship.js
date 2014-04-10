@@ -78,20 +78,23 @@ var defaultLinkType = function(type0, type1) {
 };
 
 
-Relationship.prototype.toJSON = function() {
+Relationship.prototype.toJSON = function (withDates) {
     var entity0 = this.entity[0].peek(), entity1 = this.entity[1].peek();
-    return {
+    var data = {
         id:        this.action.peek() == "action" ? undefined : this.id,
         link_type: this.link_type.peek(),
         action:    this.action.peek(),
-        period: {
-            begin_date: ko.toJS(this.period.begin_date),
-            end_date:   ko.toJS(this.period.end_date),
-            ended:      this.period.ended.peek()
-        },
         attrs:  ko.toJS(this.attrs),
         entity: [this.entity[0].peek().toJSON(), this.entity[1].peek().toJSON()]
     };
+    if (withDates || this.hasDates()) {
+        data.period = {
+            begin_date: ko.toJS(this.period.begin_date),
+            end_date:   ko.toJS(this.period.end_date),
+            ended:      this.period.ended.peek()
+        }
+    };
+    return data;
 };
 
 
@@ -103,6 +106,11 @@ Relationship.prototype.fromJS = function(obj) {
     this.attrs(obj.attrs || {});
     this.entity[0](obj.entity[0]);
     this.entity[1](obj.entity[1]);
+};
+
+
+Relationship.prototype.hasDates = function () {
+    return RE.Util.typeInfo(this.link_type()).has_dates;
 };
 
 

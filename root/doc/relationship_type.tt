@@ -45,18 +45,24 @@
 
     <h2>[%- l('Attributes') -%]</h2>
     <p>
-        [%- l('The following attributes can be used with this relationship type:') -%]
-        [%- IF relationship_type.attributes.size -%]
-            [%- FOR attr=relationship_type.attributes -%]
-                <h3>[% l(attr.type.name) %]</h3>
-                <p>[%- l(attr.type.description) -%]</p>
+        [%- IF !relationship_type.attributes.size && !relationship_type.has_dates -%]
+            [%- l('This relationship type doesn\'t allow any attributes.') -%]
+        [%- ELSE -%]
+            [%- l('The following attributes can be used with this relationship type:') -%]
+            [%- IF relationship_type.attributes.size -%]
+                [%- FOR attr=relationship_type.attributes -%]
+                    <h3>[% l(attr.type.name) %]</h3>
+                    <p>[%- l(attr.type.description) -%]</p>
+                [%- END -%]
+            [%- END -%]
+            [%- IF relationship_type.has_dates -%]
+                <h3>[%- l('start date') -%]</h3>
+                <p></p>
+
+                <h3>[%- l('end date') -%]</h3>
+                <p></p>
             [%- END -%]
         [%- END -%]
-        <h3>[%- l('start date') -%]</h3>
-        <p></p>
-
-        <h3>[%- l('end date') -%]</h3>
-        <p></p>
     </p>
 
     [%- IF relationship_type.documentation || relationship_type.entity0_type == "url" || relationship_type.entity1_type == "url" -%]

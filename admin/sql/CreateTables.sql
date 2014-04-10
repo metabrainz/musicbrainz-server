@@ -1256,7 +1256,8 @@ CREATE TABLE link_type
     long_link_phrase    VARCHAR(255) NOT NULL,
     priority            INTEGER NOT NULL DEFAULT 0,
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    is_deprecated       BOOLEAN NOT NULL DEFAULT false
+    is_deprecated       BOOLEAN NOT NULL DEFAULT false,
+    has_dates           BOOLEAN NOT NULL DEFAULT false
 );
 
 CREATE TABLE link_type_attribute_type
