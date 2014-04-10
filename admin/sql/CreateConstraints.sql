@@ -1,3 +1,4 @@
+\set ON_ERROR_STOP 1
 BEGIN;
 
 ALTER TABLE area          ADD CHECK (controlled_for_whitespace(comment));
@@ -44,7 +45,7 @@ ALTER TABLE artist_credit_name
 
 ALTER TABLE label
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
-  ADD CONSTRAINT only_non_empty CHECK (name != ''),
+  ADD CONSTRAINT only_non_empty CHECK (name != '');
 
 ALTER TABLE label_alias
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),

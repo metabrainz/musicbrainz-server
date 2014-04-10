@@ -38,6 +38,7 @@ sub change_fields
         ]]],
         documentation => Optional[Str],
         is_deprecated => Optional[Bool],
+        has_dates => Optional[Bool],
         examples => Optional[ArrayRef[Dict[
             relationship => Dict[
                 id => Int,
