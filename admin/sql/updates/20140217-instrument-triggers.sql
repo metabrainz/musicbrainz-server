@@ -35,5 +35,4 @@ CREATE TRIGGER a_upd_instrument AFTER UPDATE ON musicbrainz.instrument
 CREATE TRIGGER a_del_instrument AFTER DELETE ON musicbrainz.instrument
     FOR EACH ROW EXECUTE PROCEDURE a_del_instrument();
 
---ROLLBACK;
 COMMIT;
