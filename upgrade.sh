@@ -50,6 +50,9 @@ fi
 ################################################################################
 # Scripts that should run on *all* nodes (master/slave/standalone)
 
+echo `date` : 'Adding has_dates flag to reltypes'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140310-dates.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 echo `date` : 'Adding ordering columns'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140212-ordering-columns.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
@@ -84,6 +87,9 @@ then
 
     echo `date` : 'Adding constraints for series'
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140318-series-fks.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+    echo `date` : 'Adding has_dates trigger'
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140312-dates-trigger.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
     echo `date` : Enabling last_updated triggers
     ./admin/sql/EnableLastUpdatedTriggers.pl

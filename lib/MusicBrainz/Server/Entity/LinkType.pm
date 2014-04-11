@@ -140,6 +140,11 @@ has 'is_deprecated' => (
     isa => 'Bool'
 );
 
+has 'has_dates' => (
+    is => 'rw',
+    isa => 'Bool',
+);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
