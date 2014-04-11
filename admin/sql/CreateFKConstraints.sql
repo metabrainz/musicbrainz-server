@@ -2017,14 +2017,14 @@ ALTER TABLE work_attribute_type
    REFERENCES work_attribute_type(id);
 
 ALTER TABLE work_attribute_type_allowed_value
-   ADD CONSTRAINT work_attribute_type_allowed_value_fk_parent
-   FOREIGN KEY (parent)
-   REFERENCES work_attribute_type_allowed_value(id);
-
-ALTER TABLE work_attribute_type_allowed_value
    ADD CONSTRAINT work_attribute_type_allowed_value_fk_work_attribute_type
    FOREIGN KEY (work_attribute_type)
    REFERENCES work_attribute_type(id);
+
+ALTER TABLE work_attribute_type_allowed_value
+   ADD CONSTRAINT work_attribute_type_allowed_value_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES work_attribute_type_allowed_value(id);
 
 ALTER TABLE work_gid_redirect
    ADD CONSTRAINT work_gid_redirect_fk_new_id

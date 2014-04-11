@@ -237,6 +237,7 @@ my @tables = qw(
     documentation.l_area_area_example
     documentation.l_area_artist_example
     documentation.l_area_label_example
+    documentation.l_area_place_example
     documentation.l_area_recording_example
     documentation.l_area_release_example
     documentation.l_area_release_group_example
@@ -247,14 +248,22 @@ my @tables = qw(
     documentation.l_artist_recording_example
     documentation.l_artist_release_example
     documentation.l_artist_release_group_example
+    documentation.l_artist_place_example
     documentation.l_artist_url_example
     documentation.l_artist_work_example
     documentation.l_label_label_example
     documentation.l_label_recording_example
     documentation.l_label_release_example
     documentation.l_label_release_group_example
+    documentation.l_label_place_example
     documentation.l_label_url_example
     documentation.l_label_work_example
+    documentation.l_place_place_example
+    documentation.l_place_recording_example
+    documentation.l_place_release_example
+    documentation.l_place_release_group_example
+    documentation.l_place_url_example
+    documentation.l_place_work_example
     documentation.l_recording_recording_example
     documentation.l_recording_release_example
     documentation.l_recording_release_group_example
@@ -519,6 +528,7 @@ my @group_documentation = qw(
     documentation.l_area_area_example
     documentation.l_area_artist_example
     documentation.l_area_label_example
+    documentation.l_area_place_example
     documentation.l_area_recording_example
     documentation.l_area_release_example
     documentation.l_area_release_group_example
@@ -529,14 +539,22 @@ my @group_documentation = qw(
     documentation.l_artist_recording_example
     documentation.l_artist_release_example
     documentation.l_artist_release_group_example
+    documentation.l_artist_place_example
     documentation.l_artist_url_example
     documentation.l_artist_work_example
     documentation.l_label_label_example
     documentation.l_label_recording_example
     documentation.l_label_release_example
     documentation.l_label_release_group_example
+    documentation.l_label_place_example
     documentation.l_label_url_example
     documentation.l_label_work_example
+    documentation.l_place_place_example
+    documentation.l_place_recording_example
+    documentation.l_place_release_example
+    documentation.l_place_release_group_example
+    documentation.l_place_url_example
+    documentation.l_place_work_example
     documentation.l_recording_recording_example
     documentation.l_recording_release_example
     documentation.l_recording_release_group_example
