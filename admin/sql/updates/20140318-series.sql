@@ -375,6 +375,9 @@ CREATE UNIQUE INDEX series_alias_idx_primary ON series_alias (series, locale) WH
 
 CREATE INDEX series_idx_txt ON series USING gin(to_tsvector('mb_simple', name));
 
+CREATE INDEX series_alias_idx_txt ON series_alias USING gin(to_tsvector('mb_simple', name));
+CREATE INDEX series_alias_idx_txt_sort ON series_alias USING gin(to_tsvector('mb_simple', sort_name));
+
 -----------------------------
 -- MIGRATE EXISTING TABLES --
 -----------------------------

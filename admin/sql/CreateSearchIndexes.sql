@@ -23,6 +23,9 @@ CREATE INDEX recording_idx_txt ON recording USING gin(to_tsvector('mb_simple', n
 
 CREATE INDEX series_idx_txt ON series USING gin(to_tsvector('mb_simple', name));
 
+CREATE INDEX series_alias_idx_txt ON series_alias USING gin(to_tsvector('mb_simple', name));
+CREATE INDEX series_alias_idx_txt_sort ON series_alias USING gin(to_tsvector('mb_simple', sort_name));
+
 CREATE INDEX track_idx_txt ON track USING gin(to_tsvector('mb_simple', name));
 
 CREATE INDEX work_idx_txt ON work USING gin(to_tsvector('mb_simple', name));
