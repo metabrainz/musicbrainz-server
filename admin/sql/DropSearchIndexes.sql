@@ -4,7 +4,6 @@
 DROP INDEX area_alias_idx_txt;
 DROP INDEX area_alias_idx_txt_sort;
 DROP INDEX area_idx_name_txt;
-DROP INDEX area_idx_txt_sort;
 DROP INDEX artist_alias_idx_txt;
 DROP INDEX artist_alias_idx_txt_sort;
 DROP INDEX artist_credit_idx_txt;
@@ -14,7 +13,6 @@ DROP INDEX artist_idx_txt_sort;
 DROP INDEX label_alias_idx_txt;
 DROP INDEX label_alias_idx_txt_sort;
 DROP INDEX label_idx_txt;
-DROP INDEX label_idx_txt_sort;
 DROP INDEX place_alias_idx_txt;
 DROP INDEX place_alias_idx_txt_sort;
 DROP INDEX place_idx_name_txt;
