@@ -571,6 +571,8 @@ $BODY$
   EXCEPT
   SELECT entity0 FROM l_artist_release_group
   EXCEPT
+  SELECT entity0 FROM l_artist_series
+  EXCEPT
   SELECT entity0 FROM l_artist_url
   EXCEPT
   SELECT entity0 FROM l_artist_work;
@@ -611,6 +613,8 @@ $BODY$
   SELECT entity0 FROM l_label_release
   EXCEPT
   SELECT entity0 FROM l_label_release_group
+  EXCEPT
+  SELECT entity0 FROM l_label_series
   EXCEPT
   SELECT entity0 FROM l_label_url
   EXCEPT
@@ -655,6 +659,8 @@ $BODY$
   EXCEPT
   SELECT entity0 FROM l_release_group_release_group
   EXCEPT
+  SELECT entity0 FROM l_release_group_series
+  EXCEPT
   SELECT entity0 FROM l_release_group_url
   EXCEPT
   SELECT entity0 FROM l_release_group_work;
@@ -693,6 +699,8 @@ $BODY$
   SELECT entity1 FROM l_release_work
   EXCEPT
   SELECT entity1 FROM l_release_group_work
+  EXCEPT
+  SELECT entity1 FROM l_series_work
   EXCEPT
   SELECT entity1 FROM l_url_work
   EXCEPT
@@ -737,9 +745,54 @@ $BODY$
   EXCEPT
   SELECT entity0 FROM l_place_release_group
   EXCEPT
+  SELECT entity0 FROM l_place_series
+  EXCEPT
   SELECT entity0 FROM l_place_url
   EXCEPT
   SELECT entity0 FROM l_place_work;
+$BODY$
+LANGUAGE 'sql';
+
+-------------------------------------------------------------------
+-- Find series that are empty, and have not been updated within the
+-- last 1 day
+-------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION empty_series() RETURNS SETOF int AS
+$BODY$
+  SELECT id FROM series
+  WHERE
+    edits_pending = 0 AND
+    (
+      last_updated < now() - '1 day'::interval OR last_updated is NULL
+    )
+  EXCEPT
+  SELECT series
+  FROM edit_series
+  JOIN edit ON (edit.id = edit_series.edit)
+  WHERE edit.status = 1
+  EXCEPT
+  SELECT entity1 FROM l_area_series
+  EXCEPT
+  SELECT entity1 FROM l_artist_series
+  EXCEPT
+  SELECT entity1 FROM l_label_series
+  EXCEPT
+  SELECT entity1 FROM l_place_series
+  EXCEPT
+  SELECT entity1 FROM l_recording_series
+  EXCEPT
+  SELECT entity1 FROM l_release_series
+  EXCEPT
+  SELECT entity1 FROM l_release_group_series
+  EXCEPT
+  SELECT entity0 FROM l_series_series
+  EXCEPT
+  SELECT entity1 FROM l_series_series
+  EXCEPT
+  SELECT entity0 FROM l_series_url
+  EXCEPT
+  SELECT entity0 FROM l_series_work;
 $BODY$
 LANGUAGE 'sql';
 
@@ -862,6 +915,11 @@ BEGIN
       ) OR
       EXISTS (
         SELECT TRUE FROM l_release_group_url
+        WHERE entity1 = url_row.id
+        LIMIT 1
+      ) OR
+      EXISTS (
+        SELECT TRUE FROM l_series_url
         WHERE entity1 = url_row.id
         LIMIT 1
       ) OR
@@ -1032,6 +1090,8 @@ AS $$
           UNION ALL
         SELECT TRUE FROM l_recording_release_group WHERE entity0 = outer_r.id
           UNION ALL
+        SELECT TRUE FROM l_recording_series WHERE entity0 = outer_r.id
+          UNION ALL
         SELECT TRUE FROM l_recording_work WHERE entity0 = outer_r.id
           UNION ALL
          SELECT TRUE FROM l_recording_url WHERE entity0 = outer_r.id
@@ -1127,7 +1187,7 @@ BEGIN
        NEW.end_date_year IS NOT NULL OR
        NEW.end_date_month IS NOT NULL OR
        NEW.end_date_day IS NOT NULL OR
-       NEW.ended = TRUE) 
+       NEW.ended = TRUE)
        AND NOT (SELECT has_dates FROM link_type WHERE id = NEW.link_type)
   THEN
     RAISE EXCEPTION 'Attempt to add dates to a relationship type that does not support dates.';
