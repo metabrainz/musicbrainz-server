@@ -57,6 +57,8 @@ CREATE UNIQUE INDEX editor_subscribe_collection_idx_uniq ON editor_subscribe_col
 CREATE INDEX editor_subscribe_collection_idx_collection ON editor_subscribe_collection (collection);
 CREATE INDEX editor_subscribe_label_idx_uniq ON editor_subscribe_label (editor, label);
 CREATE INDEX editor_subscribe_label_idx_label ON editor_subscribe_label (label);
+CREATE INDEX editor_subscribe_series_idx_uniq ON editor_subscribe_series (editor, series);
+CREATE INDEX editor_subscribe_series_idx_series ON editor_subscribe_series (series);
 CREATE INDEX editor_subscribe_editor_idx_uniq ON editor_subscribe_editor (editor, subscribed_editor);
 
 CREATE INDEX edit_idx_editor ON edit (editor);

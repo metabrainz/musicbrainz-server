@@ -71,6 +71,8 @@ DROP INDEX editor_subscribe_collection_idx_uniq;
 DROP INDEX editor_subscribe_editor_idx_uniq;
 DROP INDEX editor_subscribe_label_idx_label;
 DROP INDEX editor_subscribe_label_idx_uniq;
+DROP INDEX editor_subscribe_series_idx_series;
+DROP INDEX editor_subscribe_series_idx_uniq;
 DROP INDEX iso_3166_1_idx_area;
 DROP INDEX iso_3166_2_idx_area;
 DROP INDEX iso_3166_3_idx_area;
