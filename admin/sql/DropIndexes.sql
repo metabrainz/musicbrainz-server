@@ -176,6 +176,8 @@ DROP INDEX l_release_url_idx_entity1;
 DROP INDEX l_release_url_idx_uniq;
 DROP INDEX l_release_work_idx_entity1;
 DROP INDEX l_release_work_idx_uniq;
+DROP INDEX l_series_series_idx_entity1;
+DROP INDEX l_series_series_idx_uniq;
 DROP INDEX l_series_url_idx_entity1;
 DROP INDEX l_series_url_idx_uniq;
 DROP INDEX l_series_work_idx_entity1;

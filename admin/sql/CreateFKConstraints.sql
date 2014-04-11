@@ -1946,6 +1946,11 @@ ALTER TABLE series_alias
    FOREIGN KEY (type)
    REFERENCES series_alias_type(id);
 
+ALTER TABLE series_alias_type
+   ADD CONSTRAINT series_alias_type_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES series_alias_type(id);
+
 ALTER TABLE series_annotation
    ADD CONSTRAINT series_annotation_fk_series
    FOREIGN KEY (series)
@@ -2077,14 +2082,14 @@ ALTER TABLE work_attribute_type
    REFERENCES work_attribute_type(id);
 
 ALTER TABLE work_attribute_type_allowed_value
-   ADD CONSTRAINT work_attribute_type_allowed_value_fk_parent
-   FOREIGN KEY (parent)
-   REFERENCES work_attribute_type_allowed_value(id);
-
-ALTER TABLE work_attribute_type_allowed_value
    ADD CONSTRAINT work_attribute_type_allowed_value_fk_work_attribute_type
    FOREIGN KEY (work_attribute_type)
    REFERENCES work_attribute_type(id);
+
+ALTER TABLE work_attribute_type_allowed_value
+   ADD CONSTRAINT work_attribute_type_allowed_value_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES work_attribute_type_allowed_value(id);
 
 ALTER TABLE work_gid_redirect
    ADD CONSTRAINT work_gid_redirect_fk_new_id

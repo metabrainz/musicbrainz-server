@@ -1984,7 +1984,10 @@ CREATE TABLE series_gid_redirect
 CREATE TABLE series_alias_type
 (
     id                  SERIAL, -- PK
-    name                TEXT NOT NULL
+    name                TEXT NOT NULL,
+    parent              INTEGER, -- references series_alias_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT
 );
 
 CREATE TABLE series_alias
