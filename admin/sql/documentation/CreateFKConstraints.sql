@@ -38,6 +38,11 @@ ALTER TABLE l_area_release_group_example
    FOREIGN KEY (id)
    REFERENCES musicbrainz.l_area_release_group(id);
 
+ALTER TABLE l_area_series_example
+   ADD CONSTRAINT l_area_series_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_area_series(id);
+
 ALTER TABLE l_area_url_example
    ADD CONSTRAINT l_area_url_example_fk_id
    FOREIGN KEY (id)
@@ -78,6 +83,11 @@ ALTER TABLE l_artist_release_group_example
    FOREIGN KEY (id)
    REFERENCES musicbrainz.l_artist_release_group(id);
 
+ALTER TABLE l_artist_series_example
+   ADD CONSTRAINT l_artist_series_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_artist_series(id);
+
 ALTER TABLE l_artist_url_example
    ADD CONSTRAINT l_artist_url_example_fk_id
    FOREIGN KEY (id)
@@ -113,6 +123,11 @@ ALTER TABLE l_label_release_group_example
    FOREIGN KEY (id)
    REFERENCES musicbrainz.l_label_release_group(id);
 
+ALTER TABLE l_label_series_example
+   ADD CONSTRAINT l_label_series_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_label_series(id);
+
 ALTER TABLE l_label_url_example
    ADD CONSTRAINT l_label_url_example_fk_id
    FOREIGN KEY (id)
@@ -143,6 +158,11 @@ ALTER TABLE l_place_release_group_example
    FOREIGN KEY (id)
    REFERENCES musicbrainz.l_place_release_group(id);
 
+ALTER TABLE l_place_series_example
+   ADD CONSTRAINT l_place_series_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_place_series(id);
+
 ALTER TABLE l_place_url_example
    ADD CONSTRAINT l_place_url_example_fk_id
    FOREIGN KEY (id)
@@ -168,6 +188,11 @@ ALTER TABLE l_recording_release_group_example
    FOREIGN KEY (id)
    REFERENCES musicbrainz.l_recording_release_group(id);
 
+ALTER TABLE l_recording_series_example
+   ADD CONSTRAINT l_recording_series_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_recording_series(id);
+
 ALTER TABLE l_recording_url_example
    ADD CONSTRAINT l_recording_url_example_fk_id
    FOREIGN KEY (id)
@@ -182,6 +207,11 @@ ALTER TABLE l_release_group_release_group_example
    ADD CONSTRAINT l_release_group_release_group_example_fk_id
    FOREIGN KEY (id)
    REFERENCES musicbrainz.l_release_group_release_group(id);
+
+ALTER TABLE l_release_group_series_example
+   ADD CONSTRAINT l_release_group_series_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_release_group_series(id);
 
 ALTER TABLE l_release_group_url_example
    ADD CONSTRAINT l_release_group_url_example_fk_id
@@ -203,6 +233,11 @@ ALTER TABLE l_release_release_group_example
    FOREIGN KEY (id)
    REFERENCES musicbrainz.l_release_release_group(id);
 
+ALTER TABLE l_release_series_example
+   ADD CONSTRAINT l_release_series_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_release_series(id);
+
 ALTER TABLE l_release_url_example
    ADD CONSTRAINT l_release_url_example_fk_id
    FOREIGN KEY (id)
@@ -212,6 +247,21 @@ ALTER TABLE l_release_work_example
    ADD CONSTRAINT l_release_work_example_fk_id
    FOREIGN KEY (id)
    REFERENCES musicbrainz.l_release_work(id);
+
+ALTER TABLE l_series_series_example
+   ADD CONSTRAINT l_series_series_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_series_series(id);
+
+ALTER TABLE l_series_url_example
+   ADD CONSTRAINT l_series_url_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_series_url(id);
+
+ALTER TABLE l_series_work_example
+   ADD CONSTRAINT l_series_work_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_series_work(id);
 
 ALTER TABLE l_url_url_example
    ADD CONSTRAINT l_url_url_example_fk_id

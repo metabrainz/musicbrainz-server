@@ -110,6 +110,76 @@ CREATE TABLE series_annotation (
     annotation          INTEGER NOT NULL -- PK, references annotation.id
 );
 
+CREATE TABLE documentation.l_area_series_example
+(
+    id                  INTEGER NOT NULL, -- PK, references musicbrainz.l_area_series.id
+    published           BOOLEAN NOT NULL,
+    name                TEXT NOT NULL
+);
+
+CREATE TABLE documentation.l_artist_series_example
+(
+    id                  INTEGER NOT NULL, -- PK, references musicbrainz.l_artist_series.id
+    published           BOOLEAN NOT NULL,
+    name                TEXT NOT NULL
+);
+
+CREATE TABLE documentation.l_label_series_example
+(
+    id                  INTEGER NOT NULL, -- PK, references musicbrainz.l_label_series.id
+    published           BOOLEAN NOT NULL,
+    name                TEXT NOT NULL
+);
+
+CREATE TABLE documentation.l_place_series_example
+(
+    id                  INTEGER NOT NULL, -- PK, references musicbrainz.l_place_series.id
+    published           BOOLEAN NOT NULL,
+    name                TEXT NOT NULL
+);
+
+CREATE TABLE documentation.l_recording_series_example
+(
+    id                  INTEGER NOT NULL, -- PK, references musicbrainz.l_recording_series.id
+    published           BOOLEAN NOT NULL,
+    name                TEXT NOT NULL
+);
+
+CREATE TABLE documentation.l_release_series_example
+(
+    id                  INTEGER NOT NULL, -- PK, references musicbrainz.l_release_series.id
+    published           BOOLEAN NOT NULL,
+    name                TEXT NOT NULL
+);
+
+CREATE TABLE documentation.l_release_group_series_example
+(
+    id                  INTEGER NOT NULL, -- PK, references musicbrainz.l_release_group_series.id
+    published           BOOLEAN NOT NULL,
+    name                TEXT NOT NULL
+);
+
+CREATE TABLE documentation.l_series_series_example
+(
+    id                  INTEGER NOT NULL, -- PK, references musicbrainz.l_series_series.id
+    published           BOOLEAN NOT NULL,
+    name                TEXT NOT NULL
+);
+
+CREATE TABLE documentation.l_series_url_example
+(
+    id                  INTEGER NOT NULL, -- PK, references musicbrainz.l_series_url.id
+    published           BOOLEAN NOT NULL,
+    name                TEXT NOT NULL
+);
+
+CREATE TABLE documentation.l_series_work_example
+(
+    id                  INTEGER NOT NULL, -- PK, references musicbrainz.l_series_work.id
+    published           BOOLEAN NOT NULL,
+    name                TEXT NOT NULL
+);
+
 CREATE TABLE editor_subscribe_series
 (
     id                  SERIAL,
@@ -325,6 +395,16 @@ INSERT INTO series_alias_type (name) VALUES ('Series name'), ('Search hint');
 -- CREATE INDEXES --
 --------------------
 
+ALTER TABLE l_area_series_example ADD CONSTRAINT l_area_series_example_pkey PRIMARY KEY (id);
+ALTER TABLE l_artist_series_example ADD CONSTRAINT l_artist_series_example_pkey PRIMARY KEY (id);
+ALTER TABLE l_label_series_example ADD CONSTRAINT l_label_series_example_pkey PRIMARY KEY (id);
+ALTER TABLE l_place_series_example ADD CONSTRAINT l_place_series_example_pkey PRIMARY KEY (id);
+ALTER TABLE l_recording_series_example ADD CONSTRAINT l_recording_series_example_pkey PRIMARY KEY (id)
+ALTER TABLE l_release_group_series_example ADD CONSTRAINT l_release_group_series_example_pkey PRIMARY KEY (id);
+ALTER TABLE l_release_series_example ADD CONSTRAINT l_release_series_example_pkey PRIMARY KEY (id)
+ALTER TABLE l_series_series_example ADD CONSTRAINT l_series_series_example_pkey PRIMARY KEY (id);
+ALTER TABLE l_series_url_example ADD CONSTRAINT l_series_url_example_pkey PRIMARY KEY (id);
+ALTER TABLE l_series_work_example ADD CONSTRAINT l_series_work_example_pkey PRIMARY KEY (id);
 ALTER TABLE editor_subscribe_series ADD CONSTRAINT editor_subscribe_series_pkey PRIMARY KEY (id);
 ALTER TABLE editor_subscribe_series_deleted ADD CONSTRAINT editor_subscribe_series_deleted_pkey PRIMARY KEY (editor, gid);
 ALTER TABLE l_area_series ADD CONSTRAINT l_area_series_pkey PRIMARY KEY (id);
