@@ -18,7 +18,6 @@ ALTER TABLE series
 ALTER TABLE series_type ADD CONSTRAINT allowed_series_entity_type
   CHECK (
     entity_type IN (
-      'event',
       'recording',
       'release',
       'release_group',
