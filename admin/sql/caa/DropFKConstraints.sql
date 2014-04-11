@@ -3,6 +3,7 @@
 
 SET search_path = 'cover_art_archive';
 
+ALTER TABLE art_type DROP CONSTRAINT IF EXISTS art_type_fk_parent;
 ALTER TABLE cover_art DROP CONSTRAINT IF EXISTS cover_art_fk_release;
 ALTER TABLE cover_art DROP CONSTRAINT IF EXISTS cover_art_fk_edit;
 ALTER TABLE cover_art DROP CONSTRAINT IF EXISTS cover_art_fk_mime_type;

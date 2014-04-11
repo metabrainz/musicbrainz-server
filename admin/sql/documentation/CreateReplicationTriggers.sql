@@ -17,6 +17,10 @@ AFTER INSERT OR DELETE OR UPDATE ON "l_area_label_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_area_place_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
 AFTER INSERT OR DELETE OR UPDATE ON "l_area_recording_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
@@ -49,6 +53,10 @@ AFTER INSERT OR DELETE OR UPDATE ON "l_artist_label_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_artist_place_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
 AFTER INSERT OR DELETE OR UPDATE ON "l_artist_recording_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
@@ -77,6 +85,10 @@ AFTER INSERT OR DELETE OR UPDATE ON "l_label_label_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_label_place_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
 AFTER INSERT OR DELETE OR UPDATE ON "l_label_recording_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
@@ -101,7 +113,31 @@ AFTER INSERT OR DELETE OR UPDATE ON "l_label_work_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_place_place_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_place_recording_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_place_release_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_place_release_group_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
 AFTER INSERT OR DELETE OR UPDATE ON "l_place_series_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_place_url_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_place_work_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "replicate"
