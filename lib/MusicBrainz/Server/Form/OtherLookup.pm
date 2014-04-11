@@ -12,6 +12,10 @@ has_field 'barcode'  => (
     type => '+MusicBrainz::Server::Form::Field::Barcode',
 );
 
+has_field 'url'  => (
+    type => '+MusicBrainz::Server::Form::Field::URL',
+);
+
 has_field 'mbid'     => (
     type => '+MusicBrainz::Server::Form::Field::GID',
 );
