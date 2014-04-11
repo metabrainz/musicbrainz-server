@@ -77,6 +77,7 @@ DROP TRIGGER reptg_l_release_group_release_group ON l_release_group_release_grou
 DROP TRIGGER reptg_l_release_group_series ON l_release_group_series;
 DROP TRIGGER reptg_l_release_group_url ON l_release_group_url;
 DROP TRIGGER reptg_l_release_group_work ON l_release_group_work;
+DROP TRIGGER reptg_l_series_series ON l_series_series;
 DROP TRIGGER reptg_l_series_url ON l_series_url;
 DROP TRIGGER reptg_l_series_work ON l_series_work;
 DROP TRIGGER reptg_l_url_url ON l_url_url;

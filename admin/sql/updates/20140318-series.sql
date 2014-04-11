@@ -180,6 +180,12 @@ CREATE TABLE documentation.l_series_work_example
     name                TEXT NOT NULL
 );
 
+CREATE TABLE edit_series
+(
+    edit                INTEGER NOT NULL, -- PK, references edit.id
+    series              INTEGER NOT NULL  -- PK, references series.id CASCADE
+);
+
 CREATE TABLE editor_subscribe_series
 (
     id                  SERIAL,

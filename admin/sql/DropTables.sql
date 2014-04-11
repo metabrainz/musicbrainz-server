@@ -38,6 +38,7 @@ DROP TABLE edit_place;
 DROP TABLE edit_recording;
 DROP TABLE edit_release;
 DROP TABLE edit_release_group;
+DROP TABLE edit_series;
 DROP TABLE edit_url;
 DROP TABLE edit_work;
 DROP TABLE editor;

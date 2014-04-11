@@ -52,6 +52,7 @@ DROP INDEX edit_place_idx;
 DROP INDEX edit_recording_idx;
 DROP INDEX edit_release_group_idx;
 DROP INDEX edit_release_idx;
+DROP INDEX edit_series_idx;
 DROP INDEX edit_url_idx;
 DROP INDEX edit_work_idx;
 DROP INDEX editor_collection_idx_editor;

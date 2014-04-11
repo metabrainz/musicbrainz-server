@@ -311,6 +311,17 @@ ALTER TABLE edit_release_group
    REFERENCES release_group(id)
    ON DELETE CASCADE;
 
+ALTER TABLE edit_series
+   ADD CONSTRAINT edit_series_fk_edit
+   FOREIGN KEY (edit)
+   REFERENCES edit(id);
+
+ALTER TABLE edit_series
+   ADD CONSTRAINT edit_series_fk_series
+   FOREIGN KEY (series)
+   REFERENCES series(id)
+   ON DELETE CASCADE;
+
 ALTER TABLE edit_url
    ADD CONSTRAINT edit_url_fk_edit
    FOREIGN KEY (edit)

@@ -50,6 +50,7 @@ my @tables = qw(
     edit_recording
     edit_release
     edit_release_group
+    edit_series
     edit_url
     edit_work
     label_rating_raw
@@ -503,6 +504,7 @@ my @group_edit = qw(
     edit_recording
     edit_release
     edit_release_group
+    edit_series
     edit_url
     edit_work
     vote

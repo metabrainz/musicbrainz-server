@@ -419,6 +419,12 @@ CREATE TABLE edit_recording
     recording           INTEGER NOT NULL  -- PK, references recording.id CASCADE
 );
 
+CREATE TABLE edit_series
+(
+    edit                INTEGER NOT NULL, -- PK, references edit.id
+    series              INTEGER NOT NULL  -- PK, references series.id CASCADE
+);
+
 CREATE TABLE edit_work
 (
     edit                INTEGER NOT NULL, -- PK, references edit.id

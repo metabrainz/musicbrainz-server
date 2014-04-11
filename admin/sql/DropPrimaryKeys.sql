@@ -38,6 +38,7 @@ ALTER TABLE edit_place DROP CONSTRAINT IF EXISTS edit_place_pkey;
 ALTER TABLE edit_recording DROP CONSTRAINT IF EXISTS edit_recording_pkey;
 ALTER TABLE edit_release DROP CONSTRAINT IF EXISTS edit_release_pkey;
 ALTER TABLE edit_release_group DROP CONSTRAINT IF EXISTS edit_release_group_pkey;
+ALTER TABLE edit_series DROP CONSTRAINT IF EXISTS edit_series_pkey;
 ALTER TABLE edit_url DROP CONSTRAINT IF EXISTS edit_url_pkey;
 ALTER TABLE edit_work DROP CONSTRAINT IF EXISTS edit_work_pkey;
 ALTER TABLE editor DROP CONSTRAINT IF EXISTS editor_pkey;

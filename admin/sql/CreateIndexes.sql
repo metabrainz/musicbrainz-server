@@ -89,6 +89,7 @@ CREATE INDEX edit_place_idx ON edit_place (place);
 CREATE INDEX edit_release_idx ON edit_release (release);
 CREATE INDEX edit_release_group_idx ON edit_release_group (release_group);
 CREATE INDEX edit_recording_idx ON edit_recording (recording);
+CREATE INDEX edit_series_idx ON edit_series (series);
 CREATE INDEX edit_work_idx ON edit_work (work);
 CREATE INDEX edit_url_idx ON edit_url (url);
 

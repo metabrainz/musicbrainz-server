@@ -61,6 +61,8 @@ ALTER TABLE edit_release DROP CONSTRAINT IF EXISTS edit_release_fk_edit;
 ALTER TABLE edit_release DROP CONSTRAINT IF EXISTS edit_release_fk_release;
 ALTER TABLE edit_release_group DROP CONSTRAINT IF EXISTS edit_release_group_fk_edit;
 ALTER TABLE edit_release_group DROP CONSTRAINT IF EXISTS edit_release_group_fk_release_group;
+ALTER TABLE edit_series DROP CONSTRAINT IF EXISTS edit_series_fk_edit;
+ALTER TABLE edit_series DROP CONSTRAINT IF EXISTS edit_series_fk_series;
 ALTER TABLE edit_url DROP CONSTRAINT IF EXISTS edit_url_fk_edit;
 ALTER TABLE edit_url DROP CONSTRAINT IF EXISTS edit_url_fk_url;
 ALTER TABLE edit_work DROP CONSTRAINT IF EXISTS edit_work_fk_edit;
