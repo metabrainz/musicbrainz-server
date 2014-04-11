@@ -27,16 +27,29 @@ then
 fi
 
 
-# Slaves need to catch up on release_tag data
-if [ "$REPLICATION_TYPE" = "$RT_SLAVE" ]
+# Slaves need to catch up on release_tag and other data
+if [ "$REPLICATION_TYPE" = "$RT_SLAVE" -a -n "$URI_BASE" ]
 then
-    echo `date` : Downloading a copy of the release_tag table from $URI_BASE
+    echo `date` : Downloading a copy of the release_tag and place documentation tables from $URI_BASE
     mkdir -p catchup
     OUTPUT=`wget -q "$URI_BASE/mbdump-derived.tar.bz2" -O catchup/mbdump-derived.tar.bz2` || ( echo "$OUTPUT" ; exit 1 )
+    OUTPUT=`wget -q "$URI_BASE/mbdump-documentation.tar.bz2" -O catchup/mbdump-documentation.tar.bz2` || ( echo "$OUTPUT" ; exit 1 )
 
     echo `date` : Deleting the contents of release_tag and reimporting from the downloaded copy
     OUTPUT=`echo 'DELETE FROM release_tag' | ./admin/psql 2>&1` || ( echo "$OUTPUT" ; exit 1)
     OUTPUT=`./admin/MBImport.pl --skip-editor --no-update-replication-control catchup/mbdump-derived.tar.bz2 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+    echo `date` : Deleting the contents of documentation.l_place_* and documentation.l_*_place and reimporting from the downloaded copy
+    OUTPUT=`echo 'DELETE FROM documentation.l_area_place_example' | ./admin/psql 2>&1` || ( echo "$OUTPUT" ; exit 1)
+    OUTPUT=`echo 'DELETE FROM documentation.l_artist_place_example' | ./admin/psql 2>&1` || ( echo "$OUTPUT" ; exit 1)
+    OUTPUT=`echo 'DELETE FROM documentation.l_label_place_example' | ./admin/psql 2>&1` || ( echo "$OUTPUT" ; exit 1)
+    OUTPUT=`echo 'DELETE FROM documentation.l_place_place_example' | ./admin/psql 2>&1` || ( echo "$OUTPUT" ; exit 1)
+    OUTPUT=`echo 'DELETE FROM documentation.l_place_recording_example' | ./admin/psql 2>&1` || ( echo "$OUTPUT" ; exit 1)
+    OUTPUT=`echo 'DELETE FROM documentation.l_place_release_example' | ./admin/psql 2>&1` || ( echo "$OUTPUT" ; exit 1)
+    OUTPUT=`echo 'DELETE FROM documentation.l_place_release_group_example' | ./admin/psql 2>&1` || ( echo "$OUTPUT" ; exit 1)
+    OUTPUT=`echo 'DELETE FROM documentation.l_place_url_example' | ./admin/psql 2>&1` || ( echo "$OUTPUT" ; exit 1)
+    OUTPUT=`echo 'DELETE FROM documentation.l_place_work_example' | ./admin/psql 2>&1` || ( echo "$OUTPUT" ; exit 1)
+    OUTPUT=`./admin/MBImport.pl --skip-editor --no-update-replication-control catchup/mbdump-documentation.tar.bz2 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 fi
 
 ################################################################################
@@ -56,9 +69,9 @@ then
     echo `date` : 'Drop replication triggers (musicbrainz)'
     ./admin/psql READWRITE < ./admin/sql/DropReplicationTriggers.sql
 
-    echo `date` : 'Dump a copy of release_tag for import on slave databases.'
+    echo `date` : 'Dump a copy of release_tag and documentation tables for import on slave databases.'
     mkdir -p catchup
-    ./admin/ExportAllTables --table='release_tag' -d catchup
+    ./admin/ExportAllTables --table='release_tag' --table='documentation.l_area_place_example' --table='documentation.l_artist_place_example' --table='documentation.l_label_place_example' --table='documentation.l_place_place_example' --table='documentation.l_place_recording_example' --table='documentation.l_place_release_example' --table='documentation.l_place_release_group_example' --table='documentation.l_place_url_example' --table='documentation.l_place_work_example' -d catchup
 fi
 
 if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
