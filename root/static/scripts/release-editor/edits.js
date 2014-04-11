@@ -117,7 +117,7 @@
             // page). tmpPositions stores any positions we use to avoid
             // conflicts between oldPositions/newPositions.
 
-            var oldPositions = _.pluck(release.mediums.original, "position");
+            var oldPositions = _.pluck(release.mediums.original(), "position");
             var newPositions = newMediums().invoke("position").value();
             var tmpPositions = [];
 
@@ -218,11 +218,11 @@
                     }
 
                     newMediumData.release = release.id;
-                    edits.push(MB.edit.mediumCreate(newMediumData))
+                    edits.push(MB.edit.mediumCreate(newMediumData));
                 }
             });
 
-            _(release.mediums.original).pluck("id").difference(newMediumsIDs)
+            _(release.mediums.original()).pluck("id").difference(newMediumsIDs)
                 .each(function (id) {
                     edits.push(MB.edit.mediumDelete({ medium: id }));
                 });
@@ -492,21 +492,24 @@
                 var added = _(edits).pluck("entity").compact()
                                     .indexBy("position").value();
 
-                newMediums().each(function (medium) {
+                newMediums().reject("id").each(function (medium) {
                     var addedData = added[medium.tmpPosition || medium.position()];
 
                     if (addedData) {
                         medium.id = addedData.id;
+
+                        var currentData = MB.edit.fields.medium(medium);
+
+                        // mediumReorder edits haven't been submitted yet, so
+                        // we must keep the position the medium was added in
+                        // (i.e. tmpPosition).
+                        currentData.position = addedData.position;
+
+                        medium.original(currentData);
                     }
-
-                    var currentData = MB.edit.fields.medium(medium);
-
-                    // mediumReorder edits haven't been submitted yet,
-                    // so we must keep the old position.
-                    currentData.position = medium.original().position;
-
-                    medium.original(currentData);
                 });
+
+                release.mediums.original(release.existingMediumData());
 
                 newMediums.notifySubscribers(newMediums());
             }
