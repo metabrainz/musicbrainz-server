@@ -405,9 +405,9 @@ ALTER TABLE l_area_series_example ADD CONSTRAINT l_area_series_example_pkey PRIM
 ALTER TABLE l_artist_series_example ADD CONSTRAINT l_artist_series_example_pkey PRIMARY KEY (id);
 ALTER TABLE l_label_series_example ADD CONSTRAINT l_label_series_example_pkey PRIMARY KEY (id);
 ALTER TABLE l_place_series_example ADD CONSTRAINT l_place_series_example_pkey PRIMARY KEY (id);
-ALTER TABLE l_recording_series_example ADD CONSTRAINT l_recording_series_example_pkey PRIMARY KEY (id)
+ALTER TABLE l_recording_series_example ADD CONSTRAINT l_recording_series_example_pkey PRIMARY KEY (id);
 ALTER TABLE l_release_group_series_example ADD CONSTRAINT l_release_group_series_example_pkey PRIMARY KEY (id);
-ALTER TABLE l_release_series_example ADD CONSTRAINT l_release_series_example_pkey PRIMARY KEY (id)
+ALTER TABLE l_release_series_example ADD CONSTRAINT l_release_series_example_pkey PRIMARY KEY (id);
 ALTER TABLE l_series_series_example ADD CONSTRAINT l_series_series_example_pkey PRIMARY KEY (id);
 ALTER TABLE l_series_url_example ADD CONSTRAINT l_series_url_example_pkey PRIMARY KEY (id);
 ALTER TABLE l_series_work_example ADD CONSTRAINT l_series_work_example_pkey PRIMARY KEY (id);
