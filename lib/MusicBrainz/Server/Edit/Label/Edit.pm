@@ -122,10 +122,6 @@ sub build_display_data
             if defined $self->data->{$side}{area_id};
     }
 
-    if (exists $data->{country} && !exists $data->{area}) {
-        $data->{area} = delete $data->{country};
-    }
-
     return $data;
 }
 

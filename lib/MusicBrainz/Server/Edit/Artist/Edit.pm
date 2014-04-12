@@ -133,10 +133,6 @@ sub build_display_data
         }
     }
 
-    if (exists $data->{country} && !exists $data->{area}) {
-        $data->{area} = delete $data->{country};
-    }
-
     return $data;
 }
 
