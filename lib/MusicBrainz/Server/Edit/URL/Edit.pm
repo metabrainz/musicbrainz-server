@@ -3,7 +3,7 @@ use 5.10.0;
 use Moose;
 
 use Clone qw( clone );
-use MooseX::Types::Moose qw( Int Str );
+use MooseX::Types::Moose qw( Int Str Bool );
 use MooseX::Types::Structured qw( Dict Optional );
 
 use MusicBrainz::Server::Constants qw( $EDIT_URL_EDIT );
@@ -42,6 +42,8 @@ has '+data' => (
         ],
         old => change_fields(),
         new => change_fields(),
+        affects => Optional[Int],
+        is_merge => Optional[Bool],
     ]
 );
 
@@ -66,6 +68,13 @@ sub build_display_data
     return $data;
 }
 
+after initialize => sub {
+    my ($self) = @_;
+    my $entity = $self->current_instance;
+    $self->c->model('Relationship')->load($entity);
+    $self->data->{affects} = scalar @{ $entity->relationships };
+};
+
 around accept => sub {
     my ($orig, $self) = @_;
 
@@ -89,8 +98,10 @@ after insert => sub {
 
     # If the target URL exists, then this edit must not be an auto edit (as it
     # would produce a merge).
+    $self->data->{is_merge} = 0;
     if (my $new_url = $self->data->{new}{url}) {
         if ($self->c->model('URL')->find_by_url($new_url)) {
+            $self->data->{is_merge} = 1;
             $self->auto_edit(0);
         }
     }

@@ -30,3 +30,20 @@
                        html_escape(edit.display_data.description.old),
                        html_escape(edit.display_data.description.new)) %]
 </table>
+
+[% IF edit.data.affects > 1 %]
+    <p>[% ln('This change affects {num} relationship.',
+             'This change affects {num} relationships.',
+              edit.data.affects, { num => edit.data.affects }) %]</p>
+[% END %]
+
+[% IF edit.data.is_merge %]
+    <p>
+        [% IF edit.is_open %]
+            [% l('The new URL already exists in the database. This edit will therefore merge the two URL entities.') %]
+        [% ELSE %]
+            [% l('This edit was a merge.') %]
+        [% END %]
+        <a href="[% c.uri_for_action('/otherlookup/url', { 'other-lookup.url' => edit.display_data.uri.new }) %]">[% l('Search for the target URL.') %]</a>
+    </p>
+[% END %]
