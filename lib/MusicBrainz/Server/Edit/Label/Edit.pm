@@ -19,6 +19,7 @@ use MooseX::Types::Moose qw( ArrayRef Bool Int Maybe Str );
 use MooseX::Types::Structured qw( Dict Optional );
 
 use aliased 'MusicBrainz::Server::Entity::Label';
+use aliased 'MusicBrainz::Server::Entity::Area';
 
 no if $] >= 5.018, warnings => "experimental::smartmatch";
 
@@ -114,6 +115,11 @@ sub build_display_data
     if (exists $self->data->{new}{isni_codes}) {
         $data->{isni_codes}{old} = $self->data->{old}{isni_codes};
         $data->{isni_codes}{new} = $self->data->{new}{isni_codes};
+    }
+
+    for my $side (qw( old new )) {
+        $data->{area}{$side} //= Area->new()
+            if defined $self->data->{$side}{area_id};
     }
 
     if (exists $data->{country} && !exists $data->{area}) {
