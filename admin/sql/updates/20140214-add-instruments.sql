@@ -181,43 +181,22 @@ CREATE TABLE l_instrument_work
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-INSERT INTO instrument_type (name) VALUES ('Wind instrument');
-INSERT INTO instrument_type (name) VALUES ('String instrument');
-INSERT INTO instrument_type (name) VALUES ('Percussion instrument');
-INSERT INTO instrument_type (name) VALUES ('Electronic instrument');
-INSERT INTO instrument_type (name) VALUES ('Other instrument');
+INSERT INTO instrument_type (name) VALUES ('Wind instrument'), ('String instrument'), ('Percussion instrument'), ('Electronic instrument'), ('Other instrument');
 
-INSERT INTO instrument_alias_type (name) VALUES ('Instrument name');
-INSERT INTO instrument_alias_type (name) VALUES ('Search hint');
+INSERT INTO instrument_alias_type (name) VALUES ('Instrument name'), ('Search hint');
 
 INSERT INTO instrument (gid, name, description) SELECT gid, name, description FROM link_attribute_type WHERE parent IS NOT NULL AND root = 14 ORDER BY id;
 
-INSERT INTO link_type (gid, entity_type0, entity_type1, name, description, link_phrase, reverse_link_phrase, long_link_phrase, priority)
-    VALUES (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/instrument/url/wikipedia'), 'instrument', 'url', 'wikipedia', 'wikipedia', 'Wikipedia', 'Wikipedia', 'Wikipedia', 0);
-
-INSERT INTO link_type (gid, entity_type0, entity_type1, name, description, link_phrase, reverse_link_phrase, long_link_phrase, priority)
-    VALUES (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/instrument/url/image'), 'instrument', 'url', 'image', 'image', 'image', 'image', 'image', 0);
-
-INSERT INTO link_type (gid, entity_type0, entity_type1, name, description, link_phrase, reverse_link_phrase, long_link_phrase, priority)
-    VALUES (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/instrument/url/wikidata'), 'instrument', 'url', 'wikidata', 'wikidata', 'Wikidata', 'Wikidata', 'Wikidata', 0);
-
-INSERT INTO link_type (gid, entity_type0, entity_type1, name, description, link_phrase, reverse_link_phrase, long_link_phrase, priority)
-    VALUES (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/instrument/url/information page'), 'instrument', 'url', 'information page', 'information page', 'information page', 'information page', 'information page', 0);
-
-INSERT INTO link_type (gid, entity_type0, entity_type1, name, description, link_phrase, reverse_link_phrase, long_link_phrase, priority)
-    VALUES (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/instrument/instrument/child'), 'instrument', 'instrument', 'child', '', 'child of', 'children', 'is a child of', 0);
-
-INSERT INTO link_type (gid, entity_type0, entity_type1, name, description, link_phrase, reverse_link_phrase, long_link_phrase, priority)
-    VALUES (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/instrument/instrument/type of'), 'instrument', 'instrument', 'type of', 'type of', 'type of', 'subtypes', 'is a type of', 0);
-
-INSERT INTO link_type (gid, entity_type0, entity_type1, name, description, link_phrase, reverse_link_phrase, long_link_phrase, priority)
-    VALUES (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/instrument/instrument/derived from'), 'instrument', 'instrument', 'derived from', 'derived from', 'derived from', 'derivations', 'is derived from', 0);
-
-INSERT INTO link_type (gid, entity_type0, entity_type1, name, description, link_phrase, reverse_link_phrase, long_link_phrase, priority)
-    VALUES (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/instrument/instrument/related to'), 'instrument', 'instrument', 'related to', 'related to', 'related to', 'related instruments', 'is related to', 0);
-
-INSERT INTO link_type (gid, entity_type0, entity_type1, name, description, link_phrase, reverse_link_phrase, long_link_phrase, priority)
-    VALUES (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/instrument/instrument/parts'), 'instrument', 'instrument', 'parts', 'parts', 'consists of', 'part of', 'has parts', 0);
+INSERT INTO link_type (gid, entity_type0, entity_type1, name, description, link_phrase, reverse_link_phrase, long_link_phrase, priority) VALUES
+    (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/instrument/url/wikipedia'), 'instrument', 'url', 'wikipedia', 'wikipedia', 'Wikipedia', 'Wikipedia', 'Wikipedia', 0),
+    (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/instrument/url/image'), 'instrument', 'url', 'image', 'image', 'image', 'image', 'image', 0),
+    (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/instrument/url/wikidata'), 'instrument', 'url', 'wikidata', 'wikidata', 'Wikidata', 'Wikidata', 'Wikidata', 0),
+    (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/instrument/url/information page'), 'instrument', 'url', 'information page', 'information page', 'information page', 'information page', 'information page', 0),
+    (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/instrument/instrument/child'), 'instrument', 'instrument', 'child', '', 'child of', 'children', 'is a child of', 0),
+    (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/instrument/instrument/type of'), 'instrument', 'instrument', 'type of', 'type of', 'type of', 'subtypes', 'is a type of', 0),
+    (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/instrument/instrument/derived from'), 'instrument', 'instrument', 'derived from', 'derived from', 'derived from', 'derivations', 'is derived from', 0),
+    (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/instrument/instrument/related to'), 'instrument', 'instrument', 'related to', 'related to', 'related to', 'related instruments', 'is related to', 0),
+    (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/instrument/instrument/parts'), 'instrument', 'instrument', 'parts', 'parts', 'consists of', 'part of', 'has parts', 0);
 
 INSERT INTO link (link_type) SELECT id FROM link_type WHERE entity_type0 = 'instrument';
 
