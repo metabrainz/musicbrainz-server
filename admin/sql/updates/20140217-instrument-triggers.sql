@@ -35,4 +35,17 @@ CREATE TRIGGER a_upd_instrument AFTER UPDATE ON musicbrainz.instrument
 CREATE TRIGGER a_del_instrument AFTER DELETE ON musicbrainz.instrument
     FOR EACH ROW EXECUTE PROCEDURE a_del_instrument();
 
+
+ALTER TABLE instrument ADD CHECK (controlled_for_whitespace(comment));
+
+ALTER TABLE instrument
+  ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
+  ADD CONSTRAINT only_non_empty CHECK (name != ''),
+
+ALTER TABLE instrument_alias
+  ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
+  ADD CONSTRAINT only_non_empty CHECK (name != ''),
+  ADD CONSTRAINT control_for_whitespace_sort_name CHECK (controlled_for_whitespace(sort_name)),
+  ADD CONSTRAINT only_non_empty_sort_name CHECK (sort_name != '');
+
 COMMIT;
