@@ -328,6 +328,13 @@ test("releaseReorderMediums edits are not generated for new releases", function 
 });
 
 
+test("MBS-7453: release group edits strip whitespace from name", function () {
+    var release = releaseEditor.fields.Release({ name: "  Foo  oo " });
+
+    equal(releaseEditor.edits.releaseGroup(release)[0].name, "Foo oo");
+});
+
+
 releaseEditor.test.module("edit-release edits", releaseEditor.test.setupReleaseEdit);
 
 
