@@ -120,3 +120,38 @@ test("internal track positions are updated appropriately after being reused", fu
     equal(tracks[0].position(), 1, "track 1 has position 1");
     equal(tracks[1].position(), 2, "track 2 has position 2");
 });
+
+
+test("MBS-7451: track parser can clear TOC track lengths", function () {
+    var re = releaseEditor;
+
+    re.rootField = re.fields.Root();
+    re.rootField.release(re.fields.Release(re.test.testRelease));
+
+    var release = re.rootField.release();
+    var medium = release.mediums()[0];
+
+    medium.cdtocs = 1;
+
+    re.trackParser.options = {
+        trackNumbers: false,
+        vinylNumbers: false,
+        trackTimes: true
+    };
+
+    // The string does not include track numbers.
+    var input = re.trackParser.mediumToString(medium);
+
+    // Re-enable track numbers so that parsing anything fails.
+    re.trackParser.options.trackNumbers = true;
+
+    medium.tracks(re.trackParser.parse(input, medium));
+
+    var tracks = medium.tracks();
+
+    deepEqual(
+        _.invoke(tracks, "length"),
+        _.pluck(medium.original().tracklist, "length"),
+        "track lengths are unchanged"
+    );
+});
