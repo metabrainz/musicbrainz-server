@@ -181,6 +181,10 @@ CREATE TABLE l_instrument_work
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+SELECT setval('link_id_seq', (SELECT MAX(id) FROM link));
+SELECT setval('link_type_id_seq', (SELECT MAX(id) FROM link_type));
+SELECT setval('url_id_seq', (SELECT MAX(id) FROM url));
+
 INSERT INTO instrument_type (name) VALUES ('Wind instrument'), ('String instrument'), ('Percussion instrument'), ('Electronic instrument'), ('Other instrument');
 
 INSERT INTO instrument_alias_type (name) VALUES ('Instrument name'), ('Search hint');
@@ -255,6 +259,14 @@ UPDATE instrument
 SET description = regexp_replace(description, ' ?Other names(?: include)?:? (.*?).? *$', '')
 WHERE description ~ '.*Other names(?: include)?:? (.*?).? *$';
 
+SELECT setval('instrument_type_id_seq', (SELECT MAX(id) FROM instrument_type));
+SELECT setval('instrument_id_seq', (SELECT MAX(id) FROM instrument));
+SELECT setval('instrument_alias_type_id_seq', (SELECT MAX(id) FROM instrument_alias_type));
+SELECT setval('instrument_alias_id_seq', (SELECT MAX(id) FROM instrument_alias));
+SELECT setval('l_instrument_url_id_seq', (SELECT MAX(id) FROM l_instrument_url));
+SELECT setval('link_id_seq', (SELECT MAX(id) FROM link));
+SELECT setval('link_type_id_seq', (SELECT MAX(id) FROM link_type));
+SELECT setval('url_id_seq', (SELECT MAX(id) FROM url));
 
 ALTER TABLE edit_instrument ADD CONSTRAINT edit_instrument_pkey PRIMARY KEY (edit, instrument);
 ALTER TABLE instrument ADD CONSTRAINT instrument_pkey PRIMARY KEY (id);
