@@ -479,9 +479,21 @@
         {
             edits: releaseEditor.edits.releaseLabel,
 
-            callback: function (release) {
+            callback: function (release, edits) {
                 release.labels.original(
-                    _.map(release.labels.peek(), MB.edit.fields.releaseLabel)
+                    _.map(release.labels.peek(), function (label) {
+                        var newData = _.where(edits, {
+                            entity: {
+                                labelID: label.label().id || null,
+                                catalogNumber: label.catalogNumber() || null
+                            }
+                        });
+
+                        if (newData) {
+                            label.id = newData.id;
+                        }
+                        return MB.edit.fields.releaseLabel(label);
+                    })
                 );
             }
         },
