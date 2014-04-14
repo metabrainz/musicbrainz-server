@@ -148,8 +148,8 @@ MB.releaseEditor.trackParser = {
         });
 
         // Force the number of tracks if there's a CDTOC.
-        currentTracks = medium.tracks.peek();
-        var currentTrackCount = medium ? currentTracks.length : -1;
+        currentTracks = medium && medium.tracks.peek();
+        var currentTrackCount = currentTracks && currentTracks.length;
 
         if (hasTocs && newTracks.length < currentTrackCount) {
             var difference = currentTrackCount - newTracks.length;
