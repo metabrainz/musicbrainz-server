@@ -5,7 +5,7 @@
     [%~ meta_desc.push(l('Gender:') _ ' ' _ html_escape(artist.gender_name)) IF artist.gender ~%]
     [%~ IF artist.begin_date.format or artist.begin_area ~%]
         [%~ date_period_label = artist_begin_label_from_type(artist.type_id) ~%]
-	[%~ meta_desc.push(date_period_label _ ' ' _ (artist.begin_date.format ? artist.begin_date.format : '') _ (artist.begin_area ? ' in ' _ artist.begin_area.name : '')) ~%]
+        [%~ meta_desc.push(date_period_label _ ' ' _ (artist.begin_date.format ? artist.begin_date.format : '') _ (artist.begin_area ? ' in ' _ artist.begin_area.name : '')) ~%]
     [%~ END ~%]
     [%~ IF artist.end_date.format or artist.end_area ~%]
         [%~ date_period_label = artist_end_label_from_type(artist.type_id) ~%]
@@ -60,11 +60,10 @@
                                 <th class="count c">[% l('Releases') %]</th>
                             </tr>
                         </thead>
-                        <tbody [%- rdfa_about_attr(rdfa_artist_curi(artist)) -%]>
+                        <tbody>
                     [% last_rg_type = rgtype %]
                 [% END %]
-                <tr [% ' class="ev"' IF loop.count % 2 == 0 %]
-		    [% rdfa_release_group_ns(rg) %]>
+                <tr [% ' class="ev"' IF loop.count % 2 == 0 %]>
                     [% IF c.user_exists %]
                     <td>
                         <input type="checkbox" name="add-to-merge"
@@ -73,7 +72,7 @@
                     [% END %]
                     <td class="c">[% rg.first_release_date.year or '&#x2014;' %]</td>
                     <td>
-                      [% rdfa_made_rg_link(rg) %]
+                      [% link_release_group(rg) %]
                       [% disambiguation(rg) %]
                       [% FOR t=rg.secondary_types %]
                         <span class="release-group-type">[% t.l_name %]</span>
@@ -96,7 +95,7 @@
     [%- END -%]
 
     [%- IF recordings.size -%]
-            [%- INCLUDE 'artist/recordings-list.tt' WRAPPER 'components/with-pager.tt' -%]
+            [%- INCLUDE 'components/recordings-list.tt' WRAPPER 'components/with-pager.tt' -%]
     [%- END -%]
 
     <p>

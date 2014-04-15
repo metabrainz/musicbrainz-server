@@ -15,8 +15,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-02-18 17:31+0000\n"
-"Last-Translator: Alain-Olivier  Breysse\n"
+"PO-Revision-Date: 2014-03-31 21:30+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -191,26 +191,12 @@ msgstr "Indique un musicien apportant un soutien vocal à long terme à un autre
 msgid "Indicates a parent-child relationship."
 msgstr "Indique une relation parent-enfant."
 
-#: DB:link_type/description:248
-msgid ""
-"Indicates a person or agency that did the design/illustration for this work."
-" (<a "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr "Indique une personne ou une agence ayant créé la conception / l'illustration de cette œuvre. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Détails</a>)"
-
 #: DB:link_type/description:27
 msgid ""
 "Indicates a person or agency that did the graphic design for this album. (<a"
 " "
 "href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
 msgstr "Indique une personne ou une agence ayant créé la conception graphique de cet album. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:249
-msgid ""
-"Indicates a person or agency that did the graphics design support for this "
-"work. (<a "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr "Indique une personne ou une agence ayant créé lla conception graphique de cette œuvre. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Détails</a>)"
 
 #: DB:link_type/description:396
 msgid "Indicates a pictorial image (JPEG, GIF, PNG) of a place"
@@ -223,8 +209,8 @@ msgid ""
 msgstr "Indique une représentation picturale (JPEG, GIF, PNG) d'un artiste. (<a href=\"http://musicbrainz.org/doc/Image_Relationship_Type\">Détails</a>)"
 
 #: DB:link_type/description:94
-msgid "Indicates a webpage that reviews the work of an artist."
-msgstr "Indique une page Web qui critique l’œuvre d'un artiste."
+msgid "Indicates a webpage that reviews the release (group) in question."
+msgstr "Indique une page Web qui critique la parution (groupe de) en question."
 
 #: DB:link_type/description:75
 msgid ""
@@ -244,12 +230,6 @@ msgid ""
 "Indicates a webpage where you can download an artist's work for free. (<a "
 "href=\"http://musicbrainz.org/doc/Free_Download_Relationship_Type\">Details</a>)"
 msgstr "Indique une page Web où vous pouvez télécharger l'œuvre d'un artiste gratuitement. (<a href=\"http://musicbrainz.org/doc/Free_Download_Relationship_Type\">Détails</a>)"
-
-#: DB:link_type/description:263
-msgid ""
-"Indicates an artist & repertoire support was included in this work. (<a "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr "Indique qu'un soutien artiste & répertoire a été inclus dans cette œuvre. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
 
 #: DB:link_type/description:104
 msgid ""
@@ -427,10 +407,6 @@ msgid ""
 "(not necessarily the lyrics)."
 msgstr "Indique le compositeur pour cette œuvre, c.-à-d. l'artiste qui a écrit la musique (pas nécessairement les paroles)."
 
-#: DB:link_type/description:264
-msgid "Indicates the creative direction support for this work."
-msgstr "Indique le soutien de direction créative de cette œuvre,"
-
 #: DB:link_type/description:28 DB:link_type/description:138
 msgid ""
 "Indicates the engineer for this work. (<a "
@@ -450,10 +426,8 @@ msgid ""
 msgstr "Indique le parolier pour cette œuvre. (<a href=\"http://musicbrainz.org/doc/Lyricist_Relationship_Type\">Détails</a>)"
 
 #: DB:link_type/description:42
-msgid ""
-"Indicates the mastering engineer for this work. (<a "
-"href=\"http://musicbrainz.org/doc/Engineer_Relationship_Type\">Details</a>)"
-msgstr "Indique l'ingénieur de matriçage pour cette œuvre. (<a href=\"http://musicbrainz.org/doc/Engineer_Relationship_Type\">Détails</a>)"
+msgid "Indicates the mastering engineer for this work."
+msgstr ""
 
 #: DB:link_type/description:143
 msgid ""
@@ -505,7 +479,7 @@ msgid ""
 "pitching (so that the tempo of one track matches the tempo of the following "
 "track). (<a href=\"http://musicbrainz.org/doc/Mix-"
 "DJ_Relationship_Type\">Details</a>)"
-msgstr "Indique la personne ayant créé l'album DJ-Mix (ou  « mixtape »). La personne aura habituellement choisi les pistes, leur séquence et les aura légèrement modifiées en les fondant harmonieusement l'une à l'autre ou en ajustant la vitesse afin que le tempo de l'une concorde à la suivante.  (<a href=\"http://musicbrainz.org/doc/Mix-DJ_Relationship_Type\">Détails</a>)"
+msgstr "Indique la personne ayant créé l'album DJ-Mix (ou  « compilation »). La personne aura habituellement choisi les pistes, leur séquence et les aura légèrement modifiées en les fondant harmonieusement l'une à l'autre ou en ajustant la vitesse afin que le tempo de l'une concorde à la suivante.  (<a href=\"http://musicbrainz.org/doc/Mix-DJ_Relationship_Type\">Détails</a>)"
 
 #: DB:link_type/description:155
 msgid ""
@@ -516,7 +490,7 @@ msgid ""
 "track). This applies to a 'Mixtape' in which all tracks were DJ-mixed "
 "together into one single long track. (<a href=\"http://musicbrainz.org/doc"
 "/Mix-DJ_Relationship_Type\">Details</a>)"
-msgstr "Indique la personne ayant créé l'album DJ-Mix (ou  « mixtape »). La personne aura habituellement choisi les pistes, leur séquence et les aura légèrement modifiées en les fondant harmonieusement l'une à l'autre ou en ajustant la vitesse afin que le tempo de l'une concorde à la suivante. Ceci s'applique à un « mixtape » pour lequel le DJ a mélangé toutes les pistes en une seule longue.  (<a href=\"http://musicbrainz.org/doc/Mix-DJ_Relationship_Type\">Détails</a>)"
+msgstr "Indique la personne ayant créé l'album DJ-Mix (ou  « compilation »). La personne aura habituellement choisi les pistes, leur séquence et les aura légèrement modifiées en les fondant harmonieusement l'une à l'autre ou en ajustant la vitesse afin que le tempo de l'une concorde à la suivante. Ceci s'applique à un « compilation » pour lequel le DJ a mélangé toutes les pistes en une seule longue.  (<a href=\"http://musicbrainz.org/doc/Mix-DJ_Relationship_Type\">Détails</a>)"
 
 #: DB:link_type/description:40 DB:link_type/description:164
 msgid ""
@@ -796,9 +770,9 @@ msgstr "Cet attribut décrit si une collaboration particulière était considér
 
 #: DB:link_attribute_type/description:1
 msgid ""
-"This attribute describes if a particular performance role was considered "
-"normal or additional."
-msgstr "Cet attribut décrit si un rôle particulier lors d'une interprétation était considéré comme égal ou mineur."
+"This attribute describes if a particular role was considered normal or "
+"additional."
+msgstr ""
 
 #: DB:link_attribute_type/description:194
 msgid ""
@@ -880,12 +854,6 @@ msgid ""
 " production data, in some cases they consist of a blurb of text (article). "
 "This relationship type should be used in this last case."
 msgstr "Ceci crédite l'auteur des notes de livret fournies avec cette parution (habituellement sur la pochette). Alors que la plupart des notes de livret sont juste des informations personnelles et des données de production, dans certains cas elles sont un texte de présentation (article). Ce type de relation devrait être utilisé dans ce dernier cas."
-
-#: DB:link_type/description:61
-msgid ""
-"This credits the person or agency who arranged travel for the musicians and "
-"other staff, in order to get them into the right place to create the work."
-msgstr "Ceci crédite la personne ou agence qui a organisé le transport des musiciens et autres équipiers afin de les amener sur les lieux de création de l’œuvre."
 
 #: DB:link_type/description:274
 msgid ""
@@ -1658,6 +1626,12 @@ msgid ""
 "href=\"http://musicbrainz.org/doc/Programming_Relationship_Type\">Details</a>)"
 msgstr "Cette relation relie une piste ou une parution à la personne qui a programmé les instruments électroniques. (<a href=\"http://musicbrainz.org/doc/Programming_Relationship_Type\">Détails</a>)"
 
+#: DB:link_type/description:729
+msgid ""
+"This relationship links the release of a show's episode (for example a "
+"podcast) to the show notes for this episode."
+msgstr "Cette relation lie la parution de l'épisode d'une émission (par exemple une balado) aux notes de l'émission pour cet épisode."
+
 #: DB:link_type/description:728
 msgid ""
 "This relationship specifies that an artist is a <a "
@@ -1736,8 +1710,7 @@ msgid ""
 "Note about CD Baby: Many CD Baby releases are also available (usually with bigger covers) on Amazon.com."
 msgstr "Ce type de relation est <strong>obsolète</strong> ! Veuillez téléverser des couvertures sur l'onglet d'illustration de la parution et/ou ajouter une relation d'ASIN.\n\nNote sur CD Baby : de nombreuses parutions de CD Baby sont aussi disponibles (habituellement avec des couvertures plus grandes) sur Amazon.com."
 
-#: DB:link_type/description:261 DB:link_type/description:270
-#: DB:link_type/description:252 DB:link_type/description:269
+#: DB:link_type/description:270
 msgid "This relationship type is <strong>deprecated</strong>."
 msgstr "Ce type de relation est <strong>obsolète</strong> !"
 
@@ -1883,7 +1856,7 @@ msgid ""
 "together into one single long track. In this case relate this long track to "
 "all the original souce tracks tht it is composed of. (<a "
 "href=\"http://musicbrainz.org/doc/DJ_Mix_Relationship_Type\">Details</a>)"
-msgstr "Indique habituellement qu'une piste est un DJ-Mix d'une autre piste source originale. Ceci s'applique à une compilation d'artistes divers (ou « mixtape ») sur laquelle les pistes sont légèrement modifiées en les fondant (de manière qu'une piste s'enchaîne avec la suivante) ou en altérant la vitesse (de manière que le tempo de l'une concorde au tempo de la suivante). Dans ce cas relier chaque piste individuelle du « mixtape » à la piste source originale. Cette relation peut aussi être utilisée dans le cas spécial d'un « mixtape » sur lequel toutes les pistes ont été mélangées ensemble par un DJ en une seule longue piste. Dans ce cas relier cette longue piste à toutes les pistes source originales qui la compose. (<a href=\"http://musicbrainz.org/doc/DJ_Mix_Relationship_Type\">Détails</a>)"
+msgstr "Indique habituellement qu'une piste est un DJ-Mix d'une autre piste source originale. Ceci s'applique à une compilation d'artistes divers (ou « compilation ») sur laquelle les pistes sont légèrement modifiées en les fondant (de manière qu'une piste s'enchaîne avec la suivante) ou en altérant la vitesse (de manière que le tempo de l'une concorde au tempo de la suivante). Dans ce cas relier chaque piste individuelle du « compilation » à la piste source originale. Cette relation peut aussi être utilisée dans le cas spécial d'un « compilation » sur lequel toutes les pistes ont été mélangées ensemble par un DJ en une seule longue piste. Dans ce cas relier cette longue piste à toutes les pistes source originales qui la compose. (<a href=\"http://musicbrainz.org/doc/DJ_Mix_Relationship_Type\">Détails</a>)"
 
 #: DB:link_type/link_phrase:86 DB:link_type/link_phrase:191
 #: DB:link_type/link_phrase:210
@@ -1964,8 +1937,7 @@ msgid "arrangements"
 msgstr "arrangements"
 
 #: DB:link_type/link_phrase:135 DB:link_type/link_phrase:62
-#: DB:link_type/link_phrase:263 DB:link_type/reverse_link_phrase:135
-#: DB:link_type/reverse_link_phrase:62 DB:link_type/reverse_link_phrase:263
+#: DB:link_type/reverse_link_phrase:135 DB:link_type/reverse_link_phrase:62
 msgid "artist & repertoire support"
 msgstr "soutien artiste & répertoire"
 
@@ -2101,10 +2073,6 @@ msgstr "compilateur"
 msgid "composition"
 msgstr "composition"
 
-#: DB:link_type/long_link_phrase:261
-msgid "contains miscellaneous support from"
-msgstr "à reçu du soutien de"
-
 #: DB:link_type/long_link_phrase:83 DB:link_type/long_link_phrase:258
 msgid "contains samples from the IMDb entry at"
 msgstr "contient des échantillons de l'entrée IMDb à"
@@ -2164,10 +2132,6 @@ msgstr "reprises et versions"
 msgid "covers or other versions"
 msgstr "reprises et autres versions"
 
-#: DB:link_type/link_phrase:264 DB:link_type/reverse_link_phrase:264
-msgid "creative direction"
-msgstr "direction créative"
-
 #: DB:link_type/reverse_link_phrase:115
 msgid "creative persons"
 msgstr "créatifs"
@@ -2175,10 +2139,6 @@ msgstr "créatifs"
 #: DB:link_type/link_phrase:115
 msgid "creative position"
 msgstr "poste créatif"
-
-#: DB:link_type/link_phrase:248 DB:link_type/reverse_link_phrase:248
-msgid "design/illustration"
-msgstr "conception/illustration"
 
 #: DB:link_type/link_phrase:88 DB:link_type/link_phrase:171
 #: DB:link_type/reverse_link_phrase:88 DB:link_type/reverse_link_phrase:171
@@ -2311,10 +2271,6 @@ msgstr "page de diffusion musicale {video} en flux pour"
 #: DB:link_type/long_link_phrase:257
 msgid "get the music"
 msgstr "obtenez la musique"
-
-#: DB:link_type/link_phrase:249 DB:link_type/reverse_link_phrase:249
-msgid "graphic design"
-msgstr "conception graphique"
 
 #: DB:link_attribute_type/name:194
 msgid "guest"
@@ -2473,7 +2429,7 @@ msgstr "à une page IMDb à"
 
 #: DB:link_type/long_link_phrase:707
 msgid "has an interview at"
-msgstr "a une entrevue à"
+msgstr "a une entrevue sur"
 
 #: DB:link_type/long_link_phrase:193 DB:link_type/long_link_phrase:528
 #: DB:link_type/long_link_phrase:225
@@ -2502,10 +2458,6 @@ msgstr "a un hymne"
 msgid "has arrangement"
 msgstr "a un arrangement"
 
-#: DB:link_type/long_link_phrase:263
-msgid "has artist & repertoire support by"
-msgstr "a un soutien artiste & répertoire par"
-
 #: DB:link_type/long_link_phrase:66
 msgid "has business association with"
 msgstr "à une association commerciale avec"
@@ -2514,25 +2466,13 @@ msgstr "à une association commerciale avec"
 msgid "has cover art at"
 msgstr "à une illustration sur"
 
-#: DB:link_type/long_link_phrase:264
-msgid "has creative direction by"
-msgstr "direction créative par"
-
-#: DB:link_type/long_link_phrase:248
-msgid "has design/illustration by"
-msgstr "conception/illustration par"
-
-#: DB:link_type/long_link_phrase:249
-msgid "has graphic design by"
-msgstr "conception graphique par"
-
 #: DB:link_type/long_link_phrase:725
 msgid "has imprint"
 msgstr "à une marque"
 
 #: DB:link_type/link_phrase:707
 msgid "has interview at"
-msgstr "a une entrevue à"
+msgstr "a une entrevue sur"
 
 #: DB:link_type/long_link_phrase:211
 msgid "has its history presented at"
@@ -2566,6 +2506,10 @@ msgstr "a une salle de concert principale à"
 #: DB:link_type/link_phrase:315 DB:link_type/long_link_phrase:315
 msgid "has revision"
 msgstr "a une révision"
+
+#: DB:link_type/long_link_phrase:729
+msgid "has show notes at"
+msgstr "a des notes sur l'émission à"
 
 #: DB:link_type/long_link_phrase:110
 msgid "has sibling(s)"
@@ -2972,13 +2916,11 @@ msgstr "mineur"
 
 #: DB:link_type/link_phrase:25 DB:link_type/link_phrase:129
 #: DB:link_type/link_phrase:162 DB:link_type/link_phrase:270
-#: DB:link_type/reverse_link_phrase:261
 msgid "miscellaneous roles"
 msgstr "rôles divers"
 
-#: DB:link_type/link_phrase:261 DB:link_type/reverse_link_phrase:25
-#: DB:link_type/reverse_link_phrase:129 DB:link_type/reverse_link_phrase:162
-#: DB:link_type/reverse_link_phrase:270
+#: DB:link_type/reverse_link_phrase:25 DB:link_type/reverse_link_phrase:129
+#: DB:link_type/reverse_link_phrase:162 DB:link_type/reverse_link_phrase:270
 msgid "miscellaneous support"
 msgstr "soutien divers"
 
@@ -3223,10 +3165,6 @@ msgstr "a assuré le placement pour"
 msgid "provided legal representation for"
 msgstr "a assuré la représentation juridique pour"
 
-#: DB:link_type/long_link_phrase:61
-msgid "provided travel arrangements for"
-msgstr "a effectué les préparatifs de voyage pour"
-
 #: DB:link_type/long_link_phrase:137 DB:link_type/long_link_phrase:18
 msgid "provided {additional} art direction on"
 msgstr "a assuré la direction artistique {additional:supplémentaire} sur"
@@ -3250,18 +3188,15 @@ msgstr "a assuré la photographie {additional:supplémentaire} sur"
 #: DB:link_type/link_phrase:362 DB:link_type/link_phrase:127
 #: DB:link_type/link_phrase:206 DB:link_type/link_phrase:32
 #: DB:link_type/link_phrase:208 DB:link_type/link_phrase:161
-#: DB:link_type/link_phrase:269 DB:link_type/reverse_link_phrase:252
 #: DB:link_type/long_link_phrase:362 DB:link_type/long_link_phrase:127
 #: DB:link_type/long_link_phrase:206 DB:link_type/long_link_phrase:32
 #: DB:link_type/long_link_phrase:208 DB:link_type/long_link_phrase:161
-#: DB:link_type/long_link_phrase:269
 msgid "published"
 msgstr "publié"
 
-#: DB:link_type/link_phrase:252 DB:link_type/reverse_link_phrase:362
-#: DB:link_type/reverse_link_phrase:127 DB:link_type/reverse_link_phrase:206
-#: DB:link_type/reverse_link_phrase:32 DB:link_type/reverse_link_phrase:208
-#: DB:link_type/reverse_link_phrase:161 DB:link_type/reverse_link_phrase:269
+#: DB:link_type/reverse_link_phrase:362 DB:link_type/reverse_link_phrase:127
+#: DB:link_type/reverse_link_phrase:206 DB:link_type/reverse_link_phrase:32
+#: DB:link_type/reverse_link_phrase:208 DB:link_type/reverse_link_phrase:161
 msgid "publisher"
 msgstr "éditeur"
 
@@ -3381,6 +3316,14 @@ msgstr "partition"
 msgid "score for"
 msgstr "partition pour"
 
+#: DB:link_type/link_phrase:729
+msgid "show notes"
+msgstr "notes sur l'émission"
+
+#: DB:link_type/reverse_link_phrase:729
+msgid "show notes for"
+msgstr "notes sur l'émission pour"
+
 #: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110
 msgid "siblings"
 msgstr "frères et sœurs "
@@ -3471,14 +3414,6 @@ msgstr "liste {transliterated:translittérée|traduite} des pistes de"
 msgid "transl{transliterated:iter}ated track listings"
 msgstr "listes {transliterated:translittérées|traduites} des pistes"
 
-#: DB:link_type/reverse_link_phrase:61
-msgid "travel arrangements"
-msgstr "préparatifs de voyage"
-
-#: DB:link_type/link_phrase:61
-msgid "travel arrangements for"
-msgstr "préparatifs de voyage pour"
-
 #: DB:link_type/link_phrase:65
 msgid "tribute albums"
 msgstr "albums hommage"
@@ -3516,10 +3451,6 @@ msgstr "voix de"
 #: DB:link_type/reverse_link_phrase:292
 msgid "voiced by"
 msgstr "voix par"
-
-#: DB:link_type/long_link_phrase:252
-msgid "was published by"
-msgstr "a été publié par"
 
 #: DB:link_type/long_link_phrase:98 DB:link_type/long_link_phrase:260
 msgid "was recorded by studio at"

@@ -281,7 +281,7 @@ ws_test 'release lookup with labels, recordings and tags',
                         <position>1</position><number>1</number>
                         <length>243000</length>
                         <recording id="0cf3008f-e246-428f-abc1-35f87d584d60">
-                            <title>the Love Bug</title><length>242226</length>
+                            <title>the Love Bug</title><length>243000</length>
                             <tag-list>
                                 <tag count="1"><name>kpop</name></tag>
                             </tag-list>
@@ -849,7 +849,7 @@ ws_test 'release lookup, track artists have no aliases',
           <track id="ec60f5e2-ed8a-391d-90cd-bf119c50f6a0">
             <position>1</position><number>1</number><length>243000</length>
             <recording id="0cf3008f-e246-428f-abc1-35f87d584d60">
-              <title>the Love Bug</title><length>242226</length>
+              <title>the Love Bug</title><length>243000</length>
               <artist-credit>
                 <name-credit joinphrase="♥">
                   <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
@@ -862,6 +862,13 @@ ws_test 'release lookup, track artists have no aliases',
                 <name-credit>
                   <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
                     <name>BoA</name><sort-name>BoA</sort-name>
+                    <alias-list count="5">
+                      <alias sort-name="Beat of Angel">Beat of Angel</alias>
+                      <alias sort-name="BoA Kwon">BoA Kwon</alias>
+                      <alias sort-name="Kwon BoA">Kwon BoA</alias>
+                      <alias sort-name="ボア">ボア</alias>
+                      <alias sort-name="보아">보아</alias>
+                    </alias-list>
                   </artist>
                 </name-credit>
               </artist-credit>
@@ -906,6 +913,13 @@ ws_test 'release lookup, track artists have no aliases',
                 <name-credit>
                   <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
                     <name>BoA</name><sort-name>BoA</sort-name>
+                    <alias-list count="5">
+                      <alias sort-name="Beat of Angel">Beat of Angel</alias>
+                      <alias sort-name="BoA Kwon">BoA Kwon</alias>
+                      <alias sort-name="Kwon BoA">Kwon BoA</alias>
+                      <alias sort-name="ボア">ボア</alias>
+                      <alias sort-name="보아">보아</alias>
+                    </alias-list>
                   </artist>
                 </name-credit>
               </artist-credit>

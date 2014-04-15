@@ -321,7 +321,7 @@ test 'release lookup with labels and recordings' => sub {
                             recording => {
                                 id => "0cf3008f-e246-428f-abc1-35f87d584d60",
                                 title => "the Love Bug",
-                                length => 242226,
+                                length => 243000,
                                 disambiguation => "",
                                 video => 0,
                             }
@@ -892,7 +892,7 @@ test 'release lookup, track artists have no tags' => sub {
                         id => '4f392ffb-d3df-4f8a-ba74-fdecbb1be877',
                         length => 217440,
                         video => 0,
-			relations => [ {
+                        relations => [ {
                             artist => {
                                 disambiguation => '',
                                 id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',

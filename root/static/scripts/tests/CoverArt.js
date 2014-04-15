@@ -96,7 +96,7 @@ asyncTest('multifile/ajax upload mime type', function() {
     if (typeof Blob !== 'function')
     {
         console.log ('# Blob constructor not available, skip test:',
-                     config.current.testName);
+                     QUnit.config.current.testName);
         expect (0);
         start ();
         return;
@@ -129,7 +129,7 @@ test('upload queue', function () {
     if (typeof Blob !== 'function')
     {
         console.log ('# Blob constructor not available, skip test:',
-                     config.current.testName);
+                     QUnit.config.current.testName);
         expect (0);
         return;
     }

@@ -14,6 +14,7 @@ with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::Rating';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
+with 'MusicBrainz::Server::Controller::Role::EditExternalLinks';
 
 use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_CREATE
@@ -139,8 +140,15 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
     edit_arguments => sub {
         my ($self, $c, $recording) = @_;
 
+        my (undef, $track_count) = $c->model('Track')->find_by_recording(
+            $recording->id, 1, 0
+        );
+
         return (
-            post_creation => $self->edit_with_identifiers($c, $recording)
+            post_creation => $self->edit_with_identifiers($c, $recording),
+            form_args => {
+                used_by_tracks => $track_count > 0
+            }
         );
     }
 };
@@ -164,6 +172,7 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
             $ret{item} = $rg;
         }
         $ret{post_creation} = $self->create_with_identifiers($c);
+        $ret{form_args} = { used_by_tracks => 0 };
         return %ret;
     },
     dialog_template => 'recording/edit_form.tt',

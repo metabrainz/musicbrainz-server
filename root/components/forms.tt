@@ -262,7 +262,7 @@
 [%- MACRO isrc_bubble(recording) BLOCK -%]
     <div class="bubble" id="isrcs-bubble">
       <p>[% l('You are about to add an ISRC to this recording. The ISRC must be entered in
-               standard <code>CCXXXYYNNNNNN</code> format:') %]</p>
+               standard <code>CCXXXYYNNNNN</code> format:') %]</p>
       <ul>
         <li>[% l('"CC" is the appropriate for the registrant two-character country code.') %]</li>
         <li>[% l('"XXX" is a three character alphanumeric registrant code, uniquely identifying the organisation which registered the code.') %]</li>
@@ -371,7 +371,7 @@
             <!-- ko text: label() || (isOnlyLink() ? "[% l('Add link:') | html %]" : "[% l('Add another link:') | html %]") --><!-- /ko -->
           </label>
         <!-- /ko -->
-        <select data-bind="value: linkTypeID, visible: showTypeSelection()">
+        <select name="external_link_types" data-bind="value: linkTypeID, visible: showTypeSelection()">
           <option value="" selected="selected"> </option>
           [%- url_link_type_options = form.options_url_link_type_id || url_type_opts -%]
           [% FOR option IN url_link_type_options %]

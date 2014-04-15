@@ -95,6 +95,15 @@
 
         if (data.mediums) {
             release.mediums(utils.mapChild(release, data.mediums, fields.Medium));
+
+            release.seededTocs = _.transform(release.mediums(),
+                function (result, medium) {
+                    var toc = medium.toc();
+
+                    if (toc) {
+                        result[medium.position()] = toc;
+                    }
+                }, {});
         }
 
         data.gid = release.gid;

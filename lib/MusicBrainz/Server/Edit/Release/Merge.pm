@@ -5,7 +5,7 @@ use List::AllUtils qw( any );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_MERGE );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash ArtistCreditDefinition );
-use MusicBrainz::Server::Edit::Utils qw( calculate_recording_merges );
+use MusicBrainz::Server::Edit::Utils qw( calculate_recording_merges large_spread );
 use MusicBrainz::Server::Translation qw ( N_l );
 use Try::Tiny;
 
@@ -162,7 +162,7 @@ override build_display_data => sub
         if (!defined $loaded->{Release}->{ $entity->{id} }) {
             $entity->{mediums} = [map { Medium->new(
                     track_count => $_->{track_count},
-                    format => MediumFormat->new( name => $_->{format_name})
+                    format => ($_->{format_name} ? MediumFormat->new( name => $_->{format_name}) : undef)
                 ) } @{ delete $entity->{mediums} }] if $entity->{mediums};
             $entity->{events} = [map { ReleaseEvent->new(
                     country => defined($_->{country_id})
@@ -177,7 +177,7 @@ override build_display_data => sub
             $entity->{labels} = [map { ReleaseLabel->new(
                     label => $_->{label} &&
                         ($loaded->{Label}->{$_->{label}{id}} //
-                         Label->new(name => $_->{label}{name})),
+                         ($_->{label}{name} ? Label->new(name => $_->{label}{name}) : undef)),
                     catalog_number => $_->{catalog_number}
                 ) } @{ delete $entity->{labels} }] if $entity->{labels};
             $entity->{artist_credit} = ArtistCredit->from_array(
@@ -227,6 +227,10 @@ override build_display_data => sub
                                        destination => $loaded->{Recording}->{$_->{destination}{id}} // Recording->new(name => $_->{destination}{name}, length => $_->{destination}{length}),
                                        sources => [map { $loaded->{Recording}->{$_->{id}} // Recording->new(name => $_->{name}, length => $_->{length}) } @{ $_->{sources} }]
                                       }, @{ $self->data->{recording_merges} }];
+            foreach my $m (@$recording_merges) {
+                my @recording_lengths = map { $_->length } (@{ $m->{sources} }, $m->{destination});
+                $m->{large_spread} = 1 if large_spread(@recording_lengths);
+            }
         } else {
             $self->c->model('Track')->load_for_mediums(
                 map { $_->all_mediums }

@@ -29,9 +29,9 @@ test 'Create collection from release page adds the new release' => sub {
     $mech->click();
 
     my $tx = test_xpath_html ($mech->content);
-    $tx->is('//html:div[@id="content"]/html:div/html:h1/html:a',
+    $tx->is('//div[@id="content"]/div/h1/a',
             "Super collection", 'contains collection name');
-    $tx->is('count(//html:table[@class="tbl"]/html:tbody/html:tr)',
+    $tx->is('count(//table[@class="tbl"]/tbody/tr)',
             "1", "one item in the table");
 
 };
@@ -50,7 +50,7 @@ test 'Create collection with no release set does not add release' => sub {
     $mech->content_contains("No releases found in collection.");
 
     my $tx = test_xpath_html ($mech->content);
-    $tx->is('//html:div[@id="content"]/html:div/html:h1/html:a', "mycollection",
+    $tx->is('//div[@id="content"]/div/h1/a', "mycollection",
             'contains collection name');
 };
 

@@ -115,7 +115,6 @@ test 'Check conflicts (conflicting edits)' => sub {
         editor_id => 1,
         to_edit   => $c->model('Recording')->get_by_id(1),
         comment   => 'Comment BAR',
-        length => 12345
     );
 
     ok !exception { $edit_1->accept }, 'accepted edit 1';

@@ -1,22 +1,22 @@
 [%- info_links = [
-    ['index', rdfa_seeAlso_link_recording(recording, 'show', l('Releases'))],
+    ['index', link_recording(recording, 'show', l('Releases'))],
     ['tags', link_recording(recording, 'tags', l('Tags'))],
-    ['fingerprints', rdfa_seeAlso_link_recording(recording, 'fingerprints', l('Fingerprints'))],
-    ['details', rdfa_seeAlso_link_recording(recording, 'details', l('Details'))],
+    ['fingerprints', link_recording(recording, 'fingerprints', l('Fingerprints'))],
+    ['details', link_recording(recording, 'details', l('Details'))],
     ['edit', link_recording(recording, 'edit', l('Edit'))],
 ] -%]
 
-<div class="recordingheader" [%- rdfa_about_attr(rdfa_recording_curi(recording)) %] [% rdfa_typeof(rdfa_concept_curi('recording')) -%]>
+<div class="recordingheader">
     [%- IF c.try_get_session('tport') -%]
         [%- tagger_icon(recording) -%]
     [%- END -%]
-    <h1>[% rdfa_link_recording_header(recording) %] [% rdfa_disambiguation(recording) %]</h1>
+    <h1>[% link_recording(recording) %] [% disambiguation(recording) %]</h1>
     <p class="subheader">
         <span class="prefix">~</span>
             [%- IF recording.video -%]
-              [% l('Video by {artist}', {artist = rdfa_artist_credit(recording.artist_credit)})%]
+              [% l('Video by {artist}', {artist = artist_credit(recording.artist_credit)})%]
             [%- ELSE -%]
-              [% l('Recording by {artist}', {artist = rdfa_artist_credit(recording.artist_credit)})%]
+              [% l('Recording by {artist}', {artist = artist_credit(recording.artist_credit)})%]
             [%- END -%]
     </p>
 </div>

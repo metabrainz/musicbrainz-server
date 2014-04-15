@@ -31,7 +31,7 @@
           [%- END -%]
           <td>[% link_entity(result.entity) %]</td>
           <td>[% artist_credit(result.entity.artist_credit) %]</td>
-          <td>[% rdfa_release_format(result.entity) or "-" %]</td>
+          <td>[% html_escape(result.entity.combined_format_name) or "-" %]</td>
           <td>[% result.entity.combined_track_count %]</td>
           <td>[% release_dates(result.entity.events) %]</td>
           <td>[% release_countries(result.entity.events) %]</td>

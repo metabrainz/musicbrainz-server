@@ -23,9 +23,9 @@ test 'Collection view has link back to all collections (signed in)' => sub {
     $mech->get_ok('/collection/f34c079d-374e-4436-9448-da92dedef3cd');
     my $tx = test_xpath_html ($mech->content);
 
-    $tx->ok('//html:div[@id="content"]/html:div/html:p/html:span[@class="small"]/html:a[contains(@href,"/editor1/collections")]',
+    $tx->ok('//div[@id="content"]/div/p/span[@class="small"]/a[contains(@href,"/editor1/collections")]',
             'contains link');
-    $tx->is('//html:div[@id="content"]/html:div/html:p/html:span[@class="small"]/html:a', "See all of your collections",
+    $tx->is('//div[@id="content"]/div/p/span[@class="small"]/a', "See all of your collections",
             'contains correct description');
 };
 
@@ -36,9 +36,9 @@ test 'Collection view has link back to all collections (not yours)' => sub {
     $mech->get_ok('/collection/f34c079d-374e-4436-9448-da92dedef3cb');
     my $tx = test_xpath_html ($mech->content);
 
-    $tx->ok('//html:div[@id="content"]/html:div/html:p/html:span[@class="small"]/html:a[contains(@href,"/editor2/collections")]',
+    $tx->ok('//div[@id="content"]/div/p/span[@class="small"]/a[contains(@href,"/editor2/collections")]',
             'contains link');
-    $tx->is('//html:div[@id="content"]/html:div/html:p/html:span[@class="small"]/html:a', "See all of editor2's public collections",
+    $tx->is('//div[@id="content"]/div/p/span[@class="small"]/a', "See all of editor2's public collections",
             'contains correct description');
 };
 
@@ -57,7 +57,7 @@ test 'Collection view does not include description when there is none' => sub {
     $mech->get_ok('/collection/f34c079d-374e-4436-9448-da92dedef3cd');
     my $tx = test_xpath_html ($mech->content);
 
-    $tx->not_ok('//html:div[@id=collection]', 'no description element');
+    $tx->not_ok('//div[@id=collection]', 'no description element');
 
 };
 

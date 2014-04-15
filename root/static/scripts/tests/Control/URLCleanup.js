@@ -97,6 +97,16 @@ MB.tests.URLCleanup.GuessType = function() {
                     'label', 'http://commons.wikimedia.org/wiki/File:EMI_Records.svg',
                     MB.constants.LINK_TYPES.image.label
                 ],
+                [
+                    'work', 'http://commons.wikimedia.org/wiki/File:Kimigayo.score.png',
+                    MB.constants.LINK_TYPES.image.work
+                ],
+
+                [
+                    'work', 'http://www3.cpdl.org/wiki/index.php/Amor_sei_bei_rubini_(Peter_Philips)',
+                    MB.constants.LINK_TYPES.score.work
+                ],
+
                 // IMDb
                 [
                     'artist', 'http://www.imdb.com/name/nm1539156/',
@@ -187,6 +197,16 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'release', 'http://nla.gov.au/anbd.bib-an11701020',
                     MB.constants.LINK_TYPES.otherdatabases.release
+                ],
+                // Instagram
+                [
+                    'artist', 'http://instagram.com/deadmau5',
+                    MB.constants.LINK_TYPES.socialnetwork.artist
+                ],
+                // Tumblr
+                [
+                    'artist', 'http://deadmau5.tumblr.com/',
+                    MB.constants.LINK_TYPES.blog.artist
                 ],
                 // Japanese blogs
                 [
@@ -490,6 +510,18 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'release', 'http://vgmdb.net/album/29727',
                     MB.constants.LINK_TYPES.vgmdb.release
+                ],
+                [
+                    'release_group', 'http://www.metal-archives.com/reviews/Myrkwid/Part_I/36375/',
+                    MB.constants.LINK_TYPES.review.release_group
+                ],
+                [
+                    'artist', 'http://www.metal-archives.com/bands/Karna/26483',
+                    MB.constants.LINK_TYPES.otherdatabases.artist
+                ],
+                [
+                    'release_group', 'http://www.metal-archives.com/albums/Corubo/Ypykuera/193860',
+                    MB.constants.LINK_TYPES.otherdatabases.release_group
                 ]
             ];
 
@@ -955,6 +987,10 @@ MB.tests.URLCleanup.GuessType = function() {
                     'mora.jp/package/43000002/ANTCD-3106/',
                     'http://mora.jp/package/43000002/ANTCD-3106/',
                 ],
+                [
+                    'http://mora.jp/package/43000021/SQEX-20016_F/#',
+                    'http://mora.jp/package/43000021/SQEX-20016_F/',
+                ],
                 // Soundtrack Collector
                 [
                     'http://soundtrackcollector.com/composer/94/Hans+Zimmer',
@@ -1005,7 +1041,13 @@ MB.tests.URLCleanup.GuessType = function() {
                     'vgmdb.net/album/29727',
                     'http://vgmdb.net/album/29727',
                     'release'
-                ]
+                ],
+
+                [
+                    'http://commons.wikimedia.org/wiki/File:Kimigayo.score.png?uselang=de',
+                    'https://commons.wikimedia.org/wiki/File:Kimigayo.score.png',
+                    'work'
+                ],
             ];
 
         $.each(tests, function(i, test) {

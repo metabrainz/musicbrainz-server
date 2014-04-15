@@ -28,7 +28,7 @@
               the exact number that would have been found in any case with that
               many edits or more. That is: when there are exactly 500 (our
               offset) edits more than the sum of all previous pages.
-  
+
               In the case where this is not true, we unset guess_search so the
               paginator also knows this is an exact number of pages. -%]
           [% IF guess_search &&

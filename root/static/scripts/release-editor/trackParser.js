@@ -40,7 +40,7 @@ MB.releaseEditor.trackParser = {
         // Mediums aren't passed in for unit tests.
         if (medium) {
             currentTracks = medium.tracks.peek().slice(0);
-            hasTocs = medium.cdtocs > 0;
+            hasTocs = medium.hasToc();
             releaseAC = medium.release.artistCredit;
         }
 
@@ -153,7 +153,9 @@ MB.releaseEditor.trackParser = {
         if (hasTocs && newTracks.length < currentTrackCount) {
             var difference = currentTrackCount - newTracks.length;
 
-            while (difference-- > 0) newTracks.push({});
+            while (difference-- > 0) {
+                newTracks.push(MB.releaseEditor.fields.Track({}, medium));
+            }
         }
 
         return newTracks;

@@ -1,6 +1,10 @@
 @import "colors.less";
 /* Edit pages ('edit/index.tt' and 'edit/list.tt') */
 
+.edit-header {
+    padding: 5px 10px 10px 10px;
+}
+
 .overall-vote {
     float: right;
     margin-bottom: 1em;
@@ -16,6 +20,7 @@ dl.edit-status {
 
 .cancel-edit {
     float: right;
+    margin-top: 7px;
     margin-right: -7px;
 }
 
@@ -83,6 +88,11 @@ table.vote-tally .date {
 
 .wrap-block {
     display: inline-block;
+}
+
+.warn-lengths {
+    color: @negative-text;
+    font-weight: bold;
 }
 
 /*
@@ -193,7 +203,7 @@ table.vote-tally .date {
 
 .edit-list .edit-header {
     border-right: 10px solid transparent;
-    padding: 0 10px 10px 10px;
+    padding-top: 0;
 }
 
 .edit-list .edit-header > h2 {

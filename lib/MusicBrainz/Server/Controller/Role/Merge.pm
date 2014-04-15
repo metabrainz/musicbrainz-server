@@ -3,6 +3,7 @@ use MooseX::Role::Parameterized -metaclass => 'MusicBrainz::Server::Controller::
 
 use MusicBrainz::Server::Log qw( log_assertion );
 use MusicBrainz::Server::Translation qw ( l ln );
+use MusicBrainz::Server::Validation qw( is_positive_integer );
 
 parameter 'edit_type' => (
     isa => 'Int',
@@ -35,6 +36,7 @@ role {
 
         my $add = exists $c->req->params->{'add-to-merge'} ? $c->req->params->{'add-to-merge'} : [];
         my @add = ref($add) ? @$add : ($add);
+        @add = grep { is_positive_integer($_) } @add;
 
         if (@add) {
             my @loaded = values %{ $model->get_by_ids(@add) };
@@ -198,4 +200,4 @@ role {
 };
 
 1;
-      
+

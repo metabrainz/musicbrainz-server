@@ -1,7 +1,7 @@
 Installing MusicBrainz Server
 =============================
 
-The easiest method of installing a local MusicBrainz Server is to download the 
+The easiest method of installing a local MusicBrainz Server is to download the
 [pre-configured virtual machine](http://musicbrainz.org/doc/MusicBrainz_Server/Setup).
 
 If you want to manually set up MusicBrainz Server from source, read on!
@@ -11,8 +11,8 @@ Prerequisites
 
 1.  A Unix based operating system
 
-    The MusicBrainz development team uses a variety of Linux distributions, but 
-    Mac OS X will work just fine, if you're prepared to potentially jump through 
+    The MusicBrainz development team uses a variety of Linux distributions, but
+    Mac OS X will work just fine, if you're prepared to potentially jump through
     some hoops. If you are running Windows we recommend you set up a Ubuntu virtual
     machine.
 
@@ -150,7 +150,7 @@ Below outlines how to setup MusicBrainz server with local::lib.
     There are also a few development headers that will be needed when installing
     dependencies. Run the following steps as a normal user on your system.
 
-        sudo apt-get install libxml2-dev libpq-dev libexpat1-dev libdb-dev memcached liblocal-lib-perl cpanminus
+        sudo apt-get install libxml2-dev libpq-dev libexpat1-dev libdb-dev libicu-dev liblocal-lib-perl cpanminus
 
 3.  Enable local::lib
 
@@ -301,7 +301,7 @@ server. Just run:
 Visiting http://your.machines.ip.address:5000 should now present you with
 your own running instance of the MusicBrainz Server.
 
-If you'd like a more permanent setup, 
+If you'd like a more permanent setup,
 [the plackup documentation](https://metacpan.org/module/plackup) may prove
 useful in setting up a server such as nginx, using FastCGI.
 
@@ -313,12 +313,12 @@ If you intend to run a server with translations, there are a few steps to follow
 1. Prerequisites
 
    Make sure gettext is installed (you need msgmerge and msgfmt, at least),
-   and the transifex client 'tx' 
+   and the transifex client 'tx'
    (http://help.transifex.com/features/client/index.html):
 
          sudo apt-get install gettext transifex-client
 
-   Configure a username and password in ~/.transifexrc using the format listed 
+   Configure a username and password in ~/.transifexrc using the format listed
    on the above page.
 
 2. Change to the po directory
@@ -329,14 +329,14 @@ If you intend to run a server with translations, there are a few steps to follow
 
          tx pull -l {a list of languages you want to pull}
 
-   This will download the .po files for your language(s) of choice to the po/ 
+   This will download the .po files for your language(s) of choice to the po/
    folder with the correct filenames.
 
 4. Install translations
 
          make install
 
-   This will compile and install the files to 
+   This will compile and install the files to
    lib/LocaleData/{language}/LC\_MESSAGES/{domain}.mo
 
 5. Add the languages to MB\_LANGUAGES in DBDefs.pm. These should be formatted
@@ -345,7 +345,7 @@ If you intend to run a server with translations, there are a few steps to follow
 6. Ensure you have a system locale for any languages you want to use, and for
    some languages, be wary of https://rt.cpan.org/Public/Bug/Display.html?id=78341
 
-   For many languages, this will suffice: 
+   For many languages, this will suffice:
 
          sudo apt-get install language-pack-{language code}
 

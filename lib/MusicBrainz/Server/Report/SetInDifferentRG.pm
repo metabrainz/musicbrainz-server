@@ -8,29 +8,29 @@ with 'MusicBrainz::Server::Report::ReleaseGroupReport',
 sub query {
     "
         SELECT DISTINCT
-			rg.id AS release_group_id,
+            rg.id AS release_group_id,
             row_number() OVER (ORDER BY musicbrainz_collate(rg.name))
-		FROM release_group rg
-		    JOIN release rel ON rel.release_group = rg.id
-		WHERE rel.id IN (
-			SELECT r0.id
-			FROM l_release_release l
-				JOIN release r0 ON l.entity0 = r0.id
-				JOIN release r1 ON l.entity1 = r1.id
+        FROM release_group rg
+            JOIN release rel ON rel.release_group = rg.id
+        WHERE rel.id IN (
+            SELECT r0.id
+            FROM l_release_release l
+                JOIN release r0 ON l.entity0 = r0.id
+                JOIN release r1 ON l.entity1 = r1.id
                 JOIN link ON l.link = link.id
                 JOIN link_type ON link.link_type = link_type.id
-			WHERE link_type.gid in ('6d08ec1e-a292-4dac-90f3-c398a39defd5', 'fc399d47-23a7-4c28-bfcf-0607a562b644')
-				AND r0.release_group <> r1.release_group
+            WHERE link_type.gid in ('6d08ec1e-a292-4dac-90f3-c398a39defd5', 'fc399d47-23a7-4c28-bfcf-0607a562b644')
+                AND r0.release_group <> r1.release_group
             UNION
-			SELECT r1.id
-			FROM l_release_release l
-				JOIN release r0 ON l.entity0 = r0.id
-				JOIN release r1 ON l.entity1 = r1.id
+            SELECT r1.id
+            FROM l_release_release l
+                JOIN release r0 ON l.entity0 = r0.id
+                JOIN release r1 ON l.entity1 = r1.id
                 JOIN link ON l.link = link.id
                 JOIN link_type ON link.link_type = link_type.id
-			WHERE link_type.gid in ('6d08ec1e-a292-4dac-90f3-c398a39defd5', 'fc399d47-23a7-4c28-bfcf-0607a562b644')
-				AND r0.release_group <> r1.release_group
-		)
+            WHERE link_type.gid in ('6d08ec1e-a292-4dac-90f3-c398a39defd5', 'fc399d47-23a7-4c28-bfcf-0607a562b644')
+                AND r0.release_group <> r1.release_group
+        )
     ";
 }
 
