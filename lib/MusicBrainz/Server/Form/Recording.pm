@@ -54,7 +54,9 @@ after 'validate' => sub {
     $isrcs->value([ uniq sort grep { $_ } @{ $isrcs->value } ]);
 
     my $length = $self->field('length');
-    if ($self->used_by_tracks && $length->value != $length->init_value) {
+
+    if ($self->used_by_tracks && defined($length->value) &&
+        $length->value != $length->init_value) {
         $length->add_error(
             "This recording's duration is determined by the tracks that are " .
             "linked to it, and cannot be changed directly"
