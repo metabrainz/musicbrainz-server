@@ -48,7 +48,7 @@ ws_test 'lookup track',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
   <track id="c869cc03-cb88-462b-974e-8e46c1538ad4">
-    <title>Rock With You</title><duration>255146</duration>
+    <title>Rock With You</title><duration>254000</duration>
   </track>
 </metadata>';
 
@@ -57,7 +57,7 @@ ws_test 'lookup track with a single artist',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
   <track id="c869cc03-cb88-462b-974e-8e46c1538ad4">
-    <title>Rock With You</title><duration>255146</duration>
+    <title>Rock With You</title><duration>254000</duration>
     <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
       <sort-name>BoA</sort-name><name>BoA</name>
     </artist>
@@ -101,7 +101,7 @@ ws_test 'lookup track with puids',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
   <track id="c869cc03-cb88-462b-974e-8e46c1538ad4">
-    <title>Rock With You</title><duration>255146</duration>
+    <title>Rock With You</title><duration>254000</duration>
   </track>
 </metadata>';
 
@@ -138,7 +138,7 @@ ws_test 'lookup track with artist-relationships',
     '/track/0cf3008f-e246-428f-abc1-35f87d584d60?type=xml&inc=artist-rels' =>
     '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><track id="0cf3008f-e246-428f-abc1-35f87d584d60">
  <title>the Love Bug</title>
- <duration>242226</duration>
+ <duration>243000</duration>
  <relation-list target-type="Artist">
   <relation direction="backward"
             target="22dd2db3-88ea-4428-a7a8-5cd3acf23175"
@@ -174,7 +174,7 @@ ws_test 'lookup track with label-relationships',
     '/track/bf7845cc-eac3-48a3-8b06-543b4b7ba117?type=xml&inc=label-rels' =>
     '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><track id="bf7845cc-eac3-48a3-8b06-543b4b7ba117">
  <title>Hey Boy Hey Girl</title>
- <duration>290853</duration>
+ <duration>289946</duration>
  <relation-list target-type="Label">
   <relation direction="backward"
             target="49375f06-59e2-4c94-93ac-ac0c6df52151"
@@ -234,7 +234,7 @@ ws_test 'lookup track with ratings',
     '/track/0d16494f-2ba4-4f4f-adf9-ae1f3ee1673d?type=xml&inc=ratings' =>
     '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><track id="0d16494f-2ba4-4f4f-adf9-ae1f3ee1673d">
  <title>The Song Remains the Same</title>
- <duration>329600</duration>
+ <duration>330160</duration>
  <rating votes-count="2">3</rating>
 </track></metadata>';
 
@@ -255,7 +255,7 @@ ws_test 'lookup track with ratings',
     '/track/0d16494f-2ba4-4f4f-adf9-ae1f3ee1673d?type=xml&inc=user-ratings' =>
     '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><track id="0d16494f-2ba4-4f4f-adf9-ae1f3ee1673d">
  <title>The Song Remains the Same</title>
- <duration>329600</duration>
+ <duration>330160</duration>
  <user-rating>5</user-rating>
 </track></metadata>',
     { username => 'editor', password => 'password' };
