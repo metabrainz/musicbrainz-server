@@ -156,7 +156,7 @@ is_deeply($edit->data, {
 # test edit-recording submission without artist credit fields
 
 @edits = capture_edits {
-    $mech->get_ok("/recording/123c079d-374e-4436-9448-da92dedef3ce/edit");
+    $mech->get_ok("/recording/54b9d183-7dab-42ba-94a3-7388a66604b8/edit");
     html_ok($mech->content);
     my $request = POST $mech->uri, [
         'edit-recording.length' => '4:56',
@@ -169,7 +169,7 @@ is_deeply($edit->data, {
 @edits = sort_by { $_->id } @edits;
 
 ok($mech->success);
-ok($mech->uri =~ qr{/recording/123c079d-374e-4436-9448-da92dedef3ce$});
+ok($mech->uri =~ qr{/recording/54b9d183-7dab-42ba-94a3-7388a66604b8$});
 html_ok($mech->content);
 
 $edit = $edits[0];
