@@ -109,7 +109,7 @@ test("internal track positions are updated appropriately after being reused", fu
     var medium = release.mediums()[0];
 
     medium.cdtocs = 0;
-    delete medium.toc;
+    medium.toc(null);
 
     var input = _.str.lines(re.trackParser.mediumToString(medium)).reverse().join("\n");
 

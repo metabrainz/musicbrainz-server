@@ -284,19 +284,47 @@ test("mediumAddDiscID edits are generated for new release", function () {
     var mediums = this.release.mediums,
         medium = mediums()[0];
 
-    medium.toc = "1+5+146225+150+16102+49660+76357+111535";
+    medium.toc("1 5 146225 150 16102 49660 76357 111535");
 
     mediums.notifySubscribers(mediums());
 
     deepEqual(releaseEditor.edits.discID(this.release), [
       {
         medium_id: undefined,
-        cdtoc: "1+5+146225+150+16102+49660+76357+111535",
+        cdtoc: "1 5 146225 150 16102 49660 76357 111535",
         edit_type: 55,
-        hash: "8ffb378704a13a489814a47dbdd5837bce20a88c",
+        medium_position: 1,
+        release_name: "Vision Creation Newsun",
+        hash: "fb7101806c72ae80b63687b5aff2df0935f40046",
         release: undefined
       }
     ]);
+});
+
+
+test("releaseReorderMediums edits are not generated for new releases", function () {
+    this.release = releaseEditor.fields.Release({
+        mediums: [
+            { position: 1, tracks: [ { name: "foo" } ] },
+            { position: 2, tracks: [ { name: "bar" } ]  },
+        ]
+    });
+
+    releaseEditor.rootField.release(this.release);
+
+    var createEdits = _.find(releaseEditor.orderedEditSubmissions, {
+        edits: releaseEditor.edits.medium
+    });
+
+    // Simulate edit submission.
+    createEdits.edits(this.release);
+
+    createEdits.callback(this.release, [
+        { entity: { id: 123, position: 1 } },
+        { entity: { id: 456, position: 2 } },
+    ]);
+
+    equal(releaseEditor.edits.mediumReorder(this.release).length, 0);
 });
 
 
@@ -428,14 +456,18 @@ test("mediumDelete edit is generated for existing release", function () {
 });
 
 
+var testURLRelationship = {
+    type0: "release",
+    type1: "url",
+    entity0ID: "868cc741-e3bc-31bc-9dac-756e35c8f152",
+    entity1ID: "http://www.discogs.com/release/1369894",
+    linkTypeID: 76,
+    id: 123
+};
+
+
 test("relationshipCreate edit for external link is generated for existing release", function () {
-    var newRelationshipData = {
-        type0: "release",
-        type1: "url",
-        entity0ID: this.release.gid,
-        entity1ID: "http://www.discogs.com/release/1369894",
-        linkTypeID: 76
-    };
+    var newRelationshipData = _.omit(testURLRelationship, "id");
 
     this.release.externalLinks.links.push(
         MB.Control.externalLinks.Relationship(
@@ -462,18 +494,9 @@ test("relationshipEdit edit for external link is generated for existing release"
     MB.Control.externalLinks.typeInfo = {};
     MB.Control.externalLinks.faviconClasses = {};
 
-    var existingURLRelationship = {
-        type0: "release",
-        type1: "url",
-        entity0ID: this.release.gid,
-        entity1ID: "http://www.discogs.com/release/1369894",
-        linkTypeID: 76,
-        id: 123
-    };
-
     this.release.externalLinks.links([
         MB.Control.externalLinks.Relationship(
-            existingURLRelationship,
+            testURLRelationship,
             this.release.externalLinks
         )
     ]);
@@ -498,18 +521,9 @@ test("relationshipEdit edit for external link is generated for existing release"
 
 
 test("relationshipDelete edit for external link is generated for existing release", function () {
-    var existingURLRelationship = {
-        type0: "release",
-        type1: "url",
-        entity0ID: this.release.gid,
-        entity1ID: "http://www.discogs.com/release/1369894",
-        linkTypeID: 76,
-        id: 123
-    };
-
     this.release.externalLinks.links([
         MB.Control.externalLinks.Relationship(
-            existingURLRelationship,
+            testURLRelationship,
             this.release.externalLinks
         )
     ]);
@@ -525,6 +539,43 @@ test("relationshipDelete edit for external link is generated for existing releas
         "type1": "url"
       }
     ]);
+});
+
+
+test("edits are not generated for external links that duplicate existing removed ones", function () {
+    var newURL = "http://www.discogs.com/release/13698944";
+    var links = this.release.externalLinks.links;
+
+    var existingRelationship1 = MB.Control.externalLinks.Relationship(
+        testURLRelationship,
+        this.release.externalLinks
+    );
+
+    var existingRelationship2 = MB.Control.externalLinks.Relationship(
+        _.assign(_.clone(testURLRelationship), { id: 456, entity1ID: newURL }),
+        this.release.externalLinks
+    );
+
+    var addedDuplicate = MB.Control.externalLinks.Relationship(
+        _.omit(testURLRelationship, "id"),
+        this.release.externalLinks
+    );
+
+    links([existingRelationship1, existingRelationship2]);
+    existingRelationship1.remove();
+    links.push(addedDuplicate);
+
+    equal(releaseEditor.edits.externalLinks(this.release).length, 1);
+    equal(releaseEditor.validation.errorCount(), 1);
+
+    addedDuplicate.remove();
+
+    equal(releaseEditor.validation.errorCount(), 0);
+
+    existingRelationship2.url(existingRelationship1.url());
+
+    equal(releaseEditor.edits.externalLinks(this.release).length, 1);
+    equal(releaseEditor.validation.errorCount(), 1);
 });
 
 

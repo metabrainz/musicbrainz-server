@@ -9,7 +9,7 @@
     [%- IF recordings.size -%]
         <form action="[% c.uri_for_action('/recording/merge_queue') %]"
             method="post">
-            [%- INCLUDE 'artist/recordings-list.tt' WRAPPER 'components/with-pager.tt' -%]
+            [%- INCLUDE 'components/recordings-list.tt' WRAPPER 'components/with-pager.tt' -%]
             [% form_submit(l('Add selected recordings for merging')) WRAPPER form_row IF c.user_exists %]
         </form>
     [%- ELSE -%]

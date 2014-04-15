@@ -40,7 +40,7 @@ MB.releaseEditor.trackParser = {
         // Mediums aren't passed in for unit tests.
         if (medium) {
             currentTracks = medium.tracks.peek().slice(0);
-            hasTocs = medium.cdtocs > 0;
+            hasTocs = medium.hasToc();
             releaseAC = medium.release.artistCredit;
         }
 

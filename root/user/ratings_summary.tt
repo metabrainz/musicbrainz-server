@@ -14,7 +14,7 @@
             <ul>
             [% FOREACH entity IN ratings.${ type.1 } %]
                 <li>[% rating_stars(entity, !viewing_own_profile) %] -
-                    [% link_entity (entity) %]</li>
+                    [% descriptive_link(entity) %]</li>
             [% END %]
                 <li>
                   [% view_more = c.uri_for_action(
@@ -22,7 +22,7 @@
                          [ user.name ], type.1
                      )
                   %]
-                  <a href="[% view_more  %]">[% l('View all ratings') %]</a>
+                  <a href="[% view_more %]">[% l('View all ratings') %]</a>
                 </li>
             </ul>
         [% END %]

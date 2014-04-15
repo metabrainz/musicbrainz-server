@@ -24,6 +24,7 @@ use MusicBrainz::Server::Constants qw(
     $AUTO_EDITOR_FLAG
 );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Edit::Utils qw( boolean_from_json );
 use MusicBrainz::Server::Validation qw( is_guid );
 use Scalar::Util qw( looks_like_number );
 use Try::Tiny;
@@ -172,7 +173,10 @@ sub process_medium {
 sub process_relationship {
     my ($c, $data) = @_;
 
-    $data->{ended} //= 0;
+    $data->{attributes} //= [];
+    $data->{begin_date} //= {};
+    $data->{end_date} //= {};
+    $data->{ended} = boolean_from_json($data->{ended});
 }
 
 sub detach_with_error {
@@ -326,17 +330,34 @@ sub create_edits {
     };
 
     return map {
-        my %opts = %$_;
+        my $opts = $_;
         my $edit;
         my $action = $previewing ? 'preview' : 'create';
 
         try {
-            process_data($c, \%opts);
+            process_data($c, $opts);
+
+            if ($opts->{edit_type} == $EDIT_RELATIONSHIP_CREATE) {
+                my $link_type = $opts->{link_type};
+
+                MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
+                    if $c->model('Relationship')->exists(
+                        $link_type->entity0_type, $link_type->entity1_type, {
+                            link_type_id => $link_type->id,
+                            entity0_id => $opts->{entity0}->id,
+                            entity1_id => $opts->{entity1}->id,
+                            begin_date => $opts->{begin_date},
+                            end_date => $opts->{end_date},
+                            ended => $opts->{ended},
+                            attributes => $opts->{attributes},
+                        }
+                    );
+            }
 
             $edit = $c->model('Edit')->$action(
                 editor_id => $c->user->id,
                 privileges => $privs,
-                %opts
+                %$opts
             );
         }
         catch {

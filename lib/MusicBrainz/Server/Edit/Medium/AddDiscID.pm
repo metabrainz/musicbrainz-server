@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Edit::Medium::AddDiscID;
 use Moose;
 use Method::Signatures::Simple;
-use MooseX::Types::Structured qw( Dict );
+use MooseX::Types::Structured qw( Dict Optional );
 use MooseX::Types::Moose qw( Int Str );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_ADD_DISCID );
 use MusicBrainz::Server::Edit::Types qw( NullableOnPreview );
@@ -12,6 +12,7 @@ sub edit_kind { 'add' }
 sub edit_type { $EDIT_MEDIUM_ADD_DISCID }
 
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
+use aliased 'MusicBrainz::Server::Entity::Medium';
 use aliased 'MusicBrainz::Server::Entity::MediumCDTOC';
 use aliased 'MusicBrainz::Server::Entity::Release';
 
@@ -22,9 +23,10 @@ with 'MusicBrainz::Server::Edit::Role::Preview';
 
 has '+data' => (
     isa => Dict[
-        cdtoc     => Str,
-        medium_id => NullableOnPreview[Int],
-        release   => NullableOnPreview[Dict[
+        cdtoc           => Str,
+        medium_id       => NullableOnPreview[Int],
+        medium_position => Optional[Int],
+        release         => NullableOnPreview[Dict[
             id => Int,
             name => Str
         ]],
@@ -45,10 +47,12 @@ method alter_edit_pending
 sub initialize {
     my ($self, %opts) = @_;
 
+    my $release_name = delete $opts{release_name} // "";
+
     if ($self->preview)
     {
        $self->entity_id(0);
-       $opts{release} = { id => 0, name => "" };
+       $opts{release} = { id => 0, name => $release_name };
     }
     else {
         my $release = $opts{release} or die 'Missing "release" argument';
@@ -60,6 +64,13 @@ sub initialize {
 
     $self->data(\%opts);
 };
+
+sub _edit_hash {
+    my ($self, $data) = @_;
+
+    delete $data->{medium_position};
+    return $data;
+}
 
 method _build_related_entities
 {
@@ -79,12 +90,21 @@ method foreign_keys
 
 method build_display_data ($loaded)
 {
-    return {
-        release => $loaded->{Release}{ $self->release_id } ||
+    my $release = $loaded->{Release}{ $self->release_id } ||
             Release->new(
                 name => $self->data->{release}{name}
-            ),
-        medium => $loaded->{Medium}{ $self->data->{medium_id} },
+            );
+
+    my $pos = $self->data->{medium_position};
+
+    my $medium = $loaded->{Medium}{$self->data->{medium_id}} //
+                 ($pos ? Medium->new(position => $pos) : undef);
+
+    $medium->release($release);
+
+    return {
+        release => $release,
+        medium => $medium,
         medium_cdtoc => $loaded->{MediumCDTOC}{ $self->entity_id } ||
             MediumCDTOC->new(
                 cdtoc => CDTOC->new_from_toc($self->data->{cdtoc})
