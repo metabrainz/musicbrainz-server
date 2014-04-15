@@ -102,7 +102,6 @@ requires 'Template::Plugin::JSON::Escape'             => '0.02';
 requires 'Text::WikiFormat'                           => '0.81';
 requires 'Text::Unaccent'                             => '1.08';
 requires 'Text::Trim'                                 => '1.02';
-requires 'Time::Duration'                             => '1.06';
 requires 'Throwable'                                  => '0.102080';
 requires 'TryCatch'                                   => '1.003000';
 requires 'URI'                                        => '1.59';
