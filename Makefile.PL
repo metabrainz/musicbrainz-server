@@ -36,7 +36,6 @@ requires 'Data::Page'                                 => '2.02';
 requires 'Date::Calc'                                 => '6.3';
 requires 'Data::UUID::MT'                             => '0.006';
 requires 'DateTime::TimeZone'                         => '1.42';
-requires 'DateTime::Format::Duration'                 => '1.03';
 requires 'DateTime::Format::Pg'                       => '0.16007';
 requires 'DateTime::Format::Natural'                  => '0.98';
 requires 'DateTime::Format::ISO8601'                  => '0.07';
