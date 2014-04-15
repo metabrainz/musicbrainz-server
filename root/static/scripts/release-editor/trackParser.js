@@ -115,18 +115,18 @@ MB.releaseEditor.trackParser = {
                 }
             );
 
-            if (matchedAC) data.artistCredit = matchedAC.toJSON();
+            if (matchedAC) {
+                data.artistCredit = matchedAC.toJSON();
+            }
 
-            if (data.artist) {
-                data.artistCredit = data.artistCredit || [{ name: data.artist }];
+            data.artistCredit = data.artistCredit || [{ name: data.artist || "" }];
 
-                // If the AC has just a single artist, we can re-use the parsed
-                // artist text as the credited name for that artist. Otherwise
-                // we can't easily do anything with it because the parsed text
-                // likely contains bits for every artist.
-                if (data.artistCredit.length === 1) {
-                    data.artistCredit[0].name = data.artist;
-                }
+            // If the AC has just a single artist, we can re-use the parsed
+            // artist text as the credited name for that artist. Otherwise we
+            // can't easily do anything with it because the parsed text likely
+            // contains bits for every artist.
+            if (data.artist && data.artistCredit.length === 1) {
+                data.artistCredit[0].name = data.artist;
             }
 
             if (matchedTrack) {
