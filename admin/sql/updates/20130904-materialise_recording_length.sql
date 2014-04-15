@@ -3,7 +3,7 @@ BEGIN;
 
 CREATE OR REPLACE FUNCTION median_track_length(recording_id integer)
 RETURNS integer AS $$
-  SELECT median(track.length) FROM track WHERE recording = recording_id;
+  SELECT median(track.length) FROM track WHERE recording = $1;
 $$ LANGUAGE SQL;
 
 CREATE OR REPLACE FUNCTION materialise_recording_length(recording_id INT)
