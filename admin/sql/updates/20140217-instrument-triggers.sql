@@ -43,7 +43,7 @@ ALTER TABLE instrument ADD CHECK (controlled_for_whitespace(comment));
 
 ALTER TABLE instrument
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
-  ADD CONSTRAINT only_non_empty CHECK (name != ''),
+  ADD CONSTRAINT only_non_empty CHECK (name != '');
 
 ALTER TABLE instrument_alias
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),

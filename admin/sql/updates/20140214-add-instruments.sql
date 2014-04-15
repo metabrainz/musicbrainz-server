@@ -18,7 +18,8 @@ CREATE TABLE instrument (
     type                INTEGER, -- references instrument_type.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >=0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    comment             VARCHAR(255) NOT NULL DEFAULT ''
+    comment             VARCHAR(255) NOT NULL DEFAULT '',
+    description         TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE instrument_gid_redirect
@@ -189,7 +190,7 @@ INSERT INTO instrument_type (name) VALUES ('Wind instrument'), ('String instrume
 
 INSERT INTO instrument_alias_type (name) VALUES ('Instrument name'), ('Search hint');
 
-INSERT INTO instrument (gid, name, description) SELECT gid, name, description FROM link_attribute_type WHERE parent IS NOT NULL AND root = 14 ORDER BY id;
+INSERT INTO instrument (gid, name, description) SELECT gid, name, COALESCE(description, '') FROM link_attribute_type WHERE parent IS NOT NULL AND root = 14 ORDER BY id;
 
 INSERT INTO link_type (gid, entity_type0, entity_type1, name, description, link_phrase, reverse_link_phrase, long_link_phrase, priority) VALUES
     (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/instrument/url/wikipedia'), 'instrument', 'url', 'wikipedia', 'wikipedia', 'Wikipedia', 'Wikipedia', 'Wikipedia', 0),
@@ -248,7 +249,7 @@ WHERE description ~ '.*\(<a href="(https?://[a-z]+.wikipedia.org/wiki/[^#"]+)">W
 
 -- 1. Insert the aliases into instrument_alias
 WITH rows AS (
-	SELECT id, unnest(regexp_split_to_array(regexp_replace(description, '.*Other names(?: include)?:? (.*?).? *$', E'\\1'), ', | and ')) AS name
+	SELECT id, unnest(regexp_split_to_array(regexp_replace(description, '.*Other names(?: include)?:? (.*?)\.? *$', E'\\1'), ', +| +and +')) AS name
 	FROM instrument
 	WHERE description ~ 'Other name'
 )
@@ -256,8 +257,8 @@ INSERT INTO instrument_alias (instrument, name, sort_name) SELECT id, name, name
 
 -- 2. Remove the aliases from the instrument descriptions
 UPDATE instrument
-SET description = regexp_replace(description, ' ?Other names(?: include)?:? (.*?).? *$', '')
-WHERE description ~ '.*Other names(?: include)?:? (.*?).? *$';
+SET description = regexp_replace(description, ' ?Other names(?: include)?:? (.*?)\.? *$', '')
+WHERE description ~ '.*Other names(?: include)?:? (.*?)\.? *$';
 
 SELECT setval('instrument_type_id_seq', (SELECT MAX(id) FROM instrument_type));
 SELECT setval('instrument_id_seq', (SELECT MAX(id) FROM instrument));

@@ -548,7 +548,8 @@ CREATE TABLE instrument (
     type                INTEGER, -- references instrument_type.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >=0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    comment             VARCHAR(255) NOT NULL DEFAULT ''
+    comment             VARCHAR(255) NOT NULL DEFAULT '',
+    description         TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE instrument_gid_redirect
