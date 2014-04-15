@@ -12,7 +12,9 @@
       [%- form_row_text_long(r, 'name', l('Name:')) -%]
       [%- form_row_artist_credit(form) -%]
       [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
-      [%- form_row_text_long(r, 'length', l('Length:')) -%]
+      [%- IF !form.used_by_tracks || form.field('length').has_errors;
+            form_row_text_long(r, 'length', l('Length:'));
+          END -%]
       [%- form_row_checkbox(r, 'video', l('Video')) -%]
       [%- form_row_text_list(r, 'isrcs', l('ISRCs:'), l('ISRC')) -%]
     </fieldset>

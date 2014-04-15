@@ -5,6 +5,7 @@ use MusicBrainz::Server::Test qw( capture_edits html_ok );
 use HTTP::Request::Common;
 use List::UtilsBy qw( sort_by );
 
+with 't::Edit';
 with 't::Mechanize', 't::Context';
 
 test all => sub {
@@ -13,13 +14,26 @@ my $test = shift;
 my $mech = $test->mech;
 my $c    = $test->c;
 
-MusicBrainz::Server::Test->prepare_test_database($c);
+$c->sql->do(<<EOSQL);
+INSERT INTO artist (id, gid, name, sort_name, comment)
+VALUES (3, '745c079d-374e-4436-9448-da92dedef3ce', 'ABBA', 'ABBA', 'A'),
+       (6, 'a45c079d-374e-4436-9448-da92dedef3cf', 'ABBA', 'ABBA', 'B'),
+       (4, '945c079d-374e-4436-9448-da92dedef3cf', 'ABBA', 'ABBA', 'C'),
+       (5, '5441c29d-3602-4898-b1a1-b77fa23b8e50', 'ABBA', 'ABBA', 'D');
+
+INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'ABBA', 1);
+INSERT INTO artist_credit_name (artist_credit, position, artist, name) VALUES (1, 0, 6, 'ABBA');
+INSERT INTO recording (id, gid, name, artist_credit, length)
+    VALUES (1, '54b9d183-7dab-42ba-94a3-7388a66604b8', 'Dancing Queen', 1, 123456);
+INSERT INTO isrc (isrc, recording) VALUES ('DEE250800231', 1);
+EOSQL
 
 $mech->get_ok('/login');
-$mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+$mech->submit_form(
+    with_fields => { username => 'editor', password => 'pass' } );
 
 my @edits = capture_edits {
-    $mech->get_ok("/recording/123c079d-374e-4436-9448-da92dedef3ce/edit");
+    $mech->get_ok("/recording/54b9d183-7dab-42ba-94a3-7388a66604b8/edit");
     html_ok($mech->content);
     my $request = POST $mech->uri, [
         'edit-recording.length' => '1:23',
@@ -43,7 +57,7 @@ my @edits = capture_edits {
 @edits = sort_by { $_->id } @edits;
 
 ok($mech->success);
-ok($mech->uri =~ qr{/recording/123c079d-374e-4436-9448-da92dedef3ce$});
+like($mech->uri, qr{/recording/54b9d183-7dab-42ba-94a3-7388a66604b8$});
 html_ok($mech->content);
 
 my $edit = $edits[0];
