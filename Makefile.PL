@@ -93,7 +93,6 @@ requires 'String::CamelCase'                          => '0.02';
 requires 'String::ShellQuote'                         => '1.03';
 requires 'String::TT'                                 => '0.03';
 requires 'Sys::Hostname'                              => '1.16';
-requires 'Template::Plugin::Math'                     => '1.16';
 requires 'Template::Plugin::Class'                    => '0.13';
 requires 'Template::Plugin::JavaScript'               => '0.02';
 requires 'Template::Plugin::JSON::Escape'             => '0.02';
