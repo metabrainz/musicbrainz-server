@@ -75,31 +75,24 @@ END; -%]
 
 [%- USE JavaScript -%]
 [%- MACRO display_artwork_image(artwork, fallback, message) BLOCK -%]
-    [%- IF artwork.mime_type == "application/pdf" -%]
-        <img src="[% c.uri_for("/static/images/icons/pdf-icon.png") %]" />
-    [%- ELSIF no_javascript -%]
+    [%- IF no_javascript -%]
         <img src="[% artwork.small_thumbnail %]" />
     [%- ELSE -%]
         <img[% IF artwork_hover(artwork) %] title="[% artwork_hover(artwork) %]"[% END %] />
         <script>
-          $('img').last ().bind ('error', function (event) {
-              if ($(this).attr ("src") === "[% artwork.small_thumbnail %]")
-              {
-                  $(this).attr ("src", "[% artwork.image %]");
-              }
+          $('img').last().bind('error', function (event) {
          [%- IF fallback -%]
-              else if ($(this).attr ("src") === "[% artwork.image %]")
-              {
-                  $(this).attr ("src", "[% fallback %]");
+              if ($(this).attr("src") === "[% artwork.image %]") {
+                  $(this).attr("src", "[% fallback %]");
+              } else {
+         [%- END -%]
+                  $(this).closest('a').replaceWith('<em>
+                  [%~ message ? message : l('Image not available yet, please try again in a few minutes.') | js ~%]
+                  <\/em>');
+         [%- IF fallback -%]
               }
          [%- END -%]
-              else
-              {
-                  $(this).closest ('a').replaceWith ('<em>
-                  [%- message ? message : l('Image not available yet, please try again in a few minutes.') | js -%]
-                  <\/em>');
-              }
-          }).attr ("src", "[% artwork.small_thumbnail %]");
+          }).attr("src", "[% artwork.small_thumbnail %]");
         </script>
     [%- END -%]
 [% END %]
