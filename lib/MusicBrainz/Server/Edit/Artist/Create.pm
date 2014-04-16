@@ -71,7 +71,7 @@ sub build_display_data
     my $gender = $self->data->{gender_id};
 
     return {
-        ( map { $_ => $_ ? $self->data->{$_} : '' } qw( name sort_name comment ) ),
+        ( map { $_ => $self->data->{$_} // '' } qw( name sort_name comment ) ),
         type       => $type ? $loaded->{ArtistType}->{$type} : '',
         gender     => $gender ? $loaded->{Gender}->{$gender} : '',
         ( map { $_ => $self->data->{$_ . '_id'} && ($loaded->{Area}->{$self->data->{$_ . '_id'}} // Area->new()) } qw( area begin_area end_area ) ),
