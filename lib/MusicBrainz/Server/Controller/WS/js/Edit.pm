@@ -373,7 +373,10 @@ sub edit : Chained('/') PathPart('ws/js/edit') CaptureArgs(0) Edit {
     my ($self, $c) = @_;
 
     $c->res->content_type('application/json; charset=utf-8');
-    detach_with_error($c, 'not logged in') unless $c->user;
+
+    $c->forward('/user/cookie_login') unless $c->user_exists;
+
+    detach_with_error($c, 'not logged in') unless $c->user_exists;
 }
 
 sub create : Chained('edit') PathPart('create') Edit {
