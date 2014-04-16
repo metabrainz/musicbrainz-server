@@ -100,7 +100,6 @@ requires 'Text::WikiFormat'                           => '0.81';
 requires 'Text::Unaccent'                             => '1.08';
 requires 'Text::Trim'                                 => '1.02';
 requires 'Throwable'                                  => '0.102080';
-requires 'TryCatch'                                   => '1.003000';
 requires 'URI'                                        => '1.59';
 requires 'XML::Generator'                             => '1.04';
 requires 'XML::Parser::Lite'                          => '0.714';
