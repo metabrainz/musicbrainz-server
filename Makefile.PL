@@ -101,7 +101,6 @@ requires 'Text::Unaccent'                             => '1.08';
 requires 'Text::Trim'                                 => '1.02';
 requires 'Throwable'                                  => '0.102080';
 requires 'URI'                                        => '1.59';
-requires 'XML::Generator'                             => '1.04';
 requires 'XML::Parser::Lite'                          => '0.714';
 requires 'XML::RSS::Parser::Lite'                     => '0.10';
 requires 'XML::SemanticDiff'                          => '1.0000';
