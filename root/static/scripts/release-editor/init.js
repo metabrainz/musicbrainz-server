@@ -25,7 +25,14 @@ MB.releaseEditor.init = function (options) {
     $(document).on("keydown", "#release-editor :input:not(:button, textarea)",
         function (event) {
             if (event.which === 13 && !event.isDefaultPrevented()) {
-                self.activeTabID() === "#edit-note" ? self.submitEdits() : self.nextTab();
+                // The _.defer is entirely for <select> elements in Firefox,
+                // which don't have their change events triggered until after
+                // enter is hit. Additionally, if we switch tabs before the
+                // change event is handled, it doesn't seem to even register
+                // (probably because the <select> is hidden by then).
+                _.defer(function () {
+                    self.activeTabID() === "#edit-note" ? self.submitEdits() : self.nextTab();
+                });
             }
         });
 
