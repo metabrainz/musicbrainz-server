@@ -122,6 +122,41 @@ test("internal track positions are updated appropriately after being reused", fu
 });
 
 
+test("MBS-7451: track parser can clear TOC track lengths", function () {
+    var re = releaseEditor;
+
+    re.rootField = re.fields.Root();
+    re.rootField.release(re.fields.Release(re.test.testRelease));
+
+    var release = re.rootField.release();
+    var medium = release.mediums()[0];
+
+    medium.cdtocs = 1;
+
+    re.trackParser.options = {
+        trackNumbers: false,
+        vinylNumbers: false,
+        trackTimes: true
+    };
+
+    // The string does not include track numbers.
+    var input = re.trackParser.mediumToString(medium);
+
+    // Re-enable track numbers so that parsing anything fails.
+    re.trackParser.options.trackNumbers = true;
+
+    medium.tracks(re.trackParser.parse(input, medium));
+
+    var tracks = medium.tracks();
+
+    deepEqual(
+        _.invoke(tracks, "length"),
+        _.pluck(medium.original().tracklist, "length"),
+        "track lengths are unchanged"
+    );
+});
+
+
 test("MBS-7456: Failing to parse artists does not break track autocompletes", function () {
     var re = releaseEditor;
 
