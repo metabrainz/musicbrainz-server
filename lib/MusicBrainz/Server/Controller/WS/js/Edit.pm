@@ -25,9 +25,10 @@ use MusicBrainz::Server::Constants qw(
 );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Edit::Utils qw( boolean_from_json );
-use MusicBrainz::Server::Validation qw( is_guid );
+use MusicBrainz::Server::Validation qw( is_guid is_valid_url );
 use Scalar::Util qw( looks_like_number );
 use Try::Tiny;
+use URI;
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 use aliased 'MusicBrainz::Server::Entity::Track';
 use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
@@ -245,13 +246,21 @@ sub load_entities {
                 my $entity_class = "MusicBrainz::Server::Entity::$model";
 
                 if ($model eq 'URL') {
-                    if ($previewing) {
-                        my ($entity) = $c->model('URL')->find_by_url($entity_id);
+                    my $url = URI->new($entity_id)->canonical;
 
-                        $edit->{$prop} = $entity || $entity_class->new( url => $entity_id );
+                    my $url_string = $url->as_string;
+                    my $url_scheme = $url->scheme;
+
+                    die "invalid URL: $url_string" unless is_valid_url($url_string);
+                    die "unsupported URL protocol: $url_scheme" unless lc($url_scheme) =~ m/^(https?|ftp)$/;
+
+                    if ($previewing) {
+                        my ($entity) = $c->model('URL')->find_by_url($url_string);
+
+                        $edit->{$prop} = $entity || $entity_class->new(url => $url_string);
                     }
                     else {
-                        $edit->{$prop} = $c->model('URL')->find_or_insert($entity_id);
+                        $edit->{$prop} = $c->model('URL')->find_or_insert($url_string);
                     }
                 }
                 else {

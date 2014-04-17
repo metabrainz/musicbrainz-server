@@ -5,6 +5,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_EDIT
     $EDIT_RELEASEGROUP_CREATE
     $EDIT_MEDIUM_CREATE
+    $EDIT_RELATIONSHIP_CREATE
 );
 use MusicBrainz::Server::Test qw( capture_edits );
 use Test::More;
@@ -19,7 +20,7 @@ sub prepare_test_database {
     MusicBrainz::Server::Test->prepare_test_database($c);
 
     $c->sql->do(
-    q/
+    q{
         INSERT INTO language (id, iso_code_2t, iso_code_2b, iso_code_1, iso_code_3, name)
         VALUES (486, 'zxx', 'zxx', '', 'zxx', 'No linguistic content');
 
@@ -34,8 +35,14 @@ sub prepare_test_database {
         INSERT INTO artist (id, gid, name, sort_name)
         VALUES (39282, '0798d15b-64e2-499f-9969-70167b1d8617', 'Boredoms', 'Boredoms');
 
+        INSERT INTO url (id, gid, url)
+        VALUES (2, 'de409476-4ad8-4ce8-af2f-d47bee0edf97', 'http://en.wikipedia.org/wiki/Boredoms');
+
+        INSERT INTO link_type (id, name, gid, link_phrase, long_link_phrase, reverse_link_phrase, entity_type0, entity_type1)
+        VALUES (2, 'wikipedia', 'fcd58926-4243-40bb-a2e5-c7464b3ce577', 'wikipedia', 'wikipedia', 'wikipedia', 'artist', 'url');
+
         ALTER SEQUENCE track_id_seq RESTART 100;
-    /);
+    });
 }
 
 sub post_json {
@@ -334,6 +341,75 @@ test 'previewing/creating a release group and release' => sub {
     $response = from_json($mech->content);
 
     is($response->{error}, undef, 'editing just the release title does not cause an ISE');
+};
+
+
+test 'MBS-7464: URLs are validated/canonicalized' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c = $test->c;
+
+    my $response;
+    my @edits;
+
+    prepare_test_database($c);
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+    my $invalid_url = [ {
+        edit_type   => $EDIT_RELATIONSHIP_CREATE,
+        link_type   => 2,
+        entity0     => 39282,
+        entity1     => 'HAHAHA',
+        type0       => 'artist',
+        type1       => 'url',
+    } ];
+
+    @edits = capture_edits {
+        post_json($mech, '/ws/js/edit/create', encode_json({ edits => $invalid_url }));
+    } $c;
+
+    ok(scalar(@edits) == 0, 'relationship for invalid URL is not created');
+
+    $response = from_json($mech->content);
+    like($response->{error}, qr/^invalid URL: HAHAHA/, 'error is returned for invalid URL');
+
+    my $unsupported_protocol = [ {
+        edit_type   => $EDIT_RELATIONSHIP_CREATE,
+        link_type   => 2,
+        entity0     => 39282,
+        entity1     => 'gopher://example.com/',
+        type0       => 'artist',
+        type1       => 'url',
+    } ];
+
+    @edits = capture_edits {
+        post_json($mech, '/ws/js/edit/create', encode_json({ edits => $unsupported_protocol }));
+    } $c;
+
+    ok(scalar(@edits) == 0, 'relationship for URL with unsupported protocol is not created');
+
+    $response = from_json($mech->content);
+    like($response->{error}, qr/^unsupported URL protocol: gopher/, 'error is returned for unsupported protocol');
+
+    my $non_canonical_url = [ {
+        edit_type   => $EDIT_RELATIONSHIP_CREATE,
+        link_type   => 2,
+        entity0     => 39282,
+        entity1     => 'http://en.Wikipedia.org:80/wiki/Boredoms',
+        type0       => 'artist',
+        type1       => 'url',
+    } ];
+
+    @edits = capture_edits {
+        post_json($mech, '/ws/js/edit/create', encode_json({ edits => $non_canonical_url }));
+    } $c;
+
+    my $url = $c->model('URL')->get_by_id($edits[0]->data->{entity1}->{id});
+
+    is($url->url, 'http://en.wikipedia.org/wiki/Boredoms', 'URL is canonicalized');
+    is($url->id, 2, 'existing URL is used');
 };
 
 1;
