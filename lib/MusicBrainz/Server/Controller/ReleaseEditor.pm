@@ -507,7 +507,11 @@ sub _seeded_track
             try {
                 $result->{length} = unformat_track_length($length);
             } catch {
-                push @$errors, "Invalid $field_name.length: “$length”.";
+                if ($_ =~ m/is not a valid track length/) {
+                    push @$errors, "Invalid $field_name.length: “$length”.";
+                } else {
+                    die $_;
+                }
             };
         } else {
             $result->{length} = $length;
