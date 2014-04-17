@@ -785,6 +785,10 @@ END -%]
     ELSE; '';
 END -%]
 
+[%- MACRO css_class_name(name) BLOCK;
+    name | lower | replace('[^a-z]+', '-') | remove('^-|-$');
+    END -%]
+
 [%- MACRO warning_icon BLOCK -%]
    <img class="warning" src="[% c.uri_for('/static/images/icons/warning.png') %]" />
 [%- END -%]
