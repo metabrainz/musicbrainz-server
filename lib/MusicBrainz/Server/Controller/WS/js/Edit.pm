@@ -373,7 +373,10 @@ sub edit : Chained('/') PathPart('ws/js/edit') CaptureArgs(0) Edit {
     my ($self, $c) = @_;
 
     $c->res->content_type('application/json; charset=utf-8');
-    detach_with_error($c, 'not logged in') unless $c->user;
+
+    $c->forward('/user/cookie_login') unless $c->user_exists;
+
+    detach_with_error($c, 'not logged in') unless $c->user_exists;
 }
 
 sub create : Chained('edit') PathPart('create') Edit {
@@ -455,6 +458,12 @@ sub create : Chained('edit') PathPart('create') Edit {
                     if ($model eq 'Medium') {
                         $response->{entity}->{position} = $entity->position;
                     }
+                };
+            } elsif ($edit->isa("MusicBrainz::Server::Edit::Release::AddReleaseLabel")) {
+                $response->{entity} = {
+                    id              => $edit->entity_id,
+                    labelID         => defined($edit->data->{label}) ? $edit->data->{label}{id} : undef,
+                    catalogNumber   => $edit->data->{catalog_number} // undef,
                 };
             }
         } else {

@@ -6,14 +6,14 @@
 # Nikolai Prokoschenko <email address hidden>, 2011
 # jus <email address hidden>, 2014
 # Shepard, 2011
-# Shepard, 2013
+# Shepard, 2013-2014
 # Tobias Quathamer <email address hidden>, 2007
 # Mineo <email address hidden>, 2013-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-03-31 21:30+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-04-06 17:48+0000\n"
+"Last-Translator: Shepard\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -343,7 +343,7 @@ msgid ""
 "MusicBrainz partners with MusicIP and starts using MusicDNS's PUID acoustic "
 "fingerprints. Picard becomes the official MusicBrainz tagger with PUID "
 "support, which causes edit activity to decrease."
-msgstr "MusicBrainz geht eine Partnerschaft mit MusicIP ein und beginnt MusicDNS's PUID akustische Fingerabdrücke zu nutzen. Picard wird der offizielle MusicBrainz-Tagger mit PUID Unterstützung, wodurch sich die Bearbeitungsaktivitäten verringern."
+msgstr "MusicBrainz geht eine Partnerschaft mit MusicIP ein und beginnt MusicDNS' PUID akustische Fingerabdrücke zu nutzen. Picard wird der offizielle MusicBrainz-Tagger mit PUID-Unterstützung, wodurch sich die Bearbeitungsaktivitäten verringern."
 
 #: DB:statistics.statistic_event/title:2006-03-12
 msgid "MusicIP PUID"
@@ -441,7 +441,7 @@ msgstr "Tags"
 #: DB:statistics.statistic_event/description:2007-06-28
 msgid ""
 "The BBC becomes a MetaBrainz customer and starts using MusicBrainz data."
-msgstr "Die BBC wird ein MetaBrainz Kunde und beginnt MusicBrainz-Daten zu nutzen."
+msgstr "Die BBC wird ein MetaBrainz-Kunde und beginnt, MusicBrainz-Daten zu nutzen."
 
 #: DB:statistics.statistic_event/description:2012-04-30
 msgid "The Cover Art Archive becomes initially available"
@@ -531,7 +531,7 @@ msgstr "Aktive Abstimmer"
 
 #: ../root/statistics/timeline.tt:51
 msgid "Add/remove lines:"
-msgstr "Hinzufügen/Entfernen von Zeilen:"
+msgstr "Zeilen hinzufügen/entfernen:"
 
 #: ../root/statistics/view_js.tt:60
 msgid "All edits that have been applied"

@@ -312,19 +312,16 @@ test("releaseReorderMediums edits are not generated for new releases", function 
 
     releaseEditor.rootField.release(this.release);
 
-    var createEdits = _.find(releaseEditor.orderedEditSubmissions, {
-        edits: releaseEditor.edits.medium
-    });
-
-    // Simulate edit submission.
-    createEdits.edits(this.release);
-
-    createEdits.callback(this.release, [
-        { entity: { id: 123, position: 1 } },
-        { entity: { id: 456, position: 2 } },
-    ]);
+    releaseEditor.test.createMediums(this.release);
 
     equal(releaseEditor.edits.mediumReorder(this.release).length, 0);
+});
+
+
+test("MBS-7453: release group edits strip whitespace from name", function () {
+    var release = releaseEditor.fields.Release({ name: "  Foo  oo " });
+
+    equal(releaseEditor.edits.releaseGroup(release)[0].name, "Foo oo");
 });
 
 
@@ -703,14 +700,12 @@ test("mediumCreate edits are not given conflicting positions", function () {
       }
     ]);
 
-    newMedium1.id = 789;
-    newMedium2.id = 101112;
-    mediums.notifySubscribers(mediums());
+    releaseEditor.test.createMediums(this.release);
 
     deepEqual(releaseEditor.edits.mediumReorder(this.release), [
       {
         "edit_type": MB.edit.TYPES.EDIT_RELEASE_REORDER_MEDIUMS,
-        "hash": "d9a01c77f228a3ae4199a549ba1778c2b36b4a07",
+        "hash": "e8355ea2d57f452b4c477cc7eed1a35da641c475",
         "medium_positions": [
           {
             "medium_id": 123,
@@ -718,7 +713,7 @@ test("mediumCreate edits are not given conflicting positions", function () {
             "old": 1
           },
           {
-            "medium_id": 789,
+            "medium_id": 666,
             "new": 1,
             "old": 4
           }

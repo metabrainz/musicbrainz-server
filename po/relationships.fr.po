@@ -15,7 +15,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-03-31 21:30+0000\n"
+"PO-Revision-Date: 2014-04-17 03:31+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -427,7 +427,7 @@ msgstr "Indique le parolier pour cette œuvre. (<a href=\"http://musicbrainz.org
 
 #: DB:link_type/description:42
 msgid "Indicates the mastering engineer for this work."
-msgstr ""
+msgstr "Indique le chef opérateur de matriçage pour cet œuvre"
 
 #: DB:link_type/description:143
 msgid ""
@@ -635,20 +635,12 @@ msgid ""
 "detailed a date as possible."
 msgstr "Relie un artiste vers le lieu ou il a été en concert. Veuillez indiquer une date aussi précise que possible."
 
-#: DB:link_type/link_phrase:91 DB:link_type/link_phrase:181
-msgid "MusicMoz"
-msgstr "MusicMoz"
-
-#: DB:link_type/reverse_link_phrase:91 DB:link_type/reverse_link_phrase:181
-msgid "MusicMoz page for"
-msgstr "Page MusicMoz pour"
-
-#: DB:link_type/link_phrase:189 DB:link_type/link_phrase:215
+#: DB:link_type/link_phrase:215 DB:link_type/link_phrase:189
 #: DB:link_type/link_phrase:462
 msgid "Myspace"
 msgstr "Myspace"
 
-#: DB:link_type/reverse_link_phrase:189 DB:link_type/reverse_link_phrase:215
+#: DB:link_type/reverse_link_phrase:215 DB:link_type/reverse_link_phrase:189
 #: DB:link_type/reverse_link_phrase:462
 msgid "Myspace page for"
 msgstr "Page Myspace pour"
@@ -772,7 +764,7 @@ msgstr "Cet attribut décrit si une collaboration particulière était considér
 msgid ""
 "This attribute describes if a particular role was considered normal or "
 "additional."
-msgstr ""
+msgstr "Cet attribut décrit si un rôle particulier était considéré comme normal ou supplémentaire."
 
 #: DB:link_attribute_type/description:194
 msgid ""
@@ -1116,12 +1108,6 @@ msgid ""
 "This is <strong>not</strong> the same concept as the <a href=\"/doc/Label\">record label</a>."
 msgstr "Ceci indique l'organisation qui édite la parution. <br/><br/>\nCe n'est <strong>pas</strong> le même concept que la <a href=\"/doc/Label\">maison de disques</a>."
 
-#: DB:link_type/description:260
-msgid ""
-"This indicates the recording studio where at least part of this recording "
-"was recorded."
-msgstr "Ceci indique le studio d'enregistrement où l'enregistrement a eu lieu au moins en partie."
-
 #: DB:link_type/description:98
 msgid ""
 "This indicates the recording studio where at least part of this release "
@@ -1451,7 +1437,7 @@ msgstr "Ceci relie un entité à l'entrée équivalente dans une autre base de d
 
 #: DB:link_type/description:96 DB:link_type/description:82
 #: DB:link_type/description:306 DB:link_type/description:222
-#: DB:link_type/description:273 DB:link_type/description:188
+#: DB:link_type/description:188 DB:link_type/description:273
 msgid ""
 "This links an entity to the equivalent entry at another database. Please "
 "respect the <a "
@@ -1719,12 +1705,6 @@ msgid ""
 "This relationship type is <strong>deprecated</strong>. Add liner notes info "
 "on the release level."
 msgstr "Ce type de relation est <strong>obsolète</strong> ! Veuillez ajouter les notes de livret au niveau de la parution."
-
-#: DB:link_type/description:91 DB:link_type/description:181
-msgid ""
-"This relationship type is <strong>deprecated</strong>. Use \"has a page in a"
-" database\" instead."
-msgstr "Ce type de relation est <strong>obsolète</strong> ! Veuillez plutôt utiliser « a une page dans une base de données »."
 
 #: DB:link_type/description:15
 msgid ""
@@ -2322,11 +2302,7 @@ msgstr "a une page Discogs à"
 msgid "has a Geonames page at"
 msgstr "a une page Geonames à"
 
-#: DB:link_type/long_link_phrase:91 DB:link_type/long_link_phrase:181
-msgid "has a MusicMoz page at"
-msgstr "a une page MusicMoz à"
-
-#: DB:link_type/long_link_phrase:189 DB:link_type/long_link_phrase:215
+#: DB:link_type/long_link_phrase:215 DB:link_type/long_link_phrase:189
 #: DB:link_type/long_link_phrase:462
 msgid "has a Myspace page at"
 msgstr "a une page Myspace à"
@@ -2622,7 +2598,7 @@ msgstr "est un collage de"
 msgid "is a medley of"
 msgstr "est un pot-pourri de"
 
-#: DB:link_type/long_link_phrase:273
+#: DB:link_type/long_link_phrase:730 DB:link_type/long_link_phrase:273
 msgid "is a page in a database for"
 msgstr "est une page dans une base données à"
 
@@ -2782,11 +2758,6 @@ msgstr "sous licence"
 #: DB:link_type/reverse_link_phrase:712
 msgid "licensed from"
 msgstr "sous licence de"
-
-#: DB:link_type/link_phrase:81 DB:link_type/reverse_link_phrase:81
-#: DB:link_type/long_link_phrase:81
-msgid "links to affiliates"
-msgstr "liens vers les affiliés"
 
 #: DB:link_attribute_type/name:578
 msgid "live"
@@ -2997,13 +2968,14 @@ msgstr "orchestration de"
 msgid "orchestrations"
 msgstr "orchestrations"
 
-#: DB:link_type/link_phrase:96 DB:link_type/link_phrase:82
-#: DB:link_type/link_phrase:306 DB:link_type/link_phrase:222
-#: DB:link_type/link_phrase:273 DB:link_type/link_phrase:188
-#: DB:link_type/link_phrase:561 DB:link_type/reverse_link_phrase:96
+#: DB:link_type/link_phrase:96 DB:link_type/link_phrase:730
+#: DB:link_type/link_phrase:82 DB:link_type/link_phrase:306
+#: DB:link_type/link_phrase:222 DB:link_type/link_phrase:188
+#: DB:link_type/link_phrase:273 DB:link_type/link_phrase:561
+#: DB:link_type/reverse_link_phrase:96 DB:link_type/reverse_link_phrase:730
 #: DB:link_type/reverse_link_phrase:82 DB:link_type/reverse_link_phrase:306
-#: DB:link_type/reverse_link_phrase:222 DB:link_type/reverse_link_phrase:273
-#: DB:link_type/reverse_link_phrase:188 DB:link_type/reverse_link_phrase:561
+#: DB:link_type/reverse_link_phrase:222 DB:link_type/reverse_link_phrase:188
+#: DB:link_type/reverse_link_phrase:273 DB:link_type/reverse_link_phrase:561
 msgid "other databases"
 msgstr "autres bases de données"
 
@@ -3237,8 +3209,7 @@ msgstr "ingénieurs du son "
 msgid "recording location for"
 msgstr "lieu d'enregistrement de"
 
-#: DB:link_type/link_phrase:98 DB:link_type/link_phrase:260
-#: DB:link_type/reverse_link_phrase:98 DB:link_type/reverse_link_phrase:260
+#: DB:link_type/link_phrase:98 DB:link_type/reverse_link_phrase:98
 msgid "recording studio"
 msgstr "studio d'enregistrement"
 
@@ -3452,7 +3423,7 @@ msgstr "voix de"
 msgid "voiced by"
 msgstr "voix par"
 
-#: DB:link_type/long_link_phrase:98 DB:link_type/long_link_phrase:260
+#: DB:link_type/long_link_phrase:98
 msgid "was recorded by studio at"
 msgstr "a été enregistré par le studio à"
 

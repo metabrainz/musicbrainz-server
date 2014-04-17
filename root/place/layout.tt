@@ -40,7 +40,7 @@
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Coordinates:')
                content=('<a href="' _ place.coordinates.osm_url(16) _ '">' _ html_escape(place.coordinates.format) _ '</a>')
                class="coordinates"
-                   IF place.coordinates.latitude && place.coordinates.longitude -%]
+                   IF place.coordinates.latitude.defined -%]
         [% END %]
         [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=place tags=top_tags
             more=more_tags tag_this_text=l('Tag this place')

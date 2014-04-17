@@ -151,6 +151,16 @@ test 'Coordinate validation' => sub {
             longitude => 12.576282
         },
         {
+            parse => q{37, -109},
+            latitude => 37,
+            longitude => -109
+        },
+        {
+            parse => q{0.00000000001, 0},
+            latitude => 0,
+            longitude => 0
+        },
+        {
             parse => q{},
             latitude => undef,
             longitude => undef
@@ -169,6 +179,9 @@ test 'Coordinate validation' => sub {
             latitude => num($testCase->{latitude}, 0.0001),
             longitude => num($testCase->{longitude}, 0.0001)
         }, "Parsing $testCase->{parse}");
+        ok( $form->field('coordinates')->value->{latitude} !~ /\.[0-9]*0$/ &&
+            $form->field('coordinates')->value->{longitude} !~ /\.[0-9]*0$/,
+            'coordinates do not have trailing zeroes (MBS-7438)' );
     }
 };
 

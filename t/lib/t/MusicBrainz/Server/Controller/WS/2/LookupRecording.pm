@@ -185,7 +185,7 @@ ws_test 'recording lookup with artists',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <recording id="0cf3008f-e246-428f-abc1-35f87d584d60">
-        <title>the Love Bug</title><length>242226</length>
+        <title>the Love Bug</title><length>243000</length>
         <artist-credit>
             <name-credit joinphrase="♥">
                 <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">

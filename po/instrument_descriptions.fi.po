@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-03-04 00:46+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-04-10 14:57+0000\n"
+"Last-Translator: Phonebox\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1002,7 +1002,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:549
 msgid "A bass synthesizer is used to create sounds in the bass range."
-msgstr ""
+msgstr "Bassosyntetisaattorilla luodaan bassotaajuuksisia ääniä."
 
 #: DB:link_attribute_type/description:588
 msgid ""
@@ -1181,7 +1181,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:651
 msgid "Acoustic guitar without frets."
-msgstr ""
+msgstr "Akustinen kitara ilman otenauhoja."
 
 #: DB:link_attribute_type/description:557
 msgid ""
@@ -3154,13 +3154,13 @@ msgstr "baglama"
 #: DB:link_attribute_type/description:18
 msgid ""
 "bagpipe  (<a href=\"https://en.wikipedia.org/wiki/Bagpipes\">Wikipedia</a>)"
-msgstr ""
+msgstr "säkkipilli (<a href=\"https://fi.wikipedia.org/wiki/Säkkipilli\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:501
 msgid ""
 "bass flute  (<a "
 "href=\"https://en.wikipedia.org/wiki/Bass_flute\">Wikipedia</a>)"
-msgstr ""
+msgstr "bassohuilu (<a href=\"https://en.wikipedia.org/wiki/Bass_flute\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:558
 msgid "bass harmonica"

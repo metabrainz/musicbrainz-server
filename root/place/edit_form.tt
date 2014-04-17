@@ -37,7 +37,7 @@
           <label for="id-edit-label.area.name">[% l('Area:') %]</label>
           <span class="area autocomplete">
             <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
-            <input type="hidden" class="gid" />
+            [% r.hidden(form.field('area').field('gid'), class => 'gid') %]
             [% r.hidden ('area_id', class => 'id') %]
             [% r.text(area_field, class => 'name') %]
           </span>

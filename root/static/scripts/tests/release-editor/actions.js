@@ -19,6 +19,20 @@ test("removing a track should change the track numbers", function () {
 });
 
 
+test("removing a medium should change the medium positions", function () {
+    this.release.mediums.push(
+        releaseEditor.fields.Medium(releaseEditor.test.testMedium),
+        releaseEditor.fields.Medium({ tracks: [], position: 3 })
+    );
+
+    var mediums = this.release.mediums();
+    deepEqual(_.invoke(mediums, "position"), [1, 2, 3], "medium positions are consecutive before removal");
+
+    releaseEditor.removeMedium(mediums[0]);
+    deepEqual(_.invoke(mediums, "position"), [1, 2], "medium positions are consecutive after removal");
+});
+
+
 test("reordering tracks that have non-consecutive \"position\" properties (MBS-7227)", function () {
     var tracks = this.release.mediums()[0].tracks();
     var originalTrack1 = tracks[0];

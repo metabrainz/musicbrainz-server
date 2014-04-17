@@ -213,7 +213,7 @@ test 'recording lookup with artists' => sub {
             id => "0cf3008f-e246-428f-abc1-35f87d584d60",
             title => "the Love Bug",
             disambiguation => "",
-            length => 242226,
+            length => 243000,
             video => 0,
             "artist-credit" => [
                 {
@@ -320,7 +320,7 @@ test 'recording lookup with work relationships' => sub {
             id => "0cf3008f-e246-428f-abc1-35f87d584d60",
             title => "the Love Bug",
             disambiguation => "",
-            length => 242226,
+            length => 243000,
             video => 0,
             relations => [
                 {
