@@ -540,6 +540,10 @@ msgstr ""
 msgid "chacha"
 msgstr ""
 
+#: DB:link_attribute_type/name:772
+msgid "chakhe"
+msgstr ""
+
 #: DB:link_attribute_type/name:524
 msgid "chalumeau"
 msgstr ""
@@ -822,6 +826,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:606
 msgid "dulcian"
+msgstr ""
+
+#: DB:link_attribute_type/name:774
+msgid "dutar"
 msgstr ""
 
 #: DB:link_attribute_type/name:740
@@ -1672,6 +1680,10 @@ msgstr ""
 msgid "rainstick"
 msgstr ""
 
+#: DB:link_attribute_type/name:773
+msgid "rammana"
+msgstr ""
+
 #: DB:link_attribute_type/name:759
 msgid "ranat ek"
 msgstr ""
@@ -1810,6 +1822,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:197
 msgid "serpent"
+msgstr ""
+
+#: DB:link_attribute_type/name:775
+msgid "setar"
 msgstr ""
 
 #: DB:link_attribute_type/name:417
@@ -2246,6 +2262,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:248
 msgid "uilleann pipes"
+msgstr ""
+
+#: DB:link_attribute_type/name:776
+msgid "ukeke"
 msgstr ""
 
 #: DB:link_attribute_type/name:114
