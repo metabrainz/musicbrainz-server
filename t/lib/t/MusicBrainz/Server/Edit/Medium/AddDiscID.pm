@@ -62,6 +62,22 @@ test 'Entering a CDTOC for a medium with some track times does not set them' => 
     is($medium->tracks->[1]->length, undef);
 };
 
+test 'MBS-7459: Previewing without medium position works' => sub {
+    my $test = shift;
+
+    my $release = $test->c->model('Release')->get_by_id(1);
+
+    my $edit = $test->c->model('Edit')->preview(
+        edit_type => $EDIT_MEDIUM_ADD_DISCID,
+        editor_id => 1,
+        release => $release,
+        cdtoc => '1 2 260648 150 21918',
+        release_name => 'Foo',
+    );
+
+    ok !exception { $edit->build_display_data };
+};
+
 sub _build_edit {
     my ($test) = @_;
     my $release = $test->c->model('Release')->get_by_id(1);
