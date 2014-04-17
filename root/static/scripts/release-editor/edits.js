@@ -20,12 +20,13 @@
 
         releaseGroup: function (release) {
             var releaseGroup = release.releaseGroup();
-            var releaseName = release.name();
+            var name = _.str.clean(releaseGroup.name) || _.str.clean(release.name());
 
-            if (releaseGroup.id || !(releaseGroup.name || releaseName)) return [];
+            if (releaseGroup.id || !name) return [];
 
             var editData = MB.edit.fields.releaseGroup(releaseGroup);
-            editData.name = editData.name || releaseName;
+
+            editData.name = name;
             editData.artist_credit = MB.edit.fields.artistCredit(release.artistCredit);
 
             return [ MB.edit.releaseGroupCreate(editData) ];
@@ -393,8 +394,8 @@
             edit_note: root.editNote()
         };
 
-        function nextSubmission() {
-            var current = submissions.shift();
+        function nextSubmission(index) {
+            var current = submissions[index++];
 
             if (!current) {
                 // We're done!
@@ -429,11 +430,11 @@
                         current.callback(release, data.edits);
                     }
 
-                    _.defer(nextSubmission);
+                    _.defer(nextSubmission, index);
                 })
                 .fail(submissionErrorOccurred);
         }
-        nextSubmission();
+        nextSubmission(0);
     }
 
 
