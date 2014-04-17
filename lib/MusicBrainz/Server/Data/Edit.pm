@@ -712,6 +712,16 @@ sub insert_votes_and_notes {
     }, $self->c->sql);
 }
 
+sub get_related_entities {
+    my ($self, $edit) = @_;
+    my %result;
+    for my $type (qw( area artist label place release release_group recording work url )) {
+        my $query = "SELECT $type AS id FROM edit_$type WHERE edit = ?";
+        $result{$type} = [ query_to_list($self->c->sql, sub { shift->{id} }, $query, $edit->id) ];
+    }
+    return \%result;
+}
+
 sub add_link {
     my ($self, $type, $id, $edit) = @_;
     $self->sql->do("INSERT INTO edit_$type (edit, $type) VALUES (?, ?)", $edit, $id);

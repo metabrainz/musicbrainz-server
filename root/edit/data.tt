@@ -11,6 +11,20 @@
         <code>[% edit.raw_data | html %]</code>
     </p>
 
+    <p><strong>[% l('Related entities:') %]</strong></p>
+    <ul>
+        [% FOREACH type IN related_entities.pairs %]
+            <li>
+                [% get_plural_type(type.key) %]:
+                [% es = [];
+                   FOREACH e IN type.value.pairs.nsort('key');
+                       es.push(link_entity(e.value, 'show', e.key));
+                   END;
+                   comma_only_list(es) %]
+            </li>
+        [% END %]
+    </ul>
+
     <p>
         [% l('This is the raw data for edit #{id}. It is available for debugging purposes.', { id => edit.id }) %]
         [% link_edit(edit, 'show', l('View the human-readable rendering instead.')) %]

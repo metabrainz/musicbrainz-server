@@ -10,6 +10,7 @@ use MusicBrainz::Server::Edit::Utils qw( status_names );
 use MusicBrainz::Server::Constants qw( $STATUS_OPEN :quality );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 use MusicBrainz::Server::EditSearch::Query;
+use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::EditRegistry';
@@ -68,7 +69,16 @@ sub show : Chained('load') PathPart('') RequireAuth
 sub data : Chained('load') RequireAuth
 {
     my ($self, $c) = @_;
-    $c->stash->{template} = 'edit/data.tt';
+
+    my $edit = $c->stash->{edit};
+    my $related = $c->model('Edit')->get_related_entities($edit);
+    my %entities;
+    while (my ($type, $ids) = each %$related) {
+        $entities{$type} = $c->model(type_to_model($type))->get_by_ids(@$ids) if @$ids;
+    }
+
+    $c->stash( related_entities => \%entities,
+               template => 'edit/data.tt' );
 }
 
 sub enter_votes : Local RequireAuth DenyWhenReadonly
