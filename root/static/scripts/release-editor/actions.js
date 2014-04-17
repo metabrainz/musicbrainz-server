@@ -92,7 +92,7 @@
                 if (medium.position() === position + 1) {
                     medium.position(position);
                 }
-                --position;
+                ++position;
             }
         },
 
