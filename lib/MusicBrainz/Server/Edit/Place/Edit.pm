@@ -23,6 +23,7 @@ use MooseX::Types::Moose qw( ArrayRef Bool Int Maybe Str );
 use MooseX::Types::Structured qw( Dict Optional );
 
 use aliased 'MusicBrainz::Server::Entity::Place';
+use aliased 'MusicBrainz::Server::Entity::Area';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use aliased 'MusicBrainz::Server::Entity::Coordinates';
 
@@ -94,19 +95,17 @@ sub build_display_data
     $data->{place} = $loaded->{Place}{ $self->data->{entity}{id} }
         || Place->new( name => $self->data->{entity}{name} );
 
+    for my $side (qw( old new )) {
+        $data->{area}{$side} //= Area->new()
+            if defined $self->data->{$side}{area_id};
+    }
+
     for my $date_prop (qw( begin_date end_date )) {
         if (exists $self->data->{new}{$date_prop}) {
             $data->{$date_prop} = {
                 new => PartialDate->new($self->data->{new}{$date_prop}),
                 old => PartialDate->new($self->data->{old}{$date_prop}),
             };
-        }
-    }
-
-    for my $prop (qw( iso_3166_1 iso_3166_2 iso_3166_3 )) {
-        if (exists $self->data->{new}{$prop}) {
-            $data->{$prop}->{old} = $self->data->{old}{$prop};
-            $data->{$prop}->{new} = $self->data->{new}{$prop};
         }
     }
 

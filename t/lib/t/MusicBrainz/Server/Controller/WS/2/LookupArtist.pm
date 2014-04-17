@@ -260,7 +260,7 @@ ws_test 'artist lookup with recordings and artist credits',
         </life-span>
         <recording-list count="2">
             <recording id="0cf3008f-e246-428f-abc1-35f87d584d60">
-                <title>the Love Bug</title><length>242226</length>
+                <title>the Love Bug</title><length>243000</length>
                 <artist-credit>
                     <name-credit joinphrase="♥">
                         <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">

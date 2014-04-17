@@ -149,11 +149,8 @@ around 'initialize' => sub
         $self->c->model('ArtistCredit')->load($recording);
     }
 
-    if (exists $opts{length}) {
-        delete $opts{length}
-            if MusicBrainz::Server::Track::FormatTrackLength($opts{length}) eq
-                MusicBrainz::Server::Track::FormatTrackLength($recording->length);
-    }
+    delete $opts{length} if exists $opts{length} &&
+        $self->c->model('Recording')->usage_count($recording->id);
 
     $opts{artist_credit} = clean_submitted_artist_credits($opts{artist_credit})
         if exists($opts{artist_credit});

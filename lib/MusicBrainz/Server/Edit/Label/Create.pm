@@ -19,6 +19,7 @@ with 'MusicBrainz::Server::Edit::Role::SubscribeOnCreation' => {
 with 'MusicBrainz::Server::Edit::Role::Insert';
 
 use aliased 'MusicBrainz::Server::Entity::Label';
+use aliased 'MusicBrainz::Server::Entity::Area';
 
 sub edit_name { N_l('Add label') }
 sub edit_type { $EDIT_LABEL_CREATE }
@@ -72,7 +73,7 @@ sub build_display_data
                         $loaded->{LabelType}->{ $self->data->{type_id} },
         label_code => $self->data->{label_code},
         area       => defined($self->data->{area_id}) &&
-                        $loaded->{Area}->{ $self->data->{area_id} },
+                      ($loaded->{Area}->{ $self->data->{area_id} } // Area->new()),
         comment    => $self->data->{comment},
         ipi_codes   => $self->data->{ipi_codes} // [ $self->data->{ipi_code} // () ],
         isni_codes => $self->data->{isni_codes},

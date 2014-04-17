@@ -747,10 +747,6 @@ msgstr ""
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Singing_bowl\">Wikipedia</a>)"
 msgstr ""
 
-#: DB:link_attribute_type/description:113
-msgid "(<a href=\"https://en.wikipedia.org/wiki/Sitar\">Wikipedia</a>)"
-msgstr ""
-
 #: DB:link_attribute_type/description:537
 msgid ""
 "(<a href=\"https://en.wikipedia.org/wiki/Sopranino_saxophone\">Wikipedia</a>)"
@@ -1987,6 +1983,13 @@ msgid ""
 "wikipedia.org/wiki/Caxixi\">Wikipedia</a>)"
 msgstr ""
 
+#: DB:link_attribute_type/description:772
+msgid ""
+"The chakhe is a three stringed crocodile shaped plucked zither from "
+"Thailand. Other names: จะเข้, jakhe (<a href=\"https://en.wikipedia.org/wiki/"
+"Chakhe\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:524
 msgid ""
 "The chalumeau is a single-reed woodwind instrument of the late baroque and "
@@ -2113,6 +2116,13 @@ msgid ""
 "The dulcian (also called curtal) is a double reed bass woodwind instrument "
 "which is a 16th century ancestor of the bassoon. (<a href=\"http://en."
 "wikipedia.org/wiki/Dulcian\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:774
+msgid ""
+"The dutar is a long-necked two-stringed lute found in Iran and Central Asia. "
+"Other names: دوتار‎, дутор, دۇتتار‎, duttar, dutor, doutar  (<a href=\"https://"
+"en.wikipedia.org/wiki/Dutar\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:740
@@ -2545,6 +2555,13 @@ msgid ""
 "\">Wikipedia</a>)"
 msgstr ""
 
+#: DB:link_attribute_type/description:773
+msgid ""
+"The rammana is a frame drum used in classical Thai and Cambodian music which "
+"forms one part of <a href=\"http://en.wikipedia.org/wiki/Thon_and_rammana"
+"\">thon and rammana</a>. Other names: รำมะนา, rumana"
+msgstr ""
+
 #: DB:link_attribute_type/description:759
 msgid ""
 "The ranat ek (Thai: ระนาดเอก) is a Thai xylophone which consists of 21 "
@@ -2641,6 +2658,13 @@ msgstr ""
 msgid "The saz is a long-necked fretted lute"
 msgstr ""
 
+#: DB:link_attribute_type/description:775
+msgid ""
+"The setar is a long-necked three-stringed lute found in Iran and Central "
+"asia. Other names: سه‌تار‎  (<a href=\"https://en.wikipedia.org/wiki/Setar"
+"\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:224
 msgid ""
 "The shakuhachi is a Japanese end-blown flute. (<a href=\"https://en."
@@ -2715,6 +2739,14 @@ msgstr ""
 msgid ""
 "The sistrum is a metal rattle associated with ancient Iraq and Egypt. (<a "
 "href=\"https://en.wikipedia.org/wiki/Sistrum\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:113
+msgid ""
+"The sitar is a plucked stringed instrument used mainly in Hindustani music "
+"and Indian classical music which is descended from a similar but simpler "
+"Persian instrument called the setar. (<a href=\"https://en.wikipedia.org/"
+"wiki/Sitar\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:356
@@ -2829,6 +2861,14 @@ msgid ""
 "Tumbi\">Wikipedia</a>)"
 msgstr ""
 
+#: DB:link_attribute_type/description:776
+msgid ""
+"The ukeke is a musical bow made of koa wood, 16 to 24 inches long and about "
+"1½ inches wide with two or three strings fastened through and around either "
+"end, tuned to an A major triad. Other names: ʻūkēkē (<a href=\"https://en."
+"wikipedia.org/wiki/Ukeke\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:629
 msgid ""
 "The valiha is a bamboo tube zither from Madagascar (<a href=\"http://en."
@@ -2896,6 +2936,13 @@ msgid ""
 "The yueqin (Chinese: 月琴, yuèqín) is a Chinese \"moon-shaped\" plucked "
 "lute. Also known as moon lute, moon guitar or yueh-ch'in. (<a href=\"http://"
 "en.wikipedia.org/wiki/Yueqin\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:405
+msgid ""
+"The zarb is a goblet drum from Persia. Other names: tonbak, tombak, donbak, "
+"dombak, تنپک, تنبک, دنبک, تمبک, ضَرب, ضرب (<a href=\"https://en.wikipedia.org/"
+"wiki/Tonbak\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:287
@@ -3138,12 +3185,6 @@ msgid ""
 "Wind chimes are chimes constructed from suspended tubes, rods, bells or "
 "other objects, designed to be hung outside and played by the wind. (<a href="
 "\"http://en.wikipedia.org/wiki/Wind_chime\">Wikipedia</a>)"
-msgstr ""
-
-#: DB:link_attribute_type/description:405
-msgid ""
-"Zarb (also known as tonbak, tombak, donbak & dombak) is a goblet drum from "
-"Persia."
 msgstr ""
 
 #: DB:link_attribute_type/description:548

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-03-31 21:30+0000\n"
+"PO-Revision-Date: 2014-04-17 03:31+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -547,6 +547,10 @@ msgstr "cello"
 msgid "chacha"
 msgstr "chacha"
 
+#: DB:link_attribute_type/name:772
+msgid "chakhe"
+msgstr ""
+
 #: DB:link_attribute_type/name:524
 msgid "chalumeau"
 msgstr "chalumea"
@@ -830,6 +834,10 @@ msgstr "doedoek"
 #: DB:link_attribute_type/name:606
 msgid "dulcian"
 msgstr "dulciaan"
+
+#: DB:link_attribute_type/name:774
+msgid "dutar"
+msgstr ""
 
 #: DB:link_attribute_type/name:740
 msgid "duxianqin"
@@ -1649,7 +1657,7 @@ msgstr "tokkelinstrumenten"
 
 #: DB:link_attribute_type/name:771
 msgid "post horn"
-msgstr ""
+msgstr "posthoorn"
 
 #: DB:link_attribute_type/name:515
 msgid "practice chanter"
@@ -1678,6 +1686,10 @@ msgstr "quena"
 #: DB:link_attribute_type/name:455
 msgid "rainstick"
 msgstr "regenstok"
+
+#: DB:link_attribute_type/name:773
+msgid "rammana"
+msgstr ""
 
 #: DB:link_attribute_type/name:759
 msgid "ranat ek"
@@ -1818,6 +1830,10 @@ msgstr "saó ôi fluit"
 #: DB:link_attribute_type/name:197
 msgid "serpent"
 msgstr "serpent"
+
+#: DB:link_attribute_type/name:775
+msgid "setar"
+msgstr ""
 
 #: DB:link_attribute_type/name:417
 msgid "shakers"
@@ -2254,6 +2270,10 @@ msgstr "udu"
 #: DB:link_attribute_type/name:248
 msgid "uilleann pipes"
 msgstr "Uilleann pipes"
+
+#: DB:link_attribute_type/name:776
+msgid "ukeke"
+msgstr ""
 
 #: DB:link_attribute_type/name:114
 msgid "ukulele"

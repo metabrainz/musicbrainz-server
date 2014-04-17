@@ -100,7 +100,7 @@ method build_display_data ($loaded)
     my $medium = $loaded->{Medium}{$self->data->{medium_id}} //
                  ($pos ? Medium->new(position => $pos) : undef);
 
-    $medium->release($release);
+    $medium->release($release) if $medium;
 
     return {
         release => $release,

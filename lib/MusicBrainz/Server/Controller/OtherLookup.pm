@@ -71,6 +71,21 @@ lookup_handler 'mbid' => sub {
     $self->not_found($c);
 };
 
+lookup_handler 'url' => sub {
+    my ($self, $c, $url) = @_;
+
+    my ($entity) = $c->model('URL')->find_by_url($url);
+    if (defined $entity) {
+        $c->response->redirect(
+            $c->uri_for_action(
+                $c->controller('URL')->action_for('show'),
+                [ $entity->gid ]));
+        $c->detach;
+    } else {
+        $self->not_found($c);
+    }
+};
+
 lookup_handler 'isrc' => sub {
     my ($self, $c, $isrc) = @_;
 
