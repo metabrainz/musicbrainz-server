@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-03-31 21:30+0000\n"
+"PO-Revision-Date: 2014-04-17 03:31+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -547,6 +547,10 @@ msgstr "τσέλο"
 msgid "chacha"
 msgstr ""
 
+#: DB:link_attribute_type/name:772
+msgid "chakhe"
+msgstr ""
+
 #: DB:link_attribute_type/name:524
 msgid "chalumeau"
 msgstr ""
@@ -829,6 +833,10 @@ msgstr "ντουντούκ"
 
 #: DB:link_attribute_type/name:606
 msgid "dulcian"
+msgstr ""
+
+#: DB:link_attribute_type/name:774
+msgid "dutar"
 msgstr ""
 
 #: DB:link_attribute_type/name:740
@@ -1679,6 +1687,10 @@ msgstr ""
 msgid "rainstick"
 msgstr ""
 
+#: DB:link_attribute_type/name:773
+msgid "rammana"
+msgstr ""
+
 #: DB:link_attribute_type/name:759
 msgid "ranat ek"
 msgstr ""
@@ -1817,6 +1829,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:197
 msgid "serpent"
+msgstr ""
+
+#: DB:link_attribute_type/name:775
+msgid "setar"
 msgstr ""
 
 #: DB:link_attribute_type/name:417
@@ -2253,6 +2269,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:248
 msgid "uilleann pipes"
+msgstr ""
+
+#: DB:link_attribute_type/name:776
+msgid "ukeke"
 msgstr ""
 
 #: DB:link_attribute_type/name:114
