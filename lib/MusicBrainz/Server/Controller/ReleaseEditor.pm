@@ -368,9 +368,15 @@ sub _seeded_event
     my $result = {};
 
     if (my $date = $params->{date}) {
-        delete $date->{year} unless $date->{year};
-        delete $date->{month} unless $date->{month};
-        delete $date->{day} unless $date->{day};
+        for my $prop (qw( year month day )) {
+            if (my $num = delete $date->{$prop}) {
+                if ($num =~ /^[0-9]+$/) {
+                    $date->{$prop} = int($num);
+                } else {
+                    push @$errors, "Invalid $field_name.date.$prop: “$num”.";
+                }
+            }
+        }
 
         $result->{date} = PartialDate->new(%$date)->format if %$date;
     }

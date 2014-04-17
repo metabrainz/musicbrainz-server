@@ -369,4 +369,23 @@ test 'MBS-7250: seeding empty date parts gives an ISE' => sub {
     });
 };
 
+
+test 'MBS-7439: seeding badly formatted dates gives an ISE' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    my $params = expand_hash({
+        "events.0.date.year" => "15.0",
+        "events.0.date.month" => ".2",
+        "events.0.date.day" => "14",
+    });
+
+    my $result = MusicBrainz::Server::Controller::ReleaseEditor->_process_seeded_data($c, $params);
+
+    cmp_bag($result->{errors}, [
+        'Invalid events.0.date.year: “15.0”.',
+        'Invalid events.0.date.month: “.2”.',
+    ]);
+};
+
 1;
