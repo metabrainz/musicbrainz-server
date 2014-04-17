@@ -11,6 +11,7 @@ use MooseX::Types::Moose qw( ArrayRef Bool Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 
 use aliased 'MusicBrainz::Server::Entity::Place';
+use aliased 'MusicBrainz::Server::Entity::Area';
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
@@ -64,7 +65,7 @@ sub build_display_data
         address     => $self->data->{address},
         coordinates => defined $self->data->{coordinates}->{latitude} ? Coordinates->new($self->data->{coordinates}) : '',
         area        => defined($self->data->{area_id}) &&
-                        $loaded->{Area}->{ $self->data->{area_id} }
+                       ($loaded->{Area}->{ $self->data->{area_id} } // Area->new())
     };
 }
 
