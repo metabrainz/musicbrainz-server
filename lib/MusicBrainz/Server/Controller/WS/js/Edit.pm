@@ -459,6 +459,12 @@ sub create : Chained('edit') PathPart('create') Edit {
                         $response->{entity}->{position} = $entity->position;
                     }
                 };
+            } elsif ($edit->isa("MusicBrainz::Server::Edit::Release::AddReleaseLabel")) {
+                $response->{entity} = {
+                    id              => $edit->entity_id,
+                    labelID         => defined($edit->data->{label}) ? $edit->data->{label}{id} : undef,
+                    catalogNumber   => $edit->data->{catalog_number} // undef,
+                };
             }
         } else {
             $response = { message => "no changes" };
