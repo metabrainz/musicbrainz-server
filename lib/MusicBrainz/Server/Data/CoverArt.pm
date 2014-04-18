@@ -28,20 +28,6 @@ sub _build_providers {
 
     return [
         RegularExpressionProvider->new(
-            name                 => "CD Baby",
-            domain               => 'cdbaby.com',
-            uri_expression       => 'http://(www\.)?cdbaby\.com/cd/(\w)(\w)(\w*)',
-            image_uri_template   => 'http://cdbaby.name/$2/$3/$2$3$4.jpg',
-            info_uri_template    => 'http://www.cdbaby.com/cd/$2$3$4/from/musicbrainz',
-        ),
-        RegularExpressionProvider->new(
-            name                 => "CD Baby",
-            domain               => 'cdbaby.name',
-            uri_expression       => "http://(www\.)?cdbaby\.name/([a-z0-9])/([a-z0-9])/([A-Za-z0-9]*).jpg",
-            image_uri_template   => 'http://cdbaby.name/$2/$3/$4.jpg',
-            info_uri_template    => 'http://www.cdbaby.com/cd/$4/from/musicbrainz',
-        ),
-        RegularExpressionProvider->new(
             name               => 'archive.org',
             domain             => 'archive.org',
             uri_expression     => '^(https?://.*archive\.org/.*(\.jpg|\.jpeg|\.png|\.gif|))$',
@@ -52,13 +38,6 @@ sub _build_providers {
             domain               => 'www.ozon.ru',
             uri_expression       => 'http://(?:www|mmedia).ozon\.ru/multimedia/(.*)',
             image_uri_template   => 'http://mmedia.ozon.ru/multimedia/$1',
-        ),
-        RegularExpressionProvider->new(
-            name                 => 'Encyclopédisque',
-            domain               => 'encyclopedisque.fr',
-            uri_expression       => 'http://www.encyclopedisque.fr/images/imgdb/(thumb250|main)/(\d+).jpg',
-            image_uri_template   => 'http://www.encyclopedisque.fr/images/imgdb/thumb250/$2.jpg',
-            info_uri_template    => 'http://www.encyclopedisque.fr/',
         ),
         AmazonProvider->new(
             name => 'Amazon',
