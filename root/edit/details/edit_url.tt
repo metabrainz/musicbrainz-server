@@ -1,9 +1,5 @@
 [%- PROCESS 'edit/details/macros.tt' -%]
 
-[% MACRO show_url(url) BLOCK %]
-    <a href="[% url | url %]">[% url | html %]</a>
-[% END %]
-
 <table class="details edit-url">
   <tr>
     <th>[% l('URL:') %]</th>
