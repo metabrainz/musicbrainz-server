@@ -13,6 +13,10 @@ AFTER INSERT OR DELETE OR UPDATE ON "l_area_artist_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_area_instrument_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
 AFTER INSERT OR DELETE OR UPDATE ON "l_area_label_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
@@ -45,6 +49,10 @@ AFTER INSERT OR DELETE OR UPDATE ON "l_artist_artist_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_artist_instrument_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
 AFTER INSERT OR DELETE OR UPDATE ON "l_artist_label_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
@@ -70,6 +78,38 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "replicate"
 AFTER INSERT OR DELETE OR UPDATE ON "l_artist_work_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_instrument_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_label_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_place_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_recording_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_release_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_release_group_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_url_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_work_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "replicate"

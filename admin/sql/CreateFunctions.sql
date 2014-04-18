@@ -147,6 +147,40 @@ END;
 $$ LANGUAGE 'plpgsql';
 
 -----------------------------------------------------------------------
+-- instrument triggers
+-----------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION a_ins_instrument() RETURNS trigger AS $$
+BEGIN
+    INSERT INTO link_attribute_type (parent, root, child_order, gid, name, description) VALUES (14, 14, 0, NEW.gid, NEW.name, NEW.description);
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION a_upd_instrument() RETURNS trigger AS $$
+BEGIN
+    UPDATE link_attribute_type SET name = NEW.name, description = NEW.description WHERE gid = NEW.gid;
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'no link_attribute_type found for instrument %', NEW.gid;
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION a_del_instrument() RETURNS trigger AS $$
+BEGIN
+    DELETE FROM link_attribute_type WHERE gid = OLD.gid;
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'no link_attribute_type found for instrument %', NEW.gid;
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+-----------------------------------------------------------------------
 -- label triggers
 -----------------------------------------------------------------------
 
@@ -607,6 +641,8 @@ $BODY$
   EXCEPT
   SELECT entity1 FROM l_artist_artist
   EXCEPT
+  SELECT entity0 FROM l_artist_instrument
+  EXCEPT
   SELECT entity0 FROM l_artist_label
   EXCEPT
   SELECT entity0 FROM l_artist_place
@@ -645,6 +681,8 @@ $BODY$
   SELECT entity1 FROM l_area_label
   EXCEPT
   SELECT entity1 FROM l_artist_label
+  EXCEPT
+  SELECT entity1 FROM l_instrument_label
   EXCEPT
   SELECT entity1 FROM l_label_label
   EXCEPT
@@ -689,6 +727,8 @@ $BODY$
   EXCEPT
   SELECT entity1 FROM l_artist_release_group
   EXCEPT
+  SELECT entity1 FROM l_instrument_release_group
+  EXCEPT
   SELECT entity1 FROM l_label_release_group
   EXCEPT
   SELECT entity1 FROM l_place_release_group
@@ -730,6 +770,8 @@ $BODY$
   EXCEPT
   SELECT entity1 FROM l_artist_work
   EXCEPT
+  SELECT entity1 FROM l_instrument_work
+  EXCEPT
   SELECT entity1 FROM l_label_work
   EXCEPT
   SELECT entity1 FROM l_place_work
@@ -770,6 +812,8 @@ $BODY$
   SELECT entity1 FROM l_area_place
   EXCEPT
   SELECT entity1 FROM l_artist_place
+  EXCEPT
+  SELECT entity1 FROM l_instrument_place
   EXCEPT
   SELECT entity1 FROM l_label_place
   EXCEPT
@@ -888,6 +932,11 @@ BEGIN
         LIMIT 1
       ) OR
       EXISTS (
+        SELECT TRUE FROM l_instrument_url
+        WHERE entity1 = url_row.id
+        LIMIT 1
+      ) OR
+      EXISTS (
         SELECT TRUE FROM l_label_url
         WHERE entity1 = url_row.id
         LIMIT 1
@@ -964,6 +1013,18 @@ BEGIN
       UPDATE artist_alias SET primary_for_locale = FALSE
       WHERE locale = NEW.locale AND id != NEW.id
         AND artist = NEW.artist;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION unique_primary_instrument_alias()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.primary_for_locale THEN
+      UPDATE instrument_alias SET primary_for_locale = FALSE
+      WHERE locale = NEW.locale AND id != NEW.id
+        AND instrument = NEW.instrument;
     END IF;
     RETURN NEW;
 END;
@@ -1068,6 +1129,8 @@ AS $$
         SELECT TRUE FROM l_area_recording WHERE entity1 = outer_r.id
           UNION ALL
         SELECT TRUE FROM l_artist_recording WHERE entity1 = outer_r.id
+          UNION ALL
+        SELECT TRUE FROM l_instrument_recording WHERE entity1 = outer_r.id
           UNION ALL
         SELECT TRUE FROM l_label_recording WHERE entity1 = outer_r.id
           UNION ALL
