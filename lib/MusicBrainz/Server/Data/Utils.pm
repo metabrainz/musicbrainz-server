@@ -4,7 +4,8 @@ use strict;
 use warnings;
 
 use base 'Exporter';
-use Carp 'confess';
+use Carp qw( confess croak );
+use Try::Tiny;
 use Class::MOP;
 use Data::Compare;
 use Data::UUID::MT;
@@ -221,10 +222,16 @@ sub load_everything_for_edits
 {
     my ($c, $edits) = @_;
 
-    $c->model('Edit')->load_all(@$edits);
-    $c->model('Vote')->load_for_edits(@$edits);
-    $c->model('EditNote')->load_for_edits(@$edits);
-    $c->model('Editor')->load(map { ($_, @{ $_->votes, $_->edit_notes }) } @$edits);
+    try {
+        $c->model('Edit')->load_all(@$edits);
+        $c->model('Vote')->load_for_edits(@$edits);
+        $c->model('EditNote')->load_for_edits(@$edits);
+        $c->model('Editor')->load(map { ($_, @{ $_->votes, $_->edit_notes }) } @$edits);
+    } catch {
+        use Data::Dumper;
+        croak "Failed loading edits (" . (join ', ', map { $_->id } @$edits) . ")\n" .
+              "Exception:\n" . Dumper($_) . "\n";
+    };
 }
 
 sub query_to_list
