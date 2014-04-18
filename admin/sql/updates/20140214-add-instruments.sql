@@ -68,8 +68,17 @@ CREATE TABLE instrument_alias (
            end_date_day IS NULL)
         )
       ),
-             CONSTRAINT primary_check
-                 CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)));
+    CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)),
+    CONSTRAINT search_hints_are_empty
+      CHECK (
+        (type <> 2) OR (
+          type = 2 AND sort_name = name AND
+          begin_date_year IS NULL AND begin_date_month IS NULL AND begin_date_day IS NULL AND
+          end_date_year IS NULL AND end_date_month IS NULL AND end_date_day IS NULL AND
+          primary_for_locale IS FALSE AND locale IS NULL
+        )
+      )
+);
 
 CREATE TABLE instrument_annotation (
     instrument  INTEGER NOT NULL, -- PK, references instrument.id
