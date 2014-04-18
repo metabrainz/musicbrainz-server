@@ -98,9 +98,15 @@ END; -%]
 [% END %]
 
 [%- MACRO display_artwork(artwork, fallback, message, rel) BLOCK -%]
+    <div style="position:relative">
     <a title="[% artwork_hover(artwork) %]" href="[% artwork.image %]"[% IF rel %] rel="[% rel %]"[% END %] class="[% IF artwork.mime_type == "application/pdf" %]artwork-pdf[% ELSE %]artwork-image[% END %]">
-      [% display_artwork_image(artwork, fallback, message) %]
+        [%~ IF artwork.mime_type == "application/pdf" ~%]
+            <div title="[% l("This is a PDF file, the thumbnail may not show the entire contents of the file.") %]" class="file-format-tag">[% l("PDF file") %]</div>
+        [%~ END ~%]
+
+        [% display_artwork_image(artwork, fallback, message) %]
     </a>
+    </div>
 [%- END -%]
 
 [%- MACRO cover_art_links(artwork) BLOCK -%]
