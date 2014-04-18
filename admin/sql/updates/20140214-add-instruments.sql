@@ -310,6 +310,7 @@ SELECT setval('instrument_type_id_seq', (SELECT MAX(id) FROM instrument_type));
 SELECT setval('instrument_id_seq', (SELECT MAX(id) FROM instrument));
 SELECT setval('instrument_alias_type_id_seq', (SELECT MAX(id) FROM instrument_alias_type));
 SELECT setval('instrument_alias_id_seq', (SELECT MAX(id) FROM instrument_alias));
+SELECT setval('l_instrument_instrument_id_seq', (SELECT MAX(id) FROM l_instrument_instrument));
 SELECT setval('l_instrument_url_id_seq', (SELECT MAX(id) FROM l_instrument_url));
 SELECT setval('link_id_seq', (SELECT MAX(id) FROM link));
 SELECT setval('link_type_id_seq', (SELECT MAX(id) FROM link_type));
