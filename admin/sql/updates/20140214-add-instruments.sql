@@ -217,6 +217,7 @@ INSERT INTO link (link_type) SELECT id FROM link_type WHERE entity_type0 = 'inst
 
 -- Remove descriptions which are just the same as the name
 UPDATE instrument SET description = '' WHERE description = name;
+UPDATE link_attribute_type SET description = '' WHERE description = name AND root = 14;
 
 
 -- Migrate URLs from instrument descriptions to URL relationships
@@ -255,6 +256,11 @@ UPDATE instrument
 SET description = regexp_replace(description, ' *\(<a href="(https?://[a-z]+.wikipedia.org/wiki/[^#"]+)">Wikipedia</a>\)$', '')
 WHERE description ~ '.*\(<a href="(https?://[a-z]+.wikipedia.org/wiki/[^#"]+)">Wikipedia</a>\)$';
 
+UPDATE link_attribute_type
+SET description = regexp_replace(description, ' *\(<a href="(https?://[a-z]+.wikipedia.org/wiki/[^#"]+)">Wikipedia</a>\)$', '')
+WHERE description ~ '.*\(<a href="(https?://[a-z]+.wikipedia.org/wiki/[^#"]+)">Wikipedia</a>\)$'
+AND root = 14;
+
 
 -- Migrate aliases from instrument descriptions to instrument aliases
 
@@ -270,6 +276,11 @@ INSERT INTO instrument_alias (instrument, name, sort_name) SELECT id, name, name
 UPDATE instrument
 SET description = regexp_replace(description, ' ?Other names(?: include)?:? (.*?)\.? *$', '')
 WHERE description ~ '.*Other names(?: include)?:? (.*?)\.? *$';
+
+UPDATE link_attribute_type
+SET description = regexp_replace(description, ' ?Other names(?: include)?:? (.*?)\.? *$', '')
+WHERE description ~ '.*Other names(?: include)?:? (.*?)\.? *$'
+AND root = 14;
 
 SELECT setval('instrument_type_id_seq', (SELECT MAX(id) FROM instrument_type));
 SELECT setval('instrument_id_seq', (SELECT MAX(id) FROM instrument));
