@@ -65,9 +65,14 @@ then
     echo `date`" : + weekly"
     ./admin/replication/BundleReplicationPackets $FTP_DATA_DIR/replication --period weekly --require-previous
 
-    # We are only updating tables in the main namespace for this change.
     echo `date` : 'Drop replication triggers (musicbrainz)'
     ./admin/psql READWRITE < ./admin/sql/DropReplicationTriggers.sql
+
+    for schema in caa documentation statistics wikidocs
+    do
+        echo `date` : "Drop replication triggers ($schema)"
+        ./admin/psql READWRITE < ./admin/sql/$schema/DropReplicationTriggers.sql
+    done
 
     echo `date` : 'Dump a copy of release_tag and documentation tables for import on slave databases.'
     mkdir -p catchup
@@ -114,6 +119,12 @@ if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
 then
     echo `date` : 'Create replication triggers (musicbrainz)'
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/CreateReplicationTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+    for schema in caa documentation statistics wikidocs
+    do
+        echo `date` : "Create replication triggers ($schema)"
+        OUTPUT=`./admin/psql READWRITE < ./admin/sql/$schema/CreateReplicationTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+    done
 fi
 
 ################################################################################
