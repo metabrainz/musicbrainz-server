@@ -282,6 +282,30 @@ SET description = regexp_replace(description, ' ?Other names(?: include)?:? (.*?
 WHERE description ~ '.*Other names(?: include)?:? (.*?)\.? *$'
 AND root = 14;
 
+
+-- Turn instrument tree into relationships
+INSERT INTO l_instrument_instrument (link, entity0, entity1)
+SELECT link.id, i_parent.id, i_child.id
+FROM (
+    SELECT l.id
+    FROM link_type lt
+    JOIN link l ON l.link_type = lt.id
+    WHERE lt.name = 'child'
+    AND lt.entity_type0 = 'instrument'
+) AS link,
+link_attribute_type a_child
+JOIN link_attribute_type a_parent ON a_parent.id = a_child.parent
+JOIN instrument i_parent ON i_parent.gid = a_parent.gid
+JOIN instrument i_child ON i_child.gid = a_child.gid
+WHERE a_child.root = 14
+AND a_child.parent != 14
+ORDER BY link.id, i_parent.id, i_child.id;
+
+
+-- Flatten the instrument tree
+UPDATE link_attribute_type SET child_order = 0, parent = 14 WHERE root = 14;
+
+
 SELECT setval('instrument_type_id_seq', (SELECT MAX(id) FROM instrument_type));
 SELECT setval('instrument_id_seq', (SELECT MAX(id) FROM instrument));
 SELECT setval('instrument_alias_type_id_seq', (SELECT MAX(id) FROM instrument_alias_type));
