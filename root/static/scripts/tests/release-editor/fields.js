@@ -63,7 +63,7 @@ test("loading a medium doesn't overwrite its original edit data", function () {
         formatID: 1,
         name: "foo",
         tracks: []
-    });
+    }, this.release);
 
     this.release.mediums([ medium ]);
 

@@ -14,7 +14,7 @@
         <h2>[% section.0 %]</h2>
         <ul>
             [% FOR entity=section.1 %]
-            <li>[% link_entity(entity) %]</li>
+            <li>[% descriptive_link(entity) %]</li>
             [% END %]
         </ul>
     [% END %]

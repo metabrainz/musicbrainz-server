@@ -277,14 +277,14 @@ CREATE TRIGGER b_upd_place_tag BEFORE UPDATE ON place_tag
 CREATE TRIGGER a_ins_recording AFTER INSERT ON recording
     FOR EACH ROW EXECUTE PROCEDURE a_ins_recording();
 
+CREATE TRIGGER b_upd_recording BEFORE UPDATE ON recording
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_recording();
+
 CREATE TRIGGER a_upd_recording AFTER UPDATE ON recording
     FOR EACH ROW EXECUTE PROCEDURE a_upd_recording();
 
 CREATE TRIGGER a_del_recording AFTER DELETE ON recording
     FOR EACH ROW EXECUTE PROCEDURE a_del_recording();
-
-CREATE TRIGGER b_upd_recording BEFORE UPDATE ON recording
-    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER b_upd_recording_tag BEFORE UPDATE ON recording_tag
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();

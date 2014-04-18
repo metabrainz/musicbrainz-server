@@ -3,6 +3,7 @@ use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_MERGE );
 use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Edit::Utils qw( large_spread );
 
 extends 'MusicBrainz::Server::Edit::Generic::Merge';
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities' => {
@@ -35,6 +36,17 @@ before build_display_data => sub {
     $self->c->model('ISRC')->load_for_recordings(
         grep { $_ && !$_->all_isrcs } map { $loaded->{Recording}{$_} } $self->recording_ids
     );
+};
+
+around build_display_data => sub {
+    my ($orig, $self, @args) = @_;
+
+    my $data = $self->$orig(@args);
+
+    my @recording_lengths = map { $_->length } (@{ $data->{old} }, $data->{new});
+    $data->{large_spread} = 1 if large_spread(@recording_lengths);
+
+    return $data;
 };
 
 __PACKAGE__->meta->make_immutable;

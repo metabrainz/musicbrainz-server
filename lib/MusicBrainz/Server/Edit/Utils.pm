@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use 5.10.0;
 
-use List::MoreUtils qw( uniq );
+use List::MoreUtils qw( minmax uniq );
 use MusicBrainz::Server::Constants qw( :edit_status :vote $AUTO_EDITOR_FLAG :quality :expire_action );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref collapse_whitespace coordinates_to_hash trim partial_date_to_hash );
 use MusicBrainz::Server::Edit::Exceptions;
@@ -33,6 +33,7 @@ our @EXPORT_OK = qw(
     conditions_without_autoedit
     hash_artist_credit
     hash_artist_credit_without_join_phrases
+    large_spread
     merge_artist_credit
     merge_barcode
     merge_coordinates
@@ -450,6 +451,14 @@ sub calculate_recording_merges {
         }
     }
     return $recording_merges;
+}
+
+sub large_spread {
+    my @lengths = grep { defined $_ } @_;
+    return unless @lengths;
+
+    my ($min, $max) = minmax(@lengths);
+    return 1 if $max - $min >= 15*1000; # 15 seconds
 }
 
 sub boolean_to_json {

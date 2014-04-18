@@ -1,6 +1,7 @@
 -- Automatically generated, do not edit.
 \unset ON_ERROR_STOP
 
+DROP FUNCTION _median(anyarray);
 DROP FUNCTION a_del_recording();
 DROP FUNCTION a_del_release();
 DROP FUNCTION a_del_release_event();
@@ -23,6 +24,7 @@ DROP FUNCTION a_upd_release_group();
 DROP FUNCTION a_upd_track();
 DROP FUNCTION b_ins_edit_materialize_status();
 DROP FUNCTION b_upd_last_updated_table();
+DROP FUNCTION b_upd_recording();
 DROP FUNCTION check_has_dates();
 DROP FUNCTION controlled_for_whitespace(TEXT);
 DROP FUNCTION create_bounding_cube(durations INTEGER[], fuzzy INTEGER);
@@ -50,6 +52,8 @@ DROP FUNCTION generate_uuid_v3(namespace varchar, name varchar);
 DROP FUNCTION generate_uuid_v4();
 DROP FUNCTION inc_ref_count(tbl varchar, row_id integer, val integer);
 DROP FUNCTION inserting_edits_requires_confirmed_email_address();
+DROP FUNCTION materialise_recording_length(recording_id INT);
+DROP FUNCTION median_track_length(recording_id integer);
 DROP FUNCTION padded_by_whitespace(TEXT);
 DROP FUNCTION prevent_invalid_attributes();
 DROP FUNCTION remove_unused_links();

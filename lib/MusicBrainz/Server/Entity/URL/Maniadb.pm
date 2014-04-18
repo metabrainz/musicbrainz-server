@@ -1,18 +1,14 @@
-package MusicBrainz::Server::Report::ArtistsThatMayBeGroups;
+package MusicBrainz::Server::Entity::URL::Maniadb;
+
 use Moose;
 
-with 'MusicBrainz::Server::Report::ArtistReport',
-     'MusicBrainz::Server::Report::FilterForEditor::ArtistID';
+extends 'MusicBrainz::Server::Entity::URL';
+with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-sub query {
-    "SELECT DISTINCT ON (artist.id) artist.id AS artist_id,
-       row_number() OVER (ORDER BY musicbrainz_collate(artist.name), artist.id)
-     FROM artist
-     JOIN l_artist_artist ON l_artist_artist.entity1=artist.id
-     JOIN link ON link.id=l_artist_artist.link
-     JOIN link_type ON link_type.id=link.link_type
-     WHERE (artist.type NOT IN (2, 5, 6) OR artist.type IS NULL)
-       AND link_type.name IN ('collaboration', 'member of band', 'conductor position')"
+sub sidebar_name {
+    my $self = shift;
+
+    return "Maniadb";
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -21,8 +17,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Lukas Lalinsky
-Copyright (C) 2012 MetaBrainz Foundation
+Copyright (C) 2014 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
