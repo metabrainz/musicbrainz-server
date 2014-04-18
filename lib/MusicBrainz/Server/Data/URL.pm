@@ -45,6 +45,7 @@ my %URL_SPECIALIZATIONS = (
     'LastFM'              => qr{^https?://(?:www.)?last.fm/}i,
     'Lieder'              => qr{^https?://(?:www.)?recmusic.org/lieder/}i,
     'LyricWiki'           => qr{^https?://lyrics.wikia.com/}i,
+    'Maniadb'             => qr{^https?://(?:www.)?maniadb.com/}i,
     'MetalArchives'       => qr{^https?://(?:www.)?metal-archives.com/}i,
     'MusicMoz'            => qr{^https?://(?:www.)?musicmoz.org/}i,
     'MusikSammler'        => qr{^https?://(?:www.)?musik-sammler.de/}i,

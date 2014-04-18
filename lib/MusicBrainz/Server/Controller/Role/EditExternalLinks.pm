@@ -51,12 +51,8 @@ role {
                     type0         => $type0,
                     type1         => $type1,
                     linkTypeID    => $_->link->type_id,
-                    entity0ID     => $type0 eq 'url' ?
-                                     $entity0->utf8_decoded // $entity0->name :
-                                     $entity0->gid,
-                    entity1ID     => $type1 eq 'url' ?
-                                     $entity1->utf8_decoded // $entity1->name :
-                                     $entity1->gid,
+                    entity0ID     => $type0 eq 'url' ? $entity0->name : $entity0->gid,
+                    entity1ID     => $type1 eq 'url' ? $entity1->name : $entity1->gid,
                 };
             } @$url_relationships
         ];

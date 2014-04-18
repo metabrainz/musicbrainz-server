@@ -95,7 +95,7 @@
     [%- END -%]
 
     [%- IF recordings.size -%]
-            [%- INCLUDE 'artist/recordings-list.tt' WRAPPER 'components/with-pager.tt' -%]
+            [%- INCLUDE 'components/recordings-list.tt' WRAPPER 'components/with-pager.tt' -%]
     [%- END -%]
 
     <p>

@@ -1436,7 +1436,9 @@ CREATE TABLE link_type
     priority            INTEGER NOT NULL DEFAULT 0,
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     is_deprecated       BOOLEAN NOT NULL DEFAULT false,
-    has_dates           BOOLEAN NOT NULL DEFAULT false
+    has_dates           BOOLEAN NOT NULL DEFAULT false,
+    entity0_cardinality INTEGER NOT NULL DEFAULT 0,
+    entity1_cardinality INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE link_type_attribute_type

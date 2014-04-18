@@ -1,6 +1,27 @@
 \set ON_ERROR_STOP 1
 BEGIN;
 
+CREATE OR REPLACE FUNCTION _median(anyarray) RETURNS anyelement AS $$
+  WITH q AS (
+      SELECT val
+      FROM unnest($1) val
+      WHERE VAL IS NOT NULL
+      ORDER BY val
+  )
+  SELECT val
+  FROM q
+  LIMIT 1
+  -- Subtracting (n + 1) % 2 creates a left bias
+  OFFSET greatest(0, floor((select count(*) FROM q) / 2.0) - ((select count(*) + 1 FROM q) % 2));
+$$ LANGUAGE sql IMMUTABLE;
+
+CREATE AGGREGATE median(anyelement) (
+  SFUNC=array_append,
+  STYPE=anyarray,
+  FINALFUNC=_median,
+  INITCOND='{}'
+);
+
 -- We may want to create a CreateAggregate.sql script, but it seems silly to do that for one aggregate
 CREATE AGGREGATE array_accum (basetype = anyelement, sfunc = array_append, stype = anyarray, initcond = '{}');
 
@@ -168,6 +189,25 @@ $$ LANGUAGE 'plpgsql';
 -- recording triggers
 -----------------------------------------------------------------------
 
+CREATE OR REPLACE FUNCTION median_track_length(recording_id integer)
+RETURNS integer AS $$
+  SELECT median(track.length) FROM track WHERE recording = $1;
+$$ LANGUAGE SQL;
+
+CREATE OR REPLACE FUNCTION b_upd_recording() RETURNS TRIGGER AS $$
+BEGIN
+  IF OLD.length IS DISTINCT FROM NEW.length
+    AND EXISTS (SELECT TRUE FROM track WHERE recording = NEW.id)
+    AND NEW.length IS DISTINCT FROM median_track_length(NEW.id)
+  THEN
+    NEW.length = median_track_length(NEW.id);
+  END IF;
+
+  NEW.last_updated = now();
+  RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
 CREATE OR REPLACE FUNCTION a_ins_recording() RETURNS trigger AS $$
 BEGIN
     PERFORM inc_ref_count('artist_credit', NEW.artist_credit, 1);
@@ -275,6 +315,7 @@ BEGIN
     PERFORM inc_ref_count('artist_credit', NEW.artist_credit, 1);
     -- increment track_count in the parent medium
     UPDATE medium SET track_count = track_count + 1 WHERE id = NEW.medium;
+    PERFORM materialise_recording_length(NEW.recording);
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -290,6 +331,10 @@ BEGIN
         UPDATE medium SET track_count = track_count - 1 WHERE id = OLD.medium;
         UPDATE medium SET track_count = track_count + 1 WHERE id = NEW.medium;
     END IF;
+    IF OLD.recording <> NEW.recording THEN
+      PERFORM materialise_recording_length(OLD.recording);
+    END IF;
+    PERFORM materialise_recording_length(NEW.recording);
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -299,6 +344,7 @@ BEGIN
     PERFORM dec_ref_count('artist_credit', OLD.artist_credit, 1);
     -- decrement track_count in the parent medium
     UPDATE medium SET track_count = track_count - 1 WHERE id = OLD.medium;
+    PERFORM materialise_recording_length(OLD.recording);
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -853,6 +899,7 @@ BEGIN
 
     IF NOT other_ars_exist THEN
        DELETE FROM link_attribute WHERE link = OLD.link;
+       DELETE FROM link_attribute_credit WHERE link = OLD.link;
        DELETE FROM link WHERE id = OLD.link;
     END IF;
 
@@ -1190,6 +1237,16 @@ BEGIN
     RAISE EXCEPTION 'Attempt to add dates to a relationship type that does not support dates.';
   END IF;
   RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION materialise_recording_length(recording_id INT)
+RETURNS void as $$
+BEGIN
+  UPDATE recording SET length = median
+   FROM (SELECT median_track_length(recording_id) median) track
+  WHERE recording.id = recording_id
+    AND recording.length IS DISTINCT FROM track.median;
 END;
 $$ LANGUAGE 'plpgsql';
 
