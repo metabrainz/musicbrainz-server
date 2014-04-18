@@ -10,19 +10,25 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION a_upd_instrument() RETURNS TRIGGER AS $$
+CREATE OR REPLACE FUNCTION a_upd_instrument() RETURNS trigger AS $$
 BEGIN
     UPDATE link_attribute_type SET name = NEW.name, description = NEW.description WHERE gid = NEW.gid;
-
-    RETURN NEW;
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'no link_attribute_type found for instrument %', NEW.gid;
+    ELSE
+        RETURN NEW;
+    END IF;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION a_del_instrument() RETURNS TRIGGER AS $$
+CREATE OR REPLACE FUNCTION a_del_instrument() RETURNS trigger AS $$
 BEGIN
     DELETE FROM link_attribute_type WHERE gid = OLD.gid;
-
-    RETURN OLD;
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'no link_attribute_type found for instrument %', NEW.gid;
+    ELSE
+        RETURN NEW;
+    END IF;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -245,9 +251,6 @@ ALTER TABLE l_instrument_work
 
 CREATE TRIGGER b_upd_instrument BEFORE UPDATE ON instrument
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
-
-CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON instrument
-    FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
 
 CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON instrument_alias
     FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();

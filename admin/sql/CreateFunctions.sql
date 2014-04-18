@@ -150,7 +150,7 @@ $$ LANGUAGE 'plpgsql';
 -- instrument triggers
 -----------------------------------------------------------------------
 
-CREATE FUNCTION a_ins_instrument() RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION a_ins_instrument() RETURNS trigger AS $$
 BEGIN
     INSERT INTO link_attribute_type (parent, root, child_order, gid, name, description) VALUES (14, 14, 0, NEW.gid, NEW.name, NEW.description);
 
@@ -158,19 +158,25 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE FUNCTION a_upd_instrument() RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION a_upd_instrument() RETURNS trigger AS $$
 BEGIN
     UPDATE link_attribute_type SET name = NEW.name, description = NEW.description WHERE gid = NEW.gid;
-
-    RETURN NEW;
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'no link_attribute_type found for instrument %', NEW.gid;
+    ELSE
+        RETURN NEW;
+    END IF;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE FUNCTION a_del_instrument() RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION a_del_instrument() RETURNS trigger AS $$
 BEGIN
     DELETE FROM link_attribute_type WHERE gid = OLD.gid;
-
-    RETURN OLD;
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'no link_attribute_type found for instrument %', NEW.gid;
+    ELSE
+        RETURN NEW;
+    END IF;
 END;
 $$ LANGUAGE plpgsql;
 

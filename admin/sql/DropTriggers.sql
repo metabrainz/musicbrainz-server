@@ -23,7 +23,6 @@ DROP TRIGGER b_upd_artist_tag ON artist_tag;
 DROP TRIGGER b_upd_editor ON editor;
 DROP TRIGGER a_ins_editor ON editor;
 DROP TRIGGER b_upd_instrument ON instrument;
-DROP TRIGGER end_date_implies_ended ON instrument;
 DROP TRIGGER end_date_implies_ended ON instrument_alias;
 DROP TRIGGER b_upd_instrument_alias ON instrument_alias;
 DROP TRIGGER unique_primary_for_locale ON instrument_alias;

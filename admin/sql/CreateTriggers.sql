@@ -67,9 +67,6 @@ CREATE TRIGGER a_ins_editor AFTER INSERT ON editor
 CREATE TRIGGER b_upd_instrument BEFORE UPDATE ON instrument
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON instrument
-    FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
-
 CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON instrument_alias
     FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
 
