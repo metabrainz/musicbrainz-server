@@ -10,7 +10,7 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
 };
 with 'MusicBrainz::Server::Controller::Role::Subscribe';
 
-use MusicBrainz::Server::Data::Utils qw( model_to_type );
+use MusicBrainz::Server::Data::Utils qw( model_to_type load_everything_for_edits );
 use MusicBrainz::Server::Constants qw( :edit_status );
 
 sub base : Chained('/') PathPart('collection') CaptureArgs(0) { }
@@ -139,10 +139,7 @@ sub _list_edits {
 
     $c->stash( edits => $edits ); # stash early in case an ISE occurs
 
-    $c->model('Edit')->load_all(@$edits);
-    $c->model('Vote')->load_for_edits(@$edits);
-    $c->model('EditNote')->load_for_edits(@$edits);
-    $c->model('Editor')->load(map { ($_, @{ $_->votes, $_->edit_notes }) } @$edits);
+    load_everything_for_edits($c, $edits);
 }
 
 sub _form_to_hash

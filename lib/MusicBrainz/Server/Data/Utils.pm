@@ -36,6 +36,7 @@ our @EXPORT_OK = qw(
     hash_to_row
     is_special_artist
     is_special_label
+    load_everything_for_edits
     load_meta
     load_subobjects
     map_query
@@ -214,6 +215,16 @@ sub coordinates_to_hash
 sub placeholders
 {
     return join ",", ("?") x scalar(@_);
+}
+
+sub load_everything_for_edits
+{
+    my ($c, $edits) = @_;
+
+    $c->model('Edit')->load_all(@$edits);
+    $c->model('Vote')->load_for_edits(@$edits);
+    $c->model('EditNote')->load_for_edits(@$edits);
+    $c->model('Editor')->load(map { ($_, @{ $_->votes, $_->edit_notes }) } @$edits);
 }
 
 sub query_to_list

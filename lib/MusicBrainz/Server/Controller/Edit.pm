@@ -10,7 +10,7 @@ use MusicBrainz::Server::Edit::Utils qw( status_names );
 use MusicBrainz::Server::Constants qw( $STATUS_OPEN :quality );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 use MusicBrainz::Server::EditSearch::Query;
-use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Data::Utils qw( type_to_model load_everything_for_edits );
 use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::EditRegistry';
@@ -57,10 +57,7 @@ sub show : Chained('load') PathPart('') RequireAuth
     my ($self, $c) = @_;
     my $edit = $c->stash->{edit};
 
-    $c->model('Edit')->load_all($edit);
-    $c->model('Vote')->load_for_edits($edit);
-    $c->model('EditNote')->load_for_edits($edit);
-    $c->model('Editor')->load($edit, @{ $edit->votes }, @{ $edit->edit_notes });
+    load_everything_for_edits($c, [ $edit ]);
     $c->form(add_edit_note => 'EditNote');
 
     $c->stash->{template} = 'edit/index.tt';
@@ -183,10 +180,7 @@ sub open : Local RequireAuth
 
     $c->stash( edits => $edits ); # stash early in case an ISE occurs
 
-    $c->model('Edit')->load_all(@$edits);
-    $c->model('Vote')->load_for_edits(@$edits);
-    $c->model('EditNote')->load_for_edits(@$edits);
-    $c->model('Editor')->load(map { ($_, @{ $_->votes, $_->edit_notes }) } @$edits);
+    load_everything_for_edits($c, $edits);
     $c->form(add_edit_note => 'EditNote');
 }
 
@@ -221,10 +215,7 @@ sub search : Path('/search/edits') RequireAuth
             template => 'edit/search_results.tt',
         );
 
-        $c->model('Edit')->load_all(@$edits);
-        $c->model('Vote')->load_for_edits(@$edits);
-        $c->model('EditNote')->load_for_edits(@$edits);
-        $c->model('Editor')->load(map { ($_, @{ $_->votes, $_->edit_notes }) } @$edits);
+        load_everything_for_edits($c, $edits);
         $c->form(add_edit_note => 'EditNote');
     }
 }
@@ -241,10 +232,7 @@ sub subscribed : Local RequireAuth
         template => 'edit/subscribed.tt',
     );
 
-    $c->model('Edit')->load_all(@$edits);
-    $c->model('Vote')->load_for_edits(@$edits);
-    $c->model('EditNote')->load_for_edits(@$edits);
-    $c->model('Editor')->load(map { ($_, @{ $_->votes, $_->edit_notes }) } @$edits);
+    load_everything_for_edits($c, $edits);
 }
 
 sub subscribed_editors : Local RequireAuth
@@ -259,10 +247,7 @@ sub subscribed_editors : Local RequireAuth
         template => 'edit/subscribed-editors.tt',
     );
 
-    $c->model('Edit')->load_all(@$edits);
-    $c->model('Vote')->load_for_edits(@$edits);
-    $c->model('EditNote')->load_for_edits(@$edits);
-    $c->model('Editor')->load(map { ($_, @{ $_->votes, $_->edit_notes }) } @$edits);
+    load_everything_for_edits($c, $edits);
 }
 
 =head2 conditions
