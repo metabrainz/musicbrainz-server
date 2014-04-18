@@ -113,9 +113,6 @@ OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140214-add-instruments.sq
 echo `date` : 'Add instrument entity documentation tables'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140215-add-instruments-documentation.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
-echo `date` : 'Add instrument entity primary keys tables'
-OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140308-instrument-pk.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-
 ################################################################################
 # Re-enable replication
 
@@ -135,9 +132,6 @@ then
 
     echo `date` : 'Adding has_dates trigger'
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140312-dates-trigger.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-
-    echo `date` : 'Adding foreign keys for instruments'
-    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140308-instrument-fk.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
     echo `date` : 'Adding triggers for instruments'
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140217-instrument-triggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )

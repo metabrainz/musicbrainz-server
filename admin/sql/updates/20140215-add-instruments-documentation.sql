@@ -64,4 +64,15 @@ CREATE TABLE l_instrument_work_example (
   name TEXT NOT NULL
 );
 
+ALTER TABLE l_area_instrument_example ADD CONSTRAINT l_area_instrument_example_pkey PRIMARY KEY (id);
+ALTER TABLE l_artist_instrument_example ADD CONSTRAINT l_artist_instrument_example_pkey PRIMARY KEY (id);
+ALTER TABLE l_instrument_instrument_example ADD CONSTRAINT l_instrument_instrument_example_pkey PRIMARY KEY (id);
+ALTER TABLE l_instrument_label_example ADD CONSTRAINT l_instrument_label_example_pkey PRIMARY KEY (id);
+ALTER TABLE l_instrument_place_example ADD CONSTRAINT l_instrument_place_example_pkey PRIMARY KEY (id);
+ALTER TABLE l_instrument_recording_example ADD CONSTRAINT l_instrument_recording_example_pkey PRIMARY KEY (id);
+ALTER TABLE l_instrument_release_example ADD CONSTRAINT l_instrument_release_example_pkey PRIMARY KEY (id);
+ALTER TABLE l_instrument_release_group_example ADD CONSTRAINT l_instrument_release_group_example_pkey PRIMARY KEY (id);
+ALTER TABLE l_instrument_url_example ADD CONSTRAINT l_instrument_url_example_pkey PRIMARY KEY (id);
+ALTER TABLE l_instrument_work_example ADD CONSTRAINT l_instrument_work_example_pkey PRIMARY KEY (id);
+
 COMMIT;

@@ -51,8 +51,8 @@ SELECT setval('l_artist_release_group_id_seq', (SELECT MAX(id) FROM l_artist_rel
 SELECT setval('l_artist_url_id_seq', (SELECT MAX(id) FROM l_artist_url));
 SELECT setval('l_artist_work_id_seq', (SELECT MAX(id) FROM l_artist_work));
 SELECT setval('l_label_label_id_seq', (SELECT MAX(id) FROM l_label_label));
-SELECT setval('l_instrument_label_id_seq', (SELECT MAX(id) FROM l_instrument_label));
 SELECT setval('l_instrument_instrument_id_seq', (SELECT MAX(id) FROM l_instrument_instrument));
+SELECT setval('l_instrument_label_id_seq', (SELECT MAX(id) FROM l_instrument_label));
 SELECT setval('l_instrument_place_id_seq', (SELECT MAX(id) FROM l_instrument_place));
 SELECT setval('l_instrument_recording_id_seq', (SELECT MAX(id) FROM l_instrument_recording));
 SELECT setval('l_instrument_release_id_seq', (SELECT MAX(id) FROM l_instrument_release));

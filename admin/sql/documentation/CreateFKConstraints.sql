@@ -13,6 +13,11 @@ ALTER TABLE l_area_artist_example
    FOREIGN KEY (id)
    REFERENCES musicbrainz.l_area_artist(id);
 
+ALTER TABLE l_area_instrument_example
+   ADD CONSTRAINT l_area_instrument_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_area_instrument(id);
+
 ALTER TABLE l_area_label_example
    ADD CONSTRAINT l_area_label_example_fk_id
    FOREIGN KEY (id)
@@ -53,6 +58,11 @@ ALTER TABLE l_artist_artist_example
    FOREIGN KEY (id)
    REFERENCES musicbrainz.l_artist_artist(id);
 
+ALTER TABLE l_artist_instrument_example
+   ADD CONSTRAINT l_artist_instrument_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_artist_instrument(id);
+
 ALTER TABLE l_artist_label_example
    ADD CONSTRAINT l_artist_label_example_fk_id
    FOREIGN KEY (id)
@@ -87,6 +97,46 @@ ALTER TABLE l_artist_work_example
    ADD CONSTRAINT l_artist_work_example_fk_id
    FOREIGN KEY (id)
    REFERENCES musicbrainz.l_artist_work(id);
+
+ALTER TABLE l_instrument_instrument_example
+   ADD CONSTRAINT l_instrument_instrument_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_instrument_instrument(id);
+
+ALTER TABLE l_instrument_label_example
+   ADD CONSTRAINT l_instrument_label_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_instrument_label(id);
+
+ALTER TABLE l_instrument_place_example
+   ADD CONSTRAINT l_instrument_place_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_instrument_place(id);
+
+ALTER TABLE l_instrument_recording_example
+   ADD CONSTRAINT l_instrument_recording_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_instrument_recording(id);
+
+ALTER TABLE l_instrument_release_example
+   ADD CONSTRAINT l_instrument_release_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_instrument_release(id);
+
+ALTER TABLE l_instrument_release_group_example
+   ADD CONSTRAINT l_instrument_release_group_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_instrument_release_group(id);
+
+ALTER TABLE l_instrument_url_example
+   ADD CONSTRAINT l_instrument_url_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_instrument_url(id);
+
+ALTER TABLE l_instrument_work_example
+   ADD CONSTRAINT l_instrument_work_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_instrument_work(id);
 
 ALTER TABLE l_label_label_example
    ADD CONSTRAINT l_label_label_example_fk_id

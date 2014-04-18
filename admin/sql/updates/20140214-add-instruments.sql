@@ -203,7 +203,7 @@ INSERT INTO link_type (gid, entity_type0, entity_type1, name, description, link_
     (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/instrument/instrument/related to'), 'instrument', 'instrument', 'related to', 'related to', 'related to', 'related instruments', 'is related to', 0),
     (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/instrument/instrument/parts'), 'instrument', 'instrument', 'parts', 'parts', 'consists of', 'part of', 'has parts', 0);
 
-INSERT INTO link (link_type) SELECT id FROM link_type WHERE entity_type0 = 'instrument';
+INSERT INTO link (link_type) SELECT id FROM link_type WHERE entity_type0 = 'instrument' ORDER BY id;
 
 
 -- Remove descriptions which are just the same as the name
@@ -220,9 +220,10 @@ WITH urls AS (
 	AND description ~ '.*\(<a href="(https?://[a-z]+.wikipedia.org/wiki/[^#"]+)">Wikipedia</a>\)$'
 )
 INSERT INTO url (gid, url)
-SELECT generate_uuid_v4(), url
+SELECT generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', url), url
 FROM urls
-WHERE url NOT IN (SELECT url FROM url WHERE url = urls.url);
+WHERE url NOT IN (SELECT url FROM url WHERE url = urls.url)
+ORDER BY url;
 
 
 -- 2. Insert relationships into l_instrument_url
@@ -236,7 +237,8 @@ FROM (
 	AND lt.entity_type0 = 'instrument'
 ) AS link, instrument i
 JOIN url ON regexp_replace(description, '.*\(<a href="(https?://[a-z]+.wikipedia.org/wiki/[^#"]+)">Wikipedia</a>\)$', E'\\1') = url
-WHERE i.description ~ '.*\(<a href="(https?://[a-z]+.wikipedia.org/wiki/[^#"]+)">Wikipedia</a>\)$';
+WHERE i.description ~ '.*\(<a href="(https?://[a-z]+.wikipedia.org/wiki/[^#"]+)">Wikipedia</a>\)$'
+ORDER BY link.id, i.id, url.id;
 
 
 -- 3. Remove the URLs from the instrument descriptions
@@ -253,7 +255,7 @@ WITH rows AS (
 	FROM instrument
 	WHERE description ~ 'Other name'
 )
-INSERT INTO instrument_alias (instrument, name, sort_name) SELECT id, name, name FROM rows;
+INSERT INTO instrument_alias (instrument, name, sort_name) SELECT id, name, name FROM rows ORDER BY id, name;
 
 -- 2. Remove the aliases from the instrument descriptions
 UPDATE instrument
@@ -286,5 +288,34 @@ ALTER TABLE l_instrument_release ADD CONSTRAINT l_instrument_release_pkey PRIMAR
 ALTER TABLE l_instrument_release_group ADD CONSTRAINT l_instrument_release_group_pkey PRIMARY KEY (id);
 ALTER TABLE l_instrument_url ADD CONSTRAINT l_instrument_url_pkey PRIMARY KEY (id);
 ALTER TABLE l_instrument_work ADD CONSTRAINT l_instrument_work_pkey PRIMARY KEY (id);
+
+CREATE INDEX edit_instrument_idx ON edit_label (label);
+CREATE UNIQUE INDEX instrument_idx_gid ON instrument (gid);
+CREATE INDEX instrument_idx_name ON instrument (name);
+
+CREATE INDEX instrument_alias_idx_instrument ON instrument_alias (instrument);
+CREATE UNIQUE INDEX instrument_alias_idx_primary ON instrument_alias (instrument, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
+CREATE UNIQUE INDEX l_area_instrument_idx_uniq ON l_area_label (entity0, entity1, link);
+CREATE UNIQUE INDEX l_artist_instrument_idx_uniq ON l_artist_label (entity0, entity1, link);
+CREATE UNIQUE INDEX l_instrument_instrument_idx_uniq ON l_instrument_instrument (entity0, entity1, link);
+CREATE UNIQUE INDEX l_instrument_label_idx_uniq ON l_instrument_label (entity0, entity1, link);
+CREATE UNIQUE INDEX l_instrument_place_idx_uniq ON l_instrument_place (entity0, entity1, link);
+CREATE UNIQUE INDEX l_instrument_recording_idx_uniq ON l_instrument_recording (entity0, entity1, link);
+CREATE UNIQUE INDEX l_instrument_release_idx_uniq ON l_instrument_release (entity0, entity1, link);
+CREATE UNIQUE INDEX l_instrument_release_group_idx_uniq ON l_instrument_release_group (entity0, entity1, link);
+CREATE UNIQUE INDEX l_instrument_url_idx_uniq ON l_instrument_url (entity0, entity1, link);
+CREATE UNIQUE INDEX l_instrument_work_idx_uniq ON l_instrument_work (entity0, entity1, link);
+CREATE INDEX l_area_instrument_idx_entity1 ON l_area_label (entity1);
+CREATE INDEX l_artist_instrument_idx_entity1 ON l_artist_label (entity1);
+CREATE INDEX l_instrument_instrument_idx_entity1 ON l_instrument_instrument (entity1);
+CREATE INDEX l_instrument_label_idx_entity1 ON l_instrument_label (entity1);
+CREATE INDEX l_instrument_place_idx_entity1 ON l_instrument_place (entity1);
+CREATE INDEX l_instrument_recording_idx_entity1 ON l_instrument_recording (entity1);
+CREATE INDEX l_instrument_release_idx_entity1 ON l_instrument_release (entity1);
+CREATE INDEX l_instrument_release_group_idx_entity1 ON l_instrument_release_group (entity1);
+CREATE INDEX l_instrument_url_idx_entity1 ON l_instrument_url (entity1);
+CREATE INDEX l_instrument_work_idx_entity1 ON l_instrument_work (entity1);
+
+CREATE INDEX instrument_idx_txt ON instrument USING gin(to_tsvector('mb_simple', name));
 
 COMMIT;

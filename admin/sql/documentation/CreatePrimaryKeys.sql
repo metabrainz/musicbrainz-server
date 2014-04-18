@@ -5,6 +5,7 @@ SET search_path = 'documentation';
 
 ALTER TABLE l_area_area_example ADD CONSTRAINT l_area_area_example_pkey PRIMARY KEY (id);
 ALTER TABLE l_area_artist_example ADD CONSTRAINT l_area_artist_example_pkey PRIMARY KEY (id);
+ALTER TABLE l_area_instrument_example ADD CONSTRAINT l_area_instrument_example_pkey PRIMARY KEY (id);
 ALTER TABLE l_area_label_example ADD CONSTRAINT l_area_label_example_pkey PRIMARY KEY (id);
 ALTER TABLE l_area_place_example ADD CONSTRAINT l_area_place_example_pkey PRIMARY KEY (id);
 ALTER TABLE l_area_recording_example ADD CONSTRAINT l_area_recording_example_pkey PRIMARY KEY (id);
@@ -13,6 +14,7 @@ ALTER TABLE l_area_release_group_example ADD CONSTRAINT l_area_release_group_exa
 ALTER TABLE l_area_url_example ADD CONSTRAINT l_area_url_example_pkey PRIMARY KEY (id);
 ALTER TABLE l_area_work_example ADD CONSTRAINT l_area_work_example_pkey PRIMARY KEY (id);
 ALTER TABLE l_artist_artist_example ADD CONSTRAINT l_artist_artist_example_pkey PRIMARY KEY (id);
+ALTER TABLE l_artist_instrument_example ADD CONSTRAINT l_artist_instrument_example_pkey PRIMARY KEY (id);
 ALTER TABLE l_artist_label_example ADD CONSTRAINT l_artist_label_example_pkey PRIMARY KEY (id);
 ALTER TABLE l_artist_place_example ADD CONSTRAINT l_artist_place_example_pkey PRIMARY KEY (id);
 ALTER TABLE l_artist_recording_example ADD CONSTRAINT l_artist_recording_example_pkey PRIMARY KEY (id);
@@ -20,6 +22,14 @@ ALTER TABLE l_artist_release_example ADD CONSTRAINT l_artist_release_example_pke
 ALTER TABLE l_artist_release_group_example ADD CONSTRAINT l_artist_release_group_example_pkey PRIMARY KEY (id);
 ALTER TABLE l_artist_url_example ADD CONSTRAINT l_artist_url_example_pkey PRIMARY KEY (id);
 ALTER TABLE l_artist_work_example ADD CONSTRAINT l_artist_work_example_pkey PRIMARY KEY (id);
+ALTER TABLE l_instrument_instrument_example ADD CONSTRAINT l_instrument_instrument_example_pkey PRIMARY KEY (id);
+ALTER TABLE l_instrument_label_example ADD CONSTRAINT l_instrument_label_example_pkey PRIMARY KEY (id);
+ALTER TABLE l_instrument_place_example ADD CONSTRAINT l_instrument_place_example_pkey PRIMARY KEY (id);
+ALTER TABLE l_instrument_recording_example ADD CONSTRAINT l_instrument_recording_example_pkey PRIMARY KEY (id);
+ALTER TABLE l_instrument_release_example ADD CONSTRAINT l_instrument_release_example_pkey PRIMARY KEY (id);
+ALTER TABLE l_instrument_release_group_example ADD CONSTRAINT l_instrument_release_group_example_pkey PRIMARY KEY (id);
+ALTER TABLE l_instrument_url_example ADD CONSTRAINT l_instrument_url_example_pkey PRIMARY KEY (id);
+ALTER TABLE l_instrument_work_example ADD CONSTRAINT l_instrument_work_example_pkey PRIMARY KEY (id);
 ALTER TABLE l_label_label_example ADD CONSTRAINT l_label_label_example_pkey PRIMARY KEY (id);
 ALTER TABLE l_label_place_example ADD CONSTRAINT l_label_place_example_pkey PRIMARY KEY (id);
 ALTER TABLE l_label_recording_example ADD CONSTRAINT l_label_recording_example_pkey PRIMARY KEY (id);

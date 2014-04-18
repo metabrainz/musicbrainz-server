@@ -529,6 +529,11 @@ ALTER TABLE instrument_alias
    FOREIGN KEY (type)
    REFERENCES instrument_alias_type(id);
 
+ALTER TABLE instrument_alias_type
+   ADD CONSTRAINT instrument_alias_type_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES instrument_alias_type(id);
+
 ALTER TABLE instrument_annotation
    ADD CONSTRAINT instrument_annotation_fk_instrument
    FOREIGN KEY (instrument)
@@ -543,6 +548,11 @@ ALTER TABLE instrument_gid_redirect
    ADD CONSTRAINT instrument_gid_redirect_fk_new_id
    FOREIGN KEY (new_id)
    REFERENCES instrument(id);
+
+ALTER TABLE instrument_type
+   ADD CONSTRAINT instrument_type_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES instrument_type(id);
 
 ALTER TABLE iso_3166_1
    ADD CONSTRAINT iso_3166_1_fk_area
