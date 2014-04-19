@@ -65,9 +65,14 @@ then
     echo `date`" : + weekly"
     ./admin/replication/BundleReplicationPackets $FTP_DATA_DIR/replication --period weekly --require-previous
 
-    # We are only updating tables in the main namespace for this change.
     echo `date` : 'Drop replication triggers (musicbrainz)'
     ./admin/psql READWRITE < ./admin/sql/DropReplicationTriggers.sql
+
+    for schema in caa documentation statistics wikidocs
+    do
+        echo `date` : "Drop replication triggers ($schema)"
+        ./admin/psql READWRITE < ./admin/sql/$schema/DropReplicationTriggers.sql
+    done
 
     echo `date` : 'Dump a copy of release_tag and documentation tables for import on slave databases.'
     mkdir -p catchup
@@ -98,14 +103,23 @@ OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140212-ordering-columns.s
 echo `date` : 'DROP TABLE script_language;'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140208-drop-script_language.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
-echo `date` : 'Adding series'
-OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140318-series.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+echo `date` : 'Link type cardinality (MBS-7205)'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140407-link-cardinality.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 echo `date` : 'Remove area sortnames'
 OUTPUT=`./admin/psql READWRITE < admin/sql/updates/20140311-remove-area-sortnames.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 echo `date` : 'Remove label sortnames'
 OUTPUT=`./admin/psql READWRITE < admin/sql/updates/20140313-remove-label-sortnames.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+echo `date` : 'Add instrument entity tables'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140214-add-instruments.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+echo `date` : 'Add instrument entity documentation tables'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140215-add-instruments-documentation.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+echo `date` : 'Adding series'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140318-series.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 ################################################################################
 # Re-enable replication
@@ -114,6 +128,12 @@ if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
 then
     echo `date` : 'Create replication triggers (musicbrainz)'
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/CreateReplicationTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+    for schema in caa documentation statistics wikidocs
+    do
+        echo `date` : "Create replication triggers ($schema)"
+        OUTPUT=`./admin/psql READWRITE < ./admin/sql/$schema/CreateReplicationTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+    done
 fi
 
 ################################################################################
@@ -124,11 +144,14 @@ then
     echo `date` : 'Adding foreign keys for ordering columns'
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140308-ordering-columns-fk.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
-    echo `date` : 'Adding constraints for series'
-    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140318-series-fks.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-
     echo `date` : 'Adding has_dates trigger'
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140312-dates-trigger.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+    echo `date` : 'Adding triggers for instruments'
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140217-instrument-triggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+    echo `date` : 'Adding constraints for series'
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140318-series-fks.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
     echo `date` : Enabling last_updated triggers
     ./admin/sql/EnableLastUpdatedTriggers.pl

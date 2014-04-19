@@ -5,6 +5,7 @@ SET search_path = 'documentation';
 
 ALTER TABLE l_area_area_example DROP CONSTRAINT IF EXISTS l_area_area_example_pkey;
 ALTER TABLE l_area_artist_example DROP CONSTRAINT IF EXISTS l_area_artist_example_pkey;
+ALTER TABLE l_area_instrument_example DROP CONSTRAINT IF EXISTS l_area_instrument_example_pkey;
 ALTER TABLE l_area_label_example DROP CONSTRAINT IF EXISTS l_area_label_example_pkey;
 ALTER TABLE l_area_place_example DROP CONSTRAINT IF EXISTS l_area_place_example_pkey;
 ALTER TABLE l_area_recording_example DROP CONSTRAINT IF EXISTS l_area_recording_example_pkey;
@@ -14,6 +15,7 @@ ALTER TABLE l_area_series_example DROP CONSTRAINT IF EXISTS l_area_series_exampl
 ALTER TABLE l_area_url_example DROP CONSTRAINT IF EXISTS l_area_url_example_pkey;
 ALTER TABLE l_area_work_example DROP CONSTRAINT IF EXISTS l_area_work_example_pkey;
 ALTER TABLE l_artist_artist_example DROP CONSTRAINT IF EXISTS l_artist_artist_example_pkey;
+ALTER TABLE l_artist_instrument_example DROP CONSTRAINT IF EXISTS l_artist_instrument_example_pkey;
 ALTER TABLE l_artist_label_example DROP CONSTRAINT IF EXISTS l_artist_label_example_pkey;
 ALTER TABLE l_artist_place_example DROP CONSTRAINT IF EXISTS l_artist_place_example_pkey;
 ALTER TABLE l_artist_recording_example DROP CONSTRAINT IF EXISTS l_artist_recording_example_pkey;
@@ -22,6 +24,14 @@ ALTER TABLE l_artist_release_group_example DROP CONSTRAINT IF EXISTS l_artist_re
 ALTER TABLE l_artist_series_example DROP CONSTRAINT IF EXISTS l_artist_series_example_pkey;
 ALTER TABLE l_artist_url_example DROP CONSTRAINT IF EXISTS l_artist_url_example_pkey;
 ALTER TABLE l_artist_work_example DROP CONSTRAINT IF EXISTS l_artist_work_example_pkey;
+ALTER TABLE l_instrument_instrument_example DROP CONSTRAINT IF EXISTS l_instrument_instrument_example_pkey;
+ALTER TABLE l_instrument_label_example DROP CONSTRAINT IF EXISTS l_instrument_label_example_pkey;
+ALTER TABLE l_instrument_place_example DROP CONSTRAINT IF EXISTS l_instrument_place_example_pkey;
+ALTER TABLE l_instrument_recording_example DROP CONSTRAINT IF EXISTS l_instrument_recording_example_pkey;
+ALTER TABLE l_instrument_release_example DROP CONSTRAINT IF EXISTS l_instrument_release_example_pkey;
+ALTER TABLE l_instrument_release_group_example DROP CONSTRAINT IF EXISTS l_instrument_release_group_example_pkey;
+ALTER TABLE l_instrument_url_example DROP CONSTRAINT IF EXISTS l_instrument_url_example_pkey;
+ALTER TABLE l_instrument_work_example DROP CONSTRAINT IF EXISTS l_instrument_work_example_pkey;
 ALTER TABLE l_label_label_example DROP CONSTRAINT IF EXISTS l_label_label_example_pkey;
 ALTER TABLE l_label_place_example DROP CONSTRAINT IF EXISTS l_label_place_example_pkey;
 ALTER TABLE l_label_recording_example DROP CONSTRAINT IF EXISTS l_label_recording_example_pkey;

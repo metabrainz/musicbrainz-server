@@ -1,7 +1,5 @@
-[% BLOCK extra_guidelines %]
-        [%- WRAPPER 'layout/guidelines.tt' -%]
-            [%- create_guideline(l('Some FreeDB results may not be immediately available since they are only able to be updated after FreeDB\'s monthly database export.')) %]
-        [%- END -%]
+[% BLOCK extra_info %]
+    <p>[%- l('Some FreeDB results may not be immediately available since they are only able to be updated after FreeDB\'s monthly database export.') %]</p>
 [% END %]
 
 [% WRAPPER 'search/results-layout.tt' %]

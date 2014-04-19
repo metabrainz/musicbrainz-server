@@ -114,6 +114,30 @@ CREATE TRIGGER "reptg_gender"
 AFTER INSERT OR DELETE OR UPDATE ON "gender"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_instrument"
+AFTER INSERT OR DELETE OR UPDATE ON "instrument"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_instrument_alias"
+AFTER INSERT OR DELETE OR UPDATE ON "instrument_alias"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_instrument_alias_type"
+AFTER INSERT OR DELETE OR UPDATE ON "instrument_alias_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_instrument_annotation"
+AFTER INSERT OR DELETE OR UPDATE ON "instrument_annotation"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_instrument_gid_redirect"
+AFTER INSERT OR DELETE OR UPDATE ON "instrument_gid_redirect"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_instrument_type"
+AFTER INSERT OR DELETE OR UPDATE ON "instrument_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_isrc"
 AFTER INSERT OR DELETE OR UPDATE ON "isrc"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
@@ -131,6 +155,10 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_l_area_artist"
 AFTER INSERT OR DELETE OR UPDATE ON "l_area_artist"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_area_instrument"
+AFTER INSERT OR DELETE OR UPDATE ON "l_area_instrument"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_l_area_label"
@@ -169,6 +197,10 @@ CREATE TRIGGER "reptg_l_artist_artist"
 AFTER INSERT OR DELETE OR UPDATE ON "l_artist_artist"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_l_artist_instrument"
+AFTER INSERT OR DELETE OR UPDATE ON "l_artist_instrument"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_l_artist_label"
 AFTER INSERT OR DELETE OR UPDATE ON "l_artist_label"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -200,6 +232,38 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 CREATE TRIGGER "reptg_l_artist_work"
 AFTER INSERT OR DELETE OR UPDATE ON "l_artist_work"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_l_instrument_instrument"
+AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_instrument"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_instrument_label"
+AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_label"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_instrument_place"
+AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_place"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_instrument_recording"
+AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_recording"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_instrument_release"
+AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_release"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_instrument_release_group"
+AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_release_group"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_instrument_url"
+AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_url"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_instrument_work"
+AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_work"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_l_label_label"
 AFTER INSERT OR DELETE OR UPDATE ON "l_label_label"
@@ -512,6 +576,10 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 CREATE TRIGGER "reptg_release_status"
 AFTER INSERT OR DELETE OR UPDATE ON "release_status"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_release_tag"
+AFTER INSERT OR DELETE OR UPDATE ON "release_tag"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_release_tag"
 AFTER INSERT OR DELETE OR UPDATE ON "release_tag"

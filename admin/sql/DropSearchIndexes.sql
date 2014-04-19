@@ -10,6 +10,7 @@ DROP INDEX artist_credit_idx_txt;
 DROP INDEX artist_credit_name_idx_txt;
 DROP INDEX artist_idx_txt;
 DROP INDEX artist_idx_txt_sort;
+DROP INDEX instrument_idx_txt;
 DROP INDEX label_alias_idx_txt;
 DROP INDEX label_alias_idx_txt_sort;
 DROP INDEX label_idx_txt;

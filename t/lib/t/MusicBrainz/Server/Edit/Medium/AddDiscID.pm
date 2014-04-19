@@ -70,7 +70,8 @@ sub _build_edit {
         editor_id => 1,
         release => $release,
         medium_id => 1,
-        cdtoc => '1 2 260648 150 21918'
+        cdtoc => '1 2 260648 150 21918',
+        release_name => 'Foo',
     );
 }
 

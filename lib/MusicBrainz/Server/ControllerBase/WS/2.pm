@@ -4,11 +4,12 @@ BEGIN { extends 'Catalyst::Controller'; }
 
 use DBDefs;
 use HTTP::Status qw( :constants );
-use MusicBrainz::Server::WebService::Format;
-use MusicBrainz::Server::WebService::XMLSerializer;
-use MusicBrainz::Server::WebService::JSONSerializer;
+use List::UtilsBy qw( uniq_by );
 use MusicBrainz::Server::Data::Utils qw( type_to_model object_to_ids );
 use MusicBrainz::Server::Validation qw( is_guid is_nat );
+use MusicBrainz::Server::WebService::Format;
+use MusicBrainz::Server::WebService::JSONSerializer;
+use MusicBrainz::Server::WebService::XMLSerializer;
 use Readonly;
 use Scalar::Util qw( looks_like_number );
 use Try::Tiny;
@@ -435,6 +436,14 @@ sub linked_recordings
     if ($c->stash->{inc}->artist_credits)
     {
         $c->model('ArtistCredit')->load(@$recordings);
+
+        my @acns = map { $_->artist_credit->all_names } @$recordings;
+        $c->model('Artist')->load(@acns);
+
+        $self->linked_artists(
+            $c, $stash,
+            [ uniq_by { $_->id } map { $_->artist } @acns ]
+        );
     }
 
     $self->_tags_and_ratings($c, 'Recording', $recordings, $stash);

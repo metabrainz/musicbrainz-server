@@ -39,12 +39,28 @@ has_field 'video' => (
     type => 'Checkbox'
 );
 
+has 'used_by_tracks' => (
+    is => 'ro',
+    isa => 'Bool',
+    required => 1
+);
+
 after 'validate' => sub {
     my ($self) = @_;
     return if $self->has_errors;
 
     my $isrcs =  $self->field('isrcs');
     $isrcs->value([ uniq sort grep { $_ } @{ $isrcs->value } ]);
+
+    my $length = $self->field('length');
+
+    if ($self->used_by_tracks && defined($length->value) &&
+        $length->value != $length->init_value) {
+        $length->add_error(
+            "This recording's duration is determined by the tracks that are " .
+            "linked to it, and cannot be changed directly"
+        );
+    }
 };
 
 sub inflate_isrcs {

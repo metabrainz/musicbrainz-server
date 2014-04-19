@@ -226,7 +226,7 @@ MB.constants.CLEANUPS = {
         match: new RegExp("^(https?://)?([^/]+\\.)?mora\\.jp","i"),
         type: MB.constants.LINK_TYPES.downloadpurchase,
         clean: function(url) {
-            return url.replace(/^(?:https?:\/\/)?(?:[^.]+\.)?mora\.jp\/package\/([0-9]+)\/([a-zA-Z0-9-]+)(\/)?.*$/, "http://mora.jp/package/$1/$2/");
+            return url.replace(/^(?:https?:\/\/)?(?:[^.]+\.)?mora\.jp\/package\/([0-9]+)\/([a-zA-Z0-9_-]+)(\/)?.*$/, "http://mora.jp/package/$1/$2/");
         }
     },
     myspace: {
@@ -487,7 +487,7 @@ MB.constants.CLEANUPS = {
         }
     },
     otherdatabases: {
-        match: new RegExp("^(https?://)?(www\\.)?(rateyourmusic\\.com/|worldcat\\.org/|musicmoz\\.org/|45cat\\.com/|musik-sammler\\.de/|discografia\\.dds\\.it/|tallinn\\.ester\\.ee/|tartu\\.ester\\.ee/|encyclopedisque\\.fr/|discosdobrasil\\.com\\.br/|isrc\\.ncl\\.edu\\.tw/|rolldabeats\\.com/|psydb\\.net/|metal-archives\\.com/(bands?|albums|artists|labels)|spirit-of-metal\\.com/|ibdb\\.com/|lortel.\\org/|theatricalia\\.com/|ocremix\\.org/|(trove\\.)?nla\\.gov\\.au/|rockensdanmarkskort\\.dk|(wiki\\.)?rockinchina\\.com|(www\\.)?dhhu\\.dk|thesession\\.org|openlibrary\\.org|animenewsnetwork\\.com|generasia\\.com/wiki/|soundtrackcollector\\.com|rockipedia\\.no|whosampled\\.com)", "i"),
+        match: new RegExp("^(https?://)?(www\\.)?(rateyourmusic\\.com/|worldcat\\.org/|musicmoz\\.org/|45cat\\.com/|musik-sammler\\.de/|discografia\\.dds\\.it/|tallinn\\.ester\\.ee/|tartu\\.ester\\.ee/|encyclopedisque\\.fr/|discosdobrasil\\.com\\.br/|isrc\\.ncl\\.edu\\.tw/|rolldabeats\\.com/|psydb\\.net/|metal-archives\\.com/(bands?|albums|artists|labels)|spirit-of-metal\\.com/|ibdb\\.com/|lortel.\\org/|theatricalia\\.com/|ocremix\\.org/|(trove\\.)?nla\\.gov\\.au/|rockensdanmarkskort\\.dk|(wiki\\.)?rockinchina\\.com|(www\\.)?dhhu\\.dk|thesession\\.org|openlibrary\\.org|animenewsnetwork\\.com|generasia\\.com/wiki/|soundtrackcollector\\.com|rockipedia\\.no|whosampled\\.com|maniadb\\.com)", "i"),
         type: MB.constants.LINK_TYPES.otherdatabases,
         clean: function(url) {
             //Removing cruft from Worldcat URLs
@@ -872,14 +872,18 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorObse
         }
     };
 
-    self.typeControl.on("change", typeChanged);
-    self.urlControl.on("change keydown keyup input propertychange", urlChanged);
-
-    self.urlControl.on("blur", function () {
+    function trimInputValue() {
         this.value = _.str.trim(this.value);
-    });
+    }
 
-    self.urlControl.parents('form').submit(urlChanged);
+    self.toggleEvents = function (prop) {
+        self.typeControl[prop]("change", typeChanged);
+        self.urlControl[prop]("change keydown keyup input propertychange", urlChanged);
+        self.urlControl[prop]("blur", trimInputValue);
+        self.urlControl.parents('form')[prop]("submit", urlChanged);
+    };
+
+    self.toggleEvents("on");
 
     return self;
 };
