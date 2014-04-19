@@ -31,6 +31,7 @@ ALTER TABLE series_type ADD CONSTRAINT allowed_series_entity_type
 
 ALTER TABLE l_area_series_example ADD CONSTRAINT l_area_series_example_fk_id FOREIGN KEY (id) REFERENCES musicbrainz.l_area_series(id);
 ALTER TABLE l_artist_series_example ADD CONSTRAINT l_artist_series_example_fk_id FOREIGN KEY (id) REFERENCES musicbrainz.l_artist_series(id);
+ALTER TABLE l_instrument_series_example ADD CONSTRAINT l_instrument_series_example_fk_id FOREIGN KEY (id) REFERENCES musicbrainz.l_instrument_series(id);
 ALTER TABLE l_label_series_example ADD CONSTRAINT l_label_series_example_fk_id FOREIGN KEY (id) REFERENCES musicbrainz.l_label_series(id);
 ALTER TABLE l_place_series_example ADD CONSTRAINT l_place_series_example_fk_id FOREIGN KEY (id) REFERENCES musicbrainz.l_place_series(id);
 ALTER TABLE l_recording_series_example ADD CONSTRAINT l_recording_series_example_fk_id FOREIGN KEY (id) REFERENCES musicbrainz.l_recording_series(id);
@@ -55,6 +56,10 @@ ALTER TABLE l_area_series ADD CONSTRAINT l_area_series_fk_entity1 FOREIGN KEY (e
 ALTER TABLE l_artist_series ADD CONSTRAINT l_artist_series_fk_link FOREIGN KEY (link) REFERENCES link(id);
 ALTER TABLE l_artist_series ADD CONSTRAINT l_artist_series_fk_entity0 FOREIGN KEY (entity0) REFERENCES artist(id);
 ALTER TABLE l_artist_series ADD CONSTRAINT l_artist_series_fk_entity1 FOREIGN KEY (entity1) REFERENCES series(id);
+
+ALTER TABLE l_instrument_series ADD CONSTRAINT l_instrument_series_fk_link FOREIGN KEY (link) REFERENCES link(id);
+ALTER TABLE l_instrument_series ADD CONSTRAINT l_instrument_series_fk_entity0 FOREIGN KEY (entity0) REFERENCES instrument(id);
+ALTER TABLE l_instrument_series ADD CONSTRAINT l_instrument_series_fk_entity1 FOREIGN KEY (entity1) REFERENCES series(id);
 
 ALTER TABLE l_label_series ADD CONSTRAINT l_label_series_fk_link FOREIGN KEY (link) REFERENCES link(id);
 ALTER TABLE l_label_series ADD CONSTRAINT l_label_series_fk_entity0 FOREIGN KEY (entity0) REFERENCES label(id);
