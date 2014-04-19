@@ -111,6 +111,7 @@ sub appearances {
     }
 
     return \%groups;
+}
 
 sub sorted_attributes {
     my $self = shift;
