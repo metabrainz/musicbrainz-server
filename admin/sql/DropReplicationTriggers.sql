@@ -61,6 +61,7 @@ DROP TRIGGER reptg_l_instrument_place ON l_instrument_place;
 DROP TRIGGER reptg_l_instrument_recording ON l_instrument_recording;
 DROP TRIGGER reptg_l_instrument_release ON l_instrument_release;
 DROP TRIGGER reptg_l_instrument_release_group ON l_instrument_release_group;
+DROP TRIGGER reptg_l_instrument_series ON l_instrument_series;
 DROP TRIGGER reptg_l_instrument_url ON l_instrument_url;
 DROP TRIGGER reptg_l_instrument_work ON l_instrument_work;
 DROP TRIGGER reptg_l_label_label ON l_label_label;

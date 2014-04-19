@@ -60,6 +60,7 @@ SELECT setval('l_instrument_place_id_seq', (SELECT MAX(id) FROM l_instrument_pla
 SELECT setval('l_instrument_recording_id_seq', (SELECT MAX(id) FROM l_instrument_recording));
 SELECT setval('l_instrument_release_id_seq', (SELECT MAX(id) FROM l_instrument_release));
 SELECT setval('l_instrument_release_group_id_seq', (SELECT MAX(id) FROM l_instrument_release_group));
+SELECT setval('l_instrument_series_id_seq', (SELECT MAX(id) FROM l_instrument_series));
 SELECT setval('l_instrument_url_id_seq', (SELECT MAX(id) FROM l_instrument_url));
 SELECT setval('l_instrument_work_id_seq', (SELECT MAX(id) FROM l_instrument_work));
 SELECT setval('l_label_place_id_seq', (SELECT MAX(id) FROM l_label_place));

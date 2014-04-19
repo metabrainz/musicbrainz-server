@@ -1025,6 +1025,21 @@ ALTER TABLE l_instrument_release_group
    FOREIGN KEY (entity1)
    REFERENCES release_group(id);
 
+ALTER TABLE l_instrument_series
+   ADD CONSTRAINT l_instrument_series_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_instrument_series
+   ADD CONSTRAINT l_instrument_series_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES instrument(id);
+
+ALTER TABLE l_instrument_series
+   ADD CONSTRAINT l_instrument_series_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES series(id);
+
 ALTER TABLE l_instrument_url
    ADD CONSTRAINT l_instrument_url_fk_link
    FOREIGN KEY (link)

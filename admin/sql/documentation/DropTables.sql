@@ -30,6 +30,7 @@ DROP TABLE l_instrument_place_example;
 DROP TABLE l_instrument_recording_example;
 DROP TABLE l_instrument_release_example;
 DROP TABLE l_instrument_release_group_example;
+DROP TABLE l_instrument_series_example;
 DROP TABLE l_instrument_url_example;
 DROP TABLE l_instrument_work_example;
 DROP TABLE l_label_label_example;

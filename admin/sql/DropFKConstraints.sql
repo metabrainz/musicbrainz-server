@@ -202,6 +202,9 @@ ALTER TABLE l_instrument_release DROP CONSTRAINT IF EXISTS l_instrument_release_
 ALTER TABLE l_instrument_release_group DROP CONSTRAINT IF EXISTS l_instrument_release_group_fk_link;
 ALTER TABLE l_instrument_release_group DROP CONSTRAINT IF EXISTS l_instrument_release_group_fk_entity0;
 ALTER TABLE l_instrument_release_group DROP CONSTRAINT IF EXISTS l_instrument_release_group_fk_entity1;
+ALTER TABLE l_instrument_series DROP CONSTRAINT IF EXISTS l_instrument_series_fk_link;
+ALTER TABLE l_instrument_series DROP CONSTRAINT IF EXISTS l_instrument_series_fk_entity0;
+ALTER TABLE l_instrument_series DROP CONSTRAINT IF EXISTS l_instrument_series_fk_entity1;
 ALTER TABLE l_instrument_url DROP CONSTRAINT IF EXISTS l_instrument_url_fk_link;
 ALTER TABLE l_instrument_url DROP CONSTRAINT IF EXISTS l_instrument_url_fk_entity0;
 ALTER TABLE l_instrument_url DROP CONSTRAINT IF EXISTS l_instrument_url_fk_entity1;

@@ -140,6 +140,8 @@ DROP INDEX l_instrument_release_group_idx_entity1;
 DROP INDEX l_instrument_release_group_idx_uniq;
 DROP INDEX l_instrument_release_idx_entity1;
 DROP INDEX l_instrument_release_idx_uniq;
+DROP INDEX l_instrument_series_idx_entity1;
+DROP INDEX l_instrument_series_idx_uniq;
 DROP INDEX l_instrument_url_idx_entity1;
 DROP INDEX l_instrument_url_idx_uniq;
 DROP INDEX l_instrument_work_idx_entity1;

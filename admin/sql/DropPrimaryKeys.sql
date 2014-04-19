@@ -99,6 +99,7 @@ ALTER TABLE l_instrument_place DROP CONSTRAINT IF EXISTS l_instrument_place_pkey
 ALTER TABLE l_instrument_recording DROP CONSTRAINT IF EXISTS l_instrument_recording_pkey;
 ALTER TABLE l_instrument_release DROP CONSTRAINT IF EXISTS l_instrument_release_pkey;
 ALTER TABLE l_instrument_release_group DROP CONSTRAINT IF EXISTS l_instrument_release_group_pkey;
+ALTER TABLE l_instrument_series DROP CONSTRAINT IF EXISTS l_instrument_series_pkey;
 ALTER TABLE l_instrument_url DROP CONSTRAINT IF EXISTS l_instrument_url_pkey;
 ALTER TABLE l_instrument_work DROP CONSTRAINT IF EXISTS l_instrument_work_pkey;
 ALTER TABLE l_label_label DROP CONSTRAINT IF EXISTS l_label_label_pkey;

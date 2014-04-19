@@ -30,6 +30,7 @@ ALTER TABLE l_instrument_place_example DROP CONSTRAINT IF EXISTS l_instrument_pl
 ALTER TABLE l_instrument_recording_example DROP CONSTRAINT IF EXISTS l_instrument_recording_example_pkey;
 ALTER TABLE l_instrument_release_example DROP CONSTRAINT IF EXISTS l_instrument_release_example_pkey;
 ALTER TABLE l_instrument_release_group_example DROP CONSTRAINT IF EXISTS l_instrument_release_group_example_pkey;
+ALTER TABLE l_instrument_series_example DROP CONSTRAINT IF EXISTS l_instrument_series_example_pkey;
 ALTER TABLE l_instrument_url_example DROP CONSTRAINT IF EXISTS l_instrument_url_example_pkey;
 ALTER TABLE l_instrument_work_example DROP CONSTRAINT IF EXISTS l_instrument_work_example_pkey;
 ALTER TABLE l_label_label_example DROP CONSTRAINT IF EXISTS l_label_label_example_pkey;

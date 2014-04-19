@@ -99,6 +99,7 @@ DROP TABLE l_instrument_place;
 DROP TABLE l_instrument_recording;
 DROP TABLE l_instrument_release;
 DROP TABLE l_instrument_release_group;
+DROP TABLE l_instrument_series;
 DROP TABLE l_instrument_url;
 DROP TABLE l_instrument_work;
 DROP TABLE l_label_label;
