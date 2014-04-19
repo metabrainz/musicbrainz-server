@@ -1,3 +1,76 @@
 <table class="details merge-labels">
-  [% INCLUDE 'edit/details/merge_common.tt' %]
+  <tr>
+    <th>[% l('Merge:') %]</th>
+    <td>
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>[% l('Label') %]</th>
+            <th>[% l('Type') %]</th>
+            <th>[% l('Label Code') %]</th>
+            <th>[% l('Area') %]</th>
+            <th>[% l('Begin') %]</th>
+            <th>[% l('End') %]</th>
+          </tr>
+        </thead>
+        <tbody>
+          [% FOR entity=edit.display_data.old %]
+            <tr [% ' class="ev"' IF loop.count % 2 == 0 %]>
+              <td>
+                [% descriptive_link(entity) %]
+              </td>
+              <td>[% entity.l_type_name  %]</td>
+              <td>[% entity.format_label_code %]</td>
+              <td>[% link_entity(entity.area) IF entity.area %]</td>
+              <td>[% entity.begin_date.format %]</td>
+              <td>
+                [% IF !entity.end_date.is_empty;
+                     entity.end_date.format;
+                   ELSIF entity.ended;
+                     l('[unknown]');
+                   END; -%]
+              </td>
+            </tr>
+          [% END %]
+        </tbody>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <th>[% l('Into:') %]</th>
+    <td>
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>[% l('Label') %]</th>
+            <th>[% l('Type') %]</th>
+            <th>[% l('Label Code') %]</th>
+            <th>[% l('Area') %]</th>
+            <th>[% l('Begin') %]</th>
+            <th>[% l('End') %]</th>
+          </tr>
+        </thead>
+        <tbody>
+          [% FOR entity=[edit.display_data.new] %]
+            <tr [% ' class="ev"' IF loop.count % 2 == 0 %]>
+              <td>
+                [% descriptive_link(entity) %]
+              </td>
+              <td>[% entity.l_type_name  %]</td>
+              <td>[% entity.format_label_code %]</td>
+              <td>[% link_entity(entity.area) IF entity.area %]</td>
+              <td>[% entity.begin_date.format %]</td>
+              <td>
+                [% IF !entity.end_date.is_empty;
+                     entity.end_date.format;
+                   ELSIF entity.ended;
+                     l('[unknown]');
+                   END; -%]
+              </td>
+            </tr>
+          [% END %]
+        </tbody>
+      </table>
+    </td>
+  </tr>
 </table>

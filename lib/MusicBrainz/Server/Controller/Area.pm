@@ -13,6 +13,7 @@ with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
+with 'MusicBrainz::Server::Controller::Role::EditExternalLinks';
 
 use Data::Page;
 use HTTP::Status qw( :constants );
@@ -180,8 +181,6 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_AREA_MERGE,
-    confirmation_template => 'area/merge_confirm.tt',
-    search_template       => 'area/merge_search.tt',
 };
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {

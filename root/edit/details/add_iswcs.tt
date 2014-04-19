@@ -6,7 +6,7 @@
         [% FOR addition=edit.display_data.additions %]
         <li>
           [% l('ISWC {iswc} to {work}',
-               { iswc => link_iswc(addition.iswc),
+               { iswc => link_iswc(addition),
                  work => link_entity(addition.work) });
           %]
         </li>

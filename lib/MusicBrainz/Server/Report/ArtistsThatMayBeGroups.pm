@@ -11,7 +11,7 @@ sub query {
      JOIN l_artist_artist ON l_artist_artist.entity1=artist.id
      JOIN link ON link.id=l_artist_artist.link
      JOIN link_type ON link_type.id=link.link_type
-     WHERE artist.type IS DISTINCT FROM 2
+     WHERE (artist.type NOT IN (2, 5, 6) OR artist.type IS NULL)
        AND link_type.name IN ('collaboration', 'member of band', 'conductor position')"
 }
 

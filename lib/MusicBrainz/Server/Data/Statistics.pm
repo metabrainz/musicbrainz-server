@@ -251,6 +251,8 @@ my %stats = (
                 "count.artist.type.group"  => $dist{2} || 0,
                 "count.artist.type.other"  => $dist{3} || 0,
                 "count.artist.type.character"  => $dist{4} || 0,
+                "count.artist.type.orchestra"  => $dist{5} || 0,
+                "count.artist.type.choir"  => $dist{6} || 0,
                 "count.artist.type.null" => $dist{null} || 0
             };
         },
@@ -274,7 +276,7 @@ my %stats = (
             my $data = $sql->select_list_of_lists(
                 "SELECT COALESCE(gender::text, 'null'), COUNT(*) AS count
                 FROM artist
-                WHERE type IS DISTINCT FROM 2
+                WHERE (type NOT IN (2, 5, 6) OR type IS NULL)
                 GROUP BY gender
                 ",
             );
@@ -701,6 +703,29 @@ my %stats = (
             +{
                 map {
                     "count.work.type.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
+    "count.work.attribute" => {
+        DESC => "Distribution of works by attributes",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT COALESCE(work_attribute_type.id::text, 'null'),
+                   COUNT(DISTINCT work.id) AS count
+                 FROM work_attribute
+                 FULL OUTER JOIN work_attribute_type ON work_attribute_type.id = work_attribute.work_attribute_type
+                 FULL OUTER JOIN work ON work.id = work_attribute.work
+                 GROUP BY work_attribute_type.id",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.work.attribute.".$_ => $dist{$_}
                 } keys %dist
             };
         },
@@ -1161,14 +1186,14 @@ my %stats = (
         NONREPLICATED => 1,
     },
     "count.edit.type" => {
-	DESC => "Count of edits by type",
+        DESC => "Count of edits by type",
         CALC => sub {
             my ($self, $sql) = @_;
 
-	    my $data = $sql->select_list_of_lists(
+            my $data = $sql->select_list_of_lists(
                 "SELECT type, count(id) AS count
-		FROM edit GROUP BY type",
-	    );
+                FROM edit GROUP BY type",
+            );
 
             my %dist = map { @$_ } @$data;
 
@@ -1177,7 +1202,7 @@ my %stats = (
                     "count.edit.type.".$_ => $dist{$_}
                 } keys %dist
             };
-	}
+        }
     },
 
     "count.cdstub" => {

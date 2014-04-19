@@ -1,9 +1,9 @@
 [% WRAPPER 'layout.tt' full_width=1 title=l('Error Cancelling Edit') %]
     <h1>[% l('Error Cancelling Edit') %]</h1>
     <p>[% l('There was a problem cancelling {edit}.',
-           { edit => link_edit(edit, show, html_escape('edit #' _ edit.id)) }) %]</p>
+           { edit => link_edit(edit, show, 'edit #' _ edit.id) }) %]</p>
 
     <p>[% l('Only the user who created an edit can cancel it, either you did not create {edit} or
              perhaps it has already been closed.',
-           { edit => link_edit(edit, show, html_escape('edit #' _ edit.id)) }) %]</p>
+           { edit => link_edit(edit, show, 'edit #' _ edit.id) }) %]</p>
 [% END %]

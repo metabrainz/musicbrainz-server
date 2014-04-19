@@ -33,32 +33,10 @@ sub release_date
 
 }
 
-# get the xsd type for a date (rdfa stuff)
-sub date_xsd_type
-{
-    my $date = shift;
-    if($date =~ /^[\d-]+$/){
-
-	my ($y, $m, $d) = split /-/, $date;
-
-	return 'xsd:date' if ($y && 0 + $y && $m && 0 + $m && $d && 0 + $d);
-	return 'xsd:gYearMonth' if ($y && 0 + $y && $m && 0 + $m);
-	return 'xsd:gYear' if ($y);
-    }
-
-}
-
 sub format_length
 {
     my $ms = shift;
     return MusicBrainz::Server::Track::FormatTrackLength($ms);
-}
-
-# format duration as xsd:duration (rdfa stuff)
-sub format_length_xsd
-{
-    my $ms = shift;
-    return MusicBrainz::Server::Track::FormatXSDTrackLength($ms);
 }
 
 sub format_distance
@@ -108,13 +86,22 @@ sub _make_link
     return "<a href=\"/$type/$mbid\">$content</a>"
 }
 
+sub encode_square_brackets
+{
+    my $t = $_[0];
+    my %ent = ( '[' =>  '&#91;', ']' => '&#93;' );
+    $t =~ s/([\[\]])/$ent{$1}/g;
+    $t;
+}
+
 sub _display_trimmed {
     my $url = shift;
 
+    my $encoded_url = encode_square_brackets(encode_entities($url));
+
     # shorten url's that are longer 50 characters
-    my $encoded_url = encode_entities($url);
-    my $display_url = length($encoded_url) > 50
-        ? substr($encoded_url, 0, 48) . "&#8230;"
+    my $display_url = length($url) > 50
+        ? encode_square_brackets(encode_entities(substr($url, 0, 48))) . "&#8230;"
         : $encoded_url;
 
     $encoded_url = "http://$encoded_url"
@@ -241,7 +228,7 @@ sub _amazon_https {
 sub _generic_https {
     my $url = shift;
     # list only those sites that support https
-    $url =~ s,http://(www\.cdbaby\.com|www\.ozon\.ru|www\.archive\.org)/,https://$1/,;
+    $url =~ s,http://(www\.cdbaby\.com|www\.ozon\.ru|(?:[^.\/]+\.)?archive\.org)/,https://$1/,;
     return $url;
 }
 

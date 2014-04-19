@@ -4,7 +4,7 @@ use Moose;
 
 extends 'Class::Accessor::Fast::XS';
 
-use Class::MOP;
+use Class::Load qw( load_class );
 use JSON::Any qw( XS JSON );
 use Memoize;
 use MusicBrainz::Server::Data::Utils qw( copy_escape );
@@ -13,11 +13,11 @@ use URI::Escape qw( uri_escape uri_unescape );
 memoize('decode_value');
 
 __PACKAGE__->mk_accessors(qw(
-	migration artist_id row_id table column
-	new_value previous_value yes_votes no_votes
-	id editor_id 	language_id quality created_time
-	expires_time close_time status data auto_edit	
-	c
+    migration artist_id row_id table column
+    new_value previous_value yes_votes no_votes
+    id editor_id language_id quality created_time
+    expires_time close_time status data auto_edit
+    c
 ));
 
 sub edit_type { }
@@ -71,7 +71,7 @@ sub for_copy {
     my $edit = shift;
     my $type = $edit->edit_type;
     if ($edit->can('ngs_class')) {
-        Class::MOP::load_class($edit->ngs_class);
+        load_class($edit->ngs_class);
         $type = $edit->ngs_class->edit_type;
     }
 

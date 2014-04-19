@@ -36,6 +36,10 @@ MB.CoverArt.get_image_mime_type = function () {
     {
         mime_type = "image/gif";
     }
+    else if (filename.match(/\.pdf$/i))
+    {
+        mime_type = "application/pdf";
+    }
 
     return mime_type;
 };
@@ -55,17 +59,21 @@ MB.CoverArt.image_error = function ($img, image) {
     }
 };
 
-MB.CoverArt.reorder_button = function(direction, $editimage_param, after) {
+MB.CoverArt.reorder_button = function(direction, $container) {
     return function (event) {
-        var $editimage = $editimage_param;
-        if (!$editimage) {
-            $editimage = $(this).closest('div.editimage');
-        }
+        var $editimage = $(this).closest('div.editimage');
+
         var $swap = $editimage[direction === 'next' ? 'next' : 'prev']();
+        var insert_after = (direction === 'next');
+        if (! $swap.length) {
+            // no direct neighbour, so wrap around
+            $swap = $editimage.siblings()[direction === 'next' ? 'first' : 'last']();
+            insert_after = ! insert_after;
+        }
         if ($swap.length)
         {
-            $editimage[direction === 'next' ? 'insertAfter' : 'insertBefore']($swap);
-            after($swap, $editimage)
+            $editimage[insert_after ? 'insertAfter' : 'insertBefore']($swap);
+            $container.sortable('refresh');
         }
 
         $(this).focus();
@@ -74,33 +82,30 @@ MB.CoverArt.reorder_button = function(direction, $editimage_param, after) {
     }
 };
 
-MB.CoverArt.image_position = function () {
-    var $pos = $('#id-add-cover-art\\.position');
-    var $editimage = $('div.editimage');
-
-    $('div.editimage button.left').bind('click.mb',
-      MB.CoverArt.reorder_button('prev', $editimage,
-                                 function() { $pos.val(parseInt($pos.val(), 10) - 1) }));
-
-    $('div.editimage button.right').bind('click.mb',
-      MB.CoverArt.reorder_button('next', $editimage,
-                                 function() { $pos.val(parseInt($pos.val(), 10) + 1) }));
-};
-
 MB.CoverArt.reorder_position = function () {
-    var swap_values = function ($a, $b) {
-        var otherval = $a.val ();
-        $a.val ($b.val ());
-        $b.val (otherval);
-    };
+    var $container = $('div.image-position');
+
+    $container.sortable( {
+            items: '> div.thumb-position',
+            cancel: 'button,div.thumb-position:not(".editimage")',
+            placeholder: 'thumb-position',
+            cursor: 'grabbing',
+            distance: 10,
+            tolerance: 'pointer'
+        } );
 
     $('div.editimage button.left').bind('click.mb',
-      MB.CoverArt.reorder_button('prev', null,
-                                 function($swap, $editimage) { swap_values($swap.find('input.position'), $editimage.find('input.position')) }));
+      MB.CoverArt.reorder_button('prev', $container));
 
     $('div.editimage button.right').bind('click.mb',
-      MB.CoverArt.reorder_button('next', null,
-                                 function($swap, $editimage) { swap_values($swap.find('input.position'), $editimage.find('input.position')) }));
+      MB.CoverArt.reorder_button('next', $container));
+
+    // For the Add Cover Art page, the following is a no-op.
+    $('#reorder-cover-art').submit(
+        function(event) {
+            $('div.editimage input.position').val( function(index, oldvalue) { return (index + 1); } );
+        }
+    );
 
     /* moving <script> elements around with insertBefore() and
      * insertAfter() will rerun them.  The script bits for these
@@ -116,13 +121,11 @@ MB.CoverArt.CoverArtType = function (name, id) {
 }
 
 MB.CoverArt.cover_art_types = function () {
-    var ret = ko.observableArray ();
-
-    _(MB.cover_art_types_json).each (function (item) {
-        ret.push (new MB.CoverArt.CoverArtType(item.l_name, item.id));
-    });
-
-    return ret;
+    return ko.observableArray(
+        _.map(MB.cover_art_types_json, function (item) {
+            return new MB.CoverArt.CoverArtType(item.l_name, item.id);
+        })
+    );
 };
 
 /*
@@ -172,6 +175,10 @@ MB.CoverArt.validate_file = function (file) {
         else if (uint32view[0] === 0x474E5089) /* PNG signature, 0x89 "PNG" */
         {
             deferred.resolve ('image/png');
+        }
+        else if (uint32view[0] === 0x46445025) /* PDF signature, 0x89 "%PDF" */
+        {
+            deferred.resolve('application/pdf');
         }
         else
         {
@@ -320,11 +327,23 @@ MB.CoverArt.FileUpload = function(file) {
     self.comment = ko.observable ("");
     self.types = MB.CoverArt.cover_art_types ();
     self.data = file;
-    self.data_uri = ko.observable("");
+    self.data_uri_data = ko.observable("");
+    self.mime_type = ko.observable("");
+
+    self.data_uri = ko.computed(function() {
+        if (self.mime_type() == "" || self.data_uri_data() == "") {
+            return "";
+        } else if (self.mime_type() == "application/pdf") {
+            return "/static/images/icons/pdf-icon.png";
+        } else {
+            return self.data_uri_data();
+        }
+    });
+
 
     MB.CoverArt.file_data_uri(file)
         .done(function (data_uri) {
-            self.data_uri(data_uri);
+            self.data_uri_data(data_uri);
         });
 
     self.progress = ko.observable (0);
@@ -341,6 +360,7 @@ MB.CoverArt.FileUpload = function(file) {
             self.status (statuses.validate_error)
         })
         .done (function (mime_type) {
+            self.mime_type(mime_type);
             self.status (statuses.waiting)
         });
 
@@ -450,7 +470,7 @@ MB.CoverArt.UploadProcessViewModel = function () {
 
 MB.CoverArt.process_upload_queue = function (gid, upvm, pos) {
 
-    var queue = _(upvm.files_to_upload ()).map (function (item, idx) {
+    var queue = _.map(upvm.files_to_upload(), function (item) {
         return function () {
             return item.doUpload (gid, pos++);
         };
@@ -476,6 +496,14 @@ MB.CoverArt.add_cover_art_submit = function (gid, upvm) {
         .fail (function () {
             $('#add-cover-art-submit').prop ('disabled', false);
         });
+};
+
+MB.CoverArt.set_position = function() {
+    var $editimage = $('div.editimage');
+    if ($editimage.length) {
+        var position = $editimage.index() + 1;
+        $('#id-add-cover-art\\.position').val(position);
+    }
 };
 
 MB.CoverArt.add_cover_art = function (gid) {
@@ -537,6 +565,7 @@ MB.CoverArt.add_cover_art = function (gid) {
 
         $('#add-cover-art-submit').on ('click.mb', function (event) {
             event.preventDefault ();
+            MB.CoverArt.set_position();
             MB.CoverArt.add_cover_art_submit (gid, upvm);
         });
     }
@@ -547,6 +576,7 @@ MB.CoverArt.add_cover_art = function (gid) {
 
         $('#add-cover-art-submit').on ('click.mb', function (event) {
             event.preventDefault ();
+            MB.CoverArt.set_position();
 
             var mime_type = MB.CoverArt.get_image_mime_type ();
             $('#id-add-cover-art\\.mime_type').val(mime_type);

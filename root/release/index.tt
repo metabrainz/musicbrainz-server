@@ -1,21 +1,21 @@
 [% BLOCK layout_head %]
-    [% meta_desc = [] %]
-    [% meta_desc.push(html_escape(release.comment)) IF release.comment %]
-    [% meta_desc.push(l('Type:') _ ' ' _ html_escape(release.release_group.type_name)) IF release.release_group.type_name %]
-    [% meta_desc.push(l('Format:') _ ' ' _ html_escape(release.combined_format_name)) IF release.combined_format_name %]
-    [% year = release.events.slice(0,0).0.date.year IF release.events %]
-    [% IF year %]
-        [% meta_desc.push(l('Year:') _ ' ' _ html_escape(year)) %]
-    [% END %]
-    [% IF release.labels %]
-        [% labels = [] %]
-        [% FOR i=release.labels %]
-            [% labels.push( (i.label.name ? i.label.name : "[unknown]") _ ( i.catalog_number ? (' (' _ i.catalog_number _ ')') : "")) %]
-        [% END %]
-        [% meta_desc.push((labels.size > 1 ? l('Labels:') : l('Label:')) _ ' ' _ html_escape(comma_only_list(labels))) %]
-    [% END %]
-    [% meta_desc.push(l('Barcode:') _ ' ' _ html_escape(release.barcode.format)) IF release.barcode %]
-    [% meta_desc.push(l('Length:') _ ' ' _ html_escape(format_length(release.length))) IF release.length %]
+    [%~ meta_desc = [] ~%]
+    [%~ meta_desc.push(html_escape(release.comment)) IF release.comment ~%]
+    [%~ meta_desc.push(l('Type:') _ ' ' _ html_escape(release.release_group.type_name)) IF release.release_group.type_name ~%]
+    [%~ meta_desc.push(l('Format:') _ ' ' _ html_escape(release.combined_format_name)) IF release.combined_format_name ~%]
+    [%~ year = release.events.slice(0,0).0.date.year IF release.events ~%]
+    [%~ IF year ~%]
+        [% meta_desc.push(l('Year:') _ ' ' _ html_escape(year)) ~%]
+    [%~ END ~%]
+    [%~ IF release.labels ~%]
+        [%~ labels = [] ~%]
+        [%~ FOR i=release.labels ~%]
+            [%~ labels.push( (i.label.name ? i.label.name : "[unknown]") _ ( i.catalog_number ? (' (' _ i.catalog_number _ ')') : "")) ~%]
+        [%~ END ~%]
+        [%~ meta_desc.push((labels.size > 1 ? l('Labels:') : l('Label:')) _ ' ' _ html_escape(comma_only_list(labels))) ~%]
+    [%~ END ~%]
+    [%~ meta_desc.push(l('Barcode:') _ ' ' _ html_escape(release.barcode.format)) IF release.barcode ~%]
+    [%~ meta_desc.push(l('Length:') _ ' ' _ html_escape(format_length(release.length))) IF release.length ~%]
     <meta name="description" content="[% comma_only_list(meta_desc) %]"/>
 [% END %]
 
@@ -59,17 +59,17 @@
           <th class="treleases">[% l('Length') %]</th>
         </tr>
       </thead>
-      <tbody [%- rdfa_about_attr(rdfa_release_curi(release)) -%]>
+      <tbody>
         <!-- ko foreach: mediums -->
           <tr data-bind="css: { subh: true, mp: editsPending > 0}">
             <td>&#xa0;</td>
             <td data-bind="attr: { colspan: 3 + ($root.showVideo ? 1 : 0) + ($root.showArtists ? 1 : 0) }">
               <a data-bind="text: positionName, attr: { href: '#disc' + position }"></a>
-              <!-- [% rdfa_medium_in_release(release, medium) %] -->
+              <!-- [% medium_in_release(release, medium) %] -->
             </td>
           </tr>
           <!-- ko foreach: tracks -->
-          <tr rel="mo:track" data-bind="css: { ev: ($index() + 1) % 2 == 0, mp: editsPending > 0 }, attr: { id: gid }">
+          <tr data-bind="css: { ev: ($index() + 1) % 2 == 0, mp: editsPending > 0 }, attr: { id: gid }">
               <td class="pos t">
                 <!-- ko text: number --><!-- /ko -->
               </td>
@@ -155,14 +155,10 @@
                   </span>
                 </td>
               [% END %]
-              <td class="treleases" data-bind="text: length">
+              <td class="treleases" data-bind="text: formattedLength || '?:??'">
               </td>
             </tr>
           <!-- /ko -->
-
-          <!-- Invalid HTML, commenting out for now.  See MBS-5244.
-            <div [% rdfa_about_attr(rdfa_tracklist_curi(medium)) %] [% rdfa_typeof(rdfa_concept_curi('medium')) %]>
-          -->
         <!-- /ko -->
       </tbody>
     </table>
@@ -179,7 +175,7 @@
                     gid => $target->gid,
                     type => $rel->target_type,
                     name => $target->name,
-                    sortname => $target->can('sort_name') ? $target->sort_name : undef,
+                    sortName => $target->can('sort_name') ? $target->sort_name : undef,
                     comment => $target->can('comment') ? $target->comment : ''
                 },
                 phrase => $rel->phrase
@@ -199,14 +195,14 @@
                             name => $_->name,
                             length => $_->length,
                             editsPending => $_->edits_pending,
-                            artist_credit => [
+                            artistCredit => [
                                 map +{
                                     name => $_->name,
-                                    join_phrase => $_->join_phrase,
+                                    joinPhrase => $_->join_phrase,
                                     artist => {
                                         gid => $_->artist->gid,
                                         id => $_->artist->id,
-                                        sortname => $_->artist->sort_name,
+                                        sortName => $_->artist->sort_name,
                                         name => $_->artist->name,
                                         comment => $_->artist->comment
                                     }
@@ -238,14 +234,14 @@
                     editsPending => $_->edits_pending
                 }, @{ $release->{mediums} }
             ],
-            artist_credit => [
+            artistCredit => [
                 map +{
                     name => $_->name,
-                    join_phrase => $_->join_phrase,
+                    joinPhrase => $_->join_phrase,
                     artist => {
                         gid => $_->artist->gid,
                         id => $_->artist->id,
-                        sortname => $_->artist->sort_name,
+                        sortName => $_->artist->sort_name,
                         name => $_->artist->name
                     }
                 }, $release->artist_credit->all_names

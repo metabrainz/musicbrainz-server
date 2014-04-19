@@ -1,11 +1,13 @@
 package MusicBrainz::Server::Form::Label;
 use HTML::FormHandler::Moose;
+use MusicBrainz::Server::Form::Utils qw( select_options );
 extends 'MusicBrainz::Server::Form';
 
 with 'MusicBrainz::Server::Form::Role::Edit';
 with 'MusicBrainz::Server::Form::Role::CheckDuplicates';
 with 'MusicBrainz::Server::Form::Role::IPI';
 with 'MusicBrainz::Server::Form::Role::ISNI';
+with 'MusicBrainz::Server::Form::Role::ExternalLinks';
 
 has '+name' => ( default => 'edit-label' );
 
@@ -46,7 +48,7 @@ sub edit_field_names
                period.end_date period.ended label_code ipi_codes isni_codes );
 }
 
-sub options_type_id    { shift->_select_all('LabelType') }
+sub options_type_id { select_options(shift->ctx, 'LabelType') }
 
 sub dupe_model { shift->ctx->model('Label') }
 

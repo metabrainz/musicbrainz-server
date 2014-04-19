@@ -1,5 +1,5 @@
 [% IF !full_width %]
-    <div id="sidebar" [% rdfa_about_attr(about) -%]>
+    <div id="sidebar">
         [% content %]
     </div>
 [% END %]

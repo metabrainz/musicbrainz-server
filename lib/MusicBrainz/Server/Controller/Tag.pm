@@ -42,6 +42,7 @@ sub show : Chained('load') PathPart('')
         map {
             my ($entities, $total) = $c->model(type_to_model($_))->tags->find_entities(
                 $tag->id, 10, 0);
+            $c->model('ArtistCredit')->load(map { $_->entity } @$entities);
 
             ($_ . '_tags' => $entities,
              $_ . '_count' => $total)

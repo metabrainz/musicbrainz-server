@@ -38,4 +38,19 @@
     <td>[% edit.display_data.language.name | html%]</td>
   </tr>
   [% END %]
+
+  [% IF edit.data.attributes ~%]
+  [% FOR type=edit.display_data.attributes ~%]
+  <tr>
+    <th>[% add_colon(type.key) %]</th>
+    <td>
+      <ul>
+      [%- FOR attribute=type.value %]
+        <li>[% attribute.l_value | html %]</li>
+      [%- END %]
+      </ul>
+    </td>
+  </tr>
+  [%~ END %]
+  [%~ END %]
 </table>

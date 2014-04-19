@@ -17,8 +17,6 @@ has ctx => (
     is => 'ro'
 );
 
-with 'MusicBrainz::Server::Form::Role::SelectAll';
-
 has link_type_tree => (
     is => 'ro',
     required => 1

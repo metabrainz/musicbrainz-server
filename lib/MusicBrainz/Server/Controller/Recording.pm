@@ -14,6 +14,7 @@ with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::Rating';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
+with 'MusicBrainz::Server::Controller::Role::EditExternalLinks';
 
 use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_CREATE
@@ -139,16 +140,21 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
     edit_arguments => sub {
         my ($self, $c, $recording) = @_;
 
+        my (undef, $track_count) = $c->model('Track')->find_by_recording(
+            $recording->id, 1, 0
+        );
+
         return (
-            post_creation => $self->edit_with_identifiers($c, $recording)
+            post_creation => $self->edit_with_identifiers($c, $recording),
+            form_args => {
+                used_by_tracks => $track_count > 0
+            }
         );
     }
 };
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_RECORDING_MERGE,
-    search_template => 'recording/merge_search.tt',
-    confirmation_template => 'recording/merge_confirm.tt'
 };
 
 with 'MusicBrainz::Server::Controller::Role::Create' => {
@@ -166,6 +172,7 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
             $ret{item} = $rg;
         }
         $ret{post_creation} = $self->create_with_identifiers($c);
+        $ret{form_args} = { used_by_tracks => 0 };
         return %ret;
     },
     dialog_template => 'recording/edit_form.tt',
@@ -185,15 +192,6 @@ sub _merge_load_entities {
             isrcs_differ => any { $get_isrc_set->($_) != $expect } @tail
         );
     }
-};
-
-around '_merge_search' => sub {
-    my $orig = shift;
-    my ($self, $c, $query) = @_;
-
-    my $results = $self->$orig($c, $query);
-    $c->model('ArtistCredit')->load(map { $_->entity } @$results);
-    return $results;
 };
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {

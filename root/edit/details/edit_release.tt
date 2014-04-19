@@ -47,7 +47,6 @@
             event =
               edit.display_data.events.unchanged_countries.${common_event.key};
             '<li>';
-            doRDFa = 0;
             Diff.diff_side(release_event(event.old),
                            release_event(event.new),
                            side == 'old' ? '-' : '+',

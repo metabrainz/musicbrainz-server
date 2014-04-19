@@ -26,13 +26,13 @@
             <tr[% ' class="ev"' IF linenum % 2 == 0 %]>
               [%- IF loop.count == 1 -%]
                 <td>[% result.score %]</td>
-                <td class="video c">[%- IF result.entity.video -%]<img src="/static/images/icons/video.png" alt="This recording is a video" title="This recording is a video" class="bottom"/>[%- END -%]</td>
+                <td class="video c">[%- IF result.entity.video -%]<img src="/static/images/icons/video.png" alt="[% l("This recording is a video") %]" title="[% l("This recording is a video") %]" class="bottom"/>[%- END -%]</td>
                 <td>[% link_entity(result.entity) %]</td>
                 <td>[% result.entity.length | format_length %]</td>
                 <td>[% artist_credit(result.entity.artist_credit) %]</td>
                 <td>
                   [% FOR isrc=result.entity.isrcs %]
-                    [% link_isrc(isrc.isrc) %]<br />
+                    [% link_isrc(isrc) %]<br />
                   [% END %]
                 </td>
               [%- ELSE -%]
@@ -51,13 +51,13 @@
         [% ELSE %]
           <tr[% ' class="ev"' IF linenum % 2 == 0 %]>
             <td>[% result.score %]</td>
-            <td class="video c">[%- IF result.entity.video -%]<img src="/static/images/icons/video.png" alt="video" title="video" class="bottom"/>[%- END -%]</td>
+            <td class="video c">[%- IF result.entity.video -%]<img src="/static/images/icons/video.png" alt="[% l("This recording is a video") %]" title="[% l("This recording is a video") %]" class="bottom"/>[%- END -%]</td>
             <td>[% link_entity(result.entity) %]</td>
             <td>[% result.entity.length | format_length %]</td>
             <td>[% artist_credit(result.entity.artist_credit) %]</td>
             <td>
               [% FOR isrc=result.entity.isrcs %]
-                [% link_isrc(isrc.isrc) %]<br />
+                [% link_isrc(isrc) %]<br />
               [% END %]
             </td>
             <td>[% l('(standalone recording)') %]</td>

@@ -1,8 +1,10 @@
 package MusicBrainz::Server::Controller::Work;
+use 5.10.0;
 use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
+use JSON;
 use MusicBrainz::Server::Constants qw(
     $EDIT_WORK_CREATE
     $EDIT_WORK_EDIT
@@ -25,6 +27,7 @@ with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Cleanup';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
+with 'MusicBrainz::Server::Controller::Role::EditExternalLinks';
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 
@@ -46,13 +49,9 @@ sub show : PathPart('') Chained('load')
 {
     my ($self, $c) = @_;
 
-    my $work = $c->stash->{work};
-    $c->model('WorkType')->load($work);
-    $c->model('Language')->load($work);
-    $c->model('Work')->load_writers($work);
-
     # need to call relationships for overview page
     $self->relationships($c);
+    $c->model('Work')->load_writers($c->stash->{work});
 
     $c->stash->{template} = 'work/index.tt';
 }
@@ -63,6 +62,7 @@ for my $action (qw( relationships aliases tags details )) {
         my $work = $c->stash->{work};
         $c->model('WorkType')->load($work);
         $c->model('Language')->load($work);
+        $c->model('Work')->load_attributes($work);
     };
 }
 
@@ -83,7 +83,6 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
             post_creation => $self->edit_with_identifiers($c, $work),
             edit_args => {
                 to_edit => $work,
-                attributes => []
             }
         );
     }
@@ -91,8 +90,6 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_WORK_MERGE,
-    confirmation_template => 'work/merge_confirm.tt',
-    search_template       => 'work/merge_search.tt',
 };
 
 before 'edit' => sub
@@ -100,7 +97,19 @@ before 'edit' => sub
     my ($self, $c) = @_;
     my $work = $c->stash->{work};
     $c->model('WorkType')->load($work);
+    $c->model('Work')->load_attributes($work);
+    stash_work_attribute_json($c);
 };
+
+sub stash_work_attribute_json {
+    my ($c) = @_;
+    state $json = JSON::Any->new( utf8 => 1 );
+    $c->stash(
+        workAttributeTypesJson => $json->encode({
+            $c->model('Work')->all_work_attributes
+        })
+    );
+}
 
 sub _merge_load_entities
 {
@@ -112,6 +121,7 @@ sub _merge_load_entities
     }
     $c->model('Work')->load_writers(@works);
     $c->model('Work')->load_recording_artists(@works);
+    $c->model('Work')->load_attributes(@works);
     $c->model('Language')->load(@works);
     $c->model('ISWC')->load_for_works(@works);
 };
@@ -127,6 +137,12 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
         );
     },
     dialog_template => 'work/edit_form.tt',
+};
+
+before 'create' => sub
+{
+    my ($self, $c) = @_;
+    stash_work_attribute_json($c);
 };
 
 1;

@@ -97,6 +97,16 @@ MB.tests.URLCleanup.GuessType = function() {
                     'label', 'http://commons.wikimedia.org/wiki/File:EMI_Records.svg',
                     MB.constants.LINK_TYPES.image.label
                 ],
+                [
+                    'work', 'http://commons.wikimedia.org/wiki/File:Kimigayo.score.png',
+                    MB.constants.LINK_TYPES.image.work
+                ],
+
+                [
+                    'work', 'http://www3.cpdl.org/wiki/index.php/Amor_sei_bei_rubini_(Peter_Philips)',
+                    MB.constants.LINK_TYPES.score.work
+                ],
+
                 // IMDb
                 [
                     'artist', 'http://www.imdb.com/name/nm1539156/',
@@ -146,10 +156,6 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release', 'http://www.amazon.co.uk/gp/product/B00005JIWP',
                     MB.constants.LINK_TYPES.amazon.release
                 ],
-                [
-                    'release', 'http://www.archive.org/download/JudasHalo/cover.jpg',
-                    MB.constants.LINK_TYPES.coverart.release
-                ],
                 // Recochoku
                 [
                     'release', 'http://recochoku.jp/album/30282664/',
@@ -192,10 +198,15 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release', 'http://nla.gov.au/anbd.bib-an11701020',
                     MB.constants.LINK_TYPES.otherdatabases.release
                 ],
-                // Mange-Disque
+                // Instagram
                 [
-                    'release', 'http://www.mange-disque.tv/fs/md_429.jpg',
-                    MB.constants.LINK_TYPES.coverart.release
+                    'artist', 'http://instagram.com/deadmau5',
+                    MB.constants.LINK_TYPES.socialnetwork.artist
+                ],
+                // Tumblr
+                [
+                    'artist', 'http://deadmau5.tumblr.com/',
+                    MB.constants.LINK_TYPES.blog.artist
                 ],
                 // Japanese blogs
                 [
@@ -499,6 +510,18 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'release', 'http://vgmdb.net/album/29727',
                     MB.constants.LINK_TYPES.vgmdb.release
+                ],
+                [
+                    'release_group', 'http://www.metal-archives.com/reviews/Myrkwid/Part_I/36375/',
+                    MB.constants.LINK_TYPES.review.release_group
+                ],
+                [
+                    'artist', 'http://www.metal-archives.com/bands/Karna/26483',
+                    MB.constants.LINK_TYPES.otherdatabases.artist
+                ],
+                [
+                    'release_group', 'http://www.metal-archives.com/albums/Corubo/Ypykuera/193860',
+                    MB.constants.LINK_TYPES.otherdatabases.release_group
                 ]
             ];
 
@@ -615,6 +638,19 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release'
                 ],
                 [
+                    'http://www.archive.org/download/JudasHalo/cover.jpg',
+                    'https://archive.org/download/JudasHalo/cover.jpg',
+                ],
+                [
+                    'https://archive.org/details/NormRejection-MaltaNotForSaleEp-Dtm020/',
+                    'https://archive.org/details/NormRejection-MaltaNotForSaleEp-Dtm020',
+                ],
+                [
+                    'http://ia700301.us.archive.org/32/items/NormRejection-MaltaNotForSaleEp-Dtm020/DTM020sml.jpg',
+                    'https://archive.org/download/NormRejection-MaltaNotForSaleEp-Dtm020/DTM020sml.jpg',
+                ],
+
+                [
                     'http://www.jamendo.com/en/list/a84763/crossing-state-lines',
                     'http://www.jamendo.com/list/a84763',
                     'release'
@@ -693,12 +729,6 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://plus.google.com/u/0/101821796946045393834/about',
                     'https://plus.google.com/101821796946045393834',
                     'artist'
-                ],
-                [
-                    // FIXME Need a bad link
-                    'http://www.mange-disque.tv/fs/md_1643.jpg',
-                    'http://www.mange-disque.tv/fs/md_1643.jpg',
-                    'release'
                 ],
                 [
                     'https://embed.spotify.com/?uri=spotify:track:7gwRSZ0EmGWa697ZrE58GA',
@@ -957,6 +987,10 @@ MB.tests.URLCleanup.GuessType = function() {
                     'mora.jp/package/43000002/ANTCD-3106/',
                     'http://mora.jp/package/43000002/ANTCD-3106/',
                 ],
+                [
+                    'http://mora.jp/package/43000021/SQEX-20016_F/#',
+                    'http://mora.jp/package/43000021/SQEX-20016_F/',
+                ],
                 // Soundtrack Collector
                 [
                     'http://soundtrackcollector.com/composer/94/Hans+Zimmer',
@@ -1007,7 +1041,13 @@ MB.tests.URLCleanup.GuessType = function() {
                     'vgmdb.net/album/29727',
                     'http://vgmdb.net/album/29727',
                     'release'
-                ]
+                ],
+
+                [
+                    'http://commons.wikimedia.org/wiki/File:Kimigayo.score.png?uselang=de',
+                    'https://commons.wikimedia.org/wiki/File:Kimigayo.score.png',
+                    'work'
+                ],
             ];
 
         $.each(tests, function(i, test) {

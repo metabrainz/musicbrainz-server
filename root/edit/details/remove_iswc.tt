@@ -1,7 +1,7 @@
 <table class="details remove-iswc">
   <tr>
     <th>[% l('ISWC:') %]</th>
-    <td>[% link_iswc(edit.display_data.iswc.iswc) %]</td>
+    <td>[% link_iswc(edit.display_data.iswc) %]</td>
   </tr>
   <tr>
     <th>[% l('Work:') %]</th>

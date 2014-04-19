@@ -1,6 +1,10 @@
 @import "colors.less";
 /* Edit pages ('edit/index.tt' and 'edit/list.tt') */
 
+.edit-header {
+    padding: 5px 10px 10px 10px;
+}
+
 .overall-vote {
     float: right;
     margin-bottom: 1em;
@@ -16,6 +20,7 @@ dl.edit-status {
 
 .cancel-edit {
     float: right;
+    margin-top: 7px;
     margin-right: -7px;
 }
 
@@ -83,6 +88,11 @@ table.vote-tally .date {
 
 .wrap-block {
     display: inline-block;
+}
+
+.warn-lengths {
+    color: @negative-text;
+    font-weight: bold;
 }
 
 /*
@@ -193,7 +203,7 @@ table.vote-tally .date {
 
 .edit-list .edit-header {
     border-right: 10px solid transparent;
-    padding: 0 10px 10px 10px;
+    padding-top: 0;
 }
 
 .edit-list .edit-header > h2 {
@@ -219,7 +229,7 @@ table.vote-tally .date {
 }
 
 .edit-list .failed { border-right: solid 10px @failed-header; }
-.edit-list .error { border-right: solid 10px @error-header; }
+.edit-list .edit-error { border-right: solid 10px @error-header; }
 
 .edit-list .vote-count {
     text-align: right;
@@ -278,14 +288,12 @@ table.vote-tally .date {
     background-color: @light-bg;
     margin-top: 1em;
     padding: 5px 10px;
+    width: 100%;
 }
 
-.search-help dl.properties {
-    margin: 0;
-}
-
-.search-help dl.properties dt {
-    width: 90px
+.search-help th {
+    text-align: right;
+    width: 90px;
 }
 
 .editnote p { margin-right: 2em; }
@@ -430,18 +438,27 @@ div.editimage p.currently-selected { display: none; }
 div.editimage.selected p.currently-selected { display: block; }
 
 .image-placeholder {
-    width: 125px;
-    height: 125px;
+    width: 121px; /* plus border: 125px in total */
+    height: 121px;
     border: 2px solid @dark-border;
+    margin-bottom: 4px;
 }
 
 .image-placeholder p {
     margin: 15% auto 0 auto;
     display: block;
-    font-size: 200%;
+    font-size: 180%;
     text-align: center;
 }
 
 .expanded-ac-list {
     padding-left: 1em;
+}
+
+#add-cover-art div.thumb-position.editimage,
+#reorder-cover-art div.thumb-position.editimage {
+    cursor: move;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+    cursor: grab;
 }

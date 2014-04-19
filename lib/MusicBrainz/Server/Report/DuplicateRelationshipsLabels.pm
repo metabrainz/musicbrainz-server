@@ -22,7 +22,7 @@ SELECT q.entity AS label_id, row_number() OVER (ORDER BY musicbrainz_collate(lab
     GROUP BY link.link_type, lxx.entity0, lxx.entity1 HAVING COUNT(*) > 1
 
     UNION
- 
+
     SELECT link.link_type, lxx.entity0, lxx.entity1 AS entity
     FROM l_label_label lxx
     JOIN link ON link.id = lxx.link

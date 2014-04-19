@@ -26,6 +26,11 @@
       [% form_row_checkbox(r, 'period.ended', l('This area has ended.')) %]
     </fieldset>
 
+    <fieldset>
+      <legend>[% l('External Links') %]</legend>
+      [% external_links_editor(r.form, 'area') %]
+    </fieldset>
+
     [%- INCLUDE 'forms/edit-note.tt' -%]
     [%- enter_edit() -%]
 
@@ -34,14 +39,14 @@
   <div class="documentation">
     [%- guesscase_bubble(1) -%]
     [%- sortname_bubble() -%]
+    [%- external_link_bubble() -%]
   </div>
 
 </form>
 
 <script type="text/javascript">//<![CDATA[
   (function () {
-    var bubbles = MB.Control.BubbleCollection();
-    MB.Control.initialize_guess_case(bubbles, "area", "id-edit-area");
+    MB.Control.initialize_guess_case("area", "id-edit-area");
 
     MB.utility.setDefaultAction("form.edit-area", "button.submit.positive");
   }());

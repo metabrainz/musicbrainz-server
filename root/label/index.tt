@@ -1,15 +1,15 @@
-[% BLOCK layout_head %]
-    [% meta_desc = [] %]
-    [% meta_desc.push(html_escape(label.comment)) IF label.comment %]
-    [% meta_desc.push(l('Type:') _ ' ' _ html_escape(label.type_name)) IF label.type %]
-    [% meta_desc.push(l('Label Code:') _ ' ' _ html_escape(label.label_code)) IF label.label_code %]
-    [% IF label.begin_date.format %]
-        [% meta_desc.push(l("Founded:") _ ' ' _ label.begin_date.format) %]
-    [% END %]
-    [% IF label.end_date.format %]
-        [% meta_desc.push(l("Defunct:") _ ' ' _ label.end_date.format) %]
-    [% END %]
-    [% meta_desc.push(l('Area:') _ ' ' _ html_escape(label.area.name)) IF label.area %]
+[%~ BLOCK layout_head ~%]
+    [%~ meta_desc = [] ~%]
+    [%~ meta_desc.push(html_escape(label.comment)) IF label.comment ~%]
+    [%~ meta_desc.push(l('Type:') _ ' ' _ html_escape(label.type_name)) IF label.type ~%]
+    [%~ meta_desc.push(l('Label Code:') _ ' ' _ html_escape(label.label_code)) IF label.label_code ~%]
+    [%~ IF label.begin_date.format ~%]
+        [%~ meta_desc.push(l("Founded:") _ ' ' _ label.begin_date.format) ~%]
+    [%~ END ~%]
+    [%~ IF label.end_date.format ~%]
+        [%~ meta_desc.push(l("Defunct:") _ ' ' _ label.end_date.format) ~%]
+    [%~ END ~%]
+    [%~ meta_desc.push(l('Area:') _ ' ' _ html_escape(label.area.name)) IF label.area ~%]
     <meta name="description" content="[% comma_only_list(meta_desc) %]"/>
 [% END %]
 
@@ -30,7 +30,7 @@
     [%- IF releases.size -%]
       <form action="[% c.uri_for_action('/release/merge_queue') %]"
             method="post">
-        [%- INCLUDE 'release_group/releases-list.tt' rdfa_made=1 show_artists=1 filter_label=label WRAPPER 'components/with-pager.tt' -%]
+        [%- INCLUDE 'release_group/releases-list.tt' show_artists=1 filter_label=label WRAPPER 'components/with-pager.tt' -%]
         [% form_submit(l('Add selected releases for merging')) WRAPPER form_row IF c.user_exists %]
       </form>
     [%- ELSE -%]

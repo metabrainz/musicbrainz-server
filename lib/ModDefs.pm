@@ -171,7 +171,7 @@ sub GetQualityText
 use constant EXPIRE_REJECT           => 0;
 # Accept expired edits
 use constant EXPIRE_ACCEPT           => 1;
-# Keep expired edits open for a grace period if the artist has enough subscribers. 
+# Keep expired edits open for a grace period if the artist has enough subscribers.
 # If there are not enough subscribers, accept the edit. If there are and the
 # grace period passes, accept the edit
 use constant EXPIRE_KEEP_OPEN_IF_SUB => 2;
@@ -179,13 +179,13 @@ use constant EXPIRE_KEEP_OPEN_IF_SUB => 2;
 my %ExpireActionNames = (
    EXPIRE_REJECT            . "" => 'reject',
    EXPIRE_ACCEPT            . "" => 'accept',
-   EXPIRE_KEEP_OPEN_IF_SUB  . "" => 'keep open if artist has subscribers' 
+   EXPIRE_KEEP_OPEN_IF_SUB  . "" => 'keep open if artist has subscribers'
 );
 
 sub GetExpireActionText
 {
     return $ExpireActionNames{$_[0]};
-} 
+}
 
 # The constants below define the state a moderation can have:
 
@@ -212,7 +212,7 @@ use constant STATUS_FAILEDPREREQ        => 6;
 # edit rules determined that the edit should be rejected.
 use constant STATUS_NOVOTES             => 7;
 
-# When a moderator wants to delete their own mod, the web interface Moderation 
+# When a moderator wants to delete their own mod, the web interface Moderation
 # its status to 'to be deleted' so that the ModerationBot can clean it and
 # its possible depedents up. Once the ModBot spots this record it cleans up
 # any dependants and then marks the record as 'deleted'.
@@ -249,7 +249,7 @@ sub vote_name
 {
     my $vote = shift;
     return $VoteNames{$vote} || $VoteNames{VOTE_UNKNOWN};
-} 
+}
 
 { my $c; sub type_as_hashref   { $c ||= _hash(qr/^MOD_/   ) } }
 { my $c; sub status_as_hashref { $c ||= _hash(qr/^STATUS_/) } }

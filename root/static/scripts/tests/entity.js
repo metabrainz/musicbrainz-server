@@ -1,75 +1,75 @@
-MB.tests.entity = function() {
-    QUnit.module("MB.entity");
+// This file is part of MusicBrainz, the open internet music database.
+// Copyright (C) 2014 MetaBrainz Foundation
+// Licensed under the GPL version 2, or (at your option) any later version:
+// http://www.gnu.org/licenses/gpl-2.0.txt
 
-    QUnit.test("CoreEntity", function() {
-        var source = MB.entity({gid: 123, type: "recording", name: "a recording"}),
-            target = MB.entity({gid: 456, type: "artist", name: "foo", sortname: "bar"});
+module("MB.entity");
 
-        QUnit.equal(
-            source.html(),
-            '<a href="/recording/123">a recording</a>',
-            "recording link"
-        );
 
-        QUnit.equal(
-            target.html({ "target": "_blank" }),
-            '<a href="/artist/456" target="_blank" title="bar">foo</a>',
-            "artist link"
-        );
-    });
+test("CoreEntity", function () {
+    var source = MB.entity({ gid: 123, type: "recording", name: "a recording" }),
+        target = MB.entity({ gid: 456, type: "artist", name: "foo", sortName: "bar" });
 
-    QUnit.test("ArtistCredit", function() {
-        var data = [
-            [{artist: {gid: 1, name: "a"}, join_phrase: "/"}],
-            [{artist: {gid: 1, name: "a"}, name: "b", join_phrase: "/"}],
-            [{artist: {gid: 1, name: "a"}, join_phrase: "/"}, {artist: {gid: 2, name: "b"}}]
-        ];
+    equal(
+        source.html(),
+        '<a href="/recording/123"><bdi>a recording</bdi></a>',
+        "recording link"
+    );
 
-        var acs = [
-            new MB.entity.ArtistCredit(data[0]),
-            new MB.entity.ArtistCredit(data[1]),
-            new MB.entity.ArtistCredit(data[2])
-        ];
+    equal(
+        target.html({ "target": "_blank" }),
+        '<a href="/artist/456" target="_blank" title="bar"><bdi>foo</bdi></a>',
+        "artist link"
+    );
+});
 
-        QUnit.equal(acs[0].isEqual(acs[1]), false,
-            JSON.stringify(data[0]) + " !== " + JSON.stringify(data[1]));
 
-        QUnit.equal(acs[0].isEqual(acs[2]), false,
-            JSON.stringify(data[0]) + " !== " + JSON.stringify(data[2]));
+test("ArtistCredit", function () {
+    var data = [
+        [ { artist: { gid: 1, name: "a" }, joinPhrase: "/" } ],
+        [ { artist: { gid: 1, name: "a" }, name: "b", joinPhrase: "/" } ],
+        [ { artist: { gid: 1, name: "a" }, joinPhrase: "/" }, { artist: { gid: 2, name: "b" } } ]
+    ];
 
-        QUnit.equal(acs[2].isEqual(acs[2]), true,
-            JSON.stringify(data[2]) + " === " + JSON.stringify(data[2]));
+    var acs = [
+        new MB.entity.ArtistCredit(data[0]),
+        new MB.entity.ArtistCredit(data[1]),
+        new MB.entity.ArtistCredit(data[2])
+    ];
 
-        // test artist credit rendering
-        var ac = [
-            {
-                artist: {
-                    sortname: "Sheridan, Tony",
-                    name: "Tony Sheridan",
-                    id: 117906,
-                    gid: "7f9a3245-df19-4681-8314-4a4c1281dc74"
-                },
-                name: "tony sheridan",
-                join_phrase: " & "
+    ok(!acs[0].isEqual(acs[1]), JSON.stringify(data[0]) + " !== " + JSON.stringify(data[1]));
+    ok(!acs[0].isEqual(acs[2]), JSON.stringify(data[0]) + " !== " + JSON.stringify(data[2]));
+    ok( acs[2].isEqual(acs[2]), JSON.stringify(data[2]) + " === " + JSON.stringify(data[2]));
+
+    // test artist credit rendering
+    var ac = [
+        {
+            artist: {
+                sortName: "Sheridan, Tony",
+                name: "Tony Sheridan",
+                id: 117906,
+                gid: "7f9a3245-df19-4681-8314-4a4c1281dc74"
             },
-            {
-                artist: {
-                    sortname: "Beatles, The",
-                    name: "The Beatles",
-                    id: 303,
-                    gid: "b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d"
-                },
-                join_phrase: ""
-            }
-        ];
+            name: "tony sheridan",
+            joinPhrase: " & "
+        },
+        {
+            artist: {
+                sortName: "Beatles, The",
+                name: "The Beatles",
+                id: 303,
+                gid: "b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d"
+            },
+            joinPhrase: ""
+        }
+    ];
 
-        QUnit.equal(new MB.entity.ArtistCredit(ac).html(),
-            '<span class="name-variation">' +
-            '<a href="/artist/7f9a3245-df19-4681-8314-4a4c1281dc74" ' +
-            'title="Sheridan, Tony">tony sheridan</a></span> &amp; ' +
-            '<a href="/artist/b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d" ' +
-            'title="Beatles, The">The Beatles</a>',
-            "artist credit rendering"
-        );
-    });
-};
+    equal(new MB.entity.ArtistCredit(ac).html(),
+        '<span class="name-variation">' +
+        '<a href="/artist/7f9a3245-df19-4681-8314-4a4c1281dc74" ' +
+        'title="Sheridan, Tony"><bdi>tony sheridan</bdi></a></span> &amp; ' +
+        '<a href="/artist/b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d" ' +
+        'title="Beatles, The"><bdi>The Beatles</bdi></a>',
+        "artist credit rendering"
+    );
+});

@@ -3,6 +3,7 @@ use MooseX::Role::Parameterized -metaclass => 'MusicBrainz::Server::Controller::
 
 use MusicBrainz::Server::Log qw( log_assertion );
 use MusicBrainz::Server::Translation qw ( l ln );
+use MusicBrainz::Server::Validation qw( is_positive_integer );
 
 parameter 'edit_type' => (
     isa => 'Int',
@@ -35,6 +36,7 @@ role {
 
         my $add = exists $c->req->params->{'add-to-merge'} ? $c->req->params->{'add-to-merge'} : [];
         my @add = ref($add) ? @$add : ($add);
+        @add = grep { is_positive_integer($_) } @add;
 
         if (@add) {
             my @loaded = values %{ $model->get_by_ids(@add) };
@@ -169,10 +171,12 @@ role {
                 new_entity => {
                     id => $new->id,
                     name => $new->name,
+                    $self->_extra_entity_data($c, $form, $new)
                 },
                 old_entities => [ map +{
                     id => $entity_id{$_}->id,
-                    name => $entity_id{$_}->name
+                    name => $entity_id{$_}->name,
+                    $self->_extra_entity_data($c, $form, $entity_id{$_})
                 }, @old_ids ],
                 (map { $_->name => $_->value } $form->edit_fields),
                 $self->_merge_parameters($c, $form, $entities)
@@ -188,15 +192,12 @@ role {
 
     method _merge_parameters => sub {
         return ()
-    }
+    };
+
+    method _extra_entity_data => sub {
+        return ()
+    };
 };
 
-sub _merge_search {
-    my ($self, $c, $query) = @_;
-    return $self->_load_paged($c, sub {
-        $c->model('Search')->search(model_to_type($self->{model}),
-                                    $query, shift, shift)
-    });
-}
 1;
-      
+

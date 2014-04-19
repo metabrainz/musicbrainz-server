@@ -17,7 +17,7 @@
             [% FOR medium IN release.mediums %]
                 <tr class="subh">
                     <td colspan="[% c.user_exists ? 4 : 3 %]">
-                        [% rdfa_medium_in_release(release, medium) %]
+                        [% medium_in_release(release, medium) %]
                     </td>
                 </tr>
                 [% FOR medium_cdtoc IN medium.cdtocs %]
@@ -47,12 +47,6 @@
         </table>
     [% ELSE %]
         <p>[% l('There are no disc IDs attached to this release; to find out more about how to add one, see {doc|How to Add Disc IDs}.', { doc => doc_link('How to Add Disc IDs') }) %]</p>
-    [% END %]
-
-    [% IF c.user_exists %]
-    [% ELSE %]
-        <p>[% l('Please {login|log in} to edit the disc IDs for this release.',
-                { login => login_url() }) %]</p>
     [% END %]
 
 [%- END -%]

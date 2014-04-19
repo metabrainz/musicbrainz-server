@@ -99,7 +99,7 @@ function validateDate(field, value) {
     if (field.error === undefined) return false;
 
     var y = value.year(), m = value.month(), d = value.day(),
-        valid = (y === null && m === null && d === null) || MB.utility.validDate(y, m, d);
+        valid = MB.utility.validDate(y, m, d);
 
     field.error(valid ? "" : MB.text.InvalidDate);
     return valid;
@@ -219,7 +219,7 @@ Fields.PartialDate.prototype.write = function(obj) {
 
 Fields.PartialDate.prototype.convert = function(obj) {
     obj = ko.utils.unwrapObservable(obj);
-    obj = _.isString(obj) ? Util.parseDate(obj) : obj;
+    obj = _.isString(obj) ? MB.utility.parseDate(obj) : obj;
     obj = _.isObject(obj) ? obj : {};
     return obj;
 };

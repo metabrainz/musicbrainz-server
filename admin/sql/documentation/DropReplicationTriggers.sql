@@ -1,6 +1,8 @@
 -- Automatically generated, do not edit.
 \unset ON_ERROR_STOP
 
+SET search_path = 'documentation';
+
 DROP TRIGGER replicate ON l_area_area_example;
 DROP TRIGGER replicate ON l_area_artist_example;
 DROP TRIGGER replicate ON l_area_label_example;

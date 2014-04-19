@@ -1,11 +1,11 @@
 [%- info_links = [
     ['index', link_area(area, 'show', l('Overview'))],
-    ['artists', rdfa_seeAlso_link_area(area, 'artists', l('Artists'))],
-    ['labels', rdfa_seeAlso_link_area(area, 'labels', l('Labels'))],
-    ['releases', rdfa_seeAlso_link_area(area, 'releases', l('Releases'))],
-    ['places', rdfa_seeAlso_link_area(area, 'places', l('Places'))],
-    ['aliases', rdfa_seeAlso_link_area(area, 'aliases', l('Aliases'))],
-    ['details', rdfa_seeAlso_link_area(area, 'details', l('Details'))],
+    ['artists', link_area(area, 'artists', l('Artists'))],
+    ['labels', link_area(area, 'labels', l('Labels'))],
+    ['releases', link_area(area, 'releases', l('Releases'))],
+    ['places', link_area(area, 'places', l('Places'))],
+    ['aliases', link_area(area, 'aliases', l('Aliases'))],
+    ['details', link_area(area, 'details', l('Details'))],
 ] -%]
 
 [% IF c.user.is_location_editor %]
@@ -15,7 +15,7 @@
 [% END %]
 
 <div class="areaheader">
-    <h1>[%- rdfa_link_area_header(area) %] [% disambiguation(area) %]</h1>
+    <h1>[%- link_area(area) %] [% disambiguation(area) %]</h1>
     <p class="subheader">
         <span class="prefix">~</span>
              [% html_escape(area.l_type_name) or l('Area') %]

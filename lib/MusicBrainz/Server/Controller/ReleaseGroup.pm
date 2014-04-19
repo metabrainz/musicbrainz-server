@@ -24,6 +24,7 @@ with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::Cleanup';
+with 'MusicBrainz::Server::Controller::Role::EditExternalLinks';
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 
@@ -104,8 +105,6 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_RELEASEGROUP_MERGE,
-    confirmation_template => 'release_group/merge_confirm.tt',
-    search_template       => 'release_group/merge_search.tt',
 };
 
 sub _merge_load_entities
@@ -115,17 +114,6 @@ sub _merge_load_entities
     $c->model('ArtistCredit')->load(@rgs);
     $c->model('ReleaseGroup')->load_meta(@rgs);
     $c->model('ReleaseGroupType')->load(@rgs);
-};
-
-around '_merge_search' => sub
-{
-    my $orig = shift;
-    my ($self, $c, $query) = @_;
-
-    my $results = $self->$orig($c, $query);
-    $c->model('ArtistCredit')->load(map { $_->entity } @$results);
-
-    return $results;
 };
 
 sub set_cover_art : Chained('load') PathPart('set-cover-art') Args(0) Edit

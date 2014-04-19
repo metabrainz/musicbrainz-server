@@ -84,6 +84,8 @@ override 'accept' => sub
                     $self->_conflicting_entity_path($conflict->gid)
                 )
             );
+        } else {
+            die $_;
         }
     };
 };

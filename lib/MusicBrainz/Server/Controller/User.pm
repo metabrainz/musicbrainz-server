@@ -203,13 +203,13 @@ sub _clear_login_cookie
 sub _renew_login_cookie
 {
     my ($self, $c, $user_name) = @_;
-    my $token = $c->model('Editor')->allocate_remember_me_token($user_name);
+    my ($normalized_name, $token) = $c->model('Editor')->allocate_remember_me_token($user_name);
     my $cookie_version = 3;
     $c->res->cookies->{remember_login} = {
         expires => '+1y',
         name => 'remember_me',
         value => $token
-            ? encode('utf-8', join("\t", $cookie_version, $user_name, $token))
+            ? encode('utf-8', join("\t", $cookie_version, $normalized_name, $token))
             : ''
     };
 }
@@ -343,6 +343,7 @@ sub rating_summary : Chained('load') PathPart('ratings') Args(0) HiddenOnSlaves
 
     my $ratings = $c->model('Editor')->summarize_ratings($user,
                         $c->stash->{viewing_own_profile});
+    $c->model('ArtistCredit')->load(map { @$_ } values %$ratings);
 
     $c->stash(
         ratings => $ratings,
@@ -377,6 +378,7 @@ sub ratings : Chained('load') PathPart('ratings') Args(1) HiddenOnSlaves
         $c->model($model)->rating->find_editor_ratings(
             $user->id, $c->user_exists && $user->id == $c->user->id, shift, shift)
     }, limit => 100);
+    $c->model('ArtistCredit')->load(@$ratings);
 
     $c->stash(
         ratings => $ratings,
@@ -397,7 +399,7 @@ sub tags : Chained('load') PathPart('tags')
             unless $user->preferences->public_tags;
     }
 
-    my $tags = $c->model('Editor')->get_tags ($user);
+    my $tags = $c->model('Editor')->get_tags($user);
 
     $c->stash(
         user => $user,
@@ -427,6 +429,7 @@ sub tag : Chained('load') PathPart('tag') Args(1)
             $tag_in_use = 1 if @$entity_tags;
         }
     }
+    $c->model('ArtistCredit')->load(map { @$_ } values %tags);
 
     $c->stash(
         tag_name => $tag_name,

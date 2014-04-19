@@ -11,6 +11,7 @@ use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
 use MusicBrainz::Server::Translation qw ( N_l );
 
 use List::UtilsBy 'nsort_by';
+use Data::Compare;
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::Artwork';
@@ -46,6 +47,10 @@ sub initialize {
     my ($self, %opts) = @_;
     my $release = $opts{release} or die 'Release missing';
 
+    MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
+        if Compare( [ nsort_by { $_->{position} } @{$opts{old}} ],
+                    [ nsort_by { $_->{position} } @{$opts{new}} ] );
+
     $self->data({
         entity => {
             id => $release->id,
@@ -80,8 +85,7 @@ sub accept {
             'This release no longer exists'
         );
 
-
-    my $current = $self->c->model ('CoverArtArchive')->find_available_artwork ($release->gid);
+    my $current = $self->c->model('Artwork')->find_by_release($release);
 
     my @current_ids = sort (map { $_->id } @$current);
     my @edit_ids = sort (map { $_->{id} } @{ $self->data->{old} });

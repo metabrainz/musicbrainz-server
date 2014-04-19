@@ -10,11 +10,6 @@ ALTER TABLE cover_art
    ON DELETE CASCADE;
 
 ALTER TABLE cover_art
-   ADD CONSTRAINT cover_art_fk_edit
-   FOREIGN KEY (edit)
-   REFERENCES musicbrainz.edit(id);
-
-ALTER TABLE cover_art
    ADD CONSTRAINT cover_art_fk_mime_type
    FOREIGN KEY (mime_type)
    REFERENCES cover_art_archive.image_type(mime_type);

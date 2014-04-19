@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Role::Preview;
 use Moose::Role;
 
 has 'preview' => (
-    is => 'rw', 
+    is => 'rw',
     isa => 'Bool',
     default => 0,
 );

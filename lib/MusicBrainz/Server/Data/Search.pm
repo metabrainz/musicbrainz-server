@@ -3,7 +3,7 @@ package MusicBrainz::Server::Data::Search;
 use Carp;
 use Try::Tiny;
 use Moose;
-use Class::MOP;
+use Class::Load qw( load_class );
 use JSON;
 use Sql;
 use Readonly;
@@ -734,7 +734,7 @@ sub external_search
     my ($self, $type, $query, $limit, $page, $adv, $ua) = @_;
 
     my $entity_model = $self->c->model( type_to_model($type) )->_entity_class;
-    Class::MOP::load_class($entity_model);
+    load_class($entity_model);
     my $offset = ($page - 1) * $limit;
 
     $query = uri_escape_utf8($query);
@@ -790,7 +790,9 @@ sub external_search
             use Data::Dumper;
             croak "Failed to decode JSON search data:\n" .
                   Dumper($response->content) . "\n" .
-                  "Exception:" . Dumper($_);
+                  "Exception:\n" . Dumper($_) . "\n" .
+                  "Response headers:\n" .
+                  Dumper($response->headers->as_string);
         };
 
         my @results;

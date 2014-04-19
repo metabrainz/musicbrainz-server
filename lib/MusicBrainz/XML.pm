@@ -50,7 +50,7 @@ sub as_string {
 
 sub _escape
 {
-	my $t = $_[0];
+    my $t = $_[0];
 
     return '' unless defined($t);
 
@@ -58,12 +58,12 @@ sub _escape
     $t =~ s/[\x00-\x08\x0A-\x0C\x0E-\x1A]//g;
 
     $t =~ s/\xFFFD//g;             # remove invalid characters
-	$t =~ s/&/&amp;/g;             # remove XML entities
-	$t =~ s/</&lt;/g;
-	$t =~ s/>/&gt;/g;
-	$t =~ s/"/&quot;/g;
+    $t =~ s/&/&amp;/g;             # remove XML entities
+    $t =~ s/</&lt;/g;
+    $t =~ s/>/&gt;/g;
+    $t =~ s/"/&quot;/g;
 
-	return $t;
+    return $t;
 }
 
 1;

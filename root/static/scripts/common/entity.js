@@ -1,6 +1,6 @@
 /*
    This file is part of MusicBrainz, the open internet music database.
-   Copyright (C) 2013 MetaBrainz Foundation
+   Copyright (C) 2014 MetaBrainz Foundation
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -58,15 +58,24 @@
     };
 
 
+    MB.entity.getFromCache = function (gid) { return entityCache[gid] };
+
+    // Used by unit tests to guarantee isolation of side effects.
+
+    MB.entity.clearCache = function () { entityCache = {} };
+
+
     MB.entity.CoreEntity = aclass(Entity, {
 
         template: _.template(
             "<% if (data.editsPending) { %><span class=\"mp\"><% } %>" +
             "<a href=\"/<%= data.type %>/<%- data.gid %>\"" +
             "<% if (data.target) { %> target=\"_blank\"<% } %>" +
-            "<% if (data.sortname) { %> title=\"<%- data.sortname %>\"" +
-            "<% } %>><%- data.name %></a><% if (data.comment) { %> " +
+            "<% if (data.sortName) { %> title=\"<%- data.sortName %>\"" +
+            "<% } %>><bdi><%- data.name %></bdi></a><% if (data.comment) { %> " +
             "<span class=\"comment\">(<%- data.comment %>)</span><% } %>" +
+            "<% if (data.video) { %> <span class=\"comment\">" +
+            "(<%- data.video %>)</span><% } %>" +
             "<% if (data.editsPending) { %></span><% } %>",
             null,
             {variable: "data"}
@@ -78,22 +87,48 @@
             this.name = data.name || "";
             this.editsPending = data.editsPending;
 
-            if (data.sortname) {
-                this.sortname = data.sortname;
+            if (data.sortName) {
+                this.sortName = data.sortName;
             }
 
             if (data.comment) {
                 this.comment = data.comment;
             }
 
-            if (data.artist_credit) {
-                this.artistCredit =
-                    new MB.entity.ArtistCredit(data.artist_credit);
+            if (data.artistCredit) {
+                this.artistCredit = new MB.entity.ArtistCredit(data.artistCredit);
             }
         },
 
         html: function (renderParams) {
-            return this.template(_.extend(renderParams || {}, this));
+            var json = this.toJSON();
+
+            json.type = json.type.replace("_", "-");
+
+            if (this.gid) {
+                return this.template(_.extend(renderParams || {}, json));
+            }
+            return json.name;
+        },
+
+        toJSON: function () {
+            var obj = {
+                type:    this.type,
+                id:      this.id,
+                gid:     this.gid,
+                name:    ko.unwrap(this.name),
+                comment: ko.unwrap(this.comment)
+            };
+
+            if (this.sortName) {
+                obj.sortName = this.sortName;
+            }
+
+            if (this.artistCredit) {
+                obj.artistCredit = this.artistCredit.toJSON();
+            }
+
+            return obj;
         }
     });
 
@@ -111,16 +146,33 @@
 
         after$init: function (data) {
             this.length = data.length;
+            this.formattedLength = MB.utility.formatTrackLength(data.length);
             this.video = data.video;
 
             // Returned from the /ws/js/recording search.
-            if (_.isObject(data.appears_on)) {
-                this.appearsOn = data.appears_on;
+            if (_.isObject(data.appearsOn)) {
+                // Depending on where we're getting the data from (search
+                // server, /ws/js...) we may have either releases or release
+                // groups here. Assume the latter by default.
+                var appearsOnType = data.appearsOn.entityType || "release_group";
+
+                this.appearsOn = _.map(data.appearsOn.results, function (appearance) {
+                    return MB.entity(appearance, appearsOnType);
+                });
             }
 
             if (_.isString(data.artist)) {
                 this.artist = data.artist;
             }
+        },
+
+        around$html: function (supr, params) {
+            params = params || {};
+
+            if (this.video) {
+                params.video = MB.text.Video;
+            }
+            return supr(params);
         }
     });
 
@@ -131,9 +183,10 @@
 
         after$init: function (data) {
             this.typeID = data.typeID;
-            this.secondaryTypes = data.secondary_types;
+            this.secondaryTypeIDs = data.secondaryTypeIDs;
         }
     });
+
 
     MB.entity.Track = aclass(MB.entity.CoreEntity, {
         type: "track",
@@ -141,7 +194,8 @@
         after$init: function (data) {
             this.number = data.number;
             this.position = data.position;
-            this.length = MB.utility.formatTrackLength(data.length);
+            this.length = data.length;
+            this.formattedLength = MB.utility.formatTrackLength(this.length);
             this.gid = data.gid;
 
             if (data.recording) {
@@ -190,7 +244,7 @@
             "<% if (data.nameVariation) print('<span class=\"name-variation\">'); %>" +
             "<a href=\"/artist/<%- data.gid %>\"" +
             "<% if (data.target) print(' target=\"_blank\"'); %>" +
-            " title=\"<%- data.title %>\"><%- data.name %></a>" +
+            " title=\"<%- data.title %>\"><bdi><%- data.name %></bdi></a>" +
             "<% if (data.nameVariation) print('</span>'); %>" +
             "<%- data.join %>",
             null,
@@ -199,11 +253,16 @@
 
         init: function (data) {
             data = data || {};
-            data.artist = MB.entity(data.artist || {}, "artist");
+            data.artist = data.artist || { name: data.name || "" };
 
-            this.artist = data.artist;
+            this.artist = MB.entity(data.artist, "artist");;
             this.name = data.name || data.artist.name || "";
-            this.joinPhrase = data.join_phrase || "";
+            this.joinPhrase = data.joinPhrase || "";
+        },
+
+        visibleName: function () {
+            var artist = ko.unwrap(this.artist) || {};
+            return ko.unwrap(this.name) || artist.name || "";
         },
 
         isEmpty: function () {
@@ -228,6 +287,15 @@
                    ko.unwrap(this.joinPhrase) === ko.unwrap(other.joinPhrase);
         },
 
+        toJSON: function () {
+            var artist = ko.unwrap(this.artist);
+            return {
+                artist: artist ? artist.toJSON() : null,
+                name: ko.unwrap(this.name) || "",
+                joinPhrase: ko.unwrap(this.joinPhrase) || ""
+            };
+        },
+
         text: function () {
             return ko.unwrap(this.name) + ko.unwrap(this.joinPhrase);
         },
@@ -239,7 +307,7 @@
 
             var name = ko.unwrap(this.name);
             var artist = ko.unwrap(this.artist);
-            var title = artist.sortname;
+            var title = artist.sortName || "";
 
             if (artist.comment) {
                 title += " (" + artist.comment + ")";
@@ -259,7 +327,7 @@
             );
         },
 
-        toJS: function () {
+        toJSON: function () {
             var artist = ko.unwrap(this.artist) || {};
 
             return {
@@ -269,7 +337,7 @@
                     gid:  artist.gid
                 },
                 name: ko.unwrap(this.name),
-                join_phrase: ko.unwrap(this.joinPhrase)
+                joinPhrase: ko.unwrap(this.joinPhrase)
             };
         }
     });
@@ -305,6 +373,14 @@
             return _.every(_.invoke(ko.unwrap(this.names), "isEmpty"));
         },
 
+        isComplete: function () {
+            var names = ko.unwrap(this.names);
+
+            return names.length > 0 && _.all(names, function (name) {
+                return name.hasArtist();
+            });
+        },
+
         text: function () {
             var names = ko.unwrap(this.names);
 
@@ -321,20 +397,19 @@
             }, "");
         },
 
-        toJS: function () {
-            return _.invoke(ko.unwrap(this.names), "toJS");
+        toJSON: function () {
+            return _.invoke(ko.unwrap(this.names), "toJSON");
         }
     });
 
 
     MB.entity.Medium = aclass(Entity, function (data) {
         this.format = data.format;
+        this.formatID = data.formatID;
         this.name = data.name;
         this.position = data.position;
 
-        this.tracks = _.map(data.tracks, function (obj) {
-            return new MB.entity.Track(obj);
-        });
+        this.tracks = _.map(data.tracks, MB.entity.Track);
 
         this.editsPending = data.editsPending;
 
@@ -344,6 +419,18 @@
         if (this.name) {
             this.positionName += ": " + this.name;
         }
+    });
+
+
+    // FIXME: We should be sharing code with the relationship editor here.
+
+    MB.entity.Relationship = aclass(Entity, function (data) {
+        this.id = data.id;
+        this.type0 = data.type0;
+        this.type1 = data.type1;
+        this.linkTypeID = ko.observable(data.linkTypeID);
+        this.entity0ID = ko.observable(data.entity0ID);
+        this.entity1ID = ko.observable(data.entity1ID);
     });
 
 
