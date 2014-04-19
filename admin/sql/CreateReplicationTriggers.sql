@@ -257,6 +257,10 @@ CREATE TRIGGER "reptg_l_instrument_release_group"
 AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_release_group"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_l_instrument_series"
+AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_series"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_l_instrument_url"
 AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_url"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();

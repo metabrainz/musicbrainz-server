@@ -143,6 +143,7 @@ CREATE UNIQUE INDEX l_instrument_place_idx_uniq ON l_instrument_place (entity0, 
 CREATE UNIQUE INDEX l_instrument_recording_idx_uniq ON l_instrument_recording (entity0, entity1, link);
 CREATE UNIQUE INDEX l_instrument_release_idx_uniq ON l_instrument_release (entity0, entity1, link);
 CREATE UNIQUE INDEX l_instrument_release_group_idx_uniq ON l_instrument_release_group (entity0, entity1, link);
+CREATE UNIQUE INDEX l_instrument_series_idx_uniq ON l_instrument_series (entity0, entity1, link);
 CREATE UNIQUE INDEX l_instrument_url_idx_uniq ON l_instrument_url (entity0, entity1, link);
 CREATE UNIQUE INDEX l_instrument_work_idx_uniq ON l_instrument_work (entity0, entity1, link);
 
@@ -219,6 +220,7 @@ CREATE INDEX l_instrument_place_idx_entity1 ON l_instrument_place (entity1);
 CREATE INDEX l_instrument_recording_idx_entity1 ON l_instrument_recording (entity1);
 CREATE INDEX l_instrument_release_idx_entity1 ON l_instrument_release (entity1);
 CREATE INDEX l_instrument_release_group_idx_entity1 ON l_instrument_release_group (entity1);
+CREATE INDEX l_instrument_series_idx_entity1 ON l_instrument_series (entity1);
 CREATE INDEX l_instrument_url_idx_entity1 ON l_instrument_url (entity1);
 CREATE INDEX l_instrument_work_idx_entity1 ON l_instrument_work (entity1);
 

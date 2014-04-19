@@ -155,6 +155,12 @@ CREATE TABLE l_instrument_release_group_example (
   name TEXT NOT NULL
 );
 
+CREATE TABLE l_instrument_series_example (
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_instrument_series.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
 CREATE TABLE l_instrument_url_example (
   id INTEGER NOT NULL, -- PK, references musicbrainz.l_instrument_url.id
   published BOOLEAN NOT NULL,

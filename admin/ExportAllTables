@@ -136,6 +136,7 @@ my @tables = qw(
     l_artist_series
     l_artist_url
     l_artist_work
+    l_instrument_series
     l_label_label
     l_label_place
     l_label_recording
@@ -275,6 +276,7 @@ my @tables = qw(
     documentation.l_artist_series_example
     documentation.l_artist_url_example
     documentation.l_artist_work_example
+    documentation.l_instrument_series_example
     documentation.l_label_label_example
     documentation.l_label_recording_example
     documentation.l_label_release_example
@@ -367,6 +369,7 @@ my @group_core = qw(
     l_artist_series
     l_artist_url
     l_artist_work
+    l_instrument_series
     l_label_label
     l_label_place
     l_label_recording
@@ -598,6 +601,7 @@ my @group_documentation = qw(
     documentation.l_artist_series_example
     documentation.l_artist_url_example
     documentation.l_artist_work_example
+    documentation.l_instrument_series_example
     documentation.l_label_label_example
     documentation.l_label_recording_example
     documentation.l_label_release_example

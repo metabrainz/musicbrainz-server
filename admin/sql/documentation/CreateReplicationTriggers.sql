@@ -113,6 +113,10 @@ AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_release_group_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_series_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
 AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_url_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 

@@ -866,6 +866,8 @@ $BODY$
   EXCEPT
   SELECT entity1 FROM l_artist_series
   EXCEPT
+  SELECT entity1 FROM l_instrument_series
+  EXCEPT
   SELECT entity1 FROM l_label_series
   EXCEPT
   SELECT entity1 FROM l_place_series
