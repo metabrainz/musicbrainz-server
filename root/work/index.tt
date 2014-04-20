@@ -33,7 +33,7 @@
 
     <h2>[% l("Relationships") %]</h2>
     [% INCLUDE "components/relationships.tt" source=work
-        relationships=work.grouped_relationships('artist', 'release-group', 'release', 'work', 'url', 'label', 'place', 'area') %]
+        relationships=work.grouped_relationships('artist', 'release_group', 'release', 'work', 'url', 'label', 'place', 'area') %]
 
     [%- INCLUDE "components/relationships-table.tt" heading=l("Recordings") entity=work -%]
 

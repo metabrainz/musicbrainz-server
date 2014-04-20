@@ -62,7 +62,7 @@ sub relationships_by_link_type_names
 
 sub appearances {
     my $self = shift;
-    my @rels = @{ $self->relationships_by_type($self->_appearances_table_types()) };
+    my @rels = @{ $self->relationships_by_type($self->_appearances_table_types) };
 
     my %groups;
     for my $rel (@rels) {
