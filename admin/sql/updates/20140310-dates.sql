@@ -5,7 +5,7 @@ BEGIN;
 -- CREATE NEW COLUMN --
 -----------------------
 
-ALTER TABLE link_type ADD COLUMN has_dates BOOLEAN NOT NULL DEFAULT FALSE;
+ALTER TABLE link_type ADD COLUMN has_dates BOOLEAN NOT NULL DEFAULT TRUE;
 
 ---------------------------------
 -- MAKE ALL HAVE DATES FOR NOW --
