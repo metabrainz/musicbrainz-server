@@ -8,18 +8,16 @@
                 <th>[% l('Attributes') %]</th>
                 <th>[% l('Artist') %]</th>
                 [% IF c.user_exists %]
-                <th style="width: 10em">[% l('Edit') %]</th>
+                <th class="actions-header">[% l('Edit') %]</th>
                 [% END %]
             </tr>
         </thead>
+        <tbody>
         [%- FOREACH relationship IN entity.appearances.pairs -%]
-            <thead>
                 <tr class="subh">
                     <th></th>
-                    <th colspan="4">[% l(relationship.key) %]</th>
+                    <th colspan="[% c.user_exists ? 4 : 3 %]">[% l(relationship.key) %]</th>
                 </tr>
-            </thead>
-            <tbody>
                 [% FOR rel IN relationship.value %]
                 <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
                     <td>
@@ -76,8 +74,7 @@
                     [% END %]
                 </tr>
                 [% END %]
-            </tbody>
         [%- END -%]
+        </tbody>
     </table>
 [% END %]
-
