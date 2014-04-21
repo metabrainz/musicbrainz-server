@@ -44,6 +44,7 @@ my @tables = qw(
     edit
     edit_area
     edit_artist
+    edit_instrument
     edit_label
     edit_note
     edit_place
@@ -115,10 +116,17 @@ my @tables = qw(
     editor_watch_release_group_type
     editor_watch_release_status
     gender
+    instrument
+    instrument_alias
+    instrument_alias_type
+    instrument_annotation
+    instrument_gid_redirect
+    instrument_type
     isrc
     iswc
     l_area_area
     l_area_artist
+    l_area_instrument
     l_area_label
     l_area_place
     l_area_recording
@@ -128,6 +136,7 @@ my @tables = qw(
     l_area_url
     l_area_work
     l_artist_artist
+    l_artist_instrument
     l_artist_label
     l_artist_place
     l_artist_recording
@@ -136,7 +145,15 @@ my @tables = qw(
     l_artist_series
     l_artist_url
     l_artist_work
+    l_instrument_instrument
+    l_instrument_label
+    l_instrument_place
+    l_instrument_recording
+    l_instrument_release
+    l_instrument_release_group
     l_instrument_series
+    l_instrument_url
+    l_instrument_work
     l_label_label
     l_label_place
     l_label_recording
@@ -259,6 +276,7 @@ my @tables = qw(
 
     documentation.l_area_area_example
     documentation.l_area_artist_example
+    documentation.l_area_instrument_example
     documentation.l_area_label_example
     documentation.l_area_place_example
     documentation.l_area_recording_example
@@ -268,6 +286,7 @@ my @tables = qw(
     documentation.l_area_url_example
     documentation.l_area_work_example
     documentation.l_artist_artist_example
+    documentation.l_artist_instrument_example
     documentation.l_artist_label_example
     documentation.l_artist_recording_example
     documentation.l_artist_release_example
@@ -276,7 +295,15 @@ my @tables = qw(
     documentation.l_artist_series_example
     documentation.l_artist_url_example
     documentation.l_artist_work_example
+    documentation.l_instrument_instrument_example
+    documentation.l_instrument_label_example
+    documentation.l_instrument_place_example
+    documentation.l_instrument_recording_example
+    documentation.l_instrument_release_example
+    documentation.l_instrument_release_group_example
     documentation.l_instrument_series_example
+    documentation.l_instrument_url_example
+    documentation.l_instrument_work_example
     documentation.l_label_label_example
     documentation.l_label_recording_example
     documentation.l_label_release_example
@@ -348,10 +375,17 @@ my @group_core = qw(
     artist_type
     cdtoc
     gender
+    instrument
+    instrument_alias
+    instrument_alias_type
+    instrument_annotation
+    instrument_gid_redirect
+    instrument_type
     isrc
     iswc
     l_area_area
     l_area_artist
+    l_area_instrument
     l_area_label
     l_area_place
     l_area_recording
@@ -361,6 +395,7 @@ my @group_core = qw(
     l_area_url
     l_area_work
     l_artist_artist
+    l_artist_instrument
     l_artist_label
     l_artist_place
     l_artist_recording
@@ -369,7 +404,15 @@ my @group_core = qw(
     l_artist_series
     l_artist_url
     l_artist_work
+    l_instrument_instrument
+    l_instrument_label
+    l_instrument_place
+    l_instrument_recording
+    l_instrument_release
+    l_instrument_release_group
     l_instrument_series
+    l_instrument_url
+    l_instrument_work
     l_label_label
     l_label_place
     l_label_recording
@@ -511,6 +554,7 @@ my @group_edit = qw(
     edit
     edit_area
     edit_artist
+    edit_instrument
     edit_label
     edit_note
     edit_place
@@ -584,6 +628,7 @@ my @group_wikidocs = (
 my @group_documentation = qw(
     documentation.l_area_area_example
     documentation.l_area_artist_example
+    documentation.l_area_instrument_example
     documentation.l_area_label_example
     documentation.l_area_place_example
     documentation.l_area_recording_example
@@ -593,6 +638,7 @@ my @group_documentation = qw(
     documentation.l_area_url_example
     documentation.l_area_work_example
     documentation.l_artist_artist_example
+    documentation.l_artist_instrument_example
     documentation.l_artist_label_example
     documentation.l_artist_recording_example
     documentation.l_artist_release_example
@@ -601,7 +647,15 @@ my @group_documentation = qw(
     documentation.l_artist_series_example
     documentation.l_artist_url_example
     documentation.l_artist_work_example
+    documentation.l_instrument_instrument_example
+    documentation.l_instrument_label_example
+    documentation.l_instrument_place_example
+    documentation.l_instrument_recording_example
+    documentation.l_instrument_release_example
+    documentation.l_instrument_release_group_example
     documentation.l_instrument_series_example
+    documentation.l_instrument_url_example
+    documentation.l_instrument_work_example
     documentation.l_label_label_example
     documentation.l_label_recording_example
     documentation.l_label_release_example
