@@ -439,16 +439,159 @@ ALTER TABLE series_gid_redirect ADD CONSTRAINT series_gid_redirect_pkey PRIMARY 
 ALTER TABLE series_ordering_type ADD CONSTRAINT series_ordering_type_pkey PRIMARY KEY (id);
 ALTER TABLE series_type ADD CONSTRAINT series_type_pkey PRIMARY KEY (id);
 
-CREATE UNIQUE INDEX l_area_series_idx_uniq ON l_area_series (entity0, entity1, link);
-CREATE UNIQUE INDEX l_artist_series_idx_uniq ON l_artist_series (entity0, entity1, link);
-CREATE UNIQUE INDEX l_label_series_idx_uniq ON l_label_series (entity0, entity1, link);
-CREATE UNIQUE INDEX l_place_series_idx_uniq ON l_place_series (entity0, entity1, link);
-CREATE UNIQUE INDEX l_recording_series_idx_uniq ON l_recording_series (entity0, entity1, link);
-CREATE UNIQUE INDEX l_release_series_idx_uniq ON l_release_series (entity0, entity1, link);
-CREATE UNIQUE INDEX l_release_group_series_idx_uniq ON l_release_group_series (entity0, entity1, link);
-CREATE UNIQUE INDEX l_series_series_idx_uniq ON l_series_series (entity0, entity1, link);
-CREATE UNIQUE INDEX l_series_url_idx_uniq ON l_series_url (entity0, entity1, link);
-CREATE UNIQUE INDEX l_series_work_idx_uniq ON l_series_work (entity0, entity1, link);
+DROP INDEX l_area_area_idx_uniq;
+DROP INDEX l_area_artist_idx_uniq;
+DROP INDEX l_area_instrument_idx_uniq;
+DROP INDEX l_area_label_idx_uniq;
+DROP INDEX l_area_place_idx_uniq;
+DROP INDEX l_area_recording_idx_uniq;
+DROP INDEX l_area_release_idx_uniq;
+DROP INDEX l_area_release_group_idx_uniq;
+DROP INDEX l_area_series_idx_uniq;
+DROP INDEX l_area_url_idx_uniq;
+DROP INDEX l_area_work_idx_uniq;
+
+DROP INDEX l_artist_artist_idx_uniq;
+DROP INDEX l_artist_instrument_idx_uniq;
+DROP INDEX l_artist_label_idx_uniq;
+DROP INDEX l_artist_place_idx_uniq;
+DROP INDEX l_artist_recording_idx_uniq;
+DROP INDEX l_artist_release_idx_uniq;
+DROP INDEX l_artist_release_group_idx_uniq;
+DROP INDEX l_artist_series_idx_uniq;
+DROP INDEX l_artist_url_idx_uniq;
+DROP INDEX l_artist_work_idx_uniq;
+
+DROP INDEX l_instrument_instrument_idx_uniq;
+DROP INDEX l_instrument_label_idx_uniq;
+DROP INDEX l_instrument_place_idx_uniq;
+DROP INDEX l_instrument_recording_idx_uniq;
+DROP INDEX l_instrument_release_idx_uniq;
+DROP INDEX l_instrument_release_group_idx_uniq;
+DROP INDEX l_instrument_series_idx_uniq;
+DROP INDEX l_instrument_url_idx_uniq;
+DROP INDEX l_instrument_work_idx_uniq;
+
+DROP INDEX l_label_label_idx_uniq;
+DROP INDEX l_label_place_idx_uniq;
+DROP INDEX l_label_recording_idx_uniq;
+DROP INDEX l_label_release_idx_uniq;
+DROP INDEX l_label_release_group_idx_uniq;
+DROP INDEX l_label_series_idx_uniq;
+DROP INDEX l_label_url_idx_uniq;
+DROP INDEX l_label_work_idx_uniq;
+
+DROP INDEX l_place_place_idx_uniq;
+DROP INDEX l_place_recording_idx_uniq;
+DROP INDEX l_place_release_idx_uniq;
+DROP INDEX l_place_release_group_idx_uniq;
+DROP INDEX l_place_series_idx_uniq;
+DROP INDEX l_place_url_idx_uniq;
+DROP INDEX l_place_work_idx_uniq;
+
+DROP INDEX l_recording_recording_idx_uniq;
+DROP INDEX l_recording_release_idx_uniq;
+DROP INDEX l_recording_release_group_idx_uniq;
+DROP INDEX l_recording_series_idx_uniq;
+DROP INDEX l_recording_url_idx_uniq;
+DROP INDEX l_recording_work_idx_uniq;
+
+DROP INDEX l_release_release_idx_uniq;
+DROP INDEX l_release_release_group_idx_uniq;
+DROP INDEX l_release_series_idx_uniq;
+DROP INDEX l_release_url_idx_uniq;
+DROP INDEX l_release_work_idx_uniq;
+
+DROP INDEX l_release_group_release_group_idx_uniq;
+DROP INDEX l_release_group_series_idx_uniq;
+DROP INDEX l_release_group_url_idx_uniq;
+DROP INDEX l_release_group_work_idx_uniq;
+
+DROP INDEX l_series_series_idx_uniq;
+DROP INDEX l_series_url_idx_uniq;
+DROP INDEX l_series_work_idx_uniq;
+
+DROP INDEX l_url_url_idx_uniq;
+DROP INDEX l_url_work_idx_uniq;
+
+DROP INDEX l_work_work_idx_uniq;
+
+CREATE UNIQUE INDEX l_area_area_idx_uniq ON l_area_area (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_area_artist_idx_uniq ON l_area_artist (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_area_instrument_idx_uniq ON l_area_label (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_area_label_idx_uniq ON l_area_label (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_area_place_idx_uniq ON l_area_place (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_area_recording_idx_uniq ON l_area_recording (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_area_release_idx_uniq ON l_area_release (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_area_release_group_idx_uniq ON l_area_release_group (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_area_series_idx_uniq ON l_area_series (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_area_url_idx_uniq ON l_area_url (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_area_work_idx_uniq ON l_area_work (entity0, entity1, link, link_order);
+
+CREATE UNIQUE INDEX l_artist_artist_idx_uniq ON l_artist_artist (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_artist_instrument_idx_uniq ON l_artist_label (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_artist_label_idx_uniq ON l_artist_label (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_artist_place_idx_uniq ON l_artist_place (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_artist_recording_idx_uniq ON l_artist_recording (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_artist_release_idx_uniq ON l_artist_release (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_artist_release_group_idx_uniq ON l_artist_release_group (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_artist_series_idx_uniq ON l_artist_series (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_artist_url_idx_uniq ON l_artist_url (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_artist_work_idx_uniq ON l_artist_work (entity0, entity1, link, link_order);
+
+CREATE UNIQUE INDEX l_instrument_instrument_idx_uniq ON l_instrument_instrument (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_instrument_label_idx_uniq ON l_instrument_label (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_instrument_place_idx_uniq ON l_instrument_place (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_instrument_recording_idx_uniq ON l_instrument_recording (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_instrument_release_idx_uniq ON l_instrument_release (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_instrument_release_group_idx_uniq ON l_instrument_release_group (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_instrument_series_idx_uniq ON l_instrument_series (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_instrument_url_idx_uniq ON l_instrument_url (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_instrument_work_idx_uniq ON l_instrument_work (entity0, entity1, link, link_order);
+
+CREATE UNIQUE INDEX l_label_label_idx_uniq ON l_label_label (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_label_place_idx_uniq ON l_label_place (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_label_recording_idx_uniq ON l_label_recording (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_label_release_idx_uniq ON l_label_release (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_label_release_group_idx_uniq ON l_label_release_group (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_label_series_idx_uniq ON l_label_series (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_label_url_idx_uniq ON l_label_url (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_label_work_idx_uniq ON l_label_work (entity0, entity1, link, link_order);
+
+CREATE UNIQUE INDEX l_place_place_idx_uniq ON l_place_place (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_place_recording_idx_uniq ON l_place_recording (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_place_release_idx_uniq ON l_place_release (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_place_release_group_idx_uniq ON l_place_release_group (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_place_series_idx_uniq ON l_place_series (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_place_url_idx_uniq ON l_place_url (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_place_work_idx_uniq ON l_place_work (entity0, entity1, link, link_order);
+
+CREATE UNIQUE INDEX l_recording_recording_idx_uniq ON l_recording_recording (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_recording_release_idx_uniq ON l_recording_release (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_recording_release_group_idx_uniq ON l_recording_release_group (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_recording_series_idx_uniq ON l_recording_series (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_recording_url_idx_uniq ON l_recording_url (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_recording_work_idx_uniq ON l_recording_work (entity0, entity1, link, link_order);
+
+CREATE UNIQUE INDEX l_release_release_idx_uniq ON l_release_release (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_release_release_group_idx_uniq ON l_release_release_group (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_release_series_idx_uniq ON l_release_series (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_release_url_idx_uniq ON l_release_url (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_release_work_idx_uniq ON l_release_work (entity0, entity1, link, link_order);
+
+CREATE UNIQUE INDEX l_release_group_release_group_idx_uniq ON l_release_group_release_group (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_release_group_series_idx_uniq ON l_release_group_series (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_release_group_url_idx_uniq ON l_release_group_url (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_release_group_work_idx_uniq ON l_release_group_work (entity0, entity1, link, link_order);
+
+CREATE UNIQUE INDEX l_series_series_idx_uniq ON l_series_series (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_series_url_idx_uniq ON l_series_url (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_series_work_idx_uniq ON l_series_work (entity0, entity1, link, link_order);
+
+CREATE UNIQUE INDEX l_url_url_idx_uniq ON l_url_url (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_url_work_idx_uniq ON l_url_work (entity0, entity1, link, link_order);
+
+CREATE UNIQUE INDEX l_work_work_idx_uniq ON l_work_work (entity0, entity1, link, link_order);
 
 CREATE INDEX l_area_series_idx_entity1 ON l_area_series (entity1);
 CREATE INDEX l_artist_series_idx_entity1 ON l_artist_series (entity1);
