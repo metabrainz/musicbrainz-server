@@ -29,7 +29,7 @@ sub try_and_edit {
     my $edit;
     $c->model('Relationship')->lock_and_do(
         $params{link_type}->entity0_type,
-        $params{link_type}->entity1_type,,
+        $params{link_type}->entity1_type,
         sub {
             $edit = $self->_try_and_insert_edit(
                 $c, $form, $EDIT_RELATIONSHIP_EDIT, %params

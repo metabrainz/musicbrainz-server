@@ -30,7 +30,7 @@ sub check_attributes {
 
         next unless @values;
 
-        # This attribute is allowed on this attirbute, make sure we're within
+        # This attribute is allowed on this attribute, make sure we're within
         # min and max
         my ($min, $max) = @{ $attribute_bounds{$root_id} };
         if (defined($min) && @values < $min) {

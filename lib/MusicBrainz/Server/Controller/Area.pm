@@ -61,7 +61,7 @@ after 'load' => sub
 
     $c->model('AreaType')->load($area);
     $c->model('Area')->load_containment($area);
-    $c->model('Relationship')->load($c->stash->{area});
+    $c->model('Relationship')->load($area);
 };
 
 =head2 show
