@@ -39,3 +39,6 @@ root/static/styles/[a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0
 
 # Ignore generated text_strings.tt for QUnit tests.
 /root/static/tests/text.js
+
+# Ignore schema change catchup folder
+/catchup
