@@ -29,17 +29,17 @@ ALTER TABLE series_type ADD CONSTRAINT allowed_series_entity_type
 -- foreign keys --
 ------------------
 
-ALTER TABLE l_area_series_example ADD CONSTRAINT l_area_series_example_fk_id FOREIGN KEY (id) REFERENCES musicbrainz.l_area_series(id);
-ALTER TABLE l_artist_series_example ADD CONSTRAINT l_artist_series_example_fk_id FOREIGN KEY (id) REFERENCES musicbrainz.l_artist_series(id);
-ALTER TABLE l_instrument_series_example ADD CONSTRAINT l_instrument_series_example_fk_id FOREIGN KEY (id) REFERENCES musicbrainz.l_instrument_series(id);
-ALTER TABLE l_label_series_example ADD CONSTRAINT l_label_series_example_fk_id FOREIGN KEY (id) REFERENCES musicbrainz.l_label_series(id);
-ALTER TABLE l_place_series_example ADD CONSTRAINT l_place_series_example_fk_id FOREIGN KEY (id) REFERENCES musicbrainz.l_place_series(id);
-ALTER TABLE l_recording_series_example ADD CONSTRAINT l_recording_series_example_fk_id FOREIGN KEY (id) REFERENCES musicbrainz.l_recording_series(id);
-ALTER TABLE l_release_group_series_example ADD CONSTRAINT l_release_group_series_example_fk_id FOREIGN KEY (id) REFERENCES musicbrainz.l_release_group_series(id);
-ALTER TABLE l_release_series_example ADD CONSTRAINT l_release_series_example_fk_id FOREIGN KEY (id) REFERENCES musicbrainz.l_release_series(id);
-ALTER TABLE l_series_series_example ADD CONSTRAINT l_series_series_example_fk_id FOREIGN KEY (id) REFERENCES musicbrainz.l_series_series(id);
-ALTER TABLE l_series_url_example ADD CONSTRAINT l_series_url_example_fk_id FOREIGN KEY (id) REFERENCES musicbrainz.l_series_url(id);
-ALTER TABLE l_series_work_example ADD CONSTRAINT l_series_work_example_fk_id FOREIGN KEY (id) REFERENCES musicbrainz.l_series_work(id);
+ALTER TABLE documentation.l_area_series_example ADD CONSTRAINT l_area_series_example_fk_id FOREIGN KEY (id) REFERENCES musicbrainz.l_area_series(id);
+ALTER TABLE documentation.l_artist_series_example ADD CONSTRAINT l_artist_series_example_fk_id FOREIGN KEY (id) REFERENCES musicbrainz.l_artist_series(id);
+ALTER TABLE documentation.l_instrument_series_example ADD CONSTRAINT l_instrument_series_example_fk_id FOREIGN KEY (id) REFERENCES musicbrainz.l_instrument_series(id);
+ALTER TABLE documentation.l_label_series_example ADD CONSTRAINT l_label_series_example_fk_id FOREIGN KEY (id) REFERENCES musicbrainz.l_label_series(id);
+ALTER TABLE documentation.l_place_series_example ADD CONSTRAINT l_place_series_example_fk_id FOREIGN KEY (id) REFERENCES musicbrainz.l_place_series(id);
+ALTER TABLE documentation.l_recording_series_example ADD CONSTRAINT l_recording_series_example_fk_id FOREIGN KEY (id) REFERENCES musicbrainz.l_recording_series(id);
+ALTER TABLE documentation.l_release_group_series_example ADD CONSTRAINT l_release_group_series_example_fk_id FOREIGN KEY (id) REFERENCES musicbrainz.l_release_group_series(id);
+ALTER TABLE documentation.l_release_series_example ADD CONSTRAINT l_release_series_example_fk_id FOREIGN KEY (id) REFERENCES musicbrainz.l_release_series(id);
+ALTER TABLE documentation.l_series_series_example ADD CONSTRAINT l_series_series_example_fk_id FOREIGN KEY (id) REFERENCES musicbrainz.l_series_series(id);
+ALTER TABLE documentation.l_series_url_example ADD CONSTRAINT l_series_url_example_fk_id FOREIGN KEY (id) REFERENCES musicbrainz.l_series_url(id);
+ALTER TABLE documentation.l_series_work_example ADD CONSTRAINT l_series_work_example_fk_id FOREIGN KEY (id) REFERENCES musicbrainz.l_series_work(id);
 
 ALTER TABLE editor_subscribe_series ADD CONSTRAINT editor_subscribe_series_fk_editor FOREIGN KEY (editor) REFERENCES editor(id);
 ALTER TABLE editor_subscribe_series ADD CONSTRAINT editor_subscribe_series_fk_series FOREIGN KEY (series) REFERENCES series(id);

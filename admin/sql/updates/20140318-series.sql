@@ -124,6 +124,13 @@ CREATE TABLE documentation.l_artist_series_example
     name                TEXT NOT NULL
 );
 
+CREATE TABLE documentation.l_instrument_series_example
+(
+    id                  INTEGER NOT NULL, -- PK, references musicbrainz.l_instrument_series.id
+    published           BOOLEAN NOT NULL,
+    name                TEXT NOT NULL
+);
+
 CREATE TABLE documentation.l_label_series_example
 (
     id                  INTEGER NOT NULL, -- PK, references musicbrainz.l_label_series.id
@@ -213,6 +220,17 @@ CREATE TABLE l_area_series
 );
 
 CREATE TABLE l_artist_series
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL,
+    entity0             INTEGER NOT NULL,
+    entity1             INTEGER NOT NULL,
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+);
+
+CREATE TABLE l_instrument_series
 (
     id                  SERIAL,
     link                INTEGER NOT NULL,
@@ -453,22 +471,22 @@ ALTER TABLE l_work_work ADD COLUMN link_order INTEGER NOT NULL DEFAULT 0 CHECK (
 -- CREATE INDEXES --
 --------------------
 
-ALTER TABLE l_area_series_example ADD CONSTRAINT l_area_series_example_pkey PRIMARY KEY (id);
-ALTER TABLE l_artist_series_example ADD CONSTRAINT l_artist_series_example_pkey PRIMARY KEY (id);
-ALTER TABLE l_instrument_series_example ADD CONSTRAINT l_instrument_series_example_pkey PRIMARY KEY (id);
-ALTER TABLE l_label_series_example ADD CONSTRAINT l_label_series_example_pkey PRIMARY KEY (id);
-ALTER TABLE l_place_series_example ADD CONSTRAINT l_place_series_example_pkey PRIMARY KEY (id);
-ALTER TABLE l_recording_series_example ADD CONSTRAINT l_recording_series_example_pkey PRIMARY KEY (id);
-ALTER TABLE l_release_group_series_example ADD CONSTRAINT l_release_group_series_example_pkey PRIMARY KEY (id);
-ALTER TABLE l_release_series_example ADD CONSTRAINT l_release_series_example_pkey PRIMARY KEY (id);
-ALTER TABLE l_series_series_example ADD CONSTRAINT l_series_series_example_pkey PRIMARY KEY (id);
-ALTER TABLE l_series_url_example ADD CONSTRAINT l_series_url_example_pkey PRIMARY KEY (id);
-ALTER TABLE l_series_work_example ADD CONSTRAINT l_series_work_example_pkey PRIMARY KEY (id);
+ALTER TABLE documentation.l_area_series_example ADD CONSTRAINT l_area_series_example_pkey PRIMARY KEY (id);
+ALTER TABLE documentation.l_artist_series_example ADD CONSTRAINT l_artist_series_example_pkey PRIMARY KEY (id);
+ALTER TABLE documentation.l_instrument_series_example ADD CONSTRAINT l_instrument_series_example_pkey PRIMARY KEY (id);
+ALTER TABLE documentation.l_label_series_example ADD CONSTRAINT l_label_series_example_pkey PRIMARY KEY (id);
+ALTER TABLE documentation.l_place_series_example ADD CONSTRAINT l_place_series_example_pkey PRIMARY KEY (id);
+ALTER TABLE documentation.l_recording_series_example ADD CONSTRAINT l_recording_series_example_pkey PRIMARY KEY (id);
+ALTER TABLE documentation.l_release_group_series_example ADD CONSTRAINT l_release_group_series_example_pkey PRIMARY KEY (id);
+ALTER TABLE documentation.l_release_series_example ADD CONSTRAINT l_release_series_example_pkey PRIMARY KEY (id);
+ALTER TABLE documentation.l_series_series_example ADD CONSTRAINT l_series_series_example_pkey PRIMARY KEY (id);
+ALTER TABLE documentation.l_series_url_example ADD CONSTRAINT l_series_url_example_pkey PRIMARY KEY (id);
+ALTER TABLE documentation.l_series_work_example ADD CONSTRAINT l_series_work_example_pkey PRIMARY KEY (id);
 ALTER TABLE editor_subscribe_series ADD CONSTRAINT editor_subscribe_series_pkey PRIMARY KEY (id);
 ALTER TABLE editor_subscribe_series_deleted ADD CONSTRAINT editor_subscribe_series_deleted_pkey PRIMARY KEY (editor, gid);
+
 ALTER TABLE l_area_series ADD CONSTRAINT l_area_series_pkey PRIMARY KEY (id);
 ALTER TABLE l_artist_series ADD CONSTRAINT l_artist_series_pkey PRIMARY KEY (id);
-
 ALTER TABLE l_instrument_series ADD CONSTRAINT l_instrument_series_pkey PRIMARY KEY (id);
 ALTER TABLE l_label_series ADD CONSTRAINT l_label_series_pkey PRIMARY KEY (id);
 ALTER TABLE l_place_series ADD CONSTRAINT l_place_series_pkey PRIMARY KEY (id);
@@ -478,6 +496,7 @@ ALTER TABLE l_release_series ADD CONSTRAINT l_release_series_pkey PRIMARY KEY (i
 ALTER TABLE l_series_series ADD CONSTRAINT l_series_series_pkey PRIMARY KEY (id);
 ALTER TABLE l_series_url ADD CONSTRAINT l_series_url_pkey PRIMARY KEY (id);
 ALTER TABLE l_series_work ADD CONSTRAINT l_series_work_pkey PRIMARY KEY (id);
+
 ALTER TABLE link_attribute_text_value ADD CONSTRAINT link_attribute_text_value_pkey PRIMARY KEY (link, attribute_type);
 ALTER TABLE link_text_attribute_type ADD CONSTRAINT link_text_attribute_type_pkey PRIMARY KEY (attribute_type);
 ALTER TABLE series ADD CONSTRAINT series_pkey PRIMARY KEY (id);
@@ -489,82 +508,82 @@ ALTER TABLE series_gid_redirect ADD CONSTRAINT series_gid_redirect_pkey PRIMARY 
 ALTER TABLE series_ordering_type ADD CONSTRAINT series_ordering_type_pkey PRIMARY KEY (id);
 ALTER TABLE series_type ADD CONSTRAINT series_type_pkey PRIMARY KEY (id);
 
-DROP INDEX l_area_area_idx_uniq;
-DROP INDEX l_area_artist_idx_uniq;
-DROP INDEX l_area_instrument_idx_uniq;
-DROP INDEX l_area_label_idx_uniq;
-DROP INDEX l_area_place_idx_uniq;
-DROP INDEX l_area_recording_idx_uniq;
-DROP INDEX l_area_release_idx_uniq;
-DROP INDEX l_area_release_group_idx_uniq;
-DROP INDEX l_area_series_idx_uniq;
-DROP INDEX l_area_url_idx_uniq;
-DROP INDEX l_area_work_idx_uniq;
+DROP INDEX IF EXISTS l_area_area_idx_uniq;
+DROP INDEX IF EXISTS l_area_artist_idx_uniq;
+DROP INDEX IF EXISTS l_area_instrument_idx_uniq;
+DROP INDEX IF EXISTS l_area_label_idx_uniq;
+DROP INDEX IF EXISTS l_area_place_idx_uniq;
+DROP INDEX IF EXISTS l_area_recording_idx_uniq;
+DROP INDEX IF EXISTS l_area_release_idx_uniq;
+DROP INDEX IF EXISTS l_area_release_group_idx_uniq;
+DROP INDEX IF EXISTS l_area_series_idx_uniq;
+DROP INDEX IF EXISTS l_area_url_idx_uniq;
+DROP INDEX IF EXISTS l_area_work_idx_uniq;
 
-DROP INDEX l_artist_artist_idx_uniq;
-DROP INDEX l_artist_instrument_idx_uniq;
-DROP INDEX l_artist_label_idx_uniq;
-DROP INDEX l_artist_place_idx_uniq;
-DROP INDEX l_artist_recording_idx_uniq;
-DROP INDEX l_artist_release_idx_uniq;
-DROP INDEX l_artist_release_group_idx_uniq;
-DROP INDEX l_artist_series_idx_uniq;
-DROP INDEX l_artist_url_idx_uniq;
-DROP INDEX l_artist_work_idx_uniq;
+DROP INDEX IF EXISTS l_artist_artist_idx_uniq;
+DROP INDEX IF EXISTS l_artist_instrument_idx_uniq;
+DROP INDEX IF EXISTS l_artist_label_idx_uniq;
+DROP INDEX IF EXISTS l_artist_place_idx_uniq;
+DROP INDEX IF EXISTS l_artist_recording_idx_uniq;
+DROP INDEX IF EXISTS l_artist_release_idx_uniq;
+DROP INDEX IF EXISTS l_artist_release_group_idx_uniq;
+DROP INDEX IF EXISTS l_artist_series_idx_uniq;
+DROP INDEX IF EXISTS l_artist_url_idx_uniq;
+DROP INDEX IF EXISTS l_artist_work_idx_uniq;
 
-DROP INDEX l_instrument_instrument_idx_uniq;
-DROP INDEX l_instrument_label_idx_uniq;
-DROP INDEX l_instrument_place_idx_uniq;
-DROP INDEX l_instrument_recording_idx_uniq;
-DROP INDEX l_instrument_release_idx_uniq;
-DROP INDEX l_instrument_release_group_idx_uniq;
-DROP INDEX l_instrument_series_idx_uniq;
-DROP INDEX l_instrument_url_idx_uniq;
-DROP INDEX l_instrument_work_idx_uniq;
+DROP INDEX IF EXISTS l_instrument_instrument_idx_uniq;
+DROP INDEX IF EXISTS l_instrument_label_idx_uniq;
+DROP INDEX IF EXISTS l_instrument_place_idx_uniq;
+DROP INDEX IF EXISTS l_instrument_recording_idx_uniq;
+DROP INDEX IF EXISTS l_instrument_release_idx_uniq;
+DROP INDEX IF EXISTS l_instrument_release_group_idx_uniq;
+DROP INDEX IF EXISTS l_instrument_series_idx_uniq;
+DROP INDEX IF EXISTS l_instrument_url_idx_uniq;
+DROP INDEX IF EXISTS l_instrument_work_idx_uniq;
 
-DROP INDEX l_label_label_idx_uniq;
-DROP INDEX l_label_place_idx_uniq;
-DROP INDEX l_label_recording_idx_uniq;
-DROP INDEX l_label_release_idx_uniq;
-DROP INDEX l_label_release_group_idx_uniq;
-DROP INDEX l_label_series_idx_uniq;
-DROP INDEX l_label_url_idx_uniq;
-DROP INDEX l_label_work_idx_uniq;
+DROP INDEX IF EXISTS l_label_label_idx_uniq;
+DROP INDEX IF EXISTS l_label_place_idx_uniq;
+DROP INDEX IF EXISTS l_label_recording_idx_uniq;
+DROP INDEX IF EXISTS l_label_release_idx_uniq;
+DROP INDEX IF EXISTS l_label_release_group_idx_uniq;
+DROP INDEX IF EXISTS l_label_series_idx_uniq;
+DROP INDEX IF EXISTS l_label_url_idx_uniq;
+DROP INDEX IF EXISTS l_label_work_idx_uniq;
 
-DROP INDEX l_place_place_idx_uniq;
-DROP INDEX l_place_recording_idx_uniq;
-DROP INDEX l_place_release_idx_uniq;
-DROP INDEX l_place_release_group_idx_uniq;
-DROP INDEX l_place_series_idx_uniq;
-DROP INDEX l_place_url_idx_uniq;
-DROP INDEX l_place_work_idx_uniq;
+DROP INDEX IF EXISTS l_place_place_idx_uniq;
+DROP INDEX IF EXISTS l_place_recording_idx_uniq;
+DROP INDEX IF EXISTS l_place_release_idx_uniq;
+DROP INDEX IF EXISTS l_place_release_group_idx_uniq;
+DROP INDEX IF EXISTS l_place_series_idx_uniq;
+DROP INDEX IF EXISTS l_place_url_idx_uniq;
+DROP INDEX IF EXISTS l_place_work_idx_uniq;
 
-DROP INDEX l_recording_recording_idx_uniq;
-DROP INDEX l_recording_release_idx_uniq;
-DROP INDEX l_recording_release_group_idx_uniq;
-DROP INDEX l_recording_series_idx_uniq;
-DROP INDEX l_recording_url_idx_uniq;
-DROP INDEX l_recording_work_idx_uniq;
+DROP INDEX IF EXISTS l_recording_recording_idx_uniq;
+DROP INDEX IF EXISTS l_recording_release_idx_uniq;
+DROP INDEX IF EXISTS l_recording_release_group_idx_uniq;
+DROP INDEX IF EXISTS l_recording_series_idx_uniq;
+DROP INDEX IF EXISTS l_recording_url_idx_uniq;
+DROP INDEX IF EXISTS l_recording_work_idx_uniq;
 
-DROP INDEX l_release_release_idx_uniq;
-DROP INDEX l_release_release_group_idx_uniq;
-DROP INDEX l_release_series_idx_uniq;
-DROP INDEX l_release_url_idx_uniq;
-DROP INDEX l_release_work_idx_uniq;
+DROP INDEX IF EXISTS l_release_release_idx_uniq;
+DROP INDEX IF EXISTS l_release_release_group_idx_uniq;
+DROP INDEX IF EXISTS l_release_series_idx_uniq;
+DROP INDEX IF EXISTS l_release_url_idx_uniq;
+DROP INDEX IF EXISTS l_release_work_idx_uniq;
 
-DROP INDEX l_release_group_release_group_idx_uniq;
-DROP INDEX l_release_group_series_idx_uniq;
-DROP INDEX l_release_group_url_idx_uniq;
-DROP INDEX l_release_group_work_idx_uniq;
+DROP INDEX IF EXISTS l_release_group_release_group_idx_uniq;
+DROP INDEX IF EXISTS l_release_group_series_idx_uniq;
+DROP INDEX IF EXISTS l_release_group_url_idx_uniq;
+DROP INDEX IF EXISTS l_release_group_work_idx_uniq;
 
-DROP INDEX l_series_series_idx_uniq;
-DROP INDEX l_series_url_idx_uniq;
-DROP INDEX l_series_work_idx_uniq;
+DROP INDEX IF EXISTS l_series_series_idx_uniq;
+DROP INDEX IF EXISTS l_series_url_idx_uniq;
+DROP INDEX IF EXISTS l_series_work_idx_uniq;
 
-DROP INDEX l_url_url_idx_uniq;
-DROP INDEX l_url_work_idx_uniq;
+DROP INDEX IF EXISTS l_url_url_idx_uniq;
+DROP INDEX IF EXISTS l_url_work_idx_uniq;
 
-DROP INDEX l_work_work_idx_uniq;
+DROP INDEX IF EXISTS l_work_work_idx_uniq;
 
 CREATE UNIQUE INDEX l_area_area_idx_uniq ON l_area_area (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_area_artist_idx_uniq ON l_area_artist (entity0, entity1, link, link_order);
