@@ -313,7 +313,7 @@ ORDER BY link.id, i_parent.id, i_child.id;
 
 
 -- Flatten the instrument tree
-UPDATE link_attribute_type SET child_order = 0, parent = 14 WHERE root = 14;
+UPDATE link_attribute_type SET child_order = 0, parent = 14 WHERE root = 14 AND id != 14;
 
 
 SELECT setval('instrument_type_id_seq', (SELECT MAX(id) FROM instrument_type));
