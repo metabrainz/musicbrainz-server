@@ -65,6 +65,10 @@ then
     echo `date`" : + weekly"
     ./admin/replication/BundleReplicationPackets $FTP_DATA_DIR/replication --period weekly --require-previous
 
+    echo `date` : 'Dump a copy of release_tag and documentation tables for import on slave databases.'
+    mkdir -p catchup
+    ./admin/ExportAllTables --table='release_tag' --table='documentation.l_area_place_example' --table='documentation.l_artist_place_example' --table='documentation.l_label_place_example' --table='documentation.l_place_place_example' --table='documentation.l_place_recording_example' --table='documentation.l_place_release_example' --table='documentation.l_place_release_group_example' --table='documentation.l_place_url_example' --table='documentation.l_place_work_example' -d catchup
+
     echo `date` : 'Drop replication triggers (musicbrainz)'
     ./admin/psql READWRITE < ./admin/sql/DropReplicationTriggers.sql
 
@@ -74,9 +78,6 @@ then
         ./admin/psql READWRITE < ./admin/sql/$schema/DropReplicationTriggers.sql
     done
 
-    echo `date` : 'Dump a copy of release_tag and documentation tables for import on slave databases.'
-    mkdir -p catchup
-    ./admin/ExportAllTables --table='release_tag' --table='documentation.l_area_place_example' --table='documentation.l_artist_place_example' --table='documentation.l_label_place_example' --table='documentation.l_place_place_example' --table='documentation.l_place_recording_example' --table='documentation.l_place_release_example' --table='documentation.l_place_release_group_example' --table='documentation.l_place_url_example' --table='documentation.l_place_work_example' -d catchup
 fi
 
 if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
