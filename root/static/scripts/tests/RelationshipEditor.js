@@ -5,7 +5,8 @@ var typeInfo = {
             "reverse_phrase": "{additional:additionally} {instrument} sampled by",
             "id": 69,
             "phrase": "{additional} {instrument} samples from",
-            "descr": 1
+            "descr": 1,
+            "has_dates": true
         }
     ],
     "artist-recording": [
@@ -21,19 +22,22 @@ var typeInfo = {
                             "reverse_phrase": "{additional} {guest} {solo} {instrument}",
                             "id": 148,
                             "phrase": "{additional} {guest} {solo} {instrument}",
-                            "descr": 1
+                            "descr": 1,
+                            "has_dates": true
                         },
                         {
                             "attrs": {"1": [0, 1], "3": [0, null], "194": [0, 1], "596": [0, 1]},
                             "reverse_phrase": "{additional} {guest} {solo} {vocal:%|vocals}",
                             "id": 149,
                             "phrase": "{additional} {guest} {solo} {vocal:%|vocals}",
-                            "descr": 1
+                            "descr": 1,
+                            "has_dates": true
                         }
                     ],
                     "id": 156,
                     "phrase": "{additional:additionally} {guest} {solo} performed",
-                    "descr": 1
+                    "descr": 1,
+                    "has_dates": true
                 }
             ],
             "id": 122,
@@ -47,7 +51,8 @@ var typeInfo = {
                     "reverse_phrase": "contains {additional} {instrument} samples by",
                     "id": 154,
                     "phrase": "produced {instrument} material that was {additional:additionally} sampled in",
-                    "descr": 1
+                    "descr": 1,
+                    "has_dates": true
                 }
             ],
             "id": 157,
@@ -61,7 +66,8 @@ var typeInfo = {
                     "reverse_phrase": "{additional} {assistant} {associate} {co:co-}{executive:executive }producer",
                     "id": 141,
                     "phrase": "{additional:additionally} {assistant} {associate} {co:co-}{executive:executive }produced",
-                    "descr": 1
+                    "descr": 1,
+                    "has_dates": true
                 }
             ],
             "id": 160,
@@ -77,7 +83,8 @@ var typeInfo = {
                     "reverse_phrase": "{partial} {live} {instrumental} {cover} recordings",
                     "id": 278,
                     "phrase": "{partial} {live} {instrumental} {cover} recording of",
-                    "descr": 1
+                    "descr": 1,
+                    "has_dates": true
                 }
             ],
             "id": 245,
@@ -93,7 +100,8 @@ var typeInfo = {
                     "reverse_phrase": "{additional} writer",
                     "id": 167,
                     "phrase": "{additional:additionally} wrote",
-                    "descr": 1
+                    "descr": 1,
+                    "has_dates": true
                 }
             ],
             "id": 170,
@@ -105,7 +113,8 @@ var typeInfo = {
             "reverse_phrase": "referred to in medleys",
             "id": 239,
             "phrase": "medley of",
-            "descr": 1
+            "descr": 1,
+            "has_dates": true
         }
     ],
     "recording-recording": [
@@ -116,7 +125,8 @@ var typeInfo = {
                     "descr": 1,
                     "id": 231,
                     "phrase": "{additional} samples",
-                    "reverse_phrase": "{additional:additionally} sampled by"
+                    "reverse_phrase": "{additional:additionally} sampled by",
+                    "has_dates": true
                 }
             ],
             "id": 234,
