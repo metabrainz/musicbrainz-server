@@ -1040,6 +1040,26 @@ div.artwork { position: relative; width: 250px; }
     max-height: 125px;
 }
 
+.artwork-image, .artwork-pdf {
+    position: relative;
+    display: block;
+}
+
+.artwork-pdf .file-format-tag {
+    cursor: help;
+    color: darken(@musicbrainz-purple, 20%);
+    background-color: @effectively-white;
+    border: 1px solid darken(@musicbrainz-purple, 20%);
+    border-radius: 3px;
+    padding: 2px;
+    font-size: 16px;
+    z-index: 1000;
+    font-weight: bold;
+    position: absolute;
+    top: 3px;
+    right: 3px;
+}
+
 div.delete { display: hidden !important; }
 
 .annotation-toggle {
