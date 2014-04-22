@@ -168,6 +168,16 @@
         RelationshipAlreadyExists: '[% l('This relationship already exists.') | js %]',
         SelectedArea: '[% l('You selected {area}.') | js %]',
         MoreDocumentation: '[% l('{description} ({url|more documentation})') | js %]',
-        AddColon: '[% l('{variable}:') | js %]'
+        AddColon: '[% l('{variable}:') | js %]',
+        AddAnotherEntity: {
+            area:            "[% l('Add another area') | js %]",
+            artist:          "[% l('Add another artist') | js %]",
+            label:           "[% l('Add another label') | js %]",
+            place:           "[% l('Add another place') | js %]",
+            recording:       "[% l('Add another recording') | js %]",
+            release:         "[% l('Add another release') | js %]",
+            release_group:   "[% l('Add another release group') | js %]",
+            work:            "[% l('Add another work') | js %]"
+        }
     });
 })(MB);

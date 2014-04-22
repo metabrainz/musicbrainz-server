@@ -111,6 +111,7 @@
 
                         group = {
                             sortKey: key,
+                            targetType: keyParts[0],
                             linkPhrase: keyParts[2],
                             relationships: ko.observableArray(relationships),
 

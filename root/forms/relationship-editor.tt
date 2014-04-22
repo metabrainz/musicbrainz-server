@@ -1,13 +1,16 @@
 [% PROCESS 'components/relationship-editor.tt' %]
 
 [% MACRO add_relationship_button BLOCK %]
-  <button type="button" class="add-item with-label" data-click="openAddDialog">
-    [% l('Add relationship') %]
-  </button>
+
 [% END %]
 
 <fieldset id="relationship-editor" data-bind="with: source, delegatedHandler: 'click'">
-  <legend>[% l('Relationships') %] [% add_relationship_button() %]</legend>
+  <legend>
+    [% l('Relationships') %]
+    <button type="button" class="add-item with-label" data-click="openAddDialog">
+      [% l('Add relationship') %]
+    </button>
+  </legend>
 
   <table class="details row-form" style="width: 100%">
     <tbody data-bind="foreach: $root.sortedRelationships(groupedRelationships($root))">
@@ -32,7 +35,7 @@
       <tr>
         <td></td>
         <td data-bind="with: $parent">
-          [% add_relationship_button() %]
+          <button type="button" class="add-item with-label" data-click="openAddDialog" data-bind="text: MB.text.AddAnotherEntity[$parent.targetType]"></button>
         </td>
       </tr>
     </tbody>
