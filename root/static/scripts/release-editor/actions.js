@@ -132,7 +132,7 @@
             }
 
             // If the medium had a TOC attached, it's no longer valid.
-            delete track.medium.toc;
+            track.medium.toc(null);
 
             return true;
         },
@@ -169,7 +169,7 @@
                 MB.utility.deferFocus(".add-tracks button.add-item", $medium);
             }
 
-            delete medium.toc;
+            medium.toc(null);
         },
 
         guessCaseTrackName: function (track) {

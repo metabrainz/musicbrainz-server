@@ -6,13 +6,7 @@
             [%- FOR entity_tag IN entity_tags -%]
                 <li>
                     [% entity_tag.count %] -
-                    [% IF show_artist_credits %]
-                        [% l('{name} by {artist}', {
-                            name => link_entity(entity_tag.entity),
-                            artist => artist_credit(entity_tag.entity.artist_credit) }) %]
-                    [% ELSE %]
-                        [% link_entity(entity_tag.entity) %]
-                    [% END %]
+                    [% descriptive_link(entity_tag.entity) %]
                 </li>
             [%- END -%]
             </ul>

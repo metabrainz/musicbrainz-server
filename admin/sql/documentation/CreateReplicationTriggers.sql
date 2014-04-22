@@ -13,7 +13,15 @@ AFTER INSERT OR DELETE OR UPDATE ON "l_area_artist_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_area_instrument_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
 AFTER INSERT OR DELETE OR UPDATE ON "l_area_label_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_area_place_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "replicate"
@@ -29,6 +37,10 @@ AFTER INSERT OR DELETE OR UPDATE ON "l_area_release_group_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_area_series_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
 AFTER INSERT OR DELETE OR UPDATE ON "l_area_url_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
@@ -41,7 +53,15 @@ AFTER INSERT OR DELETE OR UPDATE ON "l_artist_artist_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_artist_instrument_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
 AFTER INSERT OR DELETE OR UPDATE ON "l_artist_label_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_artist_place_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "replicate"
@@ -57,6 +77,10 @@ AFTER INSERT OR DELETE OR UPDATE ON "l_artist_release_group_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_artist_series_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
 AFTER INSERT OR DELETE OR UPDATE ON "l_artist_url_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
@@ -65,7 +89,47 @@ AFTER INSERT OR DELETE OR UPDATE ON "l_artist_work_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_instrument_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_label_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_place_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_recording_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_release_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_release_group_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_series_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_url_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_work_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
 AFTER INSERT OR DELETE OR UPDATE ON "l_label_label_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_label_place_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "replicate"
@@ -81,11 +145,43 @@ AFTER INSERT OR DELETE OR UPDATE ON "l_label_release_group_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_label_series_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
 AFTER INSERT OR DELETE OR UPDATE ON "l_label_url_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "replicate"
 AFTER INSERT OR DELETE OR UPDATE ON "l_label_work_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_place_place_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_place_recording_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_place_release_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_place_release_group_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_place_series_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_place_url_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_place_work_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "replicate"
@@ -101,6 +197,10 @@ AFTER INSERT OR DELETE OR UPDATE ON "l_recording_release_group_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_recording_series_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
 AFTER INSERT OR DELETE OR UPDATE ON "l_recording_url_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
@@ -110,6 +210,10 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "replicate"
 AFTER INSERT OR DELETE OR UPDATE ON "l_release_group_release_group_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_release_group_series_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "replicate"
@@ -129,11 +233,27 @@ AFTER INSERT OR DELETE OR UPDATE ON "l_release_release_group_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_release_series_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
 AFTER INSERT OR DELETE OR UPDATE ON "l_release_url_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "replicate"
 AFTER INSERT OR DELETE OR UPDATE ON "l_release_work_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_series_series_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_series_url_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "replicate"
+AFTER INSERT OR DELETE OR UPDATE ON "l_series_work_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "replicate"

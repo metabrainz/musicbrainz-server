@@ -18,7 +18,10 @@ sub fmt { 'xml' }
 Readonly my $xml_decl_begin => '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">';
 Readonly my $xml_decl_end => '</metadata>';
 
+# Dynamically scoped variables for determined what data is displayed.
+# Can change at runtime via 'local' shadowing
 our $in_relation_node = 0;
+our $show_aliases = 1;
 
 sub _list_attributes
 {
@@ -86,7 +89,7 @@ sub _serialize_alias
 {
     my ($self, $data, $gen, $aliases, $inc, $opts) = @_;
 
-    if (!$in_relation_node && @$aliases)
+    if ($show_aliases && @$aliases)
     {
         my %attr = ( count => scalar(@$aliases) );
         my @alias_list;
@@ -626,13 +629,16 @@ sub _serialize_track
     push @track, $gen->length($track->length)
         if $track->length;
 
-    $self->_serialize_artist_credit(\@track, $gen, $track->artist_credit, $inc, $stash)
-        if $inc->artist_credits &&
-            (
-                ($track->recording &&
-                     $track->recording->artist_credit != $track->artist_credit)
-                || !$track->recording
-            );
+    do {
+        local $show_aliases = 0;
+        $self->_serialize_artist_credit(\@track, $gen, $track->artist_credit, $inc, $stash)
+            if $inc->artist_credits &&
+                (
+                    ($track->recording &&
+                         $track->recording->artist_credit != $track->artist_credit)
+                    || !$track->recording
+                );
+    };
 
     $self->_serialize_recording(\@track, $gen, $track->recording, $inc, $stash)
         if ($track->recording);
@@ -965,7 +971,10 @@ sub _serialize_relation
     unless ($rel->target_type eq 'url')
     {
         my $method =  "_serialize_" . $rel->target_type;
+
         local $in_relation_node = 1;
+        local $show_aliases = 0;
+
         $self->$method(\@list, $gen, $rel->target, $inc, $stash);
     }
 

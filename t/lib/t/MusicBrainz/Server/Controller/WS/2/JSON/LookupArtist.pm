@@ -459,7 +459,7 @@ test 'artist lookup with recordings and artist credits' => sub {
                 {
                     id => "0cf3008f-e246-428f-abc1-35f87d584d60",
                     title => "the Love Bug",
-                    length => 242226,
+                    length => 243000,
                     disambiguation => "",
                     "artist-credit" => [
                         {

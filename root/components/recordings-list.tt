@@ -53,7 +53,7 @@
                   [% END %]
               </td>
               [% UNLESS no_ratings%]<td>[% rating_stars(recording) %]</td>[% END %]
-              <td>[% format_length(recording.length) %]</td>
+              <td[% ' class="' _ length_class _ '"' IF length_class %]>[% format_length(recording.length) %]</td>
           </tr>
           [% ELSE %]
           <tr [% ' class="ev"' IF loop.count % 2 == 0 %]>
