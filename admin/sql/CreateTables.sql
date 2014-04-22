@@ -425,6 +425,12 @@ CREATE TABLE edit_recording
     recording           INTEGER NOT NULL  -- PK, references recording.id CASCADE
 );
 
+CREATE TABLE edit_series
+(
+    edit                INTEGER NOT NULL, -- PK, references edit.id
+    series              INTEGER NOT NULL  -- PK, references series.id CASCADE
+);
+
 CREATE TABLE edit_work
 (
     edit                INTEGER NOT NULL, -- PK, references edit.id
@@ -523,6 +529,21 @@ CREATE TABLE editor_subscribe_editor
     editor              INTEGER NOT NULL, -- references editor.id (the one who has subscribed)
     subscribed_editor   INTEGER NOT NULL, -- references editor.id (the one being subscribed)
     last_edit_sent      INTEGER NOT NULL  -- weakly references edit.id
+);
+
+CREATE TABLE editor_subscribe_series
+(
+    id                  SERIAL,
+    editor              INTEGER NOT NULL, -- references editor.id
+    series              INTEGER NOT NULL, -- references series.id
+    last_edit_sent      INTEGER NOT NULL -- references edit.id
+);
+
+CREATE TABLE editor_subscribe_series_deleted
+(
+    editor              INTEGER NOT NULL, -- PK, references editor.id
+    gid                 UUID NOT NULL, -- PK, references series_deletion.gid
+    deleted_by          INTEGER NOT NULL -- references edit.id
 );
 
 CREATE TABLE gender (
@@ -654,7 +675,8 @@ CREATE TABLE l_area_area
     entity0             INTEGER NOT NULL, -- references area.id
     entity1             INTEGER NOT NULL, -- references area.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_area_artist
@@ -664,7 +686,8 @@ CREATE TABLE l_area_artist
     entity0             INTEGER NOT NULL, -- references area.id
     entity1             INTEGER NOT NULL, -- references artist.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_area_instrument
@@ -674,7 +697,8 @@ CREATE TABLE l_area_instrument
     entity0             INTEGER NOT NULL, -- references area.id
     entity1             INTEGER NOT NULL, -- references instrument.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_area_label
@@ -684,7 +708,8 @@ CREATE TABLE l_area_label
     entity0             INTEGER NOT NULL, -- references area.id
     entity1             INTEGER NOT NULL, -- references label.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_area_place
@@ -694,7 +719,8 @@ CREATE TABLE l_area_place
     entity0             INTEGER NOT NULL, -- references area.id
     entity1             INTEGER NOT NULL, -- references place.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_area_recording
@@ -704,7 +730,8 @@ CREATE TABLE l_area_recording
     entity0             INTEGER NOT NULL, -- references area.id
     entity1             INTEGER NOT NULL, -- references recording.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_area_release
@@ -714,7 +741,8 @@ CREATE TABLE l_area_release
     entity0             INTEGER NOT NULL, -- references area.id
     entity1             INTEGER NOT NULL, -- references release.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_area_release_group
@@ -724,7 +752,19 @@ CREATE TABLE l_area_release_group
     entity0             INTEGER NOT NULL, -- references area.id
     entity1             INTEGER NOT NULL, -- references release_group.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+);
+
+CREATE TABLE l_area_series
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references area.id
+    entity1             INTEGER NOT NULL, -- references series.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_area_url
@@ -734,7 +774,8 @@ CREATE TABLE l_area_url
     entity0             INTEGER NOT NULL, -- references area.id
     entity1             INTEGER NOT NULL, -- references url.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_area_work
@@ -744,7 +785,8 @@ CREATE TABLE l_area_work
     entity0             INTEGER NOT NULL, -- references area.id
     entity1             INTEGER NOT NULL, -- references work.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_artist_artist
@@ -754,7 +796,8 @@ CREATE TABLE l_artist_artist
     entity0             INTEGER NOT NULL, -- references artist.id
     entity1             INTEGER NOT NULL, -- references artist.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_artist_instrument
@@ -764,7 +807,8 @@ CREATE TABLE l_artist_instrument
     entity0             INTEGER NOT NULL, -- references artist.id
     entity1             INTEGER NOT NULL, -- references instrument.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_artist_label
@@ -774,7 +818,8 @@ CREATE TABLE l_artist_label
     entity0             INTEGER NOT NULL, -- references artist.id
     entity1             INTEGER NOT NULL, -- references label.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_artist_place
@@ -784,7 +829,8 @@ CREATE TABLE l_artist_place
     entity0             INTEGER NOT NULL, -- references artist.id
     entity1             INTEGER NOT NULL, -- references place.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_artist_recording
@@ -794,7 +840,8 @@ CREATE TABLE l_artist_recording
     entity0             INTEGER NOT NULL, -- references artist.id
     entity1             INTEGER NOT NULL, -- references recording.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_artist_release
@@ -804,7 +851,8 @@ CREATE TABLE l_artist_release
     entity0             INTEGER NOT NULL, -- references artist.id
     entity1             INTEGER NOT NULL, -- references release.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_artist_release_group
@@ -814,7 +862,19 @@ CREATE TABLE l_artist_release_group
     entity0             INTEGER NOT NULL, -- references artist.id
     entity1             INTEGER NOT NULL, -- references release_group.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+);
+
+CREATE TABLE l_artist_series
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references artist.id
+    entity1             INTEGER NOT NULL, -- references series.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_artist_url
@@ -824,7 +884,8 @@ CREATE TABLE l_artist_url
     entity0             INTEGER NOT NULL, -- references artist.id
     entity1             INTEGER NOT NULL, -- references url.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_artist_work
@@ -834,7 +895,8 @@ CREATE TABLE l_artist_work
     entity0             INTEGER NOT NULL, -- references artist.id
     entity1             INTEGER NOT NULL, -- references work.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_label_label
@@ -844,7 +906,8 @@ CREATE TABLE l_label_label
     entity0             INTEGER NOT NULL, -- references label.id
     entity1             INTEGER NOT NULL, -- references label.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_instrument_instrument
@@ -854,7 +917,8 @@ CREATE TABLE l_instrument_instrument
     entity0             INTEGER NOT NULL, -- references instrument.id
     entity1             INTEGER NOT NULL, -- references instrument.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_instrument_label
@@ -864,7 +928,8 @@ CREATE TABLE l_instrument_label
     entity0             INTEGER NOT NULL, -- references instrument.id
     entity1             INTEGER NOT NULL, -- references label.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_instrument_place
@@ -874,7 +939,8 @@ CREATE TABLE l_instrument_place
     entity0             INTEGER NOT NULL, -- references instrument.id
     entity1             INTEGER NOT NULL, -- references place.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_instrument_recording
@@ -884,7 +950,8 @@ CREATE TABLE l_instrument_recording
     entity0             INTEGER NOT NULL, -- references instrument.id
     entity1             INTEGER NOT NULL, -- references recording.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_instrument_release
@@ -894,7 +961,8 @@ CREATE TABLE l_instrument_release
     entity0             INTEGER NOT NULL, -- references instrument.id
     entity1             INTEGER NOT NULL, -- references release.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_instrument_release_group
@@ -904,7 +972,19 @@ CREATE TABLE l_instrument_release_group
     entity0             INTEGER NOT NULL, -- references instrument.id
     entity1             INTEGER NOT NULL, -- references release_group.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+);
+
+CREATE TABLE l_instrument_series
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references instrument.id
+    entity1             INTEGER NOT NULL, -- references series.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_instrument_url
@@ -914,7 +994,8 @@ CREATE TABLE l_instrument_url
     entity0             INTEGER NOT NULL, -- references instrument.id
     entity1             INTEGER NOT NULL, -- references url.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_instrument_work
@@ -924,7 +1005,8 @@ CREATE TABLE l_instrument_work
     entity0             INTEGER NOT NULL, -- references instrument.id
     entity1             INTEGER NOT NULL, -- references work.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_label_place
@@ -934,7 +1016,8 @@ CREATE TABLE l_label_place
     entity0             INTEGER NOT NULL, -- references label.id
     entity1             INTEGER NOT NULL, -- references place.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_label_recording
@@ -944,7 +1027,8 @@ CREATE TABLE l_label_recording
     entity0             INTEGER NOT NULL, -- references label.id
     entity1             INTEGER NOT NULL, -- references recording.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_label_release
@@ -954,7 +1038,8 @@ CREATE TABLE l_label_release
     entity0             INTEGER NOT NULL, -- references label.id
     entity1             INTEGER NOT NULL, -- references release.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_label_release_group
@@ -964,7 +1049,19 @@ CREATE TABLE l_label_release_group
     entity0             INTEGER NOT NULL, -- references label.id
     entity1             INTEGER NOT NULL, -- references release_group.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+);
+
+CREATE TABLE l_label_series
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references label.id
+    entity1             INTEGER NOT NULL, -- references series.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_label_url
@@ -974,7 +1071,8 @@ CREATE TABLE l_label_url
     entity0             INTEGER NOT NULL, -- references label.id
     entity1             INTEGER NOT NULL, -- references url.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_label_work
@@ -984,7 +1082,8 @@ CREATE TABLE l_label_work
     entity0             INTEGER NOT NULL, -- references label.id
     entity1             INTEGER NOT NULL, -- references work.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_place_place
@@ -994,7 +1093,8 @@ CREATE TABLE l_place_place
     entity0             INTEGER NOT NULL, -- references place.id
     entity1             INTEGER NOT NULL, -- references place.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_place_recording
@@ -1004,7 +1104,8 @@ CREATE TABLE l_place_recording
     entity0             INTEGER NOT NULL, -- references place.id
     entity1             INTEGER NOT NULL, -- references recording.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_place_release
@@ -1014,7 +1115,8 @@ CREATE TABLE l_place_release
     entity0             INTEGER NOT NULL, -- references place.id
     entity1             INTEGER NOT NULL, -- references release.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_place_release_group
@@ -1024,7 +1126,19 @@ CREATE TABLE l_place_release_group
     entity0             INTEGER NOT NULL, -- references place.id
     entity1             INTEGER NOT NULL, -- references release_group.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+);
+
+CREATE TABLE l_place_series
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references place.id
+    entity1             INTEGER NOT NULL, -- references series.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_place_url
@@ -1034,7 +1148,8 @@ CREATE TABLE l_place_url
     entity0             INTEGER NOT NULL, -- references place.id
     entity1             INTEGER NOT NULL, -- references url.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_place_work
@@ -1044,7 +1159,8 @@ CREATE TABLE l_place_work
     entity0             INTEGER NOT NULL, -- references place.id
     entity1             INTEGER NOT NULL, -- references work.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_recording_recording
@@ -1054,7 +1170,8 @@ CREATE TABLE l_recording_recording
     entity0             INTEGER NOT NULL, -- references recording.id
     entity1             INTEGER NOT NULL, -- references recording.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_recording_release
@@ -1064,7 +1181,8 @@ CREATE TABLE l_recording_release
     entity0             INTEGER NOT NULL, -- references recording.id
     entity1             INTEGER NOT NULL, -- references release.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_recording_release_group
@@ -1074,7 +1192,19 @@ CREATE TABLE l_recording_release_group
     entity0             INTEGER NOT NULL, -- references recording.id
     entity1             INTEGER NOT NULL, -- references release_group.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+);
+
+CREATE TABLE l_recording_series
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references recording.id
+    entity1             INTEGER NOT NULL, -- references series.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_recording_url
@@ -1084,7 +1214,8 @@ CREATE TABLE l_recording_url
     entity0             INTEGER NOT NULL, -- references recording.id
     entity1             INTEGER NOT NULL, -- references url.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_recording_work
@@ -1094,7 +1225,8 @@ CREATE TABLE l_recording_work
     entity0             INTEGER NOT NULL, -- references recording.id
     entity1             INTEGER NOT NULL, -- references work.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_release_release
@@ -1104,7 +1236,8 @@ CREATE TABLE l_release_release
     entity0             INTEGER NOT NULL, -- references release.id
     entity1             INTEGER NOT NULL, -- references release.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_release_release_group
@@ -1114,7 +1247,19 @@ CREATE TABLE l_release_release_group
     entity0             INTEGER NOT NULL, -- references release.id
     entity1             INTEGER NOT NULL, -- references release_group.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+);
+
+CREATE TABLE l_release_series
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references release.id
+    entity1             INTEGER NOT NULL, -- references series.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_release_url
@@ -1124,7 +1269,8 @@ CREATE TABLE l_release_url
     entity0             INTEGER NOT NULL, -- references release.id
     entity1             INTEGER NOT NULL, -- references url.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_release_work
@@ -1134,7 +1280,8 @@ CREATE TABLE l_release_work
     entity0             INTEGER NOT NULL, -- references release.id
     entity1             INTEGER NOT NULL, -- references work.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_release_group_release_group
@@ -1144,7 +1291,19 @@ CREATE TABLE l_release_group_release_group
     entity0             INTEGER NOT NULL, -- references release_group.id
     entity1             INTEGER NOT NULL, -- references release_group.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+);
+
+CREATE TABLE l_release_group_series
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references release_group.id
+    entity1             INTEGER NOT NULL, -- references series.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_release_group_url
@@ -1154,7 +1313,8 @@ CREATE TABLE l_release_group_url
     entity0             INTEGER NOT NULL, -- references release_group.id
     entity1             INTEGER NOT NULL, -- references url.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_release_group_work
@@ -1164,7 +1324,41 @@ CREATE TABLE l_release_group_work
     entity0             INTEGER NOT NULL, -- references release_group.id
     entity1             INTEGER NOT NULL, -- references work.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+);
+
+CREATE TABLE l_series_series
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references series.id
+    entity1             INTEGER NOT NULL, -- references series.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+);
+
+CREATE TABLE l_series_url
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references series.id
+    entity1             INTEGER NOT NULL, -- references url.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
+);
+
+CREATE TABLE l_series_work
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references series.id
+    entity1             INTEGER NOT NULL, -- references work.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_url_url
@@ -1174,7 +1368,8 @@ CREATE TABLE l_url_url
     entity0             INTEGER NOT NULL, -- references url.id
     entity1             INTEGER NOT NULL, -- references url.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_url_work
@@ -1184,7 +1379,8 @@ CREATE TABLE l_url_work
     entity0             INTEGER NOT NULL, -- references url.id
     entity1             INTEGER NOT NULL, -- references work.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE l_work_work
@@ -1194,7 +1390,8 @@ CREATE TABLE l_work_work
     entity0             INTEGER NOT NULL, -- references work.id
     entity1             INTEGER NOT NULL, -- references work.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
 CREATE TABLE label (
@@ -1429,6 +1626,16 @@ CREATE TABLE link_attribute_credit (
   credited_as TEXT NOT NULL
 );
 
+CREATE TABLE link_text_attribute_type (
+    attribute_type      INT NOT NULL -- PK, references link_attribute_type.id CASCADE
+);
+
+CREATE TABLE link_attribute_text_value (
+    link                INT NOT NULL, -- PK, references link.id
+    attribute_type      INT NOT NULL, -- PK, references link_text_attribute_type.attribute_type
+    text_value          TEXT NOT NULL
+);
+
 CREATE TABLE link_type
 (
     id                  SERIAL,
@@ -1546,6 +1753,11 @@ CREATE TABLE medium_format
     year                SMALLINT,
     has_discids         BOOLEAN NOT NULL DEFAULT FALSE,
     description         TEXT
+);
+
+CREATE TABLE orderable_link_type (
+    link_type           INTEGER NOT NULL, -- references link_type.id
+    direction           SMALLINT NOT NULL DEFAULT 1 CHECK (direction = 1 OR direction = 2)
 );
 
 CREATE TABLE place (
@@ -1937,6 +2149,111 @@ CREATE TABLE script
     iso_number          CHAR(3) NOT NULL, -- ISO 15924
     name                VARCHAR(100) NOT NULL,
     frequency           INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE series
+(
+    id                  SERIAL,
+    gid                 UUID NOT NULL,
+    name                VARCHAR NOT NULL,
+    comment             VARCHAR(255) NOT NULL DEFAULT '',
+    type                INTEGER NOT NULL, -- references series_type.id
+    ordering_attribute  INTEGER NOT NULL, -- references link_text_attribute_type.attribute_type
+    ordering_type       INTEGER NOT NULL, -- references series_ordering_type.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE series_type
+(
+    id                  SERIAL,
+    name                VARCHAR(255) NOT NULL,
+    entity_type         VARCHAR(50) NOT NULL,
+    parent              INTEGER, -- references series_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT
+);
+
+CREATE TABLE series_ordering_type
+(
+    id                  SERIAL,
+    name                VARCHAR(255) NOT NULL,
+    parent              INTEGER, -- references series_ordering_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT
+);
+
+CREATE TABLE series_deletion
+(
+    gid                 UUID NOT NULL, -- PK
+    last_known_name     VARCHAR NOT NULL,
+    last_known_comment  TEXT NOT NULL,
+    deleted_at          timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE TABLE series_gid_redirect
+(
+    gid                 UUID NOT NULL, -- PK
+    new_id              INTEGER NOT NULL, -- references series.id
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE series_alias_type
+(
+    id                  SERIAL, -- PK
+    name                TEXT NOT NULL,
+    parent              INTEGER, -- references series_alias_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT
+);
+
+CREATE TABLE series_alias
+(
+    id                  SERIAL, -- PK
+    series              INTEGER NOT NULL, -- references series.id
+    name                VARCHAR NOT NULL,
+    locale              TEXT,
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    type                INTEGER, -- references series_alias_type.id
+    sort_name           VARCHAR NOT NULL,
+    begin_date_year     SMALLINT,
+    begin_date_month    SMALLINT,
+    begin_date_day      SMALLINT,
+    end_date_year       SMALLINT,
+    end_date_month      SMALLINT,
+    end_date_day        SMALLINT,
+    primary_for_locale  BOOLEAN NOT NULL DEFAULT FALSE,
+    ended               BOOLEAN NOT NULL DEFAULT FALSE
+      CHECK (
+        (
+          -- If any end date fields are not null, then ended must be true
+          (end_date_year IS NOT NULL OR
+           end_date_month IS NOT NULL OR
+           end_date_day IS NOT NULL) AND
+          ended = TRUE
+        ) OR (
+          -- Otherwise, all end date fields must be null
+          (end_date_year IS NULL AND
+           end_date_month IS NULL AND
+           end_date_day IS NULL)
+        )
+      ),
+    CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)),
+    CONSTRAINT search_hints_are_empty
+      CHECK (
+        (type <> 2) OR (
+          type = 2 AND sort_name = name AND
+          begin_date_year IS NULL AND begin_date_month IS NULL AND begin_date_day IS NULL AND
+          end_date_year IS NULL AND end_date_month IS NULL AND end_date_day IS NULL AND
+          primary_for_locale IS FALSE AND locale IS NULL
+        )
+      )
+);
+
+CREATE TABLE series_annotation (
+    series              INTEGER NOT NULL, -- PK, references series.id
+    annotation          INTEGER NOT NULL -- PK, references annotation.id
 );
 
 CREATE TABLE tag

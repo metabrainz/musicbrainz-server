@@ -46,6 +46,7 @@ DROP FUNCTION empty_artists();
 DROP FUNCTION empty_labels();
 DROP FUNCTION empty_places();
 DROP FUNCTION empty_release_groups();
+DROP FUNCTION empty_series();
 DROP FUNCTION empty_works();
 DROP FUNCTION end_area_implies_ended();
 DROP FUNCTION end_date_implies_ended();

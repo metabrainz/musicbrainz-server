@@ -155,6 +155,12 @@ CREATE TABLE l_instrument_release_group_example (
   name TEXT NOT NULL
 );
 
+CREATE TABLE l_instrument_series_example (
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_instrument_series.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
 CREATE TABLE l_instrument_url_example (
   id INTEGER NOT NULL, -- PK, references musicbrainz.l_instrument_url.id
   published BOOLEAN NOT NULL,
@@ -325,6 +331,68 @@ CREATE TABLE l_release_group_url_example (
 
 CREATE TABLE l_release_group_work_example (
   id INTEGER NOT NULL, -- PK, references musicbrainz.l_release_group_work.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
+
+
+CREATE TABLE l_area_series_example (
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_area_series.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
+CREATE TABLE l_artist_series_example (
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_artist_series.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
+CREATE TABLE l_label_series_example (
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_label_series.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
+CREATE TABLE l_place_series_example (
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_place_series.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
+CREATE TABLE l_recording_series_example (
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_recording_series.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
+CREATE TABLE l_release_series_example (
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_release_series.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
+CREATE TABLE l_release_group_series_example (
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_release_group_series.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
+CREATE TABLE l_series_series_example (
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_series_series.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
+CREATE TABLE l_series_url_example (
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_series_url.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
+CREATE TABLE l_series_work_example (
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_series_work.id
   published BOOLEAN NOT NULL,
   name TEXT NOT NULL
 );

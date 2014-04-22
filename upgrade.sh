@@ -118,6 +118,12 @@ OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140214-add-instruments.sq
 echo `date` : 'Add instrument entity documentation tables'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140215-add-instruments-documentation.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
+echo `date` : 'Adding series'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140318-series.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+echo `date` : 'Updating functions affected by series and instrument'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140418-series-instrument-functions.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 ################################################################################
 # Re-enable replication
 
@@ -146,6 +152,9 @@ then
 
     echo `date` : 'Adding triggers for instruments'
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140217-instrument-triggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+    echo `date` : 'Adding constraints for series'
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140318-series-fks.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
     echo `date` : Enabling last_updated triggers
     ./admin/sql/EnableLastUpdatedTriggers.pl

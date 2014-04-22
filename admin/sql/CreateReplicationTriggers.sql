@@ -101,6 +101,7 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 -- not replicated:
 -- editor editor_preference editor_subscribe_artist editor_subscribe_label
 -- editor_subscribe_editor editor_collection editor_collection_release
+-- editor_subscribe_series
 
 CREATE TRIGGER "reptg_cdtoc"
 AFTER INSERT OR DELETE OR UPDATE ON "cdtoc"
@@ -180,6 +181,10 @@ CREATE TRIGGER "reptg_l_area_release_group"
 AFTER INSERT OR DELETE OR UPDATE ON "l_area_release_group"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_l_area_series"
+AFTER INSERT OR DELETE OR UPDATE ON "l_area_series"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_l_area_url"
 AFTER INSERT OR DELETE OR UPDATE ON "l_area_url"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -216,6 +221,10 @@ CREATE TRIGGER "reptg_l_artist_release_group"
 AFTER INSERT OR DELETE OR UPDATE ON "l_artist_release_group"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_l_artist_series"
+AFTER INSERT OR DELETE OR UPDATE ON "l_artist_series"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_l_artist_url"
 AFTER INSERT OR DELETE OR UPDATE ON "l_artist_url"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -248,6 +257,10 @@ CREATE TRIGGER "reptg_l_instrument_release_group"
 AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_release_group"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_l_instrument_series"
+AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_series"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_l_instrument_url"
 AFTER INSERT OR DELETE OR UPDATE ON "l_instrument_url"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -276,6 +289,10 @@ CREATE TRIGGER "reptg_l_label_release_group"
 AFTER INSERT OR DELETE OR UPDATE ON "l_label_release_group"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_l_label_series"
+AFTER INSERT OR DELETE OR UPDATE ON "l_label_series"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_l_label_url"
 AFTER INSERT OR DELETE OR UPDATE ON "l_label_url"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -300,6 +317,10 @@ CREATE TRIGGER "reptg_l_place_release_group"
 AFTER INSERT OR DELETE OR UPDATE ON "l_place_release_group"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_l_place_series"
+AFTER INSERT OR DELETE OR UPDATE ON "l_place_series"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_l_place_url"
 AFTER INSERT OR DELETE OR UPDATE ON "l_place_url"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -320,6 +341,10 @@ CREATE TRIGGER "reptg_l_recording_release_group"
 AFTER INSERT OR DELETE OR UPDATE ON "l_recording_release_group"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_l_recording_series"
+AFTER INSERT OR DELETE OR UPDATE ON "l_recording_series"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_l_recording_url"
 AFTER INSERT OR DELETE OR UPDATE ON "l_recording_url"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -336,6 +361,10 @@ CREATE TRIGGER "reptg_l_release_release_group"
 AFTER INSERT OR DELETE OR UPDATE ON "l_release_release_group"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_l_release_series"
+AFTER INSERT OR DELETE OR UPDATE ON "l_release_series"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_l_release_url"
 AFTER INSERT OR DELETE OR UPDATE ON "l_release_url"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -348,12 +377,28 @@ CREATE TRIGGER "reptg_l_release_group_release_group"
 AFTER INSERT OR DELETE OR UPDATE ON "l_release_group_release_group"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_l_release_group_series"
+AFTER INSERT OR DELETE OR UPDATE ON "l_release_group_series"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_l_release_group_url"
 AFTER INSERT OR DELETE OR UPDATE ON "l_release_group_url"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_l_release_group_work"
 AFTER INSERT OR DELETE OR UPDATE ON "l_release_group_work"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_series_series"
+AFTER INSERT OR DELETE OR UPDATE ON "l_series_series"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_series_url"
+AFTER INSERT OR DELETE OR UPDATE ON "l_series_url"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_series_work"
+AFTER INSERT OR DELETE OR UPDATE ON "l_series_work"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_l_url_url"
@@ -583,6 +628,34 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 CREATE TRIGGER "reptg_script"
 AFTER INSERT OR DELETE OR UPDATE ON "script"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_series"
+AFTER INSERT OR DELETE OR UPDATE ON "series"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_series_alias"
+AFTER INSERT OR DELETE OR UPDATE ON "series_alias"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_series_alias_type"
+AFTER INSERT OR DELETE OR UPDATE ON "series_alias_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_series_annotation"
+AFTER INSERT OR DELETE OR UPDATE ON "series_annotation"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_series_type"
+AFTER INSERT OR DELETE OR UPDATE ON "series_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_series_ordering_type"
+AFTER INSERT OR DELETE OR UPDATE ON "series_ordering_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_series_gid_redirect"
+AFTER INSERT OR DELETE OR UPDATE ON "series_gid_redirect"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_tag"
 AFTER INSERT OR DELETE OR UPDATE ON "tag"
