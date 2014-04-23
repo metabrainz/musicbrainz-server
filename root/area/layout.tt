@@ -61,8 +61,6 @@
                     <hr/>
                 [% END %]
 
-                <hr/>
-
                 <li>[% link_entity(area, 'open_edits', l('Open edits')) %]</li>
                 <li>[% link_entity(area, 'edits', l('Editing history')) %]</li>
             [% ELSE %]
