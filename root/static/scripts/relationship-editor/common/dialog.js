@@ -513,7 +513,7 @@
             if (child.description && !child.deprecated) {
                 return child.id;
             }
-            if (id = defaultLinkType(child)) {
+            if (child.children && (id = defaultLinkType(child))) {
                 return id;
             }
         }
