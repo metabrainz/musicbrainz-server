@@ -5,7 +5,11 @@ var typeInfo = {
             reversePhrase: "{additional:additionally} {instrument} sampled by",
             id: 69,
             phrase: "{additional} {instrument} samples from",
-            description: 1
+            description: 1,
+            type0: "recording",
+            type1: "release",
+            cardinality0: 0,
+            cardinality1: 1
         }
     ],
     "artist-recording": [
@@ -21,23 +25,39 @@ var typeInfo = {
                             reversePhrase: "{additional} {guest} {solo} {instrument}",
                             id: 148,
                             phrase: "{additional} {guest} {solo} {instrument}",
-                            description: 1
+                            description: 1,
+                            type0: "artist",
+                            type1: "recording",
+                            cardinality0: 1,
+                            cardinality1: 0
                         },
                         {
                             attributes: { 1: [0, 1], 3: [0, null], 194: [0, 1], 596: [0, 1] },
                             reversePhrase: "{additional} {guest} {solo} {vocal:%|vocals}",
                             id: 149,
                             phrase: "{additional} {guest} {solo} {vocal:%|vocals}",
-                            description: 1
+                            description: 1,
+                            type0: "artist",
+                            type1: "recording",
+                            cardinality0: 1,
+                            cardinality1: 0
                         }
                     ],
                     id: 156,
                     phrase: "{additional:additionally} {guest} {solo} performed",
-                    description: 1
+                    description: 1,
+                    type0: "artist",
+                    type1: "recording",
+                    cardinality0: 1,
+                    cardinality1: 0
                 }
             ],
             id: 122,
-            phrase: "performance"
+            phrase: "performance",
+            type0: "artist",
+            type1: "recording",
+            cardinality0: 1,
+            cardinality1: 0
         },
         {
             reversePhrase: "remixes",
@@ -47,11 +67,19 @@ var typeInfo = {
                     reversePhrase: "contains {additional} {instrument} samples by",
                     id: 154,
                     phrase: "produced {instrument} material that was {additional:additionally} sampled in",
-                    description: 1
+                    description: 1,
+                    type0: "artist",
+                    type1: "recording",
+                    cardinality0: 1,
+                    cardinality1: 0
                 }
             ],
             id: 157,
-            phrase: "remixes"
+            phrase: "remixes",
+            type0: "artist",
+            type1: "recording",
+            cardinality0: 1,
+            cardinality1: 0
         },
         {
             reversePhrase: "production",
@@ -61,11 +89,19 @@ var typeInfo = {
                     reversePhrase: "{additional} {assistant} {associate} {co:co-}{executive:executive }producer",
                     id: 141,
                     phrase: "{additional:additionally} {assistant} {associate} {co:co-}{executive:executive }produced",
-                    description: 1
+                    description: 1,
+                    type0: "artist",
+                    type1: "recording",
+                    cardinality0: 1,
+                    cardinality1: 0
                 }
             ],
             id: 160,
-            phrase: "production"
+            phrase: "production",
+            type0: "artist",
+            type1: "recording",
+            cardinality0: 1,
+            cardinality1: 0
         }
     ],
     "recording-work": [
@@ -77,11 +113,19 @@ var typeInfo = {
                     reversePhrase: "{partial} {live} {instrumental} {cover} recordings",
                     id: 278,
                     phrase: "{partial} {live} {instrumental} {cover} recording of",
-                    description: 1
+                    description: 1,
+                    type0: "recording",
+                    type1: "work",
+                    cardinality0: 0,
+                    cardinality1: 1
                 }
             ],
             id: 245,
-            phrase: "covers or other versions"
+            phrase: "covers or other versions",
+            type0: "recording",
+            type1: "work",
+            cardinality0: 0,
+            cardinality1: 1
         }
     ],
     "artist-work": [
@@ -93,11 +137,19 @@ var typeInfo = {
                     reversePhrase: "{additional} writer",
                     id: 167,
                     phrase: "{additional:additionally} wrote",
-                    description: 1
+                    description: 1,
+                    type0: "artist",
+                    type1: "work",
+                    cardinality0: 1,
+                    cardinality1: 0
                 }
             ],
             id: 170,
-            phrase: "composition"
+            phrase: "composition",
+            type0: "artist",
+            type1: "work",
+            cardinality0: 1,
+            cardinality1: 0
         }
     ],
     "recording-recording": [
@@ -108,12 +160,20 @@ var typeInfo = {
                     description: 1,
                     id: 231,
                     phrase: "{additional} samples",
-                    reversePhrase: "{additional:additionally} sampled by"
+                    reversePhrase: "{additional:additionally} sampled by",
+                    type0: "recording",
+                    type1: "recording",
+                    cardinality0: 0,
+                    cardinality1: 0
                 }
             ],
             id: 234,
             phrase: "remixes",
-            reversePhrase: "remixes"
+            reversePhrase: "remixes",
+            type0: "recording",
+            type1: "recording",
+            cardinality0: 0,
+            cardinality1: 0
         }
     ]
 };
@@ -359,7 +419,7 @@ module("relationship editor", {
 
         this.vm = null;
 
-        MB.entity.clearCache();
+        MB.entityCache = {};
     }
 });
 

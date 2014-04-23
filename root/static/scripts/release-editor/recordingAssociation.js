@@ -171,7 +171,7 @@
         // any existing recordings on the release. However, /ws/js/release does
         // not provide any appearsOn data. So now that we have it, we can add
         // it in.
-        var recording = MB.entity.getFromCache(clean.gid);
+        var recording = MB.entityCache[clean.gid];
 
         if (recording && !recording.appearsOn) {
             recording.appearsOn = _.map(appearsOn, function (appearance) {

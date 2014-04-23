@@ -19,9 +19,6 @@
 
 (function () {
 
-    // Used by MB.entity() below to cache everything with a GID.
-    var entityCache = {};
-
     // Base class that both core and non-core entities inherit from. The only
     // purpose this really serves is allowing the `data instanceof Entity`
     // check in MB.entity() to work.
@@ -49,20 +46,16 @@
         if (!entityClass) {
             throw "Unknown type of entity: " + type;
         }
-        if (data.gid) {
-            return entityCache[data.gid] || (
-                entityCache[data.gid] = new entityClass(data)
-            );
+        var id = type === "url" ? data.name : data.gid;
+        if (id) {
+            return MB.entityCache[id] || (MB.entityCache[id] = new entityClass(data));
         }
         return new entityClass(data);
     };
 
 
-    MB.entity.getFromCache = function (gid) { return entityCache[gid] };
-
-    // Used by unit tests to guarantee isolation of side effects.
-
-    MB.entity.clearCache = function () { entityCache = {} };
+    // Used by MB.entity() above to cache everything with a GID.
+    MB.entityCache = {};
 
 
     MB.entity.CoreEntity = aclass(Entity, {
@@ -501,6 +494,14 @@
 
         hasChanges: function () {
             return this.added() || this.removed() || this.edited();
+        },
+
+        isDuplicate: function (other) {
+            return (
+                this !== other &&
+                this.linkTypeID() == other.linkTypeID() &&
+                _.isEqual(this.entities(), other.entities())
+            );
         }
     });
 

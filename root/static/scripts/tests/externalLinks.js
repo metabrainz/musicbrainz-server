@@ -13,7 +13,7 @@ module("external links editor", {
               <tr data-bind="urlCleanup: \'artist\'">\
                 <td>\
                   <select data-bind="value: linkTypeID, visible: showTypeSelection()">\
-                    <option value="" selected="selected"> </option>\
+                    <option value=""> </option>\
                     <option value="179">Wikipedia</option>\
                     <option value="180">Discogs</option>\
                     <option value="181">MusicMoz</option>\
@@ -24,19 +24,49 @@ module("external links editor", {
                   <input type="text" data-bind="value: url" />\
                 </td>\
               </tr>\
+              <!-- ko with: error() -->\
               <tr>\
-                <td class="errors" data-bind="text: error()"></td>\
+                <td class="errors" data-bind="text: $data"></td>\
               </tr>\
+              <!-- /ko -->\
             </tbody>\
             </table>\
             <div id="external-link-bubble"></div>\
         '));
 
         MB.typeInfoByID = {
-            179: { deprecated: false, phrase: "Wikipedia" },
-            180: { deprecated: false, phrase: "Discogs" },
-            181: { deprecated: true, phrase: "MusicMoz" },
-            188: { deprecated: false, phrase: "other databases" }
+            179: {
+                deprecated: false,
+                phrase: "Wikipedia",
+                type0: "artist",
+                type1: "url",
+                cardinality0: 0,
+                cardinality1: 0
+            },
+            180: {
+                deprecated: false,
+                phrase: "Discogs",
+                type0: "artist",
+                type1: "url",
+                cardinality0: 0,
+                cardinality1: 0
+            },
+            181: {
+                deprecated: true,
+                phrase: "MusicMoz",
+                type0: "artist",
+                type1: "url",
+                cardinality0: 0,
+                cardinality1: 0
+            },
+            188: {
+                deprecated: false,
+                phrase: "other databases",
+                type0: "artist",
+                type1: "url",
+                cardinality0: 0,
+                cardinality1: 0
+            }
         };
 
         MB.faviconClasses = { "wikipedia.org": "wikipedia" };
@@ -47,7 +77,6 @@ module("external links editor", {
             var url = this.viewModel.getRelationship({ target: target }, source);
 
             source.relationships.push(url);
-            url.cleanup.urlControl.change();
 
             return url;
         };

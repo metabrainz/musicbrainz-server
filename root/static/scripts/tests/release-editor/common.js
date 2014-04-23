@@ -36,7 +36,7 @@ releaseEditor.test = {
                     releaseEditor.rootField.release(null);
                 }
 
-                MB.entity.clearCache();
+                MB.entityCache = {};
             }
         });
     },

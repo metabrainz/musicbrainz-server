@@ -151,14 +151,9 @@
             return [phrase, extraAttributes];
         },
 
-        isDuplicate: function (other) {
-            var entities = this.entities.peek();
-            var otherEntities = other.entities.peek();
-
+        around$isDuplicate: function (supr, other) {
             return (
-                this.linkTypeID.peek() == other.linkTypeID.peek() &&
-                entities[0] === otherEntities[0] &&
-                entities[1] === otherEntities[1] &&
+                supr(other) &&
                 MB.utility.mergeDates(this.period.beginDate, other.period.beginDate) &&
                 MB.utility.mergeDates(this.period.endDate, other.period.endDate) &&
                 _.isEqual(this.attributes(), other.attributes())

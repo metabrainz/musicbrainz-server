@@ -14,6 +14,12 @@ MB.edit.create = function () {
 };
 
 
+MB.typeInfoByID = {
+    76: { deprecated: false, phrase: "Discogs" },
+    77: { deprecated: false, phrase: "Wikipedia" }
+};
+
+
 releaseEditor.test.module("add-release edits", function () {
     var data = $.extend(true, {}, releaseEditor.test.testRelease);
     var medium = data.mediums[0];

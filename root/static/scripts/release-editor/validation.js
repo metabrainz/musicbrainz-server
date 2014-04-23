@@ -121,7 +121,7 @@
             utils.withRelease(function (release) {
                 var beforeCount = triggeredErrorCount;
 
-                read(release);
+                if (read(release)) triggeredErrorCount++;
 
                 return triggeredErrorCount - beforeCount;
             }, 0)
@@ -291,36 +291,14 @@
 
     // There shouldn't be any duplicate external links.
 
-    function linkIsInvalid(link) {
-        var error = link.error();
-
-        return link.removed() || link.isEmpty() ||
-            (error && error !== MB.text.RelationshipAlreadyExists);
-    }
-
-    function linkIsRemoved(link) { return link.removed() }
-
-    function linkIdentifier(link) { return link.linkTypeID() + _.str.trim(link.url()) }
-
     computeErrors(function (release) {
         var links = release.externalLinks.links();
-        var removedLinks = _(links).filter(linkIsRemoved).groupBy(linkIdentifier).value();
 
-        _(links).reject(linkIsInvalid).groupBy(linkIdentifier)
-            .each(function (group, id) {
-                var duplicate = group.length > 1 || _.has(removedLinks, id);
-
-                _(group).each(function (link) {
-                    var msg = MB.text.RelationshipAlreadyExists;
-
-                    if (duplicate) {
-                        link.error(msg);
-                    }
-                    else if (link.error() === msg) {
-                        link.error("");
-                    }
-                });
-            });
+        for (var i = 0, link; link = links[i++];) {
+            if (!link.removed() && !link.isEmpty() && link.error()) {
+                return true;
+            }
+        }
     });
 
 

@@ -477,6 +477,10 @@
     fields.Release = aclass(MB.entity.Release, {
 
         after$init: function (data) {
+            if (data.gid) {
+                MB.entityCache[data.gid] = this; // XXX HACK
+            }
+
             $.extend(this, _.pick(data, "trackCounts", "formats", "countryCodes"));
 
             var self = this;
@@ -559,8 +563,7 @@
 
             this.externalLinks = MB.Control.externalLinks.ViewModel({
                 source: this,
-                sourceData: data,
-                errorType: releaseEditor.validation.errorField
+                sourceData: data
             });
         },
 

@@ -29,18 +29,23 @@
             var entities = this.entities().slice(0);
             var backward = this.parent.source === entities[1];
 
-            entities[backward ? 0 : 1] = MB.entity.URL({ name: value });
+            entities[backward ? 0 : 1] = MB.entity({ name: value }, "url");
             this.entities(entities);
 
-            if (!this.error()) {
+            var error = this.error();
+
+            if (this.cleanup && (!error || error === MB.text.SelectURLType)) {
                 var linkType = this.cleanup.guessType(this.cleanup.sourceType, value);
 
                 if (linkType) {
                     this.linkTypeID(linkType);
+
+                    // May have changed now that linkTypeID is set.
+                    error = this.error();
                 }
             }
 
-            if (!this.error()) {
+            if (!error) {
                 var key, class_, classes = MB.faviconClasses;
 
                 for (key in classes) {
@@ -50,6 +55,7 @@
                     }
                 }
             }
+
             this.faviconClass("");
             this.parent.ensureOneEmptyLinkExists(this);
         },
@@ -103,13 +109,17 @@
                 // have errors that prevents everything from validating, so
                 // we have to revert it.
                 this.linkTypeID(this.original.linkTypeID);
-                this.entities(this.original.entities.slice(0));
+
+                this.entities(_.map(this.original.entities, function (data) {
+                    return MB.entity(data);
+                }));
             }
             else {
                 // this.cleanup is undefined for tests that don't deal with
                 // markup (since it's set by the urlCleanup bindingHandler).
                 this.cleanup && this.cleanup.toggleEvents("off");
                 this.parent.source.relationships.remove(this);
+                this.errorObservable && this.errorObservable.dispose();
             }
 
             var linkToFocus = linksArray[index + 1] || linksArray[index - 1];
@@ -156,6 +166,14 @@
                 return MB.text.URLNotAllowed;
             }
 
+            var otherLinks = this.parent.links();
+
+            for (var i = 0, link; link = otherLinks[i++];) {
+                if (this.isDuplicate(link)) {
+                    return MB.text.RelationshipAlreadyExists;
+                }
+            }
+
             return "";
         }
     });
@@ -166,11 +184,7 @@
         relationshipClass: externalLinks.Relationship,
         fieldName: "url",
 
-        around$init: function (supr, options) {
-            this.errorType = options.errorType;
-
-            supr(options);
-
+        after$init: function () {
             this.ensureOneEmptyLinkExists();
 
             this.bubbleDoc = MB.Control.BubbleDoc("Information").extend({

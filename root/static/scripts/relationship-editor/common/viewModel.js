@@ -126,6 +126,10 @@
         goodCardinality: function (linkTypeID, sourceType, backward) {
             var typeInfo = MB.typeInfoByID[linkTypeID];
 
+            if (!typeInfo) {
+                return true;
+            }
+
             if (sourceType === typeInfo.type0 && sourceType === typeInfo.type1) {
                 return backward ? (typeInfo.cardinality1 === 0) : (typeInfo.cardinality0 === 0);
             }
