@@ -391,7 +391,11 @@ sub edit : Chained('/') PathPart('ws/js/edit') CaptureArgs(0) Edit {
 sub create : Chained('edit') PathPart('create') Edit {
     my ($self, $c) = @_;
 
-    my $data = get_request_body($c);
+    $self->submit_edits($c, get_request_body($c));
+}
+
+sub submit_edits {
+    my ($self, $c, $data) = @_;
 
     my @edit_data = @{ $data->{edits} };
     my @edit_types = map { $_->{edit_type} } @edit_data;
