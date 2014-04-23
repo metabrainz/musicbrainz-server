@@ -205,10 +205,16 @@ MB.utility.validDate = (function() {
         return value === null || value === undefined || value === "";
     }
 
+    var numberRegex = /^[0-9]+$/;
+
+    function parseNumber(num) {
+        return numberRegex.test(num) ? parseInt(num, 10) : NaN;
+    }
+
     return function(y, m, d) {
-        y = empty(y) ? null : parseInt(y, 10);
-        m = empty(m) ? null : parseInt(m, 10);
-        d = empty(d) ? null : parseInt(d, 10);
+        y = empty(y) ? null : parseNumber(y);
+        m = empty(m) ? null : parseNumber(m);
+        d = empty(d) ? null : parseNumber(d);
 
         // We couldn't parse one of the fields as a number.
         if (isNaN(y) || isNaN(m) || isNaN(d)) return false;
