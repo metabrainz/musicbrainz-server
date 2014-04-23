@@ -13,7 +13,6 @@
         augment$init: function (data, source, parent) {
             this.linkTypeDescription = ko.observable("");
             this.faviconClass = ko.observable("");
-            this.error = (parent.errorType || ko.observable)(data.error || "");
             this.removed = ko.observable(!!data.removed);
             this.removeButtonFocused = ko.observable(false);
 
@@ -32,6 +31,14 @@
 
             entities[backward ? 0 : 1] = MB.entity.URL({ name: value });
             this.entities(entities);
+
+            if (!this.error()) {
+                var linkType = this.cleanup.guessType(this.cleanup.sourceType, value);
+
+                if (linkType) {
+                    this.linkTypeID(linkType);
+                }
+            }
 
             if (!this.error()) {
                 var key, class_, classes = MB.faviconClasses;
@@ -105,9 +112,6 @@
                 this.parent.source.relationships.remove(this);
             }
 
-            // Clear errors so the form can be submitted (MBS-7340).
-            this.error("");
-
             var linkToFocus = linksArray[index + 1] || linksArray[index - 1];
 
             if (linkToFocus) {
@@ -125,6 +129,34 @@
         isOnlyLink: function () {
             var links = this.parent.links();
             return links.length === 1 && links[0] === this;
+        },
+
+        error: function () {
+            var url = this.url();
+            var linkType = this.linkTypeID();
+
+            if (this.removed() || this.isEmpty()) {
+                return "";
+            }
+
+            if (!url) {
+                return MB.text.RequiredField;
+            } else if (!MB.utility.isValidURL(url)) {
+                return MB.text.EnterAValidURL;
+            }
+
+            var checker = this.cleanup && this.cleanup.validationRules[linkType];
+            var typeInfo = MB.typeInfoByID[linkType] || {};
+
+            if (!linkType) {
+                return MB.text.SelectURLType;
+            } else if (typeInfo.deprecated && !this.id) {
+                return MB.text.RelationshipTypeDeprecated;
+            } else if (checker && !checker(url)) {
+                return MB.text.URLNotAllowed;
+            }
+
+            return "";
         }
     });
 
@@ -222,8 +254,7 @@ ko.bindingHandlers.urlCleanup = {
             sourceType:         valueAccessor(),
             typeControl:        $element.find("select"),
             urlControl:         $textInput,
-            errorObservable:    viewModel.error,
-            handleErrors:       false,
+            errorCallback:      _.bind(viewModel.error, viewModel),
             typeInfoByID:       MB.typeInfoByID
         });
 

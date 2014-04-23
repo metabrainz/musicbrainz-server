@@ -25,7 +25,7 @@ module("external links editor", {
                 </td>\
               </tr>\
               <tr>\
-                <td class="errors" data-bind="text: error"></td>\
+                <td class="errors" data-bind="text: error()"></td>\
               </tr>\
             </tbody>\
             </table>\
