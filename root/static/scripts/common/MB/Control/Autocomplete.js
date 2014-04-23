@@ -708,11 +708,11 @@ MB.Control.EntityAutocomplete = function (options) {
     $name.autocomplete(options);
     var autocomplete = $name.data("ui-autocomplete");
 
-    autocomplete.currentSelection({
+    autocomplete.currentSelection(MB.entity({
         name: $name.val(),
         id: $inputs.find("input.id").val(),
         gid: $inputs.find("input.gid").val()
-    });
+    }, options.entity));
 
     autocomplete.currentSelection.subscribe(function (item) {
         var $hidden = $inputs.find("input[type=hidden]").val("");
