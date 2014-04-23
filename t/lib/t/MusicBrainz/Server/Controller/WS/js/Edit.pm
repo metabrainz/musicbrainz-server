@@ -5,6 +5,8 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_EDIT
     $EDIT_RELEASEGROUP_CREATE
     $EDIT_MEDIUM_CREATE
+    $EDIT_MEDIUM_EDIT
+    $EDIT_MEDIUM_DELETE
     $EDIT_RELATIONSHIP_CREATE
     $EDIT_RELATIONSHIP_EDIT
     $EDIT_RELATIONSHIP_DELETE
@@ -40,8 +42,8 @@ sub prepare_test_database {
         INSERT INTO url (id, gid, url)
         VALUES (2, 'de409476-4ad8-4ce8-af2f-d47bee0edf97', 'http://en.wikipedia.org/wiki/Boredoms');
 
-        INSERT INTO link_type (id, name, gid, link_phrase, long_link_phrase, reverse_link_phrase, entity_type0, entity_type1)
-        VALUES (2, 'wikipedia', 'fcd58926-4243-40bb-a2e5-c7464b3ce577', 'wikipedia', 'wikipedia', 'wikipedia', 'artist', 'url');
+        INSERT INTO link_type (id, name, gid, link_phrase, long_link_phrase, reverse_link_phrase, entity_type0, entity_type1, description)
+        VALUES (3, 'wikipedia', 'fcd58926-4243-40bb-a2e5-c7464b3ce577', 'wikipedia', 'wikipedia', 'wikipedia', 'artist', 'url', '-');
 
         ALTER SEQUENCE track_id_seq RESTART 100;
         ALTER SEQUENCE l_artist_recording_id_seq RESTART 100;
@@ -59,7 +61,7 @@ sub post_json {
     return $mech->request($req);
 }
 
-test 'previewing/creating a release group and release' => sub {
+test 'previewing/creating/editing a release group and release' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c = $test->c;
@@ -313,18 +315,21 @@ test 'previewing/creating a release group and release' => sub {
 
     $response = from_json($mech->content);
 
+    my $medium1_id = $response->{edits}->[0]->{entity}->{id};
+    my $medium2_id = $response->{edits}->[1]->{entity}->{id};
+
     cmp_deeply($response->{edits}, [
         {
             entity => {
                 position => 1,
-                id => $response->{edits}->[1]->{entity}->{id} - 1
+                id => $medium2_id - 1
             },
             message => 'OK',
         },
         {
             entity => {
                 position => 2,
-                id => $response->{edits}->[0]->{entity}->{id} + 1
+                id => $medium1_id + 1
             },
             message => 'OK',
         }
@@ -344,6 +349,108 @@ test 'previewing/creating a release group and release' => sub {
     $response = from_json($mech->content);
 
     is($response->{error}, undef, 'editing just the release title does not cause an ISE');
+
+
+    # Try making some edits. Delete the first disc, move the second disc to
+    # position one, and make edits to its tracklist.
+
+    my $medium2 = $c->model('Medium')->get_by_id($medium2_id);
+
+    $c->model('Track')->load_for_mediums($medium2);
+    $c->model('Recording')->load($medium2->all_tracks);
+
+    $medium_edits = [
+        {
+            edit_type   => $EDIT_MEDIUM_DELETE,
+            medium      => $medium1_id,
+        },
+        {
+            edit_type   => $EDIT_MEDIUM_EDIT,
+            to_edit     => $medium2_id,
+            position    => 1,
+            format_id   => 1,
+            tracklist   => [
+                {
+                    id              => $medium2->tracks->[0]->id,
+                    position        => 1,
+                    number          => 'A',
+                    name            => '~☉~',
+                    length          => 92666,
+                    artist_credit   => $artist_credit,
+                    recording_gid   => $medium2->tracks->[0]->recording->gid,
+                },
+                {
+                    id              => $medium2->tracks->[1]->id,
+                    position        => 2,
+                    number          => 'B',
+                    name            => '[hourglass!]',
+                    length          => 2138333,
+                    artist_credit   => $artist_credit,
+                    recording_gid   => $medium2->tracks->[1]->recording->gid,
+                },
+                {
+                    id              => $medium2->tracks->[2]->id,
+                    position        => 3,
+                    number          => 'C',
+                    name            => '~◌~',
+                    length          => 333826,
+                    artist_credit   => $artist_credit,
+                    recording_gid   => $medium2->tracks->[2]->recording->gid,
+                },
+            ]
+        }
+    ];
+
+    @edits = capture_edits {
+        post_json($mech, '/ws/js/edit/create', encode_json({
+            edits => $medium_edits,
+            asAutoEditor => 0,
+        }));
+    } $c;
+
+    isa_ok($edits[0], 'MusicBrainz::Server::Edit::Medium::Delete', 'medium 1 edit');
+    isa_ok($edits[1], 'MusicBrainz::Server::Edit::Medium::Edit', 'medium 2 edit');
+
+    cmp_deeply($edits[1]->data, {
+        entity_id => 8,
+        release => {
+            name => 'Vision Creation Newsun',
+            id => 4
+        },
+        new => {
+            position => 1,
+            tracklist => [
+                {
+                    length => 92666,
+                    number => 'A',
+                    name => "~\x{e2}\x{98}\x{89}~",
+                    recording_id => 27,
+                    position => 1,
+                    id => 109,
+                    artist_credit => ignore(),
+                },
+                {
+                    length => 2138333,
+                    number => 'B',
+                    name => '[hourglass!]',
+                    recording_id => 28,
+                    position => 2,
+                    id => 110,
+                    artist_credit => ignore(),
+                },
+                {
+                    length => 333826,
+                    number => 'C',
+                    name => "~\x{e2}\x{97}\x{8c}~",
+                    recording_id => 29,
+                    position => 3,
+                    id => 111,
+                    artist_credit => ignore(),
+                }
+            ]
+        },
+        old => ignore(),
+    });
 };
 
 
@@ -521,7 +628,7 @@ test 'MBS-7464: URLs are validated/canonicalized' => sub {
 
     my $invalid_url = [ {
         edit_type   => $EDIT_RELATIONSHIP_CREATE,
-        linkTypeID  => 2,
+        linkTypeID  => 3,
         entities    => [
             {
                 entityType  => 'artist',
@@ -545,7 +652,7 @@ test 'MBS-7464: URLs are validated/canonicalized' => sub {
 
     my $unsupported_protocol = [ {
         edit_type   => $EDIT_RELATIONSHIP_CREATE,
-        linkTypeID  => 2,
+        linkTypeID  => 3,
         entities    => [
             {
                 entityType  => 'artist',
@@ -569,7 +676,7 @@ test 'MBS-7464: URLs are validated/canonicalized' => sub {
 
     my $non_canonical_url = [ {
         edit_type   => $EDIT_RELATIONSHIP_CREATE,
-        linkTypeID  => 2,
+        linkTypeID  => 3,
         entities    => [
             {
                 entityType  => 'artist',

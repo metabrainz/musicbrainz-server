@@ -115,7 +115,7 @@ our $data_processors = {
         load_entity_prop($loader, $data, 'to_edit', 'Medium');
     },
 
-    $EDIT_MEDIUM_EDIT => sub {
+    $EDIT_MEDIUM_DELETE => sub {
         my ($c, $loader, $data) = @_;
 
         load_entity_prop($loader, $data, 'medium', 'Medium');
