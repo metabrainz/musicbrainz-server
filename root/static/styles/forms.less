@@ -466,6 +466,11 @@ div.remove-item {
 
 .edit-item {
     background: data-uri('../images/icons/edit.png');
+
+    &[disabled] {
+        cursor: default;
+        opacity: 0.3;
+    }
 }
 
 .file-down, .track-down {

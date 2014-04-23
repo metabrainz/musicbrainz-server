@@ -21,7 +21,7 @@
         <td class="relationship-list" data-bind="foreach: relationships">
           <div>
             <button type="button" class="icon remove-item" data-bind="attr: { id: 'remove-' + uniqueID }" data-click="removeRelationship"></button>
-            <button type="button" class="icon edit-item" data-bind="attr: { id: 'edit-' + uniqueID }" data-click="openEditDialog"></button>
+            <button type="button" class="icon edit-item" data-bind="attr: { id: 'edit-' + uniqueID }, disable: removed" data-click="openEditDialog"></button>
             <span data-bind="html: target($parents[1]).html({ target: '_blank' }), relationshipStyling: true"></span>
             <!-- ko with: phraseAndExtraAttributes($parents[2])[1] -->
               (<!-- ko text: $data --><!-- /ko -->)
