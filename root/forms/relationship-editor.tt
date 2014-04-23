@@ -51,7 +51,7 @@
     MB.relationshipEditor.exportTypeInfo([% type_info %], [% attr_info %]);
 
     var sourceData = [% source_entity %];
-    sourceData.gid = _.uniqueId("tmp-");
+    sourceData.gid = sourceData.gid || _.uniqueId("tmp-");
 
     var vm = MB.relationshipEditor.GenericEntityViewModel({
       sourceData: sourceData,
