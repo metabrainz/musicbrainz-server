@@ -9,7 +9,7 @@ module("external links editor", {
 
         $("#qunit-fixture").append($.parseHTML('\
             <table id="external-links-editor">\
-            <tbody data-bind="foreach: links">\
+            <tbody data-bind="foreach: links()">\
               <tr data-bind="urlCleanup: \'artist\'">\
                 <td>\
                   <select data-bind="value: linkTypeID, visible: showTypeSelection()">\
@@ -32,49 +32,47 @@ module("external links editor", {
             <div id="external-link-bubble"></div>\
         '));
 
-        var typeInfo = {
-            179: { deprecated: "0", phrase: "Wikipedia" },
-            180: { deprecated: "0", phrase: "Discogs" },
-            181: { deprecated: "1", phrase: "MusicMoz" },
-            188: { deprecated: "0", phrase: "other databases" }
+        MB.typeInfoByID = {
+            179: { deprecated: false, phrase: "Wikipedia" },
+            180: { deprecated: false, phrase: "Discogs" },
+            181: { deprecated: true, phrase: "MusicMoz" },
+            188: { deprecated: false, phrase: "other databases" }
         };
 
-        this.Relationship = MB.Control.externalLinks.Relationship;
+        MB.faviconClasses = { "wikipedia.org": "wikipedia" };
 
-        MB.Control.externalLinks.typeInfo = typeInfo;
-        MB.Control.externalLinks.faviconClasses = { "wikipedia.org": "wikipedia" };
+        this.addURL = function (name) {
+            var source = this.viewModel.source;
+            var target = MB.entity.URL({ name: name });
+            var url = this.viewModel.getRelationship({ target: target }, source);
 
-        this.viewModel = MB.Control.externalLinks.init({
-            source: { type: "artist" },
-            formName: "edit-artist",
-            relationships: [],
+            source.relationships.push(url);
+            url.cleanup.urlControl.change();
+
+            return url;
+        };
+
+        this.viewModel = MB.Control.externalLinks.applyBindings({
+            sourceData: { entityType: "artist", relationships: [] },
+            formName: "edit-artist"
         });
     }
 });
 
 
 test("automatic link type detection for URL", function () {
-    var url = this.Relationship({
-        entity1ID: "http://en.wikipedia.org/wiki/No_Age"
-    }, this.viewModel);
-
-    this.viewModel.links.push(url);
-
-    url.cleanup.urlControl.change();
+    var url = this.addURL("http://en.wikipedia.org/wiki/No_Age");
 
     ok(url.matchesType(), "wikipedia page is detected");
     equal(url.faviconClass(), "wikipedia-favicon", "wikipedia favicon is used");
-    equal(url.label(), "Wikipedia", "wikipedia label is used");
+    equal(url.linkPhrase(), "Wikipedia", "wikipedia label is used");
     equal(url.linkTypeID(), 179, "internal link type is set to 179");
     equal(url.cleanup.typeControl.val(), 179, "option with value 179 is selected");
 });
 
 
 test("invalid URL detection", function () {
-    var url = this.Relationship({ entity1ID: "foo" }, this.viewModel);
-
-    this.viewModel.links.push(url);
-    url.cleanup.urlControl.change();
+    var url = this.addURL("foo");
 
     ok(!!url.error(), "error is shown for invalid URL");
 
@@ -84,12 +82,8 @@ test("invalid URL detection", function () {
 
 
 test("deprecated link type detection", function () {
-    var url = this.Relationship({
-        entity1ID: "http://musicmoz.org/Bands_and_Artists/B/Beatles,_The/"
-    }, this.viewModel);
+    var url = this.addURL("http://musicmoz.org/Bands_and_Artists/B/Beatles,_The/");
 
-    this.viewModel.links.push(url);
-    url.cleanup.urlControl.change();
     url.cleanup.typeControl.val(181).change();
 
     ok(!!url.error(), "error is shown for deprecated link type");
@@ -100,22 +94,24 @@ test("deprecated link type detection", function () {
 
 
 test("hidden input data for form submission", function () {
-    var existingURL = this.Relationship({
+    var source = this.viewModel.source;
+
+    var existingURL = this.viewModel.getRelationship({
         id: 1,
-        entity1ID: "http://en.wikipedia.org/wiki/Deerhunter",
+        target: MB.entity.URL({ name: "http://en.wikipedia.org/wiki/Deerhunter" }),
         linkTypeID: 179
-    }, this.viewModel);
+    }, source);
 
-    var addedURL = this.Relationship({
-        entity1ID: "http://rateyourmusic.com/artist/deerhunter",
+    var addedURL = this.viewModel.getRelationship({
+        target: MB.entity.URL({ name: "http://rateyourmusic.com/artist/deerhunter" }),
         linkTypeID: 188
-    }, this.viewModel);
+    }, source);
 
-    this.viewModel.links.push(existingURL);
+    source.relationships.push(existingURL);
     existingURL.cleanup.urlControl.change();
     existingURL.cleanup.typeControl.change();
 
-    this.viewModel.links.push(addedURL);
+    source.relationships.push(addedURL);
     addedURL.cleanup.urlControl.change();
     addedURL.cleanup.typeControl.change();
 
@@ -124,9 +120,9 @@ test("hidden input data for form submission", function () {
         { name: "edit-artist.url.0.link_type_id", value: "" },
         { name: "edit-artist.url.1.relationship_id", value: 1 },
         { name: "edit-artist.url.1.text", value: "http://en.wikipedia.org/wiki/Deerhunter" },
-        { name: "edit-artist.url.1.link_type_id", value: "179" },
+        { name: "edit-artist.url.1.link_type_id", value: 179 },
         { name: "edit-artist.url.2.text", value: "http://rateyourmusic.com/artist/deerhunter" },
-        { name: "edit-artist.url.2.link_type_id", value: "188" }
+        { name: "edit-artist.url.2.link_type_id", value: 188 }
     ]);
 
     existingURL.cleanup.urlControl.val("http://en.wikipedia.org/wiki/dEErHuNtER").change();
@@ -137,16 +133,16 @@ test("hidden input data for form submission", function () {
         { name: "edit-artist.url.0.link_type_id", value: "" },
         { name: "edit-artist.url.1.relationship_id", value: 1 },
         { name: "edit-artist.url.1.text", value: "http://en.wikipedia.org/wiki/dEErHuNtER" },
-        { name: "edit-artist.url.1.link_type_id", value: "179" }
+        { name: "edit-artist.url.1.link_type_id", value: 179 }
     ]);
 
-    existingURL.remove();
+    existingURL.removed(true);
 
     deepEqual(this.viewModel.hiddenInputs(), [
         { name: "edit-artist.url.0.text", value: "" },
         { name: "edit-artist.url.0.link_type_id", value: "" },
         { name: "edit-artist.url.1.relationship_id", value: 1 },
         { name: "edit-artist.url.1.removed", value: 1 },
-        { name: "edit-artist.url.1.link_type_id", value: "179" }
+        { name: "edit-artist.url.1.link_type_id", value: 179 }
     ]);
 });

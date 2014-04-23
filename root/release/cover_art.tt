@@ -43,7 +43,7 @@
             { release => link_entity(entity) }) %]</p>
     [% IF entity.cover_art_url %]
       <p>[% l('The artwork in the sidebar is being provided by a {relationships|URL relationship}.',
-              { relationships => c.uri_for_action('/release/relationships', [ entity.gid ]) }) %]</p>
+              { relationships => c.uri_for_action('/release/show', [ entity.gid ]) }) %]</p>
     [% END %]
   [%- END -%]
 

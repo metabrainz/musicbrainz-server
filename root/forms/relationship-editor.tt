@@ -1,0 +1,67 @@
+[% PROCESS 'components/relationship-editor.tt' %]
+
+[% MACRO add_relationship_button BLOCK %]
+  <button type="button" class="add-item with-label" data-click="openAddDialog">
+    [% l('Add relationship') %]
+  </button>
+[% END %]
+
+<fieldset id="relationship-editor" data-bind="with: source, delegatedHandler: 'click'">
+  <legend>[% l('Relationships') %] [% add_relationship_button() %]</legend>
+
+  <table class="details row-form" style="width: 100%">
+    <tbody data-bind="foreach: $root.sortedRelationships(groupedRelationships($root))">
+      <tr>
+        <th>
+          <label data-bind="text: MB.i18n.expand(MB.text.AddColon, { variable: linkPhrase })"></label>
+        </th>
+        <td class="relationship-list" data-bind="foreach: relationships">
+          <div>
+            <button type="button" class="icon remove-item" data-bind="attr: { id: 'remove-' + uniqueID }" data-click="removeRelationship"></button>
+            <button type="button" class="icon edit-item" data-bind="attr: { id: 'edit-' + uniqueID }" data-click="openEditDialog"></button>
+            <span data-bind="html: target($parents[1]).html({ target: '_blank' }), relationshipStyling: true"></span>
+            <!-- ko with: phraseAndExtraAttributes($parents[2])[1] -->
+              (<!-- ko text: $data --><!-- /ko -->)
+            <!-- /ko -->
+            <!-- ko with: MB.utility.formatDatePeriod(period) -->
+              (<!-- ko text: $data --><!-- /ko -->)
+            <!-- /ko -->
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td data-bind="with: $parent">
+          [% add_relationship_button() %]
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ko foreach: $root.hiddenInputs() -->
+    <input type="hidden" data-bind="attr: { name: name, value: value }" />
+  <!-- /ko -->
+</fieldset>
+
+<script>
+  $(function () {
+    MB.relationshipEditor.exportTypeInfo([% type_info %], [% attr_info %]);
+
+    var sourceData = [% source_entity %];
+    sourceData.gid = _.uniqueId("tmp-");
+
+    var vm = MB.relationshipEditor.GenericEntityViewModel({
+      sourceData: sourceData,
+      formName: "[% form.name | js %]"
+    });
+
+    MB.Control.externalLinks.applyBindings({
+      sourceData: sourceData,
+      formName: "[% form.name | js %]"
+    });
+
+    var $content = $("#relationship-editor");
+    ko.applyBindings(vm, $content[0]);
+    $content.show();
+  });
+</script>

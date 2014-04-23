@@ -27,11 +27,6 @@
                     c.model('FileCache').template_signature('scripts/text_strings.tt'),
                     'text.js') -%]"></script>
     [%- END -%]
-    [%- IF c.user_exists %]
-    <script type="text/javascript">//<![CDATA[
-        $(document).ready (function () { MB.Control.RelateTo () });
-    //]]></script>
-    [%- END %]
     [%- BLOCK layout_head %][% END -%]
     [%- INCLUDE layout_head -%]
     [%- IF google_analytics_code -%]

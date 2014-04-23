@@ -7,8 +7,8 @@ module("MB.entity");
 
 
 test("CoreEntity", function () {
-    var source = MB.entity({ gid: 123, type: "recording", name: "a recording" }),
-        target = MB.entity({ gid: 456, type: "artist", name: "foo", sortName: "bar" });
+    var source = MB.entity({ gid: 123, entityType: "recording", name: "a recording" }),
+        target = MB.entity({ gid: 456, entityType: "artist", name: "foo", sortName: "bar" });
 
     equal(
         source.html(),

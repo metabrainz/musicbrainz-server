@@ -111,8 +111,6 @@
             url:             "[% l('URL') | js %]",
             work:            "[% l('Work') | js %]",
         },
-        AttributeNotSupported: '[% l('This attribute is not supported for the selected relationship type.') | js %]',
-        AttributeTooMany: '[% l('This attribute can only be specified {max} times. You specified {n}.') | js %]',
         AttributeRequired: '[% l('This attribute is required.') | js %]',
         FocusInstrument: '[% l('Click here to choose an instrument') | js %]',
         FocusVocal: '[% l('Click here to choose a vocal') | js %]',
@@ -169,6 +167,7 @@
         EnterAValidURL: '[% l('Enter a valid url e.g. "http://google.com/"') | js %]',
         RelationshipAlreadyExists: '[% l('This relationship already exists.') | js %]',
         SelectedArea: '[% l('You selected {area}.') | js %]',
-        MoreDocumentation: '[% l('{description} ({url|more documentation})') | js %]'
+        MoreDocumentation: '[% l('{description} ({url|more documentation})') | js %]',
+        AddColon: '[% l('{variable}:') | js %]'
     });
 })(MB);

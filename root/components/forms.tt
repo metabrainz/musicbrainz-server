@@ -18,6 +18,30 @@
     [%- END -%]
 [%- END -%]
 
+[%- MACRO as_auto_editor_ko BLOCK -%]
+  [%- IF c.user.is_auto_editor -%]
+    <div class="row no-label">
+      <div class="auto-editor">
+        <label>
+          <input type="checkbox" data-bind="checked: asAutoEditor" />
+          [% l('Enable {autoed|auto-editor} privileges for this edit.', { autoed => { href => doc_link('Auto-Editor'), target => '_blank' } }) -%]
+        </label>
+      </div>
+    </div>
+  [%- END -%]
+[%- END -%]
+
+[%- MACRO edit_note_ko BLOCK -%]
+  <p>
+    [% l('Entering an {note|edit note} that describes where you got your information is highly recommended. Not only does it make it clear where you got your information, but it can also encourage other users to vote on your edit &#x2014; thus making your edit get applied faster.', { note => { href => doc_link('Edit_Note'), target => '_blank' } }) %]
+  </p>
+  <p>[% l('Even just providing a URL or two is helpful!') %]</p>
+  [% WRAPPER form_row %]
+    <label for="edit-note-text">[% l('Edit note:') %]</label>
+    <textarea id="edit-note-text" data-bind="value: editNote, valueUpdate: 'input'" rows="5" cols="80"></textarea>
+  [% END %]
+[%- END -%]
+
 [%- MACRO enter_edit(extra) BLOCK -%]
     [%- as_auto_editor() -%]
     <div class="row no-label buttons">
@@ -368,17 +392,19 @@
             <!-- ko if: matchesType() && faviconClass() -->
               <span data-bind="attr: { 'class': 'favicon ' + faviconClass() }"></span>
             <!-- /ko -->
-            <!-- ko text: label() || (isOnlyLink() ? "[% l('Add link:') | html %]" : "[% l('Add another link:') | html %]") --><!-- /ko -->
+            <!-- ko text: linkPhrase() || (isOnlyLink() ? "[% l('Add link:') | html %]" : "[% l('Add another link:') | html %]") --><!-- /ko -->
           </label>
         <!-- /ko -->
-        <select name="external_link_types" data-bind="value: linkTypeID, visible: showTypeSelection()">
-          <option value="" selected="selected"> </option>
-          [%- url_link_type_options = form.options_url_link_type_id || url_type_opts -%]
-          [% FOR option IN url_link_type_options %]
-            [%- link_type_id = option.value -%]
-            <option value="[% link_type_id %]"[% IF NOT url_type_info.$link_type_id.description %] disabled="disabled"[% END %]>[% option.label %]</option>
-          [% END %]
-        </select>
+      <select class="link-type"
+       data-bind="options: MB.forms.linkTypeOptions(
+                             { children: MB.typeInfo[entityTypes] },
+                             /^url-/.test(entityTypes)
+                           ),
+                  optionsValue: 'value',
+                  optionsText: 'text',
+                  optionsCaption: '',
+                  value: linkTypeID,
+                  visible: showTypeSelection()"></select>
       </td>
       <td>
         <input type="text"
@@ -387,7 +413,7 @@
             value: url,
             valueUpdate: 'input',
             attr: { id: 'external-link-' + $index() },
-            controlsBubble: viewModel.bubbleDoc"
+            controlsBubble: parent.bubbleDoc"
         />
       </td>
       <td>
@@ -417,30 +443,7 @@
   </table>
 
   <script>
-    [%- USE JSON.Escape %]
-    $.extend(MB.Control.externalLinks = MB.Control.externalLinks || {}, {
-      typeInfo: [% url_type_info.json %],
-      faviconClasses: [% favicon_css_classes.json %]
-    });
-    [% IF form -%]
-    $(function () {
-      MB.Control.externalLinks.init({
-        source:         { type: '[% entity_type %]' },
-        formName:      '[% form.name %]',
-        relationships:  [% url_relationships.json %],
-
-        fieldErrors: [%
-          errors = [];
-          FOR url IN form.field('url').fields;
-            errors.push({
-              link_type_id => url.field('link_type_id').errors.0,
-              text => url.field('text').errors.0
-            });
-          END;
-          errors.json
-        %]
-      });
-    });
-    [%- END %]
+    [%- USE JSON.Escape -%]
+    MB.faviconClasses = [% favicon_css_classes.json %];
   </script>
 [%- END -%]

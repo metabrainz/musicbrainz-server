@@ -524,13 +524,16 @@ MB.constants.CLEANUPS = {
 };
 
 
-MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorObservable, handleErrors) {
+MB.Control.URLCleanup = function (options) {
+    options = options || {};
+
     var self = {};
 
-    self.typeControl = $(typeControl);
-    self.urlControl = $(urlControl);
-    self.sourceType = sourceType;
-    self.error = errorObservable || ko.observable("");
+    self.typeInfoByID = options.typeInfoByID || {};
+    self.typeControl = $(options.typeControl);
+    self.urlControl = $(options.urlControl);
+    self.sourceType = options.sourceType;
+    self.error = options.errorObservable || ko.observable("");
 
     self.error.subscribe(function (error) {
         $("button[type=submit]").prop("disabled", !!error);
@@ -538,7 +541,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorObse
 
     self.error.notifySubscribers(self.error());
 
-    if (handleErrors !== false) {
+    if (options.handleErrors !== false) {
         var $errorSpan = $("<span>").addClass("error").hide();
 
         self.typeControl.after($errorSpan);
@@ -809,7 +812,8 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorObse
 
     var linkTypeErrors = [
         MB.text.SelectURLType,
-        MB.text.URLNotAllowed
+        MB.text.URLNotAllowed,
+        MB.text.RelationshipTypeDeprecated
     ];
 
 
@@ -817,9 +821,13 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorObse
         var url = self.urlControl.val();
         var linkType = self.typeControl.val();
         var checker = validationRules[linkType];
+        var typeInfo = self.typeInfoByID[linkType] || {};
 
         if (url && !linkType) {
             self.error(MB.text.SelectURLType);
+        }
+        else if (linkType && typeInfo.deprecated) {
+            self.error(MB.text.RelationshipTypeDeprecated);
         }
         else if (url && checker && !checker(url)) {
             self.error(MB.text.URLNotAllowed);

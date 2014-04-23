@@ -23,6 +23,7 @@ use MusicBrainz::Server::Form::Utils qw(
     select_options
     select_options_tree
     build_grouped_options
+    build_type_info
 );
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
@@ -55,8 +56,7 @@ sub _init_release_editor
         packagings      => select_options_tree($c, 'ReleasePackaging'),
         countries       => select_options($c, 'CountryArea'),
         formats         => select_options_tree($c, 'MediumFormat'),
-        url_type_info   => MusicBrainz::Server::Controller::Role::EditExternalLinks::build_type_info($url_link_types),
-        url_type_opts   => link_type_options($url_link_types, 'l_link_phrase', 'ROOT', '&#160;'),
+        type_info       => $json->encode(build_type_info($c, qr/release-url/, $url_link_types)),
         %options
     );
 }

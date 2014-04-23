@@ -144,8 +144,7 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
             }
         });
 
-        // Click events inside the menu, but outside of a relate-to box,
-        // should not cause the box to close.
+        // Click events inside the menu should not cause the box to close.
         this.menu.element.on("click", function (event) {
             event.stopPropagation();
         });
@@ -294,12 +293,12 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
             dataType: "json",
 
             success: function (data) {
-                if (data.type != self.entity) {
+                if (data.entityType != self.entity) {
                     // Only RelateTo boxes and relationship-editor dialogs
                     // support changing the entity type.
                     var setEntity = self.options.setEntity;
 
-                    if (!setEntity || setEntity(data.type) === false) {
+                    if (!setEntity || setEntity(data.entityType) === false) {
                         self.clear();
                         return;
                     }
@@ -604,8 +603,10 @@ MB.Control.autocomplete_formatters = {
             }
         };
 
-        artistRenderer("Writers", item.artists.writers);
-        artistRenderer("Artists", item.artists.artists);
+        if (item.artists) {
+            artistRenderer("Writers", item.artists.writers);
+            artistRenderer("Artists", item.artists.artists);
+        }
 
         return $("<li>").append (a).appendTo (ul);
     },

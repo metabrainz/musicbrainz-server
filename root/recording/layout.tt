@@ -36,13 +36,6 @@
 
           <hr/>
 
-          [%# Adds <li> itself %]
-          [% use_in_relationship(recording) %]
-          <li>[% relate_to_ellipsis(recording) %]</li>
-          <li>[% relate_to_url(recording) %]</li>
-
-          <hr/>
-
           <li>[% link_entity(recording, 'open_edits', l('Open edits')) %]</li>
           <li>[% link_entity(recording, 'edits', l('Editing history')) %]</li>
           [% ELSE %]

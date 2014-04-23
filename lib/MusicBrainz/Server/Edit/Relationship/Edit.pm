@@ -283,8 +283,13 @@ sub initialize
     my ($self, %opts) = @_;
 
     my $relationship = delete $opts{relationship};
-    my $type0 = delete $opts{type0};
-    my $type1 = delete $opts{type1};
+    my $link = $relationship->link;
+    my $type0 = $link->type->entity0_type;
+    my $type1 = $link->type->entity1_type;
+
+    if (my $attributes = $opts{attributes}) {
+        $self->check_attributes($link->type, @$attributes);
+    }
 
     unless ($relationship->entity0 && $relationship->entity1) {
         $self->c->model('Relationship')->load_entities($relationship);
@@ -307,8 +312,6 @@ sub initialize
         reverse_link_phrase => $opts{link_type}->reverse_link_phrase,
         long_link_phrase => $opts{link_type}->long_link_phrase
     } if $opts{link_type};
-
-    my $link = $relationship->link;
 
     $self->relationship($relationship);
     $self->data({

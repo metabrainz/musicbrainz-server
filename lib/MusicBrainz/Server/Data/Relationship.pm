@@ -107,6 +107,17 @@ sub get_by_id
     return $self->_new_from_row($row);
 }
 
+sub get_by_ids
+{
+    my ($self, $type0, $type1, @ids) = @_;
+    $self->_check_types($type0, $type1);
+
+    my $query = "SELECT * FROM l_${type0}_${type1} WHERE id IN (" . placeholders(@ids) . ")";
+    my $rows = $self->sql->select_list_of_hashes($query, @ids) or return undef;
+
+    return { map { $_->{id} => $self->_new_from_row($_) } @$rows };
+}
+
 sub _load
 {
     my ($self, $type, $target_types, @objs) = @_;

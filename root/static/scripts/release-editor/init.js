@@ -10,9 +10,6 @@ MB.releaseEditor = _.extend(MB.releaseEditor || {}, {
 });
 
 
-ko.postbox.serializer = _.identity;
-
-
 MB.releaseEditor.init = function (options) {
     var self = this;
 

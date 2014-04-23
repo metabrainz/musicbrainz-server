@@ -7,7 +7,7 @@ with 'MusicBrainz::Server::Form::Role::Edit';
 with 'MusicBrainz::Server::Form::Role::CheckDuplicates';
 with 'MusicBrainz::Server::Form::Role::IPI';
 with 'MusicBrainz::Server::Form::Role::ISNI';
-with 'MusicBrainz::Server::Form::Role::ExternalLinks';
+with 'MusicBrainz::Server::Form::Role::Relationships';
 
 has '+name' => ( default => 'edit-label' );
 

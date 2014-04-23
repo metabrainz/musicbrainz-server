@@ -5,42 +5,36 @@
 
 (function (externalLinks) {
 
+    var RE = MB.relationshipEditor;
+
+
     externalLinks.Relationship = aclass(MB.entity.Relationship, {
 
-        around$init: function (supr, data, viewModel) {
-            var source = viewModel.source;
-            var forward = source.type < "url";
-
-            data[forward ? "type1" : "type0"] = "url";
-            data[forward ? "type0" : "type1"] = source.type;
-
-            data.entity0ID = data.entity0ID || (forward ? source.gid : "");
-            data.entity1ID = data.entity1ID || (forward ? "" : source.gid);
-
-            supr(data);
-
-            if (!source.gid) {
-                this[forward ? "entity0Preview" : "entity1Preview"] = source.name;
-            }
-
-            this.viewModel = viewModel;
-            this.original = MB.edit.fields.relationship(this);
-
-            this.url = this.type1 === "url" ? this.entity1ID : this.entity0ID;
-            this.label = ko.observable("");
+        augment$init: function (data, source, parent) {
             this.linkTypeDescription = ko.observable("");
             this.faviconClass = ko.observable("");
-            this.error = (viewModel.errorType || ko.observable)("");
+            this.error = (parent.errorType || ko.observable)(data.error || "");
             this.removed = ko.observable(!!data.removed);
             this.removeButtonFocused = ko.observable(false);
 
+            this.url = ko.observable(this.target(source).name);
             this.url.subscribe(this.urlChanged, this);
             this.linkTypeID.subscribe(this.linkTypeIDChanged, this);
         },
 
+        around$linkPhrase: function (supr) {
+            return supr(this.parent.source);
+        },
+
         urlChanged: function (value) {
+            var entities = this.entities().slice(0);
+            var backward = this.parent.source === entities[1];
+
+            entities[backward ? 0 : 1] = MB.entity.URL({ name: value });
+            this.entities(entities);
+
             if (!this.error()) {
-                var key, class_, classes = externalLinks.faviconClasses;
+                var key, class_, classes = MB.faviconClasses;
 
                 for (key in classes) {
                     if (value.indexOf(key) > 0) {
@@ -50,39 +44,32 @@
                 }
             }
             this.faviconClass("");
-            this.viewModel.ensureOneEmptyLinkExists(this);
+            this.parent.ensureOneEmptyLinkExists(this);
         },
 
         linkTypeIDChanged: function (value) {
-            var typeInfo = externalLinks.typeInfo[value];
+            var typeInfo = MB.typeInfoByID[value];
 
             if (typeInfo) {
-                this.label(typeInfo.phrase);
-
                 this.linkTypeDescription(
                     MB.i18n.expand(MB.text.MoreDocumentation, {
                         description: typeInfo.description,
                         url: "/relationship/" + typeInfo.gid
                     })
                 );
-
-                if (typeInfo.deprecated == 1) {
-                    this.cleanup.error(MB.text.RelationshipTypeDeprecated);
-                }
-                else if (this.cleanup.error() === MB.text.RelationshipTypeDeprecated) {
-                    this.cleanup.error("");
-                }
             }
             else {
-                this.label("");
                 this.linkTypeDescription("");
             }
-            this.viewModel.ensureOneEmptyLinkExists(this);
+            this.parent.ensureOneEmptyLinkExists(this);
         },
 
         matchesType: function () {
             var currentType = this.linkTypeID();
-            var guessedType = this.cleanup.guessType(this.viewModel.source.type, this.url());
+
+            var guessedType = this.cleanup.guessType(
+                this.parent.source.entityType, this.url()
+            );
 
             return currentType == guessedType;
         },
@@ -96,7 +83,7 @@
         },
 
         remove: function () {
-            var linksArray = _.reject(this.viewModel.links(), function (link) {
+            var linksArray = _.reject(this.parent.links(), function (link) {
                 return link.removed() || link.isEmpty();
             });
 
@@ -108,15 +95,14 @@
                 // The original data won't be used, but the new data could
                 // have errors that prevents everything from validating, so
                 // we have to revert it.
-                this.linkTypeID(this.original.link_type);
-                this.entity0ID(this.original.entity0);
-                this.entity1ID(this.original.entity1);
+                this.linkTypeID(this.original.linkTypeID);
+                this.entities(this.original.entities.slice(0));
             }
             else {
                 // this.cleanup is undefined for tests that don't deal with
                 // markup (since it's set by the urlCleanup bindingHandler).
                 this.cleanup && this.cleanup.toggleEvents("off");
-                this.viewModel.links.remove(this);
+                this.parent.source.relationships.remove(this);
             }
 
             // Clear errors so the form can be submitted (MBS-7340).
@@ -130,8 +116,6 @@
             else {
                 $("#add-external-link").focus();
             }
-
-            this.viewModel.ensureOneEmptyLinkExists();
         },
 
         isEmpty: function () {
@@ -139,24 +123,25 @@
         },
 
         isOnlyLink: function () {
-            var links = this.viewModel.links();
+            var links = this.parent.links();
             return links.length === 1 && links[0] === this;
         }
     });
 
 
-    externalLinks.ViewModel = aclass({
+    externalLinks.ViewModel = aclass(RE.ViewModel, {
 
-        init: function (options) {
-            this.formName = options.formName;
-            this.source = options.source;
+        relationshipClass: externalLinks.Relationship,
+        fieldName: "url",
+
+        around$init: function (supr, options) {
             this.errorType = options.errorType;
 
-            this.links = ko.observableArray([]);
-            this.addLinks(options.relationships, options.fieldErrors);
+            supr(options);
 
-            this.bubbleDoc = MB.Control.BubbleDoc("Information")
-            .extend({
+            this.ensureOneEmptyLinkExists();
+
+            this.bubbleDoc = MB.Control.BubbleDoc("Information").extend({
                 canBeShown: function (link) {
                     var url = link.url();
 
@@ -164,81 +149,48 @@
                     // should've set an error. However, this callback runs before
                     // the URLCleanup code kicks in, so we need to check ourselves.
                     return (url && MB.utility.isValidURL(url) && !link.error()) ||
-                        link.linkTypeDescription();
+                            link.linkTypeDescription();
                 }
             });
         },
 
-        addLinks: function (relationships, fieldErrors) {
-            fieldErrors = fieldErrors || [];
-
-            function addRelationship(data, index) {
-                var link = externalLinks.Relationship(data, this);
-                var errors = fieldErrors[index];
-
-                if (errors) {
-                    if (errors.text) {
-                        link.error(errors.text);
-                    }
-                    else if (errors.link_type_id) {
-                        link.error(errors.link_type_id);
-                    }
-                }
-                return link;
-            }
-
-            this.links.push.apply(this.links, _.map(relationships, addRelationship, this));
-            this.ensureOneEmptyLinkExists();
-            this.sortLinks();
+        links: function () {
+            return this.source.displayRelationships(this);
         },
 
-        hiddenInputs: function () {
-            var fieldPrefix = this.formName + ".url";
+        around$sortedRelationships: function (supr, relationships) {
+            return _.sortBy(supr(relationships), linkIsEmpty);
+        },
 
-            return _.flatten(_.map(this.links(), function (link, index) {
-                var prefix = fieldPrefix + "." + index;
-                var hidden = [];
-
-                if (link.id) {
-                    hidden.push({ name: prefix + ".relationship_id", value: link.id });
-                }
-
-                if (link.removed()) {
-                    hidden.push({ name: prefix + ".removed", value: 1 });
-                }
-                else {
-                    hidden.push({ name: prefix + ".text", value: link.url() });
-                }
-
-                hidden.push({ name: prefix + ".link_type_id", value: link.linkTypeID() });
-                return hidden;
-            }));
+        typesAreAccepted: function (sourceType, targetType) {
+            return sourceType === "url" || targetType === "url";
         },
 
         ensureOneEmptyLinkExists: function (activeLink) {
+            var relationships = this.source.relationships;
+
             var emptyLinks = _.filter(
                 this.links(), function (link) { return link.isEmpty() }
             );
 
             if (!emptyLinks.length) {
-                this.links.push(externalLinks.Relationship({}, this));
+                var data = { target: MB.entity.URL({}) };
+
+                relationships.push(this.getRelationship(data, this.source));
             }
             else if (emptyLinks.length > 1) {
-                _(emptyLinks).without(activeLink).invoke("remove");
+                relationships.removeAll(_.without(emptyLinks, activeLink));
             }
-        },
-
-        sortLinks: function () {
-            this.links(_(this.links())
-                .sortBy(function (link) { return link.label().toLowerCase() })
-                .sortBy(function (link) { return link.isEmpty() })
-                .value()
-            );
         }
     });
 
 
-    externalLinks.init = function (options) {
+    function linkIsEmpty(relationship) {
+        return relationship.isEmpty();
+    }
+
+
+    externalLinks.applyBindings = function (options) {
         var containerNode = $("#external-links-editor")[0];
         var bubbleNode = $("#external-link-bubble")[0];
         var viewModel = this.ViewModel(options);
@@ -266,13 +218,14 @@ ko.bindingHandlers.urlCleanup = {
         var $element = $(element);
         var $textInput = $element.find("input[type=text]");
 
-        var cleanup = MB.Control.URLCleanup(
-            valueAccessor(),
-            $element.find("select"),
-            $textInput,
-            viewModel.error,
-            false // handleErrors
-        );
+        var cleanup = MB.Control.URLCleanup({
+            sourceType:         valueAccessor(),
+            typeControl:        $element.find("select"),
+            urlControl:         $textInput,
+            errorObservable:    viewModel.error,
+            handleErrors:       false,
+            typeInfoByID:       MB.typeInfoByID
+        });
 
         viewModel.cleanup = cleanup;
         viewModel.urlChanged(viewModel.url());

@@ -23,7 +23,8 @@ test all => sub {
                 "gid" => "5441c29d-3602-4898-b1a1-b77fa23b8e50",
                 "name" => "David Bowie",
                 "sortName" => "David Bowie",
-                "primary_alias" => undef
+                "primary_alias" => undef,
+                "entityType" => "artist",
               }, { "current" => 1, "pages" => 1 } ]);
 
     ws_test 'label autocomplete response',
@@ -33,7 +34,8 @@ test all => sub {
                 "id" => 2,
                 "gid" => "46f0f4cd-8aab-4b33-b698-f459faf64190",
                 "name" => "Warp Records",
-                "primary_alias" => undef
+                "primary_alias" => undef,
+                "entityType" => "label",
               }, { "current" => 1, "pages" => 1 } ]);
 
 };

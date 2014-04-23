@@ -140,8 +140,6 @@ EOSQL
     my $edit = $c->model('Edit')->create(
         edit_type => $EDIT_RELATIONSHIP_EDIT,
         editor_id => 1,
-        type0 => 'release',
-        type1 => 'url',
         relationship => $rel,
         entity0 => $c->model('Release')->get_by_id(2)
     );
@@ -170,8 +168,6 @@ test 'Editing relationships fails if the underlying link type changes' => sub {
     my $edit1 = $c->model('Edit')->create(
         edit_type => $EDIT_RELATIONSHIP_EDIT,
         editor_id => 1,
-        type0 => 'artist',
-        type1 => 'artist',
         relationship => $rel,
         begin_date => { year => 1994 },
     );
@@ -179,8 +175,6 @@ test 'Editing relationships fails if the underlying link type changes' => sub {
     my $edit2 = $c->model('Edit')->create(
         edit_type => $EDIT_RELATIONSHIP_EDIT,
         editor_id => 1,
-        type0 => 'artist',
-        type1 => 'artist',
         relationship => $rel,
         link_type => $c->model('LinkType')->get_by_id(2),
     );
@@ -200,8 +194,6 @@ sub _create_edit {
     return $c->model('Edit')->create(
         edit_type => $EDIT_RELATIONSHIP_EDIT,
         editor_id => 1,
-        type0 => 'artist',
-        type1 => 'artist',
         relationship => $rel,
         link_type => $c->model('LinkType')->get_by_id(2),
         begin_date => { year => 1994 },
@@ -220,8 +212,6 @@ sub _create_edit_change_direction {
     return $c->model('Edit')->create(
         edit_type => $EDIT_RELATIONSHIP_EDIT,
         editor_id => 1,
-        type0 => 'artist',
-        type1 => 'artist',
         change_direction => 1,
         relationship => $rel,
         link_type => $c->model('LinkType')->get_by_id(1),
