@@ -65,7 +65,7 @@
                    optionsAfterRender: afterRenderLinkTypeOption,
                    value: relationship().linkTypeID"></select>
       <!-- ko if: /^(\w+)-\1$/.test(relationship().entityTypes) -->
-      <button type="button" data-bind="click: changeDirection, text: MB.text.ChangeDirection"></button>
+      <button type="button" class="styled-button change-direction" data-bind="click: changeDirection, text: MB.text.ChangeDirection"></button>
       <!-- /ko -->
       (<a href="#" data-bind="click: toggleLinkTypeHelp">[% l('help') %]</a>)
       <div class="error" data-bind="text: linkTypeError()"></div>
