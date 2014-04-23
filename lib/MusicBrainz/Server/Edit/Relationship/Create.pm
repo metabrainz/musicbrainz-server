@@ -68,6 +68,9 @@ sub initialize
         }
     }
 
+    die "Entities in a relationship cannot be the same"
+        if $lt->entity0_type eq $lt->entity1_type && $e0->id == $e1->id;
+
     $opts{entity0} = {
         id => $e0->id,
         name => $e0->name,
