@@ -1,5 +1,5 @@
 package MusicBrainz::Server::Controller::Role::Merge;
-use MooseX::Role::Parameterized -metaclass => 'MusicBrainz::Server::Controller::Role::Meta::Parameterizable';
+use MooseX::Role::Parameterized;
 
 use MusicBrainz::Server::Log qw( log_assertion );
 use MusicBrainz::Server::Translation qw ( l ln );

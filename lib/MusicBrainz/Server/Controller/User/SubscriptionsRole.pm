@@ -1,5 +1,5 @@
 package MusicBrainz::Server::Controller::User::SubscriptionsRole;
-use MooseX::Role::Parameterized -metaclass => 'MusicBrainz::Server::Controller::Role::Meta::Parameterizable';
+use MooseX::Role::Parameterized;
 
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 
