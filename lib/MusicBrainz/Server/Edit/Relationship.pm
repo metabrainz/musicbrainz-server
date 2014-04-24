@@ -38,7 +38,7 @@ sub check_attributes {
         }
 
         if (defined($max) && scalar(@values) > $max) {
-            die "Attribute $root_id can only be specific $max times for link type $link_type_id";
+            die "Attribute $root_id can only be specified $max times for link type $link_type_id";
         }
     }
 }
