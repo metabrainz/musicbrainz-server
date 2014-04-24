@@ -51,9 +51,4 @@ sub is_empty {
     return 0;
 }
 
-sub localize_meth {
-    my ($self, @message) = @_;
-    return l(@message);
-}
-
 1;
