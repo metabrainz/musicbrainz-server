@@ -1,0 +1,29 @@
+[% BLOCK layout_head %]
+    [% meta_desc = [] %]
+    [% meta_desc.push(html_escape(instrument.comment)) IF instrument.comment %]
+    <meta name="description" content="[% comma_only_list(meta_desc) %]"/>
+[% END %]
+
+[%- WRAPPER "instrument/layout.tt" page='index' -%]
+    [%- IF instrument.description -%]
+    <h2>[% l("Description") %]</h2>
+    <p>[%- instrument.description -%]</p>
+    [%- END -%]
+
+    [%- INCLUDE 'instrument/annotation.tt' summary=1 -%]
+
+    [% IF eligible_for_cleanup %]
+      <p class="cleanup">
+          [% l('This instrument has no relationships and will be removed
+                automatically in the next few days. If this is not intended, please add
+                relationships to this instrument.') %]
+      </p>
+    [% END %]
+
+    [%- show_wikipedia_extract() -%]
+
+    <h2 class="relationships">[% l("Relationships") %]</h2>
+    [%- INCLUDE "components/relationships.tt" source=instrument -%]
+
+[%- END -%]
+

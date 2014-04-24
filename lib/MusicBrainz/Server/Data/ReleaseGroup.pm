@@ -460,6 +460,7 @@ sub in_use
     return check_in_use($self->sql,
         'release                    WHERE release_group = ?' => [ $release_group_id ],
         'l_artist_release_group     WHERE entity1 = ?' => [ $release_group_id ],
+        'l_instrument_release_group WHERE entity1 = ?' => [ $release_group_id ],
         'l_label_release_group      WHERE entity1 = ?' => [ $release_group_id ],
         'l_recording_release_group  WHERE entity1 = ?' => [ $release_group_id ],
         'l_release_release_group    WHERE entity1 = ?' => [ $release_group_id ],

@@ -17,13 +17,9 @@
                 <br/><br/>
                 [% l('Possible values:') %]
                 <ul>
-                [%- IF obj.name == 'instrument' -%]
-                    <li>[% l('See the {uri|full instrument tree}.', { uri => c.uri_for_action('/relationship/linkattributetype/instruments') }) %]</li>
-                [%- ELSE -%]
                     [% FOR child IN obj.sorted_children %]
                     [% PROCESS attribute_tree obj=child %]
                     [% END %]
-                [%- END -%]
                 </ul>
 
                 [%- END -%]

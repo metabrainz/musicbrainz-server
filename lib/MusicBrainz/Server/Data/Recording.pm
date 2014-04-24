@@ -128,6 +128,25 @@ sub find_by_artist
         $query, @where_args, $offset || 0);
 }
 
+sub find_by_instrument {
+    my ($self, $instrument_id, $limit, $offset) = @_;
+
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                     JOIN l_artist_recording ON l_artist_recording.entity1 = recording.id
+                     JOIN link ON link.id = l_artist_recording.link
+                     JOIN link_attribute ON link_attribute.link = link.id
+                     JOIN link_attribute_type ON link_attribute_type.id = link_attribute.attribute_type
+                     JOIN instrument ON instrument.gid = link_attribute_type.gid
+                 WHERE instrument.id = ?
+                 ORDER BY musicbrainz_collate(recording.name)
+                 OFFSET ?";
+
+    return query_to_list_limited(
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $instrument_id, $offset || 0);
+}
+
 sub find_by_release
 {
     my ($self, $release_id, $limit, $offset) = @_;

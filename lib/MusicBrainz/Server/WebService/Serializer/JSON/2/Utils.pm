@@ -29,6 +29,7 @@ my %serializers =
         CDStubTOC
         CDTOC
         Collection
+        Instrument
         Label
         Place
         Medium

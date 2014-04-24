@@ -7,6 +7,7 @@ requires 'load';
 use MusicBrainz::Server::Constants qw(
     $EDIT_ARTIST_ADD_ALIAS $EDIT_ARTIST_DELETE_ALIAS $EDIT_ARTIST_EDIT_ALIAS
     $EDIT_AREA_ADD_ALIAS $EDIT_AREA_DELETE_ALIAS $EDIT_AREA_EDIT_ALIAS
+    $EDIT_INSTRUMENT_ADD_ALIAS $EDIT_INSTRUMENT_DELETE_ALIAS $EDIT_INSTRUMENT_EDIT_ALIAS
     $EDIT_LABEL_ADD_ALIAS $EDIT_LABEL_DELETE_ALIAS $EDIT_LABEL_EDIT_ALIAS
     $EDIT_PLACE_ADD_ALIAS $EDIT_PLACE_DELETE_ALIAS $EDIT_PLACE_EDIT_ALIAS
     $EDIT_WORK_ADD_ALIAS $EDIT_WORK_DELETE_ALIAS $EDIT_WORK_EDIT_ALIAS
@@ -16,6 +17,7 @@ my %model_to_edit_type = (
     add => {
         Artist => $EDIT_ARTIST_ADD_ALIAS,
         Area => $EDIT_AREA_ADD_ALIAS,
+        Instrument => $EDIT_INSTRUMENT_ADD_ALIAS,
         Label  => $EDIT_LABEL_ADD_ALIAS,
         Place  => $EDIT_PLACE_ADD_ALIAS,
         Work   => $EDIT_WORK_ADD_ALIAS,
@@ -23,6 +25,7 @@ my %model_to_edit_type = (
     delete => {
         Artist => $EDIT_ARTIST_DELETE_ALIAS,
         Area => $EDIT_AREA_DELETE_ALIAS,
+        Instrument => $EDIT_INSTRUMENT_DELETE_ALIAS,
         Label  => $EDIT_LABEL_DELETE_ALIAS,
         Place  => $EDIT_PLACE_DELETE_ALIAS,
         Work   => $EDIT_WORK_DELETE_ALIAS,
@@ -30,6 +33,7 @@ my %model_to_edit_type = (
     edit => {
         Artist => $EDIT_ARTIST_EDIT_ALIAS,
         Area => $EDIT_AREA_EDIT_ALIAS,
+        Instrument => $EDIT_INSTRUMENT_EDIT_ALIAS,
         Label  => $EDIT_LABEL_EDIT_ALIAS,
         Place  => $EDIT_PLACE_EDIT_ALIAS,
         Work   => $EDIT_WORK_EDIT_ALIAS,
@@ -40,6 +44,7 @@ my %model_to_search_hint_type_id = (
     Artist => 3,
     Area => 3,
     Label => 2,
+    Instrument => 2,
     Place => 2,
     Work => 2
 );

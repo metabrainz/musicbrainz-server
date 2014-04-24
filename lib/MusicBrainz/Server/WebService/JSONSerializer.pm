@@ -569,6 +569,36 @@ sub _place
         $place->area ? (area => $place->area->name) : () };
 }
 
+sub autocomplete_instrument {
+    my ($self, $results, $pager) = @_;
+
+    my $output = _with_primary_alias(
+        $results,
+        sub { $self->_instrument(shift->{entity}) }
+    );
+
+    push @$output, {
+        pages => $pager->last_page,
+        current => $pager->current_page
+    } if $pager;
+
+    return encode_json($output);
+}
+
+sub _instrument {
+    my ($self, $instrument) = @_;
+
+    return {
+        name    => $instrument->name,
+        id      => $instrument->id,
+        gid     => $instrument->gid,
+        typeID  => $instrument->type_id,
+        comment => $instrument->comment,
+        description => $instrument->description,
+        $instrument->type ? (typeName => $instrument->type->name) : (),
+    };
+}
+
 sub _url
 {
     my ($self, $url) = @_;

@@ -45,6 +45,12 @@ sub artist : Local
     $self->_browse($c, 'Artist');
 }
 
+sub instrument : Local {
+    my ($self, $c) = @_;
+
+    $self->_browse($c, 'Instrument');
+}
+
 sub label : Local
 {
     my ($self, $c) = @_;

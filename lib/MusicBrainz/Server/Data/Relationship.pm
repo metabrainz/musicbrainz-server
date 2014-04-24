@@ -8,6 +8,7 @@ use Carp qw( carp croak );
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Data::Artist;
 use MusicBrainz::Server::Data::Area;
+use MusicBrainz::Server::Data::Instrument;
 use MusicBrainz::Server::Data::Label;
 use MusicBrainz::Server::Data::Link;
 use MusicBrainz::Server::Data::LinkType;
@@ -28,6 +29,7 @@ extends 'MusicBrainz::Server::Data::Entity';
 Readonly my @TYPES => qw(
     area
     artist
+    instrument
     label
     place
     recording
@@ -468,8 +470,12 @@ sub editor_can_edit
     my @types = sort ($type0, $type1);
     my $is_area_url = $types[0] eq 'area' && $types[1] eq 'url';
     my $is_area_area = $types[0] eq 'area' && $types[1] eq 'area';
+    my $is_instrument_url = $types[0] eq 'instrument' && $types[1] eq 'url';
+    my $is_instrument_instrument = $types[0] eq 'instrument' && $types[1] eq 'instrument';
+    my $is_area_instrument = $types[0] eq 'area' && $types[1] eq 'instrument';
     return $editor &&
-        ((!$is_area_url && !$is_area_area) || $editor->is_location_editor);
+        ((!$is_area_url && !$is_area_area) || $editor->is_location_editor)
+        && ((!$is_instrument_url && !$is_instrument_instrument && !$is_area_instrument) || $editor->is_relationship_editor);
 }
 
 __PACKAGE__->meta->make_immutable;

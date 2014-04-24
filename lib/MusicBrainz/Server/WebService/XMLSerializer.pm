@@ -923,6 +923,44 @@ sub _serialize_place
     push @$data, $gen->place(\%attrs, @list);
 }
 
+sub _serialize_instrument_list {
+    my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
+
+    if (@{ $list->{items} }) {
+        my @list;
+        foreach my $instrument (sort_by { $_->gid } @{ $list->{items} }) {
+            $self->_serialize_instrument(\@list, $gen, $instrument, $inc, $stash, $toplevel);
+        }
+        push @$data, $gen->instrument_list($self->_list_attributes($list), @list);
+    }
+}
+
+sub _serialize_instrument {
+    my ($self, $data, $gen, $instrument, $inc, $stash, $toplevel) = @_;
+
+    my $opts = $stash->store($instrument);
+
+    my %attrs;
+    $attrs{id} = $instrument->gid;
+    $attrs{type} = $instrument->type->name if $instrument->type;
+
+    my @list;
+    push @list, $gen->name($instrument->name);
+    push @list, $gen->disambiguation($instrument->comment) if $instrument->comment;
+    push @list, $gen->description($instrument->description) if $instrument->description;
+
+    if ($toplevel) {
+        $self->_serialize_annotation(\@list, $gen, $instrument, $inc, $opts);
+    }
+
+    $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
+        if ($inc->aliases && $opts->{aliases});
+
+    $self->_serialize_relation_lists($instrument, \@list, $gen, $instrument->relationships, $inc, $stash) if ($inc->has_rels);
+
+    push @$data, $gen->instrument(\%attrs, @list);
+}
+
 sub _serialize_relation_lists
 {
     my ($self, $src_entity, $data, $gen, $rels, $inc, $stash) = @_;
@@ -1221,6 +1259,14 @@ sub place_resource
     return $data->[0];
 }
 
+sub instrument_resource {
+    my ($self, $gen, $instrument, $inc, $stash) = @_;
+
+    my $data = [];
+    $self->_serialize_instrument($data, $gen, $instrument, $inc, $stash, 1);
+    return $data->[0];
+}
+
 sub url_resource
 {
     my ($self, $gen, $url, $inc, $stash) = @_;
@@ -1334,6 +1380,15 @@ sub place_list_resource
 
     my $data = [];
     $self->_serialize_place_list($data, $gen, $places, $inc, $stash, 1);
+
+    return $data->[0];
+}
+
+sub instrument_list_resource {
+    my ($self, $gen, $instruments, $inc, $stash) = @_;
+
+    my $data = [];
+    $self->_serialize_instrument_list($data, $gen, $instruments, $inc, $stash, 1);
 
     return $data->[0];
 }

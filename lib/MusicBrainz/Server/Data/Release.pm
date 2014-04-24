@@ -195,6 +195,50 @@ sub find_by_artist
         $query, @$params, $offset || 0);
 }
 
+sub find_by_instrument {
+    my ($self, $instrument_id, $limit, $offset, %args) = @_;
+
+    my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
+
+    push @$conditions, "instrument.id = ?";
+    push @$params, $instrument_id;
+
+    my $query = "
+      SELECT *
+      FROM (
+        SELECT DISTINCT ON (release.id)
+          " . $self->_columns . ",
+          date_year, date_month, date_day,
+          area.name AS country_name
+        FROM " . $self->_table . "
+        JOIN l_artist_release ON l_artist_release.entity1 = release.id
+        JOIN link ON link.id = l_artist_release.link
+        JOIN link_attribute ON link_attribute.link = link.id
+        JOIN link_attribute_type ON link_attribute_type.id = link_attribute.attribute_type
+        JOIN instrument ON instrument.gid = link_attribute_type.gid
+        " . join(' ', @$extra_joins) . "
+        LEFT JOIN (
+          SELECT release, country, date_year, date_month, date_day
+          FROM release_country
+          UNION ALL
+          SELECT release, NULL, date_year, date_month, date_day
+          FROM release_unknown_country
+        ) release_event ON release_event.release = release.id
+        LEFT JOIN area ON area.id = release_event.country
+         WHERE " . join(" AND ", @$conditions) . "
+        ORDER BY release.id, date_year, date_month, date_day,
+          musicbrainz_collate(release.name), country_name,
+          barcode
+      ) s
+      ORDER BY date_year, date_month, date_day,
+        musicbrainz_collate(name), country_name,
+        barcode
+      OFFSET ?";
+    return query_to_list_limited(
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, @$params, $offset || 0);
+}
+
 sub find_by_label
 {
     my ($self, $label_id, $limit, $offset, %args) = @_;

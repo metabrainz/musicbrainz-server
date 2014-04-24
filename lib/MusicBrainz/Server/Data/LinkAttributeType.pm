@@ -12,6 +12,7 @@ use MusicBrainz::Server::Data::Utils qw(
     generate_gid
     placeholders
 );
+use MusicBrainz::Server::Constants qw( $INSTRUMENT_ROOT_ID );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'linkattrtype' };
@@ -49,6 +50,57 @@ sub load
 {
     my ($self, @objs) = @_;
     load_subobjects($self, 'type', @objs);
+}
+
+sub get_tree {
+    my ($self) = @_;
+
+    my @objs;
+    my %id_to_obj;
+    for my $row (@{
+        $self->sql->select_list_of_hashes(
+            'SELECT ' .$self->_columns . ' FROM ' . $self->_table . '
+             ORDER BY child_order, id'
+        )
+    }) {
+        my $obj = $self->_new_from_row($row);
+        $id_to_obj{$obj->id} = $obj;
+        push @objs, $obj;
+    }
+
+    my $root = MusicBrainz::Server::Entity::LinkAttributeType->new;
+    foreach my $obj (@objs) {
+        my $parent = $obj->parent_id ? $id_to_obj{$obj->parent_id} : $root;
+        $parent->add_child($obj);
+    }
+
+    return $root;
+}
+
+sub get_sub_tree {
+    my ($self) = @_;
+
+    my @objs;
+    my %id_to_obj;
+    for my $row (@{
+        $self->sql->select_list_of_hashes(
+            "SELECT " .$self->_columns . " FROM " . $self->_table . "
+             WHERE root != $INSTRUMENT_ROOT_ID
+             ORDER BY child_order, id"
+        )
+    }) {
+        my $obj = $self->_new_from_row($row);
+        $id_to_obj{$obj->id} = $obj;
+        push @objs, $obj;
+    }
+
+    my $root = MusicBrainz::Server::Entity::LinkAttributeType->new;
+    foreach my $obj (@objs) {
+        my $parent = $obj->parent_id ? $id_to_obj{$obj->parent_id} : $root;
+        $parent->add_child($obj);
+    }
+
+    return $root;
 }
 
 sub find_root
@@ -138,6 +190,29 @@ sub in_use
         $id);
 }
 
+sub merge_instrument_attributes {
+    my ($self, $target_id, @source_ids) = @_;
+
+    # This will generate duplicates if there are two relationships which differ
+    # only by the instruments used.
+    $self->sql->do("
+        WITH id_mapping AS (SELECT link_attribute_type.id AS attribute_id, instrument.id AS entity_id FROM instrument JOIN link_attribute_type ON link_attribute_type.gid = instrument.gid)
+
+        UPDATE link_attribute SET attribute_type = (SELECT attribute_id FROM id_mapping WHERE entity_id = ?)
+        WHERE attribute_type IN (SELECT attribute_id FROM id_mapping WHERE entity_id IN (" . placeholders($target_id, @source_ids) . "))
+    ", $target_id, $target_id, @source_ids);
+
+    $self->c->model('Link')->_delete_from_cache(
+        @{ $self->sql->select_single_column_array(
+            'WITH id_mapping AS (SELECT link_attribute_type.id AS attribute_id, instrument.id AS entity_id FROM instrument JOIN link_attribute_type ON link_attribute_type.gid = instrument.gid)
+
+            SELECT id FROM link
+            JOIN link_attribute la ON link.id = la.link
+            WHERE la.attribute_type IN (SELECT attribute_id FROM id_mapping WHERE entity_id IN ('.placeholders($target_id, @source_ids).'))',
+            $target_id, @source_ids
+        ) }
+    );
+}
 
 # The entries in the memcached store for 'Link' objects also have all attributes
 # loaded. Thus changing an attribute should clear all of these link objects.
