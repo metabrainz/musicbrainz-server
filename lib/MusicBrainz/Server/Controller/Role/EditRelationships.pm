@@ -16,6 +16,37 @@ role {
         return JSONSerializer->$method($source);
     }
 
+    sub load_entities {
+        my ($c, $source_type, @rels) = @_;
+
+        my $entity_map = {};
+
+        my $link_types = $c->model('LinkType')->get_by_ids(
+            map { $_->{link_type_id} } @rels
+        );
+
+        for (@rels) {
+            my $link_type = $link_types->{$_->{link_type_id}};
+
+            my $forward = $source_type eq $link_type->entity0_type && !$_->{backward};
+            my $target_type = $forward ? $link_type->entity1_type : $link_type->entity0_type;
+
+            $_->{forward} = $forward;
+            $_->{link_type} = $link_type;
+            $_->{target_type} = $target_type;
+
+            if ($target_type ne 'url') {
+                push @{ $entity_map->{type_to_model($target_type)} //= [] }, $_->{target};
+            }
+        }
+
+        for my $model (keys %$entity_map) {
+            $entity_map->{$model} = $c->model($model)->get_by_gids(@{ $entity_map->{$model} });
+        }
+
+        return $entity_map;
+    }
+
     around 'edit_action' => sub {
         my ($orig, $self, $c, %opts) = @_;
 
@@ -32,17 +63,10 @@ role {
             } @_;
 
             my @result;
-
-            my $link_types = $c->model('LinkType')->get_by_ids(
-                map { $_->{link_type_id} } @rels
-            );
+            my $entity_map = load_entities($c, $source_type, @rels);
 
             for (@rels) {
-                my $link_type = $link_types->{$_->{link_type_id}};
-                my ($type0, $type1) = ($link_type->entity0_type, $link_type->entity1_type);
-
-                my $forward = $source_type eq $type0 && !$_->{backward};
-                my $target_type = $forward ? $type1 : $type0;
+                my $target_type = $_->{target_type};
                 my $target;
 
                 if ($target_type eq 'url') {
@@ -52,13 +76,13 @@ role {
                     my $serialize = "_$target_type";
 
                     $target = JSONSerializer->$serialize(
-                        $c->model(type_to_model($target_type))->get_by_gid($_->{target})
+                        $entity_map->{type_to_model($target_type)}->{$_->{target}}
                     );
                 }
 
                 push @result, {
                     id          => $_->{relationship_id},
-                    linkTypeID  => $link_type->id,
+                    linkTypeID  => $_->{link_type_id},
                     removed     => $_->{removed} // 0,
                     attributes  => $_->{attributes} // [],
                     period      => $_->{period} // {},
@@ -146,18 +170,13 @@ role {
         return unless @$fields;
 
         my @edits;
-        my $source_type = ref_to_type($source);
         my @field_values = map { $_->value } @$fields;
-
-        my $link_types = $c->model('LinkType')->get_by_ids(
-            map { $_->{link_type_id} } @field_values
-        );
+        my $entity_map = load_entities($c, ref_to_type($source), @field_values);
 
         for my $field (@field_values) {
             my $edit;
             my %args;
-            my $link_type = $link_types->{$field->{link_type_id}};
-            my ($type0, $type1) = ($link_type->entity0_type, $link_type->entity1_type);
+            my $link_type = $field->{link_type};
 
             if (my $period = $field->{period}) {
                 $args{begin_date} = $period->{begin_date} if $period->{begin_date};
@@ -171,26 +190,21 @@ role {
             unless ($field->{removed}) {
                 $args{link_type} = $link_type;
 
-                my $forward = $source_type eq $type0 && !$field->{backward};
-                my $target_type = $forward ? $type1 : $type0;
                 my $target;
 
                 if ($field->{text}) {
                     $target = $c->model('URL')->find_or_insert($field->{text});
-                }
-                elsif ($field->{target}) {
-                    my $model = type_to_model($target_type);
-
-                    $target = $c->model($model)->get_by_gid($field->{target});
+                } elsif ($field->{target}) {
+                    $target = $entity_map->{type_to_model($field->{target_type})}->{$field->{target}};
                 }
 
-                $args{entity0} = $forward ? $source : $target;
-                $args{entity1} = $forward ? $target : $source;;
+                $args{entity0} = $field->{forward} ? $source : $target;
+                $args{entity1} = $field->{forward} ? $target : $source;;
             }
 
             if ($field->{relationship_id}) {
                 my $relationship = $c->model('Relationship')->get_by_id(
-                   $type0, $type1, $field->{relationship_id}
+                   $link_type->entity0_type, $link_type->entity1_type, $field->{relationship_id}
                 );
 
                 $args{relationship} = $relationship;
