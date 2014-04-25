@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-04-17 03:31+0000\n"
+"PO-Revision-Date: 2014-04-25 16:29+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -264,6 +264,10 @@ msgstr "altertümliche und andere Streichinstrumente"
 #: DB:link_attribute_type/name:619
 msgid "archlute"
 msgstr "Arciliuto"
+
+#: DB:link_attribute_type/name:779
+msgid "arghul"
+msgstr ""
 
 #: DB:link_attribute_type/name:677
 msgid "atarigane"
@@ -573,8 +577,16 @@ msgstr ""
 msgid "charango"
 msgstr "Charango"
 
+#: DB:link_attribute_type/name:785
+msgid "chau gong"
+msgstr ""
+
 #: DB:link_attribute_type/name:690
 msgid "chikuzen biwa"
+msgstr ""
+
+#: DB:link_attribute_type/name:783
+msgid "chime bar"
 msgstr ""
 
 #: DB:link_attribute_type/name:415
@@ -760,6 +772,10 @@ msgstr "Dholak"
 #: DB:link_attribute_type/name:441
 msgid "diatonic accordion / melodeon"
 msgstr "diatonisches Akkordeon"
+
+#: DB:link_attribute_type/name:780
+msgid "diddley bow"
+msgstr ""
 
 #: DB:link_attribute_type/name:204
 msgid "didgeridoo"
@@ -1048,6 +1064,10 @@ msgstr "Bechertrommel"
 #: DB:link_attribute_type/name:340
 msgid "gong"
 msgstr "Gong"
+
+#: DB:link_attribute_type/name:784
+msgid "gong bass drum"
+msgstr ""
 
 #: DB:link_attribute_type/name:339
 msgid "gongs"
@@ -1349,6 +1369,10 @@ msgstr ""
 msgid "kōauau"
 msgstr ""
 
+#: DB:link_attribute_type/name:777
+msgid "lamellophone"
+msgstr ""
+
 #: DB:link_attribute_type/name:319
 msgid "langeleik"
 msgstr "Langeleik"
@@ -1417,9 +1441,17 @@ msgstr "Maracas / Rumba-Rasseln"
 msgid "marimba"
 msgstr "Marimba"
 
+#: DB:link_attribute_type/name:782
+msgid "mark tree"
+msgstr ""
+
 #: DB:link_attribute_type/name:534
 msgid "marxophone"
 msgstr "Marxophon"
+
+#: DB:link_attribute_type/name:778
+msgid "marímbula"
+msgstr ""
 
 #: DB:link_attribute_type/name:110
 msgid "mbira"
@@ -1733,16 +1765,16 @@ msgstr "Harmonium"
 msgid "reeds"
 msgstr "Rohrblattinstrumente"
 
-#: DB:link_attribute_type/name:406
-msgid "rek"
-msgstr ""
-
 #: DB:link_attribute_type/name:467
 msgid "resonator guitar"
 msgstr "Resonatorgitarre"
 
 #: DB:link_attribute_type/name:449
 msgid "rhythm sticks"
+msgstr ""
+
+#: DB:link_attribute_type/name:406
+msgid "riq"
 msgstr ""
 
 #: DB:link_attribute_type/name:680
@@ -2035,6 +2067,10 @@ msgstr "Tabla"
 
 #: DB:link_attribute_type/name:468
 msgid "table steel guitar"
+msgstr ""
+
+#: DB:link_attribute_type/name:781
+msgid "tack piano"
 msgstr ""
 
 #: DB:link_attribute_type/name:458

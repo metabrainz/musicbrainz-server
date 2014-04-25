@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-04-17 03:31+0000\n"
+"PO-Revision-Date: 2014-04-25 16:29+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -262,6 +262,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:619
 msgid "archlute"
+msgstr ""
+
+#: DB:link_attribute_type/name:779
+msgid "arghul"
 msgstr ""
 
 #: DB:link_attribute_type/name:677
@@ -572,8 +576,16 @@ msgstr ""
 msgid "charango"
 msgstr ""
 
+#: DB:link_attribute_type/name:785
+msgid "chau gong"
+msgstr ""
+
 #: DB:link_attribute_type/name:690
 msgid "chikuzen biwa"
+msgstr ""
+
+#: DB:link_attribute_type/name:783
+msgid "chime bar"
 msgstr ""
 
 #: DB:link_attribute_type/name:415
@@ -758,6 +770,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:441
 msgid "diatonic accordion / melodeon"
+msgstr ""
+
+#: DB:link_attribute_type/name:780
+msgid "diddley bow"
 msgstr ""
 
 #: DB:link_attribute_type/name:204
@@ -1046,6 +1062,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:340
 msgid "gong"
+msgstr ""
+
+#: DB:link_attribute_type/name:784
+msgid "gong bass drum"
 msgstr ""
 
 #: DB:link_attribute_type/name:339
@@ -1348,6 +1368,10 @@ msgstr ""
 msgid "kōauau"
 msgstr ""
 
+#: DB:link_attribute_type/name:777
+msgid "lamellophone"
+msgstr ""
+
 #: DB:link_attribute_type/name:319
 msgid "langeleik"
 msgstr ""
@@ -1416,8 +1440,16 @@ msgstr ""
 msgid "marimba"
 msgstr ""
 
+#: DB:link_attribute_type/name:782
+msgid "mark tree"
+msgstr ""
+
 #: DB:link_attribute_type/name:534
 msgid "marxophone"
+msgstr ""
+
+#: DB:link_attribute_type/name:778
+msgid "marímbula"
 msgstr ""
 
 #: DB:link_attribute_type/name:110
@@ -1732,16 +1764,16 @@ msgstr ""
 msgid "reeds"
 msgstr ""
 
-#: DB:link_attribute_type/name:406
-msgid "rek"
-msgstr ""
-
 #: DB:link_attribute_type/name:467
 msgid "resonator guitar"
 msgstr ""
 
 #: DB:link_attribute_type/name:449
 msgid "rhythm sticks"
+msgstr ""
+
+#: DB:link_attribute_type/name:406
+msgid "riq"
 msgstr ""
 
 #: DB:link_attribute_type/name:680
@@ -2034,6 +2066,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:468
 msgid "table steel guitar"
+msgstr ""
+
+#: DB:link_attribute_type/name:781
+msgid "tack piano"
 msgstr ""
 
 #: DB:link_attribute_type/name:458

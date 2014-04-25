@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-04-17 03:31+0000\n"
+"PO-Revision-Date: 2014-04-25 16:29+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -262,6 +262,10 @@ msgstr "arhailised ja muud poogenkeelpillid"
 #: DB:link_attribute_type/name:619
 msgid "archlute"
 msgstr "barokklauto (arhilauto)"
+
+#: DB:link_attribute_type/name:779
+msgid "arghul"
+msgstr ""
 
 #: DB:link_attribute_type/name:677
 msgid "atarigane"
@@ -571,9 +575,17 @@ msgstr "chap"
 msgid "charango"
 msgstr ""
 
+#: DB:link_attribute_type/name:785
+msgid "chau gong"
+msgstr ""
+
 #: DB:link_attribute_type/name:690
 msgid "chikuzen biwa"
 msgstr "chikuzen biwa"
+
+#: DB:link_attribute_type/name:783
+msgid "chime bar"
+msgstr ""
 
 #: DB:link_attribute_type/name:415
 msgid "chimes"
@@ -758,6 +770,10 @@ msgstr "dholak"
 #: DB:link_attribute_type/name:441
 msgid "diatonic accordion / melodeon"
 msgstr "diatooniline nuppakordion (melodeon)"
+
+#: DB:link_attribute_type/name:780
+msgid "diddley bow"
+msgstr ""
 
 #: DB:link_attribute_type/name:204
 msgid "didgeridoo"
@@ -1046,6 +1062,10 @@ msgstr ""
 #: DB:link_attribute_type/name:340
 msgid "gong"
 msgstr "gong"
+
+#: DB:link_attribute_type/name:784
+msgid "gong bass drum"
+msgstr ""
 
 #: DB:link_attribute_type/name:339
 msgid "gongs"
@@ -1347,6 +1367,10 @@ msgstr "kèn lá"
 msgid "kōauau"
 msgstr "kōauau"
 
+#: DB:link_attribute_type/name:777
+msgid "lamellophone"
+msgstr ""
+
 #: DB:link_attribute_type/name:319
 msgid "langeleik"
 msgstr ""
@@ -1415,9 +1439,17 @@ msgstr "marakad"
 msgid "marimba"
 msgstr "marimba (marimbafon)"
 
+#: DB:link_attribute_type/name:782
+msgid "mark tree"
+msgstr ""
+
 #: DB:link_attribute_type/name:534
 msgid "marxophone"
 msgstr "Marxophone"
+
+#: DB:link_attribute_type/name:778
+msgid "marímbula"
+msgstr ""
 
 #: DB:link_attribute_type/name:110
 msgid "mbira"
@@ -1731,10 +1763,6 @@ msgstr ""
 msgid "reeds"
 msgstr "lesthuulikuga"
 
-#: DB:link_attribute_type/name:406
-msgid "rek"
-msgstr "rek"
-
 #: DB:link_attribute_type/name:467
 msgid "resonator guitar"
 msgstr "resonaatorkitarr"
@@ -1742,6 +1770,10 @@ msgstr "resonaatorkitarr"
 #: DB:link_attribute_type/name:449
 msgid "rhythm sticks"
 msgstr "rütmipulgad"
+
+#: DB:link_attribute_type/name:406
+msgid "riq"
+msgstr ""
 
 #: DB:link_attribute_type/name:680
 msgid "rondador"
@@ -2034,6 +2066,10 @@ msgstr "tabla"
 #: DB:link_attribute_type/name:468
 msgid "table steel guitar"
 msgstr "laual mängitav steel-kitarr"
+
+#: DB:link_attribute_type/name:781
+msgid "tack piano"
+msgstr ""
 
 #: DB:link_attribute_type/name:458
 msgid "taiko"

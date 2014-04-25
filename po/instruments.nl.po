@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-04-17 03:31+0000\n"
+"PO-Revision-Date: 2014-04-25 16:29+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -262,6 +262,10 @@ msgstr "archaïsche en andere strijkinstrumenten"
 #: DB:link_attribute_type/name:619
 msgid "archlute"
 msgstr "aartsluit"
+
+#: DB:link_attribute_type/name:779
+msgid "arghul"
+msgstr ""
 
 #: DB:link_attribute_type/name:677
 msgid "atarigane"
@@ -549,7 +553,7 @@ msgstr "chacha"
 
 #: DB:link_attribute_type/name:772
 msgid "chakhe"
-msgstr ""
+msgstr "chakhe"
 
 #: DB:link_attribute_type/name:524
 msgid "chalumeau"
@@ -571,9 +575,17 @@ msgstr "chap"
 msgid "charango"
 msgstr "charango"
 
+#: DB:link_attribute_type/name:785
+msgid "chau gong"
+msgstr ""
+
 #: DB:link_attribute_type/name:690
 msgid "chikuzen biwa"
 msgstr "chikuzen biwa"
+
+#: DB:link_attribute_type/name:783
+msgid "chime bar"
+msgstr ""
 
 #: DB:link_attribute_type/name:415
 msgid "chimes"
@@ -759,6 +771,10 @@ msgstr "dhool"
 msgid "diatonic accordion / melodeon"
 msgstr "diatonische accordeon / trekzak"
 
+#: DB:link_attribute_type/name:780
+msgid "diddley bow"
+msgstr ""
+
 #: DB:link_attribute_type/name:204
 msgid "didgeridoo"
 msgstr "didgeridoo"
@@ -837,7 +853,7 @@ msgstr "dulciaan"
 
 #: DB:link_attribute_type/name:774
 msgid "dutar"
-msgstr ""
+msgstr "dutar"
 
 #: DB:link_attribute_type/name:740
 msgid "duxianqin"
@@ -1046,6 +1062,10 @@ msgstr "vaastrommel"
 #: DB:link_attribute_type/name:340
 msgid "gong"
 msgstr "gong"
+
+#: DB:link_attribute_type/name:784
+msgid "gong bass drum"
+msgstr ""
 
 #: DB:link_attribute_type/name:339
 msgid "gongs"
@@ -1347,6 +1367,10 @@ msgstr "kèn lá"
 msgid "kōauau"
 msgstr "kōauau"
 
+#: DB:link_attribute_type/name:777
+msgid "lamellophone"
+msgstr ""
+
 #: DB:link_attribute_type/name:319
 msgid "langeleik"
 msgstr "langeleik"
@@ -1415,9 +1439,17 @@ msgstr "maracas"
 msgid "marimba"
 msgstr "marimba"
 
+#: DB:link_attribute_type/name:782
+msgid "mark tree"
+msgstr ""
+
 #: DB:link_attribute_type/name:534
 msgid "marxophone"
 msgstr "marxofoon"
+
+#: DB:link_attribute_type/name:778
+msgid "marímbula"
+msgstr ""
 
 #: DB:link_attribute_type/name:110
 msgid "mbira"
@@ -1689,7 +1721,7 @@ msgstr "regenstok"
 
 #: DB:link_attribute_type/name:773
 msgid "rammana"
-msgstr ""
+msgstr "rammana"
 
 #: DB:link_attribute_type/name:759
 msgid "ranat ek"
@@ -1731,10 +1763,6 @@ msgstr "rietorgel"
 msgid "reeds"
 msgstr "rietblazers"
 
-#: DB:link_attribute_type/name:406
-msgid "rek"
-msgstr "rek"
-
 #: DB:link_attribute_type/name:467
 msgid "resonator guitar"
 msgstr "resonatorgitaar"
@@ -1742,6 +1770,10 @@ msgstr "resonatorgitaar"
 #: DB:link_attribute_type/name:449
 msgid "rhythm sticks"
 msgstr "ritmestokken"
+
+#: DB:link_attribute_type/name:406
+msgid "riq"
+msgstr ""
 
 #: DB:link_attribute_type/name:680
 msgid "rondador"
@@ -1833,7 +1865,7 @@ msgstr "serpent"
 
 #: DB:link_attribute_type/name:775
 msgid "setar"
-msgstr ""
+msgstr "setar"
 
 #: DB:link_attribute_type/name:417
 msgid "shakers"
@@ -1849,7 +1881,7 @@ msgstr "shamisen"
 
 #: DB:link_attribute_type/name:493
 msgid "shawm"
-msgstr "Schalmei"
+msgstr "schalmei"
 
 #: DB:link_attribute_type/name:604
 msgid "shehnai"
@@ -2034,6 +2066,10 @@ msgstr "tabla"
 #: DB:link_attribute_type/name:468
 msgid "table steel guitar"
 msgstr "tafel-Hawaï-gitaar"
+
+#: DB:link_attribute_type/name:781
+msgid "tack piano"
+msgstr ""
 
 #: DB:link_attribute_type/name:458
 msgid "taiko"
@@ -2273,7 +2309,7 @@ msgstr "Uilleann pipes"
 
 #: DB:link_attribute_type/name:776
 msgid "ukeke"
-msgstr ""
+msgstr "ukeke"
 
 #: DB:link_attribute_type/name:114
 msgid "ukulele"
