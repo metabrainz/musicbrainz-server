@@ -487,10 +487,6 @@ msgstr ""
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Harp\">Wikipedia</a>)"
 msgstr ""
 
-#: DB:link_attribute_type/description:174
-msgid "(<a href=\"https://en.wikipedia.org/wiki/Harpsichord\">Wikipedia</a>)"
-msgstr ""
-
 #: DB:link_attribute_type/description:261
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Heckelphone\">Wikipedia</a>)"
 msgstr ""
@@ -512,10 +508,6 @@ msgstr ""
 #: DB:link_attribute_type/description:491
 msgid ""
 "(<a href=\"https://en.wikipedia.org/wiki/Irish_bouzouki\">Wikipedia</a>)"
-msgstr ""
-
-#: DB:link_attribute_type/description:104
-msgid "(<a href=\"https://en.wikipedia.org/wiki/Jew's_harp\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:188
@@ -874,10 +866,6 @@ msgstr ""
 msgid "(<a href=\"https://en.wikipedia.org/wiki/Tuba\">Wikipedia</a>)"
 msgstr ""
 
-#: DB:link_attribute_type/description:218
-msgid "(<a href=\"https://en.wikipedia.org/wiki/Tubular_bells\">Wikipedia</a>)"
-msgstr ""
-
 #: DB:link_attribute_type/description:529
 msgid ""
 "(<a href=\"https://en.wikipedia.org/wiki/Twelve-string_guitar\">Wikipedia</"
@@ -1027,6 +1015,14 @@ msgstr ""
 msgid "A chamber organ is a small pipe organ."
 msgstr ""
 
+#: DB:link_attribute_type/description:783
+msgid ""
+"A chime bar is a percussion instrument consisting of a tuned metal bar "
+"similar to a glockenspiel bar which is mounted on a wooden resonator and "
+"played with a mallet. Other names: resonator bell (<a href=\"https://en."
+"wikipedia.org/wiki/Chime_bar\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:531
 msgid ""
 "A class of South-American guitars  (<a href=\"https://en.wikipedia.org/wiki/"
@@ -1061,6 +1057,13 @@ msgid ""
 "wikipedia.org/wiki/Banjo#Five-string_banjo\">Wikipedia</a>)"
 msgstr ""
 
+#: DB:link_attribute_type/description:784
+msgid ""
+"A gong bass drum is a large single drumhead which resembles a gong. Other "
+"names: gong drum (<a href=\"https://en.wikipedia.org/wiki/Gong_bass_drum\n"
+"\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:547
 msgid ""
 "A hi-hat (or hihat) is a typical part of a drum kit, consisting of a pair of "
@@ -1093,6 +1096,14 @@ msgstr ""
 msgid ""
 "A latter-day construction in the form of a four-stringed, square-bodied bass "
 "guitar"
+msgstr ""
+
+#: DB:link_attribute_type/description:782
+msgid ""
+"A mark tree consists of many small chimes arranged in order of length which "
+"hang from a bar. The chimes are played by sweeping a finger or stick through "
+"the length of the hanging chimes. Other names: chime tree, bar chimes (<a "
+"href=\"https://en.wikipedia.org/wiki/Mark_tree\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:755
@@ -1331,6 +1342,13 @@ msgid ""
 "org/wiki/Chap_(instrument)\">Wikipedia</a>)"
 msgstr ""
 
+#: DB:link_attribute_type/description:415
+msgid ""
+"Chime or chimes can refer to multiple different instruments, including "
+"tubular bells, wind chime, chime bar and mark tree. Please use the correct "
+"instrument if you know which one is intended."
+msgstr ""
+
 #: DB:link_attribute_type/description:763
 msgid ""
 "Ching (Thai: ฉิ่ง, Khmer: ឈិង) are a pair of small hand cymbals used in Thai "
@@ -1538,6 +1556,15 @@ msgid ""
 "(<a href=\"https://en.wikipedia.org/wiki/Kortholt\">Wikipedia</a>)"
 msgstr ""
 
+#: DB:link_attribute_type/description:777
+msgid ""
+"Lamellophones are a family of musical instruments which have one or more "
+"long thin plates - \"lamella\" or \"tongues\" - which are fixed at one end "
+"and free at the other end. The free end is plucked, causing the plate to "
+"vibrate. Other names: lamellaphone, linguaphone (<a href=\"https://en."
+"wikipedia.org/wiki/Lamellophone\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:513
 msgid ""
 "Like (and developed from) the Northumbrian smallpipes, but with Great "
@@ -1564,12 +1591,6 @@ msgid ""
 "Maddale is a double-headed drum from Karnataka, India. It is the primary "
 "rhythmic accompaniment in Yakshagana. (<a href=\"http://en.wikipedia.org/"
 "wiki/Maddale\">Wikipedia</a>)"
-msgstr ""
-
-#: DB:link_attribute_type/description:110
-msgid ""
-"Mbira, (sansa, kalimba, luvale, karimba, marimbula, matape, thumb piano) (<a "
-"href=\"https://en.wikipedia.org/wiki/Mbira\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:67
@@ -1643,6 +1664,34 @@ msgid ""
 "http://wiki.musicbrainz.org/Instrument_Tree/Requests"
 msgstr ""
 
+#: DB:link_attribute_type/description:218
+msgid ""
+"Other names: chimes (<a href=\"https://en.wikipedia.org/wiki/Tubular_bells"
+"\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:174
+msgid ""
+"Other names: harpischord (<a href=\"https://en.wikipedia.org/wiki/Harpsichord"
+"\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:104
+msgid ""
+"Other names: jaw harp, mouth harp, Ozark harp, trump, juice harp (<a href="
+"\"https://en.wikipedia.org/wiki/Jew's_harp\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:274
+msgid "Other names: pump organ"
+msgstr ""
+
+#: DB:link_attribute_type/description:110
+msgid ""
+"Other names: sansa, kalimba, luvale, karimba, matape, thumb piano (<a href="
+"\"https://en.wikipedia.org/wiki/Mbira\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:304
 msgid ""
 "Other names: ούτι, outi (<a href=\"http://en.wikipedia.org/wiki/Oud"
@@ -1708,12 +1757,6 @@ msgstr ""
 msgid ""
 "Recorder flute (Blockflöte)  (<a href=\"https://en.wikipedia.org/wiki/"
 "Recorder_(musical_instrument)\">Wikipedia</a>)"
-msgstr ""
-
-#: DB:link_attribute_type/description:406
-msgid ""
-"Rek, riq, riqq, rik (Oriental tambourine) (<a href=\"https://en.wikipedia."
-"org/wiki/Riq\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:657
@@ -1881,6 +1924,13 @@ msgid ""
 "lute (<a href=\"http://en.wikipedia.org/wiki/Archlute\">Wikipedia</a>)"
 msgstr ""
 
+#: DB:link_attribute_type/description:779
+msgid ""
+"The arghul is a traditional Egyptian double-pipe, single-reed woodwind "
+"instrument. Other names: argul, arghoul, arghool, argol, yarghul, أرغول‎, "
+"يرغول‎ (<a href=\"https://en.wikipedia.org/wiki/Arghul\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:677
 msgid ""
 "The atarigane (Japanese: 当り鉦) is a Japanese gong which is struck using a "
@@ -2009,6 +2059,13 @@ msgid ""
 "wikipedia.org/wiki/Charango\">Wikipedia</a>)"
 msgstr ""
 
+#: DB:link_attribute_type/description:785
+msgid ""
+"The chau gong is a large gong made of brass or bronze which is almost flat "
+"except for the rim. Other names: tam-tam, tamtam, bullseye gong (<a href="
+"\"https://de.wikipedia.org/wiki/Tamtam\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:690
 msgid ""
 "The chikuzen biwa (Japanese: 筑前琵琶) is a biwa with either four strings "
@@ -2061,6 +2118,15 @@ msgstr ""
 msgid ""
 "The daruan (Chinese: 大阮, dàruǎn) is a Chinese plucked lute. Also called a "
 "bass ruan."
+msgstr ""
+
+#: DB:link_attribute_type/description:780
+msgid ""
+"The diddley bow is a single-stringed American instrument which is typically "
+"homemade. It consists of a single string of baling wire tensioned between "
+"two nails on a board over a glass bottle, which is used both as a bridge and "
+"as a means to magnify the instrument's sound. Other names: jitterbug, one-"
+"string (<a href=\"https://en.wikipedia.org/wiki/Diddley_bow\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:642
@@ -2434,6 +2500,12 @@ msgid ""
 "org/wiki/Mandocello\">Wikipedia</a>)"
 msgstr ""
 
+#: DB:link_attribute_type/description:778
+msgid ""
+"The marímbula is a plucked box musical instrument from the Caribbean. (<a "
+"href=\"https://en.wikipedia.org/wiki/Mar%C3%ADmbula\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:294
 msgid ""
 "The morin khuur (Mongolian: морин хуур, also written morin huur or morin "
@@ -2559,7 +2631,7 @@ msgstr ""
 msgid ""
 "The rammana is a frame drum used in classical Thai and Cambodian music which "
 "forms one part of <a href=\"http://en.wikipedia.org/wiki/Thon_and_rammana"
-"\">thon and rammana</a>. Other names: รำมะนา, rumana"
+"\">thon and rammana</a>. Other names: รำมะนา, rumana, ramana"
 msgstr ""
 
 #: DB:link_attribute_type/description:759
@@ -2576,6 +2648,13 @@ msgid ""
 "wooden bars suspended by cords over a boat-shaped trough resonator. It is "
 "similar to the ranat ek but lower in pitch. Other names: lanat thoum (<a "
 "href=\"https://en.wikipedia.org/wiki/Ranat_thum\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:406
+msgid ""
+"The riq is a type of tambourine used as a traditional instrument in Arabic "
+"music. Other names: rek, riqq, rik, رق (<a href=\"https://en.wikipedia.org/"
+"wiki/Riq\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:680
@@ -2790,6 +2869,16 @@ msgid ""
 "The t'rưng (t'rung) is a bamboo xylophone from the central highlands of "
 "Vietnam which is played by ethnic groups such as the Bahnar and the Ê Đê. "
 "(<a href=\"https://en.wikipedia.org/wiki/T'rưng\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:781
+msgid ""
+"The tack piano is a permanently altered version of an ordinary piano, which "
+"has tacks or nails placed on the felt-padded hammers of the instrument at "
+"the point where the hammers hit the strings, giving the instrument a tinny, "
+"more percussive sound. Other names: jangle piano, junk piano, honky-tonk "
+"piano, harpsipiano (<a href=\"https://en.wikipedia.org/wiki/Tack_piano"
+"\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:667
@@ -3316,10 +3405,6 @@ msgstr ""
 msgid "brushes"
 msgstr ""
 
-#: DB:link_attribute_type/description:415
-msgid "chimes"
-msgstr ""
-
 #: DB:link_attribute_type/description:519
 msgid ""
 "conical bore double-reed musical instrument from Brittany  (<a href="
@@ -3404,10 +3489,6 @@ msgstr ""
 
 #: DB:link_attribute_type/description:189
 msgid "lasso d'amore"
-msgstr ""
-
-#: DB:link_attribute_type/description:274
-msgid "reed organ, also known as pump organ"
 msgstr ""
 
 #: DB:link_attribute_type/description:233
