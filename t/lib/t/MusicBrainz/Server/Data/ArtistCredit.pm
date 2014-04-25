@@ -267,7 +267,8 @@ $test->c->sql->begin;
 $artist_credit_data->merge_artists(3, [ 2 ]);
 $test->c->sql->commit;
 
-$ac = $artist_credit_data->get_by_id(1);
+$ac = $artist_credit_data->get_by_id($test->c->sql->select_single_value("SELECT id FROM artist_credit WHERE name = 'Queen & David Bowie'"));
+
 is($ac->names->[0]->artist_id, 1);
 is($ac->names->[1]->artist_id, 3);
 
