@@ -184,11 +184,12 @@ ko.bindingHandlers.bubble = {
         element.bubbleDoc = bubble;
         bubble.$bubble = $(element);
 
-        var childContext = bindingContext.createChildContext(viewModel);
-        childContext.$bubble = bubble;
+        var childContext = bindingContext.createChildContext(bubble);
 
-        ko.applyBindingsToNode(element,
-            { show: bubble.visible, with: bubble.target }, childContext);
+        ko.applyBindingsToNode(element, { show: bubble.visible }, childContext);
+        ko.applyBindingsToDescendants(childContext, element);
+
+        return { controlsDescendantBindings: true };
     }
 };
 

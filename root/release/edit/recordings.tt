@@ -138,7 +138,7 @@
 
       <p>[% l('If we do not have a recording for this track in the database yet, please select "Add a new recording" below.') %]</p>
 
-      <p>
+      <p data-bind="with: target">
         [% l('Search:') %]
         <span class="autocomplete">
           <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
@@ -146,7 +146,7 @@
         </span>
       </p>
 
-      <table>
+      <table data-bind="with: target">
         <tbody>
           <!-- ko if: loadingSuggestedRecordings -->
           <tr>
@@ -194,7 +194,8 @@
           </tr>
         </tbody>
       </table>
-      <!-- ko template: { name: "template.track-bubble-buttons", data: $bubble } --><!-- /ko -->
+
+      [% track_bubble_buttons %]
     </div>
   </div>
 </div>

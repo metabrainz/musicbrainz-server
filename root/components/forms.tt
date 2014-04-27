@@ -195,7 +195,7 @@
 
 [%- MACRO guesscase_bubble(hide_mode, bubble_name, gc_callback) BLOCK -%]
     <div class="bubble" id="guess-case-bubble" data-bind="bubble: [% bubble_name %]">
-      <!-- ko guessCase: [% gc_callback || '_.bind(guessCase, $data)' %] -->
+      <!-- ko guessCase: [% gc_callback || 'function () { target().guessCase.apply(target(), arguments) }' %] -->
       <p>
         [%- (l('Please use the Guess Case button to fix common style errors.')) -%]
       </p>
@@ -274,7 +274,7 @@
 
 [%- MACRO area_bubble BLOCK -%]
     <div class="bubble" id="area-bubble">
-      <!-- ko with: area -->
+      <!-- ko with: target() && target().area -->
         <p data-bind="html: MB.i18n.expand(MB.text.SelectedArea, { area: html({ target: '_blank' }) })"></p>
       <!-- /ko -->
     </div>
@@ -282,7 +282,7 @@
 
 [%- MACRO external_link_bubble BLOCK -%]
   <div class="bubble" id="external-link-bubble" data-bind="bubble: bubbleDoc">
-    <!-- ko with: $bubble.target -->
+    <!-- ko with: target -->
       <p data-bind="if: url() &amp;&amp; !error()">
         [% l('URL:') | js %] <a target="_blank" data-bind="attr: { href: url }, text: url"></a>
       </p>
@@ -297,9 +297,9 @@
       [%- l('Use the following fields to enter collaborations, see the <a href="{url}">Artist Credit</a> documentation for more information.', url => c.uri_for ('/doc/Artist_Credit')) -%]
     </p>
 
-    <p>[% l('Preview:') %] <span data-bind="html: html()"></span></p>
+    <p>[% l('Preview:') %] <span data-bind="html: target() ? target().html() : ''"></span></p>
 
-    <table class="row-form" style="width: auto !important;">
+    <table class="row-form" style="width: auto !important;" data-bind="with: target">
     <tbody>
       <!-- ko foreach: names -->
       <tr>
@@ -313,7 +313,7 @@
           </span>
         </td>
         <td>
-          <input type="button" class="icon remove-artist-credit" title="[% l('Remove Artist Credit') %]" data-bind="click: $bubble.removeArtistCreditName.bind($bubble)" />
+          <input type="button" class="icon remove-artist-credit" title="[% l('Remove Artist Credit') %]" data-bind="click: $parents[1].removeArtistCreditName.bind($parents[1])" />
         </td>
       </tr>
       <tr>
@@ -334,7 +334,7 @@
 
       <tr>
         <td colspan="3">
-          <button type="button" class="nobutton add-artist-credit" data-bind="click: addName">
+          <button type="button" class="nobutton add-artist-credit" data-bind="click: addName.bind($data)">
             [%- l('Add Artist Credit') -%]
             <div class="add-item icon img" title="[% l('Add Artist Credit') %]"></div>
           </button>
@@ -343,16 +343,16 @@
     </tbody>
     </table>
 
-    <!-- ko if: hiddenInputs -->
-      <!-- ko foreach: hiddenInputs -->
+    <!-- ko if: target() && target().hiddenInputs -->
+      <!-- ko foreach: target().hiddenInputs -->
         <input type="hidden" data-bind="attr: $data" />
       <!-- /ko -->
     <!-- /ko -->
 
-    <div class="buttons" data-bind="with: $bubble">
-      <button type="button" style="float: left" data-bind="click: copyArtistCredit">[% l('Copy Credits') %]</button>
-      <button type="button" style="float: left" data-bind="click: pasteArtistCredit">[% l('Paste Credits') %]</button>
-      <button type="button" style="float: right" class="positive" data-bind="click: hide">[% l('Done') %]</button>
+    <div class="buttons">
+      <button type="button" style="float: left" data-bind="click: copyArtistCredit.bind($data)">[% l('Copy Credits') %]</button>
+      <button type="button" style="float: left" data-bind="click: pasteArtistCredit.bind($data)">[% l('Paste Credits') %]</button>
+      <button type="button" style="float: right" class="positive" data-bind="click: hide.bind($data)">[% l('Done') %]</button>
     </div>
   </div>
 [%- END -%]
