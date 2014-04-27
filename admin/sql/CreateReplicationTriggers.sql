@@ -585,10 +585,6 @@ CREATE TRIGGER "reptg_release_tag"
 AFTER INSERT OR DELETE OR UPDATE ON "release_tag"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
-CREATE TRIGGER "reptg_release_tag"
-AFTER INSERT OR DELETE OR UPDATE ON "release_tag"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
-
 CREATE TRIGGER "reptg_release_group"
 AFTER INSERT OR DELETE OR UPDATE ON "release_group"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
