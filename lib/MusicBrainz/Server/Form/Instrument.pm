@@ -27,14 +27,8 @@ has_field 'description' => (
     not_nullable => 1,
 );
 
-
-after 'validate' => sub {
-    my ($self) = @_;
-    return if $self->has_errors;
-};
-
 sub edit_field_names { qw( name comment type_id description ) }
 
-sub options_type_id { select_options(shift->ctx, 'InstrumentType') }
+sub options_type_id { select_options_tree(shift->ctx, 'InstrumentType') }
 
 1;

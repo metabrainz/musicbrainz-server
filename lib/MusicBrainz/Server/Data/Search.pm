@@ -282,16 +282,6 @@ sub search
                   OFFSET ?";
         $use_hard_search_limit = 0;
     }
-    elsif ($type eq "instrument") {
-        $query = "
-            SELECT id, gid, name, disambiguation, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
-            FROM instrument, plainto_tsquery('mb_simple', ?) AS query
-            WHERE to_tsvector('mb_simple', name) @@ query OR name = ?
-            ORDER BY rank DESC, instrument.name
-            OFFSET ?
-        ";
-        $use_hard_search_limit = 0;
-    }
 
     if ($use_hard_search_limit) {
         $hard_search_limit += $limit * 3;

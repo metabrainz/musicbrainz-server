@@ -145,14 +145,6 @@ sub _hash_to_row {
     return $row;
 }
 
-sub load_meta {
-    my $self = shift;
-    MusicBrainz::Server::Data::Utils::load_meta($self->c, "instrument_meta", sub {
-        my ($obj, $row) = @_;
-        $obj->last_updated($row->{last_updated}) if defined $row->{last_updated};
-    }, @_);
-}
-
 =method load_ids
 
 Load internal IDs for instrument objects that only have GIDs.
@@ -175,26 +167,6 @@ sub load_ids {
     for my $instrument (@instruments) {
         $instrument->id($map{$instrument->gid}) if exists $map{$instrument->gid};
     }
-}
-
-sub is_empty {
-    my ($self, $instrument_id) = @_;
-
-    my $used_in_relationship = used_in_relationship($self->c, instrument => 'instrument_row.id');
-    return $self->sql->select_single_value(<<EOSQL, $instrument_id, $STATUS_OPEN);
-        SELECT TRUE
-        FROM instrument instrument_row
-        WHERE id = ?
-        AND edits_pending = 0
-        AND NOT (
-          EXISTS (
-            SELECT TRUE
-            FROM edit_instrument JOIN edit ON edit_instrument.edit = edit.id
-            WHERE status = ? AND instrument = instrument_row.id
-          ) OR
-          $used_in_relationship
-        )
-EOSQL
 }
 
 __PACKAGE__->meta->make_immutable;

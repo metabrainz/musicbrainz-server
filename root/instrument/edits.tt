@@ -2,7 +2,7 @@
     <div class="instrumentheader">
         <h1>[% l('Edits for {instrument}', { instrument => link_entity(instrument) }) %]</h1>
         <p class="subheader">
-            <span class="prefix">~</span> [% l('Instrument') %]
+            <span class="prefix">~</span> [% html_escape(instrument.l_type_name) or l('Instrument') %]
         </p>
     </div>
     [% INCLUDE 'edit/list.tt' %]

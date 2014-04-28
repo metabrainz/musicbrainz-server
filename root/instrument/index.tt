@@ -12,14 +12,6 @@
 
     [%- INCLUDE 'instrument/annotation.tt' summary=1 -%]
 
-    [% IF eligible_for_cleanup %]
-      <p class="cleanup">
-          [% l('This instrument has no relationships and will be removed
-                automatically in the next few days. If this is not intended, please add
-                relationships to this instrument.') %]
-      </p>
-    [% END %]
-
     [%- show_wikipedia_extract() -%]
 
     <h2 class="relationships">[% l("Relationships") %]</h2>
