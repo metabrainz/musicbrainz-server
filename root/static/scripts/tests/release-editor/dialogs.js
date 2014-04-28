@@ -96,3 +96,24 @@ test("clearing the tracks of an existing medium via the track parser doesn't cau
     var uiDialog = $(addDiscDialog.element).data("ui-dialog");
     ok(!uiDialog, "add-disc dialog is not open");
 });
+
+
+test("adding a new medium does not cause reorder edits (MBS-7412)", function () {
+    var addDiscDialog = releaseEditor.addDiscDialog;
+    var mediumSearchTab = releaseEditor.mediumSearchTab;
+
+    this.release.mediums([
+        releaseEditor.fields.Medium(
+            _.assign(_.omit(releaseEditor.test.testMedium, "id"), { position: 1 })
+        )
+    ]);
+
+    addDiscDialog.open();
+    addDiscDialog.currentTab(mediumSearchTab);
+    mediumSearchTab.result({ position: 1, tracks: [{ name: "foo" }] });
+    addDiscDialog.addDisc();
+
+    releaseEditor.test.createMediums(this.release);
+
+    equal(releaseEditor.edits.mediumReorder(this.release).length, 0, "mediums are not reordered");
+});

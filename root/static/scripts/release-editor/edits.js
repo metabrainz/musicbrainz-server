@@ -20,12 +20,13 @@
 
         releaseGroup: function (release) {
             var releaseGroup = release.releaseGroup();
-            var releaseName = release.name();
+            var name = _.str.clean(releaseGroup.name) || _.str.clean(release.name());
 
-            if (releaseGroup.id || !(releaseGroup.name || releaseName)) return [];
+            if (releaseGroup.id || !name) return [];
 
             var editData = MB.edit.fields.releaseGroup(releaseGroup);
-            editData.name = editData.name || releaseName;
+
+            editData.name = name;
             editData.artist_credit = MB.edit.fields.artistCredit(release.artistCredit);
 
             return [ MB.edit.releaseGroupCreate(editData) ];
@@ -117,7 +118,7 @@
             // page). tmpPositions stores any positions we use to avoid
             // conflicts between oldPositions/newPositions.
 
-            var oldPositions = _.pluck(release.mediums.original, "position");
+            var oldPositions = _.pluck(release.mediums.original(), "position");
             var newPositions = newMediums().invoke("position").value();
             var tmpPositions = [];
 
@@ -218,11 +219,11 @@
                     }
 
                     newMediumData.release = release.id;
-                    edits.push(MB.edit.mediumCreate(newMediumData))
+                    edits.push(MB.edit.mediumCreate(newMediumData));
                 }
             });
 
-            _(release.mediums.original).pluck("id").difference(newMediumsIDs)
+            _(release.mediums.original()).pluck("id").difference(newMediumsIDs)
                 .each(function (id) {
                     edits.push(MB.edit.mediumDelete({ medium: id }));
                 });
@@ -393,8 +394,8 @@
             edit_note: root.editNote()
         };
 
-        function nextSubmission() {
-            var current = submissions.shift();
+        function nextSubmission(index) {
+            var current = submissions[index++];
 
             if (!current) {
                 // We're done!
@@ -429,11 +430,11 @@
                         current.callback(release, data.edits);
                     }
 
-                    _.defer(nextSubmission);
+                    _.defer(nextSubmission, index);
                 })
                 .fail(submissionErrorOccurred);
         }
-        nextSubmission();
+        nextSubmission(0);
     }
 
 
@@ -479,9 +480,21 @@
         {
             edits: releaseEditor.edits.releaseLabel,
 
-            callback: function (release) {
+            callback: function (release, edits) {
                 release.labels.original(
-                    _.map(release.labels.peek(), MB.edit.fields.releaseLabel)
+                    _.map(release.labels.peek(), function (label) {
+                        var newData = _.where(edits, {
+                            entity: {
+                                labelID: label.label().id || null,
+                                catalogNumber: label.catalogNumber() || null
+                            }
+                        });
+
+                        if (newData) {
+                            label.id = newData.id;
+                        }
+                        return MB.edit.fields.releaseLabel(label);
+                    })
                 );
             }
         },
@@ -492,21 +505,24 @@
                 var added = _(edits).pluck("entity").compact()
                                     .indexBy("position").value();
 
-                newMediums().each(function (medium) {
+                newMediums().reject("id").each(function (medium) {
                     var addedData = added[medium.tmpPosition || medium.position()];
 
                     if (addedData) {
                         medium.id = addedData.id;
+
+                        var currentData = MB.edit.fields.medium(medium);
+
+                        // mediumReorder edits haven't been submitted yet, so
+                        // we must keep the position the medium was added in
+                        // (i.e. tmpPosition).
+                        currentData.position = addedData.position;
+
+                        medium.original(currentData);
                     }
-
-                    var currentData = MB.edit.fields.medium(medium);
-
-                    // mediumReorder edits haven't been submitted yet,
-                    // so we must keep the old position.
-                    currentData.position = medium.original().position;
-
-                    medium.original(currentData);
                 });
+
+                release.mediums.original(release.existingMediumData());
 
                 newMediums.notifySubscribers(newMediums());
             }

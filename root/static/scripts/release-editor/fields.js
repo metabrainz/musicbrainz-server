@@ -222,7 +222,7 @@
             this.collapsed = ko.observable(!loaded);
             this.collapsed.subscribe(this.collapsedChanged, this);
             this.addTrackCount = ko.observable("");
-            this.original = ko.observable(MB.edit.fields.medium(this));
+            this.original = ko.observable(this.id ? MB.edit.fields.medium(this) : {});
         },
 
         hasToc: function () {
@@ -535,12 +535,7 @@
             )
             .extend({ withError: true });
 
-            this.mediums.original = _.transform(this.mediums(), function (result, medium) {
-                if (medium.id) {
-                    result.push({ id: medium.id, position: medium.position() });
-                }
-            });
-
+            this.mediums.original = ko.observable(this.existingMediumData());
             this.original = ko.observable(MB.edit.fields.release(this));
 
             // Ensure there's at least one event, label, and medium to edit.
@@ -590,6 +585,14 @@
                         result.push(track);
                     }
                 });
+            });
+        },
+
+        existingMediumData: function () {
+            return _.transform(this.mediums(), function (result, medium) {
+                if (medium.id) {
+                    result.push({ id: medium.id, position: medium.position() });
+                }
             });
         }
     });

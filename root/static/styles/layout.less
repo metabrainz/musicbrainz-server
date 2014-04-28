@@ -579,6 +579,22 @@ div.warning img.warning {
     background-image: data-uri("../images/favicons/wikidata-16.png");
 }
 
+.rapgenius-favicon {
+    background-image: data-uri("../images/favicons/rapgenius-16.png");
+}
+
+.rockgenius-favicon {
+    background-image: data-uri("../images/favicons/rockgenius-16.png");
+}
+
+.imvdb-favicon {
+    background-image: data-uri("../images/favicons/imvdb-16.png");
+}
+
+.residentadvisor-favicon {
+    background-image: data-uri("../images/favicons/residentadvisor-16.png");
+}
+
 #sidebar ul.licenses {
     margin: 5px 0;
     padding-left: 0;
@@ -1022,6 +1038,26 @@ div.artwork { position: relative; width: 250px; }
 .homepage div.artwork img {
     max-width: 125px;
     max-height: 125px;
+}
+
+.artwork-image, .artwork-pdf {
+    position: relative;
+    display: block;
+}
+
+.artwork-pdf .file-format-tag {
+    cursor: help;
+    color: darken(@musicbrainz-purple, 20%);
+    background-color: @effectively-white;
+    border: 1px solid darken(@musicbrainz-purple, 20%);
+    border-radius: 3px;
+    padding: 2px;
+    font-size: 16px;
+    z-index: 1000;
+    font-weight: bold;
+    position: absolute;
+    top: 3px;
+    right: 3px;
 }
 
 div.delete { display: hidden !important; }

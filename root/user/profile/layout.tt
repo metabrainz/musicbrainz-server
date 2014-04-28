@@ -35,7 +35,7 @@
 ) -%]
 [%- END -%]
 
-[%- IF c.user.is_account_admin || c.user.id == user.id -%]
+[%- IF (c.user.is_account_admin || c.user.id == user.id) && !user.deleted -%]
 [%- info_links.push (
     ['delete', generic_link(c.uri_for_action("/admin/delete_user", user.name), l('Delete Account'))],
 ) -%]

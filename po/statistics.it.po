@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-03-31 21:30+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-04-01 10:58+0000\n"
+"Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -656,7 +656,7 @@ msgstr "Artisti con tipo impostato su personaggio"
 
 #: ../root/statistics/view_js.tt:119
 msgid "Artists with type set to choir"
-msgstr ""
+msgstr "Artisti con tipo impostato su coro"
 
 #: ../root/statistics/view_js.tt:115
 msgid "Artists with type set to group"
@@ -664,7 +664,7 @@ msgstr "Artisti con tipo impostato su gruppo"
 
 #: ../root/statistics/view_js.tt:118
 msgid "Artists with type set to orchestra"
-msgstr ""
+msgstr "Artisti con tipo impostato su orchestra"
 
 #: ../root/statistics/view_js.tt:116
 msgid "Artists with type set to other"
@@ -756,7 +756,7 @@ msgstr "Spunta le caselle in alto"
 
 #: ../root/statistics/view_js.tt:119
 msgid "Choirs"
-msgstr ""
+msgstr "Cori"
 
 #: ../root/statistics/timeline.tt:50
 msgid "Click to deselect"
@@ -1531,7 +1531,7 @@ msgstr "In corso:"
 
 #: ../root/statistics/view_js.tt:118
 msgid "Orchestras"
-msgstr ""
+msgstr "Orchestre"
 
 #: ../root/statistics/view_js.tt:40
 msgid "Other"
@@ -2060,7 +2060,7 @@ msgstr "Personaggi:"
 
 #: ../root/statistics/index.tt:157
 msgid "of type Choir:"
-msgstr ""
+msgstr "Cori:"
 
 #: ../root/statistics/index.tt:145
 msgid "of type Group:"
@@ -2068,7 +2068,7 @@ msgstr "Gruppi:"
 
 #: ../root/statistics/index.tt:151
 msgid "of type Orchestra:"
-msgstr ""
+msgstr "Orchestre:"
 
 #: ../root/statistics/index.tt:169
 msgid "of type Other:"

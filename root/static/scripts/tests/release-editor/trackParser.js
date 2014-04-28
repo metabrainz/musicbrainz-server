@@ -120,3 +120,72 @@ test("internal track positions are updated appropriately after being reused", fu
     equal(tracks[0].position(), 1, "track 1 has position 1");
     equal(tracks[1].position(), 2, "track 2 has position 2");
 });
+
+
+test("MBS-7451: track parser can clear TOC track lengths", function () {
+    var re = releaseEditor;
+
+    re.rootField = re.fields.Root();
+    re.rootField.release(re.fields.Release(re.test.testRelease));
+
+    var release = re.rootField.release();
+    var medium = release.mediums()[0];
+
+    medium.cdtocs = 1;
+
+    re.trackParser.options = {
+        trackNumbers: false,
+        vinylNumbers: false,
+        trackTimes: true
+    };
+
+    // The string does not include track numbers.
+    var input = re.trackParser.mediumToString(medium);
+
+    // Re-enable track numbers so that parsing anything fails.
+    re.trackParser.options.trackNumbers = true;
+
+    medium.tracks(re.trackParser.parse(input, medium));
+
+    var tracks = medium.tracks();
+
+    deepEqual(
+        _.invoke(tracks, "length"),
+        _.pluck(medium.original().tracklist, "length"),
+        "track lengths are unchanged"
+    );
+});
+
+
+test("MBS-7456: Failing to parse artists does not break track autocompletes", function () {
+    var re = releaseEditor;
+
+    re.trackParser.options.trackArtists = true;
+    re.trackParser.options.trackTimes = false;
+
+    re.rootField = re.fields.Root();
+
+    var release = re.fields.Release({
+        mediums: [{
+            tracks: [{
+                name: "foo"
+            }]
+        }]
+    });
+
+    re.rootField.release(release);
+
+    var medium = release.mediums()[0];
+    medium.tracks(re.trackParser.parse("1. bar", medium));
+
+    var $span = $("<span>");
+    var autocomplete = $span.autocomplete({ entity: "artist" }).data("ui-autocomplete");
+
+    medium.tracks()[0].artistCredit.setAutocomplete(autocomplete, $span[0]);
+
+    // Needs to be done twice so that it reuses the existing track.
+    medium.tracks(re.trackParser.parse("1. bar", medium));
+
+    // The issue described in the ticket throws an exception.
+    expect(0);
+});

@@ -22,6 +22,7 @@
             [%- END -%]
             [%- FOR attribute=work.attributes -%]
                 [%- INCLUDE 'layout/sidebar/property.tt'
+                      class='work-attribute work-attribute-' _ css_class_name(attribute.type.name)
                       content=html_escape(attribute.l_value)
                       label=add_colon(attribute.type.l_name) -%]
             [%- END -%]
