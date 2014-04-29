@@ -95,6 +95,9 @@ sub WEB_SERVER_USED_IN_EMAIL  { my $self = shift; $self->WEB_SERVER }
 sub IS_BETA                   { 0 }
 sub BETA_REDIRECT_HOSTNAME    { '' }
 
+# The server to use for rel="canonical" links. Includes scheme.
+sub CANONICAL_SERVER          { "https://musicbrainz.org" }
+
 ################################################################################
 # Mail Settings
 ################################################################################

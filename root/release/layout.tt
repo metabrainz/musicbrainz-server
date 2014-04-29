@@ -2,7 +2,7 @@
     artist => artist_credit(release.artist_credit, plain => 1),
     name => release.name
 }) %]
-[%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title -%]
+[%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title canonical_url=c.uri_for_action(c.action, [ entity.gid ], c.req.query_params) -%]
 
     [% INCLUDE 'release/sidebar.tt' editing=0 UNLESS full_width %]
 
