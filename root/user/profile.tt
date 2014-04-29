@@ -76,7 +76,7 @@
 
         [% IF user.area;
              WRAPPER property name=l('Location:');
-              link_area_with_containment(user.area);
+              descriptive_link(user.area);
              END;
            END; %]
 

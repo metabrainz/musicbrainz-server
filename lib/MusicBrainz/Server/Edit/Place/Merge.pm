@@ -28,14 +28,6 @@ sub foreign_keys
     }
 }
 
-before build_display_data => sub {
-    my ($self, $loaded) = @_;
-
-    my @places = grep defined, map { $loaded->{Place}{$_} } $self->place_ids;
-    $self->c->model('PlaceType')->load(@places);
-    $self->c->model('Area')->load(@places);
-};
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

@@ -287,6 +287,11 @@ sub begin : Private
         };
         $c->model('ArtistCredit')->load(@merge);
 
+        my @areas = ();
+        push @areas, @merge if $merger->type eq 'Area';
+        push @areas, $c->model('Area')->load(@merge) if $merger->type eq 'Place';
+        $c->model('Area')->load_containment(@areas);
+
         $c->stash(
             to_merge => [ @merge ],
             merger => $merger,

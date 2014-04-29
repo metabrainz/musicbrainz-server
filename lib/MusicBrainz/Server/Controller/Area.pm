@@ -196,6 +196,12 @@ for my $method (qw( create edit merge merge_queue delete add_alias edit_alias de
     };
 };
 
+sub _merge_load_entities
+{
+    my ($self, $c, @areas) = @_;
+    $c->model('Area')->load_containment(@areas);
+};
+
 =head1 LICENSE
 
 This software is provided "as is", without warranty of any kind, express or

@@ -18,7 +18,7 @@
                         <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                             <td>[% result.score %]</td>
                             <td>
-                                [% link_area_with_containment(result.entity) %]
+                                [% descriptive_link(result.entity) %]
                             </td>
                             <td>[% result.entity.sort_name %]</td>
                             <td>[% result.entity.l_type_name %]</td>
