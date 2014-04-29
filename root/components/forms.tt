@@ -4,41 +4,44 @@
     </span>
 [%~ END -%]
 
-[%- MACRO as_auto_editor BLOCK -%]
-    [%- IF c.user.is_auto_editor -%]
-        <div class="row no-label">
-            <div class="auto-editor">
-                [%- USE r = FormRenderer(form) -%]
-                [%- r.checkbox('as_auto_editor') -%]
-                [%- r.label('as_auto_editor',
-                           l('Enable {autoed|auto-editor} privileges for this edit.',
-                            { autoed = doc_link('Auto-Editor') }), inline => 1) -%]
-            </div>
-        </div>
-    [%- END -%]
-[%- END -%]
-
-[%- MACRO as_auto_editor_ko BLOCK -%]
+[%- MACRO as_auto_editor(ko) BLOCK -%]
   [%- IF c.user.is_auto_editor -%]
     <div class="row no-label">
       <div class="auto-editor">
-        <label>
-          <input type="checkbox" data-bind="checked: asAutoEditor" />
-          [% l('Enable {autoed|auto-editor} privileges for this edit.', { autoed => { href => doc_link('Auto-Editor'), target => '_blank' } }) -%]
-        </label>
+        [% IF ko %]
+          <label>
+            <input type="checkbox" data-bind="checked: asAutoEditor" />
+            [% l('Enable {autoed|auto-editor} privileges for this edit.', { autoed => { href => doc_link('Auto-Editor'), target => '_blank' } }) -%]
+          </label>
+        [% ELSE %]
+          [%- USE r = FormRenderer(form) -%]
+          [%- r.checkbox('as_auto_editor') -%]
+          [%- r.label('as_auto_editor',
+                     l('Enable {autoed|auto-editor} privileges for this edit.',
+                      { autoed = doc_link('Auto-Editor') }), inline => 1) -%]
+        [% END %]
       </div>
     </div>
   [%- END -%]
 [%- END -%]
 
-[%- MACRO edit_note_ko BLOCK -%]
-  <p>
-    [% l('Entering an {note|edit note} that describes where you got your information is highly recommended. Not only does it make it clear where you got your information, but it can also encourage other users to vote on your edit &#x2014; thus making your edit get applied faster.', { note => { href => doc_link('Edit_Note'), target => '_blank' } }) %]
-  </p>
-  <p>[% l('Even just providing a URL or two is helpful!') %]</p>
+[%- MACRO edit_note(hide_help, ko) BLOCK -%]
+  [% UNLESS hide_help %]
+    <p>
+      [% l('Entering an {note|edit note} that describes where you got your information is highly recommended. Not only does it make it clear where you got your information, but it can also encourage other users to vote on your edit &#x2014; thus making your edit get applied faster.', { note => { href => doc_link('Edit_Note'), target => '_blank' } }) %]
+    </p>
+    <p>[% l('Even just providing a URL or two is helpful!') %]</p>
+  [% END %]
   [% WRAPPER form_row %]
-    <label for="edit-note-text">[% l('Edit note:') %]</label>
-    <textarea id="edit-note-text" data-bind="value: editNote, valueUpdate: 'input'" rows="5" cols="80"></textarea>
+    [% IF ko %]
+      <label for="edit-note-text">[% l('Edit note:') %]</label>
+      <textarea id="edit-note-text" data-bind="value: editNote, valueUpdate: 'input'" rows="5" cols="80"></textarea>
+    [% ELSE %]
+      [% USE r = FormRenderer(form) %]
+      [% r.label('edit_note', l('Edit note:')) %]
+      [% r.textarea('edit_note', { class => 'edit-note', cols => 80, rows => 5 }) %]
+      [% field_errors(form, 'edit_note') %]
+    [% END %]
   [% END %]
 [%- END -%]
 

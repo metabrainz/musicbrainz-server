@@ -96,10 +96,10 @@
       <form>
         <fieldset class="editnote">
           <legend>[%- l('Edit Note') -%]</legend>
-          [% edit_note_ko %]
+          [% edit_note(0, 1) %]
         </fieldset>
 
-        [% as_auto_editor_ko %]
+        [% as_auto_editor(1) %]
 
         <div class="row no-label buttons">
           <button type="submit" class="submit positive" data-bind="click: submit, disable: submissionLoading">[% l('Enter edit') %]</button>

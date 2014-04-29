@@ -26,11 +26,11 @@
     <fieldset class="editnote">
       <legend>[%- l('Edit Note') -%]</legend>
       <!-- ko with: rootField -->
-        [% edit_note_ko %]
+        [% edit_note(0, 1) %]
 
         <p class="error field-error" data-bind="showErrorRightAway: editNote"></p>
 
-        [% as_auto_editor_ko %]
+        [% as_auto_editor(1) %]
       <!-- /ko -->
     </fieldset>
 
