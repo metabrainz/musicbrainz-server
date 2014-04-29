@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-04-21 13:21+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2014-04-29 18:42+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -161,9 +161,8 @@ msgstr "Geeft een bonusmedium aan"
 #: DB:link_type/description:162
 msgid ""
 "Indicates a miscellaneous support role. This is usually stated in the liner "
-"notes of an album. (<a "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr "Geeft een diverse ondersteuningsrol aan. Dit is meestal aangegeven in het boekje bij een album. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
+"notes of an album."
+msgstr ""
 
 #: DB:link_type/description:105
 msgid ""
@@ -185,45 +184,21 @@ msgstr "Geeft een artiest aan die voor langere tijd vocale ondersteuning biedt o
 msgid "Indicates a parent-child relationship."
 msgstr "Geeft een ouder-kind relatie aan."
 
-#: DB:link_type/description:27
-msgid ""
-"Indicates a person or agency that did the graphic design for this album. (<a"
-" "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr "Geeft een persoon of agentschap aan die het grafisch ontwerp leverde voor deze uitgave. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-
 #: DB:link_type/description:396
 msgid "Indicates a pictorial image (JPEG, GIF, PNG) of a place"
 msgstr "Geeft een afbeelding (JPEG, GIF of PNG) van ee plaats aan"
 
 #: DB:link_type/description:173
-msgid ""
-"Indicates a pictorial image (JPEG, GIF, PNG) of an artist. (<a "
-"href=\"http://musicbrainz.org/doc/Image_Relationship_Type\">Details</a>)"
-msgstr "Geeft een afbeelding (JPEG, GIF, PNG) van een artiest aan. (<a href=\"http://musicbrainz.org/doc/Image_Relationship_Type\">Details</a>)"
+msgid "Indicates a pictorial image (JPEG, GIF, PNG) of an artist."
+msgstr ""
 
 #: DB:link_type/description:94
 msgid "Indicates a webpage that reviews the release (group) in question."
 msgstr "Geeft een internetpagina aan met een recensie van de uitgave(groep)."
 
-#: DB:link_type/description:75
-msgid ""
-"Indicates a webpage where you can download a release for free. (<a "
-"href=\"http://musicbrainz.org/doc/Free_Download_Relationship_Type\">Details</a>)"
-msgstr "Geeft een internetpagina aan waar een uitgave gratis gedownload kan worden. (<a href=\"http://musicbrainz.org/doc/Free_Download_Relationship_Type\">Details</a>)"
-
-#: DB:link_type/description:255
-msgid ""
-"Indicates a webpage where you can download a single track (not just a short "
-"sample) for free. (<a "
-"href=\"http://musicbrainz.org/doc/Free_Download_Relationship_Type\">Details</a>)"
-msgstr "Geeft een internetpagina aan waar een los nummer (niet een kort stukje) gratis gedownload kan worden. (<a href=\"http://musicbrainz.org/doc/Free_Download_Relationship_Type\">Details</a>)"
-
 #: DB:link_type/description:177
-msgid ""
-"Indicates a webpage where you can download an artist's work for free. (<a "
-"href=\"http://musicbrainz.org/doc/Free_Download_Relationship_Type\">Details</a>)"
-msgstr "Geeft een internetpagina aan waar het werk van een artiest gratis gedownload kan worden. (<a href=\"http://musicbrainz.org/doc/Free_Download_Relationship_Type\">Details</a>)"
+msgid "Indicates a webpage where you can download an artist's work for free."
+msgstr ""
 
 #: DB:link_type/description:104
 msgid ""
@@ -268,13 +243,6 @@ msgstr "Geeft het orkest aan dat op deze opname speelde."
 msgid "Indicates an orchestra that performed on this release."
 msgstr "Geeft een orkest aan dat op deze uitgave speelde."
 
-#: DB:link_type/description:125
-msgid ""
-"Indicates that a person or agency did the graphic design for this track. (<a"
-" "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr "Geeft aan dat een persoon of agentschap grafisch ontwerp leverde voor dit nummer. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-
 #: DB:link_type/description:239
 msgid ""
 "Indicates that a work is a medley of several other songs. This means that "
@@ -282,15 +250,6 @@ msgid ""
 "medley. (<a "
 "href=\"http://musicbrainz.org/doc/Medley_Relationship_Type\">Details</a>)"
 msgstr "Geeft aan dat een compositie een medley is van verschillende nummers. Dit betekent dat de originele composities opnieuw gearrangeerd zijn om een nieuwe compositie in de vorm van een medley te creëren. (<a href=\"http://musicbrainz.org/doc/Medley_Relationship_Type\">Details</a>)"
-
-#: DB:link_type/description:10
-msgid ""
-"Indicates that albums were mashed up on this album. This means that two "
-"pieces of music by different artists are mixed together, over each other, or"
-" otherwise combined into a single work (usually by a third artist, the "
-"remixer). (<a href=\"http://musicbrainz.org/doc/Mash-"
-"up_Relationship_Type\">Details</a>)"
-msgstr "Geeft aan dat albums met elkaar vermengd zijn op dit album. Dit betekent dat twee stukken muziek van verschillende artiesten worden samengevoegd, over elkaar heen of op een andere manier gecombineerd in een nieuwe compositie (vaak door een derde artiest, de remixer). (<a href=\"http://musicbrainz.org/doc/Mash-up_Relationship_Type\">Details</a>)"
 
 #: DB:link_type/description:8
 msgid ""
@@ -303,33 +262,9 @@ msgid ""
 "href=\"http://musicbrainz.org/doc/DJ_Mix_Relationship_Type\">Details</a>)"
 msgstr "Geeft aan dat alle (of de meeste) nummers van een uitgave samengemixt van alle (of de meeste) nummers van een andere uitgave om een DJ-Mix te vormen. De nummers kunnen veranderd zijn door te faden (zodat een nummer soepel in het volgende overloopt) of te pitchen (zodat het tempo van een nummer overeenkomt met dat van het volgende nummer). Als de nummers meer zijn veranderd is de remix-relatie toepasselijker. (<a href=\"http://musicbrainz.org/doc/DJ_Mix_Relationship_Type\">Details</a>)"
 
-#: DB:link_type/description:9
-msgid ""
-"Indicates that an album includes remixed versions of all (or most of) the "
-"tracks of the other album. (<a "
-"href=\"http://musicbrainz.org/doc/Remix_Relationship_Type\">Details</a>)"
-msgstr "Geeft aan dat een uitgave geremixte versies van alle (of de meeste) nummers van de andere uitgave bevat. (<a href=\"http://musicbrainz.org/doc/Remix_Relationship_Type\">Details</a>)"
-
-#: DB:link_type/description:6
-msgid ""
-"Indicates that an album is a remaster of another album. This means that the "
-"audio data was changed in this process but the same original recording "
-"material was used. Please take care to always point to the "
-"<strong>first</strong> version ever released! (<a "
-"href=\"http://musicbrainz.org/doc/Remaster_Relationship_Type\">Details</a>)"
-msgstr "Geeft aan dat een album een remaster is van een ander album. Dit betekent dat de audio in dit proces is veranderd, maar dat hetzelfde originele opnamemateriaal is gebruikt. Let hierbij op dat u verwijst naar de <strong>eerste</strong> versie die ooit is uitgebracht! (<a href=\"http://musicbrainz.org/doc/Remaster_Relationship_Type\">Details</a>)"
-
 #: DB:link_attribute_type/description:567
 msgid "Indicates that one entity is a cover of another entity"
 msgstr "Geeft aan dat één object een cover is van een ander object"
-
-#: DB:link_type/description:230
-msgid ""
-"Indicates that one or more original tracks have been substantially altered "
-"and mixed together with other material to form a new track. Remixes of "
-"multiple tracks or albums are usually called mash-ups. (<a "
-"href=\"http://musicbrainz.org/doc/Remix_Relationship_Type\">Details</a>)"
-msgstr "Geeft aan dat een of meer originele opnames substantieel veranderd zijn en samengevoegd met ander materiaal om een nieuwe opname te maken. Remixes van meerdere opnames of uitgaves worden meestal mash-ups genoemd. (<a href=\"http://musicbrainz.org/doc/Remix_Relationship_Type\">Details</a>)"
 
 #: DB:link_type/description:231
 msgid "Indicates that the recording contains samples from another."
@@ -353,15 +288,6 @@ msgid ""
 "recording that has been sampled."
 msgstr "Geeft aan dat een uitgave samples bevat van materiaal van de aangegeven artiest. Gebruik dit alleen als u er echt niet achter kan komen welke specifieke opname wordt gesampled."
 
-#: DB:link_type/description:232
-msgid ""
-"Indicates that the track consist of mash-ups from material of two (or more) "
-"other track. This means that two pieces of music by different artists are "
-"mixed together, over each other, or otherwise combined into a single track "
-"(usually by a third artist, the remixer). (<a "
-"href=\"http://musicbrainz.org/doc/Mash-up_Relationship_Type\">Details</a>)"
-msgstr "Geeft aan dat een nummer bestaat uit een mash-up van materiaal van twee of meer andere nummers. Dit betekent dat twee stukken muziek van verschillende artiesten samengevoegd zijn, over elkaar of op een andere manier gecombineerd zijn om een nieuw nummer te creëren. Dit gebeurt meestal door een derde artiest, de remixer. (<a href=\"http://musicbrainz.org/doc/Mash-up_Relationship_Type\">Details</a>)"
-
 #: DB:link_type/description:112
 msgid ""
 "Indicates that two persons were romantically involved with each other "
@@ -383,12 +309,6 @@ msgid ""
 "href=\"http://musicbrainz.org/doc/Arranger_Relationship_Type\">Details</a>)"
 msgstr "Geeft een artiest aan die een melodie heeft aangepast naar een vorm die uitgevoerd kan worden. (<a href=\"http://musicbrainz.org/doc/Arranger_Relationship_Type\">Details</a>)"
 
-#: DB:link_type/description:140 DB:link_type/description:31
-msgid ""
-"Indicates the audio engineer for this work. (<a "
-"href=\"http://musicbrainz.org/doc/Engineer_Relationship_Type\">Details</a>)"
-msgstr "Geeft de geluidstechnicus voor deze compositie aan. (<a href=\"http://musicbrainz.org/doc/Engineer_Relationship_Type\">Details</a>)"
-
 #: DB:link_type/description:55
 msgid ""
 "Indicates the composer for this release, i.e. the artist who wrote the music"
@@ -401,40 +321,25 @@ msgid ""
 "(not necessarily the lyrics)."
 msgstr "Geeft de componist voor deze compositie aan, d.w.z. die persoon die de muziek (maar niet ook altijd de teksten) schreef."
 
-#: DB:link_type/description:28 DB:link_type/description:138
-msgid ""
-"Indicates the engineer for this work. (<a "
-"href=\"http://musicbrainz.org/doc/Engineer_Relationship_Type\">Details</a>)"
-msgstr "Geeft de technicus voor dit werk aan. (<a href=\"http://musicbrainz.org/doc/Engineer_Relationship_Type\">Details</a>)"
+#: DB:link_type/description:57
+msgid "Indicates the librettist for this release."
+msgstr ""
 
-#: DB:link_type/description:57 DB:link_type/description:169
-msgid ""
-"Indicates the librettist for this work. (<a "
-"href=\"http://musicbrainz.org/doc/Librettist_Relationship_Type\">Details</a>)"
-msgstr "Geeft de librettist van deze compositie aan. (<a href=\"http://musicbrainz.org/doc/Librettist_Relationship_Type\">Details</a>)"
+#: DB:link_type/description:169
+msgid "Indicates the librettist for this work."
+msgstr ""
 
-#: DB:link_type/description:56 DB:link_type/description:165
-msgid ""
-"Indicates the lyricist for this work. (<a "
-"href=\"http://musicbrainz.org/doc/Lyricist_Relationship_Type\">Details</a>)"
-msgstr "Geeft de tekstschrijver van deze compositie aan. (<a href=\"http://musicbrainz.org/doc/Lyricist_Relationship_Type\">Details</a>)"
+#: DB:link_type/description:56
+msgid "Indicates the lyricist for this release."
+msgstr ""
+
+#: DB:link_type/description:165
+msgid "Indicates the lyricist for this work."
+msgstr ""
 
 #: DB:link_type/description:42
 msgid "Indicates the mastering engineer for this work."
 msgstr "Geeft de masteringtechnicus voor deze uitgave aan."
-
-#: DB:link_type/description:143
-msgid ""
-"Indicates the mix engineer for this work, i.e. the person who did the final "
-"audio mixing. This is not a remixer! (<a "
-"href=\"http://musicbrainz.org/doc/Engineer_Relationship_Type\">Details</a>)"
-msgstr "Geeft de mixtechnicus voor dit werk aan, d.w.z. de persoon die het laatste audio-mixwerk deed. Dit is geen remixer! (<a href=\"http://musicbrainz.org/doc/Engineer_Relationship_Type\">Details</a>)"
-
-#: DB:link_type/description:26
-msgid ""
-"Indicates the mix engineer for this work. (<a "
-"href=\"http://musicbrainz.org/doc/Engineer_Relationship_Type\">Details</a>)"
-msgstr "Geeft de mixtechnicus voor dit werk aan.  (<a href=\"http://musicbrainz.org/doc/Engineer_Relationship_Type\">Details</a>)"
 
 #: DB:link_type/description:219
 msgid "Indicates the official homepage for a label."
@@ -447,44 +352,6 @@ msgstr "Geeft de officiële thuispagina van een plaats aan."
 #: DB:link_type/description:183
 msgid "Indicates the official homepage for an artist."
 msgstr "Geeft de officiële thuispagina van de artiest aan."
-
-#: DB:link_type/description:48
-msgid ""
-"Indicates the person that selected the tracks and the sequence for a "
-"compilation for the album. If the tracks are pitched or blended into each "
-"other, it is more appropriate to credit this person as a Mix-DJ. (<a "
-"href=\"http://musicbrainz.org/doc/Compiler_Relationship_Type\">Details</a>)"
-msgstr "Geeft de persoon aan die de opnames selecteerde en de volgorde bepaalde voor een verzamelalbum. Als de opnames in elkaar overlopen kan deze persoon beter als Mix-DJ worden beschreven. (<a href=\"http://musicbrainz.org/doc/Compiler_Relationship_Type\">Details</a>)"
-
-#: DB:link_type/description:147
-msgid ""
-"Indicates the person that selected tracks and the sequence for a "
-"compilation. This applies to one long track that contains multiple songs, "
-"one after the other. If the tracks are pitched or blended into each other, "
-"it is more appropriate to credit the person as a Mix-DJ. (<a "
-"href=\"http://musicbrainz.org/doc/Compiler_Relationship_Type\">Details</a>)"
-msgstr "Geeft de persoon aan die de opnames selecteerde en de volgorde bepaalde voor een verzamelalbum. Dit is van toepassing op een lang nummer dat meerdere nummers bevat. Als de opnames in elkaar overlopen kan deze persoon beter als Mix-DJ worden beschreven. (<a href=\"http://musicbrainz.org/doc/Compiler_Relationship_Type\">Details</a>)"
-
-#: DB:link_type/description:43
-msgid ""
-"Indicates the person who created the DJ-Mix album (or 'Mixtape'). The person"
-" usually selected the tracks, chose their sequence, and slightly changed "
-"them by fading (so that one track blends in smoothly with the other) or "
-"pitching (so that the tempo of one track matches the tempo of the following "
-"track). (<a href=\"http://musicbrainz.org/doc/Mix-"
-"DJ_Relationship_Type\">Details</a>)"
-msgstr "Geeft de persoon aan die het DJ-mixalbum (of mixtape) maakte. Deze persoon selecteert meestal de nummers, kiest de volgorde en verandert ze een beetje door te faden (zodat een nummer soepel in het volgende overloopt) of te pitchen (zodat het tempo van een nummer overeenkomt met dat van het volgende nummer). (<a href=\"http://musicbrainz.org/doc/Mix-DJ_Relationship_Type\">Details</a>)"
-
-#: DB:link_type/description:155
-msgid ""
-"Indicates the person who created the DJ-Mix album (or 'Mixtape'). The person"
-" usually selected the tracks, chose their sequence, and slightly changed "
-"them by fading (so that one track blends in smoothly with the other) or "
-"pitching (so that the tempo of one track matches the tempo of the following "
-"track). This applies to a 'Mixtape' in which all tracks were DJ-mixed "
-"together into one single long track. (<a href=\"http://musicbrainz.org/doc"
-"/Mix-DJ_Relationship_Type\">Details</a>)"
-msgstr "Geeft de persoon aan die het DJ-mixalbum (of mixtape) maakte. Deze persoon selecteert meestal de nummers, kiest de volgorde en verandert ze een beetje door te faden (zodat een nummer soepel in het volgende overloopt) of te pitchen (zodat het tempo van een nummer overeenkomt met dat van het volgende nummer). Dit is van toepassing op mixtapes waarbij alle nummers aan elkaar gemixt werden om één lang nummer te maken. (<a href=\"http://musicbrainz.org/doc/Mix-DJ_Relationship_Type\">Details</a>)"
 
 #: DB:link_type/description:40 DB:link_type/description:164
 msgid ""
@@ -501,24 +368,6 @@ msgid ""
 "their balance and interaction (<a "
 "href=\"http://musicbrainz.org/doc/Orchestrator_Relationship_Type\">Details</a>)."
 msgstr "Geeft de persoon aan die de opname heeft georkestreerd. Orkestratie houdt, naast instrumentatie, het omgaan met groepen instrumenten en de balans en interactie daartussen in. (<a href=\"http://musicbrainz.org/doc/Orchestrator_Relationship_Type\">Details</a>)."
-
-#: DB:link_type/description:47
-msgid ""
-"Indicates the person who remixed the album by taking tracks, substanially "
-"altering them and mixing them together with other material. Note that this "
-"one is used for the artist who created a mash-up or used samples as well. "
-"(<a "
-"href=\"http://musicbrainz.org/doc/Remixer_Relationship_Type\">Details</a>)"
-msgstr "Geeft een artiest aan die een album heeft geremixt door nummers substantieel te veranderen en te mixen met ander materiaal. Dit wordt ook gebruikt voor de artiest die een mashup heeft gemaakt of samples heeft gebruikt. (<a href=\"http://musicbrainz.org/doc/Remixer_Relationship_Type\">Details</a>)"
-
-#: DB:link_type/description:153
-msgid ""
-"Indicates the person who remixed the track by taking one or more other "
-"tracks, substanially altering them and mixing them together with other "
-"material. Note that this one is used for the artist who created a mash-up or"
-" used samples as well. (<a "
-"href=\"http://musicbrainz.org/doc/Remixer_Relationship_Type\">Details</a>)"
-msgstr "Geeft een artiest aan die het nummer heeft geremixt door een of meer nummers substantieel te veranderen en ze samen of met ander materiaal te mixen. Dit wordt ook gebruikt voor de artiest die een mashup heeft gemaakt of samples heeft gebruikt. (<a href=\"http://musicbrainz.org/doc/Remixer_Relationship_Type\">Details</a>)"
 
 #: DB:link_type/description:716
 msgid "Indicates the place where the work had its first performance"
@@ -539,53 +388,23 @@ msgid ""
 "href=\"http://musicbrainz.org/doc/Producer_Relationship_Type\">Details</a>)"
 msgstr "Geeft de producent, coproducent, leidinggevend producent of leidinggevend coproducent voor dit object aan. Koppel uitvoerende producenten aan uitgaves, niet aan opnames. (<a href=\"http://musicbrainz.org/doc/Producer_Relationship_Type\">Details</a>)"
 
+#: DB:link_type/description:127 DB:link_type/description:206
+msgid ""
+"Indicates the publisher of this recording. This is <strong>not</strong> the "
+"same concept as the <a href=\"/doc/Label\">record label</a>."
+msgstr ""
+
 #: DB:link_type/description:32
 msgid ""
-"Indicates the publisher of this album. (<a "
-"href=\"http://musicbrainz.org/doc/Publisher_Relationship_Type\">Details</a>)"
-msgstr "Geeft de uitgever van dit album aan. (<a href=\"http://musicbrainz.org/doc/Publisher_Relationship_Type\">Details</a>)"
+"Indicates the publisher of this release. This is <strong>not</strong> the "
+"same concept as the <a href=\"/doc/Label\">record label</a>."
+msgstr ""
 
-#: DB:link_type/description:206
+#: DB:link_type/description:208 DB:link_type/description:161
 msgid ""
-"Indicates the publisher of this recording (<a "
-"href=\"http://musicbrainz.org/doc/Publisher_Relationship_Type\">Details</a>)<br/><br/>"
-" Note that this is <strong><em>NOT</em></strong> the record label, use the "
-"\"Label\" field in release events for record labels."
-msgstr "Geeft een uitgever van deze opname aan. (<a href=\"http://musicbrainz.org/doc/Publisher_Relationship_Type\">Details</a>)<br/><br/> Let op dat dit <strong><em>NIET</em></strong> de platenmaatschappij is, gebruik daarvoor het veld \"Platenmaatschappij\" in de uitgavegebeurtenissen."
-
-#: DB:link_type/description:127
-msgid ""
-"Indicates the publisher of this track. (<a "
-"href=\"http://musicbrainz.org/doc/Publisher_Relationship_Type\">Details</a>)"
-msgstr "Geeft de uitgever van dit nummer aan. (<a href=\"http://musicbrainz.org/doc/Publisher_Relationship_Type\">Details</a>)"
-
-#: DB:link_type/description:208
-msgid ""
-"Indicates the publisher of this work (<a "
-"href=\"http://musicbrainz.org/doc/Publisher_Relationship_Type\">Details</a>)<br/><br/>"
-" Note that this is <strong><em>NOT</em></strong> the record label, use the "
-"\"Label\" field in release events for record labels."
-msgstr "Geeft een uitgever van deze compositie aan. (<a href=\"http://musicbrainz.org/doc/Publisher_Relationship_Type\">Details</a>)<br/><br/> Let op dat dit <strong><em>NIET</em></strong> de platenmaatschappij is, gebruik daarvoor het veld \"Platenmaatschappij\" in de uitgavegebeurtenissen."
-
-#: DB:link_type/description:161
-msgid ""
-"Indicates the publisher of this work. (<a "
-"href=\"http://musicbrainz.org/doc/Publisher_Relationship_Type\">Details</a>)"
-msgstr "Geeft de uitgever van deze compositie aan. (<a href=\"http://musicbrainz.org/doc/Publisher_Relationship_Type\">Details</a>)"
-
-#: DB:link_type/description:36 DB:link_type/description:128
-msgid ""
-"Indicates the recording engineer for this work. Recording engineers are "
-"responsible for committing music to tape, for ensuring that the sounds the "
-"musicians make are recorded in an aesthetically pleasing manner. (<a "
-"href=\"http://musicbrainz.org/doc/Engineer_Relationship_Type\">Details</a>)"
-msgstr "Geeft de opnametechnicus voor dit werk aan. Opnametechnici zijn verantwoordelijk voor de bandopname van muziek, om er voor te zorgen dat het geluid dat de musici produceren op een esthetisch aangename manier worden opgenomen. (<a href=\"http://musicbrainz.org/doc/Engineer_Relationship_Type\">Details</a>)"
-
-#: DB:link_type/description:29 DB:link_type/description:133
-msgid ""
-"Indicates the sound engineer for this work. (<a "
-"href=\"http://musicbrainz.org/doc/Engineer_Relationship_Type\">Details</a>)"
-msgstr "Geeft de geluidstechnicus voor dit werk aan. (<a href=\"http://musicbrainz.org/doc/Engineer_Relationship_Type\">Details</a>)"
+"Indicates the publisher of this work. This is <strong>not</strong> the same "
+"concept as the <a href=\"/doc/Label\">record label</a>."
+msgstr ""
 
 #: DB:link_attribute_type/description:4
 msgid "Lead or solo vocal"
@@ -733,17 +552,6 @@ msgstr "SoundCloudpagina van"
 msgid "Spoken vocals (speech)"
 msgstr "Gesproken vocalen (spraak)"
 
-#: DB:link_type/description:38 DB:link_type/description:144
-msgid ""
-"The editor is responsible for either connecting disparate elements of the "
-"audio recording, or otherwise redistributing material recorded in the "
-"sessions. This is usually secondary, or additional to the work done by the "
-"mix engineer. It can also involve streamlining a longer track to around the "
-"3 minute mark in order to make it suitable for radio play (a \"radio "
-"edit\"). (<a "
-"href=\"http://musicbrainz.org/doc/Engineer_Relationship_Type\">Details</a>)"
-msgstr "De editor is verantwoordelijk voor het samenvoegen van verschillende elementen van een geluidsopname of het herverdelen van het opgenomen materiaal. Dit is meestal secundair of een aanvulling van het werk van de mix-technicus. Het kan ook het stroomlijnen van een nummer tot ongeveer drie minuten voor de radio inhouden (de „radio-edit“). (<a href=\"http://musicbrainz.org/doc/Engineer_Relationship_Type\">Details</a>)"
-
 #: DB:link_attribute_type/description:3
 msgid "This attribute describes a type of vocal performance."
 msgstr "Deze eigenschap geeft het type vocaal aan."
@@ -841,6 +649,12 @@ msgid ""
 "This relationship type should be used in this last case."
 msgstr "Dit geeft de auteur van de tekst in het boekje van deze uitgave aan. Hoewel de meeste tekst bestaat uit personele informatie en gegevens over de productie, bevatten sommige boekjes een (uitgebreid) artikel. Deze relatie moet in dat laatste geval worden gebruikt."
 
+#: DB:link_type/description:27 DB:link_type/description:125
+msgid ""
+"This credits the people or agency who did the graphic design, arranging "
+"pieces of content into a coherent and aesthetically-pleasing sleeve design."
+msgstr ""
+
 #: DB:link_type/description:274
 msgid ""
 "This describes a URL where a score / sheet music for the work can be found."
@@ -881,6 +695,58 @@ msgid ""
 "<li>A bootleg label reissues another label's catalog.</li>\n"
 "</ul>"
 msgstr "Dit beschrijft een situatie waarbij een platenmaatschappij onder eigen naam (een deel van) de catalogus van een andere platenmaatschappij opnieuw uitgeeft. Dit kan gebeuren in tenminste drie gevallen:\n<ul>\n<li>Een platenmaatschappij verwerft de rechten op de catalogus van een andere platenmaatschappij, voor een bepaalde periode in een specifieke regio.</li>\n<li>Een platenmaatschappij koopt de rechten van een verdwenen platenmaatschappij, of koopt een platenmaatschappij (met catalogus) en ontmantelt deze.</li>\n<li>Een uitgever van bootlegs geeft de catalogus van een andere platenmaatschappij opnieuw uit.</li>\n</ul>"
+
+#: DB:link_type/description:140 DB:link_type/description:31
+msgid ""
+"This describes an engineer involved with the machines used to generate "
+"sound, such as effects processors and digital audio equipment used to modify"
+" or manipulate sound in either an analogue or digital form."
+msgstr ""
+
+#: DB:link_type/description:36 DB:link_type/description:128
+msgid ""
+"This describes an engineer responsible for committing the performance to "
+"tape. This can be as complex as setting up the microphones, amplifiers, and "
+"recording devices, or as simple as pressing the 'record' button on a "
+"4-track."
+msgstr ""
+
+#: DB:link_type/description:38 DB:link_type/description:144
+msgid ""
+"This describes an engineer responsible for either connecting disparate "
+"elements of the audio recording, or otherwise redistributing material "
+"recorded in the sessions.​ This is usually secondary, or additional to the "
+"work done by the mix engineer. It can also involve streamlining a longer "
+"track to around the 3 minute mark in order to make it suitable for radio "
+"play (a \"radio edit\")."
+msgstr ""
+
+#: DB:link_type/description:29 DB:link_type/description:133
+msgid ""
+"This describes an engineer responsible for ensuring that the sounds that the"
+" artists make reach the microphones sounding pleasant, without unwanted "
+"resonance or noise. Sometimes known as acoustical engineering."
+msgstr ""
+
+#: DB:link_type/description:143
+msgid ""
+"This describes an engineer responsible for using a mixing console to mix a "
+"recorded track into a single piece of music suitable for release.​ For "
+"remixing, see <a href=\"/relationship/7950be4d-13a3-48e7-906b-"
+"5af562e39544\">remixer</a>."
+msgstr ""
+
+#: DB:link_type/description:26
+msgid ""
+"This describes an engineer responsible for using a mixing console to mix a "
+"recorded track into a single piece of music suitable for release.​ For "
+"remixing, see <a href=\"/relationship/ac6a86db-f757-4815-a07e-"
+"744428d2382b\">remixer</a>."
+msgstr ""
+
+#: DB:link_type/description:28 DB:link_type/description:138
+msgid "This describes an engineer who performed a general engineering role.​"
+msgstr ""
 
 #: DB:link_type/description:103
 msgid "This indicates a person is a member of a group."
@@ -1098,9 +964,27 @@ msgstr "Dit geeft de organisatie aan die een uitgave promoot (of laat promoten).
 
 #: DB:link_type/description:362
 msgid ""
-"This indicates the organization that releases a release. <br/><br/>\n"
-"This is <strong>not</strong> the same concept as the <a href=\"/doc/Label\">record label</a>."
-msgstr "Dit geeft de organisatie aan die een uitgave uitgeeft.\n\nDit is <strong>niet</strong> hetzelfde concept als een <a href=\"/doc/Label\">platenmaatschappij</a>."
+"This indicates the organization which releases a release. This is "
+"<strong>not</strong> the same concept as the <a href=\"/doc/Label\">record "
+"label</a>."
+msgstr ""
+
+#: DB:link_type/description:48
+msgid ""
+"This indicates the person who selected the tracks and the sequence for a "
+"compilation. If the tracks are pitched or blended into each other, it is "
+"more appropriate to credit this person as a <a href=\"/relationship"
+"/9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixer</a>."
+msgstr ""
+
+#: DB:link_type/description:147
+msgid ""
+"This indicates the person who selected the tracks and the sequence for a "
+"compilation. This applies to one long recording which contains multiple "
+"songs, one after the other. If the tracks are pitched or blended into each "
+"other, it is more appropriate to credit this person as a <a "
+"href=\"/relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\">DJ-mixer</a>."
+msgstr ""
 
 #: DB:link_type/description:98
 msgid ""
@@ -1120,6 +1004,20 @@ msgid ""
 "This is used to indicate that a release group is a live performance of a "
 "studio release group."
 msgstr "Dit geeft aan dat een uitgavegroep een live-opname van een studio-uitgavegroep is."
+
+#: DB:link_type/description:232
+msgid ""
+"This is used to indicate that the recording is a <a "
+"href=\"/doc/Mix_Terminology#mash-up\">mash-up</a> of two (or more) other "
+"recordings."
+msgstr ""
+
+#: DB:link_type/description:10
+msgid ""
+"This is used to indicate that the release group is a mash-up <a "
+"href=\"/doc/Mix_Terminology#mash-up\">mash-up</a> of two (or more) other "
+"release groups."
+msgstr ""
 
 #: DB:link_type/description:226
 msgid ""
@@ -1250,14 +1148,32 @@ msgid ""
 " an artist or label."
 msgstr "Deze koppeling wijst naar een pagina voor een uitgave met een discografie van een artiest of platenmaatschappij."
 
+#: DB:link_type/description:43 DB:link_type/description:155
+msgid ""
+"This links a <a href=\"/doc/Mix_Terminology#DJ_mix\">DJ-mix</a> to the "
+"artist who mixed it."
+msgstr ""
+
+#: DB:link_type/description:9
+msgid ""
+"This links a <a href=\"/doc/Mix_Terminology#remix\">remix</a> release group "
+"to the source release group and is used to indicate that the release group "
+"includes remixed versions of all (or most of) the tracks in the other "
+"release group."
+msgstr ""
+
+#: DB:link_type/description:230
+msgid ""
+"This links a <a href=\"/doc/Mix_Terminology#remix\">remixed</a> recording to"
+" the source recording."
+msgstr ""
+
 #: DB:link_type/description:77
 msgid ""
-"This link type is used for Amazon ASINs. This allows users to link to the "
-"Amazon pages to show the right cover art if MusicBrainz does not have the "
-"right ASIN link already. <p/> Paste any URL to any Amazon product page that "
-"contains an Amazon ASIN and the ASIN will be parsed from that URL. (<a "
-"href=\"http://musicbrainz.org/doc/Amazon_Relationship_Type\">Details</a>)"
-msgstr "Deze koppeling wordt gebruikt voor ASIN's van Amazon. Hiermee kunnen gebruikers koppelen naar pagina's op Amazon om de juiste afbeelding te tonen op MusicBrainz. <p/>Plak een URL van een productpagina op Amazon en de ASIN zal uit de URL worden gehaald. (<a href=\"http://musicbrainz.org/doc/Amazon_Relationship_Type\">Details</a>)"
+"This links a MusicBrainz release to the equivalent entry at Amazon and will "
+"often provide cover art if there is no cover art in the <a "
+"href=\"/doc/Cover_Art_Archive\">Cover Art Archive</a>."
+msgstr ""
 
 #: DB:link_type/description:304
 msgid ""
@@ -1296,9 +1212,30 @@ msgstr "Dit koppelt een plaats aan een kanaal, afspeellijst of gebruikerspagina 
 msgid "This links a recording to a license under which it is available."
 msgstr "Dit koppelt een opname aan een licentie waaronder het beschikbaar is."
 
+#: DB:link_type/description:255
+msgid ""
+"This links a recording to a page where it can be legally downloaded for "
+"free."
+msgstr ""
+
+#: DB:link_type/description:132
+msgid ""
+"This links a recording to the artist who did the programming for electronic "
+"instruments used on the recording.​ In the most cases, the 'electronic "
+"instrument' is either a synthesizer or a drum machine."
+msgstr ""
+
 #: DB:link_type/description:726
 msgid "This links a recording to the balance engineer who engineered it."
 msgstr "Dit koppelt een opname aan de verantwoordelijke balanstechnicus."
+
+#: DB:link_type/description:153
+msgid ""
+"This links a recording to the person who remixed it by taking one or more "
+"other tracks, substantially altering them and mixing them together with "
+"other material. Note that this includes the artist who created a mash-up or "
+"used samples as well."
+msgstr ""
 
 #: DB:link_type/description:65
 msgid ""
@@ -1318,9 +1255,29 @@ msgstr "Dit koppelt een uitgavegroep aan de plaats waar het gelanceerd is."
 msgid "This links a release to a license under which it is available."
 msgstr "Dit koppelt een uitgave aan een licentie waaronder het beschikbaar is."
 
+#: DB:link_type/description:75
+msgid ""
+"This links a release to a page where it can be legally downloaded for free."
+msgstr ""
+
+#: DB:link_type/description:37
+msgid ""
+"This links a release to the artist who did the programming for electronic "
+"instruments used on the release.​ In the most cases, the 'electronic "
+"instrument' is either a synthesizer or a drum machine."
+msgstr ""
+
 #: DB:link_type/description:727
 msgid "This links a release to the balance engineer who engineered it."
 msgstr "Dit koppelt een uitgave aan de verantwoordelijke balanstechnicus."
+
+#: DB:link_type/description:47
+msgid ""
+"This links a release to the person who remixed it by taking one or more "
+"other tracks, substantially altering them and mixing them together with "
+"other material. Note that this includes the artist who created a mash-up or "
+"used samples as well."
+msgstr ""
 
 #: DB:link_type/description:720
 msgid "This links a release with the place that held its launch event."
@@ -1478,6 +1435,16 @@ msgid ""
 "revision or an arrangement of it."
 msgstr "Dit koppelt twee <a href=\"/doc/Work\" title=\"Work\">composities</a>, waarbij de tweede compositie is gebaseerd op de muziek of de tekst van de eerste, maar daar geen directe revisie of arrangement van is."
 
+#: DB:link_type/description:6
+msgid ""
+"This links two releases, where one is a <a "
+"href=\"/doc/Mix_Terminology#remaster\">remaster</a> of the other.​ This is "
+"usually done to improve the audio quality or to adjust for more modern "
+"playback equipment. The process generally doesn't involve changing the music"
+" in any artistically important way. It may, however, result in recordings "
+"that differ in length by a few seconds."
+msgstr ""
+
 #: DB:link_type/description:110
 msgid "This links two siblings (brothers or sisters)."
 msgstr "Dit koppelt twee broers of zussen."
@@ -1598,13 +1565,6 @@ msgid ""
 "This relationship is used to link an artist to a person who has compiled a "
 "catalogue of that artist's works."
 msgstr "Deze relatie wordt gebruikt om een artiest aan een persoon te koppelen die een catalogus van de composities van de artiest heeft opgesteld."
-
-#: DB:link_type/description:37 DB:link_type/description:132
-msgid ""
-"This relationship links a track or a release to the person who did "
-"programming of electronic instruments. (<a "
-"href=\"http://musicbrainz.org/doc/Programming_Relationship_Type\">Details</a>)"
-msgstr "Deze relatie koppelt een opname of een uitgave aan een persoon die er elektronische instrumenten voor heeft geprogrammeerd. (<a href=\"http://musicbrainz.org/doc/Programming_Relationship_Type\">Details</a>)"
 
 #: DB:link_type/description:729
 msgid ""
@@ -3151,16 +3111,16 @@ msgstr "verzorgde {additional:aanvullend} grafisch ontwerp voor"
 msgid "provided {additional} photography on"
 msgstr "verzorgde {additional:aanvullende} fotografie voor"
 
-#: DB:link_type/link_phrase:362 DB:link_type/link_phrase:127
+#: DB:link_type/link_phrase:127 DB:link_type/link_phrase:362
 #: DB:link_type/link_phrase:206 DB:link_type/link_phrase:32
 #: DB:link_type/link_phrase:208 DB:link_type/link_phrase:161
-#: DB:link_type/long_link_phrase:362 DB:link_type/long_link_phrase:127
+#: DB:link_type/long_link_phrase:127 DB:link_type/long_link_phrase:362
 #: DB:link_type/long_link_phrase:206 DB:link_type/long_link_phrase:32
 #: DB:link_type/long_link_phrase:208 DB:link_type/long_link_phrase:161
 msgid "published"
 msgstr "publiceerde"
 
-#: DB:link_type/reverse_link_phrase:362 DB:link_type/reverse_link_phrase:127
+#: DB:link_type/reverse_link_phrase:127 DB:link_type/reverse_link_phrase:362
 #: DB:link_type/reverse_link_phrase:206 DB:link_type/reverse_link_phrase:32
 #: DB:link_type/reverse_link_phrase:208 DB:link_type/reverse_link_phrase:161
 msgid "publisher"

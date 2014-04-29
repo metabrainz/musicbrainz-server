@@ -3,12 +3,12 @@
 # jozo <email address hidden>, 2014
 # jozo <email address hidden>, 2014
 # Phonebox, 2014
-# ListMyCDs.com Martikainen <email address hidden>, 2012-2013
+# ListMyCDs.com Martikainen <email address hidden>, 2012-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-03-31 21:30+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-04-25 22:30+0000\n"
+"Last-Translator: ListMyCDs.com Martikainen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -382,7 +382,7 @@ msgstr "Oliver Charles palkattu täyspäiväiseksi MusicBrainziin."
 
 #: DB:statistics.statistic_event/title:2012-10-15
 msgid "Relationship Editor"
-msgstr ""
+msgstr "Yhteyksien muokkain"
 
 #: DB:statistics.statistic_event/title:2009-05-24
 msgid "Release Groups, ISRCs, CDStub searching"
@@ -554,7 +554,7 @@ msgstr "Kaikilla muilla käytettävissä olevilla kielillä ja merkistöillä 0 
 
 #: ../root/statistics/index.tt:312
 msgid "Amazon:"
-msgstr ""
+msgstr "Amazon:"
 
 #: ../root/statistics/view_js.tt:60
 msgid "Applied edits"
@@ -578,7 +578,7 @@ msgstr "Alueet:"
 
 #: ../root/statistics/view_js.tt:28
 msgid "Artist Countries"
-msgstr ""
+msgstr "Artistien maat"
 
 #: ../root/statistics/view_js.tt:125
 msgid "Artist Credits"
@@ -590,7 +590,7 @@ msgstr "Artistien IPI-koodit"
 
 #: ../root/statistics/view_js.tt:138
 msgid "Artist ISNIs"
-msgstr ""
+msgstr "Artistin ISNI-koodit"
 
 #: ../root/statistics/view_js.tt:164
 msgid "Artist Ratings"
@@ -683,7 +683,7 @@ msgstr "Artistit:"
 
 #: ../root/statistics/index.tt:537
 msgid "Attributes"
-msgstr ""
+msgstr "Ominaisuudet"
 
 #: ../root/statistics/view_js.tt:126
 msgid "Barcodes"
@@ -719,7 +719,7 @@ msgstr "Julkaisun tilan mukaisesti"
 
 #: ../root/statistics/index.tt:306
 msgid "CAA:"
-msgstr ""
+msgstr "CAA:"
 
 #: ../root/statistics/index.tt:75
 msgid "CD Stubs (all time / current):"
@@ -755,7 +755,7 @@ msgstr ""
 
 #: ../root/statistics/view_js.tt:119
 msgid "Choirs"
-msgstr ""
+msgstr "Kuorot"
 
 #: ../root/statistics/timeline.tt:50
 msgid "Click to deselect"
@@ -831,15 +831,15 @@ msgstr "Kaikkien levymerkkien IPI-koodien määrä"
 
 #: ../root/statistics/view_js.tt:137
 msgid "Count of all ISNIs"
-msgstr ""
+msgstr "Kaikkien ISNI-koodia määrä"
 
 #: ../root/statistics/view_js.tt:138
 msgid "Count of all ISNIs for Artists"
-msgstr ""
+msgstr "Kaikkien artistien ISNI-koodien määrä"
 
 #: ../root/statistics/view_js.tt:139
 msgid "Count of all ISNIs for Labels"
-msgstr ""
+msgstr "Kaikkien levymerkkien ISNI-koodien määrä"
 
 #: ../root/statistics/view_js.tt:140 ../root/statistics/view_js.tt:141
 msgid "Count of all ISRCs"
@@ -1051,7 +1051,7 @@ msgstr "Käyttäjien, jotka äänestäneet viimeisen 7 päivän aikana määrä"
 
 #: ../root/statistics/view_js.tt:55
 msgid "Count of edits per day"
-msgstr ""
+msgstr "Muokkauksia päivässä yhteensä"
 
 #: ../root/statistics/view_js.tt:56
 msgid "Count of edits per week"
@@ -1063,11 +1063,11 @@ msgstr "Kaikkien ei poistettujen käyttäjien määrä"
 
 #: ../root/statistics/view_js.tt:54
 msgid "Count of open edits"
-msgstr ""
+msgstr "Avointen muokkausten määrä"
 
 #: ../root/statistics/view_js.tt:68
 msgid "Count of votes per day"
-msgstr ""
+msgstr "Ääniä päivässä yhteensä"
 
 #: ../root/statistics/view_js.tt:69
 msgid "Count of votes per week"
@@ -1282,7 +1282,7 @@ msgstr "IPI-koodit:"
 
 #: ../root/statistics/view_js.tt:137
 msgid "ISNIs"
-msgstr ""
+msgstr "ISNI-koodit"
 
 #: ../root/statistics/index.tt:120
 msgid "ISNIs:"
@@ -1330,7 +1330,7 @@ msgstr "Levymerkkien IPI-koodit"
 
 #: ../root/statistics/view_js.tt:139
 msgid "Label ISNIs"
-msgstr ""
+msgstr "Levymerkin ISNI-koodit"
 
 #: ../root/statistics/view_js.tt:165
 msgid "Label Ratings"
@@ -1469,11 +1469,11 @@ msgstr ""
 
 #: ../root/statistics/coverart.tt:88
 msgid "No format"
-msgstr ""
+msgstr "Ei formaattia"
 
 #: ../root/statistics/index.tt:324
 msgid "No front cover art:"
-msgstr ""
+msgstr "Ei kansitaidetta:"
 
 #: ../root/statistics/index.tt:290
 msgid "No packaging set"
@@ -1530,7 +1530,7 @@ msgstr "Avoin:"
 
 #: ../root/statistics/view_js.tt:118
 msgid "Orchestras"
-msgstr ""
+msgstr "Orkesterit"
 
 #: ../root/statistics/view_js.tt:40
 msgid "Other"
@@ -1620,7 +1620,7 @@ msgstr ""
 
 #: ../root/statistics/view_js.tt:166
 msgid "Recording Ratings"
-msgstr ""
+msgstr "Äänitteiden arvostelut"
 
 #: ../root/statistics/view_js.tt:172
 msgid "Recording Ratings (raw)"
@@ -2059,7 +2059,7 @@ msgstr "jotka kuvitteellisia hahmoja:"
 
 #: ../root/statistics/index.tt:157
 msgid "of type Choir:"
-msgstr ""
+msgstr "tyyppiä kuoro: "
 
 #: ../root/statistics/index.tt:145
 msgid "of type Group:"
@@ -2067,7 +2067,7 @@ msgstr "jotka ryhmiä:"
 
 #: ../root/statistics/index.tt:151
 msgid "of type Orchestra:"
-msgstr ""
+msgstr "tyyppiä orkesteri:"
 
 #: ../root/statistics/index.tt:169
 msgid "of type Other:"
