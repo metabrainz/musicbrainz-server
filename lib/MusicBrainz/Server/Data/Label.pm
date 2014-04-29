@@ -194,8 +194,10 @@ sub in_use
 
     return check_in_use($self->sql,
         'release_label         WHERE label = ?'   => [ $label_id ],
+        'l_area_label          WHERE entity1 = ?' => [ $label_id ],
         'l_artist_label        WHERE entity1 = ?' => [ $label_id ],
         'l_instrument_label    WHERE entity1 = ?' => [ $label_id ],
+        'l_label_place         WHERE entity0 = ?' => [ $label_id ],
         'l_label_recording     WHERE entity0 = ?' => [ $label_id ],
         'l_label_release       WHERE entity0 = ?' => [ $label_id ],
         'l_label_release_group WHERE entity0 = ?' => [ $label_id ],

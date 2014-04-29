@@ -459,9 +459,11 @@ sub in_use
     my ($self, $release_group_id) = @_;
     return check_in_use($self->sql,
         'release                    WHERE release_group = ?' => [ $release_group_id ],
+        'l_area_release_group       WHERE entity1 = ?' => [ $release_group_id ],
         'l_artist_release_group     WHERE entity1 = ?' => [ $release_group_id ],
         'l_instrument_release_group WHERE entity1 = ?' => [ $release_group_id ],
         'l_label_release_group      WHERE entity1 = ?' => [ $release_group_id ],
+        'l_place_release_group      WHERE entity1 = ?' => [ $release_group_id ],
         'l_recording_release_group  WHERE entity1 = ?' => [ $release_group_id ],
         'l_release_release_group    WHERE entity1 = ?' => [ $release_group_id ],
         'l_release_group_url        WHERE entity0 = ?' => [ $release_group_id ],
@@ -504,9 +506,15 @@ sub clear_empty_release_groups {
             'SELECT id FROM release_group outer_rg
              WHERE edits_pending = 0 AND id = any(?)
              AND NOT EXISTS (
+               SELECT TRUE FROM l_area_release_group WHERE entity1 = outer_rg.id
+               UNION ALL
                SELECT TRUE FROM l_artist_release_group WHERE entity1 = outer_rg.id
                UNION ALL
+               SELECT TRUE FROM l_instrument_release_group WHERE entity1 = outer_rg.id
+               UNION ALL
                SELECT TRUE FROM l_label_release_group WHERE entity1 = outer_rg.id
+               UNION ALL
+               SELECT TRUE FROM l_place_release_group WHERE entity1 = outer_rg.id
                UNION ALL
                SELECT TRUE FROM l_recording_release_group WHERE entity1 = outer_rg.id
                UNION ALL
