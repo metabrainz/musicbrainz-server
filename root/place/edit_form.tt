@@ -36,7 +36,7 @@
         [%- form_row_text_long(r, 'address', l('Address:')) -%]
         [% WRAPPER form_row %]
           [% area_field = form.field('area.name') %]
-          <label for="id-edit-label.area.name">[% l('Area:') %]</label>
+          <label for="id-edit-place.area.name">[% l('Area:') %]</label>
           <span class="area autocomplete">
             <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
             [% r.hidden(form.field('area').field('gid'), class => 'gid') %]
