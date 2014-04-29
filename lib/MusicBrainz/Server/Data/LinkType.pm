@@ -28,7 +28,8 @@ sub _columns
     return 'id, parent AS parent_id, gid, name, link_phrase,
             entity_type0 AS entity0_type, entity_type1 AS entity1_type,
             reverse_link_phrase, description, priority,
-            child_order, long_link_phrase, is_deprecated, has_dates';
+            child_order, long_link_phrase, is_deprecated, has_dates,
+            entity0_cardinality, entity1_cardinality';
 }
 
 sub _entity_class
@@ -301,18 +302,20 @@ sub _hash_to_row
     my ($self, $values) = @_;
 
     return hash_to_row($values, {
-        parent          => 'parent_id',
-        entity_type0     => 'entity0_type',
-        entity_type1     => 'entity1_type',
-        child_order      => 'child_order',
-        name            => 'name',
-        description     => 'description',
-        link_phrase      => 'link_phrase',
-        reverse_link_phrase     => 'reverse_link_phrase',
-        long_link_phrase => 'long_link_phrase',
-        priority        => 'priority',
-        is_deprecated => 'is_deprecated',
-        has_dates        => 'has_dates'
+        parent              => 'parent_id',
+        entity_type0        => 'entity0_type',
+        entity_type1        => 'entity1_type',
+        child_order         => 'child_order',
+        name                => 'name',
+        description         => 'description',
+        link_phrase         => 'link_phrase',
+        reverse_link_phrase => 'reverse_link_phrase',
+        long_link_phrase    => 'long_link_phrase',
+        priority            => 'priority',
+        is_deprecated       => 'is_deprecated',
+        has_dates           => 'has_dates',
+        entity0_cardinality => 'entity0_cardinality',
+        entity1_cardinality => 'entity1_cardinality',
     });
 }
 

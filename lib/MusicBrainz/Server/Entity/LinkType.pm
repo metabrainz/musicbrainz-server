@@ -145,6 +145,16 @@ has 'has_dates' => (
     isa => 'Bool',
 );
 
+has 'entity0_cardinality' => (
+    is => 'rw',
+    isa => 'Int',
+);
+
+has 'entity1_cardinality' => (
+    is => 'rw',
+    isa => 'Int',
+);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
