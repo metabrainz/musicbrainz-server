@@ -442,8 +442,6 @@ sub _recording
 {
     my ($self, $recording, $hide_ac) = @_;
 
-    my @isrcs = $recording->all_isrcs;
-
     my $output = {
         entityType  => "recording",
         name        => $recording->name,
@@ -454,6 +452,10 @@ sub _recording
         isrcs       => [ map { $_->isrc } $recording->all_isrcs ],
         video       => $recording->video ? \1 : \0
     };
+
+    # Relationship target entities in Controller::Role::EditRelationships
+    # don't have/need any additional information like artist credits loaded,
+    # so at least for there this won't be defined.
 
     if ($recording->artist_credit) {
         $output->{artist} = $recording->artist_credit->name;
