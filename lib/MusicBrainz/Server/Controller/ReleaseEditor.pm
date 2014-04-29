@@ -251,7 +251,7 @@ sub _process_seeded_data
         my $position = 0;
 
         for my $medium (@{ $result->{mediums} // [] }) {
-            $medium->{position} = ++$position unless $medium->{position};
+            $medium->{position} = ++$position;
         }
     }
 
@@ -342,9 +342,15 @@ sub _seeded_event
     my $result = {};
 
     if (my $date = $params->{date}) {
-        delete $date->{year} unless $date->{year};
-        delete $date->{month} unless $date->{month};
-        delete $date->{day} unless $date->{day};
+        for my $prop (qw( year month day )) {
+            if (my $num = delete $date->{$prop}) {
+                if ($num =~ /^[0-9]+$/) {
+                    $date->{$prop} = int($num);
+                } else {
+                    push @$errors, "Invalid $field_name.date.$prop: “$num”.";
+                }
+            }
+        }
 
         $result->{date} = PartialDate->new(%$date)->format if %$date;
     }
@@ -391,7 +397,7 @@ sub _seeded_medium
 {
     my ($c, $params, $field_name, $errors) = @_;
 
-    my @known_fields = qw( format position name track toc );
+    my @known_fields = qw( format name track toc );
     _report_unknown_fields($field_name, $params, $errors, @known_fields);
 
     my $result = { tracks => [] };
@@ -403,14 +409,6 @@ sub _seeded_medium
             $result->{formatID} = $format->id;
         } else {
             push @$errors, "Invalid $field_name.format: “$name”.";
-        }
-    }
-
-    if (my $position = $params->{position}) {
-        if (looks_like_number($position)) {
-            $result->{position} = $position;
-        } else {
-            push @$errors, "Invalid $field_name.position: “$position”.";
         }
     }
 
@@ -479,7 +477,19 @@ sub _seeded_track
     }
 
     if (my $length = $params->{length}) {
-        $result->{length} = ($length =~ /:/) ? unformat_track_length($length) : $length;
+        if ($length =~ /:/) {
+            try {
+                $result->{length} = unformat_track_length($length);
+            } catch {
+                if ($_ =~ m/is not a valid track length/) {
+                    push @$errors, "Invalid $field_name.length: “$length”.";
+                } else {
+                    die $_;
+                }
+            };
+        } else {
+            $result->{length} = $length;
+        }
     }
 
     if (my $gid = $params->{recording}) {

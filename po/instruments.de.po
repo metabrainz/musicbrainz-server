@@ -4,11 +4,11 @@
 # lorenzpressler <email address hidden>, 2012
 # nikki, 2013
 # jus <email address hidden>, 2014
-# Shepard, 2013
+# Shepard, 2013-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-03-31 21:30+0000\n"
+"PO-Revision-Date: 2014-04-25 16:29+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgstr "Dulcimer"
 
 #: DB:link_attribute_type/name:506
 msgid "Baltic psalteries"
-msgstr "Baltische Psalter"
+msgstr "baltische Psalter"
 
 #: DB:link_attribute_type/name:550
 msgid "Batá drum"
@@ -167,7 +167,7 @@ msgstr "Strohgeige"
 
 #: DB:link_attribute_type/name:350
 msgid "Tibetan water drum"
-msgstr "Tibetischen Wassertrommel"
+msgstr "tibetische Wassertrommel"
 
 #: DB:link_attribute_type/name:305
 msgid "Turkish baglama"
@@ -179,7 +179,7 @@ msgstr "Wiener Horn"
 
 #: DB:link_attribute_type/name:399
 msgid "Vietnamese guitar"
-msgstr "Vietnamesische Gitarre"
+msgstr "vietnamesische Gitarre"
 
 #: DB:link_attribute_type/name:201
 msgid "Wagner tuba"
@@ -207,7 +207,7 @@ msgstr "akustische Bassgitarre"
 
 #: DB:link_attribute_type/name:651
 msgid "acoustic fretless guitar"
-msgstr "Bundlose Akustikgitarre"
+msgstr "bundlose Akustikgitarre"
 
 #: DB:link_attribute_type/name:76
 msgid "acoustic guitar"
@@ -264,6 +264,10 @@ msgstr "altertümliche und andere Streichinstrumente"
 #: DB:link_attribute_type/name:619
 msgid "archlute"
 msgstr "Arciliuto"
+
+#: DB:link_attribute_type/name:779
+msgid "arghul"
+msgstr ""
 
 #: DB:link_attribute_type/name:677
 msgid "atarigane"
@@ -423,7 +427,7 @@ msgstr "Glockenbaum"
 
 #: DB:link_attribute_type/name:514
 msgid "bellow-blown bagpipes"
-msgstr "Balggeblasener Dudelsack"
+msgstr "balggeblasener Dudelsack"
 
 #: DB:link_attribute_type/name:151
 msgid "bells"
@@ -455,7 +459,7 @@ msgstr "Bodhrán"
 
 #: DB:link_attribute_type/name:610
 msgid "body percussion"
-msgstr "Körper-Percussion"
+msgstr "Körper-Perkussion"
 
 #: DB:link_attribute_type/name:519
 msgid "bombarde"
@@ -549,6 +553,10 @@ msgstr "Cello"
 msgid "chacha"
 msgstr ""
 
+#: DB:link_attribute_type/name:772
+msgid "chakhe"
+msgstr ""
+
 #: DB:link_attribute_type/name:524
 msgid "chalumeau"
 msgstr "Chalumeau"
@@ -569,8 +577,16 @@ msgstr ""
 msgid "charango"
 msgstr "Charango"
 
+#: DB:link_attribute_type/name:785
+msgid "chau gong"
+msgstr ""
+
 #: DB:link_attribute_type/name:690
 msgid "chikuzen biwa"
+msgstr ""
+
+#: DB:link_attribute_type/name:783
+msgid "chime bar"
 msgstr ""
 
 #: DB:link_attribute_type/name:415
@@ -757,6 +773,10 @@ msgstr "Dholak"
 msgid "diatonic accordion / melodeon"
 msgstr "diatonisches Akkordeon"
 
+#: DB:link_attribute_type/name:780
+msgid "diddley bow"
+msgstr ""
+
 #: DB:link_attribute_type/name:204
 msgid "didgeridoo"
 msgstr "Didgeridoo"
@@ -833,6 +853,10 @@ msgstr "Duduk / armenische Flöte"
 msgid "dulcian"
 msgstr "Dulzian"
 
+#: DB:link_attribute_type/name:774
+msgid "dutar"
+msgstr ""
+
 #: DB:link_attribute_type/name:740
 msgid "duxianqin"
 msgstr "Duxianqin"
@@ -851,7 +875,7 @@ msgstr "E-Cello"
 
 #: DB:link_attribute_type/name:650
 msgid "electric fretless guitar"
-msgstr "Bundlose E-Gitarre"
+msgstr "bundlose E-Gitarre"
 
 #: DB:link_attribute_type/name:78
 msgid "electric guitar"
@@ -975,7 +999,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:523
 msgid "fretless bass"
-msgstr "Fretless Bass"
+msgstr ""
 
 #: DB:link_attribute_type/name:698
 msgid "friction drum"
@@ -1040,6 +1064,10 @@ msgstr "Bechertrommel"
 #: DB:link_attribute_type/name:340
 msgid "gong"
 msgstr "Gong"
+
+#: DB:link_attribute_type/name:784
+msgid "gong bass drum"
+msgstr ""
 
 #: DB:link_attribute_type/name:339
 msgid "gongs"
@@ -1341,6 +1369,10 @@ msgstr ""
 msgid "kōauau"
 msgstr ""
 
+#: DB:link_attribute_type/name:777
+msgid "lamellophone"
+msgstr ""
+
 #: DB:link_attribute_type/name:319
 msgid "langeleik"
 msgstr "Langeleik"
@@ -1409,9 +1441,17 @@ msgstr "Maracas / Rumba-Rasseln"
 msgid "marimba"
 msgstr "Marimba"
 
+#: DB:link_attribute_type/name:782
+msgid "mark tree"
+msgstr ""
+
 #: DB:link_attribute_type/name:534
 msgid "marxophone"
 msgstr "Marxophon"
+
+#: DB:link_attribute_type/name:778
+msgid "marímbula"
+msgstr ""
 
 #: DB:link_attribute_type/name:110
 msgid "mbira"
@@ -1681,6 +1721,10 @@ msgstr "Quena / Andenflöte"
 msgid "rainstick"
 msgstr "Regenmacher"
 
+#: DB:link_attribute_type/name:773
+msgid "rammana"
+msgstr ""
+
 #: DB:link_attribute_type/name:759
 msgid "ranat ek"
 msgstr ""
@@ -1721,16 +1765,16 @@ msgstr "Harmonium"
 msgid "reeds"
 msgstr "Rohrblattinstrumente"
 
-#: DB:link_attribute_type/name:406
-msgid "rek"
-msgstr ""
-
 #: DB:link_attribute_type/name:467
 msgid "resonator guitar"
 msgstr "Resonatorgitarre"
 
 #: DB:link_attribute_type/name:449
 msgid "rhythm sticks"
+msgstr ""
+
+#: DB:link_attribute_type/name:406
+msgid "riq"
 msgstr ""
 
 #: DB:link_attribute_type/name:680
@@ -1820,6 +1864,10 @@ msgstr ""
 #: DB:link_attribute_type/name:197
 msgid "serpent"
 msgstr "Serpent"
+
+#: DB:link_attribute_type/name:775
+msgid "setar"
+msgstr ""
 
 #: DB:link_attribute_type/name:417
 msgid "shakers"
@@ -2019,6 +2067,10 @@ msgstr "Tabla"
 
 #: DB:link_attribute_type/name:468
 msgid "table steel guitar"
+msgstr ""
+
+#: DB:link_attribute_type/name:781
+msgid "tack piano"
 msgstr ""
 
 #: DB:link_attribute_type/name:458
@@ -2256,6 +2308,10 @@ msgstr "Udu"
 #: DB:link_attribute_type/name:248
 msgid "uilleann pipes"
 msgstr "Uilleann Pipes"
+
+#: DB:link_attribute_type/name:776
+msgid "ukeke"
+msgstr ""
 
 #: DB:link_attribute_type/name:114
 msgid "ukulele"

@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-03-31 21:30+0000\n"
+"PO-Revision-Date: 2014-04-17 03:31+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -69,6 +69,16 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:30
 msgctxt "work_attribute_type_allowed_value"
 msgid "A-sharp minor"
+msgstr ""
+
+#: DB:work_attribute_type/name:13
+msgctxt "work_attribute_type"
+msgid "APRA ID"
+msgstr ""
+
+#: DB:work_attribute_type/name:6
+msgctxt "work_attribute_type"
+msgid "ASCAP ID"
 msgstr ""
 
 #: DB:release_group_primary_type/name:1
@@ -144,6 +154,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:32
 msgctxt "work_attribute_type_allowed_value"
 msgid "B-flat minor"
+msgstr ""
+
+#: DB:work_attribute_type/name:7
+msgctxt "work_attribute_type"
+msgid "BMI ID"
 msgstr ""
 
 #: DB:cover_art_archive.art_type/name:2
@@ -314,7 +329,7 @@ msgstr ""
 #: DB:medium_format/name:1
 msgctxt "medium_format"
 msgid "CD"
-msgstr "CD-levy"
+msgstr "CD"
 
 #: DB:medium_format/name:39
 msgctxt "medium_format"
@@ -349,7 +364,7 @@ msgstr "Kantaatti"
 #: DB:release_packaging/name:4
 msgctxt "release_packaging"
 msgid "Cardboard/Paper Sleeve"
-msgstr "Pahvi/Paperikotelo"
+msgstr "Pahvi-/Paperikotelo"
 
 #: DB:medium_format/name:9
 msgctxt "medium_format"
@@ -369,7 +384,7 @@ msgstr "C-kasetti"
 #: DB:release_packaging/name:8
 msgctxt "release_packaging"
 msgid "Cassette Case"
-msgstr "kasettikotelo"
+msgstr "Kasettikotelo"
 
 #: DB:work_attribute_type_allowed_value/value:291
 msgctxt "work_attribute_type_allowed_value"
@@ -389,7 +404,7 @@ msgstr "Kuvitteellinen hahmo"
 #: DB:artist_type/name:6
 msgctxt "artist_type"
 msgid "Choir"
-msgstr ""
+msgstr "Kuoro"
 
 #: DB:work_attribute_type_allowed_value/value:71
 msgctxt "work_attribute_type_allowed_value"
@@ -499,6 +514,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:74
 msgctxt "work_attribute_type_allowed_value"
 msgid "Darbārī kānaḍa"
+msgstr ""
+
+#: DB:release_group_secondary_type/name:10
+msgctxt "release_group_secondary_type"
+msgid "Demo"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:79
@@ -706,6 +726,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "G-sharp minor"
 msgstr ""
 
+#: DB:work_attribute_type/name:9
+msgctxt "work_attribute_type"
+msgid "GEMA ID"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:88
 msgctxt "work_attribute_type_allowed_value"
 msgid "Gamakakriya"
@@ -874,7 +899,7 @@ msgstr ""
 #: DB:label_type/name:9
 msgctxt "label_type"
 msgid "Imprint"
-msgstr ""
+msgstr "Valmistajamerkki"
 
 #: DB:place_type/name:5
 msgctxt "place_type"
@@ -949,6 +974,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:123
 msgctxt "work_attribute_type_allowed_value"
 msgid "Jōnpuri"
+msgstr ""
+
+#: DB:work_attribute_type/name:11
+msgctxt "work_attribute_type"
+msgid "KOMCA ID"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:128
@@ -1326,6 +1356,11 @@ msgctxt "area_type"
 msgid "Municipality"
 msgstr "Hallinnollinen alue"
 
+#: DB:work_attribute_type/name:12
+msgctxt "work_attribute_type"
+msgid "MÜST ID"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:167
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mānavati"
@@ -1484,7 +1519,7 @@ msgstr "Oratorio"
 #: DB:artist_type/name:5
 msgctxt "artist_type"
 msgid "Orchestra"
-msgstr ""
+msgstr "Orkesteri"
 
 #: DB:label_type/name:4
 msgctxt "label_type"
@@ -1674,7 +1709,7 @@ msgstr "Remix"
 #: DB:label_type/name:8
 msgctxt "label_type"
 msgid "Rights Society"
-msgstr "Oikeuksien haltijayhteisö"
+msgstr "Oikeuksien hallinnointiyhteisö"
 
 #: DB:work_attribute_type_allowed_value/value:222
 msgctxt "work_attribute_type_allowed_value"
@@ -1736,10 +1771,20 @@ msgctxt "medium_format"
 msgid "SACD"
 msgstr "Super Audio CD"
 
+#: DB:work_attribute_type/name:8
+msgctxt "work_attribute_type"
+msgid "SESAC ID"
+msgstr ""
+
 #: DB:medium_format/name:36
 msgctxt "medium_format"
 msgid "SHM-CD"
 msgstr "SHM-CD"
+
+#: DB:work_attribute_type/name:10
+msgctxt "work_attribute_type"
+msgid "SOCAN ID"
+msgstr ""
 
 #: DB:medium_format/name:23
 msgctxt "medium_format"
@@ -2111,7 +2156,7 @@ msgstr ""
 #: DB:cover_art_archive.art_type/name:13
 msgctxt "cover_art_type"
 msgid "Watermark"
-msgstr ""
+msgstr "Vesileima"
 
 #: DB:medium_format/name:14
 msgctxt "medium_format"

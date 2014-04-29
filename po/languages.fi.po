@@ -790,7 +790,7 @@ msgstr "saksa"
 msgid "German, Low"
 msgstr "saksa, alasaksa"
 
-#. frequency:0 iso_code_3:gmh
+#. frequency:1 iso_code_3:gmh
 #: DB:language/name:152
 msgid "German, Middle High (ca.1050-1500)"
 msgstr "saksa, keskiyläsaksa (n. 1050-1500)"

@@ -2,11 +2,12 @@
 # Translators:
 # lorenzpressler <email address hidden>, 2012
 # jus <email address hidden>, 2014
+# Shepard, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-03-04 00:46+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-04-06 18:02+0000\n"
+"Last-Translator: Shepard\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1409,7 +1410,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:436
 msgid "German/Bohemian harp"
-msgstr "Deutsche/Böhmische Harfe"
+msgstr "deutsche/böhmische Harfe"
 
 #: DB:link_attribute_type/description:408
 msgid ""
@@ -1431,7 +1432,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:370
 msgid "Greek Panflute"
-msgstr "Griechische Panflöte"
+msgstr "griechische Panflöte"
 
 #: DB:link_attribute_type/description:306
 msgid "Greek baglama"
@@ -2942,7 +2943,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:350
 msgid "Tibetan water drum"
-msgstr "Tibetischen Wassertrommel"
+msgstr "tibetische Wassertrommel"
 
 #: DB:link_attribute_type/description:217
 msgid ""

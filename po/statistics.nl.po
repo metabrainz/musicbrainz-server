@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-03-31 21:30+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-04-01 06:01+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -655,7 +655,7 @@ msgstr "Artiesten met het type karakter"
 
 #: ../root/statistics/view_js.tt:119
 msgid "Artists with type set to choir"
-msgstr ""
+msgstr "Artiesten met het type koor"
 
 #: ../root/statistics/view_js.tt:115
 msgid "Artists with type set to group"
@@ -663,7 +663,7 @@ msgstr "Artiesten van het type groep"
 
 #: ../root/statistics/view_js.tt:118
 msgid "Artists with type set to orchestra"
-msgstr ""
+msgstr "Artiesten met het type orkest"
 
 #: ../root/statistics/view_js.tt:116
 msgid "Artists with type set to other"
@@ -755,7 +755,7 @@ msgstr "Bovenstaande selectievakjes"
 
 #: ../root/statistics/view_js.tt:119
 msgid "Choirs"
-msgstr ""
+msgstr "Koren"
 
 #: ../root/statistics/timeline.tt:50
 msgid "Click to deselect"
@@ -1530,7 +1530,7 @@ msgstr "openstaand:"
 
 #: ../root/statistics/view_js.tt:118
 msgid "Orchestras"
-msgstr ""
+msgstr "Orkesten"
 
 #: ../root/statistics/view_js.tt:40
 msgid "Other"
@@ -2059,7 +2059,7 @@ msgstr "van het type karakter:"
 
 #: ../root/statistics/index.tt:157
 msgid "of type Choir:"
-msgstr ""
+msgstr "van het type Koor:"
 
 #: ../root/statistics/index.tt:145
 msgid "of type Group:"
@@ -2067,7 +2067,7 @@ msgstr "van het type groep:"
 
 #: ../root/statistics/index.tt:151
 msgid "of type Orchestra:"
-msgstr ""
+msgstr "van het type Orkest:"
 
 #: ../root/statistics/index.tt:169
 msgid "of type Other:"

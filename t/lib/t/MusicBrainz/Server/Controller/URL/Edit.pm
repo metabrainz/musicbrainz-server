@@ -36,7 +36,9 @@ is_deeply($edit->data, {
     },
     old => {
         url => 'http://musicbrainz.org/',
-    }
+    },
+    affects => 0, # not realistic, but true for the test data (unused URL entity)
+    is_merge => 0,
 });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');

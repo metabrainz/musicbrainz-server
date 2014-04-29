@@ -12,8 +12,8 @@ sub edits : Chained('load') PathPart RequireAuth
     $self->_list($c, sub {
         my ($type, $entity) = @_;
         return sub {
-            my ($offset, $limit) = @_;
-            $c->model('Edit')->find({ $type => $entity->id }, $offset, $limit);
+            my ($limit, $offset) = @_;
+            $c->model('Edit')->find({ $type => $entity->id }, $limit, $offset);
         }
     });
     $c->stash(
@@ -34,8 +34,8 @@ sub open_edits : Chained('load') PathPart RequireAuth
     $self->_list($c, sub {
         my ($type, $entity) = @_;
         return sub {
-            my ($offset, $limit) = @_;
-            $c->model('Edit')->find({ $type => $entity->id, status => $STATUS_OPEN }, $offset, $limit);
+            my ($limit, $offset) = @_;
+            $c->model('Edit')->find({ $type => $entity->id, status => $STATUS_OPEN }, $limit, $offset);
         }
     });
 

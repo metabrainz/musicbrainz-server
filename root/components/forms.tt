@@ -357,12 +357,6 @@
   </div>
 [%- END -%]
 
-[%- MACRO artist_credit_preview_from_field(ac) BLOCK -%]
-  [%- FOR credit=ac.value.names -%]
-    [%- credit.name | html -%][%- credit.join_phrase | html -%]
-  [%- END -%]
-[%- END -%]
-
 [%- MACRO external_links_editor(form, entity_type) BLOCK -%]
   <table id="external-links-editor" class="row-form">
   <tbody>

@@ -59,6 +59,21 @@ releaseEditor.test = {
         }
 
         deepEqual(ko.toJS(_.map(result, getProps)), expected);
+    },
+
+    createMediums: function (release) {
+        var submission = _.find(releaseEditor.orderedEditSubmissions, {
+            edits: releaseEditor.edits.medium
+        });
+
+        // Simulate edit submission.
+        var createEdits = submission.edits(release);
+
+        var nextID = 666;
+
+        submission.callback(release, _.map(createEdits, function (data) {
+            return { entity: { id: nextID++, position: data.position } };
+        }));
     }
 };
 

@@ -100,6 +100,8 @@ has attributes => (
     }
 );
 
+sub _appearances_table_types { "recording" }
+
 sub sorted_attributes {
     my $self = shift;
     sort_by { $_->type->l_name } sort_by { $_->l_value } $self->all_attributes;

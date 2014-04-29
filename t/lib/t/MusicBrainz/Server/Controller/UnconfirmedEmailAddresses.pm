@@ -195,6 +195,7 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   "Controller::OtherLookup::label-ipi",
   "Controller::OtherLookup::label-isni",
   "Controller::OtherLookup::mbid",
+  "Controller::OtherLookup::url",
   "Controller::Partners::amazon",
   "Controller::Place::alias",
   "Controller::Place::aliases",

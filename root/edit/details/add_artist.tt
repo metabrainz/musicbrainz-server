@@ -14,7 +14,7 @@
         <th>[% l('Sort name:') %]</th>
         <td>[% edit.display_data.sort_name | html %]</td>
     </tr>
-    [% IF edit.display_data.comment %]
+    [% IF edit.display_data.comment != '' %]
     <tr>
         <th>[% l('Disambiguation:') %]</th>
         <td>[% edit.display_data.comment | html %]</td>
