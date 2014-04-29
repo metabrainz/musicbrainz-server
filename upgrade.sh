@@ -85,35 +85,8 @@ fi
 ################################################################################
 # Scripts that should run on *all* nodes (master/slave/standalone)
 
-echo `date` : 'Adding has_dates flag to reltypes'
-OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140310-dates.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-
-echo `date` : 'Adding ordering columns'
-OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140212-ordering-columns.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-
-echo `date` : 'DROP TABLE script_language;'
-OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140208-drop-script_language.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-
-echo `date` : 'Link type cardinality (MBS-7205)'
-OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140407-link-cardinality.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-
-echo `date` : 'Remove area sortnames'
-OUTPUT=`./admin/psql READWRITE < admin/sql/updates/20140311-remove-area-sortnames.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-
-echo `date` : 'Remove label sortnames'
-OUTPUT=`./admin/psql READWRITE < admin/sql/updates/20140313-remove-label-sortnames.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-
-echo `date` : 'Add instrument entity tables'
-OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140214-add-instruments.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-
-echo `date` : 'Add instrument entity documentation tables'
-OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140215-add-instruments-documentation.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-
-echo `date` : 'Adding series'
-OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140318-series.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-
-echo `date` : 'Updating functions affected by series and instrument'
-OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140418-series-instrument-functions.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+echo `date` : 'Running upgrade scripts for all nodes'
+./admin/psql READWRITE < ./admin/sql/updates/schema-change/${NEW_SCHEMA_SEQUENCE}.slave.sql || exit 1
 
 ################################################################################
 # Re-enable replication
@@ -135,17 +108,8 @@ fi
 
 if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
 then
-    echo `date` : 'Adding foreign keys for ordering columns'
-    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140308-ordering-columns-fk.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-
-    echo `date` : 'Adding has_dates trigger'
-    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140312-dates-trigger.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-
-    echo `date` : 'Adding triggers for instruments'
-    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140217-instrument-triggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-
-    echo `date` : 'Adding constraints for series'
-    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140318-series-fks.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+    echo `date` : 'Running upgrade scripts for master/standalone nodes'
+    ./admin/psql READWRITE < ./admin/sql/updates/schema-change/${NEW_SCHEMA_SEQUENCE}.standalone.sql || exit 1
 
     echo `date` : Enabling last_updated triggers
     ./admin/sql/EnableLastUpdatedTriggers.pl
