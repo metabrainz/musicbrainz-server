@@ -43,6 +43,16 @@
         </p>
         [% END %]
 
+        [% IF edit.defined; edits = [ edit ]; END %]
+        [% IF edits.size %]
+        <p><strong>[% l('Edits loaded for the page:') %]</strong></p>
+        <ul>
+            [% FOR e = edits %]
+                  <li>[% link_edit(e) %] ([% link_edit(e, 'data', l('raw edit data')) %])[% '; ' _ l('fully loaded') IF e.is_loaded %]</li>
+            [% END %]
+        </ul>
+        [% END %]
+
         <p>
             <strong>[% l('Time:') %]</strong> [% USE date; date.format(date.now, format => '%Y-%m-%d %H:%M:%S', gmt => 1) %] UTC
         </p>

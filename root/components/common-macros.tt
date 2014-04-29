@@ -160,6 +160,8 @@ END -%]
             l('editors');
         CASE 'work';
             l('works');
+        CASE 'url';
+            l('URLs');
         CASE DEFAULT;
             l('Error: Unknown Type');
     END -%]

@@ -3,6 +3,7 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
+use MusicBrainz::Server::Data::Utils qw( load_everything_for_edits );
 use MusicBrainz::Server::Constants ':edit_status';
 
 __PACKAGE__->config(
@@ -13,17 +14,13 @@ sub _edits {
     my ($self, $c, $loader) = @_;
 
     my $edits = $self->_load_paged($c, $loader);
-
-    $c->model('Edit')->load_all(@$edits);
-    $c->model('Vote')->load_for_edits(@$edits);
-    $c->model('EditNote')->load_for_edits(@$edits);
-    $c->model('Editor')->load(map { ($_, @{ $_->votes, $_->edit_notes }) } @$edits);
-
     $c->stash(
-        edits => $edits,
+        edits => $edits, # stash early in case an ISE occurs
         template => 'user/edits.tt',
-        search => 0
+        search => 0,
     );
+
+    load_everything_for_edits($c, $edits);
 
     return $edits;
 }

@@ -55,8 +55,8 @@ sub _new_from_row
         expires_time => $row->{expire_time},
         auto_edit => $row->{autoedit},
         status => $row->{status},
+        raw_data => $row->{data},
         quality => $row->{quality},
-        c => $self->c,
     });
     $edit->language_id($row->{language}) if $row->{language};
     try {
@@ -710,6 +710,16 @@ sub insert_votes_and_notes {
                 });
         }
     }, $self->c->sql);
+}
+
+sub get_related_entities {
+    my ($self, $edit) = @_;
+    my %result;
+    for my $type (qw( area artist label place release release_group recording work url )) {
+        my $query = "SELECT $type AS id FROM edit_$type WHERE edit = ?";
+        $result{$type} = [ query_to_list($self->c->sql, sub { shift->{id} }, $query, $edit->id) ];
+    }
+    return \%result;
 }
 
 sub add_link {

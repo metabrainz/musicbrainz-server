@@ -96,6 +96,11 @@ has 'display_data' => (
     predicate => 'is_loaded'
 );
 
+has 'raw_data' => (
+    isa => 'Str',
+    is => 'rw',
+);
+
 has 'auto_edit' => (
     isa => 'Bool',
     is => 'rw',
