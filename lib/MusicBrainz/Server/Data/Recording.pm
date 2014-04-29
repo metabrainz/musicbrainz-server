@@ -134,8 +134,7 @@ sub find_by_instrument {
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                      JOIN l_artist_recording ON l_artist_recording.entity1 = recording.id
-                     JOIN link ON link.id = l_artist_recording.link
-                     JOIN link_attribute ON link_attribute.link = link.id
+                     JOIN link_attribute ON link_attribute.link = l_artist_recording.link
                      JOIN link_attribute_type ON link_attribute_type.id = link_attribute.attribute_type
                      JOIN instrument ON instrument.gid = link_attribute_type.gid
                  WHERE instrument.id = ?

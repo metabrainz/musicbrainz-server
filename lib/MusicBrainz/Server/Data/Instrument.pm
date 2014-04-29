@@ -145,30 +145,6 @@ sub _hash_to_row {
     return $row;
 }
 
-=method load_ids
-
-Load internal IDs for instrument objects that only have GIDs.
-
-=cut
-
-sub load_ids {
-    my ($self, @instruments) = @_;
-
-    my @gids = map { $_->gid } @instruments;
-    return () unless @gids;
-
-    my $query = "
-        SELECT gid, id FROM instrument
-        WHERE gid IN (" . placeholders(@gids) . ")
-    ";
-    my %map = map { $_->[0] => $_->[1] }
-        @{ $self->sql->select_list_of_lists($query, @gids) };
-
-    for my $instrument (@instruments) {
-        $instrument->id($map{$instrument->gid}) if exists $map{$instrument->gid};
-    }
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

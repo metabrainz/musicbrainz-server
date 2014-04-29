@@ -206,8 +206,7 @@ sub find_by_instrument {
           area.name AS country_name
         FROM " . $self->_table . "
         JOIN l_artist_release ON l_artist_release.entity1 = release.id
-        JOIN link ON link.id = l_artist_release.link
-        JOIN link_attribute ON link_attribute.link = link.id
+        JOIN link_attribute ON link_attribute.link = l_artist_release.link
         JOIN link_attribute_type ON link_attribute_type.id = link_attribute.attribute_type
         JOIN instrument ON instrument.gid = link_attribute_type.gid
         " . join(' ', @$extra_joins) . "
