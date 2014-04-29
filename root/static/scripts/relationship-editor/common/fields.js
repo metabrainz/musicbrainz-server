@@ -35,16 +35,12 @@
             if (this.id) this.show();
         },
 
-        fromJS: function (data) {
-            this.linkTypeID(data.linkTypeID);
-
+        after$fromJS: function (data) {
             setPartialDate(this.period.beginDate, data.beginDate || {});
             setPartialDate(this.period.endDate, data.endDate || {});
             this.period.ended(!!data.ended);
 
             this.attributes(_(data.attributes || []).map(Number).sort().value());
-
-            this.entities([MB.entity(data.entities[0]), MB.entity(data.entities[1])]);
 
             _.has(data, "removed") && this.removed(!!data.removed);
         },

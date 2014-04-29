@@ -115,20 +115,25 @@ role {
                 JSONSerializer->serialize_relationships(@existing_relationships);
         }
 
+        my $form_name = "edit-$source_type";
+
+        # Grrr. release_group => release-group.
+        $form_name =~ s/_/-/;
+
         if ($c->form_posted) {
             my $body_params = expand_hash($c->req->body_params);
 
             $source_entity->{submittedRelationships} = $submitted_rel_data->(
-                @{ $body_params->{"edit-$source_type"}->{rel} },
-                @{ $body_params->{"edit-$source_type"}->{url} }
+                @{ $body_params->{$form_name}->{rel} },
+                @{ $body_params->{$form_name}->{url} }
             );
         }
         else {
             my $query_params = expand_hash($c->req->query_params);
 
             my $submitted_relationships = $submitted_rel_data->(
-                @{ $query_params->{"edit-$source_type"}->{rel} },
-                @{ $query_params->{"edit-$source_type"}->{url} }
+                @{ $query_params->{$form_name}->{rel} },
+                @{ $query_params->{$form_name}->{url} }
             );
 
             $source_entity->{submittedRelationships} = $submitted_relationships // [];

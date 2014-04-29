@@ -509,6 +509,11 @@
 
             entities[0].relationships.push(this);
             entities[1].relationships.push(this);
+        },
+
+        fromJS: function (data) {
+            this.linkTypeID(data.linkTypeID);
+            this.entities([MB.entity(data.entities[0]), MB.entity(data.entities[1])]);
         }
     });
 
