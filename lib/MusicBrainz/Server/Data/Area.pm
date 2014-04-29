@@ -82,7 +82,6 @@ sub load
 sub load_containment
 {
     my ($self, @areas) = @_;
-    my $area_area_parent_type = 356;
     # Define a map of area_type IDs to what property they correspond to
     # on an Entity::Area.
     my %type_parent_attribute = (
@@ -107,32 +106,10 @@ sub load_containment
     my %obj_id_map = object_to_ids(@objects_to_use);
     my @all_ids = keys %obj_id_map;
 
-    # First, construct a table (recursively) of parent -> descendant connections
-    # for areas, including an array of the path (the 'descendants' array).
-    #
-    # Then, find the shortest path to each type of parent by joining to area,
-    # distinct on descendant, type, and order by the length of the array of descendants.
-    my $query = "
-        WITH RECURSIVE area_descendants AS (
-            SELECT entity0 AS parent, entity1 AS descendant, ARRAY[entity1] AS descendants
-            FROM   l_area_area laa
-            JOIN   link ON laa.link = link.id
-            WHERE  link_type = $area_area_parent_type
-                UNION ALL
-            SELECT entity0 AS parent, descendant, descendants || entity1
-            FROM   l_area_area laa
-            JOIN   link ON laa.link=link.id
-            JOIN   area_descendants ON area_descendants.parent = laa.entity1
-            WHERE  link_type = $area_area_parent_type
-            AND    NOT entity0 = ANY(descendants))
-        SELECT DISTINCT ON (descendant, type) descendant, parent, area.type, descendants || parent AS descendant_hierarchy
-        FROM   area_descendants
-        JOIN   area ON area_descendants.parent = area.id
-        WHERE  descendant IN (" . placeholders(@all_ids) . ")
-        AND    area.type IN (" . placeholders(keys %type_parent_attribute) . ")
-        ORDER BY descendant, type, array_length(descendants, 1) ASC";
-
-    my $containment = $self->sql->select_list_of_hashes($query, @all_ids, keys %type_parent_attribute);
+    # See admin/sql/CreateViews.sql for a description of the area_containment view.
+    # If more types are added to %type_parent_attribute the view should be updated.
+    my $query = "SELECT descendant, parent, type FROM area_containment WHERE descendant = any(?)";
+    my $containment = $self->sql->select_list_of_hashes($query, \@all_ids);
 
     my @parent_ids = grep { defined } map { $_->{parent} } @$containment;
 
