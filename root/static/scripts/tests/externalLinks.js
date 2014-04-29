@@ -172,6 +172,7 @@ test("hidden input data for form submission", function () {
         { name: "edit-artist.url.0.link_type_id", value: "" },
         { name: "edit-artist.url.1.relationship_id", value: 1 },
         { name: "edit-artist.url.1.removed", value: 1 },
+        { name: "edit-artist.url.1.text", value: "http://en.wikipedia.org/wiki/dEErHuNtER" },
         { name: "edit-artist.url.1.link_type_id", value: 179 }
     ]);
 });
