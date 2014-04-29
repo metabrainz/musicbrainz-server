@@ -208,7 +208,7 @@
     });
 
 
-    var mediumSearchTab = SearchTab().extend({
+    var mediumSearchTab = releaseEditor.mediumSearchTab = SearchTab().extend({
         endpoint: "/ws/js/medium",
 
         tracksRequestData: { inc: "recordings" },

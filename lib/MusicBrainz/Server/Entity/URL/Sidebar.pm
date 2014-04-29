@@ -51,6 +51,10 @@ use constant FAVICON_CLASSES => {
     'soundtrackcollector.com'   => 'STcollector',
     'wikidata.org'              => 'wikidata',
     'recmusic.org/lieder'       => 'lieder',
+    'rock.rapgenius.com'        => 'rockgenius',
+    'http://rapgenius.com'      => 'rapgenius',
+    'imvdb.com'                 => 'imvdb',
+    'residentadvisor.net'       => 'residentadvisor',
 };
 
 our @EXPORT_OK = qw( FAVICON_CLASSES );

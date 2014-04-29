@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-03-31 21:30+0000\n"
+"PO-Revision-Date: 2014-04-17 03:31+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -630,20 +630,12 @@ msgid ""
 "detailed a date as possible."
 msgstr ""
 
-#: DB:link_type/link_phrase:91 DB:link_type/link_phrase:181
-msgid "MusicMoz"
-msgstr "MusicMoz"
-
-#: DB:link_type/reverse_link_phrase:91 DB:link_type/reverse_link_phrase:181
-msgid "MusicMoz page for"
-msgstr "MusicMoz-sivuna"
-
-#: DB:link_type/link_phrase:189 DB:link_type/link_phrase:215
+#: DB:link_type/link_phrase:215 DB:link_type/link_phrase:189
 #: DB:link_type/link_phrase:462
 msgid "Myspace"
 msgstr "Myspace"
 
-#: DB:link_type/reverse_link_phrase:189 DB:link_type/reverse_link_phrase:215
+#: DB:link_type/reverse_link_phrase:215 DB:link_type/reverse_link_phrase:189
 #: DB:link_type/reverse_link_phrase:462
 msgid "Myspace page for"
 msgstr "Myspace-sivuna"
@@ -1111,12 +1103,6 @@ msgid ""
 "This is <strong>not</strong> the same concept as the <a href=\"/doc/Label\">record label</a>."
 msgstr ""
 
-#: DB:link_type/description:260
-msgid ""
-"This indicates the recording studio where at least part of this recording "
-"was recorded."
-msgstr ""
-
 #: DB:link_type/description:98
 msgid ""
 "This indicates the recording studio where at least part of this release "
@@ -1446,7 +1432,7 @@ msgstr ""
 
 #: DB:link_type/description:96 DB:link_type/description:82
 #: DB:link_type/description:306 DB:link_type/description:222
-#: DB:link_type/description:273 DB:link_type/description:188
+#: DB:link_type/description:188 DB:link_type/description:273
 msgid ""
 "This links an entity to the equivalent entry at another database. Please "
 "respect the <a "
@@ -1713,12 +1699,6 @@ msgstr ""
 msgid ""
 "This relationship type is <strong>deprecated</strong>. Add liner notes info "
 "on the release level."
-msgstr ""
-
-#: DB:link_type/description:91 DB:link_type/description:181
-msgid ""
-"This relationship type is <strong>deprecated</strong>. Use \"has a page in a"
-" database\" instead."
 msgstr ""
 
 #: DB:link_type/description:15
@@ -2317,11 +2297,7 @@ msgstr "omaa Discogs-sivun"
 msgid "has a Geonames page at"
 msgstr "omaa Geonames-sivun"
 
-#: DB:link_type/long_link_phrase:91 DB:link_type/long_link_phrase:181
-msgid "has a MusicMoz page at"
-msgstr "omaa MusicMoz-sivun"
-
-#: DB:link_type/long_link_phrase:189 DB:link_type/long_link_phrase:215
+#: DB:link_type/long_link_phrase:215 DB:link_type/long_link_phrase:189
 #: DB:link_type/long_link_phrase:462
 msgid "has a Myspace page at"
 msgstr "omaa Myspace-sivun"
@@ -2617,7 +2593,7 @@ msgstr ""
 msgid "is a medley of"
 msgstr "on sävelmäketju"
 
-#: DB:link_type/long_link_phrase:273
+#: DB:link_type/long_link_phrase:730 DB:link_type/long_link_phrase:273
 msgid "is a page in a database for"
 msgstr "on sivu tietokannassa"
 
@@ -2777,11 +2753,6 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:712
 msgid "licensed from"
 msgstr ""
-
-#: DB:link_type/link_phrase:81 DB:link_type/reverse_link_phrase:81
-#: DB:link_type/long_link_phrase:81
-msgid "links to affiliates"
-msgstr "linkkejä yhteistyökumppaneihin"
 
 #: DB:link_attribute_type/name:578
 msgid "live"
@@ -2992,13 +2963,14 @@ msgstr ""
 msgid "orchestrations"
 msgstr "orkestraatiot"
 
-#: DB:link_type/link_phrase:96 DB:link_type/link_phrase:82
-#: DB:link_type/link_phrase:306 DB:link_type/link_phrase:222
-#: DB:link_type/link_phrase:273 DB:link_type/link_phrase:188
-#: DB:link_type/link_phrase:561 DB:link_type/reverse_link_phrase:96
+#: DB:link_type/link_phrase:96 DB:link_type/link_phrase:730
+#: DB:link_type/link_phrase:82 DB:link_type/link_phrase:306
+#: DB:link_type/link_phrase:222 DB:link_type/link_phrase:188
+#: DB:link_type/link_phrase:273 DB:link_type/link_phrase:561
+#: DB:link_type/reverse_link_phrase:96 DB:link_type/reverse_link_phrase:730
 #: DB:link_type/reverse_link_phrase:82 DB:link_type/reverse_link_phrase:306
-#: DB:link_type/reverse_link_phrase:222 DB:link_type/reverse_link_phrase:273
-#: DB:link_type/reverse_link_phrase:188 DB:link_type/reverse_link_phrase:561
+#: DB:link_type/reverse_link_phrase:222 DB:link_type/reverse_link_phrase:188
+#: DB:link_type/reverse_link_phrase:273 DB:link_type/reverse_link_phrase:561
 msgid "other databases"
 msgstr "muut tietokannat"
 
@@ -3232,8 +3204,7 @@ msgstr ""
 msgid "recording location for"
 msgstr "äänityspaikkana kohteelle"
 
-#: DB:link_type/link_phrase:98 DB:link_type/link_phrase:260
-#: DB:link_type/reverse_link_phrase:98 DB:link_type/reverse_link_phrase:260
+#: DB:link_type/link_phrase:98 DB:link_type/reverse_link_phrase:98
 msgid "recording studio"
 msgstr "äänitysstudio"
 
@@ -3355,11 +3326,11 @@ msgstr "puhe"
 
 #: DB:link_type/link_phrase:194
 msgid "stream for free"
-msgstr "Suoratoista ilmaiseksi"
+msgstr "suoratoistettavissa ilmaiseksi"
 
 #: DB:link_type/link_phrase:85 DB:link_type/link_phrase:268
 msgid "stream {video} for free"
-msgstr "Suoratoista {video} ilmaiseksi"
+msgstr "suoratoistettavissa {video} ilmaiseksi"
 
 #: DB:link_type/link_phrase:722
 msgid "subgroup of"
@@ -3447,7 +3418,7 @@ msgstr ""
 msgid "voiced by"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:98 DB:link_type/long_link_phrase:260
+#: DB:link_type/long_link_phrase:98
 msgid "was recorded by studio at"
 msgstr "on äänitetty studiossa"
 

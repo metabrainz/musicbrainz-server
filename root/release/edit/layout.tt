@@ -24,7 +24,7 @@
         <ul data-bind="foreach: seedErrors">
           <li data-bind="text: $data"></li>
         </ul>
-        [% l('Review the {url|documentation} on release editor seeding and make sure your data is formatted correctly.', { url => 'http://musicbrainz.org/doc/Development/Release_Editor_Seeding' }) %]
+        [% l('Review the {url|documentation} on release editor seeding and make sure your data is formatted correctly.', { url => doc_link('Development/Release_Editor_Seeding') }) %]
       </div>
     <!-- /ko -->
 

@@ -86,8 +86,8 @@ sub filename
 }
 
 sub image { my $self = shift; return $self->_urlprefix . "." . $self->suffix; }
-sub small_thumbnail { my $self = shift; return $self->_urlprefix . "-250.jpg" if $self->mime_type ne "application/pdf"; }
-sub large_thumbnail { my $self = shift; return $self->_urlprefix . "-500.jpg" if $self->mime_type ne "application/pdf"; }
+sub small_thumbnail { my $self = shift; return $self->_urlprefix . "-250.jpg"; }
+sub large_thumbnail { my $self = shift; return $self->_urlprefix . "-500.jpg"; }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

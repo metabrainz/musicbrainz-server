@@ -22,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-31 14:29-0700\n"
-"PO-Revision-Date: 2014-03-31 21:30+0000\n"
+"POT-Creation-Date: 2014-04-25 09:26-0700\n"
+"PO-Revision-Date: 2014-04-25 16:29+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -32,7 +32,8 @@ msgstr ""
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../root/artist/relationships.tt:33 ../root/place/performances.tt:27
+#: ../root/components/relationships-table.tt:24
+#: ../root/place/performances.tt:27
 #: ../lib/MusicBrainz/Server/Entity/Link.pm:109
 msgid " &#x2013; ????"
 msgstr " &#x2013; ????"
@@ -79,7 +80,7 @@ msgstr "„JJ“ zijn de laatste twee cijfers van het registratiejaar."
 #: ../root/edit/details/edit_medium.tt:220
 #: ../root/edit/details/historic/add_release.tt:49 ../root/freedb/show.tt:10
 #: ../root/freedb/show.tt:61 ../root/recording/index.tt:9
-#: ../root/release/edit/tracklist.tt:99 ../root/release/edit/tracklist.tt:242
+#: ../root/release/edit/tracklist.tt:99 ../root/release/edit/tracklist.tt:251
 msgid "#"
 msgstr "#"
 
@@ -91,7 +92,8 @@ msgstr "&#10004;"
 msgid "&#10005;"
 msgstr "&#10005;"
 
-#: ../root/artist/relationships.tt:33 ../root/place/performances.tt:27
+#: ../root/components/relationships-table.tt:24
+#: ../root/place/performances.tt:27
 #: ../lib/MusicBrainz/Server/Entity/Link.pm:119
 #, perl-brace-format
 msgid "&#x2013; {enddate}"
@@ -261,8 +263,8 @@ msgid ""
 "requested and the matches we found."
 msgstr "* Geeft het totaal aantal secondes verschil aan tussen de cd die u opvroeg en de gevonden resultaten."
 
-#: ../root/artist/relationships.tt:56 ../root/place/performances.tt:50
-#: ../root/scripts/text_strings.tt:127
+#: ../root/components/relationships-table.tt:47
+#: ../root/place/performances.tt:50 ../root/scripts/text_strings.tt:127
 #: ../lib/MusicBrainz/Server/Entity/Relationship.pm:149
 msgid ", "
 msgstr ", "
@@ -290,7 +292,7 @@ msgstr "100%"
 msgid "1st seconder:"
 msgstr "eerste secondant"
 
-#: ../root/components/common-macros.tt:119
+#: ../root/components/common-macros.tt:107
 msgid "250px"
 msgstr "250px"
 
@@ -298,7 +300,7 @@ msgstr "250px"
 msgid "2nd seconder:"
 msgstr "tweede secondant"
 
-#: ../root/components/common-macros.tt:120
+#: ../root/components/common-macros.tt:108
 msgid "500px"
 msgstr "500px"
 
@@ -326,7 +328,7 @@ msgstr "<strong>Gesloten:</strong> <em>Wordt geannuleerd</em>"
 msgid "<strong>Closed:</strong> {date}"
 msgstr "<strong>Gesloten:</strong> {date}"
 
-#: ../root/components/common-macros.tt:800
+#: ../root/components/common-macros.tt:774
 msgid "<strong>Error</strong>:"
 msgstr "<strong>Foutmelding</strong>:"
 
@@ -347,7 +349,7 @@ msgid ""
 "updating a page!"
 msgstr "<strong>Let op:</strong>MediaWiki controleert niet of het versienummer overeenkomt met de paginanaam, het neemt het versienummer en verstrekt welke pagina daar mee geassocieerd is. Zorg er voor dat u uw werk twee keer controleert als u een pagina bijwerkt!"
 
-#: ../root/components/common-macros.tt:813
+#: ../root/components/common-macros.tt:787
 msgid "<strong>Note</strong>:"
 msgstr "<strong>Let op</strong>:"
 
@@ -371,7 +373,7 @@ msgid ""
 "you wish to continue with the merge."
 msgstr "<strong>Waarschuwing:</strong> Sommige opnames die u aan het samenvoegen bent hebben verschillende ISRC's. Controleer of het inderdaad dezelfde opname is voordat u doorgaat met samenvoegen."
 
-#: ../root/components/common-macros.tt:807 ../root/recording/edit.tt:10
+#: ../root/components/common-macros.tt:781 ../root/recording/edit.tt:10
 msgid "<strong>Warning</strong>:"
 msgstr "<strong>Waarschuwing</strong>:"
 
@@ -453,7 +455,7 @@ msgstr "Accepteren"
 msgid "Accept edit"
 msgstr "Bewerking accepteren"
 
-#: ../root/components/common-macros.tt:670
+#: ../root/components/common-macros.tt:640
 msgid "Accept upon expiration"
 msgstr "Accepteer na het verstrijken"
 
@@ -474,7 +476,7 @@ msgstr "Gebruikersaccount aangemaakt"
 msgid "Account admin"
 msgstr "Accountbeheerder"
 
-#: ../root/search/results-freedb.tt:19
+#: ../root/search/results-freedb.tt:17
 msgid "Action"
 msgstr "Actie"
 
@@ -485,6 +487,10 @@ msgstr "Actie"
 msgid "Actions"
 msgstr "Acties"
 
+#: ../root/area/create.tt:1 ../root/area/create.tt:3
+msgid "Add Area"
+msgstr "Gebied toevoegen"
+
 #: ../root/layout/menu.tt:85
 msgctxt "button/menu"
 msgid "Add Area"
@@ -493,6 +499,10 @@ msgstr "Gebied toevoegen"
 #: ../root/area/add_alias.tt:1
 msgid "Add Area Alias"
 msgstr "Alias aan gebied toevoegen"
+
+#: ../root/artist/create.tt:1 ../root/artist/create.tt:3
+msgid "Add Artist"
+msgstr "Artiest toevoegen"
 
 #: ../root/layout/menu.tt:214
 msgctxt "button/menu"
@@ -504,7 +514,7 @@ msgid "Add Artist Alias"
 msgstr "Alias aan deze artiest toevoegen"
 
 #: ../root/components/forms.tt:338 ../root/components/forms.tt:339
-#: ../root/release/edit/tracklist.tt:360
+#: ../root/release/edit/tracklist.tt:384
 msgid "Add Artist Credit"
 msgstr "Vermelding aan artiest toevoegen"
 
@@ -537,6 +547,10 @@ msgstr "Gebeurtenis toevoegen"
 msgid "Add Example"
 msgstr "Voorbeeld toevoegen"
 
+#: ../root/label/create.tt:1 ../root/label/create.tt:3
+msgid "Add Label"
+msgstr "Platenmaatschappij toevoegen"
+
 #: ../root/layout/menu.tt:217 ../root/release/edit/information.tt:174
 #: ../root/release/edit/information.tt:175
 msgctxt "button/menu"
@@ -547,10 +561,6 @@ msgstr "Platenmaatschappij toevoegen"
 msgid "Add Label Alias"
 msgstr "Alias aan deze platenmaatschappij toevoegen"
 
-#: ../root/release_group/create.tt:1
-msgid "Add New Release Group"
-msgstr "Nieuwe uitgavegroep toevoegen"
-
 #: ../root/edit/info.tt:13 ../root/scripts/text_strings.tt:121
 msgid "Add Note"
 msgstr "Notitie toevoegen"
@@ -558,6 +568,10 @@ msgstr "Notitie toevoegen"
 #: ../root/admin/wikidoc/create.tt:1 ../root/admin/wikidoc/create.tt:3
 msgid "Add Page"
 msgstr "Pagina toevoegen"
+
+#: ../root/place/create.tt:1 ../root/place/create.tt:3
+msgid "Add Place"
+msgstr "Plaats toevoegen"
 
 #: ../root/layout/menu.tt:235
 msgctxt "button/menu"
@@ -581,6 +595,10 @@ msgstr "Uitgave toevoegen"
 msgctxt "header"
 msgid "Add Release"
 msgstr "Uitgave toevoegen"
+
+#: ../root/release_group/create.tt:1 ../root/release_group/create.tt:8
+msgid "Add Release Group"
+msgstr "Uitgavegroep toevoegen"
 
 #: ../root/layout/menu.tt:220
 msgctxt "button/menu"
@@ -620,18 +638,10 @@ msgstr "Compositie toevoegen"
 msgid "Add Work Alias"
 msgstr "Alias aan deze compositie toevoegen"
 
-#: ../root/work/edit_form.tt:71
+#: ../root/work/edit_form.tt:73
 msgctxt "button/menu"
 msgid "Add Work Attribute"
 msgstr "Compositie-eigenschap toevoegen"
-
-#: ../root/area/create.tt:1 ../root/area/create.tt:3
-msgid "Add a New Area"
-msgstr "Een nieuw gebied toevoegen"
-
-#: ../root/artist/create.tt:1 ../root/artist/create.tt:3
-msgid "Add a New Artist"
-msgstr "Nieuwe artiest toevoegen"
 
 #: ../root/collection/create.tt:1 ../root/collection/create.tt:3
 msgid "Add a New Collection"
@@ -641,19 +651,7 @@ msgstr "Nieuwe collectie toevoegen"
 msgid "Add a New Example"
 msgstr "Een nieuw voorbeeld toevoegen"
 
-#: ../root/label/create.tt:1 ../root/label/create.tt:3
-msgid "Add a New Label"
-msgstr "Nieuwe platenmaatschappij toevoegen"
-
-#: ../root/place/create.tt:1 ../root/place/create.tt:3
-msgid "Add a New Place"
-msgstr "Een nieuwe plaats toevoegen"
-
-#: ../root/release_group/create.tt:8
-msgid "Add a New Release Group"
-msgstr "Nieuwe uitgavegroep toevoegen"
-
-#: ../root/account/edit.tt:56
+#: ../root/account/edit.tt:61
 msgid "Add a language"
 msgstr "Taal toevoegen"
 
@@ -701,7 +699,7 @@ msgstr "Een nieuwe compositie toevoegen"
 msgid "Add an edit note"
 msgstr "Bewerkingsnotitie toevoegen"
 
-#: ../root/components/common-macros.tt:888
+#: ../root/components/common-macros.tt:862
 msgid "Add annotation"
 msgstr "Aantekening toevoegen"
 
@@ -709,7 +707,7 @@ msgstr "Aantekening toevoegen"
 msgid "Add another"
 msgstr "Nog één toevoegen"
 
-#: ../root/components/forms.tt:377
+#: ../root/components/forms.tt:371
 msgid "Add another link:"
 msgstr "Nog een koppeling toevoegen:"
 
@@ -722,12 +720,12 @@ msgid "Add another track"
 msgstr "Nog een nummer toevoegen"
 
 #: ../root/area/add_alias.tt:2
-#: ../lib/MusicBrainz/Server/Edit/Area/AddAlias.pm:14
+#: ../lib/MusicBrainz/Server/Edit/Area/AddAlias.pm:11
 msgid "Add area alias"
 msgstr "Alias aan gebied toevoegen"
 
 #: ../root/artist/add_alias.tt:2
-#: ../lib/MusicBrainz/Server/Edit/Artist/AddAlias.pm:14
+#: ../lib/MusicBrainz/Server/Edit/Artist/AddAlias.pm:11
 msgid "Add artist alias"
 msgstr "Alias aan deze artiest toevoegen"
 
@@ -744,16 +742,16 @@ msgid "Add edit note"
 msgstr "Bewerkingsnotitie toevoegen"
 
 #: ../root/label/add_alias.tt:2
-#: ../lib/MusicBrainz/Server/Edit/Label/AddAlias.pm:14
+#: ../lib/MusicBrainz/Server/Edit/Label/AddAlias.pm:11
 msgid "Add label alias"
 msgstr "Alias aan deze platenmaatschappij toevoegen"
 
-#: ../root/components/forms.tt:377
+#: ../root/components/forms.tt:371
 msgid "Add link:"
 msgstr "Koppeling toevoegen:"
 
 #: ../root/place/add_alias.tt:2
-#: ../lib/MusicBrainz/Server/Edit/Place/AddAlias.pm:14
+#: ../lib/MusicBrainz/Server/Edit/Place/AddAlias.pm:11
 msgid "Add place alias"
 msgstr "Alias aan deze plaats toevoegen"
 
@@ -813,7 +811,7 @@ msgstr "Aan mijn collectie toevoegen"
 msgid "Add to {collection}"
 msgstr "Aan {collection} toevoegen"
 
-#: ../root/release/edit/tracklist.tt:304
+#: ../root/release/edit/tracklist.tt:328
 msgid "Add track(s)"
 msgstr "Nummer(s) toevoegen"
 
@@ -823,7 +821,7 @@ msgid "Add work"
 msgstr "Compositie toevoegen"
 
 #: ../root/work/add_alias.tt:2
-#: ../lib/MusicBrainz/Server/Edit/Work/AddAlias.pm:15
+#: ../lib/MusicBrainz/Server/Edit/Work/AddAlias.pm:12
 msgid "Add work alias"
 msgstr "Alias aan deze compositie toevoegen"
 
@@ -831,7 +829,7 @@ msgstr "Alias aan deze compositie toevoegen"
 msgid "Add {item}"
 msgstr "{item} toevoegen"
 
-#: ../root/release/edit/tracklist.tt:303
+#: ../root/release/edit/tracklist.tt:327
 msgid "Add {num} track(s)"
 msgstr "{num} nummer(s) toevoegen"
 
@@ -866,7 +864,7 @@ msgid "Address"
 msgstr "Adres"
 
 #: ../root/edit/details/add_place.tt:30 ../root/edit/details/edit_place.tt:23
-#: ../root/place/edit_form.tt:40 ../root/place/layout.tt:33
+#: ../root/place/edit_form.tt:34 ../root/place/layout.tt:33
 msgid "Address:"
 msgstr "Adres:"
 
@@ -982,7 +980,7 @@ msgstr "Sta andere gebruikers toe om mijn etiketten te zien"
 msgid "Allow other users to see this collection"
 msgstr "Sta andere gebruikers toe om deze collectie te zien"
 
-#: ../root/components/common-macros.tt:715
+#: ../root/components/common-macros.tt:685
 msgid "Already expired"
 msgstr "Al verlopen"
 
@@ -1116,7 +1114,7 @@ msgstr "Aantekening:"
 msgid "Annotations support a limited set of wiki formatting options:"
 msgstr "Aantekeningen ondersteunen een gelimiteerd aantal wiki-opmaakopties:"
 
-#: ../root/artist/relationships.tt:9
+#: ../root/artist/relationships.tt:8 ../root/label/relationships.tt:6
 msgid "Appearances"
 msgstr "Vermeld als"
 
@@ -1168,10 +1166,6 @@ msgid ""
 "Are you sure you want to nominate the editor {editor} for auto-editor "
 "status?"
 msgstr "Weet u zeker dat u de redacteur {editor} wilt nomineren voor de status van autoredacteur?"
-
-#: ../root/alias/delete.tt:1
-msgid "Are you sure you want to remove the alias <em>{alias}</em>?"
-msgstr "Weet u zeker dat u de alias <em>{alias}</em> wilt verwijderen?"
 
 #: ../root/collection/delete.tt:4
 msgid "Are you sure you want to remove the collection {collection}?"
@@ -1227,30 +1221,14 @@ msgstr "Weet u zeker dat u de onderstaande afbeelding van {release} van {artist}
 msgid "Are you sure you wish to remove the label {label} from MusicBrainz?"
 msgstr "Weet u zeker dat u de platenmaatschappij {label} wilt verwijderen van MusicBrainz?"
 
-#: ../root/recording/delete.tt:9
-msgid ""
-"Are you sure you wish to remove the recording {recording} from MusicBrainz?"
-msgstr "Weet u zeker dat u de opname {recording} van MusicBrainz wilt verwijderen?"
-
 #: ../root/edit/relationship/delete.tt:6
 msgid ""
 "Are you sure you wish to remove the relationship: {entity0} {relationship}?"
 msgstr "Weet u zeker of u de relatie {entity0} {relationship} wilt verwijderen?"
 
-#: ../root/release_group/delete.tt:5
-msgid ""
-"Are you sure you wish to remove the release group {rg} by {artist} from "
-"MusicBrainz?"
-msgstr "Weet u zeker dat u de uitgavegroep {rg} van {artist} wilt verwijderen van MusicBrainz?"
-
-#: ../root/release/delete.tt:7
-msgid ""
-"Are you sure you wish to remove the release {release} from MusicBrainz?"
-msgstr "Weet u zeker dat u de uitgave {release} wilt verwijderen van MusicBrainz?"
-
 #: ../root/area/edits.tt:5 ../root/area/header.tt:21
-#: ../root/components/common-macros.tt:578
-#: ../root/components/common-macros.tt:645
+#: ../root/components/common-macros.tt:548
+#: ../root/components/common-macros.tt:615
 #: ../root/edit/details/merge_labels.tt:11
 #: ../root/edit/details/merge_labels.tt:48
 #: ../root/edit/details/merge_places.tt:11
@@ -1275,8 +1253,8 @@ msgstr "Gebied niet gevonden"
 msgid "Area information"
 msgstr "Informatie over het gebied"
 
-#: ../root/artist/edit_form.tt:48 ../root/artist/index.tt:14
-#: ../root/artist/layout.tt:54 ../root/components/common-macros.tt:564
+#: ../root/artist/edit_form.tt:38 ../root/artist/index.tt:14
+#: ../root/artist/layout.tt:54 ../root/components/common-macros.tt:534
 #: ../root/edit/details/add_area_alias.tt:3
 #: ../root/edit/details/add_area_annotation.tt:3
 #: ../root/edit/details/add_area.tt:3 ../root/edit/details/add_artist.tt:37
@@ -1285,20 +1263,21 @@ msgstr "Informatie over het gebied"
 #: ../root/edit/details/edit_area.tt:5 ../root/edit/details/edit_artist.tt:34
 #: ../root/edit/details/edit_label.tt:48 ../root/edit/details/edit_place.tt:28
 #: ../root/edit/details/remove_area_alias.tt:3
-#: ../root/edit/details/remove_area.tt:3 ../root/label/edit_form.tt:43
+#: ../root/edit/details/remove_area.tt:3 ../root/label/edit_form.tt:37
 #: ../root/label/index.tt:12 ../root/label/layout.tt:45
-#: ../root/place/edit_form.tt:43 ../root/place/layout.tt:36
+#: ../root/place/edit_form.tt:37 ../root/place/layout.tt:36
 msgid "Area:"
 msgstr "Gebied:"
 
 #: ../root/area/artists-list.tt:4 ../root/artist/edits.tt:5
 #: ../root/artist/header.tt:19 ../root/artist/index.tt:57
-#: ../root/artist/recordings-list.tt:27 ../root/artist/relationships.tt:16
 #: ../root/cdstub/browse.tt:9 ../root/cdstub/cdstub.tt:7
 #: ../root/cdtoc/attach_filter_release.tt:29 ../root/cdtoc/list.tt:7
 #: ../root/cdtoc/lookup.tt:39 ../root/collection/index.tt:18
-#: ../root/components/common-macros.tt:578
-#: ../root/components/common-macros.tt:636
+#: ../root/components/common-macros.tt:548
+#: ../root/components/common-macros.tt:606
+#: ../root/components/recordings-list.tt:27
+#: ../root/components/relationships-table.tt:9
 #: ../root/components/results-generic.tt:6
 #: ../root/edit/details/add_medium.tt:50
 #: ../root/edit/details/edit_medium.tt:58
@@ -1309,7 +1288,7 @@ msgstr "Gebied:"
 #: ../root/edit/details/merge_releases.tt:19 ../root/edit/search_macros.tt:307
 #: ../root/freedb/show.tt:63 ../root/isrc/index.tt:17
 #: ../root/otherlookup/results-release.tt:11 ../root/place/performances.tt:10
-#: ../root/release/edit/tracklist.tt:101 ../root/release/edit/tracklist.tt:244
+#: ../root/release/edit/tracklist.tt:101 ../root/release/edit/tracklist.tt:253
 #: ../root/release_group/merge.tt:13 ../root/release_group/releases-list.tt:18
 #: ../root/release/index.tt:56 ../root/release/lookup.tt:10
 #: ../root/release/merge.tt:14 ../root/report/artist_list.tt:7
@@ -1324,7 +1303,7 @@ msgstr "Gebied:"
 #: ../root/scripts/text_strings.tt:105
 #: ../root/search/lib/inline-results-recording.tt:10
 #: ../root/search/lib/inline-results-release.tt:10
-#: ../root/search/results-cdstub.tt:9 ../root/search/results-freedb.tt:15
+#: ../root/search/results-cdstub.tt:9 ../root/search/results-freedb.tt:13
 #: ../root/search/results-release_group.tt:9
 #: ../root/search/results-release-group.tt:9 ../root/watch/list.tt:14
 #: ../lib/MusicBrainz/Server/Edit/Artist.pm:7
@@ -1340,7 +1319,7 @@ msgstr "Gebied van artiest"
 msgid "Artist Credit:"
 msgstr "Vermelding van artiest:"
 
-#: ../root/artist/edit_form.tt:101
+#: ../root/artist/edit_form.tt:91
 msgid "Artist Credits"
 msgstr "Vermelding van artiesten"
 
@@ -1348,7 +1327,7 @@ msgstr "Vermelding van artiesten"
 msgid "Artist Credits:"
 msgstr "Vermeldingen van artiesten:"
 
-#: ../root/artist/edit_form.tt:40
+#: ../root/artist/edit_form.tt:30
 msgid "Artist Details"
 msgstr "Artiestdetails"
 
@@ -1368,7 +1347,7 @@ msgstr "Artiest niet gevonden"
 msgid "Artist Subscriptions"
 msgstr "Abonnementen op artiesten"
 
-#: ../root/release/edit/tracklist.tt:330
+#: ../root/release/edit/tracklist.tt:354
 msgid "Artist as credited on this track:"
 msgstr "Artiest zoals vermeld:"
 
@@ -1388,7 +1367,7 @@ msgstr "Vermeldingen"
 msgid "Artist credits:"
 msgstr "Vermeldingen van artiesten:"
 
-#: ../root/components/forms.tt:307 ../root/release/edit/tracklist.tt:329
+#: ../root/components/forms.tt:307 ../root/release/edit/tracklist.tt:353
 msgid "Artist in MusicBrainz:"
 msgstr "Artiest in MusicBrainz:"
 
@@ -1410,7 +1389,7 @@ msgstr "Artiest {n}:"
 
 #: ../root/cdstub/edit_form.tt:6 ../root/cdstub/import.tt:7
 #: ../root/cdtoc/attach_filter_artist.tt:8 ../root/cdtoc/lookup.tt:61
-#: ../root/components/common-macros.tt:564 ../root/components/forms.tt:148
+#: ../root/components/common-macros.tt:534 ../root/components/forms.tt:148
 #: ../root/edit/details/add_artist_alias.tt:3
 #: ../root/edit/details/add_artist_annotation.tt:3
 #: ../root/edit/details/add_artist.tt:3
@@ -1536,7 +1515,7 @@ msgctxt "header"
 msgid "Attach CD TOC"
 msgstr "TOC van de CD toevoegen"
 
-#: ../root/cdtoc/lookup.tt:52
+#: ../root/cdtoc/lookup.tt:52 ../root/release/edit/tracklist.tt:306
 msgid "Attach Disc ID"
 msgstr "Disc-id toevoegen"
 
@@ -1544,7 +1523,7 @@ msgstr "Disc-id toevoegen"
 msgid "Attached to releases"
 msgstr "Gekoppeld aan uitgaves"
 
-#: ../root/artist/relationships.tt:15 ../root/artist/works-list.tt:15
+#: ../root/artist/works-list.tt:15 ../root/components/relationships-table.tt:8
 #: ../root/doc/relationship_type.tt:46 ../root/place/performances.tt:9
 #: ../root/work/merge.tt:17
 msgid "Attributes"
@@ -1735,7 +1714,7 @@ msgstr "Begin"
 msgid "Begin Area"
 msgstr "Begingebied"
 
-#: ../root/artist/edit_form.tt:70 ../root/edit/details/add_artist.tt:49
+#: ../root/artist/edit_form.tt:60 ../root/edit/details/add_artist.tt:49
 #: ../root/edit/details/edit_artist.tt:46
 msgid "Begin Area:"
 msgstr "Begingebied:"
@@ -1744,13 +1723,13 @@ msgstr "Begingebied:"
 msgid "Begin Date"
 msgstr "Begindatum"
 
-#: ../root/components/common-macros.tt:908 ../root/scripts/text_strings.tt:73
+#: ../root/components/common-macros.tt:882 ../root/scripts/text_strings.tt:73
 msgid "Begin area:"
 msgstr "Begingebied:"
 
 #: ../root/alias/edit_form.tt:34 ../root/area/edit_form.tt:24
-#: ../root/area/layout.tt:15 ../root/artist/edit_form.tt:67
-#: ../root/components/common-macros.tt:904
+#: ../root/area/layout.tt:15 ../root/artist/edit_form.tt:57
+#: ../root/components/common-macros.tt:878
 #: ../root/edit/details/add_area_alias.tt:40
 #: ../root/edit/details/add_area.tt:56
 #: ../root/edit/details/add_artist_alias.tt:40
@@ -1773,8 +1752,8 @@ msgstr "Begingebied:"
 #: ../root/edit/details/remove_place_alias.tt:33
 #: ../root/edit/details/remove_work_alias.tt:33
 #: ../root/edit/relationship/create.tt:83
-#: ../root/edit/relationship/edit.tt:114 ../root/label/edit_form.tt:66
-#: ../root/place/edit_form.tt:60 ../root/release/edit_relationships.tt:270
+#: ../root/edit/relationship/edit.tt:114 ../root/label/edit_form.tt:60
+#: ../root/place/edit_form.tt:54 ../root/release/edit_relationships.tt:270
 msgid "Begin date:"
 msgstr "Begindatum:"
 
@@ -1793,12 +1772,12 @@ msgid ""
 " sure to include it!"
 msgstr "Hieronder staat informatie over de foutmelding. Als u een rapport voor deze bug wilt indienen, kunt u dat doen op {bugs|onze bugtracker}. De onderstaande informatie zal helpen, voeg deze daarom alstublieft toe aan uw rapport."
 
-#: ../root/account/edit.tt:40 ../root/admin/edit_user.tt:36
+#: ../root/account/edit.tt:45 ../root/admin/edit_user.tt:36
 #: ../root/user/profile.tt:117
 msgid "Bio:"
 msgstr "Biografie:"
 
-#: ../root/account/edit.tt:34
+#: ../root/account/edit.tt:37
 msgid "Birth date:"
 msgstr "Geboortedatum:"
 
@@ -1806,11 +1785,11 @@ msgstr "Geboortedatum:"
 msgid "Blog"
 msgstr "Weblog"
 
-#: ../root/components/common-macros.tt:908 ../root/scripts/text_strings.tt:74
+#: ../root/components/common-macros.tt:882 ../root/scripts/text_strings.tt:74
 msgid "Born in:"
 msgstr "Geboren in:"
 
-#: ../root/components/common-macros.tt:904 ../root/scripts/text_strings.tt:69
+#: ../root/components/common-macros.tt:878 ../root/scripts/text_strings.tt:69
 msgid "Born:"
 msgstr "Geboren:"
 
@@ -1958,7 +1937,7 @@ msgstr "Kan goedgekeurd worden"
 
 #: ../root/account/remove_application.tt:9
 #: ../root/account/revoke_application_access.tt:9 ../root/area/merge.tt:20
-#: ../root/artist/merge.tt:22 ../root/components/common-macros.tt:656
+#: ../root/artist/merge.tt:22 ../root/components/common-macros.tt:626
 #: ../root/components/filter-form.tt:23 ../root/elections/nominate.tt:10
 #: ../root/label/merge.tt:49 ../root/layout/merge-helper.tt:34
 #: ../root/place/merge.tt:48 ../root/recording/merge.tt:26
@@ -1972,7 +1951,7 @@ msgstr "Annuleren"
 msgid "Cancel Edit"
 msgstr "Bewerking annuleren"
 
-#: ../root/components/common-macros.tt:590
+#: ../root/components/common-macros.tt:560
 msgid "Cancel creating relationship with {name}"
 msgstr "Het relateren aan {name} annuleren"
 
@@ -1985,7 +1964,7 @@ msgstr "Bewerking annuleren"
 msgid "Cancel the election"
 msgstr "Annuleer de verkiezing"
 
-#: ../root/user/profile.tt:171 ../lib/MusicBrainz/Server/Edit/Utils.pm:274
+#: ../root/user/profile.tt:171 ../lib/MusicBrainz/Server/Edit/Utils.pm:275
 msgid "Cancelled"
 msgstr "Geannuleerd"
 
@@ -2051,7 +2030,7 @@ msgstr "Catalogus#"
 msgid "Change Password"
 msgstr "Wachtwoord veranderen"
 
-#: ../root/release/edit/tracklist.tt:370
+#: ../root/release/edit/tracklist.tt:394
 msgid "Change all artists on this release that match “{name}”"
 msgstr "Verander alle artiesten op deze uitgave die overeenkomen met „{name}“"
 
@@ -2179,7 +2158,7 @@ msgstr "Samenwerking"
 msgid "Collaborator"
 msgstr "Samenwerker"
 
-#: ../root/release/edit/tracklist.tt:192
+#: ../root/release/edit/tracklist.tt:201
 msgid "Collapse Disc"
 msgstr "Medium inklappen"
 
@@ -2247,28 +2226,6 @@ msgstr "Vergelijk revisie door {user_old} op {date_old} met revisie {user_new} o
 msgid "Conditions:"
 msgstr "Voorwaarden:"
 
-#: ../root/artist/edit_form.tt:32
-msgid ""
-"Confirm by activating the checkbox below that you have read the "
-"{doc_artistcomment|artist comment guideline}, understood how we distinguish "
-"artists with the same name, and that you know what you are doing."
-msgstr "Bevestig door het onderstaande vakje aan te vinken dat u de {doc_artistcomment|richtlijn voor artiestverduidelijking} heeft gelezen, dat u begrijpt hoe we artiesten met dezelfde naam onderscheiden en dat u weet wat u doet."
-
-#: ../root/place/edit_form.tt:28
-msgid ""
-"Confirm by activating the checkbox below that you have read the "
-"{doc_comment|disambiguation documentation}, understood how we distinguish "
-"places with the same name, and that you know what you are doing."
-msgstr "Bevestig door het onderstaande vakje aan te vinken dat u de {doc_comment|disambiguation documentation} hebt gelezen, dat u begrijpt hoe we plaatsen met dezelfde naam onderscheiden en dat u weet wat u doet."
-
-#: ../root/label/edit_form.tt:28
-msgid ""
-"Confirm by activating the checkbox below that you have read the "
-"{doc_labelcomment|documentation about disambiguation comments}, understood "
-"how we distinguish labels with the same name, and that you know what you are"
-" doing."
-msgstr "Bevestig door het onderstaande vakje aan te vinken dat u de {doc_labelcomment|richtlijnen voor platenmaatschappij-verduidelijking} heeft gelezen, dat u begrijpt hoe we platenmaatschappijen met dezelfde naam onderscheiden en dat u weet wat u doet."
-
 #: ../root/account/change_password.tt:24 ../root/account/register.tt:30
 #: ../root/account/reset_password.tt:11
 msgid "Confirm password:"
@@ -2288,7 +2245,7 @@ msgstr "Contact"
 msgid "Continue reading at Wikipedia..."
 msgstr "Lees verder op Wikipedia…"
 
-#: ../root/place/edit_form.tt:52
+#: ../root/place/edit_form.tt:46
 msgid "Coordinates"
 msgstr "Coördinaten"
 
@@ -2301,7 +2258,7 @@ msgstr "Coördinaten:"
 msgid "Copy"
 msgstr "Kopiëren"
 
-#: ../root/components/forms.tt:353 ../root/release/edit/tracklist.tt:377
+#: ../root/components/forms.tt:353 ../root/release/edit/tracklist.tt:401
 msgid "Copy Credits"
 msgstr "Vermeldingen kopiëren"
 
@@ -2384,11 +2341,11 @@ msgstr "Een gebruikersaccount aanmaken"
 msgid "Create collection"
 msgstr "Een collectie creëren"
 
-#: ../root/components/common-macros.tt:657
+#: ../root/components/common-macros.tt:627
 msgid "Create relationship"
 msgstr "Relatie toevoegen"
 
-#: ../root/components/common-macros.tt:590
+#: ../root/components/common-macros.tt:560
 msgid "Create relationship with {other}"
 msgstr "Een relatie met {other} creëren"
 
@@ -2431,9 +2388,9 @@ msgstr "Gegevenskwaliteitsscore:"
 msgid "Data Removal Policy"
 msgstr "Beleid voor gegevensverwijdering"
 
-#: ../root/annotation/history.tt:9 ../root/artist/relationships.tt:13
-#: ../root/cdtoc/attach_artist_releases.tt:16
+#: ../root/annotation/history.tt:9 ../root/cdtoc/attach_artist_releases.tt:16
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/collection/index.tt:21
+#: ../root/components/relationships-table.tt:6
 #: ../root/edit/details/edit_release_events.tt:5
 #: ../root/edit/details/historic/add_release.tt:75
 #: ../root/edit/details/merge_releases.tt:22 ../root/elections/show.tt:118
@@ -2446,8 +2403,8 @@ msgid "Date"
 msgstr "Datum"
 
 #: ../root/alias/edit_form.tt:29 ../root/area/edit_form.tt:20
-#: ../root/artist/edit_form.tt:63 ../root/label/edit_form.tt:62
-#: ../root/place/edit_form.tt:56
+#: ../root/artist/edit_form.tt:53 ../root/label/edit_form.tt:56
+#: ../root/place/edit_form.tt:50
 msgid "Date Period"
 msgstr "Periode"
 
@@ -2461,8 +2418,8 @@ msgid "Date:"
 msgstr "Datum:"
 
 #: ../root/alias/edit_form.tt:31 ../root/area/edit_form.tt:22
-#: ../root/artist/edit_form.tt:65 ../root/label/edit_form.tt:64
-#: ../root/place/edit_form.tt:58
+#: ../root/artist/edit_form.tt:55 ../root/label/edit_form.tt:58
+#: ../root/place/edit_form.tt:52
 msgid ""
 "Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just "
 "YYYY are OK, or you can omit the date entirely."
@@ -2513,7 +2470,7 @@ msgstr "Omschrijving"
 #: ../root/edit/details/add_relationship_type.tt:8
 #: ../root/edit/details/edit_relationship_attribute.tt:9
 #: ../root/edit/details/edit_relationship_type.tt:16
-#: ../root/edit/details/edit_url.tt:29
+#: ../root/edit/details/edit_url.tt:25
 #: ../root/edit/details/remove_relationship_attribute.tt:7
 #: ../root/edit/details/remove_relationship_type.tt:15
 #: ../root/relationship/linkattributetype/form.tt:15
@@ -2558,11 +2515,11 @@ msgstr "Ontwikkelaars"
 msgid "Development"
 msgstr "Ontwikkeling"
 
-#: ../root/components/common-macros.tt:916 ../root/scripts/text_strings.tt:74
+#: ../root/components/common-macros.tt:890 ../root/scripts/text_strings.tt:74
 msgid "Died in:"
 msgstr "Overleden in:"
 
-#: ../root/components/common-macros.tt:912 ../root/scripts/text_strings.tt:69
+#: ../root/components/common-macros.tt:886 ../root/scripts/text_strings.tt:69
 msgid "Died:"
 msgstr "Overleden:"
 
@@ -2571,7 +2528,7 @@ msgstr "Overleden:"
 msgid "Direct database search"
 msgstr "Direct zoeken in de gegevensbank"
 
-#: ../root/area/edit_form.tt:12 ../root/artist/edit_form.tt:43
+#: ../root/area/edit_form.tt:12 ../root/artist/edit_form.tt:33
 #: ../root/edit/details/add_area.tt:21 ../root/edit/details/add_artist.tt:19
 #: ../root/edit/details/add_label.tt:20 ../root/edit/details/add_place.tt:16
 #: ../root/edit/details/add_release_group.tt:21
@@ -2583,10 +2540,10 @@ msgstr "Direct zoeken in de gegevensbank"
 #: ../root/edit/details/edit_recording.tt:17
 #: ../root/edit/details/edit_release_group.tt:15
 #: ../root/edit/details/edit_release.tt:25
-#: ../root/edit/details/edit_work.tt:15 ../root/label/edit_form.tt:39
-#: ../root/place/edit_form.tt:38 ../root/recording/edit_form.tt:12
+#: ../root/edit/details/edit_work.tt:15 ../root/label/edit_form.tt:33
+#: ../root/place/edit_form.tt:32 ../root/recording/edit_form.tt:14
 #: ../root/release/edit/information.tt:217
-#: ../root/release_group/edit_form.tt:12 ../root/work/edit_form.tt:12
+#: ../root/release_group/edit_form.tt:14 ../root/work/edit_form.tt:14
 msgid "Disambiguation:"
 msgstr "Verduidelijking:"
 
@@ -2625,7 +2582,7 @@ msgstr "Disc-id's"
 msgid "Disc IDs with superfluous data tracks"
 msgstr "Disc-id's met overbodige gegevensnummers"
 
-#: ../root/release/edit/tracklist.tt:204
+#: ../root/release/edit/tracklist.tt:213
 msgid "Disc title:"
 msgstr "Mediumtitel:"
 
@@ -2693,11 +2650,11 @@ msgstr "Vermeldingen onder de nummers weergeven"
 msgid "Display Credits at Bottom"
 msgstr "Vermeldingen onderaan weergeven"
 
-#: ../root/components/common-macros.tt:916 ../root/scripts/text_strings.tt:75
+#: ../root/components/common-macros.tt:890 ../root/scripts/text_strings.tt:75
 msgid "Dissolved in:"
 msgstr "Opgeheven in:"
 
-#: ../root/components/common-macros.tt:912 ../root/scripts/text_strings.tt:70
+#: ../root/components/common-macros.tt:886 ../root/scripts/text_strings.tt:70
 msgid "Dissolved:"
 msgstr "Opgeheven:"
 
@@ -2757,10 +2714,11 @@ msgstr "Elk nummer in de gegevensbank van MusicBrainz moet gekoppeld zijn aan ee
 
 #: ../root/account/applications.tt:75 ../root/area/header.tt:12
 #: ../root/artist/aliases.tt:37 ../root/artist/header.tt:12
-#: ../root/artist/relationships.tt:18 ../root/artist/relationships.tt:80
 #: ../root/cdstub/header.tt:9 ../root/cdtoc/list.tt:16
 #: ../root/collection/header.tt:6 ../root/components/aliases.tt:60
-#: ../root/components/common-macros.tt:1001 ../root/components/forms.tt:153
+#: ../root/components/common-macros.tt:975 ../root/components/forms.tt:153
+#: ../root/components/relationships-table.tt:11
+#: ../root/components/relationships-table.tt:71
 #: ../root/doc/relationship_type.tt:17 ../root/label/header.tt:1
 #: ../root/place/header.tt:1 ../root/place/performances.tt:12
 #: ../root/place/performances.tt:74 ../root/recording/header.tt:1
@@ -2768,7 +2726,7 @@ msgstr "Elk nummer in de gegevensbank van MusicBrainz moet gekoppeld zijn aan ee
 #: ../root/relationship/linktype/tree.tt:15 ../root/release/cover_art.tt:27
 #: ../root/release/discids.tt:12 ../root/release/edit/information.tt:54
 #: ../root/release/edit/recordings.tt:63 ../root/release/edit/recordings.tt:94
-#: ../root/release/edit/tracklist.tt:278 ../root/release_group/header.tt:1
+#: ../root/release/edit/tracklist.tt:287 ../root/release_group/header.tt:1
 #: ../root/release/tabs.tt:1 ../root/url/header.tt:1
 #: ../root/user/collections.tt:26 ../root/work/header.tt:1
 msgid "Edit"
@@ -2934,7 +2892,7 @@ msgstr "Alias van de compositie bewerken"
 msgid "Edit Work Annotation"
 msgstr "Aantekening van de compositie bewerken"
 
-#: ../root/components/common-macros.tt:888
+#: ../root/components/common-macros.tt:862
 msgid "Edit annotation"
 msgstr "Aantekening bewerken"
 
@@ -3039,7 +2997,7 @@ msgstr "Bewerkt"
 #: ../root/label/layout.tt:56 ../root/layout/menu.tt:211
 #: ../root/place/layout.tt:50 ../root/recording/layout.tt:26
 #: ../root/release_group/layout.tt:31 ../root/release/sidebar.tt:83
-#: ../root/url/layout.tt:4 ../root/work/layout.tt:36
+#: ../root/url/layout.tt:4 ../root/work/layout.tt:37
 msgid "Editing"
 msgstr "Bewerken"
 
@@ -3051,7 +3009,7 @@ msgstr "FAQ voor bewerkingen"
 #: ../root/collection/layout.tt:15 ../root/label/layout.tt:85
 #: ../root/place/layout.tt:70 ../root/recording/layout.tt:47
 #: ../root/release_group/layout.tt:63 ../root/release/sidebar.tt:105
-#: ../root/url/layout.tt:14 ../root/work/layout.tt:58
+#: ../root/url/layout.tt:14 ../root/work/layout.tt:59
 msgid "Editing history"
 msgstr "Bewerkingsgeschiedenis"
 
@@ -3172,7 +3130,7 @@ msgstr "E-mail verstuurd"
 msgid "Email Sent!"
 msgstr "E-mail verstuurd!"
 
-#: ../root/account/edit.tt:18 ../root/account/lost_password.tt:15
+#: ../root/account/edit.tt:16 ../root/account/lost_password.tt:15
 #: ../root/account/lost_username.tt:11 ../root/account/register.tt:31
 #: ../root/admin/edit_user.tt:33 ../root/user/profile.tt:20
 msgid "Email:"
@@ -3204,7 +3162,7 @@ msgstr "Einde"
 msgid "End Area"
 msgstr "Eindgebied"
 
-#: ../root/artist/edit_form.tt:83 ../root/edit/details/add_artist.tt:61
+#: ../root/artist/edit_form.tt:73 ../root/edit/details/add_artist.tt:61
 #: ../root/edit/details/edit_artist.tt:54
 msgid "End Area:"
 msgstr "Eindgebied:"
@@ -3213,7 +3171,7 @@ msgstr "Eindgebied:"
 msgid "End Date"
 msgstr "Einddatum"
 
-#: ../root/components/common-macros.tt:916 ../root/scripts/text_strings.tt:73
+#: ../root/components/common-macros.tt:890 ../root/scripts/text_strings.tt:73
 msgid "End area:"
 msgstr "Eindgebied:"
 
@@ -3223,7 +3181,7 @@ msgstr "Einddatum"
 
 #: ../root/alias/edit_form.tt:35 ../root/area/edit_form.tt:25
 #: ../root/area/layout.tt:23 ../root/area/layout.tt:30
-#: ../root/artist/edit_form.tt:79 ../root/components/common-macros.tt:912
+#: ../root/artist/edit_form.tt:69 ../root/components/common-macros.tt:886
 #: ../root/edit/details/add_area_alias.tt:46
 #: ../root/edit/details/add_area.tt:63
 #: ../root/edit/details/add_artist_alias.tt:46
@@ -3246,8 +3204,8 @@ msgstr "Einddatum"
 #: ../root/edit/details/remove_place_alias.tt:37
 #: ../root/edit/details/remove_work_alias.tt:37
 #: ../root/edit/relationship/create.tt:88
-#: ../root/edit/relationship/edit.tt:119 ../root/label/edit_form.tt:67
-#: ../root/place/edit_form.tt:61 ../root/release/edit_relationships.tt:279
+#: ../root/edit/relationship/edit.tt:119 ../root/label/edit_form.tt:61
+#: ../root/place/edit_form.tt:55 ../root/release/edit_relationships.tt:279
 msgid "End date:"
 msgstr "Einddatum:"
 
@@ -3322,7 +3280,7 @@ msgid "Entity types:"
 msgstr "Objecttypes:"
 
 #: ../root/report/not_available.tt:1 ../root/report/not_available.tt:3
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:271
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:272
 msgid "Error"
 msgstr "Fout"
 
@@ -3353,7 +3311,7 @@ msgid_plural "Errors:"
 msgstr[0] "Foutmelding:"
 msgstr[1] "Foutmeldingen:"
 
-#: ../root/components/common-macros.tt:163
+#: ../root/components/common-macros.tt:141
 msgid "Error: Unknown Type"
 msgstr "Foutmelding: Onbekend type"
 
@@ -3382,7 +3340,7 @@ msgstr "Bestaande nummerlijst"
 msgid "Expand"
 msgstr "Uitklappen"
 
-#: ../root/release/edit/tracklist.tt:192
+#: ../root/release/edit/tracklist.tt:201
 msgid "Expand Disc"
 msgstr "Medium uitklappen"
 
@@ -3398,21 +3356,21 @@ msgstr "Actie bij het verlopen"
 msgid "Expired"
 msgstr "Verlopen"
 
-#: ../root/components/common-macros.tt:696
+#: ../root/components/common-macros.tt:666
 msgid "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} day</span>"
 msgid_plural ""
 "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} days</span>"
 msgstr[0] "Verloopt over <span class=\"tooltip\" title=\"{exactdate}\">{num} dag</span>"
 msgstr[1] "Verloopt over <span class=\"tooltip\" title=\"{exactdate}\">{num} dagen</span>"
 
-#: ../root/components/common-macros.tt:702
+#: ../root/components/common-macros.tt:672
 msgid "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} hour</span>"
 msgid_plural ""
 "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} hours</span>"
 msgstr[0] "Verloopt over <span class=\"tooltip\" title=\"{exactdate}\">{num} uur</span>"
 msgstr[1] "Verloopt over <span class=\"tooltip\" title=\"{exactdate}\">{num} uur</span>"
 
-#: ../root/components/common-macros.tt:708
+#: ../root/components/common-macros.tt:678
 msgid "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} minute</span>"
 msgid_plural ""
 "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} "
@@ -3420,14 +3378,14 @@ msgid_plural ""
 msgstr[0] "Verloopt over  <span class=\"tooltip\" title=\"{exactdate}\">{num} minuut</span>"
 msgstr[1] "Verloopt over  <span class=\"tooltip\" title=\"{exactdate}\">{num} minuten</span>"
 
-#: ../root/area/edit_form.tt:30 ../root/artist/edit_form.tt:95
-#: ../root/label/edit_form.tt:72 ../root/place/edit_form.tt:66
-#: ../root/recording/edit_form.tt:19 ../root/release/edit/information.tt:227
-#: ../root/release_group/edit_form.tt:18 ../root/work/edit_form.tt:82
+#: ../root/area/edit_form.tt:30 ../root/artist/edit_form.tt:85
+#: ../root/label/edit_form.tt:66 ../root/place/edit_form.tt:60
+#: ../root/recording/edit_form.tt:23 ../root/release/edit/information.tt:227
+#: ../root/release_group/edit_form.tt:20 ../root/work/edit_form.tt:84
 msgid "External Links"
 msgstr "Externe koppelingen"
 
-#: ../root/layout/sidebar/sidebar-favicons.tt:38
+#: ../root/layout/sidebar/sidebar-favicons.tt:40
 msgid "External links"
 msgstr "Externe verwijzingen"
 
@@ -3449,7 +3407,7 @@ msgstr "Bestand:"
 msgid "Filename:"
 msgstr "Bestandsnaam:"
 
-#: ../root/components/common-macros.tt:865
+#: ../root/components/common-macros.tt:839
 msgid "Filter"
 msgstr "Filter"
 
@@ -3491,6 +3449,17 @@ msgid ""
 "{howto|how to merge releases}."
 msgstr "Voor instructies hoe u ze kunt verbeteren, leest u de documentatie over {howto|hoe uitgaves samen te voegen}."
 
+#: ../root/artist/edit_form.tt:4 ../root/label/edit_form.tt:4
+#: ../root/recording/edit_form.tt:4 ../root/release_group/edit_form.tt:4
+msgid ""
+"For more information, check the {doc_doc|documentation} and "
+"{doc_styleguide|style guidelines}."
+msgstr "Lees de {doc_doc|documentatie} en {doc_styleguide|stijlgids} voor meer informatie."
+
+#: ../root/place/edit_form.tt:4 ../root/work/edit_form.tt:5
+msgid "For more information, check the {doc_doc|documentation}."
+msgstr "Lees de {doc_doc|documentatie} voor meer informatie."
+
 #: ../root/edit/info.tt:61
 msgid "For more information:"
 msgstr "Voor meer informatie:"
@@ -3518,7 +3487,7 @@ msgstr "Type medium"
 #: ../root/edit/details/add_medium.tt:26
 #: ../root/edit/details/edit_medium.tt:37
 #: ../root/edit/details/edit_release_label.tt:59
-#: ../root/release/edit/tracklist.tt:196 ../root/release/index.tt:5
+#: ../root/release/edit/tracklist.tt:205 ../root/release/index.tt:5
 #: ../root/release/sidebar.tt:29
 msgid "Format:"
 msgstr "Type medium:"
@@ -3585,11 +3554,11 @@ msgid_plural "Found {n} results for \"{q}\""
 msgstr[0] "{n} resultaat gevonden voor „{q}“"
 msgstr[1] "{n} resultaten gevonden voor „{q}“"
 
-#: ../root/components/common-macros.tt:908 ../root/scripts/text_strings.tt:75
+#: ../root/components/common-macros.tt:882 ../root/scripts/text_strings.tt:75
 msgid "Founded in:"
 msgstr "Opgericht in:"
 
-#: ../root/components/common-macros.tt:904 ../root/label/index.tt:7
+#: ../root/components/common-macros.tt:878 ../root/label/index.tt:7
 #: ../root/label/layout.tt:14 ../root/place/index.tt:6
 #: ../root/place/layout.tt:13 ../root/scripts/text_strings.tt:70
 msgid "Founded:"
@@ -3603,7 +3572,7 @@ msgstr "FreeDB lemma niet gevonden"
 msgid "FreeDB Gateway"
 msgstr "FreeDB toegang"
 
-#: ../root/search/results-freedb.tt:17
+#: ../root/search/results-freedb.tt:15
 msgid "FreeDB ID"
 msgstr "FreeDB-id"
 
@@ -3642,7 +3611,7 @@ msgstr "Volledige TOC:"
 msgid "Gender"
 msgstr "Geslacht"
 
-#: ../root/account/edit.tt:20 ../root/artist/edit_form.tt:45
+#: ../root/account/edit.tt:21 ../root/artist/edit_form.tt:35
 #: ../root/artist/index.tt:5 ../root/artist/layout.tt:14
 #: ../root/edit/details/add_artist.tt:31
 #: ../root/edit/details/edit_artist.tt:30 ../root/user/profile.tt:71
@@ -3723,11 +3692,11 @@ msgctxt "header"
 msgid "Guess case"
 msgstr "Hoofdlettergebruik gokken"
 
-#: ../root/release/edit/tracklist.tt:206
+#: ../root/release/edit/tracklist.tt:215
 msgid "Guess case disc title"
 msgstr "Hoofdlettergebruik van de mediumtitel gokken"
 
-#: ../root/release/edit/tracklist.tt:286
+#: ../root/release/edit/tracklist.tt:295
 msgid "Guess case track"
 msgstr "Hoofdlettergebruik in de nummers gokken"
 
@@ -3743,7 +3712,7 @@ msgstr "Koppen:"
 msgid "Help:"
 msgstr "Help:"
 
-#: ../root/components/common-macros.tt:663
+#: ../root/components/common-macros.tt:633
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:188
 msgid "High"
 msgstr "Hoog"
@@ -3785,7 +3754,7 @@ msgstr "id"
 msgid "ID:"
 msgstr "ID:"
 
-#: ../root/artist/edit_form.tt:58 ../root/label/edit_form.tt:57
+#: ../root/artist/edit_form.tt:48 ../root/label/edit_form.tt:51
 msgid "IPI code"
 msgstr "IPI-code"
 
@@ -3795,12 +3764,12 @@ msgstr "IPI-code"
 msgid "IPI code:"
 msgstr "IPI-code:"
 
-#: ../root/artist/edit_form.tt:58 ../root/edit/details/edit_artist.tt:67
-#: ../root/edit/details/edit_label.tt:56 ../root/label/edit_form.tt:57
+#: ../root/artist/edit_form.tt:48 ../root/edit/details/edit_artist.tt:67
+#: ../root/edit/details/edit_label.tt:56 ../root/label/edit_form.tt:51
 msgid "IPI codes:"
 msgstr "IPI-codes:"
 
-#: ../root/artist/edit_form.tt:59 ../root/label/edit_form.tt:58
+#: ../root/artist/edit_form.tt:49 ../root/label/edit_form.tt:52
 msgid "ISNI code"
 msgstr "ISNI-code"
 
@@ -3809,8 +3778,8 @@ msgstr "ISNI-code"
 msgid "ISNI code:"
 msgstr "ISNI-code:"
 
-#: ../root/artist/edit_form.tt:59 ../root/edit/details/edit_artist.tt:72
-#: ../root/edit/details/edit_label.tt:61 ../root/label/edit_form.tt:58
+#: ../root/artist/edit_form.tt:49 ../root/edit/details/edit_artist.tt:72
+#: ../root/edit/details/edit_label.tt:61 ../root/label/edit_form.tt:52
 msgid "ISNI codes:"
 msgstr "ISNI-codes:"
 
@@ -3841,7 +3810,7 @@ msgstr "ISO 3166-3"
 msgid "ISO 3166-3:"
 msgstr "ISO 3166-3:"
 
-#: ../root/recording/edit_form.tt:15
+#: ../root/recording/edit_form.tt:19
 #: ../root/report/isrc_with_many_recordings.tt:23
 msgid "ISRC"
 msgstr "ISRC"
@@ -3867,7 +3836,7 @@ msgstr "ISRC “{isrc}”"
 msgid "ISRC:"
 msgstr "ISRC:"
 
-#: ../root/artist/recordings-list.tt:29 ../root/report/index.tt:112
+#: ../root/components/recordings-list.tt:29 ../root/report/index.tt:112
 #: ../root/search/lib/inline-results-recording.tt:11
 msgid "ISRCs"
 msgstr "ISRC's"
@@ -3877,12 +3846,12 @@ msgstr "ISRC's"
 msgid "ISRCs with multiple recordings"
 msgstr "ISRC's met meerdere opnames"
 
-#: ../root/recording/edit_form.tt:15
+#: ../root/recording/edit_form.tt:19
 msgid "ISRCs:"
 msgstr "ISRC's:"
 
 #: ../root/artist/works-list.tt:12 ../root/report/iswc_with_many_works.tt:24
-#: ../root/search/results-work.tt:11 ../root/work/edit_form.tt:15
+#: ../root/search/results-work.tt:11 ../root/work/edit_form.tt:17
 #: ../root/work/merge.tt:14
 msgid "ISWC"
 msgstr "ISWC"
@@ -3914,33 +3883,9 @@ msgstr "ISWC's"
 msgid "ISWCs with multiple works"
 msgstr "ISWC's met meerdere composities"
 
-#: ../root/work/edit_form.tt:15 ../root/work/index.tt:17
+#: ../root/work/edit_form.tt:17 ../root/work/index.tt:17
 msgid "ISWCs:"
 msgstr "ISWC's:"
-
-#: ../root/artist/edit_form.tt:8
-msgid ""
-"If one or more artists with the same name already exist in the database, you"
-" will be prompted to {doc_addcomment|add a disambiguation comment to this "
-"artist}, which will allow users to distinguish this entry from the other "
-"artist(s) with the same name."
-msgstr "Als één of meer artiesten met dezelfde naam in de gegevensbank staan, wordt u gevraagd om {doc_addcomment|een verduidelijking aan de artiest toe te voegen}. Hiermee kunnen gebruikers het verschil zien tussen dit lemma en dat van andere artiesten met dezelfde naam."
-
-#: ../root/label/edit_form.tt:6
-msgid ""
-"If one or more labels with the same name already exist in the database, you "
-"will be prompted to add a {doc_comment|disambiguation comment to this label}"
-" that will allow users to distinguish this entry from the other label(s) "
-"with the same name."
-msgstr "Als één of meer platenmaatschappijen met dezelfde naam in de gegevensbank staan, wordt u gevraagd om {doc_comment|een verduidelijking aan de platenmaatschappij toe te voegen}. Hiermee kunnen gebruikers het verschil zien tussen dit lemma en dat van andere platenmaatschappijen met dezelfde naam."
-
-#: ../root/place/edit_form.tt:6
-msgid ""
-"If one or more places with the same name already exist in the database, you "
-"will be prompted to add a {doc_comment|disambiguation comment to this place}"
-" that will allow users to distinguish this entry from the other place(s) "
-"with the same name."
-msgstr "Als één of meer plaatsen met dezelfde naam in de gegevensbank staan, wordt u gevraagd om {doc_comment|een opmerking aan de plaats toe te voegen}. Hiermee kunnen  gebruikers het verschil zien tussen dit lemma en dat van andere plaatsen met dezelfde naam."
 
 #: ../root/main/500.tt:70
 msgid ""
@@ -3964,8 +3909,8 @@ msgstr "Als we nog geen opname van dit nummer in de gegevensbank hebben, selecte
 msgid "If you can't find what you're looking for, you can add a new release:"
 msgstr "Als u niet kunt vinden wat u zoekt, kunt u een nieuwe uitgave toevoegen:"
 
-#: ../root/account/edit.tt:8
-msgid "If you change your email address, you will be required to verify it. "
+#: ../root/account/edit.tt:18
+msgid "If you change your email address, you will be required to verify it."
 msgstr "Als u uw e-mailadres verandert, moet u deze verifiëren."
 
 #: ../root/release/edit/information.tt:291
@@ -4019,12 +3964,6 @@ msgid ""
 "apply the tag using the sidebar."
 msgstr "Als u dit etiket wilt gebruiken, {url|zoek} dan eerst het object en pas het etiket dan toe met de zijbalk."
 
-#: ../root/account/edit.tt:9
-msgid ""
-"If you would like to delete your account, go to {uri|the \"Delete Account\" "
-"tab in your profile}."
-msgstr "Ga naar {uri|de „Gebruikersaccount verwijderen“ tab in uw profiel} als u uw gebruikersaccount wilt verwijderen."
-
 #: ../root/account/donation.tt:10
 msgid ""
 "If you would like to make a donation, {donate|you can do that here}. If you "
@@ -4044,7 +3983,7 @@ msgstr "Als u wilt deelnemen aan het bewerksproces, maar niet weet waar te begin
 msgid "Image from Wikimedia Commons"
 msgstr "Afbeelding van Wikimedia Commons"
 
-#: ../root/components/common-macros.tt:104
+#: ../root/components/common-macros.tt:86
 msgid "Image not available yet, please try again in a few minutes."
 msgstr "De afbeelding is nog niet beschikbaar, probeer het over een paar minuten opnieuw."
 
@@ -4129,7 +4068,7 @@ msgstr "Intern/Robot"
 #: ../root/edit/details/merge_common.tt:17
 #: ../root/edit/details/merge_labels.tt:40
 #: ../root/edit/details/merge_places.tt:40
-#: ../root/edit/details/merge_recordings.tt:10
+#: ../root/edit/details/merge_recordings.tt:11
 #: ../root/edit/details/merge_release_groups.tt:25
 #: ../root/edit/details/merge_releases.tt:70
 #: ../root/edit/details/merge_releases.tt:75
@@ -4148,7 +4087,7 @@ msgid "Jaikoz Tagger"
 msgstr "Jaikoz Tagger"
 
 #: ../root/recording/edit.tt:4 ../root/release_group/create.tt:3
-#: ../root/release_group/edit.tt:11 ../root/work/create.tt:4
+#: ../root/release_group/edit.tt:11
 msgid "Javascript needs to be enabled to edit the Artist field on this page."
 msgstr "Javascript moet zijn ingeschakeld om het veld voor de artiest op deze pagina te kunnen bewerken."
 
@@ -4160,7 +4099,7 @@ msgstr "Javascript moet zijn ingeschakeld."
 msgid "Join phrase"
 msgstr "Koppelzin"
 
-#: ../root/components/forms.tt:327 ../root/release/edit/tracklist.tt:331
+#: ../root/components/forms.tt:327 ../root/release/edit/tracklist.tt:355
 msgid "Join phrase:"
 msgstr "Koppelzin:"
 
@@ -4178,8 +4117,8 @@ msgstr "Houd me aangemeld"
 
 #: ../root/area/labels-list.tt:4 ../root/cdtoc/attach_artist_releases.tt:18
 #: ../root/cdtoc/attach_filter_release.tt:32 ../root/cdtoc/list.tt:9
-#: ../root/collection/index.tt:23 ../root/components/common-macros.tt:578
-#: ../root/components/common-macros.tt:637
+#: ../root/collection/index.tt:23 ../root/components/common-macros.tt:548
+#: ../root/components/common-macros.tt:607
 #: ../root/edit/details/edit_release_events.tt:7
 #: ../root/edit/details/historic/add_release.tt:77
 #: ../root/edit/details/merge_labels.tt:8
@@ -4210,7 +4149,7 @@ msgstr "Platenmaatschappij-code"
 msgid "Label Code:"
 msgstr "Platenmaatschappij-code:"
 
-#: ../root/label/edit_form.tt:36
+#: ../root/label/edit_form.tt:30
 msgid "Label Details"
 msgstr "Platenmaatschappijdetails"
 
@@ -4231,7 +4170,7 @@ msgid "Label Subscriptions"
 msgstr "Abonnementen op platenmaatschappijen"
 
 #: ../root/edit/details/add_label.tt:60 ../root/edit/details/edit_label.tt:29
-#: ../root/label/edit_form.tt:53 ../root/label/layout.tt:42
+#: ../root/label/edit_form.tt:47 ../root/label/layout.tt:42
 msgid "Label code:"
 msgstr "Platenmaatschappij-code"
 
@@ -4243,7 +4182,7 @@ msgstr "Informatie over de platenmaatschappij"
 msgid "Label ratings"
 msgstr "Waarderingen van de platenmaatschappij"
 
-#: ../root/components/common-macros.tt:564
+#: ../root/components/common-macros.tt:534
 #: ../root/edit/details/add_label_alias.tt:3
 #: ../root/edit/details/add_label_annotation.tt:3
 #: ../root/edit/details/add_label.tt:3
@@ -4300,7 +4239,7 @@ msgstr "Taal:"
 msgid "Language: {language}, script: {script}"
 msgstr "Taal: {language}, schrift: {script}"
 
-#: ../root/account/edit.tt:46
+#: ../root/account/edit.tt:51
 msgid "Languages Known:"
 msgstr "Bekende talen:"
 
@@ -4343,13 +4282,14 @@ msgstr "Het laatst bijgewerkt op {date}"
 msgid "Latest posts:"
 msgstr "Laatste berichten:"
 
-#: ../root/artist/recordings-list.tt:31 ../root/cdstub/cdstub.tt:9
-#: ../root/cdtoc/info.tt:33 ../root/edit/details/edit_medium.tt:59
+#: ../root/cdstub/cdstub.tt:9 ../root/cdtoc/info.tt:33
+#: ../root/components/recordings-list.tt:31
+#: ../root/edit/details/edit_medium.tt:59
 #: ../root/edit/details/edit_medium.tt:63
 #: ../root/edit/details/historic/add_release.tt:52 ../root/freedb/show.tt:12
 #: ../root/freedb/show.tt:64 ../root/isrc/index.tt:18
 #: ../root/recording/index.tt:11 ../root/release/discids.tt:10
-#: ../root/release/edit/tracklist.tt:102 ../root/release/edit/tracklist.tt:245
+#: ../root/release/edit/tracklist.tt:102 ../root/release/edit/tracklist.tt:254
 #: ../root/release/index.tt:59 ../root/report/isrc_with_many_recordings.tt:26
 #: ../root/search/lib/inline-results-recording.tt:9
 msgid "Length"
@@ -4359,7 +4299,7 @@ msgstr "Lengte"
 #: ../root/edit/details/add_track_kv.tt:7
 #: ../root/edit/details/edit_recording.tt:22
 #: ../root/edit/details/historic/add_track_kv.tt:31
-#: ../root/recording/edit_form.tt:13 ../root/recording/layout.tt:11
+#: ../root/recording/edit_form.tt:15 ../root/recording/layout.tt:11
 #: ../root/release/index.tt:18 ../root/release/sidebar.tt:29
 msgid "Length:"
 msgstr "Lengte:"
@@ -4454,7 +4394,7 @@ msgstr "Locatieredacteurs"
 msgid "Location editors are users who can add or modify {uri|areas}."
 msgstr "Locatieredacteurs zijn gebruikers die {uri|gebieden} kunnen toevoegen of bewerken."
 
-#: ../root/account/edit.tt:23 ../root/user/profile.tt:77
+#: ../root/account/edit.tt:24 ../root/user/profile.tt:77
 msgid "Location:"
 msgstr "Locatie:"
 
@@ -4467,7 +4407,7 @@ msgstr "Aanmelden"
 msgid "Log Out"
 msgstr "Afmelden"
 
-#: ../root/components/common-macros.tt:507
+#: ../root/components/common-macros.tt:485
 msgid "Log in"
 msgstr "Aanmelden"
 
@@ -4475,7 +4415,7 @@ msgstr "Aanmelden"
 #: ../root/collection/layout.tt:17 ../root/label/layout.tt:87
 #: ../root/place/layout.tt:72 ../root/recording/layout.tt:49
 #: ../root/release_group/layout.tt:65 ../root/release/sidebar.tt:108
-#: ../root/url/layout.tt:16 ../root/work/layout.tt:60
+#: ../root/url/layout.tt:16 ../root/work/layout.tt:61
 msgid "Log in to edit"
 msgstr "Aanmelden om te bewerken"
 
@@ -4525,12 +4465,12 @@ msgstr "Wachtwoord verloren"
 msgid "Lost Username"
 msgstr "Gebruikersnaam kwijt"
 
-#: ../root/components/common-macros.tt:663
+#: ../root/components/common-macros.tt:633
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:188
 msgid "Low"
 msgstr "Laag"
 
-#: ../root/release/edit_relationships.tt:173 ../root/work/edit_form.tt:14
+#: ../root/release/edit_relationships.tt:173 ../root/work/edit_form.tt:16
 #: ../root/work/index.tt:4 ../root/work/layout.tt:14
 msgid "Lyrics Language:"
 msgstr "Taal van de tekst:"
@@ -4584,7 +4524,7 @@ msgid "Matching CDs"
 msgstr "Overeenkomende cd's"
 
 #: ../root/cdtoc/lookup.tt:38 ../root/cdtoc/set_durations.tt:10
-#: ../root/components/common-macros.tt:844 ../root/scripts/text_strings.tt:91
+#: ../root/components/common-macros.tt:818 ../root/scripts/text_strings.tt:91
 #: ../root/search/lib/inline-results-recording.tt:17
 #: ../lib/MusicBrainz/Server/Edit/Medium.pm:7
 msgid "Medium"
@@ -4730,7 +4670,7 @@ msgstr "Uitgavegroepen samenvoegen"
 msgid "Merge strategy:"
 msgstr "Samenvoegingsstrategie:"
 
-#: ../root/work/layout.tt:43
+#: ../root/work/layout.tt:44
 msgid "Merge work"
 msgstr "Compositie samenvoegen"
 
@@ -4768,11 +4708,11 @@ msgstr "Verplaats"
 msgid "Move Disc ID"
 msgstr "Verplaats disc-id"
 
-#: ../root/release/edit/tracklist.tt:211
+#: ../root/release/edit/tracklist.tt:220
 msgid "Move disc down"
 msgstr "Medium omlaag verplaatsen"
 
-#: ../root/release/edit/tracklist.tt:212
+#: ../root/release/edit/tracklist.tt:221
 msgid "Move disc up"
 msgstr "Medium omhoog verplaatsen"
 
@@ -4784,11 +4724,11 @@ msgstr "Bestand omlaag verplaatsen"
 msgid "Move file up"
 msgstr "Bestand omhoog verplaatsen"
 
-#: ../root/release/edit/tracklist.tt:252
+#: ../root/release/edit/tracklist.tt:261
 msgid "Move track down"
 msgstr "Nummer naar beneden verplaatsen"
 
-#: ../root/release/edit/tracklist.tt:253
+#: ../root/release/edit/tracklist.tt:262
 msgid "Move track up"
 msgstr "Nummer omhoog verplaatsen"
 
@@ -4901,13 +4841,13 @@ msgstr "Mijn stem: "
 #: ../root/edit/edit_header.tt:32 ../root/edit/edit_header.tt:37
 #: ../root/edit/edit_header.tt:42
 msgid "My vote: "
-msgstr "Mijn stem:"
+msgstr "Mijn stem: "
 
 #: ../root/edit/edit_header.tt:38
 msgid "N/A"
 msgstr "Geen"
 
-#: ../root/artist/aliases.tt:19 ../root/artist/recordings-list.tt:25
+#: ../root/artist/aliases.tt:19 ../root/components/recordings-list.tt:25
 #: ../root/components/results-generic.tt:5
 #: ../root/edit/details/historic/add_release.tt:50
 #: ../root/edit/details/merge_release_groups.tt:4
@@ -4927,7 +4867,7 @@ msgstr "Naam"
 #: ../root/account/edit_application.tt:8
 #: ../root/account/register_application.tt:8 ../root/area/details.tt:7
 #: ../root/area/edit_form.tt:10 ../root/artist/details.tt:7
-#: ../root/artist/edit_form.tt:41 ../root/collection/edit_form.tt:5
+#: ../root/artist/edit_form.tt:31 ../root/collection/edit_form.tt:5
 #: ../root/components/filter-form.tt:16 ../root/edit/details/add_area.tt:10
 #: ../root/edit/details/add_artist.tt:10 ../root/edit/details/add_label.tt:10
 #: ../root/edit/details/add_medium.tt:19 ../root/edit/details/add_place.tt:10
@@ -4951,15 +4891,15 @@ msgstr "Naam"
 #: ../root/edit/details/historic/edit_track_name.tt:13
 #: ../root/edit/details/remove_relationship_attribute.tt:3
 #: ../root/edit/details/remove_relationship_type.tt:7
-#: ../root/label/details.tt:7 ../root/label/edit_form.tt:37
-#: ../root/place/details.tt:7 ../root/place/edit_form.tt:37
-#: ../root/recording/details.tt:7 ../root/recording/edit_form.tt:10
+#: ../root/label/details.tt:7 ../root/label/edit_form.tt:31
+#: ../root/place/details.tt:7 ../root/place/edit_form.tt:31
+#: ../root/recording/details.tt:7 ../root/recording/edit_form.tt:12
 #: ../root/relationship/linkattributetype/form.tt:12
 #: ../root/relationship/linktype/form.tt:12
 #: ../root/relationship/linktype/form.tt:56
 #: ../root/relationship/linktype/form.tt:87 ../root/release/details.tt:7
-#: ../root/release_group/details.tt:7 ../root/release_group/edit_form.tt:10
-#: ../root/work/details.tt:7 ../root/work/edit_form.tt:11
+#: ../root/release_group/details.tt:7 ../root/release_group/edit_form.tt:12
+#: ../root/work/details.tt:7 ../root/work/edit_form.tt:13
 msgid "Name:"
 msgstr "Naam:"
 
@@ -5212,7 +5152,7 @@ msgid "No results"
 msgstr "Geen resultaten"
 
 #: ../root/otherlookup/results.tt:10 ../root/search/results-annotation.tt:26
-#: ../root/search/results-cdstub.tt:26 ../root/search/results-freedb.tt:38
+#: ../root/search/results-cdstub.tt:26 ../root/search/results-freedb.tt:36
 #: ../root/search/results-tag.tt:22
 msgid "No results found"
 msgstr "Geen resultaten gevonden"
@@ -5276,7 +5216,7 @@ msgstr "Niet-digitale uitgaves met downloadrelaties"
 msgid "None"
 msgstr "Geen"
 
-#: ../root/components/common-macros.tt:663
+#: ../root/components/common-macros.tt:633
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:188
 msgid "Normal"
 msgstr "Normaal"
@@ -5315,7 +5255,7 @@ msgstr "Stuur mij een e-mail bij nieuwe uitgaves van artiesten die ik volg"
 msgid "Now loading recording associations..."
 msgstr "Bezig met het laden van koppelingen van opnames…"
 
-#: ../root/release/edit/tracklist.tt:118 ../root/release/edit/tracklist.tt:221
+#: ../root/release/edit/tracklist.tt:118 ../root/release/edit/tracklist.tt:230
 msgid "Now loading tracklist..."
 msgstr "Nummerlijst aan het laden…"
 
@@ -5335,7 +5275,7 @@ msgstr "OAuth Client ID"
 msgid "OAuth Client Secret "
 msgstr "OAuth Client Secret "
 
-#: ../root/layout/sidebar/sidebar-favicons.tt:14
+#: ../root/layout/sidebar/sidebar-favicons.tt:16
 msgid "Official homepage"
 msgstr "Officiële thuispagina"
 
@@ -5388,7 +5328,7 @@ msgstr "Oude versie:"
 msgid "Old:"
 msgstr "Oud:"
 
-#: ../root/cdtoc/move_search.tt:5
+#: ../root/cdtoc/move_search.tt:7
 msgid ""
 "Only releases with the same amount of tracks ({n}) as the release the disc "
 "ID is currently attached to are shown."
@@ -5420,7 +5360,7 @@ msgstr "Oeps! Het lijkt er op dat uw zoekparameters niet correct waren, controle
 msgid "Oops, something went wrong!"
 msgstr "Oeps, er is iets foutgegaan!"
 
-#: ../root/user/profile.tt:167 ../lib/MusicBrainz/Server/Edit/Utils.pm:267
+#: ../root/user/profile.tt:167 ../lib/MusicBrainz/Server/Edit/Utils.pm:268
 msgid "Open"
 msgstr "Geopend"
 
@@ -5434,12 +5374,12 @@ msgstr "Openstaande bewerkingen"
 #: ../root/label/layout.tt:84 ../root/place/layout.tt:69
 #: ../root/recording/layout.tt:46 ../root/release_group/layout.tt:62
 #: ../root/release/sidebar.tt:104 ../root/url/layout.tt:13
-#: ../root/work/layout.tt:57
+#: ../root/work/layout.tt:58
 msgid "Open edits"
 msgstr "Openstaande bewerkingen"
 
-#: ../root/components/common-macros.tt:514
-#: ../root/components/common-macros.tt:519
+#: ../root/components/common-macros.tt:492
+#: ../root/components/common-macros.tt:497
 msgid "Open in tagger"
 msgstr "Open in de tagger"
 
@@ -5481,6 +5421,10 @@ msgstr "Overzicht"
 #: ../root/collection/layout.tt:7
 msgid "Owner:"
 msgstr "Eigenaar:"
+
+#: ../root/components/common-macros.tt:99
+msgid "PDF file"
+msgstr ""
 
 #: ../root/edit/details/remove_puid.tt:7
 msgid "PUID:"
@@ -5555,7 +5499,7 @@ msgstr "Deel van een stel-relaties"
 msgid "Password:"
 msgstr "Wachtwoord:"
 
-#: ../root/components/forms.tt:354 ../root/release/edit/tracklist.tt:378
+#: ../root/components/forms.tt:354 ../root/release/edit/tracklist.tt:402
 msgid "Paste Credits"
 msgstr "Vermeldingen plakken"
 
@@ -5579,8 +5523,8 @@ msgstr "Permanente verwijzing:"
 msgid "Phrase:"
 msgstr "Zin:"
 
-#: ../root/area/places-list.tt:4 ../root/components/common-macros.tt:578
-#: ../root/components/common-macros.tt:642
+#: ../root/area/places-list.tt:4 ../root/components/common-macros.tt:548
+#: ../root/components/common-macros.tt:612
 #: ../root/edit/details/merge_places.tt:8
 #: ../root/edit/details/merge_places.tt:45 ../root/place/edits.tt:5
 #: ../root/place/header.tt:14 ../root/place/merge.tt:11
@@ -5590,7 +5534,7 @@ msgstr "Zin:"
 msgid "Place"
 msgstr "Plaats"
 
-#: ../root/place/edit_form.tt:36
+#: ../root/place/edit_form.tt:30
 msgid "Place Details"
 msgstr "Details van de plaats"
 
@@ -5602,7 +5546,7 @@ msgstr "Plaats niet gevonden"
 msgid "Place information"
 msgstr "Informatie over de plaats"
 
-#: ../root/components/common-macros.tt:564
+#: ../root/components/common-macros.tt:534
 #: ../root/edit/details/add_place_alias.tt:3
 #: ../root/edit/details/add_place_annotation.tt:3
 #: ../root/edit/details/add_place.tt:3
@@ -5670,6 +5614,24 @@ msgstr "Overweeg alstublieft om deze uitgave/cd toe te voegen aan MusicBrainz. G
 msgid "Please double-check the barcode on the release."
 msgstr "Controleert u alstublieft de streepjescode op de release nog een keer."
 
+#: ../root/artist/edit_form.tt:24
+msgid ""
+"Please enter a {doc_disambiguation|disambiguation} to help distinguish this "
+"artist from the others."
+msgstr "Voer een {doc_disambiguation|opmerking ter verduidelijking} in om deze artiest van anderen te onderscheiden."
+
+#: ../root/label/edit_form.tt:24
+msgid ""
+"Please enter a {doc_disambiguation|disambiguation} to help distinguish this "
+"label from the others."
+msgstr "Voer een {doc_disambiguation|opmerking ter verduidelijking} in om deze platenmaatschappij van anderen te onderscheiden."
+
+#: ../root/place/edit_form.tt:24
+msgid ""
+"Please enter a {doc_disambiguation|disambiguation} to help distinguish this "
+"place from the others."
+msgstr "Voer een {doc_disambiguation|opmerking ter verduidelijking} in om deze plaats van anderen te onderscheiden."
+
 #: ../root/components/tag.tt:7
 msgid ""
 "Please enter tags in the text area below. Tags are comma separated, and you "
@@ -5699,9 +5661,9 @@ msgstr "Meld u aan om dit medium van FreeDB te importeren"
 #: ../root/recording/delete.tt:5
 msgid ""
 "Please make sure you're not removing a legitimate {doc_standalone|standalone"
-" recording}. If this recording duplicates another, please {doc_merge|merge "
-"rather than delete}."
-msgstr "Let op dat u geen legitieme {doc_standalone|losstaande opname} verwijderd. {doc_merge|Voeg opnames samen} in plaats van ze te verwijderen als deze opname een andere dupliceert."
+" recording}. If this recording is a duplicate of another, please "
+"{doc_merge|merge them instead}."
+msgstr "Let op dat u geen legitieme {doc_standalone|losstaande opname} verwijdert. {doc_merge|Voeg opnames samen} in plaats van ze te verwijderen als deze opname een andere dupliceert."
 
 #: ../root/layout/merge-helper.tt:24
 msgid ""
@@ -5720,43 +5682,19 @@ msgstr "Let op dat elke inhoud die aan MusicBrainz wordt toegevoegd beschikbaar 
 msgid "Please note:"
 msgstr "Let op:"
 
-#: ../root/label/edit_form.tt:5
-msgid ""
-"Please read the {doc_styleguide|Style Guidelines} then use the fields below "
-"to update the information of this label."
-msgstr "Leest u alstublieft de {doc_styleguide|stijlgids} en gebruik daarna de velden hieronder om de informatie over deze platenmaatschappij bij te werken."
-
-#: ../root/place/edit_form.tt:5
-msgid ""
-"Please read the {doc_styleguide|Style Guidelines} then use the fields below "
-"to update the information of this place."
-msgstr "Leest u alstublieft de {doc_styleguide|stijlgids} en gebruik daarna de velden hieronder om de informatie over deze plaats bij te werken."
-
-#: ../root/artist/edit_form.tt:7
-msgid ""
-"Please read the {doc_styleguide|Style Guidelines}, then provide the "
-"necessary information about the new artist below."
-msgstr "Leest u alstublieft de {doc_styleguide|stijlgids} en voer dan hieronder de benodigde informatie over de nieuwe artiest in."
-
-#: ../root/release_group/delete.tt:8
-msgid ""
-"Please review the documentation about the {doc_remove|remove release group "
-"edit-type}, before entering this edit"
-msgstr "Leest u alstublieft de documentatie over {doc_remove|het verwijderen van uitgavegroepen} voordat u deze bewerking indient."
-
 #: ../root/account/register.tt:42
 msgid ""
 "Please review the {coc|MusicBrainz Code of Conduct} before creating an "
 "account."
 msgstr "Leest u alstublieft de {coc|Gedragscode van MusicBrainz} voordat u zich registreert."
 
-#: ../root/release/delete.tt:4
+#: ../root/release/delete.tt:3
 msgid ""
 "Please review the {doc_remove|remove release edit-type} documentation before"
 " entering this edit."
 msgstr "Leest u alstublieft de documentatie over {doc_remove|het verwijderen van uitgaves} voordat u deze bewerking indient."
 
-#: ../root/alias/delete.tt:4
+#: ../root/alias/delete.tt:3
 msgid "Please review the {doc|alias documentation} before entering this edit."
 msgstr "Leest u alstublieft de documentatie over {doc|aliassen} voordat u deze bewerking indient."
 
@@ -5784,7 +5722,7 @@ msgid ""
 "selected relationship type is only used for grouping subtypes."
 msgstr "Selecteer een subtype van het nu gebruikte relatietype. Het geselecteerde relatietype wordt alleen gebruikt om subtypes te groeperen."
 
-#: ../root/artist/edit_form.tt:103
+#: ../root/artist/edit_form.tt:93
 msgid ""
 "Please select the artist credits that you want to rename to follow the new "
 "artist name."
@@ -5824,15 +5762,15 @@ msgstr "Positie"
 msgid "Position:"
 msgstr "Positie:"
 
-#: ../root/artist/edit_form.tt:19
+#: ../root/artist/edit_form.tt:13
 msgid "Possible Duplicate Artists"
 msgstr "Mogelijke dubbele artiesten"
 
-#: ../root/label/edit_form.tt:15
+#: ../root/label/edit_form.tt:13
 msgid "Possible Duplicate Labels"
 msgstr "Mogelijke dubbele platenmaatschappijen"
 
-#: ../root/place/edit_form.tt:15
+#: ../root/place/edit_form.tt:13
 msgid "Possible Duplicate Places"
 msgstr "Mogelijk dubbele plaatsen"
 
@@ -5860,7 +5798,7 @@ msgid "Preview"
 msgstr "Voorbeeld"
 
 #: ../root/annotation/edit.tt:7 ../root/components/forms.tt:300
-#: ../root/release/edit/tracklist.tt:324
+#: ../root/release/edit/tracklist.tt:348
 msgid "Preview:"
 msgstr "Voorbeeld:"
 
@@ -5875,7 +5813,7 @@ msgstr "Vorige"
 #: ../root/edit/details/add_release_group.tt:28
 #: ../root/edit/details/edit_release_group.tt:19
 #: ../root/release/edit/information.tt:62
-#: ../root/release_group/edit_form.tt:13
+#: ../root/release_group/edit_form.tt:15
 msgid "Primary Type:"
 msgstr "Primair type:"
 
@@ -5965,8 +5903,8 @@ msgstr[0] "Waardeer: {rating} ster"
 msgstr[1] "Waardeer: {rating} sterren"
 
 #: ../root/area/artists-list.tt:8 ../root/area/labels-list.tt:8
-#: ../root/artist/index.tt:59 ../root/artist/recordings-list.tt:30
-#: ../root/artist/works-list.tt:17 ../root/collection/index.tt:25
+#: ../root/artist/index.tt:59 ../root/artist/works-list.tt:17
+#: ../root/collection/index.tt:25 ../root/components/recordings-list.tt:30
 #: ../root/layout/sidebar/sidebar-rating.tt:1
 #: ../root/release_group/merge.tt:16 ../root/release/index.tt:58
 msgid "Rating"
@@ -5994,8 +5932,8 @@ msgstr "Lees de documentatie over {doc|WikiDocs} voor een overzicht over hoe tra
 msgid "Recent Additions"
 msgstr "Recente toevoegingen"
 
-#: ../root/components/common-macros.tt:578
-#: ../root/components/common-macros.tt:638
+#: ../root/components/common-macros.tt:548
+#: ../root/components/common-macros.tt:608
 #: ../root/edit/details/merge_releases.tt:100
 #: ../root/edit/search_macros.tt:307 ../root/release/edit_relationships.tt:53
 #: ../root/report/isrc_with_many_recordings.tt:25
@@ -6005,7 +5943,7 @@ msgstr "Recente toevoegingen"
 msgid "Recording"
 msgstr "Opname"
 
-#: ../root/recording/edit_form.tt:9
+#: ../root/recording/edit_form.tt:11
 msgid "Recording Details"
 msgstr "Opnamedetails"
 
@@ -6033,7 +5971,7 @@ msgstr "Waarderingen van de opname"
 msgid "Recording “{name}” by {artist}"
 msgstr "Opname „{name}“ door {artist}"
 
-#: ../root/components/common-macros.tt:564
+#: ../root/components/common-macros.tt:534
 #: ../root/edit/details/add_recording_annotation.tt:3
 #: ../root/edit/details/add_standalone_recording.tt:3
 #: ../root/edit/details/edit_recording.tt:8
@@ -6049,7 +5987,7 @@ msgstr "Opname:"
 #: ../root/artist/header.tt:1 ../root/artist/recordings.tt:1
 #: ../root/artist/recordings.tt:4 ../root/release/edit/layout.tt:17
 #: ../root/report/index.tt:81 ../root/tag/header.tt:1 ../root/tag/index.tt:8
-#: ../root/user/tag.tt:4
+#: ../root/user/tag.tt:4 ../root/work/index.tt:38
 msgid "Recordings"
 msgstr "Opnames"
 
@@ -6117,7 +6055,7 @@ msgstr "Verwerpen"
 msgid "Reject edit"
 msgstr "Bewerking verwerpen"
 
-#: ../root/components/common-macros.tt:670
+#: ../root/components/common-macros.tt:640
 msgid "Reject upon expiration"
 msgstr "Verwerpen na de vervaltijd"
 
@@ -6125,7 +6063,7 @@ msgstr "Verwerpen na de vervaltijd"
 msgid "Relate recording to work"
 msgstr "Relateer een opname aan een compositie"
 
-#: ../root/components/common-macros.tt:612
+#: ../root/components/common-macros.tt:582
 msgid "Relate to ..."
 msgstr "Relateren aan…"
 
@@ -6238,8 +6176,8 @@ msgstr "Relaties:"
 
 #: ../root/cdtoc/attach_artist_releases.tt:15
 #: ../root/cdtoc/attach_filter_release.tt:28 ../root/cdtoc/lookup.tt:37
-#: ../root/collection/index.tt:17 ../root/components/common-macros.tt:578
-#: ../root/components/common-macros.tt:640
+#: ../root/collection/index.tt:17 ../root/components/common-macros.tt:548
+#: ../root/components/common-macros.tt:610
 #: ../root/edit/details/edit_release_events.tt:4
 #: ../root/edit/details/merge_releases.tt:18 ../root/edit/search_macros.tt:307
 #: ../root/release/edit/duplicates.tt:10 ../root/release_group/index.tt:23
@@ -6275,8 +6213,8 @@ msgstr "Uitgavegebeurtenissen"
 msgid "Release Events:"
 msgstr "Uitgavegebeurtenissen:"
 
-#: ../root/components/common-macros.tt:578
-#: ../root/components/common-macros.tt:639 ../root/edit/search_macros.tt:307
+#: ../root/components/common-macros.tt:548
+#: ../root/components/common-macros.tt:609 ../root/edit/search_macros.tt:307
 #: ../root/report/release_group_list.tt:8
 #: ../root/search/results-release_group.tt:8
 #: ../root/search/results-release-group.tt:8
@@ -6284,7 +6222,7 @@ msgstr "Uitgavegebeurtenissen:"
 msgid "Release Group"
 msgstr "Uitgavegroep"
 
-#: ../root/release_group/edit_form.tt:9
+#: ../root/release_group/edit_form.tt:11
 msgid "Release Group Details"
 msgstr "Uitgavegroepsdetails"
 
@@ -6369,7 +6307,7 @@ msgstr "Uitgavegroep"
 msgid "Release group by {artist}"
 msgstr "Uitgavegroep van {artist}"
 
-#: ../root/layout/sidebar/sidebar-favicons.tt:47
+#: ../root/layout/sidebar/sidebar-favicons.tt:49
 msgid "Release group external links"
 msgstr "Externe verwijzingen van de uitgavegroep"
 
@@ -6389,7 +6327,7 @@ msgstr "Relaties van de uitgavegroep"
 msgid "Release group “{name}” by {artist}"
 msgstr "Uitgavegroep „{name}“ van {artist}"
 
-#: ../root/components/common-macros.tt:564
+#: ../root/components/common-macros.tt:534
 #: ../root/edit/details/add_release_group_annotation.tt:3
 #: ../root/edit/details/add_release.tt:20
 #: ../root/edit/details/historic/change_release_group.tt:13
@@ -6422,7 +6360,7 @@ msgstr "Uitgavegroepen met deelnemende artiesten in de titel"
 msgid "Release information"
 msgstr "Informatie over de uitgave"
 
-#: ../root/cdtoc/attach_filter_release.tt:9 ../root/cdtoc/move_search.tt:13
+#: ../root/cdtoc/attach_filter_release.tt:9 ../root/cdtoc/move_search.tt:15
 msgid "Release title:"
 msgstr "Titel van de uitgave"
 
@@ -6430,7 +6368,7 @@ msgstr "Titel van de uitgave"
 msgid "Release “{name}” by {artist}"
 msgstr "Uitgave „{name}“ van {artist}"
 
-#: ../root/cdtoc/lookup.tt:71 ../root/components/common-macros.tt:564
+#: ../root/cdtoc/lookup.tt:71 ../root/components/common-macros.tt:534
 #: ../root/edit/details/add_cover_art.tt:5
 #: ../root/edit/details/add_medium.tt:5
 #: ../root/edit/details/add_release_annotation.tt:4
@@ -6624,14 +6562,14 @@ msgstr "Uitgaves zonder schrift"
 msgid "Releases:"
 msgstr "Uitgaves:"
 
-#: ../root/account/applications.tt:76 ../root/account/edit.tt:52
-#: ../root/account/edit.tt:61 ../root/admin/wikidoc/index.tt:62
-#: ../root/area/delete.tt:1 ../root/artist/relationships.tt:73
-#: ../root/cdtoc/list.tt:50 ../root/collection/delete.tt:1
-#: ../root/collection/header.tt:7 ../root/components/aliases.tt:63
-#: ../root/components/common-macros.tt:994 ../root/doc/relationship_type.tt:19
-#: ../root/label/delete.tt:1 ../root/place/performances.tt:67
-#: ../root/recording/delete.tt:1
+#: ../root/account/applications.tt:76 ../root/account/edit.tt:57
+#: ../root/account/edit.tt:66 ../root/admin/wikidoc/index.tt:62
+#: ../root/area/delete.tt:1 ../root/cdtoc/list.tt:50
+#: ../root/collection/delete.tt:1 ../root/collection/header.tt:7
+#: ../root/components/aliases.tt:63 ../root/components/common-macros.tt:968
+#: ../root/components/relationships-table.tt:64
+#: ../root/doc/relationship_type.tt:19 ../root/label/delete.tt:1
+#: ../root/place/performances.tt:67 ../root/recording/delete.tt:1
 #: ../root/relationship/linkattributetype/common.tt:26
 #: ../root/relationship/linkattributetype/delete.tt:11
 #: ../root/relationship/linktype/delete.tt:11
@@ -6659,7 +6597,7 @@ msgstr "Alias van gebied verwijderen"
 msgid "Remove Artist Alias"
 msgstr "Alias van de artiest verwijderen"
 
-#: ../root/components/forms.tt:316 ../root/release/edit/tracklist.tt:352
+#: ../root/components/forms.tt:316 ../root/release/edit/tracklist.tt:376
 msgid "Remove Artist Credit"
 msgstr "Vermelding van artiest verwijderen"
 
@@ -6687,7 +6625,7 @@ msgstr "Platenmaatschappij verwijderen"
 msgid "Remove Label Alias"
 msgstr "Alias van de platenmaatschappij verwijderen"
 
-#: ../root/components/forms.tt:402
+#: ../root/components/forms.tt:396
 msgid "Remove Link"
 msgstr "Koppeling verwijderen"
 
@@ -6747,7 +6685,7 @@ msgstr "Alias van gebied verwijderen"
 msgid "Remove artist alias"
 msgstr "Alias van de artiest verwijderen"
 
-#: ../root/work/edit_form.tt:54
+#: ../root/work/edit_form.tt:56
 msgid "Remove attribute"
 msgstr "Eigenschap verwijderen"
 
@@ -6755,7 +6693,7 @@ msgstr "Eigenschap verwijderen"
 msgid "Remove collection"
 msgstr "Collectie verwijderen"
 
-#: ../root/release/edit/tracklist.tt:213
+#: ../root/release/edit/tracklist.tt:222
 msgid "Remove disc"
 msgstr "Medium verwijderen"
 
@@ -6802,7 +6740,7 @@ msgstr "Geselecteerde objecten verwijderen"
 msgid "Remove selected releases from collection"
 msgstr "Geselecteerde uitgaves uit de collectie verwijderen"
 
-#: ../root/release/edit/tracklist.tt:288
+#: ../root/release/edit/tracklist.tt:297
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveTrack.pm:10
 msgid "Remove track"
 msgstr "Nummer verwijderen"
@@ -6879,7 +6817,7 @@ msgstr "Benodigd:"
 msgid "Reset Password"
 msgstr "Stel wachtwoord opnieuw in"
 
-#: ../root/release/edit/tracklist.tt:298
+#: ../root/release/edit/tracklist.tt:322
 msgid "Reset track numbers"
 msgstr "Nummerposities herstellen"
 
@@ -6889,7 +6827,7 @@ msgstr "Resultaten per pagina:"
 
 #: ../root/cdtoc/attach_filter_artist.tt:19
 #: ../root/cdtoc/attach_filter_artist.tt:39
-#: ../root/cdtoc/attach_filter_release.tt:59 ../root/cdtoc/move_search.tt:23
+#: ../root/cdtoc/attach_filter_release.tt:59 ../root/cdtoc/move_search.tt:25
 #: ../root/components/search.tt:19
 msgid "Results:"
 msgstr "Resultaten:"
@@ -6934,7 +6872,7 @@ msgstr "Toegang voor applicatie intrekken"
 msgid "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 msgstr "Draait <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 
-#: ../root/account/edit.tt:94 ../root/account/preferences.tt:50
+#: ../root/account/edit.tt:100 ../root/account/preferences.tt:50
 #: ../root/relationship/linkattributetype/form.tt:21
 #: ../root/relationship/linktype/form.tt:181
 msgid "Save"
@@ -6945,7 +6883,7 @@ msgstr "Opslaan"
 #: ../root/search/lib/inline-results-release.tt:7
 #: ../root/search/results-annotation.tt:7 ../root/search/results-area.tt:7
 #: ../root/search/results-cdstub.tt:7 ../root/search/results-editor.tt:7
-#: ../root/search/results-freedb.tt:13 ../root/search/results-label.tt:7
+#: ../root/search/results-freedb.tt:11 ../root/search/results-label.tt:7
 #: ../root/search/results-place.tt:7 ../root/search/results-release_group.tt:7
 #: ../root/search/results-release-group.tt:7 ../root/search/results-tag.tt:7
 #: ../root/search/results-work.tt:7
@@ -6961,10 +6899,10 @@ msgstr "Schrift:"
 
 #: ../root/cdtoc/attach_filter_artist.tt:10
 #: ../root/cdtoc/attach_filter_release.tt:11 ../root/cdtoc/lookup.tt:63
-#: ../root/cdtoc/lookup.tt:73 ../root/cdtoc/move_search.tt:15
-#: ../root/components/common-macros.tt:873 ../root/components/search.tt:11
+#: ../root/cdtoc/lookup.tt:73 ../root/cdtoc/move_search.tt:17
+#: ../root/components/common-macros.tt:847 ../root/components/search.tt:11
 #: ../root/edit/search_macros.tt:105 ../root/layout/menu.tt:194
-#: ../root/layout.tt:15 ../root/otherlookup/form.tt:19
+#: ../root/layout.tt:15 ../root/otherlookup/form.tt:20
 #: ../root/release/edit/tracklist.tt:49 ../root/search/form.tt:42
 #: ../root/search/index.tt:1 ../root/search/index.tt:3
 #: ../root/taglookup/form.tt:12
@@ -7013,13 +6951,17 @@ msgstr "Naar een artiest zoeken"
 msgid "Search for edits"
 msgstr "Naar bewerkingen zoeken"
 
-#: ../root/search/form.tt:52
+#: ../root/edit/details/edit_url.tt:43
+msgid "Search for the target URL."
+msgstr "Zoek naar de doel URL."
+
+#: ../root/search/form.tt:51
 msgid ""
 "Search indexes are updated every 3 hours, use the direct database search if "
 "you require up to the minute correct results."
 msgstr "De zoekindices worden elke drie uur bijgewerkt. Gebruik de directe zoekopdracht in de gegevensbank als u op de minuut kloppende resultaten nodig heeft."
 
-#: ../root/taglookup/results.tt:12
+#: ../root/taglookup/results.tt:11
 msgid ""
 "Search indexes are updated every 3 hours. If you just added the content "
 "you're looking for and you can't find it here, go to {url|the search page} "
@@ -7034,7 +6976,7 @@ msgstr "Zoekmethode:"
 msgid "Search the database for this CD"
 msgstr "In de gegevensbank naar deze cd zoeken"
 
-#: ../root/components/common-macros.tt:872
+#: ../root/components/common-macros.tt:846
 msgid "Search the documentation..."
 msgstr "Documentatie doorzoeken…"
 
@@ -7053,7 +6995,7 @@ msgstr "Secondeer deze kandidaat"
 #: ../root/edit/details/add_release_group.tt:35
 #: ../root/edit/details/edit_release_group.tt:23
 #: ../root/release/edit/information.tt:65
-#: ../root/release_group/edit_form.tt:14
+#: ../root/release_group/edit_form.tt:16
 msgid "Secondary Types:"
 msgstr "Secundair type:"
 
@@ -7125,8 +7067,8 @@ msgstr[1] "Bekijk alle {num} composities"
 
 #: ../root/account/edit.tt:7
 msgid ""
-"See also your {uri|user preferences}, which includes your privacy settings."
-msgstr "Zie ook uw {uri|gebruikersinstellingen}, die ook uw privacyinstellingen bevatten."
+"See also your {uri|user preferences}, which include your privacy settings."
+msgstr "Zie ook uw {uri|gebruikersinstellingen}, die uw privacyinstellingen bevatten."
 
 #: ../root/doc/relationship_type.tt:66
 msgid "See the general {url|guidelines for URLs}."
@@ -7136,7 +7078,7 @@ msgstr "Zie de algemene {url|stijlgids voor URL's}."
 msgid "See the {uri|full instrument tree}."
 msgstr "Bekijk de {uri|volledige instrumententabel}."
 
-#: ../root/cdtoc/attach_filter_artist.tt:35 ../root/cdtoc/move_search.tt:40
+#: ../root/cdtoc/attach_filter_artist.tt:35 ../root/cdtoc/move_search.tt:42
 #: ../root/release_group/set_cover_art.tt:35
 msgid "Select"
 msgstr "Selecteren"
@@ -7326,7 +7268,7 @@ msgstr "Langzaam? Schakel terug naar het geïndexeerd zoeken."
 msgid "Social Contract"
 msgstr "Sociaal contract"
 
-#: ../root/search/results-freedb.tt:3
+#: ../root/search/results-freedb.tt:2
 msgid ""
 "Some FreeDB results may not be immediately available since they are only "
 "able to be updated after FreeDB's monthly database export."
@@ -7551,7 +7493,7 @@ msgid "Sort name"
 msgstr "Sorteernaam"
 
 #: ../root/alias/edit_form.tt:17 ../root/area/layout.tt:7
-#: ../root/artist/edit_form.tt:42 ../root/artist/layout.tt:8
+#: ../root/artist/edit_form.tt:32 ../root/artist/layout.tt:8
 #: ../root/edit/details/add_area_alias.tt:16
 #: ../root/edit/details/add_area.tt:15
 #: ../root/edit/details/add_artist_alias.tt:16
@@ -7572,7 +7514,7 @@ msgstr "Sorteernaam"
 #: ../root/edit/details/remove_artist_alias.tt:16
 #: ../root/edit/details/remove_label_alias.tt:16
 #: ../root/edit/details/remove_place_alias.tt:16
-#: ../root/edit/details/remove_work_alias.tt:16 ../root/label/edit_form.tt:38
+#: ../root/edit/details/remove_work_alias.tt:16 ../root/label/edit_form.tt:32
 #: ../root/label/layout.tt:6
 msgid "Sort name:"
 msgstr "Sorteernaam:"
@@ -7751,7 +7693,7 @@ msgstr "Voorgestelde opnames:"
 msgid "Summary:"
 msgstr "Samenvatting:"
 
-#: ../root/release/edit/tracklist.tt:299
+#: ../root/release/edit/tracklist.tt:323
 msgid "Swap track titles with artist credits"
 msgstr "Wissel nummers met vermeldingen"
 
@@ -7834,7 +7776,7 @@ msgstr "Deze uitgave een etiket geven"
 msgid "Tag this release group"
 msgstr "Deze uitgavegroep een etiket geven"
 
-#: ../root/work/layout.tt:31 ../root/work/tags.tt:3
+#: ../root/work/layout.tt:32 ../root/work/tags.tt:3
 msgid "Tag this work"
 msgstr "Deze compositie een etiket geven"
 
@@ -8047,6 +7989,12 @@ msgstr "De meerderheid van de gegevens in de <strong>gegevensbank van Musicbrain
 #: ../root/cdtoc/set_durations.tt:19
 msgid "The medium you are altering is part of the following release:"
 msgstr "Het medium dat u bewerkt maakt deel uit van de volgende uitgave:"
+
+#: ../root/edit/details/edit_url.tt:39
+msgid ""
+"The new URL already exists in the database. This edit will therefore merge "
+"the two URL entities."
+msgstr "De nieuwe URL bestaat al in de gegevensbank. Deze bewerking zal daarom de twee URL-objecten samenvoegen."
 
 #: ../root/main/403.tt:5
 msgid "The page you requested is private."
@@ -8309,7 +8257,7 @@ msgid ""
 "{show_non_va|Show release groups by this artist instead}."
 msgstr "Deze artiest heeft geen uitgavegroepen van diverse artiesten. {show_non_va|Laat in plaats hiervan alle uitgavegroepen van deze artiest zien}."
 
-#: ../root/artist/edit_form.tt:80 ../root/scripts/text_strings.tt:68
+#: ../root/artist/edit_form.tt:70 ../root/scripts/text_strings.tt:68
 msgid "This artist has ended."
 msgstr "Deze artiest is beëindigd."
 
@@ -8371,6 +8319,12 @@ msgstr "Deze eigenschap wordt niet ondersteund voor het geselecteerde relatietyp
 msgid "This attribute is required."
 msgstr "Deze eigenschap is verplicht"
 
+#: ../root/edit/details/edit_url.tt:31
+msgid "This change affects {num} relationship."
+msgid_plural "This change affects {num} relationships."
+msgstr[0] "Deze verandering beïnvloedt {num} relatie."
+msgstr[1] "Deze verandering beïnvloedt {num} relaties."
+
 #: ../root/collection/tags.tt:2
 msgid "This collection has no tags."
 msgstr "Deze collectie heeft geen etiketten."
@@ -8381,39 +8335,39 @@ msgid ""
 "recording merge information can be shown."
 msgstr "Deze bewerking slaat geen informatie over de samenvoeging op en is gesloten, dus er kan geen informatie over samenvoeging worden getoond."
 
-#: ../root/components/common-macros.tt:676
+#: ../root/components/common-macros.tt:646
 msgid ""
 "This edit failed because it affected high quality data and did not receive "
 "any votes."
 msgstr "Deze bewerking is niet doorgevoerd omdat het gegevens van een hoge kwaliteit betrof en er geen stemmen waren."
 
-#: ../root/components/common-macros.tt:676
+#: ../root/components/common-macros.tt:646
 msgid ""
 "This edit failed because the data it was changing was modified after this "
 "edit was created. This may happen when the same edit is entered in twice; "
 "one will pass but the other will fail."
 msgstr "Deze bewerking is mislukt omdat de gegevens die werden bewerkt na het indienen van deze bewerking zijn veranderd. Dit kan gebeuren als een bewerking twee keer wordt ingediend; één wordt er doorgevoerd, maar de andere zal mislukken."
 
-#: ../root/components/common-macros.tt:676
+#: ../root/components/common-macros.tt:646
 msgid "This edit failed because there were insufficient \"yes\" votes."
 msgstr "Deze bewerking is niet doorgevoerd omdat er niet genoeg voorstemmen waren."
 
-#: ../root/components/common-macros.tt:676
+#: ../root/components/common-macros.tt:646
 msgid ""
 "This edit failed due to an internal error and may need to be entered again."
 msgstr "De bewerking is mislukt door een interne fout en moet misschien opnieuw ingevoerd worden."
 
-#: ../root/components/common-macros.tt:676
+#: ../root/components/common-macros.tt:646
 msgid ""
 "This edit failed either because an entity it was modifying no longer exists,"
 " or the entity can not be modified in this manner anymore."
 msgstr "Deze bewerking mislukte omdat het betreffende object niet meer bestaat of niet meer op deze manier veranderd kan worden."
 
-#: ../root/components/common-macros.tt:676
+#: ../root/components/common-macros.tt:646
 msgid "This edit has been successfully applied."
 msgstr "Deze bewerking is met succes doorgevoerd."
 
-#: ../root/components/common-macros.tt:676
+#: ../root/components/common-macros.tt:646
 msgid "This edit is open and awaiting votes before it can be applied."
 msgstr "Deze bewerking staat open en wacht op stemmen voordat het wordt doorgevoerd."
 
@@ -8427,20 +8381,24 @@ msgid ""
 " set the release artist to Various Artists."
 msgstr "Deze bewerkingen was een „Uitgaves van diverse artiesten samenvoegen“-bewerking die de uitgave-artiest ook veranderde in Diverse Artiesten."
 
-#: ../root/components/common-macros.tt:676
+#: ../root/edit/details/edit_url.tt:41
+msgid "This edit was a merge."
+msgstr "Deze bewerking was een samenvoeging."
+
+#: ../root/components/common-macros.tt:646
 msgid "This edit was cancelled."
 msgstr "De bewerking is geannuleerd."
 
-#: ../root/components/common-macros.tt:676
+#: ../root/components/common-macros.tt:646
 msgid "This edit was recently cancelled."
 msgstr "De bewerking is recent geannuleerd."
 
-#: ../root/components/common-macros.tt:269
+#: ../root/components/common-macros.tt:247
 #: ../lib/MusicBrainz/Server/Plugin/Diff.pm:120
 msgid "This entity has been removed, and cannot be displayed correctly."
 msgstr "Dit object is verwijderd en kan niet correct worden weergegeven."
 
-#: ../root/components/common-macros.tt:269
+#: ../root/components/common-macros.tt:247
 msgid "This entity will be created when edits are entered."
 msgstr "Dit object zal worden toegevoegd als de bewerking wordt ingediend."
 
@@ -8478,7 +8436,13 @@ msgid ""
 "please {uri|return to musicbrainz.org}."
 msgstr "Dit is een spiegelserver van MusicBrainz. Om veranderingen door te voeren in de gegevens moet u de {uri|hoofdserver} gebruiken."
 
-#: ../root/account/edit.tt:16
+#: ../root/components/common-macros.tt:99
+msgid ""
+"This is a PDF file, the thumbnail may not show the entire contents of the "
+"file."
+msgstr ""
+
+#: ../root/account/edit.tt:14
 msgid ""
 "This is a development server. Your email address is not private or secure. "
 "Proceed with caution!"
@@ -8514,7 +8478,7 @@ msgstr "Deze platenmaatschappij kan niet worden verwijderd omdat er nog steeds u
 msgid "This label does not have any releases."
 msgstr "Deze platenmaatschappij heeft geen uitgaves."
 
-#: ../root/label/edit_form.tt:68
+#: ../root/label/edit_form.tt:62
 msgid "This label has ended."
 msgstr "Deze platenmaatschappij is opgeheven."
 
@@ -8596,7 +8560,7 @@ msgstr "Deze pagina heeft Javascript nodig."
 msgid "This person is deceased."
 msgstr "Deze persoon is overleden."
 
-#: ../root/place/edit_form.tt:62
+#: ../root/place/edit_form.tt:56
 msgid "This place has ended."
 msgstr "Deze plaats bestaat niet meer."
 
@@ -8610,10 +8574,9 @@ msgstr "Deze plaats heeft geen relaties en zal in de komende paar dagen worden v
 msgid "This place has no tags."
 msgstr "Deze plaats heeft geen etiketten."
 
-#: ../root/recording/delete.tt:18
-msgid ""
-"This recording cannot be removed because it is still on use in tracklists."
-msgstr "Deze opname kan niet worden verwijderd omdat hij nog steeds wordt gebruikt in nummerlijsten."
+#: ../root/recording/delete.tt:14
+msgid "This recording cannot be removed because it is still used on releases."
+msgstr "Deze opname kan niet worden verwijderd omdat hij nog steeds wordt gebruikt in uitgaves."
 
 #: ../root/recording/fingerprints.tt:46
 msgid "This recording does not have any associated AcoustIDs"
@@ -8623,9 +8586,9 @@ msgstr "Deze opname heeft geen gekoppelde AcoustID's"
 msgid "This recording has no tags."
 msgstr "Deze opname heeft geen etiketten."
 
-#: ../root/artist/recordings-list.tt:40 ../root/artist/recordings-list.tt:62
-#: ../root/medium/tracklist.tt:37 ../root/release/index.tt:79
-#: ../root/release/index.tt:80
+#: ../root/components/recordings-list.tt:40
+#: ../root/components/recordings-list.tt:62 ../root/medium/tracklist.tt:37
+#: ../root/release/index.tt:79 ../root/release/index.tt:80
 #: ../root/search/lib/inline-results-recording.tt:29
 #: ../root/search/lib/inline-results-recording.tt:54
 msgid "This recording is a video"
@@ -8670,12 +8633,6 @@ msgstr "Dit relatietype wordt alleen gebruikt om andere relatietypes te groepere
 msgid "This release does not have a barcode"
 msgstr "Deze uitgave heeft geen streepjescode"
 
-#: ../root/release_group/delete.tt:17
-msgid ""
-"This release group cannot be removed, because there are still releases, "
-"tracks and/or relationships attributed to it."
-msgstr "Deze uitgavegroep kan niet worden verwijderd, omdat er nog steeds uitgaves, nummers en/of relaties aan gekoppeld zijn."
-
 #: ../root/release_group/index.tt:6
 msgid ""
 "This release group has no relationships or releases associated, and will be "
@@ -8686,6 +8643,12 @@ msgstr "Deze uitgavegroep heeft geen relaties of uitgaves en zal in de komende p
 #: ../root/release_group/tags.tt:2
 msgid "This release group has no tags."
 msgstr "Deze uitgavegroep heeft geen etiketten."
+
+#: ../root/release_group/delete.tt:4
+msgid ""
+"This release group will be removed automatically once it has no releases nor"
+" relationships."
+msgstr "Deze uitgavegroep zal automatisch worden verwijderd zodra het geen uitgaves of relaties meer heeft."
 
 #: ../root/release/tags.tt:2
 msgid "This release has no tags."
@@ -9135,11 +9098,11 @@ msgid ""
 " continue?"
 msgstr "Deze nummerlijst heeft vermeldingen met informatie die verloren gaat als de vermeldingen en nummers wisselt. Dit kan niet ongedaan worden gemaakt. Wilt u doorgaan?"
 
-#: ../root/components/common-macros.tt:482
+#: ../root/components/common-macros.tt:460
 msgid "This user is automated."
 msgstr "Deze gebruiker is geautomatiseerd."
 
-#: ../root/components/common-macros.tt:481
+#: ../root/components/common-macros.tt:459
 msgid "This user is new to MusicBrainz."
 msgstr "Deze gebruiker is nieuw op MusicBrainz."
 
@@ -9173,7 +9136,7 @@ msgstr "Lengte"
 
 #: ../root/main/500.tt:47
 msgid "Time:"
-msgstr ""
+msgstr "Tijd:"
 
 #: ../root/layout/menu.tt:142
 msgid "Timeline Graph"
@@ -9183,14 +9146,15 @@ msgstr "Tijdslijngrafiek"
 msgid "Timezone:"
 msgstr "Tijdzone:"
 
-#: ../root/artist/index.tt:55 ../root/artist/relationships.tt:14
-#: ../root/cdstub/browse.tt:8 ../root/cdstub/cdstub.tt:5
-#: ../root/cdtoc/list.tt:6 ../root/edit/details/edit_medium.tt:57
+#: ../root/artist/index.tt:55 ../root/cdstub/browse.tt:8
+#: ../root/cdstub/cdstub.tt:5 ../root/cdtoc/list.tt:6
+#: ../root/components/relationships-table.tt:7
+#: ../root/edit/details/edit_medium.tt:57
 #: ../root/edit/details/edit_medium.tt:61 ../root/isrc/index.tt:16
 #: ../root/iswc/index.tt:16 ../root/place/performances.tt:8
 #: ../root/recording/index.tt:10 ../root/release/edit/tracklist.tt:100
-#: ../root/release/edit/tracklist.tt:243 ../root/release/index.tt:53
-#: ../root/search/results-freedb.tt:14
+#: ../root/release/edit/tracklist.tt:252 ../root/release/index.tt:53
+#: ../root/search/results-freedb.tt:12
 msgid "Title"
 msgstr "Titel"
 
@@ -9363,7 +9327,7 @@ msgstr "Nummer #"
 msgid "Track Not Found"
 msgstr "Nummer niet gevonden"
 
-#: ../root/release/edit/tracklist.tt:297 ../root/scripts/text_strings.tt:149
+#: ../root/release/edit/tracklist.tt:321 ../root/scripts/text_strings.tt:149
 msgid "Track Parser"
 msgstr "Automatisch vullen"
 
@@ -9421,7 +9385,7 @@ msgstr "Nummerlijst:"
 #: ../root/release/edit/duplicates.tt:12 ../root/release_group/index.tt:25
 #: ../root/release_group/releases-list.tt:21 ../root/release/merge.tt:16
 #: ../root/search/lib/inline-results-release.tt:12
-#: ../root/search/results-cdstub.tt:10 ../root/search/results-freedb.tt:16
+#: ../root/search/results-cdstub.tt:10 ../root/search/results-freedb.tt:14
 msgid "Tracks"
 msgstr "Nummers"
 
@@ -9498,7 +9462,7 @@ msgstr "Type"
 
 #: ../root/account/register_application.tt:9 ../root/alias/edit_form.tt:25
 #: ../root/area/edit_form.tt:13 ../root/area/layout.tt:10
-#: ../root/artist/edit_form.tt:44 ../root/artist/index.tt:4
+#: ../root/artist/edit_form.tt:34 ../root/artist/index.tt:4
 #: ../root/artist/layout.tt:11 ../root/components/filter-form.tt:5
 #: ../root/edit/details/add_area_alias.tt:34
 #: ../root/edit/details/add_area.tt:28
@@ -9527,14 +9491,14 @@ msgstr "Type"
 #: ../root/edit/details/remove_work_alias.tt:29
 #: ../root/edit/relationship/create.tt:32
 #: ../root/edit/relationship/create_url.tt:31
-#: ../root/edit/relationship/edit.tt:58 ../root/label/edit_form.tt:40
+#: ../root/edit/relationship/edit.tt:58 ../root/label/edit_form.tt:34
 #: ../root/label/index.tt:4 ../root/label/layout.tt:9
-#: ../root/place/edit_form.tt:39 ../root/place/index.tt:4
+#: ../root/place/edit_form.tt:33 ../root/place/index.tt:4
 #: ../root/place/layout.tt:8 ../root/release/add_cover_art.tt:74
 #: ../root/release/cover_art_fields.tt:3
 #: ../root/release/edit/information.tt:70 ../root/release_group/layout.tt:20
 #: ../root/release/index.tt:4 ../root/release/sidebar.tt:39
-#: ../root/search/form.tt:5 ../root/work/edit_form.tt:13
+#: ../root/search/form.tt:5 ../root/work/edit_form.tt:15
 #: ../root/work/layout.tt:11
 msgid "Type:"
 msgstr "Type:"
@@ -9551,7 +9515,7 @@ msgstr "Type: {type}, status: {status}"
 msgid "Types:"
 msgstr "Types:"
 
-#: ../root/components/common-macros.tt:578 ../root/report/artist_url_list.tt:5
+#: ../root/components/common-macros.tt:548 ../root/report/artist_url_list.tt:5
 #: ../root/report/bad_amazon_urls.tt:21 ../root/report/label_url_list.tt:5
 #: ../root/report/release_group_url_list.tt:5
 #: ../root/report/release_url_list.tt:5 ../root/report/url_list.tt:7
@@ -9576,10 +9540,10 @@ msgstr "URL niet gevonden"
 msgid "URL Relationships"
 msgstr "URL-relaties"
 
-#: ../root/components/common-macros.tt:564 ../root/components/forms.tt:287
-#: ../root/edit/details/edit_url.tt:9 ../root/edit/details/edit_url.tt:15
+#: ../root/components/common-macros.tt:534 ../root/components/forms.tt:287
+#: ../root/edit/details/edit_url.tt:5 ../root/edit/details/edit_url.tt:11
 #: ../root/edit/relationship/create_url.tt:39 ../root/main/500.tt:62
-#: ../root/url/edit.tt:7 ../root/url/index.tt:5
+#: ../root/otherlookup/form.tt:3 ../root/url/edit.tt:7 ../root/url/index.tt:5
 msgid "URL:"
 msgstr "URL:"
 
@@ -9686,7 +9650,7 @@ msgstr "Aantal keren gebruikt"
 msgid "Use beta site"
 msgstr "Gebruik de bètasite"
 
-#: ../root/components/common-macros.tt:590
+#: ../root/components/common-macros.tt:560
 msgid "Use in a relationship"
 msgstr "In een relatie gebruiken"
 
@@ -9749,7 +9713,7 @@ msgid ""
 "cannot be in the same position"
 msgstr "Door deze samenvoegingsstrategie te gebruiken worden alle media van alle uitgaves gebruikt. U kunt een nieuwe volgorde van media instellen, Deze volgorde hoeft niet continue te zijn, maar alle posities van de media moeten positief zijn, en meerdere media mogen niet dezelfde positie hebben."
 
-#: ../root/search/form.tt:54
+#: ../root/search/form.tt:53
 msgid ""
 "Using {doc|advanced query syntax} while performing a direct database search "
 "will result in inaccurate results."
@@ -9771,7 +9735,7 @@ msgstr "Versiegeschiedenis"
 msgid "Version:"
 msgstr "Versie:"
 
-#: ../root/recording/edit_form.tt:14
+#: ../root/recording/edit_form.tt:18
 msgid "Video"
 msgstr "Video"
 
@@ -9792,11 +9756,11 @@ msgstr "Video:"
 msgid "View all ratings"
 msgstr "Alle waarderingen bekijken"
 
-#: ../root/layout/sidebar/sidebar-favicons.tt:32
+#: ../root/layout/sidebar/sidebar-favicons.tt:34
 msgid "View all relationships"
 msgstr "Alle relaties bekijken"
 
-#: ../root/annotation/common.tt:21 ../root/components/common-macros.tt:897
+#: ../root/annotation/common.tt:21 ../root/components/common-macros.tt:871
 msgid "View annotation history"
 msgstr "Geschiedenis van de aantekening bekijken"
 
@@ -9920,8 +9884,7 @@ msgid ""
 "you're certain this date is correct!</b>"
 msgstr "Let op! „25 oktober 1990“ is een nepdatum die Amazon laat zien voor alle uitgaves waarvan ze de datum niet kennen. <b>Gebruik deze datum alleen als u zeker weet dat deze klopt!</b>"
 
-#: ../root/artist/edit_form.tt:21 ../root/label/edit_form.tt:17
-#: ../root/place/edit_form.tt:17 ../root/release/edit/tracklist.tt:229
+#: ../root/release/edit/tracklist.tt:238
 msgid "Warning:"
 msgstr "Waarschuwing:"
 
@@ -9969,6 +9932,18 @@ msgid ""
 " below in order to attach this disc to another MusicBrainz release."
 msgstr "We hebben media gevonden die overeenkomen met de informatie die u opvroeg. Als geen van deze uitgaves is wat u zoekt, kunt u met het onderstaande formulier zoeken naar andere uitgaves in MusicBrainz om dit medium aan toe te voegen."
 
+#: ../root/artist/edit_form.tt:15
+msgid "We found the following artists with very similar names:"
+msgstr "We hebben de volgende artiesten met zeer gelijkende namen gevonden:"
+
+#: ../root/label/edit_form.tt:15
+msgid "We found the following labels with very similar names:"
+msgstr "We hebben de volgende platenmaatschappijen met zeer gelijkende namen gevonden:"
+
+#: ../root/place/edit_form.tt:15
+msgid "We found the following places with very similar names:"
+msgstr "We hebben de volgende plaatsen met zeer gelijkende namen gevonden:"
+
 #: ../root/search/editor.tt:5
 msgid ""
 "We found the following users that matched your query for "
@@ -9993,7 +9968,7 @@ msgstr "We hebben u een verificatie-e-mail gestuurd naar <code>{email}</code>. K
 msgid "We used DiscID <code>{discid}</code> to look up this information."
 msgstr "We hebben de DiscID <code>{discid}</code> gebruikt om deze informatie op te zoeken."
 
-#: ../root/account/edit.tt:36
+#: ../root/account/edit.tt:42
 msgid ""
 "We will use your birth date to display your age in years on your profile "
 "page."
@@ -10029,7 +10004,7 @@ msgstr "We hebben u instructies gestuurd om uw wachtwoord opnieuw in te stellen.
 msgid "Web Application"
 msgstr "Web Application"
 
-#: ../root/account/edit.tt:19 ../root/admin/edit_user.tt:34
+#: ../root/account/edit.tt:20 ../root/admin/edit_user.tt:34
 msgid "Website:"
 msgstr "Website:"
 
@@ -10078,8 +10053,8 @@ msgid ""
 "Commons BY-SA license}"
 msgstr "Inhoud van Wikipedia wordt verstrekt onder voorwaarde van de {license_link|Creative Commons BY-SA-licentie}."
 
-#: ../root/artist/works-list.tt:9 ../root/components/common-macros.tt:578
-#: ../root/components/common-macros.tt:641 ../root/edit/search_macros.tt:307
+#: ../root/artist/works-list.tt:9 ../root/components/common-macros.tt:548
+#: ../root/components/common-macros.tt:611 ../root/edit/search_macros.tt:307
 #: ../root/report/iswc_with_many_works.tt:25 ../root/report/work_list.tt:7
 #: ../root/scripts/text_strings.tt:112 ../root/work/edits.tt:6
 #: ../root/work/header.tt:13 ../root/work/merge.tt:11
@@ -10088,11 +10063,11 @@ msgstr "Inhoud van Wikipedia wordt verstrekt onder voorwaarde van de {license_li
 msgid "Work"
 msgstr "Compositie"
 
-#: ../root/work/edit_form.tt:19
+#: ../root/work/edit_form.tt:21
 msgid "Work Attributes"
 msgstr "Compositie-eigenschappen"
 
-#: ../root/work/edit_form.tt:10
+#: ../root/work/edit_form.tt:12
 msgid "Work Details"
 msgstr "Compositiedetails"
 
@@ -10116,7 +10091,7 @@ msgstr "Compositiewaarderingen"
 msgid "Work type:"
 msgstr "Type compositie:"
 
-#: ../root/components/common-macros.tt:564
+#: ../root/components/common-macros.tt:534
 #: ../root/edit/details/add_work_alias.tt:3
 #: ../root/edit/details/add_work_annotation.tt:3
 #: ../root/edit/details/add_work.tt:3
@@ -10178,7 +10153,7 @@ msgid "Yate Music Tagger"
 msgstr "Yate Music Tagger"
 
 #: ../root/artist/index.tt:54 ../root/edit/details/merge_release_groups.tt:7
-#: ../root/release_group/merge.tt:15 ../root/search/results-freedb.tt:18
+#: ../root/release_group/merge.tt:15 ../root/search/results-freedb.tt:16
 msgid "Year"
 msgstr "Jaar"
 
@@ -10241,20 +10216,17 @@ msgstr "Aantal voorstemmen"
 msgid "Yes, I am sure"
 msgstr "Ja, ik weet het zeker"
 
-#: ../root/artist/edit_form.tt:35
-msgid ""
-"Yes, I am sure this artist is not duplicate, and I know what I am doing."
-msgstr "Ja, ik weet zeker dat deze artiest geen duplicaat is, en ik weet wat ik doe."
+#: ../root/artist/edit_form.tt:22
+msgid "Yes, I still want to create a new artist."
+msgstr "Ja, ik wil nog steeds een nieuwe artiest toevoegen."
 
-#: ../root/label/edit_form.tt:31
-msgid ""
-"Yes, I am sure this label is not duplicate, and I know what I am doing."
-msgstr "Ja, ik weet zeker dat deze platenmaatschappij geen duplicaat is, en ik weet wat ik doe."
+#: ../root/label/edit_form.tt:22
+msgid "Yes, I still want to create a new label."
+msgstr "Ja, ik wil nog steeds een nieuwe platenmaatschappij toevoegen."
 
-#: ../root/place/edit_form.tt:31
-msgid ""
-"Yes, I am sure this place is not duplicate, and I know what I am doing."
-msgstr "Ja, ik weet zeker dat deze plaats geen duplicaat is, en ik weet wat ik doe."
+#: ../root/place/edit_form.tt:22
+msgid "Yes, I still want to create a new place."
+msgstr "Ja, ik wil nog steeds een nieuwe plaats toevoegen."
 
 #: ../root/admin/wikidoc/delete.tt:9
 msgid "Yes, I'm sure"
@@ -10263,18 +10235,14 @@ msgstr "Ja, ik weet het zeker"
 #: ../root/components/forms.tt:264
 msgid ""
 "You are about to add an ISRC to this recording. The ISRC must be entered in "
-"standard <code>CCXXXYYNNNNNN</code> format:"
-msgstr "U staat op het punt om een ISRC toe te voegen aan deze opname. De ISRC moet worden toegevoegd in de standaard <code>CCXXXYYNNNNNN</code> opmaak:"
+"standard <code>CCXXXYYNNNNN</code> format:"
+msgstr "U staat op het punt om een ISRC aan deze opname toe te voegen. De ISRC moet worden toegevoegd in de standaard <code>CCXXXYYNNNNN</code> opmaak:"
 
 #: ../root/components/forms.tt:253
 msgid ""
 "You are about to add an ISWC to this work. The ISWC must be entered in "
 "standard <code>T-DDD.DDD.DDD-C</code> format:"
 msgstr "U staat op het punt om een ISWC toe te voegen aan deze compositie. De ISWC moet worden toegevoegd in de standaard <code>T-DDD.DDD.DDD-C</code> opmaak:"
-
-#: ../root/artist/edit_form.tt:6
-msgid "You are about to add an artist to MusicBrainz."
-msgstr "U staat op het punt om een artiest aan MusicBrainz toe te voegen."
 
 #: ../root/cdtoc/set_durations.tt:4
 msgid ""
@@ -10333,24 +10301,6 @@ msgid ""
 " the work that you would like the other works merged into:"
 msgstr "U staat op het punt om de volgende composities samen te voegen. Selecteer alstublieft de compositie waarin u de andere composities wilt samenvoegen:"
 
-#: ../root/label/edit_form.tt:18
-msgid ""
-"You are attempting to add a label which appears to be very similar, if not "
-"exactly the same, as these existing labels:"
-msgstr "U probeert een platenmaatschappij toe te voegen die erg lijkt op, en misschien wel hetzelfde is als deze bestaande platenmaatschappijen:"
-
-#: ../root/place/edit_form.tt:18
-msgid ""
-"You are attempting to add a place which appears to be very similar, if not "
-"exactly the same, as these existing places:"
-msgstr "U probeert een plaats toe te voegen die erg lijkt op, en misschien wel hetzelfde is als deze bestaande plaatsen:"
-
-#: ../root/artist/edit_form.tt:22
-msgid ""
-"You are attempting to add an artist which appears to be very similar, if not"
-" exactly the same, as these existing artists:"
-msgstr "U probeert een artiest toe te voegen die erg lijkt op, en misschien wel hetzelfde is als deze bestaande artiesten:"
-
 #: ../root/artist/subscribers.tt:27 ../root/collection/subscribers.tt:27
 #: ../root/label/subscribers.tt:27 ../root/user/subscribers.tt:32
 msgid "You are currently subscribed. {unsub|Unsubscribe}?"
@@ -10377,27 +10327,6 @@ msgstr "U bent momenteel niet geabonneerd. {sub|Abonneren}?"
 msgid "You are not currently watching any artists for new releases."
 msgstr "U volgt nu geen artiesten voor nieuwe uitgaves."
 
-#: ../root/artist/edit_form.tt:31
-msgid ""
-"You are required to enter a disambiguation comment which allows users to "
-"distinguish this artist from the other artists with the same name, if the "
-"final artist name is similar to an existing artist."
-msgstr "U moet een verduidelijking toevoegen die de gebruikers in staat stelt om artiesten met dezelfde naam uit elkaar te houden."
-
-#: ../root/label/edit_form.tt:27
-msgid ""
-"You are required to enter a disambiguation comment which allows users to "
-"distinguish this label from the other labels with the same name, if the "
-"final label name is similar to an existing label."
-msgstr "U moet een verduidelijking toevoegen die de gebruikers in staat stelt om platenmaatschappijen met dezelfde naam uit elkaar te houden."
-
-#: ../root/place/edit_form.tt:27
-msgid ""
-"You are required to enter a disambiguation comment which allows users to "
-"distinguish this place from the other places with the same name, if the "
-"final place name is similar to an existing place."
-msgstr "U moet een opmerking toevoegen die de gebruikers in staat stelt om plaatsen met dezelfde naam uit elkaar te houden."
-
 #: ../root/user/subscriptions/collection.tt:7
 msgid "You are subscribed to {n} private collection."
 msgid_plural "You are subscribed to {n} private collections."
@@ -10418,7 +10347,7 @@ msgid ""
 "database."
 msgstr "U kunt gegevens van een cd toevoegen zoals dit op de cd aangegeven staat zonder dat u zich zorgen hoeft te maken om deel uit te maken van MusicBrainz. Cd's die zo zijn toegevoegd zijn beschikbaar in programma's. Echter, zij zullen niet aan de belangrijkste gegevensbank van MusicBrainz worden toegevoegd tot een redacteur besluit om uw ingediende informatie op te pakken en ervoor te zorgen dat het aan onze standaarden voldoet, en het toevoegt aan de belangrijkste gegevensbank."
 
-#: ../root/account/edit.tt:30
+#: ../root/account/edit.tt:34
 msgid ""
 "You can pick the level you prefer here: your country, region or city. Be as "
 "specific as you want to!"
@@ -10578,6 +10507,10 @@ msgstr "Geaccepteerd"
 msgid "You will not be nagged for another {days} days."
 msgstr "U zal de komende {days} dagen niet worden lastiggevallen."
 
+#: ../root/alias/delete.tt:1
+msgid "You're removing the alias <em>{alias}</em>."
+msgstr "U verwijdert de alias <em>{alias}</em>."
+
 #: ../root/user/email_sent.tt:5
 msgid ""
 "Your email has been successfully sent! Click {link|here} to continue to "
@@ -10612,7 +10545,13 @@ msgstr "Uw zoekopdracht is door onze meedogenloze zoekserver ongeldig verklaard.
 msgid "Your username will be publicly visible."
 msgstr "Uw gebruikersnaam zal publiekelijk zichtbaar zijn."
 
-#: ../root/release/edit/tracklist.tt:230
+#: ../root/release/edit/tracklist.tt:189
+msgid ""
+"You’ve seeded some Disc IDs that aren’t matched to any medium. If this is "
+"wrong, use the “Attach Disc ID” options below."
+msgstr "U heeft enkele Disc-id's gezaaid die niet bij een medium passen. Gebruik de onderstaande opties „Disc-id toevoegen\" als dit niet klopt."
+
+#: ../root/release/edit/tracklist.tt:239
 msgid ""
 "You’ve used the {valink|Various Artists} special purpose artist on some "
 "tracks below. {valink|Various Artists} should very rarely be used on tracks;"
@@ -10623,7 +10562,7 @@ msgstr "U heeft de speciale artiest {valink|Diverse Artiesten} gebruikt op sommi
 msgid "[ Unknown ]"
 msgstr "[Onbekend]"
 
-#: ../root/components/common-macros.tt:269
+#: ../root/components/common-macros.tt:247
 msgid "[removed]"
 msgstr "[verwijderd]"
 
@@ -10647,7 +10586,7 @@ msgstr "Verduidelijking toevoegen"
 msgid "after"
 msgstr "na"
 
-#: ../root/components/common-macros.tt:53
+#: ../root/components/common-macros.tt:44
 msgid "aged {num}"
 msgstr "{num} jaar oud"
 
@@ -10663,11 +10602,11 @@ msgstr "enige"
 msgid "appears on:"
 msgstr "verschijnt op:"
 
-#: ../root/components/common-macros.tt:163
+#: ../root/components/common-macros.tt:141
 msgid "areas"
 msgstr "gebieden"
 
-#: ../root/components/common-macros.tt:163
+#: ../root/components/common-macros.tt:141
 msgid "artists"
 msgstr "artiesten"
 
@@ -10675,7 +10614,7 @@ msgstr "artiesten"
 msgid "auto-edits"
 msgstr "Automatische bewerkingen"
 
-#: ../root/components/common-macros.tt:720
+#: ../root/components/common-macros.tt:690
 msgid "automatically applied"
 msgstr "automatisch doorgevoerd"
 
@@ -10687,7 +10626,7 @@ msgstr "voor"
 msgid "between"
 msgstr "tussen"
 
-#: ../root/components/common-macros.tt:482
+#: ../root/components/common-macros.tt:460
 msgid "bot"
 msgstr "robot"
 
@@ -10707,7 +10646,7 @@ msgstr "diff"
 msgid "do not match"
 msgstr "niet overeenkomen met"
 
-#: ../root/components/common-macros.tt:163
+#: ../root/components/common-macros.tt:141
 msgid "editors"
 msgstr "redacteurs"
 
@@ -10719,19 +10658,19 @@ msgstr "bewerkingen"
 msgid "end date"
 msgstr "einddatum"
 
-#: ../root/components/common-macros.tt:728
+#: ../root/components/common-macros.tt:698
 msgid "ended"
 msgstr "beëindigd"
 
-#: ../root/components/common-macros.tt:728 ../root/edit/details/macros.tt:28
+#: ../root/components/common-macros.tt:698 ../root/edit/details/macros.tt:28
 msgid "from {begin_date} until {end_date}"
 msgstr "van {begin_date} tot {end_date}"
 
-#: ../root/components/common-macros.tt:728 ../root/edit/details/macros.tt:28
+#: ../root/components/common-macros.tt:698 ../root/edit/details/macros.tt:28
 msgid "from {date} to ????"
 msgstr "van {date} tot ????"
 
-#: ../root/components/common-macros.tt:728 ../root/edit/details/macros.tt:28
+#: ../root/components/common-macros.tt:698 ../root/edit/details/macros.tt:28
 msgid "from {date} to present"
 msgstr "vanaf {date} tot nu"
 
@@ -10744,23 +10683,23 @@ msgstr "help"
 msgid "hide tracklist"
 msgstr "nummerlijst verbergen"
 
-#: ../root/components/common-macros.tt:206
+#: ../root/components/common-macros.tt:184
 msgid "historical"
 msgstr "historisch"
 
-#: ../root/components/common-macros.tt:204
+#: ../root/components/common-macros.tt:182
 msgid "historical, until {end}"
 msgstr "historisch, tot {end}"
 
-#: ../root/components/common-macros.tt:202
+#: ../root/components/common-macros.tt:180
 msgid "historical, {begin}-{end}"
 msgstr "historisch, {begin}-{end}"
 
-#: ../root/search/results-freedb.tt:31
+#: ../root/search/results-freedb.tt:29
 msgid "import"
 msgstr "import"
 
-#: ../root/components/common-macros.tt:728 ../root/edit/details/macros.tt:28
+#: ../root/components/common-macros.tt:698 ../root/edit/details/macros.tt:28
 msgid "in {date}"
 msgstr "in {date}"
 
@@ -10768,7 +10707,7 @@ msgstr "in {date}"
 msgid "in {parent_areas}"
 msgstr "in {parent_areas}"
 
-#: ../root/components/common-macros.tt:401
+#: ../root/components/common-macros.tt:379
 msgid "info"
 msgstr "info"
 
@@ -10812,11 +10751,11 @@ msgstr "is meer dan"
 msgid "is not"
 msgstr "is niet"
 
-#: ../root/components/common-macros.tt:163
+#: ../root/components/common-macros.tt:141
 msgid "labels"
 msgstr "platenmaatschappijen"
 
-#: ../root/components/common-macros.tt:481
+#: ../root/components/common-macros.tt:459
 msgid "limited user"
 msgstr "beperkte gebruiker"
 
@@ -10861,7 +10800,7 @@ msgstr "oudste eerst"
 msgid "on"
 msgstr "op"
 
-#: ../root/components/common-macros.tt:728 ../root/edit/details/macros.tt:28
+#: ../root/components/common-macros.tt:698 ../root/edit/details/macros.tt:28
 msgid "on {date}"
 msgstr "op {date}"
 
@@ -10869,11 +10808,11 @@ msgstr "op {date}"
 msgid "or drop files here"
 msgstr "of sleep bestanden hierheen"
 
-#: ../root/components/common-macros.tt:121
+#: ../root/components/common-macros.tt:109
 msgid "original"
 msgstr "Origineel"
 
-#: ../root/components/common-macros.tt:163
+#: ../root/components/common-macros.tt:141
 msgid "places"
 msgstr "plaatsen"
 
@@ -10890,7 +10829,7 @@ msgid_plural "plus {n} other private collections"
 msgstr[0] "plus {n} andere privécollectie"
 msgstr[1] "plus {n} andere privécollecties"
 
-#: ../root/artist/edit_form.tt:108
+#: ../root/artist/edit_form.tt:98
 msgid "preview:"
 msgstr "voorbeeld:"
 
@@ -10902,15 +10841,15 @@ msgstr "willekeurig"
 msgid "recording"
 msgstr "opname"
 
-#: ../root/components/common-macros.tt:163
+#: ../root/components/common-macros.tt:141
 msgid "recordings"
 msgstr "opnames"
 
-#: ../root/components/common-macros.tt:163
+#: ../root/components/common-macros.tt:141
 msgid "release groups"
 msgstr "uitgavegroepen"
 
-#: ../root/components/common-macros.tt:163
+#: ../root/components/common-macros.tt:141
 msgid "releases"
 msgstr "uitgaves"
 
@@ -10964,7 +10903,7 @@ msgid_plural "tracks {tracks}"
 msgstr[0] "nummer {tracks}"
 msgstr[1] "nummers {tracks}"
 
-#: ../root/components/common-macros.tt:163
+#: ../root/components/common-macros.tt:141
 msgid "tracks"
 msgstr "nummers"
 
@@ -10972,7 +10911,7 @@ msgstr "nummers"
 msgid "unsubscribe"
 msgstr "abonnement opzeggen"
 
-#: ../root/components/common-macros.tt:728 ../root/edit/details/macros.tt:28
+#: ../root/components/common-macros.tt:698 ../root/edit/details/macros.tt:28
 msgid "until {date}"
 msgstr "tot {date}"
 
@@ -10998,7 +10937,7 @@ msgstr "video"
 msgid "view all aliases"
 msgstr "alle aliassen bekijken"
 
-#: ../root/components/common-macros.tt:163
+#: ../root/components/common-macros.tt:141
 msgid "works"
 msgstr "composities"
 
@@ -11007,7 +10946,7 @@ msgid ""
 "{about|More Information} &#x2014; {faq|FAQs} &#x2014; {contact|Contact Us}"
 msgstr "{about|Meer informatie} &#x2014; {faq|FAQ's} &#x2014; {contact|Neem contact met ons op}"
 
-#: ../root/components/common-macros.tt:136
+#: ../root/components/common-macros.tt:124
 msgid "{almost_last_list_item} and {last_list_item}"
 msgstr "{almost_last_list_item} en {last_list_item}"
 
@@ -11026,7 +10965,7 @@ msgstr "{artist} ({roles})"
 msgid "{artist} - {name}"
 msgstr "{artist} - {name}"
 
-#: ../root/components/common-macros.tt:226
+#: ../root/components/common-macros.tt:204
 msgid "{artist} as {name}"
 msgstr "{artist} als {name}"
 
@@ -11036,17 +10975,20 @@ msgid_plural "{artist} has no releases which have {n} tracks."
 msgstr[0] "{artist} heeft geen uitgaves met maar {n} nummer."
 msgstr[1] "{artist} heeft geen uitgaves met maar {n} nummers."
 
-#: ../root/artist/relationships.tt:33 ../root/place/performances.tt:27
+#: ../root/components/relationships-table.tt:24
+#: ../root/place/performances.tt:27
 #: ../lib/MusicBrainz/Server/Entity/Link.pm:122
 #, perl-brace-format
 msgid "{begindate} &#x2013;"
 msgstr "{begindate} &#x2013;"
 
-#: ../root/artist/relationships.tt:33 ../root/place/performances.tt:27
+#: ../root/components/relationships-table.tt:24
+#: ../root/place/performances.tt:27
 msgid "{begindate} &#x2013; ????"
 msgstr "{begindate} &#x2013; ????"
 
-#: ../root/artist/relationships.tt:33 ../root/place/performances.tt:27
+#: ../root/components/relationships-table.tt:24
+#: ../root/place/performances.tt:27
 #: ../lib/MusicBrainz/Server/Entity/Link.pm:115
 #, perl-brace-format
 msgid "{begindate} &#x2013; {enddate}"
@@ -11062,7 +11004,7 @@ msgstr "{b} en {a}"
 msgid "{collection} by {owner}"
 msgstr "{collection} van {owner}"
 
-#: ../root/components/common-macros.tt:147
+#: ../root/components/common-macros.tt:135
 msgid "{commas_only_list_item}, {rest}"
 msgstr "{commas_only_list_item}, {rest}"
 
@@ -11131,8 +11073,8 @@ msgstr "{edit} heeft één of meer tegenstemmen gekregen. U moet een notitie bij
 msgid "{entity0}-{entity1}"
 msgstr "{entity0}-{entity1}"
 
-#: ../root/components/common-macros.tt:278
-#: ../root/components/common-macros.tt:976 ../root/main/index.tt:124
+#: ../root/components/common-macros.tt:256
+#: ../root/components/common-macros.tt:950 ../root/main/index.tt:124
 #: ../root/scripts/text_strings.tt:163
 msgid "{entity} by {artist}"
 msgstr "{entity} door {artist}"
@@ -11145,7 +11087,7 @@ msgstr "{entity} heeft geen aliassen."
 msgid "{format} {position} {name} on {release} by {artist}"
 msgstr "{format} {position} {name} op {release} van {artist}"
 
-#: ../root/components/common-macros.tt:145
+#: ../root/components/common-macros.tt:133
 msgid "{last_list_item}"
 msgstr "{last_list_item}"
 
@@ -11157,7 +11099,7 @@ msgstr "{link} heeft geen waarderingen"
 msgid "{link} has no relationships."
 msgstr "{link} heeft geen relaties."
 
-#: ../root/components/common-macros.tt:138
+#: ../root/components/common-macros.tt:126
 msgid "{list_item}, {rest}"
 msgstr "{list_item}, {rest}"
 
@@ -11175,10 +11117,6 @@ msgstr "{name} - Uitgave toevoegen"
 #: ../root/scripts/text_strings.tt:167
 msgid "{name} - Edit Release"
 msgstr "{name} - Uitgave bewerken"
-
-#: ../root/tag/entity-list.tt:10
-msgid "{name} by {artist}"
-msgstr "{name} door {artist}"
 
 #: ../root/user/subscriptions/layout.tt:19
 msgid "{num} artist"
@@ -11204,13 +11142,13 @@ msgid_plural "{num} collections found"
 msgstr[0] "{num} collectie gevonden"
 msgstr[1] "{num} collecties gevonden"
 
-#: ../root/components/common-macros.tt:53
+#: ../root/components/common-macros.tt:44
 msgid "{num} day"
 msgid_plural "{num} days"
 msgstr[0] "{num} dag"
 msgstr[1] "{num}&#xa0;dagen"
 
-#: ../root/components/common-macros.tt:67
+#: ../root/components/common-macros.tt:58
 msgid "{num} day ago"
 msgid_plural "{num} days ago"
 msgstr[0] "{num} dag geleden"
@@ -11234,13 +11172,13 @@ msgid_plural "{num} labels found"
 msgstr[0] "{num} platenmaatschappij gevonden"
 msgstr[1] "{num} platenmaatschappijen gevonden"
 
-#: ../root/components/common-macros.tt:53
+#: ../root/components/common-macros.tt:44
 msgid "{num} month"
 msgid_plural "{num} months"
 msgstr[0] "{num} maand"
 msgstr[1] "{num}&#xa0;maanden"
 
-#: ../root/components/common-macros.tt:67
+#: ../root/components/common-macros.tt:58
 msgid "{num} month ago"
 msgid_plural "{num} months ago"
 msgstr[0] "{num} maand geleden"
@@ -11282,13 +11220,13 @@ msgid_plural "{num} works found"
 msgstr[0] "{num} compositie gevonden"
 msgstr[1] "{num} composities gevonden"
 
-#: ../root/components/common-macros.tt:53
+#: ../root/components/common-macros.tt:44
 msgid "{num} year"
 msgid_plural "{num} years"
 msgstr[0] "{num} jaar"
 msgstr[1] "{num} jaar"
 
-#: ../root/components/common-macros.tt:67
+#: ../root/components/common-macros.tt:58
 msgid "{num} year ago"
 msgid_plural "{num} years ago"
 msgstr[0] "{num} jaar geleden"
@@ -11314,7 +11252,7 @@ msgstr "{percentage}%"
 msgid "{relationship_documentation_url|Documentation}"
 msgstr "{relationship_documentation_url|Documentatie}"
 
-#: ../root/cdtoc/move_search.tt:31 ../root/cdtoc/set_durations.tt:22
+#: ../root/cdtoc/move_search.tt:33 ../root/cdtoc/set_durations.tt:22
 msgid "{release} by {artist}"
 msgstr "{release} van {artist}"
 
@@ -11344,7 +11282,11 @@ msgstr "{type0}-{type1}-relatietypes"
 msgid "{type} “{work}”"
 msgstr "{type} „{work}“"
 
-#: ../root/components/common-macros.tt:602
+#: ../root/account/edit.tt:106
+msgid "{uri|Delete my account}"
+msgstr "{uri|Mijn gebruikersaccount verwijderen}"
+
+#: ../root/components/common-macros.tt:572
 msgid "{uri|Relate to URL}"
 msgstr "{uri|Relateer aan URL}"
 
@@ -11378,11 +11320,11 @@ msgid ""
 " that the artist has been entered correctly."
 msgstr "{valink|Diverse Artiesten} moet zelden worden gebruikt op opnames. Zorg er voor dat de artiest goed is ingevoerd."
 
-#: ../root/components/common-macros.tt:1070
+#: ../root/components/common-macros.tt:1044
 msgid "{variable}:"
 msgstr "{variable}:"
 
-#: ../root/components/common-macros.tt:720
+#: ../root/components/common-macros.tt:690
 msgid "{yes} yes : {no} no"
 msgstr "{yes} voor : {no} tegen"
 
@@ -11632,7 +11574,7 @@ msgstr "De redacteur {name} heeft geen e-mailadres aan zijn of haar gebruikersac
 msgid "Your message could not be sent"
 msgstr "Uw bericht kon niet verzonden worden"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:362
+#: ../lib/MusicBrainz/Server/Controller/User.pm:363
 #, perl-brace-format
 msgid "'{type}' is not an entity type that can have ratings."
 msgstr "„{type}“ is geen type object dat een waardering kan hebben."
@@ -11704,7 +11646,7 @@ msgstr "{t0}-{t1}-relaties"
 msgid "Total"
 msgstr "Totaal"
 
-#: ../lib/MusicBrainz/Server/Edit/Area/AddAnnotation.pm:12
+#: ../lib/MusicBrainz/Server/Edit/Area/AddAnnotation.pm:11
 msgid "Add area annotation"
 msgstr "Aantekening toevoegen aan het gebied"
 
@@ -11720,11 +11662,11 @@ msgstr "Gebied bewerken"
 msgid "Merge areas"
 msgstr "Gebieden samenvoegen"
 
-#: ../lib/MusicBrainz/Server/Edit/Artist/AddAnnotation.pm:12
+#: ../lib/MusicBrainz/Server/Edit/Artist/AddAnnotation.pm:11
 msgid "Add artist annotation"
 msgstr "Aantekening voor deze artiest toevoegen"
 
-#: ../lib/MusicBrainz/Server/Edit/Artist/Create.pm:22
+#: ../lib/MusicBrainz/Server/Edit/Artist/Create.pm:23
 msgid "Add artist"
 msgstr "Artiest toevoegen"
 
@@ -11732,7 +11674,7 @@ msgstr "Artiest toevoegen"
 msgid "Remove artist"
 msgstr "Artiest verwijderen"
 
-#: ../lib/MusicBrainz/Server/Edit/Artist/Edit.pm:34
+#: ../lib/MusicBrainz/Server/Edit/Artist/Edit.pm:35
 msgid "Edit artist"
 msgstr "Artiest bewerken"
 
@@ -11740,7 +11682,7 @@ msgstr "Artiest bewerken"
 msgid "Edit artist credit"
 msgstr "Vermelding van artiest bewerken"
 
-#: ../lib/MusicBrainz/Server/Edit/Artist/Merge.pm:13
+#: ../lib/MusicBrainz/Server/Edit/Artist/Merge.pm:14
 msgid "Merge artists"
 msgstr "Artiesten samenvoegen"
 
@@ -11750,7 +11692,7 @@ msgid "Add disc ID"
 msgstr "Disc-id toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddReleaseAnnotation.pm:13
-#: ../lib/MusicBrainz/Server/Edit/Release/AddAnnotation.pm:13
+#: ../lib/MusicBrainz/Server/Edit/Release/AddAnnotation.pm:12
 msgid "Add release annotation"
 msgstr "Aantekening toevoegen aan de uitgave"
 
@@ -11860,15 +11802,15 @@ msgstr "Zet uitgave om naar meerdere artiesten (historisch)"
 msgid "Set track lengths"
 msgstr "Lengtes van de nummers instellen"
 
-#: ../lib/MusicBrainz/Server/Edit/Label/AddAnnotation.pm:12
+#: ../lib/MusicBrainz/Server/Edit/Label/AddAnnotation.pm:11
 msgid "Add label annotation"
 msgstr "Aantekening voor deze platenmaatschappij toevoegen"
 
-#: ../lib/MusicBrainz/Server/Edit/Label/Create.pm:23
+#: ../lib/MusicBrainz/Server/Edit/Label/Create.pm:24
 msgid "Add label"
 msgstr "Platenmaatschappij toevoegen"
 
-#: ../lib/MusicBrainz/Server/Edit/Label/Edit.pm:32
+#: ../lib/MusicBrainz/Server/Edit/Label/Edit.pm:33
 msgid "Edit label"
 msgstr "Platenmaatschappij bewerken"
 
@@ -11892,11 +11834,11 @@ msgstr "Medium bewerken"
 msgid "Remove PUID"
 msgstr "PUID's verwijderen"
 
-#: ../lib/MusicBrainz/Server/Edit/Place/AddAnnotation.pm:12
+#: ../lib/MusicBrainz/Server/Edit/Place/AddAnnotation.pm:11
 msgid "Add place annotation"
 msgstr "Aantekening aan deze plaats toevoegen"
 
-#: ../lib/MusicBrainz/Server/Edit/Place/Create.pm:19
+#: ../lib/MusicBrainz/Server/Edit/Place/Create.pm:20
 msgid "Add place"
 msgstr "Plaats toevoegen"
 
@@ -11904,7 +11846,7 @@ msgstr "Plaats toevoegen"
 msgid "Remove place"
 msgstr "Plaats verwijderen"
 
-#: ../lib/MusicBrainz/Server/Edit/Place/Edit.pm:35
+#: ../lib/MusicBrainz/Server/Edit/Place/Edit.pm:36
 msgid "Edit place"
 msgstr "Plaats bewerken"
 
@@ -11928,7 +11870,7 @@ msgstr "PUID's toevoegen"
 msgid "Add standalone recording"
 msgstr "Losstaande opname toevoegen"
 
-#: ../lib/MusicBrainz/Server/Edit/Recording/Merge.pm:13
+#: ../lib/MusicBrainz/Server/Edit/Recording/Merge.pm:14
 msgid "Merge recordings"
 msgstr "Opnames samenvoegen"
 
@@ -11956,7 +11898,7 @@ msgstr "Relatie verwijderen"
 msgid "Edit relationship attribute"
 msgstr "Relatie-eigenschap bewerken"
 
-#: ../lib/MusicBrainz/Server/Edit/Relationship/EditLinkType.pm:18
+#: ../lib/MusicBrainz/Server/Edit/Relationship/EditLinkType.pm:21
 msgid "Edit relationship type"
 msgstr "Relatietype bewerken"
 
@@ -12024,23 +11966,23 @@ msgstr "Uitgavegroep verwijderen"
 msgid "Edit release group"
 msgstr "Uitgavegroep bewerken"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:268
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:269
 msgid "Applied"
 msgstr "Doorgevoerd"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:269
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:270
 msgid "Failed vote"
 msgstr "Stemming mislukt"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:270
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:271
 msgid "Failed dependency"
 msgstr "Mislukt door afhankelijkheid"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:272
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:273
 msgid "Failed prerequisite"
 msgstr "Mislukt door voorwaarde"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:273
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:274
 msgid "No votes"
 msgstr "Geen stemmen"
 
@@ -12052,7 +11994,7 @@ msgstr "Wikidocumentatie"
 msgid "Change WikiDoc"
 msgstr "WikiDoc veranderen"
 
-#: ../lib/MusicBrainz/Server/Edit/Work/AddAnnotation.pm:13
+#: ../lib/MusicBrainz/Server/Edit/Work/AddAnnotation.pm:12
 msgid "Add work annotation"
 msgstr "Aantekening aan deze compositie toevoegen"
 
