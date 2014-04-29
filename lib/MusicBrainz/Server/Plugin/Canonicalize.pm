@@ -13,7 +13,7 @@ sub canonicalize
     if (DBDefs->CANONICAL_SERVER) {
         my $ws = DBDefs->WEB_SERVER;
         my $canon = DBDefs->CANONICAL_SERVER;
-        $url =~ s{^https?://$ws}{$canon};
+        $url =~ s{^(https?:)?//$ws}{$canon};
     }
 
     return $url;
