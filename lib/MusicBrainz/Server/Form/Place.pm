@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Form::Place;
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Form::Utils qw( select_options );
+use List::UtilsBy qw( sort_by );
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
@@ -50,6 +51,40 @@ sub edit_field_names
 sub options_type_id { select_options(shift->ctx, 'PlaceType') }
 
 sub dupe_model { shift->ctx->model('Place') }
+
+sub filter_duplicates {
+    my $self = shift;
+
+    my $form_area = $self->ctx->model('Area')->get_by_id($self->field('area_id')->value);
+
+    my @duplicates = @{ $self->duplicates };
+    my @load_areas = $self->ctx->model('Area')->load(@duplicates);
+    push @load_areas, $form_area if defined $form_area;
+    $self->ctx->model('Area')->load_containment(@load_areas);
+
+    # We require a disambiguation comment if no area is given, or if there
+    # is a possible duplicate in the same area or lacking area information.
+    return 1 unless defined $form_area;
+    my $comment_is_required = 0;
+    my $category = sub {
+        my $a = shift->area;
+        $comment_is_required = 1, return 0 unless defined $a;
+        $comment_is_required = 1, return 1 if $a->id == $form_area->id;
+        return 2 if $a->name eq $form_area->name;
+        my $shares_level = sub {
+            my $level = shift;
+            return ($a->{"parent_$level"} // $a)->id == ($form_area->{"parent_$level"} // $form_area)->id;
+        };
+        return 3 if $shares_level->('city');
+        return 4 if $shares_level->('subdivision');
+        return 5 if $shares_level->('country');
+        return 6;
+    };
+    @duplicates = sort_by { $category->($_) } @duplicates;
+
+    $self->duplicates(\@duplicates);
+    return $comment_is_required;
+}
 
 1;
 
