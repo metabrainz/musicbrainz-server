@@ -97,13 +97,6 @@
             this.entities.saved = [entity0, entity1];
         },
 
-        show: function () {
-            var entities = this.entities();
-
-            entities[0].relationships.push(this);
-            entities[1].relationships.push(this);
-        },
-
         remove: function () {
             if (this.removed() === true) return;
 

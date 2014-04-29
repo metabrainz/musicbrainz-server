@@ -502,6 +502,13 @@
                 this.linkTypeID() == other.linkTypeID() &&
                 _.isEqual(this.entities(), other.entities())
             );
+        },
+
+        show: function () {
+            var entities = this.entities();
+
+            entities[0].relationships.push(this);
+            entities[1].relationships.push(this);
         }
     });
 

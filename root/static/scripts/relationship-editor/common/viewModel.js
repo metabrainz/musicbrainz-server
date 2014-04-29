@@ -71,7 +71,15 @@
                 _.each(options.sourceData.submittedRelationships, function (data) {
                     var relationship = self.getRelationship(data, self.source);
 
-                    relationship.id ? relationship.fromJS(data) : relationship.show();
+                    if (!relationship) {
+                        return;
+                    } else if (relationship.id) {
+                        relationship.fromJS(_.assign(_.clone(data), {
+                            entities: _.sortBy([self.source, MB.entity(data.target)], "entityType")
+                        }));
+                    } else {
+                        relationship.show();
+                    }
                 });
             }
 
@@ -163,7 +171,8 @@
                 if (relationship.removed()) {
                     hidden.push({ name: prefix + ".removed", value: 1 });
                 }
-                else if (target.entityType === "url") {
+
+                if (target.entityType === "url") {
                     hidden.push({ name: prefix + ".text", value: target.name });
                 }
                 else {

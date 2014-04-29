@@ -59,7 +59,7 @@ role {
 
         my $submitted_rel_data = sub {
             my @rels = grep {
-                $_ && (($_->{text} || $_->{target}) && $_->{link_type_id})
+                $_ && (($_->{text} || $_->{target} || $_->{removed}) && $_->{link_type_id})
             } @_;
 
             my @result;
@@ -72,7 +72,7 @@ role {
                 if ($target_type eq 'url') {
                     $target = { name => $_->{text}, entityType => 'url' };
                 }
-                else {
+                elsif ($_->{target}) {
                     my $serialize = "_$target_type";
 
                     $target = JSONSerializer->$serialize(
@@ -83,10 +83,12 @@ role {
                 push @result, {
                     id          => $_->{relationship_id},
                     linkTypeID  => $_->{link_type_id},
-                    removed     => $_->{removed} // 0,
+                    removed     => $_->{removed} ? \1 : \0,
                     attributes  => $_->{attributes} // [],
-                    period      => $_->{period} // {},
-                    target      => $target,
+                    beginDate   => $_->{period}->{begin_date} // {},
+                    endDate     => $_->{period}->{end_date} // {},
+                    ended       => $_->{period}->{ended} ? \1 : \0,
+                    target      => $target // { entityType => $target_type },
                 };
             }
 
