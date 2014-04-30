@@ -17,11 +17,11 @@
   [% IF edit.data.entity0_cardinality.defined || edit.data.entity1_cardinality.defined %]
   <tr>
     <th>[% l('entity0 cardinality:') %]</th>
-    <td>[% edit.data.entity0_cardinality %]</td>
+    <td>[% link_type_cardinality_name(edit.data.entity0_cardinality) %]</td>
   </tr>
   <tr>
     <th>[% l('entity1 cardinality:') %]</th>
-    <td>[% edit.data.entity1_cardinality %]</td>
+    <td>[% link_type_cardinality_name(edit.data.entity1_cardinality) %]</td>
   </tr>
   [% END %]
 
