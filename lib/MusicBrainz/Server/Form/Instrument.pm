@@ -1,6 +1,6 @@
 package MusicBrainz::Server::Form::Instrument;
 use HTML::FormHandler::Moose;
-use MusicBrainz::Server::Form::Utils qw( select_options );
+use MusicBrainz::Server::Form::Utils qw( select_options_tree );
 
 extends 'MusicBrainz::Server::Form';
 
