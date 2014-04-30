@@ -334,7 +334,7 @@
 
       <tr>
         <td colspan="3">
-          <button type="button" class="nobutton add-artist-credit" data-bind="click: addName.bind($data)">
+          <button type="button" class="nobutton add-artist-credit" data-bind="click: addName">
             [%- l('Add Artist Credit') -%]
             <div class="add-item icon img" title="[% l('Add Artist Credit') %]"></div>
           </button>
@@ -350,9 +350,9 @@
     <!-- /ko -->
 
     <div class="buttons">
-      <button type="button" style="float: left" data-bind="click: copyArtistCredit.bind($data)">[% l('Copy Credits') %]</button>
-      <button type="button" style="float: left" data-bind="click: pasteArtistCredit.bind($data)">[% l('Paste Credits') %]</button>
-      <button type="button" style="float: right" class="positive" data-bind="click: hide.bind($data)">[% l('Done') %]</button>
+      <button type="button" style="float: left" data-bind="click: copyArtistCredit">[% l('Copy Credits') %]</button>
+      <button type="button" style="float: left" data-bind="click: pasteArtistCredit">[% l('Paste Credits') %]</button>
+      <button type="button" style="float: right" class="positive" data-bind="click: hide">[% l('Done') %]</button>
     </div>
   </div>
 [%- END -%]
