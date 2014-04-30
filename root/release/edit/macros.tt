@@ -35,3 +35,11 @@
     [% table_cells_select(id, label, colspan, data_bind, options, multiple) %]
   </tr>
 [%- END %]
+
+[% MACRO track_bubble_buttons BLOCK %]
+  <div class="buttons" style="float: right;">
+    <button type="button" data-click="previousTrack">[% l('Previous') %]</button>
+    <button type="button" data-click="nextTrack">[% l('Next') %]</button>
+    <button type="button" class="positive" data-click="hide">[% l('Done') %]</button>
+  </div>
+[% END %]
