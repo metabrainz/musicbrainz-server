@@ -160,6 +160,8 @@ END -%]
             l('editors');
         CASE 'work';
             l('works');
+        CASE 'url';
+            l('URLs');
         CASE DEFAULT;
             l('Error: Unknown Type');
     END -%]
@@ -257,6 +259,11 @@ END -%]
     IF entity.artist_credit.defined;
         l('{entity} by {artist}', { entity => link_entity(entity),
                                     artist => artist_credit(entity.artist_credit) });
+    ELSIF entity_type(entity) == 'place' && entity.area.defined;
+        l('{place} in {area}', { place => link_entity(entity),
+                                 area => link_area_with_containment(entity.area) });
+    ELSIF entity_type(entity) == 'area' && entity.gid;
+        link_area_with_containment(entity);
     ELSE;
         link_entity(entity);
     END; -%]
@@ -946,11 +953,10 @@ END -%]
 [%- MACRO relationship_target_links(rel) BLOCK -%]
   <span[% IF rel.edits_pending %] class="mp"[% END %]>
   [% IF rel.target.artist_credit AND
-        rel.target.artist_credit.name != hide_ac %]
-      [% l('{entity} by {artist}', { entity => link_entity(rel.target),
-                                     artist => artist_credit(rel.target.artist_credit) }) %]
-  [% ELSE %]
+        rel.target.artist_credit.name == hide_ac %]
       [% link_entity(rel.target) %]
+  [% ELSE %]
+      [% descriptive_link(rel.target) %]
   [% END %]
   [% '(' _ rel.extra_phrase_attributes _ ')' | html IF rel.extra_phrase_attributes %]
   [% '(' _ rel.link.formatted_date _ ')' IF rel.link.formatted_date %]
