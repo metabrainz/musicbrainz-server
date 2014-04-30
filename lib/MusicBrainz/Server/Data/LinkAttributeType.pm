@@ -4,6 +4,7 @@ use Moose;
 use namespace::autoclean;
 use Sql;
 use Encode;
+use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Entity::LinkType;
 use MusicBrainz::Server::Entity::LinkAttributeType;
 use MusicBrainz::Server::Data::Utils qw(
@@ -193,25 +194,64 @@ sub in_use
 sub merge_instrument_attributes {
     my ($self, $target_id, @source_ids) = @_;
 
-    # This will generate duplicates if there are two relationships which differ
-    # only by the instruments used.
-    $self->sql->do("
-        WITH id_mapping AS (SELECT link_attribute_type.id AS attribute_id, instrument.id AS entity_id FROM instrument JOIN link_attribute_type ON link_attribute_type.gid = instrument.gid)
+    my ($target, @sources) = @{
+        $self->sql->select_single_column_array(
+            'WITH id_mapping AS (
+                SELECT link_attribute_type.id AS attribute_id, instrument.id AS entity_id
+                  FROM instrument
+                  JOIN link_attribute_type ON link_attribute_type.gid = instrument.gid
+            )
+            SELECT attribute_id FROM id_mapping WHERE entity_id = ? OR entity_id = any(?)
+            ORDER BY entity_id = ? DESC', $target_id, \@source_ids, $target_id
+        );
+    };
+    my $new_links = $self->sql->select_list_of_hashes('
+        SELECT link.id AS id, link_type AS link_type_id,
+               begin_date_year, begin_date_month, begin_date_day,
+               end_date_year, end_date_month, end_date_day, ended,
+               array_agg(CASE
+                   WHEN link_attribute.attribute_type = any(?)
+                   THEN ?
+                   ELSE link_attribute.attribute_type
+                   END) attributes,
+               link_type.entity_type0, link_type.entity_type1
+          FROM link
+          JOIN link_attribute ON link_attribute.link = link.id
+          JOIN link_type ON link.link_type = link_type.id
+          WHERE link.id IN (
+              SELECT link from link_attribute where attribute_type = any(?)
+          )
+      GROUP BY link.id, link_type,
+               begin_date_year, begin_date_month, begin_date_day,
+               end_date_year, end_date_month, end_date_day, ended,
+               entity_type0, entity_type1',
+        \@sources, $target, \@sources);
 
-        UPDATE link_attribute SET attribute_type = (SELECT attribute_id FROM id_mapping WHERE entity_id = ?)
-        WHERE attribute_type IN (SELECT attribute_id FROM id_mapping WHERE entity_id IN (" . placeholders($target_id, @source_ids) . "))
-    ", $target_id, $target_id, @source_ids);
+    my @old_link_ids;
+    for my $new_link (@$new_links) {
+        my $old_link_id = delete $new_link->{id};
+        push(@old_link_ids, $old_link_id);
+        my $entity_type0 = delete $new_link->{entity_type0};
+        my $entity_type1 = delete $new_link->{entity_type1};
+        for my $date_type (qw( begin_date end_date )) {
+            $new_link->{$date_type} = {
+                year => delete $new_link->{$date_type . '_year'},
+                month => delete $new_link->{$date_type . '_month'},
+                day => delete $new_link->{$date_type . '_day'},
+            };
+        }
+        $new_link->{attributes} = [uniq(@{ $new_link->{attributes} })];
+        my $new_link_id = $self->c->model('Link')->find_or_insert($new_link);
+        $self->sql->do("UPDATE l_${entity_type0}_${entity_type1} SET link = ? WHERE link = ?",
+                       $new_link_id, $old_link_id);
+    }
 
-    $self->c->model('Link')->_delete_from_cache(
-        @{ $self->sql->select_single_column_array(
-            'WITH id_mapping AS (SELECT link_attribute_type.id AS attribute_id, instrument.id AS entity_id FROM instrument JOIN link_attribute_type ON link_attribute_type.gid = instrument.gid)
+    # Constraint triggers run at the end of the transaction, so these must be done manually.
+    $self->sql->do('DELETE FROM link_attribute_credit WHERE link = any(?)', \@old_link_ids);
+    $self->sql->do('DELETE FROM link_attribute WHERE link = any(?)', \@old_link_ids);
+    $self->sql->do('DELETE FROM link WHERE id = any(?)', \@old_link_ids);
 
-            SELECT id FROM link
-            JOIN link_attribute la ON link.id = la.link
-            WHERE la.attribute_type IN (SELECT attribute_id FROM id_mapping WHERE entity_id IN ('.placeholders($target_id, @source_ids).'))',
-            $target_id, @source_ids
-        ) }
-    );
+    $self->c->model('Link')->_delete_from_cache(@old_link_ids);
 }
 
 # The entries in the memcached store for 'Link' objects also have all attributes
