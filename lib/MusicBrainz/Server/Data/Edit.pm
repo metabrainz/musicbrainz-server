@@ -9,7 +9,7 @@ use DateTime;
 use DateTime::Format::Pg;
 use Try::Tiny;
 use List::MoreUtils qw( uniq zip );
-use List::AllUtils qw( any pairs );
+use List::AllUtils qw( any );
 use MusicBrainz::Server::Constants qw( $QUALITY_UNKNOWN_MAPPED $EDITOR_MODBOT );
 use MusicBrainz::Server::Data::Editor;
 use MusicBrainz::Server::EditRegistry;
@@ -587,12 +587,12 @@ sub default_includes {
     # Additional models that should automatically be included with a model.
     # NB: A list, not a hash, because order may be important.
     my @includes = (
-        'Place' => 'Area',
-        'Area' => 'AreaContainment',
+        [ 'Place' => 'Area' ],
+        [ 'Area' => 'AreaContainment' ]
     );
 
     my ($objects_to_load, $post_load_models) = @_;
-    foreach (pairs @includes) {
+    foreach (@includes) {
         my ($to, $add) = @$_;
 
         # Add as a post-load model to top-level models
