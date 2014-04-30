@@ -4,6 +4,8 @@
         <div class="reldetails" style="margin-left: 20px; padding: 3px">
         [%- IF c.user.is_relationship_editor -%]
         <strong>[% l('Child order:') %]</strong> [% obj.child_order %]<br />
+        <strong>[% l('entity0 cardinality:') %]</strong> [% obj.entity0_cardinality %]<br />
+        <strong>[% l('entity1 cardinality:') %]</strong> [% obj.entity1_cardinality %]<br />
         [% END %]
         <strong>[% l('Forward link phrase:') %]</strong> [% obj.l_link_phrase || lp("(none)", 'link phrase') | html %]<br />
         <strong>[% l('Reverse link phrase:') %]</strong> [% obj.l_reverse_link_phrase || lp("(none)", 'link phrase') | html %]<br />

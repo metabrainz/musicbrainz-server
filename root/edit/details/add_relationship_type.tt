@@ -14,6 +14,17 @@
     <td><em>[% edit.data.types.0 %]</em> [% edit.data.link_phrase | html %] <em>[% edit.data.types.1 %]</em></td>
   </tr>
 
+  [% IF edit.data.entity0_cardinality.defined || edit.data.entity1_cardinality.defined %]
+  <tr>
+    <th>[% l('entity0 cardinality:') %]</th>
+    <td>[% edit.data.entity0_cardinality %]</td>
+  </tr>
+  <tr>
+    <th>[% l('entity1 cardinality:') %]</th>
+    <td>[% edit.data.entity1_cardinality %]</td>
+  </tr>
+  [% END %]
+
   [% IF edit.display_data.attributes %]
   <tr>
     <th>[% l('Attributes:') %]</th>
