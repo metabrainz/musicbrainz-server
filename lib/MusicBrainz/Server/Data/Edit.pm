@@ -55,8 +55,8 @@ sub _new_from_row
         expires_time => $row->{expire_time},
         auto_edit => $row->{autoedit},
         status => $row->{status},
+        raw_data => $row->{data},
         quality => $row->{quality},
-        c => $self->c,
     });
     $edit->language_id($row->{language}) if $row->{language};
     try {
@@ -536,6 +536,8 @@ sub load_all
         }
     }
 
+    default_includes($objects_to_load, $post_load_models);
+
     my $loaded = {};
     my $load_arguments = {};
     while (my ($model, $ids) = each %$objects_to_load) {
@@ -551,14 +553,28 @@ sub load_all
         }
     }
 
-    while (my ($model, $objs) = each %$load_arguments) {
-        # ArtistMeta, ReleaseMeta, etc are special models that indicate
-        # loading via Artist->load_meta, Release->load_meta, and so on.
-        if ($model =~ /^(.*)Meta$/) {
-            $self->c->model($1)->load_meta(grep defined, @$objs);
-        }
-        else {
-            $self->c->model($model)->load(grep defined, @$objs);
+    while (my ($models, $objs) = each %$load_arguments) {
+        # $models may be a list of space-separated models to be chain-loaded;
+        # i.e. "ModelA ModelB" means to first load via ModelA for the current
+        # set of objects, then via ModelB for the result of the first load.
+        my @objects = @$objs;
+        foreach my $model (split / /, $models) {
+            @objects = grep { defined $_ } @objects;
+            # ArtistMeta, ReleaseMeta, etc are special models that indicate
+            # loading via Artist->load_meta, Release->load_meta, and so on.
+            # AreaContainment is another special model for loading via
+            # Area->load_containment.
+            if ($model =~ /^(.*)Meta$/) {
+                $self->c->model($1)->load_meta(@objects);
+                @objects = (); # returns no objects
+            }
+            elsif ($model eq 'AreaContainment') {
+                $self->c->model('Area')->load_containment(@objects);
+                @objects = (); # returns no objects
+            }
+            else {
+                @objects = $self->c->model($model)->load(@objects);
+            }
         }
     }
 
@@ -567,7 +583,37 @@ sub load_all
     }
 }
 
-# Runs it's own transaction
+sub default_includes {
+    # Additional models that should automatically be included with a model.
+    # NB: A list, not a hash, because order may be important.
+    my @includes = (
+        [ 'Place' => 'Area' ],
+        [ 'Area' => 'AreaContainment' ]
+    );
+
+    my ($objects_to_load, $post_load_models) = @_;
+    foreach (@includes) {
+        my ($to, $add) = @$_;
+
+        # Add as a post-load model to top-level models
+        for my $id (@{ $objects_to_load->{$to} // [] }) {
+            $post_load_models->{$to}->{$id} ||= [];
+            push @{ $post_load_models->{$to}->{$id} }, $add
+              unless (any { $_ =~ /^$add(?: .*|)$/ } @{ $post_load_models->{$to}->{$id} });
+        }
+
+        # Add to existing post-load models
+        for my $id (values %$post_load_models) {
+            for my $models (values %$id) {
+                for my $entry (@$models) {
+                    $entry .= ' ' . $add if $entry =~ /^(?:.* |)$to$/;
+                }
+            }
+        }
+    }
+}
+
+# Runs its own transaction
 sub approve
 {
     my ($self, $edit, $editor_id) = @_;
@@ -710,6 +756,16 @@ sub insert_votes_and_notes {
                 });
         }
     }, $self->c->sql);
+}
+
+sub get_related_entities {
+    my ($self, $edit) = @_;
+    my %result;
+    for my $type (qw( area artist label place release release_group recording work url )) {
+        my $query = "SELECT $type AS id FROM edit_$type WHERE edit = ?";
+        $result{$type} = [ query_to_list($self->c->sql, sub { shift->{id} }, $query, $edit->id) ];
+    }
+    return \%result;
 }
 
 sub add_link {

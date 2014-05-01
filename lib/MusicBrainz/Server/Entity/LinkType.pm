@@ -147,12 +147,12 @@ has 'has_dates' => (
 
 has 'entity0_cardinality' => (
     is => 'rw',
-    isa => 'Int',
+    isa => 'Int'
 );
 
 has 'entity1_cardinality' => (
     is => 'rw',
-    isa => 'Int',
+    isa => 'Int'
 );
 
 __PACKAGE__->meta->make_immutable;

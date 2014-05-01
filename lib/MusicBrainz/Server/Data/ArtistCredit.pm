@@ -204,8 +204,10 @@ sub merge_artists
 {
     my ($self, $new_id, $old_ids, %opts) = @_;
 
+    my @queries;
     if ($opts{rename}) {
-        my $new_artist_credits = $self->sql->select_list_of_lists(
+        # When renaming, first replace ACs with versions using the new name
+        push @queries, [
             'SELECT
                artist_credit,
                array_agg(artist ORDER BY position ASC),
@@ -230,8 +232,26 @@ sub merge_artists
              ) artist_credit_name
              GROUP BY artist_credit',
             $old_ids, $new_id, $old_ids
-        );
+        ]
+    }
 
+    # Now that any renaming is done (if applicable), replace ACs with versions with the new artist ID
+    # MBS-7482 is why this is done with a swap rather than a simple UPDATE
+    push @queries, [
+        'SELECT artist_credit,
+                array_agg(CASE WHEN artist = any(?) THEN ? ELSE artist END ORDER BY position ASC),
+                array_agg(artist_credit_name.name ORDER BY position ASC),
+                array_agg(join_phrase ORDER BY position ASC)
+           FROM artist_credit_name WHERE artist_credit IN (
+                SELECT artist_credit FROM artist_credit_name WHERE artist = any(?)
+           )
+         GROUP BY artist_credit',
+        $old_ids, $new_id, $old_ids
+    ];
+
+    # Now do the actual swapping. Queries are run serially so if applicable some ACs are replaced twice.
+    for my $query (@queries) {
+        my $new_artist_credits = $self->sql->select_list_of_lists(@$query);
         for my $new_artist_credit (@$new_artist_credits) {
             my ($old_credit_id, $artists, $names, $join_phrases) =
                 @$new_artist_credit;
@@ -252,16 +272,6 @@ sub merge_artists
             $self->_swap_artist_credits($old_credit_id, $new_credit_id);
         }
     }
-
-    my @artist_credit_ids = @{
-        $self->sql->select_single_column_array(
-        'UPDATE artist_credit_name SET artist = ?
-          WHERE artist IN ('.placeholders(@$old_ids).')
-      RETURNING artist_credit',
-        $new_id, @$old_ids)
-    };
-
-    $self->_delete_from_cache(@artist_credit_ids) if @artist_credit_ids;
 }
 
 sub replace {

@@ -40,7 +40,7 @@
                content=html_escape(label.format_label_code) class="label-code"
                    IF label.label_code -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Area:')
-               content=link_area_with_containment(label.area)
+               content=descriptive_link(label.area)
                class="area"
                    IF label.area -%]
         [% END %]

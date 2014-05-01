@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-04-25 16:29+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-04-25 17:07+0000\n"
+"Last-Translator: Alain-Olivier  Breysse\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -267,7 +267,7 @@ msgstr "archiluth"
 
 #: DB:link_attribute_type/name:779
 msgid "arghul"
-msgstr ""
+msgstr "arghul"
 
 #: DB:link_attribute_type/name:677
 msgid "atarigane"
@@ -579,7 +579,7 @@ msgstr "charango"
 
 #: DB:link_attribute_type/name:785
 msgid "chau gong"
-msgstr ""
+msgstr "chau gong"
 
 #: DB:link_attribute_type/name:690
 msgid "chikuzen biwa"
@@ -587,7 +587,7 @@ msgstr "chikuzen biwa"
 
 #: DB:link_attribute_type/name:783
 msgid "chime bar"
-msgstr ""
+msgstr "lame sur résonateur"
 
 #: DB:link_attribute_type/name:415
 msgid "chimes"
@@ -775,7 +775,7 @@ msgstr "mélodéon"
 
 #: DB:link_attribute_type/name:780
 msgid "diddley bow"
-msgstr ""
+msgstr "diddley bow"
 
 #: DB:link_attribute_type/name:204
 msgid "didgeridoo"
@@ -1067,7 +1067,7 @@ msgstr "gong"
 
 #: DB:link_attribute_type/name:784
 msgid "gong bass drum"
-msgstr ""
+msgstr "tambour gong"
 
 #: DB:link_attribute_type/name:339
 msgid "gongs"
@@ -1371,7 +1371,7 @@ msgstr "kōauau"
 
 #: DB:link_attribute_type/name:777
 msgid "lamellophone"
-msgstr ""
+msgstr "lamellophone"
 
 #: DB:link_attribute_type/name:319
 msgid "langeleik"
@@ -1443,7 +1443,7 @@ msgstr "marimbaphone"
 
 #: DB:link_attribute_type/name:782
 msgid "mark tree"
-msgstr ""
+msgstr "rivière"
 
 #: DB:link_attribute_type/name:534
 msgid "marxophone"
@@ -1451,7 +1451,7 @@ msgstr "marxophone"
 
 #: DB:link_attribute_type/name:778
 msgid "marímbula"
-msgstr ""
+msgstr "marimbula"
 
 #: DB:link_attribute_type/name:110
 msgid "mbira"
@@ -1775,7 +1775,7 @@ msgstr "bâtons de rythmes"
 
 #: DB:link_attribute_type/name:406
 msgid "riq"
-msgstr ""
+msgstr "riqq"
 
 #: DB:link_attribute_type/name:680
 msgid "rondador"
@@ -2071,7 +2071,7 @@ msgstr "table steel guitar"
 
 #: DB:link_attribute_type/name:781
 msgid "tack piano"
-msgstr ""
+msgstr "piano honky tonk"
 
 #: DB:link_attribute_type/name:458
 msgid "taiko"

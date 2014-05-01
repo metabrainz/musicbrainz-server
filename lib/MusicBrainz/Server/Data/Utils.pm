@@ -4,7 +4,8 @@ use strict;
 use warnings;
 
 use base 'Exporter';
-use Carp 'confess';
+use Carp qw( confess croak );
+use Try::Tiny;
 use Class::MOP;
 use Data::Compare;
 use Data::UUID::MT;
@@ -36,6 +37,7 @@ our @EXPORT_OK = qw(
     hash_to_row
     is_special_artist
     is_special_label
+    load_everything_for_edits
     load_meta
     load_subobjects
     map_query
@@ -214,6 +216,22 @@ sub coordinates_to_hash
 sub placeholders
 {
     return join ",", ("?") x scalar(@_);
+}
+
+sub load_everything_for_edits
+{
+    my ($c, $edits) = @_;
+
+    try {
+        $c->model('Edit')->load_all(@$edits);
+        $c->model('Vote')->load_for_edits(@$edits);
+        $c->model('EditNote')->load_for_edits(@$edits);
+        $c->model('Editor')->load(map { ($_, @{ $_->votes }, @{ $_->edit_notes }) } @$edits);
+    } catch {
+        use Data::Dumper;
+        croak "Failed loading edits (" . (join ', ', map { $_->id } @$edits) . ")\n" .
+              "Exception:\n" . Dumper($_) . "\n";
+    };
 }
 
 sub query_to_list

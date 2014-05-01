@@ -1,4 +1,5 @@
 package MusicBrainz::Server::Form::Role::CheckDuplicates;
+
 use HTML::FormHandler::Moose::Role;
 use MusicBrainz::Server::Translation 'l';
 use namespace::autoclean;
@@ -35,10 +36,17 @@ after 'validate' => sub
         $self->dupe_model->find_by_name($self->field('name')->value)
     ]);
 
+    my $comment_is_required = $self->filter_duplicates();
+    $self->ctx->stash(comment_is_required => $comment_is_required);
+
     $self->field('not_dupe')->required($self->has_duplicates ? 1 : 0);
     $self->field('not_dupe')->validate_field;
-    $self->field('comment')->required($self->has_duplicates ? 1 : 0);
+    $self->field('comment')->required($self->has_duplicates && $comment_is_required ? 1 : 0);
     $self->field('comment')->validate_field;
 };
+
+sub filter_duplicates {
+    return 1;
+}
 
 1;
