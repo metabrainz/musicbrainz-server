@@ -238,25 +238,27 @@
   [%- artist_credit_table() -%]
 
   <div class="bubble" data-bind="bubble: $root.releaseGroupBubble">
-    <!-- ko with: releaseGroup -->
+    <!-- ko with: target() && target().releaseGroup -->
       <p data-bind="html: MB.i18n.expand(MB.text.SelectedReleaseGroup, { releasegroup: html({ target: '_blank' }) })"></p>
     <!-- /ko -->
   </div>
 
   <div class="bubble" data-bind="bubble: $root.dateBubble">
-    <p data-bind="visible: hasAmazonDate()">
+    <p data-bind="visible: target() && target().hasAmazonDate()">
       [% l('Warning! "1990-10-25" is the bogus date that Amazon gives to all releases for which they don\'t know the actual date. <b>Please use this date only if you\'re certain this date is correct!</b>') %]
     </p>
-    <p data-bind="visible: hasJanuaryFirstDate()">
+    <p data-bind="visible: target() && target().hasJanuaryFirstDate()">
       [% l('Note! If you do not know the month or day of release, please leave them empty.  January 1st is not often the actual release date, please double check that you have entered the release date correctly.') %]
     </p>
   </div>
 
   <div class="bubble" data-bind="bubble: $root.labelBubble">
-    <!-- ko if: label().gid -->
-      <p data-bind="html: MB.i18n.expand(MB.text.SelectedLabel, { label: label().html({ target: '_blank' }) })"></p>
+    <!-- ko with: target() && target().label() -->
+      <!-- ko if: gid -->
+        <p data-bind="html: MB.i18n.expand(MB.text.SelectedLabel, { label: html({ target: '_blank' }) })"></p>
+      <!-- /ko -->
     <!-- /ko -->
-    <!-- ko if: $bubble.catNoLooksLikeASIN(catalogNumber()) -->
+    <!-- ko if: target() && catNoLooksLikeASIN(target().catalogNumber()) -->
       <p>
         [% l('The catalog number you have entered looks like an Amazon ASIN.') %]
       </p>
@@ -278,15 +280,17 @@
       [% l('Please enter the barcode of the release you are entering, see <a href="{url}" target="_blank">Barcode</a> for more information.',
            { url => doc_link('Barcode') }) %]
     </p>
-    <p data-bind="visible: barcode.message, text: barcode.message"></p>
-    <p class="field-error" data-bind="visible: barcode.error() || barcode.confirmed()">
+    <!-- ko with: target() && target().barcode -->
+    <p data-bind="visible: message, text: message"></p>
+    <p class="field-error" data-bind="visible: error() || confirmed()">
       <label>
         <strong>
-          <input type="checkbox" data-bind="checked: barcode.confirmed" />
+          <input type="checkbox" data-bind="checked: confirmed" />
           [% l("I confirm that this is the barcode as it appears on the release.") -%]
         </strong>
       </label>
     </p>
+    <!-- /ko -->
     <p>
       [% l('If you do not know whether the release has a barcode or not, just leave this blank.') %]
     </p>
