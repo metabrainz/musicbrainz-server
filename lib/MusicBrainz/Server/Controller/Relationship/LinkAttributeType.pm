@@ -7,6 +7,7 @@ use MusicBrainz::Server::Constants qw(
 );
 
 use MusicBrainz::Server::Validation qw( is_guid );
+use MusicBrainz::Server::Constants qw( $INSTRUMENT_ROOT_ID );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model => 'LinkAttributeType',
@@ -19,7 +20,7 @@ sub _load_tree
 {
     my ($self, $c) = @_;
 
-    my $tree = $c->model('LinkAttributeType')->get_sub_tree();
+    my $tree = $c->model('LinkAttributeType')->get_tree("WHERE root != $INSTRUMENT_ROOT_ID");
     $c->stash( root => $tree );
 }
 
