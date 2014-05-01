@@ -594,7 +594,7 @@ sub _instrument {
         gid     => $instrument->gid,
         typeID  => $instrument->type_id,
         comment => $instrument->comment,
-        description => $instrument->description,
+        description => $instrument->l_description,
         $instrument->type ? (typeName => $instrument->type->name) : (),
     };
 }

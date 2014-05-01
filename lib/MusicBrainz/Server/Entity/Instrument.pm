@@ -2,7 +2,8 @@ package MusicBrainz::Server::Entity::Instrument;
 
 use Moose;
 use MusicBrainz::Server::Entity::Types;
-use MusicBrainz::Server::Translation::Instruments qw( l );
+use MusicBrainz::Server::Translation::Instruments;
+use MusicBrainz::Server::Translation::InstrumentDescriptions;
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Linkable';
@@ -14,7 +15,7 @@ use MooseX::Types::Moose qw( ArrayRef Object Str );
 
 sub l_name {
     my $self = shift;
-    return l($self->name);
+    return MusicBrainz::Server::Translation::Instruments::l($self->name);
 }
 
 has 'type_id' => (
@@ -46,6 +47,11 @@ has 'description' => (
     is => 'rw',
     isa => 'Str'
 );
+
+sub l_description {
+    my $self = shift;
+    return $self->description ? MusicBrainz::Server::Translation::InstrumentDescriptions::l($self->description) : undef;
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

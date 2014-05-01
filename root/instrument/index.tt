@@ -7,7 +7,7 @@
 [%- WRAPPER "instrument/layout.tt" page='index' -%]
     [%- IF instrument.description -%]
     <h2>[% l("Description") %]</h2>
-    <p>[%- instrument.description -%]</p>
+    <p>[%- instrument.l_description -%]</p>
     [%- END -%]
 
     [%- INCLUDE 'instrument/annotation.tt' summary=1 -%]

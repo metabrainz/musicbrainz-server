@@ -18,7 +18,7 @@
                                 [% link_entity(result.entity) %]
                             </td>
                             <td>[% result.entity.l_type_name %]</td>
-                            <td>[% result.entity.description %]</td>
+                            <td>[% result.entity.l_description %]</td>
                         </tr>
                         [%- END -%]
                     </tbody>
