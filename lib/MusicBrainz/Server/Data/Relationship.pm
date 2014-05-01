@@ -24,6 +24,8 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use Scalar::Util 'weaken';
 
+no if $] >= 5.018, warnings => "experimental::smartmatch";
+
 extends 'MusicBrainz::Server::Data::Entity';
 
 Readonly my @TYPES => qw(
@@ -467,15 +469,17 @@ Returns true if the editor is allowed to edit a $type0-$type1 rel
 sub editor_can_edit
 {
     my ($self, $editor, $type0, $type1) = @_;
-    my @types = sort ($type0, $type1);
-    my $is_area_url = $types[0] eq 'area' && $types[1] eq 'url';
-    my $is_area_area = $types[0] eq 'area' && $types[1] eq 'area';
-    my $is_instrument_url = $types[0] eq 'instrument' && $types[1] eq 'url';
-    my $is_instrument_instrument = $types[0] eq 'instrument' && $types[1] eq 'instrument';
-    my $is_area_instrument = $types[0] eq 'area' && $types[1] eq 'instrument';
-    return $editor &&
-        ((!$is_area_url && !$is_area_area) || $editor->is_location_editor)
-        && ((!$is_instrument_url && !$is_instrument_instrument && !$is_area_instrument) || $editor->is_relationship_editor);
+
+    return 0 unless $editor;
+
+    my $type = join "_", sort ($type0, $type1);
+    if ($type ~~ qw(area_area area_url)) {
+        return $editor->is_location_editor;
+    } elsif ($type ~~ qw(area_instrument instrument_instrument instrument_url)) {
+        return $editor->is_relationship_editor;
+    } else {
+        return 1;
+    }
 }
 
 __PACKAGE__->meta->make_immutable;
