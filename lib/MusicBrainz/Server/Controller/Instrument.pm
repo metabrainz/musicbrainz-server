@@ -30,22 +30,17 @@ sub base : Chained('/') PathPart('instrument') CaptureArgs(0) { }
 sub show : PathPart('') Chained('load') {
     my ($self, $c) = @_;
 
-    my $instrument = $c->stash->{instrument};
-    $c->model('InstrumentType')->load($instrument);
-
     # need to call relationships for overview page
     $self->relationships($c);
 
     $c->stash->{template} = 'instrument/index.tt';
 }
 
-for my $action (qw( relationships aliases details )) {
-    after $action => sub {
-        my ($self, $c) = @_;
-        my $instrument = $c->stash->{instrument};
-        $c->model('InstrumentType')->load($instrument);
-    };
-}
+after 'load' => sub {
+    my ($self, $c) = @_;
+    my $instrument = $c->stash->{instrument};
+    $c->model('InstrumentType')->load($instrument);
+};
 
 sub recordings : Chained('load') {
     my ($self, $c) = @_;
@@ -103,12 +98,6 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_INSTRUMENT_MERGE,
-};
-
-before 'edit' => sub {
-    my ($self, $c) = @_;
-    my $instrument = $c->stash->{instrument};
-    $c->model('InstrumentType')->load($instrument);
 };
 
 sub _merge_load_entities {
