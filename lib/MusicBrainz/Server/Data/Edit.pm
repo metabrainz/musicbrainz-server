@@ -9,7 +9,7 @@ use DateTime;
 use DateTime::Format::Pg;
 use Try::Tiny;
 use List::MoreUtils qw( uniq zip );
-use List::AllUtils qw( any pairs );
+use List::AllUtils qw( any );
 use MusicBrainz::Server::Constants qw( $QUALITY_UNKNOWN_MAPPED $EDITOR_MODBOT );
 use MusicBrainz::Server::Data::Editor;
 use MusicBrainz::Server::EditRegistry;
@@ -592,9 +592,7 @@ sub default_includes {
     );
 
     my ($objects_to_load, $post_load_models) = @_;
-    foreach (pairs @includes) {
-        my ($to, $add) = @$_;
-
+    while (my ($to, $add) = splice @includes, 0, 2) {
         # Add as a post-load model to top-level models
         for my $id (@{ $objects_to_load->{$to} // [] }) {
             $post_load_models->{$to}->{$id} ||= [];
