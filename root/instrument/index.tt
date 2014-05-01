@@ -1,6 +1,8 @@
 [% BLOCK layout_head %]
-    [% meta_desc = [] %]
-    [% meta_desc.push(html_escape(instrument.comment)) IF instrument.comment %]
+    [%~ meta_desc = [] ~%]
+    [%~ meta_desc.push(html_escape(instrument.comment)) IF instrument.comment ~%]
+    [%~ meta_desc.push(l('Type:') _ ' ' _ html_escape(instrument.type_name)) IF instrument.type ~%]
+    [%~ meta_desc.push(l('Description:') _ ' ' _ html_escape(instrument.description)) IF instrument.description ~%]
     <meta name="description" content="[% comma_only_list(meta_desc) %]"/>
 [% END %]
 
