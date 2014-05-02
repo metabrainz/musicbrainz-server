@@ -62,20 +62,9 @@ sub merge_entities
 {
     my ($self, $new_id, @old_ids) = @_;
 
-    my @all_ids = ($new_id, @old_ids);
-
     $self->sql->do(
         "DELETE FROM release_group_secondary_type_join " .
-        "WHERE release_group = any(?) " .
-        "AND (release_group, secondary_type) NOT IN (" .
-        "    SELECT DISTINCT ON (secondary_type) release_group, secondary_type " .
-        "    FROM release_group_secondary_type_join " .
-        "    WHERE release_group = any(?))", \@all_ids, \@all_ids);
-
-    $self->sql->do(
-        "UPDATE release_group_secondary_type_join " .
-        "SET release_group = ? WHERE release_group = any(?) ",
-        $new_id, \@old_ids);
+        "WHERE release_group = any(?)", \@old_ids );
 }
 
 sub delete_entities {
