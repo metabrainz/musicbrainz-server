@@ -17,15 +17,15 @@ with 't::Context';
 
 test 'Load basic data' => sub {
     my $test = shift;
-    
+
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+data_instrument');
-    
+
     my $instrument_data = $test->c->model('Instrument');
     does_ok($instrument_data, 'MusicBrainz::Server::Data::Role::Editable');
-    
+
     # ----
     # Test fetching instruments:
-    
+
     # An instrument with all attributes populated
     my $instrument = $instrument_data->get_by_id(3);
     is ( $instrument->id, 3, 'loaded full instrument correctly from DB');
@@ -35,7 +35,7 @@ test 'Load basic data' => sub {
     is ( $instrument->edits_pending, 0, 'loaded full instrument correctly from DB' );
     is ( $instrument->comment, 'Yet Another Test Instrument', 'loaded full instrument correctly from DB' );
     is ( $instrument->description, 'This is a description!', 'loaded full instrument correctly from DB' );
-    
+
     # An instrument with the minimal set of required attributes
     $instrument = $instrument_data->get_by_id(4);
     is ( $instrument->id, 4, 'loaded minimal instrument correctly from DB' );
@@ -49,9 +49,9 @@ test 'Load basic data' => sub {
 
 test 'Create, update, delete instruments' => sub {
     my $test = shift;
-    
+
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+data_instrument');
-    
+
     my $instrument_data = $test->c->model('Instrument');
 
     my $instrument = $instrument_data->insert({
@@ -61,7 +61,7 @@ test 'Create, update, delete instruments' => sub {
         });
     isa_ok($instrument, 'MusicBrainz::Server::Entity::Instrument');
     ok($instrument->id > 4);
-    
+
     $instrument = $instrument_data->get_by_id($instrument->id);
     is($instrument->name, 'New Instrument', 'newly-created instrument is correct');
     is($instrument->type_id, 1, 'newly-created instrument is correct');
@@ -70,7 +70,7 @@ test 'Create, update, delete instruments' => sub {
     ok(defined $instrument->gid, 'newly-created instrument has an MBID');
     ok($test->c->sql->select_single_value('SELECT true from link_attribute_type where gid = ?', $instrument->gid),
        'link_attribute_type row was inserted too');
-    
+
     # ---
     # Updating instruments
     $instrument_data->update($instrument->id, {
@@ -79,8 +79,8 @@ test 'Create, update, delete instruments' => sub {
             comment => 'Updated comment',
             description => 'Newly-created description'
         });
-    
-    
+
+
     $instrument = $instrument_data->get_by_id($instrument->id);
     is($instrument->name, 'Updated Instrument', 'updated instrument data is correct');
     is($instrument->type_id, undef, 'updated instrument data is correct');
@@ -97,3 +97,23 @@ test 'Create, update, delete instruments' => sub {
     ok(!defined $test->c->sql->select_single_value('SELECT true from link_attribute_type where gid = ?', $gid),
        'link_attribute_type row was deleted too');
 };
+
+test 'Merge instruments' => sub {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+data_instrument');
+
+    my $instrument_data = $test->c->model('Instrument');
+    $instrument_data->merge(3 => (4) );
+
+    my $instrument = $instrument_data->get_by_id(4);
+    ok(!defined $instrument);
+    is($test->c->sql->select_single_value('SELECT id from link_attribute_type where gid = ?', "945c079d-374e-4436-9448-da92dedef3cf"),
+       undef, "No link_attribute_type exists for merged-away instrument");
+
+    $instrument = $instrument_data->get_by_id(3);
+    ok(defined $instrument);
+    is($instrument->name, 'Test Instrument');
+    ok($test->c->sql->select_single_value('SELECT id from link_attribute_type where gid = ?', $instrument->gid),
+       "Still have a link_attribute_type row for merged-into instrument");
+}
