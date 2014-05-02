@@ -268,7 +268,25 @@
                                  valueAllowUnset: true,
                                  value: $data.value"></select>
             <!-- /ko -->
-            <!-- ko if: type == 'multiselect' -->
+            <!-- ko if: data.id == 14 -->
+              <div data-bind="instrumentSelect: value">
+                <!-- ko foreach: instruments -->
+                  <div>
+                    <span class="autocomplete" style="width: auto;">
+                      <input data-bind="autocomplete: { entity: 'instrument', currentSelection: $rawData }" />
+                      <img class="search" src="/static/images/icons/search.png" />
+                    </span>
+                    <!-- ko if: $parent.instruments().length > 1 -->
+                      <button class="icon remove-item" data-bind="click: _.partial($parent.removeItem, $rawData)"></button>
+                    <!-- /ko -->
+                  </div>
+                <!-- /ko -->
+                <button class="styled-button" style="padding: 3px;" data-bind="click: addItem">
+                  [% l('Add another instrument') | html %]
+                </button>
+              </div>
+            <!-- /ko -->
+            <!-- ko if: type == 'multiselect' && data.id != 14 -->
               <!-- ko text: data.l_name --><!-- /ko --><br />
               <select multiple style="display: none;"
                data-bind="options: $parent.attributeOptions($data),

@@ -1,0 +1,35 @@
+<table class="details">
+    <tr>
+        <th>[% l('Instrument:') %]</th>
+        <td>[% link_entity(edit.display_data.instrument) %]</td>
+    </tr>
+</table>
+
+<table class="details add-instrument">
+  <tr>
+    <th>[% l('Name:') %]</th>
+    <td>[% edit.display_data.name | html %]</td>
+  </tr>
+
+  [% IF edit.display_data.comment %]
+  <tr>
+    <th>[% l('Disambiguation:') %]</th>
+    <td>[% edit.display_data.comment | html %]</td>
+  </tr>
+  [% END %]
+
+ [% IF edit.display_data.type %]
+  <tr>
+    <th>[% l('Type:') %]</th>
+    <td>[% edit.display_data.type.name | html%]</td>
+  </tr>
+  [% END %]
+
+  [% IF edit.display_data.description %]
+  <tr>
+    <th>[% l('Description:') %]</th>
+    <td>[% edit.display_data.description | html %]</td>
+  </tr>
+  [% END %]
+
+</table>

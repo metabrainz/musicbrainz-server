@@ -37,6 +37,50 @@ ko.bindingHandlers.attributeMultiselect = {
 };
 
 
+ko.bindingHandlers.instrumentSelect = {
+
+    init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+        var value = valueAccessor();
+
+        var initialData = _.map(value(), function (id) {
+            return ko.observable(MB.entity(Util.attrInfo(id), "instrument"));
+        });
+
+        var instruments = ko.observableArray(initialData);
+
+        var vm = {
+            instruments: instruments,
+
+            addItem: function () {
+                instruments.push(ko.observable(MB.entity.Instrument({})));
+            },
+
+            removeItem: function (item) { instruments.remove(item) }
+        };
+
+        if (!initialData.length) vm.addItem();
+
+        function getID(observable) {
+            var gid = observable().gid
+
+            return gid && Util.attrInfo(gid).id;
+        }
+
+        ko.computed({
+            read: function () {
+                value(_(instruments()).map(getID).compact().sort().value());
+            },
+            disposeWhenNodeIsRemoved: element
+        });
+
+        var childBindingContext = bindingContext.createChildContext(vm);
+        ko.applyBindingsToDescendants(childBindingContext, element);
+
+        return { controlsDescendantBindings: true };
+    }
+};
+
+
 ko.bindingHandlers.targetType = (function() {
 
     var dialog;

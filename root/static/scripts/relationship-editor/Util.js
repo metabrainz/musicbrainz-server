@@ -26,7 +26,7 @@ Util.init = function(typeInfo, attrInfo) {
 
     var findItem = function(roots, id, i, c) {
         if (roots && (i = roots.length)) while (c = roots[--i])
-            if ((c.id == id) || (c = findItem(c.children, id)))
+            if ((c.id == id || c.gid == id) || (c = findItem(c.children, id)))
                 return c;
     };
 

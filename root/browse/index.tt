@@ -10,6 +10,7 @@
             <li><a href="[% c.uri_for('/browse/work') %]">[% l('Browse works') %]</a></li>
             <li><a href="[% c.uri_for('/browse/area') %]">[% l('Browse areas') %]</a></li>
             <li><a href="[% c.uri_for('/browse/place') %]">[% l('Browse places') %]</a></li>
+            <li><a href="[% c.uri_for('/browse/instrument') %]">[% l('Browse instruments') %]</a></li>
         </ul>
     </div>
 [% END %]

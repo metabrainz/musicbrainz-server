@@ -6,7 +6,7 @@ with 'MusicBrainz::Server::Data::Role::Context';
 
 sub get_tree
 {
-    my ($self) = @_;
+    my ($self, $where_query) = @_;
 
     my $mapping = $self->_column_mapping;
     my @attrs = keys %$mapping;
@@ -19,8 +19,9 @@ sub get_tree
         )
     } @{
         $self->sql->select_list_of_hashes(
-            'SELECT ' . $self->_columns . ' FROM ' . $self->_table . '
-             ORDER BY child_order, id'
+            'SELECT ' . $self->_columns . ' FROM ' . $self->_table . ' ' .
+            ($where_query // '') .
+            ' ORDER BY child_order, id'
         )
     };
 

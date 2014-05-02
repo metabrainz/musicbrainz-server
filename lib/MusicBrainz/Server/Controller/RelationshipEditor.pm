@@ -139,6 +139,7 @@ sub build_attr_info {
     sub _build_attr {
         my $attr = {
             id   => $_->id,
+            gid  => $_->gid,
             name => $_->name,
             l_name => $_->l_name,
             $_->description  ? ( descr    => $_->l_description ) : (),

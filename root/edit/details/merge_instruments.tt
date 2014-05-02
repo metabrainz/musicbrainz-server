@@ -1,0 +1,52 @@
+<table class="details merge-instruments">
+  <tr>
+    <th>[% l('Merge:') %]</th>
+    <td>
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>[% l('Instrument') %]</th>
+            <th>[% l('Type') %]</th>
+            <th>[% l('Description') %]</th>
+          </tr>
+        </thead>
+        <tbody>
+          [% FOR entity=edit.display_data.old %]
+            <tr [% ' class="ev"' IF loop.count % 2 == 0 %]>
+              <td>
+                [% descriptive_link(entity) %]
+              </td>
+              <td>[% entity.l_type_name  %]</td>
+              <td>[% l(entity.description)  %]</td>
+            </tr>
+          [% END %]
+        </tbody>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <th>[% l('Into:') %]</th>
+    <td>
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>[% l('Instrument') %]</th>
+            <th>[% l('Type') %]</th>
+            <th>[% l('Description') %]</th>
+          </tr>
+        </thead>
+        <tbody>
+          [% FOR entity=[edit.display_data.new] %]
+            <tr [% ' class="ev"' IF loop.count % 2 == 0 %]>
+              <td>
+                [% descriptive_link(entity) %]
+              </td>
+              <td>[% entity.l_type_name  %]</td>
+              <td>[% l(entity.description)  %]</td>
+            </tr>
+          [% END %]
+        </tbody>
+      </table>
+    </td>
+  </tr>
+</table>

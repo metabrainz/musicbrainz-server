@@ -50,11 +50,13 @@ my @DBDEFS = (
               {'domain' => 'attributes', 'table' => 'place_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL'},
               {'domain' => 'attributes', 'table' => 'work_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL'},
               {'domain' => 'attributes', 'table' => 'area_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL'},
+              {'domain' => 'attributes', 'table' => 'instrument_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL'},
               {'domain' => 'attributes', 'table' => 'artist_alias_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL', 'ctxtable' => 'alias_type'},
               {'domain' => 'attributes', 'table' => 'label_alias_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL', 'ctxtable' => 'alias_type'},
               {'domain' => 'attributes', 'table' => 'place_alias_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL', 'ctxtable' => 'alias_type'},
               {'domain' => 'attributes', 'table' => 'work_alias_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL', 'ctxtable' => 'alias_type'},
               {'domain' => 'attributes', 'table' => 'area_alias_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL', 'ctxtable' => 'alias_type'},
+              {'domain' => 'attributes', 'table' => 'instrument_alias_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL', 'ctxtable' => 'alias_type'},
               {'domain' => 'attributes', 'table' => 'release_group_primary_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL'},
               {'domain' => 'attributes', 'table' => 'release_group_secondary_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL'},
               {'domain' => 'attributes', 'table' => 'medium_format', 'columns' => ['name', 'description'], 'ctx' => 'NULL'},
@@ -66,8 +68,8 @@ my @DBDEFS = (
               {'domain' => 'attributes', 'table' => 'work_attribute_type_allowed_value', columns => ['value', 'description'], ctx => 'NULL'},
               {'domain' => 'relationships', 'table' => 'link_attribute_type', 'columns' => ['description', 'name'], 'where' => 'root != 14'},
               {'domain' => 'relationships', 'table' => 'link_type', 'columns' => ['description', 'link_phrase', 'reverse_link_phrase', 'long_link_phrase']},
-              {'domain' => 'instruments', 'table' => 'link_attribute_type', 'columns' => ['name'], 'where' => 'root = 14'},
-              {'domain' => 'instrument_descriptions', 'table' => 'link_attribute_type', 'columns' => ['description'], 'where' => 'root = 14'}
+              {'domain' => 'instruments', 'table' => 'instrument', 'columns' => ['name']},
+              {'domain' => 'instrument_descriptions', 'table' => 'instrument', 'columns' => ['description']}
              );
 my @po_objects = map { parse_db($_); } grep { $_->{domain} eq $domain } @DBDEFS;
 

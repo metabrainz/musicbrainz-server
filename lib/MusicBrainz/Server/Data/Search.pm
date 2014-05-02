@@ -18,6 +18,8 @@ use MusicBrainz::Server::Entity::Barcode;
 use MusicBrainz::Server::Entity::Gender;
 use MusicBrainz::Server::Entity::ISRC;
 use MusicBrainz::Server::Entity::ISWC;
+use MusicBrainz::Server::Entity::Instrument;
+use MusicBrainz::Server::Entity::InstrumentType;
 use MusicBrainz::Server::Entity::Label;
 use MusicBrainz::Server::Entity::LabelType;
 use MusicBrainz::Server::Entity::Language;
@@ -39,6 +41,7 @@ use MusicBrainz::Server::Entity::WorkType;
 use MusicBrainz::Server::Exceptions;
 use MusicBrainz::Server::Data::Artist;
 use MusicBrainz::Server::Data::Area;
+use MusicBrainz::Server::Data::Instrument;
 use MusicBrainz::Server::Data::Label;
 use MusicBrainz::Server::Data::Recording;
 use MusicBrainz::Server::Data::Release;
@@ -59,6 +62,7 @@ extends 'MusicBrainz::Server::Data::Entity';
 Readonly my %TYPE_TO_DATA_CLASS => (
     artist        => 'MusicBrainz::Server::Data::Artist',
     area          => 'MusicBrainz::Server::Data::Area',
+    instrument    => 'MusicBrainz::Server::Data::Instrument',
     label         => 'MusicBrainz::Server::Data::Label',
     place         => 'MusicBrainz::Server::Data::Place',
     recording     => 'MusicBrainz::Server::Data::Recording',
@@ -197,7 +201,7 @@ sub search
         $hard_search_limit = int($offset * 1.2);
     }
 
-    elsif ($type eq "label" || $type eq "work" || $type eq "place" || $type eq "area") {
+    elsif ($type eq "label" || $type eq "work" || $type eq "place" || $type eq "area" || $type eq "instrument") {
         my $where_deleted = "WHERE entity.id != ?";
         if ($type eq "label") {
             $deleted_entity = $DLABEL_ID;
@@ -209,6 +213,7 @@ sub search
         $extra_columns .= 'entity.language,' if $type eq 'work';
         $extra_columns .= 'entity.address, entity.area, entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
                 entity.end_date_year, entity.end_date_month, entity.end_date_day, entity.ended,' if $type eq 'place';
+        $extra_columns .= 'entity.description,' if $type eq 'instrument';
         $extra_columns .= 'iso_3166_1s.codes AS iso_3166_1, iso_3166_2s.codes AS iso_3166_2, iso_3166_3s.codes AS iso_3166_3,' if $type eq 'area';
         $extra_columns .= 'entity.label_code, entity.area,' if $type eq 'label';
 
@@ -369,6 +374,9 @@ sub schema_fixup
     if ($type eq 'area' && exists $data->{type})
     {
         $data->{type} = MusicBrainz::Server::Entity::AreaType->new( name => $data->{type} );
+    }
+    if ($type eq 'instrument' && exists $data->{type}) {
+        $data->{type} = MusicBrainz::Server::Entity::InstrumentType->new( name => $data->{type} );
     }
     if ($type eq 'place' && exists $data->{type})
     {
