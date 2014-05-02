@@ -5,47 +5,37 @@ use utf8;
 
 has 'latitude' => (
     is => 'rw',
-    isa => 'Maybe[Num]'
+    isa => 'Num'
 );
 
 has 'longitude' => (
     is => 'rw',
-    isa => 'Maybe[Num]'
+    isa => 'Num'
 );
 
 sub new_from_row {
     my ($class, $row, $prefix) = @_;
     $prefix //= '';
-    my %info;
-    $info{latitude} = $row->{$prefix . '_x'} if defined $row->{$prefix . '_x'};
-    $info{longitude} = $row->{$prefix . '_y'} if defined $row->{$prefix . '_y'};
-    return $class->new(%info);
+
+    return undef unless defined $row->{$prefix . '_x'} && defined $row->{$prefix . '_y'};
+    return $class->new( latitude => $row->{$prefix . '_x'},
+                        longitude => $row->{$prefix . '_y'} );
 }
 
 sub format
 {
     my ($self) = @_;
 
-    if (defined $self->latitude && defined $self->longitude) {
-        my @res = (abs($self->latitude) . '°' . ($self->latitude > 0 ? 'N' : 'S'),
-                   abs($self->longitude) . '°' . ($self->longitude > 0 ? 'E' : 'W'));
+    my @res = (abs($self->latitude) . '°' . ($self->latitude > 0 ? 'N' : 'S'),
+               abs($self->longitude) . '°' . ($self->longitude > 0 ? 'E' : 'W'));
 
-        return join(', ', @res);
-    }
-    else {
-    return '';
-    }
+    return join(', ', @res);
 }
 
 sub osm_url
 {
     my ($self, $zoom) = @_;
-    if (defined $self->latitude && defined $self->longitude) {
-        return 'http://www.openstreetmap.org/?mlat=' . $self->latitude . '&mlon=' . $self->longitude . '#map=' . join('/', $zoom, $self->latitude, $self->longitude);
-    }
-    else {
-        return '';
-    }
+    return 'http://www.openstreetmap.org/?mlat=' . $self->latitude . '&mlon=' . $self->longitude . '#map=' . join('/', $zoom, $self->latitude, $self->longitude);
 }
 
 __PACKAGE__->meta->make_immutable;

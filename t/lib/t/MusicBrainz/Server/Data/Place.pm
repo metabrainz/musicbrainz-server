@@ -44,8 +44,7 @@ test 'Place merges' => sub {
     is ( $place->gid, "945c079d-374e-4436-9448-da92dedef3cf", "data for place 2 appears correct" );
     is ( $place->name, "Minimal Place", "data for place 2 appears correct" );
     is ( $place->address, "", "data for place 2 appears correct" );
-    is ( $place->coordinates->latitude, undef, "data for place 2 appears correct" );
-    is ( $place->coordinates->longitude, undef, "data for place 2 appears correct" );
+    is ( $place->coordinates, undef, "data for place 2 appears correct" );
     is ( $place->begin_date->year, undef, "data for place 2 appears correct" );
     is ( $place->begin_date->month, undef, "data for place 2 appears correct" );
     is ( $place->begin_date->day, undef, "data for place 2 appears correct" );
@@ -118,8 +117,7 @@ is ( $place->id, 2 );
 is ( $place->gid, "945c079d-374e-4436-9448-da92dedef3cf" );
 is ( $place->name, "Minimal Place" );
 is ( $place->address, "" );
-is ( $place->coordinates->latitude, undef );
-is ( $place->coordinates->longitude, undef );
+is ( $place->coordinates, undef );
 is ( $place->begin_date->year, undef );
 is ( $place->begin_date->month, undef );
 is ( $place->begin_date->day, undef );
@@ -217,12 +215,11 @@ $place = $place_data->get_by_id($place->id);
 is($place->type_id, 2);
 
 $place_data->update($place->id, {
-        coordinates => { latitude => undef, longitude => undef }
+        coordinates => undef
     });
 
 $place = $place_data->get_by_id($place->id);
-is ( $place->coordinates->latitude, undef );
-is ( $place->coordinates->longitude, undef );
+is($place->coordinates, undef);
 
 $place_data->delete($place->id);
 $place = $place_data->get_by_id($place->id);
