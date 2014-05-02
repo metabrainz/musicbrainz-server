@@ -112,7 +112,10 @@ sub foreign_keys
     $load{LinkAttributeType} = [
         @{ $self->data->{link}->{attributes} },
         @{ $self->data->{new}->{attributes} || [] },
-        @{ $self->data->{old}->{attributes} || [] }
+        @{ $self->data->{old}->{attributes} || [] },
+        keys %{ $self->data->{link}->{attribute_text_values} // {} },
+        keys %{ $self->data->{old}->{attribute_text_values} // {} },
+        keys %{ $self->data->{new}->{attribute_text_values} // {} },
     ];
 
     my $old = $self->data->{old};
@@ -347,6 +350,7 @@ sub initialize
                 id => $relationship->entity1_id,
                 name => $relationship->entity1->name
             },
+            attribute_text_values => $link->attribute_text_values,
         },
         $self->_change_data($relationship, %opts)
     });
@@ -387,7 +391,8 @@ sub accept
         link_type_id => $data->{new}{link_type}{id} // $relationship->link->type_id,
         begin_date   => $data->{new}{begin_date}    // $relationship->link->begin_date,
         end_date     => $data->{new}{end_date}      // $relationship->link->end_date,
-        ended        => $data->{new}{ended}         // $relationship->link->ended
+        ended        => $data->{new}{ended}         // $relationship->link->ended,
+        attribute_text_values => $data->{new}{attribute_text_values} // $relationship->link->attribute_text_values,
     };
 
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(

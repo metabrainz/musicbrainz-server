@@ -432,7 +432,7 @@ sub update
 
     my %link = map {
         $_ => $values->{$_};
-    } qw( link_type_id begin_date end_date attributes ended );
+    } qw( link_type_id begin_date end_date attributes ended attribute_text_values );
 
     my $row = {};
     $row->{link} = $self->c->model('Link')->find_or_insert(\%link);

@@ -157,8 +157,8 @@ sub find
     $i = 0;
     foreach my $attr (keys %attrs) {
         push @joins, "JOIN link_attribute_text_value latv$i ON latv$i.link = link.id";
-        push @conditions, "latv$i.attribute_type = ?";
-        push @args, $attr;
+        push @conditions, "latv$i.attribute_type = ?", "latv$i.text_value = ?";
+        push @args, $attr, $attrs{$attr};
         $i += 1;
     }
 
