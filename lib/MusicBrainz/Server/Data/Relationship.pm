@@ -478,9 +478,9 @@ sub editor_can_edit
     return 0 unless $editor;
 
     my $type = join "_", sort ($type0, $type1);
-    if ($type ~~ qw(area_area area_url)) {
+    if ($type ~~ [qw(area_area area_url)]) {
         return $editor->is_location_editor;
-    } elsif ($type ~~ qw(area_instrument instrument_instrument instrument_url)) {
+    } elsif ($type ~~ [qw(area_instrument instrument_instrument instrument_url)]) {
         return $editor->is_relationship_editor;
     } else {
         return 1;
