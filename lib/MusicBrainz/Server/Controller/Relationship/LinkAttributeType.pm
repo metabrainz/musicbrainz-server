@@ -4,10 +4,10 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_ADD_ATTRIBUTE
     $EDIT_RELATIONSHIP_REMOVE_LINK_ATTRIBUTE
     $EDIT_RELATIONSHIP_ATTRIBUTE
+    $INSTRUMENT_ROOT_ID
 );
 
 use MusicBrainz::Server::Validation qw( is_guid );
-use MusicBrainz::Server::Constants qw( $INSTRUMENT_ROOT_ID );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model => 'LinkAttributeType',

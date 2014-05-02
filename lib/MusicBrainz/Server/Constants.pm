@@ -22,6 +22,7 @@ our %EXPORT_TAGS = (
     edit_type       => _get(qr/^EDIT_/),
     expire_action   => _get(qr/^EXPIRE_/),
     quality         => _get(qr/^QUALITY_/),
+    alias           => _get(qr/^EDIT_.*_ALIAS/),
     annotation      => _get(qr/^EDIT_.*_ADD_ANNOTATION/),
     historic        => _get(qr/^EDIT_HISTORIC/),
     editor          => _get(qr/^EDITOR_/),

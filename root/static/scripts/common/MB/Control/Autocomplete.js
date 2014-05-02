@@ -682,6 +682,12 @@ MB.Control.autocomplete_formatters = {
             comment.push(item.typeName);
         }
 
+        if (comment.length)
+        {
+            a.append (' <span class="autocomplete-comment">(' +
+                      _.escape(comment.join (", ")) + ')</span>');
+        }
+
         if (item.description) {
             a.append('<br /><span class="autocomplete-comment">' +
                       _.escape(item.description) +
