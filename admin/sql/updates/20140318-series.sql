@@ -412,12 +412,12 @@ CREATE OR REPLACE VIEW work_series AS
 SELECT setval('link_type_id_seq', (SELECT MAX(id) FROM link_type));
 SELECT setval('link_attribute_type_id_seq', (SELECT MAX(id) FROM link_attribute_type));
 
-INSERT INTO link_type (gid, entity_type0, entity_type1, name, description, link_phrase, reverse_link_phrase, long_link_phrase) VALUES
-    (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/recording/series/part_of'), 'recording', 'series', 'part of', 'Indicates that the recording is part of a series.', 'parts', 'part of', 'is a part of'),
-    (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/release/series/part_of'), 'release', 'series', 'part of', 'Indicates that the release is part of a series.', 'part of', 'parts', 'is a part of'),
-    (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/release_group/series/part_of'), 'release_group', 'series', 'part of', 'Indicates that the release group is part of a series.', 'part of', 'parts', 'is a part of'),
-    (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/series/work/part_of'), 'series', 'work', 'part of', 'Indicates that the work is part of a series.', 'parts', 'part of', 'has part'),
-    (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/series/url/wikipedia'), 'series', 'url', 'wikipedia', 'Points to the Wikipedia page for this series.', 'Wikipedia', 'Wikipedia page for', 'has a Wikipedia page at')
+INSERT INTO link_type (gid, entity_type0, entity_type1, entity0_cardinality, entity1_cardinality, name, description, link_phrase, reverse_link_phrase, long_link_phrase) VALUES
+    (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/recording/series/part_of'), 'recording', 'series', 0, 0, 'part of', 'Indicates that the recording is part of a series.', 'parts', 'part of', 'is a part of'),
+    (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/release/series/part_of'), 'release', 'series', 0, 0, 'part of', 'Indicates that the release is part of a series.', 'part of', 'parts', 'is a part of'),
+    (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/release_group/series/part_of'), 'release_group', 'series', 0, 0, 'part of', 'Indicates that the release group is part of a series.', 'part of', 'parts', 'is a part of'),
+    (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/series/work/part_of'), 'series', 'work', 0, 0, 'part of', 'Indicates that the work is part of a series.', 'parts', 'part of', 'has part'),
+    (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/series/url/wikipedia'), 'series', 'url', 0, 0, 'wikipedia', 'Points to the Wikipedia page for this series.', 'Wikipedia', 'Wikipedia page for', 'has a Wikipedia page at')
     RETURNING id, gid, entity_type0, entity_type1, name, long_link_phrase;
 
 INSERT INTO orderable_link_type (link_type, direction) VALUES
