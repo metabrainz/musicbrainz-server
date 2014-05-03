@@ -382,6 +382,45 @@ CREATE TRIGGER b_upd_release_group BEFORE UPDATE ON release_group
 CREATE TRIGGER b_upd_release_group_tag BEFORE UPDATE ON release_group_tag
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER a_ins_l_recording_series AFTER INSERT ON l_recording_series
+    FOR EACH ROW EXECUTE PROCEDURE a_ins_l_recording_series();
+
+CREATE TRIGGER a_upd_l_recording_series AFTER UPDATE ON l_recording_series
+    FOR EACH ROW EXECUTE PROCEDURE a_upd_l_recording_series();
+
+CREATE TRIGGER a_del_l_recording_series AFTER DELETE ON l_recording_series
+    FOR EACH ROW EXECUTE PROCEDURE a_del_l_recording_series();
+
+CREATE TRIGGER a_ins_l_release_series AFTER INSERT ON l_release_series
+    FOR EACH ROW EXECUTE PROCEDURE a_ins_l_release_series();
+
+CREATE TRIGGER a_upd_l_release_series AFTER UPDATE ON l_release_series
+    FOR EACH ROW EXECUTE PROCEDURE a_upd_l_release_series();
+
+CREATE TRIGGER a_del_l_release_series AFTER DELETE ON l_release_series
+    FOR EACH ROW EXECUTE PROCEDURE a_del_l_release_series();
+
+CREATE TRIGGER a_ins_l_release_group_series AFTER INSERT ON l_release_group_series
+    FOR EACH ROW EXECUTE PROCEDURE a_ins_l_release_group_series();
+
+CREATE TRIGGER a_upd_l_release_group_series AFTER UPDATE ON l_release_group_series
+    FOR EACH ROW EXECUTE PROCEDURE a_upd_l_release_group_series();
+
+CREATE TRIGGER a_del_l_release_group_series AFTER DELETE ON l_release_group_series
+    FOR EACH ROW EXECUTE PROCEDURE a_del_l_recording_series();
+
+CREATE TRIGGER a_ins_l_series_work AFTER INSERT ON l_series_work
+    FOR EACH ROW EXECUTE PROCEDURE a_ins_l_series_work();
+
+CREATE TRIGGER a_upd_l_series_work AFTER UPDATE ON l_series_work
+    FOR EACH ROW EXECUTE PROCEDURE a_upd_l_series_work();
+
+CREATE TRIGGER a_del_l_series_work AFTER DELETE ON l_series_work
+    FOR EACH ROW EXECUTE PROCEDURE a_del_l_series_work();
+
+CREATE TRIGGER a_upd_series AFTER UPDATE ON series
+    FOR EACH ROW EXECUTE PROCEDURE a_upd_series();
+
 CREATE TRIGGER b_upd_tag_relation BEFORE UPDATE ON tag_relation
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 

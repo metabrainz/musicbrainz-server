@@ -349,7 +349,12 @@ CREATE TABLE orderable_link_type (
 -----------------------
 
 CREATE OR REPLACE VIEW recording_series AS
-    SELECT entity0 AS recording, entity1 AS series, link_order, COALESCE(text_value, '') AS text_value
+    SELECT entity0 AS recording,
+           entity1 AS series,
+           lrs.id AS relationship,
+           link_order,
+           lrs.link,
+           COALESCE(text_value, '') AS text_value
     FROM l_recording_series lrs
     JOIN series s ON s.id = lrs.entity1
     JOIN link l ON l.id = lrs.link
@@ -358,7 +363,12 @@ CREATE OR REPLACE VIEW recording_series AS
     ORDER BY series, link_order;
 
 CREATE OR REPLACE VIEW release_series AS
-    SELECT entity0 AS release, entity1 AS series, link_order, COALESCE(text_value, '') AS text_value
+    SELECT entity0 AS release,
+           entity1 AS series,
+           lrs.id AS relationship,
+           link_order,
+           lrs.link,
+           COALESCE(text_value, '') AS text_value
     FROM l_release_series lrs
     JOIN series s ON s.id = lrs.entity1
     JOIN link l ON l.id = lrs.link
@@ -367,7 +377,12 @@ CREATE OR REPLACE VIEW release_series AS
     ORDER BY series, link_order;
 
 CREATE OR REPLACE VIEW release_group_series AS
-    SELECT entity0 AS release_group, entity1 AS series, link_order, COALESCE(text_value, '') AS text_value
+    SELECT entity0 AS release_group,
+           entity1 AS series,
+           lrgs.id AS relationship,
+           link_order,
+           lrgs.link,
+           COALESCE(text_value, '') AS text_value
     FROM l_release_group_series lrgs
     JOIN series s ON s.id = lrgs.entity1
     JOIN link l ON l.id = lrgs.link
@@ -376,7 +391,12 @@ CREATE OR REPLACE VIEW release_group_series AS
     ORDER BY series, link_order;
 
 CREATE OR REPLACE VIEW work_series AS
-    SELECT entity1 AS work, entity0 AS series, link_order, COALESCE(text_value, '') AS text_value
+    SELECT entity1 AS work,
+           entity0 AS series,
+           lsw.id AS relationship,
+           link_order,
+           lsw.link,
+           COALESCE(text_value, '') AS text_value
     FROM l_series_work lsw
     JOIN series s ON s.id = lsw.entity0
     JOIN link l ON l.id = lsw.link
@@ -701,5 +721,196 @@ CREATE INDEX series_idx_txt ON series USING gin(to_tsvector('mb_simple', name));
 
 CREATE INDEX series_alias_idx_txt ON series_alias USING gin(to_tsvector('mb_simple', name));
 CREATE INDEX series_alias_idx_txt_sort ON series_alias USING gin(to_tsvector('mb_simple', sort_name));
+
+--------------------------
+-- CREATE NEW FUNCTIONS --
+--------------------------
+
+CREATE OR REPLACE FUNCTION natural_series_sort(integer[], text[])
+RETURNS TABLE (relationship integer, text_value text, link_order integer) AS $$
+    my ($relationships, $text_values) = @_;
+
+    die "array lengths differ" if @$relationships != @$text_values;
+
+    my %relationships_by_text_value;
+    for (my $i = 0; $i < @$relationships; $i++) {
+        $relationships_by_text_value{$text_values->[$i]} = $relationships->[$i];
+    }
+
+    my @sorted_values = map { $_->[0] } sort {
+        my ($a_parts, $b_parts) = ($a->[1], $b->[1]);
+
+        my $max = @$a_parts <= @$b_parts ? @$a_parts : @$b_parts;
+        my $order = 0;
+
+        # Use <= and replace undef values with the empty string, so that
+        # A1 sorts before A1B1.
+        for (my $i = 0; $i <= $max; $i++) {
+            my ($a_part, $b_part) = ($a_parts->[$i] // '', $b_parts->[$i] // '');
+
+            my ($a_num, $b_num) = map { $_ =~ /^\d+$/ } ($a_part, $b_part);
+
+            $order = $a_num && $b_num ? ($a_part <=> $b_part) : ($a_part cmp $b_part);
+            last if $order;
+        }
+
+        $order;
+    } map { [$_, [split /(\d+)/, $_]] } keys %relationships_by_text_value;
+
+    my @result_table;
+    for (my $i = 0; $i < @sorted_values; $i++) {
+        my $text_value = $sorted_values[$i];
+
+        push @result_table, {
+            relationship => $relationships_by_text_value{$text_value},
+            text_value => $text_value,
+            link_order => $i+1,
+        };
+    }
+
+    return \@result_table;
+$$ LANGUAGE plperl IMMUTABLE;
+
+CREATE OR REPLACE FUNCTION a_ins_l_recording_series() RETURNS trigger AS $$
+BEGIN
+    PERFORM reorder_automatic_series(NEW.entity1);
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION a_upd_l_recording_series() RETURNS trigger AS $$
+BEGIN
+    IF OLD.entity1 != NEW.entity1 THEN
+        PERFORM reorder_automatic_series(OLD.entity1);
+    END IF;
+    IF OLD.entity1 != NEW.entity1 OR OLD.link != NEW.link THEN
+        PERFORM reorder_automatic_series(NEW.entity1);
+    END IF;
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION a_del_l_recording_series() RETURNS trigger AS $$
+BEGIN
+    PERFORM reorder_automatic_series(OLD.entity1);
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION a_ins_l_release_series() RETURNS trigger AS $$
+BEGIN
+    PERFORM reorder_automatic_series(NEW.entity1);
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION a_upd_l_release_series() RETURNS trigger AS $$
+BEGIN
+    IF OLD.entity1 != NEW.entity1 THEN
+        PERFORM reorder_automatic_series(OLD.entity1);
+    END IF;
+    IF OLD.entity1 != NEW.entity1 OR OLD.link != NEW.link THEN
+        PERFORM reorder_automatic_series(NEW.entity1);
+    END IF;
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION a_del_l_release_series() RETURNS trigger AS $$
+BEGIN
+    PERFORM reorder_automatic_series(OLD.entity1);
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION a_ins_l_release_group_series() RETURNS trigger AS $$
+BEGIN
+    PERFORM reorder_automatic_series(NEW.entity1);
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION a_upd_l_release_group_series() RETURNS trigger AS $$
+BEGIN
+    IF OLD.entity1 != NEW.entity1 THEN
+        PERFORM reorder_automatic_series(OLD.entity1);
+    END IF;
+    IF OLD.entity1 != NEW.entity1 OR OLD.link != NEW.link THEN
+        PERFORM reorder_automatic_series(NEW.entity1);
+    END IF;
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION a_del_l_release_group_series() RETURNS trigger AS $$
+BEGIN
+    PERFORM reorder_automatic_series(OLD.entity1);
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION a_ins_l_series_work() RETURNS trigger AS $$
+BEGIN
+    PERFORM reorder_automatic_series(NEW.entity0);
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION a_upd_l_series_work() RETURNS trigger AS $$
+BEGIN
+    IF OLD.entity0 != NEW.entity0 THEN
+        PERFORM reorder_automatic_series(OLD.entity1);
+    END IF;
+    IF OLD.entity0 != NEW.entity0 OR OLD.link != NEW.link THEN
+        PERFORM reorder_automatic_series(NEW.entity0);
+    END IF;
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION a_del_l_series_work() RETURNS trigger AS $$
+BEGIN
+    PERFORM reorder_automatic_series(OLD.entity0);
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION a_upd_series() RETURNS trigger AS $$
+BEGIN
+    IF OLD.ordering_type != NEW.ordering_type AND NEW.ordering_type = 1 THEN
+        PERFORM reorder_automatic_series(NEW.id);
+    END IF;
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION reorder_automatic_series(series_id integer) RETURNS void AS $$
+DECLARE
+    entity_type_name text;
+BEGIN
+    IF NOT EXISTS (SELECT true FROM series s WHERE s.id = series_id AND s.ordering_type = 1) THEN
+        RETURN;
+    END IF;
+
+    SELECT entity_type FROM series_type st JOIN series s ON st.id = s.type
+    INTO entity_type_name;
+
+    EXECUTE format('
+        WITH unzipped AS (
+            SELECT array_agg(relationship) AS relationships,
+                   array_agg(text_value) AS text_values FROM %1$I_series es
+            WHERE es.series = $1
+        ),
+        sorted_series (tuple) AS (
+            SELECT natural_series_sort(relationships, text_values) FROM unzipped
+        )
+        UPDATE %2$I SET link_order = (sorted_series.tuple).link_order FROM sorted_series
+        WHERE id = (sorted_series.tuple).relationship;',
+        entity_type_name,
+        format(CASE WHEN entity_type_name < 'series'
+                    THEN 'l_%s_series' ELSE 'l_series_%s' END, entity_type_name)
+    ) USING series_id;
+END;
+$$ LANGUAGE 'plpgsql';
 
 COMMIT;
