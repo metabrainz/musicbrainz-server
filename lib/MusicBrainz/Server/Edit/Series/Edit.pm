@@ -4,7 +4,7 @@ use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_SERIES_EDIT );
 use MusicBrainz::Server::Data::Series;
-use MusicBrainz::Server::Edit::Utils qw( changed_relations );
+use MusicBrainz::Server::Edit::Utils qw( changed_display_data changed_relations );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Validation qw( normalise_strings );
 use MusicBrainz::Server::Translation qw ( N_l );
