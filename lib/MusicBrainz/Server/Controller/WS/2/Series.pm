@@ -14,11 +14,6 @@ my $ws_defs = Data::OptList::mkopt([
      series => {
                          method   => 'GET',
                          inc      => [ qw(aliases annotation _relations) ],
-                         optional => [ qw(fmt limit offset) ],
-     },
-     series => {
-                         method   => 'GET',
-                         inc      => [ qw(aliases annotation _relations) ],
                          optional => [ qw(fmt) ],
      }
 ]);
@@ -39,6 +34,8 @@ sub series_toplevel {
     my ($self, $c, $stash, $series) = @_;
 
     my $opts = $stash->store($series);
+
+    $self->linked_series($c, $stash, [$series]);
 
     $c->model('SeriesType')->load($series);
     $c->model('LinkAttributeType')->load($series);
