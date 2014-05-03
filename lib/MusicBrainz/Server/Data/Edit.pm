@@ -286,6 +286,10 @@ SELECT * FROM edit, (
     JOIN editor_subscribe_label esl ON esl.label = el.label
     WHERE el.status = ? AND esl.editor = ?
     UNION
+    SELECT edit FROM edit_series es
+    JOIN editor_subscribe_series ess ON ess.series = es.series
+    WHERE es.status = ? AND ess.editor = ?
+    UNION
     SELECT edit FROM edit_release er
     RIGHT JOIN editor_collection_release ec ON er.release = ec.release
     JOIN editor_subscribe_collection esc ON esc.collection = ec.collection
@@ -308,7 +312,12 @@ OFFSET ?";
         sub {
             return $self->_new_from_row(shift);
         },
-        $query, $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id, $editor_id, $offset);
+        $query,
+        $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id,
+        $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id,
+        $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id,
+        $editor_id, $offset
+    );
 }
 
 sub subscribed_editor_edits {
@@ -761,7 +770,7 @@ sub insert_votes_and_notes {
 sub get_related_entities {
     my ($self, $edit) = @_;
     my %result;
-    for my $type (qw( area artist label place release release_group recording work url )) {
+    for my $type (qw( area artist label place release release_group recording series work url )) {
         my $query = "SELECT $type AS id FROM edit_$type WHERE edit = ?";
         $result{$type} = [ query_to_list($self->c->sql, sub { shift->{id} }, $query, $edit->id) ];
     }

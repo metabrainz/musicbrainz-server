@@ -178,6 +178,20 @@ sub get_entities {
     );
 }
 
+sub find_by_subscribed_editor
+{
+    my ($self, $editor_id, $limit, $offset) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                    JOIN editor_subscribe_series s ON series.id = s.series
+                 WHERE s.editor = ?
+                 ORDER BY musicbrainz_collate(series.name), series.id
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $editor_id, $offset || 0);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
