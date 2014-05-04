@@ -149,6 +149,8 @@ ALTER TABLE area DROP COLUMN sort_name;
 SELECT '20140313-remove-label-sortnames.sql';
 
 
+SELECT setval('label_alias_id_seq', (SELECT MAX(id) FROM label_alias));
+
 -- Migrate existing sortnames
 
 -- If the name contains non-Latin scripts, we currently have a weird mixture of non-Latin name and Latin sortname.
