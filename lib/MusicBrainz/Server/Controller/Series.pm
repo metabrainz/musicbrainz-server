@@ -6,6 +6,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_SERIES_EDIT
     $EDIT_SERIES_MERGE
 );
+use MusicBrainz::Server::Translation qw( l );
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
@@ -59,14 +60,29 @@ sub _load_entities {
     $c->model('LinkAttributeType')->load(@series);
 }
 
+with 'MusicBrainz::Server::Controller::Role::Merge' => {
+    edit_type => $EDIT_SERIES_MERGE,
+};
+
 sub _merge_load_entities {
     my ($self, $c, @series) = @_;
 
     $self->_load_entities($c, @series);
-};
+}
 
-with 'MusicBrainz::Server::Controller::Role::Merge' => {
-    edit_type => $EDIT_SERIES_MERGE,
+around _merge_submit => sub {
+    my ($orig, $self, $c, $form, $entities) = @_;
+
+    my %ordering_attributes = map { $_->ordering_attribute => 1 } @$entities;
+    my %entity_types = map { $_->type->entity_type => 1 } @$entities;
+
+    if (scalar(keys %ordering_attributes) == 1 && scalar(keys %entity_types) == 1) {
+        $self->$orig($c, $form, $entities);
+    } else {
+        $form->field('target')->add_error(
+            l('Series that contain different entity types, or have different ordering attributes cannot be merged.')
+        );
+    }
 };
 
 with 'MusicBrainz::Server::Controller::Role::Create' => {
