@@ -112,7 +112,7 @@
                              value: $parent.relationship().attributeValue(attribute.id)"></select>
         <!-- /ko -->
         <!-- ko if: attribute.id == 14 -->
-          <div data-bind="instrumentSelect: $parent.relationship().attributeValue(14)">
+          <div data-bind="instrumentSelect: $parent.relationship()">
             <!-- ko foreach: instruments -->
               <div>
                 <span class="autocomplete" style="width: auto;">

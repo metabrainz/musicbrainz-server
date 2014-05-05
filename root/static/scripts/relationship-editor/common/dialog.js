@@ -79,14 +79,10 @@
     ko.bindingHandlers.instrumentSelect = {
 
         init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
-            var value = valueAccessor();
+            var relationship = valueAccessor();
 
-            var initialData = $.map(value(), function (id) {
-                var attr = MB.attrInfoByID[id];
-
-                if (attr.root_id == 14) {
-                    return ko.observable(MB.entity(attr, "instrument"));
-                }
+            var initialData = _.map(ko.unwrap(relationship.attributeValue(14)), function (id) {
+                return ko.observable(MB.entity(MB.attrInfoByID[id], "instrument"));
             });
 
             var instruments = ko.observableArray(initialData);
@@ -111,11 +107,9 @@
 
             ko.computed({
                 read: function () {
-                    var nonInstruments = _.reject(value(), function (id) {
-                        return MB.attrInfoByID[id].root_id == 14;
-                    });
-
-                    value(_(instruments()).map(getID).compact().union(nonInstruments).sort().value());
+                    relationship.attributeValue(
+                        14, _(instruments()).map(getID).compact().sort().value()
+                    );
                 },
                 disposeWhenNodeIsRemoved: element
             });
