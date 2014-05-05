@@ -297,11 +297,11 @@ sub initialize
     my $type0 = $link->type->entity0_type;
     my $type1 = $link->type->entity1_type;
 
-    $opts{attribute_text_values} //= {};
-
     if (my $attributes = $opts{attributes}) {
-        $self->check_attributes($link->type, $attributes, $opts{attribute_text_values});
+        $self->check_attributes($link->type, $attributes, $opts{attribute_text_values} // {});
     }
+
+    delete $opts{attribute_text_values} unless %{ $opts{attribute_text_values} };
 
     unless ($relationship->entity0 && $relationship->entity1) {
         $self->c->model('Relationship')->load_entities($relationship);

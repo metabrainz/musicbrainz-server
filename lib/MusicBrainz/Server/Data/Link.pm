@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::Link;
 
+use List::AllUtils qw( any );
 use Moose;
 use namespace::autoclean;
 use Sql;
@@ -75,8 +76,13 @@ sub _load_attributes
                         name => $row->{root_name},
                     ),
                 );
-                $data->{$id}->add_attribute($attr) unless $data->{$id}->has_attribute($row->{root_name});
-                $data->{$id}->attribute_text_values->{$row->{id}} = $row->{text_value} if defined $row->{text_value};
+                $data->{$id}->add_attribute($attr) unless any {
+                    $attr->id == $_->id
+                } $data->{$id}->all_attributes;
+
+                if ($row->{free_text} && defined($row->{text_value})) {
+                    $data->{$id}->attribute_text_values->{$row->{id}} = $row->{text_value};
+                }
             }
         }
     }

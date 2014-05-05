@@ -232,10 +232,12 @@ sub process_relationship {
     $data->{begin_date} = delete $data->{beginDate} // {};
     $data->{end_date} = delete $data->{endDate} // {};
     $data->{ended} = boolean_from_json($data->{ended});
+    $data->{attribute_text_values} = delete $data->{attributeTextValues} // {};
 
     delete $data->{id};
     delete $data->{linkTypeID};
     delete $data->{entities};
+    delete $data->{linkOrder};
 
     for my $prop ("entity0", "entity1") {
         my $entity_data = $data->{$prop};
@@ -448,6 +450,7 @@ sub create_edits {
                             end_date => $opts->{end_date},
                             ended => $opts->{ended},
                             attributes => $opts->{attributes},
+                            attribute_text_values => $opts->{attribute_text_values},
                         }
                     );
             }
