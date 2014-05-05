@@ -76,19 +76,37 @@ sub editor_can_edit
         $self->link->type->entity0_type, $self->link->type->entity1_type);
 }
 
+sub _source_target_prop
+{
+    my ($self, %opts) = @_;
+    my $is_target = $opts{is_target};
+    my $prop_suffix = $opts{prop_suffix};
+    my $prop;
+    if (not $is_target) {
+        $prop = ($self->direction == $DIRECTION_FORWARD) ? 'entity0' : 'entity1';
+    } else {
+        $prop = ($self->direction == $DIRECTION_FORWARD) ? 'entity1' : 'entity0';
+    }
+    $prop = $prop . '_' . $prop_suffix if $prop_suffix;
+    # If we need to pull things other than entity0/entity1 from something other
+    # than the link type, this can be amended to an argument instead of hardcoded
+    my $base = $prop_suffix ? $self->link->type : $self;
+    return $base->$prop;
+}
+
 sub source
 {
-    my ($self) = @_;
-    return ($self->direction == $DIRECTION_FORWARD)
-        ? $self->entity0 : $self->entity1;
+    return shift->_source_target_prop();
 }
 
 sub source_type
 {
-    my ($self) = @_;
-    return ($self->direction == $DIRECTION_FORWARD)
-        ? $self->link->type->entity0_type
-        : $self->link->type->entity1_type;
+    return shift->_source_target_prop(prop_suffix => 'type');
+}
+
+sub source_cardinality
+{
+    return shift->_source_target_prop(prop_suffix => 'cardinality');
 }
 
 sub source_key
@@ -101,17 +119,17 @@ sub source_key
 
 sub target
 {
-    my ($self) = @_;
-    return ($self->direction == $DIRECTION_FORWARD)
-        ? $self->entity1 : $self->entity0;
+    return shift->_source_target_prop(is_target => 1);
 }
 
 sub target_type
 {
-    my ($self) = @_;
-    return ($self->direction == $DIRECTION_FORWARD)
-        ? $self->link->type->entity1_type
-        : $self->link->type->entity0_type;
+    return shift->_source_target_prop(is_target => 1, prop_suffix => 'type');
+}
+
+sub target_cardinality
+{
+    return shift->_source_target_prop(is_target => 1, prop_suffix => 'cardinality');
 }
 
 sub target_key
