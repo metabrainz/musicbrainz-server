@@ -11,9 +11,8 @@ with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Alias';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
-with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
-with 'MusicBrainz::Server::Controller::Role::EditExternalLinks';
+with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 
 use Data::Page;
 use HTTP::Status qw( :constants );
@@ -62,6 +61,7 @@ after 'load' => sub
 
     $c->model('AreaType')->load($area);
     $c->model('Area')->load_containment($area);
+    $c->model('Relationship')->load($area);
 };
 
 =head2 show
@@ -73,9 +73,6 @@ Shows an area's main landing page.
 sub show : PathPart('') Chained('load')
 {
     my ($self, $c) = @_;
-
-    # need to call relationships for overview page
-    $self->relationships($c);
 
     $c->stash(template => 'area/index.tt');
 }

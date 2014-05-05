@@ -1,5 +1,5 @@
 package MusicBrainz::Server::Controller::Role::Create;
-use MooseX::Role::Parameterized -metaclass => 'MusicBrainz::Server::Controller::Role::Meta::Parameterizable';
+use MooseX::Role::Parameterized;
 use JSON::Any;
 use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
 
@@ -72,7 +72,7 @@ role {
 
                 my $serialization_routine = $js_model->serialization_routine;
                 my $object = JSONSerializer->$serialization_routine($entity);
-                $object->{type} = $js_model->type;
+                $object->{entityType} = $js_model->type;
 
                 my $json = JSON::Any->new( utf8 => 1 );
                 $c->stash( dialog_result => $json->encode($object) );
@@ -86,6 +86,7 @@ role {
                     $self->action_for('show'), [ $entity->gid ]));
             },
             no_redirect => $args{within_dialog},
+            edit_rels   => 1,
             $params->edit_arguments->($self, $c)
         );
     };

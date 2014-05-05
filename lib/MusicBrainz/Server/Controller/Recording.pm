@@ -10,11 +10,10 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Details';
-with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::Rating';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
-with 'MusicBrainz::Server::Controller::Role::EditExternalLinks';
+with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 
 use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_CREATE
@@ -66,6 +65,11 @@ after 'load' => sub
     }
     $c->model('ISRC')->load_for_recordings($recording);
     $c->model('ArtistCredit')->load($recording);
+
+    # Recording relationships must be loaded before related_works.
+    $c->model('Relationship')->load($recording);
+    $c->model('Relationship')->load($recording->related_works);
+
 };
 
 sub _row_id_to_gid
@@ -80,13 +84,6 @@ after 'tags' => sub
 {
     my ($self, $c) = @_;
     my $recording = $c->stash->{recording};
-};
-
-after 'relationships' => sub {
-    my ($self, $c) = @_;
-
-    my $recording = $c->stash->{recording};
-    $c->model('Relationship')->load($recording->related_works);
 };
 
 sub show : Chained('load') PathPart('')
@@ -104,7 +101,6 @@ sub show : Chained('load') PathPart('')
     $c->model('Label')->load(map { $_->all_labels } @releases);
     $c->model('ReleaseStatus')->load(@releases);
 
-    $self->relationships($c);
     $c->stash(
         tracks =>
             group_by_release_status_nested(

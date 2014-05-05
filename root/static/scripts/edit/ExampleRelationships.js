@@ -109,7 +109,7 @@ RelationshipSearcher = function () {
         });
 
         request.done (function (data, status, jqxhr) {
-            var search_result_type = data.type.replace ("-", "_");
+            var search_result_type = data.entityType.replace ("-", "_");
             var endPointType = search_result_type == type0 ? type1 : type0;
 
             if (! (search_result_type === type0 || search_result_type === type1)) {
@@ -138,13 +138,13 @@ RelationshipSearcher = function () {
 
                         possible.results.push({
                             id: rel.id,
-                            phrase: rel.verbose_phrase,
+                            phrase: rel.verbosePhrase,
                             source: {
-                                name: source.name || source.url,
+                                name: source.name,
                                 mbid: source.gid
                             },
                             target: {
-                                name: target.name || target.url,
+                                name: target.name,
                                 mbid: target.gid
                             }
                         })

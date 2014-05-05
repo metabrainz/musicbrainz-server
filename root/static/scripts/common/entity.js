@@ -19,9 +19,6 @@
 
 (function () {
 
-    // Used by MB.entity() below to cache everything with a GID.
-    var entityCache = {};
-
     // Base class that both core and non-core entities inherit from. The only
     // purpose this really serves is allowing the `data instanceof Entity`
     // check in MB.entity() to work.
@@ -43,33 +40,29 @@
         if (data instanceof Entity) {
             return data;
         }
-        type = (type || data.type || "").replace("-", "_");
+        type = (type || data.entityType || "").replace("-", "_");
         var entityClass = coreEntityMapping[type];
 
         if (!entityClass) {
             throw "Unknown type of entity: " + type;
         }
-        if (data.gid) {
-            return entityCache[data.gid] || (
-                entityCache[data.gid] = new entityClass(data)
-            );
+        var id = type === "url" ? data.name : data.gid;
+        if (id) {
+            return MB.entityCache[id] || (MB.entityCache[id] = new entityClass(data));
         }
         return new entityClass(data);
     };
 
 
-    MB.entity.getFromCache = function (gid) { return entityCache[gid] };
-
-    // Used by unit tests to guarantee isolation of side effects.
-
-    MB.entity.clearCache = function () { entityCache = {} };
+    // Used by MB.entity() above to cache everything with a GID.
+    MB.entityCache = {};
 
 
     MB.entity.CoreEntity = aclass(Entity, {
 
         template: _.template(
             "<% if (data.editsPending) { %><span class=\"mp\"><% } %>" +
-            "<a href=\"/<%= data.type %>/<%- data.gid %>\"" +
+            "<a href=\"/<%= data.entityType %>/<%- data.gid %>\"" +
             "<% if (data.target) { %> target=\"_blank\"<% } %>" +
             "<% if (data.sortName) { %> title=\"<%- data.sortName %>\"" +
             "<% } %>><bdi><%- data.name %></bdi></a><% if (data.comment) { %> " +
@@ -103,7 +96,7 @@
         html: function (renderParams) {
             var json = this.toJSON();
 
-            json.type = json.type.replace("_", "-");
+            json.entityType = json.entityType.replace("_", "-");
 
             if (this.gid) {
                 return this.template(_.extend(renderParams || {}, json));
@@ -113,11 +106,11 @@
 
         toJSON: function () {
             var obj = {
-                type:    this.type,
-                id:      this.id,
-                gid:     this.gid,
-                name:    ko.unwrap(this.name),
-                comment: ko.unwrap(this.comment)
+                entityType: this.entityType,
+                id:         this.id,
+                gid:        this.gid,
+                name:       ko.unwrap(this.name),
+                comment:    ko.unwrap(this.comment)
             };
 
             if (this.sortName) {
@@ -133,18 +126,18 @@
     });
 
 
-    MB.entity.Artist = aclass(MB.entity.CoreEntity, { type: "artist" });
+    MB.entity.Artist = aclass(MB.entity.CoreEntity, { entityType: "artist" });
 
-    MB.entity.Instrument = aclass(MB.entity.CoreEntity, { type: "instrument" });
+    MB.entity.Instrument = aclass(MB.entity.CoreEntity, { entityType: "instrument" });
 
-    MB.entity.Label = aclass(MB.entity.CoreEntity, { type: "label" });
+    MB.entity.Label = aclass(MB.entity.CoreEntity, { entityType: "label" });
 
-    MB.entity.Area = aclass(MB.entity.CoreEntity, { type: "area" });
+    MB.entity.Area = aclass(MB.entity.CoreEntity, { entityType: "area" });
 
-    MB.entity.Place = aclass(MB.entity.CoreEntity, { type: "place" });
+    MB.entity.Place = aclass(MB.entity.CoreEntity, { entityType: "place" });
 
     MB.entity.Recording = aclass(MB.entity.CoreEntity, {
-        type: "recording",
+        entityType: "recording",
 
         after$init: function (data) {
             this.length = data.length;
@@ -178,10 +171,22 @@
         }
     });
 
-    MB.entity.Release = aclass(MB.entity.CoreEntity, { type: "release" });
+    MB.entity.Release = aclass(MB.entity.CoreEntity, {
+        entityType: "release",
+
+        after$init: function (data) {
+            if (data.releaseGroup) {
+                this.releaseGroup = MB.entity(data.releaseGroup, "release_group");
+            }
+
+            if (data.mediums) {
+                this.mediums = _.map(data.mediums, MB.entity.Medium);
+            }
+        }
+    });
 
     MB.entity.ReleaseGroup = aclass(MB.entity.CoreEntity, {
-        type: "release_group",
+        entityType: "release_group",
 
         after$init: function (data) {
             this.typeID = data.typeID;
@@ -191,7 +196,7 @@
 
 
     MB.entity.Track = aclass(MB.entity.CoreEntity, {
-        type: "track",
+        entityType: "track",
 
         after$init: function (data) {
             this.number = data.number;
@@ -216,7 +221,7 @@
                 _.extend(
                     renderParams || {},
                     {
-                        type: "recording",
+                        entityType: "recording",
                         gid: recording.gid,
                         name: this.name,
                         comment: recording.comment,
@@ -227,9 +232,9 @@
         }
     });
 
-    MB.entity.URL = aclass(MB.entity.CoreEntity, { type: "url" });
+    MB.entity.URL = aclass(MB.entity.CoreEntity, { entityType: "url" });
 
-    MB.entity.Work = aclass(MB.entity.CoreEntity, { type: "work" });
+    MB.entity.Work = aclass(MB.entity.CoreEntity, { entityType: "work" });
 
 
     // "ko.unwrap" is used throughout this class because the classes in
@@ -424,16 +429,102 @@
     });
 
 
-    // FIXME: We should be sharing code with the relationship editor here.
+    MB.entity.Relationship = aclass(Entity, {
 
-    MB.entity.Relationship = aclass(Entity, function (data) {
-        this.id = data.id;
-        this.type0 = data.type0;
-        this.type1 = data.type1;
-        this.linkTypeID = ko.observable(data.linkTypeID);
-        this.entity0ID = ko.observable(data.entity0ID);
-        this.entity1ID = ko.observable(data.entity1ID);
+        init: function (inner, data, source, parent) {
+            this.parent = parent;
+
+            if (data.id) {
+                this.id = data.id;
+            }
+
+            this.entities = ko.observable(_.map(data.entities, function (entity) {
+                var entity = MB.entity(entity);
+
+                if (!entity.hasOwnProperty("relationships")) {
+                    entity.relationships = ko.observableArray([]);
+                }
+
+                return entity;
+            }));
+
+            this.entities.equalityComparer = entitiesComparer;
+            this.entityTypes = _(data.entities).pluck("entityType").join("-");
+
+            this.linkTypeID = ko.observable(data.linkTypeID);
+            this.linkTypeID.isDifferent = linkTypeComparer;
+
+            inner(data, source, parent);
+
+            var self = this;
+
+            this.editData = ko.computed(function () {
+                return MB.edit.fields.relationship(self);
+            });
+
+            if (data.id) {
+                this.original = MB.edit.fields.relationship(this);
+            }
+        },
+
+        target: function (source) {
+            var entities = this.entities();
+            return source === entities[0] ? entities[1] : entities[0];
+        },
+
+        linkTypeInfo: function () {
+            return MB.typeInfoByID[this.linkTypeID()];
+        },
+
+        linkPhrase: function (source) {
+            var typeInfo = this.linkTypeInfo();
+            var forward = source === this.entities()[0];
+
+            return typeInfo ? (forward ? typeInfo.phrase : typeInfo.reversePhrase) : "";
+        },
+
+        hasDates: function () {
+            var typeInfo = this.linkTypeInfo();
+            return typeInfo ? (typeInfo.hasDates !== false) : true;
+        },
+
+        added: function () { return !this.id },
+
+        edited: function () {
+            return !_.isEqual(this.original, this.editData());
+        },
+
+        hasChanges: function () {
+            return this.added() || this.removed() || this.edited();
+        },
+
+        isDuplicate: function (other) {
+            return (
+                this !== other &&
+                this.linkTypeID() == other.linkTypeID() &&
+                _.isEqual(this.entities(), other.entities())
+            );
+        },
+
+        show: function () {
+            var entities = this.entities();
+
+            entities[0].relationships.push(this);
+            entities[1].relationships.push(this);
+        },
+
+        fromJS: function (data) {
+            this.linkTypeID(data.linkTypeID);
+            this.entities([MB.entity(data.entities[0]), MB.entity(data.entities[1])]);
+        }
     });
+
+
+    function entitiesComparer(a, b) {
+        return a[0] === b[0] && a[1] === b[1];
+    }
+
+    function linkTypeComparer(a, b) { return a != b }
 
 
     // Used by MB.entity() to look up classes. JSON from the web service
@@ -448,6 +539,7 @@
         recording:     MB.entity.Recording,
         release:       MB.entity.Release,
         release_group: MB.entity.ReleaseGroup,
+        track:         MB.entity.Track,
         work:          MB.entity.Work,
         url:           MB.entity.URL
     };

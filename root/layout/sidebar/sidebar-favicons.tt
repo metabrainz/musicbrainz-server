@@ -30,7 +30,7 @@
         [% display %]
     [%- END -%]
 
-    [%- IF empty && (entity.isa('MusicBrainz::Server::Entity::Release') || entity.isa('MusicBrainz::Server::Entity::Artist') || entity.isa('MusicBrainz::Server::Entity::Label') )-%]
+    [%- IF empty && (entity.isa('MusicBrainz::Server::Entity::Artist') || entity.isa('MusicBrainz::Server::Entity::Label') )-%]
         <li class="all-relationships">[% link_entity(source, 'relationships', l('View all relationships')) %]</li>
     [%- END -%]
 [%- END -%]

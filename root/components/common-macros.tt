@@ -577,84 +577,6 @@ END -%]
     END -%]
 [%- END -%]
 
-[%- MACRO use_in_relationship(entity) BLOCK;
-    UNLESS c.session.relationship.id == entity.id;
-      text = c.session.relationship ? l('Create relationship with {other}', { other => c.session.relationship.name })
-                                    : l('Use in a relationship');
-      '<li>' _ link_entity(entity, 'relate', text) _ '</li>';
-    END;
-    IF c.session.relationship.id;
-      text = l('Cancel creating relationship with {name}', { name => c.session.relationship.name });
-      '<li>' _ link_entity(entity, 'cancel_relate', text) _ '</li>';
-    END;
-END -%]
-
-[%- MACRO relate_to_url(entity) BLOCK;
-    uri = c.uri_for_action('/edit/relationship/create_url', {
-                        type => entity_type(entity),
-                        entity => entity.gid,
-                        returnto => c.req.uri
-                   });
-    l('{uri|Relate to URL}', { uri => html_escape(uri) });
-END -%]
-
-[%- MACRO relate_to_ellipsis(entity) BLOCK -%]
-    <a style="cursor: pointer" class="relate-to">[%- l('Relate to ...') -%]</a>
-    <div style="position: absolute;">
-      <div class="relate-to" style="display: none">
-        <input type="hidden" class="gid" value="[% entity.gid %]" />
-        <input type="hidden" class="type" value="[% entity_type(entity) %]" />
-
-        <input type="hidden" class="returnto"
-               value="[%-
-          action = 'relationships';
-
-          # Recording, URLs and works show more information on their landing
-          # pages
-          IF entity.isa('MusicBrainz::Server::Entity::Recording') ||
-             entity.isa('MusicBrainz::Server::Entity::URL') ||
-             entity.isa('MusicBrainz::Server::Entity::Work') ||
-             entity.isa('MusicBrainz::Server::Entity::ReleaseGroup') ||
-             entity.isa('MusicBrainz::Server::Entity::Instrument') ||
-             entity.isa('MusicBrainz::Server::Entity::Place') ||
-             entity.isa('MusicBrainz::Server::Entity::Area');
-             action = 'show';
-          END;
-          c.uri_for_action(c.controller.action_for(action),
-                           [ entity.gid ]) -%]" />
-
-        <select style="width: 130px; margin-right: 4px;">
-          <option value="artist">[% l('Artist') %]</option>
-          <option value="label">[% l('Label') %]</option>
-          <option value="recording">[% l('Recording') %]</option>
-          <option value="release-group">[% l('Release Group') %]</option>
-          <option value="release">[% l('Release') %]</option>
-          <option value="work">[% l('Work') %]</option>
-          <option value="place">[% l('Place') %]</option>
-          [%- IF (entity_type(entity) != 'area' && entity_type(entity) != 'url')
-                  || c.user.is_location_editor -%]
-          <option value="area">[% l('Area') %]</option>
-          [%- END -%]
-          [%- IF (entity_type(entity) == 'instrument')
-                  || c.user.is_relationship_editor -%]
-          <option value="instrument">[% l('Instrument') %]</option>
-          [%- END -%]
-        </select>
-        <span class="autocomplete">
-          <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
-          <input type="text" class="name" value="" style="width: 170px;" />
-          <input type="hidden" class="id" value=""  />
-          <input type="hidden" class="gid" value=""  />
-        </span>
-        <br />
-        <div class="buttons" style="margin-top: 0.5em; width: 100%;">
-          <button class="negative cancel">[% l('Cancel') %]</button>
-          <button class="positive create" style="float:right;">[% l('Create relationship') %]</button>
-        </div>
-      </div>
-    </div>
-[%- END -%]
-
 [%- MACRO quality_name(quality) SWITCH quality;
     CASE 0;  l('Low');
     CASE 1;  l('Normal');
@@ -979,26 +901,6 @@ END -%]
   [% '(' _ rel.extra_phrase_attributes _ ')' | html IF rel.extra_phrase_attributes %]
   [% '(' _ rel.link.formatted_date _ ')' IF rel.link.formatted_date %]
   </span>
-[%- END -%]
-
-[%- MACRO relationship_edit_links(rel) BLOCK -%]
-  [%- IF rel.editor_can_edit(c.user) -%]
-  [
-      <a href="[% c.uri_for_action('/edit/relationship/delete', {
-          type0 => rel.link.type.entity0_type,
-          type1 => rel.link.type.entity1_type,
-          id => rel.id,
-          returnto => c.req.uri
-      }) %]">[% l('Remove') %]</a>
-      |
-      <a href="[% c.uri_for_action('/edit/relationship/edit', {
-          type0 => rel.link.type.entity0_type,
-          type1 => rel.link.type.entity1_type,
-          id => rel.id,
-          returnto => c.req.uri
-      }) %]">[% l('Edit') %]</a>
-  ]
-  [%- END -%]
 [%- END -%]
 
 [%- MACRO release_countries(release_events) BLOCK;

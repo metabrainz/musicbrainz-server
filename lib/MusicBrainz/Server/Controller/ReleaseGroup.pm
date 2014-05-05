@@ -18,13 +18,12 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Details';
-with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::Rating';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::Cleanup';
-with 'MusicBrainz::Server::Controller::Role::EditExternalLinks';
+with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 
@@ -46,6 +45,7 @@ after 'load' => sub
     $c->model('ReleaseGroupType')->load($rg);
     $c->model('ArtistCredit')->load($rg);
     $c->model('Artwork')->load_for_release_groups ($rg);
+    $c->model('Relationship')->load($rg);
     $c->stash( can_delete => $c->model('ReleaseGroup')->can_delete($rg->id) );
 };
 
@@ -65,7 +65,6 @@ sub show : Chained('load') PathPart('')
     $c->model('ReleaseLabel')->load(@$releases);
     $c->model('Label')->load(map { $_->all_labels } @$releases);
     $c->model('ReleaseStatus')->load(@$releases);
-    $c->model('Relationship')->load($rg);
 
     $c->stash(
         template => 'release_group/index.tt',

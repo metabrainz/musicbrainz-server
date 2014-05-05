@@ -73,6 +73,10 @@ form div.row div.label {
     margin-right: @form-margin;
 }
 
+form div.row.no-label label {
+    float: none;
+}
+
 /* FIXME: probably unused, delete this + accompanying macro in forms.tt. */
 div.form-row-text-list { margin-left: @form-label-width + @form-margin; }
 div.form-row-text-list button > img { vertical-align: middle; }
@@ -226,17 +230,17 @@ table.row-form {
         width: 100% !important;
     }
 
+    td:first-child, th:first-child {
+        min-width: @form-label-width;
+        padding: @form-margin / 2;
+        padding-bottom: 9px;
+        box-sizing: border-box;
+        vertical-align: top;
+
+        label { width: 100% !important; }
+    }
+
     td {
-        &:first-child {
-            min-width: @form-label-width;
-            padding: @form-margin / 2;
-            padding-bottom: 9px;
-            box-sizing: border-box;
-            vertical-align: top;
-
-            label { width: 100% !important; }
-        }
-
         &.partial-date { min-width: @form-label-width; }
         &.add-item { text-align: right; }
         &.error { padding-bottom: @form-margin; }
@@ -435,9 +439,10 @@ input.icon, div.icon.img, button.icon {
     background-repeat: no-repeat;
     background-color: transparent;
     vertical-align: middle;
+    cursor: pointer;
 }
 
-div.img { display: inline-block; }
+div.img, button.icon { display: inline-block; }
 
 button.with-label {
     border: none;
@@ -457,6 +462,15 @@ div.add-item {
 button.remove-item,
 div.remove-item {
     background-image: data-uri('../images/icons/delete_row.png');
+}
+
+.edit-item {
+    background: data-uri('../images/icons/edit.png');
+
+    &[disabled] {
+        cursor: default;
+        opacity: 0.3;
+    }
 }
 
 .file-down, .track-down {
@@ -518,4 +532,85 @@ div.remove-item {
     width: @form-icon-size;
     height: @form-icon-size;
     vertical-align: middle;
+}
+
+/* Relationship editor */
+
+.remove-button { cursor: pointer; color: @button-text; padding: 0 0.5em; }
+.remove-button:hover { color: @negative-bg; text-decoration: none; }
+.remove-button:visited { color: @button-text; }
+
+.rel-add { background: @positive-bg; }
+.rel-edit { background: @rel-edit; }
+.rel-remove { background: @negative-bg !important; cursor: default !important; }
+
+div.rel-editor-dialog {
+    display: none;
+    max-width: 500px;
+
+    span.autocomplete { width: 100%; }
+    p.msg { margin: 0.5em; margin-bottom: 1em; }
+    span.error, div.error { color: @negative-text; }
+
+    table { border-spacing: 0; width: 100%; }
+
+    table td { padding: 0.25em 0; }
+
+    table td.section {
+        font-weight: bold;
+        vertical-align: top;
+        text-align: right;
+        white-space: nowrap;
+        padding-right: 1em !important;
+    }
+
+    input[type=text], textarea {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    textarea { margin-top: 0.5em; }
+    .buttons { display: block !important; }
+
+    div.ar-descr {
+        box-sizing: border-box;
+        margin: 6px 0;
+    }
+
+    input.selectFilter { width: 7em; }
+    div.attr-select > * { margin: 2px !important; }
+
+    #attrs button {
+        background-color: @very-light-bg;
+        border: 1px solid @dark-button-border;
+        border-top: 1px solid @light-button-border;
+        border-left: 1px solid @light-button-border;
+        font-weight: bold;
+        color: @button-text;
+        cursor: pointer;
+    }
+
+    .change-direction { padding: 2px !important; }
+}
+
+#relationship-editor {
+    display: none;
+    margin-top: 1em;
+
+    button.add-item {
+        padding-top: 4px;
+        padding-bottom: 4px;
+        margin-top: -4px;
+        margin-bottom: 4px;
+        margin-left: 40px;
+    }
+
+    legend button.add-item {
+        margin-left: 0;
+    }
+
+    .relationship-list {
+        width: 100%;
+        & > div { padding: 6px; }
+    }
 }

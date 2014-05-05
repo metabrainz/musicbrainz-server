@@ -195,13 +195,6 @@ MB.utility.iteratePromises = function (promises) {
     return deferred.promise ();
 };
 
-// Based on http://javascript.crockford.com/prototypal.html
-MB.utility.beget = function(o) {
-    function F() {};
-    F.prototype = o;
-    return new F;
-};
-
 MB.utility.validDate = (function() {
     var daysInMonth = {
         "true":  [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
@@ -212,10 +205,16 @@ MB.utility.validDate = (function() {
         return value === null || value === undefined || value === "";
     }
 
+    var numberRegex = /^[0-9]+$/;
+
+    function parseNumber(num) {
+        return numberRegex.test(num) ? parseInt(num, 10) : NaN;
+    }
+
     return function(y, m, d) {
-        y = empty(y) ? null : parseInt(y, 10);
-        m = empty(m) ? null : parseInt(m, 10);
-        d = empty(d) ? null : parseInt(d, 10);
+        y = empty(y) ? null : parseNumber(y);
+        m = empty(m) ? null : parseNumber(m);
+        d = empty(d) ? null : parseNumber(d);
 
         // We couldn't parse one of the fields as a number.
         if (isNaN(y) || isNaN(m) || isNaN(d)) return false;
@@ -271,19 +270,6 @@ MB.utility.filesize = function (size) {
 
 MB.utility.percentOf = function(x, y) {
     return x * y / 100;
-};
-
-MB.utility.callbackQueue = function (targets, callback) {
-    var next = function (index) {
-        return function () {
-            var target = targets[index];
-            if (target) {
-                callback(target);
-                _.defer(next(index + 1));
-            }
-        };
-    };
-    next(0)();
 };
 
 MB.utility.moveArrayItem = function (array, from, to) {
@@ -392,6 +378,17 @@ MB.utility.formatDate = function (date) {
     );
 };
 
+MB.utility.formatDatePeriod = function (period) {
+    var beginDate = MB.utility.formatDate(period.beginDate);
+    var endDate = MB.utility.formatDate(period.endDate);
+    var ended = ko.unwrap(period.ended);
+
+    if (!beginDate && !endDate) return "";
+    if (beginDate === endDate) return beginDate;
+
+    return beginDate + " \u2013 " + (endDate || (ended ? "????" : ""));
+};
+
 MB.utility.deferFocus = function () {
     var selectorArguments = arguments;
     _.defer(function () { $.apply(null, selectorArguments).focus() });
@@ -435,3 +432,17 @@ MB.utility.isValidURL = (function () {
         return true;
     };
 }());
+
+
+MB.utility.mergeDates = function (a, b) {
+    var ay = a.year(), am = a.month(), ad = a.day();
+    var by = b.year(), bm = b.month(), bd = b.day();
+
+    var yConflict = ay && by && ay !== by;
+    var mConflict = am && bm && am !== bm;
+    var dConflict = ad && bd && ad !== bd;
+
+    if (yConflict || mConflict || dConflict) return null;
+
+    return { year: ay || by, month: am || bm, day: ad || bd };
+};

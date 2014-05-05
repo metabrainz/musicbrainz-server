@@ -7,16 +7,13 @@
                 <th>[% l('Title') %]</th>
                 <th>[% l('Attributes') %]</th>
                 <th>[% l('Artist') %]</th>
-                [% IF c.user_exists %]
-                <th class="actions-header">[% l('Edit') %]</th>
-                [% END %]
             </tr>
         </thead>
         <tbody>
         [%- FOREACH relationship IN entity.appearances.pairs -%]
                 <tr class="subh">
                     <th></th>
-                    <th colspan="[% c.user_exists ? 4 : 3 %]">[% l(relationship.key) %]</th>
+                    <th colspan="3">[% l(relationship.key) %]</th>
                 </tr>
                 [% FOR rel IN relationship.value %]
                 <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
@@ -53,25 +50,6 @@
                     <td>
                         [% artist_credit(rel.target.artist_credit) %]
                     </td>
-                    [% IF c.user_exists %]
-                    <td>
-                        [
-                                <a href="[% c.uri_for_action('/edit/relationship/delete', {
-                                    type0 => rel.link.type.entity0_type,
-                                    type1 => rel.link.type.entity1_type,
-                                    id => rel.id,
-                                    returnto => c.req.uri
-                                }) %]">[% l('Remove') %]</a>
-                                |
-                                <a href="[% c.uri_for_action('/edit/relationship/edit', {
-                                    type0 => rel.link.type.entity0_type,
-                                    type1 => rel.link.type.entity1_type,
-                                    id => rel.id,
-                                    returnto => c.req.uri
-                                }) %]">[% l('Edit') %]</a>
-                            ]
-                    </td>
-                    [% END %]
                 </tr>
                 [% END %]
         [%- END -%]

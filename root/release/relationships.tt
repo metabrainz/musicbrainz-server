@@ -1,6 +1,0 @@
-[%- WRAPPER 'release/layout.tt' title=l("Relationships") page='relationships' -%]
-    <h2>[% l("Relationships") %]</h2>
-    [%- INCLUDE "components/relationships.tt" source=release -%]
-    <h2>[% l("Release group relationships") %]</h2>
-    [%- INCLUDE "components/relationships.tt" source=release.release_group -%]
-[%- END -%]

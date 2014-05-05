@@ -115,22 +115,6 @@
     }
 
 
-    utils.parseURLRelationships = function (source) {
-        return _((source.relationships || {}).url || {})
-            .values().flatten()
-            .map(function (relationship) {
-                return {
-                    id: relationship.id,
-                    linkTypeID: relationship.link_type,
-                    type0: "release",
-                    type1: "url",
-                    entity0ID: source.gid,
-                    entity1ID: relationship.target.url
-                };
-            }).value();
-    };
-
-
     // Metadata comparison utilities.
 
     function lengthsAreWithin10s(a, b) {

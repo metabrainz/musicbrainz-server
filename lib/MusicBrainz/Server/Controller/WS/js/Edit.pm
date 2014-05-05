@@ -23,9 +23,15 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_DELETE
     $AUTO_EDITOR_FLAG
 );
-use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Data::Utils qw(
+    type_to_model
+    model_to_type
+    partial_date_to_hash
+);
 use MusicBrainz::Server::Edit::Utils qw( boolean_from_json );
+use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( is_guid is_valid_url );
+use Readonly;
 use Scalar::Util qw( looks_like_number );
 use Try::Tiny;
 use URI;
@@ -33,6 +39,10 @@ use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 use aliased 'MusicBrainz::Server::Entity::Track';
 use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
 BEGIN { extends 'MusicBrainz::Server::Controller' }
+
+
+Readonly our $ERROR_NOT_LOGGED_IN => 1;
+Readonly our $ERROR_NON_EXISTENT_ENTITIES => 2;
 
 
 our $TT = Template->new(
@@ -44,58 +54,103 @@ our $TT = Template->new(
 our $JSON = JSON::Any->new( utf8 => 0 );
 
 
-our $entities_to_load = {
+sub load_entity_prop {
+    my ($loader, $data, $prop, $model) = @_;
 
-    $EDIT_RELEASE_EDIT => { to_edit => 'Release' },
-
-    $EDIT_RELEASE_ADDRELEASELABEL => { release => 'Release', label => 'Label' },
-
-    $EDIT_RELEASE_ADD_ANNOTATION => { entity => 'Release' },
-
-    $EDIT_RELEASE_DELETERELEASELABEL => { release_label => 'ReleaseLabel' },
-
-    $EDIT_RELEASE_EDITRELEASELABEL => { release_label => 'ReleaseLabel', label => 'Label' },
-
-    $EDIT_MEDIUM_CREATE => { release => 'Release' },
-
-    $EDIT_MEDIUM_EDIT => { to_edit => 'Medium' },
-
-    $EDIT_MEDIUM_DELETE => { medium => 'Medium' },
-
-    $EDIT_MEDIUM_ADD_DISCID => { release => 'Release' },
-
-    $EDIT_RECORDING_EDIT => { to_edit => 'Recording' },
-
-    $EDIT_RELEASE_REORDER_MEDIUMS => { release => 'Release' },
-
-    $EDIT_RELATIONSHIP_CREATE => { link_type => 'LinkType' },
-
-    $EDIT_RELATIONSHIP_EDIT => { link_type => 'LinkType' },
-};
+    $loader->($data->{$prop}, $model, sub { $data->{$prop} = shift });
+}
 
 
 our $data_processors = {
 
-    $EDIT_RELEASE_CREATE => sub { process_artist_credit(@_) },
+    $EDIT_RELEASE_CREATE => \&process_artist_credit,
 
-    $EDIT_RELEASE_EDIT => sub { process_artist_credit(@_) },
+    $EDIT_RELEASE_EDIT => sub {
+        my ($c, $loader, $data) = @_;
 
-    $EDIT_RELEASEGROUP_CREATE => sub { process_artist_credit(@_) },
+        process_artist_credit($c, $loader, $data);
 
-    $EDIT_MEDIUM_CREATE => sub { process_medium(@_) },
+        load_entity_prop($loader, $data, 'to_edit', 'Release');
+    },
 
-    $EDIT_MEDIUM_EDIT => sub { process_medium(@_) },
+    $EDIT_RELEASE_ADDRELEASELABEL => sub {
+        my ($c, $loader, $data) = @_;
 
-    $EDIT_RECORDING_EDIT => sub { process_artist_credit(@_) },
+        load_entity_prop($loader, $data, 'release', 'Release');
+        load_entity_prop($loader, $data, 'label', 'Label');
+    },
 
-    $EDIT_RELATIONSHIP_CREATE => sub { process_relationship(@_) },
+    $EDIT_RELEASE_ADD_ANNOTATION => sub {
+        my ($c, $loader, $data) = @_;
 
-    $EDIT_RELATIONSHIP_EDIT => sub { process_relationship(@_) },
+        load_entity_prop($loader, $data, 'entity', 'Release');
+    },
+
+    $EDIT_RELEASE_DELETERELEASELABEL => sub {
+        my ($c, $loader, $data) = @_;
+
+        load_entity_prop($loader, $data, 'release_label', 'ReleaseLabel');
+    },
+
+    $EDIT_RELEASE_EDITRELEASELABEL => sub {
+        my ($c, $loader, $data) = @_;
+
+        load_entity_prop($loader, $data, 'release_label', 'ReleaseLabel');
+        load_entity_prop($loader, $data, 'label', 'Label');
+    },
+
+    $EDIT_MEDIUM_CREATE => sub {
+        my ($c, $loader, $data) = @_;
+
+        process_medium($c, $loader, $data);
+
+        load_entity_prop($loader, $data, 'release', 'Release');
+    },
+
+    $EDIT_MEDIUM_EDIT => sub {
+        my ($c, $loader, $data) = @_;
+
+        process_medium($c, $loader, $data);
+
+        load_entity_prop($loader, $data, 'to_edit', 'Medium');
+    },
+
+    $EDIT_MEDIUM_DELETE => sub {
+        my ($c, $loader, $data) = @_;
+
+        load_entity_prop($loader, $data, 'medium', 'Medium');
+    },
+
+    $EDIT_MEDIUM_ADD_DISCID => sub {
+        my ($c, $loader, $data) = @_;
+
+        load_entity_prop($loader, $data, 'release', 'Release');
+    },
+
+    $EDIT_RECORDING_EDIT => sub {
+        my ($c, $loader, $data) = @_;
+
+        process_artist_credit($c, $loader, $data);
+
+        load_entity_prop($loader, $data, 'to_edit', 'Recording');
+    },
+
+    $EDIT_RELATIONSHIP_CREATE => \&process_relationship,
+
+    $EDIT_RELATIONSHIP_EDIT => \&process_relationship,
+
+    $EDIT_RELEASE_REORDER_MEDIUMS => sub {
+        my ($c, $loader, $data) = @_;
+
+        load_entity_prop($loader, $data, 'release', 'Release');
+    },
+
+    $EDIT_RELEASEGROUP_CREATE => \&process_artist_credit,
 };
 
 
 sub process_artist_credits {
-    my ($c, @artist_credits) = @_;
+    my ($c, $loader, @artist_credits) = @_;
 
     my @artist_gids;
 
@@ -130,14 +185,14 @@ sub process_artist_credits {
 }
 
 sub process_artist_credit {
-    my ($c, $data) = @_;
+    my ($c, $loader, $data) = @_;
 
-    process_artist_credits($c, $data->{artist_credit})
+    process_artist_credits($c, $loader, $data->{artist_credit})
         if defined $data->{artist_credit};
 }
 
 sub process_medium {
-    my ($c, $data) = @_;
+    my ($c, $loader, $data) = @_;
 
     return unless defined $data->{tracklist};
 
@@ -146,7 +201,7 @@ sub process_medium {
     my $recordings = $c->model('Recording')->get_by_gids(@recording_gids);
 
     my @track_acs = grep { $_ } map { $_->{artist_credit} } @tracks;
-    process_artist_credits($c, @track_acs) if scalar @track_acs;
+    process_artist_credits($c, $loader, @track_acs) if scalar @track_acs;
 
     my $process_track = sub {
         my $track = shift;
@@ -160,10 +215,7 @@ sub process_medium {
         delete $track->{id} unless defined $track->{id};
 
         my $ac = $track->{artist_credit};
-
-        if ($ac) {
-            $track->{artist_credit} = ArtistCredit->from_array($ac->{names});
-        }
+        $track->{artist_credit} = ArtistCredit->from_array($ac->{names}) if $ac;
 
         return Track->new(%$track);
     };
@@ -172,12 +224,52 @@ sub process_medium {
 }
 
 sub process_relationship {
-    my ($c, $data) = @_;
+    my ($c, $loader, $data, $previewing) = @_;
 
-    $data->{attributes} //= [];
-    $data->{begin_date} //= {};
-    $data->{end_date} //= {};
+    $data->{entity0} = $data->{entities}->[0];
+    $data->{entity1} = $data->{entities}->[1];
+
+    $data->{begin_date} = delete $data->{beginDate} // {};
+    $data->{end_date} = delete $data->{endDate} // {};
     $data->{ended} = boolean_from_json($data->{ended});
+
+    delete $data->{id};
+    delete $data->{linkTypeID};
+    delete $data->{entities};
+
+    for my $prop ("entity0", "entity1") {
+        my $entity_data = $data->{$prop};
+
+        if ($entity_data) {
+            my $name = $entity_data->{name};
+            my $model = type_to_model($entity_data->{entityType});
+
+            if ($model eq 'URL') {
+                my $url = URI->new($name)->canonical;
+
+                my $url_string = $url->as_string;
+                my $url_scheme = $url->scheme;
+
+                die "invalid URL: $url_string" unless is_valid_url($url_string);
+                die "unsupported URL protocol: $url_scheme" unless lc($url_scheme) =~ m/^(https?|ftp)$/;
+
+                $name = $entity_data->{name} = $url_string;
+            }
+
+            if ($previewing && !$entity_data->{gid}) {
+                my $entity_class = "MusicBrainz::Server::Entity::$model";
+                my ($entity) = $model eq "URL" ? $c->model('URL')->find_by_url($name) : ();
+
+                $data->{$prop} = $entity // $entity_class->new(name => $name);
+            } elsif ($model eq "URL") {
+                $data->{$prop} = $c->model('URL')->find_or_insert($name);
+            } else {
+                $loader->($entity_data->{gid}, $model, sub { $data->{$prop} = shift });
+            }
+        } elsif ($data->{relationship}) {
+            $data->{$prop} = $data->{relationship}->$prop;
+        }
+    }
 }
 
 sub detach_with_error {
@@ -212,114 +304,112 @@ sub get_request_body {
     return $decoded_object;
 }
 
-sub load_entities {
+sub process_edits {
     my ($c, $edits, $previewing) = @_;
 
     my $ids_to_load = {};
     my $gids_to_load = {};
+    my $relationships_to_load = {};
+    my @link_types_to_load;
+    my @props_to_load;
 
     for my $edit (@$edits) {
         my $edit_type = $edit->{edit_type};
 
-        if ($edit_type == $EDIT_RELATIONSHIP_EDIT || $edit_type == $EDIT_RELATIONSHIP_DELETE) {
-            $edit->{relationship} = $c->model('Relationship')->get_by_id(
-               $edit->{type0}, $edit->{type1}, $edit->{relationship}
-            );
-            $c->model('Link')->load($edit->{relationship});
-            $c->model('LinkType')->load($edit->{relationship}->link);
+        if ($edit_type == $EDIT_RELATIONSHIP_CREATE) {
+            die 'missing linkTypeID' unless $edit->{linkTypeID};
+
+            push @link_types_to_load, $edit;
         }
 
-        if ($edit_type == $EDIT_RELATIONSHIP_CREATE || $edit_type == $EDIT_RELATIONSHIP_EDIT) {
-            for my $i (0, 1) {
-                my $prop = "entity$i";
+        if ($edit_type == $EDIT_RELATIONSHIP_EDIT ||
+            $edit_type == $EDIT_RELATIONSHIP_DELETE) {
 
-                delete $entities_to_load->{$edit_type}->{$prop};
+            my $type0 = $edit->{entities}->[0]->{entityType} or die 'missing entityType';
+            my $type1 = $edit->{entities}->[1]->{entityType} or die 'missing entityType';
+            my $id = $edit->{id} or die 'missing relationship id';
 
-                my $entity_id = $edit->{$prop};
+            # Only one edit per relationship is supported.
+            ($relationships_to_load->{"$type0-$type1"} //= {})->{ $id } = $edit;
 
-                if (!$entity_id && $edit->{relationship}) {
-                    $edit->{$prop} = $edit->{relationship}->$prop;
-                    next;
-                }
-
-                my $model = type_to_model($edit->{"type$i"});
-                my $entity_class = "MusicBrainz::Server::Entity::$model";
-
-                if ($model eq 'URL') {
-                    my $url = URI->new($entity_id)->canonical;
-
-                    my $url_string = $url->as_string;
-                    my $url_scheme = $url->scheme;
-
-                    die "invalid URL: $url_string" unless is_valid_url($url_string);
-                    die "unsupported URL protocol: $url_scheme" unless lc($url_scheme) =~ m/^(https?|ftp)$/;
-
-                    if ($previewing) {
-                        my ($entity) = $c->model('URL')->find_by_url($url_string);
-
-                        $edit->{$prop} = $entity || $entity_class->new(url => $url_string);
-                    }
-                    else {
-                        $edit->{$prop} = $c->model('URL')->find_or_insert($url_string);
-                    }
-                }
-                else {
-                    if ($previewing and my $preview = delete $edit->{"entity${i}Preview"}) {
-                        $edit->{$prop} = $entity_class->new( name => $preview );
-                    }
-                    else {
-                        $entities_to_load->{$edit_type}->{$prop} = $model;
-                    }
-                }
-            }
-        }
-
-        my $models = $entities_to_load->{$edit_type};
-        next unless $models;
-
-        for my $arg (keys %$models) {
-            if (my $id = $edit->{$arg}) {
-                my $model = $models->{$arg};
-
-                push @{ $ids_to_load->{$model} //= [] }, $id if looks_like_number($id);
-                push @{ $gids_to_load->{$model} //= [] }, $id if is_guid($id);
-            }
+            push @link_types_to_load, $edit if $edit->{linkTypeID};
         }
     }
 
-    my %loaded_ids = map {
-        $_ => $c->model($_)->get_by_ids(@{ $ids_to_load->{$_} })
-    } keys %$ids_to_load;
+    my @loaded_relationships;
 
-    my %loaded_gids = map {
-        $_ => $c->model($_)->get_by_gids(@{ $gids_to_load->{$_} })
-    } keys %$gids_to_load;
+    while (my ($types, $edits) = each %$relationships_to_load) {
+        my ($type0, $type1) = split /-/, $types;
+
+        my $relationships_by_id = $c->model('Relationship')->get_by_ids(
+           $type0, $type1, keys %$edits
+        );
+
+        my @relationships = values %$relationships_by_id;
+        $c->model('Link')->load(@relationships);
+
+        while (my ($id, $edit) = each %$edits) {
+            $edit->{relationship} = $relationships_by_id->{$id};
+        }
+
+        push @loaded_relationships, @relationships;
+    }
+
+    my $link_types = $c->model('LinkType')->get_by_ids(
+        ( map { $_->{linkTypeID} } @link_types_to_load ),
+        ( map { $_->link->type_id } @loaded_relationships ),
+    );
+
+    $_->{link_type} = $link_types->{ $_->{linkTypeID} } for @link_types_to_load;
+    $_->link->type($link_types->{ $_->link->type_id }) for @loaded_relationships;
+
+    $c->model('Relationship')->load_entities(@loaded_relationships);
+
+    my $loader = sub {
+        my ($id, $model, $setter) = @_;
+
+        if (looks_like_number($id)) {
+            push @{ $ids_to_load->{$model} //= [] }, $id;
+        } elsif (is_guid($id)) {
+            push @{ $gids_to_load->{$model} //= [] }, $id;
+        } elsif (!defined($id) && $previewing) {
+            return;
+        } else {
+            die "unknown $model id: $id";
+        }
+
+        push @props_to_load, [$id, $model, $setter];
+    };
 
     for my $edit (@$edits) {
-        my $models = $entities_to_load->{$edit->{edit_type}};
-        next unless $models;
+        my $processor = $data_processors->{$edit->{edit_type}};
+        $processor->($c, $loader, $edit, $previewing) if $processor;
+    }
 
-        for my $arg (keys %$models) {
-            if (my $id = $edit->{$arg}) {
-                my $model = $models->{$arg};
-                my $entity;
+    my %loaded_entities = (
+        ( map { $_ => $c->model($_)->get_by_ids(@{ $ids_to_load->{$_} }) } keys %$ids_to_load ),
+        ( map { $_ => $c->model($_)->get_by_gids(@{ $gids_to_load->{$_} }) } keys %$gids_to_load ),
+    );
 
-                $entity = $loaded_ids{$model}->{$id} if looks_like_number($id);
-                $entity = $loaded_gids{$model}->{$id} if is_guid($id);
+    my @non_existent_entities;
 
-                detach_with_error($c, sprintf("%s=%s doesn't exist", $model, $id)) unless $entity;
+    for (@props_to_load) {
+        my ($id, $model, $setter) = @$_;
 
-                $edit->{$arg} = $entity;
-            }
+        unless ($setter->($loaded_entities{$model}->{$id})) {
+            push @non_existent_entities, {
+                type => model_to_type($model),
+                is_guid($id) ? ( gid => $id ) : ( id => $id ),
+            };
         }
     }
-}
 
-sub process_data {
-    my ($c, $data) = @_;
-
-    my $processor = $data_processors->{$data->{edit_type}};
-    $processor->($c, $data) if $processor;
+    if (@non_existent_entities) {
+        die {
+            errorCode => $ERROR_NON_EXISTENT_ENTITIES,
+            entities => \@non_existent_entities
+        };
+    }
 }
 
 sub create_edits {
@@ -327,25 +417,24 @@ sub create_edits {
 
     my $privs = $c->user->privileges;
 
-    if ($c->user->is_auto_editor && !$data->{as_auto_editor}) {
+    if ($c->user->is_auto_editor && !$data->{asAutoEditor}) {
         $privs &= ~$AUTO_EDITOR_FLAG;
     }
 
     try {
-        load_entities($c, $data->{edits}, $previewing);
+        process_edits($c, $data->{edits}, $previewing);
     }
     catch {
-        detach_with_error($c, "$_");
+        detach_with_error($c, $_);
     };
+
+    my $action = $previewing ? 'preview' : 'create';
 
     return map {
         my $opts = $_;
         my $edit;
-        my $action = $previewing ? 'preview' : 'create';
 
         try {
-            process_data($c, $opts);
-
             if ($opts->{edit_type} == $EDIT_RELATIONSHIP_CREATE) {
                 my $link_type = $opts->{link_type};
 
@@ -385,13 +474,22 @@ sub edit : Chained('/') PathPart('ws/js/edit') CaptureArgs(0) Edit {
 
     $c->forward('/user/cookie_login') unless $c->user_exists;
 
-    detach_with_error($c, 'not logged in') unless $c->user_exists;
+    detach_with_error($c, {
+        errorCode => $ERROR_NOT_LOGGED_IN,
+        message => l('You must be logged in to submit edits. {url|Log in} ' .
+                     'first, and then try submitting your edits again.',
+                     { url => { href => $c->uri_for_action('/user/login'), target => '_blank' } }),
+    }) unless $c->user_exists;
 }
 
 sub create : Chained('edit') PathPart('create') Edit {
     my ($self, $c) = @_;
 
-    my $data = get_request_body($c);
+    $self->submit_edits($c, get_request_body($c));
+}
+
+sub submit_edits {
+    my ($self, $c, $data) = @_;
 
     my @edit_data = @{ $data->{edits} };
     my @edit_types = map { $_->{edit_type} } @edit_data;
@@ -400,8 +498,8 @@ sub create : Chained('edit') PathPart('create') Edit {
         detach_with_error($c, 'edit_type required');
     }
 
-    if (!$data->{edit_note} && any { $_ == $EDIT_RELEASE_CREATE } @edit_types) {
-        detach_with_error($c, 'edit_note required');
+    if (!$data->{editNote} && any { $_ == $EDIT_RELEASE_CREATE } @edit_types) {
+        detach_with_error($c, 'editNote required');
     }
 
     my @edits;
@@ -409,7 +507,7 @@ sub create : Chained('edit') PathPart('create') Edit {
     $c->model('MB')->with_transaction(sub {
         @edits = $self->create_edits($c, $data);
 
-        my $edit_note = $data->{edit_note};
+        my $edit_note = $data->{editNote};
 
         if ($edit_note) {
             for my $edit (grep { $_ } @edits) {
@@ -457,7 +555,7 @@ sub create : Chained('edit') PathPart('create') Edit {
                     $js_model->_load_entities($c, $entity);
 
                     $response->{entity} = JSONSerializer->$serialization_routine($entity);
-                    $response->{entity}->{type} = $js_model->type;
+                    $response->{entity}->{entityType} = $js_model->type;
                 }
                 catch {
                     # Some entities (i.e. Mediums) don't have a WS::js model

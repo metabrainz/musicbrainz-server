@@ -1,8 +1,6 @@
 package MusicBrainz::Server::Controller::Role::Relationship;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 
-use MusicBrainz::Server::Data::Utils qw( model_to_type );
-
 requires 'load';
 
 sub relationships : Chained('load') PathPart('relationships')
@@ -11,58 +9,6 @@ sub relationships : Chained('load') PathPart('relationships')
     my $entity = $c->stash->{$self->{entity_name}};
     $c->model('Relationship')->load($entity);
 }
-
-sub relate : Chained('load')
-{
-    my ($self, $c) = @_;
-
-    my $type   = model_to_type( $self->{model} );
-    my $entity = $c->stash->{ $self->{entity_name} };
-
-    $c->session->{relationship} ||= {
-        type0   => $type,
-        entity0 => $entity->gid,
-        name    => $entity->name,
-        id      => $entity->id
-    };
-
-    if ($c->session->{relationship}->{type0} eq $type &&
-        $c->session->{relationship}->{id} eq $entity->id) {
-
-        $c->response->redirect(
-            $c->req->referer || $c->uri_for_action("$type/show", [ $entity->gid ]));
-    }
-    else {
-        $c->response->redirect($c->uri_for('/edit/relationship/create', {
-            type0 => $c->session->{relationship}->{type0},
-            type1 => $type,
-            entity0 => $c->session->{relationship}->{entity0},
-            entity1 => $entity->gid,
-            returnto => $c->req->referer
-        }));
-    }
-}
-
-
-sub cancel_relate : Chained('load')
-{
-    my ($self, $c) = @_;
-
-    $c->session->{relationship} = undef;
-
-    if ($c->req->referer)
-    {
-        $c->response->redirect($c->req->referer);
-    }
-    else
-    {
-        $c->response->redirect(
-            $c->uri_for_action(
-                $self->action_for ('show'), [ $c->stash->{entity}->gid ]
-            ));
-    }
-}
-
 
 after 'load' => sub {
     my ($self, $c) = @_;

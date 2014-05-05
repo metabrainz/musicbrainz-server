@@ -1,5 +1,5 @@
 package MusicBrainz::Server::Controller::Role::Edit;
-use MooseX::Role::Parameterized -metaclass => 'MusicBrainz::Server::Controller::Role::Meta::Parameterizable';
+use MooseX::Role::Parameterized;
 
 parameter 'form' => (
     isa => 'Str',
@@ -38,6 +38,7 @@ role {
             type        => $params->edit_type,
             item        => $edit_entity,
             edit_args   => { to_edit => $edit_entity },
+            edit_rels   => 1,
             redirect    => sub {
                 $c->response->redirect(
                     $c->uri_for_action($self->action_for('show'), [ $edit_entity->gid ]));

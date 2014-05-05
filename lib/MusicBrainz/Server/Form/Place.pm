@@ -6,7 +6,7 @@ use List::UtilsBy qw( sort_by );
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
 with 'MusicBrainz::Server::Form::Role::CheckDuplicates';
-with 'MusicBrainz::Server::Form::Role::ExternalLinks';
+with 'MusicBrainz::Server::Form::Role::Relationships';
 
 has '+name' => ( default => 'edit-place' );
 

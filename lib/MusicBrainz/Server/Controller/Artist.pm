@@ -20,7 +20,7 @@ with 'MusicBrainz::Server::Controller::Role::Subscribe';
 with 'MusicBrainz::Server::Controller::Role::Cleanup';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::CommonsImage';
-with 'MusicBrainz::Server::Controller::Role::EditExternalLinks';
+with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 
 use Data::Page;
 use HTTP::Status qw( :constants );
@@ -427,6 +427,12 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
             },
         );
     }
+};
+
+before edit => sub {
+    my ($self, $c) = @_;
+
+    $c->model('Relationship')->load($c->stash->{artist});
 };
 
 =head2 add_release

@@ -11,7 +11,6 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Details';
-with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 
@@ -21,11 +20,19 @@ use List::UtilsBy 'nsort_by';
 use MusicBrainz::Server::Translation qw ( l ln );
 use MusicBrainz::Server::Constants qw( :edit_type );
 use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
+use MusicBrainz::Server::Form::Utils qw(
+    build_grouped_options
+    select_options
+    language_options
+    build_attr_info
+    build_type_info
+);
 use Scalar::Util qw( looks_like_number );
 use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash artist_credit_to_ref );
 use MusicBrainz::Server::Edit::Utils qw( calculate_recording_merges );
 
 use aliased 'MusicBrainz::Server::Entity::Work';
+use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
 
 # A duration lookup has to match within this many milliseconds
 use constant DURATION_LOOKUP_RANGE => 10000;
@@ -91,7 +98,7 @@ after 'load' => sub
 
 # Stuff that has the side bar and thus needs to display collection information
 after [qw( cover_art add_cover_art edit_cover_art reorder_cover_art
-           show collections details discids tags relationships )] => sub {
+           show collections details discids tags )] => sub {
     my ($self, $c) = @_;
 
     my $release = $c->stash->{release};
@@ -114,13 +121,6 @@ after [qw( cover_art add_cover_art edit_cover_art reorder_cover_art
         containment => \%containment,
         all_collections => \@all_collections,
     );
-};
-
-after 'relationships' => sub
-{
-    my ($self, $c) = @_;
-    my $release = $c->stash->{release};
-    $c->model('Relationship')->load($release->release_group);
 };
 
 sub discids : Chained('load')
@@ -713,8 +713,19 @@ sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit {
     $c->model('Release')->load_meta($release);
     $c->model('ArtistCredit')->load($release);
     $c->model('ReleaseGroup')->load($release);
+    $c->model('ReleaseGroup')->load_meta($release->release_group);
 
-    $c->forward('/relationship_editor/load', $c);
+    my $json = JSON->new;
+    my @link_type_tree = $c->model('LinkType')->get_full_tree;
+    my $attr_tree = $c->model('LinkAttributeType')->get_tree;
+
+    $c->stash(
+        work_types      => select_options($c, 'WorkType'),
+        work_languages  => build_grouped_options($c, language_options($c)),
+        source_entity   => $json->encode(JSONSerializer->_release($release)),
+        attr_info       => $json->encode(build_attr_info($attr_tree)),
+        type_info       => $json->encode(build_type_info($c, qr/(recording|work|release)/, @link_type_tree)),
+    );
 }
 
 __PACKAGE__->meta->make_immutable;

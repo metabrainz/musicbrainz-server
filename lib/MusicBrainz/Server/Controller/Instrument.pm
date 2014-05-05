@@ -23,16 +23,14 @@ with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::CommonsImage';
-with 'MusicBrainz::Server::Controller::Role::EditExternalLinks';
+with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 
 sub base : Chained('/') PathPart('instrument') CaptureArgs(0) { }
 
 sub show : PathPart('') Chained('load') {
     my ($self, $c) = @_;
 
-    # need to call relationships for overview page
-    $self->relationships($c);
-
+    $c->model('Relationship')->load($c->stash->{instrument});
     $c->stash->{template} = 'instrument/index.tt';
 }
 

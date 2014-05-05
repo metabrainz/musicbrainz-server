@@ -1,21 +1,27 @@
-package MusicBrainz::Server::Form::Relationship::URL;
-
-use HTML::FormHandler::Moose;
-
-extends 'MusicBrainz::Server::Form::Relationship::LinkType';
-
-has '+name' => ( default => 'ar' );
+package MusicBrainz::Server::Form::Role::Relationships;
+use HTML::FormHandler::Moose::Role;
 
 has_field 'url' => (
-    type => '+MusicBrainz::Server::Form::Field::URL',
-    required => 1,
+    type => 'Repeatable',
+);
+
+has_field 'url.contains' => (
+    type => '+MusicBrainz::Server::Form::Field::Relationship',
+);
+
+has_field 'rel' => (
+    type => 'Repeatable',
+);
+
+has_field 'rel.contains' => (
+    type => '+MusicBrainz::Server::Form::Field::Relationship',
 );
 
 1;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2010 MetaBrainz Foundation
+Copyright (C) 2014 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

@@ -114,7 +114,10 @@ sub get_tree
 
     $self->_load_attributes(\%id_to_obj, keys %id_to_obj);
 
-    my $root = MusicBrainz::Server::Entity::LinkType->new;
+    my $root = MusicBrainz::Server::Entity::LinkType->new(
+        entity0_type => $type0,
+        entity1_type => $type1,
+    );
     foreach my $obj (@objs) {
         my $parent = $obj->parent_id ? $id_to_obj{$obj->parent_id} : $root;
         $parent->add_child($obj);

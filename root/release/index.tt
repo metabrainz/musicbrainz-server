@@ -33,7 +33,6 @@
       </dd>
     </script>
 
-    <!-- ko with: MB.Release.viewModel -->
     <table class="tbl">
       <thead>
         <tr>
@@ -162,7 +161,6 @@
         <!-- /ko -->
       </tbody>
     </table>
-    <!-- /ko -->
 
     <script>
       MB.Release.init(
@@ -173,7 +171,7 @@
             return (
                 target => {
                     gid => $target->gid,
-                    type => $rel->target_type,
+                    entityType => $rel->target_type,
                     name => $target->name,
                     sortName => $target->can('sort_name') ? $target->sort_name : undef,
                     comment => $target->can('comment') ? $target->comment : ''
@@ -326,7 +324,6 @@
                           [% IF item.release %]
                           <div class="release-rel">
                             [% relationship_target_links(item.rel) %]
-                            [% relationship_edit_links(item.rel) -%]
                           </div>
                           [% END %]
                       [% END %]

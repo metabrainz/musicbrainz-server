@@ -95,10 +95,6 @@
         <hr/>
 
         <li>[% link_release(release, 'edit_relationships', l('Edit relationships')) %]</li>
-        [%# Adds <li> itself %]
-        [% use_in_relationship(release) %]
-        <li>[% relate_to_ellipsis(release) %]</li>
-        <li>[% relate_to_url(release) %]</li>
         <hr/>
 
       <li>[% link_entity(release, 'open_edits', l('Open edits')) %]</li>

@@ -72,3 +72,21 @@ test("formatDate", function () {
     equal(MB.utility.formatDate({ month: 1, day: 1 }), "????-01-01");
     equal(MB.utility.formatDate({ day: 1 }), "????-??-01");
 });
+
+
+test("formatDatePeriod", function () {
+    var a = { year: 1999 };
+    var b = { year: 2000 };
+
+    equal(MB.utility.formatDatePeriod({ beginDate: a, endDate: a, ended: false }), "1999");
+    equal(MB.utility.formatDatePeriod({ beginDate: a, endDate: a, ended: true }), "1999");
+
+    equal(MB.utility.formatDatePeriod({ beginDate: a, endDate: b, ended: false }), "1999 \u2013 2000");
+    equal(MB.utility.formatDatePeriod({ beginDate: a, endDate: b, ended: true }), "1999 \u2013 2000");
+
+    equal(MB.utility.formatDatePeriod({ beginDate: {}, endDate: b, ended: false }), " \u2013 2000");
+    equal(MB.utility.formatDatePeriod({ beginDate: {}, endDate: b, ended: true }), " \u2013 2000");
+
+    equal(MB.utility.formatDatePeriod({ beginDate: a, endDate: {}, ended: false }), "1999 \u2013 ");
+    equal(MB.utility.formatDatePeriod({ beginDate: a, endDate: {}, ended: true }), "1999 \u2013 ????");
+});

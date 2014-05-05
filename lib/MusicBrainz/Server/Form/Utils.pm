@@ -18,6 +18,8 @@ use Sub::Exporter -setup => {
                       select_options
                       select_options_tree
                       build_grouped_options
+                      build_type_info
+                      build_attr_info
               )]
 };
 
@@ -158,6 +160,78 @@ sub build_grouped_options
               { label => $opt->{label}, value => $opt->{value} };
     }
     return $result;
+}
+
+sub build_type_info {
+    my ($c, $types, @link_type_tree) = @_;
+
+    sub build_type {
+        my $root = shift;
+
+        my %attrs = map {
+            $_->type_id => {
+                min     => defined $_->min ? 0 + $_->min : undef,
+                max     => defined $_->max ? 0 + $_->max : undef,
+            }
+        } $root->all_attributes;
+
+        my $result = {
+            id              => $root->id,
+            gid             => $root->gid,
+            phrase          => $root->l_link_phrase,
+            reversePhrase   => $root->l_reverse_link_phrase,
+            deprecated      => $root->is_deprecated ? \1 : \0,
+            hasDates        => $root->has_dates ? \1 : \0,
+            type0           => $root->entity0_type,
+            type1           => $root->entity1_type,
+            cardinality0    => $root->entity0_cardinality,
+            cardinality1    => $root->entity1_cardinality,
+        };
+
+        $result->{description} = $root->l_description if $root->description;
+        $result->{attributes} = \%attrs if %attrs;
+        $result->{children} = build_child_info($root, \&build_type) if $root->all_children;
+
+        return $result;
+    };
+
+    my %type_info;
+    for my $root (@link_type_tree) {
+        my $type_key = join('-', $root->entity0_type, $root->entity1_type);
+        next if $type_key !~ $types;
+        $type_info{ $type_key } = build_child_info($root, \&build_type);
+    }
+    return \%type_info;
+}
+
+sub build_attr_info {
+    my $root = shift;
+
+    sub build_attr {
+        my $attr = {
+            id      => $_->id,
+            gid     => $_->gid,
+            root_id => $_->root_id,
+            name    => $_->name,
+            l_name  => $_->l_name,
+        };
+
+        $attr->{description} = $_->l_description if $_->description;
+        $attr->{children} = build_child_info($_, \&build_attr) if $_->all_children;
+
+        my $unac = decode("utf-16", unac_string_utf16(encode("utf-16", $_->l_name)));
+        $attr->{unaccented} = $unac if $unac ne $_->l_name;
+
+        return $attr;
+    }
+
+    return { map { $_->name => build_attr($_) } $root->all_children };
+}
+
+sub build_child_info {
+    my ($root, $builder) = @_;
+
+    return [ map { $builder->($_) } $root->all_children ];
 }
 
 1;

@@ -59,13 +59,6 @@
 
                 <hr/>
 
-                [%# Adds <li> itself %]
-                [% use_in_relationship(place) %]
-                <li>[% relate_to_ellipsis(place) %]</li>
-                <li>[% relate_to_url(place) %]</li>
-
-                <hr/>
-
                 <li>[% link_entity(place, 'open_edits', l('Open edits')) %]</li>
                 <li>[% link_entity(place, 'edits', l('Editing history')) %]</li>
             [% ELSE %]
