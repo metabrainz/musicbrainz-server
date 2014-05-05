@@ -147,6 +147,40 @@ END;
 $$ LANGUAGE 'plpgsql';
 
 -----------------------------------------------------------------------
+-- instrument triggers
+-----------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION a_ins_instrument() RETURNS trigger AS $$
+BEGIN
+    INSERT INTO link_attribute_type (parent, root, child_order, gid, name, description) VALUES (14, 14, 0, NEW.gid, NEW.name, NEW.description);
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION a_upd_instrument() RETURNS trigger AS $$
+BEGIN
+    UPDATE link_attribute_type SET name = NEW.name, description = NEW.description WHERE gid = NEW.gid;
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'no link_attribute_type found for instrument %', NEW.gid;
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION a_del_instrument() RETURNS trigger AS $$
+BEGIN
+    DELETE FROM link_attribute_type WHERE gid = OLD.gid;
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'no link_attribute_type found for instrument %', NEW.gid;
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+-----------------------------------------------------------------------
 -- label triggers
 -----------------------------------------------------------------------
 
@@ -607,6 +641,8 @@ $BODY$
   EXCEPT
   SELECT entity1 FROM l_artist_artist
   EXCEPT
+  SELECT entity0 FROM l_artist_instrument
+  EXCEPT
   SELECT entity0 FROM l_artist_label
   EXCEPT
   SELECT entity0 FROM l_artist_place
@@ -616,6 +652,8 @@ $BODY$
   SELECT entity0 FROM l_artist_release
   EXCEPT
   SELECT entity0 FROM l_artist_release_group
+  EXCEPT
+  SELECT entity0 FROM l_artist_series
   EXCEPT
   SELECT entity0 FROM l_artist_url
   EXCEPT
@@ -646,6 +684,8 @@ $BODY$
   EXCEPT
   SELECT entity1 FROM l_artist_label
   EXCEPT
+  SELECT entity1 FROM l_instrument_label
+  EXCEPT
   SELECT entity1 FROM l_label_label
   EXCEPT
   SELECT entity0 FROM l_label_label
@@ -657,6 +697,8 @@ $BODY$
   SELECT entity0 FROM l_label_release
   EXCEPT
   SELECT entity0 FROM l_label_release_group
+  EXCEPT
+  SELECT entity0 FROM l_label_series
   EXCEPT
   SELECT entity0 FROM l_label_url
   EXCEPT
@@ -689,6 +731,8 @@ $BODY$
   EXCEPT
   SELECT entity1 FROM l_artist_release_group
   EXCEPT
+  SELECT entity1 FROM l_instrument_release_group
+  EXCEPT
   SELECT entity1 FROM l_label_release_group
   EXCEPT
   SELECT entity1 FROM l_place_release_group
@@ -700,6 +744,8 @@ $BODY$
   SELECT entity1 FROM l_release_group_release_group
   EXCEPT
   SELECT entity0 FROM l_release_group_release_group
+  EXCEPT
+  SELECT entity0 FROM l_release_group_series
   EXCEPT
   SELECT entity0 FROM l_release_group_url
   EXCEPT
@@ -730,6 +776,8 @@ $BODY$
   EXCEPT
   SELECT entity1 FROM l_artist_work
   EXCEPT
+  SELECT entity1 FROM l_instrument_work
+  EXCEPT
   SELECT entity1 FROM l_label_work
   EXCEPT
   SELECT entity1 FROM l_place_work
@@ -739,6 +787,8 @@ $BODY$
   SELECT entity1 FROM l_release_work
   EXCEPT
   SELECT entity1 FROM l_release_group_work
+  EXCEPT
+  SELECT entity1 FROM l_series_work
   EXCEPT
   SELECT entity1 FROM l_url_work
   EXCEPT
@@ -771,6 +821,8 @@ $BODY$
   EXCEPT
   SELECT entity1 FROM l_artist_place
   EXCEPT
+  SELECT entity1 FROM l_instrument_place
+  EXCEPT
   SELECT entity1 FROM l_label_place
   EXCEPT
   SELECT entity1 FROM l_place_place
@@ -783,9 +835,56 @@ $BODY$
   EXCEPT
   SELECT entity0 FROM l_place_release_group
   EXCEPT
+  SELECT entity0 FROM l_place_series
+  EXCEPT
   SELECT entity0 FROM l_place_url
   EXCEPT
   SELECT entity0 FROM l_place_work;
+$BODY$
+LANGUAGE 'sql';
+
+-------------------------------------------------------------------
+-- Find series that are empty, and have not been updated within the
+-- last 1 day
+-------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION empty_series() RETURNS SETOF int AS
+$BODY$
+  SELECT id FROM series
+  WHERE
+    edits_pending = 0 AND
+    (
+      last_updated < now() - '1 day'::interval OR last_updated is NULL
+    )
+  EXCEPT
+  SELECT series
+  FROM edit_series
+  JOIN edit ON (edit.id = edit_series.edit)
+  WHERE edit.status = 1
+  EXCEPT
+  SELECT entity1 FROM l_area_series
+  EXCEPT
+  SELECT entity1 FROM l_artist_series
+  EXCEPT
+  SELECT entity1 FROM l_instrument_series
+  EXCEPT
+  SELECT entity1 FROM l_label_series
+  EXCEPT
+  SELECT entity1 FROM l_place_series
+  EXCEPT
+  SELECT entity1 FROM l_recording_series
+  EXCEPT
+  SELECT entity1 FROM l_release_series
+  EXCEPT
+  SELECT entity1 FROM l_release_group_series
+  EXCEPT
+  SELECT entity0 FROM l_series_series
+  EXCEPT
+  SELECT entity1 FROM l_series_series
+  EXCEPT
+  SELECT entity0 FROM l_series_url
+  EXCEPT
+  SELECT entity0 FROM l_series_work;
 $BODY$
 LANGUAGE 'sql';
 
@@ -888,6 +987,11 @@ BEGIN
         LIMIT 1
       ) OR
       EXISTS (
+        SELECT TRUE FROM l_instrument_url
+        WHERE entity1 = url_row.id
+        LIMIT 1
+      ) OR
+      EXISTS (
         SELECT TRUE FROM l_label_url
         WHERE entity1 = url_row.id
         LIMIT 1
@@ -909,6 +1013,11 @@ BEGIN
       ) OR
       EXISTS (
         SELECT TRUE FROM l_release_group_url
+        WHERE entity1 = url_row.id
+        LIMIT 1
+      ) OR
+      EXISTS (
+        SELECT TRUE FROM l_series_url
         WHERE entity1 = url_row.id
         LIMIT 1
       ) OR
@@ -964,6 +1073,18 @@ BEGIN
       UPDATE artist_alias SET primary_for_locale = FALSE
       WHERE locale = NEW.locale AND id != NEW.id
         AND artist = NEW.artist;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION unique_primary_instrument_alias()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.primary_for_locale THEN
+      UPDATE instrument_alias SET primary_for_locale = FALSE
+      WHERE locale = NEW.locale AND id != NEW.id
+        AND instrument = NEW.instrument;
     END IF;
     RETURN NEW;
 END;
@@ -1069,6 +1190,8 @@ AS $$
           UNION ALL
         SELECT TRUE FROM l_artist_recording WHERE entity1 = outer_r.id
           UNION ALL
+        SELECT TRUE FROM l_instrument_recording WHERE entity1 = outer_r.id
+          UNION ALL
         SELECT TRUE FROM l_label_recording WHERE entity1 = outer_r.id
           UNION ALL
         SELECT TRUE FROM l_place_recording WHERE entity1 = outer_r.id
@@ -1078,6 +1201,8 @@ AS $$
         SELECT TRUE FROM l_recording_release WHERE entity0 = outer_r.id
           UNION ALL
         SELECT TRUE FROM l_recording_release_group WHERE entity0 = outer_r.id
+          UNION ALL
+        SELECT TRUE FROM l_recording_series WHERE entity0 = outer_r.id
           UNION ALL
         SELECT TRUE FROM l_recording_work WHERE entity0 = outer_r.id
           UNION ALL
@@ -1160,6 +1285,24 @@ BEGIN
     AND (SELECT is_deprecated FROM link_type WHERE id = NEW.link_type)
   THEN
     RAISE EXCEPTION 'Attempt to create or change a relationship into a deprecated relationship type';
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION check_has_dates()
+RETURNS trigger AS $$
+BEGIN
+    IF (NEW.begin_date_year IS NOT NULL OR
+       NEW.begin_date_month IS NOT NULL OR
+       NEW.begin_date_day IS NOT NULL OR
+       NEW.end_date_year IS NOT NULL OR
+       NEW.end_date_month IS NOT NULL OR
+       NEW.end_date_day IS NOT NULL OR
+       NEW.ended = TRUE)
+       AND NOT (SELECT has_dates FROM link_type WHERE id = NEW.link_type)
+  THEN
+    RAISE EXCEPTION 'Attempt to add dates to a relationship type that does not support dates.';
   END IF;
   RETURN NEW;
 END;

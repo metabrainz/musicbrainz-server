@@ -28,6 +28,7 @@ $(function() {
         var id = select.options[select.selectedIndex].value;
         var message;
         var attrs;
+        var has_dates;
         if (id) {
             var selected = typeInfo[id];
             if (selected.descr) {
@@ -40,10 +41,12 @@ $(function() {
                 message = MB.text.PleaseSelectARSubtype;
             }
             attrs = selected.attrs || {};
+            has_dates = selected.has_dates ? true : false;
         }
         else {
             message = MB.text.PleaseSelectARType;
             attrs = {};
+            has_dates = true;
         }
         var has_attributes = false;
         $('#type_descr').html(message);
@@ -71,7 +74,12 @@ $(function() {
                 attrDiv.hide();
             }
         });
-        has_attributes ? $('tr.attributes-container').show() : $('tr.attributes-container').hide();
+        $('tr.attributes-container').toggle(has_attributes);
+        $('tr.date-field').toggle(has_dates);
+        var conditionalFields = $('#id-ar\\\.period\\\.ended')
+            .add('.partial-date input');
+
+        conditionalFields.prop('disabled', has_dates == false);
     }
 
     function filterSelect($filter, direction) {

@@ -68,6 +68,7 @@ Readonly my %TYPE_TO_MODEL => (
     'collection'    => 'Collection',
     'editor'        => 'Editor',
     'freedb'        => 'FreeDB',
+    'instrument'    => 'Instrument',
     'label'         => 'Label',
     'place'         => 'Place',
     'recording'     => 'Recording',
@@ -226,7 +227,7 @@ sub load_everything_for_edits
         $c->model('Edit')->load_all(@$edits);
         $c->model('Vote')->load_for_edits(@$edits);
         $c->model('EditNote')->load_for_edits(@$edits);
-        $c->model('Editor')->load(map { ($_, @{ $_->votes, $_->edit_notes }) } @$edits);
+        $c->model('Editor')->load(map { ($_, @{ $_->votes }, @{ $_->edit_notes }) } @$edits);
     } catch {
         use Data::Dumper;
         croak "Failed loading edits (" . (join ', ', map { $_->id } @$edits) . ")\n" .

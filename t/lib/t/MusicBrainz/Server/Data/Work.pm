@@ -174,7 +174,7 @@ test 'Loading work attributes for works with no attributes' => sub {
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+work');
 
     my $work = $test->c->model('Work')->get_by_id(1);
-    is exception { $test->c->model('Work')->load_attributes($work) }, undef;
+    is exception { $test->c->model('WorkAttribute')->load_for_works($work) }, undef;
 
     is($work->all_attributes, 0, 'work has no attributes')
 };
@@ -197,7 +197,7 @@ EOSQL
     );
 
     my $work = $test->c->model('Work')->get_by_id(1);
-    is exception { $test->c->model('Work')->load_attributes($work) }, undef;
+    is exception { $test->c->model('WorkAttribute')->load_for_works($work) }, undef;
 
     is($work->all_attributes, 1, 'work has 1 attribute');
     is($work->attributes->[0]->type->name, 'Attribute',
@@ -225,7 +225,7 @@ EOSQL
     );
 
     my $work = $test->c->model('Work')->get_by_id(1);
-    is exception { $test->c->model('Work')->load_attributes($work) }, undef;
+    is exception { $test->c->model('WorkAttribute')->load_for_works($work) }, undef;
 
     is($work->all_attributes, 1, 'work has 1 attribute');
     is($work->attributes->[0]->type->name, 'Attribute',
@@ -257,7 +257,7 @@ EOSQL
     );
 
     my $work = $test->c->model('Work')->get_by_id(1);
-    is exception { $test->c->model('Work')->load_attributes($work) }, undef;
+    is exception { $test->c->model('WorkAttribute')->load_for_works($work) }, undef;
 
     is($work->all_attributes, 2, 'work has 2 attributes');
 };
@@ -275,16 +275,17 @@ INSERT INTO work_attribute_type_allowed_value (id, work_attribute_type, value)
 VALUES (1, 1, 'Value'), (2, 1, 'Value 2'), (3, 3, 'Value 3');
 EOSQL
 
-    my %allowed_values = $test->c->model('Work')->allowed_attribute_values(1..3);
+    my $types = $test->c->model('WorkAttributeType')->get_by_ids(1..3);
+    $test->c->model('WorkAttributeTypeAllowedValue')->load_for_work_attribute_types(values %$types);
 
-    ok($allowed_values{1}->{allows_value}->(1), 'Attribute #1 allows value #1');
-    ok($allowed_values{1}->{allows_value}->(2), 'Attribute #1 allows value #2');
-    ok(!$allowed_values{1}->{allows_value}->(3), 'Attribute #1 disallows value #3');
+    ok($types->{1}->allows_value(1), 'Attribute #1 allows value #1');
+    ok($types->{1}->allows_value(2), 'Attribute #1 allows value #2');
+    ok(!$types->{1}->allows_value(3), 'Attribute #1 disallows value #3');
 
-    ok($allowed_values{2}->{allows_value}->('Anything you want'),
+    ok($types->{2}->allows_value('Anything you want'),
         'Attribute #2 allows arbitrary text');
 
-    ok($allowed_values{3}->{allows_value}->(3), 'Attribute #3 allows value #3');
+    ok($types->{3}->allows_value(3), 'Attribute #3 allows value #3');
 };
 
 test 'Merge attributes for works' => sub {
@@ -322,7 +323,7 @@ EOSQL
     $work_data->merge($a->id, $b->id);
 
     my $final_work = $work_data->get_by_gid($a->gid);
-    $work_data->load_attributes($final_work);
+    $test->c->model('WorkAttribute')->load_for_works($final_work);
 
     cmp_deeply(
         $final_work->attributes,

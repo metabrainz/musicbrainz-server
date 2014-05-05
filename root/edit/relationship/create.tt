@@ -79,17 +79,17 @@
                 [% END %]
                 </td>
             </tr>
-            <tr>
+            <tr class="date-field">
                 <th class="label">[% r.label('period.begin_date', l('Begin date:'), fake => 1) %]</th>
                 <td>[% r.date('period.begin_date') %]
                 [% field_errors(form, 'period.begin_date') %]</td>
             </tr>
-            <tr>
+            <tr class="date-field">
                 <th class="label">[% r.label('period.end_date', l('End date:'), fake => 1) %]</th>
                 <td>[% r.date('period.end_date') %]
                 [% field_errors(form, 'period.end_date') %]</td>
             </tr>
-            <tr>
+            <tr class="date-field">
               <td class="label">
               </td>
               <td>

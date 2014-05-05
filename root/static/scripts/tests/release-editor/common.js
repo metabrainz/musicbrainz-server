@@ -167,7 +167,6 @@ releaseEditor.test.testRelease = {
     {
       catalogNumber: "WPC6-10044",
       label: {
-        sortName: "WEA Japan",
         comment: "",
         name: "WEA Japan",
         id: 30265,
@@ -178,7 +177,6 @@ releaseEditor.test.testRelease = {
     {
       catalogNumber: "WPC6-10045",
       label: {
-        sortName: "WEA Japan",
         comment: "",
         name: "WEA Japan",
         id: 30265,

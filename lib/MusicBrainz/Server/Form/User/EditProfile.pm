@@ -2,7 +2,7 @@ package MusicBrainz::Server::Form::User::EditProfile;
 
 use HTML::FormHandler::Moose;
 use List::MoreUtils qw( any all );
-use MusicBrainz::Server::Form::Utils qw( language_options select_options );
+use MusicBrainz::Server::Form::Utils qw( language_options select_options_tree );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation qw( is_valid_url );
 
@@ -54,7 +54,7 @@ has_field 'languages.fluency' => (
     required => 1
 );
 
-sub options_gender_id { select_options(shift->ctx, 'Gender') }
+sub options_gender_id { select_options_tree(shift->ctx, 'Gender') }
 sub options_languages_language_id { return language_options(shift->ctx) }
 sub options_languages_fluency {
     return [

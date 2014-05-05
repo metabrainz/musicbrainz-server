@@ -14,11 +14,6 @@ with 'MusicBrainz::Server::Entity::Role::Age';
 with 'MusicBrainz::Server::Entity::Role::IPI';
 with 'MusicBrainz::Server::Entity::Role::ISNI';
 
-has 'sort_name' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
 has 'type_id' => (
     is => 'rw',
     isa => 'Int'

@@ -70,9 +70,7 @@ role
             "        SELECT term, $type FROM ${type}_alias".
             "           JOIN search ON musicbrainz_unaccent(lower(${type}_alias.name)) = musicbrainz_unaccent(lower(term))" .
             "        UNION SELECT term, id FROM $type " .
-            "           JOIN search ON musicbrainz_unaccent(lower(${type}.name)) = musicbrainz_unaccent(lower(term))" .
-            "        UNION SELECT term, id FROM $type " .
-            "           JOIN search ON musicbrainz_unaccent(lower(${type}.sort_name)) = musicbrainz_unaccent(lower(term))) " .
+            "           JOIN search ON musicbrainz_unaccent(lower(${type}.name)) = musicbrainz_unaccent(lower(term)))" .
             "      SELECT term AS search_term, ".$self->_columns.
             "      FROM ". $self->_table ." JOIN entity_matches ON entity_matches.entity = $type.id";
 

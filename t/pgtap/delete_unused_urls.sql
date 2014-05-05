@@ -10,8 +10,8 @@ INSERT INTO artist (id, gid, name, sort_name)
 
 INSERT INTO artist_credit (id, artist_count, name) VALUES (1, 1, 'Artist');
 
-INSERT INTO label (id, gid, name, sort_name)
-  VALUES (1, '79cde6f7-80b1-45bf-9512-568bad5a54d6', 'Label', 'Label');
+INSERT INTO label (id, gid, name)
+  VALUES (1, '79cde6f7-80b1-45bf-9512-568bad5a54d6', 'Label');
 
 INSERT INTO release_group (id, gid, name, artist_credit)
   VALUES (1, '28cb82a8-ccd2-4168-8c39-c08594fee1d9', 'Release', 1);

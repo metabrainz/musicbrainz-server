@@ -663,6 +663,38 @@ MB.Control.autocomplete_formatters = {
         };
 
         return $("<li>").append (a).appendTo (ul);
+    },
+
+    "instrument": function (ul, item) {
+        var a = $("<a>").text(item.name);
+
+        var comment = [];
+
+        if (item.primary_alias && item.primary_alias != item.name) {
+            comment.push(item.primary_alias);
+        }
+
+        if (item.comment) {
+            comment.push(item.comment);
+        }
+
+        if (item.typeName) {
+            comment.push(item.typeName);
+        }
+
+        if (comment.length)
+        {
+            a.append (' <span class="autocomplete-comment">(' +
+                      _.escape(comment.join (", ")) + ')</span>');
+        }
+
+        if (item.description) {
+            a.append('<br /><span class="autocomplete-comment">' +
+                      _.escape(item.description) +
+                      '</span>');
+        }
+
+        return $("<li>").append(a).appendTo(ul);
     }
 
 };

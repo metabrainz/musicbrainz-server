@@ -1,5 +1,6 @@
 [% IF type == 'Area'; title=l("Browse Areas");
 ELSIF type == 'Artist'; title=l("Browse Artists");
+ELSIF type == 'Instrument'; title=l("Browse Instruments");
 ELSIF type == 'Label'; title=l("Browse Labels");
 ELSIF type == 'Place'; title=l("Browse Places");
 ELSIF type == 'ReleaseGroup'; title=l("Browse Release Groups");

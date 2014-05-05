@@ -8,7 +8,7 @@ with 'MusicBrainz::Server::Form::Role::Edit';
 sub edit_field_names {
     qw( parent_id child_order name link_phrase reverse_link_phrase
         long_link_phrase description priority attributes documentation
-        is_deprecated
+        is_deprecated has_dates
   ) }
 
 has '+name' => ( default => 'linktype' );
@@ -88,6 +88,10 @@ has root => (
 );
 
 has_field is_deprecated => (
+    type => 'Boolean'
+);
+
+has_field has_dates => (
     type => 'Boolean'
 );
 

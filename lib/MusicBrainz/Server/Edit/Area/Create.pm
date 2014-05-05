@@ -77,7 +77,6 @@ sub build_display_data
 sub _insert_hash
 {
     my ($self, $data) = @_;
-    $data->{sort_name} ||= $data->{name};
     return $data;
 };
 

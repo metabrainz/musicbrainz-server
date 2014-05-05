@@ -1,0 +1,4 @@
+[%- WRAPPER 'instrument/layout.tt' title=l('Edit Instrument Alias') full_width=1 -%]
+    <h2>[% l('Edit instrument alias') %]</h2>
+    [%- INCLUDE 'alias/edit_form.tt' search_hint_type_id=2 entity_type_name='instrument' -%]
+[%- END -%]
