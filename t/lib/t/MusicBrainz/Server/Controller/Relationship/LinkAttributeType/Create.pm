@@ -70,21 +70,12 @@ EOSQL
         my $response = $mech->submit_form(
             with_fields => {
                 'linkattrtype.name' => $name,
-                'linkattrtype.child_order' => $child_order
+                'linkattrtype.child_order' => $child_order,
+                'linkattrtype.parent_id' => $parent_id
             }
         );
-        ok($mech->success);
-
-        my @redir = $response->redirects;
-        like($redir[0]->content, qr{http://localhost/relationship-attributes/instruments\?msg=created}, "Redirect contains link to instrument tree page.");
     } $test->c;
-
-    is(@edits, 1);
-    isa_ok($edits[0], 'MusicBrainz::Server::Edit::Relationship::AddLinkAttribute');
-    is($edits[0]->data->{parent_id}, $parent_id, "Sets the parent to $parent_name");
-    is($edits[0]->data->{name}, $name, "Sets the name to $name");
-    is($edits[0]->data->{child_order}, $child_order,
-       "Sets the child order to $child_order");
+    is(@edits, 0, 'no edits created for an instrument attempt');
 };
 
 1;

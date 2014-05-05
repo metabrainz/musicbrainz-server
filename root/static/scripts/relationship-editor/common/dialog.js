@@ -76,6 +76,58 @@
     }());
 
 
+    ko.bindingHandlers.instrumentSelect = {
+
+        init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+            var value = valueAccessor();
+
+            var initialData = $.map(value(), function (id) {
+                var attr = MB.attrInfoByID[id];
+
+                if (attr.root_id == 14) {
+                    return ko.observable(MB.entity(attr, "instrument"));
+                }
+            });
+
+            var instruments = ko.observableArray(initialData);
+
+            var vm = {
+                instruments: instruments,
+
+                addItem: function () {
+                    instruments.push(ko.observable(MB.entity.Instrument({})));
+                },
+
+                removeItem: function (item) { instruments.remove(item) }
+            };
+
+            if (!initialData.length) vm.addItem();
+
+            function getID(observable) {
+                var gid = observable().gid
+
+                return gid && MB.attrInfoByID[gid].id;
+            }
+
+            ko.computed({
+                read: function () {
+                    var nonInstruments = _.reject(value(), function (id) {
+                        return MB.attrInfoByID[id].root_id == 14;
+                    });
+
+                    value(_(instruments()).map(getID).compact().union(nonInstruments).sort().value());
+                },
+                disposeWhenNodeIsRemoved: element
+            });
+
+            var childBindingContext = bindingContext.createChildContext(vm);
+            ko.applyBindingsToDescendants(childBindingContext, element);
+
+            return { controlsDescendantBindings: true };
+        }
+    };
+
+
     var Dialog = aclass({
 
         loading: ko.observable(false),

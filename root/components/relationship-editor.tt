@@ -102,7 +102,25 @@
           <input type="checkbox" data-bind="checked: $parent.relationship().attributes, checkedValue: Number(attribute.id)" />
           <!-- ko text: attribute.l_name --><!-- /ko -->
         <!-- /ko -->
-        <!-- ko if: attribute.children -->
+        <!-- ko if: attribute.id == 14 -->
+          <div data-bind="instrumentSelect: $parent.relationship().attributes">
+            <!-- ko foreach: instruments -->
+              <div>
+                <span class="autocomplete" style="width: auto;">
+                  <input data-bind="autocomplete: { entity: 'instrument', currentSelection: $rawData }" />
+                  <img class="search" src="/static/images/icons/search.png" />
+                </span>
+                <!-- ko if: $parent.instruments().length > 1 -->
+                  <button class="icon remove-item" data-bind="click: _.partial($parent.removeItem, $rawData)"></button>
+                <!-- /ko -->
+              </div>
+            <!-- /ko -->
+            <button class="styled-button" style="padding: 3px;" data-bind="click: addItem">
+              [% l('Add another instrument') | html %]
+            </button>
+          </div>
+        <!-- /ko -->
+        <!-- ko if: attribute.children && attribute.id != 14 -->
           <!-- ko text: attribute.l_name --><!-- /ko -->
           <div class="multiselect" data-bind="
                  component: {

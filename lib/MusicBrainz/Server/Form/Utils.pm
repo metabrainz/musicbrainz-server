@@ -210,6 +210,7 @@ sub build_attr_info {
     sub build_attr {
         my $attr = {
             id      => $_->id,
+            gid     => $_->gid,
             root_id => $_->root_id,
             name    => $_->name,
             l_name  => $_->l_name,

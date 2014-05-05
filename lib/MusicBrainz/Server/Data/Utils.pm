@@ -68,6 +68,7 @@ Readonly my %TYPE_TO_MODEL => (
     'collection'    => 'Collection',
     'editor'        => 'Editor',
     'freedb'        => 'FreeDB',
+    'instrument'    => 'Instrument',
     'label'         => 'Label',
     'place'         => 'Place',
     'recording'     => 'Recording',
