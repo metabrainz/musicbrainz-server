@@ -54,6 +54,7 @@ test 'adding a relationship' => sub {
         end_date    => { year => 1999, month => 2, day => undef },
         ended       => 0,
         attributes  => [1, 3, 4],
+        attribute_text_values => {},
     });
 };
 
@@ -106,6 +107,7 @@ test 'editing a relationship' => sub {
             end_date    => { month => undef, day => undef, year => undef },
             ended       => 0,
             attributes  => [3, 1],
+            attribute_text_values => {},
         },
         relationship_id => 3,
         new => {

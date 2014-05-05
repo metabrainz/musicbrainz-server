@@ -479,7 +479,7 @@ sub delete
 
     my $series_ids = $self->sql->select_list_of_hashes(
         "SELECT $series_col FROM l_${type0}_${type1} WHERE id = any(?)", \@ids
-    );
+    ) if $series_col;
 
     $self->sql->do("DELETE FROM l_${type0}_${type1}
                     WHERE id IN (" . placeholders(@ids) . ")", @ids);

@@ -301,7 +301,7 @@ sub initialize
         $self->check_attributes($link->type, $attributes, $opts{attribute_text_values} // {});
     }
 
-    delete $opts{attribute_text_values} unless %{ $opts{attribute_text_values} };
+    delete $opts{attribute_text_values} unless %{ $opts{attribute_text_values} // {} };
 
     unless ($relationship->entity0 && $relationship->entity1) {
         $self->c->model('Relationship')->load_entities($relationship);
