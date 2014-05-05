@@ -1,6 +1,6 @@
 package MusicBrainz::Server::Controller::Role::EditRelationships;
 use JSON;
-use MooseX::Role::Parameterized;
+use MooseX::Role::Parameterized -metaclass => 'MusicBrainz::Server::Controller::Role::Meta::Parameterizable';
 use MusicBrainz::Server::CGI::Expand qw( expand_hash );
 use MusicBrainz::Server::Constants qw( $SERIES_ORDERING_TYPE_MANUAL );
 use MusicBrainz::Server::Data::Utils qw( model_to_type ref_to_type type_to_model );

@@ -28,29 +28,30 @@ test all => sub {
     is ($data->{mediums}->[0]->{position}, 1, "first disc has position 1");
 
     my $rels = $data->{mediums}->[0]->{tracks}->[0]->{recording}->{relationships};
-    my $vocal_performance = $rels->{artist}->{vocal}->[0];
+    my $vocal_performance = $rels->[0];
 
     is_deeply ($vocal_performance, {
-        "direction" => "backward",
-        "target" => {
-            "comment" => "",
-            "id" => "9496",
-            "gid" => "a16d1433-ba89-4f72-a47b-a370add0bb55",
-            "sortName" => "BoA",
-            "name" => "BoA"
+        linkTypeID => 158,
+        direction => 'backward',
+        ended => 'false',
+        target => {
+            comment => '',
+            sortName => 'BoA',
+            entityType => 'artist',
+            name => 'BoA',
+            id => 9496,
+            gid => 'a16d1433-ba89-4f72-a47b-a370add0bb55'
         },
-        "verbose_phrase" => "vocal",
-        "ended" => 0,
-        "edits_pending" => 0,
-        "attributes" => {
-            "guest" => 1,
-        },
-        "link_type" => 158,
-        "id" => 6751,
+        editsPending => 'false',
+        endDate => undef,
+        beginDate => undef,
+        id => 6751,
+        verbosePhrase => 'vocal',
+        attributes => [194]
     }, "BoA performed vocals");
 
     is_deeply ($data->{mediums}->[0]->{tracks}->[1]->{recording}->{relationships},
-               {}, "No relationships on second track");
+               [], "No relationships on second track");
 };
 
 1;
