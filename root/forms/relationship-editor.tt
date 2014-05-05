@@ -31,7 +31,12 @@
               <button type="button" class="icon move-down" title="[% l('Move entity down') %]" data-click="moveEntityDown"></button>
               <button type="button" class="icon move-up" title="[% l('Move entity up') %]" data-click="moveEntityUp"></button>
             <!-- /ko -->
-            <span data-bind="html: target($parents[1]).html({ target: '_blank' }), relationshipStyling: true"></span>
+            <!-- ko if: linkOrder -->
+              <span data-bind="html: MB.i18n.expand(MB.text.OrderedRelationship, { num: linkOrder(), relationship: target($parents[1]).html({ target: '_blank' }) }), relationshipStyling: true"></span>
+            <!-- /ko -->
+            <!-- ko ifnot: linkOrder -->
+              <span data-bind="html: target($parents[1]).html({ target: '_blank' }), relationshipStyling: true"></span>
+            <!-- /ko -->
             <!-- ko with: phraseAndExtraAttributes($parents[2])[1] -->
               (<!-- ko text: $data --><!-- /ko -->)
             <!-- /ko -->

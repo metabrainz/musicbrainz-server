@@ -313,15 +313,8 @@
             this.linkOrder(Math.max(this.linkOrder() - 1, 0));
         },
 
-        moveEntityDown: function (self, event) {
-            var source = ko.contextFor(event.target).$parents[1];
-            var ourLinkTypeID = this.linkTypeID();
-
-            var group = _.filter(source.relationships(), function (other) {
-                return other.linkTypeID() === ourLinkTypeID;
-            });
-
-            this.linkOrder(Math.min(this.linkOrder() + 1, group.length));
+        moveEntityDown: function () {
+            this.linkOrder(this.linkOrder() + 1);
         },
 
         around$isDuplicate: function (supr, other) {

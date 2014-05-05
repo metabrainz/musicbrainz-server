@@ -498,19 +498,94 @@ sub adjust_edit_pending
 }
 
 sub reorder {
-    my ($self, $type0, $type1, %ordering) = @_;
+    my ($self, $type0, $type1, %given_ordering) = @_;
 
-    my @ids = keys %ordering;
+    my @ids = keys %given_ordering;
+
+    # Given a list of relationship ids, extract their unordered entities
+    # (i.e. a series is unordered, its releases are), plus the link_type ids
+    # they use.
+    #
+    # Then select *all* relationships that use any of those (entity, link_type)
+    # pairs in a relationship, which gives us are orderable groups.
+    #
+    # If more than one group is returned, something is wrong, since this
+    # function is only intended to be able to order one group.
+
+    my $groups = $self->sql->select_list_of_hashes(
+        "WITH sources AS (
+            SELECT (CASE WHEN olt.direction = 1
+                         THEN r.entity0
+                         ELSE r.entity1 END) AS source, lt.id AS link_type
+            FROM l_${type0}_${type1} r
+            JOIN link l ON l.id = r.link
+            JOIN link_type lt ON lt.id = l.link_type
+            JOIN orderable_link_type olt ON olt.link_type = lt.id
+            WHERE r.id = any(?)
+         )
+         SELECT array_agg(r.id) AS relationships,
+                array_agg(r.link_order) AS link_orders
+         FROM sources so
+         JOIN orderable_link_type olt ON olt.link_type = so.link_type
+         JOIN link l ON l.link_type = olt.link_type
+         JOIN l_${type0}_${type1} r ON (
+            r.link = l.id AND so.source = (CASE WHEN olt.direction = 1
+                                                THEN r.entity0
+                                                ELSE r.entity1 END)
+         )
+         GROUP BY so.link_type, so.source",
+         \@ids
+    );
+
+    die "Can only reorder one group of relationships" if @$groups != 1;
+
+    # Reorder other relationships in the group to avoid duplicate positions,
+    # unless the duplicate positions are explicitly passed in with the
+    # %given_ordering parameter.
+
+    my $group = $groups->[0];
+    my ($relationships, $link_orders) = ($group->{relationships}, $group->{link_orders});
+    my %new_ordering;
+
+    for (my $i = 0; $i < @$relationships; $i++) {
+        my $relationship1 = $relationships->[$i];
+        my $old_order1 = $link_orders->[$i];
+        my $new_order1 = $new_ordering{$relationship1} // $given_ordering{$relationship1};
+        my $is_duplicate = 1;
+
+        for (my $j = $i + 1; $j < @$relationships; $j++) {
+            my $relationship2 = $relationships->[$j];
+            my $old_order2 = $link_orders->[$j];
+            my $new_order2 = $new_ordering{$relationship2} // $given_ordering{$relationship2};
+
+            # If a relationship isn't moving, but another one is moving in
+            # its spot, increase the link order of the one that isn't moving.
+            if (defined($new_order1) && !defined($new_order2)
+                    && $old_order1 != $new_order1
+                    && $new_order1 == $old_order2) {
+                $new_order2 = $old_order2 + 1;
+            }
+
+            if (defined($new_order2) && !defined($new_order1)
+                    && $old_order2 != $new_order2
+                    && $new_order2 == $old_order1) {
+                $new_order1 = $old_order1 + 1;
+            }
+
+            $new_ordering{$relationship1} = $new_order1 if $new_order1;
+            $new_ordering{$relationship2} = $new_order2 if $new_order2;
+        }
+    }
+
+    @ids = keys %new_ordering;
 
     $self->sql->do(
         "WITH pos (relationship, link_order) AS (
             VALUES " . join(', ', ('(?::INTEGER, ?::INTEGER)') x @ids) . "
         )
-        UPDATE l_${type0}_${type1} SET link_order = (
-            SELECT link_order FROM pos WHERE pos.relationship = id
-        )
-        WHERE id = any(?)",
-        %ordering, \@ids
+        UPDATE l_${type0}_${type1} SET link_order = pos.link_order
+        FROM pos WHERE pos.relationship = id",
+        %new_ordering
     );
 }
 

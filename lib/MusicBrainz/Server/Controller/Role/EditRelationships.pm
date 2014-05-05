@@ -257,7 +257,7 @@ role {
                         my $is_series = $unorderable_entity->isa('MusicBrainz::Server::Entity::Series');
 
                         if (!$is_series || $unorderable_entity->ordering_type_id == $SERIES_ORDERING_TYPE_MANUAL) {
-                            my $key = join "-", $link_type->id, $unorderable_entity;
+                            my $key = join "-", $link_type->id, $unorderable_entity->id;
 
                             push @{ $reordered_relationships{$key} //= [] }, {
                                 relationship => $relationship,

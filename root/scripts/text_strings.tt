@@ -181,6 +181,7 @@
             work:            "[% l('Add another work') | js %]"
         },
         AttributeTextValue: '[% l('{attribute}: {value}') | js %]',
-        AttributeTextValueRequired: '[% l('A text value is required.') | js %]'
+        AttributeTextValueRequired: '[% l('A text value is required.') | js %]',
+        OrderedRelationship: '[% l('{num}. {relationship}') | js %]'
     });
 })(MB);
