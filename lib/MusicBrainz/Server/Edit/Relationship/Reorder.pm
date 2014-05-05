@@ -1,13 +1,16 @@
 package MusicBrainz::Server::Edit::Relationship::Reorder;
 use strict;
-use Algorithm::Merge qw( merge );
 use JSON;
 use List::MoreUtils qw( any );
 use Moose;
 use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
 use MooseX::Types::Moose qw( ArrayRef Int Str Bool );
 use MooseX::Types::Structured qw( Dict );
-use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIPS_REORDER );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_RELATIONSHIPS_REORDER
+    $EXPIRE_ACCEPT
+    :quality
+);
 use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash type_to_model );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash );
@@ -66,11 +69,6 @@ has '+data' => (
             ]
         ],
     ]
-);
-
-has 'relationships' => (
-    isa => 'ArrayRef[Relationship]',
-    is => 'rw'
 );
 
 sub foreign_keys {
@@ -162,6 +160,22 @@ sub adjust_edit_pending
     );
 }
 
+sub allow_auto_edit { 1 }
+
+sub edit_conditions {
+    my $conditions = {
+        duration      => 0,
+        votes         => 0,
+        expire_action => $EXPIRE_ACCEPT,
+        auto_edit     => 1,
+    };
+
+    return {
+        $QUALITY_LOW    => $conditions,
+        $QUALITY_NORMAL => $conditions,
+        $QUALITY_HIGH   => $conditions,
+    };
+}
 
 sub initialize {
     my ($self, %opts) = @_;
@@ -244,59 +258,16 @@ sub accept {
 
     my @relationships = values %$relationships;
     $self->c->model('Link')->load(@relationships);
-    $self->relationships(\@relationships);
 
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
         "The relationships cannot be reordered because they no longer share the same link type."
     ) if any { $_->link->type_id != $link_type->{id} } @relationships;
 
-    my $current_order = [
-        map encode_json({
-            relationship_id => $_->id,
-            order => $_->link_order,
-        }), @{ $self->relationships }
-    ];
-
-    my $new_order = [
-        map encode_json({
-            relationship_id => $_->{relationship}{id},
-            order => $_->{new_order},
-        }), @{ $self->data->{relationship_order} }
-    ];
-
-    my $old_order = [
-        map encode_json({
-            relationship_id => $_->{relationship}{id},
-            order => $_->{old_order},
-        }), @{ $self->data->{relationship_order} }
-    ];
-
-    try {
-        my @merged = merge(
-            $old_order, $current_order, $new_order,
-            { CONFLICT => sub {
-                die bless({
-                    ancestor => $old_order,
-                    current => $current_order,
-                    new => $new_order,
-                }, 'Conflict')
-            } }
-        );
-
-        $self->c->model('Relationship')->reorder(
-            $link_type->{entity0_type},
-            $link_type->{entity1_type},
-            map { $_->{relationship_id} => $_->{order} } map { decode_json($_) } @merged
-        );
-    } catch {
-        if (eval { $_->isa('Conflict') }) {
-            MusicBrainz::Server::Edit::Exceptions::FailedDependency
-                  ->throw('Data has changed since this edit was created, and now conflicts ' .
-                          'with changes made in this edit.');
-        } else {
-            die $_;
-        }
-    };
+    $self->c->model('Relationship')->reorder(
+        $link_type->{entity0_type},
+        $link_type->{entity1_type},
+        map { $_->{relationship}{id} => $_->{new_order} } @{ $self->data->{relationship_order} }
+    );
 }
 
 1;
