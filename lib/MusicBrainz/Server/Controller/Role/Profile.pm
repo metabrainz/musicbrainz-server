@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::Role::Profile;
-use MooseX::Role::Parameterized;
+use MooseX::Role::Parameterized
+    -metaclass => 'MusicBrainz::Server::Controller::Role::Meta::Parameterizable';
 
 parameter 'threshold' => (
     required => 1,

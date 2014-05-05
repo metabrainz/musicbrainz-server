@@ -1,5 +1,5 @@
 package MusicBrainz::Server::Controller::Role::IdentifierSet;
-use MooseX::Role::Parameterized;
+use MooseX::Role::Parameterized -metaclass => 'MusicBrainz::Server::Controller::Role::Meta::Parameterizable';
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 
 parameter 'entity_type' => (
