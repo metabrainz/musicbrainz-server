@@ -2,6 +2,8 @@
 
 BEGIN;
 
+SELECT setval('label_alias_id_seq', (SELECT MAX(id) FROM label_alias));
+
 -- Migrate existing sortnames
 
 -- If the name contains non-Latin scripts, we currently have a weird mixture of non-Latin name and Latin sortname.
