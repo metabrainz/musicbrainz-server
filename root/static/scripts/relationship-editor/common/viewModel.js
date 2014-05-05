@@ -213,8 +213,11 @@
                     hidden.push({ name: prefix + ".backward", value: 1 });
                 }
 
-                hidden.push({ name: prefix + ".link_type_id", value: editData.linkTypeID });
-                hidden.push({ name: prefix + ".link_order", value: editData.linkOrder });
+                hidden.push({ name: prefix + ".link_type_id", value: editData.linkTypeID || "" });
+
+                if (_.isNumber(editData.linkOrder)) {
+                    hidden.push({ name: prefix + ".link_order", value: editData.linkOrder });
+                }
 
                 return hidden;
             }));

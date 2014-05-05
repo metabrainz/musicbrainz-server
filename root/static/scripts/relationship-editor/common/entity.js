@@ -102,7 +102,7 @@
                 .groupBy(sortKey)
                 .each(function (relationships, key) {
                     var group = _.findWhere(oldGroups, { sortKey: key });
-                    var attributes = _.intersection.apply(_, _.invoke(relationships, "getAttributeIDs"));
+                    var attributes = _.intersection.apply(_, _.invoke(relationships, "attributes"));
 
                     if (group) {
                         group.relationships(relationships);
@@ -127,7 +127,7 @@
 
                                 var relationship = dialog.relationship();
                                 relationship.linkTypeID(keyParts[1]);
-                                relationship.setAttributeIDs(attributes.slice(0));
+                                relationship.attributes(attributes.slice(0));
 
                                 MB.utility.deferFocus("input.name", "#dialog");
 

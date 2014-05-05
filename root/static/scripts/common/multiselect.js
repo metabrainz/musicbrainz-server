@@ -79,7 +79,7 @@
 
         selectedOptionsChanged: function (options) {
             this.previousOptions = options.slice(0);
-            this.value(_(options).pluck("value").map(Number).sort().value());
+            this.value(_(options).pluck("value").map(Number).sortBy().value());
         },
 
         updateOptions: function (term) {

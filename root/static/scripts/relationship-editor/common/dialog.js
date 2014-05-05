@@ -108,7 +108,7 @@
             ko.computed({
                 read: function () {
                     relationship.attributeValue(
-                        14, _(instruments()).map(getID).compact().sort().value()
+                        14, _(instruments()).map(getID).compact().sortBy().value()
                     );
                 },
                 disposeWhenNodeIsRemoved: element

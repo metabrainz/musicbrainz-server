@@ -121,9 +121,7 @@
                 entities:   array(relationship.entities, this.relationshipEntity)
             };
 
-            if (relationship.getAttributeIDs) {
-                data.attributes = array(relationship.getAttributeIDs() || [], Number);
-            }
+            data.attributes = _.map(_.result(relationship, "attributes"), Number);
 
             if (relationship.attributeTextValues) {
                 data.attributeTextValues = _(ko.toJS(relationship.attributeTextValues))

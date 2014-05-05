@@ -508,7 +508,7 @@ test("merging duplicate relationships", function () {
     ok(source.mergeRelationship(duplicateRelationship), "relationships were merged");
 
     deepEqual(
-        ko.toJS(relationship.attributes),
+        relationship.attributes(),
         [123, 194, 277],
         "attributes are the same"
     );

@@ -26,7 +26,7 @@
             this.attributeValues = {};
             this.attributeTextValues = {};
 
-            this.setAttributeIDs(data.attributes);
+            this.attributes(data.attributes);
             this.setAttributeTextValues(data.attributeTextValues);
 
             this.removed = ko.observable(!!data.removed);
@@ -47,7 +47,7 @@
             setPartialDate(this.period.endDate, data.endDate || {});
             this.period.ended(!!data.ended);
 
-            this.setAttributeIDs(data.attributes);
+            this.attributes(data.attributes);
             this.setAttributeTextValues(data.attributeTextValues);
             this.linkOrder(data.linkOrder || 0);
 
@@ -142,7 +142,7 @@
 
         attributeValue: function (id) {
             var hasChildren = !!MB.attrInfoByID[id].children;
-            var max = this.linkTypeInfo().attributes[id].max;
+            var max = this.linkTypeInfo().attributes[id][1];
             var value = this.attributeValues[id];
 
             if (!value) {
@@ -186,23 +186,25 @@
             });
         },
 
-        setAttributeIDs: function (ids) {
-            var self = this;
+        attributes: function (ids) {
+            if (arguments.length > 0) {
+                var self = this;
+                var typeInfo = this.linkTypeInfo();
 
-            _(ids).transform(attrIDsByRootID, {}).each(function (ids, rootID) {
-                self.attributeValue(rootID, ids);
-            });
-        },
+                ids = _.transform(ids, attrIDsByRootID, {});
 
-        getAttributeIDs: function () {
-            return _(this.attributeValues)
-                    .map(unwrapAttributeValue)
-                    .flatten().compact().sort().value();
+                _.each(typeInfo.attributes, function (attrInfo, id) {
+                    self.attributeValue(id, ids[id] || []);
+                });
+            } else {
+                return _(this.attributeValues).map(unwrapAttributeValue)
+                        .flatten().compact().map(Number).sortBy().value();
+            }
         },
 
         phraseAndExtraAttributes: function (source) {
             var origPhrase = this.linkPhrase(source);
-            var attributeIDs = this.getAttributeIDs();
+            var attributeIDs = this.attributes();
             var extraAttributes = _.transform(attributeIDs, attrsByRootName, {});
 
             var phrase = _.str.clean(origPhrase.replace(/\{(.*?)(?::(.*?))?\}/g,
@@ -322,7 +324,7 @@
                 supr(other) &&
                 MB.utility.mergeDates(this.period.beginDate, other.period.beginDate) &&
                 MB.utility.mergeDates(this.period.endDate, other.period.endDate) &&
-                _.isEqual(this.getAttributeIDs(), other.getAttributeIDs())
+                _.isEqual(this.attributes(), other.attributes())
             );
         },
 
