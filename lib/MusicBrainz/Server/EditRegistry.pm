@@ -23,6 +23,14 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Area::Edit
     MusicBrainz::Server::Edit::Area::EditAlias
     MusicBrainz::Server::Edit::Area::Merge
+    MusicBrainz::Server::Edit::Instrument::AddAlias
+    MusicBrainz::Server::Edit::Instrument::DeleteAlias
+    MusicBrainz::Server::Edit::Instrument::AddAnnotation
+    MusicBrainz::Server::Edit::Instrument::Create
+    MusicBrainz::Server::Edit::Instrument::Delete
+    MusicBrainz::Server::Edit::Instrument::Edit
+    MusicBrainz::Server::Edit::Instrument::EditAlias
+    MusicBrainz::Server::Edit::Instrument::Merge
     MusicBrainz::Server::Edit::Label::AddAlias
     MusicBrainz::Server::Edit::Label::DeleteAlias
     MusicBrainz::Server::Edit::Label::AddAnnotation

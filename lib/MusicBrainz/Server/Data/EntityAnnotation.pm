@@ -3,17 +3,7 @@ use Moose;
 use namespace::autoclean;
 
 use HTML::Entities qw( decode_entities );
-use MusicBrainz::Server::Constants qw(
-    $EDITOR_MODBOT
-    $EDIT_AREA_ADD_ANNOTATION
-    $EDIT_ARTIST_ADD_ANNOTATION
-    $EDIT_LABEL_ADD_ANNOTATION
-    $EDIT_PLACE_ADD_ANNOTATION
-    $EDIT_RECORDING_ADD_ANNOTATION
-    $EDIT_RELEASEGROUP_ADD_ANNOTATION
-    $EDIT_RELEASE_ADD_ANNOTATION
-    $EDIT_WORK_ADD_ANNOTATION
-);
+use MusicBrainz::Server::Constants qw( $EDITOR_MODBOT :annotation );
 use MusicBrainz::Server::Entity::Annotation;
 use MusicBrainz::Server::Data::Utils qw(
     placeholders
@@ -126,6 +116,7 @@ sub delete
 my %ANNOTATION_TYPE_MAP = (
     area          => $EDIT_AREA_ADD_ANNOTATION,
     artist        => $EDIT_ARTIST_ADD_ANNOTATION,
+    instrument    => $EDIT_INSTRUMENT_ADD_ANNOTATION,
     label         => $EDIT_LABEL_ADD_ANNOTATION,
     place         => $EDIT_PLACE_ADD_ANNOTATION,
     recording     => $EDIT_RECORDING_ADD_ANNOTATION,

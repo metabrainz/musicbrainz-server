@@ -46,6 +46,7 @@ sub search : Path('')
             $c->forward('external');
         }
         elsif ($form->field('type')->value eq 'tag' ||
+               $form->field('type')->value eq 'instrument' ||
                $form->field('type')->value eq 'editor')
         {
             $form->field('method')->value('direct');
@@ -153,6 +154,9 @@ sub direct : Private
         when ('place') {
             $c->model('PlaceType')->load(@entities);
             $c->model('Area')->load(@entities);
+        }
+        when ('instrument') {
+            $c->model('InstrumentType')->load(@entities);
         }
     }
 

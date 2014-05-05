@@ -7,6 +7,7 @@
 
     function mapItems(result, item) {
         result[item.id] = item;
+        result[item.gid] = item;
 
         _.transform(item.children, mapItems, result);
     }

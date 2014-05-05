@@ -1,0 +1,4 @@
+[% WRAPPER 'instrument/layout.tt' title=l('Edit Annotation') full_width=1 %]
+    <h2>[% l('Edit instrument annotation') %]</h2>
+    [% INCLUDE 'annotation/edit.tt' %]
+[% END %]

@@ -22,6 +22,7 @@ our %EXPORT_TAGS = (
     edit_type       => _get(qr/^EDIT_/),
     expire_action   => _get(qr/^EXPIRE_/),
     quality         => _get(qr/^QUALITY_/),
+    alias           => _get(qr/^EDIT_.*_ALIAS/),
     annotation      => _get(qr/^EDIT_.*_ADD_ANNOTATION/),
     historic        => _get(qr/^EDIT_HISTORIC/),
     editor          => _get(qr/^EDITOR_/),
@@ -188,6 +189,15 @@ Readonly our $EDIT_SERIES_ADD_ANNOTATION => 134;
 Readonly our $EDIT_SERIES_ADD_ALIAS => 135;
 Readonly our $EDIT_SERIES_DELETE_ALIAS => 136;
 Readonly our $EDIT_SERIES_EDIT_ALIAS => 137;
+
+Readonly our $EDIT_INSTRUMENT_CREATE => 131;
+Readonly our $EDIT_INSTRUMENT_EDIT => 132;
+Readonly our $EDIT_INSTRUMENT_DELETE => 133;
+Readonly our $EDIT_INSTRUMENT_MERGE => 134;
+Readonly our $EDIT_INSTRUMENT_ADD_ANNOTATION => 135;
+Readonly our $EDIT_INSTRUMENT_ADD_ALIAS => 136;
+Readonly our $EDIT_INSTRUMENT_DELETE_ALIAS => 137;
+Readonly our $EDIT_INSTRUMENT_EDIT_ALIAS => 138;
 
 Readonly our $EDIT_WIKIDOC_CHANGE => 120;
 
