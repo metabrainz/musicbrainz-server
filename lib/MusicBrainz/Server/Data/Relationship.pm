@@ -471,8 +471,8 @@ sub reorder {
         "WITH pos (relationship, link_order) AS (
             VALUES " . join(', ', ('(?::INTEGER, ?::INTEGER)') x @ids) . "
         )
-        UPDATE l_${type0}_${type1} rel SET rel.link_order = (
-            SELECT link_order FROM pos WHERE pos.relationship = rel.id
+        UPDATE l_${type0}_${type1} SET link_order = (
+            SELECT link_order FROM pos WHERE pos.relationship = id
         )
         WHERE id = any(?)",
         %ordering, \@ids

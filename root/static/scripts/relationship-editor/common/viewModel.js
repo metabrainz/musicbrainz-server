@@ -212,7 +212,9 @@
                     hidden.push({ name: prefix + ".backward", value: 1 });
                 }
 
-                hidden.push({ name: prefix + ".link_type_id", value: relationship.linkTypeID() });
+                hidden.push({ name: prefix + ".link_type_id", value: editData.linkTypeID });
+                hidden.push({ name: prefix + ".link_order", value: editData.linkOrder });
+
                 return hidden;
             }));
         }

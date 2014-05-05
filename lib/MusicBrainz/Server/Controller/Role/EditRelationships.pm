@@ -231,6 +231,7 @@ role {
                 $args{relationship} = $relationship;
                 $c->model('Link')->load($relationship);
                 $c->model('LinkType')->load($relationship->link);
+                $c->model('Relationship')->load_entities($relationship);
 
                 if ($field->{removed}) {
                     $edit = $self->delete_relationship($c, $form, %args);
@@ -259,9 +260,9 @@ role {
                             my $key = join "-", $link_type->id, $unorderable_entity;
 
                             push @{ $reordered_relationships{$key} //= [] }, {
-                                relationship_id => $relationship->id,
-                                new => $field->{link_order},
-                                old => $relationship->link_order,
+                                relationship => $relationship,
+                                new_order => $field->{link_order},
+                                old_order => $relationship->link_order,
                             };
                         }
                     }
@@ -272,7 +273,9 @@ role {
             push @edits, $edit;
         }
 
-        while (my ($link_type_id, $relationship_order) = each %reordered_relationships) {
+        while (my ($key, $relationship_order) = each %reordered_relationships) {
+            my ($link_type_id) = split /-/, $key;
+
             push @edits, $self->reorder_relationships(
                 $c, $form,
                 link_type_id => $link_type_id,
