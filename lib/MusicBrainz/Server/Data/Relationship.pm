@@ -422,6 +422,14 @@ sub insert
     };
     my $id = $self->sql->insert_row("l_${type0}_${type1}", $row, 'id');
 
+    if ($type0 eq "series") {
+        $self->c->model('Series')->automatically_reorder($values->{entity0_id});
+    }
+
+    if ($type1 eq "series") {
+        $self->c->model('Series')->automatically_reorder($values->{entity1_id});
+    }
+
     return $self->_entity_class->new( id => $id );
 }
 
@@ -439,7 +447,21 @@ sub update
     $row->{entity0} = $values->{entity0_id} if $values->{entity0_id};
     $row->{entity1} = $values->{entity1_id} if $values->{entity1_id};
 
+    my $old = $self->sql->select_single_row_hash(
+        "SELECT link, entity0, entity1 FROM l_${type0}_${type1} WHERE id = ?", $id
+    );
+
     $self->sql->update_row("l_${type0}_${type1}", $row, { id => $id });
+
+    my $series0_changed = $type0 eq "series" && $row->{entity0} && $old->{entity0} != $row->{entity0};
+    my $series1_changed = $type1 eq "series" && $row->{entity1} && $old->{entity1} != $row->{entity1};
+    my $link_changed = $old->{link} != $row->{link};
+
+    $self->c->model('Series')->automatically_reorder($old->{entity0}) if $series0_changed;
+    $self->c->model('Series')->automatically_reorder($old->{entity1}) if $series1_changed;
+
+    $self->c->model('Series')->automatically_reorder($row->{entity0}) if $series0_changed || $link_changed;
+    $self->c->model('Series')->automatically_reorder($row->{entity1}) if $series1_changed || $link_changed;
 }
 
 sub delete
@@ -447,8 +469,21 @@ sub delete
     my ($self, $type0, $type1, @ids) = @_;
     $self->_check_types($type0, $type1);
 
+    my $series_col;
+    $series_col = "entity0" if $type0 eq "series";
+    $series_col = "entity1" if $type1 eq "series";
+
+    my $series_ids = $self->sql->select_list_of_hashes(
+        "SELECT $series_col FROM l_${type0}_${type1} WHERE id = any(?)", \@ids
+    );
+
     $self->sql->do("DELETE FROM l_${type0}_${type1}
-              WHERE id IN (" . placeholders(@ids) . ")", @ids);
+                    WHERE id IN (" . placeholders(@ids) . ")", @ids);
+
+    if ($series_ids) {
+        $self->c->model('Series')->automatically_reorder($_)
+            for map { $_->{$series_col} } @$series_ids;
+    }
 }
 
 sub adjust_edit_pending

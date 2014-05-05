@@ -2,6 +2,7 @@ package MusicBrainz::Server::Data::Series;
 
 use Moose;
 use namespace::autoclean;
+use MusicBrainz::Server::Constants qw( $SERIES_ORDERING_TYPE_AUTOMATIC );
 use MusicBrainz::Server::Data::Utils qw(
     generate_gid
     hash_to_row
@@ -133,7 +134,16 @@ sub update {
 
     assert_uniqueness_conserved($self, series => $series_id, $update);
 
+    my $old_ordering_type = $self->sql->select_single_value(
+        "SELECT ordering_type FROM series WHERE id = ?", $series_id
+    );
+
     $self->sql->update_row('series', $row, { id => $series_id }) if %$row;
+
+    if ($old_ordering_type != $SERIES_ORDERING_TYPE_AUTOMATIC &&
+            $row->{ordering_type} == $SERIES_ORDERING_TYPE_AUTOMATIC) {
+        $self->c->model('Series')->automatically_reorder($series_id);
+    }
 
     return 1;
 }
@@ -188,6 +198,70 @@ sub find_by_subscribed_editor
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $editor_id, $offset || 0);
+}
+
+sub automatically_reorder {
+    my ($self, $series_id) = @_;
+
+    return unless $self->c->sql->select_single_value(
+        'SELECT true FROM series WHERE id = ? AND ordering_type = ?',
+        $series_id, $SERIES_ORDERING_TYPE_AUTOMATIC
+    );
+
+    my $entity_type = $self->c->sql->select_single_value('
+        SELECT entity_type FROM series_type st
+        JOIN series s ON s.type = st.id WHERE s.id = ?',
+        $series_id
+    );
+
+    my $relationship_table = $entity_type lt "series"
+        ? "l_${entity_type}_series" : "l_series_${entity_type}";
+
+    my $pairs = $self->c->sql->select_list_of_hashes("
+        SELECT relationship, text_value FROM ${entity_type}_series WHERE series = ?",
+        $series_id
+    );
+
+    my %relationships_by_text_value = map {
+        $_->{text_value} => $_->{relationship}
+    } @$pairs;
+
+    my @sorted_values = map { $_->[0] } sort {
+        my ($a_parts, $b_parts) = ($a->[1], $b->[1]);
+
+        my $max = @$a_parts <= @$b_parts ? @$a_parts : @$b_parts;
+        my $order = 0;
+
+        # Use <= and replace undef values with the empty string, so that
+        # A1 sorts before A1B1.
+        for (my $i = 0; $i <= $max; $i++) {
+            my ($a_part, $b_part) = ($a_parts->[$i] // '', $b_parts->[$i] // '');
+
+            my ($a_num, $b_num) = map { $_ =~ /^\d+$/ } ($a_part, $b_part);
+
+            $order = $a_num && $b_num ? ($a_part <=> $b_part) : ($a_part cmp $b_part);
+            last if $order;
+        }
+
+        $order;
+    } map { [$_, [split /(\d+)/, $_]] } keys %relationships_by_text_value;
+
+    my @from_args;
+    my @from_values;
+
+    for (my $i = 0; $i < @sorted_values; $i++) {
+        push @from_values, "(?, ?)";
+        push @from_args, $relationships_by_text_value{$sorted_values[$i]}, $i+1;
+    }
+
+    return unless @from_args;
+
+    $self->c->sql->do("
+        UPDATE $relationship_table SET link_order = x.link_order::integer
+        FROM (VALUES " . join(", ", @from_values) . ") AS x (relationship, link_order)
+        WHERE id = x.relationship::integer",
+        @from_args
+    );
 }
 
 __PACKAGE__->meta->make_immutable;
