@@ -155,12 +155,10 @@ sub get_entities {
 
     my $query = "
       SELECT e.*, es.text_value AS ordering_attribute_value
-      FROM
-      (SELECT " . $model->_columns . " FROM " . $model->_table . ") e
-      JOIN
-      (SELECT * FROM ${entity_type}_series) es
-      ON e.id = es.$entity_type
+      FROM (SELECT " . $model->_columns . " FROM " . $model->_table . ") e
+      JOIN (SELECT * FROM ${entity_type}_series) es ON e.id = es.$entity_type
       WHERE es.series = ?
+      ORDER BY es.link_order, musicbrainz_collate(e.name) ASC
       OFFSET ?";
 
     my $form_row = sub {
