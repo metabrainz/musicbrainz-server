@@ -8,7 +8,7 @@ with 'MusicBrainz::Server::Form::Role::Edit';
 sub edit_field_names {
     qw( parent_id child_order name link_phrase reverse_link_phrase
         long_link_phrase description priority attributes documentation
-        is_deprecated has_dates
+        is_deprecated has_dates entity0_cardinality entity1_cardinality
   ) }
 
 has '+name' => ( default => 'linktype' );
@@ -93,6 +93,14 @@ has_field is_deprecated => (
 
 has_field has_dates => (
     type => 'Boolean'
+);
+
+has_field 'entity0_cardinality' => (
+    type => '+MusicBrainz::Server::Form::Field::Integer',
+);
+
+has_field 'entity1_cardinality' => (
+    type => '+MusicBrainz::Server::Form::Field::Integer',
 );
 
 sub _build_parent_id_options

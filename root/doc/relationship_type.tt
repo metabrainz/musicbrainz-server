@@ -31,6 +31,8 @@
         <strong>[% l('ID:') %]</strong> [% relationship_type.id %]<br />
         <strong>[% l('Child order:') %]</strong> [% relationship_type.child_order %]<br />
         [% END %]
+        <strong>[% l('entity0 cardinality:') %]</strong> [% link_type_cardinality_name(relationship_type.entity0_cardinality) %]<br />
+        <strong>[% l('entity1 cardinality:') %]</strong> [% link_type_cardinality_name(relationship_type.entity1_cardinality) %]<br />
         <strong>[% l('UUID:') %]</strong> [% relationship_type.gid %]<br />
     </p>
 

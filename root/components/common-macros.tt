@@ -1078,3 +1078,10 @@ END -%]
     </ul>
   [%- END %]
 [%- END -%]
+
+[%~ MACRO link_type_cardinality_name(cardinality) BLOCK ~%]
+  [%~ IF cardinality == 0; l('Few relationships');
+      ELSIF cardinality == 1; l('Many relationships');
+      ELSE; l('Unknown');
+  END %] ([% cardinality %])
+[%~ END ~%]
