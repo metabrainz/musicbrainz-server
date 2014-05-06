@@ -36,7 +36,7 @@ MB.Control.HeaderMenu = function () {
     $('#header-menu ul li').bind ('mouseleave.mb', function (event) {
         var ul = $(this).children ('ul');
 
-        self.timeout = setTimeout (function () {
+        self.timeout = setTimeout(function () {
             ul.css ('left', '-10000px');
         }, self.timeout_msecs);
     });

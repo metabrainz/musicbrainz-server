@@ -480,7 +480,7 @@ MB.CoverArt.process_upload_queue = function (gid, upvm, pos) {
 };
 
 MB.CoverArt.add_cover_art_submit = function (gid, upvm) {
-    var pos = parseInt ($('#id-add-cover-art\\.position').val (), 10);
+    var pos = parseInt($('#id-add-cover-art\\.position').val (), 10);
 
     $('.add-files.row').hide();
     $('#cover-art-position-row').hide ();

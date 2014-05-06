@@ -59,7 +59,7 @@ MB.Form.TextList = function (input) {
     $template.parent ().find ('button.add').bind ('click.mb', function (event) {
         var parts = last_item.split ('.');
         var field_name = parts.pop ();
-        var idx = parseInt (parts.pop (), 10) + 1;
+        var idx = parseInt(parts.pop (), 10) + 1;
         var prefix = parts.join ('.') + '.' + idx + '.';
         self.add ('');
     });

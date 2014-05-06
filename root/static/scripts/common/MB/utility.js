@@ -147,9 +147,9 @@ MB.utility.unformatTrackLength = function (duration)
         return null;
     }
 
-    var seconds = parseInt (parts.pop (), 10);
-    var minutes = parseInt (parts.pop () || 0, 10) * 60;
-    var hours = parseInt (parts.pop () || 0, 10) * 3600;
+    var seconds = parseInt(parts.pop (), 10);
+    var minutes = parseInt(parts.pop () || 0, 10) * 60;
+    var hours = parseInt(parts.pop () || 0, 10) * 3600;
 
     return (hours + minutes + seconds) * 1000;
 };
