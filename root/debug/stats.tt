@@ -9,7 +9,7 @@
     <span class="date">
       <small>
         [% USE Date %]
-        [%- c.request.hostname -%], [% Date.format (Date.now, format = "%Y-%m-%d %H:%M:%S") -%]
+        [%- c.request.hostname -%], [% Date.format(Date.now, format = "%Y-%m-%d %H:%M:%S") -%]
       </small>
     </span>
   </p>

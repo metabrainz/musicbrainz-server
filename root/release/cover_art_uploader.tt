@@ -25,10 +25,10 @@
         var upload = function (gid, image_id, mime_type) {
           var postfields = $.getJSON('/ws/js/cover-art-upload/' + gid,
               { image_id: image_id, mime_type: mime_type, redirect: true });
-          postfields.fail (function (jqxhr, status, error) {
-              console.log ("error obtaining signature: " + status + " " + error);
+          postfields.fail(function (jqxhr, status, error) {
+              console.log("error obtaining signature: " + status + " " + error);
           });
-          postfields.done (function (data, status, jqxhr) {
+          postfields.done(function (data, status, jqxhr) {
               var $form = $('#add-cover-art');
               $.each (data.formdata, function (key, value) {
                   $('<input type="hidden" />').

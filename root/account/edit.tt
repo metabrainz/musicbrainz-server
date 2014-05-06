@@ -25,7 +25,7 @@
         <span class="area autocomplete">
           <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
           <input type="hidden" class="gid" />
-          [% r.hidden ('area_id', class => 'id') %]
+          [% r.hidden('area_id', class => 'id') %]
           [% r.text(area_field, class => 'name') %]
         </span>
         [% field_errors(r.form, 'area.name') %]
