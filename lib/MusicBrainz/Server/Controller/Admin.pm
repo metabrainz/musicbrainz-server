@@ -3,7 +3,7 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
-use MusicBrainz::Server::Translation qw (l ln );
+use MusicBrainz::Server::Translation qw(l ln );
 
 sub index : Path Args(0) RequireAuth
 {

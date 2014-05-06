@@ -2,7 +2,7 @@ package MusicBrainz::Server::Entity::Area;
 
 use Moose;
 use MusicBrainz::Server::Constants qw( $AREA_TYPE_COUNTRY );
-use MusicBrainz::Server::Translation::Countries qw ( l );
+use MusicBrainz::Server::Translation::Countries qw( l );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 use List::Util qw( first );

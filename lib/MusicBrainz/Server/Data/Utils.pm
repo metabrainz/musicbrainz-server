@@ -19,7 +19,7 @@ use Readonly;
 use Scalar::Util 'blessed';
 use Sql;
 use Storable;
-use Text::Trim qw ();
+use Text::Trim qw();
 
 our @EXPORT_OK = qw(
     add_partial_date_to_row

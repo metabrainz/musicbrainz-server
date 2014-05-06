@@ -42,7 +42,7 @@ use String::ShellQuote;
 my $export = { map { $_->name => $_ } Class::MOP::Class->initialize('DBDefs')->get_all_methods('CODE') };
 
 my %exclude = map { $_ => 1 }
-    qw ( COVER_ART_ARCHIVE_UPLOAD_PREFIXER DOES );
+    qw( COVER_ART_ARCHIVE_UPLOAD_PREFIXER DOES );
 
 printf "export %s=%s\n", $_, shell_quote($export->{$_}->body->('DBDefs') || '')
     for (grep { !exists $exclude{$_} } grep { /^[A-Z]+(_[A-Z]+)*$/ } keys %$export)

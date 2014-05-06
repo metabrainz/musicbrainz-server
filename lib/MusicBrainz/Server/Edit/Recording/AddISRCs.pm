@@ -6,7 +6,7 @@ use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_ISRCS
                                        :expire_action :quality );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Edit::Exceptions;
 
 extends 'MusicBrainz::Server::Edit';

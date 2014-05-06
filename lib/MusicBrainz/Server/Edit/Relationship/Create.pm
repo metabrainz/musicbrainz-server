@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Relationship::Create;
 use Moose;
 
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Relationship';

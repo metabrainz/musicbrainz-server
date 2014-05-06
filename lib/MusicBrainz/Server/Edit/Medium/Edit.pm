@@ -25,8 +25,8 @@ use MusicBrainz::Server::Edit::Types qw(
 use MusicBrainz::Server::Edit::Utils qw( verify_artist_credits hash_artist_credit hash_artist_credit_without_join_phrases );
 use MusicBrainz::Server::Log qw( log_assertion log_debug );
 use MusicBrainz::Server::Validation 'normalise_strings';
-use MusicBrainz::Server::Translation qw ( N_l );
-use MusicBrainz::Server::Track qw ( format_track_length );
+use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Track qw( format_track_length );
 use Try::Tiny;
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';

@@ -13,7 +13,7 @@ use MusicBrainz::Server::Authentication::User;
 use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Log qw( log_debug );
-use MusicBrainz::Server::Translation qw ( l ln );
+use MusicBrainz::Server::Translation qw( l ln );
 use Try::Tiny;
 
 with 'MusicBrainz::Server::Controller::Role::Subscribe';

@@ -11,7 +11,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     verify_artist_credits
     clean_submitted_artist_credits
 );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 use Scalar::Util qw( looks_like_number );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';

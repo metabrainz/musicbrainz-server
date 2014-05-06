@@ -14,7 +14,7 @@ use MusicBrainz::Server::Data::Utils qw(
   partial_date_to_hash
   type_to_model
 );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Link';
 use aliased 'MusicBrainz::Server::Entity::LinkType';

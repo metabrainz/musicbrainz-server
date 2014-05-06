@@ -4,7 +4,7 @@ use warnings;
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_EDIT_RELEASE_NAME );
 
 sub edit_name     { N_l('Edit release name (historic)') }

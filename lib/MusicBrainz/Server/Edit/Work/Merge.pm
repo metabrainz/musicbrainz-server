@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Work::Merge;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_MERGE );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Merge';
 with 'MusicBrainz::Server::Edit::Work::RelatedEntities';

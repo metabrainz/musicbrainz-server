@@ -10,7 +10,7 @@ use MusicBrainz::Server::Edit::Historic::Utils qw(
     upgrade_id
 );
 use MusicBrainz::Server::Entity::PartialDate;
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 

@@ -17,7 +17,7 @@ with 'MusicBrainz::Server::Controller::Role::Tag';
 use List::Util qw( first );
 use List::MoreUtils qw( part uniq );
 use List::UtilsBy 'nsort_by';
-use MusicBrainz::Server::Translation qw ( l ln );
+use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Constants qw( :edit_type );
 use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
 use MusicBrainz::Server::Form::Utils qw(

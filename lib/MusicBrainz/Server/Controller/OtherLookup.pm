@@ -3,7 +3,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use Moose::Util qw( find_meta );
-use MusicBrainz::Server::Translation qw ( l );
+use MusicBrainz::Server::Translation qw( l );
 
 sub lookup_handler {
     my ($name, $code) = @_;

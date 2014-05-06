@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Area::DeleteAlias;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_AREA_DELETE_ALIAS );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit::Alias::Delete';
 with 'MusicBrainz::Server::Edit::Area';

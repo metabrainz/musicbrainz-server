@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Controller::WS::js::Plurals;
 use Moose;
 use JSON;
-use MusicBrainz::Server::Translation qw ( ln );
+use MusicBrainz::Server::Translation qw( ln );
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js' }
 
 my $ws_defs = Data::OptList::mkopt([
