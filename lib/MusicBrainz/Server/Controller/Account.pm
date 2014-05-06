@@ -556,7 +556,7 @@ sub donation : Local RequireAuth HiddenOnSlaves
 
     $c->stash(
         nag => $result->{nag},
-        days => sprintf ("%.0f", $result->{days}),
+        days => sprintf("%.0f", $result->{days}),
     );
 }
 

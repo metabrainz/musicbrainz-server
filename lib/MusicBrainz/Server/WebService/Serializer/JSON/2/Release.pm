@@ -98,7 +98,7 @@ sub serialize
         map {
             {
                 "catalog-number" => $_->catalog_number,
-                label => serialize_entity ($_->label, $inc, $stash)
+                label => serialize_entity($_->label, $inc, $stash)
             }
         } @{ $entity->labels } ] if $toplevel && $inc->labels;
 

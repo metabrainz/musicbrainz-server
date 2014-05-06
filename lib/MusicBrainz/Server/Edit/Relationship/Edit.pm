@@ -319,7 +319,7 @@ sub initialize
         type1 => $type1,
         relationship_id => $relationship->id,
         link => {
-            begin_date => partial_date_to_hash ($link->begin_date),
+            begin_date => partial_date_to_hash($link->begin_date),
             end_date =>   partial_date_to_hash ($link->end_date),
             ended => $link->ended,
             attributes => [ map { $_->id } $link->all_attributes ],

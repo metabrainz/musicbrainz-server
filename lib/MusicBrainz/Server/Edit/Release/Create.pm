@@ -91,7 +91,7 @@ sub build_display_data
     my $lang = $self->data->{language_id};
 
     return {
-        artist_credit => artist_credit_preview ($loaded, $self->data->{artist_credit}),
+        artist_credit => artist_credit_preview($loaded, $self->data->{artist_credit}),
         name          => $self->data->{name} || '',
         comment       => $self->data->{comment} || '',
         packaging     => defined($self->data->{packaging_id}) &&

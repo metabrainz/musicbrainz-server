@@ -60,7 +60,7 @@ sub build_display_data
     return {
         format => $loaded->{MediumFormat}->{ $self->data->{format_id} },
         release => $loaded->{Release}->{ $self->data->{release_id} },
-        tracks => display_tracklist ($loaded, $self->data->{tracklist}),
+        tracks => display_tracklist($loaded, $self->data->{tracklist}),
         name => $self->data->{name},
         position => $self->data->{position},
     }

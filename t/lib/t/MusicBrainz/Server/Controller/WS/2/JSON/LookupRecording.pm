@@ -14,7 +14,7 @@ test 'basic recording lookup' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'basic recording lookup',
-    '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7' => encode_json (
+    '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7' => encode_json(
         {
             id => "162630d9-36d2-4a8d-ade1-1c77440b34e7",
             title => "サマーれげぇ!レインボー",
@@ -32,7 +32,7 @@ test 'basic recording lookup, inc=annotation' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
 
     ws_test_json 'basic recording lookup, inc=annotation',
-    '/recording/6e89c516-b0b6-4735-a758-38e31855dcb6?inc=annotation' => encode_json (
+    '/recording/6e89c516-b0b6-4735-a758-38e31855dcb6?inc=annotation' => encode_json(
         {
             id => "6e89c516-b0b6-4735-a758-38e31855dcb6",
             title => "Plock",
@@ -49,7 +49,7 @@ test 'recording lookup with releases' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'recording lookup with releases',
-    '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=releases' => encode_json (
+    '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=releases' => encode_json(
         {
             id => "162630d9-36d2-4a8d-ade1-1c77440b34e7",
             title => "サマーれげぇ!レインボー",
@@ -111,7 +111,7 @@ test 'lookup recording with official singles' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'lookup recording with official singles',
-    '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=releases&status=official&type=single' => encode_json (
+    '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=releases&status=official&type=single' => encode_json(
         {
             id => "162630d9-36d2-4a8d-ade1-1c77440b34e7",
             title => "サマーれげぇ!レインボー",
@@ -150,7 +150,7 @@ test 'lookup recording with official singles (+media)' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'lookup recording with official singles (+media)',
-    '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=releases+media&status=official&type=single' => encode_json (
+    '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=releases+media&status=official&type=single' => encode_json(
         {
             id => "162630d9-36d2-4a8d-ade1-1c77440b34e7",
             title => "サマーれげぇ!レインボー",
@@ -208,7 +208,7 @@ test 'recording lookup with artists' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'recording lookup with artists',
-    '/recording/0cf3008f-e246-428f-abc1-35f87d584d60?inc=artists' => encode_json (
+    '/recording/0cf3008f-e246-428f-abc1-35f87d584d60?inc=artists' => encode_json(
         {
             id => "0cf3008f-e246-428f-abc1-35f87d584d60",
             title => "the Love Bug",
@@ -245,7 +245,7 @@ test 'recording lookup with puids and isrcs' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'recording lookup with puids and isrcs',
-    '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=puids+isrcs' => encode_json (
+    '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=puids+isrcs' => encode_json(
         {
             id => "162630d9-36d2-4a8d-ade1-1c77440b34e7",
             title => "サマーれげぇ!レインボー",
@@ -262,7 +262,7 @@ test 'recording lookup with release relationships' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'recording lookup with release relationships',
-    '/recording/37a8d72a-a9c9-4edc-9ecf-b5b58e6197a9?inc=release-rels' => encode_json (
+    '/recording/37a8d72a-a9c9-4edc-9ecf-b5b58e6197a9?inc=release-rels' => encode_json(
         {
             id => "37a8d72a-a9c9-4edc-9ecf-b5b58e6197a9",
             title => "Dear Diary",
@@ -315,7 +315,7 @@ test 'recording lookup with work relationships' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'recording lookup with artists',
-    '/recording/0cf3008f-e246-428f-abc1-35f87d584d60?inc=work-rels' => encode_json (
+    '/recording/0cf3008f-e246-428f-abc1-35f87d584d60?inc=work-rels' => encode_json(
         {
             id => "0cf3008f-e246-428f-abc1-35f87d584d60",
             title => "the Love Bug",

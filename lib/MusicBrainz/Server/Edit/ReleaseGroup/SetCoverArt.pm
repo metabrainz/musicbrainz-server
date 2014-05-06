@@ -43,8 +43,8 @@ has '+data' => (
             name => Str,
             mbid => Str
         ],
-        old => change_fields (),
-        new => change_fields (),
+        old => change_fields(),
+        new => change_fields(),
     ]
 );
 

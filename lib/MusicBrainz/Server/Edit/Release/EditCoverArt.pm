@@ -153,8 +153,8 @@ sub build_display_data {
     if ($self->data->{old}->{types})
     {
         $data{types} = {
-            old => display_cover_art_types ($loaded, $self->data->{old}->{types}),
-            new => display_cover_art_types ($loaded, $self->data->{new}->{types}),
+            old => display_cover_art_types($loaded, $self->data->{old}->{types}),
+            new => display_cover_art_types($loaded, $self->data->{new}->{types}),
         }
     }
 

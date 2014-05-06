@@ -30,7 +30,7 @@ test 'browse releases via artist (paging)' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'browse releases via artist (paging)',
-    '/release?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&offset=2' => encode_json (
+    '/release?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&offset=2' => encode_json(
         {
             "release-count" => 3,
             "release-offset" => 2,
@@ -74,7 +74,7 @@ test 'browse releases via label' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'browse releases via label',
-    '/release?inc=mediums&label=b4edce40-090f-4956-b82a-5d9d285da40b' => encode_json (
+    '/release?inc=mediums&label=b4edce40-090f-4956-b82a-5d9d285da40b' => encode_json(
         {
             "release-count" => 2,
             "release-offset" => 0,
@@ -169,7 +169,7 @@ test  'browse releases via release group' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'browse releases via release group',
-    '/release?release-group=b84625af-6229-305f-9f1b-59c0185df016' => encode_json (
+    '/release?release-group=b84625af-6229-305f-9f1b-59c0185df016' => encode_json(
         {
             "release-count" => 2,
             "release-offset" => 0,
@@ -244,7 +244,7 @@ test 'browse releases via recording' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'browse releases via recording',
-    '/release?inc=labels&status=official&recording=0c0245df-34f0-416b-8c3f-f20f66e116d0' => encode_json (
+    '/release?inc=labels&status=official&recording=0c0245df-34f0-416b-8c3f-f20f66e116d0' => encode_json(
         {
             "release-count" => 2,
             "release-offset" => 0,
@@ -341,7 +341,7 @@ test 'browse releases via track artist' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'browse releases via track artist',
-    '/release?track_artist=a16d1433-ba89-4f72-a47b-a370add0bb55' => encode_json (
+    '/release?track_artist=a16d1433-ba89-4f72-a47b-a370add0bb55' => encode_json(
         {
             "release-count" => 1,
             "release-offset" => 0,

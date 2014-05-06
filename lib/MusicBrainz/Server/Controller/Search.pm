@@ -166,7 +166,7 @@ sub direct : Private
     }
 
     $c->stash(
-        template => sprintf ('search/results-%s.tt', $type),
+        template => sprintf('search/results-%s.tt', $type),
         query    => $query,
         results  => $results,
         type     => $type,

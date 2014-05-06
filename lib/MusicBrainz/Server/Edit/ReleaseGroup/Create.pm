@@ -54,7 +54,7 @@ sub build_display_data
     my $type = $self->data->{type_id};
 
     return {
-        artist_credit => artist_credit_preview ($loaded, $self->data->{artist_credit}),
+        artist_credit => artist_credit_preview($loaded, $self->data->{artist_credit}),
         name          => $self->data->{name} || '',
         comment       => $self->data->{comment} || '',
         type          => $type ? $loaded->{ReleaseGroupType}->{ $type } : '',

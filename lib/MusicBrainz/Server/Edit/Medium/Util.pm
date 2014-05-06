@@ -48,7 +48,7 @@ sub tracks_to_hash
     my $tmp = [ map +{
         id => $_->id,
         name => $_->name,
-        artist_credit => artist_credit_to_ref ($_->artist_credit),
+        artist_credit => artist_credit_to_ref($_->artist_credit),
         recording_id => $_->recording_id,
         position => $_->position,
         number => $_->number,
@@ -94,7 +94,7 @@ sub display_tracklist {
             Track->new(
                 name => $_->{name},
                 length => $_->{length},
-                artist_credit => artist_credit_preview ($loaded, $_->{artist_credit}),
+                artist_credit => artist_credit_preview($loaded, $_->{artist_credit}),
                 position => $_->{position},
                 number => $_->{number} // $_->{position},
                 recording => !$_->{recording_id} || !$loaded->{Recording}{ $_->{recording_id} } ?

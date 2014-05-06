@@ -54,7 +54,7 @@ sub date_period {
     my %lifespan = (
         begin => JSON::null,
         end => JSON::null,
-        ended => boolean ($entity->ended),
+        ended => boolean($entity->ended),
         );
 
     $lifespan{begin} = $entity->begin_date->format if !$entity->begin_date->is_empty;
