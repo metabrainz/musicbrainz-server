@@ -19,7 +19,7 @@ test 'Artist credit field validation' => sub {
     my $form = t::MusicBrainz::Server::Form::Field::ArtistCredit::TestForm->new();
     ok (!$form->ran_validation, 'new form has not yet been validated');
 
-    $form->process ({ 'test-edit' => {
+    $form->process({ 'test-edit' => {
         missing_fields => undef,
         empty_fields => { names => [ { name => '', artist => { name => '', id => undef } }, { name => '' } ] },
         missing_artist_ids => { names => [ { name => 'α', artist => { name => 'β' } } ] },
@@ -40,7 +40,7 @@ test 'Artist credit field validation' => sub {
     $form = t::MusicBrainz::Server::Form::Field::ArtistCredit::TestForm->new( init_object => {} );
     ok (!$form->ran_validation, 'new form with init_object has not yet been validated');
 
-    $form->process ({ 'test-edit' => {
+    $form->process({ 'test-edit' => {
         missing_fields => undef,
         empty_fields => undef,
         missing_artist_ids => undef,

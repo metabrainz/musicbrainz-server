@@ -16,7 +16,7 @@ test find_by_names => sub {
     # Test Data::CoreEntity->find_by_names using Data::Artist.
     my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $test->c);
 
-    my %results = $artist_data->find_by_names ('test artist', 'minimal Artist');
+    my %results = $artist_data->find_by_names('test artist', 'minimal Artist');
 
     my $testartist = $results{'test artist'};
     my $minimalartist = $results{'minimal Artist'};

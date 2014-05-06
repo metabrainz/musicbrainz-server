@@ -17,7 +17,7 @@ test 'errors' => sub {
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+webservice');
 
     my $mech = $test->mech;
-    $mech->default_header ("Accept" => "application/json");
+    $mech->default_header("Accept" => "application/json");
     $mech->get('/ws/2/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=coffee');
     is ($mech->status, 400);
 

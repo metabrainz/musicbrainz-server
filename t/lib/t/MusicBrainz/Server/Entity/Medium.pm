@@ -12,9 +12,9 @@ test 'length' => sub {
 
     ok (!defined $medium->length, "empty medium has no length");
 
-    $medium->add_track (Track->new(name => 'Courtesy', length => 193000));
-    $medium->add_track (Track->new(name => 'Otis',     length => 156000));
-    $medium->add_track (Track->new(name => 'Focus',    length => 162000));
+    $medium->add_track(Track->new(name => 'Courtesy', length => 193000));
+    $medium->add_track(Track->new(name => 'Otis',     length => 156000));
+    $medium->add_track(Track->new(name => 'Focus',    length => 162000));
 
     is ($medium->length, 511000, "medium has correct length from tracks");
 };

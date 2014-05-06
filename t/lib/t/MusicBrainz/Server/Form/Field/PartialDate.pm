@@ -20,7 +20,7 @@ test 'Partial date field validation' => sub {
     my $form = t::MusicBrainz::Server::Form::Field::PartialDate::TestForm->new();
     ok (!$form->ran_validation, "new form, not yet has_errors");
 
-    $form->process ({ "test-edit" => {
+    $form->process({ "test-edit" => {
         "full_date" => { "year" => "2008", "month" => "1", "day" => "29" },
         "no_day" => { "year" => "2008", "month" => "11" },
         "day_40" => { "year" => "2008", "month" => "01", "day" => "40" },

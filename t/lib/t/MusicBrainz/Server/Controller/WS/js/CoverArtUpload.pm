@@ -20,7 +20,7 @@ test 'jpg post fields' => sub {
     $c->sql->do("INSERT INTO cover_art_archive.image_type (mime_type, suffix) " .
                 "VALUES ('image/jpeg', 'jpg');");
 
-    $mech->default_header ("Accept" => "application/json");
+    $mech->default_header("Accept" => "application/json");
     $mech->get_ok('/ws/js/cover-art-upload/0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e?mime_type=image/jpeg',
                   'cover art upload signature request');
 

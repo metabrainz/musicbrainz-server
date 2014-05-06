@@ -16,7 +16,7 @@ test 'tracklist used to fit lookup criteria but no longer does' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+tracklist');
-    $c->sql->do ("INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) ".
+    $c->sql->do("INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) ".
                  "VALUES (1, 'annotation_editor', '{CLEARTEXT}password', ".
                  "'3a115bc4f05ea9856bd4611b75c80bca', 'editor\@example.org', '2005-02-18')");
 
@@ -49,25 +49,25 @@ test 'tracklist used to fit lookup criteria but no longer does' => sub {
 
     my $toc = "1 2 44412 0 24762";
 
-    my $durationlookup = $c->model ('DurationLookup')->lookup ($toc, 10000);
+    my $durationlookup = $c->model('DurationLookup')->lookup($toc, 10000);
     is (scalar @$durationlookup, 0, "disc does not exist yet, no match with TOC lookup");
 
-    my $created = $c->model ('Medium')->insert($insert_hash);
-    my $medium = $c->model ('Medium')->get_by_id ($created->id);
+    my $created = $c->model('Medium')->insert($insert_hash);
+    my $medium = $c->model('Medium')->get_by_id($created->id);
     isa_ok($medium, 'MusicBrainz::Server::Entity::Medium');
 
-    $durationlookup = $c->model ('DurationLookup')->lookup ($toc, 10000);
+    $durationlookup = $c->model('DurationLookup')->lookup($toc, 10000);
     is (scalar @$durationlookup, 1, "one match with TOC lookup");
 
     $medium = $durationlookup->[0]->medium;
-    $c->model ('Track')->load_for_mediums ($medium);
-    $c->model ('ArtistCredit')->load ($medium->all_tracks);
+    $c->model('Track')->load_for_mediums($medium);
+    $c->model('ArtistCredit')->load($medium->all_tracks);
 
     # clear length on the track and then submit an edit for the medium
     # with that track length cleared.  A disc where not all tracks have a
     # length should not have an entry in medium_index.
 
-    $medium->tracks->[0]->clear_length ();
+    $medium->tracks->[0]->clear_length();
 
     my $edit = $c->model('Edit')->create(
         editor_id => 1,
@@ -78,7 +78,7 @@ test 'tracklist used to fit lookup criteria but no longer does' => sub {
 
     accept_edit($c, $edit);
 
-    $durationlookup = $c->model ('DurationLookup')->lookup ($toc, 10000);
+    $durationlookup = $c->model('DurationLookup')->lookup($toc, 10000);
     is (scalar @$durationlookup, 0, "duration lookup did not find medium after it was edited");
 };
 

@@ -23,7 +23,7 @@ test 'IPI field validation and transformation' => sub {
     my $form = t::MusicBrainz::Server::Form::Field::IPI::TestForm->new();
     ok (!$form->ran_validation, "new form, not yet has_errors");
 
-    $form->process ({ "test-edit" => {
+    $form->process({ "test-edit" => {
         "ipi_9digit" => "123456789",
         "ipi_11digit" => "66123456789"
     }});

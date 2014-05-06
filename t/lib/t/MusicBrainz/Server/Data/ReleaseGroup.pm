@@ -145,12 +145,12 @@ test 'Merge releases in seperate release groups where release groups have cover 
     $test->c->sql->do("INSERT INTO cover_art_archive.release_group_cover_art " .
                       "(release_group, release) VALUES (4, 4), (5, 5);");
 
-    ok( $test->c->model('Release')->merge (
+    ok( $test->c->model('Release')->merge(
             new_id => 4, old_ids => [ 5 ],
             merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE
         ), "Merge releases with cover art");
 
-    my $results = $test->c->sql->select_list_of_hashes (
+    my $results = $test->c->sql->select_list_of_hashes(
         "SELECT release_group, release
          FROM cover_art_archive.release_group_cover_art
          ORDER BY release_group, release");
@@ -169,12 +169,12 @@ test 'Merge releases in the same release group where the release group has cover
     $test->c->sql->do("INSERT INTO cover_art_archive.release_group_cover_art " .
                       "(release_group, release) VALUES (4, 5)");
 
-    ok( $test->c->model('Release')->merge (
+    ok( $test->c->model('Release')->merge(
             new_id => 4, old_ids => [ 5 ],
             merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE
         ), "Merge releases with cover art");
 
-    my $results = $test->c->sql->select_list_of_hashes (
+    my $results = $test->c->sql->select_list_of_hashes(
         "SELECT release_group, release
          FROM cover_art_archive.release_group_cover_art
          ORDER BY release_group, release");
@@ -192,9 +192,9 @@ test 'Delete release which is set as cover art for a release group' => sub {
     $test->c->sql->do("INSERT INTO cover_art_archive.release_group_cover_art " .
                       "(release_group, release) VALUES (4, 4), (5, 5);");
 
-    $test->c->model('Release')->delete (4);
+    $test->c->model('Release')->delete(4);
 
-    my $results = $test->c->sql->select_list_of_hashes (
+    my $results = $test->c->sql->select_list_of_hashes(
         "SELECT release_group, release
          FROM cover_art_archive.release_group_cover_art
          ORDER BY release_group, release");

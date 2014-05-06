@@ -32,7 +32,7 @@ is( $tags[0]->count, 5 );
 is( $tags[1]->tag->name, 'rock', 'Find top tags finds rock');
 is( $tags[1]->count, 3 );
 
-my $count = $tag_data->find_tag_count (4);
+my $count = $tag_data->find_tag_count(4);
 is ($count, 4, "tag count is four");
 
 my ($tags, $hits) = $tag_data->find_tags(4, 100, 0);

@@ -339,7 +339,7 @@ test 'Deny delete "Various Artists" trigger' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+special-purpose');
 
     like exception {
-        $c->sql->do ("DELETE FROM artist WHERE id = $VARTIST_ID")
+        $c->sql->do("DELETE FROM artist WHERE id = $VARTIST_ID")
     }, qr/ERROR:\s*Attempted to delete a special purpose row/;
 };
 
@@ -348,7 +348,7 @@ test 'Deny delete "Deleted Artist" trigger' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+special-purpose');
 
     like exception {
-        $c->sql->do ("DELETE FROM artist WHERE id = $DARTIST_ID")
+        $c->sql->do("DELETE FROM artist WHERE id = $DARTIST_ID")
     }, qr/ERROR:\s*Attempted to delete a special purpose row/;
 };
 

@@ -31,7 +31,7 @@ test 'Check basic form properties' => sub {
 
 test 'Check unserialize(serialize(x)) == x' => sub {
     my $form = t::MusicBrainz::Server::Form::TestForm->new( );
-    $form->process (
+    $form->process(
         params => {
             'form.foo.bar.0' => 'Blood on Borstch',
             'form.foo.baz.0.qux' => 'Ambient Intelligence',
@@ -43,15 +43,15 @@ test 'Check unserialize(serialize(x)) == x' => sub {
     my $subfields = $form->field('foo.baz')->fields;
     is(scalar(@$subfields), 3, "non-empty repeatable has three fields");
 
-    $form->field('foo.baz.0.qux')->disabled (1);
-    $form->field('foo.baz.1.qux')->readonly (1);
-    $form->field('foo.baz.2.qux')->style ('border: 2px dashed red');
-    $form->field('foo.baz.2.qux')->css_class ('error');
+    $form->field('foo.baz.0.qux')->disabled(1);
+    $form->field('foo.baz.1.qux')->readonly(1);
+    $form->field('foo.baz.2.qux')->style('border: 2px dashed red');
+    $form->field('foo.baz.2.qux')->css_class('error');
 
     my $data = $form->serialize;
 
     $form = t::MusicBrainz::Server::Form::TestForm->new;
-    $form->unserialize ($data);
+    $form->unserialize($data);
 
     is ($form->field('foo.bar.0')->value, 'Blood on Borstch', 'first value restored correctly');
     is ($form->field('foo.baz.0.qux')->value, 'Ambient Intelligence', 'second value restored correctly');

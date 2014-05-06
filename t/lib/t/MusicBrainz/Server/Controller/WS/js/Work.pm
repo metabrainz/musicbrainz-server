@@ -22,14 +22,14 @@ INSERT INTO work_alias (work, name, sort_name, locale, primary_for_locale)
 EOSQL
 
     my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
-    $mech->default_header ("Accept" => "application/json");
+    $mech->default_header("Accept" => "application/json");
 
     my $url = '/ws/js/work?q=Let\'s Meet Again&direct=true';
 
     $mech->get_ok($url, 'fetching');
     is_valid_json ($mech->content, "validating (is_valid_json)");
 
-    my $data = $json->decode ($mech->content);
+    my $data = $json->decode($mech->content);
 
     is($data->[0]->{id}, 4223060, 'Got the work expected');
     is($data->[0]->{primary_alias}, 'Hello! Let\'s Meet Again (7ninmatsuri version)', 'Got correct primary alias (en_US)');
@@ -40,11 +40,11 @@ INSERT INTO work_alias (work, name, sort_name, locale, primary_for_locale)
 EOSQL
 
     $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
-    $mech->default_header ("Accept" => "application/json");
+    $mech->default_header("Accept" => "application/json");
     $mech->get_ok($url, 'fetching again');
     is_valid_json ($mech->content, "validating (is_valid_json)");
 
-    $data = $json->decode ($mech->content);
+    $data = $json->decode($mech->content);
 
     is($data->[0]->{id}, 4223060, 'Got the work expected');
     is($data->[0]->{primary_alias}, 'Hello! Let\'s Meet Again (7nin Matsuri version)', 'Got correct primary alias (en)');

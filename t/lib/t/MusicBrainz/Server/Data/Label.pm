@@ -125,7 +125,7 @@ test 'Deny delete "Deleted Label" trigger' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+special-purpose');
 
     like exception {
-        $c->sql->do ("DELETE FROM artist WHERE id = $DLABEL_ID")
+        $c->sql->do("DELETE FROM artist WHERE id = $DLABEL_ID")
     }, qr/ERROR:\s*Attempted to delete a special purpose row/;
 };
 

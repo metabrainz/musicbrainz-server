@@ -16,14 +16,14 @@ test all => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 
     my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
-    $mech->default_header ("Accept" => "application/json");
+    $mech->default_header("Accept" => "application/json");
 
     my $url = '/ws/js/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=recordings+rels+media';
 
     $mech->get_ok($url, 'fetching');
     is_valid_json ($mech->content, "validating (is_valid_json)");
 
-    my $data = $json->decode ($mech->content);
+    my $data = $json->decode($mech->content);
 
     is ($data->{mediums}->[0]->{position}, 1, "first disc has position 1");
 

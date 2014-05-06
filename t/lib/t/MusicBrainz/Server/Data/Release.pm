@@ -632,7 +632,7 @@ test 'find_gid_for_track' => sub {
     my $c = shift->c;
     MusicBrainz::Server::Test->prepare_test_database($c);
 
-    my $track = $c->model('Track')->get_by_gid ('3fd2523e-1ced-4f83-8b93-c7ecf6960b32');
+    my $track = $c->model('Track')->get_by_gid('3fd2523e-1ced-4f83-8b93-c7ecf6960b32');
     my $mbid = $c->model('Release')->find_gid_for_track($track->id);
 
     is ($mbid, 'f34c079d-374e-4436-9448-da92dedef3ce');
