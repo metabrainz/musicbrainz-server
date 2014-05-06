@@ -44,6 +44,7 @@ sub options_type
         'freedb'        => l('FreeDB'),
         'tag'           => lp('Tag', 'noun'),
         'instrument'    => l('Instrument'),
+        'series'        => l('Series'),
     );
 
     push @options, ( 'doc' => l('Documentation') ) if DBDefs->GOOGLE_CUSTOM_SEARCH;
