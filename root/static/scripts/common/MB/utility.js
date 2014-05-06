@@ -26,9 +26,9 @@ MB.utility.keys = function (obj) {
     else {
         var ret = [];
         for (var key in obj) {
-            if (obj.hasOwnProperty (key))
+            if (obj.hasOwnProperty(key))
             {
-                ret.push (key);
+                ret.push(key);
             }
         }
 
@@ -46,20 +46,20 @@ MB.utility.fullWidthConverter = function (inputString) {
     newString = [];
 
     do {
-        newString.push (
+        newString.push(
             inputString[i-1].replace (/([\uFF01-\uFF5E])/g, function (str, p1) {
-                return String.fromCharCode (p1.charCodeAt(0) - 65248);
+                return String.fromCharCode(p1.charCodeAt(0) - 65248);
             })
         );
     } while (--i);
 
-    return newString.reverse ().join("");
+    return newString.reverse().join("");
 };
 
 MB.utility.isNullOrEmpty = function(o) { return (!o || o == ""); };
 MB.utility.is_latin = function (str) { return ! /[^\u0000-\u02ff\u1E00-\u1EFF\u2000-\u207F]/.test(str); };
 
-MB.utility.clone = function (input) { return jQuery.extend (true, {}, input); }
+MB.utility.clone = function (input) { return jQuery.extend(true, {}, input); }
 
 /* Set a particular button to be the default submit action for a form. */
 MB.utility.setDefaultAction = function (form, button) {
@@ -136,7 +136,7 @@ MB.utility.unformatTrackLength = function (duration)
         return null;
     }
 
-    if (duration.slice (-2) == 'ms')
+    if (duration.slice(-2) == 'ms')
     {
         return parseInt (duration, 10);
     }
@@ -147,9 +147,9 @@ MB.utility.unformatTrackLength = function (duration)
         return null;
     }
 
-    var seconds = parseInt(parts.pop (), 10);
-    var minutes = parseInt(parts.pop () || 0, 10) * 60;
-    var hours = parseInt(parts.pop () || 0, 10) * 3600;
+    var seconds = parseInt(parts.pop(), 10);
+    var minutes = parseInt(parts.pop() || 0, 10) * 60;
+    var hours = parseInt(parts.pop() || 0, 10) * 3600;
 
     return (hours + minutes + seconds) * 1000;
 };
@@ -173,7 +173,7 @@ MB.utility.iteratePromises = function (promises) {
     iterate = function () {
         if (queue.length > 0)
         {
-            queue.shift ()().then (iterate, function () {
+            queue.shift()().then (iterate, function () {
                 failed = true;
                 iterate ();
             });
@@ -182,17 +182,17 @@ MB.utility.iteratePromises = function (promises) {
         {
             if (failed)
             {
-                deferred.reject ();
+                deferred.reject();
             }
             else
             {
-                deferred.resolve ();
+                deferred.resolve();
             }
         }
     };
 
     iterate ();
-    return deferred.promise ();
+    return deferred.promise();
 };
 
 MB.utility.validDate = (function() {

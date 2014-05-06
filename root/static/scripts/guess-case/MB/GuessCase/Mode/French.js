@@ -26,7 +26,7 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
  * Models the "French" GuessCase mode.
  **/
 MB.GuessCase.Mode.French = function () {
-    var self = MB.GuessCase.Mode.Base ();
+    var self = MB.GuessCase.Mode.Base();
 
     self.setConfig('French', MB.text.GuessCaseDescriptionFrench);
 

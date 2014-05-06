@@ -26,7 +26,7 @@ MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
  * Artist specific GuessCase functionality
  **/
 MB.GuessCase.Handler.Artist = function () {
-    var self = MB.GuessCase.Handler.Base ();
+    var self = MB.GuessCase.Handler.Base();
 
     // ----------------------------------------------------------------------------
     // member variables

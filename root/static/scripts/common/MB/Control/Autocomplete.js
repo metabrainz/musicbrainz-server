@@ -464,23 +464,23 @@ MB.Control.autocomplete_formatters = {
 
         if (item.primary_alias && item.primary_alias != item.name)
         {
-            comment.push (item.primary_alias);
+            comment.push(item.primary_alias);
         }
 
-        if (item.sortName && !MB.utility.is_latin (item.name) && item.sortName != item.name)
+        if (item.sortName && !MB.utility.is_latin(item.name) && item.sortName != item.name)
         {
-            comment.push (item.sortName);
+            comment.push(item.sortName);
         }
 
         if (item.comment)
         {
-            comment.push (item.comment);
+            comment.push(item.comment);
         }
 
         if (comment.length)
         {
-            a.append (' <span class="autocomplete-comment">(' +
-                      _.escape(comment.join (", ")) + ')</span>');
+            a.append(' <span class="autocomplete-comment">(' +
+                      _.escape(comment.join(", ")) + ')</span>');
         }
 
         return $("<li>").append (a).appendTo (ul);
@@ -491,13 +491,13 @@ MB.Control.autocomplete_formatters = {
 
         if (item.length)
         {
-            a.prepend ('<span class="autocomplete-length">' +
+            a.prepend('<span class="autocomplete-length">' +
                 MB.utility.formatTrackLength(item.length) + '</span>');
         }
 
         if (item.comment)
         {
-            a.append ('<span class="autocomplete-comment">(' +
+            a.append('<span class="autocomplete-comment">(' +
                       _.escape(item.comment) + ')</span>');
         }
 
@@ -509,32 +509,32 @@ MB.Control.autocomplete_formatters = {
             );
         }
 
-        a.append ('<br /><span class="autocomplete-comment">by ' +
+        a.append('<br /><span class="autocomplete-comment">by ' +
                   _.escape(item.artist) + '</span>');
 
         if (item.appearsOn && item.appearsOn.hits > 0)
         {
             var rgs = [];
             $.each (item.appearsOn.results, function (idx, item) {
-                rgs.push (item.name);
+                rgs.push(item.name);
             });
 
             if (item.appearsOn.hits > item.appearsOn.results.length)
             {
-                rgs.push ('...');
+                rgs.push('...');
             }
 
-            a.append ('<br /><span class="autocomplete-appears">appears on: ' +
-                      _.escape(rgs.join (", ")) + '</span>');
+            a.append('<br /><span class="autocomplete-appears">appears on: ' +
+                      _.escape(rgs.join(", ")) + '</span>');
         }
         else if (item.appearsOn && item.appearsOn.hits === 0) {
-            a.append ('<br /><span class="autocomplete-appears">standalone recording</span>');
+            a.append('<br /><span class="autocomplete-appears">standalone recording</span>');
         }
 
         if (item.isrcs && item.isrcs.length)
         {
-            a.append ('<br /><span class="autocomplete-isrcs">isrcs: ' +
-                      _.escape(item.isrcs.join (", ")) + '</span>');
+            a.append('<br /><span class="autocomplete-isrcs">isrcs: ' +
+                      _.escape(item.isrcs.join(", ")) + '</span>');
         }
 
         return $("<li>").append (a).appendTo (ul);
@@ -545,18 +545,18 @@ MB.Control.autocomplete_formatters = {
 
         if (item.firstReleaseDate)
         {
-            a.append ('<span class="autocomplete-comment">(' +
+            a.append('<span class="autocomplete-comment">(' +
                         item.firstReleaseDate + ')</span>');
         }
 
         if (item.comment)
         {
-            a.append ('<span class="autocomplete-comment">(' +
+            a.append('<span class="autocomplete-comment">(' +
                       _.escape(item.comment) + ')</span>');
         }
 
         if (item.typeName) {
-            a.append ('<br /><span class="autocomplete-comment">' + item.typeName + ' by ' +
+            a.append('<br /><span class="autocomplete-comment">' + item.typeName + ' by ' +
                     _.escape(item.artist) + '</span>');
         }
 
@@ -569,23 +569,23 @@ MB.Control.autocomplete_formatters = {
 
         if (item.language)
         {
-            a.prepend ('<span class="autocomplete-length">' + item.language + '</span>');
+            a.prepend('<span class="autocomplete-length">' + item.language + '</span>');
         }
 
         if (item.primary_alias && item.primary_alias != item.name)
         {
-            comment.push (item.primary_alias);
+            comment.push(item.primary_alias);
         }
 
         if (item.comment)
         {
-            comment.push (item.comment);
+            comment.push(item.comment);
         }
 
         if (comment.length)
         {
-            a.append (' <span class="autocomplete-comment">(' +
-                      _.escape(comment.join (", ")) + ')</span>');
+            a.append(' <span class="autocomplete-comment">(' +
+                      _.escape(comment.join(", ")) + ')</span>');
         }
 
         var artistRenderer = function(prefix, artists) {
@@ -594,12 +594,12 @@ MB.Control.autocomplete_formatters = {
                 var toRender = artists.results;
                 if (artists.hits > toRender.length)
                 {
-                    toRender.push ('...');
+                    toRender.push('...');
                 }
 
-                a.append ('<br /><span class="autocomplete-comment">' +
+                a.append('<br /><span class="autocomplete-comment">' +
                         prefix + ': ' +
-                        _.escape(toRender.join (", ")) + '</span>');
+                        _.escape(toRender.join(", ")) + '</span>');
             }
         };
 
@@ -616,7 +616,7 @@ MB.Control.autocomplete_formatters = {
 
         if (item.comment)
         {
-            a.append ('<span class="autocomplete-comment">(' +
+            a.append('<span class="autocomplete-comment">(' +
                       _.escape(item.comment) + ')</span>');
         }
 
@@ -626,7 +626,7 @@ MB.Control.autocomplete_formatters = {
              if (item.parentCity) items.push(_.escape(item.parentCity));
              if (item.parentSubdivision) items.push(_.escape(item.parentSubdivision));
              if (item.parentCountry) items.push(_.escape(item.parentCountry));
-             a.append ('<br /><span class="autocomplete-comment">' +
+             a.append('<br /><span class="autocomplete-comment">' +
                        items.join(", ") +
                        '</span>');
         };
@@ -641,22 +641,22 @@ MB.Control.autocomplete_formatters = {
 
         if (item.primary_alias && item.primary_alias != item.name)
         {
-            comment.push (item.primary_alias);
+            comment.push(item.primary_alias);
         }
 
         if (item.comment)
         {
-            comment.push (item.comment);
+            comment.push(item.comment);
         }
 
         if (comment.length)
         {
-            a.append (' <span class="autocomplete-comment">(' +
-                      _.escape(comment.join (", ")) + ')</span>');
+            a.append(' <span class="autocomplete-comment">(' +
+                      _.escape(comment.join(", ")) + ')</span>');
         }
 
         if (item.typeName || item.area) {
-             a.append ('<br /><span class="autocomplete-comment">' +
+             a.append('<br /><span class="autocomplete-comment">' +
                        (item.typeName ? _.escape(item.typeName) : '') +
                        (item.typeName && item.area ? ', ' : '') +
                        (item.area ? _.escape(item.area) : '') +
@@ -685,8 +685,8 @@ MB.Control.autocomplete_formatters = {
 
         if (comment.length)
         {
-            a.append (' <span class="autocomplete-comment">(' +
-                      _.escape(comment.join (", ")) + ')</span>');
+            a.append(' <span class="autocomplete-comment">(' +
+                      _.escape(comment.join(", ")) + ')</span>');
         }
 
         if (item.description) {
@@ -718,7 +718,7 @@ MB.Control.autocomplete_formatters = {
    Do a lookup of the span with jQuery and pass it into EntityAutocomplete
    as options.inputs, for example, for a release group do this:
 
-       MB.Control.EntityAutocomplete ({ inputs: $('span.release-group.autocomplete') });
+       MB.Control.EntityAutocomplete({ inputs: $('span.release-group.autocomplete') });
 
    The 'lookup-performed' and 'cleared' events will be triggered on the input.name
    element (though you can just bind on the span, as events will bubble up).

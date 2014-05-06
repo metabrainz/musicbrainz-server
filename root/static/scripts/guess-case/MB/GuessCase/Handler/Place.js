@@ -25,7 +25,7 @@ MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
  * Place specific GuessCase functionality
  **/
 MB.GuessCase.Handler.Place = function () {
-    var self = MB.GuessCase.Handler.Base ();
+    var self = MB.GuessCase.Handler.Base();
 
     /**
      * Checks special cases
@@ -65,7 +65,7 @@ MB.GuessCase.Handler.Place = function () {
      **/
     self.doWord = function() {
         if (self.doVersusStyle()) {
-        } else if (self.doIgnoreWords ()) {
+        } else if (self.doIgnoreWords()) {
         } else if (self.doVolumeNumberStyle()) {
         } else if (self.doPartNumberStyle()) {
         } else if (gc.mode.doWord()) {

@@ -26,7 +26,7 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
  * Models the "Sentence" GuessCase mode.
  **/
 MB.GuessCase.Mode.Sentence = function () {
-    var self = MB.GuessCase.Mode.Base ();
+    var self = MB.GuessCase.Mode.Base();
 
     self.setConfig('Sentence', MB.text.GuessCaseDescriptionSentence);
 

@@ -26,7 +26,7 @@ MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
  * Release specific GuessCase functionality
  **/
 MB.GuessCase.Handler.Release = function () {
-    var self = MB.GuessCase.Handler.Base ();
+    var self = MB.GuessCase.Handler.Base();
 
     /**
      * Checks special cases of releases

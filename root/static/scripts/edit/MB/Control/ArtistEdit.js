@@ -90,7 +90,7 @@ MB.Control.ArtistEdit = function () {
     };
 
     self.typeChanged();
-    self.$type.bind ('change.mb', self.typeChanged);
+    self.$type.bind('change.mb', self.typeChanged);
 
     self.initializeArtistCreditPreviews = function(gid) {
         var artist_re = new RegExp("/artist/" + gid + "$");
@@ -133,7 +133,7 @@ MB.Control.ArtistEdit = function () {
         });
     }
 
-    MB.Control.initialize_guess_case ('artist', 'id-edit-artist');
+    MB.Control.initialize_guess_case('artist', 'id-edit-artist');
 
     MB.Control.Area("#area", "#begin_area", "#end_area");
 

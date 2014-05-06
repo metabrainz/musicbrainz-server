@@ -23,8 +23,8 @@ ERE.init = function(config) {
         'entity': type0,
         'setEntity': ERE.viewModel.selectedEntityType
     });
-    ERE.viewModel.selectedEntityType.subscribe (autocomplete.changeEntity);
-    ERE.viewModel.availableEntityTypes (
+    ERE.viewModel.selectedEntityType.subscribe(autocomplete.changeEntity);
+    ERE.viewModel.availableEntityTypes(
         _.chain([ type0, type1 ]).uniq().map(function (value) {
             return { 'value': value, 'text': MB.text.Entity[value] };
         }).value ());
@@ -104,27 +104,27 @@ RelationshipSearcher = function () {
 
         var request = $.ajax(searchUrl(possible.query()));
 
-        request.fail (function (jqxhr, status, error) {
-            self.error ('Lookup failed: ' + error);
+        request.fail(function (jqxhr, status, error) {
+            self.error('Lookup failed: ' + error);
         });
 
-        request.done (function (data, status, jqxhr) {
-            var search_result_type = data.entityType.replace ("-", "_");
+        request.done(function (data, status, jqxhr) {
+            var search_result_type = data.entityType.replace("-", "_");
             var endPointType = search_result_type == type0 ? type1 : type0;
 
             if (! (search_result_type === type0 || search_result_type === type1)) {
-                self.error ('Invalid type for this relationship: ' +  search_result_type +
+                self.error('Invalid type for this relationship: ' +  search_result_type +
                            ' (expected ' + type0 + ' or ' + type1 + ')');
             }
             else if (! _.has(data.relationships, endPointType)) {
-                self.error ('No ' + endPointType + ' relationships found for ' + data.name);
+                self.error('No ' + endPointType + ' relationships found for ' + data.name);
             }
             else if (! _.has(data.relationships[endPointType], linkTypeName)) {
-                self.error ('No ' + linkTypeName + ' relationships found for ' + data.name);
+                self.error('No ' + linkTypeName + ' relationships found for ' + data.name);
             }
             else
             {
-                self.error (null);
+                self.error(null);
 
                 _.each(
                     data['relationships'][endPointType][linkTypeName],

@@ -13,7 +13,7 @@ module("cover art", {
         ];
 
         function base64_to_blob(data, mime) {
-            var byteString = window.atob (data);
+            var byteString = window.atob(data);
 
             var ia = new Uint8Array (byteString.length);
             for (var i = 0; i < byteString.length; i++) {
@@ -44,18 +44,18 @@ module("cover art", {
 
         this.mime_type_test = function (filename, expected, expected_state) {
             var input = base64_to_blob(test_files[filename]);
-            var promise = MB.CoverArt.validate_file (input);
+            var promise = MB.CoverArt.validate_file(input);
 
-            promise.done (function (mime_type) {
+            promise.done(function (mime_type) {
                 equal (mime_type, expected, filename);
             });
 
-            promise.fail (function (err) {
+            promise.fail(function (err) {
                 equal (err, expected, filename);
             });
 
-            promise.always (function () {
-                equal (promise.state (), expected_state, ' ... ' + expected_state);
+            promise.always(function () {
+                equal (promise.state(), expected_state, ' ... ' + expected_state);
             });
 
             return promise;
@@ -74,28 +74,28 @@ module("cover art", {
 test('iframe mime type', function() {
 
     var newdoc = $('<iframe>').appendTo('#qunit-fixture').contents ()[0];
-    var input = newdoc.createElement ('input');
-    newdoc.body.appendChild (input);
+    var input = newdoc.createElement('input');
+    newdoc.body.appendChild(input);
     input.id = 'file';
 
     input.value = 'filename.with.dots.jpg';
-    equal (MB.CoverArt.get_image_mime_type (), 'image/jpeg', input.value);
+    equal (MB.CoverArt.get_image_mime_type(), 'image/jpeg', input.value);
 
     input.value = 'ALL CAPS AND SOME SPACES.PNG';
-    equal (MB.CoverArt.get_image_mime_type (), 'image/png', input.value);
+    equal (MB.CoverArt.get_image_mime_type(), 'image/png', input.value);
 
     input.value = 'is this animated?.gif';
-    equal (MB.CoverArt.get_image_mime_type (), 'image/gif', input.value);
+    equal (MB.CoverArt.get_image_mime_type(), 'image/gif', input.value);
 
     input.value = 'linux-3.10-rc7.tar.xz';
-    equal (MB.CoverArt.get_image_mime_type (), null, input.value);
+    equal (MB.CoverArt.get_image_mime_type(), null, input.value);
 });
 
 
 asyncTest('multifile/ajax upload mime type', function() {
     if (typeof Blob !== 'function')
     {
-        console.log ('# Blob constructor not available, skip test:',
+        console.log('# Blob constructor not available, skip test:',
                      QUnit.config.current.testName);
         expect (0);
         start ();
@@ -106,10 +106,10 @@ asyncTest('multifile/ajax upload mime type', function() {
     expect (8);
 
     $.when(
-        this.mime_type_test ('1x1.jpg', 'image/jpeg', 'resolved'),
-        this.mime_type_test ('1x1.png', 'image/png', 'resolved'),
-        this.mime_type_test ('1x1.gif', 'image/gif', 'resolved'),
-        this.mime_type_test ('not an image.txt', 'unrecognized image format', 'rejected')
+        this.mime_type_test('1x1.jpg', 'image/jpeg', 'resolved'),
+        this.mime_type_test('1x1.png', 'image/png', 'resolved'),
+        this.mime_type_test('1x1.gif', 'image/gif', 'resolved'),
+        this.mime_type_test('not an image.txt', 'unrecognized image format', 'rejected')
     )
     .always(start);
 });
@@ -117,7 +117,7 @@ asyncTest('multifile/ajax upload mime type', function() {
 
 test('cover art types', function() {
 
-    var types = MB.CoverArt.cover_art_types ();
+    var types = MB.CoverArt.cover_art_types();
     equal (types ().length, 2, 'two types in observableArray');
     equal (types ()[0].id, 'image/jpeg', 'first type is image/jpeg');
     equal (types ()[0].checked (), false, 'jpg not checked');
@@ -128,33 +128,33 @@ test('cover art types', function() {
 test('upload queue', function () {
     if (typeof Blob !== 'function')
     {
-        console.log ('# Blob constructor not available, skip test:',
+        console.log('# Blob constructor not available, skip test:',
                      QUnit.config.current.testName);
         expect (0);
         return;
     }
 
-    var upvm = new MB.CoverArt.UploadProcessViewModel ();
-    ko.applyBindings (upvm);
+    var upvm = new MB.CoverArt.UploadProcessViewModel();
+    ko.applyBindings(upvm);
 
-    equal (upvm.files_to_upload ().length, 0, 'zero files in upload queue');
+    equal (upvm.files_to_upload().length, 0, 'zero files in upload queue');
 
-    var gif_file = upvm.addFile (this.create_fake_file ('1x1.gif'));
-    var jpg_file = upvm.addFile (this.create_fake_file ('1x1.jpg'));
-    var png_file = upvm.addFile (this.create_fake_file ('1x1.png'));
-    var txt_file = upvm.addFile (this.create_fake_file ('not an image.txt'));
+    var gif_file = upvm.addFile(this.create_fake_file('1x1.gif'));
+    var jpg_file = upvm.addFile(this.create_fake_file('1x1.jpg'));
+    var png_file = upvm.addFile(this.create_fake_file('1x1.png'));
+    var txt_file = upvm.addFile(this.create_fake_file('not an image.txt'));
 
-    equal (upvm.files_to_upload ().length, 4, 'four files in upload queue');
+    equal (upvm.files_to_upload().length, 4, 'four files in upload queue');
 
-    upvm.moveFile (txt_file, 1);
-    equal (upvm.files_to_upload ()[3].name, txt_file.name, "moving last file to the end doesn't move it")
-    upvm.moveFile (txt_file, -1);
-    equal (upvm.files_to_upload ()[2].name, txt_file.name, 'last file moved to third position')
-    equal (upvm.files_to_upload ()[3].name, png_file.name, 'file in third position is now at the end')
+    upvm.moveFile(txt_file, 1);
+    equal (upvm.files_to_upload()[3].name, txt_file.name, "moving last file to the end doesn't move it")
+    upvm.moveFile(txt_file, -1);
+    equal (upvm.files_to_upload()[2].name, txt_file.name, 'last file moved to third position')
+    equal (upvm.files_to_upload()[3].name, png_file.name, 'file in third position is now at the end')
 
-    upvm.moveFile (gif_file, -1);
-    equal (upvm.files_to_upload ()[0].name, gif_file.name, "moving first file to the start doesn't move it")
-    upvm.moveFile (gif_file, 1);
-    equal (upvm.files_to_upload ()[1].name, gif_file.name, 'first file moved to second position')
-    equal (upvm.files_to_upload ()[0].name, jpg_file.name, 'file in second position is now at the start')
+    upvm.moveFile(gif_file, -1);
+    equal (upvm.files_to_upload()[0].name, gif_file.name, "moving first file to the start doesn't move it")
+    upvm.moveFile(gif_file, 1);
+    equal (upvm.files_to_upload()[1].name, gif_file.name, 'first file moved to second position')
+    equal (upvm.files_to_upload()[0].name, jpg_file.name, 'file in second position is now at the start')
 });

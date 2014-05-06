@@ -25,7 +25,7 @@ MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
  * Area specific GuessCase functionality
  **/
 MB.GuessCase.Handler.Area = function () {
-    var self = MB.GuessCase.Handler.Base ();
+    var self = MB.GuessCase.Handler.Base();
 
     /**
      * Checks special cases
@@ -71,7 +71,7 @@ MB.GuessCase.Handler.Area = function () {
      **/
     self.doWord = function() {
         if (self.doDiscNumberStyle()) {
-        } else if (self.doIgnoreWords ()) {
+        } else if (self.doIgnoreWords()) {
         } else if (self.doFeaturingArtistStyle()) {
         } else if (self.doVersusStyle()) {
         } else if (self.doVolumeNumberStyle()) {

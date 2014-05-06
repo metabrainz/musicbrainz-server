@@ -23,7 +23,7 @@ MB.Form = (MB.Form) ? MB.Form : {};
 MB.Form.TextList = function (input) {
     var template = input + '-template';
     var self = {};
-    var $template = $('.' + template.replace (/\./g, '\\.'));
+    var $template = $('.' + template.replace(/\./g, '\\.'));
     var counter = 0;
 
     var last_item = input;
@@ -43,9 +43,9 @@ MB.Form.TextList = function (input) {
     };
 
     self.add = function (init_value) {
-        $template.clone ()
+        $template.clone()
             .removeClass (template)
-            .insertAfter ($template.parent ().find ('div.text-list-row').last ())
+            .insertAfter ($template.parent().find ('div.text-list-row').last ())
             .show ()
             .find ('input.value').attr ("name", input + '.' + counter).val (init_value)
             .end ()
@@ -56,12 +56,12 @@ MB.Form.TextList = function (input) {
         return self;
     };
 
-    $template.parent ().find ('button.add').bind ('click.mb', function (event) {
-        var parts = last_item.split ('.');
-        var field_name = parts.pop ();
-        var idx = parseInt(parts.pop (), 10) + 1;
-        var prefix = parts.join ('.') + '.' + idx + '.';
-        self.add ('');
+    $template.parent().find ('button.add').bind ('click.mb', function (event) {
+        var parts = last_item.split('.');
+        var field_name = parts.pop();
+        var idx = parseInt(parts.pop(), 10) + 1;
+        var prefix = parts.join('.') + '.' + idx + '.';
+        self.add('');
     });
 
     return self;

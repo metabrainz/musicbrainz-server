@@ -26,7 +26,7 @@ MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
  * Track specific GuessCase functionality
  **/
 MB.GuessCase.Handler.Track = function () {
-    var self = MB.GuessCase.Handler.Base ();
+    var self = MB.GuessCase.Handler.Base();
 
     // ----------------------------------------------------------------------------
     // member functions
@@ -111,7 +111,7 @@ MB.GuessCase.Handler.Track = function () {
      **/
     self.doWord = function() {
 
-        if (self.doIgnoreWords ()) {
+        if (self.doIgnoreWords()) {
         } else if (self.doFeaturingArtistStyle()) {
         } else if (self.doVersusStyle()) {
 	} else if (self.doVolumeNumberStyle()) {

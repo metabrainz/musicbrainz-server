@@ -23,7 +23,7 @@ MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
 MB.GuessCase._Place = function () {
     var self = {};
 
-    self.gc = MB.GuessCase.Main ();
+    self.gc = MB.GuessCase.Main();
 
     self.guess = self.gc.guessPlace;
     self.sortname = self.gc.guessPlaceSortname;
@@ -33,6 +33,6 @@ MB.GuessCase._Place = function () {
 
 $('document').ready (function () {
 
-    MB.GuessCase.place = MB.GuessCase._Place ();
+    MB.GuessCase.place = MB.GuessCase._Place();
 
 });

@@ -37,7 +37,7 @@ MB.Control.HeaderMenu = function () {
         var ul = $(this).children ('ul');
 
         self.timeout = setTimeout(function () {
-            ul.css ('left', '-10000px');
+            ul.css('left', '-10000px');
         }, self.timeout_msecs);
     });
 
@@ -45,5 +45,5 @@ MB.Control.HeaderMenu = function () {
 }
 
 $(document).ready (function() {
-    MB.Control.header_menu = MB.Control.HeaderMenu ();
+    MB.Control.header_menu = MB.Control.HeaderMenu();
 });

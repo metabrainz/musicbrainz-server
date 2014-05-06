@@ -42,10 +42,10 @@ MB.GuessCase.Main = function () {
     // ----------------------------------------------------------------------------
     // member variables
     // ----------------------------------------------------------------------------
-    self.u = MB.GuessCase.Utils ();
-    self.f = MB.GuessCase.Flags ();
-    self.i = MB.GuessCase.Input ();
-    self.o = MB.GuessCase.Output ();
+    self.u = MB.GuessCase.Utils();
+    self.f = MB.GuessCase.Flags();
+    self.i = MB.GuessCase.Input();
+    self.o = MB.GuessCase.Output();
     self.artistHandler = null;
     self.labelHandler = null;
     self.releaseHandler = null;
@@ -83,7 +83,7 @@ MB.GuessCase.Main = function () {
         self.mode = self.artistmode;
 
 	if (!self.artistHandler) {
-	    self.artistHandler = MB.GuessCase.Handler.Artist ();
+	    self.artistHandler = MB.GuessCase.Handler.Artist();
 	}
 	handler = self.artistHandler;
 
@@ -113,7 +113,7 @@ MB.GuessCase.Main = function () {
 	gc.init();
 
 	if (!self.artistHandler) {
-	    self.artistHandler = MB.GuessCase.Handler.Artist ();
+	    self.artistHandler = MB.GuessCase.Handler.Artist();
 	}
 	handler = self.artistHandler;
 
@@ -144,7 +144,7 @@ MB.GuessCase.Main = function () {
         self.mode = MB.GuessCase.Mode.English();;
 
 	if (!self.labelHandler) {
-	    self.labelHandler = MB.GuessCase.Handler.Label ();
+	    self.labelHandler = MB.GuessCase.Handler.Label();
 	}
 	handler = self.labelHandler;
 
@@ -174,7 +174,7 @@ MB.GuessCase.Main = function () {
 	gc.init();
 
 	if (!self.labelHandler) {
-	    self.labelHandler = MB.GuessCase.Handler.Label ();
+	    self.labelHandler = MB.GuessCase.Handler.Label();
 	}
 	handler = self.labelHandler;
 
@@ -202,7 +202,7 @@ MB.GuessCase.Main = function () {
 	gc.init();
 
 	if (!self.workHandler) {
-	    self.workHandler = MB.GuessCase.Handler.Work ();
+	    self.workHandler = MB.GuessCase.Handler.Work();
 	}
 	handler = self.workHandler;
 
@@ -230,7 +230,7 @@ MB.GuessCase.Main = function () {
 	gc.init();
 
 	if (!self.workHandler) {
-	    self.workHandler = MB.GuessCase.Handler.Work ();
+	    self.workHandler = MB.GuessCase.Handler.Work();
 	}
 	handler = self.workHandler;
 
@@ -258,7 +258,7 @@ MB.GuessCase.Main = function () {
 	gc.init();
 
 	if (!self.areaHandler) {
-	    self.areaHandler = MB.GuessCase.Handler.Area ();
+	    self.areaHandler = MB.GuessCase.Handler.Area();
 	}
 	handler = self.areaHandler;
 
@@ -286,7 +286,7 @@ MB.GuessCase.Main = function () {
 	gc.init();
 
 	if (!self.areaHandler) {
-	    self.areaHandler = MB.GuessCase.Handler.Area ();
+	    self.areaHandler = MB.GuessCase.Handler.Area();
 	}
 	handler = self.areaHandler;
 
@@ -314,7 +314,7 @@ MB.GuessCase.Main = function () {
         gc.init();
 
         if (!self.placeHandler) {
-            self.placeHandler = MB.GuessCase.Handler.Place ();
+            self.placeHandler = MB.GuessCase.Handler.Place();
         }
         handler = self.placeHandler;
 
@@ -342,7 +342,7 @@ MB.GuessCase.Main = function () {
         gc.init();
 
         if (!self.placeHandler) {
-            self.placeHandler = MB.GuessCase.Handler.Place ();
+            self.placeHandler = MB.GuessCase.Handler.Place();
         }
         handler = self.placeHandler;
 
@@ -370,7 +370,7 @@ MB.GuessCase.Main = function () {
 	gc.init();
 
 	if (!self.releaseHandler) {
-	    self.releaseHandler = MB.GuessCase.Handler.Release ();
+	    self.releaseHandler = MB.GuessCase.Handler.Release();
 	}
 	handler = self.releaseHandler;
 
@@ -399,7 +399,7 @@ MB.GuessCase.Main = function () {
 	self.init();
 
 	if (!self.trackHandler) {
-	    self.trackHandler = MB.GuessCase.Handler.Track ();
+	    self.trackHandler = MB.GuessCase.Handler.Track();
 	}
 	handler = self.trackHandler;
 

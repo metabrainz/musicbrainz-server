@@ -333,7 +333,7 @@ MB.GuessCase.Utils = function () {
 
             var next_word = gc.i.getNextWord();
             var followed_by_punctuation =
-                next_word && next_word.length == 1 && self.isPunctuationChar (next_word);
+                next_word && next_word.length == 1 && self.isPunctuationChar(next_word);
 
 	    // unless forceCaps is enabled, lowercase the word if it is not followed
             // by punctuation.
