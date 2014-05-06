@@ -419,7 +419,7 @@ sub schema_fixup
             }
         }
     }
-    if($type eq 'artist' && exists $data->{gender}) {
+    if ($type eq 'artist' && exists $data->{gender}) {
         $data->{gender} = MusicBrainz::Server::Entity::Gender->new( name => ucfirst($data->{gender}) );
     }
     if ($type eq 'label' && exists $data->{type})
@@ -692,7 +692,7 @@ sub schema_fixup
             ];
         }
 
-        if(exists $data->{type}) {
+        if (exists $data->{type}) {
             $data->{type} = MusicBrainz::Server::Entity::WorkType->new( name => $data->{type} );
         }
 
@@ -702,7 +702,7 @@ sub schema_fixup
             });
         }
 
-        if(exists $data->{'iswc-list'}) {
+        if (exists $data->{'iswc-list'}) {
             $data->{iswcs} = [
                 map {
                     MusicBrainz::Server::Entity::ISWC->new( iswc => $_ )

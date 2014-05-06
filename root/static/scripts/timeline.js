@@ -233,7 +233,7 @@ $(function () {
     // Hover functionality on main and rate-of-change graphs
     var previousPoint = null;
     $('#graph-container').bind('plothover', function (event, pos, item) {
-        if(item) {
+        if (item) {
             if (previousPoint != item.dataIndex) {
                 previousPoint = item.dataIndex;
                 setItemTooltip(item);
@@ -244,7 +244,7 @@ $(function () {
     });
     var ratePreviousPoint = null;
     $('#rate-of-change-graph').bind('plothover', function (event, pos, item) {
-        if(item) {
+        if (item) {
             if (ratePreviousPoint != item.dataIndex) {
                 ratePreviousPoint = item.dataIndex;
                 setItemTooltip(item, MB.text.Timeline.RateTooltipCloser, 2);

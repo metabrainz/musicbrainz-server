@@ -272,7 +272,7 @@ sub attach : Local DenyWhenReadOnly
         }
         else {
             my $stub_toc = $c->model('CDStubTOC')->get_by_discid($cdtoc->discid);
-            if($stub_toc) {
+            if ($stub_toc) {
                 $c->model('CDStub')->load($stub_toc);
                 $c->model('CDStubTrack')->load_for_cdstub($stub_toc->cdstub);
                 $stub_toc->update_track_lengths;

@@ -49,7 +49,7 @@ sub fetch {
         @{ $self->sql->select_list_of_hashes($query, @names) };
 
     if (@names) {
-        if(wantarray) {
+        if (wantarray) {
             return @stats{@names};
         }
         else {

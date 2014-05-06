@@ -55,7 +55,7 @@ auto-editing, for example).
 sub submit_and_validate
 {
     my ($self, $c) = @_;
-    if($c->form_posted && $self->form->validate($c->req->body_params))
+    if ($c->form_posted && $self->form->validate($c->req->body_params))
     {
         if ($self->form->isa('MusicBrainz::Server::Form'))
         {

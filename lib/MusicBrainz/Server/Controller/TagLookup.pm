@@ -21,7 +21,7 @@ sub _parse_filename
        $data->{tracknum} = $1;
    }
 
-   for(;;)
+   for (;;)
    {
        if ($filename =~ s/^([^-]*)-//)
        {

@@ -389,7 +389,7 @@ sub accept {
         my $position = 1;
         my @final_tracklist;
         my $existing_recordings = $self->c->model('Recording')->get_by_ids(@merged_recordings);
-        while(1) {
+        while (1) {
             last unless @merged_row_ids &&
                         @merged_artist_credits &&
                         @merged_lengths &&

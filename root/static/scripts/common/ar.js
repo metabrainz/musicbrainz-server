@@ -123,13 +123,13 @@ $(function() {
             newSelect.attr('id', 'id-' + newSelectName);
             newSelect.val('');
             selects.append(newDiv);
-            if(!newDiv.find('input.removeAttr').length) {
+            if (!newDiv.find('input.removeAttr').length) {
                 newDiv.append($("<input/>").attr({ type: 'button', 'class': 'removeAttr', value: MB.text.Remove }));
             }
             newDiv.find('input.selectFilter').val('').focus();
         });
         selects.after(btn);
-        if(selects.find('option').length > 20) {
+        if (selects.find('option').length > 20) {
             selects.find('div').each(function() {
                 $(this).append(' ',
                     $("<a>&#9668;</a>").attr({ href: '#', 'class': 'selectFilterPrev' }),
@@ -168,7 +168,7 @@ $(function() {
         if (event.keyCode == KEY_UP || event.keyCode == KEY_LEFT) {
             filterSelect($input, -1);
         }
-        else if(event.keyCode == KEY_DOWN || event.keyCode == KEY_RIGHT) {
+        else if (event.keyCode == KEY_DOWN || event.keyCode == KEY_RIGHT) {
             filterSelect($input, 1);
         }
         else {

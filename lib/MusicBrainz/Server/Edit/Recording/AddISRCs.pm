@@ -42,7 +42,7 @@ sub initialize
     my ($self, %opts) = @_;
     my @isrcs = $self->c->model('ISRC')->filter_additions(@{ $opts{isrcs} });
 
-    if(@isrcs == 0) {
+    if (@isrcs == 0) {
         MusicBrainz::Server::Edit::Exceptions::NoChanges->throw;
     }
     else {

@@ -158,7 +158,7 @@ sub find_or_insert
     my ($id, $name, $positions, $credits, $artists, $join_phrases) =
         $self->_find($artist_credit);
 
-    if(!defined $id)
+    if (!defined $id)
     {
         $id = $self->sql->insert_row('artist_credit', {
             name => $name,

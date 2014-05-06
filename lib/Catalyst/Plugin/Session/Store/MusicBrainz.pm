@@ -16,7 +16,7 @@ has '_datastore' => (
 sub get_session_data {
     my ($self, $key) = @_;
 
-    if(my ($sid) = $key =~ /^expires:(.*)/)
+    if (my ($sid) = $key =~ /^expires:(.*)/)
     {
         return $self->_datastore->get ($key);
     }
@@ -30,7 +30,7 @@ sub get_session_data {
 sub store_session_data {
     my ($self, $key, $data) = @_;
 
-    if(my ($sid) = $key =~ /^expires:(.*)/)
+    if (my ($sid) = $key =~ /^expires:(.*)/)
     {
         $self->_datastore->set ($key, $data);
     }

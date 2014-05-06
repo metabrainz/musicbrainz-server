@@ -459,7 +459,7 @@ sub create_edits {
             );
         }
         catch {
-            unless(ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::NoChanges') {
+            unless (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::NoChanges') {
                 critical_error($c, $_);
             }
         };

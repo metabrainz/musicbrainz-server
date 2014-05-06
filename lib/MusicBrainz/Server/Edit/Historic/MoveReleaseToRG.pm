@@ -126,7 +126,7 @@ sub accept
     $self->c->model('Release')->update($self->data->{release}{id}, {
         release_group_id => $target->id
     });
-    unless($self->c->model('ReleaseGroup')->in_use($self->data->{old_release_group}{id})) {
+    unless ($self->c->model('ReleaseGroup')->in_use($self->data->{old_release_group}{id})) {
         $self->c->model('ReleaseGroup')->delete($self->data->{old_release_group}{id});
     }
 }

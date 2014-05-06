@@ -71,7 +71,7 @@ sub index : Private
 sub _perform_login {
     my ($self, $c, $user_name, $password) = @_;
 
-    if( !$c->authenticate({ username => $user_name, password => $password }) )
+    if ( !$c->authenticate({ username => $user_name, password => $password }) )
     {
         # Bad username / password combo
         $c->log->info('Invalid username/password');

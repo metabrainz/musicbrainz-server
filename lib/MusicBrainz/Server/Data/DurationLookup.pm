@@ -56,7 +56,7 @@ sub lookup
     push @offsets, $toc_info{leadoutoffset};
 
     my (@durations, $i);
-    for($i = 0; $i < $toc_info{tracks}; $i++)
+    for ($i = 0; $i < $toc_info{tracks}; $i++)
     {
         push @durations, int((($offsets[$i + 1] - $offsets[$i]) * 1000) / 75);
     }

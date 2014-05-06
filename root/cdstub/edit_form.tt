@@ -45,7 +45,7 @@
 
         function track_artists(mode)
         {
-            for(i = 1;; i++)
+            for (i = 1;; i++)
             {
                 obj = document.getElementById("artist_field_" + i);
                 if (obj) {

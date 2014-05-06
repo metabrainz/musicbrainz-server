@@ -149,14 +149,14 @@ sub insert
 
     delete $cdstub_hash->{artist} if ($track_artists);
 
-    if(my @releases = $self->c->model('Release')->find_by_disc_id($cdtoc->discid)) {
+    if (my @releases = $self->c->model('Release')->find_by_disc_id($cdtoc->discid)) {
         MusicBrainz::Server::Exceptions::Duplicate->throw(
             message    => l('There are already MusicBrainz releases with this disc ID'),
             duplicates => \@releases
         );
     }
 
-    if(my $stub = $self->c->model('CDStub')->get_by_discid($cdtoc->discid)) {
+    if (my $stub = $self->c->model('CDStub')->get_by_discid($cdtoc->discid)) {
         MusicBrainz::Server::Exceptions::Duplicate->throw(
             message    => l('There is already a CD stub with this disc ID'),
             duplicates => [ $stub ]

@@ -51,7 +51,7 @@ sub _create_email
     my ($self, $headers, $body) = @_;
 
     # Add a Message-Id header if there isn't one.
-    if( !(grep { "$_" eq "Message-Id" } @$headers) ) {
+    if ( !(grep { "$_" eq "Message-Id" } @$headers) ) {
         push @$headers, 'Message-Id', _message_id('uncategorized-email-%d', time());
     }
     return Email::MIME->create(

@@ -46,7 +46,7 @@ $(function() {
     }).on("change", "ul.conditions select.field", function() {
         var val = $(this).val();
         var $replacement = $('#fields .field-' + val).clone();
-        if($replacement.length) {
+        if ($replacement.length) {
             var $li = $(this).parent('li');
             $li.find('span.field-container span.field').replaceWith($replacement);
 
@@ -95,7 +95,7 @@ $(function() {
         var classList = $element.attr('class').split(/\s+/);
         var ret;
         for (i = 0; i < classList.length; i++) {
-            if(classList[i].substring(0, prefix.length) === prefix) {
+            if (classList[i].substring(0, prefix.length) === prefix) {
                 ret = classList[i].substring(prefix.length);
                 break;
             }

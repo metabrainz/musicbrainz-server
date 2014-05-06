@@ -164,7 +164,7 @@ sub merge
         @ids
     );
 
-    if(@tags) {
+    if (@tags) {
         $self->c->sql->do(
             "INSERT INTO $assoc_table ($entity_type, tag, count)
              VALUES " . join(',', ("(?, ?, ?)") x @tags),

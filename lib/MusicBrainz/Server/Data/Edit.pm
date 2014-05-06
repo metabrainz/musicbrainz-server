@@ -167,7 +167,7 @@ sub find_by_collection
 sub find_for_subscription
 {
     my ($self, $subscription) = @_;
-    if($subscription->isa(EditorSubscription)) {
+    if ($subscription->isa(EditorSubscription)) {
         my $query = 'SELECT ' . $self->_columns . ' FROM edit
                       WHERE id > ? AND editor = ? AND status IN (?, ?)';
 
@@ -179,7 +179,7 @@ sub find_for_subscription
             $STATUS_OPEN, $STATUS_APPLIED
         );
     }
-    elsif($subscription->isa(CollectionSubscription)) {
+    elsif ($subscription->isa(CollectionSubscription)) {
         return () if (!$subscription->available);
 
         my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .

@@ -161,7 +161,7 @@ sub root : Chained('/') PathPart("ws/2") CaptureArgs(0)
     }
     catch {
         my $err = $_;
-        if(eval { $err->isa('MusicBrainz::Server::WebService::Exceptions::UnknownIncParameter') }) {
+        if (eval { $err->isa('MusicBrainz::Server::WebService::Exceptions::UnknownIncParameter') }) {
             $self->_error($c, $err->message);
         }
         $c->detach;

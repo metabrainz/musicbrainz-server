@@ -10,7 +10,7 @@ sub USE_MOOSE { 1 }
 my ($import) = Moose::Exporter->build_import_methods( also => 'Moose' );
 sub import {
     my $class = caller(0);
-    if(USE_MOOSE) {
+    if (USE_MOOSE) {
         goto $import;
     }
     else {

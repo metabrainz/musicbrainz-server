@@ -102,7 +102,7 @@ sub load_artist_credit_definitions
     my @ac = @{ $ac->{names} };
 
     my %load;
-    while(@ac) {
+    while (@ac) {
         my $ac_name = shift @ac;
 
         next unless defined $ac_name->{name} && $ac_name->{artist}->{id};
