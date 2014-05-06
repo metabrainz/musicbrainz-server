@@ -60,7 +60,7 @@ sub insert
     my @values;
     while (my ($key, $val) = each (%$data))
     {
-        my $col = $dbh->column_info (undef, $schema, $table, $key)->fetchrow_hashref;
+        my $col = $dbh->column_info(undef, $schema, $table, $key)->fetchrow_hashref;
 
         push @values, quote_column ($col->{pg_type}, $val);
     }
@@ -88,7 +88,7 @@ sub update
     my @columns;
     while (my ($key, $val) = each (%$data))
     {
-        my $col = $dbh->column_info (undef, $schema, $table, $key)->fetchrow_hashref;
+        my $col = $dbh->column_info(undef, $schema, $table, $key)->fetchrow_hashref;
 
         if ($key eq $primary)
         {
@@ -144,7 +144,7 @@ sub get_rows
 {
     my ($dbh, $table, $key, $value) = @_;
 
-    my $col = $dbh->column_info (undef, $schema, $table, $key)->fetchrow_hashref;
+    my $col = $dbh->column_info(undef, $schema, $table, $key)->fetchrow_hashref;
     my $quoted = quote_column ($col->{pg_type}, $value);
 
     return query ($dbh, $table, "SELECT * FROM $table WHERE $key = $quoted");
@@ -156,8 +156,8 @@ sub get_rows_two_keys
 
     return [] unless scalar @$values1;
 
-    my $col0 = $dbh->column_info (undef, $schema, $table, $key0)->fetchrow_hashref;
-    my $col1 = $dbh->column_info (undef, $schema, $table, $key1)->fetchrow_hashref;
+    my $col0 = $dbh->column_info(undef, $schema, $table, $key0)->fetchrow_hashref;
+    my $col1 = $dbh->column_info(undef, $schema, $table, $key1)->fetchrow_hashref;
 
     return [] unless $col0 && $col1;
 

@@ -43,7 +43,7 @@ use Log::Dispatch;
 my $log = Log::Dispatch->new(outputs => [[ 'Screen', min_level => 'info' ]] );
 my $imgext = 'jpg|png|gif';
 
-sub catfile { return File::Spec->catfile (@_); }
+sub catfile { return File::Spec->catfile(@_); }
 
 sub thumb
 {
@@ -52,7 +52,7 @@ sub thumb
     my $newfile = $filename;
     $newfile =~ s/.($imgext)$/_thumb$max.jpg/;
 
-    $log->info ("Generating ${max}x${max} thumbnail, $newfile\n");
+    $log->info("Generating ${max}x${max} thumbnail, $newfile\n");
 
     `convert -thumbnail ${max}x${max} "$filename\[0\]" $newfile`;
 }
@@ -72,9 +72,9 @@ sub create_bucket
 
 sub handle_options
 {
-    my $response = shift->new_response (200);
-    $response->content_type ('text/plain');
-    $response->headers ({ Allow => 'GET,HEAD,POST,OPTIONS' });
+    my $response = shift->new_response(200);
+    $response->content_type('text/plain');
+    $response->headers({ Allow => 'GET,HEAD,POST,OPTIONS' });
     return $response;
 }
 
@@ -82,25 +82,25 @@ sub handle_put
 {
     my ($request, $bucketdir) = @_;
 
-    my $dest = catfile ($bucketdir, $request->param ('file'));
-    $log->info ("PUT, storing upload at $dest\n");
+    my $dest = catfile ($bucketdir, $request->param('file'));
+    $log->info("PUT, storing upload at $dest\n");
 
     open (my $fh, ">", $dest);
     print $fh $request->content;
     close ($fh);
 
-    return $request->new_response (204);
+    return $request->new_response(204);
 }
 
 sub handle_post
 {
     my ($request, $bucketdir) = @_;
 
-    my $key = $request->param ('key');
+    my $key = $request->param('key');
     return undef unless $key;
 
-    my $dest = catfile ($bucketdir, $request->param ('key'));
-    $log->info ("POST, storing upload at $dest\n");
+    my $dest = catfile ($bucketdir, $request->param('key'));
+    $log->info("POST, storing upload at $dest\n");
 
     move ($request->uploads->{file}->path, $dest);
 
@@ -110,33 +110,33 @@ sub handle_post
         thumb (catfile ($bucketdir, $key), 500);
     }
 
-    my $redirect = $request->param ('success_action_redirect');
-    my $status = $request->param ('success_action_status');
+    my $redirect = $request->param('success_action_redirect');
+    my $status = $request->param('success_action_status');
 
     if ($redirect)
     {
-        my $response = $request->new_response (303);
-        $response->location ($redirect);
+        my $response = $request->new_response(303);
+        $response->location($redirect);
         return $response;
     }
     elsif (defined $status && $status eq "200")
     {
-        return $request->new_response (200);
+        return $request->new_response(200);
     }
     elsif (defined $status && $status eq "201")
     {
-        my $response = $request->new_response (201);
-        $response->body ("<fixme>some xml response goes here. see: http://docs.amazonwebservices.com/AmazonS3/latest/dev/HTTPPOSTForms.html?r=3818</fixme>");
+        my $response = $request->new_response(201);
+        $response->body("<fixme>some xml response goes here. see: http://docs.amazonwebservices.com/AmazonS3/latest/dev/HTTPPOSTForms.html?r=3818</fixme>");
         return $response;
     }
     else
     {
-        return $request->new_response (204);
+        return $request->new_response(204);
     }
 }
 
 sub {
-    my $request = Plack::Request->new (shift);
+    my $request = Plack::Request->new(shift);
 
     my $bucketdir = create_bucket ($request->path_info);
     my $response;
@@ -147,6 +147,6 @@ sub {
         when ("OPTIONS") { $response = handle_options ($request) }
     }
 
-    $response->header ("Access-Control-Allow-Origin" => "*");
+    $response->header("Access-Control-Allow-Origin" => "*");
     return $response->finalize;
 }

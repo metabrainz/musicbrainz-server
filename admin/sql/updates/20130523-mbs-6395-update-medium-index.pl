@@ -20,7 +20,7 @@ sub get_mediums_to_update
     # Any medium where all tracks have a length and that length is < 4800000
     # should have a row in medium_index.
 
-    my $results = $c->sql->select_list_of_hashes (
+    my $results = $c->sql->select_list_of_hashes(
         "SELECT track.medium AS medium_id,
                 (sum(track.length) < 4800000 AND
                  count(track.id) = count(track.length) AND
@@ -68,7 +68,7 @@ sub delete_from_index
 {
     my ($c, $medium_ids) = @_;
 
-    $c->sql->do (
+    $c->sql->do(
         "DELETE FROM medium_index " .
         "WHERE medium IN (" . placeholders(@$medium_ids) . ")",
         @$medium_ids);
@@ -82,7 +82,7 @@ sub insert_into_index
 
     my @ids = grep { $_ } @$medium_ids[0..$limit];
 
-    $c->model('DurationLookup')->update ($_) for @ids;
+    $c->model('DurationLookup')->update($_) for @ids;
     print "Inserted ".scalar @ids." medium_index rows.\n";
 }
 
@@ -90,7 +90,7 @@ sub update_index
 {
     my ($c, $medium_ids, $limit) = @_;
 
-    my $results = $c->sql->select_list_of_hashes (
+    my $results = $c->sql->select_list_of_hashes(
         "SELECT medium_index.medium AS medium_id
            FROM medium_index
           WHERE medium_index.medium IN (" . placeholders(@$medium_ids) . ")
@@ -103,7 +103,7 @@ sub update_index
 
     return WORK_DONE unless scalar @$results;
 
-    $c->model('DurationLookup')->update ($_->{medium_id}) for @$results;
+    $c->model('DurationLookup')->update($_->{medium_id}) for @$results;
     print "Updated ".scalar @$results." medium_index rows.\n";
 
     return WORK_NO_ERROR;
