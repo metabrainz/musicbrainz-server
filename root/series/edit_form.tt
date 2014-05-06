@@ -54,7 +54,7 @@
 
 </form>
 
-<script>
+<script><![CDATA[
 (function () {
   MB.Control.initialize_guess_case("series", "id-edit-series");
   MB.utility.setDefaultAction("form.edit-series", "button.submit.positive");
@@ -82,4 +82,4 @@
     }
   });
 }());
-</script>
+]]></script>

@@ -98,7 +98,7 @@ sub _merge_impl {
         )
     );
 
-    # FIXME: relationship ordering
+    # FIXME: merge duplicate items (relationships) somehow?
 
     $self->_delete_and_redirect_gids('series', $new_id, @old_ids);
 
