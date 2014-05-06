@@ -33,8 +33,8 @@ sub entity_list
 
     if (defined $list->{offset} || defined $list->{total})
     {
-        $ret{$type."-offset"} = number ($list->{offset});
-        $ret{$type."-count"} = number ($list->{total});
+        $ret{$type."-offset"} = number($list->{offset});
+        $ret{$type."-count"} = number($list->{total});
     }
     $ret{$type_plural} = [
         map { serialize_entity($_, $inc, $opts, 1) }

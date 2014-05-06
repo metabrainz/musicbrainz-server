@@ -20,11 +20,11 @@ sub serialize
     $body{length} = $entity->length // JSON::null;
     $body{video} = $entity->video ? 1 : 0;
 
-    $body{"artist-credit"} = serialize_entity ($entity->artist_credit)
+    $body{"artist-credit"} = serialize_entity($entity->artist_credit)
         if ($entity->artist_credit &&
             ($toplevel || ($inc && $inc->artist_credits)));
 
-    $body{releases} = list_of ($entity, $inc, $stash, "releases")
+    $body{releases} = list_of($entity, $inc, $stash, "releases")
         if ($toplevel && $inc && $inc->releases);
 
     return \%body unless defined $inc && ($inc->isrcs || $inc->puids);

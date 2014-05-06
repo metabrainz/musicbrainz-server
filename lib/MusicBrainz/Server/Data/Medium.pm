@@ -60,7 +60,7 @@ sub load
 sub load_for_releases
 {
     my ($self, @releases) = @_;
-    my %id_to_release = object_to_ids (@releases);
+    my %id_to_release = object_to_ids(@releases);
     my @ids = keys %id_to_release;
 
 

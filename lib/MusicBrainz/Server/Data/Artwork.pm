@@ -66,7 +66,7 @@ sub _entity_class
 sub find_by_release
 {
     my ($self, @releases) = @_;
-    my %id_to_release = object_to_ids (@releases);
+    my %id_to_release = object_to_ids(@releases);
     my @ids = keys %id_to_release;
 
     return unless @ids; # nothing to do
@@ -103,7 +103,7 @@ sub find_by_release
 sub find_front_cover_by_release
 {
     my ($self, @releases) = @_;
-    my %id_to_release = object_to_ids (@releases);
+    my %id_to_release = object_to_ids(@releases);
     my @ids = keys %id_to_release;
 
     return unless @ids; # nothing to do
@@ -145,7 +145,7 @@ sub find_front_cover_by_release
 sub load_for_release_groups
 {
     my ($self, @release_groups) = @_;
-    my %id_to_rg = object_to_ids (@release_groups);
+    my %id_to_rg = object_to_ids(@release_groups);
     my @ids = keys %id_to_rg;
 
     return unless @ids; # nothing to do

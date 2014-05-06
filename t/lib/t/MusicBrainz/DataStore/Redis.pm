@@ -22,7 +22,7 @@ test "test database selected" => sub {
     my $redis = MusicBrainz::DataStore::Redis->new(%$args);
     $redis->_connection->select($args->{test_database});
 
-    my $some_value = rand ();
+    my $some_value = rand();
     $redis->set("MB:26fe2bfb-73dd-4660-8946-bd14c899163b", $some_value);
 
     # The above commands have set a known value in the test database.

@@ -470,7 +470,7 @@ mode, and run a block of code.
 sub lock_and_do {
     my ($self, $type0, $type1, $code) = @_;
 
-    my ($t0, $t1) = sort ($type0, $type1);
+    my ($t0, $t1) = sort($type0, $type1);
     Sql::run_in_transaction(sub {
         $code->();
     }, $self->c->sql);

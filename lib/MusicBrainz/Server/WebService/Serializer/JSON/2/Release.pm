@@ -56,7 +56,7 @@ sub serialize
     $body{barcode} = $entity->barcode->code;
     $body{disambiguation} = $entity->comment // "";
     $body{status} = $entity->status_name;
-    $body{quality} = _quality ($entity->quality);
+    $body{quality} = _quality($entity->quality);
     $body{packaging} = $entity->packaging
         ? $entity->packaging->name : JSON::null;
 
@@ -77,20 +77,20 @@ sub serialize
         language => $entity->language ? $entity->language->iso_code_3 : JSON::null
     };
 
-    $body{collections} = list_of ($entity, $inc, $stash, "collections")
+    $body{collections} = list_of($entity, $inc, $stash, "collections")
         if $inc && $inc->collections;
 
-    $body{"release-group"} = serialize_entity ($entity->release_group, $inc, $stash)
+    $body{"release-group"} = serialize_entity($entity->release_group, $inc, $stash)
         if $inc && $inc->release_groups;
 
     if ($toplevel)
     {
-        $body{"artist-credit"} = serialize_entity ($entity->artist_credit, $inc, $stash, $inc->artists)
+        $body{"artist-credit"} = serialize_entity($entity->artist_credit, $inc, $stash, $inc->artists)
             if $inc->artist_credits || $inc->artists;
     }
     else
     {
-        $body{"artist-credit"} = serialize_entity ($entity->artist_credit, $inc, $stash)
+        $body{"artist-credit"} = serialize_entity($entity->artist_credit, $inc, $stash)
             if $inc && $inc->artist_credits;
     }
 

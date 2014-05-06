@@ -337,7 +337,7 @@ sub accept {
         )
     }
 
-    my $data_new = clone ($self->data->{new});
+    my $data_new = clone($self->data->{new});
     my $data_new_tracklist = delete $data_new->{tracklist};
 
     $self->c->model('Medium')->update($self->entity_id, $data_new);

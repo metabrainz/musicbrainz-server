@@ -43,7 +43,7 @@ module("cover art", {
         };
 
         this.mime_type_test = function (filename, expected, expected_state) {
-            var input = base64_to_blob (test_files[filename]);
+            var input = base64_to_blob(test_files[filename]);
             var promise = MB.CoverArt.validate_file (input);
 
             promise.done (function (mime_type) {
@@ -62,7 +62,7 @@ module("cover art", {
         };
 
         this.create_fake_file = function (name) {
-            var fakefile = base64_to_blob (test_files[name]);
+            var fakefile = base64_to_blob(test_files[name]);
 
             fakefile.name = name;
             return fakefile;

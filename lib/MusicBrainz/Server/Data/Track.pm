@@ -78,7 +78,7 @@ sub load_for_mediums
 
     $_->clear_tracks for @media;
 
-    my %id_to_medium = object_to_ids (@media);
+    my %id_to_medium = object_to_ids(@media);
     my @ids = keys %id_to_medium;
     return unless @ids; # nothing to do
     my $query = "SELECT " . $self->_columns . "

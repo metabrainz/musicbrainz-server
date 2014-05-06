@@ -239,7 +239,7 @@ sub validate_inc
                     return;
                 }
                 $type_used = $types{$i};
-                $various_artists = substr ($i, 0, 3) eq 'va-' ? 1 : 0;
+                $various_artists = substr($i, 0, 3) eq 'va-' ? 1 : 0;
                 next;
             }
             if ($allow_status && exists $statuses{$i})
@@ -250,7 +250,7 @@ sub validate_inc
                     return;
                 }
                 $status_used = $statuses{$i};
-                $various_artists = substr ($i, 0, 3) eq 'va-' ? 1 : 0;
+                $various_artists = substr($i, 0, 3) eq 'va-' ? 1 : 0;
                 next;
             }
         }
@@ -305,7 +305,7 @@ role {
         $c->stash->{serializer} = $self->get_serialization($c);
 
         my $resource = $c->req->path;
-        my $version = quotemeta ($r->version);
+        my $version = quotemeta($r->version);
         $resource =~ s,ws/$version/([\w-]+?)(/.*)?$,$1,;
 
         foreach my $def (@{ $r->defs })
@@ -320,7 +320,7 @@ role {
             my $linked;
             if ($def->[1]->{linked})
             {
-                $linked = validate_linked ($c, $resource, $def->[1]->{linked});
+                $linked = validate_linked($c, $resource, $def->[1]->{linked});
                 next unless ($linked);
             }
 
@@ -347,8 +347,8 @@ role {
             }
 
             if ($inc && $version eq '2') {
-                $c->stash->{type} = validate_type ($c, $resource, $c->req->params->{type}, $inc);
-                $c->stash->{status} = validate_status ($c, $resource, $c->req->params->{status}, $inc);
+                $c->stash->{type} = validate_type($c, $resource, $c->req->params->{type}, $inc);
+                $c->stash->{status} = validate_status($c, $resource, $c->req->params->{status}, $inc);
             }
 
             # Check if authorization is required.

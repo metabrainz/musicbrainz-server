@@ -113,7 +113,7 @@ sub build_display_data
         tracks => [
             map {
                 # Stuff that had artist_name present did not actually have an artist ID
-                my $track_artist = defined ($_->{artist_name})
+                my $track_artist = defined($_->{artist_name})
                     ? Artist->new( name => $_->{artist_name} )
                     : $loaded->{Artist}->{ $_->{artist_id} };
 

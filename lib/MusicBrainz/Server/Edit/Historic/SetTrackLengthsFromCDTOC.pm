@@ -51,7 +51,7 @@ sub upgrade
 {
     my $self = shift;
 
-    my ($cdtoc, $lengths) = split (/\n/, $self->new_value);
+    my ($cdtoc, $lengths) = split(/\n/, $self->new_value);
     $cdtoc =~ s/CDTOCId=//;
     $lengths =~ s/NewDurs=//;
 

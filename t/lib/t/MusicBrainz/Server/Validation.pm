@@ -144,8 +144,8 @@ test 'Test encode_entities' => sub {
 };
 
 test 'Test normalise_strings' => sub {
-    my ($alice, $bob) = normalise_strings ('alice', 'bob');
-    my $alice2 = normalise_strings ('alice');
+    my ($alice, $bob) = normalise_strings('alice', 'bob');
+    my $alice2 = normalise_strings('alice');
     is ($alice, 'alice');
     is ($alice2, 'alice');
     is ($bob, 'bob');

@@ -70,7 +70,7 @@ sub tag_submit : Private
         my $type = $node->getLocalName;
         $type =~ s/-/_/;
 
-        my $model = type_to_model ($type);
+        my $model = type_to_model($type);
         $self->_error($c, "Unrecognized entity $type.") unless $model;
 
         my $gid = $xp->find('@mb:id', $node)->string_value;

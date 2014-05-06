@@ -89,7 +89,7 @@ sub save_html
     my ($Test, $content, $suffix) = @_;
 
     if ($ENV{SAVE_HTML}) {
-        my ($fh, $filename) = tempfile (
+        my ($fh, $filename) = tempfile(
             "html5_ok_XXXX", SUFFIX => $suffix, TMPDIR => 1);
         print $fh encode ("utf-8", $content);
         close ($fh);
@@ -165,7 +165,7 @@ sub html5_ok
     my $response = $ua->request($request);
     if ($response->is_success)
     {
-        my $report = decode_json ($response->content);
+        my $report = decode_json($response->content);
         for my $msg (@{ $report->{messages} })
         {
             next if $msg->{type} eq "info";

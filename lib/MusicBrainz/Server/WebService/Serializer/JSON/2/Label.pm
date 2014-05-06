@@ -19,7 +19,7 @@ sub serialize
 
     $body{name} = $entity->name;
     $body{"sort-name"} = $entity->name;
-    $body{"label-code"} = number ($entity->label_code);
+    $body{"label-code"} = number($entity->label_code);
     $body{disambiguation} = $entity->comment // "";
 
     if ($toplevel)
@@ -28,7 +28,7 @@ sub serialize
         $body{country} = $entity->area && $entity->area->country_code ? $entity->area->country_code : JSON::null;
         $body{area} = $entity->area ? serialize_entity($entity->area) : JSON::null;
 
-        $body{releases} = list_of ($entity, $inc, $stash, "releases")
+        $body{releases} = list_of($entity, $inc, $stash, "releases")
             if ($inc && $inc->releases);
     }
 

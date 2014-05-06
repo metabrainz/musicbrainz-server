@@ -30,7 +30,7 @@ around '_make_request' => sub
             my ($username, $password) = $self->credentials(
                 $request->uri->host.":".$request->uri->port, $challenge->{realm});
 
-            my $size = length ($request->content);
+            my $size = length($request->content);
             $response = LWP::Authen::Digest->authenticate(
                 $self, undef, $challenge, $response, $request, undef, $size);
             last;

@@ -175,7 +175,7 @@ sub clean_submitted_artist_credits
 {
     my $ac = shift;
 
-    $ac = artist_credit_to_ref ($ac)
+    $ac = artist_credit_to_ref($ac)
         if ref $ac eq 'MusicBrainz::Server::Entity::ArtistCredit';
 
     # Remove empty artist credits.
@@ -186,8 +186,8 @@ sub clean_submitted_artist_credits
         my $part = $names[$_];
         if (ref $part eq 'HASH')
         {
-            $part->{artist}->{name} = trim ($part->{artist}->{name}) if defined $part->{artist}->{name};
-            $part->{name} = trim ($part->{name}) if defined $part->{name};
+            $part->{artist}->{name} = trim($part->{artist}->{name}) if defined $part->{artist}->{name};
+            $part->{name} = trim($part->{name}) if defined $part->{name};
 
             push @delete, $_ unless (defined $part->{artist}->{name} || defined $part->{name});
 
@@ -206,7 +206,7 @@ sub clean_submitted_artist_credits
 
             # Set to empty string if join_phrase is undef.
             $part->{join_phrase} //= '';
-            $part->{join_phrase} = collapse_whitespace ($part->{join_phrase});
+            $part->{join_phrase} = collapse_whitespace($part->{join_phrase});
 
             # Remove trailing whitespace from a trailing join phrase.
             $part->{join_phrase} =~ s/\s+$// if $_ == $#names;

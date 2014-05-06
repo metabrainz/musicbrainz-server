@@ -26,7 +26,7 @@ test 'jpg post fields' => sub {
 
     is_valid_json ($mech->content);
 
-    my $decoded = from_json ($mech->content);
+    my $decoded = from_json($mech->content);
 
     ok ($decoded->{image_id} > 4250923260, "image_id is a large integer");
     is ($decoded->{formdata}->{'x-archive-meta-collection'}, "coverartarchive");

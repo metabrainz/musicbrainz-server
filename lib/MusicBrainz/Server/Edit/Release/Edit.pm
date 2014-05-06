@@ -249,7 +249,7 @@ around 'initialize' => sub
 
     if (exists $opts{artist_credit})
     {
-        $opts{artist_credit} = clean_submitted_artist_credits ($opts{artist_credit});
+        $opts{artist_credit} = clean_submitted_artist_credits($opts{artist_credit});
     }
 
     if (exists $opts{artist_credit} && !$release->artist_credit) {

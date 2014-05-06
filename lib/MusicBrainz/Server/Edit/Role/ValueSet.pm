@@ -27,7 +27,7 @@ role {
     around new_data => sub {
         my $orig = shift;
         my $self = shift;
-        my $new = clone ($self->$orig (@_));
+        my $new = clone($self->$orig (@_));
 
         # merge_changes only looks at keys in whatever is returned from
         # new_data(), make it skip this property so we can handle that

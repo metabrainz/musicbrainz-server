@@ -207,9 +207,9 @@ sub disc_results {
 sub disc_search {
     my ($self, $c, $type) = @_;
 
-    my $query = escape_query (trim $c->stash->{args}->{q});
-    my $artist = escape_query ($c->stash->{args}->{artist});
-    my $tracks = escape_query ($c->stash->{args}->{tracks});
+    my $query = escape_query(trim $c->stash->{args}->{q});
+    my $artist = escape_query($c->stash->{args}->{artist});
+    my $tracks = escape_query($c->stash->{args}->{tracks});
     my $limit = $c->stash->{args}->{limit} || 10;
     my $page = $c->stash->{args}->{page} || 1;
 
@@ -221,7 +221,7 @@ sub disc_search {
     push @query, "artist:($artist)" if $artist;
     push @query, ($type eq 'release' ? "tracksmedium:($tracks)" : "tracks:($tracks)") if $tracks;
 
-    $query = join (" AND ", @query);
+    $query = join(" AND ", @query);
 
     my $no_redirect = 1;
     my $response = $c->model('Search')->external_search(

@@ -35,7 +35,7 @@ sub filter_subsecond_differences
     my $tracks = shift;
 
     return [ map {
-        my $trk = clone ($_);
+        my $trk = clone($_);
         $trk->{length} = unformat_track_length(format_track_length($trk->{length}));
         $trk;
     } @$tracks ];

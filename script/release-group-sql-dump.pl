@@ -58,7 +58,7 @@ sub insert
     return 0 unless keys %$data;
 
     my @values;
-    while (my ($key, $val) = each (%$data))
+    while (my ($key, $val) = each(%$data))
     {
         my $col = $dbh->column_info(undef, $schema, $table, $key)->fetchrow_hashref;
 
@@ -86,7 +86,7 @@ sub update
 
     my $where;
     my @columns;
-    while (my ($key, $val) = each (%$data))
+    while (my ($key, $val) = each(%$data))
     {
         my $col = $dbh->column_info(undef, $schema, $table, $key)->fetchrow_hashref;
 
@@ -133,7 +133,7 @@ sub backup
 
     for (@$results)
     {
-        my $tmp = insert ($dbh, $table, $_);
+        my $tmp = insert($dbh, $table, $_);
         push @inserted, $tmp if $tmp;
     }
 
@@ -145,7 +145,7 @@ sub get_rows
     my ($dbh, $table, $key, $value) = @_;
 
     my $col = $dbh->column_info(undef, $schema, $table, $key)->fetchrow_hashref;
-    my $quoted = quote_column ($col->{pg_type}, $value);
+    my $quoted = quote_column($col->{pg_type}, $value);
 
     return query ($dbh, $table, "SELECT * FROM $table WHERE $key = $quoted");
 }
@@ -161,13 +161,13 @@ sub get_rows_two_keys
 
     return [] unless $col0 && $col1;
 
-    my $quoted0 = quote_column ($col0->{pg_type}, $value0);
+    my $quoted0 = quote_column($col0->{pg_type}, $value0);
     my @quoted1;
     for (@$values1)
     {
         push @quoted1, quote_column ($col1->{pg_type}, $_);
     }
-    my $quoted1 = join (", ", @quoted1);
+    my $quoted1 = join(", ", @quoted1);
 
     return query ($dbh, $table, "SELECT * FROM $table WHERE $key0 = $quoted0 AND $key1 IN ($quoted1)");
 }
@@ -176,7 +176,7 @@ sub generic
 {
     my ($dbh, $table, $col, $key) = @_;
 
-    my $data = get_rows ($dbh, $table, $col, $key);
+    my $data = get_rows($dbh, $table, $col, $key);
     backup ($dbh, $table, $data);
 }
 
@@ -184,7 +184,7 @@ sub generic_verbose
 {
     my ($dbh, $table, $col, $key) = @_;
 
-    my $data = get_rows ($dbh, $table, $col, $key);
+    my $data = get_rows($dbh, $table, $col, $key);
     backup ($dbh, $table, $data);
 
     print "Exporting ".$data->[0]->{name}." ($table)\n";
@@ -194,12 +194,12 @@ sub _meta
 {
     my ($dbh, $table, $col, $key) = @_;
 
-    my $data = get_rows ($dbh, $table, $col, $key);
+    my $data = get_rows($dbh, $table, $col, $key);
 
     my @inserted;
     for (@$data)
     {
-        my $tmp = update ($dbh, $table, $_, 'id');
+        my $tmp = update($dbh, $table, $_, 'id');
         push @inserted, $tmp if $tmp;
     }
 
@@ -210,7 +210,7 @@ sub _tag
 {
     my ($dbh, $table, $col, $key) = @_;
 
-    my $data = get_rows ($dbh, $table, $col, $key);
+    my $data = get_rows($dbh, $table, $col, $key);
     for (@$data)
     {
         generic_verbose ($dbh, 'tag', 'id', $_->{tag});
@@ -224,7 +224,7 @@ sub link_attribute_type
     my ($dbh, $key) = @_;
 
 
-    my $data = get_rows ($dbh, 'link_attribute_type', 'id', $key);
+    my $data = get_rows($dbh, 'link_attribute_type', 'id', $key);
 
     if ($data->[0]->{parent})
     {
@@ -243,7 +243,7 @@ sub link_attribute
 {
     my ($dbh, $key) = @_;
 
-    my $data = get_rows ($dbh, 'link_attribute', 'link', $key);
+    my $data = get_rows($dbh, 'link_attribute', 'link', $key);
     for (@$data)
     {
         link_attribute_type ($dbh, $_->{attribute_type});
@@ -256,7 +256,7 @@ sub link_type_attribute_type
 {
     my ($dbh, $key) = @_;
 
-    my $data = get_rows ($dbh, 'link_type_attribute_type', 'link_type', $key);
+    my $data = get_rows($dbh, 'link_type_attribute_type', 'link_type', $key);
 
     for (@$data)
     {
@@ -269,7 +269,7 @@ sub link_type
 {
     my ($dbh, $key) = @_;
 
-    my $data = get_rows ($dbh, 'link_type', 'id', $key);
+    my $data = get_rows($dbh, 'link_type', 'id', $key);
 
     if ($data->[0]->{parent})
     {
@@ -288,14 +288,14 @@ sub l_entity_url
 
     my $table = 'l_'.$type0.'_url';
 
-    my $data = get_rows ($dbh, $table, 'entity0', $key0);
+    my $data = get_rows($dbh, $table, 'entity0', $key0);
     return 0 unless $data;
 
     for my $row (@$data)
     {
         generic ($dbh, 'url', 'id', $row->{entity1});
 
-        my $link = get_rows ($dbh, 'link', 'id', $row->{link});
+        my $link = get_rows($dbh, 'link', 'id', $row->{link});
 
         link_type ($dbh, $link->[0]->{link_type});
         backup ($dbh, 'link', $link);
@@ -314,14 +314,14 @@ sub l_entity_work
 
     my $table = 'l_'.$type0.'_work';
 
-    my $data = get_rows ($dbh, $table, 'entity0', $key0);
+    my $data = get_rows($dbh, $table, 'entity0', $key0);
     return 0 unless $data;
 
     for my $row (@$data)
     {
         work ($dbh, $row->{entity1});
 
-        my $link = get_rows ($dbh, 'link', 'id', $row->{link});
+        my $link = get_rows($dbh, 'link', 'id', $row->{link});
 
         link_type ($dbh, $link->[0]->{link_type});
         backup ($dbh, 'link', $link);
@@ -341,12 +341,12 @@ sub l_
 
     my $table = 'l_'.$type0.'_'.$type1;
 
-    my $data = get_rows_two_keys ($dbh, $table, 'entity0', $key0, 'entity1', $key1);
+    my $data = get_rows_two_keys($dbh, $table, 'entity0', $key0, 'entity1', $key1);
     return 0 unless $data;
 
     for my $row (@$data)
     {
-        my $link = get_rows ($dbh, 'link', 'id', $row->{link});
+        my $link = get_rows($dbh, 'link', 'id', $row->{link});
 
         link_type ($dbh, $link->[0]->{link_type});
         backup ($dbh, 'link', $link);
@@ -365,7 +365,7 @@ sub artist
 
     $core_entities{artist}{$id} = 1;
 
-    my $data = get_rows ($dbh, 'artist', 'id', $id);
+    my $data = get_rows($dbh, 'artist', 'id', $id);
 
     generic ($dbh, 'artist_type', 'id', $data->[0]->{type});
     generic ($dbh, 'gender', 'id', $data->[0]->{gender});
@@ -385,7 +385,7 @@ sub artist_alias
 {
     my ($dbh, $id) = @_;
 
-    my $data = get_rows ($dbh, 'artist_alias', 'artist', $id);
+    my $data = get_rows($dbh, 'artist_alias', 'artist', $id);
     backup ($dbh, 'artist_alias', $data);
 }
 
@@ -393,7 +393,7 @@ sub artist_credit_name
 {
     my ($dbh, $id) = @_;
 
-    my $data = get_rows ($dbh, 'artist_credit_name', 'artist_credit', $id);
+    my $data = get_rows($dbh, 'artist_credit_name', 'artist_credit', $id);
     for (@$data)
     {
         artist ($dbh, $_->{artist});
@@ -405,7 +405,7 @@ sub artist_credit
 {
     my ($dbh, $id) = @_;
 
-    my $tmp = get_rows ($dbh, 'artist_credit', 'id', $id);
+    my $tmp = get_rows($dbh, 'artist_credit', 'id', $id);
     return unless $tmp;
     my $data = $tmp->[0];
 
@@ -419,7 +419,7 @@ sub recording
 
     $core_entities{recording}{$id} = 1;
 
-    my $data = get_rows ($dbh, 'recording', 'id', $id);
+    my $data = get_rows($dbh, 'recording', 'id', $id);
     artist_credit ($dbh, $data->[0]->{artist_credit});
     backup ($dbh, 'recording', $data);
 
@@ -433,7 +433,7 @@ sub tracks
 {
     my ($dbh, $id) = @_;
 
-    my $data = get_rows ($dbh, 'track', 'medium', $id);
+    my $data = get_rows($dbh, 'track', 'medium', $id);
 
     for (@$data)
     {
@@ -447,7 +447,7 @@ sub medium_cdtocs
 {
     my ($dbh, $id) = @_;
 
-    my $data = get_rows ($dbh, 'medium_cdtoc', 'medium', $id);
+    my $data = get_rows($dbh, 'medium_cdtoc', 'medium', $id);
     for (@$data)
     {
         generic ($dbh, 'cdtoc', 'id', $_->{cdtoc});
@@ -459,7 +459,7 @@ sub media
 {
     my ($dbh, $id) = @_;
 
-    my $data = get_rows ($dbh, 'medium', 'release', $id);
+    my $data = get_rows($dbh, 'medium', 'release', $id);
 
     for (@$data)
     {
@@ -479,7 +479,7 @@ sub label_alias
 {
     my ($dbh, $id) = @_;
 
-    my $data = get_rows ($dbh, 'label_alias', 'label', $id);
+    my $data = get_rows($dbh, 'label_alias', 'label', $id);
     for (@$data)
     {
     }
@@ -492,7 +492,7 @@ sub label
 
     $core_entities{label}{$id} = 1;
 
-    my $data = get_rows ($dbh, 'label', 'id', $id);
+    my $data = get_rows($dbh, 'label', 'id', $id);
 
     generic ($dbh, 'label_type', 'id', $data->[0]->{type});
     backup ($dbh, 'label', $data);
@@ -507,7 +507,7 @@ sub release_label
 {
     my ($dbh, $id) = @_;
 
-    my $data = get_rows ($dbh, 'release_label', 'release', $id);
+    my $data = get_rows($dbh, 'release_label', 'release', $id);
     for (@$data)
     {
         label ($dbh, $_->{label});
@@ -521,7 +521,7 @@ sub releases
 {
     my ($dbh, $id) = @_;
 
-    my $data = get_rows ($dbh, 'release', 'release_group', $id);
+    my $data = get_rows($dbh, 'release', 'release_group', $id);
 
     for (@$data)
     {
@@ -548,7 +548,7 @@ sub release_group
 {
     my ($dbh, $gid) = @_;
 
-    my $tmp = get_rows ($dbh, 'release_group', 'gid', $gid);
+    my $tmp = get_rows($dbh, 'release_group', 'gid', $gid);
     my $data = $tmp->[0];
 
     $core_entities{'release-group'}{$data->{id}} = 1;
@@ -570,7 +570,7 @@ sub work
 
     $core_entities{work}{$id} = 1;
 
-    my $data = get_rows ($dbh, 'work', 'id', $id);
+    my $data = get_rows($dbh, 'work', 'id', $id);
 
     generic ($dbh, 'work_type', 'id', $data->[0]->{type});
     artist_credit ($dbh, $data->[0]->{artist_credit});
@@ -590,7 +590,7 @@ sub rel_entity_entity
     for my $entity0 (keys %{ $core_entities{$type0} })
     {
         my @linked = keys %{ $core_entities{$type1} };
-        $count += l_ ($dbh, $type0, $type1, $entity0, \@linked)
+        $count += l_($dbh, $type0, $type1, $entity0, \@linked)
     }
 
     warn "Exported $count $type0 -> $type1 relationships.\n" if $count;
@@ -606,7 +606,7 @@ sub rel_entity_url
 
     for my $entity0 (keys %{ $core_entities{$type0} })
     {
-        $count += l_entity_url ($dbh, $type0, $entity0)
+        $count += l_entity_url($dbh, $type0, $entity0)
     }
 
     warn "Exported $count $type0 -> url relationships.\n" if $count;
@@ -622,7 +622,7 @@ sub rel_entity_work
 
     for my $entity0 (keys %{ $core_entities{$type0} })
     {
-        $count += l_entity_work ($dbh, $type0, $entity0)
+        $count += l_entity_work($dbh, $type0, $entity0)
     }
 
     warn "Exported $count $type0 -> work relationships.\n" if $count;

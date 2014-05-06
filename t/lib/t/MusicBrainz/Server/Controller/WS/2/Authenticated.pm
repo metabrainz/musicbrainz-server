@@ -122,7 +122,7 @@ sub _compare_tags
     my $entity = $c->model($model)->get_by_gid($gid);
     my @user_tags = $c->model($model)->tags->find_user_tags(1, $entity->id);
 
-    my @tags = sort (map { $_->tag->name } grep { $_->tag } @user_tags );
+    my @tags = sort(map { $_->tag->name } grep { $_->tag } @user_tags );
 
     is_deeply (\@tags, $expected, $desc);
 }

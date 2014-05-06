@@ -89,9 +89,9 @@ sub {
     my $response;
 
     given ($request->method) {
-        when ("PUT")     { $response = handle_other ($request) }
-        when ("POST")    { $response = handle_other ($request) }
-        when ("OPTIONS") { $response = handle_options ($request) }
+        when ("PUT")     { $response = handle_other($request) }
+        when ("POST")    { $response = handle_other($request) }
+        when ("OPTIONS") { $response = handle_options($request) }
     }
 
     $response->header("Access-Control-Allow-Origin" => "*");

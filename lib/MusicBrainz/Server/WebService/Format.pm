@@ -39,7 +39,7 @@ role {
             # (Picard does this, http://tickets.musicbrainz.org/browse/PICARD-273).
             my $accept = $c->req->header('Accept') // "application/xml";
 
-            my $match = best_match ([ keys %accepted ], $accept);
+            my $match = best_match([ keys %accepted ], $accept);
 
             return _instance ($accepted{$match}) if $match;
         }

@@ -216,7 +216,7 @@ sub _tags
 {
     my ($self, $c, $modelname, $entities, $stash) = @_;
 
-    my %map = object_to_ids (@$entities);
+    my %map = object_to_ids(@$entities);
     my $model = $c->model($modelname);
 
     if ($c->stash->{inc}->tags)
@@ -251,7 +251,7 @@ sub _ratings
 {
     my ($self, $c, $modelname, $entities, $stash) = @_;
 
-    my %map = object_to_ids (@$entities);
+    my %map = object_to_ids(@$entities);
     my $model = $c->model($modelname);
 
     if ($c->stash->{inc}->ratings)
@@ -556,7 +556,7 @@ sub _validate_entity
     my $entity = $c->stash->{args}->{entity};
     $entity =~ s/-/_/;
 
-    my $model = type_to_model ($entity);
+    my $model = type_to_model($entity);
 
     if (!$gid || !is_guid($gid))
     {

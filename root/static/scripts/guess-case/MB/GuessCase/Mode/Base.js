@@ -391,14 +391,14 @@ MB.GuessCase.Mode.Base = function () {
                 {
                     while ((matches = fix.re.exec (is)))
                     {
-                        is = replace_match (matches, is);
+                        is = replace_match(matches, is);
                     }
                 }
                 else
                 {
                     if ((matches = is.match(fix.re)) != null)
                     {
-                        is = replace_match (matches, is);
+                        is = replace_match(matches, is);
                     }
                 }
             }

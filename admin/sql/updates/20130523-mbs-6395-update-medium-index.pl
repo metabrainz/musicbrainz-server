@@ -111,7 +111,7 @@ sub update_index
 
 # limit amount of database changes per run.
 my $limit = 10;
-my $affected = get_mediums_to_update ($c);
+my $affected = get_mediums_to_update($c);
 
 my $delete_count = scalar @{ $affected->{delete_from_index} };
 my $insert_count = scalar @{ $affected->{insert_into_index} };
@@ -134,7 +134,7 @@ elsif ($insert_count) {
     insert_into_index ($c, $affected->{insert_into_index}, $limit);
 }
 else {
-    $exitcode = update_index ($c, $affected->{update_index}, $limit);
+    $exitcode = update_index($c, $affected->{update_index}, $limit);
 }
 
 $c->sql->commit;

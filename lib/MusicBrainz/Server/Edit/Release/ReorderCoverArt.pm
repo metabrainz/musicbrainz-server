@@ -87,8 +87,8 @@ sub accept {
 
     my $current = $self->c->model('Artwork')->find_by_release($release);
 
-    my @current_ids = sort (map { $_->id } @$current);
-    my @edit_ids = sort (map { $_->{id} } @{ $self->data->{old} });
+    my @current_ids = sort(map { $_->id } @$current);
+    my @edit_ids = sort(map { $_->{id} } @{ $self->data->{old} });
 
     if (join(",", @current_ids) ne join (",", @edit_ids))
     {

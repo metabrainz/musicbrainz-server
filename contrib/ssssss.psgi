@@ -82,7 +82,7 @@ sub handle_put
 {
     my ($request, $bucketdir) = @_;
 
-    my $dest = catfile ($bucketdir, $request->param('file'));
+    my $dest = catfile($bucketdir, $request->param('file'));
     $log->info("PUT, storing upload at $dest\n");
 
     open (my $fh, ">", $dest);
@@ -99,7 +99,7 @@ sub handle_post
     my $key = $request->param('key');
     return undef unless $key;
 
-    my $dest = catfile ($bucketdir, $request->param('key'));
+    my $dest = catfile($bucketdir, $request->param('key'));
     $log->info("POST, storing upload at $dest\n");
 
     move ($request->uploads->{file}->path, $dest);
@@ -138,13 +138,13 @@ sub handle_post
 sub {
     my $request = Plack::Request->new(shift);
 
-    my $bucketdir = create_bucket ($request->path_info);
+    my $bucketdir = create_bucket($request->path_info);
     my $response;
 
     given ($request->method) {
-        when ("PUT")     { $response = handle_put ($request, $bucketdir) }
-        when ("POST")    { $response = handle_post ($request, $bucketdir) }
-        when ("OPTIONS") { $response = handle_options ($request) }
+        when ("PUT")     { $response = handle_put($request, $bucketdir) }
+        when ("POST")    { $response = handle_post($request, $bucketdir) }
+        when ("OPTIONS") { $response = handle_options($request) }
     }
 
     $response->header("Access-Control-Allow-Origin" => "*");
