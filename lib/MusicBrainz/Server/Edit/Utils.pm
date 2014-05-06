@@ -128,7 +128,7 @@ sub artist_credit_from_loaded_definition
                 Artist->new( $ac_name->{artist} )
         );
 
-        $ac->join_phrase ($ac_name->{join_phrase}) if defined $ac_name->{join_phrase};
+        $ac->join_phrase($ac_name->{join_phrase}) if defined $ac_name->{join_phrase};
         push @names, $ac;
     }
 
@@ -152,7 +152,7 @@ sub artist_credit_preview
         if (my $loaded_artist = defined($ac_name->{artist}{id}) &&
                                   $loaded->{Artist}->{ $ac_name->{artist}->{id} })
         {
-            $ac->artist ($loaded_artist);
+            $ac->artist($loaded_artist);
         }
         elsif ($ac_name->{artist})
         {
@@ -161,7 +161,7 @@ sub artist_credit_preview
             $ac->artist(Artist->new( $ac_name->{artist} ));
         }
 
-        $ac->join_phrase ($ac_name->{join_phrase}) if defined $ac_name->{join_phrase};
+        $ac->join_phrase($ac_name->{join_phrase}) if defined $ac_name->{join_phrase};
 
         push @names, $ac;
     }
@@ -391,9 +391,9 @@ sub merge_barcode {
     my ($ancestor, $current, $new) = @_;
 
     return (
-        [ Barcode->new ($ancestor->{barcode})->format, $ancestor->{barcode} ],
+        [ Barcode->new($ancestor->{barcode})->format, $ancestor->{barcode} ],
         [ $current->barcode->format, $current->barcode->code ],
-        [ Barcode->new ($new->{barcode})->format, $new->{barcode} ],
+        [ Barcode->new($new->{barcode})->format, $new->{barcode} ],
     );
 }
 

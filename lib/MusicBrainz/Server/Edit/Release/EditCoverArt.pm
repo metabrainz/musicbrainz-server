@@ -67,7 +67,7 @@ sub initialize {
             mbid => $release->gid
         },
         id => $opts{artwork_id},
-        $self->_change_data (\%old, %new)
+        $self->_change_data(\%old, %new)
     });
 }
 

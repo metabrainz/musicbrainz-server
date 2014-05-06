@@ -221,11 +221,11 @@ sub _tags
 
     if ($c->stash->{inc}->tags)
     {
-        my @tags = $model->tags->find_tags_for_entities (map { $_->id } @$entities);
+        my @tags = $model->tags->find_tags_for_entities(map { $_->id } @$entities);
 
         for (@tags)
         {
-            my $opts = $stash->store ($map{$_->entity_id}->[0]);
+            my $opts = $stash->store($map{$_->entity_id}->[0]);
 
             $opts->{tags} = [] unless $opts->{tags};
             push @{ $opts->{tags} }, $_;
@@ -234,12 +234,12 @@ sub _tags
 
     if ($c->stash->{inc}->user_tags)
     {
-        my @tags = $model->tags->find_user_tags_for_entities (
+        my @tags = $model->tags->find_user_tags_for_entities(
             $c->user->id, map { $_->id } @$entities);
 
         for (@tags)
         {
-            my $opts = $stash->store ($map{$_->entity_id}->[0]);
+            my $opts = $stash->store($map{$_->entity_id}->[0]);
 
             $opts->{user_tags} = [] unless $opts->{user_tags};
             push @{ $opts->{user_tags} }, $_;
@@ -262,7 +262,7 @@ sub _ratings
         {
             if ($_->rating_count)
             {
-                $stash->store ($_)->{ratings} = {
+                $stash->store($_)->{ratings} = {
                     rating => $_->rating * 5 / 100,
                     count => $_->rating_count,
                 };
@@ -275,7 +275,7 @@ sub _ratings
         $model->rating->load_user_ratings($c->user->id, @$entities);
         for (@$entities)
         {
-            $stash->store ($_)->{user_ratings} = $_->user_rating * 5 / 100
+            $stash->store($_)->{user_ratings} = $_->user_rating * 5 / 100
                 if $_->user_rating;
         }
     }
@@ -329,7 +329,7 @@ sub linked_artists
 
         foreach (@$artists)
         {
-            $stash->store ($_)->{aliases} = $alias_per_artist{$_->id};
+            $stash->store($_)->{aliases} = $alias_per_artist{$_->id};
         }
     }
 }
@@ -352,7 +352,7 @@ sub linked_areas
 
         foreach (@$areas)
         {
-            $stash->store ($_)->{aliases} = $alias_per_area{$_->id};
+            $stash->store($_)->{aliases} = $alias_per_area{$_->id};
         }
     }
 }
@@ -382,7 +382,7 @@ sub linked_labels
 
         foreach (@$labels)
         {
-            $stash->store ($_)->{aliases} = $alias_per_label{$_->id};
+            $stash->store($_)->{aliases} = $alias_per_label{$_->id};
         }
     }
 }
@@ -407,7 +407,7 @@ sub linked_places
 
         foreach (@$places)
         {
-            $stash->store ($_)->{aliases} = $alias_per_place{$_->id};
+            $stash->store($_)->{aliases} = $alias_per_place{$_->id};
         }
     }
 }
@@ -429,7 +429,7 @@ sub linked_recordings
 
         for (@$recordings)
         {
-            $stash->store ($_)->{isrcs} = $isrc_per_recording{$_->id};
+            $stash->store($_)->{isrcs} = $isrc_per_recording{$_->id};
         }
     }
 
@@ -523,7 +523,7 @@ sub linked_works
 
         foreach (@$works)
         {
-            $stash->store ($_)->{aliases} = $alias_per_work{$_->id};
+            $stash->store($_)->{aliases} = $alias_per_work{$_->id};
         }
     }
 
@@ -544,7 +544,7 @@ sub _validate_post
         $c->detach;
     }
 
-    $self->_error ($c, "Please specify the name and version number of your client application.")
+    $self->_error($c, "Please specify the name and version number of your client application.")
         unless $c->req->params->{client};
 }
 

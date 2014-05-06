@@ -60,7 +60,7 @@ sub _entity_class
 sub _medium_ids
 {
     my ($self, @track_ids) = @_;
-    return $self->sql->select_single_column_array (
+    return $self->sql->select_single_column_array(
         "SELECT distinct(medium)
            FROM track
           WHERE id IN (" . placeholders(@track_ids) . ")", @track_ids);
@@ -176,7 +176,7 @@ sub update
     my $row = $self->_create_row($update);
     $self->sql->update_row('track', $row, { id => $track_id });
 
-    my $mediums = $self->_medium_ids ($track_id);
+    my $mediums = $self->_medium_ids($track_id);
     $self->c->model('DurationLookup')->update($mediums->[0]);
     $self->c->model('Recording')->_delete_from_cache($row->{recording});
 }

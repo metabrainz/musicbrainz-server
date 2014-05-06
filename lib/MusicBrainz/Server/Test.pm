@@ -383,7 +383,7 @@ sub _build_ws_test_xml {
         $opts ||= {};
 
         my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
-        $mech->default_header ("Accept" => "application/xml");
+        $mech->default_header("Accept" => "application/xml");
         $Test->subtest($msg => sub {
             if (exists $opts->{username} && exists $opts->{password}) {
                 $mech->credentials('localhost:80', 'musicbrainz.org', $opts->{username}, $opts->{password});
@@ -407,7 +407,7 @@ sub _build_ws_test_json {
     my $end_point = '/ws/' . $args->{version};
 
     my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
-    $mech->default_header ("Accept" => "application/json");
+    $mech->default_header("Accept" => "application/json");
 
     return sub {
         my ($msg, $url, $expected, $opts) = @_;
@@ -445,13 +445,13 @@ sub xml_post
     # $mech->post_ok seems intent on destroying the POST body by trying to
     # encode it as "application/x-www-form-urlencoded".  So create a request
     # by hand, to make sure the body is submitted verbatim.
-    my $request = HTTP::Request->new (
+    my $request = HTTP::Request->new(
         POST => $url,
-        HTTP::Headers->new ('Content-Type' => 'application/xml; charset=UTF-8',
+        HTTP::Headers->new('Content-Type' => 'application/xml; charset=UTF-8',
                             'Content-Length', length ($content)),
     );
 
-    $request->content ($content);
+    $request->content($content);
 
     return $request;
 }

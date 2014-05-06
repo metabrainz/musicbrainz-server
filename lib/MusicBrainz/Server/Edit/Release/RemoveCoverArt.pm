@@ -46,7 +46,7 @@ sub initialize {
     my $cover_art = $opts{to_delete} or die "Required 'to_delete' object";
 
     my %type_map = map { $_->name => $_ }
-        $self->c->model ('CoverArtType')->get_by_name(@{ $cover_art->types });
+        $self->c->model('CoverArtType')->get_by_name(@{ $cover_art->types });
 
     $self->data({
         entity => {

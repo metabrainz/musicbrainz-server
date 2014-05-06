@@ -630,7 +630,7 @@ sub schema_fixup
                 $entity{gid} = delete $entity{id};
 
                 my $entity = $self->c->model( type_to_model ($entity_type) )->
-                    _entity_class->new (%entity);
+                    _entity_class->new(%entity);
 
                 push @relationships, MusicBrainz::Server::Entity::Relationship->new(
                     entity1 => $entity,
@@ -764,7 +764,7 @@ sub external_search
         $ua = LWP::UserAgent->new if (!defined $ua);
     }
 
-    $ua->timeout (5);
+    $ua->timeout(5);
     $ua->env_proxy;
 
     # Dispatch the search request.
@@ -1046,7 +1046,7 @@ sub xml_search
                                  $limit,);
 
     my $ua = LWP::UserAgent->new;
-    $ua->timeout (5);
+    $ua->timeout(5);
     $ua->env_proxy;
 
     # Dispatch the search request.

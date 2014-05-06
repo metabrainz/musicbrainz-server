@@ -110,7 +110,7 @@ sub set_durations : Chained('load') PathPart('set-durations') Edit
             $c, status => HTTP_BAD_REQUEST,
             message => l('Please provide a medium ID')
         );
-    my $medium = $c->model('Medium')->get_by_id ($medium_id)
+    my $medium = $c->model('Medium')->get_by_id($medium_id)
         or $self->error(
             $c, status => HTTP_BAD_REQUEST,
             message => l('Could not find medium')
@@ -212,7 +212,7 @@ sub attach : Local DenyWhenReadOnly
         });
         $c->model('Medium')->load_for_releases(@$releases);
         $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
-        $c->model('Track')->load_for_mediums (map { $_->all_mediums } @$releases);
+        $c->model('Track')->load_for_mediums(map { $_->all_mediums } @$releases);
         $c->model('Release')->load_release_events(@$releases);
         $c->model('ReleaseLabel')->load(@$releases);
         $c->model('Label')->load(map { $_->all_labels } @$releases);

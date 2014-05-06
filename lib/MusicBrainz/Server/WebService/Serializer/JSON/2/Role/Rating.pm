@@ -9,7 +9,7 @@ around serialize => sub {
     return $ret unless $toplevel && defined $inc &&
         ($inc->ratings || $inc->user_ratings);
 
-    my $opts = $stash->store ($entity);
+    my $opts = $stash->store($entity);
 
     $ret->{rating} = {
         "votes-count" => defined $opts->{ratings}->{count} ?

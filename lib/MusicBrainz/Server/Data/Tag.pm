@@ -58,7 +58,7 @@ sub get_cloud
             my $row = shift;
             return {
                 count => $row->{ref_count},
-                tag => $self->_new_from_row ($row),
+                tag => $self->_new_from_row($row),
             };
         }, $query);
 }

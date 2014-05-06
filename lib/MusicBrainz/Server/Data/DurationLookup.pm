@@ -105,7 +105,7 @@ sub update
     #    2. all tracks on the disc have a length
     #    3. there are at most 99 tracks on the disc
 
-    my $results = $self->sql->select_list_of_hashes (
+    my $results = $self->sql->select_list_of_hashes(
         "SELECT (sum(track.length) < 4800000 AND
                  bool_and(track.length IS NOT NULL) AND
                  count(track.id) <= 99) AS should_have_index,
@@ -130,7 +130,7 @@ sub update
 
     if ($disc{has_index} && ! $disc{should_have_index})
     {
-        $self->sql->delete_row ("medium_index", { medium => $medium_id });
+        $self->sql->delete_row("medium_index", { medium => $medium_id });
     }
 
     if ($disc{has_index} && $disc{should_have_index})

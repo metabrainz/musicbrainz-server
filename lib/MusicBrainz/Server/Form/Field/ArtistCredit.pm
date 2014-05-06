@@ -44,21 +44,21 @@ around 'validate_field' => sub {
         }
         elsif (! $artist_id && ! $artist_name && $name)
         {
-            $self->add_error (
+            $self->add_error(
                 l('Please add an artist name for {credit}',
                   { credit => $name }));
         }
         elsif (! $artist_id && ( $name || $artist_name ))
         {
             # FIXME: better error message.
-            $self->add_error (
+            $self->add_error(
                 l('Artist "{artist}" is unlinked, please select an existing artist.
                    You may need to add a new artist to MusicBrainz first.',
                   { artist => ($name || $artist_name) }));
         }
         elsif (!$artist_id)
         {
-            $self->add_error (l('Please add an artist name for each credit.'));
+            $self->add_error(l('Please add an artist name for each credit.'));
         }
     }
 
@@ -73,7 +73,7 @@ around 'validate_field' => sub {
     # properly (i.e. environments where AC fields aren't generated).
     unless ($artists || $self->form->init_object)
     {
-        $self->add_error (l("Artist credit field is required"));
+        $self->add_error(l("Artist credit field is required"));
     }
 
     return !$self->has_errors;

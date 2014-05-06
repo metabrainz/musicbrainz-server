@@ -37,7 +37,7 @@ role {
         {
             # Default to application/xml when no accept header is specified.
             # (Picard does this, http://tickets.musicbrainz.org/browse/PICARD-273).
-            my $accept = $c->req->header ('Accept') // "application/xml";
+            my $accept = $c->req->header('Accept') // "application/xml";
 
             my $match = best_match ([ keys %accepted ], $accept);
 

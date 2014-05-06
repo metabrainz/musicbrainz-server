@@ -142,7 +142,7 @@ sub find
     my ($self, @artist_joinphrase) = @_;
 
     my ($id, $name, $positions, $names, $artists, $join_phrases) =
-        $self->_find (@artist_joinphrase);
+        $self->_find(@artist_joinphrase);
 
     return $id;
 }
@@ -279,7 +279,7 @@ sub replace {
 
     return if Compare($old_ac, $new_ac);
 
-    my $old_credit_id = $self->find ($old_ac) or return;
+    my $old_credit_id = $self->find($old_ac) or return;
     my $new_credit_id = $self->find_or_insert($new_ac);
 
     $self->_swap_artist_credits($old_credit_id, $new_credit_id);

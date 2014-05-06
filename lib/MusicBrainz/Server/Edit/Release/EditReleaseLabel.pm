@@ -167,9 +167,9 @@ sub initialize
         unless defined $release_label;
 
     unless ($release_label->release) {
-        $self->c->model ('Release')->load ($release_label);
-        $self->c->model ('Medium')->load_for_releases ($release_label->release);
-        $self->c->model ('MediumFormat')->load ($release_label->release->all_mediums);
+        $self->c->model('Release')->load($release_label);
+        $self->c->model('Medium')->load_for_releases($release_label->release);
+        $self->c->model('MediumFormat')->load($release_label->release->all_mediums);
     }
 
     unless ($release_label->label) {
@@ -212,7 +212,7 @@ sub initialize
         'id' => $release_label->label->id
     } : undef;
 
-    $self->data ($data);
+    $self->data($data);
 };
 
 sub accept

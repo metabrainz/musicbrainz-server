@@ -27,11 +27,11 @@ around '_make_request' => sub
             shift(@$challenge); # no value
             $challenge = { @$challenge };  # make rest into a hash
 
-            my ($username, $password) = $self->credentials (
+            my ($username, $password) = $self->credentials(
                 $request->uri->host.":".$request->uri->port, $challenge->{realm});
 
             my $size = length ($request->content);
-            $response = LWP::Authen::Digest->authenticate (
+            $response = LWP::Authen::Digest->authenticate(
                 $self, undef, $challenge, $response, $request, undef, $size);
             last;
         }

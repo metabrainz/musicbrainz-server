@@ -183,8 +183,8 @@ sub build_display_data
     my $new = $self->data->{new};
 
     return {
-        old => $self->_build_relationship ($loaded, $self->data, $old),
-        new => $self->_build_relationship ($loaded, $self->data, $new),
+        old => $self->_build_relationship($loaded, $self->data, $old),
+        new => $self->_build_relationship($loaded, $self->data, $new),
         unknown_attributes => scalar(
             grep { !exists $loaded->{LinkAttributeType}{$_} }
                 @{ $old->{attributes} // [] },

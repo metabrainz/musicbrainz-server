@@ -64,7 +64,7 @@ sub serialize
 
     # to serialize a form we save both the values and attributes of each field.
     # ->fif provides convenient access to all values.
-    my $fif = $self->_fix_fif ($self->fif);
+    my $fif = $self->_fix_fif($self->fif);
 
     my @attribute_names = qw/ label title style css_class id disabled readonly order /;
     my $name = $self->name;
@@ -115,7 +115,7 @@ sub unserialize
         # copy the values previously rendered.
         if ($self->field($field)->disabled)
         {
-            $self->field($field)->value ($data->{'values'}->{$full_name});
+            $self->field($field)->value($data->{'values'}->{$full_name});
         }
     }
 }
@@ -138,7 +138,7 @@ sub _fix_fif
         {
             $fieldname .= $sep . shift @segments;
 
-            my $f = $self->field ($fieldname);
+            my $f = $self->field($fieldname);
             $repeatables{$fieldname} = 1 if ($f && $f->is_repeatable);
 
             $sep = '.';
@@ -163,7 +163,7 @@ sub clear_errors {
 
     if (!$field)
     {
-        map { $self->clear_errors ($_) } $self->fields;
+        map { $self->clear_errors($_) } $self->fields;
         return;
     }
 
@@ -171,12 +171,12 @@ sub clear_errors {
 
     if ($field->is_repeatable)
     {
-        map { $self->clear_errors ($_) } $field->fields;
+        map { $self->clear_errors($_) } $field->fields;
     }
 
-    if ($field->can ('is_compound') && $field->is_compound)
+    if ($field->can('is_compound') && $field->is_compound)
     {
-        map { $self->clear_errors ($_) } $field->fields;
+        map { $self->clear_errors($_) } $field->fields;
     }
 }
 

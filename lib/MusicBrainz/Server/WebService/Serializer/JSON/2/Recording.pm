@@ -29,7 +29,7 @@ sub serialize
 
     return \%body unless defined $inc && ($inc->isrcs || $inc->puids);
 
-    my $opts = $stash->store ($entity);
+    my $opts = $stash->store($entity);
     $body{isrcs} = [
         map { $_->isrc } sort_by { $_->isrc } @{ $opts->{isrcs} }
         ] if $inc->isrcs;

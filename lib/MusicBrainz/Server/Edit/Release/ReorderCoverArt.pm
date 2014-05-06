@@ -127,7 +127,7 @@ sub build_display_data {
     my $artwork;
     if ($data{release}) {
         $artwork = $self->c->model('Artwork')->find_by_release($data{release});
-        $self->c->model ('CoverArtType')->load_for(@$artwork);
+        $self->c->model('CoverArtType')->load_for(@$artwork);
     } else {
         $data{release} = Release->new( name => $self->data->{entity}{name},
                                        id => $self->data->{entity}{id},

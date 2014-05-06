@@ -93,7 +93,7 @@ sub save_html
             "html5_ok_XXXX", SUFFIX => $suffix, TMPDIR => 1);
         print $fh encode ("utf-8", $content);
         close ($fh);
-        $Test->diag ("failed output written to $filename");
+        $Test->diag("failed output written to $filename");
     };
 }
 
@@ -111,19 +111,19 @@ sub xhtml_ok
 
     $message ||= "well-formed XHTML";
 
-    eval { XML::LibXML->load_xml (string => $content); };
+    eval { XML::LibXML->load_xml(string => $content); };
     if ($@)
     {
-        foreach (split "\n", $@->as_string ())
+        foreach (split "\n", $@->as_string())
         {
             $Test->diag($_);
         }
         save_html ($Test, $content, ".xml");
-        return $Test->ok (0, $message);
+        return $Test->ok(0, $message);
     }
     else
     {
-        return $Test->ok (1, $message);
+        return $Test->ok(1, $message);
     }
 }
 
@@ -154,11 +154,11 @@ sub html5_ok
 
 
     my $ua = LWP::UserAgent->new;
-    $ua->timeout (10);
+    $ua->timeout(10);
 
     my $request = HTTP::Request->new(POST => $url);
-    $request->header ('Content-Type', 'text/html');
-    $request->content (encode ("utf-8", $content));
+    $request->header('Content-Type', 'text/html');
+    $request->content(encode ("utf-8", $content));
 
     my $all_ok = 1;
 

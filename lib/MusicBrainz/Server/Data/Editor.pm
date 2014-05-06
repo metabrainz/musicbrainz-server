@@ -126,7 +126,7 @@ sub _get_tags_for_type
         WHERE editor = ?
         GROUP BY tag";
 
-    my $results = $self->c->sql->select_list_of_hashes ($query, $id);
+    my $results = $self->c->sql->select_list_of_hashes($query, $id);
 
     return { map { $_->{tag} => $_ } @$results };
 }
@@ -140,7 +140,7 @@ sub get_tags
     my $max = 0;
     foreach my $entity ('artist', 'label', 'recording', 'release', 'release_group', 'work', 'place')
     {
-        my $data = $self->_get_tags_for_type ($user->id, $entity);
+        my $data = $self->_get_tags_for_type($user->id, $entity);
 
         foreach (keys %$data)
         {
@@ -427,7 +427,7 @@ sub donation_check
         $ua->agent("MusicBrainz server");
         $ua->timeout(5); # in seconds.
 
-        my $response = $ua->request(HTTP::Request->new (GET =>
+        my $response = $ua->request(HTTP::Request->new(GET =>
             'http://metabrainz.org/donations/nag-check/' .
             uri_escape_utf8($obj->name)));
 
@@ -569,13 +569,13 @@ sub _edit_count
 sub open_edit_count
 {
     my ($self, $editor_id) = @_;
-    return $self->_edit_count ($editor_id, $STATUS_OPEN);
+    return $self->_edit_count($editor_id, $STATUS_OPEN);
 }
 
 sub cancelled_edit_count
 {
     my ($self, $editor_id) = @_;
-    return $self->_edit_count ($editor_id, $STATUS_DELETED);
+    return $self->_edit_count($editor_id, $STATUS_DELETED);
 }
 
 sub last_24h_edit_count

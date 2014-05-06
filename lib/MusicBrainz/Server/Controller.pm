@@ -257,14 +257,14 @@ sub _load_paged
 
     if ($page > 1 && scalar @$data == 0)
     {
-        my $page = $self->_search_final_page ($loader, $LIMIT, $page);
+        my $page = $self->_search_final_page($loader, $LIMIT, $page);
         my $uri = $c->request->uri;
         my %params = $uri->query_form;
 
         $params{$prefix . "page"} = $page;
-        $uri->query_form (\%params);
+        $uri->query_form(\%params);
 
-        $c->response->redirect ($uri);
+        $c->response->redirect($uri);
         $c->detach;
     }
 

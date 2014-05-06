@@ -18,11 +18,11 @@ sub get_session_data {
 
     if (my ($sid) = $key =~ /^expires:(.*)/)
     {
-        return $self->_datastore->get ($key);
+        return $self->_datastore->get($key);
     }
     else
     {
-        my $data = $self->_datastore->get ($key);
+        my $data = $self->_datastore->get($key);
         return thaw (decode_base64 ($data)) if defined $data;
     }
 }
@@ -32,11 +32,11 @@ sub store_session_data {
 
     if (my ($sid) = $key =~ /^expires:(.*)/)
     {
-        $self->_datastore->set ($key, $data);
+        $self->_datastore->set($key, $data);
     }
     else
     {
-        $self->_datastore->set ($key, encode_base64 (nfreeze($data)));
+        $self->_datastore->set($key, encode_base64 (nfreeze($data)));
         $self->_datastore->expireat($key, $self->session_expires);
     }
 }
@@ -44,7 +44,7 @@ sub store_session_data {
 sub delete_session_data {
     my ($self, $key) = @_;
 
-    $self->_datastore->del ($key);
+    $self->_datastore->del($key);
 }
 
 sub delete_expired_sessions { }

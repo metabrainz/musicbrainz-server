@@ -100,7 +100,7 @@ sub find_user_tags_for_entities
         );
     }, $query, $user_id, @ids);
 
-    $self->c->model ('Tag')->load (@tags);
+    $self->c->model('Tag')->load(@tags);
 
     return sort { $a->tag->name cmp $b->tag->name } @tags;
 }

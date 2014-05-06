@@ -41,10 +41,10 @@ sub show : Chained('load') PathPart('')
     else
     {
         my $track = $c->stash->{track};
-        my $release_gid = $c->model('Release')->find_gid_for_track ($track->id);
+        my $release_gid = $c->model('Release')->find_gid_for_track($track->id);
 
         $uri = $c->uri_for_action('/release/show', [ $release_gid ]);
-        $uri->fragment ($track->gid);
+        $uri->fragment($track->gid);
     }
 
     $c->response->redirect($uri, 303);

@@ -351,7 +351,7 @@ sub appears_on
     for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
         my $recording_id = delete $row->{recording};
         $map{$recording_id} ||= [];
-        push @{ $map{$recording_id} }, MusicBrainz::Server::Data::ReleaseGroup->_new_from_row ($row);
+        push @{ $map{$recording_id} }, MusicBrainz::Server::Data::ReleaseGroup->_new_from_row($row);
     }
 
     for my $rec_id (keys %map)

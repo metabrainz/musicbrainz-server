@@ -41,7 +41,7 @@ sub _column_mapping
         lookup_count => 'lookup_count',
         modify_count => 'modify_count',
         source => 'source',
-        barcode => sub { MusicBrainz::Server::Entity::Barcode->new_from_row (shift, shift) },
+        barcode => sub { MusicBrainz::Server::Entity::Barcode->new_from_row(shift, shift) },
         comment => 'comment',
         discid => 'discid',
     };

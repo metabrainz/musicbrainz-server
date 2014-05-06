@@ -16,8 +16,8 @@ sub serialize
 
     $type =~ s/-/_/g;
 
-    my $override = $self->meta->find_method_by_name ($type);
-    return $override->execute ($self, @data) if $override;
+    my $override = $self->meta->find_method_by_name($type);
+    return $override->execute($self, @data) if $override;
 
     my ($entity, $inc, $opts) = @data;
 
@@ -43,14 +43,14 @@ sub entity_list
     return encode_json (\%ret);
 }
 
-sub artist_list        { shift->entity_list (@_, "artist", "artists") };
-sub label_list         { shift->entity_list (@_, "label", "labels") };
-sub recording_list     { shift->entity_list (@_, "recording", "recordings") };
-sub release_list       { shift->entity_list (@_, "release", "releases") };
-sub release_group_list { shift->entity_list (@_, "release-group", "release-groups") };
-sub work_list          { shift->entity_list (@_, "work", "works") };
-sub area_list          { shift->entity_list (@_, "area", "areas") };
-sub place_list         { shift->entity_list (@_, "place", "places") };
+sub artist_list        { shift->entity_list(@_, "artist", "artists") };
+sub label_list         { shift->entity_list(@_, "label", "labels") };
+sub recording_list     { shift->entity_list(@_, "recording", "recordings") };
+sub release_list       { shift->entity_list(@_, "release", "releases") };
+sub release_group_list { shift->entity_list(@_, "release-group", "release-groups") };
+sub work_list          { shift->entity_list(@_, "work", "works") };
+sub area_list          { shift->entity_list(@_, "area", "areas") };
+sub place_list         { shift->entity_list(@_, "place", "places") };
 
 sub serialize_release
 {

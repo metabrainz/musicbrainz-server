@@ -19,7 +19,7 @@ sub lifespan
     $attrs{begin} = $entity->begin_date->format if !$entity->begin_date->is_empty;
     $attrs{end} = $entity->end_date->format if !$entity->end_date->is_empty;
 
-    return $self->gen->life_span (\%attrs);
+    return $self->gen->life_span(\%attrs);
 }
 
 no Moose::Role;

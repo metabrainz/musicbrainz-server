@@ -88,7 +88,7 @@ sub list_of
 {
     my ($entity, $inc, $stash, $type, $toplevel) = @_;
 
-    my $opts = $stash->store ($entity);
+    my $opts = $stash->store($entity);
     my $list = $opts->{$type};
     my $items = (ref $list eq 'HASH') ? $list->{items} : $list;
 
@@ -101,7 +101,7 @@ sub count_of
 {
     my ($entity, $inc, $stash, $type, $toplevel) = @_;
 
-    my $opts = $stash->store ($entity);
+    my $opts = $stash->store($entity);
     my $list = $opts->{$type};
     my $items = (ref $list eq 'HASH') ? $list->{items} : $list;
 

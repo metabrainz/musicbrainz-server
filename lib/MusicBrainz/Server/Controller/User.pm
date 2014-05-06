@@ -443,17 +443,17 @@ sub privileged : Path('/privileged')
 {
     my ($self, $c) = @_;
 
-    my @bots = $c->model ('Editor')->find_by_privileges ($BOT_FLAG);
-    my @auto_editors = $c->model ('Editor')->find_by_privileges ($AUTO_EDITOR_FLAG);
-    my @transclusion_editors = $c->model ('Editor')->find_by_privileges ($WIKI_TRANSCLUSION_FLAG);
-    my @relationship_editors = $c->model ('Editor')->find_by_privileges ($RELATIONSHIP_EDITOR_FLAG);
-    my @location_editors = $c->model ('Editor')->find_by_privileges ($LOCATION_EDITOR_FLAG);
+    my @bots = $c->model('Editor')->find_by_privileges($BOT_FLAG);
+    my @auto_editors = $c->model('Editor')->find_by_privileges($AUTO_EDITOR_FLAG);
+    my @transclusion_editors = $c->model('Editor')->find_by_privileges($WIKI_TRANSCLUSION_FLAG);
+    my @relationship_editors = $c->model('Editor')->find_by_privileges($RELATIONSHIP_EDITOR_FLAG);
+    my @location_editors = $c->model('Editor')->find_by_privileges($LOCATION_EDITOR_FLAG);
 
-    $c->model ('Editor')->load_preferences (@bots);
-    $c->model ('Editor')->load_preferences (@auto_editors);
-    $c->model ('Editor')->load_preferences (@transclusion_editors);
-    $c->model ('Editor')->load_preferences (@relationship_editors);
-    $c->model ('Editor')->load_preferences (@location_editors);
+    $c->model('Editor')->load_preferences(@bots);
+    $c->model('Editor')->load_preferences(@auto_editors);
+    $c->model('Editor')->load_preferences(@transclusion_editors);
+    $c->model('Editor')->load_preferences(@relationship_editors);
+    $c->model('Editor')->load_preferences(@location_editors);
 
     $c->stash(
         bots => [ @bots ],

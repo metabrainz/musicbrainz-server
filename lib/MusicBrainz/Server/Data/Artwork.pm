@@ -94,7 +94,7 @@ sub find_by_release
     my @artwork = query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
                                 $query, @ids);
     for my $image (@artwork) {
-        $image->release ($id_to_release{$image->release_id}->[0]);
+        $image->release($id_to_release{$image->release_id}->[0]);
     }
 
     return \@artwork;
@@ -135,7 +135,7 @@ sub find_front_cover_by_release
     foreach my $image (@artwork) {
         foreach my $release (@{ $id_to_release{$image->release_id} })
         {
-            $image->release ($release);
+            $image->release($release);
         }
     }
 
@@ -184,16 +184,16 @@ sub load_for_release_groups
           release_event.date_day";
 
     for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
-        my $artwork = $self->_new_from_row ($row);
+        my $artwork = $self->_new_from_row($row);
 
-        $artwork->release (
-            MusicBrainz::Server::Entity::Release->new (
+        $artwork->release(
+            MusicBrainz::Server::Entity::Release->new(
                 id => $row->{release},
                 gid => $row->{release_gid},
                 release_group_id => $row->{release_group}));
         $artwork->release_group($id_to_rg{ $row->{release_group} }->[0]);
 
-        $id_to_rg{ $row->{release_group} }->[0]->cover_art ($artwork);
+        $id_to_rg{ $row->{release_group} }->[0]->cover_art($artwork);
     }
 }
 

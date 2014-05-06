@@ -160,8 +160,8 @@ sub initialize
         };
 
         if ($tracklist) {
-            $self->c->model('Track')->load_for_mediums ($entity);
-            $self->c->model('ArtistCredit')->load ($entity->all_tracks);
+            $self->c->model('Track')->load_for_mediums($entity);
+            $self->c->model('ArtistCredit')->load($entity->all_tracks);
 
             my $old = tracks_to_hash($entity->tracks);
             my $new = tracks_to_hash($tracklist);
@@ -439,18 +439,18 @@ sub accept {
 
             if ($track->{id})
             {
-                $self->c->model ('Track')->update ($track->{id}, $track);
+                $self->c->model('Track')->update($track->{id}, $track);
                 $tracks_reused{$track->{id}} = 1;
             }
             else
             {
-                $self->c->model ('Track')->insert ($track);
+                $self->c->model('Track')->insert($track);
             }
         }
 
         for my $old_track ($medium->all_tracks)
         {
-            $self->c->model ('Track')->delete ($old_track->id)
+            $self->c->model('Track')->delete($old_track->id)
                 unless $tracks_reused{$old_track->id}
         }
     }
