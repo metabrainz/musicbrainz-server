@@ -446,26 +446,30 @@ sub update
         $_ => $values->{$_};
     } qw( link_type_id begin_date end_date attributes ended attribute_text_values );
 
-    my $row = {};
-    $row->{link} = $self->c->model('Link')->find_or_insert(\%link);
-    $row->{entity0} = $values->{entity0_id} if $values->{entity0_id};
-    $row->{entity1} = $values->{entity1_id} if $values->{entity1_id};
+    my $new = {};
+    $new->{link} = $self->c->model('Link')->find_or_insert(\%link);
+    $new->{entity0} = $values->{entity0_id} if $values->{entity0_id};
+    $new->{entity1} = $values->{entity1_id} if $values->{entity1_id};
 
     my $old = $self->sql->select_single_row_hash(
         "SELECT link, entity0, entity1 FROM l_${type0}_${type1} WHERE id = ?", $id
     );
 
-    $self->sql->update_row("l_${type0}_${type1}", $row, { id => $id });
+    $self->sql->update_row("l_${type0}_${type1}", $new, { id => $id });
 
-    my $series0_changed = $type0 eq "series" && $row->{entity0} && $old->{entity0} != $row->{entity0};
-    my $series1_changed = $type1 eq "series" && $row->{entity1} && $old->{entity1} != $row->{entity1};
-    my $link_changed = $old->{link} != $row->{link};
+    my $series0 = $type0 eq "series";
+    my $series1 = $type1 eq "series";
+    my $series0_changed = $series0 && $new->{entity0} && $old->{entity0} != $new->{entity0};
+    my $series1_changed = $series1 && $new->{entity1} && $old->{entity1} != $new->{entity1};
 
     $self->c->model('Series')->automatically_reorder($old->{entity0}) if $series0_changed;
     $self->c->model('Series')->automatically_reorder($old->{entity1}) if $series1_changed;
 
-    $self->c->model('Series')->automatically_reorder($row->{entity0}) if $series0_changed || $link_changed;
-    $self->c->model('Series')->automatically_reorder($row->{entity1}) if $series1_changed || $link_changed;
+    $self->c->model('Series')->automatically_reorder($new->{entity0})
+        if $series0_changed || ($series0 && $old->{link} != $new->{link});
+
+    $self->c->model('Series')->automatically_reorder($new->{entity1})
+        if $series1_changed || ($series1 && $old->{link} != $new->{link});
 }
 
 sub delete
