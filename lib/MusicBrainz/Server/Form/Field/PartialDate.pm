@@ -61,7 +61,7 @@ sub validate {
     # anything partial cannot be checked, and is therefore considered valid.
     return 1 unless ($year && $month && $day);
 
-    return 1 if Date::Calc::check_date ($year, $month, $day);
+    return 1 if Date::Calc::check_date($year, $month, $day);
 
     return $self->add_error(l("invalid date"));
 }

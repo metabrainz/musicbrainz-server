@@ -341,7 +341,7 @@ sub collapse_whitespace {
 
 sub trim {
     # Remove leading and trailing space
-    my $t = Text::Trim::trim (shift);
+    my $t = Text::Trim::trim(shift);
 
     $t = remove_invalid_characters($t);
 

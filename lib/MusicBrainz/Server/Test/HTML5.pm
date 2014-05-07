@@ -140,7 +140,7 @@ sub html5_ok
 
     $message ||= "valid HTML5";
 
-    unless (utf8::is_utf8 ($content)) {
+    unless (utf8::is_utf8($content)) {
         $Test->ok(0, "$message, need to know encoding of content");
         return;
     }
