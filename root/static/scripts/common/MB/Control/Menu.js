@@ -44,6 +44,6 @@ MB.Control.HeaderMenu = function () {
     return self;
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
     MB.Control.header_menu = MB.Control.HeaderMenu();
 });

@@ -57,7 +57,7 @@
         }
 
 
-        window.onload = function()
+        window.onload = function ()
         {
             var artist_field = document.getElementById("id-CDStub.artist");
             var artist_value = artist_field.value;
@@ -65,7 +65,7 @@
 
             vaswitch(artist_value);
 
-            $(va_checkbox).change(function() {
+            $(va_checkbox).change(function () {
                 vaswitch(artist_value);
             });
         }

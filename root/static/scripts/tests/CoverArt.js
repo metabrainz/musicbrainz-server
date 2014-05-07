@@ -71,7 +71,7 @@ module("cover art", {
 });
 
 
-test('iframe mime type', function() {
+test('iframe mime type', function () {
 
     var newdoc = $('<iframe>').appendTo('#qunit-fixture').contents()[0];
     var input = newdoc.createElement('input');
@@ -92,7 +92,7 @@ test('iframe mime type', function() {
 });
 
 
-asyncTest('multifile/ajax upload mime type', function() {
+asyncTest('multifile/ajax upload mime type', function () {
     if (typeof Blob !== 'function')
     {
         console.log('# Blob constructor not available, skip test:',
@@ -115,7 +115,7 @@ asyncTest('multifile/ajax upload mime type', function() {
 });
 
 
-test('cover art types', function() {
+test('cover art types', function () {
 
     var types = MB.CoverArt.cover_art_types();
     equal(types().length, 2, 'two types in observableArray');

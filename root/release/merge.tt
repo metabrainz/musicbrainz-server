@@ -135,7 +135,7 @@
           $("#merge-strategy-" + val).show();
         }
 
-        $("#id-merge\\.merge_strategy").change(function() { updateStrategy($(this).val()) });
+        $("#id-merge\\.merge_strategy").change(function () { updateStrategy($(this).val()) });
         updateStrategy($("#id-merge\\.merge_strategy").val());
       }());
     //]]></script>

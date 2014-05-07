@@ -70,7 +70,7 @@
       [% END %]
 
       <script>//<![CDATA[
-      $(function() {
+      $(function () {
           var languageCount = $('li.language').size();
 
           $('#edit-profile-form').on('click', 'button.remove', function (event) {
@@ -78,7 +78,7 @@
               $(this).parent('li').remove();
           });
 
-          $('button.another').click(function(event) {
+          $('button.another').click(function (event) {
               event.preventDefault();
 
               languageCount++;

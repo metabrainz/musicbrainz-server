@@ -99,7 +99,7 @@
         /* provide namespace for tests. */
         MB.tests = (MB.tests) ? MB.tests : {};
 
-        qunitTap(QUnit, function() {
+        qunitTap(QUnit, function () {
           if (window.console !== undefined)
             console.log.apply(console, arguments);
         }, { noPlan: true });

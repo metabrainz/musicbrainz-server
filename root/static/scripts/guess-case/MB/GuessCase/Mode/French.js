@@ -30,7 +30,7 @@ MB.GuessCase.Mode.French = function () {
 
     self.setConfig('French', MB.text.GuessCaseDescriptionFrench);
 
-    self.runFinalChecks = function(is) {
+    self.runFinalChecks = function (is) {
     os = is.replace(/([!\?;:]+)/gi, " $1");
     os = os.replace(/([«]+)/gi, "$1 ");
     os = os.replace(/([»]+)/gi, " $1");

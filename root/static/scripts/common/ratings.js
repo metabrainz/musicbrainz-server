@@ -7,7 +7,7 @@ $(document).on("click", "span.star-rating a", function () {
     var $ratingLink = $(this);
     var url = this.href + '&json=1';
 
-    $.getJSON(url, function(data) {
+    $.getJSON(url, function (data) {
         var currentRatingSpan = $ratingLink.siblings('span');
         if (!currentRatingSpan.length) {
             currentRatingSpan = $('<span/>');

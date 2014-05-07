@@ -70,7 +70,7 @@ MB.Control.FilterButton = function () {
     return self;
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
     MB.Control.filter_button = MB.Control.FilterButton();
 });
 

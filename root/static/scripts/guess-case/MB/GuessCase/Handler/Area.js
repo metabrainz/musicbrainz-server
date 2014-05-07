@@ -30,7 +30,7 @@ MB.GuessCase.Handler.Area = function () {
     /**
      * Checks special cases
      **/
-    self.checkSpecialCase = function(is) {
+    self.checkSpecialCase = function (is) {
         return self.NOT_A_SPECIALCASE;
     };
 
@@ -41,7 +41,7 @@ MB.GuessCase.Handler.Area = function () {
      * @param        is                the inputstring
      * @returns os                the processed string
      **/
-    self.process = function(is) {
+    self.process = function (is) {
         is = gc.mode.stripInformationToOmit(is);
         is = gc.mode.preProcessCommons(is);
         is = gc.mode.preProcessTitles(is);
@@ -69,7 +69,7 @@ MB.GuessCase.Handler.Area = function () {
      * - Handles PartNumberStyle
      *
      **/
-    self.doWord = function() {
+    self.doWord = function () {
         if (self.doDiscNumberStyle()) {
         } else if (self.doIgnoreWords()) {
         } else if (self.doFeaturingArtistStyle()) {
@@ -93,7 +93,7 @@ MB.GuessCase.Handler.Area = function () {
     /**
      * Guesses the sortname for areas
      **/
-    self.guessSortName = function(is) {
+    self.guessSortName = function (is) {
         return gc.u.trim(is);
     };
 

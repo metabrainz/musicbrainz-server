@@ -59,7 +59,7 @@ MB.CoverArt.image_error = function ($img, image) {
     }
 };
 
-MB.CoverArt.reorder_button = function(direction, $container) {
+MB.CoverArt.reorder_button = function (direction, $container) {
     return function (event) {
         var $editimage = $(this).closest('div.editimage');
 
@@ -102,8 +102,8 @@ MB.CoverArt.reorder_position = function () {
 
     // For the Add Cover Art page, the following is a no-op.
     $('#reorder-cover-art').submit(
-        function(event) {
-            $('div.editimage input.position').val( function(index, oldvalue) { return (index + 1); } );
+        function (event) {
+            $('div.editimage input.position').val( function (index, oldvalue) { return (index + 1); } );
         }
     );
 
@@ -158,7 +158,7 @@ MB.CoverArt.upload_status_enum = {
 MB.CoverArt.validate_file = function (file) {
     var deferred = $.Deferred();
     var reader = new FileReader();
-    reader.addEventListener("loadend", function() {
+    reader.addEventListener("loadend", function () {
         var uint32view = new Uint32Array(reader.result);
 
         /* JPEG signature is usually FF D8 FF E0 (JFIF), or FF D8 FF E1 (EXIF).
@@ -193,7 +193,7 @@ MB.CoverArt.validate_file = function (file) {
 MB.CoverArt.file_data_uri = function (file) {
     var deferred = $.Deferred();
     var reader = new FileReader();
-    reader.addEventListener("loadend", function() {
+    reader.addEventListener("loadend", function () {
         deferred.resolve(reader.result);
     });
     reader.readAsDataURL(file);
@@ -318,7 +318,7 @@ MB.CoverArt.submit_edit = function (file_upload, postfields, mime_type, position
 
 };
 
-MB.CoverArt.FileUpload = function(file) {
+MB.CoverArt.FileUpload = function (file) {
     var self = this;
     var statuses = MB.CoverArt.upload_status_enum;
 
@@ -330,7 +330,7 @@ MB.CoverArt.FileUpload = function(file) {
     self.data_uri_data = ko.observable("");
     self.mime_type = ko.observable("");
 
-    self.data_uri = ko.computed(function() {
+    self.data_uri = ko.computed(function () {
         if (self.mime_type() == "" || self.data_uri_data() == "") {
             return "";
         } else if (self.mime_type() == "application/pdf") {
@@ -498,7 +498,7 @@ MB.CoverArt.add_cover_art_submit = function (gid, upvm) {
         });
 };
 
-MB.CoverArt.set_position = function() {
+MB.CoverArt.set_position = function () {
     var $editimage = $('div.editimage');
     if ($editimage.length) {
         var position = $editimage.index() + 1;

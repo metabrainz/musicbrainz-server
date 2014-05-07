@@ -1,4 +1,4 @@
-MB.ExampleRelationshipsEditor = (function(ERE) {
+MB.ExampleRelationshipsEditor = (function (ERE) {
 
 // Private variables
 var type0, type1, linkTypeName, jsRoot, formName;
@@ -9,7 +9,7 @@ var searchUrl;
 // Private classes
 var RelationshipsSearcher, ViewModel;
 
-ERE.init = function(config) {
+ERE.init = function (config) {
     type0 = config.type0;
     type1 = config.type1;
     linkTypeName = config.linkTypeName;
@@ -31,7 +31,7 @@ ERE.init = function(config) {
 
     ko.bindingHandlers.checkObject = {
         init: function (element, valueAccessor, all, vm, bindingContext) {
-            ko.utils.registerEventHandler(element, "click", function() {
+            ko.utils.registerEventHandler(element, "click", function () {
                 var checkedValue = valueAccessor(),
                     meValue = bindingContext.$data,
                     checked = element.checked;
@@ -51,12 +51,12 @@ ERE.init = function(config) {
     ko.applyBindings(ERE.viewModel);
 }
 
-ERE.Example = function(name, relationship) {
+ERE.Example = function (name, relationship) {
     var self = this;
 
     self.name = ko.observable(name);
     self.relationship = relationship;
-    self.removeExample = function() {
+    self.removeExample = function () {
         ERE.viewModel.examples.remove(this);
     }
 
@@ -71,7 +71,7 @@ ViewModel = function () {
         currentExample: {
             name: ko.observable(),
             relationship: ko.observable(),
-            add: function() {
+            add: function () {
                 var ce = this.currentExample;
 
                 this.examples.push(
@@ -86,7 +86,7 @@ ViewModel = function () {
     }
 };
 
-searchUrl = function(mbid) {
+searchUrl = function (mbid) {
     return jsRoot + mbid + '?inc=rels';
 }
 
@@ -99,7 +99,7 @@ RelationshipSearcher = function () {
 
     self.results = ko.observableArray();
 
-    self.search = function() {
+    self.search = function () {
         var possible = this.currentExample.possibleRelationships;
 
         var request = $.ajax(searchUrl(possible.query()));
@@ -154,7 +154,7 @@ RelationshipSearcher = function () {
         });
     };
 
-    self.clear =  function() {
+    self.clear =  function () {
         this.query('');
         this.results.removeAll();
     }

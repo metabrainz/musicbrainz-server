@@ -588,7 +588,7 @@ MB.Control.autocomplete_formatters = {
                       _.escape(comment.join(", ")) + ')</span>');
         }
 
-        var artistRenderer = function(prefix, artists) {
+        var artistRenderer = function (prefix, artists) {
             if (artists && artists.hits > 0)
             {
                 var toRender = artists.results;

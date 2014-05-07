@@ -28,7 +28,7 @@
 
             if (_.isObject(v1)) {
                 return "<a " + _(v1).keys().sort()
-                    .map(function(key) { return key + '="' + _.escape(v1[key]) + '"' })
+                    .map(function (key) { return key + '="' + _.escape(v1[key]) + '"' })
                     .join(" ") + ">" + text + "<\/a>";
             } else {
                 return "<a href=\"" + _.escape(v1) + "\">" + text + "<\/a>";

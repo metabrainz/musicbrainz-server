@@ -66,7 +66,7 @@ MB.GuessCase.Main = function () {
     /**
      * Initialise the GuessCase object for another run
      **/
-    self.init = function() {
+    self.init = function () {
 	self.f.init(); // init flags object
     };
 
@@ -75,7 +75,7 @@ MB.GuessCase.Main = function () {
      * @param	 is		the un-processed input string
      * @returns			the processed string
      **/
-    self.guessArtist = function(is) {
+    self.guessArtist = function (is) {
 	var os, handler;
 	gc.init();
 
@@ -108,7 +108,7 @@ MB.GuessCase.Main = function () {
      * @param	 is		the un-processed input string
      * @returns			the processed string
      **/
-    self.guessArtistSortname = function(is, person) {
+    self.guessArtistSortname = function (is, person) {
 	var os, handler;
 	gc.init();
 
@@ -136,7 +136,7 @@ MB.GuessCase.Main = function () {
      * @param	 is		the un-processed input string
      * @returns			the processed string
      **/
-    self.guessLabel = function(is) {
+    self.guessLabel = function (is) {
 	var os, handler;
 	gc.init();
 
@@ -169,7 +169,7 @@ MB.GuessCase.Main = function () {
      * @param	 is		the un-processed input string
      * @returns			the processed string
      **/
-    self.guessLabelSortname = function(is) {
+    self.guessLabelSortname = function (is) {
 	var os, handler;
 	gc.init();
 
@@ -197,7 +197,7 @@ MB.GuessCase.Main = function () {
      * @param	 is		the un-processed input string
      * @returns			the processed string
      **/
-    self.guessWork = function(is) {
+    self.guessWork = function (is) {
 	var os, handler;
 	gc.init();
 
@@ -225,7 +225,7 @@ MB.GuessCase.Main = function () {
      * @param	 is		the un-processed input string
      * @returns			the processed string
      **/
-    self.guessWorkSortname = function(is) {
+    self.guessWorkSortname = function (is) {
 	var os, handler;
 	gc.init();
 
@@ -253,7 +253,7 @@ MB.GuessCase.Main = function () {
      * @param	 is		the un-processed input string
      * @returns			the processed string
      **/
-    self.guessArea = function(is) {
+    self.guessArea = function (is) {
 	var os, handler;
 	gc.init();
 
@@ -281,7 +281,7 @@ MB.GuessCase.Main = function () {
      * @param	 is		the un-processed input string
      * @returns			the processed string
      **/
-    self.guessAreaSortname = function(is) {
+    self.guessAreaSortname = function (is) {
 	var os, handler;
 	gc.init();
 
@@ -309,7 +309,7 @@ MB.GuessCase.Main = function () {
      * @param    is             the un-processed input string
      * @returns                 the processed string
      **/
-    self.guessPlace = function(is, mode) {
+    self.guessPlace = function (is, mode) {
         var os, handler;
         gc.init();
 
@@ -337,7 +337,7 @@ MB.GuessCase.Main = function () {
      * @param    is             the un-processed input string
      * @returns                 the processed string
      **/
-    self.guessPlaceSortname = function(is) {
+    self.guessPlaceSortname = function (is) {
         var os, handler;
         gc.init();
 
@@ -365,7 +365,7 @@ MB.GuessCase.Main = function () {
      * @param	 is		the un-processed input string
      * @returns			the processed string
      **/
-    self.guessRelease = function(is) {
+    self.guessRelease = function (is) {
 	var os, handler;
 	gc.init();
 
@@ -394,7 +394,7 @@ MB.GuessCase.Main = function () {
      * @param	 is		the un-processed input string
      * @returns			the processed string
      **/
-    self.guessTrack = function(is) {
+    self.guessTrack = function (is) {
 	var os, handler;
 	self.init();
 
@@ -424,7 +424,7 @@ MB.GuessCase.Main = function () {
      *
      * @see Log#logMessage
      **/
-    self.getCurrentWord = function() {
+    self.getCurrentWord = function () {
 	return gc.i.getCurrentWord();
     };
 
@@ -433,7 +433,7 @@ MB.GuessCase.Main = function () {
      *
      * @see Sandbox/JSUnit tests
      **/
-    self.getInput = function() {
+    self.getInput = function () {
 	return gc.i;
     };
 
@@ -442,7 +442,7 @@ MB.GuessCase.Main = function () {
      *
      * @see Sandbox/JSUnit tests
      **/
-    self.getOutput = function() {
+    self.getOutput = function () {
 	return gc.o;
     };
 
@@ -451,7 +451,7 @@ MB.GuessCase.Main = function () {
      *
      * @see Sandbox/JSUnit tests
      **/
-    self.getUtils = function() {
+    self.getUtils = function () {
 	return gc.u;
     };
 

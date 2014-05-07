@@ -31,7 +31,7 @@ MB.GuessCase.Handler.Release = function () {
     /**
      * Checks special cases of releases
      **/
-    self.checkSpecialCase = function(is) {
+    self.checkSpecialCase = function (is) {
 	if (is) {
 	    if (!gc.re.RELEASE_UNTITLED) {
 		// untitled
@@ -51,7 +51,7 @@ MB.GuessCase.Handler.Release = function () {
      * @param	is		the inputstring
      * @returns os		the processed string
      **/
-    self.process = function(is) {
+    self.process = function (is) {
 	is = gc.mode.stripInformationToOmit(is);
 	is = gc.mode.preProcessCommons(is);
 	is = gc.mode.preProcessTitles(is);
@@ -79,7 +79,7 @@ MB.GuessCase.Handler.Release = function () {
      * - Handles PartNumberStyle
      *
      **/
-    self.doWord = function() {
+    self.doWord = function () {
 	if (self.doDiscNumberStyle()) {
 	} else if (self.doFeaturingArtistStyle()) {
 	} else if (self.doVersusStyle()) {

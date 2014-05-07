@@ -56,7 +56,7 @@ MB.utility.fullWidthConverter = function (inputString) {
     return newString.reverse().join("");
 };
 
-MB.utility.isNullOrEmpty = function(o) { return (!o || o == ""); };
+MB.utility.isNullOrEmpty = function (o) { return (!o || o == ""); };
 MB.utility.is_latin = function (str) { return ! /[^\u0000-\u02ff\u1E00-\u1EFF\u2000-\u207F]/.test(str); };
 
 MB.utility.clone = function (input) { return jQuery.extend(true, {}, input); }
@@ -195,7 +195,7 @@ MB.utility.iteratePromises = function (promises) {
     return deferred.promise();
 };
 
-MB.utility.validDate = (function() {
+MB.utility.validDate = (function () {
     var daysInMonth = {
         "true":  [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
         "false": [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
@@ -211,7 +211,7 @@ MB.utility.validDate = (function() {
         return numberRegex.test(num) ? parseInt(num, 10) : NaN;
     }
 
-    return function(y, m, d) {
+    return function (y, m, d) {
         y = empty(y) ? null : parseNumber(y);
         m = empty(m) ? null : parseNumber(m);
         d = empty(d) ? null : parseNumber(d);
@@ -268,7 +268,7 @@ MB.utility.filesize = function (size) {
     return filesize(size, 1, false);
 };
 
-MB.utility.percentOf = function(x, y) {
+MB.utility.percentOf = function (x, y) {
     return x * y / 100;
 };
 

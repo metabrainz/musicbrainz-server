@@ -30,7 +30,7 @@ MB.GuessCase.Flags = function () {
     /**
      * Reset the context
      **/
-    self.resetContext = function() {
+    self.resetContext = function () {
 	self.whitespace = false;
 	self.openingBracket = false;
 	self.hypen = false;
@@ -43,7 +43,7 @@ MB.GuessCase.Flags = function () {
     /**
      * Reset the variables for the SeriesNumberStyle
      **/
-    self.resetSeriesNumberStyleFlags = function() {
+    self.resetSeriesNumberStyleFlags = function () {
 	self.disc = false; // flag is used for the detection of SeriesStyles
 	self.part = false;
 	self.volume = false;
@@ -54,7 +54,7 @@ MB.GuessCase.Flags = function () {
     /**
      * Reset the variables for the processed string
      **/
-    self.resetOutputFlags = function() {
+    self.resetOutputFlags = function () {
 	// flag to force next to caps first letter.
 	// seeded true because the first word is always capped
 	self.forceCaps = true;
@@ -65,7 +65,7 @@ MB.GuessCase.Flags = function () {
     /**
      * Reset the open/closed bracket variables
      **/
-    self.resetBrackets = function() {
+    self.resetBrackets = function () {
 	self.openBrackets = new Array();
 	self.slurpExtraTitleInformation = false;
     };
@@ -74,13 +74,13 @@ MB.GuessCase.Flags = function () {
      * Returns if there are opened brackets at current position
      * in the string.
      **/
-    self.isInsideBrackets = function() {
+    self.isInsideBrackets = function () {
 	return (self.openBrackets.length > 0);
     };
-    self.pushBracket = function(b) {
+    self.pushBracket = function (b) {
 	self.openBrackets.push(b);
     };
-    self.popBracket = function(b) {
+    self.popBracket = function (b) {
 	if (self.openBrackets.length == 0) {
 	    return null;
 	} else {
@@ -89,14 +89,14 @@ MB.GuessCase.Flags = function () {
 	    return cb;
 	}
     };
-    self.getOpenedBracket = function(b) {
+    self.getOpenedBracket = function (b) {
 	if (self.openBrackets.length == 0) {
 	    return null;
 	} else {
 	    return self.openBrackets[self.openBrackets.length-1];
 	}
     };
-    self.getCurrentCloseBracket = function() {
+    self.getCurrentCloseBracket = function () {
 	var ob;
 	if ((ob = self.getOpenedBracket()) != null) {
 	    return gc.u.getCorrespondingBracket(ob);
@@ -107,7 +107,7 @@ MB.GuessCase.Flags = function () {
     /**
      * Initialise GcFlags object for another run
      **/
-    self.init = function() {
+    self.init = function () {
 	self.resetOutputFlags();
 	self.resetBrackets();
 	self.resetContext();

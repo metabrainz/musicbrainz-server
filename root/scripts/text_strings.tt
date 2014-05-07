@@ -18,7 +18,7 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
-(function(MB) {
+(function (MB) {
     $.extend(MB.text, {
         TagNone: '[% lp('(none)', 'tag') | js %]',
         Artist: '[% l('Artist') | js %]',

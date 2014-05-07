@@ -30,7 +30,7 @@ MB.GuessCase.Utils = function () {
     /**
      * Renders an array to an associative array with lowercase keys.
      **/
-    self.toAssocArray = function(a) {
+    self.toAssocArray = function (a) {
 	var t = [];
 	try {
 	    for (var m=0; m<a.length; m++) {
@@ -46,7 +46,7 @@ MB.GuessCase.Utils = function () {
      * returns true,if k is in a,and a[k]=k,and k is no function
      * of the array (e.g. join,pop etc.)
      **/
-    self.inArray = function(a,k) {
+    self.inArray = function (a,k) {
 	if (a == null || k == null) {
 	    return false;
 	}
@@ -66,7 +66,7 @@ MB.GuessCase.Utils = function () {
      * -------------------------------------------------------
      * keschte		2005-10-24		template for a wordlist
      **/
-    self.isSomeWord = function(w) {
+    self.isSomeWord = function (w) {
 	if (!self.someWord) {
 	    self.someWord = self.toAssocArray([]); // empty array
 	}
@@ -82,7 +82,7 @@ MB.GuessCase.Utils = function () {
      * keschte		2005-07-10		added disco
      * keschte		2005-07-20		added dub
      **/
-    self.getPrepBracketSingleWords = function() {
+    self.getPrepBracketSingleWords = function () {
 	return ["acoustic", "airplay", "album", "alternate", "alternative",
                 "bonus", "clean", "club", "composition", "cut", "dance",
                 "dirty", "disc", "disco", "dub", "extended", "feat",
@@ -91,7 +91,7 @@ MB.GuessCase.Utils = function () {
                 "session", "short", "take", "trance", "version", "video",
                 "vocal" ];
     };
-    self.isPrepBracketSingleWord = function(w) {
+    self.isPrepBracketSingleWord = function (w) {
 
 	if (!self.preBracketSingleWords) {
 	    self.preBracketSingleWords = self.toAssocArray(self.getPrepBracketSingleWords());
@@ -117,7 +117,7 @@ MB.GuessCase.Utils = function () {
      * warp             2011-01-31              MBS-1313, add early, piano, rap, studio, techno, and trance
      **/
 
-    self.getLowerCaseBracketWords = function() {
+    self.getLowerCaseBracketWords = function () {
 	return [
             'a_cappella', 'acoustic', 'airplay', 'album', 'alternate',
             'alternative', 'bonus', 'clean', 'club', 'clubmix', 'composition',
@@ -133,7 +133,7 @@ MB.GuessCase.Utils = function () {
         ];
     };
 
-    self.isLowerCaseBracketWord = function(w) {
+    self.isLowerCaseBracketWord = function (w) {
 
 	if (!self.lowerCaseBracketWords) {
 	    self.lowerCaseBracketWords = self.toAssocArray(self.getLowerCaseBracketWords());
@@ -149,7 +149,7 @@ MB.GuessCase.Utils = function () {
      * -------------------------------------------------------
      * keschte		2005-05-25		first version
      **/
-    self.isPrepBracketWord = function(w) {
+    self.isPrepBracketWord = function (w) {
 
 	if (!self.prepBracketWords) {
 	    self.prepBracketWords = self.toAssocArray(
@@ -167,7 +167,7 @@ MB.GuessCase.Utils = function () {
      * -------------------------------------------------------
      * keschte		2005-05-24		first version
      **/
-    self.isSentenceStopChar = function(w) {
+    self.isSentenceStopChar = function (w) {
 
 	if (!self.sentenceStopChars) {
 	    self.sentenceStopChars = self.toAssocArray([
@@ -184,14 +184,14 @@ MB.GuessCase.Utils = function () {
      * -------------------------------------------------------
      * warp		2011-08-13		first version
      **/
-    self.isApostrophe = function(w) { return w == "'" || w == "’"; };
+    self.isApostrophe = function (w) { return w == "'" || w == "’"; };
 
     /**
      * Punctuation characters
      * -------------------------------------------------------
      * keschte		2005-05-24		first version
      **/
-    self.isPunctuationChar = function(w) {
+    self.isPunctuationChar = function (w) {
 	if (!self.punctuationChars) {
 	    self.punctuationChars = self.toAssocArray([
 		":",".",";","?","!",","
@@ -204,7 +204,7 @@ MB.GuessCase.Utils = function () {
      * Check if a word w has to be MacTitled http://www.daire.org/names/scotsurs2.html
      * -------------------------------------------------------
      **/
-    self.getMacTitledWords = function() {
+    self.getMacTitledWords = function () {
 	var nm = ["achallies","achounich","adam","adie","aindra","aldonich","alduie","allan","allister","alonie","andeoir","andrew","angus","ara","aree","arthur","askill","aslan","aulay","auselan","ay","baxter","bean","beath","beolain","beth","bheath","bride","brieve","burie","caa","cabe","caig","caishe","call","callum","calman","calmont","camie","cammon","cammond","canish","cansh","cartney","cartair","carter","cash","caskill","casland","caul","cause","caw","cay","ceallaich","chlerich","chlery","choiter","chruiter","cloy","clure","cluskie","clymont","codrum","coll","colman","comas","combe","combich","combie","conacher","conachie","conchy","condy","connach","connechy","connell","conochie","cooish","cook","corkill","corkindale","corkle","cormack","cormick","corquodale","corry","cosram","coull","cowan","crae","crain","craken","craw","creath","crie","crimmon","crimmor","crindle","cririe","crouther","cruithein","cuag","cuaig","cubbin","cuish","culloch","cune","cunn","currach","cutchen","cutcheon","dade","daniell","david","dermid","diarmid","donachie","donald","donleavy","dougall","dowall","drain","duff","duffie","dulothe","eachan","eachern","eachin","eachran","earachar","elfrish","elheran","eoin","eol","erracher","ewen","fadzean","fall","farquhar","farlane","fater","feat","fergus","fie","gaw","geachie","geachin","geoch","ghee","gilbert","gilchrist","gill","gilledon","gillegowie","gillivantic","gillivour","gillivray","gillonie","gilp","gilroy","gilvernock","gilvra","gilvray","glashan","glasrich","gorrie","gorry","goun","gowan","grath","gregor","greusich","grewar","grime","grory","growther","gruder","gruer","gruther","guaran","guffie","gugan","guire","haffie","hardie","hardy","harold","hendrie","hendry","howell","hugh","hutchen","hutcheon","iain","ildowie","ilduy","ilreach","illeriach","ilriach","ilrevie","ilvain","ilvora","ilvrae","ilvride","ilwhom","ilwraith","ilzegowie","immey","inally","indeor","indoe","innes","inroy","instalker","intyre","iock","issac","ivor","james","kail","kames","kaskill","kay","keachan","keamish","kean","kechnie","kee","keggie","keith","kellachie","kellaigh","kellar","kelloch","kelvie","kendrick","kenzie","keochan","kerchar","kerlich","kerracher","kerras","kersey","kessock","kichan","kie","kieson","kiggan","killigan","killop","kim","kimmie","kindlay","kinley","kinnell","kinney","kinning","kinnon","kintosh","kinven","kirdy","kissock","knight","lachlan","lae","lagan","laghlan","laine of lochbuie","laren","lairish","lamond","lardie","laverty","laws","lea","lean","leay","lehose","leish","leister","lellan","lennan","leod","lergain","lerie","leverty","lewis","lintock","lise","liver","lucas","lugash","lulich","lure","lymont","manus","martin","master","math","maurice","menzies","michael","millan","minn","monies","morran","munn","murchie","murchy","murdo","murdoch","murray","murrich","mutrie","nab","nair","namell","naughton","nayer","nee","neilage","neill","neilly","neish","neur","ney","nicol","nider","niter","niven","nuir","nuyer","omie","omish","onie","oran","o","oull","ourlic","owen","owl","patrick","petrie","phadden","phail","phater","phee","phedran","phedron","pheidiran","pherson","phillip","phorich","phun","quarrie","queen","quey","quilkan","quistan","quisten","quoid","ra","rach","rae","raild","raith","rankin","rath","ritchie","rob","robb","robbie","robert","robie","rorie","rory","ruer","rurie","rury","shannachan","shimes","simon","sorley","sporran","swan","sween","swen","symon","taggart","tary","tause","tavish","tear","thomas","tier","tire","ulric","ure","vail","vanish","varish","veagh","vean","vicar","vinish","vurich","vurie","walrick","walter","wattie","whannell","whirr","whirter","william","intosh","intyre"];
 	for (var i=nm.length-1; i>=0; i--) { nm[i] = "mac"+nm[i]; }
 	return nm;
@@ -215,7 +215,7 @@ MB.GuessCase.Utils = function () {
      * -------------------------------------------------------
      * keschte		2005-05-31		first version
      **/
-    self.isMacTitledWord = function(w) {
+    self.isMacTitledWord = function (w) {
 
 	if (!self.macTitledWords) {
 	    self.macTitledWords = self.toAssocArray(self.getMacTitledWords());
@@ -229,7 +229,7 @@ MB.GuessCase.Utils = function () {
      * -------------------------------------------------------
      * keschte		2005-05-31		first version
      **/
-    self.getCorrespondingBracket = function(w) {
+    self.getCorrespondingBracket = function (w) {
 
 	if (!self.bracketPairs) {
 	    var t = [];
@@ -249,7 +249,7 @@ MB.GuessCase.Utils = function () {
     /**
      * Trim leading, trailing and running-line whitespace from the given string
      **/
-    self.trim  = function(is) {
+    self.trim  = function (is) {
 
 	if (MB.utility.isNullOrEmpty(is)) {
 	    is = "";
@@ -270,7 +270,7 @@ MB.GuessCase.Utils = function () {
      * keschte		2005-01-30		added cases for McTitled,MacTitled,O'Titled
      * keschte		2005-01-31		converted loops to associative arrays.
      **/
-    self.titleString = function(is, forceCaps) {
+    self.titleString = function (is, forceCaps) {
 
 	forceCaps = (forceCaps != null ? forceCaps : gc.f.forceCaps);
 
@@ -369,7 +369,7 @@ MB.GuessCase.Utils = function () {
      * @returns		the capitalized string, if the flags allow
      *				GC to capitalize the string.
      **/
-    self.titleStringByMode = function(is, forceCaps) {
+    self.titleStringByMode = function (is, forceCaps) {
 	if (is == null || is == "") {
 	    return "";
 	}
@@ -412,7 +412,7 @@ MB.GuessCase.Utils = function () {
     /**
      * Convert a given number to roman notation.
      */
-    self.convertToRomanNumeral = function(is) {
+    self.convertToRomanNumeral = function (is) {
 	var i = parseInt(is);
 	var s = [];
 	if ((i > 3999) || (i < 1)) {

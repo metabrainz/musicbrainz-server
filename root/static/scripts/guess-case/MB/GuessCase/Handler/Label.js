@@ -45,7 +45,7 @@ MB.GuessCase.Handler.Label = function () {
      * @param	is		the inputstring
      * @returns os		the processed string
      **/
-    self.process = function(is) {
+    self.process = function (is) {
 	is = gc.artistmode.preProcessCommons(is);
 	var w = gc.i.splitWordsAndPunctuation(is);
 	gc.o.init();
@@ -63,7 +63,7 @@ MB.GuessCase.Handler.Label = function () {
      * - empty, unknown -> [unknown]
      * - none, no label, not applicable, n/a -> [no label]
      **/
-    self.checkSpecialCase = function(is) {
+    self.checkSpecialCase = function (is) {
 	if (is) {
 	    if (!gc.re.LABEL_EMPTY) {
 		// match empty
@@ -110,7 +110,7 @@ MB.GuessCase.Handler.Label = function () {
      * - Handles VersusStyle
      *
      **/
-    self.doWord = function() {
+    self.doWord = function () {
 	if (self.doVersusStyle()) {
 	} else if (self.doPresentsStyle()) {
 	} else {
@@ -136,7 +136,7 @@ MB.GuessCase.Handler.Label = function () {
      * - Handles PartNumberStyle
      *
      **/
-    self.doPresentsStyle = function() {
+    self.doPresentsStyle = function () {
 	if (!self.doPresentsRE) {
 	    self.doPresentsRE = /^(presents?|pres)$/i;
 	}
@@ -154,7 +154,7 @@ MB.GuessCase.Handler.Label = function () {
     /**
      * Guesses the sortname for labels
      **/
-    self.guessSortName = function(is) {
+    self.guessSortName = function (is) {
 	is = gc.u.trim(is);
 
 	// let's see if we got a compound label

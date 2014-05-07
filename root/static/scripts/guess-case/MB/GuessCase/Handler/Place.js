@@ -30,7 +30,7 @@ MB.GuessCase.Handler.Place = function () {
     /**
      * Checks special cases
      **/
-    self.checkSpecialCase = function(is) {
+    self.checkSpecialCase = function (is) {
         return self.NOT_A_SPECIALCASE;
     };
 
@@ -41,7 +41,7 @@ MB.GuessCase.Handler.Place = function () {
      * @param        is                the inputstring
      * @returns os                the processed string
      **/
-    self.process = function(is) {
+    self.process = function (is) {
         is = gc.mode.preProcessCommons(is);
         var words = gc.i.splitWordsAndPunctuation(is);
         gc.o.init();
@@ -63,7 +63,7 @@ MB.GuessCase.Handler.Place = function () {
      * - Handles PartNumberStyle
      *
      **/
-    self.doWord = function() {
+    self.doWord = function () {
         if (self.doVersusStyle()) {
         } else if (self.doIgnoreWords()) {
         } else if (self.doVolumeNumberStyle()) {
@@ -85,7 +85,7 @@ MB.GuessCase.Handler.Place = function () {
     /**
      * Guesses the sortname for place aliases
      **/
-    self.guessSortName = function(is) {
+    self.guessSortName = function (is) {
         is = gc.u.trim(is);
 
         // let's see if we got a compound place

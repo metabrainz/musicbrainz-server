@@ -32,7 +32,7 @@ MB.Form.TextList = function (input) {
         $(this).closest('div.text-list-row').remove();
     };
 
-    self.init = function(max_index) {
+    self.init = function (max_index) {
         counter = max_index;
         $template.parent()
             .find('div.text-list-row input.value')

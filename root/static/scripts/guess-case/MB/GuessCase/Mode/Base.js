@@ -70,14 +70,14 @@ MB.GuessCase.Mode.Base = function () {
     /**
      * Set the instance variables.
      */
-    self.setConfig = function(name, desc) {
+    self.setConfig = function (name, desc) {
         self._name = name;
         self._desc = (desc || "");
     };
 
-    self.getName = function() { return self._name; };
+    self.getName = function () { return self._name; };
 
-    self.getDescription = function() {
+    self.getDescription = function () {
         var s = self._desc;
         s = s.replace('<a ', '<a target="_blank" '); /* Work around MBS-5734 */
         return s;
@@ -86,7 +86,7 @@ MB.GuessCase.Mode.Base = function () {
     /**
      * Returns true if the GC script is operating in sentence mode
      **/
-    self.isSentenceCaps = function() { return true; };
+    self.isSentenceCaps = function () { return true; };
 
     // ----------------------------------------------------------------------------
     // mode specific functions
@@ -100,7 +100,7 @@ MB.GuessCase.Mode.Base = function () {
      * keschte          2005-06-14              added "tha" to be handled like "the"
      * warp             2011-02-01              added da, de, di, fe, fi, ina, inna
      **/
-    self.getLowerCaseWords = function() {
+    self.getLowerCaseWords = function () {
         return [
             'a', 'an', 'and', 'as', 'at', 'but', 'by', 'da', 'de', 'di', 'fe',
             'fi', 'for', 'in', 'ina', 'inna', 'n', 'nor', 'o', 'of', 'on', 'or',
@@ -108,7 +108,7 @@ MB.GuessCase.Mode.Base = function () {
         ];
     };
 
-    self.isLowerCaseWord = function(w) {
+    self.isLowerCaseWord = function (w) {
 
         if (!self.lowerCaseWords) {
             self.lowerCaseWords = gc.u.toAssocArray(self.getLowerCaseWords());
@@ -128,7 +128,7 @@ MB.GuessCase.Mode.Base = function () {
      * keschte          2005-10-24              removed AD
      * keschte          2005-11-15              removed RIP (Let Rip) is not R.I.P.
      **/
-    self.getUpperCaseWords = function() {
+    self.getUpperCaseWords = function () {
         return [
             "dj", "mc", "tv", "mtv", "ep", "lp",
             "ymca", "nyc", "ny", "ussr", "usa", "r&b",
@@ -136,10 +136,10 @@ MB.GuessCase.Mode.Base = function () {
             "rza", "gza", "odb", "dmx", "2xlc" // artists
         ];
     };
-    self.getRomanNumberals = function() {
+    self.getRomanNumberals = function () {
         return ["i","ii","iii","iv","v","vi","vii","viii","ix","x"];
     };
-    self.isUpperCaseWord = function(w) {
+    self.isUpperCaseWord = function (w) {
 
         if (!self.upperCaseWords) {
             self.upperCaseWords = gc.u.toAssocArray(self.getUpperCaseWords());
@@ -162,7 +162,7 @@ MB.GuessCase.Mode.Base = function () {
      * My Track Extended Dub remix => My Track (extended dub remix)
      * My Track 12" remix => My Track (12" remix)
      **/
-    self.prepExtraTitleInfo = function(w) {
+    self.prepExtraTitleInfo = function (w) {
 
         var lastword = w.length-1, wi = lastword;
         var handlePreProcess = false;
@@ -220,7 +220,7 @@ MB.GuessCase.Mode.Base = function () {
      *
      * keschte          2005-11-10              first version
      **/
-    self.preProcessCommons = function(is) {
+    self.preProcessCommons = function (is) {
 
         if (!gc.re.PREPROCESS_COMMONS) {
             gc.re.PREPROCESS_COMMONS = [
@@ -239,7 +239,7 @@ MB.GuessCase.Mode.Base = function () {
      *
      * keschte          2005-11-10              first version
      **/
-    self.preProcessTitles = function(is) {
+    self.preProcessTitles = function (is) {
 
         if (!gc.re.PREPROCESS_FIXLIST) {
             gc.re.PREPROCESS_FIXLIST = [
@@ -318,7 +318,7 @@ MB.GuessCase.Mode.Base = function () {
      * Collect words from processed wordlist and apply minor fixes that
      * aren't handled in the specific function.
      **/
-    self.runPostProcess = function(is) {
+    self.runPostProcess = function (is) {
 
         if (!gc.re.POSTPROCESS_FIXLIST) {
             gc.re.POSTPROCESS_FIXLIST = [
@@ -354,7 +354,7 @@ MB.GuessCase.Mode.Base = function () {
      * @param is        the input string
      * @param list      the list of fix objects to apply.
      **/
-    self.runFixes = function(is, list) {
+    self.runFixes = function (is, list) {
 
         var replace_match = function (matcher, is)
         {
@@ -409,7 +409,7 @@ MB.GuessCase.Mode.Base = function () {
     /**
      * Take care of (bonus),(bonus track)
      **/
-    self.stripInformationToOmit = function(is) {
+    self.stripInformationToOmit = function (is) {
 
         if (!gc.re.PREPROCESS_STRIPINFOTOOMIT) {
             gc.re.PREPROCESS_STRIPINFOTOOMIT = [
@@ -453,7 +453,7 @@ MB.GuessCase.Mode.Base = function () {
      *  Original string: "greatest 80's hits"
      *          Match failed.
      **/
-    self.runFinalChecks = function(is) {
+    self.runFinalChecks = function (is) {
 
         if (!gc.re.VINYL) {
             gc.re.VINYL = /(\s+|\()((\d+)(inch\b|in\b|'+|"))([^s]|$)/i;
@@ -485,7 +485,7 @@ MB.GuessCase.Mode.Base = function () {
      *                  take place for the current word, if that should
      *                  not be done, return true.
      **/
-    self.doWord = function() {
+    self.doWord = function () {
         return false;
     };
 

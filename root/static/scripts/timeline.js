@@ -11,7 +11,7 @@ $(function () {
 
     // Get MusicBrainz Events data
     $.get('../../ws/js/events', function (data) {
-        musicbrainzEventsOptions.musicbrainzEvents.data = $.map(data, function(e) {
+        musicbrainzEventsOptions.musicbrainzEvents.data = $.map(data, function (e) {
             e.jsDate = Date.parse(e.date);
             return e;
         });
@@ -30,7 +30,7 @@ $(function () {
                    $this_control.addClass('loading').find('input').prop('disabled', true);
                    $.ajax({url: '../../statistics/dataset/' + datasetId,
                        dataType: 'json',
-                       success: function(data) {
+                       success: function (data) {
                            MB.Timeline.datasets[datasetId].data = data;
                            rateData(datasetId);
                            $this_control.removeClass('loading').find('input').prop('disabled', false);
@@ -70,7 +70,7 @@ $(function () {
         var mean = 0;
         var count = 0;
 
-        $.each(data, function(index, value) {
+        $.each(data, function (index, value) {
             var changeValue = value[1] - dataPrev;
             var sCurrent;
             var days = 1;
@@ -93,7 +93,7 @@ $(function () {
         mean = mean / count;
 
         var deviationSum = 0;
-        $.each(weekData, function(index, value) {
+        $.each(weekData, function (index, value) {
             var toSquare = value[1] - mean;
             deviationSum = deviationSum + toSquare * toSquare;
         });
@@ -106,7 +106,7 @@ $(function () {
 
     function calculateRateBounds(data, thresholds, dateThresholds) {
         var rateBounds = {min: thresholds.max, max: thresholds.min};
-        $.each(data, function(index, value) {
+        $.each(data, function (index, value) {
                 if (value[1] > thresholds.min &&
                       value[1] < thresholds.max &&
                       (!dateThresholds ||
@@ -146,11 +146,11 @@ $(function () {
         changeHash(false, hashPartFromGeometry(graphZoomOptions), true);
     });
 
-    $('#overview').bind('plotselected', function(event, ranges) {
+    $('#overview').bind('plotselected', function (event, ranges) {
         plot.setSelection(ranges);
     });
 
-    $('#rate-of-change-graph').bind('plotselected', function(event, ranges) {
+    $('#rate-of-change-graph').bind('plotselected', function (event, ranges) {
         var axis = plot.getAxes().yaxis;
         plot.setSelection({xaxis: ranges.xaxis, yaxis: {from: axis.min, to: axis.max}});
     });
@@ -343,7 +343,7 @@ $(function () {
 
                 if ($('#show-rate-graph').prop('checked')) {
                     var rateZoomOptions = {yaxis: {min: null, max: null}};
-                    $.each(data[1], function(index, value) {
+                    $.each(data[1], function (index, value) {
                        var thresholds = value.thresholds;
                        var rateBounds = calculateRateBounds(value.data, thresholds, graphZoomOptions.xaxis);
                        if (rateZoomOptions.yaxis.min == null || rateBounds.min < rateZoomOptions.yaxis.min) {
