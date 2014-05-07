@@ -320,16 +320,14 @@ sub entity : Chained('root') PathPart('entity') Args(1)
         return;
     }
 
-    $c->model('Relationship')->load($entity) if $c->stash->{inc}->rels;
-    $c->model('ArtistCredit')->load($entity);
+    my $js_class = "MusicBrainz::Server::Controller::WS::js::$type";
 
-    my $serialization_routine = '_' . $self->entities->{$type};
-    $serialization_routine =~ s/\-/_/g;
+    $js_class->_load_entities($c, $entity);
+
+    my $serialization_routine = $js_class->serialization_routine;
     my $data = $c->stash->{serializer}->$serialization_routine($entity);
 
-    my $relationships = $c->stash->{serializer}->serialize_relationships(
-        @{ $entity->relationships } );
-
+    my $relationships = $c->stash->{serializer}->serialize_relationships($entity->all_relationships);
     $data->{relationships} = $relationships if @$relationships;
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
