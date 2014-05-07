@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::Series;
 
+use List::AllUtils qw( max );
 use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Constants qw( $SERIES_ORDERING_TYPE_AUTOMATIC );
@@ -229,7 +230,7 @@ sub automatically_reorder {
     my @sorted_values = map { $_->[0] } sort {
         my ($a_parts, $b_parts) = ($a->[1], $b->[1]);
 
-        my $max = @$a_parts <= @$b_parts ? @$a_parts : @$b_parts;
+        my $max = max(scalar @$a_parts, scalar @$b_parts);
         my $order = 0;
 
         # Use <= and replace undef values with the empty string, so that
