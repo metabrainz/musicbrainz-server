@@ -90,7 +90,7 @@ sub tag_submit : Private
     for (@submit)
     {
         $c->model($_->{model})->tags->update(
-            $c->user->id, $_->{entity}->id, join (", ", @{ $_->{tags} }));
+            $c->user->id, $_->{entity}->id, join(", ", @{ $_->{tags} }));
     }
 
     $c->detach('success');

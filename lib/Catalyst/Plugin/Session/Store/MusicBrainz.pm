@@ -36,7 +36,7 @@ sub store_session_data {
     }
     else
     {
-        $self->_datastore->set($key, encode_base64 (nfreeze($data)));
+        $self->_datastore->set($key, encode_base64(nfreeze($data)));
         $self->_datastore->expireat($key, $self->session_expires);
     }
 }

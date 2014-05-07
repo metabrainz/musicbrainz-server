@@ -362,7 +362,7 @@ sub accept {
                 [ artist_credit => \@merged_artist_credits, \&hash_artist_credit ]
             ) {
                 my ($property, $container, $key_generation) = @$merge;
-                push @$container, merge (
+                push @$container, merge(
                     track_column($property, $self->data->{old}{tracklist}),
                     track_column($property, $current_tracklist),
                     track_column($property, $data_new_tracklist),

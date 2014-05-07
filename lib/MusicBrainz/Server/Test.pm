@@ -448,7 +448,7 @@ sub xml_post
     my $request = HTTP::Request->new(
         POST => $url,
         HTTP::Headers->new('Content-Type' => 'application/xml; charset=UTF-8',
-                            'Content-Length', length ($content)),
+                            'Content-Length', length($content)),
     );
 
     $request->content($content);
