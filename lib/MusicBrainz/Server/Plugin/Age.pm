@@ -17,7 +17,7 @@ sub age
     my ($self, $begin) = @_;
 
     my @end_YMD = Today;
-    my ($y, $m, $d) = N_Delta_YMD(_YMD ($begin), @end_YMD);
+    my ($y, $m, $d) = N_Delta_YMD(_YMD($begin), @end_YMD);
 
     return ($y, $m, $d);
 }

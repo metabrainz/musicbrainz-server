@@ -53,13 +53,13 @@ my $content = '<?xml version="1.0" encoding="UTF-8"?>
     </recording-list>
 </metadata>';
 
-$mech->request(xml_post ('/ws/2/tag?client=post.t-0.0.2', $content));
+$mech->request(xml_post('/ws/2/tag?client=post.t-0.0.2', $content));
 is ($mech->status, 401, 'Tags rejected without authentication');
 $mech->content_contains('Authorization required');
 
 $mech->credentials('localhost:80', 'musicbrainz.org', 'new_editor', 'password');
 
-$mech->request(xml_post ('/ws/2/tag?client=post.t-0.0.2', $content));
+$mech->request(xml_post('/ws/2/tag?client=post.t-0.0.2', $content));
 xml_ok ($mech->content);
 
 my $xp = XML::XPath->new( xml => $mech->content );
@@ -93,7 +93,7 @@ $content = '<?xml version="1.0" encoding="UTF-8"?>
     </recording-list>
 </metadata>';
 
-$mech->request(xml_post ('/ws/2/rating?client=post.t-0.0.2', $content));
+$mech->request(xml_post('/ws/2/rating?client=post.t-0.0.2', $content));
 xml_ok ($mech->content);
 
 $xp = XML::XPath->new( xml => $mech->content );

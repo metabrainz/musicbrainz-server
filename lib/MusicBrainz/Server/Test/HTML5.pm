@@ -91,7 +91,7 @@ sub save_html
     if ($ENV{SAVE_HTML}) {
         my ($fh, $filename) = tempfile(
             "html5_ok_XXXX", SUFFIX => $suffix, TMPDIR => 1);
-        print $fh encode ("utf-8", $content);
+        print $fh encode("utf-8", $content);
         close($fh);
         $Test->diag("failed output written to $filename");
     };
@@ -158,7 +158,7 @@ sub html5_ok
 
     my $request = HTTP::Request->new(POST => $url);
     $request->header('Content-Type', 'text/html');
-    $request->content(encode ("utf-8", $content));
+    $request->content(encode("utf-8", $content));
 
     my $all_ok = 1;
 
@@ -170,13 +170,13 @@ sub html5_ok
         {
             next if $msg->{type} eq "info";
 
-            if (ignore_warning ($msg))
+            if (ignore_warning($msg))
             {
-                $Test->diag(format_message ($msg, "ignored" => 1));
+                $Test->diag(format_message($msg, "ignored" => 1));
             }
             else
             {
-                $Test->diag(format_message ($msg));
+                $Test->diag(format_message($msg));
                 $all_ok = 0;
             }
         }

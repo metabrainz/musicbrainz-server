@@ -103,8 +103,8 @@ test 'Unused tracks are correctly deleted after tracklist changes' => sub {
     my $concrete_jungle_mbid = $medium->tracks->[0]->gid;
     my $thunder_tornado_mbid = $medium->tracks->[1]->gid;
 
-    ok(is_guid ($concrete_jungle_mbid), 'First track has a valid MBID');
-    ok(is_guid ($thunder_tornado_mbid), 'Second track has a valid MBID');
+    ok(is_guid($concrete_jungle_mbid), 'First track has a valid MBID');
+    ok(is_guid($thunder_tornado_mbid), 'Second track has a valid MBID');
     isnt($concrete_jungle_mbid, $thunder_tornado_mbid, 'First and second tracks have different MBIDs');
 
     is($medium->tracks->[0]->name, 'CONCRETE JUNGLE', 'First track is CONCRETE JUNGLE');
