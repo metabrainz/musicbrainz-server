@@ -384,7 +384,7 @@ around merge_changes => sub {
     my $orig = shift;
     my $self = shift;
 
-    my $merged = $self->$orig (@_);
+    my $merged = $self->$orig(@_);
 
     $merged->{events} = $self->data->{new}{events}
         if exists $self->data->{new}{events};

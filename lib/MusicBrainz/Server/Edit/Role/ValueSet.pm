@@ -27,7 +27,7 @@ role {
     around new_data => sub {
         my $orig = shift;
         my $self = shift;
-        my $new = clone($self->$orig (@_));
+        my $new = clone($self->$orig(@_));
 
         # merge_changes only looks at keys in whatever is returned from
         # new_data(), make it skip this property so we can handle that
@@ -40,7 +40,7 @@ role {
         my $orig = shift;
         my $self = shift;
 
-        my $merged = $self->$orig (@_);
+        my $merged = $self->$orig(@_);
 
         if ($self->data->{new}->{$prop_name}) {
             my $current = $params->get_current->($self);

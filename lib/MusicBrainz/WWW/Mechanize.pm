@@ -11,7 +11,7 @@ around '_make_request' => sub
     my $self = shift;
     my $request = shift;
 
-    my $response = $self->$orig ($request, @_);
+    my $response = $self->$orig($request, @_);
 
     # Test::WWW::Mechanize::Catalyst doesn't seem to do digest authentication.
     # So let's do it ourselves here, every request which results in a '401'

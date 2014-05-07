@@ -62,7 +62,7 @@ around load => sub {
     # show().
 
     my $recording = $c->model('Recording')->get_by_gid($id) if is_guid($id);
-    return $self->$orig ($c, $id) unless defined $recording;
+    return $self->$orig($c, $id) unless defined $recording;
 
     $c->stash( recording => $recording );
     $c->stash( entity    => $recording );

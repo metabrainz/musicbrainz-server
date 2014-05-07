@@ -25,7 +25,7 @@ around 'validate_field' => sub {
     my $orig = shift;
     my $self = shift;
 
-    my $ret = $self->$orig (@_);
+    my $ret = $self->$orig(@_);
 
     my $input = $self->result->input;
 
@@ -83,7 +83,7 @@ around 'value' => sub {
     my $orig = shift;
     my $self = shift;
 
-    my $ret = $self->$orig (@_);
+    my $ret = $self->$orig(@_);
 
     return $ret unless $ret && $ret->{names};
 
