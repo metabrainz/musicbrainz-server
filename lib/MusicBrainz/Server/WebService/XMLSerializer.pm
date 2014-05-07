@@ -51,8 +51,8 @@ sub _serialize_coordinates
     my ($self, $data, $gen, $entity, $inc, $opts) = @_;
 
     my @coordinates;
-    push @coordinates, $gen->latitude($entity->coordinates->latitude) if $entity->coordinates->latitude;
-    push @coordinates, $gen->longitude($entity->coordinates->longitude) if $entity->coordinates->longitude;
+    push @coordinates, $gen->latitude($entity->coordinates->latitude);
+    push @coordinates, $gen->longitude($entity->coordinates->longitude);
     push @$data, $gen->coordinates(@coordinates);
 }
 
@@ -905,7 +905,7 @@ sub _serialize_place
     push @list, $gen->name($place->name);
     push @list, $gen->disambiguation($place->comment) if $place->comment;
     push @list, $gen->address($place->address) if $place->address;
-    $self->_serialize_coordinates(\@list, $gen, $place, $inc, $stash, $toplevel) if $place->coordinates->latitude;
+    $self->_serialize_coordinates(\@list, $gen, $place, $inc, $stash, $toplevel) if $place->coordinates;
 
     if ($toplevel)
     {

@@ -178,7 +178,8 @@ sub _hash_to_row
 
     add_partial_date_to_row($row, $place->{begin_date}, 'begin_date');
     add_partial_date_to_row($row, $place->{end_date}, 'end_date');
-    add_coordinates_to_row($row, $place->{coordinates}, 'coordinates');
+    add_coordinates_to_row($row, $place->{coordinates}, 'coordinates')
+        if exists $place->{coordinates};
     return $row;
 }
 

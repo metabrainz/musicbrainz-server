@@ -111,8 +111,8 @@ sub build_display_data
 
     if (exists $self->data->{new}{coordinates}) {
         $data->{coordinates} = {
-            new => defined $self->data->{new}{coordinates} && defined $self->data->{new}{coordinates}{latitude} ? Coordinates->new($self->data->{new}{coordinates}) : '',
-            old => defined $self->data->{old}{coordinates} && defined $self->data->{old}{coordinates}{latitude} ? Coordinates->new($self->data->{old}{coordinates}) : '',
+            new => defined $self->data->{new}{coordinates} ? Coordinates->new($self->data->{new}{coordinates}) : '',
+            old => defined $self->data->{old}{coordinates} ? Coordinates->new($self->data->{old}{coordinates}) : '',
         };
     }
 
@@ -196,6 +196,15 @@ around extract_property => sub {
         default {
             return ($self->$orig(@_));
         }
+    }
+};
+
+before restore => sub {
+    my ($self, $data) = @_;
+
+    for my $side ($data->{old}, $data->{new}) {
+        $side->{coordinates} = undef
+            if defined $side->{coordinates} && !defined $side->{coordinates}{latitude};
     }
 };
 

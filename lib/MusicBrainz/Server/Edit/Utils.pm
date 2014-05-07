@@ -359,9 +359,9 @@ sub merge_coordinates {
     my ($name, $ancestor, $current, $new) = @_;
 
     return (
-        [ Coordinates->new($ancestor->{$name} // {})->format, $ancestor->{$name} ],
-        [ $current->$name->format, coordinates_to_hash($current->$name) ],
-        [ Coordinates->new($new->{$name} // {})->format, $new->{$name} ],
+        [ defined $ancestor->{$name} ? Coordinates->new($ancestor->{$name})->format : '', $ancestor->{$name} ],
+        [ defined $current->$name ? $current->$name->format : '', coordinates_to_hash($current->$name) ],
+        [ defined $new->{$name} ? Coordinates->new($new->{$name})->format : '', $new->{$name} ],
     );
 }
 

@@ -52,7 +52,7 @@ sub validate {
     my $coordinates = $self->value;
 
     if ($coordinates =~ /^\s*$/) {
-        $self->value({ latitude => undef, longitude => undef });
+        $self->value(undef);
         return;
     }
 

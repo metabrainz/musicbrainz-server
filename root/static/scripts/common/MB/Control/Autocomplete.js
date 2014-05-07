@@ -660,6 +660,9 @@ MB.Control.autocomplete_formatters = {
                        (item.typeName ? _.escape(item.typeName) : '') +
                        (item.typeName && item.area ? ', ' : '') +
                        (item.area ? _.escape(item.area) : '') +
+                       (item.areaParentCity ? ', ' + _.escape(item.areaParentCity) : '') +
+                       (item.areaParentSubdivision ? ', ' + _.escape(item.areaParentSubdivision) : '') +
+                       (item.areaParentCountry ? ', ' + _.escape(item.areaParentCountry) : '') +
                        '</span>');
         };
 

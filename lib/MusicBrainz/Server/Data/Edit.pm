@@ -587,14 +587,12 @@ sub default_includes {
     # Additional models that should automatically be included with a model.
     # NB: A list, not a hash, because order may be important.
     my @includes = (
-        [ 'Place' => 'Area' ],
-        [ 'Area' => 'AreaContainment' ]
+        'Place' => 'Area',
+        'Area' => 'AreaContainment',
     );
 
     my ($objects_to_load, $post_load_models) = @_;
-    foreach (@includes) {
-        my ($to, $add) = @$_;
-
+    while (my ($to, $add) = splice @includes, 0, 2) {
         # Add as a post-load model to top-level models
         for my $id (@{ $objects_to_load->{$to} // [] }) {
             $post_load_models->{$to}->{$id} ||= [];

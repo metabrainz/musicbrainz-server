@@ -552,9 +552,24 @@ sub autocomplete_place
 {
     my ($self, $results, $pager) = @_;
 
+    my $add_area_containment = sub {
+        my ($r, $place) = @_;
+        return unless $place->area;
+        for my $level (qw/country subdivision city/) {
+            $r->{'areaParent' . ucfirst($level)} =
+                $place->area->{"parent_$level"}->name
+                if $place->area->{"parent_$level"};
+        }
+    };
+
     my $output = _with_primary_alias(
         $results,
-        sub { $self->_place(shift->{entity}) }
+        sub {
+            my $place = shift->{entity};
+            my $r = $self->_place($place);
+            $add_area_containment->($r, $place);
+            return $r;
+        }
     );
 
     push @$output, {
