@@ -53,17 +53,17 @@ test 'Check unserialize(serialize(x)) == x' => sub {
     $form = t::MusicBrainz::Server::Form::TestForm->new;
     $form->unserialize($data);
 
-    is ($form->field('foo.bar.0')->value, 'Blood on Borstch', 'first value restored correctly');
-    is ($form->field('foo.baz.0.qux')->value, 'Ambient Intelligence', 'second value restored correctly');
-    is ($form->field('foo.baz.1.qux')->value, 'Warlords of Destruction', 'third value restored correctly');
-    is ($form->field('foo.baz.2.qux')->value, 'Boarboyz Attack', 'fourth value restored correctly');
+    is($form->field('foo.bar.0')->value, 'Blood on Borstch', 'first value restored correctly');
+    is($form->field('foo.baz.0.qux')->value, 'Ambient Intelligence', 'second value restored correctly');
+    is($form->field('foo.baz.1.qux')->value, 'Warlords of Destruction', 'third value restored correctly');
+    is($form->field('foo.baz.2.qux')->value, 'Boarboyz Attack', 'fourth value restored correctly');
 
-    is ($form->field('foo.baz.0.qux')->disabled, 1, 'first field is disabled');
-    is ($form->field('foo.baz.0.qux')->readonly, undef, 'first field is not readonly');
-    is ($form->field('foo.baz.1.qux')->disabled, undef, 'second field is not disabled');
-    is ($form->field('foo.baz.1.qux')->readonly, 1, 'second field is readonly');
-    is ($form->field('foo.baz.2.qux')->style, 'border: 2px dashed red', 'third field has style');
-    is ($form->field('foo.baz.2.qux')->css_class, 'error', 'third field has error class');
+    is($form->field('foo.baz.0.qux')->disabled, 1, 'first field is disabled');
+    is($form->field('foo.baz.0.qux')->readonly, undef, 'first field is not readonly');
+    is($form->field('foo.baz.1.qux')->disabled, undef, 'second field is not disabled');
+    is($form->field('foo.baz.1.qux')->readonly, 1, 'second field is readonly');
+    is($form->field('foo.baz.2.qux')->style, 'border: 2px dashed red', 'third field has style');
+    is($form->field('foo.baz.2.qux')->css_class, 'error', 'third field has error class');
 };
 
 1;

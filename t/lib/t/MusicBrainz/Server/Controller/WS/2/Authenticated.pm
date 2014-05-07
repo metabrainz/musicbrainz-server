@@ -124,7 +124,7 @@ sub _compare_tags
 
     my @tags = sort(map { $_->tag->name } grep { $_->tag } @user_tags );
 
-    is_deeply (\@tags, $expected, $desc);
+    is_deeply(\@tags, $expected, $desc);
 }
 
 test 'OAuth bearer' => sub {

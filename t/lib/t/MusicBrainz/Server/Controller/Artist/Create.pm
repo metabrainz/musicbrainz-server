@@ -72,7 +72,7 @@ subtest 'Create artists with all fields' => sub {
 
     # Test display of edit data
     $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
-    html_ok ($mech->content, '..xml is valid');
+    html_ok($mech->content, '..xml is valid');
     $mech->content_contains('controller artist', '.. contains artist name');
     $mech->content_contains('artist, controller', '.. contains sort name');
     $mech->content_contains('Person', '.. contains artist type');
@@ -84,7 +84,7 @@ subtest 'Create artists with all fields' => sub {
     $mech->content_contains('2003-04-15', '.. contains end date');
 
     # Cleaning up.
-    _delete_artist ($c, $edit->entity_id);
+    _delete_artist($c, $edit->entity_id);
 
     done_testing;
 };
@@ -130,12 +130,12 @@ subtest 'Creating artists with only the minimal amount of fields' => sub {
 
     # Test display of edit data
     $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
-    html_ok ($mech->content, '..xml is valid');
+    html_ok($mech->content, '..xml is valid');
     $mech->content_contains('Alice Artist', '.. contains artist name');
     $mech->content_contains('Artist, Alice', '.. contains sort name');
 
     # Cleaning up.
-    _delete_artist ($c, $edit->entity_id);
+    _delete_artist($c, $edit->entity_id);
 
     done_testing;
 };

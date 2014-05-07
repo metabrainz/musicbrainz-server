@@ -1839,7 +1839,7 @@ sub recalculate_all
         printf "Statistics cannot be computed due to missing dependencies\n";
         printf "$_ depends on " . join(", ", @{$unsatisfiable_prereqs{$_}}) . ", but these dependencies do not exist\n"
             for keys %unsatisfiable_prereqs;
-        exit (1);
+        exit(1);
     }
 
     my %notdone = %stats;

@@ -269,7 +269,7 @@ test 'Deleting an editor cancels all open edits' => sub {
         isni_codes => []
     );
 
-    is ($open_edit->status, $STATUS_OPEN);
+    is($open_edit->status, $STATUS_OPEN);
 
     $c->model('Editor')->delete(1);
 
@@ -317,7 +317,7 @@ test 'Open edit and last-24-hour counts' => sub {
         isni_codes => []
     );
 
-    is ($open_edit->status, $STATUS_OPEN);
+    is($open_edit->status, $STATUS_OPEN);
 
     is($c->model('Editor')->open_edit_count(1), 1, "Open edit count is 1");
     is($c->model('Editor')->last_24h_edit_count(1), 2, "Last 24h count is 2");

@@ -198,8 +198,8 @@ sub html_ok
 {
     my ($content, $message) = @_;
 
-    xhtml_ok ($Test, $content, $message);
-    html5_ok ($Test, $content, $message);
+    xhtml_ok($Test, $content, $message);
+    html5_ok($Test, $content, $message);
 }
 
 sub xml_ok
@@ -283,7 +283,7 @@ sub mock_search_server
 
     local $/;
     my $searchresults = "t/json/search_".lc($type).".json";
-    open(JSON, $searchresults) or die ("Could not open $searchresults");
+    open(JSON, $searchresults) or die("Could not open $searchresults");
     my $json = <JSON>;
     close(JSON);
 
@@ -355,7 +355,7 @@ sub schema_validator
 
         $message ||= "Validate against schema";
 
-        xml_ok ($xml, "$message (xml_ok)");
+        xml_ok($xml, "$message (xml_ok)");
 
       SKIP: {
 
@@ -424,9 +424,9 @@ sub _build_ws_test_json {
             $Test->plan(tests => 3);
 
             $mech->get_ok($end_point . $url, 'fetching');
-            is_valid_json ($mech->content, "validating (is_valid_json)");
+            is_valid_json($mech->content, "validating (is_valid_json)");
 
-            is_json ($mech->content, $expected);
+            is_json($mech->content, $expected);
             $Test->note($mech->content);
         });
     };
@@ -435,7 +435,7 @@ sub _build_ws_test_json {
 sub _build_ws_test {
     my ($class, $name, $args) = @_;
 
-    return $args->{version} eq 'js' ? _build_ws_test_json (@_) : _build_ws_test_xml (@_);
+    return $args->{version} eq 'js' ? _build_ws_test_json(@_) : _build_ws_test_xml(@_);
 }
 
 sub xml_post
@@ -485,7 +485,7 @@ sub commandline_override
     my ($prefix, @default_tests) = @_;
 
     my $test_re = '';
-    GetOptions ("tests=s" => \$test_re);
+    GetOptions("tests=s" => \$test_re);
 
     return grep { $_ =~ /$test_re/ } @default_tests;
 }

@@ -27,7 +27,7 @@ EOSQL
     my $url = '/ws/js/work?q=Let\'s Meet Again&direct=true';
 
     $mech->get_ok($url, 'fetching');
-    is_valid_json ($mech->content, "validating (is_valid_json)");
+    is_valid_json($mech->content, "validating (is_valid_json)");
 
     my $data = $json->decode($mech->content);
 
@@ -42,7 +42,7 @@ EOSQL
     $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
     $mech->default_header("Accept" => "application/json");
     $mech->get_ok($url, 'fetching again');
-    is_valid_json ($mech->content, "validating (is_valid_json)");
+    is_valid_json($mech->content, "validating (is_valid_json)");
 
     $data = $json->decode($mech->content);
 

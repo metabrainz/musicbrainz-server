@@ -56,7 +56,7 @@ test 'Insert medium' => sub {
     isa_ok($medium, 'MusicBrainz::Server::Entity::Medium');
 
     $c->model('Track')->load_for_mediums($medium);
-    is ($medium->length, 330160 + 262000, "inserted medium has expected length");
+    is($medium->length, 330160 + 262000, "inserted medium has expected length");
 
     my $trackoffset0 = 150;
     my $trackoffset1 = $trackoffset0 + int(330160 * 75 / 1000);
@@ -66,11 +66,11 @@ test 'Insert medium' => sub {
 
     my $fuzzy = 1;
     my $durationlookup = $c->model('DurationLookup')->lookup($toc, $fuzzy);
-    is (scalar @$durationlookup, 1, "one match with TOC lookup");
+    is(scalar @$durationlookup, 1, "one match with TOC lookup");
 
     $medium = $durationlookup->[0]->medium;
-    is ($medium->id, $created->id);
-    is ($medium->name, 'Bonus disc', 'TOC lookup found correct disc');
+    is($medium->id, $created->id);
+    is($medium->name, 'Bonus disc', 'TOC lookup found correct disc');
 };
 
 test all => sub {

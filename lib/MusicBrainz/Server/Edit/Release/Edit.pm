@@ -228,7 +228,7 @@ sub _mapping
     my $self = shift;
     return (
         artist_credit => sub {
-            clean_submitted_artist_credits (shift->artist_credit)
+            clean_submitted_artist_credits(shift->artist_credit)
         },
         barcode => sub { shift->barcode->code },
         events => sub {

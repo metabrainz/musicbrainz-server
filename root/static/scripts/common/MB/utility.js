@@ -175,7 +175,7 @@ MB.utility.iteratePromises = function (promises) {
         {
             queue.shift()().then (iterate, function () {
                 failed = true;
-                iterate ();
+                iterate();
             });
         }
         else
@@ -191,7 +191,7 @@ MB.utility.iteratePromises = function (promises) {
         }
     };
 
-    iterate ();
+    iterate();
     return deferred.promise();
 };
 

@@ -62,8 +62,8 @@ sub create_bucket
     my $bucket = shift;
 
     my $storage = $ENV{SSSSSS_STORAGE} ?
-        catfile (glob ($ENV{SSSSSS_STORAGE}), $bucket) :
-        catfile ($FindBin::Bin, 'caa', $bucket);
+        catfile(glob ($ENV{SSSSSS_STORAGE}), $bucket) :
+        catfile($FindBin::Bin, 'caa', $bucket);
 
     `mkdir --parents $storage` unless -d $storage;
 
@@ -85,9 +85,9 @@ sub handle_put
     my $dest = catfile($bucketdir, $request->param('file'));
     $log->info("PUT, storing upload at $dest\n");
 
-    open (my $fh, ">", $dest);
+    open(my $fh, ">", $dest);
     print $fh $request->content;
-    close ($fh);
+    close($fh);
 
     return $request->new_response(204);
 }
@@ -102,12 +102,12 @@ sub handle_post
     my $dest = catfile($bucketdir, $request->param('key'));
     $log->info("POST, storing upload at $dest\n");
 
-    move ($request->uploads->{file}->path, $dest);
+    move($request->uploads->{file}->path, $dest);
 
     if ($key =~ /.($imgext)$/)
     {
-        thumb (catfile ($bucketdir, $key), 250);
-        thumb (catfile ($bucketdir, $key), 500);
+        thumb(catfile($bucketdir, $key), 250);
+        thumb(catfile($bucketdir, $key), 500);
     }
 
     my $redirect = $request->param('success_action_redirect');

@@ -13,7 +13,7 @@ around serialize => sub {
 
     $ret->{rating} = {
         "votes-count" => defined $opts->{ratings}->{count} ?
-            number ($opts->{ratings}->{count}) : 0,
+            number($opts->{ratings}->{count}) : 0,
         "value" => number($opts->{ratings}->{rating})
     } if $inc->ratings;
 

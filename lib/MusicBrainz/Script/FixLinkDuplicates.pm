@@ -69,7 +69,7 @@ sub remove_duplicates
     my $count = 0;
 
     printf "%s : Replace links %s with %s\n",
-        scalar localtime, join (", ", @remove_ids), $keep_id if $self->verbose;
+        scalar localtime, join(", ", @remove_ids), $keep_id if $self->verbose;
 
     my $rows = $self->c->sql->select_list_of_hashes(
         'SELECT entity_type0, entity_type1

@@ -283,7 +283,7 @@ ok(!$artist_data->can_delete(3));
     isa_ok($artist, 'MusicBrainz::Server::Entity::Artist');
 
     my $found = $artist_data->search_by_names('Test Artist', 'Minimal Artist');
-    is (scalar @{ $found->{'Test Artist'} }, 2, 'Found two test artists');
+    is(scalar @{ $found->{'Test Artist'} }, 2, 'Found two test artists');
     my @testartists = sort_by { $_->comment } @{ $found->{'Test Artist'} };
     is($testartists[0]->comment, 'J-Pop artist');
     is($testartists[1]->comment, 'Yet Another Test Artist');

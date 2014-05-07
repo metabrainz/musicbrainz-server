@@ -128,10 +128,10 @@ $c->sql->begin;
 my $exitcode = WORK_NO_ERROR;
 
 if ($delete_count) {
-    delete_from_index ($c, $affected->{delete_from_index});
+    delete_from_index($c, $affected->{delete_from_index});
 }
 elsif ($insert_count) {
-    insert_into_index ($c, $affected->{insert_into_index}, $limit);
+    insert_into_index($c, $affected->{insert_into_index}, $limit);
 }
 else {
     $exitcode = update_index($c, $affected->{update_index}, $limit);

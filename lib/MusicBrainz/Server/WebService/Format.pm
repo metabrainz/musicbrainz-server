@@ -13,7 +13,7 @@ parameter serializers => (
 sub _instance
 {
     my $cls = shift;
-    load_class ($cls);
+    load_class($cls);
     $cls->new;
 }
 

@@ -27,7 +27,7 @@ EOSQL
 
     my $label = $c->model('Label')->get_by_id(1);
     $c->model('Relationship')->load($label);
-    is (scalar($label->all_relationships) => 0, 'no relationships remain');
+    is(scalar($label->all_relationships) => 0, 'no relationships remain');
 };
 
 test 'Merge matching dated/undated rels on entity merge' => sub {
@@ -44,7 +44,7 @@ EOSQL
 
     my $label = $c->model('Label')->get_by_id(1);
     $c->model('Relationship')->load($label);
-    is (scalar($label->all_relationships) => 1, 'two relationships became one');
+    is(scalar($label->all_relationships) => 1, 'two relationships became one');
 };
 
 test 'Merge matching dated/undated rels on entity merge (3 entities)' => sub {
@@ -63,7 +63,7 @@ EOSQL
 
     my $label = $c->model('Label')->get_by_id(1);
     $c->model('Relationship')->load($label);
-    is (scalar($label->all_relationships) => 1, 'three relationships became one');
+    is(scalar($label->all_relationships) => 1, 'three relationships became one');
 };
 
 test 'Merge matching dated/undated rels on entity merge (3 entities, some flipped direction)' => sub {
@@ -82,7 +82,7 @@ EOSQL
 
     my $label = $c->model('Label')->get_by_id(1);
     $c->model('Relationship')->load($label);
-    is (scalar($label->all_relationships) => 2, 'three relationships became two (alternate directions should be preserved)');
+    is(scalar($label->all_relationships) => 2, 'three relationships became two (alternate directions should be preserved)');
 };
 
 test 'Don\'t merge matching dated/undated rels on entity merge if they originate from the same entity' => sub {
@@ -99,7 +99,7 @@ EOSQL
 
     my $label = $c->model('Label')->get_by_id(1);
     $c->model('Relationship')->load($label);
-    is (scalar($label->all_relationships) => 2, 'three relationships, two on the same entity dated vs. undated, became two');
+    is(scalar($label->all_relationships) => 2, 'three relationships, two on the same entity dated vs. undated, became two');
 };
 
 test 'Don\'t merge matching rels, other than attributes' => sub {
@@ -116,7 +116,7 @@ EOSQL
 
     my $artist = $c->model('Artist')->get_by_id(1);
     $c->model('Relationship')->load($artist);
-    is (scalar($artist->all_relationships) => 2, 'two relationships that are the same other than attributes are not merged');
+    is(scalar($artist->all_relationships) => 2, 'two relationships that are the same other than attributes are not merged');
 };
 
 test all => sub {

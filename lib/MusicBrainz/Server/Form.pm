@@ -151,7 +151,7 @@ sub _fix_fif
     {
         for my $prefix (keys %repeatables)
         {
-            delete ($fif->{$_}) if (m/^\Q$prefix\E\.[^0-9]+/);
+            delete($fif->{$_}) if (m/^\Q$prefix\E\.[^0-9]+/);
         }
     }
 

@@ -26,7 +26,7 @@ test 'Correct display for undef coordinates' => sub {
         }
     );
 
-    is ($form->field('coordinates')->fif, '', 'displays empty string');
+    is($form->field('coordinates')->fif, '', 'displays empty string');
 };
 
 test 'Correct display for empty coordinates' => sub {
@@ -39,7 +39,7 @@ test 'Correct display for empty coordinates' => sub {
         }
     );
 
-    is ($form->field('coordinates')->fif, '', 'displays empty string');
+    is($form->field('coordinates')->fif, '', 'displays empty string');
 };
 
 test 'Correct display for non-empty coordinates' => sub {
@@ -52,7 +52,7 @@ test 'Correct display for non-empty coordinates' => sub {
         }
     );
     my $expected = '48.28239N, 37.67383W';
-    is ($form->field('coordinates')->fif, $expected, "displays $expected");
+    is($form->field('coordinates')->fif, $expected, "displays $expected");
 };
 
 test 'Coordinate validation' => sub {

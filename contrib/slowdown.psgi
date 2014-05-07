@@ -41,9 +41,9 @@ sub handle_other {
 
     $log->info("storing request body at /tmp/slowdown.bin\n");
 
-    open (my $fh, ">", "/tmp/slowdown.bin");
+    open(my $fh, ">", "/tmp/slowdown.bin");
     print $fh $request->content;
-    close ($fh);
+    close($fh);
 
     my $response = $request->new_response(503);
 

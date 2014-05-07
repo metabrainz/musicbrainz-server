@@ -157,7 +157,7 @@ test 'Merge releases in seperate release groups where release groups have cover 
 
     my $expected = [ { release_group => 4, release => 4 } ];
 
-    is_deeply ($results, $expected, "release group cover art unset for rg id 5");
+    is_deeply($results, $expected, "release group cover art unset for rg id 5");
 };
 
 test 'Merge releases in the same release group where the release group has cover art set' => sub {
@@ -181,7 +181,7 @@ test 'Merge releases in the same release group where the release group has cover
 
     my $expected = [ { release_group => 4, release => 4 } ];
 
-    is_deeply ($results, $expected, "release group cover art updated after merge");
+    is_deeply($results, $expected, "release group cover art updated after merge");
 };
 
 test 'Delete release which is set as cover art for a release group' => sub {
@@ -201,7 +201,7 @@ test 'Delete release which is set as cover art for a release group' => sub {
 
     my $expected = [ { release_group => 5, release => 5 } ];
 
-    is_deeply ($results, $expected, "release group cover art unset after release has been deleted");
+    is_deeply($results, $expected, "release group cover art unset after release has been deleted");
 };
 
 test 'Merging release groups with cover art set preserves target cover art' => sub {

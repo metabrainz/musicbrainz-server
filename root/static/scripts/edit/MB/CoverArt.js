@@ -21,7 +21,7 @@
 MB.CoverArt = {};
 
 MB.CoverArt.get_image_mime_type = function () {
-    var filename = $('iframe').contents ().find ('#file').val ();
+    var filename = $('iframe').contents().find ('#file').val();
     var mime_type = null;
 
     if (filename.match(/\.j(peg|pg|pe|fif|if)$/i))
@@ -110,7 +110,7 @@ MB.CoverArt.reorder_position = function () {
     /* moving <script> elements around with insertBefore() and
      * insertAfter() will rerun them.  The script bits for these
      * images should NOT be ran again, so remove those nodes. */
-    $('div.editimage script').remove ();
+    $('div.editimage script').remove();
 };
 
 MB.CoverArt.CoverArtType = function (name, id) {
@@ -156,7 +156,7 @@ MB.CoverArt.upload_status_enum = {
 };
 
 MB.CoverArt.validate_file = function (file) {
-    var deferred = $.Deferred ();
+    var deferred = $.Deferred();
     var reader = new FileReader();
     reader.addEventListener("loadend", function() {
         var uint32view = new Uint32Array(reader.result);
@@ -191,7 +191,7 @@ MB.CoverArt.validate_file = function (file) {
 };
 
 MB.CoverArt.file_data_uri = function (file) {
-    var deferred = $.Deferred ();
+    var deferred = $.Deferred();
     var reader = new FileReader();
     reader.addEventListener("loadend", function() {
         deferred.resolve(reader.result);
@@ -202,7 +202,7 @@ MB.CoverArt.file_data_uri = function (file) {
 };
 
 MB.CoverArt.sign_upload = function (file, gid, mime_type) {
-    var deferred = $.Deferred ();
+    var deferred = $.Deferred();
 
     var postfields = $.ajax({
         url: "/ws/js/cover-art-upload/" + gid,
@@ -223,7 +223,7 @@ MB.CoverArt.sign_upload = function (file, gid, mime_type) {
 };
 
 MB.CoverArt.upload_image = function (postfields, file) {
-    var deferred = $.Deferred ();
+    var deferred = $.Deferred();
 
     var formdata = new FormData();
     formdata.append("file", file);
@@ -231,7 +231,7 @@ MB.CoverArt.upload_image = function (postfields, file) {
         formdata.append(key, val);
     });
 
-    var xhr = new XMLHttpRequest ();
+    var xhr = new XMLHttpRequest();
     xhr.upload.addEventListener("progress", function (event) {
         if (event.lengthComputable)
         {
@@ -272,14 +272,14 @@ MB.CoverArt.upload_image = function (postfields, file) {
 };
 
 MB.CoverArt.submit_edit = function (file_upload, postfields, mime_type, position) {
-    var deferred = $.Deferred ();
+    var deferred = $.Deferred();
 
-    var formdata = new FormData ();
+    var formdata = new FormData();
     formdata.append('add-cover-art.id', postfields.image_id);
     formdata.append('add-cover-art.position', position);
     formdata.append('add-cover-art.mime_type', mime_type);
     formdata.append('add-cover-art.comment', file_upload.comment());
-    formdata.append('add-cover-art.edit_note', $('textarea.edit-note').val ());
+    formdata.append('add-cover-art.edit_note', $('textarea.edit-note').val());
     if ($('#id-add-cover-art\\.as_auto_editor').prop('checked')) {
         formdata.append('add-cover-art.as_auto_editor', 'on');
     }
@@ -291,7 +291,7 @@ MB.CoverArt.submit_edit = function (file_upload, postfields, mime_type, position
         }
     });
 
-    var xhr = new XMLHttpRequest ();
+    var xhr = new XMLHttpRequest();
     xhr.addEventListener("load", function (event) {
         if (xhr.status === 200)
         {
@@ -365,7 +365,7 @@ MB.CoverArt.FileUpload = function(file) {
         });
 
     self.doUpload = function (gid, position) {
-        var deferred = $.Deferred ();
+        var deferred = $.Deferred();
 
         if (self.status() === 'done' || self.busy())
         {
@@ -480,11 +480,11 @@ MB.CoverArt.process_upload_queue = function (gid, upvm, pos) {
 };
 
 MB.CoverArt.add_cover_art_submit = function (gid, upvm) {
-    var pos = parseInt($('#id-add-cover-art\\.position').val (), 10);
+    var pos = parseInt($('#id-add-cover-art\\.position').val(), 10);
 
     $('.add-files.row').hide();
-    $('#cover-art-position-row').hide ();
-    $('#content')[0].scrollIntoView ();
+    $('#cover-art-position-row').hide();
+    $('#content')[0].scrollIntoView();
     $('#add-cover-art-submit').prop ('disabled', true);
 
     var queue = MB.CoverArt.process_upload_queue(gid, upvm, pos);
@@ -515,7 +515,7 @@ MB.CoverArt.add_cover_art = function (gid) {
         /* FormData is supported, so we can present the multifile ajax
          * upload form. */
 
-        $('.with-formdata').show ();
+        $('.with-formdata').show();
 
         var upvm = new MB.CoverArt.UploadProcessViewModel();
         ko.applyBindings(upvm);
@@ -571,7 +571,7 @@ MB.CoverArt.add_cover_art = function (gid) {
     }
     else
     {
-        $('.without-formdata').show ();
+        $('.without-formdata').show();
         $('#add-cover-art-submit').prop('disabled', false);
 
         $('#add-cover-art-submit').on ('click.mb', function (event) {
@@ -584,11 +584,11 @@ MB.CoverArt.add_cover_art = function (gid) {
             if (mime_type)
             {
                 $('iframe')[0].contentWindow.upload(
-                    gid, $('#id-add-cover-art\\.id').val (), mime_type);
+                    gid, $('#id-add-cover-art\\.id').val(), mime_type);
             }
             else
             {
-                $('iframe').contents ().find ('#cover-art-file-error').show ();
+                $('iframe').contents().find ('#cover-art-file-error').show();
             }
 
             return false;

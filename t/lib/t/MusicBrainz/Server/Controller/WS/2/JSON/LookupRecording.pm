@@ -352,7 +352,7 @@ test 'recording lookup with work-level relationships' => sub {
 
     ws_test_json 'recording lookup with work-level relationships',
     '/recording/4878bc36-7306-497a-b45a-561d9f7f8573?inc=artist-rels+work-rels+work-level-rels' =>
-    encode_json ({
+    encode_json({
         disambiguation => '',
         id => '4878bc36-7306-497a-b45a-561d9f7f8573',
         length => 274666,

@@ -79,14 +79,14 @@ is($track->name, "Test track!");
 
 Sql::run_in_transaction(sub {
     my $toc = $test->c->sql->select_single_value("SELECT toc FROM medium_index WHERE medium = 1");
-    is ($toc, undef, 'medium_index does not have an entry for medium 1');
+    is($toc, undef, 'medium_index does not have an entry for medium 1');
 
     $track_data->delete(1);
     $track = $track_data->get_by_id(1);
     ok(!defined $track);
 
     $toc = $test->c->sql->select_single_value("SELECT toc FROM medium_index WHERE medium = 1");
-    is ($toc, '(628519, 358960, 332613, 296160, 372386, 500)', 'DurationLookup updated medium_index after track delete');
+    is($toc, '(628519, 358960, 332613, 296160, 372386, 500)', 'DurationLookup updated medium_index after track delete');
 
 }, $test->c->sql);
 

@@ -303,7 +303,7 @@ sub collections : Chained('load') RequireAuth
     # Keep public collections;
     # count private collection
     foreach my $collection (@all_collections) {
-        push (@public_collections, $collection)
+        push(@public_collections, $collection)
             if ($collection->{'public'} == 1);
         $private_collections++
             if ($collection->{'public'} == 0);

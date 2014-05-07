@@ -179,8 +179,8 @@ test 'Editing relationships fails if the underlying link type changes' => sub {
         link_type => $c->model('LinkType')->get_by_id(2),
     );
 
-    is (exception { $edit2->accept }, undef);
-    is (exception { $edit1->accept },
+    is(exception { $edit2->accept }, undef);
+    is(exception { $edit1->accept },
         'This relationship has changed type since this edit was entered');
 };
 

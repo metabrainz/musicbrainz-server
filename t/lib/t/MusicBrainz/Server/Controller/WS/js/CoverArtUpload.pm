@@ -24,18 +24,18 @@ test 'jpg post fields' => sub {
     $mech->get_ok('/ws/js/cover-art-upload/0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e?mime_type=image/jpeg',
                   'cover art upload signature request');
 
-    is_valid_json ($mech->content);
+    is_valid_json($mech->content);
 
     my $decoded = from_json($mech->content);
 
-    ok ($decoded->{image_id} > 4250923260, "image_id is a large integer");
-    is ($decoded->{formdata}->{'x-archive-meta-collection'}, "coverartarchive");
-    is ($decoded->{formdata}->{'x-archive-auto-make-bucket'}, "1");
-    is ($decoded->{formdata}->{'x-archive-meta-mediatype'}, "image");
-    is ($decoded->{formdata}->{'key'},
+    ok($decoded->{image_id} > 4250923260, "image_id is a large integer");
+    is($decoded->{formdata}->{'x-archive-meta-collection'}, "coverartarchive");
+    is($decoded->{formdata}->{'x-archive-auto-make-bucket'}, "1");
+    is($decoded->{formdata}->{'x-archive-meta-mediatype'}, "image");
+    is($decoded->{formdata}->{'key'},
         "mbid-0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e-".$decoded->{image_id}.".jpg");
-    is ($decoded->{formdata}->{'acl'}, "public-read");
-    is ($decoded->{formdata}->{'content-type'}, "image/jpeg");
+    is($decoded->{formdata}->{'acl'}, "public-read");
+    is($decoded->{formdata}->{'content-type'}, "image/jpeg");
 
 };
 

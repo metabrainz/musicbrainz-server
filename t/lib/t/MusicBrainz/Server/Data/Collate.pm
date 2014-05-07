@@ -25,7 +25,7 @@ test all => sub {
 
     foreach (0..20)
     {
-        is ($expected[$_], $recs->[$_]->name);
+        is($expected[$_], $recs->[$_]->name);
     }
 
 };

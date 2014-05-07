@@ -18,7 +18,7 @@ sub serialize
     if (defined $inc && $inc->discids)
     {
         $body{discs} = [ map {
-            serialize_entity ($_->cdtoc, $inc, $stash)
+            serialize_entity($_->cdtoc, $inc, $stash)
         } sort_by { $_->cdtoc->discid } $entity->all_cdtocs ];
     }
 

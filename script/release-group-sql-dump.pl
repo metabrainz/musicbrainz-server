@@ -62,7 +62,7 @@ sub insert
     {
         my $col = $dbh->column_info(undef, $schema, $table, $key)->fetchrow_hashref;
 
-        push @values, quote_column ($col->{pg_type}, $val);
+        push @values, quote_column($col->{pg_type}, $val);
     }
 
     my $cmd = "INSERT INTO $table (".join (", ", keys %$data).") ".
@@ -92,15 +92,15 @@ sub update
 
         if ($key eq $primary)
         {
-            $where = "$key = ".quote_column ($col->{pg_type}, $val);
+            $where = "$key = ".quote_column($col->{pg_type}, $val);
         }
         else
         {
-            push @columns, "$key = ".quote_column ($col->{pg_type}, $val);
+            push @columns, "$key = ".quote_column($col->{pg_type}, $val);
         }
     }
 
-    my $cmd = "UPDATE $table SET ".join (", ", @columns)." WHERE $where;";
+    my $cmd = "UPDATE $table SET ".join(", ", @columns)." WHERE $where;";
 
     $insert_dupe_check{$table} = {} unless $insert_dupe_check{$table};
 
@@ -165,7 +165,7 @@ sub get_rows_two_keys
     my @quoted1;
     for (@$values1)
     {
-        push @quoted1, quote_column ($col1->{pg_type}, $_);
+        push @quoted1, quote_column($col1->{pg_type}, $_);
     }
     my $quoted1 = join(", ", @quoted1);
 
@@ -177,7 +177,7 @@ sub generic
     my ($dbh, $table, $col, $key) = @_;
 
     my $data = get_rows($dbh, $table, $col, $key);
-    backup ($dbh, $table, $data);
+    backup($dbh, $table, $data);
 }
 
 sub generic_verbose
@@ -185,7 +185,7 @@ sub generic_verbose
     my ($dbh, $table, $col, $key) = @_;
 
     my $data = get_rows($dbh, $table, $col, $key);
-    backup ($dbh, $table, $data);
+    backup($dbh, $table, $data);
 
     print "Exporting ".$data->[0]->{name}." ($table)\n";
 }
@@ -213,10 +213,10 @@ sub _tag
     my $data = get_rows($dbh, $table, $col, $key);
     for (@$data)
     {
-        generic_verbose ($dbh, 'tag', 'id', $_->{tag});
+        generic_verbose($dbh, 'tag', 'id', $_->{tag});
     }
 
-    backup ($dbh, $table, $data);
+    backup($dbh, $table, $data);
 }
 
 sub link_attribute_type
@@ -228,15 +228,15 @@ sub link_attribute_type
 
     if ($data->[0]->{parent})
     {
-        link_attribute_type ($dbh, $data->[0]->{parent});
+        link_attribute_type($dbh, $data->[0]->{parent});
     }
 
     if ($data->[0]->{root} && $data->[0]->{root} != $key)
     {
-        link_attribute_type ($dbh, $data->[0]->{root});
+        link_attribute_type($dbh, $data->[0]->{root});
     }
 
-    backup ($dbh, 'link_attribute_type', $data);
+    backup($dbh, 'link_attribute_type', $data);
 }
 
 sub link_attribute
@@ -246,9 +246,9 @@ sub link_attribute
     my $data = get_rows($dbh, 'link_attribute', 'link', $key);
     for (@$data)
     {
-        link_attribute_type ($dbh, $_->{attribute_type});
+        link_attribute_type($dbh, $_->{attribute_type});
     }
-    backup ($dbh, 'link_attribute', $data);
+    backup($dbh, 'link_attribute', $data);
 }
 
 
@@ -260,9 +260,9 @@ sub link_type_attribute_type
 
     for (@$data)
     {
-        link_attribute_type ($dbh, $_->{attribute_type});
+        link_attribute_type($dbh, $_->{attribute_type});
     }
-    backup ($dbh, 'link_type_attribute_type', $data);
+    backup($dbh, 'link_type_attribute_type', $data);
 }
 
 sub link_type
@@ -273,11 +273,11 @@ sub link_type
 
     if ($data->[0]->{parent})
     {
-        link_type ($dbh, $data->[0]->{parent});
+        link_type($dbh, $data->[0]->{parent});
     }
 
-    backup ($dbh, 'link_type', $data);
-    link_type_attribute_type ($dbh, $key);
+    backup($dbh, 'link_type', $data);
+    link_type_attribute_type($dbh, $key);
 }
 
 sub l_entity_url
@@ -293,16 +293,16 @@ sub l_entity_url
 
     for my $row (@$data)
     {
-        generic ($dbh, 'url', 'id', $row->{entity1});
+        generic($dbh, 'url', 'id', $row->{entity1});
 
         my $link = get_rows($dbh, 'link', 'id', $row->{link});
 
-        link_type ($dbh, $link->[0]->{link_type});
-        backup ($dbh, 'link', $link);
-        link_attribute ($dbh, $row->{link});
+        link_type($dbh, $link->[0]->{link_type});
+        backup($dbh, 'link', $link);
+        link_attribute($dbh, $row->{link});
     }
 
-    backup ($dbh, $table, $data);
+    backup($dbh, $table, $data);
     return scalar @$data;
 }
 
@@ -319,16 +319,16 @@ sub l_entity_work
 
     for my $row (@$data)
     {
-        work ($dbh, $row->{entity1});
+        work($dbh, $row->{entity1});
 
         my $link = get_rows($dbh, 'link', 'id', $row->{link});
 
-        link_type ($dbh, $link->[0]->{link_type});
-        backup ($dbh, 'link', $link);
-        link_attribute ($dbh, $row->{link});
+        link_type($dbh, $link->[0]->{link_type});
+        backup($dbh, 'link', $link);
+        link_attribute($dbh, $row->{link});
     }
 
-    backup ($dbh, $table, $data);
+    backup($dbh, $table, $data);
     return scalar @$data;
 }
 
@@ -348,12 +348,12 @@ sub l_
     {
         my $link = get_rows($dbh, 'link', 'id', $row->{link});
 
-        link_type ($dbh, $link->[0]->{link_type});
-        backup ($dbh, 'link', $link);
-        link_attribute ($dbh, $row->{link});
+        link_type($dbh, $link->[0]->{link_type});
+        backup($dbh, 'link', $link);
+        link_attribute($dbh, $row->{link});
     }
 
-    backup ($dbh, $table, $data);
+    backup($dbh, $table, $data);
     return scalar @$data;
 }
 
@@ -367,16 +367,16 @@ sub artist
 
     my $data = get_rows($dbh, 'artist', 'id', $id);
 
-    generic ($dbh, 'artist_type', 'id', $data->[0]->{type});
-    generic ($dbh, 'gender', 'id', $data->[0]->{gender});
-    generic ($dbh, 'country', 'id', $data->[0]->{country});
+    generic($dbh, 'artist_type', 'id', $data->[0]->{type});
+    generic($dbh, 'gender', 'id', $data->[0]->{gender});
+    generic($dbh, 'country', 'id', $data->[0]->{country});
 
-    backup ($dbh, 'artist', $data);
+    backup($dbh, 'artist', $data);
 
-    artist_alias ($dbh, $data->[0]->{id});
+    artist_alias($dbh, $data->[0]->{id});
 
-    _meta ($dbh, 'artist_meta', 'id', $id);
-    _tag ($dbh, 'artist_tag', 'artist', $id);
+    _meta($dbh, 'artist_meta', 'id', $id);
+    _tag($dbh, 'artist_tag', 'artist', $id);
 
     $artist_dupe_check{$id} = $data;
 }
@@ -386,7 +386,7 @@ sub artist_alias
     my ($dbh, $id) = @_;
 
     my $data = get_rows($dbh, 'artist_alias', 'artist', $id);
-    backup ($dbh, 'artist_alias', $data);
+    backup($dbh, 'artist_alias', $data);
 }
 
 sub artist_credit_name
@@ -396,9 +396,9 @@ sub artist_credit_name
     my $data = get_rows($dbh, 'artist_credit_name', 'artist_credit', $id);
     for (@$data)
     {
-        artist ($dbh, $_->{artist});
+        artist($dbh, $_->{artist});
     }
-    backup ($dbh, 'artist_credit_name', $data);
+    backup($dbh, 'artist_credit_name', $data);
 }
 
 sub artist_credit
@@ -409,8 +409,8 @@ sub artist_credit
     return unless $tmp;
     my $data = $tmp->[0];
 
-    backup ($dbh, 'artist_credit', $tmp);
-    artist_credit_name ($dbh, $id);
+    backup($dbh, 'artist_credit', $tmp);
+    artist_credit_name($dbh, $id);
 }
 
 sub recording
@@ -420,13 +420,13 @@ sub recording
     $core_entities{recording}{$id} = 1;
 
     my $data = get_rows($dbh, 'recording', 'id', $id);
-    artist_credit ($dbh, $data->[0]->{artist_credit});
-    backup ($dbh, 'recording', $data);
+    artist_credit($dbh, $data->[0]->{artist_credit});
+    backup($dbh, 'recording', $data);
 
-    generic ($dbh, 'isrc', 'recording', $id);
+    generic($dbh, 'isrc', 'recording', $id);
 
-    _meta ($dbh, 'recording_meta', 'id', $id);
-    _tag ($dbh, 'recording_tag', 'recording', $id);
+    _meta($dbh, 'recording_meta', 'id', $id);
+    _tag($dbh, 'recording_tag', 'recording', $id);
 }
 
 sub tracks
@@ -437,10 +437,10 @@ sub tracks
 
     for (@$data)
     {
-        recording ($dbh, $_->{recording});
-        artist_credit ($dbh, $_->{artist_credit});
+        recording($dbh, $_->{recording});
+        artist_credit($dbh, $_->{artist_credit});
     }
-    backup ($dbh, 'track', $data);
+    backup($dbh, 'track', $data);
 }
 
 sub medium_cdtocs
@@ -450,9 +450,9 @@ sub medium_cdtocs
     my $data = get_rows($dbh, 'medium_cdtoc', 'medium', $id);
     for (@$data)
     {
-        generic ($dbh, 'cdtoc', 'id', $_->{cdtoc});
+        generic($dbh, 'cdtoc', 'id', $_->{cdtoc});
     }
-    backup ($dbh, 'medium_cdtoc', $data);
+    backup($dbh, 'medium_cdtoc', $data);
 }
 
 sub media
@@ -463,15 +463,15 @@ sub media
 
     for (@$data)
     {
-        generic ($dbh, 'medium_format', 'id', $_->{format});
+        generic($dbh, 'medium_format', 'id', $_->{format});
     }
 
-    backup ($dbh, 'medium', $data);
+    backup($dbh, 'medium', $data);
 
     for (@$data)
     {
-        medium_cdtocs ($dbh, $_->{id});
-        tracks ($dbh, $_->{id});
+        medium_cdtocs($dbh, $_->{id});
+        tracks($dbh, $_->{id});
     }
 }
 
@@ -483,7 +483,7 @@ sub label_alias
     for (@$data)
     {
     }
-    backup ($dbh, 'label_alias', $data);
+    backup($dbh, 'label_alias', $data);
 }
 
 sub label
@@ -494,12 +494,12 @@ sub label
 
     my $data = get_rows($dbh, 'label', 'id', $id);
 
-    generic ($dbh, 'label_type', 'id', $data->[0]->{type});
-    backup ($dbh, 'label', $data);
-    label_alias ($dbh, $data->[0]->{id});
+    generic($dbh, 'label_type', 'id', $data->[0]->{type});
+    backup($dbh, 'label', $data);
+    label_alias($dbh, $data->[0]->{id});
 
-    _meta ($dbh, 'label_meta', 'id', $id);
-    _tag ($dbh, 'label_tag', 'label', $id);
+    _meta($dbh, 'label_meta', 'id', $id);
+    _tag($dbh, 'label_tag', 'label', $id);
 }
 
 
@@ -510,11 +510,11 @@ sub release_label
     my $data = get_rows($dbh, 'release_label', 'release', $id);
     for (@$data)
     {
-        label ($dbh, $_->{label});
+        label($dbh, $_->{label});
     }
-    backup ($dbh, 'release_label', $data);
+    backup($dbh, 'release_label', $data);
 
-    _meta ($dbh, 'release_meta', 'id', $id);
+    _meta($dbh, 'release_meta', 'id', $id);
 }
 
 sub releases
@@ -527,19 +527,19 @@ sub releases
     {
         $core_entities{release}{$_->{id}} = 1;
 
-        generic ($dbh, 'release_status', 'id', $_->{status});
-        generic ($dbh, 'country', 'id', $_->{country});
-        generic ($dbh, 'language', 'id', $_->{language});
-        generic ($dbh, 'script', 'id', $_->{script});
-        artist_credit ($dbh, $_->{artist_credit});
+        generic($dbh, 'release_status', 'id', $_->{status});
+        generic($dbh, 'country', 'id', $_->{country});
+        generic($dbh, 'language', 'id', $_->{language});
+        generic($dbh, 'script', 'id', $_->{script});
+        artist_credit($dbh, $_->{artist_credit});
     }
 
-    backup ($dbh, 'release', $data);
+    backup($dbh, 'release', $data);
 
     for (@$data)
     {
-        media ($dbh, $_->{id});
-        release_label ($dbh, $_->{id});
+        media($dbh, $_->{id});
+        release_label($dbh, $_->{id});
     }
 
 }
@@ -553,15 +553,15 @@ sub release_group
 
     $core_entities{'release-group'}{$data->{id}} = 1;
 
-    generic ($dbh, 'release_group_primary_type', 'id', $data->{type});
-    artist_credit ($dbh, $data->{artist_credit});
+    generic($dbh, 'release_group_primary_type', 'id', $data->{type});
+    artist_credit($dbh, $data->{artist_credit});
 
-    backup ($dbh, 'release_group', $tmp);
+    backup($dbh, 'release_group', $tmp);
 
-    releases ($dbh, $data->{id});
+    releases($dbh, $data->{id});
 
-    _meta ($dbh, 'release_group_meta', 'id', $data->{id});
-    _tag ($dbh, 'release_group_tag', 'release_group', $data->{id});
+    _meta($dbh, 'release_group_meta', 'id', $data->{id});
+    _tag($dbh, 'release_group_tag', 'release_group', $data->{id});
 }
 
 sub work
@@ -572,12 +572,12 @@ sub work
 
     my $data = get_rows($dbh, 'work', 'id', $id);
 
-    generic ($dbh, 'work_type', 'id', $data->[0]->{type});
-    artist_credit ($dbh, $data->[0]->{artist_credit});
-    backup ($dbh, 'work', $data);
+    generic($dbh, 'work_type', 'id', $data->[0]->{type});
+    artist_credit($dbh, $data->[0]->{artist_credit});
+    backup($dbh, 'work', $data);
 
-    _meta ($dbh, 'work_meta', 'id', $id);
-    _tag ($dbh, 'work_tag', 'work', $id);
+    _meta($dbh, 'work_meta', 'id', $id);
+    _tag($dbh, 'work_tag', 'work', $id);
 }
 
 
@@ -637,11 +637,11 @@ sub relationships
     {
         for my $type1 (@entities)
         {
-            rel_entity_entity ($dbh, $type0, $type1);
+            rel_entity_entity($dbh, $type0, $type1);
         }
 
-        rel_entity_url ($dbh, $type0);
-        rel_entity_work ($dbh, $type0);
+        rel_entity_url($dbh, $type0);
+        rel_entity_work($dbh, $type0);
     }
 }
 
@@ -654,13 +654,13 @@ sub main
                            $readwrite->{username}, $readwrite->{password});
 
     foreach (@ARGV) {
-        release_group ($dbh, $_);
+        release_group($dbh, $_);
     }
 
-    relationships ($dbh);
+    relationships($dbh);
 
     print "Writing output to $outputfile ...\n";
-    open (DUMP, ">$outputfile");
+    open(DUMP, ">$outputfile");
 
     print DUMP "-- Generated by ../../script/webservice_test_data.pl\n\n";
     print DUMP "SET client_min_messages TO 'warning';\n\n";
@@ -678,7 +678,7 @@ sub main
         "FROM (SELECT count(id),medium FROM track GROUP BY medium) tc\n" .
         "WHERE tc.medium = medium.id;\n\n";
 
-    close (DUMP);
+    close(DUMP);
 
     print "Done!\n";
 }

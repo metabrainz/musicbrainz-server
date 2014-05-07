@@ -26,7 +26,7 @@ MB.Control.HeaderMenu = function () {
 
     $('#header-menu > div > ul > li').bind ('mouseenter.mb', function (event) {
         if (self.timeout) {
-            clearTimeout (self.timeout);
+            clearTimeout(self.timeout);
             $('#header-menu ul li ul').css ('left', '-10000px');
         }
 

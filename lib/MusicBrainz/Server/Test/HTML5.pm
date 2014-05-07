@@ -92,7 +92,7 @@ sub save_html
         my ($fh, $filename) = tempfile(
             "html5_ok_XXXX", SUFFIX => $suffix, TMPDIR => 1);
         print $fh encode ("utf-8", $content);
-        close ($fh);
+        close($fh);
         $Test->diag("failed output written to $filename");
     };
 }
@@ -118,7 +118,7 @@ sub xhtml_ok
         {
             $Test->diag($_);
         }
-        save_html ($Test, $content, ".xml");
+        save_html($Test, $content, ".xml");
         return $Test->ok(0, $message);
     }
     else
@@ -187,7 +187,7 @@ sub html5_ok
         $message .= ", Could not connect to ".$url;
     }
 
-    save_html ($Test, $content, ".html") unless $all_ok;
+    save_html($Test, $content, ".html") unless $all_ok;
 
     $Test->ok($all_ok, $message);
 }

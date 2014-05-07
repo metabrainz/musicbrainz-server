@@ -19,10 +19,10 @@ test 'errors' => sub {
     my $mech = $test->mech;
     $mech->default_header("Accept" => "application/json");
     $mech->get('/ws/2/release?recording=7b1f6e95-b523-43b6-a048-810ea5d463a8');
-    is ($mech->status, 404, 'browse releases via non-existent recording');
+    is($mech->status, 404, 'browse releases via non-existent recording');
 
-    is_valid_json ($mech->content);
-    is_json ($mech->content, encode_json ({ error => "Not Found" }));
+    is_valid_json($mech->content);
+    is_json($mech->content, encode_json({ error => "Not Found" }));
 };
 
 test 'browse releases via artist (paging)' => sub {

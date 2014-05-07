@@ -93,8 +93,8 @@ test 'Check conflicts (non-conflicting edits)' => sub {
     ok !exception { $edit_2->accept }, 'accepted edit 2';
 
     my $recording = $c->model('Recording')->get_by_id(1);
-    is ($recording->name, 'Renamed recording', 'recording renamed');
-    is ($recording->comment, 'Comment change', 'comment changed');
+    is($recording->name, 'Renamed recording', 'recording renamed');
+    is($recording->comment, 'Comment change', 'comment changed');
 };
 
 test 'Check conflicts (conflicting edits)' => sub {
@@ -121,9 +121,9 @@ test 'Check conflicts (conflicting edits)' => sub {
     ok  exception { $edit_2->accept }, 'could not accept edit 2';
 
     my $recording = $c->model('Recording')->get_by_id(1);
-    is ($recording->name, 'Renamed recording', 'recording renamed');
-    is ($recording->comment, 'comment FOO', 'comment changed');
-    is ($recording->length, undef);
+    is($recording->name, 'Renamed recording', 'recording renamed');
+    is($recording->comment, 'comment FOO', 'comment changed');
+    is($recording->length, undef);
 };
 
 test 'Submitting a recording edit with an undef comment' => sub {

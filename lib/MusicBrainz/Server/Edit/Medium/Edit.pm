@@ -166,8 +166,8 @@ sub initialize
             my $old = tracks_to_hash($entity->tracks);
             my $new = tracks_to_hash($tracklist);
 
-            unless (Compare(filter_subsecond_differences ($old),
-                            filter_subsecond_differences ($new)))
+            unless (Compare(filter_subsecond_differences($old),
+                            filter_subsecond_differences($new)))
             {
                 $data->{old}{tracklist} = $old;
                 $data->{new}{tracklist} = $new;
@@ -202,7 +202,7 @@ sub foreign_keys {
     push @tracks, @{ $self->data->{new}{tracklist} }
         if exists $self->data->{new}{tracklist};
 
-    tracklist_foreign_keys (\%fk, \@tracks);
+    tracklist_foreign_keys(\%fk, \@tracks);
 
     return \%fk;
 }
