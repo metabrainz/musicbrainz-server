@@ -139,13 +139,13 @@
                         [%- FOR rating IN [ 1 .. 5 ] -%]
                           <!-- ko if: userRating == [% rating * 20 %] -->
                           <a class="stars-[% rating %] remove-rating"
-                             title="[% rating_tooltip (0) %]"
+                             title="[% rating_tooltip(0) %]"
                              data-bind="attr: { href: '/rating/rate?entity_type=recording&entity_id=' + id + '&rating=0' }, text: [% rating %]"></a>
                           <!-- /ko -->
 
                           <!-- ko if: userRating != [% rating * 20 %] -->
                           <a class="stars-[% rating %] set-rating"
-                             title="[% rating_tooltip (rating) %]"
+                             title="[% rating_tooltip(rating) %]"
                              data-bind="attr: { href: '/rating/rate?entity_type=recording&rating=[% rating * 20 %]&entity_id=' + id }, text: [% rating %]"></a>
                           <!-- /ko -->
                         [%- END -%]

@@ -5,7 +5,7 @@
       <ul>
         [% FOR release=edit.display_data.releases %]
         <li>
-           [% link_entity (release) %]
+           [% link_entity(release) %]
         </li>
         [% END %]
       </ul>

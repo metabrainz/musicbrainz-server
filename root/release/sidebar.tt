@@ -3,7 +3,7 @@
         [%- IF (release.cover_art_presence == 'present' AND release_artwork) -%]
           [%- SET cover_art_message = l("Front cover image failed to load correctly.<br/>{all|View all artwork}.",
                                         { all => c.uri_for_action('/release/cover_art', [ release.gid ]) }) -%]
-          [%- display_artwork (release_artwork, cover_art_url(release.cover_art_url), cover_art_message) -%]
+          [%- display_artwork(release_artwork, cover_art_url(release.cover_art_url), cover_art_message) -%]
         [%- ELSIF (release.cover_art_presence != 'darkened' AND release.cover_art_url) -%]
             <img src="[% cover_art_url(release.cover_art_url) -%]" />
             [% host = release.cover_art_url.match('https?://([^/]+)').join('') %]
