@@ -407,10 +407,27 @@ sub exists
     );
 }
 
+sub _check_series_type {
+    my ($self, $series_id, $link_type_id, $entity_type) = @_;
+
+    my $link_type = $self->c->model('LinkType')->get_by_id($link_type_id);
+    return if $link_type->orderable_direction == 0;
+
+    my $series = $self->c->model('Series')->get_by_id($series_id);
+    $self->c->model('SeriesType')->load($series);
+
+    if ($series->type->entity_type ne $entity_type) {
+        die "Incorrect entity type for part of series relationship";
+    }
+}
+
 sub insert
 {
     my ($self, $type0, $type1, $values) = @_;
     $self->_check_types($type0, $type1);
+
+    $self->_check_series_type($values->{entity0_id}, $values->{link_type_id}, $type1) if $type0 eq "series";
+    $self->_check_series_type($values->{entity1_id}, $values->{link_type_id}, $type0) if $type1 eq "series";
 
     my $row = {
         link => $self->c->model('Link')->find_or_insert({
@@ -446,21 +463,24 @@ sub update
         $_ => $values->{$_};
     } qw( link_type_id begin_date end_date attributes ended attribute_text_values );
 
-    my $new = {};
-    $new->{link} = $self->c->model('Link')->find_or_insert(\%link);
-    $new->{entity0} = $values->{entity0_id} if $values->{entity0_id};
-    $new->{entity1} = $values->{entity1_id} if $values->{entity1_id};
-
     my $old = $self->sql->select_single_row_hash(
         "SELECT link, entity0, entity1 FROM l_${type0}_${type1} WHERE id = ?", $id
     );
 
-    $self->sql->update_row("l_${type0}_${type1}", $new, { id => $id });
+    my $new = {};
+    $new->{entity0} = $values->{entity0_id} if $values->{entity0_id};
+    $new->{entity1} = $values->{entity1_id} if $values->{entity1_id};
 
     my $series0 = $type0 eq "series";
     my $series1 = $type1 eq "series";
     my $series0_changed = $series0 && $new->{entity0} && $old->{entity0} != $new->{entity0};
     my $series1_changed = $series1 && $new->{entity1} && $old->{entity1} != $new->{entity1};
+
+    $self->_check_series_type($new->{entity0}, $link{link_type_id}, $type1) if $series0_changed;
+    $self->_check_series_type($new->{entity1}, $link{link_type_id}, $type0) if $series1_changed;
+
+    $new->{link} = $self->c->model('Link')->find_or_insert(\%link);
+    $self->sql->update_row("l_${type0}_${type1}", $new, { id => $id });
 
     $self->c->model('Series')->automatically_reorder($old->{entity0}) if $series0_changed;
     $self->c->model('Series')->automatically_reorder($old->{entity1}) if $series1_changed;

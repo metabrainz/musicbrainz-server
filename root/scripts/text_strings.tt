@@ -182,6 +182,13 @@
         },
         AttributeTextValue: '[% l('{attribute}: {value}') | js %]',
         AttributeTextValueRequired: '[% l('A text value is required.') | js %]',
-        OrderedRelationship: '[% l('{num}. {relationship}') | js %]'
+        OrderedRelationship: '[% l('{num}. {relationship}') | js %]',
+        IncorrectEntityForSeries: {
+            recording: '[% l('The series you’ve selected is for recordings.') | js %]',
+            release: '[% l('The series you’ve selected is for releases.') | js %]',
+            release_group: '[% l('The series you’ve selected is for release groups.') | js %]',
+            work: '[% l('The series you’ve selected is for works.') | js %]'
+
+        }
     });
 })(MB);

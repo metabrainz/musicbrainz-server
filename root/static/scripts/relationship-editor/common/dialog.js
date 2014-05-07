@@ -370,6 +370,11 @@
                 return MB.text.DistinctEntities;
             }
 
+            if (target.entityType === "series" &&
+                    target.type.entityType !== this.source.entityType) {
+                return MB.text.IncorrectEntityForSeries[target.type.entityType];
+            }
+
             return "";
         },
 
