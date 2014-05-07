@@ -190,11 +190,9 @@ sub get_entities {
         };
     };
 
-    my ($rows, $hits) = query_to_list_limited(
+    return query_to_list_limited(
         $self->c->sql, $offset, $limit, $form_row, $query, $series->id, $offset || 0
     );
-
-    return $rows;
 }
 
 sub find_by_subscribed_editor

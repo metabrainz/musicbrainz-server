@@ -39,18 +39,22 @@ test all => sub {
 
     $c->model('SeriesType')->load($l1, $l2);
 
+    my ($items, $hits) = $c->model('Series')->get_entities($l1);
+
     my @recordings = map +{
         gid => $_->{entity}->gid, text_value => $_->{ordering_attribute_value}
-    }, @{ $c->model('Series')->get_entities($l1) };
+    }, @$items;
 
     is_deeply(\@recordings, [
         { gid => '123c079d-374e-4436-9448-da92dedef3ce', text_value => 'A1' },
         { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8', text_value => 'A11' },
     ]);
 
+    ($items, $hits) = $c->model('Series')->get_entities($l2);
+
     @recordings = map +{
         gid => $_->{entity}->gid, text_value => $_->{ordering_attribute_value}
-    }, @{ $c->model('Series')->get_entities($l2) };
+    }, @$items;
 
     is_deeply(\@recordings, [
         { gid => '659f405b-b4ee-4033-868a-0daa27784b89', text_value => 'A10' },
@@ -69,9 +73,11 @@ test all => sub {
 
     $c->model('SeriesType')->load($l1);
 
+    ($items, $hits) = $c->model('Series')->get_entities($l1);
+
     @recordings = map +{
         gid => $_->{entity}->gid, text_value => $_->{ordering_attribute_value}
-    }, @{ $c->model('Series')->get_entities($l1) };
+    }, @$items;
 
     is_deeply(\@recordings, [
         { gid => '123c079d-374e-4436-9448-da92dedef3ce', text_value => 'A1' },
