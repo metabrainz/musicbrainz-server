@@ -188,14 +188,17 @@
 
         attributes: function (ids) {
             if (arguments.length > 0) {
-                var self = this;
                 var typeInfo = this.linkTypeInfo();
 
-                ids = _.transform(ids, attrIDsByRootID, {});
+                if (typeInfo) {
+                    var self = this;
 
-                _.each(typeInfo.attributes, function (attrInfo, id) {
-                    self.attributeValue(id, ids[id] || []);
-                });
+                    ids = _.transform(ids, attrIDsByRootID, {});
+
+                    _.each(typeInfo.attributes, function (attrInfo, id) {
+                        self.attributeValue(id, ids[id] || []);
+                    });
+                }
             } else {
                 return _(this.attributeValues).map(unwrapAttributeValue)
                         .flatten().compact().map(Number).sortBy().value();
