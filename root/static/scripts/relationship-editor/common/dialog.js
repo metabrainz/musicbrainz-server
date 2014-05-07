@@ -55,9 +55,18 @@
 
                 dialog.autocomplete = $(element).autocomplete({
                         entity: dialog.targetType(),
-                        setEntity: dialog.targetType
-                    })
-                    .data("ui-autocomplete");
+                        setEntity: dialog.targetType,
+                        resultHook: function (items) {
+                            if (dialog.autocomplete.entity === "series" &&
+                                    dialog.relationship().linkTypeInfo().orderableDirection !== 0) {
+                                return _.filter(items, function (item) {
+                                    return item.type.entityType === dialog.source.entityType;
+                                });
+                            } else {
+                                return items;
+                            }
+                        }
+                    }).data("ui-autocomplete");
 
                 dialog.autocomplete.currentSelection.subscribe(changeTarget);
 
