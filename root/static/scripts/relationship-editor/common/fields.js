@@ -142,7 +142,7 @@
 
         attributeValue: function (id) {
             var hasChildren = !!MB.attrInfoByID[id].children;
-            var max = this.linkTypeInfo().attributes[id][1];
+            var max = this.linkTypeInfo().attributes[id].max;
             var value = this.attributeValues[id];
 
             if (!value) {
@@ -163,7 +163,9 @@
 
                     return value(hasChildren ? newValue : !!newValue);
                 } else {
-                    return value(_.isArray(newValue) ? newValue.slice(0) : [newValue]);
+                    newValue = _.isArray(newValue) ? newValue.slice(0) : [newValue];
+
+                    return value(flattenAttributeIDs(newValue));
                 }
             }
         },
@@ -200,8 +202,7 @@
                     });
                 }
             } else {
-                return _(this.attributeValues).map(unwrapAttributeValue)
-                        .flatten().compact().map(Number).sortBy().value();
+                return flattenAttributeIDs(_.map(this.attributeValues, unwrapAttributeValue));
             }
         },
 
@@ -373,6 +374,11 @@
     function unwrapAttributeValue(value, rootID) {
         value = ko.unwrap(value);
         return _.isBoolean(value) ? (value ? rootID : null) : value;
+    }
+
+
+    function flattenAttributeIDs(ids) {
+        return _(ids).flatten().compact().map(Number).sortBy().value();
     }
 
 
