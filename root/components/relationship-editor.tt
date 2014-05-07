@@ -19,7 +19,7 @@
   <!-- /ko -->
   <table>
     <tbody>
-      <!-- ko template: { name: "template.dialog-source-entity", "if": source.gid } --><!-- /ko -->
+      <!-- ko template: { name: "template.dialog-source-entity", "if": source.gid && !/^tmp-/.test(source.gid) } --><!-- /ko -->
       <!-- ko template: "template.dialog-link-type" --><!-- /ko -->
       <!-- ko template: "template.dialog-target-entity" --><!-- /ko -->
       <!-- ko template: "template.dialog-attributes" --><!-- /ko -->
