@@ -31,7 +31,7 @@ MB.GuessCase._Area = function () {
     return self;
 };
 
-$('document').ready (function () {
+$('document').ready(function () {
 
     MB.GuessCase.area = MB.GuessCase._Area();
 

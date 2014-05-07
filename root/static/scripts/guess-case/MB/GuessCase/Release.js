@@ -30,7 +30,7 @@ MB.GuessCase._Release = function () {
     return self;
 };
 
-$('document').ready (function () {
+$('document').ready(function () {
 
     MB.GuessCase.release = MB.GuessCase._Release();
     MB.GuessCase["release_group"] = MB.GuessCase.release;

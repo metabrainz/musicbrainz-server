@@ -73,7 +73,7 @@ module("cover art", {
 
 test('iframe mime type', function() {
 
-    var newdoc = $('<iframe>').appendTo('#qunit-fixture').contents ()[0];
+    var newdoc = $('<iframe>').appendTo('#qunit-fixture').contents()[0];
     var input = newdoc.createElement('input');
     newdoc.body.appendChild(input);
     input.id = 'file';
@@ -120,8 +120,8 @@ test('cover art types', function() {
     var types = MB.CoverArt.cover_art_types();
     equal(types ().length, 2, 'two types in observableArray');
     equal(types ()[0].id, 'image/jpeg', 'first type is image/jpeg');
-    equal(types ()[0].checked (), false, 'jpg not checked');
-    equal(types ()[1].checked (), false, 'png not checked');
+    equal(types ()[0].checked(), false, 'jpg not checked');
+    equal(types ()[1].checked(), false, 'png not checked');
 });
 
 

@@ -47,7 +47,7 @@ MB.utility.fullWidthConverter = function (inputString) {
 
     do {
         newString.push(
-            inputString[i-1].replace (/([\uFF01-\uFF5E])/g, function (str, p1) {
+            inputString[i-1].replace(/([\uFF01-\uFF5E])/g, function (str, p1) {
                 return String.fromCharCode(p1.charCodeAt(0) - 65248);
             })
         );
@@ -65,8 +65,8 @@ MB.utility.clone = function (input) { return jQuery.extend(true, {}, input); }
 MB.utility.setDefaultAction = function (form, button) {
 
     var withDataAndEvents = true;
-    $(form).prepend (
-        $(button).clone (withDataAndEvents).removeAttr ('id').css ({
+    $(form).prepend(
+        $(button).clone(withDataAndEvents).removeAttr('id').css({
            position: 'absolute',
            left: "-999px", top: "-999px", height: 0, width: 0
         }));
@@ -78,17 +78,17 @@ MB.utility.rememberCheckbox = function (id, name) {
 
     /* only change the checkbox if the cookie is set, otherwise use the default
        value from the html. */
-    if ($.cookie (name) === "1")
+    if ($.cookie(name) === "1")
     {
         $(id).prop('checked', true);
     }
-    else if ($.cookie (name) === "0")
+    else if ($.cookie(name) === "0")
     {
         $(id).prop('checked', false);
     }
 
-    $(id).bind ('change.mb', function () {
-        $.cookie (name, $(id).is(':checked') ? "1" : "0", { path: '/', expires: 365 });
+    $(id).bind('change.mb', function () {
+        $.cookie(name, $(id).is(':checked') ? "1" : "0", { path: '/', expires: 365 });
     });
 
 };
@@ -141,7 +141,7 @@ MB.utility.unformatTrackLength = function (duration)
         return parseInt(duration, 10);
     }
 
-    var parts = duration.replace(/[:\.]/, ':').split (':');
+    var parts = duration.replace(/[:\.]/, ':').split(':');
     if (parts[0] == '?' || parts[0] == '??' || duration === '')
     {
         return null;
@@ -165,7 +165,7 @@ MB.utility.unformatTrackLength = function (duration)
    interested in the side effects of the functions executed.
 */
 MB.utility.iteratePromises = function (promises) {
-    var deferred = $.Deferred ();
+    var deferred = $.Deferred();
     var queue = promises;
     var iterate = null;
     var failed = false;
@@ -173,7 +173,7 @@ MB.utility.iteratePromises = function (promises) {
     iterate = function () {
         if (queue.length > 0)
         {
-            queue.shift()().then (iterate, function () {
+            queue.shift()().then(iterate, function () {
                 failed = true;
                 iterate();
             });

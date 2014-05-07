@@ -32,7 +32,7 @@ MB.GuessCase._Label = function () {
     return self;
 };
 
-$('document').ready (function () {
+$('document').ready(function () {
 
     MB.GuessCase.label = MB.GuessCase._Label();
 

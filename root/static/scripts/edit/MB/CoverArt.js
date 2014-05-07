@@ -21,7 +21,7 @@
 MB.CoverArt = {};
 
 MB.CoverArt.get_image_mime_type = function () {
-    var filename = $('iframe').contents().find ('#file').val();
+    var filename = $('iframe').contents().find('#file').val();
     var mime_type = null;
 
     if (filename.match(/\.j(peg|pg|pe|fif|if)$/i))
@@ -227,7 +227,7 @@ MB.CoverArt.upload_image = function (postfields, file) {
 
     var formdata = new FormData();
     formdata.append("file", file);
-    $.each (postfields.formdata, function (key, val) {
+    $.each(postfields.formdata, function (key, val) {
         formdata.append(key, val);
     });
 
@@ -284,7 +284,7 @@ MB.CoverArt.submit_edit = function (file_upload, postfields, mime_type, position
         formdata.append('add-cover-art.as_auto_editor', 'on');
     }
 
-    _(file_upload.types()).each (function (checkbox) {
+    _(file_upload.types()).each(function (checkbox) {
         if (checkbox.checked())
         {
             formdata.append('add-cover-art.type_id', checkbox.id);
@@ -311,7 +311,7 @@ MB.CoverArt.submit_edit = function (file_upload, postfields, mime_type, position
         deferred.reject("create edit aborted");
     });
 
-    xhr.open("POST", $('#add-cover-art').attr ('action'));
+    xhr.open("POST", $('#add-cover-art').attr('action'));
     xhr.send(formdata);
 
     return deferred.promise();
@@ -356,10 +356,10 @@ MB.CoverArt.FileUpload = function(file) {
     });
 
     self.validating = MB.CoverArt.validate_file(self.data)
-        .fail (function () {
+        .fail(function () {
             self.status(statuses.validate_error)
         })
-        .done (function (mime_type) {
+        .done(function (mime_type) {
             self.mime_type(mime_type);
             self.status(statuses.waiting)
         });
@@ -458,7 +458,7 @@ MB.CoverArt.UploadProcessViewModel = function () {
     }
 
     self.moveFile = function (to_move, direction) {
-        var new_pos = self.files_to_upload().indexOf (to_move) + direction;
+        var new_pos = self.files_to_upload().indexOf(to_move) + direction;
         if (new_pos < 0 || new_pos >= self.files_to_upload().length)
             return
 
@@ -485,16 +485,16 @@ MB.CoverArt.add_cover_art_submit = function (gid, upvm) {
     $('.add-files.row').hide();
     $('#cover-art-position-row').hide();
     $('#content')[0].scrollIntoView();
-    $('#add-cover-art-submit').prop ('disabled', true);
+    $('#add-cover-art-submit').prop('disabled', true);
 
     var queue = MB.CoverArt.process_upload_queue(gid, upvm, pos);
 
     MB.utility.iteratePromises(queue)
-        .done (function () {
+        .done(function () {
             window.location.href = '/release/' + gid + '/cover-art';
         })
-        .fail (function () {
-            $('#add-cover-art-submit').prop ('disabled', false);
+        .fail(function () {
+            $('#add-cover-art-submit').prop('disabled', false);
         });
 };
 
@@ -520,50 +520,50 @@ MB.CoverArt.add_cover_art = function (gid) {
         var upvm = new MB.CoverArt.UploadProcessViewModel();
         ko.applyBindings(upvm);
 
-        $(document).on ('click', 'button.cancel-file', function (event) {
+        $(document).on('click', 'button.cancel-file', function (event) {
             event.preventDefault();
             upvm.files_to_upload.remove(ko.dataFor(this));
         });
 
-        $(document).on ('click', 'input.file-up', function (event) {
+        $(document).on('click', 'input.file-up', function (event) {
             event.preventDefault();
             upvm.moveFile(ko.dataFor(this), -1);
         });
 
-        $(document).on ('click', 'input.file-down', function (event) {
+        $(document).on('click', 'input.file-down', function (event) {
             event.preventDefault();
             upvm.moveFile(ko.dataFor(this), 1);
         });
 
-        $('button.add-files').on ('click', function (event) {
-            $('input.add-files').trigger ('click');
+        $('button.add-files').on('click', function (event) {
+            $('input.add-files').trigger('click');
         });
 
-        $('input.add-files').on ('change', function (event) {
-            $.each ($('input.add-files')[0].files, function (idx, file) {
+        $('input.add-files').on('change', function (event) {
+            $.each($('input.add-files')[0].files, function (idx, file) {
                 upvm.addFile(file);
             });
 
-            $('#add-cover-art-submit').prop ('disabled', false);
+            $('#add-cover-art-submit').prop('disabled', false);
         });
 
-        $('#drop-zone').on ('dragover', function (event) {
+        $('#drop-zone').on('dragover', function (event) {
             event.preventDefault();
             event.stopPropagation();
             event.originalEvent.dataTransfer.dropEffect = 'copy';
         });
 
-        $('#drop-zone').on ('drop', function (event) {
+        $('#drop-zone').on('drop', function (event) {
             event.preventDefault();
             event.stopPropagation();
-            $.each (event.originalEvent.dataTransfer.files, function (idx, file) {
+            $.each(event.originalEvent.dataTransfer.files, function (idx, file) {
                 upvm.addFile(file);
             });
 
-            $('#add-cover-art-submit').prop ('disabled', false);
+            $('#add-cover-art-submit').prop('disabled', false);
         });
 
-        $('#add-cover-art-submit').on ('click.mb', function (event) {
+        $('#add-cover-art-submit').on('click.mb', function (event) {
             event.preventDefault();
             MB.CoverArt.set_position();
             MB.CoverArt.add_cover_art_submit(gid, upvm);
@@ -574,7 +574,7 @@ MB.CoverArt.add_cover_art = function (gid) {
         $('.without-formdata').show();
         $('#add-cover-art-submit').prop('disabled', false);
 
-        $('#add-cover-art-submit').on ('click.mb', function (event) {
+        $('#add-cover-art-submit').on('click.mb', function (event) {
             event.preventDefault();
             MB.CoverArt.set_position();
 
@@ -588,7 +588,7 @@ MB.CoverArt.add_cover_art = function (gid) {
             }
             else
             {
-                $('iframe').contents().find ('#cover-art-file-error').show();
+                $('iframe').contents().find('#cover-art-file-error').show();
             }
 
             return false;

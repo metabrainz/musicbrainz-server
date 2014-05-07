@@ -458,7 +458,7 @@ $.widget("ui.menu", $.ui.menu, {
 
 MB.Control.autocomplete_formatters = {
     "generic": function (ul, item) {
-        var a = $("<a>").text (item.name);
+        var a = $("<a>").text(item.name);
 
         var comment = [];
 
@@ -483,11 +483,11 @@ MB.Control.autocomplete_formatters = {
                       _.escape(comment.join(", ")) + ')</span>');
         }
 
-        return $("<li>").append (a).appendTo (ul);
+        return $("<li>").append(a).appendTo(ul);
     },
 
     "recording": function (ul, item) {
-        var a = $("<a>").text (item.name);
+        var a = $("<a>").text(item.name);
 
         if (item.length)
         {
@@ -515,7 +515,7 @@ MB.Control.autocomplete_formatters = {
         if (item.appearsOn && item.appearsOn.hits > 0)
         {
             var rgs = [];
-            $.each (item.appearsOn.results, function (idx, item) {
+            $.each(item.appearsOn.results, function (idx, item) {
                 rgs.push(item.name);
             });
 
@@ -537,11 +537,11 @@ MB.Control.autocomplete_formatters = {
                       _.escape(item.isrcs.join(", ")) + '</span>');
         }
 
-        return $("<li>").append (a).appendTo (ul);
+        return $("<li>").append(a).appendTo(ul);
     },
 
     "release-group": function (ul, item) {
-        var a = $("<a>").text (item.name);
+        var a = $("<a>").text(item.name);
 
         if (item.firstReleaseDate)
         {
@@ -560,11 +560,11 @@ MB.Control.autocomplete_formatters = {
                     _.escape(item.artist) + '</span>');
         }
 
-        return $("<li>").append (a).appendTo (ul);
+        return $("<li>").append(a).appendTo(ul);
     },
 
     "work": function (ul, item) {
-        var a = $("<a>").text (item.name);
+        var a = $("<a>").text(item.name);
         var comment = [];
 
         if (item.language)
@@ -608,11 +608,11 @@ MB.Control.autocomplete_formatters = {
             artistRenderer("Artists", item.artists.artists);
         }
 
-        return $("<li>").append (a).appendTo (ul);
+        return $("<li>").append(a).appendTo(ul);
     },
 
     "area": function (ul, item) {
-        var a = $("<a>").text (item.name);
+        var a = $("<a>").text(item.name);
 
         if (item.comment)
         {
@@ -631,11 +631,11 @@ MB.Control.autocomplete_formatters = {
                        '</span>');
         };
 
-        return $("<li>").append (a).appendTo (ul);
+        return $("<li>").append(a).appendTo(ul);
     },
 
     "place": function (ul, item) {
-        var a = $("<a>").text (item.name);
+        var a = $("<a>").text(item.name);
 
         var comment = [];
 
@@ -663,7 +663,7 @@ MB.Control.autocomplete_formatters = {
                        '</span>');
         };
 
-        return $("<li>").append (a).appendTo (ul);
+        return $("<li>").append(a).appendTo(ul);
     },
 
     "instrument": function (ul, item) {

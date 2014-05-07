@@ -31,7 +31,7 @@ MB.GuessCase._Place = function () {
     return self;
 };
 
-$('document').ready (function () {
+$('document').ready(function () {
 
     MB.GuessCase.place = MB.GuessCase._Place();
 

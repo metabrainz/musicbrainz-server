@@ -25,13 +25,13 @@ MB.Control.FilterButton = function () {
         if (self.loaded) {
             self.$filter.show();
             self.state = true;
-            $.cookie ('filter', '1', { path: '/' });
+            $.cookie('filter', '1', { path: '/' });
         }
         else {
-            $.ajax ({
+            $.ajax({
                 url: self.filter_ajax_form_url,
                 success: function (data) {
-                    self.$filter.find('input[type=hidden]').before ($.parseHTML(data));
+                    self.$filter.find('input[type=hidden]').before($.parseHTML(data));
                     self.show();
                 }
             });
@@ -42,15 +42,15 @@ MB.Control.FilterButton = function () {
     self.hide = function () {
         self.$filter.hide();
         self.state = false;
-        $.cookie ('filter', '', { path: '/' });
+        $.cookie('filter', '', { path: '/' });
     }
 
-    self.filter_ajax_form_url = $('#filter_ajax_form_url').val ();
+    self.filter_ajax_form_url = $('#filter_ajax_form_url').val();
     self.$filter = $('#filter');
     self.loaded = self.$filter.find('button').length > 0;
-    self.state = $.cookie ('filter') == '1';
+    self.state = $.cookie('filter') == '1';
 
-    $('.filter-button').bind ('click.mb', function () {
+    $('.filter-button').bind('click.mb', function () {
         if (self.state) {
             self.hide();
         }
@@ -70,7 +70,7 @@ MB.Control.FilterButton = function () {
     return self;
 }
 
-$(document).ready (function() {
+$(document).ready(function() {
     MB.Control.filter_button = MB.Control.FilterButton();
 });
 

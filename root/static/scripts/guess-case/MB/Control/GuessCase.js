@@ -25,7 +25,7 @@ MB.Control.GuessCase = function (type, $name) {
     self.$name = $name;
 
     self.guessCase = function () {
-        self.$name.val(MB.GuessCase[self.type].guess (self.$name.val()));
+        self.$name.val(MB.GuessCase[self.type].guess(self.$name.val()));
     };
 
     return self;
@@ -40,7 +40,7 @@ MB.Control.SortName = function (type, $name, $sortname, $cont) {
     self.$sortname = $sortname;
 
     self.sortname = function (event) {
-        self.$sortname.val(MB.GuessCase[self.type].sortname (self.$name.val()));
+        self.$sortname.val(MB.GuessCase[self.type].sortname(self.$name.val()));
 
         event.preventDefault();
     };
@@ -94,11 +94,11 @@ MB.Control.initialize_guess_case = function (type, form_prefix) {
         MB.Control.initializeBubble($sortdoc, $sortname);
         if (type === 'artist')
         {
-            MB.Control.ArtistSortName(type, $name, $sortname).initialize ();
+            MB.Control.ArtistSortName(type, $name, $sortname).initialize();
         }
         else
         {
-            MB.Control.SortName(type, $name, $sortname, $('body')).initialize ();
+            MB.Control.SortName(type, $name, $sortname, $('body')).initialize();
         }
     }
 };

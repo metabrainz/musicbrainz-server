@@ -32,7 +32,7 @@ MB.GuessCase._Artist = function () {
     return self;
 };
 
-$('document').ready (function () {
+$('document').ready(function () {
 
     MB.GuessCase.artist = MB.GuessCase._Artist();
 

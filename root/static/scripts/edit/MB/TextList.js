@@ -29,7 +29,7 @@ MB.Form.TextList = function (input) {
     var last_item = input;
 
     self.removeEvent = function (event) {
-        $(this).closest ('div.text-list-row').remove();
+        $(this).closest('div.text-list-row').remove();
     };
 
     self.init = function(max_index) {
@@ -44,19 +44,19 @@ MB.Form.TextList = function (input) {
 
     self.add = function (init_value) {
         $template.clone()
-            .removeClass (template)
-            .insertAfter ($template.parent().find ('div.text-list-row').last ())
-            .show ()
-            .find ('input.value').attr ("name", input + '.' + counter).val (init_value)
-            .end ()
-            .find ('button.remove').bind ('click.mb', self.removeEvent);
+            .removeClass(template)
+            .insertAfter($template.parent().find('div.text-list-row').last())
+            .show()
+            .find('input.value').attr("name", input + '.' + counter).val(init_value)
+            .end()
+            .find('button.remove').bind('click.mb', self.removeEvent);
 
         counter++;
 
         return self;
     };
 
-    $template.parent().find ('button.add').bind ('click.mb', function (event) {
+    $template.parent().find('button.add').bind('click.mb', function (event) {
         var parts = last_item.split('.');
         var field_name = parts.pop();
         var idx = parseInt(parts.pop(), 10) + 1;

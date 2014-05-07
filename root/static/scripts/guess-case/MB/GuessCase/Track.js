@@ -32,7 +32,7 @@ MB.GuessCase._Track = function () {
         }
 
         var ret = [];
-        $.each (data, function (idx, line) {
+        $.each(data, function (idx, line) {
             ret.push(self.gc.guessTrack(line));
         });
 
@@ -45,7 +45,7 @@ MB.GuessCase._Track = function () {
     return self;
 };
 
-$('document').ready (function () {
+$('document').ready(function () {
 
     MB.GuessCase.track = MB.GuessCase._Track();
     MB.GuessCase.recording = MB.GuessCase.track;

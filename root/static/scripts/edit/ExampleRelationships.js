@@ -27,7 +27,7 @@ ERE.init = function(config) {
     ERE.viewModel.availableEntityTypes(
         _.chain([ type0, type1 ]).uniq().map(function (value) {
             return { 'value': value, 'text': MB.text.Entity[value] };
-        }).value ());
+        }).value());
 
     ko.bindingHandlers.checkObject = {
         init: function (element, valueAccessor, all, vm, bindingContext) {

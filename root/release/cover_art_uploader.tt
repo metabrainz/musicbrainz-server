@@ -30,11 +30,11 @@
           });
           postfields.done(function (data, status, jqxhr) {
               var $form = $('#add-cover-art');
-              $.each (data.formdata, function (key, value) {
+              $.each(data.formdata, function (key, value) {
                   $('<input type="hidden" />').
-                      attr('name', key).val(value).appendTo ($form);
+                      attr('name', key).val(value).appendTo($form);
               })
-              $form[0].submit ();
+              $form[0].submit();
           });
         };
     </script>
