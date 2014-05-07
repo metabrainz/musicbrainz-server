@@ -198,6 +198,7 @@
         entityType: "series",
 
         after$init: function (data) {
+            this.type = data.type;
             this.orderingTypeID = ko.observable(data.orderingTypeID);
             this.orderingAttributeID = ko.observable(data.orderingAttributeID);
         }

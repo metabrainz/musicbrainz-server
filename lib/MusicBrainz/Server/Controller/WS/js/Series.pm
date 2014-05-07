@@ -31,4 +31,10 @@ sub search : Chained('root') PathPart('series') {
     $self->dispatch_search($c);
 }
 
+after _load_entities => sub {
+    my ($self, $c, @entities) = @_;
+
+    $c->model('SeriesType')->load(@entities);
+};
+
 1;

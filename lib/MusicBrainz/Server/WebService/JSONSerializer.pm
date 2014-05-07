@@ -648,7 +648,11 @@ sub _series {
         id                  => $series->id,
         gid                 => $series->gid,
         comment             => $series->comment,
-        typeID              => $series->type_id,
+        type => {
+            id          => $series->type_id,
+            name        => $series->type->l_name,
+            entityType  => $series->type->entity_type,
+        },
         orderingAttributeID => $series->ordering_attribute_id,
         orderingTypeID      => $series->ordering_type_id,
         entityType          => 'series',
