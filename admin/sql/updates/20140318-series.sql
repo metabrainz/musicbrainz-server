@@ -516,12 +516,11 @@ INSERT INTO series_ordering_type (name, parent, child_order, description) VALUES
 INSERT INTO series_alias_type (name) VALUES ('Series name'), ('Search hint');
 
 INSERT INTO link_attribute_type (root, child_order, gid, name, description) VALUES
-    (
-        currval('link_attribute_type_id_seq'), 0,
-        :ORDERING_ATTRIBUTE_GID,
-        'ordering',
-        'This attribute indicates the number of a work in a series.'
+    (1, 0, :ORDERING_ATTRIBUTE_GID, 'ordering',
+     'This attribute indicates the number of a work in a series.'
     );
+
+UPDATE link_attribute_type SET root = id WHERE gid = :ORDERING_ATTRIBUTE_GID;
 
 INSERT INTO link_attribute_type (root, parent, child_order, gid, name, description) VALUES
     ((SELECT id FROM link_attribute_type WHERE gid = :ORDERING_ATTRIBUTE_GID),
