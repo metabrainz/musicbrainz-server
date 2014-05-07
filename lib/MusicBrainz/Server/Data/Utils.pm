@@ -345,7 +345,7 @@ sub trim {
 
     $t = remove_invalid_characters($t);
 
-    return collapse_whitespace ($t);
+    return collapse_whitespace($t);
 }
 
 sub remove_invalid_characters {

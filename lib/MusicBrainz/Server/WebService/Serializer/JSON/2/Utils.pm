@@ -105,7 +105,7 @@ sub count_of
     my $list = $opts->{$type};
     my $items = (ref $list eq 'HASH') ? $list->{items} : $list;
 
-    return number (scalar @$items);
+    return number(scalar @$items);
 }
 
 1;

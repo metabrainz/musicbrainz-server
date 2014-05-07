@@ -147,7 +147,7 @@ sub get_rows
     my $col = $dbh->column_info(undef, $schema, $table, $key)->fetchrow_hashref;
     my $quoted = quote_column($col->{pg_type}, $value);
 
-    return query ($dbh, $table, "SELECT * FROM $table WHERE $key = $quoted");
+    return query($dbh, $table, "SELECT * FROM $table WHERE $key = $quoted");
 }
 
 sub get_rows_two_keys
@@ -169,7 +169,7 @@ sub get_rows_two_keys
     }
     my $quoted1 = join(", ", @quoted1);
 
-    return query ($dbh, $table, "SELECT * FROM $table WHERE $key0 = $quoted0 AND $key1 IN ($quoted1)");
+    return query($dbh, $table, "SELECT * FROM $table WHERE $key0 = $quoted0 AND $key1 IN ($quoted1)");
 }
 
 sub generic

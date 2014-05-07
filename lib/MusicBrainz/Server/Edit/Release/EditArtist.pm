@@ -114,7 +114,7 @@ sub initialize {
     my $old = clean_submitted_artist_credits($release->artist_credit);
 
     MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
-        if Compare ($old, $new);
+        if Compare($old, $new);
 
     $self->data({
         release => {

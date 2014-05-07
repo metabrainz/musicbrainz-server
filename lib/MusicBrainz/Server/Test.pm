@@ -99,7 +99,7 @@ sub _load_query
     # comment PostgreSQL interactive terminal commands.
     $query =~ s/^(\\.*)$/-- $1/mg;
 
-    return decode ("utf-8", $query);
+    return decode("utf-8", $query);
 }
 
 sub prepare_test_database

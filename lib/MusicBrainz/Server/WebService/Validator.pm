@@ -315,7 +315,7 @@ role {
             next if ($c->req->method ne $def->[1]->{method});
 
             # Check to make sure that required arguments are present
-            next unless validate_required ($c, $def->[1]->{required});
+            next unless validate_required($c, $def->[1]->{required});
 
             my $linked;
             if ($def->[1]->{linked})

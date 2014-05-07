@@ -138,7 +138,7 @@ MB.utility.unformatTrackLength = function (duration)
 
     if (duration.slice(-2) == 'ms')
     {
-        return parseInt (duration, 10);
+        return parseInt(duration, 10);
     }
 
     var parts = duration.replace(/[:\.]/, ':').split (':');
@@ -265,7 +265,7 @@ MB.utility.joinList = function (items) {
 
 MB.utility.filesize = function (size) {
     /* 1 decimal place.  false disables bit sizes. */
-    return filesize (size, 1, false);
+    return filesize(size, 1, false);
 };
 
 MB.utility.percentOf = function(x, y) {

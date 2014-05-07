@@ -268,7 +268,7 @@ around extract_property => sub {
         }
 
         when ('barcode') {
-            return merge_barcode ($ancestor, $current, $new);
+            return merge_barcode($ancestor, $current, $new);
         }
 
         default {

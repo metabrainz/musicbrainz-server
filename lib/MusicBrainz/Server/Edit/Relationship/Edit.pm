@@ -230,8 +230,8 @@ sub adjust_edit_pending
 sub _mapping
 {
     return (
-        begin_date => sub { return partial_date_to_hash (shift->link->begin_date); },
-        end_date =>   sub { return partial_date_to_hash (shift->link->end_date);   },
+        begin_date => sub { return partial_date_to_hash(shift->link->begin_date); },
+        end_date =>   sub { return partial_date_to_hash(shift->link->end_date);   },
         ended => sub { return shift->link->ended },
         attributes => sub { return [ map { $_->id } shift->link->all_attributes ]; },
         link_type => sub {

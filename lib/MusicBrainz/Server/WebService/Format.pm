@@ -31,7 +31,7 @@ role {
 
         if (defined $fmt)
         {
-            return _instance ($formats{$fmt}) if $formats{$fmt};
+            return _instance($formats{$fmt}) if $formats{$fmt};
         }
         else
         {
@@ -41,7 +41,7 @@ role {
 
             my $match = best_match([ keys %accepted ], $accept);
 
-            return _instance ($accepted{$match}) if $match;
+            return _instance($accepted{$match}) if $match;
         }
 
         $c->stash->{error} = 'Invalid format. Either set an Accept header'

@@ -62,11 +62,11 @@ sub format_message
 
     if ($opts{ignored})
     {
-        return sprintf ("%s (ignored): %s", $msg->{type}, $msg->{message});
+        return sprintf("%s (ignored): %s", $msg->{type}, $msg->{message});
     }
     else
     {
-        return sprintf ("%s%s: %s\n ⤷ line %d (col %d): %s", $msg->{type},
+        return sprintf("%s%s: %s\n ⤷ line %d (col %d): %s", $msg->{type},
                         $ignored, $msg->{message}, $msg->{lastLine},
                         $msg->{firstColumn}, $msg->{extract});
 

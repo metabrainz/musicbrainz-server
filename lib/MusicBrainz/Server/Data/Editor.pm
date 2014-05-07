@@ -191,7 +191,7 @@ sub find_by_privileges
                  FROM " . $self->_table . "
                  WHERE (privs & ?) > 0
                  ORDER BY editor.name, editor.id";
-    return query_to_list (
+    return query_to_list(
         $self->c->sql, sub { $self->_new_from_row(@_) },
         $query, $privs);
 }
@@ -465,7 +465,7 @@ sub editors_with_subscriptions
                         ep.name = 'subscriptions_email_period'
                   WHERE editor.id IN ($ids)";
 
-    return query_to_list (
+    return query_to_list(
         $self->c->sql, sub {
             my $editor = $self->_new_from_row(@_);
             $editor->preferences->subscriptions_email_period($_[0]->{prefs_value})

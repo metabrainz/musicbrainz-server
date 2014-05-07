@@ -23,7 +23,7 @@ sub get_session_data {
     else
     {
         my $data = $self->_datastore->get($key);
-        return thaw (decode_base64 ($data)) if defined $data;
+        return thaw(decode_base64 ($data)) if defined $data;
     }
 }
 

@@ -161,7 +161,7 @@ sub attach : Local DenyWhenReadOnly
 
         $self->error($c, status => HTTP_BAD_REQUEST,
                      message => l('The provided medium id is not valid')
-            ) unless looks_like_number ($medium_id);
+            ) unless looks_like_number($medium_id);
 
         $self->error(
             $c,
@@ -203,7 +203,7 @@ sub attach : Local DenyWhenReadOnly
 
         $self->error($c, status => HTTP_BAD_REQUEST,
                      message => l('The provided artist id is not valid')
-            ) unless looks_like_number ($artist_id);
+            ) unless looks_like_number($artist_id);
 
         # List releases
         my $artist = $c->model('Artist')->get_by_id($artist_id);
@@ -326,7 +326,7 @@ sub move : Local Edit
     if (my $medium_id = $c->req->query_params->{medium}) {
         $self->error($c, status => HTTP_BAD_REQUEST,
                      message => l('The provided medium id is not valid')
-            ) unless looks_like_number ($medium_id);
+            ) unless looks_like_number($medium_id);
 
         my $medium = $c->model('Medium')->get_by_id($medium_id);
         $c->model('MediumFormat')->load($medium);
