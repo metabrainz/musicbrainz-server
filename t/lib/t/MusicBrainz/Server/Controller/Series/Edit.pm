@@ -10,7 +10,7 @@ test all => sub {
     my $mech = $test->mech;
     my $c = $test->c;
 
-    MusicBrainz::Server::Test->prepare_test_database($c);
+    MusicBrainz::Server::Test->prepare_test_database($c, '+series');
 
     $mech->get_ok('/login');
     $mech->submit_form(with_fields => { username => 'new_editor', password => 'password' });
@@ -22,7 +22,7 @@ test all => sub {
         with_fields => {
             'edit-series.name' => 'New Name!',
             'edit-series.comment' => 'new comment!',
-            'edit-series.ordering_attribute_id' => 6,
+            'edit-series.ordering_attribute_id' => 2,
             'edit-series.ordering_type_id' => 2,
         }
     );
@@ -38,14 +38,14 @@ test all => sub {
         new => {
             name => 'New Name!',
             comment => 'new comment!',
-            ordering_attribute_id => 6,
+            ordering_attribute_id => 2,
             ordering_type_id => 2,
 
         },
         old => {
             name => 'Test Recording Series',
             comment => 'test comment 1',
-            ordering_attribute_id => 7,
+            ordering_attribute_id => 3,
             ordering_type_id => 1,
         }
     });

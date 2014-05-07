@@ -10,7 +10,7 @@ test all => sub {
     my $mech = $test->mech;
     my $c = $test->c;
 
-    MusicBrainz::Server::Test->prepare_test_database($c);
+    MusicBrainz::Server::Test->prepare_test_database($c, '+series');
 
     $mech->get_ok('/login');
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
@@ -24,9 +24,9 @@ test all => sub {
                 'edit-series.name' => 'totally nonexistent series',
                 'edit-series.comment' => 'a comment longer than the name :(',
                 'edit-series.type_id' => 2,
-                'edit-series.ordering_attribute_id' => 6,
+                'edit-series.ordering_attribute_id' => 2,
                 'edit-series.ordering_type_id' => 1,
-                'edit-series.url.0.link_type_id' => 5,
+                'edit-series.url.0.link_type_id' => 3,
                 'edit-series.url.0.text' => 'http://en.wikipedia.org/wiki/Totally_Nonexistent_Series',
             }
         );
@@ -43,7 +43,7 @@ test all => sub {
         name => 'totally nonexistent series',
         comment => 'a comment longer than the name :(',
         type_id => 2,
-        ordering_attribute_id => 6,
+        ordering_attribute_id => 2,
         ordering_type_id => 1,
     });
 
@@ -52,17 +52,17 @@ test all => sub {
         type1 => 'url',
         entity0 => {
             name => 'totally nonexistent series',
-            id => 5
+            id => 4
         },
         entity1 => {
             name => 'http://en.wikipedia.org/wiki/Totally_Nonexistent_Series',
-            id => 2
+            id => 1
         },
         link_type => {
             long_link_phrase => 'has a Wikipedia page at',
             link_phrase => 'Wikipedia',
             name => 'wikipedia',
-            id => 5,
+            id => 3,
             reverse_link_phrase => 'Wikipedia page for'
         },
         ended => 0,
