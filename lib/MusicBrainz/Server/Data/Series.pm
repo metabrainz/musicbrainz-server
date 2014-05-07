@@ -103,6 +103,14 @@ sub _merge_impl {
 
     $self->_delete_and_redirect_gids('series', $new_id, @old_ids);
 
+    my $ordering_type = $self->c->sql->select_single_value(
+        'SELECT ordering_type FROM series WHERE id = ?', $new_id
+    );
+
+    if ($ordering_type == $SERIES_ORDERING_TYPE_AUTOMATIC) {
+        $self->c->model('Series')->automatically_reorder($new_id);
+    }
+
     return 1;
 }
 
@@ -182,9 +190,11 @@ sub get_entities {
         };
     };
 
-    return query_to_list_limited(
+    my ($rows, $hits) = query_to_list_limited(
         $self->c->sql, $offset, $limit, $form_row, $query, $series->id, $offset || 0
     );
+
+    return $rows;
 }
 
 sub find_by_subscribed_editor

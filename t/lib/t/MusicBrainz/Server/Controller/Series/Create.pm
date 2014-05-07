@@ -3,7 +3,9 @@ use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( html_ok capture_edits );
 
-with 't::Mechanize', 't::Context';
+with 't::Edit';
+with 't::Mechanize';
+with 't::Context';
 
 test all => sub {
     my $test = shift;
@@ -13,7 +15,7 @@ test all => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+series');
 
     $mech->get_ok('/login');
-    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+    $mech->submit_form( with_fields => { username => 'editor', password => 'pass' } );
 
     $mech->get_ok('/series/create');
     html_ok($mech->content);

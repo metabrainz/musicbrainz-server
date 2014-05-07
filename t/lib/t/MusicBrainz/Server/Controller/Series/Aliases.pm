@@ -3,7 +3,9 @@ use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( html_ok );
 
-with 't::Mechanize', 't::Context';
+with 't::Edit';
+with 't::Mechanize';
+with 't::Context';
 
 test all => sub {
     my $test = shift;
