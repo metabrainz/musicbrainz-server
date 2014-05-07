@@ -241,19 +241,8 @@ role {
                     my $orderable_direction = $link_type->orderable_direction;
 
                     if ($orderable_direction != 0 && $field->{link_order} != $relationship->link_order) {
-                        my $orderable_entity;
-                        my $unorderable_entity;
-
-                        if ($orderable_direction == 1) {
-                            $orderable_entity = $relationship->entity1;
-                            $unorderable_entity = $relationship->entity0;
-                        }
-
-                        if ($orderable_direction == 2) {
-                            $orderable_entity = $relationship->entity0;
-                            $unorderable_entity = $relationship->entity1;
-                        }
-
+                        my $orderable_entity = $orderable_direction == 1 ? $relationship->entity1 : $relationship->entity0;
+                        my $unorderable_entity = $orderable_direction == 1 ? $relationship->entity0 : $relationship->entity1;
                         my $is_series = $unorderable_entity->isa('MusicBrainz::Server::Entity::Series');
 
                         if (!$is_series || $unorderable_entity->ordering_type_id == $SERIES_ORDERING_TYPE_MANUAL) {
