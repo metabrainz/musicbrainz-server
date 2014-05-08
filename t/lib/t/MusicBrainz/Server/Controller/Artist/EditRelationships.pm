@@ -1,5 +1,6 @@
 package t::MusicBrainz::Server::Controller::Artist::EditRelationships;
 use utf8;
+use Test::Deep qw( cmp_deeply bag );
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( capture_edits );
@@ -38,7 +39,7 @@ test 'adding a relationship' => sub {
 
     isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Create');
 
-    is_deeply($edit->data,  {
+    cmp_deeply($edit->data,  {
         type1       => 'recording',
         type0       => 'artist',
         link_type   => {
@@ -53,7 +54,7 @@ test 'adding a relationship' => sub {
         begin_date  => { year => 1999, month => 1, day => 1 },
         end_date    => { year => 1999, month => 2, day => undef },
         ended       => 0,
-        attributes  => [1, 3, 4],
+        attributes  => bag(1, 3, 4),
     });
 };
 
@@ -89,7 +90,7 @@ test 'editing a relationship' => sub {
 
     isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Edit');
 
-    is_deeply($edit->data, {
+    cmp_deeply($edit->data, {
         type0 => 'artist',
         type1 => 'recording',
         link => {
@@ -105,7 +106,7 @@ test 'editing a relationship' => sub {
             begin_date  => { month => undef, day => undef, year => undef },
             end_date    => { month => undef, day => undef, year => undef },
             ended       => 0,
-            attributes  => [3, 1],
+            attributes  => bag(3, 1),
         },
         relationship_id => 3,
         new => {
@@ -113,14 +114,14 @@ test 'editing a relationship' => sub {
             begin_date  => { month => 1, day => 1, year => 1999 },
             end_date    => { month => 9, day => 9, year => 2009 },
             ended       => 1,
-            attributes  => [1, 3, 4]
+            attributes  => bag(1, 3, 4),
         },
         old => {
             entity1     => { id => 3, name => 'π' },
             begin_date  => { month => undef, day => undef, year => undef },
             end_date    => { month => undef, day => undef, year => undef },
             ended       => 0,
-            attributes  => [3, 1]
+            attributes  => bag(3, 1),
         },
     });
 };
