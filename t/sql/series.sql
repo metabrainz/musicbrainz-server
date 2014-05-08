@@ -63,10 +63,12 @@ INSERT INTO series_alias (id, series, name, type, sort_name) VALUES
     (1, 1, 'Test Recording Series Alias', 2, 'Test Recording Series Alias');
 
 INSERT INTO link (id, link_type, attribute_count) VALUES
-    (1, 1, 0), (2, 1, 0), (3, 1, 0), (4, 1, 0);
+    (1, 1, 0), (2, 1, 0), (3, 1, 0), (4, 1, 0),
+    (5, 2, 0), (6, 2, 0), (7, 2, 0), (8, 2, 0);
 
 INSERT INTO link_attribute_text_value (link, attribute_type, text_value) VALUES
-    (1, 3, 'A1'), (2, 3, 'A11'), (3, 3, 'A10'), (4, 3, 'A100');
+    (1, 3, 'A1'), (2, 3, 'A11'), (3, 3, 'A10'), (4, 3, 'A100'),
+    (5, 2, 'WTF 87'), (6, 2, 'WTF 21'), (7, 2, 'WTF 99'), (8, 2, 'WTF 12');
 
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Shared Name', 1);
 
@@ -76,14 +78,26 @@ INSERT INTO recording (id, gid, name, artist_credit, length) VALUES
     (3, '659f405b-b4ee-4033-868a-0daa27784b89', 'π', 1, 369680),
     (4, 'ae674299-2824-4500-9516-653ac1bc6f80', 'Bertie', 1, 258839);
 
+INSERT INTO work_type (id, name) VALUES (1, 'Song');
+
+INSERT INTO work (id, gid, name, type) VALUES
+    (1, '7e0e3ea0-d674-11e3-9c1a-0800200c9a66', 'Wōrk1', 1),
+    (2, 'f89a8de8-f0e3-453c-9516-5bc3edd2fd88', 'Wōrk2', 1),
+    (3, '8234f641-4231-4b2f-a14f-c469b9b8de11', 'Wōrk3', 1),
+    (4, 'efe72c7d-652d-4243-b01b-152997bb730e', 'Wōrk4', 1);
+
 INSERT INTO l_recording_series (id, link, entity0, entity1, link_order) VALUES
     (1, 1, 1, 1, 1), (2, 2, 2, 1, 2), (3, 3, 3, 3, 1), (4, 4, 4, 3, 2);
+
+INSERT INTO l_series_work (id, link, entity0, entity1, link_order) VALUES
+    (1, 5, 2, 1, 1), (2, 6, 2, 2, 2), (3, 7, 2, 3, 3), (4, 8, 2, 4, 4);
 
 ALTER SEQUENCE url_id_seq RESTART;
 SELECT setval('series_id_seq', (SELECT max(id) FROM series));
 SELECT setval('series_alias_id_seq', (SELECT max(id) FROM series_alias));
 SELECT setval('artist_credit_id_seq', (SELECT max(id) FROM artist_credit));
 SELECT setval('recording_id_seq', (SELECT max(id) FROM recording));
+SELECT setval('work_id_seq', (SELECT max(id) FROM work));
 SELECT setval('link_id_seq', (SELECT max(id) FROM link));
 SELECT setval('link_type_id_seq', (SELECT max(id) FROM link_type));
 SELECT setval('l_recording_series_id_seq', (SELECT max(id) FROM l_recording_series));
