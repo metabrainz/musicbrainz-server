@@ -293,7 +293,7 @@ Readonly our $ACCESS_SCOPE_SUBMIT_BARCODE => 128;
 
 Readonly our $ARTIST_ARTIST_COLLABORATION => '75c09861-6857-4ec0-9729-84eefde7fc86';
 
-Readonly our @FULL_TABLE_LIST = qw(
+Readonly our @FULL_TABLE_LIST => qw(
     artist_rating_raw
     artist_tag_raw
     cdtoc_raw
