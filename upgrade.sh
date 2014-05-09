@@ -88,6 +88,9 @@ fi
 echo `date` : 'Running upgrade scripts for all nodes'
 ./admin/psql READWRITE < ./admin/sql/updates/schema-change/${NEW_SCHEMA_SEQUENCE}.slave.sql || exit 1
 
+echo `date` : 'Making some (potentially) missing primary keys'
+./admin/psql READWRITE < ./admin/sql/updates/20140509-place-example-pkeys.sql
+
 ################################################################################
 # Re-enable replication
 
