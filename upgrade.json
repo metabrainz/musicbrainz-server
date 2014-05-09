@@ -1,6 +1,6 @@
 { 
   "20": {
-    "slave": ["20140310-dates.sql", "20140212-ordering-columns.sql", "20140208-drop-script_language.sql", "20140407-link-cardinality.sql", "20140311-remove-area-sortnames.sql", "20140313-remove-label-sortnames.sql", "20140214-add-instruments.sql", "20140215-add-instruments-documentation.sql", "20140318-series.sql", "20140418-series-instrument-functions.sql", "20140429-area-view.sql"],
+    "slave": ["20140310-dates.sql", "20140212-ordering-columns.sql", "20140208-drop-script_language.sql", "20140407-link-cardinality.sql", "20140311-remove-area-sortnames.sql", "20140313-remove-label-sortnames.sql", "20140214-add-instruments.sql", "20140215-add-instruments-documentation.sql", "20140318-series.sql", "20140418-series-instrument-functions.sql", "20140429-area-view.sql", "20140509-place-example-pkeys.sql"],
     "standalone": ["20140308-ordering-columns-fk.sql", "20140312-dates-trigger.sql", "20140217-instrument-triggers.sql", "20140318-series-fks.sql"]
   }
 }
