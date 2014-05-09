@@ -32,327 +32,19 @@ use strict;
 use DBDefs;
 use integer;
 
+use MusicBrainz::Server::Constants qw( $FULL_TABLE_LIST );
+
 use Getopt::Long;
 use Encode qw( encode );
 
 ################################################################################
 
-my @tables = qw(
-    artist_rating_raw
-    artist_tag_raw
-    cdtoc_raw
-    edit
-    edit_area
-    edit_artist
-    edit_instrument
-    edit_label
-    edit_note
-    edit_place
-    edit_recording
-    edit_release
-    edit_release_group
-    edit_series
-    edit_url
-    edit_work
-    label_rating_raw
-    label_tag_raw
-    place_tag_raw
-    recording_rating_raw
-    recording_tag_raw
-    release_group_rating_raw
-    release_group_tag_raw
-    release_tag_raw
-    release_raw
-    series
-    series_alias
-    series_alias_type
-    series_annotation
-    series_gid_redirect
-    series_ordering_type
-    series_type
-    track_raw
-    vote
-    work_rating_raw
-    work_tag_raw
-    annotation
-    application
-    area
-    area_type
-    area_alias
-    area_alias_type
-    area_annotation
-    area_gid_redirect
-    country_area
-    iso_3166_1
-    iso_3166_2
-    iso_3166_3
-    artist
-    artist_alias
-    artist_alias_type
-    artist_annotation
-    artist_credit
-    artist_credit_name
-    artist_gid_redirect
-    artist_ipi
-    artist_isni
-    artist_meta
-    artist_tag
-    artist_type
-    autoeditor_election
-    autoeditor_election_vote
-    cdtoc
-    editor
-    editor_oauth_token
-    editor_preference
-    editor_language
-    editor_sanitised
-    editor_subscribe_artist
-    editor_subscribe_collection
-    editor_subscribe_editor
-    editor_subscribe_label
-    editor_subscribe_series
-    editor_watch_artist
-    editor_watch_preferences
-    editor_watch_release_group_type
-    editor_watch_release_status
-    gender
-    instrument
-    instrument_alias
-    instrument_alias_type
-    instrument_annotation
-    instrument_gid_redirect
-    instrument_type
-    isrc
-    iswc
-    l_area_area
-    l_area_artist
-    l_area_instrument
-    l_area_label
-    l_area_place
-    l_area_recording
-    l_area_release
-    l_area_release_group
-    l_area_series
-    l_area_url
-    l_area_work
-    l_artist_artist
-    l_artist_instrument
-    l_artist_label
-    l_artist_place
-    l_artist_recording
-    l_artist_release
-    l_artist_release_group
-    l_artist_series
-    l_artist_url
-    l_artist_work
-    l_instrument_instrument
-    l_instrument_label
-    l_instrument_place
-    l_instrument_recording
-    l_instrument_release
-    l_instrument_release_group
-    l_instrument_series
-    l_instrument_url
-    l_instrument_work
-    l_label_label
-    l_label_place
-    l_label_recording
-    l_label_release
-    l_label_release_group
-    l_label_series
-    l_label_url
-    l_label_work
-    l_place_place
-    l_place_recording
-    l_place_release
-    l_place_release_group
-    l_place_series
-    l_place_url
-    l_place_work
-    l_recording_recording
-    l_recording_release
-    l_recording_release_group
-    l_recording_series
-    l_recording_url
-    l_recording_work
-    l_release_group_release_group
-    l_release_group_series
-    l_release_group_url
-    l_release_group_work
-    l_release_release
-    l_release_release_group
-    l_release_series
-    l_release_url
-    l_release_work
-    l_series_series
-    l_series_url
-    l_series_work
-    l_url_url
-    l_url_work
-    l_work_work
-    label
-    label_alias
-    label_alias_type
-    label_annotation
-    label_gid_redirect
-    label_ipi
-    label_isni
-    label_meta
-    label_tag
-    label_type
-    language
-    link
-    link_attribute
-    link_attribute_credit
-    link_attribute_text_value
-    link_attribute_type
-    link_creditable_attribute_type
-    link_text_attribute_type
-    link_type
-    link_type_attribute_type
-    editor_collection
-    editor_collection_release
-    medium
-    medium_cdtoc
-    medium_format
-    orderable_link_type
-    place
-    place_alias
-    place_alias_type
-    place_annotation
-    place_gid_redirect
-    place_tag
-    place_type
-    recording
-    recording_annotation
-    recording_gid_redirect
-    recording_meta
-    recording_tag
-    release
-    release_annotation
-    release_country
-    release_gid_redirect
-    release_group
-    release_group_annotation
-    release_group_gid_redirect
-    release_group_meta
-    release_group_tag
-    release_group_primary_type
-    release_group_secondary_type
-    release_group_secondary_type_join
-    release_label
-    release_meta
-    release_coverart
-    release_packaging
-    release_status
-    release_tag
-    release_unknown_country
-    replication_control
-    script
-    tag
-    tag_relation
-    track
-    track_gid_redirect
-    medium_index
-    url
-    url_gid_redirect
-    work
-    work_alias
-    work_alias_type
-    work_annotation
-    work_attribute
-    work_attribute_type
-    work_attribute_type_allowed_value
-    work_gid_redirect
-    work_meta
-    work_tag
-    work_type
-
-    cover_art_archive.art_type
-    cover_art_archive.image_type
-    cover_art_archive.cover_art
-    cover_art_archive.cover_art_type
-    cover_art_archive.release_group_cover_art
-
-    documentation.l_area_area_example
-    documentation.l_area_artist_example
-    documentation.l_area_instrument_example
-    documentation.l_area_label_example
-    documentation.l_area_place_example
-    documentation.l_area_recording_example
-    documentation.l_area_release_example
-    documentation.l_area_release_group_example
-    documentation.l_area_series_example
-    documentation.l_area_url_example
-    documentation.l_area_work_example
-    documentation.l_artist_artist_example
-    documentation.l_artist_instrument_example
-    documentation.l_artist_label_example
-    documentation.l_artist_recording_example
-    documentation.l_artist_release_example
-    documentation.l_artist_release_group_example
-    documentation.l_artist_place_example
-    documentation.l_artist_series_example
-    documentation.l_artist_url_example
-    documentation.l_artist_work_example
-    documentation.l_instrument_instrument_example
-    documentation.l_instrument_label_example
-    documentation.l_instrument_place_example
-    documentation.l_instrument_recording_example
-    documentation.l_instrument_release_example
-    documentation.l_instrument_release_group_example
-    documentation.l_instrument_series_example
-    documentation.l_instrument_url_example
-    documentation.l_instrument_work_example
-    documentation.l_label_label_example
-    documentation.l_label_recording_example
-    documentation.l_label_release_example
-    documentation.l_label_release_group_example
-    documentation.l_label_place_example
-    documentation.l_label_series_example
-    documentation.l_label_url_example
-    documentation.l_label_work_example
-    documentation.l_place_place_example
-    documentation.l_place_recording_example
-    documentation.l_place_release_example
-    documentation.l_place_release_group_example
-    documentation.l_place_series_example
-    documentation.l_place_url_example
-    documentation.l_place_work_example
-    documentation.l_recording_recording_example
-    documentation.l_recording_release_example
-    documentation.l_recording_release_group_example
-    documentation.l_recording_series_example
-    documentation.l_recording_url_example
-    documentation.l_recording_work_example
-    documentation.l_release_group_release_group_example
-    documentation.l_release_group_series_example
-    documentation.l_release_group_url_example
-    documentation.l_release_group_work_example
-    documentation.l_release_release_example
-    documentation.l_release_release_group_example
-    documentation.l_release_series_example
-    documentation.l_release_url_example
-    documentation.l_release_work_example
-    documentation.l_series_series_example
-    documentation.l_series_url_example
-    documentation.l_series_work_example
-    documentation.l_url_url_example
-    documentation.l_url_work_example
-    documentation.l_work_work_example
-    documentation.link_type_documentation
-
-    statistics.statistic
-    statistics.statistic_event
-
-    wikidocs.wikidocs_index
-);
+my @tables = @$FULL_TABLE_LIST;
 
 my @replication_tables = qw(
     dbmirror_pending
     dbmirror_pendingdata
 );
-
 
 my @group_core = qw(
     area
@@ -541,10 +233,7 @@ my @group_derived = qw(
     work_tag
     );
 
-my @group_stats = qw(
-    statistics.statistic
-    statistics.statistic_event
-);
+my @group_stats = grep { $_ =~ /^statistics\./ } @$FULL_TABLE_LIST;
 
 my @group_editor = qw(
     editor_sanitised
@@ -565,12 +254,6 @@ my @group_edit = qw(
     edit_url
     edit_work
     vote
-    );
-
-my @group_closedmoderation = qw(
-    moderation_closed
-    moderation_note_closed
-    vote_closed
     );
 
 my @group_private = qw(
@@ -613,87 +296,11 @@ my @group_cdstubs = qw(
     track_raw
 );
 
-my @group_cover_art_archive = (
-    'cover_art_archive.art_type',
-    'cover_art_archive.image_type',
-    'cover_art_archive.cover_art',
-    'cover_art_archive.cover_art_type',
-    'cover_art_archive.release_group_cover_art'
-);
+my @group_cover_art_archive = grep { $_ =~ /^cover_art_archive\./ } @$FULL_TABLE_LIST;
 
-my @group_wikidocs = (
-    'wikidocs.wikidocs_index'
-);
+my @group_wikidocs = grep { $_ =~ /^wikidocs\./ } @$FULL_TABLE_LIST;
 
-my @group_documentation = qw(
-    documentation.l_area_area_example
-    documentation.l_area_artist_example
-    documentation.l_area_instrument_example
-    documentation.l_area_label_example
-    documentation.l_area_place_example
-    documentation.l_area_recording_example
-    documentation.l_area_release_example
-    documentation.l_area_release_group_example
-    documentation.l_area_series_example
-    documentation.l_area_url_example
-    documentation.l_area_work_example
-    documentation.l_artist_artist_example
-    documentation.l_artist_instrument_example
-    documentation.l_artist_label_example
-    documentation.l_artist_recording_example
-    documentation.l_artist_release_example
-    documentation.l_artist_release_group_example
-    documentation.l_artist_place_example
-    documentation.l_artist_series_example
-    documentation.l_artist_url_example
-    documentation.l_artist_work_example
-    documentation.l_instrument_instrument_example
-    documentation.l_instrument_label_example
-    documentation.l_instrument_place_example
-    documentation.l_instrument_recording_example
-    documentation.l_instrument_release_example
-    documentation.l_instrument_release_group_example
-    documentation.l_instrument_series_example
-    documentation.l_instrument_url_example
-    documentation.l_instrument_work_example
-    documentation.l_label_label_example
-    documentation.l_label_recording_example
-    documentation.l_label_release_example
-    documentation.l_label_release_group_example
-    documentation.l_label_place_example
-    documentation.l_label_series_example
-    documentation.l_label_url_example
-    documentation.l_label_work_example
-    documentation.l_place_place_example
-    documentation.l_place_recording_example
-    documentation.l_place_release_example
-    documentation.l_place_release_group_example
-    documentation.l_place_series_example
-    documentation.l_place_url_example
-    documentation.l_place_work_example
-    documentation.l_recording_recording_example
-    documentation.l_recording_release_example
-    documentation.l_recording_release_group_example
-    documentation.l_recording_series_example
-    documentation.l_recording_url_example
-    documentation.l_recording_work_example
-    documentation.l_release_group_release_group_example
-    documentation.l_release_group_series_example
-    documentation.l_release_group_url_example
-    documentation.l_release_group_work_example
-    documentation.l_release_release_example
-    documentation.l_release_release_group_example
-    documentation.l_release_series_example
-    documentation.l_release_url_example
-    documentation.l_release_work_example
-    documentation.l_series_series_example
-    documentation.l_series_url_example
-    documentation.l_series_work_example
-    documentation.l_url_url_example
-    documentation.l_url_work_example
-    documentation.l_work_work_example
-    documentation.link_type_documentation
-);
+my @group_documentation = grep { $_ =~ /^documentation\./ } @$FULL_TABLE_LIST;
 
 my @groups = (
     \@group_core,
