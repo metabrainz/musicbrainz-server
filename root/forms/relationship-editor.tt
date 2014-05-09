@@ -31,10 +31,12 @@
               <button type="button" class="icon move-down" title="[% l('Move entity down') %]" data-click="moveEntityDown"></button>
               <button type="button" class="icon move-up" title="[% l('Move entity up') %]" data-click="moveEntityUp"></button>
             <!-- /ko -->
-            <!-- ko if: linkOrder -->
+            <!-- ko if: linkOrder() && ($parents[1].entityType !== "series" ||
+                                        $parents[1].orderingTypeID() == MB.constants.SERIES_ORDERING_TYPE_MANUAL) -->
               <span data-bind="html: MB.i18n.expand(MB.text.OrderedRelationship, { num: linkOrder(), relationship: target($parents[1]).html({ target: '_blank' }) }), relationshipStyling: true"></span>
             <!-- /ko -->
-            <!-- ko ifnot: linkOrder -->
+            <!-- ko if: !linkOrder() || ($parents[1].entityType === "series" &&
+                                         $parents[1].orderingTypeID() == MB.constants.SERIES_ORDERING_TYPE_AUTOMATIC) -->
               <span data-bind="html: target($parents[1]).html({ target: '_blank' }), relationshipStyling: true"></span>
             <!-- /ko -->
             <!-- ko with: phraseAndExtraAttributes($parents[2])[1] -->
