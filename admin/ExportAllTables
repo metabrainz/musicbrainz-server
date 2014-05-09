@@ -308,7 +308,6 @@ my @groups = (
     \@group_stats,
     \@group_editor,
     \@group_edit,
-    \@group_closedmoderation,
     \@group_private,
     \@group_cdstubs,
     \@group_cover_art_archive,
