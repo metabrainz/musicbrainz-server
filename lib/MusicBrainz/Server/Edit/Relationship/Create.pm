@@ -137,7 +137,7 @@ sub build_display_data
                 ended      => $self->data->{ended},
                 attributes => [
                     map {
-                        my $attr    = $loaded->{LinkAttributeType}{ $_ };
+                        my $attr = $loaded->{LinkAttributeType}{ $_ };
                         if ($attr) {
                             my $root_id = $self->c->model('LinkAttributeType')->find_root($attr->id);
                             $attr->root( $self->c->model('LinkAttributeType')->get_by_id($root_id) );
@@ -147,7 +147,8 @@ sub build_display_data
                             ()
                         }
                     } @{ $self->data->{attributes} }
-                ]
+                ],
+                attribute_text_values => $self->data->{attribute_text_values} // {},
             ),
             entity0 => $loaded->{$model0}{ $self->data->{entity0}{id} } ||
                 $self->c->model($model0)->_entity_class->new(
@@ -213,6 +214,7 @@ sub insert
             begin_date   => $self->data->{begin_date},
             end_date     => $self->data->{end_date},
             ended        => $self->data->{ended},
+            attribute_text_values => $self->data->{attribute_text_values},
         });
 
     $self->entity_id($relationship->id);

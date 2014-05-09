@@ -24,7 +24,7 @@
             };
 
             this.attributeValues = {};
-            this.attributeTextValues = {};
+            this.attributeTextValues = ko.observable({});
 
             this.attributes(data.attributes);
             this.setAttributeTextValues(data.attributeTextValues);
@@ -57,7 +57,7 @@
         linkTypeIDChanged: function () {
             var typeInfo = this.linkTypeInfo();
             var anyFreeText = false;
-            var textValues = this.attributeTextValues;
+            var textValues = this.attributeTextValues();
             var attrValues = {};
             var self = this;
 
@@ -73,10 +73,8 @@
 
             this.attributeValues = attrValues;
 
-            if (!anyFreeText) {
-                delete this.attributeTextValues;
-            } else if (!textValues) {
-                this.attributeTextValues = {};
+            if (!anyFreeText || !textValues) {
+                this.attributeTextValues({});
             }
         },
 
@@ -171,10 +169,17 @@
         },
 
         attributeTextValue: function (id) {
-            var value = this.attributeTextValues[id];
+            var textValues = this.attributeTextValues();
+            var value = textValues[id];
 
             if (!value) {
-                value = this.attributeTextValues[id] = ko.observable("");
+                value = textValues[id] = ko.observable("");
+
+                var self = this;
+
+                value.subscribe(function () {
+                    self.attributeTextValues.notifySubscribers(self.attributeTextValues());
+                });
             }
 
             return arguments.length === 1 ? value : value(arguments[1]);

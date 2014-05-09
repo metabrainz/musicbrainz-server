@@ -390,7 +390,7 @@
             }
 
             if (rootInfo.attribute.freeText && value &&
-                    !ko.unwrap(relationship.attributeTextValues[value])) {
+                    !ko.unwrap(relationship.attributeTextValues()[value])) {
                 return MB.text.AttributeTextValueRequired;
             }
 

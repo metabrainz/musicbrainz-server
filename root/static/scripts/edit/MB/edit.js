@@ -124,7 +124,7 @@
             data.attributes = _.map(_.result(relationship, "attributes"), Number);
 
             if (relationship.attributeTextValues) {
-                data.attributeTextValues = _(ko.toJS(relationship.attributeTextValues))
+                data.attributeTextValues = _(ko.toJS(relationship.attributeTextValues()))
                                             .pick(data.attributes).value();
             }
 
