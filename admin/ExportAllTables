@@ -32,14 +32,14 @@ use strict;
 use DBDefs;
 use integer;
 
-use MusicBrainz::Server::Constants qw( $FULL_TABLE_LIST );
+use MusicBrainz::Server::Constants qw( @FULL_TABLE_LIST );
 
 use Getopt::Long;
 use Encode qw( encode );
 
 ################################################################################
 
-my @tables = @$FULL_TABLE_LIST;
+my @tables = @FULL_TABLE_LIST;
 
 my @replication_tables = qw(
     dbmirror_pending
@@ -233,7 +233,7 @@ my @group_derived = qw(
     work_tag
     );
 
-my @group_stats = grep { $_ =~ /^statistics\./ } @$FULL_TABLE_LIST;
+my @group_stats = grep { $_ =~ /^statistics\./ } @FULL_TABLE_LIST;
 
 my @group_editor = qw(
     editor_sanitised
@@ -296,11 +296,11 @@ my @group_cdstubs = qw(
     track_raw
 );
 
-my @group_cover_art_archive = grep { $_ =~ /^cover_art_archive\./ } @$FULL_TABLE_LIST;
+my @group_cover_art_archive = grep { $_ =~ /^cover_art_archive\./ } @FULL_TABLE_LIST;
 
-my @group_wikidocs = grep { $_ =~ /^wikidocs\./ } @$FULL_TABLE_LIST;
+my @group_wikidocs = grep { $_ =~ /^wikidocs\./ } @FULL_TABLE_LIST;
 
-my @group_documentation = grep { $_ =~ /^documentation\./ } @$FULL_TABLE_LIST;
+my @group_documentation = grep { $_ =~ /^documentation\./ } @FULL_TABLE_LIST;
 
 my @groups = (
     \@group_core,

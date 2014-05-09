@@ -33,7 +33,7 @@ use Getopt::Long;
 use DBDefs;
 use Sql;
 use MusicBrainz::Server::Replication qw( :replication_type );
-use MusicBrainz::Server::Constants qw( $FULL_TABLE_LIST );
+use MusicBrainz::Server::Constants qw( @FULL_TABLE_LIST );
 
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
 
@@ -338,7 +338,7 @@ sub empty
 
 sub ImportAllTables
 {
-    for my $table (@$FULL_TABLE_LIST) {
+    for my $table (@FULL_TABLE_LIST) {
         my $file = (find_file($table))[0];
         $file or print("No data file found for '$table', skipping\n"), next;
         $imported_tables{$table} = 1;

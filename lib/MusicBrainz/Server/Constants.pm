@@ -56,7 +56,7 @@ our @EXPORT_OK = (
         $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG  $LOCATION_EDITOR_FLAG
         $COVERART_FRONT_TYPE      $COVERART_BACK_TYPE  $INSTRUMENT_ROOT_ID
         $AREA_TYPE_COUNTRY        $REQUIRED_VOTES
-        $ARTIST_ARTIST_COLLABORATION $FULL_TABLE_LIST
+        $ARTIST_ARTIST_COLLABORATION @FULL_TABLE_LIST
     ),
     @{ _get(qr/^(EDIT|EXPIRE|QUALITY|EDITOR|ELECTION|EMAIL|VOTE|STATUS|ACCESS_SCOPE)_/) },
 );
@@ -293,7 +293,7 @@ Readonly our $ACCESS_SCOPE_SUBMIT_BARCODE => 128;
 
 Readonly our $ARTIST_ARTIST_COLLABORATION => '75c09861-6857-4ec0-9729-84eefde7fc86';
 
-Readonly our $FULL_TABLE_LIST = [qw(
+Readonly our @FULL_TABLE_LIST = qw(
     artist_rating_raw
     artist_tag_raw
     cdtoc_raw
@@ -602,7 +602,7 @@ Readonly our $FULL_TABLE_LIST = [qw(
     statistics.statistic_event
 
     wikidocs.wikidocs_index
-)];
+);
 
 =head1 NAME
 
