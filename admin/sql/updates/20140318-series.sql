@@ -499,9 +499,9 @@ INSERT INTO orderable_link_type (link_type, direction) VALUES
     ((SELECT id FROM link_type WHERE gid = :WORK_PART_OF_SERIES_GID), 1);
 
 INSERT INTO series_type (name, entity_type, parent, child_order, description) VALUES
-    ('Recording', 'recording', NULL, 0, 'Indicates that the series is of recordings.'),
+    ('Release group', 'release_group', NULL, 0, 'Indicates that the series is of release groups.'),
     ('Release', 'release', NULL, 1, 'Indicates that the series is of releases.'),
-    ('Release group', 'release_group', NULL, 2, 'Indicates that the series is of release groups.'),
+    ('Recording', 'recording', NULL, 2, 'Indicates that the series is of recordings.'),
     ('Work', 'work', NULL, 3, 'Indicates that the series is of works.'),
     ('Catalog', 'work', 4, 0, 'Indicates that the series is a works catalog.');
 
