@@ -20,6 +20,7 @@ has_field 'parent_id' => (
 has_field 'child_order' => (
     type => '+MusicBrainz::Server::Form::Field::Integer',
     required => 1,
+    default => 0
 );
 
 has_field 'name' => (
@@ -54,6 +55,7 @@ has_field 'description' => (
 has_field 'priority' => (
     type => '+MusicBrainz::Server::Form::Field::Integer',
     required => 1,
+    default => 0
 );
 
 has_field 'attributes' => (
@@ -97,10 +99,14 @@ has_field has_dates => (
 
 has_field 'entity0_cardinality' => (
     type => '+MusicBrainz::Server::Form::Field::Integer',
+    required => 1,
+    default => 0
 );
 
 has_field 'entity1_cardinality' => (
     type => '+MusicBrainz::Server::Form::Field::Integer',
+    required => 1,
+    default => 0
 );
 
 sub _build_parent_id_options
