@@ -663,11 +663,7 @@ sub _series {
         id                  => $series->id,
         gid                 => $series->gid,
         comment             => $series->comment,
-        type => {
-            id          => $series->type_id,
-            name        => $series->type->l_name,
-            entityType  => $series->type->entity_type,
-        },
+        type                => $series->type->to_json_hash,
         orderingAttributeID => $series->ordering_attribute_id,
         orderingTypeID      => $series->ordering_type_id,
         entityType          => 'series',

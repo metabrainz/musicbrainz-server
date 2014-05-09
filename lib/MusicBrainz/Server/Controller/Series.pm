@@ -1,4 +1,5 @@
 package MusicBrainz::Server::Controller::Series;
+use JSON;
 use Moose;
 use MusicBrainz::Server::Constants qw(
     $EDIT_SERIES_CREATE
@@ -98,6 +99,23 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {
     edit_type      => $EDIT_SERIES_DELETE,
+};
+
+before qw( edit create ) => sub {
+    my ($self, $c) = @_;
+
+    my $series_types = {
+        map { $_->id => $_->to_json_hash } $c->model('SeriesType')->get_all
+    };
+
+    my $series_ordering_types = {
+        map { $_->id => $_->to_json_hash } $c->model('SeriesOrderingType')->get_all
+    };
+
+    $c->stash(
+        series_types => encode_json($series_types),
+        series_ordering_types => encode_json($series_ordering_types),
+    );
 };
 
 1;

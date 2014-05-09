@@ -50,23 +50,71 @@
   <div class="documentation">
     [%- guesscase_bubble(1) -%]
     [%- external_link_bubble() -%]
+
+    <div class="bubble" id="series-type-bubble" data-bind="bubble: typeBubble">
+      <p data-bind="text: target() ? target().typeDescription() : ''"></p>
+    </div>
+
+    <div class="bubble" id="ordering-attribute-bubble" data-bind="bubble: orderingAttributeBubble">
+      <p data-bind="text: target() ? target().orderingAttributeDescription() : ''"></p>
+    </div>
+
+    <div class="bubble" id="ordering-type-bubble" data-bind="bubble: orderingTypeBubble">
+      <p data-bind="text: target() ? target().orderingTypeDescription() : ''"></p>
+    </div>
   </div>
 
 </form>
 
 <script>//<![CDATA[
-(function () {
+$(function () {
+  MB.seriesTypesByID = [% series_types %];
+  MB.orderingTypesByID = [% series_ordering_types %];
+
+  var $type = $("#id-edit-series\\.type_id");
+  var $orderingAttribute = $("#id-edit-series\\.ordering_attribute_id");
+  var $orderingType = $("#id-edit-series\\.ordering_type_id");
+
+  var seriesDetails = {
+    typeID:                   ko.observable($type.val()),
+    orderingAttributeID:      ko.observable($orderingAttribute.val()),
+    orderingTypeID:           ko.observable($orderingType.val()),
+    typeBubble:               MB.Control.BubbleDoc(),
+    orderingAttributeBubble:  MB.Control.BubbleDoc(),
+    orderingTypeBubble:       MB.Control.BubbleDoc()
+  };
+
+  seriesDetails.typeDescription = ko.computed(function () {
+    return MB.seriesTypesByID[seriesDetails.typeID()].description;
+  });
+
+  seriesDetails.orderingAttributeDescription = ko.computed(function () {
+    return MB.attrInfoByID[seriesDetails.orderingAttributeID()].description;
+  });
+
+  seriesDetails.orderingTypeDescription = ko.computed(function () {
+    return MB.orderingTypesByID[seriesDetails.orderingTypeID()].description;
+  });
+
+  ko.applyBindingsToNode($type[0], { value: seriesDetails.typeID, controlsBubble: seriesDetails.typeBubble }, seriesDetails);
+  ko.applyBindingsToNode($orderingAttribute[0], { value: seriesDetails.orderingAttributeID, controlsBubble: seriesDetails.orderingAttributeBubble }, seriesDetails);
+  ko.applyBindingsToNode($orderingType[0], { value: seriesDetails.orderingTypeID, controlsBubble: seriesDetails.orderingTypeBubble }, seriesDetails);
+
+  ko.applyBindings(seriesDetails, $("#series-type-bubble")[0]);
+  ko.applyBindings(seriesDetails, $("#ordering-attribute-bubble")[0]);
+  ko.applyBindings(seriesDetails, $("#ordering-type-bubble")[0]);
+
   MB.Control.initialize_guess_case("series", "id-edit-series");
   MB.utility.setDefaultAction("form.edit-series", "button.submit.positive");
 
   // FIXME: Use knockout.
-  $("#id-edit-series\\.ordering_attribute_id").on("change", function () {
+  $orderingAttribute.on("change", function () {
     var series = MB.entityCache[MB.sourceEntityGID];
 
     series.orderingAttributeID(+this.value);
   });
 
-  $("#id-edit-series\\.ordering_type_id").on("change", function () {
+  $orderingType.on("change", function () {
     var series = MB.entityCache[MB.sourceEntityGID];
 
     series.orderingTypeID(+this.value);
@@ -81,5 +129,5 @@
       });
     }
   });
-}());
+});
 //]]></script>

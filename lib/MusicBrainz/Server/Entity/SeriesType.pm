@@ -41,6 +41,24 @@ has description => (
     isa => 'Str',
 );
 
+sub l_description {
+    my $self = shift;
+    return lp($self->description, 'series_type');
+}
+
+sub to_json_hash {
+    my $self = shift;
+
+    return {
+        id => +$self->id,
+        name => $self->l_name,
+        entityType => $self->entity_type,
+        parentID => $self->parent_id,
+        childOrder => +$self->child_order,
+        description => $self->l_description,
+    };
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
