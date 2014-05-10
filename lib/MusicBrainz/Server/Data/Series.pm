@@ -23,6 +23,7 @@ with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'series' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'series' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'series' };
+with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'series' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::DeleteAndLog';
 with 'MusicBrainz::Server::Data::Role::Subscription' => {
