@@ -6,9 +6,9 @@ use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
-use MusicBrainz::Server::Edit::Utils qw( conditions_without_autoedit );
 
 extends 'MusicBrainz::Server::Edit';
+with 'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
 
 sub _alias_model { die 'Not implemented' }
 
@@ -45,11 +45,6 @@ sub build_display_data
         primary_for_locale => $self->data->{primary_for_locale}
     };
 }
-
-around edit_conditions => sub {
-    my ($orig, $self, @args) = @_;
-    return conditions_without_autoedit($self->$orig(@args));
-};
 
 has 'alias_id' => (
     isa => 'Int',

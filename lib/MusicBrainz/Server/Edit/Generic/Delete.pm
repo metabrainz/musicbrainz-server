@@ -3,7 +3,6 @@ use Moose;
 use MooseX::ABC;
 
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_DELETE );
-use MusicBrainz::Server::Edit::Utils qw( conditions_without_autoedit );
 use MusicBrainz::Server::Data::Artist;
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Types;
@@ -13,11 +12,7 @@ use MooseX::Types::Structured qw( Dict );
 
 extends 'MusicBrainz::Server::Edit';
 requires '_delete_model';
-
-around edit_conditions => sub {
-    my ($orig, $self, @args) = @_;
-    return conditions_without_autoedit($self->$orig(@args));
-};
+with 'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
 
 sub edit_kind { 'remove' }
 
