@@ -10,11 +10,7 @@ around 'edit_conditions' => sub {
         expire_action => $EXPIRE_ACCEPT,
         auto_edit     => 1,
     };
-    return {
-        $QUALITY_LOW    => $conditions,
-        $QUALITY_NORMAL => $conditions,
-        $QUALITY_HIGH   => $conditions,
-    };
+    return $conditions;
 };
 
 around 'allow_auto_edit' => sub { 1 };

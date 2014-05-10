@@ -191,7 +191,7 @@ sub modbot_auto_edit { 0 }
 sub conditions
 {
     my $self = shift;
-    return $self->edit_conditions->{ $self->quality };
+    return $self->edit_conditions;
 }
 
 sub determine_quality
@@ -203,7 +203,7 @@ sub can_approve
 {
     my ($self, $privs) = @_;
 
-    my $conditions = $self->edit_conditions->{$self->quality};
+    my $conditions = $self->edit_conditions;
     return
          $self->is_open
       && $conditions->{auto_edit}
