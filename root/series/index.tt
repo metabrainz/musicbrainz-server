@@ -14,7 +14,7 @@
         '<h2>' _ l('Recordings') _ '</h2>';
         IF entities.size;
           INCLUDE 'components/recordings-list.tt'
-                  recordings=entities no_checkboxes=1
+                  recordings=entities no_checkboxes=1 show_artists=1
           WRAPPER 'components/with-pager.tt';
         END;
       ELSIF series.type.entity_type == 'release';
