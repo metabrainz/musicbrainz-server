@@ -223,15 +223,8 @@ sub works : Chained('load')
     my $works = $self->_load_paged($c, sub {
         $c->model('Work')->find_by_artist($c->stash->{artist}->id, shift, shift);
     });
-    $c->model('Work')->load_writers(@$works);
-    $c->model('Work')->load_recording_artists(@$works);
-    $c->model('WorkAttribute')->load_for_works(@$works);
-    $c->model('ISWC')->load_for_works(@$works);
-    $c->model('WorkType')->load(@$works);
-    $c->model('Language')->load(@$works);
-    if ($c->user_exists) {
-        $c->model('Work')->rating->load_user_ratings($c->user->id, @$works);
-    }
+    $c->model('Work')->load_related_info(@$works);
+    $c->model('Work')->rating->load_user_ratings($c->user->id, @$works) if $c->user_exists;
     $c->stash( works => $works );
 }
 

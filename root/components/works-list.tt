@@ -1,10 +1,13 @@
 <table class="tbl">
   <thead>
     <tr>
-      [% IF c.user_exists AND !no_prefix %]
+      [% IF c.user_exists AND !no_checkboxes %]
       <th>
         <input type="checkbox" />
       </th>
+      [% END %]
+      [% IF series_item_numbers %]
+      <th style="width: 1em">[% l('#') %]</th>
       [% END %]
       <th>[% l('Work') %]</th>
       <th>[% l('Writers') %]</th>
@@ -21,10 +24,14 @@
   <tbody>
     [% FOR work IN works %]
     <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
-      [% IF c.user_exists AND !no_prefix %]
+      [% IF c.user_exists AND !no_checkboxes %]
       <td>
-        <input type="checkbox" name="add-to-merge"
-               value="[% work.id %]" />
+        <input type="checkbox" name="add-to-merge" value="[% work.id %]" />
+      </td>
+      [% END %]
+      [% IF series_item_numbers %]
+      <td style="width: 1em">
+        [% work_id=work.id; series_item_numbers.$work_id %]
       </td>
       [% END %]
       <td>

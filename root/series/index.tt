@@ -9,36 +9,39 @@
       </p>
     [% END %]
 
-    <h2>[%~
+    [%-
       IF series.type.entity_type == 'recording';
-        l('Recordings');
+        '<h2>' _ l('Recordings') _ '</h2>';
+        IF entities.size;
+          INCLUDE 'components/recordings-list.tt'
+                  recordings=entities no_checkboxes=1
+          WRAPPER 'components/with-pager.tt';
+        END;
       ELSIF series.type.entity_type == 'release';
-        l('Releases');
+        '<h2>' _ l('Releases') _ '</h2>';
+        IF entities.size;
+          INCLUDE 'release_group/releases-list.tt'
+                  releases=entities no_checkboxes=1 show_artists=1
+          WRAPPER 'components/with-pager.tt';
+        END;
       ELSIF series.type.entity_type == 'release_group';
-        l('Release Groups');
+        '<h2>' _ l('Release Groups') _ '</h2>';
+        IF entities.size;
+          INCLUDE 'components/release_groups-list.tt'
+                  release_groups=entities no_checkboxes=1 show_artists=1
+          WRAPPER 'components/with-pager.tt';
+        END;
       ELSIF series.type.entity_type == 'work';
-        l('Works');
+        '<h2>' _ l('Works') _ '</h2>';
+        IF entities.size;
+          INCLUDE 'components/works-list.tt'
+                  works=entities no_checkboxes=1 show_artists=1
+          WRAPPER 'components/with-pager.tt';
+        END;
       END
-    ~%]</h2>
+    -%]
 
-    [% IF entities.size %]
-      <table class="tbl">
-          <thead>
-            <tr>
-              <th>[% l('#') %]</th>
-              <th style="width: 100%;">[%- l('Name') -%]</th>
-            </tr>
-          </thead>
-          <tbody>
-            [%- FOR item=entities -%]
-              <tr [% ' class="ev"' IF loop.count % 2 == 0 %]>
-                <td>[% item.ordering_attribute_value %]</td>
-                <td>[% link_entity(item.entity) %]</td>
-              </tr>
-            [%- END -%]
-          </tbody>
-      </table>
-    [% ELSE %]
+    [% IF NOT entities.size %]
       <p>[% l('This series is currently empty.') %]</p>
     [% END %]
 [% END %]

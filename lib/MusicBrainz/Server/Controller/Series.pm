@@ -42,13 +42,29 @@ after load => sub {
 sub show : PathPart('') Chained('load') {
     my ($self, $c) = @_;
 
-    my $entities = $self->_load_paged($c, sub {
-        $c->model('Series')->get_entities($c->stash->{series}, shift, shift);
+    my $series = $c->stash->{series};
+
+    my $items = $self->_load_paged($c, sub {
+        $c->model('Series')->get_entities($series, shift, shift);
     });
+
+    my @entities;
+    my $item_numbers = {};
+
+    for (@$items) {
+        push @entities, $_->{entity};
+        $item_numbers->{$_->{entity}->id} = $_->{ordering_attribute_value};
+    }
+
+    if ($series->type->entity_type eq 'work') {
+        $c->model('Work')->load_related_info(@entities);
+        $c->model('Work')->rating->load_user_ratings($c->user->id, @entities) if $c->user_exists;
+    }
 
     $c->stash(
         template => 'series/index.tt',
-        entities => $entities,
+        entities => \@entities,
+        series_item_numbers => $item_numbers,
     );
 }
 
