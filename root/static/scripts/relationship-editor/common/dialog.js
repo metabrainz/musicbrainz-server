@@ -490,8 +490,10 @@
             var relationship = this.relationship();
 
             if (!source.mergeRelationship(relationship)) {
-                if (relationship.linkTypeInfo().orderableDirection) {
-                    var maxLinkOrder = _(source.getRelationshipGroup(relationship.parent))
+                var linkType = relationship.linkTypeInfo();
+
+                if (linkType.orderableDirection) {
+                    var maxLinkOrder = _(source.getRelationshipGroup(linkType.id, relationship.parent))
                         .invoke("linkOrder").max().value();
 
                     relationship.linkOrder(_.isFinite(maxLinkOrder) ? (maxLinkOrder + 1) : 1);
