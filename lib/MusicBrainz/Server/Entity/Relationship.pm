@@ -203,7 +203,7 @@ sub _interpolate
         my $name = lc $attr->root->name;
         my $value = $attr->l_name;
 
-        if ($attr->root->free_text && (my $text_value = $text_attrs->{$attr->id})) {
+        if ($attr->free_text && (my $text_value = $text_attrs->{$attr->id})) {
             $value = l('{attribute}: {value}', { attribute => $value, value => $text_value });
         }
 
