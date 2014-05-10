@@ -80,6 +80,7 @@ $(function () {
   series.typeID($type.val());
   series.orderingAttributeID($orderingAttribute.val());
   series.orderingTypeID($orderingType.val());
+  series.type = MB.seriesTypesByID[series.typeID()];
 
   series.extend({
     typeBubble:               MB.Control.BubbleDoc(),
