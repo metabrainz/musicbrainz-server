@@ -56,9 +56,20 @@ sub show : PathPart('') Chained('load') {
         $item_numbers->{$_->{entity}->id} = $_->{ordering_attribute_value};
     }
 
-    if ($series->type->entity_type eq 'work') {
-        $c->model('Work')->load_related_info(@entities);
-        $c->model('Work')->rating->load_user_ratings($c->user->id, @entities) if $c->user_exists;
+    if ($series->type->entity_type eq 'recording') {
+        $c->model('ISRC')->load_for_recordings(@entities);
+        $c->model('ArtistCredit')->load(@entities);
+        $c->model('Recording')->load_meta(@entities);
+        $c->model('Recording')->rating->load_user_ratings($c->user->id, @entities) if $c->user_exists;
+    }
+
+    if ($series->type->entity_type eq 'release') {
+        $c->model('ArtistCredit')->load(@entities);
+        $c->model('Medium')->load_for_releases(@entities);
+        $c->model('MediumFormat')->load(map { $_->all_mediums } @entities);
+        $c->model('Release')->load_release_events(@entities);
+        $c->model('ReleaseLabel')->load(@entities);
+        $c->model('Label')->load(map { $_->all_labels } @entities);
     }
 
     if ($series->type->entity_type eq 'release_group') {
@@ -68,11 +79,9 @@ sub show : PathPart('') Chained('load') {
         $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, @entities) if $c->user_exists;
     }
 
-    if ($series->type->entity_type eq 'recording') {
-        $c->model('ISRC')->load_for_recordings(@entities);
-        $c->model('ArtistCredit')->load(@entities);
-        $c->model('Recording')->load_meta(@entities);
-        $c->model('Recording')->rating->load_user_ratings($c->user->id, @entities) if $c->user_exists;
+    if ($series->type->entity_type eq 'work') {
+        $c->model('Work')->load_related_info(@entities);
+        $c->model('Work')->rating->load_user_ratings($c->user->id, @entities) if $c->user_exists;
     }
 
     $c->stash(
