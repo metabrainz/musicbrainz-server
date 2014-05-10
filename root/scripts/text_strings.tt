@@ -178,6 +178,7 @@
             recording:       "[% l('Add another recording') | js %]",
             release:         "[% l('Add another release') | js %]",
             release_group:   "[% l('Add another release group') | js %]",
+            series:          "[% l('Add another series') | js %]",
             work:            "[% l('Add another work') | js %]"
         },
         AttributeTextValue: '[% l('{attribute}: {value}') | js %]',
