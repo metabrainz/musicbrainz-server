@@ -45,6 +45,8 @@ role {
             $entity_map->{$model} = $c->model($model)->get_by_gids(@{ $entity_map->{$model} });
         }
 
+        $c->model('SeriesType')->load(values %{ $entity_map->{'Series'} // {} });
+
         return $entity_map;
     }
 
