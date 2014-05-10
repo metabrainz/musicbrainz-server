@@ -64,7 +64,7 @@
     var sourceData = [% source_entity %];
     MB.sourceEntityGID = sourceData.gid = sourceData.gid || _.uniqueId("tmp-");
 
-    var vm = MB.relationshipEditor.GenericEntityViewModel({
+    MB.sourceRelationshipEditor = MB.relationshipEditor.GenericEntityViewModel({
       sourceData: sourceData,
       formName: "[% form.name | js %]"
     });
@@ -75,7 +75,7 @@
     });
 
     var $content = $("#relationship-editor");
-    ko.applyBindings(vm, $content[0]);
+    ko.applyBindings(MB.sourceRelationshipEditor, $content[0]);
     $content.show();
   });
 </script>

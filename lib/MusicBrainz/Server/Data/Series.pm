@@ -143,13 +143,18 @@ sub update {
 
     assert_uniqueness_conserved($self, series => $series_id, $update);
 
-    my $old_ordering_type = $self->sql->select_single_value(
-        "SELECT ordering_type FROM series WHERE id = ?", $series_id
-    );
+    my $series = $self->c->model('Series')->get_by_id($series_id);
+    $self->c->model('SeriesType')->load($series);
+
+    if ($series->type_id != $row->{type} || $series->ordering_attribute_id != $row->{ordering_attribute}) {
+        my ($items, $hits) = $self->c->model('Series')->get_entities($series, 1, 0);
+
+        die "Cannot change the type or ordering attribute of a non-empty series" if scalar(@$items);
+    }
 
     $self->sql->update_row('series', $row, { id => $series_id }) if %$row;
 
-    if ($old_ordering_type != $SERIES_ORDERING_TYPE_AUTOMATIC &&
+    if ($series->ordering_type_id != $SERIES_ORDERING_TYPE_AUTOMATIC &&
             $row->{ordering_type} == $SERIES_ORDERING_TYPE_AUTOMATIC) {
         $self->c->model('Series')->automatically_reorder($series_id);
     }

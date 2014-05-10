@@ -163,6 +163,12 @@
             }
 
             return (this.__groupedRelationships = _.sortBy(newGroups, "sortKey"));
+        },
+
+        getRelationshipGroup: function (linkTypeID, viewModel) {
+            return _(this.groupedRelationships(viewModel))
+                .values().where({ linkTypeID: +linkTypeID })
+                .invoke("relationships").flatten().value();
         }
     });
 

@@ -202,6 +202,13 @@
             this.typeID = ko.observable(data.type && data.type.id);
             this.orderingTypeID = ko.observable(data.orderingTypeID);
             this.orderingAttributeID = ko.observable(data.orderingAttributeID);
+        },
+
+        getSeriesItems: function (viewModel) {
+            var gid = MB.constants.PART_OF_SERIES_LINK_TYPES_BY_ENTITY[this.type.entityType];
+            var linkTypeInfo = MB.typeInfoByID[gid];
+
+            return this.getRelationshipGroup(linkTypeInfo.id, viewModel);
         }
     });
 

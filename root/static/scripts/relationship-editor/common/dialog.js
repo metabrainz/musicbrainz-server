@@ -491,9 +491,7 @@
 
             if (!source.mergeRelationship(relationship)) {
                 if (relationship.linkTypeInfo().orderableDirection) {
-                    var maxLinkOrder = _(source.groupedRelationships(relationship.parent))
-                        .values().where({ linkTypeID: +relationship.linkTypeID() })
-                        .invoke("relationships").flatten()
+                    var maxLinkOrder = _(source.getRelationshipGroup(relationship.parent))
                         .invoke("linkOrder").max().value();
 
                     relationship.linkOrder(_.isFinite(maxLinkOrder) ? (maxLinkOrder + 1) : 1);
