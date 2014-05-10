@@ -31,6 +31,19 @@ has parent => (
     isa => 'Maybe[SeriesType]',
 );
 
+has children => (
+    is => 'rw',
+    isa => 'ArrayRef[SeriesType]',
+    lazy => 1,
+    default => sub { [] },
+    traits => [ 'Array' ],
+    handles => {
+        all_children => 'elements',
+        add_child => 'push',
+        clear_children => 'clear'
+    }
+);
+
 has child_order => (
     is => 'rw',
     isa => 'Int',

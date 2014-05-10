@@ -4,7 +4,7 @@ use List::UtilsBy qw( sort_by );
 use MusicBrainz::Server::Entity::LinkAttributeType;
 use MusicBrainz::Server::Entity::SeriesOrderingType;
 use MusicBrainz::Server::Entity::SeriesType;
-use MusicBrainz::Server::Form::Utils qw( select_options build_options_tree );
+use MusicBrainz::Server::Form::Utils qw( select_options_tree build_options_tree );
 
 extends 'MusicBrainz::Server::Form';
 
@@ -43,7 +43,7 @@ sub edit_field_names {
 }
 
 sub options_type_id {
-    select_options(shift->ctx, 'SeriesType');
+    select_options_tree(shift->ctx, 'SeriesType');
 }
 
 sub options_ordering_attribute_id {
@@ -60,7 +60,7 @@ sub options_ordering_attribute_id {
 }
 
 sub options_ordering_type_id {
-    select_options(shift->ctx, 'SeriesOrderingType');
+    select_options_tree(shift->ctx, 'SeriesOrderingType');
 }
 
 sub dupe_model {
