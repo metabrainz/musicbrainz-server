@@ -328,6 +328,12 @@
             this.linkOrder(this.linkOrder() + 1);
         },
 
+        showLinkOrder: function (source) {
+            return this.linkOrder() && this.entityIsOrdered(this.target(source)) &&
+                    (source.entityType !== "series" ||
+                     source.orderingTypeID() == MB.constants.SERIES_ORDERING_TYPE_MANUAL);
+        },
+
         around$isDuplicate: function (supr, other) {
             return (
                 supr(other) &&
