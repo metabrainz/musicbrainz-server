@@ -13,17 +13,12 @@
   </legend>
 
   <table class="details row-form" style="width: 100%">
-    <tbody data-bind="foreach: _.sortBy(groupedRelationships($root), 'linkPhrase')">
+    <tbody data-bind="foreach: _.sortBy(groupedRelationships($root, $data), 'linkPhrase')">
       <tr>
         <th>
           <label data-bind="text: MB.i18n.expand(MB.text.AddColon, { variable: linkPhrase })"></label>
         </th>
-        <td class="relationship-list"
-            data-bind="foreach: _(relationships())
-                                  .sortBy(function (r) { return r.lowerCasePhrase($parent) })
-                                  .sortBy(function (r) { return r.lowerCaseTargetName() })
-                                  .sortBy(function (r) { return r.entityOrdering(r.target($parent)) })
-                                  .value()">
+        <td class="relationship-list" data-bind="foreach: relationships">
           <div>
             <button type="button" class="icon remove-item" data-bind="attr: { id: 'remove-' + uniqueID }" data-click="removeRelationship"></button>
             <button type="button" class="icon edit-item" data-bind="attr: { id: 'edit-' + uniqueID }, disable: removed" data-click="openEditDialog"></button>

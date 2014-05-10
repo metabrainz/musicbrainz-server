@@ -321,7 +321,7 @@
         },
 
         moveEntityUp: function () {
-            this.linkOrder(Math.max(this.linkOrder() - 1, 0));
+            this.linkOrder(Math.max(this.linkOrder() - 1, 1));
         },
 
         moveEntityDown: function () {

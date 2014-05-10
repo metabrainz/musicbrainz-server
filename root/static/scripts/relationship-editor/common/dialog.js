@@ -486,8 +486,19 @@
         disableTypeSelection: false,
 
         augment$accept: function () {
-            if (!this.source.mergeRelationship(this.relationship())) {
-                this.relationship().show();
+            var source = this.source;
+            var relationship = this.relationship();
+
+            if (!source.mergeRelationship(relationship)) {
+                if (relationship.linkTypeInfo().orderableDirection) {
+                    var maxLinkOrder = _(source.groupedRelationships(relationship.parent))
+                        .values().where({ linkTypeID: +relationship.linkTypeID() })
+                        .invoke("relationships").flatten()
+                        .invoke("linkOrder").max().value();
+
+                    relationship.linkOrder(_.isFinite(maxLinkOrder) ? (maxLinkOrder + 1) : 1);
+                }
+                relationship.show();
             }
         },
 

@@ -104,6 +104,12 @@
                     var group = _.findWhere(oldGroups, { sortKey: key });
                     var attributes = _.intersection.apply(_, _.invoke(relationships, "attributes"));
 
+                    relationships = _(relationships)
+                        .sortBy(function (r) { return r.lowerCasePhrase(self) })
+                        .sortBy(function (r) { return r.lowerCaseTargetName() })
+                        .sortBy(function (r) { return r.entityOrdering(r.target(self)) })
+                        .value();
+
                     if (group) {
                         group.relationships(relationships);
                     } else {
@@ -112,6 +118,7 @@
                         group = {
                             sortKey: key,
                             targetType: keyParts[0],
+                            linkTypeID: +keyParts[1],
                             linkPhrase: keyParts[2],
                             relationships: ko.observableArray(relationships),
 
