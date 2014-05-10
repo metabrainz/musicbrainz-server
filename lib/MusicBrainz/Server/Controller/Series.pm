@@ -61,6 +61,13 @@ sub show : PathPart('') Chained('load') {
         $c->model('Work')->rating->load_user_ratings($c->user->id, @entities) if $c->user_exists;
     }
 
+    if ($series->type->entity_type eq 'release_group') {
+        $c->model('ArtistCredit')->load(@entities);
+        $c->model('ReleaseGroupType')->load(@entities);
+        $c->model('ReleaseGroup')->load_meta(@entities);
+        $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, @entities) if $c->user_exists;
+    }
+
     $c->stash(
         template => 'series/index.tt',
         entities => \@entities,
