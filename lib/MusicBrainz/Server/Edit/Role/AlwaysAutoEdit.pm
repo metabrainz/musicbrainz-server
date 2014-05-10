@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Edit::Role::AlwaysAutoEdit;
 use Moose::Role;
 use namespace::autoclean;
-use MusicBrainz::Server::Constants qw( $EXPIRE_ACCEPT :quality );
+use MusicBrainz::Server::Constants qw( :expire_action :quality );
 
 around 'edit_conditions' => sub {
     my $conditions = {
