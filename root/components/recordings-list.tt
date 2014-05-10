@@ -11,7 +11,7 @@
 <table class="tbl">
     <thead>
         <tr>
-            [% IF c.user_exists && !no_prefix %]
+            [% IF c.user_exists && !no_checkboxes %]
             <th style="width: 1em">
               [% IF select_all %]
                 <input type="checkbox" />
