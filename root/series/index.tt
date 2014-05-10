@@ -9,6 +9,8 @@
       </p>
     [% END %]
 
+    [%- show_wikipedia_extract() -%]
+
     [%-
       IF series.type.entity_type == 'recording';
         '<h2>' _ l('Recordings') _ '</h2>';
@@ -45,4 +47,7 @@
     [% IF NOT entities.size %]
       <p>[% l('This series is currently empty.') %]</p>
     [% END %]
+
+    [% INCLUDE "components/relationships.tt" source=series
+        relationships=series.display_relationships %]
 [% END %]
