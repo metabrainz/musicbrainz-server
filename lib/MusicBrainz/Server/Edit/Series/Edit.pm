@@ -81,8 +81,7 @@ sub build_display_data {
     return $data;
 }
 
-sub allow_auto_edit
-{
+sub allow_auto_edit {
     my ($self) = @_;
 
     # Changing name is allowed if the change only affects
@@ -109,6 +108,19 @@ sub _edit_hash {
     my ($self, $data) = @_;
     return $self->merge_changes;
 }
+
+around initialize => sub {
+    my ($orig, $self, %opts) = @_;
+
+    my $series = $opts{to_edit} or return;
+
+    # These are not editable if the series is non-empty, and won't be
+    # submitted with the edit form because the fields are disabled.
+    $opts{type_id} //= $series->type_id;
+    $opts{ordering_attribute_id} //= $series->ordering_attribute_id;
+
+    $self->$orig(%opts);
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
