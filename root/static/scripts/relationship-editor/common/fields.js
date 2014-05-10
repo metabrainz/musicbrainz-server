@@ -61,7 +61,7 @@
             var attrValues = {};
             var self = this;
 
-            _.each(typeInfo.attributes, function (attrInfo, id) {
+            _.each(typeInfo && typeInfo.attributes, function (attrInfo, id) {
                 attrValues[id] = self.attributeValue(id);
 
                 if (attrInfo.attribute.freeText) {

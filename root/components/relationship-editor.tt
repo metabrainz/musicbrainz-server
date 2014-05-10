@@ -56,10 +56,7 @@
     <td class="section">[% l('Type') %]:</td>
     <td>
       <select class="link-type"
-        data-bind="options: MB.forms.linkTypeOptions(
-                              { children: MB.typeInfo[relationship().entityTypes] },
-                              backward()
-                            ),
+        data-bind="options: linkTypeOptions(relationship().entityTypes),
                    optionsValue: 'value',
                    optionsText: 'text',
                    optionsAfterRender: afterRenderLinkTypeOption,
@@ -105,7 +102,7 @@
         <!-- ko if: attribute.children && max === 1 -->
           <!-- ko text: attribute.l_name --><!-- /ko -->
           <br />
-          <select data-bind="options: MB.forms.buildOptionsTree(attribute, 'l_name', 'id'),
+          <select data-bind="options: $parent.attributeOptions(attribute),
                              optionsValue: 'value',
                              optionsText: 'text',
                              optionsCaption: '',
@@ -135,7 +132,7 @@
                   component: {
                     name: 'multiselect',
                     params: {
-                      options: MB.forms.buildOptionsTree(attribute, 'l_name', 'id'),
+                      options: $parent.attributeOptions(attribute),
                       placeholder: attribute.id == 14 ? MB.text.FocusInstrument :
                                    attribute.id == 3  ? MB.text.FocusVocal : '',
                       valueObservable: $parent.relationship().attributeValue(attribute.id)

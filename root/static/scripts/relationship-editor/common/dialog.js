@@ -299,9 +299,54 @@
             });
         },
 
+        linkTypeOptions: function (entityTypes) {
+            var options = MB.forms.linkTypeOptions(
+                { children: MB.typeInfo[entityTypes] }, this.backward()
+            );
+
+            if (this.source.entityType === "series") {
+                var itemType = MB.seriesTypesByID[this.source.typeID()].entityType;
+
+                options = _.reject(options, function (opt) {
+                    var info = MB.typeInfoByID[opt.value];
+
+                    if (_.contains(MB.constants.PART_OF_SERIES_LINK_TYPES, info.gid) &&
+                            info.gid !== MB.constants.PART_OF_SERIES_LINK_TYPES_BY_ENTITY[itemType]) {
+                        return true;
+                    }
+                });
+            }
+
+            return options;
+        },
+
+        attributeOptions: function (attribute) {
+            var options = MB.forms.buildOptionsTree(attribute, "l_name", "id");
+
+            if (this.source.entityType === "series" &&
+                    attribute.gid === MB.constants.SERIES_ORDERING_ATTRIBUTE) {
+
+                options = _.filter(options, { value: +this.source.orderingAttributeID() })
+            }
+
+            return options;
+        },
+
         targetTypeOptions: function () {
             var sourceType = this.source.entityType;
             var targetTypes = this.viewModel.allowedRelations[sourceType];
+
+            if (sourceType === "series") {
+                var self = this;
+
+                targetTypes = _.filter(targetTypes, function (targetType) {
+                    var key = [sourceType, targetType].sort().join("-");
+
+                    if (self.linkTypeOptions(key).length) {
+                        return true;
+                    }
+                })
+            }
 
             return _.map(targetTypes, function (type) {
                 return { value: type, text: MB.text.Entity[type] };
