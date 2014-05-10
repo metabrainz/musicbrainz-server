@@ -658,6 +658,7 @@ ALTER TABLE l_series_work ADD CONSTRAINT l_series_work_pkey PRIMARY KEY (id);
 
 ALTER TABLE link_attribute_text_value ADD CONSTRAINT link_attribute_text_value_pkey PRIMARY KEY (link, attribute_type);
 ALTER TABLE link_text_attribute_type ADD CONSTRAINT link_text_attribute_type_pkey PRIMARY KEY (attribute_type);
+ALTER TABLE edit_series ADD CONSTRAINT edit_series_pkey PRIMARY KEY (edit, series);
 ALTER TABLE series ADD CONSTRAINT series_pkey PRIMARY KEY (id);
 ALTER TABLE series_alias ADD CONSTRAINT series_alias_pkey PRIMARY KEY (id);
 ALTER TABLE series_alias_type ADD CONSTRAINT series_alias_type_pkey PRIMARY KEY (id);
@@ -823,6 +824,7 @@ CREATE UNIQUE INDEX l_work_work_idx_uniq ON l_work_work (entity0, entity1, link,
 
 CREATE INDEX l_area_series_idx_entity1 ON l_area_series (entity1);
 CREATE INDEX l_artist_series_idx_entity1 ON l_artist_series (entity1);
+CREATE INDEX l_instrument_series_idx_entity1 ON l_instrument_series (entity1);
 CREATE INDEX l_label_series_idx_entity1 ON l_label_series (entity1);
 CREATE INDEX l_place_series_idx_entity1 ON l_place_series (entity1);
 CREATE INDEX l_recording_series_idx_entity1 ON l_recording_series (entity1);
@@ -842,5 +844,10 @@ CREATE INDEX series_idx_txt ON series USING gin(to_tsvector('mb_simple', name));
 
 CREATE INDEX series_alias_idx_txt ON series_alias USING gin(to_tsvector('mb_simple', name));
 CREATE INDEX series_alias_idx_txt_sort ON series_alias USING gin(to_tsvector('mb_simple', sort_name));
+
+CREATE INDEX edit_series_idx ON edit_series (series);
+
+CREATE INDEX editor_subscribe_series_idx_uniq ON editor_subscribe_series (editor, series);
+CREATE INDEX editor_subscribe_series_idx_series ON editor_subscribe_series (series);
 
 COMMIT;
