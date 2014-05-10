@@ -51,7 +51,8 @@ subtype 'LinkHash'
         entity1 => Nullable[Dict[
             id => Int,
             name => Str,
-        ]]
+        ]],
+        attribute_text_values => Optional[Dict],
     ];
 
 subtype 'RelationshipHash'
@@ -74,7 +75,8 @@ subtype 'RelationshipHash'
         entity1 => Nullable[Dict[
             id => NullableOnPreview[Int],
             name => Str,
-        ]]
+        ]],
+        attribute_text_values => Optional[Dict],
     ];
 
 has '+data' => (
@@ -110,7 +112,10 @@ sub foreign_keys
     $load{LinkAttributeType} = [
         @{ $self->data->{link}->{attributes} },
         @{ $self->data->{new}->{attributes} || [] },
-        @{ $self->data->{old}->{attributes} || [] }
+        @{ $self->data->{old}->{attributes} || [] },
+        keys %{ $self->data->{link}->{attribute_text_values} // {} },
+        keys %{ $self->data->{old}->{attribute_text_values} // {} },
+        keys %{ $self->data->{new}->{attribute_text_values} // {} },
     ];
 
     my $old = $self->data->{old};
@@ -145,6 +150,9 @@ sub _build_relationship
     my $entity1    = defined $change->{entity1}      ? $change->{entity1}      : $link->{entity1};
     my $lt         = defined $change->{link_type}    ? $change->{link_type}    : $link->{link_type};
 
+    my $attribute_text_values = defined $change->{attribute_text_values}
+        ? $change->{attribute_text_values} : $link->{attribute_text_values};
+
     return unless $entity0 && $entity1;
 
     return Relationship->new(
@@ -166,7 +174,8 @@ sub _build_relationship
                         ();
                     }
                 } @$attributes
-            ]
+            ],
+            attribute_text_values => $attribute_text_values // {},
         ),
         entity0 => $loaded->{$model0}{ $entity0->{id} } ||
             $self->c->model($model0)->_entity_class->new( name => $entity0->{name} ),
@@ -252,7 +261,8 @@ sub _mapping
         entity1 => sub {
             my $rel = shift;
             return { id => $rel->entity1->id, name => $rel->entity1->name };
-        }
+        },
+        attribute_text_values => sub { shift->link->attribute_text_values },
     );
 }
 
@@ -288,8 +298,10 @@ sub initialize
     my $type1 = $link->type->entity1_type;
 
     if (my $attributes = $opts{attributes}) {
-        $self->check_attributes($link->type, @$attributes);
+        $self->check_attributes($link->type, $attributes, $opts{attribute_text_values} // {});
     }
+
+    delete $opts{attribute_text_values} unless %{ $opts{attribute_text_values} // {} };
 
     unless ($relationship->entity0 && $relationship->entity1) {
         $self->c->model('Relationship')->load_entities($relationship);
@@ -338,6 +350,7 @@ sub initialize
                 id => $relationship->entity1_id,
                 name => $relationship->entity1->name
             },
+            attribute_text_values => $link->attribute_text_values,
         },
         $self->_change_data($relationship, %opts)
     });
@@ -378,7 +391,8 @@ sub accept
         link_type_id => $data->{new}{link_type}{id} // $relationship->link->type_id,
         begin_date   => $data->{new}{begin_date}    // $relationship->link->begin_date,
         end_date     => $data->{new}{end_date}      // $relationship->link->end_date,
-        ended        => $data->{new}{ended}         // $relationship->link->ended
+        ended        => $data->{new}{ended}         // $relationship->link->ended,
+        attribute_text_values => $data->{new}{attribute_text_values} // $relationship->link->attribute_text_values,
     };
 
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(

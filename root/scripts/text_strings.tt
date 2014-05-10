@@ -108,6 +108,7 @@
             recording:       "[% l('Recording') | js %]",
             release:         "[% l('Release') | js %]",
             release_group:   "[% l('Release group') | js %]",
+            series:          "[% l('Series') | js %]",
             url:             "[% l('URL') | js %]",
             work:            "[% l('Work') | js %]",
         },
@@ -178,6 +179,16 @@
             release:         "[% l('Add another release') | js %]",
             release_group:   "[% l('Add another release group') | js %]",
             work:            "[% l('Add another work') | js %]"
+        },
+        AttributeTextValue: '[% l('{attribute}: {value}') | js %]',
+        AttributeTextValueRequired: '[% l('A text value is required.') | js %]',
+        OrderedRelationship: '[% l('{num}. {relationship}') | js %]',
+        IncorrectEntityForSeries: {
+            recording: '[% l('The series you’ve selected is for recordings.') | js %]',
+            release: '[% l('The series you’ve selected is for releases.') | js %]',
+            release_group: '[% l('The series you’ve selected is for release groups.') | js %]',
+            work: '[% l('The series you’ve selected is for works.') | js %]'
+
         }
     });
 })(MB);

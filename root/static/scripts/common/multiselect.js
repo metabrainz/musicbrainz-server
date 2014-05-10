@@ -78,15 +78,8 @@
         },
 
         selectedOptionsChanged: function (options) {
-            var oldValues = _.pluck(this.previousOptions, "value");
-            var newValues = _.pluck(options, "value");
-
             this.previousOptions = options.slice(0);
-
-            this.value(_(this.value())
-                .difference(oldValues).union(newValues)
-                .map(Number).sort().value()
-            );
+            this.value(_(options).pluck("value").map(Number).sortBy().value());
         },
 
         updateOptions: function (term) {

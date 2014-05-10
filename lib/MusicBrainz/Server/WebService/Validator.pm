@@ -43,6 +43,7 @@ our %relation_types = (
         "release-rels" => 1,
         "release-group-rels" => 1,
         "recording-rels" => 1,
+        "series-rels" => 1,
         "label-rels" => 1,
         "place-rels" => 1,
         "work-rels" => 1,

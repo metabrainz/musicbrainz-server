@@ -118,9 +118,19 @@
             var data = {
                 id:         number(relationship.id),
                 linkTypeID: number(relationship.linkTypeID),
-                entities:   array(relationship.entities, this.relationshipEntity),
-                attributes: array(relationship.attributes || [], Number)
+                entities:   array(relationship.entities, this.relationshipEntity)
             };
+
+            data.attributes = _.map(_.result(relationship, "attributes"), Number);
+
+            if (relationship.attributeTextValues) {
+                data.attributeTextValues = _(ko.toJS(relationship.attributeTextValues))
+                                            .pick(data.attributes).value();
+            }
+
+            if (relationship.linkOrder) {
+                data.linkOrder = number(relationship.linkOrder);
+            }
 
             if (relationship.hasDates()) {
                 data.beginDate = fields.partialDate(period.beginDate);

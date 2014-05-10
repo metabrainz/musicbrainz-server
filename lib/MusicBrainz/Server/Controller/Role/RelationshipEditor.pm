@@ -5,6 +5,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_EDIT
     $EDIT_RELATIONSHIP_CREATE
     $EDIT_RELATIONSHIP_DELETE
+    $EDIT_RELATIONSHIPS_REORDER
 );
 use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
@@ -86,6 +87,26 @@ sub delete_relationship {
     return $edit;
 }
 
+sub reorder_relationships {
+    my ($self, $c, $form, %params) = @_;
+
+    my $edit;
+    my $link_type_id = $params{link_type_id};
+    my $link_type = $c->model('LinkType')->get_by_id($link_type_id);
+
+    $c->model('Relationship')->lock_and_do(
+        $link_type->entity0_type,
+        $link_type->entity1_type,
+        sub {
+            $edit = $self->_insert_edit(
+                $c, $form, edit_type => $EDIT_RELATIONSHIPS_REORDER, %params
+            );
+            return 1;
+        }
+    );
+    return $edit;
+}
+
 sub _try_and_insert_edit {
     my ($self, $c, $form, $edit_type, %params) = @_;
 
@@ -101,6 +122,7 @@ sub _try_and_insert_edit {
         attributes   => $params{attributes},
         entity0_id   => $params{entity0}->id,
         entity1_id   => $params{entity1}->id,
+        attribute_text_values => $params{attribute_text_values} // {},
     });
 
     return $self->_insert_edit($c, $form, edit_type => $edit_type, %params);

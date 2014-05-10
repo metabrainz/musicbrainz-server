@@ -18,6 +18,7 @@ my %model_to_edit_type = (
     Work => $EDIT_WORK_ADD_ANNOTATION,
     Area => $EDIT_AREA_ADD_ANNOTATION,
     Instrument => $EDIT_INSTRUMENT_ADD_ANNOTATION,
+    Series => $EDIT_SERIES_ADD_ANNOTATION,
 );
 
 after 'load' => sub

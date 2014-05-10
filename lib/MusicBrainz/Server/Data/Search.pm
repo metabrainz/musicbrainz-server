@@ -24,6 +24,7 @@ use MusicBrainz::Server::Entity::Label;
 use MusicBrainz::Server::Entity::LabelType;
 use MusicBrainz::Server::Entity::Language;
 use MusicBrainz::Server::Entity::Link;
+use MusicBrainz::Server::Entity::LinkAttributeType;
 use MusicBrainz::Server::Entity::LinkType;
 use MusicBrainz::Server::Entity::Place;
 use MusicBrainz::Server::Entity::Medium;
@@ -36,6 +37,9 @@ use MusicBrainz::Server::Entity::ReleaseGroupType;
 use MusicBrainz::Server::Entity::ReleaseGroupSecondaryType;
 use MusicBrainz::Server::Entity::ReleaseStatus;
 use MusicBrainz::Server::Entity::Script;
+use MusicBrainz::Server::Entity::Series;
+use MusicBrainz::Server::Entity::SeriesOrderingType;
+use MusicBrainz::Server::Entity::SeriesType;
 use MusicBrainz::Server::Entity::SearchResult;
 use MusicBrainz::Server::Entity::WorkType;
 use MusicBrainz::Server::Exceptions;
@@ -46,6 +50,7 @@ use MusicBrainz::Server::Data::Label;
 use MusicBrainz::Server::Data::Recording;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::ReleaseGroup;
+use MusicBrainz::Server::Data::Series;
 use MusicBrainz::Server::Data::Tag;
 use MusicBrainz::Server::Data::Utils qw( ref_to_type );
 use MusicBrainz::Server::Data::Work;
@@ -68,6 +73,7 @@ Readonly my %TYPE_TO_DATA_CLASS => (
     recording     => 'MusicBrainz::Server::Data::Recording',
     release       => 'MusicBrainz::Server::Data::Release',
     release_group => 'MusicBrainz::Server::Data::ReleaseGroup',
+    series        => 'MusicBrainz::Server::Data::Series',
     work          => 'MusicBrainz::Server::Data::Work',
     tag           => 'MusicBrainz::Server::Data::Tag',
     editor        => 'MusicBrainz::Server::Data::Editor'
@@ -201,7 +207,7 @@ sub search
         $hard_search_limit = int($offset * 1.2);
     }
 
-    elsif ($type eq "label" || $type eq "work" || $type eq "place" || $type eq "area" || $type eq "instrument") {
+    elsif ($type eq "label" || $type eq "work" || $type eq "place" || $type eq "area" || $type eq "instrument" || $type eq "series") {
         my $where_deleted = "WHERE entity.id != ?";
         if ($type eq "label") {
             $deleted_entity = $DLABEL_ID;
@@ -216,6 +222,7 @@ sub search
         $extra_columns .= 'entity.description,' if $type eq 'instrument';
         $extra_columns .= 'iso_3166_1s.codes AS iso_3166_1, iso_3166_2s.codes AS iso_3166_2, iso_3166_3s.codes AS iso_3166_3,' if $type eq 'area';
         $extra_columns .= 'entity.label_code, entity.area,' if $type eq 'label';
+        $extra_columns .= 'entity.ordering_attribute, entity.ordering_type,' if $type eq 'series';
 
         my $extra_groupby_columns = $extra_columns;
         $extra_groupby_columns =~ s/[^ ,]+ AS //g;

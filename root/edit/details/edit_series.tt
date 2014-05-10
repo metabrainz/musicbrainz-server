@@ -1,0 +1,30 @@
+[%- PROCESS 'edit/details/macros.tt' -%]
+
+<table class="details edit-series">
+  <tr>
+    <th>[% l('Series:') %]</th>
+    <td colspan="2">[% link_entity(edit.display_data.series) %]</td>
+  </tr>
+
+  [% display_diff(l('Name:'),
+                  html_escape(edit.display_data.name.old),
+                  html_escape(edit.display_data.name.new),
+                  '\s+') %]
+
+  [% display_diff(l('Disambiguation:'),
+                  html_escape(edit.display_data.comment.old),
+                  html_escape(edit.display_data.comment.new),
+                  '\s+') %]
+
+  [% display_full_change(l('Type:'),
+                         html_escape(edit.display_data.type.old.name),
+                         html_escape(edit.display_data.type.new.name)) %]
+
+  [% display_full_change(l('Ordering Attribute:'),
+                         html_escape(edit.display_data.ordering_attribute.old.name),
+                         html_escape(edit.display_data.ordering_attribute.new.name)) %]
+
+  [% display_full_change(l('Ordering Type:'),
+                         html_escape(edit.display_data.ordering_type.old.name),
+                         html_escape(edit.display_data.ordering_type.new.name)) %]
+</table>

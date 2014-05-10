@@ -55,9 +55,18 @@
 
                 dialog.autocomplete = $(element).autocomplete({
                         entity: dialog.targetType(),
-                        setEntity: dialog.targetType
-                    })
-                    .data("ui-autocomplete");
+                        setEntity: dialog.targetType,
+                        resultHook: function (items) {
+                            if (dialog.autocomplete.entity === "series" &&
+                                    dialog.relationship().linkTypeInfo().orderableDirection !== 0) {
+                                return _.filter(items, function (item) {
+                                    return item.type.entityType === dialog.source.entityType;
+                                });
+                            } else {
+                                return items;
+                            }
+                        }
+                    }).data("ui-autocomplete");
 
                 dialog.autocomplete.currentSelection.subscribe(changeTarget);
 
@@ -79,14 +88,10 @@
     ko.bindingHandlers.instrumentSelect = {
 
         init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
-            var value = valueAccessor();
+            var relationship = valueAccessor();
 
-            var initialData = $.map(value(), function (id) {
-                var attr = MB.attrInfoByID[id];
-
-                if (attr.root_id == 14) {
-                    return ko.observable(MB.entity(attr, "instrument"));
-                }
+            var initialData = _.map(ko.unwrap(relationship.attributeValue(14)), function (id) {
+                return ko.observable(MB.entity(MB.attrInfoByID[id], "instrument"));
             });
 
             var instruments = ko.observableArray(initialData);
@@ -111,11 +116,9 @@
 
             ko.computed({
                 read: function () {
-                    var nonInstruments = _.reject(value(), function (id) {
-                        return MB.attrInfoByID[id].root_id == 14;
-                    });
-
-                    value(_(instruments()).map(getID).compact().union(nonInstruments).sort().value());
+                    relationship.attributeValue(
+                        14, _(instruments()).map(getID).compact().sortBy().value()
+                    );
                 },
                 disposeWhenNodeIsRemoved: element
             });
@@ -367,26 +370,28 @@
                 return MB.text.DistinctEntities;
             }
 
+            if (target.entityType === "series" &&
+                    target.type.entityType !== this.source.entityType) {
+                return MB.text.IncorrectEntityForSeries[target.type.entityType];
+            }
+
             return "";
         },
 
         attributeError: function (rootInfo) {
             var relationship = this.relationship();
-            var attrInfo = relationship.linkTypeInfo().attributes;
+            var value = relationship.attributeValue(rootInfo.attribute.id)();
             var min = rootInfo.min;
 
             if (min > 0) {
-                var attributes = relationship.attributes();
-
-                for (var i = 0, count = 0, id; id = attributes[i]; i++) {
-                    if (MB.attrInfoByID[id].root === rootInfo.attribute) {
-                        count++;
-                    }
-                }
-
-                if (count < min) {
+                if (!value || (_.isArray(value) && value.length < min)) {
                     return MB.text.AttributeRequired;
                 }
+            }
+
+            if (rootInfo.attribute.freeText && value &&
+                    !ko.unwrap(relationship.attributeTextValues[value])) {
+                return MB.text.AttributeTextValueRequired;
             }
 
             return "";

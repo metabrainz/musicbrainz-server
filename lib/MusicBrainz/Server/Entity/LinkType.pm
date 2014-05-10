@@ -155,6 +155,11 @@ has 'entity1_cardinality' => (
     isa => 'Int'
 );
 
+has 'orderable_direction' => (
+    is => 'rw',
+    isa => 'Int',
+);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

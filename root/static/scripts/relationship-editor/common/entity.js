@@ -19,11 +19,11 @@
                 return;
             }
 
-            var newRelationships = viewModel.sortedRelationships(
-                $.map(relationships, function (data) {
-                    return viewModel.getRelationship(data, self);
-                })
-            );
+            var newRelationships = _(relationships)
+                .map(function (data) { return viewModel.getRelationship(data, self) })
+                .compact()
+                .sortBy(function (r) { return r.lowerCasePhrase(self) })
+                .value();
 
             var existingRelationships = this.relationships.peek();
             this.relationships(_.union(existingRelationships, newRelationships));

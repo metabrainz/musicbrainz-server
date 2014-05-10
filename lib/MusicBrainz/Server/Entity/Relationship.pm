@@ -52,6 +52,11 @@ has 'entity1' => (
     isa => 'Linkable',
 );
 
+has 'link_order' => (
+    is => 'rw',
+    isa => 'Int',
+);
+
 has '_phrase' => (
     is => 'ro',
     builder => '_build_phrase',
@@ -192,10 +197,16 @@ sub _interpolate
     my ($self, $phrase) = @_;
 
     my @attrs = $self->link->all_attributes;
+    my $text_attrs = $self->link->attribute_text_values;
     my %attrs;
     foreach my $attr (@attrs) {
         my $name = lc $attr->root->name;
-        my $value = $attr->l_name();
+        my $value = $attr->l_name;
+
+        if ($attr->root->free_text && (my $text_value = $text_attrs->{$attr->id})) {
+            $value = l('{attribute}: {value}', { attribute => $value, value => $text_value });
+        }
+
         if (exists $attrs{$name}) {
             push @{$attrs{$name}}, $value;
         }
@@ -235,6 +246,7 @@ sub _cmp {
     my $b_sortname = $b->target->can('sort_name')
         ? $b->target->sort_name
         : $b->target->name;
+    $a->link_order              <=> $b->link_order ||
     $a->link->begin_date        <=> $b->link->begin_date ||
     $a->link->end_date          <=> $b->link->end_date   ||
     $a->link->type->child_order <=> $b->link->type->child_order ||

@@ -37,6 +37,7 @@ my %serializers =
         Relationship
         Release
         ReleaseGroup
+        Series
         URL
         Work
     );

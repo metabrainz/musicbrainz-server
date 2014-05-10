@@ -571,6 +571,8 @@ my %stats = (
                   UNION SELECT editor FROM editor_subscribe_artist_deleted
                   UNION SELECT editor FROM editor_subscribe_label
                   UNION SELECT editor FROM editor_subscribe_label_deleted
+                  UNION SELECT editor FROM editor_subscribe_series
+                  UNION SELECT editor FROM editor_subscribe_series_deleted
                 ),
                 collection_editors AS (SELECT DISTINCT editor FROM editor_collection),
                 voters AS (SELECT DISTINCT editor FROM vote),

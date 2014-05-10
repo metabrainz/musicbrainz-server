@@ -563,6 +563,20 @@ MB.Control.autocomplete_formatters = {
         return $("<li>").append (a).appendTo (ul);
     },
 
+    series: function (ul, item) {
+        var a = $("<a>").text(item.name);
+
+        if (item.comment) {
+            a.append('<span class="autocomplete-comment">(' + _.escape(item.comment) + ')</span>');
+        }
+
+        if (item.type) {
+            a.append(' <span class="autocomplete-comment">(' + _.escape(item.type.name) + ')</span>');
+        }
+
+        return $("<li>").append(a).appendTo(ul);
+    },
+
     "work": function (ul, item) {
         var a = $("<a>").text (item.name);
         var comment = [];

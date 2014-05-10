@@ -1,0 +1,44 @@
+[%- WRAPPER "series/layout.tt" page='index' -%]
+    [%- INCLUDE 'series/annotation.tt' summary=1 -%]
+
+    [% IF eligible_for_cleanup %]
+      <p class="cleanup">
+          [% l('This series has no relationships and will be removed
+                automatically in the next few days. If this is not intended,
+                please add more data to this series.') %]
+      </p>
+    [% END %]
+
+    <h2>[%~
+      IF series.type.entity_type == 'recording';
+        l('Recordings');
+      ELSIF series.type.entity_type == 'release';
+        l('Releases');
+      ELSIF series.type.entity_type == 'release_group';
+        l('Release Groups');
+      ELSIF series.type.entity_type == 'work';
+        l('Works');
+      END
+    ~%]</h2>
+
+    [% IF entities.size %]
+      <table class="tbl">
+          <thead>
+            <tr>
+              <th>[% l('#') %]</th>
+              <th style="width: 100%;">[%- l('Name') -%]</th>
+            </tr>
+          </thead>
+          <tbody>
+            [%- FOR item=entities -%]
+              <tr [% ' class="ev"' IF loop.count % 2 == 0 %]>
+                <td>[% item.ordering_attribute_value %]</td>
+                <td>[% link_entity(item.entity) %]</td>
+              </tr>
+            [%- END -%]
+          </tbody>
+      </table>
+    [% ELSE %]
+      <p>[% l('This series is currently empty.') %]</p>
+    [% END %]
+[% END %]

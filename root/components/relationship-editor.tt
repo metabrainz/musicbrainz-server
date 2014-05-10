@@ -99,11 +99,20 @@
       <div>
         <label>
         <!-- ko ifnot: attribute.children -->
-          <input type="checkbox" data-bind="checked: $parent.relationship().attributes, checkedValue: Number(attribute.id)" />
+          <input type="checkbox" data-bind="checked: $parent.relationship().attributeValue(attribute.id)" />
           <!-- ko text: attribute.l_name --><!-- /ko -->
         <!-- /ko -->
+        <!-- ko if: attribute.children && max === 1 -->
+          <!-- ko text: attribute.l_name --><!-- /ko -->
+          <br />
+          <select data-bind="options: MB.forms.buildOptionsTree(attribute, 'l_name', 'id'),
+                             optionsValue: 'value',
+                             optionsText: 'text',
+                             optionsCaption: '',
+                             value: $parent.relationship().attributeValue(attribute.id)"></select>
+        <!-- /ko -->
         <!-- ko if: attribute.id == 14 -->
-          <div data-bind="instrumentSelect: $parent.relationship().attributes">
+          <div data-bind="instrumentSelect: $parent.relationship()">
             <!-- ko foreach: instruments -->
               <div>
                 <span class="autocomplete" style="width: auto;">
@@ -120,20 +129,27 @@
             </button>
           </div>
         <!-- /ko -->
-        <!-- ko if: attribute.children && attribute.id != 14 -->
+        <!-- ko if: attribute.children && max !== 1 && attribute.id != 14 -->
           <!-- ko text: attribute.l_name --><!-- /ko -->
           <div class="multiselect" data-bind="
-                 component: {
+                  component: {
                     name: 'multiselect',
                     params: {
                       options: MB.forms.buildOptionsTree(attribute, 'l_name', 'id'),
                       placeholder: attribute.id == 14 ? MB.text.FocusInstrument :
                                    attribute.id == 3  ? MB.text.FocusVocal : '',
-                      valueObservable: $parent.relationship().attributes
+                      valueObservable: $parent.relationship().attributeValue(attribute.id)
                     }
                   }"></div>
         <!-- /ko -->
         </label>
+        <!-- ko if: attribute.freeText -->
+          <!-- ko with: $parent.relationship().attributeValue(attribute.id) -->
+            <input data-bind="value: $parents[1].relationship().attributeTextValue($data),
+                              valueUpdate: 'afterkeydown',
+                              attr: { placeholder: MB.attrInfoByID[$data].l_name }" />
+          <!-- /ko -->
+        <!-- /ko -->
         <div class="error" data-bind="text: $parent.attributeError($data)"></div>
         <div class="ar-descr" data-bind="html: attribute.description, visible: $parent.showAttributesHelp"></div>
       </div>

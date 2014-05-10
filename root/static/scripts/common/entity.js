@@ -194,6 +194,15 @@
         }
     });
 
+    MB.entity.Series = aclass(MB.entity.CoreEntity, {
+        entityType: "series",
+
+        after$init: function (data) {
+            this.type = data.type;
+            this.orderingTypeID = ko.observable(data.orderingTypeID);
+            this.orderingAttributeID = ko.observable(data.orderingAttributeID);
+        }
+    });
 
     MB.entity.Track = aclass(MB.entity.CoreEntity, {
         entityType: "track",
@@ -516,6 +525,10 @@
         fromJS: function (data) {
             this.linkTypeID(data.linkTypeID);
             this.entities([MB.entity(data.entities[0]), MB.entity(data.entities[1])]);
+        },
+
+        lowerCasePhrase: function () {
+            return this.linkPhrase().toLowerCase();
         }
     });
 
@@ -539,6 +552,7 @@
         recording:     MB.entity.Recording,
         release:       MB.entity.Release,
         release_group: MB.entity.ReleaseGroup,
+        series:        MB.entity.Series,
         track:         MB.entity.Track,
         work:          MB.entity.Work,
         url:           MB.entity.URL

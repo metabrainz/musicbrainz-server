@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::Role::EditRelationships;
 use JSON;
 use MooseX::Role::Parameterized -metaclass => 'MusicBrainz::Server::Controller::Role::Meta::Parameterizable';
 use MusicBrainz::Server::CGI::Expand qw( expand_hash );
+use MusicBrainz::Server::Constants qw( $SERIES_ORDERING_TYPE_MANUAL );
 use MusicBrainz::Server::Data::Utils qw( model_to_type ref_to_type type_to_model );
 use MusicBrainz::Server::Form::Utils qw( build_type_info build_attr_info );
 use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
@@ -89,6 +90,7 @@ role {
                     endDate     => $_->{period}->{end_date} // {},
                     ended       => $_->{period}->{ended} ? \1 : \0,
                     target      => $target // { entityType => $target_type },
+                    linkOrder   => $_->{link_order} // 0,
                 };
             }
 
@@ -105,7 +107,7 @@ role {
                 grep {
                     my $lt = $_->link->type;
 
-                    $source == $_->entity0
+                    $source->id == $_->entity0_id
                         ? $lt->entity0_cardinality == 0
                         : $lt->entity1_cardinality == 0;
 
@@ -179,6 +181,7 @@ role {
         my @edits;
         my @field_values = map { $_->value } @$fields;
         my $entity_map = load_entities($c, ref_to_type($source), @field_values);
+        my %reordered_relationships;
 
         for my $field (@field_values) {
             my $edit;
@@ -192,6 +195,17 @@ role {
             }
 
             $args{attributes} = $field->{attributes} if $field->{attributes};
+
+            if ($field->{attribute_text_values}) {
+                my %attribute_text_values;
+
+                for (@{ $field->{attribute_text_values} // [] }) {
+                    $attribute_text_values{$_->{attribute}} = $_->{text_value};
+                }
+
+                $args{attribute_text_values} = \%attribute_text_values;
+            }
+
             $args{ended} ||= 0;
 
             unless ($field->{removed}) {
@@ -217,16 +231,45 @@ role {
                 $args{relationship} = $relationship;
                 $c->model('Link')->load($relationship);
                 $c->model('LinkType')->load($relationship->link);
+                $c->model('Relationship')->load_entities($relationship);
 
                 if ($field->{removed}) {
                     $edit = $self->delete_relationship($c, $form, %args);
                 } else {
                     $edit = $self->try_and_edit($c, $form, %args);
+
+                    my $orderable_direction = $link_type->orderable_direction;
+
+                    if ($orderable_direction != 0 && $field->{link_order} != $relationship->link_order) {
+                        my $orderable_entity = $orderable_direction == 1 ? $relationship->entity1 : $relationship->entity0;
+                        my $unorderable_entity = $orderable_direction == 1 ? $relationship->entity0 : $relationship->entity1;
+                        my $is_series = $unorderable_entity->isa('MusicBrainz::Server::Entity::Series');
+
+                        if (!$is_series || $unorderable_entity->ordering_type_id == $SERIES_ORDERING_TYPE_MANUAL) {
+                            my $key = join "-", $link_type->id, $unorderable_entity->id;
+
+                            push @{ $reordered_relationships{$key} //= [] }, {
+                                relationship => $relationship,
+                                new_order => $field->{link_order},
+                                old_order => $relationship->link_order,
+                            };
+                        }
+                    }
                 }
             } else {
                 $edit = $self->try_and_insert($c, $form, %args);
             }
             push @edits, $edit;
+        }
+
+        while (my ($key, $relationship_order) = each %reordered_relationships) {
+            my ($link_type_id) = split /-/, $key;
+
+            push @edits, $self->reorder_relationships(
+                $c, $form,
+                link_type_id => $link_type_id,
+                relationship_order => $relationship_order,
+            );
         }
 
         return @edits;

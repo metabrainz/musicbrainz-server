@@ -76,6 +76,12 @@ sub text {
         'label'
     ) if exists $self->edits->{label};
 
+    push @sections, $self->edits_for_type(
+        'Changes for your subscribed series',
+        [ sort_by { $_->{subscription}->series->name } @{ $self->edits->{series} } ],
+        'series'
+    ) if exists $self->edits->{series};
+
     push @sections, $self->edits_for_editors(
         sort_by { $_->{subscription}->subscribed_editor->name } @{ $self->edits->{editor} }
     ) if exists $self->edits->{editor};
@@ -152,6 +158,7 @@ deleted or made private:
 edit = sub.edit_id;
 type = sub.isa('MusicBrainz::Server::Entity::Subscription::DeletedArtist') ? 'artist'
      : sub.isa('MusicBrainz::Server::Entity::Subscription::DeletedLabel') ? 'label'
+     : sub.isa('MusicBrainz::Server::Entity::Subscription::DeletedSeries') ? 'series'
      : sub.isa('MusicBrainz::Server::Entity::CollectionSubscription') ? 'collection'
      : 'unknown';  -%]
 [%- IF type == 'collection' -%]

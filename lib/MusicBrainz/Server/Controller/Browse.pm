@@ -86,6 +86,13 @@ sub work : Local
     $self->_browse($c, 'Work');
 }
 
+sub series : Local
+{
+    my ($self, $c) = @_;
+
+    $self->_browse($c, 'Series');
+}
+
 no Moose;
 1;
 
