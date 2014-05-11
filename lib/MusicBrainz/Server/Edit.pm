@@ -7,7 +7,7 @@ use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Utils qw( edit_status_name );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
-use MusicBrainz::Server::Constants qw( :edit_status :vote $AUTO_EDITOR_FLAG $REQUIRED_VOTES );
+use MusicBrainz::Server::Constants qw( :edit_status :vote $AUTO_EDITOR_FLAG $REQUIRED_VOTES $OPEN_EDIT_DURATION );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Types
     DateTime => { -as => 'DateTimeType' }, 'EditStatus', 'Quality';
@@ -172,12 +172,10 @@ sub editor_may_add_note
 sub edit_conditions
 {
     return {
-        map { $_ =>
-               { duration      => 7,
-                 votes         => $REQUIRED_VOTES,
-                 expire_action => $EXPIRE_ACCEPT,
-                 auto_edit     => 1 }
-            } ($QUALITY_LOW, $QUALITY_NORMAL, $QUALITY_HIGH)
+        duration      => $OPEN_EDIT_DURATION,
+        votes         => $REQUIRED_VOTES,
+        expire_action => $EXPIRE_ACCEPT,
+        auto_edit     => 1
     };
 }
 

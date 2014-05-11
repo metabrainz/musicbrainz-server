@@ -73,9 +73,7 @@ sub verify_artist_credits
 sub conditions_without_autoedit
 {
     my $conditions = shift;
-    foreach my $quality (keys %$conditions) {
-        $conditions->{$quality}->{auto_edit} = 0;
-    }
+    $conditions->{auto_edit} = 0;
 
     return $conditions;
 }
