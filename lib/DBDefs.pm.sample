@@ -197,7 +197,7 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 # http:// after the action is complete, though only if the user
 # started there).  If set to 0 no SSL redirects will be done, which is
 # suitable for local or development deployments.
-sub SSL_REDIRECTS_ENABLED { 0 }
+# sub SSL_REDIRECTS_ENABLED { 0 }
 
 ################################################################################
 # Documentation Server Settings
