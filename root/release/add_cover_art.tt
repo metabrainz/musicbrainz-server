@@ -22,7 +22,7 @@
     <div style="display: none" class="add-files row with-formdata">
       <label for="files">&nbsp;</label>
       <input style="position: absolute; top: 0; left: -1000px; "
-             class="add-files" accept="image/*" type="file" name="files[]" multiple="multiple" />
+             class="add-files" accept="[% mime_types.join(",") %]" type="file" name="files[]" multiple="multiple" />
       <span class="fileinput-button buttons" style="vertical-align: middle">
         <button type="button" class="add-files">[%- l('Select images...') -%]</button>
       </span>

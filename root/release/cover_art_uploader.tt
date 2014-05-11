@@ -15,7 +15,7 @@
     <form id="add-cover-art" action="[% form_action %]" method="post" enctype="multipart/form-data">
       [% WRAPPER form_row %]
           <label for="file" class="required">[% l('Choose file:') %]</label>
-          <input id="file" type="file" name="file" value="" accept="image/jpeg,image/png,image/gif,application/pdf" />
+          <input id="file" type="file" name="file" value="" accept="[% mime_types.join(',') %]" />
       [% END %]
        <ul id="cover-art-file-error" class="errors" style="display: none">
          <li>[% l('Please choose a valid image. Currently the Cover Art Archive only supports JPEG, PNG, GIF and PDF files.') %]</li>
