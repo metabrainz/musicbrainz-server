@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::PUID::Delete;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_PUID_DELETE );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Edit::Exceptions;
 use MooseX::Types::Moose qw( Int Maybe Str );
 use MooseX::Types::Structured qw( Dict );

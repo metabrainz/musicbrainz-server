@@ -210,8 +210,8 @@ EOSQL
 
     my $work = $c->model('Work')->get_by_id(1);
     $c->model('WorkAttribute')->load_for_works($work);
-    is ($work->name, 'Awesome work', 'work renamed');
-    is ($work->all_attributes, 2, 'Work has two attributes');
+    is($work->name, 'Awesome work', 'work renamed');
+    is($work->all_attributes, 2, 'Work has two attributes');
 };
 
 test 'Check conflicts (conflicting edits)' => sub {
@@ -240,7 +240,7 @@ test 'Check conflicts (conflicting edits)' => sub {
     ok  exception { $edit_2->accept }, 'could not accept edit 2';
 
     my $work = $c->model('Work')->get_by_id(1);
-    is ($work->name, 'A', 'work renamed');
+    is($work->name, 'A', 'work renamed');
 };
 
 sub create_edit {

@@ -18,7 +18,7 @@ test 'Set cover art' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+caa');
     my $rg = $c->model('ReleaseGroup')->get_by_id(1);
-    $c->model('Artwork')->load_for_release_groups ($rg);
+    $c->model('Artwork')->load_for_release_groups($rg);
 
     my $edit = $c->model('Edit')->create(
         edit_type => $EDIT_RELEASEGROUP_SET_COVER_ART,
@@ -27,18 +27,18 @@ test 'Set cover art' => sub {
         entity => $rg,
     );
 
-    $edit->accept ();
+    $edit->accept();
 
     $rg = $c->model('ReleaseGroup')->get_by_id(1);
-    $c->model('Artwork')->load_for_release_groups ($rg);
+    $c->model('Artwork')->load_for_release_groups($rg);
 
     isa_ok($rg->cover_art, 'MusicBrainz::Server::Entity::Artwork::ReleaseGroup');
     isa_ok($rg->cover_art->release, 'MusicBrainz::Server::Entity::Release');
     isa_ok($rg->cover_art->release_group, 'MusicBrainz::Server::Entity::ReleaseGroup');
 
-    is ($rg->cover_art->is_front, 1, "Associated cover art is a frontiest cover");
-    is ($rg->cover_art->id, 12345, "Associated cover art has expected id");
-    is ($rg->cover_art->release->id, 1, "Associated cover art has links to expected release id");
+    is($rg->cover_art->is_front, 1, "Associated cover art is a frontiest cover");
+    is($rg->cover_art->id, 12345, "Associated cover art has expected id");
+    is($rg->cover_art->release->id, 1, "Associated cover art has links to expected release id");
 
     my $exception = exception {
         my $edit = $c->model('Edit')->create(
@@ -50,7 +50,7 @@ test 'Set cover art' => sub {
     };
 
     ok($exception);
-    isa_ok ($exception, 'MusicBrainz::Server::Edit::Exceptions::NoChanges');
+    isa_ok($exception, 'MusicBrainz::Server::Edit::Exceptions::NoChanges');
 };
 
 test 'Set cover art fails if release no longer exists' => sub {
@@ -59,7 +59,7 @@ test 'Set cover art fails if release no longer exists' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+caa');
     my $rg = $c->model('ReleaseGroup')->get_by_id(1);
-    $c->model('Artwork')->load_for_release_groups ($rg);
+    $c->model('Artwork')->load_for_release_groups($rg);
 
     my $release = $c->model('Release')->get_by_id(1);
 
@@ -70,7 +70,7 @@ test 'Set cover art fails if release no longer exists' => sub {
         entity => $rg,
     );
 
-    $c->model('Release')->delete ($release->id);
+    $c->model('Release')->delete($release->id);
 
     my $exception = exception { $edit->accept };
     ok($exception, "An exception occured when accepting the edit");

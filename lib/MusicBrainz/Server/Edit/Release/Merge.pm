@@ -6,7 +6,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_MERGE );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash ArtistCreditDefinition );
 use MusicBrainz::Server::Edit::Utils qw( calculate_recording_merges large_spread );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 use Try::Tiny;
 
 use MooseX::Types::Moose qw( ArrayRef Int Str );

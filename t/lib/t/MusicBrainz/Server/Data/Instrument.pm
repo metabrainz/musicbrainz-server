@@ -28,23 +28,23 @@ test 'Load basic data' => sub {
 
     # An instrument with all attributes populated
     my $instrument = $instrument_data->get_by_id(3);
-    is ( $instrument->id, 3, 'loaded full instrument correctly from DB');
-    is ( $instrument->gid, "745c079d-374e-4436-9448-da92dedef3ce", 'loaded full instrument correctly from DB' );
-    is ( $instrument->name, "Test Instrument", 'loaded full instrument correctly from DB' );
-    is ( $instrument->type_id, 2, 'loaded full instrument correctly from DB' );
-    is ( $instrument->edits_pending, 0, 'loaded full instrument correctly from DB' );
-    is ( $instrument->comment, 'Yet Another Test Instrument', 'loaded full instrument correctly from DB' );
-    is ( $instrument->description, 'This is a description!', 'loaded full instrument correctly from DB' );
+    is( $instrument->id, 3, 'loaded full instrument correctly from DB');
+    is( $instrument->gid, "745c079d-374e-4436-9448-da92dedef3ce", 'loaded full instrument correctly from DB' );
+    is( $instrument->name, "Test Instrument", 'loaded full instrument correctly from DB' );
+    is( $instrument->type_id, 2, 'loaded full instrument correctly from DB' );
+    is( $instrument->edits_pending, 0, 'loaded full instrument correctly from DB' );
+    is( $instrument->comment, 'Yet Another Test Instrument', 'loaded full instrument correctly from DB' );
+    is( $instrument->description, 'This is a description!', 'loaded full instrument correctly from DB' );
 
     # An instrument with the minimal set of required attributes
     $instrument = $instrument_data->get_by_id(4);
-    is ( $instrument->id, 4, 'loaded minimal instrument correctly from DB' );
-    is ( $instrument->gid, "945c079d-374e-4436-9448-da92dedef3cf", 'loaded minimal instrument correctly from DB' );
-    is ( $instrument->name, "Minimal Instrument", 'loaded minimal instrument correctly from DB' );
-    is ( $instrument->type_id, undef, 'loaded minimal instrument correctly from DB' );
-    is ( $instrument->edits_pending, 0, 'loaded minimal instrument correctly from DB' );
-    is ( $instrument->comment, '', 'loaded minimal instrument correctly from DB' );
-    is ( $instrument->description, '', 'loaded minimal instrument correctly from DB' );
+    is( $instrument->id, 4, 'loaded minimal instrument correctly from DB' );
+    is( $instrument->gid, "945c079d-374e-4436-9448-da92dedef3cf", 'loaded minimal instrument correctly from DB' );
+    is( $instrument->name, "Minimal Instrument", 'loaded minimal instrument correctly from DB' );
+    is( $instrument->type_id, undef, 'loaded minimal instrument correctly from DB' );
+    is( $instrument->edits_pending, 0, 'loaded minimal instrument correctly from DB' );
+    is( $instrument->comment, '', 'loaded minimal instrument correctly from DB' );
+    is( $instrument->description, '', 'loaded minimal instrument correctly from DB' );
 };
 
 test 'Create, update, delete instruments' => sub {

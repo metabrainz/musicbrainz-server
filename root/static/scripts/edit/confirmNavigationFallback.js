@@ -23,7 +23,7 @@ MB.confirmNavigationFallback = function () {
        preventDefault don't work for this, they must be assigned directly
        to document.onkeydown and document.onkeypress.
      */
-    document.onkeydown = function(event) {
+    document.onkeydown = function (event) {
         if (event.keyCode == 8) {
             var node = event.srcElement || event.target, tag = node.tagName.toLowerCase(),
                 type = (node.type || "").toLowerCase(),
@@ -36,7 +36,7 @@ MB.confirmNavigationFallback = function () {
         }
     };
 
-    document.onkeypress = function(event) {
+    document.onkeypress = function (event) {
         if (prevented) return (prevented = false);
     };
 };

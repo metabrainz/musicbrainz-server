@@ -167,7 +167,7 @@ sub find_by_collection
 sub find_for_subscription
 {
     my ($self, $subscription) = @_;
-    if($subscription->isa(EditorSubscription)) {
+    if ($subscription->isa(EditorSubscription)) {
         my $query = 'SELECT ' . $self->_columns . ' FROM edit
                       WHERE id > ? AND editor = ? AND status IN (?, ?)';
 
@@ -179,7 +179,7 @@ sub find_for_subscription
             $STATUS_OPEN, $STATUS_APPLIED
         );
     }
-    elsif($subscription->isa(CollectionSubscription)) {
+    elsif ($subscription->isa(CollectionSubscription)) {
         return () if (!$subscription->available);
 
         my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
@@ -386,7 +386,7 @@ sub preview
     my $class = MusicBrainz::Server::EditRegistry->class_from_type($type)
         or confess "Could not lookup edit type for $type";
 
-    unless ($class->does ('MusicBrainz::Server::Edit::Role::Preview'))
+    unless ($class->does('MusicBrainz::Server::Edit::Role::Preview'))
     {
         warn "FIXME: $class does not support previewing.\n";
         return undef;
@@ -519,7 +519,7 @@ sub load_all
     @edits = grep { $_->has_data } @edits;
 
     my $objects_to_load  = {}; # Objects loaded with get_by_id
-    my $post_load_models = {}; # Objects loaded with ->load (after get_by_id)
+    my $post_load_models = {}; # Objects loaded with ->load(after get_by_id)
 
     for my $edit (@edits) {
         my $edit_references = $edit->foreign_keys;

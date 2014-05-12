@@ -2,7 +2,7 @@ package MusicBrainz::Server::Controller::Role::Merge;
 use MooseX::Role::Parameterized -metaclass => 'MusicBrainz::Server::Controller::Role::Meta::Parameterizable';
 
 use MusicBrainz::Server::Log qw( log_assertion );
-use MusicBrainz::Server::Translation qw ( l ln );
+use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 
 parameter 'edit_type' => (

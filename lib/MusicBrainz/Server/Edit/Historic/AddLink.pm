@@ -3,7 +3,7 @@ use Moose;
 
 use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_date upgrade_type );
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_LINK );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit::Historic::Relationship';
 

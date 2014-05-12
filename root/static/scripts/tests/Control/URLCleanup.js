@@ -1,8 +1,8 @@
 MB.tests.URLCleanup = (MB.tests.URLCleanup) ? MB.tests.URLCleanup : {};
 
-MB.tests.URLCleanup.GuessType = function() {
+MB.tests.URLCleanup.GuessType = function () {
     QUnit.module('URL Cleanup');
-    QUnit.test('Guess type', function() {
+    QUnit.test('Guess type', function () {
         var control = MB.Control.URLCleanup();
         var tests = [
                 // Wikipedia
@@ -525,12 +525,12 @@ MB.tests.URLCleanup.GuessType = function() {
                 ]
             ];
 
-        $.each(tests, function(i, test) {
+        $.each(tests, function (i, test) {
             QUnit.equal(control.guessType(test[0], test[1]), test[2], test[1]);
         });
     });
 
-    QUnit.test('Cleanup', function() {
+    QUnit.test('Cleanup', function () {
         var control = MB.Control.URLCleanup(),
             tests = [
                 [
@@ -1050,12 +1050,12 @@ MB.tests.URLCleanup.GuessType = function() {
                 ],
             ];
 
-        $.each(tests, function(i, test) {
+        $.each(tests, function (i, test) {
             QUnit.equal(control.cleanUrl(test[2], test[0]), test[1], test[0]);
         });
     });
 };
 
-MB.tests.URLCleanup.Run = function() {
+MB.tests.URLCleanup.Run = function () {
     MB.tests.URLCleanup.GuessType();
 };

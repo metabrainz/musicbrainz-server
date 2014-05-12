@@ -8,7 +8,7 @@
 
     [%- IF rg.cover_art -%]
       <div class="cover-art">
-        [%- display_artwork (rg.cover_art) -%]
+        [%- display_artwork(rg.cover_art) -%]
       </div>
     [%- END -%]
 

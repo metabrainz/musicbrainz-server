@@ -22,27 +22,27 @@ test all => sub {
     my $label_data = MusicBrainz::Server::Data::Label->new(c => $test->c);
 
     my $label = $label_data->get_by_id(3);
-    is ( $label->id, 3, "id");
-    is ( $label->gid, "46f0f4cd-8aab-4b33-b698-f459faf64190", "gid" );
-    is ( $label->name, "Warp Records", "label name" );
-    is ( $label->begin_date->year, 1989, "begin date, year");
-    is ( $label->begin_date->month, 2, "begin date, month" );
-    is ( $label->begin_date->day, 3, "begin date, day" );
-    is ( $label->end_date->year, 2008, "end date, year" );
-    is ( $label->end_date->month, 5, "end date, month" );
-    is ( $label->end_date->day, 19, "end date, day" );
-    is ( $label->edits_pending, 0, "no edits pending" );
-    is ( $label->type_id, 1, "type id" );
-    is ( $label->label_code, 2070, "label code" );
-    is ( $label->format_label_code, 'LC 02070', "formatted label code" );
-    is ( $label->comment, 'Sheffield based electronica label', "comment" );
+    is( $label->id, 3, "id");
+    is( $label->gid, "46f0f4cd-8aab-4b33-b698-f459faf64190", "gid" );
+    is( $label->name, "Warp Records", "label name" );
+    is( $label->begin_date->year, 1989, "begin date, year");
+    is( $label->begin_date->month, 2, "begin date, month" );
+    is( $label->begin_date->day, 3, "begin date, day" );
+    is( $label->end_date->year, 2008, "end date, year" );
+    is( $label->end_date->month, 5, "end date, month" );
+    is( $label->end_date->day, 19, "end date, day" );
+    is( $label->edits_pending, 0, "no edits pending" );
+    is( $label->type_id, 1, "type id" );
+    is( $label->label_code, 2070, "label code" );
+    is( $label->format_label_code, 'LC 02070', "formatted label code" );
+    is( $label->comment, 'Sheffield based electronica label', "comment" );
 
     my $annotation = $label_data->annotation->get_latest(3);
-    is ( $annotation->text, "Label Annotation", "annotation" );
+    is( $annotation->text, "Label Annotation", "annotation" );
 
 
     $label = $label_data->get_by_gid('efdf3fe9-c293-4acd-b4b2-8d2a7d4f9592');
-    is ( $label->id, 3, "get label by gid" );
+    is( $label->id, 3, "get label by gid" );
 
 
     my $search = MusicBrainz::Server::Data::Search->new(c => $test->c);
@@ -125,7 +125,7 @@ test 'Deny delete "Deleted Label" trigger' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+special-purpose');
 
     like exception {
-        $c->sql->do ("DELETE FROM artist WHERE id = $DLABEL_ID")
+        $c->sql->do("DELETE FROM artist WHERE id = $DLABEL_ID")
     }, qr/ERROR:\s*Attempted to delete a special purpose row/;
 };
 

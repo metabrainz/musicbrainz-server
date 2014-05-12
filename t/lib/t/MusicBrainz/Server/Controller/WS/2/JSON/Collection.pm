@@ -23,7 +23,7 @@ INSERT INTO editor_collection_release (collection, release) VALUES (1, 123054);
 EOSQL
 
     ws_test_json 'collection lookup',
-        '/collection/f34c079d-374e-4436-9448-da92dedef3ce/releases/' => encode_json (
+        '/collection/f34c079d-374e-4436-9448-da92dedef3ce/releases/' => encode_json(
             {
                 id => "f34c079d-374e-4436-9448-da92dedef3ce",
                 name => "my collection",

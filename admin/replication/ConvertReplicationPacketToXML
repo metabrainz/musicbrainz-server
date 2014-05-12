@@ -265,7 +265,7 @@ sub extractData
   my $dataField = shift;
   my %valuesHash;
 
-  while(length($dataField)>0)
+  while (length($dataField)>0)
   {
     # Extract the field name that is surronded by double quotes
     $dataField =~ m/(\".*?\")/s;
@@ -273,7 +273,7 @@ sub extractData
     $dataField = substr $dataField ,length($fieldName);
     $fieldName =~ s/\"//g; #Remove the surronding " signs.
 
-    if($dataField =~ m/(^= )/s)
+    if ($dataField =~ m/(^= )/s)
     {
       #Matched null
       $dataField = substr $dataField , length($1);
@@ -297,7 +297,7 @@ sub extractData
               $matchString = $1;
               $value .= substr $matchString,0,length($matchString)-1;
 
-              if($matchString =~ m/(\'$)/s)
+              if ($matchString =~ m/(\'$)/s)
               {
                    # $1 runs to the end of the field value.
                   $dataField = substr $dataField,length($matchString)+1;

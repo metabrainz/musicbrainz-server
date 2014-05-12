@@ -44,7 +44,7 @@ sub create : Path('/relationship-attributes/create') Args(0) RequireAuth(relatio
     my $parent_link_attr_type = $c->model('LinkAttributeType')->get_by_gid($gid)
       if (is_guid($gid));
 
-    $form->field ('parent_id')->value ($parent_link_attr_type->id)
+    $form->field('parent_id')->value($parent_link_attr_type->id)
         if $parent_link_attr_type;
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {

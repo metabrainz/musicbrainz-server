@@ -426,7 +426,7 @@ sub schema_fixup
             }
         }
     }
-    if($type eq 'artist' && exists $data->{gender}) {
+    if ($type eq 'artist' && exists $data->{gender}) {
         $data->{gender} = MusicBrainz::Server::Entity::Gender->new( name => ucfirst($data->{gender}) );
     }
     if ($type eq 'label' && exists $data->{type})
@@ -637,7 +637,7 @@ sub schema_fixup
                 $entity{gid} = delete $entity{id};
 
                 my $entity = $self->c->model( type_to_model ($entity_type) )->
-                    _entity_class->new (%entity);
+                    _entity_class->new(%entity);
 
                 push @relationships, MusicBrainz::Server::Entity::Relationship->new(
                     entity1 => $entity,
@@ -699,7 +699,7 @@ sub schema_fixup
             ];
         }
 
-        if(exists $data->{type}) {
+        if (exists $data->{type}) {
             $data->{type} = MusicBrainz::Server::Entity::WorkType->new( name => $data->{type} );
         }
 
@@ -709,7 +709,7 @@ sub schema_fixup
             });
         }
 
-        if(exists $data->{'iswc-list'}) {
+        if (exists $data->{'iswc-list'}) {
             $data->{iswcs} = [
                 map {
                     MusicBrainz::Server::Entity::ISWC->new( iswc => $_ )
@@ -771,7 +771,7 @@ sub external_search
         $ua = LWP::UserAgent->new if (!defined $ua);
     }
 
-    $ua->timeout (5);
+    $ua->timeout(5);
     $ua->env_proxy;
 
     # Dispatch the search request.
@@ -1053,7 +1053,7 @@ sub xml_search
                                  $limit,);
 
     my $ua = LWP::UserAgent->new;
-    $ua->timeout (5);
+    $ua->timeout(5);
     $ua->env_proxy;
 
     # Dispatch the search request.

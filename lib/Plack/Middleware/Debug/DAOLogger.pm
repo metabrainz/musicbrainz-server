@@ -15,7 +15,7 @@ sub run {
     $i = 0;
 
     return sub {
-        my $sum = sum (map { $_->[1] } @call_stack);
+        my $sum = sum(map { $_->[1] } @call_stack);
 
         $panel->content(
             "<p>This panel shows time spent within the data access layer. Rows ".

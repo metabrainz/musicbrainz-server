@@ -26,9 +26,9 @@ MB.utility.keys = function (obj) {
     else {
         var ret = [];
         for (var key in obj) {
-            if (obj.hasOwnProperty (key))
+            if (obj.hasOwnProperty(key))
             {
-                ret.push (key);
+                ret.push(key);
             }
         }
 
@@ -46,27 +46,27 @@ MB.utility.fullWidthConverter = function (inputString) {
     newString = [];
 
     do {
-        newString.push (
-            inputString[i-1].replace (/([\uFF01-\uFF5E])/g, function (str, p1) {
-                return String.fromCharCode (p1.charCodeAt(0) - 65248);
+        newString.push(
+            inputString[i-1].replace(/([\uFF01-\uFF5E])/g, function (str, p1) {
+                return String.fromCharCode(p1.charCodeAt(0) - 65248);
             })
         );
     } while (--i);
 
-    return newString.reverse ().join("");
+    return newString.reverse().join("");
 };
 
-MB.utility.isNullOrEmpty = function(o) { return (!o || o == ""); };
+MB.utility.isNullOrEmpty = function (o) { return (!o || o == ""); };
 MB.utility.is_latin = function (str) { return ! /[^\u0000-\u02ff\u1E00-\u1EFF\u2000-\u207F]/.test(str); };
 
-MB.utility.clone = function (input) { return jQuery.extend (true, {}, input); }
+MB.utility.clone = function (input) { return jQuery.extend(true, {}, input); }
 
 /* Set a particular button to be the default submit action for a form. */
 MB.utility.setDefaultAction = function (form, button) {
 
     var withDataAndEvents = true;
-    $(form).prepend (
-        $(button).clone (withDataAndEvents).removeAttr ('id').css ({
+    $(form).prepend(
+        $(button).clone(withDataAndEvents).removeAttr('id').css({
            position: 'absolute',
            left: "-999px", top: "-999px", height: 0, width: 0
         }));
@@ -78,17 +78,17 @@ MB.utility.rememberCheckbox = function (id, name) {
 
     /* only change the checkbox if the cookie is set, otherwise use the default
        value from the html. */
-    if ($.cookie (name) === "1")
+    if ($.cookie(name) === "1")
     {
         $(id).prop('checked', true);
     }
-    else if ($.cookie (name) === "0")
+    else if ($.cookie(name) === "0")
     {
         $(id).prop('checked', false);
     }
 
-    $(id).bind ('change.mb', function () {
-        $.cookie (name, $(id).is(':checked') ? "1" : "0", { path: '/', expires: 365 });
+    $(id).bind('change.mb', function () {
+        $.cookie(name, $(id).is(':checked') ? "1" : "0", { path: '/', expires: 365 });
     });
 
 };
@@ -136,20 +136,20 @@ MB.utility.unformatTrackLength = function (duration)
         return null;
     }
 
-    if (duration.slice (-2) == 'ms')
+    if (duration.slice(-2) == 'ms')
     {
-        return parseInt (duration, 10);
+        return parseInt(duration, 10);
     }
 
-    var parts = duration.replace(/[:\.]/, ':').split (':');
+    var parts = duration.replace(/[:\.]/, ':').split(':');
     if (parts[0] == '?' || parts[0] == '??' || duration === '')
     {
         return null;
     }
 
-    var seconds = parseInt (parts.pop (), 10);
-    var minutes = parseInt (parts.pop () || 0, 10) * 60;
-    var hours = parseInt (parts.pop () || 0, 10) * 3600;
+    var seconds = parseInt(parts.pop(), 10);
+    var minutes = parseInt(parts.pop() || 0, 10) * 60;
+    var hours = parseInt(parts.pop() || 0, 10) * 3600;
 
     return (hours + minutes + seconds) * 1000;
 };
@@ -165,7 +165,7 @@ MB.utility.unformatTrackLength = function (duration)
    interested in the side effects of the functions executed.
 */
 MB.utility.iteratePromises = function (promises) {
-    var deferred = $.Deferred ();
+    var deferred = $.Deferred();
     var queue = promises;
     var iterate = null;
     var failed = false;
@@ -173,29 +173,29 @@ MB.utility.iteratePromises = function (promises) {
     iterate = function () {
         if (queue.length > 0)
         {
-            queue.shift ()().then (iterate, function () {
+            queue.shift()().then(iterate, function () {
                 failed = true;
-                iterate ();
+                iterate();
             });
         }
         else
         {
             if (failed)
             {
-                deferred.reject ();
+                deferred.reject();
             }
             else
             {
-                deferred.resolve ();
+                deferred.resolve();
             }
         }
     };
 
-    iterate ();
-    return deferred.promise ();
+    iterate();
+    return deferred.promise();
 };
 
-MB.utility.validDate = (function() {
+MB.utility.validDate = (function () {
     var daysInMonth = {
         "true":  [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
         "false": [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
@@ -211,7 +211,7 @@ MB.utility.validDate = (function() {
         return numberRegex.test(num) ? parseInt(num, 10) : NaN;
     }
 
-    return function(y, m, d) {
+    return function (y, m, d) {
         y = empty(y) ? null : parseNumber(y);
         m = empty(m) ? null : parseNumber(m);
         d = empty(d) ? null : parseNumber(d);
@@ -265,10 +265,10 @@ MB.utility.joinList = function (items) {
 
 MB.utility.filesize = function (size) {
     /* 1 decimal place.  false disables bit sizes. */
-    return filesize (size, 1, false);
+    return filesize(size, 1, false);
 };
 
-MB.utility.percentOf = function(x, y) {
+MB.utility.percentOf = function (x, y) {
     return x * y / 100;
 };
 

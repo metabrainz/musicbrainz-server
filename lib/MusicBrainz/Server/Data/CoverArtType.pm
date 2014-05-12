@@ -36,7 +36,7 @@ sub get_by_name
 {
     my ($self, @names) = @_;
 
-    my %types_by_name = map { $_->name => $_ } $self->get_all ();
+    my %types_by_name = map { $_->name => $_ } $self->get_all();
 
     return map { $types_by_name{$_} } @names;
 }
@@ -55,7 +55,7 @@ sub find_by_cover_art_ids
     my %map;
     for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
         $map{ $row->{cover_art_id} } ||= [];
-        push @{ $map{ $row->{cover_art_id} } }, $self->_new_from_row ($row);
+        push @{ $map{ $row->{cover_art_id} } }, $self->_new_from_row($row);
     }
 
     return %map;
@@ -66,11 +66,11 @@ sub load_for
     my ($self, @objects) = @_;
     my %obj_id_map = object_to_ids(@objects);
 
-    my %id_types_map = $self->find_by_cover_art_ids (keys %obj_id_map);
+    my %id_types_map = $self->find_by_cover_art_ids(keys %obj_id_map);
 
     while (my ($cover_art_id, $types) = each %id_types_map)
     {
-        $obj_id_map{$cover_art_id}[0]->cover_art_types ($types);
+        $obj_id_map{$cover_art_id}[0]->cover_art_types($types);
     }
 }
 

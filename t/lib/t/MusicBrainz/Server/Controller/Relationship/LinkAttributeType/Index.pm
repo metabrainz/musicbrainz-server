@@ -27,7 +27,7 @@ INSERT INTO link_attribute_type (id, root, gid, name)
 EOSQL
 
     $mech->get_ok('/relationship-attributes');
-    my $tx = test_xpath_html ($mech->content);
+    my $tx = test_xpath_html($mech->content);
     $tx->ok('//a[contains(@href,"/relationship-attribute/77a0f1d3-f9ec-4055-a6e7-24d7258c21f7/edit")]',
             'has a link to edit the attribute');
     $tx->ok('//a[contains(@href,"/relationship-attribute/77a0f1d3-f9ec-4055-a6e7-24d7258c21f7/delete")]',

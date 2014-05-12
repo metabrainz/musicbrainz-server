@@ -9,16 +9,16 @@ around serialize => sub {
     return $ret unless $toplevel && defined $inc &&
         ($inc->ratings || $inc->user_ratings);
 
-    my $opts = $stash->store ($entity);
+    my $opts = $stash->store($entity);
 
     $ret->{rating} = {
         "votes-count" => defined $opts->{ratings}->{count} ?
-            number ($opts->{ratings}->{count}) : 0,
-        "value" => number ($opts->{ratings}->{rating})
+            number($opts->{ratings}->{count}) : 0,
+        "value" => number($opts->{ratings}->{rating})
     } if $inc->ratings;
 
     $ret->{"user-rating"} = {
-        "value" => number ($opts->{"user_ratings"})
+        "value" => number($opts->{"user_ratings"})
     } if $inc->user_ratings;
 
     return $ret;

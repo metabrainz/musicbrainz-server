@@ -151,9 +151,9 @@
       </div>
       <script>
          [%- IF r.form.field(field_name).value.size -%]
-           MB.Form.TextList ("[%- r.form.field(field_name).html_name -%]").init([% r.form.field(field_name).value.size %]);
+           MB.Form.TextList("[%- r.form.field(field_name).html_name -%]").init([% r.form.field(field_name).value.size %]);
          [%- ELSE -%]
-           MB.Form.TextList ("[%- r.form.field(field_name).html_name -%]").add('');
+           MB.Form.TextList("[%- r.form.field(field_name).html_name -%]").add('');
          [%- END -%]
       </script>
 
@@ -321,7 +321,7 @@
 [%- MACRO artist_credit_table BLOCK -%]
   <div class="bubble" id="artist-credit-bubble" data-bind="bubble: $root.artistBubble">
     <p>
-      [%- l('Use the following fields to enter collaborations, see the <a href="{url}">Artist Credit</a> documentation for more information.', url => c.uri_for ('/doc/Artist_Credit')) -%]
+      [%- l('Use the following fields to enter collaborations, see the <a href="{url}">Artist Credit</a> documentation for more information.', url => c.uri_for('/doc/Artist_Credit')) -%]
     </p>
 
     <p>[% l('Preview:') %] <span data-bind="html: target() ? target().html() : ''"></span></p>

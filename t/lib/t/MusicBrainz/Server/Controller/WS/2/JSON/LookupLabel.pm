@@ -14,7 +14,7 @@ test 'basic label lookup' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'basic label lookup',
-    '/label/b4edce40-090f-4956-b82a-5d9d285da40b' => encode_json (
+    '/label/b4edce40-090f-4956-b82a-5d9d285da40b' => encode_json(
         {
             id => "b4edce40-090f-4956-b82a-5d9d285da40b",
             name => "Planet Mu",
@@ -48,7 +48,7 @@ test 'basic label lookup, inc=annotation' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
 
     ws_test_json 'basic label lookup, inc=annotation',
-    '/label/46f0f4cd-8aab-4b33-b698-f459faf64190?inc=annotation' => encode_json (
+    '/label/46f0f4cd-8aab-4b33-b698-f459faf64190?inc=annotation' => encode_json(
         {
             id => "46f0f4cd-8aab-4b33-b698-f459faf64190",
             name => "Warp Records",
@@ -81,7 +81,7 @@ test 'label lookup, inc=aliases' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'label lookup, inc=aliases',
-    '/label/b4edce40-090f-4956-b82a-5d9d285da40b?inc=aliases' => encode_json (
+    '/label/b4edce40-090f-4956-b82a-5d9d285da40b?inc=aliases' => encode_json(
         {
             id => "b4edce40-090f-4956-b82a-5d9d285da40b",
             name => "Planet Mu",
@@ -116,7 +116,7 @@ test 'label lookup with releases, inc=media' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'label lookup with releases, inc=media',
-    '/label/b4edce40-090f-4956-b82a-5d9d285da40b?inc=releases+media' => encode_json (
+    '/label/b4edce40-090f-4956-b82a-5d9d285da40b?inc=releases+media' => encode_json(
         {
             id => "b4edce40-090f-4956-b82a-5d9d285da40b",
             name => "Planet Mu",

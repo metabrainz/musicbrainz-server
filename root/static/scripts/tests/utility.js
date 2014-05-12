@@ -10,29 +10,29 @@ test('All', function () {
 
     var input = "ＭｕｓｉｃＢｒａｉｎｚ！～２０１１";
     var expected = "MusicBrainz!~2011";
-    equal (MB.utility.fullWidthConverter (input),
+    equal(MB.utility.fullWidthConverter(input),
                   expected, "fullWidthConverter (" + input + ")");
 
     var seconds = 1000;
     var minutes = 60 * seconds;
     var hours = 60 * minutes;
 
-    equal (MB.utility.formatTrackLength (23), '23 ms', 'formatTrackLength');
-    equal (MB.utility.formatTrackLength (260586), '4:21', 'formatTrackLength');
-    equal (MB.utility.formatTrackLength (23 * seconds), '0:23', 'formatTrackLength');
-    equal (MB.utility.formatTrackLength (59 * minutes), '59:00', 'formatTrackLength');
-    equal (MB.utility.formatTrackLength (60 * minutes), '1:00:00', 'formatTrackLength');
-    equal (MB.utility.formatTrackLength (14 * hours + 15 * minutes + 16 * seconds), '14:15:16', 'formatTrackLength');
+    equal(MB.utility.formatTrackLength(23), '23 ms', 'formatTrackLength');
+    equal(MB.utility.formatTrackLength(260586), '4:21', 'formatTrackLength');
+    equal(MB.utility.formatTrackLength(23 * seconds), '0:23', 'formatTrackLength');
+    equal(MB.utility.formatTrackLength(59 * minutes), '59:00', 'formatTrackLength');
+    equal(MB.utility.formatTrackLength(60 * minutes), '1:00:00', 'formatTrackLength');
+    equal(MB.utility.formatTrackLength(14 * hours + 15 * minutes + 16 * seconds), '14:15:16', 'formatTrackLength');
 
-    equal (MB.utility.unformatTrackLength ('?:??'), null, 'MBS-5086: unformatTrackLength(?:??) should be null');
-    equal (MB.utility.unformatTrackLength ('23 ms'), 23, 'unformatTrackLength');
-    equal (MB.utility.unformatTrackLength ('00:23'), 23 * seconds, 'unformatTrackLength');
-    equal (MB.utility.unformatTrackLength (':57'), 57 * seconds, 'MBS-3352: Handle the case of ":57"');
-    equal (MB.utility.unformatTrackLength ('59:00'), 59 * minutes, 'unformatTrackLength');
-    equal (MB.utility.unformatTrackLength ('01:00:00'), 60 * minutes, 'unformatTrackLength');
-    equal (MB.utility.unformatTrackLength ('14:15:16'), 14 * hours + 15 * minutes + 16 * seconds, 'unformatTrackLength');
+    equal(MB.utility.unformatTrackLength('?:??'), null, 'MBS-5086: unformatTrackLength(?:??) should be null');
+    equal(MB.utility.unformatTrackLength('23 ms'), 23, 'unformatTrackLength');
+    equal(MB.utility.unformatTrackLength('00:23'), 23 * seconds, 'unformatTrackLength');
+    equal(MB.utility.unformatTrackLength(':57'), 57 * seconds, 'MBS-3352: Handle the case of ":57"');
+    equal(MB.utility.unformatTrackLength('59:00'), 59 * minutes, 'unformatTrackLength');
+    equal(MB.utility.unformatTrackLength('01:00:00'), 60 * minutes, 'unformatTrackLength');
+    equal(MB.utility.unformatTrackLength('14:15:16'), 14 * hours + 15 * minutes + 16 * seconds, 'unformatTrackLength');
 
-    equal (MB.utility.validDate(1960, 2, 29), true, 'MBS-5663: validDate should handle leap years');
+    equal(MB.utility.validDate(1960, 2, 29), true, 'MBS-5663: validDate should handle leap years');
 
     var parseDateTests = [
         { date: "", expected: { year: null, month: null, day: null} },
@@ -53,11 +53,11 @@ test('All', function () {
 
 test('filesize.js wrapper', function () {
 
-    equal (MB.utility.filesize (857372), "837.3KB");
-    equal (MB.utility.filesize (1235783), "1.2MB");
-    equal (MB.utility.filesize (7440138), "7.1MB");
-    equal (MB.utility.filesize (2379302), "2.3MB");
-    equal (MB.utility.filesize (159985050), "152.5MB");
+    equal(MB.utility.filesize(857372), "837.3KB");
+    equal(MB.utility.filesize(1235783), "1.2MB");
+    equal(MB.utility.filesize(7440138), "7.1MB");
+    equal(MB.utility.filesize(2379302), "2.3MB");
+    equal(MB.utility.filesize(159985050), "152.5MB");
 
 });
 

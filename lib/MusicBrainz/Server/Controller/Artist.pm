@@ -199,7 +199,7 @@ sub show : PathPart('') Chained('load')
     $c->model('ReleaseGroupType')->load(@$release_groups);
     $c->stash(
         recordings => $recordings,
-        show_video => scalar (grep {
+        show_video => scalar(grep {
             $_->video
         } @$recordings),
         release_groups => $release_groups,
@@ -284,10 +284,10 @@ sub recordings : Chained('load')
 
     $c->stash(
         recordings => $recordings,
-        show_artists => scalar (grep {
+        show_artists => scalar(grep {
             $_->artist_credit->name ne $artist->name
         } @$recordings),
-        show_video => scalar (grep {
+        show_video => scalar(grep {
             $_->video
         } @$recordings),
     );

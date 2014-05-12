@@ -23,7 +23,7 @@ MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
 MB.GuessCase._Area = function () {
     var self = {};
 
-    self.gc = MB.GuessCase.Main ();
+    self.gc = MB.GuessCase.Main();
 
     self.guess = self.gc.guessArea;
     self.sortname = self.gc.guessAreaSortname;
@@ -31,8 +31,8 @@ MB.GuessCase._Area = function () {
     return self;
 };
 
-$('document').ready (function () {
+$('document').ready(function () {
 
-    MB.GuessCase.area = MB.GuessCase._Area ();
+    MB.GuessCase.area = MB.GuessCase._Area();
 
 });
