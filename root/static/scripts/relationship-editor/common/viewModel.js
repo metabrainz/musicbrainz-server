@@ -154,7 +154,7 @@
             var self = this;
 
             var automaticallyOrderedSeries = source.entityType === "series" &&
-                    source.orderingTypeID() === MB.constants.SERIES_ORDERING_TYPE_AUTOMATIC;
+                    +source.orderingTypeID() === MB.constants.SERIES_ORDERING_TYPE_AUTOMATIC;
 
             return relationships.slice(0).sort(function (a, b) {
                 var targetA = a.target(source);

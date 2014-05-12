@@ -307,7 +307,7 @@
             var target = this.target(entity);
 
             if (target.entityType === "series") {
-                return target.orderingTypeID() !== MB.constants.SERIES_ORDERING_TYPE_AUTOMATIC;
+                return +target.orderingTypeID() !== MB.constants.SERIES_ORDERING_TYPE_AUTOMATIC;
             }
         },
 
@@ -322,7 +322,7 @@
         showLinkOrder: function (source) {
             return this.linkOrder() && this.entityIsOrdered(this.target(source)) &&
                     (source.entityType !== "series" ||
-                     source.orderingTypeID() == MB.constants.SERIES_ORDERING_TYPE_MANUAL);
+                     +source.orderingTypeID() === MB.constants.SERIES_ORDERING_TYPE_MANUAL);
         },
 
         around$isDuplicate: function (supr, other) {
