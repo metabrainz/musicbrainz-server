@@ -86,10 +86,9 @@ sub allow_auto_edit {
     my ($items, $hits) = $self->c->model('Series')->get_entities($series, 1, 0);
 
     # Allow auto-editing the series if it has no items. This is necessary
-    # when an editor changes the series type and/or ordering attribute, and
-    # also adds new part-of relationships in a single submission. The series
-    # must be modified before the relationships are added in order for them to
-    # display.
+    # when an editor changes the series type and adds new part-of
+    # relationships in a single submission. The series must be modified before
+    # the relationships are added in order for them to display.
     return 1 unless scalar(@$items);
 
     # Changing name is allowed if the change only affects
