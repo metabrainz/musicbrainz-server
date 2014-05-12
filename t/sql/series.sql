@@ -39,7 +39,7 @@ INSERT INTO series_ordering_type (id, name, parent, child_order, description) VA
 INSERT INTO series_alias_type (id, name) VALUES (1, 'Series name'), (2, 'Search hint');
 
 INSERT INTO link_attribute_type (id, root, parent, child_order, gid, name, description) VALUES
-    (1, 1, NULL, 0, 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a', 'ordering',
+    (1, 1, NULL, 0, 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a', 'number',
         'This attribute indicates the number of a work in a series.'
     );
 

@@ -492,7 +492,7 @@ INSERT INTO series_type (name, entity_type, parent, child_order, description) VA
 
 INSERT INTO series_ordering_type (name, parent, child_order, description) VALUES
     ('Automatic', NULL, 0,
-     'Sorts the items in the series automatically by their ordering attribute, using a natural sort order.'
+     'Sorts the items in the series automatically by their number attributes, using a natural sort order.'
     ),
     ('Manual', NULL, 1,
      'Allows for manually setting the position of each item in the series.'
@@ -501,7 +501,7 @@ INSERT INTO series_ordering_type (name, parent, child_order, description) VALUES
 INSERT INTO series_alias_type (name) VALUES ('Series name'), ('Search hint');
 
 INSERT INTO link_attribute_type (root, child_order, gid, name, description) VALUES
-    (1, 0, :ORDERING_ATTRIBUTE_GID, 'ordering',
+    (1, 0, :ORDERING_ATTRIBUTE_GID, 'number',
      'This attribute indicates the number of a work in a series.'
     );
 
