@@ -192,8 +192,6 @@ sub external : Private
 
     $c->stash->{query} = $query;
 
-    $c->detach('/search/editor') if $type eq 'editor';
-
     $self->do_external_search($c,
                               query    => $query,
                               type     => $type,
