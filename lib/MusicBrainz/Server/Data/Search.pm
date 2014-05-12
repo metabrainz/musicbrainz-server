@@ -27,6 +27,7 @@ use MusicBrainz::Server::Entity::Link;
 use MusicBrainz::Server::Entity::LinkAttributeType;
 use MusicBrainz::Server::Entity::LinkType;
 use MusicBrainz::Server::Entity::Place;
+use MusicBrainz::Server::Entity::PlaceType;
 use MusicBrainz::Server::Entity::Medium;
 use MusicBrainz::Server::Entity::MediumFormat;
 use MusicBrainz::Server::Entity::Relationship;
@@ -388,6 +389,10 @@ sub schema_fixup
     if ($type eq 'place' && exists $data->{type})
     {
         $data->{type} = MusicBrainz::Server::Entity::PlaceType->new( name => $data->{type} );
+    }
+    if ($type eq 'series' && exists $data->{type})
+    {
+        $data->{type} = MusicBrainz::Server::Entity::SeriesType->new( name => $data->{type} );
     }
     if ($type eq 'place' && exists $data->{coordinates})
     {
