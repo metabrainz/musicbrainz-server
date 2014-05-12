@@ -309,6 +309,8 @@
             if (target.entityType === "series") {
                 return +target.orderingTypeID() !== MB.constants.SERIES_ORDERING_TYPE_AUTOMATIC;
             }
+
+            return true;
         },
 
         moveEntityUp: function (self, event) {
