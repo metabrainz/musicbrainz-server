@@ -36,7 +36,21 @@ MB.constants.VARTIST_ID = 1;
 MB.constants.VARTIST_GID = '89ad4ac3-39f7-470e-963a-56509c546377';
 MB.constants.VARTIST_NAME = 'Various Artists';
 
-MB.constants.ENTITIES = [ 'artist', 'editor', 'instrument', 'label', 'release', 'release-group', 'recording', 'work', 'area', 'place' ];
+MB.constants.SERIES_ORDERING_TYPE_AUTOMATIC = 1;
+
+MB.constants.ENTITIES = [
+  'area',
+  'artist',
+  'editor',
+  'instrument',
+  'label',
+  'place',
+  'release',
+  'release-group',
+  'recording',
+  'series',
+  'work'
+];
 
 MB.constants.MAX_LENGTH_DIFFERENCE = 10500;
 MB.constants.MIN_NAME_SIMILARITY = 0.75;

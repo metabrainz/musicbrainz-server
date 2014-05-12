@@ -144,8 +144,7 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
             }
         });
 
-        // Click events inside the menu, but outside of a relate-to box,
-        // should not cause the box to close.
+        // Click events inside the menu should not cause the box to close.
         this.menu.element.on("click", function (event) {
             event.stopPropagation();
         });
@@ -294,12 +293,12 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
             dataType: "json",
 
             success: function (data) {
-                if (data.type != self.entity) {
+                if (data.entityType != self.entity) {
                     // Only RelateTo boxes and relationship-editor dialogs
                     // support changing the entity type.
                     var setEntity = self.options.setEntity;
 
-                    if (!setEntity || setEntity(data.type) === false) {
+                    if (!setEntity || setEntity(data.entityType) === false) {
                         self.clear();
                         return;
                     }
@@ -564,6 +563,20 @@ MB.Control.autocomplete_formatters = {
         return $("<li>").append (a).appendTo (ul);
     },
 
+    series: function (ul, item) {
+        var a = $("<a>").text(item.name);
+
+        if (item.comment) {
+            a.append('<span class="autocomplete-comment">(' + _.escape(item.comment) + ')</span>');
+        }
+
+        if (item.type) {
+            a.append(' <span class="autocomplete-comment">(' + _.escape(item.type.name) + ')</span>');
+        }
+
+        return $("<li>").append(a).appendTo(ul);
+    },
+
     "work": function (ul, item) {
         var a = $("<a>").text (item.name);
         var comment = [];
@@ -604,8 +617,10 @@ MB.Control.autocomplete_formatters = {
             }
         };
 
-        artistRenderer("Writers", item.artists.writers);
-        artistRenderer("Artists", item.artists.artists);
+        if (item.artists) {
+            artistRenderer("Writers", item.artists.writers);
+            artistRenderer("Artists", item.artists.artists);
+        }
 
         return $("<li>").append (a).appendTo (ul);
     },
@@ -659,6 +674,9 @@ MB.Control.autocomplete_formatters = {
                        (item.typeName ? _.escape(item.typeName) : '') +
                        (item.typeName && item.area ? ', ' : '') +
                        (item.area ? _.escape(item.area) : '') +
+                       (item.areaParentCity ? ', ' + _.escape(item.areaParentCity) : '') +
+                       (item.areaParentSubdivision ? ', ' + _.escape(item.areaParentSubdivision) : '') +
+                       (item.areaParentCountry ? ', ' + _.escape(item.areaParentCountry) : '') +
                        '</span>');
         };
 
@@ -739,11 +757,11 @@ MB.Control.EntityAutocomplete = function (options) {
     $name.autocomplete(options);
     var autocomplete = $name.data("ui-autocomplete");
 
-    autocomplete.currentSelection({
+    autocomplete.currentSelection(MB.entity({
         name: $name.val(),
         id: $inputs.find("input.id").val(),
         gid: $inputs.find("input.gid").val()
-    });
+    }, options.entity));
 
     autocomplete.currentSelection.subscribe(function (item) {
         var $hidden = $inputs.find("input[type=hidden]").val("");

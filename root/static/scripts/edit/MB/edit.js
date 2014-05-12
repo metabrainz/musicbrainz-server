@@ -13,6 +13,7 @@
         EDIT_RELEASE_ADD_ANNOTATION:                35,
         EDIT_RELEASE_DELETERELEASELABEL:            36,
         EDIT_RELEASE_EDITRELEASELABEL:              37,
+        EDIT_WORK_CREATE:                           41,
         EDIT_MEDIUM_CREATE:                         51,
         EDIT_MEDIUM_EDIT:                           52,
         EDIT_MEDIUM_DELETE:                         53,
@@ -112,20 +113,44 @@
         },
 
         relationship: function (relationship) {
+            var period = relationship.period || {};
+
             var data = {
-                relationship:   number(relationship.id),
-                link_type:      number(relationship.linkTypeID),
-                entity0:        string(relationship.entity0ID),
-                entity1:        string(relationship.entity1ID),
-                type0:          string(relationship.type0),
-                type1:          string(relationship.type1)
+                id:         number(relationship.id),
+                linkTypeID: number(relationship.linkTypeID),
+                entities:   array(relationship.entities, this.relationshipEntity)
             };
-            if (relationship.entity0Preview) {
-                data.entity0Preview = string(relationship.entity0Preview);
+
+            data.attributes = _.map(_.result(relationship, "attributes"), Number);
+
+            if (relationship.attributeTextValues) {
+                data.attributeTextValues = _(ko.toJS(relationship.attributeTextValues))
+                                            .pick(data.attributes).value();
             }
-            if (relationship.entity1Preview) {
-                data.entity1Preview = string(relationship.entity1Preview);
+
+            if (relationship.linkOrder) {
+                data.linkOrder = number(relationship.linkOrder);
             }
+
+            if (relationship.hasDates()) {
+                data.beginDate = fields.partialDate(period.beginDate);
+                data.endDate = fields.partialDate(period.endDate);
+                data.ended = Boolean(value(period.ended));
+            }
+
+            return data;
+        },
+
+        relationshipEntity: function (entity) {
+            var data = {
+                entityType: entity.entityType,
+                gid:        nullableString(entity.gid),
+                name:       string(entity.name)
+            };
+
+            // We don't use URL gids for anything.
+            if (entity.entityType === "url") delete data.gid;
+
             return data;
         },
 
@@ -188,6 +213,15 @@
                 position:       number(track.position),
                 number:         string(track.number),
                 length:         number(track.length)
+            };
+        },
+
+        work: function (work) {
+            return {
+                name:           string(work.name),
+                comment:        string(work.comment),
+                type_id:        number(work.typeID),
+                language_id:    number(work.languageID)
             };
         }
     };
@@ -284,6 +318,9 @@
     );
 
 
+    edit.workCreate = editConstructor(TYPES.EDIT_WORK_CREATE);
+
+
     edit.mediumCreate = editConstructor(
         TYPES.EDIT_MEDIUM_CREATE,
 
@@ -308,14 +345,10 @@
     );
 
 
-    edit.mediumDelete = editConstructor(
-        TYPES.EDIT_MEDIUM_DELETE
-    );
+    edit.mediumDelete = editConstructor(TYPES.EDIT_MEDIUM_DELETE);
 
 
-    edit.mediumAddDiscID = editConstructor(
-        TYPES.EDIT_MEDIUM_ADD_DISCID
-    );
+    edit.mediumAddDiscID = editConstructor(TYPES.EDIT_MEDIUM_ADD_DISCID);
 
 
     edit.recordingEdit = editConstructor(
@@ -330,29 +363,18 @@
 
     edit.relationshipCreate = editConstructor(
         TYPES.EDIT_RELATIONSHIP_CREATE,
-        function (args) {
-            delete args.relationship;
-
-            // These can be undefined when previewing a relationship to an
-            // entity that hasn't been created yet (e.g. URL relationships
-            // in /release/add).
-            if (!args.entity0) delete args.entity0;
-            if (!args.entity1) delete args.entity1;
-        }
+        function (args) { delete args.id }
     );
 
 
     edit.relationshipEdit = editConstructor(
         TYPES.EDIT_RELATIONSHIP_EDIT,
         function (args, orig) {
-            if (args.link_type === orig.link_type) {
-                delete args.link_type;
+            if (_.isEqual(args.linkTypeID, orig.linkTypeID)) {
+                delete args.linkTypeID;
             }
-            if (!args.entity0 || args.entity0 === orig.entity0) {
-                delete args.entity0;
-            }
-            if (!args.entity1 || args.entity1 === orig.entity1) {
-                delete args.entity1;
+            if (_.isEqual(args.attributes, orig.attributes)) {
+                delete args.attributes;
             }
         }
     );
@@ -360,11 +382,7 @@
 
     edit.relationshipDelete = editConstructor(
         TYPES.EDIT_RELATIONSHIP_DELETE,
-        function (args) {
-            delete args.link_type;
-            delete args.entity0;
-            delete args.entity1;
-        }
+        function (args) { delete args.linkTypeID }
     );
 
 
@@ -376,7 +394,7 @@
     function editEndpoint(endpoint) {
         function omitHash(edit) { return _.omit(edit, "hash") }
 
-        return function (data) {
+        return function (data, context) {
             data.edits = _.map(data.edits, omitHash);
 
             return MB.utility.request({
@@ -384,7 +402,7 @@
                 url: endpoint,
                 data: JSON.stringify(data),
                 contentType: "application/json; charset=utf-8"
-            });
+            }, context || null);
         };
     }
 

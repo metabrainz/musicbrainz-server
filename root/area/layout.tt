@@ -61,24 +61,6 @@
                     <hr/>
                 [% END %]
 
-                [%# We only show the 'Create a relationship with' link if the
-                    user is a location editor, or the other end point is *not* an
-                    area. %]
-                [% IF c.user.is_location_editor
-                        || c.session.relationship.type0 != 'area' %]
-                    [%# Adds <li> itself %]
-                    [% use_in_relationship(area) %]
-                [% END %]
-
-                <li>[% relate_to_ellipsis(area) %]</li>
-
-                [%# Only location editors can create area-url relationships %]
-                [% IF c.user.is_location_editor %]
-                    <li>[% relate_to_url(area) %]</li>
-                [% END %]
-
-                <hr/>
-
                 <li>[% link_entity(area, 'open_edits', l('Open edits')) %]</li>
                 <li>[% link_entity(area, 'edits', l('Editing history')) %]</li>
             [% ELSE %]

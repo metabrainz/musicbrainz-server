@@ -1,7 +1,9 @@
 [%- WRAPPER 'layout.tt' full_width=1 title=l('Edit Relationships: {release}', {release => release.name}) -%]
-    [% script_manifest('relationship-editor.js.manifest') %]
+    [% script_manifest('edit.js.manifest') %]
 
-    <div id="content" class="rel-editor">
+    [% PROCESS 'components/relationship-editor.tt' %]
+
+    <div id="content" class="rel-editor" data-bind="delegatedHandler: 'click'">
       [%- INCLUDE "release/header.tt" page='edit_relationships' -%]
 
       <p>
@@ -25,19 +27,19 @@
       <table id="batch-tools" data-bind="with: checkboxes">
         <tr>
           <td>
-            <a id="batch-recording" class="btn" data-bind="css: {disabled: recordingCount() == 0}">
+            <a id="batch-recording" class="btn" data-bind="css: {disabled: recordingCount() == 0}" data-click="openBatchRecordingsDialog">
               <img src="/static/images/icons/add.png" class="bottom" />
               [% l('Batch-add a relationship to recordings') %]
             </a>
           </td>
           <td>
-            <a id="batch-create-works" class="btn" data-bind="css: {disabled: recordingCount() == 0}">
+            <a id="batch-create-works" class="btn" data-bind="css: {disabled: recordingCount() == 0}" data-click="openBatchCreateWorksDialog">
               <img src="/static/images/icons/add.png" class="bottom" />
               [% l('Batch-create new works') %]
             </a>
           </td>
           <td>
-            <a id="batch-work" class="btn" data-bind="css: {disabled: workCount() == 0}">
+            <a id="batch-work" class="btn" data-bind="css: {disabled: workCount() == 0}" data-click="openBatchWorksDialog">
               <img src="/static/images/icons/add.png" class="bottom" />
               [% l('Batch-add a relationship to works') %]
             </a>
@@ -46,19 +48,21 @@
       </table>
 
       <table class="tbl" id="tracklist">
-        <thead data-bind="with: checkboxes">
+        <thead>
           <tr>
             <th class="pos t">#</th>
             <th class="recordings">
-              [% l('Recording') %] <!-- ko text: recordingMessage --><!-- /ko -->
+              [% l('Recording') %]
+              <!-- ko text: checkboxes.recordingMessage() --><!-- /ko -->
             </th>
             <th style="border-left: none;"></th>
             <th class="works">
-              [% l('Related Works') %] <!-- ko text: workMessage --><!-- /ko -->
+              [% l('Related Works') %]
+              <!-- ko text: checkboxes.workMessage() --><!-- /ko -->
             </th>
           </tr>
         </thead>
-        <tbody data-bind="with: release">
+        <tbody data-bind="with: source">
           <!-- ko foreach: mediums -->
           <tr class="subh">
             <td></td>
@@ -75,68 +79,43 @@
 
       <h2>[% l('Release Relationships') %]</h2>
 
-      <div id="release-rels" class="ars" data-bind="with: release">
+      <div id="release-rels" class="ars" data-bind="with: source">
         <!-- ko template: "template.relationships" --><!-- /ko -->
       </div>
 
       <h2>[% l('Release Group Relationships') %]</h2>
 
-      <div id="release-group-rels" class="ars" data-bind="with: release">
-        <!-- ko template: {name: 'template.relationships', data: releaseGroup} --><!-- /ko -->
+      <div id="release-group-rels" class="ars" data-bind="with: source">
+        <!-- ko template: { name: 'template.relationships', data: releaseGroup } --><!-- /ko -->
       </div>
 
       <!-- ko if: submissionError -->
-      <p id="errors-msg" class="warning" data-bind="text: submissionError"></p>
+        <p id="errors-msg" class="warning" data-bind="html: submissionError"></p>
       <!-- /ko -->
 
       <form>
-        [% INCLUDE 'forms/edit-note.tt' %]
-        [%- as_auto_editor() -%]
-        <div class="row no-label buttons">
-          <button type="submit" class="submit positive" data-bind="click: submit,
-            disable: submissionLoading">[% l('Enter edit') %]</button>
+        <fieldset class="editnote">
+          <legend>[%- l('Edit Note') -%]</legend>
+          [% edit_note(0, 1) %]
+        </fieldset>
 
-          <!-- ko if: submissionLoading -->
-            <span data-bind="html: RE.UI.loadingIndicator"></span>
-          <!-- /ko -->
+        [% as_auto_editor(1) %]
+
+        <div class="row no-label buttons">
+          <button type="submit" class="submit positive" data-bind="click: submit, disable: submissionLoading">[% l('Enter edit') %]</button>
+        </div>
+
+        <div class="row no-label" data-bind="if: submissionLoading">
+          <span class="loading-message">[% l('Submitting edits...') %]</span>
         </div>
       </form>
     </div>
 
-    <div id="dialog" class="rel-editor-dialog">
-      <!-- ko template: dialogTemplate --><!-- /ko -->
-
-      <div class="buttons ui-helper-clearfix" style="margin-top: 1em">
-        <button class="negative" data-bind="click: function () { $data.close() }">[% l('Cancel') %]</button>
-        <div class="buttons-right" style="float: right; text-align: right;">
-          <button class="positive" data-bind="click: function () { $data.accept() }, disable: relationship().hasErrors() || loading()">[% l('Done') %]</button>
-        </div>
-      </div>
-    </div>
-
-    <script type="text/html" id="template.relationship-dialog">
-      <!-- ko if: relationship().edits_pending -->
-        <p class="msg warning">
-          [% l('Warning: This relationship has pending edits.
-                <a target="_blank" data-bind="attr: { href: relationship().openEdits() }">Click here</a>
-                to view these edits and make sure they do not conflict with your own.') %]
-        </p>
-      <!-- /ko -->
-      <table>
-        <tbody>
-          <!-- ko template: "template.dialog-source-entity" --><!-- /ko -->
-          <!-- ko template: "template.dialog-link-type" --><!-- /ko -->
-          <!-- ko template: "template.dialog-target-entity" --><!-- /ko -->
-          <!-- ko template: "template.dialog-attributes" --><!-- /ko -->
-        </tbody>
-      </table>
-    </script>
-
     <script type="text/html" id="template.batch-relationship-dialog">
-      <p class="msg" data-bind="if: source.type === 'recording'">
+      <p class="msg" data-bind="if: source.entityType === 'recording'">
         [% l('This will add a relationship to all checked recordings.') %]
       </p>
-      <p class="msg" data-bind="if: source.type === 'work'">
+      <p class="msg" data-bind="if: source.entityType === 'work'">
         [% l('This will add a relationship to all checked works.') %]
       </p>
       <table>
@@ -186,7 +165,9 @@
           <!-- ko template: "template.dialog-attributes" --><!-- /ko -->
           <!-- ko if: loading -->
             <tr>
-              <td colspan="2" data-bind="html: MB.RelationshipEditor.UI.loadingIndicator"></td>
+              <td colspan="2">
+                <div class="loading-message">[% l('Submitting edits...') %]</div>
+              </td>
             </tr>
           <!-- /ko -->
           <!-- ko if: error -->
@@ -200,146 +181,18 @@
       </table>
     </script>
 
-    <script type="text/html" id="template.dialog-source-entity">
-      <tr>
-        <td class="section" data-bind="text: MB.text.Entity[sourceField()().type] + ':'"></td>
-        <td>
-          <span data-bind="html: sourceField()().html({ 'target': '_blank' })"></span>
-          <div class="error" data-bind="text: sourceField().error"></div>
-        </td>
-      </tr>
-    </script>
-
-    <script type="text/html" id="template.dialog-target-entity">
-      <tr>
-        <td class="section">
-          <select id="target-type" data-bind="targetType: $data, disable: disableTypeSelection"></select>
-        </td>
-        <td>
-          <span id="autocomplete" class="autocomplete">
-            <img class="search" src="../../../static/images/icons/search.png" />
-            <input class="name" type="text" data-bind="relationshipEditorAutocomplete: $data" />
-          </span>
-          <div class="error" data-bind="text: targetField().error"></div>
-        </td>
-      </tr>
-    </script>
-
-    <script type="text/html" id="template.dialog-link-type">
-      <tr>
-        <td class="section">[% l('Type') %]:</td>
-        <td>
-          <select id="link-type"
-           data-bind="options: $data.linkTypeOptions(),
-                      optionsValue: 'value',
-                      optionsText: 'text',
-                      optionsAfterRender: afterRenderLinkTypeOption,
-                      value: relationship().link_type"></select>
-          <!-- ko if: sourceField()().type === targetField()().type -->
-          <button data-bind="click: changeDirection, text: MB.text.ChangeDirection, disable: relationship().hasErrors"></button>
-          <!-- /ko -->
-          (<a href="#" data-bind="click: toggleLinkTypeHelp">[% l('help') %]</a>)
-          <div class="error" data-bind="text: relationship().link_type.error"></div>
-          <div class="ar-descr" data-bind="html: linkTypeDescription, visible: showLinkTypeHelp() &amp;&amp; linkTypeDescription()"></div>
-        </td>
-      </tr>
-    </script>
-
-    <script type="text/html" id="template.dialog-attributes">
-      <!-- ko if: attrs().length > 0 -->
-      <tr>
-        <td class="section">
-          [% l('Attributes:') %]<br />
-          (<a href="#" data-bind="click: toggleAttributesHelp">[% l('help') %]</a>)
-        </td>
-        <td data-bind="foreach: attrs">
-          <div>
-            <label>
-            <!-- ko if: type == 'boolean' -->
-              <input type="checkbox" data-bind="checked: value" />
-              <!-- ko text: data.l_name --><!-- /ko -->
-            <!-- /ko -->
-            <!-- ko if: type == 'select' -->
-              <!-- ko text: data.l_name --><!-- /ko --><br />
-              <select data-bind="options: $parent.attributeOptions($data),
-                                 optionsText: 'text',
-                                 optionsValue: 'value',
-                                 optionsCaption: '',
-                                 valueAllowUnset: true,
-                                 value: $data.value"></select>
-            <!-- /ko -->
-            <!-- ko if: data.id == 14 -->
-              <div data-bind="instrumentSelect: value">
-                <!-- ko foreach: instruments -->
-                  <div>
-                    <span class="autocomplete" style="width: auto;">
-                      <input data-bind="autocomplete: { entity: 'instrument', currentSelection: $rawData }" />
-                      <img class="search" src="/static/images/icons/search.png" />
-                    </span>
-                    <!-- ko if: $parent.instruments().length > 1 -->
-                      <button class="icon remove-item" data-bind="click: _.partial($parent.removeItem, $rawData)"></button>
-                    <!-- /ko -->
-                  </div>
-                <!-- /ko -->
-                <button class="styled-button" style="padding: 3px;" data-bind="click: addItem">
-                  [% l('Add another instrument') | html %]
-                </button>
-              </div>
-            <!-- /ko -->
-            <!-- ko if: type == 'multiselect' && data.id != 14 -->
-              <!-- ko text: data.l_name --><!-- /ko --><br />
-              <select multiple style="display: none;"
-               data-bind="options: $parent.attributeOptions($data),
-                          optionsText: 'text',
-                          optionsValue: 'value',
-                          valueAllowUnset: true,
-                          selectedOptions: $data.value,
-                          attributeMultiselect: $data"></select>
-            <!-- /ko -->
-            </label>
-            <div class="error" data-bind="text: value.error"></div>
-            <div class="ar-descr" data-bind="html: data.descr, visible: $parent.showAttributesHelp"></div>
-          </div>
-        </td>
-      </tr>
-      <!-- /ko -->
-      <!-- ko if: relationship().hasDates() -->
-          <!-- ko with: relationship().period -->
-          <tr>
-            <td class="section">[% l('Begin date:') %]</td>
-            <td class="partial-date">
-              <input data-bind="value: begin_date().year, valueUpdate: 'afterkeydown'" maxlength="4" placeholder="[% l('YYYY') %]" size="4" />-[%-
-              -%]<input data-bind="value: begin_date().month, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="[% l('MM') %]" size="2" />-[%-
-              -%]<input data-bind="value: begin_date().day, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="[% l('DD') %]" size="2" />
-              <div class="error" data-bind="text: begin_date.error"></div>
-            </td>
-          </tr>
-          <tr>
-            <td class="section">[% l('End date:') %]</td>
-            <td class="partial-date">
-              <input data-bind="value: end_date().year, valueUpdate: 'afterkeydown'" maxlength="4" placeholder="[% l('YYYY') %]" size="4" />-[%-
-              -%]<input data-bind="value: end_date().month, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="[% l('MM') %]" size="2" />-[%-
-              -%]<input data-bind="value: end_date().day, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="[% l('DD') %]" size="2" />
-              <div class="error" data-bind="text: end_date.error"></div>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <label>
-                <input type="checkbox" data-bind="checked: ended" />
-                [% l('This relationship has ended.') %]
-              </label>
-              <div class="error" data-bind="text: ended.error"></div>
-            </td>
-          </tr>
-          <!-- /ko -->
-      <!-- /ko -->
-    </script>
-
     <script type="text/html" id="template.relationships">
-      <div class="ars" data-bind="template: {name: 'template.relationship', foreach: relationships}">
+      <div class="ars" data-bind="
+           template: {
+              name: 'template.relationship',
+              foreach: _(displayRelationships($root))
+                          .sortBy(function (r) { return r.lowerCaseTargetName() })
+                          .sortBy(function (r) { return r.lowerCasePhrase($parent) })
+                          .sortBy(function (r) { return r.entityOrdering(r.target($parent)) })
+                          .value()
+            }">
       </div>
-      <span class="add-rel btn">
+      <span class="add-rel btn" data-click="openAddDialog">
         <img src="/static/images/icons/add.png" class="bottom" /> [% l('Add relationship') %]
       </span>
     </script>
@@ -350,21 +203,21 @@
         <td class="recording">
           <!-- ko with: recording --><input type="checkbox"><!-- /ko -->
           <span data-bind="html: html({ 'target': '_blank' })"></span>
-          <!-- ko if: !artistCredit.isEqual($root.release().artistCredit) -->
+          <!-- ko if: !artistCredit.isEqual($root.source.artistCredit) -->
               by <span data-bind="html: artistCredit.html({ 'target': '_blank' })"></span>
           <!-- /ko -->
           (<!-- ko text: formattedLength || "?:??" --><!-- /ko -->)
           <!-- ko template: {name: 'template.relationships', data: recording} --><!-- /ko -->
         </td>
         <td class="midcol">
-          <span class="relate-work btn">
+          <span class="relate-work btn" data-click="openRelateToWorkDialog">
             &#8592; <img src="/static/images/icons/add.png" class="bottom"> [% l('Add related work') %] &#8594;
           </span>
         </td>
         <!-- ko with: recording -->
           <td class="works" data-bind="template: {
               name: 'template.relationship.performance',
-              foreach: performanceRelationships
+              foreach: performances()
           }">
           </td>
         <!-- /ko -->
@@ -372,44 +225,43 @@
     </script>
 
     <script type="text/html" id="template.link.phrase"><!--
-      --><span class="link-phrase" data-bind="text: linkPhrase($parents[1]), css: css()"></span><!--
+      --><span class="link-phrase" data-bind="text: phraseAndExtraAttributes($parent)[0], relationshipStyling: true" data-click="openEditDialog"></span><!--
     --></script>
 
     <script type="text/html" id="template.relationship">
       <div class="ar">
-        <span class="remove-button">&#215;</span>
-        <!-- ko template: {name: 'template.link.phrase', data: $data} --><!-- /ko -->:
-        <span class="entity" data-bind="html: target($parents[0]).html({ 'target': '_blank' }), css: {'rel-edit': edits_pending}"></span>
-        <!-- ko if: hasDates() && dateRendering() -->
-          (<!-- ko text: dateRendering --><!-- /ko -->)
+        <span class="remove-button" data-click="removeRelationship">&#215;</span>
+        <!-- ko template: "template.link.phrase" --><!-- /ko -->:
+        <span class="entity" data-bind="html: target($parents[0]).html({ 'target': '_blank' }), css: {'rel-edit': editsPending}"></span>
+        <!-- ko with: hasDates() ? MB.utility.formatDatePeriod(period) : null -->
+          (<!-- ko text: $data --><!-- /ko -->)
         <!-- /ko -->
       </div>
     </script>
 
     <script type="text/html" id="template.relationship.performance">
       <div class="ar">
-        <!-- ko with: entity[1] --><input type="checkbox" /><!-- /ko -->
-        <span class="entity" data-bind="html: entity[1]().html({ 'target': '_blank' }), css: {'rel-edit': edits_pending}"></span>
-        (<!-- ko template: {name: 'template.link.phrase', data: $data} --><!-- /ko -->)
-        <!-- ko if: dateRendering -->
-          (<!-- ko text: dateRendering --><!-- /ko -->)
+        <!-- ko with: entities()[1] -->
+          <input type="checkbox" />
+          <span class="entity" data-bind="html: html({ 'target': '_blank' }), css: { 'rel-edit': $parent.editsPending }"></span>
         <!-- /ko -->
-        <span class="remove-button">&#215;</span>
-        <!-- ko if: loadingWork -->
-          <div data-bind="html: $root.RE.UI.loadingIndicator"></div>
+        (<!-- ko template: "template.link.phrase" --><!-- /ko -->)
+        <!-- ko with: MB.utility.formatDatePeriod(period) -->
+          (<!-- ko text: $data --><!-- /ko -->)
         <!-- /ko -->
-        <!-- ko if: !loadingWork() -->
-          <!-- ko template: {name: 'template.relationships', data: entity[1]} --><!-- /ko -->
-        <!-- /ko -->
-        <!-- /ko -->
+        <span class="remove-button" data-click="removeRelationship">&#215;</span>
+        <!-- ko template: { name: 'template.relationships', data: entities()[1] } --><!-- /ko -->
       </div>
     </script>
 
     <script type="text/javascript">//<![CDATA[
       $(function () {
-        var RE = MB.RelationshipEditor;
-        RE.Util.init([% type_info %], [% attr_info %]);
-        RE.UI.init("[% release.gid %]", "[% release.release_group.gid %]");
+        var RE = MB.relationshipEditor;
+
+        RE.exportTypeInfo([% type_info %], [% attr_info %]);
+        RE.ReleaseViewModel({ sourceData: [% source_entity %] });
+
+        MB.confirmNavigationFallback();
       });
     //]]></script>
 

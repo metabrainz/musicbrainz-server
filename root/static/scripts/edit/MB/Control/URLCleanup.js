@@ -524,31 +524,22 @@ MB.constants.CLEANUPS = {
 };
 
 
-MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorObservable, handleErrors) {
+MB.Control.URLCleanup = function (options) {
+    options = options || {};
+
     var self = {};
 
-    self.typeControl = $(typeControl);
-    self.urlControl = $(urlControl);
-    self.sourceType = sourceType;
-    self.error = errorObservable || ko.observable("");
+    self.typeInfoByID = options.typeInfoByID || {};
+    self.typeControl = $(options.typeControl);
+    self.urlControl = $(options.urlControl);
+    self.sourceType = options.sourceType;
+    self.errorCallback = options.errorCallback;
 
-    self.error.subscribe(function (error) {
-        $("button[type=submit]").prop("disabled", !!error);
+    ko.computed(function () {
+        $("button[type=submit]").prop("disabled", !!self.errorCallback());
     });
 
-    self.error.notifySubscribers(self.error());
-
-    if (handleErrors !== false) {
-        var $errorSpan = $("<span>").addClass("error").hide();
-
-        self.typeControl.after($errorSpan);
-
-        ko.applyBindingsToNode($errorSpan[0], {
-            visible: self.error, text: self.error
-        });
-    }
-
-    var validationRules = { };
+    var validationRules = self.validationRules = {};
     // "has lyrics at" is only allowed for certain lyrics sites
     validationRules[ MB.constants.LINK_TYPES.lyrics.artist ] = function (url) {
         return MB.constants.CLEANUPS.lyrics.match.test(url)
@@ -804,31 +795,6 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorObse
         return cleanup ? cleanup.clean(dirtyURL) : dirtyURL;
     };
 
-    // A list of errors that are set/cleared by the URLCleanup code. Used to
-    // determine whether it's safe to clear other errors set by outside code.
-
-    var linkTypeErrors = [
-        MB.text.SelectURLType,
-        MB.text.URLNotAllowed
-    ];
-
-
-    var typeChanged = function (event) {
-        var url = self.urlControl.val();
-        var linkType = self.typeControl.val();
-        var checker = validationRules[linkType];
-
-        if (url && !linkType) {
-            self.error(MB.text.SelectURLType);
-        }
-        else if (url && checker && !checker(url)) {
-            self.error(MB.text.URLNotAllowed);
-        }
-        else if (_.contains(linkTypeErrors, self.error())) {
-            self.error("");
-        }
-    };
-
     var urlChanged = function(event) {
         var url = self.urlControl.val(),
             clean = self.cleanUrl(self.sourceType, url) || url;
@@ -843,31 +809,9 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorObse
             self.urlControl.val(clean);
         }
 
-        if (!clean) {
-            if (self.error() !== MB.text.RequiredField) {
-                self.error("");
-            }
-        }
-        else if (!MB.utility.isValidURL(clean)) {
-            self.error(MB.text.EnterAValidURL);
-        }
-        else {
-            if (self.error() === MB.text.EnterAValidURL) {
-                self.error("");
-            }
+        var hasError = self.errorCallback();
 
-            if (self.typeControl.length) {
-                var type = self.guessType(self.sourceType, clean);
-
-                if (type) {
-                    self.typeControl.val(type).trigger("change");
-                }
-
-                typeChanged(event);
-            }
-        }
-
-        if (event.type === "submit" && self.error()) {
+        if (event.type === "submit" && hasError) {
             event.preventDefault();
         }
     };
@@ -877,7 +821,6 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorObse
     }
 
     self.toggleEvents = function (prop) {
-        self.typeControl[prop]("change", typeChanged);
         self.urlControl[prop]("change keydown keyup input propertychange", urlChanged);
         self.urlControl[prop]("blur", trimInputValue);
         self.urlControl.parents('form')[prop]("submit", urlChanged);

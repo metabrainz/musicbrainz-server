@@ -1,0 +1,4 @@
+[%- WRAPPER 'series/layout.tt' title=l('Remove Series Alias') full_width=1 -%]
+    <h2>[% l('Remove series alias') %]</h2>
+    [% INCLUDE 'alias/delete.tt' %]
+[%- END -%]

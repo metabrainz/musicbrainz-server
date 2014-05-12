@@ -108,11 +108,10 @@
             recording:       "[% l('Recording') | js %]",
             release:         "[% l('Release') | js %]",
             release_group:   "[% l('Release group') | js %]",
+            series:          "[% l('Series') | js %]",
             url:             "[% l('URL') | js %]",
             work:            "[% l('Work') | js %]",
         },
-        AttributeNotSupported: '[% l('This attribute is not supported for the selected relationship type.') | js %]',
-        AttributeTooMany: '[% l('This attribute can only be specified {max} times. You specified {n}.') | js %]',
         AttributeRequired: '[% l('This attribute is required.') | js %]',
         FocusInstrument: '[% l('Click here to choose an instrument') | js %]',
         FocusVocal: '[% l('Click here to choose a vocal') | js %]',
@@ -169,6 +168,27 @@
         EnterAValidURL: '[% l('Enter a valid url e.g. "http://google.com/"') | js %]',
         RelationshipAlreadyExists: '[% l('This relationship already exists.') | js %]',
         SelectedArea: '[% l('You selected {area}.') | js %]',
-        MoreDocumentation: '[% l('{description} ({url|more documentation})') | js %]'
+        MoreDocumentation: '[% l('{description} ({url|more documentation})') | js %]',
+        AddColon: '[% l('{variable}:') | js %]',
+        AddAnotherEntity: {
+            area:            "[% l('Add another area') | js %]",
+            artist:          "[% l('Add another artist') | js %]",
+            label:           "[% l('Add another label') | js %]",
+            place:           "[% l('Add another place') | js %]",
+            recording:       "[% l('Add another recording') | js %]",
+            release:         "[% l('Add another release') | js %]",
+            release_group:   "[% l('Add another release group') | js %]",
+            work:            "[% l('Add another work') | js %]"
+        },
+        AttributeTextValue: '[% l('{attribute}: {value}') | js %]',
+        AttributeTextValueRequired: '[% l('A text value is required.') | js %]',
+        OrderedRelationship: '[% l('{num}. {relationship}') | js %]',
+        IncorrectEntityForSeries: {
+            recording: '[% l('The series you’ve selected is for recordings.') | js %]',
+            release: '[% l('The series you’ve selected is for releases.') | js %]',
+            release_group: '[% l('The series you’ve selected is for release groups.') | js %]',
+            work: '[% l('The series you’ve selected is for works.') | js %]'
+
+        }
     });
 })(MB);

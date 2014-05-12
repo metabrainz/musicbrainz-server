@@ -46,7 +46,8 @@ has '+data' => (
         end_date     => Nullable[PartialDateHash],
         type0        => Str,
         type1        => Str,
-        ended        => Optional[Bool]
+        ended        => Optional[Bool],
+        attribute_text_values => Optional[Dict],
     ]
 );
 
@@ -56,6 +57,21 @@ sub initialize
     my $e0 = delete $opts{entity0} or die "No entity0";
     my $e1 = delete $opts{entity1} or die "No entity1";
     my $lt = delete $opts{link_type} or die "No link type";
+
+    my $link_type_id = $lt->id;
+    die "Link type $link_type_id is only used for grouping" unless $lt->description;
+
+    if (my $attributes = $opts{attributes}) {
+        if (@$attributes) {
+            $self->check_attributes($lt, $attributes, $opts{attribute_text_values} // {});
+        } else {
+            delete $opts{attributes};
+            delete $opts{attribute_text_values};
+        }
+    }
+
+    die "Entities in a relationship cannot be the same"
+        if $lt->entity0_type eq $lt->entity1_type && $e0->id == $e1->id;
 
     $opts{entity0} = {
         id => $e0->id,
@@ -74,6 +90,9 @@ sub initialize
         reverse_link_phrase => $lt->reverse_link_phrase,
         long_link_phrase => $lt->long_link_phrase
     };
+
+    $opts{type0} = $lt->entity0_type;
+    $opts{type1} = $lt->entity1_type;
 
     $self->data({ %opts });
 }
@@ -179,6 +198,11 @@ sub adjust_edit_pending
 sub insert
 {
     my ($self) = @_;
+
+    my $link_type_id = $self->data->{link_type}{id};
+    my $link_type = $self->c->model('LinkType')->get_by_id($link_type_id);
+    die "Link type $link_type_id is deprecated" if $link_type->is_deprecated;
+
     my $relationship = $self->c->model('Relationship')->insert(
         $self->data->{type0},
         $self->data->{type1}, {
@@ -192,10 +216,6 @@ sub insert
         });
 
     $self->entity_id($relationship->id);
-
-    my $link_type = $self->c->model('LinkType')->get_by_id(
-        $self->data->{link_type}{id},
-    );
 
     if ($self->c->model('CoverArt')->can_parse($link_type->name)) {
         my $release = $self->c->model('Release')->get_by_id(

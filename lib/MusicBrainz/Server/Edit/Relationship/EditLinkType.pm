@@ -42,6 +42,8 @@ sub change_fields
         documentation => Optional[Str],
         is_deprecated => Optional[Bool],
         has_dates => Optional[Bool],
+        entity0_cardinality => Optional[Int],
+        entity1_cardinality => Optional[Int],
         examples => Optional[ArrayRef[Dict[
             relationship => Dict[
                 id => Int,

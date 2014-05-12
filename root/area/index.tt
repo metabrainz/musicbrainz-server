@@ -3,6 +3,5 @@
 
     [%- show_wikipedia_extract() -%]
 
-    <h2 class="relationships">[% l("Relationships") %]</h2>
     [%- INCLUDE "components/relationships.tt" source=area -%]
 [% END %]

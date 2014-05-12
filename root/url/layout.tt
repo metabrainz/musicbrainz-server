@@ -4,12 +4,6 @@
         <h2 class="editing">[% l('Editing') %]</h2>
         <ul class="links">
             [% IF c.user_exists %]
-                [%# Adds <li> itself %]
-                [% use_in_relationship(url) %]
-                <li>[% relate_to_ellipsis(url) %]</li>
-
-                <hr/>
-
                 <li>[% link_entity(url, 'open_edits', l('Open edits')) %]</li>
                 <li>[% link_entity(url, 'edits', l('Editing history')) %]</li>
             [% ELSE %]

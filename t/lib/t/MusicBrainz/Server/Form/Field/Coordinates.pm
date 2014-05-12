@@ -29,19 +29,6 @@ test 'Correct display for undef coordinates' => sub {
     is ($form->field('coordinates')->fif, '', 'displays empty string');
 };
 
-test 'Correct display for empty coordinates' => sub {
-    my $form = t::MusicBrainz::Server::Form::Field::Coordinates::TestForm->new(
-        init_object => {
-            coordinates => MusicBrainz::Server::Entity::Coordinates->new(
-                latitude => undef,
-                longitude => undef
-            )
-        }
-    );
-
-    is ($form->field('coordinates')->fif, '', 'displays empty string');
-};
-
 test 'Correct display for non-empty coordinates' => sub {
     my $form = t::MusicBrainz::Server::Form::Field::Coordinates::TestForm->new(
         init_object => {
@@ -73,22 +60,22 @@ test 'Coordinate validation' => sub {
         {
             parse => "40°26′47″N 079°58′36″W",
             latitude => 40.446389,
-            longitude => -79.97667
+            longitude => -79.976667
         },
         {
             parse => "40d 26′ 47″ N 079d 58′ 36″ W",
             latitude => 40.446389,
-            longitude => -79.97667
+            longitude => -79.976667
         },
         {
             parse => q{40d 26' 47" N 079d 58′ 36″ W},
             latitude => 40.446389,
-            longitude => -79.97667
+            longitude => -79.976667
         },
         {
             parse => q{079d 58′ 36″ W 40d 26' 47" N},
             latitude => 40.446389,
-            longitude => -79.97667
+            longitude => -79.976667
         },
         {
             parse => "40.446195N 79.948862W",
@@ -160,11 +147,6 @@ test 'Coordinate validation' => sub {
             latitude => 0,
             longitude => 0
         },
-        {
-            parse => q{},
-            latitude => undef,
-            longitude => undef
-        }
     );
 
     for my $testCase (@tests) {
@@ -176,12 +158,27 @@ test 'Coordinate validation' => sub {
 
         ok($form->is_valid, "processed without errors for $testCase->{parse}");
         cmp_deeply($form->field('coordinates')->value, {
-            latitude => num($testCase->{latitude}, 0.0001),
-            longitude => num($testCase->{longitude}, 0.0001)
+            latitude => num($testCase->{latitude}),
+            longitude => num($testCase->{longitude})
         }, "Parsing $testCase->{parse}");
         ok( $form->field('coordinates')->value->{latitude} !~ /\.[0-9]*0$/ &&
             $form->field('coordinates')->value->{longitude} !~ /\.[0-9]*0$/,
             'coordinates do not have trailing zeroes (MBS-7438)' );
+    }
+};
+
+test 'Coordinate validation for empty field' => sub {
+    my $form = t::MusicBrainz::Server::Form::Field::Coordinates::TestForm->new;
+    my @tests = ( '', '    ' );
+    for my $test_string (@tests) {
+        $form->process({
+            'test-edit' => {
+                coordinates => $test_string
+            }
+        });
+
+        ok($form->is_valid, "processed without errors for '$test_string'");
+        ok(! defined $form->field('coordinates')->value, 'result is undef');
     }
 };
 

@@ -51,8 +51,8 @@ sub _serialize_coordinates
     my ($self, $data, $gen, $entity, $inc, $opts) = @_;
 
     my @coordinates;
-    push @coordinates, $gen->latitude($entity->coordinates->latitude) if $entity->coordinates->latitude;
-    push @coordinates, $gen->longitude($entity->coordinates->longitude) if $entity->coordinates->longitude;
+    push @coordinates, $gen->latitude($entity->coordinates->latitude);
+    push @coordinates, $gen->longitude($entity->coordinates->longitude);
     push @$data, $gen->coordinates(@coordinates);
 }
 
@@ -905,7 +905,7 @@ sub _serialize_place
     push @list, $gen->name($place->name);
     push @list, $gen->disambiguation($place->comment) if $place->comment;
     push @list, $gen->address($place->address) if $place->address;
-    $self->_serialize_coordinates(\@list, $gen, $place, $inc, $stash, $toplevel) if $place->coordinates->latitude;
+    $self->_serialize_coordinates(\@list, $gen, $place, $inc, $stash, $toplevel) if $place->coordinates;
 
     if ($toplevel)
     {
@@ -966,7 +966,8 @@ sub _serialize_relation_lists
     my ($self, $src_entity, $data, $gen, $rels, $inc, $stash) = @_;
 
     my %types = ();
-    foreach my $rel (@$rels)
+
+    foreach my $rel (sort { $a <=> $b } @$rels)
     {
         $types{$rel->target_type} = [] if !exists $types{$rel->target_type};
         push @{$types{$rel->target_type}}, $rel;
@@ -996,14 +997,19 @@ sub _serialize_relation
         push @list, $gen->target($rel->target_key);
     }
 
+    push @list, $gen->ordering_key($rel->link_order) if $rel->link_order;
     push @list, $gen->direction('backward') if ($rel->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD);
     push @list, $gen->begin($rel->link->begin_date->format) unless $rel->link->begin_date->is_empty;
     push @list, $gen->end($rel->link->end_date->format) unless $rel->link->end_date->is_empty;
     push @list, $gen->ended('true') if $rel->link->ended;
 
+    my %text_attrs = %{ $rel->link->attribute_text_values };
+
     push @list, $gen->attribute_list(
-        map { $gen->attribute($_->name) }
-            $rel->link->all_attributes
+        map {
+            $text_attrs{$_->id} ? $gen->attribute({ value => $text_attrs{$_->id} }, $_->name)
+                                : $gen->attribute($_->name)
+        } $rel->link->all_attributes
     ) if ($rel->link->all_attributes);
 
     unless ($rel->target_type eq 'url')
@@ -1017,6 +1023,48 @@ sub _serialize_relation
     }
 
     push @$data, $gen->relation({ type => $type, "type-id" => $type_id }, @list);
+}
+
+sub _serialize_series_list
+{
+    my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
+
+    if (@{ $list->{items} })
+    {
+        my @list;
+        foreach my $series (sort_by { $_->gid } @{ $list->{items} })
+        {
+            $self->_serialize_series(\@list, $gen, $series, $inc, $stash, $toplevel);
+        }
+        push @$data, $gen->series_list($self->_list_attributes ($list), @list);
+    }
+}
+
+sub _serialize_series
+{
+    my ($self, $data, $gen, $series, $inc, $stash, $toplevel) = @_;
+
+    my $opts = $stash->store ($series);
+
+    my %attrs;
+    $attrs{id} = $series->gid;
+    $attrs{type} = $series->type->name if $series->type;
+
+    my @list;
+    push @list, $gen->name($series->name);
+    push @list, $gen->disambiguation($series->comment) if $series->comment;
+    push @list, $gen->ordering_attribute($series->ordering_attribute->name) if $series->ordering_attribute;
+
+    if ($toplevel) {
+        $self->_serialize_annotation(\@list, $gen, $series, $inc, $opts);
+    }
+
+    $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
+        if ($inc->aliases && $opts->{aliases});
+
+    $self->_serialize_relation_lists($series, \@list, $gen, $series->relationships, $inc, $stash) if ($inc->has_rels);
+
+    push @$data, $gen->series(\%attrs, @list);
 }
 
 sub _serialize_isrc_list
@@ -1264,6 +1312,17 @@ sub instrument_resource {
 
     my $data = [];
     $self->_serialize_instrument($data, $gen, $instrument, $inc, $stash, 1);
+
+    return $data->[0];
+}
+
+sub series_resource
+{
+    my ($self, $gen, $series, $inc, $stash) = @_;
+
+    my $data = [];
+    $self->_serialize_series($data, $gen, $series, $inc, $stash, 1);
+
     return $data->[0];
 }
 
@@ -1403,6 +1462,16 @@ sub rating_resource
 
     my $data = [];
     $self->_serialize_user_rating($data, $gen, $inc, $opts);
+
+    return $data->[0];
+}
+
+sub series_list_resource
+{
+    my ($self, $gen, $series, $inc, $stash) = @_;
+
+    my $data = [];
+    $self->_serialize_series_list($data, $gen, $series, $inc, $stash, 1);
 
     return $data->[0];
 }

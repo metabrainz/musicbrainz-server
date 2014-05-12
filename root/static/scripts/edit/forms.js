@@ -18,6 +18,7 @@ MB.forms = {
                 callback && callback(child, opt);
                 opt.value = child[valueAttr];
                 opt.text = _.str.repeat(nbsp, indent * 2) + child[textAttr];
+                opt.data = child;
                 options.push(opt);
 
                 if (child.children) {
@@ -28,6 +29,43 @@ MB.forms = {
 
         buildOptions(root, 0);
         return options;
+    },
+
+    linkTypeOptions: function (root, backward) {
+        var textAttr = (backward ? "reversePhrase" : "phrase") + "Clean";
+        var attributeRegex = /\{(.*?)(?::(.*?))?\}/g;
+
+        function mapNameToID(result, info, id) {
+            result[info.attribute.name] = id;
+        }
+
+        function callback(data, option) {
+            if (!data.description) {
+                option.disabled = true;
+            }
+
+            if (data[textAttr]) return;
+
+            var phrase = backward ? data.reversePhrase : data.phrase;
+
+            if (!_.isEmpty(MB.attrInfo)) {
+                var attrIDs = _.transform(data.attributes, mapNameToID);
+
+                // remove {foo} {bar} junk, unless it's for a required attribute.
+                phrase = phrase.replace(attributeRegex, function (match, name, alt) {
+                    var id = attrIDs[name];
+
+                    if (data.attributes[id].min < 1) {
+                        return (alt ? alt.split("|")[1] : "") || "";
+                    }
+                    return match;
+                });
+            }
+
+            data[textAttr] = phrase;
+        }
+
+        return MB.forms.buildOptionsTree(root, textAttr, "id", callback);
     }
 };
 

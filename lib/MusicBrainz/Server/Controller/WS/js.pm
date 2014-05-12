@@ -5,6 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js'; }
 
 use Data::OptList;
 use Encode qw( decode encode );
+use JSON qw( encode_json );
 use List::UtilsBy qw( uniq_by );
 use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Filters;
@@ -57,7 +58,8 @@ sub entities {
         'URL' => 'url',
         'Area' => 'area',
         'Place' => 'place',
-        'Instrument' => 'instrument'
+        'Instrument' => 'instrument',
+        'Series' => 'series',
     };
 }
 
@@ -86,7 +88,7 @@ sub medium : Chained('root') PathPart Args(1) {
     ];
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('generic', $ret));
+    $c->res->body(encode_json($ret));
 }
 
 sub freedb : Chained('root') PathPart Args(2) {
@@ -109,7 +111,7 @@ sub freedb : Chained('root') PathPart Args(2) {
     } @{ $response->tracks } ];
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('generic', $ret));
+    $c->res->body(encode_json($ret));
 };
 
 sub cdstub : Chained('root') PathPart Args(1) {
@@ -139,7 +141,7 @@ sub cdstub : Chained('root') PathPart Args(1) {
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('generic', $ret));
+    $c->res->body(encode_json($ret));
 }
 
 sub tracklist_results {
@@ -250,7 +252,7 @@ sub disc_search {
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('generic', \@output));
+    $c->res->body(encode_json(\@output));
 };
 
 sub medium_search : Chained('root') PathPart('medium') Args(0) {
@@ -291,7 +293,7 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
 
     $c->res->headers->header( 'Cache-Control' => 'no-cache', 'Pragma' => 'no-cache' );
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('generic', $data));
+    $c->res->body(encode_json($data));
 }
 
 sub entity : Chained('root') PathPart('entity') Args(1)
@@ -318,21 +320,18 @@ sub entity : Chained('root') PathPart('entity') Args(1)
         return;
     }
 
-    $c->model('Relationship')->load($entity) if $c->stash->{inc}->rels;
-    $c->model('ArtistCredit')->load($entity);
+    my $js_class = "MusicBrainz::Server::Controller::WS::js::$type";
 
-    my $serialization_routine = '_' . $self->entities->{$type};
-    $serialization_routine =~ s/\-/_/g;
+    $js_class->_load_entities($c, $entity);
+
+    my $serialization_routine = $js_class->serialization_routine;
     my $data = $c->stash->{serializer}->$serialization_routine($entity);
-    $data->{'type'} = $self->entities->{$type};
 
-    my $relationships = $c->stash->{serializer}->serialize_relationships(
-        @{ $entity->relationships } );
-
-    $data->{relationships} = $relationships if keys %$relationships;
+    my $relationships = $c->stash->{serializer}->serialize_relationships($entity->all_relationships);
+    $data->{relationships} = $relationships if @$relationships;
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize_data($data));
+    $c->res->body(encode_json($data));
 }
 
 sub default : Path
@@ -350,7 +349,7 @@ sub events : Chained('root') PathPart('events') {
     my $events = $c->model('Statistics')->all_events;
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize_data($events));
+    $c->res->body(encode_json($events));
 }
 
 no Moose;

@@ -1,0 +1,1 @@
+[%- INCLUDE 'annotation/common.tt' annotation = series.latest_annotation -%]

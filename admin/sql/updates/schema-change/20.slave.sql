@@ -149,6 +149,8 @@ ALTER TABLE area DROP COLUMN sort_name;
 SELECT '20140313-remove-label-sortnames.sql';
 
 
+SELECT setval('label_alias_id_seq', (SELECT MAX(id) FROM label_alias));
+
 -- Migrate existing sortnames
 
 -- If the name contains non-Latin scripts, we currently have a weird mixture of non-Latin name and Latin sortname.
@@ -975,39 +977,59 @@ CREATE TABLE orderable_link_type (
 -----------------------
 
 CREATE OR REPLACE VIEW recording_series AS
-    SELECT entity0 AS recording, entity1 AS series, link_order, text_value
+    SELECT entity0 AS recording,
+           entity1 AS series,
+           lrs.id AS relationship,
+           link_order,
+           lrs.link,
+           COALESCE(text_value, '') AS text_value
     FROM l_recording_series lrs
     JOIN series s ON s.id = lrs.entity1
     JOIN link l ON l.id = lrs.link
     JOIN link_type lt ON (lt.id = l.link_type AND lt.gid = 'ea6f0698-6782-30d6-b16d-293081b66774')
-    JOIN link_attribute_text_value latv ON (latv.attribute_type = s.ordering_attribute AND latv.link = l.id)
+    LEFT OUTER JOIN link_attribute_text_value latv ON (latv.attribute_type = s.ordering_attribute AND latv.link = l.id)
     ORDER BY series, link_order;
 
 CREATE OR REPLACE VIEW release_series AS
-    SELECT entity0 AS release, entity1 AS series, link_order, text_value
+    SELECT entity0 AS release,
+           entity1 AS series,
+           lrs.id AS relationship,
+           link_order,
+           lrs.link,
+           COALESCE(text_value, '') AS text_value
     FROM l_release_series lrs
     JOIN series s ON s.id = lrs.entity1
     JOIN link l ON l.id = lrs.link
     JOIN link_type lt ON (lt.id = l.link_type AND lt.gid = '3fa29f01-8e13-3e49-9b0a-ad212aa2f81d')
-    JOIN link_attribute_text_value latv ON (latv.attribute_type = s.ordering_attribute AND latv.link = l.id)
+    LEFT OUTER JOIN link_attribute_text_value latv ON (latv.attribute_type = s.ordering_attribute AND latv.link = l.id)
     ORDER BY series, link_order;
 
 CREATE OR REPLACE VIEW release_group_series AS
-    SELECT entity0 AS release_group, entity1 AS series, link_order, text_value
+    SELECT entity0 AS release_group,
+           entity1 AS series,
+           lrgs.id AS relationship,
+           link_order,
+           lrgs.link,
+           COALESCE(text_value, '') AS text_value
     FROM l_release_group_series lrgs
     JOIN series s ON s.id = lrgs.entity1
     JOIN link l ON l.id = lrgs.link
     JOIN link_type lt ON (lt.id = l.link_type AND lt.gid = '01018437-91d8-36b9-bf89-3f885d53b5bd')
-    JOIN link_attribute_text_value latv ON (latv.attribute_type = s.ordering_attribute AND latv.link = l.id)
+    LEFT OUTER JOIN link_attribute_text_value latv ON (latv.attribute_type = s.ordering_attribute AND latv.link = l.id)
     ORDER BY series, link_order;
 
 CREATE OR REPLACE VIEW work_series AS
-    SELECT entity1 AS work, entity0 AS series, link_order, text_value
+    SELECT entity1 AS work,
+           entity0 AS series,
+           lsw.id AS relationship,
+           link_order,
+           lsw.link,
+           COALESCE(text_value, '') AS text_value
     FROM l_series_work lsw
     JOIN series s ON s.id = lsw.entity0
     JOIN link l ON l.id = lsw.link
     JOIN link_type lt ON (lt.id = l.link_type AND lt.gid = 'b0d44366-cdf0-3acb-bee6-0f65a77a6ef0')
-    JOIN link_attribute_text_value latv ON (latv.attribute_type = s.ordering_attribute AND latv.link = l.id)
+    LEFT OUTER JOIN link_attribute_text_value latv ON (latv.attribute_type = s.ordering_attribute AND latv.link = l.id)
     ORDER BY series, link_order;
 
 -------------------------
@@ -1016,19 +1038,58 @@ CREATE OR REPLACE VIEW work_series AS
 
 -- new relationship types
 SELECT setval('link_type_id_seq', (SELECT MAX(id) FROM link_type));
+SELECT setval('link_attribute_type_id_seq', (SELECT MAX(id) FROM link_attribute_type));
 
-INSERT INTO link_type (gid, entity_type0, entity_type1, name, description, link_phrase, reverse_link_phrase, long_link_phrase) VALUES
-    (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/recording/series/part_of'), 'recording', 'series', 'part of', 'Indicates that the recording is part of a series.', 'parts', 'part of', 'has part'),
-    (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/release/series/part_of'), 'release', 'series', 'part of', 'Indicates that the release is part of a series.', 'part of', 'parts', 'has part'),
-    (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/release_group/series/part_of'), 'release_group', 'series', 'part of', 'Indicates that the release group is part of a series.', 'part of', 'parts', 'has part'),
-    (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/series/work/part_of'), 'series', 'work', 'part of', 'Indicates that the work is part of a series.', 'parts', 'part of', 'has part')
+\set RECORDING_PART_OF_SERIES_GID 'generate_uuid_v3(''6ba7b8119dad11d180b400c04fd430c8'', ''http://musicbrainz.org/linktype/recording/series/part_of'')'
+\set RELEASE_PART_OF_SERIES_GID 'generate_uuid_v3(''6ba7b8119dad11d180b400c04fd430c8'', ''http://musicbrainz.org/linktype/release/series/part_of'')'
+\set RELEASE_GROUP_PART_OF_SERIES_GID 'generate_uuid_v3(''6ba7b8119dad11d180b400c04fd430c8'', ''http://musicbrainz.org/linktype/release_group/series/part_of'')'
+\set WORK_PART_OF_SERIES_GID 'generate_uuid_v3(''6ba7b8119dad11d180b400c04fd430c8'', ''http://musicbrainz.org/linktype/series/work/part_of'')'
+\set SERIES_WIKIPEDIA_URL_GID 'generate_uuid_v3(''6ba7b8119dad11d180b400c04fd430c8'', ''http://musicbrainz.org/linktype/series/url/wikipedia'')'
+\set ORDERING_ATTRIBUTE_GID 'generate_uuid_v3(''6ba7b8119dad11d180b400c04fd430c8'', ''http://musicbrainz.org/linkattributetype/ordering'')'
+\set CATNO_ATTRIBUTE_GID 'generate_uuid_v3(''6ba7b8119dad11d180b400c04fd430c8'', ''http://musicbrainz.org/linkattributetype/catalog_number'')'
+\set PARTNO_ATTRIBUTE_GID 'generate_uuid_v3(''6ba7b8119dad11d180b400c04fd430c8'', ''http://musicbrainz.org/linkattributetype/part_number'')'
+\set VOLNO_ATTRIBUTE_GID 'generate_uuid_v3(''6ba7b8119dad11d180b400c04fd430c8'', ''http://musicbrainz.org/linkattributetype/volume_number'')'
+
+INSERT INTO link_type (gid, entity_type0, entity_type1, entity0_cardinality,
+                       entity1_cardinality, name, description, link_phrase,
+                       reverse_link_phrase, long_link_phrase) VALUES
+    (
+        :RECORDING_PART_OF_SERIES_GID,
+        'recording', 'series', 0, 0, 'part of',
+        'Indicates that the recording is part of a series.',
+        'parts', 'part of', 'is a part of'
+    ),
+    (
+        :RELEASE_PART_OF_SERIES_GID,
+        'release', 'series', 0, 0, 'part of',
+        'Indicates that the release is part of a series.',
+        'part of', 'parts', 'is a part of'
+    ),
+    (
+        :RELEASE_GROUP_PART_OF_SERIES_GID,
+        'release_group', 'series', 0, 0, 'part of',
+        'Indicates that the release group is part of a series.',
+        'part of', 'parts', 'is a part of'
+    ),
+    (
+        :WORK_PART_OF_SERIES_GID,
+        'series', 'work', 0, 0, 'part of',
+        'Indicates that the work is part of a series.',
+        'parts', 'part of', 'has part'
+    ),
+    (
+        :SERIES_WIKIPEDIA_URL_GID,
+        'series', 'url', 0, 0, 'wikipedia',
+        'Points to the Wikipedia page for this series.',
+        'Wikipedia', 'Wikipedia page for', 'has a Wikipedia page at'
+    )
     RETURNING id, gid, entity_type0, entity_type1, name, long_link_phrase;
 
 INSERT INTO orderable_link_type (link_type, direction) VALUES
-    ((SELECT id FROM link_type WHERE gid = 'ea6f0698-6782-30d6-b16d-293081b66774'), 2),
-    ((SELECT id FROM link_type WHERE gid = '3fa29f01-8e13-3e49-9b0a-ad212aa2f81d'), 2),
-    ((SELECT id FROM link_type WHERE gid = '01018437-91d8-36b9-bf89-3f885d53b5bd'), 2),
-    ((SELECT id FROM link_type WHERE gid = 'b0d44366-cdf0-3acb-bee6-0f65a77a6ef0'), 1);
+    ((SELECT id FROM link_type WHERE gid = :RECORDING_PART_OF_SERIES_GID), 2),
+    ((SELECT id FROM link_type WHERE gid = :RELEASE_PART_OF_SERIES_GID), 2),
+    ((SELECT id FROM link_type WHERE gid = :RELEASE_GROUP_PART_OF_SERIES_GID), 2),
+    ((SELECT id FROM link_type WHERE gid = :WORK_PART_OF_SERIES_GID), 1);
 
 INSERT INTO series_type (name, entity_type, parent, child_order, description) VALUES
     ('Recording', 'recording', NULL, 0, 'Indicates that the series is of recordings.'),
@@ -1038,10 +1099,75 @@ INSERT INTO series_type (name, entity_type, parent, child_order, description) VA
     ('Catalog', 'work', 4, 0, 'Indicates that the series is a works catalog.');
 
 INSERT INTO series_ordering_type (name, parent, child_order, description) VALUES
-    ('Automatic', NULL, 0, 'Sorts the items in the series automatically by their ordering attribute, using a natural sort order.'),
-    ('Manual', NULL, 1, 'Allows for manually setting the position of each item in the series.');
+    ('Automatic', NULL, 0,
+     'Sorts the items in the series automatically by their ordering attribute, using a natural sort order.'
+    ),
+    ('Manual', NULL, 1,
+     'Allows for manually setting the position of each item in the series.'
+    );
 
 INSERT INTO series_alias_type (name) VALUES ('Series name'), ('Search hint');
+
+INSERT INTO link_attribute_type (root, child_order, gid, name, description) VALUES
+    (1, 0, :ORDERING_ATTRIBUTE_GID, 'ordering',
+     'This attribute indicates the number of a work in a series.'
+    );
+
+UPDATE link_attribute_type SET root = id WHERE gid = :ORDERING_ATTRIBUTE_GID;
+
+INSERT INTO link_attribute_type (root, parent, child_order, gid, name, description) VALUES
+    ((SELECT id FROM link_attribute_type WHERE gid = :ORDERING_ATTRIBUTE_GID),
+     (SELECT id FROM link_attribute_type WHERE gid = :ORDERING_ATTRIBUTE_GID),
+     0, :CATNO_ATTRIBUTE_GID, 'catalog number',
+     'This attribute indicates the catalog number of a work in a series.'
+    ),
+    ((SELECT id FROM link_attribute_type WHERE gid = :ORDERING_ATTRIBUTE_GID),
+     (SELECT id FROM link_attribute_type WHERE gid = :ORDERING_ATTRIBUTE_GID),
+     1, :PARTNO_ATTRIBUTE_GID, 'part number',
+     'This attribute indicates the part number of a work in a series.'
+    ),
+    ((SELECT id FROM link_attribute_type WHERE gid = :ORDERING_ATTRIBUTE_GID),
+     (SELECT id FROM link_attribute_type WHERE gid = :ORDERING_ATTRIBUTE_GID),
+     2, :VOLNO_ATTRIBUTE_GID, 'volume number',
+     'This attribute indicates the volume number of a work in a series.'
+    );
+
+INSERT INTO link_text_attribute_type (
+    SELECT id FROM link_attribute_type WHERE gid IN (
+        :ORDERING_ATTRIBUTE_GID,
+        :CATNO_ATTRIBUTE_GID,
+        :PARTNO_ATTRIBUTE_GID,
+        :VOLNO_ATTRIBUTE_GID
+    )
+);
+
+INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max) VALUES
+    ((SELECT id FROM link_type WHERE gid = :RECORDING_PART_OF_SERIES_GID),
+     (SELECT id FROM link_attribute_type WHERE gid = :ORDERING_ATTRIBUTE_GID),
+     0, 1
+    ),
+    ((SELECT id FROM link_type WHERE gid = :RELEASE_PART_OF_SERIES_GID),
+     (SELECT id FROM link_attribute_type WHERE gid = :ORDERING_ATTRIBUTE_GID),
+     0, 1
+    ),
+    ((SELECT id FROM link_type WHERE gid = :RELEASE_GROUP_PART_OF_SERIES_GID),
+     (SELECT id FROM link_attribute_type WHERE gid = :ORDERING_ATTRIBUTE_GID),
+     0, 1
+    ),
+    ((SELECT id FROM link_type WHERE gid = :WORK_PART_OF_SERIES_GID),
+     (SELECT id FROM link_attribute_type WHERE gid = :ORDERING_ATTRIBUTE_GID),
+     0, 1
+    );
+
+\unset RECORDING_PART_OF_SERIES_GID
+\unset RELEASE_PART_OF_SERIES_GID
+\unset RELEASE_GROUP_PART_OF_SERIES_GID
+\unset WORK_PART_OF_SERIES_GID
+\unset SERIES_WIKIPEDIA_URL_GID
+\unset ORDERING_ATTRIBUTE_GID
+\unset CATNO_ATTRIBUTE_GID
+\unset PARTNO_ATTRIBUTE_GID
+\unset VOLNO_ATTRIBUTE_GID
 
 -----------------------------
 -- MIGRATE EXISTING TABLES --
@@ -1125,6 +1251,7 @@ ALTER TABLE l_series_work ADD CONSTRAINT l_series_work_pkey PRIMARY KEY (id);
 
 ALTER TABLE link_attribute_text_value ADD CONSTRAINT link_attribute_text_value_pkey PRIMARY KEY (link, attribute_type);
 ALTER TABLE link_text_attribute_type ADD CONSTRAINT link_text_attribute_type_pkey PRIMARY KEY (attribute_type);
+ALTER TABLE edit_series ADD CONSTRAINT edit_series_pkey PRIMARY KEY (edit, series);
 ALTER TABLE series ADD CONSTRAINT series_pkey PRIMARY KEY (id);
 ALTER TABLE series_alias ADD CONSTRAINT series_alias_pkey PRIMARY KEY (id);
 ALTER TABLE series_alias_type ADD CONSTRAINT series_alias_type_pkey PRIMARY KEY (id);
@@ -1290,6 +1417,7 @@ CREATE UNIQUE INDEX l_work_work_idx_uniq ON l_work_work (entity0, entity1, link,
 
 CREATE INDEX l_area_series_idx_entity1 ON l_area_series (entity1);
 CREATE INDEX l_artist_series_idx_entity1 ON l_artist_series (entity1);
+CREATE INDEX l_instrument_series_idx_entity1 ON l_instrument_series (entity1);
 CREATE INDEX l_label_series_idx_entity1 ON l_label_series (entity1);
 CREATE INDEX l_place_series_idx_entity1 ON l_place_series (entity1);
 CREATE INDEX l_recording_series_idx_entity1 ON l_recording_series (entity1);
@@ -1309,6 +1437,11 @@ CREATE INDEX series_idx_txt ON series USING gin(to_tsvector('mb_simple', name));
 
 CREATE INDEX series_alias_idx_txt ON series_alias USING gin(to_tsvector('mb_simple', name));
 CREATE INDEX series_alias_idx_txt_sort ON series_alias USING gin(to_tsvector('mb_simple', sort_name));
+
+CREATE INDEX edit_series_idx ON edit_series (series);
+
+CREATE INDEX editor_subscribe_series_idx_uniq ON editor_subscribe_series (editor, series);
+CREATE INDEX editor_subscribe_series_idx_series ON editor_subscribe_series (series);
 
 --------------------------------------------------------------------------------
 SELECT '20140418-series-instrument-functions.sql';
@@ -1681,6 +1814,26 @@ AS $$
 
     RETURN NULL;
   END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION remove_unused_links() RETURNS TRIGGER AS $$
+DECLARE
+    other_ars_exist BOOLEAN;
+BEGIN
+    EXECUTE 'SELECT EXISTS (SELECT TRUE FROM ' || quote_ident(TG_TABLE_NAME) ||
+            ' WHERE link = $1)'
+    INTO other_ars_exist
+    USING OLD.link;
+
+    IF NOT other_ars_exist THEN
+       DELETE FROM link_attribute WHERE link = OLD.link;
+       DELETE FROM link_attribute_credit WHERE link = OLD.link;
+       DELETE FROM link_attribute_text_value WHERE link = OLD.link;
+       DELETE FROM link WHERE id = OLD.link;
+    END IF;
+
+    RETURN NULL;
+END;
 $$ LANGUAGE 'plpgsql';
 
 --------------------------------------------------------------------------------

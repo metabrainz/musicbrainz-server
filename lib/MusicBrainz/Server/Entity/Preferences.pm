@@ -43,7 +43,9 @@ has [qw(email_on_no_vote email_on_notes email_on_vote)] => (
     lazy => 1
 );
 
-has [qw( subscribe_to_created_artists subscribe_to_created_labels )] => (
+has [qw( subscribe_to_created_artists
+         subscribe_to_created_labels
+         subscribe_to_created_series )] => (
     isa => 'Bool',
     default => 1,
     is =>'rw',

@@ -74,6 +74,7 @@ Readonly my %TYPE_TO_MODEL => (
     'recording'     => 'Recording',
     'release'       => 'Release',
     'release_group' => 'ReleaseGroup',
+    'series'        => 'Series',
     'url'           => 'URL',
     'work'          => 'Work',
     'isrc'          => 'ISRC',
@@ -208,6 +209,7 @@ sub partial_date_to_hash
 sub coordinates_to_hash
 {
     my ($coordinates) = @_;
+    return undef unless defined $coordinates;
     return {
         latitude => $coordinates->latitude,
         longitude => $coordinates->longitude
@@ -318,12 +320,9 @@ sub add_coordinates_to_row
 {
     my ($row, $coordinates, $prefix) = @_;
 
-    if (defined $coordinates && defined $coordinates->{latitude} && defined $coordinates->{longitude}) {
-        $row->{$prefix} = ($coordinates->{latitude} . ', ' . $coordinates->{longitude});
-    }
-    elsif (defined $coordinates) {
-        $row->{$prefix} = undef;
-    }
+    $row->{$prefix} = defined $coordinates ?
+        ($coordinates->{latitude} . ', ' . $coordinates->{longitude}) :
+        undef;
 }
 
 

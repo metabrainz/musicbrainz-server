@@ -113,13 +113,6 @@
                 [% UNLESS artist.is_special_purpose %]
                   <hr/>
 
-                  [%# Adds <li> itself %]
-                  [% use_in_relationship(artist) %]
-                  <li>[% relate_to_ellipsis(artist) %]</li>
-                  <li>[% relate_to_url(artist) %]</li>
-
-                  <hr/>
-
                   <li>[% link_entity(artist, 'open_edits', l('Open edits')) %]</li>
                   <li>[% link_entity(artist, 'edits', l('Editing history')) %]</li>
                 [% END %]

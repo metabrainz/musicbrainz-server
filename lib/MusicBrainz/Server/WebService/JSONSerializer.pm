@@ -2,7 +2,9 @@ package MusicBrainz::Server::WebService::JSONSerializer;
 
 use Moose;
 use JSON;
+use List::MoreUtils qw( any );
 use List::UtilsBy 'sort_by';
+use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash );
 use MusicBrainz::Server::WebService::WebServiceInc;
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of number serializer serialize_entity );
 
@@ -51,13 +53,6 @@ sub work_list          { shift->entity_list (@_, "work", "works") };
 sub area_list          { shift->entity_list (@_, "area", "areas") };
 sub place_list         { shift->entity_list (@_, "place", "places") };
 
-sub serialize_data
-{
-    my ($self, $data) = @_;
-
-    return encode_json($data);
-}
-
 sub serialize_release
 {
     my ($self, $c, $release) = @_;
@@ -80,46 +75,48 @@ sub serialize_release
             $release->latest_annotation->text : "";
     }
 
-    return $self->serialize_data($data);
+    return encode_json($data);
 }
 
 sub serialize_relationships
 {
     my ($self, @relationships) = @_;
 
-    my $data = {};
+    [ map { $self->serialize_relationship($_) } @relationships ];
+}
 
-    for (@relationships) {
-        my $rels = $data->{ $_->target_type } //= {};
-        $rels = $rels->{ $_->link->type->name } //= [];
+sub serialize_relationship {
+    my ($self, $relationship) = @_;
 
-        my $entity = '_' . $_->target_type;
-        $entity =~ s/\-/_/g;
+    my $entity = '_' . $relationship->target_type;
+    $entity =~ s/\-/_/g;
 
-        my $out = {
-            id         => $_->id,
-            link_type  => $_->link->type_id,
-            attributes => $_->link->get_attribute_hash,
-            $_->link->begin_date->has_year
-                ? ( begin_date => $_->link->begin_date->format ) : (),
-            $_->link->end_date->has_year
-                ? ( end_date => $_->link->end_date->format ) : (),
-            ended         => $_->link->ended ? 1 : 0,
-            target        => $self->$entity( $_->target ),
-            edits_pending => $_->edits_pending,
-            verbose_phrase => $_->verbose_phrase
-        };
+    my $link = $relationship->link;
 
-        $out->{direction} = 'backward'
-            if ($_->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD);
+    my $out = {
+        id              => $relationship->id,
+        linkTypeID      => $link->type_id,
+        attributes      => [ sort map { $_->id } $link->all_attributes ],
+        ended           => $link->ended ? \1 : \0,
+        target          => $self->$entity( $_->target ),
+        editsPending    => $relationship->edits_pending ? \1 : \0,
+        verbosePhrase   => $relationship->verbose_phrase,
+        linkOrder       => $relationship->link_order,
+    };
 
-        $out->{target}->{relationships} = $self->serialize_relationships
-            ( $_->target->all_relationships ) if $_->target->all_relationships;
-
-        push @{ $rels }, $out;
+    if (any { $_->free_text } $link->all_attributes) {
+        $out->{attributeTextValues} = $link->attribute_text_values;
     }
 
-    return $data;
+    $out->{beginDate} = $link->begin_date->is_empty ? undef : partial_date_to_hash($link->begin_date);
+    $out->{endDate} = $link->end_date->is_empty ? undef : partial_date_to_hash($link->end_date);
+    $out->{direction} = 'backward' if $relationship->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD;
+
+    if (my @rels = $relationship->target->all_relationships) {
+        $out->{target}->{relationships} = $self->serialize_relationships(@rels);
+    }
+
+    return $out;
 }
 
 sub autocomplete_generic
@@ -155,7 +152,7 @@ sub autocomplete_label
 
 sub _generic
 {
-    my ($self, $entity) = @_;
+    my ($self, $entity, $type) = @_;
 
     return {
         name    => $entity->name,
@@ -166,13 +163,14 @@ sub _generic
         $entity->meta->has_attribute('sort_name')
             ? (sortName => $entity->sort_name) : (),
         $entity->meta->has_attribute('artist_credit') && $entity->artist_credit
-            ? (artistCredit => $self->_artist_credit($entity->artist_credit)) : ()
+            ? (artistCredit => $self->_artist_credit($entity->artist_credit)) : (),
+        $type ? (entityType => $type) : (),
     };
 }
 
-sub _artist { goto &_generic }
+sub _artist { _generic(@_, "artist") }
 
-sub _label { goto &_generic }
+sub _label { _generic(@_, "label") }
 
 sub autocomplete_release
 {
@@ -193,6 +191,7 @@ sub _release
     my ($self, $release, $inc_media, $inc_recordings, $inc_rels) = @_;
 
     my $data = {
+        entityType   => "release",
         name         => $release->name,
         id           => $release->id,
         gid          => $release->gid,
@@ -203,6 +202,10 @@ sub _release
         packagingID  => $release->packaging_id,
         barcode      => $release->barcode->code
     };
+
+    if ($release->release_group) {
+        $data->{releaseGroup} = $self->_release_group($release->release_group);
+    }
 
     if ($release->artist_credit) {
         $data->{artistCredit} = $self->_artist_credit($release->artist_credit);
@@ -250,6 +253,7 @@ sub _medium
     my ($self, $medium, $inc_recordings, $inc_rels) = @_;
 
     my $data = {
+        entityType => "medium",
         id        => $medium->id,
         position  => $medium->position,
         name      => $medium->name,
@@ -279,6 +283,7 @@ sub _track
     my ($self, $track) = @_;
 
     my $output = {
+        entityType    => "track",
         id            => $track->id,
         gid           => $track->gid,
         name          => $track->name,
@@ -336,6 +341,7 @@ sub _area
     my ($self, $area) = @_;
 
     return {
+        entityType => "area",
         name    => $area->name,
         id      => $area->id,
         gid     => $area->gid,
@@ -364,13 +370,6 @@ sub autocomplete_editor
     ]);
 }
 
-sub generic
-{
-    my ($self, $response) = @_;
-
-    return encode_json($response);
-}
-
 sub output_error
 {
     my ($self, $err) = @_;
@@ -397,18 +396,24 @@ sub _release_group
 {
     my ($self, $item) = @_;
 
-    return {
+    my $output = {
+        entityType => "release_group",
         name    => $item->name,
         id      => $item->id,
         gid     => $item->gid,
         comment => $item->comment,
-        artist  => $item->artist_credit->name,
         typeID  => $item->primary_type_id,
         typeName => $item->type_name,
         firstReleaseDate => $item->first_release_date->format,
         secondaryTypeIDs => [ map { $_->id } $item->all_secondary_types ],
-        artistCredit => $self->_artist_credit($item->artist_credit)
     };
+
+    if ($item->artist_credit) {
+        $output->{artist} = $item->artist_credit->name;
+        $output->{artistCredit} = $self->_artist_credit($item->artist_credit);
+    }
+
+    return $output;
 }
 
 sub autocomplete_recording
@@ -443,19 +448,29 @@ sub _recording
 {
     my ($self, $recording, $hide_ac) = @_;
 
-    my @isrcs = $recording->all_isrcs;
-
-    return {
-        name    => $recording->name,
-        id      => $recording->id,
-        gid     => $recording->gid,
-        comment => $recording->comment,
-        length  => $recording->length,
-        artist  => $recording->artist_credit->name,
-        $hide_ac ? () : ( artistCredit => $self->_artist_credit($recording->artist_credit) ),
-        isrcs => [ map { $_->isrc } $recording->all_isrcs ],
-        video   => $recording->video ? 1 : 0
+    my $output = {
+        entityType  => "recording",
+        name        => $recording->name,
+        id          => $recording->id,
+        gid         => $recording->gid,
+        comment     => $recording->comment,
+        length      => $recording->length,
+        isrcs       => [ map { $_->isrc } $recording->all_isrcs ],
+        video       => $recording->video ? \1 : \0
     };
+
+    # Relationship target entities in Controller::Role::EditRelationships
+    # don't have/need any additional information like artist credits loaded,
+    # so at least for there this won't be defined.
+
+    if ($recording->artist_credit) {
+        $output->{artist} = $recording->artist_credit->name;
+
+        $output->{artistCredit} =
+            $self->_artist_credit($recording->artist_credit) unless $hide_ac;
+    }
+
+    return $output;
 }
 
 sub autocomplete_work
@@ -530,11 +545,12 @@ sub _work
     my ($self, $work) = @_;
 
     return {
-        name => $work->name,
-        id => $work->id,
-        gid => $work->gid,
-        comment => $work->comment,
-        language => $work->language && $work->language->l_name
+        entityType  => "work",
+        name        => $work->name,
+        id          => $work->id,
+        gid         => $work->gid,
+        comment     => $work->comment,
+        language    => $work->language && $work->language->l_name
     };
 }
 
@@ -542,9 +558,24 @@ sub autocomplete_place
 {
     my ($self, $results, $pager) = @_;
 
+    my $add_area_containment = sub {
+        my ($r, $place) = @_;
+        return unless $place->area;
+        for my $level (qw/country subdivision city/) {
+            $r->{'areaParent' . ucfirst($level)} =
+                $place->area->{"parent_$level"}->name
+                if $place->area->{"parent_$level"};
+        }
+    };
+
     my $output = _with_primary_alias(
         $results,
-        sub { $self->_place(shift->{entity}) }
+        sub {
+            my $place = shift->{entity};
+            my $r = $self->_place($place);
+            $add_area_containment->($r, $place);
+            return $r;
+        }
     );
 
     push @$output, {
@@ -560,13 +591,15 @@ sub _place
     my ($self, $place) = @_;
 
     return {
-        name    => $place->name,
-        id      => $place->id,
-        gid     => $place->gid,
-        typeID  => $place->type_id,
-        comment => $place->comment,
+        entityType  => "place",
+        name        => $place->name,
+        id          => $place->id,
+        gid         => $place->gid,
+        typeID      => $place->type_id,
+        comment     => $place->comment,
         $place->type ? (typeName => $place->type->name) : (),
-        $place->area ? (area => $place->area->name) : () };
+        $place->area ? (area => $place->area->name) : (),
+    };
 }
 
 sub autocomplete_instrument {
@@ -604,10 +637,10 @@ sub _url
     my ($self, $url) = @_;
 
     return {
-        url           => $url->utf8_decoded,
+        entityType    => "url",
+        name          => $url->name,
         id            => $url->id,
         gid           => $url->gid,
-        edits_pending => $url->edits_pending,
     };
 }
 
@@ -620,6 +653,41 @@ sub _artist_credit
         joinPhrase  => $_->join_phrase,
         $_->artist->name eq $_->name ? () : ( name => $_->name )
     }, $ac->all_names ];
+}
+
+sub _series {
+    my ($self, $series) = @_;
+
+    return {
+        name                => $series->name,
+        id                  => $series->id,
+        gid                 => $series->gid,
+        comment             => $series->comment,
+        type => {
+            id          => $series->type_id,
+            name        => $series->type->l_name,
+            entityType  => $series->type->entity_type,
+        },
+        orderingAttributeID => $series->ordering_attribute_id,
+        orderingTypeID      => $series->ordering_type_id,
+        entityType          => 'series',
+    };
+}
+
+sub autocomplete_series {
+    my ($self, $results, $pager) = @_;
+
+    my $output = _with_primary_alias(
+        $results,
+        sub { $self->_series(shift->{entity}) }
+    );
+
+    push @$output, {
+        pages => $pager->last_page,
+        current => $pager->current_page
+    } if $pager;
+
+    return encode_json($output);
 }
 
 __PACKAGE__->meta->make_immutable;

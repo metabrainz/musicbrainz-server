@@ -8,7 +8,7 @@ use List::AllUtils qw( uniq );
 extends 'MusicBrainz::Server::Form';
 
 with 'MusicBrainz::Server::Form::Role::Edit';
-with 'MusicBrainz::Server::Form::Role::ExternalLinks';
+with 'MusicBrainz::Server::Form::Role::Relationships';
 
 has '+name' => ( default => 'edit-work' );
 

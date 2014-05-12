@@ -37,6 +37,7 @@ Readonly my @TYPES => qw(
     recording
     release
     release_group
+    series
     url
     work
 );
@@ -64,7 +65,8 @@ sub _new_from_row
         edits_pending => $row->{edits_pending},
         entity0_id => $entity0,
         entity1_id => $entity1,
-        last_updated => $row->{last_updated}
+        last_updated => $row->{last_updated},
+        link_order => $row->{link_order},
     );
 
     my $weaken;
@@ -109,6 +111,17 @@ sub get_by_id
         or return undef;
 
     return $self->_new_from_row($row);
+}
+
+sub get_by_ids
+{
+    my ($self, $type0, $type1, @ids) = @_;
+    $self->_check_types($type0, $type1);
+
+    my $query = "SELECT * FROM l_${type0}_${type1} WHERE id IN (" . placeholders(@ids) . ")";
+    my $rows = $self->sql->select_list_of_hashes($query, @ids) or return undef;
+
+    return { map { $_->{id} => $self->_new_from_row($_) } @$rows };
 }
 
 sub _load
@@ -317,14 +330,16 @@ sub merge_entities
               SELECT
                 a.id, $entity0, rank()
                   OVER (
-                    PARTITION BY $entity1, link_type, attributes
+                    PARTITION BY $entity1, link_type, attributes, text_values
                     ORDER BY (begin_date_year IS NULL AND begin_date_month IS NULL AND begin_date_day IS NULL AND
                               end_date_year IS NULL AND end_date_month IS NULL AND end_date_day IS NULL AND NOT ended) ASC
                   ) > 1 AS redundant
               FROM (
-                SELECT id, link, entity0, entity1, array_agg(attribute_type ORDER BY attribute_type) attributes
+                SELECT id, link, entity0, entity1, array_agg(attribute_type ORDER BY attribute_type) attributes,
+                       array_agg(row(attribute_type, text_value) ORDER BY attribute_type, text_value) text_values
                 FROM $table
-                LEFT JOIN link_attribute USING (link)
+                LEFT JOIN link_attribute la USING (link)
+                LEFT JOIN link_attribute_text_value USING (link, attribute_type)
                 WHERE $entity0 IN (" .placeholders($target_id, @source_ids) .")
                 GROUP BY id, link, entity0, entity1
               ) a
@@ -387,14 +402,32 @@ sub exists
             end_date => $values->{end_date},
             ended => $values->{ended},
             attributes => $values->{attributes},
+            attribute_text_values => $values->{attribute_text_values},
         })
     );
+}
+
+sub _check_series_type {
+    my ($self, $series_id, $link_type_id, $entity_type) = @_;
+
+    my $link_type = $self->c->model('LinkType')->get_by_id($link_type_id);
+    return if $link_type->orderable_direction == 0;
+
+    my $series = $self->c->model('Series')->get_by_id($series_id);
+    $self->c->model('SeriesType')->load($series);
+
+    if ($series->type->entity_type ne $entity_type) {
+        die "Incorrect entity type for part of series relationship";
+    }
 }
 
 sub insert
 {
     my ($self, $type0, $type1, $values) = @_;
     $self->_check_types($type0, $type1);
+
+    $self->_check_series_type($values->{entity0_id}, $values->{link_type_id}, $type1) if $type0 eq "series";
+    $self->_check_series_type($values->{entity1_id}, $values->{link_type_id}, $type0) if $type1 eq "series";
 
     my $row = {
         link => $self->c->model('Link')->find_or_insert({
@@ -403,11 +436,20 @@ sub insert
             end_date => $values->{end_date},
             ended => $values->{ended},
             attributes => $values->{attributes},
+            attribute_text_values => $values->{attribute_text_values},
         }),
         entity0 => $values->{entity0_id},
         entity1 => $values->{entity1_id},
     };
     my $id = $self->sql->insert_row("l_${type0}_${type1}", $row, 'id');
+
+    if ($type0 eq "series") {
+        $self->c->model('Series')->automatically_reorder($values->{entity0_id});
+    }
+
+    if ($type1 eq "series") {
+        $self->c->model('Series')->automatically_reorder($values->{entity1_id});
+    }
 
     return $self->_entity_class->new( id => $id );
 }
@@ -419,14 +461,35 @@ sub update
 
     my %link = map {
         $_ => $values->{$_};
-    } qw( link_type_id begin_date end_date attributes ended );
+    } qw( link_type_id begin_date end_date attributes ended attribute_text_values );
 
-    my $row = {};
-    $row->{link} = $self->c->model('Link')->find_or_insert(\%link);
-    $row->{entity0} = $values->{entity0_id} if $values->{entity0_id};
-    $row->{entity1} = $values->{entity1_id} if $values->{entity1_id};
+    my $old = $self->sql->select_single_row_hash(
+        "SELECT link, entity0, entity1 FROM l_${type0}_${type1} WHERE id = ?", $id
+    );
 
-    $self->sql->update_row("l_${type0}_${type1}", $row, { id => $id });
+    my $new = {};
+    $new->{entity0} = $values->{entity0_id} if $values->{entity0_id};
+    $new->{entity1} = $values->{entity1_id} if $values->{entity1_id};
+
+    my $series0 = $type0 eq "series";
+    my $series1 = $type1 eq "series";
+    my $series0_changed = $series0 && $new->{entity0} && $old->{entity0} != $new->{entity0};
+    my $series1_changed = $series1 && $new->{entity1} && $old->{entity1} != $new->{entity1};
+
+    $self->_check_series_type($new->{entity0}, $link{link_type_id}, $type1) if $series0_changed;
+    $self->_check_series_type($new->{entity1}, $link{link_type_id}, $type0) if $series1_changed;
+
+    $new->{link} = $self->c->model('Link')->find_or_insert(\%link);
+    $self->sql->update_row("l_${type0}_${type1}", $new, { id => $id });
+
+    $self->c->model('Series')->automatically_reorder($old->{entity0}) if $series0_changed;
+    $self->c->model('Series')->automatically_reorder($old->{entity1}) if $series1_changed;
+
+    $self->c->model('Series')->automatically_reorder($new->{entity0})
+        if $series0_changed || ($series0 && $old->{link} != $new->{link});
+
+    $self->c->model('Series')->automatically_reorder($new->{entity1})
+        if $series1_changed || ($series1 && $old->{link} != $new->{link});
 }
 
 sub delete
@@ -434,8 +497,21 @@ sub delete
     my ($self, $type0, $type1, @ids) = @_;
     $self->_check_types($type0, $type1);
 
+    my $series_col;
+    $series_col = "entity0" if $type0 eq "series";
+    $series_col = "entity1" if $type1 eq "series";
+
+    my $series_ids = $self->sql->select_list_of_hashes(
+        "SELECT $series_col FROM l_${type0}_${type1} WHERE id = any(?)", \@ids
+    ) if $series_col;
+
     $self->sql->do("DELETE FROM l_${type0}_${type1}
-              WHERE id IN (" . placeholders(@ids) . ")", @ids);
+                    WHERE id IN (" . placeholders(@ids) . ")", @ids);
+
+    if ($series_ids) {
+        $self->c->model('Series')->automatically_reorder($_)
+            for map { $_->{$series_col} } @$series_ids;
+    }
 }
 
 sub adjust_edit_pending
@@ -447,6 +523,46 @@ sub adjust_edit_pending
                  SET edits_pending = numeric_larger(0, edits_pending + ?)
                  WHERE id IN (" . placeholders(@ids) . ")";
     $self->sql->do($query, $adjust, @ids);
+}
+
+sub reorder {
+    my ($self, $type0, $type1, %ordering) = @_;
+
+    my @ids = keys %ordering;
+
+    # Given a list of relationship ids, extract their unordered entities
+    # (i.e. a series is unordered, its releases are), plus the link_type ids
+    # they use.
+    #
+    # Then select *all* relationships that use any of those (entity, link_type)
+    # pairs in a relationship, which gives us are orderable groups.
+    #
+    # If more than one group is returned, something is wrong, since this
+    # function is only intended to be able to order one group.
+
+    my $groups = $self->sql->select_list_of_hashes(
+        "SELECT DISTINCT (CASE WHEN olt.direction = 1
+                               THEN r.entity0
+                               ELSE r.entity1 END) AS source,
+                         lt.id AS link_type
+         FROM l_${type0}_${type1} r
+         JOIN link l ON l.id = r.link
+         JOIN link_type lt ON lt.id = l.link_type
+         JOIN orderable_link_type olt ON olt.link_type = lt.id
+         WHERE r.id = any(?)",
+        \@ids
+    );
+
+    die "Can only reorder one group of relationships" if @$groups != 1;
+
+    $self->sql->do(
+        "WITH pos (relationship, link_order) AS (
+            VALUES " . join(', ', ('(?::INTEGER, ?::INTEGER)') x @ids) . "
+        )
+        UPDATE l_${type0}_${type1} SET link_order = pos.link_order
+        FROM pos WHERE pos.relationship = id",
+        %ordering
+    );
 }
 
 =method lock_and_do

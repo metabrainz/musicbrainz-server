@@ -158,6 +158,11 @@ sub direct : Private
         when ('instrument') {
             $c->model('InstrumentType')->load(@entities);
         }
+        when ('series') {
+            $c->model('SeriesType')->load(@entities);
+            $c->model('SeriesOrderingType')->load(@entities);
+            $c->model('LinkAttributeType')->load(@entities);
+        }
     }
 
     if ($type =~ /(recording|release|release_group)/)

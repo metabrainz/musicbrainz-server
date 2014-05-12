@@ -23,6 +23,17 @@
     [% END %]
 
     [% WRAPPER form_row %]
+        [% r.label('entity0_cardinality', l('entity0 cardinality:')) %]
+        [% r.text('entity0_cardinality', { size => 5 }) %]
+        [% form_field_errors(form, 'entity0_cardinality') %]
+    [% END %]
+    [% WRAPPER form_row %]
+        [% r.label('entity1_cardinality', l('entity1 cardinality:')) %]
+        [% r.text('entity1_cardinality', { size => 5 }) %]
+        [% form_field_errors(form, 'entity1_cardinality') %]
+    [% END %]
+
+    [% WRAPPER form_row %]
         [% r.label('priority', l('Priority:')) %]
         [% r.text('priority', { size => 5 }) %]
         [% form_field_errors(form, 'priority') %]

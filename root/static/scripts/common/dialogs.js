@@ -103,7 +103,9 @@
     });
 
 
-    // Make sure click events within the dialog don't close RelateTo popups.
+    // Make sure click events within the dialog don't bubble and cause
+    // side-effects.
+
     $(function () {
         $("body").on("click", ".ui-dialog", function (event) {
             event.stopPropagation();

@@ -5,6 +5,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_EDIT
     $EDIT_RELATIONSHIP_CREATE
     $EDIT_RELATIONSHIP_DELETE
+    $EDIT_RELATIONSHIPS_REORDER
 );
 use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
@@ -28,7 +29,8 @@ sub try_and_edit {
 
     my $edit;
     $c->model('Relationship')->lock_and_do(
-        $params{type0}, $params{type1},
+        $params{link_type}->entity0_type,
+        $params{link_type}->entity1_type,
         sub {
             $edit = $self->_try_and_insert_edit(
                 $c, $form, $EDIT_RELATIONSHIP_EDIT, %params
@@ -55,7 +57,8 @@ sub try_and_insert {
 
     my $edit;
     $c->model('Relationship')->lock_and_do(
-        $params{type0}, $params{type1},
+        $params{link_type}->entity0_type,
+        $params{link_type}->entity1_type,
         sub {
             $edit = $self->_try_and_insert_edit(
                 $c, $form, $EDIT_RELATIONSHIP_CREATE, %params
@@ -69,8 +72,11 @@ sub delete_relationship {
     my ($self, $c, $form, %params) = @_;
 
     my $edit;
+    my $link_type = $params{relationship}->link->type;
+
     $c->model('Relationship')->lock_and_do(
-        $params{type0}, $params{type1},
+        $link_type->entity0_type,
+        $link_type->entity1_type,
         sub {
             $edit = $self->_insert_edit(
                 $c, $form, edit_type => $EDIT_RELATIONSHIP_DELETE, %params
@@ -81,36 +87,45 @@ sub delete_relationship {
     return $edit;
 }
 
+sub reorder_relationships {
+    my ($self, $c, $form, %params) = @_;
+
+    my $edit;
+    my $link_type_id = $params{link_type_id};
+    my $link_type = $c->model('LinkType')->get_by_id($link_type_id);
+
+    $c->model('Relationship')->lock_and_do(
+        $link_type->entity0_type,
+        $link_type->entity1_type,
+        sub {
+            $edit = $self->_insert_edit(
+                $c, $form, edit_type => $EDIT_RELATIONSHIPS_REORDER, %params
+            );
+            return 1;
+        }
+    );
+    return $edit;
+}
+
 sub _try_and_insert_edit {
     my ($self, $c, $form, $edit_type, %params) = @_;
 
+    my $link_type = $params{link_type};
+
     return undef if $c->model('Relationship')->exists(
-        $params{type0}, $params{type1}, {
-        link_type_id => $params{link_type}->id,
+        $link_type->entity0_type,
+        $link_type->entity1_type, {
+        link_type_id => $link_type->id,
         begin_date   => $params{begin_date},
         end_date     => $params{end_date},
         ended        => $params{ended},
         attributes   => $params{attributes},
         entity0_id   => $params{entity0}->id,
         entity1_id   => $params{entity1}->id,
+        attribute_text_values => $params{attribute_text_values} // {},
     });
 
     return $self->_insert_edit($c, $form, edit_type => $edit_type, %params);
-}
-
-sub flatten_attributes {
-    my ($self, $field) = @_;
-
-    my @attributes;
-    for my $attr ($self->attr_tree->all_children) {
-        my $value = $field->field($attr->name)->value;
-        next unless defined($value);
-
-        push @attributes, scalar($attr->all_children)
-            ? @$value
-            : $value ? $attr->id : ();
-    }
-    return uniq(@attributes);
 }
 
 1;

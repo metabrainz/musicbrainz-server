@@ -1,0 +1,41 @@
+<table class="details">
+    <tr>
+        <th>[% l('Series:') %]</th>
+        <td>[% link_entity(edit.display_data.series) %]</td>
+    </tr>
+</table>
+
+<table class="details add-series">
+  <tr>
+    <th>[% l('Name:') %]</th>
+    <td>[% edit.display_data.name | html %]</td>
+  </tr>
+
+  [% IF edit.display_data.comment %]
+  <tr>
+    <th>[% l('Disambiguation:') %]</th>
+    <td>[% edit.display_data.comment | html %]</td>
+  </tr>
+  [% END %]
+
+  [% IF edit.display_data.type %]
+  <tr>
+    <th>[% l('Type:') %]</th>
+    <td>[% edit.display_data.type.name %]</td>
+  </tr>
+  [% END %]
+
+  [% IF edit.display_data.ordering_attribute %]
+  <tr>
+    <th>[% l('Ordering Attribute:') %]</th>
+    <td>[% edit.display_data.ordering_attribute.name %]</td>
+  </tr>
+  [% END %]
+
+  [% IF edit.display_data.ordering_type %]
+  <tr>
+    <th>[% l('Ordering Type:') %]</th>
+    <td>[% edit.display_data.ordering_type.name %]</td>
+  </tr>
+  [% END %]
+</table>

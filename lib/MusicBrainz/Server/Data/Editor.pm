@@ -456,6 +456,8 @@ sub editors_with_subscriptions
         editor_subscribe_editor
         editor_subscribe_label
         editor_subscribe_label_deleted
+        editor_subscribe_series
+        editor_subscribe_series_deleted
     );
     my $ids = join(' UNION ALL ', map { "SELECT editor FROM $_" } @tables);
     my $query = "SELECT " . $self->_columns . ", ep.value AS prefs_value
@@ -548,7 +550,7 @@ sub subscription_summary {
                 "COALESCE(
                    (SELECT count(*) FROM editor_subscribe_$_ WHERE editor = ?),
                    0) AS $_"
-            } qw( artist collection label editor )),
+            } qw( artist collection label editor series )),
         ($editor_id) x 4
     );
 }

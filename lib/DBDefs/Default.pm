@@ -29,6 +29,7 @@ package DBDefs::Default;
 
 use File::Spec::Functions qw( splitdir catdir );
 use Cwd qw( abs_path );
+use MusicBrainz::Server::Replication ':replication_type';
 use MusicBrainz::Server::Translation 'l';
 
 ################################################################################
@@ -61,7 +62,6 @@ sub STATIC_FILES_DIR { my $self = shift; $self->MB_SERVER_ROOT . '/root/static' 
 #               choose RT_SLAVE, as well as the usual READWRITE.
 # * RT_STANDALONE - This server neither generates nor uses replication
 #               packets.  Changes to the database are allowed.
-use MusicBrainz::Server::Replication ':replication_type';
 sub REPLICATION_TYPE { RT_STANDALONE }
 
 ################################################################################
@@ -77,7 +77,8 @@ sub GPG_PUB_KEY { "" }
 sub GPG_MISSING_SIGNATURE_MODE { "PASS" }
 
 # Key identifiers (compatible with --recipient in GPG) for
-# signatures and encryption of data dumps and packets.
+# signatures and encryption of data dumps and packets. Should
+# only be required on the master server.
 sub GPG_SIGN_KEY { "" }
 sub GPG_ENCRYPT_KEY { "" }
 
@@ -87,11 +88,19 @@ sub GPG_ENCRYPT_KEY { "" }
 
 # The host names used by the server.
 # To use a port number other than 80, add it like so: "myhost:8000"
+# Additionally you should set the environment variable
+# MUSICBRAINZ_USE_PROXY=1 when using a reverse proxy to make the server
+# aware of it when generating things like the canonical url in catalyst.
 sub WEB_SERVER                { "localhost:5000" }
+# Relevant only if SSL redirects are enabled
 sub WEB_SERVER_SSL            { "localhost" }
 sub LUCENE_SERVER             { "search.musicbrainz.org" }
+# Used, for example, to have emails sent from the beta server list the
+# main server
 sub WEB_SERVER_USED_IN_EMAIL  { my $self = shift; $self->WEB_SERVER }
 
+# Used for automatic beta redirection. Enabled if BETA_REDIRECT_HOSTNAME
+# is truthy.
 sub IS_BETA                   { 0 }
 sub BETA_REDIRECT_HOSTNAME    { '' }
 
@@ -125,7 +134,8 @@ sub DB_STAGING_SERVER { 1 }
 
 # This description is shown in the banner when DB_STAGING_SERVER is enabled.
 # If left undefined the default value will be shown.
-# Default: "This is a MusicBrainz development server."
+# Several predefined constants can be used (set to e.g. shift->NAME_OF_CONSTANT
+# Defaults to DB_STAGING_SERVER_DESCRIPTION_DEFAULT
 sub DB_STAGING_SERVER_DESCRIPTION_DEFAULT { l('This is a MusicBrainz development server.') }
 sub DB_STAGING_SERVER_DESCRIPTION_BETA { l('This beta test server allows testing of new features with the live database.') }
 sub DB_STAGING_SERVER_DESCRIPTION { shift->DB_STAGING_SERVER_DESCRIPTION_DEFAULT }
@@ -380,6 +390,8 @@ sub CATALYST_DEBUG { 1 }
 # developing and debugging easier
 sub DEVELOPMENT_SERVER { 1 }
 
+# How long to wait before rechecking template files (undef uses the
+# Template::Toolkit default)
 sub STAT_TTL { shift->DEVELOPMENT_SERVER() ? undef : 1200 }
 
 # Please activate the officially approved languages here. Not every .po

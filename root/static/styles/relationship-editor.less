@@ -8,14 +8,6 @@
 #content.rel-editor span.link-phrase:hover {background: @rel-edit;}
 #content.rel-editor #release-rels {margin-top: 1em;}
 
-#content.rel-editor .rel-edit {background: @rel-edit;}
-#content.rel-editor .rel-remove {background: @negative-bg !important; cursor: default !important;}
-#content.rel-editor .rel-add {background: @positive-bg;}
-
-#content.rel-editor .remove-button {cursor: pointer; color: @button-text; padding: 0 0.5em;}
-#content.rel-editor .remove-button:hover {color: @negative-bg; text-decoration: none;}
-#content.rel-editor .remove-button:visited {color: @button-text;}
-
 #content.rel-editor .btn {
     cursor: pointer;
     vertical-align: top;
@@ -39,45 +31,3 @@ div.rel-editor-dialog .warning {
     font-weight: bold;
 }
 #content.rel-editor .error-field {border-bottom: 2px red dotted;}
-
-div.rel-editor-dialog { max-width: 500px; }
-div.rel-editor-dialog span.autocomplete {width: 100%;}
-div.rel-editor-dialog p.msg {margin: 0.5em; margin-bottom: 1em;}
-div.rel-editor-dialog span.error,
-div.rel-editor-dialog div.error {color: @negative-text;}
-div.rel-editor-dialog table {border-spacing: 0; width: 100%;}
-div.rel-editor-dialog table td {padding: 0.25em 0;}
-div.rel-editor-dialog table td.section {
-    font-weight: bold;
-    vertical-align: top;
-    text-align: right;
-    white-space: nowrap;
-    padding-right: 1em !important;
-}
-div.rel-editor-dialog input[type=text],
-div.rel-editor-dialog textarea {
-    width: 100%;
-    box-sizing: border-box;
-}
-div.rel-editor-dialog textarea {
-    margin-top: 0.5em;
-}
-div.rel-editor-dialog .buttons {
-    display: block !important;
-}
-
-#dialog.rel-editor-dialog div.ar-descr {
-    box-sizing: border-box;
-    margin: 6px 0;
-}
-#dialog.rel-editor-dialog input.selectFilter {width: 7em;}
-#dialog.rel-editor-dialog div.attr-select > * {margin: 2px !important;}
-#dialog.rel-editor-dialog #attrs button {
-    background-color: @very-light-bg;
-    border: 1px solid @dark-button-border;
-    border-top: 1px solid @light-button-border;
-    border-left: 1px solid @light-button-border;
-    font-weight: bold;
-    color: @button-text;
-    cursor: pointer;
-}
