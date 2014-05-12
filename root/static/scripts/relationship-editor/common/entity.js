@@ -104,11 +104,12 @@
                     var group = _.findWhere(oldGroups, { sortKey: key });
                     var attributes = _.intersection.apply(_, _.invoke(relationships, "attributes"));
 
-                    relationships = _(relationships)
-                        .sortBy(function (r) { return r.lowerCasePhrase(self) })
-                        .sortBy(function (r) { return r.lowerCaseTargetName() })
-                        .sortBy(function (r) { return r.entityOrdering(r.target(self)) })
-                        .value();
+                    relationships = viewModel.orderedRelationships(
+                        _(relationships)
+                            .sortBy(function (r) { return r.lowerCasePhrase(self) })
+                            .sortBy(function (r) { return r.lowerCaseTargetName(self) })
+                            .value(), self
+                    );
 
                     if (group) {
                         group.relationships(relationships);

@@ -279,26 +279,6 @@
             return ko.unwrap(this.target(source).name).toLowerCase();
         },
 
-        entityOrdering: function (entity) {
-            if (!this.entityIsOrdered(entity)) {
-                return 0;
-            }
-
-            var target = this.target(entity);
-
-            // If we're editing a series relationship and the series is
-            // automatically ordered, use the ordering attribute for sorting
-            // since it may have been changed. The linkOrder itself won't
-            // change unless the series is manually ordered.
-
-            if (target.entityType === "series" &&
-                    target.orderingTypeID() === MB.constants.SERIES_ORDERING_TYPE_AUTOMATIC) {
-                return ko.unwrap(this.attributeValue(MB.constants.SERIES_ORDERING_ATTRIBUTE));
-            }
-
-            return this.linkOrder();
-        },
-
         entityIsOrdered: function (entity) {
             var typeInfo = this.linkTypeInfo();
             if (!typeInfo) return false;

@@ -185,11 +185,12 @@
       <div class="ars" data-bind="
            template: {
               name: 'template.relationship',
-              foreach: _(displayRelationships($root))
-                          .sortBy(function (r) { return r.lowerCaseTargetName() })
-                          .sortBy(function (r) { return r.lowerCasePhrase($parent) })
-                          .sortBy(function (r) { return r.entityOrdering(r.target($parent)) })
-                          .value()
+              foreach: $root.orderedRelationships(
+                         _(displayRelationships($root))
+                           .sortBy(function (r) { return r.lowerCaseTargetName($parent) })
+                           .sortBy(function (r) { return r.lowerCasePhrase($parent) })
+                           .value(), $parent
+                       )
             }">
       </div>
       <span class="add-rel btn" data-click="openAddDialog">

@@ -485,7 +485,11 @@
 
         target: function (source) {
             var entities = this.entities();
-            return source === entities[0] ? entities[1] : entities[0];
+
+            if (source === entities[0]) return entities[1];
+            if (source === entities[1]) return entities[0];
+
+            throw new Error("The given entity is not used by this relationship");
         },
 
         linkTypeInfo: function () {

@@ -150,6 +150,53 @@
             return false;
         },
 
+        orderedRelationships: function (relationships, source) {
+            var self = this;
+
+            var automaticallyOrderedSeries = source.entityType === "series" &&
+                    source.orderingTypeID() === MB.constants.SERIES_ORDERING_TYPE_AUTOMATIC;
+
+            return relationships.slice(0).sort(function (a, b) {
+                var targetA = a.target(source);
+                var targetB = b.target(source);
+
+                if (!a.entityIsOrdered(targetA) || !b.entityIsOrdered(targetB)) {
+                    return 0;
+                }
+
+                if (automaticallyOrderedSeries) {
+                    var numberA = ko.unwrap(a.attributeValue(MB.constants.SERIES_ORDERING_ATTRIBUTE)) || "";
+                    var numberB = ko.unwrap(b.attributeValue(MB.constants.SERIES_ORDERING_ATTRIBUTE)) || "";
+
+                    var partsA = _.compact(numberA.split(/(\d+)/));
+                    var partsB = _.compact(numberB.split(/(\d+)/));
+
+                    var maxPartsLength = Math.max(partsA.length, partsB.length);
+                    var order = 0;
+
+                    for (var i = 0; i <= maxPartsLength; i++) {
+                        var partA = partsA[i] || "";
+                        var partB = partsB[i] || "";
+
+                        var aIsNumber = /^\d+$/.test(partA);
+                        var bIsNumber = /^\d+$/.test(partB);
+
+                        if (aIsNumber && bIsNumber) {
+                            order = partA - partB;
+                        } else {
+                            order = (partA == partB) ? 0 : (partA < partB ? -1 : 1);
+                        }
+
+                        if (order !== 0) break;
+                    }
+
+                    return order;
+                }
+
+                return a.linkOrder() - b.linkOrder();
+            });
+        },
+
         hiddenInputs: function () {
             var fieldPrefix = this.formName + "." + this.fieldName;
             var source = this.source;
