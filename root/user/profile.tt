@@ -62,7 +62,7 @@
             [% END %]
         [% END %]
 
-        [% IF user.age;
+        [% IF user.age.defined;
              WRAPPER property name=l('Age:');
               user.age;
              END;
