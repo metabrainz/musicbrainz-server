@@ -622,6 +622,7 @@ sub _instrument {
     my ($self, $instrument) = @_;
 
     return {
+        entityType => "instrument",
         name    => $instrument->name,
         id      => $instrument->id,
         gid     => $instrument->gid,
