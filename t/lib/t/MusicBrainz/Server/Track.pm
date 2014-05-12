@@ -4,7 +4,7 @@ use Test::More;
 
 use utf8;
 
-use MusicBrainz::Server::Track qw( format_track_lengthunformat_track_length);
+use MusicBrainz::Server::Track qw( format_track_length unformat_track_length);
 
 test 'Format Track Length' => sub {
     my $seconds = 1000;
