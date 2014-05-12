@@ -47,7 +47,8 @@ test all => sub {
         beginDate => undef,
         id => 6751,
         verbosePhrase => 'vocal',
-        attributes => [194]
+        attributes => [194],
+        linkOrder => 0,
     }, "BoA performed vocals");
 
     is_deeply($data->{mediums}->[0]->{tracks}->[1]->{recording}->{relationships},

@@ -70,6 +70,8 @@ sub initialize
         }
     }
 
+    delete $opts{attribute_text_values} unless %{ $opts{attribute_text_values} // {} };
+
     die "Entities in a relationship cannot be the same"
         if $lt->entity0_type eq $lt->entity1_type && $e0->id == $e1->id;
 

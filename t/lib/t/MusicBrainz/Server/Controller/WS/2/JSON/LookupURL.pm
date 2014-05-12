@@ -33,6 +33,7 @@ test 'basic url lookup' => sub {
             relations => [
                 {
                     attributes => [],
+                    "attribute-values" => {},
                     direction => 'backward',
                     artist => {
                         id => "05d83760-08b5-42bb-a8d7-00d80b3bf47c",
