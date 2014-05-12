@@ -442,21 +442,6 @@ SELECT setval('link_attribute_type_id_seq', (SELECT MAX(id) FROM link_attribute_
     \'http://musicbrainz.org/linkattributetype/ordering\'
 )';
 
-\set CATNO_ATTRIBUTE_GID 'generate_uuid_v3(
-    \'6ba7b8119dad11d180b400c04fd430c8\',
-    \'http://musicbrainz.org/linkattributetype/catalog_number\'
-)';
-
-\set PARTNO_ATTRIBUTE_GID 'generate_uuid_v3(
-    \'6ba7b8119dad11d180b400c04fd430c8\',
-    \'http://musicbrainz.org/linkattributetype/part_number\'
-)';
-
-\set VOLNO_ATTRIBUTE_GID 'generate_uuid_v3(
-    \'6ba7b8119dad11d180b400c04fd430c8\',
-    \'http://musicbrainz.org/linkattributetype/volume_number\'
-)';
-
 INSERT INTO link_type (gid, entity_type0, entity_type1, entity0_cardinality,
                        entity1_cardinality, name, description, link_phrase,
                        reverse_link_phrase, long_link_phrase) VALUES
@@ -522,30 +507,8 @@ INSERT INTO link_attribute_type (root, child_order, gid, name, description) VALU
 
 UPDATE link_attribute_type SET root = id WHERE gid = :ORDERING_ATTRIBUTE_GID;
 
-INSERT INTO link_attribute_type (root, parent, child_order, gid, name, description) VALUES
-    ((SELECT id FROM link_attribute_type WHERE gid = :ORDERING_ATTRIBUTE_GID),
-     (SELECT id FROM link_attribute_type WHERE gid = :ORDERING_ATTRIBUTE_GID),
-     0, :CATNO_ATTRIBUTE_GID, 'catalog number',
-     'This attribute indicates the catalog number of a work in a series.'
-    ),
-    ((SELECT id FROM link_attribute_type WHERE gid = :ORDERING_ATTRIBUTE_GID),
-     (SELECT id FROM link_attribute_type WHERE gid = :ORDERING_ATTRIBUTE_GID),
-     1, :PARTNO_ATTRIBUTE_GID, 'part number',
-     'This attribute indicates the part number of a work in a series.'
-    ),
-    ((SELECT id FROM link_attribute_type WHERE gid = :ORDERING_ATTRIBUTE_GID),
-     (SELECT id FROM link_attribute_type WHERE gid = :ORDERING_ATTRIBUTE_GID),
-     2, :VOLNO_ATTRIBUTE_GID, 'volume number',
-     'This attribute indicates the volume number of a work in a series.'
-    );
-
 INSERT INTO link_text_attribute_type (
-    SELECT id FROM link_attribute_type WHERE gid IN (
-        :ORDERING_ATTRIBUTE_GID,
-        :CATNO_ATTRIBUTE_GID,
-        :PARTNO_ATTRIBUTE_GID,
-        :VOLNO_ATTRIBUTE_GID
-    )
+    SELECT id FROM link_attribute_type WHERE gid = :ORDERING_ATTRIBUTE_GID
 );
 
 INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max) VALUES
@@ -572,9 +535,6 @@ INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max) VALUE
 \unset WORK_PART_OF_SERIES_GID;
 \unset SERIES_WIKIPEDIA_URL_GID;
 \unset ORDERING_ATTRIBUTE_GID;
-\unset CATNO_ATTRIBUTE_GID;
-\unset PARTNO_ATTRIBUTE_GID;
-\unset VOLNO_ATTRIBUTE_GID;
 
 -----------------------------
 -- MIGRATE EXISTING TABLES --

@@ -1,7 +1,7 @@
 var typeInfo = {
     "recording-release": [
         {
-            attributes: { 1: [0, 1], 14: [0, null] },
+            attributes: { 1: { min: 0, max: 1 }, 14: { min: 0, max: null } },
             reversePhrase: "{additional:additionally} {instrument} sampled by",
             id: 69,
             phrase: "{additional} {instrument} samples from",
@@ -17,11 +17,11 @@ var typeInfo = {
             reversePhrase: "performance",
             children: [
                 {
-                    attributes: { 1: [0, 1], 194: [0, 1], 596: [0, 1] },
+                    attributes: { 1: { min: 0, max: 1 }, 194: { min: 0, max: 1 }, 596: { min: 0, max: 1 } },
                     reversePhrase: "{additional} {guest} {solo} performer",
                     children: [
                         {
-                            attributes: { 1: [0, 1], 14: [1, null], 194: [0, 1], 596: [0, 1] },
+                            attributes: { 1: { min: 0, max: 1 }, 14: [1, null], 194: { min: 0, max: 1 }, 596: { min: 0, max: 1 } },
                             reversePhrase: "{additional} {guest} {solo} {instrument}",
                             id: 148,
                             phrase: "{additional} {guest} {solo} {instrument}",
@@ -32,7 +32,7 @@ var typeInfo = {
                             cardinality1: 0
                         },
                         {
-                            attributes: { 1: [0, 1], 3: [0, null], 194: [0, 1], 596: [0, 1] },
+                            attributes: { 1: { min: 0, max: 1 }, 3: { min: 0, max: null }, 194: { min: 0, max: 1 }, 596: { min: 0, max: 1 } },
                             reversePhrase: "{additional} {guest} {solo} {vocal:%|vocals}",
                             id: 149,
                             phrase: "{additional} {guest} {solo} {vocal:%|vocals}",
@@ -63,7 +63,7 @@ var typeInfo = {
             reversePhrase: "remixes",
             children: [
                 {
-                    attributes: { 1: [0, 1], 14: [0, null] },
+                    attributes: { 1: { min: 0, max: 1 }, 14: { min: 0, max: null } },
                     reversePhrase: "contains {additional} {instrument} samples by",
                     id: 154,
                     phrase: "produced {instrument} material that was {additional:additionally} sampled in",
@@ -85,7 +85,7 @@ var typeInfo = {
             reversePhrase: "production",
             children: [
                 {
-                    attributes: { 1: [0, 1], 424: [0, 1], 425: [0, 1], 526: [0, 1], 527: [0, 1] },
+                    attributes: { 1: { min: 0, max: 1 }, 424: { min: 0, max: 1 }, 425: { min: 0, max: 1 }, 526: { min: 0, max: 1 }, 527: { min: 0, max: 1 } },
                     reversePhrase: "{additional} {assistant} {associate} {co:co-}{executive:executive }producer",
                     id: 141,
                     phrase: "{additional:additionally} {assistant} {associate} {co:co-}{executive:executive }produced",
@@ -109,7 +109,7 @@ var typeInfo = {
             reversePhrase: "covers or other versions",
             children: [
                 {
-                    attributes: { 567: [0, 1], 578: [0, 1], 579: [0, 1], 580: [0, 1] },
+                    attributes: { 567: { min: 0, max: 1 }, 578: { min: 0, max: 1 }, 579: { min: 0, max: 1 }, 580: { min: 0, max: 1 } },
                     reversePhrase: "{partial} {live} {instrumental} {cover} recordings",
                     id: 278,
                     phrase: "{partial} {live} {instrumental} {cover} recording of",
@@ -133,7 +133,7 @@ var typeInfo = {
             reversePhrase: "composition",
             children: [
                 {
-                    attributes: { 1: [0, 1] },
+                    attributes: { 1: { min: 0, max: 1 } },
                     reversePhrase: "{additional} writer",
                     id: 167,
                     phrase: "{additional:additionally} wrote",
@@ -156,7 +156,7 @@ var typeInfo = {
         {
             children: [
                 {
-                    attributes: { 1: [0, 1] },
+                    attributes: { 1: { min: 0, max: 1 } },
                     description: 1,
                     id: 231,
                     phrase: "{additional} samples",

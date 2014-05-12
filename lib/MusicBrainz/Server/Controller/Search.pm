@@ -161,7 +161,6 @@ sub direct : Private
         when ('series') {
             $c->model('SeriesType')->load(@entities);
             $c->model('SeriesOrderingType')->load(@entities);
-            $c->model('LinkAttributeType')->load(@entities);
         }
     }
 

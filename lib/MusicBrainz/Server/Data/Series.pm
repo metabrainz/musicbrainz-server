@@ -3,7 +3,10 @@ package MusicBrainz::Server::Data::Series;
 use List::AllUtils qw( max );
 use Moose;
 use namespace::autoclean;
-use MusicBrainz::Server::Constants qw( $SERIES_ORDERING_TYPE_AUTOMATIC );
+use MusicBrainz::Server::Constants qw(
+    $SERIES_ORDERING_TYPE_AUTOMATIC
+    $SERIES_ORDERING_ATTRIBUTE
+);
 use MusicBrainz::Server::Data::Utils qw(
     generate_gid
     hash_to_row
@@ -38,8 +41,7 @@ sub _table {
 }
 
 sub _columns {
-    return 'id, gid, name, comment, type, ordering_attribute, ' .
-           'ordering_type, edits_pending, last_updated';
+    return 'id, gid, name, comment, type, ordering_type, edits_pending, last_updated';
 }
 
 sub _column_mapping {
@@ -49,7 +51,6 @@ sub _column_mapping {
         name => 'name',
         comment => 'comment',
         type_id => 'type',
-        ordering_attribute_id => 'ordering_attribute',
         ordering_type_id => 'ordering_type',
         edits_pending => 'edits_pending',
         last_updated => 'last_updated',
@@ -73,7 +74,6 @@ sub _hash_to_row {
 
     my $row = hash_to_row($series, {
         type => 'type_id',
-        ordering_attribute => 'ordering_attribute_id',
         ordering_type => 'ordering_type_id',
         name => 'name',
         comment => 'comment',
@@ -121,9 +121,16 @@ sub insert {
     my $class = $self->_entity_class;
     my @created;
 
+    my $ordering_attribute_id = $self->sql->select_single_value(
+        'SELECT id FROM link_attribute_type WHERE gid = ?', $SERIES_ORDERING_ATTRIBUTE
+    );
+
+    print "\n\n\n $SERIES_ORDERING_ATTRIBUTE $ordering_attribute_id \n\n\n";
+
     for my $series (@series) {
         my $row = $self->_hash_to_row($series);
         $row->{gid} = $series->{gid} || generate_gid();
+        $row->{ordering_attribute} = $ordering_attribute_id;
 
         my $created = $class->new(
             name => $series->{name},
@@ -147,10 +154,10 @@ sub update {
     my $series = $self->c->model('Series')->get_by_id($series_id);
     $self->c->model('SeriesType')->load($series);
 
-    if ($series->type_id != $row->{type} || $series->ordering_attribute_id != $row->{ordering_attribute}) {
+    if ($series->type_id != $row->{type}) {
         my ($items, $hits) = $self->c->model('Series')->get_entities($series, 1, 0);
 
-        die "Cannot change the type or ordering attribute of a non-empty series" if scalar(@$items);
+        die "Cannot change the type of a non-empty series" if scalar(@$items);
     }
 
     $self->sql->update_row('series', $row, { id => $series_id }) if %$row;
@@ -179,7 +186,7 @@ sub get_entities {
     my $model = $self->c->model(type_to_model($entity_type));
 
     my $query = "
-      SELECT e.*, es.text_value AS ordering_attribute_value
+      SELECT e.*, es.text_value AS ordering_key
       FROM (SELECT " . $model->_columns . " FROM " . $model->_table . ") e
       JOIN (SELECT * FROM ${entity_type}_series) es ON e.id = es.$entity_type
       WHERE es.series = ?
@@ -188,11 +195,11 @@ sub get_entities {
 
     my $form_row = sub {
         my $row = shift;
-        my $ordering_attribute_value = delete $row->{ordering_attribute_value};
+        my $ordering_key = delete $row->{ordering_key};
 
         return {
             entity => $model->_new_from_row($row),
-            ordering_attribute_value => $ordering_attribute_value,
+            ordering_key => $ordering_key,
         };
     };
 

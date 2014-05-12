@@ -23,11 +23,9 @@
                 ended: ko.observable(!!data.ended)
             };
 
-            this.attributeValues = {};
-            this.attributeTextValues = ko.observable({});
-
+            this.attributeValues = ko.observable({});
             this.attributes(data.attributes);
-            this.setAttributeTextValues(data.attributeTextValues);
+            this.setAttributeValues(data.attributeTextValues);
 
             this.removed = ko.observable(!!data.removed);
             this.editsPending = Boolean(data.editsPending);
@@ -48,7 +46,7 @@
             this.period.ended(!!data.ended);
 
             this.attributes(data.attributes);
-            this.setAttributeTextValues(data.attributeTextValues);
+            this.setAttributeValues(data.attributeTextValues);
             this.linkOrder(data.linkOrder || 0);
 
             _.has(data, "removed") && this.removed(!!data.removed);
@@ -56,26 +54,14 @@
 
         linkTypeIDChanged: function () {
             var typeInfo = this.linkTypeInfo();
-            var anyFreeText = false;
-            var textValues = this.attributeTextValues();
             var attrValues = {};
             var self = this;
 
             _.each(typeInfo && typeInfo.attributes, function (attrInfo, id) {
                 attrValues[id] = self.attributeValue(id);
-
-                if (attrInfo.attribute.freeText) {
-                    anyFreeText = true;
-                } else if (textValues) {
-                    delete textValues[id];
-                }
             });
 
-            this.attributeValues = attrValues;
-
-            if (!anyFreeText || !textValues) {
-                this.attributeTextValues({});
-            }
+            this.attributeValues(attrValues);
         },
 
         entitiesChanged: function (newEntities) {
@@ -139,57 +125,63 @@
         },
 
         attributeValue: function (id) {
-            var hasChildren = !!MB.attrInfoByID[id].children;
-            var max = this.linkTypeInfo().attributes[id].max;
-            var value = this.attributeValues[id];
+            var attr = MB.attrInfoByID[id];
+            if (!attr) return;
 
-            if (!value) {
-                if (max === 1) {
-                    value = this.attributeValues[id] = ko.observable(hasChildren ? undefined : false);
+            // The id parameter could also be a gid.
+            // Ensure it's an integer id.
+            id = attr.id;
+
+            var typeAttributes = this.linkTypeInfo().attributes;
+            var attrInfo = typeAttributes && typeAttributes[id];
+            if (!attrInfo) return;
+
+            var attributeValues = this.attributeValues();
+            var value = attributeValues[id];
+            var isNew = !value;
+
+            if (isNew) {
+                if (attrInfo.max === 1) {
+                    var defaultValue = attr.freeText ? "" : (isBooleanAttr(attr) ? false : undefined);
+                    value = attributeValues[id] = ko.observable(defaultValue);
                 } else {
-                    value = this.attributeValues[id] = ko.observableArray([]);
+                    value = attributeValues[id] = ko.observableArray([]);
                 }
             }
 
             if (arguments.length === 1) {
+                isNew && this.attributeValues.notifySubscribers(attributeValues);
                 return value;
             } else {
                 var newValue = arguments[1];
 
-                if (max === 1) {
-                    newValue = _.isArray(newValue) ? newValue[0] : newValue;
+                if (attrInfo.max === 1) {
+                    if (_.isArray(newValue)) newValue = newValue[0];
 
-                    return value(hasChildren ? newValue : !!newValue);
+                    if (attr.freeText) {
+                        newValue = String(newValue || "");
+                    } else if (isBooleanAttr(attr)) {
+                        newValue = !!newValue;
+                    }
                 } else {
                     newValue = _.isArray(newValue) ? newValue.slice(0) : [newValue];
 
-                    return value(flattenAttributeIDs(newValue));
+                    if (attr.freeText) {
+                        newValue = flattenValues(newValue).map(String).value();
+                    } else {
+                        newValue = flattenAttributeIDs(newValue);
+                    }
                 }
+                value(newValue);
+                this.attributeValues.notifySubscribers(attributeValues);
             }
         },
 
-        attributeTextValue: function (id) {
-            var textValues = this.attributeTextValues();
-            var value = textValues[id];
-
-            if (!value) {
-                value = textValues[id] = ko.observable("");
-
-                var self = this;
-
-                value.subscribe(function () {
-                    self.attributeTextValues.notifySubscribers(self.attributeTextValues());
-                });
-            }
-
-            return arguments.length === 1 ? value : value(arguments[1]);
-        },
-
-        setAttributeTextValues: function (values) {
+        setAttributeValues: function (values) {
             var self = this;
 
             _.each(values, function (value, id) {
-                self.attributeTextValue(id, value);
+                self.attributeValue(id, value);
             });
         },
 
@@ -207,8 +199,27 @@
                     });
                 }
             } else {
-                return flattenAttributeIDs(_.map(this.attributeValues, unwrapAttributeValue));
+                return flattenAttributeIDs(_.map(this.attributeValues(), unwrapAttributeValue));
             }
+        },
+
+        attributeTextValues: function () {
+            var typeInfo = this.linkTypeInfo();
+
+            if (typeInfo) {
+                var self = this;
+                var attributeValues = this.attributeValues();
+
+                return _.transform(typeInfo.attributes, function (result, info, id) {
+                    var attr = info.attribute;
+
+                    if (attr.freeText) {
+                        result[id] = ko.unwrap(attributeValues[id]);
+                    }
+                }, {});
+            }
+
+            return {};
         },
 
         phraseAndExtraAttributes: function (source) {
@@ -244,7 +255,7 @@
             extraAttributes = MB.utility.joinList(
                 _(extraAttributes).values().flatten().map(function (attr) {
                     if (attr.freeText) {
-                        var value = ko.unwrap(self.attributeTextValue(attr.id));
+                        var value = ko.unwrap(self.attributeValue(attr.id));
 
                         if (!value) return "";
 
@@ -282,7 +293,7 @@
 
             if (target.entityType === "series" &&
                     target.orderingTypeID() === MB.constants.SERIES_ORDERING_TYPE_AUTOMATIC) {
-                return this.attributeTextValue(target.orderingAttributeID())();
+                return ko.unwrap(this.attributeValue(MB.constants.SERIES_ORDERING_ATTRIBUTE));
             }
 
             return this.linkOrder();
@@ -383,13 +394,26 @@
 
 
     function unwrapAttributeValue(value, rootID) {
+        var attr = MB.attrInfoByID[rootID];
+
         value = ko.unwrap(value);
-        return _.isBoolean(value) ? (value ? rootID : null) : value;
+
+        return (attr.freeText || isBooleanAttr(attr)) ? (value ? rootID : null) : value;
+    }
+
+
+    function isBooleanAttr(attr) {
+        return !(attr.children || attr.freeText);
+    }
+
+
+    function flattenValues(values) {
+        return _(values).flatten().compact();
     }
 
 
     function flattenAttributeIDs(ids) {
-        return _(ids).flatten().compact().map(Number).sortBy().value();
+        return flattenValues(ids).map(Number).sortBy().value();
     }
 
 

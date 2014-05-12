@@ -31,7 +31,6 @@ sub change_fields
         name                    => Optional[Str],
         comment                 => Optional[Str],
         type_id                 => Optional[Int],
-        ordering_attribute_id   => Optional[Int],
         ordering_type_id        => Optional[Int],
     ];
 }
@@ -53,7 +52,6 @@ sub foreign_keys {
 
     changed_relations($self->data, $relations,
         SeriesType          => 'type_id',
-        LinkAttributeType   => 'ordering_attribute_id',
         SeriesOrderingType  => 'ordering_type_id',
     );
 
@@ -69,7 +67,6 @@ sub build_display_data {
         name                => 'name',
         comment             => 'comment',
         type                => [ qw( type_id SeriesType ) ],
-        ordering_attribute  => [ qw( ordering_attribute_id LinkAttributeType ) ],
         ordering_type       => [ qw( ordering_type_id SeriesOrderingType ) ],
     );
 
@@ -125,10 +122,9 @@ around initialize => sub {
 
     my $series = $opts{to_edit} or return;
 
-    # These are not editable if the series is non-empty, and won't be
-    # submitted with the edit form because the fields are disabled.
+    # The type is not editable if the series is non-empty, and won't be
+    # submitted with the edit form because the field is disabled.
     $opts{type_id} //= $series->type_id;
-    $opts{ordering_attribute_id} //= $series->ordering_attribute_id;
 
     $self->$orig(%opts);
 };

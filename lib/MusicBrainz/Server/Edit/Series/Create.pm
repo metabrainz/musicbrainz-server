@@ -27,7 +27,6 @@ has '+data' => (
         name                    => Str,
         comment                 => Str,
         type_id                 => Int,
-        ordering_attribute_id   => Int,
         ordering_type_id        => Int,
     ]
 );
@@ -38,7 +37,6 @@ sub foreign_keys {
     return {
         Series              => [ $self->entity_id ],
         SeriesType          => [ $self->data->{type_id} ],
-        LinkAttributeType   => [ $self->data->{ordering_attribute_id} ],
         SeriesOrderingType  => [ $self->data->{ordering_type_id} ],
     };
 }
@@ -51,7 +49,6 @@ sub build_display_data {
         comment             => $self->data->{comment},
         series              => $loaded->{Series}->{$self->entity_id},
         type                => $loaded->{SeriesType}->{$self->{data}->{type_id}},
-        ordering_attribute  => $loaded->{LinkAttributeType}->{$self->data->{ordering_attribute_id}},
         ordering_type       => $loaded->{SeriesOrderingType}->{$self->data->{ordering_type_id}},
     };
 }

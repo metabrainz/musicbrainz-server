@@ -320,18 +320,6 @@
             return options;
         },
 
-        attributeOptions: function (attribute) {
-            var options = MB.forms.buildOptionsTree(attribute, "l_name", "id");
-
-            if (this.source.entityType === "series" &&
-                    attribute.gid === MB.constants.SERIES_ORDERING_ATTRIBUTE) {
-
-                options = _.filter(options, { value: +this.source.orderingAttributeID() })
-            }
-
-            return options;
-        },
-
         targetTypeOptions: function () {
             var sourceType = this.source.entityType;
             var targetTypes = this.viewModel.allowedRelations[sourceType];
@@ -372,14 +360,12 @@
             data.endDate = MB.edit.fields.partialDate(period.endDate);
             data.ended = !!period.ended();
 
-            delete data.linkTypeID;
             delete data.entities;
 
-            var newRelationship = this.viewModel.getRelationship(data, this.source);
+            var entityTypes = [this.source.entityType, newType].sort().join("-");
+            data.linkTypeID = defaultLinkType({ children: MB.typeInfo[entityTypes] });
 
-            newRelationship.linkTypeID(
-                defaultLinkType({ children: MB.typeInfo[newRelationship.entityTypes] })
-            );
+            var newRelationship = this.viewModel.getRelationship(data, this.source);
 
             this.relationship(newRelationship);
             currentRelationship.remove();
@@ -425,18 +411,13 @@
 
         attributeError: function (rootInfo) {
             var relationship = this.relationship();
-            var value = relationship.attributeValue(rootInfo.attribute.id)();
+            var value = ko.unwrap(relationship.attributeValue(rootInfo.attribute.id));
             var min = rootInfo.min;
 
             if (min > 0) {
                 if (!value || (_.isArray(value) && value.length < min)) {
                     return MB.text.AttributeRequired;
                 }
-            }
-
-            if (rootInfo.attribute.freeText && value &&
-                    !ko.unwrap(relationship.attributeTextValues()[value])) {
-                return MB.text.AttributeTextValueRequired;
             }
 
             return "";

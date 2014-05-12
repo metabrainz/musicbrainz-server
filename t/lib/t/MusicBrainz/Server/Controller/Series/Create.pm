@@ -26,7 +26,6 @@ test all => sub {
                 'edit-series.name' => 'totally nonexistent series',
                 'edit-series.comment' => 'a comment longer than the name :(',
                 'edit-series.type_id' => 2,
-                'edit-series.ordering_attribute_id' => 2,
                 'edit-series.ordering_type_id' => 1,
                 'edit-series.url.0.link_type_id' => 3,
                 'edit-series.url.0.text' => 'http://en.wikipedia.org/wiki/Totally_Nonexistent_Series',
@@ -45,7 +44,6 @@ test all => sub {
         name => 'totally nonexistent series',
         comment => 'a comment longer than the name :(',
         type_id => 2,
-        ordering_attribute_id => 2,
         ordering_type_id => 1,
     });
 
@@ -74,7 +72,6 @@ test all => sub {
     $mech->content_contains('totally nonexistent series', '..has name');
     $mech->content_contains('a comment longer than the name :(', '..has comment');
     $mech->content_contains('Work', '..has type name');
-    $mech->content_contains('catalog number', '..has ordering attribute name');
     $mech->content_contains('Automatic', '..has ordering type name');
 };
 

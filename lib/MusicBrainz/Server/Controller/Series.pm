@@ -54,7 +54,7 @@ sub show : PathPart('') Chained('load') {
 
     for (@$items) {
         push @entities, $_->{entity};
-        $item_numbers->{$_->{entity}->id} = $_->{ordering_attribute_value};
+        $item_numbers->{$_->{entity}->id} = $_->{ordering_key};
     }
 
     if ($series->type->entity_type eq 'recording') {
@@ -98,7 +98,6 @@ sub _load_entities {
     $c->model('Relationship')->load(@series);
     $c->model('SeriesType')->load(@series);
     $c->model('SeriesOrderingType')->load(@series);
-    $c->model('LinkAttributeType')->load(@series);
 }
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
@@ -114,14 +113,13 @@ sub _merge_load_entities {
 around _merge_submit => sub {
     my ($orig, $self, $c, $form, $entities) = @_;
 
-    my %ordering_attributes = map { $_->ordering_attribute => 1 } @$entities;
     my %entity_types = map { $_->type->entity_type => 1 } @$entities;
 
-    if (scalar(keys %ordering_attributes) == 1 && scalar(keys %entity_types) == 1) {
+    if (scalar(keys %entity_types) == 1) {
         $self->$orig($c, $form, $entities);
     } else {
         $form->field('target')->add_error(
-            l('Series that contain different entity types, or have different ordering attributes cannot be merged.')
+            l('Series that have different entity types cannot be merged.')
         );
     }
 };

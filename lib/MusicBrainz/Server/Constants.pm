@@ -313,6 +313,8 @@ Readonly our %PART_OF_SERIES => (
     work            => 'b0d44366-cdf0-3acb-bee6-0f65a77a6ef0',
 );
 
+Readonly our $SERIES_ORDERING_ATTRIBUTE => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a';
+
 Readonly our @FULL_TABLE_LIST => qw(
     artist_rating_raw
     artist_tag_raw

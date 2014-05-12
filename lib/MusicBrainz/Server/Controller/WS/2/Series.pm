@@ -38,7 +38,6 @@ sub series_toplevel {
     $self->linked_series($c, $stash, [$series]);
 
     $c->model('SeriesType')->load($series);
-    $c->model('LinkAttributeType')->load($series);
     $c->model('SeriesOrderingType')->load($series);
 
     $c->model('Series')->annotation->load_latest($series)

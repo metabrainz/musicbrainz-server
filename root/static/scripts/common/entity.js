@@ -201,7 +201,6 @@
             this.type = data.type;
             this.typeID = ko.observable(data.type && data.type.id);
             this.orderingTypeID = ko.observable(data.orderingTypeID);
-            this.orderingAttributeID = ko.observable(data.orderingAttributeID);
         },
 
         getSeriesItems: function (viewModel) {

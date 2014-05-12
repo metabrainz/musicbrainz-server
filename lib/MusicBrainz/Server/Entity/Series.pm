@@ -38,16 +38,6 @@ has comment => (
     isa => 'Str'
 );
 
-has ordering_attribute_id => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has ordering_attribute => (
-    is => 'rw',
-    isa => 'LinkAttributeType'
-);
-
 has ordering_type_id => (
     is => 'rw',
     isa => 'Int'

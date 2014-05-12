@@ -31,7 +31,6 @@
         [%- form_row_text_long(r, 'name', l('Name:')) -%]
         [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
         [%- form_row_select(r, 'type_id', l('Type:')) -%]
-        [%- form_row_select(r, 'ordering_attribute_id', l('Ordering Attribute:')) -%]
         [%- form_row_select(r, 'ordering_type_id', l('Ordering Type:')) -%]
       </fieldset>
 
@@ -55,10 +54,6 @@
       <p data-bind="text: target() ? target().typeDescription() : ''"></p>
     </div>
 
-    <div class="bubble" id="ordering-attribute-bubble" data-bind="bubble: orderingAttributeBubble">
-      <p data-bind="text: target() ? target().orderingAttributeDescription() : ''"></p>
-    </div>
-
     <div class="bubble" id="ordering-type-bubble" data-bind="bubble: orderingTypeBubble">
       <p data-bind="text: target() ? target().orderingTypeDescription() : ''"></p>
     </div>
@@ -72,28 +67,21 @@ $(function () {
   MB.orderingTypesByID = [% series_ordering_types %];
 
   var $type = $("#id-edit-series\\.type_id");
-  var $orderingAttribute = $("#id-edit-series\\.ordering_attribute_id");
   var $orderingType = $("#id-edit-series\\.ordering_type_id");
 
   var series = MB.entityCache[MB.sourceEntityGID];
 
   series.typeID($type.val());
-  series.orderingAttributeID($orderingAttribute.val());
   series.orderingTypeID($orderingType.val());
   series.type = MB.seriesTypesByID[series.typeID()];
 
   series.extend({
     typeBubble:               MB.Control.BubbleDoc(),
-    orderingAttributeBubble:  MB.Control.BubbleDoc(),
     orderingTypeBubble:       MB.Control.BubbleDoc()
   });
 
   series.typeDescription = ko.computed(function () {
     return MB.seriesTypesByID[series.typeID()].description;
-  });
-
-  series.orderingAttributeDescription = ko.computed(function () {
-    return MB.attrInfoByID[series.orderingAttributeID()].description;
   });
 
   series.orderingTypeDescription = ko.computed(function () {
@@ -110,27 +98,16 @@ $(function () {
     disable: seriesHasItems
   }, series);
 
-  ko.applyBindingsToNode($orderingAttribute[0], {
-    value: series.orderingAttributeID,
-    controlsBubble: series.orderingAttributeBubble,
-    disable: seriesHasItems
-  }, series);
-
   ko.applyBindingsToNode($orderingType[0], {
     value: series.orderingTypeID,
     controlsBubble: series.orderingTypeBubble
   }, series);
 
   ko.applyBindings(series, $("#series-type-bubble")[0]);
-  ko.applyBindings(series, $("#ordering-attribute-bubble")[0]);
   ko.applyBindings(series, $("#ordering-type-bubble")[0]);
 
   MB.Control.initialize_guess_case("series", "id-edit-series");
   MB.utility.setDefaultAction("form.edit-series", "button.submit.positive");
-
-  $orderingAttribute.on("change", function () {
-    series.orderingAttributeID(+this.value);
-  });
 
   $orderingType.on("change", function () {
     series.orderingTypeID(+this.value);

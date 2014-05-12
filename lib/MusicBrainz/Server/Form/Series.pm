@@ -1,10 +1,9 @@
 package MusicBrainz::Server::Form::Series;
 use HTML::FormHandler::Moose;
 use List::UtilsBy qw( sort_by );
-use MusicBrainz::Server::Entity::LinkAttributeType;
 use MusicBrainz::Server::Entity::SeriesOrderingType;
 use MusicBrainz::Server::Entity::SeriesType;
-use MusicBrainz::Server::Form::Utils qw( select_options_tree build_options_tree );
+use MusicBrainz::Server::Form::Utils qw( select_options_tree );
 
 extends 'MusicBrainz::Server::Form';
 
@@ -27,34 +26,17 @@ has_field 'type_id' => (
     type => 'Select',
 );
 
-has_field 'ordering_attribute_id' => (
-    type => 'Select',
-);
-
 has_field 'ordering_type_id' => (
     type => 'Select',
     required => 1,
 );
 
 sub edit_field_names {
-    return qw( name comment type_id ordering_attribute_id ordering_type_id );
+    return qw( name comment type_id ordering_type_id );
 }
 
 sub options_type_id {
     select_options_tree(shift->ctx, 'SeriesType');
-}
-
-sub options_ordering_attribute_id {
-    my ($self) = @_;
-
-    my $root = $self->ctx->model('LinkAttributeType')->text_attribute_types;
-    my @roots = $root->all_children;
-
-    return [
-        map { build_options_tree($_, 'l_name', '') }
-        # $roots[0] is the non-selectable "ordering" attribute
-        $roots[0]->all_children
-    ];
 }
 
 sub options_ordering_type_id {

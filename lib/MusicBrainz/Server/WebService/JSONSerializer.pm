@@ -664,7 +664,6 @@ sub _series {
         gid                 => $series->gid,
         comment             => $series->comment,
         type                => $series->type->to_json_hash,
-        orderingAttributeID => $series->ordering_attribute_id,
         orderingTypeID      => $series->ordering_type_id,
         entityType          => 'series',
     };
