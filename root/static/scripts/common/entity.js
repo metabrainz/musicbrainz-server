@@ -198,13 +198,16 @@
         entityType: "series",
 
         after$init: function (data) {
-            this.type = data.type;
+            this.type = ko.observable(data.type);
             this.typeID = ko.observable(data.type && data.type.id);
             this.orderingTypeID = ko.observable(data.orderingTypeID);
         },
 
         getSeriesItems: function (viewModel) {
-            var gid = MB.constants.PART_OF_SERIES_LINK_TYPES_BY_ENTITY[this.type.entityType];
+            var type = this.type();
+            if (!type) return [];
+
+            var gid = MB.constants.PART_OF_SERIES_LINK_TYPES_BY_ENTITY[type.entityType];
             var linkTypeInfo = MB.typeInfoByID[gid];
 
             return this.getRelationshipGroup(linkTypeInfo.id, viewModel);

@@ -51,7 +51,7 @@
     [%- external_link_bubble() -%]
 
     <div class="bubble" id="series-type-bubble" data-bind="bubble: typeBubble">
-      <p data-bind="text: target() ? target().typeDescription() : ''"></p>
+      <p data-bind="text: target() && target().type() ? target().type().description : ''"></p>
     </div>
 
     <div class="bubble" id="ordering-type-bubble" data-bind="bubble: orderingTypeBubble">
@@ -73,15 +73,16 @@ $(function () {
 
   series.typeID($type.val());
   series.orderingTypeID($orderingType.val());
-  series.type = MB.seriesTypesByID[series.typeID()];
 
-  series.extend({
-    typeBubble:               MB.Control.BubbleDoc(),
-    orderingTypeBubble:       MB.Control.BubbleDoc()
+  series.typeBubble = MB.Control.BubbleDoc().extend({
+    canBeShown: function () { return !!series.type() }
   });
 
-  series.typeDescription = ko.computed(function () {
-    return MB.seriesTypesByID[series.typeID()].description;
+  series.orderingTypeBubble = MB.Control.BubbleDoc();
+
+  ko.computed(function () {
+    var type = MB.seriesTypesByID[series.typeID()];
+    series.type(type ? type : null);
   });
 
   series.orderingTypeDescription = ko.computed(function () {
