@@ -55,13 +55,13 @@
 
     function init(plot) {
         plot.changeCurrentEvent = changeCurrentEvent;
-        plot.getEvent = function(pos) { return getEvent(pos, plot) };
+        plot.getEvent = function (pos) { return getEvent(pos, plot) };
 
         plot.hooks.drawOverlay.push(function (plot, ctx) {
             var options = plot.getOptions();
 
             if (options.musicbrainzEvents.enabled) {
-                $.each(options.musicbrainzEvents.data, function(index, value) {
+                $.each(options.musicbrainzEvents.data, function (index, value) {
                         var color = (value.jsDate == options.musicbrainzEvents.currentEvent.jsDate) ? options.musicbrainzEvents.selectColor : options.musicbrainzEvents.deselectColor;
                         drawCrosshairLine(plot, ctx, value.jsDate, color);
                 });

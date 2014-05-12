@@ -24,7 +24,7 @@ EOSQL
 
 subtest 'Must authenticate' => sub {
     $mech->get('/ws/1/user/?type=xml&name=editor');
-    is ($mech->status, 401, 'Tags rejected without authentication');
+    is($mech->status, 401, 'Tags rejected without authentication');
 };
 
 subtest 'Can view own user' => sub {
@@ -42,13 +42,13 @@ subtest 'Can view own user' => sub {
 </metadata>
 EOXML
 
-    xml_ok ($mech->content);
+    xml_ok($mech->content);
     is($diff->compare($mech->content, $expect), 0, 'result ok');
 };
 
 subtest 'Cannot view other users' => sub {
     $mech->get('/ws/1/user/?type=xml&name=other%20editor');
-    is ($mech->status, 403);
+    is($mech->status, 403);
 };
 
 };

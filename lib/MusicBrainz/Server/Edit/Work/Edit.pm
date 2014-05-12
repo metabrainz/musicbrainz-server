@@ -14,7 +14,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     changed_display_data
 );
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 use Set::Scalar;
 
 use aliased 'MusicBrainz::Server::Entity::Work';

@@ -1,4 +1,4 @@
-MB.WorkAttributes = (function(WA) {
+MB.WorkAttributes = (function (WA) {
 
 // Private variables
 var attributeTypes;
@@ -31,7 +31,7 @@ WA.WorkAttribute = function (data) {
     self.errors = ko.observableArray(data.errors);
     self.typeHasFocus = ko.observable(false);
 
-    self.allowsFreeText = ko.computed(function() {
+    self.allowsFreeText = ko.computed(function () {
         return !self.typeID() || attributeTypesByID[self.typeID()].freeText;
     });
 
@@ -52,7 +52,7 @@ WA.WorkAttribute = function (data) {
         }
     });
 
-    self.remove = function() {
+    self.remove = function () {
         WA.viewModel.attributes.remove(this);
     };
 
@@ -66,7 +66,7 @@ WA.WorkAttribute = function (data) {
         }
     });
 
-    self.attributeValue.subscribe(function() {
+    self.attributeValue.subscribe(function () {
         resetErrors();
     });
 
@@ -90,7 +90,7 @@ ViewModel = function (attributes) {
         attributeTypes, "name", "id"
     );
 
-    model.newAttribute = function() {
+    model.newAttribute = function () {
         var attr = new WA.WorkAttribute({});
         attr.typeHasFocus(true);
         model.attributes.push(attr);

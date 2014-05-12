@@ -160,20 +160,20 @@ is(scalar(@editors), 1);
 is($editors[0]->id, $new_editor_2->id);
 
 
-@editors = $editor_data->find_by_subscribed_editor (2, 10, 0);
+@editors = $editor_data->find_by_subscribed_editor(2, 10, 0);
 is($editors[1], 1, "alice is subscribed to one person ...");
 is($editors[0][0]->id, 1, "          ... that person is new_editor");
 
 
-@editors = $editor_data->find_subscribers (1, 10, 0);
+@editors = $editor_data->find_subscribers(1, 10, 0);
 is($editors[1], 1, "new_editor has one subscriber ...");
 is($editors[0][0]->id, 2, "          ... that subscriber is alice");
 
 
-@editors = $editor_data->find_by_subscribed_editor (1, 10, 0);
+@editors = $editor_data->find_by_subscribed_editor(1, 10, 0);
 is($editors[1], 0, "new_editor has not subscribed to anyone");
 
-@editors = $editor_data->find_subscribers (2, 10, 0);
+@editors = $editor_data->find_subscribers(2, 10, 0);
 is($editors[1], 0, "alice has no subscribers");
 
 subtest 'Find editors with subscriptions' => sub {
@@ -269,7 +269,7 @@ test 'Deleting an editor cancels all open edits' => sub {
         isni_codes => []
     );
 
-    is ($open_edit->status, $STATUS_OPEN);
+    is($open_edit->status, $STATUS_OPEN);
 
     $c->model('Editor')->delete(1);
 
@@ -317,7 +317,7 @@ test 'Open edit and last-24-hour counts' => sub {
         isni_codes => []
     );
 
-    is ($open_edit->status, $STATUS_OPEN);
+    is($open_edit->status, $STATUS_OPEN);
 
     is($c->model('Editor')->open_edit_count(1), 1, "Open edit count is 1");
     is($c->model('Editor')->last_24h_edit_count(1), 2, "Last 24h count is 2");

@@ -222,7 +222,7 @@ for my $medium (@mediums)
             push @skew, $sqdiff;
         }
 
-        unless(grep { $_ > 5 } @skew) {
+        unless (grep { $_ > 5 } @skew) {
             # Good, the TOC track lengths agree (clearly, if there's only one
             # TOC).
             # For each track which has length already, let's see how

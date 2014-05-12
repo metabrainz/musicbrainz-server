@@ -121,8 +121,8 @@ test 'Check conflicts (non-conflicting edits)' => sub {
     my $release = $c->model('Release')->get_by_id(1);
     $c->model('Release')->load_release_events($release);
 
-    is ($release->name, 'Renamed release', 'release renamed');
-    is ($release->events->[0]->date->format, '1990-04-29', 'date changed');
+    is($release->name, 'Renamed release', 'release renamed');
+    is($release->events->[0]->date->format, '1990-04-29', 'date changed');
 };
 
 test 'Check conflicts (conflicting edits)' => sub {
@@ -149,7 +149,7 @@ test 'Check conflicts (conflicting edits)' => sub {
 
     my $release = $c->model('Release')->get_by_id(1);
     $c->model('Release')->load_release_events($release);
-    is ($release->comment, 'comment FOO', 'comment changed');
+    is($release->comment, 'comment FOO', 'comment changed');
 };
 
 test 'A missing comment does not clear an existing one' => sub {

@@ -16,7 +16,7 @@ use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Entity::Link;
 use MusicBrainz::Server::Entity::LinkAttributeType;
 use MusicBrainz::Server::Entity::PartialDate;
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Relationship';

@@ -163,7 +163,7 @@ sub load_data
 {
     my ($type, $c) = @_;
 
-    ok (type_to_model($type), "$type has a model");
+    ok(type_to_model($type), "$type has a model");
 
     return MusicBrainz::Server::Data::Search->new(c => $c)->external_search(
         $type,

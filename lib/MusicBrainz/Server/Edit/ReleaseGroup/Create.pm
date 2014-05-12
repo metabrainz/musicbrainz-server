@@ -11,7 +11,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     verify_artist_credits
     clean_submitted_artist_credits
 );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 use Scalar::Util qw( looks_like_number );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
@@ -54,7 +54,7 @@ sub build_display_data
     my $type = $self->data->{type_id};
 
     return {
-        artist_credit => artist_credit_preview ($loaded, $self->data->{artist_credit}),
+        artist_credit => artist_credit_preview($loaded, $self->data->{artist_credit}),
         name          => $self->data->{name} || '',
         comment       => $self->data->{comment} || '',
         type          => $type ? $loaded->{ReleaseGroupType}->{ $type } : '',

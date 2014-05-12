@@ -40,7 +40,7 @@ sub sql_do
 {
     my ($self, $query, @args) = @_;
 
-    return $self->c->sql->do ($query, @args) unless $self->dry_run;
+    return $self->c->sql->do($query, @args) unless $self->dry_run;
 }
 
 sub remove_one_duplicate
@@ -58,9 +58,9 @@ sub remove_one_duplicate
         AND NOT l1.link = l2.link
           WHERE l1.link = ? AND l2.link = ?)";
 
-    $count = $self->sql_do ($query, $keep_id, $remove_id);
+    $count = $self->sql_do($query, $keep_id, $remove_id);
     $query = "UPDATE $table SET link = ? WHERE link = ?";
-    return $count + $self->sql_do ($query, $keep_id, $remove_id);
+    return $count + $self->sql_do($query, $keep_id, $remove_id);
 }
 
 sub remove_duplicates
@@ -69,7 +69,7 @@ sub remove_duplicates
     my $count = 0;
 
     printf "%s : Replace links %s with %s\n",
-        scalar localtime, join (", ", @remove_ids), $keep_id if $self->verbose;
+        scalar localtime, join(", ", @remove_ids), $keep_id if $self->verbose;
 
     my $rows = $self->c->sql->select_list_of_hashes(
         'SELECT entity_type0, entity_type1
@@ -83,17 +83,17 @@ sub remove_duplicates
 
     for my $remove_id (@remove_ids)
     {
-        $count += $self->remove_one_duplicate ($table, $keep_id, $remove_id);
+        $count += $self->remove_one_duplicate($table, $keep_id, $remove_id);
     }
 
     my $query = "DELETE FROM link_attribute WHERE link IN (" . placeholders (@remove_ids) . ")";
-    $count += $self->sql_do ($query, @remove_ids);
+    $count += $self->sql_do($query, @remove_ids);
 
     $query = "DELETE FROM link_attribute_credit WHERE link IN (" . placeholders (@remove_ids) . ")";
-    $count += $self->sql_do ($query, @remove_ids);
+    $count += $self->sql_do($query, @remove_ids);
 
     $query = "DELETE FROM link WHERE id IN (" . placeholders (@remove_ids) . ")";
-    $count += $self->sql_do ($query, @remove_ids);
+    $count += $self->sql_do($query, @remove_ids);
     return $count;
 }
 
@@ -124,7 +124,7 @@ sub run {
                 end_date_year, end_date_month, end_date_day
          HAVING count(id) > 1";
 
-    my $rows = $self->c->sql->select_single_column_array ($query);
+    my $rows = $self->c->sql->select_single_column_array($query);
 
     my ($count, $removed, $total_row_changes) = (0, 0, 0);
 
@@ -136,7 +136,7 @@ sub run {
         }
         my ($keep, @drop) = @$link;
         Sql::run_in_transaction(sub {
-            $total_row_changes += $self->remove_duplicates ($keep, @drop);
+            $total_row_changes += $self->remove_duplicates($keep, @drop);
         }, $self->c->sql);
         $removed += scalar @drop;
         $count++;

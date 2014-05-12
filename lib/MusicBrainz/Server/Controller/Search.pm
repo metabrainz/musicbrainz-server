@@ -92,7 +92,7 @@ sub direct : Private
 
     my @entities = map { $_->entity } @$results;
 
-    given($type) {
+    given ($type) {
         when ('artist') {
             $c->model('ArtistType')->load(@entities);
             $c->model('Area')->load(@entities);
@@ -170,7 +170,7 @@ sub direct : Private
     }
 
     $c->stash(
-        template => sprintf ('search/results-%s.tt', $type),
+        template => sprintf('search/results-%s.tt', $type),
         query    => $query,
         results  => $results,
         type     => $type,
@@ -231,7 +231,7 @@ sub do_external_search {
         my $template = 'search/error/';
 
         # Switch on the response code to decide which template to provide
-        given($ret->{code})
+        given ($ret->{code})
         {
             when (404) { $template .= 'no-results.tt'; }
             when (403) { $template .= 'no-info.tt'; };

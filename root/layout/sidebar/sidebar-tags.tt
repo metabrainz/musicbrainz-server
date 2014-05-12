@@ -10,7 +10,7 @@
 END -%]
 
 <script type="text/javascript">//<![CDATA[
-    $(function() {
+    $(function () {
         MB.Control.TagEditor($('#sidebar-tags'), "[% async %]",
             "[% c.uri_for('/tag/') %]",
             '[% link_entity(entity, 'tags', l('more...')).replace("'", "\\'").replace('</', '<\/') %]');

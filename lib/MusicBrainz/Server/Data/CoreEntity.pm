@@ -107,7 +107,7 @@ sub find_by_names
         ." WHERE musicbrainz_unaccent(lower(name)) = "
         ." musicbrainz_unaccent(lower(search_terms.term));";
 
-    my $results = $self->c->sql->select_list_of_hashes ($query, @names);
+    my $results = $self->c->sql->select_list_of_hashes($query, @names);
 
     my %mapped;
     for my $row (@$results)
@@ -116,7 +116,7 @@ sub find_by_names
 
         $mapped{$key} //= [];
 
-        push @{ $mapped{$key} }, $self->_new_from_row ($row);
+        push @{ $mapped{$key} }, $self->_new_from_row($row);
     }
 
     return %mapped;

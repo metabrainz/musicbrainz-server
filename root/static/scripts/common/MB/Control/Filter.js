@@ -23,16 +23,16 @@ MB.Control.FilterButton = function () {
 
     self.show = function () {
         if (self.loaded) {
-            self.$filter.show ();
+            self.$filter.show();
             self.state = true;
-            $.cookie ('filter', '1', { path: '/' });
+            $.cookie('filter', '1', { path: '/' });
         }
         else {
-            $.ajax ({
+            $.ajax({
                 url: self.filter_ajax_form_url,
                 success: function (data) {
-                    self.$filter.find ('input[type=hidden]').before ($.parseHTML(data));
-                    self.show ();
+                    self.$filter.find('input[type=hidden]').before($.parseHTML(data));
+                    self.show();
                 }
             });
             self.loaded = true;
@@ -40,37 +40,37 @@ MB.Control.FilterButton = function () {
     }
 
     self.hide = function () {
-        self.$filter.hide ();
+        self.$filter.hide();
         self.state = false;
-        $.cookie ('filter', '', { path: '/' });
+        $.cookie('filter', '', { path: '/' });
     }
 
-    self.filter_ajax_form_url = $('#filter_ajax_form_url').val ();
+    self.filter_ajax_form_url = $('#filter_ajax_form_url').val();
     self.$filter = $('#filter');
-    self.loaded = self.$filter.find ('button').length > 0;
-    self.state = $.cookie ('filter') == '1';
+    self.loaded = self.$filter.find('button').length > 0;
+    self.state = $.cookie('filter') == '1';
 
-    $('.filter-button').bind ('click.mb', function () {
+    $('.filter-button').bind('click.mb', function () {
         if (self.state) {
-            self.hide ();
+            self.hide();
         }
         else {
-            self.show ();
+            self.show();
         }
         return false;
     });
 
     if (self.state) {
-        self.show ();
+        self.show();
     }
     else {
-        self.hide ();
+        self.hide();
     }
 
     return self;
 }
 
-$(document).ready (function() {
-    MB.Control.filter_button = MB.Control.FilterButton ();
+$(document).ready(function () {
+    MB.Control.filter_button = MB.Control.FilterButton();
 });
 

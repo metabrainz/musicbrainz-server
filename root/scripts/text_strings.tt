@@ -18,7 +18,7 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
-(function(MB) {
+(function (MB) {
     $.extend(MB.text, {
         TagNone: '[% lp('(none)', 'tag') | js %]',
         Artist: '[% l('Artist') | js %]',
@@ -103,6 +103,7 @@
         Entity: {
             area:            "[% l('Area') | js %]",
             artist:          "[% l('Artist') | js %]",
+            instrument:      "[% l('Instrument') | js %]",
             label:           "[% l('Label') | js %]",
             place:           "[% l('Place') | js %]",
             recording:       "[% l('Recording') | js %]",
@@ -173,6 +174,7 @@
         AddAnotherEntity: {
             area:            "[% l('Add another area') | js %]",
             artist:          "[% l('Add another artist') | js %]",
+            instrument:      "[% l('Add another instrument') | js %]",
             label:           "[% l('Add another label') | js %]",
             place:           "[% l('Add another place') | js %]",
             recording:       "[% l('Add another recording') | js %]",

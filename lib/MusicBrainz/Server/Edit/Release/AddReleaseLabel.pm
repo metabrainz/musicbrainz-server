@@ -5,7 +5,7 @@ use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADDRELEASELABEL );
 use MusicBrainz::Server::Edit::Types qw( Nullable NullableOnPreview );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::Preview';

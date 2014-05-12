@@ -14,7 +14,7 @@ test 'basic release group lookup' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'basic release group lookup',
-    '/release-group/b84625af-6229-305f-9f1b-59c0185df016' => encode_json (
+    '/release-group/b84625af-6229-305f-9f1b-59c0185df016' => encode_json(
         {
             id => "b84625af-6229-305f-9f1b-59c0185df016",
             title => "サマーれげぇ!レインボー",
@@ -32,7 +32,7 @@ test 'basic release group lookup, inc=annotation' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
 
     ws_test_json 'basic release group lookup, inc=annotation',
-    '/release-group/22b54315-6e51-350b-bb34-e6e16f7688bd?inc=annotation' => encode_json (
+    '/release-group/22b54315-6e51-350b-bb34-e6e16f7688bd?inc=annotation' => encode_json(
         {
             id => "22b54315-6e51-350b-bb34-e6e16f7688bd",
             title => "My Demons",
@@ -49,7 +49,7 @@ test 'release group lookup with releases' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'release group lookup with releases',
-    '/release-group/56683a0b-45b8-3664-a231-5b68efe2e7e2?inc=releases' => encode_json (
+    '/release-group/56683a0b-45b8-3664-a231-5b68efe2e7e2?inc=releases' => encode_json(
         {
             id => "56683a0b-45b8-3664-a231-5b68efe2e7e2",
             title => "Repercussions",
@@ -89,7 +89,7 @@ test 'release group lookup with artists' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'release group lookup with artists',
-    '/release-group/56683a0b-45b8-3664-a231-5b68efe2e7e2?inc=artists' => encode_json (
+    '/release-group/56683a0b-45b8-3664-a231-5b68efe2e7e2?inc=artists' => encode_json(
         {
             id => "56683a0b-45b8-3664-a231-5b68efe2e7e2",
             title => "Repercussions",
@@ -116,7 +116,7 @@ test 'release group lookup with inc=artists+releases+tags+ratings' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'release group lookup with inc=artists+releases+tags+ratings',
-    '/release-group/153f0a09-fead-3370-9b17-379ebd09446b?inc=artists+releases+tags+ratings' => encode_json (
+    '/release-group/153f0a09-fead-3370-9b17-379ebd09446b?inc=artists+releases+tags+ratings' => encode_json(
         {
             id => "153f0a09-fead-3370-9b17-379ebd09446b",
             title => "the Love Bug",
@@ -169,7 +169,7 @@ test 'release group lookup with pseudo-releases' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'release group lookup with pseudo-releases',
-    '/release-group/153f0a09-fead-3370-9b17-379ebd09446b?inc=artists+releases&status=pseudo-release' => encode_json (
+    '/release-group/153f0a09-fead-3370-9b17-379ebd09446b?inc=artists+releases&status=pseudo-release' => encode_json(
         {
             id => "153f0a09-fead-3370-9b17-379ebd09446b",
             title => "the Love Bug",

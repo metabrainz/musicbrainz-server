@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Translation;
 use MooseX::Singleton;
 
-use Cwd qw (abs_path);
+use Cwd qw(abs_path);
 use DBDefs;
 use DateTime::Locale;
 use Encode;

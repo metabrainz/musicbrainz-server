@@ -36,8 +36,8 @@ role {
         my $column = $params->type;
         my $alias = $table . $join_idx;
 
-        given($self->operator) {
-            when('=') {
+        given ($self->operator) {
+            when ('=') {
                 $query->add_join("JOIN $table $alias ON $alias.edit = edit.id");
                 $query->add_where([
                     "$alias.$column = ?", $self->sql_arguments

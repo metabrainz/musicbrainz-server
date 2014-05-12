@@ -178,12 +178,12 @@
     var workCheckboxes = "td.works > div.ar > input[type=checkbox]";
 
 
-    UI.checkedRecordings = function() {
+    UI.checkedRecordings = function () {
         return $.map($(recordingCheckboxes + ":checked", "#tracklist"), ko.dataFor);
     };
 
 
-    UI.checkedWorks = function() {
+    UI.checkedWorks = function () {
         return $.map($(workCheckboxes + ":checked", "#tracklist"), ko.dataFor);
     };
 
@@ -200,7 +200,7 @@
             var url = "/ws/js/plurals?singular=" + encodeURIComponent(singular) +
                       "&plural=" + encodeURIComponent(plural) + "&max=" + max;
 
-            $.getJSON(url, function(data) {
+            $.getJSON(url, function (data) {
                 checkboxes[name](data.strings);
             });
         }
@@ -212,7 +212,7 @@
         }
 
         function medium(medium_selector, selector, counter) {
-            $tracklist.on("change", medium_selector, function(event) {
+            $tracklist.on("change", medium_selector, function (event) {
                 var checked = this.checked,
                     $changed = $(this).parents("tr.subh").nextUntil("tr.subh")
                         .find(selector).filter(checked ? ":not(:checked)" : ":checked")
@@ -223,7 +223,7 @@
 
         function _release(medium_selector, cls) {
             $('<input type="checkbox"/>&#160;')
-                .change(function(event) {
+                .change(function (event) {
                     $tracklist.find(medium_selector)
                         .prop("checked", this.checked).change();
                 })
@@ -233,7 +233,7 @@
         function range(selector, counter) {
             var last_clicked = null;
 
-            $tracklist.on("click", selector, function(event) {
+            $tracklist.on("click", selector, function (event) {
                 var checked = this.checked, $inputs = $(selector, $tracklist);
                 if (event.shiftKey && last_clicked && last_clicked != this) {
                     var first = $inputs.index(last_clicked), last = $inputs.index(this);

@@ -56,9 +56,9 @@ sub recording_toplevel
 {
     my ($self, $c, $stash, $recording) = @_;
 
-    my $opts = $stash->store ($recording);
+    my $opts = $stash->store($recording);
 
-    $self->linked_recordings ($c, $stash, [ $recording ]);
+    $self->linked_recordings($c, $stash, [ $recording ]);
 
     $c->model('Recording')->annotation->load_latest($recording)
         if $c->stash->{inc}->annotation;
@@ -82,9 +82,9 @@ sub recording_toplevel
         $c->model('ArtistCredit')->load(map { $_->all_tracks } map { $_->all_mediums } @releases)
             if ($c->stash->{inc}->artist_credits);
 
-        $self->linked_releases ($c, $stash, $results[0]);
+        $self->linked_releases($c, $stash, $results[0]);
 
-        $opts->{releases} = $self->make_list (@results);
+        $opts->{releases} = $self->make_list(@results);
 
         if ($c->stash->{inc}->release_groups) {
             $c->model('ReleaseGroup')->load(@releases);
@@ -103,9 +103,9 @@ sub recording_toplevel
     {
         $c->model('ArtistCredit')->load($recording);
 
-        my @artists = map { $c->model('Artist')->load ($_); $_->artist } @{ $recording->artist_credit->names };
+        my @artists = map { $c->model('Artist')->load($_); $_->artist } @{ $recording->artist_credit->names };
 
-        $self->linked_artists ($c, $stash, \@artists);
+        $self->linked_artists($c, $stash, \@artists);
     }
 
     $self->load_relationships($c, $stash, $recording);
@@ -120,7 +120,7 @@ sub recording: Chained('load') PathPart('')
 
     my $stash = WebServiceStash->new;
 
-    $self->recording_toplevel ($c, $stash, $recording);
+    $self->recording_toplevel($c, $stash, $recording);
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('recording', $recording, $c->stash->{inc}, $stash));
@@ -131,7 +131,7 @@ sub recording_browse : Private
     my ($self, $c) = @_;
 
     my ($resource, $id) = @{ $c->stash->{linked} };
-    my ($limit, $offset) = $self->_limit_and_offset ($c);
+    my ($limit, $offset) = $self->_limit_and_offset($c);
 
     if (!is_guid($id))
     {
@@ -146,23 +146,23 @@ sub recording_browse : Private
         my $artist = $c->model('Artist')->get_by_gid($id);
         $c->detach('not_found') unless ($artist);
 
-        my @tmp = $c->model('Recording')->find_by_artist ($artist->id, $limit, $offset);
-        $recordings = $self->make_list (@tmp, $offset);
+        my @tmp = $c->model('Recording')->find_by_artist($artist->id, $limit, $offset);
+        $recordings = $self->make_list(@tmp, $offset);
     }
     elsif ($resource eq 'release')
     {
         my $release = $c->model('Release')->get_by_gid($id);
         $c->detach('not_found') unless ($release);
 
-        my @tmp = $c->model('Recording')->find_by_release ($release->id, $limit, $offset);
-        $recordings = $self->make_list (@tmp, $offset);
+        my @tmp = $c->model('Recording')->find_by_release($release->id, $limit, $offset);
+        $recordings = $self->make_list(@tmp, $offset);
     }
 
     my $stash = WebServiceStash->new;
 
     for (@{ $recordings->{items} })
     {
-        $self->recording_toplevel ($c, $stash, $_);
+        $self->recording_toplevel($c, $stash, $_);
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
@@ -177,7 +177,7 @@ sub recording_search : Chained('root') PathPart('recording') Args(0)
     $c->detach('recording_browse') if ($c->stash->{linked});
 
     my $result = $c->model('WebService')->xml_search('recording', $c->stash->{args});
-    $self->_search ($c, 'recording');
+    $self->_search($c, 'recording');
 }
 
 sub recording_submit : Private
@@ -195,7 +195,7 @@ sub recording_submit : Private
     for my $node ($xp->find('/mb:metadata/mb:recording-list/mb:recording')->get_nodelist)
     {
         my $id = $xp->find('@mb:id', $node)->string_value or
-            $self->_error ($c, "All releases must have an MBID present");
+            $self->_error($c, "All releases must have an MBID present");
 
         $self->_error($c, "$id is not a valid MBID")
             unless is_guid($id);

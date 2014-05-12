@@ -578,7 +578,7 @@ mode, and run a block of code.
 sub lock_and_do {
     my ($self, $type0, $type1, $code) = @_;
 
-    my ($t0, $t1) = sort ($type0, $type1);
+    my ($t0, $t1) = sort($type0, $type1);
     Sql::run_in_transaction(sub {
         $code->();
     }, $self->c->sql);
@@ -596,7 +596,7 @@ sub editor_can_edit
 
     return 0 unless $editor;
 
-    my $type = join "_", sort ($type0, $type1);
+    my $type = join "_", sort($type0, $type1);
     if ($type ~~ [qw(area_area area_url)]) {
         return $editor->is_location_editor;
     } elsif ($type ~~ [qw(area_instrument instrument_instrument instrument_url)]) {

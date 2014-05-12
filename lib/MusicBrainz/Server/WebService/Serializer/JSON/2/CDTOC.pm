@@ -10,11 +10,11 @@ sub serialize
     my %body;
 
     $body{id} = $entity->discid;
-    $body{sectors} = number ($entity->leadout_offset);
+    $body{sectors} = number($entity->leadout_offset);
 
     if ($toplevel)
     {
-        $body{releases} = list_of ($entity, $inc, $stash, "releases", $toplevel);
+        $body{releases} = list_of($entity, $inc, $stash, "releases", $toplevel);
     }
 
     return \%body;

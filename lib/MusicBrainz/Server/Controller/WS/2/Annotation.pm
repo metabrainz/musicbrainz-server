@@ -29,7 +29,7 @@ sub annotation_search : Chained('root') PathPart('annotation') Args(0)
 {
     my ($self, $c) = @_;
 
-    $self->_search ($c, 'annotation');
+    $self->_search($c, 'annotation');
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -47,7 +47,7 @@ sub add_items
 {
     my ($self, @items) = @_;
 
-    while(@items) {
+    while (@items) {
         my $item = shift(@items);
         $self->flush if ($self->count > $self->limit);
         $self->_push($item);

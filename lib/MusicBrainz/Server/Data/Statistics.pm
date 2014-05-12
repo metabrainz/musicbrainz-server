@@ -49,7 +49,7 @@ sub fetch {
         @{ $self->sql->select_list_of_hashes($query, @names) };
 
     if (@names) {
-        if(wantarray) {
+        if (wantarray) {
             return @stats{@names};
         }
         else {
@@ -1841,7 +1841,7 @@ sub recalculate_all
         printf "Statistics cannot be computed due to missing dependencies\n";
         printf "$_ depends on " . join(", ", @{$unsatisfiable_prereqs{$_}}) . ", but these dependencies do not exist\n"
             for keys %unsatisfiable_prereqs;
-        exit (1);
+        exit(1);
     }
 
     my %notdone = %stats;

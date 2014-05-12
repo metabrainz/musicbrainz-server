@@ -113,7 +113,7 @@ UPDATE cover_art_archive.art_type SET child_order = 1 WHERE id = 8;
 --------------------------------------------------------------------------------
 SELECT '20140208-drop-script_language.sql';
 
-	DROP TABLE script_language;
+    DROP TABLE script_language;
 
 --------------------------------------------------------------------------------
 SELECT '20140407-link-cardinality.sql';
@@ -412,10 +412,10 @@ UPDATE link_attribute_type SET description = '' WHERE description = name AND roo
 
 -- 1. Insert the URLs into the url table
 WITH urls AS (
-	SELECT DISTINCT regexp_replace(description, '.*\(<a href="(https?://[a-z]+.wikipedia.org/wiki/[^#"]+)">Wikipedia</a>\)$', E'\\1') as url
-	FROM link_attribute_type
-	WHERE root = 14
-	AND description ~ '.*\(<a href="(https?://[a-z]+.wikipedia.org/wiki/[^#"]+)">Wikipedia</a>\)$'
+    SELECT DISTINCT regexp_replace(description, '.*\(<a href="(https?://[a-z]+.wikipedia.org/wiki/[^#"]+)">Wikipedia</a>\)$', E'\\1') as url
+    FROM link_attribute_type
+    WHERE root = 14
+    AND description ~ '.*\(<a href="(https?://[a-z]+.wikipedia.org/wiki/[^#"]+)">Wikipedia</a>\)$'
 )
 INSERT INTO url (gid, url)
 SELECT generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', url), url
@@ -428,11 +428,11 @@ ORDER BY url;
 INSERT INTO l_instrument_url (link, entity0, entity1)
 SELECT link.id, i.id, url.id
 FROM (
-	SELECT l.id
-	FROM link_type lt
-	JOIN link l ON l.link_type = lt.id
-	WHERE lt.name = 'wikipedia'
-	AND lt.entity_type0 = 'instrument'
+    SELECT l.id
+    FROM link_type lt
+    JOIN link l ON l.link_type = lt.id
+    WHERE lt.name = 'wikipedia'
+    AND lt.entity_type0 = 'instrument'
 ) AS link, instrument i
 JOIN url ON regexp_replace(description, '.*\(<a href="(https?://[a-z]+.wikipedia.org/wiki/[^#"]+)">Wikipedia</a>\)$', E'\\1') = url
 WHERE i.description ~ '.*\(<a href="(https?://[a-z]+.wikipedia.org/wiki/[^#"]+)">Wikipedia</a>\)$'
@@ -454,9 +454,9 @@ AND root = 14;
 
 -- 1. Insert the aliases into instrument_alias
 WITH rows AS (
-	SELECT id, unnest(regexp_split_to_array(regexp_replace(description, '.*Other names(?: include)?:? (.*?)\.? *$', E'\\1'), ', +| +and +')) AS name
-	FROM instrument
-	WHERE description ~ 'Other name'
+    SELECT id, unnest(regexp_split_to_array(regexp_replace(description, '.*Other names(?: include)?:? (.*?)\.? *$', E'\\1'), ', +| +and +')) AS name
+    FROM instrument
+    WHERE description ~ 'Other name'
 )
 INSERT INTO instrument_alias (instrument, name, sort_name) SELECT id, name, name FROM rows ORDER BY id, name;
 

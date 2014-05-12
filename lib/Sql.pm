@@ -443,7 +443,7 @@ sub _select_list
         my $rv = $sth->execute(@params) or croak 'Could not execute query';
 
         my @vals;
-        while(my $row = $sth->$method) {
+        while (my $row = $sth->$method) {
             push @vals, $form_row->($row);
         }
 
@@ -525,7 +525,7 @@ sub BUILDARGS
 
     my $i = 0;
     my $c;
-    while($i < 10) {
+    while ($i < 10) {
         $c = [ (caller(++$i)) ];
         last unless $c->[1] eq __FILE__;
     }

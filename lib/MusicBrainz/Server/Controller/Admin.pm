@@ -3,7 +3,7 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
-use MusicBrainz::Server::Translation qw (l ln );
+use MusicBrainz::Server::Translation qw(l ln );
 
 sub index : Path Args(0) RequireAuth
 {
@@ -46,14 +46,14 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves
     );
 
     if ($c->form_posted) {
-        if ($form->submitted_and_valid ($c->req->params )) {
+        if ($form->submitted_and_valid($c->req->params )) {
             # When an admin views their own flags page the account admin checkbox will be disabled,
             # thus we need to manually insert a value here to keep the admin's privileges intact.
             $form->values->{account_admin} = 1 if ($c->user->id == $user->id);
             $c->model('Editor')->update_privileges($user, $form->values);
         }
 
-        if ($form2->submitted_and_valid ($c->req->params )) {
+        if ($form2->submitted_and_valid($c->req->params )) {
             $c->model('Editor')->update_profile(
                 $user,
                 $form2->value

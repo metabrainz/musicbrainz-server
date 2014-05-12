@@ -14,7 +14,7 @@ sub serialize
         {
             "name" => $_->name,
             "joinphrase" => $_->join_phrase,
-            "artist" => serialize_entity ($_->artist, $inc, $stash),
+            "artist" => serialize_entity($_->artist, $inc, $stash),
         }
     } @{ $entity->names };
 

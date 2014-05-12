@@ -27,7 +27,7 @@ test('Sortname', function () {
     ];
 
     $.each(tests, function (idx, test) {
-        var result = MB.GuessCase.artist.sortname (test.input, test.person);
+        var result = MB.GuessCase.artist.sortname(test.input, test.person);
         equal(result, test.expected, test.input);
     });
 
@@ -61,7 +61,7 @@ test('Sortname', function () {
     ];
 
     $.each(tests, function (idx, test) {
-        var result = MB.GuessCase.label.sortname (test.input);
+        var result = MB.GuessCase.label.sortname(test.input);
         equal(result, test.expected, test.input);
     });
 
@@ -93,7 +93,7 @@ test('Artist', function () {
     ];
 
     $.each(tests, function (idx, test) {
-        var result = MB.GuessCase.artist.guess (test.input);
+        var result = MB.GuessCase.artist.guess(test.input);
 
         var prefix = test.bug ? test.bug + ', ' : '';
 
@@ -118,7 +118,7 @@ test('Label', function () {
     ];
 
     $.each(tests, function (idx, test) {
-        result = MB.GuessCase.label.guess (test.input);
+        result = MB.GuessCase.label.guess(test.input);
         equal(result, test.expected, test.input);
     });
 
@@ -172,7 +172,7 @@ test('Work', function () {
         gc.CFG_UC_UPPERCASED = test.keepuppercase;
         gc.mode = MB.GuessCase.Mode[test.mode]();
 
-        result = MB.GuessCase.work.guess (test.input);
+        result = MB.GuessCase.work.guess(test.input);
         equal(result, test.expected, test.input);
     });
 
@@ -308,7 +308,7 @@ test('BugFixes', function () {
     $.each(tests, function (idx, test) {
         MB.GuessCase.work.gc.mode = MB.GuessCase.Mode[test.mode]();
 
-        result = MB.GuessCase.work.guess (test.input);
+        result = MB.GuessCase.work.guess(test.input);
         equal(result, test.expected, test.bug + ', ' + test.input);
     });
 

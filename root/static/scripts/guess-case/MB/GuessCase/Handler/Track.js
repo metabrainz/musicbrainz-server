@@ -26,7 +26,7 @@ MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
  * Track specific GuessCase functionality
  **/
 MB.GuessCase.Handler.Track = function () {
-    var self = MB.GuessCase.Handler.Base ();
+    var self = MB.GuessCase.Handler.Base();
 
     // ----------------------------------------------------------------------------
     // member functions
@@ -39,7 +39,7 @@ MB.GuessCase.Handler.Track = function () {
      * @param	is		the inputstring
      * @returns os		the processed string
      **/
-    self.process = function(is) {
+    self.process = function (is) {
 	is = gc.mode.stripInformationToOmit(is);
 	is = gc.mode.preProcessCommons(is);
 	is = gc.mode.preProcessTitles(is);
@@ -65,7 +65,7 @@ MB.GuessCase.Handler.Track = function () {
      * - untitled [track]		-> [untitled]
      * - unknown|bonus [track]	-> [unknown]
      **/
-    self.checkSpecialCase = function(is) {
+    self.checkSpecialCase = function (is) {
 	if (is) {
 	    if (!gc.re.TRACK_DATATRACK) {
 		// data tracks
@@ -109,9 +109,9 @@ MB.GuessCase.Handler.Track = function () {
      * - Handles PartNumberStyle
      *
      **/
-    self.doWord = function() {
+    self.doWord = function () {
 
-        if (self.doIgnoreWords ()) {
+        if (self.doIgnoreWords()) {
         } else if (self.doFeaturingArtistStyle()) {
         } else if (self.doVersusStyle()) {
 	} else if (self.doVolumeNumberStyle()) {

@@ -25,8 +25,8 @@ use MusicBrainz::Server::Edit::Types qw(
 use MusicBrainz::Server::Edit::Utils qw( verify_artist_credits hash_artist_credit hash_artist_credit_without_join_phrases );
 use MusicBrainz::Server::Log qw( log_assertion log_debug );
 use MusicBrainz::Server::Validation 'normalise_strings';
-use MusicBrainz::Server::Translation qw ( N_l );
-use MusicBrainz::Server::Track qw ( format_track_length );
+use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Track qw( format_track_length );
 use Try::Tiny;
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
@@ -160,14 +160,14 @@ sub initialize
         };
 
         if ($tracklist) {
-            $self->c->model('Track')->load_for_mediums ($entity);
-            $self->c->model('ArtistCredit')->load ($entity->all_tracks);
+            $self->c->model('Track')->load_for_mediums($entity);
+            $self->c->model('ArtistCredit')->load($entity->all_tracks);
 
             my $old = tracks_to_hash($entity->tracks);
             my $new = tracks_to_hash($tracklist);
 
-            unless (Compare(filter_subsecond_differences ($old),
-                            filter_subsecond_differences ($new)))
+            unless (Compare(filter_subsecond_differences($old),
+                            filter_subsecond_differences($new)))
             {
                 $data->{old}{tracklist} = $old;
                 $data->{new}{tracklist} = $new;
@@ -202,7 +202,7 @@ sub foreign_keys {
     push @tracks, @{ $self->data->{new}{tracklist} }
         if exists $self->data->{new}{tracklist};
 
-    tracklist_foreign_keys (\%fk, \@tracks);
+    tracklist_foreign_keys(\%fk, \@tracks);
 
     return \%fk;
 }
@@ -337,7 +337,7 @@ sub accept {
         )
     }
 
-    my $data_new = clone ($self->data->{new});
+    my $data_new = clone($self->data->{new});
     my $data_new_tracklist = delete $data_new->{tracklist};
 
     $self->c->model('Medium')->update($self->entity_id, $data_new);
@@ -362,7 +362,7 @@ sub accept {
                 [ artist_credit => \@merged_artist_credits, \&hash_artist_credit ]
             ) {
                 my ($property, $container, $key_generation) = @$merge;
-                push @$container, merge (
+                push @$container, merge(
                     track_column($property, $self->data->{old}{tracklist}),
                     track_column($property, $current_tracklist),
                     track_column($property, $data_new_tracklist),
@@ -389,7 +389,7 @@ sub accept {
         my $position = 1;
         my @final_tracklist;
         my $existing_recordings = $self->c->model('Recording')->get_by_ids(@merged_recordings);
-        while(1) {
+        while (1) {
             last unless @merged_row_ids &&
                         @merged_artist_credits &&
                         @merged_lengths &&
@@ -439,18 +439,18 @@ sub accept {
 
             if ($track->{id})
             {
-                $self->c->model ('Track')->update ($track->{id}, $track);
+                $self->c->model('Track')->update($track->{id}, $track);
                 $tracks_reused{$track->{id}} = 1;
             }
             else
             {
-                $self->c->model ('Track')->insert ($track);
+                $self->c->model('Track')->insert($track);
             }
         }
 
         for my $old_track ($medium->all_tracks)
         {
-            $self->c->model ('Track')->delete ($old_track->id)
+            $self->c->model('Track')->delete($old_track->id)
                 unless $tracks_reused{$old_track->id}
         }
     }

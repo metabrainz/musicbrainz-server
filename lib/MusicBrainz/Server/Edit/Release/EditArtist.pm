@@ -110,11 +110,11 @@ sub initialize {
         $self->c->model('ArtistCredit')->load($release);
     }
 
-    my $new = clean_submitted_artist_credits ($opts{artist_credit});
-    my $old = clean_submitted_artist_credits ($release->artist_credit);
+    my $new = clean_submitted_artist_credits($opts{artist_credit});
+    my $old = clean_submitted_artist_credits($release->artist_credit);
 
     MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
-        if Compare ($old, $new);
+        if Compare($old, $new);
 
     $self->data({
         release => {

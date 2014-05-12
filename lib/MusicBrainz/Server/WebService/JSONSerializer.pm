@@ -17,8 +17,8 @@ sub serialize
 
     $type =~ s/-/_/g;
 
-    my $override = $self->meta->find_method_by_name ($type);
-    return $override->execute ($self, @data) if $override;
+    my $override = $self->meta->find_method_by_name($type);
+    return $override->execute($self, @data) if $override;
 
     my ($entity, $inc, $opts) = @data;
 
@@ -34,24 +34,24 @@ sub entity_list
 
     if (defined $list->{offset} || defined $list->{total})
     {
-        $ret{$type."-offset"} = number ($list->{offset});
-        $ret{$type."-count"} = number ($list->{total});
+        $ret{$type."-offset"} = number($list->{offset});
+        $ret{$type."-count"} = number($list->{total});
     }
     $ret{$type_plural} = [
         map { serialize_entity($_, $inc, $opts, 1) }
         sort_by { $_->gid } @{ $list->{items} }];
 
-    return encode_json (\%ret);
+    return encode_json(\%ret);
 }
 
-sub artist_list        { shift->entity_list (@_, "artist", "artists") };
-sub label_list         { shift->entity_list (@_, "label", "labels") };
-sub recording_list     { shift->entity_list (@_, "recording", "recordings") };
-sub release_list       { shift->entity_list (@_, "release", "releases") };
-sub release_group_list { shift->entity_list (@_, "release-group", "release-groups") };
-sub work_list          { shift->entity_list (@_, "work", "works") };
-sub area_list          { shift->entity_list (@_, "area", "areas") };
-sub place_list         { shift->entity_list (@_, "place", "places") };
+sub artist_list        { shift->entity_list(@_, "artist", "artists") };
+sub label_list         { shift->entity_list(@_, "label", "labels") };
+sub recording_list     { shift->entity_list(@_, "recording", "recordings") };
+sub release_list       { shift->entity_list(@_, "release", "releases") };
+sub release_group_list { shift->entity_list(@_, "release-group", "release-groups") };
+sub work_list          { shift->entity_list(@_, "work", "works") };
+sub area_list          { shift->entity_list(@_, "area", "areas") };
+sub place_list         { shift->entity_list(@_, "place", "places") };
 
 sub serialize_release
 {
@@ -120,7 +120,7 @@ sub autocomplete_generic
         current => $pager->current_page
     } if $pager;
 
-    return encode_json (\@output);
+    return encode_json(\@output);
 }
 
 sub autocomplete_label
@@ -137,7 +137,7 @@ sub autocomplete_label
         current => $pager->current_page
     } if $pager;
 
-    return encode_json ($output);
+    return encode_json($output);
 }
 
 sub _generic
@@ -173,7 +173,7 @@ sub autocomplete_release
         current => $pager->current_page
     } if $pager;
 
-    return encode_json (\@output);
+    return encode_json(\@output);
 }
 
 sub _release
@@ -315,7 +315,7 @@ sub autocomplete_area
         current => $pager->current_page
     } if $pager;
 
-    return encode_json ($output);
+    return encode_json($output);
 }
 
 sub autocomplete_artist
@@ -332,7 +332,7 @@ sub autocomplete_artist
         current => $pager->current_page
     } if $pager;
 
-    return encode_json ($output);
+    return encode_json($output);
 }
 
 sub _area
@@ -373,7 +373,7 @@ sub output_error
 {
     my ($self, $err) = @_;
 
-    return encode_json ({ error => $err });
+    return encode_json({ error => $err });
 }
 
 sub autocomplete_release_group
@@ -388,7 +388,7 @@ sub autocomplete_release_group
         current => $pager->current_page
     } if $pager;
 
-    return encode_json (\@output);
+    return encode_json(\@output);
 }
 
 sub _release_group
@@ -440,7 +440,7 @@ sub autocomplete_recording
         current => $pager->current_page
     } if $pager;
 
-    return encode_json (\@output);
+    return encode_json(\@output);
 }
 
 sub _recording
@@ -493,7 +493,7 @@ sub autocomplete_work
         current => $pager->current_page
     } if $pager;
 
-    return encode_json ($output);
+    return encode_json($output);
 }
 
 sub _with_primary_alias {
@@ -582,7 +582,7 @@ sub autocomplete_place
         current => $pager->current_page
     } if $pager;
 
-    return encode_json ($output);
+    return encode_json($output);
 }
 
 sub _place
@@ -621,6 +621,7 @@ sub _instrument {
     my ($self, $instrument) = @_;
 
     return {
+        entityType => "instrument",
         name    => $instrument->name,
         id      => $instrument->id,
         gid     => $instrument->gid,

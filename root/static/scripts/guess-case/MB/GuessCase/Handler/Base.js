@@ -68,7 +68,7 @@ MB.GuessCase.Handler.Base = function () {
     /**
      * Returns true if the number corresponds to a special case.
      **/
-    self.isSpecialCase = function(num) {
+    self.isSpecialCase = function (num) {
 	return (num != self.NOT_A_SPECIALCASE);
     };
 
@@ -77,7 +77,7 @@ MB.GuessCase.Handler.Base = function () {
      * special case, or the input string if num
      * does not correspond to a special case
      **/
-    self.getSpecialCaseFormatted = function(is, num) {
+    self.getSpecialCaseFormatted = function (is, num) {
 
 	switch (num) {
 	case self.SPECIALCASE_DATA_TRACK:
@@ -110,7 +110,7 @@ MB.GuessCase.Handler.Base = function () {
     /**
      * Returns the output string from GuessCaseOutput
      **/
-    self.getOutput = function() {
+    self.getOutput = function () {
 	var is = gc.o.getOutput();
 	var os = self.runPostProcess(is);
 	return os;
@@ -120,7 +120,7 @@ MB.GuessCase.Handler.Base = function () {
      * Processes the next word from the GuessCaseInput
      * returns true, if there are more words, else false.
      **/
-    self.processWord = function() {
+    self.processWord = function () {
 
 	if (self.doWhiteSpace()) {
 	} else {
@@ -171,13 +171,13 @@ MB.GuessCase.Handler.Base = function () {
     /**
      * Delegate function for Artist/Release/Track specific handlers
      **/
-    self.doWord = function() {};
+    self.doWord = function () {};
 
     /**
      * Deal with whitespace (\t)
      * primarily we only look at whitespace for context purposes
      **/
-    self.doWhiteSpace = function() {
+    self.doWhiteSpace = function () {
 
 	if (!gc.re.WHITESPACE) {
 	    gc.re.WHITESPACE = " ";
@@ -197,7 +197,7 @@ MB.GuessCase.Handler.Base = function () {
      * Deal with colons (:)
      * Colons are used as a sub-title split,and also for disc/box name splits
      **/
-    self.doColon = function() {
+    self.doColon = function () {
 
 	if (!gc.re.COLON) {
 	    gc.re.COLON = ":";
@@ -255,7 +255,7 @@ MB.GuessCase.Handler.Base = function () {
     /**
      * Deal with asterix (*)
      **/
-    self.doAsterix = function() {
+    self.doAsterix = function () {
 
 	if (!gc.re.ASTERIX) {
 	    gc.re.ASTERIX = "*";
@@ -271,7 +271,7 @@ MB.GuessCase.Handler.Base = function () {
     /**
      * Deal with diamond (#)
      **/
-    self.doDiamond = function() {
+    self.doDiamond = function () {
 
 	if (!gc.re.DIAMOND) {
 	    gc.re.DIAMOND = "#";
@@ -288,7 +288,7 @@ MB.GuessCase.Handler.Base = function () {
      * Deal with percent signs (%)
      * TODO: lots of methods for special chars look the same, combine?
      **/
-    self.doPercent = function() {
+    self.doPercent = function () {
 
 	if (!gc.re.PERCENT) {
 	    gc.re.PERCENT = "%";
@@ -304,7 +304,7 @@ MB.GuessCase.Handler.Base = function () {
     /**
      * Deal with ampersands (&)
      **/
-    self.doAmpersand = function() {
+    self.doAmpersand = function () {
 
 	if (!gc.re.AMPERSAND) {
 	    gc.re.AMPERSAND = "&";
@@ -325,7 +325,7 @@ MB.GuessCase.Handler.Base = function () {
      * Deal with line terminators (?!;)
      * (other than the period).
      **/
-    self.doLineStop = function() {
+    self.doLineStop = function () {
 
 	if (!gc.re.LINESTOP) {
 	    gc.re.LINESTOP = /[\?\!\;]/;
@@ -353,7 +353,7 @@ MB.GuessCase.Handler.Base = function () {
      * unfortunately it's not practical to implement real em-dashes,however we'll
      * treat a spaced hyphen as an em-dash for the purposes of caps.
      **/
-    self.doHyphen = function() {
+    self.doHyphen = function () {
 
 	if (!gc.re.HYPHEN) {
 	    gc.re.HYPHEN = "-";
@@ -373,7 +373,7 @@ MB.GuessCase.Handler.Base = function () {
     /**
      * Deal with inverted question (¿) and exclamation marks (¡).
      **/
-    self.doInvertedMarks = function() {
+    self.doInvertedMarks = function () {
 	    if (!gc.re.INVERTEDMARKS) {
 	        gc.re.INVERTEDMARKS = /(¿|¡)/;
 	    }
@@ -391,7 +391,7 @@ MB.GuessCase.Handler.Base = function () {
     /**
      * Deal with plus symbol	(+)
      **/
-    self.doPlus = function() {
+    self.doPlus = function () {
 
 	if (!gc.re.PLUS) {
 	    gc.re.PLUS = "+";
@@ -408,7 +408,7 @@ MB.GuessCase.Handler.Base = function () {
      * Deal with slashes (/,\)
      * If a slash has a space near it, pad it out, otherwise leave as is.
      **/
-    self.doSlash = function() {
+    self.doSlash = function () {
 
 	if (!gc.re.SLASH) {
 	    gc.re.SLASH = /[\\\/]/;
@@ -425,7 +425,7 @@ MB.GuessCase.Handler.Base = function () {
     /**
      * Deal with double quotes (")
      **/
-    self.doDoubleQuote = function() {
+    self.doDoubleQuote = function () {
 
 	if (!gc.re.DOUBLEQUOTE) {
 	    gc.re.DOUBLEQUOTE = "\"";
@@ -450,7 +450,7 @@ MB.GuessCase.Handler.Base = function () {
      *   Contractions that are handled,and format the right part (after)
      *   the (') as lowercase.
      **/
-    self.doSingleQuote = function() {
+    self.doSingleQuote = function () {
 
 	if (!gc.re.SINGLEQUOTE) {
 	    gc.re.SINGLEQUOTE = /['‘’]/;
@@ -506,7 +506,7 @@ MB.GuessCase.Handler.Base = function () {
      * Knowing whether gc.re.inside parenthesis (and multiple levels thereof) is
      * important for determining what words should be capped or not.
      **/
-    self.doOpeningBracket = function() {
+    self.doOpeningBracket = function () {
 
 	if (!gc.re.OPENBRACKET) {
 	    gc.re.OPENBRACKET = /[\(\[\{\<]/;
@@ -557,7 +557,7 @@ MB.GuessCase.Handler.Base = function () {
      * knowing whether gc.re.inside parenthesis (and multiple levels thereof) is
      * important for determining what words should be capped or not.
      **/
-    self.doClosingBracket = function() {
+    self.doClosingBracket = function () {
 
 	if (!gc.re.CLOSEBRACKET) {
 	    gc.re.CLOSEBRACKET = /[\)\]\}\>]/;
@@ -588,7 +588,7 @@ MB.GuessCase.Handler.Base = function () {
      * need context to guess which one it's meant to be, thus the digit
      * triplet checking later on. Multiple commas are removed.
      **/
-    self.doComma = function() {
+    self.doComma = function () {
 
 	if (!gc.re.COMMA) {
 	    gc.re.COMMA = ",";
@@ -623,7 +623,7 @@ MB.GuessCase.Handler.Base = function () {
      *   * an acronym split.
      * We flag digits and digit triplets in the words routine.
      **/
-    self.doPeriod = function() {
+    self.doPeriod = function () {
 
 	if (!gc.re.PERIOD) {
 	    gc.re.PERIOD = ".";
@@ -662,7 +662,7 @@ MB.GuessCase.Handler.Base = function () {
     /**
      * Check for an acronym
      **/
-    self.doAcronym = function() {
+    self.doAcronym = function () {
 
 	if (!gc.re.ACRONYM) {
 	    gc.re.ACRONYM = /^\w$/;
@@ -731,7 +731,7 @@ MB.GuessCase.Handler.Base = function () {
     /**
      * Check for a digit only string
      **/
-    self.doDigits = function() {
+    self.doDigits = function () {
 
 	if (!gc.re.DIGITS) {
 	    gc.re.DIGITS = /^\d+$/;
@@ -846,7 +846,7 @@ MB.GuessCase.Handler.Base = function () {
     /**
      * Correct vs.
      **/
-    self.doVersusStyle = function() {
+    self.doVersusStyle = function () {
 
 	if (!gc.re.VERSUSSTYLE) {
 	    gc.re.VERSUSSTYLE = "vs";
@@ -877,7 +877,7 @@ MB.GuessCase.Handler.Base = function () {
     /**
      * Handle "Vol","Vol.","Volume" -> ", Volume"
      **/
-    self.doVolumeNumberStyle = function() {
+    self.doVolumeNumberStyle = function () {
 
 	if (!gc.re.VOLUMENUMBERSTYLE) {
 	    gc.re.VOLUMENUMBERSTYLE = /^(volumes|volume)$/i;
@@ -895,7 +895,7 @@ MB.GuessCase.Handler.Base = function () {
     /**
      * Handle "Pt","Pt.","Part" -> ", Part"
      **/
-    self.doPartNumberStyle = function() {
+    self.doPartNumberStyle = function () {
 
 	if (!gc.re.PARTNUMBERSTYLE) {
 	    gc.re.PARTNUMBERSTYLE = /^(parts|part)$/i;
@@ -913,7 +913,7 @@ MB.GuessCase.Handler.Base = function () {
     /**
      * Do the common work for handleVolume, handlePart
      **/
-    self.doSeriesNumberStyle = function(seriesType) {
+    self.doSeriesNumberStyle = function (seriesType) {
 
 
 	// from next position on, skip spaces and dots.
@@ -1003,7 +1003,7 @@ MB.GuessCase.Handler.Base = function () {
     /**
      * correct cd{n},disc{n},disk{n},disque{n} terms
      **/
-    self.doDiscNumberStyle = function() {
+    self.doDiscNumberStyle = function () {
 
 	if (!gc.re.DISCNUMBERSTYLE) {
 	    gc.re.DISCNUMBERSTYLE = /^(Cd|Disk|Discque|Disc)([^\s\d]*)(\s*)(\d*)/i;
@@ -1101,7 +1101,7 @@ MB.GuessCase.Handler.Base = function () {
      * 								which are added converted to feat.
      * ---------------------------------------------------
      **/
-    self.doFeaturingArtistStyle = function() {
+    self.doFeaturingArtistStyle = function () {
 
 	if (!gc.re.FEAT) {
 	    gc.re.FEAT = /^featuring$|^f$|^ft$|^feat$/i;
