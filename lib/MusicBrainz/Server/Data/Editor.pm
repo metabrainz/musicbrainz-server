@@ -551,7 +551,7 @@ sub subscription_summary {
                    (SELECT count(*) FROM editor_subscribe_$_ WHERE editor = ?),
                    0) AS $_"
             } qw( artist collection label editor series )),
-        ($editor_id) x 4
+        ($editor_id) x 5
     );
 }
 

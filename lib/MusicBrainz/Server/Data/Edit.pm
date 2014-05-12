@@ -286,15 +286,16 @@ SELECT * FROM edit, (
     JOIN editor_subscribe_label esl ON esl.label = el.label
     WHERE el.status = ? AND esl.editor = ?
     UNION
-    SELECT edit FROM edit_series es
-    JOIN editor_subscribe_series ess ON ess.series = es.series
-    WHERE es.status = ? AND ess.editor = ?
-    UNION
     SELECT edit FROM edit_release er
     RIGHT JOIN editor_collection_release ec ON er.release = ec.release
     JOIN editor_subscribe_collection esc ON esc.collection = ec.collection
     JOIN edit ON er.edit = edit.id
     WHERE edit.status = ? AND esc.editor = ? AND esc.available
+    UNION
+    SELECT edit FROM edit_series es
+    JOIN editor_subscribe_series ess ON ess.series = es.series
+    JOIN edit ON es.edit = edit.id
+    WHERE edit.status = ? AND ess.editor = ?
 ) edits
 WHERE edit.id = edits.edit
 AND edit.status = ?
@@ -313,10 +314,9 @@ OFFSET ?";
             return $self->_new_from_row(shift);
         },
         $query,
-        $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id,
-        $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id,
-        $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id,
-        $editor_id, $offset
+        ($STATUS_OPEN, $editor_id) x 4, # per subscription model
+        $STATUS_OPEN, $editor_id,       # Edit is open, editor not current one
+        $editor_id, $offset             # Editor has not voted, offset
     );
 }
 

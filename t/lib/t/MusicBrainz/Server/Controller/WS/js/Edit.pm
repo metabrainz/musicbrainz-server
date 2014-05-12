@@ -561,6 +561,7 @@ test 'editing a relationship' => sub {
             end_date    => { month => undef, day => undef, year => undef },
             ended       => 0,
             attributes  => [4],
+            attribute_text_values => {},
         },
         relationship_id => 1,
         new => {
