@@ -331,6 +331,20 @@ INSERT INTO artist (id, gid, name, sort_name)
 INSERT INTO label (id, gid, name)
   VALUES (1, 'dd448d65-d7c5-4eef-8e13-12e1bfdacdc6', 'label');
 
+INSERT INTO series_type (id, name, entity_type, parent, child_order, description) VALUES
+    (1, 'Recording', 'recording', NULL, 0, 'description');
+
+INSERT INTO series_ordering_type (id, name, parent, child_order, description) VALUES
+    (1, 'Automatic', NULL, 0, 'description');
+
+INSERT INTO link_attribute_type (id, root, parent, child_order, gid, name, description) VALUES
+    (1, 1, NULL, 0, '58ed5e16-411a-4676-a6f9-0d8a25823763', 'ordering', 'description');
+
+INSERT INTO link_text_attribute_type VALUES (1);
+
+INSERT INTO series (id, gid, name, comment, type, ordering_attribute, ordering_type)
+    VALUES (1, 'a8749d0c-4a5a-4403-97c5-f6cd018f8e6d', 'Test Recording Series', 'test comment 1', 1, 1, 1);
+
 INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES
 (1, 'Alice', '{CLEARTEXT}al1c3', 'd61b477a6269ddd11dbd70644335a943', '', now()),
 (2, 'Bob', '{CLEARTEXT}b0b', '47ac7eb9fe940581057e46994840a4ae', '', now());
@@ -348,19 +362,23 @@ INSERT INTO editor_subscribe_label (id, editor, label, last_edit_sent) VALUES
   (1, 1, 1, 1), (2, 2, 1, 1);
 INSERT INTO editor_subscribe_editor
   (id, editor, subscribed_editor, last_edit_sent) VALUES (1, 1, 1, 1);
+
+INSERT INTO editor_subscribe_series (id, editor, series, last_edit_sent) VALUES (1, 1, 1, 1);
 EOSQL
 
     is_deeply($test->c->model('Editor')->subscription_summary(1),
               { artist => 1,
                 collection => 1,
                 label => 1,
-                editor => 1 });
+                editor => 1,
+                series => 1 });
 
     is_deeply($test->c->model('Editor')->subscription_summary(2),
               { artist => 0,
                 collection => 0,
                 label => 1,
-                editor => 0 });
+                editor => 0,
+                series => 0 });
 };
 
 1;
