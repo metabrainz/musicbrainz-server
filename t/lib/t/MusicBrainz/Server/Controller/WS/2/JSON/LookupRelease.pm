@@ -643,6 +643,7 @@ test 'release lookup, relation attributes' => sub {
             relations => [
                 {
                     attributes => [ 'transliterated' ],
+                    "attribute-values" => {},
                     begin => JSON::null,
                     end => JSON::null,
                     direction => 'backward',
@@ -681,6 +682,7 @@ test 'release lookup, relation attributes' => sub {
                 },
                 {
                     attributes => [ 'transliterated' ],
+                    "attribute-values" => {},
                     begin => JSON::null,
                     end => JSON::null,
                     direction => 'backward',
@@ -784,6 +786,7 @@ test 'release lookup, track artists have no tags' => sub {
                                         relations => []
                                     },
                                     attributes => [],
+                                    "attribute-values" => {},
                                     begin => undef,
                                     direction => 'backward',
                                     end => undef,
@@ -814,6 +817,7 @@ test 'release lookup, track artists have no tags' => sub {
                                     relations => []
                                 },
                                 attributes => [],
+                                "attribute-values" => {},
                                 begin => undef,
                                 direction => 'backward',
                                 end => undef,
@@ -843,6 +847,7 @@ test 'release lookup, track artists have no tags' => sub {
                                 relations => []
                             },
                             attributes => [],
+                            "attribute-values" => {},
                             begin => undef,
                             direction => 'backward',
                             end => undef,
@@ -872,6 +877,7 @@ test 'release lookup, track artists have no tags' => sub {
                                 relations => []
                             },
                             attributes => [],
+                            "attribute-values" => {},
                             begin => undef,
                             direction => 'backward',
                             end => undef,
@@ -901,6 +907,7 @@ test 'release lookup, track artists have no tags' => sub {
                                 relations => []
                             },
                             attributes => [],
+                            "attribute-values" => {},
                             begin => undef,
                             direction => 'backward',
                             end => undef,
@@ -930,6 +937,7 @@ test 'release lookup, track artists have no tags' => sub {
                                 relations => []
                             },
                             attributes => [],
+                            "attribute-values" => {},
                             begin => undef,
                             direction => 'backward',
                             end => undef,
@@ -959,6 +967,7 @@ test 'release lookup, track artists have no tags' => sub {
                                 relations => []
                             },
                             attributes => [],
+                            "attribute-values" => {},
                             begin => undef,
                             direction => 'backward',
                             end => undef,
@@ -988,6 +997,7 @@ test 'release lookup, track artists have no tags' => sub {
                                 relations => []
                             },
                             attributes => [],
+                            "attribute-values" => {},
                             begin => undef,
                             direction => 'backward',
                             end => undef,
@@ -1017,6 +1027,7 @@ test 'release lookup, track artists have no tags' => sub {
                                 relations => []
                             },
                             attributes => [],
+                            "attribute-values" => {},
                             begin => undef,
                             direction => 'backward',
                             end => undef,
@@ -1046,6 +1057,7 @@ test 'release lookup, track artists have no tags' => sub {
                                 relations => []
                             },
                             attributes => [],
+                            "attribute-values" => {},
                             begin => undef,
                             direction => 'backward',
                             end => undef,
@@ -1070,6 +1082,7 @@ test 'release lookup, track artists have no tags' => sub {
                 relations => []
             },
             attributes => [],
+            "attribute-values" => {},
             begin => undef,
             direction => 'backward',
             end => undef,

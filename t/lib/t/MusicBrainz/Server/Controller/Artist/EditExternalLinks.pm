@@ -68,7 +68,8 @@ is_deeply($edits[0]->data, {
             'day' => undef,
             'year' => undef
         },
-        'attributes' => []
+        'attributes' => [],
+        'attribute_text_values' => {},
     },
     'relationship_id' => 1,
     'type0' => 'artist',
@@ -111,22 +112,22 @@ is_deeply($edits[2]->data, {
     'relationship' => {
         'link' => {
             'end_date' => {
-            'month' => undef,
-            'day' => undef,
-            'year' => undef
-        },
-        'begin_date' => {
-            'month' => undef,
-            'day' => undef,
-            'year' => undef
-        },
-        'type' => {
-            'entity0_type' => 'artist',
-            'long_link_phrase' => 'allmusic',
-            'entity1_type' => 'url',
-            'id' => 2
-        },
-        'attributes' => []
+                'month' => undef,
+                'day' => undef,
+                'year' => undef
+            },
+            'begin_date' => {
+                'month' => undef,
+                'day' => undef,
+                'year' => undef
+            },
+            'type' => {
+                'entity0_type' => 'artist',
+                'long_link_phrase' => 'allmusic',
+                'entity1_type' => 'url',
+                'id' => 2
+            },
+            'attributes' => [],
         },
         'entity1' => {
             'name' => 'http://www.allmusic.com/artist/faye-wong-mn0000515659',

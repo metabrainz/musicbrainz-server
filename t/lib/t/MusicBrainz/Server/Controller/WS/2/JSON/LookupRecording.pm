@@ -272,6 +272,7 @@ test 'recording lookup with release relationships' => sub {
             relations => [
                 {
                     attributes => [],
+                    "attribute-values" => {},
                     type => 'samples material',
                     'type-id' => '967746f9-9d79-456c-9d1e-50116f0b27fc',
                     direction => 'forward',
@@ -325,6 +326,7 @@ test 'recording lookup with work relationships' => sub {
             relations => [
                 {
                     attributes => [],
+                    "attribute-values" => {},
                     direction => 'forward',
                     begin => JSON::null,
                     end => JSON::null,
@@ -359,6 +361,7 @@ test 'recording lookup with work-level relationships' => sub {
         video => 0,
         relations => [ {
             attributes => [],
+            "attribute-values" => {},
             begin => undef,
             direction => 'forward',
             end => undef,
@@ -380,6 +383,7 @@ test 'recording lookup with work-level relationships' => sub {
                         'sort-name' => 'Distance'
                     },
                     attributes => [],
+                    "attribute-values" => {},
                     begin => undef,
                     direction => 'backward',
                     end => undef,
