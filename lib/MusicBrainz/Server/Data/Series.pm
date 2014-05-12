@@ -152,6 +152,10 @@ sub update {
     my $series = $self->c->model('Series')->get_by_id($series_id);
     $self->c->model('SeriesType')->load($series);
 
+    # The type is non-editable when the series has items, and is not submitted
+    # with the edit form because the field is disabled.
+    $row->{type} //= $series->type_id;
+
     if ($series->type_id != $row->{type}) {
         my ($items, $hits) = $self->c->model('Series')->get_entities($series, 1, 0);
 
