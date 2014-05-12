@@ -29,7 +29,7 @@
 
             this.removed = ko.observable(!!data.removed);
             this.editsPending = Boolean(data.editsPending);
-            this.uniqueID = this.id || _.uniqueId("new-");
+            this.uniqueID = this.entityTypes + "-" + (this.id || _.uniqueId("new-"));
 
             this.entities.saved = this.entities.peek().slice(0);
             this.entities.subscribe(this.entitiesChanged, this);
@@ -311,12 +311,14 @@
             }
         },
 
-        moveEntityUp: function () {
+        moveEntityUp: function (self, event) {
             this.linkOrder(Math.max(this.linkOrder() - 1, 1));
+            MB.utility.deferFocus("#relationship-" + this.uniqueID + " button.move-up");
         },
 
         moveEntityDown: function () {
             this.linkOrder(this.linkOrder() + 1);
+            MB.utility.deferFocus("#relationship-" + this.uniqueID + " button.move-down");
         },
 
         showLinkOrder: function (source) {

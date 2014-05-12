@@ -19,7 +19,7 @@
           <label data-bind="text: MB.i18n.expand(MB.text.AddColon, { variable: linkPhrase })"></label>
         </th>
         <td class="relationship-list" data-bind="foreach: relationships">
-          <div>
+          <div data-bind="attr: { id: 'relationship-' + uniqueID }">
             <button type="button" class="icon remove-item" data-bind="attr: { id: 'remove-' + uniqueID }" data-click="removeRelationship"></button>
             <button type="button" class="icon edit-item" data-bind="attr: { id: 'edit-' + uniqueID }, disable: removed" data-click="openEditDialog"></button>
             <!-- ko if: entityCanBeReordered(target($parents[1])) -->
