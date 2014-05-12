@@ -6,7 +6,7 @@ use MusicBrainz::Server::Test qw( html_ok );
 
 with 't::Mechanize', 't::Context';
 
-test 'Registering without an email address' => sub {
+test 'Registering without verifying an email address' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;
@@ -24,7 +24,7 @@ test 'Registering without an email address' => sub {
     like($mech->uri, qr{/user/brand_new_editor}, 'should redirect to profile page after registering');
 };
 
-test 'Registering with an email address' => sub {
+test 'Registering and verifying an email address' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;
