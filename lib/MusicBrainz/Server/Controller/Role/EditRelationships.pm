@@ -229,6 +229,8 @@ role {
                    $link_type->entity0_type, $link_type->entity1_type, $field->{relationship_id}
                 );
 
+                defined $relationship or next; # MBS-7354: relationship may have been deleted after the form was created
+
                 $args{relationship} = $relationship;
                 $c->model('Link')->load($relationship);
                 $c->model('LinkType')->load($relationship->link);
