@@ -76,4 +76,23 @@ test 'Trying to register with an invalid name' => sub {
     $mech->content_contains('username is reserved', 'form has error message');
 };
 
+test 'Trying to register with an existing name' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c    = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
+
+    $mech->get_ok('/register', 'fetch registration page');
+    $mech->submit_form( with_fields => {
+        'register.username' => 'aLiCe',
+        'register.password' => 'bar',
+        'register.confirm_password' => 'bar',
+        'register.email' => 'barfoo@example.org',
+    });
+
+    like($mech->uri, qr{/register}, 'stays on registration page');
+    $mech->content_contains('already taken', 'form has error message');
+};
+
 1;
