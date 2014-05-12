@@ -30,7 +30,13 @@
         <legend>[% l('Series Details') %]</legend>
         [%- form_row_text_long(r, 'name', l('Name:')) -%]
         [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
-        [%- form_row_select(r, 'type_id', l('Type:')) -%]
+
+        [% WRAPPER form_row %]
+          [% r.label('type_id', l('Type:')) %]
+          [% r.select('type_id', { disallow_empty => 1 }) -%]
+          [% field_errors(r.form, 'type_id') %]
+        [% END %]
+
         [%- form_row_select(r, 'ordering_type_id', l('Ordering Type:')) -%]
       </fieldset>
 
@@ -81,8 +87,7 @@ $(function () {
   series.orderingTypeBubble = MB.Control.BubbleDoc();
 
   ko.computed(function () {
-    var type = MB.seriesTypesByID[series.typeID()];
-    series.type(type ? type : null);
+    series.type(MB.seriesTypesByID[series.typeID()]);
   });
 
   series.orderingTypeDescription = ko.computed(function () {
