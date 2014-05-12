@@ -125,8 +125,6 @@ sub insert {
         'SELECT id FROM link_attribute_type WHERE gid = ?', $SERIES_ORDERING_ATTRIBUTE
     );
 
-    print "\n\n\n $SERIES_ORDERING_ATTRIBUTE $ordering_attribute_id \n\n\n";
-
     for my $series (@series) {
         my $row = $self->_hash_to_row($series);
         $row->{gid} = $series->{gid} || generate_gid();
