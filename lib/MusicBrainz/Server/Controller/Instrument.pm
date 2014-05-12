@@ -30,7 +30,6 @@ sub base : Chained('/') PathPart('instrument') CaptureArgs(0) { }
 sub show : PathPart('') Chained('load') {
     my ($self, $c) = @_;
 
-    $c->model('Relationship')->load($c->stash->{instrument});
     $c->stash->{template} = 'instrument/index.tt';
 }
 
@@ -38,6 +37,7 @@ after 'load' => sub {
     my ($self, $c) = @_;
     my $instrument = $c->stash->{instrument};
     $c->model('InstrumentType')->load($instrument);
+    $c->model('Relationship')->load($instrument);
 };
 
 sub recordings : Chained('load') {

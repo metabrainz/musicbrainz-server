@@ -33,21 +33,6 @@ sub index : Path('/relationship-attributes') Args(0)
     $self->_load_tree($c);
 }
 
-sub instruments : Path('/relationship-attributes/instruments')
-{
-    my ($self, $c) = @_;
-
-    my $tree = $c->model('LinkAttributeType')->get_tree();
-    my $instruments;
-
-    for my $i ($tree->all_children) {
-        next unless $i->{'name'} eq "instrument";
-        $instruments = $i;
-    }
-
-    $c->stash( root => $instruments );
-}
-
 sub create : Path('/relationship-attributes/create') Args(0) RequireAuth(relationship_editor)
 {
     my ($self, $c) = @_;
