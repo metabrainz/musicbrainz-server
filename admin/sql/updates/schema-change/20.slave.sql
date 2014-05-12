@@ -1040,12 +1040,12 @@ CREATE OR REPLACE VIEW work_series AS
 SELECT setval('link_type_id_seq', (SELECT MAX(id) FROM link_type));
 SELECT setval('link_attribute_type_id_seq', (SELECT MAX(id) FROM link_attribute_type));
 
-\set RECORDING_PART_OF_SERIES_GID 'generate_uuid_v3(''6ba7b8119dad11d180b400c04fd430c8'', ''http://musicbrainz.org/linktype/recording/series/part_of'')';
-\set RELEASE_PART_OF_SERIES_GID 'generate_uuid_v3(''6ba7b8119dad11d180b400c04fd430c8'', ''http://musicbrainz.org/linktype/release/series/part_of'')';
-\set RELEASE_GROUP_PART_OF_SERIES_GID 'generate_uuid_v3(''6ba7b8119dad11d180b400c04fd430c8'', ''http://musicbrainz.org/linktype/release_group/series/part_of'')';
-\set WORK_PART_OF_SERIES_GID 'generate_uuid_v3(''6ba7b8119dad11d180b400c04fd430c8'', ''http://musicbrainz.org/linktype/series/work/part_of'')';
-\set SERIES_WIKIPEDIA_URL_GID 'generate_uuid_v3(''6ba7b8119dad11d180b400c04fd430c8'', ''http://musicbrainz.org/linktype/series/url/wikipedia'')';
-\set ORDERING_ATTRIBUTE_GID 'generate_uuid_v3(''6ba7b8119dad11d180b400c04fd430c8'', ''http://musicbrainz.org/linkattributetype/ordering'')';
+\set RECORDING_PART_OF_SERIES_GID 'generate_uuid_v3(''6ba7b8119dad11d180b400c04fd430c8'', ''http://musicbrainz.org/linktype/recording/series/part_of'')'
+\set RELEASE_PART_OF_SERIES_GID 'generate_uuid_v3(''6ba7b8119dad11d180b400c04fd430c8'', ''http://musicbrainz.org/linktype/release/series/part_of'')'
+\set RELEASE_GROUP_PART_OF_SERIES_GID 'generate_uuid_v3(''6ba7b8119dad11d180b400c04fd430c8'', ''http://musicbrainz.org/linktype/release_group/series/part_of'')'
+\set WORK_PART_OF_SERIES_GID 'generate_uuid_v3(''6ba7b8119dad11d180b400c04fd430c8'', ''http://musicbrainz.org/linktype/series/work/part_of'')'
+\set SERIES_WIKIPEDIA_URL_GID 'generate_uuid_v3(''6ba7b8119dad11d180b400c04fd430c8'', ''http://musicbrainz.org/linktype/series/url/wikipedia'')'
+\set ORDERING_ATTRIBUTE_GID 'generate_uuid_v3(''6ba7b8119dad11d180b400c04fd430c8'', ''http://musicbrainz.org/linkattributetype/ordering'')'
 
 INSERT INTO link_type (gid, entity_type0, entity_type1, entity0_cardinality,
                        entity1_cardinality, name, description, link_phrase,
@@ -1134,12 +1134,12 @@ INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max) VALUE
      0, 1
     );
 
-\unset RECORDING_PART_OF_SERIES_GID;
-\unset RELEASE_PART_OF_SERIES_GID;
-\unset RELEASE_GROUP_PART_OF_SERIES_GID;
-\unset WORK_PART_OF_SERIES_GID;
-\unset SERIES_WIKIPEDIA_URL_GID;
-\unset ORDERING_ATTRIBUTE_GID;
+\unset RECORDING_PART_OF_SERIES_GID
+\unset RELEASE_PART_OF_SERIES_GID
+\unset RELEASE_GROUP_PART_OF_SERIES_GID
+\unset WORK_PART_OF_SERIES_GID
+\unset SERIES_WIKIPEDIA_URL_GID
+\unset ORDERING_ATTRIBUTE_GID
 
 -----------------------------
 -- MIGRATE EXISTING TABLES --
