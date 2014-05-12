@@ -228,6 +228,7 @@ sub insert
 {
     my ($self, $data) = @_;
 
+    die "Invalid user name" if $data->{name} =~ qr{^deleted editor \#\d+$}i;
     my $plaintext = $data->{password};
     $data->{password} = hash_password($plaintext);
     $data->{ha1} = ha1_password($data->{name}, $plaintext);
