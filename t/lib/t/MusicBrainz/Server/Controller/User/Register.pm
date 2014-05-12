@@ -57,4 +57,23 @@ test 'Registering with an email address' => sub {
     like($original_verification, qr{\d+.\d+.\d+ \d+.\d+}, "Verification $original_verification looks like a date");
 };
 
+test 'Trying to register with an invalid name' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c    = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
+
+    $mech->get_ok('/register', 'fetch registration page');
+    $mech->submit_form( with_fields => {
+        'register.username' => 'Deleted Editor #675234',
+        'register.password' => 'foo',
+        'register.confirm_password' => 'foo',
+        'register.email' => 'foobar@example.org',
+    });
+
+    like($mech->uri, qr{/register}, 'stays on registration page');
+    $mech->content_contains('username is reserved', 'form has error message');
+};
+
 1;
