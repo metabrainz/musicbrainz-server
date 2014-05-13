@@ -132,8 +132,10 @@
             // Ensure it's an integer id.
             id = attr.id;
 
-            var typeAttributes = this.linkTypeInfo().attributes;
-            var attrInfo = typeAttributes && typeAttributes[id];
+            var typeInfo = this.linkTypeInfo();
+            if (!typeInfo) return;
+
+            var attrInfo = typeInfo.attributes && typeInfo.attributes[id];
             if (!attrInfo) return;
 
             var attributeValues = this.attributeValues();
