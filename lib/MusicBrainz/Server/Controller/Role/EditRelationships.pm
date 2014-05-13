@@ -14,7 +14,7 @@ role {
         my ($source, $type) = @_;
 
         my $method = "_$type";
-        return JSONSerializer->$method($source);
+        return JSONSerializer->$method($source) if $source;
     }
 
     sub load_entities {
@@ -76,10 +76,8 @@ role {
                     $target = { name => $_->{text}, entityType => 'url' };
                 }
                 elsif ($_->{target}) {
-                    my $serialize = "_$target_type";
-
-                    $target = JSONSerializer->$serialize(
-                        $entity_map->{type_to_model($target_type)}->{$_->{target}}
+                    $target = serialize_entity(
+                        $entity_map->{type_to_model($target_type)}->{$_->{target}}, $target_type
                     );
                 }
 
@@ -222,7 +220,8 @@ role {
                 }
 
                 $args{entity0} = $field->{forward} ? $source : $target;
-                $args{entity1} = $field->{forward} ? $target : $source;;
+                $args{entity1} = $field->{forward} ? $target : $source;
+                $args{link_order} = $field->{link_order} // 0;
             }
 
             if ($field->{relationship_id}) {

@@ -55,6 +55,7 @@ test 'adding a relationship' => sub {
         end_date    => { year => 1999, month => 2, day => undef },
         ended       => 0,
         attributes  => bag(1, 3, 4),
+        link_order  => 0,
     });
 };
 

@@ -95,3 +95,4 @@ SELECT setval('work_id_seq', (SELECT max(id) FROM work));
 SELECT setval('link_id_seq', (SELECT max(id) FROM link));
 SELECT setval('link_type_id_seq', (SELECT max(id) FROM link_type));
 SELECT setval('l_recording_series_id_seq', (SELECT max(id) FROM l_recording_series));
+SELECT setval('l_series_work_id_seq', (SELECT max(id) FROM l_series_work));

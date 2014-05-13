@@ -47,6 +47,7 @@ has '+data' => (
         type0        => Str,
         type1        => Str,
         ended        => Optional[Bool],
+        link_order   => Optional[Int],
         attribute_text_values => Optional[Dict],
     ]
 );
@@ -95,6 +96,8 @@ sub initialize
 
     $opts{type0} = $lt->entity0_type;
     $opts{type1} = $lt->entity1_type;
+
+    $opts{link_order} //= 0;
 
     $self->data({ %opts });
 }
@@ -160,6 +163,7 @@ sub build_display_data
                 $self->c->model($model1)->_entity_class->new(
                     name => $self->data->{entity1}{name}
                 ),
+            link_order => $self->data->{link_order},
         ),
         unknown_attributes => scalar(
             grep { !exists $loaded->{LinkAttributeType}{$_} }
@@ -216,6 +220,7 @@ sub insert
             begin_date   => $self->data->{begin_date},
             end_date     => $self->data->{end_date},
             ended        => $self->data->{ended},
+            link_order   => $self->data->{link_order},
             attribute_text_values => $self->data->{attribute_text_values},
         });
 
