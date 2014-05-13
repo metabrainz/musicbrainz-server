@@ -116,18 +116,6 @@ sub _edit_hash {
     return $self->merge_changes;
 }
 
-around initialize => sub {
-    my ($orig, $self, %opts) = @_;
-
-    my $series = $opts{to_edit} or return;
-
-    # The type is not editable if the series is non-empty, and won't be
-    # submitted with the edit form because the field is disabled.
-    $opts{type_id} //= $series->type_id;
-
-    $self->$orig(%opts);
-};
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

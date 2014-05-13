@@ -30,13 +30,7 @@
         <legend>[% l('Series Details') %]</legend>
         [%- form_row_text_long(r, 'name', l('Name:')) -%]
         [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
-
-        [% WRAPPER form_row %]
-          [% r.label('type_id', l('Type:')) %]
-          [% r.select('type_id', { disallow_empty => 1 }) -%]
-          [% field_errors(r.form, 'type_id') %]
-        [% END %]
-
+        [%- form_row_select(r, 'type_id', l('Type:')) -%]
         [%- form_row_select(r, 'ordering_type_id', l('Ordering Type:')) -%]
       </fieldset>
 
@@ -75,9 +69,16 @@ $(function () {
   var $type = $("#id-edit-series\\.type_id");
   var $orderingType = $("#id-edit-series\\.ordering_type_id");
 
+  // Type can be disabled, but is a required field, so use a hidden input.
+  var $hiddenType = $("<input>")
+        .attr({ type: "hidden", name: $type[0].name })
+        .val($type.val())
+        .insertAfter($type.removeAttr("name"));
+
   var series = MB.entityCache[MB.sourceEntityGID];
 
   series.typeID($type.val());
+  series.typeID.subscribe(function (typeID) { $hiddenType.val(typeID) });
   series.orderingTypeID($orderingType.val());
 
   series.typeBubble = MB.Control.BubbleDoc().extend({

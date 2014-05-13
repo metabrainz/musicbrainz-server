@@ -24,6 +24,7 @@ has_field 'comment' => (
 
 has_field 'type_id' => (
     type => 'Select',
+    required => 1,
 );
 
 has_field 'ordering_type_id' => (
