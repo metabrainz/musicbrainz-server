@@ -313,14 +313,28 @@
             return true;
         },
 
-        moveEntityUp: function (self, event) {
+        moveEntityUp: function () {
             this.linkOrder(Math.max(this.linkOrder() - 1, 0));
-            MB.utility.deferFocus("#relationship-" + this.uniqueID + " button.move-up");
+
+            var row = $("#relationship-" + this.uniqueID)[0];
+
+            row.tempElement && $("button.move-up", row.tempElement).focus();
+
+            row.moving && row.moving.done(function () {
+                MB.utility.deferFocus("button.move-up", row);
+            });
         },
 
         moveEntityDown: function () {
             this.linkOrder(this.linkOrder() + 1);
-            MB.utility.deferFocus("#relationship-" + this.uniqueID + " button.move-down");
+
+            var row = $("#relationship-" + this.uniqueID)[0];
+
+            row.tempElement && $("button.move-down", row.tempElement).focus();
+
+            row.moving && row.moving.done(function () {
+                MB.utility.deferFocus("button.move-down", row);
+            });
         },
 
         showLinkOrder: function (source) {
