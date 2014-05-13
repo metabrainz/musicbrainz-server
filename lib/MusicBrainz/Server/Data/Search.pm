@@ -348,6 +348,15 @@ my %mapping = (
     'label-code'     => 'label_code',
 );
 
+sub schema_fixup_type {
+    my ($self, $data, $type) = @_;
+    if (exists $data->{type} && $type ~~ [qw(area artist instrument label place series release-group work)]) {
+        my $model = 'MusicBrainz::Server::Entity::' . type_to_model($type) . 'Type';
+        $data->{type} = $model->new( name => $data->{type} );
+    }
+    return $data;
+}
+
 # Fix up the key names so that the data returned from the JSON service
 # matches up with the data returned from the DB for easy object creation
 sub schema_fixup
@@ -375,25 +384,7 @@ sub schema_fixup
         }
     }
 
-    if ($type eq 'artist' && exists $data->{type})
-    {
-        $data->{type} = MusicBrainz::Server::Entity::ArtistType->new( name => $data->{type} );
-    }
-    if ($type eq 'area' && exists $data->{type})
-    {
-        $data->{type} = MusicBrainz::Server::Entity::AreaType->new( name => $data->{type} );
-    }
-    if ($type eq 'instrument' && exists $data->{type}) {
-        $data->{type} = MusicBrainz::Server::Entity::InstrumentType->new( name => $data->{type} );
-    }
-    if ($type eq 'place' && exists $data->{type})
-    {
-        $data->{type} = MusicBrainz::Server::Entity::PlaceType->new( name => $data->{type} );
-    }
-    if ($type eq 'series' && exists $data->{type})
-    {
-        $data->{type} = MusicBrainz::Server::Entity::SeriesType->new( name => $data->{type} );
-    }
+    $data = $self->schema_fixup_type($data, $type);
     if ($type eq 'place' && exists $data->{coordinates})
     {
         $data->{coordinates} = MusicBrainz::Server::Entity::Coordinates->new( $data->{coordinates} );
@@ -433,14 +424,6 @@ sub schema_fixup
     }
     if($type eq 'artist' && exists $data->{gender}) {
         $data->{gender} = MusicBrainz::Server::Entity::Gender->new( name => ucfirst($data->{gender}) );
-    }
-    if ($type eq 'label' && exists $data->{type})
-    {
-        $data->{type} = MusicBrainz::Server::Entity::LabelType->new( name => $data->{type} );
-    }
-    if ($type eq 'release-group' && exists $data->{type})
-    {
-        $data->{primary_type} = MusicBrainz::Server::Entity::ReleaseGroupType->new( name => $data->{type} );
     }
     if ($type eq 'cdstub' && exists $data->{gid})
     {
@@ -640,6 +623,7 @@ sub schema_fixup
                 # The search server returns the MBID in the 'id' attribute, so we
                 # need to rename that.
                 $entity{gid} = delete $entity{id};
+                %entity = %{ $self->schema_fixup_type(\%entity, $entity_type) };
 
                 my $entity = $self->c->model( type_to_model ($entity_type) )->
                     _entity_class->new (%entity);
@@ -702,10 +686,6 @@ sub schema_fixup
                         }
                 } keys %relationship_map
             ];
-        }
-
-        if(exists $data->{type}) {
-            $data->{type} = MusicBrainz::Server::Entity::WorkType->new( name => $data->{type} );
         }
 
         if (exists $data->{language}) {
