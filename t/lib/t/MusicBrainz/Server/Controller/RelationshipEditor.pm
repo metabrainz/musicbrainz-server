@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Controller::RelationshipEditor;
 use Test::Routine;
 use Test::More;
+use Test::Deep qw( cmp_bag );
 use MusicBrainz::Server::Test qw( capture_edits );
 
 with 't::Context', 't::Mechanize';
@@ -43,9 +44,7 @@ test 'Can add relationship' => sub {
     is($edit->data->{type0}, 'artist');
     is($edit->data->{type1}, 'recording');
     is($edit->data->{link_type}{id}, 1);
-    is($edit->data->{attributes}->[0], 1);
-    is($edit->data->{attributes}->[1], 3);
-    is($edit->data->{attributes}->[2], 4);
+    cmp_bag($edit->data->{attributes}, [1, 3, 4]);
     is($edit->data->{begin_date}{year}, 1999);
     is($edit->data->{begin_date}{month}, 1);
     is($edit->data->{begin_date}{day}, 1);
@@ -94,9 +93,7 @@ test 'Can edit relationship' => sub {
     is($edit->data->{type0}, 'artist');
     is($edit->data->{type1}, 'recording');
     is($edit->data->{link}{link_type}{id}, 1);
-    is($edit->data->{new}{attributes}->[0], 1);
-    is($edit->data->{new}{attributes}->[1], 3);
-    is($edit->data->{new}{attributes}->[2], 4);
+    cmp_bag($edit->data->{new}{attributes}, [1, 3, 4]);
     is($edit->data->{new}{begin_date}{year}, 1999);
     is($edit->data->{new}{begin_date}{month}, 1);
     is($edit->data->{new}{begin_date}{day}, 1);
