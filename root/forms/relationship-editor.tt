@@ -40,12 +40,11 @@
             <!-- ko ifnot: showLinkOrder($parents[1]) -->
               <span data-bind="html: target($parents[1]).html({ target: '_blank' }), relationshipStyling: true"></span>
             <!-- /ko -->
-            <!-- ko with: phraseAndExtraAttributes($parents[2])[1] -->
-              (<!-- ko text: $data --><!-- /ko -->)
-            <!-- /ko -->
-            <!-- ko with: MB.utility.formatDatePeriod(period) -->
-              (<!-- ko text: $data --><!-- /ko -->)
-            <!-- /ko -->
+            <!-- ko template: {
+                      name: "template.extra-attributes-and-dates",
+                      data: { source: $parents[1], relationship: $data }
+                    }
+              --><!-- /ko -->
           </div>
         </td>
       </tr>

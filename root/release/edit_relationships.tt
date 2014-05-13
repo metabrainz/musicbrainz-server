@@ -233,10 +233,14 @@
       <div class="ar">
         <span class="remove-button" data-click="removeRelationship">&#215;</span>
         <!-- ko template: "template.link.phrase" --><!-- /ko -->:
-        <span class="entity" data-bind="html: target($parents[0]).html({ 'target': '_blank' }), css: {'rel-edit': editsPending}"></span>
-        <!-- ko with: hasDates() ? MB.utility.formatDatePeriod(period) : null -->
-          (<!-- ko text: $data --><!-- /ko -->)
-        <!-- /ko -->
+        <span class="entity"
+              data-bind="html: target($parent).html({ target: '_blank' }),
+                         css: { 'rel-edit': editsPending }"></span>
+        <!-- ko template: {
+                  name: "template.extra-attributes-and-dates",
+                  data: { source: $parents, relationship: $data }
+                }
+          --><!-- /ko -->
       </div>
     </script>
 
