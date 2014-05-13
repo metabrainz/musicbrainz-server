@@ -127,8 +127,10 @@
                 data.attributeTextValues = relationship.attributeTextValues();
             }
 
-            if (relationship.linkOrder) {
-                data.linkOrder = number(relationship.linkOrder);
+            var linkOrder = number(relationship.linkOrder);
+
+            if (linkOrder !== null) {
+                data.linkOrder = linkOrder;
             }
 
             if (relationship.hasDates()) {

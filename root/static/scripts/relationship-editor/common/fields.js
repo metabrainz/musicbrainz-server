@@ -314,7 +314,7 @@
         },
 
         moveEntityUp: function (self, event) {
-            this.linkOrder(Math.max(this.linkOrder() - 1, 1));
+            this.linkOrder(Math.max(this.linkOrder() - 1, 0));
             MB.utility.deferFocus("#relationship-" + this.uniqueID + " button.move-up");
         },
 
@@ -324,7 +324,7 @@
         },
 
         showLinkOrder: function (source) {
-            return this.linkOrder() && this.entityIsOrdered(this.target(source)) &&
+            return this.entityIsOrdered(this.target(source)) &&
                     (source.entityType !== "series" ||
                      +source.orderingTypeID() === MB.constants.SERIES_ORDERING_TYPE_MANUAL);
         },
