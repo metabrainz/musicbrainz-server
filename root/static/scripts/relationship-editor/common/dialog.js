@@ -96,14 +96,32 @@
 
             var instruments = ko.observableArray(initialData);
 
+            function focusLastInput() {
+                $(element).find(".ui-autocomplete-input:last").focus();
+            }
+
             var vm = {
                 instruments: instruments,
 
                 addItem: function () {
                     instruments.push(ko.observable(MB.entity.Instrument({})));
+                    focusLastInput();
                 },
 
-                removeItem: function (item) { instruments.remove(item) }
+                removeItem: function (item) {
+                    var index = instruments.indexOf(item);
+
+                    instruments.remove(item);
+
+                    index = index === instruments().length ? index - 1 : index;
+                    var $nextButton = $(element).find("button.remove-item:eq(" + index + ")");
+
+                    if ($nextButton.length) {
+                        $nextButton.focus();
+                    } else {
+                        focusLastInput();
+                    }
+                }
             };
 
             if (!initialData.length) vm.addItem();
