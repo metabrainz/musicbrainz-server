@@ -102,7 +102,9 @@
                 .groupBy(sortKey)
                 .each(function (relationships, key) {
                     var group = _.findWhere(oldGroups, { sortKey: key });
-                    var attributes = _.intersection.apply(_, _.invoke(relationships, "attributes"));
+
+                    var attributes = _.apply(_, _.invoke(relationships, "attributes"))
+                                      .intersection().reject(isFreeText).value();
 
                     relationships = viewModel.orderedRelationships(
                         _(relationships)
@@ -173,6 +175,10 @@
         }
     });
 
+
+    function isFreeText(id) {
+        return MB.attrInfoByID[id].freeText;
+    }
 
     function hasChanges(relationship) {
         return relationship.hasChanges();
