@@ -351,7 +351,9 @@ my %mapping = (
 sub schema_fixup_type {
     my ($self, $data, $type) = @_;
     if (exists $data->{type} && $type ~~ [qw(area artist instrument label place series release-group work)]) {
-        my $model = 'MusicBrainz::Server::Entity::' . type_to_model($type) . 'Type';
+        my $type_model = $type;
+        $type_model =~ s/-/_/g; # fix release-group to release_group
+        my $model = 'MusicBrainz::Server::Entity::' . type_to_model($type_model) . 'Type';
         $data->{type} = $model->new( name => $data->{type} );
     }
     return $data;
