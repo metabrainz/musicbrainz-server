@@ -45,9 +45,7 @@ sub search : Path('')
                 if $form->field('method')->value eq 'direct';
             $c->forward('external');
         }
-        elsif ($form->field('type')->value eq 'tag' ||
-               $form->field('type')->value eq 'instrument' ||
-               $form->field('type')->value eq 'editor')
+        elsif ($form->field('type')->value eq 'tag')
         {
             $form->field('method')->value('direct');
             $c->forward('direct');
@@ -190,8 +188,6 @@ sub external : Private
     my $query  = $form->field('query')->value;
 
     $c->stash->{query} = $query;
-
-    $c->detach('/search/editor') if $type eq 'editor';
 
     $self->do_external_search($c,
                               query    => $query,

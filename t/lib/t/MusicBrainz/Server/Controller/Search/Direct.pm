@@ -72,10 +72,10 @@ $mech->content_contains('/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'has link 
 $mech->content_contains('Country', 'has area type');
 $mech->content_contains('GB', 'has ISO-3166-1 area code');
 
-$mech->get_ok('/search?query=joe_bloggs&type=editor', 'perform editor search');
+$mech->get_ok('/search?query=joe_bloggs&type=editor&method=direct', 'perform editor search');
 html_ok($mech->content);
 $mech->content_lacks('qoe_bloggs');
-$mech->get_ok('/search?query=new_editor&type=editor', 'perform editor search');
+$mech->get_ok('/search?query=new_editor&type=editor&method=direct', 'perform editor search');
 $mech->content_contains('/user/new_editor');
 $mech->text_contains('new_editor');
 
