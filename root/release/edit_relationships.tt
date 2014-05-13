@@ -187,9 +187,9 @@
               name: 'template.relationship',
               foreach: $root.orderedRelationships(
                          _(displayRelationships($root))
-                           .sortBy(function (r) { return r.lowerCaseTargetName($parent) })
-                           .sortBy(function (r) { return r.lowerCasePhrase($parent) })
-                           .value(), $parent
+                           .sortBy(function (r) { return r.lowerCaseTargetName($data) })
+                           .sortBy(function (r) { return r.lowerCasePhrase($data) })
+                           .value(), $data
                        )
             }">
       </div>
