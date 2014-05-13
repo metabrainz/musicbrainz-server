@@ -99,7 +99,7 @@ test all => sub {
         },
         link_type => {
             long_link_phrase => 'has part',
-            link_phrase => 'parts',
+            link_phrase => 'has parts',
             name => 'part of',
             id => 2,
             reverse_link_phrase => 'part of'
@@ -125,7 +125,7 @@ test all => sub {
         },
         link_type => {
             long_link_phrase => 'has part',
-            link_phrase => 'parts',
+            link_phrase => 'has parts',
             name => 'part of',
             id => 2,
             reverse_link_phrase => 'part of'

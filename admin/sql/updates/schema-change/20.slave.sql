@@ -1054,25 +1054,25 @@ INSERT INTO link_type (gid, entity_type0, entity_type1, entity0_cardinality,
         :RECORDING_PART_OF_SERIES_GID,
         'recording', 'series', 0, 0, 'part of',
         'Indicates that the recording is part of a series.',
-        'parts', 'part of', 'is a part of'
+        'part of', 'has parts', 'is a part of'
     ),
     (
         :RELEASE_PART_OF_SERIES_GID,
         'release', 'series', 0, 0, 'part of',
         'Indicates that the release is part of a series.',
-        'part of', 'parts', 'is a part of'
+        'part of', 'has parts', 'is a part of'
     ),
     (
         :RELEASE_GROUP_PART_OF_SERIES_GID,
         'release_group', 'series', 0, 0, 'part of',
         'Indicates that the release group is part of a series.',
-        'part of', 'parts', 'is a part of'
+        'part of', 'has parts', 'is a part of'
     ),
     (
         :WORK_PART_OF_SERIES_GID,
         'series', 'work', 0, 0, 'part of',
         'Indicates that the work is part of a series.',
-        'parts', 'part of', 'has part'
+        'has parts', 'part of', 'has part'
     ),
     (
         :SERIES_WIKIPEDIA_URL_GID,

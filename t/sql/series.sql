@@ -7,13 +7,13 @@ INSERT INTO link_type (id, gid, entity_type0, entity_type1, entity0_cardinality,
         1, 'ea6f0698-6782-30d6-b16d-293081b66774',
         'recording', 'series', 0, 0, 'part of',
         'Indicates that the recording is part of a series.',
-        'parts', 'part of', 'is a part of'
+        'part of', 'has parts', 'is a part of'
     ),
     (
         2, 'b0d44366-cdf0-3acb-bee6-0f65a77a6ef0',
         'series', 'work', 0, 0, 'part of',
         'Indicates that the work is part of a series.',
-        'parts', 'part of', 'has part'
+        'has parts', 'part of', 'has part'
     ),
     (
         3, '57681e8d-4b77-40bf-9932-4a8cda1484cd',
