@@ -62,11 +62,11 @@ sub format_message
 
     if ($opts{ignored})
     {
-        return sprintf ("%s (ignored): %s", $msg->{type}, $msg->{message});
+        return sprintf("%s (ignored): %s", $msg->{type}, $msg->{message});
     }
     else
     {
-        return sprintf ("%s%s: %s\n ⤷ line %d (col %d): %s", $msg->{type},
+        return sprintf("%s%s: %s\n ⤷ line %d (col %d): %s", $msg->{type},
                         $ignored, $msg->{message}, $msg->{lastLine},
                         $msg->{firstColumn}, $msg->{extract});
 
@@ -89,11 +89,11 @@ sub save_html
     my ($Test, $content, $suffix) = @_;
 
     if ($ENV{SAVE_HTML}) {
-        my ($fh, $filename) = tempfile (
+        my ($fh, $filename) = tempfile(
             "html5_ok_XXXX", SUFFIX => $suffix, TMPDIR => 1);
-        print $fh encode ("utf-8", $content);
-        close ($fh);
-        $Test->diag ("failed output written to $filename");
+        print $fh encode("utf-8", $content);
+        close($fh);
+        $Test->diag("failed output written to $filename");
     };
 }
 
@@ -111,19 +111,19 @@ sub xhtml_ok
 
     $message ||= "well-formed XHTML";
 
-    eval { XML::LibXML->load_xml (string => $content); };
+    eval { XML::LibXML->load_xml(string => $content); };
     if ($@)
     {
-        foreach (split "\n", $@->as_string ())
+        foreach (split "\n", $@->as_string())
         {
             $Test->diag($_);
         }
-        save_html ($Test, $content, ".xml");
-        return $Test->ok (0, $message);
+        save_html($Test, $content, ".xml");
+        return $Test->ok(0, $message);
     }
     else
     {
-        return $Test->ok (1, $message);
+        return $Test->ok(1, $message);
     }
 }
 
@@ -140,7 +140,7 @@ sub html5_ok
 
     $message ||= "valid HTML5";
 
-    unless (utf8::is_utf8 ($content)) {
+    unless (utf8::is_utf8($content)) {
         $Test->ok(0, "$message, need to know encoding of content");
         return;
     }
@@ -154,29 +154,29 @@ sub html5_ok
 
 
     my $ua = LWP::UserAgent->new;
-    $ua->timeout (10);
+    $ua->timeout(10);
 
     my $request = HTTP::Request->new(POST => $url);
-    $request->header ('Content-Type', 'text/html');
-    $request->content (encode ("utf-8", $content));
+    $request->header('Content-Type', 'text/html');
+    $request->content(encode("utf-8", $content));
 
     my $all_ok = 1;
 
     my $response = $ua->request($request);
     if ($response->is_success)
     {
-        my $report = decode_json ($response->content);
+        my $report = decode_json($response->content);
         for my $msg (@{ $report->{messages} })
         {
             next if $msg->{type} eq "info";
 
-            if (ignore_warning ($msg))
+            if (ignore_warning($msg))
             {
-                $Test->diag(format_message ($msg, "ignored" => 1));
+                $Test->diag(format_message($msg, "ignored" => 1));
             }
             else
             {
-                $Test->diag(format_message ($msg));
+                $Test->diag(format_message($msg));
                 $all_ok = 0;
             }
         }
@@ -187,7 +187,7 @@ sub html5_ok
         $message .= ", Could not connect to ".$url;
     }
 
-    save_html ($Test, $content, ".html") unless $all_ok;
+    save_html($Test, $content, ".html") unless $all_ok;
 
     $Test->ok($all_ok, $message);
 }

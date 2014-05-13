@@ -74,7 +74,7 @@ sub BUILD
         $methods{$arg}->set_value($self, 1);
     }
 
-    $self->media (1) if ($self->discids);
+    $self->media(1) if ($self->discids);
 }
 
 __PACKAGE__->meta->make_immutable;

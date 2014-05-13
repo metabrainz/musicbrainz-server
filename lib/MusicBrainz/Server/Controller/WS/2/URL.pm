@@ -40,9 +40,9 @@ sub url : Chained('load') PathPart('')
     return unless defined $url;
 
     my $stash = WebServiceStash->new;
-    my $opts = $stash->store ($url);
+    my $opts = $stash->store($url);
 
-    $self->url_toplevel ($c, $stash, $url);
+    $self->url_toplevel($c, $stash, $url);
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('url', $url, $c->stash->{inc}, $stash));
@@ -52,7 +52,7 @@ sub url_toplevel
 {
     my ($self, $c, $stash, $url) = @_;
 
-    my $opts = $stash->store ($url);
+    my $opts = $stash->store($url);
 
     $self->load_relationships($c, $stash, $url);
 }
@@ -72,7 +72,7 @@ sub url_browse : Private
 
     my $stash = WebServiceStash->new;
 
-    $self->url_toplevel ($c, $stash, $url);
+    $self->url_toplevel($c, $stash, $url);
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('url', $url, $c->stash->{inc}, $stash));

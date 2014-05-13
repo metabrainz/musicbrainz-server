@@ -27,10 +27,10 @@ END -%]
             [%- FOR rating IN [ 1 .. 5 ] -%]
                 [%- IF rating == current_star_rating -%]
                 <a href="[% rating_rate_url(entity, 0) | html %]" class="stars-[% rating %] remove-rating"
-                   title="[% rating_tooltip (0) %]">[% rating %]</a>
+                   title="[% rating_tooltip(0) %]">[% rating %]</a>
                 [%- ELSE -%]
                 <a href="[% rating_rate_url(entity, rating) | html %]" class="stars-[% rating %] set-rating"
-                   title="[% rating_tooltip (rating) %]">[% rating %]</a>
+                   title="[% rating_tooltip(rating) %]">[% rating %]</a>
                 [%- END -%]
             [%- END -%]
         [%- END -%]

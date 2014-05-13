@@ -45,7 +45,7 @@ for my $name (MusicBrainz::Server::ReportFactory->all_report_names) {
         }
 
         waitpid($child, 0);
-        if(($? >> 8) == 42) {
+        if (($? >> 8) == 42) {
             die "Report took over 1 hour to run";
         }
     };

@@ -24,26 +24,26 @@ MB.Control.HeaderMenu = function () {
     self.timeout = null;
     self.timeout_msecs = 200;
 
-    $('#header-menu > div > ul > li').bind ('mouseenter.mb', function (event) {
+    $('#header-menu > div > ul > li').bind('mouseenter.mb', function (event) {
         if (self.timeout) {
-            clearTimeout (self.timeout);
-            $('#header-menu ul li ul').css ('left', '-10000px');
+            clearTimeout(self.timeout);
+            $('#header-menu ul li ul').css('left', '-10000px');
         }
 
-        $(this).children ('ul').css ('left', 'auto');
+        $(this).children('ul').css('left', 'auto');
     });
 
-    $('#header-menu ul li').bind ('mouseleave.mb', function (event) {
-        var ul = $(this).children ('ul');
+    $('#header-menu ul li').bind('mouseleave.mb', function (event) {
+        var ul = $(this).children('ul');
 
-        self.timeout = setTimeout (function () {
-            ul.css ('left', '-10000px');
+        self.timeout = setTimeout(function () {
+            ul.css('left', '-10000px');
         }, self.timeout_msecs);
     });
 
     return self;
 }
 
-$(document).ready (function() {
-    MB.Control.header_menu = MB.Control.HeaderMenu ();
+$(document).ready(function () {
+    MB.Control.header_menu = MB.Control.HeaderMenu();
 });

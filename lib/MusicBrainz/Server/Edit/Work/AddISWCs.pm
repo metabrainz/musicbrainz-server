@@ -41,7 +41,7 @@ sub initialize
     my ($self, %opts) = @_;
     my @iswcs = $self->c->model('ISWC')->filter_additions(@{ $opts{iswcs} });
 
-    if(@iswcs == 0) {
+    if (@iswcs == 0) {
         MusicBrainz::Server::Edit::Exceptions::NoChanges->throw;
     }
     else {

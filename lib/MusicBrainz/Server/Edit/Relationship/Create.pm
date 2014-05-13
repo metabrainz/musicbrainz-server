@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Relationship::Create;
 use Moose;
 
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Relationship';
@@ -69,6 +69,8 @@ sub initialize
             delete $opts{attribute_text_values};
         }
     }
+
+    delete $opts{attribute_text_values} unless %{ $opts{attribute_text_values} // {} };
 
     die "Entities in a relationship cannot be the same"
         if $lt->entity0_type eq $lt->entity1_type && $e0->id == $e1->id;

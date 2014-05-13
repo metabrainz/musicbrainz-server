@@ -1,4 +1,4 @@
-$(function() {
+$(function () {
 
     cardinalityMap = {
         'id': {
@@ -23,7 +23,7 @@ $(function() {
 
     var conditionCounter = 0;
 
-    $(document).on("change", "#extra-condition select", function() {
+    $(document).on("change", "#extra-condition select", function () {
         var newCondition = $(this).parent('li');
 
         var append = newCondition.clone();
@@ -40,13 +40,13 @@ $(function() {
 
         newCondition.find('button.remove').show();
 
-    }).on("click", "ul.conditions li.condition button.remove", function() {
+    }).on("click", "ul.conditions li.condition button.remove", function () {
         $(this).parent('li').remove();
 
-    }).on("change", "ul.conditions select.field", function() {
+    }).on("change", "ul.conditions select.field", function () {
         var val = $(this).val();
         var $replacement = $('#fields .field-' + val).clone();
-        if($replacement.length) {
+        if ($replacement.length) {
             var $li = $(this).parent('li');
             $li.find('span.field-container span.field').replaceWith($replacement);
 
@@ -55,11 +55,11 @@ $(function() {
                 .show()
                 .find('select.operator').trigger('change');
 
-            $li.find('span.autocomplete').each(function() {
+            $li.find('span.autocomplete').each(function () {
                 MB.Control.EntityAutocomplete({ 'inputs': $(this) });
             });
 
-            $li.find(':input').each(function() {
+            $li.find(':input').each(function () {
                 addInputNamePrefix($(this));
             });
 
@@ -69,7 +69,7 @@ $(function() {
             console.error('There is no field-' + val);
         }
 
-    }).on("change", "ul.conditions select.operator", function() {
+    }).on("change", "ul.conditions select.operator", function () {
         var $field = $(this).parent('span.field');
 
         var predicate = filteredClassName($field, 'predicate-');
@@ -85,7 +85,7 @@ $(function() {
     }
 
     function addInputNamePrefix($input) {
-        if ($input.attr ('name'))
+        if ($input.attr('name'))
         {
             $input.attr('name', prefixedInputName($input));
         }
@@ -95,7 +95,7 @@ $(function() {
         var classList = $element.attr('class').split(/\s+/);
         var ret;
         for (i = 0; i < classList.length; i++) {
-            if(classList[i].substring(0, prefix.length) === prefix) {
+            if (classList[i].substring(0, prefix.length) === prefix) {
                 ret = classList[i].substring(prefix.length);
                 break;
             }
@@ -108,14 +108,14 @@ $(function() {
     $('ul.conditions li.condition select.operator').trigger('change');
     $('ul.conditions li.condition button.remove').show();
 
-    $('ul.conditions li.condition').each(function() {
-        $(this).find(':input').each(function() {
+    $('ul.conditions li.condition').each(function () {
+        $(this).find(':input').each(function () {
             addInputNamePrefix($(this));
         });
         conditionCounter++;
     });
 
-    $('ul.conditions span.autocomplete').each(function() {
+    $('ul.conditions span.autocomplete').each(function () {
         MB.Control.EntityAutocomplete({ 'inputs': $(this) });
     });
 

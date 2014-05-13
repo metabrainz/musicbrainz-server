@@ -8,7 +8,7 @@ use MusicBrainz::Server::Constants qw(
 );
 use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_type_and_status );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 

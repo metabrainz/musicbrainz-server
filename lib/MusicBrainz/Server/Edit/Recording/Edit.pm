@@ -19,7 +19,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     boolean_from_json
 );
 use MusicBrainz::Server::Track;
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 no if $] >= 5.018, warnings => "experimental::smartmatch";

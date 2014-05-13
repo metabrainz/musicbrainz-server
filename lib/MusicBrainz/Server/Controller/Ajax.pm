@@ -16,7 +16,7 @@ sub lookup_tracklist : Local
 
     my $release_name = $c->req->query_params->{release};
     my $offset = $c->req->query_params->{offset} || 0;
-    my $limit = min ($c->req->query_params->{limit} || 10), 100;
+    my $limit = min($c->req->query_params->{limit} || 10), 100;
 
     if ($release_name) {
         my ($search_results, $hits) = $c->model('Search')->search('release',
@@ -44,7 +44,7 @@ sub search : Local
     my $query = $c->req->query_params->{query};
     my $type = $c->req->query_params->{type};
     my $offset = $c->req->query_params->{offset} || 0;
-    my $limit = min ($c->req->query_params->{limit} || 10), 100;
+    my $limit = min($c->req->query_params->{limit} || 10), 100;
 
     my $json = {};
     if ($query && $type)

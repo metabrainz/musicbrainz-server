@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::ReleaseGroup::Delete;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_DELETE );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Delete';
 with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities';

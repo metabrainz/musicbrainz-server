@@ -47,7 +47,7 @@ sub lookup : Chained('load') PathPart('')
         my @releases = grep { $_->target_type eq 'release' } @{$c->stash->{data}->{rels}};
         for (@releases)
         {
-            $_->target->release_group (
+            $_->target->release_group(
                 $c->model('ReleaseGroup')->get_by_id($_->target->release_group_id));
         }
         $c->model('ReleaseStatus')->load(map { $_->target } @releases);

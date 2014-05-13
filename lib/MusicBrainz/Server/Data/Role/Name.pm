@@ -32,7 +32,7 @@ role
             my $search_term = delete $row->{search_term};
 
             $ret{$search_term} ||= [];
-            push @{ $ret{$search_term} }, $self->_new_from_row ($row);
+            push @{ $ret{$search_term} }, $self->_new_from_row($row);
         }
 
         return \%ret;

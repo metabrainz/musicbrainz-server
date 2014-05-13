@@ -195,7 +195,7 @@ function examplePrefix(i, s) {
 </form>
 
 <script type="text/javascript">
-    MB.utility.setDefaultAction (
+    MB.utility.setDefaultAction(
         'form.edit-relationship',
         'form.edit-relationship button[type="submit"]'
     );

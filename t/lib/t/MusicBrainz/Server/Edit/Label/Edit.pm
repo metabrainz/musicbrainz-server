@@ -92,8 +92,8 @@ test 'Check conflicts (non-conflicting edits)' => sub {
     ok !exception { $edit_2->accept }, 'accepted edit 2';
 
     my $label = $c->model('Label')->get_by_id(2);
-    is ($label->name, 'Renamed label', 'label renamed');
-    is ($label->comment, 'Comment change', 'comment changed');
+    is($label->name, 'Renamed label', 'label renamed');
+    is($label->comment, 'Comment change', 'comment changed');
 
     # check IPI code non-conflict
     my $edit_3 = $c->model('Edit')->create(
@@ -151,8 +151,8 @@ test 'Check conflicts (conflicting edits)' => sub {
     ok  exception { $edit_2->accept }, 'could not accept edit 2';
 
     my $label = $c->model('Label')->get_by_id(2);
-    is ($label->name, 'Renamed label', 'label name from edit 1');
-    is ($label->comment, '', 'no comment');
+    is($label->name, 'Renamed label', 'label name from edit 1');
+    is($label->comment, '', 'no comment');
 };
 
 test 'Editing two labels into a conflict fails gracefully' => sub {

@@ -355,7 +355,7 @@ sub _seeded_event
         $result->{date} = PartialDate->new(%$date)->format if %$date;
     }
 
-    if (my $iso = uc ($params->{country} // '')) {
+    if (my $iso = uc($params->{country} // '')) {
         my $country = $c->model('Area')->get_by_iso_3166_1($iso)->{$iso};
 
         if ($country) {

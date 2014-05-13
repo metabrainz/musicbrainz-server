@@ -17,7 +17,7 @@ with 'MusicBrainz::Server::Controller::Role::Tag';
 use List::Util qw( first );
 use List::MoreUtils qw( part uniq );
 use List::UtilsBy 'nsort_by';
-use MusicBrainz::Server::Translation qw ( l ln );
+use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Constants qw( :edit_type );
 use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
 use MusicBrainz::Server::Form::Utils qw(
@@ -303,7 +303,7 @@ sub collections : Chained('load') RequireAuth
     # Keep public collections;
     # count private collection
     foreach my $collection (@all_collections) {
-        push (@public_collections, $collection)
+        push(@public_collections, $collection)
             if ($collection->{'public'} == 1);
         $private_collections++
             if ($collection->{'public'} == 0);
@@ -331,7 +331,7 @@ sub cover_art_uploader : Chained('load') PathPart('cover-art-uploader') Edit
     my $entity = $c->stash->{$self->{entity_name}};
     my $bucket = 'mbid-' . $entity->gid;
     my $redirect = $c->uri_for_action('/release/cover_art_uploaded',
-                                      [ $entity->gid ])->as_string ();
+                                      [ $entity->gid ])->as_string();
 
     $c->stash->{form_action} = DBDefs->COVER_ART_ARCHIVE_UPLOAD_PREFIXER($bucket);
 }
@@ -361,10 +361,10 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit
         id => $id,
         index_url => DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $entity->gid . "/",
         images => \@artwork,
-        cover_art_types_json => $json->encode (
+        cover_art_types_json => $json->encode(
             [ map {
                 { name => $_->name, l_name => $_->l_name, id => $_->id }
-            } $c->model('CoverArtType')->get_all () ]),
+            } $c->model('CoverArtType')->get_all() ]),
     });
 
     my $form = $c->form(
@@ -383,9 +383,9 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit
                 release => $entity,
                 cover_art_types => [
                     grep { defined $_ && looks_like_number($_) }
-                        @{ $form->field ("type_id")->value }
+                        @{ $form->field("type_id")->value }
                     ],
-                cover_art_position => $form->field ("position")->value,
+                cover_art_position => $form->field("position")->value,
                 cover_art_id => $form->field('id')->value,
                 cover_art_comment => $form->field('comment')->value || '',
                 cover_art_mime_type => $form->field('mime_type')->value,
@@ -409,8 +409,8 @@ sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') Edit
         $c->detach;
     }
 
-    my $artwork = $c->model ('Artwork')->find_by_release ($entity);
-    $c->model ('CoverArtType')->load_for (@$artwork);
+    my $artwork = $c->model('Artwork')->find_by_release($entity);
+    $c->model('CoverArtType')->load_for(@$artwork);
 
     $c->stash( images => $artwork );
 
@@ -430,7 +430,7 @@ sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') Edit
                 edit_type => $EDIT_RELEASE_REORDER_COVER_ART,
                 release => $entity,
                 old => \@positions,
-                new => $form->field ("artwork")->value
+                new => $form->field("artwork")->value
             );
         });
 
@@ -638,7 +638,7 @@ sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit
         index_url => DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $entity->gid . "/"
     });
 
-    my @type_ids = map { $_->id } $c->model ('CoverArtType')->get_by_name (@{ $artwork->types });
+    my @type_ids = map { $_->id } $c->model('CoverArtType')->get_by_name(@{ $artwork->types });
 
     my $form = $c->form(
         form => 'Release::EditCoverArt',
@@ -657,7 +657,7 @@ sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit
                 artwork_id => $artwork->id,
                 old_types => [ grep { defined $_ && looks_like_number($_) } @type_ids ],
                 old_comment => $artwork->comment,
-                new_types => [ grep { defined $_ && looks_like_number($_) } @{ $form->field ("type_id")->value } ],
+                new_types => [ grep { defined $_ && looks_like_number($_) } @{ $form->field("type_id")->value } ],
                 new_comment => $form->field('comment')->value || '',
             );
         });
@@ -700,8 +700,8 @@ sub cover_art : Chained('load') PathPart('cover-art') {
     my $release = $c->stash->{entity};
     $c->model('Release')->load_meta($release);
 
-    my $artwork = $c->model ('Artwork')->find_by_release ($release);
-    $c->model ('CoverArtType')->load_for (@$artwork);
+    my $artwork = $c->model('Artwork')->find_by_release($release);
+    $c->model('CoverArtType')->load_for(@$artwork);
 
     $c->stash(cover_art => $artwork);
 }

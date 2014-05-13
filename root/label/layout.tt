@@ -19,7 +19,7 @@
                         [% WRAPPER 'layout/sidebar/property.tt' label=l("Defunct:") class="defunct" %]
                             [% label.end_date.format %]
                             [% IF label.has_age %]
-                                ([% display_age (label.age) %])
+                                ([% display_age(label.age) %])
                             [% END %]
                         [% END %]
                     [% ELSIF label.ended %]

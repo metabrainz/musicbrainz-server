@@ -150,8 +150,8 @@ test 'Check conflicts (non-conflicting edits)' => sub {
     ok !exception { $edit_2->accept }, 'accepted edit 2';
 
     my $artist = $c->model('Artist')->get_by_id(2);
-    is ($artist->name, 'Renamed artist', 'artist renamed');
-    is ($artist->comment, 'Comment change', 'comment changed');
+    is($artist->name, 'Renamed artist', 'artist renamed');
+    is($artist->comment, 'Comment change', 'comment changed');
 };
 
 test 'Check conflicts (conflicting edits)' => sub {
@@ -183,9 +183,9 @@ test 'Check conflicts (conflicting edits)' => sub {
     ok  exception { $edit_2->accept }, 'could not accept edit 2';
 
     my $artist = $c->model('Artist')->get_by_id(2);
-    is ($artist->name, 'Renamed artist', 'artist renamed');
-    is ($artist->sort_name, 'Sort FOO', 'comment changed');
-    is ($artist->comment, '');
+    is($artist->name, 'Renamed artist', 'artist renamed');
+    is($artist->sort_name, 'Sort FOO', 'comment changed');
+    is($artist->comment, '');
 };
 
 test 'Check IPI changes' => sub {
@@ -298,9 +298,9 @@ test 'Edits are idempotent' => sub {
     ok !exception { $edit_2->accept }, 'accepted edit 2';
 
     my $artist = $c->model('Artist')->get_by_id(2);
-    is ($artist->name, 'Renamed artist', 'artist renamed');
-    is ($artist->sort_name, 'Sort FOO', 'comment changed');
-    is ($artist->comment, '');
+    is($artist->name, 'Renamed artist', 'artist renamed');
+    is($artist->sort_name, 'Sort FOO', 'comment changed');
+    is($artist->comment, '');
 };
 
 sub _create_full_edit {

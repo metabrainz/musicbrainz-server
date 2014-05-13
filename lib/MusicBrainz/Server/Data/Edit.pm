@@ -167,7 +167,7 @@ sub find_by_collection
 sub find_for_subscription
 {
     my ($self, $subscription) = @_;
-    if($subscription->isa(EditorSubscription)) {
+    if ($subscription->isa(EditorSubscription)) {
         my $query = 'SELECT ' . $self->_columns . ' FROM edit
                       WHERE id > ? AND editor = ? AND status IN (?, ?)';
 
@@ -179,7 +179,7 @@ sub find_for_subscription
             $STATUS_OPEN, $STATUS_APPLIED
         );
     }
-    elsif($subscription->isa(CollectionSubscription)) {
+    elsif ($subscription->isa(CollectionSubscription)) {
         return () if (!$subscription->available);
 
         my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
@@ -286,15 +286,16 @@ SELECT * FROM edit, (
     JOIN editor_subscribe_label esl ON esl.label = el.label
     WHERE el.status = ? AND esl.editor = ?
     UNION
-    SELECT edit FROM edit_series es
-    JOIN editor_subscribe_series ess ON ess.series = es.series
-    WHERE es.status = ? AND ess.editor = ?
-    UNION
     SELECT edit FROM edit_release er
     RIGHT JOIN editor_collection_release ec ON er.release = ec.release
     JOIN editor_subscribe_collection esc ON esc.collection = ec.collection
     JOIN edit ON er.edit = edit.id
     WHERE edit.status = ? AND esc.editor = ? AND esc.available
+    UNION
+    SELECT edit FROM edit_series es
+    JOIN editor_subscribe_series ess ON ess.series = es.series
+    JOIN edit ON es.edit = edit.id
+    WHERE edit.status = ? AND ess.editor = ?
 ) edits
 WHERE edit.id = edits.edit
 AND edit.status = ?
@@ -313,10 +314,9 @@ OFFSET ?";
             return $self->_new_from_row(shift);
         },
         $query,
-        $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id,
-        $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id,
-        $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id,
-        $editor_id, $offset
+        ($STATUS_OPEN, $editor_id) x 4, # per subscription model
+        $STATUS_OPEN, $editor_id,       # Edit is open, editor not current one
+        $editor_id, $offset             # Editor has not voted, offset
     );
 }
 
@@ -386,7 +386,7 @@ sub preview
     my $class = MusicBrainz::Server::EditRegistry->class_from_type($type)
         or confess "Could not lookup edit type for $type";
 
-    unless ($class->does ('MusicBrainz::Server::Edit::Role::Preview'))
+    unless ($class->does('MusicBrainz::Server::Edit::Role::Preview'))
     {
         warn "FIXME: $class does not support previewing.\n";
         return undef;
@@ -519,7 +519,7 @@ sub load_all
     @edits = grep { $_->has_data } @edits;
 
     my $objects_to_load  = {}; # Objects loaded with get_by_id
-    my $post_load_models = {}; # Objects loaded with ->load (after get_by_id)
+    my $post_load_models = {}; # Objects loaded with ->load(after get_by_id)
 
     for my $edit (@edits) {
         my $edit_references = $edit->foreign_keys;

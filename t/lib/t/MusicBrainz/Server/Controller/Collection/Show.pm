@@ -21,7 +21,7 @@ test 'Collection view has link back to all collections (signed in)' => sub {
     my $mech = $test->mech;
 
     $mech->get_ok('/collection/f34c079d-374e-4436-9448-da92dedef3cd');
-    my $tx = test_xpath_html ($mech->content);
+    my $tx = test_xpath_html($mech->content);
 
     $tx->ok('//div[@id="content"]/div/p/span[@class="small"]/a[contains(@href,"/editor1/collections")]',
             'contains link');
@@ -34,7 +34,7 @@ test 'Collection view has link back to all collections (not yours)' => sub {
     my $mech = $test->mech;
 
     $mech->get_ok('/collection/f34c079d-374e-4436-9448-da92dedef3cb');
-    my $tx = test_xpath_html ($mech->content);
+    my $tx = test_xpath_html($mech->content);
 
     $tx->ok('//div[@id="content"]/div/p/span[@class="small"]/a[contains(@href,"/editor2/collections")]',
             'contains link');
@@ -55,7 +55,7 @@ test 'Collection view does not include description when there is none' => sub {
     my $mech = $test->mech;
 
     $mech->get_ok('/collection/f34c079d-374e-4436-9448-da92dedef3cd');
-    my $tx = test_xpath_html ($mech->content);
+    my $tx = test_xpath_html($mech->content);
 
     $tx->not_ok('//div[@id=collection]', 'no description element');
 

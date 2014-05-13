@@ -491,7 +491,7 @@ sub delete
     $self->tags->delete(@group_ids);
     $self->rating->delete(@group_ids);
     $self->remove_gid_redirects(@group_ids);
-    $self->c->model('ReleaseGroupSecondaryType')->delete_entities (@group_ids);
+    $self->c->model('ReleaseGroupSecondaryType')->delete_entities(@group_ids);
 
     $self->sql->do('DELETE FROM release_group WHERE id IN (' . placeholders(@group_ids) . ')', @group_ids);
     return;
@@ -542,7 +542,7 @@ sub _merge_impl
     $self->rating->merge($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('release_group', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('release_group', $new_id, @old_ids);
-    $self->c->model('ReleaseGroupSecondaryType')->merge_entities ($new_id, @old_ids);
+    $self->c->model('ReleaseGroupSecondaryType')->merge_entities($new_id, @old_ids);
     $self->c->model('CoverArtArchive')->merge_release_groups($new_id, @old_ids);
 
     merge_table_attributes(
@@ -594,7 +594,7 @@ sub has_cover_art_set
             FROM cover_art_archive.release_group_cover_art
             WHERE release_group = ?";
 
-    return $self->sql->select_single_value ($query, $rg_id);
+    return $self->sql->select_single_value($query, $rg_id);
 }
 
 sub set_cover_art {
@@ -620,7 +620,7 @@ sub unset_cover_art {
 sub merge_releases {
     my ($self, $new_id, @old_ids) = @_;
 
-    my $rg_ids = $self->c->sql->select_list_of_hashes (
+    my $rg_ids = $self->c->sql->select_list_of_hashes(
         "SELECT release_group, id FROM release WHERE id IN ("
         . placeholders ($new_id, @old_ids) . ")", $new_id, @old_ids);
 
@@ -632,7 +632,7 @@ sub merge_releases {
     };
 
     my @release_group_ids = keys %release_group_ids;
-    my $rg_cover_art = $self->c->sql->select_list_of_hashes (
+    my $rg_cover_art = $self->c->sql->select_list_of_hashes(
         "SELECT release_group, release
          FROM cover_art_archive.release_group_cover_art
          WHERE release_group IN (" . placeholders (@release_group_ids) . ")",
@@ -650,7 +650,7 @@ sub merge_releases {
             # The new release group is the same as the old release group
             # - if the release group cover art is set to one of the old ids,
             #   move it to the new id.
-            $self->set_cover_art ($new_rg, $new_id)
+            $self->set_cover_art($new_rg, $new_id)
                 if ($has_cover_art{$new_rg} // 0) == $old_id;
         }
         else
@@ -658,7 +658,7 @@ sub merge_releases {
             # The new release group is different from the old release group
             # - if the old release group cover art is set to the id being moved,
             #   unset the old cover art
-            $self->unset_cover_art ($old_rg)
+            $self->unset_cover_art($old_rg)
                 if ($has_cover_art{$old_rg} // 0) == $old_id;
 
             # Do not change the new release group cover art, regardless of

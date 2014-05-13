@@ -24,7 +24,7 @@ MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
 MB.GuessCase._Label = function () {
     var self = {};
 
-    self.gc = MB.GuessCase.Main ();
+    self.gc = MB.GuessCase.Main();
 
     self.guess = self.gc.guessLabel;
     self.sortname = self.gc.guessLabelSortname;
@@ -32,8 +32,8 @@ MB.GuessCase._Label = function () {
     return self;
 };
 
-$('document').ready (function () {
+$('document').ready(function () {
 
-    MB.GuessCase.label = MB.GuessCase._Label ();
+    MB.GuessCase.label = MB.GuessCase._Label();
 
 });

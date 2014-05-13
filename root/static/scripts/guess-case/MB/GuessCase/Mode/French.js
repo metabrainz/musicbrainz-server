@@ -26,11 +26,11 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
  * Models the "French" GuessCase mode.
  **/
 MB.GuessCase.Mode.French = function () {
-    var self = MB.GuessCase.Mode.Base ();
+    var self = MB.GuessCase.Mode.Base();
 
     self.setConfig('French', MB.text.GuessCaseDescriptionFrench);
 
-    self.runFinalChecks = function(is) {
+    self.runFinalChecks = function (is) {
     os = is.replace(/([!\?;:]+)/gi, " $1");
     os = os.replace(/([«]+)/gi, "$1 ");
     os = os.replace(/([»]+)/gi, " $1");

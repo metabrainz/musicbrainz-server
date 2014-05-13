@@ -145,7 +145,7 @@ if (my $totalrows = $sql->select($query))
 
         $p->("", "");
 
-    while(@row = $sql->next_row)
+    while (@row = $sql->next_row)
     {
         my $XID = $row[0];
         my $maxSeqId = $row[1];
@@ -175,7 +175,7 @@ if (my $totalrows = $sql->select($query))
         };
         while ($pull->())
         {
-            while(@row2 = $sql2->next_row)
+            while (@row2 = $sql2->next_row)
             {
                 # TODO: Figure out how to handle errors here
                 if (!mirrorCommand($row2[2], $sql2, $slave, \@row2, $XID, $pull))
@@ -245,19 +245,19 @@ sub mirrorCommand
     $row->[1] = $table;
     my $t = ($bytable{$table} ||= [0,0,0]);
 
-    if($op eq 'i')
+    if ($op eq 'i')
     {
         ++$ins;
         ++$t->[0];
         return mirrorInsert($result, $slave, $row, $transId);
     }
-    elsif($op eq 'd')
+    elsif ($op eq 'd')
     {
         ++$del;
         ++$t->[2];
         return mirrorDelete($result, $slave, $row, $transId);
     }
-    elsif($op eq 'u')
+    elsif ($op eq 'u')
     {
         ++$upd;
         ++$t->[1];

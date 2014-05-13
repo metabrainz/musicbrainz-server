@@ -8,7 +8,7 @@ use MusicBrainz::Server::Edit::Utils qw( conditions_without_autoedit );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Medium::Util ':all';
 use MusicBrainz::Server::Entity::Types;
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
@@ -48,7 +48,7 @@ sub foreign_keys
     $fk{MediumFormat} = { $self->data->{format_id} => [] };
     $fk{Release} = { $self->data->{release_id} => [qw( ArtistCredit )] };
 
-    tracklist_foreign_keys (\%fk, $self->data->{tracklist});
+    tracklist_foreign_keys(\%fk, $self->data->{tracklist});
 
     return \%fk;
 }
@@ -60,7 +60,7 @@ sub build_display_data
     return {
         format => $loaded->{MediumFormat}->{ $self->data->{format_id} },
         release => $loaded->{Release}->{ $self->data->{release_id} },
-        tracks => display_tracklist ($loaded, $self->data->{tracklist}),
+        tracks => display_tracklist($loaded, $self->data->{tracklist}),
         name => $self->data->{name},
         position => $self->data->{position},
     }
@@ -72,8 +72,8 @@ sub initialize
 
     my $medium = $args{medium} or die 'Missing required medium object';
 
-    $self->c->model('Track')->load_for_mediums ($medium);
-    $self->c->model('ArtistCredit')->load ($medium->all_tracks);
+    $self->c->model('Track')->load_for_mediums($medium);
+    $self->c->model('ArtistCredit')->load($medium->all_tracks);
 
     $self->data({
         medium_id => $medium->id,

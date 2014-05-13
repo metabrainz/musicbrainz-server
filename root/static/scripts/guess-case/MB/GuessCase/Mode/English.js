@@ -26,7 +26,7 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
  * Models the "English" GuessCase mode.
  **/
 MB.GuessCase.Mode.English = function () {
-    var self = MB.GuessCase.Mode.Base ();
+    var self = MB.GuessCase.Mode.Base();
 
     self.setConfig('English', MB.text.GuessCaseDescriptionEnglish);
 

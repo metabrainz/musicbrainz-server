@@ -4,7 +4,7 @@ use Moose;
 use MusicBrainz::Server::Constants qw(
     $EDIT_HISTORIC_REMOVE_RELEASE_EVENTS
 );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit::Historic::EditReleaseEventsOld';
 

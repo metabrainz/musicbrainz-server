@@ -7,7 +7,7 @@ use MooseX::Types::Structured qw( Dict );
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADD_COVER_ART );
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::Artwork';
@@ -106,7 +106,7 @@ sub build_display_data {
         Release->new( name => $self->data->{entity}{name} );
 
     my $suffix = $self->data->{cover_art_mime_type}
-        ? $self->c->model('CoverArt')->image_type_suffix ($self->data->{cover_art_mime_type})
+        ? $self->c->model('CoverArt')->image_type_suffix($self->data->{cover_art_mime_type})
         : "jpg";
 
     my $artwork = Artwork->new(release => $release,
@@ -129,7 +129,7 @@ sub restore {
     $data->{cover_art_mime_type} = 'image/jpeg'
         unless exists $data->{cover_art_mime_type};
 
-    $self->data ($data);
+    $self->data($data);
 }
 
 1;

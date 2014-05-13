@@ -103,7 +103,7 @@ sub age
     my $end = $self->end_date;
 
     my @end_YMD = $end->is_empty ? Today : $self->_YMD ($end);
-    my ($y, $m, $d) = N_Delta_YMD ($self->_YMD ($begin), @end_YMD);
+    my ($y, $m, $d) = N_Delta_YMD($self->_YMD ($begin), @end_YMD);
 
     return ($y, $m, $d);
 }

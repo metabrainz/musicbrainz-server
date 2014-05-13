@@ -19,7 +19,7 @@ use Readonly;
 use Scalar::Util 'blessed';
 use Sql;
 use Storable;
-use Text::Trim qw ();
+use Text::Trim qw();
 
 our @EXPORT_OK = qw(
     add_partial_date_to_row
@@ -340,11 +340,11 @@ sub collapse_whitespace {
 
 sub trim {
     # Remove leading and trailing space
-    my $t = Text::Trim::trim (shift);
+    my $t = Text::Trim::trim(shift);
 
     $t = remove_invalid_characters($t);
 
-    return collapse_whitespace ($t);
+    return collapse_whitespace($t);
 }
 
 sub remove_invalid_characters {

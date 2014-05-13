@@ -14,7 +14,7 @@ test "/search portal" => sub {
     $mech->get_ok('/search');
     html_ok($mech->content);
 
-    my $tx = test_xpath_html ($mech->content);
+    my $tx = test_xpath_html($mech->content);
     $tx->ok(selector_to_xpath('.searchform form'),
             sub {
                 $_->not_ok(selector_to_xpath('.error'),

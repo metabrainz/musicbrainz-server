@@ -53,13 +53,13 @@ sub releases_get : Chained('load') PathPart('releases') Args(0)
 
     my $stash = WebServiceStash->new;
 
-    my $opts = $stash->store ($collection);
+    my $opts = $stash->store($collection);
 
-    $self->linked_lists ($c, $stash, [ $collection ]);
+    $self->linked_lists($c, $stash, [ $collection ]);
 
     $c->model('Editor')->load($collection);
 
-    my ($limit, $offset) = $self->_limit_and_offset ($c);
+    my ($limit, $offset) = $self->_limit_and_offset($c);
     my @results = $c->model('Release')->find_by_collection($collection->id, $limit, $offset);
 
     $opts->{releases} = $self->make_list(@results);
@@ -85,7 +85,7 @@ sub releases : Chained('load') PathPart('releases') Args(1) {
 
     my @gids = split /;/, $releases;
 
-    $self->_error ($c, "All releases must have an MBID present")
+    $self->_error($c, "All releases must have an MBID present")
         unless all { defined } (@gids);
 
     for my $gid (@gids) {

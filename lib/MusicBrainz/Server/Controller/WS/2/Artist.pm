@@ -49,9 +49,9 @@ sub artist : Chained('load') PathPart('')
     return unless defined $artist;
 
     my $stash = WebServiceStash->new;
-    my $opts = $stash->store ($artist);
+    my $opts = $stash->store($artist);
 
-    $self->artist_toplevel ($c, $stash, $artist);
+    $self->artist_toplevel($c, $stash, $artist);
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('artist', $artist, $c->stash->{inc}, $stash));
@@ -61,9 +61,9 @@ sub artist_toplevel
 {
     my ($self, $c, $stash, $artist) = @_;
 
-    my $opts = $stash->store ($artist);
+    my $opts = $stash->store($artist);
 
-    $self->linked_artists ($c, $stash, [ $artist ]);
+    $self->linked_artists($c, $stash, [ $artist ]);
 
     $c->model('ArtistType')->load($artist);
     $c->model('Gender')->load($artist);
@@ -77,9 +77,9 @@ sub artist_toplevel
     if ($c->stash->{inc}->recordings)
     {
         my @results = $c->model('Recording')->find_by_artist($artist->id, $MAX_ITEMS, 0);
-        $opts->{recordings} = $self->make_list (@results);
+        $opts->{recordings} = $self->make_list(@results);
 
-        $self->linked_recordings ($c, $stash, $opts->{recordings}->{items});
+        $self->linked_recordings($c, $stash, $opts->{recordings}->{items});
     }
 
     if ($c->stash->{inc}->releases)
@@ -96,9 +96,9 @@ sub artist_toplevel
                 $artist->id, $MAX_ITEMS, 0, filter => { status => $c->stash->{status}, type => $c->stash->{type}});
         }
 
-        $opts->{releases} = $self->make_list (@results);
+        $opts->{releases} = $self->make_list(@results);
 
-        $self->linked_releases ($c, $stash, $opts->{releases}->{items});
+        $self->linked_releases($c, $stash, $opts->{releases}->{items});
     }
 
     if ($c->stash->{inc}->release_groups)
@@ -106,17 +106,17 @@ sub artist_toplevel
         my $show_all = 1;
         my @results = $c->model('ReleaseGroup')->find_by_artist(
             $artist->id, $show_all, $MAX_ITEMS, 0, filter => { type => $c->stash->{type} });
-        $opts->{release_groups} = $self->make_list (@results);
+        $opts->{release_groups} = $self->make_list(@results);
 
-        $self->linked_release_groups ($c, $stash, $opts->{release_groups}->{items});
+        $self->linked_release_groups($c, $stash, $opts->{release_groups}->{items});
     }
 
     if ($c->stash->{inc}->works)
     {
         my @results = $c->model('Work')->find_by_artist($artist->id, $MAX_ITEMS, 0);
-        $opts->{works} = $self->make_list (@results);
+        $opts->{works} = $self->make_list(@results);
 
-        $self->linked_works ($c, $stash, $opts->{works}->{items});
+        $self->linked_works($c, $stash, $opts->{works}->{items});
     }
 
     $self->load_relationships($c, $stash, $artist);
@@ -127,7 +127,7 @@ sub artist_browse : Private
     my ($self, $c) = @_;
 
     my ($resource, $id) = @{ $c->stash->{linked} };
-    my ($limit, $offset) = $self->_limit_and_offset ($c);
+    my ($limit, $offset) = $self->_limit_and_offset($c);
 
     if (!is_guid($id))
     {
@@ -142,39 +142,39 @@ sub artist_browse : Private
         my $recording = $c->model('Recording')->get_by_gid($id);
         $c->detach('not_found') unless ($recording);
 
-        my @tmp = $c->model('Artist')->find_by_recording ($recording->id, $limit, $offset);
-        $artists = $self->make_list (@tmp, $offset);
+        my @tmp = $c->model('Artist')->find_by_recording($recording->id, $limit, $offset);
+        $artists = $self->make_list(@tmp, $offset);
     }
     elsif ($resource eq 'release')
     {
         my $release = $c->model('Release')->get_by_gid($id);
         $c->detach('not_found') unless ($release);
 
-        my @tmp = $c->model('Artist')->find_by_release ($release->id, $limit, $offset);
-        $artists = $self->make_list (@tmp, $offset);
+        my @tmp = $c->model('Artist')->find_by_release($release->id, $limit, $offset);
+        $artists = $self->make_list(@tmp, $offset);
     }
     elsif ($resource eq 'release-group')
     {
         my $rg = $c->model('ReleaseGroup')->get_by_gid($id);
         $c->detach('not_found') unless ($rg);
 
-        my @tmp = $c->model('Artist')->find_by_release_group ($rg->id, $limit, $offset);
-        $artists = $self->make_list (@tmp, $offset);
+        my @tmp = $c->model('Artist')->find_by_release_group($rg->id, $limit, $offset);
+        $artists = $self->make_list(@tmp, $offset);
     }
     elsif ($resource eq 'work')
     {
         my $work = $c->model('Work')->get_by_gid($id);
         $c->detach('not_found') unless ($work);
 
-        my @tmp = $c->model('Artist')->find_by_work ($work->id, $limit, $offset);
-        $artists = $self->make_list (@tmp, $offset);
+        my @tmp = $c->model('Artist')->find_by_work($work->id, $limit, $offset);
+        $artists = $self->make_list(@tmp, $offset);
     }
 
     my $stash = WebServiceStash->new;
 
     for (@{ $artists->{items} })
     {
-        $self->artist_toplevel ($c, $stash, $_);
+        $self->artist_toplevel($c, $stash, $_);
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
@@ -186,7 +186,7 @@ sub artist_search : Chained('root') PathPart('artist') Args(0)
     my ($self, $c) = @_;
 
     $c->detach('artist_browse') if ($c->stash->{linked});
-    $self->_search ($c, 'artist');
+    $self->_search($c, 'artist');
 }
 
 __PACKAGE__->meta->make_immutable;

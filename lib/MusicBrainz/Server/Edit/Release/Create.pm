@@ -16,7 +16,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     verify_artist_credits
 );
 use MusicBrainz::Server::Entity::ReleaseEvent;
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
@@ -91,7 +91,7 @@ sub build_display_data
     my $lang = $self->data->{language_id};
 
     return {
-        artist_credit => artist_credit_preview ($loaded, $self->data->{artist_credit}),
+        artist_credit => artist_credit_preview($loaded, $self->data->{artist_credit}),
         name          => $self->data->{name} || '',
         comment       => $self->data->{comment} || '',
         packaging     => defined($self->data->{packaging_id}) &&
@@ -102,7 +102,7 @@ sub build_display_data
                            $loaded->{Script}{ $script },
         language      => defined($lang) &&
                            $loaded->{Language}{ $lang },
-        barcode       => Barcode->new ($self->data->{barcode}),
+        barcode       => Barcode->new($self->data->{barcode}),
         release_group => (defined($self->data->{release_group_id}) &&
                            $loaded->{ReleaseGroup}{ $self->data->{release_group_id} }) ||
                                ReleaseGroup->new( name => '[removed]' ),

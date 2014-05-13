@@ -23,19 +23,19 @@ MB.constants.SELECTED_CLASS = {
     '-1': 'vote-abs'
 }
 
-MB.Control.EditList = function(container) {
+MB.Control.EditList = function (container) {
     var self = {};
 
     var $container = $(container);
 
-    self.initialize = function() {
+    self.initialize = function () {
         var $voteOptions = $container.find('input[type="radio"]')
             .first().parents('.voteopts').clone().addClass('overall-vote');
 
-        $voteOptions.find('label').each(function() {
+        $voteOptions.find('label').each(function () {
             $(this).attr('for', $(this).attr('for').replace(/id-enter-vote.vote.\d+/, 'vote-all'));
         });
-        $voteOptions.find('input').each(function() {
+        $voteOptions.find('input').each(function () {
             $(this).attr('id', $(this).attr('id').replace(/id-enter-vote.vote.\d+/, 'vote-all'));
             $(this).attr('name', 'vote-on-all');
         });
@@ -50,9 +50,9 @@ MB.Control.EditList = function(container) {
 
         // :nth-child would make more sense, but I couldn't get it working
         // - ocharles
-        $voteOptions.find('input').each(function(i) {
-            $(this).click(function() {
-                    $container.find('div.voteopts').each(function() {
+        $voteOptions.find('input').each(function (i) {
+            $(this).click(function () {
+                    $container.find('div.voteopts').each(function () {
                             $(this).find('input').eq(i)
                                 .prop('checked', true)
                                 .change();
@@ -67,8 +67,8 @@ MB.Control.EditList = function(container) {
     return self;
 };
 
-$(function() {
-    $('div.vote input[type="radio"]').change(function() {
+$(function () {
+    $('div.vote input[type="radio"]').change(function () {
         $(this).parents('.voteopts').find('.vote').attr('class', 'vote');
         $(this).parent('label').parent('.vote').addClass(MB.constants.SELECTED_CLASS[ $(this).val() ]);
     })

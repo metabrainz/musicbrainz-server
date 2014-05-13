@@ -49,14 +49,14 @@ test 'Insert medium' => sub {
         ]
     };
 
-    my $created = $c->model ('Medium')->insert($insert_hash);
+    my $created = $c->model('Medium')->insert($insert_hash);
     isa_ok($created, 'MusicBrainz::Server::Entity::Medium');
 
-    my $medium = $c->model ('Medium')->get_by_id ($created->id);
+    my $medium = $c->model('Medium')->get_by_id($created->id);
     isa_ok($medium, 'MusicBrainz::Server::Entity::Medium');
 
-    $c->model ('Track')->load_for_mediums ($medium);
-    is ($medium->length, 330160 + 262000, "inserted medium has expected length");
+    $c->model('Track')->load_for_mediums($medium);
+    is($medium->length, 330160 + 262000, "inserted medium has expected length");
 
     my $trackoffset0 = 150;
     my $trackoffset1 = $trackoffset0 + int(330160 * 75 / 1000);
@@ -65,12 +65,12 @@ test 'Insert medium' => sub {
     my $toc = "1 2 $leadoutoffset $trackoffset0 $trackoffset1";
 
     my $fuzzy = 1;
-    my $durationlookup = $c->model ('DurationLookup')->lookup ($toc, $fuzzy);
-    is (scalar @$durationlookup, 1, "one match with TOC lookup");
+    my $durationlookup = $c->model('DurationLookup')->lookup($toc, $fuzzy);
+    is(scalar @$durationlookup, 1, "one match with TOC lookup");
 
     $medium = $durationlookup->[0]->medium;
-    is ($medium->id, $created->id);
-    is ($medium->name, 'Bonus disc', 'TOC lookup found correct disc');
+    is($medium->id, $created->id);
+    is($medium->name, 'Bonus disc', 'TOC lookup found correct disc');
 };
 
 test all => sub {
@@ -98,7 +98,7 @@ is ( $medium->position, 2 );
 is ( $medium->name, 'A Sky of Honey' );
 is ( $medium->format_id, 1 );
 
-$test->c->model('Release')->load ($medium);
+$test->c->model('Release')->load($medium);
 
 is( $medium->release->name, 'Aerial' );
 is( $medium->release->artist_credit_id, 1 );

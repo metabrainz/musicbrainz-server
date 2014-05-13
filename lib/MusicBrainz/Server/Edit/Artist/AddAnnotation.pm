@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Artist::AddAnnotation;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_ADD_ANNOTATION );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit';
 

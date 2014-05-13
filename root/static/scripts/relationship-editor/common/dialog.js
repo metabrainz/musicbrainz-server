@@ -8,7 +8,7 @@
     var UI = RE.UI = RE.UI || {};
 
 
-    ko.bindingHandlers.relationshipEditorAutocomplete = (function() {
+    ko.bindingHandlers.relationshipEditorAutocomplete = (function () {
 
         var recentEntities = {};
         var dialog;
@@ -240,7 +240,7 @@
             // Firefox needs a small delay in order to allow for the change
             // event to trigger on <select> menus.
 
-            _.defer(function() {
+            _.defer(function () {
                 if (event.keyCode === 13 && /^input|select$/.test(nodeName) && !self.hasErrors()) {
                     self.accept();
                 } else if (event.keyCode === 27 && nodeName !== "select") {
@@ -251,11 +251,11 @@
             return true;
         },
 
-        toggleAttributesHelp: function() {
+        toggleAttributesHelp: function () {
             this.showAttributesHelp(!this.showAttributesHelp());
         },
 
-        changeDirection: function() {
+        changeDirection: function () {
             var relationship = this.relationship.peek();
             relationship.entities(relationship.entities().slice(0).reverse());
         },
@@ -275,7 +275,7 @@
             }
         },
 
-        toggleLinkTypeHelp: function() {
+        toggleLinkTypeHelp: function () {
             this.showLinkTypeHelp(!this.showLinkTypeHelp.peek());
         },
 
@@ -421,7 +421,7 @@
             return "";
         },
 
-        hasErrors: function() {
+        hasErrors: function () {
             var relationship = this.relationship();
 
             return this.linkTypeError() ||

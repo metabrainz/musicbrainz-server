@@ -16,7 +16,7 @@ test 'tracklist used to fit lookup criteria but no longer does' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+tracklist');
-    $c->sql->do ("INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) ".
+    $c->sql->do("INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) ".
                  "VALUES (1, 'annotation_editor', '{CLEARTEXT}password', ".
                  "'3a115bc4f05ea9856bd4611b75c80bca', 'editor\@example.org', '2005-02-18')");
 
@@ -49,25 +49,25 @@ test 'tracklist used to fit lookup criteria but no longer does' => sub {
 
     my $toc = "1 2 44412 0 24762";
 
-    my $durationlookup = $c->model ('DurationLookup')->lookup ($toc, 10000);
-    is (scalar @$durationlookup, 0, "disc does not exist yet, no match with TOC lookup");
+    my $durationlookup = $c->model('DurationLookup')->lookup($toc, 10000);
+    is(scalar @$durationlookup, 0, "disc does not exist yet, no match with TOC lookup");
 
-    my $created = $c->model ('Medium')->insert($insert_hash);
-    my $medium = $c->model ('Medium')->get_by_id ($created->id);
+    my $created = $c->model('Medium')->insert($insert_hash);
+    my $medium = $c->model('Medium')->get_by_id($created->id);
     isa_ok($medium, 'MusicBrainz::Server::Entity::Medium');
 
-    $durationlookup = $c->model ('DurationLookup')->lookup ($toc, 10000);
-    is (scalar @$durationlookup, 1, "one match with TOC lookup");
+    $durationlookup = $c->model('DurationLookup')->lookup($toc, 10000);
+    is(scalar @$durationlookup, 1, "one match with TOC lookup");
 
     $medium = $durationlookup->[0]->medium;
-    $c->model ('Track')->load_for_mediums ($medium);
-    $c->model ('ArtistCredit')->load ($medium->all_tracks);
+    $c->model('Track')->load_for_mediums($medium);
+    $c->model('ArtistCredit')->load($medium->all_tracks);
 
     # clear length on the track and then submit an edit for the medium
     # with that track length cleared.  A disc where not all tracks have a
     # length should not have an entry in medium_index.
 
-    $medium->tracks->[0]->clear_length ();
+    $medium->tracks->[0]->clear_length();
 
     my $edit = $c->model('Edit')->create(
         editor_id => 1,
@@ -78,8 +78,8 @@ test 'tracklist used to fit lookup criteria but no longer does' => sub {
 
     accept_edit($c, $edit);
 
-    $durationlookup = $c->model ('DurationLookup')->lookup ($toc, 10000);
-    is (scalar @$durationlookup, 0, "duration lookup did not find medium after it was edited");
+    $durationlookup = $c->model('DurationLookup')->lookup($toc, 10000);
+    is(scalar @$durationlookup, 0, "duration lookup did not find medium after it was edited");
 };
 
 test all => sub {
@@ -96,34 +96,34 @@ my $result = $lookup_data->lookup("1 7 171327 150 22179 49905 69318 96240 121186
 ok ( scalar(@$result) > 0, 'found results' );
 
 if (my ($result) = grep { $_->medium_id == 1 } @$result) {
-    ok ($result, 'returned medium 1');
-    is ( $result->distance, 1 );
-    is ( $result->medium->id, 1 );
-    is ( $result->medium_id, 1 );
+    ok($result, 'returned medium 1');
+    is( $result->distance, 1 );
+    is( $result->medium->id, 1 );
+    is( $result->medium_id, 1 );
 }
 
 if (my ($result) = grep { $_->medium_id == 3 } @$result) {
-    ok ($result, 'returned medium 3');
-    is ( $result->distance, 1 );
-    is ( $result->medium->id, 3 );
-    is ( $result->medium_id, 3 );
+    ok($result, 'returned medium 3');
+    is( $result->distance, 1 );
+    is( $result->medium->id, 3 );
+    is( $result->medium_id, 3 );
 }
 
 
 $result = $lookup_data->lookup("1 9 189343 150 6614 32287 54041 61236 88129 92729 115276 153877", 10000);
 
 if (my ($result) = grep { $_->medium_id == 2 } @$result) {
-    ok ($result, 'returned medium 1');
-    is ( $result->distance, 1 );
-    is ( $result->medium->id, 2 );
-    is ( $result->medium_id, 2 );
+    ok($result, 'returned medium 1');
+    is( $result->distance, 1 );
+    is( $result->medium->id, 2 );
+    is( $result->medium_id, 2 );
 }
 
 if (my ($result) = grep { $_->medium_id == 4 } @$result) {
-    ok ($result, 'returned medium 4');
-    is ( $result->distance, 1 );
-    is ( $result->medium->id, 4 );
-    is ( $result->medium_id, 4 );
+    ok($result, 'returned medium 4');
+    is( $result->distance, 1 );
+    is( $result->medium->id, 4 );
+    is( $result->medium_id, 4 );
 }
 
 

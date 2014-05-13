@@ -1,0 +1,25 @@
+[% BLOCK instruments %]
+    <ul>
+    [%~ FOR entity IN obj ~%]
+        <li>
+            [%~ link_entity(entity) ~%]
+            [%~ IF entity.l_description %] — [% entity.l_description ~%][%~ END ~%]
+        </li>
+    [%~ END ~%]
+    </ul>
+[% END %]
+[%- WRAPPER 'layout.tt' title=l("Instrument List") full_width=1 -%]
+    <div id="content">
+        <h1>[% l("Instrument List") %]</h1>
+
+        [%~ FOR type IN types ~%]
+            <h2>[% type.l_name %]</h2>
+            [% PROCESS instruments obj=entities.${type.id} %]
+        [%~ END ~%]
+    
+        [%~ IF entities.unknown.size ~%]
+            <h2>[% l("Unclassified instrument") %]</h2>
+            [% PROCESS instruments obj=entities.unknown %]
+        [%~ END ~%]
+    </div>
+[%- END -%]
