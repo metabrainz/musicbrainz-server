@@ -94,10 +94,11 @@
     </td>
     <td data-bind="foreach: attributeFields()">
       <div>
-        <label>
         <!-- ko ifnot: attribute.children || attribute.freeText -->
+        <label>
           <input type="checkbox" data-bind="checked: $parent.relationship().attributeValue(attribute.id)" />
           <!-- ko text: attribute.l_name --><!-- /ko -->
+        </label>
         <!-- /ko -->
         <!-- ko if: attribute.id == 14 -->
           <div data-bind="instrumentSelect: $parent.relationship()">
@@ -130,12 +131,13 @@
                     }
                   }"></div>
         <!-- /ko -->
-        </label>
         <!-- ko if: attribute.freeText -->
+        <label>
           <!-- ko text: MB.i18n.expand(MB.text.AddColon, { variable: attribute.l_name }) --><!-- /ko -->
           <input data-bind="value: $parent.relationship().attributeValue(attribute.id),
                             valueUpdate: 'afterkeydown',
                             attr: { placeholder: attribute.l_name }" />
+        </label>
         <!-- /ko -->
         <div class="error" data-bind="text: $parent.attributeError($data)"></div>
         <div class="ar-descr" data-bind="html: attribute.description, visible: $parent.showAttributesHelp"></div>
