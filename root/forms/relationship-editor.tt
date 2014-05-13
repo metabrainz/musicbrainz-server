@@ -12,7 +12,7 @@
     </button>
   </legend>
 
-  <table class="details row-form" style="width: 100%">
+  <table class="details row-form" style="width: 100%; position: relative;">
     <tbody data-bind="foreach: _.sortBy(groupedRelationships($root, $data), 'linkPhrase')">
       <tr>
         <th>
