@@ -353,8 +353,9 @@ sub schema_fixup_type {
     if (exists $data->{type} && $type ~~ [qw(area artist instrument label place series release-group work)]) {
         my $type_model = $type;
         $type_model =~ s/-/_/g; # fix release-group to release_group
+        my $prop = $type eq 'release-group' ? 'primary_type' : 'type';
         my $model = 'MusicBrainz::Server::Entity::' . type_to_model($type_model) . 'Type';
-        $data->{type} = $model->new( name => $data->{type} );
+        $data->{$prop} = $model->new( name => $data->{type} );
     }
     return $data;
 }
