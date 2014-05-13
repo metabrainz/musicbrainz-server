@@ -37,6 +37,7 @@ use MusicBrainz::Server::Entity::ReleaseGroup;
 use MusicBrainz::Server::Entity::ReleaseGroupType;
 use MusicBrainz::Server::Entity::ReleaseGroupSecondaryType;
 use MusicBrainz::Server::Entity::ReleaseStatus;
+use MusicBrainz::Server::Entity::ReleasePackaging;
 use MusicBrainz::Server::Entity::Script;
 use MusicBrainz::Server::Entity::Series;
 use MusicBrainz::Server::Entity::SeriesOrderingType;
@@ -561,6 +562,11 @@ sub schema_fixup
         if ($data->{status}) {
             $data->{status} = MusicBrainz::Server::Entity::ReleaseStatus->new(
                 name => delete $data->{status}
+            )
+        }
+        if ($data->{packaging}) {
+            $data->{packaging} = MusicBrainz::Server::Entity::ReleasePackaging->new(
+                name => delete $data->{packaging}
             )
         }
     }
