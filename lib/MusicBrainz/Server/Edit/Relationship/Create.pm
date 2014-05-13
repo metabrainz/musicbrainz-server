@@ -163,7 +163,7 @@ sub build_display_data
                 $self->c->model($model1)->_entity_class->new(
                     name => $self->data->{entity1}{name}
                 ),
-            link_order => $self->data->{link_order},
+            link_order => $self->data->{link_order} // 0,
         ),
         unknown_attributes => scalar(
             grep { !exists $loaded->{LinkAttributeType}{$_} }
