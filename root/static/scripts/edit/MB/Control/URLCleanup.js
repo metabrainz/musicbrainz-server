@@ -27,7 +27,9 @@ MB.constants.LINK_TYPES = {
         release_group: 89,
         work: 279,
         area: 355,
-        place: 595
+        place: 595,
+        instrument: 731,
+        series: 744
     },
     discogs: {
         artist: 180,
@@ -82,7 +84,8 @@ MB.constants.LINK_TYPES = {
         artist: 173,
         label: 213,
         place: 396,
-        work: 274 // This is the "score" type, which is here because of Wikipedia Commons URLs
+        work: 274, // This is the "score" type, which is here because of Wikipedia Commons URLs
+        instrument: 732
     },
     discographyentry: {
         release: 288
@@ -173,7 +176,8 @@ MB.constants.LINK_TYPES = {
         label: 354,
         release_group: 353,
         work: 351,
-        place: 594
+        place: 594,
+        instrument: 733
     },
     bandcamp: {
         artist: 718,
