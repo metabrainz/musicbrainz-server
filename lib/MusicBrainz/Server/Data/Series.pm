@@ -152,7 +152,7 @@ sub update {
     my $series = $self->c->model('Series')->get_by_id($series_id);
     $self->c->model('SeriesType')->load($series);
 
-    if ($series->type_id != $row->{type}) {
+    if (defined($row->{type}) && $series->type_id != $row->{type}) {
         my ($items, $hits) = $self->c->model('Series')->get_entities($series, 1, 0);
 
         die "Cannot change the type of a non-empty series" if scalar(@$items);
