@@ -311,6 +311,32 @@ my %stats = (
         DESC => "Artists in no artist credits",
         SQL => "SELECT COUNT(DISTINCT artist.id) FROM artist LEFT OUTER JOIN artist_credit_name ON artist.id = artist_credit_name.artist WHERE artist_credit_name.artist_credit IS NULL",
     },
+    "count.instrument" => {
+        DESC => "Count of all instruments",
+        SQL => "SELECT COUNT(*) FROM instrument",
+    },
+    "count.instrument.type" => {
+        DESC => "Distribution of instruments by type",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT COALESCE(type.id::text, 'null'), COUNT(instrument.id) AS count
+                 FROM instrument_type type
+                 FULL OUTER JOIN instrument ON instrument.type = type.id
+                 GROUP BY type.id",
+            );
+
+            my %dist = map { @$_ } @$data;
+            $dist{null} ||= 0;
+
+            +{
+                map {
+                    "count.instrument.type.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
     "count.place" => {
         DESC => "Count of all places",
         SQL => "SELECT COUNT(*) FROM place",
@@ -333,6 +359,32 @@ my %stats = (
             +{
                 map {
                     "count.place.type.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
+    "count.series" => {
+        DESC => "Count of all seriess",
+        SQL => "SELECT COUNT(*) FROM series",
+    },
+    "count.series.type" => {
+        DESC => "Distribution of seriess by type",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT COALESCE(type.id::text, 'null'), COUNT(series.id) AS count
+                 FROM series_type type
+                 FULL OUTER JOIN series ON series.type = type.id
+                 GROUP BY type.id",
+            );
+
+            my %dist = map { @$_ } @$data;
+            $dist{null} ||= 0;
+
+            +{
+                map {
+                    "count.series.type.".$_ => $dist{$_}
                 } keys %dist
             };
         },
