@@ -59,7 +59,7 @@
         data-bind="options: linkTypeOptions(relationship().entityTypes),
                    optionsValue: 'value',
                    optionsText: 'text',
-                   optionsAfterRender: afterRenderLinkTypeOption,
+                   optionsAfterRender: MB.forms.setDisabledOption,
                    value: relationship().linkTypeID"></select>
       <!-- ko if: /^(\w+)-\1$/.test(relationship().entityTypes) -->
       <button type="button" class="styled-button change-direction" data-bind="click: changeDirection, text: MB.text.ChangeDirection"></button>

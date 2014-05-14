@@ -287,12 +287,6 @@
             return typeInfo ? _.values(typeInfo.attributes) : [];
         },
 
-        afterRenderLinkTypeOption: function (option, data) {
-            if (data.disabled) {
-                option.disabled = true;
-            }
-        },
-
         toggleLinkTypeHelp: function () {
             this.showLinkTypeHelp(!this.showLinkTypeHelp.peek());
         },

@@ -66,6 +66,12 @@ MB.forms = {
         }
 
         return MB.forms.buildOptionsTree(root, textAttr, "id", callback);
+    },
+
+    setDisabledOption: function (option, data) {
+        if (data && data.disabled) {
+            option.disabled = true;
+        }
     }
 };
 
