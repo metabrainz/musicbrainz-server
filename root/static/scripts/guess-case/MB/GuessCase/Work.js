@@ -33,7 +33,6 @@ MB.GuessCase._Work = function () {
 };
 
 $('document').ready(function () {
-
     MB.GuessCase.work = MB.GuessCase._Work();
-
+    MB.GuessCase.series = MB.GuessCase._Work();
 });

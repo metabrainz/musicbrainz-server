@@ -224,7 +224,7 @@ sub search
         $extra_columns .= 'entity.description,' if $type eq 'instrument';
         $extra_columns .= 'iso_3166_1s.codes AS iso_3166_1, iso_3166_2s.codes AS iso_3166_2, iso_3166_3s.codes AS iso_3166_3,' if $type eq 'area';
         $extra_columns .= 'entity.label_code, entity.area,' if $type eq 'label';
-        $extra_columns .= 'entity.ordering_attribute, entity.ordering_type,' if $type eq 'series';
+        $extra_columns .= 'entity.ordering_type,' if $type eq 'series';
 
         my $extra_groupby_columns = $extra_columns;
         $extra_groupby_columns =~ s/[^ ,]+ AS //g;

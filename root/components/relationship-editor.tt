@@ -19,7 +19,7 @@
   <!-- /ko -->
   <table>
     <tbody>
-      <!-- ko template: { name: "template.dialog-source-entity", "if": source.gid } --><!-- /ko -->
+      <!-- ko template: { name: "template.dialog-source-entity", "if": source.gid && !/^tmp-/.test(source.gid) } --><!-- /ko -->
       <!-- ko template: "template.dialog-link-type" --><!-- /ko -->
       <!-- ko template: "template.dialog-target-entity" --><!-- /ko -->
       <!-- ko template: "template.dialog-attributes" --><!-- /ko -->
@@ -56,10 +56,7 @@
     <td class="section">[% l('Type') %]:</td>
     <td>
       <select class="link-type"
-        data-bind="options: MB.forms.linkTypeOptions(
-                              { children: MB.typeInfo[relationship().entityTypes] },
-                              backward()
-                            ),
+        data-bind="options: linkTypeOptions(relationship().entityTypes),
                    optionsValue: 'value',
                    optionsText: 'text',
                    optionsAfterRender: afterRenderLinkTypeOption,
@@ -97,19 +94,11 @@
     </td>
     <td data-bind="foreach: attributeFields()">
       <div>
+        <!-- ko ifnot: attribute.children || attribute.freeText -->
         <label>
-        <!-- ko ifnot: attribute.children -->
           <input type="checkbox" data-bind="checked: $parent.relationship().attributeValue(attribute.id)" />
           <!-- ko text: attribute.l_name --><!-- /ko -->
-        <!-- /ko -->
-        <!-- ko if: attribute.children && max === 1 -->
-          <!-- ko text: attribute.l_name --><!-- /ko -->
-          <br />
-          <select data-bind="options: MB.forms.buildOptionsTree(attribute, 'l_name', 'id'),
-                             optionsValue: 'value',
-                             optionsText: 'text',
-                             optionsCaption: '',
-                             value: $parent.relationship().attributeValue(attribute.id)"></select>
+        </label>
         <!-- /ko -->
         <!-- ko if: attribute.id == 14 -->
           <div data-bind="instrumentSelect: $parent.relationship()">
@@ -142,13 +131,13 @@
                     }
                   }"></div>
         <!-- /ko -->
-        </label>
         <!-- ko if: attribute.freeText -->
-          <!-- ko with: $parent.relationship().attributeValue(attribute.id) -->
-            <input data-bind="value: $parents[1].relationship().attributeTextValue($data),
-                              valueUpdate: 'afterkeydown',
-                              attr: { placeholder: MB.attrInfoByID[$data].l_name }" />
-          <!-- /ko -->
+        <label>
+          <!-- ko text: MB.i18n.expand(MB.text.AddColon, { variable: attribute.l_name }) --><!-- /ko -->
+          <input data-bind="value: $parent.relationship().attributeValue(attribute.id),
+                            valueUpdate: 'afterkeydown',
+                            attr: { placeholder: attribute.l_name }" />
+        </label>
         <!-- /ko -->
         <div class="error" data-bind="text: $parent.attributeError($data)"></div>
         <div class="ar-descr" data-bind="html: attribute.description, visible: $parent.showAttributesHelp"></div>
@@ -180,6 +169,18 @@
       </label>
     </td>
   </tr>
+</script>
+
+<script type="text/html" id="template.extra-attributes-and-dates">
+  <!-- ko with: relationship.phraseAndExtraAttributes(source)[1] -->
+    (<!-- ko text: $data --><!-- /ko -->)
+  <!-- /ko -->
+  <!-- ko with: relationship.hasDates() ? MB.utility.formatDatePeriod(relationship.period) : null -->
+    (<!-- ko text: $data --><!-- /ko -->)
+  <!-- /ko -->
+  <!-- ko if: relationship.period.ended() -->
+    ([% l('ended') %])
+  <!-- /ko -->
 </script>
 
 <script type="text/html" id="template.multiselect">

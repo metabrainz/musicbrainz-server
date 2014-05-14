@@ -23,15 +23,13 @@
                 ended: ko.observable(!!data.ended)
             };
 
-            this.attributeValues = {};
-            this.attributeTextValues = {};
-
+            this.attributeValues = ko.observable({});
             this.attributes(data.attributes);
-            this.setAttributeTextValues(data.attributeTextValues);
+            this.setAttributeValues(data.attributeTextValues);
 
             this.removed = ko.observable(!!data.removed);
             this.editsPending = Boolean(data.editsPending);
-            this.uniqueID = this.id || _.uniqueId("new-");
+            this.uniqueID = this.entityTypes + "-" + (this.id || _.uniqueId("new-"));
 
             this.entities.saved = this.entities.peek().slice(0);
             this.entities.subscribe(this.entitiesChanged, this);
@@ -48,7 +46,7 @@
             this.period.ended(!!data.ended);
 
             this.attributes(data.attributes);
-            this.setAttributeTextValues(data.attributeTextValues);
+            this.setAttributeValues(data.attributeTextValues);
             this.linkOrder(data.linkOrder || 0);
 
             _.has(data, "removed") && this.removed(!!data.removed);
@@ -56,28 +54,14 @@
 
         linkTypeIDChanged: function () {
             var typeInfo = this.linkTypeInfo();
-            var anyFreeText = false;
-            var textValues = this.attributeTextValues;
             var attrValues = {};
             var self = this;
 
-            _.each(typeInfo.attributes, function (attrInfo, id) {
+            _.each(typeInfo && typeInfo.attributes, function (attrInfo, id) {
                 attrValues[id] = self.attributeValue(id);
-
-                if (attrInfo.attribute.freeText) {
-                    anyFreeText = true;
-                } else if (textValues) {
-                    delete textValues[id];
-                }
             });
 
-            this.attributeValues = attrValues;
-
-            if (!anyFreeText) {
-                delete this.attributeTextValues;
-            } else if (!textValues) {
-                this.attributeTextValues = {};
-            }
+            this.attributeValues(attrValues);
         },
 
         entitiesChanged: function (newEntities) {
@@ -141,50 +125,65 @@
         },
 
         attributeValue: function (id) {
-            var hasChildren = !!MB.attrInfoByID[id].children;
-            var max = this.linkTypeInfo().attributes[id].max;
-            var value = this.attributeValues[id];
+            var attr = MB.attrInfoByID[id];
+            if (!attr) return;
 
-            if (!value) {
-                if (max === 1) {
-                    value = this.attributeValues[id] = ko.observable(hasChildren ? undefined : false);
+            // The id parameter could also be a gid.
+            // Ensure it's an integer id.
+            id = attr.id;
+
+            var typeInfo = this.linkTypeInfo();
+            if (!typeInfo) return;
+
+            var attrInfo = typeInfo.attributes && typeInfo.attributes[id];
+            if (!attrInfo) return;
+
+            var attributeValues = this.attributeValues();
+            var value = attributeValues[id];
+            var isNew = !value;
+
+            if (isNew) {
+                if (attrInfo.max === 1) {
+                    var defaultValue = attr.freeText ? "" : (isBooleanAttr(attr) ? false : undefined);
+                    value = attributeValues[id] = ko.observable(defaultValue);
                 } else {
-                    value = this.attributeValues[id] = ko.observableArray([]);
+                    value = attributeValues[id] = ko.observableArray([]);
                 }
             }
 
             if (arguments.length === 1) {
+                isNew && this.attributeValues.notifySubscribers(attributeValues);
                 return value;
             } else {
                 var newValue = arguments[1];
 
-                if (max === 1) {
-                    newValue = _.isArray(newValue) ? newValue[0] : newValue;
+                if (attrInfo.max === 1) {
+                    if (_.isArray(newValue)) newValue = newValue[0];
 
-                    return value(hasChildren ? newValue : !!newValue);
+                    if (attr.freeText) {
+                        newValue = String(newValue || "");
+                    } else if (isBooleanAttr(attr)) {
+                        newValue = !!newValue;
+                    }
                 } else {
                     newValue = _.isArray(newValue) ? newValue.slice(0) : [newValue];
 
-                    return value(flattenAttributeIDs(newValue));
+                    if (attr.freeText) {
+                        newValue = flattenValues(newValue).map(String).value();
+                    } else {
+                        newValue = flattenAttributeIDs(newValue);
+                    }
                 }
+                value(newValue);
+                this.attributeValues.notifySubscribers(attributeValues);
             }
         },
 
-        attributeTextValue: function (id) {
-            var value = this.attributeTextValues[id];
-
-            if (!value) {
-                value = this.attributeTextValues[id] = ko.observable("");
-            }
-
-            return arguments.length === 1 ? value : value(arguments[1]);
-        },
-
-        setAttributeTextValues: function (values) {
+        setAttributeValues: function (values) {
             var self = this;
 
             _.each(values, function (value, id) {
-                self.attributeTextValue(id, value);
+                self.attributeValue(id, value);
             });
         },
 
@@ -202,8 +201,27 @@
                     });
                 }
             } else {
-                return flattenAttributeIDs(_.map(this.attributeValues, unwrapAttributeValue));
+                return flattenAttributeIDs(_.map(this.attributeValues(), unwrapAttributeValue));
             }
+        },
+
+        attributeTextValues: function () {
+            var typeInfo = this.linkTypeInfo();
+
+            if (typeInfo) {
+                var self = this;
+                var attributeValues = this.attributeValues();
+
+                return _.transform(typeInfo.attributes, function (result, info, id) {
+                    var attr = info.attribute;
+
+                    if (attr.freeText) {
+                        result[id] = ko.unwrap(attributeValues[id]);
+                    }
+                }, {});
+            }
+
+            return {};
         },
 
         phraseAndExtraAttributes: function (source) {
@@ -239,7 +257,7 @@
             extraAttributes = MB.utility.joinList(
                 _(extraAttributes).values().flatten().map(function (attr) {
                     if (attr.freeText) {
-                        var value = ko.unwrap(self.attributeTextValue(attr.id));
+                        var value = ko.unwrap(self.attributeValue(attr.id));
 
                         if (!value) return "";
 
@@ -261,26 +279,6 @@
 
         lowerCaseTargetName: function (source) {
             return ko.unwrap(this.target(source).name).toLowerCase();
-        },
-
-        entityOrdering: function (entity) {
-            if (!this.entityIsOrdered(entity)) {
-                return 0;
-            }
-
-            var target = this.target(entity);
-
-            // If we're editing a series relationship and the series is
-            // automatically ordered, use the ordering attribute for sorting
-            // since it may have been changed. The linkOrder itself won't
-            // change unless the series is manually ordered.
-
-            if (target.entityType === "series" &&
-                    target.orderingTypeID() === MB.constants.SERIES_ORDERING_TYPE_AUTOMATIC) {
-                return this.attributeTextValue(target.orderingAttributeID())();
-            }
-
-            return this.linkOrder();
         },
 
         entityIsOrdered: function (entity) {
@@ -311,16 +309,40 @@
             var target = this.target(entity);
 
             if (target.entityType === "series") {
-                return target.orderingTypeID() !== MB.constants.SERIES_ORDERING_TYPE_AUTOMATIC;
+                return +target.orderingTypeID() !== MB.constants.SERIES_ORDERING_TYPE_AUTOMATIC;
             }
+
+            return true;
         },
 
         moveEntityUp: function () {
             this.linkOrder(Math.max(this.linkOrder() - 1, 0));
+
+            var row = $("#relationship-" + this.uniqueID)[0];
+
+            row.tempElement && $("button.move-up", row.tempElement).focus();
+
+            row.moving && row.moving.done(function () {
+                MB.utility.deferFocus("button.move-up", row);
+            });
         },
 
         moveEntityDown: function () {
             this.linkOrder(this.linkOrder() + 1);
+
+            var row = $("#relationship-" + this.uniqueID)[0];
+
+            row.tempElement && $("button.move-down", row.tempElement).focus();
+
+            row.moving && row.moving.done(function () {
+                MB.utility.deferFocus("button.move-down", row);
+            });
+        },
+
+        showLinkOrder: function (source) {
+            return this.entityIsOrdered(this.target(source)) &&
+                    (source.entityType !== "series" ||
+                     +source.orderingTypeID() === MB.constants.SERIES_ORDERING_TYPE_MANUAL);
         },
 
         around$isDuplicate: function (supr, other) {
@@ -372,13 +394,26 @@
 
 
     function unwrapAttributeValue(value, rootID) {
+        var attr = MB.attrInfoByID[rootID];
+
         value = ko.unwrap(value);
-        return _.isBoolean(value) ? (value ? rootID : null) : value;
+
+        return (attr.freeText || isBooleanAttr(attr)) ? (value ? rootID : null) : value;
+    }
+
+
+    function isBooleanAttr(attr) {
+        return !(attr.children || attr.freeText);
+    }
+
+
+    function flattenValues(values) {
+        return _(values).flatten().compact();
     }
 
 
     function flattenAttributeIDs(ids) {
-        return _(ids).flatten().compact().map(Number).sortBy().value();
+        return flattenValues(ids).map(Number).sortBy().value();
     }
 
 

@@ -24,7 +24,6 @@ test all => sub {
         with_fields => {
             'edit-series.name' => 'New Name!',
             'edit-series.comment' => 'new comment!',
-            'edit-series.ordering_attribute_id' => 2,
             'edit-series.ordering_type_id' => 2,
         }
     );
@@ -40,14 +39,12 @@ test all => sub {
         new => {
             name => 'New Name!',
             comment => 'new comment!',
-            ordering_attribute_id => 2,
             ordering_type_id => 2,
 
         },
         old => {
             name => 'Test Recording Series',
             comment => 'test comment 1',
-            ordering_attribute_id => 3,
             ordering_type_id => 1,
         }
     });
@@ -56,8 +53,6 @@ test all => sub {
     html_ok($mech->content, '..valid xml');
     $mech->text_contains('New Name!', '..has new name');
     $mech->text_contains('Test Recording Series', '..has old name');
-    $mech->text_contains('catalog number', '..has new ordering attribute');
-    $mech->text_contains('part number', '..has old ordering attribute');
     $mech->text_contains('Automatic', '..has new ordering type');
     $mech->text_contains('Manual', '..has old ordering type');
 };

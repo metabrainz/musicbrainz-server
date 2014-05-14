@@ -244,6 +244,18 @@ sub load_meta
     }, @_);
 }
 
+sub load_related_info {
+    my ($self, @works) = @_;
+
+    my $c = $self->c;
+    $c->model('Work')->load_writers(@works);
+    $c->model('Work')->load_recording_artists(@works);
+    $c->model('WorkAttribute')->load_for_works(@works);
+    $c->model('ISWC')->load_for_works(@works);
+    $c->model('WorkType')->load(@works);
+    $c->model('Language')->load(@works);
+}
+
 =method load_ids
 
 Load internal IDs for work objects that only have GIDs.

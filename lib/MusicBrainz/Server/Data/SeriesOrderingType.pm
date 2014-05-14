@@ -6,6 +6,7 @@ use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'series_ordering_type' };
 with 'MusicBrainz::Server::Data::Role::SelectAll';
+with 'MusicBrainz::Server::Data::Role::OptionsTree';
 
 sub _table {
     return 'series_ordering_type';

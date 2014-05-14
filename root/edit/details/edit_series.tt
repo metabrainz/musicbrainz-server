@@ -20,10 +20,6 @@
                          html_escape(edit.display_data.type.old.name),
                          html_escape(edit.display_data.type.new.name)) %]
 
-  [% display_full_change(l('Ordering Attribute:'),
-                         html_escape(edit.display_data.ordering_attribute.old.name),
-                         html_escape(edit.display_data.ordering_attribute.new.name)) %]
-
   [% display_full_change(l('Ordering Type:'),
                          html_escape(edit.display_data.ordering_type.old.name),
                          html_escape(edit.display_data.ordering_type.new.name)) %]

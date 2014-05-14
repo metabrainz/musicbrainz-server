@@ -332,6 +332,20 @@ MB.GuessCase.Main = function () {
         return os;
     };
 
+    // Guess the capitalization of a series name.
+
+    self.guessSeries = function (is, mode) {
+        gc.init();
+
+        if (!self.seriesHandler) {
+            // Just use "Handler.Work" because the guess case code is
+            // stupid/ridiculous and it would just be a copy anyway.
+            self.seriesHandler = MB.GuessCase.Handler.Work();
+        }
+
+        return self.seriesHandler.process(is);
+    };
+
     /**
      * Guess the sortname of a given place name (for aliases)
      * @param    is             the un-processed input string

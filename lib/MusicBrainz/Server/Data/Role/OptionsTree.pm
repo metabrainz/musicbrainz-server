@@ -4,19 +4,22 @@ use namespace::autoclean;
 
 with 'MusicBrainz::Server::Data::Role::Context';
 
-sub get_tree
-{
+sub get_tree {
     my ($self, $where_query) = @_;
 
     my $mapping = $self->_column_mapping;
     my @attrs = keys %$mapping;
+    my @objects;
 
     my %id_to_obj = map {
         my $row = $_;
 
-        $row->{id} => $self->_entity_class->new(
+        my $obj = $self->_entity_class->new(
             map { $_ => $row->{$mapping->{$_} // $_} } (@attrs ? @attrs : keys %$row)
-        )
+        );
+
+        push @objects, $obj;
+        $obj->id => $obj;
     } @{
         $self->sql->select_list_of_hashes(
             'SELECT ' . $self->_columns . ' FROM ' . $self->_table . ' ' .
@@ -27,7 +30,7 @@ sub get_tree
 
     my $root = $self->_entity_class->new;
 
-    foreach my $obj (values %id_to_obj) {
+    foreach my $obj (@objects) {
         my $parent = $obj->parent_id ? $id_to_obj{$obj->parent_id} : $root;
         $parent->add_child($obj);
     }

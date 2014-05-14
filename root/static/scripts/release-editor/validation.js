@@ -39,7 +39,7 @@
         var tabs = releaseEditor.uiTabs;
 
         var $errors = $(".field-error", $panel).filter(function () {
-            return $(this).data("visible");
+            return $(this).data("visible") && $(this).text();
         });
 
         tabs.tabs.eq(tabs.panels.index($panel))

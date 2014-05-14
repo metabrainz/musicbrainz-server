@@ -1053,7 +1053,6 @@ sub _serialize_series
     my @list;
     push @list, $gen->name($series->name);
     push @list, $gen->disambiguation($series->comment) if $series->comment;
-    push @list, $gen->ordering_attribute($series->ordering_attribute->name) if $series->ordering_attribute;
 
     if ($toplevel) {
         $self->_serialize_annotation(\@list, $gen, $series, $inc, $opts);

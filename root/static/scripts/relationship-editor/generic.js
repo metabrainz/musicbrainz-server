@@ -133,6 +133,56 @@
                 }
                 relationship.removed(true);
             }
+        },
+
+        beforeRelationshipRemove: function (element) {
+            if (element.nodeType === 1) {
+                $(element).fadeOut("fast", function () { $(element).remove() });
+            }
+        },
+
+        afterRelationshipAdd: function (element) {
+            if (element.nodeType === 1) {
+                $(element).hide().fadeIn("fast");
+            }
+        },
+
+        // functions beforeRelationshipMove and afterRelationshipMove based on
+        // http://jsfiddle.net/mbest/9gvDL/ by Michael Best
+
+        beforeRelationshipMove: function (element) {
+            if (element.nodeType === 1) {
+                element.savedOffsetTop = element.offsetTop;
+                element.moving = $.Deferred();
+            }
+        },
+
+        afterRelationshipMove: function (element) {
+            if (element.nodeType !== 1 || element.offsetTop === element.savedOffsetTop) {
+                return;
+            }
+            var tempElement = element.cloneNode(true);
+            element.tempElement = tempElement;
+
+            $(element).css({ visibility: "hidden" });
+
+            $(tempElement).css({
+                position: "absolute",
+                width: getComputedStyle(element).width
+            });
+
+            element.parentNode.appendChild(tempElement);
+
+            $(tempElement)
+                .css({ top: element.savedOffsetTop })
+                .animate({ top: element.offsetTop }, "fast", function () {
+                    $(element).css({ visibility: "visible" });
+                    element.parentNode.removeChild(tempElement);
+
+                    element.moving.resolve();
+                    delete element.moving;
+                    delete element.tempElement;
+                });
         }
     });
 

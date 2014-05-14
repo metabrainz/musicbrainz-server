@@ -60,16 +60,6 @@ sub serialize_release
     my $inc = $c->stash->{inc};
     my $data = $self->_release($release, $inc->media, $inc->recordings, $inc->rels);
 
-    $data->{releaseGroup} = $self->_release_group($release->release_group);
-
-    if ($inc->rels) {
-        $data->{relationships} =
-            $self->serialize_relationships($release->all_relationships);
-
-        $data->{releaseGroup}->{relationships} =
-            $self->serialize_relationships($release->release_group->all_relationships);
-    }
-
     if ($inc->annotation) {
         $data->{annotation} = defined $release->latest_annotation ?
             $release->latest_annotation->text : "";
@@ -205,6 +195,15 @@ sub _release
 
     if ($release->release_group) {
         $data->{releaseGroup} = $self->_release_group($release->release_group);
+    }
+
+    if ($inc_rels) {
+        $data->{relationships} =
+            $self->serialize_relationships($release->all_relationships);
+
+        $data->{releaseGroup}->{relationships} =
+            $self->serialize_relationships($release->release_group->all_relationships)
+                if $release->release_group;
     }
 
     if ($release->artist_credit) {
@@ -664,12 +663,7 @@ sub _series {
         id                  => $series->id,
         gid                 => $series->gid,
         comment             => $series->comment,
-        type => {
-            id          => $series->type_id,
-            name        => $series->type->l_name,
-            entityType  => $series->type->entity_type,
-        },
-        orderingAttributeID => $series->ordering_attribute_id,
+        type                => $series->type->to_json_hash,
         orderingTypeID      => $series->ordering_type_id,
         entityType          => 'series',
     };

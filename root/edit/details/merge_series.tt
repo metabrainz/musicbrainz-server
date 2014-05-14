@@ -7,7 +7,6 @@
           <tr>
             <th>[% l('Series') %]</th>
             <th>[% l('Type') %]</th>
-            <th>[% l('Ordering Attribute') %]</th>
             <th>[% l('Ordering Type') %]</th>
           </tr>
         </thead>
@@ -18,7 +17,6 @@
                   [% descriptive_link(entity) %]
               </td>
               <td>[% entity.type.l_name  %]</td>
-              <td>[% entity.ordering_attribute.l_name %]</td>
               <td>[% entity.ordering_type.l_name %]</td>
             </tr>
           [% END %]
@@ -34,7 +32,6 @@
           <tr>
             <th>[% l('Series') %]</th>
             <th>[% l('Type') %]</th>
-            <th>[% l('Ordering Attribute') %]</th>
             <th>[% l('Ordering Type') %]</th>
           </tr>
         </thead>
@@ -45,7 +42,6 @@
                   [% descriptive_link(entity) %]
               </td>
               <td>[% entity.type.l_name  %]</td>
-              <td>[% entity.ordering_attribute.l_name %]</td>
               <td>[% entity.ordering_type.l_name %]</td>
             </tr>
           [% END %]

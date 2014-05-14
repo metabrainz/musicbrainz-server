@@ -237,6 +237,9 @@ sub load_entities
     my @areas = values %{$data_by_type{'area'}};
     $self->c->model('Area')->load(@places);
     $self->c->model('Area')->load_containment(@areas, map { $_->area } @places);
+
+    my @series = values %{$data_by_type{'series'}};
+    $self->c->model('SeriesType')->load(@series);
 }
 
 sub load_subset
@@ -440,6 +443,7 @@ sub insert
         }),
         entity0 => $values->{entity0_id},
         entity1 => $values->{entity1_id},
+        link_order => $values->{link_order} // 0,
     };
     my $id = $self->sql->insert_row("l_${type0}_${type1}", $row, 'id');
 

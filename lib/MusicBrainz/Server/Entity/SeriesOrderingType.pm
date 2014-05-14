@@ -26,6 +26,19 @@ has parent => (
     isa => 'Maybe[SeriesOrderingType]',
 );
 
+has children => (
+    is => 'rw',
+    isa => 'ArrayRef[SeriesOrderingType]',
+    lazy => 1,
+    default => sub { [] },
+    traits => [ 'Array' ],
+    handles => {
+        all_children => 'elements',
+        add_child => 'push',
+        clear_children => 'clear'
+    }
+);
+
 has child_order => (
     is => 'rw',
     isa => 'Int',
@@ -35,6 +48,23 @@ has description => (
     is => 'rw',
     isa => 'Str',
 );
+
+sub l_description {
+    my $self = shift;
+    return lp($self->description, 'series_ordering_type');
+}
+
+sub to_json_hash {
+    my $self = shift;
+
+    return {
+        id => +$self->id,
+        name => $self->l_name,
+        parentID => $self->parent_id,
+        childOrder => +$self->child_order,
+        description => $self->l_description,
+    };
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

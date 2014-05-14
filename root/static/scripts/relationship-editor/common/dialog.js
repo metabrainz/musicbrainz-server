@@ -96,14 +96,32 @@
 
             var instruments = ko.observableArray(initialData);
 
+            function focusLastInput() {
+                $(element).find(".ui-autocomplete-input:last").focus();
+            }
+
             var vm = {
                 instruments: instruments,
 
                 addItem: function () {
                     instruments.push(ko.observable(MB.entity.Instrument({})));
+                    focusLastInput();
                 },
 
-                removeItem: function (item) { instruments.remove(item) }
+                removeItem: function (item) {
+                    var index = instruments.indexOf(item);
+
+                    instruments.remove(item);
+
+                    index = index === instruments().length ? index - 1 : index;
+                    var $nextButton = $(element).find("button.remove-item:eq(" + index + ")");
+
+                    if ($nextButton.length) {
+                        $nextButton.focus();
+                    } else {
+                        focusLastInput();
+                    }
+                }
             };
 
             if (!initialData.length) vm.addItem();
@@ -299,9 +317,42 @@
             });
         },
 
+        linkTypeOptions: function (entityTypes) {
+            var options = MB.forms.linkTypeOptions(
+                { children: MB.typeInfo[entityTypes] }, this.backward()
+            );
+
+            if (this.source.entityType === "series") {
+                var itemType = MB.seriesTypesByID[this.source.typeID()].entityType;
+
+                options = _.reject(options, function (opt) {
+                    var info = MB.typeInfoByID[opt.value];
+
+                    if (_.contains(MB.constants.PART_OF_SERIES_LINK_TYPES, info.gid) &&
+                            info.gid !== MB.constants.PART_OF_SERIES_LINK_TYPES_BY_ENTITY[itemType]) {
+                        return true;
+                    }
+                });
+            }
+
+            return options;
+        },
+
         targetTypeOptions: function () {
             var sourceType = this.source.entityType;
             var targetTypes = this.viewModel.allowedRelations[sourceType];
+
+            if (sourceType === "series") {
+                var self = this;
+
+                targetTypes = _.filter(targetTypes, function (targetType) {
+                    var key = [sourceType, targetType].sort().join("-");
+
+                    if (self.linkTypeOptions(key).length) {
+                        return true;
+                    }
+                })
+            }
 
             return _.map(targetTypes, function (type) {
                 return { value: type, text: MB.text.Entity[type] };
@@ -327,14 +378,12 @@
             data.endDate = MB.edit.fields.partialDate(period.endDate);
             data.ended = !!period.ended();
 
-            delete data.linkTypeID;
             delete data.entities;
 
-            var newRelationship = this.viewModel.getRelationship(data, this.source);
+            var entityTypes = [this.source.entityType, newType].sort().join("-");
+            data.linkTypeID = defaultLinkType({ children: MB.typeInfo[entityTypes] });
 
-            newRelationship.linkTypeID(
-                defaultLinkType({ children: MB.typeInfo[newRelationship.entityTypes] })
-            );
+            var newRelationship = this.viewModel.getRelationship(data, this.source);
 
             this.relationship(newRelationship);
             currentRelationship.remove();
@@ -380,18 +429,13 @@
 
         attributeError: function (rootInfo) {
             var relationship = this.relationship();
-            var value = relationship.attributeValue(rootInfo.attribute.id)();
+            var value = ko.unwrap(relationship.attributeValue(rootInfo.attribute.id));
             var min = rootInfo.min;
 
             if (min > 0) {
                 if (!value || (_.isArray(value) && value.length < min)) {
                     return MB.text.AttributeRequired;
                 }
-            }
-
-            if (rootInfo.attribute.freeText && value &&
-                    !ko.unwrap(relationship.attributeTextValues[value])) {
-                return MB.text.AttributeTextValueRequired;
             }
 
             return "";
@@ -441,8 +485,19 @@
         disableTypeSelection: false,
 
         augment$accept: function () {
-            if (!this.source.mergeRelationship(this.relationship())) {
-                this.relationship().show();
+            var source = this.source;
+            var relationship = this.relationship();
+
+            if (!source.mergeRelationship(relationship)) {
+                var linkType = relationship.linkTypeInfo();
+
+                if (linkType.orderableDirection) {
+                    var maxLinkOrder = _(source.getRelationshipGroup(linkType.id, relationship.parent))
+                        .invoke("linkOrder").max().value();
+
+                    relationship.linkOrder(_.isFinite(maxLinkOrder) ? (maxLinkOrder + 1) : 1);
+                }
+                relationship.show();
             }
         },
 

@@ -714,6 +714,7 @@ sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit {
     $c->model('ArtistCredit')->load($release);
     $c->model('ReleaseGroup')->load($release);
     $c->model('ReleaseGroup')->load_meta($release->release_group);
+    $c->model('Relationship')->load($release, $release->release_group);
 
     my $json = JSON->new;
     my @link_type_tree = $c->model('LinkType')->get_full_tree;
@@ -722,7 +723,7 @@ sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit {
     $c->stash(
         work_types      => select_options($c, 'WorkType'),
         work_languages  => build_grouped_options($c, language_options($c)),
-        source_entity   => $json->encode(JSONSerializer->_release($release)),
+        source_entity   => $json->encode(JSONSerializer->_release($release, 0, 0, 1)),
         attr_info       => $json->encode(build_attr_info($attr_tree)),
         type_info       => $json->encode(build_type_info($c, qr/(recording|work|release)/, @link_type_tree)),
     );
