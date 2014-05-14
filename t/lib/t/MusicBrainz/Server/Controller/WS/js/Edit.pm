@@ -502,7 +502,7 @@ test 'adding a relationship' => sub {
         entity0     => { id => 3, name => 'Test Artist' },
         begin_date  => { year => 1999, month => 1, day => 1 },
         end_date    => { year => 1999, month => 2, day => undef },
-        ended       => 0,
+        ended       => 1,
         attributes  => [1, 3, 4],
     });
 };
