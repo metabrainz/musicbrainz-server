@@ -297,6 +297,7 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   "Controller::Series::latest_annotation",
   "Controller::Series::open_edits",
   "Controller::Series::show",
+  "Controller::Series::wikipedia_extract",
   "Controller::Statistics::countries",
   "Controller::Statistics::coverart",
   "Controller::Statistics::dataset",
