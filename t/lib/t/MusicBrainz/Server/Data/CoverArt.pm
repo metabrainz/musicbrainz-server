@@ -99,8 +99,8 @@ EOSQL
 
     $release = $c->model('Release')->get_by_id(1);
     $c->model('Release')->load_meta($release);
-    is ($release->cover_art_url, undef);
-    is ($release->amazon_asin, 'B000057QPT');
+    is($release->cover_art_url, undef);
+    is($release->amazon_asin, 'B000057QPT');
 };
 
 test 'Check cover art provider regular expression matching' => sub {

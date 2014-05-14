@@ -7,12 +7,12 @@ SELECT no_plan();
 -- Test setup. See below for tests.
 INSERT INTO link_type
     (id, name, entity_type0, entity_type1, gid, link_phrase, reverse_link_phrase,
-    long_link_phrase, is_deprecated)
+    long_link_phrase, is_deprecated, has_dates)
 VALUES
     (1, 'performer', 'artist', 'artist', '0e747859-2491-4b16-8173-87d211a8f56b',
-    'performer', 'performer', 'performer', FALSE),
+    'performer', 'performer', 'performer', FALSE, TRUE),
     (2, 'composer', 'artist', 'artist', '6f68ed33-e70c-46e8-82de-3a16d2dcba26',
-    'composer', 'composer', 'composer', TRUE);
+    'composer', 'composer', 'composer', TRUE, TRUE);
 
 SELECT lives_ok( 'INSERT INTO link (id, link_type) VALUES (1, 1)' );
 SELECT throws_ok( 'UPDATE link SET link_type = 2 WHERE id = 1' );

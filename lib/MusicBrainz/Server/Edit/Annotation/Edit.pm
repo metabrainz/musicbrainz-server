@@ -1,4 +1,5 @@
 package MusicBrainz::Server::Edit::Annotation::Edit;
+use strict;
 use Carp;
 use MooseX::Role::Parameterized;
 use MooseX::Types::Moose qw( Int Str );

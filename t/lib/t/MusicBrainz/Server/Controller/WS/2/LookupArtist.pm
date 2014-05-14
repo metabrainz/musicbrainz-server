@@ -20,7 +20,7 @@ my $c = $test->c;
 my $v2 = schema_validator;
 my $diff = XML::SemanticDiff->new;
 my $mech = $test->mech;
-$mech->default_header ("Accept" => "application/xml");
+$mech->default_header("Accept" => "application/xml");
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');

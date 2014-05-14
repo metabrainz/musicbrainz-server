@@ -18,13 +18,12 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Details';
-with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::Rating';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::Cleanup';
-with 'MusicBrainz::Server::Controller::Role::EditExternalLinks';
+with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 
@@ -45,7 +44,8 @@ after 'load' => sub
     }
     $c->model('ReleaseGroupType')->load($rg);
     $c->model('ArtistCredit')->load($rg);
-    $c->model('Artwork')->load_for_release_groups ($rg);
+    $c->model('Artwork')->load_for_release_groups($rg);
+    $c->model('Relationship')->load($rg);
     $c->stash( can_delete => $c->model('ReleaseGroup')->can_delete($rg->id) );
 };
 
@@ -65,7 +65,6 @@ sub show : Chained('load') PathPart('')
     $c->model('ReleaseLabel')->load(@$releases);
     $c->model('Label')->load(map { $_->all_labels } @$releases);
     $c->model('ReleaseStatus')->load(@$releases);
-    $c->model('Relationship')->load($rg);
 
     $c->stash(
         template => 'release_group/index.tt',
@@ -123,7 +122,7 @@ sub set_cover_art : Chained('load') PathPart('set-cover-art') Args(0) Edit
     my $entity = $c->stash->{entity};
     return unless $entity->can_set_cover_art;
 
-    my ($releases, $hits) = $c->model ('Release')->find_by_release_group (
+    my ($releases, $hits) = $c->model('Release')->find_by_release_group(
         $entity->id);
     $c->model('Medium')->load_for_releases(@$releases);
     $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
@@ -131,8 +130,8 @@ sub set_cover_art : Chained('load') PathPart('set-cover-art') Args(0) Edit
     $c->model('ReleaseLabel')->load(@$releases);
     $c->model('Label')->load(map { $_->all_labels } @$releases);
 
-    my $artwork = $c->model ('Artwork')->find_front_cover_by_release (@$releases);
-    $c->model ('CoverArtType')->load_for (@$artwork);
+    my $artwork = $c->model('Artwork')->find_front_cover_by_release(@$releases);
+    $c->model('CoverArtType')->load_for(@$artwork);
 
     my $cover_art_release = $entity->cover_art ? $entity->cover_art->release : undef;
     my $form = $c->form(form => 'ReleaseGroup::SetCoverArt', init_object => {
@@ -141,7 +140,7 @@ sub set_cover_art : Chained('load') PathPart('set-cover-art') Args(0) Edit
     my $form_valid = $c->form_posted && $form->submitted_and_valid($c->req->params);
 
     my $release = $form_valid
-        ? $c->model ('Release')->get_by_gid ($form->field('release')->value)
+        ? $c->model('Release')->get_by_gid($form->field('release')->value)
         : $cover_art_release;
 
     $c->stash({ form => $form, artwork => $artwork, release => $release });

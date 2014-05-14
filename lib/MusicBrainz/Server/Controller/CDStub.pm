@@ -64,13 +64,13 @@ sub add : Path('add') DenyWhenReadonly
         $c->detach('/error_400');
     }
 
-    if(my $cdstub = $c->model('CDStub')->get_by_discid($toc->discid)) {
+    if (my $cdstub = $c->model('CDStub')->get_by_discid($toc->discid)) {
         $c->response->redirect(
             $c->uri_for_action('/cdstub/show', [ $toc->discid ]));
         $c->detach;
     }
 
-    if(my $cdtoc = $c->model('CDTOC')->get_by_discid($toc->discid)) {
+    if (my $cdtoc = $c->model('CDTOC')->get_by_discid($toc->discid)) {
         $c->response->redirect(
             $c->uri_for_action('/cdtoc/show', [ $toc->discid ]));
         $c->detach;
@@ -143,7 +143,7 @@ sub import : Chained('load') RequireAuth
         form => 'Search::Query',
         item => { query => $search_query }
     );
-    if($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         $search_query = $form->field('query')->value;
     }
 

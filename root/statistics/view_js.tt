@@ -18,7 +18,7 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
-(function(MB) {
+(function (MB) {
     $.extend(MB.text, {
         Timeline: {
            RateTooltipCloser: '[% l('/day') | js %]',
@@ -39,7 +39,7 @@
 
                 "other": { Label: '[% l('Other') | js %]' }
             },
-            Stat: function(stat) { if (MB.text.Timeline[stat]) { return MB.text.Timeline[stat]; } else { return { Label: stat, Color: '#00ff00', Description: stat, Category: "other" }; } },
+            Stat: function (stat) { if (MB.text.Timeline[stat]) { return MB.text.Timeline[stat]; } else { return { Label: stat, Color: '#00ff00', Description: stat, Category: "other" }; } },
             "count.artist": { Label: '[% l('Artists') | js %]', Color: '#ff8a00', Description: '[% l('Count of all artists') | js %]', Category: "core-entities" },
             "count.recording": { Label: '[% l('Recordings') | js %]', Color: "#4800ff", Description: '[% l('Count of all recordings') | js %]', Category: "core-entities"  },
             "count.work": { Label: '[% l('Works') | js %]', Color: "#00ffa8", Description: '[% l('Count of all works') | js %]', Category: "core-entities"  },

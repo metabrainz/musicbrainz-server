@@ -10,7 +10,7 @@ use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Entity::ExampleRelationship;
 use MusicBrainz::Server::Entity::Link;
 use MusicBrainz::Server::Entity::Relationship;
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 use Scalar::Util qw( looks_like_number );
 
 use aliased 'MusicBrainz::Server::Entity::LinkType';
@@ -41,6 +41,9 @@ sub change_fields
         ]]],
         documentation => Optional[Str],
         is_deprecated => Optional[Bool],
+        has_dates => Optional[Bool],
+        entity0_cardinality => Optional[Int],
+        entity1_cardinality => Optional[Int],
         examples => Optional[ArrayRef[Dict[
             relationship => Dict[
                 id => Int,

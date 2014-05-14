@@ -184,22 +184,22 @@ test 'Old medium and tracks are removed during merge' => sub {
         merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE
     );
 
-    $edit->accept ();
+    $edit->accept();
 
-    my $release = $c->model('Release')->get_by_gid ('7a906020-72db-11de-8a39-0800200c9a71');
-    $c->model('Medium')->load_for_releases ($release);
+    my $release = $c->model('Release')->get_by_gid('7a906020-72db-11de-8a39-0800200c9a71');
+    $c->model('Medium')->load_for_releases($release);
     $c->model('Track')->load_for_mediums($release->all_mediums);
 
-    is ($release->name, "The Prologue (disc 1)", "Release has expected name after merge");
-    is ($release->combined_track_count, 1, "Release has 1 track");
-    is ($release->mediums->[0]->tracks->[0]->gid, 'd6de1f70-4a29-4cce-a35b-aa2b56265583', "Track has expected mbid");
+    is($release->name, "The Prologue (disc 1)", "Release has expected name after merge");
+    is($release->combined_track_count, 1, "Release has 1 track");
+    is($release->mediums->[0]->tracks->[0]->gid, 'd6de1f70-4a29-4cce-a35b-aa2b56265583', "Track has expected mbid");
 
-    my $medium = $c->model('Medium')->get_by_id (3);
-    is ($medium, undef, "Old medium no longer exists");
+    my $medium = $c->model('Medium')->get_by_id(3);
+    is($medium, undef, "Old medium no longer exists");
 
     # FIXME: this should probably redirect to d6de1f70-4a29-4cce-a35b-aa2b56265583.
-    my $track = $c->model('Track')->get_by_gid ('929e5fb9-cfe7-4764-b3f6-80e056f0c1da');
-    is ($track, undef, "Old track no longer exists");
+    my $track = $c->model('Track')->get_by_gid('929e5fb9-cfe7-4764-b3f6-80e056f0c1da');
+    is($track, undef, "Old track no longer exists");
 };
 
 1;

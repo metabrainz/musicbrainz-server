@@ -127,7 +127,6 @@ sub DB_SCHEMA_SEQUENCE { 19 }
 # sub GPG_SIGN_KEY { "" }
 # sub GPG_ENCRYPT_KEY { "" }
 
-
 ################################################################################
 # HTTP Server Names
 ################################################################################
@@ -138,8 +137,17 @@ sub DB_SCHEMA_SEQUENCE { 19 }
 # MUSICBRAINZ_USE_PROXY=1 when using a reverse proxy to make the server
 # aware of it when generating things like the canonical url in catalyst.
 sub WEB_SERVER                { "www.musicbrainz.example.com" }
+# Relevant only if SSL redirects are enabled
+# sub WEB_SERVER_SSL            { "localhost" }
 # sub LUCENE_SERVER             { "search.musicbrainz.org" }
+# Used, for example, to have emails sent from the beta server list the
+# main server
 # sub WEB_SERVER_USED_IN_EMAIL  { my $self = shift; $self->WEB_SERVER }
+
+# Used for automatic beta redirection. Enabled if BETA_REDIRECT_HOSTNAME
+# is truthy.
+# sub IS_BETA                   { 0 }
+# sub BETA_REDIRECT_HOSTNAME    { '' }
 
 ################################################################################
 # Mail Settings
@@ -168,7 +176,10 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 
 # This description is shown in the banner when DB_STAGING_SERVER is enabled.
 # If left undefined the default value will be shown.
-# Default: "This is a MusicBrainz development server."
+# Several predefined constants can be used (set to e.g. shift->NAME_OF_CONSTANT
+# DB_STAGING_SERVER_DESCRIPTION_DEFAULT { l('This is a MusicBrainz development server.') }
+# DB_STAGING_SERVER_DESCRIPTION_BETA { l('This beta test server allows testing of new features with the live database.') }
+# Defaults to DB_STAGING_SERVER_DESCRIPTION_DEFAULT
 # sub DB_STAGING_SERVER_DESCRIPTION { "" }
 
 # Only change this if running a non-sanitized database on a dev server,
@@ -180,6 +191,14 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 # users to edit user permissions.
 # sub DB_STAGING_TESTING_FEATURES { my $self = shift; $self->DB_STAGING_SERVER }
 
+# SSL_REDIRECTS_ENABLED should be set to 1 on production.  It enables
+# the "RequireSSL" attribute on Catalyst actions, which will redirect
+# users to the SSL version of a Catalyst action (and redirect back to
+# http:// after the action is complete, though only if the user
+# started there).  If set to 0 no SSL redirects will be done, which is
+# suitable for local or development deployments.
+# sub SSL_REDIRECTS_ENABLED { 0 }
+
 ################################################################################
 # Documentation Server Settings
 ################################################################################
@@ -188,10 +207,7 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 # The path to MediaWiki's api.php file. This is required to automatically
 # determine which documentation pages need to be updated in the
 # transclusion table.
-# sub WIKITRANS_SERVER_API { "wiki.musicbrainz.org/-/api.php" }
-
-# sub WIKITRANS_INDEX_FILE { my $self = shift; $self->MB_SERVER_ROOT . "/root/static/wikidocs/index.txt" }
-# sub WIKITRANS_INDEX_URL  { "http://musicbrainz.org/static/wikidocs/index.txt" }
+# sub WIKITRANS_SERVER_API { "wiki.musicbrainz.org/api.php" }
 
 # To enable documentation search on your server, create your own Google Custom
 # Search engine and enter its ID as the value of GOOGLE_CUSTOM_SEARCH.
@@ -236,39 +252,31 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 # The caching options here relate to object caching - such as caching artists,
 # releases, etc in order to speed up queries. If you are using Memcached
 # to store sessions as well this should be a *different* memcached server.
-# our %CACHE_MANAGER_OPTIONS = (
-#     profiles => {
-#         memory => {
-#             class => 'Cache::Memory',
-#             wrapped => 1,
-#             keys => [qw( area_type artist_type g c lng label_type mf place_type release_group_type release_group_secondary_type rs rp scr work_type )],
-#             options => {
-#                 default_expires => '1 hour',
+# sub CACHE_MANAGER_OPTIONS {
+#     my $self = shift;
+#     my %CACHE_MANAGER_OPTIONS = (
+#         profiles => {
+#             memory => {
+#                 class => 'Cache::Memory',
+#                 wrapped => 1,
+#                 keys => [qw( area_type artist_type g c lng label_type mf place_type release_group_type release_group_secondary_type rs rp scr work_type )],
+#                 options => {
+#                     default_expires => '1 hour',
+#                 },
+#             },
+#             external => {
+#                 class => 'Cache::Memcached::Fast',
+#                 options => {
+#                     servers => $self->MEMCACHED_SERVERS(),
+#                     namespace => $self->MEMCACHED_NAMESPACE()
+#                 },
 #             },
 #         },
-#         external => {
-#             class => 'Cache::Memcached::Fast',
-#             options => {
-#                 servers => MEMCACHED_SERVERS(),
-#                 namespace => MEMCACHED_NAMESPACE()
-#             },
-#         },
-#     },
-#     default_profile => 'external',
-# );
-
-# No caching
-#our %CACHE_MANAGER_OPTIONS = (
-#    profiles => {
-#        null => {
-#            class => 'Cache::Null',
-#            wrapped => 1,
-#        },
-#    },
-#    default_profile => 'null',
-#);
-
-# sub CACHE_MANAGER_OPTIONS { \%CACHE_MANAGER_OPTIONS }
+#         default_profile => 'external',
+#     );
+#
+#     return \%CACHE_MANAGER_OPTIONS
+# }
 
 ################################################################################
 # Rate-Limiting
@@ -295,6 +303,48 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 # and install the neccesary CPAN packages.
 # sub MINIFY_SCRIPTS { use Javascript::Closure; return \&Javascript::Closure::minify }
 # sub MINIFY_STYLES { use CSS::Minifier; return \&CSS::Minifier::minify }
+
+################################################################################
+# Sessions (advanced)
+################################################################################
+
+# sub SESSION_STORE { "Session::Store::MusicBrainz" }
+# sub SESSION_STORE_ARGS { return {} }
+# sub SESSION_EXPIRE { return 36000; } # 10 hours
+
+# Redis by default has 16 numbered databases available, of which DB 0
+# is the default.  Here you can configure which of these databases are
+# used by musicbrainz-server.
+#
+# test_database will be completely erased on each test run, so make
+# sure it doesn't point at any production data you may have in your
+# redis server.
+
+# sub DATASTORE_REDIS_ARGS {
+#     my $self = shift;
+#     return {
+#         prefix => $self->MEMCACHED_NAMESPACE(),
+#         database => 0,
+#         test_database => 1,
+#         redis_new_args => {
+#             server => '127.0.0.1:6379',
+#             reconnect => 60,
+#             encoding => undef,
+#         }
+#     };
+# };
+
+################################################################################
+# Session cookies
+################################################################################
+
+# How long (in seconds) a web/rdf session can go "idle" before being timed out
+# sub WEB_SESSION_SECONDS_TO_LIVE { 3600 * 3 }
+
+# The cookie name to use
+# sub SESSION_COOKIE { "AF_SID" }
+# The domain into which the session cookie is written
+# sub SESSION_DOMAIN { undef }
 
 ################################################################################
 # Other Settings
@@ -328,27 +378,20 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 #   }
 # }
 
-# How long (in seconds) a web/rdf session can go "idle" before being timed out
-# sub WEB_SESSION_SECONDS_TO_LIVE { 3600 * 3 }
-
-# The cookie name to use
-# sub SESSION_COOKIE { "AF_SID" }
-# The domain into which the session cookie is written
-# sub SESSION_DOMAIN { undef }
-
 # How long an annotation is considered as being locked.
 # sub ANNOTATION_LOCK_TIME { 60*15 }
 
 # Amazon associate and developer ids
-# my %amazon_store_associate_ids = (
-#     'amazon.ca'         => 'musicbrainz01-20',
-#     'amazon.co.jp'    => 'musicbrainz-22',
-#     'amazon.co.uk'    => 'musicbrainz0c-21',
-#     'amazon.com'    => 'musicbrainz0d-20',
-#     'amazon.de'         => 'musicbrainz00-21',
-#     'amazon.fr'         => 'musicbrainz0e-21',
-#     'amazon.it'         => '', #TODO: Someone should probably sign up for an associate ID.
-# );
+#my %amazon_store_associate_ids = (
+#    'amazon.ca'         => 'music0b72-20',
+#    'amazon.co.jp'    => 'musicbrainzjp-22',
+#    'amazon.co.uk'    => 'music080d-21',
+#    'amazon.com'    => 'musicbrainz0d-20',
+#    'amazon.de'         => 'music059-21',
+#    'amazon.fr'         => 'music083d-21',
+#    'amazon.it'         => 'music084d-21',
+#    'amazon.es'         => 'music02e-21',
+#);
 
 # sub AWS_ASSOCIATE_ID
 # {
@@ -369,43 +412,16 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 # sub RECAPTCHA_PRIVATE_KEY { return undef }
 
 # internet archive private/public keys (for coverartarchive.org).
-# sub COVER_ART_ARCHIVE_ID { };
-# sub COVER_ART_ARCHIVE_KEY { };
-# sub COVER_ART_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf("http://%s.s3.us.archive.org/", shift) };
-# sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { "http://coverartarchive.org" };
+# sub COVER_ART_ARCHIVE_ACCESS_KEY { };
+# sub COVER_ART_ARCHIVE_SECRET_KEY { };
+# sub COVER_ART_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf("//%s.s3.us.archive.org/", shift) };
+# sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { "//coverartarchive.org" };
 
 # Add a Google Analytics tracking code to enable Google Analytics tracking.
 # sub GOOGLE_ANALYTICS_CODE { '' }
 
-################################################################################
-# Sessions (advanced)
-################################################################################
-
-# Unless you are installing an MusicBrainz server that needs to be fully r
-# redundant/load balanced, you do not need to change anything in this section.
-
-# If you're using multiple front-end webservers make sure they all connect to
-# the same memcached server.  Also make sure enough memory is configured for
-# memcached so sessions aren't evicted from the cache.
-# sub SESSION_STORE { "Session::Store::MusicBrainz" }
-# sub SESSION_STORE_ARGS
-# {
-#     my $self = shift;
-#     return {
-#         memcached_new_args => {
-#             data => $self->MEMCACHED_SERVERS(),
-#             namespace => $self->MEMCACHED_NAMESPACE()
-#         }
-#     }
-# }
-
-# MusicBrainz::Server::Wizard saves wizard sessions in memcached,
-# seperately from the regular session store.
-# sub WIZARD_MEMCACHED
-# {
-#     my $self = shift;
-#     return { servers => $self->MEMCACHED_SERVERS(), namespace => $self->MEMCACHED_NAMESPACE() };
-# }
+# Disallow OAuth2 requests over plain HTTP
+# sub OAUTH2_ENFORCE_TLS { my $self = shift; !$self->DB_STAGING_SERVER }
 
 # sub USE_ETAGS { 1 }
 
@@ -415,6 +431,10 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 # This will turn off some optimizations (such as CSS/JS compression) to make
 # developing and debuging easier
 # sub DEVELOPMENT_SERVER { 1 }
+
+# How long to wait before rechecking template files (undef uses the
+# Template::Toolkit default)
+# sub STAT_TTL { shift->DEVELOPMENT_SERVER() ? undef : 1200 }
 
 # Please activate the officially approved languages here. Not every .po
 # file is active because we might have fully translated languages which
@@ -430,6 +450,12 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 
 # Set this to an email address and the server will email any bugs to you
 # sub EMAIL_BUGS { undef }
+
+# Configure which html validator should be used.  If you run tests
+# often, you should probably run a local copy of the validator.  See
+# http://about.validator.nu/#src for instructions.
+# sub HTML_VALIDATOR { 'http://validator.w3.org/nu/?out=json' }
+# local use example: sub HTML_VALIDATOR { 'http://localhost:8888?out=json' }
 
 ################################################################################
 # Profiling
@@ -452,12 +478,11 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 ##    }
 # }
 
-# The maximum amount of time a process can be serving a single request
-# If undef, the process is never killed
-# If set to a positive integer, the process can server a single request
-# for MAX_REQUEST_TIME seconds, and if it is still not done the process
-# will be killed (and log a message about the request it was serving).
-# sub MAX_REQUEST_TIME { undef }
+# The maximum amount of time a process can be serving a single request. This
+# function takes a Catalyst::Request as input, and should return the amount of time
+# in seconds that it should take to respond to this request.
+# If undef, the process is never killed.
+# sub DETERMINE_MAX_REQUEST_TIME { undef }
 
 # sub LOGGER_ARGUMENTS {
 #     return (

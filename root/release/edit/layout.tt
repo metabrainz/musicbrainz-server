@@ -69,6 +69,8 @@
   [% script_manifest('release-editor.js.manifest') %]
 
   <script>
+    MB.relationshipEditor.exportTypeInfo([% type_info %]);
+
     MB.releaseEditor.init({
     [%- IF release.gid %]
       gid: "[% release.gid | js %]",

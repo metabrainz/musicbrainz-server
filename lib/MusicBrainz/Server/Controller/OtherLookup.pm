@@ -3,7 +3,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use Moose::Util qw( find_meta );
-use MusicBrainz::Server::Translation qw ( l );
+use MusicBrainz::Server::Translation qw( l );
 
 sub lookup_handler {
     my ($name, $code) = @_;
@@ -34,7 +34,7 @@ lookup_handler 'catno' => sub {
     my ($self, $c, $cat_no) = @_;
 
     $c->response->redirect(
-        $c->uri_for_action ('/search/search', {
+        $c->uri_for_action('/search/search', {
             query => 'catno:' . $cat_no,
             type => 'release',
             advanced => '1',
@@ -47,7 +47,7 @@ lookup_handler 'barcode' => sub {
     my ($self, $c, $barcode) = @_;
 
     $c->response->redirect(
-        $c->uri_for_action ('/search/search', {
+        $c->uri_for_action('/search/search', {
             query => 'barcode:' . $barcode,
             type => 'release',
             advanced => '1',
@@ -122,7 +122,7 @@ lookup_handler 'artist-ipi' => sub {
     my ($self, $c, $ipi) = @_;
 
     $c->response->redirect(
-        $c->uri_for_action ('/search/search', {
+        $c->uri_for_action('/search/search', {
             query => 'ipi:' . $ipi,
             type => 'artist',
             advanced => '1',
@@ -135,7 +135,7 @@ lookup_handler 'artist-isni' => sub {
     my ($self, $c, $isni) = @_;
 
     $c->response->redirect(
-        $c->uri_for_action ('/search/search', {
+        $c->uri_for_action('/search/search', {
             query => 'isni:' . $isni,
             type => 'artist',
             advanced => '1',
@@ -148,7 +148,7 @@ lookup_handler 'label-ipi' => sub {
     my ($self, $c, $ipi) = @_;
 
     $c->response->redirect(
-        $c->uri_for_action ('/search/search', {
+        $c->uri_for_action('/search/search', {
             query => 'ipi:' . $ipi,
             type => 'label',
             advanced => '1',
@@ -161,7 +161,7 @@ lookup_handler 'label-isni' => sub {
     my ($self, $c, $isni) = @_;
 
     $c->response->redirect(
-        $c->uri_for_action ('/search/search', {
+        $c->uri_for_action('/search/search', {
             query => 'isni:' . $isni,
             type => 'label',
             advanced => '1',
@@ -180,7 +180,7 @@ lookup_handler 'discid' => sub {
 lookup_handler 'freedbid' => sub {
     my ($self, $c, $freedbid) = @_;
 
-    my @cdtocs = $c->model ('CDTOC')->find_by_freedbid (lc($freedbid));
+    my @cdtocs = $c->model('CDTOC')->find_by_freedbid(lc($freedbid));
 
     my @medium_cdtocs = map {
         $c->model('MediumCDTOC')->find_by_discid($_->discid);
@@ -189,7 +189,7 @@ lookup_handler 'freedbid' => sub {
     my @mediums = $c->model('Medium')->load(@medium_cdtocs);
     my @releases = $c->model('Release')->load(@mediums);
 
-    $c->model('ArtistCredit')->load (@releases);
+    $c->model('ArtistCredit')->load(@releases);
     $c->model('Release')->load_release_events(@releases);
     $c->model('Language')->load(@releases);
     $c->model('Script')->load(@releases);

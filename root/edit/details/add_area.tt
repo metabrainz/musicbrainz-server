@@ -11,10 +11,12 @@
     <td>[% edit.display_data.name | html %]</td>
   </tr>
 
+  [%- IF edit.display_data.sort_name -%]
   <tr>
     <th>[% l('Sort name:') %]</th>
     <td>[% edit.display_data.sort_name | html %]</td>
   </tr>
+  [%- END -%]
 
   [% IF edit.display_data.comment %]
   <tr>

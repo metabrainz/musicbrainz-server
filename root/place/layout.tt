@@ -21,7 +21,7 @@
                         [% WRAPPER 'layout/sidebar/property.tt' label=l("Defunct:") class="defunct" %]
                             [% place.end_date.format %]
                             [% IF place.has_age %]
-                                ([% display_age (place.age) %])
+                                ([% display_age(place.age) %])
                             [% END %]
                         [% END %]
                     [% ELSIF place.ended %]
@@ -56,13 +56,6 @@
                     [% l('Merge place') %]
                   </a>
                 </li>
-
-                <hr/>
-
-                [%# Adds <li> itself %]
-                [% use_in_relationship(place) %]
-                <li>[% relate_to_ellipsis(place) %]</li>
-                <li>[% relate_to_url(place) %]</li>
 
                 <hr/>
 

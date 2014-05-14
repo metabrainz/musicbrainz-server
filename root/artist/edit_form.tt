@@ -40,7 +40,7 @@
             <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
 
             [% r.hidden(form.field('area').field('gid'), { class => 'gid' }) %]
-            [% r.hidden ('area_id', class => 'id') %]
+            [% r.hidden('area_id', class => 'id') %]
             [% r.text(area_field, class => 'name') %]
           </span>
           [% field_errors(r.form, 'area.name') %]
@@ -61,7 +61,7 @@
           <span id="begin_area" class="area autocomplete">
             <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
             [% r.hidden(form.field('begin_area').field('gid'), { class => 'gid' }) %]
-            [% r.hidden ('begin_area_id', class => 'id') %]
+            [% r.hidden('begin_area_id', class => 'id') %]
             [% r.text(begin_area_field, class => 'name') %]
           </span>
           [% field_errors(r.form, 'begin_area.name') %]
@@ -74,12 +74,14 @@
           <span id="end_area" class="area autocomplete">
             <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
             [% r.hidden(form.field('end_area').field('gid'), { class => 'gid' }) %]
-            [% r.hidden ('end_area_id', class => 'id') %]
+            [% r.hidden('end_area_id', class => 'id') %]
             [% r.text(end_area_field, class => 'name') %]
           </span>
           [% field_errors(r.form, 'end_area.name') %]
         [% END %]
       </fieldset>
+
+      [% PROCESS 'forms/relationship-editor.tt' %]
 
       <fieldset>
         <legend>[% l('External Links') %]</legend>

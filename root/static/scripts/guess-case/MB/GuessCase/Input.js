@@ -42,7 +42,7 @@ MB.GuessCase.Input = function () {
     /**
      * Initialise the GcInput object
      **/
-    self.init = function(is, w) {
+    self.init = function (is, w) {
 	self._source = (is || "");
 	self._w = (w || []);
 	self._l = self._w.length;
@@ -52,14 +52,14 @@ MB.GuessCase.Input = function () {
     /**
      * Returns the length of the wordlist
      **/
-    self.getLength = function() {
+    self.getLength = function () {
 	return self._l;
     };
 
     /**
      * Returns true if the lenght==0
      **/
-    self.isEmpty = function() {
+    self.isEmpty = function () {
 	var f = (self.getLength() == 0);
 	return f;
     };
@@ -67,14 +67,14 @@ MB.GuessCase.Input = function () {
     /**
      * Get the cursor position
      **/
-    self.getPos = function() {
+    self.getPos = function () {
 	return self._wi;
     };
 
     /**
      * Set the cursor to a new position
      **/
-    self.setPos = function(index) {
+    self.setPos = function (index) {
 	if (index >= 0 && index < self.getLength()) {
 	    self._wi = index;
 	}
@@ -83,32 +83,32 @@ MB.GuessCase.Input = function () {
     /**
      * Accessors for strings at certain positions.
      **/
-    self.getWordAtIndex = function(index) {
+    self.getWordAtIndex = function (index) {
 	return (self._w[index] || null);
     };
-    self.getNextWord = function() {
+    self.getNextWord = function () {
 	return self.getWordAtIndex(self._wi+1);
     };
-    self.getCurrentWord = function() {
+    self.getCurrentWord = function () {
 	return self.getWordAtIndex(self._wi);
     };
-    self.getPreviousWord = function() {
+    self.getPreviousWord = function () {
 	return self.getWordAtIndex(self._wi-1);
     };
 
     /**
      * Test methods
      **/
-    self.isFirstWord = function() {
+    self.isFirstWord = function () {
 	return (0 == self._wi);
     };
-    self.isLastWord = function() {
+    self.isLastWord = function () {
 	return (self.getLength() == self._wi-1);
     };
-    self.isNextWord = function(s) {
+    self.isNextWord = function (s) {
 	return (self.hasMoreWords() && self.getNextWord() == s);
     };
-    self.isPreviousWord = function(s) {
+    self.isPreviousWord = function (s) {
 	return (!self.isFirstWord() && self.getPreviousWord() == s);
     };
 
@@ -116,7 +116,7 @@ MB.GuessCase.Input = function () {
      * Match the word at the current index against the
      * regular expression or string given
      **/
-    self.matchCurrentWord = function(re) {
+    self.matchCurrentWord = function (re) {
 	return self.matchWordAtIndex(self.getPos(), re);
     };
 
@@ -124,7 +124,7 @@ MB.GuessCase.Input = function () {
      * Match the word at index wi against the
      * regular expression or string given
      **/
-    self.matchWordAtIndex = function(index, re) {
+    self.matchWordAtIndex = function (index, re) {
 	var cw = (self.getWordAtIndex(index) || "");
 	var f;
 	if (_.isString(re)) {
@@ -138,20 +138,20 @@ MB.GuessCase.Input = function () {
     /**
      * Index methods
      **/
-    self.hasMoreWords = function() {
+    self.hasMoreWords = function () {
 	return (self._wi == 0 && self.getLength() > 0 || self._wi-1 < self.getLength());
     };
-    self.isIndexAtEnd = function() {
+    self.isIndexAtEnd = function () {
 	return (self._wi == self.getLength());
     };
-    self.nextIndex = function() {
+    self.nextIndex = function () {
 	self._wi++;
     };
 
     /**
      * Returns the last word of the wordlist
      **/
-    self.dropLastWord = function() {
+    self.dropLastWord = function () {
 	if (self.getLength() > 0) {
 	    self._w.pop();
 	    if (self.isIndexAtEnd()) {
@@ -163,7 +163,7 @@ MB.GuessCase.Input = function () {
     /**
      * Capitalize the word at the current position
      **/
-    self.insertWordsAtIndex = function(index, w) {
+    self.insertWordsAtIndex = function (index, w) {
 	var part1 = self._w.slice(0,index);
 	var part2 = self._w.slice(index, self._w.length);
 	self._w = part1.concat(w).concat(part2);
@@ -173,7 +173,7 @@ MB.GuessCase.Input = function () {
     /**
      * Capitalize the word at the current position
      **/
-    self.capitalizeCurrentWord = function() {
+    self.capitalizeCurrentWord = function () {
 	var w;
 	if ((w = self.getCurrentWord()) != null) {
 	    var o = gc.u.titleString(w);
@@ -188,7 +188,7 @@ MB.GuessCase.Input = function () {
     /**
      * Update the word at the current position
      **/
-    self.updateCurrentWord = function(o) {
+    self.updateCurrentWord = function (o) {
 	var w = self.getCurrentWord();
 	if (w != null) {
 	    self._w[self._wi] = o;
@@ -198,7 +198,7 @@ MB.GuessCase.Input = function () {
     /**
      * Insert a word at the end of the wordlist
      **/
-    self.insertWordAtEnd = function(w) {
+    self.insertWordAtEnd = function (w) {
 	self._w[self._w.length] = w;
 	self._l++;
     };
@@ -213,7 +213,7 @@ MB.GuessCase.Input = function () {
      * @param	 	is the un-processed input string
      * @returns		sets the GLOBAL array of words and puctuation characters
      **/
-    self.splitWordsAndPunctuation = function(is) {
+    self.splitWordsAndPunctuation = function (is) {
 	is = is.replace(/^\s\s*/,""); // delete leading space
 	is = is.replace(/\s\s*$/,""); // delete trailing space
 	is = is.replace(/\s\s*/g," "); // compress whitespace:

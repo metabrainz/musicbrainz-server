@@ -49,6 +49,14 @@ has 'attributes' => (
     }
 );
 
+has 'attribute_text_values' => (
+    is => 'rw',
+    isa => 'HashRef',
+    traits => [ 'Hash' ],
+    default => sub { +{} },
+    lazy => 1,
+);
+
 has 'formatted_date' => (
     is => 'ro',
     builder => '_build_formatted_date',
@@ -80,22 +88,6 @@ sub get_attribute
         }
     }
     return \@values;
-}
-
-sub get_attribute_hash
-{
-    my ($self) = @_;
-
-    my %hash;
-    foreach ($self->all_attributes) {
-        if ($_->id != $_->root->id) {
-            my $attrs = $hash{ $_->root->name } //= [];
-            push @$attrs, $_->id;
-        } else {
-            $hash{ $_->root->name } = 1;
-        }
-    }
-    return \%hash;
 }
 
 sub _build_formatted_date {

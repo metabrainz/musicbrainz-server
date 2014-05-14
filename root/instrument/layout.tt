@@ -1,0 +1,58 @@
+[% main_title = l('{type} “{instrument}”', {
+    type => instrument.l_type_name or l('Instrument'),
+    instrument => instrument.l_name
+}) %]
+[%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title -%]
+  [%- IF !full_width -%]
+    [% WRAPPER 'layout/sidebar.tt' %]
+        [%- show_image() -%]
+
+        [% IF instrument.type %]
+        <h2 class="instrument-information">[% l('Instrument information') %]</h2>
+        [% WRAPPER 'layout/sidebar/properties.tt' %]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
+               content=html_escape(instrument.type.l_name) class="type"
+                   IF instrument.type -%]
+        [% END %]
+        [% END %]
+
+        <h2 class="editing">[% l('Editing') %]</h2>
+        <ul class="links">
+            [% IF c.user_exists %]
+                [% sidebar_edit_annotation(instrument) IF c.user.is_relationship_editor %]
+                [% sidebar_annotation_history(instrument) %]
+
+                [%# We only want to show this <hr /> if either of the macros
+                    produced output. %]
+                [% '<hr />' IF number_of_revisions > 0 ||
+                               c.user_is_relationship_editor %]
+
+                [% IF c.user.is_relationship_editor %]
+                <li>
+                  <a href="[% c.uri_for_action('/instrument/merge_queue', { 'add-to-merge' => instrument.id }) %]">
+                    [% l('Merge instrument') %]
+                  </a>
+                </li>
+                <li>[% link_entity(instrument, 'delete', l('Remove instrument')) %]</li>
+                <hr/>
+                [% END %]
+
+                <li>[% link_entity(instrument, 'open_edits', l('Open edits')) %]</li>
+                <li>[% link_entity(instrument, 'edits', l('Editing history')) %]</li>
+            [% ELSE %]
+               <li>[% request_login(l('Log in to edit')) %]</li>
+            [% END %]
+        </ul>
+
+        [%- INCLUDE "layout/sidebar/sidebar-favicons.tt" source=instrument -%]
+
+        [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=instrument -%]
+    [% END %]
+  [%- END -%]
+
+  <div id="content">
+    [%- INCLUDE 'instrument/header.tt' %]
+    [%- content -%]
+  </div>
+
+[%- END -%]

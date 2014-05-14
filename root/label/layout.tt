@@ -3,9 +3,6 @@
     [% WRAPPER 'layout/sidebar.tt' %]
         <h2 class="label-information">[% l('Label information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('Sort name:')
-               content=html_escape(label.sort_name) class="sort-name"
-                   IF label.name != label.sort_name -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
                content=html_escape(label.l_type_name) class="type"
                    IF label.type -%]
@@ -22,7 +19,7 @@
                         [% WRAPPER 'layout/sidebar/property.tt' label=l("Defunct:") class="defunct" %]
                             [% label.end_date.format %]
                             [% IF label.has_age %]
-                                ([% display_age (label.age) %])
+                                ([% display_age(label.age) %])
                             [% END %]
                         [% END %]
                     [% ELSIF label.ended %]
@@ -71,13 +68,6 @@
                   </a>
                 </li>
                 <li>[% link_entity(label, 'delete', l('Remove label')) %]</li>
-
-                <hr/>
-
-                [%# Adds <li> itself %]
-                [% use_in_relationship(label) %]
-                <li>[% relate_to_ellipsis(label) %]</li>
-                <li>[% relate_to_url(label) %]</li>
 
                 <hr/>
 

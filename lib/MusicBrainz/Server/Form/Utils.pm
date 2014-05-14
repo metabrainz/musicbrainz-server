@@ -16,7 +16,11 @@ use Sub::Exporter -setup => {
                       script_options
                       link_type_options
                       select_options
+                      select_options_tree
                       build_grouped_options
+                      build_type_info
+                      build_attr_info
+                      build_options_tree
               )]
 };
 
@@ -109,6 +113,40 @@ sub select_options
     } $model_ref->get_all ];
 }
 
+sub select_options_tree
+{
+    my ($c, $model, %opts) = @_;
+
+    my $model_ref = ref($model) ? $model : $c->model($model);
+    my $root_option = $model_ref->get_tree;
+
+    return [
+        map {
+            build_options_tree($_, 'l_name', '')
+        } $root_option->all_children
+    ];
+}
+
+sub build_options_tree
+{
+    my ($root, $attr, $indent) = @_;
+
+    my @options;
+
+    push @options, {
+        value => $root->id,
+        label => $indent . $root->$attr,
+    } if $root->id;
+
+    $indent .= '&#xa0;&#xa0;&#xa0;';
+
+    foreach my $child ($root->all_children) {
+        push @options, build_options_tree($child, $attr, $indent);
+    }
+    return @options;
+}
+
+
 # Used by the relationship and release editors, instead of FormHandler.
 sub build_grouped_options
 {
@@ -123,6 +161,80 @@ sub build_grouped_options
               { label => $opt->{label}, value => $opt->{value} };
     }
     return $result;
+}
+
+sub build_type_info {
+    my ($c, $types, @link_type_tree) = @_;
+
+    sub build_type {
+        my $root = shift;
+
+        my %attrs = map {
+            $_->type_id => {
+                min     => defined $_->min ? 0 + $_->min : undef,
+                max     => defined $_->max ? 0 + $_->max : undef,
+            }
+        } $root->all_attributes;
+
+        my $result = {
+            id                  => $root->id,
+            gid                 => $root->gid,
+            phrase              => $root->l_link_phrase,
+            reversePhrase       => $root->l_reverse_link_phrase,
+            deprecated          => $root->is_deprecated ? \1 : \0,
+            hasDates            => $root->has_dates ? \1 : \0,
+            type0               => $root->entity0_type,
+            type1               => $root->entity1_type,
+            cardinality0        => $root->entity0_cardinality,
+            cardinality1        => $root->entity1_cardinality,
+            orderableDirection  => $root->orderable_direction,
+        };
+
+        $result->{description} = $root->l_description if $root->description;
+        $result->{attributes} = \%attrs if %attrs;
+        $result->{children} = build_child_info($root, \&build_type) if $root->all_children;
+
+        return $result;
+    };
+
+    my %type_info;
+    for my $root (@link_type_tree) {
+        my $type_key = join('-', $root->entity0_type, $root->entity1_type);
+        next if $type_key !~ $types;
+        $type_info{ $type_key } = build_child_info($root, \&build_type);
+    }
+    return \%type_info;
+}
+
+sub build_attr_info {
+    my $root = shift;
+
+    sub build_attr {
+        my $attr = {
+            id          => $_->id,
+            gid         => $_->gid,
+            root_id     => $_->root_id,
+            name        => $_->name,
+            l_name      => $_->l_name,
+            freeText    => $_->free_text ? \1 : \0,
+        };
+
+        $attr->{description} = $_->l_description if $_->description;
+        $attr->{children} = build_child_info($_, \&build_attr) if $_->all_children;
+
+        my $unac = decode("utf-16", unac_string_utf16(encode("utf-16", $_->l_name)));
+        $attr->{unaccented} = $unac if $unac ne $_->l_name;
+
+        return $attr;
+    }
+
+    return { map { $_->name => build_attr($_) } $root->all_children };
+}
+
+sub build_child_info {
+    my ($root, $builder) = @_;
+
+    return [ map { $builder->($_) } $root->all_children ];
 }
 
 1;

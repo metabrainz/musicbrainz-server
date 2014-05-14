@@ -39,11 +39,11 @@
             var oldData = release.original();
             var edits = [];
 
-            if (!release.id) {
+            if (!release.gid()) {
                 edits.push(MB.edit.releaseCreate(newData));
             }
             else if (!_.isEqual(newData, oldData)) {
-                newData = _.extend(_.clone(newData), { to_edit: release.id });
+                newData = _.extend(_.clone(newData), { to_edit: release.gid() });
                 edits.push(MB.edit.releaseEdit(newData, oldData));
             }
             return edits;
@@ -86,7 +86,7 @@
                     newLabel = _.clone(newLabel);
 
                     if (newLabel.label || newLabel.catalog_number) {
-                        newLabel.release = release.id || null;
+                        newLabel.release = release.gid() || null;
                         edits.push(MB.edit.releaseAddReleaseLabel(newLabel));
                     }
                 }
@@ -218,7 +218,7 @@
                         delete medium.tmpPosition;
                     }
 
-                    newMediumData.release = release.id;
+                    newMediumData.release = release.gid();
                     edits.push(MB.edit.mediumCreate(newMediumData));
                 }
             });
@@ -254,7 +254,7 @@
             if (newOrder.length) {
                 edits.push(
                     MB.edit.releaseReorderMediums({
-                        release: release.id,
+                        release: release.gid(),
                         medium_positions: newOrder
                     })
                 );
@@ -274,7 +274,7 @@
                         MB.edit.mediumAddDiscID({
                             medium_id:          medium.id,
                             medium_position:    medium.position(),
-                            release:            release.id,
+                            release:            release.gid(),
                             release_name:       release.name(),
                             cdtoc:              toc
                         })
@@ -288,14 +288,11 @@
             var edits = [];
 
             _(release.externalLinks.links()).each(function (link) {
-                link.entity0ID(release.gid || "");
-
                 if (!link.linkTypeID() || !link.url() || link.error()) {
                     return;
                 }
 
-                var editData = MB.edit.fields.relationship(link);
-                if (release.gid) delete editData.entity0Preview;
+                var editData = link.editData();
 
                 if (link.removed()) {
                     edits.push(MB.edit.relationshipDelete(editData));
@@ -390,8 +387,8 @@
         var root = releaseEditor.rootField;
 
         var args = {
-            as_auto_editor: root.asAutoEditor(),
-            edit_note: root.editNote()
+            asAutoEditor: root.asAutoEditor(),
+            editNote: root.editNote()
         };
 
         function nextSubmission(index) {
@@ -408,11 +405,11 @@
                     a.href = releaseEditor.redirectURI;
 
                     a.search += /^\?/.test(a.search) ? "&" : "?";
-                    a.search += "release_mbid=" + release.gid;
+                    a.search += "release_mbid=" + release.gid();
 
                     window.location.href = a.href;
                 } else {
-                    window.location.pathname = "/release/" + release.gid;
+                    window.location.pathname = "/release/" + release.gid();
                 }
                 return;
             }
@@ -469,12 +466,10 @@
                 var entity = edits[0].entity;
 
                 if (entity) {
-                    release.id = entity.id;
-                    release.gid = entity.gid;
+                    release.gid(entity.gid);
                 }
 
                 release.original(MB.edit.fields.release(release));
-                releaseField.notifySubscribers(release);
             }
         },
         {

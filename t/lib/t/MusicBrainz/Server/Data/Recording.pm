@@ -118,7 +118,7 @@ ok(!defined $rec);
 
 my @entities = map { $rec_data->get_by_id($_) } qw(1 8 14);
 
-my %appears = $rec_data->appears_on (\@entities, 2);
+my %appears = $rec_data->appears_on(\@entities, 2);
 $results = $appears{1}->{results};
 
 is ($appears{8}->{results}->[0]->name, "Aerial", "recording 8 appears on Aerial");

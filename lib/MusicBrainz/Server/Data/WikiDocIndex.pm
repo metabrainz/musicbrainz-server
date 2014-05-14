@@ -4,7 +4,7 @@ use Moose;
 use namespace::autoclean;
 use Readonly;
 use List::UtilsBy qw( sort_by );
-use List::MoreUtils qw ( natatime);
+use List::MoreUtils qw( natatime);
 use LWP::Simple qw();
 use LWP::UserAgent;
 use XML::Simple;

@@ -14,7 +14,7 @@ use MusicBrainz::Server::Data::Utils qw(
   partial_date_to_hash
   type_to_model
 );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Link';
 use aliased 'MusicBrainz::Server::Entity::LinkType';
@@ -51,7 +51,8 @@ subtype 'LinkHash'
         entity1 => Nullable[Dict[
             id => Int,
             name => Str,
-        ]]
+        ]],
+        attribute_text_values => Optional[Dict],
     ];
 
 subtype 'RelationshipHash'
@@ -74,7 +75,8 @@ subtype 'RelationshipHash'
         entity1 => Nullable[Dict[
             id => NullableOnPreview[Int],
             name => Str,
-        ]]
+        ]],
+        attribute_text_values => Optional[Dict],
     ];
 
 has '+data' => (
@@ -110,7 +112,10 @@ sub foreign_keys
     $load{LinkAttributeType} = [
         @{ $self->data->{link}->{attributes} },
         @{ $self->data->{new}->{attributes} || [] },
-        @{ $self->data->{old}->{attributes} || [] }
+        @{ $self->data->{old}->{attributes} || [] },
+        keys %{ $self->data->{link}->{attribute_text_values} // {} },
+        keys %{ $self->data->{old}->{attribute_text_values} // {} },
+        keys %{ $self->data->{new}->{attribute_text_values} // {} },
     ];
 
     my $old = $self->data->{old};
@@ -145,6 +150,9 @@ sub _build_relationship
     my $entity1    = defined $change->{entity1}      ? $change->{entity1}      : $link->{entity1};
     my $lt         = defined $change->{link_type}    ? $change->{link_type}    : $link->{link_type};
 
+    my $attribute_text_values = defined $change->{attribute_text_values}
+        ? $change->{attribute_text_values} : $link->{attribute_text_values};
+
     return unless $entity0 && $entity1;
 
     return Relationship->new(
@@ -166,7 +174,8 @@ sub _build_relationship
                         ();
                     }
                 } @$attributes
-            ]
+            ],
+            attribute_text_values => $attribute_text_values // {},
         ),
         entity0 => $loaded->{$model0}{ $entity0->{id} } ||
             $self->c->model($model0)->_entity_class->new( name => $entity0->{name} ),
@@ -183,8 +192,8 @@ sub build_display_data
     my $new = $self->data->{new};
 
     return {
-        old => $self->_build_relationship ($loaded, $self->data, $old),
-        new => $self->_build_relationship ($loaded, $self->data, $new),
+        old => $self->_build_relationship($loaded, $self->data, $old),
+        new => $self->_build_relationship($loaded, $self->data, $new),
         unknown_attributes => scalar(
             grep { !exists $loaded->{LinkAttributeType}{$_} }
                 @{ $old->{attributes} // [] },
@@ -230,8 +239,8 @@ sub adjust_edit_pending
 sub _mapping
 {
     return (
-        begin_date => sub { return partial_date_to_hash (shift->link->begin_date); },
-        end_date =>   sub { return partial_date_to_hash (shift->link->end_date);   },
+        begin_date => sub { return partial_date_to_hash(shift->link->begin_date); },
+        end_date =>   sub { return partial_date_to_hash(shift->link->end_date);   },
         ended => sub { return shift->link->ended },
         attributes => sub { return [ map { $_->id } shift->link->all_attributes ]; },
         link_type => sub {
@@ -252,7 +261,8 @@ sub _mapping
         entity1 => sub {
             my $rel = shift;
             return { id => $rel->entity1->id, name => $rel->entity1->name };
-        }
+        },
+        attribute_text_values => sub { shift->link->attribute_text_values },
     );
 }
 
@@ -283,8 +293,15 @@ sub initialize
     my ($self, %opts) = @_;
 
     my $relationship = delete $opts{relationship};
-    my $type0 = delete $opts{type0};
-    my $type1 = delete $opts{type1};
+    my $link = $relationship->link;
+    my $type0 = $link->type->entity0_type;
+    my $type1 = $link->type->entity1_type;
+
+    if (my $attributes = $opts{attributes}) {
+        $self->check_attributes($link->type, $attributes, $opts{attribute_text_values} // {});
+    }
+
+    delete $opts{attribute_text_values} unless %{ $opts{attribute_text_values} // {} };
 
     unless ($relationship->entity0 && $relationship->entity1) {
         $self->c->model('Relationship')->load_entities($relationship);
@@ -308,15 +325,13 @@ sub initialize
         long_link_phrase => $opts{link_type}->long_link_phrase
     } if $opts{link_type};
 
-    my $link = $relationship->link;
-
     $self->relationship($relationship);
     $self->data({
         type0 => $type0,
         type1 => $type1,
         relationship_id => $relationship->id,
         link => {
-            begin_date => partial_date_to_hash ($link->begin_date),
+            begin_date => partial_date_to_hash($link->begin_date),
             end_date =>   partial_date_to_hash ($link->end_date),
             ended => $link->ended,
             attributes => [ map { $_->id } $link->all_attributes ],
@@ -335,6 +350,7 @@ sub initialize
                 id => $relationship->entity1_id,
                 name => $relationship->entity1->name
             },
+            attribute_text_values => $link->attribute_text_values,
         },
         $self->_change_data($relationship, %opts)
     });
@@ -375,7 +391,8 @@ sub accept
         link_type_id => $data->{new}{link_type}{id} // $relationship->link->type_id,
         begin_date   => $data->{new}{begin_date}    // $relationship->link->begin_date,
         end_date     => $data->{new}{end_date}      // $relationship->link->end_date,
-        ended        => $data->{new}{ended}         // $relationship->link->ended
+        ended        => $data->{new}{ended}         // $relationship->link->ended,
+        attribute_text_values => $data->{new}{attribute_text_values} // $relationship->link->attribute_text_values,
     };
 
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(

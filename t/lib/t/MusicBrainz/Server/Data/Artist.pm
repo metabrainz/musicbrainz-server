@@ -283,7 +283,7 @@ ok(!$artist_data->can_delete(3));
     isa_ok($artist, 'MusicBrainz::Server::Entity::Artist');
 
     my $found = $artist_data->search_by_names('Test Artist', 'Minimal Artist');
-    is (scalar @{ $found->{'Test Artist'} }, 2, 'Found two test artists');
+    is(scalar @{ $found->{'Test Artist'} }, 2, 'Found two test artists');
     my @testartists = sort_by { $_->comment } @{ $found->{'Test Artist'} };
     is($testartists[0]->comment, 'J-Pop artist');
     is($testartists[1]->comment, 'Yet Another Test Artist');
@@ -339,7 +339,7 @@ test 'Deny delete "Various Artists" trigger' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+special-purpose');
 
     like exception {
-        $c->sql->do ("DELETE FROM artist WHERE id = $VARTIST_ID")
+        $c->sql->do("DELETE FROM artist WHERE id = $VARTIST_ID")
     }, qr/ERROR:\s*Attempted to delete a special purpose row/;
 };
 
@@ -348,7 +348,7 @@ test 'Deny delete "Deleted Artist" trigger' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+special-purpose');
 
     like exception {
-        $c->sql->do ("DELETE FROM artist WHERE id = $DARTIST_ID")
+        $c->sql->do("DELETE FROM artist WHERE id = $DARTIST_ID")
     }, qr/ERROR:\s*Attempted to delete a special purpose row/;
 };
 

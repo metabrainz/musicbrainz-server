@@ -14,7 +14,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     merge_partial_date
 );
 use MusicBrainz::Server::Entity::PartialDate;
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 use JSON::Any;

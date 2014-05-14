@@ -29,7 +29,6 @@
       <fieldset>
         <legend>[% l('Label Details') %]</legend>
         [%- form_row_text_long(r, 'name', l('Name:')) -%]
-        [%- form_row_text_long(r, 'sort_name', l('Sort name:')) -%]
         [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
         [%- form_row_select(r, 'type_id', l('Type:')) -%]
         [% WRAPPER form_row %]
@@ -38,7 +37,7 @@
           <span class="area autocomplete">
             <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
             [% r.hidden(form.field('area').field('gid'), { class => 'gid' }) %]
-            [% r.hidden ('area_id', class => 'id') %]
+            [% r.hidden('area_id', class => 'id') %]
             [% r.text(area_field, class => 'name') %]
           </span>
           [% field_errors(r.form, 'area.name') %]
@@ -62,6 +61,8 @@
         [% form_row_checkbox(r, 'period.ended', l('This label has ended.')) %]
       </fieldset>
 
+      [% PROCESS 'forms/relationship-editor.tt' %]
+
       <fieldset>
         <legend>[% l('External Links') %]</legend>
         [% external_links_editor(r.form, 'label') %]
@@ -74,7 +75,6 @@
 
   <div class="documentation">
     [%- guesscase_bubble(1) -%]
-    [%- sortname_bubble() -%]
     [%- area_bubble() -%]
     [%- external_link_bubble() -%]
   </div>

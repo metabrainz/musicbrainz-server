@@ -25,29 +25,17 @@
   <div class="half-width">
     <fieldset class="editnote">
       <legend>[%- l('Edit Note') -%]</legend>
-        <p>
-          [% l('Entering an {note|edit note} that describes where you got your information is highly recommended. Not only does it make it clear where you got your information, but it can also encourage other users to vote on your edit &#x2014; thus making your edit get applied faster.', { note => { href => doc_link('Edit_Note'), target => '_blank' } }) %]
-        </p>
-        <p>[% l('Even just providing a URL or two is helpful!') %]</p>
-      [% WRAPPER form_row %]
-        <label for="edit-note-text">[% l('Edit note:') %]</label>
-        <textarea id="edit-note-text" data-bind="value: rootField.editNote, valueUpdate: 'input'" rows="5" cols="80"></textarea>
-      [% END %]
-      <p class="error field-error" data-bind="showErrorRightAway: rootField.editNote"></p>
+      <!-- ko with: rootField -->
+        [% edit_note(0, 1) %]
+
+        <p class="error field-error" data-bind="showErrorRightAway: editNote"></p>
+
+        [% as_auto_editor(1) %]
+      <!-- /ko -->
     </fieldset>
 
-    <div class="row no-label">
-      [%- IF c.user.is_auto_editor -%]
-      <div class="auto-editor">
-        <label>
-          <input type="checkbox" data-bind="checked: rootField.asAutoEditor" />
-          [% l('Enable {autoed|auto-editor} privileges for this edit.', { autoed => { href => doc_link('Auto-Editor'), target => '_blank' } }) -%]
-        </label>
-      </div>
-      [%- END -%]
-      <div data-bind="if: submissionInProgress" class="loading-message">
-        [% l('Submitting edits...') %]
-      </div>
+    <div data-bind="if: submissionInProgress" class="loading-message">
+      [% l('Submitting edits...') %]
     </div>
 
     <!-- ko if: submissionError -->

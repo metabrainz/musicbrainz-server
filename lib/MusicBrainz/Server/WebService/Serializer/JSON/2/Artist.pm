@@ -33,16 +33,16 @@ sub serialize
         $body{begin_area} = $entity->begin_area ? serialize_entity($entity->begin_area) : JSON::null;
         $body{end_area} = $entity->end_area ? serialize_entity($entity->end_area) : JSON::null;
 
-        $body{recordings} = list_of ($entity, $inc, $stash, "recordings")
+        $body{recordings} = list_of($entity, $inc, $stash, "recordings")
             if ($inc && $inc->recordings);
 
-        $body{releases} = list_of ($entity, $inc, $stash, "releases")
+        $body{releases} = list_of($entity, $inc, $stash, "releases")
             if ($inc && $inc->releases);
 
-        $body{"release-groups"} = list_of ($entity, $inc, $stash, "release_groups")
+        $body{"release-groups"} = list_of($entity, $inc, $stash, "release_groups")
             if ($inc && $inc->release_groups);
 
-        $body{works} = list_of ($entity, $inc, $stash, "works")
+        $body{works} = list_of($entity, $inc, $stash, "works")
             if ($inc && $inc->works);
     }
 

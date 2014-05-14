@@ -40,7 +40,7 @@
           <span class="area autocomplete">
             <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
             [% r.hidden(form.field('area').field('gid'), class => 'gid') %]
-            [% r.hidden ('area_id', class => 'id') %]
+            [% r.hidden('area_id', class => 'id') %]
             [% r.text(area_field, class => 'name') %]
           </span>
           [% field_errors(r.form, 'area.name') %]
@@ -57,6 +57,8 @@
         [% form_row_date(r, 'period.end_date', l('End date:')) %]
         [% form_row_checkbox(r, 'period.ended', l('This place has ended.')) %]
       </fieldset>
+
+      [% PROCESS 'forms/relationship-editor.tt' %]
 
       <fieldset>
         <legend>[% l('External Links') %]</legend>

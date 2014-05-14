@@ -107,7 +107,7 @@ url:         http://tablesorter.com
 
 library:     Knockout
 license:     MIT
-version:     3.0.0
+version:     3.1.0
 author:      Steven Sanderson
 url:         http://knockoutjs.com
 
@@ -163,7 +163,7 @@ url:         https://github.com/cloudhead/less.js
 
 library:     aclass
 license:     MIT
-version:     0.3.3
+version:     0.5.0
 author:      Michael Wiencek
 url:         https://github.com/mwiencek/aclass
 

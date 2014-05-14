@@ -21,7 +21,6 @@ html_ok($mech->content);
 my $response = $mech->submit_form(
     with_fields => {
         'edit-label.name' => 'controller label',
-        'edit-label.sort_name' => 'label, controller',
         'edit-label.type_id' => 2,
         'edit-label.label_code' => 12345,
         'edit-label.area_id' => 222,
@@ -44,7 +43,6 @@ is_deeply($edit->data, {
         },
         new => {
             name => 'controller label',
-            sort_name => 'label, controller',
             type_id => 2,
             area_id => 222,
             label_code => 12345,
@@ -62,7 +60,6 @@ is_deeply($edit->data, {
         },
         old => {
             name => 'Warp Records',
-            sort_name => 'Warp Records',
             type_id => 1,
             area_id => 221,
             label_code => 2070,
@@ -84,8 +81,6 @@ $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
 html_ok($mech->content, '..valid xml');
 $mech->text_contains('controller label', '..has new name');
 $mech->text_contains('Warp Records', '..has old name');
-$mech->text_contains('label, controller', '..has new sortname');
-$mech->text_contains('Warp Records', '..has old sortname');
 $mech->text_contains('Special MusicBrainz Label', '..has new type');
 $mech->text_contains('Production', '..has old type');
 $mech->text_contains('United States', '..has new area');

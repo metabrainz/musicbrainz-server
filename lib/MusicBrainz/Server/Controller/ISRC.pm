@@ -3,7 +3,7 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
-use MusicBrainz::Server::Translation qw ( l ln );
+use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation qw( is_valid_isrc );
 use List::UtilsBy qw( sort_by );
 

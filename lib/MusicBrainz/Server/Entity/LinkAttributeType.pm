@@ -17,7 +17,7 @@ has 'gid' => (
 
 has 'parent_id' => (
     is => 'rw',
-    isa => 'Int',
+    isa => 'Maybe[Int]',
 );
 
 has 'parent' => (
@@ -52,7 +52,7 @@ sub l_name {
 
 has 'description' => (
     is => 'rw',
-    isa => 'Str',
+    isa => 'Maybe[Str]',
 );
 
 sub l_description {
@@ -87,6 +87,11 @@ sub sorted_children {
     my $self = shift;
     return sort { $a->child_order <=> $b->child_order || lc($a->l_name) cmp lc($b->l_name) } $self->all_children;
 }
+
+has 'free_text' => (
+    is => 'rw',
+    isa => 'Bool',
+);
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

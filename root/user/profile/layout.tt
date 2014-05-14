@@ -16,7 +16,7 @@
     ['collections', generic_link(c.uri_for_action("/user/collections", [ user.name ]), l('Collections'))],
 ] -%]
 
-[%- info_links.push (
+[%- info_links.push(
     ['tags', generic_link(c.uri_for_action("/user/tags", [ user.name ]), l('Tags'))],
     ['ratings', generic_link(c.uri_for_action("/user/ratings", [ user.name ]), l('Ratings'))],
     ['open_edits', generic_link(c.uri_for_action("/user/edits/open", [ user.name ]), l('Open Edits'))],
@@ -24,19 +24,19 @@
 ) -%]
 
 [%- IF c.user.is_account_admin || (server_details.testing_features && c.user_exists)-%]
-[%- info_links.push (
+[%- info_links.push(
     ['edit_user', generic_link(c.uri_for_action("/admin/edit_user", user.name), l('Edit User'))],
 ) -%]
 [%- END -%]
 
 [%- IF viewing_own_profile -%]
-[%- info_links.push (
+[%- info_links.push(
     ['donation', generic_link(c.uri_for_action("/account/donation"), l('Donation Check'))],
 ) -%]
 [%- END -%]
 
 [%- IF (c.user.is_account_admin || c.user.id == user.id) && !user.deleted -%]
-[%- info_links.push (
+[%- info_links.push(
     ['delete', generic_link(c.uri_for_action("/admin/delete_user", user.name), l('Delete Account'))],
 ) -%]
 [%- END -%]

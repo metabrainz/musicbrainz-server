@@ -106,7 +106,7 @@ sub find
     my ($self, $p, $limit, $offset) = @_;
 
     my (@pred, @args);
-    for my $type (qw( area artist label place release release_group recording work url )) {
+    for my $type (qw( area artist instrument label place series release release_group recording work url )) {
         next unless exists $p->{$type};
         my $ids = delete $p->{$type};
 
@@ -167,7 +167,7 @@ sub find_by_collection
 sub find_for_subscription
 {
     my ($self, $subscription) = @_;
-    if($subscription->isa(EditorSubscription)) {
+    if ($subscription->isa(EditorSubscription)) {
         my $query = 'SELECT ' . $self->_columns . ' FROM edit
                       WHERE id > ? AND editor = ? AND status IN (?, ?)';
 
@@ -179,7 +179,7 @@ sub find_for_subscription
             $STATUS_OPEN, $STATUS_APPLIED
         );
     }
-    elsif($subscription->isa(CollectionSubscription)) {
+    elsif ($subscription->isa(CollectionSubscription)) {
         return () if (!$subscription->available);
 
         my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
@@ -291,6 +291,11 @@ SELECT * FROM edit, (
     JOIN editor_subscribe_collection esc ON esc.collection = ec.collection
     JOIN edit ON er.edit = edit.id
     WHERE edit.status = ? AND esc.editor = ? AND esc.available
+    UNION
+    SELECT edit FROM edit_series es
+    JOIN editor_subscribe_series ess ON ess.series = es.series
+    JOIN edit ON es.edit = edit.id
+    WHERE edit.status = ? AND ess.editor = ?
 ) edits
 WHERE edit.id = edits.edit
 AND edit.status = ?
@@ -308,7 +313,11 @@ OFFSET ?";
         sub {
             return $self->_new_from_row(shift);
         },
-        $query, $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id, $editor_id, $offset);
+        $query,
+        ($STATUS_OPEN, $editor_id) x 4, # per subscription model
+        $STATUS_OPEN, $editor_id,       # Edit is open, editor not current one
+        $editor_id, $offset             # Editor has not voted, offset
+    );
 }
 
 sub subscribed_editor_edits {
@@ -377,7 +386,7 @@ sub preview
     my $class = MusicBrainz::Server::EditRegistry->class_from_type($type)
         or confess "Could not lookup edit type for $type";
 
-    unless ($class->does ('MusicBrainz::Server::Edit::Role::Preview'))
+    unless ($class->does('MusicBrainz::Server::Edit::Role::Preview'))
     {
         warn "FIXME: $class does not support previewing.\n";
         return undef;
@@ -510,7 +519,7 @@ sub load_all
     @edits = grep { $_->has_data } @edits;
 
     my $objects_to_load  = {}; # Objects loaded with get_by_id
-    my $post_load_models = {}; # Objects loaded with ->load (after get_by_id)
+    my $post_load_models = {}; # Objects loaded with ->load(after get_by_id)
 
     for my $edit (@edits) {
         my $edit_references = $edit->foreign_keys;
@@ -759,7 +768,7 @@ sub insert_votes_and_notes {
 sub get_related_entities {
     my ($self, $edit) = @_;
     my %result;
-    for my $type (qw( area artist label place release release_group recording work url )) {
+    for my $type (qw( area artist label place release release_group recording series work url )) {
         my $query = "SELECT $type AS id FROM edit_$type WHERE edit = ?";
         $result{$type} = [ query_to_list($self->c->sql, sub { shift->{id} }, $query, $edit->id) ];
     }

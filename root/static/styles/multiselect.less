@@ -18,6 +18,7 @@ div.multiselect > div.menu {
     overflow-y: scroll;
     cursor: pointer;
     width: 100%;
+    z-index: 100;
 }
 
 div.multiselect > div.menu > a {
@@ -27,7 +28,13 @@ div.multiselect > div.menu > a {
     text-decoration: none !important;
 }
 
-div.multiselect > div.menu > a.hover {
+div.multiselect > div.menu > a:focus,
+div.multiselect > div.items > a:focus {
+    background: @highlight-table-row;
+    border: 1px @musicbrainz-purple dotted !important;
+}
+
+div.multiselect > div.menu > a:hover {
     background: @text-orange;
     color: @text-white;
     border: 1px transparent dotted;
@@ -38,10 +45,8 @@ div.multiselect > div.menu > a > em {
     font-style: normal;
 }
 
-div.multiselect > div.menu > a.hover > em {
-    color: @multiselect-highlight;
+div.multiselect > div.menu > a:hover > em {
     background: inherit;
-    font-style: normal;
 }
 
 div.multiselect > div.items > a {
@@ -55,13 +60,4 @@ div.multiselect > div.items > a {
     margin-bottom: 1px;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
-}
-
-div.multiselect > div.menu > a:focus,
-div.multiselect > div.items > a:focus {
-    border: 1px @musicbrainz-purple dotted !important;
-}
-
-div.multiselect > div.items > a:focus {
-    background: @highlight-table-row !important;
 }

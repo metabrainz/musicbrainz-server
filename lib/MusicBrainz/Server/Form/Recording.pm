@@ -1,12 +1,11 @@
 package MusicBrainz::Server::Form::Recording;
 use HTML::FormHandler::Moose;
 use List::AllUtils qw( uniq );
-use MusicBrainz::Server::Form::Utils qw( select_options );
 
 extends 'MusicBrainz::Server::Form';
 
 with 'MusicBrainz::Server::Form::Role::Edit';
-with 'MusicBrainz::Server::Form::Role::ExternalLinks';
+with 'MusicBrainz::Server::Form::Role::Relationships';
 
 has '+name' => ( default => 'edit-recording' );
 
@@ -73,7 +72,5 @@ sub edit_field_names
 {
     return qw( name length comment artist_credit video );
 }
-
-sub options_type_id { select_options(shift->ctx, 'RecordingType') }
 
 1;

@@ -110,7 +110,7 @@ sub approve : Chained('load') RequireAuth(auto_editor) DenyWhenReadonly
             return;
         }
         else {
-            if($edit->approval_requires_comment($c->user)) {
+            if ($edit->approval_requires_comment($c->user)) {
                 $c->model('EditNote')->load_for_edits($edit);
                 my $left_note;
                 for my $note (@{ $edit->edit_notes }) {
@@ -119,7 +119,7 @@ sub approve : Chained('load') RequireAuth(auto_editor) DenyWhenReadonly
                     last;
                 }
 
-                unless($left_note) {
+                unless ($left_note) {
                     $c->stash( template => 'edit/require_note.tt' );
                     return;
                 };

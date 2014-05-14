@@ -55,8 +55,8 @@ INSERT INTO release (id, gid, name, artist_credit, release_group)
            (3, '1a906020-72db-11de-8a39-0800200c9a66', 'Release', 1, 1),
            (4, '2a906020-72db-11de-8a39-0800200c9a66', 'Release', 1, 1);
 
-INSERT INTO label (id, gid, name, sort_name)
-    VALUES (1, '6b7b5f80-2d61-11e0-91fa-0800200c9a66', 'Label', 'Label');
+INSERT INTO label (id, gid, name)
+    VALUES (1, '6b7b5f80-2d61-11e0-91fa-0800200c9a66', 'Label');
 
 INSERT INTO release_label (release, label, catalog_number)
     VALUES (1, 1, 'ABC'), (2, 1, 'ABC'), (2, 1, 'XYZ'),
@@ -103,8 +103,8 @@ INSERT INTO release (id, gid, name, artist_credit, release_group)
     VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 'Release', 1, 1),
            (2, '7a906020-72db-11de-8a39-0800200c9a66', 'Release', 1, 1);
 
-INSERT INTO label (id, gid, name, sort_name)
-    VALUES (1, '6b7b5f80-2d61-11e0-91fa-0800200c9a66', 'Label', 'Label');
+INSERT INTO label (id, gid, name)
+    VALUES (1, '6b7b5f80-2d61-11e0-91fa-0800200c9a66', 'Label');
 
 INSERT INTO release_label (release, label, catalog_number)
     VALUES (1, 1, 'ABC'), (2, 1, NULL);

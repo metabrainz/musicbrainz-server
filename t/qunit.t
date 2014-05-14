@@ -39,5 +39,5 @@ if (! -x $phantomjs)
 }
 else {
     generate_text_strings();
-    exec ($phantomjs, $testrunner, $testsuite);
+    exec($phantomjs, $testrunner, $testsuite);
 }

@@ -20,7 +20,7 @@ my $test = shift;
 my $c = $test->c;
 my $v2 = schema_validator;
 my $mech = $test->mech;
-$mech->default_header ("Accept" => "application/xml");
+$mech->default_header("Accept" => "application/xml");
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
@@ -53,13 +53,13 @@ my $content = '<?xml version="1.0" encoding="UTF-8"?>
     </recording-list>
 </metadata>';
 
-$mech->request (xml_post ('/ws/2/tag?client=post.t-0.0.2', $content));
+$mech->request(xml_post('/ws/2/tag?client=post.t-0.0.2', $content));
 is ($mech->status, 401, 'Tags rejected without authentication');
-$mech->content_contains ('Authorization required');
+$mech->content_contains('Authorization required');
 
-$mech->credentials ('localhost:80', 'musicbrainz.org', 'new_editor', 'password');
+$mech->credentials('localhost:80', 'musicbrainz.org', 'new_editor', 'password');
 
-$mech->request (xml_post ('/ws/2/tag?client=post.t-0.0.2', $content));
+$mech->request(xml_post('/ws/2/tag?client=post.t-0.0.2', $content));
 xml_ok ($mech->content);
 
 my $xp = XML::XPath->new( xml => $mech->content );
@@ -72,11 +72,11 @@ _compare_tags ($c, 'Artist', '472bc127-8861-45e8-bc9e-31e8dd32de7a',
 _compare_tags ($c, 'Recording', '162630d9-36d2-4a8d-ade1-1c77440b34e7',
                [ 'country schlager thrash gabber' ]);
 
-$mech->get_ok ('/ws/2/tag?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist');
+$mech->get_ok('/ws/2/tag?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist');
 &$v2 ($mech->content, "Validate user tag lookup for artist");
 
-$mech->content_contains ('hello project');
-$mech->content_contains ('jpop');
+$mech->content_contains('hello project');
+$mech->content_contains('jpop');
 
 
 $content = '<?xml version="1.0" encoding="UTF-8"?>
@@ -93,13 +93,13 @@ $content = '<?xml version="1.0" encoding="UTF-8"?>
     </recording-list>
 </metadata>';
 
-$mech->request (xml_post ('/ws/2/rating?client=post.t-0.0.2', $content));
+$mech->request(xml_post('/ws/2/rating?client=post.t-0.0.2', $content));
 xml_ok ($mech->content);
 
 $xp = XML::XPath->new( xml => $mech->content );
 is ($xp->find('//message/text')->string_value, 'OK', 'POST request got "OK" response');
 
-$mech->get_ok ('/ws/2/rating?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist');
+$mech->get_ok('/ws/2/rating?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist');
 &$v2 ($mech->content, "Validate user rating lookup for artist");
 
 my $expected = '<?xml version="1.0" encoding="UTF-8"?>
@@ -108,7 +108,7 @@ my $expected = '<?xml version="1.0" encoding="UTF-8"?>
 </metadata>';
 
 my $diff = XML::SemanticDiff->new;
-is($diff->compare ($expected, $expected), 0, 'result ok');
+is($diff->compare($expected, $expected), 0, 'result ok');
 
 };
 
@@ -119,12 +119,12 @@ sub _compare_tags
     $expected = [ sort (@$expected) ];
     $desc = "$model has tags (".join (', ', @$expected).")";
 
-    my $entity = $c->model($model)->get_by_gid ($gid);
+    my $entity = $c->model($model)->get_by_gid($gid);
     my @user_tags = $c->model($model)->tags->find_user_tags(1, $entity->id);
 
-    my @tags = sort (map { $_->tag->name } grep { $_->tag } @user_tags );
+    my @tags = sort(map { $_->tag->name } grep { $_->tag } @user_tags );
 
-    is_deeply (\@tags, $expected, $desc);
+    is_deeply(\@tags, $expected, $desc);
 }
 
 test 'OAuth bearer' => sub {

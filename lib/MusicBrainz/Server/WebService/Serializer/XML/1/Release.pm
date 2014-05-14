@@ -28,7 +28,7 @@ sub attributes {
     push @type_status, $entity->status->name
         if $entity->status;
 
-    push @attr, ( type => join (" ", @type_status) )
+    push @attr, ( type => join(" ", @type_status) )
         if @type_status;
 
     return @attr;

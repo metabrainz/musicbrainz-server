@@ -12,9 +12,11 @@
                         html_escape(edit.display_data.name.old),
                         html_escape(edit.display_data.name.new)) -%]
 
+  [%- IF edit.display_data.sort_name -%]
   [%- display_word_diff(l('Sort name:'),
                         html_escape(edit.display_data.sort_name.old),
                         html_escape(edit.display_data.sort_name.new)) -%]
+  [%- END -%]
 
   [% display_diff(l('Disambiguation:'),
                   html_escape(edit.display_data.comment.old),

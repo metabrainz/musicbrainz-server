@@ -149,7 +149,7 @@ sub submit_isrc : Private
 
     $c->model('MB')->with_transaction(sub {
         $buffer->flush_on_complete(sub {
-            while(my ($recording_gid, $isrcs) = each %$submit) {
+            while (my ($recording_gid, $isrcs) = each %$submit) {
                 next unless exists $recordings->{ $recording_gid };
                 $buffer->add_items(map +{
                     recording => {

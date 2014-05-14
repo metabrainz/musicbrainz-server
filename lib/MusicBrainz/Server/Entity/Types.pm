@@ -2,12 +2,14 @@ package MusicBrainz::Server::Entity::Types;
 
 use Moose::Util::TypeConstraints;
 
-for my $cls (qw(AggregatedTag Annotation Application
+for my $cls (qw(AggregatedTag AliasType Annotation Application
                 Area AreaAlias AreaType
                 Artist ArtistAlias ArtistCredit ArtistCreditName ArtistType
                 AutoEditorElection AutoEditorElectionVote
                 Barcode CDTOC CDStub Collection Coordinates
+                CoverArtType
                 Editor EditorOAuthToken
+                Instrument InstrumentType
                 Label LabelAlias LabelType
                 Link LinkAttribute LinkAttributeType LinkType LinkTypeAttribute
                 Gender Language
@@ -16,10 +18,12 @@ for my $cls (qw(AggregatedTag Annotation Application
                 Place PlaceAlias PlaceType
                 Recording
                 Relationship
-                ReleaseGroup ReleaseGroupType
+                ReleaseGroup ReleaseGroupSecondaryType ReleaseGroupType
                 Release ReleaseEvent ReleaseStatus ReleasePackaging ReleaseLabel
                 Script Tag Track UserTag
-                Work WorkAlias WorkType)) {
+                Series SeriesOrderingType SeriesType
+                Work WorkAlias WorkType
+                WorkAttribute WorkAttributeType WorkAttributeTypeAllowedValue)) {
     subtype $cls => as class_type "MusicBrainz::Server::Entity::$cls";
 }
 

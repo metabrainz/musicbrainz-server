@@ -29,11 +29,10 @@
 
     <script type="text/html" id="relationship-group">
       <dt><!-- ko text: key --><!-- /ko -->:</dt>
-      <dd data-bind="html: _.map(value, function(v) { return v.target.html() }).join(', ')">
+      <dd data-bind="html: _.map(value, function (v) { return v.target.html() }).join(', ')">
       </dd>
     </script>
 
-    <!-- ko with: MB.Release.viewModel -->
     <table class="tbl">
       <thead>
         <tr>
@@ -140,13 +139,13 @@
                         [%- FOR rating IN [ 1 .. 5 ] -%]
                           <!-- ko if: userRating == [% rating * 20 %] -->
                           <a class="stars-[% rating %] remove-rating"
-                             title="[% rating_tooltip (0) %]"
+                             title="[% rating_tooltip(0) %]"
                              data-bind="attr: { href: '/rating/rate?entity_type=recording&entity_id=' + id + '&rating=0' }, text: [% rating %]"></a>
                           <!-- /ko -->
 
                           <!-- ko if: userRating != [% rating * 20 %] -->
                           <a class="stars-[% rating %] set-rating"
-                             title="[% rating_tooltip (rating) %]"
+                             title="[% rating_tooltip(rating) %]"
                              data-bind="attr: { href: '/rating/rate?entity_type=recording&rating=[% rating * 20 %]&entity_id=' + id }, text: [% rating %]"></a>
                           <!-- /ko -->
                         [%- END -%]
@@ -162,7 +161,6 @@
         <!-- /ko -->
       </tbody>
     </table>
-    <!-- /ko -->
 
     <script>
       MB.Release.init(
@@ -173,7 +171,7 @@
             return (
                 target => {
                     gid => $target->gid,
-                    type => $rel->target_type,
+                    entityType => $rel->target_type,
                     name => $target->name,
                     sortName => $target->can('sort_name') ? $target->sort_name : undef,
                     comment => $target->can('comment') ? $target->comment : ''
@@ -252,18 +250,18 @@
     </script>
 
     <script type="text/javascript">
-    $(function() {
+    $(function () {
         MB.utility.rememberCheckbox("#bottom-credits", "bottom-credits");
 
         var $bottom_tables = $("table.details");
         var $inline_ars = $("table.tbl div.ars");
 
         function switchToInlineCredits() {
-            $bottom_tables.each(function(i, table) {
+            $bottom_tables.each(function (i, table) {
                 var $table = $(table);
                 var $trs = $table.find("tr");
 
-                $trs.each(function(j, tr) {
+                $trs.each(function (j, tr) {
                     var $tr = $(tr);
 
                     $tr.find("div.release-rel").length == 0
@@ -281,7 +279,7 @@
             $inline_ars.hide();
         }
 
-        $("a.bottom-credits, a.inline-credits").bind("click.mb", function(event) {
+        $("a.bottom-credits, a.inline-credits").bind("click.mb", function (event) {
             $("#bottom-credits")
                 .prop("checked", !$("#bottom-credits").is(":checked"))
                 .trigger("change");
@@ -289,7 +287,7 @@
             return false;
         });
 
-        $("#bottom-credits").change(function() {
+        $("#bottom-credits").change(function () {
             $("a.bottom-credits").toggle(!this.checked);
             $("a.inline-credits").toggle(this.checked);
             this.checked ? switchToBottomCredits() : switchToInlineCredits();
@@ -326,7 +324,6 @@
                           [% IF item.release %]
                           <div class="release-rel">
                             [% relationship_target_links(item.rel) %]
-                            [% relationship_edit_links(item.rel) -%]
                           </div>
                           [% END %]
                       [% END %]

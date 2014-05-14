@@ -19,7 +19,7 @@ use Readonly;
 use Scalar::Util 'blessed';
 use Sql;
 use Storable;
-use Text::Trim qw ();
+use Text::Trim qw();
 
 our @EXPORT_OK = qw(
     add_partial_date_to_row
@@ -68,11 +68,13 @@ Readonly my %TYPE_TO_MODEL => (
     'collection'    => 'Collection',
     'editor'        => 'Editor',
     'freedb'        => 'FreeDB',
+    'instrument'    => 'Instrument',
     'label'         => 'Label',
     'place'         => 'Place',
     'recording'     => 'Recording',
     'release'       => 'Release',
     'release_group' => 'ReleaseGroup',
+    'series'        => 'Series',
     'url'           => 'URL',
     'work'          => 'Work',
     'isrc'          => 'ISRC',
@@ -338,11 +340,11 @@ sub collapse_whitespace {
 
 sub trim {
     # Remove leading and trailing space
-    my $t = Text::Trim::trim (shift);
+    my $t = Text::Trim::trim(shift);
 
     $t = remove_invalid_characters($t);
 
-    return collapse_whitespace ($t);
+    return collapse_whitespace($t);
 }
 
 sub remove_invalid_characters {

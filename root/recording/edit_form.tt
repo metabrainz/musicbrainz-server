@@ -19,6 +19,8 @@
       [%- form_row_text_list(r, 'isrcs', l('ISRCs:'), l('ISRC')) -%]
     </fieldset>
 
+    [% PROCESS 'forms/relationship-editor.tt' %]
+
     <fieldset>
       <legend>[% l('External Links') %]</legend>
       [% external_links_editor(r.form, 'recording') %]

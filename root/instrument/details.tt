@@ -1,0 +1,40 @@
+[%- PROCESS 'components/details.tt' -%]
+
+[% WRAPPER "instrument/layout.tt" title=l('Details') page='details' %]
+<h2>[%- l('Details') -%]</h2>
+<table class="details">
+  <tr>
+    <th>[%- l('Name:') -%]</th>
+    <td>[% link_entity(instrument) %]</td>
+  </tr>
+  <tr>
+    <th>[%- l('{mbid|<abbr title="MusicBrainz Identifier">MBID</abbr>}:',
+               {mbid => doc_link("MusicBrainz_Identifier")}) -%]
+    </th>
+    <td><code>[% instrument.gid %]</code></td>
+  </tr>
+  <tr>
+    <th>[% l('Last updated:') %]</th>
+    <td>[% last_updated(instrument) %]</td>
+  </tr>
+  <tr>
+    <th>
+      [% l('Permanent link:') %]
+    </th>
+    <td>
+      [% perma="http://musicbrainz.org/instrument/${instrument.gid}" %]
+      <a href="[% perma | url %]">
+        [%- perma | html -%]
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <th>[% l('XML:') %]</th>
+    <td>
+      [% link = c.uri_for('/ws/2/instrument', instrument.gid, { 'inc' => 'aliases' }) %]
+      <a href="[% link %]">[% display_url(link) %]</a>
+    </td>
+  </tr>
+</table>
+
+[% END %]

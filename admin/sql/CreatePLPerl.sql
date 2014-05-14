@@ -10,7 +10,7 @@ AS $$
     use JSON::XS;
     my @path = split '/', $_[1];
     my $obj = decode_json(encode('utf-8', $_[0]));
-    while(@path) {
+    while (@path) {
         my $comp = shift(@path);
         if (!exists $obj->{$comp}) {
             return undef;

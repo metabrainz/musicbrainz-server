@@ -32,7 +32,6 @@ is($edits->[0]->id, $edit->id);
 $edit = $c->model('Edit')->get_by_id($edit->id);
 my $label = $c->model('Label')->get_by_id($edit->label_id);
 is($label->name, '!K7');
-is($label->sort_name, '!K7 Recordings');
 is($label->type_id, 1);
 is($label->comment, "Funky record label");
 is($label->label_code, 7306);
@@ -70,7 +69,6 @@ sub create_edit
         editor_id => 1,
 
         name => '!K7',
-        sort_name => '!K7 Recordings',
         type_id => 1,
         comment => 'Funky record label',
         label_code => 7306,

@@ -26,7 +26,6 @@ for my $config (
             !$form->process(
                 params => {
                     'edit-area.name' => 'Area',
-                    'edit-area.sort_name' => 'Area',
                     "edit-area.$iso_field.0" => $iso_code
                 }
             ),
@@ -49,7 +48,6 @@ for my $config (
             $form->process(
                 params => {
                     'edit-area.name' => 'Renamed',
-                    'edit-area.sort_name' => 'Renamed',
                     "edit-area.$iso_field.0" => $iso_code
                 }
             ),
@@ -62,8 +60,8 @@ sub prepare_conflict {
     my ($c, $iso_field, $iso_code) = @_;
 
     $c->sql->do(<<"EOSQL");
-INSERT INTO area (id, gid, name, sort_name)
-  VALUES (1, '$AREA_GID', 'Area', 'Area');
+INSERT INTO area (id, gid, name)
+  VALUES (1, '$AREA_GID', 'Area');
 INSERT INTO $iso_field (area, code) VALUES (1, '$iso_code');
 EOSQL
 }

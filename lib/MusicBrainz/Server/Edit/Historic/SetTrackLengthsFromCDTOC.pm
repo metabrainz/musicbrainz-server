@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_SET_TRACK_LENGTHS_FROM_CDTOC );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Track;
 use MusicBrainz::Server::Edit::Historic::Base;
 
@@ -51,7 +51,7 @@ sub upgrade
 {
     my $self = shift;
 
-    my ($cdtoc, $lengths) = split (/\n/, $self->new_value);
+    my ($cdtoc, $lengths) = split(/\n/, $self->new_value);
     $cdtoc =~ s/CDTOCId=//;
     $lengths =~ s/NewDurs=//;
 

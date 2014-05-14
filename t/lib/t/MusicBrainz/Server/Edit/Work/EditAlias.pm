@@ -36,8 +36,8 @@ test 'Check conflicts (non-conflicting edits)' => sub {
     ok !exception { $edit_2->accept }, 'accepted edit 2';
 
     my $alias = $c->model('Work')->alias->get_by_id(2);
-    is ($alias->name, 'Renamed alias', 'alias was renamed');
-    is ($alias->locale, 'en_TEST', 'alias locale changed');
+    is($alias->name, 'Renamed alias', 'alias was renamed');
+    is($alias->locale, 'en_TEST', 'alias locale changed');
 };
 
 test 'Check conflicts (conflicting edits)' => sub {
@@ -65,7 +65,7 @@ test 'Check conflicts (conflicting edits)' => sub {
     ok  exception { $edit_2->accept }, 'could not accept edit 2';
 
     my $alias = $c->model('Work')->alias->get_by_id(2);
-    is ($alias->name, 'Call it FOO!', 'alias was renamed');
+    is($alias->name, 'Call it FOO!', 'alias was renamed');
 };
 
 1;
