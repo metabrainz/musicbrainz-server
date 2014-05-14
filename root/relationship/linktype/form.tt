@@ -14,11 +14,23 @@
     [% form_row_text_long(r, 'reverse_link_phrase', l('Reverse link phrase:')) %]
     [% form_row_text_long(r, 'long_link_phrase', l('Long link phrase:')) %]
     [% form_row_checkbox(r, 'is_deprecated', l('This relationship is deprecated')) %]
+    [% form_row_checkbox(r, 'has_dates', l('This relationship allows setting dates')) %]
 
     [% WRAPPER form_row %]
         [% r.label('description', l('Description:')) %]
         [% r.textarea('description', { cols => 80, rows => 6 }) %]
         [% form_field_errors(form, 'description') %]
+    [% END %]
+
+    [% WRAPPER form_row %]
+        [% r.label('entity0_cardinality', l('entity0 cardinality:')) %]
+        [% r.text('entity0_cardinality', { size => 5 }) %]
+        [% form_field_errors(form, 'entity0_cardinality') %]
+    [% END %]
+    [% WRAPPER form_row %]
+        [% r.label('entity1_cardinality', l('entity1 cardinality:')) %]
+        [% r.text('entity1_cardinality', { size => 5 }) %]
+        [% form_field_errors(form, 'entity1_cardinality') %]
     [% END %]
 
     [% WRAPPER form_row %]
@@ -183,7 +195,7 @@ function examplePrefix(i, s) {
 </form>
 
 <script type="text/javascript">
-    MB.utility.setDefaultAction (
+    MB.utility.setDefaultAction(
         'form.edit-relationship',
         'form.edit-relationship button[type="submit"]'
     );

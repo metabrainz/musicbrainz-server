@@ -7,7 +7,7 @@
 
       <div class="artwork-cont[% ' mp' IF artwork.edits_pending %]">
         <div style="position: relative" class="artwork">
-          [%- display_artwork (artwork, undef, undef, 'mb-caa') -%]
+          [%- display_artwork(artwork, undef, undef, 'mb-caa') -%]
         </div>
         <p>
           [%- l('Types:') -%]
@@ -43,7 +43,7 @@
             { release => link_entity(entity) }) %]</p>
     [% IF entity.cover_art_url %]
       <p>[% l('The artwork in the sidebar is being provided by a {relationships|URL relationship}.',
-              { relationships => c.uri_for_action('/release/relationships', [ entity.gid ]) }) %]</p>
+              { relationships => c.uri_for_action('/release/show', [ entity.gid ]) }) %]</p>
     [% END %]
   [%- END -%]
 

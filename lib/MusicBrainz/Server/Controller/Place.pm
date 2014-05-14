@@ -16,7 +16,7 @@ with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::CommonsImage';
-with 'MusicBrainz::Server::Controller::Role::EditExternalLinks';
+with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 
 use Data::Page;
 use HTTP::Status qw( :constants );
@@ -62,8 +62,9 @@ after 'load' => sub
     my $place = $c->stash->{place};
 
     $c->model('PlaceType')->load($place);
-    $c->model('Area')->load($c->stash->{place});
+    $c->model('Area')->load($place);
     $c->model('Area')->load_containment($place->area);
+    $c->model('Relationship')->load($place);
 };
 
 =head2 show
@@ -75,9 +76,6 @@ Shows a place's main landing page.
 sub show : PathPart('') Chained('load')
 {
     my ($self, $c) = @_;
-
-    # need to call relationships for overview page
-    $self->relationships($c);
 
     $c->stash(template => 'place/index.tt');
 }
@@ -118,6 +116,7 @@ sub _merge_load_entities
     my ($self, $c, @places) = @_;
     $c->model('PlaceType')->load(@places);
     $c->model('Area')->load(@places);
+    $c->model('Area')->load_containment(map { $_->area } @places);
 };
 
 =head1 LICENSE

@@ -1,0 +1,15 @@
+[%- info_links = [
+    ['index', link_series(series, 'show', l('Series'))],
+    ['aliases', link_series(series, 'aliases', l('Aliases'))],
+    ['details', link_series(series, 'details', l('Details'))],
+    ['edit', link_series(series, 'edit', l('Edit'))],
+] -%]
+
+<div class="blankheader">
+    <h1>[%- link_entity(series) %]</h1>
+    <p class="subheader">
+        <span class="prefix">~</span> [%- l('Series') -%]
+    </p>
+</div>
+
+[%- INCLUDE 'components/tabs.tt' list=info_links -%]

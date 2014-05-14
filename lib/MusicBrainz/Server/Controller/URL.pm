@@ -10,7 +10,6 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
     entity_name => 'url'
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
-with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 
 =head1 NAME
@@ -34,7 +33,7 @@ sub base : Chained('/') PathPart('url') CaptureArgs(0) { }
 sub show : Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
-    $self->relationships($c);
+    $c->model('Relationship')->load($c->stash->{url});
     $c->stash->{template} = 'url/index.tt';
 }
 

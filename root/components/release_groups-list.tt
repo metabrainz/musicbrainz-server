@@ -1,0 +1,72 @@
+[% MACRO rg_list_thead BLOCK %]
+  <thead>
+    <tr>
+      [% IF c.user_exists && !no_checkboxes %]<th class="pos"></th>[% END %]
+      [% IF series_item_numbers %]
+      <th style="width: 1em">[% l('#') %]</th>
+      [% END %]
+      <th class="year c">[% l('Year') %]</th>
+      <th>[% l('Title') %]</th>
+      [% IF show_artists %]
+      <th>[% l('Artist') %]</th>
+      [% END %]
+      <th class="rating c">[% l('Rating') %]</th>
+      <th class="count c">[% l('Releases') %]</th>
+    </tr>
+  </thead>
+[% END %]
+
+[% IF no_grouping %]
+<table class="tbl">
+  [% rg_list_thead %]
+  <tbody>
+[% END %]
+
+[%- FOR rg=release_groups -%]
+    [% rgtype = rg.type_name || 'undefined' %]
+    [% IF !no_grouping && last_rg_type != rgtype %]
+        [% IF last_rg_type.defined %]
+            </tbody>
+        </table>
+        [% END %]
+        <h3>[% rg.l_type_name || l('Unspecified type') %]</h3>
+        <table class="tbl">
+            [% rg_list_thead %]
+            <tbody>
+        [% last_rg_type = rgtype %]
+    [% END %]
+    <tr [% ' class="ev"' IF loop.count % 2 == 0 %]>
+        [% IF c.user_exists && !no_checkboxes %]
+        <td>
+          <input type="checkbox" name="add-to-merge" value="[% rg.id %]" />
+        </td>
+        [% END %]
+        [% IF series_item_numbers %]
+        <td style="width: 1em">
+          [% rg_id=rg.id; series_item_numbers.$rg_id %]
+        </td>
+        [% END %]
+        <td class="c">[% rg.first_release_date.year or '&#x2014;' %]</td>
+        <td>
+          [% link_release_group(rg) %]
+          [% disambiguation(rg) %]
+          [% FOR t=rg.secondary_types %]
+            <span class="release-group-type">[% t.l_name %]</span>
+          [% END %]
+        </td>
+        [% IF show_artists %]
+        <td>[% artist_credit(rg.artist_credit) %]</td>
+        [% END %]
+        <td class="c">[% rating_stars(rg) %]</td>
+        <td class="c">[% rg.release_count %]</td>
+    </tr>
+[%- END -%]
+[% IF !no_grouping && last_rg_type.defined %]
+    </tbody>
+</table>
+[% END %]
+
+[% IF no_grouping %]
+  </tbody>
+</table>
+[% END %]

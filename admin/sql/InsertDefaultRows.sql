@@ -6,8 +6,8 @@ INSERT INTO artist (name, sort_name, gid) VALUES
     ('Various Artists', 'Various Artists', '89ad4ac3-39f7-470e-963a-56509c546377'),
     ('Deleted Artist', 'Deleted Artist', 'c06aa285-520e-40c0-b776-83d2c9e8a6d1');
 
-INSERT INTO label (name, sort_name, gid) VALUES
-    ('Deleted Label', 'Deleted Label', 'f43e252d-9ebf-4e8e-bba8-36d080756cc1');
+INSERT INTO label (name, gid) VALUES
+    ('Deleted Label', 'f43e252d-9ebf-4e8e-bba8-36d080756cc1');
 
 INSERT INTO editor (id, name, password, ha1) VALUES (1, 'Anonymous', '', '');
 INSERT INTO editor (id, name, password, ha1) VALUES (2, 'FreeDB', '', '');

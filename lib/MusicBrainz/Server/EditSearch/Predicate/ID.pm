@@ -20,8 +20,8 @@ sub combine_with_query {
     my ($self, $query) = @_;
 
     my $sql;
-    given($self->operator) {
-        when('BETWEEN') {
+    given ($self->operator) {
+        when ('BETWEEN') {
             $sql = 'edit.' . $self->field_name . ' BETWEEN SYMMETRIC ? AND ?';
         }
         default {

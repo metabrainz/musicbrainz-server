@@ -44,9 +44,9 @@ sub label_toplevel
 {
     my ($self, $c, $stash, $label) = @_;
 
-    my $opts = $stash->store ($label);
+    my $opts = $stash->store($label);
 
-    $self->linked_labels ($c, $stash, [ $label ]);
+    $self->linked_labels($c, $stash, [ $label ]);
 
     $c->model('LabelType')->load($label);
     $c->model('Area')->load($label);
@@ -66,9 +66,9 @@ sub label_toplevel
     {
         my @results = $c->model('Release')->find_by_label(
             $label->id, $MAX_ITEMS, 0, filter => { status => $c->stash->{status}, type => $c->stash->{type} });
-        $opts->{releases} = $self->make_list (@results);
+        $opts->{releases} = $self->make_list(@results);
 
-        $self->linked_releases ($c, $stash, $opts->{releases}->{items});
+        $self->linked_releases($c, $stash, $opts->{releases}->{items});
     }
 
     $self->load_relationships($c, $stash, $label);
@@ -82,9 +82,9 @@ sub label : Chained('load') PathPart('')
     return unless defined $label;
 
     my $stash = WebServiceStash->new;
-    my $opts = $stash->store ($label);
+    my $opts = $stash->store($label);
 
-    $self->label_toplevel ($c, $stash, $label);
+    $self->label_toplevel($c, $stash, $label);
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('label', $label, $c->stash->{inc}, $stash));
@@ -95,7 +95,7 @@ sub label_browse : Private
     my ($self, $c) = @_;
 
     my ($resource, $id) = @{ $c->stash->{linked} };
-    my ($limit, $offset) = $self->_limit_and_offset ($c);
+    my ($limit, $offset) = $self->_limit_and_offset($c);
 
     if (!is_guid($id))
     {
@@ -110,15 +110,15 @@ sub label_browse : Private
         my $release = $c->model('Release')->get_by_gid($id);
         $c->detach('not_found') unless ($release);
 
-        my @tmp = $c->model('Label')->find_by_release ($release->id, $limit, $offset);
-        $labels = $self->make_list (@tmp, $offset);
+        my @tmp = $c->model('Label')->find_by_release($release->id, $limit, $offset);
+        $labels = $self->make_list(@tmp, $offset);
     }
 
     my $stash = WebServiceStash->new;
 
     for (@{ $labels->{items} })
     {
-        $self->label_toplevel ($c, $stash, $_);
+        $self->label_toplevel($c, $stash, $_);
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
@@ -130,7 +130,7 @@ sub label_search : Chained('root') PathPart('label') Args(0)
     my ($self, $c) = @_;
 
     $c->detach('label_browse') if ($c->stash->{linked});
-    $self->_search ($c, 'label');
+    $self->_search($c, 'label');
 }
 
 __PACKAGE__->meta->make_immutable;

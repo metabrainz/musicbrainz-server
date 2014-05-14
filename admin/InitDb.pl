@@ -62,10 +62,10 @@ sub RequireMinimumPostgreSQLVersion
     my $mb = Databases->get_connection('SYSTEM');
     my $sql = Sql->new( $mb->conn );
 
-    my $version = $sql->select_single_value ("SELECT version();");
+    my $version = $sql->select_single_value("SELECT version();");
     $version =~ s/PostgreSQL ([0-9\.]*)(?:beta[0-9]*)? .*/$1/;
 
-    if (version->parse ("v".$version) < version->parse('v9.1')) {
+    if (version->parse("v".$version) < version->parse('v9.1')) {
         die 'MusicBrainz requires PostgreSQL 9.1 on later';
     }
 }
@@ -230,8 +230,9 @@ sub Create
     splice(@opts, -1, 0, "-d");
     $ENV{"PGPASSWORD"} = $sys_db->password;
     system "createlang", @opts, "plpgsql";
-    system "createlang", @opts, "plperlu" if HasPLPerlSupport();
-    print "\nFailed to create language -- its likely to be already installed, continuing.\n" if ($? >> 8);
+    print "\nFailed to create language plpgsql -- it's likely to be already installed, continuing.\n" if ($? >> 8);
+    system "createlang", @opts, "plperlu";
+    print "\nFailed to create language plperlu -- it's likely to be already installed, continuing.\n" if ($? >> 8);
 
     # Set the default search path for the READWRITE and READONLY users
     my $search_path = $db->schema . ", public";

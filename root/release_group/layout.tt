@@ -8,7 +8,7 @@
 
     [%- IF rg.cover_art -%]
       <div class="cover-art">
-        [%- display_artwork (rg.cover_art) -%]
+        [%- display_artwork(rg.cover_art) -%]
       </div>
     [%- END -%]
 
@@ -49,13 +49,6 @@
                     [% l('Set cover art') %]
                   </a>
                 </li>
-
-                <hr/>
-
-                [%# Adds <li> itself %]
-                [% use_in_relationship(rg) %]
-                <li>[% relate_to_ellipsis(rg) %]</li>
-                <li>[% relate_to_url(rg) %]</li>
 
                 <hr/>
 

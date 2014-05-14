@@ -27,11 +27,6 @@
                     c.model('FileCache').template_signature('scripts/text_strings.tt'),
                     'text.js') -%]"></script>
     [%- END -%]
-    [%- IF c.user_exists %]
-    <script type="text/javascript">//<![CDATA[
-        $(document).ready (function () { MB.Control.RelateTo () });
-    //]]></script>
-    [%- END %]
     [%- BLOCK layout_head %][% END -%]
     [%- INCLUDE layout_head -%]
     [%- IF google_analytics_code -%]
@@ -40,7 +35,7 @@
         _gaq.push(['_setAccount', '[% google_analytics_code %]']);
         _gaq.push(['_trackPageview']);
 
-        (function() {
+        (function () {
           var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
           ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
           var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);

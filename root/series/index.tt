@@ -1,0 +1,53 @@
+[%- WRAPPER "series/layout.tt" page='index' -%]
+    [%- INCLUDE 'series/annotation.tt' summary=1 -%]
+
+    [% IF eligible_for_cleanup %]
+      <p class="cleanup">
+          [% l('This series has no relationships and will be removed
+                automatically in the next few days. If this is not intended,
+                please add more data to this series.') %]
+      </p>
+    [% END %]
+
+    [%- show_wikipedia_extract() -%]
+
+    [%-
+      IF series.type.entity_type == 'recording';
+        '<h2>' _ l('Recordings') _ '</h2>';
+        IF entities.size;
+          INCLUDE 'components/recordings-list.tt'
+                  recordings=entities no_checkboxes=1 show_artists=1
+          WRAPPER 'components/with-pager.tt';
+        END;
+      ELSIF series.type.entity_type == 'release';
+        '<h2>' _ l('Releases') _ '</h2>';
+        IF entities.size;
+          INCLUDE 'release_group/releases-list.tt'
+                  releases=entities no_checkboxes=1 show_artists=1
+          WRAPPER 'components/with-pager.tt';
+        END;
+      ELSIF series.type.entity_type == 'release_group';
+        '<h2>' _ l('Release Groups') _ '</h2>';
+        IF entities.size;
+          INCLUDE 'components/release_groups-list.tt'
+                  release_groups=entities no_grouping=1 no_checkboxes=1
+                  show_artists=1
+          WRAPPER 'components/with-pager.tt';
+        END;
+      ELSIF series.type.entity_type == 'work';
+        '<h2>' _ l('Works') _ '</h2>';
+        IF entities.size;
+          INCLUDE 'components/works-list.tt'
+                  works=entities no_checkboxes=1 show_artists=1
+          WRAPPER 'components/with-pager.tt';
+        END;
+      END
+    -%]
+
+    [% IF NOT entities.size %]
+      <p>[% l('This series is currently empty.') %]</p>
+    [% END %]
+
+    [% INCLUDE "components/relationships.tt" source=series
+        relationships=series.display_relationships %]
+[% END %]

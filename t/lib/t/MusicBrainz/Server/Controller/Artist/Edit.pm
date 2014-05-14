@@ -98,21 +98,21 @@ is_deeply($edit->data, {
 # Test display of edit data
 $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
 html_ok ($mech->content, '..xml is valid');
-$mech->text_contains ('edit artist', '.. contains old artist name');
-$mech->text_contains ('Test Artist', '.. contains new artist name');
-$mech->text_contains ('artist, controller', '.. contains old sort name');
-$mech->text_contains ('Artist, Test', '.. contains new sort name');
-$mech->text_contains ('Person', '.. contains new artist type');
-$mech->text_contains ('United States', '.. contains old area');
-$mech->text_contains ('United Kingdom', '.. contains new area');
-$mech->text_contains ('Male', '.. contains old artist gender');
-$mech->text_contains ('Female', '.. contains new artist gender');
-$mech->text_contains ('2008-01-02', '.. contains old begin date');
-$mech->text_contains ('1990-01-02', '.. contains new begin date');
-$mech->text_contains ('2009-03-04', '.. contains old end date');
-$mech->text_contains ('Yet Another Test Artist',
+$mech->text_contains('edit artist', '.. contains old artist name');
+$mech->text_contains('Test Artist', '.. contains new artist name');
+$mech->text_contains('artist, controller', '.. contains old sort name');
+$mech->text_contains('Artist, Test', '.. contains new sort name');
+$mech->text_contains('Person', '.. contains new artist type');
+$mech->text_contains('United States', '.. contains old area');
+$mech->text_contains('United Kingdom', '.. contains new area');
+$mech->text_contains('Male', '.. contains old artist gender');
+$mech->text_contains('Female', '.. contains new artist gender');
+$mech->text_contains('2008-01-02', '.. contains old begin date');
+$mech->text_contains('1990-01-02', '.. contains new begin date');
+$mech->text_contains('2009-03-04', '.. contains old end date');
+$mech->text_contains('Yet Another Test Artist',
                       '.. contains old artist comment');
-$mech->text_contains ('artist created in controller_artist.t',
+$mech->text_contains('artist created in controller_artist.t',
                       '.. contains new artist comment');
 
 };

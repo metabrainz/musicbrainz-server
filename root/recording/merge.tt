@@ -11,7 +11,7 @@
     </div>
     [% END %]
     <form action="[% c.req.uri %]" method="post">
-        [% BLOCK recording_row_prefix %]
+        [% BLOCK recording_row_checkbox %]
           <td>
             <input type="hidden" name="merge.merging.[% loop.index %]" value="[% recording.id %]" />
             <input type="radio" name="merge.target" value="[% recording.id %]"

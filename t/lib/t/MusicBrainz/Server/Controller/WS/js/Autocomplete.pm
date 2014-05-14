@@ -16,25 +16,26 @@ test all => sub {
     MusicBrainz::Server::Test->prepare_test_database($c);
 
     ws_test 'artist autocomplete response',
-        '/artist?q=David&direct=true' => encode_json (
+        '/artist?q=David&direct=true' => encode_json(
             [ {
                 "comment" => '',
                 "id" => 5,
                 "gid" => "5441c29d-3602-4898-b1a1-b77fa23b8e50",
                 "name" => "David Bowie",
                 "sortName" => "David Bowie",
-                "primary_alias" => undef
+                "primary_alias" => undef,
+                "entityType" => "artist",
               }, { "current" => 1, "pages" => 1 } ]);
 
     ws_test 'label autocomplete response',
-        '/label?q=Warp&direct=true' => encode_json (
+        '/label?q=Warp&direct=true' => encode_json(
             [ {
                 "comment" => "Sheffield based electronica label",
                 "id" => 2,
                 "gid" => "46f0f4cd-8aab-4b33-b698-f459faf64190",
                 "name" => "Warp Records",
-                "sortName" => "Warp Records",
-                "primary_alias" => undef
+                "primary_alias" => undef,
+                "entityType" => "label",
               }, { "current" => 1, "pages" => 1 } ]);
 
 };

@@ -8,6 +8,7 @@ use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'area_type' };
 with 'MusicBrainz::Server::Data::Role::SelectAll';
+with 'MusicBrainz::Server::Data::Role::OptionsTree';
 
 sub _table
 {
@@ -16,7 +17,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, name';
+    return 'id, name, parent AS parent_id, child_order, description';
 }
 
 sub _entity_class

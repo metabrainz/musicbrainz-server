@@ -2,8 +2,8 @@ MB.Release = (function (Release) {
 
   var ViewModel, Medium, Track;
 
-  Release.init = function(releaseData) {
-    Release.viewModel = new ViewModel(releaseData);
+  Release.init = function (releaseData) {
+    Release.viewModel = getViewModel(releaseData);
 
     ko.bindingHandlers.foreachKv = {
       transformObject: function (obj) {
@@ -13,7 +13,7 @@ MB.Release = (function (Release) {
           function (k) { return { key: k, value: obj[k] } }
         );
       },
-      init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+      init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         var value = ko.utils.unwrapObservable(valueAccessor()),
             properties = ko.bindingHandlers.foreachKv.transformObject(value);
         ko.applyBindingsToNode(element, { foreach: properties }, bindingContext);
@@ -32,8 +32,8 @@ MB.Release = (function (Release) {
         function (relationship) {
           var o = {};
 
-          o[relationship.target.type] = {};
-          o[relationship.target.type][relationship.phrase] = [
+          o[relationship.target.entityType] = {};
+          o[relationship.target.entityType][relationship.phrase] = [
             {
               target: MB.entity(relationship.target),
               groupedSubRelationships:
@@ -61,7 +61,7 @@ MB.Release = (function (Release) {
 
     _.each(
       _.keys(b),
-      function(k) {
+      function (k) {
         if (newA.hasOwnProperty(k)) {
           if (_.isArray(b[k])) {
             newA[k] = a[k].concat(b[k]);
@@ -79,15 +79,11 @@ MB.Release = (function (Release) {
     return newA;
   }
 
-  ViewModel = function (releaseData) {
-    var model = this;
+  getViewModel = function (releaseData) {
+    var model = MB.entity(releaseData, "release");
 
-    model.artistCredit = MB.entity.ArtistCredit(releaseData.artistCredit);
-
-    this.mediums = _.map(
-      releaseData.mediums,
-      function(medium, mediumIndex) {
-        var medium = new MB.entity.Medium(medium);
+    _.each(model.mediums,
+      function (medium, mediumIndex) {
         _.each(
           medium.tracks,
           function (track, trackIndex) {
@@ -109,26 +105,24 @@ MB.Release = (function (Release) {
             })
           }
         );
-
-        return medium
       }
     );
 
     var allArtistCredits = _.flatten(
-      _.map(model.mediums, function(medium) {
+      _.map(model.mediums, function (medium) {
         return _.map(medium.tracks, function (track) {
           return track.artistCredit;
         });
       })
     );
 
-    this.showArtists = _.some(allArtistCredits, function(subject) {
+    model.showArtists = _.some(allArtistCredits, function (subject) {
       return !subject.isEqual(model.artistCredit)
     });
 
-    this.showVideo = _.any(
+    model.showVideo = _.any(
       _.flatten(
-        _.map(model.mediums, function(medium) {
+        _.map(model.mediums, function (medium) {
           return _.map(medium.tracks, function (track) {
             return track.recording.video;
           });

@@ -27,7 +27,7 @@ EOSQL
 
     my $label = $c->model('Label')->get_by_id(1);
     $c->model('Relationship')->load($label);
-    is (scalar($label->all_relationships) => 0, 'no relationships remain');
+    is(scalar($label->all_relationships) => 0, 'no relationships remain');
 };
 
 test 'Merge matching dated/undated rels on entity merge' => sub {
@@ -44,7 +44,7 @@ EOSQL
 
     my $label = $c->model('Label')->get_by_id(1);
     $c->model('Relationship')->load($label);
-    is (scalar($label->all_relationships) => 1, 'two relationships became one');
+    is(scalar($label->all_relationships) => 1, 'two relationships became one');
 };
 
 test 'Merge matching dated/undated rels on entity merge (3 entities)' => sub {
@@ -53,8 +53,8 @@ test 'Merge matching dated/undated rels on entity merge (3 entities)' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationship_merging');
     MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
-INSERT INTO label (id, name, sort_name, gid, comment)
-    VALUES (4, 3, 3, 'e2a083a9-0042-4f8e-b4d2-8396350b95f7', 'label 4');
+INSERT INTO label (id, name, gid, comment)
+    VALUES (4, 3, 'e2a083a9-0042-4f8e-b4d2-8396350b95f7', 'label 4');
 INSERT INTO l_label_label (id, link, entity0, entity1)
     VALUES (1, 1, 2, 3), (2, 2, 1, 3), (3, 2, 4, 3);
 EOSQL
@@ -63,7 +63,7 @@ EOSQL
 
     my $label = $c->model('Label')->get_by_id(1);
     $c->model('Relationship')->load($label);
-    is (scalar($label->all_relationships) => 1, 'three relationships became one');
+    is(scalar($label->all_relationships) => 1, 'three relationships became one');
 };
 
 test 'Merge matching dated/undated rels on entity merge (3 entities, some flipped direction)' => sub {
@@ -72,8 +72,8 @@ test 'Merge matching dated/undated rels on entity merge (3 entities, some flippe
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationship_merging');
     MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
-INSERT INTO label (id, name, sort_name, gid, comment)
-    VALUES (4, 3, 3, 'e2a083a9-0042-4f8e-b4d2-8396350b95f7', 'label 4');
+INSERT INTO label (id, name, gid, comment)
+    VALUES (4, 3, 'e2a083a9-0042-4f8e-b4d2-8396350b95f7', 'label 4');
 INSERT INTO l_label_label (id, link, entity0, entity1)
     VALUES (1, 1, 2, 3), (2, 2, 3, 1), (3, 2, 3, 4);
 EOSQL
@@ -82,7 +82,7 @@ EOSQL
 
     my $label = $c->model('Label')->get_by_id(1);
     $c->model('Relationship')->load($label);
-    is (scalar($label->all_relationships) => 2, 'three relationships became two (alternate directions should be preserved)');
+    is(scalar($label->all_relationships) => 2, 'three relationships became two (alternate directions should be preserved)');
 };
 
 test 'Don\'t merge matching dated/undated rels on entity merge if they originate from the same entity' => sub {
@@ -99,7 +99,7 @@ EOSQL
 
     my $label = $c->model('Label')->get_by_id(1);
     $c->model('Relationship')->load($label);
-    is (scalar($label->all_relationships) => 2, 'three relationships, two on the same entity dated vs. undated, became two');
+    is(scalar($label->all_relationships) => 2, 'three relationships, two on the same entity dated vs. undated, became two');
 };
 
 test 'Don\'t merge matching rels, other than attributes' => sub {
@@ -116,7 +116,7 @@ EOSQL
 
     my $artist = $c->model('Artist')->get_by_id(1);
     $c->model('Relationship')->load($artist);
-    is (scalar($artist->all_relationships) => 2, 'two relationships that are the same other than attributes are not merged');
+    is(scalar($artist->all_relationships) => 2, 'two relationships that are the same other than attributes are not merged');
 };
 
 test all => sub {

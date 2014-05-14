@@ -1,13 +1,23 @@
-MB.WorkAttributes = (function(WA) {
+MB.WorkAttributes = (function (WA) {
 
 // Private variables
 var attributeTypes;
+var allowedValues;
+var attributeTypesByID;
 
 // Private classes
 var ViewModel;
 
 WA.init = function (config) {
+
+    function byID(result, parent) {
+        result[parent.id] = parent;
+        _.transform(parent.children, byID, result);
+    }
+
     attributeTypes = config.attributeTypes;
+    allowedValues = config.allowedValues;
+    attributeTypesByID = _.transform(attributeTypes.children, byID, {});
 
     WA.viewModel = new ViewModel(config.attributes);
     ko.applyBindings(WA.viewModel, $("#work-attributes")[0]);
@@ -21,24 +31,28 @@ WA.WorkAttribute = function (data) {
     self.errors = ko.observableArray(data.errors);
     self.typeHasFocus = ko.observable(false);
 
-    self.allowsFreeText = ko.computed(function() {
-        return !self.typeID() || attributeTypes[self.typeID()].allowsFreeText;
+    self.allowsFreeText = ko.computed(function () {
+        return !self.typeID() || attributeTypesByID[self.typeID()].freeText;
     });
 
     self.allowedValues = ko.computed(function () {
+        var typeID = self.typeID();
+
         if (self.allowsFreeText()) {
             return [];
         }
         else {
-            return _.keys(attributeTypes[self.typeID()].values);
+            var root = {
+                children: _.filter(allowedValues.children, function (value) {
+                    return value.workAttributeTypeID == typeID;
+                })
+            };
+
+            return MB.forms.buildOptionsTree(root, "value", "id");
         }
     });
 
-    self.valueFormatter = function(item) {
-        return attributeTypes[self.typeID()].values[item];
-    };
-
-    self.remove = function() {
+    self.remove = function () {
         WA.viewModel.attributes.remove(this);
     };
 
@@ -52,7 +66,7 @@ WA.WorkAttribute = function (data) {
         }
     });
 
-    self.attributeValue.subscribe(function() {
+    self.attributeValue.subscribe(function () {
         resetErrors();
     });
 
@@ -72,13 +86,11 @@ ViewModel = function (attributes) {
 
     model.attributes = ko.observableArray(attributes);
 
-    model.attributeTypes = _.keys(attributeTypes);
+    model.attributeTypes = MB.forms.buildOptionsTree(
+        attributeTypes, "name", "id"
+    );
 
-    model.formatAttributeType = function (item) {
-        return attributeTypes[item].name;
-    };
-
-    model.newAttribute = function() {
+    model.newAttribute = function () {
         var attr = new WA.WorkAttribute({});
         attr.typeHasFocus(true);
         model.attributes.push(attr);

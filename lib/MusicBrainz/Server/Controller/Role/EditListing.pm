@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Controller::Role::EditListing;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 
-use MusicBrainz::Server::Data::Utils qw( model_to_type );
+use MusicBrainz::Server::Data::Utils qw( model_to_type load_everything_for_edits );
 use MusicBrainz::Server::Constants qw( :edit_status );
 
 requires '_load_paged';
@@ -62,15 +62,12 @@ sub _list {
     my $entity = $c->stash->{ $self->{entity_name} };
     my $edits  = $self->_load_paged($c, $find->($type, $entity));
 
-    $c->model('Edit')->load_all(@$edits);
-    $c->model('Vote')->load_for_edits(@$edits);
-    $c->model('EditNote')->load_for_edits(@$edits);
-    $c->model('Editor')->load(map { ($_, @{ $_->votes, $_->edit_notes }) } @$edits);
-
     $c->stash(
-        edits => $edits,
-        guess_search => 1
+        edits => $edits, # stash early in case an ISE occurs
+        guess_search => 1,
     );
+
+    load_everything_for_edits($c, $edits);
 }
 
 no Moose::Role;

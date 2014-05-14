@@ -16,13 +16,15 @@
           </p>
           <ul>
               [% FOREACH dupe=form.duplicates %]
-              <li>[% link_entity(dupe) %]</li>
+              <li>[% descriptive_link(dupe) %]</li>
               [% END %]
           </ul>
           [% form_row_checkbox(r, 'not_dupe', l('Yes, I still want to create a new place.')) %]
+          [% IF comment_is_required %]
           <p>
               [%- l('Please enter a {doc_disambiguation|disambiguation} to help distinguish this place from the others.' {doc_disambiguation => doc_link('Disambiguation_Comment')}) -%]
           </p>
+          [% END %]
       </fieldset>
       [% END %]
 
@@ -34,11 +36,11 @@
         [%- form_row_text_long(r, 'address', l('Address:')) -%]
         [% WRAPPER form_row %]
           [% area_field = form.field('area.name') %]
-          <label for="id-edit-label.area.name">[% l('Area:') %]</label>
+          <label for="id-edit-place.area.name">[% l('Area:') %]</label>
           <span class="area autocomplete">
             <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
             [% r.hidden(form.field('area').field('gid'), class => 'gid') %]
-            [% r.hidden ('area_id', class => 'id') %]
+            [% r.hidden('area_id', class => 'id') %]
             [% r.text(area_field, class => 'name') %]
           </span>
           [% field_errors(r.form, 'area.name') %]
@@ -55,6 +57,8 @@
         [% form_row_date(r, 'period.end_date', l('End date:')) %]
         [% form_row_checkbox(r, 'period.ended', l('This place has ended.')) %]
       </fieldset>
+
+      [% PROCESS 'forms/relationship-editor.tt' %]
 
       <fieldset>
         <legend>[% l('External Links') %]</legend>

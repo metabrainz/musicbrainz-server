@@ -40,8 +40,8 @@ sub combine_with_query {
     my @votes = grep { looks_like_number($_) } @{ $self->sql_arguments };
     my $no_vote_option = grep { $_ eq 'no' } @{ $self->sql_arguments };
 
-    given($self->operator) {
-        when('=') {
+    given ($self->operator) {
+        when ('=') {
             if (@votes && $no_vote_option) {
                 $query->add_where([
                     join(' OR ',

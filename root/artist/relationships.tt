@@ -1,7 +1,5 @@
 [%- WRAPPER 'artist/layout.tt' title=l('Relationships') page='relationships' -%]
 <div>
-
-    <h2>[% l("Relationships") %]</h2>
     [% INCLUDE "components/relationships.tt" source=artist
         relationships=artist.grouped_relationships('artist', 'url', 'label', 'place', 'area') %]
 

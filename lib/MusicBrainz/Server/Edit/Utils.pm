@@ -102,7 +102,7 @@ sub load_artist_credit_definitions
     my @ac = @{ $ac->{names} };
 
     my %load;
-    while(@ac) {
+    while (@ac) {
         my $ac_name = shift @ac;
 
         next unless defined $ac_name->{name} && $ac_name->{artist}->{id};
@@ -128,7 +128,7 @@ sub artist_credit_from_loaded_definition
                 Artist->new( $ac_name->{artist} )
         );
 
-        $ac->join_phrase ($ac_name->{join_phrase}) if defined $ac_name->{join_phrase};
+        $ac->join_phrase($ac_name->{join_phrase}) if defined $ac_name->{join_phrase};
         push @names, $ac;
     }
 
@@ -152,7 +152,7 @@ sub artist_credit_preview
         if (my $loaded_artist = defined($ac_name->{artist}{id}) &&
                                   $loaded->{Artist}->{ $ac_name->{artist}->{id} })
         {
-            $ac->artist ($loaded_artist);
+            $ac->artist($loaded_artist);
         }
         elsif ($ac_name->{artist})
         {
@@ -161,7 +161,7 @@ sub artist_credit_preview
             $ac->artist(Artist->new( $ac_name->{artist} ));
         }
 
-        $ac->join_phrase ($ac_name->{join_phrase}) if defined $ac_name->{join_phrase};
+        $ac->join_phrase($ac_name->{join_phrase}) if defined $ac_name->{join_phrase};
 
         push @names, $ac;
     }
@@ -175,7 +175,7 @@ sub clean_submitted_artist_credits
 {
     my $ac = shift;
 
-    $ac = artist_credit_to_ref ($ac)
+    $ac = artist_credit_to_ref($ac)
         if ref $ac eq 'MusicBrainz::Server::Entity::ArtistCredit';
 
     # Remove empty artist credits.
@@ -186,8 +186,8 @@ sub clean_submitted_artist_credits
         my $part = $names[$_];
         if (ref $part eq 'HASH')
         {
-            $part->{artist}->{name} = trim ($part->{artist}->{name}) if defined $part->{artist}->{name};
-            $part->{name} = trim ($part->{name}) if defined $part->{name};
+            $part->{artist}->{name} = trim($part->{artist}->{name}) if defined $part->{artist}->{name};
+            $part->{name} = trim($part->{name}) if defined $part->{name};
 
             push @delete, $_ unless (defined $part->{artist}->{name} || defined $part->{name});
 
@@ -206,7 +206,7 @@ sub clean_submitted_artist_credits
 
             # Set to empty string if join_phrase is undef.
             $part->{join_phrase} //= '';
-            $part->{join_phrase} = collapse_whitespace ($part->{join_phrase});
+            $part->{join_phrase} = collapse_whitespace($part->{join_phrase});
 
             # Remove trailing whitespace from a trailing join phrase.
             $part->{join_phrase} =~ s/\s+$// if $_ == $#names;
@@ -359,9 +359,9 @@ sub merge_coordinates {
     my ($name, $ancestor, $current, $new) = @_;
 
     return (
-        [ Coordinates->new($ancestor->{$name} // {})->format, $ancestor->{$name} ],
-        [ $current->$name->format, coordinates_to_hash($current->$name) ],
-        [ Coordinates->new($new->{$name} // {})->format, $new->{$name} ],
+        [ defined $ancestor->{$name} ? Coordinates->new($ancestor->{$name})->format : '', $ancestor->{$name} ],
+        [ defined $current->$name ? $current->$name->format : '', coordinates_to_hash($current->$name) ],
+        [ defined $new->{$name} ? Coordinates->new($new->{$name})->format : '', $new->{$name} ],
     );
 }
 
@@ -391,9 +391,9 @@ sub merge_barcode {
     my ($ancestor, $current, $new) = @_;
 
     return (
-        [ Barcode->new ($ancestor->{barcode})->format, $ancestor->{barcode} ],
+        [ Barcode->new($ancestor->{barcode})->format, $ancestor->{barcode} ],
         [ $current->barcode->format, $current->barcode->code ],
-        [ Barcode->new ($new->{barcode})->format, $new->{barcode} ],
+        [ Barcode->new($new->{barcode})->format, $new->{barcode} ],
     );
 }
 

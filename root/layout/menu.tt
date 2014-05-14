@@ -87,10 +87,10 @@
                     [% END %]
                     [% IF c.user.is_relationship_editor %]
                         <li>
-                            <a href="[% c.uri_for_action('/relationship/linktype/index') %]">[% l('Edit Relationship Types') %]</a>
+                            <a href="[% c.uri_for('/instrument/create') %]">[% lp('Add Instrument', 'button/menu') %]</a>
                         </li>
                         <li>
-                            <a href="[% c.uri_for_action('/relationship/linkattributetype/instruments') %]">[% l('Edit Instrument Tree') %]</a>
+                            <a href="[% c.uri_for_action('/relationship/linktype/index') %]">[% l('Edit Relationship Types') %]</a>
                         </li>
                     [% END %]
                     [% IF c.user.is_wiki_transcluder %]
@@ -234,6 +234,9 @@
                 <li>
                     <a href="[% c.uri_for_action('/place/create') %]">[% lp('Add Place', 'button/menu') %]</a>
                 </li>
+                <li>
+                    <a href="[% c.uri_for_action('/series/create') %]">[% lp('Add Series', 'button/menu') %]</a>
+                </li>
                 <li class="separator">
                     <a href="[% c.uri_for('/edit/open') %]">[% l('Vote on Edits') %]</a>
                 </li>
@@ -263,9 +266,6 @@
             </li>
             <li>
                 <a href="[% c.uri_for_action('/relationship/linktype/index') %]">[% l('Relationship Types') %]</a>
-            </li>
-            <li>
-                <a href="[% c.uri_for_action('/relationship/linkattributetype/instruments') %]">[% l('Instrument Tree') %]</a>
             </li>
             <li class="separator">
                 <a href="[% doc_link('Development') %]">[% l('Development') %]</a>

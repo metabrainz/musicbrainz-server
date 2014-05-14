@@ -8,7 +8,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_LABEL_CREATE );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
@@ -29,7 +29,7 @@ sub label_id { shift->entity_id }
 has '+data' => (
     isa => Dict[
         name         => Str,
-        sort_name    => Str,
+        sort_name    => Optional[Str],
         type_id      => Nullable[Int],
         label_code   => Nullable[Int],
         begin_date   => Nullable[PartialDateHash],

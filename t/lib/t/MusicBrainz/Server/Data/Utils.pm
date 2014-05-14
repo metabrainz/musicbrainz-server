@@ -18,67 +18,67 @@ MusicBrainz::Server::Test->prepare_test_database($test->c, '+artisttype');
 my $date = MusicBrainz::Server::Entity::PartialDate->new_from_row(
     { a_year => 2008, a_month => 1, a_day => 2 }, 'a_');
 
-is ( $date->year, 2008 );
-is ( $date->month, 1 );
-is ( $date->day, 2 );
+is( $date->year, 2008 );
+is( $date->month, 1 );
+is( $date->day, 2 );
 
 my @result = query_to_list(
     $test->c->sql, sub { $_[0] }, "SELECT * FROM artist_type
                         WHERE id IN (1, 2) ORDER BY id");
-is ( scalar(@result), 2 );
-is ( $result[0]->{id}, 1 );
-is ( $result[1]->{id}, 2 );
+is( scalar(@result), 2 );
+is( $result[0]->{id}, 1 );
+is( $result[1]->{id}, 2 );
 
 my $offset = 0;
 my ($result, $hits) = query_to_list_limited(
     $test->c->sql, $offset, 1, sub { $_[0] }, "SELECT * FROM artist_type
                               WHERE id IN (1, 2) ORDER BY id OFFSET ?", $offset);
 @result = @{$result};
-is ( scalar(@result), 1, 'got one result');
-is ( $hits, 2, 'got two total' );
-is ( $result[0]->{id}, 1, 'got result with id 1 as the first' );
+is( scalar(@result), 1, 'got one result');
+is( $hits, 2, 'got two total' );
+is( $result[0]->{id}, 1, 'got result with id 1 as the first' );
 
 $offset = 1;
 my ($result2, $hits2) = query_to_list_limited(
     $test->c->sql, $offset, 1, sub { $_[0] }, "SELECT * FROM artist_type
                               WHERE id IN (1, 2) ORDER BY id OFFSET ?", $offset);
 @result = @{$result2};
-is ( scalar(@result), 1, 'got one result (with offset)' );
-is ( $hits2, 2, 'got two total (with offset)' );
-is ( $result[0]->{id}, 2, 'got result with id 2 as the first (with offset)' );
+is( scalar(@result), 1, 'got one result (with offset)' );
+is( $hits2, 2, 'got two total (with offset)' );
+is( $result[0]->{id}, 2, 'got result with id 2 as the first (with offset)' );
 
 my $order_by;
 
 $order_by = order_by(
     undef, "1", { "1" => "a, b", "2" => "c, b" });
-is ( $order_by, "a, b" );
+is( $order_by, "a, b" );
 
 $order_by = order_by(
     "1", "1", { "1" => "a, b", "2" => "c, b" });
-is ( $order_by, "a, b" );
+is( $order_by, "a, b" );
 
 $order_by = order_by(
     "3", "1", { "1" => "a, b", "2" => "c, b" });
-is ( $order_by, "a, b" );
+is( $order_by, "a, b" );
 
 $order_by = order_by(
     "2", "1", { "1" => "a, b", "2" => "c, b" });
-is ( $order_by, "c, b" );
+is( $order_by, "c, b" );
 
 $order_by = order_by(
     "-1", "1", { "1" => "a, b", "2" => "c, b" });
-is ( $order_by, "a DESC, b DESC" );
+is( $order_by, "a DESC, b DESC" );
 
 $order_by = order_by(
     "-2", "1", { "1" => "a, b", "2" => "c, b" });
-is ( $order_by, "c DESC, b DESC" );
+is( $order_by, "c DESC, b DESC" );
 
 $order_by = order_by(
     "-3", "1", { "1" => "a, b", "2" => "c, b" });
-is ( $order_by, "a, b" );
+is( $order_by, "a, b" );
 
 my $gid = generate_gid();
-is ($gid, lc($gid), 'GID is returned as lower-case');
+is($gid, lc($gid), 'GID is returned as lower-case');
 
 };
 

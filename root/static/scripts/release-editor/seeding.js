@@ -106,12 +106,8 @@
                 }, {});
         }
 
-        data.gid = release.gid;
-
-        var urlRelationships = utils.parseURLRelationships(data);
-
-        if (urlRelationships.length) {
-            release.externalLinks.addLinks(urlRelationships);
+        if (data.relationships) {
+            release.parseRelationships(data.relationships, release.externalLinks);
         }
     };
 

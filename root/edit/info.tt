@@ -58,6 +58,8 @@
                 content=edit_conditions(edit.conditions.expire_action) -%]
     [% END %]
 
+    <p>[% link_edit(edit, 'data', l('Raw edit data for this edit')) %]</p>
+
     <p>[%- l('For more information:') -%]</p>
     <ul class="links">
         <li><a href="[% doc_link('Voting_FAQ') %]">[% l('Voting FAQ') %]</a></li>

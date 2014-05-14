@@ -1,17 +1,4 @@
 <fieldset class="editnote">
     <legend>[%- l('Edit Note') -%]</legend>
-    [%- UNLESS hide_help -%]
-        <p>
-            [% l('Entering an {note|edit note} that describes where you got your information is highly recommended. Not only does it make it clear where you got your information, but it can also encourage other users to vote on your edit &#x2014; thus making your edit get applied faster.',
-                { note => doc_link('Edit_Note') }) %]
-        </p>
-
-        <p>[% l('Even just providing a URL or two is helpful!') %]</p>
-    [%- END -%]
-    [% WRAPPER form_row %]
-        [% USE r = FormRenderer(form) %]
-        [% r.label('edit_note', l('Edit note:')) %]
-        [% r.textarea('edit_note', { class => 'edit-note', cols => 80, rows => 5 }) %]
-        [% field_errors(form, 'edit_note') %]
-    [% END %]
+    [% edit_note(hide_help) %]
 </fieldset>

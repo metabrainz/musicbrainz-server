@@ -1,0 +1,34 @@
+[% WRAPPER 'search/results-layout.tt' %]
+    [%- IF results.size -%]
+        [% WRAPPER 'components/with-pager.tt' search=1 %]
+            <table class="tbl">
+                <thead>
+                    <tr>
+                        <th>[% l('Score') %]</th>
+                        <th>[% l('Name') %]</th>
+                        <th>[% l('Type') %]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    [%- FOR result=results -%]
+                    <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                        <td>[% result.score %]</td>
+                        <td>
+                            [% link_entity(result.entity) %]
+                        </td>
+                        <td>[% result.entity.type.l_name %]</td>
+                    </tr>
+                    [%- END -%]
+                </tbody>
+            </table>
+        [% END %]
+    [%- ELSE -%]
+        <p>[% l('No results found. Try refining your search query.') %]</p>
+    [%- END -%]
+    <p>
+      [% l('Alternatively, you may {uri|add a new series}.', {
+            uri => c.uri_for_action('/series/create', {
+                     'edit-series.name' => query
+                   }) }) %]
+    </p>
+[% END %]

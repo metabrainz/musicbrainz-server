@@ -6,7 +6,6 @@
                         <tr>
                             <th>[% l('Score') %]</th>
                             <th>[% l('Name') %]</th>
-                            <th>[% l('Sort Name') %]</th>
                             <th>[% l('Type') %]</th>
                             <th>[% l('Code') %]</th>
                             <th>[% l('Begin') %]</th>
@@ -18,9 +17,8 @@
                         <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                             <td>[% result.score %]</td>
                             <td>
-                                [% link_area_with_containment(result.entity) %]
+                                [% descriptive_link(result.entity) %]
                             </td>
-                            <td>[% result.entity.sort_name %]</td>
                             <td>[% result.entity.l_type_name %]</td>
                             <td>[% result.entity.primary_code %]</td>
                             <td>[% result.entity.begin_date.format %]</td>

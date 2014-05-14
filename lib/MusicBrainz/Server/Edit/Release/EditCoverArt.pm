@@ -8,7 +8,7 @@ use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT_COVER_ART );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
@@ -67,7 +67,7 @@ sub initialize {
             mbid => $release->gid
         },
         id => $opts{artwork_id},
-        $self->_change_data (\%old, %new)
+        $self->_change_data(\%old, %new)
     });
 }
 
@@ -129,7 +129,7 @@ sub display_cover_art_types
 
     # FIXME: sort these.
     # hardcode (front, back, alphabetical) sorting in CoverArtType somehow?
-    return join (", ", map { $loaded->{CoverArtType}->{$_}->l_name } @$types);
+    return join(", ", map { $loaded->{CoverArtType}->{$_}->l_name } @$types);
 }
 
 sub build_display_data {
@@ -153,8 +153,8 @@ sub build_display_data {
     if ($self->data->{old}->{types})
     {
         $data{types} = {
-            old => display_cover_art_types ($loaded, $self->data->{old}->{types}),
-            new => display_cover_art_types ($loaded, $self->data->{new}->{types}),
+            old => display_cover_art_types($loaded, $self->data->{old}->{types}),
+            new => display_cover_art_types($loaded, $self->data->{new}->{types}),
         }
     }
 

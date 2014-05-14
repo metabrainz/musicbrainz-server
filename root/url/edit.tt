@@ -11,6 +11,6 @@
     </form>
 
     <script type="text/javascript">//<![CDATA[
-      MB.Control.URLCleanup(null, null, $("#id-edit-url\\.url"));
+      MB.Control.URLCleanup({ urlControl: $("#id-edit-url\\.url") });
     //]]></script>
 [% END %]

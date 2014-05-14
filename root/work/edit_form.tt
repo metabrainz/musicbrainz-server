@@ -27,7 +27,8 @@
               <select data-bind="
                   value: typeID,
                   options: $parent.attributeTypes,
-                  optionsText: $parent.formatAttributeType,
+                  optionsText: 'text',
+                  optionsValue: 'value',
                   optionsCaption: '',
                   attr: { name: 'edit-work.attributes.' + $index() + '.type_id' },
                   hasFocus: typeHasFocus
@@ -45,7 +46,8 @@
               <select data-bind="
                   value: attributeValue,
                   options: allowedValues,
-                  optionsText: valueFormatter,
+                  optionsText: 'text',
+                  optionsValue: 'value',
                   optionsCaption: '',
                   attr: { name: 'edit-work.attributes.' + $index() + '.value' }
               ">
@@ -80,6 +82,8 @@
       </table>
     </fieldset>
 
+    [% PROCESS 'forms/relationship-editor.tt' %]
+
     <fieldset>
       <legend>[% l('External Links') %]</legend>
       [% external_links_editor(r.form, 'work') %]
@@ -105,6 +109,7 @@
 <script type="text/javascript">
   MB.WorkAttributes.init({
       attributeTypes: [% workAttributeTypesJson %],
+      allowedValues: [% workAttributeValuesJson %],
       attributes: [% form.attributes_json %]
   });
 </script>

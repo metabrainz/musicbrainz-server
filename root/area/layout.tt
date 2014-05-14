@@ -4,9 +4,6 @@
 
         <h2 class="area-information">[% l('Area information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('Sort name:')
-               content=html_escape(area.sort_name) class="sort-name"
-                   IF area.name != area.sort_name -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
                content=html_escape(area.l_type_name) class="type"
                    IF area.type -%]
@@ -23,7 +20,7 @@
                         [% WRAPPER 'layout/sidebar/property.tt' label=l("End date:") class="end-date" %]
                             [% area.end_date.format %]
                             [% IF area.has_age %]
-                                ([% display_age (area.age) %])
+                                ([% display_age(area.age) %])
                             [% END %]
                         [% END %]
                     [% ELSIF area.ended %]
@@ -63,24 +60,6 @@
                     <li>[% link_entity(area, 'delete', l('Remove area')) %]</li>
                     <hr/>
                 [% END %]
-
-                [%# We only show the 'Create a relationship with' link if the
-                    user is a location editor, or the other end point is *not* an
-                    area. %]
-                [% IF c.user.is_location_editor
-                        || c.session.relationship.type0 != 'area' %]
-                    [%# Adds <li> itself %]
-                    [% use_in_relationship(area) %]
-                [% END %]
-
-                <li>[% relate_to_ellipsis(area) %]</li>
-
-                [%# Only location editors can create area-url relationships %]
-                [% IF c.user.is_location_editor %]
-                    <li>[% relate_to_url(area) %]</li>
-                [% END %]
-
-                <hr/>
 
                 <li>[% link_entity(area, 'open_edits', l('Open edits')) %]</li>
                 <li>[% link_entity(area, 'edits', l('Editing history')) %]</li>

@@ -4,7 +4,8 @@ use strict;
 use warnings;
 
 use base 'Exporter';
-use Carp 'confess';
+use Carp qw( confess croak );
+use Try::Tiny;
 use Class::MOP;
 use Data::Compare;
 use Data::UUID::MT;
@@ -18,7 +19,7 @@ use Readonly;
 use Scalar::Util 'blessed';
 use Sql;
 use Storable;
-use Text::Trim qw ();
+use Text::Trim qw();
 
 our @EXPORT_OK = qw(
     add_partial_date_to_row
@@ -36,6 +37,7 @@ our @EXPORT_OK = qw(
     hash_to_row
     is_special_artist
     is_special_label
+    load_everything_for_edits
     load_meta
     load_subobjects
     map_query
@@ -66,11 +68,13 @@ Readonly my %TYPE_TO_MODEL => (
     'collection'    => 'Collection',
     'editor'        => 'Editor',
     'freedb'        => 'FreeDB',
+    'instrument'    => 'Instrument',
     'label'         => 'Label',
     'place'         => 'Place',
     'recording'     => 'Recording',
     'release'       => 'Release',
     'release_group' => 'ReleaseGroup',
+    'series'        => 'Series',
     'url'           => 'URL',
     'work'          => 'Work',
     'isrc'          => 'ISRC',
@@ -205,6 +209,7 @@ sub partial_date_to_hash
 sub coordinates_to_hash
 {
     my ($coordinates) = @_;
+    return undef unless defined $coordinates;
     return {
         latitude => $coordinates->latitude,
         longitude => $coordinates->longitude
@@ -214,6 +219,22 @@ sub coordinates_to_hash
 sub placeholders
 {
     return join ",", ("?") x scalar(@_);
+}
+
+sub load_everything_for_edits
+{
+    my ($c, $edits) = @_;
+
+    try {
+        $c->model('Edit')->load_all(@$edits);
+        $c->model('Vote')->load_for_edits(@$edits);
+        $c->model('EditNote')->load_for_edits(@$edits);
+        $c->model('Editor')->load(map { ($_, @{ $_->votes }, @{ $_->edit_notes }) } @$edits);
+    } catch {
+        use Data::Dumper;
+        croak "Failed loading edits (" . (join ', ', map { $_->id } @$edits) . ")\n" .
+              "Exception:\n" . Dumper($_) . "\n";
+    };
 }
 
 sub query_to_list
@@ -299,12 +320,9 @@ sub add_coordinates_to_row
 {
     my ($row, $coordinates, $prefix) = @_;
 
-    if (defined $coordinates && defined $coordinates->{latitude} && defined $coordinates->{longitude}) {
-        $row->{$prefix} = ($coordinates->{latitude} . ', ' . $coordinates->{longitude});
-    }
-    elsif (defined $coordinates) {
-        $row->{$prefix} = undef;
-    }
+    $row->{$prefix} = defined $coordinates ?
+        ($coordinates->{latitude} . ', ' . $coordinates->{longitude}) :
+        undef;
 }
 
 
@@ -322,11 +340,11 @@ sub collapse_whitespace {
 
 sub trim {
     # Remove leading and trailing space
-    my $t = Text::Trim::trim (shift);
+    my $t = Text::Trim::trim(shift);
 
     $t = remove_invalid_characters($t);
 
-    return collapse_whitespace ($t);
+    return collapse_whitespace($t);
 }
 
 sub remove_invalid_characters {

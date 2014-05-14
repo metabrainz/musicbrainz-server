@@ -6,7 +6,6 @@
             <td><a href="[% html_escape(url.url) %]">[% display_url(url.url) %]</a></td>
         </tr>
     </table>
-    <h2 class="relationships">[% l("Relationships") %]</h2>
     [%- INCLUDE "components/relationships.tt" source=url -%]
 [%- END -%]
 

@@ -16,7 +16,7 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
-$(function() {
+$(function () {
 
     function incrementLastPart(s) {
         var parts = s.split('.');
@@ -28,6 +28,7 @@ $(function() {
         var id = select.options[select.selectedIndex].value;
         var message;
         var attrs;
+        var has_dates;
         if (id) {
             var selected = typeInfo[id];
             if (selected.descr) {
@@ -40,14 +41,16 @@ $(function() {
                 message = MB.text.PleaseSelectARSubtype;
             }
             attrs = selected.attrs || {};
+            has_dates = selected.has_dates ? true : false;
         }
         else {
             message = MB.text.PleaseSelectARType;
             attrs = {};
+            has_dates = true;
         }
         var has_attributes = false;
         $('#type_descr').html(message);
-        $('div.ar-attr').each(function() {
+        $('div.ar-attr').each(function () {
             var id = this.id.substr(13);
             var attrDiv = $(this);
             if (attrs[id]) {
@@ -71,7 +74,12 @@ $(function() {
                 attrDiv.hide();
             }
         });
-        has_attributes ? $('tr.attributes-container').show() : $('tr.attributes-container').hide();
+        $('tr.attributes-container').toggle(has_attributes);
+        $('tr.date-field').toggle(has_dates);
+        var conditionalFields = $('#id-ar\\\.period\\\.ended')
+            .add('.partial-date input');
+
+        conditionalFields.prop('disabled', has_dates == false);
     }
 
     function filterSelect($filter, direction) {
@@ -102,10 +110,10 @@ $(function() {
 
     var $attrContainers = $('div.ar-attr .selects');
 
-    $attrContainers.each(function() {
+    $attrContainers.each(function () {
         var selects = $(this);
         var btn = $("<input/>").attr({ type: "button", value: MB.text.AddAnother });
-        btn.click(function() {
+        btn.click(function () {
             var lastDiv = selects.find('div:last');
             var lastSelectName = lastDiv.find('select').attr('name');
             var newSelectName = incrementLastPart(lastSelectName);
@@ -115,14 +123,14 @@ $(function() {
             newSelect.attr('id', 'id-' + newSelectName);
             newSelect.val('');
             selects.append(newDiv);
-            if(!newDiv.find('input.removeAttr').length) {
+            if (!newDiv.find('input.removeAttr').length) {
                 newDiv.append($("<input/>").attr({ type: 'button', 'class': 'removeAttr', value: MB.text.Remove }));
             }
             newDiv.find('input.selectFilter').val('').focus();
         });
         selects.after(btn);
-        if(selects.find('option').length > 20) {
-            selects.find('div').each(function() {
+        if (selects.find('option').length > 20) {
+            selects.find('div').each(function () {
                 $(this).append(' ',
                     $("<a>&#9668;</a>").attr({ href: '#', 'class': 'selectFilterPrev' }),
                     $("<input/>").attr({ type: 'text', size: '7', 'class': 'selectFilter' }),
@@ -130,7 +138,7 @@ $(function() {
             });
         }
 
-        selects.find('div:gt(0)').each(function() {
+        selects.find('div:gt(0)').each(function () {
             $(this).append(' ',
                 $("<input/>").attr({ type: 'button', 'class': 'removeAttr', value: MB.text.Remove }));
         });
@@ -139,28 +147,28 @@ $(function() {
     var KEY_UP = 37, KEY_LEFT = 38,
         KEY_DOWN = 40, KEY_RIGHT = 39;
 
-    $attrContainers.on("click", "a.selectFilterPrev", function() {
+    $attrContainers.on("click", "a.selectFilterPrev", function () {
         var $input = $(this).siblings('input');
         $input.focus();
         filterSelect($input, -1);
         return false;
 
-    }).on("click", "a.selectFilterNext", function() {
+    }).on("click", "a.selectFilterNext", function () {
         var $input = $(this).siblings('input');
         $input.focus();
         filterSelect($input, 1);
         return false;
 
-    }).on("click", "input.removeAttr", function(ev) {
+    }).on("click", "input.removeAttr", function (ev) {
         ev.preventDefault();
         $(this).parent('div').remove();
 
-    }).on("keyup", "input.selectFilter", function(event) {
+    }).on("keyup", "input.selectFilter", function (event) {
         var $input = $(this);
         if (event.keyCode == KEY_UP || event.keyCode == KEY_LEFT) {
             filterSelect($input, -1);
         }
-        else if(event.keyCode == KEY_DOWN || event.keyCode == KEY_RIGHT) {
+        else if (event.keyCode == KEY_DOWN || event.keyCode == KEY_RIGHT) {
             filterSelect($input, 1);
         }
         else {
@@ -171,8 +179,8 @@ $(function() {
     var linkTypeSelect = $("select[id='id-ar.link_type_id']");
     if (linkTypeSelect.length) {
       linkTypeSelect
-            .change(function() { updateLinkType(this) })
-            .keyup(function() { updateLinkType(this) });
+            .change(function () { updateLinkType(this) })
+            .keyup(function () { updateLinkType(this) });
       updateLinkType(linkTypeSelect[0]);
     }
 

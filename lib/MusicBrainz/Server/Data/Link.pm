@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::Link;
 
+use List::AllUtils qw( any );
 use Moose;
 use namespace::autoclean;
 use Sql;
@@ -53,10 +54,14 @@ sub _load_attributes
                 attr.id,
                 attr.name AS name,
                 root_attr.id AS root_id,
-                root_attr.name AS root_name
+                root_attr.name AS root_name,
+                COALESCE(text_value, '') AS text_value,
+                COALESCE((SELECT true FROM link_text_attribute_type ltat
+                          WHERE ltat.attribute_type = attr.id), false) AS free_text
             FROM link_attribute
                 JOIN link_attribute_type AS attr ON attr.id = link_attribute.attribute_type
                 JOIN link_attribute_type AS root_attr ON root_attr.id = attr.root
+                LEFT OUTER JOIN link_attribute_text_value USING (link, attribute_type)
             WHERE link IN (" . placeholders(@ids) . ")
             ORDER BY link, attr.name";
         for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
@@ -65,12 +70,19 @@ sub _load_attributes
                 my $attr = MusicBrainz::Server::Entity::LinkAttributeType->new(
                     id => $row->{id},
                     name => $row->{name},
+                    free_text => $row->{free_text},
                     root => MusicBrainz::Server::Entity::LinkAttributeType->new(
                         id => $row->{root_id},
                         name => $row->{root_name},
                     ),
                 );
-                $data->{$id}->add_attribute($attr);
+                $data->{$id}->add_attribute($attr) unless any {
+                    $attr->id == $_->id
+                } $data->{$id}->all_attributes;
+
+                if ($row->{free_text} && defined($row->{text_value})) {
+                    $data->{$id}->attribute_text_values->{$row->{id}} = $row->{text_value};
+                }
             }
         }
     }
@@ -98,6 +110,9 @@ sub load
 {
     my ($self, @objs) = @_;
     load_subobjects($self, 'link', @objs);
+
+    my $links = { map { $_->link->id => $_->link } @objs };
+    $self->_load_attributes($links, keys %$links);
 }
 
 sub find
@@ -143,6 +158,18 @@ sub find
         $i += 1;
     }
 
+    my %attrs = %{ $values->{attribute_text_values} // {} };
+
+    $i = 0;
+    foreach my $attr (keys %attrs) {
+        if (my $text_value = $attrs{$attr}) {
+            push @joins, "JOIN link_attribute_text_value latv$i ON latv$i.link = link.id";
+            push @conditions, "latv$i.attribute_type = ?", "latv$i.text_value = ?";
+            push @args, $attr, $text_value;
+            $i += 1;
+        }
+    }
+
     my $query = "SELECT id FROM link " . join(" ", @joins) . " WHERE " . join(" AND ", @conditions);
     return $self->sql->select_single_value($query, @args);
 }
@@ -170,6 +197,16 @@ sub find_or_insert
             link           => $id,
             attribute_type => $attr,
         });
+    }
+
+    my %attrs = %{ $values->{attribute_text_values} // {} };
+
+    foreach my $attr (keys %attrs) {
+        $self->sql->insert_row("link_attribute_text_value", {
+            link           => $id,
+            attribute_type => $attr,
+            text_value     => $attrs{$attr},
+        }) if $attrs{$attr};
     }
 
     return $id;

@@ -5,9 +5,9 @@ INSERT INTO artist_type (id, name) VALUES (2, 'Group');
 INSERT INTO artist_type (id, name) VALUES (3, 'Special MusicBrainz Artist');
 
 INSERT INTO area_type (id, name) VALUES (1, 'Country');
-INSERT INTO area (id, gid, name, sort_name, type) VALUES
-  (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 'United Kingdom', 1),
-  (222, '489ce91b-6658-3307-9877-795b68554c98', 'United States', 'United States', 1);
+INSERT INTO area (id, gid, name, type) VALUES
+  (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 1),
+  (222, '489ce91b-6658-3307-9877-795b68554c98', 'United States', 1);
 INSERT INTO country_area (area) VALUES (221), (222);
 INSERT INTO iso_3166_1 (area, code) VALUES (221, 'GB'), (222, 'US');
 
@@ -88,20 +88,20 @@ INSERT INTO label_type (id, name) VALUES (1, 'Production');
 INSERT INTO label_type (id, name) VALUES (2, 'Special MusicBrainz Label');
 
 -- Special Labels
-INSERT INTO label (id, gid, name, sort_name, type) VALUES
-    (1, 'f43e252d-9ebf-4e8e-bba8-36d080756cc1', 'Deleted Label', 'Deleted Label', 2);
+INSERT INTO label (id, gid, name, type) VALUES
+    (1, 'f43e252d-9ebf-4e8e-bba8-36d080756cc1', 'Deleted Label', 2);
 
-INSERT INTO label (id, gid, name, sort_name, type, area, label_code,
+INSERT INTO label (id, gid, name, type, area, label_code,
                    begin_date_year, begin_date_month, begin_date_day,
                    end_date_year, end_date_month, end_date_day, comment)
-     VALUES (2, '46f0f4cd-8aab-4b33-b698-f459faf64190', 'Warp Records', 'Warp Records', 1, 221, 2070,
+     VALUES (2, '46f0f4cd-8aab-4b33-b698-f459faf64190', 'Warp Records', 1, 221, 2070,
              1989, 02, 03, 2008, 05, 19, 'Sheffield based electronica label');
 
-INSERT INTO label (id, gid, name, sort_name) VALUES
-    (3, '4b4ccf60-658e-11de-8a39-0800200c9a66', 'Another Label', 'Another Label');
+INSERT INTO label (id, gid, name) VALUES
+    (3, '4b4ccf60-658e-11de-8a39-0800200c9a66', 'Another Label');
 
-INSERT INTO label (id, gid, name, sort_name) VALUES
-    (4, 'f34c079d-374e-4436-9448-da92dedef3ce', 'Empty Label', 'Empty Label');
+INSERT INTO label (id, gid, name) VALUES
+    (4, 'f34c079d-374e-4436-9448-da92dedef3ce', 'Empty Label');
 
 INSERT INTO release (id, gid, name, artist_credit, release_group, status, packaging, barcode) VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 'Arrival', 2, 1, 1, 1, '731453398122');
 INSERT INTO release_country (release, country, date_year, date_month, date_day) VALUES (1, 221, 2009, 5, 8);
@@ -258,10 +258,8 @@ INSERT INTO link_attribute_type (id, parent, root, gid, name)
     VALUES (4, 3, 2, 'c3273296-91ba-453d-94e4-2fb6e958568e', 'Guitar');
 
 INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, long_link_phrase, description)
-    VALUES (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'recording', 'instrument',
-            'performed {additional} {instrument} on',
-            'has {additional} {instrument} performed by',
-            'performer', 'description');
+    VALUES (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'recording', 'instrument', 'performed {additional} {instrument} on', 'has {additional} {instrument} performed by', 'performer', 'description'),
+           (2, 'f8673e29-02a5-47b7-af61-dd4519328dd0', 'artist', 'recording', 'performance', 'performance', 'performance', 'performance', '');
 
 INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max)
     VALUES (1, 1, 0, 1);
@@ -342,5 +340,8 @@ ALTER SEQUENCE medium_id_seq RESTART 7;
 ALTER SEQUENCE tag_id_seq RESTART 100;
 
 ALTER SEQUENCE link_id_seq RESTART 3;
+ALTER SEQUENCE link_type_id_seq RESTART 3;
+
+ALTER SEQUENCE l_artist_recording_id_seq RESTART 4;
 
 SET client_min_messages TO 'NOTICE';

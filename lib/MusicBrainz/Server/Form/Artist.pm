@@ -1,13 +1,13 @@
 package MusicBrainz::Server::Form::Artist;
 use HTML::FormHandler::Moose;
-use MusicBrainz::Server::Form::Utils qw( select_options );
+use MusicBrainz::Server::Form::Utils qw( select_options_tree );
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
 with 'MusicBrainz::Server::Form::Role::CheckDuplicates';
 with 'MusicBrainz::Server::Form::Role::IPI';
 with 'MusicBrainz::Server::Form::Role::ISNI';
-with 'MusicBrainz::Server::Form::Role::ExternalLinks';
+with 'MusicBrainz::Server::Form::Role::Relationships';
 
 has '+name' => ( default => 'edit-artist' );
 
@@ -60,8 +60,8 @@ sub edit_field_names
                ipi_codes isni_codes );
 }
 
-sub options_gender_id   { select_options(shift->ctx, 'Gender') }
-sub options_type_id     { select_options(shift->ctx, 'ArtistType') }
+sub options_gender_id   { select_options_tree(shift->ctx, 'Gender') }
+sub options_type_id     { select_options_tree(shift->ctx, 'ArtistType') }
 
 sub dupe_model { shift->ctx->model('Artist') }
 

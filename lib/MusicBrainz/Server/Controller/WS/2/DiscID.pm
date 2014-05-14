@@ -41,8 +41,8 @@ sub discid : Chained('root') PathPart('discid') Args(1)
             if ref($toc);
     }
 
-    $c->stash->{inc}->media (1);
-    $c->stash->{inc}->discids (1);
+    $c->stash->{inc}->media(1);
+    $c->stash->{inc}->discids(1);
 
     my $stash = WebServiceStash->new;
     my $cdtoc = $c->model('CDTOC')->get_by_discid($id);
@@ -50,13 +50,13 @@ sub discid : Chained('root') PathPart('discid') Args(1)
         my @mediumcdtocs = $c->model('MediumCDTOC')->find_by_discid($cdtoc->discid);
         $c->model('Medium')->load(@mediumcdtocs);
 
-        my $opts = $stash->store ($cdtoc);
+        my $opts = $stash->store($cdtoc);
 
         my @releases = $c->model('Release')->find_by_medium(
             [ map { $_->medium_id } @mediumcdtocs ], $c->stash->{status}, $c->stash->{type}
         );
 
-        $opts->{releases} = $self->make_list (\@releases);
+        $opts->{releases} = $self->make_list(\@releases);
 
         for (@releases) {
             $c->controller('WS::2::Release')->release_toplevel($c, $stash, $_);

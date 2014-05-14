@@ -20,7 +20,7 @@ with 'MusicBrainz::Server::Controller::Role::Subscribe';
 with 'MusicBrainz::Server::Controller::Role::Cleanup';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::CommonsImage';
-with 'MusicBrainz::Server::Controller::Role::EditExternalLinks';
+with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 
 use Data::Page;
 use HTTP::Status qw( :constants );
@@ -199,7 +199,7 @@ sub show : PathPart('') Chained('load')
     $c->model('ReleaseGroupType')->load(@$release_groups);
     $c->stash(
         recordings => $recordings,
-        show_video => scalar (grep {
+        show_video => scalar(grep {
             $_->video
         } @$recordings),
         release_groups => $release_groups,
@@ -223,15 +223,8 @@ sub works : Chained('load')
     my $works = $self->_load_paged($c, sub {
         $c->model('Work')->find_by_artist($c->stash->{artist}->id, shift, shift);
     });
-    $c->model('Work')->load_writers(@$works);
-    $c->model('Work')->load_recording_artists(@$works);
-    $c->model('Work')->load_attributes(@$works);
-    $c->model('ISWC')->load_for_works(@$works);
-    $c->model('WorkType')->load(@$works);
-    $c->model('Language')->load(@$works);
-    if ($c->user_exists) {
-        $c->model('Work')->rating->load_user_ratings($c->user->id, @$works);
-    }
+    $c->model('Work')->load_related_info(@$works);
+    $c->model('Work')->rating->load_user_ratings($c->user->id, @$works) if $c->user_exists;
     $c->stash( works => $works );
 }
 
@@ -284,10 +277,10 @@ sub recordings : Chained('load')
 
     $c->stash(
         recordings => $recordings,
-        show_artists => scalar (grep {
+        show_artists => scalar(grep {
             $_->artist_credit->name ne $artist->name
         } @$recordings),
-        show_video => scalar (grep {
+        show_video => scalar(grep {
             $_->video
         } @$recordings),
     );
@@ -427,6 +420,12 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
             },
         );
     }
+};
+
+before edit => sub {
+    my ($self, $c) = @_;
+
+    $c->model('Relationship')->load($c->stash->{artist});
 };
 
 =head2 add_release

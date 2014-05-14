@@ -55,8 +55,8 @@ sub _new_from_row
         expires_time => $row->{expire_time},
         auto_edit => $row->{autoedit},
         status => $row->{status},
+        raw_data => $row->{data},
         quality => $row->{quality},
-        c => $self->c,
     });
     $edit->language_id($row->{language}) if $row->{language};
     try {
@@ -106,7 +106,7 @@ sub find
     my ($self, $p, $limit, $offset) = @_;
 
     my (@pred, @args);
-    for my $type (qw( area artist label place release release_group recording work url )) {
+    for my $type (qw( area artist instrument label place series release release_group recording work url )) {
         next unless exists $p->{$type};
         my $ids = delete $p->{$type};
 
@@ -167,7 +167,7 @@ sub find_by_collection
 sub find_for_subscription
 {
     my ($self, $subscription) = @_;
-    if($subscription->isa(EditorSubscription)) {
+    if ($subscription->isa(EditorSubscription)) {
         my $query = 'SELECT ' . $self->_columns . ' FROM edit
                       WHERE id > ? AND editor = ? AND status IN (?, ?)';
 
@@ -179,7 +179,7 @@ sub find_for_subscription
             $STATUS_OPEN, $STATUS_APPLIED
         );
     }
-    elsif($subscription->isa(CollectionSubscription)) {
+    elsif ($subscription->isa(CollectionSubscription)) {
         return () if (!$subscription->available);
 
         my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
@@ -291,6 +291,11 @@ SELECT * FROM edit, (
     JOIN editor_subscribe_collection esc ON esc.collection = ec.collection
     JOIN edit ON er.edit = edit.id
     WHERE edit.status = ? AND esc.editor = ? AND esc.available
+    UNION
+    SELECT edit FROM edit_series es
+    JOIN editor_subscribe_series ess ON ess.series = es.series
+    JOIN edit ON es.edit = edit.id
+    WHERE edit.status = ? AND ess.editor = ?
 ) edits
 WHERE edit.id = edits.edit
 AND edit.status = ?
@@ -308,7 +313,11 @@ OFFSET ?";
         sub {
             return $self->_new_from_row(shift);
         },
-        $query, $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id, $editor_id, $offset);
+        $query,
+        ($STATUS_OPEN, $editor_id) x 4, # per subscription model
+        $STATUS_OPEN, $editor_id,       # Edit is open, editor not current one
+        $editor_id, $offset             # Editor has not voted, offset
+    );
 }
 
 sub subscribed_editor_edits {
@@ -377,7 +386,7 @@ sub preview
     my $class = MusicBrainz::Server::EditRegistry->class_from_type($type)
         or confess "Could not lookup edit type for $type";
 
-    unless ($class->does ('MusicBrainz::Server::Edit::Role::Preview'))
+    unless ($class->does('MusicBrainz::Server::Edit::Role::Preview'))
     {
         warn "FIXME: $class does not support previewing.\n";
         return undef;
@@ -510,7 +519,7 @@ sub load_all
     @edits = grep { $_->has_data } @edits;
 
     my $objects_to_load  = {}; # Objects loaded with get_by_id
-    my $post_load_models = {}; # Objects loaded with ->load (after get_by_id)
+    my $post_load_models = {}; # Objects loaded with ->load(after get_by_id)
 
     for my $edit (@edits) {
         my $edit_references = $edit->foreign_keys;
@@ -536,6 +545,8 @@ sub load_all
         }
     }
 
+    default_includes($objects_to_load, $post_load_models);
+
     my $loaded = {};
     my $load_arguments = {};
     while (my ($model, $ids) = each %$objects_to_load) {
@@ -551,14 +562,28 @@ sub load_all
         }
     }
 
-    while (my ($model, $objs) = each %$load_arguments) {
-        # ArtistMeta, ReleaseMeta, etc are special models that indicate
-        # loading via Artist->load_meta, Release->load_meta, and so on.
-        if ($model =~ /^(.*)Meta$/) {
-            $self->c->model($1)->load_meta(grep defined, @$objs);
-        }
-        else {
-            $self->c->model($model)->load(grep defined, @$objs);
+    while (my ($models, $objs) = each %$load_arguments) {
+        # $models may be a list of space-separated models to be chain-loaded;
+        # i.e. "ModelA ModelB" means to first load via ModelA for the current
+        # set of objects, then via ModelB for the result of the first load.
+        my @objects = @$objs;
+        foreach my $model (split / /, $models) {
+            @objects = grep { defined $_ } @objects;
+            # ArtistMeta, ReleaseMeta, etc are special models that indicate
+            # loading via Artist->load_meta, Release->load_meta, and so on.
+            # AreaContainment is another special model for loading via
+            # Area->load_containment.
+            if ($model =~ /^(.*)Meta$/) {
+                $self->c->model($1)->load_meta(@objects);
+                @objects = (); # returns no objects
+            }
+            elsif ($model eq 'AreaContainment') {
+                $self->c->model('Area')->load_containment(@objects);
+                @objects = (); # returns no objects
+            }
+            else {
+                @objects = $self->c->model($model)->load(@objects);
+            }
         }
     }
 
@@ -567,7 +592,35 @@ sub load_all
     }
 }
 
-# Runs it's own transaction
+sub default_includes {
+    # Additional models that should automatically be included with a model.
+    # NB: A list, not a hash, because order may be important.
+    my @includes = (
+        'Place' => 'Area',
+        'Area' => 'AreaContainment',
+    );
+
+    my ($objects_to_load, $post_load_models) = @_;
+    while (my ($to, $add) = splice @includes, 0, 2) {
+        # Add as a post-load model to top-level models
+        for my $id (@{ $objects_to_load->{$to} // [] }) {
+            $post_load_models->{$to}->{$id} ||= [];
+            push @{ $post_load_models->{$to}->{$id} }, $add
+              unless (any { $_ =~ /^$add(?: .*|)$/ } @{ $post_load_models->{$to}->{$id} });
+        }
+
+        # Add to existing post-load models
+        for my $id (values %$post_load_models) {
+            for my $models (values %$id) {
+                for my $entry (@$models) {
+                    $entry .= ' ' . $add if $entry =~ /^(?:.* |)$to$/;
+                }
+            }
+        }
+    }
+}
+
+# Runs its own transaction
 sub approve
 {
     my ($self, $edit, $editor_id) = @_;
@@ -710,6 +763,16 @@ sub insert_votes_and_notes {
                 });
         }
     }, $self->c->sql);
+}
+
+sub get_related_entities {
+    my ($self, $edit) = @_;
+    my %result;
+    for my $type (qw( area artist label place release release_group recording series work url )) {
+        my $query = "SELECT $type AS id FROM edit_$type WHERE edit = ?";
+        $result{$type} = [ query_to_list($self->c->sql, sub { shift->{id} }, $query, $edit->id) ];
+    }
+    return \%result;
 }
 
 sub add_link {

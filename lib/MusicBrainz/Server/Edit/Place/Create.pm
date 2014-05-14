@@ -3,7 +3,7 @@ use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_PLACE_CREATE );
 use MusicBrainz::Server::Edit::Types qw( CoordinateHash Nullable PartialDateHash );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use aliased 'MusicBrainz::Server::Entity::Coordinates';
 use Moose::Util::TypeConstraints;
@@ -21,7 +21,6 @@ sub edit_name { N_l('Add place') }
 sub edit_type { $EDIT_PLACE_CREATE }
 sub _create_model { 'Place' }
 sub place_id { shift->entity_id }
-
 
 has '+data' => (
     isa => Dict[
@@ -63,13 +62,20 @@ sub build_display_data
         ended       => $self->data->{ended} // 0,
         comment     => $self->data->{comment},
         address     => $self->data->{address},
-        coordinates => defined $self->data->{coordinates}->{latitude} ? Coordinates->new($self->data->{coordinates}) : '',
+        coordinates => defined $self->data->{coordinates} ? Coordinates->new($self->data->{coordinates}) : '',
         area        => defined($self->data->{area_id}) &&
                        ($loaded->{Area}->{ $self->data->{area_id} } // Area->new())
     };
 }
 
 sub allow_auto_edit { 1 }
+
+before restore => sub {
+    my ($self, $data) = @_;
+
+    $data->{coordinates} = undef
+        if defined $data->{coordinates} && !defined $data->{coordinates}{latitude};
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

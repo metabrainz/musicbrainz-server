@@ -14,6 +14,12 @@ MB.edit.create = function () {
 };
 
 
+MB.typeInfoByID = {
+    76: { deprecated: false, phrase: "Discogs" },
+    77: { deprecated: false, phrase: "Wikipedia" }
+};
+
+
 releaseEditor.test.module("add-release edits", function () {
     var data = $.extend(true, {}, releaseEditor.test.testRelease);
     var medium = data.mediums[0];
@@ -306,7 +312,7 @@ test("releaseReorderMediums edits are not generated for new releases", function 
     this.release = releaseEditor.fields.Release({
         mediums: [
             { position: 1, tracks: [ { name: "foo" } ] },
-            { position: 2, tracks: [ { name: "bar" } ]  },
+            { position: 2, tracks: [ { name: "bar" } ] },
         ]
     });
 
@@ -346,9 +352,9 @@ test("releaseEdit edit is generated for existing release", function () {
         packaging_id: 456,
         script_id: 789,
         status_id: 123,
-        to_edit: 249113,
+        to_edit: "868cc741-e3bc-31bc-9dac-756e35c8f152",
         edit_type: 32,
-        hash: "f603b861729d6fb5bc5714da9b5ffb2ea047cdc2"
+        hash: "34f636d1332189bb8ed69ab63cba305843bdc12a"
       }
     ]);
 });
@@ -422,7 +428,7 @@ test("releaseEditReleaseLabel edits are generated for existing release", functio
 });
 
 
-test("mediumEdit edit is generated existing existing release", function () {
+test("mediumEdit edit is generated for existing release", function () {
     var medium = this.release.mediums()[0];
 
     medium.name("foooooooo");
@@ -454,115 +460,137 @@ test("mediumDelete edit is generated for existing release", function () {
 
 
 var testURLRelationship = {
-    type0: "release",
-    type1: "url",
-    entity0ID: "868cc741-e3bc-31bc-9dac-756e35c8f152",
-    entity1ID: "http://www.discogs.com/release/1369894",
+    target: {
+        entityType: "url",
+        name: "http://www.discogs.com/release/1369894"
+    },
     linkTypeID: 76,
     id: 123
 };
 
 
 test("relationshipCreate edit for external link is generated for existing release", function () {
+    var release = this.release;
     var newRelationshipData = _.omit(testURLRelationship, "id");
 
-    this.release.externalLinks.links.push(
-        MB.Control.externalLinks.Relationship(
-            newRelationshipData,
-            this.release.externalLinks
-        )
+    release.relationships.push(
+        release.externalLinks.getRelationship(newRelationshipData, release)
     );
 
-    deepEqual(releaseEditor.edits.externalLinks(this.release), [
+    deepEqual(releaseEditor.edits.externalLinks(release), [
       {
+        "attributes": [],
+        "beginDate": null,
         "edit_type": 90,
-        "entity0": "868cc741-e3bc-31bc-9dac-756e35c8f152",
-        "entity1": "http://www.discogs.com/release/1369894",
-        "hash": "e0e7008b82f6fcb05c87a2abf0113d6088eb7bb6",
-        "link_type": 76,
-        "type0": "release",
-        "type1": "url"
+        "endDate": null,
+        "ended": false,
+        "entities": [
+          {
+            "entityType": "release",
+            "gid": "868cc741-e3bc-31bc-9dac-756e35c8f152",
+            "name": "Vision Creation Newsun"
+          },
+          {
+            "entityType": "url",
+            "name": "http://www.discogs.com/release/1369894"
+          }
+        ],
+        "hash": "bd2ef529fccb9993de3575f4865dd341b78d3664",
+        "linkTypeID": 76
       }
     ]);
 });
 
 
 test("relationshipEdit edit for external link is generated for existing release", function () {
-    MB.Control.externalLinks.typeInfo = {};
-    MB.Control.externalLinks.faviconClasses = {};
+    MB.typeInfo = {};
+    MB.faviconClasses = {};
 
-    this.release.externalLinks.links([
-        MB.Control.externalLinks.Relationship(
-            testURLRelationship,
-            this.release.externalLinks
-        )
-    ]);
+    var release = this.release;
+    var vm = this.release.externalLinks;
 
-    var link = this.release.externalLinks.links()[0];
+    release.relationships([vm.getRelationship(testURLRelationship, release)]);
+
+    var link = vm.links()[0];
 
     link.linkTypeID(77);
     link.url("http://www.amazon.co.jp/gp/product/B00003IQQD");
 
     deepEqual(releaseEditor.edits.externalLinks(this.release), [
       {
+        "beginDate": null,
         "edit_type": 91,
-        "entity1": "http://www.amazon.co.jp/gp/product/B00003IQQD",
-        "hash": "46ddad04adbdeb0b1bed2991970f2613fc7d411e",
-        "link_type": 77,
-        "relationship": 123,
-        "type0": "release",
-        "type1": "url"
+        "endDate": null,
+        "ended": false,
+        "entities": [
+          {
+            "entityType": "release",
+            "gid": "868cc741-e3bc-31bc-9dac-756e35c8f152",
+            "name": "Vision Creation Newsun"
+          },
+          {
+            "entityType": "url",
+            "name": "http://www.amazon.co.jp/gp/product/B00003IQQD"
+          }
+        ],
+        "hash": "1b778d8d4db3f01cef707c72c3ac247317af6309",
+        "id": 123,
+        "linkTypeID": 77
       }
     ]);
 });
 
 
 test("relationshipDelete edit for external link is generated for existing release", function () {
-    this.release.externalLinks.links([
-        MB.Control.externalLinks.Relationship(
-            testURLRelationship,
-            this.release.externalLinks
-        )
-    ]);
+    var release = this.release;
+    var vm = release.externalLinks;
 
-    this.release.externalLinks.links()[0].remove();
+    release.relationships([vm.getRelationship(testURLRelationship, release)]);
+    vm.links()[0].remove();
 
-    deepEqual(releaseEditor.edits.externalLinks(this.release), [
+    deepEqual(releaseEditor.edits.externalLinks(release), [
       {
+        "attributes": [],
+        "beginDate": null,
         "edit_type": 92,
-        "hash": "1f245d298ceeca4ed9241911d2ec26097a460b0f",
-        "relationship": 123,
-        "type0": "release",
-        "type1": "url"
+        "endDate": null,
+        "ended": false,
+        "entities": [
+          {
+            "entityType": "release",
+            "gid": "868cc741-e3bc-31bc-9dac-756e35c8f152",
+            "name": "Vision Creation Newsun"
+          },
+          {
+            "entityType": "url",
+            "name": "http://www.discogs.com/release/1369894"
+          }
+        ],
+        "hash": "8c56b314d97a3e83ef32874819b920f4f4264db0",
+        "id": 123
       }
     ]);
 });
 
 
 test("edits are not generated for external links that duplicate existing removed ones", function () {
-    var newURL = "http://www.discogs.com/release/13698944";
-    var links = this.release.externalLinks.links;
+    var newURL = { name: "http://www.discogs.com/release/13698944", entityType: "url" };
+    var release = this.release;
+    var vm = release.externalLinks;
 
-    var existingRelationship1 = MB.Control.externalLinks.Relationship(
-        testURLRelationship,
-        this.release.externalLinks
+    var existingRelationship1 = vm.getRelationship(testURLRelationship, release);
+
+    var existingRelationship2 = vm.getRelationship(
+        _.assign(_.clone(testURLRelationship), { id: 456, target: newURL }), release
     );
 
-    var existingRelationship2 = MB.Control.externalLinks.Relationship(
-        _.assign(_.clone(testURLRelationship), { id: 456, entity1ID: newURL }),
-        this.release.externalLinks
-    );
+    var addedDuplicate = vm.getRelationship(_.omit(testURLRelationship, "id"), release);
 
-    var addedDuplicate = MB.Control.externalLinks.Relationship(
-        _.omit(testURLRelationship, "id"),
-        this.release.externalLinks
-    );
-
-    links([existingRelationship1, existingRelationship2]);
+    release.relationships([existingRelationship1, existingRelationship2]);
     existingRelationship1.remove();
-    links.push(addedDuplicate);
+    release.relationships.push(addedDuplicate);
 
-    equal(releaseEditor.edits.externalLinks(this.release).length, 1);
+    equal(releaseEditor.edits.externalLinks(release).length, 1);
     equal(releaseEditor.validation.errorCount(), 1);
 
     addedDuplicate.remove();
@@ -571,14 +599,14 @@ test("edits are not generated for external links that duplicate existing removed
 
     existingRelationship2.url(existingRelationship1.url());
 
-    equal(releaseEditor.edits.externalLinks(this.release).length, 1);
+    equal(releaseEditor.edits.externalLinks(release).length, 1);
     equal(releaseEditor.validation.errorCount(), 1);
 });
 
 
 test("mediumEdit and releaseReorderMediums edits are generated for non-loaded mediums", function () {
     this.release = releaseEditor.fields.Release({
-        id: 123,
+        gid: "f4c552ab-515e-42df-a9ee-a370867d29d1",
         mediums: [
             { id: 123, name: "foo", position: 1 },
             { id: 456, name: "bar", position: 2 },
@@ -624,7 +652,7 @@ test("mediumEdit and releaseReorderMediums edits are generated for non-loaded me
     deepEqual(releaseEditor.edits.mediumReorder(this.release), [
       {
         "edit_type": 313,
-        "hash": "5c1f4183faf7eb84312bb90c2680309df25d4dc0",
+        "hash": "fe6d272bd48a354f1f42e1ca0816397d7754d0ff",
         "medium_positions": [
           {
             "medium_id": 456,
@@ -637,7 +665,7 @@ test("mediumEdit and releaseReorderMediums edits are generated for non-loaded me
             "old": 1
           }
         ],
-        "release": 123
+        "release": "f4c552ab-515e-42df-a9ee-a370867d29d1"
       }
     ]);
 });
@@ -645,7 +673,7 @@ test("mediumEdit and releaseReorderMediums edits are generated for non-loaded me
 
 test("mediumCreate edits are not given conflicting positions", function () {
     this.release = releaseEditor.fields.Release({
-        id: 123,
+        gid: "f4c552ab-515e-42df-a9ee-a370867d29d1",
         mediums: [
             { id: 123, position: 1 },
             { id: 456, position: 3 },
@@ -688,15 +716,15 @@ test("mediumCreate edits are not given conflicting positions", function () {
         "edit_type": MB.edit.TYPES.EDIT_MEDIUM_CREATE,
         "position": 4,
         "name": "foo",
-        "release": 123,
-        "hash": "ae05a97cafc6bd4225f68ea3b3e7036aa8a1f72a"
+        "release": "f4c552ab-515e-42df-a9ee-a370867d29d1",
+        "hash": "86fb29ac85836e0cab948ab091dc0883d08060f0"
       },
       {
         "edit_type": MB.edit.TYPES.EDIT_MEDIUM_CREATE,
         "position": 2,
         "name": "bar",
-        "release": 123,
-        "hash": "1cd9c151add14012cf561751104823ca2f41f678"
+        "release": "f4c552ab-515e-42df-a9ee-a370867d29d1",
+        "hash": "a904fb74fd07bd9ca4f80a25bd8e150a42950d8a"
       }
     ]);
 
@@ -705,7 +733,7 @@ test("mediumCreate edits are not given conflicting positions", function () {
     deepEqual(releaseEditor.edits.mediumReorder(this.release), [
       {
         "edit_type": MB.edit.TYPES.EDIT_RELEASE_REORDER_MEDIUMS,
-        "hash": "e8355ea2d57f452b4c477cc7eed1a35da641c475",
+        "hash": "175c1aabc49c94c5edb79fd11cca04a31f0f85ad",
         "medium_positions": [
           {
             "medium_id": 123,
@@ -718,7 +746,7 @@ test("mediumCreate edits are not given conflicting positions", function () {
             "old": 4
           }
         ],
-        "release": 123
+        "release": "f4c552ab-515e-42df-a9ee-a370867d29d1"
       }
     ]);
 });

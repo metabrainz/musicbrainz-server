@@ -1,5 +1,5 @@
-$(function() {
-    $('a.tagger-icon').click(function(event) {
+$(function () {
+    $('a.tagger-icon').click(function (event) {
         event.preventDefault();
         if (window.opera) {
             var iframe = document.createElement('iframe');

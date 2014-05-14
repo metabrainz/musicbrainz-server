@@ -34,13 +34,13 @@ sub serialize
     my @body;
 
     push @body, ($self->gen->name($entity->name));
-    push @body, ($self->gen->sort_name($entity->sort_name));
+    push @body, ($self->gen->sort_name($entity->name));
     push @body, ($self->gen->label_code($entity->label_code)) if $entity->label_code;
     push @body, ($self->gen->disambiguation($entity->comment)) if $entity->comment;
 
     push @body, ($self->gen->country($entity->area->iso_3166_1->[0])) if $entity->area && $entity->area->iso_3166_1->[0];
 
-    push @body, ( $self->lifespan ($entity) ) if $self->has_lifespan ($entity);
+    push @body, ( $self->lifespan($entity) ) if $self->has_lifespan($entity);
 
     push @body, ( list_of([
         sort_by { $_->name } @{$opts->{aliases}}

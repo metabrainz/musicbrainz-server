@@ -17,9 +17,19 @@ sub serialize
     $body->{"type-id"} = $entity->link->type->gid;
     $body->{direction} = $entity->direction == 2 ? "backward" : "forward";
 
-    $body = merge ($body, date_period ($entity->link));
+    $body = merge($body, date_period($entity->link));
     $body->{attributes} = [ map { $_->name } $entity->link->all_attributes ];
-    $body->{$entity->target_type} = serialize_entity ($entity->target, $inc, $opts);
+
+    my %text_attrs = %{ $entity->link->attribute_text_values };
+
+    $body->{"attribute-values"} = {
+        map {
+            $text_attrs{$_->id} ? ($_->name => $text_attrs{$_->id}) : ()
+        }
+        $entity->link->all_attributes
+    };
+
+    $body->{$entity->target_type} = serialize_entity($entity->target, $inc, $opts);
 
     return $body;
 };

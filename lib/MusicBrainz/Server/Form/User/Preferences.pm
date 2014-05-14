@@ -20,6 +20,7 @@ has_field 'email_on_vote' => ( type => 'Boolean' );
 
 has_field 'subscribe_to_created_artists' => ( type => 'Boolean' );
 has_field 'subscribe_to_created_labels' => ( type => 'Boolean' );
+has_field 'subscribe_to_created_series' => ( type => 'Boolean' );
 
 has_field 'show_gravatar' => ( type => 'Boolean' );
 

@@ -2,7 +2,7 @@ $(function () {
 
     $(".reldetails").hide();
 
-    $(".toggle").click(function() {
+    $(".toggle").click(function () {
 
         $(this).parent().next(".reldetails").toggle();
 

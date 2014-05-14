@@ -49,7 +49,7 @@ sub fetch {
         @{ $self->sql->select_list_of_hashes($query, @names) };
 
     if (@names) {
-        if(wantarray) {
+        if (wantarray) {
             return @stats{@names};
         }
         else {
@@ -311,6 +311,32 @@ my %stats = (
         DESC => "Artists in no artist credits",
         SQL => "SELECT COUNT(DISTINCT artist.id) FROM artist LEFT OUTER JOIN artist_credit_name ON artist.id = artist_credit_name.artist WHERE artist_credit_name.artist_credit IS NULL",
     },
+    "count.instrument" => {
+        DESC => "Count of all instruments",
+        SQL => "SELECT COUNT(*) FROM instrument",
+    },
+    "count.instrument.type" => {
+        DESC => "Distribution of instruments by type",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT COALESCE(type.id::text, 'null'), COUNT(instrument.id) AS count
+                 FROM instrument_type type
+                 FULL OUTER JOIN instrument ON instrument.type = type.id
+                 GROUP BY type.id",
+            );
+
+            my %dist = map { @$_ } @$data;
+            $dist{null} ||= 0;
+
+            +{
+                map {
+                    "count.instrument.type.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
     "count.place" => {
         DESC => "Count of all places",
         SQL => "SELECT COUNT(*) FROM place",
@@ -333,6 +359,32 @@ my %stats = (
             +{
                 map {
                     "count.place.type.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
+    "count.series" => {
+        DESC => "Count of all seriess",
+        SQL => "SELECT COUNT(*) FROM series",
+    },
+    "count.series.type" => {
+        DESC => "Distribution of seriess by type",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT COALESCE(type.id::text, 'null'), COUNT(series.id) AS count
+                 FROM series_type type
+                 FULL OUTER JOIN series ON series.type = type.id
+                 GROUP BY type.id",
+            );
+
+            my %dist = map { @$_ } @$data;
+            $dist{null} ||= 0;
+
+            +{
+                map {
+                    "count.series.type.".$_ => $dist{$_}
                 } keys %dist
             };
         },
@@ -571,6 +623,8 @@ my %stats = (
                   UNION SELECT editor FROM editor_subscribe_artist_deleted
                   UNION SELECT editor FROM editor_subscribe_label
                   UNION SELECT editor FROM editor_subscribe_label_deleted
+                  UNION SELECT editor FROM editor_subscribe_series
+                  UNION SELECT editor FROM editor_subscribe_series_deleted
                 ),
                 collection_editors AS (SELECT DISTINCT editor FROM editor_collection),
                 voters AS (SELECT DISTINCT editor FROM vote),
@@ -1839,7 +1893,7 @@ sub recalculate_all
         printf "Statistics cannot be computed due to missing dependencies\n";
         printf "$_ depends on " . join(", ", @{$unsatisfiable_prereqs{$_}}) . ", but these dependencies do not exist\n"
             for keys %unsatisfiable_prereqs;
-        exit (1);
+        exit(1);
     }
 
     my %notdone = %stats;

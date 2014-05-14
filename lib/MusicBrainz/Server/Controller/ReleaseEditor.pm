@@ -21,7 +21,9 @@ use MusicBrainz::Server::Form::Utils qw(
     script_options
     link_type_options
     select_options
+    select_options_tree
     build_grouped_options
+    build_type_info
 );
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
@@ -41,50 +43,22 @@ sub _init_release_editor
 
     $options{seeded_data} = $json->encode($self->_seeded_data($c) // {});
 
-    my $root_medium_format = $c->model('MediumFormat')->get_tree;
-
-    my $medium_format_options = [
-        map {
-            _build_medium_format_options($_, 'l_name', '')
-        } $root_medium_format->all_children
-    ];
-
     my $url_link_types = $c->model('LinkType')->get_tree('release', 'url');
 
     $c->stash(
         template        => 'release/edit/layout.tt',
         # These need to be accessed by root/release/edit/information.tt.
-        primary_types   => select_options($c, 'ReleaseGroupType'),
-        secondary_types => select_options($c, 'ReleaseGroupSecondaryType'),
-        statuses        => select_options($c, 'ReleaseStatus'),
+        primary_types   => select_options_tree($c, 'ReleaseGroupType'),
+        secondary_types => select_options_tree($c, 'ReleaseGroupSecondaryType'),
+        statuses        => select_options_tree($c, 'ReleaseStatus'),
         languages       => build_grouped_options($c, language_options($c)),
         scripts         => build_grouped_options($c, script_options($c)),
-        packagings      => select_options($c, 'ReleasePackaging'),
+        packagings      => select_options_tree($c, 'ReleasePackaging'),
         countries       => select_options($c, 'CountryArea'),
-        formats         => $medium_format_options,
-        url_type_info   => MusicBrainz::Server::Controller::Role::EditExternalLinks::build_type_info($url_link_types),
-        url_type_opts   => link_type_options($url_link_types, 'l_link_phrase', 'ROOT', '&#160;'),
+        formats         => select_options_tree($c, 'MediumFormat'),
+        type_info       => $json->encode(build_type_info($c, qr/release-url/, $url_link_types)),
         %options
     );
-}
-
-sub _build_medium_format_options
-{
-    my ($root, $attr, $indent) = @_;
-
-    my @options;
-
-    push @options, {
-        value => $root->id,
-        label => $indent . $root->$attr,
-    } if $root->id;
-
-    $indent .= '&#xa0;&#xa0;&#xa0;';
-
-    foreach my $child ($root->all_children) {
-        push @options, _build_medium_format_options($child, $attr, $indent);
-    }
-    return @options;
 }
 
 sub edit : Chained('/release/load') PathPart('edit') Edit RequireAuth
@@ -381,7 +355,7 @@ sub _seeded_event
         $result->{date} = PartialDate->new(%$date)->format if %$date;
     }
 
-    if (my $iso = uc ($params->{country} // '')) {
+    if (my $iso = uc($params->{country} // '')) {
         my $country = $c->model('Area')->get_by_iso_3166_1($iso)->{$iso};
 
         if ($country) {

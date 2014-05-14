@@ -9,6 +9,7 @@ use MusicBrainz::Server::Entity::ReleaseGroupSecondaryType;
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'release_group_secondary_type' };
 with 'MusicBrainz::Server::Data::Role::SelectAll' => { order_by => [ 'name'] };
+with 'MusicBrainz::Server::Data::Role::OptionsTree';
 
 sub _table
 {
@@ -17,7 +18,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, name';
+    return 'id, name, parent AS parent_id, child_order, description';
 }
 
 sub _entity_class
@@ -62,20 +63,9 @@ sub merge_entities
 {
     my ($self, $new_id, @old_ids) = @_;
 
-    my @all_ids = ($new_id, @old_ids);
-
     $self->sql->do(
         "DELETE FROM release_group_secondary_type_join " .
-        "WHERE release_group = any(?) " .
-        "AND (release_group, secondary_type) NOT IN (" .
-        "    SELECT DISTINCT ON (secondary_type) release_group, secondary_type " .
-        "    FROM release_group_secondary_type_join " .
-        "    WHERE release_group = any(?))", \@all_ids, \@all_ids);
-
-    $self->sql->do(
-        "UPDATE release_group_secondary_type_join " .
-        "SET release_group = ? WHERE release_group = any(?) ",
-        $new_id, \@old_ids);
+        "WHERE release_group = any(?)", \@old_ids );
 }
 
 sub delete_entities {

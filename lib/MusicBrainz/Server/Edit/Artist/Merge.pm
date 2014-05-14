@@ -4,7 +4,7 @@ use Moose;
 use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_MERGE );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 use Hash::Merge qw( merge );
 
 extends 'MusicBrainz::Server::Edit::Generic::Merge';

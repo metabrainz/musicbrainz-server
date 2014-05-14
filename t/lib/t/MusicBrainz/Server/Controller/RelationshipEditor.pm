@@ -1,22 +1,10 @@
 package t::MusicBrainz::Server::Controller::RelationshipEditor;
 use Test::Routine;
 use Test::More;
+use Test::Deep qw( cmp_bag );
 use MusicBrainz::Server::Test qw( capture_edits );
 
 with 't::Context', 't::Mechanize';
-
-test 'MBS-5348: Displays version count in "see all versions" string' => sub {
-    my $test = shift;
-    my ($c, $mech) = ($test->c, $test->mech);
-
-    MusicBrainz::Server::Test->prepare_test_database($c);
-
-    $mech->get_ok('/login');
-    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
-
-    $mech->get_ok("/release/f34c079d-374e-4436-9448-da92dedef3ce/edit-relationships");
-    $mech->content_contains('see all versions of this release, 1 available', '...has 1 available');
-};
 
 test 'Can add relationship' => sub {
     my $test = shift;
@@ -26,8 +14,6 @@ test 'Can add relationship' => sub {
 
     $mech->get_ok('/login');
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
-
-    $mech->get_ok("/release/f34c079d-374e-4436-9448-da92dedef3ce/edit-relationships");
 
     my ($edit) = capture_edits {
         $mech->post("/relationship-editor", {
@@ -58,9 +44,7 @@ test 'Can add relationship' => sub {
     is($edit->data->{type0}, 'artist');
     is($edit->data->{type1}, 'recording');
     is($edit->data->{link_type}{id}, 1);
-    is($edit->data->{attributes}->[0], 1);
-    is($edit->data->{attributes}->[1], 3);
-    is($edit->data->{attributes}->[2], 4);
+    cmp_bag($edit->data->{attributes}, [1, 3, 4]);
     is($edit->data->{begin_date}{year}, 1999);
     is($edit->data->{begin_date}{month}, 1);
     is($edit->data->{begin_date}{day}, 1);
@@ -78,8 +62,6 @@ test 'Can edit relationship' => sub {
 
     $mech->get_ok('/login');
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
-
-    $mech->get_ok("/release/f34c079d-374e-4436-9448-da92dedef3ce/edit-relationships");
 
     my ($edit) = capture_edits {
         $mech->post("/relationship-editor", {
@@ -111,9 +93,7 @@ test 'Can edit relationship' => sub {
     is($edit->data->{type0}, 'artist');
     is($edit->data->{type1}, 'recording');
     is($edit->data->{link}{link_type}{id}, 1);
-    is($edit->data->{new}{attributes}->[0], 1);
-    is($edit->data->{new}{attributes}->[1], 3);
-    is($edit->data->{new}{attributes}->[2], 4);
+    cmp_bag($edit->data->{new}{attributes}, [1, 3, 4]);
     is($edit->data->{new}{begin_date}{year}, 1999);
     is($edit->data->{new}{begin_date}{month}, 1);
     is($edit->data->{new}{begin_date}{day}, 1);
@@ -163,8 +143,6 @@ test 'MBS-7058: Can submit a relationship without "ended" fields' => sub {
 
     $mech->get_ok('/login');
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
-
-    $mech->get_ok("/release/f34c079d-374e-4436-9448-da92dedef3ce/edit-relationships");
 
     my ($edit) = capture_edits {
         $mech->post("/relationship-editor", {

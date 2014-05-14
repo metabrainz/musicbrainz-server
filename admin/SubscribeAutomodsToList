@@ -48,7 +48,7 @@ use vars qw( %allowed_nonmember_automods %allowed_posting_guests );
 if (-f $sConfigFile)
 {
     $@ = ""; $! = 0;
-    do $sConfigFile or die ($!||$@);
+    do $sConfigFile or die($!||$@);
 }
 
 my $automods = $c->sql->select_list_of_lists("SELECT name, email FROM editor

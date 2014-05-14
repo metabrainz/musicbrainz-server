@@ -5,6 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js'; }
 
 use Data::OptList;
 use Encode qw( decode encode );
+use JSON qw( encode_json );
 use List::UtilsBy qw( uniq_by );
 use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Filters;
@@ -56,7 +57,9 @@ sub entities {
         'Label' => 'label',
         'URL' => 'url',
         'Area' => 'area',
-        'Place' => 'place'
+        'Place' => 'place',
+        'Instrument' => 'instrument',
+        'Series' => 'series',
     };
 }
 
@@ -85,13 +88,13 @@ sub medium : Chained('root') PathPart Args(1) {
     ];
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('generic', $ret));
+    $c->res->body(encode_json($ret));
 }
 
 sub freedb : Chained('root') PathPart Args(2) {
     my ($self, $c, $category, $id) = @_;
 
-    my $response = $c->model ('FreeDB')->lookup ($category, $id);
+    my $response = $c->model('FreeDB')->lookup($category, $id);
 
     unless (defined $response) {
         $c->stash->{error} = "$category/$id not found";
@@ -108,7 +111,7 @@ sub freedb : Chained('root') PathPart Args(2) {
     } @{ $response->tracks } ];
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('generic', $ret));
+    $c->res->body(encode_json($ret));
 };
 
 sub cdstub : Chained('root') PathPart Args(1) {
@@ -122,8 +125,8 @@ sub cdstub : Chained('root') PathPart Args(1) {
 
     if ($cdstub_toc)
     {
-        $c->model('CDStub')->load ($cdstub_toc);
-        $c->model('CDStubTrack')->load_for_cdstub ($cdstub_toc->cdstub);
+        $c->model('CDStub')->load($cdstub_toc);
+        $c->model('CDStubTrack')->load_for_cdstub($cdstub_toc->cdstub);
         $cdstub_toc->update_track_lengths;
 
         $ret->{toc} = $cdstub_toc->toc;
@@ -138,7 +141,7 @@ sub cdstub : Chained('root') PathPart Args(1) {
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('generic', $ret));
+    $c->res->body(encode_json($ret));
 }
 
 sub tracklist_results {
@@ -148,10 +151,10 @@ sub tracklist_results {
 
     my @gids = map { $_->entity->gid } @$results;
 
-    my @releases = values %{ $c->model ('Release')->get_by_gids (@gids) };
-    $c->model ('Medium')->load_for_releases (@releases);
-    $c->model ('MediumFormat')->load (map { $_->all_mediums } @releases);
-    $c->model ('ArtistCredit')->load (@releases);
+    my @releases = values %{ $c->model('Release')->get_by_gids(@gids) };
+    $c->model('Medium')->load_for_releases(@releases);
+    $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
+    $c->model('ArtistCredit')->load(@releases);
 
     for my $release ( @releases )
     {
@@ -205,9 +208,9 @@ sub disc_results {
 sub disc_search {
     my ($self, $c, $type) = @_;
 
-    my $query = escape_query (trim $c->stash->{args}->{q});
-    my $artist = escape_query ($c->stash->{args}->{artist});
-    my $tracks = escape_query ($c->stash->{args}->{tracks});
+    my $query = escape_query(trim $c->stash->{args}->{q});
+    my $artist = escape_query($c->stash->{args}->{artist});
+    my $tracks = escape_query($c->stash->{args}->{tracks});
     my $limit = $c->stash->{args}->{limit} || 10;
     my $page = $c->stash->{args}->{page} || 1;
 
@@ -219,10 +222,10 @@ sub disc_search {
     push @query, "artist:($artist)" if $artist;
     push @query, ($type eq 'release' ? "tracksmedium:($tracks)" : "tracks:($tracks)") if $tracks;
 
-    $query = join (" AND ", @query);
+    $query = join(" AND ", @query);
 
     my $no_redirect = 1;
-    my $response = $c->model ('Search')->external_search (
+    my $response = $c->model('Search')->external_search(
         $type, $query, $limit, $page, 1, undef);
 
     my @output;
@@ -232,8 +235,8 @@ sub disc_search {
         my $pager = $response->{pager};
 
         @output = $type eq 'release' ?
-            $self->tracklist_results ($c, $response->{results}) :
-            $self->disc_results ($type, $response->{results});
+            $self->tracklist_results($c, $response->{results}) :
+            $self->disc_results($type, $response->{results});
 
         push @output, {
             pages => $pager->last_page,
@@ -249,25 +252,25 @@ sub disc_search {
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('generic', \@output));
+    $c->res->body(encode_json(\@output));
 };
 
 sub medium_search : Chained('root') PathPart('medium') Args(0) {
     my ($self, $c) = @_;
 
-    return $self->disc_search ($c, 'release');
+    return $self->disc_search($c, 'release');
 }
 
 sub cdstub_search : Chained('root') PathPart('cdstub') Args(0) {
     my ($self, $c) = @_;
 
-    return $self->disc_search ($c, 'cdstub');
+    return $self->disc_search($c, 'cdstub');
 };
 
 sub freedb_search : Chained('root') PathPart('freedb') Args(0) {
     my ($self, $c) = @_;
 
-    return $self->disc_search ($c, 'freedb');
+    return $self->disc_search($c, 'freedb');
 };
 
 sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
@@ -279,18 +282,18 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
 
     my %s3_policy;
     $s3_policy{mime_type} = $c->request->params->{mime_type};
-    $s3_policy{redirect} = $c->uri_for_action('/release/cover_art_uploaded', [ $gid ])->as_string ()
+    $s3_policy{redirect} = $c->uri_for_action('/release/cover_art_uploaded', [ $gid ])->as_string()
         if $c->request->params->{redirect};
 
     my $data = {
         action => DBDefs->COVER_ART_ARCHIVE_UPLOAD_PREFIXER($bucket),
         image_id => "$id",
-        formdata => $c->model ('CoverArtArchive')->post_fields ($bucket, $gid, $id, \%s3_policy)
+        formdata => $c->model('CoverArtArchive')->post_fields($bucket, $gid, $id, \%s3_policy)
     };
 
     $c->res->headers->header( 'Cache-Control' => 'no-cache', 'Pragma' => 'no-cache' );
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('generic', $data));
+    $c->res->body(encode_json($data));
 }
 
 sub entity : Chained('root') PathPart('entity') Args(1)
@@ -317,28 +320,25 @@ sub entity : Chained('root') PathPart('entity') Args(1)
         return;
     }
 
-    $c->model('Relationship')->load($entity) if $c->stash->{inc}->rels;
-    $c->model('ArtistCredit')->load($entity);
+    my $js_class = "MusicBrainz::Server::Controller::WS::js::$type";
 
-    my $serialization_routine = '_' . $self->entities->{$type};
-    $serialization_routine =~ s/\-/_/g;
+    $js_class->_load_entities($c, $entity);
+
+    my $serialization_routine = $js_class->serialization_routine;
     my $data = $c->stash->{serializer}->$serialization_routine($entity);
-    $data->{'type'} = $self->entities->{$type};
 
-    my $relationships = $c->stash->{serializer}->serialize_relationships(
-        @{ $entity->relationships } );
-
-    $data->{relationships} = $relationships if keys %$relationships;
+    my $relationships = $c->stash->{serializer}->serialize_relationships($entity->all_relationships);
+    $data->{relationships} = $relationships if @$relationships;
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize_data($data));
+    $c->res->body(encode_json($data));
 }
 
 sub default : Path
 {
     my ($self, $c, $resource) = @_;
 
-    $c->stash->{serializer} = $self->get_serialization ($c);
+    $c->stash->{serializer} = $self->get_serialization($c);
     $c->stash->{error} = "Invalid resource: $resource";
     $c->detach('bad_req');
 }
@@ -349,7 +349,7 @@ sub events : Chained('root') PathPart('events') {
     my $events = $c->model('Statistics')->all_events;
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize_data($events));
+    $c->res->body(encode_json($events));
 }
 
 no Moose;

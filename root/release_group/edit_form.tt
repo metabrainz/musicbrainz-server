@@ -16,6 +16,8 @@
       [%- form_row_select(r, 'secondary_type_ids', l('Secondary Types:')) -%]
     </fieldset>
 
+    [% PROCESS 'forms/relationship-editor.tt' %]
+
     <fieldset>
       <legend>[% l('External Links') %]</legend>
       [% external_links_editor(r.form, 'release_group') %]

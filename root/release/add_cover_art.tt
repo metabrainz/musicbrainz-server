@@ -128,7 +128,7 @@
         </div>
 
         <script type="text/javascript">
-            MB.CoverArt.reorder_position ();
+            MB.CoverArt.reorder_position();
         </script>
       [%- END -%]
     </div>
@@ -145,7 +145,7 @@
   </form>
 
   <script type="text/javascript">
-    MB.CoverArt.add_cover_art ("[%- entity.gid -%]");
-    MB.utility.setDefaultAction ('form.cover-art', 'button.submit.positive');
+    MB.CoverArt.add_cover_art("[%- entity.gid -%]");
+    MB.utility.setDefaultAction('form.cover-art', 'button.submit.positive');
   </script>
 [%- END -%]

@@ -21,7 +21,7 @@ test 'Delete account as a regular user' => sub {
     $mech->content_contains('Alice', 'is logged in as regular user');
 
     $mech->get('/admin/user/delete/new_editor');
-    is ($mech->status(), 403, 'cannot delete foreign account');
+    is($mech->status(), 403, 'cannot delete foreign account');
 
     $mech->get_ok('/admin/user/delete/Alice', 'can access own deletion page');
     html_ok($mech->content);

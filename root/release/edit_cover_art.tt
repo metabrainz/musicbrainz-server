@@ -6,7 +6,7 @@
   <form id="edit-cover-art" class="cover-art" action="[% c.req.uri %]" method="post">
     [%- USE r = FormRenderer(form) -%]
     <div class="edit-cover-art" style="float: right;">
-      [%- display_artwork (artwork) -%]
+      [%- display_artwork(artwork) -%]
     </div>
 
     [%- INCLUDE 'release/cover_art_fields.tt' -%]

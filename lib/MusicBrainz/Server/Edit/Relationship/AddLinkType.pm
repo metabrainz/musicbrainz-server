@@ -5,7 +5,7 @@ use MooseX::Types::Structured qw( Dict  Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_ADD_TYPE );
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Relationship';
@@ -34,7 +34,10 @@ has '+data' => (
             type => Optional[Int], # Used in the new edits
         ]],
         documentation => Optional[Str],
-        is_deprecated => Optional[Bool]
+        is_deprecated => Optional[Bool],
+        has_dates => Optional[Bool],
+        entity0_cardinality => Optional[Int],
+        entity1_cardinality => Optional[Int]
     ]
 );
 

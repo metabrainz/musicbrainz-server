@@ -105,7 +105,6 @@ is ( @{$data->{results} }, 25 );
 my $label = $data->{results}->[0]->{entity};
 
 is ( $label->name, 'Love Records' );
-is ( $label->sort_name, 'Love Records' );
 is ( $label->comment, 'Finnish label' );
 is ( $label->gid, 'e24ca2f9-416e-42bd-a223-bed20fa409d0' );
 is ( $label->type->name, 'production' );
@@ -164,7 +163,7 @@ sub load_data
 {
     my ($type, $c) = @_;
 
-    ok (type_to_model($type), "$type has a model");
+    ok(type_to_model($type), "$type has a model");
 
     return MusicBrainz::Server::Data::Search->new(c => $c)->external_search(
         $type,

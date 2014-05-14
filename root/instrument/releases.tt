@@ -1,0 +1,15 @@
+[%- WRAPPER 'instrument/layout.tt' title=l('Releases') page='releases' -%]
+    <h2>[% l('Releases') %]</h2>
+
+    [%- IF releases.size -%]
+      <form action="[% c.uri_for_action('/release/merge_queue') %]"
+            method="post">
+        [%- INCLUDE 'release_group/releases-list.tt' show_artists=1 WRAPPER 'components/with-pager.tt' -%]
+        [% form_submit(l('Add selected releases for merging')) WRAPPER form_row IF c.user_exists %]
+      </form>
+    [%- END -%]
+
+    [% IF releases.size == 0 %]
+        <p>[% l('No releases found') %]</p>
+    [% END %]
+[%- END -%]

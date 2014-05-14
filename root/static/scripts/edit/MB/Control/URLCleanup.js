@@ -27,7 +27,9 @@ MB.constants.LINK_TYPES = {
         release_group: 89,
         work: 279,
         area: 355,
-        place: 595
+        place: 595,
+        instrument: 731,
+        series: 744
     },
     discogs: {
         artist: 180,
@@ -82,7 +84,8 @@ MB.constants.LINK_TYPES = {
         artist: 173,
         label: 213,
         place: 396,
-        work: 274 // This is the "score" type, which is here because of Wikipedia Commons URLs
+        work: 274, // This is the "score" type, which is here because of Wikipedia Commons URLs
+        instrument: 732
     },
     discographyentry: {
         release: 288
@@ -173,7 +176,8 @@ MB.constants.LINK_TYPES = {
         label: 354,
         release_group: 353,
         work: 351,
-        place: 594
+        place: 594,
+        instrument: 733
     },
     bandcamp: {
         artist: 718,
@@ -185,7 +189,7 @@ MB.constants.CLEANUPS = {
     wikipedia: {
         match: new RegExp("^(https?://)?(([^/]+\\.)?wikipedia|secure\\.wikimedia)\\.","i"),
         type: MB.constants.LINK_TYPES.wikipedia,
-        clean: function(url) {
+        clean: function (url) {
             url =  url.replace(/^https:\/\/secure\.wikimedia\.org\/wikipedia\/([a-z-]+)\/wiki\/(.*)/, "http://$1.wikipedia.org/wiki/$2");
             url =  url.replace(/^https:\/\//, "http://");
             url =  url.replace(/^http:\/\/wikipedia\.org\/(.+)$/, "http://en.wikipedia.org/$1");
@@ -199,7 +203,7 @@ MB.constants.CLEANUPS = {
     discogs: {
         match: new RegExp("^(https?://)?([^/]+\\.)?discogs\\.com","i"),
         type: MB.constants.LINK_TYPES.discogs,
-        clean: function(url) {
+        clean: function (url) {
             url = url.replace(/\/viewimages\?release=([0-9]*)/, "/release/$1");
             url = url.replace(/^https?:\/\/([^.]+\.)?discogs\.com\/(.*\/(artist|release|master|label))?([^#?]*).*$/, "http://www.discogs.com/$3$4");
             url = url.replace(/^(http:\/\/www\.discogs\.com\/(?:artist|label))\/([0-9]+)-[^+]+$/, "$1/$2"); // URLs containing Discogs IDs
@@ -211,28 +215,28 @@ MB.constants.CLEANUPS = {
     imdb: {
         match: new RegExp("^(https?://)?([^/]+\\.)?imdb\\.","i"),
         type: MB.constants.LINK_TYPES.imdb,
-        clean: function(url) {
+        clean: function (url) {
             return url.replace(/^https?:\/\/([^.]+\.)?imdb\.(com|de|it|es|fr|pt)\/([a-z]+\/[a-z0-9]+)(\/.*)*$/, "http://www.imdb.com/$3/");
         }
     },
     imdbsamples: {
         match: new RegExp("^(https?://)?([^/]+\\.)?imdb\\.","i"),
         type: MB.constants.LINK_TYPES.imdbsamples,
-        clean: function(url) {
+        clean: function (url) {
             return url.replace(/^https?:\/\/([^.]+\.)?imdb\.(com|de|it|es|fr|pt)\/([a-z]+\/[a-z0-9]+)(\/.*)*$/, "http://www.imdb.com/$3/");
         }
     },
     mora: {
         match: new RegExp("^(https?://)?([^/]+\\.)?mora\\.jp","i"),
         type: MB.constants.LINK_TYPES.downloadpurchase,
-        clean: function(url) {
+        clean: function (url) {
             return url.replace(/^(?:https?:\/\/)?(?:[^.]+\.)?mora\.jp\/package\/([0-9]+)\/([a-zA-Z0-9_-]+)(\/)?.*$/, "http://mora.jp/package/$1/$2/");
         }
     },
     myspace: {
         match: new RegExp("^(https?://)?([^/]+\\.)?myspace\\.(com|de|fr)","i"),
         type: MB.constants.LINK_TYPES.myspace,
-        clean: function(url) {
+        clean: function (url) {
             return url.replace(/^(https?:\/\/)?([^.]+\.)?myspace\.(com|de|fr)/, "https://myspace.com");
         }
     },
@@ -243,21 +247,21 @@ MB.constants.CLEANUPS = {
     recochoku: {
         match: new RegExp("^(https?://)?([^/]+\\.)?recochoku\\.jp","i"),
         type: MB.constants.LINK_TYPES.downloadpurchase,
-        clean: function(url) {
+        clean: function (url) {
             return url.replace(/^(?:https?:\/\/)?(?:[^.]+\.)?recochoku\.jp\/(album|song)\/([a-zA-Z0-9]+)(\/)?.*$/, "http://recochoku.jp/$1/$2/");
         }
     },
     allmusic: {
         match: new RegExp("^(https?://)?([^/]+\\.)?allmusic\\.com","i"),
         type: MB.constants.LINK_TYPES.allmusic,
-        clean: function(url) {
+        clean: function (url) {
             return url.replace(/^https?:\/\/(?:[^.]+\.)?allmusic\.com\/(artist|album|composition|song|performance)\/(?:[^\/]*-)?((?:mn|mw|mc|mt|mq)[0-9]+).*/, "http://www.allmusic.com/$1/$2");
         }
     },
     amazon: {
         match: new RegExp("^(https?://)?([^/]+\\.)?(amazon\\.(com|ca|co\\.uk|fr|at|de|it|co\\.jp|jp|cn|es)|amzn\\.com)","i"),
         type: MB.constants.LINK_TYPES.amazon,
-        clean: function(url) {
+        clean: function (url) {
             // determine tld, asin from url, and build standard format [1],
             // if both were found. There used to be another [2], but we'll
             // stick to the new one for now.
@@ -286,7 +290,7 @@ MB.constants.CLEANUPS = {
     },
     archive: {
         match: new RegExp("^(https?://)?([^/]+\\.)?archive\\.org/","i"),
-        clean: function(url) {
+        clean: function (url) {
             url = url.replace(/^https?:\/\/(www.)?archive.org\//, "https://archive.org/");
             // clean up links to files
             url = url.replace(/\?cnt=\d+$/, "");
@@ -297,7 +301,7 @@ MB.constants.CLEANUPS = {
     },
     cdbaby: {
         match: new RegExp("^(https?://)?([^/]+\\.)?cdbaby\\.(com|name)","i"),
-        clean: function(url) {
+        clean: function (url) {
             if ((m = url.match(/(?:https?:\/\/)?(?:www\.)?cdbaby\.com\/cd\/([^\/]+)(\/(from\/[^\/]+)?)?/)) != null)
                 url = "http://www.cdbaby.com/cd/" + m[1].toLowerCase();
             url = url.replace(/(?:https?:\/\/)?(?:www\.)?cdbaby\.com\/Images\/Album\/([a-z0-9]+)(?:_small)?\.jpg/, "http://www.cdbaby.com/cd/$1");
@@ -307,7 +311,7 @@ MB.constants.CLEANUPS = {
     downloadpurchase: {
         match: new RegExp("^(https?://)?([^/]+\\.)?(beatport\\.com|junodownload\\.com|audiojelly\\.com|itunes\\.apple\\.com/)", "i"),
         type: MB.constants.LINK_TYPES.downloadpurchase,
-        clean: function(url) {
+        clean: function (url) {
             // iTunes cleanup
             return url.replace(/^https?:\/\/itunes\.apple\.com\/([a-z]{2}\/)?(artist|album|music-video|preorder)\/(?:[^?#\/]+\/)?(id[0-9]+)(?:\?.*)?$/, "https://itunes.apple.com/$1$2/$3");
         }
@@ -315,7 +319,7 @@ MB.constants.CLEANUPS = {
     jamendo: {
         match: new RegExp("^(https?://)?([^/]+\\.)?jamendo\\.com","i"),
         type: MB.constants.LINK_TYPES.downloadfree,
-        clean: function(url) {
+        clean: function (url) {
             url =  url.replace(/jamendo\.com\/(?:\w\w\/)?(album|list|track)\/([^\/]+)(\/.*)?$/, "jamendo.com/$1/$2");
             url =  url.replace(/img\.jamendo\.com\/albums\/(\d+)\/covers\/\d+\.\d+\.jpg/, "www.jamendo.com/album/$1/");
             url =  url.replace(/jamendo\.com\/\w\w\/artist\//, "jamendo.com/artist/");
@@ -325,7 +329,7 @@ MB.constants.CLEANUPS = {
     license: {
         match: new RegExp("^(https?://)?([^/]+\\.)?(artlibre\\.org/licence|creativecommons\\.org/(licenses|publicdomain)/)", "i"),
         type: MB.constants.LINK_TYPES.license,
-        clean: function(url) {
+        clean: function (url) {
             url = url.replace(/^(https?:\/\/)?([^\/]+\.)?creativecommons\.org\//, "http://creativecommons.org/");
             url = url.replace(/^http:\/\/creativecommons\.org\/(licenses|publicdomain)\/(.+)\/((legalcode|deed)((\.|-)[A-Za-z_]+)?)?/, "http://creativecommons.org/$1/$2/");
 
@@ -342,7 +346,7 @@ MB.constants.CLEANUPS = {
     lyrics: {
         match: new RegExp("^(https?://)?([^/]+\\.)?(lyrics\\.wikia\\.com|directlyrics\\.com|decoda\\.com|kasi-time\\.com|wikisource\\.org|recmusic\\.org|utamap\\.com|j-lyric\\.net|lyricsnmusic\\.com|muzikum\\.eu|rapgenius\\.com|gutenberg\\.org)", "i"),
         type: MB.constants.LINK_TYPES.lyrics,
-        clean: function(url) {
+        clean: function (url) {
             return url.replace(/^https:\/\/([a-z-]+\.)?wikisource\.org/, "http://$1wikisource.org");
         }
     },
@@ -353,7 +357,7 @@ MB.constants.CLEANUPS = {
     image: {
         match: new RegExp("^(https?://)?(commons\\.wikimedia\\.org|upload\\.wikimedia\\.org/wikipedia/commons/)","i"),
         type: MB.constants.LINK_TYPES.image,
-        clean: function(url) {
+        clean: function (url) {
             url = url.replace(/^https?:\/\/upload\.wikimedia\.org\/wikipedia\/commons\/(thumb\/)?[0-9a-z]\/[0-9a-z]{2}\/([^\/]+)(\/[^\/]+)?$/, "https://commons.wikimedia.org/wiki/File:$2");
             url = url.replace(/\?uselang=[a-z-]+$/, "");
             return url.replace(/^https?:\/\/commons\.wikimedia\.org\/wiki\/(File|Image):/, "https://commons.wikimedia.org/wiki/File:");
@@ -386,7 +390,7 @@ MB.constants.CLEANUPS = {
     socialnetwork: {
         match: new RegExp("^(https?://)?([^/]+\\.)?(facebook\\.com|(last\\.fm|lastfm\\.(at|br|de|es|fr|it|jp|pl|pt|ru|se|com\\.tr))/(music|label|venue|user|group)|reverbnation\\.com|plus\\.google\\.com|vk\\.com|twitter\\.com|instagram\\.com)/", "i"),
         type: MB.constants.LINK_TYPES.socialnetwork,
-        clean: function(url) {
+        clean: function (url) {
             url = url.replace(/^(https?:\/\/)?([^\/]+\.)?facebook\.com(\/#!)?/, "https://www.facebook.com");
             if (url.match(/^https:\/\/www\.facebook\.com.*$/)) {
                 // Remove ref (where the user came from) and sk (subpages in a page, since we want the main link)
@@ -411,14 +415,14 @@ MB.constants.CLEANUPS = {
     soundcloud: {
         match: new RegExp("^(https?://)?([^/]+\\.)?soundcloud\\.com","i"),
         type: MB.constants.LINK_TYPES.soundcloud,
-        clean: function(url) {
+        clean: function (url) {
             return url.replace(/^(https?:\/\/)?(www\.)?soundcloud\.com(\/#!)?/, "https://soundcloud.com");
         }
     },
     blog: {
         match: new RegExp("^(https?://)?([^/]+\\.)?(ameblo\\.jp|blog\\.livedoor\\.jp|([^./]+)\\.jugem\\.jp|([^./]+)\\.exblog\\.jp|([^./]+)\\.tumblr\\.com)", "i"),
         type: MB.constants.LINK_TYPES.blog,
-        clean: function(url) {
+        clean: function (url) {
             url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ameblo\.jp\/([^\/]+).*$/, "http://ameblo.jp/$1/");
             return url;
         }
@@ -426,7 +430,7 @@ MB.constants.CLEANUPS = {
     spotify: {
         match: new RegExp("^(https?://)?([^/]+\\.)?(spotify\\.com)", "i"),
         type: MB.constants.LINK_TYPES.streamingmusic,
-        clean: function(url) {
+        clean: function (url) {
             url = url.replace(/^https?:\/\/embed\.spotify\.com\/\?uri=spotify:([a-z]+):([a-zA-Z0-9_-]+)$/, "http://open.spotify.com/$1/$2");
             return url;
         }
@@ -434,7 +438,7 @@ MB.constants.CLEANUPS = {
     viaf: {
         match: new RegExp("^(https?://)?([^/]+\\.)?viaf\\.org", "i"),
         type: MB.constants.LINK_TYPES.viaf,
-        clean: function(url) {
+        clean: function (url) {
             url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?viaf\.org\/viaf\/([0-9]+).*$/,
             "http://viaf.org/viaf/$1");
             return url;
@@ -443,7 +447,7 @@ MB.constants.CLEANUPS = {
     vimeo: {
         match: new RegExp("^(https?://)?([^/]+\\.)?(vimeo\\.com/)", "i"),
         type: MB.constants.LINK_TYPES.vimeo,
-        clean: function(url) {
+        clean: function (url) {
             url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?vimeo\.com/, "http://vimeo.com");
             // Remove query string, just the video id should be enough.
             url = url.replace(/\?.*/, "");
@@ -453,7 +457,7 @@ MB.constants.CLEANUPS = {
     youtube: {
         match: new RegExp("^(https?://)?([^/]+\\.)?(youtube\\.com/|youtu\\.be/)", "i"),
         type: MB.constants.LINK_TYPES.youtube,
-        clean: function(url) {
+        clean: function (url) {
             url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtube\.com(?:\/#)?/, "http://www.youtube.com");
             // YouTube URL shortener
             url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?youtu\.be\/([a-zA-Z0-9_-]+)/, "http://www.youtube.com/watch?v=$1");
@@ -468,28 +472,28 @@ MB.constants.CLEANUPS = {
     vgmdb: {
         match: new RegExp("^(https?://)?vgmdb\\.(net|com)/", "i"),
         type: MB.constants.LINK_TYPES.vgmdb,
-        clean: function(url) {
+        clean: function (url) {
             return url.replace(/^(?:https?:\/\/)?vgmdb\.(?:net|com)\/(album|artist|org)\/([0-9]+).*$/, "http://vgmdb.net/$1/$2");
         }
     },
     wikidata: {
         match: new RegExp("^(https?://)?([^/]+\\.)?wikidata\\.org","i"),
         type: MB.constants.LINK_TYPES.wikidata,
-        clean: function(url) {
+        clean: function (url) {
             return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?wikidata\.org\/wiki\/(Q([0-9]+)).*$/, "http://www.wikidata.org/wiki/$1");
         }
     },
     bandcamp: {
         match: new RegExp("^(https?://)?([^/]+)\\.bandcamp\\.com","i"),
         type: MB.constants.LINK_TYPES.bandcamp,
-        clean: function(url) {
+        clean: function (url) {
             return url.replace(/^(?:https?:\/\/)?([^\/]+)\.bandcamp\.com(?:\/(((album|track)\/([^\/\?]+)))?)?.*$/, "http://$1.bandcamp.com/$2");
         }
     },
     otherdatabases: {
         match: new RegExp("^(https?://)?(www\\.)?(rateyourmusic\\.com/|worldcat\\.org/|musicmoz\\.org/|45cat\\.com/|musik-sammler\\.de/|discografia\\.dds\\.it/|tallinn\\.ester\\.ee/|tartu\\.ester\\.ee/|encyclopedisque\\.fr/|discosdobrasil\\.com\\.br/|isrc\\.ncl\\.edu\\.tw/|rolldabeats\\.com/|psydb\\.net/|metal-archives\\.com/(bands?|albums|artists|labels)|spirit-of-metal\\.com/|ibdb\\.com/|lortel.\\org/|theatricalia\\.com/|ocremix\\.org/|(trove\\.)?nla\\.gov\\.au/|rockensdanmarkskort\\.dk|(wiki\\.)?rockinchina\\.com|(www\\.)?dhhu\\.dk|thesession\\.org|openlibrary\\.org|animenewsnetwork\\.com|generasia\\.com/wiki/|soundtrackcollector\\.com|rockipedia\\.no|whosampled\\.com|maniadb\\.com|imvdb\\.com|residentadvisor\\.net)", "i"),
         type: MB.constants.LINK_TYPES.otherdatabases,
-        clean: function(url) {
+        clean: function (url) {
             //Removing cruft from Worldcat URLs
             url = url.replace(/^(?:https?:\/\/)?(?:www\.)?worldcat\.org(?:\/title\/[a-zA-Z0-9_-]+)?\/oclc\/([^&?]+)(?:.*)$/, "http://www.worldcat.org/oclc/$1");
             //Standardising IBDb not to use www
@@ -524,31 +528,22 @@ MB.constants.CLEANUPS = {
 };
 
 
-MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorObservable, handleErrors) {
+MB.Control.URLCleanup = function (options) {
+    options = options || {};
+
     var self = {};
 
-    self.typeControl = $(typeControl);
-    self.urlControl = $(urlControl);
-    self.sourceType = sourceType;
-    self.error = errorObservable || ko.observable("");
+    self.typeInfoByID = options.typeInfoByID || {};
+    self.typeControl = $(options.typeControl);
+    self.urlControl = $(options.urlControl);
+    self.sourceType = options.sourceType;
+    self.errorCallback = options.errorCallback;
 
-    self.error.subscribe(function (error) {
-        $("button[type=submit]").prop("disabled", !!error);
+    ko.computed(function () {
+        $("button[type=submit]").prop("disabled", !!self.errorCallback());
     });
 
-    self.error.notifySubscribers(self.error());
-
-    if (handleErrors !== false) {
-        var $errorSpan = $("<span>").addClass("error").hide();
-
-        self.typeControl.after($errorSpan);
-
-        ko.applyBindingsToNode($errorSpan[0], {
-            visible: self.error, text: self.error
-        });
-    }
-
-    var validationRules = { };
+    var validationRules = self.validationRules = {};
     // "has lyrics at" is only allowed for certain lyrics sites
     validationRules[ MB.constants.LINK_TYPES.lyrics.artist ] = function (url) {
         return MB.constants.CLEANUPS.lyrics.match.test(url)
@@ -804,32 +799,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorObse
         return cleanup ? cleanup.clean(dirtyURL) : dirtyURL;
     };
 
-    // A list of errors that are set/cleared by the URLCleanup code. Used to
-    // determine whether it's safe to clear other errors set by outside code.
-
-    var linkTypeErrors = [
-        MB.text.SelectURLType,
-        MB.text.URLNotAllowed
-    ];
-
-
-    var typeChanged = function (event) {
-        var url = self.urlControl.val();
-        var linkType = self.typeControl.val();
-        var checker = validationRules[linkType];
-
-        if (url && !linkType) {
-            self.error(MB.text.SelectURLType);
-        }
-        else if (url && checker && !checker(url)) {
-            self.error(MB.text.URLNotAllowed);
-        }
-        else if (_.contains(linkTypeErrors, self.error())) {
-            self.error("");
-        }
-    };
-
-    var urlChanged = function(event) {
+    var urlChanged = function (event) {
         var url = self.urlControl.val(),
             clean = self.cleanUrl(self.sourceType, url) || url;
 
@@ -843,31 +813,9 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorObse
             self.urlControl.val(clean);
         }
 
-        if (!clean) {
-            if (self.error() !== MB.text.RequiredField) {
-                self.error("");
-            }
-        }
-        else if (!MB.utility.isValidURL(clean)) {
-            self.error(MB.text.EnterAValidURL);
-        }
-        else {
-            if (self.error() === MB.text.EnterAValidURL) {
-                self.error("");
-            }
+        var hasError = self.errorCallback();
 
-            if (self.typeControl.length) {
-                var type = self.guessType(self.sourceType, clean);
-
-                if (type) {
-                    self.typeControl.val(type).trigger("change");
-                }
-
-                typeChanged(event);
-            }
-        }
-
-        if (event.type === "submit" && self.error()) {
+        if (event.type === "submit" && hasError) {
             event.preventDefault();
         }
     };
@@ -877,7 +825,6 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorObse
     }
 
     self.toggleEvents = function (prop) {
-        self.typeControl[prop]("change", typeChanged);
         self.urlControl[prop]("change keydown keyup input propertychange", urlChanged);
         self.urlControl[prop]("blur", trimInputValue);
         self.urlControl.parents('form')[prop]("submit", urlChanged);

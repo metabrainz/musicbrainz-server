@@ -14,7 +14,7 @@ test 'basic release lookup' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'basic release lookup',
-    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6' => encode_json (
+    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6' => encode_json(
         {
             id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
             title => "Summer Reggae! Rainbow",
@@ -58,7 +58,7 @@ test 'basic release lookup, inc=annotation' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
 
     ws_test_json 'basic release lookup, inc=annotation',
-    '/release/adcf7b48-086e-48ee-b420-1001f88d672f?inc=annotation' => encode_json (
+    '/release/adcf7b48-086e-48ee-b420-1001f88d672f?inc=annotation' => encode_json(
         {
             id => "adcf7b48-086e-48ee-b420-1001f88d672f",
             title => "My Demons",
@@ -105,7 +105,7 @@ test 'basic release with tags' => sub {
         $c, "INSERT INTO release_tag (count, release, tag) VALUES (1, 123054, 114);");
 
     ws_test_json 'basic release with tags',
-    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6?inc=tags' => encode_json (
+    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6?inc=tags' => encode_json(
         {
             id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
             title => "Summer Reggae! Rainbow",
@@ -156,7 +156,7 @@ test 'basic release with collections' => sub {
         "INSERT INTO editor_collection_release (collection, release) VALUES (14933, 123054); ");
 
     ws_test_json 'basic release with collections',
-    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6?inc=collections' => encode_json (
+    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6?inc=collections' => encode_json(
         {
             id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
             title => "Summer Reggae! Rainbow",
@@ -205,7 +205,7 @@ test 'release lookup with artists + aliases' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'release lookup with artists + aliases',
-    '/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=artists+aliases' => encode_json (
+    '/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=artists+aliases' => encode_json(
         {
             id => "aff4a693-5970-4e2e-bd46-e2ee49c22de7",
             title => "the Love Bug",
@@ -263,7 +263,7 @@ test 'release lookup with labels and recordings' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'release lookup with labels and recordings',
-    '/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=labels+recordings' => encode_json (
+    '/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=labels+recordings' => encode_json(
         {
             id => "aff4a693-5970-4e2e-bd46-e2ee49c22de7",
             title => "the Love Bug",
@@ -361,7 +361,7 @@ test 'release lookup with release-groups' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'release lookup with release-groups',
-    '/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=artist-credits+release-groups' => encode_json (
+    '/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=artist-credits+release-groups' => encode_json(
         {
             id => "aff4a693-5970-4e2e-bd46-e2ee49c22de7",
             title => "the Love Bug",
@@ -432,7 +432,7 @@ test 'release lookup with discids and puids' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'release lookup with discids and puids',
-    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6?inc=discids+puids+recordings' => encode_json (
+    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6?inc=discids+puids+recordings' => encode_json(
         {
             id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
             title => "Summer Reggae! Rainbow",
@@ -526,7 +526,7 @@ test 'release lookup, barcode is NULL' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'release lookup, barcode is NULL',
-    '/release/fbe4eb72-0f24-3875-942e-f581589713d4' => encode_json (
+    '/release/fbe4eb72-0f24-3875-942e-f581589713d4' => encode_json(
         {
             id => "fbe4eb72-0f24-3875-942e-f581589713d4",
             title => "For Beginner Piano",
@@ -568,7 +568,7 @@ test 'release lookup, barcode is  empty string' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'release lookup, barcode is empty string',
-    '/release/dd66bfdd-6097-32e3-91b6-67f47ba25d4c' => encode_json (
+    '/release/dd66bfdd-6097-32e3-91b6-67f47ba25d4c' => encode_json(
         {
             id => "dd66bfdd-6097-32e3-91b6-67f47ba25d4c",
             title => "For Beginner Piano",
@@ -610,7 +610,7 @@ test 'release lookup, relation attributes' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'release lookup, relation attributes',
-    '/release/757a1723-3769-4298-89cd-48d31177852a?inc=release-rels+artist-rels' => encode_json (
+    '/release/757a1723-3769-4298-89cd-48d31177852a?inc=release-rels+artist-rels' => encode_json(
         {
             id => "757a1723-3769-4298-89cd-48d31177852a",
             title => "LOVE & HONESTY",
@@ -643,6 +643,7 @@ test 'release lookup, relation attributes' => sub {
             relations => [
                 {
                     attributes => [ 'transliterated' ],
+                    "attribute-values" => {},
                     begin => JSON::null,
                     end => JSON::null,
                     direction => 'backward',
@@ -681,6 +682,7 @@ test 'release lookup, relation attributes' => sub {
                 },
                 {
                     attributes => [ 'transliterated' ],
+                    "attribute-values" => {},
                     begin => JSON::null,
                     end => JSON::null,
                     direction => 'backward',
@@ -733,7 +735,7 @@ test 'release lookup, track artists have no tags' => sub {
 
     ws_test_json 'release lookup, track artists have no tags',
     '/release/4f5a6b97-a09b-4893-80d1-eae1f3bfa221?inc=artists+recordings+tags+artist-rels+recording-level-rels'
-    => encode_json ({
+    => encode_json({
         'artist-credit' => [ {
             artist => {
                 disambiguation => '',
@@ -784,6 +786,7 @@ test 'release lookup, track artists have no tags' => sub {
                                         relations => []
                                     },
                                     attributes => [],
+                                    "attribute-values" => {},
                                     begin => undef,
                                     direction => 'backward',
                                     end => undef,
@@ -814,6 +817,7 @@ test 'release lookup, track artists have no tags' => sub {
                                     relations => []
                                 },
                                 attributes => [],
+                                "attribute-values" => {},
                                 begin => undef,
                                 direction => 'backward',
                                 end => undef,
@@ -843,6 +847,7 @@ test 'release lookup, track artists have no tags' => sub {
                                 relations => []
                             },
                             attributes => [],
+                            "attribute-values" => {},
                             begin => undef,
                             direction => 'backward',
                             end => undef,
@@ -872,6 +877,7 @@ test 'release lookup, track artists have no tags' => sub {
                                 relations => []
                             },
                             attributes => [],
+                            "attribute-values" => {},
                             begin => undef,
                             direction => 'backward',
                             end => undef,
@@ -901,6 +907,7 @@ test 'release lookup, track artists have no tags' => sub {
                                 relations => []
                             },
                             attributes => [],
+                            "attribute-values" => {},
                             begin => undef,
                             direction => 'backward',
                             end => undef,
@@ -930,6 +937,7 @@ test 'release lookup, track artists have no tags' => sub {
                                 relations => []
                             },
                             attributes => [],
+                            "attribute-values" => {},
                             begin => undef,
                             direction => 'backward',
                             end => undef,
@@ -959,6 +967,7 @@ test 'release lookup, track artists have no tags' => sub {
                                 relations => []
                             },
                             attributes => [],
+                            "attribute-values" => {},
                             begin => undef,
                             direction => 'backward',
                             end => undef,
@@ -988,6 +997,7 @@ test 'release lookup, track artists have no tags' => sub {
                                 relations => []
                             },
                             attributes => [],
+                            "attribute-values" => {},
                             begin => undef,
                             direction => 'backward',
                             end => undef,
@@ -1017,6 +1027,7 @@ test 'release lookup, track artists have no tags' => sub {
                                 relations => []
                             },
                             attributes => [],
+                            "attribute-values" => {},
                             begin => undef,
                             direction => 'backward',
                             end => undef,
@@ -1046,6 +1057,7 @@ test 'release lookup, track artists have no tags' => sub {
                                 relations => []
                             },
                             attributes => [],
+                            "attribute-values" => {},
                             begin => undef,
                             direction => 'backward',
                             end => undef,
@@ -1070,6 +1082,7 @@ test 'release lookup, track artists have no tags' => sub {
                 relations => []
             },
             attributes => [],
+            "attribute-values" => {},
             begin => undef,
             direction => 'backward',
             end => undef,

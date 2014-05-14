@@ -126,7 +126,7 @@ sub _get_tags_for_type
         WHERE editor = ?
         GROUP BY tag";
 
-    my $results = $self->c->sql->select_list_of_hashes ($query, $id);
+    my $results = $self->c->sql->select_list_of_hashes($query, $id);
 
     return { map { $_->{tag} => $_ } @$results };
 }
@@ -140,7 +140,7 @@ sub get_tags
     my $max = 0;
     foreach my $entity ('artist', 'label', 'recording', 'release', 'release_group', 'work', 'place')
     {
-        my $data = $self->_get_tags_for_type ($user->id, $entity);
+        my $data = $self->_get_tags_for_type($user->id, $entity);
 
         foreach (keys %$data)
         {
@@ -191,7 +191,7 @@ sub find_by_privileges
                  FROM " . $self->_table . "
                  WHERE (privs & ?) > 0
                  ORDER BY editor.name, editor.id";
-    return query_to_list (
+    return query_to_list(
         $self->c->sql, sub { $self->_new_from_row(@_) },
         $query, $privs);
 }
@@ -427,7 +427,7 @@ sub donation_check
         $ua->agent("MusicBrainz server");
         $ua->timeout(5); # in seconds.
 
-        my $response = $ua->request(HTTP::Request->new (GET =>
+        my $response = $ua->request(HTTP::Request->new(GET =>
             'http://metabrainz.org/donations/nag-check/' .
             uri_escape_utf8($obj->name)));
 
@@ -456,6 +456,8 @@ sub editors_with_subscriptions
         editor_subscribe_editor
         editor_subscribe_label
         editor_subscribe_label_deleted
+        editor_subscribe_series
+        editor_subscribe_series_deleted
     );
     my $ids = join(' UNION ALL ', map { "SELECT editor FROM $_" } @tables);
     my $query = "SELECT " . $self->_columns . ", ep.value AS prefs_value
@@ -465,7 +467,7 @@ sub editors_with_subscriptions
                         ep.name = 'subscriptions_email_period'
                   WHERE editor.id IN ($ids)";
 
-    return query_to_list (
+    return query_to_list(
         $self->c->sql, sub {
             my $editor = $self->_new_from_row(@_);
             $editor->preferences->subscriptions_email_period($_[0]->{prefs_value})
@@ -548,8 +550,8 @@ sub subscription_summary {
                 "COALESCE(
                    (SELECT count(*) FROM editor_subscribe_$_ WHERE editor = ?),
                    0) AS $_"
-            } qw( artist collection label editor )),
-        ($editor_id) x 4
+            } qw( artist collection label editor series )),
+        ($editor_id) x 5
     );
 }
 
@@ -569,13 +571,13 @@ sub _edit_count
 sub open_edit_count
 {
     my ($self, $editor_id) = @_;
-    return $self->_edit_count ($editor_id, $STATUS_OPEN);
+    return $self->_edit_count($editor_id, $STATUS_OPEN);
 }
 
 sub cancelled_edit_count
 {
     my ($self, $editor_id) = @_;
-    return $self->_edit_count ($editor_id, $STATUS_DELETED);
+    return $self->_edit_count($editor_id, $STATUS_DELETED);
 }
 
 sub last_24h_edit_count

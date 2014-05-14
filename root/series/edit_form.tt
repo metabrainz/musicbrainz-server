@@ -1,0 +1,133 @@
+[% script_manifest('guess-case.js.manifest') %]
+[% script_manifest('edit.js.manifest') %]
+
+<p>[%- l('For more information, check the {doc_doc|documentation} and {doc_styleguide|style guidelines}.', {doc_doc => doc_link('Series'), doc_styleguide => doc_link('Style/Series')}) -%]</p>
+
+<form action="[% c.req.uri %]" method="post" class="edit-series">
+    [%- USE r = FormRenderer(form) -%]
+
+    <div class="half-width">
+
+      [% IF form.has_duplicates %]
+      <fieldset>
+          <legend>[% l('Possible Duplicate Series') %]</legend>
+          <p>
+              [% l('We found the following series with very similar names:') %]
+          </p>
+          <ul>
+              [% FOREACH dupe=form.duplicates %]
+              <li>[% link_entity(dupe) %]</li>
+              [% END %]
+          </ul>
+          [% form_row_checkbox(r, 'not_dupe', l('Yes, I still want to create a new series.')) %]
+          <p>
+              [%- l('Please enter a {doc_disambiguation|disambiguation} to help distinguish this series from the others.' {doc_disambiguation => doc_link('Disambiguation_Comment')}) -%]
+          </p>
+      </fieldset>
+      [% END %]
+
+      <fieldset>
+        <legend>[% l('Series Details') %]</legend>
+        [%- form_row_text_long(r, 'name', l('Name:')) -%]
+        [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
+        [%- form_row_select(r, 'type_id', l('Type:')) -%]
+        [%- form_row_select(r, 'ordering_type_id', l('Ordering Type:')) -%]
+      </fieldset>
+
+      [% PROCESS 'forms/relationship-editor.tt' %]
+
+      <fieldset>
+        <legend>[% l('External Links') %]</legend>
+        [% external_links_editor(r.form, 'series') %]
+      </fieldset>
+
+      [% INCLUDE 'forms/edit-note.tt' %]
+
+      [% enter_edit() %]
+  </div>
+
+  <div class="documentation">
+    [%- guesscase_bubble(1) -%]
+    [%- external_link_bubble() -%]
+
+    <div class="bubble" id="series-type-bubble" data-bind="bubble: typeBubble">
+      <p data-bind="text: target() &amp;&amp; target().type() ? target().type().description : ''"></p>
+    </div>
+
+    <div class="bubble" id="ordering-type-bubble" data-bind="bubble: orderingTypeBubble">
+      <p data-bind="text: target() ? target().orderingTypeDescription() : ''"></p>
+    </div>
+  </div>
+
+</form>
+
+<script>//<![CDATA[
+$(function () {
+  MB.seriesTypesByID = [% series_types %];
+  MB.orderingTypesByID = [% series_ordering_types %];
+
+  var $type = $("#id-edit-series\\.type_id");
+  var $orderingType = $("#id-edit-series\\.ordering_type_id");
+
+  // Type can be disabled, but is a required field, so use a hidden input.
+  var $hiddenType = $("<input>")
+        .attr({ type: "hidden", name: $type[0].name })
+        .val($type.val())
+        .insertAfter($type.removeAttr("name"));
+
+  var series = MB.entityCache[MB.sourceEntityGID];
+
+  series.typeID($type.val());
+  series.typeID.subscribe(function (typeID) { $hiddenType.val(typeID) });
+  series.orderingTypeID($orderingType.val());
+
+  series.typeBubble = MB.Control.BubbleDoc().extend({
+    canBeShown: function () { return !!series.type() }
+  });
+
+  series.orderingTypeBubble = MB.Control.BubbleDoc();
+
+  ko.computed(function () {
+    series.type(MB.seriesTypesByID[series.typeID()]);
+  });
+
+  series.orderingTypeDescription = ko.computed(function () {
+    return MB.orderingTypesByID[series.orderingTypeID()].description;
+  });
+
+  var seriesHasItems = ko.computed(function () {
+    return series.getSeriesItems(MB.sourceRelationshipEditor).length > 0;
+  });
+
+  ko.applyBindingsToNode($type[0], {
+    value: series.typeID,
+    controlsBubble: series.typeBubble,
+    disable: seriesHasItems
+  }, series);
+
+  ko.applyBindingsToNode($orderingType[0], {
+    value: series.orderingTypeID,
+    controlsBubble: series.orderingTypeBubble
+  }, series);
+
+  ko.applyBindings(series, $("#series-type-bubble")[0]);
+  ko.applyBindings(series, $("#ordering-type-bubble")[0]);
+
+  MB.Control.initialize_guess_case("series", "id-edit-series");
+  MB.utility.setDefaultAction("form.edit-series", "button.submit.positive");
+
+  $orderingType.on("change", function () {
+    series.orderingTypeID(+this.value);
+
+    if (this.value == MB.constants.SERIES_ORDERING_TYPE_AUTOMATIC) {
+      _.each(series.relationships(), function (r) {
+        var target = r.target(series);
+
+        if (r.entityIsOrdered && r.entityIsOrdered(target)) {
+          r.linkOrder(r.original.linkOrder);
+        }
+      });
+    }
+  });
+});
+//]]></script>

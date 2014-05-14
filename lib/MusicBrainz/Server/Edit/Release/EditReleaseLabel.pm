@@ -10,7 +10,7 @@ use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Edit::Utils qw( merge_value );
 use MusicBrainz::Server::Entity::Area;
-use MusicBrainz::Server::Translation qw ( N_l l );
+use MusicBrainz::Server::Translation qw( N_l l );
 use MusicBrainz::Server::Entity::Util::MediumFormat qw( combined_medium_format_name );
 use Scalar::Util qw( looks_like_number );
 
@@ -167,9 +167,9 @@ sub initialize
         unless defined $release_label;
 
     unless ($release_label->release) {
-        $self->c->model ('Release')->load ($release_label);
-        $self->c->model ('Medium')->load_for_releases ($release_label->release);
-        $self->c->model ('MediumFormat')->load ($release_label->release->all_mediums);
+        $self->c->model('Release')->load($release_label);
+        $self->c->model('Medium')->load_for_releases($release_label->release);
+        $self->c->model('MediumFormat')->load($release_label->release->all_mediums);
     }
 
     unless ($release_label->label) {
@@ -212,7 +212,7 @@ sub initialize
         'id' => $release_label->label->id
     } : undef;
 
-    $self->data ($data);
+    $self->data($data);
 };
 
 sub accept
@@ -284,8 +284,8 @@ sub restore {
             }];
         }
         else {
-            my $countries = $self->c->model('Area')->search_by_names(
-                $country_name)->{$country_name};
+            my @countries = $self->c->model('Area')->find_by_name(
+                $country_name);
             $data->{release}{events} = [{
                 date => delete $data->{release}{date},
                 country_name => $country_name,
@@ -293,7 +293,7 @@ sub restore {
                 # $countries will be undefined if there is no search result. It's
                 # not possible for $countries to be the empty list
                 # (Data::Role::Alias immediately pushes to it).
-                country_id => $countries && $countries->[0]->id
+                country_id => @countries && $countries[0]->id
             }];
         }
     }

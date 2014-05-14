@@ -24,7 +24,7 @@ MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
 MB.GuessCase._Work = function () {
     var self = {};
 
-    self.gc = MB.GuessCase.Main ();
+    self.gc = MB.GuessCase.Main();
 
     self.guess = self.gc.guessWork;
     self.sortname = self.gc.guessWorkSortname;
@@ -32,8 +32,7 @@ MB.GuessCase._Work = function () {
     return self;
 };
 
-$('document').ready (function () {
-
-    MB.GuessCase.work = MB.GuessCase._Work ();
-
+$('document').ready(function () {
+    MB.GuessCase.work = MB.GuessCase._Work();
+    MB.GuessCase.series = MB.GuessCase._Work();
 });

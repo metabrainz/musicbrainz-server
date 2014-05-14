@@ -42,10 +42,10 @@ MB.GuessCase.Main = function () {
     // ----------------------------------------------------------------------------
     // member variables
     // ----------------------------------------------------------------------------
-    self.u = MB.GuessCase.Utils ();
-    self.f = MB.GuessCase.Flags ();
-    self.i = MB.GuessCase.Input ();
-    self.o = MB.GuessCase.Output ();
+    self.u = MB.GuessCase.Utils();
+    self.f = MB.GuessCase.Flags();
+    self.i = MB.GuessCase.Input();
+    self.o = MB.GuessCase.Output();
     self.artistHandler = null;
     self.labelHandler = null;
     self.releaseHandler = null;
@@ -66,7 +66,7 @@ MB.GuessCase.Main = function () {
     /**
      * Initialise the GuessCase object for another run
      **/
-    self.init = function() {
+    self.init = function () {
 	self.f.init(); // init flags object
     };
 
@@ -75,7 +75,7 @@ MB.GuessCase.Main = function () {
      * @param	 is		the un-processed input string
      * @returns			the processed string
      **/
-    self.guessArtist = function(is) {
+    self.guessArtist = function (is) {
 	var os, handler;
 	gc.init();
 
@@ -83,7 +83,7 @@ MB.GuessCase.Main = function () {
         self.mode = self.artistmode;
 
 	if (!self.artistHandler) {
-	    self.artistHandler = MB.GuessCase.Handler.Artist ();
+	    self.artistHandler = MB.GuessCase.Handler.Artist();
 	}
 	handler = self.artistHandler;
 
@@ -108,12 +108,12 @@ MB.GuessCase.Main = function () {
      * @param	 is		the un-processed input string
      * @returns			the processed string
      **/
-    self.guessArtistSortname = function(is, person) {
+    self.guessArtistSortname = function (is, person) {
 	var os, handler;
 	gc.init();
 
 	if (!self.artistHandler) {
-	    self.artistHandler = MB.GuessCase.Handler.Artist ();
+	    self.artistHandler = MB.GuessCase.Handler.Artist();
 	}
 	handler = self.artistHandler;
 
@@ -136,7 +136,7 @@ MB.GuessCase.Main = function () {
      * @param	 is		the un-processed input string
      * @returns			the processed string
      **/
-    self.guessLabel = function(is) {
+    self.guessLabel = function (is) {
 	var os, handler;
 	gc.init();
 
@@ -144,7 +144,7 @@ MB.GuessCase.Main = function () {
         self.mode = MB.GuessCase.Mode.English();;
 
 	if (!self.labelHandler) {
-	    self.labelHandler = MB.GuessCase.Handler.Label ();
+	    self.labelHandler = MB.GuessCase.Handler.Label();
 	}
 	handler = self.labelHandler;
 
@@ -169,12 +169,12 @@ MB.GuessCase.Main = function () {
      * @param	 is		the un-processed input string
      * @returns			the processed string
      **/
-    self.guessLabelSortname = function(is) {
+    self.guessLabelSortname = function (is) {
 	var os, handler;
 	gc.init();
 
 	if (!self.labelHandler) {
-	    self.labelHandler = MB.GuessCase.Handler.Label ();
+	    self.labelHandler = MB.GuessCase.Handler.Label();
 	}
 	handler = self.labelHandler;
 
@@ -197,12 +197,12 @@ MB.GuessCase.Main = function () {
      * @param	 is		the un-processed input string
      * @returns			the processed string
      **/
-    self.guessWork = function(is) {
+    self.guessWork = function (is) {
 	var os, handler;
 	gc.init();
 
 	if (!self.workHandler) {
-	    self.workHandler = MB.GuessCase.Handler.Work ();
+	    self.workHandler = MB.GuessCase.Handler.Work();
 	}
 	handler = self.workHandler;
 
@@ -225,12 +225,12 @@ MB.GuessCase.Main = function () {
      * @param	 is		the un-processed input string
      * @returns			the processed string
      **/
-    self.guessWorkSortname = function(is) {
+    self.guessWorkSortname = function (is) {
 	var os, handler;
 	gc.init();
 
 	if (!self.workHandler) {
-	    self.workHandler = MB.GuessCase.Handler.Work ();
+	    self.workHandler = MB.GuessCase.Handler.Work();
 	}
 	handler = self.workHandler;
 
@@ -253,12 +253,12 @@ MB.GuessCase.Main = function () {
      * @param	 is		the un-processed input string
      * @returns			the processed string
      **/
-    self.guessArea = function(is) {
+    self.guessArea = function (is) {
 	var os, handler;
 	gc.init();
 
 	if (!self.areaHandler) {
-	    self.areaHandler = MB.GuessCase.Handler.Area ();
+	    self.areaHandler = MB.GuessCase.Handler.Area();
 	}
 	handler = self.areaHandler;
 
@@ -281,12 +281,12 @@ MB.GuessCase.Main = function () {
      * @param	 is		the un-processed input string
      * @returns			the processed string
      **/
-    self.guessAreaSortname = function(is) {
+    self.guessAreaSortname = function (is) {
 	var os, handler;
 	gc.init();
 
 	if (!self.areaHandler) {
-	    self.areaHandler = MB.GuessCase.Handler.Area ();
+	    self.areaHandler = MB.GuessCase.Handler.Area();
 	}
 	handler = self.areaHandler;
 
@@ -309,12 +309,12 @@ MB.GuessCase.Main = function () {
      * @param    is             the un-processed input string
      * @returns                 the processed string
      **/
-    self.guessPlace = function(is, mode) {
+    self.guessPlace = function (is, mode) {
         var os, handler;
         gc.init();
 
         if (!self.placeHandler) {
-            self.placeHandler = MB.GuessCase.Handler.Place ();
+            self.placeHandler = MB.GuessCase.Handler.Place();
         }
         handler = self.placeHandler;
 
@@ -332,17 +332,31 @@ MB.GuessCase.Main = function () {
         return os;
     };
 
+    // Guess the capitalization of a series name.
+
+    self.guessSeries = function (is, mode) {
+        gc.init();
+
+        if (!self.seriesHandler) {
+            // Just use "Handler.Work" because the guess case code is
+            // stupid/ridiculous and it would just be a copy anyway.
+            self.seriesHandler = MB.GuessCase.Handler.Work();
+        }
+
+        return self.seriesHandler.process(is);
+    };
+
     /**
      * Guess the sortname of a given place name (for aliases)
      * @param    is             the un-processed input string
      * @returns                 the processed string
      **/
-    self.guessPlaceSortname = function(is) {
+    self.guessPlaceSortname = function (is) {
         var os, handler;
         gc.init();
 
         if (!self.placeHandler) {
-            self.placeHandler = MB.GuessCase.Handler.Place ();
+            self.placeHandler = MB.GuessCase.Handler.Place();
         }
         handler = self.placeHandler;
 
@@ -365,12 +379,12 @@ MB.GuessCase.Main = function () {
      * @param	 is		the un-processed input string
      * @returns			the processed string
      **/
-    self.guessRelease = function(is) {
+    self.guessRelease = function (is) {
 	var os, handler;
 	gc.init();
 
 	if (!self.releaseHandler) {
-	    self.releaseHandler = MB.GuessCase.Handler.Release ();
+	    self.releaseHandler = MB.GuessCase.Handler.Release();
 	}
 	handler = self.releaseHandler;
 
@@ -394,12 +408,12 @@ MB.GuessCase.Main = function () {
      * @param	 is		the un-processed input string
      * @returns			the processed string
      **/
-    self.guessTrack = function(is) {
+    self.guessTrack = function (is) {
 	var os, handler;
 	self.init();
 
 	if (!self.trackHandler) {
-	    self.trackHandler = MB.GuessCase.Handler.Track ();
+	    self.trackHandler = MB.GuessCase.Handler.Track();
 	}
 	handler = self.trackHandler;
 
@@ -424,7 +438,7 @@ MB.GuessCase.Main = function () {
      *
      * @see Log#logMessage
      **/
-    self.getCurrentWord = function() {
+    self.getCurrentWord = function () {
 	return gc.i.getCurrentWord();
     };
 
@@ -433,7 +447,7 @@ MB.GuessCase.Main = function () {
      *
      * @see Sandbox/JSUnit tests
      **/
-    self.getInput = function() {
+    self.getInput = function () {
 	return gc.i;
     };
 
@@ -442,7 +456,7 @@ MB.GuessCase.Main = function () {
      *
      * @see Sandbox/JSUnit tests
      **/
-    self.getOutput = function() {
+    self.getOutput = function () {
 	return gc.o;
     };
 
@@ -451,7 +465,7 @@ MB.GuessCase.Main = function () {
      *
      * @see Sandbox/JSUnit tests
      **/
-    self.getUtils = function() {
+    self.getUtils = function () {
 	return gc.u;
     };
 

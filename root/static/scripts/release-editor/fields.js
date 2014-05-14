@@ -477,11 +477,16 @@
     fields.Release = aclass(MB.entity.Release, {
 
         after$init: function (data) {
-            var self = this;
+            if (data.gid) {
+                MB.entityCache[data.gid] = this; // XXX HACK
+            }
 
             $.extend(this, _.pick(data, "trackCounts", "formats", "countryCodes"));
 
+            var self = this;
             var currentName = data.name;
+
+            this.gid = ko.observable(data.gid);
             this.name = ko.observable(currentName).extend({ withError: true });
 
             this.name.subscribe(function (newName) {
@@ -554,10 +559,11 @@
 
             // Setup the external links editor
 
+            this.relationships = ko.observableArray([]);
+
             this.externalLinks = MB.Control.externalLinks.ViewModel({
                 source: this,
-                relationships: utils.parseURLRelationships(data),
-                errorType: releaseEditor.validation.errorField
+                sourceData: data
             });
         },
 

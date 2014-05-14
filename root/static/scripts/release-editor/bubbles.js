@@ -54,11 +54,6 @@
 
     var trackBubble = {
 
-        after$init: function () {
-            this.prevButtonHasFocus = ko.observable(false);
-            this.nextButtonHasFocus = ko.observable(false);
-        },
-
         previousTrack: function (data, event, stealFocus) {
             event && event.stopPropagation();
 
