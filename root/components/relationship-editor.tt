@@ -172,14 +172,16 @@
 </script>
 
 <script type="text/html" id="template.extra-attributes-and-dates">
+  <!-- ko if: relationship.hasDates() -->
+    <!-- ko with: MB.utility.formatDatePeriod(relationship.period) -->
+      (<!-- ko text: $data --><!-- /ko -->)
+    <!-- /ko -->
+    <!-- ko if: relationship.period.ended() && !MB.utility.formatDatePeriod(relationship.period) -->
+      ([% l('ended') %])
+    <!-- /ko -->
+  <!-- /ko -->
   <!-- ko with: relationship.phraseAndExtraAttributes(source)[1] -->
     (<!-- ko text: $data --><!-- /ko -->)
-  <!-- /ko -->
-  <!-- ko with: relationship.hasDates() ? MB.utility.formatDatePeriod(relationship.period) : null -->
-    (<!-- ko text: $data --><!-- /ko -->)
-  <!-- /ko -->
-  <!-- ko if: relationship.period.ended() -->
-    ([% l('ended') %])
   <!-- /ko -->
 </script>
 
