@@ -17,7 +17,3 @@ INSERT INTO editor_oauth_token (editor, application, refresh_token, access_token
     VALUES (1, 1, 'yi3qjrMf4hG9VVUxXMVIuQ', '7Fjfp0ZBr1KtDRbnfVdmIw', now() + interval '1 hour', 1),
            (1, 1, 'uTuPnUfMRQPx8HBnHf22eg', 'Nlaa7v15QHm9g8rUOmT3dQ', now() + interval '1 hour', 1 + 2 + 4 + 8 + 16 + 32 + 64 + 128),
            (1, 1, 'xi2Aq4235zX32XUx1231u1', '3fxf40Z5r6K78D9b031xaw', now() - interval '1 hour', 1);
-
-INSERT INTO editor_oauth_token (editor, application, refresh_token, access_token, mac_key, expire_time, scope)
-    VALUES (1, 1, 'Ft-nQZMyDt-oU9Tu2qs9Ow', 'NeYRRMSFFEjRoowpZ1K59Q', 'secret', now() + interval '1 hour', 1 + 2 + 4 + 8 + 16 + 32 + 64 + 128);
-

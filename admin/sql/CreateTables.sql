@@ -1690,8 +1690,6 @@ CREATE TABLE editor_oauth_token
     authorization_code  TEXT,
     refresh_token       TEXT,
     access_token        TEXT,
-    mac_key             TEXT,
-    mac_time_diff       INTEGER,
     expire_time         TIMESTAMP WITH TIME ZONE NOT NULL,
     scope               INTEGER NOT NULL DEFAULT 0,
     granted             TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()

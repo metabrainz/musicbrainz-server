@@ -169,13 +169,12 @@ sub token : Local Args(0)
     }
 
     my $token_type = lc($c->request->params->{token_type} || 'bearer');
-    $self->_send_error($c, 'invalid_request', 'Invalid requested token type, only bearer and mac are allowed')
-        unless $token_type eq 'bearer' || $token_type eq 'mac';
-    my $is_mac = $token_type eq 'mac';
+    $self->_send_error($c, 'invalid_request', 'Invalid requested token type, only bearer is allowed')
+        unless $token_type eq 'bearer';
 
     my $data;
     $c->model('MB')->with_transaction(sub {
-        $c->model('EditorOAuthToken')->grant_access_token($token, $is_mac);
+        $c->model('EditorOAuthToken')->grant_access_token($token);
         $data = {
             access_token => $token->access_token,
             token_type => $token_type,
@@ -183,10 +182,6 @@ sub token : Local Args(0)
         };
         if ($token->refresh_token) {
             $data->{refresh_token} = $token->refresh_token;
-        }
-        if ($is_mac && $token->mac_key) {
-            $data->{mac_key} = $token->mac_key;
-            $data->{mac_algorithm} = 'hmac-sha-1';
         }
     });
     $self->_send_response($c, $data);
@@ -327,7 +322,7 @@ sub tokeninfo : Local
         issued_to => $application->oauth_id,
         expires_in => $token->expire_time->subtract_datetime_absolute(DateTime->now)->seconds,
         access_type => $token->refresh_token ? "offline" : "online",
-        token_type => $token->mac_key ? "MAC" : "Bearer",
+        token_type => "Bearer",
         scope => join(" ", @scope),
     });
 }
