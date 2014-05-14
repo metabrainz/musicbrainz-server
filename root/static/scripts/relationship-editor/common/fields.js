@@ -138,7 +138,7 @@
             var attrInfo = typeInfo.attributes && typeInfo.attributes[id];
             if (!attrInfo) return;
 
-            var attributeValues = this.attributeValues();
+            var attributeValues = this.attributeValues.peek();
             var value = attributeValues[id];
             var isNew = !value;
 
