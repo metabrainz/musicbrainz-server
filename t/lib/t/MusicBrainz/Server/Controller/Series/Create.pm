@@ -81,7 +81,6 @@ test all => sub {
             reverse_link_phrase => 'Wikipedia page for'
         },
         ended => 0,
-        link_order => 0,
     });
 
     isa_ok($edits[2], 'MusicBrainz::Server::Edit::Relationship::Create');

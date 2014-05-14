@@ -97,7 +97,7 @@ sub initialize
     $opts{type0} = $lt->entity0_type;
     $opts{type1} = $lt->entity1_type;
 
-    $opts{link_order} //= 0;
+    delete $opts{link_order} unless $opts{link_order} && $lt->orderable_direction;
 
     $self->data({ %opts });
 }
@@ -220,7 +220,7 @@ sub insert
             begin_date   => $self->data->{begin_date},
             end_date     => $self->data->{end_date},
             ended        => $self->data->{ended},
-            link_order   => $self->data->{link_order},
+            link_order   => $self->data->{link_order} // 0,
             attribute_text_values => $self->data->{attribute_text_values},
         });
 

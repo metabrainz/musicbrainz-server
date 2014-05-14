@@ -106,7 +106,6 @@ is_deeply($edits[1]->data, {
         'id' => 100
     },
     'type0' => 'artist',
-    'link_order' => 0,
 });
 
 is_deeply($edits[2]->data, {
