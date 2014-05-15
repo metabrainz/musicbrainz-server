@@ -244,7 +244,7 @@ sub automatically_reorder {
 
     my %relationships_by_text_value;
     for my $pair (@$pairs) {
-        push($relationships_by_text_value{$pair->{text_value}} //= [], $pair->{relationship});
+        push(@{ $relationships_by_text_value{$pair->{text_value}} }, $pair->{relationship});
     }
 
     my @sorted_values = map { $_->[0] } sort {
