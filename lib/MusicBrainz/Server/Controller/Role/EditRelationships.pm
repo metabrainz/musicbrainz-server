@@ -26,18 +26,29 @@ role {
             map { $_->{link_type_id} } @rels
         );
 
-        for (@rels) {
-            my $link_type = $link_types->{$_->{link_type_id}};
+        for my $field (@rels) {
+            my $link_type = $link_types->{$field->{link_type_id}};
+            my $forward;
+            my $target_type;
 
-            my $forward = $source_type eq $link_type->entity0_type && !$_->{backward};
-            my $target_type = $forward ? $link_type->entity1_type : $link_type->entity0_type;
+            if ($link_type) {
+                $forward = $source_type eq $link_type->entity0_type && !$field->{backward};
+                $target_type = $forward ? $link_type->entity1_type : $link_type->entity0_type;
+                $field->{link_type} = $link_type;
+            } elsif ($field->{text}) {
+                # If there's a text field, we can assume it's a URL because
+                # that's what the text field is for. Seeding URLs without link
+                # types is a reasonable use case given that we autodetect them
+                # in the JavaScript.
+                $forward = $source_type lt 'url';
+                $target_type = 'url';
+            }
 
-            $_->{forward} = $forward;
-            $_->{link_type} = $link_type;
-            $_->{target_type} = $target_type;
+            $field->{forward} = $forward;
+            $field->{target_type} = $target_type;
 
             if ($target_type ne 'url') {
-                push @{ $entity_map->{type_to_model($target_type)} //= [] }, $_->{target};
+                push @{ $entity_map->{type_to_model($target_type)} //= [] }, $field->{target};
             }
         }
 
@@ -62,7 +73,7 @@ role {
 
         my $submitted_rel_data = sub {
             my @rels = grep {
-                $_ && (($_->{text} || $_->{target} || $_->{removed}) && $_->{link_type_id})
+                $_ && ($_->{text} || (($_->{target} || $_->{removed}) && $_->{link_type_id}))
             } @_;
 
             my @result;
