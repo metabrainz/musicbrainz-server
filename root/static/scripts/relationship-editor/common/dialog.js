@@ -55,7 +55,17 @@
 
                 dialog.autocomplete = $(element).autocomplete({
                         entity: dialog.targetType(),
-                        setEntity: dialog.targetType,
+
+                        setEntity: function (type) {
+                            var possible = dialog.targetTypeOptions();
+
+                            if (!_.find(possible, { value: type })) {
+                                return false;
+                            }
+
+                            dialog.targetType(type);
+                        },
+
                         resultHook: function (items) {
                             if (dialog.autocomplete.entity === "series" &&
                                     dialog.relationship().linkTypeInfo().orderableDirection !== 0) {
@@ -285,12 +295,6 @@
         attributeFields: function () {
             var typeInfo = this.relationship().linkTypeInfo();
             return typeInfo ? _.values(typeInfo.attributes) : [];
-        },
-
-        afterRenderLinkTypeOption: function (option, data) {
-            if (data.disabled) {
-                option.disabled = true;
-            }
         },
 
         toggleLinkTypeHelp: function () {
