@@ -6,7 +6,7 @@ use MusicBrainz::Server::Test qw( html_ok );
 
 with 't::Mechanize', 't::Context';
 
-test 'Registering without an email address' => sub {
+test 'Registering without verifying an email address' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;
@@ -24,7 +24,7 @@ test 'Registering without an email address' => sub {
     like($mech->uri, qr{/user/brand_new_editor}, 'should redirect to profile page after registering');
 };
 
-test 'Registering with an email address' => sub {
+test 'Registering and verifying an email address' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;
@@ -55,6 +55,44 @@ test 'Registering with an email address' => sub {
     $mech->content =~ qr{\(verified at (.*)\)};
     my $original_verification = $1;
     like($original_verification, qr{\d+.\d+.\d+ \d+.\d+}, "Verification $original_verification looks like a date");
+};
+
+test 'Trying to register with an invalid name' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c    = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
+
+    $mech->get_ok('/register', 'fetch registration page');
+    $mech->submit_form( with_fields => {
+        'register.username' => 'Deleted Editor #675234',
+        'register.password' => 'foo',
+        'register.confirm_password' => 'foo',
+        'register.email' => 'foobar@example.org',
+    });
+
+    like($mech->uri, qr{/register}, 'stays on registration page');
+    $mech->content_contains('username is reserved', 'form has error message');
+};
+
+test 'Trying to register with an existing name' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c    = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
+
+    $mech->get_ok('/register', 'fetch registration page');
+    $mech->submit_form( with_fields => {
+        'register.username' => 'aLiCe',
+        'register.password' => 'bar',
+        'register.confirm_password' => 'bar',
+        'register.email' => 'barfoo@example.org',
+    });
+
+    like($mech->uri, qr{/register}, 'stays on registration page');
+    $mech->content_contains('already taken', 'form has error message');
 };
 
 1;
