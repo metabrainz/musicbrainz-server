@@ -91,6 +91,9 @@ sub allow_auto_edit {
     # the relationships are added in order for them to display.
     return 1 unless scalar(@$items);
 
+    # Changing the ordering type is not allowed if there are items.
+    return 0 if $self->data->{old}{ordering_type_id} != $self->data->{new}{ordering_type_id};
+
     # Changing name is allowed if the change only affects
     # small things like case etc.
     my ($old_name, $new_name) = normalise_strings(
