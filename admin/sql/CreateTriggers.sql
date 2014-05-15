@@ -382,6 +382,21 @@ CREATE TRIGGER b_upd_release_group BEFORE UPDATE ON release_group
 CREATE TRIGGER b_upd_release_group_tag BEFORE UPDATE ON release_group_tag
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER b_upd_series BEFORE UPDATE ON series
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_series_alias BEFORE UPDATE ON series_alias
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON series_alias
+    FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
+
+CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON series_alias
+    FOR EACH ROW EXECUTE PROCEDURE unique_primary_series_alias();
+
+CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON series_alias
+    FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(2);
+
 CREATE TRIGGER b_upd_tag_relation BEFORE UPDATE ON tag_relation
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
