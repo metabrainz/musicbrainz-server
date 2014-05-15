@@ -138,7 +138,14 @@
             var attrInfo = typeInfo.attributes && typeInfo.attributes[id];
             if (!attrInfo) return;
 
-            var attributeValues = this.attributeValues();
+            // Only acquire a dependency on attributeValues if we're reading
+            // the value of an attribute, not if we're writing to it.
+            if (arguments.length === 1) {
+                var attributeValues = this.attributeValues();
+            } else {
+                var attributeValues = this.attributeValues.peek();
+            }
+
             var value = attributeValues[id];
             var isNew = !value;
 

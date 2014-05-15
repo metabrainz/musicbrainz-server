@@ -298,6 +298,9 @@
                     edits.push(MB.edit.relationshipDelete(editData));
                 }
                 else if (link.id) {
+                    // Update the release name in case it changed.
+                    link.original.entities[0].name = editData.entities[0].name;
+
                     if (!_.isEqual(editData, link.original)) {
                         edits.push(MB.edit.relationshipEdit(editData, link.original));
                     }
