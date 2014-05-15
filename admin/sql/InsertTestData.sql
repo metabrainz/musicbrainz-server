@@ -329,6 +329,7 @@ ALTER SEQUENCE recording_id_seq RESTART 18;
 ALTER SEQUENCE release_id_seq RESTART 4;
 ALTER SEQUENCE release_group_id_seq RESTART 5;
 ALTER SEQUENCE work_id_seq RESTART 2;
+ALTER SEQUENCE url_id_seq RESTART 2;
 
 ALTER SEQUENCE annotation_id_seq RESTART 8;
 
