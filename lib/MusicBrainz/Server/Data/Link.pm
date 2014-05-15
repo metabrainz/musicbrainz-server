@@ -145,7 +145,9 @@ sub find
         }
     }
 
-    my @attrs = $values->{attributes} ? @{ $values->{attributes} } : ();
+    $self->_fix_attributes($values);
+
+    my @attrs = @{ $values->{attributes} };
 
     push @conditions, "attribute_count = ?";
     push @args, scalar(@attrs);
@@ -158,16 +160,14 @@ sub find
         $i += 1;
     }
 
-    my %attrs = %{ $values->{attribute_text_values} // {} };
+    my %attrs = %{ $values->{attribute_text_values} };
 
     $i = 0;
     foreach my $attr (keys %attrs) {
-        if (my $text_value = $attrs{$attr}) {
-            push @joins, "JOIN link_attribute_text_value latv$i ON latv$i.link = link.id";
-            push @conditions, "latv$i.attribute_type = ?", "latv$i.text_value = ?";
-            push @args, $attr, $text_value;
-            $i += 1;
-        }
+        push @joins, "JOIN link_attribute_text_value latv$i ON latv$i.link = link.id";
+        push @conditions, "latv$i.attribute_type = ?", "latv$i.text_value = ?";
+        push @args, $attr, $attrs{$attr};
+        $i += 1;
     }
 
     my $query = "SELECT id FROM link " . join(" ", @joins) . " WHERE " . join(" AND ", @conditions);
@@ -178,10 +178,12 @@ sub find_or_insert
 {
     my ($self, $values) = @_;
 
+    $self->_fix_attributes($values);
+
     my $id = $self->find($values);
     return $id if defined $id;
 
-    my @attrs = $values->{attributes} ? @{ $values->{attributes} } : ();
+    my @attrs = @{ $values->{attributes} };
 
     my $row = {
         link_type      => $values->{link_type_id},
@@ -199,17 +201,44 @@ sub find_or_insert
         });
     }
 
-    my %attrs = %{ $values->{attribute_text_values} // {} };
+    my %attrs = %{ $values->{attribute_text_values} };
 
     foreach my $attr (keys %attrs) {
         $self->sql->insert_row("link_attribute_text_value", {
             link           => $id,
             attribute_type => $attr,
             text_value     => $attrs{$attr},
-        }) if $attrs{$attr};
+        });
     }
 
     return $id;
+}
+
+sub _fix_attributes {
+    my ($self, $values) = @_;
+
+    my @ids = @{ $values->{attributes} // [] };
+    my %text_values = %{ $values->{attribute_text_values} // {} };
+    my %has_attribute = map { $_ => 1 } @ids;
+
+    # Text values should be truthy, and they should also appear in the
+    # attributes array.
+    my %new_text_values = map {
+        my $value = $text_values{$_};
+
+        $has_attribute{$_} && $value ? ($_ => $value) : ()
+    } keys %text_values;
+
+    my $attributes = $self->c->model('LinkAttributeType')->get_by_ids(@ids, keys %new_text_values);
+
+    # The attributes array shouldn't contain ids for any text attributes that
+    # don't also appear in the text values hash.
+    my @new_ids = map {
+        $attributes->{$_}->free_text && !$new_text_values{$_} ? () : $_
+    } @ids;
+
+    $values->{attributes} = \@new_ids;
+    $values->{attribute_text_values} = \%new_text_values;
 }
 
 __PACKAGE__->meta->make_immutable;
