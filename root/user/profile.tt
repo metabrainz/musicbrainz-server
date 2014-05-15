@@ -47,6 +47,7 @@
 
         [% WRAPPER property name=l("User type:") %]
             [% types = [] %]
+            [% types.push(l('Deleted User')) IF user.deleted %]
             [% types.push(l('{doc|Auto-Editor}', {doc => doc_link('Auto-Editor')})) IF user.is_auto_editor %]
             [% types.push(l("Internal/Bot")) IF user.is_bot %]
             [% types.push(l('{doc|Relationship Editor}', {doc => doc_link('Relationship_Editor')})) IF user.is_relationship_editor %]

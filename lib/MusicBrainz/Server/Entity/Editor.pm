@@ -156,6 +156,7 @@ sub is_limited
     my $self = shift;
     return
         !($self->id == $EDITOR_MODBOT) &&
+        !$self->deleted &&
         ( !$self->email_confirmation_date ||
           $self->is_newbie ||
           $self->accepted_edits < 10
