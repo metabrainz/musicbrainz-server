@@ -53,10 +53,8 @@
         return new entityClass(data);
     };
 
-
     // Used by MB.entity() above to cache everything with a GID.
     MB.entityCache = {};
-
 
     MB.entity.CoreEntity = aclass(Entity, {
 
@@ -125,6 +123,27 @@
         }
     });
 
+    MB.entity.Editor = aclass(MB.entity.CoreEntity, {
+        entityType: "editor",
+        init: function (data) {
+            this.id = data.id;
+            this.name = data.name;
+        },
+        toJSON: function () {
+            var obj = {
+                entityType: this.entityType,
+                id:         this.id,
+                name:       ko.unwrap(this.name),
+            };
+            return obj;
+        },
+        template: _.template(
+            "<a href=\"/<%= data.entityType %>/<%- data.name %>\">" +
+            "<bdi><%- data.name %></bdi></a>",
+            null,
+            {variable: "data"}
+        )
+    });
 
     MB.entity.Artist = aclass(MB.entity.CoreEntity, { entityType: "artist" });
 
@@ -569,6 +588,7 @@
         series:        MB.entity.Series,
         track:         MB.entity.Track,
         work:          MB.entity.Work,
-        url:           MB.entity.URL
+        url:           MB.entity.URL,
+        editor:        MB.entity.Editor
     };
 }());
