@@ -217,6 +217,7 @@ role {
                     $target = $c->model('URL')->find_or_insert($field->{text});
                 } elsif ($field->{target}) {
                     $target = $entity_map->{type_to_model($field->{target_type})}->{$field->{target}};
+                    next unless $target;
                 }
 
                 $args{entity0} = $field->{forward} ? $source : $target;

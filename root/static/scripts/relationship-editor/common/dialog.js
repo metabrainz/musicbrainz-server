@@ -55,7 +55,17 @@
 
                 dialog.autocomplete = $(element).autocomplete({
                         entity: dialog.targetType(),
-                        setEntity: dialog.targetType,
+
+                        setEntity: function (type) {
+                            var possible = dialog.targetTypeOptions();
+
+                            if (!_.find(possible, { value: type })) {
+                                return false;
+                            }
+
+                            dialog.targetType(type);
+                        },
+
                         resultHook: function (items) {
                             if (dialog.autocomplete.entity === "series" &&
                                     dialog.relationship().linkTypeInfo().orderableDirection !== 0) {
