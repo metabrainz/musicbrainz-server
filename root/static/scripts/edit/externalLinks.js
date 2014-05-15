@@ -8,17 +8,15 @@
     var RE = MB.relationshipEditor;
 
 
-    externalLinks.Relationship = aclass(MB.entity.Relationship, {
+    externalLinks.Relationship = aclass(RE.fields.Relationship, {
 
-        augment$init: function (data, source, parent) {
+        before$init: function (data, source) {
             this.linkTypeDescription = ko.observable("");
             this.faviconClass = ko.observable("");
-            this.removed = ko.observable(!!data.removed);
             this.removeButtonFocused = ko.observable(false);
 
-            this.url = ko.observable(this.target(source).name);
+            this.url = ko.observable(data.target.name);
             this.url.subscribe(this.urlChanged, this);
-            this.linkTypeID.subscribe(this.linkTypeIDChanged, this);
         },
 
         around$linkPhrase: function (supr) {
@@ -60,7 +58,7 @@
             this.parent.ensureOneEmptyLinkExists(this);
         },
 
-        linkTypeIDChanged: function (value) {
+        after$linkTypeIDChanged: function (value) {
             var typeInfo = MB.typeInfoByID[value];
 
             if (typeInfo) {
@@ -70,8 +68,7 @@
                         url: "/relationship/" + typeInfo.gid
                     })
                 );
-            }
-            else {
+            } else {
                 this.linkTypeDescription("");
             }
             this.parent.ensureOneEmptyLinkExists(this);

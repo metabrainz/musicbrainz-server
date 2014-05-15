@@ -292,11 +292,6 @@
             return this.source === this.relationship().entities()[1];
         },
 
-        attributeFields: function () {
-            var typeInfo = this.relationship().linkTypeInfo();
-            return typeInfo ? _.values(typeInfo.attributes) : [];
-        },
-
         toggleLinkTypeHelp: function () {
             this.showLinkTypeHelp(!this.showLinkTypeHelp.peek());
         },
@@ -431,20 +426,6 @@
             return "";
         },
 
-        attributeError: function (rootInfo) {
-            var relationship = this.relationship();
-            var value = ko.unwrap(relationship.attributeValue(rootInfo.attribute.id));
-            var min = rootInfo.min;
-
-            if (min > 0) {
-                if (!value || (_.isArray(value) && value.length < min)) {
-                    return MB.text.AttributeRequired;
-                }
-            }
-
-            return "";
-        },
-
         dateError: function (date) {
             var valid = MB.utility.validDate(date.year(), date.month(), date.day());
             return valid ? "" : MB.text.InvalidDate;
@@ -475,7 +456,7 @@
             return this.linkTypeError() ||
                    this.targetEntityError() ||
                    _(relationship.linkTypeInfo().attributes)
-                     .values().map(_.bind(this.attributeError, this)).any() ||
+                     .values().map(_.bind(relationship.attributeError, relationship)).any() ||
                    this.dateError(relationship.period.beginDate) ||
                    this.dateError(relationship.period.endDate) ||
                    this.datePeriodError();

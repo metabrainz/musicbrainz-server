@@ -136,7 +136,6 @@ test("hidden input data for form submission", function () {
         linkTypeID: 188
     }, source);
 
-    source.relationships.push(existingURL);
     existingURL.cleanup.urlControl.change();
     existingURL.cleanup.typeControl.change();
 
@@ -145,34 +144,28 @@ test("hidden input data for form submission", function () {
     addedURL.cleanup.typeControl.change();
 
     deepEqual(this.viewModel.hiddenInputs(), [
-        { name: "edit-artist.url.0.text", value: "" },
-        { name: "edit-artist.url.0.link_type_id", value: "" },
-        { name: "edit-artist.url.1.relationship_id", value: 1 },
-        { name: "edit-artist.url.1.text", value: "http://en.wikipedia.org/wiki/Deerhunter" },
-        { name: "edit-artist.url.1.link_type_id", value: 179 },
-        { name: "edit-artist.url.2.text", value: "http://rateyourmusic.com/artist/deerhunter" },
-        { name: "edit-artist.url.2.link_type_id", value: 188 }
+        { name: "edit-artist.url.0.relationship_id", value: 1 },
+        { name: "edit-artist.url.0.text", value: "http://en.wikipedia.org/wiki/Deerhunter" },
+        { name: "edit-artist.url.0.link_type_id", value: 179 },
+        { name: "edit-artist.url.1.text", value: "http://rateyourmusic.com/artist/deerhunter" },
+        { name: "edit-artist.url.1.link_type_id", value: 188 }
     ]);
 
     existingURL.cleanup.urlControl.val("http://en.wikipedia.org/wiki/dEErHuNtER").change();
     addedURL.remove();
 
     deepEqual(this.viewModel.hiddenInputs(), [
-        { name: "edit-artist.url.0.text", value: "" },
-        { name: "edit-artist.url.0.link_type_id", value: "" },
-        { name: "edit-artist.url.1.relationship_id", value: 1 },
-        { name: "edit-artist.url.1.text", value: "http://en.wikipedia.org/wiki/dEErHuNtER" },
-        { name: "edit-artist.url.1.link_type_id", value: 179 }
+        { name: "edit-artist.url.0.relationship_id", value: 1 },
+        { name: "edit-artist.url.0.text", value: "http://en.wikipedia.org/wiki/dEErHuNtER" },
+        { name: "edit-artist.url.0.link_type_id", value: 179 }
     ]);
 
     existingURL.removed(true);
 
     deepEqual(this.viewModel.hiddenInputs(), [
-        { name: "edit-artist.url.0.text", value: "" },
-        { name: "edit-artist.url.0.link_type_id", value: "" },
-        { name: "edit-artist.url.1.relationship_id", value: 1 },
-        { name: "edit-artist.url.1.removed", value: 1 },
-        { name: "edit-artist.url.1.text", value: "http://en.wikipedia.org/wiki/dEErHuNtER" },
-        { name: "edit-artist.url.1.link_type_id", value: 179 }
+        { name: "edit-artist.url.0.relationship_id", value: 1 },
+        { name: "edit-artist.url.0.removed", value: 1 },
+        { name: "edit-artist.url.0.text", value: "http://en.wikipedia.org/wiki/dEErHuNtER" },
+        { name: "edit-artist.url.0.link_type_id", value: 179 }
     ]);
 });

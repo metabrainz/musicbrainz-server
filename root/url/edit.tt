@@ -6,6 +6,8 @@
         [% USE r = FormRenderer(form) %]
         [% form_row_text_long(r, 'url', l('URL:')) %]
 
+        [% PROCESS 'forms/relationship-editor.tt' %]
+
         [% INCLUDE 'forms/edit-note.tt' %]
         [% enter_edit() %]
     </form>

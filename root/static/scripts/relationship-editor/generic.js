@@ -22,7 +22,7 @@
         },
 
         typesAreAccepted: function (sourceType, targetType) {
-            return sourceType !== "url" && targetType !== "url";
+            return targetType !== "url";
         },
 
         hasChanges: function (entity) {

@@ -11,6 +11,7 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
+with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 
 =head1 NAME
 
@@ -46,6 +47,11 @@ Edit the details of an already existing link
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
     form      => 'URL',
     edit_type => $EDIT_URL_EDIT,
+};
+
+before edit => sub {
+    my ($self, $c) = @_;
+    $c->model('Relationship')->load($c->stash->{url});
 };
 
 =head1 LICENSE

@@ -86,62 +86,18 @@
 </script>
 
 <script type="text/html" id="template.dialog-attributes">
-  <!-- ko ifnot: _.isEmpty(attributeFields()) -->
+  <!-- ko ifnot: _.isEmpty(relationship().linkTypeAttributes()) -->
   <tr>
     <td class="section">
       [% l('Attributes:') %]<br />
       (<a href="#" data-bind="click: toggleAttributesHelp">[% l('help') %]</a>)
     </td>
-    <td data-bind="foreach: attributeFields()">
-      <div>
-        <!-- ko ifnot: attribute.children || attribute.freeText -->
-        <label>
-          <input type="checkbox" data-bind="checked: $parent.relationship().attributeValue(attribute.id)" />
-          <!-- ko text: attribute.l_name --><!-- /ko -->
-        </label>
-        <!-- /ko -->
-        <!-- ko if: attribute.id == 14 -->
-          <div data-bind="instrumentSelect: $parent.relationship()">
-            <!-- ko foreach: instruments -->
-              <div>
-                <span class="autocomplete" style="width: auto;">
-                  <input data-bind="autocomplete: { entity: 'instrument', currentSelection: $rawData }" />
-                  <img class="search" src="/static/images/icons/search.png" />
-                </span>
-                <!-- ko if: $parent.instruments().length > 1 -->
-                  <button class="icon remove-item" data-bind="click: _.partial($parent.removeItem, $rawData)"></button>
-                <!-- /ko -->
-              </div>
-            <!-- /ko -->
-            <button class="styled-button" style="padding: 3px;" data-bind="click: addItem">
-              [% l('Add another instrument') | html %]
-            </button>
-          </div>
-        <!-- /ko -->
-        <!-- ko if: attribute.children && max !== 1 && attribute.id != 14 -->
-          <!-- ko text: attribute.l_name --><!-- /ko -->
-          <div class="multiselect" data-bind="
-                  component: {
-                    name: 'multiselect',
-                    params: {
-                      options: MB.forms.buildOptionsTree(attribute, 'l_name', 'id'),
-                      placeholder: attribute.id == 14 ? MB.text.FocusInstrument :
-                                   attribute.id == 3  ? MB.text.FocusVocal : '',
-                      valueObservable: $parent.relationship().attributeValue(attribute.id)
-                    }
-                  }"></div>
-        <!-- /ko -->
-        <!-- ko if: attribute.freeText -->
-        <label>
-          <!-- ko text: MB.i18n.expand(MB.text.AddColon, { variable: attribute.l_name }) --><!-- /ko -->
-          <input data-bind="value: $parent.relationship().attributeValue(attribute.id),
-                            valueUpdate: 'afterkeydown',
-                            attr: { placeholder: attribute.l_name }" />
-        </label>
-        <!-- /ko -->
-        <div class="error" data-bind="text: $parent.attributeError($data)"></div>
-        <div class="ar-descr" data-bind="html: attribute.description, visible: $parent.showAttributesHelp"></div>
-      </div>
+    <td data-bind="foreach: relationship().linkTypeAttributes()">
+      <!-- ko template: {
+                name: "template.edit-attribute",
+                data: _.assign({ relationship: $parent.relationship() }, $data)
+              }
+        --><!-- /ko -->
     </td>
   </tr>
   <!-- /ko -->
@@ -183,6 +139,60 @@
   <!-- ko with: relationship.phraseAndExtraAttributes(source)[1] -->
     (<!-- ko text: $data --><!-- /ko -->)
   <!-- /ko -->
+</script>
+
+<script type="text/html" id="template.edit-attribute">
+  <div>
+    <!-- ko ifnot: attribute.children || attribute.freeText -->
+    <label>
+      <input type="checkbox" data-bind="checked: relationship.attributeValue(attribute.id)" />
+      <!-- ko text: attribute.l_name --><!-- /ko -->
+    </label>
+    <!-- /ko -->
+    <!-- ko if: attribute.id == 14 -->
+      <div data-bind="instrumentSelect: relationship">
+        <!-- ko foreach: instruments -->
+          <div>
+            <span class="autocomplete" style="width: auto;">
+              <input data-bind="autocomplete: { entity: 'instrument', currentSelection: $rawData }" />
+              <img class="search" src="/static/images/icons/search.png" />
+            </span>
+            <!-- ko if: $parent.instruments().length > 1 -->
+              <button class="icon remove-item" data-bind="click: _.partial($parent.removeItem, $rawData)"></button>
+            <!-- /ko -->
+          </div>
+        <!-- /ko -->
+        <button class="styled-button" style="padding: 3px;" data-bind="click: addItem">
+          [% l('Add another instrument') | html %]
+        </button>
+      </div>
+    <!-- /ko -->
+    <!-- ko if: attribute.children && max !== 1 && attribute.id != 14 -->
+      <!-- ko text: attribute.l_name --><!-- /ko -->
+      <div class="multiselect" data-bind="
+              component: {
+                name: 'multiselect',
+                params: {
+                  options: MB.forms.buildOptionsTree(attribute, 'l_name', 'id'),
+                  placeholder: attribute.id == 14 ? MB.text.FocusInstrument :
+                               attribute.id == 3  ? MB.text.FocusVocal : '',
+                  valueObservable: relationship.attributeValue(attribute.id)
+                }
+              }"></div>
+    <!-- /ko -->
+    <!-- ko if: attribute.freeText -->
+    <label>
+      <!-- ko text: MB.i18n.expand(MB.text.AddColon, { variable: attribute.l_name }) --><!-- /ko -->
+      <input data-bind="value: relationship.attributeValue(attribute.id),
+                        valueUpdate: 'afterkeydown',
+                        attr: { placeholder: attribute.l_name }" />
+    </label>
+    <!-- /ko -->
+    <div class="error" data-bind="text: relationship.attributeError($data)"></div>
+    <!-- ko if: $root.showAttributesHelp -->
+      <div class="ar-descr" data-bind="html: attribute.description"></div>
+    <!-- /ko -->
+  </div>
 </script>
 
 <script type="text/html" id="template.multiselect">

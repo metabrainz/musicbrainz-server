@@ -138,7 +138,7 @@ role {
 
             $source_entity->{submittedRelationships} = $submitted_rel_data->(
                 @{ $body_params->{$form_name}->{rel} },
-                @{ $body_params->{$form_name}->{url} }
+                @{ $form_name eq "edit-url" ? [] : $body_params->{$form_name}->{url} }
             );
         }
         else {
@@ -146,7 +146,7 @@ role {
 
             my $submitted_relationships = $submitted_rel_data->(
                 @{ $query_params->{$form_name}->{rel} },
-                @{ $query_params->{$form_name}->{url} }
+                @{ $form_name eq "edit-url" ? [] : $query_params->{$form_name}->{url} }
             );
 
             $source_entity->{submittedRelationships} = $submitted_relationships // [];
@@ -172,10 +172,14 @@ role {
             );
 
             $source = $source // $c->model($model)->get_by_id($edit->entity_id);
-            my @urls = grep { !$_->is_empty } $form->field('url')->fields;
-            my @rels = grep { !$_->is_empty } $form->field('rel')->fields;
+            my $url_changes = 0;
 
-            my $url_changes = $self->edit_relationships($c, $form, \@urls, $source);
+            if ($form_name ne "edit-url") {
+                my @urls = grep { !$_->is_empty } $form->field('url')->fields;
+                my $url_changes = $self->edit_relationships($c, $form, \@urls, $source);
+            }
+
+            my @rels = grep { !$_->is_empty } $form->field('rel')->fields;
             my $rel_changes = $self->edit_relationships($c, $form, \@rels, $source);
 
             return 1 if $makes_changes || $url_changes || $rel_changes;
