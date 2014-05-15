@@ -193,6 +193,12 @@ sub age {
     return (DateTime->now - $self->birth_date)->in_units('years');
 }
 
+sub can_nominate {
+    my ($self, $candidate) = @_;
+    return unless $candidate;
+    return $self->is_auto_editor && !$candidate->is_auto_editor && !$candidate->deleted;
+}
+
 has languages => (
     isa => 'ArrayRef',
     is => 'rw',
