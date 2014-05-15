@@ -133,7 +133,7 @@
             var obj = {
                 entityType: this.entityType,
                 id:         this.id,
-                name:       ko.unwrap(this.name),
+                name:       ko.unwrap(this.name)
             };
             return obj;
         },
