@@ -29,13 +29,16 @@
         }
 
         if (this.action === "add") {
-            var release = this.fields.Release({});
+            var releaseData = {};
 
+            if (seed.relationships) {
+                releaseData.relationships = seed.relationships;
+            }
+
+            var release = this.fields.Release(releaseData);
             this.seedRelease(release, seed);
-
             this.rootField.release(release);
-        }
-        else {
+        } else {
             this.seededReleaseData = seed;
         }
     };
@@ -104,10 +107,6 @@
                         result[medium.position()] = toc;
                     }
                 }, {});
-        }
-
-        if (data.relationships) {
-            release.parseRelationships(data.relationships, release.externalLinks);
         }
     };
 

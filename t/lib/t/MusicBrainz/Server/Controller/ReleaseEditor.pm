@@ -321,27 +321,28 @@ test 'seeding url relationships' => sub {
     cmp_deeply($result, {
         errors => [],
         seed => {
-            relationships => {
-                url => {
-                    '' => [
-                        {
-                            target => { url => 'http://foo.bar.baz/' },
-                        }
-                    ],
-                    'amazon asin' => [
-                        {
-                            link_type => 4,
-                            target => { url => '' },
-                        }
-                    ],
-                    'discogs' => [
-                        {
-                            link_type => 3,
-                            target => { url => 'http://foo.bar.baz/foo/' },
-                        }
-                    ]
-                }
-            }
+            relationships => [
+                {
+                    target => {
+                        name => 'http://foo.bar.baz/',
+                        entityType => 'url',
+                    },
+                },
+                {
+                    linkTypeID => 3,
+                    target => {
+                        name => 'http://foo.bar.baz/foo/',
+                        entityType => 'url',
+                    },
+                },
+                {
+                    linkTypeID => 4,
+                    target => {
+                        name => '',
+                        entityType => 'url',
+                    },
+                },
+            ]
         },
     });
 };

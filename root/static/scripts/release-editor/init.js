@@ -192,10 +192,14 @@ MB.releaseEditor.loadRelease = function (gid, callback) {
 
 
 MB.releaseEditor.releaseLoaded = function (data) {
-    var release = this.fields.Release(data);
-
     var seed = this.seededReleaseData;
     delete this.seededReleaseData;
+
+    if (seed && seed.relationships) {
+        data.relationships = (data.relationships || []).concat(seed.relationships);
+    }
+
+    var release = this.fields.Release(data);
 
     if (seed) this.seedRelease(release, seed);
 
