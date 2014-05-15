@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-04-29 11:40-0700\n"
-"PO-Revision-Date: 2014-04-29 18:42+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-05-14 21:35+0000\n"
+"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -481,7 +481,7 @@ msgstr "Toimingud"
 
 #: ../root/area/create.tt:1 ../root/area/create.tt:3
 msgid "Add Area"
-msgstr ""
+msgstr "Piirkonna lisamine"
 
 #: ../root/layout/menu.tt:85
 msgctxt "button/menu"
@@ -494,7 +494,7 @@ msgstr "Piirkonna aliase lisamine"
 
 #: ../root/artist/create.tt:1 ../root/artist/create.tt:3
 msgid "Add Artist"
-msgstr ""
+msgstr "Artisti lisamine"
 
 #: ../root/layout/menu.tt:214
 msgctxt "button/menu"
@@ -541,7 +541,7 @@ msgstr "Lisa näide"
 
 #: ../root/label/create.tt:1 ../root/label/create.tt:3
 msgid "Add Label"
-msgstr ""
+msgstr "Plaadifirma lisamine"
 
 #: ../root/layout/menu.tt:217 ../root/release/edit/information.tt:174
 #: ../root/release/edit/information.tt:175
@@ -563,7 +563,7 @@ msgstr "Lisa leht"
 
 #: ../root/place/create.tt:1 ../root/place/create.tt:3
 msgid "Add Place"
-msgstr ""
+msgstr "Koha lisamine"
 
 #: ../root/layout/menu.tt:235
 msgctxt "button/menu"
@@ -590,7 +590,7 @@ msgstr "Väljalaske lisamine"
 
 #: ../root/release_group/create.tt:1 ../root/release_group/create.tt:8
 msgid "Add Release Group"
-msgstr ""
+msgstr "Väljalaskerühma lisamine"
 
 #: ../root/layout/menu.tt:220
 msgctxt "button/menu"
@@ -1042,7 +1042,7 @@ msgstr "Toimetuse laadimisel tekkis tõrge"
 
 #: ../root/edit/index.tt:16
 msgid "An error occured while loading this edit."
-msgstr ""
+msgstr "Toimetuse laadimisel tekkis tõrge."
 
 #: ../root/release/edit/tracklist.tt:76
 msgid "An error occured: "
@@ -2386,7 +2386,7 @@ msgstr "Andmete eemaldamise põhimõtted"
 
 #: ../root/edit/data.tt:10
 msgid "Data:"
-msgstr ""
+msgstr "Andmed:"
 
 #: ../root/annotation/history.tt:9 ../root/cdtoc/attach_artist_releases.tt:16
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/collection/index.tt:21
@@ -2920,7 +2920,7 @@ msgstr "Toimetas {editor}"
 
 #: ../root/edit/data.tt:1 ../root/edit/data.tt:3
 msgid "Edit data for edit #{id}"
-msgstr ""
+msgstr "Toimetuse #{id} toimetusandmed"
 
 #: ../root/label/edit_alias.tt:2
 #: ../lib/MusicBrainz/Server/Edit/Label/EditAlias.pm:12
@@ -3110,7 +3110,7 @@ msgstr "Toimetused: „{name}”"
 
 #: ../root/main/500.tt:48
 msgid "Edits loaded for the page:"
-msgstr ""
+msgstr "Leheküljele laaditud toimetusi:"
 
 #: ../root/elections/not_found.tt:1 ../root/elections/not_found.tt:2
 msgid "Election Not Found"
@@ -3462,11 +3462,11 @@ msgstr "Juhised nende kordategemiseks leiad {howto|väljalasete mestimise dokume
 msgid ""
 "For more information, check the {doc_doc|documentation} and "
 "{doc_styleguide|style guidelines}."
-msgstr ""
+msgstr "Lisateabe saamiseks vaata {doc_doc|dokumentatsiooni} ja {doc_styleguide|stiilijuhiseid}."
 
 #: ../root/place/edit_form.tt:4 ../root/work/edit_form.tt:5
 msgid "For more information, check the {doc_doc|documentation}."
-msgstr ""
+msgstr "Lisateabe saamiseks vaata {doc_doc|dokumentatsiooni}."
 
 #: ../root/edit/info.tt:63
 msgid "For more information:"
@@ -3919,7 +3919,7 @@ msgstr "Kui sa ei leia otsitavat, võid lisada uue väljalaske."
 
 #: ../root/account/edit.tt:18
 msgid "If you change your email address, you will be required to verify it."
-msgstr ""
+msgstr "Kui muudad oma e-posti aadressi, pead selle uuesti kinnitama."
 
 #: ../root/release/edit/information.tt:291
 msgid ""
@@ -5432,7 +5432,7 @@ msgstr "Omanik:"
 
 #: ../root/components/common-macros.tt:99
 msgid "PDF file"
-msgstr ""
+msgstr "PDF-fail"
 
 #: ../root/edit/details/remove_puid.tt:7
 msgid "PUID:"
@@ -5626,19 +5626,19 @@ msgstr "Palun kontrolli see väljalaskelt hoolikalt üle."
 msgid ""
 "Please enter a {doc_disambiguation|disambiguation} to help distinguish this "
 "artist from the others."
-msgstr ""
+msgstr "Palun sisesta {doc_disambiguation|täpsustus}, et aidata seda artisti teistest eristada."
 
 #: ../root/label/edit_form.tt:24
 msgid ""
 "Please enter a {doc_disambiguation|disambiguation} to help distinguish this "
 "label from the others."
-msgstr ""
+msgstr "Palun sisesta {doc_disambiguation|täpsustus}, et aidata seda plaadifirmat teistest eristada."
 
 #: ../root/place/edit_form.tt:25
 msgid ""
 "Please enter a {doc_disambiguation|disambiguation} to help distinguish this "
 "place from the others."
-msgstr ""
+msgstr "Palun sisesta {doc_disambiguation|täpsustus}, et aidata seda kohta teistest eristada."
 
 #: ../root/components/tag.tt:7
 msgid ""
@@ -5671,7 +5671,7 @@ msgid ""
 "Please make sure you're not removing a legitimate {doc_standalone|standalone"
 " recording}. If this recording is a duplicate of another, please "
 "{doc_merge|merge them instead}."
-msgstr ""
+msgstr "Palun tee kindlaks, et sa ei eemalda legitiimset {doc_standalone|eraldiseisvat salvestist}. Kui see salvestis on mõne teise koopia, siis kustutamise asemel {doc_merge|pigem mesti need}."
 
 #: ../root/layout/merge-helper.tt:24
 msgid ""
@@ -5928,11 +5928,11 @@ msgstr "Hinded"
 
 #: ../root/edit/info.tt:61
 msgid "Raw edit data for this edit"
-msgstr ""
+msgstr "Selle toimetuse toorandmed"
 
 #: ../root/edit/index.tt:17
 msgid "Raw edit data may be available."
-msgstr ""
+msgstr "Saadaval võivad olla toimetuse toorandmed."
 
 #: ../root/main/index.tt:41
 msgid "Read more »"
@@ -6089,7 +6089,7 @@ msgstr "Seotud teosed"
 
 #: ../root/edit/data.tt:14
 msgid "Related entities:"
-msgstr ""
+msgstr "Seotud olemid:"
 
 #: ../root/recording/index.tt:51 ../root/recording/relationships.tt:6
 msgid "Related works"
@@ -6973,7 +6973,7 @@ msgstr "Toimetuste otsing"
 
 #: ../root/edit/details/edit_url.tt:43
 msgid "Search for the target URL."
-msgstr ""
+msgstr "Otsi siht-URL-i"
 
 #: ../root/search/form.tt:51
 msgid ""
@@ -7088,7 +7088,7 @@ msgstr[1] "Kuva kõik {num} teost"
 #: ../root/account/edit.tt:7
 msgid ""
 "See also your {uri|user preferences}, which include your privacy settings."
-msgstr ""
+msgstr "Vaata ka oma {uri|kasutaja eelistusi}, kus on muu hulgas privaatsusseaded."
 
 #: ../root/doc/relationship_type.tt:66
 msgid "See the general {url|guidelines for URLs}."
@@ -8014,7 +8014,7 @@ msgstr "Muudetav helikandja on osa järgmisest väljalaskest:"
 msgid ""
 "The new URL already exists in the database. This edit will therefore merge "
 "the two URL entities."
-msgstr ""
+msgstr "Uus URL on andmebaasis juba olemas. See toimetus mestib nende kahe URL-i andmebaasiolemid."
 
 #: ../root/main/403.tt:5
 msgid "The page you requested is private."
@@ -8342,8 +8342,8 @@ msgstr "See on kohustuslik atribuut."
 #: ../root/edit/details/edit_url.tt:31
 msgid "This change affects {num} relationship."
 msgid_plural "This change affects {num} relationships."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "See muudatus mõjutab {num} seost."
+msgstr[1] "See muudatus mõjutab {num} seost."
 
 #: ../root/collection/tags.tt:2
 msgid "This collection has no tags."
@@ -8403,7 +8403,7 @@ msgstr "See toimetus mestis eri esitajate väljalasked ja lisaks määras välja
 
 #: ../root/edit/details/edit_url.tt:41
 msgid "This edit was a merge."
-msgstr ""
+msgstr "See toimetus oli mestimine."
 
 #: ../root/components/common-macros.tt:653
 msgid "This edit was cancelled."
@@ -8460,7 +8460,7 @@ msgstr "See on MusicBrainzi peegelserver. Andmete lisamiseks või muutmiseks {ur
 msgid ""
 "This is a PDF file, the thumbnail may not show the entire contents of the "
 "file."
-msgstr ""
+msgstr "See on PDF-fail, pisipilt ei pruugi näidata kogu faili sisu."
 
 #: ../root/account/edit.tt:14
 msgid ""
@@ -8491,7 +8491,7 @@ msgstr "See on antud lokaadis esmane alias"
 #: ../root/edit/data.tt:29
 msgid ""
 "This is the raw data for edit #{id}. It is available for debugging purposes."
-msgstr ""
+msgstr "Need on toimetuse #{id} toorandmed, mis on saadaval silumise jaoks."
 
 #: ../root/label/delete.tt:14
 msgid ""
@@ -8601,7 +8601,7 @@ msgstr "Seda kohta pole sildistatud."
 
 #: ../root/recording/delete.tt:14
 msgid "This recording cannot be removed because it is still used on releases."
-msgstr ""
+msgstr "Seda salvestist ei saa eemaldada, kuna see on mõnel väljalaskel ikka veel kasutusel."
 
 #: ../root/recording/fingerprints.tt:46
 msgid "This recording does not have any associated AcoustIDs"
@@ -8673,7 +8673,7 @@ msgstr "Seda väljalaskerühma pole sildistatud."
 msgid ""
 "This release group will be removed automatically once it has no releases nor"
 " relationships."
-msgstr ""
+msgstr "See väljalaskerühm eemaldatakse automaatselt, kui sel enam väljalaskeid ega seoseid pole."
 
 #: ../root/release/tags.tt:2
 msgid "This release has no tags."
@@ -9803,7 +9803,7 @@ msgstr "Vaata wikis"
 
 #: ../root/edit/data.tt:30
 msgid "View the human-readable rendering instead."
-msgstr ""
+msgstr "Vaata inimestele arusaadavat esitust"
 
 #: ../root/annotation/history.tt:29
 msgid "View this version"
@@ -9963,15 +9963,15 @@ msgstr "Päringule vastasid alltoodud plaadid. Kui ükski neist pole otsitav vä
 
 #: ../root/artist/edit_form.tt:15
 msgid "We found the following artists with very similar names:"
-msgstr ""
+msgstr "Andmebaasis on juba mõni väga sarnase nimega artist:"
 
 #: ../root/label/edit_form.tt:15
 msgid "We found the following labels with very similar names:"
-msgstr ""
+msgstr "Andmebaasis on juba mõni väga sarnase nimega plaadifirma:"
 
 #: ../root/place/edit_form.tt:15
 msgid "We found the following places with very similar names:"
-msgstr ""
+msgstr "Andmebaasis on juba mõni väga sarnase nimega koht:"
 
 #: ../root/search/editor.tt:5
 msgid ""
@@ -10247,15 +10247,15 @@ msgstr "Jah, olen kindel"
 
 #: ../root/artist/edit_form.tt:22
 msgid "Yes, I still want to create a new artist."
-msgstr ""
+msgstr "Jah, tahan ikkagi uue artisti lisada"
 
 #: ../root/label/edit_form.tt:22
 msgid "Yes, I still want to create a new label."
-msgstr ""
+msgstr "Jah, tahan ikkagi uue plaadifirma lisada"
 
 #: ../root/place/edit_form.tt:22
 msgid "Yes, I still want to create a new place."
-msgstr ""
+msgstr "Jah, tahan ikkagi uue koha lisada"
 
 #: ../root/admin/wikidoc/delete.tt:9
 msgid "Yes, I'm sure"
@@ -10265,7 +10265,7 @@ msgstr "Jah, olen kindel"
 msgid ""
 "You are about to add an ISRC to this recording. The ISRC must be entered in "
 "standard <code>CCXXXYYNNNNN</code> format:"
-msgstr ""
+msgstr "Hakkasid sisestama sellele salvestisele ISRC-d. ISRC tuleb sisestada standardses <code>CCXXXYYNNNNN</code> vormingus:"
 
 #: ../root/components/forms.tt:253
 msgid ""
@@ -10538,7 +10538,7 @@ msgstr "Sind ei tüüdata järgmised {days} päeva."
 
 #: ../root/alias/delete.tt:1
 msgid "You're removing the alias <em>{alias}</em>."
-msgstr ""
+msgstr "Kui jätkad, eemaldatakse alias „{alias}”."
 
 #: ../root/user/email_sent.tt:5
 msgid ""
@@ -10578,7 +10578,7 @@ msgstr "Sinu kasutajanimi saab avalikult nähtavaks."
 msgid ""
 "You’ve seeded some Disc IDs that aren’t matched to any medium. If this is "
 "wrong, use the “Attach Disc ID” options below."
-msgstr ""
+msgstr "Söödeti plaadi-ID-d, millele ei vasta ükski helikandja. Kui see on vale, kasuta allpool valikuid „Plaadi-ID omistamine”."
 
 #: ../root/release/edit/tracklist.tt:239
 msgid ""
@@ -10705,7 +10705,7 @@ msgstr "alates {date} kuni praeguseni"
 
 #: ../root/main/500.tt:51
 msgid "fully loaded"
-msgstr ""
+msgstr "täielikult laaditud"
 
 #: ../root/release/edit_relationships.tt:236
 #: ../root/release/edit_relationships.tt:248
@@ -10872,7 +10872,7 @@ msgstr "juhuslikus järjekorras"
 
 #: ../root/main/500.tt:51
 msgid "raw edit data"
-msgstr ""
+msgstr "toimetuse toorandmed"
 
 #: ../root/release/edit/recordings.tt:25
 msgid "recording"
@@ -11286,7 +11286,7 @@ msgstr "{percentage}%"
 
 #: ../root/components/common-macros.tt:258
 msgid "{place} in {area}"
-msgstr ""
+msgstr "{place}, {area}"
 
 #: ../root/relationship/linktype/tree.tt:19
 msgid "{relationship_documentation_url|Documentation}"
@@ -11324,7 +11324,7 @@ msgstr "{type} „{work}”"
 
 #: ../root/account/edit.tt:106
 msgid "{uri|Delete my account}"
-msgstr ""
+msgstr "{uri|Kustutan oma konto}"
 
 #: ../root/components/common-macros.tt:579
 msgid "{uri|Relate to URL}"

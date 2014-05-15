@@ -23,8 +23,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-04-29 11:40-0700\n"
-"PO-Revision-Date: 2014-04-29 18:42+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-05-12 11:43+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1050,7 +1050,7 @@ msgstr "Er trad een fout op bij het laden van deze bewerking"
 
 #: ../root/edit/index.tt:16
 msgid "An error occured while loading this edit."
-msgstr ""
+msgstr "Er trad een fout op bij het laden van deze bewerking."
 
 #: ../root/release/edit/tracklist.tt:76
 msgid "An error occured: "
@@ -2042,7 +2042,7 @@ msgstr "Verander alle artiesten op deze uitgave die overeenkomen met „{name}�
 #: ../root/edit/relationship/create.tt:43 ../root/edit/relationship/edit.tt:65
 #: ../root/edit/relationship/edit.tt:69 ../root/scripts/text_strings.tt:102
 msgid "Change direction"
-msgstr "Keer richting om"
+msgstr "Richting omkeren"
 
 #: ../root/release/change_quality.tt:1 ../root/release/change_quality.tt:2
 msgid "Change release data quality"
@@ -2394,7 +2394,7 @@ msgstr "Beleid voor gegevensverwijdering"
 
 #: ../root/edit/data.tt:10
 msgid "Data:"
-msgstr ""
+msgstr "Data:"
 
 #: ../root/annotation/history.tt:9 ../root/cdtoc/attach_artist_releases.tt:16
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/collection/index.tt:21
@@ -2928,7 +2928,7 @@ msgstr "Bewerking door {editor}"
 
 #: ../root/edit/data.tt:1 ../root/edit/data.tt:3
 msgid "Edit data for edit #{id}"
-msgstr ""
+msgstr "Gegevens voor bewerking #{id}"
 
 #: ../root/label/edit_alias.tt:2
 #: ../lib/MusicBrainz/Server/Edit/Label/EditAlias.pm:12
@@ -3118,7 +3118,7 @@ msgstr "Bewerkingen voor „{name}“"
 
 #: ../root/main/500.tt:48
 msgid "Edits loaded for the page:"
-msgstr ""
+msgstr "Bewerkingen geladen voor de pagina:"
 
 #: ../root/elections/not_found.tt:1 ../root/elections/not_found.tt:2
 msgid "Election Not Found"
@@ -5057,7 +5057,7 @@ msgstr "Volgende »"
 #: ../root/edit/search_macros.tt:244 ../root/edit/vote.tt:17
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:192
 msgid "No"
-msgstr "Nee"
+msgstr "Tegen"
 
 #: ../root/tag/not_found.tt:4
 msgid "No MusicBrainz entities have yet been tagged with \"{tag}\"."
@@ -5936,11 +5936,11 @@ msgstr "Waarderingen"
 
 #: ../root/edit/info.tt:61
 msgid "Raw edit data for this edit"
-msgstr ""
+msgstr "Onbewerkte gegevens voor deze bewerking"
 
 #: ../root/edit/index.tt:17
 msgid "Raw edit data may be available."
-msgstr ""
+msgstr "Onbewerkte bewerkingsgegevens zijn mogelijk beschikbaar"
 
 #: ../root/main/index.tt:41
 msgid "Read more »"
@@ -6097,7 +6097,7 @@ msgstr "Gerelateerde composities"
 
 #: ../root/edit/data.tt:14
 msgid "Related entities:"
-msgstr ""
+msgstr "Gerelateerde objecten:"
 
 #: ../root/recording/index.tt:51 ../root/recording/relationships.tt:6
 msgid "Related works"
@@ -7912,7 +7912,7 @@ msgstr "De streepjescode die u heeft ingevoerd is geen geldige EAN-code."
 
 #: ../root/scripts/text_strings.tt:63
 msgid "The barcode you entered is not a valid UPC or EAN code."
-msgstr "De streepjescode die u heeft ingevoerd is een geldige UPC of EAN-code."
+msgstr "De streepjescode die u heeft ingevoerd is geen geldige UPC of EAN-code."
 
 #: ../root/scripts/text_strings.tt:58
 msgid ""
@@ -8499,7 +8499,7 @@ msgstr "Dit is het primaire alias voor deze locatie"
 #: ../root/edit/data.tt:29
 msgid ""
 "This is the raw data for edit #{id}. It is available for debugging purposes."
-msgstr ""
+msgstr "Dit zijn de onbewerkte gegevens voor de bewerking #{id}. Dit is beschikbaar om te debuggen."
 
 #: ../root/label/delete.tt:14
 msgid ""
@@ -9811,7 +9811,7 @@ msgstr "Op de wiki bekijken"
 
 #: ../root/edit/data.tt:30
 msgid "View the human-readable rendering instead."
-msgstr ""
+msgstr "Bekijk in plaats hiervan de door mensen leesbare weergave."
 
 #: ../root/annotation/history.tt:29
 msgid "View this version"
@@ -10241,7 +10241,7 @@ msgstr "Jaar:"
 #: ../root/edit/search_macros.tt:244 ../root/edit/vote.tt:14
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:193
 msgid "Yes"
-msgstr "Voor"
+msgstr "Ja"
 
 #: ../root/edit/search_macros.tt:307
 msgid "Yes vote count"
@@ -10713,7 +10713,7 @@ msgstr "vanaf {date} tot nu"
 
 #: ../root/main/500.tt:51
 msgid "fully loaded"
-msgstr ""
+msgstr "volledig geladen"
 
 #: ../root/release/edit_relationships.tt:236
 #: ../root/release/edit_relationships.tt:248
@@ -10880,7 +10880,7 @@ msgstr "willekeurig"
 
 #: ../root/main/500.tt:51
 msgid "raw edit data"
-msgstr ""
+msgstr "onbewerkte bewerkingsgegevens"
 
 #: ../root/release/edit/recordings.tt:25
 msgid "recording"
@@ -11294,7 +11294,7 @@ msgstr "{percentage}%"
 
 #: ../root/components/common-macros.tt:258
 msgid "{place} in {area}"
-msgstr ""
+msgstr "{place} in {area}"
 
 #: ../root/relationship/linktype/tree.tt:19
 msgid "{relationship_documentation_url|Documentation}"

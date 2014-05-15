@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-04-29 18:42+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-05-06 14:30+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -162,7 +162,7 @@ msgstr "Geeft een bonusmedium aan"
 msgid ""
 "Indicates a miscellaneous support role. This is usually stated in the liner "
 "notes of an album."
-msgstr ""
+msgstr "Geeft een diverse ondersteunende rol aan. Dit wordt meestal aangegeven in het boekje bij een album."
 
 #: DB:link_type/description:105
 msgid ""
@@ -186,11 +186,11 @@ msgstr "Geeft een ouder-kind relatie aan."
 
 #: DB:link_type/description:396
 msgid "Indicates a pictorial image (JPEG, GIF, PNG) of a place"
-msgstr "Geeft een afbeelding (JPEG, GIF of PNG) van ee plaats aan"
+msgstr "Geeft een afbeelding (JPEG, GIF of PNG) van een plaats aan"
 
 #: DB:link_type/description:173
 msgid "Indicates a pictorial image (JPEG, GIF, PNG) of an artist."
-msgstr ""
+msgstr "Geeft een afbeelding (JPEG, GIF of PNG) van een artiest aan"
 
 #: DB:link_type/description:94
 msgid "Indicates a webpage that reviews the release (group) in question."
@@ -198,7 +198,7 @@ msgstr "Geeft een internetpagina aan met een recensie van de uitgave(groep)."
 
 #: DB:link_type/description:177
 msgid "Indicates a webpage where you can download an artist's work for free."
-msgstr ""
+msgstr "Geeft een internetpagina aan waar het werk van een artiest gratis gedownload kan worden."
 
 #: DB:link_type/description:104
 msgid ""
@@ -323,19 +323,19 @@ msgstr "Geeft de componist voor deze compositie aan, d.w.z. die persoon die de m
 
 #: DB:link_type/description:57
 msgid "Indicates the librettist for this release."
-msgstr ""
+msgstr "Geeft de librettist voor deze uitgave aan."
 
 #: DB:link_type/description:169
 msgid "Indicates the librettist for this work."
-msgstr ""
+msgstr "Geeft de librettist voor deze compositie aan."
 
 #: DB:link_type/description:56
 msgid "Indicates the lyricist for this release."
-msgstr ""
+msgstr "Geeft de tekstschrijver voor deze uitgave aan."
 
 #: DB:link_type/description:165
 msgid "Indicates the lyricist for this work."
-msgstr ""
+msgstr "Geeft de tekstschrijver voor deze compositie aan."
 
 #: DB:link_type/description:42
 msgid "Indicates the mastering engineer for this work."
@@ -392,19 +392,19 @@ msgstr "Geeft de producent, coproducent, leidinggevend producent of leidinggeven
 msgid ""
 "Indicates the publisher of this recording. This is <strong>not</strong> the "
 "same concept as the <a href=\"/doc/Label\">record label</a>."
-msgstr ""
+msgstr "Geeft de uitgever van deze opname aan. Dit is <strong>niet</strong> hetzelfde concept als de <a href=\"/doc/Label\">platenmaatschappij</a>."
 
 #: DB:link_type/description:32
 msgid ""
 "Indicates the publisher of this release. This is <strong>not</strong> the "
 "same concept as the <a href=\"/doc/Label\">record label</a>."
-msgstr ""
+msgstr "Geeft de uitgever van deze uitgave aan. Dit is <strong>niet</strong> hetzelfde concept als de <a href=\"/doc/Label\">platenmaatschappij.</a>."
 
 #: DB:link_type/description:208 DB:link_type/description:161
 msgid ""
 "Indicates the publisher of this work. This is <strong>not</strong> the same "
 "concept as the <a href=\"/doc/Label\">record label</a>."
-msgstr ""
+msgstr "Geeft de uitgever van deze compositie aan. Dit is <strong>niet</strong> hetzelfde concept als de <a href=\"/doc/Label\">platenmaatschappij.</a>."
 
 #: DB:link_attribute_type/description:4
 msgid "Lead or solo vocal"
@@ -746,7 +746,7 @@ msgstr ""
 
 #: DB:link_type/description:28 DB:link_type/description:138
 msgid "This describes an engineer who performed a general engineering role.​"
-msgstr ""
+msgstr "Dit beschrijft een technicus die een algemene technische rol vervulde."
 
 #: DB:link_type/description:103
 msgid "This indicates a person is a member of a group."
@@ -1010,14 +1010,14 @@ msgid ""
 "This is used to indicate that the recording is a <a "
 "href=\"/doc/Mix_Terminology#mash-up\">mash-up</a> of two (or more) other "
 "recordings."
-msgstr ""
+msgstr "Dit geeft aan dat de opname een <a href=\"/doc/Mix_Terminology#mash-up\">mash-up</a> van twee (of meer) andere opnames is."
 
 #: DB:link_type/description:10
 msgid ""
 "This is used to indicate that the release group is a mash-up <a "
 "href=\"/doc/Mix_Terminology#mash-up\">mash-up</a> of two (or more) other "
 "release groups."
-msgstr ""
+msgstr "Dit geeft aan dat de uitgavegroep een <a href=\"/doc/Mix_Terminology#mash-up\">mash-up</a> van twee (of meer) andere uitgavegroepen is."
 
 #: DB:link_type/description:226
 msgid ""
@@ -1152,7 +1152,7 @@ msgstr "Deze koppeling wijst naar een pagina voor een uitgave met een discografi
 msgid ""
 "This links a <a href=\"/doc/Mix_Terminology#DJ_mix\">DJ-mix</a> to the "
 "artist who mixed it."
-msgstr ""
+msgstr "Dit koppelt een <a href=\"/doc/Mix_Terminology#DJ_mix\">DJ-mix</a> aan de artiest die het gemixt heeft."
 
 #: DB:link_type/description:9
 msgid ""
@@ -1160,20 +1160,20 @@ msgid ""
 "to the source release group and is used to indicate that the release group "
 "includes remixed versions of all (or most of) the tracks in the other "
 "release group."
-msgstr ""
+msgstr "Dit koppelt een <a href=\"/doc/Mix_Terminology#remix\">remix</a> uitgavegroep aan de oorspronkelijke uitgavegroep en wordt gebruikt om aan te geven dat uitgavegroep geremixte versies van alle (of het merendeel van de) nummers in de andere opnamegroep bevat."
 
 #: DB:link_type/description:230
 msgid ""
 "This links a <a href=\"/doc/Mix_Terminology#remix\">remixed</a> recording to"
 " the source recording."
-msgstr ""
+msgstr "Dit koppelt een <a href=\"/doc/Mix_Terminology#remix\">geremixte</a> opname aan de oorspronkelijke opname."
 
 #: DB:link_type/description:77
 msgid ""
 "This links a MusicBrainz release to the equivalent entry at Amazon and will "
 "often provide cover art if there is no cover art in the <a "
 "href=\"/doc/Cover_Art_Archive\">Cover Art Archive</a>."
-msgstr ""
+msgstr "Dit koppelt een uitgave op MusicBrainz aan het bijbehorende product op Amazon en wordt vaak gebruikt om afbeeldingen te leveren als er geen relevante afbeeldingen in de <a href=\"/doc/Cover_Art_Archive\">Cover Art Archive</a> staan."
 
 #: DB:link_type/description:304
 msgid ""
@@ -1216,14 +1216,14 @@ msgstr "Dit koppelt een opname aan een licentie waaronder het beschikbaar is."
 msgid ""
 "This links a recording to a page where it can be legally downloaded for "
 "free."
-msgstr ""
+msgstr "Dit koppelt een opname aan een pagina waar het legaal gratis gedownload kan worden."
 
 #: DB:link_type/description:132
 msgid ""
 "This links a recording to the artist who did the programming for electronic "
 "instruments used on the recording.​ In the most cases, the 'electronic "
 "instrument' is either a synthesizer or a drum machine."
-msgstr ""
+msgstr "Dit koppelt een opname aan de artiest die de elektronische instrumenten op de opname programmeerde. In de meeste gevallen is het elektronische instrument een synthesizer of een drumcomputer."
 
 #: DB:link_type/description:726
 msgid "This links a recording to the balance engineer who engineered it."
@@ -1235,7 +1235,7 @@ msgid ""
 "other tracks, substantially altering them and mixing them together with "
 "other material. Note that this includes the artist who created a mash-up or "
 "used samples as well."
-msgstr ""
+msgstr "Dit koppelt een opname aan de persoon die het heeft geremixt door een of meer nummers substantieel te veranderen en ze samen of met ander materiaal te mixen. Dit wordt ook gebruikt voor de artiest die een mashup heeft gemaakt of samples heeft gebruikt."
 
 #: DB:link_type/description:65
 msgid ""
@@ -1258,7 +1258,7 @@ msgstr "Dit koppelt een uitgave aan een licentie waaronder het beschikbaar is."
 #: DB:link_type/description:75
 msgid ""
 "This links a release to a page where it can be legally downloaded for free."
-msgstr ""
+msgstr "Dit koppelt een uitgave aan een pagina waar het legaal gratis gedownload kan worden."
 
 #: DB:link_type/description:37
 msgid ""
@@ -2282,7 +2282,7 @@ msgstr "heeft een VGMdb pagina op"
 #: DB:link_type/long_link_phrase:354 DB:link_type/long_link_phrase:358
 #: DB:link_type/long_link_phrase:594
 msgid "has a Wikidata page at"
-msgstr "heeft een Wikipediapagina op"
+msgstr "heeft een Wikidatapagina op"
 
 #: DB:link_type/long_link_phrase:89 DB:link_type/long_link_phrase:216
 #: DB:link_type/long_link_phrase:179 DB:link_type/long_link_phrase:355
@@ -3753,7 +3753,7 @@ msgstr "{assistant:assisterend} {emeritus:emeritus} {principal:hoofd} {guest:gas
 
 #: DB:link_type/link_phrase:1
 msgid "{bonus:bonus|next} disc"
-msgstr "{bonus:bonus|volgende} nummer"
+msgstr "{bonus:bonus|volgende} medium"
 
 #: DB:link_type/long_link_phrase:1
 msgid "{bonus:may be|is} part of a set, the next disc in the set is"

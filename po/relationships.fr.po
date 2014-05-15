@@ -15,8 +15,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-04-29 18:42+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-05-02 16:49+0000\n"
+"Last-Translator: Alain-Olivier  Breysse\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -168,7 +168,7 @@ msgstr "Signale un disque bonus"
 msgid ""
 "Indicates a miscellaneous support role. This is usually stated in the liner "
 "notes of an album."
-msgstr ""
+msgstr "Indique quelque rôle de soutien. Ce rôle est généralement indiqué dans les notes du livret de l'album."
 
 #: DB:link_type/description:105
 msgid ""
@@ -192,11 +192,11 @@ msgstr "Indique une relation parent-enfant."
 
 #: DB:link_type/description:396
 msgid "Indicates a pictorial image (JPEG, GIF, PNG) of a place"
-msgstr "Indique une représentation picturale (JPEG, GIF, PNG) d'un lieu"
+msgstr "Indique une illustration (JPEG, GIF, PNG) d'un lieu."
 
 #: DB:link_type/description:173
 msgid "Indicates a pictorial image (JPEG, GIF, PNG) of an artist."
-msgstr ""
+msgstr "Indique une représentation picturale (JPEG, GIF, PNG) d'un artiste."
 
 #: DB:link_type/description:94
 msgid "Indicates a webpage that reviews the release (group) in question."
@@ -204,7 +204,7 @@ msgstr "Indique une page Web qui critique la parution (groupe de) en question."
 
 #: DB:link_type/description:177
 msgid "Indicates a webpage where you can download an artist's work for free."
-msgstr ""
+msgstr "Indique une page Web où vous pouvez télécharger l'œuvre d'un artiste gratuitement."
 
 #: DB:link_type/description:104
 msgid ""
@@ -329,19 +329,19 @@ msgstr "Indique le compositeur pour cette œuvre, c.-à-d. l'artiste qui a écri
 
 #: DB:link_type/description:57
 msgid "Indicates the librettist for this release."
-msgstr ""
+msgstr "Indique le librettiste pour cette parution."
 
 #: DB:link_type/description:169
 msgid "Indicates the librettist for this work."
-msgstr ""
+msgstr "Indique le librettiste pour cette œuvre."
 
 #: DB:link_type/description:56
 msgid "Indicates the lyricist for this release."
-msgstr ""
+msgstr "Indique le parolier pour cette parution."
 
 #: DB:link_type/description:165
 msgid "Indicates the lyricist for this work."
-msgstr ""
+msgstr "Indique le parolier pour cette œuvre."
 
 #: DB:link_type/description:42
 msgid "Indicates the mastering engineer for this work."
@@ -398,19 +398,19 @@ msgstr "Indique le producteur, coproducteur, producteur délégué. coproducteur
 msgid ""
 "Indicates the publisher of this recording. This is <strong>not</strong> the "
 "same concept as the <a href=\"/doc/Label\">record label</a>."
-msgstr ""
+msgstr "Indique l'éditeur de cet enregistrement. Ce n'est <strong>pas</strong> le même concept que la <a href=\"/doc/Label\">maison de disques</a>."
 
 #: DB:link_type/description:32
 msgid ""
 "Indicates the publisher of this release. This is <strong>not</strong> the "
 "same concept as the <a href=\"/doc/Label\">record label</a>."
-msgstr ""
+msgstr "Indique l'éditeur de cet enregistrement. Ce n'est <strong>pas</strong> le même concept que la <a href=\"/doc/Label\">maison de disques</a>."
 
 #: DB:link_type/description:208 DB:link_type/description:161
 msgid ""
 "Indicates the publisher of this work. This is <strong>not</strong> the same "
 "concept as the <a href=\"/doc/Label\">record label</a>."
-msgstr ""
+msgstr "Indique l'éditeur de cette œuvre. Ce n'est <strong>pas</strong> le même concept que la <a href=\"/doc/Label\">maison de disques</a>."
 
 #: DB:link_attribute_type/description:4
 msgid "Lead or solo vocal"
@@ -659,7 +659,7 @@ msgstr "Ceci crédite l'auteur des notes de livret fournies avec cette parution 
 msgid ""
 "This credits the people or agency who did the graphic design, arranging "
 "pieces of content into a coherent and aesthetically-pleasing sleeve design."
-msgstr ""
+msgstr "Ceci crédite les personnes ou l'agence ayant réalisé la conception graphique, arrangé les éléments du contenu en une pochette cohérente et esthétiquement agréable."
 
 #: DB:link_type/description:274
 msgid ""
@@ -707,7 +707,7 @@ msgid ""
 "This describes an engineer involved with the machines used to generate "
 "sound, such as effects processors and digital audio equipment used to modify"
 " or manipulate sound in either an analogue or digital form."
-msgstr ""
+msgstr "Ceci décrit un ingénieur s'occupant des machines utilisées pour générer le son tels que les processeurs à effets et l'équipement audio numérique utilisés pour modifier ou manipuler le son qu'il soit analogique ou numérique."
 
 #: DB:link_type/description:36 DB:link_type/description:128
 msgid ""
@@ -715,7 +715,7 @@ msgid ""
 "tape. This can be as complex as setting up the microphones, amplifiers, and "
 "recording devices, or as simple as pressing the 'record' button on a "
 "4-track."
-msgstr ""
+msgstr "Ceci décrit un ingénieur responsable du transfert de l'interprétation sur une bande. Ceci peu être aussi complexe que de mettre en place les microphones, les amplificateurs et les dispositifs d'enregistrement, ou aussi simple que d'appuyer sur le bouton « Enregistrer » d'un enregistreur à 4 pistes."
 
 #: DB:link_type/description:38 DB:link_type/description:144
 msgid ""
@@ -725,14 +725,14 @@ msgid ""
 "work done by the mix engineer. It can also involve streamlining a longer "
 "track to around the 3 minute mark in order to make it suitable for radio "
 "play (a \"radio edit\")."
-msgstr ""
+msgstr "Ceci décrit un ingénieur responsable du montage d'éléments disparates d'un enregistrement audio ou encore de redistribuer le contenu enregistrer lors des sessions. Ceci est habituellement secondaire ou complémentaire au travail effectué par l'ingénieur de mixage. Il peut aussi alléger une piste plus longue à environ 3 minutes pour l'adapter au passage à la radio (une « version radio »)."
 
 #: DB:link_type/description:29 DB:link_type/description:133
 msgid ""
 "This describes an engineer responsible for ensuring that the sounds that the"
 " artists make reach the microphones sounding pleasant, without unwanted "
 "resonance or noise. Sometimes known as acoustical engineering."
-msgstr ""
+msgstr "Ceci décrit un ingénieur devant s'assurer que les sons produits par les artistes atteignent les microphones en étant plaisant à l'oreille, sans résonance ni bruit indésirable.  Il est parfois appelé ingénieur acousticien."
 
 #: DB:link_type/description:143
 msgid ""
@@ -740,7 +740,7 @@ msgid ""
 "recorded track into a single piece of music suitable for release.​ For "
 "remixing, see <a href=\"/relationship/7950be4d-13a3-48e7-906b-"
 "5af562e39544\">remixer</a>."
-msgstr ""
+msgstr "Ceci décrit un ingénieur responsable de l'utilisation d'une console de mixage pour mélanger une piste enregistrée en une pièce musicale appropriée pour la parution. Pour le remixage, voir <a href=\"/relationship/7950be4d-13a3-48e7-906b-5af562e39544\">remixeur</a>."
 
 #: DB:link_type/description:26
 msgid ""
@@ -748,11 +748,11 @@ msgid ""
 "recorded track into a single piece of music suitable for release.​ For "
 "remixing, see <a href=\"/relationship/ac6a86db-f757-4815-a07e-"
 "744428d2382b\">remixer</a>."
-msgstr ""
+msgstr "Ceci décrit un ingénieur responsable de l'utilisation d'une console de mixage pour mélanger une piste enregistrée en une pièce musicale appropriée pour la parution. Pour le remixage, voir <a href=\"/relationship/ac6a86db-f757-4815-a07e-744428d2382b\">remixeur</a>."
 
 #: DB:link_type/description:28 DB:link_type/description:138
 msgid "This describes an engineer who performed a general engineering role.​"
-msgstr ""
+msgstr "Ceci décrit un ingénieur qui a tenu un rôle général d'ingénierie."
 
 #: DB:link_type/description:103
 msgid "This indicates a person is a member of a group."
@@ -973,7 +973,7 @@ msgid ""
 "This indicates the organization which releases a release. This is "
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\">record "
 "label</a>."
-msgstr ""
+msgstr "Ceci indique l'organisation publiant une parution. Ce n'est <strong>pas</strong> le même concept que la <a href=\"/doc/Label\">maison de disque</a>."
 
 #: DB:link_type/description:48
 msgid ""
@@ -981,7 +981,7 @@ msgid ""
 "compilation. If the tracks are pitched or blended into each other, it is "
 "more appropriate to credit this person as a <a href=\"/relationship"
 "/9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixer</a>."
-msgstr ""
+msgstr "Ceci indique la personne qui a choisi les pistes et la séquence pour une compilation. Si la vitesse des pistes a été modifiée ou si elles se fondent l'une en l'autre, il est plus pertinent de donner le crédit à cette personne en tant que <a href=\"/relationship/9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixeur</a>."
 
 #: DB:link_type/description:147
 msgid ""
@@ -990,7 +990,7 @@ msgid ""
 "songs, one after the other. If the tracks are pitched or blended into each "
 "other, it is more appropriate to credit this person as a <a "
 "href=\"/relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\">DJ-mixer</a>."
-msgstr ""
+msgstr "Ceci indique la personne qui a choisi les pistes et la séquence pour une compilation. Ceci s'applique à une longue piste contenant plusieurs chansons, les unes après les autres. Si la vitesse des pistes a été modifiée ou si elles se fondent l'une en l'autre, il est plus pertinent de donner le crédit à cette personne en tant que a <a href=\"/relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\">DJ-mixeur</a>."
 
 #: DB:link_type/description:98
 msgid ""
@@ -1016,14 +1016,14 @@ msgid ""
 "This is used to indicate that the recording is a <a "
 "href=\"/doc/Mix_Terminology#mash-up\">mash-up</a> of two (or more) other "
 "recordings."
-msgstr ""
+msgstr "Ceci indique que l'enregistrement est un <a href=\"/doc/Mix_Terminology#mash-up\">collage</a> de deux (ou plus) enregistrements."
 
 #: DB:link_type/description:10
 msgid ""
 "This is used to indicate that the release group is a mash-up <a "
 "href=\"/doc/Mix_Terminology#mash-up\">mash-up</a> of two (or more) other "
 "release groups."
-msgstr ""
+msgstr "Ceci est utilisé pour indiqué que le groupe de parution est un <a href=\"/doc/Mix_Terminology#mash-up\">collage</a> de deux (ou plus) groupes de parution."
 
 #: DB:link_type/description:226
 msgid ""
@@ -1158,7 +1158,7 @@ msgstr "Ce lien dirige vers la page d'une parution particulière de la discograp
 msgid ""
 "This links a <a href=\"/doc/Mix_Terminology#DJ_mix\">DJ-mix</a> to the "
 "artist who mixed it."
-msgstr ""
+msgstr "Ceci relie un <a href=\"/doc/Mix_Terminology#DJ_mix\">DJ-mix</a> à l'artiste qui l'a mixé."
 
 #: DB:link_type/description:9
 msgid ""
@@ -1166,20 +1166,20 @@ msgid ""
 "to the source release group and is used to indicate that the release group "
 "includes remixed versions of all (or most of) the tracks in the other "
 "release group."
-msgstr ""
+msgstr "Ceci relie un groupe de parution de <a href=\"/doc/Mix_Terminology#remix\">remix</a> au groupe de parution source et est utilisé pour indiquer que le groupe de parution inclut des versions remixées de toutes (ou presque) les pistes de l'autre groupe de parution."
 
 #: DB:link_type/description:230
 msgid ""
 "This links a <a href=\"/doc/Mix_Terminology#remix\">remixed</a> recording to"
 " the source recording."
-msgstr ""
+msgstr "Ceci relie un enregistrement <a href=\"/doc/Mix_Terminology#remix\">remixé</a> à l'enregistrement source."
 
 #: DB:link_type/description:77
 msgid ""
 "This links a MusicBrainz release to the equivalent entry at Amazon and will "
 "often provide cover art if there is no cover art in the <a "
 "href=\"/doc/Cover_Art_Archive\">Cover Art Archive</a>."
-msgstr ""
+msgstr "Ceci relie une parution MusicBrainz à son entrée équivalente sur Amazon et fournira souvent l'illustration s'il n'y en a pas dans la <a href=\"/doc/Cover_Art_Archive\">« Cover Art Archive »</a>."
 
 #: DB:link_type/description:304
 msgid ""
@@ -1222,14 +1222,14 @@ msgstr "Ceci relie un enregistrement à une licence sous laquelle il est disponi
 msgid ""
 "This links a recording to a page where it can be legally downloaded for "
 "free."
-msgstr ""
+msgstr "Ceci relie un enregistrement à la page où il peut être téléchargé gratuitement et légalement."
 
 #: DB:link_type/description:132
 msgid ""
 "This links a recording to the artist who did the programming for electronic "
 "instruments used on the recording.​ In the most cases, the 'electronic "
 "instrument' is either a synthesizer or a drum machine."
-msgstr ""
+msgstr "Ceci relie un enregistrement à l'artiste qui a programmé les instruments électroniques utilisés sur l'enregistrement. Dans la plupart des cas, l'« instrument électronique » est soit un synthétiseur ou une batterie numérique."
 
 #: DB:link_type/description:726
 msgid "This links a recording to the balance engineer who engineered it."
@@ -1241,7 +1241,7 @@ msgid ""
 "other tracks, substantially altering them and mixing them together with "
 "other material. Note that this includes the artist who created a mash-up or "
 "used samples as well."
-msgstr ""
+msgstr "Ceci relie un enregistrement à la personne l'ayant remixé en prenant une ou des autres pistes, en les modifiant substantiellement et en les mélangeant avec du contenu supplémentaire. Notez que ceci inclut l'artiste ayant créé un collage ou ayant aussi utilisé des échantillons."
 
 #: DB:link_type/description:65
 msgid ""
@@ -1264,14 +1264,14 @@ msgstr "Ceci relie une parution  à une licence sous laquelle elle est disponibl
 #: DB:link_type/description:75
 msgid ""
 "This links a release to a page where it can be legally downloaded for free."
-msgstr ""
+msgstr "Ceci relie une parution à la page où elle peut-être téléchargée gratuitement et légalement."
 
 #: DB:link_type/description:37
 msgid ""
 "This links a release to the artist who did the programming for electronic "
 "instruments used on the release.​ In the most cases, the 'electronic "
 "instrument' is either a synthesizer or a drum machine."
-msgstr ""
+msgstr "Ceci relie une parution à l'artiste qui a programmé les instruments électroniques utilisés sur la parution. Dans la plupart des cas, l'« instrument électronique » est soit un synthétiseur ou une batterie numérique."
 
 #: DB:link_type/description:727
 msgid "This links a release to the balance engineer who engineered it."
@@ -1283,7 +1283,7 @@ msgid ""
 "other tracks, substantially altering them and mixing them together with "
 "other material. Note that this includes the artist who created a mash-up or "
 "used samples as well."
-msgstr ""
+msgstr "Ceci relie une parution à la personne l'ayant remixée en prenant une ou des autres pistes, en les modifiant substantiellement et en les mélangeant avec du contenu supplémentaire. Notez que ceci inclut l'artiste ayant créé un collage ou ayant aussi utilisé des échantillons."
 
 #: DB:link_type/description:720
 msgid "This links a release with the place that held its launch event."
@@ -1449,7 +1449,7 @@ msgid ""
 "playback equipment. The process generally doesn't involve changing the music"
 " in any artistically important way. It may, however, result in recordings "
 "that differ in length by a few seconds."
-msgstr ""
+msgstr "Ceci relie deux parutions, l'une étant un <a href=\"/doc/Mix_Terminology#remaster\">rematriçage</a> de l'autre. On y procède habituellement pour améliorer la qualité audio ou pour l'ajuster à des équipement de reproduction plus modernes. Le processus n'implique généralement pas de changer la musique d'une façon artistique importante. Il est toutefois possible que les enregistrements soient plus longs de quelques secondes."
 
 #: DB:link_type/description:110
 msgid "This links two siblings (brothers or sisters)."
