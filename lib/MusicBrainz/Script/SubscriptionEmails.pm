@@ -11,6 +11,7 @@ use aliased 'MusicBrainz::Server::Entity::Subscription::Artist' => 'ArtistSubscr
 use aliased 'MusicBrainz::Server::Entity::CollectionSubscription';
 use aliased 'MusicBrainz::Server::Entity::EditorSubscription';
 use aliased 'MusicBrainz::Server::Entity::Subscription::Label' => 'LabelSubscription';
+use aliased 'MusicBrainz::Server::Entity::Subscription::Series' => 'SeriesSubscription';
 
 use aliased 'MusicBrainz::Server::Entity::Subscription::Active' => 'ActiveRole';
 use aliased 'MusicBrainz::Server::Entity::Subscription::Deleted' => 'DeleteRole';
@@ -156,6 +157,9 @@ sub load_subscription
     }
     elsif ($subscription->isa(LabelSubscription)) {
         $self->c->model('Label')->load($subscription);
+    }
+    elsif ($subscription->isa(SeriesSubscription)) {
+        $self->c->model('Series')->load($subscription);
     }
     elsif ($subscription->isa(CollectionSubscription)) {
         $self->c->model('Collection')->load($subscription);
