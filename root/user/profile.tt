@@ -47,6 +47,7 @@
 
         [% WRAPPER property name=l("User type:") %]
             [% types = [] %]
+            [% types.push(l('Deleted User')) IF user.deleted %]
             [% types.push(l('{doc|Auto-Editor}', {doc => doc_link('Auto-Editor')})) IF user.is_auto_editor %]
             [% types.push(l("Internal/Bot")) IF user.is_bot %]
             [% types.push(l('{doc|Relationship Editor}', {doc => doc_link('Relationship_Editor')})) IF user.is_relationship_editor %]
@@ -57,7 +58,7 @@
                            IF user.is_limited %]
             [% types.push(l('Normal User')) IF types.size == 0 %]
             [% comma_list(types) %]
-            [% IF c.user.is_auto_editor && !user.is_auto_editor %]
+            [% IF c.user.can_nominate(user) %]
                 (<a href="[% c.uri_for_action('/elections/nominate', user.name) %]">[% l("nominate for auto-editor") %]</a>)
             [% END %]
         [% END %]
