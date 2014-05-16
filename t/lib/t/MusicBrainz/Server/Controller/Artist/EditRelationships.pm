@@ -230,12 +230,10 @@ test 'editing a relationship' => sub {
             new => {
                 begin_date  => { month => undef, day => undef, year => undef },
                 ended       => 0,
-                attributes  => bag(1, 4),
             },
             old => {
                 begin_date  => { month => 1, day => 1, year => 1999 },
                 ended       => 1,
-                attributes  => bag(1, 4),
             },
         });
 
