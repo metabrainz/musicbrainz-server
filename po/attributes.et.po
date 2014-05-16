@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-05-15 11:18+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-05-15 22:03+0000\n"
+"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -81,7 +81,7 @@ msgstr "album"
 #: DB:series_ordering_type/description:2
 msgctxt "series_ordering_type"
 msgid "Allows for manually setting the position of each item in the series."
-msgstr ""
+msgstr "Lubab seeria iga elemendi järjestuse käsitsi määrata."
 
 #: DB:work_attribute_type_allowed_value/value:40
 msgctxt "work_attribute_type_allowed_value"
@@ -126,7 +126,7 @@ msgstr "heliraamat"
 #: DB:series_ordering_type/name:1
 msgctxt "series_ordering_type"
 msgid "Automatic"
-msgstr ""
+msgstr "automaatne"
 
 #: DB:work_attribute_type_allowed_value/value:45
 msgctxt "work_attribute_type_allowed_value"
@@ -391,7 +391,7 @@ msgstr "kassetikarp"
 #: DB:series_type/name:5
 msgctxt "series_type"
 msgid "Catalog"
-msgstr ""
+msgstr "kataloog"
 
 #: DB:work_attribute_type_allowed_value/value:291
 msgctxt "work_attribute_type_allowed_value"
@@ -666,7 +666,7 @@ msgstr "EP"
 #: DB:instrument_type/name:4
 msgctxt "instrument_type"
 msgid "Electronic instrument"
-msgstr ""
+msgstr "Elektrooniline pill"
 
 #: DB:work_attribute_type_allowed_value/value:17
 msgctxt "work_attribute_type_allowed_value"
@@ -916,27 +916,27 @@ msgstr "imprint"
 #: DB:series_type/description:5
 msgctxt "series_type"
 msgid "Indicates that the series is a works catalog."
-msgstr ""
+msgstr "Määrab, et seeria koosneb teosekataloogidest."
 
 #: DB:series_type/description:3
 msgctxt "series_type"
 msgid "Indicates that the series is of recordings."
-msgstr ""
+msgstr "Määrab, et seeria koosneb salvestistest."
 
 #: DB:series_type/description:1
 msgctxt "series_type"
 msgid "Indicates that the series is of release groups."
-msgstr ""
+msgstr "Määrab, et seeria koosneb väljalaskerühmadest."
 
 #: DB:series_type/description:2
 msgctxt "series_type"
 msgid "Indicates that the series is of releases."
-msgstr ""
+msgstr "Määrab, et seeria koosneb väljalasetest."
 
 #: DB:series_type/description:4
 msgctxt "series_type"
 msgid "Indicates that the series is of works."
-msgstr ""
+msgstr "Määrab, et seeria koosneb teostest."
 
 #: DB:place_type/name:5
 msgctxt "place_type"
@@ -946,7 +946,7 @@ msgstr "sisehall"
 #: DB:instrument_alias_type/name:1
 msgctxt "alias_type"
 msgid "Instrument name"
-msgstr ""
+msgstr "instrumendi nimi"
 
 #: DB:release_group_secondary_type/name:4
 msgctxt "release_group_secondary_type"
@@ -1306,7 +1306,7 @@ msgstr "Mandāri"
 #: DB:series_ordering_type/name:2
 msgctxt "series_ordering_type"
 msgid "Manual"
-msgstr ""
+msgstr "käsitsi"
 
 #: DB:work_attribute_type_allowed_value/value:172
 msgctxt "work_attribute_type_allowed_value"
@@ -1611,7 +1611,7 @@ msgstr "muu"
 #: DB:instrument_type/name:5
 msgctxt "instrument_type"
 msgid "Other instrument"
-msgstr ""
+msgstr "Muu pill"
 
 #: DB:work_type/name:12
 msgctxt "work_type"
@@ -1636,7 +1636,7 @@ msgstr "Paṭdīp"
 #: DB:instrument_type/name:3
 msgctxt "instrument_type"
 msgid "Percussion instrument"
-msgstr ""
+msgstr "Löökpill"
 
 #: DB:artist_type/name:1
 msgctxt "artist_type"
@@ -1751,7 +1751,7 @@ msgstr "Ravicandrika"
 #: DB:series_type/name:3
 msgctxt "series_type"
 msgid "Recording"
-msgstr ""
+msgstr "salvestis"
 
 #: DB:medium_format/name:10
 msgctxt "medium_format"
@@ -1766,12 +1766,12 @@ msgstr "kordusväljaannete tootmine"
 #: DB:series_type/name:2
 msgctxt "series_type"
 msgid "Release"
-msgstr ""
+msgstr "väljalase"
 
 #: DB:series_type/name:1
 msgctxt "series_type"
 msgid "Release group"
-msgstr ""
+msgstr "väljalaskerühm"
 
 #: DB:release_group_secondary_type/name:7
 msgctxt "release_group_secondary_type"
@@ -1904,7 +1904,7 @@ msgstr "Sencuruṭṭi"
 #: DB:series_alias_type/name:1
 msgctxt "alias_type"
 msgid "Series name"
-msgstr ""
+msgstr "seeria pealkiri"
 
 #: DB:work_attribute_type_allowed_value/value:236
 msgctxt "work_attribute_type_allowed_value"
@@ -1961,7 +1961,7 @@ msgctxt "series_ordering_type"
 msgid ""
 "Sorts the items in the series automatically by their number attributes, "
 "using a natural sort order."
-msgstr ""
+msgstr "Seeria elemendid järjestatakse automaatselt nende järjekorranumbri järgi, kasutades loomulikku sortimisjärjestust."
 
 #: DB:work_type/name:22
 msgctxt "work_type"
@@ -1996,7 +1996,7 @@ msgstr "kleeps"
 #: DB:instrument_type/name:2
 msgctxt "instrument_type"
 msgid "String instrument"
-msgstr ""
+msgstr "Keelpill"
 
 #: DB:place_type/name:1
 msgctxt "place_type"
@@ -2256,12 +2256,12 @@ msgstr "vaharull"
 #: DB:instrument_type/name:1
 msgctxt "instrument_type"
 msgid "Wind instrument"
-msgstr ""
+msgstr "Õhkpill"
 
 #: DB:series_type/name:4
 msgctxt "series_type"
 msgid "Work"
-msgstr ""
+msgstr "teos"
 
 #: DB:work_alias_type/name:1
 msgctxt "alias_type"

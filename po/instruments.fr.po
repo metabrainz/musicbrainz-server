@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-05-15 11:19+0000\n"
+"PO-Revision-Date: 2014-05-16 14:14+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -227,7 +227,7 @@ msgstr "agogô"
 
 #: DB:instrument/name:642
 msgid "ajaeng"
-msgstr ""
+msgstr "ajaeng"
 
 #: DB:instrument/name:508
 msgid "algozey"
@@ -791,7 +791,7 @@ msgstr "dilruba"
 
 #: DB:instrument/name:317
 msgid "ding tac ta"
-msgstr ""
+msgstr "ding tac ta"
 
 #: DB:instrument/name:220
 msgid "diyingehu"
@@ -868,6 +868,10 @@ msgstr "duxianqin"
 #: DB:instrument/name:327
 msgid "ebow"
 msgstr "ebow"
+
+#: DB:instrument/name:643
+msgid "ektara"
+msgstr ""
 
 #: DB:instrument/name:51
 msgid "electric bass guitar"
@@ -1029,6 +1033,10 @@ msgstr "gamelan"
 msgid "gankogui"
 msgstr "gankogui"
 
+#: DB:instrument/name:644
+msgid "ganzá"
+msgstr ""
+
 #: DB:instrument/name:216
 msgid "gaohu"
 msgstr "gaohu"
@@ -1092,6 +1100,10 @@ msgstr "flûte à bec grande basse"
 #: DB:instrument/name:230
 msgid "gudok"
 msgstr "gudok"
+
+#: DB:instrument/name:645
+msgid "guitalele"
+msgstr ""
 
 #: DB:instrument/name:177
 msgid "guitar"
@@ -2075,7 +2087,7 @@ msgstr "piano honky tonk"
 
 #: DB:instrument/name:641
 msgid "taepyeongso"
-msgstr ""
+msgstr "taepyeongso"
 
 #: DB:instrument/name:378
 msgid "taiko"
@@ -2571,7 +2583,7 @@ msgstr "ōtsuzumi"
 
 #: DB:instrument/name:589
 msgid "żafżafa"
-msgstr ""
+msgstr "żafżafa"
 
 #: DB:instrument/name:590
 msgid "żaqq"

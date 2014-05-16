@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-05-15 11:18+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-05-15 11:57+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -85,7 +85,7 @@ msgstr "Album"
 #: DB:series_ordering_type/description:2
 msgctxt "series_ordering_type"
 msgid "Allows for manually setting the position of each item in the series."
-msgstr ""
+msgstr "Maakt het mogelijk om de positie van ieder object in een serie handmatig in te stellen."
 
 #: DB:work_attribute_type_allowed_value/value:40
 msgctxt "work_attribute_type_allowed_value"
@@ -130,7 +130,7 @@ msgstr "Luisterboek"
 #: DB:series_ordering_type/name:1
 msgctxt "series_ordering_type"
 msgid "Automatic"
-msgstr ""
+msgstr "Automatisch"
 
 #: DB:work_attribute_type_allowed_value/value:45
 msgctxt "work_attribute_type_allowed_value"
@@ -395,7 +395,7 @@ msgstr "Cassettedoosje"
 #: DB:series_type/name:5
 msgctxt "series_type"
 msgid "Catalog"
-msgstr ""
+msgstr "Catalogus"
 
 #: DB:work_attribute_type_allowed_value/value:291
 msgctxt "work_attribute_type_allowed_value"
@@ -670,7 +670,7 @@ msgstr "EP"
 #: DB:instrument_type/name:4
 msgctxt "instrument_type"
 msgid "Electronic instrument"
-msgstr ""
+msgstr "Elektronisch instrument"
 
 #: DB:work_attribute_type_allowed_value/value:17
 msgctxt "work_attribute_type_allowed_value"
@@ -920,27 +920,27 @@ msgstr "Imprint"
 #: DB:series_type/description:5
 msgctxt "series_type"
 msgid "Indicates that the series is a works catalog."
-msgstr ""
+msgstr "Geeft aan dat de serie een compositiecatalogus is."
 
 #: DB:series_type/description:3
 msgctxt "series_type"
 msgid "Indicates that the series is of recordings."
-msgstr ""
+msgstr "Geeft aan dat de serie opnames bevat."
 
 #: DB:series_type/description:1
 msgctxt "series_type"
 msgid "Indicates that the series is of release groups."
-msgstr ""
+msgstr "Geeft aan dat de serie uitgavegroepen bevat."
 
 #: DB:series_type/description:2
 msgctxt "series_type"
 msgid "Indicates that the series is of releases."
-msgstr ""
+msgstr "Geeft aan dat de serie uitgaves bevat."
 
 #: DB:series_type/description:4
 msgctxt "series_type"
 msgid "Indicates that the series is of works."
-msgstr ""
+msgstr "Geeft aan dat de serie composities bevat."
 
 #: DB:place_type/name:5
 msgctxt "place_type"
@@ -950,7 +950,7 @@ msgstr "Indoor arena"
 #: DB:instrument_alias_type/name:1
 msgctxt "alias_type"
 msgid "Instrument name"
-msgstr ""
+msgstr "Naam van het instrument"
 
 #: DB:release_group_secondary_type/name:4
 msgctxt "release_group_secondary_type"
@@ -1310,7 +1310,7 @@ msgstr "Mandāri"
 #: DB:series_ordering_type/name:2
 msgctxt "series_ordering_type"
 msgid "Manual"
-msgstr ""
+msgstr "Handmatig"
 
 #: DB:work_attribute_type_allowed_value/value:172
 msgctxt "work_attribute_type_allowed_value"
@@ -1615,7 +1615,7 @@ msgstr "Overig"
 #: DB:instrument_type/name:5
 msgctxt "instrument_type"
 msgid "Other instrument"
-msgstr ""
+msgstr "Overig instrument"
 
 #: DB:work_type/name:12
 msgctxt "work_type"
@@ -1640,7 +1640,7 @@ msgstr "Paṭdīp"
 #: DB:instrument_type/name:3
 msgctxt "instrument_type"
 msgid "Percussion instrument"
-msgstr ""
+msgstr "Percussie-instrument"
 
 #: DB:artist_type/name:1
 msgctxt "artist_type"
@@ -1755,7 +1755,7 @@ msgstr "Ravicandrika"
 #: DB:series_type/name:3
 msgctxt "series_type"
 msgid "Recording"
-msgstr ""
+msgstr "Opname"
 
 #: DB:medium_format/name:10
 msgctxt "medium_format"
@@ -1770,12 +1770,12 @@ msgstr "Heruitgaveproductie"
 #: DB:series_type/name:2
 msgctxt "series_type"
 msgid "Release"
-msgstr ""
+msgstr "Uitgave"
 
 #: DB:series_type/name:1
 msgctxt "series_type"
 msgid "Release group"
-msgstr ""
+msgstr "Uitgavegroep"
 
 #: DB:release_group_secondary_type/name:7
 msgctxt "release_group_secondary_type"
@@ -1908,7 +1908,7 @@ msgstr "Sencuruṭṭi"
 #: DB:series_alias_type/name:1
 msgctxt "alias_type"
 msgid "Series name"
-msgstr ""
+msgstr "Serienaam"
 
 #: DB:work_attribute_type_allowed_value/value:236
 msgctxt "work_attribute_type_allowed_value"
@@ -1965,7 +1965,7 @@ msgctxt "series_ordering_type"
 msgid ""
 "Sorts the items in the series automatically by their number attributes, "
 "using a natural sort order."
-msgstr ""
+msgstr "Sorteert de objecten in een serie automatisch aan de hand van de nummereigenschappen. Maakt hierbij gebruik van een natuurlijke volgorde."
 
 #: DB:work_type/name:22
 msgctxt "work_type"
@@ -2000,7 +2000,7 @@ msgstr "Sticker"
 #: DB:instrument_type/name:2
 msgctxt "instrument_type"
 msgid "String instrument"
-msgstr ""
+msgstr "Snaarinstrument"
 
 #: DB:place_type/name:1
 msgctxt "place_type"
@@ -2260,12 +2260,12 @@ msgstr "Wascilinder"
 #: DB:instrument_type/name:1
 msgctxt "instrument_type"
 msgid "Wind instrument"
-msgstr ""
+msgstr "Blaasinstrument"
 
 #: DB:series_type/name:4
 msgctxt "series_type"
 msgid "Work"
-msgstr ""
+msgstr "Compositie"
 
 #: DB:work_alias_type/name:1
 msgctxt "alias_type"

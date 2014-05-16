@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-05-15 11:19+0000\n"
+"PO-Revision-Date: 2014-05-16 14:14+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -869,6 +869,10 @@ msgstr ""
 msgid "ebow"
 msgstr ""
 
+#: DB:instrument/name:643
+msgid "ektara"
+msgstr ""
+
 #: DB:instrument/name:51
 msgid "electric bass guitar"
 msgstr "sähköbasso"
@@ -1029,6 +1033,10 @@ msgstr "gamelan"
 msgid "gankogui"
 msgstr ""
 
+#: DB:instrument/name:644
+msgid "ganzá"
+msgstr ""
+
 #: DB:instrument/name:216
 msgid "gaohu"
 msgstr ""
@@ -1091,6 +1099,10 @@ msgstr "c-bassonokkahuilu"
 
 #: DB:instrument/name:230
 msgid "gudok"
+msgstr ""
+
+#: DB:instrument/name:645
+msgid "guitalele"
 msgstr ""
 
 #: DB:instrument/name:177

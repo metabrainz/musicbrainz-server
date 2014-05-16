@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-05-15 11:19+0000\n"
+"PO-Revision-Date: 2014-05-16 14:14+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -225,7 +225,7 @@ msgstr "agogô"
 
 #: DB:instrument/name:642
 msgid "ajaeng"
-msgstr ""
+msgstr "ajaeng"
 
 #: DB:instrument/name:508
 msgid "algozey"
@@ -269,7 +269,7 @@ msgstr "barokklauto (arhilauto)"
 
 #: DB:instrument/name:634
 msgid "arghul"
-msgstr ""
+msgstr "arghul"
 
 #: DB:instrument/name:565
 msgid "atarigane"
@@ -867,6 +867,10 @@ msgstr "dúxiánqín"
 msgid "ebow"
 msgstr "e-bow"
 
+#: DB:instrument/name:643
+msgid "ektara"
+msgstr ""
+
 #: DB:instrument/name:51
 msgid "electric bass guitar"
 msgstr "elektribasskitarr"
@@ -1027,6 +1031,10 @@ msgstr "gamelan"
 msgid "gankogui"
 msgstr "gankogui"
 
+#: DB:instrument/name:644
+msgid "ganzá"
+msgstr ""
+
 #: DB:instrument/name:216
 msgid "gaohu"
 msgstr "gāohú"
@@ -1090,6 +1098,10 @@ msgstr "suur bassplokkflööt"
 #: DB:instrument/name:230
 msgid "gudok"
 msgstr "gudok"
+
+#: DB:instrument/name:645
+msgid "guitalele"
+msgstr ""
 
 #: DB:instrument/name:177
 msgid "guitar"
@@ -2569,7 +2581,7 @@ msgstr "ōtsuzumi"
 
 #: DB:instrument/name:589
 msgid "żafżafa"
-msgstr ""
+msgstr "żafżafa"
 
 #: DB:instrument/name:590
 msgid "żaqq"

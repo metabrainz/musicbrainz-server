@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-04-10 15:58+0000\n"
+"PO-Revision-Date: 2014-05-15 15:41+0000\n"
 "Last-Translator: Alain-Olivier  Breysse\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -922,7 +922,7 @@ msgstr "Nombre de toutes les balises de groupe de parution (brut)"
 
 #: ../root/statistics/view_js.tt:153
 msgid "Count of all Release Groups with {n} Releases"
-msgstr "Nombre de tous les groupes de parution {n} parutions"
+msgstr "Nombre de tous les groupes de parution ayant {n} parutions"
 
 #: ../root/statistics/view_js.tt:181
 msgid "Count of all Release Tags (raw)"
