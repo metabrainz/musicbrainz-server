@@ -540,7 +540,7 @@ MB.Control.URLCleanup = function (options) {
     self.typeControl = $(options.typeControl);
     self.urlControl = $(options.urlControl);
     self.sourceType = options.sourceType;
-    self.errorCallback = options.errorCallback;
+    self.errorCallback = options.errorCallback || function () { return ""; };
 
     ko.computed(function () {
         $("button[type=submit]").prop("disabled", !!self.errorCallback());
