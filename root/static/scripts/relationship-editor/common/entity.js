@@ -40,6 +40,13 @@
                     return false;
                 }
 
+                // Always display added/edited/removed relationships, even if
+                // the cardinality is wrong; otherwise invisible changes can
+                // be submitted.
+                if (relationship.hasChanges()) {
+                    return true;
+                }
+
                 return viewModel.goodCardinality(
                     relationship.linkTypeID(),
                     self.entityType,
