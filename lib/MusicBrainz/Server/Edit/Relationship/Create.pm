@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Edit::Relationship::Create;
 use Moose;
 
+use List::AllUtils qw( any );
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash );
 use MusicBrainz::Server::Translation qw( N_l );
 
@@ -101,6 +102,8 @@ sub initialize
     delete $opts{link_order} unless $opts{link_order} && $lt->orderable_direction;
 
     normalize_date_period(\%opts);
+    delete $opts{begin_date} unless any { defined($_) } values %{ $opts{begin_date} };
+    delete $opts{end_date} unless any { defined($_) } values %{ $opts{end_date} };
 
     $self->data({ %opts });
 }
