@@ -3,6 +3,7 @@ use JSON;
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_CREATE
     $EDIT_RELEASE_EDIT
+    $EDIT_RELEASE_ADDRELEASELABEL
     $EDIT_RELEASEGROUP_CREATE
     $EDIT_MEDIUM_CREATE
     $EDIT_MEDIUM_EDIT
@@ -450,6 +451,59 @@ test 'previewing/creating/editing a release group and release' => sub {
             ]
         },
         old => ignore(),
+    });
+
+
+    # Add some release labels.
+
+    my $release_label_edits = [
+        {
+            edit_type       => $EDIT_RELEASE_ADDRELEASELABEL,
+            release         => 4,
+            label           => 1,
+            catalog_number  => 'FOO 123',
+        },
+        {
+            edit_type       => $EDIT_RELEASE_ADDRELEASELABEL,
+            release         => 4,
+            label           => undef,
+            catalog_number  => 'BAR 456',
+        },
+        {
+            edit_type       => $EDIT_RELEASE_ADDRELEASELABEL,
+            release         => 4,
+            label           => 2,
+            catalog_number  => undef,
+        },
+    ];
+
+    @edits = capture_edits {
+        post_json($mech, '/ws/js/edit/create', encode_json({
+            edits => $release_label_edits,
+            asAutoEditor => 0,
+        }));
+    } $c;
+
+    isa_ok($edits[0], 'MusicBrainz::Server::Edit::Release::AddReleaseLabel', 'release label 1 edit');
+    isa_ok($edits[1], 'MusicBrainz::Server::Edit::Release::AddReleaseLabel', 'release label 2 edit');
+    isa_ok($edits[2], 'MusicBrainz::Server::Edit::Release::AddReleaseLabel', 'release label 3 edit');
+
+    cmp_deeply($edits[0]->data, {
+        release         => { name => 'Vision Creation Newsun', id => 4 },
+        label           => { name => 'Deleted Label', id => 1 },
+        catalog_number  => 'FOO 123',
+    });
+
+    cmp_deeply($edits[1]->data, {
+        release         => { name => 'Vision Creation Newsun', id => 4 },
+        label           => undef,
+        catalog_number  => 'BAR 456',
+    });
+
+    cmp_deeply($edits[2]->data, {
+        release         => { name => 'Vision Creation Newsun', id => 4 },
+        label           => { name => 'Warp Records', id => 2 },
+        catalog_number  => undef,
     });
 };
 
