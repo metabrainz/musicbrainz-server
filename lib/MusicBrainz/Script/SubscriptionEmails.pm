@@ -2,7 +2,6 @@ package MusicBrainz::Script::SubscriptionEmails;
 use Moose;
 use namespace::autoclean;
 
-use List::Util qw( max );
 use Moose::Util qw( does_role );
 use MusicBrainz::Server::Constants qw( :edit_status );
 
