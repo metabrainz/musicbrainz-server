@@ -11,6 +11,7 @@ use aliased 'MusicBrainz::Server::Entity::Subscription::Artist' => 'ArtistSubscr
 use aliased 'MusicBrainz::Server::Entity::CollectionSubscription';
 use aliased 'MusicBrainz::Server::Entity::EditorSubscription';
 use aliased 'MusicBrainz::Server::Entity::Subscription::Label' => 'LabelSubscription';
+use aliased 'MusicBrainz::Server::Entity::Subscription::Series' => 'SeriesSubscription';
 
 use aliased 'MusicBrainz::Server::Entity::Subscription::Active' => 'ActiveRole';
 use aliased 'MusicBrainz::Server::Entity::Subscription::Deleted' => 'DeleteRole';
