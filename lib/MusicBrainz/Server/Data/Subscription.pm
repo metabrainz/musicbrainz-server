@@ -8,6 +8,8 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_ARTIST_DELETE
     $EDIT_LABEL_MERGE
     $EDIT_LABEL_DELETE
+    $EDIT_SERIES_MERGE
+    $EDIT_SERIES_DELETE
 );
 use MusicBrainz::Server::Data::Utils qw(
     is_special_artist
@@ -186,8 +188,8 @@ sub get_subscriptions
              JOIN ${column}_deletion del USING (gid)
              JOIN edit ON (edit.id = deleted_by)
              WHERE sub.editor = ?",
-            [ $EDIT_ARTIST_MERGE, $EDIT_LABEL_MERGE ],
-            [ $EDIT_ARTIST_DELETE, $EDIT_LABEL_DELETE ],
+            [ $EDIT_ARTIST_MERGE, $EDIT_LABEL_MERGE, $EDIT_SERIES_MERGE ],
+            [ $EDIT_ARTIST_DELETE, $EDIT_LABEL_DELETE, $EDIT_SERIES_DELETE ],
             $editor_id
         )
     }

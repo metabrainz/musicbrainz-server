@@ -157,6 +157,9 @@ sub load_subscription
     elsif ($subscription->isa(LabelSubscription)) {
         $self->c->model('Label')->load($subscription);
     }
+    elsif ($subscription->isa(SeriesSubscription)) {
+        $self->c->model('Series')->load($subscription);
+    }
     elsif ($subscription->isa(CollectionSubscription)) {
         $self->c->model('Collection')->load($subscription);
     }
