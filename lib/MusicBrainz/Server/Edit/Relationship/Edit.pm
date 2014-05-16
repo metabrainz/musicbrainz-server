@@ -243,7 +243,7 @@ sub _mapping
         begin_date => sub { return partial_date_to_hash(shift->link->begin_date); },
         end_date =>   sub { return partial_date_to_hash(shift->link->end_date);   },
         ended => sub { return shift->link->ended },
-        attributes => sub { return [ map { $_->id } shift->link->all_attributes ]; },
+        attributes => sub { return [ sort map { $_->id } shift->link->all_attributes ]; },
         link_type => sub {
             my $rel = shift;
             my $lt = $rel->link->type;
