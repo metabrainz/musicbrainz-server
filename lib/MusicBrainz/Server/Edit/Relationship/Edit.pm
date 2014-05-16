@@ -7,9 +7,9 @@ use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_EDIT );
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash Nullable NullableOnPreview );
+use MusicBrainz::Server::Edit::Utils qw( normalize_date_period );
 use MusicBrainz::Server::Data::Utils qw(
   partial_date_to_hash
   type_to_model
@@ -19,6 +19,7 @@ use MusicBrainz::Server::Translation qw( N_l );
 use aliased 'MusicBrainz::Server::Entity::Link';
 use aliased 'MusicBrainz::Server::Entity::LinkType';
 use aliased 'MusicBrainz::Server::Entity::Relationship';
+use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Relationship';
@@ -158,8 +159,8 @@ sub _build_relationship
     return Relationship->new(
         link => Link->new(
             type       => $loaded->{LinkType}{ $lt->{id} } || LinkType->new( $lt ),
-            begin_date => MusicBrainz::Server::Entity::PartialDate->new_from_row( $begin ),
-            end_date   => MusicBrainz::Server::Entity::PartialDate->new_from_row( $end ),
+            begin_date => PartialDate->new_from_row( $begin ),
+            end_date   => PartialDate->new_from_row( $end ),
             ended      => $ended,
             attributes => [
                 map {
@@ -324,6 +325,8 @@ sub initialize
         reverse_link_phrase => $opts{link_type}->reverse_link_phrase,
         long_link_phrase => $opts{link_type}->long_link_phrase
     } if $opts{link_type};
+
+    normalize_date_period(\%opts);
 
     $self->relationship($relationship);
     $self->data({

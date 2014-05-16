@@ -86,7 +86,7 @@ MB.Control.initialize_guess_case = function (type, form_prefix) {
     var gc = MB.Control.GuessCase(type, $name);
     MB.Control.initializeBubble($gcdoc, $name, gc);
 
-    if (type === 'label' || type === 'artist' || type === 'area')
+    if (type === 'label' || type === 'artist' || type === 'area' || type === 'series')
     {
         var $sortname = $('input#' + form_prefix + '\\.sort_name');
         var $sortdoc = $('#sortname-bubble');

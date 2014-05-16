@@ -100,6 +100,16 @@ is_deeply($edits[1]->data, {
         'name' => 'http://microsoft.com/',
         'id' => 5
     },
+    'begin_date' => {
+        'month' => undef,
+        'day' => undef,
+        'year' => undef
+    },
+    'end_date' => {
+        'month' => undef,
+        'day' => undef,
+        'year' => undef
+    },
     'ended' => 0,
     'entity0' => {
         'name' => 'Faye Wong',

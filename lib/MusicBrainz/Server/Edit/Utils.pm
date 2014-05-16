@@ -11,6 +11,7 @@ use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
 use MusicBrainz::Server::Translation qw( N_l );
 use Set::Scalar;
+use Hash::Merge qw( merge );
 use Try::Tiny;
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
@@ -40,6 +41,7 @@ our @EXPORT_OK = qw(
     merge_partial_date
     merge_set
     merge_value
+    normalize_date_period
     load_artist_credit_definitions
     status_names
     verify_artist_credits
@@ -229,6 +231,16 @@ sub clean_submitted_artist_credits
     return $ac;
 }
 
+sub normalize_date_period {
+    my $opts = shift;
+    my $empty_date = partial_date_to_hash( PartialDate->new );
+    $opts->{begin_date} = merge($opts->{begin_date} // {}, $empty_date);
+    $opts->{end_date} = merge($opts->{end_date} // {}, $empty_date);
+    $opts->{ended} ||= 0;
+    $opts->{ended} = 1
+        if (defined $opts->{end_date}{year}) # year can be 0 in the proleptic Gregorian calendar
+           || $opts->{end_date}{month} || $opts->{end_date}{day};
+}
 
 sub changed_relations
 {
@@ -286,7 +298,6 @@ sub status_names
 {
     return \@STATUS_MAP;
 }
-
 
 sub hash_artist_credit {
     return _hash_artist_credit(shift)
