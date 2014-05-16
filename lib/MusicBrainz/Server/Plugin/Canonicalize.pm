@@ -19,4 +19,12 @@ sub canonicalize
     return $url;
 }
 
+sub replace_gid
+{
+    my ($self, $c, $new_gid) = @_;
+    my $new_captures = [$new_gid];
+    push(@$new_captures, @{ $c->req->captures }[1..scalar(@{ $c->req->captures })-1]);
+    return $c->uri_for_action($c->action->private_path, $new_captures, @{ $c->req->args }, $c->req->query_params);
+}
+
 1;
