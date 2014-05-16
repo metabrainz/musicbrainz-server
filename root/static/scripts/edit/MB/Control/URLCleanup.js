@@ -36,7 +36,8 @@ MB.constants.LINK_TYPES = {
         label: 217,
         place: 705,
         release: 76,
-        release_group: 90
+        release_group: 90,
+        series: 747
     },
     imdb: {
         artist: 178,
@@ -163,6 +164,7 @@ MB.constants.LINK_TYPES = {
         recording: 306,
         release: 82,
         release_group: 96,
+        series: 746,
         work: 273
     },
     viaf: {
@@ -177,7 +179,8 @@ MB.constants.LINK_TYPES = {
         release_group: 353,
         work: 351,
         place: 594,
-        instrument: 733
+        instrument: 733,
+        series: 749
     },
     bandcamp: {
         artist: 718,
@@ -537,7 +540,7 @@ MB.Control.URLCleanup = function (options) {
     self.typeControl = $(options.typeControl);
     self.urlControl = $(options.urlControl);
     self.sourceType = options.sourceType;
-    self.errorCallback = options.errorCallback;
+    self.errorCallback = options.errorCallback || function () { return ""; };
 
     ko.computed(function () {
         $("button[type=submit]").prop("disabled", !!self.errorCallback());

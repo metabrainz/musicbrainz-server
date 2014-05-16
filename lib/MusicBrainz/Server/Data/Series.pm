@@ -242,9 +242,10 @@ sub automatically_reorder {
         $series_id
     );
 
-    my %relationships_by_text_value = map {
-        $_->{text_value} => $_->{relationship}
-    } @$pairs;
+    my %relationships_by_text_value;
+    for my $pair (@$pairs) {
+        push(@{ $relationships_by_text_value{$pair->{text_value}} }, $pair->{relationship});
+    }
 
     my @sorted_values = map { $_->[0] } sort {
         my ($a_parts, $b_parts) = ($a->[1], $b->[1]);
@@ -270,8 +271,10 @@ sub automatically_reorder {
     my @from_values;
 
     for (my $i = 0; $i < @sorted_values; $i++) {
-        push @from_values, "(?, ?)";
-        push @from_args, $relationships_by_text_value{$sorted_values[$i]}, $i+1;
+        for my $relationship (@{ $relationships_by_text_value{$sorted_values[$i]} }) {
+            push @from_values, "(?, ?)";
+            push @from_args, $relationship, $i+1;
+        }
     }
 
     return unless @from_args;

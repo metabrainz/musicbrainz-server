@@ -406,6 +406,7 @@
                   optionsValue: 'value',
                   optionsText: 'text',
                   optionsCaption: '',
+                  optionsAfterRender: MB.forms.setDisabledOption,
                   value: linkTypeID,
                   visible: showTypeSelection()"></select>
       </td>

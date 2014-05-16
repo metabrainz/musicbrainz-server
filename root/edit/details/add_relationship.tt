@@ -6,6 +6,12 @@
       [% display_relationship(edit.display_data.relationship, 'verbose_phrase') %]
     </td>
   </tr>
+  [% IF edit.data.link_order.defined %]
+  <tr>
+    <th>[% l('Link order:') %]</th>
+    <td>[% edit.data.link_order %]</td>
+  </tr>
+  [% END %]
   [% IF edit.display_data.unknown_attributes %]
   <tr>
     <th></th>

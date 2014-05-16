@@ -25,5 +25,5 @@
     [%- show_wikipedia_extract() -%]
 
     [% INCLUDE "components/relationships.tt" source=place
-        relationships=place.grouped_relationships('area', 'artist', 'label', 'place', 'url', 'work') %]
+        relationships=place.grouped_relationships('area', 'artist', 'label', 'place', 'url', 'work', 'series', 'instrument') %]
 [% END %]
