@@ -226,7 +226,7 @@ sub _fix_attributes {
     my %new_text_values = map {
         my $value = $text_values{$_};
 
-        $has_attribute{$_} && $value ? ($_ => $value) : ()
+        $has_attribute{$_} && defined($value) && $value ne "" ? ($_ => $value) : ()
     } keys %text_values;
 
     my $attributes = $self->c->model('LinkAttributeType')->get_by_ids(@ids, keys %new_text_values);
@@ -234,7 +234,7 @@ sub _fix_attributes {
     # The attributes array shouldn't contain ids for any text attributes that
     # don't also appear in the text values hash.
     my @new_ids = map {
-        $attributes->{$_}->free_text && !$new_text_values{$_} ? () : $_
+        $attributes->{$_}->free_text && !exists($new_text_values{$_}) ? () : $_
     } @ids;
 
     $values->{attributes} = \@new_ids;
