@@ -2677,10 +2677,6 @@ msgstr ""
 msgid "is a tribute to"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:736
-msgid "is a type of"
-msgstr ""
-
 #: DB:link_type/long_link_phrase:278
 msgid ""
 "is a {live} {medley:medley including a} {partial} {instrumental} {cover} "
@@ -3492,7 +3488,7 @@ msgstr ""
 msgid "tribute to"
 msgstr ""
 
-#: DB:link_type/description:736
+#: DB:link_type/description:736 DB:link_type/reverse_link_phrase:736
 msgid "type of"
 msgstr ""
 

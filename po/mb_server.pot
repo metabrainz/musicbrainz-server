@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-15 04:16-0700\n"
+"POT-Creation-Date: 2014-05-16 07:14-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -266,7 +266,7 @@ msgstr ""
 msgid "-"
 msgstr ""
 
-#: ../root/user/profile.tt:105
+#: ../root/user/profile.tt:106
 msgid "0"
 msgstr ""
 
@@ -276,7 +276,7 @@ msgid_plural "{n} unanimous votes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/user/profile.tt:238 ../root/user/profile.tt:242
+#: ../root/user/profile.tt:239 ../root/user/profile.tt:243
 msgid "100%"
 msgstr ""
 
@@ -434,7 +434,7 @@ msgstr ""
 msgid "Accept upon expiration"
 msgstr ""
 
-#: ../root/user/profile.tt:151
+#: ../root/user/profile.tt:152
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr ""
@@ -813,7 +813,7 @@ msgstr ""
 #: ../root/release/edit_relationships.tt:197
 #: ../root/scripts/text_strings.tt:94
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddLink.pm:10
-#: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:24
+#: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:26
 msgid "Add relationship"
 msgstr ""
 
@@ -937,7 +937,7 @@ msgstr ""
 msgid "Administration flags"
 msgstr ""
 
-#: ../root/user/profile.tt:65
+#: ../root/user/profile.tt:66
 msgid "Age:"
 msgstr ""
 
@@ -1659,7 +1659,7 @@ msgid ""
 "well as the ability to instantly approve other users' edits."
 msgstr ""
 
-#: ../root/user/profile.tt:155
+#: ../root/user/profile.tt:156
 msgid "Auto-edits"
 msgstr ""
 
@@ -1863,7 +1863,7 @@ msgid ""
 msgstr ""
 
 #: ../root/account/edit.tt:45 ../root/admin/edit_user.tt:36
-#: ../root/user/profile.tt:117
+#: ../root/user/profile.tt:118
 msgid "Bio:"
 msgstr ""
 
@@ -2055,7 +2055,7 @@ msgstr ""
 msgid "Cancel the election"
 msgstr ""
 
-#: ../root/user/profile.tt:171 ../lib/MusicBrainz/Server/Edit/Utils.pm:275
+#: ../root/user/profile.tt:172 ../lib/MusicBrainz/Server/Edit/Utils.pm:287
 msgid "Cancelled"
 msgstr ""
 
@@ -2527,6 +2527,10 @@ msgstr ""
 
 #: ../root/admin/delete_user.tt:8
 msgid "Delete {e}"
+msgstr ""
+
+#: ../root/user/profile.tt:50
+msgid "Deleted User"
 msgstr ""
 
 #: ../root/edit/details/edit_relationship_type.tt:40
@@ -3062,7 +3066,7 @@ msgid "Edit recording annotation"
 msgstr ""
 
 #: ../root/scripts/text_strings.tt:99
-#: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:29
+#: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:30
 msgid "Edit relationship"
 msgstr ""
 
@@ -3164,7 +3168,7 @@ msgstr ""
 msgid "Edits"
 msgstr ""
 
-#: ../root/user/profile.tt:146
+#: ../root/user/profile.tt:147
 msgid "Edits ({view_url|view})"
 msgstr ""
 
@@ -3416,7 +3420,7 @@ msgid "Entity types:"
 msgstr ""
 
 #: ../root/report/not_available.tt:1 ../root/report/not_available.tt:3
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:272
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:284
 msgid "Error"
 msgstr ""
 
@@ -3533,7 +3537,7 @@ msgstr ""
 msgid "FAQs"
 msgstr ""
 
-#: ../root/user/profile.tt:163
+#: ../root/user/profile.tt:164
 msgid "Failed"
 msgstr ""
 
@@ -3758,7 +3762,7 @@ msgstr ""
 #: ../root/account/edit.tt:21 ../root/artist/edit_form.tt:35
 #: ../root/artist/index.tt:5 ../root/artist/layout.tt:14
 #: ../root/edit/details/add_artist.tt:31
-#: ../root/edit/details/edit_artist.tt:30 ../root/user/profile.tt:71
+#: ../root/edit/details/edit_artist.tt:30 ../root/user/profile.tt:72
 msgid "Gender:"
 msgstr ""
 
@@ -3866,7 +3870,7 @@ msgstr ""
 msgid "Historic"
 msgstr ""
 
-#: ../root/user/profile.tt:94
+#: ../root/user/profile.tt:95
 msgid "Homepage:"
 msgstr ""
 
@@ -4240,7 +4244,7 @@ msgstr ""
 msgid "Internal Server Error"
 msgstr ""
 
-#: ../root/user/profile.tt:51
+#: ../root/user/profile.tt:52
 msgid "Internal/Bot"
 msgstr ""
 
@@ -4419,15 +4423,15 @@ msgstr ""
 msgid "Languages Known:"
 msgstr ""
 
-#: ../root/user/profile.tt:123
+#: ../root/user/profile.tt:124
 msgid "Languages:"
 msgstr ""
 
-#: ../root/user/profile.tt:175
+#: ../root/user/profile.tt:176
 msgid "Last 24 hours"
 msgstr ""
 
-#: ../root/user/profile.tt:205
+#: ../root/user/profile.tt:206
 msgid "Last 28 days"
 msgstr ""
 
@@ -4492,7 +4496,7 @@ msgid ""
 "contribute}."
 msgstr ""
 
-#: ../root/user/profile.tt:55
+#: ../root/user/profile.tt:56
 msgid "Limited User"
 msgstr ""
 
@@ -4581,7 +4585,7 @@ msgstr ""
 msgid "Location editors are users who can add or modify {uri|areas}."
 msgstr ""
 
-#: ../root/account/edit.tt:24 ../root/user/profile.tt:77
+#: ../root/account/edit.tt:24 ../root/user/profile.tt:78
 msgid "Location:"
 msgstr ""
 
@@ -4767,7 +4771,7 @@ msgstr ""
 msgid "Mediums:"
 msgstr ""
 
-#: ../root/user/profile.tt:83
+#: ../root/user/profile.tt:84
 msgid "Member since:"
 msgstr ""
 
@@ -5459,7 +5463,7 @@ msgstr ""
 msgid "Normal"
 msgstr ""
 
-#: ../root/user/profile.tt:58
+#: ../root/user/profile.tt:59
 msgid "Normal User"
 msgstr ""
 
@@ -5602,7 +5606,7 @@ msgstr ""
 msgid "Oops, something went wrong!"
 msgstr ""
 
-#: ../root/user/profile.tt:167 ../lib/MusicBrainz/Server/Edit/Utils.pm:268
+#: ../root/user/profile.tt:168 ../lib/MusicBrainz/Server/Edit/Utils.pm:280
 msgid "Open"
 msgstr ""
 
@@ -5661,7 +5665,7 @@ msgstr ""
 msgid "Other lookups"
 msgstr ""
 
-#: ../root/user/profile.tt:208
+#: ../root/user/profile.tt:209
 msgid "Overall"
 msgstr ""
 
@@ -7877,7 +7881,7 @@ msgstr ""
 msgid "Start date"
 msgstr ""
 
-#: ../root/layout/menu.tt:139 ../root/user/profile.tt:142
+#: ../root/layout/menu.tt:139 ../root/user/profile.tt:143
 msgid "Statistics"
 msgstr ""
 
@@ -8005,7 +8009,7 @@ msgstr ""
 msgid "Subscribers"
 msgstr ""
 
-#: ../root/user/profile.tt:101
+#: ../root/user/profile.tt:102
 msgid "Subscribers:"
 msgstr ""
 
@@ -8178,7 +8182,7 @@ msgid ""
 "release, so we are unable to allow any more uploads."
 msgstr ""
 
-#: ../root/user/profile.tt:85
+#: ../root/user/profile.tt:86
 msgid "The Dawn of the Project"
 msgstr ""
 
@@ -8267,7 +8271,7 @@ msgstr ""
 msgid "The date you've entered is not valid."
 msgstr ""
 
-#: ../root/user/profile.tt:87
+#: ../root/user/profile.tt:88
 msgid "The early days of the project"
 msgstr ""
 
@@ -9456,7 +9460,7 @@ msgstr ""
 msgid "This series is currently empty."
 msgstr ""
 
-#: ../root/user/profile.tt:193
+#: ../root/user/profile.tt:194
 msgid "This table shows a summary of votes cast by this editor."
 msgstr ""
 
@@ -10068,7 +10072,7 @@ msgstr ""
 msgid "Use {doc|advanced query syntax}"
 msgstr ""
 
-#: ../root/user/profile.tt:55
+#: ../root/user/profile.tt:56
 msgid ""
 "User accounts must be more than 2 weeks old, have a confirmed email address, "
 "and more than 10 accepted edits in order to vote on others' edits."
@@ -10198,7 +10202,7 @@ msgstr ""
 msgid "Vote tally:"
 msgstr ""
 
-#: ../root/user/profile.tt:159
+#: ../root/user/profile.tt:160
 msgid "Voted down"
 msgstr ""
 
@@ -10211,7 +10215,7 @@ msgstr ""
 msgid "Votes"
 msgstr ""
 
-#: ../root/user/profile.tt:197
+#: ../root/user/profile.tt:198
 msgid "Votes ({view_url|view})"
 msgstr ""
 
@@ -11222,7 +11226,7 @@ msgstr ""
 msgid "newest first"
 msgstr ""
 
-#: ../root/user/profile.tt:61
+#: ../root/user/profile.tt:62
 msgid "nominate for auto-editor"
 msgstr ""
 
@@ -11335,7 +11339,7 @@ msgstr ""
 msgid "start date"
 msgstr ""
 
-#: ../root/user/profile.tt:112
+#: ../root/user/profile.tt:113
 msgid "subscribe"
 msgstr ""
 
@@ -11359,7 +11363,7 @@ msgstr[1] ""
 msgid "tracks"
 msgstr ""
 
-#: ../root/user/profile.tt:110
+#: ../root/user/profile.tt:111
 msgid "unsubscribe"
 msgstr ""
 
@@ -11472,14 +11476,14 @@ msgstr ""
 msgid "{commas_only_list_item}, {rest}"
 msgstr ""
 
-#: ../root/user/profile.tt:103
+#: ../root/user/profile.tt:104
 msgid "{count} ({url|view list})"
 msgstr ""
 
-#: ../root/user/profile.tt:152 ../root/user/profile.tt:156
-#: ../root/user/profile.tt:160 ../root/user/profile.tt:164
-#: ../root/user/profile.tt:168 ../root/user/profile.tt:172
-#: ../root/user/profile.tt:176
+#: ../root/user/profile.tt:153 ../root/user/profile.tt:157
+#: ../root/user/profile.tt:161 ../root/user/profile.tt:165
+#: ../root/user/profile.tt:169 ../root/user/profile.tt:173
+#: ../root/user/profile.tt:177
 msgid "{count} ({view_url|view})"
 msgstr ""
 
@@ -11493,7 +11497,7 @@ msgstr[1] ""
 msgid "{description} ({url|more documentation})"
 msgstr ""
 
-#: ../root/user/profile.tt:50
+#: ../root/user/profile.tt:51
 msgid "{doc|Auto-Editor}"
 msgstr ""
 
@@ -11505,15 +11509,15 @@ msgstr ""
 msgid "{doc|Learn more}"
 msgstr ""
 
-#: ../root/user/profile.tt:54
+#: ../root/user/profile.tt:55
 msgid "{doc|Location Editor}"
 msgstr ""
 
-#: ../root/user/profile.tt:52
+#: ../root/user/profile.tt:53
 msgid "{doc|Relationship Editor}"
 msgstr ""
 
-#: ../root/user/profile.tt:53
+#: ../root/user/profile.tt:54
 msgid "{doc|Transclusion Editor}"
 msgstr ""
 
@@ -11712,7 +11716,7 @@ msgid_plural "{n} works selected"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/user/profile.tt:221 ../root/user/profile.tt:225
+#: ../root/user/profile.tt:222 ../root/user/profile.tt:226
 msgid "{percentage}%"
 msgstr ""
 
@@ -12456,23 +12460,23 @@ msgstr ""
 msgid "Edit series"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:269
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:281
 msgid "Applied"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:270
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:282
 msgid "Failed vote"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:271
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:283
 msgid "Failed dependency"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:273
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:285
 msgid "Failed prerequisite"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:274
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:286
 msgid "No votes"
 msgstr ""
 
@@ -12580,31 +12584,31 @@ msgstr ""
 msgid "[none]"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Entity/EditorOAuthToken.pm:76
+#: ../lib/MusicBrainz/Server/Entity/EditorOAuthToken.pm:66
 msgid "View your public account information"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Entity/EditorOAuthToken.pm:77
+#: ../lib/MusicBrainz/Server/Entity/EditorOAuthToken.pm:67
 msgid "View your email address"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Entity/EditorOAuthToken.pm:78
+#: ../lib/MusicBrainz/Server/Entity/EditorOAuthToken.pm:68
 msgid "View and modify your private tags"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Entity/EditorOAuthToken.pm:79
+#: ../lib/MusicBrainz/Server/Entity/EditorOAuthToken.pm:69
 msgid "View and modify your private ratings"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Entity/EditorOAuthToken.pm:80
+#: ../lib/MusicBrainz/Server/Entity/EditorOAuthToken.pm:70
 msgid "View and modify your private collections"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Entity/EditorOAuthToken.pm:81
+#: ../lib/MusicBrainz/Server/Entity/EditorOAuthToken.pm:71
 msgid "Submit new ISRCs to the database"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Entity/EditorOAuthToken.pm:82
+#: ../lib/MusicBrainz/Server/Entity/EditorOAuthToken.pm:72
 msgid "Submit new barcodes to the database"
 msgstr ""
 

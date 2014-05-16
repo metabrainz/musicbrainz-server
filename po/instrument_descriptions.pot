@@ -862,6 +862,12 @@ msgid ""
 "Vietnamese đàn bầu."
 msgstr ""
 
+#: DB:instrument/description:643
+msgid ""
+"The ektara is a one-string instrument used in traditional music from "
+"Bangladesh, India, Egypt, and Pakistan."
+msgstr ""
+
 #: DB:instrument/description:215
 msgid "The erhu is a bowed Chinese instrument with two strings."
 msgstr ""
@@ -886,6 +892,10 @@ msgstr ""
 msgid ""
 "The fujara is a large folk shepherd's fipple flute originated from central "
 "Slovakia."
+msgstr ""
+
+#: DB:instrument/description:644
+msgid "The ganzá is a cylinder-shaped Brazilian rattle used in samba music."
 msgstr ""
 
 #: DB:instrument/description:216
@@ -916,6 +926,12 @@ msgstr ""
 msgid ""
 "The gralla is a traditional Catalan double reed instrument in the oboe "
 "family."
+msgstr ""
+
+#: DB:instrument/description:645
+msgid ""
+"The guitalele is a guitar-ukulele hybrid, combining the small size of a "
+"guitalele with the six strings of a classical guitar."
 msgstr ""
 
 #: DB:instrument/description:506
