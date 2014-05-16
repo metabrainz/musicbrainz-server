@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Label::EditAlias;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_EDIT_ALIAS );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit::Alias::Edit';
 with 'MusicBrainz::Server::Edit::Label';

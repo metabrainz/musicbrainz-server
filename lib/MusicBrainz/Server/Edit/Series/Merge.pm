@@ -20,7 +20,7 @@ sub foreign_keys {
     return {
         Series => {
             map {
-                $_ => ['LinkAttributeType', 'SeriesType', 'SeriesOrderingType']
+                $_ => ['SeriesType', 'SeriesOrderingType']
             } (
                 $self->data->{new_entity}{id},
                 map { $_->{id} } @{ $self->data->{old_entities} },

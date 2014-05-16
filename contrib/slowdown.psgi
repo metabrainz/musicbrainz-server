@@ -39,19 +39,19 @@ my $log = Log::Dispatch->new(outputs => [[ 'Screen', min_level => 'info' ]] );
 sub handle_other {
     my $request = shift;
 
-    $log->info ("storing request body at /tmp/slowdown.bin\n");
+    $log->info("storing request body at /tmp/slowdown.bin\n");
 
-    open (my $fh, ">", "/tmp/slowdown.bin");
+    open(my $fh, ">", "/tmp/slowdown.bin");
     print $fh $request->content;
-    close ($fh);
+    close($fh);
 
-    my $response = $request->new_response (503);
+    my $response = $request->new_response(503);
 
-    $response->header ("Server" => "Apache/2.2.22 (Ubuntu)");
-    $response->header ("Accept-Ranges" => "bytes");
-    $response->header ("Access-Control-Allow-Origin" => "*");
-    $response->header ("Access-Control-Allow-Methods" => "GET,POST,PUT,DELETE");
-    $response->header ("Access-Control-Allow-Headers" => "authorization,".
+    $response->header("Server" => "Apache/2.2.22 (Ubuntu)");
+    $response->header("Accept-Ranges" => "bytes");
+    $response->header("Access-Control-Allow-Origin" => "*");
+    $response->header("Access-Control-Allow-Methods" => "GET,POST,PUT,DELETE");
+    $response->header("Access-Control-Allow-Headers" => "authorization,".
                        "x-amz-acl,x-amz-auto-make-bucket,cache-control,".
                        "x-requested-with,x-file-name,x-file-size,".
                        "x-archive-ignore-preexisting-bucket,".
@@ -61,10 +61,10 @@ sub handle_other {
                        "x-archive-meta02-subject,x-archive-meta03-subject,".
                        "x-archive-meta04-subject,x-archive-meta05-subject,".
                        "x-archive-meta01-collection,x-archive-meta02-collection");
-    $response->header ("Connection" => "close");
-    $response->header ("Content-Type" => "text/plain");
+    $response->header("Connection" => "close");
+    $response->header("Content-Type" => "text/plain");
 
-    $response->body ("<?xml version='1.0' encoding='UTF-8'?>\n".
+    $response->body("<?xml version='1.0' encoding='UTF-8'?>\n".
         "<Error>".
         "<Code>SlowDown</Code>".
         "<Message>Please reduce your request rate.</Message>".
@@ -77,23 +77,23 @@ sub handle_other {
 
 sub handle_options
 {
-    my $response = shift->new_response (200);
-    $response->content_type ('text/plain');
-    $response->headers ({ Allow => 'GET,HEAD,POST,OPTIONS' });
+    my $response = shift->new_response(200);
+    $response->content_type('text/plain');
+    $response->headers({ Allow => 'GET,HEAD,POST,OPTIONS' });
     return $response;
 }
 
 sub {
-    my $request = Plack::Request->new (shift);
+    my $request = Plack::Request->new(shift);
 
     my $response;
 
     given ($request->method) {
-        when ("PUT")     { $response = handle_other ($request) }
-        when ("POST")    { $response = handle_other ($request) }
-        when ("OPTIONS") { $response = handle_options ($request) }
+        when ("PUT")     { $response = handle_other($request) }
+        when ("POST")    { $response = handle_other($request) }
+        when ("OPTIONS") { $response = handle_options($request) }
     }
 
-    $response->header ("Access-Control-Allow-Origin" => "*");
+    $response->header("Access-Control-Allow-Origin" => "*");
     return $response->finalize;
 }

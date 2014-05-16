@@ -12,37 +12,39 @@
     </button>
   </legend>
 
-  <table class="details row-form" style="width: 100%">
-    <tbody data-bind="foreach: _.sortBy(groupedRelationships($root), 'linkPhrase')">
+  <table class="details row-form" style="width: 100%; position: relative;">
+    <tbody data-bind="foreach: _.sortBy(groupedRelationships($root, $data), 'linkPhrase')">
       <tr>
         <th>
           <label data-bind="text: MB.i18n.expand(MB.text.AddColon, { variable: linkPhrase })"></label>
         </th>
         <td class="relationship-list"
-            data-bind="foreach: _(relationships())
-                                  .sortBy(function (r) { return r.lowerCasePhrase($parent) })
-                                  .sortBy(function (r) { return r.lowerCaseTargetName() })
-                                  .sortBy(function (r) { return r.entityOrdering(r.target($parent)) })
-                                  .value()">
-          <div>
+            style="position: relative"
+            data-bind="foreach: {
+                         data: relationships,
+                         beforeRemove: $root.beforeRelationshipRemove,
+                         afterAdd: $root.afterRelationshipAdd,
+                         beforeMove: $root.beforeRelationshipMove,
+                         afterMove: $root.afterRelationshipMove
+                       }">
+          <div data-bind="attr: { id: 'relationship-' + uniqueID }">
             <button type="button" class="icon remove-item" data-bind="attr: { id: 'remove-' + uniqueID }" data-click="removeRelationship"></button>
             <button type="button" class="icon edit-item" data-bind="attr: { id: 'edit-' + uniqueID }, disable: removed" data-click="openEditDialog"></button>
             <!-- ko if: entityCanBeReordered(target($parents[1])) -->
               <button type="button" class="icon move-down" title="[% l('Move entity down') %]" data-click="moveEntityDown"></button>
               <button type="button" class="icon move-up" title="[% l('Move entity up') %]" data-click="moveEntityUp"></button>
             <!-- /ko -->
-            <!-- ko if: linkOrder -->
+            <!-- ko if: showLinkOrder($parents[1]) -->
               <span data-bind="html: MB.i18n.expand(MB.text.OrderedRelationship, { num: linkOrder(), relationship: target($parents[1]).html({ target: '_blank' }) }), relationshipStyling: true"></span>
             <!-- /ko -->
-            <!-- ko ifnot: linkOrder -->
+            <!-- ko ifnot: showLinkOrder($parents[1]) -->
               <span data-bind="html: target($parents[1]).html({ target: '_blank' }), relationshipStyling: true"></span>
             <!-- /ko -->
-            <!-- ko with: phraseAndExtraAttributes($parents[2])[1] -->
-              (<!-- ko text: $data --><!-- /ko -->)
-            <!-- /ko -->
-            <!-- ko with: MB.utility.formatDatePeriod(period) -->
-              (<!-- ko text: $data --><!-- /ko -->)
-            <!-- /ko -->
+            <!-- ko template: {
+                      name: "template.extra-attributes-and-dates",
+                      data: { source: $parents[1], relationship: $data }
+                    }
+              --><!-- /ko -->
           </div>
         </td>
       </tr>
@@ -67,7 +69,7 @@
     var sourceData = [% source_entity %];
     MB.sourceEntityGID = sourceData.gid = sourceData.gid || _.uniqueId("tmp-");
 
-    var vm = MB.relationshipEditor.GenericEntityViewModel({
+    MB.sourceRelationshipEditor = MB.relationshipEditor.GenericEntityViewModel({
       sourceData: sourceData,
       formName: "[% form.name | js %]"
     });
@@ -78,7 +80,7 @@
     });
 
     var $content = $("#relationship-editor");
-    ko.applyBindings(vm, $content[0]);
+    ko.applyBindings(MB.sourceRelationshipEditor, $content[0]);
     $content.show();
   });
 </script>

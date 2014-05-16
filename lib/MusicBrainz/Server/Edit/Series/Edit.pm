@@ -31,7 +31,6 @@ sub change_fields
         name                    => Optional[Str],
         comment                 => Optional[Str],
         type_id                 => Optional[Int],
-        ordering_attribute_id   => Optional[Int],
         ordering_type_id        => Optional[Int],
     ];
 }
@@ -53,7 +52,6 @@ sub foreign_keys {
 
     changed_relations($self->data, $relations,
         SeriesType          => 'type_id',
-        LinkAttributeType   => 'ordering_attribute_id',
         SeriesOrderingType  => 'ordering_type_id',
     );
 
@@ -69,7 +67,6 @@ sub build_display_data {
         name                => 'name',
         comment             => 'comment',
         type                => [ qw( type_id SeriesType ) ],
-        ordering_attribute  => [ qw( ordering_attribute_id LinkAttributeType ) ],
         ordering_type       => [ qw( ordering_type_id SeriesOrderingType ) ],
     );
 
@@ -81,9 +78,21 @@ sub build_display_data {
     return $data;
 }
 
-sub allow_auto_edit
-{
+sub allow_auto_edit {
     my ($self) = @_;
+
+    my $series = $self->c->model('Series')->get_by_id($self->series_id);
+    $self->c->model('SeriesType')->load($series);
+    my ($items, $hits) = $self->c->model('Series')->get_entities($series, 1, 0);
+
+    # Allow auto-editing the series if it has no items. This is necessary
+    # when an editor changes the series type and adds new part-of
+    # relationships in a single submission. The series must be modified before
+    # the relationships are added in order for them to display.
+    return 1 unless scalar(@$items);
+
+    # Changing the ordering type is not allowed if there are items.
+    return 0 if $self->data->{old}{ordering_type_id} != $self->data->{new}{ordering_type_id};
 
     # Changing name is allowed if the change only affects
     # small things like case etc.

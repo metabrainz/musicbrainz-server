@@ -35,8 +35,8 @@ sub FormatTrackLength
     ($minutes, $seconds) = (floor($seconds / $one_minute), $seconds % $one_minute);
 
     return $hours > 0 ?
-        sprintf ("%d:%02d:%02d", $hours, $minutes, $seconds) :
-        sprintf ("%d:%02d", $minutes, $seconds);
+        sprintf("%d:%02d:%02d", $hours, $minutes, $seconds) :
+        sprintf("%d:%02d", $minutes, $seconds);
 }
 
 sub UnformatTrackLength

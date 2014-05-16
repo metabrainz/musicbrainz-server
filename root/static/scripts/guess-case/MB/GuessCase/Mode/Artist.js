@@ -26,17 +26,17 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
  * Models the "Artist" GuessCase mode.
  **/
 MB.GuessCase.Mode.Artist = function () {
-    var self = MB.GuessCase.Mode.Base ();
+    var self = MB.GuessCase.Mode.Base();
 
     parentIsLowerCaseWord = self.isLowerCaseWord;
 
     self.setConfig('Artist mode', '');
 
     self.isLowerCaseWord = function (w) {
-        return w === 'the' ? false : parentIsLowerCaseWord (w);
+        return w === 'the' ? false : parentIsLowerCaseWord(w);
     };
 
-    self.isSentenceCaps = function() { return false; };
+    self.isSentenceCaps = function () { return false; };
 
     return self;
 };

@@ -20,7 +20,7 @@
                         [% WRAPPER 'layout/sidebar/property.tt' label=l("End date:") class="end-date" %]
                             [% area.end_date.format %]
                             [% IF area.has_age %]
-                                ([% display_age (area.age) %])
+                                ([% display_age(area.age) %])
                             [% END %]
                         [% END %]
                     [% ELSIF area.ended %]

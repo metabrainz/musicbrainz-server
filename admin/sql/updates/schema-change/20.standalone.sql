@@ -111,7 +111,7 @@ BEGIN
        NEW.end_date_year IS NOT NULL OR
        NEW.end_date_month IS NOT NULL OR
        NEW.end_date_day IS NOT NULL OR
-       NEW.ended = TRUE) 
+       NEW.ended = TRUE)
        AND NOT (SELECT has_dates FROM link_type WHERE id = NEW.link_type)
   THEN
     RAISE EXCEPTION 'Attempt to add dates to a relationship type that does not support dates.';

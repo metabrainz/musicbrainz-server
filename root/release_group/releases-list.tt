@@ -1,18 +1,12 @@
-[% BLOCK release_row_prefix %]
-  [% IF c.user_exists %]
-  <td>
-    <input type="checkbox" name="add-to-merge"
-           value="[% release.id %]" />
-  </td>
-  [% END %]
-[% END %]
-
 <table class="tbl">
     <thead>
         <tr>
-            [% IF c.user_exists %]<th>
-            <input type="checkbox" />
-            </th>[% END %]
+            [% IF c.user_exists && !no_checkboxes %]
+            <th><input type="checkbox" /></th>
+            [% END %]
+            [% IF series_item_numbers %]
+            <th style="width: 1em">[% l('#') %]</th>
+            [% END %]
             <th>[% l('Release') %]</th>
             [% IF show_artists %]
             <th>[% l('Artist') %]</th>
@@ -34,7 +28,16 @@
     <tbody>
     [%- FOR release=releases -%]
       <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
-        [% PROCESS release_row_prefix %]
+        [% IF c.user_exists && !no_checkboxes %]
+          <td>
+            <input type="checkbox" name="add-to-merge" value="[% release.id %]" />
+          </td>
+        [% END %]
+        [% IF series_item_numbers %]
+          <td style="width: 1em">
+            [% release_id=release.id; series_item_numbers.$release_id %]
+          </td>
+        [% END %]
           <td>
             [% link_release(release) %]
             [% disambiguation(release) %]

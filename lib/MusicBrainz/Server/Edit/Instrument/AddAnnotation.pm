@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Instrument::AddAnnotation;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_INSTRUMENT_ADD_ANNOTATION );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit';
 

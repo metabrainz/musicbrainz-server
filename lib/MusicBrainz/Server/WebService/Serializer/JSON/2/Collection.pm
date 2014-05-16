@@ -20,13 +20,13 @@ sub serialize
 
     if ($toplevel)
     {
-        $body{"release-count"} = count_of ($entity, $inc, $stash, "releases");
-        $body{releases} = list_of ($entity, $inc, $stash, "releases");
+        $body{"release-count"} = count_of($entity, $inc, $stash, "releases");
+        $body{releases} = list_of($entity, $inc, $stash, "releases");
     }
 
     if ($entity->loaded_release_count)
     {
-        $body{"release-count"} = number ($entity->release_count);
+        $body{"release-count"} = number($entity->release_count);
     }
 
 

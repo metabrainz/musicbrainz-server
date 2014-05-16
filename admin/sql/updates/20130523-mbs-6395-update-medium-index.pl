@@ -20,7 +20,7 @@ sub get_mediums_to_update
     # Any medium where all tracks have a length and that length is < 4800000
     # should have a row in medium_index.
 
-    my $results = $c->sql->select_list_of_hashes (
+    my $results = $c->sql->select_list_of_hashes(
         "SELECT track.medium AS medium_id,
                 (sum(track.length) < 4800000 AND
                  count(track.id) = count(track.length) AND
@@ -68,7 +68,7 @@ sub delete_from_index
 {
     my ($c, $medium_ids) = @_;
 
-    $c->sql->do (
+    $c->sql->do(
         "DELETE FROM medium_index " .
         "WHERE medium IN (" . placeholders(@$medium_ids) . ")",
         @$medium_ids);
@@ -82,7 +82,7 @@ sub insert_into_index
 
     my @ids = grep { $_ } @$medium_ids[0..$limit];
 
-    $c->model('DurationLookup')->update ($_) for @ids;
+    $c->model('DurationLookup')->update($_) for @ids;
     print "Inserted ".scalar @ids." medium_index rows.\n";
 }
 
@@ -90,7 +90,7 @@ sub update_index
 {
     my ($c, $medium_ids, $limit) = @_;
 
-    my $results = $c->sql->select_list_of_hashes (
+    my $results = $c->sql->select_list_of_hashes(
         "SELECT medium_index.medium AS medium_id
            FROM medium_index
           WHERE medium_index.medium IN (" . placeholders(@$medium_ids) . ")
@@ -103,7 +103,7 @@ sub update_index
 
     return WORK_DONE unless scalar @$results;
 
-    $c->model('DurationLookup')->update ($_->{medium_id}) for @$results;
+    $c->model('DurationLookup')->update($_->{medium_id}) for @$results;
     print "Updated ".scalar @$results." medium_index rows.\n";
 
     return WORK_NO_ERROR;
@@ -111,7 +111,7 @@ sub update_index
 
 # limit amount of database changes per run.
 my $limit = 10;
-my $affected = get_mediums_to_update ($c);
+my $affected = get_mediums_to_update($c);
 
 my $delete_count = scalar @{ $affected->{delete_from_index} };
 my $insert_count = scalar @{ $affected->{insert_into_index} };
@@ -128,13 +128,13 @@ $c->sql->begin;
 my $exitcode = WORK_NO_ERROR;
 
 if ($delete_count) {
-    delete_from_index ($c, $affected->{delete_from_index});
+    delete_from_index($c, $affected->{delete_from_index});
 }
 elsif ($insert_count) {
-    insert_into_index ($c, $affected->{insert_into_index}, $limit);
+    insert_into_index($c, $affected->{insert_into_index}, $limit);
 }
 else {
-    $exitcode = update_index ($c, $affected->{update_index}, $limit);
+    $exitcode = update_index($c, $affected->{update_index}, $limit);
 }
 
 $c->sql->commit;

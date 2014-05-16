@@ -110,7 +110,7 @@ sub set_durations : Chained('load') PathPart('set-durations') Edit
             $c, status => HTTP_BAD_REQUEST,
             message => l('Please provide a medium ID')
         );
-    my $medium = $c->model('Medium')->get_by_id ($medium_id)
+    my $medium = $c->model('Medium')->get_by_id($medium_id)
         or $self->error(
             $c, status => HTTP_BAD_REQUEST,
             message => l('Could not find medium')
@@ -161,7 +161,7 @@ sub attach : Local DenyWhenReadOnly
 
         $self->error($c, status => HTTP_BAD_REQUEST,
                      message => l('The provided medium id is not valid')
-            ) unless looks_like_number ($medium_id);
+            ) unless looks_like_number($medium_id);
 
         $self->error(
             $c,
@@ -203,7 +203,7 @@ sub attach : Local DenyWhenReadOnly
 
         $self->error($c, status => HTTP_BAD_REQUEST,
                      message => l('The provided artist id is not valid')
-            ) unless looks_like_number ($artist_id);
+            ) unless looks_like_number($artist_id);
 
         # List releases
         my $artist = $c->model('Artist')->get_by_id($artist_id);
@@ -212,7 +212,7 @@ sub attach : Local DenyWhenReadOnly
         });
         $c->model('Medium')->load_for_releases(@$releases);
         $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
-        $c->model('Track')->load_for_mediums (map { $_->all_mediums } @$releases);
+        $c->model('Track')->load_for_mediums(map { $_->all_mediums } @$releases);
         $c->model('Release')->load_release_events(@$releases);
         $c->model('ReleaseLabel')->load(@$releases);
         $c->model('Label')->load(map { $_->all_labels } @$releases);
@@ -272,7 +272,7 @@ sub attach : Local DenyWhenReadOnly
         }
         else {
             my $stub_toc = $c->model('CDStubTOC')->get_by_discid($cdtoc->discid);
-            if($stub_toc) {
+            if ($stub_toc) {
                 $c->model('CDStub')->load($stub_toc);
                 $c->model('CDStubTrack')->load_for_cdstub($stub_toc->cdstub);
                 $stub_toc->update_track_lengths;
@@ -326,7 +326,7 @@ sub move : Local Edit
     if (my $medium_id = $c->req->query_params->{medium}) {
         $self->error($c, status => HTTP_BAD_REQUEST,
                      message => l('The provided medium id is not valid')
-            ) unless looks_like_number ($medium_id);
+            ) unless looks_like_number($medium_id);
 
         my $medium = $c->model('Medium')->get_by_id($medium_id);
         $c->model('MediumFormat')->load($medium);

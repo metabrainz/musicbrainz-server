@@ -17,7 +17,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     merge_value
     verify_artist_credits
 );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 use MooseX::Types::Moose qw( ArrayRef Maybe Str Int );

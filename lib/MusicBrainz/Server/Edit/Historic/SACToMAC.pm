@@ -6,7 +6,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_HISTORIC_SAC_TO_MAC
     $VARTIST_ID
 );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
 

@@ -17,6 +17,8 @@
       [%- END -%]
     </fieldset>
 
+    [% PROCESS 'forms/relationship-editor.tt' %]
+
     <fieldset>
       <legend>[% l('External Links') %]</legend>
       [% external_links_editor(r.form, 'instrument') %]

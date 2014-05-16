@@ -1,7 +1,5 @@
 package MusicBrainz::Server::Edit::Relationship::Reorder;
 use strict;
-use JSON;
-use List::MoreUtils qw( any );
 use Moose;
 use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
 use MooseX::Types::Moose qw( ArrayRef Int Str Bool );
@@ -196,6 +194,8 @@ sub initialize {
         my $relationship = delete $_->{relationship};
         my $link = $relationship->link;
 
+        die "Relationship link type mismatch" if $link->type_id != $lt->id;
+
         $_->{relationship} = {
             id => $relationship->id,
             begin_date => partial_date_to_hash($link->begin_date),
@@ -248,24 +248,9 @@ sub build_display_data {
 sub accept {
     my $self = shift;
 
-    my $link_type = $self->data->{link_type};
-
-    my $relationships = $self->c->model('Relationship')->get_by_ids(
-        $link_type->{entity0_type},
-        $link_type->{entity1_type},
-        map { $_->{relationship}{id} } @{ $self->data->{relationship_order} }
-    );
-
-    my @relationships = values %$relationships;
-    $self->c->model('Link')->load(@relationships);
-
-    MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-        "The relationships cannot be reordered because they no longer share the same link type."
-    ) if any { $_->link->type_id != $link_type->{id} } @relationships;
-
     $self->c->model('Relationship')->reorder(
-        $link_type->{entity0_type},
-        $link_type->{entity1_type},
+        $self->data->{link_type}{entity0_type},
+        $self->data->{link_type}{entity1_type},
         map { $_->{relationship}{id} => $_->{new_order} } @{ $self->data->{relationship_order} }
     );
 }

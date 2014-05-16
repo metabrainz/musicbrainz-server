@@ -27,6 +27,7 @@ use MusicBrainz::Server::Entity::Link;
 use MusicBrainz::Server::Entity::LinkAttributeType;
 use MusicBrainz::Server::Entity::LinkType;
 use MusicBrainz::Server::Entity::Place;
+use MusicBrainz::Server::Entity::PlaceType;
 use MusicBrainz::Server::Entity::Medium;
 use MusicBrainz::Server::Entity::MediumFormat;
 use MusicBrainz::Server::Entity::Relationship;
@@ -36,6 +37,7 @@ use MusicBrainz::Server::Entity::ReleaseGroup;
 use MusicBrainz::Server::Entity::ReleaseGroupType;
 use MusicBrainz::Server::Entity::ReleaseGroupSecondaryType;
 use MusicBrainz::Server::Entity::ReleaseStatus;
+use MusicBrainz::Server::Entity::ReleasePackaging;
 use MusicBrainz::Server::Entity::Script;
 use MusicBrainz::Server::Entity::Series;
 use MusicBrainz::Server::Entity::SeriesOrderingType;
@@ -222,7 +224,7 @@ sub search
         $extra_columns .= 'entity.description,' if $type eq 'instrument';
         $extra_columns .= 'iso_3166_1s.codes AS iso_3166_1, iso_3166_2s.codes AS iso_3166_2, iso_3166_3s.codes AS iso_3166_3,' if $type eq 'area';
         $extra_columns .= 'entity.label_code, entity.area,' if $type eq 'label';
-        $extra_columns .= 'entity.ordering_attribute, entity.ordering_type,' if $type eq 'series';
+        $extra_columns .= 'entity.ordering_type,' if $type eq 'series';
 
         my $extra_groupby_columns = $extra_columns;
         $extra_groupby_columns =~ s/[^ ,]+ AS //g;
@@ -347,6 +349,18 @@ my %mapping = (
     'label-code'     => 'label_code',
 );
 
+sub schema_fixup_type {
+    my ($self, $data, $type) = @_;
+    if (exists $data->{type} && $type ~~ [qw(area artist instrument label place series release-group work)]) {
+        my $type_model = $type;
+        $type_model =~ s/-/_/g; # fix release-group to release_group
+        my $prop = $type eq 'release-group' ? 'primary_type' : 'type';
+        my $model = 'MusicBrainz::Server::Entity::' . type_to_model($type_model) . 'Type';
+        $data->{$prop} = $model->new( name => $data->{type} );
+    }
+    return $data;
+}
+
 # Fix up the key names so that the data returned from the JSON service
 # matches up with the data returned from the DB for easy object creation
 sub schema_fixup
@@ -374,21 +388,7 @@ sub schema_fixup
         }
     }
 
-    if ($type eq 'artist' && exists $data->{type})
-    {
-        $data->{type} = MusicBrainz::Server::Entity::ArtistType->new( name => $data->{type} );
-    }
-    if ($type eq 'area' && exists $data->{type})
-    {
-        $data->{type} = MusicBrainz::Server::Entity::AreaType->new( name => $data->{type} );
-    }
-    if ($type eq 'instrument' && exists $data->{type}) {
-        $data->{type} = MusicBrainz::Server::Entity::InstrumentType->new( name => $data->{type} );
-    }
-    if ($type eq 'place' && exists $data->{type})
-    {
-        $data->{type} = MusicBrainz::Server::Entity::PlaceType->new( name => $data->{type} );
-    }
+    $data = $self->schema_fixup_type($data, $type);
     if ($type eq 'place' && exists $data->{coordinates})
     {
         $data->{coordinates} = MusicBrainz::Server::Entity::Coordinates->new( $data->{coordinates} );
@@ -426,16 +426,8 @@ sub schema_fixup
             }
         }
     }
-    if($type eq 'artist' && exists $data->{gender}) {
+    if ($type eq 'artist' && exists $data->{gender}) {
         $data->{gender} = MusicBrainz::Server::Entity::Gender->new( name => ucfirst($data->{gender}) );
-    }
-    if ($type eq 'label' && exists $data->{type})
-    {
-        $data->{type} = MusicBrainz::Server::Entity::LabelType->new( name => $data->{type} );
-    }
-    if ($type eq 'release-group' && exists $data->{type})
-    {
-        $data->{primary_type} = MusicBrainz::Server::Entity::ReleaseGroupType->new( name => $data->{type} );
     }
     if ($type eq 'cdstub' && exists $data->{gid})
     {
@@ -572,6 +564,11 @@ sub schema_fixup
                 name => delete $data->{status}
             )
         }
+        if ($data->{packaging}) {
+            $data->{packaging} = MusicBrainz::Server::Entity::ReleasePackaging->new(
+                name => delete $data->{packaging}
+            )
+        }
     }
     if ($type eq 'recording' &&
         exists $data->{"release-list"} &&
@@ -635,9 +632,10 @@ sub schema_fixup
                 # The search server returns the MBID in the 'id' attribute, so we
                 # need to rename that.
                 $entity{gid} = delete $entity{id};
+                %entity = %{ $self->schema_fixup_type(\%entity, $entity_type) };
 
                 my $entity = $self->c->model( type_to_model ($entity_type) )->
-                    _entity_class->new (%entity);
+                    _entity_class->new(%entity);
 
                 push @relationships, MusicBrainz::Server::Entity::Relationship->new(
                     entity1 => $entity,
@@ -699,17 +697,13 @@ sub schema_fixup
             ];
         }
 
-        if(exists $data->{type}) {
-            $data->{type} = MusicBrainz::Server::Entity::WorkType->new( name => $data->{type} );
-        }
-
         if (exists $data->{language}) {
             $data->{language} = MusicBrainz::Server::Entity::Language->new({
                 iso_code_3 => $data->{language}
             });
         }
 
-        if(exists $data->{'iswc-list'}) {
+        if (exists $data->{'iswc-list'}) {
             $data->{iswcs} = [
                 map {
                     MusicBrainz::Server::Entity::ISWC->new( iswc => $_ )
@@ -771,7 +765,7 @@ sub external_search
         $ua = LWP::UserAgent->new if (!defined $ua);
     }
 
-    $ua->timeout (5);
+    $ua->timeout(5);
     $ua->env_proxy;
 
     # Dispatch the search request.
@@ -1053,7 +1047,7 @@ sub xml_search
                                  $limit,);
 
     my $ua = LWP::UserAgent->new;
-    $ua->timeout (5);
+    $ua->timeout(5);
     $ua->env_proxy;
 
     # Dispatch the search request.

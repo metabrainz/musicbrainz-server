@@ -16,8 +16,6 @@ sub serialize {
 
     if ($toplevel) {
         $body{type} = $entity->type_name;
-        $body{'ordering-attribute'} = $entity->ordering_attribute->name;
-        $body{'ordering-type'} = $entity->ordering_type->name;
     }
 
     return \%body;

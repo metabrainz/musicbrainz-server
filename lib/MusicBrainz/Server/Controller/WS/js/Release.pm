@@ -2,7 +2,7 @@ package MusicBrainz::Server::Controller::WS::js::Release;
 use Moose;
 use aliased 'MusicBrainz::Server::Entity::Work';
 use MusicBrainz::Server::Validation qw( is_guid );
-use Scalar::Util qw ( blessed );
+use Scalar::Util qw( blessed );
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js' }
 
 with 'MusicBrainz::Server::Controller::WS::js::Role::Autocompletion';

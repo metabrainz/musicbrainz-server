@@ -29,12 +29,12 @@ MB.Control.SelectAll = function (table) {
 
     self.$selector.toggle(self.$checkboxes.length > 0);
 
-    self.$selector.change(function() {
+    self.$selector.change(function () {
         var $input = $(this);
         self.$checkboxes.prop('checked', $input.prop('checked'));
     });
 
-    self.$checkboxes.click(function(event) {
+    self.$checkboxes.click(function (event) {
         if (event.shiftKey && self.lastChecked && self.lastChecked != this) {
             var first = self.$checkboxes.index(self.lastChecked),
                 last = self.$checkboxes.index(this);
@@ -53,8 +53,8 @@ MB.Control.SelectAll = function (table) {
     return self;
 };
 
-$(function() {
-    $('table.tbl').each(function() {
+$(function () {
+    $('table.tbl').each(function () {
         MB.Control.SelectAll(this)
     });
 });

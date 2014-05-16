@@ -45,9 +45,7 @@ sub search : Path('')
                 if $form->field('method')->value eq 'direct';
             $c->forward('external');
         }
-        elsif ($form->field('type')->value eq 'tag' ||
-               $form->field('type')->value eq 'instrument' ||
-               $form->field('type')->value eq 'editor')
+        elsif ($form->field('type')->value eq 'tag')
         {
             $form->field('method')->value('direct');
             $c->forward('direct');
@@ -92,7 +90,7 @@ sub direct : Private
 
     my @entities = map { $_->entity } @$results;
 
-    given($type) {
+    given ($type) {
         when ('artist') {
             $c->model('ArtistType')->load(@entities);
             $c->model('Area')->load(@entities);
@@ -161,7 +159,6 @@ sub direct : Private
         when ('series') {
             $c->model('SeriesType')->load(@entities);
             $c->model('SeriesOrderingType')->load(@entities);
-            $c->model('LinkAttributeType')->load(@entities);
         }
     }
 
@@ -171,7 +168,7 @@ sub direct : Private
     }
 
     $c->stash(
-        template => sprintf ('search/results-%s.tt', $type),
+        template => sprintf('search/results-%s.tt', $type),
         query    => $query,
         results  => $results,
         type     => $type,
@@ -191,8 +188,6 @@ sub external : Private
     my $query  = $form->field('query')->value;
 
     $c->stash->{query} = $query;
-
-    $c->detach('/search/editor') if $type eq 'editor';
 
     $self->do_external_search($c,
                               query    => $query,
@@ -232,7 +227,7 @@ sub do_external_search {
         my $template = 'search/error/';
 
         # Switch on the response code to decide which template to provide
-        given($ret->{code})
+        given ($ret->{code})
         {
             when (404) { $template .= 'no-results.tt'; }
             when (403) { $template .= 'no-info.tt'; };

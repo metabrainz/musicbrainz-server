@@ -19,7 +19,7 @@ test 'basic work lookup' => sub {
         'T-000.000.002-0');");
 
     ws_test_json 'basic work lookup',
-    '/work/3c37b9fa-a6c1-37d2-9e90-657a116d337c' => encode_json (
+    '/work/3c37b9fa-a6c1-37d2-9e90-657a116d337c' => encode_json(
         {
             attributes => [],
             id => "3c37b9fa-a6c1-37d2-9e90-657a116d337c",
@@ -38,7 +38,7 @@ test 'basic work lookup, inc=annotation' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
 
     ws_test_json 'basic work lookup, inc=annotation',
-    '/work/482530c1-a2ab-32e8-be43-ea5240aa7913?inc=annotation' => encode_json (
+    '/work/482530c1-a2ab-32e8-be43-ea5240aa7913?inc=annotation' => encode_json(
         {
             attributes => [],
             id => "482530c1-a2ab-32e8-be43-ea5240aa7913",
@@ -62,7 +62,7 @@ test 'work lookup via iswc' => sub {
         "  'T-000.000.002-0');");
 
     ws_test_json 'work lookup via iswc',
-    '/iswc/T-000.000.002-0' => encode_json (
+    '/iswc/T-000.000.002-0' => encode_json(
         {
             "work-count" => 1,
             "work-offset" => 0,
@@ -84,7 +84,7 @@ test 'work lookup with recording relationships' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'work lookup with recording relationships',
-    '/work/3c37b9fa-a6c1-37d2-9e90-657a116d337c?inc=recording-rels' => encode_json (
+    '/work/3c37b9fa-a6c1-37d2-9e90-657a116d337c?inc=recording-rels' => encode_json(
         {
             attributes => [],
             id => "3c37b9fa-a6c1-37d2-9e90-657a116d337c",
@@ -93,6 +93,7 @@ test 'work lookup with recording relationships' => sub {
             relations => [
                 {
                     attributes => [],
+                    "attribute-values" => {},
                     type => "performance",
                     'type-id' => 'fdc57134-e05c-30bc-aff6-425684475276',
                     direction => "backward",
@@ -110,6 +111,7 @@ test 'work lookup with recording relationships' => sub {
                 },
                 {
                     attributes => [],
+                    "attribute-values" => {},
                     type => "performance",
                     'type-id' => 'fdc57134-e05c-30bc-aff6-425684475276',
                     direction => "backward",

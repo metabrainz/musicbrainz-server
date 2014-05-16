@@ -17,19 +17,19 @@ test 'errors' => sub {
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+webservice');
 
     my $mech = $test->mech;
-    $mech->default_header ("Accept" => "application/json");
+    $mech->default_header("Accept" => "application/json");
     $mech->get('/ws/2/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=coffee');
-    is ($mech->status, 400);
+    is($mech->status, 400);
 
-    is_valid_json ($mech->content);
-    is_json ($mech->content, encode_json ({
+    is_valid_json($mech->content);
+    is_json($mech->content, encode_json({
         error => "coffee is not a valid inc parameter for the artist resource."
     }));
 
     $mech->get('/ws/2/artist/00000000-1111-2222-3333-444444444444');
-    is ($mech->status, 404);
-    is_valid_json ($mech->content);
-    is_json ($mech->content, encode_json ({ error => "Not Found" }));
+    is($mech->status, 404);
+    is_valid_json($mech->content);
+    is_json($mech->content, encode_json({ error => "Not Found" }));
 };
 
 test 'basic artist lookup' => sub {
@@ -37,7 +37,7 @@ test 'basic artist lookup' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'basic artist lookup',
-    '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a' => encode_json (
+    '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a' => encode_json(
         {
             id => "472bc127-8861-45e8-bc9e-31e8dd32de7a",
             name => "Distance",
@@ -64,7 +64,7 @@ test 'basic artist lookup, inc=annotation' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
 
     ws_test_json 'basic artist lookup, inc=annotation',
-    '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=annotation' => encode_json (
+    '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=annotation' => encode_json(
         {
             id => "472bc127-8861-45e8-bc9e-31e8dd32de7a",
             name => "Distance",
@@ -90,7 +90,7 @@ test 'basic artist lookup, inc=aliases' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'basic artist lookup, inc=aliases',
-    '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=aliases' => encode_json (
+    '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=aliases' => encode_json(
         {
             id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
             name => "BoA",
@@ -123,7 +123,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'basic artist lookup, inc=url-rels',
-    '/artist/05d83760-08b5-42bb-a8d7-00d80b3bf47c?inc=url-rels' => encode_json (
+    '/artist/05d83760-08b5-42bb-a8d7-00d80b3bf47c?inc=url-rels' => encode_json(
         {
             id => "05d83760-08b5-42bb-a8d7-00d80b3bf47c",
             name => "Paul Allgood",
@@ -142,6 +142,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
             relations => [
                 {
                     attributes => [],
+                    "attribute-values" => {},
                     direction => "forward",
                     url => {
                         relations => [],
@@ -156,6 +157,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                 },
                 {
                     attributes => [],
+                    "attribute-values" => {},
                     direction => "forward",
                     url => {
                         relations => [],
@@ -170,6 +172,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                 },
                 {
                     attributes => [],
+                    "attribute-values" => {},
                     direction => "forward",
                     url => {
                         relations => [],
@@ -184,6 +187,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                 },
                 {
                     attributes => [],
+                    "attribute-values" => {},
                     direction => "forward",
                     url => {
                         relations => [],
@@ -198,6 +202,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                 },
                 {
                     attributes => [],
+                    "attribute-values" => {},
                     direction => "forward",
                     url => {
                         relations => [],
@@ -220,7 +225,7 @@ test 'artist lookup with releases' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'artist lookup with releases',
-    '/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f?inc=releases' => encode_json (
+    '/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f?inc=releases' => encode_json(
         {
             id => "802673f0-9b88-4e8a-bb5c-dd01d68b086f",
             name => "7人祭",
@@ -293,7 +298,7 @@ test 'artist lookup with pseudo-releases' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'artist lookup with pseudo-releases',
-    '/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f?inc=releases&type=single&status=pseudo-release' => encode_json (
+    '/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f?inc=releases&type=single&status=pseudo-release' => encode_json(
         {
             id => "802673f0-9b88-4e8a-bb5c-dd01d68b086f",
             name => "7人祭",
@@ -439,7 +444,7 @@ test 'artist lookup with recordings and artist credits' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'artist lookup with recordings and artist credits',
-    '/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=recordings+artist-credits' => encode_json (
+    '/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=recordings+artist-credits' => encode_json(
         {
             id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
             name => "m-flo",
@@ -524,7 +529,7 @@ test 'artist lookup with release groups' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'artist lookup with release groups',
-    '/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=release-groups&type=single' => encode_json (
+    '/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=release-groups&type=single' => encode_json(
         {
             id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
             name => "m-flo",
@@ -559,7 +564,7 @@ test 'single artist release lookup' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'single artist release lookup',
-    '/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=releases' => encode_json (
+    '/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=releases' => encode_json(
         {
             id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
             name => "m-flo",
@@ -609,7 +614,7 @@ test 'various artists release lookup' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'various artists release lookup',
-    '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=releases+various-artists&status=official' => encode_json (
+    '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=releases+various-artists&status=official' => encode_json(
         {
             id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
             name => "BoA",
@@ -659,7 +664,7 @@ test 'artist lookup with works (using l_artist_work)' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'artist lookup with works (using l_artist_work)',
-    '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=works' => encode_json (
+    '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=works' => encode_json(
         {
             id => "472bc127-8861-45e8-bc9e-31e8dd32de7a",
             name => "Distance",
@@ -695,7 +700,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'artist lookup with works (using l_recording_work)',
-    '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=works' => encode_json (
+    '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=works' => encode_json(
         {
             id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
             name => "BoA",
@@ -857,7 +862,7 @@ test 'artist lookup with artist relations' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'artist lookup with artist relations',
-    '/artist/678ba12a-e485-44c7-8eaf-25e61a78a61b?inc=artist-rels' => encode_json (
+    '/artist/678ba12a-e485-44c7-8eaf-25e61a78a61b?inc=artist-rels' => encode_json(
         {
             id => "678ba12a-e485-44c7-8eaf-25e61a78a61b",
             name => "後藤真希",
@@ -883,6 +888,7 @@ test 'artist lookup with artist relations' => sub {
             relations => [
                 {
                     attributes => [],
+                    "attribute-values" => {},
                     type => 'member of band',
                     'type-id' => '5be4c609-9afa-4ea0-910b-12ffb71e3821',
                     direction => 'forward',

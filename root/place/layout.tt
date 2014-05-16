@@ -21,7 +21,7 @@
                         [% WRAPPER 'layout/sidebar/property.tt' label=l("Defunct:") class="defunct" %]
                             [% place.end_date.format %]
                             [% IF place.has_age %]
-                                ([% display_age (place.age) %])
+                                ([% display_age(place.age) %])
                             [% END %]
                         [% END %]
                     [% ELSIF place.ended %]

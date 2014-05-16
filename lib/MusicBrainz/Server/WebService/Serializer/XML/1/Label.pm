@@ -40,7 +40,7 @@ sub serialize
 
     push @body, ($self->gen->country($entity->area->iso_3166_1->[0])) if $entity->area && $entity->area->iso_3166_1->[0];
 
-    push @body, ( $self->lifespan ($entity) ) if $self->has_lifespan ($entity);
+    push @body, ( $self->lifespan($entity) ) if $self->has_lifespan($entity);
 
     push @body, ( list_of([
         sort_by { $_->name } @{$opts->{aliases}}

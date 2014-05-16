@@ -81,7 +81,7 @@ sub initialize {
     my $cdtoc_id = $opts{cdtoc_id}
         or die 'Missing CDTOC ID';
 
-    my $medium = $self->c->model('Medium')->get_by_id ($medium_id);
+    my $medium = $self->c->model('Medium')->get_by_id($medium_id);
 
     $self->c->model('Release')->load($medium);
     $self->c->model('ArtistCredit')->load($medium->release);

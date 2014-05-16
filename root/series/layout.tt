@@ -5,8 +5,6 @@
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
                content=html_escape(series.type.l_name) class="type" -%]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('Ordering Attribute:')
-               content=html_escape(series.ordering_attribute.l_name) class="type" -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Ordering Type:')
                content=html_escape(series.ordering_type.l_name) class="type" -%]
         [% END %]

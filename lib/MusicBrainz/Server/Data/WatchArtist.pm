@@ -150,7 +150,7 @@ sub save_preferences {
         'DELETE FROM editor_watch_release_status WHERE editor = ?',
         $editor_id);
 
-    if(my @types = grep { $_ } @{ $preferences->{type_id} }) {
+    if (my @types = grep { $_ } @{ $preferences->{type_id} }) {
         my @type_editors = ($editor_id) x @types;
         $self->sql->do(
             'INSERT INTO editor_watch_release_group_type
@@ -159,7 +159,7 @@ sub save_preferences {
             mesh @type_editors, @types);
     }
 
-    if(my @status = grep { $_ } @{ $preferences->{status_id} }) {
+    if (my @status = grep { $_ } @{ $preferences->{status_id} }) {
         my @status_editors = ($editor_id) x @status;
         $self->sql->do(
             'INSERT INTO editor_watch_release_status

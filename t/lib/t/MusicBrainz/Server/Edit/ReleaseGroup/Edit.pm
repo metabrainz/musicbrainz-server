@@ -80,8 +80,8 @@ test 'Check conflicts (non-conflicting edits)' => sub {
 
     my $rg = $c->model('ReleaseGroup')->get_by_id(1);
     $c->model('ArtistCredit')->load($rg);
-    is ($rg->name, 'Renamed release group', 'release group renamed');
-    is ($rg->artist_credit->name, 'New ac name', 'date changed');
+    is($rg->name, 'Renamed release group', 'release group renamed');
+    is($rg->artist_credit->name, 'New ac name', 'date changed');
 };
 
 test 'Check conflicts (conflicting edits)' => sub {
@@ -130,9 +130,9 @@ test 'Check conflicts (conflicting edits)' => sub {
 
     my $rg = $c->model('ReleaseGroup')->get_by_id(1);
     $c->model('ArtistCredit')->load($rg);
-    is ($rg->name, 'Renamed release group', 'release group renamed');
-    is ($rg->comment, '');
-    is ($rg->artist_credit->name, 'New ac name', 'date changed');
+    is($rg->name, 'Renamed release group', 'release group renamed');
+    is($rg->comment, '');
+    is($rg->artist_credit->name, 'New ac name', 'date changed');
 };
 
 test 'Reject edits that try to set the release group type to something that doesnt exist' => sub {
@@ -170,7 +170,7 @@ EOSQL
             secondary_type_ids => [ 1 ]
         );
 
-        ok (!$edit->is_open, 'Adding a secondary type should be an auto-edit');
+        ok(!$edit->is_open, 'Adding a secondary type should be an auto-edit');
     }
 
     {
@@ -183,7 +183,7 @@ EOSQL
             secondary_type_ids => [ ]
         );
 
-        ok ($edit->is_open, 'Further changes to secondary types should not be a auto-edits');
+        ok($edit->is_open, 'Further changes to secondary types should not be a auto-edits');
     }
 };
 

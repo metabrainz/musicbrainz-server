@@ -102,7 +102,16 @@
                 .groupBy(sortKey)
                 .each(function (relationships, key) {
                     var group = _.findWhere(oldGroups, { sortKey: key });
-                    var attributes = _.intersection.apply(_, _.invoke(relationships, "attributes"));
+
+                    var attributes = _.apply(_, _.invoke(relationships, "attributes"))
+                                      .intersection().reject(isFreeText).value();
+
+                    relationships = viewModel.orderedRelationships(
+                        _(relationships)
+                            .sortBy(function (r) { return r.lowerCasePhrase(self) })
+                            .sortBy(function (r) { return r.lowerCaseTargetName(self) })
+                            .value(), self
+                    );
 
                     if (group) {
                         group.relationships(relationships);
@@ -112,6 +121,7 @@
                         group = {
                             sortKey: key,
                             targetType: keyParts[0],
+                            linkTypeID: +keyParts[1],
                             linkPhrase: keyParts[2],
                             relationships: ko.observableArray(relationships),
 
@@ -156,9 +166,19 @@
             }
 
             return (this.__groupedRelationships = _.sortBy(newGroups, "sortKey"));
+        },
+
+        getRelationshipGroup: function (linkTypeID, viewModel) {
+            return _(this.groupedRelationships(viewModel))
+                .values().where({ linkTypeID: +linkTypeID })
+                .invoke("relationships").flatten().value();
         }
     });
 
+
+    function isFreeText(id) {
+        return MB.attrInfoByID[id].freeText;
+    }
 
     function hasChanges(relationship) {
         return relationship.hasChanges();

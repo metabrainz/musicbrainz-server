@@ -6,7 +6,7 @@
 
         function buildAcoustidTable(tracks, mbid) {
             var tbl = $('<table class="tbl"><thead><tr><th>AcoustID<\/th><th style="width:5em;">[% l('Actions') %]<\/th><\/tr><\/thead><tbody><\/tbody><\/table>');
-            tracks.sort(function(a, b) {
+            tracks.sort(function (a, b) {
                 if (a.disabled && !b.disabled) return 1;
                 if (!a.disabled && b.disabled) return -1;
                 if (a.id > b.id) return 1;
@@ -38,7 +38,7 @@
 
         $.getJSON("//api.acoustid.org/v2/track/list_by_mbid?format=jsonp&disabled=1&jsoncallback=?",
             { 'mbid': '[% recording.gid %]' },
-            function(json) {
+            function (json) {
                 if (json.tracks.length) {
                     $('#acoustids').after(buildAcoustidTable(json.tracks, '[% recording.gid %]'));
                 }

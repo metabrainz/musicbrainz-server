@@ -28,26 +28,26 @@ MB.GuessCase._Track = function () {
 
         if (_.isString(data))
         {
-            return self.gc.guessTrack (data);
+            return self.gc.guessTrack(data);
         }
 
         var ret = [];
-        $.each (data, function (idx, line) {
-            ret.push (self.gc.guessTrack (line));
+        $.each(data, function (idx, line) {
+            ret.push(self.gc.guessTrack(line));
         });
 
         return ret;
     };
 
-    self.gc = MB.GuessCase.Main ();
+    self.gc = MB.GuessCase.Main();
     self.guess = guess;
 
     return self;
 };
 
-$('document').ready (function () {
+$('document').ready(function () {
 
-    MB.GuessCase.track = MB.GuessCase._Track ();
+    MB.GuessCase.track = MB.GuessCase._Track();
     MB.GuessCase.recording = MB.GuessCase.track;
 
 });

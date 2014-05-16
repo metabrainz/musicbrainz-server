@@ -162,10 +162,12 @@ sub find
 
     $i = 0;
     foreach my $attr (keys %attrs) {
-        push @joins, "JOIN link_attribute_text_value latv$i ON latv$i.link = link.id";
-        push @conditions, "latv$i.attribute_type = ?", "latv$i.text_value = ?";
-        push @args, $attr, $attrs{$attr};
-        $i += 1;
+        if (my $text_value = $attrs{$attr}) {
+            push @joins, "JOIN link_attribute_text_value latv$i ON latv$i.link = link.id";
+            push @conditions, "latv$i.attribute_type = ?", "latv$i.text_value = ?";
+            push @args, $attr, $text_value;
+            $i += 1;
+        }
     }
 
     my $query = "SELECT id FROM link " . join(" ", @joins) . " WHERE " . join(" AND ", @conditions);
@@ -204,7 +206,7 @@ sub find_or_insert
             link           => $id,
             attribute_type => $attr,
             text_value     => $attrs{$attr},
-        });
+        }) if $attrs{$attr};
     }
 
     return $id;

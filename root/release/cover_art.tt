@@ -7,7 +7,7 @@
 
       <div class="artwork-cont[% ' mp' IF artwork.edits_pending %]">
         <div style="position: relative" class="artwork">
-          [%- display_artwork (artwork, undef, undef, 'mb-caa') -%]
+          [%- display_artwork(artwork, undef, undef, 'mb-caa') -%]
         </div>
         <p>
           [%- l('Types:') -%]

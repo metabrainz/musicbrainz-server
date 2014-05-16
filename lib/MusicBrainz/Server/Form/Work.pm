@@ -154,6 +154,6 @@ sub attributes_json {
 sub edit_field_names { qw( type_id language_id name comment artist_credit attributes ) }
 
 sub options_type_id           { select_options_tree(shift->ctx, 'WorkType') }
-sub options_language_id       { return language_options (shift->ctx); }
+sub options_language_id       { return language_options(shift->ctx); }
 
 1;

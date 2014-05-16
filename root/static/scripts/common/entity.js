@@ -53,10 +53,8 @@
         return new entityClass(data);
     };
 
-
     // Used by MB.entity() above to cache everything with a GID.
     MB.entityCache = {};
-
 
     MB.entity.CoreEntity = aclass(Entity, {
 
@@ -125,6 +123,27 @@
         }
     });
 
+    MB.entity.Editor = aclass(MB.entity.CoreEntity, {
+        entityType: "editor",
+        init: function (data) {
+            this.id = data.id;
+            this.name = data.name;
+        },
+        toJSON: function () {
+            var obj = {
+                entityType: this.entityType,
+                id:         this.id,
+                name:       ko.unwrap(this.name)
+            };
+            return obj;
+        },
+        template: _.template(
+            "<a href=\"/<%= data.entityType %>/<%- data.name %>\">" +
+            "<bdi><%- data.name %></bdi></a>",
+            null,
+            {variable: "data"}
+        )
+    });
 
     MB.entity.Artist = aclass(MB.entity.CoreEntity, { entityType: "artist" });
 
@@ -198,9 +217,19 @@
         entityType: "series",
 
         after$init: function (data) {
-            this.type = data.type;
+            this.type = ko.observable(data.type);
+            this.typeID = ko.observable(data.type && data.type.id);
             this.orderingTypeID = ko.observable(data.orderingTypeID);
-            this.orderingAttributeID = ko.observable(data.orderingAttributeID);
+        },
+
+        getSeriesItems: function (viewModel) {
+            var type = this.type();
+            if (!type) return [];
+
+            var gid = MB.constants.PART_OF_SERIES_LINK_TYPES_BY_ENTITY[type.entityType];
+            var linkTypeInfo = MB.typeInfoByID[gid];
+
+            return this.getRelationshipGroup(linkTypeInfo.id, viewModel);
         }
     });
 
@@ -478,7 +507,11 @@
 
         target: function (source) {
             var entities = this.entities();
-            return source === entities[0] ? entities[1] : entities[0];
+
+            if (source === entities[0]) return entities[1];
+            if (source === entities[1]) return entities[0];
+
+            throw new Error("The given entity is not used by this relationship");
         },
 
         linkTypeInfo: function () {
@@ -555,6 +588,7 @@
         series:        MB.entity.Series,
         track:         MB.entity.Track,
         work:          MB.entity.Work,
-        url:           MB.entity.URL
+        url:           MB.entity.URL,
+        editor:        MB.entity.Editor
     };
 }());

@@ -18,7 +18,7 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
-(function(MB) {
+(function (MB) {
     $.extend(MB.text, {
         TagNone: '[% lp('(none)', 'tag') | js %]',
         Artist: '[% l('Artist') | js %]',
@@ -103,6 +103,7 @@
         Entity: {
             area:            "[% l('Area') | js %]",
             artist:          "[% l('Artist') | js %]",
+            instrument:      "[% l('Instrument') | js %]",
             label:           "[% l('Label') | js %]",
             place:           "[% l('Place') | js %]",
             recording:       "[% l('Recording') | js %]",
@@ -132,6 +133,7 @@
             place:           "[% l('Add a new place') | js %]",
             recording:       "[% l('Add a new recording') | js %]",
             release_group:   "[% l('Add a new release group') | js %]",
+            series:          "[% l('Add a new series') | js %]",
             work:            "[% l('Add a new work') | js %]"
         },
         ImagePager: '[% l('Image {current} of {total}') | js %]',
@@ -173,15 +175,16 @@
         AddAnotherEntity: {
             area:            "[% l('Add another area') | js %]",
             artist:          "[% l('Add another artist') | js %]",
+            instrument:      "[% l('Add another instrument') | js %]",
             label:           "[% l('Add another label') | js %]",
             place:           "[% l('Add another place') | js %]",
             recording:       "[% l('Add another recording') | js %]",
             release:         "[% l('Add another release') | js %]",
             release_group:   "[% l('Add another release group') | js %]",
+            series:          "[% l('Add another series') | js %]",
             work:            "[% l('Add another work') | js %]"
         },
         AttributeTextValue: '[% l('{attribute}: {value}') | js %]',
-        AttributeTextValueRequired: '[% l('A text value is required.') | js %]',
         OrderedRelationship: '[% l('{num}. {relationship}') | js %]',
         IncorrectEntityForSeries: {
             recording: '[% l('The series you’ve selected is for recordings.') | js %]',

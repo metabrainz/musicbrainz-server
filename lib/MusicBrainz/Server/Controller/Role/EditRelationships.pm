@@ -14,7 +14,7 @@ role {
         my ($source, $type) = @_;
 
         my $method = "_$type";
-        return JSONSerializer->$method($source);
+        return JSONSerializer->$method($source) if $source;
     }
 
     sub load_entities {
@@ -26,24 +26,37 @@ role {
             map { $_->{link_type_id} } @rels
         );
 
-        for (@rels) {
-            my $link_type = $link_types->{$_->{link_type_id}};
+        for my $field (@rels) {
+            my $link_type = $link_types->{$field->{link_type_id}};
+            my $forward;
+            my $target_type;
 
-            my $forward = $source_type eq $link_type->entity0_type && !$_->{backward};
-            my $target_type = $forward ? $link_type->entity1_type : $link_type->entity0_type;
+            if ($link_type) {
+                $forward = $source_type eq $link_type->entity0_type && !$field->{backward};
+                $target_type = $forward ? $link_type->entity1_type : $link_type->entity0_type;
+                $field->{link_type} = $link_type;
+            } elsif ($field->{text}) {
+                # If there's a text field, we can assume it's a URL because
+                # that's what the text field is for. Seeding URLs without link
+                # types is a reasonable use case given that we autodetect them
+                # in the JavaScript.
+                $forward = $source_type lt 'url';
+                $target_type = 'url';
+            }
 
-            $_->{forward} = $forward;
-            $_->{link_type} = $link_type;
-            $_->{target_type} = $target_type;
+            $field->{forward} = $forward;
+            $field->{target_type} = $target_type;
 
             if ($target_type ne 'url') {
-                push @{ $entity_map->{type_to_model($target_type)} //= [] }, $_->{target};
+                push @{ $entity_map->{type_to_model($target_type)} //= [] }, $field->{target};
             }
         }
 
         for my $model (keys %$entity_map) {
             $entity_map->{$model} = $c->model($model)->get_by_gids(@{ $entity_map->{$model} });
         }
+
+        $c->model('SeriesType')->load(values %{ $entity_map->{'Series'} // {} });
 
         return $entity_map;
     }
@@ -60,7 +73,7 @@ role {
 
         my $submitted_rel_data = sub {
             my @rels = grep {
-                $_ && (($_->{text} || $_->{target} || $_->{removed}) && $_->{link_type_id})
+                $_ && ($_->{text} || (($_->{target} || $_->{removed}) && $_->{link_type_id}))
             } @_;
 
             my @result;
@@ -74,10 +87,8 @@ role {
                     $target = { name => $_->{text}, entityType => 'url' };
                 }
                 elsif ($_->{target}) {
-                    my $serialize = "_$target_type";
-
-                    $target = JSONSerializer->$serialize(
-                        $entity_map->{type_to_model($target_type)}->{$_->{target}}
+                    $target = serialize_entity(
+                        $entity_map->{type_to_model($target_type)}->{$_->{target}}, $target_type
                     );
                 }
 
@@ -217,10 +228,12 @@ role {
                     $target = $c->model('URL')->find_or_insert($field->{text});
                 } elsif ($field->{target}) {
                     $target = $entity_map->{type_to_model($field->{target_type})}->{$field->{target}};
+                    next unless $target;
                 }
 
                 $args{entity0} = $field->{forward} ? $source : $target;
-                $args{entity1} = $field->{forward} ? $target : $source;;
+                $args{entity1} = $field->{forward} ? $target : $source;
+                $args{link_order} = $field->{link_order} // 0;
             }
 
             if ($field->{relationship_id}) {

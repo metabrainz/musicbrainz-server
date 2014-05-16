@@ -36,7 +36,7 @@ test 'clean_submitted_artist_credits, copy name to credit' => sub {
             }]
     };
 
-    is_deeply ( clean_submitted_artist_credits ($ac),
+    is_deeply( clean_submitted_artist_credits ($ac),
                 $expected, "copied name to credits" );
 };
 
@@ -69,7 +69,7 @@ test 'clean_submitted_artist_credits, trim and collapse all fields' => sub {
             }]
     };
 
-    is_deeply ( clean_submitted_artist_credits ($ac),
+    is_deeply( clean_submitted_artist_credits ($ac),
                 $expected, "trimmed and collapsed" );
 };
 

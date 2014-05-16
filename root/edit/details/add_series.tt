@@ -25,13 +25,6 @@
   </tr>
   [% END %]
 
-  [% IF edit.display_data.ordering_attribute %]
-  <tr>
-    <th>[% l('Ordering Attribute:') %]</th>
-    <td>[% edit.display_data.ordering_attribute.name %]</td>
-  </tr>
-  [% END %]
-
   [% IF edit.display_data.ordering_type %]
   <tr>
     <th>[% l('Ordering Type:') %]</th>

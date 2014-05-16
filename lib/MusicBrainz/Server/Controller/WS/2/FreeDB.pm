@@ -21,7 +21,7 @@ sub freedb_search : Chained('root') PathPart('freedb') Args(0)
 {
     my ($self, $c) = @_;
 
-    $self->_search ($c, 'freedb');
+    $self->_search($c, 'freedb');
 }
 
 __PACKAGE__->meta->make_immutable;

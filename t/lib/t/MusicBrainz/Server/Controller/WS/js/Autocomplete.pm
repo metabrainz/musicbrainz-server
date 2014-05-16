@@ -16,7 +16,7 @@ test all => sub {
     MusicBrainz::Server::Test->prepare_test_database($c);
 
     ws_test 'artist autocomplete response',
-        '/artist?q=David&direct=true' => encode_json (
+        '/artist?q=David&direct=true' => encode_json(
             [ {
                 "comment" => '',
                 "id" => 5,
@@ -28,7 +28,7 @@ test all => sub {
               }, { "current" => 1, "pages" => 1 } ]);
 
     ws_test 'label autocomplete response',
-        '/label?q=Warp&direct=true' => encode_json (
+        '/label?q=Warp&direct=true' => encode_json(
             [ {
                 "comment" => "Sheffield based electronica label",
                 "id" => 2,

@@ -36,62 +36,10 @@
         ajax_form_url=c.uri_for_action('/ajax/filter_artist_release_groups_form', { artist_id => artist.id }) -%]
 
     [%- IF release_groups.size -%]
-        [%- WRAPPER 'components/with-pager.tt' -%]
-            <form action="[% c.uri_for_action('/release_group/merge_queue') %]"
-                method="post">
-            [%- FOR rg=release_groups -%]
-                [% rgtype = rg.type_name || 'undefined' %]
-                [% IF last_rg_type != rgtype %]
-                    [% IF last_rg_type.defined %]
-                        </tbody>
-                    </table>
-                    [% END %]
-                    <h3>[% rg.l_type_name || l('Unspecified type') %]</h3>
-                    <table class="tbl">
-                        <thead>
-                            <tr>
-                                [% IF c.user_exists %]<th class="pos"></th>[% END %]
-                                <th class="year c">[% l('Year') %]</th>
-                                <th>[% l('Title') %]</th>
-                                [% IF show_artists %]
-                                <th>[% l('Artist') %]</th>
-                                [% END %]
-                                <th class="rating c">[% l('Rating') %]</th>
-                                <th class="count c">[% l('Releases') %]</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                    [% last_rg_type = rgtype %]
-                [% END %]
-                <tr [% ' class="ev"' IF loop.count % 2 == 0 %]>
-                    [% IF c.user_exists %]
-                    <td>
-                        <input type="checkbox" name="add-to-merge"
-                            value="[% rg.id %]" />
-                    </td>
-                    [% END %]
-                    <td class="c">[% rg.first_release_date.year or '&#x2014;' %]</td>
-                    <td>
-                      [% link_release_group(rg) %]
-                      [% disambiguation(rg) %]
-                      [% FOR t=rg.secondary_types %]
-                        <span class="release-group-type">[% t.l_name %]</span>
-                      [% END %]
-                    </td>
-                    [% IF show_artists %]
-                    <td>[% artist_credit(rg.artist_credit) %]</td>
-                    [% END %]
-                    <td class="c">[% rating_stars(rg) %]</td>
-                    <td class="c">[% rg.release_count %]</td>
-                </tr>
-            [%- END -%]
-            [% IF last_rg_type.defined %]
-                </tbody>
-            </table>
-            [% END %]
-            [% form_submit(l('Merge release groups')) WRAPPER form_row IF c.user_exists %]
-            </form>
-        [%- END -%]
+      <form action="[% c.uri_for_action('/release_group/merge_queue') %]" method="post">
+        [% INCLUDE 'components/release_groups-list.tt' release_groups=release_groups WRAPPER 'components/with-pager.tt' %]
+        [% form_submit(l('Merge release groups')) WRAPPER form_row IF c.user_exists %]
+      </form>
     [%- END -%]
 
     [%- IF recordings.size -%]

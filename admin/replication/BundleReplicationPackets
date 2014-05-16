@@ -147,7 +147,7 @@ mkdir "$newpacketdir/mbdump" or die $!;
 my $schema_sequence;
 my $last_replication_sequence = $start - 1;
 for my $sequence (@seq_to_use) {
-    die ("Replication sequence $sequence is too far from $last_replication_sequence")
+    die("Replication sequence $sequence is too far from $last_replication_sequence")
         if $last_replication_sequence + 1 != $sequence;
     my $individual_packet_dir = tempdir("replication-bundle-XXXXXX", DIR => $tmpdir);
 

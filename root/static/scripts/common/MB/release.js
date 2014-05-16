@@ -2,7 +2,7 @@ MB.Release = (function (Release) {
 
   var ViewModel, Medium, Track;
 
-  Release.init = function(releaseData) {
+  Release.init = function (releaseData) {
     Release.viewModel = getViewModel(releaseData);
 
     ko.bindingHandlers.foreachKv = {
@@ -13,7 +13,7 @@ MB.Release = (function (Release) {
           function (k) { return { key: k, value: obj[k] } }
         );
       },
-      init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+      init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         var value = ko.utils.unwrapObservable(valueAccessor()),
             properties = ko.bindingHandlers.foreachKv.transformObject(value);
         ko.applyBindingsToNode(element, { foreach: properties }, bindingContext);
@@ -61,7 +61,7 @@ MB.Release = (function (Release) {
 
     _.each(
       _.keys(b),
-      function(k) {
+      function (k) {
         if (newA.hasOwnProperty(k)) {
           if (_.isArray(b[k])) {
             newA[k] = a[k].concat(b[k]);
@@ -109,20 +109,20 @@ MB.Release = (function (Release) {
     );
 
     var allArtistCredits = _.flatten(
-      _.map(model.mediums, function(medium) {
+      _.map(model.mediums, function (medium) {
         return _.map(medium.tracks, function (track) {
           return track.artistCredit;
         });
       })
     );
 
-    model.showArtists = _.some(allArtistCredits, function(subject) {
+    model.showArtists = _.some(allArtistCredits, function (subject) {
       return !subject.isEqual(model.artistCredit)
     });
 
     model.showVideo = _.any(
       _.flatten(
-        _.map(model.mediums, function(medium) {
+        _.map(model.mediums, function (medium) {
           return _.map(medium.tracks, function (track) {
             return track.recording.video;
           });

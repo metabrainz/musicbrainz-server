@@ -26,7 +26,7 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
  * Models the "Work" GuessCase mode.
  **/
 MB.GuessCase.Mode.Work = function () {
-    var self = MB.GuessCase.Mode.Base ();
+    var self = MB.GuessCase.Mode.Base();
 
     self.setConfig('work mode', '');
 

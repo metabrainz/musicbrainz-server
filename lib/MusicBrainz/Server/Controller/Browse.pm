@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::Browse;
 use Moose;
+use List::UtilsBy qw( sort_by );
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
@@ -48,7 +49,23 @@ sub artist : Local
 sub instrument : Local {
     my ($self, $c) = @_;
 
-    $self->_browse($c, 'Instrument');
+    my ($instruments, $total) = $c->model('Instrument')->fetch_all;
+    my $coll = $c->get_collator();
+    my @sorted = sort_by { $coll->getSortKey($_->l_name) } @$instruments;
+
+    my @types = $c->model('InstrumentType')->get_all();
+
+    my $entities = {};
+    for my $i (@sorted) {
+        my $type = $i->{type_id} || "unknown";
+        push @{ $entities->{$type} }, $i;
+    }
+
+    $c->stash(
+        template => 'browse/instrument.tt',
+        entities => $entities,
+        types => \@types,
+    );
 }
 
 sub label : Local

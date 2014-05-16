@@ -72,7 +72,7 @@
                           edit.display_data.packaging.new.l_name) -%]
 
   [%- display_diff(l('Barcode:'),
-          html_escape (edit.display_data.barcode.old.format),
-          html_escape (edit.display_data.barcode.new.format)) -%]
+          html_escape(edit.display_data.barcode.old.format),
+          html_escape(edit.display_data.barcode.new.format)) -%]
 
 </table>

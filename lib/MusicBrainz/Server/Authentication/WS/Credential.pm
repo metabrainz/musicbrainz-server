@@ -2,7 +2,7 @@ package MusicBrainz::Server::Authentication::WS::Credential;
 use base qw/Catalyst::Authentication::Credential::HTTP/;
 
 use DBDefs;
-use Digest::HMAC_SHA1 qw ( hmac_sha1 );
+use Digest::HMAC_SHA1 qw( hmac_sha1 );
 use Encode qw( decode );
 use HTTP::Status qw( HTTP_BAD_REQUEST );
 use MIME::Base64 qw( encode_base64 );

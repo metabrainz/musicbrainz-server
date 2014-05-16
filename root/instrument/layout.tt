@@ -37,24 +37,6 @@
                 <hr/>
                 [% END %]
 
-                [%# We only show the 'Create a relationship with' link if the
-                    user is a relationship editor, or the other end point is *not* an
-                    instrument. %]
-                [% IF c.user.is_relationship_editor
-                        || c.session.relationship.type0 != 'instrument' %]
-                    [%# Adds <li> itself %]
-                    [% use_in_relationship(instrument) %]
-                [% END %]
-
-                <li>[% relate_to_ellipsis(instrument) %]</li>
-
-                [%# Only relationship editors can create instrument-url relationships %]
-                [% IF c.user.is_relationship_editor %]
-                    <li>[% relate_to_url(instrument) %]</li>
-                [% END %]
-
-                <hr/>
-
                 <li>[% link_entity(instrument, 'open_edits', l('Open edits')) %]</li>
                 <li>[% link_entity(instrument, 'edits', l('Editing history')) %]</li>
             [% ELSE %]

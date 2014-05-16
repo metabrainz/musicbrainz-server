@@ -60,8 +60,8 @@ EOSQL
     my $edit = _create_edit($c);
     accept_edit($c, $edit);
 
-    is ($c->model('Track')->get_by_id(1), undef, 'Track with row id 1 has been deleted');
-    is ($c->model('Track')->get_by_id(2), undef, 'Track with row id 1 has been deleted');
+    is($c->model('Track')->get_by_id(1), undef, 'Track with row id 1 has been deleted');
+    is($c->model('Track')->get_by_id(2), undef, 'Track with row id 1 has been deleted');
 };
 
 sub _create_edit {

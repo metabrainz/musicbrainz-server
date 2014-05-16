@@ -7,18 +7,19 @@ use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_EDIT );
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash Nullable NullableOnPreview );
+use MusicBrainz::Server::Edit::Utils qw( normalize_date_period );
 use MusicBrainz::Server::Data::Utils qw(
   partial_date_to_hash
   type_to_model
 );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Link';
 use aliased 'MusicBrainz::Server::Entity::LinkType';
 use aliased 'MusicBrainz::Server::Entity::Relationship';
+use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Relationship';
@@ -158,8 +159,8 @@ sub _build_relationship
     return Relationship->new(
         link => Link->new(
             type       => $loaded->{LinkType}{ $lt->{id} } || LinkType->new( $lt ),
-            begin_date => MusicBrainz::Server::Entity::PartialDate->new_from_row( $begin ),
-            end_date   => MusicBrainz::Server::Entity::PartialDate->new_from_row( $end ),
+            begin_date => PartialDate->new_from_row( $begin ),
+            end_date   => PartialDate->new_from_row( $end ),
             ended      => $ended,
             attributes => [
                 map {
@@ -192,8 +193,8 @@ sub build_display_data
     my $new = $self->data->{new};
 
     return {
-        old => $self->_build_relationship ($loaded, $self->data, $old),
-        new => $self->_build_relationship ($loaded, $self->data, $new),
+        old => $self->_build_relationship($loaded, $self->data, $old),
+        new => $self->_build_relationship($loaded, $self->data, $new),
         unknown_attributes => scalar(
             grep { !exists $loaded->{LinkAttributeType}{$_} }
                 @{ $old->{attributes} // [] },
@@ -239,10 +240,10 @@ sub adjust_edit_pending
 sub _mapping
 {
     return (
-        begin_date => sub { return partial_date_to_hash (shift->link->begin_date); },
-        end_date =>   sub { return partial_date_to_hash (shift->link->end_date);   },
+        begin_date => sub { return partial_date_to_hash(shift->link->begin_date); },
+        end_date =>   sub { return partial_date_to_hash(shift->link->end_date);   },
         ended => sub { return shift->link->ended },
-        attributes => sub { return [ map { $_->id } shift->link->all_attributes ]; },
+        attributes => sub { return [ sort map { $_->id } shift->link->all_attributes ]; },
         link_type => sub {
             my $rel = shift;
             my $lt = $rel->link->type;
@@ -325,13 +326,15 @@ sub initialize
         long_link_phrase => $opts{link_type}->long_link_phrase
     } if $opts{link_type};
 
+    normalize_date_period(\%opts);
+
     $self->relationship($relationship);
     $self->data({
         type0 => $type0,
         type1 => $type1,
         relationship_id => $relationship->id,
         link => {
-            begin_date => partial_date_to_hash ($link->begin_date),
+            begin_date => partial_date_to_hash($link->begin_date),
             end_date =>   partial_date_to_hash ($link->end_date),
             ended => $link->ended,
             attributes => [ map { $_->id } $link->all_attributes ],

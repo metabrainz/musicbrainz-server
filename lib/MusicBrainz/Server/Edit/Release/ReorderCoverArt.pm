@@ -8,7 +8,7 @@ use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REORDER_COVER_ART $EXPIRE_ACCEPT :quality );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 use List::UtilsBy 'nsort_by';
 use Data::Compare;
@@ -87,8 +87,8 @@ sub accept {
 
     my $current = $self->c->model('Artwork')->find_by_release($release);
 
-    my @current_ids = sort (map { $_->id } @$current);
-    my @edit_ids = sort (map { $_->{id} } @{ $self->data->{old} });
+    my @current_ids = sort(map { $_->id } @$current);
+    my @edit_ids = sort(map { $_->{id} } @{ $self->data->{old} });
 
     if (join(",", @current_ids) ne join (",", @edit_ids))
     {
@@ -127,7 +127,7 @@ sub build_display_data {
     my $artwork;
     if ($data{release}) {
         $artwork = $self->c->model('Artwork')->find_by_release($data{release});
-        $self->c->model ('CoverArtType')->load_for(@$artwork);
+        $self->c->model('CoverArtType')->load_for(@$artwork);
     } else {
         $data{release} = Release->new( name => $self->data->{entity}{name},
                                        id => $self->data->{entity}{id},

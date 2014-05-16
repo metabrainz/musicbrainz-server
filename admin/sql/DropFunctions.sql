@@ -72,6 +72,7 @@ DROP FUNCTION unique_primary_artist_alias();
 DROP FUNCTION unique_primary_instrument_alias();
 DROP FUNCTION unique_primary_label_alias();
 DROP FUNCTION unique_primary_place_alias();
+DROP FUNCTION unique_primary_series_alias();
 DROP FUNCTION unique_primary_work_alias();
 DROP FUNCTION whitespace_collapsed(TEXT);
 DROP AGGREGATE array_accum (anyelement);

@@ -56,12 +56,7 @@ sub load
 {
     my ($self, @objs) = @_;
 
-    # XXX HACK HACK HACK
-    # 'type' conflicts with series types
-    my $series_class = "MusicBrainz::Server::Entity::Series";
-
-    load_subobjects($self, 'ordering_attribute', grep { $_->isa($series_class) } @objs);
-    load_subobjects($self, 'type', grep { !$_->isa($series_class) } @objs);
+    load_subobjects($self, 'type', @objs);
 }
 
 sub find_root

@@ -4,7 +4,7 @@
     [% IF works.size %]
       <form action="[% c.uri_for_action('/work/merge_queue') %]"
             method="post">
-      [% INCLUDE 'artist/works-list.tt' WRAPPER 'components/with-pager.tt' %]
+      [% INCLUDE 'components/works-list.tt' WRAPPER 'components/with-pager.tt' %]
       [% form_submit(l('Add selected works for merging')) WRAPPER form_row  IF c.user_exists %]
       </form>
     [% ELSE %]

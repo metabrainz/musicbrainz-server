@@ -161,7 +161,7 @@ sub root : Chained('/') PathPart("ws/2") CaptureArgs(0)
     }
     catch {
         my $err = $_;
-        if(eval { $err->isa('MusicBrainz::Server::WebService::Exceptions::UnknownIncParameter') }) {
+        if (eval { $err->isa('MusicBrainz::Server::WebService::Exceptions::UnknownIncParameter') }) {
             $self->_error($c, $err->message);
         }
         $c->detach;
@@ -216,16 +216,16 @@ sub _tags
 {
     my ($self, $c, $modelname, $entities, $stash) = @_;
 
-    my %map = object_to_ids (@$entities);
+    my %map = object_to_ids(@$entities);
     my $model = $c->model($modelname);
 
     if ($c->stash->{inc}->tags)
     {
-        my @tags = $model->tags->find_tags_for_entities (map { $_->id } @$entities);
+        my @tags = $model->tags->find_tags_for_entities(map { $_->id } @$entities);
 
         for (@tags)
         {
-            my $opts = $stash->store ($map{$_->entity_id}->[0]);
+            my $opts = $stash->store($map{$_->entity_id}->[0]);
 
             $opts->{tags} = [] unless $opts->{tags};
             push @{ $opts->{tags} }, $_;
@@ -234,12 +234,12 @@ sub _tags
 
     if ($c->stash->{inc}->user_tags)
     {
-        my @tags = $model->tags->find_user_tags_for_entities (
+        my @tags = $model->tags->find_user_tags_for_entities(
             $c->user->id, map { $_->id } @$entities);
 
         for (@tags)
         {
-            my $opts = $stash->store ($map{$_->entity_id}->[0]);
+            my $opts = $stash->store($map{$_->entity_id}->[0]);
 
             $opts->{user_tags} = [] unless $opts->{user_tags};
             push @{ $opts->{user_tags} }, $_;
@@ -251,7 +251,7 @@ sub _ratings
 {
     my ($self, $c, $modelname, $entities, $stash) = @_;
 
-    my %map = object_to_ids (@$entities);
+    my %map = object_to_ids(@$entities);
     my $model = $c->model($modelname);
 
     if ($c->stash->{inc}->ratings)
@@ -262,7 +262,7 @@ sub _ratings
         {
             if ($_->rating_count)
             {
-                $stash->store ($_)->{ratings} = {
+                $stash->store($_)->{ratings} = {
                     rating => $_->rating * 5 / 100,
                     count => $_->rating_count,
                 };
@@ -275,7 +275,7 @@ sub _ratings
         $model->rating->load_user_ratings($c->user->id, @$entities);
         for (@$entities)
         {
-            $stash->store ($_)->{user_ratings} = $_->user_rating * 5 / 100
+            $stash->store($_)->{user_ratings} = $_->user_rating * 5 / 100
                 if $_->user_rating;
         }
     }
@@ -384,7 +384,7 @@ sub linked_recordings
 
         for (@$recordings)
         {
-            $stash->store ($_)->{isrcs} = $isrc_per_recording{$_->id};
+            $stash->store($_)->{isrcs} = $isrc_per_recording{$_->id};
         }
     }
 
@@ -488,7 +488,7 @@ sub _validate_post
         $c->detach;
     }
 
-    $self->_error ($c, "Please specify the name and version number of your client application.")
+    $self->_error($c, "Please specify the name and version number of your client application.")
         unless $c->req->params->{client};
 }
 
@@ -500,7 +500,7 @@ sub _validate_entity
     my $entity = $c->stash->{args}->{entity};
     $entity =~ s/-/_/;
 
-    my $model = type_to_model ($entity);
+    my $model = type_to_model($entity);
 
     if (!$gid || !is_guid($gid))
     {

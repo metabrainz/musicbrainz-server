@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Recording::Merge;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_MERGE );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Edit::Utils qw( large_spread );
 
 extends 'MusicBrainz::Server::Edit::Generic::Merge';

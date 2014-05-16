@@ -160,20 +160,20 @@ is(scalar(@editors), 1);
 is($editors[0]->id, $new_editor_2->id);
 
 
-@editors = $editor_data->find_by_subscribed_editor (2, 10, 0);
+@editors = $editor_data->find_by_subscribed_editor(2, 10, 0);
 is($editors[1], 1, "alice is subscribed to one person ...");
 is($editors[0][0]->id, 1, "          ... that person is new_editor");
 
 
-@editors = $editor_data->find_subscribers (1, 10, 0);
+@editors = $editor_data->find_subscribers(1, 10, 0);
 is($editors[1], 1, "new_editor has one subscriber ...");
 is($editors[0][0]->id, 2, "          ... that subscriber is alice");
 
 
-@editors = $editor_data->find_by_subscribed_editor (1, 10, 0);
+@editors = $editor_data->find_by_subscribed_editor(1, 10, 0);
 is($editors[1], 0, "new_editor has not subscribed to anyone");
 
-@editors = $editor_data->find_subscribers (2, 10, 0);
+@editors = $editor_data->find_subscribers(2, 10, 0);
 is($editors[1], 0, "alice has no subscribers");
 
 subtest 'Find editors with subscriptions' => sub {
@@ -269,7 +269,7 @@ test 'Deleting an editor cancels all open edits' => sub {
         isni_codes => []
     );
 
-    is ($open_edit->status, $STATUS_OPEN);
+    is($open_edit->status, $STATUS_OPEN);
 
     $c->model('Editor')->delete(1);
 
@@ -317,7 +317,7 @@ test 'Open edit and last-24-hour counts' => sub {
         isni_codes => []
     );
 
-    is ($open_edit->status, $STATUS_OPEN);
+    is($open_edit->status, $STATUS_OPEN);
 
     is($c->model('Editor')->open_edit_count(1), 1, "Open edit count is 1");
     is($c->model('Editor')->last_24h_edit_count(1), 2, "Last 24h count is 2");
@@ -330,6 +330,20 @@ INSERT INTO artist (id, gid, name, sort_name)
   VALUES (1, 'dd448d65-d7c5-4eef-8e13-12e1bfdacdc6', 'artist', 'artist');
 INSERT INTO label (id, gid, name)
   VALUES (1, 'dd448d65-d7c5-4eef-8e13-12e1bfdacdc6', 'label');
+
+INSERT INTO series_type (id, name, entity_type, parent, child_order, description) VALUES
+    (1, 'Recording', 'recording', NULL, 0, 'description');
+
+INSERT INTO series_ordering_type (id, name, parent, child_order, description) VALUES
+    (1, 'Automatic', NULL, 0, 'description');
+
+INSERT INTO link_attribute_type (id, root, parent, child_order, gid, name, description) VALUES
+    (1, 1, NULL, 0, '58ed5e16-411a-4676-a6f9-0d8a25823763', 'ordering', 'description');
+
+INSERT INTO link_text_attribute_type VALUES (1);
+
+INSERT INTO series (id, gid, name, comment, type, ordering_attribute, ordering_type)
+    VALUES (1, 'a8749d0c-4a5a-4403-97c5-f6cd018f8e6d', 'Test Recording Series', 'test comment 1', 1, 1, 1);
 
 INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES
 (1, 'Alice', '{CLEARTEXT}al1c3', 'd61b477a6269ddd11dbd70644335a943', '', now()),
@@ -348,19 +362,23 @@ INSERT INTO editor_subscribe_label (id, editor, label, last_edit_sent) VALUES
   (1, 1, 1, 1), (2, 2, 1, 1);
 INSERT INTO editor_subscribe_editor
   (id, editor, subscribed_editor, last_edit_sent) VALUES (1, 1, 1, 1);
+
+INSERT INTO editor_subscribe_series (id, editor, series, last_edit_sent) VALUES (1, 1, 1, 1);
 EOSQL
 
     is_deeply($test->c->model('Editor')->subscription_summary(1),
               { artist => 1,
                 collection => 1,
                 label => 1,
-                editor => 1 });
+                editor => 1,
+                series => 1 });
 
     is_deeply($test->c->model('Editor')->subscription_summary(2),
               { artist => 0,
                 collection => 0,
                 label => 1,
-                editor => 0 });
+                editor => 0,
+                series => 0 });
 };
 
 1;

@@ -6,7 +6,7 @@ use List::MoreUtils qw( uniq );
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_MOVE );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
@@ -126,7 +126,7 @@ sub accept
     $self->c->model('Release')->update($self->data->{release}{id}, {
         release_group_id => $target->id
     });
-    unless($self->c->model('ReleaseGroup')->in_use($self->data->{old_release_group}{id})) {
+    unless ($self->c->model('ReleaseGroup')->in_use($self->data->{old_release_group}{id})) {
         $self->c->model('ReleaseGroup')->delete($self->data->{old_release_group}{id});
     }
 }

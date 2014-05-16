@@ -11,6 +11,7 @@ use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
 use MusicBrainz::Server::Translation qw( N_l );
 use Set::Scalar;
+use Hash::Merge qw( merge );
 use Try::Tiny;
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
@@ -40,6 +41,7 @@ our @EXPORT_OK = qw(
     merge_partial_date
     merge_set
     merge_value
+    normalize_date_period
     load_artist_credit_definitions
     status_names
     verify_artist_credits
@@ -102,7 +104,7 @@ sub load_artist_credit_definitions
     my @ac = @{ $ac->{names} };
 
     my %load;
-    while(@ac) {
+    while (@ac) {
         my $ac_name = shift @ac;
 
         next unless defined $ac_name->{name} && $ac_name->{artist}->{id};
@@ -128,7 +130,7 @@ sub artist_credit_from_loaded_definition
                 Artist->new( $ac_name->{artist} )
         );
 
-        $ac->join_phrase ($ac_name->{join_phrase}) if defined $ac_name->{join_phrase};
+        $ac->join_phrase($ac_name->{join_phrase}) if defined $ac_name->{join_phrase};
         push @names, $ac;
     }
 
@@ -152,7 +154,7 @@ sub artist_credit_preview
         if (my $loaded_artist = defined($ac_name->{artist}{id}) &&
                                   $loaded->{Artist}->{ $ac_name->{artist}->{id} })
         {
-            $ac->artist ($loaded_artist);
+            $ac->artist($loaded_artist);
         }
         elsif ($ac_name->{artist})
         {
@@ -161,7 +163,7 @@ sub artist_credit_preview
             $ac->artist(Artist->new( $ac_name->{artist} ));
         }
 
-        $ac->join_phrase ($ac_name->{join_phrase}) if defined $ac_name->{join_phrase};
+        $ac->join_phrase($ac_name->{join_phrase}) if defined $ac_name->{join_phrase};
 
         push @names, $ac;
     }
@@ -175,7 +177,7 @@ sub clean_submitted_artist_credits
 {
     my $ac = shift;
 
-    $ac = artist_credit_to_ref ($ac)
+    $ac = artist_credit_to_ref($ac)
         if ref $ac eq 'MusicBrainz::Server::Entity::ArtistCredit';
 
     # Remove empty artist credits.
@@ -186,8 +188,8 @@ sub clean_submitted_artist_credits
         my $part = $names[$_];
         if (ref $part eq 'HASH')
         {
-            $part->{artist}->{name} = trim ($part->{artist}->{name}) if defined $part->{artist}->{name};
-            $part->{name} = trim ($part->{name}) if defined $part->{name};
+            $part->{artist}->{name} = trim($part->{artist}->{name}) if defined $part->{artist}->{name};
+            $part->{name} = trim($part->{name}) if defined $part->{name};
 
             push @delete, $_ unless (defined $part->{artist}->{name} || defined $part->{name});
 
@@ -206,7 +208,7 @@ sub clean_submitted_artist_credits
 
             # Set to empty string if join_phrase is undef.
             $part->{join_phrase} //= '';
-            $part->{join_phrase} = collapse_whitespace ($part->{join_phrase});
+            $part->{join_phrase} = collapse_whitespace($part->{join_phrase});
 
             # Remove trailing whitespace from a trailing join phrase.
             $part->{join_phrase} =~ s/\s+$// if $_ == $#names;
@@ -229,6 +231,16 @@ sub clean_submitted_artist_credits
     return $ac;
 }
 
+sub normalize_date_period {
+    my $opts = shift;
+    my $empty_date = partial_date_to_hash( PartialDate->new );
+    $opts->{begin_date} = merge($opts->{begin_date} // {}, $empty_date);
+    $opts->{end_date} = merge($opts->{end_date} // {}, $empty_date);
+    $opts->{ended} ||= 0;
+    $opts->{ended} = 1
+        if (defined $opts->{end_date}{year}) # year can be 0 in the proleptic Gregorian calendar
+           || $opts->{end_date}{month} || $opts->{end_date}{day};
+}
 
 sub changed_relations
 {
@@ -286,7 +298,6 @@ sub status_names
 {
     return \@STATUS_MAP;
 }
-
 
 sub hash_artist_credit {
     return _hash_artist_credit(shift)
@@ -391,9 +402,9 @@ sub merge_barcode {
     my ($ancestor, $current, $new) = @_;
 
     return (
-        [ Barcode->new ($ancestor->{barcode})->format, $ancestor->{barcode} ],
+        [ Barcode->new($ancestor->{barcode})->format, $ancestor->{barcode} ],
         [ $current->barcode->format, $current->barcode->code ],
-        [ Barcode->new ($new->{barcode})->format, $new->{barcode} ],
+        [ Barcode->new($new->{barcode})->format, $new->{barcode} ],
     );
 }
 

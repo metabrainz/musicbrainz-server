@@ -156,6 +156,8 @@ END -%]
             l('recordings');
         CASE 'release_group';
             l('release groups');
+        CASE 'series';
+            lp('series', 'plural');
         CASE 'editor';
             l('editors');
         CASE 'work';
