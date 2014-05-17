@@ -3,7 +3,7 @@
     <title>[% title %][% " - " IF title && !nosuffix %][% "MusicBrainz" IF !nosuffix %]</title>
     [%~ USE Canonicalize ~%]
     [%~ IF Canonicalize.canonicalize(canonical_url || c.req.uri) != c.req.uri ~%]
-        <link rel="canonical" href="[% Canonicalize.canonicalize(canonical_url || c.req.uri) %]" />
+        <link rel="canonical" href="[% Canonicalize.canonicalize(canonical_url || c.req.uri) | html %]" />
     [%~ END ~%]
     <script type="text/javascript">//<![CDATA[
         document.cookie = "javascript=true; path=/";
