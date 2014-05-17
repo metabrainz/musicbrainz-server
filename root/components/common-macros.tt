@@ -1002,3 +1002,8 @@ END -%]
       ELSE; l('Unknown');
   END %] ([% cardinality %])
 [%~ END ~%]
+
+[%~ USE Canonicalize ~%]
+[%~ MACRO replace_gid(new_gid) BLOCK ~%]
+  [%~ Canonicalize.replace_gid(c, new_gid) ~%]
+[%~ END ~%]

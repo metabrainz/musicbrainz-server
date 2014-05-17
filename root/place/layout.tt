@@ -1,4 +1,4 @@
-[%- WRAPPER "layout.tt" title=title ? place.name _ " - ${title}" : place.name -%]
+[%- WRAPPER "layout.tt" title=title ? place.name _ " - ${title}" : place.name canonical_url=replace_gid(entity.gid) -%]
   [%- IF !full_width -%]
     [% WRAPPER 'layout/sidebar.tt' %]
         [%- show_image() -%]
