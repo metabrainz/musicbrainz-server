@@ -77,7 +77,7 @@ our $data_processors = {
         my ($c, $loader, $data) = @_;
 
         load_entity_prop($loader, $data, 'release', 'Release');
-        load_entity_prop($loader, $data, 'label', 'Label');
+        load_entity_prop($loader, $data, 'label', 'Label') if $data->{label};
     },
 
     $EDIT_RELEASE_ADD_ANNOTATION => sub {
@@ -96,7 +96,7 @@ our $data_processors = {
         my ($c, $loader, $data) = @_;
 
         load_entity_prop($loader, $data, 'release_label', 'ReleaseLabel');
-        load_entity_prop($loader, $data, 'label', 'Label');
+        load_entity_prop($loader, $data, 'label', 'Label') if $data->{label};
     },
 
     $EDIT_MEDIUM_CREATE => sub {

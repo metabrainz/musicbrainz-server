@@ -336,6 +336,7 @@ ALTER SEQUENCE artist_alias_id_seq RESTART 8;
 ALTER SEQUENCE label_alias_id_seq RESTART 8;
 ALTER SEQUENCE track_id_seq RESTART 20;
 ALTER SEQUENCE medium_id_seq RESTART 7;
+ALTER SEQUENCE release_label_id_seq RESTART 5;
 
 ALTER SEQUENCE tag_id_seq RESTART 100;
 
