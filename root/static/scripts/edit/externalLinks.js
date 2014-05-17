@@ -227,11 +227,6 @@
     });
 
 
-    function linkIsEmpty(relationship) {
-        return relationship.isEmpty();
-    }
-
-
     externalLinks.applyBindings = function (options) {
         var containerNode = $("#external-links-editor")[0];
         var bubbleNode = $("#external-link-bubble")[0];
