@@ -23,7 +23,7 @@ our $valid_params = qr/
             action
             |id
             |link_type
-            |entity\.(0|1)\.(gid|type)
+            |entity\.(0|1)\.(gid|type|url)
             |period\.(begin_date|end_date)\.(year|month|day)
             |ended
             |attrs\.[^\.](\.[0-9]+)?
@@ -69,11 +69,15 @@ sub submit_edits {
     my $attr_tree = $c->model('LinkAttributeType')->get_tree;
 
     foreach my $rel (@{ $params->{rels} // [] }) {
-        $rel->{entity}->[0]->{entityType} = delete $rel->{entity}->[0]->{type}
-            or die "Missing field: entity.0.type";
+        for my $i (0, 1) {
+            my $entity = $rel->{entity}->[$i];
 
-        $rel->{entity}->[1]->{entityType} = delete $rel->{entity}->[1]->{type}
-            or die "Missing field: entity.1.type";
+            $entity->{entityType} = delete $entity->{type} or die "Missing field: entity.$i.type";
+
+            if (my $url = delete $entity->{url}) {
+                $entity->{name} = $url;
+            }
+        }
 
         $rel->{entities} = delete $rel->{entity};
         $rel->{linkTypeID} = delete $rel->{link_type};
