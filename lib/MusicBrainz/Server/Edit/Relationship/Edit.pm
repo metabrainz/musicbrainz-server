@@ -298,11 +298,19 @@ sub initialize
     my $type0 = $link->type->entity0_type;
     my $type1 = $link->type->entity1_type;
 
+    $opts{attribute_text_values} //= {};
+
     if (my $attributes = $opts{attributes}) {
-        $self->check_attributes($link->type, $attributes, $opts{attribute_text_values} // {});
+        $self->check_attributes($link->type, $attributes, $opts{attribute_text_values});
     }
 
-    delete $opts{attribute_text_values} unless %{ $opts{attribute_text_values} // {} };
+    # Delete attribute_text_values if it's empty, unless the existing link has
+    # text values, in which case we want an empty hash to indicate a change.
+    unless (%{ $opts{attribute_text_values} } || %{ $link->attribute_text_values }) {
+        delete $opts{attribute_text_values};
+    }
+
+    delete $opts{link_order}; # Not supported by this edit type.
 
     unless ($relationship->entity0 && $relationship->entity1) {
         $self->c->model('Relationship')->load_entities($relationship);
@@ -383,7 +391,7 @@ sub accept
     ) if $data->{link}{link_type}{id} != $relationship->link->type_id;;
 
     # Because we're using a "find_or_insert" instead of an update, this link
-    # dict should be complete.  If a value isn't defined in $values in doesn't
+    # dict should be complete.  If a value isn't defined in $values it doesn't
     # change, so take the original value as it was stored in $link.
     my $values = {
         entity0_id   => $data->{new}{entity0}{id}   // $relationship->entity0_id,

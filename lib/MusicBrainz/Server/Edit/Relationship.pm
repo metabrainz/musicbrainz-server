@@ -44,8 +44,10 @@ sub check_attributes {
         for my $id (@values) {
             my $lat = $link_attribute_types->{$id};
 
-            if ($lat->free_text && !$attribute_text_values->{$id}) {
-                die "Attribute $id requires a text value";
+            if ($lat->free_text) {
+                my $text_value = $attribute_text_values->{$id};
+                die "Attribute $id requires a text value"
+                    unless defined($text_value) && $text_value ne "";
             }
         }
     }
