@@ -85,12 +85,8 @@ Shows performances linked to a place.
 
 =cut
 
-sub performances : Chained('load')
-{
-    my ($self, $c) = @_;
+sub performances : Chained('load') { }
 
-    $self->relationships($c);
-}
 =head2 WRITE METHODS
 
 =cut
