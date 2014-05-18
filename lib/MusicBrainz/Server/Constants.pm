@@ -57,7 +57,7 @@ our @EXPORT_OK = (
         $COVERART_FRONT_TYPE      $COVERART_BACK_TYPE  $INSTRUMENT_ROOT_ID
         $AREA_TYPE_COUNTRY        $REQUIRED_VOTES      %PART_OF_SERIES
         $ARTIST_ARTIST_COLLABORATION @FULL_TABLE_LIST  %ENTITIES
-        entities_with
+        entities_with $VOCAL_ROOT_ID
     ),
     @{ _get(qr/^(EDIT|EXPIRE|QUALITY|EDITOR|ELECTION|EMAIL|VOTE|STATUS|ACCESS_SCOPE|SERIES)_/) },
 );
@@ -288,6 +288,7 @@ Readonly our $COVERART_FRONT_TYPE   => 1;
 Readonly our $COVERART_BACK_TYPE   => 2;
 
 Readonly our $INSTRUMENT_ROOT_ID => 14;
+Readonly our $VOCAL_ROOT_ID => 3;
 
 Readonly our $AREA_TYPE_COUNTRY => 1;
 
