@@ -1,3 +1,33 @@
-[%- MACRO last_updated(entity) BLOCK;
-     UserDate.format(entity.last_updated) || l('(unknown)');
-   END -%]
+[%~ entitytype = entity_type(entity).replace('_', '-') ~%]
+<h2>[%~ l('Details') ~%]</h2>
+<table class="details">
+    <tr>
+        <th>[%~ l('Name:') ~%]</th>
+        <td>[%~ link_entity(entity) ~%]</td>
+    </tr>
+    <tr>
+        <th>[%~ l('{mbid|<abbr title="MusicBrainz Identifier">MBID</abbr>}:',
+                { mbid => doc_link("MusicBrainz_Identifier") }) ~%]
+        </th>
+        <td><code>[%~ entity.gid ~%]</code></td>
+    </tr>
+    <tr>
+        <th>[%~ l('Last updated:') ~%]</th>
+        <td>[%~ UserDate.format(entity.last_updated) || l('(unknown)') ~%]</td>
+    </tr>
+    <tr>
+        <th>[%~ l('Permanent link:') ~%]</th>
+        <td>
+            [%~ USE Canonicalize ~%]
+            [%~ perma = Canonicalize.canonicalize(c.uri_for_action("/$entitytype/show", [ entity.gid ])) ~%]
+            <a href="[%~ perma | url ~%]">[%~ perma | html ~%]</a>
+        </td>
+    </tr>
+    <tr>
+        <th>[%~ l('XML:') ~%]</th>
+        <td>
+            [%~ link = c.uri_for("/ws/2/$entitytype", entity.gid, { 'inc' => xml_inc }) ~%]
+            <a href="[%~ link ~%]">[%~ display_url(link) ~%]</a>
+        </td>
+    </tr>
+</table>
