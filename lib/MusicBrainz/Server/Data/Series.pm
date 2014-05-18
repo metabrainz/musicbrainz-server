@@ -115,6 +115,12 @@ sub _merge_impl {
     return 1;
 }
 
+sub load
+{
+    my ($self, @objs) = @_;
+    load_subobjects($self, 'series', @objs);
+}
+
 sub insert {
     my ($self, @series) = @_;
 
