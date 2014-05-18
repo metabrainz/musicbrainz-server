@@ -41,7 +41,8 @@ sub _table {
 }
 
 sub _columns {
-    return 'id, gid, name, comment, type, ordering_type, edits_pending, last_updated';
+    return 'series.id, series.gid, series.name, series.comment, ' .
+           'series.type, ordering_type, series.edits_pending, series.last_updated';
 }
 
 sub _column_mapping {
