@@ -12,6 +12,7 @@ use MusicBrainz::Server::Validation qw( is_positive_integer );
 use MusicBrainz::Server::EditSearch::Query;
 use MusicBrainz::Server::Data::Utils qw( type_to_model load_everything_for_edits );
 use MusicBrainz::Server::Translation qw( N_l );
+use List::UtilsBy qw( sort_by );
 
 use aliased 'MusicBrainz::Server::EditRegistry';
 
@@ -187,12 +188,13 @@ sub open : Local RequireAuth
 sub search : Path('/search/edits') RequireAuth
 {
     my ($self, $c) = @_;
+    my $coll = $c->get_collator();
     my %grouped = MusicBrainz::Server::EditRegistry->grouped_by_name;
     $c->stash(
         edit_types => [
             map [
                 join(',', map { $_->edit_type } @{ $grouped{$_} }) => $_
-            ], sort keys %grouped
+            ], sort_by { $coll->getSortKey($_) } keys %grouped
         ],
         status => status_names(),
         quality => [ [$QUALITY_LOW => N_l('Low')], [$QUALITY_NORMAL => N_l('Normal')], [$QUALITY_HIGH => N_l('High')], [$QUALITY_UNKNOWN => N_l('Default')] ],
