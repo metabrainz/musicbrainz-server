@@ -225,6 +225,9 @@ MB.utility.validDate = (function () {
         // The month is a number less than 1 or greater than 12.
         if (m !== null && (m < 1 || m > 12)) return false;
 
+        // The day is a number greater than 31.
+        if (d !== null && d > 31) return false;
+
         // The day is empty. There's no further validation we can do.
         if (d === null) return true;
 
@@ -237,6 +240,21 @@ MB.utility.validDate = (function () {
         return true;
     };
 }());
+
+MB.utility.validDatePeriod = function (a, b) {
+    var y1 = a.year, m1 = a.month, d1 = a.day;
+    var y2 = b.year, m2 = b.month, d2 = b.day;
+
+    if (!MB.utility.validDate(y1, m1, d1) || !MB.utility.validDate(y2, m2, d2)) {
+        return false;
+    }
+
+    if (!y1 || !y2 || +y1 < +y2) return true; else if (+y2 < +y1) return false;
+    if (!m1 || !m2 || +m1 < +m2) return true; else if (+m2 < +m1) return false;
+    if (!d1 || !d2 || +d1 < +d2) return true; else if (+d2 < +d1) return false;
+
+    return true;
+};
 
 MB.utility.parseDate = (function () {
     var dateRegex = /^(\d{4}|\?{4})(?:-(\d{2}|\?{2})(?:-(\d{2}|\?{2}))?)?$/;
