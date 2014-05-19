@@ -13,6 +13,7 @@ use MusicBrainz::Server::Data::Utils qw(
     type_to_model
     query_to_list_limited
     merge_table_attributes
+    load_subobjects
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 use MusicBrainz::Server::Data::Utils::Uniqueness qw( assert_uniqueness_conserved );
@@ -113,6 +114,12 @@ sub _merge_impl {
     }
 
     return 1;
+}
+
+sub load
+{
+    my ($self, @objs) = @_;
+    load_subobjects($self, 'series', @objs);
 }
 
 sub insert {
