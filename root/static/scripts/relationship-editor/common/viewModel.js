@@ -63,10 +63,7 @@
             this.source = options.source;
 
             if (options.sourceData) {
-                this.source = options.source || MB.entity(options.sourceData).extend({
-                    relationships: ko.observableArray([])
-                });
-
+                this.source = options.source || MB.entity(options.sourceData);
                 this.source.parseRelationships(options.sourceData.relationships, this);
 
                 _.each(options.sourceData.submittedRelationships, function (data) {
