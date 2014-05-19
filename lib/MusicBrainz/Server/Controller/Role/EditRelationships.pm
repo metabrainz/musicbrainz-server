@@ -31,7 +31,8 @@ role {
             my $forward;
             my $target_type;
 
-            if ($link_type) {
+            if ($link_type && ($source_type eq $link_type->entity0_type ||
+                               $source_type eq $link_type->entity1_type)) {
                 $forward = $source_type eq $link_type->entity0_type && !$field->{backward};
                 $target_type = $forward ? $link_type->entity1_type : $link_type->entity0_type;
                 $field->{link_type} = $link_type;
@@ -83,13 +84,14 @@ role {
                 my $target_type = $_->{target_type};
                 my $target;
 
+                next unless $target_type;
+
                 if ($target_type eq 'url') {
                     $target = { name => $_->{text}, entityType => 'url' };
-                }
-                elsif ($_->{target}) {
-                    $target = serialize_entity(
-                        $entity_map->{type_to_model($target_type)}->{$_->{target}}, $target_type
-                    );
+                } elsif ($_->{target}) {
+                    my $entity = $entity_map->{type_to_model($target_type)}->{$_->{target}};
+                    next unless $entity;
+                    $target = serialize_entity($entity, $target_type);
                 }
 
                 push @result, {
