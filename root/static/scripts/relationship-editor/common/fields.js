@@ -112,6 +112,12 @@
             this.entities.saved = [entity0, entity1];
         },
 
+        clone: function () {
+            var clone = fields.Relationship(_.omit(this.editData(), "id"));
+            clone.parent = this.parent;
+            return clone;
+        },
+
         remove: function () {
             if (this.removed() === true) return;
 
