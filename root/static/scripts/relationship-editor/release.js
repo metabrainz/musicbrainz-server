@@ -44,7 +44,6 @@
             this.source.mediums = ko.observableArray([]);
 
             MB.entity.Recording.after("init", function (data) {
-                this.relationships = ko.observableArray([]);
                 this.parseRelationships(data.relationships, self);
 
                 _.each(data.relationships, function (data) {

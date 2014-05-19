@@ -77,6 +77,7 @@
             this.gid = data.gid;
             this.name = data.name || "";
             this.editsPending = data.editsPending;
+            this.relationships = ko.observableArray([]);
 
             if (data.sortName) {
                 this.sortName = data.sortName;
@@ -123,7 +124,7 @@
         }
     });
 
-    MB.entity.Editor = aclass(MB.entity.CoreEntity, {
+    MB.entity.Editor = aclass(Entity, {
         entityType: "editor",
         init: function (data) {
             this.id = data.id;
@@ -477,13 +478,7 @@
             }
 
             this.entities = ko.observable(_.map(data.entities, function (entity) {
-                var entity = MB.entity(entity);
-
-                if (!entity.hasOwnProperty("relationships")) {
-                    entity.relationships = ko.observableArray([]);
-                }
-
-                return entity;
+                return MB.entity(entity);
             }));
 
             this.entities.equalityComparer = entitiesComparer;
@@ -551,8 +546,13 @@
         show: function () {
             var entities = this.entities();
 
-            entities[0].relationships.push(this);
-            entities[1].relationships.push(this);
+            if (entities[0].relationships.indexOf(this) < 0) {
+                entities[0].relationships.push(this);
+            }
+
+            if (entities[1].relationships.indexOf(this) < 0) {
+                entities[1].relationships.push(this);
+            }
         },
 
         fromJS: function (data) {

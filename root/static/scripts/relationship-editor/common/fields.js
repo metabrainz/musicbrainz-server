@@ -37,7 +37,10 @@
             this.linkOrder = ko.observable(data.linkOrder || 0);
 
             // By default, show all existing relationships on the page.
-            if (this.id) this.show();
+            // Defer because init in MB.entity.Relationship has yet to add
+            // "editData" and "original" properties to this instance, which
+            // are needed by the show method.
+            if (this.id) _.defer(_.bind(this.show, this));
         },
 
         after$fromJS: function (data) {
@@ -83,14 +86,6 @@
 
             var relationships0 = entity0.relationships;
             var relationships1 = entity1.relationships;
-
-            if (!relationships0) {
-                relationships0 = entity0.relationships = ko.observableArray([]);
-            }
-
-            if (!relationships1) {
-                relationships1 = entity1.relationships = ko.observableArray([]);
-            }
 
             var containedBy0 = relationships0.indexOf(this) >= 0;
             var containedBy1 = relationships1.indexOf(this) >= 0;
