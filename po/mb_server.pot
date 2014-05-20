@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-16 07:14-0700\n"
+"POT-Creation-Date: 2014-05-20 12:01-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,6 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: ../root/components/relationships-table.tt:21
-#: ../root/instrument/relationships.tt:33
 #: ../lib/MusicBrainz/Server/Entity/Link.pm:101
 msgid " &#x2013; ????"
 msgstr ""
@@ -83,7 +82,6 @@ msgid "&#10005;"
 msgstr ""
 
 #: ../root/components/relationships-table.tt:21
-#: ../root/instrument/relationships.tt:33
 #: ../lib/MusicBrainz/Server/Entity/Link.pm:111
 #, perl-brace-format
 msgid "&#x2013; {enddate}"
@@ -256,7 +254,7 @@ msgid ""
 msgstr ""
 
 #: ../root/components/relationships-table.tt:44
-#: ../root/instrument/relationships.tt:56 ../root/scripts/text_strings.tt:127
+#: ../root/scripts/text_strings.tt:127
 #: ../lib/MusicBrainz/Server/Entity/Relationship.pm:172
 msgid ", "
 msgstr ""
@@ -1195,8 +1193,7 @@ msgstr ""
 msgid "Annotations support a limited set of wiki formatting options:"
 msgstr ""
 
-#: ../root/artist/relationships.tt:6 ../root/instrument/relationships.tt:9
-#: ../root/label/relationships.tt:6
+#: ../root/artist/relationships.tt:6 ../root/label/relationships.tt:6
 msgid "Appearances"
 msgstr ""
 
@@ -1369,8 +1366,8 @@ msgstr ""
 #: ../root/edit/details/historic/change_track_artist.tt:8
 #: ../root/edit/details/merge_release_groups.tt:5
 #: ../root/edit/details/merge_releases.tt:19 ../root/edit/search_macros.tt:307
-#: ../root/freedb/show.tt:63 ../root/instrument/relationships.tt:16
-#: ../root/isrc/index.tt:17 ../root/otherlookup/results-release.tt:11
+#: ../root/freedb/show.tt:63 ../root/isrc/index.tt:17
+#: ../root/otherlookup/results-release.tt:11
 #: ../root/release/edit/tracklist.tt:101 ../root/release/edit/tracklist.tt:253
 #: ../root/release_group/merge.tt:13 ../root/release_group/releases-list.tt:12
 #: ../root/release/index.tt:55 ../root/release/lookup.tt:10
@@ -1608,7 +1605,7 @@ msgstr ""
 
 #: ../root/components/relationships-table.tt:8
 #: ../root/components/works-list.tt:18 ../root/doc/relationship_type.tt:48
-#: ../root/instrument/relationships.tt:15 ../root/work/merge.tt:17
+#: ../root/work/merge.tt:17
 msgid "Attributes"
 msgstr ""
 
@@ -1918,6 +1915,10 @@ msgstr ""
 
 #: ../root/browse/entity.tt:1
 msgid "Browse Releases"
+msgstr ""
+
+#: ../root/browse/entity.tt:1
+msgid "Browse Series"
 msgstr ""
 
 #: ../root/browse/entity.tt:1
@@ -2467,7 +2468,6 @@ msgstr ""
 #: ../root/edit/details/edit_release_events.tt:5
 #: ../root/edit/details/historic/add_release.tt:75
 #: ../root/edit/details/merge_releases.tt:22 ../root/elections/show.tt:118
-#: ../root/instrument/relationships.tt:13
 #: ../root/otherlookup/results-release.tt:14 ../root/recording/index.tt:14
 #: ../root/release/edit/duplicates.tt:13 ../root/release_group/index.tt:26
 #: ../root/release_group/releases-list.tt:16 ../root/release/lookup.tt:11
@@ -2807,8 +2807,7 @@ msgstr ""
 #: ../root/cdstub/header.tt:9 ../root/cdtoc/list.tt:16
 #: ../root/collection/header.tt:6 ../root/components/aliases.tt:60
 #: ../root/components/forms.tt:180 ../root/doc/relationship_type.tt:17
-#: ../root/instrument/header.tt:10 ../root/instrument/relationships.tt:18
-#: ../root/instrument/relationships.tt:80 ../root/label/header.tt:1
+#: ../root/instrument/header.tt:10 ../root/label/header.tt:1
 #: ../root/place/header.tt:1 ../root/recording/header.tt:1
 #: ../root/relationship/linkattributetype/common.tt:25
 #: ../root/relationship/linktype/tree.tt:17 ../root/release/cover_art.tt:27
@@ -3158,10 +3157,6 @@ msgstr ""
 
 #: ../root/artist/subscribe.tt:2
 msgid "Editors Subscribed to this Artist"
-msgstr ""
-
-#: ../root/label/subscriptions.tt:2
-msgid "Editors subscribed to this Label"
 msgstr ""
 
 #: ../root/user/edits.tt:1
@@ -5016,19 +5011,19 @@ msgid ""
 "MusicBrainz {free|free and open source}."
 msgstr ""
 
-#: ../root/layout/head.tt:11
+#: ../root/layout/head.tt:15
 msgid "MusicBrainz: Artist"
 msgstr ""
 
-#: ../root/layout/head.tt:12
+#: ../root/layout/head.tt:16
 msgid "MusicBrainz: Label"
 msgstr ""
 
-#: ../root/layout/head.tt:13
+#: ../root/layout/head.tt:17
 msgid "MusicBrainz: Release"
 msgstr ""
 
-#: ../root/layout/head.tt:14
+#: ../root/layout/head.tt:18
 msgid "MusicBrainz: Track"
 msgstr ""
 
@@ -6423,11 +6418,9 @@ msgstr ""
 
 #: ../root/artist/header.tt:1 ../root/artist/relationships.tt:1
 #: ../root/components/relationships.tt:25
-#: ../root/forms/relationship-editor.tt:9
-#: ../root/instrument/relationships.tt:1 ../root/instrument/relationships.tt:4
-#: ../root/label/header.tt:1 ../root/label/relationships.tt:1
-#: ../root/label/relationships.tt:2 ../root/relationship/header.tt:7
-#: ../root/release/index.tt:300
+#: ../root/forms/relationship-editor.tt:9 ../root/label/header.tt:1
+#: ../root/label/relationships.tt:1 ../root/label/relationships.tt:2
+#: ../root/relationship/header.tt:7 ../root/release/index.tt:300
 msgid "Relationships"
 msgstr ""
 
@@ -6834,8 +6827,7 @@ msgstr ""
 #: ../root/area/delete.tt:1 ../root/cdtoc/list.tt:50
 #: ../root/collection/delete.tt:1 ../root/collection/header.tt:7
 #: ../root/components/aliases.tt:63 ../root/doc/relationship_type.tt:19
-#: ../root/instrument/relationships.tt:73 ../root/label/delete.tt:1
-#: ../root/recording/delete.tt:1
+#: ../root/label/delete.tt:1 ../root/recording/delete.tt:1
 #: ../root/relationship/linkattributetype/common.tt:26
 #: ../root/relationship/linkattributetype/delete.tt:11
 #: ../root/relationship/linktype/delete.tt:11
@@ -7978,15 +7970,11 @@ msgstr ""
 msgid "Subscribe"
 msgstr ""
 
-#: ../root/label/subscriptions.tt:25
-msgid "Subscribe to this Label."
-msgstr ""
-
 #: ../root/artist/subscribe.tt:20
 msgid "Subscribe to this artist."
 msgstr ""
 
-#: ../root/artist/subscribe.tt:1 ../root/label/subscriptions.tt:1
+#: ../root/artist/subscribe.tt:1
 msgid "Subscribed Editors"
 msgstr ""
 
@@ -8476,16 +8464,6 @@ msgid ""
 "remove this artist in the upcoming days."
 msgstr ""
 
-#: ../root/label/subscriptions.tt:11
-msgid "There are no users currently subscribed to this Label."
-msgstr ""
-
-#: ../root/label/subscriptions.tt:16
-msgid "There is also one anonymous subscriber."
-msgid_plural "There are also {num} anonymous subscribers."
-msgstr[0] ""
-msgstr[1] ""
-
 #: ../root/artist/subscribe.tt:15
 msgid "There is also {num} anonymous subscriber"
 msgid_plural "There are also {num} anonymous subscribers"
@@ -8523,7 +8501,7 @@ msgid_plural "There are currently {num} users subscribed to {series}:"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/browse/entity.tt:34
+#: ../root/browse/entity.tt:35
 msgid "There is no data to display."
 msgstr ""
 
@@ -8778,7 +8756,7 @@ msgid ""
 "attributed to it."
 msgstr ""
 
-#: ../root/layout.tt:37 ../lib/DBDefs/Default.pm:136
+#: ../root/layout.tt:37 ../lib/DBDefs/Default.pm:139
 msgid "This is a MusicBrainz development server."
 msgstr ""
 
@@ -9527,8 +9505,7 @@ msgstr ""
 #: ../root/cdtoc/list.tt:6 ../root/components/relationships-table.tt:7
 #: ../root/components/release_groups-list.tt:9
 #: ../root/edit/details/edit_medium.tt:57
-#: ../root/edit/details/edit_medium.tt:61
-#: ../root/instrument/relationships.tt:14 ../root/isrc/index.tt:16
+#: ../root/edit/details/edit_medium.tt:61 ../root/isrc/index.tt:16
 #: ../root/iswc/index.tt:16 ../root/recording/index.tt:10
 #: ../root/release/edit/tracklist.tt:100 ../root/release/edit/tracklist.tt:252
 #: ../root/release/index.tt:52 ../root/search/results-freedb.tt:12
@@ -9989,10 +9966,6 @@ msgstr ""
 #: ../root/label/layout.tt:85 ../root/series/layout.tt:36
 #: ../root/user/subscriptions/table.tt:28
 msgid "Unsubscribe"
-msgstr ""
-
-#: ../root/label/subscriptions.tt:21
-msgid "Unsubscribe from this Label."
 msgstr ""
 
 #: ../root/artist/subscribe.tt:18
@@ -10531,11 +10504,11 @@ msgstr ""
 msgid "XML Web Service"
 msgstr ""
 
-#: ../root/area/details.tt:32 ../root/artist/details.tt:32
-#: ../root/instrument/details.tt:32 ../root/label/details.tt:32
-#: ../root/place/details.tt:32 ../root/recording/details.tt:32
-#: ../root/release/details.tt:32 ../root/release_group/details.tt:32
-#: ../root/series/details.tt:32 ../root/work/details.tt:32
+#: ../root/area/details.tt:33 ../root/artist/details.tt:33
+#: ../root/instrument/details.tt:33 ../root/label/details.tt:33
+#: ../root/place/details.tt:33 ../root/recording/details.tt:33
+#: ../root/release/details.tt:33 ../root/release_group/details.tt:33
+#: ../root/series/details.tt:33 ../root/work/details.tt:33
 msgid "XML:"
 msgstr ""
 
@@ -11444,19 +11417,16 @@ msgid "{attribute}: {value}"
 msgstr ""
 
 #: ../root/components/relationships-table.tt:21
-#: ../root/instrument/relationships.tt:33
 #: ../lib/MusicBrainz/Server/Entity/Link.pm:114
 #, perl-brace-format
 msgid "{begindate} &#x2013;"
 msgstr ""
 
 #: ../root/components/relationships-table.tt:21
-#: ../root/instrument/relationships.tt:33
 msgid "{begindate} &#x2013; ????"
 msgstr ""
 
 #: ../root/components/relationships-table.tt:21
-#: ../root/instrument/relationships.tt:33
 #: ../lib/MusicBrainz/Server/Entity/Link.pm:107
 #, perl-brace-format
 msgid "{begindate} &#x2013; {enddate}"
@@ -11808,7 +11778,7 @@ msgstr ""
 msgid "« Previous"
 msgstr ""
 
-#: ../lib/DBDefs/Default.pm:137
+#: ../lib/DBDefs/Default.pm:140
 msgid ""
 "This beta test server allows testing of new features with the live database."
 msgstr ""
