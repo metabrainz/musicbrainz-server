@@ -165,6 +165,7 @@ ALTER TABLE medium ADD CONSTRAINT medium_pkey PRIMARY KEY (id);
 ALTER TABLE medium_cdtoc ADD CONSTRAINT medium_cdtoc_pkey PRIMARY KEY (id);
 ALTER TABLE medium_format ADD CONSTRAINT medium_format_pkey PRIMARY KEY (id);
 ALTER TABLE medium_index ADD CONSTRAINT medium_index_pkey PRIMARY KEY (medium);
+ALTER TABLE orderable_link_type ADD CONSTRAINT orderable_link_type_pkey PRIMARY KEY (link_type);
 ALTER TABLE place ADD CONSTRAINT place_pkey PRIMARY KEY (id);
 ALTER TABLE place_alias ADD CONSTRAINT place_alias_pkey PRIMARY KEY (id);
 ALTER TABLE place_alias_type ADD CONSTRAINT place_alias_type_pkey PRIMARY KEY (id);

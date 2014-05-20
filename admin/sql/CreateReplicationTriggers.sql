@@ -481,6 +481,10 @@ CREATE TRIGGER "reptg_link_attribute_type"
 AFTER INSERT OR DELETE OR UPDATE ON "link_attribute_type"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_link_text_attribute_type"
+AFTER INSERT OR DELETE OR UPDATE ON "link_text_attribute_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_link_type"
 AFTER INSERT OR DELETE OR UPDATE ON "link_type"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -499,6 +503,10 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_medium_format"
 AFTER INSERT OR DELETE OR UPDATE ON "medium_format"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_orderable_link_type"
+AFTER INSERT OR DELETE OR UPDATE ON "orderable_link_type"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_place"
