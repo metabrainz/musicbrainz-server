@@ -48,9 +48,10 @@ div.tabs ul li a:hover {
     color: @text-black;
 }
 
+.blankheader,
 .areaheader, .artistheader, .releaseheader, .rgheader,
 .recordingheader, .labelheader, .placeheader,
-.workheader, .blankheader, .collectionheader {
+.workheader, .collectionheader, .seriesheader, .instrumentheader {
     padding-left: 38px;
     background: 0 4px no-repeat;
 }
@@ -63,8 +64,8 @@ div.tabs ul li a:hover {
 .placeheader     { background-image: data-uri('../images/entity/place_lg.png') }
 .labelheader     { background-image: data-uri('../images/entity/label_lg.png') }
 .workheader      { background-image: data-uri('../images/entity/work_lg.png') }
-.collectionheader, .areaheader
- { background-image: data-uri('../images/entity/blank_lg.png') } /* TODO: create collection, area icons */
+.areaheader, .collectionheader, .seriesheader, .instrumentheader
+ { background-image: data-uri('../images/entity/blank_lg.png') } /* TODO: create collection, area, series, instrument icons */
 
 span.comment, span.historical {
     font-weight: normal;
