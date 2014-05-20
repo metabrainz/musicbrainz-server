@@ -124,7 +124,7 @@
         }
     });
 
-    MB.entity.Editor = aclass(Entity, {
+    MB.entity.Editor = aclass(MB.entity.CoreEntity, {
         entityType: "editor",
         init: function (data) {
             this.id = data.id;
