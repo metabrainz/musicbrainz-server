@@ -37,7 +37,7 @@
 
         annotation: function (entity) {
             return {
-                entity: number(entity.id),
+                entity: nullableString(entity.gid),
 
                 // Don't _.str.clean!
                 text: _.str.trim(value(entity.annotation))
