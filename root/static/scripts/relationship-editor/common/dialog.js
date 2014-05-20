@@ -523,6 +523,12 @@
             // was opened, i.e. before the user edits it. if they cancel the
             // dialog, this is what gets copied back to revert their changes.
             this.originalRelationship = options.relationship.editData();
+            this.editing = options.relationship;
+            options.relationship = this.editing.clone();
+        },
+
+        augment$accept: function () {
+            this.editing.fromJS(this.relationship().editData());
         },
 
         before$close: function (cancel) {
