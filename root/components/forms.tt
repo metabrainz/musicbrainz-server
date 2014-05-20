@@ -435,6 +435,18 @@
       <td></td>
     </tr>
     <!-- /ko -->
+    <!-- ko if: linkTypeAttributes().length -->
+    <tr>
+      <td></td>
+      <td data-bind="foreach: linkTypeAttributes()">
+        <!-- ko template: {
+                  name: "template.edit-attribute",
+                  data: _.assign({ relationship: $parent }, $data),
+                }
+          --><!-- /ko -->
+      </td>
+    </tr>
+    <!-- /ko -->
     <!-- /ko -->
     <tr style="display: none;">
       <td colspan="3">

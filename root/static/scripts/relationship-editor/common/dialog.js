@@ -292,11 +292,6 @@
             return this.source === this.relationship().entities()[1];
         },
 
-        attributeFields: function () {
-            var typeInfo = this.relationship().linkTypeInfo();
-            return typeInfo ? _.values(typeInfo.attributes) : [];
-        },
-
         toggleLinkTypeHelp: function () {
             this.showLinkTypeHelp(!this.showLinkTypeHelp.peek());
         },
@@ -431,20 +426,6 @@
             return "";
         },
 
-        attributeError: function (rootInfo) {
-            var relationship = this.relationship();
-            var value = ko.unwrap(relationship.attributeValue(rootInfo.attribute.id));
-            var min = rootInfo.min;
-
-            if (min > 0) {
-                if (!value || (_.isArray(value) && value.length < min)) {
-                    return MB.text.AttributeRequired;
-                }
-            }
-
-            return "";
-        },
-
         dateError: function (date) {
             var valid = MB.utility.validDate(date.year(), date.month(), date.day());
             return valid ? "" : MB.text.InvalidDate;
@@ -457,11 +438,7 @@
             var b = period.endDate;
 
             if (!this.dateError(a) && !this.dateError(b)) {
-                var y1 = a.year(), m1 = a.month(), d1 = a.day();
-                var y2 = b.year(), m2 = b.month(), d2 = b.day();
-
-                if ((y1 && y2 && y2 < y1) ||
-                    (y1 == y2 && (m2 < m1 || (m1 == m2 && d2 < d1)))) {
+                if (!MB.utility.validDatePeriod(ko.toJS(a), ko.toJS(b))) {
                     return MB.text.InvalidEndDate;
                 }
             }
@@ -475,7 +452,7 @@
             return this.linkTypeError() ||
                    this.targetEntityError() ||
                    _(relationship.linkTypeInfo().attributes)
-                     .values().map(_.bind(this.attributeError, this)).any() ||
+                     .values().map(_.bind(relationship.attributeError, relationship)).any() ||
                    this.dateError(relationship.period.beginDate) ||
                    this.dateError(relationship.period.endDate) ||
                    this.datePeriodError();
@@ -523,6 +500,12 @@
             // was opened, i.e. before the user edits it. if they cancel the
             // dialog, this is what gets copied back to revert their changes.
             this.originalRelationship = options.relationship.editData();
+            this.editing = options.relationship;
+            options.relationship = this.editing.clone();
+        },
+
+        augment$accept: function () {
+            this.editing.fromJS(this.relationship().editData());
         },
 
         before$close: function (cancel) {

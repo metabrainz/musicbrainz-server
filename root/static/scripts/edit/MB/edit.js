@@ -37,7 +37,7 @@
 
         annotation: function (entity) {
             return {
-                entity: number(entity.id),
+                entity: nullableString(entity.gid),
 
                 // Don't _.str.clean!
                 text: _.str.trim(value(entity.annotation))
@@ -123,8 +123,9 @@
 
             data.attributes = _.map(_.result(relationship, "attributes"), Number);
 
-            if (relationship.attributeTextValues) {
-                data.attributeTextValues = relationship.attributeTextValues();
+            var textAttrs = relationship.attributeTextValues();
+            if (!_.isEmpty(textAttrs)) {
+                data.attributeTextValues = textAttrs;
             }
 
             var linkOrder = number(relationship.linkOrder);

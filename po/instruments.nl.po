@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-05-16 14:14+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-05-16 18:51+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -869,7 +869,7 @@ msgstr "e-bow"
 
 #: DB:instrument/name:643
 msgid "ektara"
-msgstr ""
+msgstr "ektara"
 
 #: DB:instrument/name:51
 msgid "electric bass guitar"
@@ -1033,7 +1033,7 @@ msgstr "gankogui"
 
 #: DB:instrument/name:644
 msgid "ganzá"
-msgstr ""
+msgstr "ganzá"
 
 #: DB:instrument/name:216
 msgid "gaohu"
@@ -1101,7 +1101,7 @@ msgstr "gudok"
 
 #: DB:instrument/name:645
 msgid "guitalele"
-msgstr ""
+msgstr "gitalele"
 
 #: DB:instrument/name:177
 msgid "guitar"

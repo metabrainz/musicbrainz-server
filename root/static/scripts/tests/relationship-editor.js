@@ -705,11 +705,12 @@ test("canceling an edit dialog reverts the changes", function () {
     });
 
     var newTarget = MB.entity({ entityType: "artist", name: "bar", gid: this.fakeGID1 });
+    var dialogRelationship = dialog.relationship();
 
-    relationship.entities([newTarget, source]);
-    relationship.attributes([229]);
-    relationship.period.beginDate.year(1999);
-    relationship.period.endDate.year(2000);
+    dialogRelationship.entities([newTarget, source]);
+    dialogRelationship.attributes([229]);
+    dialogRelationship.period.beginDate.year(1999);
+    dialogRelationship.period.endDate.year(2000);
 
     // cancel should revert the change
     dialog.close(true /* cancel */);

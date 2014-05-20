@@ -31,7 +31,8 @@ role {
             my $forward;
             my $target_type;
 
-            if ($link_type) {
+            if ($link_type && ($source_type eq $link_type->entity0_type ||
+                               $source_type eq $link_type->entity1_type)) {
                 $forward = $source_type eq $link_type->entity0_type && !$field->{backward};
                 $target_type = $forward ? $link_type->entity1_type : $link_type->entity0_type;
                 $field->{link_type} = $link_type;
@@ -83,13 +84,14 @@ role {
                 my $target_type = $_->{target_type};
                 my $target;
 
+                next unless $target_type;
+
                 if ($target_type eq 'url') {
                     $target = { name => $_->{text}, entityType => 'url' };
-                }
-                elsif ($_->{target}) {
-                    $target = serialize_entity(
-                        $entity_map->{type_to_model($target_type)}->{$_->{target}}, $target_type
-                    );
+                } elsif ($_->{target}) {
+                    my $entity = $entity_map->{type_to_model($target_type)}->{$_->{target}};
+                    next unless $entity;
+                    $target = serialize_entity($entity, $target_type);
                 }
 
                 push @result, {
@@ -138,7 +140,7 @@ role {
 
             $source_entity->{submittedRelationships} = $submitted_rel_data->(
                 @{ $body_params->{$form_name}->{rel} },
-                @{ $body_params->{$form_name}->{url} }
+                @{ $form_name eq "edit-url" ? [] : $body_params->{$form_name}->{url} }
             );
         }
         else {
@@ -146,7 +148,7 @@ role {
 
             my $submitted_relationships = $submitted_rel_data->(
                 @{ $query_params->{$form_name}->{rel} },
-                @{ $query_params->{$form_name}->{url} }
+                @{ $form_name eq "edit-url" ? [] : $query_params->{$form_name}->{url} }
             );
 
             $source_entity->{submittedRelationships} = $submitted_relationships // [];
@@ -172,10 +174,14 @@ role {
             );
 
             $source = $source // $c->model($model)->get_by_id($edit->entity_id);
-            my @urls = grep { !$_->is_empty } $form->field('url')->fields;
-            my @rels = grep { !$_->is_empty } $form->field('rel')->fields;
+            my $url_changes = 0;
 
-            my $url_changes = $self->edit_relationships($c, $form, \@urls, $source);
+            if ($form_name ne "edit-url") {
+                my @urls = grep { !$_->is_empty } $form->field('url')->fields;
+                my $url_changes = $self->edit_relationships($c, $form, \@urls, $source);
+            }
+
+            my @rels = grep { !$_->is_empty } $form->field('rel')->fields;
             my $rel_changes = $self->edit_relationships($c, $form, \@rels, $source);
 
             return 1 if $makes_changes || $url_changes || $rel_changes;

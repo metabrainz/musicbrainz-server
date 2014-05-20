@@ -19,8 +19,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-05-15 17:02+0000\n"
-"Last-Translator: nikki\n"
+"PO-Revision-Date: 2014-05-20 19:03+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -96,7 +96,7 @@ msgstr "Album"
 #: DB:series_ordering_type/description:2
 msgctxt "series_ordering_type"
 msgid "Allows for manually setting the position of each item in the series."
-msgstr ""
+msgstr "Erlaubt es, die Position jedes Elements in der Serie manuell zu setzen."
 
 #: DB:work_attribute_type_allowed_value/value:40
 msgctxt "work_attribute_type_allowed_value"
@@ -141,7 +141,7 @@ msgstr "Hörbuch"
 #: DB:series_ordering_type/name:1
 msgctxt "series_ordering_type"
 msgid "Automatic"
-msgstr ""
+msgstr "Automatisch"
 
 #: DB:work_attribute_type_allowed_value/value:45
 msgctxt "work_attribute_type_allowed_value"
@@ -405,7 +405,7 @@ msgstr "Kassettenhülle"
 
 #: DB:series_type/name:5
 msgctxt "series_type"
-msgid "Catalog"
+msgid "Catalogue"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:291
@@ -586,7 +586,7 @@ msgstr "Digitales Medium"
 #: DB:release_packaging/name:13
 msgctxt "release_packaging"
 msgid "Discbox Slider"
-msgstr ""
+msgstr "Discbox-Slider"
 
 #: DB:label_type/name:1
 msgctxt "label_type"
@@ -681,7 +681,7 @@ msgstr "EP"
 #: DB:instrument_type/name:4
 msgctxt "instrument_type"
 msgid "Electronic instrument"
-msgstr ""
+msgstr "Elektronisches Instrument"
 
 #: DB:work_attribute_type_allowed_value/value:17
 msgctxt "work_attribute_type_allowed_value"
@@ -711,7 +711,7 @@ msgstr "fis-Moll"
 #: DB:release_packaging/name:10
 msgctxt "release_packaging"
 msgid "Fatbox"
-msgstr ""
+msgstr "Fatbox"
 
 #: DB:gender/name:2
 msgctxt "gender"
@@ -776,7 +776,7 @@ msgstr "Garuḍadhvani"
 #: DB:release_packaging/name:12
 msgctxt "release_packaging"
 msgid "Gatefold Cover"
-msgstr ""
+msgstr "Gatefold-Cover"
 
 #: DB:work_attribute_type_allowed_value/value:99
 msgctxt "work_attribute_type_allowed_value"
@@ -930,38 +930,38 @@ msgstr "Imprint"
 
 #: DB:series_type/description:5
 msgctxt "series_type"
-msgid "Indicates that the series is a works catalog."
+msgid "Indicates that the series is a work catalogue."
 msgstr ""
 
 #: DB:series_type/description:3
 msgctxt "series_type"
 msgid "Indicates that the series is of recordings."
-msgstr ""
+msgstr "Gibt an, dass die Serie aus Aufnahmen besteht."
 
 #: DB:series_type/description:1
 msgctxt "series_type"
 msgid "Indicates that the series is of release groups."
-msgstr ""
+msgstr "Gibt an, dass die Serie aus Veröffentlichungsgruppen besteht."
 
 #: DB:series_type/description:2
 msgctxt "series_type"
 msgid "Indicates that the series is of releases."
-msgstr ""
+msgstr "Gibt an, dass die Serie aus Veröffentlichungen besteht."
 
 #: DB:series_type/description:4
 msgctxt "series_type"
 msgid "Indicates that the series is of works."
-msgstr ""
+msgstr "Gibt an, dass die Serie aus Werken besteht."
 
 #: DB:place_type/name:5
 msgctxt "place_type"
 msgid "Indoor arena"
-msgstr ""
+msgstr "Veranstaltungshalle"
 
 #: DB:instrument_alias_type/name:1
 msgctxt "alias_type"
 msgid "Instrument name"
-msgstr ""
+msgstr "Instrumentenname"
 
 #: DB:release_group_secondary_type/name:4
 msgctxt "release_group_secondary_type"
@@ -1321,7 +1321,7 @@ msgstr "Mandāri"
 #: DB:series_ordering_type/name:2
 msgctxt "series_ordering_type"
 msgid "Manual"
-msgstr ""
+msgstr "Manuell"
 
 #: DB:work_attribute_type_allowed_value/value:172
 msgctxt "work_attribute_type_allowed_value"
@@ -1626,7 +1626,7 @@ msgstr "Anderes"
 #: DB:instrument_type/name:5
 msgctxt "instrument_type"
 msgid "Other instrument"
-msgstr ""
+msgstr "Anderes Instrument"
 
 #: DB:work_type/name:12
 msgctxt "work_type"
@@ -1651,7 +1651,7 @@ msgstr "Paṭdīp"
 #: DB:instrument_type/name:3
 msgctxt "instrument_type"
 msgid "Percussion instrument"
-msgstr ""
+msgstr "Schlaginstrument"
 
 #: DB:artist_type/name:1
 msgctxt "artist_type"
@@ -1919,7 +1919,7 @@ msgstr "Sencuruṭṭi"
 #: DB:series_alias_type/name:1
 msgctxt "alias_type"
 msgid "Series name"
-msgstr ""
+msgstr "Serienname"
 
 #: DB:work_attribute_type_allowed_value/value:236
 msgctxt "work_attribute_type_allowed_value"
@@ -1976,7 +1976,7 @@ msgctxt "series_ordering_type"
 msgid ""
 "Sorts the items in the series automatically by their number attributes, "
 "using a natural sort order."
-msgstr ""
+msgstr "Sortiert die Elemente in der Serie automatisch nach ihren Nummer-Attributen in der natürlichen Sortierreihenfolge."
 
 #: DB:work_type/name:22
 msgctxt "work_type"

@@ -198,12 +198,18 @@
             var fieldPrefix = this.formName + "." + this.fieldName;
             var source = this.source;
             var relationships = source.displayRelationships(this);
+            var index = 0;
 
-            return _.flatten(_.map(relationships, function (relationship, index) {
-                var prefix = fieldPrefix + "." + index;
-                var hidden = [];
-                var target = relationship.target(source);
+            return _.flatten(_.map(relationships, function (relationship) {
                 var editData = relationship.editData();
+                var hidden = [];
+
+                if (!editData.linkTypeID) {
+                    return hidden;
+                }
+
+                var prefix = fieldPrefix + "." + index;
+                var target = relationship.target(source);
 
                 if (relationship.id) {
                     hidden.push({ name: prefix + ".relationship_id", value: relationship.id });
@@ -263,6 +269,7 @@
                     hidden.push({ name: prefix + ".link_order", value: editData.linkOrder });
                 }
 
+                index++;
                 return hidden;
             }));
         }

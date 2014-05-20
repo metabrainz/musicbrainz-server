@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-05-15 11:18+0000\n"
+"PO-Revision-Date: 2014-05-20 19:03+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -398,7 +398,7 @@ msgstr "Kasettikotelo"
 
 #: DB:series_type/name:5
 msgctxt "series_type"
-msgid "Catalog"
+msgid "Catalogue"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:291
@@ -923,7 +923,7 @@ msgstr "Valmistajamerkki"
 
 #: DB:series_type/description:5
 msgctxt "series_type"
-msgid "Indicates that the series is a works catalog."
+msgid "Indicates that the series is a work catalogue."
 msgstr ""
 
 #: DB:series_type/description:3

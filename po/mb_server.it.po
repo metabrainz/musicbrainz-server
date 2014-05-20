@@ -21,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-16 07:14-0700\n"
-"PO-Revision-Date: 2014-05-16 14:15+0000\n"
+"POT-Creation-Date: 2014-05-20 12:01-0700\n"
+"PO-Revision-Date: 2014-05-20 19:02+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -32,7 +32,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../root/components/relationships-table.tt:21
-#: ../root/instrument/relationships.tt:33
 #: ../lib/MusicBrainz/Server/Entity/Link.pm:101
 msgid " &#x2013; ????"
 msgstr " &#x2013; ????"
@@ -95,7 +94,6 @@ msgid "&#10005;"
 msgstr "&#10005;"
 
 #: ../root/components/relationships-table.tt:21
-#: ../root/instrument/relationships.tt:33
 #: ../lib/MusicBrainz/Server/Entity/Link.pm:111
 #, perl-brace-format
 msgid "&#x2013; {enddate}"
@@ -268,7 +266,7 @@ msgid ""
 msgstr "* Corrispondenza indica la differenza totale in secondi tra il CD richiesto e le corrispondenze trovate."
 
 #: ../root/components/relationships-table.tt:44
-#: ../root/instrument/relationships.tt:56 ../root/scripts/text_strings.tt:127
+#: ../root/scripts/text_strings.tt:127
 #: ../lib/MusicBrainz/Server/Entity/Relationship.pm:172
 msgid ", "
 msgstr ", "
@@ -537,16 +535,16 @@ msgstr "Aggiungi esempio"
 
 #: ../root/instrument/create.tt:1 ../root/instrument/create.tt:3
 msgid "Add Instrument"
-msgstr ""
+msgstr "Aggiungi strumento"
 
 #: ../root/admin/index.tt:10 ../root/layout/menu.tt:90
 msgctxt "button/menu"
 msgid "Add Instrument"
-msgstr ""
+msgstr "Aggiungi strumento"
 
 #: ../root/instrument/add_alias.tt:1
 msgid "Add Instrument Alias"
-msgstr ""
+msgstr "Aggiungi alias allo strumento"
 
 #: ../root/label/create.tt:1 ../root/label/create.tt:3
 msgid "Add Label"
@@ -608,16 +606,16 @@ msgstr "Aggiungi gruppo di pubblicazioni"
 
 #: ../root/series/create.tt:1 ../root/series/create.tt:3
 msgid "Add Series"
-msgstr ""
+msgstr "Aggiungi serie"
 
 #: ../root/layout/menu.tt:238
 msgctxt "button/menu"
 msgid "Add Series"
-msgstr ""
+msgstr "Aggiungi serie"
 
 #: ../root/series/add_alias.tt:1
 msgid "Add Series Alias"
-msgstr ""
+msgstr "Aggiungi alias alla serie"
 
 #: ../root/layout/menu.tt:229
 msgctxt "button/menu"
@@ -702,7 +700,7 @@ msgstr "Aggiungi un nuovo gruppo di pubblicazioni"
 
 #: ../root/scripts/text_strings.tt:136
 msgid "Add a new series"
-msgstr ""
+msgstr "Aggiungi una nuova serie"
 
 #: ../root/scripts/text_strings.tt:137
 msgid "Add a new work"
@@ -722,20 +720,20 @@ msgstr "Aggiungi un altro"
 
 #: ../root/scripts/text_strings.tt:176
 msgid "Add another area"
-msgstr ""
+msgstr "Aggiungi un'altra area"
 
 #: ../root/scripts/text_strings.tt:177
 msgid "Add another artist"
-msgstr ""
+msgstr "Aggiungi un altro artista"
 
 #: ../root/components/relationship-editor.tt:117
 #: ../root/scripts/text_strings.tt:178
 msgid "Add another instrument"
-msgstr ""
+msgstr "Aggiungi un altro strumento"
 
 #: ../root/scripts/text_strings.tt:179
 msgid "Add another label"
-msgstr ""
+msgstr "Aggiungi un'altra etichetta"
 
 #: ../root/components/forms.tt:398
 msgid "Add another link:"
@@ -747,23 +745,23 @@ msgstr "Aggiungi un altro supporto"
 
 #: ../root/scripts/text_strings.tt:180
 msgid "Add another place"
-msgstr ""
+msgstr "Aggiungi un altro luogo"
 
 #: ../root/scripts/text_strings.tt:181
 msgid "Add another recording"
-msgstr ""
+msgstr "Aggiungi un'altra registrazione"
 
 #: ../root/scripts/text_strings.tt:182
 msgid "Add another release"
-msgstr ""
+msgstr "Aggiungi un'altra pubblicazione"
 
 #: ../root/scripts/text_strings.tt:183
 msgid "Add another release group"
-msgstr ""
+msgstr "Aggiungi un altro gruppo di pubblicazioni"
 
 #: ../root/scripts/text_strings.tt:184
 msgid "Add another series"
-msgstr ""
+msgstr "Aggiungi un'altra serie"
 
 #: ../root/scripts/text_strings.tt:44
 msgid "Add another track"
@@ -771,7 +769,7 @@ msgstr "Aggiungi un'altra traccia"
 
 #: ../root/scripts/text_strings.tt:185
 msgid "Add another work"
-msgstr ""
+msgstr "Aggiungi un'altra opera"
 
 #: ../root/area/add_alias.tt:2
 #: ../lib/MusicBrainz/Server/Edit/Area/AddAlias.pm:11
@@ -798,7 +796,7 @@ msgstr "Aggiungi nota di modifica"
 #: ../root/instrument/add_alias.tt:2
 #: ../lib/MusicBrainz/Server/Edit/Instrument/AddAlias.pm:11
 msgid "Add instrument alias"
-msgstr ""
+msgstr "Aggiungi un alias allo strumento"
 
 #: ../root/label/add_alias.tt:2
 #: ../lib/MusicBrainz/Server/Edit/Label/AddAlias.pm:11
@@ -863,7 +861,7 @@ msgstr "Aggiungi opere selezionate per unirle"
 #: ../root/series/add_alias.tt:2
 #: ../lib/MusicBrainz/Server/Edit/Series/AddAlias.pm:11
 msgid "Add series alias"
-msgstr ""
+msgstr "Aggiungi un alias alla serie"
 
 #: ../root/release/sidebar.tt:136
 msgid "Add to a new collection"
@@ -1058,7 +1056,7 @@ msgstr "Permetti agli altri utenti di vedere questa collezione"
 
 #: ../root/edit/details/edit_relationship_type.tt:46
 msgid "Allows dates:"
-msgstr ""
+msgstr "Consente date:"
 
 #: ../root/components/common-macros.tt:647
 msgid "Already expired"
@@ -1099,7 +1097,7 @@ msgstr "In alternativa, puoi {uri|aggiungere una nuova pubblicazione}."
 
 #: ../root/search/results-series.tt:29
 msgid "Alternatively, you may {uri|add a new series}."
-msgstr ""
+msgstr "In alternativa, puoi {uri|aggiungere una nuova serie}."
 
 #: ../root/search/results-work.tt:61
 msgid "Alternatively, you may {uri|add a new work}."
@@ -1208,8 +1206,7 @@ msgstr "Annotazione:"
 msgid "Annotations support a limited set of wiki formatting options:"
 msgstr "Le annotazioni supportano un set limitato di opzioni di formattazione wiki:"
 
-#: ../root/artist/relationships.tt:6 ../root/instrument/relationships.tt:9
-#: ../root/label/relationships.tt:6
+#: ../root/artist/relationships.tt:6 ../root/label/relationships.tt:6
 msgid "Appearances"
 msgstr "Partecipazioni"
 
@@ -1316,7 +1313,7 @@ msgstr "Sei sicuro di voler rimuovere la seguente copertina da {release} di {art
 msgid ""
 "Are you sure you wish to remove the instrument {instrument} from "
 "MusicBrainz?"
-msgstr ""
+msgstr "Sei sicuro di voler rimuovere lo strumento {instrument} da MusicBrainz?"
 
 #: ../root/label/delete.tt:5
 msgid "Are you sure you wish to remove the label {label} from MusicBrainz?"
@@ -1324,7 +1321,7 @@ msgstr "Sei sicuro di voler rimuovere l'etichetta {label} da MusicBrainz?"
 
 #: ../root/series/delete.tt:5
 msgid "Are you sure you wish to remove the series {series} from MusicBrainz?"
-msgstr ""
+msgstr "Sei sicuro di voler rimuovere la serie {series} da MusicBrainz?"
 
 #: ../root/area/edits.tt:5 ../root/area/header.tt:21
 #: ../root/components/common-macros.tt:581
@@ -1384,8 +1381,8 @@ msgstr "Area:"
 #: ../root/edit/details/historic/change_track_artist.tt:8
 #: ../root/edit/details/merge_release_groups.tt:5
 #: ../root/edit/details/merge_releases.tt:19 ../root/edit/search_macros.tt:307
-#: ../root/freedb/show.tt:63 ../root/instrument/relationships.tt:16
-#: ../root/isrc/index.tt:17 ../root/otherlookup/results-release.tt:11
+#: ../root/freedb/show.tt:63 ../root/isrc/index.tt:17
+#: ../root/otherlookup/results-release.tt:11
 #: ../root/release/edit/tracklist.tt:101 ../root/release/edit/tracklist.tt:253
 #: ../root/release_group/merge.tt:13 ../root/release_group/releases-list.tt:12
 #: ../root/release/index.tt:55 ../root/release/lookup.tt:10
@@ -1623,7 +1620,7 @@ msgstr "Associato alle pubblicazioni"
 
 #: ../root/components/relationships-table.tt:8
 #: ../root/components/works-list.tt:18 ../root/doc/relationship_type.tt:48
-#: ../root/instrument/relationships.tt:15 ../root/work/merge.tt:17
+#: ../root/work/merge.tt:17
 msgid "Attributes"
 msgstr "Attributi"
 
@@ -1688,7 +1685,7 @@ msgstr "Sottoscrivimi automaticamente alle etichette che creo."
 
 #: ../root/account/preferences.tt:47
 msgid "Automatically subscribe me to series I create."
-msgstr ""
+msgstr "Sottoscrivimi automaticamente alle serie che creo."
 
 #: ../root/components/ratings.tt:19
 msgid "Average rating:"
@@ -1936,6 +1933,10 @@ msgid "Browse Releases"
 msgstr "Esplora pubblicazioni"
 
 #: ../root/browse/entity.tt:1
+msgid "Browse Series"
+msgstr ""
+
+#: ../root/browse/entity.tt:1
 msgid "Browse Works"
 msgstr "Esplora opere"
 
@@ -1965,7 +1966,7 @@ msgstr "Esplora pubblicazioni"
 
 #: ../root/browse/index.tt:13
 msgid "Browse series"
-msgstr ""
+msgstr "Esplora serie"
 
 #: ../root/browse/index.tt:10
 msgid "Browse works"
@@ -2482,7 +2483,6 @@ msgstr "Dati:"
 #: ../root/edit/details/edit_release_events.tt:5
 #: ../root/edit/details/historic/add_release.tt:75
 #: ../root/edit/details/merge_releases.tt:22 ../root/elections/show.tt:118
-#: ../root/instrument/relationships.tt:13
 #: ../root/otherlookup/results-release.tt:14 ../root/recording/index.tt:14
 #: ../root/release/edit/duplicates.tt:13 ../root/release_group/index.tt:26
 #: ../root/release_group/releases-list.tt:16 ../root/release/lookup.tt:11
@@ -2546,7 +2546,7 @@ msgstr "Elimina {e}"
 
 #: ../root/user/profile.tt:50
 msgid "Deleted User"
-msgstr ""
+msgstr "Utente eliminato"
 
 #: ../root/edit/details/edit_relationship_type.tt:40
 msgid "Deprecated:"
@@ -2822,8 +2822,7 @@ msgstr "Ogni traccia nel database di MusicBrainz deve essere collegata a una reg
 #: ../root/cdstub/header.tt:9 ../root/cdtoc/list.tt:16
 #: ../root/collection/header.tt:6 ../root/components/aliases.tt:60
 #: ../root/components/forms.tt:180 ../root/doc/relationship_type.tt:17
-#: ../root/instrument/header.tt:10 ../root/instrument/relationships.tt:18
-#: ../root/instrument/relationships.tt:80 ../root/label/header.tt:1
+#: ../root/instrument/header.tt:10 ../root/label/header.tt:1
 #: ../root/place/header.tt:1 ../root/recording/header.tt:1
 #: ../root/relationship/linkattributetype/common.tt:25
 #: ../root/relationship/linktype/tree.tt:17 ../root/release/cover_art.tt:27
@@ -2891,11 +2890,11 @@ msgstr "Modifica copertina:"
 
 #: ../root/instrument/edit.tt:1
 msgid "Edit Instrument"
-msgstr ""
+msgstr "Modifica strumento"
 
 #: ../root/instrument/edit_alias.tt:1
 msgid "Edit Instrument Alias"
-msgstr ""
+msgstr "Modifica alias dello strumento"
 
 #: ../root/label/edit.tt:1
 msgid "Edit Label"
@@ -2968,11 +2967,11 @@ msgstr "Modifica annotazione del gruppo di pubblicazioni"
 
 #: ../root/series/edit.tt:1
 msgid "Edit Series"
-msgstr ""
+msgstr "Modifica serie"
 
 #: ../root/series/edit_alias.tt:1
 msgid "Edit Series Alias"
-msgstr ""
+msgstr "Modifica alias della serie"
 
 #: ../root/doc/edit_types.tt:1 ../root/doc/edit_types.tt:3
 #: ../root/doc/edit_type.tt:35 ../root/edit/info.tt:67
@@ -3034,11 +3033,11 @@ msgstr "Dati di modifica per la modifica #{id}"
 #: ../root/instrument/edit_alias.tt:2
 #: ../lib/MusicBrainz/Server/Edit/Instrument/EditAlias.pm:12
 msgid "Edit instrument alias"
-msgstr ""
+msgstr "Modifica alias dello strumento"
 
 #: ../root/instrument/edit_annotation.tt:2
 msgid "Edit instrument annotation"
-msgstr ""
+msgstr "Modifica annotazione dello strumento"
 
 #: ../root/label/edit_alias.tt:2
 #: ../lib/MusicBrainz/Server/Edit/Label/EditAlias.pm:12
@@ -3100,11 +3099,11 @@ msgstr "Modifica annotazione del gruppo di pubblicazioni"
 #: ../root/series/edit_alias.tt:2
 #: ../lib/MusicBrainz/Server/Edit/Series/EditAlias.pm:12
 msgid "Edit series alias"
-msgstr ""
+msgstr "Modifica alias della serie"
 
 #: ../root/series/edit_annotation.tt:2
 msgid "Edit series annotation"
-msgstr ""
+msgstr "Modifica annotazione della serie"
 
 #: ../root/admin/edit_user.tt:42
 msgid "Edit user"
@@ -3175,10 +3174,6 @@ msgstr "Editor “{user}”"
 msgid "Editors Subscribed to this Artist"
 msgstr "Editor sottoscritti a questo artista"
 
-#: ../root/label/subscriptions.tt:2
-msgid "Editors subscribed to this Label"
-msgstr "Editor sottoscritti a questa etichetta"
-
 #: ../root/user/edits.tt:1
 msgid "Edits"
 msgstr "Modifiche"
@@ -3209,23 +3204,23 @@ msgstr "Modifiche per le entità che hai sottoscritto"
 
 #: ../root/instrument/edits.tt:3
 msgid "Edits for {instrument}"
-msgstr ""
+msgstr "Modifiche a {instrument}"
 
 #: ../root/label/edits.tt:3
 msgid "Edits for {label}"
-msgstr "Modifiche di {label}"
+msgstr "Modifiche a {label}"
 
 #: ../root/area/edits.tt:3 ../root/artist/edits.tt:3
 #: ../root/collection/edits.tt:3 ../root/url/edits.tt:3
 msgid "Edits for {link}"
-msgstr "Modifiche di {link}"
+msgstr "Modifiche a {link}"
 
 #: ../root/area/edits.tt:1 ../root/artist/edits.tt:1
 #: ../root/collection/edits.tt:1 ../root/instrument/edits.tt:1
 #: ../root/label/edits.tt:1 ../root/place/edits.tt:1 ../root/series/edits.tt:1
 #: ../root/url/edits.tt:1
 msgid "Edits for {name}"
-msgstr "Modifiche di {name}"
+msgstr "Modifiche a {name}"
 
 #: ../root/place/edits.tt:3
 msgid "Edits for {place}"
@@ -3233,18 +3228,18 @@ msgstr "Modifiche per {place}"
 
 #: ../root/series/edits.tt:3
 msgid "Edits for {series}"
-msgstr ""
+msgstr "Modifiche a {series}"
 
 #: ../root/release/edits.tt:3 ../root/release_group/edits.tt:3
 #: ../root/work/edits.tt:3
 msgid "Edits for “{link}”"
-msgstr "Modifiche di “{link}”"
+msgstr "Modifiche a “{link}”"
 
 #: ../root/recording/edits.tt:1 ../root/recording/edits.tt:3
 #: ../root/release/edits.tt:1 ../root/release_group/edits.tt:1
 #: ../root/work/edits.tt:1
 msgid "Edits for “{name}”"
-msgstr "Modifiche per \"{name}\""
+msgstr "Modifiche a \"{name}\""
 
 #: ../root/main/500.tt:48
 msgid "Edits loaded for the page:"
@@ -3556,7 +3551,7 @@ msgstr "Fallite"
 
 #: ../root/components/common-macros.tt:1000
 msgid "Few relationships"
-msgstr ""
+msgstr "Poche relazioni"
 
 #: ../root/release/add_cover_art.tt:68
 msgid "File:"
@@ -4217,27 +4212,27 @@ msgstr "Applicazione installata"
 #: ../lib/MusicBrainz/Server/Edit/Instrument.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:46
 msgid "Instrument"
-msgstr ""
+msgstr "Strumento"
 
 #: ../root/instrument/edit_form.tt:9
 msgid "Instrument Details"
-msgstr ""
+msgstr "Dettagli sullo strumento"
 
 #: ../root/browse/instrument.tt:11 ../root/browse/instrument.tt:13
 msgid "Instrument List"
-msgstr ""
+msgstr "Elenco strumenti"
 
 #: ../root/instrument/not_found.tt:1 ../root/instrument/not_found.tt:2
 msgid "Instrument Not Found"
-msgstr ""
+msgstr "Strumento non trovato"
 
 #: ../root/instrument/layout.tt:11
 msgid "Instrument information"
-msgstr ""
+msgstr "Informazioni sullo strumento"
 
 #: ../root/browse/index.tt:14
 msgid "Instrument list"
-msgstr ""
+msgstr "Elenco strumenti"
 
 #: ../root/components/common-macros.tt:565
 #: ../root/edit/details/add_instrument_alias.tt:3
@@ -4248,7 +4243,7 @@ msgstr ""
 #: ../root/edit/details/remove_instrument_alias.tt:3
 #: ../root/edit/details/remove_instrument.tt:3
 msgid "Instrument:"
-msgstr ""
+msgstr "Strumento:"
 
 #: ../root/main/500.tt:67
 msgid "Interface language:"
@@ -4524,7 +4519,7 @@ msgstr "Collegamento"
 
 #: ../root/edit/details/add_relationship.tt:11
 msgid "Link order:"
-msgstr ""
+msgstr "Ordine del collegamento:"
 
 #: ../root/edit/details/add_relationship_type.tt:13
 #: ../root/edit/details/edit_relationship_type.tt:23
@@ -4722,7 +4717,7 @@ msgstr "Inserimento manuale"
 
 #: ../root/components/common-macros.tt:1000
 msgid "Many relationships"
-msgstr ""
+msgstr "Molte relazioni"
 
 #: ../root/release/lookup.tt:8
 msgid "Match"
@@ -4803,7 +4798,7 @@ msgstr "Unisci artisti"
 
 #: ../root/instrument/merge.tt:1 ../root/instrument/merge.tt:3
 msgid "Merge Instruments"
-msgstr ""
+msgstr "Unisci strumenti"
 
 #: ../root/label/merge.tt:1 ../root/label/merge.tt:3
 msgid "Merge Labels"
@@ -4831,7 +4826,7 @@ msgstr "Unisci pubblicazioni"
 
 #: ../root/series/merge.tt:1 ../root/series/merge.tt:3
 msgid "Merge Series"
-msgstr ""
+msgstr "Unisci serie"
 
 #: ../root/work/merge.tt:1 ../root/work/merge.tt:3
 msgid "Merge Works"
@@ -4851,7 +4846,7 @@ msgstr "Unisci attributi:"
 
 #: ../root/instrument/layout.tt:33
 msgid "Merge instrument"
-msgstr ""
+msgstr "Unisci strumento"
 
 #: ../root/label/layout.tt:67
 msgid "Merge label"
@@ -4890,7 +4885,7 @@ msgstr "Unisci gruppi di pubblicazioni"
 #: ../root/series/layout.tt:19
 #: ../lib/MusicBrainz/Server/Edit/Series/Merge.pm:11
 msgid "Merge series"
-msgstr ""
+msgstr "Unisci serie"
 
 #: ../root/edit/details/merge_releases.tt:133 ../root/release/merge.tt:55
 msgid "Merge strategy:"
@@ -4946,11 +4941,11 @@ msgstr "Sposta disco verso l'alto"
 
 #: ../root/forms/relationship-editor.tt:34
 msgid "Move entity down"
-msgstr ""
+msgstr "Sposta entità verso il basso"
 
 #: ../root/forms/relationship-editor.tt:35
 msgid "Move entity up"
-msgstr ""
+msgstr "Sposta entità verso l'alto"
 
 #: ../root/release/add_cover_art.tt:40
 msgid "Move file down"
@@ -5030,19 +5025,19 @@ msgid ""
 "MusicBrainz {free|free and open source}."
 msgstr "MusicBrainz è gestita dalla {uri|MetaBrainz Foundation}, un'impresa non-profit esentasse 501(c)(3) con sede in California che si dedica a mantenere MusicBrainz {free|libero e open source}."
 
-#: ../root/layout/head.tt:11
+#: ../root/layout/head.tt:15
 msgid "MusicBrainz: Artist"
 msgstr "MusicBrainz: Artista"
 
-#: ../root/layout/head.tt:12
+#: ../root/layout/head.tt:16
 msgid "MusicBrainz: Label"
 msgstr "MusicBrainz: Etichetta"
 
-#: ../root/layout/head.tt:13
+#: ../root/layout/head.tt:17
 msgid "MusicBrainz: Release"
 msgstr "MusicBrainz: Pubblicazione"
 
-#: ../root/layout/head.tt:14
+#: ../root/layout/head.tt:18
 msgid "MusicBrainz: Track"
 msgstr "MusicBrainz: Traccia"
 
@@ -5166,7 +5161,7 @@ msgstr "La nuova immagine va qui"
 
 #: ../root/edit/details/reorder_relationships.tt:10
 msgid "New Order"
-msgstr ""
+msgstr "Nuovo ordine"
 
 #: ../root/relationship/linkattributetype/create.tt:1
 #: ../root/relationship/linkattributetype/create.tt:3
@@ -5549,7 +5544,7 @@ msgstr "Vecchio artista"
 
 #: ../root/edit/details/reorder_relationships.tt:7
 msgid "Old Order"
-msgstr ""
+msgstr "Vecchio ordine"
 
 #: ../root/edit/details/edit_medium.tt:51
 msgid "Old Tracklist"
@@ -5659,13 +5654,13 @@ msgstr "O..."
 #: ../root/edit/details/merge_series.tt:10
 #: ../root/edit/details/merge_series.tt:35 ../root/series/merge.tt:14
 msgid "Ordering Type"
-msgstr ""
+msgstr "Tipo di ordinamento"
 
 #: ../root/edit/details/add_series.tt:30
 #: ../root/edit/details/edit_series.tt:23 ../root/series/edit_form.tt:34
 #: ../root/series/layout.tt:8
 msgid "Ordering Type:"
-msgstr ""
+msgstr "Tipo di ordinamento:"
 
 #: ../root/otherlookup/results.tt:1 ../root/otherlookup/results.tt:3
 msgid "Other Lookup Results"
@@ -5909,7 +5904,7 @@ msgstr "Inserisci una {doc_disambiguation|disambiguazione} per distinguere quest
 msgid ""
 "Please enter a {doc_disambiguation|disambiguation} to help distinguish this "
 "series from the others."
-msgstr ""
+msgstr "Inserisci una {doc_disambiguation|disambiguazione} per distinguere questa serie dalle altre."
 
 #: ../root/components/tag.tt:7
 msgid ""
@@ -6049,7 +6044,7 @@ msgstr "Luoghi che potrebbero essere doppioni"
 
 #: ../root/series/edit_form.tt:13
 msgid "Possible Duplicate Series"
-msgstr ""
+msgstr "Serie che potrebbero essere doppioni"
 
 #: ../root/cdtoc/lookup.tt:29
 msgid "Possible Mediums"
@@ -6438,11 +6433,9 @@ msgstr "Relazione:"
 
 #: ../root/artist/header.tt:1 ../root/artist/relationships.tt:1
 #: ../root/components/relationships.tt:25
-#: ../root/forms/relationship-editor.tt:9
-#: ../root/instrument/relationships.tt:1 ../root/instrument/relationships.tt:4
-#: ../root/label/header.tt:1 ../root/label/relationships.tt:1
-#: ../root/label/relationships.tt:2 ../root/relationship/header.tt:7
-#: ../root/release/index.tt:300
+#: ../root/forms/relationship-editor.tt:9 ../root/label/header.tt:1
+#: ../root/label/relationships.tt:1 ../root/label/relationships.tt:2
+#: ../root/relationship/header.tt:7 ../root/release/index.tt:300
 msgid "Relationships"
 msgstr "Relazioni"
 
@@ -6849,8 +6842,7 @@ msgstr "Pubblicazioni:"
 #: ../root/area/delete.tt:1 ../root/cdtoc/list.tt:50
 #: ../root/collection/delete.tt:1 ../root/collection/header.tt:7
 #: ../root/components/aliases.tt:63 ../root/doc/relationship_type.tt:19
-#: ../root/instrument/relationships.tt:73 ../root/label/delete.tt:1
-#: ../root/recording/delete.tt:1
+#: ../root/label/delete.tt:1 ../root/recording/delete.tt:1
 #: ../root/relationship/linkattributetype/common.tt:26
 #: ../root/relationship/linkattributetype/delete.tt:11
 #: ../root/relationship/linktype/delete.tt:11
@@ -6901,11 +6893,11 @@ msgstr "Rimuovi esempio"
 
 #: ../root/instrument/delete.tt:1 ../root/instrument/delete.tt:2
 msgid "Remove Instrument"
-msgstr ""
+msgstr "Rimuovi strumento"
 
 #: ../root/instrument/delete_alias.tt:1
 msgid "Remove Instrument Alias"
-msgstr ""
+msgstr "Rimuovi alias dallo strumento"
 
 #: ../root/label/delete.tt:2 ../root/release/edit/information.tt:164
 msgid "Remove Label"
@@ -6955,11 +6947,11 @@ msgstr "Rimuovi gruppo di pubblicazioni "
 
 #: ../root/series/delete.tt:2
 msgid "Remove Series"
-msgstr ""
+msgstr "Rimuovi serie"
 
 #: ../root/series/delete_alias.tt:1
 msgid "Remove Series Alias"
-msgstr ""
+msgstr "Rimuovi alias dalla serie"
 
 #: ../root/work/delete_alias.tt:1
 msgid "Remove Work Alias"
@@ -7002,12 +6994,12 @@ msgstr "Rimuovi da {collection}"
 #: ../root/instrument/layout.tt:36
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Delete.pm:10
 msgid "Remove instrument"
-msgstr ""
+msgstr "Rimuovi strumento"
 
 #: ../root/instrument/delete_alias.tt:2
 #: ../lib/MusicBrainz/Server/Edit/Instrument/DeleteAlias.pm:14
 msgid "Remove instrument alias"
-msgstr ""
+msgstr "Rimuovi alias dallo strumento"
 
 #: ../root/label/layout.tt:70
 #: ../lib/MusicBrainz/Server/Edit/Label/Delete.pm:12
@@ -7047,7 +7039,7 @@ msgstr "Rimuovi le pubblicazioni selezionate dalla collezione"
 #: ../root/series/delete_alias.tt:2
 #: ../lib/MusicBrainz/Server/Edit/Series/DeleteAlias.pm:14
 msgid "Remove series alias"
-msgstr ""
+msgstr "Rimuovi alias dalla serie"
 
 #: ../root/release/edit/tracklist.tt:297
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveTrack.pm:10
@@ -7434,26 +7426,26 @@ msgstr "Frase"
 #: ../root/series/merge.tt:12 ../lib/MusicBrainz/Server/Edit/Series.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:47
 msgid "Series"
-msgstr ""
+msgstr "Serie"
 
 #: ../root/series/edit_form.tt:30
 msgid "Series Details"
-msgstr ""
+msgstr "Dettagli sulla serie"
 
 #: ../root/series/not_found.tt:1 ../root/series/not_found.tt:2
 msgid "Series Not Found"
-msgstr ""
+msgstr "Serie non trovata"
 
 #: ../root/series/layout.tt:4
 msgid "Series information"
-msgstr ""
+msgstr "Informazioni sulla serie"
 
 #: ../root/components/common-macros.tt:565
 #: ../root/edit/details/add_series_annotation.tt:3
 #: ../root/edit/details/add_series.tt:3 ../root/edit/details/edit_series.tt:5
 #: ../root/edit/details/remove_series.tt:3
 msgid "Series:"
-msgstr ""
+msgstr "Serie:"
 
 #: ../root/release_group/set_cover_art.tt:1
 msgid "Set Release Group Cover Art"
@@ -7747,7 +7739,7 @@ msgstr "Spiacenti, non è stato possibile trovare una pubblicazione con quell'ID
 msgid ""
 "Sorry, we could not find a series with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr ""
+msgstr "Spiacenti, non è stato possibile trovare una serie con quell'ID di MusicBrainz. Potresti provare a {search_url|usare la ricerca}."
 
 #: ../root/work/not_found.tt:4
 msgid ""
@@ -7787,7 +7779,7 @@ msgstr "Spiacenti, non è stato possibile trovare un editor con quel nome. Potre
 msgid ""
 "Sorry, we could not find an instrument with that MusicBrainz ID. You may "
 "wish to try and {search_url|search for it} instead."
-msgstr ""
+msgstr "Spiacenti, non è stato possibile trovare uno strumento con quell'ID di MusicBrainz. Potresti provare a {search_url|usare la ricerca}."
 
 #: ../root/search/editor.tt:18
 msgid ""
@@ -7992,15 +7984,11 @@ msgstr "Invio modifiche in corso..."
 msgid "Subscribe"
 msgstr "Sottoscrivi"
 
-#: ../root/label/subscriptions.tt:25
-msgid "Subscribe to this Label."
-msgstr "Sottoscrivi questa etichetta"
-
 #: ../root/artist/subscribe.tt:20
 msgid "Subscribe to this artist."
 msgstr "Sottoscrivi questo artista"
 
-#: ../root/artist/subscribe.tt:1 ../root/label/subscriptions.tt:1
+#: ../root/artist/subscribe.tt:1
 msgid "Subscribed Editors"
 msgstr "Editor sottoscritti"
 
@@ -8390,19 +8378,19 @@ msgstr "Il server di ricerca non ha potuto soddisfare la tua richiesta per colpa
 
 #: ../root/scripts/text_strings.tt:190
 msgid "The series you’ve selected is for recordings."
-msgstr ""
+msgstr "La serie che hai selezionato è una serie di registrazioni."
 
 #: ../root/scripts/text_strings.tt:192
 msgid "The series you’ve selected is for release groups."
-msgstr ""
+msgstr "La serie che hai selezionato è una serie di gruppi di pubblicazioni."
 
 #: ../root/scripts/text_strings.tt:191
 msgid "The series you’ve selected is for releases."
-msgstr ""
+msgstr "La serie che hai selezionato è una serie di pubblicazioni."
 
 #: ../root/scripts/text_strings.tt:193
 msgid "The series you’ve selected is for works."
-msgstr ""
+msgstr "La serie che hai selezionato è una serie di opere."
 
 #: ../root/layout.tt:61
 msgid "The server is temporary in read-only mode for database maintainance."
@@ -8469,7 +8457,7 @@ msgstr "Al momento non ci sono utenti sottoscritti a {label}."
 
 #: ../root/series/subscribers.tt:22
 msgid "There are currently no users subscribed to {series}."
-msgstr ""
+msgstr "Al momento non ci sono utenti sottoscritti a {series}."
 
 #: ../root/release/discids.tt:49
 msgid ""
@@ -8489,16 +8477,6 @@ msgid ""
 "{rel_uri|relationships} instead, which will allow ModBot to automatically "
 "remove this artist in the upcoming days."
 msgstr "Non ci sono registrazioni, gruppi di pubblicazioni, pubblicazioni o tracce associate solo a {name}. Se stai cercando di rimuovere {name}, modifica tutti gli accreditamenti artista in fondo alla scheda {alias_uri|alias} e rimuovi tutte le {rel_uri|relazioni} esistenti, così da permettere a ModBot di rimuovere automaticamente questo artista nei prossimi giorni."
-
-#: ../root/label/subscriptions.tt:11
-msgid "There are no users currently subscribed to this Label."
-msgstr "Al momento non ci sono utenti sottoscritti a questa etichetta."
-
-#: ../root/label/subscriptions.tt:16
-msgid "There is also one anonymous subscriber."
-msgid_plural "There are also {num} anonymous subscribers."
-msgstr[0] "C'è anche un sottoscrittore anonimo."
-msgstr[1] "Ci sono anche {num} sottoscrittori anonimi."
 
 #: ../root/artist/subscribe.tt:15
 msgid "There is also {num} anonymous subscriber"
@@ -8534,10 +8512,10 @@ msgstr[1] "Al momento ci sono {num} utenti sottoscritti a {label}:"
 #: ../root/series/subscribers.tt:4
 msgid "There is currently {num} user subscribed to {series}:"
 msgid_plural "There are currently {num} users subscribed to {series}:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Al momento c'è {num} utente sottoscritto a {series}:"
+msgstr[1] "Al momento ci sono {num} utenti sottoscritti a {series}:"
 
-#: ../root/browse/entity.tt:34
+#: ../root/browse/entity.tt:35
 msgid "There is no data to display."
 msgstr "Nessun dato da visualizzare."
 
@@ -8593,7 +8571,7 @@ msgstr "Questo alias non è più attuale."
 msgid ""
 "This area cannot be removed because there are still artists, labels, and/or "
 "releases using it."
-msgstr "Impossibile rimuovere quest'area perché ci sono ancora artisti, etichette e/o pubblicazioni che la utilizzano."
+msgstr "L'area non può essere rimossa perché ci sono ancora artisti, etichette e/o pubblicazioni che la utilizzano."
 
 #: ../root/area/edit_form.tt:25
 msgid "This area has ended."
@@ -8790,9 +8768,9 @@ msgstr "Questo gruppo si è sciolto."
 msgid ""
 "This instrument cannot be removed because there are still relationships "
 "attributed to it."
-msgstr ""
+msgstr "Lo strumento non può essere rimosso perché ci sono ancora relazioni attribuite ad esso."
 
-#: ../root/layout.tt:37 ../lib/DBDefs/Default.pm:136
+#: ../root/layout.tt:37 ../lib/DBDefs/Default.pm:139
 msgid "This is a MusicBrainz development server."
 msgstr "Questo è un server di sviluppo di MusicBrainz."
 
@@ -8843,7 +8821,7 @@ msgstr "Questi sono i dati grezzi per la modifica #{id}, disponibili a fini di d
 msgid ""
 "This label cannot be removed because there are still releases, recordings "
 "and/or relationships attributed to it."
-msgstr "Impossibile rimuovere questa etichetta perché ci sono ancora pubblicazioni, registrazioni e/o relazioni attribuite ad essa."
+msgstr "L'etichetta non può essere rimossa perché ci sono ancora pubblicazioni, registrazioni e/o relazioni attribuite ad essa."
 
 #: ../root/label/index.tt:37
 msgid "This label does not have any releases."
@@ -8967,7 +8945,7 @@ msgstr "Questa registrazione è un video"
 
 #: ../root/relationship/linktype/form.tt:17
 msgid "This relationship allows setting dates"
-msgstr ""
+msgstr "Questa relazione consente di impostare delle date"
 
 #: ../root/scripts/text_strings.tt:171
 msgid "This relationship already exists."
@@ -8994,7 +8972,7 @@ msgstr "Questo tipo di relazione non ha nessun esempio."
 
 #: ../root/doc/relationship_type.tt:51
 msgid "This relationship type doesn't allow any attributes."
-msgstr ""
+msgstr "Questo tipo di relazione non consente nessun attributo."
 
 #: ../root/doc/relationship_type.tt:11 ../root/scripts/text_strings.tt:129
 msgid "This relationship type is deprecated and should not be used."
@@ -9463,17 +9441,17 @@ msgstr "È necessario che i supporti corrispondenti abbiano lo stesso numero di 
 msgid ""
 "This series cannot be removed because there are still relationships using "
 "it."
-msgstr ""
+msgstr "La serie non può essere rimossa perché è ancora in uso in alcune relazioni."
 
 #: ../root/series/index.tt:6
 msgid ""
 "This series has no relationships and will be removed automatically in the "
 "next few days. If this is not intended, please add more data to this series."
-msgstr ""
+msgstr "Questa serie non ha relazioni e sarà rimossa automaticamente nei prossimi giorni. Se vuoi evitare che ciò succeda, aggiungi più dati."
 
 #: ../root/series/index.tt:48
 msgid "This series is currently empty."
-msgstr ""
+msgstr "Al momento questa serie è vuota."
 
 #: ../root/user/profile.tt:194
 msgid "This table shows a summary of votes cast by this editor."
@@ -9542,8 +9520,7 @@ msgstr "Fuso orario:"
 #: ../root/cdtoc/list.tt:6 ../root/components/relationships-table.tt:7
 #: ../root/components/release_groups-list.tt:9
 #: ../root/edit/details/edit_medium.tt:57
-#: ../root/edit/details/edit_medium.tt:61
-#: ../root/instrument/relationships.tt:14 ../root/isrc/index.tt:16
+#: ../root/edit/details/edit_medium.tt:61 ../root/isrc/index.tt:16
 #: ../root/iswc/index.tt:16 ../root/recording/index.tt:10
 #: ../root/release/edit/tracklist.tt:100 ../root/release/edit/tracklist.tt:252
 #: ../root/release/index.tt:52 ../root/search/results-freedb.tt:12
@@ -9981,7 +9958,7 @@ msgstr "Richiesta non autorizzata"
 
 #: ../root/browse/instrument.tt:21
 msgid "Unclassified instrument"
-msgstr ""
+msgstr "Strumento non classificato"
 
 #: ../root/components/common-macros.tt:1000 ../root/report/artist_list.tt:17
 #: ../root/report/artists_with_multiple_occurances_in_artist_credits.tt:25
@@ -10006,10 +9983,6 @@ msgstr "Tipo non specificato"
 #: ../root/user/subscriptions/table.tt:28
 msgid "Unsubscribe"
 msgstr "Annulla sottoscrizione"
-
-#: ../root/label/subscriptions.tt:21
-msgid "Unsubscribe from this Label."
-msgstr "Annulla sottoscrizione a questa etichetta."
 
 #: ../root/artist/subscribe.tt:18
 msgid "Unsubscribe from this artist."
@@ -10356,7 +10329,7 @@ msgstr "Sono stati trovati i seguenti luoghi con nomi molto simili:"
 
 #: ../root/series/edit_form.tt:15
 msgid "We found the following series with very similar names:"
-msgstr ""
+msgstr "Sono state trovate le seguenti serie con nomi molto simili:"
 
 #: ../root/search/editor.tt:5
 msgid ""
@@ -10547,11 +10520,11 @@ msgstr "Autori:"
 msgid "XML Web Service"
 msgstr "Web Service XML"
 
-#: ../root/area/details.tt:32 ../root/artist/details.tt:32
-#: ../root/instrument/details.tt:32 ../root/label/details.tt:32
-#: ../root/place/details.tt:32 ../root/recording/details.tt:32
-#: ../root/release/details.tt:32 ../root/release_group/details.tt:32
-#: ../root/series/details.tt:32 ../root/work/details.tt:32
+#: ../root/area/details.tt:33 ../root/artist/details.tt:33
+#: ../root/instrument/details.tt:33 ../root/label/details.tt:33
+#: ../root/place/details.tt:33 ../root/recording/details.tt:33
+#: ../root/release/details.tt:33 ../root/release_group/details.tt:33
+#: ../root/series/details.tt:33 ../root/work/details.tt:33
 msgid "XML:"
 msgstr "XML:"
 
@@ -10654,7 +10627,7 @@ msgstr "Sì, voglio comunque creare un nuovo luogo."
 
 #: ../root/series/edit_form.tt:22
 msgid "Yes, I still want to create a new series."
-msgstr ""
+msgstr "Sì, voglio comunque creare una nuova serie."
 
 #: ../root/admin/wikidoc/delete.tt:9
 msgid "Yes, I'm sure"
@@ -10695,7 +10668,7 @@ msgid ""
 "You are about to merge the following instruments into a single instrument. "
 "Please select the instrument which you would like other instruments to be "
 "merged into:"
-msgstr ""
+msgstr "Stai per unire i seguenti strumenti in uno strumento unico. Seleziona lo strumento in cui vuoi che vengano uniti gli altri:"
 
 #: ../root/label/merge.tt:4
 msgid ""
@@ -10734,7 +10707,7 @@ msgstr "Stai per unire le seguenti pubblicazioni in una pubblicazione unica. Sel
 msgid ""
 "You are about to merge the following series into a single series. Please "
 "select the series which you would like other series to be merged into:"
-msgstr ""
+msgstr "Stai per unire le seguenti serie in una serie unica. Seleziona la serie in cui vuoi che vengano uniti le altre:"
 
 #: ../root/work/merge.tt:4
 msgid ""
@@ -11112,7 +11085,7 @@ msgstr "inattivo"
 #: ../root/relationship/linktype/form.tt:26
 #: ../root/relationship/linktype/tree.tt:12
 msgid "entity0 cardinality:"
-msgstr ""
+msgstr "Cardinalità entity0:"
 
 #: ../root/doc/relationship_type.tt:35
 #: ../root/edit/details/add_relationship_type.tt:23
@@ -11120,7 +11093,7 @@ msgstr ""
 #: ../root/relationship/linktype/form.tt:31
 #: ../root/relationship/linktype/tree.tt:13
 msgid "entity1 cardinality:"
-msgstr ""
+msgstr "Cardinalità entity1:"
 
 #: ../root/components/common-macros.tt:660 ../root/edit/details/macros.tt:28
 msgid "from {begin_date} until {end_date}"
@@ -11347,7 +11320,7 @@ msgstr "invia email"
 #: ../root/components/common-macros.tt:141
 msgctxt "plural"
 msgid "series"
-msgstr ""
+msgstr "serie"
 
 #: ../root/cdtoc/attach_list.tt:32 ../root/cdtoc/attach_list.tt:56
 msgid "show tracklist"
@@ -11459,22 +11432,19 @@ msgstr[1] "{artist} non ha nessuna pubblicazione con {n} tracce."
 #: ../lib/MusicBrainz/Server/Entity/Relationship.pm:207
 #, perl-brace-format
 msgid "{attribute}: {value}"
-msgstr ""
+msgstr "{attribute}: {value}"
 
 #: ../root/components/relationships-table.tt:21
-#: ../root/instrument/relationships.tt:33
 #: ../lib/MusicBrainz/Server/Entity/Link.pm:114
 #, perl-brace-format
 msgid "{begindate} &#x2013;"
 msgstr "{begindate} &#x2013;"
 
 #: ../root/components/relationships-table.tt:21
-#: ../root/instrument/relationships.tt:33
 msgid "{begindate} &#x2013; ????"
 msgstr "{begindate} &#x2013; ????"
 
 #: ../root/components/relationships-table.tt:21
-#: ../root/instrument/relationships.tt:33
 #: ../lib/MusicBrainz/Server/Entity/Link.pm:107
 #, perl-brace-format
 msgid "{begindate} &#x2013; {enddate}"
@@ -11720,7 +11690,7 @@ msgstr[1] "{num}&#xa0;anni fa"
 
 #: ../root/scripts/text_strings.tt:188
 msgid "{num}. {relationship}"
-msgstr ""
+msgstr "{num}. {relationship}"
 
 #: ../root/release/edit_relationships.tt:24
 msgid "{n} recording selected"
@@ -11774,7 +11744,7 @@ msgstr "Tipi di relazione {type0}-{type1}"
 
 #: ../root/instrument/layout.tt:1
 msgid "{type} “{instrument}”"
-msgstr ""
+msgstr "{type} “{instrument}”"
 
 #: ../root/work/layout.tt:1
 msgid "{type} “{work}”"
@@ -11826,7 +11796,7 @@ msgstr "{yes} sì : {no} no"
 msgid "« Previous"
 msgstr "« Precedente"
 
-#: ../lib/DBDefs/Default.pm:137
+#: ../lib/DBDefs/Default.pm:140
 msgid ""
 "This beta test server allows testing of new features with the live database."
 msgstr "Questo server di beta testing permette di verificare le nuove funzioni sul database ufficiale di MusicBrainz."
@@ -12032,7 +12002,7 @@ msgstr "Il nostro server Redis sembra essere inattivo; alcune funzionalità potr
 
 #: ../lib/MusicBrainz/Server/Controller/Series.pm:122
 msgid "Series that have different entity types cannot be merged."
-msgstr ""
+msgstr "Le serie con tipi di entità diversi non possono essere unite."
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:252
 #, perl-brace-format
@@ -12056,7 +12026,7 @@ msgstr "TOC non valido"
 msgid ""
 "You must be logged in to submit edits. {url|Log in} first, and then try "
 "submitting your edits again."
-msgstr ""
+msgstr "Devi effettuare l'accesso per inviare delle modifiche. {url|Accedi} e poi riprova a inviare le tue modifiche."
 
 #: ../lib/MusicBrainz/Server/ControllerUtils/Delete.pm:25
 msgid ""
@@ -12279,19 +12249,19 @@ msgstr "Imposta durata tracce"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/AddAnnotation.pm:11
 msgid "Add instrument annotation"
-msgstr ""
+msgstr "Aggiungi annotazione allo strumento"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Create.pm:17
 msgid "Add instrument"
-msgstr ""
+msgstr "Aggiungi strumento"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Edit.pm:27
 msgid "Edit instrument"
-msgstr ""
+msgstr "Modifica strumento"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Merge.pm:11
 msgid "Merge instruments"
-msgstr ""
+msgstr "Unisci strumenti"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/AddAnnotation.pm:11
 msgid "Add label annotation"
@@ -12399,7 +12369,7 @@ msgstr "Rimuovi tipo della relazione"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Reorder.pm:22
 msgid "Reorder relationships"
-msgstr ""
+msgstr "Riordina relazioni"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/AddCoverArt.pm:20
 msgid "Add cover art"
@@ -12459,19 +12429,19 @@ msgstr "Modifica gruppo di pubblicazioni"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/AddAnnotation.pm:11
 msgid "Add series annotation"
-msgstr ""
+msgstr "Aggiungi annotazione alla serie"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Create.pm:20
 msgid "Add series"
-msgstr ""
+msgstr "Aggiungi serie"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Delete.pm:12
 msgid "Remove series"
-msgstr ""
+msgstr "Rimuovi serie"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Edit.pm:24
 msgid "Edit series"
-msgstr ""
+msgstr "Modifica serie"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:281
 msgid "Applied"
@@ -12842,7 +12812,7 @@ msgstr "La conferma della password non corrisponde alla password"
 
 #: ../lib/MusicBrainz/Server/Form/User/Register.pm:45
 msgid "This username is reserved for internal use"
-msgstr ""
+msgstr "Questo nome utente è riservato per uso interno"
 
 #: ../lib/MusicBrainz/Server/Form/User/Register.pm:49
 msgid "Please choose another username, this one is already taken"
