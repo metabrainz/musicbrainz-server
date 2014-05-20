@@ -77,6 +77,7 @@
             this.gid = data.gid;
             this.name = data.name || "";
             this.editsPending = data.editsPending;
+            this.relationships = ko.observableArray([]);
 
             if (data.sortName) {
                 this.sortName = data.sortName;

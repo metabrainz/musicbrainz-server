@@ -24,13 +24,7 @@
             }
 
             this.entities = ko.observable(_.map(data.entities, function (entity) {
-                var entity = MB.entity(entity);
-
-                if (!entity.hasOwnProperty("relationships")) {
-                    entity.relationships = ko.observableArray([]);
-                }
-
-                return entity;
+                return MB.entity(entity);
             }));
 
             this.entities.equalityComparer = entitiesComparer;
@@ -137,8 +131,13 @@
         show: function () {
             var entities = this.entities();
 
-            entities[0].relationships.push(this);
-            entities[1].relationships.push(this);
+            if (entities[0].relationships.indexOf(this) < 0) {
+                entities[0].relationships.push(this);
+            }
+
+            if (entities[1].relationships.indexOf(this) < 0) {
+                entities[1].relationships.push(this);
+            }
         },
 
         entitiesChanged: function (newEntities) {
@@ -160,14 +159,6 @@
 
             var relationships0 = entity0.relationships;
             var relationships1 = entity1.relationships;
-
-            if (!relationships0) {
-                relationships0 = entity0.relationships = ko.observableArray([]);
-            }
-
-            if (!relationships1) {
-                relationships1 = entity1.relationships = ko.observableArray([]);
-            }
 
             var containedBy0 = relationships0.indexOf(this) >= 0;
             var containedBy1 = relationships1.indexOf(this) >= 0;
