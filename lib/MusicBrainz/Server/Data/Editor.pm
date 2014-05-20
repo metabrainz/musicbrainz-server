@@ -450,8 +450,10 @@ sub editors_with_subscriptions
 {
     my ($self) = @_;
 
-    my @tables = ((map { "editor_subscribe_" . $_ } entities_with('subscriptions')),
-                  (map { "editor_subscribe_" . $_ . "_deleted" } entities_with(['subscriptions', 'deleted'])));
+    my @tables = (entities_with('subscriptions',
+                                take => sub { return "editor_subscribe_" . shift }),
+                  entities_with(['subscriptions', 'deleted'],
+                                take => sub { return "editor_subscribe_" . shift . "_deleted" }));
     my $ids = join(' UNION ALL ', map { "SELECT editor FROM $_" } @tables);
     my $query = "SELECT " . $self->_columns . ", ep.value AS prefs_value
                    FROM " . $self->_table . "

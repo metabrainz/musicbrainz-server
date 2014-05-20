@@ -56,7 +56,7 @@ sub format_wikitext
     $text =~ s/</&lt;/g;
     $text =~ s/>/&gt;/g;
 
-    my $entity_names = join('|', map { $ENTITIES{$_}{url} // $_ } entities_with('mbid'));
+    my $entity_names = join('|', entities_with('mbid', take => sub { my $type = shift; return shift->{url} // $type } ));
     # MBS-2437: Expand MBID entity links
     $text =~ s/
       \[
