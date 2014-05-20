@@ -13,6 +13,7 @@
             [% IF c.user.is_wiki_transcluder %]
                 <li><a href="[% c.uri_for_action('/admin/wikidoc/index') %]">[% l('Transclude WikiDocs') %]</a></li>
             [% END %]
+        [%~ END ~%]
         </ul>
     </div>
 [% END %]

@@ -19,7 +19,6 @@ with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Alias';
 with 'MusicBrainz::Server::Controller::Role::Details';
-with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::CommonsImage';
