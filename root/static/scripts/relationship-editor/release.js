@@ -101,7 +101,7 @@
                 return MB.entity.Medium(mediumData, release);
             }));
 
-            var trackCount = _.reduce(release.mediums,
+            var trackCount = _.reduce(release.mediums(),
                 function (memo, medium) { return memo + medium.tracks.length }, 0);
 
             initCheckboxes(this.checkboxes, trackCount);
