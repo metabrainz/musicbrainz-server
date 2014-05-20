@@ -2,9 +2,11 @@
 BEGIN;
 
 -- Lock the motherfuckers
-LOCK TABLE link_attribute_text_value IN EXCLUSIVE MODE;
+LOCK TABLE link_attribute_text_value IN ACCESS EXCLUSIVE MODE;
+LOCK TABLE series IN ACCESS EXCLUSIVE MODE; -- ;_; but this is taken by alter table, so this'd happen anyway
+LOCK TABLE orderable_link_type IN ACCESS EXCLUSIVE MODE;
+
 LOCK TABLE link_text_attribute_type IN EXCLUSIVE MODE;
-LOCK TABLE orderable_link_type IN EXCLUSIVE MODE;
 
 -- Add PK so orderable_link_type can be replicated at all
 ALTER TABLE orderable_link_type ADD CONSTRAINT orderable_link_type_pkey PRIMARY KEY (link_type);
