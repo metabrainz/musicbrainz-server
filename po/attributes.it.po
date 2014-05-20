@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-05-15 21:18+0000\n"
-"Last-Translator: Luca Salini <email address hidden>\n"
+"PO-Revision-Date: 2014-05-20 19:03+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -395,8 +395,8 @@ msgstr "Custodia per audiocassetta"
 
 #: DB:series_type/name:5
 msgctxt "series_type"
-msgid "Catalog"
-msgstr "Catalogo"
+msgid "Catalogue"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:291
 msgctxt "work_attribute_type_allowed_value"
@@ -920,8 +920,8 @@ msgstr "Casa discografica"
 
 #: DB:series_type/description:5
 msgctxt "series_type"
-msgid "Indicates that the series is a works catalog."
-msgstr "Indica che la serie è un catalogo di opere."
+msgid "Indicates that the series is a work catalogue."
+msgstr ""
 
 #: DB:series_type/description:3
 msgctxt "series_type"
