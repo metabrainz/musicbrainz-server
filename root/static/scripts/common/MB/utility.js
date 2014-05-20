@@ -225,16 +225,13 @@ MB.utility.validDate = (function () {
         // The month is a number less than 1 or greater than 12.
         if (m !== null && (m < 1 || m > 12)) return false;
 
-        // The day is a number greater than 31.
-        if (d !== null && d > 31) return false;
-
         // The day is empty. There's no further validation we can do.
         if (d === null) return true;
 
         var isLeapYear = y % 400 ? (y % 100 ? !(y % 4) : false) : true;
 
         // Invalid number of days based on the year.
-        if (d < 1 || d > daysInMonth[isLeapYear.toString()][m]) return false;
+        if (d < 1 || d > 31 || d > daysInMonth[isLeapYear.toString()][m]) return false;
 
         // The date is assumed to be valid.
         return true;
