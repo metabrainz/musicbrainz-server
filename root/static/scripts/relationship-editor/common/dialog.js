@@ -457,11 +457,7 @@
             var b = period.endDate;
 
             if (!this.dateError(a) && !this.dateError(b)) {
-                var y1 = a.year(), m1 = a.month(), d1 = a.day();
-                var y2 = b.year(), m2 = b.month(), d2 = b.day();
-
-                if ((y1 && y2 && y2 < y1) ||
-                    (y1 == y2 && (m2 < m1 || (m1 == m2 && d2 < d1)))) {
+                if (!MB.utility.validDatePeriod(ko.toJS(a), ko.toJS(b))) {
                     return MB.text.InvalidEndDate;
                 }
             }

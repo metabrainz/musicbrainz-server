@@ -32,8 +32,6 @@ test('All', function () {
     equal(MB.utility.unformatTrackLength('01:00:00'), 60 * minutes, 'unformatTrackLength');
     equal(MB.utility.unformatTrackLength('14:15:16'), 14 * hours + 15 * minutes + 16 * seconds, 'unformatTrackLength');
 
-    equal(MB.utility.validDate(1960, 2, 29), true, 'MBS-5663: validDate should handle leap years');
-
     var parseDateTests = [
         { date: "", expected: { year: null, month: null, day: null} },
         { date: "1999-01-02", expected: { year: 1999, month: 1, day: 2 } },
@@ -89,4 +87,70 @@ test("formatDatePeriod", function () {
 
     equal(MB.utility.formatDatePeriod({ beginDate: a, endDate: {}, ended: false }), "1999 \u2013 ");
     equal(MB.utility.formatDatePeriod({ beginDate: a, endDate: {}, ended: true }), "1999 \u2013 ????");
+});
+
+
+test("validDate", function () {
+    equal(MB.utility.validDate("", "", ""), true, "all empty strings are valid");
+    equal(MB.utility.validDate(undefined, undefined, undefined), true, "all undefined values are valid");
+    equal(MB.utility.validDate(null, null, null), true, "all null values are valid");
+    equal(MB.utility.validDate(2000), true, "just a year is valid");
+    equal(MB.utility.validDate("", 10), true, "just a month is valid");
+    equal(MB.utility.validDate("", "", 29), true, "just a day is valid");
+    equal(MB.utility.validDate(0), false, "the year 0 is invalid");
+    equal(MB.utility.validDate("", 13), false, "months > 12 are invalid");
+    equal(MB.utility.validDate("", "", 32), false, "days > 31 are invalid");
+    equal(MB.utility.validDate(2001, 2, 29), false, "2001-02-29 is invalid");
+    equal(MB.utility.validDate("2000f"), false, "letters are invalid");
+    equal(MB.utility.validDate(1960, 2, 29), true, "leap years are handled correctly (MBS-5663)");
+});
+
+
+test("validDatePeriod", function () {
+    var tests = [
+        {
+            a: {},
+            b: {},
+            expected: true
+        },
+        {
+            a: { year: 2000, month: null, day: 11 },
+            b: { year: 2000, month: null, day: 10 },
+            expected: true
+        },
+        {
+            a: { year: 2000, month: 11, day: 11 },
+            b: { year: 2000, month: 12, day: 12 },
+            expected: true
+        },
+        {
+            a: { year: 2000, month: 11, day: 11 },
+            b: { year: 1999, month: 12, day: 12 },
+            expected: false
+        },
+        {
+            a: { year: 2000, month: 11, day: 11 },
+            b: { year: 2000, month: 10, day: 12 },
+            expected: false
+        },
+        {
+            a: { year: 2000, month: 11, day: 11 },
+            b: { year: 2000, month: 11, day: 10 },
+            expected: false
+        },
+        {
+            a: { year: "2000", month: "3", day: "1" },
+            b: { year: "2000", month: "10", day: "1" },
+            expected: true
+        },
+        {
+            a: { year: 1961, month: 2, day: 28 },
+            b: { year: 1961, month: 2, day: 29 },
+            expected: false
+        }
+    ];
+
+    _.each(tests, function (test) {
+        equal(MB.utility.validDatePeriod(test.a, test.b), test.expected);
+    });
 });
