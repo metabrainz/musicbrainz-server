@@ -123,8 +123,9 @@
 
             data.attributes = _.map(_.result(relationship, "attributes"), Number);
 
-            if (relationship.attributeTextValues) {
-                data.attributeTextValues = relationship.attributeTextValues();
+            var textAttrs = relationship.attributeTextValues();
+            if (!_.isEmpty(textAttrs)) {
+                data.attributeTextValues = textAttrs;
             }
 
             var linkOrder = number(relationship.linkOrder);

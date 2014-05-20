@@ -74,10 +74,12 @@
       formName: "[% form.name | js %]"
     });
 
-    MB.Control.externalLinks.applyBindings({
-      sourceData: sourceData,
-      formName: "[% form.name | js %]"
-    });
+    if ($("#external-links-editor").length) {
+      MB.Control.externalLinks.applyBindings({
+        sourceData: sourceData,
+        formName: "[% form.name | js %]"
+      });
+    }
 
     var $content = $("#relationship-editor");
     ko.applyBindings(MB.sourceRelationshipEditor, $content[0]);

@@ -8,14 +8,43 @@
     var fields = RE.fields = RE.fields || {};
 
 
-    fields.Relationship = aclass(MB.entity.Relationship, {
+    fields.Relationship = aclass({
 
         rateLimitOptions: {
             rateLimit: { method: "notifyWhenChangesStop", timeout: 100 }
         },
 
-        augment$init: function (data, source) {
-            this.linkTypeID.subscribe(this.linkTypeIDChanged, this);
+        init: function (data, source, parent) {
+            var self = this;
+
+            this.parent = parent;
+
+            if (data.id) {
+                this.id = data.id;
+            }
+
+            this.entities = ko.observable(_.map(data.entities, function (entity) {
+                var entity = MB.entity(entity);
+
+                if (!entity.hasOwnProperty("relationships")) {
+                    entity.relationships = ko.observableArray([]);
+                }
+
+                return entity;
+            }));
+
+            this.entities.equalityComparer = entitiesComparer;
+            this.entities.saved = this.entities.peek().slice(0);
+            this.entities.subscribe(this.entitiesChanged, this);
+            this.entityTypes = _(data.entities).pluck("entityType").join("-");
+            this.uniqueID = this.entityTypes + "-" + (this.id || _.uniqueId("new-"));
+
+            this.linkTypeID = ko.observable(data.linkTypeID);
+            this.linkTypeID.isDifferent = linkTypeComparer;
+
+            this.linkTypeID.subscribe(function (id) {
+                self.linkTypeIDChanged(id);
+            });
 
             this.period = {
                 beginDate: setPartialDate({}, data.beginDate || {}),
@@ -27,20 +56,26 @@
             this.attributes(data.attributes);
             this.setAttributeValues(data.attributeTextValues);
 
+            this.linkOrder = ko.observable(data.linkOrder || 0);
             this.removed = ko.observable(!!data.removed);
             this.editsPending = Boolean(data.editsPending);
-            this.uniqueID = this.entityTypes + "-" + (this.id || _.uniqueId("new-"));
 
-            this.entities.saved = this.entities.peek().slice(0);
-            this.entities.subscribe(this.entitiesChanged, this);
+            this.editData = ko.computed(function () {
+                return MB.edit.fields.relationship(self);
+            });
 
-            this.linkOrder = ko.observable(data.linkOrder || 0);
+            if (data.id) {
+                this.original = MB.edit.fields.relationship(this);
+            }
 
             // By default, show all existing relationships on the page.
             if (this.id) this.show();
         },
 
-        after$fromJS: function (data) {
+        fromJS: function (data) {
+            this.linkTypeID(data.linkTypeID);
+            this.entities([MB.entity(data.entities[0]), MB.entity(data.entities[1])]);
+
             setPartialDate(this.period.beginDate, data.beginDate || {});
             setPartialDate(this.period.endDate, data.endDate || {});
             this.period.ended(!!data.ended);
@@ -50,6 +85,22 @@
             this.linkOrder(data.linkOrder || 0);
 
             _.has(data, "removed") && this.removed(!!data.removed);
+        },
+
+        target: function (source) {
+            var entities = this.entities();
+
+            if (source === entities[0]) return entities[1];
+            if (source === entities[1]) return entities[0];
+
+            throw new Error("The given entity is not used by this relationship");
+        },
+
+        linkPhrase: function (source) {
+            var typeInfo = this.linkTypeInfo();
+            var forward = source === this.entities()[0];
+
+            return typeInfo ? (forward ? typeInfo.phrase : typeInfo.reversePhrase) : "";
         },
 
         linkTypeIDChanged: function () {
@@ -62,6 +113,32 @@
             });
 
             this.attributeValues(attrValues);
+        },
+
+        linkTypeInfo: function () {
+            return MB.typeInfoByID[this.linkTypeID()];
+        },
+
+        hasDates: function () {
+            var typeInfo = this.linkTypeInfo();
+            return typeInfo ? (typeInfo.hasDates !== false) : true;
+        },
+
+        added: function () { return !this.id },
+
+        edited: function () {
+            return !_.isEqual(this.original, this.editData());
+        },
+
+        hasChanges: function () {
+            return this.added() || this.removed() || this.edited();
+        },
+
+        show: function () {
+            var entities = this.entities();
+
+            entities[0].relationships.push(this);
+            entities[1].relationships.push(this);
         },
 
         entitiesChanged: function (newEntities) {
@@ -237,6 +314,24 @@
             return {};
         },
 
+        linkTypeAttributes: function () {
+            var typeInfo = this.linkTypeInfo();
+            return typeInfo ? _.values(typeInfo.attributes) : [];
+        },
+
+        attributeError: function (rootInfo) {
+            var value = ko.unwrap(this.attributeValue(rootInfo.attribute.id));
+            var min = rootInfo.min;
+
+            if (min > 0) {
+                if (!value || (_.isArray(value) && value.length < min)) {
+                    return MB.text.AttributeRequired;
+                }
+            }
+
+            return "";
+        },
+
         phraseAndExtraAttributes: function (source) {
             var origPhrase = this.linkPhrase(source);
             var attributeIDs = this.attributes();
@@ -358,9 +453,11 @@
                      +source.orderingTypeID() === MB.constants.SERIES_ORDERING_TYPE_MANUAL);
         },
 
-        around$isDuplicate: function (supr, other) {
+        isDuplicate: function (other) {
             return (
-                supr(other) &&
+                this !== other &&
+                this.linkTypeID() == other.linkTypeID() &&
+                _.isEqual(this.entities(), other.entities()) &&
                 MB.utility.mergeDates(this.period.beginDate, other.period.beginDate) &&
                 MB.utility.mergeDates(this.period.endDate, other.period.endDate) &&
                 _.isEqual(this.attributes(), other.attributes())
@@ -389,6 +486,13 @@
             );
         }
     });
+
+
+    function entitiesComparer(a, b) {
+        return a[0] === b[0] && a[1] === b[1];
+    }
+
+    function linkTypeComparer(a, b) { return a != b }
 
 
     function attrsByRootName(result, id) {
