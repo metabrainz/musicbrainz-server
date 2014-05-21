@@ -39,7 +39,7 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 -- Delete from tables and reinsert;
 -- those with existing data from a post-schema import will need the delete, and everyone needs the insert
 DELETE FROM link_attribute_text_value;
-INSERT INTO link_attribute_text_value (link, attribute_type, text_value) SELECT link, attribute_type, text_value FROM link_attribute_text_value;
+INSERT INTO link_attribute_text_value (link, attribute_type, text_value) SELECT link, attribute_type, text_value FROM tmp_link_attribute_text_value;
 
 DELETE FROM link_text_attribute_type;
 INSERT INTO link_text_attribute_type (attribute_type) SELECT attribute_type FROM tmp_link_text_attribute_type;
