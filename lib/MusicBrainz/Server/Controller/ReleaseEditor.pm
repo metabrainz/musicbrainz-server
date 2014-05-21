@@ -24,6 +24,7 @@ use MusicBrainz::Server::Form::Utils qw(
     select_options_tree
     build_grouped_options
     build_type_info
+    build_attr_info
 );
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
@@ -44,6 +45,7 @@ sub _init_release_editor
     $options{seeded_data} = $json->encode($self->_seeded_data($c) // {});
 
     my $url_link_types = $c->model('LinkType')->get_tree('release', 'url');
+    my $attr_tree = $c->model('LinkAttributeType')->get_tree;
 
     $c->stash(
         template        => 'release/edit/layout.tt',
@@ -57,6 +59,7 @@ sub _init_release_editor
         countries       => select_options($c, 'CountryArea'),
         formats         => select_options_tree($c, 'MediumFormat'),
         type_info       => $json->encode(build_type_info($c, qr/release-url/, $url_link_types)),
+        attr_info       => $json->encode(build_attr_info($attr_tree)),
         %options
     );
 }
