@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-20 12:01-0700\n"
+"POT-Creation-Date: 2014-05-21 21:57-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -713,7 +713,7 @@ msgstr ""
 msgid "Add another artist"
 msgstr ""
 
-#: ../root/components/relationship-editor.tt:117
+#: ../root/components/relationship-editor.tt:166
 #: ../root/scripts/text_strings.tt:178
 msgid "Add another instrument"
 msgstr ""
@@ -1812,7 +1812,7 @@ msgstr ""
 #: ../root/alias/edit_form.tt:34 ../root/area/edit_form.tt:23
 #: ../root/area/layout.tt:12 ../root/artist/edit_form.tt:57
 #: ../root/components/common-macros.tt:840
-#: ../root/components/relationship-editor.tt:151
+#: ../root/components/relationship-editor.tt:107
 #: ../root/edit/details/add_area_alias.tt:40
 #: ../root/edit/details/add_area.tt:58
 #: ../root/edit/details/add_artist_alias.tt:40
@@ -3308,7 +3308,7 @@ msgstr ""
 #: ../root/alias/edit_form.tt:35 ../root/area/edit_form.tt:24
 #: ../root/area/layout.tt:20 ../root/area/layout.tt:27
 #: ../root/artist/edit_form.tt:69 ../root/components/common-macros.tt:848
-#: ../root/components/relationship-editor.tt:155
+#: ../root/components/relationship-editor.tt:111
 #: ../root/edit/details/add_area_alias.tt:46
 #: ../root/edit/details/add_area.tt:65
 #: ../root/edit/details/add_artist_alias.tt:46
@@ -8944,7 +8944,7 @@ msgid ""
 "which no longer exist."
 msgstr ""
 
-#: ../root/components/relationship-editor.tt:168
+#: ../root/components/relationship-editor.tt:124
 msgid "This relationship has ended."
 msgstr ""
 
@@ -11057,7 +11057,7 @@ msgid "end date"
 msgstr ""
 
 #: ../root/components/common-macros.tt:660
-#: ../root/components/relationship-editor.tt:180
+#: ../root/components/relationship-editor.tt:136
 msgid "ended"
 msgstr ""
 
