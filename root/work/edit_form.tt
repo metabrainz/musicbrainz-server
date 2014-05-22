@@ -42,7 +42,7 @@
                   attr: { name: 'edit-work.attributes.' + $index() + '.value' }
               " />
               <!-- /ko -->
-              <!-- ko ifnot: allowsFreeText -->
+              <!-- ko if: !allowsFreeText() && !isGroupingType() -->
               <select data-bind="
                   value: attributeValue,
                   options: allowedValues,
@@ -52,6 +52,9 @@
                   attr: { name: 'edit-work.attributes.' + $index() + '.value' }
               ">
               </select>
+              <!-- /ko -->
+              <!-- ko if: isGroupingType -->
+                     <p>[% l('This attribute type is only used for grouping, please select a subtype') %]</p>
               <!-- /ko -->
             </td>
             <td>
