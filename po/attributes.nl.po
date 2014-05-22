@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-05-20 19:03+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-05-21 11:52+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -395,7 +395,7 @@ msgstr "Cassettedoosje"
 #: DB:series_type/name:5
 msgctxt "series_type"
 msgid "Catalogue"
-msgstr ""
+msgstr "Catalogus"
 
 #: DB:work_attribute_type_allowed_value/value:291
 msgctxt "work_attribute_type_allowed_value"
@@ -920,7 +920,7 @@ msgstr "Imprint"
 #: DB:series_type/description:5
 msgctxt "series_type"
 msgid "Indicates that the series is a work catalogue."
-msgstr ""
+msgstr "Geeft aan dat de serie een compositiecatalogus is."
 
 #: DB:series_type/description:3
 msgctxt "series_type"
