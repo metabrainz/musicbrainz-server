@@ -1,104 +1,62 @@
-[%- WRAPPER "layout.tt" title=title ? label.name _ " - ${title}" : label.name canonical_url=replace_gid(entity.gid) -%]
-  [%- IF !full_width -%]
-    [% WRAPPER 'layout/sidebar.tt' %]
-        <h2 class="label-information">[% l('Label information') %]</h2>
-        [% WRAPPER 'layout/sidebar/properties.tt' %]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
-               content=html_escape(label.l_type_name) class="type"
-                   IF label.type -%]
-            [%- UNLESS label.begin_date.is_empty AND label.end_date.is_empty AND !label.ended -%]
-                    [%- IF label.begin_date.format %]
-                        [% WRAPPER 'layout/sidebar/property.tt' label=l("Founded:") class="founded" %]
-                            [% label.begin_date.format %]
-                            [% IF label.has_age AND not label.end_date.format %]
-                                ([% display_age_ago(label.age) %])
-                            [% END %]
-                        [% END %]
-                    [%- END -%]
-                    [% IF label.end_date.format %]
-                        [% WRAPPER 'layout/sidebar/property.tt' label=l("Defunct:") class="defunct" %]
-                            [% label.end_date.format %]
-                            [% IF label.has_age %]
-                                ([% display_age(label.age) %])
-                            [% END %]
-                        [% END %]
-                    [% ELSIF label.ended %]
-                        [% WRAPPER 'layout/sidebar/property.tt' label=l("Defunct:") class="defunct" %]
-                            [% l('[unknown]') %]
-                        [% END %]
-                    [% END %]
-            [%- END -%]
-            [%- FOR ipi_code IN label.ipi_codes -%]
-              [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
-                 content=html_escape(ipi_code.ipi) class="ipi-code" %]
-            [%- END -%]
-            [%- FOR isni_code IN label.isni_codes -%]
-              [% INCLUDE 'layout/sidebar/property.tt' label=l('ISNI code:')
-                 content=link_isni(isni_code.isni) class="isni-code" %]
-            [%- END -%]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('Label code:')
-               content=html_escape(label.format_label_code) class="label-code"
-                   IF label.label_code -%]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('Area:')
-               content=descriptive_link(label.area)
-               class="area"
-                   IF label.area -%]
-        [% END %]
-        [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=label -%]
-        [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=label tags=top_tags
-            more=more_tags tag_this_text=l('Tag this label')
-            async = c.uri_for_action('/label/tag_async', [ label.gid ])
-            -%]
+[%~ WRAPPER "layout.tt" title=title ? label.name _ " - ${title}" : label.name canonical_url=replace_gid(entity.gid) ~%]
+    [%~ IF !full_width ~%]
+        [%~ edit_links_add_entity = [] ~%]
+        [%~ edit_links_add_entity.push({ url => c.uri_for_action('/release_editor/add', { label = label.gid }), text => l('Add release') }) ~%]
 
-        <h2 class="editing">[% l('Editing') %]</h2>
-        <ul class="links">
-            [% IF c.user_exists %]
-                <li>
-                  <a href="[% c.uri_for_action('/release_editor/add', { label = label.gid }) %]">
-                    [% l('Add release') %]
-                  </a>
-                </li>
+        [%~ WRAPPER 'layout/sidebar/shared-entity-sidebar.tt' entity=label edit_links_add_entity=edit_links_add_entity ~%]
+            <h2 class="label-information">[%~ l('Label information') ~%]</h2>
+            [%~ WRAPPER 'layout/sidebar/properties.tt' ~%]
+                [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
+                     content=html_escape(label.l_type_name) class="type"
+                         IF label.type ~%]
 
-                <hr/>
+                [%~ UNLESS label.begin_date.is_empty AND label.end_date.is_empty AND !label.ended ~%]
+                    [%~ IF label.begin_date.format ~%]
+                        [%~ WRAPPER 'layout/sidebar/property.tt' label=l("Founded:") class="founded" ~%]
+                            [%~ label.begin_date.format ~%]
+                            [%~ IF label.has_age AND not label.end_date.format ~%]
+                                ([%~ display_age_ago(label.age) ~%])
+                            [%~ END ~%]
+                        [%~ END ~%]
+                    [%~ END ~%]
+                    [%~ IF label.end_date.format ~%]
+                        [%~ WRAPPER 'layout/sidebar/property.tt' label=l("Defunct:") class="defunct" ~%]
+                            [%~ label.end_date.format ~%]
+                            [%~ IF label.has_age ~%]
+                                ([%~ display_age(label.age) ~%])
+                            [%~ END ~%]
+                        [%~ END ~%]
+                    [%~ ELSIF label.ended ~%]
+                        [%~ WRAPPER 'layout/sidebar/property.tt' label=l("Defunct:") class="defunct" ~%]
+                            [%~ l('[unknown]') ~%]
+                        [%~ END ~%]
+                    [%~ END ~%]
+                [%~ END ~%]
 
-                [% annotation_links(label) %]
-                <li>
-                  <a href="[% c.uri_for_action('/label/merge_queue', { 'add-to-merge' => label.id }) %]">
-                    [% l('Merge label') %]
-                  </a>
-                </li>
-                <li>[% link_entity(label, 'delete', l('Remove label')) %]</li>
+                [%~ FOR ipi_code IN label.ipi_codes ~%]
+                    [%~ INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
+                         content=html_escape(ipi_code.ipi) class="ipi-code" ~%]
+                [%~ END ~%]
 
-                <hr/>
+                [%~ FOR isni_code IN label.isni_codes ~%]
+                    [%~ INCLUDE 'layout/sidebar/property.tt' label=l('ISNI code:')
+                         content=link_isni(isni_code.isni) class="isni-code" ~%]
+                [%~ END ~%]
 
-                <li>[% link_entity(label, 'open_edits', l('Open edits')) %]</li>
-                <li>[% link_entity(label, 'edits', l('Editing history')) %]</li>
-            [% ELSE %]
-                <li>[% request_login(l('Log in to edit')) %]</li>
-            [% END %]
-        </ul>
+                [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Label code:')
+                     content=html_escape(label.format_label_code) class="label-code"
+                         IF label.label_code ~%]
 
-        <h2 class="subscriptions">[% l('Subscriptions') %]</h2>
-        <ul class="links">
-        [% IF c.user_exists %]
-            [% IF subscribed %]
-                <li><a href="[% c.uri_for_action('/account/subscriptions/label/remove', { id => label.id }) %]">[% l('Unsubscribe') %]</a></li>
-            [% ELSE %]
-                <li><a href="[% c.uri_for_action('/account/subscriptions/label/add', { id => label.id }) %]">[% l('Subscribe') %]</a></li>
-            [% END %]
-            <li>[% link_entity(label, 'subscribers', l('Subscribers')) %]</li>
-        [% END %]
-        </ul>
+                [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Area:')
+                     content=descriptive_link(label.area)
+                     class="area"
+                         IF label.area ~%]
+            [%~ END ~%]
+        [%~ END ~%]
+    [%~ END ~%]
 
-        [%- INCLUDE "layout/sidebar/sidebar-favicons.tt" source=label -%]
-
-        [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=label -%]
-    [% END %]
-  [% END -%]
-
-  <div id="content">
-    [%- INCLUDE "label/header.tt" -%]
-    [%- content -%]
-  </div>
-
-[%- END -%]
+    <div id="content">
+        [%~ INCLUDE "label/header.tt" ~%]
+        [%~ content ~%]
+    </div>
+[%~ END ~%]
