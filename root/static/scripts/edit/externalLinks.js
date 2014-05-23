@@ -19,10 +19,6 @@
             this.url.subscribe(this.urlChanged, this);
         },
 
-        around$linkPhrase: function (supr) {
-            return supr(this.parent.source);
-        },
-
         urlChanged: function (value) {
             var entities = this.entities().slice(0);
             var backward = this.parent.source === entities[1];
@@ -55,7 +51,7 @@
             }
 
             this.faviconClass("");
-            this.parent.ensureOneEmptyLinkExists(this);
+            this.parent.lastEditedLink = this;
         },
 
         after$linkTypeIDChanged: function (value) {
@@ -71,7 +67,7 @@
             } else {
                 this.linkTypeDescription("");
             }
-            this.parent.ensureOneEmptyLinkExists(this);
+            this.parent.lastEditedLink = this;
         },
 
         matchesType: function () {
@@ -93,11 +89,8 @@
         },
 
         remove: function () {
-            var linksArray = _.reject(this.parent.links(), function (link) {
-                return link.removed() || link.isEmpty();
-            });
-
-            var index = linksArray.indexOf(this);
+            var linksArray = this.parent.nonRemovedOrEmptyLinks(),
+                index = linksArray.indexOf(this);
 
             if (this.id) {
                 this.removed(true);
@@ -123,8 +116,7 @@
 
             if (linkToFocus) {
                 linkToFocus.removeButtonFocused(true);
-            }
-            else {
+            } else {
                 $("#add-external-link").focus();
             }
         },
@@ -182,7 +174,30 @@
         fieldName: "url",
 
         after$init: function () {
-            this.ensureOneEmptyLinkExists();
+            this.links = this.source.displayableRelationships(this);
+            this.nonRemovedLinks = this.links.reject("removed");
+            this.emptyLinks = this.links.filter("isEmpty");
+
+            this.nonRemovedOrEmptyLinks = this.links.reject(function (relationship) {
+                return relationship.removed() || relationship.isEmpty();
+            });
+
+            var self = this;
+            this.lastEditedLink = null;
+
+            function ensureOneEmptyLinkExists(emptyLinks) {
+                var relationships = self.source.relationships;
+
+                if (!emptyLinks.length) {
+                    relationships.push(self.getRelationship({ target: MB.entity.URL({}) }, self.source));
+
+                } else if (emptyLinks.length > 1) {
+                    relationships.removeAll(_.without(emptyLinks, self.lastEditedLink));
+                }
+            }
+
+            this.emptyLinks.subscribe(ensureOneEmptyLinkExists);
+            ensureOneEmptyLinkExists([]);
 
             this.bubbleDoc = MB.Control.BubbleDoc("Information").extend({
                 canBeShown: function (link) {
@@ -197,29 +212,14 @@
             });
         },
 
-        links: function () {
-            return this.source.displayRelationships(this);
-        },
-
         typesAreAccepted: function (sourceType, targetType) {
             return sourceType === "url" || targetType === "url";
         },
 
-        ensureOneEmptyLinkExists: function (activeLink) {
-            var relationships = this.source.relationships;
-
-            var emptyLinks = _.filter(
-                this.links(), function (link) { return link.isEmpty() }
-            );
-
-            if (!emptyLinks.length) {
-                var data = { target: MB.entity.URL({}) };
-
-                relationships.push(this.getRelationship(data, this.source));
-            }
-            else if (emptyLinks.length > 1) {
-                relationships.removeAll(_.without(emptyLinks, activeLink));
-            }
+        _sortedRelationships: function (relationships, source) {
+            return relationships.sortBy(function (relationship) {
+                return relationship.lowerCasePhrase(source);
+            }).sortBy("isEmpty");
         }
     });
 

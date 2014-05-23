@@ -210,9 +210,11 @@
             if (!type) return [];
 
             var gid = MB.constants.PART_OF_SERIES_LINK_TYPES_BY_ENTITY[type.entityType];
-            var linkTypeInfo = MB.typeInfoByID[gid];
+            var linkTypeID = MB.typeInfoByID[gid].id;
 
-            return this.getRelationshipGroup(linkTypeInfo.id, viewModel);
+            return _.filter(this.displayableRelationships(viewModel)(), function (r) {
+                return r.linkTypeID() === linkTypeID;
+            });
         }
     });
 

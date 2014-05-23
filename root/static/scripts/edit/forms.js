@@ -76,6 +76,132 @@ MB.forms = {
 };
 
 
+ko.bindingHandlers.loop = {
+
+    init: function (parentNode, valueAccessor, allBindings, viewModel, bindingContext) {
+        var options = valueAccessor(), observableArray = options.items;
+
+        // The way this binding handler works is by using the "arrayChange"
+        // event found on observableArrays, which notifies a list of changes
+        // we can apply to the UI.
+
+        if (!ko.isObservable(observableArray) || !observableArray.cacheDiffForKnownOperation) {
+            throw new Error("items must an an observableArray");
+        }
+
+        var idAttribute = options.id,
+            elements = options.elements || {},
+            template = [],
+            node = parentNode.firstChild;
+
+        while (node) {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+                template.push(node);
+            }
+            node = node.nextSibling;
+        }
+
+        delete node;
+        ko.utils.emptyDomNode(parentNode);
+
+        function update(changes) {
+            var activeElement = document.activeElement,
+                items = observableArray.peek(),
+                removals = [];
+
+            for (var i = 0, change, j, node; change = changes[i]; i++) {
+                var status = change.status;
+
+                if (status === "retained") {
+                    continue;
+                }
+
+                var item = change.value,
+                    itemID = item[idAttribute],
+                    currentElements = elements[itemID],
+                    nextItem = items[change.index + 1];
+
+                if (status === "added") {
+                    if (change.moved === undefined) {
+                        var newContext = bindingContext.createChildContext(item);
+
+                        if (!currentElements) {
+                            currentElements = [];
+                            for (j = 0; node = template[j];  j++) {
+                                currentElements.push(node.cloneNode(true));
+                            }
+                            elements[itemID] = currentElements;
+                        }
+
+                        for (j = 0; node = currentElements[j]; j++) {
+                            if (!ko.contextFor(node)) {
+                                ko.applyBindings(newContext, node);
+                            }
+                        }
+                    }
+                } else if (status === "deleted") {
+                    if (change.moved === undefined) {
+                        for (j = 0; node = currentElements[j]; j++) {
+                            parentNode.removeChild(node);
+                            removals.push({ node: node, itemID: itemID });
+                        }
+                    }
+                    // When knockout detects a moved item, it sends both "added"
+                    // and "deleted" changes for it. We only need to handle the
+                    // former.
+                    continue;
+                }
+
+                var elementsToInsert, elementsToInsertBefore;
+                if (currentElements.length === 1) {
+                    elementsToInsert = currentElements[0];
+                } else {
+                    elementsToInsert = document.createDocumentFragment();
+                    for (j = 0; node = currentElements[j]; j++) {
+                        elementsToInsert.appendChild(node);
+                    }
+                }
+
+                if (nextItem && (elementsToInsertBefore = elements[nextItem[idAttribute]])) {
+                    parentNode.insertBefore(elementsToInsert, elementsToInsertBefore[0]);
+                } else {
+                    parentNode.appendChild(elementsToInsert);
+                }
+            }
+
+            // Brief timeout in case a removed item gets re-added.
+            setTimeout(function () {
+                for (var i = 0, removal; removal = removals[i]; i++) {
+                    if (!document.contains(removal.node)) {
+                        ko.cleanNode(removal.node);
+                        delete elements[removal.itemID];
+                    }
+                }
+            }, 100);
+
+            if (parentNode.contains(activeElement)) {
+                activeElement.focus();
+            }
+        }
+
+        var changeSubscription = observableArray.subscribe(update, null, "arrayChange");
+
+        function nodeDisposal() {
+            ko.utils.domNodeDisposal.removeDisposeCallback(parentNode, nodeDisposal);
+            changeSubscription.dispose();
+        }
+
+        ko.utils.domNodeDisposal.addDisposeCallback(parentNode, nodeDisposal);
+
+        update(_.map(observableArray.peek(), function (value, index) {
+            return { status: "added", value: value, index: index };
+        }));
+
+        return { controlsDescendantBindings: true };
+    }
+};
+
+
 /* Helper binding that matches an input and label (assuming a table layout)
    together in a foreach loop, by assigning an id composed of a prefix
    concatenated with the index of the item in the loop.
