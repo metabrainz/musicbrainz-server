@@ -165,6 +165,7 @@ ALTER TABLE medium DROP CONSTRAINT IF EXISTS medium_pkey;
 ALTER TABLE medium_cdtoc DROP CONSTRAINT IF EXISTS medium_cdtoc_pkey;
 ALTER TABLE medium_format DROP CONSTRAINT IF EXISTS medium_format_pkey;
 ALTER TABLE medium_index DROP CONSTRAINT IF EXISTS medium_index_pkey;
+ALTER TABLE orderable_link_type DROP CONSTRAINT IF EXISTS orderable_link_type_pkey;
 ALTER TABLE place DROP CONSTRAINT IF EXISTS place_pkey;
 ALTER TABLE place_alias DROP CONSTRAINT IF EXISTS place_alias_pkey;
 ALTER TABLE place_alias_type DROP CONSTRAINT IF EXISTS place_alias_type_pkey;

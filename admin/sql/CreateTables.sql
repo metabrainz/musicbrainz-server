@@ -1754,7 +1754,7 @@ CREATE TABLE medium_format
 );
 
 CREATE TABLE orderable_link_type (
-    link_type           INTEGER NOT NULL, -- references link_type.id
+    link_type           INTEGER NOT NULL, -- PK, references link_type.id
     direction           SMALLINT NOT NULL DEFAULT 1 CHECK (direction = 1 OR direction = 2)
 );
 
