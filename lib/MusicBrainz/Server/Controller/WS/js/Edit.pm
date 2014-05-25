@@ -365,6 +365,21 @@ sub process_edits {
     $_->{link_type} = $link_types->{ $_->{linkTypeID} } for @link_types_to_load;
     $_->link->type($link_types->{ $_->link->type_id }) for @loaded_relationships;
 
+    for my $edit (@link_types_to_load) {
+        my $link_type = $edit->{link_type};
+
+        die "unknown linkTypeID: " . $edit->{linkTypeID} unless $link_type;
+
+        my $type0 = $edit->{entities}->[0]->{entityType};
+        my $type1 = $edit->{entities}->[1]->{entityType};
+
+        if ($type0 ne $link_type->entity0_type || $type1 ne $link_type->entity1_type) {
+            my $link_type_id = $link_type->id;
+
+            die "linkTypeID $link_type_id is not for $type0-$type1 relationships";
+        }
+    }
+
     $c->model('Relationship')->load_entities(@loaded_relationships);
 
     my $loader = sub {
