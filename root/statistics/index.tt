@@ -641,12 +641,6 @@
    <td>[% l('{n}%', { n => round1(stats.ratio('count.series.type.' _ series_type.id, 'count.series')) }) %]</td>
 </tr>
 [% END %]
-<tr>
-   <th></th>
-   <th>[% l('None') %]</th>
-   <td>[% add_commas(stats.statistic('count.series.type.null')) %]</td>
-   <td>[% l('{n}%', { n => round1(stats.ratio('count.series.type.null', 'count.series')) }) %]</td>
-</tr>
 </tbody>
 </table>
 
