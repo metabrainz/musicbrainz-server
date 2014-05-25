@@ -24,9 +24,9 @@ Replication packets and other typically-master-only tasks
 
 Once you're set up, producing replication packets is a matter of running
 `admin/RunExport`, which will produce a replication packet in the folders
-configured in `admin/config.sh` (which you might want to change around). For
-other master-server administration tasks, a good place to start is looking at
-the scripts in `admin/cron/` -- `hourly.sh` controls hourly tasks such as
+configured in DBDefs (which you might want to change around). For other
+master-server administration tasks, a good place to start is looking at the
+scripts in `admin/cron/` -- `hourly.sh` controls hourly tasks such as
 replication packets and running ModBot, while `daily.sh` is for daily (or
 later) tasks, like producing full data dumps, sending subscription emails,
 cleaning up unused entities, and calculating statistics.
