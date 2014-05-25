@@ -15,8 +15,22 @@ MB.edit.create = function () {
 
 
 MB.typeInfoByID = {
-    76: { deprecated: false, phrase: "Discogs" },
-    77: { deprecated: false, phrase: "Wikipedia" }
+    76: {
+      deprecated: false,
+      phrase: "Discogs",
+      type0: "release",
+      type1: "url",
+      cardinality0: 0,
+      cardinality1: 0
+    },
+    77: {
+      deprecated: false,
+      phrase: "Wikipedia",
+      type0: "release",
+      type1: "url",
+      cardinality0: 0,
+      cardinality1: 0
+    }
 };
 
 
