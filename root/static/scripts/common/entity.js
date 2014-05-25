@@ -46,7 +46,7 @@
         if (!entityClass) {
             throw "Unknown type of entity: " + type;
         }
-        var id = type === "url" ? data.name : data.gid;
+        var id = (type === "url" && !data.gid) ? data.name : data.gid;
         if (id) {
             return MB.entityCache[id] || (MB.entityCache[id] = new entityClass(data));
         }

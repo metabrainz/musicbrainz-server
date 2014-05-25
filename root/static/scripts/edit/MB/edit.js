@@ -150,8 +150,10 @@
                 name:       string(entity.name)
             };
 
-            // We don't use URL gids for anything.
-            if (entity.entityType === "url") delete data.gid;
+            // We only use URL gids on the edit-url form.
+            if (entity.entityType === "url" && !data.gid) {
+                delete data.gid;
+            }
 
             return data;
         },

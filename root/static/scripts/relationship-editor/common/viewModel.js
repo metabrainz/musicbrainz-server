@@ -37,24 +37,10 @@
         relationshipClass: RE.fields.Relationship,
 
         init: function (options) {
-            this.cache = {};
-
-            var relations = this.allowedRelations = {};
             var self = this;
 
-            _(MB.typeInfo).keys().each(function (typeString) {
-                var types = typeString.split("-");
-                var type0 = types[0];
-                var type1 = types[1];
-
-                if (self.typesAreAccepted(type0, type1)) {
-                    (relations[type0] = relations[type0] || []).push(type1);
-                }
-
-                if (type0 !== type1 && self.typesAreAccepted(type1, type0)) {
-                    (relations[type1] = relations[type1] || []).push(type0);
-                }
-            });
+            this.cache = {};
+            this.allowedRelations = this.getAllowedRelations();
 
             if (options.formName) {
                 this.formName = options.formName;
@@ -90,6 +76,27 @@
                     }
                 });
             }
+        },
+
+        getAllowedRelations: function () {
+            var relations = {};
+            var self = this;
+
+            _(MB.typeInfo).keys().each(function (typeString) {
+                var types = typeString.split("-");
+                var type0 = types[0];
+                var type1 = types[1];
+
+                if (self.typesAreAccepted(type0, type1)) {
+                    (relations[type0] = relations[type0] || []).push(type1);
+                }
+
+                if (type0 !== type1 && self.typesAreAccepted(type1, type0)) {
+                    (relations[type1] = relations[type1] || []).push(type0);
+                }
+            });
+
+            return relations;
         },
 
         getRelationship: function (data, source) {

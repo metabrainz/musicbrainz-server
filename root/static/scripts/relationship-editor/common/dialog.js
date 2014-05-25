@@ -404,6 +404,13 @@
                 return MB.text.PleaseSelectARSubtype;
             } else if (typeInfo.deprecated) {
                 return MB.text.RelationshipTypeDeprecated;
+            } else if (this.source.entityType === "url") {
+                var linkType = typeInfo.id;
+                var checker = MB.editURLCleanup.validationRules[linkType];
+
+                if (checker && !checker(this.source.name())) {
+                    return MB.text.URLNotAllowed;
+                }
             }
 
             return "";
