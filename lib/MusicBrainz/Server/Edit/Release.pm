@@ -16,4 +16,17 @@ around determine_quality => sub {
     return max map { $_->quality } values %{ $self->c->model('Release')->get_by_ids( $self->release_ids ) };
 };
 
+sub check_event_countries {
+    my ($self, $events) = @_;
+
+    my $countries = {};
+
+    for (@$events) {
+        if (exists $countries->{$_->{country_id}}) {
+            die "Duplicate release country: " . ($_->{country_id} // 'undef');
+        }
+        $countries->{$_->{country_id}} = 1;
+    }
+}
+
 1;
