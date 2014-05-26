@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-05-16 18:51+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2014-05-26 09:28+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -134,6 +134,10 @@ msgstr "Moog synthesizer"
 #: DB:instrument/name:358
 msgid "Northumbrian pipes"
 msgstr "Northumbrian pipes"
+
+#: DB:instrument/name:647
+msgid "Portuguese guitar"
+msgstr ""
 
 #: DB:instrument/name:576
 msgid "Reactable"
@@ -508,8 +512,8 @@ msgid "buk"
 msgstr "buk"
 
 #: DB:instrument/name:528
-msgid "bulbul"
-msgstr "bulbul"
+msgid "bulbul tarang"
+msgstr ""
 
 #: DB:instrument/name:153
 msgid "bull-roarer"
@@ -1802,6 +1806,10 @@ msgstr "rudra veena"
 #: DB:instrument/name:617
 msgid "ryuteki"
 msgstr "ryuteki"
+
+#: DB:instrument/name:646
+msgid "sabar"
+msgstr ""
 
 #: DB:instrument/name:149
 msgid "sackbut"
