@@ -312,11 +312,15 @@
                    [ 'type', l('Type') ],
                    [ 'no_votes', l('No vote count') ],
                    [ 'yes_votes', l('Yes vote count') ],
+                   [ 'area', l('Area') ],
                    [ 'artist', l('Artist') ],
+                   [ 'instrument', l('Instrument') ],
                    [ 'label', l('Label') ],
+                   [ 'place', l('Place') ],
                    [ 'recording', l('Recording') ],
                    [ 'release', l('Release') ],
                    [ 'release_group', l('Release Group') ],
+                   [ 'series', lp('Series', 'singular') ],
                    [ 'work', l('Work') ],
                    [ 'editor', l('Editor') ],
                    [ 'vote', l('My Vote') ]
@@ -345,11 +349,11 @@
     [% predicate_int('no_votes') %]
     [% predicate_int('yes_votes') %]
 
-    [% FOR linked_type=[ 'artist', 'label' ];
+    [% FOR linked_type=[ 'artist', 'label', 'series' ];
          predicate_subscription(linked_type);
        END %]
 
-    [% FOR linked_type=['recording', 'release_group', 'release', 'work', 'editor' ];
+    [% FOR linked_type=[ 'area', 'instrument', 'place', 'recording', 'release_group', 'release', 'work', 'editor' ];
          predicate_link(linked_type);
        END %]
 
