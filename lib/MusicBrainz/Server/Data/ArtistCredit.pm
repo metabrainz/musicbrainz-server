@@ -8,6 +8,7 @@ use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
 use MusicBrainz::Server::Data::Artist qw( is_special_purpose );
 use MusicBrainz::Server::Data::Utils qw( placeholders load_subobjects type_to_model );
+use MusicBrainz::Server::Constants qw( entities_with );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'ac' };
@@ -290,7 +291,7 @@ sub _swap_artist_credits {
 
     return if $old_credit_id == $new_credit_id;
 
-    for my $table (qw( recording release release_group track )) {
+    for my $table (entities_with('artist_credits')) {
         my $ids = $self->c->sql->select_single_column_array(
             "UPDATE $table SET artist_credit = ?
              WHERE artist_credit = ? RETURNING id",
@@ -318,7 +319,7 @@ sub in_use {
     my ($self, $ac) = @_;
     my $ac_id = $self->find($ac) or return 0;
 
-    for my $t (qw( recording release release_group track )) {
+    for my $t (entities_with('artist_credits')) {
         return 1 if $self->c->sql->select_single_value(
             "SELECT TRUE FROM $t WHERE artist_credit = ? LIMIT 1",
             $ac_id
@@ -334,7 +335,7 @@ sub related_entities {
     my $related = {};
     my $ac_id = $self->find($ac) or return $related;
 
-    for my $t (qw( recording release release_group )) {
+    for my $t (entities_with([['artist_credits'], ['mbid', 'relatable']])) {
         my $uses = $self->c->sql->select_single_column_array(
             "SELECT DISTINCT id FROM $t WHERE artist_credit = ?", $ac_id
         );

@@ -3,7 +3,7 @@ use Moose;
 use namespace::autoclean;
 
 use HTML::Entities qw( decode_entities );
-use MusicBrainz::Server::Constants qw( $EDITOR_MODBOT :annotation );
+use MusicBrainz::Server::Constants qw( $EDITOR_MODBOT %ENTITIES );
 use MusicBrainz::Server::Entity::Annotation;
 use MusicBrainz::Server::Data::Utils qw(
     placeholders
@@ -113,18 +113,6 @@ sub delete
     return 1;
 }
 
-my %ANNOTATION_TYPE_MAP = (
-    area          => $EDIT_AREA_ADD_ANNOTATION,
-    artist        => $EDIT_ARTIST_ADD_ANNOTATION,
-    instrument    => $EDIT_INSTRUMENT_ADD_ANNOTATION,
-    label         => $EDIT_LABEL_ADD_ANNOTATION,
-    place         => $EDIT_PLACE_ADD_ANNOTATION,
-    recording     => $EDIT_RECORDING_ADD_ANNOTATION,
-    release_group => $EDIT_RELEASEGROUP_ADD_ANNOTATION,
-    release       => $EDIT_RELEASE_ADD_ANNOTATION,
-    work          => $EDIT_WORK_ADD_ANNOTATION,
-);
-
 sub merge
 {
     my ($self, $new_id, @old_ids) = @_;
@@ -150,7 +138,7 @@ sub merge
         my $new_text = join("\n\n-------\n\n", grep { $_ ne "" } values %entity_to_annotation);
         if ($new_text ne '') {
             $self->c->model('Edit')->create(
-                edit_type => $ANNOTATION_TYPE_MAP{$type},
+                edit_type => $ENTITIES{$type}{annotations}{edit_type},
                 editor_id => $EDITOR_MODBOT,
                 entity => $self->c->model(type_to_model($type))->get_by_id($new_id),
                 text => $new_text,
