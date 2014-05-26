@@ -8,7 +8,6 @@ trap 'echo "Disk space when RunExport ends:" ; df -m' 0
 
 mb_server=`dirname $0`/..
 eval `$mb_server/admin/ShowDBDefs`
-. $mb_server/admin/config.sh
 cd $mb_server
 
 . ./admin/functions.sh

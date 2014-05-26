@@ -37,24 +37,10 @@
         relationshipClass: RE.fields.Relationship,
 
         init: function (options) {
-            this.cache = {};
-
-            var relations = this.allowedRelations = {};
             var self = this;
 
-            _(MB.typeInfo).keys().each(function (typeString) {
-                var types = typeString.split("-");
-                var type0 = types[0];
-                var type1 = types[1];
-
-                if (self.typesAreAccepted(type0, type1)) {
-                    (relations[type0] = relations[type0] || []).push(type1);
-                }
-
-                if (type0 !== type1 && self.typesAreAccepted(type1, type0)) {
-                    (relations[type1] = relations[type1] || []).push(type0);
-                }
-            });
+            this.cache = {};
+            this.allowedRelations = this.getAllowedRelations();
 
             if (options.formName) {
                 this.formName = options.formName;
@@ -63,10 +49,7 @@
             this.source = options.source;
 
             if (options.sourceData) {
-                this.source = options.source || MB.entity(options.sourceData).extend({
-                    relationships: ko.observableArray([])
-                });
-
+                this.source = options.source || MB.entity(options.sourceData);
                 this.source.parseRelationships(options.sourceData.relationships, this);
 
                 _.each(options.sourceData.submittedRelationships, function (data) {
@@ -93,6 +76,27 @@
                     }
                 });
             }
+        },
+
+        getAllowedRelations: function () {
+            var relations = {};
+            var self = this;
+
+            _(MB.typeInfo).keys().each(function (typeString) {
+                var types = typeString.split("-");
+                var type0 = types[0];
+                var type1 = types[1];
+
+                if (self.typesAreAccepted(type0, type1)) {
+                    (relations[type0] = relations[type0] || []).push(type1);
+                }
+
+                if (type0 !== type1 && self.typesAreAccepted(type1, type0)) {
+                    (relations[type1] = relations[type1] || []).push(type0);
+                }
+            });
+
+            return relations;
         },
 
         getRelationship: function (data, source) {
@@ -201,12 +205,18 @@
             var fieldPrefix = this.formName + "." + this.fieldName;
             var source = this.source;
             var relationships = source.displayRelationships(this);
+            var index = 0;
 
-            return _.flatten(_.map(relationships, function (relationship, index) {
-                var prefix = fieldPrefix + "." + index;
-                var hidden = [];
-                var target = relationship.target(source);
+            return _.flatten(_.map(relationships, function (relationship) {
                 var editData = relationship.editData();
+                var hidden = [];
+
+                if (!editData.linkTypeID) {
+                    return hidden;
+                }
+
+                var prefix = fieldPrefix + "." + index;
+                var target = relationship.target(source);
 
                 if (relationship.id) {
                     hidden.push({ name: prefix + ".relationship_id", value: relationship.id });
@@ -266,6 +276,7 @@
                     hidden.push({ name: prefix + ".link_order", value: editData.linkOrder });
                 }
 
+                index++;
                 return hidden;
             }));
         }

@@ -167,7 +167,7 @@ test 'Handling deletes and merges' => sub {
     };
 
     subtest 'Deleted deleted and merged subscriptions from the database' => sub {
-        verify($c->model('EditorSubscriptions'))->update_subscriptions(anything);
+        verify($c->model('EditorSubscriptions'))->update_subscriptions(10, $acid2->id);
     }
 };
 

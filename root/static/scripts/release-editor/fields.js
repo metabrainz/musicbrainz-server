@@ -559,8 +559,6 @@
 
             // Setup the external links editor
 
-            this.relationships = ko.observableArray([]);
-
             this.externalLinks = MB.Control.externalLinks.ViewModel({
                 source: this,
                 sourceData: data

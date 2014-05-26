@@ -197,4 +197,52 @@ test 'mismatched link types are rejected' => sub {
     $mech->content_contains('linkTypeID 3 is not for artist-recording relationships');
 };
 
+
+test 'Can submit URL relationships using actual URLs, not gids' => sub {
+    my $test = shift;
+    my ($c, $mech) = ($test->c, $test->mech);
+
+    MusicBrainz::Server::Test->prepare_test_database($c);
+
+    $c->sql->do(q{
+        INSERT INTO link_type (gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, long_link_phrase, description)
+        VALUES ('dffc8210-dbe8-11e3-9c1a-0800200c9a66', 'artist', 'url', 'foo', 'foo', 'foo', 'foo', 'foo');
+    });
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+    my @edits = capture_edits {
+        $mech->post("/relationship-editor", {
+                'rel-editor.rels.0.link_type' => '3',
+                'rel-editor.rels.0.action' => 'add',
+                'rel-editor.rels.0.entity.0.gid' => '745c079d-374e-4436-9448-da92dedef3ce',
+                'rel-editor.rels.0.entity.0.type' => 'artist',
+                'rel-editor.rels.0.entity.1.url' => 'http://musicbrainz.org/',
+                'rel-editor.rels.0.entity.1.type' => 'url',
+                'rel-editor.rels.1.link_type' => '3',
+                'rel-editor.rels.1.action' => 'add',
+                'rel-editor.rels.1.entity.0.gid' => '745c079d-374e-4436-9448-da92dedef3ce',
+                'rel-editor.rels.1.entity.0.type' => 'artist',
+                'rel-editor.rels.1.entity.1.url' => 'http://example.com/',
+                'rel-editor.rels.1.entity.1.type' => 'url',
+            }
+        );
+    } $c;
+
+    isa_ok($edits[0], 'MusicBrainz::Server::Edit::Relationship::Create');
+    is($edits[0]->data->{entity0}{id}, 3);
+    is($edits[0]->data->{entity1}{id}, 1);
+    is($edits[0]->data->{type0}, 'artist');
+    is($edits[0]->data->{type1}, 'url');
+    is($edits[0]->data->{link_type}{id}, 3);
+
+    isa_ok($edits[1], 'MusicBrainz::Server::Edit::Relationship::Create');
+    is($edits[1]->data->{entity0}{id}, 3);
+    is($edits[1]->data->{entity1}{id}, 2);
+    is($edits[1]->data->{type0}, 'artist');
+    is($edits[1]->data->{type1}, 'url');
+    is($edits[1]->data->{link_type}{id}, 3);
+};
+
 1;

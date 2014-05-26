@@ -231,12 +231,27 @@ MB.utility.validDate = (function () {
         var isLeapYear = y % 400 ? (y % 100 ? !(y % 4) : false) : true;
 
         // Invalid number of days based on the year.
-        if (d < 1 || d > daysInMonth[isLeapYear.toString()][m]) return false;
+        if (d < 1 || d > 31 || d > daysInMonth[isLeapYear.toString()][m]) return false;
 
         // The date is assumed to be valid.
         return true;
     };
 }());
+
+MB.utility.validDatePeriod = function (a, b) {
+    var y1 = a.year, m1 = a.month, d1 = a.day;
+    var y2 = b.year, m2 = b.month, d2 = b.day;
+
+    if (!MB.utility.validDate(y1, m1, d1) || !MB.utility.validDate(y2, m2, d2)) {
+        return false;
+    }
+
+    if (!y1 || !y2 || +y1 < +y2) return true; else if (+y2 < +y1) return false;
+    if (!m1 || !m2 || +m1 < +m2) return true; else if (+m2 < +m1) return false;
+    if (!d1 || !d2 || +d1 < +d2) return true; else if (+d2 < +d1) return false;
+
+    return true;
+};
 
 MB.utility.parseDate = (function () {
     var dateRegex = /^(\d{4}|\?{4})(?:-(\d{2}|\?{2})(?:-(\d{2}|\?{2}))?)?$/;

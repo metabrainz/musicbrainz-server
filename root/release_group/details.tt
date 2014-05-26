@@ -22,7 +22,8 @@
       [% l('Permanent link:') %]
     </th>
     <td>
-      [% perma="http://musicbrainz.org/release-group/${rg.gid}" %]
+      [%- USE Canonicalize -%]
+      [% perma=Canonicalize.canonicalize(c.uri_for_action('/release_group/show', [ entity.gid ])) %]
       <a href="[% perma | url %]">
         [%- perma | html -%]
       </a>

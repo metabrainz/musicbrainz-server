@@ -3,7 +3,7 @@
   <table class="tbl">
     <thead>
       <tr>
-        [%- IF results.0.score -%]
+        [%- IF results.0.score.defined -%]
           <th>[% l('Score') %]</th>
         [%- END -%]
         <th>[% l('Name') %]</th>
@@ -26,7 +26,7 @@
     <tbody>
       [%- FOR result=results -%]
         <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
-          [%- IF results.0.score -%]
+          [%- IF results.0.score.defined -%]
             <td>[% result.score %]</td>
           [%- END -%]
           <td>[% link_entity(result.entity) %]</td>

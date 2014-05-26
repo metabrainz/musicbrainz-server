@@ -18,7 +18,7 @@ test all => sub {
                   'fetch series details page');
     html_ok($mech->content);
 
-    $mech->content_contains('http://musicbrainz.org/series/a8749d0c-4a5a-4403-97c5-f6cd018f8e6d',
+    $mech->content_contains('https://musicbrainz.org/series/a8749d0c-4a5a-4403-97c5-f6cd018f8e6d',
                             '..has permanent link');
 
     $mech->content_contains('>a8749d0c-4a5a-4403-97c5-f6cd018f8e6d</',

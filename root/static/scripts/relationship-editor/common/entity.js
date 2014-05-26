@@ -27,6 +27,10 @@
 
             var existingRelationships = this.relationships.peek();
             this.relationships(_.union(existingRelationships, newRelationships));
+
+            _.each(relationships, function (data) {
+                MB.entity(data.target).parseRelationships(data.target.relationships, viewModel);
+            });
         },
 
         displayRelationships: function (viewModel) {

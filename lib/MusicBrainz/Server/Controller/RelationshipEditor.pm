@@ -23,7 +23,7 @@ our $valid_params = qr/
             action
             |id
             |link_type
-            |entity\.(0|1)\.(gid|type)
+            |entity\.(0|1)\.(gid|type|url)
             |period\.((begin_date|end_date)\.(year|month|day)|ended)
             |attrs\.[^\.]+(\.[0-9]+)?
         )
@@ -67,14 +67,16 @@ sub submit_edits {
     my @rels = @{ $params->{rels} // [] };
 
     foreach my $rel (@rels) {
-        my $type0 = delete $rel->{entity}->[0]->{type}
-            or detach_with_error($c, "Missing field: entity.0.type");
+        for my $i (0, 1) {
+            my $entity = $rel->{entity}->[$i];
 
-        my $type1 = delete $rel->{entity}->[1]->{type}
-            or detach_with_error($c, "Missing field: entity.1.type");
+            $entity->{entityType} = delete $entity->{type}
+                or detach_with_error($c, "Missing field: entity.$i.type");
 
-        $rel->{entity}->[0]->{entityType} = $type0;
-        $rel->{entity}->[1]->{entityType} = $type1;
+            if (my $url = delete $entity->{url}) {
+                $entity->{name} = $url;
+            }
+        }
 
         $rel->{entities} = delete $rel->{entity};
         $rel->{linkTypeID} = delete $rel->{link_type};

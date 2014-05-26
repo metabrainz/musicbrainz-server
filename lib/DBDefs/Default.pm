@@ -104,6 +104,9 @@ sub WEB_SERVER_USED_IN_EMAIL  { my $self = shift; $self->WEB_SERVER }
 sub IS_BETA                   { 0 }
 sub BETA_REDIRECT_HOSTNAME    { '' }
 
+# The server to use for rel="canonical" links. Includes scheme.
+sub CANONICAL_SERVER          { "https://musicbrainz.org" }
+
 ################################################################################
 # Mail Settings
 ################################################################################
@@ -446,6 +449,25 @@ sub LOGGER_ARGUMENTS {
         ],
     )
 }
+
+sub ADMIN_EMAILS { "root" }
+
+# Were to put database exports, and replication data, for public consumption;
+# who should own them, and what mode they should have.
+sub FTP_DATA_DIR { "/var/ftp/pub/musicbrainz/data" }
+sub FTP_USER { "musicbrainz" }
+sub FTP_GROUP { "musicbrainz" }
+sub FTP_DIR_MODE { 755 }
+sub FTP_FILE_MODE { 644 }
+
+# Where to back things up to, who should own the backup files, and what mode
+# those files should have.
+# The backups include a full database export, and all replication data.
+sub BACKUP_DIR { "/home/musicbrainz/backup" }
+sub BACKUP_USER { "musicbrainz" }
+sub BACKUP_GROUP { "musicbrainz" }
+sub BACKUP_DIR_MODE { 700 }
+sub BACKUP_FILE_MODE { 600 }
 
 1;
 # eof DBDefs.pm

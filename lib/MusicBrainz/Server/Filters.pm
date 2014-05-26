@@ -58,7 +58,7 @@ sub format_wikitext
     # MBS-2437: Expand MBID entity links
     $text =~ s/
       \[
-      (artist|label|recording|release|release-group|url|work|area|place):
+      (artist|label|recording|release|release-group|url|work|area|place|series|instrument):
       ([0-9a-f]{8} -
        [0-9a-f]{4} -
        [0-9a-f]{4} -
