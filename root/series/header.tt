@@ -5,7 +5,7 @@
     ['edit', link_series(series, 'edit', l('Edit'))],
 ] -%]
 
-<div class="blankheader">
+<div class="seriesheader">
     <h1>[%- link_entity(series) %]</h1>
     <p class="subheader">
         <span class="prefix">~</span> [%- l('Series') -%]
