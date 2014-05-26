@@ -167,6 +167,37 @@ test 'MBS-7058: Can submit a relationship without "ended" fields' => sub {
 };
 
 
+test 'mismatched link types are rejected' => sub {
+    my $test = shift;
+    my ($c, $mech) = ($test->c, $test->mech);
+
+    MusicBrainz::Server::Test->prepare_test_database($c);
+
+    $c->sql->do(q{
+        INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, long_link_phrase, description)
+            VALUES (3, '0f8731a9-0d70-4bd8-9db0-931f89f417ba', 'artist', 'release', 'blah', 'blah', 'blah', 'blah', 'blah');
+    });
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+    my ($edit) = capture_edits {
+        $mech->post("/relationship-editor", {
+                'rel-editor.rels.0.link_type' => '3',
+                'rel-editor.rels.0.action' => 'add',
+                'rel-editor.rels.0.entity.0.gid' => '745c079d-374e-4436-9448-da92dedef3ce',
+                'rel-editor.rels.0.entity.0.type' => 'artist',
+                'rel-editor.rels.0.entity.1.gid' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
+                'rel-editor.rels.0.entity.1.type' => 'recording',
+            }
+        );
+    } $c;
+
+    ok(!defined $edit);
+    $mech->content_contains('linkTypeID 3 is not for artist-recording relationships');
+};
+
+
 test 'Can submit URL relationships using actual URLs, not gids' => sub {
     my $test = shift;
     my ($c, $mech) = ($test->c, $test->mech);
