@@ -39,7 +39,12 @@
 
                 "other": { Label: '[% l('Other') | js %]' }
             },
-            Stat: function (stat) { if (MB.text.Timeline[stat]) { return MB.text.Timeline[stat]; } else { return { Label: stat, Color: '#00ff00', Description: stat, Category: "other" }; } },
+            Stat: function (stat) {
+                if (!MB.text.Timeline[stat]) {
+                    MB.text.Timeline[stat] = { Label: stat, Color: '#'+Math.random().toString(16).substr(-6), Description: stat, Category: "other" };
+                }
+                return MB.text.Timeline[stat]
+            },
             "count.artist": { Label: '[% l('Artists') | js %]', Color: '#ff8a00', Description: '[% l('Count of all artists') | js %]', Category: "core-entities" },
             "count.recording": { Label: '[% l('Recordings') | js %]', Color: "#4800ff", Description: '[% l('Count of all recordings') | js %]', Category: "core-entities"  },
             "count.work": { Label: '[% l('Works') | js %]', Color: "#00ffa8", Description: '[% l('Count of all works') | js %]', Category: "core-entities"  },
@@ -49,6 +54,8 @@
             "count.label": { Label: '[% l('Labels') | js %]', Color: "#ff0096", Description: '[% l('Count of all labels') | js %]', Category: "core-entities"  },
             "count.area": { Label: '[% l('Areas') | js %]', Color: "#ff0000", Description: '[% l('Count of all areas') | js %]', Category: "core-entities"  },
             "count.place": { Label: '[% l('Places') | js %]', Color: "#bc0a0a", Description: '[% l('Count of all places') | js %]', Category: "core-entities"  },
+            "count.series": { Label: '[% lp('Series', 'plural') | js %]', Color: "#1a6756", Description: '[% l('Count of all series') | js %]', Category: "core-entities"  },
+            "count.instrument": { Label: '[% l('Instruments') | js %]', Color: "#8fddc9", Description: '[% l('Count of all instruments') | js %]', Category: "core-entities"  },
 
             "count.edit": { Label: '[% l('Edits') | js %]', Color: '#ff00ff', Description: '[% l('Count of all edits') | js %]', Category: "edit-information", Hide: true },
             "count.edit.open": { Label: '[% l('Open Edits') | js %]', Color: '#ffe400', Description: '[% l('Count of open edits') | js %]', Category: "edit-information" },
