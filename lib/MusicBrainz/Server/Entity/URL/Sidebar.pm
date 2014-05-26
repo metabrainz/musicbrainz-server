@@ -41,6 +41,7 @@ use constant FAVICON_CLASSES => {
     'rockipedia.no'             => 'rockipedia',
     'viaf.org'                  => 'viaf',
     'vk.com'                    => 'vk',
+    'vkdb.jp'                   => 'vkdb',
     'dhhu.dk'                   => 'dhhu',
     'thesession.org'            => 'thesession',
     'plus.google.com'           => 'googleplus',
