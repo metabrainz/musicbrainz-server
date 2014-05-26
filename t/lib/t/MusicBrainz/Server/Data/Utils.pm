@@ -4,7 +4,7 @@ use Test::Moose;
 use Test::More;
 
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Data::Utils qw( order_by query_to_list query_to_list_limited remove_invalid_characters generate_gid take_while );
+use MusicBrainz::Server::Data::Utils qw( order_by query_to_list query_to_list_limited remove_invalid_characters generate_gid take_while trim );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Test;
 
@@ -106,6 +106,16 @@ test 'Test remove_invalid_characters' => sub {
     is(remove_invalid_characters("NAK follows\x15"),
        'NAK follows',
        'remove_invalid_characters removes control characters (NAK)');
+};
+
+test 'Test trim' => sub {
+    is(trim("   Gutta \t cauat\nlapidem "),
+       'Gutta cauat lapidem',
+       'normalizes whitespace');
+
+    is(trim("NAK follows after space \x15"),
+       'NAK follows after space',
+       'ignores words of invalid characters (MBS-7604)');
 };
 
 1;
