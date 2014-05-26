@@ -393,9 +393,8 @@ test("releaseDeleteReleaseLabel edit is generated for existing release", functio
 
     deepEqual(releaseEditor.edits.releaseLabel(this.release), [
       {
-        "catalog_number": "WPC6-10044",
         "edit_type": 36,
-        "hash": "cca8fc44a0d18c4d6050a29976978da7cf354741",
+        "hash": "b6cf0e5b82d3ab32124df85bc5e824e612d1237a",
         "release_label": 27903
       }
     ]);
@@ -410,9 +409,8 @@ test("releaseDeleteReleaseLabel edit is generated when label/catalog number fiel
 
     deepEqual(releaseEditor.edits.releaseLabel(this.release), [
       {
-        "catalog_number": "WPC6-10044",
         "edit_type": 36,
-        "hash": "cca8fc44a0d18c4d6050a29976978da7cf354741",
+        "hash": "b6cf0e5b82d3ab32124df85bc5e824e612d1237a",
         "release_label": 27903
       }
     ]);
@@ -763,4 +761,36 @@ test("mediumCreate edits are not given conflicting positions", function () {
         "release": "f4c552ab-515e-42df-a9ee-a370867d29d1"
       }
     ]);
+});
+
+
+test("releaseDeleteReleaseLabel edits are not generated for non-existent release labels (MBS-7455)", function () {
+    var release = this.release = releaseEditor.fields.Release({
+        gid: "f4c552ab-515e-42df-a9ee-a370867d29d1",
+        labels: [
+            { id: 123, label: null, catalogNumber: "foo123" },
+        ]
+    });
+
+    releaseEditor.rootField.release(release);
+    releaseEditor.removeReleaseLabel(release.labels()[0]);
+    releaseEditor.addReleaseLabel(release);
+    release.labels()[0].catalogNumber("foo456");
+    releaseEditor.addReleaseLabel(release);
+
+    var submission = _.find(releaseEditor.orderedEditSubmissions, {
+        edits: releaseEditor.edits.releaseLabel
+    });
+
+    // Simulate edit submission.
+    var edits = submission.edits(release);
+
+    submission.callback(release, [
+        { message: "OK" },
+        { message: "OK", entity: { id: 456, labelID: null, catalogNumber: "foo456" } }
+    ]);
+
+    edits = submission.edits(release);
+
+    deepEqual(edits, []);
 });
