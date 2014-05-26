@@ -1,5 +1,6 @@
 # 
 # Translators:
+# nikki, 2014
 # Daniel Schury <email address hidden>, 2011
 # Ian McEwen <email address hidden>, 2012
 # Mineo <email address hidden>, 2011
@@ -12,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-04-06 17:48+0000\n"
-"Last-Translator: Shepard\n"
+"PO-Revision-Date: 2014-05-15 16:58+0000\n"
+"Last-Translator: nikki\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -752,7 +753,7 @@ msgstr "Abgebrochen:"
 
 #: ../root/statistics/view_js.tt:117
 msgid "Characters"
-msgstr ""
+msgstr "Figuren"
 
 #: ../root/statistics/timeline.tt:51
 msgid "Check boxes above"
@@ -760,7 +761,7 @@ msgstr ""
 
 #: ../root/statistics/view_js.tt:119
 msgid "Choirs"
-msgstr ""
+msgstr "Chöre"
 
 #: ../root/statistics/timeline.tt:50
 msgid "Click to deselect"
@@ -1535,7 +1536,7 @@ msgstr "Offen:"
 
 #: ../root/statistics/view_js.tt:118
 msgid "Orchestras"
-msgstr ""
+msgstr "Orchester"
 
 #: ../root/statistics/view_js.tt:40
 msgid "Other"
@@ -1721,11 +1722,11 @@ msgstr ""
 
 #: ../root/statistics/coverart.tt:97
 msgid "Release groups"
-msgstr ""
+msgstr "Veröffentlichungsgruppen"
 
 #: ../root/statistics/coverart.tt:101
 msgid "Release groups with cover art:"
-msgstr ""
+msgstr "Veröffentlichungsgruppen mit Cover-Art:"
 
 #: ../root/statistics/formats.tt:16 ../root/statistics/formats.tt:20
 msgid "Release/Medium Formats"

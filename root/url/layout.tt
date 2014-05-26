@@ -1,4 +1,4 @@
-[% WRAPPER 'layout.tt' %]
+[% WRAPPER 'layout.tt' canonical_url=replace_gid(entity.gid) %]
   [%- IF !full_width -%]
     [% WRAPPER 'layout/sidebar.tt' %]
         <h2 class="editing">[% l('Editing') %]</h2>

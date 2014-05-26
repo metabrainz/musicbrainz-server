@@ -15,8 +15,22 @@ MB.edit.create = function () {
 
 
 MB.typeInfoByID = {
-    76: { deprecated: false, phrase: "Discogs" },
-    77: { deprecated: false, phrase: "Wikipedia" }
+    76: {
+      deprecated: false,
+      phrase: "Discogs",
+      type0: "release",
+      type1: "url",
+      cardinality0: 0,
+      cardinality1: 0
+    },
+    77: {
+      deprecated: false,
+      phrase: "Wikipedia",
+      type0: "release",
+      type1: "url",
+      cardinality0: 0,
+      cardinality1: 0
+    }
 };
 
 
@@ -365,10 +379,10 @@ test("releaseAddAnnotation edit is generated for existing release", function () 
 
     deepEqual(releaseEditor.edits.annotation(this.release), [
       {
-        entity: 249113,
+        entity: "868cc741-e3bc-31bc-9dac-756e35c8f152",
         text: "foooooo",
         edit_type: 35,
-        hash: "57216691ffd548bec221bec845d6c3e6f0fe16f7"
+        hash: "aaef07d691a28785980903fe976cc4827e8731fa"
       }
     ]);
 });

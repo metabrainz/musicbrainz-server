@@ -50,7 +50,7 @@ sub nominate
 {
     my ($self, $candidate, $proposer) = @_;
 
-    die 'Forbidden' unless $proposer->is_auto_editor && !$candidate->is_auto_editor;
+    die 'Forbidden' unless $proposer->can_nominate($candidate);
 
     my $sql = $self->c->sql;
     return Sql::run_in_transaction(sub {

@@ -12,7 +12,6 @@ with 'MusicBrainz::Server::Controller::Role::Alias';
 with 'MusicBrainz::Server::Controller::Role::Cleanup';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
-with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::CommonsImage';
@@ -86,12 +85,8 @@ Shows performances linked to a place.
 
 =cut
 
-sub performances : Chained('load')
-{
-    my ($self, $c) = @_;
+sub performances : Chained('load') { }
 
-    $self->relationships($c);
-}
 =head2 WRITE METHODS
 
 =cut

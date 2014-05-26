@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-04-10 15:58+0000\n"
+"PO-Revision-Date: 2014-05-16 18:03+0000\n"
 "Last-Translator: Alain-Olivier  Breysse\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -818,7 +818,7 @@ msgstr "Nombre de tous les coupons de CD transmis"
 
 #: ../root/statistics/view_js.tt:131
 msgid "Count of all Disc IDs"
-msgstr "Nombre de toutes les ID de disques"
+msgstr "Nombre de tous les ID de disques"
 
 #: ../root/statistics/view_js.tt:134
 msgid "Count of all IPIs"
@@ -922,7 +922,7 @@ msgstr "Nombre de toutes les balises de groupe de parution (brut)"
 
 #: ../root/statistics/view_js.tt:153
 msgid "Count of all Release Groups with {n} Releases"
-msgstr "Nombre de tous les groupes de parution {n} parutions"
+msgstr "Nombre de tous les groupes de parution ayant {n} parutions"
 
 #: ../root/statistics/view_js.tt:181
 msgid "Count of all Release Tags (raw)"
@@ -1423,7 +1423,7 @@ msgstr "Support avec ID de disque"
 
 #: ../root/statistics/index.tt:426
 msgid "Mediums with at least one disc ID:"
-msgstr "Support avec au moins une ID de disque :"
+msgstr "Support avec au moins un ID de disque :"
 
 #: ../root/statistics/index.tt:420
 msgid "Mediums with no disc IDs:"
@@ -1780,7 +1780,7 @@ msgstr "Parutions avec un support  « pas de format »"
 
 #: ../root/statistics/index.tt:393
 msgid "Releases with at least one disc ID:"
-msgstr "Parutions avec au moins une ID de disque :"
+msgstr "Parutions avec au moins un ID de disque :"
 
 #: ../root/statistics/coverart.tt:22 ../root/statistics/coverart.tt:49
 #: ../root/statistics/coverart.tt:65 ../root/statistics/coverart.tt:81

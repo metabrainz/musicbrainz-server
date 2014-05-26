@@ -2,6 +2,6 @@
     [%- INCLUDE "components/relationships-table.tt" heading=l('Performances') entity=place -%]
 
     [% IF !place.appearances.size %]
-        [% l('No recordings, releases or release groups are linked to this place') %]
+        <p>[% l('No recordings, releases or release groups are linked to this place') %]</p>
     [% END %]
 [%- END -%]

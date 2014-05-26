@@ -37,24 +37,11 @@
                 }
             };
 
-            this.source.releaseGroup
-                .extend({ relationships: ko.observableArray([]) })
-                .parseRelationships(options.sourceData.releaseGroup.relationships, this);
+            this.source.releaseGroup.parseRelationships(
+                options.sourceData.releaseGroup.relationships, this
+            );
 
             this.source.mediums = ko.observableArray([]);
-
-            MB.entity.Recording.after("init", function (data) {
-                this.relationships = ko.observableArray([]);
-                this.parseRelationships(data.relationships, self);
-
-                _.each(data.relationships, function (data) {
-                    if (data.target.entityType === "work") {
-                        MB.entity(data.target).parseRelationships(
-                            data.target.relationships, self
-                        );
-                    }
-                });
-            });
 
             MB.entity.Recording.around("displayRelationships", function (supr, vm) {
                 return _.difference(supr(vm), this.performances());
@@ -98,10 +85,15 @@
             var release = this.source;
 
             release.mediums(_.map(data.mediums, function (mediumData) {
+                _.each(mediumData.tracks, function (trackData) {
+                    MB.entity(trackData.recording).parseRelationships(
+                        trackData.recording.relationships, self
+                    );
+                });
                 return MB.entity.Medium(mediumData, release);
             }));
 
-            var trackCount = _.reduce(release.mediums,
+            var trackCount = _.reduce(release.mediums(),
                 function (memo, medium) { return memo + medium.tracks.length }, 0);
 
             initCheckboxes(this.checkboxes, trackCount);

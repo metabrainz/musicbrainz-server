@@ -26,7 +26,8 @@ sub nominate : Path('nominate') Args(1) RequireAuth(auto_editor)
     my ($self, $c, $editor) = @_;
 
     my $candidate = $c->model('Editor')->get_by_name($editor);
-    $c->detach('/error_404') if !defined $candidate or $candidate->is_auto_editor;
+    $c->detach('/error_404')
+        unless $c->user->can_nominate($candidate);
 
     my $form = $c->form( form => 'SubmitCancel' );
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {

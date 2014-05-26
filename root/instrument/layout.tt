@@ -2,7 +2,7 @@
     type => instrument.l_type_name or l('Instrument'),
     instrument => instrument.l_name
 }) %]
-[%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title -%]
+[%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title canonical_url=replace_gid(entity.gid) -%]
   [%- IF !full_width -%]
     [% WRAPPER 'layout/sidebar.tt' %]
         [%- show_image() -%]
