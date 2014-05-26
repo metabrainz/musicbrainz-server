@@ -57,6 +57,8 @@ after 'initialize' => sub {
 
     return if $self->preview;
 
+    $self->check_event_countries($self->data->{events} // []);
+
     croak "No release_group_id specified" unless $self->data->{release_group_id};
 };
 
