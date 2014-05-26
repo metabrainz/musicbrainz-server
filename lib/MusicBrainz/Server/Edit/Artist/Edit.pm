@@ -12,7 +12,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     merge_partial_date
 );
 use MusicBrainz::Server::Entity::PartialDate;
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 use JSON::Any;
@@ -21,6 +21,7 @@ use MooseX::Types::Moose qw( ArrayRef Bool Int Maybe Str );
 use MooseX::Types::Structured qw( Dict Optional );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
+use aliased 'MusicBrainz::Server::Entity::Area';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
 no if $] >= 5.018, warnings => "experimental::smartmatch";
@@ -91,12 +92,12 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
 
+    my @areas = qw( area begin_area end_area );
+
     my %map = (
         type       => [ qw( type_id ArtistType )],
         gender     => [ qw( gender_id Gender )],
-        area       => [ qw( area_id Area )],
-        begin_area => [ qw( begin_area_id Area )],
-        end_area   => [ qw( end_area_id Area )],
+        ( map { $_ => [ $_ . '_id', 'Area'] } @areas ),
         name       => 'name',
         sort_name  => 'sort_name',
         ipi_code   => 'ipi_code',
@@ -109,6 +110,12 @@ sub build_display_data
     $data->{artist} = $loaded->{Artist}{ $self->data->{entity}{id} }
         || Artist->new( name => $self->data->{entity}{name} );
 
+    for my $area (@areas) {
+        for my $side (qw( old new )) {
+            $data->{$area}->{$side} //= Area->new()
+                if defined $self->data->{$side}{$area . '_id'};
+        }
+    }
 
     for my $date_prop (qw( begin_date end_date )) {
         if (exists $self->data->{new}{$date_prop}) {
@@ -124,10 +131,6 @@ sub build_display_data
             $data->{$prop}->{old} = $self->data->{old}{$prop};
             $data->{$prop}->{new} = $self->data->{new}{$prop};
         }
-    }
-
-    if (exists $data->{country} && !exists $data->{area}) {
-        $data->{area} = delete $data->{country};
     }
 
     return $data;

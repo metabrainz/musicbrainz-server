@@ -63,10 +63,19 @@ $mech->content_contains('/release-group/234c079d-374e-4436-9448-da92dedef3ce', '
 $mech->content_contains('/artist/a45c079d-374e-4436-9448-da92dedef3cf', 'has link to artist');
 $mech->content_contains('ABBA', 'has artist');
 
-$mech->get_ok('/search?query=joe_bloggs&type=editor', 'perform editor search');
+$mech->get_ok('/search?query=united&type=area&method=direct', 'perform area search');
+html_ok($mech->content);
+$mech->content_contains('2 results', 'has result count');
+$mech->content_contains('United Kingdom', 'has correct search result');
+$mech->content_contains('/area/489ce91b-6658-3307-9877-795b68554c98', 'has link to area 1');
+$mech->content_contains('/area/8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'has link to area 2');
+$mech->content_contains('Country', 'has area type');
+$mech->content_contains('GB', 'has ISO-3166-1 area code');
+
+$mech->get_ok('/search?query=joe_bloggs&type=editor&method=direct', 'perform editor search');
 html_ok($mech->content);
 $mech->content_lacks('qoe_bloggs');
-$mech->get_ok('/search?query=new_editor&type=editor', 'perform editor search');
+$mech->get_ok('/search?query=new_editor&type=editor&method=direct', 'perform editor search');
 $mech->content_contains('/user/new_editor');
 $mech->text_contains('new_editor');
 

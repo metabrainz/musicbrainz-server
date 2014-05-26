@@ -1,0 +1,4 @@
+[%- WRAPPER 'instrument/layout.tt' title=l('Remove Instrument Alias') full_width=1 -%]
+    <h2>[% l('Remove instrument alias') %]</h2>
+    [% INCLUDE 'alias/delete.tt' %]
+[%- END -%]

@@ -14,11 +14,6 @@ with 'MusicBrainz::Server::Entity::Role::Age';
 with 'MusicBrainz::Server::Entity::Role::IPI';
 with 'MusicBrainz::Server::Entity::Role::ISNI';
 
-has 'sort_name' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
 has 'type_id' => (
     is => 'rw',
     isa => 'Int'
@@ -69,6 +64,8 @@ has 'comment' => (
     is => 'rw',
     isa => 'Str'
 );
+
+sub _appearances_table_types { ("release", "release_group", "work", "recording") }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

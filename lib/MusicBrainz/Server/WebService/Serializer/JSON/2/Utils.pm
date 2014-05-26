@@ -4,8 +4,8 @@ use warnings;
 use strict;
 
 use base 'Exporter';
-use Class::Load 'load_class';
-use List::UtilsBy 'sort_by';
+use Class::Load qw( load_class );
+use List::UtilsBy qw( sort_by );
 
 our @EXPORT_OK = qw(
     boolean
@@ -29,6 +29,7 @@ my %serializers =
         CDStubTOC
         CDTOC
         Collection
+        Instrument
         Label
         Place
         Medium
@@ -36,6 +37,7 @@ my %serializers =
         Relationship
         Release
         ReleaseGroup
+        Series
         URL
         Work
     );
@@ -53,7 +55,7 @@ sub date_period {
     my %lifespan = (
         begin => JSON::null,
         end => JSON::null,
-        ended => boolean ($entity->ended),
+        ended => boolean($entity->ended),
         );
 
     $lifespan{begin} = $entity->begin_date->format if !$entity->begin_date->is_empty;
@@ -87,7 +89,7 @@ sub list_of
 {
     my ($entity, $inc, $stash, $type, $toplevel) = @_;
 
-    my $opts = $stash->store ($entity);
+    my $opts = $stash->store($entity);
     my $list = $opts->{$type};
     my $items = (ref $list eq 'HASH') ? $list->{items} : $list;
 
@@ -100,11 +102,11 @@ sub count_of
 {
     my ($entity, $inc, $stash, $type, $toplevel) = @_;
 
-    my $opts = $stash->store ($entity);
+    my $opts = $stash->store($entity);
     my $list = $opts->{$type};
     my $items = (ref $list eq 'HASH') ? $list->{items} : $list;
 
-    return number (scalar @$items);
+    return number(scalar @$items);
 }
 
 1;

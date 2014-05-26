@@ -1,36 +1,37 @@
 package MusicBrainz::Server::Controller::Role::Alias;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
+use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
 
 requires 'load';
 
-use MusicBrainz::Server::Constants qw(
-    $EDIT_ARTIST_ADD_ALIAS $EDIT_ARTIST_DELETE_ALIAS $EDIT_ARTIST_EDIT_ALIAS
-    $EDIT_AREA_ADD_ALIAS $EDIT_AREA_DELETE_ALIAS $EDIT_AREA_EDIT_ALIAS
-    $EDIT_LABEL_ADD_ALIAS $EDIT_LABEL_DELETE_ALIAS $EDIT_LABEL_EDIT_ALIAS
-    $EDIT_PLACE_ADD_ALIAS $EDIT_PLACE_DELETE_ALIAS $EDIT_PLACE_EDIT_ALIAS
-    $EDIT_WORK_ADD_ALIAS $EDIT_WORK_DELETE_ALIAS $EDIT_WORK_EDIT_ALIAS
-);
+use MusicBrainz::Server::Constants qw( :alias );
 
 my %model_to_edit_type = (
     add => {
         Artist => $EDIT_ARTIST_ADD_ALIAS,
         Area => $EDIT_AREA_ADD_ALIAS,
+        Instrument => $EDIT_INSTRUMENT_ADD_ALIAS,
         Label  => $EDIT_LABEL_ADD_ALIAS,
         Place  => $EDIT_PLACE_ADD_ALIAS,
+        Series => $EDIT_SERIES_ADD_ALIAS,
         Work   => $EDIT_WORK_ADD_ALIAS,
     },
     delete => {
         Artist => $EDIT_ARTIST_DELETE_ALIAS,
         Area => $EDIT_AREA_DELETE_ALIAS,
+        Instrument => $EDIT_INSTRUMENT_DELETE_ALIAS,
         Label  => $EDIT_LABEL_DELETE_ALIAS,
         Place  => $EDIT_PLACE_DELETE_ALIAS,
+        Series => $EDIT_SERIES_DELETE_ALIAS,
         Work   => $EDIT_WORK_DELETE_ALIAS,
     },
     edit => {
         Artist => $EDIT_ARTIST_EDIT_ALIAS,
         Area => $EDIT_AREA_EDIT_ALIAS,
+        Instrument => $EDIT_INSTRUMENT_EDIT_ALIAS,
         Label  => $EDIT_LABEL_EDIT_ALIAS,
         Place  => $EDIT_PLACE_EDIT_ALIAS,
+        Series => $EDIT_SERIES_EDIT_ALIAS,
         Work   => $EDIT_WORK_EDIT_ALIAS,
     }
 );
@@ -39,7 +40,9 @@ my %model_to_search_hint_type_id = (
     Artist => 3,
     Area => 3,
     Label => 2,
+    Instrument => 2,
     Place => 2,
+    Series => 2,
     Work => 2
 );
 
@@ -93,16 +96,19 @@ sub delete_alias : Chained('alias') PathPart('delete') Edit
 {
     my ($self, $c) = @_;
     my $alias = $c->stash->{alias};
-    $self->edit_action($c,
-        form => 'Confirm',
-        form_args => { requires_edit_note => 1 },
-        type => $model_to_edit_type{delete}->{ $self->{model} },
-        edit_args => {
-            alias  => $alias,
-            entity => $c->stash->{ $self->{entity_name} }
-        },
-        on_creation => sub { $self->_redir_to_aliases($c) }
-    );
+    my $edit = $c->model('Edit')->find_creation_edit($model_to_edit_type{add}->{ $self->{model} }, $alias->id, id_field => 'alias_id');
+    cancel_or_action($c, $edit, $self->_aliases_url($c), sub {
+        $self->edit_action($c,
+            form => 'Confirm',
+            form_args => { requires_edit_note => 1 },
+            type => $model_to_edit_type{delete}->{ $self->{model} },
+            edit_args => {
+                alias  => $alias,
+                entity => $c->stash->{ $self->{entity_name} }
+            },
+            on_creation => sub { $self->_redir_to_aliases($c) }
+        );
+    });
 }
 
 sub edit_alias : Chained('alias') PathPart('edit') Edit
@@ -130,12 +136,20 @@ sub edit_alias : Chained('alias') PathPart('edit') Edit
     );
 }
 
+sub _aliases_url
+{
+    my ($self, $c) = @_;
+    my $action = $c->controller->action_for('aliases');
+    my $entity = $c->stash->{ $self->{entity_name} };
+    return $c->uri_for($action, [ $entity->gid ]);
+}
+
 sub _redir_to_aliases
 {
     my ($self, $c) = @_;
     my $action = $c->controller->action_for('aliases');
     my $entity = $c->stash->{ $self->{entity_name} };
-    $c->response->redirect($c->uri_for($action, [ $entity->gid ]));
+    $c->response->redirect($self->_aliases_url($c));
 }
 
 no Moose::Role;

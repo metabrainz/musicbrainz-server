@@ -1,11 +1,13 @@
 # 
 # Translators:
 # lorenzpressler <email address hidden>, 2012
+# jus <email address hidden>, 2014
+# Shepard, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-12-11 09:48+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-04-06 18:02+0000\n"
+"Last-Translator: Shepard\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -13,16 +15,973 @@ msgstr ""
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: DB:link_attribute_type/description:528
-msgid "(bamboo) flute, also known as kena or qina"
+#: DB:link_attribute_type/description:471
+msgid ""
+"(<a "
+"href=\"http://en.wikipedia.org/wiki/Continuum_(instrument)\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:492
+msgid "(<a href=\"http://en.wikipedia.org/wiki/Zurna\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:181
+msgid ""
+"(<a "
+"href=\"https://de.wikipedia.org/wiki/Flügel_(Tasteninstrument)\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:367
+msgid ""
+"(<a "
+"href=\"https://de.wikipedia.org/wiki/Kontrabassblockflöte\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:368
+msgid ""
+"(<a "
+"href=\"https://de.wikipedia.org/wiki/Subkontrabassblockflöte\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:64
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Accordion\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:73
+msgid ""
+"(<a "
+"href=\"https://en.wikipedia.org/wiki/Acoustic_bass_guitar\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:76
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Acoustic_guitar\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:89
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Aeolian_harp\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:41
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Alphorn\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:24
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Alto_clarinet\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:45
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Alto_horn\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:35
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Alto_saxophone\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:451
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Angklung\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:90
+msgid ""
+"(<a "
+"href=\"https://en.wikipedia.org/wiki/Appalachian_dulcimer\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:494
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Autoharp\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:91
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Balalaika\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:506
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Baltic_psaltery\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:263
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Bandoneon\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:92
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Banjo\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:377
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Baritone_guitar\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:42
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Baritone_horn\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:37
+msgid ""
+"(<a href=\"https://en.wikipedia.org/wiki/Baritone_saxophone\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:699
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Barrel_drum\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:25
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Bass_clarinet\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:518
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Bass_drum\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:484
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Bass_pedals\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:489
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Basset_clarinet\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:490
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Basset_horn\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:19
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Bassoon\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:520
+msgid ""
+"(<a href=\"https://en.wikipedia.org/wiki/Bayan_(accordion)\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:93
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Berimbau\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:249
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Bodhrán\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:437
+msgid ""
+"(<a href=\"https://en.wikipedia.org/wiki/Bones_(instrument)\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:128
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Bongo_drum\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:95
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Bouzouki\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:299
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Bowed_psaltery\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:275
+msgid ""
+"(<a "
+"href=\"https://en.wikipedia.org/wiki/Bowed_string_instrument\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:38
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Brass_instrument\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:51
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Bugle\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:202
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Bullroarer\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:440
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Button_accordion\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:136
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Cabasa\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:170
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Calliope_(music)\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:171
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Carillon\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:137
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Castanets\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:172
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Celesta\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:84
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Cello\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:330
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Chamberlin\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:238
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Chapman_Stick\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:521
+msgid ""
+"(<a "
+"href=\"https://en.wikipedia.org/wiki/Chromatic_button_accordion\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:376
+msgid ""
+"(<a "
+"href=\"https://en.wikipedia.org/wiki/Chromatic_harmonica\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:318
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Cithara\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:307
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Cittern\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:23
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Clarinet\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:77
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Classical_guitar\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:138
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Claves\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:173
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Clavichord\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:227
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Clavinet\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:65
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Concertina\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:127
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Conga\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:26
+msgid ""
+"(<a "
+"href=\"https://en.wikipedia.org/wiki/Contrabass_clarinet\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:538
+msgid ""
+"(<a "
+"href=\"https://en.wikipedia.org/wiki/Contrabass_saxophone\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:20
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Contrabassoon\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:39
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Cornet\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:208
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Cowbell\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:214
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Crotales\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:98
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Crwth\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:342
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Cymbal\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:140
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Dayereh\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:160
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Denis_d'or\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:204
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Didgeridoo\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:335
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Djembe\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:17
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Double_reed\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:125
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Drum\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:126
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Drum_kit\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:162
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Drum_machine\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:404
+msgid "(<a href=\"https://en.wikipedia.org/wiki/EBow\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:278
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Electric_cello\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:78
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Electric_guitar\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:432
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Electric_harp\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:329
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Electric_piano\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:316
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Electric_sitar\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:72
+msgid ""
+"(<a "
+"href=\"https://en.wikipedia.org/wiki/Electric_upright_bass\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:282
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Electric_violin\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:487
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Electronic_drum\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:159
+msgid ""
+"(<a "
+"href=\"https://en.wikipedia.org/wiki/Electronic_musical_instrument\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:539
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Electronic_organ\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:199
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Euphonium\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:85
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Fiddle\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:43
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Flugelhorn\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:27
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Flute\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:465
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Fortepiano\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:421
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Frame_drum\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:63
+msgid ""
+"(<a "
+"href=\"https://en.wikipedia.org/wiki/Free_reed_aerophone\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:698
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Friction_drum\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:301
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Gadulka\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:445
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Gamelan\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:357
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Glass_harmonica\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:215
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Glockenspiel\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:300
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Gudok\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:229
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Guitar\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:141
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Güiro\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:101
+msgid ""
+"(<a href=\"https://en.wikipedia.org/wiki/Hammered_dulcimer\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:177
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Hammond_organ\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:346
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Handbell\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:66
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Harmonica\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:81
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Harp\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:174
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Harpsichord\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:261
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Heckelphone\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:44
+msgid ""
+"(<a href=\"https://en.wikipedia.org/wiki/Horn_(instrument)\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:697
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Hourglass_drum\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:103
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Hurdy_gurdy\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:491
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Irish_bouzouki\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:104
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Jew's_harp\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:188
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Kazoo\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:442
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Keyboard_bass\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:317
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Kinnor\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:106
+msgid ""
+"(<a href=\"https://en.wikipedia.org/wiki/Kora_(instrument)\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:319
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Langeleik\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:466
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Lap_steel_guitar\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:482
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Low_whistle\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:108
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Lute\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:109
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Lyre\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:308
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Mandola\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:96
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Mandolin\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:142
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Maraca\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:216
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Marimba\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:56
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Mellophone\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:175
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Mellotron\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:428
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Metallophone\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:349
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Minimoog\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:348
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Moog_synthesizer\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:97
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Musical_bow\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:190
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Musical_saw\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:298
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Nyckelharpa\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:29
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Ocarina\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:456
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Ocean_drum\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:352
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Omnichord\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:163
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Ondes_Martenot\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:57
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Ophicleide\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:176
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Organ_(music)\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:431
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Pedal_harp\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:469
+msgid ""
+"(<a href=\"https://en.wikipedia.org/wiki/Pedal_steel_guitar\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:124
+msgid ""
+"(<a "
+"href=\"https://en.wikipedia.org/wiki/Percussion_instrument\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:180
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Piano\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:439
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Piano_accordion\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:31
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Piccolo\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:486
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Piccolo_trumpet\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:179
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Pipe_organ\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:302
+msgid ""
+"(<a "
+"href=\"https://en.wikipedia.org/wiki/Plucked_string_instrument\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:111
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Psaltery\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:455
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Rainstick\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:211
+msgid ""
+"(<a "
+"href=\"https://en.wikipedia.org/wiki/Ratchet_(instrument)\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:411
+msgid ""
+"(<a "
+"href=\"https://en.wikipedia.org/wiki/Rattle_(percussion_instrument)\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:309
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Rebab\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:276
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Rebec\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:467
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Resonator_guitar\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:182
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Rhodes_piano\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:198
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Sackbut\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:164
+msgid ""
+"(<a "
+"href=\"https://en.wikipedia.org/wiki/Sampler_(musical_instrument)\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:250
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Sarod\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:33
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Saxophone\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:197
+msgid ""
+"(<a "
+"href=\"https://en.wikipedia.org/wiki/Serpent_(instrument)\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:417
+msgid ""
+"(<a "
+"href=\"https://en.wikipedia.org/wiki/Shaker_(percussion)\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:60
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Shofar\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:191
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Singing_bowl\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:113
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Sitar\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:537
+msgid ""
+"(<a "
+"href=\"https://en.wikipedia.org/wiki/Sopranino_saxophone\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:488
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Soprano_clarinet\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:498
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Soprano_flute\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:34
+msgid ""
+"(<a href=\"https://en.wikipedia.org/wiki/Soprano_saxophone\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:200
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Sousaphone\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:210
+msgid ""
+"(<a "
+"href=\"https://en.wikipedia.org/wiki/Spoon_(musical_instrument)\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:69
+msgid ""
+"(<a href=\"https://en.wikipedia.org/wiki/String_instrument\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:161
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Stylophone\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:165
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Synclavier\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:166
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Synthesizer\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:457
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Talking_drum\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:333
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Tambourine\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:474
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Tamburica\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:586
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Tanbur\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:510
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Tangent_piano\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:167
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Telharmonium\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:222
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Temple_block\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:36
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Tenor_saxophone\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:168
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Theremin\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:132
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Timbales\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:267
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Tin_whistle\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:328
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Toy_piano\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:422
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Transverse_flute\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:497
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Treble_flute\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:115
+msgid ""
+"(<a href=\"https://en.wikipedia.org/wiki/Tres_(instrument)\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:133
+msgid ""
+"(<a "
+"href=\"https://en.wikipedia.org/wiki/Triangle_(instrument)\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:46
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Trombone\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:47
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Trumpet\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:48
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Tuba\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:218
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Tubular_bells\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:529
-msgid "12 string guitar"
-msgstr "zwölfsaitige Gitarre"
+msgid ""
+"(<a href=\"https://en.wikipedia.org/wiki/Twelve-"
+"string_guitar\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:114
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Ukulele\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:375
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Vacuum_cleaner\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:219
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Vibraphone\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:212
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Vibraslap\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:87
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Viola\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:119
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Viola_d'amore\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:297
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Viola_organista\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:86
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Violin\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:82
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Violin_family\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:120
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Violotta\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:201
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Wagner_tuba\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:323
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Warr_Guitars\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:209
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Washboard\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:121
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Washtub_bass\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:351
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Waterphone\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:134
+msgid ""
+"(<a href=\"https://en.wikipedia.org/wiki/Whip_(instrument)\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:345
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Whistle\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:15
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Wind_instrument\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:213
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Wood_block\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:16
+msgid ""
+"(<a "
+"href=\"https://en.wikipedia.org/wiki/Woodwind_instrument\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:562
+msgid ""
+"(<a "
+"href=\"https://en.wikipedia.org/wiki/Wurlitzer_electric_piano\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:122
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Xalam\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:220
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Xylophone\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:123
+msgid "(<a href=\"https://en.wikipedia.org/wiki/Zither\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:528
+msgid ""
+"(bamboo) flute, also known as kena or qina  (<a "
+"href=\"https://en.wikipedia.org/wiki/Quena\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:550
-msgid "A Batá drum is a double-headed drum originating from Nigeria."
+msgid ""
+"A Batá drum is a double-headed drum originating from Nigeria. (<a "
+"href=\"https://en.wikipedia.org/wiki/Batá_drum\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:643
@@ -54,7 +1013,9 @@ msgid "A chamber organ is a small pipe organ."
 msgstr ""
 
 #: DB:link_attribute_type/description:531
-msgid "A class of South-American guitars"
+msgid ""
+"A class of South-American guitars  (<a "
+"href=\"https://en.wikipedia.org/wiki/Cuatro_(instrument)\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:679
@@ -68,14 +1029,15 @@ msgstr ""
 #: DB:link_attribute_type/description:563
 msgid ""
 "A descant or soprano recorder is the most common size of recorder and is "
-"often learnt by children."
+"often learnt by children.  (<a "
+"href=\"https://de.wikipedia.org/wiki/Sopranblockflöte\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:626
 msgid ""
 "A fife is a small, high-pitched, transverse flute that is similar to the "
 "piccolo, but louder and shriller due to its narrower bore. (<a "
-"href=\"http://en.wikipedia.org/wiki/Fife (instrument)\">Wikipedia</a>)"
+"href=\"http://en.wikipedia.org/wiki/Fife_(instrument)\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:635
@@ -87,7 +1049,8 @@ msgstr ""
 #: DB:link_attribute_type/description:547
 msgid ""
 "A hi-hat (or hihat) is a typical part of a drum kit, consisting of a pair of"
-" cymbals mounted on a stand."
+" cymbals mounted on a stand. (<a href=\"https://en.wikipedia.org/wiki/Hi-"
+"hat\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:628
@@ -107,14 +1070,21 @@ msgstr ""
 msgid ""
 "A laser harp is an electronic musical instrument consisting of several laser"
 " beams to be blocked, in analogy with the plucking of the strings of a harp,"
-" in order to produce sounds. (<a href=\"http://en.wikipedia.org/wiki/Laser "
-"harp\">Wikipedia</a>)"
+" in order to produce sounds. (<a "
+"href=\"http://en.wikipedia.org/wiki/Laser_harp\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:303
 msgid ""
 "A latter-day construction in the form of a four-stringed, square-bodied bass"
 " guitar"
+msgstr ""
+
+#: DB:link_attribute_type/description:755
+msgid ""
+"A mouth organ is a generic term for free reed aerophone with one or more air"
+" chambers fitted with a free reed. (<a "
+"href=\"https://en.wikipedia.org/wiki/Mouth_organ\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:614
@@ -141,27 +1111,47 @@ msgid ""
 "A suikinkutsu (Japanese: 水琴窟) is a type of Japanese garden ornament which "
 "uses dripping water to create music. Although it is also known as a Japanese"
 " water zither, it is named after the sound the koto (a Japanese zither) "
-"makes and is not actually a string instrument."
+"makes and is not actually a string instrument. (<a "
+"href=\"https://en.wikipedia.org/wiki/Suikinkutsu\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:546
 msgid ""
 "A talkbox (or talk box) is an effects device which enables a musician to "
-"modify the sound of an instrument."
+"modify the sound of an instrument. (<a "
+"href=\"https://en.wikipedia.org/wiki/Talk_box\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:752
+msgid ""
+"A tar is a single-headed frame drum from North Africa and the Middle East. "
+"(<a href=\"https://en.wikipedia.org/wiki/Tar_(drum)\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:760
+msgid ""
+"A tenor violin is an instrument with a range between those of the cello and "
+"the viola. Other names: tenor viola (<a "
+"href=\"https://en.wikipedia.org/wiki/Tenor_violin\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:555
 msgid ""
 "A tom-tom (or just tom) is a cylindrical drum with no snare, commonly found "
-"in a standard drum set."
+"in a standard drum set. (<a href=\"https://en.wikipedia.org/wiki/Tom-"
+"tom_drum\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:534
-msgid "A type of fretless zither."
+msgid ""
+"A type of fretless zither. (<a "
+"href=\"https://en.wikipedia.org/wiki/Marxophone\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:638
-msgid "A typewriter, used for percussion (either keys or bells)"
+msgid ""
+"A typewriter, used for percussion (either keys or bells) (<a "
+"href=\"https://en.wikipedia.org/wiki/Typewriter\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:633
@@ -181,7 +1171,9 @@ msgstr ""
 #: DB:link_attribute_type/description:620
 msgid ""
 "A wooden, beaked double-flute traditionally played by goat herders in the "
-"Punjab region of India and Pakistan."
+"Punjab region of India and Pakistan. Other names: ਅਲਗੋਜ਼ੇ, algoze, algoza, "
+"alghoza, alghoze  (<a "
+"href=\"https://en.wikipedia.org/wiki/Algoze\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:651
@@ -197,17 +1189,20 @@ msgstr ""
 #: DB:link_attribute_type/description:28
 msgid ""
 "Also known as vertical flutes, rim-blown flutes or notched flutes, among "
-"other names."
+"other names.  (<a href=\"https://en.wikipedia.org/wiki/End-"
+"blown_flute\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:363
-msgid "Alto recorder / Treble recorder (Altblockflöte)"
+msgid ""
+"Alto recorder / Treble recorder (Altblockflöte)  (<a "
+"href=\"https://de.wikipedia.org/wiki/Altblockflöte\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:443
 msgid ""
-"Amadinda, southern Uganda giant xylophone, made on with resonating "
-"hardwoodwood bars"
+"Amadinda, southern Uganda giant xylophone, made on with resonating hardwood "
+"bars  (<a href=\"https://de.wikipedia.org/wiki/Amadinda\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:645
@@ -220,21 +1215,20 @@ msgstr ""
 #: DB:link_attribute_type/description:435
 msgid ""
 "An Irish/Scottish harp, also known as cláirseach, celtic harp and gaelic "
-"harp"
+"harp (<a href=\"https://en.wikipedia.org/wiki/Celtic_harp\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:403
 msgid ""
 "Ancient frame drum "
-"(http://www.donbak.co.uk/Articles/DafTheSpiritualFrameDrum.htm)"
-msgstr ""
-
-#: DB:link_attribute_type/description:90
-msgid "Appalachian dulcimer"
+"(http://www.donbak.co.uk/Articles/DafTheSpiritualFrameDrum.htm) (<a "
+"href=\"https://en.wikipedia.org/wiki/Daf\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:480
-msgid "Armenian traditional woodwind instrument"
+msgid ""
+"Armenian traditional woodwind instrument  (<a "
+"href=\"https://en.wikipedia.org/wiki/Duduk\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:514
@@ -244,11 +1238,9 @@ msgid ""
 msgstr ""
 
 #: DB:link_attribute_type/description:444
-msgid "Balafon, Malian 'gourd xylophone'"
-msgstr ""
-
-#: DB:link_attribute_type/description:506
-msgid "Baltic psalteries"
+msgid ""
+"Balafon, Malian 'gourd xylophone' (<a "
+"href=\"https://en.wikipedia.org/wiki/Balafon\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:476
@@ -259,88 +1251,92 @@ msgstr ""
 msgid "Bandura, ukrainian 14th century lute"
 msgstr ""
 
-#: DB:link_attribute_type/description:479
-msgid "Banjitar, Guitjo or Ganjo, http://en.wikipedia.org/wiki/Guitjo"
-msgstr ""
-
 #: DB:link_attribute_type/description:251
 msgid ""
 "Bansuri (or बांसुरी) is a transverse alto flute, The Venu's North Indian "
-"counterpart "
+"counterpart   (<a "
+"href=\"https://en.wikipedia.org/wiki/Bansuri\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:277
-msgid "Bass (modern, typically electrical, but not always)"
+msgid ""
+"Bass (modern, typically electrical, but not always)  (<a "
+"href=\"https://en.wikipedia.org/wiki/Bass_guitar\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:70
 msgid ""
-"Bass is a common but generic credit which refers to more than one instrument"
-" - the bass guitar and the double bass (a.k.a. contrabass, acoustic upright "
-"bass, wood bass). Please use the correct instrument if you know which one is"
-" intended."
+"Bass is a common but generic credit which refers to more than one "
+"instrument, the most common being the bass guitar and the double bass "
+"(a.k.a. contrabass, acoustic upright bass, wood bass). Please use the "
+"correct instrument if you know which one is intended. (<a "
+"href=\"https://en.wikipedia.org/wiki/Bass_(instrument)\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:365
-msgid "Bass recorder / F-bass recorder (Bassblockflöte)"
+msgid ""
+"Bass recorder / F-bass recorder (Bassblockflöte)  (<a "
+"href=\"https://de.wikipedia.org/wiki/Bassblockflöte\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:420
-msgid "Bendir, frame drum from North Africa, doesn't have jingles"
+msgid ""
+"Bendir, frame drum from North Africa, doesn't have jingles (<a "
+"href=\"https://en.wikipedia.org/wiki/Bendir\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:460
 msgid ""
 "Bin-sasara, made of many small slats of wood connected by a spine of string "
-"with handles at each end"
+"with handles at each end (<a "
+"href=\"https://en.wikipedia.org/wiki/Binzasara\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:504
-msgid "Boatswain's pipe or Bosun's whistle"
+msgid ""
+"Boatswain's pipe or Bosun's whistle  (<a "
+"href=\"https://en.wikipedia.org/wiki/Boatswain's_call\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:413
-msgid "Cajón, Peruvian box drum"
+msgid ""
+"Cajón, Peruvian box drum (<a "
+"href=\"https://en.wikipedia.org/wiki/Cajón\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:412
 msgid "Chacha, west Indian rattle"
 msgstr ""
 
-#: DB:link_attribute_type/description:330
-msgid "Chamberlin"
-msgstr ""
-
-#: DB:link_attribute_type/description:238
-msgid "Chapman stick"
-msgstr "Chapman Stick"
-
 #: DB:link_attribute_type/description:499
 msgid ""
 "Concert flute (also called C flute, Boehm flute, silver flute or simply just"
-" \"flute\")"
+" \"flute\")  (<a "
+"href=\"https://en.wikipedia.org/wiki/Western_concert_flute\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:205
-msgid "Conch shell"
-msgstr ""
-
-#: DB:link_attribute_type/description:471
 msgid ""
-"Continuum, strange thingy: "
-"http://en.wikipedia.org/wiki/Continuum_(instrument)"
+"Conch shell  (<a "
+"href=\"https://en.wikipedia.org/wiki/Conch_(instrument)\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:273
-msgid "Cornett (not to be confused with Cornet)"
+msgid ""
+"Cornett (not to be confused with Cornet)  (<a "
+"href=\"https://en.wikipedia.org/wiki/Cornett\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:427
-msgid "Crumhorn used in the 14th to 17th centuries in Europe"
+msgid ""
+"Crumhorn used in the 14th to 17th centuries in Europe  (<a "
+"href=\"https://en.wikipedia.org/wiki/Crumhorn\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:326
-msgid "Cymbalum (Cimbalom)"
+msgid ""
+"Cymbalum (Cimbalom) (<a "
+"href=\"https://en.wikipedia.org/wiki/Cimbalom\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:419
@@ -351,29 +1347,27 @@ msgid ""
 msgstr ""
 
 #: DB:link_attribute_type/description:496
-msgid "Davul, turkish drum"
-msgstr ""
-
-#: DB:link_attribute_type/description:160
-msgid "Denis d'or"
+msgid ""
+"Davul, turkish drum (<a "
+"href=\"https://en.wikipedia.org/wiki/Davul\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:240
-msgid "Dobro, resonator guitar"
+msgid ""
+"Dobro, resonator guitar  (<a "
+"href=\"https://en.wikipedia.org/wiki/Dobro\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:483
-msgid "Dohol, traditional Iranian drum"
+msgid ""
+"Dohol, traditional Iranian drum (<a "
+"href=\"https://en.wikipedia.org/wiki/Dohol\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:647
 msgid ""
 "Double headed drum from India.  (<a "
 "href=\"http://en.wikipedia.org/wiki/Dhol\">Wikipedia</a>)"
-msgstr ""
-
-#: DB:link_attribute_type/description:161
-msgid "Dubreq Stylophone"
 msgstr ""
 
 #: DB:link_attribute_type/description:264
@@ -398,44 +1392,57 @@ msgstr ""
 #: DB:link_attribute_type/description:500
 msgid ""
 "Flûte d'amour (also called tenor flute) is the mezzo-soprano in the flute "
-"family"
+"family  (<a "
+"href=\"https://en.wikipedia.org/wiki/Flûte_d'amour\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:464
-msgid "Gankogui, iron bell"
+msgid ""
+"Gankogui, iron bell  (<a "
+"href=\"https://de.wikipedia.org/wiki/Gankogui\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:361
-msgid "Garklein recorder (Garkleinblockflöte)"
+msgid ""
+"Garklein recorder (Garkleinblockflöte)  (<a "
+"href=\"https://de.wikipedia.org/wiki/Garkleinblockflöte\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:436
 msgid "German/Bohemian harp"
-msgstr ""
+msgstr "deutsche/böhmische Harfe"
 
 #: DB:link_attribute_type/description:408
-msgid "Ghatam, a South Indian Carnatic music percussion instrument"
+msgid ""
+"Ghatam, a South Indian Carnatic music percussion instrument (<a "
+"href=\"https://en.wikipedia.org/wiki/Ghatam\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:338
+msgid ""
+"Goblet drums are single-headed drums with a goblet shaped body. (<a "
+"href=\"https://en.wikipedia.org/wiki/Goblet_drum\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:366
-msgid "Great bass recorder / C-bass recorder (Großbassblockflöte)"
+msgid ""
+"Great bass recorder / C-bass recorder (Großbassblockflöte)  (<a "
+"href=\"https://de.wikipedia.org/wiki/Großbassblockflöte\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:370
 msgid "Greek Panflute"
-msgstr ""
+msgstr "griechische Panflöte"
 
 #: DB:link_attribute_type/description:306
 msgid "Greek baglama"
 msgstr "griechischer Baglamas"
 
 #: DB:link_attribute_type/description:508
-msgid "Gusli, an ancient Slavic musical instrument, Russian"
+msgid ""
+"Gusli, an ancient Slavic musical instrument, Russian (<a "
+"href=\"https://en.wikipedia.org/wiki/Gusli\">Wikipedia</a>)"
 msgstr ""
-
-#: DB:link_attribute_type/description:177
-msgid "Hammond organ"
-msgstr "Hammond-Orgel"
 
 #: DB:link_attribute_type/description:398
 msgid "Handclaps, also known as Palmas"
@@ -446,15 +1453,13 @@ msgid "Harddisk configured to produce tones in pattern."
 msgstr ""
 
 #: DB:link_attribute_type/description:102
-msgid "Hardingfele (Hardanger)"
+msgid ""
+"Hardingfele (Hardanger)  (<a "
+"href=\"https://en.wikipedia.org/wiki/Hardanger_fiddle\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:400
 msgid "Hawaiian guitar, \"slack string guitar\""
-msgstr ""
-
-#: DB:link_attribute_type/description:337
-msgid "Hollow wooden instrument with slits, played with drumsticks"
 msgstr ""
 
 #: DB:link_attribute_type/description:283
@@ -467,62 +1472,61 @@ msgstr ""
 msgid "Indian bamboo flutes"
 msgstr "indische Bambusflöten"
 
-#: DB:link_attribute_type/description:491
-msgid "Irish bouzouki"
-msgstr "irische Bouzouki"
-
-#: DB:link_attribute_type/description:224
-msgid "Japanese end-blown flute"
-msgstr ""
-
-#: DB:link_attribute_type/description:293
-msgid "Japanese string instrument"
-msgstr ""
-
 #: DB:link_attribute_type/description:458
-msgid "Japanese traditional drum beaten with sticks called bachi"
+msgid ""
+"Japanese traditional drum beaten with sticks called bachi. (<a "
+"href=\"https://en.wikipedia.org/wiki/Taiko\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:507
-msgid "Kanklės, Lithuanian plucked string"
+msgid ""
+"Kanklės, Lithuanian plucked string (<a "
+"href=\"https://en.wikipedia.org/wiki/Kanklės\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:509
-msgid "Kantele, Finnish traditional plucked string"
+msgid ""
+"Kantele, Finnish traditional plucked string (<a "
+"href=\"https://en.wikipedia.org/wiki/Kantele\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:360
-msgid "Kanun, Arabic plucked strings"
+msgid ""
+"Kanun, Arabic plucked strings (<a "
+"href=\"https://en.wikipedia.org/wiki/Qanun_(instrument)\">Wikipedia</a>)"
 msgstr ""
 
-#: DB:link_attribute_type/description:380
-msgid "Ken (wooden, copper hauboits) (Ken Dai or Ken Bau)"
-msgstr ""
-
-#: DB:link_attribute_type/description:388
-msgid "Khen blông tree leaf"
+#: DB:link_attribute_type/description:203
+msgid ""
+"Keyed brass instruments use holes along the body of the instrument in a "
+"similar way to a woodwind instrument."
 msgstr ""
 
 #: DB:link_attribute_type/description:334
 msgid ""
 "Kortholt, a woodwind instrument that was popular in the Renaissance period."
+"  (<a href=\"https://en.wikipedia.org/wiki/Kortholt\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:513
 msgid ""
 "Like (and developed from) the Northumbrian smallpipes, but with Great "
-"Highland Bagpipe fingering."
+"Highland Bagpipe fingering.  (<a "
+"href=\"https://en.wikipedia.org/wiki/Scottish_smallpipes\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:515
 msgid ""
 "Looks like a recorder, but with double reeds and bagpipe fingering system. "
 "Mostly used to learn how to play the pipes, but are occasionally played in "
-"their own right."
+"their own right.  (<a "
+"href=\"https://en.wikipedia.org/wiki/Practice_chanter\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:242
-msgid "Madal, hand drum originating from Nepal"
+msgid ""
+"Madal, hand drum originating from Nepal (<a "
+"href=\"https://en.wikipedia.org/wiki/Madal\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:649
@@ -534,19 +1538,20 @@ msgstr ""
 
 #: DB:link_attribute_type/description:110
 msgid ""
-"Mbira, (sansa, kalimba, luvale, karimba, marimbula, matape, thumb piano)"
+"Mbira, (sansa, kalimba, luvale, karimba, marimbula, matape, thumb piano) (<a"
+" href=\"https://en.wikipedia.org/wiki/Mbira\">Wikipedia</a>)"
 msgstr ""
 
-#: DB:link_attribute_type/description:175
-msgid "Mellotron"
-msgstr "Mellotron"
-
 #: DB:link_attribute_type/description:67
-msgid "Melodica, also known as pianica"
+msgid ""
+"Melodica, also known as pianica  (<a "
+"href=\"https://en.wikipedia.org/wiki/Melodica\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:143
-msgid "Mendoza (Monkey stick)"
+msgid ""
+"Mendoza (Monkey stick) (<a "
+"href=\"https://en.wikipedia.org/wiki/Monkey_stick\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:452
@@ -554,12 +1559,10 @@ msgid "Metal Angklung \"Deagan organ chimes\""
 msgstr ""
 
 #: DB:link_attribute_type/description:117
-msgid "Mexican vihuela, used by mariachi bands"
+msgid ""
+"Mexican vihuela, used by mariachi bands  (<a "
+"href=\"https://en.wikipedia.org/wiki/Mexican_vihuela\">Wikipedia</a>)"
 msgstr ""
-
-#: DB:link_attribute_type/description:349
-msgid "Minimoog"
-msgstr "Minimoog"
 
 #: DB:link_attribute_type/description:703
 msgid ""
@@ -568,24 +1571,34 @@ msgid ""
 "vibrating membrane."
 msgstr ""
 
-#: DB:link_attribute_type/description:348
-msgid "Moog"
-msgstr "Moog"
-
 #: DB:link_attribute_type/description:369
-msgid "Nai, Romanian Panflute"
+msgid ""
+"Nai, Romanian Panflute  (<a "
+"href=\"https://en.wikipedia.org/wiki/Nai_(pan_flute)\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:49
+msgid ""
+"Natural brass instruments only play notes in the instrument's harmonic "
+"series."
 msgstr ""
 
 #: DB:link_attribute_type/description:438
-msgid "Northumbrian (small)pipes"
+msgid ""
+"Northumbrian (small)pipes  (<a "
+"href=\"https://en.wikipedia.org/wiki/Northumbrian_smallpipes\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:22
-msgid "Oboe (soprano)"
+msgid ""
+"Oboe (soprano)  (<a "
+"href=\"https://en.wikipedia.org/wiki/Oboe\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:581
-msgid "Oboe d'amore / Oboe d'amour (mezzo-soprano)"
+msgid ""
+"Oboe d'amore / Oboe d'amour (mezzo-soprano)  (<a "
+"href=\"https://en.wikipedia.org/wiki/Oboe_d'amore\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:265
@@ -619,18 +1632,22 @@ msgid ""
 msgstr ""
 
 #: DB:link_attribute_type/description:30
-msgid "Pan flute (Pan pipes)"
+msgid ""
+"Pan flute (Pan pipes)  (<a "
+"href=\"https://en.wikipedia.org/wiki/Pan_flute\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:624
 msgid ""
 "Percussion instrument made from two steel sheets that are attached together "
 "creating a recognizable 'UFO shape'. (<a "
-"href=\"http://en.wikipedia.org/wiki/Hang (instrument)\">Wikipedia</a>)"
+"href=\"http://en.wikipedia.org/wiki/Hang_(instrument)\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:610
-msgid "Percussion performed by parts of the body."
+msgid ""
+"Percussion performed by parts of the body. (<a "
+"href=\"https://en.wikipedia.org/wiki/Body_percussion\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:587
@@ -643,11 +1660,15 @@ msgstr ""
 #: DB:link_attribute_type/description:652
 msgid ""
 "Persian / Turkish / Arabic end-blown flute with five or six finger holes and"
-" one thumb hole. (<a href=\"http://en.wikipedia.org/wiki/Ney\">Ney</a>)"
+" one thumb hole. (<a "
+"href=\"http://en.wikipedia.org/wiki/Ney\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:379
-msgid "Phách (The clappers)"
+msgid ""
+"Phách are small wooden sticks beaten on a small piece of bamboo or a wooden "
+"block. The sound produced is used to keep time. (<a "
+"href=\"https://en.wikipedia.org/wiki/Phách\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:416
@@ -655,16 +1676,16 @@ msgid "Pí thiu or Pí khui vertical flute"
 msgstr ""
 
 #: DB:link_attribute_type/description:32
-msgid "Recorder flute (Blockflöte)"
+msgid ""
+"Recorder flute (Blockflöte)  (<a "
+"href=\"https://en.wikipedia.org/wiki/Recorder_(musical_instrument)\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:406
-msgid "Rek (Oriental tambourine)"
+msgid ""
+"Rek, riq, riqq, rik (Oriental tambourine) (<a "
+"href=\"https://en.wikipedia.org/wiki/Riq\">Wikipedia</a>)"
 msgstr ""
-
-#: DB:link_attribute_type/description:182
-msgid "Rhodes piano"
-msgstr "Rhodes Piano"
 
 #: DB:link_attribute_type/description:657
 msgid ""
@@ -673,37 +1694,44 @@ msgid ""
 msgstr ""
 
 #: DB:link_attribute_type/description:358
-msgid "Santoor, Indian dulcimer"
+msgid ""
+"Santoor, Indian dulcimer (<a "
+"href=\"https://en.wikipedia.org/wiki/Santoor\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:325
-msgid "Santur, Middle Eastern"
+msgid ""
+"Santur, Middle Eastern (<a "
+"href=\"https://en.wikipedia.org/wiki/Santur\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:493
-msgid "Shawm, Medieval and Renaissance instrument, predecessor to the oboe"
+msgid ""
+"Shawm, Medieval and Renaissance instrument, predecessor to the oboe  (<a "
+"href=\"https://en.wikipedia.org/wiki/Shawm\">Wikipedia</a>)"
 msgstr ""
 
-#: DB:link_attribute_type/description:462
-msgid "Shekere, calabash shaker embroidered with beads"
-msgstr ""
-
-#: DB:link_attribute_type/description:450
-msgid "Sistrum, anchient handheld rattle"
+#: DB:link_attribute_type/description:272
+msgid "Slide brass instruments use a slide to change the length of tubing."
 msgstr ""
 
 #: DB:link_attribute_type/description:268
-msgid "Slide whistle (infamous 'Clangers' sound)"
+msgid ""
+"Slide whistle (infamous 'Clangers' sound)  (<a "
+"href=\"https://en.wikipedia.org/wiki/Slide_whistle\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:522
 msgid ""
 "Slightly smaller, four-string version of the steel-string acoustic guitar or"
-" electric guitar"
+" electric guitar  (<a "
+"href=\"https://en.wikipedia.org/wiki/Tenor_guitar\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:446
-msgid "Slit drum, hollowed out tree with slits"
+msgid ""
+"Slit drum, hollowed out tree with slits (<a "
+"href=\"https://en.wikipedia.org/wiki/Slit_drum\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:129
@@ -713,7 +1741,9 @@ msgid ""
 msgstr ""
 
 #: DB:link_attribute_type/description:362
-msgid "Sopranino recorder (Sopraninoblockflöte)"
+msgid ""
+"Sopranino recorder (Sopraninoblockflöte)  (<a "
+"href=\"https://de.wikipedia.org/wiki/Sopraninoblockflöte\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:206
@@ -726,11 +1756,8 @@ msgstr "spanische Vihuela"
 
 #: DB:link_attribute_type/description:459
 msgid ""
-"Surdo / Surdu, large bass drum used in Brazilian music, most notably samba"
-msgstr ""
-
-#: DB:link_attribute_type/description:269
-msgid "Sáo trúc or Sao Tre vietnamese transverse bamboo flute"
+"Surdo / Surdu, large bass drum used in Brazilian music, most notably samba "
+"(<a href=\"https://en.wikipedia.org/wiki/Surdo\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:473
@@ -748,12 +1775,10 @@ msgid ""
 "href=\"http://en.wikipedia.org/wiki/Tap_dance\">Wikipedia</a>)"
 msgstr ""
 
-#: DB:link_attribute_type/description:288
-msgid "Tenor Chinese viola/in"
-msgstr ""
-
 #: DB:link_attribute_type/description:364
-msgid "Tenor recorder (Tenorblockflöte)"
+msgid ""
+"Tenor recorder (Tenorblockflöte)  (<a "
+"href=\"https://de.wikipedia.org/wiki/Tenorblockflöte\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:591
@@ -769,12 +1794,6 @@ msgid ""
 "The E♭ clarinet is a member of the clarinet family sometimes known as a "
 "sopranino clarinet. (<a "
 "href=\"http://en.wikipedia.org/wiki/E-flat_clarinet\">Wikipedia</a>)"
-msgstr ""
-
-#: DB:link_attribute_type/description:338
-msgid ""
-"The Goblet drum has many many names. See  "
-"http://en.wikipedia.org/wiki/Goblet_drum"
 msgstr ""
 
 #: DB:link_attribute_type/description:673
@@ -804,10 +1823,16 @@ msgid ""
 " href=\"http://en.wikipedia.org/wiki/Vienna_horn\">Wikipedia</a>)"
 msgstr ""
 
+#: DB:link_attribute_type/description:399
+msgid ""
+"The Vietnamese guitar is similar to a normal guitar, but with scalloped fingerboard resulting in elevated frets similar to the đàn nguyệt.\n"
+"Other names: lục huyền cầm, đàn lục huyền cầm, guitar phím lõm, ghi-ta phím lõm, đàn ghi-ta phím lõm, ghi-ta Việt Nam, ghi-ta vọng cổ (<a href=\"https://en.wikipedia.org/wiki/Guitar_phím_lõm\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:675
 msgid ""
-"The Xaphoon is a keyless chromatic single-reed instrument woodwind "
-"instrument. (<a href=\"http://en.wikipedia.org/wiki/Xaphoon\">Wikipedia</a>)"
+"The Xaphoon is a keyless chromatic single-reed woodwind instrument. (<a "
+"href=\"http://en.wikipedia.org/wiki/Xaphoon\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:597
@@ -842,11 +1867,12 @@ msgstr ""
 #: DB:link_attribute_type/description:693
 msgid ""
 "The bangu (Chinese: 板鼓, bǎngǔ), also known as danpigu (Chinese: 單皮鼓, 单皮鼓, "
-"dānpígǔ) is a Chinese frame drum, struck by two bamboo sticks (<a "
-"href=\"http://en.wikipedia.org/wiki/Bangu_(drum)\">Wikipedia</a>). It is "
-"usually played along with the clappers ban (Chinese: 板, bǎn). Therefore, "
-"both instruments are known collectively as guban (Chinese: 鼓板, gǔbǎn). (<a "
-"href=\"http://en.wikipedia.org/wiki/Guban_(instrument)\">Wikipedia</a>)"
+"dānpígǔ) is a Chinese frame drum, struck by two bamboo sticks. It is usually"
+" played along with the clappers ban (Chinese: 板, bǎn) and both instruments "
+"are known collectively as <a "
+"href=\"http://en.wikipedia.org/wiki/Guban_(instrument)\">guban</a> (Chinese:"
+" 鼓板, gǔbǎn). (<a "
+"href=\"http://en.wikipedia.org/wiki/Bangu_(drum)\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:291
@@ -855,6 +1881,13 @@ msgid ""
 "huqin family. It is also called banghu (Chinese: 梆胡, bānghú), for its use in"
 " bangzi opera. (<a "
 "href=\"http://en.wikipedia.org/wiki/Banhu\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:479
+msgid ""
+"The banjitar is a six-string banjo with the neck of a guitar. Other names: "
+"guitjo, banjo guitar, ganjo, guitar banjo, banjar, bantar. (<a "
+"href=\"https://en.wikipedia.org/wiki/Banjo_guitar\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:749
@@ -871,7 +1904,8 @@ msgid ""
 "The bass saxophone is the second largest existing member of the saxophone "
 "family (not counting the subcontrabass tubax). It is similar in design to a "
 "baritone saxophone, but it is larger, with a longer loop near the "
-"mouthpiece."
+"mouthpiece.  (<a "
+"href=\"https://en.wikipedia.org/wiki/Bass_saxophone\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:592
@@ -913,8 +1947,9 @@ msgstr ""
 
 #: DB:link_attribute_type/description:599
 msgid ""
-"The caxixi is a shaker originating in Brazil which is made of a small wicker basket containing seeds or other small particles.\n"
-"(<a href=\"http://en.wikipedia.org/wiki/Caxixi\">Wikipedia</a>)"
+"The caxixi is a shaker originating in Brazil which is made of a small wicker"
+" basket containing seeds or other small particles. (<a "
+"href=\"http://en.wikipedia.org/wiki/Caxixi\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:524
@@ -931,14 +1966,15 @@ msgid ""
 msgstr ""
 
 #: DB:link_attribute_type/description:559
-msgid "The charango is a small South American lute."
+msgid ""
+"The charango is a small South American lute.  (<a "
+"href=\"https://en.wikipedia.org/wiki/Charango\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:690
 msgid ""
 "The chikuzen biwa (Japanese: 筑前琵琶) is a biwa with either four strings and "
-"frets or five strings and frets popularised during the Meiji period. (<a "
-"href=\"http://en.wikipedia.org/wiki/Biwa\">Wikipedia</a>)"
+"frets or five strings and frets popularised during the Meiji period."
 msgstr ""
 
 #: DB:link_attribute_type/description:622
@@ -959,6 +1995,13 @@ msgid ""
 "The daegeum (Korean: 대금, also spelt taegŭm) is a large transverse flute from"
 " Korea which is made of bamboo. (<a "
 "href=\"http://en.wikipedia.org/wiki/Daegeum\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:288
+msgid ""
+"The dahu (Chinese: 大胡, dàhú), also known as cizhonghu or xiaodihu, is a "
+"large Chinese bowed string instrument in the huqin family. (<a "
+"href=\"https://en.wikipedia.org/wiki/Dahu_(instrument)\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:663
@@ -993,7 +2036,7 @@ msgid ""
 "The dizi (Chinese: 笛子, dízi) is a Chinese transverse flute typically made of"
 " bamboo. In Chinese, it is sometimes just called 笛 (di), but in Japanese 笛 "
 "(fue) is a more generic word referring to a whole class of flutes rather "
-"than this specific instrument. (<a "
+"than this specific instrument. Other names: ti-tzu (<a "
 "href=\"http://en.wikipedia.org/wiki/Dizi_(musical_instrument)\">Wikipedia</a>)"
 msgstr ""
 
@@ -1110,7 +2153,7 @@ msgstr ""
 msgid ""
 "The guzheng (Chinese: 古箏, gǔzhēng) is a Chinese plucked zither, with 18 to "
 "23 or more strings and movable bridges. It is also simply called zheng "
-"(Chinese: 箏, zhēng). (<a "
+"(Chinese: 箏, zhēng). Other names: kucheng, cheng (<a "
 "href=\"http://en.wikipedia.org/wiki/Guzheng\">Wikipedia</a>)"
 msgstr ""
 
@@ -1123,8 +2166,14 @@ msgstr ""
 #: DB:link_attribute_type/description:691
 msgid ""
 "The heike biwa (Japanese: 平家琵琶) is a biwa with four strings and five frets "
-"used to play Heike Monogatari. (<a "
-"href=\"http://en.wikipedia.org/wiki/Biwa\">Wikipedia</a>)"
+"used to play Heike Monogatari."
+msgstr ""
+
+#: DB:link_attribute_type/description:761
+msgid ""
+"The hichiriki (Japanese: 篳篥) is a double reed Japanese flute used as one of "
+"two main melodic instruments in Japanese gagaku music. (<a "
+"href=\"https://en.wikipedia.org/wiki/Hichiriki\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:659
@@ -1161,7 +2210,7 @@ msgstr ""
 msgid ""
 "The jinghu (Chinese: 京胡,  jīnghú) is a Chinese bowed string instrument with "
 "two strings used primarily in Beijing opera. Also spelt jing hu. (<a "
-"href=\"http://en.wikipedia.org/wiki/Jiaohu\">Wikipedia</a>)"
+"href=\"https://en.wikipedia.org/wiki/Jinghu_(instrument)\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:355
@@ -1171,7 +2220,8 @@ msgid ""
 "such as the Xơ Đăng and the Bahnar. It consists of a number of different "
 "sized bamboo tubes laid horizontally which are played by the musician "
 "clapping their slightly cupped hands in front of the tubes in order to push "
-"air into the tubes."
+"air into the tubes. (<a "
+"href=\"https://en.wikipedia.org/wiki/K'lông_pút\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:613
@@ -1197,7 +2247,18 @@ msgstr ""
 #: DB:link_attribute_type/description:551
 msgid ""
 "The kaval is a chromatic end-blown flute from the Balkans and Anatolia. It "
-"is known by a number of names including caval and blul."
+"is known by a number of names including caval and blul.  (<a "
+"href=\"https://en.wikipedia.org/wiki/Kaval\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:756
+msgid ""
+"The khene is a mouth organ from Laos and north-east Thailand which is also "
+"used by some ethnic minority groups in Vietnam. It typically consists of 14 "
+"bamboo pipes arranged into two rows which are connected to a small, "
+"hollowed-out hardwood windchest. Other names: khaen, kaen, khen, ແຄນ, แคน, "
+"គែន, khèn bè, khén pé, đinh duar, đinh khén, khen be, ken pe (<a "
+"href=\"https://en.wikipedia.org/wiki/Khene\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:359
@@ -1209,8 +2270,8 @@ msgstr ""
 #: DB:link_attribute_type/description:395
 msgid ""
 "The khèn Mèo is a mouth organ used by the Hmong people. It has bamboo pipes "
-"(typically six) which each have a free reed. Other names include kềnh "
-"H'Mông, qeej."
+"(typically six) which each have a free reed. Other names: kềnh H'Mông, qeej "
+"(<a href=\"https://vi.wikipedia.org/wiki/Kềnh_H'Mông\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:608
@@ -1219,6 +2280,12 @@ msgid ""
 "brass gong, typically about 20cm in diameter, which is used primarily in the"
 " folk music of Korea. (<a "
 "href=\"http://en.wikipedia.org/wiki/Kkwaenggwari\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:293
+msgid ""
+"The kokyo (Japanese: 胡弓, kokyū) is a Japanese bowed string instrument. (<a "
+"href=\"https://en.wikipedia.org/wiki/Kokyū\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:655
@@ -1244,6 +2311,20 @@ msgid ""
 "href=\"http://en.wikipedia.org/wiki/Tsuzumi\">Wikipedia</a>)"
 msgstr ""
 
+#: DB:link_attribute_type/description:380
+msgid ""
+"The kèn bầu is a double reed instrument from Vietnam. (<a "
+"href=\"https://en.wikipedia.org/wiki/Kèn_bầu\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:388
+msgid ""
+"The kèn lá is an instrument used by the Hmong minority of Vietnam which "
+"consists of a leaf which is curled up and positioned in the mouth so it "
+"vibrates when it is blown. Other names: khen la, nplooj (<a "
+"href=\"https://vi.wikipedia.org/wiki/Kèn_lá\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:668
 msgid ""
 "The kōauau is a small ductless and notchless Maori flute which is four to "
@@ -1262,6 +2343,13 @@ msgstr ""
 msgid "The limbe is a Mongolian transverse flute."
 msgstr ""
 
+#: DB:link_attribute_type/description:754
+msgid ""
+"The liuqin (Chinese: 柳琴, liǔqín) is a Chinese string instrument which has "
+"four strings and a pear-shaped body and resembles the pipa. (<a "
+"href=\"https://en.wikipedia.org/wiki/Liuqin\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:744
 msgid ""
 "The mandocello is a plucked string instrument of the mandolin family, the "
@@ -1274,7 +2362,8 @@ msgid ""
 "The morin khuur (Mongolian: морин хуур, also written morin huur or morin "
 "xuur) is a Mongolian bowed string instrument which has two strings. The "
 "scroll is normally carved in the shape of a horse's head. It is also known "
-"as mǎtóuqín (traditional Chinese: 馬頭琴, simplified Chinese: 马头琴)."
+"as mǎtóuqín (traditional Chinese: 馬頭琴, simplified Chinese: 马头琴). (<a "
+"href=\"https://en.wikipedia.org/wiki/Morin_khuur\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:584
@@ -1286,17 +2375,23 @@ msgid ""
 "href=\"http://en.wikipedia.org/wiki/Mridangam\">Wikipedia</a>)"
 msgstr ""
 
+#: DB:link_attribute_type/description:337
+msgid ""
+"The mõ is a Vietnamese idiophone consisting of a hollow piece of wood with "
+"slits which is played with drumsticks. Other names: mộc ngư (<a "
+"href=\"https://vi.wikipedia.org/wiki/Mõ\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:665
 msgid ""
 "The nagadou-daiko (Japanese: 長胴太鼓) is an elongated barrel-shaped Japanese "
-"drum. (<a href=\"http://ja.wikipedia.org/wiki/長胴太鼓\">Japanese Wikipedia</a>)"
+"drum. (<a href=\"http://ja.wikipedia.org/wiki/長胴太鼓\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:743
 msgid ""
 "The naobo (Chinese: 铙钹, náobó) are Chinese cymbals, specially used in "
-"Beijing opera. (<a "
-"href=\"http://en.wikipedia.org/wiki/List_of_Chinese_musical_instruments#Metal_.28.E9.87.91.29\">Wikipedia</a>)"
+"Beijing opera."
 msgstr ""
 
 #: DB:link_attribute_type/description:603
@@ -1344,6 +2439,14 @@ msgid ""
 "href=\"http://en.wikipedia.org/wiki/Pakhavaj\">Wikipedia</a>)"
 msgstr ""
 
+#: DB:link_attribute_type/description:751
+msgid ""
+"The pedal piano (or piano-pédalier) is a kind of piano that includes a "
+"pedalboard, enabling bass register notes to be played with the feet, as is "
+"standard on the organ. (<a "
+"href=\"http://en.wikipedia.org/wiki/Pedal_piano\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:429
 msgid ""
 "The pipa (Chinese: 琵琶, pípa) is a four-stringed plucked Chinese instrument "
@@ -1359,6 +2462,21 @@ msgid ""
 "href=\"http://en.wikipedia.org/wiki/Piri\">Wikipedia</a>)"
 msgstr ""
 
+#: DB:link_attribute_type/description:758
+msgid ""
+"The qilaut is an Inuit frame drum which has a handle and is made of caribou "
+"skin. Other names: ᕿᓚᐅᑦ (<a "
+"href=\"https://en.wikipedia.org/wiki/Qilaut\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:759
+msgid ""
+"The ranat ek (Thai: ระนาดเอก) is a Thai xylophone which consists of 21 "
+"wooden bars suspended by cords over a boat-shaped trough resonator and "
+"struck by two mallets.  (<a "
+"href=\"https://en.wikipedia.org/wiki/Ranat_ek\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:680
 msgid ""
 "The rondador is a set of chorded bamboo panpipes from Ecuador. (<a "
@@ -1370,6 +2488,13 @@ msgid ""
 "The rudra veena (also spelled rudra vina/been/bin; Hindi: रुद्रवीणा) is a "
 "large plucked string instrument used in Hindustani classical music. (<a "
 "href=\"http://en.wikipedia.org/wiki/Rudra_veena\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:762
+msgid ""
+"The ryuteki (Japanese: 龍笛) is a Japanese transverse flute used in gagaku. "
+"Other names: ryūteki  (<a "
+"href=\"https://en.wikipedia.org/wiki/Ryūteki\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:695
@@ -1389,14 +2514,16 @@ msgstr ""
 
 #: DB:link_attribute_type/description:314
 msgid ""
-"The sanxian (Chinese: 三弦, sānxián) is a Chinese lute with three strings. (<a"
-" href=\"http://en.wikipedia.org/wiki/Sanxian\">Wikipedia</a>)"
+"The sanxian (Chinese: 三弦, sānxián) is a Chinese lute with three strings. "
+"Other names: san-hsien (<a "
+"href=\"http://en.wikipedia.org/wiki/Sanxian\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:552
 msgid ""
 "The sarangi is a short-necked, bowed string instrument from India, Nepal and"
-" Pakistan."
+" Pakistan.  (<a "
+"href=\"https://en.wikipedia.org/wiki/Sarangi\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:741
@@ -1409,12 +2536,17 @@ msgstr ""
 #: DB:link_attribute_type/description:692
 msgid ""
 "The satsuma biwa (Japanese: 薩摩琵琶) is a biwa with four strings and frets "
-"popularised during the Edo period. (<a "
-"href=\"http://en.wikipedia.org/wiki/Biwa\">Wikipedia</a>)"
+"popularised during the Edo period."
 msgstr ""
 
 #: DB:link_attribute_type/description:566
 msgid "The saz is a long-necked fretted lute"
+msgstr ""
+
+#: DB:link_attribute_type/description:224
+msgid ""
+"The shakuhachi is a Japanese end-blown flute. (<a "
+"href=\"https://en.wikipedia.org/wiki/Shakuhachi\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:112
@@ -1434,6 +2566,13 @@ msgid ""
 "href=\"http://en.wikipedia.org/wiki/Shehnai\">Wikipedia</a>)"
 msgstr ""
 
+#: DB:link_attribute_type/description:462
+msgid ""
+"The shekere is a shaker from West Africa consisting of a gourd with beads "
+"woven into a net which covers the gourd. (<a "
+"href=\"https://en.wikipedia.org/wiki/Shekere\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:68
 msgid ""
 "The sheng (Chinese: 笙, shēng) is a Chinese free reed instrument consisting "
@@ -1451,13 +2590,13 @@ msgstr ""
 #: DB:link_attribute_type/description:564
 msgid ""
 "The shinobue (Japanese: 篠笛) is a high-pitched transverse bamboo flute from "
-"Japan."
+"Japan. (<a href=\"https://en.wikipedia.org/wiki/Shinobue\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:705
 msgid ""
 "The shudraga (Mongolian: шудрага) is a Mongolian fretless lute with three "
-"strings. Other names include: shanz, ショダルガ, shadraga."
+"strings. Other names: shanz, ショダルガ, shadraga, шанз"
 msgstr ""
 
 #: DB:link_attribute_type/description:262
@@ -1472,6 +2611,12 @@ msgid ""
 "The siku is a traditional Andean panpipe. Other names include antara, sicu, "
 "sicus, zampolla and zampoña. (<a "
 "href=\"http://en.wikipedia.org/wiki/Siku_(instrument)\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:450
+msgid ""
+"The sistrum is a metal rattle associated with ancient Iraq and Egypt. (<a "
+"href=\"https://en.wikipedia.org/wiki/Sistrum\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:356
@@ -1497,6 +2642,12 @@ msgid ""
 "href=\"http://en.wikipedia.org/wiki/Suona\">Wikipedia</a>)"
 msgstr ""
 
+#: DB:link_attribute_type/description:269
+msgid ""
+"The sáo trúc is a Vietnamese transverse flute made of bamboo. Other names: "
+"sáo tre  (<a href=\"https://en.wikipedia.org/wiki/Sáo\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:347
 msgid ""
 "The sênh tiền is a Vietnamese instrument which is a combination of clappers,"
@@ -1507,7 +2658,8 @@ msgstr ""
 #: DB:link_attribute_type/description:381
 msgid ""
 "The t'rưng (t'rung) is a bamboo xylophone from the central highlands of "
-"Vietnam which is played by ethnic groups such as the Bahnar and the Ê Đê."
+"Vietnam which is played by ethnic groups such as the Bahnar and the Ê Đê. "
+"(<a href=\"https://en.wikipedia.org/wiki/T'rưng\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:667
@@ -1529,7 +2681,8 @@ msgstr ""
 msgid ""
 "The tar is a long-necked, waisted lute found in Azerbaijan, Iran, Armenia, "
 "Georgia, and other areas near the Caucasus region. Not to be confused with "
-"the drum of the same name."
+"the drum of the same name.  (<a "
+"href=\"https://en.wikipedia.org/wiki/Tar(instrument)\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:532
@@ -1548,8 +2701,14 @@ msgstr ""
 #: DB:link_attribute_type/description:696
 msgid ""
 "The thon (Thai: โทน) is a goblet drum with a ceramic or wooden body used in "
-"classical Thai and Cambodian music. (<a "
-"href=\"http://en.wikipedia.org/wiki/Thon_and_rammana\">Wikipedia</a>)"
+"classical Thai and Cambodian music which forms one part of <a "
+"href=\"http://en.wikipedia.org/wiki/Thon_and_rammana\">thon and rammana</a>."
+msgstr ""
+
+#: DB:link_attribute_type/description:401
+msgid ""
+"The tiêu is a Vietnamese end-blown flute related to the Chinese xiao. (<a "
+"href=\"https://vi.wikipedia.org/wiki/Tiêu_(nhạc_cụ)\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:687
@@ -1557,6 +2716,12 @@ msgid ""
 "The tonkori (Japanese: トンコリ) is a plucked string instrument played by the "
 "Ainu of northern Japan and Sakhalin. (<a "
 "href=\"http://en.wikipedia.org/wiki/Tonkori\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:382
+msgid ""
+"The trống bông is a wooden Vietnamese drum with a single drumhead which is "
+"played with both hands. Other names: bong drum"
 msgstr ""
 
 #: DB:link_attribute_type/description:623
@@ -1570,6 +2735,14 @@ msgstr ""
 msgid ""
 "The valiha is a bamboo tube zither from Madagascar (<a "
 "href=\"http://en.wikipedia.org/wiki/Valiha\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:757
+msgid ""
+"The vichitra veena (Sanskrit: विचित्र वीणा, Bengali: বিচিত্র বীণা) is a "
+"plucked string instrument used in Hindustani music. Other names: vichitra "
+"vina (<a "
+"href=\"https://en.wikipedia.org/wiki/Vichitra_veena\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:621
@@ -1642,6 +2815,15 @@ msgid ""
 "href=\"http://en.wikipedia.org/wiki/Zhongruan\">Wikipedia</a>)"
 msgstr ""
 
+#: DB:link_attribute_type/description:396
+msgid ""
+"The đing năm is a <a "
+"href=\"https://en.wikipedia.org/wiki/Gourd_mouth_organ\">gourd mouth "
+"organ</a> used by minority ethnic groups in the central highlands of "
+"Vietnam. Other names: ku puốt, m'boắt, m'buốt (<a "
+"href=\"https://vi.wikipedia.org/wiki/Đing_năm\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:321
 msgid ""
 "The đàn bầu is a one-stringed Vietnamese zither. (<a "
@@ -1687,6 +2869,13 @@ msgid ""
 "href=\"http://en.wikipedia.org/wiki/Đàn_tranh\">Wikipedia</a>)"
 msgstr ""
 
+#: DB:link_attribute_type/description:753
+msgid ""
+"The đàn tứ, also called đàn đoản, is a traditional Vietnamese moon-shaped "
+"lute with a short neck. (<a "
+"href=\"https://en.wikipedia.org/wiki/Đàn_tứ\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:313
 msgid ""
 "The đàn tỳ bà is a four-stringed Vietnamese lute with a pear-shaped body. "
@@ -1727,11 +2916,15 @@ msgid ""
 msgstr ""
 
 #: DB:link_attribute_type/description:426
-msgid "Theatre organ, usch as the Wurlitzer"
+msgid ""
+"Theatre organ, such as the Wurlitzer  (<a "
+"href=\"https://en.wikipedia.org/wiki/Theatre_organ\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:478
-msgid "Theorbo, Théorbe, Tiorba"
+msgid ""
+"Theorbo, Théorbe, Tiorba  (<a "
+"href=\"https://en.wikipedia.org/wiki/Theorbo\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:14
@@ -1750,14 +2943,12 @@ msgstr ""
 
 #: DB:link_attribute_type/description:350
 msgid "Tibetan water drum"
-msgstr ""
+msgstr "tibetische Wassertrommel"
 
 #: DB:link_attribute_type/description:217
-msgid "Timpani (Kettle drum)"
-msgstr ""
-
-#: DB:link_attribute_type/description:382
-msgid "Trống Bông (bong drum)"
+msgid ""
+"Timpani (Kettle drum) (<a "
+"href=\"https://en.wikipedia.org/wiki/Timpani\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:305
@@ -1767,14 +2958,13 @@ msgstr "türkischer Baglamas"
 #: DB:link_attribute_type/description:654
 msgid ""
 "Turkish bowl-shaped kemenche, mainly used in classical Ottoman music (<a "
-"href=\"http://en.wikipedia.org/wiki/Classical kemençe\">Wikipedia</a>)"
+"href=\"http://en.wikipedia.org/wiki/Classical_kemençe\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:653
 msgid ""
 "Turkish box-shaped kemenche, mainly used for folk music. (<a "
-"href=\"http://en.wikipedia.org/wiki/Kemençe of the Black "
-"Sea\">Wikipedia</a>)"
+"href=\"http://en.wikipedia.org/wiki/Kemençe_of_the_Black_Sea\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:637
@@ -1790,11 +2980,21 @@ msgid ""
 msgstr ""
 
 #: DB:link_attribute_type/description:407
-msgid "Udu Nigerian vessel drum"
+msgid ""
+"Udu Nigerian vessel drum (<a "
+"href=\"https://en.wikipedia.org/wiki/Udu\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:248
-msgid "Uilleann/Union/Irish pipes"
+msgid ""
+"Uilleann/Union/Irish pipes  (<a "
+"href=\"https://en.wikipedia.org/wiki/Uilleann_pipes\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:271
+msgid ""
+"Valved brass instruments use a set of valves which introduce additional "
+"tubing into the instrument."
 msgstr ""
 
 #: DB:link_attribute_type/description:634
@@ -1809,15 +3009,14 @@ msgstr ""
 
 #: DB:link_attribute_type/description:503
 msgid ""
-"Venu, a bamboo transverse flute used in the Carnatic music of South India"
+"Venu, a bamboo transverse flute used in the Carnatic music of South India  "
+"(<a href=\"https://en.wikipedia.org/wiki/Venu\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:116
-msgid "Vielle / Vieille"
-msgstr ""
-
-#: DB:link_attribute_type/description:399
-msgid "Vietnamese guitar"
+msgid ""
+"Vielle / Vieille  (<a "
+"href=\"https://en.wikipedia.org/wiki/Vielle\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:505
@@ -1825,19 +3024,15 @@ msgid "Violone, The largest/deepest member of the Viol family"
 msgstr ""
 
 #: DB:link_attribute_type/description:354
-msgid "Vocoder, Voice box"
+msgid ""
+"Vocoder, Voice box (<a "
+"href=\"https://en.wikipedia.org/wiki/Vocoder\">Wikipedia</a>)"
 msgstr ""
 
-#: DB:link_attribute_type/description:201
-msgid "Wagner tuba"
-msgstr "Wagnertuba"
-
-#: DB:link_attribute_type/description:323
-msgid "Warr guitar"
-msgstr "Warr Guitar"
-
 #: DB:link_attribute_type/description:266
-msgid "Willow flute (seljefløyte"
+msgid ""
+"Willow flute (seljefløyte)  (<a "
+"href=\"https://en.wikipedia.org/wiki/Willow_flute\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:607
@@ -1846,10 +3041,6 @@ msgid ""
 "other objects, designed to be hung outside and played by the wind. (<a "
 "href=\"http://en.wikipedia.org/wiki/Wind_chime\">Wikipedia</a>)"
 msgstr ""
-
-#: DB:link_attribute_type/description:562
-msgid "Wurlitzer electric piano"
-msgstr "Wurlitzer Electric Piano"
 
 #: DB:link_attribute_type/description:405
 msgid ""
@@ -1860,11 +3051,8 @@ msgstr ""
 #: DB:link_attribute_type/description:548
 msgid ""
 "Zills are tiny metallic finger cymbals used in belly dancing and other "
-"similar performances."
-msgstr ""
-
-#: DB:link_attribute_type/description:492
-msgid "Zurna http://en.wikipedia.org/wiki/Zurna"
+"similar performances. (<a "
+"href=\"https://en.wikipedia.org/wiki/Zill\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:392
@@ -1877,26 +3065,6 @@ msgid ""
 "flute blowers lips enclose the blowing hole with the vibrating \"free reed\" inside"
 msgstr ""
 
-#: DB:link_attribute_type/description:64
-msgid "accordion"
-msgstr "Akkordeon"
-
-#: DB:link_attribute_type/description:73
-msgid "acoustic bass guitar"
-msgstr "akustische Bassgitarre"
-
-#: DB:link_attribute_type/description:76
-msgid "acoustic guitar"
-msgstr "Akustikgitarre"
-
-#: DB:link_attribute_type/description:89
-msgid "aeolian harp"
-msgstr "Äolsharfe"
-
-#: DB:link_attribute_type/description:136
-msgid "afuche / cabasa"
-msgstr "Cabasa"
-
 #: DB:link_attribute_type/description:540
 msgid "aka Farfisa organ, Farfisa Compact, Farfisa Mini-Compact, Farfisa FAST"
 msgstr ""
@@ -1906,52 +3074,53 @@ msgid "aka Vocaloid"
 msgstr ""
 
 #: DB:link_attribute_type/description:21
-msgid "aka cor anglais (alto)"
+msgid ""
+"aka cor anglais (alto)  (<a "
+"href=\"https://en.wikipedia.org/wiki/Cor_anglais\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:541
-msgid "aka finger clicks"
+msgid ""
+"aka finger clicks (<a "
+"href=\"https://en.wikipedia.org/wiki/Finger_snapping\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:448
-msgid "aka frattoir or rubboard"
+msgid ""
+"aka frattoir or rubboard (<a "
+"href=\"https://en.wikipedia.org/wiki/Vest_frottoir\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:344
-msgid "aka pans, steel drums"
+msgid ""
+"aka pans, steel drums (<a "
+"href=\"https://en.wikipedia.org/wiki/Steelpan\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:535
 msgid ""
 "aka sruti box. Similar to a harmonium and used to provide a drone "
-"accompaniment."
+"accompaniment.  (<a "
+"href=\"https://en.wikipedia.org/wiki/Shruti_box\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:543
 msgid ""
 "aka violin-trumpet, trumpet-violin, horn-violin, violinophone.\n"
-"A violin with a metal resonator and horn rather than a wooden body."
+"A violin with a metal resonator and horn rather than a wooden body.  (<a href=\"https://en.wikipedia.org/wiki/Stroh_violin\">Wikipedia</a>)"
 msgstr ""
-
-#: DB:link_attribute_type/description:41
-msgid "alphorn"
-msgstr "Alphorn"
 
 #: DB:link_attribute_type/description:556
-msgid "also known as tzouras and tsoura"
+msgid ""
+"also known as tzouras and tsoura  (<a "
+"href=\"https://en.wikipedia.org/wiki/Tzouras\">Wikipedia</a>)"
 msgstr ""
 
-#: DB:link_attribute_type/description:24
-msgid "alto clarinet"
-msgstr "Altklarinette"
-
 #: DB:link_attribute_type/description:423
-msgid "alto flute"
-msgstr "Altflöte"
-
-#: DB:link_attribute_type/description:35
-msgid "alto saxophone"
-msgstr "Altsaxophon"
+msgid ""
+"alto flute  (<a "
+"href=\"https://en.wikipedia.org/wiki/Alto_flute\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:226
 msgid "alto violin"
@@ -1975,298 +3144,69 @@ msgstr "altertümliche und andere Streichinstrumente"
 msgid "as using drives for producing music, harddrives, floppy, cd or other."
 msgstr ""
 
-#: DB:link_attribute_type/description:494
-msgid "autoharp"
-msgstr "Autoharp"
-
 #: DB:link_attribute_type/description:512
 msgid "baglama"
 msgstr "Baglamas"
 
 #: DB:link_attribute_type/description:18
-msgid "bagpipe"
-msgstr "Dudelsack"
-
-#: DB:link_attribute_type/description:91
-msgid "balalaika"
-msgstr "Balalaika"
-
-#: DB:link_attribute_type/description:451
-msgid "bamboo angklung"
-msgstr "Angklung"
-
-#: DB:link_attribute_type/description:263
-msgid "bandoneón"
-msgstr "Bandoneon"
-
-#: DB:link_attribute_type/description:92
-msgid "banjo"
-msgstr "Banjo"
-
-#: DB:link_attribute_type/description:377
-msgid "baritone guitar"
-msgstr "Baritongitarre"
-
-#: DB:link_attribute_type/description:42
-msgid "baritone horn"
-msgstr "Baritonhorn"
-
-#: DB:link_attribute_type/description:37
-msgid "baritone saxophone"
-msgstr "Baritonsaxophon"
-
-#: DB:link_attribute_type/description:25
-msgid "bass clarinet"
-msgstr "Bassklarinette"
-
-#: DB:link_attribute_type/description:518
-msgid "bass drum"
-msgstr "große Trommel"
+msgid ""
+"bagpipe  (<a href=\"https://en.wikipedia.org/wiki/Bagpipes\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:501
-msgid "bass flute"
-msgstr "Bassflöte"
+msgid ""
+"bass flute  (<a "
+"href=\"https://en.wikipedia.org/wiki/Bass_flute\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:558
 msgid "bass harmonica"
 msgstr "Bass-Mundharmonika"
 
-#: DB:link_attribute_type/description:484
-msgid "bass pedals"
-msgstr "Basspedal"
-
 #: DB:link_attribute_type/description:228
 msgid "bass trombone"
 msgstr "Bassposaune"
-
-#: DB:link_attribute_type/description:489
-msgid "basset clarinet"
-msgstr "Bassettklarinette"
-
-#: DB:link_attribute_type/description:490
-msgid "basset horn"
-msgstr "Bassetthorn"
-
-#: DB:link_attribute_type/description:19
-msgid "bassoon"
-msgstr "Fagott"
-
-#: DB:link_attribute_type/description:520
-msgid "bayan"
-msgstr ""
 
 #: DB:link_attribute_type/description:151
 msgid "bells"
 msgstr "Glocken"
 
-#: DB:link_attribute_type/description:93
-msgid "berimbau"
-msgstr "Berimbau"
-
-#: DB:link_attribute_type/description:249
-msgid "bodhrán"
-msgstr "Bodhrán"
-
-#: DB:link_attribute_type/description:437
-msgid "bones"
-msgstr ""
-
-#: DB:link_attribute_type/description:128
-msgid "bongos"
-msgstr "Bongos"
-
-#: DB:link_attribute_type/description:95
-msgid "bouzouki"
-msgstr "Bouzouki"
-
-#: DB:link_attribute_type/description:299
-msgid "bowed psaltery"
-msgstr "Streichpsalter"
-
-#: DB:link_attribute_type/description:275
-msgid "bowed string instruments"
-msgstr "Streichinstrumente"
-
-#: DB:link_attribute_type/description:38
-msgid "brass"
-msgstr "Blechblasinstrumente"
-
 #: DB:link_attribute_type/description:397
 msgid "brushes"
 msgstr "Besen"
-
-#: DB:link_attribute_type/description:51
-msgid "bugle"
-msgstr "Horn"
-
-#: DB:link_attribute_type/description:202
-msgid "bull-roarer"
-msgstr "Schwirrgerät"
-
-#: DB:link_attribute_type/description:440
-msgid "button accordion"
-msgstr "Knopfgriffakkordeon"
-
-#: DB:link_attribute_type/description:170
-msgid "calliope"
-msgstr "Dampforgel / Calliope"
-
-#: DB:link_attribute_type/description:171
-msgid "carillon"
-msgstr "Carillon"
-
-#: DB:link_attribute_type/description:137
-msgid "castanets"
-msgstr "Kastagnetten"
-
-#: DB:link_attribute_type/description:172
-msgid "celesta"
-msgstr "Celesta"
-
-#: DB:link_attribute_type/description:84
-msgid "cello"
-msgstr "Cello"
 
 #: DB:link_attribute_type/description:415
 msgid "chimes"
 msgstr ""
 
-#: DB:link_attribute_type/description:521
-msgid "chromatic button accordion"
-msgstr "chromatisches Knopfakkordeon"
-
-#: DB:link_attribute_type/description:376
-msgid "chromatic harmonica"
-msgstr ""
-
-#: DB:link_attribute_type/description:307
-msgid "cittern"
-msgstr "Cister"
-
-#: DB:link_attribute_type/description:23
-msgid "clarinet"
-msgstr "Klarinette"
-
-#: DB:link_attribute_type/description:77
-msgid "classical guitar"
-msgstr "klassiche Gitarre"
-
-#: DB:link_attribute_type/description:138
-msgid "claves"
-msgstr "Klanghölzer / Claves"
-
-#: DB:link_attribute_type/description:173
-msgid "clavichord"
-msgstr "Clavichord"
-
-#: DB:link_attribute_type/description:227
-msgid "clavinet"
-msgstr "Clavinet"
-
-#: DB:link_attribute_type/description:431
-msgid "concert harp"
-msgstr "Konzertharfe"
-
-#: DB:link_attribute_type/description:65
-msgid "concertina"
-msgstr "Konzertina"
-
-#: DB:link_attribute_type/description:127
-msgid "congas"
-msgstr "Conga"
-
 #: DB:link_attribute_type/description:519
-msgid "conical bore double-reed musical instrument from Brittany"
+msgid ""
+"conical bore double-reed musical instrument from Brittany  (<a "
+"href=\"https://en.wikipedia.org/wiki/Bombard_(music)\">Wikipedia</a>)"
 msgstr ""
-
-#: DB:link_attribute_type/description:26
-msgid "contrabass clarinet"
-msgstr "Kontrabassklarinette"
-
-#: DB:link_attribute_type/description:367
-msgid "contrabass recorder"
-msgstr "Kontrabassblockflöte"
-
-#: DB:link_attribute_type/description:538
-msgid "contrabass saxophone"
-msgstr "Kontrabasssaxophon"
-
-#: DB:link_attribute_type/description:20
-msgid "contrabassoon"
-msgstr "Kontrafagott"
-
-#: DB:link_attribute_type/description:39
-msgid "cornet"
-msgstr "Kornett"
 
 #: DB:link_attribute_type/description:384
 msgid "cow horns without fingerholes. with mouthpiece and free reed"
 msgstr ""
 
-#: DB:link_attribute_type/description:208
-msgid "cowbell"
-msgstr "Cowbell"
-
-#: DB:link_attribute_type/description:214
-msgid "crotales"
-msgstr "Crotales / antike Zimbeln"
-
-#: DB:link_attribute_type/description:98
-msgid "crwth"
-msgstr "Crwth"
-
-#: DB:link_attribute_type/description:342
-msgid "cymbals"
-msgstr "Becken"
-
 #: DB:link_attribute_type/description:495
-msgid "cümbüş"
-msgstr "Cümbüş"
+msgid "cümbüş  (<a href=\"https://en.wikipedia.org/wiki/Cümbüş\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:463
-msgid "dholak, classical North Indian hand drum"
+msgid ""
+"dholak, classical North Indian hand drum (<a "
+"href=\"https://en.wikipedia.org/wiki/Dholak\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:441
 msgid "diatonic accordion / melodeon"
 msgstr "diatonisches Akkordeon"
 
-#: DB:link_attribute_type/description:204
-msgid "didgeridoo"
-msgstr "Didgeridoo"
-
 #: DB:link_attribute_type/description:394
 msgid ""
 "dinh tăktàr or Ding Tac ta, bamboo free reed, has a smal gourd type thing"
 msgstr ""
-
-#: DB:link_attribute_type/description:335
-msgid "djembe"
-msgstr "Djembé"
-
-#: DB:link_attribute_type/description:17
-msgid "double reed"
-msgstr "Doppelrohrblattinstrumente"
-
-#: DB:link_attribute_type/description:140
-msgid "doyra"
-msgstr ""
-
-#: DB:link_attribute_type/description:162
-msgid "drum machine"
-msgstr "Drumcomputer"
-
-#: DB:link_attribute_type/description:125
-msgid "drums"
-msgstr "Trommeln"
-
-#: DB:link_attribute_type/description:126
-msgid "drumset"
-msgstr "Schlagzeug"
-
-#: DB:link_attribute_type/description:404
-msgid "ebow"
-msgstr "E-Bow"
 
 #: DB:link_attribute_type/description:383
 msgid "edo village traditional flute, four finger holes, blowing reed"
@@ -2276,109 +3216,21 @@ msgstr ""
 msgid "electric bass guitar"
 msgstr "E-Bass"
 
-#: DB:link_attribute_type/description:278
-msgid "electric cello"
-msgstr ""
-
-#: DB:link_attribute_type/description:78
-msgid "electric guitar"
-msgstr "E-Gitarre"
-
-#: DB:link_attribute_type/description:432
-msgid "electric harp"
-msgstr ""
-
 #: DB:link_attribute_type/description:470
 msgid "electric lap steel guitar"
 msgstr ""
-
-#: DB:link_attribute_type/description:329
-msgid "electric piano"
-msgstr "Konzertharfe"
-
-#: DB:link_attribute_type/description:316
-msgid "electric sitar"
-msgstr ""
-
-#: DB:link_attribute_type/description:72
-msgid "electric upright bass"
-msgstr "E-Kontrabass"
-
-#: DB:link_attribute_type/description:282
-msgid "electric violin"
-msgstr "E-Geige"
-
-#: DB:link_attribute_type/description:487
-msgid "electronic drum set"
-msgstr "elektronisches Schlagzeug / E-Drums"
-
-#: DB:link_attribute_type/description:159
-msgid "electronic instruments"
-msgstr "elektronische Instrumente"
-
-#: DB:link_attribute_type/description:539
-msgid "electronic organ"
-msgstr "elektronische Orgel"
-
-#: DB:link_attribute_type/description:199
-msgid "euphonium"
-msgstr "Euphonium"
 
 #: DB:link_attribute_type/description:389
 msgid "family of Hmông flutes"
 msgstr ""
 
-#: DB:link_attribute_type/description:85
-msgid "fiddle"
-msgstr "Fiddle"
-
 #: DB:link_attribute_type/description:554
 msgid "finger cymbals"
 msgstr "Zimbel"
 
-#: DB:link_attribute_type/description:43
-msgid "flugelhorn"
-msgstr "Flügelhorn"
-
-#: DB:link_attribute_type/description:27
-msgid "flute"
-msgstr "Flöte"
-
 #: DB:link_attribute_type/description:433
 msgid "folk harp"
 msgstr ""
-
-#: DB:link_attribute_type/description:465
-msgid "fortepiano"
-msgstr "Hammerklavier"
-
-#: DB:link_attribute_type/description:421
-msgid "frame drum"
-msgstr "Rahmentrommel"
-
-#: DB:link_attribute_type/description:63
-msgid "free reed"
-msgstr ""
-
-#: DB:link_attribute_type/description:44
-msgid "french horn"
-msgstr "Waldhorn"
-
-#: DB:link_attribute_type/description:301
-msgid "gadulka"
-msgstr "Gadulka"
-
-#: DB:link_attribute_type/description:445
-msgid "gamelan"
-msgstr "Gamelan"
-
-#: DB:link_attribute_type/description:357
-msgid "glass (h)armonica"
-msgstr "Glasharmonika"
-
-#: DB:link_attribute_type/description:215
-msgid "glockenspiel"
-msgstr "Glockenspiel"
 
 #: DB:link_attribute_type/description:340
 msgid "gong"
@@ -2388,245 +3240,33 @@ msgstr "Gong"
 msgid "gongs"
 msgstr "Gongs"
 
-#: DB:link_attribute_type/description:181
-msgid "grand piano"
-msgstr "Flügel"
-
-#: DB:link_attribute_type/description:300
-msgid "gudok"
-msgstr "Gudok"
-
-#: DB:link_attribute_type/description:229
-msgid "guitar"
-msgstr "Gitarre"
-
 #: DB:link_attribute_type/description:75
 msgid "guitars"
 msgstr "Gitarren"
-
-#: DB:link_attribute_type/description:141
-msgid "güiro"
-msgstr "Güiro"
-
-#: DB:link_attribute_type/description:101
-msgid "hammered dulcimer"
-msgstr "Hackbrett"
-
-#: DB:link_attribute_type/description:346
-msgid "handbells"
-msgstr "Handglocke"
 
 #: DB:link_attribute_type/description:187
 msgid "hardart"
 msgstr ""
 
-#: DB:link_attribute_type/description:66
-msgid "harmonica"
-msgstr "Mundharmonika"
-
 #: DB:link_attribute_type/description:178
 msgid "harmonium"
 msgstr "Harmonium"
-
-#: DB:link_attribute_type/description:81
-msgid "harp"
-msgstr "Harfe"
-
-#: DB:link_attribute_type/description:174
-msgid "harpsichord"
-msgstr "Cembalo"
-
-#: DB:link_attribute_type/description:261
-msgid "heckelphone"
-msgstr "Heckelphon"
 
 #: DB:link_attribute_type/description:40
 msgid "horn"
 msgstr "Horn"
 
-#: DB:link_attribute_type/description:103
-msgid "hurdy gurdy"
-msgstr "Drehleier"
-
-#: DB:link_attribute_type/description:104
-msgid "jew's harp"
-msgstr "Maultrommel"
-
-#: DB:link_attribute_type/description:188
-msgid "kazoo"
-msgstr "Kazoo"
-
 #: DB:link_attribute_type/description:232
 msgid "keyboard"
 msgstr "Keyboard"
-
-#: DB:link_attribute_type/description:442
-msgid "keyboard bass"
-msgstr ""
-
-#: DB:link_attribute_type/description:203
-msgid "keyed brass instruments"
-msgstr "Klappen-Blechblasinstrument"
-
-#: DB:link_attribute_type/description:317
-msgid "kinnor"
-msgstr "Kinnor"
-
-#: DB:link_attribute_type/description:318
-msgid "kithara"
-msgstr "Kithara"
 
 #: DB:link_attribute_type/description:386
 msgid "koke, can-shaped, covereed with snakeskin. played with a horsehair-bow"
 msgstr ""
 
-#: DB:link_attribute_type/description:106
-msgid "kora"
-msgstr "Kora"
-
-#: DB:link_attribute_type/description:319
-msgid "langeleik"
-msgstr ""
-
-#: DB:link_attribute_type/description:466
-msgid "lap steel guitar"
-msgstr ""
-
 #: DB:link_attribute_type/description:189
 msgid "lasso d'amore"
 msgstr ""
-
-#: DB:link_attribute_type/description:482
-msgid "low whistle"
-msgstr ""
-
-#: DB:link_attribute_type/description:108
-msgid "lute"
-msgstr "Laute"
-
-#: DB:link_attribute_type/description:109
-msgid "lyre"
-msgstr "Lyra"
-
-#: DB:link_attribute_type/description:308
-msgid "mandola"
-msgstr "Mandola"
-
-#: DB:link_attribute_type/description:96
-msgid "mandolin"
-msgstr "Mandoline"
-
-#: DB:link_attribute_type/description:142
-msgid "maracas"
-msgstr "Maracas / Rumba-Rasseln"
-
-#: DB:link_attribute_type/description:216
-msgid "marimba"
-msgstr "Marimba"
-
-#: DB:link_attribute_type/description:56
-msgid "mellophone"
-msgstr "Mellophon"
-
-#: DB:link_attribute_type/description:428
-msgid "metallophone"
-msgstr "Metallophon"
-
-#: DB:link_attribute_type/description:97
-msgid "musical bow"
-msgstr "Mundbogen"
-
-#: DB:link_attribute_type/description:190
-msgid "musical saw"
-msgstr "singende Säge"
-
-#: DB:link_attribute_type/description:49
-msgid "natural brass instruments"
-msgstr "Naturton-Blechblasinstrument"
-
-#: DB:link_attribute_type/description:298
-msgid "nyckelharpa"
-msgstr "Nyckelharpa"
-
-#: DB:link_attribute_type/description:29
-msgid "ocarina"
-msgstr "Okarina"
-
-#: DB:link_attribute_type/description:456
-msgid "ocean drum"
-msgstr ""
-
-#: DB:link_attribute_type/description:352
-msgid "omnichord"
-msgstr "Omnichord"
-
-#: DB:link_attribute_type/description:163
-msgid "ondes Martenot"
-msgstr "Ondes Martenot"
-
-#: DB:link_attribute_type/description:57
-msgid "ophicleide"
-msgstr "Ophikleide"
-
-#: DB:link_attribute_type/description:176
-msgid "organ"
-msgstr "Orgel"
-
-#: DB:link_attribute_type/description:469
-msgid "pedal steel guitar"
-msgstr "Pedal-Steel-Gitarre"
-
-#: DB:link_attribute_type/description:124
-msgid "percussion"
-msgstr "Perkussion"
-
-#: DB:link_attribute_type/description:180
-msgid "piano"
-msgstr "Klavier"
-
-#: DB:link_attribute_type/description:439
-msgid "piano accordion"
-msgstr "Pianoakkordeon"
-
-#: DB:link_attribute_type/description:31
-msgid "piccolo"
-msgstr "Piccoloflöte"
-
-#: DB:link_attribute_type/description:486
-msgid "piccolo trumpet"
-msgstr "Piccolotrompete"
-
-#: DB:link_attribute_type/description:179
-msgid "pipe organ"
-msgstr "Pfeifenorgel"
-
-#: DB:link_attribute_type/description:302
-msgid "plucked string instruments"
-msgstr "Zupfinstrumente"
-
-#: DB:link_attribute_type/description:111
-msgid "psaltery"
-msgstr "Psalterium"
-
-#: DB:link_attribute_type/description:455
-msgid "rainstick"
-msgstr "Regenmacher"
-
-#: DB:link_attribute_type/description:211
-msgid "ratchet"
-msgstr "Ratsche"
-
-#: DB:link_attribute_type/description:411
-msgid "rattle"
-msgstr "Rassel"
-
-#: DB:link_attribute_type/description:309
-msgid "rebab"
-msgstr "Rebab"
-
-#: DB:link_attribute_type/description:276
-msgid "rebec"
-msgstr "Rebec"
 
 #: DB:link_attribute_type/description:274
 msgid "reed organ, also known as pump organ"
@@ -2636,121 +3276,37 @@ msgstr ""
 msgid "reeds"
 msgstr "Rohrblattinstrumente"
 
-#: DB:link_attribute_type/description:467
-msgid "resonator guitar"
-msgstr "Resonatorgitarre"
-
 #: DB:link_attribute_type/description:449
 msgid "rhythm sticks"
 msgstr ""
-
-#: DB:link_attribute_type/description:198
-msgid "sackbut"
-msgstr "Barockposaune"
-
-#: DB:link_attribute_type/description:164
-msgid "sampler"
-msgstr "Sampler"
 
 #: DB:link_attribute_type/description:418
 msgid "sapek clappers"
 msgstr ""
 
-#: DB:link_attribute_type/description:250
-msgid "sarod"
-msgstr "Sarod"
-
-#: DB:link_attribute_type/description:33
-msgid "saxophone"
-msgstr "Saxophon"
-
 #: DB:link_attribute_type/description:387
 msgid "saó ôi (flute of the Muong)"
 msgstr ""
-
-#: DB:link_attribute_type/description:197
-msgid "serpent"
-msgstr "Serpent"
-
-#: DB:link_attribute_type/description:417
-msgid "shakers"
-msgstr "Schüttelrohr"
-
-#: DB:link_attribute_type/description:60
-msgid "shofar"
-msgstr "Schofar"
-
-#: DB:link_attribute_type/description:191
-msgid "singing bowl"
-msgstr "Klangschale"
 
 #: DB:link_attribute_type/description:234
 msgid "singular reed"
 msgstr "Einfachrohrblattinstrumente"
 
-#: DB:link_attribute_type/description:113
-msgid "sitar"
-msgstr "Sitar"
-
-#: DB:link_attribute_type/description:272
-msgid "slide brass instruments"
-msgstr "Zug-Blechblasinstrumente"
-
 #: DB:link_attribute_type/description:79
 msgid "slide guitar"
 msgstr "Slide-Gitarre"
-
-#: DB:link_attribute_type/description:537
-msgid "sopranino saxophone"
-msgstr "Sopraninosaxophon"
-
-#: DB:link_attribute_type/description:488
-msgid "soprano clarinet"
-msgstr "Sopranklarinette"
-
-#: DB:link_attribute_type/description:498
-msgid "soprano flute"
-msgstr ""
-
-#: DB:link_attribute_type/description:34
-msgid "soprano saxophone"
-msgstr "Sopransaxophon"
 
 #: DB:link_attribute_type/description:280
 msgid "soprano violin"
 msgstr ""
 
-#: DB:link_attribute_type/description:200
-msgid "sousaphone"
-msgstr "Sousaphon"
-
-#: DB:link_attribute_type/description:210
-msgid "spoons"
-msgstr "Löffel"
-
 #: DB:link_attribute_type/description:80
 msgid "steel guitar"
 msgstr ""
 
-#: DB:link_attribute_type/description:69
-msgid "strings"
-msgstr "Saiteninstrumente"
-
 #: DB:link_attribute_type/description:322
 msgid "struck string instruments"
 msgstr "Schlag-Saiteninstrumente"
-
-#: DB:link_attribute_type/description:368
-msgid "subcontrabass recorder"
-msgstr ""
-
-#: DB:link_attribute_type/description:165
-msgid "synclavier"
-msgstr "Synclavier"
-
-#: DB:link_attribute_type/description:166
-msgid "synthesizer"
-msgstr "Synthesizer"
 
 #: DB:link_attribute_type/description:393
 msgid "sáo meò"
@@ -2764,49 +3320,9 @@ msgstr "Tabla"
 msgid "table steel guitar"
 msgstr ""
 
-#: DB:link_attribute_type/description:457
-msgid "talking drum"
-msgstr "Tama / Dundun / Talking Drum"
-
-#: DB:link_attribute_type/description:333
-msgid "tambourine"
-msgstr "Tamburin"
-
-#: DB:link_attribute_type/description:474
-msgid "tamburitza"
-msgstr ""
-
-#: DB:link_attribute_type/description:586
-msgid "tanbur"
-msgstr ""
-
-#: DB:link_attribute_type/description:510
-msgid "tangent piano"
-msgstr "Tangentenflügel"
-
 #: DB:link_attribute_type/description:632
 msgid "tape"
 msgstr ""
-
-#: DB:link_attribute_type/description:167
-msgid "teleharmonium"
-msgstr "Dynamophon"
-
-#: DB:link_attribute_type/description:222
-msgid "temple blocks"
-msgstr "Templeblocks"
-
-#: DB:link_attribute_type/description:45
-msgid "tenor horn / alto horn"
-msgstr "Althorn"
-
-#: DB:link_attribute_type/description:36
-msgid "tenor saxophone"
-msgstr "Tenorsaxophon"
-
-#: DB:link_attribute_type/description:168
-msgid "theremin"
-msgstr "Theremin"
 
 #: DB:link_attribute_type/description:409
 msgid ""
@@ -2814,53 +3330,13 @@ msgid ""
 "and beaten with sticks"
 msgstr ""
 
-#: DB:link_attribute_type/description:401
-msgid "tieu flute"
-msgstr ""
-
-#: DB:link_attribute_type/description:132
-msgid "timbales"
-msgstr "Timbales"
-
-#: DB:link_attribute_type/description:267
-msgid "tin whistle"
-msgstr "Tin Whistle"
-
 #: DB:link_attribute_type/description:331
 msgid "tiple"
 msgstr "Tiple"
 
-#: DB:link_attribute_type/description:328
-msgid "toy piano"
-msgstr "Kinderklavier"
-
-#: DB:link_attribute_type/description:422
-msgid "transverse flute"
-msgstr "Querflöten (alle Arten)"
-
-#: DB:link_attribute_type/description:497
-msgid "treble flute"
-msgstr ""
-
 #: DB:link_attribute_type/description:279
 msgid "treble violin"
 msgstr ""
-
-#: DB:link_attribute_type/description:115
-msgid "tres"
-msgstr "Tres"
-
-#: DB:link_attribute_type/description:133
-msgid "triangle"
-msgstr "Triangel"
-
-#: DB:link_attribute_type/description:46
-msgid "trombone"
-msgstr "Posaune"
-
-#: DB:link_attribute_type/description:47
-msgid "trumpet"
-msgstr "Trompete"
 
 #: DB:link_attribute_type/description:391
 msgid "trắng jâu bass form of trắng lu"
@@ -2868,14 +3344,6 @@ msgstr ""
 
 #: DB:link_attribute_type/description:390
 msgid "trắng lu"
-msgstr ""
-
-#: DB:link_attribute_type/description:48
-msgid "tuba"
-msgstr "Tuba"
-
-#: DB:link_attribute_type/description:218
-msgid "tubular bells"
 msgstr ""
 
 #: DB:link_attribute_type/description:150
@@ -2886,25 +3354,13 @@ msgstr ""
 msgid "turntable(s)"
 msgstr "Plattenspieler"
 
-#: DB:link_attribute_type/description:114
-msgid "ukulele"
-msgstr "Ukulele"
-
 #: DB:link_attribute_type/description:184
 msgid "upright piano"
 msgstr "Pianino"
 
-#: DB:link_attribute_type/description:375
-msgid "vacuum cleaner"
-msgstr "Staubsauger"
-
 #: DB:link_attribute_type/description:237
 msgid "valve trombone"
 msgstr "Ventilposaune"
-
-#: DB:link_attribute_type/description:271
-msgid "valved brass instruments"
-msgstr "Ventil-Blechblasinstrument"
 
 #: DB:link_attribute_type/description:523
 msgid "variety of bass guitars without frets"
@@ -2918,96 +3374,14 @@ msgstr ""
 msgid "vessel drum"
 msgstr ""
 
-#: DB:link_attribute_type/description:219
-msgid "vibraphone"
-msgstr "Vibraphon"
-
-#: DB:link_attribute_type/description:212
-msgid "vibraslap"
-msgstr "Vibraslap"
-
-#: DB:link_attribute_type/description:87
-msgid "viola"
-msgstr "Bratsche / Viola"
-
-#: DB:link_attribute_type/description:119
-msgid "viola d'amore"
-msgstr "Viola d’amore"
-
 #: DB:link_attribute_type/description:118
 msgid "viola da gamba"
 msgstr "Viola da gamba"
-
-#: DB:link_attribute_type/description:297
-msgid "viola organista"
-msgstr ""
-
-#: DB:link_attribute_type/description:86
-msgid "violin"
-msgstr "Geige / Violine"
-
-#: DB:link_attribute_type/description:82
-msgid "violins"
-msgstr "Violinen"
-
-#: DB:link_attribute_type/description:120
-msgid "violotta"
-msgstr "Violotta"
-
-#: DB:link_attribute_type/description:209
-msgid "washboard"
-msgstr "Waschbrett"
-
-#: DB:link_attribute_type/description:121
-msgid "washtub bass"
-msgstr "Waschwannenbass"
-
-#: DB:link_attribute_type/description:351
-msgid "waterphone"
-msgstr "Waterphone"
 
 #: DB:link_attribute_type/description:454
 msgid "wavedrum"
 msgstr ""
 
-#: DB:link_attribute_type/description:134
-msgid "whip"
-msgstr "Peitsche"
-
-#: DB:link_attribute_type/description:345
-msgid "whistle"
-msgstr "Trillerpfeife"
-
-#: DB:link_attribute_type/description:15
-msgid "wind instruments"
-msgstr "Blasinstrumente"
-
 #: DB:link_attribute_type/description:434
 msgid "wire-strung harp"
-msgstr ""
-
-#: DB:link_attribute_type/description:213
-msgid "wood block"
-msgstr "Holzblock"
-
-#: DB:link_attribute_type/description:16
-msgid "woodwind"
-msgstr "Holzblasinstrumente"
-
-#: DB:link_attribute_type/description:122
-msgid "xalam / khalam"
-msgstr "Tidinit"
-
-#: DB:link_attribute_type/description:220
-msgid "xylophone"
-msgstr "Xylophon"
-
-#: DB:link_attribute_type/description:123
-msgid "zither"
-msgstr "Zither"
-
-#: DB:link_attribute_type/description:396
-msgid ""
-"Đing Nǎm free reed mouthorgan. is the \"ancestor\" of the harmonica and "
-"accordion"
 msgstr ""

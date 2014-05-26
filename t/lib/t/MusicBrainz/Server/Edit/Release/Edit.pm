@@ -121,8 +121,8 @@ test 'Check conflicts (non-conflicting edits)' => sub {
     my $release = $c->model('Release')->get_by_id(1);
     $c->model('Release')->load_release_events($release);
 
-    is ($release->name, 'Renamed release', 'release renamed');
-    is ($release->events->[0]->date->format, '1990-04-29', 'date changed');
+    is($release->name, 'Renamed release', 'release renamed');
+    is($release->events->[0]->date->format, '1990-04-29', 'date changed');
 };
 
 test 'Check conflicts (conflicting edits)' => sub {
@@ -149,7 +149,26 @@ test 'Check conflicts (conflicting edits)' => sub {
 
     my $release = $c->model('Release')->get_by_id(1);
     $c->model('Release')->load_release_events($release);
-    is ($release->comment, 'comment FOO', 'comment changed');
+    is($release->comment, 'comment FOO', 'comment changed');
+};
+
+test 'A missing comment does not clear an existing one' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release');
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASE_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('Release')->get_by_id(1),
+        name      => 'NEW NAME!',
+    );
+
+    $edit->accept;
+
+    my $release = $c->model('Release')->get_by_id(1);
+    is($release->comment, 'hello', 'comment is left unchanged');
 };
 
 sub is_unchanged {
@@ -159,7 +178,7 @@ sub is_unchanged {
     is($release->barcode->format, '', 'is_unchanged: barcode is empty');
     is($release->all_events, 0,       'is_unchanged: has no release events');
     is($release->language_id, undef,  'is_unchanged: language is undef');
-    is($release->comment, '',         'is_unchanged: disambiguation comment is blank');
+    is($release->comment, 'hello',    'is_unchanged: disambiguation comment is hello');
     is($release->release_group_id, 1, 'is_unchanged: release_group id is 1');
     is($release->name, 'Release',     'is_unchanged: release name is Release');
     is($release->artist_credit_id, 1, 'is_unchanged: artist credit is 1');

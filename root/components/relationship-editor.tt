@@ -1,0 +1,204 @@
+<div id="dialog" class="rel-editor-dialog" data-bind="with: activeDialog, delegatedHandler: ['click', 'keydown', 'change']">
+  <div data-bind="template: dialogTemplate" data-click="clickEvent" data-keydown="keydownEvent" data-change="changeEvent"></div>
+
+  <div class="buttons ui-helper-clearfix" style="margin-top: 1em">
+    <button type="button" class="negative" data-bind="click: function () { $data.close(true) }">[% l('Cancel') %]</button>
+    <div class="buttons-right" style="float: right; text-align: right;">
+      <button type="button" class="positive" data-bind="disable: hasErrors() || loading(), click: function () { $data.accept() }">[% l('Done') %]</button>
+    </div>
+  </div>
+</div>
+
+<script type="text/html" id="template.relationship-dialog">
+  <!-- ko if: relationship().editsPending -->
+    <p class="msg warning">
+      [% l('Warning: This relationship has pending edits.
+            <a target="_blank" data-bind="attr: { href: relationship().openEdits() }">Click here</a>
+            to view these edits and make sure they do not conflict with your own.') %]
+    </p>
+  <!-- /ko -->
+  <table>
+    <tbody>
+      <!-- ko template: { name: "template.dialog-source-entity", "if": source.gid && !/^tmp-/.test(source.gid) } --><!-- /ko -->
+      <!-- ko template: "template.dialog-link-type" --><!-- /ko -->
+      <!-- ko template: "template.dialog-target-entity" --><!-- /ko -->
+      <!-- ko template: "template.dialog-attributes" --><!-- /ko -->
+    </tbody>
+  </table>
+</script>
+
+<script type="text/html" id="template.dialog-source-entity">
+  <tr>
+    <td class="section" data-bind="text: MB.text.Entity[source.entityType] + ':'"></td>
+    <td>
+      <span data-bind="html: source.html({ 'target': '_blank' })"></span>
+    </td>
+  </tr>
+</script>
+
+<script type="text/html" id="template.dialog-target-entity">
+  <tr>
+    <td class="section">
+      <select data-bind="disable: disableTypeSelection, value: targetType, options: targetTypeOptions(), optionsValue: 'value', optionsText: 'text'"></select>
+    </td>
+    <td>
+      <span class="autocomplete">
+        <img class="search" src="../../../static/images/icons/search.png" />
+        <input class="name" type="text" data-bind="relationshipEditorAutocomplete: $data" />
+      </span>
+      <div class="error" data-bind="text: targetEntityError()"></div>
+    </td>
+  </tr>
+</script>
+
+<script type="text/html" id="template.dialog-link-type">
+  <tr>
+    <td class="section">[% l('Type') %]:</td>
+    <td>
+      <select class="link-type"
+        data-bind="options: linkTypeOptions(relationship().entityTypes),
+                   optionsValue: 'value',
+                   optionsText: 'text',
+                   optionsAfterRender: MB.forms.setDisabledOption,
+                   value: relationship().linkTypeID"></select>
+      <!-- ko if: /^(\w+)-\1$/.test(relationship().entityTypes) -->
+      <button type="button" class="styled-button change-direction" data-bind="click: changeDirection, text: MB.text.ChangeDirection"></button>
+      <!-- /ko -->
+      (<a href="#" data-bind="click: toggleLinkTypeHelp">[% l('help') %]</a>)
+      <div class="error" data-bind="text: linkTypeError()"></div>
+      <!-- ko with: linkTypeDescription() -->
+        <div class="ar-descr" data-bind="html: $data, visible: $parent.showLinkTypeHelp()"></div>
+      <!-- /ko -->
+    </td>
+  </tr>
+</script>
+
+<script type="text/html" id="template.dialog-date">
+  <tr>
+    <td class="section" data-bind="text: label"></td>
+    <td class="partial-date">
+      <input data-bind="value: date.year, valueUpdate: 'afterkeydown'" maxlength="4" placeholder="[% l('YYYY') %]" size="4" />-<!--
+      --><input data-bind="value: date.month, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="[% l('MM') %]" size="2" />-<!--
+      --><input data-bind="value: date.day, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="[% l('DD') %]" size="2" />
+      <div class="error" data-bind="text: $parent.dateError(date)"></div>
+    </td>
+  </tr>
+</script>
+
+<script type="text/html" id="template.dialog-attributes">
+  <!-- ko ifnot: _.isEmpty(relationship().linkTypeAttributes()) -->
+  <tr>
+    <td class="section">
+      [% l('Attributes:') %]<br />
+      (<a href="#" data-bind="click: toggleAttributesHelp">[% l('help') %]</a>)
+    </td>
+    <td data-bind="foreach: relationship().linkTypeAttributes()">
+      <!-- ko template: {
+                name: "template.edit-attribute",
+                data: _.assign({ relationship: $parent.relationship() }, $data)
+              }
+        --><!-- /ko -->
+    </td>
+  </tr>
+  <!-- /ko -->
+  <!-- ko if: relationship().hasDates() -->
+    <!-- ko template: {
+              name: "template.dialog-date",
+              data: { label: "[% l('Begin date:') | html | js %]", date: relationship().period.beginDate }
+            } --><!-- /ko -->
+    <!-- ko template: {
+              name: "template.dialog-date",
+              data: { label: "[% l('End date:') | html | js %]", date: relationship().period.endDate }
+            } --><!-- /ko -->
+    <!-- ko with: datePeriodError() -->
+    <tr>
+      <td></td>
+      <td class="error" data-bind="text: $data"></td>
+    </tr>
+    <!-- /ko -->
+  <!-- /ko -->
+  <tr>
+    <td colspan="2">
+      <label>
+        <input type="checkbox" data-bind="checked: relationship().period.ended" />
+        [% l('This relationship has ended.') %]
+      </label>
+    </td>
+  </tr>
+</script>
+
+<script type="text/html" id="template.extra-attributes-and-dates">
+  <!-- ko if: relationship.hasDates() -->
+    <!-- ko with: MB.utility.formatDatePeriod(relationship.period) -->
+      (<!-- ko text: $data --><!-- /ko -->)
+    <!-- /ko -->
+    <!-- ko if: relationship.period.ended() && !MB.utility.formatDatePeriod(relationship.period) -->
+      ([% l('ended') %])
+    <!-- /ko -->
+  <!-- /ko -->
+  <!-- ko with: relationship.phraseAndExtraAttributes(source)[1] -->
+    (<!-- ko text: $data --><!-- /ko -->)
+  <!-- /ko -->
+</script>
+
+<script type="text/html" id="template.edit-attribute">
+  <div>
+    <!-- ko ifnot: attribute.children || attribute.freeText -->
+    <label>
+      <input type="checkbox" data-bind="checked: relationship.attributeValue(attribute.id)" />
+      <!-- ko text: attribute.l_name --><!-- /ko -->
+    </label>
+    <!-- /ko -->
+    <!-- ko if: attribute.id == 14 -->
+      <div data-bind="instrumentSelect: relationship">
+        <!-- ko foreach: instruments -->
+          <div>
+            <span class="autocomplete" style="width: auto;">
+              <input data-bind="autocomplete: { entity: 'instrument', currentSelection: $rawData }" />
+              <img class="search" src="/static/images/icons/search.png" />
+            </span>
+            <!-- ko if: $parent.instruments().length > 1 -->
+              <button class="icon remove-item" data-bind="click: _.partial($parent.removeItem, $rawData)"></button>
+            <!-- /ko -->
+          </div>
+        <!-- /ko -->
+        <button class="styled-button" style="padding: 3px;" data-bind="click: addItem">
+          [% l('Add another instrument') | html %]
+        </button>
+      </div>
+    <!-- /ko -->
+    <!-- ko if: attribute.children && max !== 1 && attribute.id != 14 -->
+      <!-- ko text: attribute.l_name --><!-- /ko -->
+      <div class="multiselect" data-bind="
+              component: {
+                name: 'multiselect',
+                params: {
+                  options: MB.forms.buildOptionsTree(attribute, 'l_name', 'id'),
+                  placeholder: attribute.id == 14 ? MB.text.FocusInstrument :
+                               attribute.id == 3  ? MB.text.FocusVocal : '',
+                  valueObservable: relationship.attributeValue(attribute.id)
+                }
+              }"></div>
+    <!-- /ko -->
+    <!-- ko if: attribute.freeText -->
+    <label>
+      <!-- ko text: MB.i18n.expand(MB.text.AddColon, { variable: attribute.l_name }) --><!-- /ko -->
+      <input data-bind="value: relationship.attributeValue(attribute.id),
+                        valueUpdate: 'afterkeydown',
+                        attr: { placeholder: attribute.l_name }" />
+    </label>
+    <!-- /ko -->
+    <div class="error" data-bind="text: relationship.attributeError($data)"></div>
+    <!-- ko if: $root.showAttributesHelp -->
+      <div class="ar-descr" data-bind="html: attribute.description"></div>
+    <!-- /ko -->
+  </div>
+</script>
+
+<script type="text/html" id="template.multiselect">
+  <div class="items" data-bind="foreach: selectedOptions">
+    <a href="#" data-bind="html: '&#215; ' + _.escape(data.l_name)"></a>
+  </div>
+  <input class="multiselect-input" type="text" data-bind="value: term, valueUpdate: 'afterkeydown', attr: { placeholder: placeholder }, hasFocus: inputHasFocus" />
+  <div class="menu" data-bind="visible: menuVisibleWithOptions()"></div>
+</script>

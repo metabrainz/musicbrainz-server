@@ -2,15 +2,17 @@
   <tr>
     <th>[% l('Merge:') %]</th>
     <td>
-      [% INCLUDE 'artist/recordings-list.tt' recordings=edit.display_data.old
-           show_artists=1 show_video=1 no_prefix=1 no_ratings=1 %]
+      [% INCLUDE 'components/recordings-list.tt' recordings=edit.display_data.old
+           show_artists=1 show_video=1 no_checkboxes=1 no_ratings=1
+           length_class=(edit.display_data.large_spread ? 'warn-lengths' : '') %]
     </td>
   </tr>
   <tr>
     <th>[% l('Into:') %]</th>
     <td>
-      [% INCLUDE 'artist/recordings-list.tt' recordings=[edit.display_data.new]
-            show_artists=1 show_video=1 no_prefix=1 no_ratings=1 %]
+      [% INCLUDE 'components/recordings-list.tt' recordings=[edit.display_data.new]
+            show_artists=1 show_video=1 no_checkboxes=1 no_ratings=1
+           length_class=(edit.display_data.large_spread ? 'warn-lengths' : '') %]
     </td>
   </tr>
 </table>

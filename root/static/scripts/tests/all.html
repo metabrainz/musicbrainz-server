@@ -5,23 +5,39 @@
     <script type="text/javascript" charset="utf-8" src="../../lib/jquery/jquery.js"></script>
     <script type="text/javascript" charset="utf-8" src="../../lib/jquery/jquery.cookie.js"></script>
     <script type="text/javascript" charset="utf-8" src="../../lib/jquery.ui/ui/jquery-ui.custom.js"></script>
-    <script type="text/javascript" charset="utf-8" src="../../lib/underscore/underscore.js"></script>
-    <script type="text/javascript" charset="utf-8" src="../../lib/underscore/underscore.string.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../lib/lodash/lodash.compat.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../lib/underscore.string/underscore.string.js"></script>
     <script type="text/javascript" charset="utf-8" src="../../lib/json/json2.js"></script>
     <script type="text/javascript" charset="utf-8" src="../../lib/sha1/sha1.js"></script>
     <script type="text/javascript" charset="utf-8" src="../../lib/filesize.js/lib/filesize.js"></script>
     <script type="text/javascript" charset="utf-8" src="../../lib/qunit/qunit/qunit.js"></script>
     <script type="text/javascript" charset="utf-8" src="../../lib/qunit-tap/lib/qunit-tap.js"></script>
-    <script type="text/javascript" charset="utf-8" src="../../lib/knockout/knockout-2.3.0.debug.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../lib/knockout/knockout-latest.debug.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../lib/knockout/knockout-postbox.js"></script>
     <script type="text/javascript" charset="utf-8" src="../../lib/aclass/aclass.js"></script>
     <script type="text/javascript" charset="utf-8" src="../common/MB.js"></script>
+    <script>
+      (function () {
+        var script = document.createElement("script");
+
+        script.setAttribute("type", "text/javascript");
+        script.setAttribute("charset", "utf-8");
+
+        script.src = /PhantomJS/.test(window.navigator.userAgent) ?
+            "../../tests/text.js" : "../../../scripts/en/1/text.js";
+
+        document.head.appendChild(script);
+      }());
+    </script>
     <script type="text/javascript" charset="utf-8" src="../common/MB/i18n.js"></script>
     <script type="text/javascript" charset="utf-8" src="../common/MB/utility.js"></script>
     <script type="text/javascript" charset="utf-8" src="../common/entity.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../common/MB/Control/Autocomplete.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../edit/MB/edit.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../edit/MB/Control/Bubble.js"></script>
 
     <!-- ArtistCredit -->
     <script type="text/javascript" charset="utf-8" src="../edit/MB/Control/ArtistCredit.js"></script>
-
 
     <!-- URL Cleanup -->
     <script type="text/javascript" charset="utf-8" src="../edit/MB/Control/URLCleanup.js"></script>
@@ -52,16 +68,30 @@
     <script type="text/javascript" charset="utf-8" src="../guess-case/MB/GuessCase/Track.js"></script>
     <script type="text/javascript" charset="utf-8" src="../guess-case/MB/GuessCase/Work.js"></script>
 
-    <!-- Track Parser -->
-    <script type="text/javascript" charset="utf-8" src="../release-editor/MB/TrackParser.js"></script>
+    <!-- Release Editor -->
+    <script type="text/javascript" charset="utf-8" src="../edit/MB/edit.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../release-editor/utils.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../release-editor/actions.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../release-editor/bubbles.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../release-editor/dialogs.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../release-editor/edits.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../release-editor/fields.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../release-editor/init.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../release-editor/recordingAssociation.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../release-editor/seeding.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../release-editor/trackParser.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../release-editor/validation.js"></script>
 
     <!-- Relationship Editor -->
-    <script type="text/javascript" charset="utf-8" src="../relationship-editor/Dialog.js"></script>
-    <script type="text/javascript" charset="utf-8" src="../relationship-editor/Entity.js"></script>
-    <script type="text/javascript" charset="utf-8" src="../relationship-editor/Fields.js"></script>
-    <script type="text/javascript" charset="utf-8" src="../relationship-editor/Relationship.js"></script>
-    <script type="text/javascript" charset="utf-8" src="../relationship-editor/Util.js"></script>
-    <script type="text/javascript" charset="utf-8" src="../relationship-editor/RelationshipEditor.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../relationship-editor/common/fields.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../relationship-editor/common/viewModel.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../relationship-editor/common/entity.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../relationship-editor/common/dialog.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../relationship-editor/generic.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../relationship-editor/release.js"></script>
+
+    <!-- External links editor -->
+    <script type="text/javascript" charset="utf-8" src="../edit/externalLinks.js"></script>
 
     <!-- Load tests -->
     <script type="text/javascript">//<![CDATA[
@@ -69,39 +99,32 @@
         /* provide namespace for tests. */
         MB.tests = (MB.tests) ? MB.tests : {};
 
-        qunitTap (QUnit, function() {
+        qunitTap(QUnit, function () {
           if (window.console !== undefined)
-            console.log.apply (console, arguments);
+            console.log.apply(console, arguments);
         }, { noPlan: true });
 
     //]]></script>
 
+    <script type="text/javascript" charset="utf-8" src="autocomplete.js"></script>
+    <script type="text/javascript" charset="utf-8" src="edit.js"></script>
+    <script type="text/javascript" charset="utf-8" src="externalLinks.js"></script>
     <script type="text/javascript" charset="utf-8" src="i18n.js"></script>
     <script type="text/javascript" charset="utf-8" src="utility.js"></script>
     <script type="text/javascript" charset="utf-8" src="Control/URLCleanup.js"></script>
     <script type="text/javascript" charset="utf-8" src="CoverArt.js"></script>
     <script type="text/javascript" charset="utf-8" src="GuessCase.js"></script>
-    <script type="text/javascript" charset="utf-8" src="TrackParser.js"></script>
-    <script type="text/javascript" charset="utf-8" src="RelationshipEditor.js"></script>
+    <script type="text/javascript" charset="utf-8" src="relationship-editor.js"></script>
+    <script type="text/javascript" charset="utf-8" src="release-editor/common.js"></script>
+    <script type="text/javascript" charset="utf-8" src="release-editor/actions.js"></script>
+    <script type="text/javascript" charset="utf-8" src="release-editor/bubbles.js"></script>
+    <script type="text/javascript" charset="utf-8" src="release-editor/dialogs.js"></script>
+    <script type="text/javascript" charset="utf-8" src="release-editor/edits.js"></script>
+    <script type="text/javascript" charset="utf-8" src="release-editor/fields.js"></script>
+    <script type="text/javascript" charset="utf-8" src="release-editor/trackParser.js"></script>
+    <script type="text/javascript" charset="utf-8" src="release-editor/validation.js"></script>
     <script type="text/javascript" charset="utf-8" src="entity.js"></script>
     <script type="text/javascript" charset="utf-8" src="Control/ArtistCredit.js"></script>
-
-    <!-- Start! -->
-    <script type="text/javascript">//<![CDATA[
-
-      $(document).ready (function () {
-          MB.tests.utility.Run ();
-          MB.tests.URLCleanup.Run ();
-          MB.tests.CoverArt.Run ();
-          MB.tests.GuessCase.Run ();
-          MB.tests.TrackParser.Run ();
-          MB.tests.RelationshipEditor.Run ();
-          MB.tests.entity();
-          MB.tests.ArtistCreditControl();
-          MB.tests.i18n();
-      });
-
-    //]]></script>
   </head>
   <body>
     <h1 id="qunit-header">MusicBrainz QUnit Test Runner</h1>
@@ -110,14 +133,5 @@
     <h2 id="qunit-userAgent"></h2>
     <ol id="qunit-tests"></ol>
     <div id="qunit-fixture">test markup</div>
-
-    <!-- FIXME: Allow these things to be set in a way which is easier for testing. -->
-    <div class="trackparser-options" style="display: none">
-      <input type="checkbox" id="tracknumbers" />
-      <input type="checkbox" id="vinylnumbers" />
-      <input type="checkbox" id="tracktimes" />
-      <textarea class="tracklist" />
-    </div>
-
   </body>
 </html>

@@ -1,9 +1,15 @@
-[% WRAPPER "user/profile/layout.tt" page="index" %]
+[%~ MACRO no_email_warning BLOCK ~%]
+    [%~ IF viewing_own_profile && !c.user.has_confirmed_email_address ~%]
+        <strong>[% l('Your homepage and biography will not show until you have confirmed your email.') %]</strong>
+    [%~ END ~%]
+[%~ END ~%]
+
+[%- WRAPPER "user/profile/layout.tt" page="index" %]
     [% BLOCK property %]
-        <dt class="[% class %]">
+        <dt[% IF class %] class="[% class %]"[% END %]>
             [% name %]
         </dt>
-        <dd class="[% class %]">
+        <dd[% IF class %] class="[% class %]"[% END %]>
             [% content %]
         </dd>
     [% END %]
@@ -24,7 +30,7 @@
                         date  => UserDate.format(user.email_confirmation_date)
                     }) -%]
                 [% ELSE %]
-                        [%- l('(<strong>unverified!</strong>)') -%]
+                    [%- l('(<strong>unverified!</strong>)') -%] [% no_email_warning() %]
                 [% END %]
 
                 [% IF viewing_own_profile %]
@@ -35,12 +41,13 @@
                     (<a href="[% c.uri_for_action('/user/contact', [ user.name ]) %]">[% l("send email") %]</a>)
                 [% END %]
             [% ELSE %]
-                [% lp('(none)', 'email') %]
+                [% lp('(none)', 'email') %] [% no_email_warning() %]
             [% END %]
         [% END %]
 
         [% WRAPPER property name=l("User type:") %]
             [% types = [] %]
+            [% types.push(l('Deleted User')) IF user.deleted %]
             [% types.push(l('{doc|Auto-Editor}', {doc => doc_link('Auto-Editor')})) IF user.is_auto_editor %]
             [% types.push(l("Internal/Bot")) IF user.is_bot %]
             [% types.push(l('{doc|Relationship Editor}', {doc => doc_link('Relationship_Editor')})) IF user.is_relationship_editor %]
@@ -51,14 +58,12 @@
                            IF user.is_limited %]
             [% types.push(l('Normal User')) IF types.size == 0 %]
             [% comma_list(types) %]
-            [% IF c.user.is_auto_editor && !user.is_auto_editor %]
+            [% IF c.user.can_nominate(user) %]
                 (<a href="[% c.uri_for_action('/elections/nominate', user.name) %]">[% l("nominate for auto-editor") %]</a>)
             [% END %]
-
-
         [% END %]
 
-        [% IF user.age;
+        [% IF user.age.defined;
              WRAPPER property name=l('Age:');
               user.age;
              END;
@@ -72,7 +77,7 @@
 
         [% IF user.area;
              WRAPPER property name=l('Location:');
-              link_area_with_containment(user.area);
+              descriptive_link(user.area);
              END;
            END; %]
 
@@ -86,10 +91,10 @@
             [% END %]
         [% END %]
 
-        [% IF user.website %]
+        [% IF user.website && (user.has_confirmed_email_address || c.user.is_account_admin) %]
             [% WRAPPER property name=l("Homepage:") %]
                 <a href="[% user.website | url %]" rel="nofollow">
-                    [% user.website | html_entity %]
+                    [%~ user.website | html_entity ~%]
                 </a>
             [% END %]
         [% END %]
@@ -109,7 +114,7 @@
                 [% END %]
             [% END %]
 
-        [% IF user.biography %]
+        [% IF user.biography && (user.has_confirmed_email_address || c.user.is_account_admin) %]
             [% WRAPPER property name=l("Bio:") class='biography' %]
                 [% user.biography | format_wikitext %]
             [% END %]
@@ -170,7 +175,7 @@
 
         [% WRAPPER statistics name=l("Last 24 hours") %]
             [% l('{count} ({view_url|view})', { count => add_commas(last_day_count),
-                     view_url => html_escape(c.uri_for('/search/edits', {
+                     view_url => c.uri_for('/search/edits', {
                          auto_edit_filter => '', order => 'desc',
                          negation => '0', combinator => 'and',
                          'conditions.0.field' => 'editor',
@@ -180,7 +185,7 @@
                          'conditions.1.field' => 'open_time',
                          'conditions.1.operator' => '>',
                          'conditions.1.args.0' => '24 hours ago'
-                     })) }) %]
+                     }) }) %]
         [% END %]
         </tbody>
     </table>

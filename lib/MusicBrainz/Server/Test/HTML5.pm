@@ -15,48 +15,19 @@ Check if a particular warning should be ignored.
 
 Currently we ignore the following warnings:
 
-  1. rel attribute on elements other than a, area, link.
-     HTML5 spec: http://developers.whatwg.org/section-index.html#attributes-1
-
-     We use the rel attribute according to the RDFa spec.
-
-  2. datatype attribute
-     Not a valid attribute in HTML5, but used by RDFa.
-
-  3. resource attribute
-     Not a valid attribute in HTML5, but used by RDFa.
-
-  4. content attribute
-     Not a valid attribute in HTML5, but used by RDFa.
-
-  5. xmlns attributes on <html>
-     Not valid in html5, required for RDFa 1.0.  Upgrading our implementation
-     to RDFa 1.1 hopefully will solve this.  See MBS-xxxx.
-
-  6. Bad value "foo:Bar" for attribute "rel"
-     validator.nu requires rel="" values to be from a list of registered
-     types, whereas in RDFa you can use anything if you link to a vocabulary
-     which defines the type.
-
-  7. <img> tags without alt attributes
+  1. <img> tags without alt attributes
      Not all img elements must have an alt attribute, although we could
      probably do do better here.  For now, just ignore it.
 
-  8. <input type="button"> without value
+  2. <input type="button"> without value
      In a few spots we use <input type="button"> for buttons which get
      their appearance from a background image instead of the value
      attribute.  <button><img src="" alt="" /></button> would be better
      solution.  See MBS-xxxx.
 
-  9. Element "foo" now allowed as child of element "bar" ...
+  3. Element "foo" now allowed as child of element "bar" ...
      These are problems with how our HTML is structured, and these should
      be fixed.  See MBS-xxxx.
-
- 10. about attribute
-     Not a valid attribute in HTML5, but used by RDFa.
-
- 11. Bad value ... for attribute “resource” on element ...
-     We seem to be using values that are not proper resource attribute values.
 
 =cut
 
@@ -65,17 +36,9 @@ sub ignore_warning
     my $msg = shift;
 
     my @ignored = (
-        '^Attribute .rel. not allowed on element',
-        '^Attribute .datatype. not allowed on element',
-        '^Attribute .resource. not allowed on element',
-        '^Attribute .content. not allowed on element',
-        '^Attribute .xmlns:[A-Za-z0-9]*. not allowed here',
-        '^Bad value .* for attribute .rel. on element',
         '^An .img. element must have an .alt. attribute',
         '^Element .input. with attribute .type. whose value is .button.',
         '^Element .* not allowed as child of element .* in this context.',
-        '^Attribute .about. not allowed on element',
-        '^Bad value .* for attribute .resource. on element .*: Illegal character in scheme component.'
     );
 
     for my $test (@ignored)
@@ -99,11 +62,11 @@ sub format_message
 
     if ($opts{ignored})
     {
-        return sprintf ("%s (ignored): %s", $msg->{type}, $msg->{message});
+        return sprintf("%s (ignored): %s", $msg->{type}, $msg->{message});
     }
     else
     {
-        return sprintf ("%s%s: %s\n ⤷ line %d (col %d): %s", $msg->{type},
+        return sprintf("%s%s: %s\n ⤷ line %d (col %d): %s", $msg->{type},
                         $ignored, $msg->{message}, $msg->{lastLine},
                         $msg->{firstColumn}, $msg->{extract});
 
@@ -126,11 +89,11 @@ sub save_html
     my ($Test, $content, $suffix) = @_;
 
     if ($ENV{SAVE_HTML}) {
-        my ($fh, $filename) = tempfile (
+        my ($fh, $filename) = tempfile(
             "html5_ok_XXXX", SUFFIX => $suffix, TMPDIR => 1);
-        print $fh encode ("utf-8", $content);
-        close ($fh);
-        $Test->diag ("failed output written to $filename");
+        print $fh encode("utf-8", $content);
+        close($fh);
+        $Test->diag("failed output written to $filename");
     };
 }
 
@@ -148,19 +111,19 @@ sub xhtml_ok
 
     $message ||= "well-formed XHTML";
 
-    eval { XML::LibXML->load_xml (string => $content); };
+    eval { XML::LibXML->load_xml(string => $content); };
     if ($@)
     {
-        foreach (split "\n", $@->as_string ())
+        foreach (split "\n", $@->as_string())
         {
             $Test->diag($_);
         }
-        save_html ($Test, $content, ".xml");
-        return $Test->ok (0, $message);
+        save_html($Test, $content, ".xml");
+        return $Test->ok(0, $message);
     }
     else
     {
-        return $Test->ok (1, $message);
+        return $Test->ok(1, $message);
     }
 }
 
@@ -177,7 +140,7 @@ sub html5_ok
 
     $message ||= "valid HTML5";
 
-    unless (utf8::is_utf8 ($content)) {
+    unless (utf8::is_utf8($content)) {
         $Test->ok(0, "$message, need to know encoding of content");
         return;
     }
@@ -191,29 +154,29 @@ sub html5_ok
 
 
     my $ua = LWP::UserAgent->new;
-    $ua->timeout (10);
+    $ua->timeout(10);
 
     my $request = HTTP::Request->new(POST => $url);
-    $request->header ('Content-Type', 'text/html');
-    $request->content (encode ("utf-8", $content));
+    $request->header('Content-Type', 'text/html');
+    $request->content(encode("utf-8", $content));
 
     my $all_ok = 1;
 
     my $response = $ua->request($request);
     if ($response->is_success)
     {
-        my $report = decode_json ($response->content);
+        my $report = decode_json($response->content);
         for my $msg (@{ $report->{messages} })
         {
             next if $msg->{type} eq "info";
 
-            if (ignore_warning ($msg))
+            if (ignore_warning($msg))
             {
-                $Test->diag(format_message ($msg, "ignored" => 1));
+                $Test->diag(format_message($msg, "ignored" => 1));
             }
             else
             {
-                $Test->diag(format_message ($msg));
+                $Test->diag(format_message($msg));
                 $all_ok = 0;
             }
         }
@@ -224,7 +187,7 @@ sub html5_ok
         $message .= ", Could not connect to ".$url;
     }
 
-    save_html ($Test, $content, ".html") unless $all_ok;
+    save_html($Test, $content, ".html") unless $all_ok;
 
     $Test->ok($all_ok, $message);
 }

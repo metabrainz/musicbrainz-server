@@ -12,10 +12,10 @@ with 'MusicBrainz::Server::Controller::Role::Alias';
 with 'MusicBrainz::Server::Controller::Role::Cleanup';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
-with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::CommonsImage';
+with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 
 use Data::Page;
 use HTTP::Status qw( :constants );
@@ -61,8 +61,9 @@ after 'load' => sub
     my $place = $c->stash->{place};
 
     $c->model('PlaceType')->load($place);
-    $c->model('Area')->load($c->stash->{place});
+    $c->model('Area')->load($place);
     $c->model('Area')->load_containment($place->area);
+    $c->model('Relationship')->load($place);
 };
 
 =head2 show
@@ -75,9 +76,6 @@ sub show : PathPart('') Chained('load')
 {
     my ($self, $c) = @_;
 
-    # need to call relationships for overview page
-    $self->relationships($c);
-
     $c->stash(template => 'place/index.tt');
 }
 
@@ -87,12 +85,8 @@ Shows performances linked to a place.
 
 =cut
 
-sub performances : Chained('load')
-{
-    my ($self, $c) = @_;
+sub performances : Chained('load') { }
 
-    $self->relationships($c);
-}
 =head2 WRITE METHODS
 
 =cut
@@ -110,8 +104,6 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_PLACE_MERGE,
-    confirmation_template => 'place/merge_confirm.tt',
-    search_template       => 'place/merge_search.tt',
 };
 
 sub _merge_load_entities
@@ -119,6 +111,7 @@ sub _merge_load_entities
     my ($self, $c, @places) = @_;
     $c->model('PlaceType')->load(@places);
     $c->model('Area')->load(@places);
+    $c->model('Area')->load_containment(map { $_->area } @places);
 };
 
 =head1 LICENSE

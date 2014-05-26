@@ -140,8 +140,6 @@ EOSQL
     my $edit = $c->model('Edit')->create(
         edit_type => $EDIT_RELATIONSHIP_EDIT,
         editor_id => 1,
-        type0 => 'release',
-        type1 => 'url',
         relationship => $rel,
         entity0 => $c->model('Release')->get_by_id(2)
     );
@@ -170,8 +168,6 @@ test 'Editing relationships fails if the underlying link type changes' => sub {
     my $edit1 = $c->model('Edit')->create(
         edit_type => $EDIT_RELATIONSHIP_EDIT,
         editor_id => 1,
-        type0 => 'artist',
-        type1 => 'artist',
         relationship => $rel,
         begin_date => { year => 1994 },
     );
@@ -179,15 +175,65 @@ test 'Editing relationships fails if the underlying link type changes' => sub {
     my $edit2 = $c->model('Edit')->create(
         edit_type => $EDIT_RELATIONSHIP_EDIT,
         editor_id => 1,
-        type0 => 'artist',
-        type1 => 'artist',
         relationship => $rel,
         link_type => $c->model('LinkType')->get_by_id(2),
     );
 
-    is (exception { $edit2->accept }, undef);
-    is (exception { $edit1->accept },
+    is(exception { $edit2->accept }, undef);
+    is(exception { $edit1->accept },
         'This relationship has changed type since this edit was entered');
+};
+
+test 'Relationship link_order values are ignored' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
+
+    my $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
+    $c->model('Link')->load($rel);
+    $c->model('LinkType')->load($rel->link);
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELATIONSHIP_EDIT,
+        editor_id => 1,
+        relationship => $rel,
+        attributes => [2],
+        link_order => 5,
+    );
+
+    accept_edit($c, $edit);
+
+    $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
+
+    is($rel->link_order, 0);
+};
+
+test 'Text attributes with undef values are ignored' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
+
+    my $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 2);
+    $c->model('Link')->load($rel);
+    $c->model('LinkType')->load($rel->link);
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELATIONSHIP_EDIT,
+        editor_id => 1,
+        relationship => $rel,
+        attributes => [2],
+        attribute_text_values => { 3 => undef },
+    );
+
+    accept_edit($c, $edit);
+
+    $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 2);
+    $c->model('Link')->load($rel);
+
+    is_deeply([map { $_->id } $rel->link->all_attributes], [2]);
+    is_deeply($rel->link->attribute_text_values, {});
 };
 
 sub _create_edit {
@@ -200,8 +246,6 @@ sub _create_edit {
     return $c->model('Edit')->create(
         edit_type => $EDIT_RELATIONSHIP_EDIT,
         editor_id => 1,
-        type0 => 'artist',
-        type1 => 'artist',
         relationship => $rel,
         link_type => $c->model('LinkType')->get_by_id(2),
         begin_date => { year => 1994 },
@@ -220,8 +264,6 @@ sub _create_edit_change_direction {
     return $c->model('Edit')->create(
         edit_type => $EDIT_RELATIONSHIP_EDIT,
         editor_id => 1,
-        type0 => 'artist',
-        type1 => 'artist',
         change_direction => 1,
         relationship => $rel,
         link_type => $c->model('LinkType')->get_by_id(1),

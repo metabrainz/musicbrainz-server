@@ -26,20 +26,16 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
  * Models the "French" GuessCase mode.
  **/
 MB.GuessCase.Mode.French = function () {
-    var self = MB.GuessCase.Mode.Base ();
+    var self = MB.GuessCase.Mode.Base();
 
-    self.setConfig(
-	'French',
-	'First word titled, lowercase for <i>most</i> of the other '
-	    + 'words. Read the [url]description[/url] for more details.',
-	'/doc/GuessCaseMode/FrenchMode');
+    self.setConfig('French', MB.text.GuessCaseDescriptionFrench);
 
-    self.runFinalChecks = function(is) {
-	os = is.replace(/([!\?;:]+)/gi, " $1");
-	os = os.replace(/([«]+)/gi, "$1 ");
-	os = os.replace(/([»]+)/gi, " $1");
+    self.runFinalChecks = function (is) {
+    os = is.replace(/([!\?;:]+)/gi, " $1");
+    os = os.replace(/([«]+)/gi, "$1 ");
+    os = os.replace(/([»]+)/gi, " $1");
 
-	return os;
+    return os;
     };
 
     return self;

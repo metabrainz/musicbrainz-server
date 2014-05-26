@@ -18,7 +18,10 @@ sub fmt { 'xml' }
 Readonly my $xml_decl_begin => '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">';
 Readonly my $xml_decl_end => '</metadata>';
 
+# Dynamically scoped variables for determined what data is displayed.
+# Can change at runtime via 'local' shadowing
 our $in_relation_node = 0;
+our $show_aliases = 1;
 
 sub _list_attributes
 {
@@ -39,7 +42,7 @@ sub _serialize_annotation
         defined $entity->latest_annotation &&
         $entity->latest_annotation->text)
     {
-        push @$data, $gen->annotation($gen->text ($entity->latest_annotation->text));
+        push @$data, $gen->annotation($gen->text($entity->latest_annotation->text));
     }
 }
 
@@ -48,8 +51,8 @@ sub _serialize_coordinates
     my ($self, $data, $gen, $entity, $inc, $opts) = @_;
 
     my @coordinates;
-    push @coordinates, $gen->latitude($entity->coordinates->latitude) if $entity->coordinates->latitude;
-    push @coordinates, $gen->longitude($entity->coordinates->longitude) if $entity->coordinates->longitude;
+    push @coordinates, $gen->latitude($entity->coordinates->latitude);
+    push @coordinates, $gen->longitude($entity->coordinates->longitude);
     push @$data, $gen->coordinates(@coordinates);
 }
 
@@ -86,7 +89,7 @@ sub _serialize_alias
 {
     my ($self, $data, $gen, $aliases, $inc, $opts) = @_;
 
-    if (!$in_relation_node && @$aliases)
+    if ($show_aliases && @$aliases)
     {
         my %attr = ( count => scalar(@$aliases) );
         my @alias_list;
@@ -116,7 +119,7 @@ sub _serialize_artist_list
         {
             $self->_serialize_artist(\@list, $gen, $artist, $inc, $stash, 1);
         }
-        push @$data, $gen->artist_list($self->_list_attributes ($list), @list);
+        push @$data, $gen->artist_list($self->_list_attributes($list), @list);
     }
 }
 
@@ -124,7 +127,7 @@ sub _serialize_artist
 {
     my ($self, $data, $gen, $artist, $inc, $stash, $toplevel) = @_;
 
-    my $opts = $stash->store ($artist);
+    my $opts = $stash->store($artist);
 
     my $compact_display = $artist->id == $VARTIST_ID && !$toplevel;
 
@@ -208,7 +211,7 @@ sub _serialize_collection
 {
     my ($self, $data, $gen, $collection, $inc, $stash, $toplevel) = @_;
 
-    my $opts = $stash->store ($collection);
+    my $opts = $stash->store($collection);
 
     my %attrs;
     $attrs{id} = $collection->gid;
@@ -248,14 +251,14 @@ sub _serialize_release_group_list
     {
         $self->_serialize_release_group(\@list, $gen, $rg, $inc, $stash, $toplevel);
     }
-    push @$data, $gen->release_group_list($self->_list_attributes ($list), @list);
+    push @$data, $gen->release_group_list($self->_list_attributes($list), @list);
 }
 
 sub _serialize_release_group
 {
     my ($self, $data, $gen, $release_group, $inc, $stash, $toplevel) = @_;
 
-    my $opts = $stash->store ($release_group);
+    my $opts = $stash->store($release_group);
 
     my %attr;
     $attr{id} = $release_group->gid;
@@ -328,7 +331,7 @@ sub _serialize_release_list
     {
         $self->_serialize_release(\@list, $gen, $release, $inc, $stash, $toplevel);
     }
-    push @$data, $gen->release_list($self->_list_attributes ($list), @list);
+    push @$data, $gen->release_list($self->_list_attributes($list), @list);
 }
 
 sub _serialize_quality
@@ -353,9 +356,9 @@ sub _serialize_release
 {
     my ($self, $data, $gen, $release, $inc, $stash, $toplevel) = @_;
 
-    my $opts = $stash->store ($release);
+    my $opts = $stash->store($release);
 
-    $inc = $inc->clone ( releases => 0 );
+    $inc = $inc->clone( releases => 0 );
 
     my @list;
 
@@ -453,14 +456,14 @@ sub _serialize_work_list
     {
         $self->_serialize_work(\@list, $gen, $work, $inc, $stash, $toplevel);
     }
-    push @$data, $gen->work_list($self->_list_attributes ($list), @list);
+    push @$data, $gen->work_list($self->_list_attributes($list), @list);
 }
 
 sub _serialize_work
 {
     my ($self, $data, $gen, $work, $inc, $stash, $toplevel) = @_;
 
-    my $opts = $stash->store ($work);
+    my $opts = $stash->store($work);
 
     my %attrs;
     $attrs{id} = $work->gid;
@@ -475,6 +478,12 @@ sub _serialize_work
         push @list, $gen->iswc_list(map {
             $gen->iswc($_->iswc);
         } $work->all_iswcs);
+    }
+
+    if ($work->all_attributes) {
+        push @list, $gen->attribute_list(map {
+            $gen->attribute({ type => $_->type->name }, $_->value);
+        } $work->all_attributes);
     }
 
     push @list, $gen->disambiguation($work->comment) if ($work->comment);
@@ -493,7 +502,7 @@ sub _serialize_url
 {
     my ($self, $data, $gen, $url, $inc, $stash, $toplevel) = @_;
 
-    my $opts = $stash->store ($url);
+    my $opts = $stash->store($url);
 
     my %attrs;
     $attrs{id} = $url->gid;
@@ -515,14 +524,14 @@ sub _serialize_recording_list
         $self->_serialize_recording(\@list, $gen, $recording, $inc, $stash, $toplevel);
     }
 
-    push @$data, $gen->recording_list($self->_list_attributes ($list), @list);
+    push @$data, $gen->recording_list($self->_list_attributes($list), @list);
 }
 
 sub _serialize_recording
 {
     my ($self, $data, $gen, $recording, $inc, $stash, $toplevel) = @_;
 
-    my $opts = $stash->store ($recording);
+    my $opts = $stash->store($recording);
 
     my @list;
     push @list, $gen->title($recording->name);
@@ -620,13 +629,16 @@ sub _serialize_track
     push @track, $gen->length($track->length)
         if $track->length;
 
-    $self->_serialize_artist_credit(\@track, $gen, $track->artist_credit, $inc, $stash)
-        if $inc->artist_credits &&
-            (
-                ($track->recording &&
-                     $track->recording->artist_credit != $track->artist_credit)
-                || !$track->recording
-            );
+    do {
+        local $show_aliases = 0;
+        $self->_serialize_artist_credit(\@track, $gen, $track->artist_credit, $inc, $stash)
+            if $inc->artist_credits &&
+                (
+                    ($track->recording &&
+                         $track->recording->artist_credit != $track->artist_credit)
+                    || !$track->recording
+                );
+    };
 
     $self->_serialize_recording(\@track, $gen, $track->recording, $inc, $stash)
         if ($track->recording);
@@ -650,7 +662,7 @@ sub _serialize_disc
 {
     my ($self, $data, $gen, $cdtoc, $inc, $stash, $toplevel) = @_;
 
-    my $opts = $stash->store ($cdtoc);
+    my $opts = $stash->store($cdtoc);
 
     my @list;
     push @list, $gen->sectors($cdtoc->leadout_offset);
@@ -709,7 +721,7 @@ sub _serialize_label_info
     my ($self, $data, $gen, $rel_label, $inc, $stash) = @_;
 
     my @list;
-    push @list, $gen->catalog_number ($rel_label->catalog_number)
+    push @list, $gen->catalog_number($rel_label->catalog_number)
         if $rel_label->catalog_number;
     $self->_serialize_label(\@list, $gen, $rel_label->label, $inc, $stash)
         if $rel_label->label;
@@ -727,7 +739,7 @@ sub _serialize_label_list
         {
             $self->_serialize_label(\@list, $gen, $label, $inc, $stash, $toplevel);
         }
-        push @$data, $gen->label_list($self->_list_attributes ($list), @list);
+        push @$data, $gen->label_list($self->_list_attributes($list), @list);
     }
 }
 
@@ -735,7 +747,7 @@ sub _serialize_label
 {
     my ($self, $data, $gen, $label, $inc, $stash, $toplevel) = @_;
 
-    my $opts = $stash->store ($label);
+    my $opts = $stash->store($label);
 
     my %attrs;
     $attrs{id} = $label->gid;
@@ -743,7 +755,7 @@ sub _serialize_label
 
     my @list;
     push @list, $gen->name($label->name);
-    push @list, $gen->sort_name($label->sort_name) if $label->sort_name;
+    push @list, $gen->sort_name($label->name);
     push @list, $gen->disambiguation($label->comment) if $label->comment;
     push @list, $gen->label_code($label->label_code) if $label->label_code;
     push @list, $gen->ipi($label->ipi_codes->[0]->ipi) if ($label->all_ipi_codes);
@@ -789,7 +801,7 @@ sub _serialize_area_list
         {
             $self->_serialize_area(\@list, $gen, $area, $inc, $stash, $toplevel);
         }
-        push @$data, $gen->area_list($self->_list_attributes ($list), @list);
+        push @$data, $gen->area_list($self->_list_attributes($list), @list);
     }
 }
 
@@ -797,7 +809,7 @@ sub _serialize_area_inner
 {
     my ($self, $data, $gen, $area, $inc, $stash, $toplevel) = @_;
 
-    my $opts = $stash->store ($area);
+    my $opts = $stash->store($area);
 
     my %attrs;
     $attrs{id} = $area->gid;
@@ -805,7 +817,7 @@ sub _serialize_area_inner
 
     my @list;
     push @list, $gen->name($area->name);
-    push @list, $gen->sort_name($area->sort_name) if $area->sort_name;
+    push @list, $gen->sort_name($area->name);
     push @list, $gen->disambiguation($area->comment) if ($area->comment);
     if ($area->iso_3166_1_codes) {
         push @list, $gen->iso_3166_1_code_list(map {
@@ -875,7 +887,7 @@ sub _serialize_place_list
         {
             $self->_serialize_place(\@list, $gen, $place, $inc, $stash, $toplevel);
         }
-        push @$data, $gen->place_list($self->_list_attributes ($list), @list);
+        push @$data, $gen->place_list($self->_list_attributes($list), @list);
     }
 }
 
@@ -883,7 +895,7 @@ sub _serialize_place
 {
     my ($self, $data, $gen, $place, $inc, $stash, $toplevel) = @_;
 
-    my $opts = $stash->store ($place);
+    my $opts = $stash->store($place);
 
     my %attrs;
     $attrs{id} = $place->gid;
@@ -893,7 +905,7 @@ sub _serialize_place
     push @list, $gen->name($place->name);
     push @list, $gen->disambiguation($place->comment) if $place->comment;
     push @list, $gen->address($place->address) if $place->address;
-    $self->_serialize_coordinates(\@list, $gen, $place, $inc, $stash, $toplevel) if $place->coordinates->latitude;
+    $self->_serialize_coordinates(\@list, $gen, $place, $inc, $stash, $toplevel) if $place->coordinates;
 
     if ($toplevel)
     {
@@ -911,12 +923,51 @@ sub _serialize_place
     push @$data, $gen->place(\%attrs, @list);
 }
 
+sub _serialize_instrument_list {
+    my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
+
+    if (@{ $list->{items} }) {
+        my @list;
+        foreach my $instrument (sort_by { $_->gid } @{ $list->{items} }) {
+            $self->_serialize_instrument(\@list, $gen, $instrument, $inc, $stash, $toplevel);
+        }
+        push @$data, $gen->instrument_list($self->_list_attributes($list), @list);
+    }
+}
+
+sub _serialize_instrument {
+    my ($self, $data, $gen, $instrument, $inc, $stash, $toplevel) = @_;
+
+    my $opts = $stash->store($instrument);
+
+    my %attrs;
+    $attrs{id} = $instrument->gid;
+    $attrs{type} = $instrument->type->name if $instrument->type;
+
+    my @list;
+    push @list, $gen->name($instrument->name);
+    push @list, $gen->disambiguation($instrument->comment) if $instrument->comment;
+    push @list, $gen->description($instrument->description) if $instrument->description;
+
+    if ($toplevel) {
+        $self->_serialize_annotation(\@list, $gen, $instrument, $inc, $opts);
+    }
+
+    $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
+        if ($inc->aliases && $opts->{aliases});
+
+    $self->_serialize_relation_lists($instrument, \@list, $gen, $instrument->relationships, $inc, $stash) if ($inc->has_rels);
+
+    push @$data, $gen->instrument(\%attrs, @list);
+}
+
 sub _serialize_relation_lists
 {
     my ($self, $src_entity, $data, $gen, $rels, $inc, $stash) = @_;
 
     my %types = ();
-    foreach my $rel (@$rels)
+
+    foreach my $rel (sort { $a <=> $b } @$rels)
     {
         $types{$rel->target_type} = [] if !exists $types{$rel->target_type};
         push @{$types{$rel->target_type}}, $rel;
@@ -946,24 +997,73 @@ sub _serialize_relation
         push @list, $gen->target($rel->target_key);
     }
 
+    push @list, $gen->ordering_key($rel->link_order) if $rel->link_order;
     push @list, $gen->direction('backward') if ($rel->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD);
     push @list, $gen->begin($rel->link->begin_date->format) unless $rel->link->begin_date->is_empty;
     push @list, $gen->end($rel->link->end_date->format) unless $rel->link->end_date->is_empty;
     push @list, $gen->ended('true') if $rel->link->ended;
 
+    my %text_attrs = %{ $rel->link->attribute_text_values };
+
     push @list, $gen->attribute_list(
-        map { $gen->attribute($_->name) }
-            $rel->link->all_attributes
+        map {
+            $text_attrs{$_->id} ? $gen->attribute({ value => $text_attrs{$_->id} }, $_->name)
+                                : $gen->attribute($_->name)
+        } $rel->link->all_attributes
     ) if ($rel->link->all_attributes);
 
     unless ($rel->target_type eq 'url')
     {
         my $method =  "_serialize_" . $rel->target_type;
+
         local $in_relation_node = 1;
+        local $show_aliases = 0;
+
         $self->$method(\@list, $gen, $rel->target, $inc, $stash);
     }
 
     push @$data, $gen->relation({ type => $type, "type-id" => $type_id }, @list);
+}
+
+sub _serialize_series_list
+{
+    my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
+
+    if (@{ $list->{items} })
+    {
+        my @list;
+        foreach my $series (sort_by { $_->gid } @{ $list->{items} })
+        {
+            $self->_serialize_series(\@list, $gen, $series, $inc, $stash, $toplevel);
+        }
+        push @$data, $gen->series_list($self->_list_attributes ($list), @list);
+    }
+}
+
+sub _serialize_series
+{
+    my ($self, $data, $gen, $series, $inc, $stash, $toplevel) = @_;
+
+    my $opts = $stash->store ($series);
+
+    my %attrs;
+    $attrs{id} = $series->gid;
+    $attrs{type} = $series->type->name if $series->type;
+
+    my @list;
+    push @list, $gen->name($series->name);
+    push @list, $gen->disambiguation($series->comment) if $series->comment;
+
+    if ($toplevel) {
+        $self->_serialize_annotation(\@list, $gen, $series, $inc, $opts);
+    }
+
+    $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
+        if ($inc->aliases && $opts->{aliases});
+
+    $self->_serialize_relation_lists($series, \@list, $gen, $series->relationships, $inc, $stash) if ($inc->has_rels);
+
+    push @$data, $gen->series(\%attrs, @list);
 }
 
 sub _serialize_isrc_list
@@ -1033,7 +1133,7 @@ sub _serialize_tag
 {
     my ($self, $data, $gen, $tag, $inc, $opts, $modelname, $entity) = @_;
 
-    push @$data, $gen->tag({ count => $tag->count }, $gen->name ($tag->tag->name));
+    push @$data, $gen->tag({ count => $tag->count }, $gen->name($tag->tag->name));
 }
 
 sub _serialize_user_tag_list
@@ -1206,6 +1306,25 @@ sub place_resource
     return $data->[0];
 }
 
+sub instrument_resource {
+    my ($self, $gen, $instrument, $inc, $stash) = @_;
+
+    my $data = [];
+    $self->_serialize_instrument($data, $gen, $instrument, $inc, $stash, 1);
+
+    return $data->[0];
+}
+
+sub series_resource
+{
+    my ($self, $gen, $series, $inc, $stash) = @_;
+
+    my $data = [];
+    $self->_serialize_series($data, $gen, $series, $inc, $stash, 1);
+
+    return $data->[0];
+}
+
 sub url_resource
 {
     my ($self, $gen, $url, $inc, $stash) = @_;
@@ -1323,11 +1442,20 @@ sub place_list_resource
     return $data->[0];
 }
 
+sub instrument_list_resource {
+    my ($self, $gen, $instruments, $inc, $stash) = @_;
+
+    my $data = [];
+    $self->_serialize_instrument_list($data, $gen, $instruments, $inc, $stash, 1);
+
+    return $data->[0];
+}
+
 sub rating_resource
 {
     my ($self, $gen, $entity, $inc, $stash) = @_;
 
-    my $opts = $stash->store ($entity);
+    my $opts = $stash->store($entity);
 
     return '' unless $opts->{user_ratings};
 
@@ -1337,11 +1465,21 @@ sub rating_resource
     return $data->[0];
 }
 
+sub series_list_resource
+{
+    my ($self, $gen, $series, $inc, $stash) = @_;
+
+    my $data = [];
+    $self->_serialize_series_list($data, $gen, $series, $inc, $stash, 1);
+
+    return $data->[0];
+}
+
 sub tag_list_resource
 {
     my ($self, $gen, $entity, $inc, $stash) = @_;
 
-    my $opts = $stash->store ($entity);
+    my $opts = $stash->store($entity);
 
     my $data = [];
     $self->_serialize_user_tag_list($data, $gen, $inc, $opts);

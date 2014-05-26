@@ -16,6 +16,7 @@
       [%- ln('{count} private rating not listed.', '{count} private ratings not listed.', private_ratings, { count => private_ratings }); -%]
     </p>
     [%- END -%]
+    [%- l('Average rating:') -%] [% show_rating(source) %]
 [%- ELSE -%]
     <p>[% l('{link} has no ratings.', { link => link_entity(source) }) -%]</p>
 [%- END -%]

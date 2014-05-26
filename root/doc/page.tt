@@ -40,7 +40,7 @@
             <div class="wikidocs-footer">
             [%- l('This page is {doc|transcluded} from {title}.',
                  { doc => doc_link('WikiDocs'),
-                   title => '<a href="http://' _ wiki_server _ '/' _ id _ '" class="internal">' _ page.title _ '</a>' }) -%]
+                   title => '<a href="//' _ wiki_server _ '/' _ id _ '" class="internal">' _ page.title _ '</a>' }) -%]
             </div>
         [%- END -%]
     </div>

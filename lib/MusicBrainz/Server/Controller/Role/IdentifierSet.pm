@@ -87,6 +87,8 @@ role
             my $entity = $c->model(type_to_model($entity_type))->get_by_id($edit->entity_id);
             my @identifiers = @{ $form->field($identifier_plural)->value };
             $self->_add_identifiers($c, $form, $entity, @identifiers) if scalar @identifiers;
+
+            return scalar @identifiers;
         };
     };
 
@@ -108,11 +110,7 @@ role
             $self->_add_identifiers($c, $form, $entity, @added) if @added;
             $self->_remove_identifiers($c, $form, $entity, @removed) if @removed;
 
-            if ((@added || @removed) && $c->stash->{makes_no_changes}) {
-                $c->stash( makes_no_changes => 0 );
-                $c->response->redirect(
-                    $c->uri_for_action($self->action_for('show'), [ $entity->gid ]));
-            }
+            return (@added || @removed);
         };
     };
 };

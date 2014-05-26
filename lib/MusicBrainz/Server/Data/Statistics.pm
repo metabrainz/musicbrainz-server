@@ -49,7 +49,7 @@ sub fetch {
         @{ $self->sql->select_list_of_hashes($query, @names) };
 
     if (@names) {
-        if(wantarray) {
+        if (wantarray) {
             return @stats{@names};
         }
         else {
@@ -251,6 +251,8 @@ my %stats = (
                 "count.artist.type.group"  => $dist{2} || 0,
                 "count.artist.type.other"  => $dist{3} || 0,
                 "count.artist.type.character"  => $dist{4} || 0,
+                "count.artist.type.orchestra"  => $dist{5} || 0,
+                "count.artist.type.choir"  => $dist{6} || 0,
                 "count.artist.type.null" => $dist{null} || 0
             };
         },
@@ -274,7 +276,7 @@ my %stats = (
             my $data = $sql->select_list_of_lists(
                 "SELECT COALESCE(gender::text, 'null'), COUNT(*) AS count
                 FROM artist
-                WHERE type IS DISTINCT FROM 2
+                WHERE (type NOT IN (2, 5, 6) OR type IS NULL)
                 GROUP BY gender
                 ",
             );
@@ -309,6 +311,32 @@ my %stats = (
         DESC => "Artists in no artist credits",
         SQL => "SELECT COUNT(DISTINCT artist.id) FROM artist LEFT OUTER JOIN artist_credit_name ON artist.id = artist_credit_name.artist WHERE artist_credit_name.artist_credit IS NULL",
     },
+    "count.instrument" => {
+        DESC => "Count of all instruments",
+        SQL => "SELECT COUNT(*) FROM instrument",
+    },
+    "count.instrument.type" => {
+        DESC => "Distribution of instruments by type",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT COALESCE(type.id::text, 'null'), COUNT(instrument.id) AS count
+                 FROM instrument_type type
+                 FULL OUTER JOIN instrument ON instrument.type = type.id
+                 GROUP BY type.id",
+            );
+
+            my %dist = map { @$_ } @$data;
+            $dist{null} ||= 0;
+
+            +{
+                map {
+                    "count.instrument.type.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
     "count.place" => {
         DESC => "Count of all places",
         SQL => "SELECT COUNT(*) FROM place",
@@ -331,6 +359,32 @@ my %stats = (
             +{
                 map {
                     "count.place.type.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
+    "count.series" => {
+        DESC => "Count of all seriess",
+        SQL => "SELECT COUNT(*) FROM series",
+    },
+    "count.series.type" => {
+        DESC => "Distribution of seriess by type",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT COALESCE(type.id::text, 'null'), COUNT(series.id) AS count
+                 FROM series_type type
+                 FULL OUTER JOIN series ON series.type = type.id
+                 GROUP BY type.id",
+            );
+
+            my %dist = map { @$_ } @$data;
+            $dist{null} ||= 0;
+
+            +{
+                map {
+                    "count.series.type.".$_ => $dist{$_}
                 } keys %dist
             };
         },
@@ -569,6 +623,8 @@ my %stats = (
                   UNION SELECT editor FROM editor_subscribe_artist_deleted
                   UNION SELECT editor FROM editor_subscribe_label
                   UNION SELECT editor FROM editor_subscribe_label_deleted
+                  UNION SELECT editor FROM editor_subscribe_series
+                  UNION SELECT editor FROM editor_subscribe_series_deleted
                 ),
                 collection_editors AS (SELECT DISTINCT editor FROM editor_collection),
                 voters AS (SELECT DISTINCT editor FROM vote),
@@ -701,6 +757,29 @@ my %stats = (
             +{
                 map {
                     "count.work.type.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
+    "count.work.attribute" => {
+        DESC => "Distribution of works by attributes",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT COALESCE(work_attribute_type.id::text, 'null'),
+                   COUNT(DISTINCT work.id) AS count
+                 FROM work_attribute
+                 FULL OUTER JOIN work_attribute_type ON work_attribute_type.id = work_attribute.work_attribute_type
+                 FULL OUTER JOIN work ON work.id = work_attribute.work
+                 GROUP BY work_attribute_type.id",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.work.attribute.".$_ => $dist{$_}
                 } keys %dist
             };
         },
@@ -1161,14 +1240,14 @@ my %stats = (
         NONREPLICATED => 1,
     },
     "count.edit.type" => {
-	DESC => "Count of edits by type",
+        DESC => "Count of edits by type",
         CALC => sub {
             my ($self, $sql) = @_;
 
-	    my $data = $sql->select_list_of_lists(
+            my $data = $sql->select_list_of_lists(
                 "SELECT type, count(id) AS count
-		FROM edit GROUP BY type",
-	    );
+                FROM edit GROUP BY type",
+            );
 
             my %dist = map { @$_ } @$data;
 
@@ -1177,7 +1256,7 @@ my %stats = (
                     "count.edit.type.".$_ => $dist{$_}
                 } keys %dist
             };
-	}
+        }
     },
 
     "count.cdstub" => {
@@ -1814,7 +1893,7 @@ sub recalculate_all
         printf "Statistics cannot be computed due to missing dependencies\n";
         printf "$_ depends on " . join(", ", @{$unsatisfiable_prereqs{$_}}) . ", but these dependencies do not exist\n"
             for keys %unsatisfiable_prereqs;
-        exit (1);
+        exit(1);
     }
 
     my %notdone = %stats;

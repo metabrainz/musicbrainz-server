@@ -54,7 +54,8 @@ is($new_gender->name, 'Unknown');
 
 my $created = $gender_data->get_by_id($new_gender->id);
 ok(defined $created);
-is_deeply($created, $new_gender, 'getting gender should be same as created gender');
+is_deeply($created->name, $new_gender->name, 'getting gender should be same as created gender');
+is_deeply($created->id, $new_gender->id, 'getting gender should be same as created gender');
 $sql->commit;
 
 };

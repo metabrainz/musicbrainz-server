@@ -1,0 +1,38 @@
+[% IF type == 'Area'; title=l("Browse Areas");
+ELSIF type == 'Artist'; title=l("Browse Artists");
+ELSIF type == 'Label'; title=l("Browse Labels");
+ELSIF type == 'Place'; title=l("Browse Places");
+ELSIF type == 'ReleaseGroup'; title=l("Browse Release Groups");
+ELSIF type == 'Release'; title=l("Browse Releases");
+ELSIF type == 'Series'; title=l("Browse Series");
+ELSIF type == 'Work'; title=l("Browse Works");
+END -%]
+[%- WRAPPER 'layout.tt' title=title full_width=1 -%]
+    <div id="content">
+        <h1>[% title %]</h1>
+
+        [% IF entities.size %]
+            [% WRAPPER 'components/with-pager.tt' %]
+                <div class="browse-entities columns-2">
+                    [% offset = pager.first %]
+                    [% WHILE entities.size %]
+                        <div class="column">
+                            <ol start="[% (loop.index || 0) + offset %]">
+                                [% FOR entity IN entities %]
+                                [% LAST IF loop.index >= 50 %]
+                                    <li>[% link_entity(entity) %]</li>
+                                [% END %]
+                            </ol>
+                        </div>
+                        [% CALL entities.splice(0, 50) %]
+                        [% offset = offset + 50 %]
+                    [% END %]
+                    <div class="clear">
+                    </div>
+                </div>
+            [% END %]
+        [% ELSE %]
+            <p>[% l('There is no data to display.') %]</p>
+        [% END %]
+    </div>
+[%- END -%]

@@ -2,14 +2,18 @@
     <div id="content">
         <h1>[% l("Administration") %]</h1>
         <ul>
+        [% IF c.user_exists && c.user.is_admin %]
+            [% IF c.user.is_location_editor %]
+                <li><a href="[% c.uri_for('/area/create') %]">[% lp('Add Area', 'button/menu') %]</a></li>
+            [% END %]
             [% IF c.user.is_relationship_editor %]
+                <li><a href="[% c.uri_for('/instrument/create') %]">[% lp('Add Instrument', 'button/menu') %]</a></li>
                 <li><a href="[% c.uri_for_action('/relationship/linktype/index') %]">[% l('Edit Relationship Types') %]</a></li>
-                <li><a href="[% c.uri_for_action('/relationship/linkattributetype/index') %]">[% l('Edit Relationship Attributes') %]</a></li>
-                <li><a href="[% c.uri_for_action('/relationship/linkattributetype/instruments') %]">[% l('Instrument Tree') %]</a></li>
             [% END %]
             [% IF c.user.is_wiki_transcluder %]
                 <li><a href="[% c.uri_for_action('/admin/wikidoc/index') %]">[% l('Transclude WikiDocs') %]</a></li>
             [% END %]
+        [%~ END ~%]
         </ul>
     </div>
 [% END %]

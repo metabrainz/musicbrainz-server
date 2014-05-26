@@ -1,0 +1,14 @@
+<table class="details add-series-annotation">
+  <tr>
+    <th>[% l('Series:') %]</th>
+    <td>[% link_entity(edit.display_data.series) %]</td>
+  </tr>
+  <tr>
+    <th>[% l('Changelog:') %]</th>
+    <td>
+      <a href="[% c.uri_for_action('/series/annotation_revision', [ edit.display_data.series.gid ], edit.display_data.annotation_id) %]">
+        [% html_escape(edit.display_data.changelog) || l('(no changelog)') %]
+      </a>
+    </td>
+  </tr>
+</table>

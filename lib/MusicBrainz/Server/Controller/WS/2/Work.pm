@@ -40,12 +40,14 @@ sub work_toplevel
 {
     my ($self, $c, $stash, $work) = @_;
 
-    my $opts = $stash->store ($work);
+    my $opts = $stash->store($work);
 
-    $self->linked_works ($c, $stash, [ $work ]);
+    $self->linked_works($c, $stash, [ $work ]);
 
     $c->model('Work')->annotation->load_latest($work)
         if $c->stash->{inc}->annotation;
+
+    $c->model('WorkAttribute')->load_for_works($work);
 
     $self->load_relationships($c, $stash, $work);
 
@@ -63,9 +65,9 @@ sub work : Chained('load') PathPart('')
     return unless defined $work;
 
     my $stash = WebServiceStash->new;
-    my $opts = $stash->store ($work);
+    my $opts = $stash->store($work);
 
-    $self->work_toplevel ($c, $stash, $work);
+    $self->work_toplevel($c, $stash, $work);
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('work', $work, $c->stash->{inc}, $stash));
@@ -76,7 +78,7 @@ sub work_browse : Private
     my ($self, $c) = @_;
 
     my ($resource, $id) = @{ $c->stash->{linked} };
-    my ($limit, $offset) = $self->_limit_and_offset ($c);
+    my ($limit, $offset) = $self->_limit_and_offset($c);
 
     if (!is_guid($id))
     {
@@ -98,7 +100,7 @@ sub work_browse : Private
 
     for (@{ $works->{items} })
     {
-        $self->work_toplevel ($c, $stash, $_);
+        $self->work_toplevel($c, $stash, $_);
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
@@ -110,7 +112,7 @@ sub work_search : Chained('root') PathPart('work') Args(0)
     my ($self, $c) = @_;
 
     $c->detach('work_browse') if ($c->stash->{linked});
-    $self->_search ($c, 'work');
+    $self->_search($c, 'work');
 }
 
 1;

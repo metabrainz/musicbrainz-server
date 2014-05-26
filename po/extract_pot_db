@@ -14,7 +14,7 @@ use Encode qw(encode decode);
 use MusicBrainz::Server::Context;
 my $c = MusicBrainz::Server::Context->create_script_context();
 
-### DATABASE 
+### DATABASE
 
 my $sql = $c->sql;
 
@@ -45,25 +45,34 @@ my @DBDEFS = (
               {'domain' => 'languages', 'table' => 'language', 'columns' => ['name'], 'comment' => ['frequency', 'iso_code_3'], 'where' => 'iso_code_2t IS NOT NULL OR frequency > 0'},
               {'domain' => 'languages_notrim', 'table' => 'language', 'columns' => ['name'], 'comment' => ['frequency', 'iso_code_3']},
               {'domain' => 'scripts', 'table' => 'script', 'columns' => ['name'], 'comment' => ['frequency', 'iso_code']},
-              {'domain' => 'attributes', 'table' => 'artist_type', 'columns' => ['name'], 'ctx' => 'NULL'},
-              {'domain' => 'attributes', 'table' => 'label_type', 'columns' => ['name'], 'ctx' => 'NULL'},
-              {'domain' => 'attributes', 'table' => 'work_type', 'columns' => ['name'], 'ctx' => 'NULL'},
-              {'domain' => 'attributes', 'table' => 'area_type', 'columns' => ['name'], 'ctx' => 'NULL'},
-              {'domain' => 'attributes', 'table' => 'artist_alias_type', 'columns' => ['name'], 'ctx' => 'NULL', 'ctxtable' => 'alias_type'},
-              {'domain' => 'attributes', 'table' => 'label_alias_type', 'columns' => ['name'], 'ctx' => 'NULL', 'ctxtable' => 'alias_type'},
-              {'domain' => 'attributes', 'table' => 'work_alias_type', 'columns' => ['name'], 'ctx' => 'NULL', 'ctxtable' => 'alias_type'},
-              {'domain' => 'attributes', 'table' => 'area_alias_type', 'columns' => ['name'], 'ctx' => 'NULL', 'ctxtable' => 'alias_type'},
-              {'domain' => 'attributes', 'table' => 'release_group_primary_type', 'columns' => ['name'], 'ctx' => 'NULL'},
-              {'domain' => 'attributes', 'table' => 'release_group_secondary_type', 'columns' => ['name'], 'ctx' => 'NULL'},
-              {'domain' => 'attributes', 'table' => 'medium_format', 'columns' => ['name'], 'ctx' => 'NULL'},
-              {'domain' => 'attributes', 'table' => 'release_packaging', 'columns' => ['name'], 'ctx' => 'NULL'},
-              {'domain' => 'attributes', 'table' => 'release_status', 'columns' => ['name'], 'ctx' => 'NULL'},
-              {'domain' => 'attributes', 'table' => 'gender', 'columns' => ['name'], 'ctx' => 'NULL'},
-              {'domain' => 'attributes', 'table' => 'cover_art_archive.art_type', 'columns' => ['name'], 'ctx' => 'NULL', ctxtable => 'cover_art_type'},
+              {'domain' => 'attributes', 'table' => 'artist_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL'},
+              {'domain' => 'attributes', 'table' => 'label_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL'},
+              {'domain' => 'attributes', 'table' => 'place_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL'},
+              {'domain' => 'attributes', 'table' => 'work_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL'},
+              {'domain' => 'attributes', 'table' => 'area_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL'},
+              {'domain' => 'attributes', 'table' => 'instrument_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL'},
+              {'domain' => 'attributes', 'table' => 'artist_alias_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL', 'ctxtable' => 'alias_type'},
+              {'domain' => 'attributes', 'table' => 'label_alias_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL', 'ctxtable' => 'alias_type'},
+              {'domain' => 'attributes', 'table' => 'place_alias_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL', 'ctxtable' => 'alias_type'},
+              {'domain' => 'attributes', 'table' => 'work_alias_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL', 'ctxtable' => 'alias_type'},
+              {'domain' => 'attributes', 'table' => 'area_alias_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL', 'ctxtable' => 'alias_type'},
+              {'domain' => 'attributes', 'table' => 'instrument_alias_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL', 'ctxtable' => 'alias_type'},
+              {'domain' => 'attributes', 'table' => 'series_alias_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL', 'ctxtable' => 'alias_type'},
+              {'domain' => 'attributes', 'table' => 'release_group_primary_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL'},
+              {'domain' => 'attributes', 'table' => 'release_group_secondary_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL'},
+              {'domain' => 'attributes', 'table' => 'medium_format', 'columns' => ['name', 'description'], 'ctx' => 'NULL'},
+              {'domain' => 'attributes', 'table' => 'release_packaging', 'columns' => ['name', 'description'], 'ctx' => 'NULL'},
+              {'domain' => 'attributes', 'table' => 'release_status', 'columns' => ['name', 'description'], 'ctx' => 'NULL'},
+              {'domain' => 'attributes', 'table' => 'gender', 'columns' => ['name', 'description'], 'ctx' => 'NULL'},
+              {'domain' => 'attributes', 'table' => 'cover_art_archive.art_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL', ctxtable => 'cover_art_type'},
+              {'domain' => 'attributes', 'table' => 'work_attribute_type', columns => ['name', 'description'], ctx => 'NULL', ctxtable => 'work_attribute_type'},
+              {'domain' => 'attributes', 'table' => 'work_attribute_type_allowed_value', columns => ['value', 'description'], ctx => 'NULL'},
+              {'domain' => 'attributes', 'table' => 'series_type', columns => ['name', 'description'], ctx => 'NULL'},
+              {'domain' => 'attributes', 'table' => 'series_ordering_type', columns => ['name', 'description'], ctx => 'NULL'},
               {'domain' => 'relationships', 'table' => 'link_attribute_type', 'columns' => ['description', 'name'], 'where' => 'root != 14'},
               {'domain' => 'relationships', 'table' => 'link_type', 'columns' => ['description', 'link_phrase', 'reverse_link_phrase', 'long_link_phrase']},
-              {'domain' => 'instruments', 'table' => 'link_attribute_type', 'columns' => ['name'], 'where' => 'root = 14'},
-              {'domain' => 'instrument_descriptions', 'table' => 'link_attribute_type', 'columns' => ['description'], 'where' => 'root = 14'}
+              {'domain' => 'instruments', 'table' => 'instrument', 'columns' => ['name']},
+              {'domain' => 'instrument_descriptions', 'table' => 'instrument', 'columns' => ['description']}
              );
 my @po_objects = map { parse_db($_); } grep { $_->{domain} eq $domain } @DBDEFS;
 
@@ -113,7 +122,7 @@ sub parse_db {
         }
         my $values = $sql->select_list_of_lists($query);
 
-        foreach my $value (@$values) { 
+        foreach my $value (@$values) {
                my $po = Locale::PO->new();
                my $item = shift @{$value};
                if ($item) {

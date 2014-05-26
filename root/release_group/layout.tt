@@ -2,13 +2,13 @@
     artist => artist_credit(rg.artist_credit, plain => 1),
     name => rg.name
 }) %]
-[%- WRAPPER "layout.tt" usesRDFa=1 title=title ? main_title _ " - ${title}" : main_title -%]
+[%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title canonical_url=replace_gid(entity.gid) -%]
   [%- IF !full_width -%]
     [% WRAPPER 'layout/sidebar.tt' %]
 
     [%- IF rg.cover_art -%]
       <div class="cover-art">
-        [%- display_artwork (rg.cover_art) -%]
+        [%- display_artwork(rg.cover_art) -%]
       </div>
     [%- END -%]
 
@@ -49,13 +49,6 @@
                     [% l('Set cover art') %]
                   </a>
                 </li>
-
-                <hr/>
-
-                [%# Adds <li> itself %]
-                [% use_in_relationship(rg) %]
-                <li>[% relate_to_ellipsis(rg) %]</li>
-                <li>[% relate_to_url(rg) %]</li>
 
                 <hr/>
 

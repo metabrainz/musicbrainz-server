@@ -25,9 +25,9 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
  * Models the "Area" GuessCase mode.
  **/
 MB.GuessCase.Mode.Area = function () {
-    var self = MB.GuessCase.Mode.Base ();
+    var self = MB.GuessCase.Mode.Base();
 
-    self.setConfig('area mode', '', '');
+    self.setConfig('area mode', '');
 
     return self;
 };

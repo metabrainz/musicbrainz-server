@@ -1,40 +1,31 @@
 [%- USE u = Utils -%]
 [%- PROCESS 'components/rating-macros.tt' -%]
-[%- MACRO create_guideline(text) BLOCK -%]
-    <li>
-        [%- text -%]
-    </li>
-[%- END -%]
 [%-# This next could use localization for alternating comma/period use per locale -%]
-[%- MACRO add_commas(n) GET n.chunk(-3).join(',') -%]
-[%- MACRO replace(text, search, replace) BLOCK; text | replace(search, replace); END -%]
-[%- MACRO url_escape(url) BLOCK; url | url; END -%]
-[%- MACRO html_escape(url) BLOCK; url | html; END -%]
-[%- MACRO display_url(url)
+[%~ MACRO add_commas(n) GET n.chunk(-3).join(',') -%]
+[%~ MACRO replace(text, search, replace) BLOCK; text | replace(search, replace); END -%]
+[%~ MACRO url_escape(url) BLOCK; url | url; END -%]
+[%~ MACRO html_escape(url) BLOCK; url | html; END -%]
+[%~ MACRO display_url(url)
     IF url.pretty_name; url.pretty_name | html;
     ELSE; url | uri_decode | html;
 END -%]
-[%- MACRO make_ucfirst(text) BLOCK; text | ucfirst; END -%]
-[%- MACRO make_lcfirst(text) BLOCK; text | lcfirst; END -%]
-[%- MACRO make_upper(text) BLOCK; text | upper; END -%]
-[%- MACRO make_lower(text) BLOCK; text | lower; END -%]
 [%- USE UserDate(c.user.preferences, current_language) -%]
 [%- USE Countdown -%]
-[%- MACRO doc_link(to) BLOCK -%][% c.uri_for('/doc', to) %][%- END -%]
-[%- MACRO va_doc_link BLOCK -%]
+[%~ MACRO doc_link(to) BLOCK -%][% c.uri_for('/doc', to) %][%- END -%]
+[%~ MACRO va_doc_link BLOCK -%]
     [%- doc_link('Style/Unknown_and_untitled/Special_purpose_artist#List_of_official_SPAs') -%]
 [%- END -%]
 
-[%- MACRO wiki_history_link(server, id, version) BLOCK -%]
-http://[%- server -%]/[%- id -%]?oldid=[%- version -%]
+[%~ MACRO wiki_history_link(server, id, version) BLOCK -%]
+//[%- server -%]/[%- id -%]?oldid=[%- version -%]
 [%- END -%]
 
 [%- USE Translation('mb_server') -%]
-[%- MACRO l(text, args) BLOCK;
+[%~ MACRO l(text, args) BLOCK;
     Translation.l(text, args);
 END; -%]
 
-[%- MACRO lp(text, context, args) BLOCK;
+[%~ MACRO lp(text, context, args) BLOCK;
     Translation.lp(text, context, args);
 END; -%]
 [%#- There is a bug in this implementation fo ngettext that is easier to fix by policy that's why it's not fixed yet.
@@ -42,15 +33,15 @@ The problem surfaces when an unfinished translation file is used, in this case a
 apply language-specific plural construction rules to the untranslated english string. If a translation language has
 more than two plural forms, then the first plural form (germanic plural) is chosen for every form other than the first
 two. -%]
-[%- MACRO ln(text, plural, num, args) BLOCK;
+[%~ MACRO ln(text, plural, num, args) BLOCK;
     Translation.ln(text, plural, num, args);
 END; -%]
 
-[%- MACRO N_ln(text, plural) BLOCK;
+[%~ MACRO N_ln(text, plural) BLOCK;
     Translation.N_ln(text, plural);
 END; -%]
 
-[%- MACRO display_age(age, person) BLOCK;
+[%~ MACRO display_age(age, person) BLOCK;
       IF person AND age.0;
         l('aged {num}', { num => age.0 });
       ELSE;
@@ -64,7 +55,7 @@ END; -%]
       END;
     END -%]
 
-[%- MACRO display_age_ago(age) BLOCK;
+[%~ MACRO display_age_ago(age) BLOCK;
         IF age.0;
           ln('{num} year ago', '{num} years ago', age.0, { num => age.0 });
         ELSIF age.1;
@@ -74,52 +65,51 @@ END; -%]
         END;
     END -%]
 
-[%- MACRO artwork_hover(artwork) BLOCK -%]
+[%~ MACRO artwork_hover(artwork) BLOCK -%]
     [%- IF artwork.l_types; comma_only_list(artwork.l_types) | html; END %][% IF artwork.comment %] ([% artwork.comment | html%])[% END -%]
 [%- END -%]
 
 [%- USE JavaScript -%]
-[%- MACRO display_artwork_image(artwork, fallback, message) BLOCK -%]
+[%~ MACRO display_artwork_image(artwork, fallback, message) BLOCK -%]
     [%- IF no_javascript -%]
         <img src="[% artwork.small_thumbnail %]" />
     [%- ELSE -%]
         <img[% IF artwork_hover(artwork) %] title="[% artwork_hover(artwork) %]"[% END %] />
         <script>
-          $('img').last ().bind ('error', function (event) {
-              if ($(this).attr ("src") === "[% artwork.small_thumbnail %]")
-              {
-                  $(this).attr ("src", "[% artwork.image %]");
-              }
+          $('img').last().bind('error', function (event) {
          [%- IF fallback -%]
-              else if ($(this).attr ("src") === "[% artwork.image %]")
-              {
-                  $(this).attr ("src", "[% fallback %]");
+              if ($(this).attr("src") === "[% artwork.small_thumbnail %]") {
+                  $(this).attr("src", "[% fallback %]");
+              } else {
+         [%- END -%]
+                  $(this).closest('a').replaceWith('<em>
+                  [%~ message ? message : l('Image not available yet, please try again in a few minutes.') | js ~%]
+                  <\/em>');
+         [%- IF fallback -%]
               }
          [%- END -%]
-              else
-              {
-                  $(this).closest ('a').replaceWith ('<em>
-                  [%- message ? message : l('Image not available yet, please try again in a few minutes.') | js -%]
-                  <\/em>');
-              }
-          }).attr ("src", "[% artwork.small_thumbnail %]");
+          }).attr("src", "[% artwork.small_thumbnail %]");
         </script>
     [%- END -%]
 [% END %]
 
-[%- MACRO display_artwork(artwork, fallback, message, rel) BLOCK -%]
-    <a title="[% artwork_hover(artwork) %]" href="[% artwork.image %]"[% IF rel %] rel="[% rel %]"[% END %] class="artwork-image">
-      [% display_artwork_image(artwork, fallback, message) %]
+[%~ MACRO display_artwork(artwork, fallback, message, rel) BLOCK -%]
+    <a title="[% artwork_hover(artwork) %]" href="[% artwork.image %]"[% IF rel %] rel="[% rel %]"[% END %] class="[% IF artwork.mime_type == "application/pdf" %]artwork-pdf[% ELSE %]artwork-image[% END %]">
+        [%~ IF artwork.mime_type == "application/pdf" ~%]
+            <div title="[% l("This is a PDF file, the thumbnail may not show the entire contents of the file.") %]" class="file-format-tag">[% l("PDF file") %]</div>
+        [%~ END ~%]
+
+        [% display_artwork_image(artwork, fallback, message) %]
     </a>
 [%- END -%]
 
-[%- MACRO cover_art_links(artwork) BLOCK -%]
+[%~ MACRO cover_art_links(artwork) BLOCK -%]
 [% IF artwork.small_thumbnail %]<a href="[% artwork.small_thumbnail %]">[% l('250px') %]</a> |[% END %]
 [% IF artwork.large_thumbnail %]<a href="[% artwork.large_thumbnail %]">[% l('500px') %]</a> |[% END %]
 <a href="[% artwork.image %]">[% l('original') %]</a>
 [%- END -%]
 
-[%- MACRO cover_art_url(url) BLOCK;
+[%~ MACRO cover_art_url(url) BLOCK;
     IF c.req.secure;
         url | coverart_https;
     ELSE;
@@ -127,7 +117,7 @@ END; -%]
     END;
 END -%]
 
-[%- MACRO comma_list(items) BLOCK -%]
+[%~ MACRO comma_list(items) BLOCK -%]
     [% IF items.size == 1 %]
         [% items.0 %]
     [% ELSE %]
@@ -139,7 +129,7 @@ END -%]
     [% END %]
 [%- END -%]
 
-[%- MACRO comma_only_list(items) BLOCK -%]
+[%~ MACRO comma_only_list(items) BLOCK -%]
     [%- output = l('{last_list_item}', {last_list_item => items.last}) -%]
     [%- FOREACH item IN items.reverse.slice(1) -%]
         [%- output = l('{commas_only_list_item}, {rest}', {commas_only_list_item => item, rest => output}) -%]
@@ -147,18 +137,8 @@ END -%]
     [%- output -%]
 [%- END -%]
 
-[%- MACRO form_id(field)
-    IF field.form;
-        "form-" _ field.form.name _ "-" _ field.name.replace('_', '-');
-    ELSE;
-        "form-$field";
-    END -%]
-[%- MACRO class_html(classes)
-    IF classes.size; 'class="' _ classes.join(' ') _ '"';
-    ELSE; '';
-    END -%]
 [%-# Take type and return pluralized word form, avoids problems with '|% type %|s' #-%]
-[%- MACRO get_plural_type(entity)
+[%~ MACRO get_plural_type(entity)
     SWITCH entity;
         CASE 'release';
             l('releases');
@@ -176,15 +156,19 @@ END -%]
             l('recordings');
         CASE 'release_group';
             l('release groups');
+        CASE 'series';
+            lp('series', 'plural');
         CASE 'editor';
             l('editors');
         CASE 'work';
             l('works');
+        CASE 'url';
+            l('URLs');
         CASE DEFAULT;
             l('Error: Unknown Type');
     END -%]
 
-[%- MACRO disambiguation(entity) BLOCK -%]
+[%~ MACRO disambiguation(entity) BLOCK -%]
     [%- IF entity.comment -%]
         [%- ' <span class="comment">(<bdi>' _ html_escape("${entity.comment}") _ '</bdi>)</span>' -%]
     [%- END -%]
@@ -193,20 +177,24 @@ END -%]
     [%- END -%]
 [%- END -%]
 
-[%- MACRO historical(entity) BLOCK -%]
+[%~ MACRO historical(entity) BLOCK -%]
     [%- IF entity.ended -%]
-        <span class="historical">(<bdi>historical
-            [%- IF entity.end_date.has_year -%]
-                [%- ', ' _ entity.begin_date.year _ '–' _ entity.end_date.year -%]
+        <span class="historical">(<bdi>
+            [%- IF entity.begin_date.has_year && entity.end_date.has_year -%]
+                [%- l("historical, {begin}-{end}", { begin => entity.begin_date.year, end => entity.end_date.year }) -%]
+            [%- ELSIF entity.end_date.has_year -%]
+                [%- l("historical, until {end}", { end => entity.end_date.year }) -%]
+            [%- ELSE -%]
+                [%- l("historical") -%]
             [%- END -%]
         [%- -%]</bdi>)</span>
     [%- END -%]
 [%- END -%]
 
-[%- MACRO artist_credit(ac, opts) BLOCK -%]
+[%~ MACRO artist_credit(ac, opts) BLOCK -%]
     [%- FOREACH name IN ac.names -%]
         [%- IF name.artist.gid && !opts.plain -%]
-            [%- link_artist(name.artist, 'show', html_escape(name.name)) -%]
+            [%- link_artist(name.artist, 'show', name.name) -%]
         [%- ELSE -%]
             [%- name.name | html -%]
         [%- END -%]
@@ -214,7 +202,7 @@ END -%]
     [%- END -%]
 [%- END -%]
 
-[%- MACRO expanded_artist_credit(ac) IF ac -%]
+[%~ MACRO expanded_artist_credit(ac) IF ac -%]
   [%- artist_credit(ac) -%]<br />
   [%- IF ac.name != ac.names.0.artist.name || ac.names.size > 1 || ac.names.0.artist.comment -%]
     [%- SET artist_list = [];
@@ -234,19 +222,21 @@ END -%]
   [% END %]
 [%- END -%]
 
-[%- MACRO entity_exists(entity) BLOCK; entity.gid.defined; END -%]
+[%~ MACRO entity_exists(entity) BLOCK; entity.gid.defined; END -%]
 
-[%- MACRO link_entity(entity, action, text) BLOCK;
+[%~ MACRO link_entity(entity, action, text) BLOCK;
     IF entity.gid;
       IF    entity.isa('MusicBrainz::Server::Entity::Artist'); link_artist(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Area'); link_area(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Collection'); link_collection(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Work'); link_work(entity, action, text);
+      ELSIF entity.isa('MusicBrainz::Server::Entity::Instrument'); link_instrument(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Label'); link_label(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Place'); link_place(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Release'); link_release(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::ReleaseGroup'); link_release_group(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Recording'); link_recording(entity, action, text);
+      ELSIF entity.isa('MusicBrainz::Server::Entity::Series'); link_series(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::URL'); link_url(entity, action, text);
       END;
     ELSIF entity.isa('MusicBrainz::Server::Entity::URL');
@@ -257,10 +247,10 @@ END -%]
     ELSE;
       link_deleted(entity, text);
     END;
-    disambiguation(entity) UNLESS text;
+    disambiguation(entity) IF text == '';
 END -%]
 
-[%- MACRO link_deleted(entity, text) BLOCK;
+[%~ MACRO link_deleted(entity, text) BLOCK;
       caption = allow_new
         ? l("This entity will be created when edits are entered.")
         : l("This entity has been removed, and cannot be displayed correctly.");
@@ -269,68 +259,87 @@ END -%]
       '</span>';
     END; -%]
 
-[%- MACRO descriptive_link(entity)
+[%~ MACRO descriptive_link(entity)
     IF entity.artist_credit.defined;
         l('{entity} by {artist}', { entity => link_entity(entity),
                                     artist => artist_credit(entity.artist_credit) });
+    ELSIF entity_type(entity) == 'place' && entity.area.defined;
+        l('{place} in {area}', { place => link_entity(entity),
+                                 area => link_area_with_containment(entity.area) });
+    ELSIF entity_type(entity) == 'area' && entity.gid;
+        link_area_with_containment(entity);
     ELSE;
         link_entity(entity);
     END; -%]
 
-[%- MACRO entity_type(entity) BLOCK;
+[%~ MACRO entity_type(entity) BLOCK;
     IF entity.isa('MusicBrainz::Server::Entity::Artist'); "artist";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Area'); "area";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Work'); "work";
+    ELSIF entity.isa('MusicBrainz::Server::Entity::Instrument'); "instrument";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Label'); "label";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Place'); "place";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Release'); "release";
     ELSIF entity.isa('MusicBrainz::Server::Entity::ReleaseGroup'); "release_group";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Recording'); "recording";
+    ELSIF entity.isa('MusicBrainz::Server::Entity::Series'); "series";
     ELSIF entity.isa('MusicBrainz::Server::Entity::URL'); "url";
     END;
 END -%]
 
-[%- MACRO link_work(work, action, text) BLOCK;
+[%~ MACRO link_work(work, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/work/$action", [ work.gid ]);
-    text = text == '' ? html_escape(work.name) : text;
+    text = html_escape(text == '' ? work.name : text);
     '<span class="mp">' IF work.edits_pending AND action == 'show';
     '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
     '</span>' IF work.edits_pending AND action == 'show';
 END -%]
 
-[%- MACRO link_label(label, action, text) BLOCK;
+[%~ MACRO link_instrument(instrument, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/instrument/$action", [ instrument.gid ]);
+    text = text == '' ? html_escape(instrument.l_name) : text;
+    '<span class="mp">' IF instrument.edits_pending AND action == 'show';
+    '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
+    '</span>' IF instrument.edits_pending AND action == 'show';
+END -%]
+
+[%~ MACRO link_label(label, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/label/$action", [ label.gid ]);
-    text = text == '' ? html_escape(label.name) : text;
+    text = html_escape(text == '' ? label.name : text);
     '<span class="mp">' IF label.edits_pending AND action == 'show';
     '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
     '</span>' IF label.edits_pending AND action == 'show';
 END -%]
 
-[%- MACRO link_artist(artist, action, text) BLOCK;
+[%~ MACRO link_artist(artist, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/artist/$action", [ artist.gid ]);
     hover = html_escape(artist.sort_name);
     IF artist.comment; hover = hover _ ' (' _ html_escape(artist.comment) _ ')'; END;
     '<span class="mp">' IF artist.edits_pending AND action == 'show';
     '<span class="name-variation">' IF text != '' AND text != artist.name AND action == 'show';
-    text = text == '' ? html_escape(artist.name) : text;
+    text = html_escape(text == '' ? artist.name : text);
     '<a href="' _ link _ '" title="' _ hover _ '"><bdi>' _ text _ '</bdi></a>';
     '</span>' IF text != artist.name AND action == 'show';
     '</span>' IF artist.edits_pending AND action == 'show';
 END -%]
 
-[%- MACRO link_area(area, action, text) BLOCK;
+[%~ MACRO link_area(area, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/area/$action", [ area.gid ]);
-    text = text == '' ? html_escape(area.l_name) : text;
+    text = html_escape(text == '' ? area.l_name : text);
+    flagclass = area.iso_3166_1.0 ? 'flag-' _ area.iso_3166_1.0 : '';
+    '<span class="flag ' _ flagclass _ '">' IF flagclass AND action == 'show';
     '<span class="mp">' IF area.edits_pending AND action == 'show';
     '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
     '</span>' IF area.edits_pending AND action == 'show';
+    '</span>' IF flagclass AND action == 'show';
 END -%]
 
-[%- MACRO link_area_containment(area) BLOCK;
+[%~ MACRO link_area_containment(area) BLOCK;
     areas = [];
     IF area.parent_city; areas.push(link_area(area.parent_city)); END;
     IF area.parent_subdivision; areas.push(link_area(area.parent_subdivision)); END;
@@ -338,65 +347,67 @@ END -%]
     comma_only_list(areas);
 END -%]
 
-[%- MACRO link_area_with_containment(area, action, text) BLOCK;
+[%~ MACRO link_area_with_containment(area, action, text) BLOCK;
     link_area(area, action, text);
     IF link_area_containment(area); ', ' _ link_area_containment(area); END;
 END -%]
 
-[%- MACRO link_place(place, action, text) BLOCK;
+[%~ MACRO link_place(place, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/place/$action", [ place.gid ]);
-    text = text == '' ? html_escape(place.name) : text;
+    text = html_escape(text == '' ? place.name : text);
     '<span class="mp">' IF place.edits_pending AND action == 'show';
     '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
     '</span>' IF place.edits_pending AND action == 'show';
 END -%]
 
-[%- MACRO link_collection(collection, action, text) BLOCK;
+[%~ MACRO link_collection(collection, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/collection/$action", [ collection.gid ]);
-    text = text == '' ? html_escape(collection.name) : text;
+    text = html_escape(text == '' ? collection.name : text);
     '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
 END -%]
 
-[%- MACRO link_release(release, action, text) BLOCK;
+[%~ MACRO link_release(release, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/release/$action", [ release.gid ]);
-    text = text == '' ? html_escape(release.name) : text;
+    text = html_escape(text == '' ? release.name : text);
     '<span class="mp">' IF release.edits_pending AND action == 'show';
     '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
     '</span>' IF release.edits_pending AND action == 'show';
 END -%]
 
-[%- MACRO link_release_group(rg, action, text) BLOCK;
+[%~ MACRO link_release_group(rg, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/release_group/$action", [ rg.gid ]);
-    text = text == '' ? html_escape(rg.name) : text;
+    text = html_escape(text == '' ? rg.name : text);
     '<span class="mp">' IF rg.edits_pending AND action == 'show';
     '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
     '</span>' IF rg.edits_pending AND action == 'show';
 END -%]
 
-[%- MACRO link_recording(recording, action, text) BLOCK;
+[%~ MACRO link_recording(recording, action, text, no_escape) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/recording/$action", [ recording.gid ]);
     hover = html_escape(recording.name) IF text != recording.name AND action == 'show';
     '<span class="mp">' IF recording.edits_pending AND action == 'show';
     '<span class="name-variation">' IF text != '' AND text != recording.name AND action == 'show';
-    text = text == '' ? html_escape(recording.name) : text;
+    text = no_escape ? text : html_escape(text == '' ? recording.name : text);
     '<a href="' _ link _ '" title="' _ hover _ '" class="' _ class _ '"><bdi>' _ text _ '</bdi></a>';
     '</span>' IF text != recording.name AND action == 'show';
     '</span>' IF recording.edits_pending AND action == 'show';
 END -%]
 
-[%- MACRO link_tracklist(tracklist, action, text) BLOCK;
+[%~ MACRO link_series(series, action, text) BLOCK;
     action = action || 'show';
-    link = c.uri_for_action("/tracklist/$action", [ tracklist.id ]);
-    text = text == '' ? html_escape(tracklist.medium.name) : text;
+    link = c.uri_for_action("/series/$action", [ series.gid ]);
+    text = html_escape(text == '' ? series.name : text);
+    '<span class="mp">' IF series.edits_pending AND action == 'show';
     '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
+    '</span>' IF series.edits_pending AND action == 'show';
 END -%]
 
-[%- MACRO link_url(url, action, text) BLOCK;
+[%~ MACRO link_url(url, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/url/$action", [ url.gid ]);
     '<span class="mp">' IF url.edits_pending AND action == 'show';
@@ -411,58 +422,58 @@ END -%]
     END;
 END -%]
 
-[%- MACRO link_tag(tag, action, text) BLOCK;
+[%~ MACRO link_tag(tag, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/tag/$action", [ tag.name ]);
-    text = text == '' ? html_escape(tag.name) : text;
+    text = html_escape(text == '' ? tag.name : text);
     '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
 END -%]
 
-[%- MACRO link_isrc(isrc, action, text) BLOCK;
+[%~ MACRO link_isrc(isrc, action, text) BLOCK;
     action = action || 'show';
-    link = c.uri_for_action("/isrc/$action", [ isrc ]);
+    link = c.uri_for_action("/isrc/$action", [ isrc.isrc ]);
     '<span class="mp">' IF isrc.edits_pending AND action == 'show';
-    text = text == '' ? '<code>' _ html_escape(isrc) _ '</code>' : text;
+    text = text == '' ? '<code>' _ html_escape(isrc.isrc) _ '</code>' : text;
     '<a href="' _ link _ '">' _ text _ '</a>';
     '</span>' IF isrc.edits_pending AND action == 'show';
 END -%]
 
-[%- MACRO link_iswc(iswc, action, text) BLOCK;
+[%~ MACRO link_iswc(iswc, action, text) BLOCK;
     action = action || 'show';
-    link = c.uri_for_action("/iswc/$action", [ iswc ]);
+    link = c.uri_for_action("/iswc/$action", [ iswc.iswc ]);
     '<span class="mp">' IF iswc.edits_pending AND action == 'show';
-    text = text == '' ? '<code>' _ html_escape(iswc) _ '</code>' : text;
+    text = text == '' ? '<code>' _ html_escape(iswc.iswc) _ '</code>' : text;
     '<a href="' _ link _ '">' _ text _ '</a>';
     '</span>' IF iswc.edits_pending AND action == 'show';
 END -%]
 
-[%- MACRO link_cdtoc(cdtoc, action, text) BLOCK;
+[%~ MACRO link_cdtoc(cdtoc, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/cdtoc/$action", [ cdtoc.discid ]);
-    text = text == '' ? html_escape(cdtoc.discid) : text;
+    text = html_escape(text == '' ? cdtoc.discid : text);
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
-[%- MACRO link_cdstub(cdstub, action, text) BLOCK;
+[%~ MACRO link_cdstub(cdstub, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/cdstub/$action", [ cdstub.discid ]);
-    text = text == '' ? html_escape(cdstub.discid) : text;
+    text = html_escape(text == '' ? cdstub.discid : text);
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
-[%- MACRO link_freedb(freedb, action, text) BLOCK;
+[%~ MACRO link_freedb(freedb, action, text) BLOCK;
     action = action || 'import';
     link = c.uri_for_action("/freedb/$action", [ freedb.category, freedb.discid ]);
-    text = text == '' ? html_escape(freedb.discid) : text;
+    text = html_escape(text == '' ? freedb.discid : text);
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
-[%- MACRO gravatar(email) FILTER gravatar; email; END -%]
+[%~ MACRO gravatar(email) FILTER gravatar; email; END -%]
 
-[%- MACRO link_editor(editor, action, text, size) BLOCK;
+[%~ MACRO link_editor(editor, action, text, size) BLOCK;
     action = action || 'profile';
     link = c.uri_for_action("/user/$action", [ editor.name ]);
-    text = text == '' ? html_escape(editor.name) : text;
+    text = html_escape(text == '' ? editor.name : text);
     size = size.defined ? size : 12;
     '<a href="' _ link _ '">';
     IF editor.preferences.show_gravatar;
@@ -475,37 +486,37 @@ END -%]
     '</a>';
 END -%]
 
-[%- MACRO editor_type_info(editor) BLOCK; -%]
+[%~ MACRO editor_type_info(editor) BLOCK; -%]
     [% IF editor.is_limited; '<span class="editor-class">(<span class="tooltip" title="' _ l('This user is new to MusicBrainz.') _ '">' _ l('limited user') _ '</span>)</span>'; END %]
     [% IF editor.is_bot; '<span class="editor-class">(<span class="tooltip" title="' _ l('This user is automated.') _ '">' _ l('bot') _ '</span>)</span>'; END %]
 [%- END -%]
 
-[%- MACRO link_edit(edit, action, text) BLOCK;
+[%~ MACRO link_edit(edit, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/edit/$action", [ edit.id ]);
-    text = text == '' ? html_escape(edit.id) : text;
+    text = html_escape(text == '' ? edit.id : text);
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
-[%- MACRO link_searchable_property(search_field, search_value, entity_type, text) BLOCK -%]
+[%~ MACRO link_searchable_property(search_field, search_value, entity_type, text) BLOCK -%]
   [%- text = text == '' ? search_value : text -%]
   [%- -%]<a href="[% c.uri_for('/search', {query => search_field _ ':' _ search_value, type => entity_type, limit => 25, method => 'advanced'}) | html %]">
       [%- text -%]</a>
 [%- END -%]
 
-[%- MACRO login_url(redirect) BLOCK;
+[%~ MACRO login_url(redirect) BLOCK;
     c.uri_for_action('/user/login', { uri => c.req.query_params.uri || redirect || c.relative_uri });
 END-%]
 
-[%- MACRO simple_link(url, text) BLOCK %]
+[%~ MACRO simple_link(url, text) BLOCK %]
     <a href="[% url %]">[% text %]</a>
 [%- END -%]
 
-[%- MACRO request_login(text) BLOCK -%]
+[%~ MACRO request_login(text) BLOCK -%]
 <a href="[% login_url() %]">[% text || l('Log in') %]</a>
 [%- END -%]
 
-[%- MACRO tagger_icon(entity) BLOCK -%]
+[%~ MACRO tagger_icon(entity) BLOCK -%]
     [%- IF entity.isa('MusicBrainz::Server::Entity::Release') -%]
         [% USE date %]
         <a href="http://127.0.0.1:[% c.session.tport %]/openalbum?id=[% entity.gid %]&t=[% date.now %]"
@@ -520,15 +531,7 @@ END-%]
     [%- END -%]
 [%- END -%]
 
-[%- MACRO piped_link_list(list) BLOCK -%]
-[
-[% FOR item IN list %]
-  <a href="[% item.link %]">[% item.text %]</a> [% UNLESS loop.last %] | [% END %]
-[% END %]
-]
-[%- END -%]
-
-[%- MACRO release_label_list(labels) BLOCK;
+[%~ MACRO release_label_list(labels) BLOCK;
     out = [];
     seen = {};
     FOR label=labels;
@@ -540,137 +543,69 @@ END-%]
     comma_only_list(out);
 END -%]
 
-[%- MACRO release_catno_list(labels) BLOCK;
+[%~ MACRO release_catno_list(labels) BLOCK;
     out = [];
     seen = {};
     FOR label=labels;
       IF label.catalog_number AND !seen.${ label.catalog_number };
-        out.push(label.catalog_number);
+        out.push('<span class="catalog-number">' _ label.catalog_number _ '</span>');
         seen.${ label.catalog_number } = 1;
       END;
     END;
     comma_only_list(out);
 END -%]
 
-[%- MACRO sortble_table_header(name, label) BLOCK -%]
+[%~ MACRO sortble_table_header(name, label) BLOCK -%]
     <th>
         <a href="[% c.req.uri_with( order => order == name ? '-' _ name : name ) %]">[% label %]</a>
         [%- IF order == name %]&#xa0;&#9652;[% ELSIF order == '-' _ name %]&#xa0;&#9662;[% END %]
     </th>
 [%- END -%]
 
-[%- MACRO entity_label(type) BLOCK;
+[%~ MACRO entity_label(type) BLOCK;
     IF type == 'artist'; l('Artist:');
     ELSIF type == 'area'; l('Area:');
+    ELSIF type == 'instrument'; l('Instrument:');
     ELSIF type == 'label'; l('Label:');
     ELSIF type == 'place'; l('Place:');
     ELSIF type == 'release'; l('Release:');
     ELSIF type == 'release_group'; l('Release group:');
     ELSIF type == 'recording'; l('Recording:');
+    ELSIF type == 'series'; l('Series:');
     ELSIF type == 'work'; l('Work:');
     ELSIF type == 'url'; l('URL:');
     END;
 END -%]
 
-[%- MACRO format_entity_type_name(type_name) BLOCK -%]
+[%~ MACRO format_entity_type_name(type_name) BLOCK -%]
     [%- IF    type_name == 'artist'; l('Artist');
         ELSIF type_name == 'area'; l('Area');
+        ELSIF type_name == 'instrument'; l('Instrument');
         ELSIF type_name == 'place'; l('Place');
         ELSIF type_name == 'release'; l('Release');
         ELSIF type_name == 'recording'; l('Recording');
         ELSIF type_name == 'release_group'; l('Release Group');
+        ELSIF type_name == 'series'; l('Series');
         ELSIF type_name == 'work'; l('Work');
         ELSIF type_name == 'label'; l('Label');
         ELSIF type_name == 'url'; l('URL');
     END -%]
 [%- END -%]
 
-[%- MACRO use_in_relationship(entity) BLOCK;
-    UNLESS c.session.relationship.id == entity.id;
-      text = c.session.relationship ? l('Create relationship with {other}', { other => c.session.relationship.name })
-                                    : l('Use in a relationship');
-      '<li>' _ link_entity(entity, 'relate', text) _ '</li>';
-    END;
-    IF c.session.relationship.id;
-      text = l('Cancel creating relationship with {name}', { name => c.session.relationship.name });
-      '<li>' _ link_entity(entity, 'cancel_relate', text) _ '</li>';
-    END;
-END -%]
-
-[%- MACRO relate_to_url(entity) BLOCK;
-    uri = c.uri_for_action('/edit/relationship/create_url', {
-                        type => entity_type(entity),
-                        entity => entity.gid
-                   });
-    l('{uri|Relate to URL}', { uri => html_escape(uri) });
-END -%]
-
-[%- MACRO relate_to_ellipsis(entity) BLOCK -%]
-    <a style="cursor: pointer" class="relate-to">[%- l('Relate to ...') -%]</a>
-    <div style="position: absolute;">
-      <div class="relate-to" style="display: none">
-        <input type="hidden" class="gid" value="[% entity.gid %]" />
-        <input type="hidden" class="type" value="[% entity_type(entity) %]" />
-
-        <input type="hidden" class="returnto"
-               value="[%-
-          action = 'relationships';
-
-          # Recording, URLs and works show more information on their landing
-          # pages
-          IF entity.isa('MusicBrainz::Server::Entity::Recording') ||
-             entity.isa('MusicBrainz::Server::Entity::URL') ||
-             entity.isa('MusicBrainz::Server::Entity::Work') ||
-             entity.isa('MusicBrainz::Server::Entity::ReleaseGroup') ||
-             entity.isa('MusicBrainz::Server::Entity::Place') ||
-             entity.isa('MusicBrainz::Server::Entity::Area');
-             action = 'show';
-          END;
-          c.uri_for_action(c.controller.action_for(action),
-                           [ entity.gid ]) -%]" />
-
-        <select style="width: 130px; margin-right: 4px;">
-          <option value="artist">[% l('Artist') %]</option>
-          <option value="label">[% l('Label') %]</option>
-          <option value="recording">[% l('Recording') %]</option>
-          <option value="release-group">[% l('Release Group') %]</option>
-          <option value="release">[% l('Release') %]</option>
-          <option value="work">[% l('Work') %]</option>
-          <option value="place">[% l('Place') %]</option>
-          [%- IF (entity_type(entity) != 'area' && entity_type(entity) != 'url')
-                  || c.user.is_location_editor -%]
-          <option value="area">[% l('Area') %]</option>
-          [%- END -%]
-        </select>
-        <span class="autocomplete">
-          <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
-          <input type="text" class="name" value="" style="width: 170px;" />
-          <input type="hidden" class="id" value=""  />
-          <input type="hidden" class="gid" value=""  />
-        </span>
-        <br />
-        <div class="buttons" style="margin-top: 0.5em; width: 100%;">
-          <button class="negative cancel">[% l('Cancel') %]</button>
-          <button class="positive create" style="float:right;">[% l('Create relationship') %]</button>
-        </div>
-      </div>
-    </div>
-[%- END -%]
-
-[%- MACRO quality_name(quality) SWITCH quality;
+[%~ MACRO quality_name(quality) SWITCH quality;
     CASE 0;  l('Low');
     CASE 1;  l('Normal');
     CASE -1; l('Normal');
     CASE 2;  l('High');
 END -%]
 
-[%- MACRO edit_conditions(expire_action) SWITCH expire_action;
+[%~ MACRO edit_conditions(expire_action) SWITCH expire_action;
     CASE 1; l('Accept upon expiration');
     CASE 2; l('Reject upon expiration');
 END -%]
 
 [%-# See /lib/MusicBrainz/Server/Edit/Utils.pm for status names -%]
-[%- MACRO edit_status_description(edit) SWITCH edit.status;
+[%~ MACRO edit_status_description(edit) SWITCH edit.status;
         CASE 1; l('This edit is open and awaiting votes before it can be applied.');
         CASE 2; l('This edit has been successfully applied.');
         CASE 3; l('This edit failed because there were insufficient "yes" votes.');
@@ -687,7 +622,7 @@ END -%]
         CASE 9; l('This edit was cancelled.');
 END -%]
 
-[%- MACRO expiration_time(datetime) BLOCK -%]
+[%~ MACRO expiration_time(datetime) BLOCK -%]
     [%- IF Countdown.in_the_future(datetime) # Make sure datetime is a "countdownable" date -%]
         [%- IF Countdown.days(datetime) > 0 # If the date is far away, only display days -%]
             [%- ln('Expires in <span class="tooltip" title="{exactdate}">{num} day</span>',
@@ -709,11 +644,11 @@ END -%]
                   exactdate => UserDate.format(datetime) }) -%]
         [%- END -%]
     [%- ELSE -%]
-        [% l('Already expired') %]
+        [%- l('Already expired') -%]
     [%- END -%]
 [%- END -%]
 
-[%- MACRO vote_tally(edit) BLOCK -%]
+[%~ MACRO vote_tally(edit) BLOCK -%]
     [%- IF edit.auto_edit; '<strong>' _ l('automatically applied') _ '</strong>';
        ELSE; l('{yes} yes : {no} no',
         { yes => '<strong>' _ edit.yes_votes _ '</strong>',
@@ -721,7 +656,7 @@ END -%]
     END -%]
 [%- END -%]
 
-[%- MACRO display_relationship(relationship, phrase_field) BLOCK; -%]
+[%~ MACRO display_relationship(relationship, phrase_field) BLOCK; -%]
   [%- phrase_field = phrase_field || 'phrase';
     extra_attributes_field = "extra_${phrase_field}_attributes";
     IF relationship.edits_pending; '<span class="mp">'; END;
@@ -756,75 +691,22 @@ END -%]
         l('ended');
     END;
     IF relationship.${extra_attributes_field};
-        '(' _ relationship.${extra_attributes_field} _ ')' | html;
+        ' (' _ relationship.${extra_attributes_field} _ ')' | html;
     END; -%]
 [%- END -%]
 
-[%- MACRO trusted_domain(url) BLOCK;
-    url.url.host.search('discogs.com$')   ||
-    url.url.host.search('wikipedia.org$') ||
-    url.url.host.search('bbc.co.uk$')     ||
-    url.url.host.search('facebook.com$')  ||
-    url.url.host.search('myspace.com$')   ||
-    url.url.host.search('last.fm$')       ||
-    url.url.host.search('imdb.com$')      ||
-    url.url.host.search('myspace.com$')   ||
-    url.url.host.search('twitter.com$')   ||
-    url.url.host.search('youtube.com$')   ||
-    0;
-END -%]
+[%~ MACRO favicon_class(url) BLOCK -%]
+    [%- matching_class = '' -%]
+    [%- FOREACH icon IN favicon_css_classes -%]
+      [%- IF (icon.key.search('/') AND url.url.as_string.search(icon.key)) OR url.url.host.search(icon.key) -%]
+        [%- matching_class = icon.value -%]
+        [%- LAST -%]
+      [%- END -%]
+    [%- END -%]
+    [%- (matching_class OR 'no') _ '-favicon' -%]
+[%- END -%]
 
-[%- MACRO favicon_class(url)
-       IF url.url.host.search('amazon'); 'amazon';
-    ELSIF url.url.host.search('allmusic.com'); 'allmusic';
-    ELSIF url.url.host.search('animenewsnetwork.com'); 'animenewsnetwork';
-    ELSIF url.url.host.search('wikipedia.org$'); 'wikipedia';
-    ELSIF url.url.host.search('facebook.com'); 'facebook';
-    ELSIF url.url.host.search('generasia.com'); 'generasia';
-    ELSIF url.url.host.search('last.fm'); 'lastfm';
-    ELSIF url.url.host.search('myspace.com'); 'myspace';
-    ELSIF url.url.host.search('twitter.com'); 'twitter';
-    ELSIF url.url.host.search('youtube.com'); 'youtube';
-    ELSIF url.url.host.search('discogs.com'); 'discogs';
-    ELSIF url.url.host.search('secondhandsongs.com'); 'secondhandsongs';
-    ELSIF url.url.host.search('songfacts.com'); 'songfacts';
-    ELSIF url.url.host.search('soundcloud.com'); 'soundcloud';
-    ELSIF url.url.host.search('ibdb.com'); 'ibdb';
-    ELSIF url.url.host.search('imslp.org'); 'imslp';
-    ELSIF url.url.host.search('tallinn.ester.ee'); 'ESTERTallinn';
-    ELSIF url.url.host.search('tartu.ester.ee'); 'ESTERTartu';
-    ELSIF url.url.host.search('worldcat.org'); 'worldcat';
-    ELSIF url.url.host.search('45cat.com'); 'fortyfivecat';
-    ELSIF url.url.host.search('rateyourmusic.com'); 'rateyourmusic';
-    ELSIF url.url.host.search('rolldabeats.com'); 'rolldabeats';
-    ELSIF url.url.host.search('psydb.net'); 'psydb';
-    ELSIF url.url.host.search('metal-archives.com'); 'metalarchives';
-    ELSIF url.url.host.search('spirit-of-metal.com'); 'spiritofmetal';
-    ELSIF url.url.host.search('theatricalia.com'); 'theatricalia';
-    ELSIF url.url.host.search('whosampled.com'); 'whosampled';
-    ELSIF url.url.host.search('ocremix.org'); 'ocremix';
-    ELSIF url.url.host.search('musik-sammler.de'); 'musiksammler';
-    ELSIF url.url.host.search('encyclopedisque.fr'); 'encyclopedisque';
-    ELSIF url.url.host.search('nla.gov.au'); 'trove';
-    ELSIF url.url.host.search('rockensdanmarkskort.dk'); 'rockensdanmarkskort';
-    ELSIF url.url.host.search('rockinchina.com'); 'ric';
-    ELSIF url.url.host.search('rockipedia.no'); 'rockipedia';
-    ELSIF url.url.host.search('viaf.org'); 'viaf';
-    ELSIF url.url.host.search('vk.com'); 'vk';
-    ELSIF url.url.host.search('dhhu.dk'); 'dhhu';
-    ELSIF url.url.host.search('thesession.org'); 'thesession';
-    ELSIF url.url.host.search('plus.google.com'); 'googleplus';
-    ELSIF url.url.host.search('openlibrary.org'); 'openlibrary';
-    ELSIF url.url.host.search('bandcamp.com'); 'bandcamp';
-    ELSIF url.url.host.search('itunes.apple.com'); 'iTunes';
-    ELSIF url.url.host.search('spotify.com'); 'spotify';
-    ELSIF url.url.host.search('soundtrackcollector.com'); 'STcollector';
-    ELSIF url.url.host.search('wikidata.org'); 'wikidata';
-    ELSIF url.url.as_string.search('recmusic.org/lieder'); 'lieder';
-    ELSE; '';
-END -%]
-
-[%- MACRO license_class(url)
+[%~ MACRO license_class(url)
        IF url.url.as_string.search('creativecommons.org/publicdomain/zero/'); 'CC0';
     ELSIF url.url.as_string.search('creativecommons.org/licenses/publicdomain/'); 'CCPD';
     ELSIF url.url.as_string.search('creativecommons.org/licenses/by-nc-sa/'); 'CCBYNCSA';
@@ -840,70 +722,86 @@ END -%]
     ELSE; '';
 END -%]
 
-[%- MACRO warning_icon BLOCK -%]
+[%~ MACRO css_class_name(name) BLOCK;
+    name | lower | replace('[^a-z]+', '-') | remove('^-|-$');
+    END -%]
+
+[%~ MACRO warning_icon BLOCK -%]
    <img class="warning" src="[% c.uri_for('/static/images/icons/warning.png') %]" />
 [%- END -%]
 
-[%- MACRO error(message, class) BLOCK -%]
+[%~ MACRO error(message, class) BLOCK -%]
    <div class="warning[% ' ' _ class IF class %]">
      [%- warning_icon %]
      <p>[% l('<strong>Error</strong>:') %] [% message %]</p>
    </div>
 [%- END -%]
 
-[%- MACRO warning(message, class) BLOCK -%]
+[%~ MACRO warning(message, class) BLOCK -%]
    <div class="warning[% ' ' _ class IF class %]">
      [%- warning_icon %]
      <p>[% l('<strong>Warning</strong>:') %] [% message %]</p>
    </div>
 [%- END -%]
 
-[%- MACRO notice(message) BLOCK -%]
+[%~ MACRO notice(message) BLOCK -%]
    <div class="notice">
      <p>[% l('<strong>Note</strong>:') %] [% message %]</p>
    </div>
 [%- END -%]
 
-[%- MACRO wiki_link(server, id) BLOCK -%]
-http://[%- server -%]/[%- id -%]
+[%~ MACRO wiki_link(server, id) BLOCK -%]
+//[%- server -%]/[%- id -%]
 [%- END -%]
 
-[%- MACRO script_manifest(manifest) BLOCK -%]
-  [%- IF server_details.developement_server -%]
-    [%- USE date -%]
-    [%- FOR file IN c.model('FileCache').manifest_files(manifest, 'js'); -%]
+[%~ MACRO script_manifest(manifest) BLOCK ~%]
+  [%~ IF server_details.developement_server -%]
+    [%~ USE date ~%]
+    [%~ FOR file IN c.model('FileCache').manifest_files(manifest, 'js'); ~%]
         <script type="text/javascript" src="[% c.uri_for("/static/") %][%- file -%]"></script>
-    [%- END -%]
-  [%- ELSE -%]
+    [%~ END ~%]
+  [%~ ELSE ~%]
     <script src="[% c.uri_for("/static/") %][% c.model('FileCache').manifest_signature(manifest, 'js') %].js"></script>
-  [%- END -%]
-[%- END -%]
+  [%~ END ~%]
+[%~ END ~%]
 
-[%- MACRO css_manifest(manifest) BLOCK -%]
-  [%- IF server_details.developement_server -%]
-    [%- USE date -%]
-    <link rel="stylesheet/less" type="text/css" href="[% c.uri_for("/static/") %][%- manifest -%].less?t=[% date.now %]" />
-  [%- ELSE -%]
+[%~ MACRO css_manifest(manifest) BLOCK ~%]
+  [%~ IF server_details.developement_server ~%]
+    [%~ USE date -%]
+    <link rel="stylesheet/less" type="text/css" href="[% c.uri_for("/static/") %][%- manifest -%].less" />
+  [%~ ELSE ~%]
     <link rel="stylesheet" type="text/css" href="[% c.uri_for('/static/styles/') %][% c.model('FileCache').manifest_signature(manifest _ '.css.manifest', 'css') %].css" />
-  [%- END -%]
-[%- END -%]
+  [%~ END ~%]
+[%~ END ~%]
 
-[%- MACRO format_length(n) BLOCK; n | format_length; END -%]
+[%~ MACRO format_length(n) BLOCK; n | format_length; END -%]
 
-[%- MACRO medium_format_name(medium) BLOCK -%]
+[%~ MACRO medium_format_name(medium) BLOCK -%]
     [% medium.l_format_name or l("Medium") | html %]
 [%- END -%]
 
-[%- MACRO medium_link(medium) BLOCK -%]
+[%~ MACRO medium_link(medium) BLOCK -%]
   [% medium_format_name(medium) %] [% medium.position %][% IF medium.name %]:
   [% medium.name | html %][% END %] on [% descriptive_link(medium.release) %]
 [%- END -%]
 
-[%- MACRO filter_button BLOCK -%]
+[%~ MACRO medium_in_release(release, medium) BLOCK -%]
+    [%- fragment = "disc" _ medium.position -%]
+    <a id="[%- fragment -%]"
+       href="[%- c.uri_for_action("/release/show", [ release.gid ]) _ '#' _ fragment -%]">
+    [%~ medium_format_name(medium) =%]
+    [%= medium.position ~%]
+    [%~ IF medium.name ~%]:
+       [%= medium.name | html ~%]
+    [%~ END ~%]
+    </a>
+[%- END -%]
+
+[%~ MACRO filter_button BLOCK -%]
   <div style="float:right;margin-top:1.5em;"><a class="filter-button"><img src="[% c.uri_for('/static/images/icons/filter.png') %]" /></a> <a class="filter-button" href="#">[% l("Filter") %]</a></div>
 [%- END -%]
 
-[%- MACRO wikidoc_search_box BLOCK -%]
+[%~ MACRO wikidoc_search_box BLOCK -%]
   <div class="wikidoc-search">
     <form action="[% c.uri_for('/search') | html %]" method="get">
       <input type="hidden" name="type" value="doc" />
@@ -913,20 +811,22 @@ http://[%- server -%]/[%- id -%]
   </div>
 [%- END -%]
 
-[%- MACRO annotation_links(entity) BLOCK;
+[%~ MACRO annotation_links(entity) BLOCK;
       sidebar_edit_annotation(entity);
       sidebar_annotation_history(entity);
     END -%]
 
-[%- MACRO sidebar_edit_annotation(entity) BLOCK -%]
+[%~ MACRO sidebar_edit_annotation(entity) BLOCK -%]
   <li>
-    <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ entity.gid ]) %]">
+    <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ entity.gid ], {
+      returnto => c.req.uri
+    }) %]">
       [% entity.latest_annotation.text ? l('Edit annotation') : l('Add annotation') %]
     </a>
   </li>
 [%- END -%]
 
-[%- MACRO sidebar_annotation_history(entity) BLOCK -%]
+[%~ MACRO sidebar_annotation_history(entity) BLOCK -%]
   [%- IF number_of_revisions > 0 %]
   <li>
     <a href="[% c.uri_for_action(c.controller.action_for('annotation_history'), [ entity.gid ]) %]">
@@ -936,23 +836,23 @@ http://[%- server -%]/[%- id -%]
   [%- END -%]
 [%- END -%]
 
-[%- MACRO artist_begin_label_from_type(type_id) BLOCK -%]
-    [% type_id == 1 ? l('Born:') : type_id == 2 ? l('Founded:') : l('Begin date:') %]
-[%- END -%]
+[%~ MACRO artist_begin_label_from_type(type_id) BLOCK ~%]
+    [%~ type_id == 1 ? l('Born:') : (type_id ==  2 || type_id == 5 || type_id == 6) ? l('Founded:') : l('Begin date:') ~%]
+[%~ END -%]
 
-[%- MACRO artist_begin_area_label_from_type(type_id) BLOCK -%]
-    [% type_id == 1 ? l('Born in:') : type_id == 2 ? l('Founded in:') : l('Begin area:') %]
-[%- END -%]
+[%~ MACRO artist_begin_area_label_from_type(type_id) BLOCK ~%]
+    [%~ type_id == 1 ? l('Born in:') : (type_id ==  2 || type_id == 5 || type_id == 6) ? l('Founded in:') : l('Begin area:') ~%]
+[%~ END -%]
 
-[%- MACRO artist_end_label_from_type(type_id) BLOCK -%]
-    [% type_id == 1 ? l('Died:') : type_id == 2 ? l('Dissolved:') : l('End date:') %]
-[%- END -%]
+[%~ MACRO artist_end_label_from_type(type_id) BLOCK ~%]
+    [%~ type_id == 1 ? l('Died:') : (type_id ==  2 || type_id == 5 || type_id == 6) ? l('Dissolved:') : l('End date:') ~%]
+[%~ END -%]
 
-[%- MACRO artist_end_area_label_from_type(type_id) BLOCK -%]
-    [% type_id == 1 ? l('Died in:') : type_id == 2 ? l('Dissolved in:') : l('End area:') %]
-[%- END -%]
+[%~ MACRO artist_end_area_label_from_type(type_id) BLOCK ~%]
+    [%~ type_id == 1 ? l('Died in:') : (type_id ==  2 || type_id == 5 || type_id == 6) ? l('Dissolved in:') : l('End area:') ~%]
+[%~ END -%]
 
-[%- MACRO show_wikipedia_extract BLOCK -%]
+[%~ MACRO show_wikipedia_extract BLOCK -%]
     [%- IF wikipedia_extract -%]
         [%- INCLUDE 'components/wikipedia_extract.tt' -%]
     [%- ELSIF wikipedia_extract_url -%]
@@ -967,7 +867,7 @@ http://[%- server -%]/[%- id -%]
     [%- END -%]
 [%- END -%]
 
-[%- MACRO show_image BLOCK -%]
+[%~ MACRO show_image BLOCK -%]
     [%- IF image -%]
         [%- INCLUDE 'components/commons-image.tt' -%]
     [%- ELSIF image_url -%]
@@ -982,7 +882,7 @@ http://[%- server -%]/[%- id -%]
     [%- END -%]
 [%- END -%]
 
-[%- MACRO track_duration_changes(loop_over, old_base, new_base, old_prop, new_prop) BLOCK -%]
+[%~ MACRO track_duration_changes(loop_over, old_base, new_base, old_prop, new_prop) BLOCK -%]
   [% USE Diff %]
   [%- FOR i = loop_over %]
      [%- IF old_prop;
@@ -1005,65 +905,44 @@ http://[%- server -%]/[%- id -%]
   [%- END -%]
 [%- END -%]
 
-[%- MACRO relationship_target_links(rel) BLOCK -%]
+[%~ MACRO relationship_target_links(rel) BLOCK -%]
   <span[% IF rel.edits_pending %] class="mp"[% END %]>
   [% IF rel.target.artist_credit AND
-        rel.target.artist_credit.name != hide_ac %]
-      [% l('{entity} by {artist}', { entity => link_entity(rel.target),
-                                     artist => artist_credit(rel.target.artist_credit) }) %]
-  [% ELSE %]
+        rel.target.artist_credit.name == hide_ac %]
       [% link_entity(rel.target) %]
+  [% ELSE %]
+      [% descriptive_link(rel.target) %]
   [% END %]
   [% '(' _ rel.extra_phrase_attributes _ ')' | html IF rel.extra_phrase_attributes %]
   [% '(' _ rel.link.formatted_date _ ')' IF rel.link.formatted_date %]
   </span>
 [%- END -%]
 
-[%- MACRO relationship_edit_links(rel) BLOCK -%]
-  [%- IF rel.editor_can_edit(c.user) -%]
-  [
-      <a href="[% c.uri_for_action('/edit/relationship/delete', {
-          type0 => rel.link.type.entity0_type,
-          type1 => rel.link.type.entity1_type,
-          id => rel.id,
-          returnto => c.req.uri
-      }) %]">[% l('Remove') %]</a>
-      |
-      <a href="[% c.uri_for_action('/edit/relationship/edit', {
-          type0 => rel.link.type.entity0_type,
-          type1 => rel.link.type.entity1_type,
-          id => rel.id,
-          returnto => c.req.uri
-      }) %]">[% l('Edit') %]</a>
-  ]
-  [%- END -%]
-[%- END -%]
-
-[%- MACRO release_countries(release_events) BLOCK;
+[%~ MACRO release_countries(release_events) BLOCK;
     IF release_events.size;
         '<ul class="links">';
         FOR event=release_events;
           IF event.country;
-            '<li>' _ rdfa_release_country_abbr(event.country) _ '</li>';
+            '<li>' _ country_abbr(event.country) _ '</li>';
           END;
         END;
         '</ul>';
     END;
 END -%]
 
-[%- MACRO release_dates(release_events) BLOCK;
+[%~ MACRO release_dates(release_events) BLOCK;
     IF release_events.size;
         '<ul class="links">';
         FOR event=release_events;
           IF !event.date.is_empty;
-            '<li>' _ rdfa_release_event_date(event.date) _ '</li>';
+            '<li>' _ event.date.format _ '</li>';
           END;
         END;
         '</ul>';
     END;
 END -%]
 
-[%- MACRO release_events(release_events) BLOCK;
+[%~ MACRO release_events(release_events) BLOCK;
       IF release_events.size;
         '<ul class="links">';
         FOR event=release_events;
@@ -1073,15 +952,58 @@ END -%]
       END;
     END -%]
 
-[%- MACRO release_event(event) BLOCK;
+[%~ MACRO release_event(event) BLOCK;
       date = event.date;
       country = event.country;
       parts = [];
       parts.push(link_entity(country)) IF country.id;
-      parts.push(rdfa_release_event_date(date)) UNLESS date.is_empty;
+      parts.push('<span class="release-date">' _ date.format _ '</span>') UNLESS date.is_empty;
       parts.join('<br />');
     END -%]
 
-[%- MACRO format_isni(isni) BLOCK;
+[%~ MACRO format_isni(isni) BLOCK;
       isni.replace('(.{4})(.{4})(.{4})(.{4})', '$1 $2 $3 $4');
     END -%]
+
+[%~ MACRO link_isni(isni) BLOCK -%]
+    <a href="http://isni-url.oclc.nl/isni/[% isni %]">
+        [%- format_isni(isni) -%]
+    </a>
+[%- END -%]
+
+[%~ MACRO country_abbr(country) BLOCK -%]
+    <span class="flag flag-[% country.primary_code %]">
+    <abbr title="[% html_escape(country.l_name) %]">[% country.primary_code %]</abbr>
+    </span>
+[%- END -%]
+
+[%~ MACRO set_header BLOCK -%]
+<!DOCTYPE html>
+<html lang="[%- current_language_html -%]">
+[%- END -%]
+
+[%~ MACRO add_colon(variable) BLOCK;
+      l('{variable}:', { variable => variable });
+    END -%]
+
+[%~ MACRO work_attributes_list(work) BLOCK -%]
+  [%- IF work.attributes %]
+    <ul>
+      [%- FOR attr=work.sorted_attributes %]
+      <li>[% attr.l_value | html %] ([% attr.type.l_name | html %])</li>
+      [%- END %]
+    </ul>
+  [%- END %]
+[%- END -%]
+
+[%~ MACRO link_type_cardinality_name(cardinality) BLOCK ~%]
+  [%~ IF cardinality == 0; l('Few relationships');
+      ELSIF cardinality == 1; l('Many relationships');
+      ELSE; l('Unknown');
+  END %] ([% cardinality %])
+[%~ END ~%]
+
+[%~ USE Canonicalize ~%]
+[%~ MACRO replace_gid(new_gid) BLOCK ~%]
+  [%~ Canonicalize.replace_gid(c, new_gid) ~%]
+[%~ END ~%]

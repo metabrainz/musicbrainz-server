@@ -30,7 +30,7 @@ SELECT results_eq(
   'VALUES (2000::smallint, null::smallint, null::smallint)'
 );
 
-INSERT INTO area (id, gid, name, sort_name) VALUES (1, '4fb0478c-6327-47f6-81b8-cfb35df3f0f2', 'Area', 'Area');
+INSERT INTO area (id, gid, name) VALUES (1, '4fb0478c-6327-47f6-81b8-cfb35df3f0f2', 'Area');
 INSERT INTO country_area (area) VALUES (1);
 
 INSERT INTO release_country (release, country, date_year, date_month, date_day)

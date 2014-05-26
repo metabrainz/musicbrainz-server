@@ -35,21 +35,8 @@ sub FormatTrackLength
     ($minutes, $seconds) = (floor($seconds / $one_minute), $seconds % $one_minute);
 
     return $hours > 0 ?
-        sprintf ("%d:%02d:%02d", $hours, $minutes, $seconds) :
-        sprintf ("%d:%02d", $minutes, $seconds);
-}
-
-sub FormatXSDTrackLength
-{
-    my $ms = shift;
-    return undef unless $ms;
-
-    my $length_in_secs = ($ms / 1000.0 + 0.5);
-    sprintf "PT%dM%dS",
-        int($length_in_secs / 60),
-        ($length_in_secs % 60),
-    ;
-
+        sprintf("%d:%02d:%02d", $hours, $minutes, $seconds) :
+        sprintf("%d:%02d", $minutes, $seconds);
 }
 
 sub UnformatTrackLength

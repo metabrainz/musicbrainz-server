@@ -1,8 +1,11 @@
 package MusicBrainz::Server::Form::ReleaseGroup;
 use HTML::FormHandler::Moose;
+use MusicBrainz::Server::Form::Utils qw( select_options_tree );
+
 extends 'MusicBrainz::Server::Form';
 
 with 'MusicBrainz::Server::Form::Role::Edit';
+with 'MusicBrainz::Server::Form::Role::Relationships';
 
 has '+name' => ( default => 'edit-release-group' );
 
@@ -28,8 +31,8 @@ has_field 'secondary_type_ids' => (
     multiple => 1
 );
 
-sub options_primary_type_id { shift->_select_all('ReleaseGroupType') }
-sub options_secondary_type_ids { shift->_select_all('ReleaseGroupSecondaryType') }
+sub options_primary_type_id { select_options_tree(shift->ctx, 'ReleaseGroupType') }
+sub options_secondary_type_ids { select_options_tree(shift->ctx, 'ReleaseGroupSecondaryType') }
 
 sub edit_field_names { qw( primary_type_id name comment artist_credit secondary_type_ids ) }
 

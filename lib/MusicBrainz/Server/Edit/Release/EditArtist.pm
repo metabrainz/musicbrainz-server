@@ -15,7 +15,6 @@ use MusicBrainz::Server::Edit::Utils qw(
     load_artist_credit_definitions
     verify_artist_credits
 );
-use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 use MusicBrainz::Server::Translation qw( l N_l );
 
 extends 'MusicBrainz::Server::Edit';
@@ -111,11 +110,11 @@ sub initialize {
         $self->c->model('ArtistCredit')->load($release);
     }
 
-    my $new = clean_submitted_artist_credits ($opts{artist_credit});
-    my $old = clean_submitted_artist_credits ($release->artist_credit);
+    my $new = clean_submitted_artist_credits($opts{artist_credit});
+    my $old = clean_submitted_artist_credits($release->artist_credit);
 
     MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
-        if Compare ($old, $new);
+        if Compare($old, $new);
 
     $self->data({
         release => {

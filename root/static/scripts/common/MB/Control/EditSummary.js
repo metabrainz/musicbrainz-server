@@ -17,7 +17,7 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
-MB.Control.EditSummary = function(container) {
+MB.Control.EditSummary = function (container) {
     var self = {};
 
     var $container = $(container),
@@ -25,7 +25,7 @@ MB.Control.EditSummary = function(container) {
         $editNote = $container.find('.add-edit-note'),
         $editNoteField = $editNote.find('textarea');
 
-    self.addNote = function() {
+    self.addNote = function () {
         $toggleEditNote
             .html(MB.text.DeleteNote)
             .unbind('click').click(self.deleteNote);
@@ -33,7 +33,7 @@ MB.Control.EditSummary = function(container) {
         $editNoteField.focus();
     };
 
-    self.deleteNote = function() {
+    self.deleteNote = function () {
         $toggleEditNote
             .html(MB.text.AddNote)
             .unbind('click').click(self.addNote);
@@ -41,7 +41,7 @@ MB.Control.EditSummary = function(container) {
         $editNoteField.val('');
     };
 
-    self.initialize = function() {
+    self.initialize = function () {
         $toggleEditNote.click(self.addNote);
     };
 

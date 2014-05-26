@@ -22,12 +22,14 @@ use MusicBrainz::Server::Constants qw( $STATUS_OPEN $VARTIST_ID );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'release_group' };
+with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::Merge';
+with 'MusicBrainz::Server::Data::Role::Browse';
 
 sub _table
 {
@@ -119,47 +121,6 @@ sub load
 {
     my ($self, @objs) = @_;
     load_subobjects($self, 'release_group', @objs);
-}
-
-sub find_by_name_prefix
-{
-    my ($self, $prefix, $limit, $offset, $conditions, @bind) = @_;
-
-    my $query = "SELECT " . $self->_columns . ",
-                    rgm.release_count,
-                    rgm.rating_count,
-                    rgm.rating
-                 FROM " . $self->_table . "
-                    JOIN artist_credit_name acn
-                        ON acn.artist_credit = rg.artist_credit
-                 WHERE page_index(rg.name)
-                 BETWEEN page_index(?) AND page_index_max(?)";
-
-    $query .= " AND ($conditions)" if $conditions;
-    $query .= ' ORDER BY rg.name OFFSET ?';
-
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub {
-            my $row = $_[0];
-            my $rg = $self->_new_from_row(@_);
-            $rg->rating($row->{rating}) if defined $row->{rating};
-            $rg->rating_count($row->{rating_count}) if defined $row->{rating_count};
-            $rg->release_count($row->{release_count} || 0);
-            return $rg;
-        },
-        $query, $prefix, $prefix, @bind, $offset || 0);
-}
-
-sub find_by_name_prefix_va
-{
-    my ($self, $prefix, $limit, $offset) = @_;
-    return $self->find_by_name_prefix(
-        $prefix, $limit, $offset,
-        'rg.artist_credit IN (SELECT artist_credit FROM artist_credit_name ' .
-        'JOIN artist_credit ac ON ac.id = artist_credit ' .
-        'WHERE artist = ? AND artist_count = 1)',
-        $VARTIST_ID
-    );
 }
 
 sub find_artist_credits_by_artist
@@ -498,8 +459,11 @@ sub in_use
     my ($self, $release_group_id) = @_;
     return check_in_use($self->sql,
         'release                    WHERE release_group = ?' => [ $release_group_id ],
+        'l_area_release_group       WHERE entity1 = ?' => [ $release_group_id ],
         'l_artist_release_group     WHERE entity1 = ?' => [ $release_group_id ],
+        'l_instrument_release_group WHERE entity1 = ?' => [ $release_group_id ],
         'l_label_release_group      WHERE entity1 = ?' => [ $release_group_id ],
+        'l_place_release_group      WHERE entity1 = ?' => [ $release_group_id ],
         'l_recording_release_group  WHERE entity1 = ?' => [ $release_group_id ],
         'l_release_release_group    WHERE entity1 = ?' => [ $release_group_id ],
         'l_release_group_url        WHERE entity0 = ?' => [ $release_group_id ],
@@ -527,7 +491,7 @@ sub delete
     $self->tags->delete(@group_ids);
     $self->rating->delete(@group_ids);
     $self->remove_gid_redirects(@group_ids);
-    $self->c->model('ReleaseGroupSecondaryType')->delete_entities (@group_ids);
+    $self->c->model('ReleaseGroupSecondaryType')->delete_entities(@group_ids);
 
     $self->sql->do('DELETE FROM release_group WHERE id IN (' . placeholders(@group_ids) . ')', @group_ids);
     return;
@@ -542,9 +506,15 @@ sub clear_empty_release_groups {
             'SELECT id FROM release_group outer_rg
              WHERE edits_pending = 0 AND id = any(?)
              AND NOT EXISTS (
+               SELECT TRUE FROM l_area_release_group WHERE entity1 = outer_rg.id
+               UNION ALL
                SELECT TRUE FROM l_artist_release_group WHERE entity1 = outer_rg.id
                UNION ALL
+               SELECT TRUE FROM l_instrument_release_group WHERE entity1 = outer_rg.id
+               UNION ALL
                SELECT TRUE FROM l_label_release_group WHERE entity1 = outer_rg.id
+               UNION ALL
+               SELECT TRUE FROM l_place_release_group WHERE entity1 = outer_rg.id
                UNION ALL
                SELECT TRUE FROM l_recording_release_group WHERE entity1 = outer_rg.id
                UNION ALL
@@ -572,7 +542,7 @@ sub _merge_impl
     $self->rating->merge($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('release_group', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('release_group', $new_id, @old_ids);
-    $self->c->model('ReleaseGroupSecondaryType')->merge_entities ($new_id, @old_ids);
+    $self->c->model('ReleaseGroupSecondaryType')->merge_entities($new_id, @old_ids);
     $self->c->model('CoverArtArchive')->merge_release_groups($new_id, @old_ids);
 
     merge_table_attributes(
@@ -585,8 +555,9 @@ sub _merge_impl
     );
 
     # Move releases to the new release group
-    $self->sql->do('UPDATE release SET release_group = ?
-              WHERE release_group IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
+    my $release_ids = $self->sql->select_single_column_array('UPDATE release SET release_group = ?
+              WHERE release_group IN ('.placeholders(@old_ids).') RETURNING id', $new_id, @old_ids);
+    $self->c->model('Release')->_delete_from_cache(@$release_ids);
 
     $self->_delete_and_redirect_gids('release_group', $new_id, @old_ids);
     return 1;
@@ -623,7 +594,7 @@ sub has_cover_art_set
             FROM cover_art_archive.release_group_cover_art
             WHERE release_group = ?";
 
-    return $self->sql->select_single_value ($query, $rg_id);
+    return $self->sql->select_single_value($query, $rg_id);
 }
 
 sub set_cover_art {
@@ -649,7 +620,7 @@ sub unset_cover_art {
 sub merge_releases {
     my ($self, $new_id, @old_ids) = @_;
 
-    my $rg_ids = $self->c->sql->select_list_of_hashes (
+    my $rg_ids = $self->c->sql->select_list_of_hashes(
         "SELECT release_group, id FROM release WHERE id IN ("
         . placeholders ($new_id, @old_ids) . ")", $new_id, @old_ids);
 
@@ -661,7 +632,7 @@ sub merge_releases {
     };
 
     my @release_group_ids = keys %release_group_ids;
-    my $rg_cover_art = $self->c->sql->select_list_of_hashes (
+    my $rg_cover_art = $self->c->sql->select_list_of_hashes(
         "SELECT release_group, release
          FROM cover_art_archive.release_group_cover_art
          WHERE release_group IN (" . placeholders (@release_group_ids) . ")",
@@ -679,7 +650,7 @@ sub merge_releases {
             # The new release group is the same as the old release group
             # - if the release group cover art is set to one of the old ids,
             #   move it to the new id.
-            $self->set_cover_art ($new_rg, $new_id)
+            $self->set_cover_art($new_rg, $new_id)
                 if ($has_cover_art{$new_rg} // 0) == $old_id;
         }
         else
@@ -687,7 +658,7 @@ sub merge_releases {
             # The new release group is different from the old release group
             # - if the old release group cover art is set to the id being moved,
             #   unset the old cover art
-            $self->unset_cover_art ($old_rg)
+            $self->unset_cover_art($old_rg)
                 if ($has_cover_art{$old_rg} // 0) == $old_id;
 
             # Do not change the new release group cover art, regardless of

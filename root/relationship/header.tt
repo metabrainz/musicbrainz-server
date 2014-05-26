@@ -2,7 +2,6 @@
 [%- info_links = [
     ['index', generic_link(c.uri_for_action('/relationship/linktype/index'), l('Relationship Types'))],
     ['attributes', generic_link(c.uri_for_action('/relationship/linkattributetype/index'), l('Relationship Attributes'))],
-    ['instruments', generic_link(c.uri_for_action('/relationship/linkattributetype/instruments'), l('Instrument Tree'))],
 ] -%]
 
 <h1>[% l('Relationships') %]</h1>

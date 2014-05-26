@@ -1,42 +1,45 @@
-[%- WRAPPER 'release/edit/layout.tt' -%]
-   [%- USE r = FormRenderer(form) -%]
-   [% r.hidden('id') %]
+<div id="form">
+  <!-- ko if: validation.errorsExistOtherThanAMissingEditNote -->
+    <div class="warning">
+      <p data-bind="text: MB.text.ErrorsPreventSubmission"></p>
+    </div>
+  <!-- /ko -->
 
-   [%# Do not display new entities as 'deleted'. See common-macros.tt
-       (link_entity) for more information. -%]
-   [% allow_new = 1 %]
+  <!-- ko if: allEdits().length === 0 && validation.errorCount() === 0 && !submissionInProgress() -->
+    <div class="warning">
+      <p data-bind="text: MB.text.NoChanges"></p>
+    </div>
+  <!-- /ko -->
 
-   <div id="form">
+  <!-- ko if: loadingEditPreviews -->
+    <div class="loading-message">[% l('Loading edit previews...') %]</div>
+  <!-- /ko -->
 
-       [%- FOREACH edit=edits -%]
-         <div class="edit-list">
-           <h2>[% edit.l_edit_name | html %]</h2>
+  <!-- ko foreach: editPreviews -->
+    <div class="edit-list">
+      <h2 data-bind="text: editName"></h2>
+      <div class="edit-details" data-bind="html: preview"></div>
+    </div>
+  <!-- /ko -->
 
-           <div class="edit-details">
-           [% IF edit.data.defined %]
-             [%-INCLUDE "edit/details/${edit.edit_template}.tt" %]
-           [% ELSE %]
-             <p>[% l('An error occured while loading this edit') %]</p>
-           [% END %]
-           </div>
+  <div class="half-width">
+    <fieldset class="editnote">
+      <legend>[%- l('Edit Note') -%]</legend>
+      <!-- ko with: rootField -->
+        [% edit_note(0, 1) %]
 
-         </div>
-       [%- END -%]
+        <p class="error field-error" data-bind="showErrorRightAway: editNote"></p>
 
-       <div class="half-width editnote">
-         [%- INCLUDE 'forms/edit-note.tt' -%]
-         [%- as_auto_editor() -%]
-       </div>
+        [% as_auto_editor(1) %]
+      <!-- /ko -->
+    </fieldset>
 
-       <div class="row buttons ui-helper-clearfix">
-         [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
-         [% r.submit ('previous', l('« Previous')) %]
-         [% r.submit ('save', l('Enter edit'), class => 'positive') %]
-       </div>
+    <div data-bind="if: submissionInProgress" class="loading-message">
+      [% l('Submitting edits...') %]
+    </div>
 
-   </div>
-
-  <script type="text/javascript">//<![CDATA[
-    MB.utility.setDefaultAction("form.release-editor", "#id-save");
-  //]]></script>
-[%- END -%]
+    <!-- ko if: submissionError -->
+      <p class="error" data-bind="text: submissionError"></p>
+    <!-- /ko -->
+  </div>
+</div>

@@ -52,7 +52,7 @@ sub validate {
     my $coordinates = $self->value;
 
     if ($coordinates =~ /^\s*$/) {
-        $self->value({ latitude => undef, longitude => undef });
+        $self->value(undef);
         return;
     }
 
@@ -104,7 +104,9 @@ sub dms {
     $minutes =~ s/,/./;
     $seconds =~ s/,/./;
 
-    return sprintf("%.6f", ((0+$degrees) + ((0+$minutes) * 60 + (0+$seconds)) / 3600) * direction($dir));
+    return
+        sprintf("%.6f", ((0+$degrees) + ((0+$minutes) * 60 + (0+$seconds)) / 3600) * direction($dir))
+        + 0; # remove trailing zeroes (MBS-7438)
 }
 
 sub deflate_coordinates {

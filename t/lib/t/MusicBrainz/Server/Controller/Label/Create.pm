@@ -21,7 +21,6 @@ html_ok($mech->content);
 my $response = $mech->submit_form(
     with_fields => {
         'edit-label.name' => 'controller label',
-        'edit-label.sort_name' => 'label, controller',
         'edit-label.type_id' => 2,
         'edit-label.label_code' => 12345,
         'edit-label.area_id' => 221,
@@ -41,7 +40,6 @@ my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Label::Create');
 is_deeply($edit->data, {
         name => 'controller label',
-        sort_name => 'label, controller',
         type_id => 2,
         area_id => 221,
         label_code => 12345,
@@ -64,7 +62,6 @@ is_deeply($edit->data, {
 $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
 html_ok($mech->content, '..valid xml');
 $mech->content_contains('controller label', '..has name');
-$mech->content_contains('label, controller', '..has sort name');
 $mech->content_contains('label created in controller_label.t', '..has comment');
 $mech->content_like(qr/1990\D+01\D+02/, '..has begin date');
 $mech->content_like(qr/2003\D+04\D+15/, '..has end date');

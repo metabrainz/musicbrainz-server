@@ -31,7 +31,8 @@ has_field 'confirm_password' => (
 
 has_field 'email' => (
     type      => 'Email',
-    maxlength => 64
+    maxlength => 64,
+    required => 1
 );
 
 sub validate_username
@@ -40,6 +41,9 @@ sub validate_username
 
     my $username = $field->value;
     if (defined $username) {
+        if ($username =~ qr{^deleted editor \#\d+$}i) {
+            $field->add_error(l('This username is reserved for internal use'));
+        }
         my $editor = $self->ctx->model('Editor')->get_by_name($username);
         if (defined $editor) {
             $field->add_error(l('Please choose another username, this one is already taken'));

@@ -43,14 +43,14 @@ sub _entity_class
 sub load
 {
     my ($self, @releases) = @_;
-    my %id_to_release = object_to_ids (@releases);
+    my %id_to_release = object_to_ids(@releases);
     my @ids = keys %id_to_release;
     return unless @ids; # nothing to do
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                  LEFT JOIN label ON rl.label = label.id
                  WHERE release IN (" . placeholders(@ids) . ")
-                 ORDER BY release, rl_catalog_number, musicbrainz_collate(label.sort_name)";
+                 ORDER BY release, rl_catalog_number, musicbrainz_collate(label.name)";
     my @labels = query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
                                $query, @ids);
     foreach my $label (@labels) {

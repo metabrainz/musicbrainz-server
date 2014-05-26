@@ -10,8 +10,8 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
     entity_name => 'url'
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
-with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
+with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 
 =head1 NAME
 
@@ -34,7 +34,7 @@ sub base : Chained('/') PathPart('url') CaptureArgs(0) { }
 sub show : Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
-    $self->relationships($c);
+    $c->model('Relationship')->load($c->stash->{url});
     $c->stash->{template} = 'url/index.tt';
 }
 
@@ -47,6 +47,11 @@ Edit the details of an already existing link
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
     form      => 'URL',
     edit_type => $EDIT_URL_EDIT,
+};
+
+before edit => sub {
+    my ($self, $c) = @_;
+    $c->model('Relationship')->load($c->stash->{url});
 };
 
 =head1 LICENSE

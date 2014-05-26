@@ -24,8 +24,8 @@ INSERT INTO artist (id, gid, name, sort_name, comment)
            (3, '345c079d-374e-4436-9448-da92dedef3cf', 'artist', 'artist', 'Artist 3'),
            (4, '445c079d-374e-4436-9448-da92dedef3cf', 'artist', 'artist', 'Artist 4');
 
-INSERT INTO label (id, gid, name, sort_name)
-    VALUES (1, '145c079d-374e-4436-9448-da92dedef3cf', 'label', 'label');
+INSERT INTO label (id, gid, name)
+    VALUES (1, '145c079d-374e-4436-9448-da92dedef3cf', 'label');
 
 INSERT INTO edit_artist (edit, artist) VALUES (1, 1);
 INSERT INTO edit_artist (edit, artist) VALUES (4, 1);

@@ -14,7 +14,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     merge_partial_date
 );
 use MusicBrainz::Server::Entity::PartialDate;
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 use JSON::Any;
@@ -23,6 +23,7 @@ use MooseX::Types::Moose qw( ArrayRef Bool Int Maybe Str );
 use MooseX::Types::Structured qw( Dict Optional );
 
 use aliased 'MusicBrainz::Server::Entity::Place';
+use aliased 'MusicBrainz::Server::Entity::Area';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use aliased 'MusicBrainz::Server::Entity::Coordinates';
 
@@ -94,6 +95,11 @@ sub build_display_data
     $data->{place} = $loaded->{Place}{ $self->data->{entity}{id} }
         || Place->new( name => $self->data->{entity}{name} );
 
+    for my $side (qw( old new )) {
+        $data->{area}{$side} //= Area->new()
+            if defined $self->data->{$side}{area_id};
+    }
+
     for my $date_prop (qw( begin_date end_date )) {
         if (exists $self->data->{new}{$date_prop}) {
             $data->{$date_prop} = {
@@ -103,17 +109,10 @@ sub build_display_data
         }
     }
 
-    for my $prop (qw( iso_3166_1 iso_3166_2 iso_3166_3 )) {
-        if (exists $self->data->{new}{$prop}) {
-            $data->{$prop}->{old} = $self->data->{old}{$prop};
-            $data->{$prop}->{new} = $self->data->{new}{$prop};
-        }
-    }
-
     if (exists $self->data->{new}{coordinates}) {
         $data->{coordinates} = {
-            new => defined $self->data->{new}{coordinates} && defined $self->data->{new}{coordinates}{latitude} ? Coordinates->new($self->data->{new}{coordinates}) : '',
-            old => defined $self->data->{old}{coordinates} && defined $self->data->{old}{coordinates}{latitude} ? Coordinates->new($self->data->{old}{coordinates}) : '',
+            new => defined $self->data->{new}{coordinates} ? Coordinates->new($self->data->{new}{coordinates}) : '',
+            old => defined $self->data->{old}{coordinates} ? Coordinates->new($self->data->{old}{coordinates}) : '',
         };
     }
 
@@ -197,6 +196,15 @@ around extract_property => sub {
         default {
             return ($self->$orig(@_));
         }
+    }
+};
+
+before restore => sub {
+    my ($self, $data) = @_;
+
+    for my $side ($data->{old}, $data->{new}) {
+        $side->{coordinates} = undef
+            if defined $side->{coordinates} && !defined $side->{coordinates}{latitude};
     }
 };
 

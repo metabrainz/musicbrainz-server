@@ -13,7 +13,8 @@
         [% IF edit.data.defined %]
           [%-INCLUDE "edit/details/${edit.edit_template}.tt" %]
         [% ELSE %]
-          <p>[% l('An error occured while loading this edit') %]</p>
+          <p>[% l('An error occured while loading this edit.') %]</p>
+          <p>[% link_edit(edit, 'data', l('Raw edit data may be available.')) %]</p>
         [% END %]
 
         <h2>[% l('Votes') %]</h2>
@@ -30,9 +31,7 @@
                 <tr class="noborder">
                         <th>[% l('My vote:') %]</th>
                         <td class="vote">
-                          <div class="voteopts">
                             [% INCLUDE 'edit/vote.tt' %]
-                          </div>
                         </td>
                 </tr>
             [% END %]

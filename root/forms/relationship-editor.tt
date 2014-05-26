@@ -1,0 +1,88 @@
+[% PROCESS 'components/relationship-editor.tt' %]
+
+[% MACRO add_relationship_button BLOCK %]
+
+[% END %]
+
+<fieldset id="relationship-editor" data-bind="with: source, delegatedHandler: 'click'">
+  <legend>
+    [% l('Relationships') %]
+    <button type="button" class="add-item with-label" data-click="openAddDialog">
+      [% l('Add relationship') %]
+    </button>
+  </legend>
+
+  <table class="details row-form" style="width: 100%; position: relative;">
+    <tbody data-bind="foreach: _.sortBy(groupedRelationships($root, $data), 'linkPhrase')">
+      <tr>
+        <th>
+          <label data-bind="text: MB.i18n.expand(MB.text.AddColon, { variable: linkPhrase })"></label>
+        </th>
+        <td class="relationship-list"
+            style="position: relative"
+            data-bind="foreach: {
+                         data: relationships,
+                         beforeRemove: $root.beforeRelationshipRemove,
+                         afterAdd: $root.afterRelationshipAdd,
+                         beforeMove: $root.beforeRelationshipMove,
+                         afterMove: $root.afterRelationshipMove
+                       }">
+          <div data-bind="attr: { id: 'relationship-' + uniqueID }">
+            <button type="button" class="icon remove-item" data-bind="attr: { id: 'remove-' + uniqueID }" data-click="removeRelationship"></button>
+            <button type="button" class="icon edit-item" data-bind="attr: { id: 'edit-' + uniqueID }, disable: removed" data-click="openEditDialog"></button>
+            <!-- ko if: entityCanBeReordered(target($parents[1])) -->
+              <button type="button" class="icon move-down" title="[% l('Move entity down') %]" data-click="moveEntityDown"></button>
+              <button type="button" class="icon move-up" title="[% l('Move entity up') %]" data-click="moveEntityUp"></button>
+            <!-- /ko -->
+            <!-- ko if: showLinkOrder($parents[1]) -->
+              <span data-bind="html: MB.i18n.expand(MB.text.OrderedRelationship, { num: linkOrder(), relationship: target($parents[1]).html({ target: '_blank' }) }), relationshipStyling: true"></span>
+            <!-- /ko -->
+            <!-- ko ifnot: showLinkOrder($parents[1]) -->
+              <span data-bind="html: target($parents[1]).html({ target: '_blank' }), relationshipStyling: true"></span>
+            <!-- /ko -->
+            <!-- ko template: {
+                      name: "template.extra-attributes-and-dates",
+                      data: { source: $parents[1], relationship: $data }
+                    }
+              --><!-- /ko -->
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td data-bind="with: $parent">
+          <button type="button" class="add-item with-label" data-click="openAddDialog" data-bind="text: MB.text.AddAnotherEntity[$parent.targetType]"></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ko foreach: $root.hiddenInputs() -->
+    <input type="hidden" data-bind="attr: { name: name, value: value }" />
+  <!-- /ko -->
+</fieldset>
+
+<script>
+  $(function () {
+    MB.relationshipEditor.exportTypeInfo([% type_info %], [% attr_info %]);
+
+    var sourceData = [% source_entity %];
+    MB.sourceEntityGID = sourceData.gid = sourceData.gid || _.uniqueId("tmp-");
+
+    MB.sourceRelationshipEditor = MB.relationshipEditor.GenericEntityViewModel({
+      sourceData: sourceData,
+      formName: "[% form.name | js %]"
+    });
+
+    if ($("#external-links-editor").length) {
+      MB.Control.externalLinks.applyBindings({
+        sourceData: sourceData,
+        formName: "[% form.name | js %]"
+      });
+    }
+
+    var $content = $("#relationship-editor");
+    ko.applyBindings(MB.sourceRelationshipEditor, $content[0]);
+    $content.show();
+  });
+</script>

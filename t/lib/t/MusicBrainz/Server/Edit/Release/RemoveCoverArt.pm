@@ -51,7 +51,7 @@ sub create_edit {
         cover_art_mime_type => 'image/jpeg'
     )->accept;
 
-    my ($artwork) = @{ $c->model ('CoverArtArchive')->find_available_artwork($release->gid) };
+    my ($artwork) = @{ $c->model('Artwork')->find_by_release($release) };
 
     $c->model('Edit')->create(
         edit_type => $EDIT_RELEASE_REMOVE_COVER_ART,

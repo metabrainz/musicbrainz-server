@@ -1,4 +1,4 @@
-[%- WRAPPER "layout.tt" usesRDFa=1 title=title ? place.name _ " - ${title}" : place.name -%]
+[%- WRAPPER "layout.tt" title=title ? place.name _ " - ${title}" : place.name canonical_url=replace_gid(entity.gid) -%]
   [%- IF !full_width -%]
     [% WRAPPER 'layout/sidebar.tt' %]
         [%- show_image() -%]
@@ -21,7 +21,7 @@
                         [% WRAPPER 'layout/sidebar/property.tt' label=l("Defunct:") class="defunct" %]
                             [% place.end_date.format %]
                             [% IF place.has_age %]
-                                ([% display_age (place.age) %])
+                                ([% display_age(place.age) %])
                             [% END %]
                         [% END %]
                     [% ELSIF place.ended %]
@@ -34,13 +34,13 @@
                content=html_escape(place.address) class="address"
                    IF place.address -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Area:')
-               content=link_area_with_containment(place.area)
+               content=descriptive_link(place.area)
                class="area"
                    IF place.area -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Coordinates:')
-               content=('<a href="' _ place.coordinates.osm_url(16) _ '">' _ html_escape(place.coordinates.format) _ '</a>')
+               content=('<a href="' _ html_escape(place.coordinates.osm_url(16)) _ '">' _ html_escape(place.coordinates.format) _ '</a>')
                class="coordinates"
-                   IF place.coordinates.latitude && place.coordinates.longitude -%]
+                   IF place.coordinates -%]
         [% END %]
         [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=place tags=top_tags
             more=more_tags tag_this_text=l('Tag this place')
@@ -56,13 +56,6 @@
                     [% l('Merge place') %]
                   </a>
                 </li>
-
-                <hr/>
-
-                [%# Adds <li> itself %]
-                [% use_in_relationship(place) %]
-                <li>[% relate_to_ellipsis(place) %]</li>
-                <li>[% relate_to_url(place) %]</li>
 
                 <hr/>
 

@@ -13,6 +13,7 @@ my $mock_edit_class = 1000 + int(rand(1000));
     extends 'MusicBrainz::Server::Edit';
     sub edit_type { $mock_edit_class }
     sub edit_name { 'Edit artist' } # Just so it grabs an edit template
+    sub edit_kind { 'other' }
     sub edit_category { 'Utterly Fake' }
     sub initialize {
         my $self = shift;

@@ -2,6 +2,9 @@ package MusicBrainz::Server::Data::Recording;
 
 use Moose;
 use namespace::autoclean;
+use DateTime;
+use Scalar::Util qw( looks_like_number );
+use Try::Tiny;
 use List::UtilsBy qw( rev_nsort_by sort_by uniq_by );
 use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_CREATE
@@ -19,17 +22,19 @@ use MusicBrainz::Server::Data::Utils qw(
     placeholders
     load_subobjects
     query_to_list_limited
+    query_to_list
 );
 use MusicBrainz::Server::Entity::Recording;
+use MusicBrainz::Server::ExternalUtils qw( get_chunked_with_retry );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'recording' };
+with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'recording' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'recording' };
 with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'recording' };
-with 'MusicBrainz::Server::Data::Role::BrowseVA';
 with 'MusicBrainz::Server::Data::Role::Merge';
 
 sub _table
@@ -123,6 +128,24 @@ sub find_by_artist
         $query, @where_args, $offset || 0);
 }
 
+sub find_by_instrument {
+    my ($self, $instrument_id, $limit, $offset) = @_;
+
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                     JOIN l_artist_recording ON l_artist_recording.entity1 = recording.id
+                     JOIN link_attribute ON link_attribute.link = l_artist_recording.link
+                     JOIN link_attribute_type ON link_attribute_type.id = link_attribute.attribute_type
+                     JOIN instrument ON instrument.gid = link_attribute_type.gid
+                 WHERE instrument.id = ?
+                 ORDER BY musicbrainz_collate(recording.name)
+                 OFFSET ?";
+
+    return query_to_list_limited(
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $instrument_id, $offset || 0);
+}
+
 sub find_by_release
 {
     my ($self, $release_id, $limit, $offset) = @_;
@@ -176,7 +199,6 @@ sub insert
 sub update
 {
     my ($self, $recording_id, $update) = @_;
-    my $track_data = MusicBrainz::Server::Data::Track->new(c => $self->c);
     my $row = $self->_hash_to_row($update);
     $self->sql->update_row('recording', $row, { id => $recording_id });
 }
@@ -329,7 +351,7 @@ sub appears_on
     for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
         my $recording_id = delete $row->{recording};
         $map{$recording_id} ||= [];
-        push @{ $map{$recording_id} }, MusicBrainz::Server::Data::ReleaseGroup->_new_from_row ($row);
+        push @{ $map{$recording_id} }, MusicBrainz::Server::Data::ReleaseGroup->_new_from_row($row);
     }
 
     for my $rec_id (keys %map)
@@ -400,6 +422,48 @@ sub find_tracklist_offsets {
 EOSQL
 
     return $offsets;
+}
+
+sub find_recent_by_artists
+{
+    my ($self, $artist_ids) = @_;
+
+    my $search_url = sprintf("http://%s/ws/2/recording/?query=title:\"\"",
+                              DBDefs->LUCENE_SERVER);
+
+    my $ua = LWP::UserAgent->new;
+
+    $ua->timeout(3);
+    $ua->env_proxy;
+
+    my $last_updated;
+
+    try {
+        my $response = get_chunked_with_retry($ua, $search_url);
+        my $data = JSON->new->utf8->decode($response->content);
+
+        $last_updated = DateTime::Format::ISO8601->parse_datetime($data->{created});
+    }
+    catch {
+        $last_updated = DateTime->now;
+        $last_updated->subtract( hours => 3 );
+    };
+
+    my @artist_ids = grep { looks_like_number($_) } @$artist_ids;
+    return @artist_ids unless scalar @artist_ids;
+
+    my $query = "SELECT DISTINCT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                     JOIN track t ON t.recording = recording.id
+                     JOIN artist_credit_name acn
+                         ON (acn.artist_credit = recording.artist_credit
+                         OR  acn.artist_credit = t.artist_credit)
+                 WHERE acn.artist IN (" . placeholders(@artist_ids) . ")
+                   AND recording.last_updated >= ?";
+    return query_to_list(
+        $self->c->sql, sub { $self->_new_from_row(@_) }, $query, @artist_ids,
+        $last_updated->iso8601
+    );
 }
 
 __PACKAGE__->meta->make_immutable;

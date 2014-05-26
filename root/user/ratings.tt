@@ -15,7 +15,7 @@
       <ul>
         [% FOR entity IN ratings %]
           <li>[% rating_stars(entity, !viewing_own_profile) %] -
-            [% link_entity(entity) %]</li>
+            [% descriptive_link(entity) %]</li>
         [% END %]
       </ul>
     [% END %]

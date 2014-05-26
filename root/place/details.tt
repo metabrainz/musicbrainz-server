@@ -2,7 +2,7 @@
 
 [% WRAPPER "place/layout.tt" title=l('Details') page='details' %]
 <h2>[%- l('Details') -%]</h2>
-<table class="details" [% rdfa_about_attr(rdfa_place_curi(place)) %]>
+<table class="details">
   <tr>
     <th>[%- l('Name:') -%]</th>
     <td>[% link_entity(place) %]</td>
@@ -11,7 +11,7 @@
     <th>[%- l('{mbid|<abbr title="MusicBrainz Identifier">MBID</abbr>}:',
                {mbid => doc_link("MusicBrainz_Identifier")}) -%]
     </th>
-    <td><code>[% rdfa_mbid(place.gid) %]</code></td>
+    <td><code>[% place.gid %]</code></td>
   </tr>
   <tr>
     <th>[% l('Last updated:') %]</th>
@@ -22,7 +22,8 @@
       [% l('Permanent link:') %]
     </th>
     <td>
-      [% perma="http://musicbrainz.org/place/${place.gid}" %]
+      [%- USE Canonicalize -%]
+      [% perma=Canonicalize.canonicalize(c.uri_for_action('/place/show', [ entity.gid ])) %]
       <a href="[% perma | url %]">
         [%- perma | html -%]
       </a>

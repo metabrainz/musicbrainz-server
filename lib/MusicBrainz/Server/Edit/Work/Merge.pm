@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Work::Merge;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_MERGE );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Merge';
 with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
@@ -35,6 +35,7 @@ before build_display_data => sub {
     my @works = grep defined, map { $loaded->{Work}{$_} } $self->work_ids;
     $self->c->model('Work')->load_writers(@works);
     $self->c->model('Work')->load_recording_artists(@works);
+    $self->c->model('WorkAttribute')->load_for_works(@works);
     $self->c->model('ISWC')->load_for_works(grep { $_->all_iswcs == 0 } @works);
 };
 

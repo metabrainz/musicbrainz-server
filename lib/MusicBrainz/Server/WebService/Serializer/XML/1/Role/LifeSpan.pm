@@ -7,7 +7,7 @@ sub has_lifespan
 
     my $has_begin_date = !$entity->begin_date->is_empty;
     my $has_end_date = !$entity->end_date->is_empty;
-    
+
     return $has_begin_date || $has_end_date;
 }
 
@@ -19,7 +19,7 @@ sub lifespan
     $attrs{begin} = $entity->begin_date->format if !$entity->begin_date->is_empty;
     $attrs{end} = $entity->end_date->format if !$entity->end_date->is_empty;
 
-    return $self->gen->life_span (\%attrs);
+    return $self->gen->life_span(\%attrs);
 }
 
 no Moose::Role;

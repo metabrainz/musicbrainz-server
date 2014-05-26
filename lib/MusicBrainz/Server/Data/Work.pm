@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::Work;
 
 use Moose;
 use namespace::autoclean;
-use List::MoreUtils qw( uniq );
+use List::AllUtils qw( uniq zip );
 use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Data::Utils qw(
     defined_hash
@@ -23,10 +23,11 @@ extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'work' };
+with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'work' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'work' };
-with 'MusicBrainz::Server::Data::Role::BrowseVA';
+with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'work' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 
@@ -156,7 +157,7 @@ sub update
     my ($self, $work_id, $update) = @_;
     return unless %{ $update // {} };
     my $row = $self->_hash_to_row($update);
-    $self->sql->update_row('work', $row, { id => $work_id });
+    $self->sql->update_row('work', $row, { id => $work_id }) if %$row;
 }
 
 # Works can be unconditionally removed
@@ -172,6 +173,7 @@ sub delete
     $self->rating->delete($work_id);
     $self->c->model('ISWC')->delete_works($work_id);
     $self->remove_gid_redirects($work_id);
+    $self->sql->do('DELETE FROM work_attribute WHERE work = ?', $work_id);
     $self->sql->do('DELETE FROM work WHERE id = ?', $work_id);
     return;
 }
@@ -187,6 +189,24 @@ sub _merge_impl
     $self->c->model('Edit')->merge_entities('work', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('work', $new_id, @old_ids);
     $self->c->model('ISWC')->merge_works($new_id, @old_ids);
+
+    $self->sql->do(
+        'WITH all_attributes AS (
+           DELETE FROM work_attribute WHERE work = any(?)
+           RETURNING work_attribute_type, work_attribute_text,
+           work_attribute_type_allowed_value
+         )
+         INSERT INTO work_attribute
+           (work, work_attribute_type, work_attribute_text,
+           work_attribute_type_allowed_value)
+         SELECT DISTINCT ON
+           (work_attribute_type,
+            coalesce(work_attribute_text, work_attribute_type_allowed_value::text))
+           ?, work_attribute_type, work_attribute_text,
+           work_attribute_type_allowed_value
+         FROM all_attributes',
+      [ $new_id, @old_ids ], $new_id
+    );
 
     merge_table_attributes(
         $self->sql => (
@@ -222,6 +242,18 @@ sub load_meta
         $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
         $obj->last_updated($row->{last_updated}) if defined $row->{last_updated};
     }, @_);
+}
+
+sub load_related_info {
+    my ($self, @works) = @_;
+
+    my $c = $self->c;
+    $c->model('Work')->load_writers(@works);
+    $c->model('Work')->load_recording_artists(@works);
+    $c->model('WorkAttribute')->load_for_works(@works);
+    $c->model('ISWC')->load_for_works(@works);
+    $c->model('WorkType')->load(@works);
+    $c->model('Language')->load(@works);
 }
 
 =method load_ids
@@ -429,54 +461,6 @@ sub is_empty {
           $used_in_relationship
         )
 EOSQL
-}
-
-sub load_attributes {
-    my ($self, @works) = @_;
-
-    my @work_ids = map { $_->id } @works;
-
-    my $attributes = $self->sql->select_list_of_hashes(
-        'SELECT
-           work_attribute_type.name AS type_name,
-           work_attribute_type.comment AS type_comment,
-           coalesce(
-             work_attribute_type_allowed_value.value,
-             work_attribute.work_attribute_text
-           ) AS value,
-           work,
-           work_attribute.work_attribute_type_allowed_value AS value_id,
-           work_attribute_type.id AS type_id
-         FROM work_attribute
-         JOIN work_attribute_type
-           ON work_attribute_type.id = work_attribute.work_attribute_type
-         LEFT JOIN work_attribute_type_allowed_value
-           ON work_attribute_type_allowed_value.id =
-                work_attribute.work_attribute_type_allowed_value
-         WHERE work_attribute.work = any(?)',
-        \@work_ids
-    );
-
-    my %work_map;
-    for my $work (@works) {
-        push @{ $work_map{$work->id} //= [] }, $work;
-    }
-
-    for my $attribute (@$attributes) {
-        for my $work (@{ $work_map{$attribute->{work}} }) {
-            $work->add_attribute(
-                MusicBrainz::Server::Entity::WorkAttribute->new(
-                    type => MusicBrainz::Server::Entity::WorkAttributeType->new(
-                        name => $attribute->{type_name},
-                        comment => $attribute->{type_comment},
-                        id => $attribute->{type_id}
-                    ),
-                    value => $attribute->{value},
-                    value_id => $attribute->{value_id}
-                )
-            );
-        }
-    }
 }
 
 sub set_attributes {

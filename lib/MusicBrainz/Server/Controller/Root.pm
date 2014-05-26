@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::Root;
 use Moose;
+use Try::Tiny;
 BEGIN { extends 'Catalyst::Controller' }
 
 # Import MusicBrainz libraries
@@ -8,9 +9,11 @@ use HTTP::Status qw( :constants );
 use ModDefs;
 use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
+use MusicBrainz::Server::Entity::URL::Sidebar qw( FAVICON_CLASSES );
 use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Replication ':replication_type';
 use aliased 'MusicBrainz::Server::Translation';
+use MusicBrainz::Server::Translation 'l';
 
 #
 # Sets the actions in this controller to be registered with no prefix
@@ -198,6 +201,13 @@ sub begin : Private
     my $js = $jscookie ? $jscookie->value : "unknown";
     $c->response->cookies->{javascript} = { value => ($js eq "unknown" ? "false" : $js) };
 
+    my $alert = '';
+    try {
+        $alert = $c->model('MB')->context->redis->get('alert');
+    } catch {
+        $alert = l('Our Redis server appears to be down; some features may not work as intended or expected.');
+        warn "Redis connection to get alert failed: $_";
+    };
     $c->stash(
         javascript => $js,
         no_javascript => $js eq "false",
@@ -208,8 +218,9 @@ sub begin : Private
             testing_features => DBDefs->DB_STAGING_TESTING_FEATURES,
             is_slave_db    => DBDefs->REPLICATION_TYPE == RT_SLAVE,
             read_only      => DBDefs->DB_READ_ONLY,
-            alert => $c->model('MB')->context->redis->get('alert')
+            alert => $alert
         },
+        favicon_css_classes => FAVICON_CLASSES,
     );
 
     # Setup the searchs on the sidebar
@@ -275,6 +286,11 @@ sub begin : Private
             $model->get_by_ids($merger->all_entities)
         };
         $c->model('ArtistCredit')->load(@merge);
+
+        my @areas = ();
+        push @areas, @merge if $merger->type eq 'Area';
+        push @areas, $c->model('Area')->load(@merge) if $merger->type eq 'Place';
+        $c->model('Area')->load_containment(@areas);
 
         $c->stash(
             to_merge => [ @merge ],

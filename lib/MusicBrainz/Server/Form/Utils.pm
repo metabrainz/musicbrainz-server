@@ -3,125 +3,26 @@ package MusicBrainz::Server::Form::Utils;
 use strict;
 use warnings;
 
-use Scalar::Util qw( looks_like_number );
-use MusicBrainz::Server::Translation qw( lp );
+use Encode;
+use MusicBrainz::Server::Translation qw( l lp );
+use Text::Trim qw( trim );
+use Text::Unaccent qw( unac_string_utf16 );
 use Unicode::ICU::Collator qw( UCOL_NUMERIC_COLLATION UCOL_ON );
 use List::UtilsBy qw( sort_by );
 
 use Sub::Exporter -setup => {
     exports => [qw(
-                      collapse_param
-                      expand_all_params
-                      expand_param
                       language_options
                       script_options
+                      link_type_options
+                      select_options
+                      select_options_tree
+                      build_grouped_options
+                      build_type_info
+                      build_attr_info
+                      build_options_tree
               )]
 };
-
-sub _expand
-{
-    my $ret = shift;
-    my $value = pop;
-    my @parts = @_;
-
-    if (scalar @parts == 0)
-    {
-        $$ret = $value eq '' ? undef : $value;
-    }
-    else
-    {
-        my $key = shift @parts;
-
-        if (looks_like_number ($key))
-        {
-            _expand (\$$ret->[$key], @parts, $value);
-        }
-        else
-        {
-            _expand (\$$ret->{$key}, @parts, $value);
-        }
-    }
-}
-
-
-sub expand_param
-{
-    my ($values, $query) = @_;
-
-    my $ret;
-    for my $key (keys %$values)
-    {
-        my $val = $values->{$key};
-        my @parts = split (/\./, $key);
-        next if shift @parts ne $query;
-
-        _expand (\$ret, @parts, $val);
-    }
-
-    return $ret;
-}
-
-sub expand_all_params
-{
-    my $values = shift;
-
-    my %ret;
-    for my $key (keys %$values)
-    {
-        my $val = $values->{$key};
-        my @parts = split (/\./, $key);
-
-        my $field_name = shift @parts;
-
-        _expand (\$ret{$field_name}, @parts, $val);
-    }
-
-    return \%ret;
-}
-
-sub collapse_param
-{
-    my ($store, $name, $new_value) = @_;
-
-    if (ref $new_value eq 'HASH')
-    {
-        while (my ($key, $value) = each %$new_value)
-        {
-            my $tmp = {};
-            collapse_param ($tmp, $key, $value);
-
-            while (my ($subkey, $subvalue) = each %$tmp)
-            {
-                $store->{"$name.$subkey"} = $subvalue;
-            }
-        }
-    }
-    elsif (ref $new_value eq 'ARRAY')
-    {
-        for my $idx (0..$#$new_value)
-        {
-            my $tmp = {};
-            collapse_param ($tmp, $idx, $new_value->[$idx]);
-
-            while (my ($subkey, $subvalue) = each %$tmp)
-            {
-                $store->{"$name.$subkey"} = $subvalue;
-            }
-        }
-    }
-    else
-    {
-        $store->{$name} = $new_value;
-    }
-}
-
-sub get_collator {
-    my $c = shift;
-    my $coll = Unicode::ICU::Collator->new($c->stash->{current_language} // 'en');
-    # make sure to update the postgresql collate extension as well
-    $coll->setAttribute(UCOL_NUMERIC_COLLATION(), UCOL_ON());
-    return $coll;
-}
 
 sub language_options {
     my $c = shift;
@@ -133,7 +34,7 @@ sub language_options {
     my $frequent = 2;
     my $skip = 0;
 
-    my $coll = get_collator($c);
+    my $coll = $c->get_collator();
     my @sorted = sort_by { $coll->getSortKey($_->{label}) } map {
         {
             'value' => $_->id,
@@ -157,7 +58,7 @@ sub script_options {
     my $frequent = 4;
     my $skip = 1;
 
-    my $coll = get_collator($c);
+    my $coll = $c->get_collator();
     my @sorted = sort_by { $coll->getSortKey($_->{label}) } map {
         {
             'value' => $_->id,
@@ -168,6 +69,172 @@ sub script_options {
         }
     } grep { $_->{frequency} ne $skip } $c->model('Script')->get_all;
     return \@sorted;
+}
+
+sub link_type_options
+{
+    my ($root, $attr, $ignore, $indent) = @_;
+
+    my @options;
+    if ($root->id && $root->name ne $ignore) {
+        my $label = trim($root->$attr);
+        my $unac = decode("utf-16", unac_string_utf16(encode("utf-16", $label)));
+
+        if (defined($indent)) {
+            $label = $indent . $label;
+            $indent .= '&#160;&#160;&#160;';
+        }
+        push @options, {
+            value => $root->id,
+            label => $label,
+            'data-unaccented' => $unac
+        };
+    }
+    foreach my $child ($root->all_children) {
+        push @options, @{ link_type_options($child, $attr, $ignore, $indent) };
+    }
+    return \@options;
+}
+
+sub select_options
+{
+    my ($c, $model, %opts) = @_;
+
+    my $model_ref = ref($model) ? $model : $c->model($model);
+    my $sort_by_accessor = $opts{sort_by_accessor} // $model_ref->sort_in_forms;
+    my $accessor = $opts{accessor} // 'l_name';
+    my $coll = $c->get_collator();
+
+    return [ map {
+        value => $_->id,
+        label => l($_->$accessor)
+    }, sort_by {
+        $sort_by_accessor ? $coll->getSortKey(l($_->$accessor)) : ''
+    } $model_ref->get_all ];
+}
+
+sub select_options_tree
+{
+    my ($c, $model, %opts) = @_;
+
+    my $model_ref = ref($model) ? $model : $c->model($model);
+    my $root_option = $model_ref->get_tree;
+
+    return [
+        map {
+            build_options_tree($_, 'l_name', '')
+        } $root_option->all_children
+    ];
+}
+
+sub build_options_tree
+{
+    my ($root, $attr, $indent) = @_;
+
+    my @options;
+
+    push @options, {
+        value => $root->id,
+        label => $indent . $root->$attr,
+    } if $root->id;
+
+    $indent .= '&#xa0;&#xa0;&#xa0;';
+
+    foreach my $child ($root->all_children) {
+        push @options, build_options_tree($child, $attr, $indent);
+    }
+    return @options;
+}
+
+
+# Used by the relationship and release editors, instead of FormHandler.
+sub build_grouped_options
+{
+    my ($c, $options) = @_;
+
+    my $result = [];
+    for my $opt (@$options) {
+        my $i = $opt->{optgroup_order} - 1;
+        $result->[$i] //= { optgroup => $opt->{optgroup}, options => [] };
+
+        push @{ $result->[$i]->{options} },
+              { label => $opt->{label}, value => $opt->{value} };
+    }
+    return $result;
+}
+
+sub build_type_info {
+    my ($c, $types, @link_type_tree) = @_;
+
+    sub build_type {
+        my $root = shift;
+
+        my %attrs = map {
+            $_->type_id => {
+                min     => defined $_->min ? 0 + $_->min : undef,
+                max     => defined $_->max ? 0 + $_->max : undef,
+            }
+        } $root->all_attributes;
+
+        my $result = {
+            id                  => $root->id,
+            gid                 => $root->gid,
+            phrase              => $root->l_link_phrase,
+            reversePhrase       => $root->l_reverse_link_phrase,
+            deprecated          => $root->is_deprecated ? \1 : \0,
+            hasDates            => $root->has_dates ? \1 : \0,
+            type0               => $root->entity0_type,
+            type1               => $root->entity1_type,
+            cardinality0        => $root->entity0_cardinality,
+            cardinality1        => $root->entity1_cardinality,
+            orderableDirection  => $root->orderable_direction,
+        };
+
+        $result->{description} = $root->l_description if $root->description;
+        $result->{attributes} = \%attrs if %attrs;
+        $result->{children} = build_child_info($root, \&build_type) if $root->all_children;
+
+        return $result;
+    };
+
+    my %type_info;
+    for my $root (@link_type_tree) {
+        my $type_key = join('-', $root->entity0_type, $root->entity1_type);
+        next if $type_key !~ $types;
+        $type_info{ $type_key } = build_child_info($root, \&build_type);
+    }
+    return \%type_info;
+}
+
+sub build_attr_info {
+    my $root = shift;
+
+    sub build_attr {
+        my $attr = {
+            id          => $_->id,
+            gid         => $_->gid,
+            root_id     => $_->root_id,
+            name        => $_->name,
+            l_name      => $_->l_name,
+            freeText    => $_->free_text ? \1 : \0,
+        };
+
+        $attr->{description} = $_->l_description if $_->description;
+        $attr->{children} = build_child_info($_, \&build_attr) if $_->all_children;
+
+        my $unac = decode("utf-16", unac_string_utf16(encode("utf-16", $_->l_name)));
+        $attr->{unaccented} = $unac if $unac ne $_->l_name;
+
+        return $attr;
+    }
+
+    return { map { $_->name => build_attr($_) } $root->all_children };
+}
+
+sub build_child_info {
+    my ($root, $builder) = @_;
+
+    return [ map { $builder->($_) } $root->all_children ];
 }
 
 1;

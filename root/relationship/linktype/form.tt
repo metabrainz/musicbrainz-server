@@ -14,11 +14,23 @@
     [% form_row_text_long(r, 'reverse_link_phrase', l('Reverse link phrase:')) %]
     [% form_row_text_long(r, 'long_link_phrase', l('Long link phrase:')) %]
     [% form_row_checkbox(r, 'is_deprecated', l('This relationship is deprecated')) %]
+    [% form_row_checkbox(r, 'has_dates', l('This relationship allows setting dates')) %]
 
     [% WRAPPER form_row %]
         [% r.label('description', l('Description:')) %]
         [% r.textarea('description', { cols => 80, rows => 6 }) %]
         [% form_field_errors(form, 'description') %]
+    [% END %]
+
+    [% WRAPPER form_row %]
+        [% r.label('entity0_cardinality', l('entity0 cardinality:')) %]
+        [% r.text('entity0_cardinality', { size => 5 }) %]
+        [% form_field_errors(form, 'entity0_cardinality') %]
+    [% END %]
+    [% WRAPPER form_row %]
+        [% r.label('entity1_cardinality', l('entity1 cardinality:')) %]
+        [% r.text('entity1_cardinality', { size => 5 }) %]
+        [% form_field_errors(form, 'entity1_cardinality') %]
     [% END %]
 
     [% WRAPPER form_row %]
@@ -65,7 +77,7 @@
                 <div class="no-label" data-bind="with: relationship">
                     <input data-bind="attr: { name: examplePrefix($index(), 'relationship.id') }, value: id"
                            type="hidden" />
-                    
+
                     <a data-bind="text: source.name, attr: { href: '[% c.uri_for("/${link_type.entity0_type}/") %]' + source.mbid }"></a>
                     <span data-bind="text: phrase" /></span>
                     <a data-bind="text: target.name, attr: { href: '[% c.uri_for("/${link_type.entity1_type}/") %]' + target.mbid }"></a>
@@ -144,7 +156,7 @@ var editor = MB.ExampleRelationshipsEditor.init({
     type0: '[% link_type.entity0_type %]',
     type1: '[% link_type.entity1_type %]',
     linkTypeName: '[% link_type.name %]',
-    jsRoot: '[% c.uri_for("/ws/js/entity/") %]' 
+    jsRoot: '[% c.uri_for("/ws/js/entity/") %]'
 });
 
 [% FOREACH example=form.field('examples').fields %]
@@ -170,20 +182,20 @@ MB.ExampleRelationshipsEditor.viewModel.examples.push(
 [% END %]
 
 // A helper for generating form field names
-function examplePrefix(i, s) { 
+function examplePrefix(i, s) {
     return '[% form.name %].examples.' + i + '.' + s;
 }
         </script>
     </fieldset>
     [% END %]
-    
+
     <div class="row no-label">
         [% form_submit(l('Save')) %]
     </div>
 </form>
 
 <script type="text/javascript">
-    MB.utility.setDefaultAction (
+    MB.utility.setDefaultAction(
         'form.edit-relationship',
         'form.edit-relationship button[type="submit"]'
     );

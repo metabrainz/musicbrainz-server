@@ -44,7 +44,8 @@ role {
     $extra{consumer}->name->config(
         action => {
             create => \%attrs
-        }
+        },
+        create_edit_type => $params->edit_type
     );
 
     method 'create' => sub {
@@ -56,6 +57,7 @@ role {
 
         my $model = $self->config->{model};
         my $js_model = "MusicBrainz::Server::Controller::WS::js::$model";
+        my $entity;
 
         $self->edit_action($c,
             form        => $params->form,
@@ -63,26 +65,28 @@ role {
             on_creation => sub {
                 my $edit = shift;
 
-                my $entity = $c->model($model)->get_by_id($edit->entity_id);
+                $entity = $c->model($model)->get_by_id($edit->entity_id);
 
-                if ($args{within_dialog}) {
-                    $js_model->_load_entities($c, $entity);
+                return unless $args{within_dialog};
+                $js_model->_load_entities($c, $entity);
 
-                    my $serialization_routine = $js_model->serialization_routine;
-                    my $object = JSONSerializer->$serialization_routine($entity);
-                    $object->{type} = $js_model->type;
+                my $serialization_routine = $js_model->serialization_routine;
+                my $object = JSONSerializer->$serialization_routine($entity);
+                $object->{entityType} = $js_model->type;
 
-                    my $json = JSON::Any->new( utf8 => 1 );
-                    $c->stash( dialog_result => $json->encode($object) );
+                my $json = JSON::Any->new( utf8 => 1 );
+                $c->stash( dialog_result => $json->encode($object) );
 
-                    # XXX Delete the "Thank you, your edit has been..." message
-                    # so it doesn't weirdly show up on the next page.
-                    delete $c->flash->{message};
-                } else {
-                    $c->response->redirect($c->uri_for_action(
-                        $self->action_for('show'), [ $entity->gid ]));
-                }
+                # XXX Delete the "Thank you, your edit has been..." message
+                # so it doesn't weirdly show up on the next page.
+                delete $c->flash->{message};
             },
+            redirect => sub {
+                $c->response->redirect($c->uri_for_action(
+                    $self->action_for('show'), [ $entity->gid ]));
+            },
+            no_redirect => $args{within_dialog},
+            edit_rels   => 1,
             $params->edit_arguments->($self, $c)
         );
     };

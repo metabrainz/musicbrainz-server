@@ -5,7 +5,7 @@ use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADDRELEASELABEL );
 use MusicBrainz::Server::Edit::Types qw( Nullable NullableOnPreview );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
@@ -49,13 +49,13 @@ sub release_id { shift->data->{release}{id} }
 sub initialize {
     my ($self, %opts) = @_;
 
-    unless ($self->preview) {
-        my $release = delete $opts{release} or die 'Missing "release" argument';
-        $opts{release} = {
-            id => $release->id,
-            name => $release->name
-        };
-    }
+    my $release = delete $opts{release};
+    die 'Missing "release" argument' unless ($release || $self->preview);
+
+    $opts{release} = {
+        id => $release->id,
+        name => $release->name
+    } if $release;
 
     $opts{label} = {
         id => $opts{label}->id,

@@ -2,6 +2,7 @@ package MusicBrainz::Server::Form::User::WatchPreferences;
 
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Form::Utils qw( select_options_tree );
 use DateTime;
 use DateTime::TimeZone;
 
@@ -28,8 +29,8 @@ has_field 'notification_timeframe' => (
     required => 1
 );
 
-sub options_type_id { shift->_select_all('ReleaseGroupType') }
-sub options_status_id { shift->_select_all('ReleaseStatus') }
+sub options_type_id { select_options_tree(shift->ctx, 'ReleaseGroupType') }
+sub options_status_id { select_options_tree(shift->ctx, 'ReleaseStatus') }
 sub options_notification_timeframe {
     return [
         1, l('A day'),

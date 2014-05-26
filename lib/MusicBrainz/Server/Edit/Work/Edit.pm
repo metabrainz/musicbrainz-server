@@ -14,7 +14,8 @@ use MusicBrainz::Server::Edit::Utils qw(
     changed_display_data
 );
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
+use Set::Scalar;
 
 use aliased 'MusicBrainz::Server::Entity::Work';
 
@@ -31,7 +32,16 @@ with 'MusicBrainz::Server::Edit::Role::ValueSet' => {
         state $json = JSON::Any->new(
             utf8 => 1, allow_blessed => 1, canonical => 1
         );
-        return $json->objToJson($input);
+
+        # The various string append and 0 additions here are to create a
+        # canonical form for hashing, as we will later be doing a string
+        # comparison on the JavaScript. Thus "foo":0 and "foo":"0" will be
+        # different, so we need to make sure all keys are normalised.
+        return $json->objToJson({
+            attribute_text => '' . ($input->{attribute_text} // ''),
+            attribute_type_id => 0 + $input->{attribute_type_id},
+            attribute_value_id => 0 + ($input->{attribute_value_id} // 0),
+        });
     }
 };
 
@@ -120,6 +130,24 @@ sub build_display_data
     $data->{work} = $loaded->{Work}{ $self->entity_id }
         || Work->new( name => $self->data->{entity}{name} );
 
+    if (exists $self->data->{new}{attributes}) {
+        $data->{attributes} = {};
+
+        my %new = $self->grouped_attributes_by_type($self->data->{new}{attributes});
+        my %old = $self->grouped_attributes_by_type($self->data->{old}{attributes});
+
+        my $changed_types = Set::Scalar->new(keys %new, keys %old);
+
+        while (defined(my $type = $changed_types->each)) {
+            my @new_values = map { $_->l_value } @{ $new{$type} //= [] };
+            my @old_values = map { $_->l_value } @{ $old{$type} //= [] };
+
+            unless (Set::Scalar->new(@new_values) == Set::Scalar->new(@old_values)) {
+                $data->{attributes}->{$type} = { new => \@new_values, old => \@old_values };
+            }
+        }
+    }
+
     return $data;
 }
 
@@ -139,13 +167,15 @@ sub allow_auto_edit
 
     return 0 if defined $self->data->{old}{language_id};
 
+    return 0 if defined $self->data->{old}{attributes};
+
     return 1;
 }
 
 sub current_instance {
     my $self = shift;
     my $work = $self->c->model('Work')->get_by_id($self->entity_id);
-    $self->c->model('Work')->load_attributes($work);
+    $self->c->model('WorkAttribute')->load_for_works($work);
     return $work;
 }
 

@@ -18,7 +18,7 @@ no if $] >= 5.018, warnings => "experimental::smartmatch";
 
 sub html_filter {
     my $text = shift;
-    return unless $text;
+    return unless defined $text;
     for ($text) {
         s/&/&amp;/g;
         s/</&lt;/g;
@@ -148,14 +148,14 @@ sub diff_artist_credits {
     for my $diff (@diffs) {
         my ($change_type, $old_name, $new_name) = @$diff;
 
-        given($change_type) {
-            when('u') {
+        given ($change_type) {
+            when ('u') {
                 my $html = $self->_link_joined($old_name);
                 $sides{old} .= $html;
                 $sides{new} .= $html;
             };
 
-            when('c') {
+            when ('c') {
                 # Diff the credited names
                 $sides{old} .= $self->_link_artist_credit_name(
                     $old_name,
@@ -171,14 +171,14 @@ sub diff_artist_credits {
                 $sides{new} .= $self->diff_side($old_name->join_phrase, $new_name->join_phrase, '+', '\s+');
             }
 
-            when('-') {
+            when ('-') {
                 $sides{old} .= $h->span(
                     { class => $class_map{'-'} },
                     $self->_link_joined($old_name)
                 );
             }
 
-            when('+') {
+            when ('+') {
                 $sides{new} .= $h->span(
                     { class => $class_map{'+'} },
                     $self->_link_joined($new_name)

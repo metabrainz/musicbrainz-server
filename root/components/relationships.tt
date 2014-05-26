@@ -1,31 +1,39 @@
 [%- DEFAULT relationships = source.grouped_relationships -%]
 
+[% hide_ac = entity_type(source) == 'artist' ? source.name
+           : source.artist_credit.defined    ? source.artist_credit.name
+           :                                   '' %]
+
+[% MACRO static_display(relationships) BLOCK %]
+  [% FOR group=relationships.pairs %]
+      <table class="details" style="width: 100%">
+      [%- FOREACH relationship IN group.value.pairs -%]
+          <tr>
+              <th>[% relationship.key %]:</th>
+              <td>
+                  [% FOR rel IN relationship.value %]
+                      [% relationship_target_links(rel) %]
+                      <br />
+                  [% END %]
+              </td>
+          </tr>
+      [%- END -%]
+      </table>
+  [% END %]
+[% END %]
+
+<h2>[% l("Relationships") %]</h2>
+
 [% IF relationships.size %]
-    [% hide_ac = entity_type(source) == 'artist' ? source.name
-               : source.artist_credit.defined    ? source.artist_credit.name
-               :                                   '' %]
-
-    [% FOR group=relationships.pairs %]
-        <table class="details" style="width: 100%">
-        [%- FOREACH relationship IN group.value.pairs -%]
-            <tr>
-                <th>[% relationship.key %]:</th>
-                <td>
-                    [% FOR rel IN relationship.value %]
-                        [% relationship_target_links(rel) %]
-
-                        [%- IF c.user_exists -%]
-                            <span style="float: right">
-                                [%- relationship_edit_links(rel) -%]
-                            </span>
-                        [%- END -%]
-                        <br />
-                    [% END %]
-                </td>
-            </tr>
-        [%- END -%]
-        </table>
-    [% END %]
+  [% static_display(relationships) %]
 [%- ELSE -%]
     <p>[% l('{link} has no relationships.', { link => link_entity(source) }) -%]</p>
 [%- END -%]
+
+[% IF source.related_works.size %]
+  <h2 class="related-works">[% l('Related works') %]</h2>
+  [% FOR work=source.related_works %]
+    <h3>[% link_entity(work) %]</h3>
+    [%- static_display(work.grouped_relationships('area', 'artist', 'label', 'place', 'work')) -%]
+  [% END %]
+[% END %]

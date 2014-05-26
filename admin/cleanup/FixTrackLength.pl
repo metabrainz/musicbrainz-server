@@ -222,7 +222,7 @@ for my $medium (@mediums)
             push @skew, $sqdiff;
         }
 
-        unless(grep { $_ > 5 } @skew) {
+        unless (grep { $_ > 5 } @skew) {
             # Good, the TOC track lengths agree (clearly, if there's only one
             # TOC).
             # For each track which has length already, let's see how
@@ -269,8 +269,7 @@ for my $medium (@mediums)
                             editor_id => $EDITOR_MODBOT,
                             privileges => $AUTO_EDITOR_FLAG,
                             to_edit => $medium,
-                            tracklist => \@new_tracklist,
-                            separate_tracklists => 1 # TODO ?
+                            tracklist => \@new_tracklist
                         );
 
                         $c->model('EditNote')->add_note(

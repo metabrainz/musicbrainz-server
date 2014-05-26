@@ -7,7 +7,6 @@ mb_server=`dirname $0`/../..
 cd $mb_server
 
 eval `./admin/ShowDBDefs`
-source ./admin/config.sh
 
 # Only run one "daily.sh" at a time
 if [ "$1" != "gotlock" ]

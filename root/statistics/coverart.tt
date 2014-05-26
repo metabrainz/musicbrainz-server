@@ -3,7 +3,7 @@
 [% IF name == 'null' %][% default %][% ELSE %][% l(name) %][% END %]
 [%- END -%]
 
-[% WRAPPER 'statistics/layout.tt' title=l('Cover Art') full_width=1 page='coverart' %] 
+[% WRAPPER 'statistics/layout.tt' title=l('Cover Art') full_width=1 page='coverart' %]
 
 [% USE format %]
 [% round1 = format('%.1f') %]
@@ -96,6 +96,7 @@
 
 <h2>[% l('Release groups') %]</h2>
 <table class="database-statistics">
+<tbody>
 <tr>
     <th colspan="2">[% l('Release groups with cover art:') %]</th>
     <td>[% add_commas(stats.statistic('count.releasegroup.caa')) %]</td>

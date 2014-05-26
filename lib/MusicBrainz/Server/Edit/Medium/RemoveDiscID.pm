@@ -5,7 +5,7 @@ use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( Int Str );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_REMOVE_DISCID );
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Edit::Utils qw( conditions_without_autoedit );
 
 sub edit_name { N_l('Remove disc ID') }

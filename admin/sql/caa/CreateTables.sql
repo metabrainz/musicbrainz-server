@@ -6,7 +6,10 @@ SET search_path = 'cover_art_archive';
 
 CREATE TABLE art_type (
     id SERIAL NOT NULL, -- PK
-    name TEXT NOT NULL
+    name TEXT NOT NULL,
+    parent              INTEGER, -- references cover_art_archive.art_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT
 );
 
 CREATE TABLE image_type (
@@ -18,7 +21,7 @@ CREATE TABLE cover_art (
     id BIGINT NOT NULL, -- PK
     release INTEGER NOT NULL, -- references musicbrainz.release.id CASCADE
     comment TEXT NOT NULL DEFAULT '',
-    edit INTEGER NOT NULL, -- references musicbrainz.edit.id
+    edit INTEGER NOT NULL, -- separately references musicbrainz.edit.id
     ordering INTEGER NOT NULL CHECK (ordering > 0),
     date_uploaded TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
     edits_pending INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),

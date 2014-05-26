@@ -9,6 +9,7 @@ my @subscribable_models = qw(
     Collection
     Editor
     Label
+    Series
 );
 
 sub get_all_subscriptions
@@ -23,12 +24,16 @@ sub update_subscriptions
 {
     my ($self, $max_id, $editor_id) = @_;
 
+    use Carp qw( cluck );
+    cluck "In update_subscriptions with max: $max_id and editor: $editor_id";
+
     $self->sql->begin;
 
     $self->sql->do("DELETE FROM $_ WHERE editor = ?", $editor_id)
         for qw(
           editor_subscribe_artist_deleted
           editor_subscribe_label_deleted
+          editor_subscribe_series_deleted
         );
 
     # Remove subscriptions to deleted or private collections
@@ -45,6 +50,7 @@ sub update_subscriptions
         editor_subscribe_artist
         editor_subscribe_editor
         editor_subscribe_collection
+        editor_subscribe_series
     );
     $self->sql->commit;
 }
@@ -54,7 +60,8 @@ sub delete_editor {
     for my $table (qw( editor_subscribe_artist
                        editor_subscribe_collection
                        editor_subscribe_editor
-                       editor_subscribe_label )) {
+                       editor_subscribe_label
+                       editor_subscribe_series )) {
         $self->sql->do("DELETE FROM $table WHERE editor = ?", $editor_id);
     }
 }

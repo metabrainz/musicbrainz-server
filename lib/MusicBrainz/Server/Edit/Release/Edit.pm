@@ -25,7 +25,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     verify_artist_credits
 );
 use MusicBrainz::Server::Entity::PartialDate;
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 no if $] >= 5.018, warnings => "experimental::smartmatch";
@@ -228,7 +228,7 @@ sub _mapping
     my $self = shift;
     return (
         artist_credit => sub {
-            clean_submitted_artist_credits (shift->artist_credit)
+            clean_submitted_artist_credits(shift->artist_credit)
         },
         barcode => sub { shift->barcode->code },
         events => sub {
@@ -242,19 +242,21 @@ sub _mapping
     );
 }
 
-before 'initialize' => sub
+around 'initialize' => sub
 {
-    my ($self, %opts) = @_;
+    my ($orig, $self, %opts) = @_;
     my $release = $opts{to_edit} or return;
 
     if (exists $opts{artist_credit})
     {
-        $opts{artist_credit} = clean_submitted_artist_credits ($opts{artist_credit});
+        $opts{artist_credit} = clean_submitted_artist_credits($opts{artist_credit});
     }
 
     if (exists $opts{artist_credit} && !$release->artist_credit) {
         $self->c->model('ArtistCredit')->load($release);
     }
+
+    $self->$orig(%opts);
 };
 
 around extract_property => sub {
@@ -266,7 +268,7 @@ around extract_property => sub {
         }
 
         when ('barcode') {
-            return merge_barcode ($ancestor, $current, $new);
+            return merge_barcode($ancestor, $current, $new);
         }
 
         default {
@@ -306,6 +308,8 @@ sub _edit_hash
             @{ $data->{events} }
         ];
     }
+
+    $data->{comment} //= '' if exists $data->{comment};
 
     return $data;
 }
@@ -380,7 +384,7 @@ around merge_changes => sub {
     my $orig = shift;
     my $self = shift;
 
-    my $merged = $self->$orig (@_);
+    my $merged = $self->$orig(@_);
 
     $merged->{events} = $self->data->{new}{events}
         if exists $self->data->{new}{events};

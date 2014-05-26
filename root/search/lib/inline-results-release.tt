@@ -3,7 +3,7 @@
   <table class="tbl">
     <thead>
       <tr>
-        [%- IF results.0.score -%]
+        [%- IF results.0.score.defined -%]
           <th>[% l('Score') %]</th>
         [%- END -%]
         <th>[% l('Name') %]</th>
@@ -26,12 +26,12 @@
     <tbody>
       [%- FOR result=results -%]
         <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
-          [%- IF results.0.score -%]
+          [%- IF results.0.score.defined -%]
             <td>[% result.score %]</td>
           [%- END -%]
           <td>[% link_entity(result.entity) %]</td>
           <td>[% artist_credit(result.entity.artist_credit) %]</td>
-          <td>[% rdfa_release_format(result.entity) or "-" %]</td>
+          <td>[% html_escape(result.entity.combined_format_name) or "-" %]</td>
           <td>[% result.entity.combined_track_count %]</td>
           <td>[% release_dates(result.entity.events) %]</td>
           <td>[% release_countries(result.entity.events) %]</td>

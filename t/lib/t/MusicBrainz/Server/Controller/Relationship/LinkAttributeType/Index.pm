@@ -27,12 +27,12 @@ INSERT INTO link_attribute_type (id, root, gid, name)
 EOSQL
 
     $mech->get_ok('/relationship-attributes');
-    my $tx = test_xpath_html ($mech->content);
-    $tx->ok('//html:a[contains(@href,"/relationship-attribute/77a0f1d3-f9ec-4055-a6e7-24d7258c21f7/edit")]',
+    my $tx = test_xpath_html($mech->content);
+    $tx->ok('//a[contains(@href,"/relationship-attribute/77a0f1d3-f9ec-4055-a6e7-24d7258c21f7/edit")]',
             'has a link to edit the attribute');
-    $tx->ok('//html:a[contains(@href,"/relationship-attribute/77a0f1d3-f9ec-4055-a6e7-24d7258c21f7/delete")]',
+    $tx->ok('//a[contains(@href,"/relationship-attribute/77a0f1d3-f9ec-4055-a6e7-24d7258c21f7/delete")]',
             'has a link to delete the attribute');
-    $tx->ok('//html:a[contains(@href,"/relationship-attributes/create")]',
+    $tx->ok('//a[contains(@href,"/relationship-attributes/create")]',
             'has a link to create new attributes');
 };
 

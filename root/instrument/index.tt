@@ -1,0 +1,22 @@
+[% BLOCK layout_head %]
+    [%~ meta_desc = [] ~%]
+    [%~ meta_desc.push(html_escape(instrument.comment)) IF instrument.comment ~%]
+    [%~ meta_desc.push(l('Type:') _ ' ' _ html_escape(instrument.type_name)) IF instrument.type ~%]
+    [%~ meta_desc.push(l('Description:') _ ' ' _ html_escape(instrument.description)) IF instrument.description ~%]
+    <meta name="description" content="[% comma_only_list(meta_desc) %]"/>
+[% END %]
+
+[%- WRAPPER "instrument/layout.tt" page='index' -%]
+    [%- IF instrument.description -%]
+    <h2>[% l("Description") %]</h2>
+    <p>[%- instrument.l_description -%]</p>
+    [%- END -%]
+
+    [%- INCLUDE 'instrument/annotation.tt' summary=1 -%]
+
+    [%- show_wikipedia_extract() -%]
+
+    [%- INCLUDE "components/relationships.tt" source=instrument -%]
+
+[%- END -%]
+

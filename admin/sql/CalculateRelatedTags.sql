@@ -3,7 +3,7 @@
 BEGIN;
 
 ----------------------------------------
--- Calculate maximum tag count for each entity, this is used 
+-- Calculate maximum tag count for each entity, this is used
 -- later to weight relations between common tags.
 ----------------------------------------
 

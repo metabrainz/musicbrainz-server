@@ -30,8 +30,8 @@ role {
         my ($orig, $self) = splice(@_, 0, 2);
         my ($query) = @_;
 
-        given($self->operator) {
-            when('subscribed') {
+        given ($self->operator) {
+            when ('subscribed') {
                 my $column = $params->type;
 
                 my $entity_join_idx = $query->inc_joins;

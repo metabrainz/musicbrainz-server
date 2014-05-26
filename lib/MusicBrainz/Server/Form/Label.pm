@@ -1,20 +1,17 @@
 package MusicBrainz::Server::Form::Label;
 use HTML::FormHandler::Moose;
+use MusicBrainz::Server::Form::Utils qw( select_options_tree );
 extends 'MusicBrainz::Server::Form';
 
 with 'MusicBrainz::Server::Form::Role::Edit';
 with 'MusicBrainz::Server::Form::Role::CheckDuplicates';
 with 'MusicBrainz::Server::Form::Role::IPI';
 with 'MusicBrainz::Server::Form::Role::ISNI';
+with 'MusicBrainz::Server::Form::Role::Relationships';
 
 has '+name' => ( default => 'edit-label' );
 
 has_field 'name' => (
-    type => '+MusicBrainz::Server::Form::Field::Text',
-    required => 1,
-);
-
-has_field 'sort_name' => (
     type => '+MusicBrainz::Server::Form::Field::Text',
     required => 1,
 );
@@ -42,11 +39,11 @@ has_field 'period' => (
 
 sub edit_field_names
 {
-    return qw( name sort_name comment type_id area_id period.begin_date
+    return qw( name comment type_id area_id period.begin_date
                period.end_date period.ended label_code ipi_codes isni_codes );
 }
 
-sub options_type_id    { shift->_select_all('LabelType') }
+sub options_type_id { select_options_tree(shift->ctx, 'LabelType') }
 
 sub dupe_model { shift->ctx->model('Label') }
 

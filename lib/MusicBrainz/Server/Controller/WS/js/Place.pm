@@ -35,7 +35,8 @@ sub search : Chained('root') PathPart('place')
 after _load_entities => sub{
     my ($self, $c, @entities) = @_;
     $c->model('PlaceType')->load(@entities);
-    $c->model('Area')->load(@entities);
+    my @areas = $c->model('Area')->load(@entities);
+    $c->model('Area')->load_containment(@areas);
 };
 
 1;

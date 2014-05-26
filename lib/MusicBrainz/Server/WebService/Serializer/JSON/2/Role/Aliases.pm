@@ -9,7 +9,7 @@ around serialize => sub {
 
     return $ret unless defined $inc && $inc->aliases;
 
-    my $opts = $stash->store ($entity);
+    my $opts = $stash->store($entity);
 
     my @aliases;
     for my $alias (sort_by { $_->name } @{ $opts->{aliases} // [] })

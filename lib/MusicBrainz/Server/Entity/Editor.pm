@@ -156,6 +156,7 @@ sub is_limited
     my $self = shift;
     return
         !($self->id == $EDITOR_MODBOT) &&
+        !$self->deleted &&
         ( !$self->email_confirmation_date ||
           $self->is_newbie ||
           $self->accepted_edits < 10
@@ -191,6 +192,12 @@ sub age {
     my $self = shift;
     return unless $self->birth_date;
     return (DateTime->now - $self->birth_date)->in_units('years');
+}
+
+sub can_nominate {
+    my ($self, $candidate) = @_;
+    return unless $candidate;
+    return $self->is_auto_editor && !$candidate->is_auto_editor && !$candidate->deleted;
 }
 
 has languages => (

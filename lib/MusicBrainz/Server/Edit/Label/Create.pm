@@ -8,7 +8,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_LABEL_CREATE );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
@@ -19,6 +19,7 @@ with 'MusicBrainz::Server::Edit::Role::SubscribeOnCreation' => {
 with 'MusicBrainz::Server::Edit::Role::Insert';
 
 use aliased 'MusicBrainz::Server::Entity::Label';
+use aliased 'MusicBrainz::Server::Entity::Area';
 
 sub edit_name { N_l('Add label') }
 sub edit_type { $EDIT_LABEL_CREATE }
@@ -28,7 +29,7 @@ sub label_id { shift->entity_id }
 has '+data' => (
     isa => Dict[
         name         => Str,
-        sort_name    => Str,
+        sort_name    => Optional[Str],
         type_id      => Nullable[Int],
         label_code   => Nullable[Int],
         begin_date   => Nullable[PartialDateHash],
@@ -72,7 +73,7 @@ sub build_display_data
                         $loaded->{LabelType}->{ $self->data->{type_id} },
         label_code => $self->data->{label_code},
         area       => defined($self->data->{area_id}) &&
-                        $loaded->{Area}->{ $self->data->{area_id} },
+                      ($loaded->{Area}->{ $self->data->{area_id} } // Area->new()),
         comment    => $self->data->{comment},
         ipi_codes   => $self->data->{ipi_codes} // [ $self->data->{ipi_code} // () ],
         isni_codes => $self->data->{isni_codes},

@@ -18,7 +18,7 @@ sub serialize
     if (defined $inc && $inc->discids)
     {
         $body{discs} = [ map {
-            serialize_entity ($_->cdtoc, $inc, $stash)
+            serialize_entity($_->cdtoc, $inc, $stash)
         } sort_by { $_->cdtoc->discid } $entity->all_cdtocs ];
     }
 
@@ -42,11 +42,11 @@ sub serialize
             title => $track_entity->name
         );
 
-        $track_output{recording} = serialize_entity (
+        $track_output{recording} = serialize_entity(
             $track_entity->recording, $inc, $stash)
             if $inc->recordings;
 
-        $track_output{"artist-credit"} = serialize_entity (
+        $track_output{"artist-credit"} = serialize_entity(
             $track_entity->artist_credit, $inc, $stash)
             if $inc->artist_credits;
 
@@ -56,7 +56,7 @@ sub serialize
     if (scalar @list)
     {
         $body{tracks} = \@list ;
-        $body{"track-offset"} = number ($min - 1);
+        $body{"track-offset"} = number($min - 1);
     }
 
     return \%body;

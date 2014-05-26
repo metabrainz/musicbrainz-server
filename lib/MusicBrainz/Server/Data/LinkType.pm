@@ -28,7 +28,10 @@ sub _columns
     return 'id, parent AS parent_id, gid, name, link_phrase,
             entity_type0 AS entity0_type, entity_type1 AS entity1_type,
             reverse_link_phrase, description, priority,
-            child_order, long_link_phrase, is_deprecated';
+            child_order, long_link_phrase, is_deprecated, has_dates,
+            entity0_cardinality, entity1_cardinality,
+            COALESCE((SELECT direction FROM orderable_link_type
+                      WHERE link_type = id), 0) AS orderable_direction';
 }
 
 sub _entity_class
@@ -113,7 +116,10 @@ sub get_tree
 
     $self->_load_attributes(\%id_to_obj, keys %id_to_obj);
 
-    my $root = MusicBrainz::Server::Entity::LinkType->new;
+    my $root = MusicBrainz::Server::Entity::LinkType->new(
+        entity0_type => $type0,
+        entity1_type => $type1,
+    );
     foreach my $obj (@objs) {
         my $parent = $obj->parent_id ? $id_to_obj{$obj->parent_id} : $root;
         $parent->add_child($obj);
@@ -311,7 +317,10 @@ sub _hash_to_row
         reverse_link_phrase     => 'reverse_link_phrase',
         long_link_phrase => 'long_link_phrase',
         priority        => 'priority',
-        is_deprecated => 'is_deprecated'
+        is_deprecated => 'is_deprecated',
+        has_dates        => 'has_dates',
+        entity0_cardinality => 'entity0_cardinality',
+        entity1_cardinality => 'entity1_cardinality',
     });
 }
 

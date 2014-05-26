@@ -3,13 +3,14 @@ use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_CREATE );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use Moose::Util::TypeConstraints;
 use MooseX::Types::Moose qw( ArrayRef Bool Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
+use aliased 'MusicBrainz::Server::Entity::Area';
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
@@ -68,17 +69,12 @@ sub build_display_data
 
     my $type = $self->data->{type_id};
     my $gender = $self->data->{gender_id};
-    my $area = $self->data->{area_id};
-    my $begin_area = $self->data->{begin_area_id};
-    my $end_area = $self->data->{end_area_id};
 
     return {
-        ( map { $_ => $_ ? $self->data->{$_} : '' } qw( name sort_name comment ) ),
+        ( map { $_ => $self->data->{$_} // '' } qw( name sort_name comment ) ),
         type       => $type ? $loaded->{ArtistType}->{$type} : '',
         gender     => $gender ? $loaded->{Gender}->{$gender} : '',
-        area       => $area ? $loaded->{Area}->{$area} : undef,
-        begin_area => $begin_area ? $loaded->{Area}->{$begin_area} : undef,
-        end_area   => $end_area ? $loaded->{Area}->{$end_area} : undef,
+        ( map { $_ => $self->data->{$_ . '_id'} && ($loaded->{Area}->{$self->data->{$_ . '_id'}} // Area->new()) } qw( area begin_area end_area ) ),
         begin_date => PartialDate->new($self->data->{begin_date}),
         end_date   => PartialDate->new($self->data->{end_date}),
         artist     => ($self->entity_id && $loaded->{Artist}->{ $self->entity_id }) ||

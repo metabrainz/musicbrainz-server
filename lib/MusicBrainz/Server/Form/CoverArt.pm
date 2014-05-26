@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Form::CoverArt;
 use HTML::FormHandler::Moose;
+use MusicBrainz::Server::Form::Utils qw( select_options_tree );
 
 extends 'MusicBrainz::Server::Form';
 
@@ -14,22 +15,7 @@ has_field 'type_id' => (
     multiple  => 1,
 );
 
-sub options_type_id {
-    my $self = shift;
-
-    my %types_by_name = map { $_->name => $_ } $self->ctx->model('CoverArtType')->get_all ();
-
-    my $front = delete $types_by_name{Front};
-    my $back = delete $types_by_name{Back};
-    my $other = delete $types_by_name{Other};
-
-    my $ret = [
-        map {
-            defined $_ ? ($_->id => $_->l_name) : ()
-        } ($front, $back, values %types_by_name, $other) ];
-
-    return $ret;
-};
+sub options_type_id { select_options_tree(shift->ctx, 'CoverArtType') }
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

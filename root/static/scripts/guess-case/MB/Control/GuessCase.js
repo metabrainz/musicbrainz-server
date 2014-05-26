@@ -24,12 +24,9 @@ MB.Control.GuessCase = function (type, $name) {
     self.type = type;
     self.$name = $name;
 
-    self.guesscase = function () {
-        self.$name.val (MB.GuessCase[self.type].guess (self.$name.val ()));
+    self.guessCase = function () {
+        self.$name.val(MB.GuessCase[self.type].guess(self.$name.val()));
     };
-
-    ko.applyBindingsToNode($("div.guess-case.bubble")[0],
-        { guessCase: self.guesscase });
 
     return self;
 };
@@ -42,40 +39,37 @@ MB.Control.SortName = function (type, $name, $sortname, $cont) {
     self.$name = $name;
     self.$sortname = $sortname;
 
-    self.$sortname_button = $cont.find('a[href=#sortname]');
-    self.$copy_button = $cont.find('a[href=#copy]');
-
     self.sortname = function (event) {
-        self.$sortname.val (MB.GuessCase[self.type].sortname (self.$name.val ()));
+        self.$sortname.val(MB.GuessCase[self.type].sortname(self.$name.val()));
 
-        event.preventDefault ();
+        event.preventDefault();
     };
 
     self.copy = function (event) {
-        self.$sortname.val (self.$name.val ());
+        self.$sortname.val(self.$name.val());
 
-        event.preventDefault ();
+        event.preventDefault();
     };
 
     self.initialize = function () {
-        self.$sortname_button.bind ('click.mb', self.sortname);
-        self.$copy_button.bind ('click.mb', self.copy);
+        $cont.on("click.mb", "a[href=#sortname]", self.sortname);
+        $cont.on("click.mb", "a[href=#copy]", self.copy);
     };
 
     return self;
 };
 
 MB.Control.ArtistSortName = function (type, $name, $sortname) {
-    var self = MB.Control.SortName (type, $name, $sortname, $('body'));
+    var self = MB.Control.SortName(type, $name, $sortname, $('body'));
 
     self.$type   = $('#id-edit-artist\\.type_id');
 
     self.sortname = function (event) {
-        var person = self.$type.val () !== '2';
+        var person = self.$type.val() !== '2';
 
-        self.$sortname.val (MB.GuessCase.artist.sortname (self.$name.val (), person));
+        self.$sortname.val(MB.GuessCase.artist.sortname(self.$name.val(), person));
 
-        event.preventDefault ();
+        event.preventDefault();
     };
 
     return self;
@@ -84,27 +78,27 @@ MB.Control.ArtistSortName = function (type, $name, $sortname) {
 
 /* A generic guess case initialize function for use outside the
    release editor. */
-MB.Control.initialize_guess_case = function (bubbles, type, form_prefix) {
+MB.Control.initialize_guess_case = function (type, form_prefix) {
 
     var $name = $('input#' + form_prefix + '\\.name');
-    var $gcdoc = $('div.guess-case.bubble');
+    var $gcdoc = $('#guess-case-bubble');
 
-    bubbles.add ($name, $gcdoc);
-    MB.Control.GuessCase (type, $name);
+    var gc = MB.Control.GuessCase(type, $name);
+    MB.Control.initializeBubble($gcdoc, $name, gc);
 
-    if (type === 'label' || type === 'artist' || type === 'area' || type === 'place')
+    var $sortname = $('input#' + form_prefix + '\\.sort_name');
+    var $sortdoc = $('#sortname-bubble');
+
+    if ($sortname.length && $sortdoc.length)
     {
-        var $sortname = $('input#' + form_prefix + '\\.sort_name');
-        var $sortdoc = $('div.sortname.bubble');
-
-        bubbles.add ($sortname, $sortdoc);
+        MB.Control.initializeBubble($sortdoc, $sortname);
         if (type === 'artist')
         {
-            MB.Control.ArtistSortName (type, $name, $sortname).initialize ();
+            MB.Control.ArtistSortName(type, $name, $sortname).initialize();
         }
         else
         {
-            MB.Control.SortName (type, $name, $sortname, $('body')).initialize ();
+            MB.Control.SortName(type, $name, $sortname, $('body')).initialize();
         }
     }
 };
@@ -120,9 +114,9 @@ ko.bindingHandlers.guessCase = {
         var cookieSettings = { path: "/", expires: 365 };
 
         var bindings = {
-            modeName: ko.observable(gc.modeName),
-            keepUpperCase: ko.observable(gc.CFG_UC_UPPERCASED),
-            upperCaseRoman: ko.observable(gc.CFG_UC_ROMANNUMERALS),
+            modeName: ko.observable(gc.modeName).syncWith("gcModeName"),
+            keepUpperCase: ko.observable(gc.CFG_UC_UPPERCASED).syncWith("gcKeepUpperCase"),
+            upperCaseRoman: ko.observable(gc.CFG_UC_ROMANNUMERALS).syncWith("gcUpperCaseRoman"),
             guessCase: _.bind(callback, bindings)
         };
 
@@ -159,3 +153,5 @@ ko.bindingHandlers.guessCase = {
         return { controlsDescendantBindings: true };
     }
 };
+
+ko.virtualElements.allowedBindings.guessCase = true;

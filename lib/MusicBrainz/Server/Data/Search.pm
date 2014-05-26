@@ -3,7 +3,7 @@ package MusicBrainz::Server::Data::Search;
 use Carp;
 use Try::Tiny;
 use Moose;
-use Class::MOP;
+use Class::Load qw( load_class );
 use JSON;
 use Sql;
 use Readonly;
@@ -18,12 +18,16 @@ use MusicBrainz::Server::Entity::Barcode;
 use MusicBrainz::Server::Entity::Gender;
 use MusicBrainz::Server::Entity::ISRC;
 use MusicBrainz::Server::Entity::ISWC;
+use MusicBrainz::Server::Entity::Instrument;
+use MusicBrainz::Server::Entity::InstrumentType;
 use MusicBrainz::Server::Entity::Label;
 use MusicBrainz::Server::Entity::LabelType;
 use MusicBrainz::Server::Entity::Language;
 use MusicBrainz::Server::Entity::Link;
+use MusicBrainz::Server::Entity::LinkAttributeType;
 use MusicBrainz::Server::Entity::LinkType;
 use MusicBrainz::Server::Entity::Place;
+use MusicBrainz::Server::Entity::PlaceType;
 use MusicBrainz::Server::Entity::Medium;
 use MusicBrainz::Server::Entity::MediumFormat;
 use MusicBrainz::Server::Entity::Relationship;
@@ -33,16 +37,22 @@ use MusicBrainz::Server::Entity::ReleaseGroup;
 use MusicBrainz::Server::Entity::ReleaseGroupType;
 use MusicBrainz::Server::Entity::ReleaseGroupSecondaryType;
 use MusicBrainz::Server::Entity::ReleaseStatus;
+use MusicBrainz::Server::Entity::ReleasePackaging;
 use MusicBrainz::Server::Entity::Script;
+use MusicBrainz::Server::Entity::Series;
+use MusicBrainz::Server::Entity::SeriesOrderingType;
+use MusicBrainz::Server::Entity::SeriesType;
 use MusicBrainz::Server::Entity::SearchResult;
 use MusicBrainz::Server::Entity::WorkType;
 use MusicBrainz::Server::Exceptions;
 use MusicBrainz::Server::Data::Artist;
 use MusicBrainz::Server::Data::Area;
+use MusicBrainz::Server::Data::Instrument;
 use MusicBrainz::Server::Data::Label;
 use MusicBrainz::Server::Data::Recording;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::ReleaseGroup;
+use MusicBrainz::Server::Data::Series;
 use MusicBrainz::Server::Data::Tag;
 use MusicBrainz::Server::Data::Utils qw( ref_to_type );
 use MusicBrainz::Server::Data::Work;
@@ -59,11 +69,13 @@ extends 'MusicBrainz::Server::Data::Entity';
 Readonly my %TYPE_TO_DATA_CLASS => (
     artist        => 'MusicBrainz::Server::Data::Artist',
     area          => 'MusicBrainz::Server::Data::Area',
+    instrument    => 'MusicBrainz::Server::Data::Instrument',
     label         => 'MusicBrainz::Server::Data::Label',
     place         => 'MusicBrainz::Server::Data::Place',
     recording     => 'MusicBrainz::Server::Data::Recording',
     release       => 'MusicBrainz::Server::Data::Release',
     release_group => 'MusicBrainz::Server::Data::ReleaseGroup',
+    series        => 'MusicBrainz::Server::Data::Series',
     work          => 'MusicBrainz::Server::Data::Work',
     tag           => 'MusicBrainz::Server::Data::Tag',
     editor        => 'MusicBrainz::Server::Data::Editor'
@@ -87,20 +99,12 @@ sub search
 
     my @where_args;
 
-    if ($type eq "artist" || $type eq "label" || $type eq "area") {
+    if ($type eq "artist") {
 
         my $where_deleted = "WHERE entity.id != ?";
-        if ($type eq "artist") {
-            $deleted_entity = $DARTIST_ID;
-        } elsif ($type eq "label") {
-            $deleted_entity = $DLABEL_ID;
-        } else {
-            $where_deleted = "";
-        }
+        $deleted_entity = $DARTIST_ID;
 
-        my $extra_columns = '';
-        $extra_columns .= 'entity.label_code, entity.area,' if $type eq 'label';
-        $extra_columns .= 'entity.gender, entity.area, entity.begin_area, entity.end_area,' if $type eq 'artist';
+        my $extra_columns = 'entity.gender, entity.area, entity.begin_area, entity.end_area,' if $type eq 'artist';
 
         $query = "
             SELECT
@@ -132,7 +136,7 @@ sub search
                 JOIN ${type} AS entity ON (r.name = entity.name OR r.name = entity.sort_name OR alias.${type} = entity.id)
                 $where_deleted
             GROUP BY
-                $extra_columns entity.id, entity.gid, entity.comment, entity.name, entity.sort_name, entity.type,
+                entity.id, entity.gid, entity.comment, entity.name, entity.sort_name, entity.type,
                 entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
                 entity.end_date_year, entity.end_date_month, entity.end_date_day, entity.ended
             ORDER BY
@@ -205,12 +209,32 @@ sub search
         $hard_search_limit = int($offset * 1.2);
     }
 
-    elsif ($type eq "work" || $type eq "place") {
+    elsif ($type eq "label" || $type eq "work" || $type eq "place" || $type eq "area" || $type eq "instrument" || $type eq "series") {
+        my $where_deleted = "WHERE entity.id != ?";
+        if ($type eq "label") {
+            $deleted_entity = $DLABEL_ID;
+        } else {
+            $where_deleted = "";
+        }
 
         my $extra_columns = '';
         $extra_columns .= 'entity.language,' if $type eq 'work';
         $extra_columns .= 'entity.address, entity.area, entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
                 entity.end_date_year, entity.end_date_month, entity.end_date_day, entity.ended,' if $type eq 'place';
+        $extra_columns .= 'entity.description,' if $type eq 'instrument';
+        $extra_columns .= 'iso_3166_1s.codes AS iso_3166_1, iso_3166_2s.codes AS iso_3166_2, iso_3166_3s.codes AS iso_3166_3,' if $type eq 'area';
+        $extra_columns .= 'entity.label_code, entity.area,' if $type eq 'label';
+        $extra_columns .= 'entity.ordering_type,' if $type eq 'series';
+
+        my $extra_groupby_columns = $extra_columns;
+        $extra_groupby_columns =~ s/[^ ,]+ AS //g;
+
+        my $extra_joins = '';
+        if ($type eq 'area') {
+            $extra_joins .= 'LEFT JOIN (SELECT area, array_agg(code) AS codes FROM iso_3166_1 GROUP BY area) iso_3166_1s ON iso_3166_1s.area = entity.id ' .
+                            'LEFT JOIN (SELECT area, array_agg(code) AS codes FROM iso_3166_2 GROUP BY area) iso_3166_2s ON iso_3166_2s.area = entity.id ' .
+                            'LEFT JOIN (SELECT area, array_agg(code) AS codes FROM iso_3166_3 GROUP BY area) iso_3166_3s ON iso_3166_3s.area = entity.id';
+        }
 
         $query = "
             SELECT
@@ -235,8 +259,10 @@ sub search
                 ) AS r
                 LEFT JOIN ${type}_alias AS alias ON (alias.name = r.name OR alias.sort_name = r.name)
                 JOIN ${type} AS entity ON (r.name = entity.name OR alias.${type} = entity.id)
+                $extra_joins
+                $where_deleted
             GROUP BY
-                entity.id, entity.gid, entity.name, entity.comment, $extra_columns entity.type
+                $extra_groupby_columns entity.id, entity.gid, entity.name, entity.comment, entity.type
             ORDER BY
                 rank DESC, entity.name
             OFFSET
@@ -323,6 +349,18 @@ my %mapping = (
     'label-code'     => 'label_code',
 );
 
+sub schema_fixup_type {
+    my ($self, $data, $type) = @_;
+    if (exists $data->{type} && $type ~~ [qw(area artist instrument label place series release-group work)]) {
+        my $type_model = $type;
+        $type_model =~ s/-/_/g; # fix release-group to release_group
+        my $prop = $type eq 'release-group' ? 'primary_type' : 'type';
+        my $model = 'MusicBrainz::Server::Entity::' . type_to_model($type_model) . 'Type';
+        $data->{$prop} = $model->new( name => $data->{type} );
+    }
+    return $data;
+}
+
 # Fix up the key names so that the data returned from the JSON service
 # matches up with the data returned from the DB for easy object creation
 sub schema_fixup
@@ -350,18 +388,7 @@ sub schema_fixup
         }
     }
 
-    if ($type eq 'artist' && exists $data->{type})
-    {
-        $data->{type} = MusicBrainz::Server::Entity::ArtistType->new( name => $data->{type} );
-    }
-    if ($type eq 'area' && exists $data->{type})
-    {
-        $data->{type} = MusicBrainz::Server::Entity::AreaType->new( name => $data->{type} );
-    }
-    if ($type eq 'place' && exists $data->{type})
-    {
-        $data->{type} = MusicBrainz::Server::Entity::PlaceType->new( name => $data->{type} );
-    }
+    $data = $self->schema_fixup_type($data, $type);
     if ($type eq 'place' && exists $data->{coordinates})
     {
         $data->{coordinates} = MusicBrainz::Server::Entity::Coordinates->new( $data->{coordinates} );
@@ -399,16 +426,8 @@ sub schema_fixup
             }
         }
     }
-    if($type eq 'artist' && exists $data->{gender}) {
+    if ($type eq 'artist' && exists $data->{gender}) {
         $data->{gender} = MusicBrainz::Server::Entity::Gender->new( name => ucfirst($data->{gender}) );
-    }
-    if ($type eq 'label' && exists $data->{type})
-    {
-        $data->{type} = MusicBrainz::Server::Entity::LabelType->new( name => $data->{type} );
-    }
-    if ($type eq 'release-group' && exists $data->{type})
-    {
-        $data->{primary_type} = MusicBrainz::Server::Entity::ReleaseGroupType->new( name => $data->{type} );
     }
     if ($type eq 'cdstub' && exists $data->{gid})
     {
@@ -454,8 +473,7 @@ sub schema_fixup
                     country => defined($release_event_data->{area}) ?
                         MusicBrainz::Server::Entity::Area->new( gid => $release_event_data->{area}->{id},
                                                                 iso_3166_1 => $release_event_data->{area}->{"iso-3166-1-code-list"}->{"iso-3166-1-code"},
-                                                                name => $release_event_data->{area}->{name},
-                                                                sort_name => $release_event_data->{area}->{'sort-name'} )
+                                                                name => $release_event_data->{area}->{name} )
                         : undef,
                     date => MusicBrainz::Server::Entity::PartialDate->new( $release_event_data->{date} ));
 
@@ -546,6 +564,11 @@ sub schema_fixup
                 name => delete $data->{status}
             )
         }
+        if ($data->{packaging}) {
+            $data->{packaging} = MusicBrainz::Server::Entity::ReleasePackaging->new(
+                name => delete $data->{packaging}
+            )
+        }
     }
     if ($type eq 'recording' &&
         exists $data->{"release-list"} &&
@@ -609,9 +632,10 @@ sub schema_fixup
                 # The search server returns the MBID in the 'id' attribute, so we
                 # need to rename that.
                 $entity{gid} = delete $entity{id};
+                %entity = %{ $self->schema_fixup_type(\%entity, $entity_type) };
 
                 my $entity = $self->c->model( type_to_model ($entity_type) )->
-                    _entity_class->new (%entity);
+                    _entity_class->new(%entity);
 
                 push @relationships, MusicBrainz::Server::Entity::Relationship->new(
                     entity1 => $entity,
@@ -673,17 +697,13 @@ sub schema_fixup
             ];
         }
 
-        if(exists $data->{type}) {
-            $data->{type} = MusicBrainz::Server::Entity::WorkType->new( name => $data->{type} );
-        }
-
         if (exists $data->{language}) {
             $data->{language} = MusicBrainz::Server::Entity::Language->new({
                 iso_code_3 => $data->{language}
             });
         }
 
-        if(exists $data->{'iswc-list'}) {
+        if (exists $data->{'iswc-list'}) {
             $data->{iswcs} = [
                 map {
                     MusicBrainz::Server::Entity::ISWC->new( iswc => $_ )
@@ -722,7 +742,7 @@ sub external_search
     my ($self, $type, $query, $limit, $page, $adv, $ua) = @_;
 
     my $entity_model = $self->c->model( type_to_model($type) )->_entity_class;
-    Class::MOP::load_class($entity_model);
+    load_class($entity_model);
     my $offset = ($page - 1) * $limit;
 
     $query = uri_escape_utf8($query);
@@ -745,7 +765,7 @@ sub external_search
         $ua = LWP::UserAgent->new if (!defined $ua);
     }
 
-    $ua->timeout (5);
+    $ua->timeout(5);
     $ua->env_proxy;
 
     # Dispatch the search request.
@@ -778,7 +798,9 @@ sub external_search
             use Data::Dumper;
             croak "Failed to decode JSON search data:\n" .
                   Dumper($response->content) . "\n" .
-                  "Exception:" . Dumper($_);
+                  "Exception:\n" . Dumper($_) . "\n" .
+                  "Response headers:\n" .
+                  Dumper($response->headers->as_string);
         };
 
         my @results;
@@ -880,7 +902,7 @@ sub xml_search
                 my $term = escape_query($options{name}) or $die->('name is a required parameter');
                 $term =~ tr/A-Z/a-z/;
                 $term =~ s/\s*(.*?)\s*$/$1/;
-                $query = "label:($term)(sortname:($term) alias:($term) !label:($term))";
+                $query = "label:($term)(alias:($term) !label:($term))";
             }
 
             when ('release') {
@@ -1025,7 +1047,7 @@ sub xml_search
                                  $limit,);
 
     my $ua = LWP::UserAgent->new;
-    $ua->timeout (5);
+    $ua->timeout(5);
     $ua->env_proxy;
 
     # Dispatch the search request.

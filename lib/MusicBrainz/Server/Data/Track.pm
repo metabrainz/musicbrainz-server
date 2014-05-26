@@ -60,7 +60,7 @@ sub _entity_class
 sub _medium_ids
 {
     my ($self, @track_ids) = @_;
-    return $self->sql->select_single_column_array (
+    return $self->sql->select_single_column_array(
         "SELECT distinct(medium)
            FROM track
           WHERE id IN (" . placeholders(@track_ids) . ")", @track_ids);
@@ -78,7 +78,7 @@ sub load_for_mediums
 
     $_->clear_tracks for @media;
 
-    my %id_to_medium = object_to_ids (@media);
+    my %id_to_medium = object_to_ids(@media);
     my @ids = keys %id_to_medium;
     return unless @ids; # nothing to do
     my $query = "SELECT " . $self->_columns . "
@@ -150,6 +150,7 @@ sub insert
     my ($self, @track_hashes) = @_;
     my $class = $self->_entity_class;
     my @created;
+    my @recording_ids;
     for my $track_hash (@track_hashes) {
         delete $track_hash->{id};
 
@@ -162,7 +163,10 @@ sub insert
         );
 
         $self->c->model('DurationLookup')->update($track_hash->{medium_id});
+
+        push @recording_ids, $row->{recording};
     }
+    $self->c->model('Recording')->_delete_from_cache(@recording_ids);
     return @created > 1 ? @created : $created[0];
 }
 
@@ -172,13 +176,21 @@ sub update
     my $row = $self->_create_row($update);
     $self->sql->update_row('track', $row, { id => $track_id });
 
-    my $mediums = $self->_medium_ids ($track_id);
+    my $mediums = $self->_medium_ids($track_id);
     $self->c->model('DurationLookup')->update($mediums->[0]);
+    $self->c->model('Recording')->_delete_from_cache($row->{recording});
 }
 
 sub delete
 {
     my ($self, @track_ids) = @_;
+
+    my $recording_query = 'SELECT recording FROM track ' .
+        'WHERE id IN (' . placeholders(@track_ids) . ')';
+
+    my $recording_ids = $self->sql->select_single_column_array(
+        $recording_query, @track_ids
+    );
 
     my $query = 'DELETE FROM track ' .
         'WHERE id IN (' . placeholders(@track_ids) . ') RETURNING medium';
@@ -186,6 +198,7 @@ sub delete
     my $mediums = $self->sql->select_single_column_array($query, @track_ids);
 
     $self->c->model('DurationLookup')->update($_) for @$mediums;
+    $self->c->model('Recording')->_delete_from_cache(@$recording_ids);
     return 1;
 }
 

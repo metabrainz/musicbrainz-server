@@ -1,62 +1,29 @@
 \set ON_ERROR_STOP 1
 BEGIN;
 
+CREATE OR REPLACE FUNCTION _median(anyarray) RETURNS anyelement AS $$
+  WITH q AS (
+      SELECT val
+      FROM unnest($1) val
+      WHERE VAL IS NOT NULL
+      ORDER BY val
+  )
+  SELECT val
+  FROM q
+  LIMIT 1
+  -- Subtracting (n + 1) % 2 creates a left bias
+  OFFSET greatest(0, floor((select count(*) FROM q) / 2.0) - ((select count(*) + 1 FROM q) % 2));
+$$ LANGUAGE sql IMMUTABLE;
+
+CREATE AGGREGATE median(anyelement) (
+  SFUNC=array_append,
+  STYPE=anyarray,
+  FINALFUNC=_median,
+  INITCOND='{}'
+);
+
 -- We may want to create a CreateAggregate.sql script, but it seems silly to do that for one aggregate
 CREATE AGGREGATE array_accum (basetype = anyelement, sfunc = array_append, stype = anyarray, initcond = '{}');
-
--- This function calculates an integer based on the first 6
--- characters of the input. First, it strips accents, converts to upper case
--- and removes everything except ASCII characters A-Z and space. That means
--- we can fit one character into 5 bits and the first 6 characters into a
--- 32-bit integer.
-CREATE OR REPLACE FUNCTION page_index(txt varchar) RETURNS integer AS $$
-DECLARE
-    input varchar;
-    res integer;
-    i integer;
-    x varchar;
-BEGIN
-    input := regexp_replace(upper(substr(musicbrainz.musicbrainz_unaccent(txt), 1, 6)), '[^A-Z ]', '_', 'g');
-    res := 0;
-    FOR i IN 1..6 LOOP
-        x := substr(input, i, 1);
-        IF x = '_' OR x = '' THEN
-            res := (res << 5);
-        ELSIF x = ' ' THEN
-            res := (res << 5) | 1;
-        ELSE
-            res := (res << 5) | (ascii(x) - 63);
-        END IF;
-    END LOOP;
-    RETURN res;
-END;
-$$ LANGUAGE 'plpgsql' IMMUTABLE;
-
-CREATE OR REPLACE FUNCTION page_index_max(txt varchar) RETURNS integer AS $$
-DECLARE
-    input varchar;
-    res integer;
-    i integer;
-    x varchar;
-BEGIN
-    input := regexp_replace(upper(substr(musicbrainz_unaccent(txt), 1, 6)), '[^A-Z ]', '_', 'g');
-    res := 0;
-    FOR i IN 1..6 LOOP
-        x := substr(input, i, 1);
-        IF x = '' THEN
-            res := (res << 5) | 31;
-        ELSIF x = '_' THEN
-            res := (res << 5);
-        ELSIF x = ' ' THEN
-            res := (res << 5) | 1;
-        ELSE
-            res := (res << 5) | (ascii(x) - 63);
-        END IF;
-    END LOOP;
-    RETURN res;
-END;
-$$ LANGUAGE 'plpgsql' IMMUTABLE;
-
 
 -- Generates UUID version 4 (random-based)
 CREATE OR REPLACE FUNCTION generate_uuid_v4() RETURNS uuid
@@ -180,6 +147,40 @@ END;
 $$ LANGUAGE 'plpgsql';
 
 -----------------------------------------------------------------------
+-- instrument triggers
+-----------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION a_ins_instrument() RETURNS trigger AS $$
+BEGIN
+    INSERT INTO link_attribute_type (parent, root, child_order, gid, name, description) VALUES (14, 14, 0, NEW.gid, NEW.name, NEW.description);
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION a_upd_instrument() RETURNS trigger AS $$
+BEGIN
+    UPDATE link_attribute_type SET name = NEW.name, description = NEW.description WHERE gid = NEW.gid;
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'no link_attribute_type found for instrument %', NEW.gid;
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION a_del_instrument() RETURNS trigger AS $$
+BEGIN
+    DELETE FROM link_attribute_type WHERE gid = OLD.gid;
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'no link_attribute_type found for instrument %', NEW.gid;
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+-----------------------------------------------------------------------
 -- label triggers
 -----------------------------------------------------------------------
 
@@ -193,6 +194,25 @@ $$ LANGUAGE 'plpgsql';
 -----------------------------------------------------------------------
 -- recording triggers
 -----------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION median_track_length(recording_id integer)
+RETURNS integer AS $$
+  SELECT median(track.length) FROM track WHERE recording = $1;
+$$ LANGUAGE SQL;
+
+CREATE OR REPLACE FUNCTION b_upd_recording() RETURNS TRIGGER AS $$
+BEGIN
+  IF OLD.length IS DISTINCT FROM NEW.length
+    AND EXISTS (SELECT TRUE FROM track WHERE recording = NEW.id)
+    AND NEW.length IS DISTINCT FROM median_track_length(NEW.id)
+  THEN
+    NEW.length = median_track_length(NEW.id);
+  END IF;
+
+  NEW.last_updated = now();
+  RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
 
 CREATE OR REPLACE FUNCTION a_ins_recording() RETURNS trigger AS $$
 BEGIN
@@ -301,6 +321,7 @@ BEGIN
     PERFORM inc_ref_count('artist_credit', NEW.artist_credit, 1);
     -- increment track_count in the parent medium
     UPDATE medium SET track_count = track_count + 1 WHERE id = NEW.medium;
+    PERFORM materialise_recording_length(NEW.recording);
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -316,6 +337,10 @@ BEGIN
         UPDATE medium SET track_count = track_count - 1 WHERE id = OLD.medium;
         UPDATE medium SET track_count = track_count + 1 WHERE id = NEW.medium;
     END IF;
+    IF OLD.recording <> NEW.recording THEN
+      PERFORM materialise_recording_length(OLD.recording);
+    END IF;
+    PERFORM materialise_recording_length(NEW.recording);
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -325,6 +350,7 @@ BEGIN
     PERFORM dec_ref_count('artist_credit', OLD.artist_credit, 1);
     -- decrement track_count in the parent medium
     UPDATE medium SET track_count = track_count - 1 WHERE id = OLD.medium;
+    PERFORM materialise_recording_length(OLD.recording);
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -347,9 +373,9 @@ RETURNS trigger AS $$
     IF NEW.work_attribute_text IS NOT NULL
         AND NOT EXISTS (
            SELECT TRUE FROM work_attribute_type
-		WHERE work_attribute_type.id = NEW.work_attribute_type
-		AND free_text
-	)
+        WHERE work_attribute_type.id = NEW.work_attribute_type
+        AND free_text
+    )
     THEN
         RAISE EXCEPTION 'This attribute type can not contain free text';
     ELSE RETURN NEW;
@@ -615,6 +641,8 @@ $BODY$
   EXCEPT
   SELECT entity1 FROM l_artist_artist
   EXCEPT
+  SELECT entity0 FROM l_artist_instrument
+  EXCEPT
   SELECT entity0 FROM l_artist_label
   EXCEPT
   SELECT entity0 FROM l_artist_place
@@ -624,6 +652,8 @@ $BODY$
   SELECT entity0 FROM l_artist_release
   EXCEPT
   SELECT entity0 FROM l_artist_release_group
+  EXCEPT
+  SELECT entity0 FROM l_artist_series
   EXCEPT
   SELECT entity0 FROM l_artist_url
   EXCEPT
@@ -654,6 +684,8 @@ $BODY$
   EXCEPT
   SELECT entity1 FROM l_artist_label
   EXCEPT
+  SELECT entity1 FROM l_instrument_label
+  EXCEPT
   SELECT entity1 FROM l_label_label
   EXCEPT
   SELECT entity0 FROM l_label_label
@@ -665,6 +697,8 @@ $BODY$
   SELECT entity0 FROM l_label_release
   EXCEPT
   SELECT entity0 FROM l_label_release_group
+  EXCEPT
+  SELECT entity0 FROM l_label_series
   EXCEPT
   SELECT entity0 FROM l_label_url
   EXCEPT
@@ -697,6 +731,8 @@ $BODY$
   EXCEPT
   SELECT entity1 FROM l_artist_release_group
   EXCEPT
+  SELECT entity1 FROM l_instrument_release_group
+  EXCEPT
   SELECT entity1 FROM l_label_release_group
   EXCEPT
   SELECT entity1 FROM l_place_release_group
@@ -708,6 +744,8 @@ $BODY$
   SELECT entity1 FROM l_release_group_release_group
   EXCEPT
   SELECT entity0 FROM l_release_group_release_group
+  EXCEPT
+  SELECT entity0 FROM l_release_group_series
   EXCEPT
   SELECT entity0 FROM l_release_group_url
   EXCEPT
@@ -738,6 +776,8 @@ $BODY$
   EXCEPT
   SELECT entity1 FROM l_artist_work
   EXCEPT
+  SELECT entity1 FROM l_instrument_work
+  EXCEPT
   SELECT entity1 FROM l_label_work
   EXCEPT
   SELECT entity1 FROM l_place_work
@@ -747,6 +787,8 @@ $BODY$
   SELECT entity1 FROM l_release_work
   EXCEPT
   SELECT entity1 FROM l_release_group_work
+  EXCEPT
+  SELECT entity1 FROM l_series_work
   EXCEPT
   SELECT entity1 FROM l_url_work
   EXCEPT
@@ -779,6 +821,8 @@ $BODY$
   EXCEPT
   SELECT entity1 FROM l_artist_place
   EXCEPT
+  SELECT entity1 FROM l_instrument_place
+  EXCEPT
   SELECT entity1 FROM l_label_place
   EXCEPT
   SELECT entity1 FROM l_place_place
@@ -791,9 +835,56 @@ $BODY$
   EXCEPT
   SELECT entity0 FROM l_place_release_group
   EXCEPT
+  SELECT entity0 FROM l_place_series
+  EXCEPT
   SELECT entity0 FROM l_place_url
   EXCEPT
   SELECT entity0 FROM l_place_work;
+$BODY$
+LANGUAGE 'sql';
+
+-------------------------------------------------------------------
+-- Find series that are empty, and have not been updated within the
+-- last 1 day
+-------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION empty_series() RETURNS SETOF int AS
+$BODY$
+  SELECT id FROM series
+  WHERE
+    edits_pending = 0 AND
+    (
+      last_updated < now() - '1 day'::interval OR last_updated is NULL
+    )
+  EXCEPT
+  SELECT series
+  FROM edit_series
+  JOIN edit ON (edit.id = edit_series.edit)
+  WHERE edit.status = 1
+  EXCEPT
+  SELECT entity1 FROM l_area_series
+  EXCEPT
+  SELECT entity1 FROM l_artist_series
+  EXCEPT
+  SELECT entity1 FROM l_instrument_series
+  EXCEPT
+  SELECT entity1 FROM l_label_series
+  EXCEPT
+  SELECT entity1 FROM l_place_series
+  EXCEPT
+  SELECT entity1 FROM l_recording_series
+  EXCEPT
+  SELECT entity1 FROM l_release_series
+  EXCEPT
+  SELECT entity1 FROM l_release_group_series
+  EXCEPT
+  SELECT entity0 FROM l_series_series
+  EXCEPT
+  SELECT entity1 FROM l_series_series
+  EXCEPT
+  SELECT entity0 FROM l_series_url
+  EXCEPT
+  SELECT entity0 FROM l_series_work;
 $BODY$
 LANGUAGE 'sql';
 
@@ -869,6 +960,8 @@ BEGIN
 
     IF NOT other_ars_exist THEN
        DELETE FROM link_attribute WHERE link = OLD.link;
+       DELETE FROM link_attribute_credit WHERE link = OLD.link;
+       DELETE FROM link_attribute_text_value WHERE link = OLD.link;
        DELETE FROM link WHERE id = OLD.link;
     END IF;
 
@@ -895,6 +988,11 @@ BEGIN
         LIMIT 1
       ) OR
       EXISTS (
+        SELECT TRUE FROM l_instrument_url
+        WHERE entity1 = url_row.id
+        LIMIT 1
+      ) OR
+      EXISTS (
         SELECT TRUE FROM l_label_url
         WHERE entity1 = url_row.id
         LIMIT 1
@@ -916,6 +1014,11 @@ BEGIN
       ) OR
       EXISTS (
         SELECT TRUE FROM l_release_group_url
+        WHERE entity1 = url_row.id
+        LIMIT 1
+      ) OR
+      EXISTS (
+        SELECT TRUE FROM l_series_url
         WHERE entity1 = url_row.id
         LIMIT 1
       ) OR
@@ -976,6 +1079,18 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
+CREATE OR REPLACE FUNCTION unique_primary_instrument_alias()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.primary_for_locale THEN
+      UPDATE instrument_alias SET primary_for_locale = FALSE
+      WHERE locale = NEW.locale AND id != NEW.id
+        AND instrument = NEW.instrument;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
 CREATE OR REPLACE FUNCTION unique_primary_label_alias()
 RETURNS trigger AS $$
 BEGIN
@@ -995,6 +1110,18 @@ BEGIN
       UPDATE place_alias SET primary_for_locale = FALSE
       WHERE locale = NEW.locale AND id != NEW.id
         AND place = NEW.place;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION unique_primary_series_alias()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.primary_for_locale THEN
+      UPDATE series_alias SET primary_for_locale = FALSE
+      WHERE locale = NEW.locale AND id != NEW.id
+        AND series = NEW.series;
     END IF;
     RETURN NEW;
 END;
@@ -1076,6 +1203,8 @@ AS $$
           UNION ALL
         SELECT TRUE FROM l_artist_recording WHERE entity1 = outer_r.id
           UNION ALL
+        SELECT TRUE FROM l_instrument_recording WHERE entity1 = outer_r.id
+          UNION ALL
         SELECT TRUE FROM l_label_recording WHERE entity1 = outer_r.id
           UNION ALL
         SELECT TRUE FROM l_place_recording WHERE entity1 = outer_r.id
@@ -1085,6 +1214,8 @@ AS $$
         SELECT TRUE FROM l_recording_release WHERE entity0 = outer_r.id
           UNION ALL
         SELECT TRUE FROM l_recording_release_group WHERE entity0 = outer_r.id
+          UNION ALL
+        SELECT TRUE FROM l_recording_series WHERE entity0 = outer_r.id
           UNION ALL
         SELECT TRUE FROM l_recording_work WHERE entity0 = outer_r.id
           UNION ALL
@@ -1169,6 +1300,34 @@ BEGIN
     RAISE EXCEPTION 'Attempt to create or change a relationship into a deprecated relationship type';
   END IF;
   RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION check_has_dates()
+RETURNS trigger AS $$
+BEGIN
+    IF (NEW.begin_date_year IS NOT NULL OR
+       NEW.begin_date_month IS NOT NULL OR
+       NEW.begin_date_day IS NOT NULL OR
+       NEW.end_date_year IS NOT NULL OR
+       NEW.end_date_month IS NOT NULL OR
+       NEW.end_date_day IS NOT NULL OR
+       NEW.ended = TRUE)
+       AND NOT (SELECT has_dates FROM link_type WHERE id = NEW.link_type)
+  THEN
+    RAISE EXCEPTION 'Attempt to add dates to a relationship type that does not support dates.';
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION materialise_recording_length(recording_id INT)
+RETURNS void as $$
+BEGIN
+  UPDATE recording SET length = median
+   FROM (SELECT median_track_length(recording_id) median) track
+  WHERE recording.id = recording_id
+    AND recording.length IS DISTINCT FROM track.median;
 END;
 $$ LANGUAGE 'plpgsql';
 

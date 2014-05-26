@@ -3,6 +3,7 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 use Test::Fatal;
+use Clone qw( clone );
 
 BEGIN { use MusicBrainz::Server::Data::Edit };
 
@@ -259,6 +260,61 @@ test 'Accepting auto-edits should credit editor auto-edits column' => sub {
     $editor = $c->model('Editor')->get_by_id(1);
     is $editor->accepted_auto_edits, $old_ae_count + 1;
     is $editor->accepted_edits, $old_e_count;
+};
+
+test 'default_includes function' => sub {
+    my $test = shift;
+
+    my $objects_to_load = {
+        Area    => [ 3, 14, 159, 265 ],
+        Artist  => [ 3, 5, 8, 9, 79 ],
+        Place   => [ 3, 23, 84, 626, 4338 ],
+    };
+    my $post_load_models = {
+        Area => {
+              14 => [],
+             159 => [ 'ModelOne', 'AreaContainment' ],
+             265 => [ 'ModelOne', 'AreaContainment ModelTwo' ],
+        },
+        Artist => {
+               5 => [ 'Place' ],
+               9 => [ 'ModelThree' ],
+              79 => [ 'Area' ],
+        },
+        Place => {
+               3 => [ 'Area AreaContainment' ],
+              84 => [ 'Area' ],
+             626 => [ 'ModelFour AreaContainment' ],
+            4338 => [ 'ModelFive' ],
+        },
+    };
+
+    my $expected_objects_to_load = clone($objects_to_load);
+    my $expected_post_load_models = {
+        Area => {
+               3 => [ 'AreaContainment' ],
+              14 => [ 'AreaContainment' ],
+             159 => [ 'ModelOne', 'AreaContainment' ],
+             265 => [ 'ModelOne', 'AreaContainment ModelTwo' ],
+        },
+        Artist => {
+               5 => [ 'Place Area AreaContainment' ],
+               9 => [ 'ModelThree' ],
+              79 => [ 'Area AreaContainment' ],
+        },
+        Place => {
+               3 => [ 'Area AreaContainment' ],
+              23 => [ 'Area AreaContainment' ],
+              84 => [ 'Area AreaContainment' ],
+             626 => [ 'ModelFour AreaContainment', 'Area AreaContainment' ],
+            4338 => [ 'ModelFive', 'Area AreaContainment' ],
+        },
+    };
+
+    MusicBrainz::Server::Data::Edit::default_includes($objects_to_load, $post_load_models);
+
+    is_deeply($objects_to_load, $expected_objects_to_load, 'objects_to_load unchanged');
+    is_deeply($post_load_models, $expected_post_load_models, 'post_load_models correctly modified');
 };
 
 1;

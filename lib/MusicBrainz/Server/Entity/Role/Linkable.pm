@@ -11,9 +11,9 @@ has 'relationships' => (
     lazy => 1,
     traits => [ 'Array' ],
     handles => {
-        all_relationships   => 'elements',
-        add_relationship    => 'push',
-        clear_relationships => 'clear'
+        all_relationships       => 'elements',
+        add_relationship        => 'push',
+        clear_relationships     => 'clear'
     }
 );
 
@@ -60,6 +60,19 @@ sub relationships_by_link_type_names
     } $self->all_relationships ];
 }
 
+sub appearances {
+    my $self = shift;
+    my @rels = @{ $self->relationships_by_type($self->_appearances_table_types) };
+
+    my %groups;
+    for my $rel (@rels) {
+        my $phrase = $rel->link->type->name;
+        $groups{ $phrase } ||= [];
+        push @{ $groups{$phrase} }, $rel;
+    }
+
+    return \%groups;
+}
 
 1;
 

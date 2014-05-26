@@ -21,7 +21,7 @@ sub _parse_filename
        $data->{tracknum} = $1;
    }
 
-   for(;;)
+   for (;;)
    {
        if ($filename =~ s/^([^-]*)-//)
        {
@@ -99,7 +99,7 @@ sub nag_check
 
     if (!defined $session->{nag_check_timeout} || $session->{nag_check_timeout} <= time())
     {
-        my $result = $c->model('Editor')->donation_check ($c->user);
+        my $result = $c->model('Editor')->donation_check($c->user);
         my $nag = $result ? $result->{nag} : 0; # don't nag if metabrainz is unreachable.
 
         $session->{nag} = -1 unless $nag;
@@ -144,11 +144,12 @@ sub external : Private
 
     my @search_modifiers;
     for my $term (keys %terms) {
+        my $value = escape_query($terms{$term});
         if ($term eq 'artist') {
-            push @search_modifiers, alias_query('artist', $terms{$term});
+            push @search_modifiers, alias_query('artist', $value);
         }
         else {
-            push @search_modifiers, "$term:" . q{"} . escape_query($terms{$term}) . q{"};
+            push @search_modifiers, "$term:" . q{"} . $value . q{"};
         }
     }
 

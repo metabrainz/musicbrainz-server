@@ -13,12 +13,13 @@ use MusicBrainz::Server::Edit::Utils qw(
 );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Validation qw( normalise_strings );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 use MooseX::Types::Moose qw( ArrayRef Bool Int Maybe Str );
 use MooseX::Types::Structured qw( Dict Optional );
 
 use aliased 'MusicBrainz::Server::Entity::Label';
+use aliased 'MusicBrainz::Server::Entity::Area';
 
 no if $] >= 5.018, warnings => "experimental::smartmatch";
 
@@ -116,8 +117,9 @@ sub build_display_data
         $data->{isni_codes}{new} = $self->data->{new}{isni_codes};
     }
 
-    if (exists $data->{country} && !exists $data->{area}) {
-        $data->{area} = delete $data->{country};
+    for my $side (qw( old new )) {
+        $data->{area}{$side} //= Area->new()
+            if defined $self->data->{$side}{area_id};
     }
 
     return $data;
@@ -149,13 +151,10 @@ sub allow_auto_edit
     # small things like case etc.
     my ($old_name, $new_name) = normalise_strings(
         $self->data->{old}{name}, $self->data->{new}{name});
-    my ($old_sort_name, $new_sort_name) = normalise_strings(
-        $self->data->{old}{sort_name}, $self->data->{new}{sort_name});
     my ($old_label_code, $new_label_code) = normalise_strings(
         $self->data->{old}{label_code}, $self->data->{new}{label_code});
 
     return 0 if $old_name ne $new_name;
-    return 0 if $old_sort_name ne $new_sort_name;
     return 0 if $self->data->{old}{label_code} &&
         $old_label_code ne $new_label_code;
 

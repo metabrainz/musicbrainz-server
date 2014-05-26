@@ -53,11 +53,11 @@ test 'Do not rename artist credits' => sub {
     });
 
     $mech->get_ok('/edit/' . $edit->id);
-    my $tx = test_xpath_html ($mech->content);
+    my $tx = test_xpath_html($mech->content);
 
-    $tx->ok(selector_to_xpath('table.merge-artists', prefix => "html"), sub {
-        $_->ok(selector_to_xpath('.rename-artist-credits', prefix => "html"), sub {
-            $_->like('./html:td', qr/No/, 'correct display of rename data');
+    $tx->ok(selector_to_xpath('table.merge-artists'), sub {
+        $_->ok(selector_to_xpath('.rename-artist-credits'), sub {
+            $_->like('./td', qr/No/, 'correct display of rename data');
         }, 'has information about renaming artist credits');
     }, 'should have edit data');
 };
@@ -86,11 +86,11 @@ test 'Rename artist credits' => sub {
     });
 
     $mech->get_ok('/edit/' . $edit->id);
-    my $tx = test_xpath_html ($mech->content);
+    my $tx = test_xpath_html($mech->content);
 
-    $tx->ok(selector_to_xpath('table.merge-artists', prefix => "html"), sub {
-        $_->ok(selector_to_xpath('.rename-artist-credits', prefix => "html"), sub {
-            $_->like('./html:td', qr/Yes/, 'correct display of rename data');
+    $tx->ok(selector_to_xpath('table.merge-artists'), sub {
+        $_->ok(selector_to_xpath('.rename-artist-credits'), sub {
+            $_->like('./td', qr/Yes/, 'correct display of rename data');
         }, 'has information about renaming artist credits');
     }, 'should have edit data');
 };

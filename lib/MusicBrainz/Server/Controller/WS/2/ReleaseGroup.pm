@@ -44,9 +44,9 @@ sub release_group_toplevel
 
     $c->model('ReleaseGroup')->load_meta($rg);
 
-    my $opts = $stash->store ($rg);
+    my $opts = $stash->store($rg);
 
-    $self->linked_release_groups ($c, $stash, [ $rg ]);
+    $self->linked_release_groups($c, $stash, [ $rg ]);
 
     $c->model('ReleaseGroup')->annotation->load_latest($rg)
         if $c->stash->{inc}->annotation;
@@ -56,18 +56,18 @@ sub release_group_toplevel
         my @results = $c->model('Release')->find_by_release_group(
             $rg->id, $MAX_ITEMS, 0, filter => { status => $c->stash->{status} });
         $c->model('Release')->load_release_events(@{$results[0]});
-        $opts->{releases} = $self->make_list (@results);
+        $opts->{releases} = $self->make_list(@results);
 
-        $self->linked_releases ($c, $stash, $opts->{releases}->{items});
+        $self->linked_releases($c, $stash, $opts->{releases}->{items});
     }
 
     if ($c->stash->{inc}->artists)
     {
         $c->model('ArtistCredit')->load($rg);
 
-        my @artists = map { $c->model('Artist')->load ($_); $_->artist } @{ $rg->artist_credit->names };
+        my @artists = map { $c->model('Artist')->load($_); $_->artist } @{ $rg->artist_credit->names };
 
-        $self->linked_artists ($c, $stash, \@artists);
+        $self->linked_artists($c, $stash, \@artists);
     }
 
     $self->load_relationships($c, $stash, $rg);
@@ -84,7 +84,7 @@ sub release_group : Chained('load') PathPart('')
 
     my $stash = WebServiceStash->new;
 
-    $self->release_group_toplevel ($c, $stash, $rg);
+    $self->release_group_toplevel($c, $stash, $rg);
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('release-group', $rg, $c->stash->{inc}, $stash));
@@ -95,7 +95,7 @@ sub release_group_browse : Private
     my ($self, $c) = @_;
 
     my ($resource, $id) = @{ $c->stash->{linked} };
-    my ($limit, $offset) = $self->_limit_and_offset ($c);
+    my ($limit, $offset) = $self->_limit_and_offset($c);
 
     if (!is_guid($id))
     {
@@ -111,24 +111,24 @@ sub release_group_browse : Private
         $c->detach('not_found') unless ($artist);
 
         my $show_all = 1;
-        my @tmp = $c->model('ReleaseGroup')->find_by_artist (
+        my @tmp = $c->model('ReleaseGroup')->find_by_artist(
             $artist->id, $show_all, $limit, $offset, filter => { type => $c->stash->{type} });
-        $rgs = $self->make_list (@tmp, $offset);
+        $rgs = $self->make_list(@tmp, $offset);
     }
     elsif ($resource eq 'release')
     {
         my $release = $c->model('Release')->get_by_gid($id);
         $c->detach('not_found') unless ($release);
 
-        my @tmp = $c->model('ReleaseGroup')->find_by_release ($release->id, $limit, $offset);
-        $rgs = $self->make_list (@tmp, $offset);
+        my @tmp = $c->model('ReleaseGroup')->find_by_release($release->id, $limit, $offset);
+        $rgs = $self->make_list(@tmp, $offset);
     }
 
     my $stash = WebServiceStash->new;
 
     for (@{ $rgs->{items} })
     {
-        $self->release_group_toplevel ($c, $stash, $_);
+        $self->release_group_toplevel($c, $stash, $_);
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
@@ -141,7 +141,7 @@ sub release_group_search : Chained('root') PathPart('release-group') Args(0)
 
     $c->detach('release_group_browse') if ($c->stash->{linked});
 
-    $self->_search ($c, 'release-group');
+    $self->_search($c, 'release-group');
 }
 
 __PACKAGE__->meta->make_immutable;

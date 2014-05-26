@@ -4,6 +4,8 @@ use Moose::Role;
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_EDIT
     $EDIT_RELATIONSHIP_CREATE
+    $EDIT_RELATIONSHIP_DELETE
+    $EDIT_RELATIONSHIPS_REORDER
 );
 use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
@@ -23,48 +25,19 @@ locking and race conditions.
 =cut
 
 sub try_and_edit {
-    my ($self, $c, $form, $type0, $type1, $rel, %params) = @_;
+    my ($self, $c, $form, %params) = @_;
 
+    my $edit;
     $c->model('Relationship')->lock_and_do(
-        $type0, $type1,
+        $params{link_type}->entity0_type,
+        $params{link_type}->entity1_type,
         sub {
-            if ($c->model('Relationship')->exists($type0, $type1, {
-                link_type_id => $params{new_link_type_id},
-                begin_date   => $params{new_begin_date},
-                end_date     => $params{new_end_date},
-                ended        => $params{ended},
-                attributes   => $params{attributes},
-                entity0_id   => $params{entity0_id},
-                entity1_id   => $params{entity1_id},
-            })) {
-                return 0;
-            }
-
-            my $link_type = $c->model('LinkType')->get_by_id(
-                $params{new_link_type_id}
+            $edit = $self->_try_and_insert_edit(
+                $c, $form, $EDIT_RELATIONSHIP_EDIT, %params
             );
-
-            my $model0 = $c->model(type_to_model($type0));
-            my $model1 = $c->model(type_to_model($type1));
-
-            my $edit = $self->_insert_edit(
-                $c, $form,
-                edit_type         => $EDIT_RELATIONSHIP_EDIT,
-                type0             => $type0,
-                type1             => $type1,
-                entity0           => $model0->get_by_id($params{entity0_id}),
-                entity1           => $model1->get_by_id($params{entity1_id}),
-                relationship      => $rel,
-                link_type         => $link_type,
-                begin_date        => $params{new_begin_date},
-                end_date          => $params{new_end_date},
-                ended             => $params{ended},
-                attributes        => $params{attributes}
-            );
-
-            return 1;
         }
     );
+    return $edit;
 }
 
 =method try_and_insert
@@ -80,59 +53,79 @@ table.
 =cut
 
 sub try_and_insert {
-    my ($self, $c, $form, $type0, $type1, %params) = @_;
+    my ($self, $c, $form, %params) = @_;
+
+    my $edit;
+    $c->model('Relationship')->lock_and_do(
+        $params{link_type}->entity0_type,
+        $params{link_type}->entity1_type,
+        sub {
+            $edit = $self->_try_and_insert_edit(
+                $c, $form, $EDIT_RELATIONSHIP_CREATE, %params
+            );
+        }
+    );
+    return $edit;
+}
+
+sub delete_relationship {
+    my ($self, $c, $form, %params) = @_;
+
+    my $edit;
+    my $link_type = $params{relationship}->link->type;
 
     $c->model('Relationship')->lock_and_do(
-        $type0, $type1,
+        $link_type->entity0_type,
+        $link_type->entity1_type,
         sub {
-            if ($c->model('Relationship')->exists($type0, $type1, {
-                link_type_id => $params{link_type_id},
-                begin_date   => $params{begin_date},
-                end_date     => $params{end_date},
-                ended        => $params{ended},
-                attributes   => $params{attributes},
-                entity0_id   => $params{entity0}->id,
-                entity1_id   => $params{entity1}->id,
-            })) {
-                return 0;
-            }
-
-            my $link_type = $c->model('LinkType')->get_by_id(
-                $params{link_type_id}
+            $edit = $self->_insert_edit(
+                $c, $form, edit_type => $EDIT_RELATIONSHIP_DELETE, %params
             );
-
-            $self->_insert_edit(
-                $c, $form,
-                edit_type    => $EDIT_RELATIONSHIP_CREATE,
-                type0        => $type0,
-                type1        => $type1,
-                entity0      => $params{entity0},
-                entity1      => $params{entity1},
-                begin_date   => $params{begin_date},
-                end_date     => $params{end_date},
-                link_type    => $link_type,
-                attributes   => $params{attributes},
-                ended        => $params{ended}
-            );
-
             return 1;
         }
     );
+    return $edit;
 }
 
-sub flatten_attributes {
-    my ($self, $field) = @_;
+sub reorder_relationships {
+    my ($self, $c, $form, %params) = @_;
 
-    my @attributes;
-    for my $attr ($self->attr_tree->all_children) {
-        my $value = $field->field($attr->name)->value;
-        next unless defined($value);
+    my $edit;
+    my $link_type_id = $params{link_type_id};
+    my $link_type = $c->model('LinkType')->get_by_id($link_type_id);
 
-        push @attributes, scalar($attr->all_children)
-            ? @$value
-            : $value ? $attr->id : ();
-    }
-    return uniq(@attributes);
+    $c->model('Relationship')->lock_and_do(
+        $link_type->entity0_type,
+        $link_type->entity1_type,
+        sub {
+            $edit = $self->_insert_edit(
+                $c, $form, edit_type => $EDIT_RELATIONSHIPS_REORDER, %params
+            );
+            return 1;
+        }
+    );
+    return $edit;
+}
+
+sub _try_and_insert_edit {
+    my ($self, $c, $form, $edit_type, %params) = @_;
+
+    my $link_type = $params{link_type};
+
+    return undef if $c->model('Relationship')->exists(
+        $link_type->entity0_type,
+        $link_type->entity1_type, {
+        link_type_id => $link_type->id,
+        begin_date   => $params{begin_date},
+        end_date     => $params{end_date},
+        ended        => $params{ended},
+        attributes   => $params{attributes},
+        entity0_id   => $params{entity0}->id,
+        entity1_id   => $params{entity1}->id,
+        attribute_text_values => $params{attribute_text_values} // {},
+    });
+
+    return $self->_insert_edit($c, $form, edit_type => $edit_type, %params);
 }
 
 1;

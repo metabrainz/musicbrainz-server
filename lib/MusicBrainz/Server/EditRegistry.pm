@@ -1,6 +1,6 @@
 package MusicBrainz::Server::EditRegistry;
 
-use Class::MOP;
+use Class::Load qw( load_class );
 
 our %_types;
 our $_registered = 0;
@@ -23,6 +23,14 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Area::Edit
     MusicBrainz::Server::Edit::Area::EditAlias
     MusicBrainz::Server::Edit::Area::Merge
+    MusicBrainz::Server::Edit::Instrument::AddAlias
+    MusicBrainz::Server::Edit::Instrument::DeleteAlias
+    MusicBrainz::Server::Edit::Instrument::AddAnnotation
+    MusicBrainz::Server::Edit::Instrument::Create
+    MusicBrainz::Server::Edit::Instrument::Delete
+    MusicBrainz::Server::Edit::Instrument::Edit
+    MusicBrainz::Server::Edit::Instrument::EditAlias
+    MusicBrainz::Server::Edit::Instrument::Merge
     MusicBrainz::Server::Edit::Label::AddAlias
     MusicBrainz::Server::Edit::Label::DeleteAlias
     MusicBrainz::Server::Edit::Label::AddAnnotation
@@ -64,6 +72,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Relationship::EditLinkType
     MusicBrainz::Server::Edit::Relationship::RemoveLinkAttribute
     MusicBrainz::Server::Edit::Relationship::RemoveLinkType
+    MusicBrainz::Server::Edit::Relationship::Reorder
     MusicBrainz::Server::Edit::Release::AddAnnotation
     MusicBrainz::Server::Edit::Release::AddCoverArt
     MusicBrainz::Server::Edit::Release::AddReleaseLabel
@@ -86,6 +95,14 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::ReleaseGroup::Edit
     MusicBrainz::Server::Edit::ReleaseGroup::Merge
     MusicBrainz::Server::Edit::ReleaseGroup::SetCoverArt
+    MusicBrainz::Server::Edit::Series::AddAlias
+    MusicBrainz::Server::Edit::Series::DeleteAlias
+    MusicBrainz::Server::Edit::Series::AddAnnotation
+    MusicBrainz::Server::Edit::Series::Create
+    MusicBrainz::Server::Edit::Series::Delete
+    MusicBrainz::Server::Edit::Series::Edit
+    MusicBrainz::Server::Edit::Series::EditAlias
+    MusicBrainz::Server::Edit::Series::Merge
     MusicBrainz::Server::Edit::URL::Edit
     MusicBrainz::Server::Edit::WikiDoc::Change
     MusicBrainz::Server::Edit::Work::AddAlias
@@ -173,7 +190,7 @@ sub _register_type
 sub _register_default_types
 {
     foreach my $class (@CLASSES) {
-        Class::MOP::load_class($class) or die $@;
+        load_class($class) or die $@;
         _register_type(undef, $class);
     }
     $_registered = 1;

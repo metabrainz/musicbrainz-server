@@ -1,13 +1,13 @@
 [% BLOCK layout_head %]
-    [% meta_desc = [] %]
-    [% meta_desc.push(html_escape(place.comment)) IF place.comment %]
-    [% meta_desc.push(l('Type:') _ ' ' _ html_escape(place.type_name)) IF place.type %]
-    [% IF place.begin_date.format %]
-        [% meta_desc.push(l("Founded:") _ ' ' _ place.begin_date.format) %]
-    [% END %]
-    [% IF place.end_date.format %]
-        [% meta_desc.push(l("Defunct:") _ ' ' _ place.end_date.format) %]
-    [% END %]
+    [%~ meta_desc = [] ~%]
+    [%~ meta_desc.push(html_escape(place.comment)) IF place.comment ~%]
+    [%~ meta_desc.push(l('Type:') _ ' ' _ html_escape(place.type_name)) IF place.type ~%]
+    [%~ IF place.begin_date.format ~%]
+        [%~ meta_desc.push(l("Founded:") _ ' ' _ place.begin_date.format) ~%]
+    [%~ END ~%]
+    [%~ IF place.end_date.format ~%]
+        [%~ meta_desc.push(l("Defunct:") _ ' ' _ place.end_date.format) ~%]
+    [%~ END ~%]
     <meta name="description" content="[% comma_only_list(meta_desc) %]"/>
 [% END %]
 
@@ -24,7 +24,6 @@
 
     [%- show_wikipedia_extract() -%]
 
-    <h2 class="relationships">[% l("Relationships") %]</h2>
     [% INCLUDE "components/relationships.tt" source=place
-        relationships=place.grouped_relationships('area', 'artist', 'label', 'place', 'url', 'work') %]
+        relationships=place.grouped_relationships('area', 'artist', 'label', 'place', 'url', 'work', 'series', 'instrument') %]
 [% END %]

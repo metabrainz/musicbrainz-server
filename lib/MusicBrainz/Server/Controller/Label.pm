@@ -20,6 +20,7 @@ with 'MusicBrainz::Server::Controller::Role::Rating';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::Subscribe';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
+with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 
 use MusicBrainz::Server::Constants qw( $DLABEL_ID $EDIT_LABEL_CREATE $EDIT_LABEL_DELETE $EDIT_LABEL_EDIT $EDIT_LABEL_MERGE );
 use Data::Page;
@@ -95,14 +96,19 @@ sub show : PathPart('') Chained('load')
     );
 }
 
+sub _merge_load_entities
+{
+    my ($self, $c, @labels) = @_;
+    $c->model('LabelType')->load(@labels);
+    $c->model('Area')->load(@labels);
+};
+
 =head2 WRITE METHODS
 
 =cut
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_LABEL_MERGE,
-    confirmation_template => 'label/merge_confirm.tt',
-    search_template       => 'label/merge_search.tt',
 };
 
 with 'MusicBrainz::Server::Controller::Role::Create' => {
@@ -114,6 +120,12 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
     form           => 'Label',
     edit_type      => $EDIT_LABEL_EDIT,
+};
+
+before edit => sub {
+    my ($self, $c) = @_;
+
+    $c->model('Relationship')->load($c->stash->{label});
 };
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {

@@ -1,3 +1,5 @@
+[%- PROCESS 'cdtoc/attach_list.tt' -%]
+
 [% WRAPPER 'layout.tt' title=lp('Attach CD TOC', 'header') full_width=1 %]
   <h1>[% lp('Attach CD TOC', 'header') %]</h1>
   <p>[% l('You are viewing releases by {artist}.', { artist => link_entity(artist) }) %]</p>
@@ -27,10 +29,10 @@
             [% FOR release=releases %]
               [%- IF release.release_group.gid != current_rg -%]
                   [% current_rg = release.release_group.gid %]
-                  <tr class="subh"><th colspan=[% IF c.try_get_session('tport'); '7'; ELSE; '6'; END %]>[% l('Release Group: {release_group_link}', { release_group_link => link_entity(release.release_group) }) %]</th></tr>
+                  <tr class="subh"><th colspan=[% IF c.try_get_session('tport'); '8'; ELSE; '7'; END %]>[% l('Release Group: {release_group_link}', { release_group_link => link_entity(release.release_group) }) %]</th></tr>
               [%- END -%]
               [% zebra = zebra + 1 %]
-              [% INCLUDE 'cdtoc/attach_list.tt' %]
+              [% attach_list_row(release) %]
             [% END %]
           </tbody>
         </table>
@@ -38,6 +40,7 @@
       <div style="margin-top: 1em;">
         [% form_submit(lp('Attach CD TOC', 'button/menu')) %]
       </div>
+      [% attach_list_script() %]
     </form>
   [% ELSE %]
     <p>[% ln('{artist} has no releases which have only {n} track.',

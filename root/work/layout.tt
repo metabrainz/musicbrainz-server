@@ -2,10 +2,10 @@
     type => work.l_type_name or l('Work'),
     work => work.name
 }) %]
-[%- WRAPPER "layout.tt" usesRDFa=1 title=title ? main_title _ " - ${title}" : main_title -%]
+[%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title canonical_url=replace_gid(entity.gid) -%]
   [%- IF !full_width -%]
     [% WRAPPER 'layout/sidebar.tt' %]
-        [% IF work.type || work.iswcs.size || work.language %]
+        [% IF work.type || work.iswcs.size || work.language || work.attributes.size %]
         <h2 class="work-information">[% l('Work information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
@@ -17,8 +17,14 @@
                    IF work.language -%]
             [%- FOR iswc IN work.iswcs -%]
                 [% WRAPPER 'layout/sidebar/property.tt' label=l('ISWC:') class="iswc" %]
-                [% rdfa_work_iswc(work, iswc) %]
+                [% link_iswc(iswc) %]
                 [% END %]
+            [%- END -%]
+            [%- FOR attribute=work.attributes -%]
+                [%- INCLUDE 'layout/sidebar/property.tt'
+                      class='work-attribute work-attribute-' _ css_class_name(attribute.type.name)
+                      content=html_escape(attribute.l_value)
+                      label=add_colon(attribute.type.l_name) -%]
             [%- END -%]
         [% END %]
         [% END %]
@@ -38,14 +44,6 @@
                    [% l('Merge work') %]
                  </a>
                </li>
-
-               <hr/>
-
-               [%# Adds <li> itself %]
-               [% use_in_relationship(work) %]
-
-               <li>[% relate_to_ellipsis(work) %]</li>
-               <li>[% relate_to_url(work) %]</li>
 
                <hr/>
 

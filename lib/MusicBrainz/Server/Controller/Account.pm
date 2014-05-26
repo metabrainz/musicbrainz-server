@@ -4,7 +4,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use namespace::autoclean;
 use Digest::SHA qw(sha1_base64);
-use MusicBrainz::Server::Translation qw (l ln );
+use MusicBrainz::Server::Translation qw(l ln );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 use Try::Tiny;
 use Captcha::reCAPTCHA;
@@ -436,7 +436,7 @@ sub register : Path('/register') ForbiddenOnSlaves RequireSSL DenyWhenReadonly
             my $challenge = $c->req->params->{recaptcha_challenge_field};
             my $response = $c->req->params->{recaptcha_response_field};
 
-            $captcha_result = $captcha->check_answer (
+            $captcha_result = $captcha->check_answer(
                 DBDefs->RECAPTCHA_PRIVATE_KEY,
                 $c->req->address, $challenge, $response);
 
@@ -471,12 +471,12 @@ sub register : Path('/register') ForbiddenOnSlaves RequireSSL DenyWhenReadonly
         }
         else
         {
-            $c->stash (invalid_captcha_response => 1);
+            $c->stash(invalid_captcha_response => 1);
         }
     }
 
     my $captcha_html = "";
-    $captcha_html = $captcha->get_html (
+    $captcha_html = $captcha->get_html(
         DBDefs->RECAPTCHA_PUBLIC_KEY, $captcha_result, $c->req->secure) if $use_captcha;
 
     $c->stash(
@@ -556,7 +556,7 @@ sub donation : Local RequireAuth HiddenOnSlaves
 
     $c->stash(
         nag => $result->{nag},
-        days => sprintf ("%.0f", $result->{days}),
+        days => sprintf("%.0f", $result->{days}),
     );
 }
 

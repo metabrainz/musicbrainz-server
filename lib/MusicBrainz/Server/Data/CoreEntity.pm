@@ -3,6 +3,7 @@ package MusicBrainz::Server::Data::CoreEntity;
 use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list query_to_list_limited );
+use MusicBrainz::Server::Validation qw( is_guid );
 use Sql;
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -22,7 +23,7 @@ around get_by_gids => sub
     return \%gid_map
         unless defined $table;
     my @missing_gids;
-    for my $gid (@gids) {
+    for my $gid (grep { is_guid($_) } @gids) {
         unless (exists $gid_map{$gid}) {
             push @missing_gids, $gid;
         }
@@ -47,6 +48,7 @@ around get_by_gid => sub
 {
     my ($orig, $self) = splice(@_, 0, 2);
     my ($gid) = @_;
+    return unless is_guid($gid);
     if (my $obj = $self->$orig(@_)) {
         return $obj;
     }
@@ -105,7 +107,7 @@ sub find_by_names
         ." WHERE musicbrainz_unaccent(lower(name)) = "
         ." musicbrainz_unaccent(lower(search_terms.term));";
 
-    my $results = $self->c->sql->select_list_of_hashes ($query, @names);
+    my $results = $self->c->sql->select_list_of_hashes($query, @names);
 
     my %mapped;
     for my $row (@$results)
@@ -114,7 +116,7 @@ sub find_by_names
 
         $mapped{$key} //= [];
 
-        push @{ $mapped{$key} }, $self->_new_from_row ($row);
+        push @{ $mapped{$key} }, $self->_new_from_row($row);
     }
 
     return %mapped;

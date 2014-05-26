@@ -25,8 +25,8 @@ use MusicBrainz::Server::Edit::Types qw(
 use MusicBrainz::Server::Edit::Utils qw( verify_artist_credits hash_artist_credit hash_artist_credit_without_join_phrases );
 use MusicBrainz::Server::Log qw( log_assertion log_debug );
 use MusicBrainz::Server::Validation 'normalise_strings';
-use MusicBrainz::Server::Translation qw ( N_l );
-use MusicBrainz::Server::Track qw ( format_track_length );
+use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Track qw( format_track_length );
 use Try::Tiny;
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
@@ -160,14 +160,14 @@ sub initialize
         };
 
         if ($tracklist) {
-            $self->c->model('Track')->load_for_mediums ($entity);
-            $self->c->model('ArtistCredit')->load ($entity->all_tracks);
+            $self->c->model('Track')->load_for_mediums($entity);
+            $self->c->model('ArtistCredit')->load($entity->all_tracks);
 
             my $old = tracks_to_hash($entity->tracks);
             my $new = tracks_to_hash($tracklist);
 
-            unless (Compare(filter_subsecond_differences ($old),
-                            filter_subsecond_differences ($new)))
+            unless (Compare(filter_subsecond_differences($old),
+                            filter_subsecond_differences($new)))
             {
                 $data->{old}{tracklist} = $old;
                 $data->{new}{tracklist} = $new;
@@ -202,7 +202,7 @@ sub foreign_keys {
     push @tracks, @{ $self->data->{new}{tracklist} }
         if exists $self->data->{new}{tracklist};
 
-    tracklist_foreign_keys (\%fk, \@tracks);
+    tracklist_foreign_keys(\%fk, \@tracks);
 
     return \%fk;
 }
@@ -218,6 +218,9 @@ sub build_display_data
             || Release->new( name => $self->data->{release}{name} );
 
         $data->{medium} = $loaded->{Medium}{ $self->data->{entity_id} };
+
+        # If deleted, $data->{medium} will be undefined.
+        $data->{medium}->release($release) if defined $data->{medium};
     }
 
     if (exists $self->data->{new}{format_id}) {
@@ -264,11 +267,26 @@ sub build_display_data
             ) }
         ];
 
+        my $i = 0;
+        while ($i < scalar(@$tracklist_changes)) {
+            my $change = $tracklist_changes->[$i];
+            my ($old, $new) = @$change[1, 2];
+
+            if ($change->[0] eq 'c' && ($old->id // 0) != ($new->id // 0)) {
+                splice @$tracklist_changes, $i, 1, ['-', $old, ''], ['+', '', $new];
+                $i++;
+            }
+            $i++;
+        }
+
         if (any {$_->[0] ne 'u' || $_->[1]->number ne $_->[2]->number } @$tracklist_changes) {
             $data->{tracklist_changes} = $tracklist_changes;
         }
 
-        if (any {$_->[1] && $_->[2] && $_->[1]->id ne $_->[2]->id} @$tracklist_changes) {
+        # Edits that predate track mbids do not store track ids at all.
+        my @changes_with_track_ids = grep { $_->[1] && $_->[1]->id } @$tracklist_changes;
+
+        if (scalar(@changes_with_track_ids) && any { $_->[2] && !$_->[2]->id } @$tracklist_changes) {
             $data->{changed_mbids} = 1;
         }
 
@@ -281,13 +299,23 @@ sub build_display_data
             grep { $_->[0] ne '-' }
             @$tracklist_changes ];
 
+        # Generate a map of track id => old recording id, for edits that store
+        # track ids, to detect if recordings have changed.
+
+        my %old_recordings = map {
+                $_->[1]->id => $_->[1]->recording_id // $_->[1]->recording->id
+            }
+            @changes_with_track_ids;
+
         $data->{recording_changes} = [
             grep {
-                (($_->[1] // 0) && $_->[1]->recording_id // $_->[1]->recording->id)
-                    !=
-                (($_->[2] // 0) && $_->[2]->recording_id // $_->[2]->recording->id)
+                my $old = $_->[1];
+                my $new = $_->[2];
+                my $old_recording = $old ? ($old->recording_id // $old->recording->id) : 0;
+                my $new_recording = $new ? ($new->recording_id // $new->recording->id) : 0;
+
+                $new && ($new->id ? $old_recordings{$new->id} : $old_recording) != $new_recording;
             }
-            grep { $_->[0] ne '+' && $_->[0] ne '-' }
             @$tracklist_changes ];
     }
 
@@ -309,7 +337,7 @@ sub accept {
         )
     }
 
-    my $data_new = clone ($self->data->{new});
+    my $data_new = clone($self->data->{new});
     my $data_new_tracklist = delete $data_new->{tracklist};
 
     $self->c->model('Medium')->update($self->entity_id, $data_new);
@@ -334,7 +362,7 @@ sub accept {
                 [ artist_credit => \@merged_artist_credits, \&hash_artist_credit ]
             ) {
                 my ($property, $container, $key_generation) = @$merge;
-                push @$container, merge (
+                push @$container, merge(
                     track_column($property, $self->data->{old}{tracklist}),
                     track_column($property, $current_tracklist),
                     track_column($property, $data_new_tracklist),
@@ -361,7 +389,7 @@ sub accept {
         my $position = 1;
         my @final_tracklist;
         my $existing_recordings = $self->c->model('Recording')->get_by_ids(@merged_recordings);
-        while(1) {
+        while (1) {
             last unless @merged_row_ids &&
                         @merged_artist_credits &&
                         @merged_lengths &&
@@ -411,18 +439,18 @@ sub accept {
 
             if ($track->{id})
             {
-                $self->c->model ('Track')->update ($track->{id}, $track);
+                $self->c->model('Track')->update($track->{id}, $track);
                 $tracks_reused{$track->{id}} = 1;
             }
             else
             {
-                $self->c->model ('Track')->insert ($track);
+                $self->c->model('Track')->insert($track);
             }
         }
 
         for my $old_track ($medium->all_tracks)
         {
-            $self->c->model ('Track')->delete ($old_track->id)
+            $self->c->model('Track')->delete($old_track->id)
                 unless $tracks_reused{$old_track->id}
         }
     }

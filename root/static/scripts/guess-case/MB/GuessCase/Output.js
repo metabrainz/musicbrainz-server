@@ -40,7 +40,7 @@ MB.GuessCase.Output = function () {
     /**
      * Initialise the GcOutput object for another run
      **/
-    self.init = function() {
+    self.init = function () {
 	self._w = [];
 	self._output = "";
     };
@@ -48,7 +48,7 @@ MB.GuessCase.Output = function () {
     /**
      * @returns the length
      **/
-    self.getLength = function() {
+    self.getLength = function () {
 	return self._w.length;
     };
 
@@ -56,7 +56,7 @@ MB.GuessCase.Output = function () {
     /**
      * @returns if the array is empty
      **/
-    self.isEmpty = function() {
+    self.isEmpty = function () {
 	var f = (self.getLength() == 0);
 	return f;
     };
@@ -65,7 +65,7 @@ MB.GuessCase.Output = function () {
      * Fetches the current word from the GcInput
      * object, and appends it to the wordlist.
      **/
-    self.appendCurrentWord = function() {
+    self.appendCurrentWord = function () {
 	var w;
 	if ((w = gc.i.getCurrentWord()) != null) {
 	    self.appendWord(w);
@@ -77,7 +77,7 @@ MB.GuessCase.Output = function () {
      *
      * @param w		the word
      **/
-    self.appendWord = function(w) {
+    self.appendWord = function (w) {
 	if (w == " ") {
 	    gc.o.appendSpace();
 	} else if (w != "" && w != null) {
@@ -88,7 +88,7 @@ MB.GuessCase.Output = function () {
     /**
      * Adds a space to the processed wordslist
      **/
-    self.appendSpace = function() {
+    self.appendSpace = function () {
 	self._w[self._w.length] = " ";
     };
 
@@ -96,7 +96,7 @@ MB.GuessCase.Output = function () {
      * Checks the global flag gc.f.spaceNextWord and adds a space to the
      * processed wordlist if needed. The flag is *NOT* reset.
      **/
-    self.appendSpaceIfNeeded = function() {
+    self.appendSpaceIfNeeded = function () {
 	if (gc.f.spaceNextWord) {
 	    gc.o.appendSpace();
 	}
@@ -105,7 +105,7 @@ MB.GuessCase.Output = function () {
     /**
      * Returns the word at the index, or null if index outside bounds
      **/
-    self.getWordAtIndex = function(index) {
+    self.getWordAtIndex = function (index) {
 	if (self._w[index]) {
 	    return self._w[index];
 	} else {
@@ -116,7 +116,7 @@ MB.GuessCase.Output = function () {
     /**
      * Returns the word at the index, or null if index outside bounds
      **/
-    self.setWordAtIndex = function(index, word) {
+    self.setWordAtIndex = function (index, word) {
 	if (self.getWordAtIndex(index)) {
 	    self._w[index] = word;
 	}
@@ -125,7 +125,7 @@ MB.GuessCase.Output = function () {
     /**
      * Returns the last word of the wordlist
      **/
-    self.getLastWord = function() {
+    self.getLastWord = function () {
 	if (!self.isEmpty()) {
 	    return self._w[self._w.length-1];
 	} else {
@@ -136,7 +136,7 @@ MB.GuessCase.Output = function () {
     /**
      * Returns the last word of the wordlist
      **/
-    self.dropLastWord = function() {
+    self.dropLastWord = function () {
 	if (!self.isEmpty()) {
 	    return self._w.pop();
 	}
@@ -146,7 +146,7 @@ MB.GuessCase.Output = function () {
     /**
      * Capitalize the word at the current cursor position.
      **/
-    self.capitalizeWordAtIndex = function(index, overrideCaps) {
+    self.capitalizeWordAtIndex = function (index, overrideCaps) {
 	overrideCaps = (overrideCaps != null ? overrideCaps : gc.f.forceCaps);
 	if ((!gc.mode.isSentenceCaps() || overrideCaps) &&
 	    (!self.isEmpty()) &&
@@ -196,14 +196,14 @@ MB.GuessCase.Output = function () {
      * @param	overrideCaps	can be used to override
      *							the gc.f.forceCaps parameter.
      **/
-    self.capitalizeLastWord = function(overrideCaps) {
+    self.capitalizeLastWord = function (overrideCaps) {
 	self.capitalizeWordAtIndex(self.getLength()-1, overrideCaps);
     };
 
     /**
      * Apply post-processing, and return the string
      **/
-    self.getOutput = function() {
+    self.getOutput = function () {
 	// if *not* sentence mode, force caps on last word.
 	gc.f.forceCaps = !gc.mode.isSentenceCaps();
 	self.capitalizeLastWord();
@@ -215,7 +215,7 @@ MB.GuessCase.Output = function () {
     /**
      * Work through the stack of opened parentheses and close them
      **/
-    self.closeOpenBrackets = function() {
+    self.closeOpenBrackets = function () {
 	var parts = new Array();
 	while (gc.f.isInsideBrackets()) {
 	    // close brackets that were opened before
@@ -233,7 +233,7 @@ MB.GuessCase.Output = function () {
      *				c.apply: 	if true, apply changes
      *				c.capslast: if true, capitalize word before
      **/
-    self.appendWordPreserveWhiteSpace = function(c) {
+    self.appendWordPreserveWhiteSpace = function (c) {
 	if (c) {
 	    var ws = { before: gc.i.isPreviousWord(" "), after: gc.i.isNextWord(" ") };
 	    if (c.apply) {

@@ -60,7 +60,7 @@ sub load
 sub load_for_releases
 {
     my ($self, @releases) = @_;
-    my %id_to_release = object_to_ids (@releases);
+    my %id_to_release = object_to_ids(@releases);
     my @ids = keys %id_to_release;
 
 
@@ -195,14 +195,21 @@ sub set_lengths_to_cdtoc
     $self->c->model('Track')->load_for_mediums($medium);
     $self->c->model('ArtistCredit')->load($medium->all_tracks);
 
+    my @recording_ids;
+
     my @info = @{ $cdtoc->track_details };
     for my $i (0..$#info) {
-        $self->c->model('Track')->update(
-            $medium->tracks->[$i]->id,
-            { length => $info[$i]->{length_time} });
+        my $track = $medium->tracks->[$i];
 
+        $self->c->model('Track')->update(
+            $track->id, { length => $info[$i]->{length_time} }
+        );
+
+        push @recording_ids, $track->recording_id;
         $i++;
     }
+
+    $self->c->model('Recording')->_delete_from_cache(@recording_ids);
 }
 
 sub merge

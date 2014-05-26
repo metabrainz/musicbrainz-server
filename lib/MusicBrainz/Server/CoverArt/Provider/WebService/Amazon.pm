@@ -1,7 +1,7 @@
 package MusicBrainz::Server::CoverArt::Provider::WebService::Amazon;
 use Moose;
 
-use Time::HiRes qw (sleep gettimeofday tv_interval );
+use Time::HiRes qw(sleep gettimeofday tv_interval );
 use Net::Amazon::AWSSign;
 use LWP::UserAgent;
 use XML::XPath;

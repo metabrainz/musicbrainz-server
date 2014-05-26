@@ -82,12 +82,12 @@ sub filename
 
     return undef unless $self->release->gid && $self->suffix;
 
-    return sprintf ("mbid-%s-%d.%s", $self->release->gid, $self->id, $self->suffix);
+    return sprintf("mbid-%s-%d.%s", $self->release->gid, $self->id, $self->suffix);
 }
 
 sub image { my $self = shift; return $self->_urlprefix . "." . $self->suffix; }
-sub small_thumbnail { return shift->_urlprefix . "-250.jpg"; }
-sub large_thumbnail { return shift->_urlprefix . "-500.jpg"; }
+sub small_thumbnail { my $self = shift; return $self->_urlprefix . "-250.jpg"; }
+sub large_thumbnail { my $self = shift; return $self->_urlprefix . "-500.jpg"; }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

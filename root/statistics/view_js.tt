@@ -18,7 +18,7 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
-(function(MB) {
+(function (MB) {
     $.extend(MB.text, {
         Timeline: {
            RateTooltipCloser: '[% l('/day') | js %]',
@@ -39,7 +39,7 @@
 
                 "other": { Label: '[% l('Other') | js %]' }
             },
-            Stat: function(stat) { if (MB.text.Timeline[stat]) { return MB.text.Timeline[stat]; } else { return { Label: stat, Color: '#00ff00', Description: stat, Category: "other" }; } },
+            Stat: function (stat) { if (MB.text.Timeline[stat]) { return MB.text.Timeline[stat]; } else { return { Label: stat, Color: '#00ff00', Description: stat, Category: "other" }; } },
             "count.artist": { Label: '[% l('Artists') | js %]', Color: '#ff8a00', Description: '[% l('Count of all artists') | js %]', Category: "core-entities" },
             "count.recording": { Label: '[% l('Recordings') | js %]', Color: "#4800ff", Description: '[% l('Count of all recordings') | js %]', Category: "core-entities"  },
             "count.work": { Label: '[% l('Works') | js %]', Color: "#00ffa8", Description: '[% l('Count of all works') | js %]', Category: "core-entities"  },
@@ -114,6 +114,9 @@
             "count.artist.type.person": { Label: '[% l('Persons') | js %]', Color: '#ff0000', Description: '[% l('Artists with type set to person') | js %]', Category: 'artist-other' },
             "count.artist.type.group": { Label: '[% l('Groups') | js %]', Color: '#ff0000', Description: '[% l('Artists with type set to group') | js %]', Category: 'artist-other' },
             "count.artist.type.other": { Label: '[% l('Other-type Artists') | js %]', Color: '#ff0000', Description: '[% l('Artists with type set to other') | js %]', Category: 'artist-other' },
+            "count.artist.type.character": { Label: '[% l('Characters') | js %]', Color: '#ff0000', Description: '[% l('Artists with type set to character') | js %]', Category: 'artist-other' },
+            "count.artist.type.orchestra": { Label: '[% l('Orchestras') | js %]', Color: '#ff0000', Description: '[% l('Artists with type set to orchestra') | js %]', Category: 'artist-other' },
+            "count.artist.type.choir": { Label: '[% l('Choirs') | js %]', Color: '#ff0000', Description: '[% l('Artists with type set to choir') | js %]', Category: 'artist-other' },
             "count.artist.type.null": { Label: '[% l('Unknown-type Artists') | js %]', Color: '#ff0000', Description: '[% l('Artists with type unset') | js %]', Category: 'artist-other' },
 
             "count.artist.has_credits": { Label: '[% l('Artists in ACs') | js %]', Color: '#ff0000', Description: '[% l('Artists with at least one artist credit appearance') | js %]', Category: 'artist-other' },
@@ -138,7 +141,7 @@
             "count.isrc.all": { Label: '[% l('ISRCs (all)') | js %]', Color: '#ff0000', Description: '[% l('Count of all ISRCs') | js %]', Category: 'other'},
             "count.iswc": { Label: '[% l('ISWCs') | js %]', Color: '#ff0000', Description: '[% l('Count of all ISWCs') | js %]', Category: 'other'},
             "count.iswc.all": { Label: '[% l('ISWCs (all)') | js %]', Color: '#ff0000', Description: '[% l('Count of all ISWCs') | js %]', Category: 'other'},
-      
+
             "count.release.has_discid": { Label: '[% l('Releases with Disc IDs') | js %]', Color: '#ff0000', Description: '[% l('Count of all Releases with Disc IDs') | js %]', Category: 'other'},
             "count.medium.has_discid": { Label: '[% l('Mediums with Disc IDs') | js %]', Color: '#ff0000', Description: '[% l('Count of all Mediums with Disc IDs') | js %]', Category: 'other'},
             "count.recording.has_isrc": { Label: '[% l('Recordings with ISRCs') | js %]', Color: '#ff0000', Description: '[% l('Count of all Recordings with ISRCs') | js %]', Category: 'other'},
@@ -180,7 +183,7 @@
             "count.tag.raw.work": { Label: '[% l('Work Tags (raw)') | js %]', Color: '#ff0000', Description: '[% l('Count of all Work Tags (raw)') | js %]', Category: 'ratings-tags'},
 
             "count.ar.links": { Label: '[% l('Relationships') | js %]', Color: '#ff0000', Description: '[% l('Count of all Relationships') | js %]', Category: 'relationships'},
-            
+
             [% FOREACH rel IN relationships %]
                 [% USE String(loop.count() * 3 ) %]
                 "count.ar.links.l_[% rel.0 %]_[% rel.1 %]": { Label: '[% l('l_{first}_{second} Relationships', { first => rel.0, second => rel.1 }) | js %]', Color: '#5[% String.format('%02d') %]F[% String.format('%02d') %]', Description: '[% l('l_{first}_{second} Relationships', { first => rel.0, second => rel.1 }) | js %]', Category: 'relationships' },

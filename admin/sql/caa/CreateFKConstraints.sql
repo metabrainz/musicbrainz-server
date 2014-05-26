@@ -3,16 +3,16 @@
 
 SET search_path = 'cover_art_archive';
 
+ALTER TABLE art_type
+   ADD CONSTRAINT art_type_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES cover_art_archive.art_type(id);
+
 ALTER TABLE cover_art
    ADD CONSTRAINT cover_art_fk_release
    FOREIGN KEY (release)
    REFERENCES musicbrainz.release(id)
    ON DELETE CASCADE;
-
-ALTER TABLE cover_art
-   ADD CONSTRAINT cover_art_fk_edit
-   FOREIGN KEY (edit)
-   REFERENCES musicbrainz.edit(id);
 
 ALTER TABLE cover_art
    ADD CONSTRAINT cover_art_fk_mime_type

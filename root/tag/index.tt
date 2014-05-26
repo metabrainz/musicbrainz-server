@@ -18,7 +18,7 @@
         <h2>[% section.0 %]</h2>
         <ul>
             [% FOR entity=section.1 %]
-            <li>[% link_entity(entity.entity) %]</li>
+            <li>[% descriptive_link(entity.entity) %]</li>
             [% END %]
             [% IF section.2 > section.1.size %]
             <li>

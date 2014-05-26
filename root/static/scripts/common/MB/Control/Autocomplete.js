@@ -46,7 +46,7 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
                 this.xhr.abort();
             }
 
-            this.xhr = $.ajax(this.lookupHook({
+            this.xhr = $.ajax(this.options.lookupHook({
                 url: "/ws/js/" + this.entity,
                 data: {
                     q: request.term,
@@ -57,7 +57,10 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
                 success: $.proxy(this._lookupSuccess, this, response),
                 error: $.proxy(response, null, [])
             }));
-        }
+        },
+
+        resultHook: _.identity,
+        lookupHook: _.identity
     },
 
     _create: function () {
@@ -91,13 +94,7 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         };
 
         this.options.select = function (event, data) {
-            var entity;
-
-            try {
-                entity = MB.entity(data.item, self.entity);
-            } catch (e) {
-                entity = data.item;
-            }
+            var entity = self._dataToEntity(data.item);
 
             self.currentSelection(entity);
             self.element.trigger("lookup-performed", [entity]);
@@ -147,13 +144,23 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
             }
         });
 
-        // Click events inside the menu, but outside of a relate-to box,
-        // should not cause the box to close.
+        // Click events inside the menu should not cause the box to close.
         this.menu.element.on("click", function (event) {
             event.stopPropagation();
         });
 
         this.changeEntity(this.options.entity);
+    },
+
+    _dataToEntity: function (data) {
+        try {
+            if (this.options.entityConstructor) {
+                return this.options.entityConstructor(data);
+            }
+            return MB.entity(data, this.entity);
+        } catch (e) {
+            return data;
+        }
     },
 
     // Overrides $.ui.autocomplete.prototype.close
@@ -169,7 +176,22 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
     },
 
     clearSelection: function (clearAction) {
-        this.currentSelection({ name: clearAction ? "" : this._value() });
+        var name = clearAction ? "" : this._value();
+        var currentSelection = this.currentSelection.peek();
+
+        // If the current entity doesn't have a GID, it's already "blank" and
+        // we don't need to unnecessarily create a new one. Doing so can even
+        // have unintended effects, e.g. wiping other useful data on the
+        // entity (like release group types).
+
+        if (currentSelection.gid) {
+            this.currentSelection(this._dataToEntity({ name: name }));
+        }
+        else {
+            currentSelection.name = name;
+            this.currentSelection.notifySubscribers(currentSelection);
+        }
+
         this.element.trigger("cleared", [clearAction]);
     },
 
@@ -194,21 +216,21 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
 
     setSelection: function (data) {
         data = data || {};
-        data.name = data.name || "";
+        var name = ko.unwrap(data.name) || "";
 
-        if (this._value() !== data.name) {
-            this._value(data.name);
+        if (this._value() !== name) {
+            this._value(name);
         }
 
         if (this.options.showStatus) {
             var hasID = !!(data.id || data.gid);
-            var error = !(data.name || hasID || this.options.allowEmpty);
+            var error = !(name || hasID || this.options.allowEmpty);
 
             this.element
                 .toggleClass("error", error)
                 .toggleClass("lookup-performed", hasID);
         }
-        this.term = data.name || "";
+        this.term = name || "";
         this.selectedItem = data;
     },
 
@@ -227,19 +249,23 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
 
     // Overrides $.ui.autocomplete.prototype._searchTimeout
     _searchTimeout: function (event) {
-        clearTimeout(this.searching);
-
-        var value = this._value();
-        var mbidMatch = value.match(this.mbidRegex);
+        var oldTerm = this.term;
+        var newTerm = this._value();
+        var mbidMatch = newTerm.match(this.mbidRegex);
 
         if (mbidMatch === null) {
-            if (!value) {
+            if (!newTerm) {
+                clearTimeout(this.searching);
                 this.close();
 
             // only search if the value has changed
-            } else if (this.term !== value) {
+            } else if (oldTerm !== newTerm && this.completedTerm !== newTerm) {
+                clearTimeout(this.searching);
+                this.completedTerm = oldTerm;
+
                 this.searching = this._delay(
                     function () {
+                        delete this.completedTerm;
                         this.selectedItem = null;
                         this.search(null, event);
                     },
@@ -247,6 +273,7 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
                 );
             }
         } else {
+            clearTimeout(this.searching);
             this._lookupMBID(mbidMatch[0]);
         }
     },
@@ -266,12 +293,12 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
             dataType: "json",
 
             success: function (data) {
-                if (data.type != self.entity) {
+                if (data.entityType != self.entity) {
                     // Only RelateTo boxes and relationship-editor dialogs
                     // support changing the entity type.
                     var setEntity = self.options.setEntity;
 
-                    if (!setEntity || setEntity(data.type) === false) {
+                    if (!setEntity || setEntity(data.entityType) === false) {
                         self.clear();
                         return;
                     }
@@ -283,15 +310,12 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         });
     },
 
-    lookupHook: _.identity,
-    resultHook: _.identity,
-
-    _lookupSuccess: function (response, data, result, request) {
+    _lookupSuccess: function (response, data) {
         var self = this;
         var pager = _.last(data);
         var jumpTo = this.currentResults.length;
 
-        data = this.resultHook(_.initial(data));
+        data = this.options.resultHook(_.initial(data));
 
         // "currentResults" will contain action items that aren't results,
         // e.g. ShowMore, SwitchToDirectSearch, etc. Filter these actions out
@@ -424,212 +448,271 @@ $.widget("ui.menu", $.ui.menu, {
         if (!this._selectAction(event)) {
             this._super(event);
         }
+        // When mouseHandled is true, $.ui ignores future mouse events. It only
+        // gets reset to false if you click outside of the menu, but we want
+        // it to be false no matter what.
+        this.mouseHandled = false;
     }
 });
 
 
 MB.Control.autocomplete_formatters = {
     "generic": function (ul, item) {
-        var a = $("<a>").text (item.name);
+        var a = $("<a>").text(item.name);
 
         var comment = [];
 
         if (item.primary_alias && item.primary_alias != item.name)
         {
-            comment.push (item.primary_alias);
+            comment.push(item.primary_alias);
         }
 
-        if (item.sortname && !MB.utility.is_latin (item.name) && item.sortname != item.name)
+        if (item.sortName && !MB.utility.is_latin(item.name) && item.sortName != item.name)
         {
-            comment.push (item.sortname);
+            comment.push(item.sortName);
         }
 
         if (item.comment)
         {
-            comment.push (item.comment);
+            comment.push(item.comment);
         }
 
         if (comment.length)
         {
-            a.append (' <span class="autocomplete-comment">(' +
-                      _.escapeHTML (comment.join (", ")) + ')</span>');
+            a.append(' <span class="autocomplete-comment">(' +
+                      _.escape(comment.join(", ")) + ')</span>');
         }
 
-        return $("<li>").append (a).appendTo (ul);
+        return $("<li>").append(a).appendTo(ul);
     },
 
     "recording": function (ul, item) {
-        var a = $("<a>").text (item.name);
+        var a = $("<a>").text(item.name);
 
-        if (item.length && item.length !== '' && item.length !== '?:??')
+        if (item.length)
         {
-            a.prepend ('<span class="autocomplete-length">' + item.length + '</span>');
+            a.prepend('<span class="autocomplete-length">' +
+                MB.utility.formatTrackLength(item.length) + '</span>');
         }
 
         if (item.comment)
         {
-            a.append ('<span class="autocomplete-comment">(' +
-                      _.escapeHTML (item.comment) + ')</span>');
+            a.append('<span class="autocomplete-comment">(' +
+                      _.escape(item.comment) + ')</span>');
         }
 
         if (item.video)
         {
-            a.append ('<span class="autocomplete-video">(video)</span>');
+            a.append(
+                $('<span class="autocomplete-video"></span>')
+                    .text("(" + MB.text.Video + ")")
+            );
         }
 
-        a.append ('<br /><span class="autocomplete-comment">by ' +
-                  _.escapeHTML (item.artist) + '</span>');
+        a.append('<br /><span class="autocomplete-comment">by ' +
+                  _.escape(item.artist) + '</span>');
 
-        if (item.appears_on && item.appears_on.hits > 0)
+        if (item.appearsOn && item.appearsOn.hits > 0)
         {
             var rgs = [];
-            $.each (item.appears_on.results, function (idx, item) {
-                rgs.push (item.name);
+            $.each(item.appearsOn.results, function (idx, item) {
+                rgs.push(item.name);
             });
 
-            if (item.appears_on.hits > item.appears_on.results.length)
+            if (item.appearsOn.hits > item.appearsOn.results.length)
             {
-                rgs.push ('...');
+                rgs.push('...');
             }
 
-            a.append ('<br /><span class="autocomplete-appears">appears on: ' +
-                      _.escapeHTML (rgs.join (", ")) + '</span>');
+            a.append('<br /><span class="autocomplete-appears">appears on: ' +
+                      _.escape(rgs.join(", ")) + '</span>');
         }
-        else {
-            a.append ('<br /><span class="autocomplete-appears">standalone recording</span>');
+        else if (item.appearsOn && item.appearsOn.hits === 0) {
+            a.append('<br /><span class="autocomplete-appears">standalone recording</span>');
         }
 
-        if (item.isrcs.length)
+        if (item.isrcs && item.isrcs.length)
         {
-            a.append ('<br /><span class="autocomplete-isrcs">isrcs: ' +
-                      _.escapeHTML (item.isrcs.join (", ")) + '</span>');
+            a.append('<br /><span class="autocomplete-isrcs">isrcs: ' +
+                      _.escape(item.isrcs.join(", ")) + '</span>');
         }
 
-        return $("<li>").append (a).appendTo (ul);
+        return $("<li>").append(a).appendTo(ul);
     },
 
     "release-group": function (ul, item) {
-        var a = $("<a>").text (item.name);
+        var a = $("<a>").text(item.name);
 
         if (item.firstReleaseDate)
         {
-            a.append ('<span class="autocomplete-comment">(' +
+            a.append('<span class="autocomplete-comment">(' +
                         item.firstReleaseDate + ')</span>');
         }
 
         if (item.comment)
         {
-            a.append ('<span class="autocomplete-comment">(' +
-                      _.escapeHTML (item.comment) + ')</span>');
+            a.append('<span class="autocomplete-comment">(' +
+                      _.escape(item.comment) + ')</span>');
         }
 
         if (item.typeName) {
-            a.append ('<br /><span class="autocomplete-comment">' + item.typeName + ' by ' +
-                    _.escapeHTML (item.artist) + '</span>');
+            a.append('<br /><span class="autocomplete-comment">' + item.typeName + ' by ' +
+                    _.escape(item.artist) + '</span>');
         }
 
-        return $("<li>").append (a).appendTo (ul);
+        return $("<li>").append(a).appendTo(ul);
+    },
+
+    series: function (ul, item) {
+        var a = $("<a>").text(item.name);
+
+        if (item.comment) {
+            a.append('<span class="autocomplete-comment">(' + _.escape(item.comment) + ')</span>');
+        }
+
+        if (item.type) {
+            a.append(' <span class="autocomplete-comment">(' + _.escape(item.type.name) + ')</span>');
+        }
+
+        return $("<li>").append(a).appendTo(ul);
     },
 
     "work": function (ul, item) {
-        var a = $("<a>").text (item.name);
+        var a = $("<a>").text(item.name);
         var comment = [];
 
         if (item.language)
         {
-            a.prepend ('<span class="autocomplete-length">' + item.language + '</span>');
+            a.prepend('<span class="autocomplete-length">' + item.language + '</span>');
         }
 
         if (item.primary_alias && item.primary_alias != item.name)
         {
-            comment.push (item.primary_alias);
+            comment.push(item.primary_alias);
         }
 
         if (item.comment)
         {
-            comment.push (item.comment);
+            comment.push(item.comment);
         }
 
         if (comment.length)
         {
-            a.append (' <span class="autocomplete-comment">(' +
-                      _.escapeHTML (comment.join (", ")) + ')</span>');
+            a.append(' <span class="autocomplete-comment">(' +
+                      _.escape(comment.join(", ")) + ')</span>');
         }
 
-        var artistRenderer = function(prefix, artists) {
+        var artistRenderer = function (prefix, artists) {
             if (artists && artists.hits > 0)
             {
                 var toRender = artists.results;
                 if (artists.hits > toRender.length)
                 {
-                    toRender.push ('...');
+                    toRender.push('...');
                 }
 
-                a.append ('<br /><span class="autocomplete-comment">' +
+                a.append('<br /><span class="autocomplete-comment">' +
                         prefix + ': ' +
-                        _.escapeHTML (toRender.join (", ")) + '</span>');
+                        _.escape(toRender.join(", ")) + '</span>');
             }
         };
 
-        artistRenderer("Writers", item.artists.writers);
-        artistRenderer("Artists", item.artists.artists);
+        if (item.artists) {
+            artistRenderer("Writers", item.artists.writers);
+            artistRenderer("Artists", item.artists.artists);
+        }
 
-        return $("<li>").append (a).appendTo (ul);
+        return $("<li>").append(a).appendTo(ul);
     },
 
     "area": function (ul, item) {
-        var a = $("<a>").text (item.name);
+        var a = $("<a>").text(item.name);
 
         if (item.comment)
         {
-            a.append ('<span class="autocomplete-comment">(' +
-                      _.escapeHTML (item.comment) + ')</span>');
+            a.append('<span class="autocomplete-comment">(' +
+                      _.escape(item.comment) + ')</span>');
         }
 
         if (item.typeName || item.parentCountry || item.parentSubdivision || item.parentCity) {
              var items = [];
-             if (item.typeName) items.push(_.escapeHTML(item.typeName));
-             if (item.parentCity) items.push(_.escapeHTML(item.parentCity));
-             if (item.parentSubdivision) items.push(_.escapeHTML(item.parentSubdivision));
-             if (item.parentCountry) items.push(_.escapeHTML(item.parentCountry));
-             a.append ('<br /><span class="autocomplete-comment">' +
+             if (item.typeName) items.push(_.escape(item.typeName));
+             if (item.parentCity) items.push(_.escape(item.parentCity));
+             if (item.parentSubdivision) items.push(_.escape(item.parentSubdivision));
+             if (item.parentCountry) items.push(_.escape(item.parentCountry));
+             a.append('<br /><span class="autocomplete-comment">' +
                        items.join(", ") +
                        '</span>');
         };
 
-        return $("<li>").append (a).appendTo (ul);
+        return $("<li>").append(a).appendTo(ul);
     },
 
     "place": function (ul, item) {
-        var a = $("<a>").text (item.name);
+        var a = $("<a>").text(item.name);
 
         var comment = [];
 
         if (item.primary_alias && item.primary_alias != item.name)
         {
-            comment.push (item.primary_alias);
+            comment.push(item.primary_alias);
         }
 
         if (item.comment)
         {
-            comment.push (item.comment);
+            comment.push(item.comment);
         }
 
         if (comment.length)
         {
-            a.append (' <span class="autocomplete-comment">(' +
-                      _.escapeHTML (comment.join (", ")) + ')</span>');
+            a.append(' <span class="autocomplete-comment">(' +
+                      _.escape(comment.join(", ")) + ')</span>');
         }
 
         if (item.typeName || item.area) {
-             a.append ('<br /><span class="autocomplete-comment">' +
-                       (item.typeName ? _.escapeHTML(item.typeName) : '') +
+             a.append('<br /><span class="autocomplete-comment">' +
+                       (item.typeName ? _.escape(item.typeName) : '') +
                        (item.typeName && item.area ? ', ' : '') +
-                       (item.area ? _.escapeHTML(item.area) : '') +
+                       (item.area ? _.escape(item.area) : '') +
+                       (item.areaParentCity ? ', ' + _.escape(item.areaParentCity) : '') +
+                       (item.areaParentSubdivision ? ', ' + _.escape(item.areaParentSubdivision) : '') +
+                       (item.areaParentCountry ? ', ' + _.escape(item.areaParentCountry) : '') +
                        '</span>');
         };
 
-        return $("<li>").append (a).appendTo (ul);
+        return $("<li>").append(a).appendTo(ul);
+    },
+
+    "instrument": function (ul, item) {
+        var a = $("<a>").text(item.name);
+
+        var comment = [];
+
+        if (item.primary_alias && item.primary_alias != item.name) {
+            comment.push(item.primary_alias);
+        }
+
+        if (item.comment) {
+            comment.push(item.comment);
+        }
+
+        if (item.typeName) {
+            comment.push(item.typeName);
+        }
+
+        if (comment.length)
+        {
+            a.append(' <span class="autocomplete-comment">(' +
+                      _.escape(comment.join(", ")) + ')</span>');
+        }
+
+        if (item.description) {
+            a.append('<br /><span class="autocomplete-comment">' +
+                      _.escape(item.description) +
+                      '</span>');
+        }
+
+        return $("<li>").append(a).appendTo(ul);
     }
 
 };
@@ -652,7 +735,7 @@ MB.Control.autocomplete_formatters = {
    Do a lookup of the span with jQuery and pass it into EntityAutocomplete
    as options.inputs, for example, for a release group do this:
 
-       MB.Control.EntityAutocomplete ({ inputs: $('span.release-group.autocomplete') });
+       MB.Control.EntityAutocomplete({ inputs: $('span.release-group.autocomplete') });
 
    The 'lookup-performed' and 'cleared' events will be triggered on the input.name
    element (though you can just bind on the span, as events will bubble up).
@@ -674,11 +757,11 @@ MB.Control.EntityAutocomplete = function (options) {
     $name.autocomplete(options);
     var autocomplete = $name.data("ui-autocomplete");
 
-    autocomplete.currentSelection({
+    autocomplete.currentSelection(MB.entity({
         name: $name.val(),
         id: $inputs.find("input.id").val(),
         gid: $inputs.find("input.gid").val()
-    });
+    }, options.entity));
 
     autocomplete.currentSelection.subscribe(function (item) {
         var $hidden = $inputs.find("input[type=hidden]").val("");

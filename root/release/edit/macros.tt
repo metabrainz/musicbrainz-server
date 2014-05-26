@@ -1,0 +1,45 @@
+[% MACRO table_row_error(colspan, data_bind) BLOCK -%]
+  <tr class="error">
+    <td></td>
+    <td colspan="[% colspan %]" class="error field-error" data-bind="[% data_bind %]"></td>
+  </tr>
+[%- END %]
+
+[% MACRO table_row_select_options(options) BLOCK -%]
+  [%- FOR opt=options %]
+  [%- matches = opt.label.match('^((?:&#xa0;)*)(.*)') -%]
+  <option value="[% opt.value %]">[% matches.0 %][% matches.1 | html %]</option>
+  [%- END %]
+[% END %]
+
+[% MACRO table_cells_select(id, label, colspan, data_bind, options, multiple) BLOCK -%]
+  <td><label for="[% id %]">[% label %]</label></td>
+  <td colspan="[% colspan %]">
+    <select id="[% id %]" data-bind="[% data_bind %]"[% ' multiple' IF multiple %]>
+      <option value="" selected="selected">&#160;</option>
+      [% IF options.0.optgroup %]
+        [% FOR optgroup=options %]
+        <optgroup label="[% optgroup.optgroup %]">
+          [% table_row_select_options(optgroup.options) %]
+        </optgroup>
+        [%- END %]
+      [% ELSE %]
+        [% table_row_select_options(options) %]
+      [% END %]
+    </select>
+  </td>
+[%- END %]
+
+[% MACRO table_row_select(id, label, colspan, data_bind, options, multiple) BLOCK -%]
+  <tr>
+    [% table_cells_select(id, label, colspan, data_bind, options, multiple) %]
+  </tr>
+[%- END %]
+
+[% MACRO track_bubble_buttons BLOCK %]
+  <div class="buttons" style="float: right;">
+    <button type="button" data-click="previousTrack">[% l('Previous') %]</button>
+    <button type="button" data-click="nextTrack">[% l('Next') %]</button>
+    <button type="button" class="positive" data-click="hide">[% l('Done') %]</button>
+  </div>
+[% END %]

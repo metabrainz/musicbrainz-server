@@ -2,6 +2,7 @@ package MusicBrainz::Server::WebService::Serializer::XML::1::Utils;
 
 use base 'Exporter';
 use Readonly;
+use Class::Load qw( load_class );
 
 use String::CamelCase qw(camelize);
 
@@ -41,7 +42,7 @@ sub serializer
 
     my $class = $ENTITY_TO_SERIALIZER{$entity->meta->name};
 
-    Class::MOP::load_class($class);
+    load_class($class);
 
     $serializers{$class} ||= $class->new;
     return $serializers{$class};

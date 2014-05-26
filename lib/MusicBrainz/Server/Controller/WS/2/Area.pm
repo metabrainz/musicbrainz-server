@@ -43,9 +43,9 @@ sub area_toplevel
 {
     my ($self, $c, $stash, $area) = @_;
 
-    my $opts = $stash->store ($area);
+    my $opts = $stash->store($area);
 
-    $self->linked_areas ($c, $stash, [ $area ]);
+    $self->linked_areas($c, $stash, [ $area ]);
 
 
     $c->model('AreaType')->load($area);
@@ -70,9 +70,9 @@ sub area : Chained('load') PathPart('')
     return unless defined $area;
 
     my $stash = WebServiceStash->new;
-    my $opts = $stash->store ($area);
+    my $opts = $stash->store($area);
 
-    $self->area_toplevel ($c, $stash, $area);
+    $self->area_toplevel($c, $stash, $area);
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('area', $area, $c->stash->{inc}, $stash));
@@ -83,7 +83,7 @@ sub area_browse : Private
     my ($self, $c) = @_;
 
     my ($resource, $id) = @{ $c->stash->{linked} };
-    my ($limit, $offset) = $self->_limit_and_offset ($c);
+    my ($limit, $offset) = $self->_limit_and_offset($c);
 
     if (!is_guid($id))
     {
@@ -98,7 +98,7 @@ sub area_browse : Private
 
     for (@{ $areas->{items} })
     {
-        $self->label_toplevel ($c, $stash, $_);
+        $self->label_toplevel($c, $stash, $_);
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
@@ -110,7 +110,7 @@ sub area_search : Chained('root') PathPart('area') Args(0)
     my ($self, $c) = @_;
 
     $c->detach('area_browse') if ($c->stash->{linked});
-    $self->_search ($c, 'area');
+    $self->_search($c, 'area');
 }
 
 __PACKAGE__->meta->make_immutable;

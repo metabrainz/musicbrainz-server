@@ -12,7 +12,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_RELEASE );
 use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_date upgrade_id upgrade_type_and_status );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Entity::PartialDate;
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 sub edit_name     { N_l('Add release') }
 sub edit_kind     { 'add' }
@@ -113,7 +113,7 @@ sub build_display_data
         tracks => [
             map {
                 # Stuff that had artist_name present did not actually have an artist ID
-                my $track_artist = defined ($_->{artist_name})
+                my $track_artist = defined($_->{artist_name})
                     ? Artist->new( name => $_->{artist_name} )
                     : $loaded->{Artist}->{ $_->{artist_id} };
 

@@ -1,57 +1,87 @@
-[% IF release.name %]
-  [% page_title = l('{name} - Edit Release', { name => release.name }) %]
-[% ELSIF information.field('name').value %]
-  [% page_title = l('Add Release: {title}', { title => html_escape(information.field('name').value) }) %]
-[% ELSE %]
-  [% page_title = lp('Add Release', 'header') %]
-[% END %]
+[%- PROCESS 'release/edit/macros.tt' -%]
 
 [%- WRAPPER 'layout.tt' full_width=1 edit=1 title=page_title -%]
   [% IF release.name %]
     [%- INCLUDE "release/header.tt" page="edit" -%]
-  [% ELSIF information.field('name').value %]
-    <h1>[% l('Add Release: {title}', { title => html_escape(information.field('name').value) }) %]</h1>
   [% ELSE %]
     <h1>[% lp('Add Release', 'header') %]</h1>
   [% END %]
 
-  <form action="[% c.req.uri %]" method="post" class="release-editor">
-    [%- r.hidden ('wizard_session_id') -%]
-    <input type="hidden" name="wizard_page_id" value="[% page_id %]" />
-
-    <div id="release-editor">
-      <ul class="tabs ui-helper-clearfix">
-        [% FOREACH step IN steps %]
-        <li [% IF step.current %] class="current" [% END %]>
-        <input type="submit" name="[% step.name %]" value="[% step.title %]" />
-        </li>
-        [% END %]
-      </ul>
-
-    [%- IF no_javascript -%]
-      [%- warning( l("Javascript needs to be enabled to edit releases."), "nojavascript" ) -%]
-    [%- END -%]
-
-    [%- IF !hide_errors && form.error_fields.size -%]
-      [% USE r = FormRenderer(form) %]
-      [%- field_message = "" -%]
-      [%- disc_error = 0 -%]
-      [%- FOR field=form.error_fields -%]
-        [%- IF field.parent AND field.parent.html_name == 'mediums' -%]
-          [%- error(field.result.errors.join (', ')) -%]
-          [%- disc_error = 1 -%]
-        [%- END -%]
+  <div id="release-editor" style="display: none;" data-bind="delegatedHandler: ['click', 'change', 'keydown']">
+    <ul>
+      <li><a href="#information">[% l('Release Information') %]</a></li>
+      [% IF NOT release.gid %]
+        <li><a href="#duplicates-tab">[% l('Release Duplicates') %]</a></li>
       [% END %]
+      <li><a href="#tracklist">[% l('Tracklist') %]</a></li>
+      <li><a href="#recordings" title="[% l('First enter all track information, including titles and artist credits, in order to edit their recordings.') | html_entity %]">[% l('Recordings') %]</a></li>
+      <li><a href="#edit-note">[% l('Edit Note') %]</a></li>
+    </ul>
 
-      [%- UNLESS disc_error -%]
-        [%- message = l("There were one or more errors, please check the following fields: {fields}", fields => field_message) -%]
-        [%- warning(message) -%]
-      [% END %]
+    <!-- ko if: seedErrors -->
+      <div class="error" style="padding: 1em 0.5em">
+        [% l('The data you’ve seeded contained the following errors:') %]
+        <ul data-bind="foreach: seedErrors">
+          <li data-bind="text: $data"></li>
+        </ul>
+        [% l('Review the {url|documentation} on release editor seeding and make sure your data is formatted correctly.', { url => doc_link('Development/Release_Editor_Seeding') }) %]
+      </div>
+    <!-- /ko -->
+
+    <div id="information">
+      [% INCLUDE 'release/edit/information.tt' %]
+    </div>
+
+    [% IF NOT release.gid %]
+      <div id="duplicates-tab">
+        [% INCLUDE 'release/edit/duplicates.tt' %]
+      </div>
     [% END %]
 
-    [% content %]
-
+    <div id="tracklist">
+      [% INCLUDE 'release/edit/tracklist.tt' %]
     </div>
-  </form>
 
+    <div id="recordings">
+      [% INCLUDE 'release/edit/recordings.tt' %]
+    </div>
+
+    <div id="edit-note">
+      [% INCLUDE 'release/edit/editnote.tt' %]
+    </div>
+
+    <div class="buttons">
+      <button type="button" class="negative" data-click="cancelPage">[% l('Cancel') | html_entity %]</button>
+
+      <button type="button" data-bind="visible: activeTabIndex() > 0" data-click="previousTab">[% l('« Previous') | html_entity %]</button>
+      <button type="button" data-bind="visible: activeTabIndex() < tabCount - 1" data-click="nextTab">[% l('Next »') | html_entity %]</button>
+
+      <!-- ko template: { if: activeTabID() === "#tracklist", data: addDiscDialog } -->
+        <button type="button" data-click="open">[% l('Add Disc') %]</button>
+      <!-- /ko -->
+
+      <button type="button" class="positive" data-click="submitEdits" data-bind="visible: activeTabID() === '#edit-note', disable: submissionInProgress() || validation.errorCount() > 0 || allEdits().length === 0">[% l('Enter edit') %]</button>
+    </div>
+  </div>
+
+  [% script_manifest('guess-case.js.manifest') %]
+  [% script_manifest('edit.js.manifest') %]
+  [% script_manifest('release-editor.js.manifest') %]
+  [% PROCESS 'components/relationship-editor.tt' %]
+
+  <script>
+    MB.relationshipEditor.exportTypeInfo([% type_info %], [% attr_info %]);
+
+    MB.releaseEditor.init({
+    [%- IF release.gid %]
+      gid: "[% release.gid | js %]",
+      action: "edit",
+    [%- ELSE %]
+      action: "add",
+    [%- END %]
+      returnTo: "[% return_to | js %]",
+      redirectURI: "[% redirect_uri | js %]",
+      seed: [% seeded_data OR 'null' %]
+    });
+  </script>
 [%- END -%]

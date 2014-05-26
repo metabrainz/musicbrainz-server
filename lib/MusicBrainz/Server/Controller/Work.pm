@@ -1,8 +1,10 @@
 package MusicBrainz::Server::Controller::Work;
+use 5.10.0;
 use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
+use JSON;
 use MusicBrainz::Server::Constants qw(
     $EDIT_WORK_CREATE
     $EDIT_WORK_EDIT
@@ -19,12 +21,12 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Alias';
 with 'MusicBrainz::Server::Controller::Role::Details';
-with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::Rating';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Cleanup';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
+with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 
@@ -37,6 +39,7 @@ after 'load' => sub
     my $work = $c->stash->{work};
     $c->model('Work')->load_meta($work);
     $c->model('ISWC')->load_for_works($work);
+    $c->model('Relationship')->load($work);
     if ($c->user_exists) {
         $c->model('Work')->rating->load_user_ratings($c->user->id, $work);
     }
@@ -46,23 +49,18 @@ sub show : PathPart('') Chained('load')
 {
     my ($self, $c) = @_;
 
-    my $work = $c->stash->{work};
-    $c->model('WorkType')->load($work);
-    $c->model('Language')->load($work);
-    $c->model('Work')->load_writers($work);
-
-    # need to call relationships for overview page
-    $self->relationships($c);
+    $c->model('Work')->load_writers($c->stash->{work});
 
     $c->stash->{template} = 'work/index.tt';
 }
 
-for my $action (qw( relationships aliases tags details )) {
+for my $action (qw( show aliases tags details )) {
     after $action => sub {
         my ($self, $c) = @_;
         my $work = $c->stash->{work};
         $c->model('WorkType')->load($work);
         $c->model('Language')->load($work);
+        $c->model('WorkAttribute')->load_for_works($work);
     };
 }
 
@@ -83,7 +81,6 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
             post_creation => $self->edit_with_identifiers($c, $work),
             edit_args => {
                 to_edit => $work,
-                attributes => []
             }
         );
     }
@@ -91,8 +88,6 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_WORK_MERGE,
-    confirmation_template => 'work/merge_confirm.tt',
-    search_template       => 'work/merge_search.tt',
 };
 
 before 'edit' => sub
@@ -100,7 +95,36 @@ before 'edit' => sub
     my ($self, $c) = @_;
     my $work = $c->stash->{work};
     $c->model('WorkType')->load($work);
+    $c->model('WorkAttribute')->load_for_works($work);
+    stash_work_attribute_json($c);
 };
+
+sub stash_work_attribute_json {
+    my ($c) = @_;
+    state $json = JSON::Any->new( utf8 => 1 );
+
+    state $build_json;
+
+    $build_json = sub {
+        my ($root, $out) = @_;
+
+        $out //= {};
+
+        my @children = map { $build_json->($_, $_->to_json_hash) } $root->all_children;
+        $out->{children} = [ @children ] if scalar(@children);
+
+        return $out;
+    };
+
+    $c->stash(
+        workAttributeTypesJson => $json->encode(
+            $build_json->($c->model('WorkAttributeType')->get_tree)
+        ),
+        workAttributeValuesJson => $json->encode(
+            $build_json->($c->model('WorkAttributeTypeAllowedValue')->get_tree)
+        )
+    );
+}
 
 sub _merge_load_entities
 {
@@ -112,6 +136,7 @@ sub _merge_load_entities
     }
     $c->model('Work')->load_writers(@works);
     $c->model('Work')->load_recording_artists(@works);
+    $c->model('WorkAttribute')->load_for_works(@works);
     $c->model('Language')->load(@works);
     $c->model('ISWC')->load_for_works(@works);
 };
@@ -127,6 +152,12 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
         );
     },
     dialog_template => 'work/edit_form.tt',
+};
+
+before 'create' => sub
+{
+    my ($self, $c) = @_;
+    stash_work_attribute_json($c);
 };
 
 1;

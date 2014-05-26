@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::Browse;
 use Moose;
+use List::UtilsBy qw( sort_by );
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
@@ -11,13 +12,13 @@ sub _browse
 
     my $index = $c->req->query_params->{index};
     my $entities;
-    if ($index) {
-        $entities = $self->_load_paged($c, sub {
-            $c->model($model_name)->find_by_name_prefix($index, shift, shift);
-        });
-    }
+    $entities = $self->_load_paged($c, sub {
+        $c->model($model_name)->fetch_all(shift, shift);
+    });
 
     $c->stash(
+        template => 'browse/entity.tt',
+        type     => $model_name,
         entities => $entities,
         index    => $index,
     );
@@ -43,6 +44,28 @@ sub artist : Local
     my ($self, $c) = @_;
 
     $self->_browse($c, 'Artist');
+}
+
+sub instrument : Local {
+    my ($self, $c) = @_;
+
+    my ($instruments, $total) = $c->model('Instrument')->fetch_all;
+    my $coll = $c->get_collator();
+    my @sorted = sort_by { $coll->getSortKey($_->l_name) } @$instruments;
+
+    my @types = $c->model('InstrumentType')->get_all();
+
+    my $entities = {};
+    for my $i (@sorted) {
+        my $type = $i->{type_id} || "unknown";
+        push @{ $entities->{$type} }, $i;
+    }
+
+    $c->stash(
+        template => 'browse/instrument.tt',
+        entities => $entities,
+        types => \@types,
+    );
 }
 
 sub label : Local
@@ -78,6 +101,13 @@ sub work : Local
     my ($self, $c) = @_;
 
     $self->_browse($c, 'Work');
+}
+
+sub series : Local
+{
+    my ($self, $c) = @_;
+
+    $self->_browse($c, 'Series');
 }
 
 no Moose;

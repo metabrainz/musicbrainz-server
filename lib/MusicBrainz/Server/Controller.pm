@@ -55,7 +55,7 @@ auto-editing, for example).
 sub submit_and_validate
 {
     my ($self, $c) = @_;
-    if($c->form_posted && $self->form->validate($c->req->body_params))
+    if ($c->form_posted && $self->form->validate($c->req->body_params))
     {
         if ($self->form->isa('MusicBrainz::Server::Form'))
         {
@@ -115,9 +115,50 @@ sub _insert_edit {
 
     if (defined $edit)
     {
-        $c->flash->{message} = $edit->is_open
-            ? l('Thank you, your edit has been entered into the edit queue for peer review.')
-            : l('Thank you, your edit has been accepted and applied');
+      if (not defined $c->stash->{edit_ids}) {
+        $c->stash->{edit_ids} = [ $edit->id ];
+        $c->stash->{num_open_edits} = $edit->is_open;
+      } else {
+        push(@{$c->stash->{edit_ids}}, $edit->id );
+        $c->stash->{num_open_edits}++ if $edit->is_open;
+      }
+
+      my %args = ( num_edits => scalar(@{$c->stash->{edit_ids}}),
+                   num_open_edits => $c->stash->{num_open_edits} );
+      my $first_edit_id = $c->stash->{edit_ids}->[0];
+      my @edit_ids = @{$c->stash->{edit_ids}};
+      $args{edit_ids} = "#" . join(", #", @edit_ids[0.. ($#edit_ids > 2 ? 2 : $#edit_ids)]) . ($#edit_ids>2?", ...":"");
+      $args{edit_url} =
+        (($args{num_edits} == 1)
+         ? $c->uri_for_action('/edit/show', [ $first_edit_id ])
+         : $c->uri_for_action('/edit/search',
+                              { 'conditions.0.field'=>'id',
+                                'conditions.0.operator'=>'BETWEEN',
+                                'conditions.0.args.0'=>$first_edit_id,
+                                'conditions.0.args.1'=>$c->stash->{edit_ids}->[-1]
+                              }));
+
+      if ($args{num_open_edits} == 0) {
+        # All autoedits
+        $c->flash->{message} =
+          ln('Thank you, your {edit_url|edit} ({edit_ids}) has been automatically accepted and applied.',
+             'Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been automatically accepted and applied.',
+             $args{num_edits}, \%args);
+      } elsif ($args{num_open_edits} == $args{num_edits}) {
+        # All open edits
+        $c->flash->{message} =
+          ln('Thank you, your {edit_url|edit} ({edit_ids}) has been entered into the edit queue for peer review.',
+             'Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been entered into the edit queue for peer review.',
+             $args{num_edits}, \%args);
+      } else {
+        # Mixture of both
+        # Even though the singular case is impossible (since 1 edit must be either an autoedit or open),
+        # it is included since gettext uses the singular case as a key.
+        $c->flash->{message} =
+          ln('Thank you, your {edit_url|edit} ({edit_ids}) has been entered, with {num_open_edits} in the edit queue for peer review, and the rest automatically accepted and applied.',
+             'Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been entered, with {num_open_edits} in the edit queue for peer review, and the rest automatically accepted and applied.',
+             $args{num_edits}, \%args);
+      }
     }
 
     return $edit;
@@ -150,16 +191,19 @@ sub edit_action
 
             # the on_creation hook is only called when an edit was entered.
             # the post_creation hook is always called.
-            $opts{post_creation}->($edit, $form) if exists $opts{post_creation};
+            my $post_creation_changes = $opts{post_creation}->($edit, $form)
+                if exists $opts{post_creation};
+
             $opts{on_creation}->($edit, $form) if $edit && exists $opts{on_creation};
+
+            if ($post_creation_changes && $c->stash->{makes_no_changes}) {
+                $c->stash( makes_no_changes => 0 );
+            }
         });
 
-        # `post_creation` and `on_creation` often perform a redirection.
-        # If they have called $c->res->redirect, $c->res->location will be a
-        # true value, and we can detach early. `post_creation` and `on_creation`
-        # can't do this, as $c->detach is implemented by throwing an exception,
-        # which causes the above transaction to rollback.
-        if ($c->res->location) {
+        if ($opts{redirect} && !$opts{no_redirect} &&
+                ($edit || !$c->stash->{makes_no_changes})) {
+            $opts{redirect}->();
             $c->detach;
         }
 
@@ -213,14 +257,14 @@ sub _load_paged
 
     if ($page > 1 && scalar @$data == 0)
     {
-        my $page = $self->_search_final_page ($loader, $LIMIT, $page);
+        my $page = $self->_search_final_page($loader, $LIMIT, $page);
         my $uri = $c->request->uri;
         my %params = $uri->query_form;
 
         $params{$prefix . "page"} = $page;
-        $uri->query_form (\%params);
+        $uri->query_form(\%params);
 
-        $c->response->redirect ($uri);
+        $c->response->redirect($uri);
         $c->detach;
     }
 

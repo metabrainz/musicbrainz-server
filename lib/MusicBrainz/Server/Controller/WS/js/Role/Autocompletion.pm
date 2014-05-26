@@ -40,13 +40,13 @@ sub _load_entities {
     my ($self, $c, @entities) = @_;
 
     if ($c->stash->{inc}->{rels}) {
-        $c->model('Relationship')->load (@entities);
+        $c->model('Relationship')->load(@entities);
     }
 }
 
 sub _do_direct_search {
     my ($self, $c, $query, $offset, $limit) = @_;
-    return $c->model ('Search')->search (
+    return $c->model('Search')->search(
         $self->type, $query, $limit, $offset);
 }
 
@@ -61,10 +61,10 @@ sub _direct_search {
 
     my @output = $self->_format_output($c, @entities);
 
-    my $pager = Data::Page->new ();
-    $pager->entries_per_page ($limit);
-    $pager->current_page ($page);
-    $pager->total_entries ($hits);
+    my $pager = Data::Page->new();
+    $pager->entries_per_page($limit);
+    $pager->current_page($page);
+    $pager->total_entries($hits);
 
     return (\@output, $pager);
 }
@@ -80,7 +80,7 @@ sub _indexed_search {
     my $model = $self->model($c);
 
     my $no_redirect = 1;
-    my $response = $c->model ('Search')->external_search (
+    my $response = $c->model('Search')->external_search(
         $self->type, $query, $limit, $page, 0, undef);
 
     my (@output, $pager);
@@ -91,7 +91,7 @@ sub _indexed_search {
 
         for my $result (@{ $response->{results} })
         {
-            my $entity = $model->get_by_gid ($result->{entity}->gid) if $result->entity->{gid};
+            my $entity = $model->get_by_gid($result->{entity}->gid) if $result->entity->{gid};
             next unless $entity;
             push @output, $entity;
         }
@@ -106,9 +106,9 @@ sub _indexed_search {
         # errors. --warp.
 
         $pager = Data::Page->new;
-        $pager->entries_per_page ($limit);
-        $pager->current_page ($page);
-        $pager->total_entries (0);
+        $pager->entries_per_page($limit);
+        $pager->current_page($page);
+        $pager->total_entries(0);
     }
 
     return ([ $self->_format_output($c, @output) ], $pager);

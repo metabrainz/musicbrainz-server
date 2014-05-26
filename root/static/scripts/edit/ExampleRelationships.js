@@ -1,4 +1,4 @@
-MB.ExampleRelationshipsEditor = (function(ERE) {
+MB.ExampleRelationshipsEditor = (function (ERE) {
 
 // Private variables
 var type0, type1, linkTypeName, jsRoot, formName;
@@ -9,7 +9,7 @@ var searchUrl;
 // Private classes
 var RelationshipsSearcher, ViewModel;
 
-ERE.init = function(config) {
+ERE.init = function (config) {
     type0 = config.type0;
     type1 = config.type1;
     linkTypeName = config.linkTypeName;
@@ -23,15 +23,15 @@ ERE.init = function(config) {
         'entity': type0,
         'setEntity': ERE.viewModel.selectedEntityType
     });
-    ERE.viewModel.selectedEntityType.subscribe (autocomplete.changeEntity);
-    ERE.viewModel.availableEntityTypes (
+    ERE.viewModel.selectedEntityType.subscribe(autocomplete.changeEntity);
+    ERE.viewModel.availableEntityTypes(
         _.chain([ type0, type1 ]).uniq().map(function (value) {
             return { 'value': value, 'text': MB.text.Entity[value] };
-        }).value ());
+        }).value());
 
     ko.bindingHandlers.checkObject = {
         init: function (element, valueAccessor, all, vm, bindingContext) {
-            ko.utils.registerEventHandler(element, "click", function() {
+            ko.utils.registerEventHandler(element, "click", function () {
                 var checkedValue = valueAccessor(),
                     meValue = bindingContext.$data,
                     checked = element.checked;
@@ -51,12 +51,12 @@ ERE.init = function(config) {
     ko.applyBindings(ERE.viewModel);
 }
 
-ERE.Example = function(name, relationship) {
+ERE.Example = function (name, relationship) {
     var self = this;
 
     self.name = ko.observable(name);
     self.relationship = relationship;
-    self.removeExample = function() {
+    self.removeExample = function () {
         ERE.viewModel.examples.remove(this);
     }
 
@@ -71,7 +71,7 @@ ViewModel = function () {
         currentExample: {
             name: ko.observable(),
             relationship: ko.observable(),
-            add: function() {
+            add: function () {
                 var ce = this.currentExample;
 
                 this.examples.push(
@@ -86,7 +86,7 @@ ViewModel = function () {
     }
 };
 
-searchUrl = function(mbid) {
+searchUrl = function (mbid) {
     return jsRoot + mbid + '?inc=rels';
 }
 
@@ -99,32 +99,32 @@ RelationshipSearcher = function () {
 
     self.results = ko.observableArray();
 
-    self.search = function() {
+    self.search = function () {
         var possible = this.currentExample.possibleRelationships;
 
         var request = $.ajax(searchUrl(possible.query()));
 
-        request.fail (function (jqxhr, status, error) {
-            self.error ('Lookup failed: ' + error);
+        request.fail(function (jqxhr, status, error) {
+            self.error('Lookup failed: ' + error);
         });
 
-        request.done (function (data, status, jqxhr) {
-            var search_result_type = data.type.replace ("-", "_");
+        request.done(function (data, status, jqxhr) {
+            var search_result_type = data.entityType.replace("-", "_");
             var endPointType = search_result_type == type0 ? type1 : type0;
 
             if (! (search_result_type === type0 || search_result_type === type1)) {
-                self.error ('Invalid type for this relationship: ' +  search_result_type +
+                self.error('Invalid type for this relationship: ' +  search_result_type +
                            ' (expected ' + type0 + ' or ' + type1 + ')');
             }
-            else if (! _(data.relationships).has(endPointType)) {
-                self.error ('No ' + endPointType + ' relationships found for ' + data.name);
+            else if (! _.has(data.relationships, endPointType)) {
+                self.error('No ' + endPointType + ' relationships found for ' + data.name);
             }
-            else if (! _(data.relationships[endPointType]).has(linkTypeName)) {
-                self.error ('No ' + linkTypeName + ' relationships found for ' + data.name);
+            else if (! _.has(data.relationships[endPointType], linkTypeName)) {
+                self.error('No ' + linkTypeName + ' relationships found for ' + data.name);
             }
             else
             {
-                self.error (null);
+                self.error(null);
 
                 _.each(
                     data['relationships'][endPointType][linkTypeName],
@@ -138,13 +138,13 @@ RelationshipSearcher = function () {
 
                         possible.results.push({
                             id: rel.id,
-                            phrase: rel.verbose_phrase,
+                            phrase: rel.verbosePhrase,
                             source: {
-                                name: source.name || source.url,
+                                name: source.name,
                                 mbid: source.gid
                             },
                             target: {
-                                name: target.name || target.url,
+                                name: target.name,
                                 mbid: target.gid
                             }
                         })
@@ -154,7 +154,7 @@ RelationshipSearcher = function () {
         });
     };
 
-    self.clear =  function() {
+    self.clear =  function () {
         this.query('');
         this.results.removeAll();
     }

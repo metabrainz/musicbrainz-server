@@ -4,11 +4,12 @@ BEGIN { extends 'Catalyst::Controller'; }
 
 use DBDefs;
 use HTTP::Status qw( :constants );
-use MusicBrainz::Server::WebService::Format;
-use MusicBrainz::Server::WebService::XMLSerializer;
-use MusicBrainz::Server::WebService::JSONSerializer;
-use MusicBrainz::Server::Data::Utils qw( type_to_model object_to_ids );
+use List::UtilsBy qw( uniq_by );
+use MusicBrainz::Server::Data::Utils qw( type_to_model model_to_type object_to_ids );
 use MusicBrainz::Server::Validation qw( is_guid is_nat );
+use MusicBrainz::Server::WebService::Format;
+use MusicBrainz::Server::WebService::JSONSerializer;
+use MusicBrainz::Server::WebService::XMLSerializer;
 use Readonly;
 use Scalar::Util qw( looks_like_number );
 use Try::Tiny;
@@ -160,7 +161,7 @@ sub root : Chained('/') PathPart("ws/2") CaptureArgs(0)
     }
     catch {
         my $err = $_;
-        if(eval { $err->isa('MusicBrainz::Server::WebService::Exceptions::UnknownIncParameter') }) {
+        if (eval { $err->isa('MusicBrainz::Server::WebService::Exceptions::UnknownIncParameter') }) {
             $self->_error($c, $err->message);
         }
         $c->detach;
@@ -215,16 +216,16 @@ sub _tags
 {
     my ($self, $c, $modelname, $entities, $stash) = @_;
 
-    my %map = object_to_ids (@$entities);
+    my %map = object_to_ids(@$entities);
     my $model = $c->model($modelname);
 
     if ($c->stash->{inc}->tags)
     {
-        my @tags = $model->tags->find_tags_for_entities (map { $_->id } @$entities);
+        my @tags = $model->tags->find_tags_for_entities(map { $_->id } @$entities);
 
         for (@tags)
         {
-            my $opts = $stash->store ($map{$_->entity_id}->[0]);
+            my $opts = $stash->store($map{$_->entity_id}->[0]);
 
             $opts->{tags} = [] unless $opts->{tags};
             push @{ $opts->{tags} }, $_;
@@ -233,12 +234,12 @@ sub _tags
 
     if ($c->stash->{inc}->user_tags)
     {
-        my @tags = $model->tags->find_user_tags_for_entities (
+        my @tags = $model->tags->find_user_tags_for_entities(
             $c->user->id, map { $_->id } @$entities);
 
         for (@tags)
         {
-            my $opts = $stash->store ($map{$_->entity_id}->[0]);
+            my $opts = $stash->store($map{$_->entity_id}->[0]);
 
             $opts->{user_tags} = [] unless $opts->{user_tags};
             push @{ $opts->{user_tags} }, $_;
@@ -250,7 +251,7 @@ sub _ratings
 {
     my ($self, $c, $modelname, $entities, $stash) = @_;
 
-    my %map = object_to_ids (@$entities);
+    my %map = object_to_ids(@$entities);
     my $model = $c->model($modelname);
 
     if ($c->stash->{inc}->ratings)
@@ -261,7 +262,7 @@ sub _ratings
         {
             if ($_->rating_count)
             {
-                $stash->store ($_)->{ratings} = {
+                $stash->store($_)->{ratings} = {
                     rating => $_->rating * 5 / 100,
                     count => $_->rating_count,
                 };
@@ -274,8 +275,30 @@ sub _ratings
         $model->rating->load_user_ratings($c->user->id, @$entities);
         for (@$entities)
         {
-            $stash->store ($_)->{user_ratings} = $_->user_rating * 5 / 100
+            $stash->store($_)->{user_ratings} = $_->user_rating * 5 / 100
                 if $_->user_rating;
+        }
+    }
+}
+
+sub _aliases {
+    my ($self, $c, $model, $entities, $stash) = @_;
+
+    if ($c->stash->{inc}->aliases) {
+        my @aliases = @{ $c->model($model)->alias->find_by_entity_id(map { $_->id } @$entities) };
+
+        $c->model($model)->alias_type->load(@aliases);
+
+        my $entity_id = model_to_type($model) . '_id';
+        my %alias_per_entity;
+
+        for (@aliases) {
+            $alias_per_entity{$_->$entity_id} = [] unless $alias_per_entity{$_->$entity_id};
+            push @{ $alias_per_entity{$_->$entity_id} }, $_;
+        }
+
+        for (@$entities) {
+            $stash->store($_)->{aliases} = $alias_per_entity{$_->id};
         }
     }
 }
@@ -313,47 +336,14 @@ sub linked_artists
     my ($self, $c, $stash, $artists) = @_;
 
     $self->_tags_and_ratings($c, 'Artist', $artists, $stash);
-
-    if ($c->stash->{inc}->aliases)
-    {
-        my @aliases = @{ $c->model('Artist')->alias->find_by_entity_id(map { $_->id } @$artists) };
-        $c->model('Artist')->alias_type->load(@aliases);
-
-        my %alias_per_artist;
-        foreach (@aliases)
-        {
-            $alias_per_artist{$_->artist_id} = [] unless $alias_per_artist{$_->artist_id};
-            push @{ $alias_per_artist{$_->artist_id} }, $_;
-        }
-
-        foreach (@$artists)
-        {
-            $stash->store ($_)->{aliases} = $alias_per_artist{$_->id};
-        }
-    }
+    $self->_aliases($c, 'Artist', $artists, $stash);
 }
 
 sub linked_areas
 {
     my ($self, $c, $stash, $areas) = @_;
 
-    if ($c->stash->{inc}->aliases)
-    {
-        my @aliases = @{ $c->model('Area')->alias->find_by_entity_id(map { $_->id } @$areas) };
-        $c->model('Area')->alias_type->load(@aliases);
-
-        my %alias_per_area;
-        foreach (@aliases)
-        {
-            $alias_per_area{$_->area_id} = [] unless $alias_per_area{$_->area_id};
-            push @{ $alias_per_area{$_->area_id} }, $_;
-        }
-
-        foreach (@$areas)
-        {
-            $stash->store ($_)->{aliases} = $alias_per_area{$_->id};
-        }
-    }
+    $self->_aliases($c, 'Area', $areas, $stash);
 }
 
 sub linked_lists
@@ -366,24 +356,7 @@ sub linked_labels
     my ($self, $c, $stash, $labels) = @_;
 
     $self->_tags_and_ratings($c, 'Label', $labels, $stash);
-
-    if ($c->stash->{inc}->aliases)
-    {
-        my @aliases = @{ $c->model('Label')->alias->find_by_entity_id(map { $_->id } @$labels) };
-        $c->model('Label')->alias_type->load(@aliases);
-
-        my %alias_per_label;
-        foreach (@aliases)
-        {
-            $alias_per_label{$_->label_id} = [] unless $alias_per_label{$_->label_id};
-            push @{ $alias_per_label{$_->label_id} }, $_;
-        }
-
-        foreach (@$labels)
-        {
-            $stash->store ($_)->{aliases} = $alias_per_label{$_->id};
-        }
-    }
+    $self->_aliases($c, 'Label', $labels, $stash);
 }
 
 sub linked_places
@@ -391,24 +364,7 @@ sub linked_places
     my ($self, $c, $stash, $places) = @_;
 
     $self->_tags_and_ratings($c, 'Place', $places, $stash);
-
-    if ($c->stash->{inc}->aliases)
-    {
-        my @aliases = @{ $c->model('Place')->alias->find_by_entity_id(map { $_->id } @$places) };
-        $c->model('Place')->alias_type->load(@aliases);
-
-        my %alias_per_place;
-        foreach (@aliases)
-        {
-            $alias_per_place{$_->place_id} = [] unless $alias_per_place{$_->place_id};
-            push @{ $alias_per_place{$_->place_id} }, $_;
-        }
-
-        foreach (@$places)
-        {
-            $stash->store ($_)->{aliases} = $alias_per_place{$_->id};
-        }
-    }
+    $self->_aliases($c, 'Place', $places, $stash);
 }
 
 sub linked_recordings
@@ -428,13 +384,21 @@ sub linked_recordings
 
         for (@$recordings)
         {
-            $stash->store ($_)->{isrcs} = $isrc_per_recording{$_->id};
+            $stash->store($_)->{isrcs} = $isrc_per_recording{$_->id};
         }
     }
 
     if ($c->stash->{inc}->artist_credits)
     {
         $c->model('ArtistCredit')->load(@$recordings);
+
+        my @acns = map { $_->artist_credit->all_names } @$recordings;
+        $c->model('Artist')->load(@acns);
+
+        $self->linked_artists(
+            $c, $stash,
+            [ uniq_by { $_->id } map { $_->artist } @acns ]
+        );
     }
 
     $self->_tags_and_ratings($c, 'Recording', $recordings, $stash);
@@ -500,25 +464,14 @@ sub linked_works
 
     $c->model('ISWC')->load_for_works(@$works);
 
-    if ($c->stash->{inc}->aliases)
-    {
-        my @aliases = @{ $c->model('Work')->alias->find_by_entity_id(map { $_->id } @$works) };
-        $c->model('Work')->alias_type->load(@aliases);
-
-        my %alias_per_work;
-        foreach (@aliases)
-        {
-            $alias_per_work{$_->work_id} = [] unless $alias_per_work{$_->work_id};
-            push @{ $alias_per_work{$_->work_id} }, $_;
-        }
-
-        foreach (@$works)
-        {
-            $stash->store ($_)->{aliases} = $alias_per_work{$_->id};
-        }
-    }
-
     $self->_tags_and_ratings($c, 'Work', $works, $stash);
+    $self->_aliases($c, 'Work', $works, $stash);
+}
+
+sub linked_series {
+    my ($self, $c, $stash, $series) = @_;
+
+    $self->_aliases($c, 'Series', $series, $stash);
 }
 
 sub _validate_post
@@ -535,7 +488,7 @@ sub _validate_post
         $c->detach;
     }
 
-    $self->_error ($c, "Please specify the name and version number of your client application.")
+    $self->_error($c, "Please specify the name and version number of your client application.")
         unless $c->req->params->{client};
 }
 
@@ -547,7 +500,7 @@ sub _validate_entity
     my $entity = $c->stash->{args}->{entity};
     $entity =~ s/-/_/;
 
-    my $model = type_to_model ($entity);
+    my $model = type_to_model($entity);
 
     if (!$gid || !is_guid($gid))
     {

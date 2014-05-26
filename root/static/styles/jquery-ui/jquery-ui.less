@@ -401,11 +401,14 @@ button.ui-button::-moz-focus-inner {
 
 .ui-tabs {
 	position: relative;/* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
-	padding: .2em;
+	padding: 1em 0;
+	border: none !important;
 }
 .ui-tabs .ui-tabs-nav {
 	margin: 0;
 	padding: .2em .2em 0;
+	background: @very-light-bg;
+	border: none;
 }
 .ui-tabs .ui-tabs-nav li {
 	list-style: none;
@@ -413,14 +416,15 @@ button.ui-button::-moz-focus-inner {
 	position: relative;
 	top: 0;
 	margin: 1px .2em 0 0;
-	border-bottom-width: 0;
 	padding: 0;
 	white-space: nowrap;
+	background: #FFF;
 }
 .ui-tabs .ui-tabs-nav li a {
 	float: left;
 	padding: .5em 1em;
 	text-decoration: none;
+	font-weight: bold;
 }
 .ui-tabs .ui-tabs-nav li.ui-tabs-active {
 	margin-bottom: -1px;
@@ -435,10 +439,16 @@ button.ui-button::-moz-focus-inner {
 .ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-active a {
 	cursor: pointer;
 }
+.ui-tabs-nav .ui-state-default {
+    border-bottom: 1px @very-light-border solid !important;
+}
+.ui-tabs-nav .ui-state-active {
+    border-bottom: none !important;
+}
 .ui-tabs .ui-tabs-panel {
 	display: block;
 	border-width: 0;
-	padding: 1em 1.4em;
+	padding: 1em 0;
 	background: none;
 }
 .ui-tooltip {
@@ -464,6 +474,7 @@ body .ui-tooltip {
 	font-weight: bold;
 	font-size: 120%;
 }
+.ui-widget { font-size: inherit; }
 
 /* Interaction states
 ----------------------------------*/
@@ -478,7 +489,7 @@ body .ui-tooltip {
 .ui-state-default a,
 .ui-state-default a:link,
 .ui-state-default a:visited {
-	color: #555555/*{fcDefault}*/;
+	color: @musicbrainz-purple;
 	text-decoration: none;
 }
 .ui-state-hover,
@@ -510,7 +521,7 @@ body .ui-tooltip {
 .ui-state-active a,
 .ui-state-active a:link,
 .ui-state-active a:visited {
-	color: #212121/*{fcActive}*/;
+	color: @text-orange;
 	text-decoration: none;
 }
 

@@ -4,7 +4,7 @@ use Moose;
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETERELEASELABEL );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
@@ -54,7 +54,7 @@ sub foreign_keys
 {
     my $self = shift;
 
-    my %fk = ( Release => { $self->release_id => [] } );
+    my %fk = ( Release => { $self->release_id => [ 'ArtistCredit' ] } );
 
     if ($self->data->{label} && $self->data->{label}{id})
     {

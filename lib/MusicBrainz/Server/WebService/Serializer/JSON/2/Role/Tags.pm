@@ -9,7 +9,7 @@ around serialize => sub {
     return $ret unless $toplevel && defined $inc &&
         ($inc->tags || $inc->user_tags);
 
-    my $opts = $stash->store ($entity);
+    my $opts = $stash->store($entity);
 
     my @tags;
     for my $tag (sort_by { $_->tag->name } @{$opts->{tags}})

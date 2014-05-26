@@ -1,0 +1,9 @@
+[% WRAPPER 'layout.tt' title=l('Edits for {name}', { name => html_escape(series.name) }) full_width=1 %]
+    <div class="seriesheader">
+        <h1>[% l('Edits for {series}', { series => link_entity(series) }) %]</h1>
+        <p class="subheader">
+            <span class="prefix">~</span> [% l('Series') %]
+        </p>
+    </div>
+    [% INCLUDE 'edit/list.tt' %]
+[% END %]

@@ -10,11 +10,44 @@ has 'name' => (
     isa => 'Str'
 );
 
+has 'child_order' => (
+    is => 'rw',
+    isa => 'Int',
+);
+
+has 'parent_id' => (
+    is => 'rw',
+    isa => 'Maybe[Int]',
+);
+
+has 'parent' => (
+    is => 'rw',
+    isa => 'PlaceType',
+);
+
+has 'children' => (
+    is => 'rw',
+    isa => 'ArrayRef[PlaceType]',
+    lazy => 1,
+    default => sub { [] },
+    traits => [ 'Array' ],
+    handles => {
+        all_children => 'elements',
+        add_child => 'push',
+        clear_children => 'clear'
+    }
+);
+
+has 'description' => (
+    is => 'rw',
+    isa => 'Maybe[Str]',
+);
+
 sub l_name {
     my $self = shift;
     return lp($self->name, 'place_type')
 }
- 
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

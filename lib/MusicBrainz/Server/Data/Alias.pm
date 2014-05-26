@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::Alias;
 use Moose;
 use namespace::autoclean;
 
-use Class::MOP;
+use Class::Load qw( load_class );
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
     load_subobjects
@@ -154,7 +154,7 @@ sub insert
     my ($self, @alias_hashes) = @_;
     my ($table, $type, $class) = ($self->table, $self->type, $self->entity);
     my @created;
-    Class::MOP::load_class($class);
+    load_class($class);
     for my $hash (@alias_hashes) {
         my $row = {
             $type => $hash->{$type . '_id'},
@@ -212,7 +212,7 @@ sub merge
               WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
 
     # Insert any aliases from old entity names
-    my $sortnamecol = ($type eq 'work' || $type eq 'place') ? 'name' : 'sort_name';
+    my $sortnamecol = ($type eq 'artist') ? 'sort_name' : 'name';
     $self->sql->do(
         "INSERT INTO $table (name, $type, sort_name)
             SELECT DISTINCT ON (old_entity.name) old_entity.name, new_entity.id, old_entity.$sortnamecol

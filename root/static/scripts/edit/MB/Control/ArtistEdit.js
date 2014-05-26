@@ -25,8 +25,8 @@ MB.Control.ArtistEdit = function () {
     self.$begin  = $('#label-id-edit-artist\\.period\\.begin_date');
     self.$ended  = $('#label-id-edit-artist\\.period\\.ended');
     self.$end    = $('#label-id-edit-artist\\.period\\.end_date');
-    self.$beginarea    = $('#edit-artist\\.begin_area\\.label');
-    self.$endarea    = $('#edit-artist\\.end_area\\.label');
+    self.$beginarea    = $('#label-id-edit-artist\\.begin_area\\.name');
+    self.$endarea    = $('#label-id-edit-artist\\.end_area\\.name');
     self.$type   = $('#id-edit-artist\\.type_id');
     self.$gender = $('#id-edit-artist\\.gender_id');
     self.old_gender = self.$gender.val();
@@ -47,8 +47,10 @@ MB.Control.ArtistEdit = function () {
            Unknown: 0
            Person: 1
            Group: 2
+           Orchestra: 5
+           Choir: 6
     */
-    self.typeChanged = function() {
+    self.typeChanged = function () {
         switch (self.$type.val()) {
             default:
             case '0':
@@ -64,6 +66,8 @@ MB.Control.ArtistEdit = function () {
                 break;
 
             case '2':
+            case '5':
+            case '6':
                 self.changeDateText(MB.text.ArtistDate.Founded);
                 self.changeAreaText(MB.text.ArtistArea.Founded);
                 self.disableGender();
@@ -71,7 +75,7 @@ MB.Control.ArtistEdit = function () {
         }
     };
 
-    self.enableGender = function() {
+    self.enableGender = function () {
         if (self.$gender.prop('disabled')) {
             self.$gender
                .prop("disabled", false)
@@ -79,24 +83,24 @@ MB.Control.ArtistEdit = function () {
         }
     };
 
-    self.disableGender = function() {
+    self.disableGender = function () {
         self.$gender.prop("disabled", true);
         self.old_gender = self.$gender.val();
         self.$gender.val('');
     };
 
     self.typeChanged();
-    self.$type.bind ('change.mb', self.typeChanged);
+    self.$type.bind('change.mb', self.typeChanged);
 
-    self.initializeArtistCreditPreviews = function(gid) {
+    self.initializeArtistCreditPreviews = function (gid) {
         var artist_re = new RegExp("/artist/" + gid + "$");
-        $('span.rename-artist-credit').each(function() {
+        $('span.rename-artist-credit').each(function () {
             var $ac = $(this);
-            $ac.find('input').change(function() {
+            $ac.find('input').change(function () {
                 var checked = this.checked;
                 var new_name = self.$name.val();
                 $ac.find('span.ac-preview')[checked ? 'show' : 'hide']();
-                $ac.find('span.ac-preview a').each(function() {
+                $ac.find('span.ac-preview a').each(function () {
                     var $link = $(this);
                     if ($link.data('old_name')) {
                         $link.text(checked ? new_name : $link.data('old_name'));
@@ -106,19 +110,19 @@ MB.Control.ArtistEdit = function () {
             $ac.find('input').each(function () {
                 $ac.find('span.ac-preview')[this.checked ? 'show' : 'hide']();
             });
-            $ac.find('span.ac-preview a').each(function() {
+            $ac.find('span.ac-preview a').each(function () {
                 var $link = $(this);
                 if (artist_re.test($link.attr('href'))) {
                     $link.data('old_name', $link.text());
                 }
             });
         });
-        self.$name.change(function() {
+        self.$name.change(function () {
             var new_name = self.$name.val();
-            $('span.rename-artist-credit').each(function() {
+            $('span.rename-artist-credit').each(function () {
                 var $ac = $(this);
                 if ($ac.find('input:checked').length) {
-                    $ac.find('span.ac-preview a').each(function() {
+                    $ac.find('span.ac-preview a').each(function () {
                         var $link = $(this);
                         if ($link.data('old_name')) {
                             $link.text(new_name);
@@ -129,12 +133,9 @@ MB.Control.ArtistEdit = function () {
         });
     }
 
-    var bubbles = MB.Control.BubbleCollection ();
-    MB.Control.initialize_guess_case (bubbles, 'artist', 'id-edit-artist');
+    MB.Control.initialize_guess_case('artist', 'id-edit-artist');
 
-    MB.Control.Area('#area', bubbles);
-    MB.Control.Area('#begin_area', bubbles);
-    MB.Control.Area('#end_area', bubbles);
+    MB.Control.Area("#area", "#begin_area", "#end_area");
 
     return self;
 };

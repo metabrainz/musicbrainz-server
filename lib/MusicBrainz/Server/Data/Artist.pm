@@ -291,8 +291,11 @@ sub merge
 
     unless (is_special_artist($new_id)) {
         my $merge_columns = [ qw( area begin_area end_area type ) ];
+        my $artist_type = $self->sql->select_single_value('SELECT type FROM artist WHERE id = ?', $new_id);
         my $group_type = 2;
-        if ($self->sql->select_single_value('SELECT type FROM artist WHERE id = ?', $new_id) != $group_type) {
+        my $orchestra_type = 5;
+        my $choir_type = 6;
+        if ($artist_type != $group_type && $artist_type != $orchestra_type && $artist_type != $choir_type) {
             push @$merge_columns, 'gender';
         }
         merge_table_attributes(
@@ -368,11 +371,11 @@ sub load_for_artist_credits {
         grep { $_->artist_id } $ac->all_names;
     }
 
-    my $artists = $self->get_by_ids (keys %artist_ids);
+    my $artists = $self->get_by_ids(keys %artist_ids);
 
     for my $ac (@artist_credits)
     {
-        map { $_->artist ($artists->{$_->artist_id}) }
+        map { $_->artist($artists->{$_->artist_id}) }
         grep { $_->artist_id } $ac->all_names;
     }
 };

@@ -47,7 +47,6 @@
             event =
               edit.display_data.events.unchanged_countries.${common_event.key};
             '<li>';
-            doRDFa = 0;
             Diff.diff_side(release_event(event.old),
                            release_event(event.new),
                            side == 'old' ? '-' : '+',
@@ -73,7 +72,7 @@
                           edit.display_data.packaging.new.l_name) -%]
 
   [%- display_diff(l('Barcode:'),
-          html_escape (edit.display_data.barcode.old.format),
-          html_escape (edit.display_data.barcode.new.format)) -%]
+          html_escape(edit.display_data.barcode.old.format),
+          html_escape(edit.display_data.barcode.new.format)) -%]
 
 </table>

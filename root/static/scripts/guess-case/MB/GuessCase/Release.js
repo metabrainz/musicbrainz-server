@@ -24,15 +24,15 @@ MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
 MB.GuessCase._Release = function () {
     var self = {};
 
-    self.gc = MB.GuessCase.Main ();
+    self.gc = MB.GuessCase.Main();
     self.guess = self.gc.guessRelease;
 
     return self;
 };
 
-$('document').ready (function () {
+$('document').ready(function () {
 
-    MB.GuessCase.release = MB.GuessCase._Release ();
+    MB.GuessCase.release = MB.GuessCase._Release();
     MB.GuessCase["release_group"] = MB.GuessCase.release;
     MB.GuessCase["release-group"] = MB.GuessCase.release;
 

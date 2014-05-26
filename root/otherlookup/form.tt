@@ -2,6 +2,7 @@
 <div class="searchform">
     [% FOR field = [ [ 'catno', l('Catalog number:') ]
                    , [ 'barcode', l('Barcode:') ]
+                   , [ 'url', l('URL:') ]
                    , [ 'isrc', l('ISRC:') ]
                    , [ 'iswc', l('ISWC:') ]
                    , [ 'artist-ipi', l('Artist IPI:') ]

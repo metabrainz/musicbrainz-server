@@ -21,7 +21,7 @@
             [%- IF image.release.country -%]
               ([%- link_searchable_property('country', image.release.country.iso_code, 'release', image.release.country.iso_code) -%])
             [%- END -%]<br />
-            <span style="display: inline-block">[%- image.release.combined_format_name -%],</span>
+            <span style="display: inline-block">[%- html_escape(image.release.combined_format_name) -%],</span>
             <span style="display: inline-block">[%- l('Tracks:') %] [% image.release.combined_track_count -%]</span><br />
             <span style="display: inline-block">[% release_label_list(image.release.labels) -%]
               [%- IF release_label_list(image.release.labels) AND release_catno_list(image.release.labels) -%];
@@ -54,11 +54,11 @@
 [%- END -%]
 
 <script type="text/javascript">//<![CDATA[
-  $('button.set-cover-art').bind ('click.mb', function (event) {
-    event.preventDefault ();
-    $('#id-set-cover-art\\.release').val ($(this).data ("gid"));
-    $('div.editimage').removeClass ("selected");
-    $(this).closest ('div.editimage').addClass ("selected");
+  $('button.set-cover-art').bind('click.mb', function (event) {
+    event.preventDefault();
+    $('#id-set-cover-art\\.release').val($(this).data("gid"));
+    $('div.editimage').removeClass("selected");
+    $(this).closest('div.editimage').addClass("selected");
   });
 //]]></script>
 

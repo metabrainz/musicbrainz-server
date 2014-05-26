@@ -14,7 +14,7 @@
         <li>
           [% IF addition.recording.artist_credit;
                l('ISRC {isrc} to {recording} by {artist}',
-                 { isrc => link_isrc(addition.isrc),
+                 { isrc => link_isrc(addition),
                    recording => link_entity(addition.recording),
                    artist => artist_credit(addition.recording.artist_credit) });
              ELSE;

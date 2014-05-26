@@ -24,7 +24,7 @@ MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
 MB.GuessCase._Artist = function () {
     var self = {};
 
-    self.gc = MB.GuessCase.Main ();
+    self.gc = MB.GuessCase.Main();
 
     self.guess = self.gc.guessArtist;
     self.sortname = self.gc.guessArtistSortname;
@@ -32,8 +32,8 @@ MB.GuessCase._Artist = function () {
     return self;
 };
 
-$('document').ready (function () {
+$('document').ready(function () {
 
-    MB.GuessCase.artist = MB.GuessCase._Artist ();
+    MB.GuessCase.artist = MB.GuessCase._Artist();
 
 });

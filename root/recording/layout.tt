@@ -1,19 +1,19 @@
 [% title_args = { artist => artist_credit(recording.artist_credit, plain => 1), name => html_escape(recording.name) } %]
 
 [% main_title = recording.video ? l('Video “{name}” by {artist}', title_args) : l('Recording “{name}” by {artist}', title_args) %]
-[%- WRAPPER "layout.tt" usesRDFa=1 title=title ? main_title _ " - ${title}" : main_title -%]
+[%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title canonical_url=replace_gid(entity.gid) -%]
   [%- IF !full_width -%]
-    [% WRAPPER 'layout/sidebar.tt' about=rdfa_recording_curi(recording)%]
+    [% WRAPPER 'layout/sidebar.tt' %]
         <h2 class="recording-information">[% l('Recording information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Artist:')
                content=artist_credit(recording.artist_credit) class="artist" %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Length:')
-               content=rdfa_recording_duration(recording) class="length"
+               content=format_length(recording.length) class="length"
                    IF recording.length -%]
             [%- FOR isrc IN recording.isrcs -%]
                 [% WRAPPER 'layout/sidebar/property.tt' label=l('ISRC:') class="isrc" %]
-                [% rdfa_recording_isrc(recording, isrc) %]
+                [% link_isrc(isrc) %]
                 [% END %]
             [%- END -%]
         [% END %]
@@ -33,13 +33,6 @@
             </a>
           </li>
           <li>[% link_entity(recording, 'delete', l('Remove recording')) %]</li>
-
-          <hr/>
-
-          [%# Adds <li> itself %]
-          [% use_in_relationship(recording) %]
-          <li>[% relate_to_ellipsis(recording) %]</li>
-          <li>[% relate_to_url(recording) %]</li>
 
           <hr/>
 

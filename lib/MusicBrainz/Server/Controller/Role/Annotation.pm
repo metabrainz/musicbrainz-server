@@ -17,6 +17,8 @@ my %model_to_edit_type = (
     ReleaseGroup => $EDIT_RELEASEGROUP_ADD_ANNOTATION,
     Work => $EDIT_WORK_ADD_ANNOTATION,
     Area => $EDIT_AREA_ADD_ANNOTATION,
+    Instrument => $EDIT_INSTRUMENT_ADD_ANNOTATION,
+    Series => $EDIT_SERIES_ADD_ANNOTATION,
 );
 
 after 'load' => sub
@@ -139,8 +141,9 @@ sub edit_annotation : Chained('load') PathPart Edit
                 );
             });
 
-            my $show = $self->action_for('show');
-            $c->response->redirect($c->uri_for_action($show, [ $entity->gid ]));
+            my $redirect = $c->req->params->{returnto} ||
+              $c->uri_for_action($self->action_for('show'), [ $entity->gid ]);
+            $c->response->redirect($redirect);
             $c->detach;
         }
     }

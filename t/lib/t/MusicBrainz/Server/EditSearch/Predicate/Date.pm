@@ -34,7 +34,7 @@ test 'operator BETWEEN' => sub {
     is_deeply([$query->join], [], 'doesnt add any new joins');
     is_deeply(
         [$query->where],
-        [ [ 'opened BETWEEN SYMMETRIC ? AND ?', [ $date1, $date2 ] ] ],
+        [ [ 'edit.opened BETWEEN SYMMETRIC ? AND ?', [ $date1, $date2 ] ] ],
         'added correct WHERE clause'
     );
 };

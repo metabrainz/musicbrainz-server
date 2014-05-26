@@ -5,6 +5,7 @@ use warnings;
 
 use aliased 'MusicBrainz::Server::Database';
 use Carp qw( confess );
+use Class::Load qw( load_class );
 
 my $connector_class = 'MusicBrainz::Server::Connector';
 our %databases;
@@ -35,7 +36,7 @@ sub alias {
 sub get_connection
 {
     my ($class, $key, %opts) = @_;
-    Class::MOP::load_class($connector_class);
+    load_class($connector_class);
 
     if ($opts{fresh}) {
         my $database = $databases{ $key };

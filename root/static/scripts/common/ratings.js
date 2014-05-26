@@ -1,12 +1,13 @@
 // This file is part of MusicBrainz, the open internet music database.
 // Copyright (C) 2013 MetaBrainz Foundation
-// Released under the GPLv2 license: http://www.gnu.org/licenses/gpl-2.0.txt
+// Licensed under the GPL version 2, or (at your option) any later version:
+// http://www.gnu.org/licenses/gpl-2.0.txt
 
 $(document).on("click", "span.star-rating a", function () {
     var $ratingLink = $(this);
     var url = this.href + '&json=1';
 
-    $.getJSON(url, function(data) {
+    $.getJSON(url, function (data) {
         var currentRatingSpan = $ratingLink.siblings('span');
         if (!currentRatingSpan.length) {
             currentRatingSpan = $('<span/>');
@@ -35,14 +36,14 @@ $(document).on("click", "span.star-rating a", function () {
             currentRatingSpan.remove();
         }
 
-        $ratingLink.parent().children('a').each (function (i) {
+        $ratingLink.parent().children('a').each(function (i) {
             var originalRating = 100 * (1 + i) / 5;
             var newRating = data.rating == originalRating ? 0 : originalRating;
             var oldRatingMatch = this.href.match(/rating=(\d+)/);
             if (oldRatingMatch[1] != newRating)
             {
                 this.href = this.href.replace(oldRatingMatch[0], 'rating=' + newRating);
-                $(this).attr ('title', MB.text.RatingTitles[5 * newRating / 100]);
+                $(this).attr('title', MB.text.RatingTitles[5 * newRating / 100]);
             }
         });
 

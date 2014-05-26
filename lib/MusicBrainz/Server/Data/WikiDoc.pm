@@ -34,7 +34,7 @@ sub _fix_html_links
     # Remove broken links & links to images in the wiki
     if ($href =~ m,^https?://$wiki_server/(File|Image):, || $class =~ m/new/)
     {
-        $node->replace_with ($node->content_list);
+        $node->replace_with($node->content_list);
     }
     # if this is not a link to the wikidocs server, don't mess with it.
     elsif ($href =~ m,^https?://$wiki_server,)
@@ -55,25 +55,25 @@ sub _fix_html_markup
     my $wiki_server = DBDefs->WIKITRANS_SERVER;
     my $tree = HTML::TreeBuilder::XPath->new;
 
-    $tree->parse_content ("<html><body>".$content."</body></html>");
-    for my $node ($tree->findnodes (
+    $tree->parse_content("<html><body>".$content."</body></html>");
+    for my $node ($tree->findnodes(
                       '//span[contains(@class, "editsection")]')->get_nodelist)
     {
         $node->delete();
     }
 
-    for my $node ($tree->findnodes ('//a')->get_nodelist)
+    for my $node ($tree->findnodes('//a')->get_nodelist)
     {
-        $self->_fix_html_links ($node, $index);
+        $self->_fix_html_links($node, $index);
     }
 
-    for my $node ($tree->findnodes ('//img')->get_nodelist)
+    for my $node ($tree->findnodes('//img')->get_nodelist)
     {
         my $src = $node->attr('src') || "";
         $node->attr('src', $src) if ($src =~ s,$WIKI_IMAGE_PREFIX,//$wiki_server$WIKI_IMAGE_PREFIX,);
     }
 
-    for my $node ($tree->findnodes ('//table')->get_nodelist)
+    for my $node ($tree->findnodes('//table')->get_nodelist)
     {
         my $class = $node->attr('class') || "";
 

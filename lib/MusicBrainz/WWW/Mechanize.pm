@@ -11,7 +11,7 @@ around '_make_request' => sub
     my $self = shift;
     my $request = shift;
 
-    my $response = $self->$orig ($request, @_);
+    my $response = $self->$orig($request, @_);
 
     # Test::WWW::Mechanize::Catalyst doesn't seem to do digest authentication.
     # So let's do it ourselves here, every request which results in a '401'
@@ -27,11 +27,11 @@ around '_make_request' => sub
             shift(@$challenge); # no value
             $challenge = { @$challenge };  # make rest into a hash
 
-            my ($username, $password) = $self->credentials (
+            my ($username, $password) = $self->credentials(
                 $request->uri->host.":".$request->uri->port, $challenge->{realm});
 
-            my $size = length ($request->content);
-            $response = LWP::Authen::Digest->authenticate (
+            my $size = length($request->content);
+            $response = LWP::Authen::Digest->authenticate(
                 $self, undef, $challenge, $response, $request, undef, $size);
             last;
         }

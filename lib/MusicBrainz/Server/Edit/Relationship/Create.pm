@@ -1,23 +1,26 @@
 package MusicBrainz::Server::Edit::Relationship::Create;
 use Moose;
 
+use List::AllUtils qw( any );
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Relationship';
 with 'MusicBrainz::Server::Edit::Relationship::RelatedEntities';
+with 'MusicBrainz::Server::Edit::Role::Preview';
 
 use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_CREATE );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
-use MusicBrainz::Server::Edit::Types qw( Nullable );
-use MusicBrainz::Server::Entity::PartialDate;
+use MusicBrainz::Server::Edit::Utils qw( normalize_date_period );
+use MusicBrainz::Server::Edit::Types qw( Nullable NullableOnPreview );
 
 use aliased 'MusicBrainz::Server::Entity::Link';
 use aliased 'MusicBrainz::Server::Entity::LinkType';
 use aliased 'MusicBrainz::Server::Entity::Relationship';
+use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
 sub edit_type { $EDIT_RELATIONSHIP_CREATE }
 sub edit_name { N_l('Add relationship') }
@@ -26,11 +29,11 @@ sub _create_model { 'Relationship' }
 has '+data' => (
     isa => Dict[
         entity0      => Dict[
-            id   => Int,
+            id   => NullableOnPreview[Int],
             name => Str
         ],
         entity1      => Dict[
-            id   => Int,
+            id   => NullableOnPreview[Int],
             name => Str
         ],
         link_type    => Dict[
@@ -45,7 +48,9 @@ has '+data' => (
         end_date     => Nullable[PartialDateHash],
         type0        => Str,
         type1        => Str,
-        ended        => Optional[Bool]
+        ended        => Optional[Bool],
+        link_order   => Optional[Int],
+        attribute_text_values => Optional[Dict],
     ]
 );
 
@@ -55,6 +60,23 @@ sub initialize
     my $e0 = delete $opts{entity0} or die "No entity0";
     my $e1 = delete $opts{entity1} or die "No entity1";
     my $lt = delete $opts{link_type} or die "No link type";
+
+    my $link_type_id = $lt->id;
+    die "Link type $link_type_id is only used for grouping" unless $lt->description;
+
+    if (my $attributes = $opts{attributes}) {
+        if (@$attributes) {
+            $self->check_attributes($lt, $attributes, $opts{attribute_text_values} // {});
+        } else {
+            delete $opts{attributes};
+            delete $opts{attribute_text_values};
+        }
+    }
+
+    delete $opts{attribute_text_values} unless %{ $opts{attribute_text_values} // {} };
+
+    die "Entities in a relationship cannot be the same"
+        if $lt->entity0_type eq $lt->entity1_type && $e0->id == $e1->id;
 
     $opts{entity0} = {
         id => $e0->id,
@@ -74,21 +96,38 @@ sub initialize
         long_link_phrase => $lt->long_link_phrase
     };
 
+    $opts{type0} = $lt->entity0_type;
+    $opts{type1} = $lt->entity1_type;
+
+    delete $opts{link_order} unless $opts{link_order} && $lt->orderable_direction;
+
+    normalize_date_period(\%opts);
+    delete $opts{begin_date} unless any { defined($_) } values %{ $opts{begin_date} };
+    delete $opts{end_date} unless any { defined($_) } values %{ $opts{end_date} };
+
     $self->data({ %opts });
 }
 
 sub foreign_keys
 {
     my ($self) = @_;
+
     my %load = (
-        LinkType                            => [ $self->data->{link_type}{id} ],
-        LinkAttributeType                   => $self->data->{attributes},
-        type_to_model($self->data->{type0}) => { $self->data->{entity0}{id} => ['ArtistCredit'] },
+        LinkType            => [ $self->data->{link_type}{id} ],
+        LinkAttributeType   =>   $self->data->{attributes},
     );
 
+    my $type0 = $self->data->{type0};
+    my $type1 = $self->data->{type1};
+
+    my $entity0_id = $self->data->{entity0}{id};
+    my $entity1_id = $self->data->{entity1}{id};
+
+    $load{ type_to_model($type0) } = { $entity0_id => ['ArtistCredit'] } if $entity0_id;
+
     # Type 1 my be equal to type 0, so we need to be careful
-    $load{ type_to_model($self->data->{type1}) } ||= {};
-    $load{ type_to_model($self->data->{type1}) }{$self->data->{entity1}{id}} = [ 'ArtistCredit' ];
+    $load{ type_to_model($type1) } ||= {};
+    $load{ type_to_model($type1) }{$entity1_id} = [ 'ArtistCredit' ] if $entity1_id;
 
     return \%load;
 }
@@ -104,12 +143,12 @@ sub build_display_data
             link => Link->new(
                 type       => $loaded->{LinkType}{ $self->data->{link_type}{id} }
                     || LinkType->new($self->data->{link_type}),
-                begin_date => MusicBrainz::Server::Entity::PartialDate->new_from_row( $self->data->{begin_date} ),
-                end_date   => MusicBrainz::Server::Entity::PartialDate->new_from_row( $self->data->{end_date} ),
+                begin_date => PartialDate->new_from_row( $self->data->{begin_date} ),
+                end_date   => PartialDate->new_from_row( $self->data->{end_date} ),
                 ended      => $self->data->{ended},
                 attributes => [
                     map {
-                        my $attr    = $loaded->{LinkAttributeType}{ $_ };
+                        my $attr = $loaded->{LinkAttributeType}{ $_ };
                         if ($attr) {
                             my $root_id = $self->c->model('LinkAttributeType')->find_root($attr->id);
                             $attr->root( $self->c->model('LinkAttributeType')->get_by_id($root_id) );
@@ -119,7 +158,8 @@ sub build_display_data
                             ()
                         }
                     } @{ $self->data->{attributes} }
-                ]
+                ],
+                attribute_text_values => $self->data->{attribute_text_values} // {},
             ),
             entity0 => $loaded->{$model0}{ $self->data->{entity0}{id} } ||
                 $self->c->model($model0)->_entity_class->new(
@@ -129,6 +169,7 @@ sub build_display_data
                 $self->c->model($model1)->_entity_class->new(
                     name => $self->data->{entity1}{name}
                 ),
+            link_order => $self->data->{link_order} // 0,
         ),
         unknown_attributes => scalar(
             grep { !exists $loaded->{LinkAttributeType}{$_} }
@@ -170,6 +211,11 @@ sub adjust_edit_pending
 sub insert
 {
     my ($self) = @_;
+
+    my $link_type_id = $self->data->{link_type}{id};
+    my $link_type = $self->c->model('LinkType')->get_by_id($link_type_id);
+    die "Link type $link_type_id is deprecated" if $link_type->is_deprecated;
+
     my $relationship = $self->c->model('Relationship')->insert(
         $self->data->{type0},
         $self->data->{type1}, {
@@ -180,13 +226,11 @@ sub insert
             begin_date   => $self->data->{begin_date},
             end_date     => $self->data->{end_date},
             ended        => $self->data->{ended},
+            link_order   => $self->data->{link_order} // 0,
+            attribute_text_values => $self->data->{attribute_text_values},
         });
 
     $self->entity_id($relationship->id);
-
-    my $link_type = $self->c->model('LinkType')->get_by_id(
-        $self->data->{link_type}{id},
-    );
 
     if ($self->c->model('CoverArt')->can_parse($link_type->name)) {
         my $release = $self->c->model('Release')->get_by_id(

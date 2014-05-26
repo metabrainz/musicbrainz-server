@@ -10,7 +10,7 @@
     [% FOR place IN places %]
     <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
       <td>
-        [% descriptive_link(place) %]
+        [% link_entity(place) %]
       </td>
       <td>
         [% place.l_type_name %]

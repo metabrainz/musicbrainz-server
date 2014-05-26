@@ -2,12 +2,16 @@
     <div id="content">
         <h1>[% l("Browse") %]</h1>
 
-        [% INCLUDE "browse/page_selector.tt" browse_action="artist" browse_title=l('Browse artists') %]
-        [% INCLUDE "browse/page_selector.tt" browse_action="label" browse_title=l('Browse labels') %]
-        [% INCLUDE "browse/page_selector.tt" browse_action="release" browse_title=l('Browse releases') %]
-        [% INCLUDE "browse/page_selector.tt" browse_action="release_group" browse_title=l('Browse release groups') %]
-        [% INCLUDE "browse/page_selector.tt" browse_action="work" browse_title=l('Browse works') %]
-        [% INCLUDE "browse/page_selector.tt" browse_action="area" browse_title=l('Browse areas') %]
-        [% INCLUDE "browse/page_selector.tt" browse_action="place" browse_title=l('Browse places') %]
+        <ul>
+            <li><a href="[% c.uri_for('/browse/artist') %]">[% l('Browse artists') %]</a></li>
+            <li><a href="[% c.uri_for('/browse/label') %]">[% l('Browse labels') %]</a></li>
+            <li><a href="[% c.uri_for('/browse/release-group') %]">[% l('Browse release groups') %]</a></li>
+            <li><a href="[% c.uri_for('/browse/release') %]">[% l('Browse releases') %]</a></li>
+            <li><a href="[% c.uri_for('/browse/work') %]">[% l('Browse works') %]</a></li>
+            <li><a href="[% c.uri_for('/browse/area') %]">[% l('Browse areas') %]</a></li>
+            <li><a href="[% c.uri_for('/browse/place') %]">[% l('Browse places') %]</a></li>
+            <li><a href="[% c.uri_for('/browse/series') %]">[% l('Browse series') %]</a></li>
+            <li><a href="[% c.uri_for('/browse/instrument') %]">[% l('Instrument list') %]</a></li>
+        </ul>
     </div>
 [% END %]
