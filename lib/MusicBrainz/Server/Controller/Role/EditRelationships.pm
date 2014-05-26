@@ -174,11 +174,11 @@ role {
             );
 
             $source = $source // $c->model($model)->get_by_id($edit->entity_id);
-            my $url_changes = 0;
 
+            my $url_changes = 0;
             if ($form_name ne "edit-url") {
                 my @urls = grep { !$_->is_empty } $form->field('url')->fields;
-                my $url_changes = $self->edit_relationships($c, $form, \@urls, $source);
+                $url_changes = $self->edit_relationships($c, $form, \@urls, $source);
             }
 
             my @rels = grep { !$_->is_empty } $form->field('rel')->fields;
