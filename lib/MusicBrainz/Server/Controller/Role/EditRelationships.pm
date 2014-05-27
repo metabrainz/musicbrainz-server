@@ -94,6 +94,11 @@ role {
                     $target = serialize_entity($entity, $target_type);
                 }
 
+                my $attribute_text_values = {};
+                for (@{ $_->{attribute_text_values} // [] }) {
+                    $attribute_text_values->{$_->{attribute}} = $_->{text_value};
+                }
+
                 push @result, {
                     id          => $_->{relationship_id},
                     linkTypeID  => $_->{link_type_id},
@@ -104,6 +109,7 @@ role {
                     ended       => $_->{period}->{ended} ? \1 : \0,
                     target      => $target // { entityType => $target_type },
                     linkOrder   => $_->{link_order} // 0,
+                    attributeTextValues => $attribute_text_values,
                 };
             }
 
