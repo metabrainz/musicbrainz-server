@@ -63,6 +63,10 @@ msgid ""
 "often learnt by children."
 msgstr ""
 
+#: DB:instrument/description:649
+msgid "A duck call is a tool used to emulate the sound of a duck."
+msgstr ""
+
 #: DB:instrument/description:514
 msgid ""
 "A fife is a small, high-pitched, transverse flute that is similar to the "

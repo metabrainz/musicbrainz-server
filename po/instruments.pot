@@ -313,7 +313,7 @@ msgid "bangu"
 msgstr ""
 
 #: DB:instrument/name:221
-msgid "banhu / banghu"
+msgid "banhu"
 msgstr ""
 
 #: DB:instrument/name:396
@@ -840,6 +840,10 @@ msgstr ""
 msgid "drumset"
 msgstr ""
 
+#: DB:instrument/name:649
+msgid "duck call"
+msgstr ""
+
 #: DB:instrument/name:194
 msgid "duct flutes"
 msgstr ""
@@ -902,6 +906,10 @@ msgstr ""
 
 #: DB:instrument/name:49
 msgid "electric upright bass"
+msgstr ""
+
+#: DB:instrument/name:648
+msgid "electric viola"
 msgstr ""
 
 #: DB:instrument/name:212
