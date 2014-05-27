@@ -383,7 +383,8 @@ Readonly our %ENTITIES => (
         annotations => { edit_type => $EDIT_RELEASE_ADD_ANNOTATION },
         tags       => 1,
         artist_credits => 1,
-        removal     => { manual => 1 }
+        removal     => { manual => 1 },
+        collections => 1
     },
     release_group => {
         mbid => { relatable => 1 },
