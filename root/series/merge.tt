@@ -9,7 +9,7 @@
             <thead>
                 <tr>
                     <th style="width: 1em"></th>
-                    <th>[% l('Series') %]</th>
+                    <th>[% lp('Series', 'singular') %]</th>
                     <th>[% l('Type') %]</th>
                     <th>[% l('Ordering Type') %]</th>
                 </tr>
