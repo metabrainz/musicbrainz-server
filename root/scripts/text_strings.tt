@@ -109,7 +109,7 @@
             recording:       "[% l('Recording') | js %]",
             release:         "[% l('Release') | js %]",
             release_group:   "[% l('Release group') | js %]",
-            series:          "[% l('Series') | js %]",
+            series:          "[% lp('Series', 'singular') | js %]",
             url:             "[% l('URL') | js %]",
             work:            "[% l('Work') | js %]",
         },
