@@ -414,6 +414,21 @@ Readonly our %ENTITIES => (
         mbid => { relatable => 0 },
         model      => 'Collection',
         subscriptions => { entity => 1 }
+    },
+    cdstub => {
+        model => 'CDStub',
+    },
+    annotation => {
+        model => 'Annotation'
+    },
+    isrc => {
+        model => 'ISRC'
+    },
+    iswc => {
+        model => 'ISWC'
+    },
+    freedb => {
+        model => 'FreeDB'
     }
 );
 
