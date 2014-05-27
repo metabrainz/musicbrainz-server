@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-05-26 09:29+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-05-26 17:27+0000\n"
+"Last-Translator: Alain-Olivier  Breysse\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -493,7 +493,7 @@ msgstr "Le serveur MusicBrainz est maintenant hébergé sur Git"
 
 #: ../root/statistics/formats.tt:29
 msgid "% of total mediums"
-msgstr "% du nombre total de support"
+msgstr "% du nombre total de supports"
 
 #: ../root/statistics/formats.tt:27
 msgid "% of total releases"
@@ -778,275 +778,275 @@ msgstr "Nombre d'éditeurs actifs"
 
 #: ../root/statistics/view_js.tt:88
 msgid "Count of active editors (editing or voting) during the last week"
-msgstr "Nombre d'éditeurs actifs (édition ou vote) durant la semaine dernière"
+msgstr "Nombre d'éditeurs actifs (édition ou vote) durant la dernière semaine"
 
 #: ../root/statistics/view_js.tt:80
 msgid "Count of all Abstain votes"
-msgstr "Nombre de tous les votes d'abstention"
+msgstr "Compte de tous les votes d'abstention"
 
 #: ../root/statistics/view_js.tt:132
 msgid "Count of all Artist Credits"
-msgstr "Nombre de tous les crédits d'artiste"
+msgstr "Compte de tous les crédits d'artiste"
 
 #: ../root/statistics/view_js.tt:171
 msgid "Count of all Artist Ratings"
-msgstr "Nombre de toutes les évaluations d'artiste"
+msgstr "Compte de toutes les évaluations d'artiste"
 
 #: ../root/statistics/view_js.tt:177
 msgid "Count of all Artist Ratings (raw)"
-msgstr "Nombre de toutes les évaluations d'artiste (brut)"
+msgstr "Compte de toutes les évaluations d'artiste (brut)"
 
 #: ../root/statistics/view_js.tt:185
 msgid "Count of all Artist Tags (raw)"
-msgstr "Nombre de toutes les balises d'artiste (brut)"
+msgstr "Compte de toutes les balises d'artiste (brut)"
 
 #: ../root/statistics/view_js.tt:133
 msgid "Count of all Barcodes"
-msgstr "Nombre de tous les codes-barres"
+msgstr "Compte de tous les codes-barres"
 
 #: ../root/statistics/view_js.tt:137
 msgid "Count of all CDStub tracks"
-msgstr "Nombre de toutes les pistes de coupons de CD"
+msgstr "Compte de toutes les pistes de coupons de CD"
 
 #: ../root/statistics/view_js.tt:135
 msgid "Count of all CDStubs"
-msgstr "Nombre de tous les coupons de CD"
+msgstr "Compte de tous les coupons de CD"
 
 #: ../root/statistics/view_js.tt:136
 msgid "Count of all CDStubs ever submitted"
-msgstr "Nombre de tous les coupons de CD transmis"
+msgstr "Compte de tous les coupons de CD transmis"
 
 #: ../root/statistics/view_js.tt:138
 msgid "Count of all Disc IDs"
-msgstr "Nombre de tous les ID de disques"
+msgstr "Compte de tous les ID de disques"
 
 #: ../root/statistics/view_js.tt:141
 msgid "Count of all IPIs"
-msgstr "Nombre de tous les IPI"
+msgstr "Compte de tous les IPI"
 
 #: ../root/statistics/view_js.tt:142
 msgid "Count of all IPIs for Artists"
-msgstr "Nombre de tous les IPI d'artistes"
+msgstr "Compte de tous les IPI d'artistes"
 
 #: ../root/statistics/view_js.tt:143
 msgid "Count of all IPIs for Labels"
-msgstr "Nombre de tous les IPI de labels."
+msgstr "Compte de tous les IPI de labels."
 
 #: ../root/statistics/view_js.tt:144
 msgid "Count of all ISNIs"
-msgstr "Nombre de tous les ISNI"
+msgstr "Compte de tous les ISNI"
 
 #: ../root/statistics/view_js.tt:145
 msgid "Count of all ISNIs for Artists"
-msgstr "Nombre de tous les ISNI pour les artistes"
+msgstr "Compte de tous les ISNI pour les artistes"
 
 #: ../root/statistics/view_js.tt:146
 msgid "Count of all ISNIs for Labels"
-msgstr "Nombre de tous les ISNI pour les labels"
+msgstr "Compte de tous les ISNI pour les labels"
 
 #: ../root/statistics/view_js.tt:147 ../root/statistics/view_js.tt:148
 msgid "Count of all ISRCs"
-msgstr "Nombre de tous les ISRC"
+msgstr "Compte de tous les ISRC"
 
 #: ../root/statistics/view_js.tt:149 ../root/statistics/view_js.tt:150
 msgid "Count of all ISWCs"
-msgstr "Nombre de tous les ISWC"
+msgstr "Compte de tous les ISWC"
 
 #: ../root/statistics/view_js.tt:172
 msgid "Count of all Label Ratings"
-msgstr "Nombre de toutes les évaluations de label"
+msgstr "Compte de toutes les évaluations de label"
 
 #: ../root/statistics/view_js.tt:178
 msgid "Count of all Label Ratings (raw)"
-msgstr "Nombre de toutes les évaluations de label (brut)"
+msgstr "Compte de toutes les évaluations de label (brut)"
 
 #: ../root/statistics/view_js.tt:186
 msgid "Count of all Label Tags (raw)"
-msgstr "Nombre de toutes les balises de labels (brut)"
+msgstr "Compte de toutes les balises de labels (brut)"
 
 #: ../root/statistics/view_js.tt:153
 msgid "Count of all Mediums with Disc IDs"
-msgstr "Nombre de tous les supports avec des ID de disque"
+msgstr "Compte de tous les supports avec des ID de disque"
 
 #: ../root/statistics/view_js.tt:158
 msgid "Count of all Mediums with {n} Disc IDs"
-msgstr "Nombre de tous les supports avec {n} ID de disque"
+msgstr "Compte de tous les supports avec {n} ID de disque"
 
 #: ../root/statistics/view_js.tt:79
 msgid "Count of all No votes"
-msgstr "Nombre de tous les votes non"
+msgstr "Compte de tous les votes non"
 
 #: ../root/statistics/view_js.tt:170
 msgid "Count of all Ratings"
-msgstr "Nombre de toutes les évaluations"
+msgstr "Compte de toutes les évaluations"
 
 #: ../root/statistics/view_js.tt:176
 msgid "Count of all Ratings (raw)"
-msgstr "Nombre de toutes les évaluations (brut)"
+msgstr "Compte de toutes les évaluations (brut)"
 
 #: ../root/statistics/view_js.tt:173
 msgid "Count of all Recording Ratings"
-msgstr "Nombre de toutes les évaluations d'enregistrement"
+msgstr "Compte de toutes les évaluations d'enregistrement"
 
 #: ../root/statistics/view_js.tt:179
 msgid "Count of all Recording Ratings (raw)"
-msgstr "Nombre de toutes les évaluations d'enregistrement (brut)"
+msgstr "Compte de toutes les évaluations d'enregistrement (brut)"
 
 #: ../root/statistics/view_js.tt:187
 msgid "Count of all Recording Tags (raw)"
-msgstr "Nombre de toutes les balises d'enregistrements (brut)"
+msgstr "Compte de toutes les balises d'enregistrements (brut)"
 
 #: ../root/statistics/view_js.tt:154
 msgid "Count of all Recordings with ISRCs"
-msgstr "Nombre de tous les enregistrement avec un ISRC"
+msgstr "Compte de tous les enregistrement avec un ISRC"
 
 #: ../root/statistics/view_js.tt:159
 msgid "Count of all Recordings with {n} Releases"
-msgstr "Nombre de tous les enregistrements avec {n} parutions"
+msgstr "Compte de tous les enregistrements avec {n} parutions"
 
 #: ../root/statistics/view_js.tt:192
 msgid "Count of all Relationships"
-msgstr "Nombre de toutes les relations"
+msgstr "Compte de toutes les relations"
 
 #: ../root/statistics/view_js.tt:174
 msgid "Count of all Release Group Ratings"
-msgstr "Nombre de toutes les évaluations de groupes de parution"
+msgstr "Compte de toutes les évaluations de groupes de parution"
 
 #: ../root/statistics/view_js.tt:180
 msgid "Count of all Release Group Ratings (raw)"
-msgstr "Nombre de toutes les évaluations de groupes de parution (brut)"
+msgstr "Compte de toutes les évaluations de groupes de parution (brut)"
 
 #: ../root/statistics/view_js.tt:189
 msgid "Count of all Release Group Tags (raw)"
-msgstr "Nombre de toutes les balises de groupe de parution (brut)"
+msgstr "Compte de toutes les balises de groupe de parution (brut)"
 
 #: ../root/statistics/view_js.tt:160
 msgid "Count of all Release Groups with {n} Releases"
-msgstr "Nombre de tous les groupes de parution ayant {n} parutions"
+msgstr "Compte de tous les groupes de parution ayant {n} parutions"
 
 #: ../root/statistics/view_js.tt:188
 msgid "Count of all Release Tags (raw)"
-msgstr "Nombre de toutes les balises de parution (brut)"
+msgstr "Compte de toutes les balises de parution (brut)"
 
 #: ../root/statistics/view_js.tt:164
 msgid "Count of all Releases at Default Data Quality"
-msgstr "Nombre de toutes les parutions avec une qualité de données par défaut"
+msgstr "Compte de toutes les parutions avec une qualité de données par défaut"
 
 #: ../root/statistics/view_js.tt:167
 msgid "Count of all Releases at High Data Quality"
-msgstr "Nombre de toutes les parutions avec une qualité de données élevée"
+msgstr "Compte de toutes les parutions avec une qualité de données élevée"
 
 #: ../root/statistics/view_js.tt:168
 msgid "Count of all Releases at Low Data Quality"
-msgstr "Nombre de toutes les parutions avec une qualité de données basse"
+msgstr "Compte de toutes les parutions avec une qualité de données basse"
 
 #: ../root/statistics/view_js.tt:166
 msgid "Count of all Releases at Normal Data Quality"
-msgstr "Nombre de toutes les parutions avec une qualité de données normale"
+msgstr "Compte de toutes les parutions avec une qualité de données normale"
 
 #: ../root/statistics/view_js.tt:165
 msgid "Count of all Releases at Unknown Data Quality"
-msgstr "Nombre de toutes les parutions avec une qualité de données inconnue"
+msgstr "Compte de toutes les parutions avec une qualité de données inconnue"
 
 #: ../root/statistics/view_js.tt:140
 msgid "Count of all Releases by Various Artists"
-msgstr "Nombre de toutes les parutions « Artistes divers »"
+msgstr "Compte de toutes les parutions par Artistes divers"
 
 #: ../root/statistics/view_js.tt:139
 msgid "Count of all Releases not V.A."
-msgstr "Nombre de toutes les parutions non « artistes divers »"
+msgstr "Compte de toutes les parutions n'étant pas par artistes divers"
 
 #: ../root/statistics/view_js.tt:152
 msgid "Count of all Releases with Disc IDs"
-msgstr "Nombre de toutes les parutions avec des ID de disque"
+msgstr "Compte de toutes les parutions avec des ID de disque"
 
 #: ../root/statistics/view_js.tt:157
 msgid "Count of all Releases with {n} Disc IDs"
-msgstr "Nombre de toutes les parutions avec {n} ID de disque"
+msgstr "Compte de toutes les parutions avec {n} ID de disque"
 
 #: ../root/statistics/view_js.tt:183
 msgid "Count of all Tags"
-msgstr "Nombre de toutes les balises"
+msgstr "Compte de toutes les balises"
 
 #: ../root/statistics/view_js.tt:184
 msgid "Count of all Tags (raw)"
-msgstr "Nombre de toutes les balises (brut)"
+msgstr "Compte de toutes les balises (brut)"
 
 #: ../root/statistics/view_js.tt:134
 msgid "Count of all Tracks"
-msgstr "Nombre de toutes les pistes"
+msgstr "Compte de toutes les pistes"
 
 #: ../root/statistics/view_js.tt:175
 msgid "Count of all Work Ratings"
-msgstr "Nombre de toutes les évaluations d'œuvre"
+msgstr "Compte de toutes les évaluations d'œuvre"
 
 #: ../root/statistics/view_js.tt:181
 msgid "Count of all Work Ratings (raw)"
-msgstr "Nombre de toutes les évaluations d'œuvre (brut)"
+msgstr "Compte de toutes les évaluations d'œuvre (brut)"
 
 #: ../root/statistics/view_js.tt:190
 msgid "Count of all Work Tags (raw)"
-msgstr "Nombre de toutes les balises d'œuvre (brut)"
+msgstr "Compte de toutes les balises d'œuvre (brut)"
 
 #: ../root/statistics/view_js.tt:78
 msgid "Count of all Yes votes"
-msgstr "Nombre de tous les votes oui"
+msgstr "Compte de tous les votes oui"
 
 #: ../root/statistics/view_js.tt:55
 msgid "Count of all areas"
-msgstr "Nombre de toutes les régions"
+msgstr "Compte de toutes les régions"
 
 #: ../root/statistics/view_js.tt:48
 msgid "Count of all artists"
-msgstr "Nombre de tous les artistes"
+msgstr "Compte de tous les artistes"
 
 #: ../root/statistics/view_js.tt:82
 msgid "Count of all editors"
-msgstr "Nombre de tous les éditeurs"
+msgstr "Compte de tous les éditeurs"
 
 #: ../root/statistics/view_js.tt:60
 msgid "Count of all edits"
-msgstr "Nombre de toutes les modifications"
+msgstr "Compte de toutes les modifications"
 
 #: ../root/statistics/view_js.tt:58
 msgid "Count of all instruments"
-msgstr ""
+msgstr "Compte de tous les instruments"
 
 #: ../root/statistics/view_js.tt:54
 msgid "Count of all labels"
-msgstr "Nombre de tous les labels"
+msgstr "Compte de tous les labels"
 
 #: ../root/statistics/view_js.tt:51
 msgid "Count of all mediums"
-msgstr "Nombre de tous les supports"
+msgstr "Compte de tous les supports"
 
 #: ../root/statistics/view_js.tt:56
 msgid "Count of all places"
-msgstr "Nombre de tous les lieux"
+msgstr "Compte de tous les lieux"
 
 #: ../root/statistics/view_js.tt:49
 msgid "Count of all recordings"
-msgstr "Nombre de tous les enregistrements"
+msgstr "Compte de tous les enregistrements"
 
 #: ../root/statistics/view_js.tt:53
 msgid "Count of all release groups"
-msgstr "Nombre de tous les groupes de parution"
+msgstr "Compte de tous les groupes de parution"
 
 #: ../root/statistics/view_js.tt:52
 msgid "Count of all releases"
-msgstr "Nombre de toutes les parutions"
+msgstr "Compte de toutes les parutions"
 
 #: ../root/statistics/view_js.tt:57
 msgid "Count of all series"
-msgstr ""
+msgstr "Compte de toutes les séries"
 
 #: ../root/statistics/view_js.tt:74
 msgid "Count of all votes"
-msgstr "Nombre de tous les votes"
+msgstr "Compte de tous les votes"
 
 #: ../root/statistics/view_js.tt:50
 msgid "Count of all works"
-msgstr "Nombre de toutes les œuvres"
+msgstr "Compte de toutes les œuvres"
 
 #: ../root/statistics/view_js.tt:85
 msgid "Count of deleted editors"
@@ -1333,11 +1333,11 @@ msgstr "Inclusif"
 
 #: ../root/statistics/index.tt:647 ../root/statistics/view_js.tt:58
 msgid "Instruments"
-msgstr ""
+msgstr "Instruments"
 
 #: ../root/statistics/index.tt:64 ../root/statistics/index.tt:654
 msgid "Instruments:"
-msgstr ""
+msgstr "Instruments :"
 
 #: ../root/statistics/view_js.tt:29
 msgid "Label Countries"
@@ -1851,12 +1851,12 @@ msgstr "Types secondaires"
 #: ../root/statistics/index.tt:625 ../root/statistics/view_js.tt:57
 msgctxt "plural"
 msgid "Series"
-msgstr ""
+msgstr "Séries"
 
 #: ../root/statistics/index.tt:60 ../root/statistics/index.tt:632
 msgctxt "plural"
 msgid "Series:"
-msgstr ""
+msgstr "Séries :"
 
 #: ../root/statistics/no_statistics.tt:3
 msgid ""

@@ -27,8 +27,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-26 02:28-0700\n"
-"PO-Revision-Date: 2014-05-26 09:29+0000\n"
+"POT-Creation-Date: 2014-05-27 14:50-0700\n"
+"PO-Revision-Date: 2014-05-27 21:51+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -4807,7 +4807,7 @@ msgstr "Fusionner des labels"
 
 #: ../root/place/merge.tt:1 ../root/place/merge.tt:3
 msgid "Merge Places"
-msgstr "Fusionner les lieux"
+msgstr "Fusionner des lieux"
 
 #: ../root/layout/merge-helper.tt:3
 msgid "Merge Process"
@@ -4827,7 +4827,7 @@ msgstr "Fusionner des parutions"
 
 #: ../root/series/merge.tt:1 ../root/series/merge.tt:3
 msgid "Merge Series"
-msgstr "Fusionner les séries"
+msgstr "Fusionner des séries"
 
 #: ../root/work/merge.tt:1 ../root/work/merge.tt:3
 msgid "Merge Works"
@@ -4886,7 +4886,7 @@ msgstr "Fusionner des groupes de parution"
 #: ../root/series/layout.tt:19
 #: ../lib/MusicBrainz/Server/Edit/Series/Merge.pm:11
 msgid "Merge series"
-msgstr "Fusionner la série"
+msgstr "Fusionner des séries"
 
 #: ../root/edit/details/merge_releases.tt:133 ../root/release/merge.tt:55
 msgid "Merge strategy:"
@@ -5302,10 +5302,6 @@ msgstr "Aucune entité de MusicBrainz n'a pour l'instant l'attribut « {tag} ».
 msgid "No artists with this tag were found."
 msgstr "Aucun artiste de trouvé avec cette balise"
 
-#: ../root/tag/collection.tt:1
-msgid "No collections with this tag were found."
-msgstr "Aucune collection de trouvée avec cette balise."
-
 #: ../root/release/sidebar.tt:17
 msgid "No cover art available."
 msgstr "Aucune Illustration de disponible."
@@ -5678,8 +5674,8 @@ msgstr "Global"
 #: ../root/area/header.tt:1 ../root/artist/header.tt:1
 #: ../root/cdstub/header.tt:9 ../root/collection/header.tt:1
 #: ../root/instrument/header.tt:1 ../root/place/header.tt:1
-#: ../root/release_group/header.tt:1 ../root/tag/header.tt:1
-#: ../root/url/header.tt:1 ../root/work/header.tt:1
+#: ../root/release_group/header.tt:1 ../root/series/header.tt:1
+#: ../root/tag/header.tt:1 ../root/url/header.tt:1 ../root/work/header.tt:1
 msgid "Overview"
 msgstr "Aperçu"
 
@@ -7415,17 +7411,13 @@ msgstr "Phrase"
 #: ../root/edit/details/merge_series.tt:8
 #: ../root/edit/details/merge_series.tt:33
 #: ../root/edit/details/remove_series_alias.tt:3
-#: ../root/scripts/text_strings.tt:112 ../root/series/edits.tt:5
-#: ../root/series/header.tt:1 ../root/series/header.tt:11
+#: ../root/edit/search_macros.tt:307 ../root/scripts/text_strings.tt:112
+#: ../root/series/edits.tt:5 ../root/series/header.tt:11
 #: ../root/series/merge.tt:12 ../lib/MusicBrainz/Server/Edit/Series.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:47
-msgid "Series"
-msgstr "Série"
-
-#: ../root/edit/search_macros.tt:307
 msgctxt "singular"
 msgid "Series"
-msgstr ""
+msgstr "Série"
 
 #: ../root/series/edit_form.tt:30
 msgid "Series Details"
@@ -7437,18 +7429,22 @@ msgstr "Série introuvable"
 
 #: ../root/user/subscriptions/menu.tt:6 ../root/user/subscriptions/series.tt:1
 msgid "Series Subscriptions"
-msgstr ""
+msgstr "Abonnements à des séries"
 
 #: ../root/series/layout.tt:4
 msgid "Series information"
 msgstr "Informations sur la série"
 
-#: ../root/components/common-macros.tt:565
 #: ../root/edit/details/add_series_annotation.tt:3
 #: ../root/edit/details/add_series.tt:3 ../root/edit/details/edit_series.tt:5
 #: ../root/edit/details/remove_series.tt:3
 msgid "Series:"
 msgstr "Série :"
+
+#: ../root/components/common-macros.tt:565
+msgctxt "singular"
+msgid "Series:"
+msgstr ""
 
 #: ../root/release_group/set_cover_art.tt:1
 msgid "Set Release Group Cover Art"
@@ -8054,11 +8050,6 @@ msgctxt "noun"
 msgid "Tag"
 msgstr "Balise"
 
-#: ../root/collection/tag.tt:1
-msgctxt "verb"
-msgid "Tag"
-msgstr "Balise"
-
 #: ../root/taglookup/index.tt:1 ../root/taglookup/index.tt:3
 msgid "Tag Lookup"
 msgstr "Recherche de balise"
@@ -8094,10 +8085,6 @@ msgstr "Baliser ce groupe de parution"
 #: ../root/artist/layout.tt:69 ../root/artist/tags.tt:3
 msgid "Tag this artist"
 msgstr "Baliser cet artiste"
-
-#: ../root/collection/tag.tt:2
-msgid "Tag this collection"
-msgstr "Baliser cette collection"
 
 #: ../root/label/layout.tt:48 ../root/label/tags.tt:3
 msgid "Tag this label"
@@ -8137,15 +8124,15 @@ msgid "Tagger"
 msgstr "Baliseur"
 
 #: ../root/artist/header.tt:1 ../root/artist/tags.tt:1
-#: ../root/collection/tags.tt:1 ../root/components/tags.tt:5
-#: ../root/label/header.tt:1 ../root/label/tags.tt:1
-#: ../root/layout/menu.tt:202 ../root/layout/sidebar/sidebar-tags.tt:21
-#: ../root/place/header.tt:1 ../root/place/tags.tt:1
-#: ../root/recording/header.tt:1 ../root/recording/tags.tt:1
-#: ../root/release_group/header.tt:1 ../root/release_group/tags.tt:1
-#: ../root/release/tabs.tt:1 ../root/release/tags.tt:1 ../root/tag/cloud.tt:1
-#: ../root/tag/cloud.tt:4 ../root/user/profile/layout.tt:19
-#: ../root/user/tags.tt:1 ../root/work/header.tt:1 ../root/work/tags.tt:1
+#: ../root/components/tags.tt:5 ../root/label/header.tt:1
+#: ../root/label/tags.tt:1 ../root/layout/menu.tt:202
+#: ../root/layout/sidebar/sidebar-tags.tt:21 ../root/place/header.tt:1
+#: ../root/place/tags.tt:1 ../root/recording/header.tt:1
+#: ../root/recording/tags.tt:1 ../root/release_group/header.tt:1
+#: ../root/release_group/tags.tt:1 ../root/release/tabs.tt:1
+#: ../root/release/tags.tt:1 ../root/tag/cloud.tt:1 ../root/tag/cloud.tt:4
+#: ../root/user/profile/layout.tt:19 ../root/user/tags.tt:1
+#: ../root/work/header.tt:1 ../root/work/tags.tt:1
 msgid "Tags"
 msgstr "Balises"
 
@@ -8662,17 +8649,13 @@ msgstr "Cet attribut est requis."
 
 #: ../root/work/edit_form.tt:57
 msgid "This attribute type is only used for grouping, please select a subtype"
-msgstr ""
+msgstr "Ce type d'attribut est seulement utilisé pour le regroupement, veuillez choisir un sous-type"
 
 #: ../root/edit/details/edit_url.tt:31
 msgid "This change affects {num} relationship."
 msgid_plural "This change affects {num} relationships."
 msgstr[0] "Ce changement affecte {num} relation."
 msgstr[1] "Ce changement affecte {num} relations."
-
-#: ../root/collection/tags.tt:2
-msgid "This collection has no tags."
-msgstr "Cette collection n'a pas de balise."
 
 #: ../root/edit/details/merge_releases.tt:125
 msgid ""
@@ -11591,12 +11574,6 @@ msgid_plural "{num} collections"
 msgstr[0] "{num} collection"
 msgstr[1] "{num} collections"
 
-#: ../root/tag/collection.tt:1
-msgid "{num} collection found"
-msgid_plural "{num} collections found"
-msgstr[0] "{num} collection trouvée"
-msgstr[1] "{num} collections trouvées"
-
 #: ../root/components/common-macros.tt:44
 msgid "{num} day"
 msgid_plural "{num} days"
@@ -11672,8 +11649,8 @@ msgstr[1] "{num} groupes de parution de trouvés"
 #: ../root/user/subscriptions/layout.tt:31
 msgid "{num} series"
 msgid_plural "{num} series"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{num} série"
+msgstr[1] "{num} séries"
 
 #: ../root/tag/work.tt:1
 msgid "{num} work found"
@@ -12134,7 +12111,7 @@ msgstr "Modifier le crédit"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Merge.pm:14
 msgid "Merge artists"
-msgstr "Fusionner les artistes"
+msgstr "Fusionner des artistes"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddDiscID.pm:11
 #: ../lib/MusicBrainz/Server/Edit/Medium/AddDiscID.pm:10
@@ -12211,7 +12188,7 @@ msgstr "Convertir la parution vers un artiste simple (historique)"
 #: ../lib/MusicBrainz/Server/Edit/Historic/MergeReleaseMAC.pm:9
 #: ../lib/MusicBrainz/Server/Edit/Release/Merge.pm:112
 msgid "Merge releases"
-msgstr "Fusionner les parutions"
+msgstr "Fusionner des parutions"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/MoveDiscID.pm:11
 #: ../lib/MusicBrainz/Server/Edit/Medium/MoveDiscID.pm:19
@@ -12282,7 +12259,7 @@ msgstr "Modifier le label"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/Merge.pm:12
 msgid "Merge labels"
-msgstr "Fusionner les labels"
+msgstr "Fusionner des labels"
 
 #: ../lib/MusicBrainz/Server/Edit/Medium/Create.pm:30
 msgid "Add medium"

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-05-26 09:28+0000\n"
+"PO-Revision-Date: 2014-05-27 21:51+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -320,8 +320,8 @@ msgid "bangu"
 msgstr ""
 
 #: DB:instrument/name:221
-msgid "banhu / banghu"
-msgstr "板胡"
+msgid "banhu"
+msgstr ""
 
 #: DB:instrument/name:396
 msgid "banjitar"
@@ -847,6 +847,10 @@ msgstr "ドラム"
 msgid "drumset"
 msgstr "ドラムセット"
 
+#: DB:instrument/name:649
+msgid "duck call"
+msgstr ""
+
 #: DB:instrument/name:194
 msgid "duct flutes"
 msgstr ""
@@ -910,6 +914,10 @@ msgstr ""
 #: DB:instrument/name:49
 msgid "electric upright bass"
 msgstr "エレクトリック・アップライト・ベース"
+
+#: DB:instrument/name:648
+msgid "electric viola"
+msgstr ""
 
 #: DB:instrument/name:212
 msgid "electric violin"

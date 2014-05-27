@@ -22,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-26 02:28-0700\n"
-"PO-Revision-Date: 2014-05-26 09:29+0000\n"
+"POT-Creation-Date: 2014-05-27 14:50-0700\n"
+"PO-Revision-Date: 2014-05-27 21:51+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1937,7 +1937,7 @@ msgstr "Door uitgaven bladeren"
 
 #: ../root/browse/entity.tt:1
 msgid "Browse Series"
-msgstr ""
+msgstr "Door series bladeren"
 
 #: ../root/browse/entity.tt:1
 msgid "Browse Works"
@@ -5297,10 +5297,6 @@ msgstr "Geen objecten in MusicBrainz zijn tot nu toe geëtiketteerd met „{tag}
 msgid "No artists with this tag were found."
 msgstr "Geen artiesten met dit etiket gevonden."
 
-#: ../root/tag/collection.tt:1
-msgid "No collections with this tag were found."
-msgstr "Geen collecties met dit etiket gevonden."
-
 #: ../root/release/sidebar.tt:17
 msgid "No cover art available."
 msgstr "Geen afbeelding beschikbaar."
@@ -5673,8 +5669,8 @@ msgstr "Algemeen"
 #: ../root/area/header.tt:1 ../root/artist/header.tt:1
 #: ../root/cdstub/header.tt:9 ../root/collection/header.tt:1
 #: ../root/instrument/header.tt:1 ../root/place/header.tt:1
-#: ../root/release_group/header.tt:1 ../root/tag/header.tt:1
-#: ../root/url/header.tt:1 ../root/work/header.tt:1
+#: ../root/release_group/header.tt:1 ../root/series/header.tt:1
+#: ../root/tag/header.tt:1 ../root/url/header.tt:1 ../root/work/header.tt:1
 msgid "Overview"
 msgstr "Overzicht"
 
@@ -7410,17 +7406,13 @@ msgstr "Zin"
 #: ../root/edit/details/merge_series.tt:8
 #: ../root/edit/details/merge_series.tt:33
 #: ../root/edit/details/remove_series_alias.tt:3
-#: ../root/scripts/text_strings.tt:112 ../root/series/edits.tt:5
-#: ../root/series/header.tt:1 ../root/series/header.tt:11
+#: ../root/edit/search_macros.tt:307 ../root/scripts/text_strings.tt:112
+#: ../root/series/edits.tt:5 ../root/series/header.tt:11
 #: ../root/series/merge.tt:12 ../lib/MusicBrainz/Server/Edit/Series.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:47
-msgid "Series"
-msgstr "Serie"
-
-#: ../root/edit/search_macros.tt:307
 msgctxt "singular"
 msgid "Series"
-msgstr ""
+msgstr "Series"
 
 #: ../root/series/edit_form.tt:30
 msgid "Series Details"
@@ -7432,18 +7424,22 @@ msgstr "Serie niet gevonden"
 
 #: ../root/user/subscriptions/menu.tt:6 ../root/user/subscriptions/series.tt:1
 msgid "Series Subscriptions"
-msgstr ""
+msgstr "Abonnementen op series"
 
 #: ../root/series/layout.tt:4
 msgid "Series information"
 msgstr "Informatie over de serie"
 
-#: ../root/components/common-macros.tt:565
 #: ../root/edit/details/add_series_annotation.tt:3
 #: ../root/edit/details/add_series.tt:3 ../root/edit/details/edit_series.tt:5
 #: ../root/edit/details/remove_series.tt:3
 msgid "Series:"
 msgstr "Serie:"
+
+#: ../root/components/common-macros.tt:565
+msgctxt "singular"
+msgid "Series:"
+msgstr ""
 
 #: ../root/release_group/set_cover_art.tt:1
 msgid "Set Release Group Cover Art"
@@ -8049,11 +8045,6 @@ msgctxt "noun"
 msgid "Tag"
 msgstr "Etiket"
 
-#: ../root/collection/tag.tt:1
-msgctxt "verb"
-msgid "Tag"
-msgstr "Etiket"
-
 #: ../root/taglookup/index.tt:1 ../root/taglookup/index.tt:3
 msgid "Tag Lookup"
 msgstr "Etiket opzoeken"
@@ -8089,10 +8080,6 @@ msgstr "Uitgavegroep een etiket geven"
 #: ../root/artist/layout.tt:69 ../root/artist/tags.tt:3
 msgid "Tag this artist"
 msgstr "Etiketteer deze artiest"
-
-#: ../root/collection/tag.tt:2
-msgid "Tag this collection"
-msgstr "Deze collectie een etiket geven"
 
 #: ../root/label/layout.tt:48 ../root/label/tags.tt:3
 msgid "Tag this label"
@@ -8132,15 +8119,15 @@ msgid "Tagger"
 msgstr "Tagger"
 
 #: ../root/artist/header.tt:1 ../root/artist/tags.tt:1
-#: ../root/collection/tags.tt:1 ../root/components/tags.tt:5
-#: ../root/label/header.tt:1 ../root/label/tags.tt:1
-#: ../root/layout/menu.tt:202 ../root/layout/sidebar/sidebar-tags.tt:21
-#: ../root/place/header.tt:1 ../root/place/tags.tt:1
-#: ../root/recording/header.tt:1 ../root/recording/tags.tt:1
-#: ../root/release_group/header.tt:1 ../root/release_group/tags.tt:1
-#: ../root/release/tabs.tt:1 ../root/release/tags.tt:1 ../root/tag/cloud.tt:1
-#: ../root/tag/cloud.tt:4 ../root/user/profile/layout.tt:19
-#: ../root/user/tags.tt:1 ../root/work/header.tt:1 ../root/work/tags.tt:1
+#: ../root/components/tags.tt:5 ../root/label/header.tt:1
+#: ../root/label/tags.tt:1 ../root/layout/menu.tt:202
+#: ../root/layout/sidebar/sidebar-tags.tt:21 ../root/place/header.tt:1
+#: ../root/place/tags.tt:1 ../root/recording/header.tt:1
+#: ../root/recording/tags.tt:1 ../root/release_group/header.tt:1
+#: ../root/release_group/tags.tt:1 ../root/release/tabs.tt:1
+#: ../root/release/tags.tt:1 ../root/tag/cloud.tt:1 ../root/tag/cloud.tt:4
+#: ../root/user/profile/layout.tt:19 ../root/user/tags.tt:1
+#: ../root/work/header.tt:1 ../root/work/tags.tt:1
 msgid "Tags"
 msgstr "Etiketten"
 
@@ -8657,17 +8644,13 @@ msgstr "Deze eigenschap is verplicht"
 
 #: ../root/work/edit_form.tt:57
 msgid "This attribute type is only used for grouping, please select a subtype"
-msgstr ""
+msgstr "Deze eigenschap wordt alleen gebruikt om te groeperen, gebruik een subtype."
 
 #: ../root/edit/details/edit_url.tt:31
 msgid "This change affects {num} relationship."
 msgid_plural "This change affects {num} relationships."
 msgstr[0] "Deze verandering beïnvloedt {num} relatie."
 msgstr[1] "Deze verandering beïnvloedt {num} relaties."
-
-#: ../root/collection/tags.tt:2
-msgid "This collection has no tags."
-msgstr "Deze collectie heeft geen etiketten."
 
 #: ../root/edit/details/merge_releases.tt:125
 msgid ""
@@ -11586,12 +11569,6 @@ msgid_plural "{num} collections"
 msgstr[0] "{num} collectie"
 msgstr[1] "{num} collecties"
 
-#: ../root/tag/collection.tt:1
-msgid "{num} collection found"
-msgid_plural "{num} collections found"
-msgstr[0] "{num} collectie gevonden"
-msgstr[1] "{num} collecties gevonden"
-
 #: ../root/components/common-macros.tt:44
 msgid "{num} day"
 msgid_plural "{num} days"
@@ -11667,8 +11644,8 @@ msgstr[1] "{num} uitgavegroepen gevonden"
 #: ../root/user/subscriptions/layout.tt:31
 msgid "{num} series"
 msgid_plural "{num} series"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{num} serie"
+msgstr[1] "{num} series"
 
 #: ../root/tag/work.tt:1
 msgid "{num} work found"

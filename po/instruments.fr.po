@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-05-26 09:28+0000\n"
+"PO-Revision-Date: 2014-05-27 21:51+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -139,7 +139,7 @@ msgstr "Northumbrian pipes"
 
 #: DB:instrument/name:647
 msgid "Portuguese guitar"
-msgstr ""
+msgstr "Guitare portugaise"
 
 #: DB:instrument/name:576
 msgid "Reactable"
@@ -322,8 +322,8 @@ msgid "bangu"
 msgstr "bangu"
 
 #: DB:instrument/name:221
-msgid "banhu / banghu"
-msgstr "banhu"
+msgid "banhu"
+msgstr ""
 
 #: DB:instrument/name:396
 msgid "banjitar"
@@ -515,7 +515,7 @@ msgstr "buk"
 
 #: DB:instrument/name:528
 msgid "bulbul tarang"
-msgstr ""
+msgstr "bulbul tarang"
 
 #: DB:instrument/name:153
 msgid "bull-roarer"
@@ -849,6 +849,10 @@ msgstr "batterie/tambours"
 msgid "drumset"
 msgstr "batterie"
 
+#: DB:instrument/name:649
+msgid "duck call"
+msgstr ""
+
 #: DB:instrument/name:194
 msgid "duct flutes"
 msgstr "flûte à bec"
@@ -912,6 +916,10 @@ msgstr "sitar électrique"
 #: DB:instrument/name:49
 msgid "electric upright bass"
 msgstr "contrebasse électrique"
+
+#: DB:instrument/name:648
+msgid "electric viola"
+msgstr ""
 
 #: DB:instrument/name:212
 msgid "electric violin"
@@ -1811,7 +1819,7 @@ msgstr "ryuteki"
 
 #: DB:instrument/name:646
 msgid "sabar"
-msgstr ""
+msgstr "sabar"
 
 #: DB:instrument/name:149
 msgid "sackbut"

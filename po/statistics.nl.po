@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-05-26 09:29+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-05-26 16:06+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1007,7 +1007,7 @@ msgstr "Totaal aantal bewerkingen"
 
 #: ../root/statistics/view_js.tt:58
 msgid "Count of all instruments"
-msgstr ""
+msgstr "Totaal aantal instrumenten"
 
 #: ../root/statistics/view_js.tt:54
 msgid "Count of all labels"
@@ -1035,7 +1035,7 @@ msgstr "Totale aantal uitgaves"
 
 #: ../root/statistics/view_js.tt:57
 msgid "Count of all series"
-msgstr ""
+msgstr "Totaal aantal series"
 
 #: ../root/statistics/view_js.tt:74
 msgid "Count of all votes"
@@ -1330,11 +1330,11 @@ msgstr "Inclusief"
 
 #: ../root/statistics/index.tt:647 ../root/statistics/view_js.tt:58
 msgid "Instruments"
-msgstr ""
+msgstr "Instrumenten"
 
 #: ../root/statistics/index.tt:64 ../root/statistics/index.tt:654
 msgid "Instruments:"
-msgstr ""
+msgstr "Instrumenten:"
 
 #: ../root/statistics/view_js.tt:29
 msgid "Label Countries"
@@ -1848,12 +1848,12 @@ msgstr "Secundaire types"
 #: ../root/statistics/index.tt:625 ../root/statistics/view_js.tt:57
 msgctxt "plural"
 msgid "Series"
-msgstr ""
+msgstr "Series"
 
 #: ../root/statistics/index.tt:60 ../root/statistics/index.tt:632
 msgctxt "plural"
 msgid "Series:"
-msgstr ""
+msgstr "Series:"
 
 #: ../root/statistics/no_statistics.tt:3
 msgid ""

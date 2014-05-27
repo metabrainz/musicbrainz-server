@@ -37,8 +37,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-26 02:28-0700\n"
-"PO-Revision-Date: 2014-05-26 09:29+0000\n"
+"POT-Creation-Date: 2014-05-27 14:50-0700\n"
+"PO-Revision-Date: 2014-05-27 21:51+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -5312,10 +5312,6 @@ msgstr "Keine MusicBrainz-Objekte wurden mit „{tag}“ getaggt."
 msgid "No artists with this tag were found."
 msgstr "Es wurden keine Künstler mit diesem Tag gefunden."
 
-#: ../root/tag/collection.tt:1
-msgid "No collections with this tag were found."
-msgstr "Es wurden keine Sammlungen mit diesem Tag gefunden."
-
 #: ../root/release/sidebar.tt:17
 msgid "No cover art available."
 msgstr "Kein Cover-Art verfügbar."
@@ -5688,8 +5684,8 @@ msgstr "Insgesamt"
 #: ../root/area/header.tt:1 ../root/artist/header.tt:1
 #: ../root/cdstub/header.tt:9 ../root/collection/header.tt:1
 #: ../root/instrument/header.tt:1 ../root/place/header.tt:1
-#: ../root/release_group/header.tt:1 ../root/tag/header.tt:1
-#: ../root/url/header.tt:1 ../root/work/header.tt:1
+#: ../root/release_group/header.tt:1 ../root/series/header.tt:1
+#: ../root/tag/header.tt:1 ../root/url/header.tt:1 ../root/work/header.tt:1
 msgid "Overview"
 msgstr "Übersicht"
 
@@ -7425,14 +7421,10 @@ msgstr "Satz"
 #: ../root/edit/details/merge_series.tt:8
 #: ../root/edit/details/merge_series.tt:33
 #: ../root/edit/details/remove_series_alias.tt:3
-#: ../root/scripts/text_strings.tt:112 ../root/series/edits.tt:5
-#: ../root/series/header.tt:1 ../root/series/header.tt:11
+#: ../root/edit/search_macros.tt:307 ../root/scripts/text_strings.tt:112
+#: ../root/series/edits.tt:5 ../root/series/header.tt:11
 #: ../root/series/merge.tt:12 ../lib/MusicBrainz/Server/Edit/Series.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:47
-msgid "Series"
-msgstr "Serie"
-
-#: ../root/edit/search_macros.tt:307
 msgctxt "singular"
 msgid "Series"
 msgstr ""
@@ -7453,12 +7445,16 @@ msgstr ""
 msgid "Series information"
 msgstr "Serieninformationen"
 
-#: ../root/components/common-macros.tt:565
 #: ../root/edit/details/add_series_annotation.tt:3
 #: ../root/edit/details/add_series.tt:3 ../root/edit/details/edit_series.tt:5
 #: ../root/edit/details/remove_series.tt:3
 msgid "Series:"
 msgstr "Serien:"
+
+#: ../root/components/common-macros.tt:565
+msgctxt "singular"
+msgid "Series:"
+msgstr ""
 
 #: ../root/release_group/set_cover_art.tt:1
 msgid "Set Release Group Cover Art"
@@ -8064,11 +8060,6 @@ msgctxt "noun"
 msgid "Tag"
 msgstr "Tag"
 
-#: ../root/collection/tag.tt:1
-msgctxt "verb"
-msgid "Tag"
-msgstr "Tagge"
-
 #: ../root/taglookup/index.tt:1 ../root/taglookup/index.tt:3
 msgid "Tag Lookup"
 msgstr "Tag-Nachschlagen"
@@ -8104,10 +8095,6 @@ msgstr "Veröffentlichungsgruppe taggen"
 #: ../root/artist/layout.tt:69 ../root/artist/tags.tt:3
 msgid "Tag this artist"
 msgstr "Diesen Künstler taggen"
-
-#: ../root/collection/tag.tt:2
-msgid "Tag this collection"
-msgstr "Diese Sammlung taggen"
 
 #: ../root/label/layout.tt:48 ../root/label/tags.tt:3
 msgid "Tag this label"
@@ -8147,15 +8134,15 @@ msgid "Tagger"
 msgstr "Tagger"
 
 #: ../root/artist/header.tt:1 ../root/artist/tags.tt:1
-#: ../root/collection/tags.tt:1 ../root/components/tags.tt:5
-#: ../root/label/header.tt:1 ../root/label/tags.tt:1
-#: ../root/layout/menu.tt:202 ../root/layout/sidebar/sidebar-tags.tt:21
-#: ../root/place/header.tt:1 ../root/place/tags.tt:1
-#: ../root/recording/header.tt:1 ../root/recording/tags.tt:1
-#: ../root/release_group/header.tt:1 ../root/release_group/tags.tt:1
-#: ../root/release/tabs.tt:1 ../root/release/tags.tt:1 ../root/tag/cloud.tt:1
-#: ../root/tag/cloud.tt:4 ../root/user/profile/layout.tt:19
-#: ../root/user/tags.tt:1 ../root/work/header.tt:1 ../root/work/tags.tt:1
+#: ../root/components/tags.tt:5 ../root/label/header.tt:1
+#: ../root/label/tags.tt:1 ../root/layout/menu.tt:202
+#: ../root/layout/sidebar/sidebar-tags.tt:21 ../root/place/header.tt:1
+#: ../root/place/tags.tt:1 ../root/recording/header.tt:1
+#: ../root/recording/tags.tt:1 ../root/release_group/header.tt:1
+#: ../root/release_group/tags.tt:1 ../root/release/tabs.tt:1
+#: ../root/release/tags.tt:1 ../root/tag/cloud.tt:1 ../root/tag/cloud.tt:4
+#: ../root/user/profile/layout.tt:19 ../root/user/tags.tt:1
+#: ../root/work/header.tt:1 ../root/work/tags.tt:1
 msgid "Tags"
 msgstr "Tags"
 
@@ -8679,10 +8666,6 @@ msgid "This change affects {num} relationship."
 msgid_plural "This change affects {num} relationships."
 msgstr[0] "Diese Änderung betrifft {num} Beziehung."
 msgstr[1] "Diese Änderung betrifft {num} Beziehungen."
-
-#: ../root/collection/tags.tt:2
-msgid "This collection has no tags."
-msgstr "Diese Sammlung hat keine Tags."
 
 #: ../root/edit/details/merge_releases.tt:125
 msgid ""
@@ -11600,12 +11583,6 @@ msgid "{num} collection"
 msgid_plural "{num} collections"
 msgstr[0] "Eine Sammlung"
 msgstr[1] "{num} Sammlungen"
-
-#: ../root/tag/collection.tt:1
-msgid "{num} collection found"
-msgid_plural "{num} collections found"
-msgstr[0] "Eine Sammlung gefunden"
-msgstr[1] "{num} Sammlungen gefunden"
 
 #: ../root/components/common-macros.tt:44
 msgid "{num} day"
