@@ -320,6 +320,7 @@ Readonly our %ENTITIES => (
     area => {
         mbid => { relatable => 1 },
         edit_table => 1,
+        merging => 1,
         model      => 'Area',
         annotations => { edit_type => $EDIT_AREA_ADD_ANNOTATION },
         removal     => { manual => 1 }
@@ -327,6 +328,7 @@ Readonly our %ENTITIES => (
     artist => {
         mbid => { relatable => 1 },
         edit_table => 1,
+        merging => 1,
         model      => 'Artist',
         annotations => { edit_type => $EDIT_ARTIST_ADD_ANNOTATION },
         ratings    => 1,
@@ -337,6 +339,7 @@ Readonly our %ENTITIES => (
     instrument => {
         mbid => { relatable => 1 },
         edit_table => 1,
+        merging => 1,
         model      => 'Instrument',
         annotations => { edit_type => $EDIT_INSTRUMENT_ADD_ANNOTATION },
         removal     => { manual => 1 }
@@ -344,6 +347,7 @@ Readonly our %ENTITIES => (
     label => {
         mbid => { relatable => 1 },
         edit_table => 1,
+        merging => 1,
         model      => 'Label',
         annotations => { edit_type => $EDIT_LABEL_ADD_ANNOTATION },
         ratings    => 1,
@@ -354,6 +358,7 @@ Readonly our %ENTITIES => (
     place => {
         mbid => { relatable => 1 },
         edit_table => 1,
+        merging => 1,
         model      => 'Place',
         annotations => { edit_type => $EDIT_PLACE_ADD_ANNOTATION },
         tags       => 1,
@@ -362,6 +367,7 @@ Readonly our %ENTITIES => (
     recording => {
         mbid => { relatable => 1 },
         edit_table => 1,
+        merging => 1,
         model      => 'Recording',
         annotations => { edit_type => $EDIT_RECORDING_ADD_ANNOTATION },
         ratings    => 1,
@@ -372,6 +378,7 @@ Readonly our %ENTITIES => (
     release => {
         mbid => { relatable => 1 },
         edit_table => 1,
+        merging => 1,
         model      => 'Release',
         annotations => { edit_type => $EDIT_RELEASE_ADD_ANNOTATION },
         tags       => 1,
@@ -381,6 +388,7 @@ Readonly our %ENTITIES => (
     release_group => {
         mbid => { relatable => 1 },
         edit_table => 1,
+        merging => 1,
         model      => 'ReleaseGroup',
         url        => 'release-group',
         annotations => { edit_type => $EDIT_RELEASEGROUP_ADD_ANNOTATION },
@@ -392,6 +400,7 @@ Readonly our %ENTITIES => (
     series => {
         mbid => { relatable => 1 },
         edit_table => 1,
+        merging => 1,
         model      => 'Series',
         annotations => { edit_type => $EDIT_SERIES_ADD_ANNOTATION },
         subscriptions => { entity => 1, deleted => 1 },
@@ -405,6 +414,7 @@ Readonly our %ENTITIES => (
     work => {
         mbid => { relatable => 1 },
         edit_table => 1,
+        merging => 1,
         model      => 'Work',
         annotations => { edit_type => $EDIT_WORK_ADD_ANNOTATION },
         ratings    => 1,
