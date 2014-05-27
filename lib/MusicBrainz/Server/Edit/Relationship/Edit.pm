@@ -301,7 +301,7 @@ sub initialize
     $opts{attribute_text_values} //= {};
 
     if (my $attributes = $opts{attributes}) {
-        $self->check_attributes($link->type, $attributes, $opts{attribute_text_values});
+        $self->check_attributes($opts{link_type} // $link->type, $attributes, $opts{attribute_text_values});
     }
 
     # Delete attribute_text_values if it's empty, unless the existing link has
