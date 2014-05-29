@@ -194,7 +194,10 @@ sub initialize
                 end_date => partial_date_to_hash($relationship->link->end_date),
                 attributes => [map { { root_name => $_->root->name,
                                        root_id => $_->root->id,
-                                       name => $_->name } } $relationship->link->all_attributes],
+                                       root_gid => $_->root->gid,
+                                       name => $_->name,
+                                       id => $_->id,
+                                       gid => $_->gid } } $relationship->link->all_attributes],
                 type => {
                     id => $relationship->link->type->id,
                     entity0_type => $relationship->link->type->entity0_type,
