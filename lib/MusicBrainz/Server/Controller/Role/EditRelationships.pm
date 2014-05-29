@@ -110,6 +110,7 @@ role {
                     target      => $target // { entityType => $target_type },
                     linkOrder   => $_->{link_order} // 0,
                     attributeTextValues => $attribute_text_values,
+                    $_->{backward} ? (direction => "backward") : (),
                 };
             }
 

@@ -740,3 +740,28 @@ test("MBS-5389: added recording-recording relationship appears under both record
 
     relationship.remove();
 });
+
+
+test("backwardness of submitted relationships is preserved (MBS-7636)", function () {
+    this.vm = this.RE.GenericEntityViewModel({
+        sourceData: {
+            entityType: "recording",
+            gid: this.fakeGID0,
+            submittedRelationships: [
+                {
+                    id: 123,
+                    linkTypeID: 234,
+                    target: {
+                        entityType: "recording",
+                        gid: this.fakeGID1
+                    },
+                    direction: "backward"
+                }
+            ]
+        }
+    });
+
+    var entities = this.vm.source.relationships()[0].entities();
+    equal(entities[0].gid, this.fakeGID1);
+    equal(entities[1].gid, this.fakeGID0);
+});
