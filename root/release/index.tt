@@ -73,12 +73,7 @@
                 <!-- ko text: number --><!-- /ko -->
               </td>
               <!-- ko if: $root.showVideo -->
-                <td class="video c" data-bind="if: recording.video">
-                  <img src="/static/images/icons/video.png"
-                       alt="[% l('This recording is a video') %]"
-                       title="[% l('This recording is a video') %]"
-                       class="bottom"/>
-              </td>
+                <td class="video c" data-bind="css: { 'is-video': recording.video }, attr: { title: (recording.video ? '[% l("This recording is a video") | js %]': '')}"></td>
               <!-- /ko -->
               <td>
                 <span data-bind="html: $data.html()"></span>
