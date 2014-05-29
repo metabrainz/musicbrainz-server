@@ -47,7 +47,10 @@ has '+data' => (
                 attributes => Optional[ArrayRef[Dict[
                     root_name => Str,
                     root_id => Int,
-                    name => Str
+                    root_gid => Optional[Str],
+                    name => Str,
+                    id => Optional[Int],
+                    gid => Optional[Str]
                 ]]],
                 type => Dict[
                     id => Optional[Int],
