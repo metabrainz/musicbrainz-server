@@ -49,18 +49,22 @@
             this.source = options.source;
 
             if (options.sourceData) {
-                this.source = options.source || MB.entity(options.sourceData);
-                this.source.parseRelationships(options.sourceData.relationships, this);
+                var source = this.source = options.source || MB.entity(options.sourceData);
+                source.parseRelationships(options.sourceData.relationships, this);
 
                 _.each(options.sourceData.submittedRelationships, function (data) {
-                    var relationship = self.getRelationship(data, self.source);
+                    var relationship = self.getRelationship(data, source);
 
                     if (!relationship) {
                         return;
                     } else if (relationship.id) {
-                        relationship.fromJS(_.assign(_.clone(data), {
-                            entities: _.sortBy([self.source, MB.entity(data.target)], "entityType")
-                        }));
+                        var target = MB.entity(data.target);
+                        var entities = _.sortBy([source, target], "entityType");
+
+                        if (source.entityType === target.entityType && data.direction === "backward") {
+                            entities.reverse();
+                        }
+                        relationship.fromJS(_.assign(_.clone(data), { entities: entities }));
                     } else {
                         relationship.show();
                     }
