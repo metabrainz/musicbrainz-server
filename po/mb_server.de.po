@@ -37,8 +37,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-20 12:01-0700\n"
-"PO-Revision-Date: 2014-05-20 19:02+0000\n"
+"POT-Creation-Date: 2014-05-27 14:50-0700\n"
+"PO-Revision-Date: 2014-05-27 21:51+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -253,7 +253,7 @@ msgstr "(Sprache zurücksetzen)"
 msgid "(standalone recording)"
 msgstr "(alleinstehende Aufnahme)"
 
-#: ../root/components/details.tt:1 ../root/edit/details/add_isrcs.tt:5
+#: ../root/components/details.tt:16 ../root/edit/details/add_isrcs.tt:5
 #: ../root/edit/details/historic/convert_release_to_multiple_artists.tt:11
 #: ../root/edit/details/historic/mac_to_sac.tt:8
 #: ../root/edit/details/historic/mac_to_sac.tt:13
@@ -389,7 +389,7 @@ msgid ""
 "<strong>Warning:</strong> Some of the recordings you're merging have "
 "different ISRCs. Please make sure they are indeed the same recordings and "
 "you wish to continue with the merge."
-msgstr "<strong>Achtung:</strong> Einige der Aufnahmen, die Du zusammenführst, haben unterschiedliche ISRCs. Bitte stelle sicher, dass es sich tatsächlich um die gleichen Aufnahmen handelt und dass Du die Zusammenführung durchführen willst."
+msgstr "<strong>Achtung:</strong> Einige der Aufnahmen, die Du vereinst, haben unterschiedliche ISRCs. Bitte stelle sicher, dass es sich tatsächlich um die gleichen Aufnahmen handelt und dass Du die Vereinigung durchführen willst."
 
 #: ../root/components/common-macros.tt:743 ../root/recording/edit.tt:10
 msgid "<strong>Warning</strong>:"
@@ -434,7 +434,7 @@ msgstr "Ein Veröffentlichungstitel ist erforderlich."
 #: ../root/search/index.tt:10
 msgid ""
 "A simple list of all entities is available from our {url|browse} pages."
-msgstr ""
+msgstr "Eine einfache Liste aller Objekte steht auf unseren {url|Durchstöbern}-Seiten zur Verfügung."
 
 #: ../root/scripts/text_strings.tt:156
 msgid "A tracklist is required."
@@ -661,7 +661,7 @@ msgstr "Werk hinzufügen"
 msgid "Add Work Alias"
 msgstr "Werkalias hinzufügen"
 
-#: ../root/work/edit_form.tt:75
+#: ../root/work/edit_form.tt:78
 msgctxt "button/menu"
 msgid "Add Work Attribute"
 msgstr "Werkattribut hinzufügen"
@@ -742,7 +742,7 @@ msgstr "Noch ein Gebiet hinzufügen"
 msgid "Add another artist"
 msgstr "Noch einen Künstler hinzufügen"
 
-#: ../root/components/relationship-editor.tt:117
+#: ../root/components/relationship-editor.tt:166
 #: ../root/scripts/text_strings.tt:178
 msgid "Add another instrument"
 msgstr "Noch ein Instrument hinzufügen"
@@ -1169,6 +1169,7 @@ msgstr "Beim Erstellen der Werke ist ein Fehler aufgetreten."
 #: ../root/release/annotation_revision.tt:1
 #: ../root/release_group/annotation_revision.tt:1
 #: ../root/search/results-annotation.tt:10
+#: ../root/series/annotation_revision.tt:1
 #: ../root/work/annotation_revision.tt:1
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:41
 msgid "Annotation"
@@ -1222,7 +1223,7 @@ msgstr "Anmerkungen:"
 msgid "Annotations support a limited set of wiki formatting options:"
 msgstr "In Anmerkungen steht eine beschränkte Menge an Wiki-Formatierungen zur Verfügung:"
 
-#: ../root/artist/relationships.tt:6 ../root/label/relationships.tt:6
+#: ../root/artist/relationships.tt:6 ../root/label/relationships.tt:5
 msgid "Appearances"
 msgstr "Vorkommen"
 
@@ -1344,8 +1345,9 @@ msgstr "Bist Du sicher, dass Du die Serie {series} aus MusicBrainz entfernen mö
 #: ../root/edit/details/merge_labels.tt:11
 #: ../root/edit/details/merge_labels.tt:48
 #: ../root/edit/details/merge_places.tt:11
-#: ../root/edit/details/merge_places.tt:48 ../root/label/merge.tt:15
-#: ../root/place/merge.tt:14 ../root/scripts/text_strings.tt:104
+#: ../root/edit/details/merge_places.tt:48 ../root/edit/search_macros.tt:307
+#: ../root/label/merge.tt:15 ../root/place/merge.tt:14
+#: ../root/scripts/text_strings.tt:104
 #: ../root/search/lib/inline-results-artist.tt:11
 #: ../root/search/results-label.tt:11 ../root/search/results-place.tt:11
 #: ../lib/MusicBrainz/Server/Edit/Area.pm:7
@@ -1843,7 +1845,7 @@ msgstr "Anfangsgebiet:"
 #: ../root/alias/edit_form.tt:34 ../root/area/edit_form.tt:23
 #: ../root/area/layout.tt:12 ../root/artist/edit_form.tt:57
 #: ../root/components/common-macros.tt:840
-#: ../root/components/relationship-editor.tt:151
+#: ../root/components/relationship-editor.tt:107
 #: ../root/edit/details/add_area_alias.tt:40
 #: ../root/edit/details/add_area.tt:58
 #: ../root/edit/details/add_artist_alias.tt:40
@@ -1950,7 +1952,7 @@ msgstr "Veröffentlichungen durchstöbern"
 
 #: ../root/browse/entity.tt:1
 msgid "Browse Series"
-msgstr ""
+msgstr "Serien durchstöbern"
 
 #: ../root/browse/entity.tt:1
 msgid "Browse Works"
@@ -2592,22 +2594,18 @@ msgstr "Beschreibung"
 msgid "Description:"
 msgstr "Beschreibung:"
 
-#: ../root/area/details.tt:3 ../root/area/details.tt:4
-#: ../root/area/header.tt:1 ../root/artist/details.tt:3
-#: ../root/artist/details.tt:4 ../root/artist/header.tt:1
-#: ../root/doc/edit_type.tt:45 ../root/elections/show.tt:7
-#: ../root/instrument/details.tt:3 ../root/instrument/details.tt:4
-#: ../root/instrument/header.tt:1 ../root/label/details.tt:3
-#: ../root/label/details.tt:4 ../root/label/header.tt:1
-#: ../root/place/details.tt:3 ../root/place/details.tt:4
-#: ../root/place/header.tt:1 ../root/recording/details.tt:3
-#: ../root/recording/details.tt:4 ../root/recording/header.tt:1
-#: ../root/release/details.tt:3 ../root/release/details.tt:4
-#: ../root/release_group/details.tt:3 ../root/release_group/details.tt:4
-#: ../root/release_group/header.tt:1 ../root/release/tabs.tt:1
-#: ../root/series/details.tt:3 ../root/series/details.tt:4
-#: ../root/series/header.tt:1 ../root/work/details.tt:3
-#: ../root/work/details.tt:4 ../root/work/header.tt:1
+#: ../root/area/details.tt:1 ../root/area/header.tt:1
+#: ../root/artist/details.tt:1 ../root/artist/header.tt:1
+#: ../root/components/details.tt:2 ../root/doc/edit_type.tt:45
+#: ../root/elections/show.tt:7 ../root/instrument/details.tt:1
+#: ../root/instrument/header.tt:1 ../root/label/details.tt:1
+#: ../root/label/header.tt:1 ../root/place/details.tt:1
+#: ../root/place/header.tt:1 ../root/recording/details.tt:1
+#: ../root/recording/header.tt:1 ../root/release/details.tt:1
+#: ../root/release_group/details.tt:1 ../root/release_group/header.tt:1
+#: ../root/release/tabs.tt:1 ../root/series/details.tt:1
+#: ../root/series/header.tt:1 ../root/work/details.tt:1
+#: ../root/work/header.tt:1
 msgid "Details"
 msgstr "Details"
 
@@ -2684,12 +2682,12 @@ msgstr "Disc-ID „<code>{discid}</code>“"
 msgid "Disc ID “{discid}”"
 msgstr "Disc-ID „{discid}“"
 
-#: ../root/cdtoc/info.tt:11 ../root/edit/details/add_disc_id.tt:15
+#: ../root/cdtoc/info.tt:11 ../root/edit/details/add_disc_id.tt:11
 #: ../root/edit/details/historic/add_disc_id.tt:17
 #: ../root/edit/details/historic/move_disc_id.tt:3
 #: ../root/edit/details/historic/remove_disc_id.tt:14
 #: ../root/edit/details/move_disc_id.tt:3
-#: ../root/edit/details/remove_disc_id.tt:13
+#: ../root/edit/details/remove_disc_id.tt:9
 #: ../root/edit/details/set_track_lengths_from_discid.tt:16
 #: ../root/edit/details/set_track_lengths.tt:16 ../root/otherlookup/form.tt:3
 msgid "Disc ID:"
@@ -3178,7 +3176,7 @@ msgstr "Bearbeiterrechte"
 msgid "Editor Not Found"
 msgstr "Bearbeiter nicht gefunden"
 
-#: ../root/user/subscriptions/editor.tt:1 ../root/user/subscriptions/menu.tt:6
+#: ../root/user/subscriptions/editor.tt:1 ../root/user/subscriptions/menu.tt:7
 msgid "Editor Subscriptions"
 msgstr "Bearbeiterabonnements"
 
@@ -3339,7 +3337,7 @@ msgstr "Enddatum"
 #: ../root/alias/edit_form.tt:35 ../root/area/edit_form.tt:24
 #: ../root/area/layout.tt:20 ../root/area/layout.tt:27
 #: ../root/artist/edit_form.tt:69 ../root/components/common-macros.tt:848
-#: ../root/components/relationship-editor.tt:155
+#: ../root/components/relationship-editor.tt:111
 #: ../root/edit/details/add_area_alias.tt:46
 #: ../root/edit/details/add_area.tt:65
 #: ../root/edit/details/add_artist_alias.tt:46
@@ -3549,7 +3547,7 @@ msgstr[1] "Läuft in <span class=\"tooltip\" title=\"{exactdate}\">{num} Minuten
 #: ../root/place/edit_form.tt:64 ../root/recording/edit_form.tt:25
 #: ../root/release/edit/information.tt:227
 #: ../root/release_group/edit_form.tt:22 ../root/series/edit_form.tt:40
-#: ../root/work/edit_form.tt:88
+#: ../root/work/edit_form.tt:91
 msgid "External Links"
 msgstr "Externe Links"
 
@@ -3619,7 +3617,7 @@ msgstr "Weitere Informationen zum Kontolöschprozess findest Du in der {uri|Kont
 msgid ""
 "For instructions on how to fix them, please see the documentation about "
 "{howto|how to merge releases}."
-msgstr "Hinweise, wie man das korrigiert, findest Du in der Dokumentation über das {howto|Zusammenführen von Veröffentlichungen}."
+msgstr "Hinweise, wie man das korrigiert, findest Du in der Dokumentation über das {howto|Vereinen von Veröffentlichungen}."
 
 #: ../root/artist/edit_form.tt:4 ../root/label/edit_form.tt:4
 #: ../root/recording/edit_form.tt:4 ../root/release_group/edit_form.tt:4
@@ -3627,11 +3625,11 @@ msgstr "Hinweise, wie man das korrigiert, findest Du in der Dokumentation über 
 msgid ""
 "For more information, check the {doc_doc|documentation} and "
 "{doc_styleguide|style guidelines}."
-msgstr ""
+msgstr "Weitere Informationen findest Du in der {doc_doc|Dokumentation} und den {doc_styleguide|Stilrichtlinien}."
 
 #: ../root/place/edit_form.tt:4 ../root/work/edit_form.tt:5
 msgid "For more information, check the {doc_doc|documentation}."
-msgstr ""
+msgstr "Weitere Informationen findest Du in der {doc_doc|Dokumentation}."
 
 #: ../root/edit/info.tt:63
 msgid "For more information:"
@@ -3886,7 +3884,7 @@ msgid "Help:"
 msgstr "Hilfe:"
 
 #: ../root/components/common-macros.tt:595
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:198
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:200
 msgid "High"
 msgstr "Hoch"
 
@@ -4222,7 +4220,8 @@ msgstr "Installierte Anwendung"
 
 #: ../root/components/common-macros.tt:581
 #: ../root/edit/details/merge_instruments.tt:8
-#: ../root/edit/details/merge_instruments.tt:33 ../root/instrument/edits.tt:5
+#: ../root/edit/details/merge_instruments.tt:33
+#: ../root/edit/search_macros.tt:307 ../root/instrument/edits.tt:5
 #: ../root/instrument/header.tt:19 ../root/instrument/merge.tt:11
 #: ../root/scripts/text_strings.tt:106
 #: ../lib/MusicBrainz/Server/Edit/Instrument.pm:7
@@ -4472,11 +4471,7 @@ msgstr "Letztes Replikations-Paket erhalten am {datetime}"
 msgid "Last updated on {date}"
 msgstr "Zuletzt aktualisiert am {date}"
 
-#: ../root/area/details.tt:17 ../root/artist/details.tt:17
-#: ../root/instrument/details.tt:17 ../root/label/details.tt:17
-#: ../root/place/details.tt:17 ../root/recording/details.tt:17
-#: ../root/release/details.tt:17 ../root/release_group/details.tt:17
-#: ../root/series/details.tt:17 ../root/work/details.tt:17
+#: ../root/components/details.tt:15
 msgid "Last updated:"
 msgstr "Zuletzt aktualisiert:"
 
@@ -4683,7 +4678,7 @@ msgid "Lost Username"
 msgstr "Benutzernamen vergessen"
 
 #: ../root/components/common-macros.tt:595
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:198
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:200
 msgid "Low"
 msgstr "Niedrig"
 
@@ -4725,7 +4720,7 @@ msgid ""
 "Make sure all mediums in the releases being merged are in the correct "
 "position. For example, to merge a medium into medium 2 of a release, it will"
 " need to be set as medium 2 of the release being merged."
-msgstr "Überprüfe bitte, dass alle Medien in der Veröffentlichung in der richtigen Position vereinigt werden. Wenn zum Beispiel ein Medium mit Medium 2 einer Veröffentlichung vereinigt werden soll, muss es bei der zur vereinigenden Veröffentlichung als 2. Medium gesetzt sein."
+msgstr "Überprüfe bitte, dass alle Medien in der Veröffentlichung in der richtigen Position vereint werden. Wenn zum Beispiel ein Medium mit Medium 2 einer Veröffentlichung vereint werden soll, muss es bei der zur vereinenden Veröffentlichung als 2. Medium gesetzt sein."
 
 #: ../root/release/edit/tracklist.tt:141
 msgid "Manual entry"
@@ -4806,7 +4801,7 @@ msgstr "Vereinen"
 
 #: ../root/area/merge.tt:1 ../root/area/merge.tt:3
 msgid "Merge Areas"
-msgstr "Gebiete vereinigen"
+msgstr "Gebiete vereinen"
 
 #: ../root/artist/merge.tt:1 ../root/artist/merge.tt:3
 msgid "Merge Artists"
@@ -4850,7 +4845,7 @@ msgstr "Werke vereinen"
 
 #: ../root/area/layout.tt:57
 msgid "Merge area"
-msgstr "Gebiet vereinigen"
+msgstr "Gebiet vereinen"
 
 #: ../root/artist/layout.tt:109
 msgid "Merge artist"
@@ -4905,7 +4900,7 @@ msgstr "Serie vereinen"
 
 #: ../root/edit/details/merge_releases.tt:133 ../root/release/merge.tt:55
 msgid "Merge strategy:"
-msgstr "Vereinigungsstrategie:"
+msgstr "Vereinigungsverfahren:"
 
 #: ../root/work/layout.tt:44
 msgid "Merge work"
@@ -5113,11 +5108,10 @@ msgid "Name"
 msgstr "Name"
 
 #: ../root/account/edit_application.tt:8
-#: ../root/account/register_application.tt:8 ../root/area/details.tt:7
-#: ../root/area/edit_form.tt:10 ../root/artist/details.tt:7
+#: ../root/account/register_application.tt:8 ../root/area/edit_form.tt:10
 #: ../root/artist/edit_form.tt:31 ../root/collection/edit_form.tt:5
-#: ../root/components/filter-form.tt:16 ../root/edit/details/add_area.tt:10
-#: ../root/edit/details/add_artist.tt:10
+#: ../root/components/details.tt:5 ../root/components/filter-form.tt:16
+#: ../root/edit/details/add_area.tt:10 ../root/edit/details/add_artist.tt:10
 #: ../root/edit/details/add_instrument.tt:10
 #: ../root/edit/details/add_label.tt:10 ../root/edit/details/add_medium.tt:19
 #: ../root/edit/details/add_place.tt:10
@@ -5145,17 +5139,14 @@ msgstr "Name"
 #: ../root/edit/details/historic/edit_track_name.tt:13
 #: ../root/edit/details/remove_relationship_attribute.tt:3
 #: ../root/edit/details/remove_relationship_type.tt:7
-#: ../root/instrument/details.tt:7 ../root/instrument/edit_form.tt:10
-#: ../root/label/details.tt:7 ../root/label/edit_form.tt:31
-#: ../root/place/details.tt:7 ../root/place/edit_form.tt:33
-#: ../root/recording/details.tt:7 ../root/recording/edit_form.tt:12
+#: ../root/instrument/edit_form.tt:10 ../root/label/edit_form.tt:31
+#: ../root/place/edit_form.tt:33 ../root/recording/edit_form.tt:12
 #: ../root/relationship/linkattributetype/form.tt:12
 #: ../root/relationship/linktype/form.tt:12
 #: ../root/relationship/linktype/form.tt:68
-#: ../root/relationship/linktype/form.tt:99 ../root/release/details.tt:7
-#: ../root/release_group/details.tt:7 ../root/release_group/edit_form.tt:12
-#: ../root/series/details.tt:7 ../root/series/edit_form.tt:31
-#: ../root/work/details.tt:7 ../root/work/edit_form.tt:13
+#: ../root/relationship/linktype/form.tt:99
+#: ../root/release_group/edit_form.tt:12 ../root/series/edit_form.tt:31
+#: ../root/work/edit_form.tt:13
 msgid "Name:"
 msgstr "Name:"
 
@@ -5321,10 +5312,6 @@ msgstr "Keine MusicBrainz-Objekte wurden mit „{tag}“ getaggt."
 msgid "No artists with this tag were found."
 msgstr "Es wurden keine Künstler mit diesem Tag gefunden."
 
-#: ../root/tag/collection.tt:1
-msgid "No collections with this tag were found."
-msgstr "Es wurden keine Sammlungen mit diesem Tag gefunden."
-
 #: ../root/release/sidebar.tt:17
 msgid "No cover art available."
 msgstr "Kein Cover-Art verfügbar."
@@ -5484,7 +5471,7 @@ msgid "None"
 msgstr "Keine"
 
 #: ../root/components/common-macros.tt:595
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:198
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:200
 msgid "Normal"
 msgstr "Normal"
 
@@ -5697,8 +5684,8 @@ msgstr "Insgesamt"
 #: ../root/area/header.tt:1 ../root/artist/header.tt:1
 #: ../root/cdstub/header.tt:9 ../root/collection/header.tt:1
 #: ../root/instrument/header.tt:1 ../root/place/header.tt:1
-#: ../root/release_group/header.tt:1 ../root/tag/header.tt:1
-#: ../root/url/header.tt:1 ../root/work/header.tt:1
+#: ../root/release_group/header.tt:1 ../root/series/header.tt:1
+#: ../root/tag/header.tt:1 ../root/url/header.tt:1 ../root/work/header.tt:1
 msgid "Overview"
 msgstr "Übersicht"
 
@@ -5796,11 +5783,7 @@ msgstr "Führe die obigen Schritte durch, wenn ich die Anwendung nicht benutze"
 msgid "Performances"
 msgstr "Aufführungen"
 
-#: ../root/area/details.tt:22 ../root/artist/details.tt:22
-#: ../root/instrument/details.tt:22 ../root/label/details.tt:22
-#: ../root/place/details.tt:22 ../root/recording/details.tt:22
-#: ../root/release/details.tt:22 ../root/release_group/details.tt:22
-#: ../root/series/details.tt:22 ../root/work/details.tt:22
+#: ../root/components/details.tt:19
 msgid "Permanent link:"
 msgstr "Permanenter Link:"
 
@@ -5810,9 +5793,10 @@ msgstr "Phrase:"
 
 #: ../root/area/places-list.tt:4 ../root/components/common-macros.tt:581
 #: ../root/edit/details/merge_places.tt:8
-#: ../root/edit/details/merge_places.tt:45 ../root/place/edits.tt:5
-#: ../root/place/header.tt:14 ../root/place/merge.tt:11
-#: ../root/report/place_list.tt:7 ../root/scripts/text_strings.tt:108
+#: ../root/edit/details/merge_places.tt:45 ../root/edit/search_macros.tt:307
+#: ../root/place/edits.tt:5 ../root/place/header.tt:14
+#: ../root/place/merge.tt:11 ../root/report/place_list.tt:7
+#: ../root/scripts/text_strings.tt:108
 #: ../lib/MusicBrainz/Server/Edit/Place.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:40
 msgid "Place"
@@ -5947,7 +5931,7 @@ msgid ""
 "Please make sure you're not removing a legitimate {doc_standalone|standalone"
 " recording}. If this recording is a duplicate of another, please "
 "{doc_merge|merge them instead}."
-msgstr ""
+msgstr "Stelle bitte sicher, dass Du keine gültige {doc_standalone|alleinstehende Aufnahme} entfernst. Wenn diese Aufnahme ein Duplikat einer anderen ist, {doc_merge|vereine die beiden stattdessen}."
 
 #: ../root/layout/merge-helper.tt:24
 msgid ""
@@ -6450,8 +6434,8 @@ msgstr "Beziehung:"
 #: ../root/artist/header.tt:1 ../root/artist/relationships.tt:1
 #: ../root/components/relationships.tt:25
 #: ../root/forms/relationship-editor.tt:9 ../root/label/header.tt:1
-#: ../root/label/relationships.tt:1 ../root/label/relationships.tt:2
-#: ../root/relationship/header.tt:7 ../root/release/index.tt:300
+#: ../root/label/relationships.tt:1 ../root/relationship/header.tt:7
+#: ../root/release/index.tt:300
 msgid "Relationships"
 msgstr "Beziehungen"
 
@@ -6987,7 +6971,7 @@ msgstr "Gebietsalias entfernen"
 msgid "Remove artist alias"
 msgstr "Künstleralias entfernen"
 
-#: ../root/work/edit_form.tt:58
+#: ../root/work/edit_form.tt:61
 msgid "Remove attribute"
 msgstr "Attribut entfernen"
 
@@ -7415,7 +7399,7 @@ msgid "Send"
 msgstr "Senden"
 
 #: ../root/account/lost_username.tt:14 ../root/user/contact.tt:1
-#: ../root/user/contact.tt:3 ../lib/MusicBrainz/Server/Controller/User.pm:251
+#: ../root/user/contact.tt:3 ../lib/MusicBrainz/Server/Controller/User.pm:252
 msgid "Send Email"
 msgstr "E-Mail senden"
 
@@ -7437,12 +7421,13 @@ msgstr "Satz"
 #: ../root/edit/details/merge_series.tt:8
 #: ../root/edit/details/merge_series.tt:33
 #: ../root/edit/details/remove_series_alias.tt:3
-#: ../root/scripts/text_strings.tt:112 ../root/series/edits.tt:5
-#: ../root/series/header.tt:1 ../root/series/header.tt:11
+#: ../root/edit/search_macros.tt:307 ../root/scripts/text_strings.tt:112
+#: ../root/series/edits.tt:5 ../root/series/header.tt:11
 #: ../root/series/merge.tt:12 ../lib/MusicBrainz/Server/Edit/Series.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:47
+msgctxt "singular"
 msgid "Series"
-msgstr "Serie"
+msgstr ""
 
 #: ../root/series/edit_form.tt:30
 msgid "Series Details"
@@ -7452,16 +7437,24 @@ msgstr "Seriendetails"
 msgid "Series Not Found"
 msgstr "Serie nicht gefunden"
 
+#: ../root/user/subscriptions/menu.tt:6 ../root/user/subscriptions/series.tt:1
+msgid "Series Subscriptions"
+msgstr ""
+
 #: ../root/series/layout.tt:4
 msgid "Series information"
 msgstr "Serieninformationen"
 
-#: ../root/components/common-macros.tt:565
 #: ../root/edit/details/add_series_annotation.tt:3
 #: ../root/edit/details/add_series.tt:3 ../root/edit/details/edit_series.tt:5
 #: ../root/edit/details/remove_series.tt:3
 msgid "Series:"
 msgstr "Serien:"
+
+#: ../root/components/common-macros.tt:565
+msgctxt "singular"
+msgid "Series:"
+msgstr ""
 
 #: ../root/release_group/set_cover_art.tt:1
 msgid "Set Release Group Cover Art"
@@ -7532,7 +7525,7 @@ msgstr "Zeige alle Veröffentlichungsgruppen dieses Künstlers. {show_official|N
 msgid ""
 "Showing all release groups by this artist. {show_va|Show various artists "
 "release groups instead}."
-msgstr ""
+msgstr "Zeige alle Veröffentlichungsgruppen dieses Künstlers. {show_va|Veröffentlichungsgruppen diverser Künstler anzeigen}."
 
 #: ../root/artist/index.tt:70
 msgid "Showing all release groups for various artists."
@@ -8067,11 +8060,6 @@ msgctxt "noun"
 msgid "Tag"
 msgstr "Tag"
 
-#: ../root/collection/tag.tt:1
-msgctxt "verb"
-msgid "Tag"
-msgstr "Tagge"
-
 #: ../root/taglookup/index.tt:1 ../root/taglookup/index.tt:3
 msgid "Tag Lookup"
 msgstr "Tag-Nachschlagen"
@@ -8107,10 +8095,6 @@ msgstr "Veröffentlichungsgruppe taggen"
 #: ../root/artist/layout.tt:69 ../root/artist/tags.tt:3
 msgid "Tag this artist"
 msgstr "Diesen Künstler taggen"
-
-#: ../root/collection/tag.tt:2
-msgid "Tag this collection"
-msgstr "Diese Sammlung taggen"
 
 #: ../root/label/layout.tt:48 ../root/label/tags.tt:3
 msgid "Tag this label"
@@ -8150,15 +8134,15 @@ msgid "Tagger"
 msgstr "Tagger"
 
 #: ../root/artist/header.tt:1 ../root/artist/tags.tt:1
-#: ../root/collection/tags.tt:1 ../root/components/tags.tt:5
-#: ../root/label/header.tt:1 ../root/label/tags.tt:1
-#: ../root/layout/menu.tt:202 ../root/layout/sidebar/sidebar-tags.tt:21
-#: ../root/place/header.tt:1 ../root/place/tags.tt:1
-#: ../root/recording/header.tt:1 ../root/recording/tags.tt:1
-#: ../root/release_group/header.tt:1 ../root/release_group/tags.tt:1
-#: ../root/release/tabs.tt:1 ../root/release/tags.tt:1 ../root/tag/cloud.tt:1
-#: ../root/tag/cloud.tt:4 ../root/user/profile/layout.tt:19
-#: ../root/user/tags.tt:1 ../root/work/header.tt:1 ../root/work/tags.tt:1
+#: ../root/components/tags.tt:5 ../root/label/header.tt:1
+#: ../root/label/tags.tt:1 ../root/layout/menu.tt:202
+#: ../root/layout/sidebar/sidebar-tags.tt:21 ../root/place/header.tt:1
+#: ../root/place/tags.tt:1 ../root/recording/header.tt:1
+#: ../root/recording/tags.tt:1 ../root/release_group/header.tt:1
+#: ../root/release_group/tags.tt:1 ../root/release/tabs.tt:1
+#: ../root/release/tags.tt:1 ../root/tag/cloud.tt:1 ../root/tag/cloud.tt:4
+#: ../root/user/profile/layout.tt:19 ../root/user/tags.tt:1
+#: ../root/work/header.tt:1 ../root/work/tags.tt:1
 msgid "Tags"
 msgstr "Tags"
 
@@ -8378,7 +8362,7 @@ msgstr "Die Künstler der Aufnahmen unterscheiden sich! Vielleicht wolltest Du d
 msgid ""
 "The recordings that will be merged if you continue with the current merge "
 "strategy include the following, whose artists differ:"
-msgstr "Die Aufnahmen, die zusammengeführt werden, wenn Du mit dem aktuellen Zusammenführ-Verfahren fortfährst, enthalten die folgenden, deren Künstler sich unterscheiden:"
+msgstr "Die Aufnahmen, die vereint werden, wenn Du mit dem aktuellen Vereinigungsverfahren fortfährst, enthalten die folgenden, deren Künstler sich unterscheiden:"
 
 #: ../root/relationship/linktype/in_use.tt:4
 msgid ""
@@ -8673,15 +8657,15 @@ msgstr "Dieser Künstler hat nur inoffizielle Veröffentlichungsgruppen."
 msgid "This attribute is required."
 msgstr "Dieses Attribut ist erforderlich."
 
+#: ../root/work/edit_form.tt:57
+msgid "This attribute type is only used for grouping, please select a subtype"
+msgstr ""
+
 #: ../root/edit/details/edit_url.tt:31
 msgid "This change affects {num} relationship."
 msgid_plural "This change affects {num} relationships."
 msgstr[0] "Diese Änderung betrifft {num} Beziehung."
 msgstr[1] "Diese Änderung betrifft {num} Beziehungen."
-
-#: ../root/collection/tags.tt:2
-msgid "This collection has no tags."
-msgstr "Diese Sammlung hat keine Tags."
 
 #: ../root/edit/details/merge_releases.tt:125
 msgid ""
@@ -8733,7 +8717,7 @@ msgstr "Diese Bearbeitung führt Änderungen an den Titellängen durch, die sich
 msgid ""
 "This edit was a \"Merge Releases (Various Artists)\" edit which additionally"
 " set the release artist to Various Artists."
-msgstr "Diese Bearbeitung war eine „Veröffentlichungen zusammenführen (Diverse Künstler)“ Bearbeitung, die zusätzlich den Veröffentlichungskünstler auf Diverse Künstler gesetzt hat."
+msgstr "Diese Bearbeitung war eine „Veröffentlichungen vereinen (Diverse Künstler)“ Bearbeitung, die zusätzlich den Veröffentlichungskünstler auf Diverse Künstler gesetzt hat."
 
 #: ../root/edit/details/edit_url.tt:41
 msgid "This edit was a merge."
@@ -8774,7 +8758,7 @@ msgid ""
 "This form allows you to split {artist} into separate artists. When the edit "
 "is accepted, existing artist credits will be updated, and collaboration "
 "relationships will be removed"
-msgstr "Über dieses Formular kannst Du {artist} in mehrere Künstler aufteilen. Wenn die Bearbeitung angenommen wird, werden bestehende Künstlernennungen aktualisiert und Zusammenarbeit-Beziehungen werden entfernt"
+msgstr "Über dieses Formular kannst Du {artist} in mehrere Künstler aufteilen. Wenn die Bearbeitung angenommen wird, werden bestehende Künstlernennungen aktualisiert und Zusammenarbeitsbeziehungen werden entfernt"
 
 #: ../root/scripts/text_strings.tt:70
 msgid "This group has dissolved."
@@ -8879,7 +8863,7 @@ msgid ""
 "This merge strategy will merge all mediums together into a single set of "
 "mediums. Recordings between mediums will also be merged, into the recordings"
 " used on the target mediums."
-msgstr "Dieses Zusammenführ-Verfahren wird alle Medien zu einem einzigen Satz an Medien zusammenführen. Aufnahmen zwischen den Medien werden auch zusammengeführt und gehen in die Aufnahmen auf, die im Zielmedium benutzt werden."
+msgstr "Dieses Vereinigungsverfahren wird alle Medien zu einem einzigen Satz an Medien vereinen. Aufnahmen zwischen den Medien werden auch vereint und gehen in die Aufnahmen auf, die im Zielmedium benutzt werden."
 
 #: ../root/scripts/text_strings.tt:140
 msgid ""
@@ -8974,7 +8958,7 @@ msgid ""
 "which no longer exist."
 msgstr "Diese Beziehungsbearbeitung enthält auch Änderungen an Beziehungsattributen, die nicht mehr existieren."
 
-#: ../root/components/relationship-editor.tt:168
+#: ../root/components/relationship-editor.tt:124
 msgid "This relationship has ended."
 msgstr "Diese Beziehung ist beendet."
 
@@ -9041,7 +9025,7 @@ msgid ""
 "they're different, add {disambiguation_comment|disambiguation comments} to "
 "them (and once a group of similarly named artists have disambiguation "
 "comments, they will stop appearing here)."
-msgstr "Dieser Report hat das Ziel, Künstler mit sehr ähnlichen Namen zu identifizieren. Wenn es sich bei zwei Künstlern eigentlich um den gleichen handelt, führe sie bitte zusammen (denk daran, {how_to_write_edit_notes|eine Bearbeitungsbemerkung zu schreiben} und Deinen Nachweis mit anzugeben). Sind sie jedoch unterschiedlich, so gib ihnen {disambiguation_comment|Unterscheidungskommentare} (und sobald eine Gruppe von ähnlich benannten Künstlern Unterscheidungskommentare haben, werden sie hier nicht mehr auftauchen)."
+msgstr "Dieser Report hat das Ziel, Künstler mit sehr ähnlichen Namen zu identifizieren. Wenn es sich bei zwei Künstlern eigentlich um den gleichen handelt, vereine sie bitte (denk daran, {how_to_write_edit_notes|eine Bearbeitungsbemerkung zu schreiben} und Deinen Nachweis mit anzugeben). Sind sie jedoch unterschiedlich, so gib ihnen {disambiguation_comment|Unterscheidungskommentare} (und sobald eine Gruppe von ähnlich benannten Künstlern Unterscheidungskommentare haben, werden sie hier nicht mehr auftauchen)."
 
 #: ../root/report/tracks_named_with_sequence.tt:6
 msgid ""
@@ -9130,7 +9114,7 @@ msgid ""
 "collaboration, it should be split if possible (see {how_to_split_artists|How"
 " to Split Artists}). If it is a collaboration with its own name and can't be"
 " split, collaboration relationships should be added to it."
-msgstr "Dieser Report listet alle Künstler auf, die „&“ im Namen enthalten, aber keine Mitglied- oder Zusammenarbeit-Beziehungen haben. Wenn der Künstler überlicherweise als eine richtige Gruppe angesehen wird, sollten Mitglied-Beziehungen hinzugefügt werden. Wenn es sich um eine kurzzeitige Zusammenarbeit handelt, sollte er nach Möglichkeit aufgeteilt werden (see {how_to_split_artists|Wie man Künstler aufteilt}). Wenn es eine Zusammenarbeit mit eigenem Namen ist und nicht aufgeteilt werden kann, sollten Zusammenarbeit-Beziehungen hinzugefügt werden."
+msgstr "Dieser Report listet alle Künstler auf, die „&“ im Namen enthalten, aber keine Mitglieds- oder Zusammenarbeitsbeziehungen haben. Wenn der Künstler überlicherweise als eine richtige Gruppe angesehen wird, sollten Mitgliedsbeziehungen hinzugefügt werden. Wenn es sich um eine kurzzeitige Zusammenarbeit handelt, sollte er nach Möglichkeit aufgeteilt werden (see {how_to_split_artists|Wie man Künstler aufteilt}). Wenn es eine Zusammenarbeit mit eigenem Namen ist und nicht aufgeteilt werden kann, sollten Zusammenarbeitsbeziehungen hinzugefügt werden."
 
 #: ../root/report/collaboration_relationships.tt:4
 msgid ""
@@ -9138,7 +9122,7 @@ msgid ""
 "relationships. If the collaboration has its own independent name, do "
 "nothing. If it is in a format like \"X with Y\" or \"X & Y\", you should "
 "probably split it. See {how_to_split_artists|How to Split Artists}."
-msgstr "Dieser Report listet Künstler auf, die Zusammenarbeit-Beziehungen haben, aber keine URL-Beziehungen. Wenn diese Zusammenarbeit ihren eigenen unabhängigen Namen hat, tu nichts weiter. Wenn der Name in der Form „X mit Y“ oder „X & Y“ ist, solltest Du ihn wahrscheinlich aufteilen. Siehe {how_to_split_artists|Wie man Künstler aufteilt}."
+msgstr "Dieser Report listet Künstler auf, die Zusammenarbeitsbeziehungen haben, aber keine URL-Beziehungen. Wenn diese Zusammenarbeit ihren eigenen unabhängigen Namen hat, tu nichts weiter. Wenn der Name in der Form „X mit Y“ oder „X & Y“ ist, solltest Du ihn wahrscheinlich aufteilen. Siehe {how_to_split_artists|Wie man Künstler aufteilt}."
 
 #: ../root/report/duplicate_relationships_artists.tt:6
 msgid ""
@@ -9237,7 +9221,7 @@ msgid ""
 "recording, the ISRCs are probably correct and should be left alone. If the "
 "same ISRC appears on two unrelated recordings on the same release, this is "
 "usually means there was an error when reading the disc."
-msgstr "Dieser Report listet {isrc|ISRCs} auf, die mit mehr als einer Aufnahme verbunden sind. Wenn die Aufnahmen sich gleichen, bedeutet das üblicherweise, dass sie zusammengeführt werden sollten (ISRCs können falsch zugewiesen sein, also sollte man trotzdem vorsichtig sein, dass die Aufnahmen wirklich gleich sind). Wenn die Aufnahmen Teil einer größeren Aufnahme sind, sind die ISRCs wahrscheinlich richtig und sollten unberührt bleiben. Wenn der gleiche ISRC auf zwei völlig unterschiedlichen Aufnahmen auf der gleichen Veröffentlichung auftaucht, bedeutet das üblicherweise, dass es beim Einlesen der CD einen Fehler gab."
+msgstr "Dieser Report listet {isrc|ISRCs} auf, die mit mehr als einer Aufnahme verbunden sind. Wenn die Aufnahmen sich gleichen, bedeutet das üblicherweise, dass sie vereint werden sollten (ISRCs können falsch zugewiesen sein, also sollte man trotzdem vorsichtig sein, dass die Aufnahmen wirklich gleich sind). Wenn die Aufnahmen Teil einer größeren Aufnahme sind, sind die ISRCs wahrscheinlich richtig und sollten unberührt bleiben. Wenn der gleiche ISRC auf zwei völlig unterschiedlichen Aufnahmen auf der gleichen Veröffentlichung auftaucht, bedeutet das üblicherweise, dass es beim Einlesen der CD einen Fehler gab."
 
 #: ../root/report/iswc_with_many_works.tt:12
 msgid ""
@@ -9254,7 +9238,7 @@ msgid ""
 " barcode, you can also search Amazon for it and see which ASIN matches. You "
 "might also find some ASINs linked to several discs of a multi-disc release: "
 "just merge those (see {how_to_merge_releases|How to Merge Releases})."
-msgstr "Dieser Report zeigt Amazon-URLs, die mit mehreren Veröffentlichungen verbunden sind. In den meisten Fällen sollten Amazon ASINs 1:1 mit MusicBrainz-Veröffentlichungen korrespondieren, daher sollte nur einer der Links richtig sein. Überprüfe einfach, welche MusicBrainz-Veröffentlichung auf die Veröffentlichung in Amazon passt (indem Du das Format, die Titelliste etc. vergleichst). Wenn die Veröffentlichung einen Strichcode hat, kannst Du Amazon auch danach durchsuchen und herausfinden, welche ASIN passt. Eventuell findest Du auch ASINs, die mit mehren CDs einer Multi-CD-Veröffentlichung verbunden sind: diese kannst Du einfach zu einer Veröffentlichung zusammenführen (siehe {how_to_merge_releases|Wie man Veröffentlichungen zusammenführt})."
+msgstr "Dieser Report zeigt Amazon-URLs, die mit mehreren Veröffentlichungen verbunden sind. In den meisten Fällen sollten Amazon ASINs 1:1 mit MusicBrainz-Veröffentlichungen korrespondieren, daher sollte nur einer der Links richtig sein. Überprüfe einfach, welche MusicBrainz-Veröffentlichung auf die Veröffentlichung in Amazon passt (indem Du das Format, die Titelliste etc. vergleichst). Wenn die Veröffentlichung einen Strichcode hat, kannst Du Amazon auch danach durchsuchen und herausfinden, welche ASIN passt. Eventuell findest Du auch ASINs, die mit mehren CDs einer Multi-CD-Veröffentlichung verbunden sind: diese kannst Du einfach zu einer Veröffentlichung vereinen (siehe {how_to_merge_releases|Wie man Veröffentlichungen vereint})."
 
 #: ../root/report/discogs_links_with_multiple_artists.tt:6
 msgid "This report shows Discogs URLs which are linked to multiple artists."
@@ -9278,7 +9262,7 @@ msgid ""
 "etc.). You might also find some Discogs URLs linked to several discs of a "
 "multi-disc release: just merge those (see {how_to_merge_releases|How to "
 "Merge Releases})."
-msgstr "Dieser Report zeigt Discogs-URLs, die mit mehreren Veröffentlichungen verbunden sind. In den meisten Fällen sollten Discogs-Veröffentlichungen 1:1 mit MusicBrainz-Veröffentlichungen korrespondieren, daher sollte nur einer der Links richtig sein. Überprüfe einfach, welche MusicBrainz-Veröffentlichung mit der Veröffentlichung in Discogs übereinstimmt (indem Du Dir das Format, die Titelliste, das Veröffentlichungsland etc. anguckst). Du wirst auch Discogs-URLs finden, die mit mehreren CDs einer Multi-CD-Veröffentlichung verbunden sind. Solche kannst Du einfach zu einer Veröffentlichung zusammenführen (siehe {how_to_merge_releases|Wie man Veröffentlichungen zusammenführt})."
+msgstr "Dieser Report zeigt Discogs-URLs, die mit mehreren Veröffentlichungen verbunden sind. In den meisten Fällen sollten Discogs-Veröffentlichungen 1:1 mit MusicBrainz-Veröffentlichungen korrespondieren, daher sollte nur einer der Links richtig sein. Überprüfe einfach, welche MusicBrainz-Veröffentlichung mit der Veröffentlichung in Discogs übereinstimmt (indem Du Dir das Format, die Titelliste, das Veröffentlichungsland etc. anguckst). Du wirst auch Discogs-URLs finden, die mit mehreren CDs einer Multi-CD-Veröffentlichung verbunden sind. Solche kannst Du einfach zu einer Veröffentlichung vereinen (siehe {how_to_merge_releases|Wie man Veröffentlichungen vereint})."
 
 #: ../root/report/recordings_with_earliest_release_relationships.tt:6
 msgid ""
@@ -9287,7 +9271,7 @@ msgid ""
 " they're not, the relationship should be removed. Please, do not merge "
 "recordings blindly just because the lengths fit, and do not merge recordings"
 " with very different times!"
-msgstr "Dieser Report zeigt Aufnahmen, die noch die veraltete „früheste Veröffentlichung“-Beziehung benutzen. Sie sollten zusammengeführt werden, wenn es sich wirklich um die gleiche Aufnahme handelt; wenn sie nicht gleich sind, sollte die Beziehung entfernt werden. Bitte führe Aufnahmen nicht blind zusammen, nur weil die Längen gleich sind, und führe nicht Aufnahmen mit sehr unterschiedlichen Längen zusammen!"
+msgstr "Dieser Report zeigt Aufnahmen, die noch die veraltete „früheste Veröffentlichung“-Beziehung benutzen. Sie sollten vereint werden, wenn es sich wirklich um die gleiche Aufnahme handelt; wenn sie nicht gleich sind, sollte die Beziehung entfernt werden. Bitte vereine Aufnahmen nicht blind, nur weil die Längen gleich sind, und vereine nicht Aufnahmen mit sehr unterschiedlichen Längen!"
 
 #: ../root/report/recordings_with_varying_track_lengths.tt:6
 msgid ""
@@ -9321,7 +9305,7 @@ msgid ""
 "them. If the releases are discs linked with \"part of set\" relationships, "
 "you might want to merge them too into one multi-disc release (see "
 "{how_to_merge_releases|How to Merge Releases})."
-msgstr "Dieser Report zeigt Veröffentlichungsgruppen mit Veröffentlichungen, die mit Veröffentlichungen in unterschiedlichen Veröffentlichungsgruppen durch Teil-eines-Sets- oder Transliterationsbeziehungen verlinkt sind. Wenn hier ein paar von Veröffentlichungsgruppen aufgelistet ist, sollten sie wahrscheinlich zusammengeführt werden. Wenn die Veröffentlichungen einzelne Medien darstellen, die mit „Teil eines Sets“-Beziehungen verbunden sind, solltest Du sie wahrscheinlich als Veröffentlichungen mit mehreren Medien zusammenführen (siehe {how_to_merge_releases|Wie man Veröffentlichungen zusammenführt})."
+msgstr "Dieser Report zeigt Veröffentlichungsgruppen mit Veröffentlichungen, die mit Veröffentlichungen in unterschiedlichen Veröffentlichungsgruppen durch Teil-eines-Sets- oder Transliterationsbeziehungen verlinkt sind. Wenn hier ein paar von Veröffentlichungsgruppen aufgelistet ist, sollten sie wahrscheinlich vereint werden. Wenn die Veröffentlichungen einzelne Medien darstellen, die mit „Teil eines Sets“-Beziehungen verbunden sind, solltest Du sie wahrscheinlich als Veröffentlichungen mit mehreren Medien vereinen (siehe {how_to_merge_releases|Wie man Veröffentlichungen vereint})."
 
 #: ../root/report/single_medium_releases_with_medium_titles.tt:6
 msgid ""
@@ -9387,7 +9371,7 @@ msgid ""
 " releases}. If the releases are not really part of a set (for example, if "
 "they are independently-released volumes in a series) just remove the "
 "relationship."
-msgstr "Dieser Report zeigt Veröffentlichungen, die immer noch die veraltete „Teil eines Sets“-Beziehung benutzen und wahrscheinlich zusammengeführt werden sollten. Anweisungen, wie diese Veröffentlichungen korrigiert werden können, findest Du in der Dokumentation unter {how_to_merge_releases|Wie man Veröffentlichungen zusammenführt}. Wenn die Veröffentlichungen nicht wirklich Teil eines Sets sind (zum Beispiel, wenn sie unabhängig voneinander veröffentlichte Volumes einer Serie sind), entferne einfach die Beziehung."
+msgstr "Dieser Report zeigt Veröffentlichungen, die immer noch die veraltete „Teil eines Sets“-Beziehung benutzen und wahrscheinlich vereint werden sollten. Anweisungen, wie diese Veröffentlichungen korrigiert werden können, findest Du in der Dokumentation unter {how_to_merge_releases|Wie man Veröffentlichungen vereint}. Wenn die Veröffentlichungen nicht wirklich Teil eines Sets sind (zum Beispiel, wenn sie unabhängig voneinander veröffentlichte Volumes einer Serie sind), entferne einfach die Beziehung."
 
 #: ../root/report/some_formats_unset.tt:6
 msgid ""
@@ -10536,11 +10520,7 @@ msgstr "Autoren:"
 msgid "XML Web Service"
 msgstr "XML-Web-Service"
 
-#: ../root/area/details.tt:33 ../root/artist/details.tt:33
-#: ../root/instrument/details.tt:33 ../root/label/details.tt:33
-#: ../root/place/details.tt:33 ../root/recording/details.tt:33
-#: ../root/release/details.tt:33 ../root/release_group/details.tt:33
-#: ../root/series/details.tt:33 ../root/work/details.tt:33
+#: ../root/components/details.tt:27
 msgid "XML:"
 msgstr "XML:"
 
@@ -10671,7 +10651,7 @@ msgstr "Du bist im Begriff eine Bearbeitung einzugeben, die die Längen von Tite
 msgid ""
 "You are about to merge the following areas into a single area. Please select"
 " the area which you would like other areas to be merged into:"
-msgstr "Du bist im Begriff, die folgenden Gebiete zu einem einzigen Gebiet zu vereinigen. Bitte wähle das Gebiet, in das du die andere Gebiete aufgehen lassen willst:"
+msgstr "Du bist im Begriff, die folgenden Gebiete zu einem einzigen Gebiet zu vereinen. Bitte wähle das Gebiet, in das du die andere Gebiete aufgehen lassen willst:"
 
 #: ../root/artist/merge.tt:4
 msgid ""
@@ -10696,7 +10676,7 @@ msgstr "Du bist im Begriff, die folgenden Labels in ein einziges aufgehen zu las
 msgid ""
 "You are about to merge the following places into a single place. Please "
 "select the place which you would like other places to be merged into:"
-msgstr "Du bist im Begriff die folgenden Örtlichkeiten in eine einzige Örtlichkeit zusammenzuführen. Bitte wähle die Örtlichkeit, in die du die anderen Örtlichkeiten aufgehen lassen willst."
+msgstr "Du bist im Begriff die folgenden Örtlichkeiten in eine einzige Örtlichkeit aufgehen zu lassen. Bitte wähle die Örtlichkeit, in die du die anderen Örtlichkeiten integrieren willst."
 
 #: ../root/recording/merge.tt:4
 msgid ""
@@ -10847,7 +10827,7 @@ msgstr "Du hast den {valink|Diverse Interpreten}-Spezialkünstler auf dieser Auf
 msgid ""
 "You haven't added any media yet. Click on the \"Add Disc\" button below to "
 "add one."
-msgstr ""
+msgstr "Du hast noch keine Medien hinzugefügt. Klick auf den „Medium hinzufügen“-Button unten, um eins hinzuzufügen."
 
 #: ../root/scripts/text_strings.tt:153
 msgid "You haven‘t entered a complete artist credit."
@@ -10953,7 +10933,7 @@ msgstr "Deine E-Mail wurde erfolgreich verschickt! Klicke {link|hier}, um weiter
 msgid ""
 "Your homepage and biography will not show until you have confirmed your "
 "email."
-msgstr ""
+msgstr "Deine Homepage und Biographie werden erst angezeigt, wenn Du Deine E-Mail-Adresse bestätigt hast."
 
 #: ../root/account/reset_password_ok.tt:5
 msgid "Your password has been reset."
@@ -11091,7 +11071,7 @@ msgid "end date"
 msgstr "Enddatum"
 
 #: ../root/components/common-macros.tt:660
-#: ../root/components/relationship-editor.tt:180
+#: ../root/components/relationship-editor.tt:136
 msgid "ended"
 msgstr "beendet"
 
@@ -11574,11 +11554,7 @@ msgstr "{link} hat keine Beziehungen."
 msgid "{list_item}, {rest}"
 msgstr "{list_item}, {rest}"
 
-#: ../root/area/details.tt:11 ../root/artist/details.tt:11
-#: ../root/instrument/details.tt:11 ../root/label/details.tt:11
-#: ../root/place/details.tt:11 ../root/recording/details.tt:11
-#: ../root/release/details.tt:11 ../root/release_group/details.tt:11
-#: ../root/series/details.tt:11 ../root/work/details.tt:11
+#: ../root/components/details.tt:9
 msgid "{mbid|<abbr title=\"MusicBrainz Identifier\">MBID</abbr>}:"
 msgstr "{mbid|<abbr title=\"MusicBrainz Identifikator\">MBID</abbr>}:"
 
@@ -11607,12 +11583,6 @@ msgid "{num} collection"
 msgid_plural "{num} collections"
 msgstr[0] "Eine Sammlung"
 msgstr[1] "{num} Sammlungen"
-
-#: ../root/tag/collection.tt:1
-msgid "{num} collection found"
-msgid_plural "{num} collections found"
-msgstr[0] "Eine Sammlung gefunden"
-msgstr[1] "{num} Sammlungen gefunden"
 
 #: ../root/components/common-macros.tt:44
 msgid "{num} day"
@@ -11685,6 +11655,12 @@ msgid "{num} release group found"
 msgid_plural "{num} release groups found"
 msgstr[0] "Eine Veröffentlichungsgruppe gefunden"
 msgstr[1] "{num} Veröffentlichungsgruppen gefunden"
+
+#: ../root/user/subscriptions/layout.tt:31
+msgid "{num} series"
+msgid_plural "{num} series"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../root/tag/work.tt:1
 msgid "{num} work found"
@@ -11983,7 +11959,7 @@ msgstr "Das ausgewählte Medium kann keine Disc-IDs haben"
 msgid "The provided artist id is not valid"
 msgstr "Die angegebene Künstler-ID ist nicht gültig"
 
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:198
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:200
 msgid "Default"
 msgstr "Standard"
 
@@ -12020,16 +11996,16 @@ msgstr "Unser Redis-Server scheint nicht verfügbar zu sein; manche Features fun
 msgid "Series that have different entity types cannot be merged."
 msgstr "Serien mit unterschiedlichen Objekttypen können nicht vereint werden."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:252
+#: ../lib/MusicBrainz/Server/Controller/User.pm:253
 #, perl-brace-format
 msgid "The editor {name} has no email address attached to their account."
 msgstr "Es ist keine E-Mail-Adresse mit dem Konto von Bearbeiter {name} verbunden."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:280
+#: ../lib/MusicBrainz/Server/Controller/User.pm:281
 msgid "Your message could not be sent"
 msgstr "Deine Nachricht konnte nicht versandt werden"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:363
+#: ../lib/MusicBrainz/Server/Controller/User.pm:364
 #, perl-brace-format
 msgid "'{type}' is not an entity type that can have ratings."
 msgstr "„{type}“ ist kein Objekttyp, der Bewertungen haben kann."
@@ -12038,7 +12014,7 @@ msgstr "„{type}“ ist kein Objekttyp, der Bewertungen haben kann."
 msgid "Invalid TOC"
 msgstr "Ungültige TOC"
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:482
+#: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:497
 msgid ""
 "You must be logged in to submit edits. {url|Log in} first, and then try "
 "submitting your edits again."
@@ -12121,7 +12097,7 @@ msgstr "Gebiet bearbeiten"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Merge.pm:11
 msgid "Merge areas"
-msgstr "Gebiete vereinigen"
+msgstr "Gebiete vereinen"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/AddAnnotation.pm:11
 msgid "Add artist annotation"
@@ -12145,7 +12121,7 @@ msgstr "Künstlernennung bearbeiten"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Merge.pm:14
 msgid "Merge artists"
-msgstr "Künstler zusammenführen"
+msgstr "Künstler vereinen"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddDiscID.pm:11
 #: ../lib/MusicBrainz/Server/Edit/Medium/AddDiscID.pm:10
@@ -12293,7 +12269,7 @@ msgstr "Label bearbeiten"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/Merge.pm:12
 msgid "Merge labels"
-msgstr "Label zusammenführen"
+msgstr "Label vereinen"
 
 #: ../lib/MusicBrainz/Server/Edit/Medium/Create.pm:30
 msgid "Add medium"
@@ -12349,7 +12325,7 @@ msgstr "Alleinstehende Aufnahme hinzufügen"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/Merge.pm:14
 msgid "Merge recordings"
-msgstr "Aufnahmen zusammenführen"
+msgstr "Aufnahmen vereinen"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/RemoveISRC.pm:17
 msgid "Remove ISRC"
@@ -12505,7 +12481,7 @@ msgstr "Werk bearbeiten"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/Merge.pm:12
 msgid "Merge works"
-msgstr "Werke zusammenführen"
+msgstr "Werke vereinen"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/RemoveISWC.pm:16
 msgid "Remove ISWC"
@@ -12796,7 +12772,7 @@ msgstr "Geburtsjahr muss nach 1900 sein"
 msgid ""
 "Biography and website fields may not be edited until your email address is "
 "confirmed."
-msgstr ""
+msgstr "Die Biographie- und Website-Felder können erst editiert werden, wenn Du Deine E-Mail-Adresse bestätigt hast."
 
 #: ../lib/MusicBrainz/Server/Form/User/Login.pm:9
 msgid "Username field is required"

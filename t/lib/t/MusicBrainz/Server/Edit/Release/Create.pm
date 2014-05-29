@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Edit::Release::Create;
 use Test::Routine;
 use Test::More;
+use Test::Fatal;
 
 with 't::Context';
 
@@ -56,6 +57,45 @@ my $release = $c->model('Release')->get_by_id($edit->release_id);
 ok(defined $release);
 is($release->edits_pending, 0);
 
+};
+
+test 'Duplicate release countries are rejected' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    prepare($c);
+
+    my %release_data = (
+        editor_id => 1,
+        edit_type => $EDIT_RELEASE_CREATE,
+        name => 'Release with duplicate countries',
+        artist_credit => {
+            names => [
+                { artist => { id => 1, name => 'Foo Foo' }, name => 'Foo Foo' }
+            ]
+        },
+        release_group_id => 1,
+    );
+
+    like exception {
+        $c->model('Edit')->create(
+            %release_data,
+            events => [
+                { country_id => 222, date => { year => 1999 } },
+                { country_id => 222, date => { year => 2000 } },
+            ]
+        );
+    }, qr/Duplicate release country: 222/;
+
+    like exception {
+        $c->model('Edit')->create(
+            %release_data,
+            events => [
+                { country_id => undef, date => { year => 1999 } },
+                { country_id => undef, date => { year => 2000 } },
+            ]
+        );
+    }, qr/Duplicate release country: undef/;
 };
 
 sub create_edit

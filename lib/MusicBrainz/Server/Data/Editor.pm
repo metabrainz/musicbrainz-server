@@ -11,7 +11,7 @@ use DateTime;
 use Digest::MD5 qw( md5_hex );
 use Encode;
 use Math::Random::Secure qw();
-use MusicBrainz::Server::Constants qw( $STATUS_DELETED $STATUS_OPEN );
+use MusicBrainz::Server::Constants qw( $STATUS_DELETED $STATUS_OPEN entities_with );
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Editor;
 use MusicBrainz::Server::Data::Utils qw(
@@ -113,7 +113,7 @@ sub summarize_ratings
                 ->find_editor_ratings($user->id, $me, 10, 0);
 
             ($_ => $entities);
-        } qw( artist label recording release_group work)
+        } entities_with('ratings')
     };
 }
 
@@ -138,7 +138,7 @@ sub get_tags
 
     my $tags = {};
     my $max = 0;
-    foreach my $entity ('artist', 'label', 'recording', 'release', 'release_group', 'work', 'place')
+    foreach my $entity (entities_with('tags'))
     {
         my $data = $self->_get_tags_for_type($user->id, $entity);
 
@@ -450,16 +450,10 @@ sub editors_with_subscriptions
 {
     my ($self) = @_;
 
-    my @tables = qw(
-        editor_subscribe_artist
-        editor_subscribe_artist_deleted
-        editor_subscribe_collection
-        editor_subscribe_editor
-        editor_subscribe_label
-        editor_subscribe_label_deleted
-        editor_subscribe_series
-        editor_subscribe_series_deleted
-    );
+    my @tables = (entities_with('subscriptions',
+                                take => sub { return "editor_subscribe_" . (shift) }),
+                  entities_with(['subscriptions', 'deleted'],
+                                take => sub { return "editor_subscribe_" . (shift) . "_deleted" }));
     my $ids = join(' UNION ALL ', map { "SELECT editor FROM $_" } @tables);
     my $query = "SELECT " . $self->_columns . ", ep.value AS prefs_value
                    FROM " . $self->_table . "
@@ -511,21 +505,10 @@ sub delete {
     $self->c->model('WatchArtist')->delete_editor($editor_id);
 
     $self->c->model($_)->tags->clear($editor_id)
-        for qw( Artist
-                Label
-                Recording
-                Release
-                ReleaseGroup
-                Work
-          );
+        for (entities_with('tags', take => 'model'));
 
     $self->c->model($_)->rating->clear($editor_id)
-        for qw( Artist
-                Label
-                Recording
-                ReleaseGroup
-                Work
-          );
+        for (entities_with('ratings', take => 'model'));
 
     # Cancel any open edits the editor still has
     my @edits = values %{ $self->c->model('Edit')->get_by_ids(
@@ -551,7 +534,7 @@ sub subscription_summary {
                 "COALESCE(
                    (SELECT count(*) FROM editor_subscribe_$_ WHERE editor = ?),
                    0) AS $_"
-            } qw( artist collection label editor series )),
+            } entities_with('subscriptions')),
         ($editor_id) x 5
     );
 }

@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-05-16 14:14+0000\n"
+"PO-Revision-Date: 2014-05-27 21:51+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -135,6 +135,10 @@ msgstr "Moog"
 
 #: DB:instrument/name:358
 msgid "Northumbrian pipes"
+msgstr ""
+
+#: DB:instrument/name:647
+msgid "Portuguese guitar"
 msgstr ""
 
 #: DB:instrument/name:576
@@ -318,8 +322,8 @@ msgid "bangu"
 msgstr "Bangu"
 
 #: DB:instrument/name:221
-msgid "banhu / banghu"
-msgstr "Banhu"
+msgid "banhu"
+msgstr ""
 
 #: DB:instrument/name:396
 msgid "banjitar"
@@ -510,7 +514,7 @@ msgid "buk"
 msgstr "Buk"
 
 #: DB:instrument/name:528
-msgid "bulbul"
+msgid "bulbul tarang"
 msgstr ""
 
 #: DB:instrument/name:153
@@ -845,6 +849,10 @@ msgstr "Trommeln"
 msgid "drumset"
 msgstr "Schlagzeug"
 
+#: DB:instrument/name:649
+msgid "duck call"
+msgstr ""
+
 #: DB:instrument/name:194
 msgid "duct flutes"
 msgstr "Kerbflöte"
@@ -908,6 +916,10 @@ msgstr "E-Sitars"
 #: DB:instrument/name:49
 msgid "electric upright bass"
 msgstr "E-Kontrabass"
+
+#: DB:instrument/name:648
+msgid "electric viola"
+msgstr ""
 
 #: DB:instrument/name:212
 msgid "electric violin"
@@ -1804,6 +1816,10 @@ msgstr "Rudra Vina"
 #: DB:instrument/name:617
 msgid "ryuteki"
 msgstr "Ryūteki"
+
+#: DB:instrument/name:646
+msgid "sabar"
+msgstr ""
 
 #: DB:instrument/name:149
 msgid "sackbut"

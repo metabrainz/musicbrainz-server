@@ -75,37 +75,24 @@ sub foreign_keys
     return {
         Release => { map { $_ => [ 'ArtistCredit' ] } $self->release_ids },
         MediumCDTOC => { $self->data->{medium_cdtoc}{id} => [ 'CDTOC' ] },
-        Medium => {
-            $self->data->{new_medium}{id} => [ 'MediumFormat', 'Release' ],
-            $self->data->{old_medium}{id} => [ 'MediumFormat', 'Release' ]
-        }
+        Medium => { map { $self->data->{$_}{id} => [ 'MediumFormat', 'Release ArtistCredit' ] }
+                    qw( new_medium old_medium ) },
     }
 }
 
 sub build_display_data
 {
     my ($self, $loaded) = @_;
-    my $old_release = $loaded->{Release}->{ $self->data->{old_medium}{release}{id} }
-            || Release->new( name => $self->data->{old_medium}{release}{name} );
-    my $old_medium = $loaded->{Medium}->{ $self->data->{old_medium}{id} }
-            || Medium->new( id => $self->data->{old_medium}{id} );
-    $old_medium->release($old_release);
-
-    my $new_release = $loaded->{Release}->{ $self->data->{new_medium}{release}{id} }
-            || Release->new( name => $self->data->{new_medium}{release}{name} );
-    my $new_medium = $loaded->{Medium}->{ $self->data->{new_medium}{id} }
-            || Medium->new( id => $self->data->{new_medium}{id} );
-    $new_medium->release($new_release);
-
     return {
         medium_cdtoc => $loaded->{MediumCDTOC}->{ $self->data->{medium_cdtoc}{id} }
             || MediumCDTOC->new(
                 cdtoc => CDTOC->new_from_toc($self->data->{medium_cdtoc}{toc})
             ),
-        old_release => $old_release,
-        new_release => $new_release,
-        new_medium  => $new_medium,
-        old_medium  => $old_medium
+        map { $_ => $loaded->{Medium}->{ $self->data->{$_}{id} } //
+                    Medium->new( release => $loaded->{Release}{ $self->data->{$_}{release}{id} } //
+                                            Release->new( name => $self->data->{$_}{release}{name} )
+                    )
+        } qw( new_medium old_medium ),
     }
 }
 

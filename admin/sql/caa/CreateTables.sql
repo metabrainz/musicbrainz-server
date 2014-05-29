@@ -4,7 +4,7 @@ BEGIN;
 
 SET search_path = 'cover_art_archive';
 
-CREATE TABLE art_type (
+CREATE TABLE art_type ( -- replicate (verbose)
     id SERIAL NOT NULL, -- PK
     name TEXT NOT NULL,
     parent              INTEGER, -- references cover_art_archive.art_type.id
@@ -12,12 +12,12 @@ CREATE TABLE art_type (
     description         TEXT
 );
 
-CREATE TABLE image_type (
+CREATE TABLE image_type ( -- replicate (verbose)
     mime_type TEXT NOT NULL, -- PK
     suffix TEXT NOT NULL
 );
 
-CREATE TABLE cover_art (
+CREATE TABLE cover_art ( -- replicate (verbose)
     id BIGINT NOT NULL, -- PK
     release INTEGER NOT NULL, -- references musicbrainz.release.id CASCADE
     comment TEXT NOT NULL DEFAULT '',
@@ -28,13 +28,12 @@ CREATE TABLE cover_art (
     mime_type TEXT NOT NULL  -- references cover_art_archive.image_type.mime_type
 );
 
-CREATE TABLE cover_art_type (
+CREATE TABLE cover_art_type ( -- replicate (verbose)
     id BIGINT NOT NULL, -- PK, references cover_art_archive.cover_art.id CASCADE,
     type_id INTEGER NOT NULL -- PK, references cover_art_archive.art_type.id,
 );
 
-CREATE TABLE release_group_cover_art
-(
+CREATE TABLE release_group_cover_art ( -- replicate (verbose)
     release_group       INTEGER NOT NULL, -- PK, references musicbrainz.release_group.id
     release             INTEGER NOT NULL  -- FK, references musicbrainz.release.id
 );

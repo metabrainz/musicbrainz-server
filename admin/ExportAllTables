@@ -347,6 +347,7 @@ my $fProgress = -t STDOUT;
 my $fDoFullExport = 1;
 my $fDoReplication = 0;
 my $fCheckCompleteness = 0;
+my $fCallback;
 my @tablelist;
 
 GetOptions(
@@ -355,6 +356,7 @@ GetOptions(
     "compress|c!"               => \$fCompress,
     "keep-files|k!"             => \$fKeepFiles,
     "table=s"                   => \@tablelist,
+    "replication-callback=s"    => \$fCallback,
     "with-replication"          => sub { $fDoReplication = 1 },
     "without-replication"       => sub { $fDoReplication = 0 },
     "with-full-export"          => sub { $fDoFullExport = 1 },
@@ -678,6 +680,22 @@ close $lockfh;
 
 use File::Copy qw( copy );
 
+if ($fCompress and $fDoReplication)
+{
+    my $tarfile = "replication-$iReplicationSequence.tar.bz2";
+
+    if (grep { $rowcounts{$_} } @replication_tables)
+    {
+        copy_readme() or die $!;
+        # Go for the "most restrictive" license
+        copy("$FindBin::Bin/COPYING-CCShareAlike", "$dir/COPYING") or die $!;
+        make_tar($tarfile, @replication_tables);
+    }
+    if ($fCallback) {
+        system $fCallback;
+    }
+}
+
 if ($fCompress and $fDoFullExport)
 {
     copy_readme() or die $!;
@@ -706,19 +724,6 @@ if ($fCompress and $fDoFullExport)
     if ($encrypt_for) {
         system "gpg --recipient '$encrypt_for' --encrypt $OutputDir/mbdump-private.tar.bz2";
         system "rm $OutputDir/mbdump-private.tar.bz2";
-    }
-}
-
-if ($fCompress and $fDoReplication)
-{
-    my $tarfile = "replication-$iReplicationSequence.tar.bz2";
-
-    if (grep { $rowcounts{$_} } @replication_tables)
-    {
-        copy_readme() or die $!;
-        # Go for the "most restrictive" license
-        copy("$FindBin::Bin/COPYING-CCShareAlike", "$dir/COPYING") or die $!;
-        make_tar($tarfile, @replication_tables);
     }
 }
 

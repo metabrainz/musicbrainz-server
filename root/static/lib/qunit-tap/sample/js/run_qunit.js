@@ -69,6 +69,6 @@ page.open(phantom.args[0], function(status){
                 return 10000;
             });
             phantom.exit((parseInt(failedNum, 10) > 0) ? 1 : 0);
-        });
+        }, 10001); // timeout 10s
     }
 });

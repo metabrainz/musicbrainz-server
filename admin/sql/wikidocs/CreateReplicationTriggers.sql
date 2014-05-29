@@ -1,7 +1,7 @@
--- Adjust this setting to control where the objects get created.
-SET search_path = 'wikidocs','musicbrainz',public;
-
+-- Automatically generated, do not edit.
 \set ON_ERROR_STOP 1
+
+SET search_path = 'wikidocs', musicbrainz, public;
 
 BEGIN;
 
@@ -10,5 +10,3 @@ AFTER INSERT OR DELETE OR UPDATE ON "wikidocs_index"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 COMMIT;
-
--- vi: set ts=4 sw=4 et :

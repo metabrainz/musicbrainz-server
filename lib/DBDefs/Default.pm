@@ -469,5 +469,7 @@ sub BACKUP_GROUP { "musicbrainz" }
 sub BACKUP_DIR_MODE { 700 }
 sub BACKUP_FILE_MODE { 600 }
 
+sub RSYNC_REPLICATION_SERVER { 'ftpowner@scooby.localdomain' }
+
 1;
 # eof DBDefs.pm
