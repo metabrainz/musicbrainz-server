@@ -53,17 +53,45 @@ sub diff_side {
     my ($self, $old, $new, $filter, $split) = @_;
     $split //= '';
 
-    $old //= '';
-    $new //= '';
+    my @diffs = sdiff([ _split_text($old // '', $split) ], [ _split_text($new // '', $split) ]);
 
-    my ($old_hex, $new_hex) = (md5_hex(encode('utf-8', $old)), md5_hex(encode('utf-8', $new)));
-    $old =~ s/($split)/$old_hex$1/g;
-    $new =~ s/($split)/$new_hex$1/g;
+    return $self->_render_side_diff($filter, @diffs);
+}
 
-    my @diffs = sdiff([ split($old_hex, $old) ], [ split($new_hex, $new) ]);
+sub diff_html_side {
+    my ($self, $old, $new, $filter) = @_;
+
+    my $old_root = HTML::TreeBuilder->new_from_content('<body>'.($old // '').'</body>');
+    my @old_tokens = map {
+        _html_token($_)
+    } $old_root->content_array_ref->[1]->content_list;
+
+    my $new_root = HTML::TreeBuilder->new_from_content('<body>'.($new // '').'</body>');
+    my @new_tokens = map {
+        _html_token($_)
+    } $new_root->content_array_ref->[1]->content_list;
+
+    my @diffs = sdiff(\@old_tokens, \@new_tokens);
+
+    return $self->_render_side_diff($filter, @diffs);
+}
+
+sub _html_token {
+    my ($item) = @_;
+    return blessed($item) ? $item->as_HTML : _split_text($item, '\s+');
+}
+
+sub _split_text {
+    my ($text, $split) = @_;
+    my $hex = md5_hex(encode('utf-8', $text));
+    $text =~ s/($split)/$hex$1/g;
+    return split($hex,$text);
+}
+
+sub _render_side_diff {
+    my ($self, $filter, @diffs) = @_;
 
     my @stack;
-    my $output;
     for my $diff (@diffs) {
         my ($change_type, $old, $new) = @$diff;
 
@@ -190,76 +218,6 @@ sub diff_artist_credits {
     }
 
     return \%sides;
-}
-
-sub diff_html_side {
-    my ($self, $old, $new, $filter) = @_;
-
-    $old //= '';
-    $new //= '';
-
-    my ($old_hex, $new_hex) = (md5_hex(encode('utf-8', $old)), md5_hex(encode('utf-8', $new)));
-
-    my $old_root = HTML::TreeBuilder->new_from_content('<body>'.$old.'</body>');
-    my @old_tokens = map {
-        if (blessed($_)) {
-            $_->as_HTML;
-        } else {
-            my $text = $_;
-            $text =~ s/(\s+)/$old_hex$1/g;
-            split($old_hex, $text);
-        }
-    } $old_root->content_array_ref->[1]->content_list;
-
-    my $new_root = HTML::TreeBuilder->new_from_content('<body>'.$new.'</body>');
-    my @new_tokens = map {
-        if (blessed($_)) {
-            $_->as_HTML;
-        } else {
-            my $text = $_;
-            $text =~ s/(\s+)/$new_hex$1/g;
-            split($new_hex, $text);
-        }
-    } $new_root->content_array_ref->[1]->content_list;
-
-    my @diffs = sdiff(\@old_tokens, \@new_tokens);
-
-    my @stack;
-    my $output;
-    for my $diff (@diffs) {
-        my ($change_type, $old, $new) = @$diff;
-
-        next unless
-            $change_type eq 'c' ||
-            $change_type eq 'u' ||
-            $change_type eq $filter;
-
-        unless ($stack[-1] && $stack[-1]->{type} eq $change_type) {
-            push @stack, { str => '', type => $change_type };
-        }
-
-        if ($change_type eq 'c') {
-            $stack[-1]->{str} .=
-                $filter eq '+'
-                    ? "$new" : "$old";
-        }
-        else {
-            $stack[-1]->{str} .= $change_type eq '+' ? $new : $old;
-        }
-    }
-
-    return join(
-        '',
-        map {
-            my $class =
-                $_->{type} eq 'u' ? '' :
-                $_->{type} eq 'c' ? $class_map{$filter} :
-                                    $class_map{$_->{type}};
-
-            my $text = $_->{str};
-            $h->span({ class => $class }, $text)
-        } @stack
-    )
 }
 
 sub diff {
