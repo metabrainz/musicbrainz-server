@@ -8,7 +8,7 @@
 
     <p>
         <strong>[% l('Data:') %]</strong>
-        <code>[% edit.raw_data | html %]</code>
+        <code id="edit-raw-data">[% edit.raw_data | html %]</code>
     </p>
 
     <p><strong>[% l('Related entities:') %]</strong></p>
@@ -30,4 +30,11 @@
         [% link_edit(edit, 'show', l('View the human-readable rendering instead.')) %]
     </p>
 
+    <script type="text/javascript">
+        $('#edit-raw-data').each(function () {
+            var $this = $(this);
+            var json = JSON.parse($this.text());
+            if (json) { $this.html('<pre>'+JSON.stringify(json,null,2)+'</pre>') }
+        });
+    </script>
 [%- END -%]

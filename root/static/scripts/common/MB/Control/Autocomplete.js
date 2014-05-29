@@ -293,7 +293,9 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
             dataType: "json",
 
             success: function (data) {
-                if (data.entityType != self.entity) {
+                var currentEntityType = self.entity.replace("-", "_");
+
+                if (data.entityType !== currentEntityType) {
                     // Only RelateTo boxes and relationship-editor dialogs
                     // support changing the entity type.
                     var setEntity = self.options.setEntity;
@@ -708,7 +710,7 @@ MB.Control.autocomplete_formatters = {
 
         if (item.description) {
             a.append('<br /><span class="autocomplete-comment">' +
-                      _.escape(item.description) +
+                      _.escape($('<span>'+item.description+'</span>').text()) +
                       '</span>');
         }
 

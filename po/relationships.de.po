@@ -1428,8 +1428,8 @@ msgstr ""
 
 #: DB:link_type/description:746 DB:link_type/description:96
 #: DB:link_type/description:82 DB:link_type/description:306
-#: DB:link_type/description:188 DB:link_type/description:222
-#: DB:link_type/description:273 DB:link_type/description:561
+#: DB:link_type/description:222 DB:link_type/description:273
+#: DB:link_type/description:188 DB:link_type/description:561
 msgid ""
 "This links an entity to the equivalent entry in another database. Please "
 "respect the <a "
@@ -2392,7 +2392,7 @@ msgstr "hat sonstige Rolle auf"
 
 #: DB:link_type/long_link_phrase:746 DB:link_type/long_link_phrase:96
 #: DB:link_type/long_link_phrase:82 DB:link_type/long_link_phrase:306
-#: DB:link_type/long_link_phrase:188 DB:link_type/long_link_phrase:222
+#: DB:link_type/long_link_phrase:222 DB:link_type/long_link_phrase:188
 #: DB:link_type/long_link_phrase:561
 msgid "has a page in a database at"
 msgstr "hat eine Seite in einer Datenbank unter"
@@ -3031,13 +3031,13 @@ msgstr ""
 
 #: DB:link_type/link_phrase:746 DB:link_type/link_phrase:96
 #: DB:link_type/link_phrase:730 DB:link_type/link_phrase:82
-#: DB:link_type/link_phrase:306 DB:link_type/link_phrase:188
-#: DB:link_type/link_phrase:222 DB:link_type/link_phrase:273
+#: DB:link_type/link_phrase:306 DB:link_type/link_phrase:222
+#: DB:link_type/link_phrase:273 DB:link_type/link_phrase:188
 #: DB:link_type/link_phrase:561 DB:link_type/reverse_link_phrase:746
 #: DB:link_type/reverse_link_phrase:96 DB:link_type/reverse_link_phrase:730
 #: DB:link_type/reverse_link_phrase:82 DB:link_type/reverse_link_phrase:306
-#: DB:link_type/reverse_link_phrase:188 DB:link_type/reverse_link_phrase:222
-#: DB:link_type/reverse_link_phrase:273 DB:link_type/reverse_link_phrase:561
+#: DB:link_type/reverse_link_phrase:222 DB:link_type/reverse_link_phrase:273
+#: DB:link_type/reverse_link_phrase:188 DB:link_type/reverse_link_phrase:561
 msgid "other databases"
 msgstr "andere Datenbanken"
 

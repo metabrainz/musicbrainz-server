@@ -14,7 +14,7 @@ use MIME::Base64 qw( encode_base64url );
 use Digest::SHA qw( sha1_base64 );
 use Encode qw( decode encode );
 use List::MoreUtils qw( natatime zip );
-use MusicBrainz::Server::Constants qw( $DARTIST_ID $VARTIST_ID $DLABEL_ID );
+use MusicBrainz::Server::Constants qw( $DARTIST_ID $VARTIST_ID $DLABEL_ID %ENTITIES );
 use Readonly;
 use Scalar::Util 'blessed';
 use Sql;
@@ -60,26 +60,7 @@ our @EXPORT_OK = qw(
     type_to_model
 );
 
-Readonly my %TYPE_TO_MODEL => (
-    'annotation'    => 'Annotation',
-    'artist'        => 'Artist',
-    'area'          => 'Area',
-    'cdstub'        => 'CDStub',
-    'collection'    => 'Collection',
-    'editor'        => 'Editor',
-    'freedb'        => 'FreeDB',
-    'instrument'    => 'Instrument',
-    'label'         => 'Label',
-    'place'         => 'Place',
-    'recording'     => 'Recording',
-    'release'       => 'Release',
-    'release_group' => 'ReleaseGroup',
-    'series'        => 'Series',
-    'url'           => 'URL',
-    'work'          => 'Work',
-    'isrc'          => 'ISRC',
-    'iswc'          => 'ISWC'
-);
+Readonly my %TYPE_TO_MODEL => map { $_ => $ENTITIES{$_}{model} } grep { $ENTITIES{$_}{model} } keys %ENTITIES;
 
 sub copy_escape {
     my $str = shift;
@@ -339,10 +320,12 @@ sub collapse_whitespace {
 }
 
 sub trim {
-    # Remove leading and trailing space
-    my $t = Text::Trim::trim(shift);
+    my $t = shift;
 
     $t = remove_invalid_characters($t);
+
+    # Remove leading and trailing space
+    $t = Text::Trim::trim($t);
 
     return collapse_whitespace($t);
 }

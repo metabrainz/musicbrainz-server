@@ -571,7 +571,7 @@ END -%]
     ELSIF type == 'release'; l('Release:');
     ELSIF type == 'release_group'; l('Release group:');
     ELSIF type == 'recording'; l('Recording:');
-    ELSIF type == 'series'; l('Series:');
+    ELSIF type == 'series'; lp('Series:', 'singular');
     ELSIF type == 'work'; l('Work:');
     ELSIF type == 'url'; l('URL:');
     END;
@@ -585,7 +585,7 @@ END -%]
         ELSIF type_name == 'release'; l('Release');
         ELSIF type_name == 'recording'; l('Recording');
         ELSIF type_name == 'release_group'; l('Release Group');
-        ELSIF type_name == 'series'; l('Series');
+        ELSIF type_name == 'series'; lp('Series', 'singular');
         ELSIF type_name == 'work'; l('Work');
         ELSIF type_name == 'label'; l('Label');
         ELSIF type_name == 'url'; l('URL');

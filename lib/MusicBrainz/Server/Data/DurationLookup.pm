@@ -58,7 +58,11 @@ sub lookup
     my (@durations, $i);
     for ($i = 0; $i < $toc_info{tracks}; $i++)
     {
-        push @durations, int((($offsets[$i + 1] - $offsets[$i]) * 1000) / 75);
+        my $duration = int((($offsets[$i + 1] - $offsets[$i]) * 1000) / 75);
+        # Max size for an int in postgresql:
+        # http://www.postgresql.org/docs/current/static/datatype-numeric.html
+        return if $duration > 2147483647;
+        push @durations, $duration;
     }
 
     my $dur_string = "'{" . join(",", @durations) . "}'";

@@ -2,8 +2,16 @@
 
 unset SSH_AUTH_SOCK
 
-LOCAL_DIR=/var/ftp/pub/musicbrainz/data/replication
+mb_server=`dirname $0`/..
+cd $mb_server
 
-rsync -e "ssh -i $HOME/.ssh/rysnc-data-replication" -av $LOCAL_DIR/ ftpowner@scooby.localdomain:dummy
+eval `./admin/ShowDBDefs`
+
+LOCAL_DIR=$FTP_DATA_DIR/replication
+
+if [ "$RSYNC_REPLICATION_SERVER" ]
+then
+    rsync -e "ssh -i $HOME/.ssh/rysnc-data-replication" -av $LOCAL_DIR/ $RSYNC_REPLICATION_SERVER:dummy
+fi
 
 # eof rsync-replication-files

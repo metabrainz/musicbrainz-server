@@ -1,6 +1,6 @@
 <table class="details add-series-alias">
   <tr>
-    <th>[%- add_colon(l('Series')) -%]</th>
+    <th>[%- add_colon(lp('Series', 'singular')) -%]</th>
     <td>[%- link_entity(edit.display_data.series) -%]</td>
   </tr>
   <tr>
