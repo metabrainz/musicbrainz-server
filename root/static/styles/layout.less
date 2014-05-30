@@ -779,7 +779,15 @@ table.tbl th { word-break: keep-all; white-space: nowrap; }
 table.tbl .year { width: 4em; }
 table.tbl .count { width: 2em; }
 table.tbl .rating { width: 50px; }
-table.tbl .video { width: 15px; }
+table.tbl .video {
+    width: 15px;
+
+    &.is-video {
+        background-repeat: no-repeat;
+        background-position: 50% 2px;
+        background-image: data-uri('../images/icons/video.png');
+    }
+}
 table.tbl .treleases { width: 3em; }
 table.tbl .t { text-align: right; }
 
