@@ -58,7 +58,6 @@ our @EXPORT_OK = (
         $INSTRUMENT_ROOT_ID       $VOCAL_ROOT_ID       $REQUIRED_VOTES
         %PART_OF_SERIES           $ARTIST_ARTIST_COLLABORATION
         @FULL_TABLE_LIST          %ENTITIES            entities_with
-
     ),
     @{ _get(qr/^(EDIT|EXPIRE|QUALITY|EDITOR|ELECTION|EMAIL|VOTE|STATUS|ACCESS_SCOPE|SERIES)_/) },
 );
