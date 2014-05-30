@@ -24,9 +24,14 @@ INSERT INTO area (id, gid, name, type) VALUES
 INSERT INTO country_area (area) VALUES ( 13), ( 81), (107), (150), (221), (222), (241);
 INSERT INTO iso_3166_1 (area, code) VALUES ( 13, 'AU'), ( 81, 'DE'), (107, 'JP'), (150, 'NL'), (221, 'GB'), (222, 'US'), (241, 'XE');
 
+INSERT INTO link_attribute_type (id, root, gid, name, description) VALUES
+    (14, 14, '0abd7f04-5e28-425b-956f-94789d9bcbe2', 'instrument', 'This attribute describes the po ssible instruments that can be captured as part of a performance.');
+
 -- Types, statuses, etc.
 INSERT INTO artist_type (id, name) VALUES (1, 'Person');
 INSERT INTO artist_type (id, name) VALUES (2, 'Group');
+
+INSERT INTO instrument_type (id, name) VALUES (1, 'Wind instrument');
 
 INSERT INTO gender (id, name) VALUES (2, 'Female');
 
@@ -407,6 +412,14 @@ INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, positi
 INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES (100300, 781759, '', 'SKC', 1);
 INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES (135345, 792488, '♥', 'm-flo', 0);
 INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES (9496, 792488, '', 'BoA', 1);
+
+-- Instruments
+
+INSERT INTO instrument (id, gid, name, type) VALUES (7, '3590521b-8c97-4f4b-b1bb-5f68d3663d8a', 'English horn', 1);
+
+INSERT INTO instrument_alias (id, instrument, name, sort_name) VALUES
+    (1, 7, 'cor anglais', 'cor anglais'),
+    (2, 7, 'English horn', 'English horn');
 
 -- RGs
 
