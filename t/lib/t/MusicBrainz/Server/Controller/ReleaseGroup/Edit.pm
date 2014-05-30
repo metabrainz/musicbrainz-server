@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Controller::ReleaseGroup::Edit;
 use Test::Routine;
 use Test::More;
+use Test::Deep;
 use HTTP::Request::Common;
 use MusicBrainz::Server::Test qw( html_ok );
 
@@ -34,7 +35,7 @@ ok($mech->success);
 
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::ReleaseGroup::Edit');
-is_deeply($edit->data, {
+cmp_deeply($edit->data, {
     new => {
         artist_credit => {
             names => [ {
@@ -60,6 +61,7 @@ is_deeply($edit->data, {
     },
     entity => {
         id => 1,
+        gid => re("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"),
         name => 'Arrival'
     }
 });

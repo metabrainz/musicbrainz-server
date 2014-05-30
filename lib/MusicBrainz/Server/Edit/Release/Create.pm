@@ -139,6 +139,8 @@ sub restore {
 
     $self->entity_id(delete $data->{entity_id})
         if $data->{entity_id};
+    $self->entity_gid(delete $data->{entity_gid})
+        if $data->{entity_gid};
 
     if (exists $data->{date} || exists $data->{country_id}) {
         $data->{events} = [{

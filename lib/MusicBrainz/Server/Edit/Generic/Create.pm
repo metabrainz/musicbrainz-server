@@ -47,6 +47,7 @@ sub insert
     my $entity = $self->c->model( $self->_create_model )->insert( $hash );
 
     $self->entity_id($entity->id);
+    $self->entity_gid($entity->gid) if $entity->can('gid');
 }
 
 sub reject
