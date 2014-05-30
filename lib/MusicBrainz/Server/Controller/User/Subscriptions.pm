@@ -19,6 +19,10 @@ with 'MusicBrainz::Server::Controller::User::SubscriptionsRole' => {
     type => 'label',
 };
 
+with 'MusicBrainz::Server::Controller::User::SubscriptionsRole' => {
+    type => 'series',
+};
+
 after collection => sub {
     my ($self, $c) = @_;
 

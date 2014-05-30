@@ -63,6 +63,10 @@ msgid ""
 "often learnt by children."
 msgstr ""
 
+#: DB:instrument/description:649
+msgid "A duck call is a tool used to emulate the sound of a duck."
+msgstr ""
+
 #: DB:instrument/description:514
 msgid ""
 "A fife is a small, high-pitched, transverse flute that is similar to the "
@@ -554,6 +558,12 @@ msgstr ""
 
 #: DB:instrument/description:561
 msgid "The Lyricon is an electronic wind instrument."
+msgstr ""
+
+#: DB:instrument/description:647
+msgid ""
+"The Portuguese guitar is a plucked string instrument associated with fado. "
+"It has twelve steel strings, strung in six courses."
 msgstr ""
 
 #: DB:instrument/description:576
@@ -1132,6 +1142,12 @@ msgstr ""
 msgid "The marímbula is a plucked box musical instrument from the Caribbean."
 msgstr ""
 
+#: DB:instrument/description:85
+msgid ""
+"The mbira or kalimba (also known by many other names) is an African thumb "
+"piano."
+msgstr ""
+
 #: DB:instrument/description:224
 msgid ""
 "The morin khuur or matouqin is a Mongolian bowed string instrument which has "
@@ -1267,6 +1283,13 @@ msgstr ""
 
 #: DB:instrument/description:617
 msgid "The ryuteki is a Japanese transverse flute used in gagaku."
+msgstr ""
+
+#: DB:instrument/description:646
+msgid ""
+"The sabar is a drum from Senegal which is normally played with one hand and "
+"one stick. The body is an elongated cylinder with tapered ends. The head is "
+"made of goatskin and is attached to the body using pegs."
 msgstr ""
 
 #: DB:instrument/description:583

@@ -52,6 +52,17 @@ MB.tests.URLCleanup.GuessType = function () {
                     'label', 'http://idiotsikker.bandcamp.com/',
                     MB.constants.LINK_TYPES.bandcamp.label
                 ],
+                // Blogspot
+                [
+                    'http://49swimmingpools.blogspot.fr/',
+                    'http://49swimmingpools.blogspot.com/',
+                    'artist'
+                ],
+                [
+                    'www.afroliciousoriginal.blogspot.pt',
+                    'afroliciousoriginal.blogspot.com/',
+                    'artist'
+                ],
                 // WhoSampled
                 [
                     'recording', 'http://www.whosampled.com/Just-to-Get-a-Rep/Gang-Starr/',

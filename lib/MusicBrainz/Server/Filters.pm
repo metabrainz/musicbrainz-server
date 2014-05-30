@@ -8,6 +8,7 @@ use Encode;
 use Locale::Language;
 use MusicBrainz::Server::Track;
 use MusicBrainz::Server::Validation qw( encode_entities );
+use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
 use Text::Trim qw( trim );
 use Text::WikiFormat;
 use Try::Tiny;
@@ -55,10 +56,11 @@ sub format_wikitext
     $text =~ s/</&lt;/g;
     $text =~ s/>/&gt;/g;
 
+    my $entity_names = join('|', entities_with('mbid', take => sub { my $type = shift; return shift->{url} // $type } ));
     # MBS-2437: Expand MBID entity links
     $text =~ s/
       \[
-      (artist|label|recording|release|release-group|url|work|area|place|series|instrument):
+      ($entity_names):
       ([0-9a-f]{8} -
        [0-9a-f]{4} -
        [0-9a-f]{4} -

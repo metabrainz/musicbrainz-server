@@ -158,6 +158,10 @@
 
     function countryID(event) { return event.countryID() }
 
+    function nonEmptyEvent(event) {
+        return event.countryID() || _.any(_.values(event.unwrapDate()));
+    }
+
     computeErrors(function (release) {
         var events = _(release.events());
 
@@ -170,9 +174,9 @@
             );
         });
 
-        events.filter(countryID).groupBy(countryID)
+        events.groupBy(countryID)
             .each(function (events, id) {
-                var dupeCountry = events.length > 1;
+                var dupeCountry = _.filter(events, nonEmptyEvent).length > 1;
 
                 _.each(events, function (event) {
                     event.countryID.error(dupeCountry ?

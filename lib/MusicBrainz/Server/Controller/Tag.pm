@@ -4,6 +4,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Constants qw( entities_with );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model       => 'Tag',
@@ -46,7 +47,7 @@ sub show : Chained('load') PathPart('')
 
             ($_ . '_tags' => $entities,
              $_ . '_count' => $total)
-        } qw( artist label recording release release_group work place )
+        } entities_with('tags')
     );
 }
 

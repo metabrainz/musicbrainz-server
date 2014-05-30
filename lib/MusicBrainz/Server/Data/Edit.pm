@@ -10,11 +10,19 @@ use DateTime::Format::Pg;
 use Try::Tiny;
 use List::MoreUtils qw( uniq zip );
 use List::AllUtils qw( any );
-use MusicBrainz::Server::Constants qw( $QUALITY_UNKNOWN_MAPPED $EDITOR_MODBOT );
 use MusicBrainz::Server::Data::Editor;
 use MusicBrainz::Server::EditRegistry;
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Constants qw( :edit_status $VOTE_YES $AUTO_EDITOR_FLAG $UNTRUSTED_FLAG $VOTE_APPROVE $EDIT_MINIMUM_RESPONSE_PERIOD );
+use MusicBrainz::Server::Constants qw(
+    :edit_status
+    $VOTE_YES
+    $AUTO_EDITOR_FLAG
+    $UNTRUSTED_FLAG
+    $VOTE_APPROVE
+    $EDIT_MINIMUM_RESPONSE_PERIOD
+    $QUALITY_UNKNOWN_MAPPED
+    $EDITOR_MODBOT
+    entities_with );
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list query_to_list_limited );
 use JSON::Any;
 
@@ -106,7 +114,7 @@ sub find
     my ($self, $p, $limit, $offset) = @_;
 
     my (@pred, @args);
-    for my $type (qw( area artist instrument label place series release release_group recording work url )) {
+    for my $type (entities_with('edit_table')) {
         next unless exists $p->{$type};
         my $ids = delete $p->{$type};
 
@@ -314,7 +322,8 @@ OFFSET ?";
             return $self->_new_from_row(shift);
         },
         $query,
-        ($STATUS_OPEN, $editor_id) x 4, # per subscription model
+        ($STATUS_OPEN, $editor_id) x scalar (entities_with(['subscriptions', 'entity'])),
+                                        # Above will fail if SQL is not updated
         $STATUS_OPEN, $editor_id,       # Edit is open, editor not current one
         $editor_id, $offset             # Editor has not voted, offset
     );
@@ -768,7 +777,7 @@ sub insert_votes_and_notes {
 sub get_related_entities {
     my ($self, $edit) = @_;
     my %result;
-    for my $type (qw( area artist label place release release_group recording series work url )) {
+    for my $type (entities_with('edit_table')) {
         my $query = "SELECT $type AS id FROM edit_$type WHERE edit = ?";
         $result{$type} = [ query_to_list($self->c->sql, sub { shift->{id} }, $query, $edit->id) ];
     }

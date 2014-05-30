@@ -94,6 +94,11 @@ role {
                     $target = serialize_entity($entity, $target_type);
                 }
 
+                my $attribute_text_values = {};
+                for (@{ $_->{attribute_text_values} // [] }) {
+                    $attribute_text_values->{$_->{attribute}} = $_->{text_value};
+                }
+
                 push @result, {
                     id          => $_->{relationship_id},
                     linkTypeID  => $_->{link_type_id},
@@ -104,6 +109,8 @@ role {
                     ended       => $_->{period}->{ended} ? \1 : \0,
                     target      => $target // { entityType => $target_type },
                     linkOrder   => $_->{link_order} // 0,
+                    attributeTextValues => $attribute_text_values,
+                    $_->{backward} ? (direction => "backward") : (),
                 };
             }
 
@@ -174,11 +181,11 @@ role {
             );
 
             $source = $source // $c->model($model)->get_by_id($edit->entity_id);
-            my $url_changes = 0;
 
+            my $url_changes = 0;
             if ($form_name ne "edit-url") {
                 my @urls = grep { !$_->is_empty } $form->field('url')->fields;
-                my $url_changes = $self->edit_relationships($c, $form, \@urls, $source);
+                $url_changes = $self->edit_relationships($c, $form, \@urls, $source);
             }
 
             my @rels = grep { !$_->is_empty } $form->field('rel')->fields;
@@ -201,7 +208,6 @@ role {
         my %reordered_relationships;
 
         for my $field (@field_values) {
-            my $edit;
             my %args;
             my $link_type = $field->{link_type};
 
@@ -255,9 +261,9 @@ role {
                 $c->model('Relationship')->load_entities($relationship);
 
                 if ($field->{removed}) {
-                    $edit = $self->delete_relationship($c, $form, %args);
+                    push @edits, $self->delete_relationship($c, $form, %args);
                 } else {
-                    $edit = $self->try_and_edit($c, $form, %args);
+                    push @edits, $self->try_and_edit($c, $form, %args);
 
                     my $orderable_direction = $link_type->orderable_direction;
 
@@ -278,9 +284,8 @@ role {
                     }
                 }
             } else {
-                $edit = $self->try_and_insert($c, $form, %args);
+                push @edits, $self->try_and_insert($c, $form, %args);
             }
-            push @edits, $edit;
         }
 
         while (my ($key, $relationship_order) = each %reordered_relationships) {

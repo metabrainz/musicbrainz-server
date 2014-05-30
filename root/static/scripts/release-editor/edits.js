@@ -15,6 +15,12 @@
         return _(release.mediums());
     }, []);
 
+    var newReleaseLabels = utils.withRelease(function (release) {
+        return _.filter(release.labels(), function (releaseLabel) {
+            var label = releaseLabel.label();
+            return (label && label.id) || _.str.clean(releaseLabel.catalogNumber());
+        });
+    }, []);
 
     releaseEditor.edits = {
 
@@ -60,7 +66,7 @@
         },
 
         releaseLabel: function (release) {
-            var newLabels = _.map(release.labels(), MB.edit.fields.releaseLabel);
+            var newLabels = _.map(newReleaseLabels(), MB.edit.fields.releaseLabel);
             var oldLabels = release.labels.original();
 
             var newLabelsByID = _.indexBy(newLabels, "release_label");
@@ -69,9 +75,6 @@
             var edits = [];
 
             _.each(newLabels, function (newLabel) {
-                if (!newLabel.label && !newLabel.catalog_number) {
-                    return;
-                }
                 var id = newLabel.release_label;
 
                 if (id) {
@@ -98,7 +101,7 @@
 
                 if (!newLabel || !(newLabel.label || newLabel.catalog_number)) {
                     // Delete ReleaseLabel
-                    oldLabel = _.omit(oldLabel, "label", "catalogNumber");
+                    oldLabel = _.omit(oldLabel, "label", "catalog_number");
                     edits.push(MB.edit.releaseDeleteReleaseLabel(oldLabel));
                 }
             });
@@ -480,8 +483,8 @@
 
             callback: function (release, edits) {
                 release.labels.original(
-                    _.map(release.labels.peek(), function (label) {
-                        var newData = _.where(edits, {
+                    _.map(newReleaseLabels(), function (label) {
+                        var newData = _.find(edits, {
                             entity: {
                                 labelID: label.label().id || null,
                                 catalogNumber: label.catalogNumber() || null
@@ -489,7 +492,7 @@
                         });
 
                         if (newData) {
-                            label.id = newData.id;
+                            label.id = newData.entity.id;
                         }
                         return MB.edit.fields.releaseLabel(label);
                     })

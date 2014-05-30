@@ -39,8 +39,7 @@
   </tr>
   [% END %]
 
-  [% IF edit.data.attributes ~%]
-  [% FOR type=edit.display_data.attributes ~%]
+  [% FOREACH type IN edit.display_data.attributes.pairs ~%]
   <tr>
     <th>[% add_colon(type.key) %]</th>
     <td>
@@ -51,6 +50,5 @@
       </ul>
     </td>
   </tr>
-  [%~ END %]
   [%~ END %]
 </table>

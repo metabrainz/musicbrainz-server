@@ -373,14 +373,13 @@ my %stats = (
             my ($self, $sql) = @_;
 
             my $data = $sql->select_list_of_lists(
-                "SELECT COALESCE(type.id::text, 'null'), COUNT(series.id) AS count
+                "SELECT type.id::text, COUNT(series.id) AS count
                  FROM series_type type
                  FULL OUTER JOIN series ON series.type = type.id
                  GROUP BY type.id",
             );
 
             my %dist = map { @$_ } @$data;
-            $dist{null} ||= 0;
 
             +{
                 map {

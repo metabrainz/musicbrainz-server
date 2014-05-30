@@ -84,27 +84,20 @@ method foreign_keys
     return {
         Release => { $self->release_id => [ 'ArtistCredit' ] },
         MediumCDTOC => [ $self->entity_id => [ 'CDTOC' ] ],
-        Medium => { $self->data->{medium_id} => [ 'Release', 'MediumFormat' ] }
+        Medium => { $self->data->{medium_id} => [ 'Release ArtistCredit', 'MediumFormat' ] }
     }
 }
 
 method build_display_data ($loaded)
 {
-    my $release = $loaded->{Release}{ $self->release_id } ||
-            Release->new(
-                name => $self->data->{release}{name}
-            );
-
     my $pos = $self->data->{medium_position};
 
-    my $medium = $loaded->{Medium}{$self->data->{medium_id}} //
-                 ($pos ? Medium->new(position => $pos) : undef);
-
-    $medium->release($release) if $medium;
-
     return {
-        release => $release,
-        medium => $medium,
+        medium => $loaded->{Medium}{ $self->data->{medium_id} } //
+                  Medium->new( release => $loaded->{Release}{ $self->release_id } //
+                                           Release->new( name => $self->data->{release}{name} ),
+                               $pos ? ( position => $pos ) : (),
+                  ),
         medium_cdtoc => $loaded->{MediumCDTOC}{ $self->entity_id } ||
             MediumCDTOC->new(
                 cdtoc => CDTOC->new_from_toc($self->data->{cdtoc})

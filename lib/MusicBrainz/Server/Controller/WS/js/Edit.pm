@@ -27,6 +27,7 @@ use MusicBrainz::Server::Data::Utils qw(
     type_to_model
     model_to_type
     partial_date_to_hash
+    split_relationship_by_attributes
 );
 use MusicBrainz::Server::Edit::Utils qw( boolean_from_json );
 use MusicBrainz::Server::Translation qw( l );
@@ -398,7 +399,26 @@ sub process_edits {
         push @props_to_load, [$id, $model, $setter];
     };
 
+    my @new_edits;
+    my @attribute_ids;
+
     for my $edit (@$edits) {
+        if ($edit->{edit_type} == $EDIT_RELATIONSHIP_CREATE) {
+            push @attribute_ids, @{ $edit->{attributes} // [] };
+        }
+    }
+
+    my $attributes = $c->model('LinkAttributeType')->get_by_ids(@attribute_ids);
+
+    for my $edit (@$edits) {
+        if ($edit->{edit_type} == $EDIT_RELATIONSHIP_CREATE) {
+            push @new_edits, split_relationship_by_attributes($attributes, $edit);
+        } else {
+            push @new_edits, $edit;
+        }
+    }
+
+    for my $edit (@new_edits) {
         my $processor = $data_processors->{$edit->{edit_type}};
         $processor->($c, $loader, $edit, $previewing) if $processor;
     }
@@ -427,6 +447,8 @@ sub process_edits {
             entities => \@non_existent_entities
         };
     }
+
+    return \@new_edits;
 }
 
 sub create_edits {
@@ -439,7 +461,7 @@ sub create_edits {
     }
 
     try {
-        process_edits($c, $data->{edits}, $previewing);
+        $data->{edits} = process_edits($c, $data->{edits}, $previewing);
     }
     catch {
         detach_with_error($c, $_);

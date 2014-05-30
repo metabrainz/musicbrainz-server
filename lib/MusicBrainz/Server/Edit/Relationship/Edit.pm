@@ -298,14 +298,16 @@ sub initialize
     my $type0 = $link->type->entity0_type;
     my $type1 = $link->type->entity1_type;
 
-    $opts{attribute_text_values} //= {};
+    my $new_link_type = $opts{link_type} // $link->type;
+    my $new_attributes = $opts{attributes} // [ map { $_->id } $link->all_attributes ];
+    my $new_attribute_text_values = $opts{attribute_text_values} // $link->attribute_text_values;
 
-    if (my $attributes = $opts{attributes}) {
-        $self->check_attributes($link->type, $attributes, $opts{attribute_text_values});
-    }
+    $self->check_attributes($new_link_type, $new_attributes, $new_attribute_text_values);
 
     # Delete attribute_text_values if it's empty, unless the existing link has
     # text values, in which case we want an empty hash to indicate a change.
+    $opts{attribute_text_values} //= {};
+
     unless (%{ $opts{attribute_text_values} } || %{ $link->attribute_text_values }) {
         delete $opts{attribute_text_values};
     }

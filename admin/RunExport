@@ -26,14 +26,6 @@ else
     EXPORT_ARG="--without-full-export"
 fi
 
-echo `date`" : Making database snapshot"
-./admin/ExportAllTables \
-    $EXPORT_ARG \
-    --with-replication \
-    --output-dir "$TEMP_DIR" \
-    --compress \
-    || exit $?
-
 # Create necessary directories and set permissions.  If we're not doing a full
 # export then $EXPORT_STAMP is empty, so that argument is ignored.
 
@@ -55,26 +47,14 @@ chown "$FTP_USER:$FTP_GROUP" \
     "$FTP_DATA_DIR"/fullexport/"$EXPORT_STAMP" \
     "$FTP_DATA_DIR"/replication
 
-# Was a replication packet created?
-shopt -s nullglob
-REPLICATION_FILE=`echo -n "$TEMP_DIR"/replication-*.tar.bz2`
-shopt -u nullglob
-
-# Replication data, if any, goes to both the backup directory and the
-# FTP directory.
-if [ "$REPLICATION_FILE" ]
-then
-    chown "$BACKUP_USER:$BACKUP_GROUP" "$TEMP_DIR"/replication-*.tar.bz2
-    chmod "$BACKUP_FILE_MODE" "$TEMP_DIR"/replication-*.tar.bz2
-    cp -a "$TEMP_DIR"/replication-*.tar.bz2 "$BACKUP_DIR"/replication/
-    cp -a "$TEMP_DIR"/replication-*.tar.bz2.asc "$BACKUP_DIR"/replication/
-
-    chown "$FTP_USER:$FTP_GROUP" "$TEMP_DIR"/replication-*.tar.bz2
-    chmod "$FTP_FILE_MODE" "$TEMP_DIR"/replication-*.tar.bz2
-    mv "$TEMP_DIR"/replication-*.tar.bz2 "$FTP_DATA_DIR"/replication/
-    mv "$TEMP_DIR"/replication-*.tar.bz2.asc "$FTP_DATA_DIR"/replication/
-    $mb_server/bin/rsync-replication-files
-fi
+echo `date`" : Making database snapshot"
+./admin/ExportAllTables \
+    $EXPORT_ARG \
+    --with-replication \
+    --output-dir "$TEMP_DIR" \
+    --compress \
+    --replication-callback "$mb_server/admin/CopyReplication $TEMP_DIR" \
+    || exit $?
 
 if [ "$WITH_FULL_EXPORT" ]
 then
