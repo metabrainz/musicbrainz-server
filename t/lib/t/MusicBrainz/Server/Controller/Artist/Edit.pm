@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Controller::Artist::Edit;
 use Test::Routine;
 use Test::More;
+use Test::Deep;
 use MusicBrainz::Server::Test qw( capture_edits html_ok );
 
 use List::UtilsBy qw( sort_by );
@@ -47,9 +48,10 @@ ok($mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce$}, 'should redi
 
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::Edit');
-is_deeply($edit->data, {
+cmp_deeply($edit->data, {
         entity => {
             id => 3,
+            gid => re("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"),
             name => 'Test Artist'
         },
         new => {

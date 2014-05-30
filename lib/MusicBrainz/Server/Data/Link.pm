@@ -52,8 +52,10 @@ sub _load_attributes
             SELECT
                 link,
                 attr.id,
+                attr.gid,
                 attr.name AS name,
                 root_attr.id AS root_id,
+                root_attr.gid AS root_gid,
                 root_attr.name AS root_name,
                 COALESCE(text_value, '') AS text_value,
                 COALESCE((SELECT true FROM link_text_attribute_type ltat
@@ -69,10 +71,12 @@ sub _load_attributes
             if (exists $data->{$id}) {
                 my $attr = MusicBrainz::Server::Entity::LinkAttributeType->new(
                     id => $row->{id},
+                    gid => $row->{gid},
                     name => $row->{name},
                     free_text => $row->{free_text},
                     root => MusicBrainz::Server::Entity::LinkAttributeType->new(
                         id => $row->{root_id},
+                        gid => $row->{root_gid},
                         name => $row->{root_name},
                     ),
                 );
