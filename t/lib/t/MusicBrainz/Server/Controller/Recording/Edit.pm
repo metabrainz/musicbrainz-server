@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Controller::Recording::Edit;
 use Test::Routine;
 use Test::More;
+use Test::Deep;
 use MusicBrainz::Server::Test qw( capture_edits html_ok );
 use HTTP::Request::Common;
 use List::UtilsBy qw( sort_by );
@@ -62,9 +63,10 @@ html_ok($mech->content);
 
 my $edit = $edits[0];
 isa_ok($edit, 'MusicBrainz::Server::Edit::Recording::Edit');
-is_deeply($edit->data, {
+cmp_deeply($edit->data, {
     entity => {
         id => 1,
+        gid => re("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"),
         name => 'Dancing Queen'
     },
     new => {
@@ -174,9 +176,10 @@ html_ok($mech->content);
 
 $edit = $edits[0];
 isa_ok($edit, 'MusicBrainz::Server::Edit::Recording::Edit');
-is_deeply($edit->data, {
+cmp_deeply($edit->data, {
     entity => {
         id => 1,
+        gid => re("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"),
         name => 'Dancing Queen'
     },
     new => { length => 296000 },
