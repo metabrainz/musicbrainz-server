@@ -204,7 +204,7 @@ sub _interpolate
         my $name = lc $attr->root->name;
         my $value = $attr->l_name;
 
-        if ($attr->root->id == $INSTRUMENT_ROOT_ID) {
+        if ($attr->root->id == $INSTRUMENT_ROOT_ID && $attr->gid) {
             $value = "<a href=\"/instrument/".$attr->gid."\">$value</a>";
         }
 
