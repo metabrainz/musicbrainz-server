@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-05-27 21:51+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-05-29 20:07+0000\n"
+"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -321,7 +321,7 @@ msgstr "bǎngǔ"
 
 #: DB:instrument/name:221
 msgid "banhu"
-msgstr ""
+msgstr "bǎnhú"
 
 #: DB:instrument/name:396
 msgid "banjitar"
@@ -513,7 +513,7 @@ msgstr "buk"
 
 #: DB:instrument/name:528
 msgid "bulbul tarang"
-msgstr ""
+msgstr "bulbul tarang"
 
 #: DB:instrument/name:153
 msgid "bull-roarer"

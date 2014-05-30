@@ -3,6 +3,7 @@
 # Alexander Dupuy <email address hidden>, 2012
 # gr0uch0mars <email address hidden>, 2011
 # Héctor Arroyo <email address hidden>, 2012
+# martinipd <email address hidden>, 2014
 # Nicolás Tamargo <email address hidden>, 2011-2013
 # kelopezcl <email address hidden>, 2012
 #   Tobias Quathamer <email address hidden>, 2007
@@ -10,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-03-04 00:46+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-05-29 12:19+0000\n"
+"Last-Translator: martinipd <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1386,7 +1387,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:650
 msgid "Electric guitar without frets."
-msgstr ""
+msgstr "Guitarra eléctrica sin trastes"
 
 #: DB:link_attribute_type/description:748
 msgid ""
@@ -1474,7 +1475,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:502
 msgid "Indian bamboo flutes"
-msgstr ""
+msgstr "Flautas indias de bambú"
 
 #: DB:link_attribute_type/description:458
 msgid ""
@@ -1752,7 +1753,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:206
 msgid "Spanish acoustic guitar"
-msgstr ""
+msgstr "Guitarra acústica española"
 
 #: DB:link_attribute_type/description:332
 msgid "Spanish vihuela"
