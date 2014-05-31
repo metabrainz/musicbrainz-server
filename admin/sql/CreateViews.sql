@@ -42,6 +42,21 @@ CREATE OR REPLACE VIEW area_containment AS
         WHERE  area.type IN (1, 2, 3)
         ORDER BY descendant, type, array_length(descendants, 1) ASC;
 
+
+CREATE OR REPLACE VIEW event_series AS
+    SELECT entity0 AS event,
+           entity1 AS series,
+           lrs.id AS relationship,
+           link_order,
+           lrs.link,
+           COALESCE(text_value, '') AS text_value
+    FROM l_event_series lrs
+    JOIN series s ON s.id = lrs.entity1
+    JOIN link l ON l.id = lrs.link
+    JOIN link_type lt ON (lt.id = l.link_type AND lt.gid = 'ea6f0698-6782-30d6-b16d-293081b66774')
+    LEFT OUTER JOIN link_attribute_text_value latv ON (latv.attribute_type = s.ordering_attribute AND latv.link = l.id)
+    ORDER BY series, link_order;
+
 CREATE OR REPLACE VIEW recording_series AS
     SELECT entity0 AS recording,
            entity1 AS series,

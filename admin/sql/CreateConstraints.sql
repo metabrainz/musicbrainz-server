@@ -3,6 +3,7 @@ BEGIN;
 
 ALTER TABLE area          ADD CHECK (controlled_for_whitespace(comment));
 ALTER TABLE artist        ADD CHECK (controlled_for_whitespace(comment));
+ALTER TABLE event         ADD CHECK (controlled_for_whitespace(comment));
 ALTER TABLE instrument    ADD CHECK (controlled_for_whitespace(comment));
 ALTER TABLE label         ADD CHECK (controlled_for_whitespace(comment));
 ALTER TABLE medium        ADD CHECK (controlled_for_whitespace(name));
@@ -32,6 +33,16 @@ ALTER TABLE artist
   ADD CONSTRAINT only_non_empty_sort_name CHECK (sort_name != '');
 
 ALTER TABLE artist_alias
+  ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
+  ADD CONSTRAINT only_non_empty CHECK (name != ''),
+  ADD CONSTRAINT control_for_whitespace_sort_name CHECK (controlled_for_whitespace(sort_name)),
+  ADD CONSTRAINT only_non_empty_sort_name CHECK (sort_name != '');
+
+ALTER TABLE event
+  ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
+  ADD CONSTRAINT only_non_empty CHECK (name != '');
+
+ALTER TABLE event_alias
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
   ADD CONSTRAINT only_non_empty CHECK (name != ''),
   ADD CONSTRAINT control_for_whitespace_sort_name CHECK (controlled_for_whitespace(sort_name)),
