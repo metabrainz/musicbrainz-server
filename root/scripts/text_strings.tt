@@ -191,7 +191,7 @@
             release: '[% l('The series you’ve selected is for releases.') | js %]',
             release_group: '[% l('The series you’ve selected is for release groups.') | js %]',
             work: '[% l('The series you’ve selected is for works.') | js %]'
-
-        }
+        },
+        ClearRecentItems: '[% l('Clear recent items') | js %]'
     });
 })(MB);
