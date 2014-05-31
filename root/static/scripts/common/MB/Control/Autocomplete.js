@@ -36,6 +36,8 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         },
 
         source: function (request, response) {
+            var self = this;
+
             // always reset to first page if we're looking for something new.
             if (request.term != this.pageTerm) {
                 this._resetPage();
@@ -55,7 +57,12 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
                 },
                 dataType: "json",
                 success: $.proxy(this._lookupSuccess, this, response),
-                error: $.proxy(response, null, [])
+                error: function () {
+                    response([{
+                        label: MB.text.InlineSearchFailed,
+                        action: _.bind(self._searchAgain, self)
+                    }]);
+                }
             }));
         },
 
