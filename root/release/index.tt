@@ -28,7 +28,7 @@
     </style>
 
     <script type="text/html" id="relationship-group">
-      <dt><!-- ko text: key --><!-- /ko -->:</dt>
+      <dt><span data-bind="html: key"></span>:</dt>
       <dd data-bind="html: _.map(value, function (v) { return v.target.html() }).join(', ')">
       </dd>
     </script>
@@ -85,7 +85,7 @@
                       <!-- ko if: key == 'work' -->
                         <!-- ko foreachKv: value -->
                           <!-- ko foreach: value -->
-                            <dt><!-- ko text: $parent.key --><!-- /ko -->:</dt>
+                            <dt><span data-bind="html: $parent.key"></span>:</dt>
                             <dd>
                               <span data-bind="html: target.html()"></span>
                               <!-- ko foreachKv: groupedSubRelationships -->

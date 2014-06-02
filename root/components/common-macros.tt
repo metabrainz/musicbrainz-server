@@ -660,7 +660,7 @@ END -%]
   [%- phrase_field = phrase_field || 'phrase';
     extra_attributes_field = "extra_${phrase_field}_attributes";
     IF relationship.edits_pending; '<span class="mp">'; END;
-    relationship.${ phrase_field } | html;
+    relationship.${ phrase_field };
     ' ';
     descriptive_link(relationship.target);
     IF !relationship.link.begin_date.is_empty;

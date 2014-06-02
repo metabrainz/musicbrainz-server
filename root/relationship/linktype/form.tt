@@ -79,7 +79,7 @@
                            type="hidden" />
 
                     <a data-bind="text: source.name, attr: { href: '[% c.uri_for("/${link_type.entity0_type}/") %]' + source.mbid }"></a>
-                    <span data-bind="text: phrase" /></span>
+                    <span data-bind="html: phrase" /></span>
                     <a data-bind="text: target.name, attr: { href: '[% c.uri_for("/${link_type.entity1_type}/") %]' + target.mbid }"></a>
                 </div>
                 [% END %]
@@ -132,7 +132,7 @@
                                name="current-example.relationship"
                                data-bind="checkObject: $root.currentExample.relationship" />
                         <a data-bind="text: source.name, attr: { href: '[% c.uri_for("/${link_type.entity0_type}/") %]' + source.mbid }"></a>
-                        <span data-bind="text: phrase" /></span>
+                        <span data-bind="html: phrase" /></span>
                         <a data-bind="text: target.name, attr: { href: '[% c.uri_for("/${link_type.entity1_type}/") %]' + target.mbid }"></a>
                     </li>
                 </ul>
