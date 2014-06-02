@@ -462,7 +462,7 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         }
 
         if (arguments.length) {
-            recentEntities[entityType] = _.first(arguments[0], 25);
+            recentEntities[entityType] = _.first(arguments[0], 10);
             localStorage.recentAutocompleteEntities = JSON.stringify(recentEntities);
         } else {
             return recentEntities[entityType] || [];
