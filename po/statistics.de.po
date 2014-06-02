@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-05-30 00:23+0000\n"
+"PO-Revision-Date: 2014-05-30 00:44+0000\n"
 "Last-Translator: nikki\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -1013,7 +1013,7 @@ msgstr "Anzahl aller Bearbeitungen"
 
 #: ../root/statistics/view_js.tt:58
 msgid "Count of all instruments"
-msgstr ""
+msgstr "Anzahl aller Instrumente"
 
 #: ../root/statistics/view_js.tt:54
 msgid "Count of all labels"
@@ -1041,7 +1041,7 @@ msgstr "Anzahl aller Veröffentlichungen"
 
 #: ../root/statistics/view_js.tt:57
 msgid "Count of all series"
-msgstr ""
+msgstr "Anzahl aller Serien"
 
 #: ../root/statistics/view_js.tt:74
 msgid "Count of all votes"
@@ -1336,11 +1336,11 @@ msgstr "Inklusive"
 
 #: ../root/statistics/index.tt:647 ../root/statistics/view_js.tt:58
 msgid "Instruments"
-msgstr ""
+msgstr "Instrumente"
 
 #: ../root/statistics/index.tt:64 ../root/statistics/index.tt:654
 msgid "Instruments:"
-msgstr ""
+msgstr "Instrumente:"
 
 #: ../root/statistics/view_js.tt:29
 msgid "Label Countries"

@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-05-20 19:03+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-05-30 01:02+0000\n"
+"Last-Translator: nikki\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2581,7 +2581,7 @@ msgstr "war Veranstaltungsort für die Premiere von"
 #: DB:link_type/description:732 DB:link_type/link_phrase:732
 #: DB:link_type/reverse_link_phrase:732 DB:link_type/long_link_phrase:732
 msgid "image"
-msgstr ""
+msgstr "Bild"
 
 #: DB:link_type/reverse_link_phrase:725
 msgid "imprint of"
@@ -3545,11 +3545,11 @@ msgstr ""
 
 #: DB:link_type/description:733
 msgid "wikidata"
-msgstr ""
+msgstr "Wikidata"
 
 #: DB:link_type/description:731
 msgid "wikipedia"
-msgstr ""
+msgstr "Wikipedia"
 
 #: DB:link_type/long_link_phrase:704
 msgid "works as a mastering engineer at"
@@ -3573,7 +3573,7 @@ msgstr "schrieb {additional:zusätzlichen} Covertext für"
 
 #: DB:link_type/link_phrase:11
 msgid "{EP:EP|single} which was taken from"
-msgstr ""
+msgstr "{EP:EP|Single}-Auskopplung von"
 
 #: DB:link_type/link_phrase:293 DB:link_type/link_phrase:295
 #: DB:link_type/link_phrase:297 DB:link_type/long_link_phrase:293
