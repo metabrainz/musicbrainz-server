@@ -913,7 +913,7 @@ END -%]
   [% ELSE %]
       [% descriptive_link(rel.target) %]
   [% END %]
-  [% '(' _ rel.extra_phrase_attributes _ ')' | html IF rel.extra_phrase_attributes %]
+  [% '(' _ rel.extra_phrase_attributes _ ')' IF rel.extra_phrase_attributes %]
   [% '(' _ rel.link.formatted_date _ ')' IF rel.link.formatted_date %]
   </span>
 [%- END -%]
