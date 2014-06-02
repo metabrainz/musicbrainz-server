@@ -426,6 +426,8 @@ INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, positi
 
 -- Instruments
 
+SELECT setval('link_attribute_type_id_seq', (SELECT MAX(id) FROM link_attribute_type));
+
 INSERT INTO instrument (id, gid, name, type) VALUES (7, '3590521b-8c97-4f4b-b1bb-5f68d3663d8a', 'English horn', 1);
 
 INSERT INTO instrument_alias (id, instrument, name, sort_name) VALUES
