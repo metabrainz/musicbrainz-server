@@ -174,9 +174,12 @@
         var recording = MB.entityCache[clean.gid];
 
         if (recording && !recording.appearsOn) {
-            recording.appearsOn = _.map(appearsOn, function (appearance) {
-                return MB.entity(appearance, "release");
-            });
+            recording.appearsOn = _.clone(clean.appearsOn);
+
+            recording.appearsOn.results = _.map(recording.appearsOn.results,
+                function (appearance) {
+                    return MB.entity(appearance, "release");
+                });
         }
 
         return clean;
@@ -358,7 +361,7 @@
             })
             .sortBy(function (recording) {
                 var appearsOn = recording.appearsOn;
-                return appearsOn ? appearsOn.length : 0;
+                return appearsOn ? appearsOn.results.length : 0;
             })
             .reverse()
             .sortBy(function (recording) {

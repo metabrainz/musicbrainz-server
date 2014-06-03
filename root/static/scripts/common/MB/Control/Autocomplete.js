@@ -71,6 +71,7 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         this.totalPages = 1;
         this.pageTerm = "";
         this.indexedSearch = true;
+        this.changeEntity(this.options.entity);
 
         this.setObservable(
             this.options.currentSelection || ko.observable({
@@ -178,8 +179,6 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         this.menu.element.on("click", function (event) {
             event.stopPropagation();
         });
-
-        this.changeEntity(this.options.entity);
     },
 
     _dataToEntity: function (data) {
@@ -522,9 +521,9 @@ MB.Control.autocomplete_formatters = {
 
         var comment = [];
 
-        if (item.primary_alias && item.primary_alias != item.name)
+        if (item.primaryAlias && item.primaryAlias != item.name)
         {
-            comment.push(item.primary_alias);
+            comment.push(item.primaryAlias);
         }
 
         if (item.sortName && !MB.utility.is_latin(item.name) && item.sortName != item.name)
@@ -646,9 +645,9 @@ MB.Control.autocomplete_formatters = {
             a.prepend('<span class="autocomplete-length">' + item.language + '</span>');
         }
 
-        if (item.primary_alias && item.primary_alias != item.name)
+        if (item.primaryAlias && item.primaryAlias != item.name)
         {
-            comment.push(item.primary_alias);
+            comment.push(item.primaryAlias);
         }
 
         if (item.comment)
@@ -713,9 +712,9 @@ MB.Control.autocomplete_formatters = {
 
         var comment = [];
 
-        if (item.primary_alias && item.primary_alias != item.name)
+        if (item.primaryAlias && item.primaryAlias != item.name)
         {
-            comment.push(item.primary_alias);
+            comment.push(item.primaryAlias);
         }
 
         if (item.comment)
@@ -748,8 +747,8 @@ MB.Control.autocomplete_formatters = {
 
         var comment = [];
 
-        if (item.primary_alias && item.primary_alias != item.name) {
-            comment.push(item.primary_alias);
+        if (item.primaryAlias && item.primaryAlias != item.name) {
+            comment.push(item.primaryAlias);
         }
 
         if (item.comment) {
