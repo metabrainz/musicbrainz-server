@@ -248,7 +248,7 @@
     $(function () {
         MB.utility.rememberCheckbox("#bottom-credits", "bottom-credits");
 
-        var $bottom_tables = $("table.details");
+        var $bottom_tables = $("table.details").not($("table.details", "#release-group-relationships"));
         var $inline_ars = $("table.tbl div.ars");
 
         function switchToInlineCredits() {
@@ -333,4 +333,9 @@
         [% l('{link} has no relationships.', { link => link_entity(release) }) -%]
     </p>
 
+    <div id="release-group-relationships">
+      [%- INCLUDE "components/relationships.tt"
+            source=release.release_group
+            relationships_heading=l('Release Group Relationships') -%]
+    </div>
 [%- END -%]
