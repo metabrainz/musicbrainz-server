@@ -108,7 +108,6 @@
         html: function (renderParams) {
             var json = this.toJSON();
 
-            if (json.entityType === undefined) debugger;
             json.entityType = json.entityType.replace("_", "-");
 
             if (this.gid) {
