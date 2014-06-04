@@ -2,7 +2,7 @@
     <div id="content" class="wikicontent">
         <h1>[% l('Documentation Search') %]</h1>
 
-        <div id="cse" style="width: 100%;">Loading</div>
+        <div id="cse" style="width: 100%;">[%~ l('Loading') ~%]</div>
 
         <script src="//www.google.com/jsapi" type="text/javascript"></script>
         <script type="text/javascript">

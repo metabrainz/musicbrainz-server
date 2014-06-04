@@ -36,7 +36,7 @@
     <table class="tbl">
       <thead>
         <tr>
-          <th class="pos t">#</th>
+          <th class="pos t">[%~ l('#') ~%]</th>
           <!-- ko if: $root.showVideo -->
           <th class="video c"></th>
           <!-- /ko -->

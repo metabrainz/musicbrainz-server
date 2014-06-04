@@ -141,7 +141,7 @@
 
   [% IF edit.data.item('_edit_version') == 1 %]
     <tr>
-      <th>Note:</th>
+      <th>[%~ add_colon(l('Note')) ~%]</th>
       <td>[% l('The data in this edit originally came from an older version of this edit,
                 and may not display correctly') %]</td>
     </tr>
