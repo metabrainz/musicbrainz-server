@@ -25,11 +25,11 @@
                     [%~ edit_links_other.push({ url => c.uri_for_action(c.controller.action_for('annotation_history'), [ entity.gid ]), text => l('View annotation history') }) IF number_of_revisions > 0 ~%]
                 [%~ END ~%]
 
-                [%~ UNLESS entitytype == 'url' ~%]
+                [%~ IF entity_properties.merging ~%]
                     [%~ edit_links_other.push({ url => c.uri_for_action("/$entitytype/merge_queue", { 'add-to-merge' => entity.id }), text => l('Merge') }) ~%]
                 [%~ END ~%]
 
-                [%~ IF entitytype == 'instrument' || entitytype == 'area' || entitytype == 'release' || entitytype == 'recording' || entitytype == 'label' ~%]
+                [%~ IF entity_properties.removal.manual ~%]
                     [%~ edit_links_other.push({ url => c.uri_for_action("/$entitytype/delete", [ entity.gid ]), text => l('Remove') }) ~%]
                 [%~ END ~%]
             [%~ END ~%]
@@ -71,7 +71,7 @@
         [%~ END ~%]
     [%~ END ~%]
 
-    [%~ IF c.user_exists && entitytype == 'release' ~%]
+    [%~ IF c.user_exists && entity_properties.collections ~%]
         <h2 class="collections">[%~ l('Collections') ~%]</h2>
         <ul class="links">
         [%~ IF collections.size ~%]
