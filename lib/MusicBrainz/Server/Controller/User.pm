@@ -74,7 +74,6 @@ sub _perform_login {
     if ( !$c->authenticate({ username => $user_name, password => $password }) )
     {
         # Bad username / password combo
-        $c->log->info('Invalid username/password');
         $c->stash( bad_login => 1 );
         return 0;
     }
