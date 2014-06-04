@@ -54,10 +54,10 @@ our @EXPORT_OK = (
         $AUTO_EDITOR_FLAG         $BOT_FLAG            $UNTRUSTED_FLAG
         $RELATIONSHIP_EDITOR_FLAG $DONT_NAG_FLAG       $WIKI_TRANSCLUSION_FLAG
         $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG  $LOCATION_EDITOR_FLAG
-        $COVERART_FRONT_TYPE      $COVERART_BACK_TYPE  $INSTRUMENT_ROOT_ID
-        $AREA_TYPE_COUNTRY        $REQUIRED_VOTES      %PART_OF_SERIES
-        $ARTIST_ARTIST_COLLABORATION @FULL_TABLE_LIST  %ENTITIES
-        entities_with
+        $COVERART_FRONT_TYPE      $COVERART_BACK_TYPE  $AREA_TYPE_COUNTRY
+        $INSTRUMENT_ROOT_ID       $VOCAL_ROOT_ID       $REQUIRED_VOTES
+        %PART_OF_SERIES           $ARTIST_ARTIST_COLLABORATION
+        @FULL_TABLE_LIST          %ENTITIES            entities_with
     ),
     @{ _get(qr/^(EDIT|EXPIRE|QUALITY|EDITOR|ELECTION|EMAIL|VOTE|STATUS|ACCESS_SCOPE|SERIES)_/) },
 );
@@ -288,6 +288,7 @@ Readonly our $COVERART_FRONT_TYPE   => 1;
 Readonly our $COVERART_BACK_TYPE   => 2;
 
 Readonly our $INSTRUMENT_ROOT_ID => 14;
+Readonly our $VOCAL_ROOT_ID => 3;
 
 Readonly our $AREA_TYPE_COUNTRY => 1;
 
@@ -320,86 +321,107 @@ Readonly our %ENTITIES => (
     area => {
         mbid => { relatable => 1 },
         edit_table => 1,
+        merging => 1,
         model      => 'Area',
-        annotations => { edit_type => $EDIT_AREA_ADD_ANNOTATION }
+        annotations => { edit_type => $EDIT_AREA_ADD_ANNOTATION },
+        removal     => { manual => 1 }
     },
     artist => {
         mbid => { relatable => 1 },
         edit_table => 1,
+        merging => 1,
         model      => 'Artist',
         annotations => { edit_type => $EDIT_ARTIST_ADD_ANNOTATION },
         ratings    => 1,
         tags       => 1,
-        subscriptions => { entity => 1, deleted => 1 }
+        subscriptions => { entity => 1, deleted => 1 },
+        removal     => { automatic => 1 }
     },
     instrument => {
         mbid => { relatable => 1 },
         edit_table => 1,
+        merging => 1,
         model      => 'Instrument',
-        annotations => { edit_type => $EDIT_INSTRUMENT_ADD_ANNOTATION }
+        annotations => { edit_type => $EDIT_INSTRUMENT_ADD_ANNOTATION },
+        removal     => { manual => 1 }
     },
     label => {
         mbid => { relatable => 1 },
         edit_table => 1,
+        merging => 1,
         model      => 'Label',
         annotations => { edit_type => $EDIT_LABEL_ADD_ANNOTATION },
         ratings    => 1,
         tags       => 1,
-        subscriptions => { entity => 1, deleted => 1 }
+        subscriptions => { entity => 1, deleted => 1 },
+        removal     => { manual => 1, automatic => 1 }
     },
     place => {
         mbid => { relatable => 1 },
         edit_table => 1,
+        merging => 1,
         model      => 'Place',
         annotations => { edit_type => $EDIT_PLACE_ADD_ANNOTATION },
         tags       => 1,
+        removal     => { automatic => 1 }
     },
     recording => {
         mbid => { relatable => 1 },
         edit_table => 1,
+        merging => 1,
         model      => 'Recording',
         annotations => { edit_type => $EDIT_RECORDING_ADD_ANNOTATION },
         ratings    => 1,
         tags       => 1,
-        artist_credits => 1
+        artist_credits => 1,
+        removal     => { manual => 1 }
     },
     release => {
         mbid => { relatable => 1 },
         edit_table => 1,
+        merging => 1,
         model      => 'Release',
         annotations => { edit_type => $EDIT_RELEASE_ADD_ANNOTATION },
         tags       => 1,
-        artist_credits => 1
+        artist_credits => 1,
+        removal     => { manual => 1 },
+        collections => 1
     },
     release_group => {
         mbid => { relatable => 1 },
         edit_table => 1,
+        merging => 1,
         model      => 'ReleaseGroup',
         url        => 'release-group',
         annotations => { edit_type => $EDIT_RELEASEGROUP_ADD_ANNOTATION },
         ratings    => 1,
         tags       => 1,
-        artist_credits => 1
+        artist_credits => 1,
+        removal     => { automatic => 1 }
     },
     series => {
         mbid => { relatable => 1 },
         edit_table => 1,
+        merging => 1,
         model      => 'Series',
         annotations => { edit_type => $EDIT_SERIES_ADD_ANNOTATION },
-        subscriptions => { entity => 1, deleted => 1 }
+        subscriptions => { entity => 1, deleted => 1 },
+        removal     => { automatic => 1 }
     },
     url => {
         mbid => { relatable => 1 },
         edit_table => 1,
-        model => 'URL',
+        model => 'URL'
     },
     work => {
         mbid => { relatable => 1 },
         edit_table => 1,
+        merging => 1,
         model      => 'Work',
         annotations => { edit_type => $EDIT_WORK_ADD_ANNOTATION },
         ratings    => 1,
         tags       => 1,
+        removal     => { automatic => 1 }
     },
     track => {
         mbid => { relatable => 0 },
@@ -414,6 +436,21 @@ Readonly our %ENTITIES => (
         mbid => { relatable => 0 },
         model      => 'Collection',
         subscriptions => { entity => 1 }
+    },
+    cdstub => {
+        model => 'CDStub',
+    },
+    annotation => {
+        model => 'Annotation'
+    },
+    isrc => {
+        model => 'ISRC'
+    },
+    iswc => {
+        model => 'ISWC'
+    },
+    freedb => {
+        model => 'FreeDB'
     }
 );
 

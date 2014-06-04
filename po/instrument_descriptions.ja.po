@@ -2,11 +2,12 @@
 # Translators:
 # ffee_machine <email address hidden>, 2013
 # Nozomu KURASAWA <email address hidden>, 2013
+# otakahashi, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-03-04 00:46+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-05-30 23:27+0000\n"
+"Last-Translator: otakahashi\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -998,7 +999,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:549
 msgid "A bass synthesizer is used to create sounds in the bass range."
-msgstr ""
+msgstr "ベース・シンセサイザーは、低音領域の音を出すのに用いられる。"
 
 #: DB:link_attribute_type/description:588
 msgid ""
@@ -1914,7 +1915,7 @@ msgid ""
 "actually a free reed instrument, with a single metal reed. It is played in a"
 " transverse (horizontal) manner. (<a "
 "href=\"http://en.wikipedia.org/wiki/Bawu\">Wikipedia</a>)"
-msgstr ""
+msgstr "巴烏（バウー）は中国の吹奏楽器。フルートのような形をしているが、金属リードがついたリード楽器である。横笛である。"
 
 #: DB:link_attribute_type/description:94
 msgid ""
@@ -2397,7 +2398,7 @@ msgstr ""
 msgid ""
 "The nohkan (Japanese: 能管, nōkan) is a high-pitched bamboo transverse flute "
 "from Japan. (<a href=\"http://en.wikipedia.org/wiki/Nohkan\">Wikipedia</a>)"
-msgstr ""
+msgstr "能管（のうかん）は高音域の日本の竹製の横笛である。"
 
 #: DB:link_attribute_type/description:270
 msgid ""

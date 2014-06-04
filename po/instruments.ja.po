@@ -2,12 +2,13 @@
 # Translators:
 # nikki2 <email address hidden>, 2012
 # Nozomu KURASAWA <email address hidden>, 2013
+# otakahashi, 2014
 # th1rtyf0ur, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-05-26 09:28+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-05-30 15:45+0000\n"
+"Last-Translator: otakahashi\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -53,7 +54,7 @@ msgstr ""
 
 #: DB:instrument/name:602
 msgid "Disk Drive"
-msgstr ""
+msgstr "ディスクドライブ"
 
 #: DB:instrument/name:119
 msgid "Dubreq Stylophone"
@@ -73,7 +74,7 @@ msgstr ""
 
 #: DB:instrument/name:604
 msgid "Floppy Drive"
-msgstr ""
+msgstr "フロッピードライブ"
 
 #: DB:instrument/name:30
 msgid "French horn"
@@ -93,7 +94,7 @@ msgstr "ハモンドオルガン"
 
 #: DB:instrument/name:603
 msgid "Harddisk"
-msgstr ""
+msgstr "ハードディスク"
 
 #: DB:instrument/name:323
 msgid "Hawaiian guitar"
@@ -320,8 +321,8 @@ msgid "bangu"
 msgstr ""
 
 #: DB:instrument/name:221
-msgid "banhu / banghu"
-msgstr "板胡"
+msgid "banhu"
+msgstr ""
 
 #: DB:instrument/name:396
 msgid "banjitar"
@@ -847,6 +848,10 @@ msgstr "ドラム"
 msgid "drumset"
 msgstr "ドラムセット"
 
+#: DB:instrument/name:649
+msgid "duck call"
+msgstr ""
+
 #: DB:instrument/name:194
 msgid "duct flutes"
 msgstr ""
@@ -881,7 +886,7 @@ msgstr "エレクトリックベース"
 
 #: DB:instrument/name:208
 msgid "electric cello"
-msgstr ""
+msgstr "エレクトリック・チェロ"
 
 #: DB:instrument/name:538
 msgid "electric fretless guitar"
@@ -893,7 +898,7 @@ msgstr "エレクトリック・ギター"
 
 #: DB:instrument/name:352
 msgid "electric harp"
-msgstr ""
+msgstr "エレクトリック・ハープ"
 
 #: DB:instrument/name:389
 msgid "electric lap steel guitar"
@@ -905,11 +910,15 @@ msgstr "電子ピアノ"
 
 #: DB:instrument/name:246
 msgid "electric sitar"
-msgstr ""
+msgstr "エレクトリック・シタール"
 
 #: DB:instrument/name:49
 msgid "electric upright bass"
 msgstr "エレクトリック・アップライト・ベース"
+
+#: DB:instrument/name:648
+msgid "electric viola"
+msgstr ""
 
 #: DB:instrument/name:212
 msgid "electric violin"
@@ -917,11 +926,11 @@ msgstr "エレクトリック・ヴァイオリン"
 
 #: DB:instrument/name:402
 msgid "electronic drum set"
-msgstr ""
+msgstr "電子ドラム"
 
 #: DB:instrument/name:117
 msgid "electronic instruments"
-msgstr ""
+msgstr "電子楽器"
 
 #: DB:instrument/name:447
 msgid "electronic organ"
@@ -969,7 +978,7 @@ msgstr "フィンガースナップ"
 
 #: DB:instrument/name:523
 msgid "five-string banjo"
-msgstr ""
+msgstr "五弦バンジョー"
 
 #: DB:instrument/name:29
 msgid "flugelhorn"
@@ -1093,7 +1102,7 @@ msgstr ""
 
 #: DB:instrument/name:138
 msgid "grand piano"
-msgstr ""
+msgstr "グランドピアノ"
 
 #: DB:instrument/name:294
 msgid "great bass recorder / c-bass recorder"
@@ -1129,7 +1138,7 @@ msgstr "グースリ"
 
 #: DB:instrument/name:567
 msgid "gut guitar"
-msgstr ""
+msgstr "ガットギター"
 
 #: DB:instrument/name:452
 msgid "guzheng"
@@ -1197,7 +1206,7 @@ msgstr "ハイハットシンバル"
 
 #: DB:instrument/name:616
 msgid "hichiriki"
-msgstr ""
+msgstr "篳篥"
 
 #: DB:instrument/name:312
 msgid "hmông flute"
@@ -1693,7 +1702,7 @@ msgstr "ピーパー（琵琶）"
 
 #: DB:instrument/name:136
 msgid "pipe organ"
-msgstr ""
+msgstr "パイプオルガン"
 
 #: DB:instrument/name:499
 msgid "piri"
@@ -1733,7 +1742,7 @@ msgstr "ケーナ"
 
 #: DB:instrument/name:375
 msgid "rainstick"
-msgstr ""
+msgstr "レインスティック"
 
 #: DB:instrument/name:628
 msgid "rammana"
@@ -1821,7 +1830,7 @@ msgstr ""
 
 #: DB:instrument/name:122
 msgid "sampler"
-msgstr ""
+msgstr "サンプラー"
 
 #: DB:instrument/name:245
 msgid "sanshin"
@@ -1829,7 +1838,7 @@ msgstr "三線"
 
 #: DB:instrument/name:286
 msgid "santoor"
-msgstr ""
+msgstr "サントゥール"
 
 #: DB:instrument/name:255
 msgid "santur"
@@ -1965,7 +1974,7 @@ msgstr ""
 
 #: DB:instrument/name:56
 msgid "slide guitar"
-msgstr ""
+msgstr "スライドギター"
 
 #: DB:instrument/name:198
 msgid "slide whistle"
@@ -2113,7 +2122,7 @@ msgstr ""
 
 #: DB:instrument/name:377
 msgid "talking drum"
-msgstr ""
+msgstr "トーキングドラム"
 
 #: DB:instrument/name:263
 msgid "tambourine"
@@ -2341,7 +2350,7 @@ msgstr "ウクレレ"
 
 #: DB:instrument/name:140
 msgid "upright piano"
-msgstr ""
+msgstr "アップライトピアノ"
 
 #: DB:instrument/name:299
 msgid "vacuum cleaner"
@@ -2449,7 +2458,7 @@ msgstr ""
 
 #: DB:instrument/name:274
 msgid "whistle"
-msgstr ""
+msgstr "笛"
 
 #: DB:instrument/name:196
 msgid "willow flute"

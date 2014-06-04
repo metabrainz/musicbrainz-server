@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-05-26 09:29+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-05-30 03:14+0000\n"
+"Last-Translator: nikki\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -82,7 +82,7 @@ msgstr "注釈"
 
 #: DB:statistics.statistic_event/title:2003-06-22
 msgid "Artist subscriptions"
-msgstr ""
+msgstr "アーティストの購読"
 
 #: DB:statistics.statistic_event/description:2005-02-13
 msgid ""
@@ -92,7 +92,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2003-06-22
 msgid "Artist subscriptions."
-msgstr ""
+msgstr "アーティストの購読"
 
 #: DB:statistics.statistic_event/title:2008-07-30
 msgid "BBC dynamic artist pages"
@@ -565,15 +565,15 @@ msgstr ""
 
 #: ../root/statistics/index.tt:870
 msgid "Approve:"
-msgstr ""
+msgstr "承認："
 
 #: ../root/statistics/index.tt:569 ../root/statistics/view_js.tt:55
 msgid "Areas"
-msgstr ""
+msgstr "地域"
 
 #: ../root/statistics/index.tt:52 ../root/statistics/index.tt:576
 msgid "Areas:"
-msgstr ""
+msgstr "地域："
 
 #: ../root/statistics/view_js.tt:28
 msgid "Artist Countries"
@@ -746,7 +746,7 @@ msgstr ""
 
 #: ../root/statistics/view_js.tt:124
 msgid "Characters"
-msgstr ""
+msgstr "キャラクター"
 
 #: ../root/statistics/timeline.tt:51
 msgid "Check boxes above"
@@ -1135,7 +1135,7 @@ msgstr ""
 
 #: ../root/statistics/editors.tt:36 ../root/statistics/editors.tt:37
 msgid "Editor"
-msgstr ""
+msgstr "編集者"
 
 #: ../root/statistics/editors.tt:2 ../root/statistics/editors.tt:35
 #: ../root/statistics/index.tt:679 ../root/statistics/layout.tt:5
@@ -1329,11 +1329,11 @@ msgstr ""
 
 #: ../root/statistics/index.tt:647 ../root/statistics/view_js.tt:58
 msgid "Instruments"
-msgstr ""
+msgstr "楽器"
 
 #: ../root/statistics/index.tt:64 ../root/statistics/index.tt:654
 msgid "Instruments:"
-msgstr ""
+msgstr "楽器："
 
 #: ../root/statistics/view_js.tt:29
 msgid "Label Countries"
@@ -1421,7 +1421,7 @@ msgstr "男性："
 
 #: ../root/statistics/formats.tt:28 ../root/statistics/view_js.tt:51
 msgid "Mediums"
-msgstr ""
+msgstr "メディア"
 
 #: ../root/statistics/view_js.tt:158
 msgid "Mediums with 1 Disc ID"
@@ -1446,7 +1446,7 @@ msgstr ""
 
 #: ../root/statistics/index.tt:28 ../root/statistics/index.tt:422
 msgid "Mediums:"
-msgstr ""
+msgstr "メディア:"
 
 #: ../root/statistics/editors.tt:36
 msgid "Most active editors in the past week"
@@ -1667,11 +1667,11 @@ msgstr "レコーディング："
 #: ../root/statistics/relationships.tt:22 ../root/statistics/view_js.tt:34
 #: ../root/statistics/view_js.tt:192
 msgid "Relationships"
-msgstr ""
+msgstr "関連"
 
 #: ../root/statistics/index.tt:79 ../root/statistics/relationships.tt:34
 msgid "Relationships:"
-msgstr ""
+msgstr "関連："
 
 #: ../root/statistics/view_js.tt:30
 msgid "Release Countries"
@@ -1919,7 +1919,7 @@ msgstr ""
 
 #: ../root/statistics/index.tt:326
 msgid "URL Relationships:"
-msgstr ""
+msgstr "URL関連："
 
 #: ../root/statistics/index.tt:48
 msgid "URLs:"
@@ -2262,8 +2262,8 @@ msgstr ""
 
 #: ../root/statistics/relationships.tt:45
 msgid "{type0}-{type1}"
-msgstr ""
+msgstr "{type0}・{type1}"
 
 #: ../root/statistics/relationships.tt:48
 msgid "{type0}-{type1} relationships:"
-msgstr ""
+msgstr "{type0}・{type1}の関連："

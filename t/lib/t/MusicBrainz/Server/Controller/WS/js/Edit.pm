@@ -14,7 +14,7 @@ use MusicBrainz::Server::Constants qw(
 );
 use MusicBrainz::Server::Test qw( capture_edits );
 use Test::More;
-use Test::Deep qw( cmp_deeply ignore );
+use Test::Deep qw( bag cmp_deeply ignore );
 use Test::Routine;
 
 with 't::Mechanize', 't::Context';
@@ -539,10 +539,11 @@ test 'adding a relationship' => sub {
         post_json($mech, '/ws/js/edit/create', encode_json({ edits => $edit_data }));
     } $c;
 
-    my $edit = $edits[0];
-    isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Create');
+    is(scalar(@edits), 2);
+    isa_ok($edits[0], 'MusicBrainz::Server::Edit::Relationship::Create');
+    isa_ok($edits[1], 'MusicBrainz::Server::Edit::Relationship::Create');
 
-    cmp_deeply($edit->data,  {
+    my %edit_data = (
         type1       => 'recording',
         type0       => 'artist',
         link_type   => {
@@ -557,7 +558,16 @@ test 'adding a relationship' => sub {
         begin_date  => { year => 1999, month => 1, day => 1 },
         end_date    => { year => 1999, month => 2, day => undef },
         ended       => 1,
-        attributes  => [1, 3, 4],
+    );
+
+    cmp_deeply($edits[0]->data,  {
+        %edit_data,
+        attributes => bag(1, 3),
+    });
+
+    cmp_deeply($edits[1]->data,  {
+        %edit_data,
+        attributes => bag(1, 4),
     });
 };
 

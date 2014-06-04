@@ -7,6 +7,7 @@ use base 'Exporter';
 use Carp qw( confess croak );
 use Try::Tiny;
 use Class::MOP;
+use Clone qw( clone );
 use Data::Compare;
 use Data::UUID::MT;
 use Math::Random::Secure qw( irand );
@@ -14,7 +15,14 @@ use MIME::Base64 qw( encode_base64url );
 use Digest::SHA qw( sha1_base64 );
 use Encode qw( decode encode );
 use List::MoreUtils qw( natatime zip );
-use MusicBrainz::Server::Constants qw( $DARTIST_ID $VARTIST_ID $DLABEL_ID );
+use MusicBrainz::Server::Constants qw(
+    $DARTIST_ID
+    $VARTIST_ID
+    $DLABEL_ID
+    $INSTRUMENT_ROOT_ID
+    $VOCAL_ROOT_ID
+    %ENTITIES
+);
 use Readonly;
 use Scalar::Util 'blessed';
 use Sql;
@@ -58,28 +66,10 @@ our @EXPORT_OK = qw(
     take_while
     trim
     type_to_model
+    split_relationship_by_attributes
 );
 
-Readonly my %TYPE_TO_MODEL => (
-    'annotation'    => 'Annotation',
-    'artist'        => 'Artist',
-    'area'          => 'Area',
-    'cdstub'        => 'CDStub',
-    'collection'    => 'Collection',
-    'editor'        => 'Editor',
-    'freedb'        => 'FreeDB',
-    'instrument'    => 'Instrument',
-    'label'         => 'Label',
-    'place'         => 'Place',
-    'recording'     => 'Recording',
-    'release'       => 'Release',
-    'release_group' => 'ReleaseGroup',
-    'series'        => 'Series',
-    'url'           => 'URL',
-    'work'          => 'Work',
-    'isrc'          => 'ISRC',
-    'iswc'          => 'ISWC'
-);
+Readonly my %TYPE_TO_MODEL => map { $_ => $ENTITIES{$_}{model} } grep { $ENTITIES{$_}{model} } keys %ENTITIES;
 
 sub copy_escape {
     my $str = shift;
@@ -568,6 +558,35 @@ sub take_while (&@) {
         }
     }
     return @r;
+}
+
+sub split_relationship_by_attributes {
+    my ($attributes_by_id, $data) = @_;
+
+    my @attributes = @{ $data->{attributes} // [] };
+    my (@instruments, @vocals, @others, @new_data);
+
+    for (@attributes) {
+        my $root = $attributes_by_id->{$_}->root_id;
+        push @instruments, $_ if $root == $INSTRUMENT_ROOT_ID;
+        push @vocals, $_ if $root == $VOCAL_ROOT_ID;
+        push @others, $_ if $root != $INSTRUMENT_ROOT_ID && $root != $VOCAL_ROOT_ID;
+    }
+
+    for my $id (@instruments) {
+        my $cloned_data = clone($data);
+        $cloned_data->{attributes} = [@others, $id];
+        push @new_data, $cloned_data;
+    }
+
+    for my $id (@vocals) {
+        my $cloned_data = clone($data);
+        $cloned_data->{attributes} = [@others, $id];
+        push @new_data, $cloned_data;
+    }
+
+    push @new_data, $data unless scalar(@new_data);
+    return @new_data;
 }
 
 1;

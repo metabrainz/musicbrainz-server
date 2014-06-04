@@ -42,7 +42,11 @@
                     [% IF rel.link.attributes.size %]
                     <td>
                       [%- FOR attr=rel.link.attributes;
-                            attr.l_name | html;
+                            IF attr.root.id == 14;
+                                '<a href="' _ c.uri_for_action('/instrument/show', [ attr.gid ]) _ '">' _ html_escape(attr.l_name) _ '</a>';
+                            ELSE;
+                                attr.l_name | html;
+                            END;
                             l(', ') UNLESS loop.last;
                          END %]
                     </td>

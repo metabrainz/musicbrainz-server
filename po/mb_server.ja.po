@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-26 02:28-0700\n"
-"PO-Revision-Date: 2014-05-26 09:29+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"POT-Creation-Date: 2014-05-27 14:50-0700\n"
+"PO-Revision-Date: 2014-05-30 03:06+0000\n"
+"Last-Translator: nikki\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -466,7 +466,7 @@ msgstr "アクション"
 
 #: ../root/area/create.tt:1 ../root/area/create.tt:3
 msgid "Add Area"
-msgstr ""
+msgstr "地域を追加"
 
 #: ../root/admin/index.tt:7 ../root/layout/menu.tt:85
 msgctxt "button/menu"
@@ -479,7 +479,7 @@ msgstr "地域の別名を追加"
 
 #: ../root/artist/create.tt:1 ../root/artist/create.tt:3
 msgid "Add Artist"
-msgstr ""
+msgstr "アーティストを追加"
 
 #: ../root/layout/menu.tt:214
 msgctxt "button/menu"
@@ -526,20 +526,20 @@ msgstr "例を追加"
 
 #: ../root/instrument/create.tt:1 ../root/instrument/create.tt:3
 msgid "Add Instrument"
-msgstr ""
+msgstr "楽器を追加"
 
 #: ../root/admin/index.tt:10 ../root/layout/menu.tt:90
 msgctxt "button/menu"
 msgid "Add Instrument"
-msgstr ""
+msgstr "楽器を追加"
 
 #: ../root/instrument/add_alias.tt:1
 msgid "Add Instrument Alias"
-msgstr ""
+msgstr "楽器の別名を追加"
 
 #: ../root/label/create.tt:1 ../root/label/create.tt:3
 msgid "Add Label"
-msgstr ""
+msgstr "レーベルを追加"
 
 #: ../root/layout/menu.tt:217 ../root/release/edit/information.tt:174
 #: ../root/release/edit/information.tt:175
@@ -588,7 +588,7 @@ msgstr "リリースの追加"
 
 #: ../root/release_group/create.tt:1 ../root/release_group/create.tt:8
 msgid "Add Release Group"
-msgstr ""
+msgstr "リリースグループを追加"
 
 #: ../root/layout/menu.tt:220
 msgctxt "button/menu"
@@ -787,7 +787,7 @@ msgstr "編集メモを追加"
 #: ../root/instrument/add_alias.tt:2
 #: ../lib/MusicBrainz/Server/Edit/Instrument/AddAlias.pm:11
 msgid "Add instrument alias"
-msgstr ""
+msgstr "楽器の別名を追加"
 
 #: ../root/label/add_alias.tt:2
 #: ../lib/MusicBrainz/Server/Edit/Label/AddAlias.pm:11
@@ -1456,7 +1456,7 @@ msgstr "アーティストクレジット:"
 
 #: ../root/components/forms.tt:334 ../root/release/edit/tracklist.tt:353
 msgid "Artist in MusicBrainz:"
-msgstr ""
+msgstr "MusicBrainz内のアーティスト:"
 
 #: ../root/artist/layout.tt:6
 msgid "Artist information"
@@ -2876,11 +2876,11 @@ msgstr "カバーアートを編集"
 
 #: ../root/instrument/edit.tt:1
 msgid "Edit Instrument"
-msgstr ""
+msgstr "楽器を編集"
 
 #: ../root/instrument/edit_alias.tt:1
 msgid "Edit Instrument Alias"
-msgstr ""
+msgstr "楽器の別名を編集"
 
 #: ../root/label/edit.tt:1
 msgid "Edit Label"
@@ -2937,7 +2937,7 @@ msgstr "{release}の関連を編集"
 
 #: ../root/scripts/text_strings.tt:167
 msgid "Edit Release"
-msgstr ""
+msgstr "リリースを編集"
 
 #: ../root/release/edit_annotation.tt:1
 msgid "Edit Release Annotation"
@@ -3019,7 +3019,7 @@ msgstr ""
 #: ../root/instrument/edit_alias.tt:2
 #: ../lib/MusicBrainz/Server/Edit/Instrument/EditAlias.pm:12
 msgid "Edit instrument alias"
-msgstr ""
+msgstr "楽器の別名を編集"
 
 #: ../root/instrument/edit_annotation.tt:2
 msgid "Edit instrument annotation"
@@ -3537,7 +3537,7 @@ msgstr ""
 
 #: ../root/release/add_cover_art.tt:68
 msgid "File:"
-msgstr ""
+msgstr "ファイル:"
 
 #: ../root/edit/details/add_cover_art.tt:19
 #: ../root/edit/details/edit_cover_art.tt:11
@@ -4190,7 +4190,7 @@ msgstr "インストールされたアプリケーション"
 #: ../lib/MusicBrainz/Server/Edit/Instrument.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:46
 msgid "Instrument"
-msgstr ""
+msgstr "楽器"
 
 #: ../root/instrument/edit_form.tt:9
 msgid "Instrument Details"
@@ -4221,7 +4221,7 @@ msgstr ""
 #: ../root/edit/details/remove_instrument_alias.tt:3
 #: ../root/edit/details/remove_instrument.tt:3
 msgid "Instrument:"
-msgstr ""
+msgstr "楽器:"
 
 #: ../root/main/500.tt:67
 msgid "Interface language:"
@@ -4310,7 +4310,7 @@ msgstr "レーベルの地域"
 #: ../root/edit/details/merge_labels.tt:10
 #: ../root/edit/details/merge_labels.tt:47 ../root/label/merge.tt:14
 msgid "Label Code"
-msgstr ""
+msgstr "レーベルコード"
 
 #: ../root/label/index.tt:5
 msgid "Label Code:"
@@ -4772,7 +4772,7 @@ msgstr "アーティストをマージ"
 
 #: ../root/instrument/merge.tt:1 ../root/instrument/merge.tt:3
 msgid "Merge Instruments"
-msgstr ""
+msgstr "楽器をマージ"
 
 #: ../root/label/merge.tt:1 ../root/label/merge.tt:3
 msgid "Merge Labels"
@@ -4820,11 +4820,11 @@ msgstr "属性をマージ:"
 
 #: ../root/instrument/layout.tt:33
 msgid "Merge instrument"
-msgstr ""
+msgstr "楽器をマージ"
 
 #: ../root/label/layout.tt:67
 msgid "Merge label"
-msgstr ""
+msgstr "レーベルをマージ"
 
 #: ../root/edit/details/historic/merge_releases.tt:30
 msgid "Merge language &amp; script:"
@@ -5275,10 +5275,6 @@ msgstr "「{tag}」でタグされたMusicBrainzエンティティはまだ存�
 msgid "No artists with this tag were found."
 msgstr ""
 
-#: ../root/tag/collection.tt:1
-msgid "No collections with this tag were found."
-msgstr ""
-
 #: ../root/release/sidebar.tt:17
 msgid "No cover art available."
 msgstr "カバーアートありません。"
@@ -5651,8 +5647,8 @@ msgstr "合計"
 #: ../root/area/header.tt:1 ../root/artist/header.tt:1
 #: ../root/cdstub/header.tt:9 ../root/collection/header.tt:1
 #: ../root/instrument/header.tt:1 ../root/place/header.tt:1
-#: ../root/release_group/header.tt:1 ../root/tag/header.tt:1
-#: ../root/url/header.tt:1 ../root/work/header.tt:1
+#: ../root/release_group/header.tt:1 ../root/series/header.tt:1
+#: ../root/tag/header.tt:1 ../root/url/header.tt:1 ../root/work/header.tt:1
 msgid "Overview"
 msgstr "概要"
 
@@ -6859,11 +6855,11 @@ msgstr "例を削除"
 
 #: ../root/instrument/delete.tt:1 ../root/instrument/delete.tt:2
 msgid "Remove Instrument"
-msgstr ""
+msgstr "楽器を削除"
 
 #: ../root/instrument/delete_alias.tt:1
 msgid "Remove Instrument Alias"
-msgstr ""
+msgstr "楽器の別名を削除"
 
 #: ../root/label/delete.tt:2 ../root/release/edit/information.tt:164
 msgid "Remove Label"
@@ -6960,12 +6956,12 @@ msgstr "{collection}から外しました"
 #: ../root/instrument/layout.tt:36
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Delete.pm:10
 msgid "Remove instrument"
-msgstr ""
+msgstr "楽器を削除"
 
 #: ../root/instrument/delete_alias.tt:2
 #: ../lib/MusicBrainz/Server/Edit/Instrument/DeleteAlias.pm:14
 msgid "Remove instrument alias"
-msgstr ""
+msgstr "楽器の別名を削除"
 
 #: ../root/label/layout.tt:70
 #: ../lib/MusicBrainz/Server/Edit/Label/Delete.pm:12
@@ -7380,14 +7376,10 @@ msgstr ""
 #: ../root/edit/details/merge_series.tt:8
 #: ../root/edit/details/merge_series.tt:33
 #: ../root/edit/details/remove_series_alias.tt:3
-#: ../root/scripts/text_strings.tt:112 ../root/series/edits.tt:5
-#: ../root/series/header.tt:1 ../root/series/header.tt:11
+#: ../root/edit/search_macros.tt:307 ../root/scripts/text_strings.tt:112
+#: ../root/series/edits.tt:5 ../root/series/header.tt:11
 #: ../root/series/merge.tt:12 ../lib/MusicBrainz/Server/Edit/Series.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:47
-msgid "Series"
-msgstr ""
-
-#: ../root/edit/search_macros.tt:307
 msgctxt "singular"
 msgid "Series"
 msgstr ""
@@ -7408,10 +7400,14 @@ msgstr ""
 msgid "Series information"
 msgstr ""
 
-#: ../root/components/common-macros.tt:565
 #: ../root/edit/details/add_series_annotation.tt:3
 #: ../root/edit/details/add_series.tt:3 ../root/edit/details/edit_series.tt:5
 #: ../root/edit/details/remove_series.tt:3
+msgid "Series:"
+msgstr ""
+
+#: ../root/components/common-macros.tt:565
+msgctxt "singular"
 msgid "Series:"
 msgstr ""
 
@@ -7881,7 +7877,7 @@ msgstr "ステータス"
 
 #: ../root/edit/data.tt:7 ../root/release/edit/information.tt:78
 msgid "Status:"
-msgstr ""
+msgstr "ステータス："
 
 #: ../root/edit/info.tt:33
 msgctxt "edit status"
@@ -8019,11 +8015,6 @@ msgctxt "noun"
 msgid "Tag"
 msgstr "タグ"
 
-#: ../root/collection/tag.tt:1
-msgctxt "verb"
-msgid "Tag"
-msgstr "タグ"
-
 #: ../root/taglookup/index.tt:1 ../root/taglookup/index.tt:3
 msgid "Tag Lookup"
 msgstr "タグ検索"
@@ -8059,10 +8050,6 @@ msgstr "リリースグループをタグして"
 #: ../root/artist/layout.tt:69 ../root/artist/tags.tt:3
 msgid "Tag this artist"
 msgstr "このアーティストをタグして"
-
-#: ../root/collection/tag.tt:2
-msgid "Tag this collection"
-msgstr "このコレクションをタグして"
 
 #: ../root/label/layout.tt:48 ../root/label/tags.tt:3
 msgid "Tag this label"
@@ -8102,15 +8089,15 @@ msgid "Tagger"
 msgstr "タグ者"
 
 #: ../root/artist/header.tt:1 ../root/artist/tags.tt:1
-#: ../root/collection/tags.tt:1 ../root/components/tags.tt:5
-#: ../root/label/header.tt:1 ../root/label/tags.tt:1
-#: ../root/layout/menu.tt:202 ../root/layout/sidebar/sidebar-tags.tt:21
-#: ../root/place/header.tt:1 ../root/place/tags.tt:1
-#: ../root/recording/header.tt:1 ../root/recording/tags.tt:1
-#: ../root/release_group/header.tt:1 ../root/release_group/tags.tt:1
-#: ../root/release/tabs.tt:1 ../root/release/tags.tt:1 ../root/tag/cloud.tt:1
-#: ../root/tag/cloud.tt:4 ../root/user/profile/layout.tt:19
-#: ../root/user/tags.tt:1 ../root/work/header.tt:1 ../root/work/tags.tt:1
+#: ../root/components/tags.tt:5 ../root/label/header.tt:1
+#: ../root/label/tags.tt:1 ../root/layout/menu.tt:202
+#: ../root/layout/sidebar/sidebar-tags.tt:21 ../root/place/header.tt:1
+#: ../root/place/tags.tt:1 ../root/recording/header.tt:1
+#: ../root/recording/tags.tt:1 ../root/release_group/header.tt:1
+#: ../root/release_group/tags.tt:1 ../root/release/tabs.tt:1
+#: ../root/release/tags.tt:1 ../root/tag/cloud.tt:1 ../root/tag/cloud.tt:4
+#: ../root/user/profile/layout.tt:19 ../root/user/tags.tt:1
+#: ../root/work/header.tt:1 ../root/work/tags.tt:1
 msgid "Tags"
 msgstr "タグ"
 
@@ -8627,10 +8614,6 @@ msgstr ""
 msgid "This change affects {num} relationship."
 msgid_plural "This change affects {num} relationships."
 msgstr[0] ""
-
-#: ../root/collection/tags.tt:2
-msgid "This collection has no tags."
-msgstr "このコレクションはタグがありません。"
 
 #: ../root/edit/details/merge_releases.tt:125
 msgid ""
@@ -11387,7 +11370,7 @@ msgstr[0] "{artist}は{n}トラックのあるリリースはありません。"
 #: ../lib/MusicBrainz/Server/Entity/Relationship.pm:207
 #, perl-brace-format
 msgid "{attribute}: {value}"
-msgstr ""
+msgstr "{attribute}：{value}"
 
 #: ../root/components/relationships-table.tt:21
 #: ../lib/MusicBrainz/Server/Entity/Link.pm:114
@@ -11537,11 +11520,6 @@ msgstr[0] ""
 msgid "{num} collection"
 msgid_plural "{num} collections"
 msgstr[0] "{num}のコレクション"
-
-#: ../root/tag/collection.tt:1
-msgid "{num} collection found"
-msgid_plural "{num} collections found"
-msgstr[0] ""
 
 #: ../root/components/common-macros.tt:44
 msgid "{num} day"
@@ -11718,7 +11696,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:985 ../root/scripts/text_strings.tt:174
 msgid "{variable}:"
-msgstr ""
+msgstr "{variable}："
 
 #: ../root/components/common-macros.tt:652
 msgid "{yes} yes : {no} no"
@@ -12178,19 +12156,19 @@ msgstr "トラック長をセット"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/AddAnnotation.pm:11
 msgid "Add instrument annotation"
-msgstr ""
+msgstr "楽器の注釈を追加"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Create.pm:17
 msgid "Add instrument"
-msgstr ""
+msgstr "楽器を追加"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Edit.pm:27
 msgid "Edit instrument"
-msgstr ""
+msgstr "楽器を編集"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Merge.pm:11
 msgid "Merge instruments"
-msgstr ""
+msgstr "楽器をマージ"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/AddAnnotation.pm:11
 msgid "Add label annotation"

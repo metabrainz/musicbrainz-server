@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Controller::Label::Edit;
 use Test::Routine;
 use Test::More;
+use Test::Deep;
 use MusicBrainz::Server::Test qw( html_ok );
 
 with 't::Mechanize', 't::Context';
@@ -36,9 +37,10 @@ my $response = $mech->submit_form(
 
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Label::Edit');
-is_deeply($edit->data, {
+cmp_deeply($edit->data, {
         entity => {
             id => 2,
+            gid => re("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"),
             name => 'Warp Records'
         },
         new => {

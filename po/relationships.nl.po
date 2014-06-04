@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-05-22 08:09+0000\n"
+"PO-Revision-Date: 2014-05-28 13:09+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -2018,7 +2018,7 @@ msgstr "catalogiseert het werk van"
 
 #: DB:link_type/reverse_link_phrase:735
 msgid "child of"
-msgstr ""
+msgstr "kind van"
 
 #: DB:link_type/link_phrase:735 DB:link_type/link_phrase:109
 msgid "children"
@@ -2464,7 +2464,7 @@ msgstr "heeft catalogus"
 
 #: DB:link_type/long_link_phrase:735
 msgid "has child"
-msgstr ""
+msgstr "heeft kind"
 
 #: DB:link_type/long_link_phrase:78
 msgid "has cover art at"
@@ -3575,7 +3575,7 @@ msgstr "schreef {additional:aanvullend} het boekje van"
 
 #: DB:link_type/link_phrase:11
 msgid "{EP:EP|single} which was taken from"
-msgstr ""
+msgstr "{EP:EP|single} die gehaald is van"
 
 #: DB:link_type/link_phrase:293 DB:link_type/link_phrase:295
 #: DB:link_type/link_phrase:297 DB:link_type/long_link_phrase:293

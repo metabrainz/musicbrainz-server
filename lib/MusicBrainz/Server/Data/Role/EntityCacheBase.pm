@@ -50,7 +50,9 @@ sub _delete_from_cache
 {
     my ($self, @ids) = @_;
 
-    my @keys = map { $self->_id_cache_prefix . ':' . $_ } uniq(@ids);
+    return unless grep { defined } @ids;
+
+    my @keys = map { $self->_id_cache_prefix . ':' . $_ } grep { defined } uniq(@ids);
     my $cache = $self->c->cache($self->_id_cache_prefix);
     my $method = @keys > 1 ? 'delete_multi' : 'delete';
     $cache->$method(@keys);

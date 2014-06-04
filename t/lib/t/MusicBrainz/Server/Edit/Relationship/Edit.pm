@@ -236,6 +236,44 @@ test 'Text attributes with undef values are ignored' => sub {
     is_deeply($rel->link->attribute_text_values, {});
 };
 
+test 'Attributes are validated against the new link type, not old one (MBS-7614)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
+
+    my $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 3);
+    $c->model('Link')->load($rel);
+    $c->model('LinkType')->load($rel->link);
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELATIONSHIP_EDIT,
+        editor_id => 1,
+        relationship => $rel,
+        link_type => $c->model('LinkType')->get_by_id(1),
+        attributes => [2],
+    );
+
+    accept_edit($c, $edit);
+
+    $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 3);
+    $c->model('Link')->load($rel);
+    $c->model('LinkType')->load($rel->link);
+
+    is($rel->link->type_id, 1);
+    is_deeply([ map { $_->id } $rel->link->all_attributes ], [2]);
+
+    # Make sure unchanged attributes are also validated against the new link type.
+    like exception {
+        $c->model('Edit')->create(
+            edit_type => $EDIT_RELATIONSHIP_EDIT,
+            editor_id => 1,
+            relationship => $rel,
+            link_type => $c->model('LinkType')->get_by_id(3),
+        );
+    }, qr/Attribute 2 is unsupported for link type 3/;
+};
+
 sub _create_edit {
     my $c = shift;
 

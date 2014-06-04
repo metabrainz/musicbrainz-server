@@ -3,6 +3,7 @@
 # Alexander Dupuy <email address hidden>, 2012
 # gr0uch0mars <email address hidden>, 2011
 # Héctor Arroyo <email address hidden>, 2012
+# martinipd <email address hidden>, 2014
 # Nicolás Tamargo <email address hidden>, 2011-2013
 # kelopezcl <email address hidden>, 2012
 #   Tobias Quathamer <email address hidden>, 2007
@@ -10,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-05-26 09:29+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-05-29 12:44+0000\n"
+"Last-Translator: martinipd <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,7 +37,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2005-04-10
 msgid "Advanced relationships"
-msgstr ""
+msgstr "Relaciones avanzadas"
 
 #: DB:statistics.statistic_event/description:2005-04-10
 msgid ""
@@ -47,7 +48,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2005-05-22
 msgid "Album languages"
-msgstr ""
+msgstr "Idiomas del álbum"
 
 #: DB:statistics.statistic_event/description:2005-05-22
 msgid ""
@@ -198,7 +199,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2006-08-15
 msgid "Great Dispute"
-msgstr ""
+msgstr "Gran disputa"
 
 #: DB:statistics.statistic_event/title:2009-06-17
 msgid "Imported CD Baby catalog as CD Stubs"
@@ -365,7 +366,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2003-10-13
 msgid "Non album tracks"
-msgstr ""
+msgstr "Sin pistas de álbum"
 
 #: DB:statistics.statistic_event/description:2003-10-13
 msgid "Non album tracks are released."
@@ -415,7 +416,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2008-04-21
 msgid "SoC 2008"
-msgstr ""
+msgstr "SoC 2008"
 
 #: DB:statistics.statistic_event/description:2006-01-08
 msgid ""
@@ -477,7 +478,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2005-02-13
 msgid "User improvements"
-msgstr ""
+msgstr "Mejoras de usuario"
 
 #: DB:statistics.statistic_event/description:2004-07-24
 msgid "Voting logic was improved, web based autoeditor elections released."
@@ -529,7 +530,7 @@ msgstr "Votantes activos"
 
 #: ../root/statistics/timeline.tt:51
 msgid "Add/remove lines:"
-msgstr ""
+msgstr "Añadir/eliminar lineas:"
 
 #: ../root/statistics/view_js.tt:67
 msgid "All edits that have been applied"
@@ -557,19 +558,19 @@ msgstr ""
 
 #: ../root/statistics/index.tt:320
 msgid "Amazon:"
-msgstr ""
+msgstr "Amazon:"
 
 #: ../root/statistics/view_js.tt:67
 msgid "Applied edits"
-msgstr ""
+msgstr "Ediciones aplicadas"
 
 #: ../root/statistics/index.tt:806
 msgid "Applied:"
-msgstr ""
+msgstr "Aplicadas:"
 
 #: ../root/statistics/index.tt:870
 msgid "Approve:"
-msgstr ""
+msgstr "Aprobadas:"
 
 #: ../root/statistics/index.tt:569 ../root/statistics/view_js.tt:55
 msgid "Areas"
@@ -650,7 +651,7 @@ msgstr ""
 
 #: ../root/statistics/view_js.tt:90
 msgid "Artists with no country set"
-msgstr ""
+msgstr "Artistas sin un país indicado"
 
 #: ../root/statistics/view_js.tt:124
 msgid "Artists with type set to character"
@@ -686,11 +687,11 @@ msgstr "Artistas:"
 
 #: ../root/statistics/index.tt:545
 msgid "Attributes"
-msgstr ""
+msgstr "Atributos"
 
 #: ../root/statistics/view_js.tt:133
 msgid "Barcodes"
-msgstr ""
+msgstr "Códigos de barras"
 
 #: ../root/statistics/index.tt:120
 msgid "Barcodes:"
@@ -722,7 +723,7 @@ msgstr ""
 
 #: ../root/statistics/index.tt:314
 msgid "CAA:"
-msgstr ""
+msgstr "CAA:"
 
 #: ../root/statistics/index.tt:83
 msgid "CD Stubs (all time / current):"
@@ -742,7 +743,7 @@ msgstr ""
 
 #: ../root/statistics/view_js.tt:66
 msgid "Cancelled edits"
-msgstr ""
+msgstr "Modificaciones canceladas"
 
 #: ../root/statistics/index.tt:836
 msgid "Cancelled:"
@@ -750,7 +751,7 @@ msgstr "Canceladas:"
 
 #: ../root/statistics/view_js.tt:124
 msgid "Characters"
-msgstr ""
+msgstr "Personajes"
 
 #: ../root/statistics/timeline.tt:51
 msgid "Check boxes above"
@@ -758,7 +759,7 @@ msgstr ""
 
 #: ../root/statistics/view_js.tt:126
 msgid "Choirs"
-msgstr ""
+msgstr "Coros"
 
 #: ../root/statistics/timeline.tt:50
 msgid "Click to deselect"
@@ -766,7 +767,7 @@ msgstr ""
 
 #: ../root/statistics/timeline.tt:47
 msgid "Controls"
-msgstr ""
+msgstr "Controles"
 
 #: ../root/statistics/index.tt:13 ../root/statistics/view_js.tt:26
 msgid "Core Entities"
@@ -1148,15 +1149,15 @@ msgstr "Editores"
 
 #: ../root/statistics/view_js.tt:82
 msgid "Editors (all)"
-msgstr ""
+msgstr "Editores (todos)"
 
 #: ../root/statistics/view_js.tt:85
 msgid "Editors (deleted)"
-msgstr ""
+msgstr "Editores (eliminados)"
 
 #: ../root/statistics/index.tt:784
 msgid "Editors (deleted):"
-msgstr ""
+msgstr "Editores (eliminados):"
 
 #: ../root/statistics/view_js.tt:84
 msgid "Editors (valid & active ever)"
@@ -1164,15 +1165,15 @@ msgstr ""
 
 #: ../root/statistics/index.tt:73
 msgid "Editors (valid / deleted):"
-msgstr ""
+msgstr "Editores (válidos / eliminados):"
 
 #: ../root/statistics/view_js.tt:83
 msgid "Editors (valid)"
-msgstr ""
+msgstr "Editores (válidos)"
 
 #: ../root/statistics/index.tt:682
 msgid "Editors (valid):"
-msgstr ""
+msgstr "Editores (válidos):"
 
 #: ../root/statistics/index.tt:675
 msgid "Editors, Edits, and Votes"
@@ -1219,7 +1220,7 @@ msgstr ""
 
 #: ../root/statistics/relationships.tt:31
 msgid "Exclusive"
-msgstr ""
+msgstr "Exclusivo"
 
 #: ../root/statistics/index.tt:818
 msgid "Failed (dependency):"
@@ -1329,15 +1330,15 @@ msgstr "Identificadores"
 
 #: ../root/statistics/relationships.tt:31
 msgid "Inclusive"
-msgstr ""
+msgstr "Inclusivo"
 
 #: ../root/statistics/index.tt:647 ../root/statistics/view_js.tt:58
 msgid "Instruments"
-msgstr ""
+msgstr "Instrumentos"
 
 #: ../root/statistics/index.tt:64 ../root/statistics/index.tt:654
 msgid "Instruments:"
-msgstr ""
+msgstr "Instrumentos:"
 
 #: ../root/statistics/view_js.tt:29
 msgid "Label Countries"
@@ -1393,7 +1394,7 @@ msgstr "Idiomas y alfabetos"
 
 #: ../root/statistics/index.tt:847 ../root/statistics/index.tt:899
 msgid "Last 7 days:"
-msgstr ""
+msgstr "Últimos 7 días:"
 
 #: ../root/statistics/countries.tt:20 ../root/statistics/coverart.tt:11
 #: ../root/statistics/editors.tt:29 ../root/statistics/edits.tt:7
@@ -1475,7 +1476,7 @@ msgstr ""
 
 #: ../root/statistics/view_js.tt:79
 msgid "No Votes"
-msgstr ""
+msgstr "Sin votos"
 
 #: ../root/statistics/coverart.tt:16 ../root/statistics/coverart.tt:40
 #: ../root/statistics/coverart.tt:123
@@ -1488,7 +1489,7 @@ msgstr ""
 
 #: ../root/statistics/coverart.tt:88
 msgid "No format"
-msgstr ""
+msgstr "Sin formato"
 
 #: ../root/statistics/index.tt:332
 msgid "No front cover art:"
@@ -1504,7 +1505,7 @@ msgstr ""
 
 #: ../root/statistics/coverart.tt:72
 msgid "No status"
-msgstr ""
+msgstr "Sin estado"
 
 #: ../root/statistics/index.tt:274
 msgid "No status set"
@@ -1512,7 +1513,7 @@ msgstr "Sin estatus indicado"
 
 #: ../root/statistics/coverart.tt:56 ../root/statistics/coverart.tt:139
 msgid "No type"
-msgstr ""
+msgstr "Sin tipo"
 
 #: ../root/statistics/index.tt:882
 msgid "No:"
@@ -1546,11 +1547,11 @@ msgstr "Ediciones abiertas y aplicadas en la última semana"
 
 #: ../root/statistics/index.tt:800
 msgid "Open:"
-msgstr ""
+msgstr "Abrir:"
 
 #: ../root/statistics/view_js.tt:125
 msgid "Orchestras"
-msgstr ""
+msgstr "Orquestas"
 
 #: ../root/statistics/view_js.tt:40
 msgid "Other"
@@ -1582,7 +1583,7 @@ msgstr ""
 
 #: ../root/statistics/view_js.tt:121
 msgid "Persons"
-msgstr ""
+msgstr "Personas"
 
 #: ../root/statistics/view_js.tt:199
 msgid "Pieces of Cover Art"
@@ -1598,11 +1599,11 @@ msgstr ""
 
 #: ../root/statistics/index.tt:597 ../root/statistics/view_js.tt:56
 msgid "Places"
-msgstr ""
+msgstr "Lugares"
 
 #: ../root/statistics/index.tt:56 ../root/statistics/index.tt:604
 msgid "Places:"
-msgstr ""
+msgstr "Lugares:"
 
 #: ../root/statistics/index.tt:461
 msgid "Primary Types"
@@ -1612,7 +1613,7 @@ msgstr "Tipos primarios"
 #: ../root/statistics/formats.tt:24 ../root/statistics/languages_scripts.tt:31
 #: ../root/statistics/languages_scripts.tt:52
 msgid "Rank"
-msgstr ""
+msgstr "Posicición"
 
 #: ../root/statistics/timeline.tt:61
 msgid "Rate of Change (average items/day vs. day)"
@@ -1880,7 +1881,7 @@ msgstr "No hay datos que mostrar."
 
 #: ../root/statistics/layout.tt:5
 msgid "Timeline"
-msgstr ""
+msgstr "Linea temporal"
 
 #: ../root/statistics/timeline.tt:58
 msgid "Timeline Graph"
@@ -1917,13 +1918,13 @@ msgstr "Pistas"
 
 #: ../root/statistics/index.tt:36
 msgid "Tracks:"
-msgstr ""
+msgstr "Pistas:"
 
 #: ../root/statistics/index.tt:518 ../root/statistics/index.tt:573
 #: ../root/statistics/index.tt:601 ../root/statistics/index.tt:629
 #: ../root/statistics/index.tt:651
 msgid "Types"
-msgstr ""
+msgstr "Tipos"
 
 #: ../root/statistics/index.tt:326
 msgid "URL Relationships:"
@@ -1984,7 +1985,7 @@ msgstr "Artistas sin tipo indicado"
 
 #: ../root/statistics/index.tt:507
 msgid "Videos:"
-msgstr ""
+msgstr "Vídeos:"
 
 #: ../root/statistics/index.tt:812
 msgid "Voted down:"
@@ -2074,7 +2075,7 @@ msgstr "de varios artistas:"
 
 #: ../root/statistics/index.tt:779
 msgid "inactive:"
-msgstr ""
+msgstr "inactivos:"
 
 #: ../root/statistics/view_js.tt:196
 msgid "l_{first}_{second} Relationships"
