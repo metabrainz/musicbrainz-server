@@ -5,6 +5,7 @@
 [%~ MACRO replace(text, search, replace) BLOCK; text | replace(search, replace); END -%]
 [%~ MACRO url_escape(url) BLOCK; url | url; END -%]
 [%~ MACRO html_escape(url) BLOCK; url | html; END -%]
+[%~ MACRO bracketed(text) BLOCK; l(' ({text})', { text => text }); END -%]
 [%~ MACRO display_url(url)
     IF url.pretty_name; url.pretty_name | html;
     ELSE; url | uri_decode | html;
