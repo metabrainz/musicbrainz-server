@@ -17,24 +17,32 @@
         <td>[%~ (edit.display_data.sort_name) | html ~%]</td>
     </tr>
     [%~ END ~%]
+    [%~ IF edit.display_data.locale ~%]
     <tr>
         <th>[%~ add_colon(l('Locale')) ~%]</th>
         <td>[%~ edit.display_data.locale | locale ~%]</td>
     </tr>
+    [%~ END ~%]
     <tr>
         <th>[%~ add_colon(l('Primary for locale')) ~%]</th>
         <td>[%~ edit.display_data.primary_for_locale ? l('Yes') : l('No') ~%]</td>
     </tr>
+    [%~ IF edit.display_data.type.name ~%]
     <tr>
         <th>[%~ add_colon(l('Type')) ~%]</th>
         <td>[%~ edit.display_data.type.name | html ~%]</td>
     </tr>
+    [%~ END ~%]
+    [%~ IF edit.display_data.begin_date.format ~%]
     <tr>
         <th>[%~ add_colon(l('Begin date')) ~%]</th>
         <td>[%~ edit.display_data.begin_date.format | html ~%]</td>
     </tr>
+    [%~ END ~%]
+    [%~ IF edit.display_data.end_date.format ~%]
     <tr>
         <th>[%~ add_colon(l('End date')) ~%]</th>
         <td>[%~ edit.display_data.end_date.format | html ~%]</td>
     </tr>
+    [%~ END ~%]
 </table>
