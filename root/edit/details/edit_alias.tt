@@ -1,0 +1,62 @@
+[%~ PROCESS 'edit/details/macros.tt' ~%]
+[%~ MACRO show_locale(loc) BLOCK;
+      loc | locale;
+    END ~%]
+
+<table class="details edit-[%~ entitytype ~%]-alias">
+    <tr>
+        <th>[%~ entity_label(entitytype) ~%]</th>
+        <td colspan="2">[%~ descriptive_link(edit.display_data.$entitytype) ~%]</td>
+    </tr>
+
+    [%~ IF entity_exists(edit.display_data.$entitytype) ~%]
+    <tr>
+        <th>[%~ add_colon(l('Alias')) ~%]</th>
+        <td colspan="2">
+            [%~ IF !edit.alias.name ~%]
+                <span class='deleted'>[%~ l('[removed]') ~%]</span>
+            [%~ ELSE ~%]
+                [%~ edit.alias.name | html ~%]
+            [%~ END ~%]
+            [%~ bracketed(link_entity(edit.display_data.$entitytype, 'aliases', l('view all aliases'))) ~%]
+        </td>
+    </tr>
+    [%~ END ~%]
+
+    [%~ display_diff(add_colon(l('Alias')),
+                    html_escape(edit.display_data.alias.old),
+                    html_escape(edit.display_data.alias.new),
+                    '\s+') ~%]
+
+    [%~ display_diff(add_colon(l('Sort name')),
+                    html_escape(edit.display_data.sort_name.old),
+                    html_escape(edit.display_data.sort_name.new),
+                    '\s+') ~%]
+
+    [%~ display_full_change(add_colon(l('Locale')),
+                           show_locale(edit.display_data.locale.old),
+                           show_locale(edit.display_data.locale.new)) ~%]
+
+    [%~ display_full_change(add_colon(l('Primary for locale')),
+                           edit.display_data.primary_for_locale.old ? l('Yes') : l('No'),
+                           edit.display_data.primary_for_locale.new ? l('Yes') : l('No')) ~%]
+
+    [%~ display_full_change(add_colon(l('Type')),
+                           html_escape(edit.display_data.type.old.name),
+                           html_escape(edit.display_data.type.new.name)) ~%]
+
+    [%~ display_diff(add_colon(l('Begin date')),
+                    html_escape(edit.display_data.begin_date.old.format),
+                    html_escape(edit.display_data.begin_date.new.format),
+                    '\s+') ~%]
+
+    [%~ display_diff(add_colon(l('End date')),
+                    html_escape(edit.display_data.end_date.old.format),
+                    html_escape(edit.display_data.end_date.new.format),
+                    '\s+') ~%]
+
+    [%~ display_diff(add_colon(l('Ended')),
+                    edit.display_data.ended.old ? l('Yes') : l('No'),
+                    edit.display_data.ended.new ? l('Yes') : l('No'),
+                    '-') ~%]
+</table>
