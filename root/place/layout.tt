@@ -13,7 +13,7 @@
                             [%~ WRAPPER 'layout/sidebar/property.tt' label=l("Founded:") class="founded" ~%]
                                 [%~ place.begin_date.format ~%]
                                 [%~ IF place.has_age AND not place.end_date.format ~%]
-                                    ([%~ display_age_ago(place.age) ~%])
+                                    [%~ bracketed(display_age_ago(place.age)) ~%]
                                 [%~ END ~%]
                             [%~ END ~%]
                         [%~ END ~%]
@@ -21,7 +21,7 @@
                             [%~ WRAPPER 'layout/sidebar/property.tt' label=l("Defunct:") class="defunct" ~%]
                                 [%~ place.end_date.format ~%]
                                 [%~ IF place.has_age ~%]
-                                    ([%~ display_age(place.age) ~%])
+                                    [%~ bracketed(display_age(place.age)) ~%]
                                 [%~ END ~%]
                             [%~ END ~%]
                         [%~ ELSIF place.ended ~%]

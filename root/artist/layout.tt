@@ -32,7 +32,7 @@
                         [%~ WRAPPER 'layout/sidebar/property.tt' label=date_period_label ~%]
                             [%~ artist.begin_date.format ~%]
                             [%~ IF artist.has_age AND not artist.end_date.format ~%]
-                                (<span style="display:none">[%~ display_age(artist.age) ~%]</span>[%~ display_age_ago(artist.age) ~%])
+                                [%~ bracketed(display_age_ago(artist.age)) ~%]
                             [%~ END ~%]
                         [%~ END ~%]
                     [%~ END ~%]
@@ -47,7 +47,7 @@
                         [%~ WRAPPER 'layout/sidebar/property.tt' label=date_period_label ~%]
                             [%~ artist.end_date.format ~%]
                             [%~ IF artist.has_age ~%]
-                                ([%~ display_age(artist.age, artist.type_id == 1) ~%])
+                                [%~ bracketed(display_age(artist.age, artist.type_id == 1)) ~%]
                             [%~ END ~%]
                         [%~ END ~%]
                     [%~ ELSIF artist.ended ~%]

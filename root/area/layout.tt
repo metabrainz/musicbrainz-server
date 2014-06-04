@@ -12,7 +12,7 @@
                         [%~ WRAPPER 'layout/sidebar/property.tt' label=l("Begin date:") class="begin-date" ~%]
                             [%~ area.begin_date.format ~%]
                             [%~ IF area.has_age AND not area.end_date.format ~%]
-                                ([%~ display_age_ago(area.age) ~%])
+                                [%~ bracketed(display_age_ago(area.age)) ~%]
                             [%~ END ~%]
                         [%~ END ~%]
                     [%~ END ~%]
@@ -20,7 +20,7 @@
                         [%~ WRAPPER 'layout/sidebar/property.tt' label=l("End date:") class="end-date" ~%]
                             [%~ area.end_date.format ~%]
                             [%~ IF area.has_age ~%]
-                                ([%~ display_age(area.age) ~%])
+                                [%~ bracketed(display_age(area.age)) ~%]
                             [%~ END ~%]
                         [%~ END ~%]
                     [%~ ELSIF area.ended ~%]
