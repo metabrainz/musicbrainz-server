@@ -14,7 +14,7 @@
     [%~ IF edit.display_data.sort_name ~%]
     <tr>
         <th>[%~ add_colon(l('Sort name')) ~%]</th>
-        <td>[%~ (edit.display_data.sort_name) | html ~%]</td>
+        <td>[%~ edit.display_data.sort_name | html ~%]</td>
     </tr>
     [%~ END ~%]
     [%~ IF edit.display_data.locale ~%]
