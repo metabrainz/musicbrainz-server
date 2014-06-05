@@ -914,7 +914,10 @@ $BODY$
       last_updated < now() - '1 day'::interval OR last_updated is NULL
     )
   EXCEPT
-  SELECT event FROM edit_event WHERE edit_event.status = 1
+  SELECT event
+  FROM edit_event
+  JOIN edit ON (edit.id = edit_event.edit)
+  WHERE edit.status = 1
   EXCEPT
   SELECT entity1 FROM l_area_event
   EXCEPT

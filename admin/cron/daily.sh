@@ -33,6 +33,9 @@ DATETIME=`date +'%Y%m%d-%H%M%S'`
 echo `date`" : Removing unused artists"
 OUTPUT=`./admin/cleanup/RemoveEmpty artist` || echo "$OUTPUT"
 
+echo `date`" : Removing unused events"
+OUTPUT=`./admin/cleanup/RemoveEmpty event` || echo "$OUTPUT"
+
 echo `date`" : Removing unused labels"
 OUTPUT=`./admin/cleanup/RemoveEmpty label` || echo "$OUTPUT"
 
