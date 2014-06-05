@@ -1,1 +1,0 @@
-[%~ INCLUDE 'edit/details/add_alias.tt' entitytype="label" edit=edit ~%]

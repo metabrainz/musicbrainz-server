@@ -1,1 +1,0 @@
-[%~ INCLUDE 'edit/details/edit_alias.tt' entitytype="place" edit=edit ~%]
