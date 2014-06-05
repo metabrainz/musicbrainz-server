@@ -52,6 +52,10 @@ WA.WorkAttribute = function (data) {
         }
     });
 
+    self.isGroupingType = ko.computed(function () {
+        return !self.allowsFreeText() && self.allowedValues().length == 0;
+    });
+
     self.remove = function () {
         WA.viewModel.attributes.remove(this);
     };

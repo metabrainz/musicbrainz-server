@@ -18,8 +18,10 @@ with 'MusicBrainz::Server::Edit::Medium';
 
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 use aliased 'MusicBrainz::Server::Entity::Release';
+use aliased 'MusicBrainz::Server::Entity::Medium';
 
 sub medium_id { shift->data->{medium}{id} }
+sub release_id { shift->data->{medium}{release}{id} }
 
 has '+data' => (
     isa => Dict[
@@ -38,12 +40,6 @@ has '+data' => (
             id => Int,
         ]
     ]
-);
-
-has 'release_id' => (
-    is => 'rw',
-    lazy => 1,
-    default => sub { shift->data->{medium}{release}{id} }
 );
 
 around edit_conditions => sub {
@@ -87,11 +83,9 @@ method alter_edit_pending
 
 method foreign_keys
 {
-    my $release_id =
-
     return {
         Release => { $self->release_id => [ 'ArtistCredit' ] },
-        Medium  => { $self->data->{medium}{id} => [ 'MediumFormat', 'Release' ] },
+        Medium  => { $self->data->{medium}{id} => [ 'MediumFormat', 'Release ArtistCredit' ] },
         CDTOC   => [ $self->data->{medium_cdtoc}{cdtoc}{id} ]
     }
 }
@@ -99,11 +93,10 @@ method foreign_keys
 method build_display_data ($loaded)
 {
     return {
-        release => $loaded->{Release}{ $self->release_id } ||
-            Release->new(
-                $self->data->{medium}{release}
-            ),
-        medium  => $loaded->{Medium}{ $self->data->{medium}{id} },
+        medium  => $loaded->{Medium}{ $self->data->{medium}{id} } //
+                   Medium->new( release => $loaded->{Release}{ $self->release_id } //
+                                           Release->new( name => $self->data->{medium}{release}{name} )
+                   ),
         cdtoc   => $loaded->{CDTOC}{ $self->data->{medium_cdtoc}{cdtoc}{id} }
             || CDTOC->new_from_toc($self->data->{medium_cdtoc}{cdtoc}{toc})
     }

@@ -43,7 +43,7 @@ my %field_map = (
 
     map {
         $_ => 'MusicBrainz::Server::EditSearch::Predicate::' . camelize($_)
-    } qw( artist label recording release release_group work )
+    } qw( area artist instrument label place recording release release_group series work )
 );
 
 has negate => (

@@ -42,6 +42,9 @@ OUTPUT=`./admin/cleanup/RemoveEmpty place` || echo "$OUTPUT"
 echo `date`" : Removing unused release groups"
 OUTPUT=`./admin/cleanup/RemoveEmpty release_group` || echo "$OUTPUT"
 
+echo `date`" : Removing unused series"
+OUTPUT=`./admin/cleanup/RemoveEmpty series` || echo "$OUTPUT"
+
 echo `date`" : Removing unused works"
 OUTPUT=`./admin/cleanup/RemoveEmpty work` || echo "$OUTPUT"
 
