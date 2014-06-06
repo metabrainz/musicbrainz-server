@@ -53,7 +53,7 @@ CREATE OR REPLACE VIEW event_series AS
     FROM l_event_series lrs
     JOIN series s ON s.id = lrs.entity1
     JOIN link l ON l.id = lrs.link
-    JOIN link_type lt ON (lt.id = l.link_type AND lt.gid = 'ea6f0698-6782-30d6-b16d-293081b66774')
+    JOIN link_type lt ON (lt.id = l.link_type AND lt.gid = 'ea6f0698-6782-30d6-b16d-293081b66774') -- TODO: FIX GID
     LEFT OUTER JOIN link_attribute_text_value latv ON (latv.attribute_type = s.ordering_attribute AND latv.link = l.id)
     ORDER BY series, link_order;
 
