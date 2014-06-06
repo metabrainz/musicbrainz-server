@@ -360,7 +360,7 @@ INSERT INTO series_type (name, entity_type, parent, child_order, description) VA
 
 INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max) VALUES
     ((SELECT id FROM link_type WHERE gid = :EVENT_PART_OF_SERIES_GID),
-     (SELECT id FROM link_attribute_type WHERE gid = a59c5830-5ec7-38fe-9a21-c7ea54f6650a),
+     (SELECT id FROM link_attribute_type WHERE gid = "a59c5830-5ec7-38fe-9a21-c7ea54f6650a"),
      0, 1
     );
 
