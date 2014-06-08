@@ -5,7 +5,7 @@ BEGIN;
 -- constraints  --
 ------------------
 
-ALTER TABLE event         ADD CHECK (controlled_for_whitespace(comment));
+ALTER TABLE event ADD CHECK (controlled_for_whitespace(comment));
 
 ALTER TABLE event
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
@@ -16,6 +16,8 @@ ALTER TABLE event_alias
   ADD CONSTRAINT only_non_empty CHECK (name != ''),
   ADD CONSTRAINT control_for_whitespace_sort_name CHECK (controlled_for_whitespace(sort_name)),
   ADD CONSTRAINT only_non_empty_sort_name CHECK (sort_name != '');
+
+ALTER TABLE series_type DROP CONSTRAINT allowed_series_entity_type;
 
 ALTER TABLE series_type ADD CONSTRAINT allowed_series_entity_type
   CHECK (
