@@ -28,7 +28,7 @@
     </style>
 
     <script type="text/html" id="relationship-group">
-      <dt><!-- ko text: key --><!-- /ko -->:</dt>
+      <dt><span data-bind="html: key"></span>:</dt>
       <dd data-bind="html: _.map(value, function (v) { return v.target.html() }).join(', ')">
       </dd>
     </script>
@@ -73,12 +73,7 @@
                 <!-- ko text: number --><!-- /ko -->
               </td>
               <!-- ko if: $root.showVideo -->
-                <td class="video c" data-bind="if: recording.video">
-                  <img src="/static/images/icons/video.png"
-                       alt="[% l('This recording is a video') %]"
-                       title="[% l('This recording is a video') %]"
-                       class="bottom"/>
-              </td>
+                <td class="video c" data-bind="css: { 'is-video': recording.video }, attr: { title: (recording.video ? '[% l("This recording is a video") | js %]': '')}"></td>
               <!-- /ko -->
               <td>
                 <span data-bind="html: $data.html()"></span>
@@ -90,7 +85,7 @@
                       <!-- ko if: key == 'work' -->
                         <!-- ko foreachKv: value -->
                           <!-- ko foreach: value -->
-                            <dt><!-- ko text: $parent.key --><!-- /ko -->:</dt>
+                            <dt><span data-bind="html: $parent.key"></span>:</dt>
                             <dd>
                               <span data-bind="html: target.html()"></span>
                               <!-- ko foreachKv: groupedSubRelationships -->

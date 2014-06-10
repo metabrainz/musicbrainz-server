@@ -36,9 +36,11 @@ sub process_tables
     my %foreign_keys;
     my %primary_keys;
     my @sequences;
-    while ($create_tables_sql =~ m/CREATE TABLE\s+([a-z0-9_]+)\s+\(\s*(.*?)\s*\);/gsi) {
+    my @replication_triggers;
+    while ($create_tables_sql =~ m/CREATE TABLE\s+([a-z0-9_]+)\s+\(\s*(--.*?replicate(?: ?\(verbose\))?)?\s*(.*?)\s*\);/gsi) {
         my $name = $1;
-        my @lines = split /\n/, $2;
+        my $replicate = $2;
+        my @lines = split /\n/, $3;
         my @fks;
         foreach my $line (@lines) {
             if ($line =~ m/([a-z0-9_]+).*?\s*--.*?(weakly |separately )?references ([a-z0-9_]+\.)?([a-z0-9_]+)\.([a-z0-9_]+)/i) {
@@ -64,9 +66,17 @@ sub process_tables
         if (@pks) {
             $primary_keys{$name} = \@pks;
         }
+        if ($replicate) {
+            if ($replicate =~ m/\(verbose\)/) {
+                push @replication_triggers, [$name, 1];
+            } else {
+                push @replication_triggers, [$name, 0];
+            }
+        }
         push @tables, $name;
     }
     @tables = sort(@tables);
+    @replication_triggers = sort { $a->[0] cmp $b->[0] } @replication_triggers;
 
     open OUT, ">$dir/DropTables.sql";
     print OUT "-- Automatically generated, do not edit.\n";
@@ -184,6 +194,24 @@ sub process_tables
         close OUT;
     } else {
         print "No primary keys, skipping\n";
+    }
+
+    if (scalar @replication_triggers) {
+        my $replication_search_path = $search_path;
+        $replication_search_path =~ s/;/, musicbrainz, public;/;
+        open OUT, ">$dir/CreateReplicationTriggers.sql";
+        print OUT "-- Automatically generated, do not edit.\n";
+        print OUT "\\set ON_ERROR_STOP 1\n\n";
+        print OUT $replication_search_path if $replication_search_path;
+        print OUT "BEGIN;\n\n";
+        foreach my $row (@replication_triggers) {
+            my ($table, $verbose) = @$row;
+            print OUT "CREATE TRIGGER \"reptg_$table\"\n";
+            print OUT "AFTER INSERT OR DELETE OR UPDATE ON \"$table\"\n";
+            print OUT "FOR EACH ROW EXECUTE PROCEDURE \"recordchange\" (" . ($verbose ? "'verbose'" : "") . ");\n\n"
+        }
+        print OUT "COMMIT;\n";
+        close OUT;
     }
 }
 

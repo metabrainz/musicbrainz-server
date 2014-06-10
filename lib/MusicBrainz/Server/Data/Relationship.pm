@@ -22,25 +22,14 @@ use MusicBrainz::Server::Data::Utils qw(
     ref_to_type
     type_to_model
 );
+use MusicBrainz::Server::Constants qw( entities_with );
 use Scalar::Util 'weaken';
 
 no if $] >= 5.018, warnings => "experimental::smartmatch";
 
 extends 'MusicBrainz::Server::Data::Entity';
 
-Readonly my @TYPES => qw(
-    area
-    artist
-    instrument
-    label
-    place
-    recording
-    release
-    release_group
-    series
-    url
-    work
-);
+Readonly my @TYPES => entities_with(['mbid', 'relatable']);
 
 my %TYPES = map { $_ => 1} @TYPES;
 

@@ -27,6 +27,9 @@
 
      [% discard = N_ln('{num} label', '{num} labels');
         subscription_summary('{num} label', '{num} labels', summary.label) %]
+
+     [% discard = N_ln('{num} series', '{num} series');
+        subscription_summary('{num} series', '{num} series', summary.series) %]
    </ul>
    [% END %]
 

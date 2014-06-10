@@ -28,7 +28,7 @@ test all => sub {
     is($data->{mediums}->[0]->{position}, 1, "first disc has position 1");
 
     my $rels = $data->{mediums}->[0]->{tracks}->[0]->{recording}->{relationships};
-    my $vocal_performance = $rels->[0];
+    my $vocal_performance = $rels->[1];
 
     is_deeply($vocal_performance, {
         linkTypeID => 158,

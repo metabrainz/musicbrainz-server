@@ -1,7 +1,7 @@
 package t::MusicBrainz::Server::Controller::RelationshipEditor;
 use Test::Routine;
 use Test::More;
-use Test::Deep qw( cmp_bag );
+use Test::Deep qw( cmp_bag cmp_deeply bag );
 use MusicBrainz::Server::Test qw( capture_edits );
 
 with 't::Context', 't::Mechanize';
@@ -15,7 +15,7 @@ test 'Can add relationship' => sub {
     $mech->get_ok('/login');
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
-    my ($edit) = capture_edits {
+    my @edits = capture_edits {
         $mech->post("/relationship-editor", {
                 'rel-editor.rels.0.link_type' => '1',
                 'rel-editor.rels.0.action' => 'add',
@@ -37,21 +37,36 @@ test 'Can add relationship' => sub {
         );
     } $c;
 
-    ok(defined $edit);
-    isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Create');
-    is($edit->data->{entity0}{id}, 3);
-    is($edit->data->{entity1}{id}, 2);
-    is($edit->data->{type0}, 'artist');
-    is($edit->data->{type1}, 'recording');
-    is($edit->data->{link_type}{id}, 1);
-    cmp_bag($edit->data->{attributes}, [1, 3, 4]);
-    is($edit->data->{begin_date}{year}, 1999);
-    is($edit->data->{begin_date}{month}, 1);
-    is($edit->data->{begin_date}{day}, 1);
-    is($edit->data->{end_date}{year}, 1999);
-    is($edit->data->{end_date}{month}, 1);
-    is($edit->data->{end_date}{day}, 1);
-    is($edit->data->{ended}, 1);
+    is(scalar(@edits), 2);
+    isa_ok($edits[0], 'MusicBrainz::Server::Edit::Relationship::Create');
+    isa_ok($edits[1], 'MusicBrainz::Server::Edit::Relationship::Create');
+
+    my %edit_data = (
+        type1       => 'recording',
+        type0       => 'artist',
+        link_type   => {
+            id                  => 1,
+            name                => 'instrument',
+            link_phrase         => 'performed {additional} {instrument} on',
+            long_link_phrase    => 'performer',
+            reverse_link_phrase => 'has {additional} {instrument} performed by',
+        },
+        entity1     => { id => 2, name => 'King of the Mountain' },
+        entity0     => { id => 3, name => 'Test Artist' },
+        begin_date  => { year => 1999, month => 1, day => 1 },
+        end_date    => { year => 1999, month => 1, day => 1 },
+        ended       => 1,
+    );
+
+    cmp_deeply($edits[0]->data,  {
+        %edit_data,
+        attributes => bag(1, 3),
+    });
+
+    cmp_deeply($edits[1]->data,  {
+        %edit_data,
+        attributes => bag(1, 4),
+    });
 };
 
 test 'Can edit relationship' => sub {

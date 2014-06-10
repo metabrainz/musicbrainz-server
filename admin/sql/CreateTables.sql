@@ -1,8 +1,7 @@
 \set ON_ERROR_STOP 1
 BEGIN;
 
-CREATE TABLE annotation
-(
+CREATE TABLE annotation ( -- replicate (verbose)
     id                  SERIAL,
     editor              INTEGER NOT NULL, -- references editor.id
     text                TEXT,
@@ -20,7 +19,7 @@ CREATE TABLE application
     oauth_redirect_uri  TEXT
 );
 
-CREATE TABLE area_type (
+CREATE TABLE area_type ( -- replicate
     id                  SERIAL, -- PK
     name                VARCHAR(255) NOT NULL,
     parent              INTEGER, -- references area_type.id
@@ -28,7 +27,7 @@ CREATE TABLE area_type (
     description         TEXT
 );
 
-CREATE TABLE area (
+CREATE TABLE area ( -- replicate (verbose)
     id                  SERIAL, -- PK
     gid                 uuid NOT NULL,
     name                VARCHAR NOT NULL,
@@ -59,14 +58,13 @@ CREATE TABLE area (
     comment             VARCHAR(255) NOT NULL DEFAULT ''
 );
 
-CREATE TABLE area_gid_redirect
-(
+CREATE TABLE area_gid_redirect ( -- replicate (verbose)
     gid                 UUID NOT NULL, -- PK
     new_id              INTEGER NOT NULL, -- references area.id
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE area_alias_type (
+CREATE TABLE area_alias_type ( -- replicate
     id SERIAL, -- PK,
     name TEXT NOT NULL,
     parent              INTEGER, -- references area_alias_type.id
@@ -74,7 +72,7 @@ CREATE TABLE area_alias_type (
     description         TEXT
 );
 
-CREATE TABLE area_alias (
+CREATE TABLE area_alias ( -- replicate (verbose)
     id                  SERIAL, --PK
     area                INTEGER NOT NULL, -- references area.id
     name                VARCHAR NOT NULL,
@@ -108,12 +106,12 @@ CREATE TABLE area_alias (
              CONSTRAINT primary_check
                  CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)));
 
-CREATE TABLE area_annotation (
+CREATE TABLE area_annotation ( -- replicate (verbose)
     area        INTEGER NOT NULL, -- PK, references area.id
     annotation  INTEGER NOT NULL -- PK, references annotation.id
 );
 
-CREATE TABLE artist (
+CREATE TABLE artist ( -- replicate (verbose)
     id                  SERIAL,
     gid                 UUID NOT NULL,
     name                VARCHAR NOT NULL,
@@ -157,7 +155,7 @@ CREATE TABLE artist_deletion
     deleted_at timestamptz NOT NULL DEFAULT now()
 );
 
-CREATE TABLE artist_alias_type (
+CREATE TABLE artist_alias_type ( -- replicate
     id SERIAL,
     name TEXT NOT NULL,
     parent              INTEGER, -- references artist_alias_type.id
@@ -165,8 +163,7 @@ CREATE TABLE artist_alias_type (
     description         TEXT
 );
 
-CREATE TABLE artist_alias
-(
+CREATE TABLE artist_alias ( -- replicate (verbose)
     id                  SERIAL,
     artist              INTEGER NOT NULL, -- references artist.id
     name                VARCHAR NOT NULL,
@@ -209,37 +206,32 @@ CREATE TABLE artist_alias
       )
 );
 
-CREATE TABLE artist_annotation
-(
+CREATE TABLE artist_annotation ( -- replicate (verbose)
     artist              INTEGER NOT NULL, -- PK, references artist.id
     annotation          INTEGER NOT NULL -- PK, references annotation.id
 );
 
-CREATE TABLE artist_ipi
-(
+CREATE TABLE artist_ipi ( -- replicate (verbose)
     artist              INTEGER NOT NULL, -- PK, references artist.id
     ipi                 CHAR(11) NOT NULL CHECK (ipi ~ E'^\\d{11}$'), -- PK
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE artist_isni
-(
+CREATE TABLE artist_isni ( -- replicate (verbose)
     artist              INTEGER NOT NULL, -- PK, references artist.id
     isni                CHAR(16) NOT NULL CHECK (isni ~ E'^\\d{15}[\\dX]$'), -- PK
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE artist_meta
-(
+CREATE TABLE artist_meta ( -- replicate
     id                  INTEGER NOT NULL, -- PK, references artist.id CASCADE
     rating              SMALLINT CHECK (rating >= 0 AND rating <= 100),
     rating_count        INTEGER
 );
 
-CREATE TABLE artist_tag
-(
+CREATE TABLE artist_tag ( -- replicate (verbose)
     artist              INTEGER NOT NULL, -- PK, references artist.id
     tag                 INTEGER NOT NULL, -- PK, references tag.id
     count               INTEGER NOT NULL,
@@ -260,7 +252,7 @@ CREATE TABLE artist_tag_raw
     tag                 INTEGER NOT NULL -- PK, references tag.id
 );
 
-CREATE TABLE artist_credit (
+CREATE TABLE artist_credit ( -- replicate
     id                  SERIAL,
     name                VARCHAR NOT NULL,
     artist_count        SMALLINT NOT NULL,
@@ -268,7 +260,7 @@ CREATE TABLE artist_credit (
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE artist_credit_name (
+CREATE TABLE artist_credit_name ( -- replicate (verbose)
     artist_credit       INTEGER NOT NULL, -- PK, references artist_credit.id CASCADE
     position            SMALLINT NOT NULL, -- PK
     artist              INTEGER NOT NULL, -- references artist.id CASCADE
@@ -276,14 +268,13 @@ CREATE TABLE artist_credit_name (
     join_phrase         TEXT NOT NULL DEFAULT ''
 );
 
-CREATE TABLE artist_gid_redirect
-(
+CREATE TABLE artist_gid_redirect ( -- replicate (verbose)
     gid                 UUID NOT NULL, -- PK
     new_id              INTEGER NOT NULL, -- references artist.id
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE artist_type (
+CREATE TABLE artist_type ( -- replicate
     id                  SERIAL,
     name                VARCHAR(255) NOT NULL,
     parent              INTEGER, -- references artist_type.id
@@ -322,8 +313,7 @@ CREATE TABLE autoeditor_election_vote
     vote_time           TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
 
-CREATE TABLE cdtoc
-(
+CREATE TABLE cdtoc ( -- replicate
     id                  SERIAL,
     discid              CHAR(28) NOT NULL,
     freedb_id           CHAR(8) NOT NULL,
@@ -344,8 +334,7 @@ CREATE TABLE cdtoc_raw
     track_offset         INTEGER[] NOT NULL
 );
 
-CREATE TABLE country_area
-(
+CREATE TABLE country_area ( -- replicate (verbose)
     area                INTEGER -- PK, references area.id
 );
 
@@ -546,7 +535,7 @@ CREATE TABLE editor_subscribe_series_deleted
     deleted_by          INTEGER NOT NULL -- references edit.id
 );
 
-CREATE TABLE gender (
+CREATE TABLE gender ( -- replicate
     id                  SERIAL,
     name                VARCHAR(255) NOT NULL,
     parent              INTEGER, -- references gender.id
@@ -554,7 +543,7 @@ CREATE TABLE gender (
     description         TEXT
 );
 
-CREATE TABLE instrument_type (
+CREATE TABLE instrument_type ( -- replicate
     id                  SERIAL, -- PK
     name                VARCHAR(255) NOT NULL,
     parent              INTEGER, -- references instrument_type.id
@@ -562,7 +551,7 @@ CREATE TABLE instrument_type (
     description         TEXT
 );
 
-CREATE TABLE instrument (
+CREATE TABLE instrument ( -- replicate (verbose)
     id                  SERIAL, -- PK
     gid                 uuid NOT NULL,
     name                VARCHAR NOT NULL,
@@ -573,14 +562,13 @@ CREATE TABLE instrument (
     description         TEXT NOT NULL DEFAULT ''
 );
 
-CREATE TABLE instrument_gid_redirect
-(
+CREATE TABLE instrument_gid_redirect ( -- replicate (verbose)
     gid                 UUID NOT NULL, -- PK
     new_id              INTEGER NOT NULL, -- references instrument.id
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE instrument_alias_type (
+CREATE TABLE instrument_alias_type ( -- replicate
     id SERIAL, -- PK,
     name TEXT NOT NULL,
     parent              INTEGER, -- references instrument_alias_type.id
@@ -588,7 +576,7 @@ CREATE TABLE instrument_alias_type (
     description         TEXT
 );
 
-CREATE TABLE instrument_alias (
+CREATE TABLE instrument_alias ( -- replicate (verbose)
     id                  SERIAL, --PK
     instrument          INTEGER NOT NULL, -- references instrument.id
     name                VARCHAR NOT NULL,
@@ -631,26 +619,25 @@ CREATE TABLE instrument_alias (
       )
 );
 
-CREATE TABLE instrument_annotation (
+CREATE TABLE instrument_annotation ( -- replicate (verbose)
     instrument  INTEGER NOT NULL, -- PK, references instrument.id
     annotation  INTEGER NOT NULL -- PK, references annotation.id
 );
 
-CREATE TABLE iso_3166_1 (
+CREATE TABLE iso_3166_1 ( -- replicate
     area      INTEGER NOT NULL, -- references area.id
     code      CHAR(2) -- PK
 );
-CREATE TABLE iso_3166_2 (
+CREATE TABLE iso_3166_2 ( -- replicate
     area      INTEGER NOT NULL, -- references area.id
     code      VARCHAR(10) -- PK
 );
-CREATE TABLE iso_3166_3 (
+CREATE TABLE iso_3166_3 ( -- replicate
     area      INTEGER NOT NULL, -- references area.id
     code      CHAR(4) -- PK
 );
 
-CREATE TABLE isrc
-(
+CREATE TABLE isrc ( -- replicate (verbose)
     id                  SERIAL,
     recording           INTEGER NOT NULL, -- references recording.id
     isrc                CHAR(12) NOT NULL CHECK (isrc ~ E'^[A-Z]{2}[A-Z0-9]{3}[0-9]{7}$'),
@@ -659,7 +646,7 @@ CREATE TABLE isrc
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE iswc (
+CREATE TABLE iswc ( -- replicate (verbose)
     id SERIAL NOT NULL,
     work INTEGER NOT NULL, -- references work.id
     iswc CHARACTER(15) CHECK (iswc ~ E'^T-?\\d{3}.?\\d{3}.?\\d{3}[-.]?\\d$'),
@@ -668,8 +655,7 @@ CREATE TABLE iswc (
     created TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
 );
 
-CREATE TABLE l_area_area
-(
+CREATE TABLE l_area_area ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references area.id
@@ -679,8 +665,7 @@ CREATE TABLE l_area_area
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_area_artist
-(
+CREATE TABLE l_area_artist ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references area.id
@@ -690,8 +675,7 @@ CREATE TABLE l_area_artist
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_area_instrument
-(
+CREATE TABLE l_area_instrument ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references area.id
@@ -701,8 +685,7 @@ CREATE TABLE l_area_instrument
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_area_label
-(
+CREATE TABLE l_area_label ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references area.id
@@ -712,8 +695,7 @@ CREATE TABLE l_area_label
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_area_place
-(
+CREATE TABLE l_area_place ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references area.id
@@ -723,8 +705,7 @@ CREATE TABLE l_area_place
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_area_recording
-(
+CREATE TABLE l_area_recording ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references area.id
@@ -734,8 +715,7 @@ CREATE TABLE l_area_recording
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_area_release
-(
+CREATE TABLE l_area_release ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references area.id
@@ -745,8 +725,7 @@ CREATE TABLE l_area_release
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_area_release_group
-(
+CREATE TABLE l_area_release_group ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references area.id
@@ -756,8 +735,7 @@ CREATE TABLE l_area_release_group
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_area_series
-(
+CREATE TABLE l_area_series ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references area.id
@@ -767,8 +745,7 @@ CREATE TABLE l_area_series
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_area_url
-(
+CREATE TABLE l_area_url ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references area.id
@@ -778,8 +755,7 @@ CREATE TABLE l_area_url
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_area_work
-(
+CREATE TABLE l_area_work ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references area.id
@@ -789,8 +765,7 @@ CREATE TABLE l_area_work
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_artist_artist
-(
+CREATE TABLE l_artist_artist ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references artist.id
@@ -800,8 +775,7 @@ CREATE TABLE l_artist_artist
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_artist_instrument
-(
+CREATE TABLE l_artist_instrument ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references artist.id
@@ -811,8 +785,7 @@ CREATE TABLE l_artist_instrument
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_artist_label
-(
+CREATE TABLE l_artist_label ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references artist.id
@@ -822,8 +795,7 @@ CREATE TABLE l_artist_label
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_artist_place
-(
+CREATE TABLE l_artist_place ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references artist.id
@@ -833,8 +805,7 @@ CREATE TABLE l_artist_place
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_artist_recording
-(
+CREATE TABLE l_artist_recording ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references artist.id
@@ -844,8 +815,7 @@ CREATE TABLE l_artist_recording
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_artist_release
-(
+CREATE TABLE l_artist_release ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references artist.id
@@ -855,8 +825,7 @@ CREATE TABLE l_artist_release
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_artist_release_group
-(
+CREATE TABLE l_artist_release_group ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references artist.id
@@ -866,8 +835,7 @@ CREATE TABLE l_artist_release_group
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_artist_series
-(
+CREATE TABLE l_artist_series ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references artist.id
@@ -877,8 +845,7 @@ CREATE TABLE l_artist_series
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_artist_url
-(
+CREATE TABLE l_artist_url ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references artist.id
@@ -888,8 +855,7 @@ CREATE TABLE l_artist_url
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_artist_work
-(
+CREATE TABLE l_artist_work ( -- replicate (verbose)
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references artist.id
@@ -899,8 +865,7 @@ CREATE TABLE l_artist_work
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_label_label
-(
+CREATE TABLE l_label_label ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references label.id
@@ -910,8 +875,7 @@ CREATE TABLE l_label_label
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_instrument_instrument
-(
+CREATE TABLE l_instrument_instrument ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references instrument.id
@@ -921,8 +885,7 @@ CREATE TABLE l_instrument_instrument
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_instrument_label
-(
+CREATE TABLE l_instrument_label ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references instrument.id
@@ -932,8 +895,7 @@ CREATE TABLE l_instrument_label
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_instrument_place
-(
+CREATE TABLE l_instrument_place ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references instrument.id
@@ -943,8 +905,7 @@ CREATE TABLE l_instrument_place
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_instrument_recording
-(
+CREATE TABLE l_instrument_recording ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references instrument.id
@@ -954,8 +915,7 @@ CREATE TABLE l_instrument_recording
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_instrument_release
-(
+CREATE TABLE l_instrument_release ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references instrument.id
@@ -965,8 +925,7 @@ CREATE TABLE l_instrument_release
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_instrument_release_group
-(
+CREATE TABLE l_instrument_release_group ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references instrument.id
@@ -976,8 +935,7 @@ CREATE TABLE l_instrument_release_group
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_instrument_series
-(
+CREATE TABLE l_instrument_series ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references instrument.id
@@ -987,8 +945,7 @@ CREATE TABLE l_instrument_series
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_instrument_url
-(
+CREATE TABLE l_instrument_url ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references instrument.id
@@ -998,8 +955,7 @@ CREATE TABLE l_instrument_url
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_instrument_work
-(
+CREATE TABLE l_instrument_work ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references instrument.id
@@ -1009,8 +965,7 @@ CREATE TABLE l_instrument_work
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_label_place
-(
+CREATE TABLE l_label_place ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references label.id
@@ -1020,8 +975,7 @@ CREATE TABLE l_label_place
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_label_recording
-(
+CREATE TABLE l_label_recording ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references label.id
@@ -1031,8 +985,7 @@ CREATE TABLE l_label_recording
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_label_release
-(
+CREATE TABLE l_label_release ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references label.id
@@ -1042,8 +995,7 @@ CREATE TABLE l_label_release
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_label_release_group
-(
+CREATE TABLE l_label_release_group ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references label.id
@@ -1053,8 +1005,7 @@ CREATE TABLE l_label_release_group
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_label_series
-(
+CREATE TABLE l_label_series ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references label.id
@@ -1064,8 +1015,7 @@ CREATE TABLE l_label_series
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_label_url
-(
+CREATE TABLE l_label_url ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references label.id
@@ -1075,8 +1025,7 @@ CREATE TABLE l_label_url
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_label_work
-(
+CREATE TABLE l_label_work ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references label.id
@@ -1086,8 +1035,7 @@ CREATE TABLE l_label_work
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_place_place
-(
+CREATE TABLE l_place_place ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references place.id
@@ -1097,8 +1045,7 @@ CREATE TABLE l_place_place
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_place_recording
-(
+CREATE TABLE l_place_recording ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references place.id
@@ -1108,8 +1055,7 @@ CREATE TABLE l_place_recording
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_place_release
-(
+CREATE TABLE l_place_release ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references place.id
@@ -1119,8 +1065,7 @@ CREATE TABLE l_place_release
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_place_release_group
-(
+CREATE TABLE l_place_release_group ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references place.id
@@ -1130,8 +1075,7 @@ CREATE TABLE l_place_release_group
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_place_series
-(
+CREATE TABLE l_place_series ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references place.id
@@ -1141,8 +1085,7 @@ CREATE TABLE l_place_series
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_place_url
-(
+CREATE TABLE l_place_url ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references place.id
@@ -1152,8 +1095,7 @@ CREATE TABLE l_place_url
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_place_work
-(
+CREATE TABLE l_place_work ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references place.id
@@ -1163,8 +1105,7 @@ CREATE TABLE l_place_work
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_recording_recording
-(
+CREATE TABLE l_recording_recording ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references recording.id
@@ -1174,8 +1115,7 @@ CREATE TABLE l_recording_recording
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_recording_release
-(
+CREATE TABLE l_recording_release ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references recording.id
@@ -1185,8 +1125,7 @@ CREATE TABLE l_recording_release
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_recording_release_group
-(
+CREATE TABLE l_recording_release_group ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references recording.id
@@ -1196,8 +1135,7 @@ CREATE TABLE l_recording_release_group
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_recording_series
-(
+CREATE TABLE l_recording_series ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references recording.id
@@ -1207,8 +1145,7 @@ CREATE TABLE l_recording_series
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_recording_url
-(
+CREATE TABLE l_recording_url ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references recording.id
@@ -1218,8 +1155,7 @@ CREATE TABLE l_recording_url
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_recording_work
-(
+CREATE TABLE l_recording_work ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references recording.id
@@ -1229,8 +1165,7 @@ CREATE TABLE l_recording_work
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_release_release
-(
+CREATE TABLE l_release_release ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references release.id
@@ -1240,8 +1175,7 @@ CREATE TABLE l_release_release
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_release_release_group
-(
+CREATE TABLE l_release_release_group ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references release.id
@@ -1251,8 +1185,7 @@ CREATE TABLE l_release_release_group
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_release_series
-(
+CREATE TABLE l_release_series ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references release.id
@@ -1262,8 +1195,7 @@ CREATE TABLE l_release_series
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_release_url
-(
+CREATE TABLE l_release_url ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references release.id
@@ -1273,8 +1205,7 @@ CREATE TABLE l_release_url
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_release_work
-(
+CREATE TABLE l_release_work ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references release.id
@@ -1284,8 +1215,7 @@ CREATE TABLE l_release_work
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_release_group_release_group
-(
+CREATE TABLE l_release_group_release_group ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references release_group.id
@@ -1295,8 +1225,7 @@ CREATE TABLE l_release_group_release_group
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_release_group_series
-(
+CREATE TABLE l_release_group_series ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references release_group.id
@@ -1306,8 +1235,7 @@ CREATE TABLE l_release_group_series
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_release_group_url
-(
+CREATE TABLE l_release_group_url ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references release_group.id
@@ -1317,8 +1245,7 @@ CREATE TABLE l_release_group_url
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_release_group_work
-(
+CREATE TABLE l_release_group_work ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references release_group.id
@@ -1328,8 +1255,7 @@ CREATE TABLE l_release_group_work
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_series_series
-(
+CREATE TABLE l_series_series ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references series.id
@@ -1339,8 +1265,7 @@ CREATE TABLE l_series_series
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_series_url
-(
+CREATE TABLE l_series_url ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references series.id
@@ -1350,8 +1275,7 @@ CREATE TABLE l_series_url
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_series_work
-(
+CREATE TABLE l_series_work ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references series.id
@@ -1361,8 +1285,7 @@ CREATE TABLE l_series_work
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_url_url
-(
+CREATE TABLE l_url_url ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references url.id
@@ -1372,8 +1295,7 @@ CREATE TABLE l_url_url
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_url_work
-(
+CREATE TABLE l_url_work ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references url.id
@@ -1383,8 +1305,7 @@ CREATE TABLE l_url_work
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE l_work_work
-(
+CREATE TABLE l_work_work ( -- replicate
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references work.id
@@ -1394,7 +1315,7 @@ CREATE TABLE l_work_work
     link_order          INTEGER NOT NULL DEFAULT 0 CHECK (link_order >= 0)
 );
 
-CREATE TABLE label (
+CREATE TABLE label ( -- replicate (verbose)
     id                  SERIAL,
     gid                 UUID NOT NULL,
     name                VARCHAR NOT NULL,
@@ -1449,7 +1370,7 @@ CREATE TABLE label_tag_raw
     tag                 INTEGER NOT NULL -- PK, references tag.id
 );
 
-CREATE TABLE label_alias_type (
+CREATE TABLE label_alias_type ( -- replicate
     id SERIAL,
     name TEXT NOT NULL,
     parent              INTEGER, -- references label_alias_type.id
@@ -1457,8 +1378,7 @@ CREATE TABLE label_alias_type (
     description         TEXT
 );
 
-CREATE TABLE label_alias
-(
+CREATE TABLE label_alias ( -- replicate (verbose)
     id                  SERIAL,
     label               INTEGER NOT NULL, -- references label.id
     name                VARCHAR NOT NULL,
@@ -1501,51 +1421,45 @@ CREATE TABLE label_alias
       )
 );
 
-CREATE TABLE label_annotation
-(
+CREATE TABLE label_annotation ( -- replicate (verbose)
     label               INTEGER NOT NULL, -- PK, references label.id
     annotation          INTEGER NOT NULL -- PK, references annotation.id
 );
 
-CREATE TABLE label_ipi
-(
+CREATE TABLE label_ipi ( -- replicate (verbose)
     label               INTEGER NOT NULL, -- PK, references label.id
     ipi                 CHAR(11) NOT NULL CHECK (ipi ~ E'^\\d{11}$'), -- PK
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE label_isni
-(
+CREATE TABLE label_isni ( -- replicate (verbose)
     label               INTEGER NOT NULL, -- PK, references label.id
     isni                CHAR(16) NOT NULL CHECK (isni ~ E'^\\d{15}[\\dX]$'), -- PK
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE label_meta
-(
+CREATE TABLE label_meta ( -- replicate
     id                  INTEGER NOT NULL, -- PK, references label.id CASCADE
     rating              SMALLINT CHECK (rating >= 0 AND rating <= 100),
     rating_count        INTEGER
 );
 
-CREATE TABLE label_gid_redirect
-(
+CREATE TABLE label_gid_redirect ( -- replicate (verbose)
     gid                 UUID NOT NULL, -- PK
     new_id              INTEGER NOT NULL, -- references label.id
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE label_tag
-(
+CREATE TABLE label_tag ( -- replicate (verbose)
     label               INTEGER NOT NULL, -- PK, references label.id
     tag                 INTEGER NOT NULL, -- PK, references tag.id
     count               INTEGER NOT NULL,
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE label_type (
+CREATE TABLE label_type ( -- replicate
     id                  SERIAL,
     name                VARCHAR(255) NOT NULL,
     parent              INTEGER, -- references label_type.id
@@ -1553,8 +1467,7 @@ CREATE TABLE label_type (
     description         TEXT
 );
 
-CREATE TABLE language
-(
+CREATE TABLE language ( -- replicate
     id                  SERIAL,
     iso_code_2t         CHAR(3), -- ISO 639-2 (T)
     iso_code_2b         CHAR(3), -- ISO 639-2 (B)
@@ -1568,8 +1481,7 @@ ALTER TABLE language
       ADD CONSTRAINT iso_code_check
       CHECK (iso_code_2t IS NOT NULL OR iso_code_3  IS NOT NULL);
 
-CREATE TABLE link
-(
+CREATE TABLE link ( -- replicate
     id                  SERIAL,
     link_type           INTEGER NOT NULL, -- references link_type.id
     begin_date_year     SMALLINT,
@@ -1597,15 +1509,13 @@ CREATE TABLE link
       )
 );
 
-CREATE TABLE link_attribute
-(
+CREATE TABLE link_attribute ( -- replicate
     link                INTEGER NOT NULL, -- PK, references link.id
     attribute_type      INTEGER NOT NULL, -- PK, references link_attribute_type.id
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE link_attribute_type
-(
+CREATE TABLE link_attribute_type ( -- replicate
     id                  SERIAL,
     parent              INTEGER, -- references link_attribute_type.id
     root                INTEGER NOT NULL, -- references link_attribute_type.id
@@ -1616,28 +1526,27 @@ CREATE TABLE link_attribute_type
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE link_creditable_attribute_type (
+CREATE TABLE link_creditable_attribute_type ( -- replicate
   attribute_type INT NOT NULL -- PK, references link_attribute_type.id CASCADE
 );
 
-CREATE TABLE link_attribute_credit (
+CREATE TABLE link_attribute_credit ( -- replicate
   link INT NOT NULL, -- PK, references link.id
   attribute_type INT NOT NULL, -- PK, references link_creditable_attribute_type.attribute_type
   credited_as TEXT NOT NULL
 );
 
-CREATE TABLE link_text_attribute_type (
+CREATE TABLE link_text_attribute_type ( -- replicate
     attribute_type      INT NOT NULL -- PK, references link_attribute_type.id CASCADE
 );
 
-CREATE TABLE link_attribute_text_value (
+CREATE TABLE link_attribute_text_value ( -- replicate
     link                INT NOT NULL, -- PK, references link.id
     attribute_type      INT NOT NULL, -- PK, references link_text_attribute_type.attribute_type
     text_value          TEXT NOT NULL
 );
 
-CREATE TABLE link_type
-(
+CREATE TABLE link_type ( -- replicate
     id                  SERIAL,
     parent              INTEGER, -- references link_type.id
     child_order         INTEGER NOT NULL DEFAULT 0,
@@ -1657,8 +1566,7 @@ CREATE TABLE link_type
     entity1_cardinality INTEGER NOT NULL DEFAULT 0
 );
 
-CREATE TABLE link_type_attribute_type
-(
+CREATE TABLE link_type_attribute_type ( -- replicate
     link_type           INTEGER NOT NULL, -- PK, references link_type.id
     attribute_type      INTEGER NOT NULL, -- PK, references link_attribute_type.id
     min                 SMALLINT,
@@ -1721,8 +1629,7 @@ CREATE TABLE editor_watch_release_status
     release_status INTEGER NOT NULL -- PK, references release_status.id
 );
 
-CREATE TABLE medium
-(
+CREATE TABLE medium ( -- replicate (verbose)
     id                  SERIAL,
     release             INTEGER NOT NULL, -- references release.id
     position            INTEGER NOT NULL,
@@ -1733,8 +1640,7 @@ CREATE TABLE medium
     track_count         INTEGER NOT NULL DEFAULT 0
 );
 
-CREATE TABLE medium_cdtoc
-(
+CREATE TABLE medium_cdtoc ( -- replicate (verbose)
     id                  SERIAL,
     medium              INTEGER NOT NULL, -- references medium.id
     cdtoc               INTEGER NOT NULL, -- references cdtoc.id
@@ -1742,8 +1648,7 @@ CREATE TABLE medium_cdtoc
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE medium_format
-(
+CREATE TABLE medium_format ( -- replicate 
     id                  SERIAL,
     name                VARCHAR(100) NOT NULL,
     parent              INTEGER, -- references medium_format.id
@@ -1753,12 +1658,12 @@ CREATE TABLE medium_format
     description         TEXT
 );
 
-CREATE TABLE orderable_link_type (
+CREATE TABLE orderable_link_type ( -- replicate
     link_type           INTEGER NOT NULL, -- PK, references link_type.id
     direction           SMALLINT NOT NULL DEFAULT 1 CHECK (direction = 1 OR direction = 2)
 );
 
-CREATE TABLE place (
+CREATE TABLE place ( -- replicate (verbose)
     id                  SERIAL, -- PK
     gid                 uuid NOT NULL,
     name                VARCHAR NOT NULL,
@@ -1792,8 +1697,7 @@ CREATE TABLE place (
       )
 );
 
-CREATE TABLE place_alias
-(
+CREATE TABLE place_alias ( -- replicate (verbose)
     id                  SERIAL,
     place               INTEGER NOT NULL, -- references place.id
     name                VARCHAR NOT NULL,
@@ -1836,7 +1740,7 @@ CREATE TABLE place_alias
       )
 );
 
-CREATE TABLE place_alias_type (
+CREATE TABLE place_alias_type ( -- replicate
     id SERIAL,
     name TEXT NOT NULL,
     parent              INTEGER, -- references place_alias_type.id
@@ -1844,21 +1748,18 @@ CREATE TABLE place_alias_type (
     description         TEXT
 );
 
-CREATE TABLE place_annotation
-(
+CREATE TABLE place_annotation ( -- replicate (verbose)
     place               INTEGER NOT NULL, -- PK, references place.id
     annotation          INTEGER NOT NULL -- PK, references annotation.id
 );
 
-CREATE TABLE place_gid_redirect
-(
+CREATE TABLE place_gid_redirect ( -- replicate (verbose)
     gid                 UUID NOT NULL, -- PK
     new_id              INTEGER NOT NULL, -- references place.id
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE place_tag
-(
+CREATE TABLE place_tag ( -- replicate (verbose)
     place               INTEGER NOT NULL, -- PK, references place.id
     tag                 INTEGER NOT NULL, -- PK, references tag.id
     count               INTEGER NOT NULL,
@@ -1872,7 +1773,7 @@ CREATE TABLE place_tag_raw
     tag                 INTEGER NOT NULL -- PK, references tag.id
 );
 
-CREATE TABLE place_type (
+CREATE TABLE place_type ( -- replicate
     id                  SERIAL, -- PK
     name                VARCHAR(255) NOT NULL,
     parent              INTEGER, -- references place_type.id
@@ -1880,15 +1781,14 @@ CREATE TABLE place_type (
     description         TEXT
 );
 
-CREATE TABLE replication_control
-(
+CREATE TABLE replication_control ( -- replicate
     id                              SERIAL,
     current_schema_sequence         INTEGER NOT NULL,
     current_replication_sequence    INTEGER,
     last_replication_date           TIMESTAMP WITH TIME ZONE
 );
 
-CREATE TABLE recording (
+CREATE TABLE recording ( -- replicate (verbose)
     id                  SERIAL,
     gid                 UUID NOT NULL,
     name                VARCHAR NOT NULL,
@@ -1914,35 +1814,31 @@ CREATE TABLE recording_tag_raw
     tag                 INTEGER NOT NULL -- PK, references tag.id
 );
 
-CREATE TABLE recording_annotation
-(
+CREATE TABLE recording_annotation ( -- replicate (verbose)
     recording           INTEGER NOT NULL, -- PK, references recording.id
     annotation          INTEGER NOT NULL -- PK, references annotation.id
 );
 
-CREATE TABLE recording_meta
-(
+CREATE TABLE recording_meta ( -- replicate
     id                  INTEGER NOT NULL, -- PK, references recording.id CASCADE
     rating              SMALLINT CHECK (rating >= 0 AND rating <= 100),
     rating_count        INTEGER
 );
 
-CREATE TABLE recording_gid_redirect
-(
+CREATE TABLE recording_gid_redirect ( -- replicate (verbose)
     gid                 UUID NOT NULL, -- PK
     new_id              INTEGER NOT NULL, -- references recording.id
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE recording_tag
-(
+CREATE TABLE recording_tag ( -- replicate (verbose)
     recording           INTEGER NOT NULL, -- PK, references recording.id
     tag                 INTEGER NOT NULL, -- PK, references tag.id
     count               INTEGER NOT NULL,
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE release (
+CREATE TABLE release ( -- replicate (verbose)
     id                  SERIAL,
     gid                 UUID NOT NULL,
     name                VARCHAR NOT NULL,
@@ -1959,7 +1855,7 @@ CREATE TABLE release (
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE release_country (
+CREATE TABLE release_country ( -- replicate (verbose)
   release INTEGER NOT NULL,  -- PK, references release.id
   country INTEGER NOT NULL,  -- PK, references country_area.area
   date_year SMALLINT,
@@ -1967,7 +1863,7 @@ CREATE TABLE release_country (
   date_day SMALLINT
 );
 
-CREATE TABLE release_unknown_country (
+CREATE TABLE release_unknown_country ( -- replicate (verbose)
   release INTEGER NOT NULL,  -- PK, references release.id
   date_year SMALLINT,
   date_month SMALLINT,
@@ -1995,14 +1891,12 @@ CREATE TABLE release_tag_raw
     tag                 INTEGER NOT NULL -- PK, references tag.id
 );
 
-CREATE TABLE release_annotation
-(
+CREATE TABLE release_annotation ( -- replicate (verbose)
     release             INTEGER NOT NULL, -- PK, references release.id
     annotation          INTEGER NOT NULL -- PK, references annotation.id
 );
 
-CREATE TABLE release_gid_redirect
-(
+CREATE TABLE release_gid_redirect ( -- replicate (verbose)
     gid                 UUID NOT NULL, -- PK
     new_id              INTEGER NOT NULL, -- references release.id
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
@@ -2010,8 +1904,7 @@ CREATE TABLE release_gid_redirect
 
 CREATE TYPE cover_art_presence AS ENUM ('absent', 'present', 'darkened');
 
-CREATE TABLE release_meta
-(
+CREATE TABLE release_meta ( -- replicate (verbose)
     id                  INTEGER NOT NULL, -- PK, references release.id CASCADE
     date_added          TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     info_url            VARCHAR(255),
@@ -2027,7 +1920,7 @@ CREATE TABLE release_coverart
     cover_art_url       VARCHAR(255)
 );
 
-CREATE TABLE release_label (
+CREATE TABLE release_label ( -- replicate (verbose)
     id                  SERIAL,
     release             INTEGER NOT NULL, -- references release.id
     label               INTEGER, -- references label.id
@@ -2035,8 +1928,7 @@ CREATE TABLE release_label (
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE release_packaging
-(
+CREATE TABLE release_packaging ( -- replicate
     id                  SERIAL,
     name                VARCHAR(255) NOT NULL,
     parent              INTEGER, -- references release_packaging.id
@@ -2044,8 +1936,7 @@ CREATE TABLE release_packaging
     description         TEXT
 );
 
-CREATE TABLE release_status
-(
+CREATE TABLE release_status ( -- replicate
     id                  SERIAL,
     name                VARCHAR(255) NOT NULL,
     parent              INTEGER, -- references release_status.id
@@ -2053,15 +1944,14 @@ CREATE TABLE release_status
     description         TEXT
 );
 
-CREATE TABLE release_tag
-(
+CREATE TABLE release_tag ( -- replicate (verbose)
     release             INTEGER NOT NULL, -- PK, references release.id
     tag                 INTEGER NOT NULL, -- PK, references tag.id
     count               INTEGER NOT NULL,
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE release_group (
+CREATE TABLE release_group ( -- replicate (verbose)
     id                  SERIAL,
     gid                 UUID NOT NULL,
     name                VARCHAR NOT NULL,
@@ -2086,21 +1976,18 @@ CREATE TABLE release_group_tag_raw
     tag                 INTEGER NOT NULL -- PK, references tag.id
 );
 
-CREATE TABLE release_group_annotation
-(
+CREATE TABLE release_group_annotation ( -- replicate (verbose)
     release_group       INTEGER NOT NULL, -- PK, references release_group.id
     annotation          INTEGER NOT NULL -- PK, references annotation.id
 );
 
-CREATE TABLE release_group_gid_redirect
-(
+CREATE TABLE release_group_gid_redirect ( -- replicate (verbose)
     gid                 UUID NOT NULL, -- PK
     new_id              INTEGER NOT NULL, -- references release_group.id
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE release_group_meta
-(
+CREATE TABLE release_group_meta ( -- replicate
     id                  INTEGER NOT NULL, -- PK, references release_group.id CASCADE
     release_count       INTEGER NOT NULL DEFAULT 0,
     first_release_date_year   SMALLINT,
@@ -2110,15 +1997,14 @@ CREATE TABLE release_group_meta
     rating_count        INTEGER
 );
 
-CREATE TABLE release_group_tag
-(
+CREATE TABLE release_group_tag ( -- replicate (verbose)
     release_group       INTEGER NOT NULL, -- PK, references release_group.id
     tag                 INTEGER NOT NULL, -- PK, references tag.id
     count               INTEGER NOT NULL,
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE release_group_primary_type (
+CREATE TABLE release_group_primary_type ( -- replicate
     id                  SERIAL,
     name                VARCHAR(255) NOT NULL,
     parent              INTEGER, -- references release_group_primary_type.id
@@ -2126,7 +2012,7 @@ CREATE TABLE release_group_primary_type (
     description         TEXT
 );
 
-CREATE TABLE release_group_secondary_type (
+CREATE TABLE release_group_secondary_type ( -- replicate
     id SERIAL NOT NULL, -- pk
     name TEXT NOT NULL,
     parent              INTEGER, -- references release_group_secondary_type.id
@@ -2134,14 +2020,13 @@ CREATE TABLE release_group_secondary_type (
     description         TEXT
 );
 
-CREATE TABLE release_group_secondary_type_join (
+CREATE TABLE release_group_secondary_type_join ( -- replicate (verbose)
     release_group INTEGER NOT NULL, -- PK, references release_group.id,
     secondary_type INTEGER NOT NULL, -- PK, references release_group_secondary_type.id
     created TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
 );
 
-CREATE TABLE script
-(
+CREATE TABLE script ( -- replicate
     id                  SERIAL,
     iso_code            CHAR(4) NOT NULL, -- ISO 15924
     iso_number          CHAR(3) NOT NULL, -- ISO 15924
@@ -2149,8 +2034,7 @@ CREATE TABLE script
     frequency           INTEGER NOT NULL DEFAULT 0
 );
 
-CREATE TABLE series
-(
+CREATE TABLE series ( -- replicate (verbose)
     id                  SERIAL,
     gid                 UUID NOT NULL,
     name                VARCHAR NOT NULL,
@@ -2162,8 +2046,7 @@ CREATE TABLE series
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE series_type
-(
+CREATE TABLE series_type ( -- replicate (verbose)
     id                  SERIAL,
     name                VARCHAR(255) NOT NULL,
     entity_type         VARCHAR(50) NOT NULL,
@@ -2172,8 +2055,7 @@ CREATE TABLE series_type
     description         TEXT
 );
 
-CREATE TABLE series_ordering_type
-(
+CREATE TABLE series_ordering_type ( -- replicate (verbose)
     id                  SERIAL,
     name                VARCHAR(255) NOT NULL,
     parent              INTEGER, -- references series_ordering_type.id
@@ -2189,15 +2071,13 @@ CREATE TABLE series_deletion
     deleted_at          timestamptz NOT NULL DEFAULT now()
 );
 
-CREATE TABLE series_gid_redirect
-(
+CREATE TABLE series_gid_redirect ( -- replicate (verbose)
     gid                 UUID NOT NULL, -- PK
     new_id              INTEGER NOT NULL, -- references series.id
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE series_alias_type
-(
+CREATE TABLE series_alias_type ( -- replicate (verbose)
     id                  SERIAL, -- PK
     name                TEXT NOT NULL,
     parent              INTEGER, -- references series_alias_type.id
@@ -2205,8 +2085,7 @@ CREATE TABLE series_alias_type
     description         TEXT
 );
 
-CREATE TABLE series_alias
-(
+CREATE TABLE series_alias ( -- replicate (verbose)
     id                  SERIAL, -- PK
     series              INTEGER NOT NULL, -- references series.id
     name                VARCHAR NOT NULL,
@@ -2249,13 +2128,12 @@ CREATE TABLE series_alias
       )
 );
 
-CREATE TABLE series_annotation (
+CREATE TABLE series_annotation ( -- replicate (verbose)
     series              INTEGER NOT NULL, -- PK, references series.id
     annotation          INTEGER NOT NULL -- PK, references annotation.id
 );
 
-CREATE TABLE tag
-(
+CREATE TABLE tag ( -- replicate (verbose)
     id                  SERIAL,
     name                VARCHAR(255) NOT NULL,
     ref_count           INTEGER NOT NULL DEFAULT 0
@@ -2270,8 +2148,7 @@ CREATE TABLE tag_relation
     CHECK (tag1 < tag2)
 );
 
-CREATE TABLE track
-(
+CREATE TABLE track ( -- replicate (verbose)
     id                  SERIAL,
     gid                 UUID NOT NULL,
     recording           INTEGER NOT NULL, -- references recording.id
@@ -2285,8 +2162,7 @@ CREATE TABLE track
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE track_gid_redirect
-(
+CREATE TABLE track_gid_redirect ( -- replicate (verbose)
     gid                 UUID NOT NULL, -- PK
     new_id              INTEGER NOT NULL, -- references track.id
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
@@ -2301,14 +2177,12 @@ CREATE TABLE track_raw
     sequence            INTEGER NOT NULL
 );
 
-CREATE TABLE medium_index
-(
+CREATE TABLE medium_index ( -- replicate
     medium              INTEGER, -- PK, references medium.id CASCADE
     toc                 CUBE
 );
 
-CREATE TABLE url
-(
+CREATE TABLE url ( -- replicate
     id                  SERIAL,
     gid                 UUID NOT NULL,
     url                 TEXT NOT NULL,
@@ -2316,8 +2190,7 @@ CREATE TABLE url
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE url_gid_redirect
-(
+CREATE TABLE url_gid_redirect ( -- replicate
     gid                 UUID NOT NULL, -- PK
     new_id              INTEGER NOT NULL, -- references url.id
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
@@ -2333,7 +2206,7 @@ CREATE TABLE vote
     superseded          BOOLEAN NOT NULL DEFAULT FALSE
 );
 
-CREATE TABLE work (
+CREATE TABLE work ( -- replicate (verbose)
     id                  SERIAL,
     gid                 UUID NOT NULL,
     name                VARCHAR NOT NULL,
@@ -2358,7 +2231,7 @@ CREATE TABLE work_tag_raw
     tag                 INTEGER NOT NULL -- PK, references tag.id
 );
 
-CREATE TABLE work_alias_type (
+CREATE TABLE work_alias_type ( -- replicate
     id SERIAL,
     name TEXT NOT NULL,
     parent              INTEGER, -- references work_alias_type.id
@@ -2366,8 +2239,7 @@ CREATE TABLE work_alias_type (
     description         TEXT
 );
 
-CREATE TABLE work_alias
-(
+CREATE TABLE work_alias ( -- replicate (verbose)
     id                  SERIAL,
     work                INTEGER NOT NULL, -- references work.id
     name                VARCHAR NOT NULL,
@@ -2410,35 +2282,31 @@ CREATE TABLE work_alias
       )
 );
 
-CREATE TABLE work_annotation
-(
+CREATE TABLE work_annotation ( -- replicate (verbose)
     work                INTEGER NOT NULL, -- PK, references work.id
     annotation          INTEGER NOT NULL -- PK, references annotation.id
 );
 
-CREATE TABLE work_gid_redirect
-(
+CREATE TABLE work_gid_redirect ( -- replicate (verbose)
     gid                 UUID NOT NULL, -- PK
     new_id              INTEGER NOT NULL, -- references work.id
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE work_meta
-(
+CREATE TABLE work_meta ( -- replicate
     id                  INTEGER NOT NULL, -- PK, references work.id CASCADE
     rating              SMALLINT CHECK (rating >= 0 AND rating <= 100),
     rating_count        INTEGER
 );
 
-CREATE TABLE work_tag
-(
+CREATE TABLE work_tag ( -- replicate (verbose)
     work                INTEGER NOT NULL, -- PK, references work.id
     tag                 INTEGER NOT NULL, -- PK, references tag.id
     count               INTEGER NOT NULL,
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE work_type (
+CREATE TABLE work_type ( -- replicate
     id                  SERIAL,
     name                VARCHAR(255) NOT NULL,
     parent              INTEGER, -- references work_type.id
@@ -2446,7 +2314,7 @@ CREATE TABLE work_type (
     description         TEXT
 );
 
-CREATE TABLE work_attribute_type (
+CREATE TABLE work_attribute_type ( -- replicate (verbose)
     id                  SERIAL,  -- PK
     name                VARCHAR(255) NOT NULL,
     comment             VARCHAR(255) NOT NULL DEFAULT '',
@@ -2456,7 +2324,7 @@ CREATE TABLE work_attribute_type (
     description         TEXT
 );
 
-CREATE TABLE work_attribute_type_allowed_value (
+CREATE TABLE work_attribute_type_allowed_value ( -- replicate (verbose)
     id                  SERIAL,  -- PK
     work_attribute_type INTEGER NOT NULL, -- references work_attribute_type.id
     value               TEXT,
@@ -2465,7 +2333,7 @@ CREATE TABLE work_attribute_type_allowed_value (
     description         TEXT
 );
 
-CREATE TABLE work_attribute (
+CREATE TABLE work_attribute ( -- replicate (verbose)
     id                                  SERIAL,  -- PK
     work                                INTEGER NOT NULL, -- references work.id
     work_attribute_type                 INTEGER NOT NULL, -- references work_attribute_type.id

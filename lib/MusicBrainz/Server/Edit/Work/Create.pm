@@ -53,7 +53,9 @@ sub build_display_data
         language      => $self->data->{language_id} && $loaded->{Language}->{ $self->data->{language_id} },
         iswc          => $self->data->{iswc},
         work          => $loaded->{Work}{ $self->entity_id } || Work->new( name => $self->data->{name} ),
-        attributes    => { $self->grouped_attributes_by_type($self->data->{attributes}) },
+        ($self->data->{attributes} && @{ $self->data->{attributes} } ?
+         ( attributes => { $self->grouped_attributes_by_type($self->data->{attributes}) } ) : ()
+        ),
     };
 }
 

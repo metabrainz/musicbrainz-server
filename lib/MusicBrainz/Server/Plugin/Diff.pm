@@ -11,6 +11,8 @@ use Algorithm::Diff qw( sdiff traverse_sequences );
 use Digest::MD5 qw( md5_hex );
 use Encode;
 use HTML::Tiny;
+use HTML::TreeBuilder;
+use Scalar::Util qw( blessed );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( trim_in_place );
 
@@ -51,17 +53,45 @@ sub diff_side {
     my ($self, $old, $new, $filter, $split) = @_;
     $split //= '';
 
-    $old //= '';
-    $new //= '';
+    my @diffs = sdiff([ _split_text($old // '', $split) ], [ _split_text($new // '', $split) ]);
 
-    my ($old_hex, $new_hex) = (md5_hex(encode('utf-8', $old)), md5_hex(encode('utf-8', $new)));
-    $old =~ s/($split)/$old_hex$1/g;
-    $new =~ s/($split)/$new_hex$1/g;
+    return $self->_render_side_diff($filter, @diffs);
+}
 
-    my @diffs = sdiff([ split($old_hex, $old) ], [ split($new_hex, $new) ]);
+sub diff_html_side {
+    my ($self, $old, $new, $filter) = @_;
+
+    my $old_root = HTML::TreeBuilder->new_from_content('<body>'.($old // '').'</body>');
+    my @old_tokens = map {
+        _html_token($_)
+    } $old_root->content_array_ref->[1]->content_list;
+
+    my $new_root = HTML::TreeBuilder->new_from_content('<body>'.($new // '').'</body>');
+    my @new_tokens = map {
+        _html_token($_)
+    } $new_root->content_array_ref->[1]->content_list;
+
+    my @diffs = sdiff(\@old_tokens, \@new_tokens);
+
+    return $self->_render_side_diff($filter, @diffs);
+}
+
+sub _html_token {
+    my ($item) = @_;
+    return blessed($item) ? $item->as_HTML : _split_text($item, '\s+');
+}
+
+sub _split_text {
+    my ($text, $split) = @_;
+    my $hex = md5_hex(encode('utf-8', $text));
+    $text =~ s/($split)/$hex$1/g;
+    return split($hex,$text);
+}
+
+sub _render_side_diff {
+    my ($self, $filter, @diffs) = @_;
 
     my @stack;
-    my $output;
     for my $diff (@diffs) {
         my ($change_type, $old, $new) = @$diff;
 

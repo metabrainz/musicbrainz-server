@@ -248,8 +248,9 @@ around 'initialize' => sub
     my ($orig, $self, %opts) = @_;
     my $release = $opts{to_edit} or return;
 
-    if (exists $opts{artist_credit})
-    {
+    $self->check_event_countries($opts{events} // []);
+
+    if (exists $opts{artist_credit}) {
         $opts{artist_credit} = clean_submitted_artist_credits($opts{artist_credit});
     }
 

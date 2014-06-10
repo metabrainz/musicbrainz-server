@@ -54,9 +54,10 @@ our @EXPORT_OK = (
         $AUTO_EDITOR_FLAG         $BOT_FLAG            $UNTRUSTED_FLAG
         $RELATIONSHIP_EDITOR_FLAG $DONT_NAG_FLAG       $WIKI_TRANSCLUSION_FLAG
         $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG  $LOCATION_EDITOR_FLAG
-        $COVERART_FRONT_TYPE      $COVERART_BACK_TYPE  $INSTRUMENT_ROOT_ID
-        $AREA_TYPE_COUNTRY        $REQUIRED_VOTES      %PART_OF_SERIES
-        $ARTIST_ARTIST_COLLABORATION @FULL_TABLE_LIST
+        $COVERART_FRONT_TYPE      $COVERART_BACK_TYPE  $AREA_TYPE_COUNTRY
+        $INSTRUMENT_ROOT_ID       $VOCAL_ROOT_ID       $REQUIRED_VOTES
+        %PART_OF_SERIES           $ARTIST_ARTIST_COLLABORATION
+        @FULL_TABLE_LIST          %ENTITIES            entities_with
     ),
     @{ _get(qr/^(EDIT|EXPIRE|QUALITY|EDITOR|ELECTION|EMAIL|VOTE|STATUS|ACCESS_SCOPE|SERIES)_/) },
 );
@@ -287,6 +288,7 @@ Readonly our $COVERART_FRONT_TYPE   => 1;
 Readonly our $COVERART_BACK_TYPE   => 2;
 
 Readonly our $INSTRUMENT_ROOT_ID => 14;
+Readonly our $VOCAL_ROOT_ID => 3;
 
 Readonly our $AREA_TYPE_COUNTRY => 1;
 
@@ -314,6 +316,186 @@ Readonly our %PART_OF_SERIES => (
 );
 
 Readonly our $SERIES_ORDERING_ATTRIBUTE => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a';
+
+Readonly our %ENTITIES => (
+    area => {
+        mbid => { relatable => 1 },
+        edit_table => 1,
+        merging => 1,
+        model      => 'Area',
+        annotations => { edit_type => $EDIT_AREA_ADD_ANNOTATION },
+        removal     => { manual => 1 }
+    },
+    artist => {
+        mbid => { relatable => 1 },
+        edit_table => 1,
+        merging => 1,
+        model      => 'Artist',
+        annotations => { edit_type => $EDIT_ARTIST_ADD_ANNOTATION },
+        ratings    => 1,
+        tags       => 1,
+        subscriptions => { entity => 1, deleted => 1 },
+        removal     => { automatic => 1 }
+    },
+    instrument => {
+        mbid => { relatable => 1 },
+        edit_table => 1,
+        merging => 1,
+        model      => 'Instrument',
+        annotations => { edit_type => $EDIT_INSTRUMENT_ADD_ANNOTATION },
+        removal     => { manual => 1 }
+    },
+    label => {
+        mbid => { relatable => 1 },
+        edit_table => 1,
+        merging => 1,
+        model      => 'Label',
+        annotations => { edit_type => $EDIT_LABEL_ADD_ANNOTATION },
+        ratings    => 1,
+        tags       => 1,
+        subscriptions => { entity => 1, deleted => 1 },
+        removal     => { manual => 1, automatic => 1 }
+    },
+    place => {
+        mbid => { relatable => 1 },
+        edit_table => 1,
+        merging => 1,
+        model      => 'Place',
+        annotations => { edit_type => $EDIT_PLACE_ADD_ANNOTATION },
+        tags       => 1,
+        removal     => { automatic => 1 }
+    },
+    recording => {
+        mbid => { relatable => 1 },
+        edit_table => 1,
+        merging => 1,
+        model      => 'Recording',
+        annotations => { edit_type => $EDIT_RECORDING_ADD_ANNOTATION },
+        ratings    => 1,
+        tags       => 1,
+        artist_credits => 1,
+        removal     => { manual => 1 }
+    },
+    release => {
+        mbid => { relatable => 1 },
+        edit_table => 1,
+        merging => 1,
+        model      => 'Release',
+        annotations => { edit_type => $EDIT_RELEASE_ADD_ANNOTATION },
+        tags       => 1,
+        artist_credits => 1,
+        removal     => { manual => 1 },
+        collections => 1
+    },
+    release_group => {
+        mbid => { relatable => 1 },
+        edit_table => 1,
+        merging => 1,
+        model      => 'ReleaseGroup',
+        url        => 'release-group',
+        annotations => { edit_type => $EDIT_RELEASEGROUP_ADD_ANNOTATION },
+        ratings    => 1,
+        tags       => 1,
+        artist_credits => 1,
+        removal     => { automatic => 1 }
+    },
+    series => {
+        mbid => { relatable => 1 },
+        edit_table => 1,
+        merging => 1,
+        model      => 'Series',
+        annotations => { edit_type => $EDIT_SERIES_ADD_ANNOTATION },
+        subscriptions => { entity => 1, deleted => 1 },
+        removal     => { automatic => 1 }
+    },
+    url => {
+        mbid => { relatable => 1 },
+        edit_table => 1,
+        model => 'URL'
+    },
+    work => {
+        mbid => { relatable => 1 },
+        edit_table => 1,
+        merging => 1,
+        model      => 'Work',
+        annotations => { edit_type => $EDIT_WORK_ADD_ANNOTATION },
+        ratings    => 1,
+        tags       => 1,
+        removal     => { automatic => 1 }
+    },
+    track => {
+        mbid => { relatable => 0 },
+        model      => 'Track',
+        artist_credits => 1
+    },
+    editor => {
+        model      => 'Editor',
+        subscriptions => { entity => 0 }
+    },
+    collection => {
+        mbid => { relatable => 0 },
+        model      => 'Collection',
+        subscriptions => { entity => 1 }
+    },
+    cdstub => {
+        model => 'CDStub',
+    },
+    annotation => {
+        model => 'Annotation'
+    },
+    isrc => {
+        model => 'ISRC'
+    },
+    iswc => {
+        model => 'ISWC'
+    },
+    freedb => {
+        model => 'FreeDB'
+    }
+);
+
+sub entities_with {
+    my ($props, %opts) = @_;
+    if (ref($props) ne 'ARRAY') {
+        $props = [[$props]];
+    }
+    if (ref($props->[0]) ne 'ARRAY') {
+        $props = [$props];
+    }
+    my $extract_path = sub {
+        my ($entity, $path) = @_;
+        my $final = $entity;
+        for my $prop (@$path) {
+            if (exists $final->{$prop}) {
+                $final = $final->{$prop};
+            } else {
+                return;
+            }
+        }
+        return $final;
+    };
+
+    my @entity_types;
+    ENTITY: for my $entity_type (keys %ENTITIES) {
+        for my $prop (@$props) {
+            $extract_path->($ENTITIES{$entity_type}, $prop) or next ENTITY;
+        }
+        push @entity_types, $entity_type;
+    }
+
+    if (my $take = $opts{take}) {
+        if (ref($take) eq 'CODE') {
+            return map { $take->($_, $ENTITIES{$_}) } @entity_types;
+        }
+
+        if (ref($take) ne 'ARRAY') {
+            $take = [$take];
+        }
+        return map { $extract_path->($ENTITIES{$_}, $take) } @entity_types;
+    } else {
+        return @entity_types;
+    }
+}
 
 Readonly our @FULL_TABLE_LIST => qw(
     artist_rating_raw
