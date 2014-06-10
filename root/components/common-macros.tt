@@ -5,6 +5,7 @@
 [%~ MACRO replace(text, search, replace) BLOCK; text | replace(search, replace); END -%]
 [%~ MACRO url_escape(url) BLOCK; url | url; END -%]
 [%~ MACRO html_escape(url) BLOCK; url | html; END -%]
+[%~ MACRO bracketed(text) BLOCK; l(' ({text})', { text => text }); END -%]
 [%~ MACRO display_url(url)
     IF url.pretty_name; url.pretty_name | html;
     ELSE; url | uri_decode | html;
@@ -809,31 +810,6 @@ END -%]
       [% form_submit(l('Search'),'inline') %]
     </form>
   </div>
-[%- END -%]
-
-[%~ MACRO annotation_links(entity) BLOCK;
-      sidebar_edit_annotation(entity);
-      sidebar_annotation_history(entity);
-    END -%]
-
-[%~ MACRO sidebar_edit_annotation(entity) BLOCK -%]
-  <li>
-    <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ entity.gid ], {
-      returnto => c.req.uri
-    }) %]">
-      [% entity.latest_annotation.text ? l('Edit annotation') : l('Add annotation') %]
-    </a>
-  </li>
-[%- END -%]
-
-[%~ MACRO sidebar_annotation_history(entity) BLOCK -%]
-  [%- IF number_of_revisions > 0 %]
-  <li>
-    <a href="[% c.uri_for_action(c.controller.action_for('annotation_history'), [ entity.gid ]) %]">
-      [% l('View annotation history') %]
-    </a>
-  </li>
-  [%- END -%]
 [%- END -%]
 
 [%~ MACRO artist_begin_label_from_type(type_id) BLOCK ~%]

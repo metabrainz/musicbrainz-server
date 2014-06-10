@@ -1,68 +1,38 @@
-[% main_title = l('{type} “{work}”', {
-    type => work.l_type_name or l('Work'),
-    work => work.name
-}) %]
-[%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title canonical_url=replace_gid(entity.gid) -%]
-  [%- IF !full_width -%]
-    [% WRAPPER 'layout/sidebar.tt' %]
-        [% IF work.type || work.iswcs.size || work.language || work.attributes.size %]
-        <h2 class="work-information">[% l('Work information') %]</h2>
-        [% WRAPPER 'layout/sidebar/properties.tt' %]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
-               content=html_escape(work.type.l_name) class="type"
-                   IF work.type -%]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('Lyrics Language:')
-               content=link_searchable_property('lang', work.language.iso_code_3, 'work', work.language.l_name)
-               class="lyrics-language"
-                   IF work.language -%]
-            [%- FOR iswc IN work.iswcs -%]
-                [% WRAPPER 'layout/sidebar/property.tt' label=l('ISWC:') class="iswc" %]
-                [% link_iswc(iswc) %]
-                [% END %]
-            [%- END -%]
-            [%- FOR attribute=work.attributes -%]
-                [%- INCLUDE 'layout/sidebar/property.tt'
-                      class='work-attribute work-attribute-' _ css_class_name(attribute.type.name)
-                      content=html_escape(attribute.l_value)
-                      label=add_colon(attribute.type.l_name) -%]
-            [%- END -%]
-        [% END %]
-        [% END %]
-        [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=work -%]
-        [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=work tags=top_tags
-            more=more_tags tag_this_text=l('Tag this work')
-            async = c.uri_for_action('/work/tag_async', [ work.gid ])
-            -%]
+[%~ main_title = l('{type} “{work}”', {
+        type => work.l_type_name or l('Work'),
+        work => work.name
+}) ~%]
+[%~ WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title canonical_url=replace_gid(entity.gid) ~%]
+    [%~ IF !full_width ~%]
+        [%~ WRAPPER 'layout/sidebar/shared-entity-sidebar.tt' entity=work ~%]
+            [%~ IF work.type || work.iswcs.size || work.language || work.attributes.size ~%]
+                <h2 class="work-information">[%~ l('Work information') ~%]</h2>
+                [%~ WRAPPER 'layout/sidebar/properties.tt' ~%]
+                    [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
+                         content=html_escape(work.type.l_name) class="type"
+                             IF work.type ~%]
+                    [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Lyrics Language:')
+                         content=link_searchable_property('lang', work.language.iso_code_3, 'work', work.language.l_name)
+                         class="lyrics-language"
+                             IF work.language ~%]
+                    [%~ FOR iswc IN work.iswcs ~%]
+                        [%~ WRAPPER 'layout/sidebar/property.tt' label=l('ISWC:') class="iswc" ~%]
+                            [%~ link_iswc(iswc) ~%]
+                        [%~ END ~%]
+                    [%~ END ~%]
+                    [%~ FOR attribute=work.attributes ~%]
+                        [%~ INCLUDE 'layout/sidebar/property.tt'
+                                class='work-attribute work-attribute-' _ css_class_name(attribute.type.name)
+                                content=html_escape(attribute.l_value)
+                                label=add_colon(attribute.type.l_name) ~%]
+                    [%~ END ~%]
+                [%~ END ~%]
+            [%~ END ~%]
+        [%~ END ~%]
+    [%~ END ~%]
 
-        <h2 class="editing">[% l('Editing') %]</h2>
-        <ul class="links">
-            [% IF c.user_exists %]
-               [% annotation_links(work) %]
-
-               <li>
-                 <a href="[% c.uri_for_action('/work/merge_queue', { 'add-to-merge' => work.id }) %]">
-                   [% l('Merge work') %]
-                 </a>
-               </li>
-
-               <hr/>
-
-               <li>[% link_entity(work, 'open_edits', l('Open edits')) %]</li>
-               <li>[% link_entity(work, 'edits', l('Editing history')) %]</li>
-            [% ELSE %]
-               <li>[% request_login(l('Log in to edit')) %]</li>
-            [% END %]
-        </ul>
-
-        [%- INCLUDE "layout/sidebar/sidebar-favicons.tt" source=work -%]
-
-        [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=work -%]
-    [% END %]
-  [%- END -%]
-
-  <div id="content">
-    [%- INCLUDE 'work/header.tt' %]
-    [%- content -%]
-  </div>
-
-[%- END -%]
+    <div id="content">
+        [%~ INCLUDE 'work/header.tt' ~%]
+        [%~ content ~%]
+    </div>
+[%~ END ~%]
