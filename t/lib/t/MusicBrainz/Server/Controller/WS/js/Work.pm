@@ -32,7 +32,7 @@ EOSQL
     my $data = $json->decode($mech->content);
 
     is($data->[0]->{id}, 4223060, 'Got the work expected');
-    is($data->[0]->{primary_alias}, 'Hello! Let\'s Meet Again (7ninmatsuri version)', 'Got correct primary alias (en_US)');
+    is($data->[0]->{primaryAlias}, 'Hello! Let\'s Meet Again (7ninmatsuri version)', 'Got correct primary alias (en_US)');
 
     $c->sql->do(<<'EOSQL');
 INSERT INTO work_alias (work, name, sort_name, locale, primary_for_locale)
@@ -47,7 +47,7 @@ EOSQL
     $data = $json->decode($mech->content);
 
     is($data->[0]->{id}, 4223060, 'Got the work expected');
-    is($data->[0]->{primary_alias}, 'Hello! Let\'s Meet Again (7nin Matsuri version)', 'Got correct primary alias (en)');
+    is($data->[0]->{primaryAlias}, 'Hello! Let\'s Meet Again (7nin Matsuri version)', 'Got correct primary alias (en)');
 
 };
 

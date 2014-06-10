@@ -78,6 +78,7 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         this.totalPages = 1;
         this.pageTerm = "";
         this.indexedSearch = true;
+        this.changeEntity(this.options.entity);
 
         this.setObservable(
             this.options.currentSelection || ko.observable({
@@ -141,6 +142,36 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
             }
         });
 
+        this.element.on("keyup focus click", function (event) {
+            if (event.originalEvent === undefined) {
+                // event was triggered by code, not user
+                return;
+            }
+
+            if (event.type === "keyup" && !_.contains([8, 40], event.keyCode)) {
+                return;
+            }
+
+            var recent = self.recentEntities();
+
+            if (!this.value && recent && recent.length && !self.menu.active) {
+                // setting ac.term to "" prevents the autocomplete plugin
+                // from running its own search, which closes our menu.
+                self.term = "";
+
+                recent.push({
+                    label: MB.text.ClearRecentItems,
+                    action: function () {
+                        self.recentEntities([]);
+                        self.clear();
+                    }
+                });
+
+                self._suggest(recent);
+            }
+        });
+
+
         this.$search.on("click.mb", function (event) {
             if (self.element.is(":enabled")) {
                 self.element.focus();
@@ -155,8 +186,6 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         this.menu.element.on("click", function (event) {
             event.stopPropagation();
         });
-
-        this.changeEntity(this.options.entity);
     },
 
     _dataToEntity: function (data) {
@@ -224,13 +253,13 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
     setSelection: function (data) {
         data = data || {};
         var name = ko.unwrap(data.name) || "";
+        var hasID = !!(data.id || data.gid);
 
         if (this._value() !== name) {
             this._value(name);
         }
 
         if (this.options.showStatus) {
-            var hasID = !!(data.id || data.gid);
             var error = !(name || hasID || this.options.allowEmpty);
 
             this.element
@@ -239,6 +268,16 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         }
         this.term = name || "";
         this.selectedItem = data;
+
+        if (hasID) {
+            // Add/move to the top of the recent entities menu.
+            var recent = this.recentEntities();
+            var duplicate = _.find(recent, { gid: data.gid });
+
+            duplicate && recent.splice(recent.indexOf(duplicate), 1);
+            recent.unshift(data.toJSON());
+            this.recentEntities(recent);
+        }
     },
 
     setObservable: function (observable) {
@@ -416,6 +455,24 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
 
     changeEntity: function (entity) {
         this.entity = entity.replace("_", "-");
+    },
+
+    recentEntities: function () {
+        var entityType = this.entity.replace("-", "_");
+        var recentEntities;
+
+        if (localStorage.recentAutocompleteEntities === undefined) {
+            recentEntities = {};
+        } else {
+            recentEntities = JSON.parse(localStorage.recentAutocompleteEntities);
+        }
+
+        if (arguments.length) {
+            recentEntities[entityType] = _.first(arguments[0], MB.constants.MAX_RECENT_ENTITIES);
+            localStorage.recentAutocompleteEntities = JSON.stringify(recentEntities);
+        } else {
+            return recentEntities[entityType] || [];
+        }
     }
 });
 
@@ -471,9 +528,9 @@ MB.Control.autocomplete_formatters = {
 
         var comment = [];
 
-        if (item.primary_alias && item.primary_alias != item.name)
+        if (item.primaryAlias && item.primaryAlias != item.name)
         {
-            comment.push(item.primary_alias);
+            comment.push(item.primaryAlias);
         }
 
         if (item.sortName && !MB.utility.is_latin(item.name) && item.sortName != item.name)
@@ -595,9 +652,9 @@ MB.Control.autocomplete_formatters = {
             a.prepend('<span class="autocomplete-length">' + item.language + '</span>');
         }
 
-        if (item.primary_alias && item.primary_alias != item.name)
+        if (item.primaryAlias && item.primaryAlias != item.name)
         {
-            comment.push(item.primary_alias);
+            comment.push(item.primaryAlias);
         }
 
         if (item.comment)
@@ -662,9 +719,9 @@ MB.Control.autocomplete_formatters = {
 
         var comment = [];
 
-        if (item.primary_alias && item.primary_alias != item.name)
+        if (item.primaryAlias && item.primaryAlias != item.name)
         {
-            comment.push(item.primary_alias);
+            comment.push(item.primaryAlias);
         }
 
         if (item.comment)
@@ -697,8 +754,8 @@ MB.Control.autocomplete_formatters = {
 
         var comment = [];
 
-        if (item.primary_alias && item.primary_alias != item.name) {
-            comment.push(item.primary_alias);
+        if (item.primaryAlias && item.primaryAlias != item.name) {
+            comment.push(item.primaryAlias);
         }
 
         if (item.comment) {

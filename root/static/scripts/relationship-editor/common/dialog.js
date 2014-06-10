@@ -9,44 +9,17 @@
 
 
     ko.bindingHandlers.relationshipEditorAutocomplete = (function () {
-
-        var recentEntities = {};
         var dialog;
 
         function changeTarget(data) {
             if (!data || !data.gid) {
                 return;
             }
-            var type = data.entityType = data.entityType || dialog.targetType();
-
-            // Add/move to the top of the recent entities menu.
-            var recent = recentEntities[type] = recentEntities[type] || [],
-                dup = _.where(recent, {gid: data.gid})[0];
-
-            dup && recent.splice(recent.indexOf(dup), 1);
-            recent.unshift(data);
-
             var relationship = dialog.relationship();
             var entities = relationship.entities().slice(0);
 
             entities[dialog.backward() ? 0 : 1] = MB.entity(data);
             relationship.entities(entities);
-        }
-
-        function showRecentEntities(event) {
-            if (event.originalEvent === undefined || // event was triggered by code, not user
-                (event.type == "keyup" && !_.contains([8, 40], event.keyCode)))
-                return;
-
-            var recent = recentEntities[dialog.targetType()],
-                ac = dialog.autocomplete;
-
-            if (!this.value && recent && recent.length && !ac.menu.active) {
-                // setting ac.term to "" prevents the autocomplete plugin
-                // from running its own search, which closes our menu.
-                ac.term = "";
-                ac._suggest(recent);
-            }
         }
 
         return {
@@ -79,8 +52,6 @@
                     }).data("ui-autocomplete");
 
                 dialog.autocomplete.currentSelection.subscribe(changeTarget);
-
-                $(element).on("keyup focus click", showRecentEntities);
 
                 var target = dialog.relationship().target(dialog.source);
 
