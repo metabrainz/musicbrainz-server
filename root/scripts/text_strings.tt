@@ -191,7 +191,7 @@
             release: '[% l('The series you’ve selected is for releases.') | js %]',
             release_group: '[% l('The series you’ve selected is for release groups.') | js %]',
             work: '[% l('The series you’ve selected is for works.') | js %]'
-
-        }
+        },
+        InlineSearchFailed: '[% l('An error occurred while searching. Click here to try again.') | js %]'
     });
 })(MB);
