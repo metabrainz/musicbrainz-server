@@ -35,6 +35,7 @@ sub build_display_data
 {
     my $self = shift;
     return {
+        entity_type => $self->_alias_model->type,
         alias => $self->data->{name},
         locale => $self->data->{locale},
         sort_name => $self->data->{sort_name},
@@ -89,6 +90,8 @@ sub initialize
         primary_for_locale => $alias->primary_for_locale
     });
 }
+
+sub edit_template { "remove_alias" };
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

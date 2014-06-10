@@ -80,6 +80,7 @@ sub build_display_data
     my $model = type_to_model($type);
 
     return {
+        entity_type => $type,
         alias => {
             new => $self->data->{new}{name},
             old => $self->data->{old}{name}
@@ -210,6 +211,8 @@ sub current_instance {
     my $self = shift;
     $self->_load_alias;
 }
+
+sub edit_template { "edit_alias" };
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
