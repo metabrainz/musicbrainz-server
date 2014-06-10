@@ -34,7 +34,7 @@
         </div>
         [%- IF use_captcha -%]
             <div class="row">
-                <label class="required">Captcha:</label>
+                <label class="required">[%~ add_colon(l('Captcha')) ~%]</label>
                 [%- captcha -%]
             </div>
         [%- END -%]
