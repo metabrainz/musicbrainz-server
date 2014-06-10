@@ -15,6 +15,14 @@
     <meta name="description" content="[% comma_only_list(meta_desc) %]"/>
 [%~ END ~%]
 
+[% MACRO rel_artist_line(title, list) BLOCK;
+    IF list.size;
+        SET ll = [];
+        ll.push(descriptive_link(e)) FOR e = list;
+        '<p><strong>' _ add_colon(title) _ '</strong> ' _ comma_only_list(ll) _ '</p>';
+    END;
+END %]
+
 [%- WRAPPER "artist/layout.tt" page='index' -%]
     [%- INCLUDE 'artist/annotation.tt' summary=1 -%]
 
@@ -26,6 +34,13 @@
                 artist.') %]
       </p>
     [% END %]
+
+    [%- IF legal_name.defined;
+        rel_artist_line(l('Legal name'), [ legal_name ]);
+    ELSIF legal_name_aliases.size -%]
+        <p><strong>[% add_colon(l('Legal name')) %]</strong> [% comma_only_list(legal_name_aliases) %]</p>
+    [% END %]
+    [% rel_artist_line(l('Also performs as'), other_identities) %]
 
     [%- show_wikipedia_extract() -%]
 
