@@ -3268,8 +3268,8 @@ msgstr "Aufnahmetechniker bei"
 msgid "recording engineers"
 msgstr "Aufnahmetechniker"
 
-#: DB:link_type/link_phrase:695 DB:link_type/link_phrase:698
-#: DB:link_type/link_phrase:699 DB:link_type/link_phrase:693
+#: DB:link_type/link_phrase:698 DB:link_type/link_phrase:699
+#: DB:link_type/link_phrase:695 DB:link_type/link_phrase:693
 msgid "recording location for"
 msgstr "Aufnahmeort für"
 
@@ -3534,8 +3534,8 @@ msgstr "war die Mastering-Örtlichkeit für"
 msgid "was the mixing location for"
 msgstr "war die Mix-Örtlichkeit für"
 
-#: DB:link_type/long_link_phrase:695 DB:link_type/long_link_phrase:698
-#: DB:link_type/long_link_phrase:699 DB:link_type/long_link_phrase:693
+#: DB:link_type/long_link_phrase:698 DB:link_type/long_link_phrase:699
+#: DB:link_type/long_link_phrase:695 DB:link_type/long_link_phrase:693
 msgid "was the recording location for"
 msgstr "war der Aufnahmeort für"
 

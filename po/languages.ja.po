@@ -1,8 +1,8 @@
 # 
 # Translators:
 # nikki2 <email address hidden>, 2012
-# ffee_machine <email address hidden>, 2013
-# Nozomu KURASAWA <email address hidden>, 2013
+# Keshav Kini <email address hidden>, 2013
+# Nozomu Kurasawa <email address hidden>, 2013
 # nikki, 2012
 # th1rtyf0ur, 2013
 msgid ""

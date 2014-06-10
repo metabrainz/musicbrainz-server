@@ -1,12 +1,12 @@
 # 
 # Translators:
-# Nozomu KURASAWA <email address hidden>, 2012-2013
-# otakahashi, 2014
+# Nozomu Kurasawa <email address hidden>, 2012-2013
+# Osamu Takahashi, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2014-05-30 15:32+0000\n"
-"Last-Translator: otakahashi\n"
+"Last-Translator: Osamu Takahashi\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3266,8 +3266,8 @@ msgstr ""
 msgid "recording engineers"
 msgstr ""
 
-#: DB:link_type/link_phrase:695 DB:link_type/link_phrase:698
-#: DB:link_type/link_phrase:699 DB:link_type/link_phrase:693
+#: DB:link_type/link_phrase:698 DB:link_type/link_phrase:699
+#: DB:link_type/link_phrase:695 DB:link_type/link_phrase:693
 msgid "recording location for"
 msgstr ""
 
@@ -3532,8 +3532,8 @@ msgstr ""
 msgid "was the mixing location for"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:695 DB:link_type/long_link_phrase:698
-#: DB:link_type/long_link_phrase:699 DB:link_type/long_link_phrase:693
+#: DB:link_type/long_link_phrase:698 DB:link_type/long_link_phrase:699
+#: DB:link_type/long_link_phrase:695 DB:link_type/long_link_phrase:693
 msgid "was the recording location for"
 msgstr ""
 

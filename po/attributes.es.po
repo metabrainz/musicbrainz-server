@@ -9,7 +9,7 @@
 # Héctor Arroyo <email address hidden>, 2012
 # Héctor Arroyo <email address hidden>, 2012
 # Ismael Olea <email address hidden>, 2013-2014
-# martinipd <email address hidden>, 2014
+# Marta PD <email address hidden>, 2014
 # Nicolás Tamargo <email address hidden>, 2011-2012
 # Nicolás Tamargo <email address hidden>, 2011-2013
 # kelopezcl <email address hidden>, 2012
@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2014-05-29 14:16+0000\n"
-"Last-Translator: martinipd <email address hidden>\n"
+"Last-Translator: Marta PD <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"

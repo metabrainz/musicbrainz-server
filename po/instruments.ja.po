@@ -1,14 +1,14 @@
 # 
 # Translators:
 # nikki2 <email address hidden>, 2012
-# Nozomu KURASAWA <email address hidden>, 2013
-# otakahashi, 2014
+# Nozomu Kurasawa <email address hidden>, 2013
+# Osamu Takahashi, 2014
 # th1rtyf0ur, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2014-05-30 15:45+0000\n"
-"Last-Translator: otakahashi\n"
+"Last-Translator: Osamu Takahashi\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"

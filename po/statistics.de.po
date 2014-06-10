@@ -3,17 +3,17 @@
 # nikki, 2014
 # Daniel Schury <email address hidden>, 2011
 # Ian McEwen <email address hidden>, 2012
-# Mineo <email address hidden>, 2011
+# Wieland Hoffmann <email address hidden>, 2011
 # Nikolai Prokoschenko <email address hidden>, 2011
-# jus <email address hidden>, 2014
+# S.Brandt <email address hidden>, 2014
 # Shepard, 2011
 # Shepard, 2013-2014
 # Tobias Quathamer <email address hidden>, 2007
-# Mineo <email address hidden>, 2013-2014
+# Wieland Hoffmann <email address hidden>, 2013-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-05-30 00:44+0000\n"
+"PO-Revision-Date: 2014-06-08 18:34+0000\n"
 "Last-Translator: nikki\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -657,11 +657,11 @@ msgstr "Künstler ohne Land"
 
 #: ../root/statistics/view_js.tt:124
 msgid "Artists with type set to character"
-msgstr ""
+msgstr "Künstler mit Typ Figur"
 
 #: ../root/statistics/view_js.tt:126
 msgid "Artists with type set to choir"
-msgstr ""
+msgstr "Künstler mit Typ Chor"
 
 #: ../root/statistics/view_js.tt:122
 msgid "Artists with type set to group"
@@ -717,7 +717,7 @@ msgstr "Nach Veröffentlichungsformat"
 
 #: ../root/statistics/coverart.tt:46
 msgid "By Release Group Type"
-msgstr ""
+msgstr "Nach Veröffentlichungsgruppentyp"
 
 #: ../root/statistics/coverart.tt:62
 msgid "By Release Status"
@@ -1057,11 +1057,11 @@ msgstr "Anzahl gelöschter Bearbeiter"
 
 #: ../root/statistics/view_js.tt:86
 msgid "Count of editors who have submitted edits during the last 7 days"
-msgstr ""
+msgstr "Anzahl Bearbeiter, die in den letzten 7 Tagen Bearbeitungen eingereicht haben"
 
 #: ../root/statistics/view_js.tt:87
 msgid "Count of editors who have voted on during the last 7 days"
-msgstr ""
+msgstr "Anzahl Bearbeiter, die in den letzten 7 Tagen abgestimmt haben"
 
 #: ../root/statistics/view_js.tt:62
 msgid "Count of edits per day"
@@ -2121,11 +2121,11 @@ msgstr "die bearbeiten:"
 
 #: ../root/statistics/index.tt:695
 msgid "who edited and/or voted in the last 7 days:"
-msgstr ""
+msgstr "die in den letzten 7 Tagen bearbeitet und/oder abgestimmt haben:"
 
 #: ../root/statistics/index.tt:703
 msgid "who edited in the last 7 days:"
-msgstr ""
+msgstr "die in den letzten 7 Tagen bearbeitet haben:"
 
 #: ../root/statistics/index.tt:767
 msgid "who have registered applications:"
@@ -2157,7 +2157,7 @@ msgstr "die abstimmen:"
 
 #: ../root/statistics/index.tt:711
 msgid "who voted in the last 7 days:"
-msgstr ""
+msgstr "die in den letzten 7 Tagen abgestimmt haben:"
 
 #: ../root/statistics/index.tt:417 ../root/statistics/index.tt:450
 msgid "with 10 or more disc IDs:"

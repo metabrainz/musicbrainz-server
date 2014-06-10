@@ -3,7 +3,7 @@
 # nikki, 2014
 # Daniel Schury <email address hidden>, 2011
 # lorenzpressler <email address hidden>, 2012
-# Mineo <email address hidden>, 2011
+# Wieland Hoffmann <email address hidden>, 2011
 # Nikolai Prokoschenko <email address hidden>, 2011
 # nikki, 2013
 # Shepard, 2011

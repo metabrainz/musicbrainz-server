@@ -1,9 +1,9 @@
 # 
 # Translators:
-# jozo <email address hidden>, 2014
-# jozo <email address hidden>, 2014
-# Phonebox, 2014
-# ListMyCDs.com Martikainen <email address hidden>, 2012-2014
+# Kai Kasurinen <email address hidden>, 2014
+# Kai Kasurinen <email address hidden>, 2014
+# phonebox, 2014
+# Timo Martikainen <email address hidden>, 2012-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"

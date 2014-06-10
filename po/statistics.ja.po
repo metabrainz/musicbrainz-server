@@ -1,7 +1,7 @@
 # 
 # Translators:
 # nikki, 2014
-# Nozomu KURASAWA <email address hidden>, 2013
+# Nozomu Kurasawa <email address hidden>, 2013
 # th1rtyf0ur, 2013
 msgid ""
 msgstr ""

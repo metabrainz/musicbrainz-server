@@ -1,15 +1,15 @@
 # 
 # Translators:
 # Jaakko Perttilä <email address hidden>, 2012
-# jozo <email address hidden>, 2014
+# Kai Kasurinen <email address hidden>, 2014
 # Muz <email address hidden>, 2012
-# Phonebox, 2014
+# phonebox, 2014
 # Timo Martikainen <>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2014-03-06 07:25+0000\n"
-"Last-Translator: jozo <email address hidden>\n"
+"Last-Translator: Kai Kasurinen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
