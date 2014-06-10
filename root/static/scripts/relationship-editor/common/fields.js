@@ -343,17 +343,17 @@
                 if (alts && (alts = alts.split("|"))) {
                     return (
                         values.length
-                            ? alts[0].replace(/%/g, MB.utility.joinList(values))
+                            ? alts[0].replace(/%/g, MB.i18n.commaList(values))
                             : alts[1] || ""
                     );
                 }
 
-                return MB.utility.joinList(values);
+                return MB.i18n.commaList(values);
             }));
 
             var self = this;
 
-            extraAttributes = MB.utility.joinList(
+            extraAttributes = MB.i18n.commaList(
                 _(extraAttributes).values().flatten().map(function (attr) {
                     if (attr.freeText) {
                         var value = ko.unwrap(self.attributeValue(attr.id));
