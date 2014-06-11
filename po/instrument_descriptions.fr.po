@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-06-10 16:59+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-06-10 18:04+0000\n"
+"Last-Translator: yahoe.001\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: DB:instrument/description:457
 msgid "A Batá drum is a double-headed drum originating from Nigeria."
-msgstr ""
+msgstr "Un batá est un tambour à deux têtes originaire du Nigeria."
 
 #: DB:instrument/description:531
 msgid ""
@@ -33,7 +33,7 @@ msgstr "Une version turque du tambourin / daf, en peau d'animal et à percussion
 msgid ""
 "A barrel organ is a mechanical musical instrument typically operated by a "
 "person turning a crank which turns a barrel which has music encoded onto it."
-msgstr ""
+msgstr "Un orgue de Barbarie est un instrument musical mécanique qui est actionné habituellement par la rotation d'une manivelle qui fait tourner un rouleau sur lequel la musique est encodée."
 
 #: DB:instrument/description:456
 msgid "A bass synthesizer is used to create sounds in the bass range."
@@ -43,7 +43,7 @@ msgstr "Un synthétiseur basse est utilisé pour créer des sons dans la gamme d
 msgid ""
 "A bell tree is a percussion instrument, consisting of vertically nested "
 "inverted metal bowls."
-msgstr ""
+msgstr "Un « bell tree » est un instrument de percussion constitué de bols en métal logés verticalement les uns dans les autres."
 
 #: DB:instrument/description:471
 msgid "A chamber organ is a small pipe organ."
@@ -54,11 +54,11 @@ msgid ""
 "A chime bar is a percussion instrument consisting of a tuned metal bar "
 "similar to a glockenspiel bar which is mounted on a wooden resonator and "
 "played with a mallet."
-msgstr ""
+msgstr " "
 
 #: DB:instrument/description:439
 msgid "A class of South-American guitars"
-msgstr ""
+msgstr "Une classe de guitares sud-américaines"
 
 #: DB:instrument/description:567
 msgid "A classical guitar strung with gut strings."
@@ -72,21 +72,21 @@ msgstr "Une guitare classique à cordes en nylon frappées"
 msgid ""
 "A descant or soprano recorder is the most common size of recorder and is "
 "often learnt by children."
-msgstr ""
+msgstr "La flûte à bec soprano est la flûte à bec la plus courante, notamment enseignée aux enfants."
 
 #: DB:instrument/description:649
 msgid "A duck call is a tool used to emulate the sound of a duck."
-msgstr ""
+msgstr "Un appeau est un instrument utilisé pour imiter l'appel du canard."
 
 #: DB:instrument/description:514
 msgid ""
 "A fife is a small, high-pitched, transverse flute that is similar to the "
 "piccolo, but louder and shriller due to its narrower bore."
-msgstr ""
+msgstr "Un fifre est une petite flûte traversière aiguë semblable au piccolo mais plus puissante et plus stridente de par son plus petit calibre."
 
 #: DB:instrument/description:523
 msgid "A five-string banjo is a banjo with five strings."
-msgstr ""
+msgstr "Un banjo à cinq cordes."
 
 #: DB:instrument/description:639
 msgid "A gong bass drum is a large single drumhead which resembles a gong."
@@ -96,12 +96,12 @@ msgstr ""
 msgid ""
 "A hi-hat is a typical part of a drum kit, consisting of a pair of cymbals "
 "mounted on a stand."
-msgstr ""
+msgstr "Un charleston fait habituellement partie d'une batterie, et consiste d'une paire de cymbales montées sur un pied."
 
 #: DB:instrument/description:516
 msgid ""
 "A koto with 17 rather than 13 strings, sometimes described as a bass koto."
-msgstr ""
+msgstr "Un koto à 17 cordes au lieu de 13, appelé parfois koto basse."
 
 #: DB:instrument/description:532
 msgid ""
@@ -114,7 +114,7 @@ msgid ""
 "A laser harp is an electronic musical instrument consisting of several laser"
 " beams to be blocked, in analogy with the plucking of the strings of a harp,"
 " in order to produce sounds."
-msgstr ""
+msgstr "La harpe laser est un instrument électronique constitué de plusieurs rayons laser devant être interrompus, tel le pincement des cordes de la harpe, afin de produire du son."
 
 #: DB:instrument/description:233
 msgid ""
@@ -133,7 +133,7 @@ msgstr ""
 msgid ""
 "A mouth organ is a generic term for free reed aerophone with one or more air"
 " chambers fitted with a free reed."
-msgstr ""
+msgstr "Orgue à bouche est un terme générique pour les aérophones à anche libre à une ou plusieurs chambres à air."
 
 #: DB:instrument/description:504
 msgid ""
@@ -142,14 +142,14 @@ msgstr "A piano dont les cordes sont frottées avec des filaments en nylon ou d'
 
 #: DB:instrument/description:519
 msgid "A plucked instrument from the Renaissance."
-msgstr ""
+msgstr "Un instrument à corde pincée de la Renaissance."
 
 #: DB:instrument/description:481
 msgid ""
 "A prepared piano is a piano that has had its sound altered by placing "
 "objects (preparations) between or on the strings or on the hammers or "
 "dampers."
-msgstr ""
+msgstr "Un piano préparé est un piano dont le son est altéré en plaçant des objets (préparations) entre ou sur les cordes et marteaux."
 
 #: DB:instrument/description:147
 msgid ""
@@ -157,56 +157,56 @@ msgid ""
 "water to create music. Although it is also known as a Japanese water zither,"
 " it is named after the sound the koto (a Japanese zither) makes and is not "
 "actually a string instrument."
-msgstr ""
+msgstr "Un suikinkutsu est une sorte de décoration de jardin utilisant l'écoulement de l'eau pour faire de la musique. Aussi connu sous le nom de cithare japonaise à eau, elle porte le nom du son que fait le koto (cithare japonaise) et n'est pas en fait un instrument à cordes."
 
 #: DB:instrument/description:453
 msgid ""
 "A talkbox is an effects device which enables a musician to modify the sound "
 "of an instrument."
-msgstr ""
+msgstr "Une « talkbox » est une boîte à effet qui permet au musicien de modifier le son d'un instrument."
 
 #: DB:instrument/description:607
 msgid ""
 "A tar is a single-headed frame drum from North Africa and the Middle East."
-msgstr ""
+msgstr "Le tar est un tambour sur cadre du Maghreb et du Moyen-Orient."
 
 #: DB:instrument/description:615
 msgid ""
 "A tenor violin is an instrument with a range between those of the cello and "
 "the viola."
-msgstr ""
+msgstr "Le violon ténor est un instrument entre le violoncelle et l'alto."
 
 #: DB:instrument/description:462
 msgid ""
 "A tom-tom (or just tom) is a cylindrical drum with no snare, commonly found "
 "in a standard drum set."
-msgstr ""
+msgstr "Un Tom est un tambour cylindrique sans timbre faisant habituellement partie d'une batterie."
 
 #: DB:instrument/description:442
 msgid "A type of fretless zither."
-msgstr ""
+msgstr "Un type de cithare sans frette."
 
 #: DB:instrument/description:526
 msgid "A typewriter, used for percussion (either keys or bells)"
-msgstr ""
+msgstr "Une machine à écrire, utilisée comme percussion (les touches ou la cloche)"
 
 #: DB:instrument/description:521
 msgid ""
 "A valveless trumpet, in the model of the ones from the 16th to 18th "
 "centuries"
-msgstr ""
+msgstr "La trompette baroque est un instrument sans piston d'après ceux du 16e et 18e siècle."
 
 #: DB:instrument/description:595
 msgid ""
 "A wooden double-reed instrument with a conical bore from the 16th and 17th "
 "centuries"
-msgstr ""
+msgstr "Un instrument en bois à hanche double et perce conique du 16e et 17e siècle."
 
 #: DB:instrument/description:508
 msgid ""
 "A wooden, beaked double-flute traditionally played by goat herders in the "
 "Punjab region of India and Pakistan."
-msgstr ""
+msgstr "Une flûte à bec double jouée traditionnellement par les gardiens de chèvres dans la région indienne du Punjab et au Pakistan."
 
 #: DB:instrument/description:539
 msgid "Acoustic guitar without frets."
@@ -216,17 +216,17 @@ msgstr "Guitare acoustique sans frette."
 msgid ""
 "Amadinda, southern Uganda giant xylophone, made on with resonating hardwood "
 "bars"
-msgstr ""
+msgstr "L'amadinda est un xylophone géant du sud de l'Ouganda, constitué de barres sonores de bois dur. "
 
 #: DB:instrument/description:533
 msgid ""
 "An Indian version of the jew's harp, played as a percussion instrument in "
 "Carnatic music and Rajastani folk music."
-msgstr ""
+msgstr "Une version indienne de la guimbarde, instrument à percussions dans la musique carnatique et folklorique du Rajasthan."
 
 #: DB:instrument/description:355
 msgid "An Irish/Scottish harp."
-msgstr ""
+msgstr "Une harpe irlandaise/écossaise."
 
 #: DB:instrument/description:428
 msgid ""
@@ -236,7 +236,7 @@ msgstr "Cornemuse dont l'on joue en pompant de l'air dans un sac, puis du sac ve
 
 #: DB:instrument/description:364
 msgid "Balafon, Malian 'gourd xylophone'"
-msgstr ""
+msgstr "Balafon, xylophone à gourdes du Mali."
 
 #: DB:instrument/description:394
 msgid "Bandura, modern day Ukraininan zither"
@@ -248,7 +248,7 @@ msgstr "La bandura, un luth ukrainien du 14e siècle"
 
 #: DB:instrument/description:207
 msgid "Bass (modern, typically electrical, but not always)"
-msgstr ""
+msgstr "Basse (moderne, habituellement électrique, mais pas toujours)"
 
 #: DB:instrument/description:47
 msgid ""
@@ -256,15 +256,15 @@ msgid ""
 "instrument, the most common being the bass guitar and the double bass "
 "(a.k.a. contrabass, acoustic upright bass, wood bass). Please use the "
 "correct instrument if you know which one is intended."
-msgstr ""
+msgstr "Une basse est un terme générique commun donné à plus d'un instrument : la guitare basse et la contrebasse. Veuillez utiliser le bon instrument si vous savez duquel on parle."
 
 #: DB:instrument/description:343
 msgid "Bendir, frame drum from North Africa, doesn't have jingles"
-msgstr ""
+msgstr "Le bendir, un tambour sur cadre d’Afrique du Nord, sans cymbalette"
 
 #: DB:instrument/description:336
 msgid "Cajón, Peruvian box drum"
-msgstr ""
+msgstr "Le cajón, une caisse de résonance péruvienne"
 
 #: DB:instrument/description:335
 msgid "Chacha, west Indian rattle"
@@ -290,23 +290,23 @@ msgstr ""
 
 #: DB:instrument/description:156
 msgid "Conch shell"
-msgstr ""
+msgstr "Conque"
 
 #: DB:instrument/description:348
 msgid "Crumhorn used in the 14th to 17th centuries in Europe"
-msgstr ""
+msgstr "Le tournebout, utilisé en Europe du 14e au 17e siècle"
 
 #: DB:instrument/description:411
 msgid "Davul, turkish drum"
-msgstr ""
+msgstr "Le davul, un tambour turc"
 
 #: DB:instrument/description:184
 msgid "Dobro, resonator guitar"
-msgstr ""
+msgstr "La dobro, une guitare à résonateur"
 
 #: DB:instrument/description:399
 msgid "Dohol, traditional Iranian drum"
-msgstr ""
+msgstr "Le dohol, tambour traditionel iranien"
 
 #: DB:instrument/description:535
 msgid "Double headed drum from India."
@@ -316,7 +316,7 @@ msgstr ""
 msgid ""
 "EWI (an acronym for electric wind instrument) is the name of Akai's wind "
 "controller."
-msgstr ""
+msgstr "Un EWi (anglais : electronic wind instrument) est un instrument à vent électronique permettant de piloter un synthétiseur."
 
 #: DB:instrument/description:538
 msgid "Electric guitar without frets."
@@ -329,7 +329,7 @@ msgstr "Lecteurs de disquettes réglés pour produire des tonalités durant la l
 
 #: DB:instrument/description:383
 msgid "Gankogui, iron bell"
-msgstr ""
+msgstr "Le gankogui, une cloche de fer"
 
 #: DB:instrument/description:356
 msgid "German/Bohemian harp"
@@ -337,11 +337,11 @@ msgstr "La harpe à simple mouvement"
 
 #: DB:instrument/description:331
 msgid "Ghatam, a South Indian Carnatic music percussion instrument"
-msgstr ""
+msgstr "Le ghatham, un instrument à percussion de la côte Carnatique au Sud de l'inde"
 
 #: DB:instrument/description:268
 msgid "Goblet drums are single-headed drums with a goblet shaped body."
-msgstr ""
+msgstr "Les tambours en gobelet sont des membranophones à une tête dont le corps est en forme de gobelet."
 
 #: DB:instrument/description:298
 msgid "Greek Panflute"
@@ -349,7 +349,7 @@ msgstr "La flûte de Pan grecque"
 
 #: DB:instrument/description:423
 msgid "Gusli, an ancient Slavic musical instrument, Russian"
-msgstr ""
+msgstr "Le gousli, un instrument slave ancien, russe"
 
 #: DB:instrument/description:603
 msgid "Harddisk configured to produce tones in pattern."
@@ -357,23 +357,23 @@ msgstr "Disque dur configuré pour produire des tonalités organisées."
 
 #: DB:instrument/description:213
 msgid "Huqin is a Chinese family of bowed string instruments."
-msgstr ""
+msgstr "Les Huqins sont une famille d'instruments à cordes frottées chinois."
 
 #: DB:instrument/description:378
 msgid "Japanese traditional drum beaten with sticks called bachi."
-msgstr ""
+msgstr "Un tambour traditionnel japonais utilisé avec des baguettes appelées « bachi »"
 
 #: DB:instrument/description:422
 msgid "Kanklės, Lithuanian plucked string"
-msgstr ""
+msgstr "Le kanklės, instrument à cordes pincées"
 
 #: DB:instrument/description:424
 msgid "Kantele, Finnish traditional plucked string"
-msgstr ""
+msgstr "Le kantele, instrument à cordes pincées traditionnel finlandais"
 
 #: DB:instrument/description:288
 msgid "Kanun, Arabic plucked strings"
-msgstr ""
+msgstr "Le kanun, instrument à cordes arabe"
 
 #: DB:instrument/description:154
 msgid ""
@@ -393,28 +393,28 @@ msgstr ""
 msgid ""
 "Like (and developed from) the Northumbrian smallpipes, but with Great "
 "Highland Bagpipe fingering."
-msgstr ""
+msgstr "Comme les northumbrian smallpipes (dont elle s'inspire), mais avec le doigté de la grande cornemuse écossaise"
 
 #: DB:instrument/description:429
 msgid ""
 "Looks like a recorder, but with double reeds and bagpipe fingering system. "
 "Mostly used to learn how to play the pipes, but are occasionally played in "
 "their own right."
-msgstr ""
+msgstr "Ressemble à une flûte à bec, mais à hanche double et un doigté de cornemuse. Utilisé principalement pour apprendre à jouer de la cornemuse, mais parfois utilisée comme instrument à part entière"
 
 #: DB:instrument/description:186
 msgid "Madal, hand drum originating from Nepal"
-msgstr ""
+msgstr "Le madal, tambour à percussions digitales du Népal"
 
 #: DB:instrument/description:537
 msgid ""
 "Maddale is a double-headed drum from Karnataka, India. It is the primary "
 "rhythmic accompaniment in Yakshagana."
-msgstr ""
+msgstr "Le maddale est un tambour à deux têtes du Karnataka en Inde. C'est l'accompagnement rythmique de base du Yakshagana."
 
 #: DB:instrument/description:92
 msgid "Mexican vihuela, used by mariachi bands"
-msgstr ""
+msgstr "La vihuela mexicaine, utilisée par les mariachis"
 
 #: DB:instrument/description:591
 msgid ""
@@ -425,7 +425,7 @@ msgstr "Le mirliton (anciennement flûte à mirliton) est un membranophone joué
 
 #: DB:instrument/description:297
 msgid "Nai, Romanian Panflute"
-msgstr ""
+msgstr "La naÏ, flûte de Pan roumaine"
 
 #: DB:instrument/description:35
 msgid ""
@@ -435,15 +435,15 @@ msgstr "Les cuivres naturels ne peuvent produire des notes que dans la série ha
 
 #: DB:instrument/description:358
 msgid "Northumbrian (small)pipes"
-msgstr ""
+msgstr "Les northumbrian (small)pipes"
 
 #: DB:instrument/description:8
 msgid "Oboe (soprano)"
-msgstr ""
+msgstr "Le hautbois (soprano)"
 
 #: DB:instrument/description:473
 msgid "Oboe d'amore / Oboe d'amour (mezzo-soprano)"
-msgstr ""
+msgstr "Le hautbois d'amour (mezzo-soprano)"
 
 #: DB:instrument/description:195
 msgid ""
@@ -473,11 +473,11 @@ msgstr "Les autres instruments à cordes. Si vous ne trouvez pas un instrument, 
 msgid ""
 "Percussion instrument made from two steel sheets that are attached together "
 "creating a recognizable 'UFO shape'."
-msgstr ""
+msgstr "Un instrument à percussion composé de deux feuilles de métal embouties créant une forme reconnaissable d'OVNI."
 
 #: DB:instrument/description:500
 msgid "Percussion performed by parts of the body."
-msgstr ""
+msgstr "Des percussions produites en utilisant des parties du corps."
 
 #: DB:instrument/description:478
 msgid ""
@@ -490,13 +490,13 @@ msgstr "Des percussions produites avec les pieds telle que la <a href=\"http://f
 msgid ""
 "Persian / Turkish / Arabic end-blown flute with five or six finger holes and"
 " one thumb hole."
-msgstr ""
+msgstr "Une flûte oblique à embouchure à cinq ou six trous plus un pour le pouce, jouée dans les mondes arabes, turc et persan."
 
 #: DB:instrument/description:302
 msgid ""
 "Phách are small wooden sticks beaten on a small piece of bamboo or a wooden "
 "block. The sound produced is used to keep time."
-msgstr ""
+msgstr "Les Phách sont de petites baguettes de bois frappées sur une petit morceau de bambou ou un bloc de bois. Le son produit sert à garder la mesure."
 
 #: DB:instrument/description:339
 msgid "Pí thiu or Pí khui vertical flute"
@@ -504,11 +504,11 @@ msgstr "La flûte verticale pí thiu ou pí khui"
 
 #: DB:instrument/description:545
 msgid "Ruan is a family of Chinese plucked lutes."
-msgstr ""
+msgstr "Les ruans sont une famille de luths à cordes pincées chinois. "
 
 #: DB:instrument/description:286
 msgid "Santoor, Indian dulcimer"
-msgstr ""
+msgstr "Le santour, un dulcimer indien"
 
 #: DB:instrument/description:255
 msgid "Santur, Middle Eastern"
