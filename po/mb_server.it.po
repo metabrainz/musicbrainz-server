@@ -21,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-10 09:58-0700\n"
-"PO-Revision-Date: 2014-06-10 16:59+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"POT-Creation-Date: 2014-06-11 16:30-0700\n"
+"PO-Revision-Date: 2014-06-11 20:33+0000\n"
+"Last-Translator: salorock <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,7 +38,7 @@ msgstr " &#x2013; ????"
 
 #: ../root/components/common-macros.tt:8
 msgid " ({text})"
-msgstr ""
+msgstr " ({text})"
 
 #: ../root/account/lost_password.tt:7
 msgid ""
@@ -1041,7 +1041,7 @@ msgstr "Già scaduto"
 
 #: ../root/artist/index.tt:43
 msgid "Also performs as"
-msgstr ""
+msgstr "Si esibisce anche come"
 
 #: ../root/release/edit/recordings.tt:82
 msgid "Also update the recording with track changes"
@@ -1126,7 +1126,7 @@ msgstr "Si è verificato un errore durante la creazione delle opere."
 
 #: ../root/scripts/text_strings.tt:195
 msgid "An error occurred while searching. Click here to try again."
-msgstr ""
+msgstr "Si è verificato un errore durante la ricerca. Clicca qui per riprovare."
 
 #: ../root/annotation/common.tt:2 ../root/area/annotation_revision.tt:1
 #: ../root/artist/annotation_revision.tt:1
@@ -1808,7 +1808,7 @@ msgstr "Area iniziale:"
 #: ../root/edit/details/add_alias.tt:40 ../root/edit/details/edit_alias.tt:48
 #: ../root/edit/details/remove_alias.tt:38
 msgid "Begin date"
-msgstr ""
+msgstr "Data iniziale"
 
 #: ../root/alias/edit_form.tt:34 ../root/area/edit_form.tt:23
 #: ../root/area/layout.tt:12 ../root/artist/edit_form.tt:57
@@ -2056,7 +2056,7 @@ msgstr "Impossibile modificare"
 
 #: ../root/account/register.tt:37
 msgid "Captcha"
-msgstr ""
+msgstr "Captcha"
 
 #: ../root/account/register.tt:5
 msgid "Captcha incorrect. Try again."
@@ -2162,7 +2162,7 @@ msgstr "Cancella etichetta"
 
 #: ../root/scripts/text_strings.tt:196
 msgid "Clear recent items"
-msgstr ""
+msgstr "Cancella elementi recenti"
 
 #: ../root/scripts/text_strings.tt:83
 msgid "Clear recording"
@@ -3289,7 +3289,7 @@ msgstr "Data finale:"
 
 #: ../root/edit/details/add_alias.tt:51 ../root/edit/details/edit_alias.tt:58
 msgid "Ended"
-msgstr ""
+msgstr "Data finale"
 
 #: ../root/edit/details/add_area.tt:71 ../root/edit/details/add_artist.tt:66
 #: ../root/edit/details/add_label.tt:43 ../root/edit/details/add_place.tt:64
@@ -4383,7 +4383,7 @@ msgstr "Ultimi post:"
 
 #: ../root/artist/index.tt:38 ../root/artist/index.tt:41
 msgid "Legal name"
-msgstr ""
+msgstr "Nome legale"
 
 #: ../root/cdstub/cdstub.tt:9 ../root/cdtoc/info.tt:33
 #: ../root/components/recordings-list.tt:33
@@ -4457,7 +4457,7 @@ msgstr "Live Data Feed"
 
 #: ../root/search/results-doc.tt:5
 msgid "Loading"
-msgstr ""
+msgstr "Caricamento in corso"
 
 #: ../root/release/edit/editnote.tt:15
 msgid "Loading edit previews..."
@@ -5293,7 +5293,7 @@ msgstr "Non l'hai trovato? Riprova con la ricerca diretta."
 #: ../root/edit/details/historic/merge_releases.tt:36
 #: ../root/edit/details/merge_releases.tt:144
 msgid "Note"
-msgstr ""
+msgstr "Nota"
 
 #: ../root/release/edit/information.tt:251
 msgid ""
@@ -5895,7 +5895,7 @@ msgstr "Tipo primario:"
 #: ../root/edit/details/add_alias.tt:28 ../root/edit/details/edit_alias.tt:40
 #: ../root/edit/details/remove_alias.tt:27
 msgid "Primary for locale"
-msgstr ""
+msgstr "Primario per l'ambiente linguistico"
 
 #: ../root/relationship/linktype/form.tt:37
 msgid "Priority:"
@@ -11582,7 +11582,7 @@ msgstr "Questa strategia di unione non è applicabile alle pubblicazioni che hai
 msgid "The annotation revision ID must be a positive integer"
 msgstr "L'ID della revisione dell'annotazione deve essere un numero intero positivo"
 
-#: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:185
+#: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:174
 msgid "The old and new annotation ids must be unique, positive integers."
 msgstr "Gli ID della vecchia e nuova annotazione devono essere numeri interi unici e positivi."
 

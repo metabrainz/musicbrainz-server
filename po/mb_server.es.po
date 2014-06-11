@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-10 09:58-0700\n"
+"POT-Creation-Date: 2014-06-11 16:30-0700\n"
 "PO-Revision-Date: 2014-06-10 16:59+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
@@ -11587,7 +11587,7 @@ msgstr "Esta estrategia de fusión no puede aplicarse a las publicaciones selecc
 msgid "The annotation revision ID must be a positive integer"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:185
+#: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:174
 msgid "The old and new annotation ids must be unique, positive integers."
 msgstr "Las IDs de la anotación nueva y la antigua deben ser enteros positivos y únicos"
 
