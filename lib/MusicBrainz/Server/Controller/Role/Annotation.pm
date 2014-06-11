@@ -114,39 +114,28 @@ sub edit_annotation : Chained('load') PathPart Edit
     my $annotation_model = $c->model($model)->annotation;
     $annotation_model->load_latest($entity);
 
-    my $form = $c->form(
-        form             => 'Annotation',
-        init_object      => $entity->latest_annotation,
-        annotation_model => $annotation_model,
-        entity_id        => $entity->id
-    );
-
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params))
-    {
-        if ($form->field('preview')->input) {
-            $c->stash(
-                show_preview => 1,
-                preview      => $form->field('text')->value
-            );
-        }
-        else
-        {
-            $c->model('MB')->with_transaction(sub {
-                $self->_insert_edit(
-                    $c,
-                    $form,
-                    edit_type => $model_to_edit_type{$model},
-                    (map { $_->name => $_->value } $form->edit_fields),
-                    entity => $entity
-                );
-            });
-
+    $self->edit_action($c,
+        form        => 'Annotation',
+        form_args   => { annotation_model => $annotation_model, entity_id => $entity->id },
+        type        => $model_to_edit_type{$model},
+        item        => $entity->latest_annotation,
+        edit_args   => { entity => $entity },
+        redirect    => sub {
             my $redirect = $c->req->params->{returnto} ||
               $c->uri_for_action($self->action_for('show'), [ $entity->gid ]);
+
             $c->response->redirect($redirect);
-            $c->detach;
+        },
+        pre_creation => sub {
+            my $form = shift;
+
+            if ($form->field('preview')->input) {
+                $c->stash(show_preview => 1, preview => $form->field('text')->value);
+                return 0;
+            }
+            return 1;
         }
-    }
+    );
 }
 
 sub annotation_history : Chained('load') PathPart('annotations') RequireAuth
