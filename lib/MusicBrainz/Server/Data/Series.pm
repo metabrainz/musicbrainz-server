@@ -188,7 +188,7 @@ sub can_delete { 1 }
 sub delete
 {
     my ($self, @ids) = @_;
-    @ids = grep { $self->can_delete($_) } @ids
+    @ids = grep { $self->can_delete($_) } @ids;
 
     # No deleting relationship-related stuff because it should probably fail if it's trying to do that
     $self->annotation->delete(@ids);
