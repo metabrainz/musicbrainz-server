@@ -8,7 +8,7 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Edit::Types qw( LinkAttributesArray PartialDateHash );
 use MusicBrainz::Server::Entity::Types;
-use MooseX::Types::Moose qw( Int Str ArrayRef );
+use MooseX::Types::Moose qw( Int Str ArrayRef Bool );
 use MooseX::Types::Structured qw( Dict Optional );
 
 use MusicBrainz::Server::Entity::Relationship;
@@ -45,6 +45,7 @@ has '+data' => (
             link => Dict[
                 begin_date => PartialDateHash,
                 end_date => PartialDateHash,
+                ended => Bool,
                 attributes => Optional[LinkAttributesArray],
                 type => Dict[
                     id => Optional[Int],
@@ -103,6 +104,7 @@ sub build_display_data
     my $link = MusicBrainz::Server::Entity::Link->new(
         begin_date => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{relationship}{link}{begin_date}),
         end_date => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{relationship}{link}{end_date}),
+        ended => $self->data->{relationship}{link}{ended},
         type => MusicBrainz::Server::Entity::LinkType->new(long_link_phrase => $self->data->{relationship}{link}{type}{long_link_phrase} // ''),
         attributes => $attrs
     );
@@ -197,6 +199,7 @@ sub initialize
             link => {
                 begin_date => partial_date_to_hash($relationship->link->begin_date),
                 end_date => partial_date_to_hash($relationship->link->end_date),
+                ended => $relationship->link->ended,
                 attributes => $self->serialize_link_attributes($relationship->link->all_attributes),
                 type => {
                     id => $relationship->link->type->id,
@@ -239,9 +242,14 @@ sub accept
 before restore => sub {
     my ($self, $data) = @_;
 
-    return if defined $data->{edit_version};
-
     my $link = $data->{relationship}{link};
+
+    # old edits lack the "ended" flag in edit data
+    my $ed = $link->{end_date};
+    my $ended = defined $ed->{year} || $ed->{month} || $ed->{day};
+    $link->{ended} //= $ended ? 1 : 0;
+
+    return if defined $data->{edit_version};
 
     if (my $attributes = $link->{attributes}) {
         $link->{attributes} = [
