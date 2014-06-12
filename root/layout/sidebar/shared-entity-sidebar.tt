@@ -14,7 +14,7 @@
         -%]
     [%~ END ~%]
 
-    [%~ INCLUDE "layout/sidebar/sidebar-favicons.tt" source=entity ~%]
+    [%~ INCLUDE "layout/sidebar/sidebar-favicons.tt" source=entity UNLESS entitytype == 'url' ~%]
 
     <h2 class="editing">[%~ l('Editing') ~%]</h2>
     <ul class="links">
