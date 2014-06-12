@@ -1,4 +1,5 @@
 package t::MusicBrainz::Server::Controller::WS::js::Edit;
+use utf8;
 use JSON;
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_CREATE
@@ -87,7 +88,7 @@ test 'previewing/creating/editing a release group and release' => sub {
 
     my $release_edits = [ {
         edit_type         => $EDIT_RELEASE_CREATE,
-        name              => 'Vision Creation Newsun',
+        name              => '  Vision  Creation  Newsun  ',
         release_group_id  => undef,
         comment           => 'limited edition',
         barcode           => '4943674011582',
@@ -124,7 +125,7 @@ test 'previewing/creating/editing a release group and release' => sub {
 
     my $release_group_edits = [ {
         edit_type     => $EDIT_RELEASEGROUP_CREATE,
-        name          => 'Vision Creation Newsun',
+        name          => '  Vision  Creation  Newsun  ',
         artist_credit => $artist_credit,
     } ];
 
@@ -195,8 +196,8 @@ test 'previewing/creating/editing a release group and release' => sub {
             tracklist   => [
                 {
                     position        => 1,
-                    number          => '1',
-                    name            => '○',
+                    number          => ' 1 ',
+                    name            => ' ○ ',
                     length          => 822093,
                     artist_credit   => $artist_credit,
                     recording_gid   => undef,
@@ -272,6 +273,7 @@ test 'previewing/creating/editing a release group and release' => sub {
             release     => $release_id,
             position    => 2,
             format_id   => 1,
+            name        => '  bonus  disc  ',
             tracklist   => [
                 {
                     position        => 1,
@@ -311,6 +313,9 @@ test 'previewing/creating/editing a release group and release' => sub {
     isa_ok($edits[0], 'MusicBrainz::Server::Edit::Medium::Create', 'medium 1 created');
     isa_ok($edits[1], 'MusicBrainz::Server::Edit::Medium::Create', 'medium 2 created');
 
+    is($edits[0]->data->{tracklist}->[0]->{name}, '○', 'track name is trimmed');
+    is($edits[1]->data->{name}, 'bonus disc', 'medium name is trimmed');
+
     ok($edits[0]->auto_edit, 'new medium should be an auto edit');
     ok($edits[1]->auto_edit, 'new medium should be an auto edit');
 
@@ -342,7 +347,7 @@ test 'previewing/creating/editing a release group and release' => sub {
 
     $release_edits = [ {
         edit_type   => $EDIT_RELEASE_EDIT,
-        name        => 'Vision Creation Newsun!',
+        name        => '  Vision  Creation  Newsun!  ',
         to_edit     => $release_id,
     } ];
 
@@ -374,7 +379,7 @@ test 'previewing/creating/editing a release group and release' => sub {
                 {
                     id              => $medium2->tracks->[0]->id,
                     position        => 1,
-                    number          => 'A',
+                    number          => ' A ',
                     name            => '~☉~',
                     length          => 92666,
                     artist_credit   => $artist_credit,
@@ -424,7 +429,7 @@ test 'previewing/creating/editing a release group and release' => sub {
                 {
                     length => 92666,
                     number => 'A',
-                    name => "~\x{e2}\x{98}\x{89}~",
+                    name => '~☉~',
                     recording_id => 27,
                     position => 1,
                     id => 109,
@@ -442,7 +447,7 @@ test 'previewing/creating/editing a release group and release' => sub {
                 {
                     length => 333826,
                     number => 'C',
-                    name => "~\x{e2}\x{97}\x{8c}~",
+                    name => '~◌~',
                     recording_id => 29,
                     position => 3,
                     id => 111,
@@ -461,7 +466,7 @@ test 'previewing/creating/editing a release group and release' => sub {
             edit_type       => $EDIT_RELEASE_ADDRELEASELABEL,
             release         => 4,
             label           => 1,
-            catalog_number  => 'FOO 123',
+            catalog_number  => '  FOO  123  ',
         },
         {
             edit_type       => $EDIT_RELEASE_ADDRELEASELABEL,

@@ -3,7 +3,7 @@ use JSON;
 use MooseX::Role::Parameterized -metaclass => 'MusicBrainz::Server::Controller::Role::Meta::Parameterizable';
 use MusicBrainz::Server::CGI::Expand qw( expand_hash );
 use MusicBrainz::Server::Constants qw( $SERIES_ORDERING_TYPE_MANUAL );
-use MusicBrainz::Server::Data::Utils qw( model_to_type ref_to_type type_to_model );
+use MusicBrainz::Server::Data::Utils qw( model_to_type ref_to_type type_to_model trim );
 use MusicBrainz::Server::Form::Utils qw( build_type_info build_attr_info );
 use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
 
@@ -96,7 +96,7 @@ role {
 
                 my $attribute_text_values = {};
                 for (@{ $_->{attribute_text_values} // [] }) {
-                    $attribute_text_values->{$_->{attribute}} = $_->{text_value};
+                    $attribute_text_values->{$_->{attribute}} = trim($_->{text_value});
                 }
 
                 push @result, {
