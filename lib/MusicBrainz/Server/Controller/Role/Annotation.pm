@@ -1,25 +1,17 @@
 package MusicBrainz::Server::Controller::Role::Annotation;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 
-use MusicBrainz::Server::Constants qw( :annotation );
+use MusicBrainz::Server::Constants qw( :annotation entities_with );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation qw( is_positive_integer is_nat );
 
 requires 'load', 'show';
 
-my %model_to_edit_type = (
-    Artist => $EDIT_ARTIST_ADD_ANNOTATION,
-    Label => $EDIT_LABEL_ADD_ANNOTATION,
-    Place => $EDIT_PLACE_ADD_ANNOTATION,
-    Recording => $EDIT_RECORDING_ADD_ANNOTATION,
-    Release => $EDIT_RELEASE_ADD_ANNOTATION,
-    ReleaseGroup => $EDIT_RELEASEGROUP_ADD_ANNOTATION,
-    Work => $EDIT_WORK_ADD_ANNOTATION,
-    Area => $EDIT_AREA_ADD_ANNOTATION,
-    Instrument => $EDIT_INSTRUMENT_ADD_ANNOTATION,
-    Series => $EDIT_SERIES_ADD_ANNOTATION,
-);
+my %model_to_edit_type = entities_with('annotations', take => sub {
+    my ($type, $properties) = @_;
+    return ($properties->{model} => $properties->{annotations}{edit_type});
+});
 
 after 'load' => sub
 {
