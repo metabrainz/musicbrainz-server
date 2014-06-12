@@ -194,7 +194,7 @@ sub delete
     $self->annotation->delete(@ids);
     $self->alias->delete_entities(@ids);
     $self->remove_gid_redirects(@ids);
-    $self->sql->do('DELETE FROM series WHERE id = any(?)', \@ids);
+    $self->delete_returning_gids('series', @ids);
     return 1;
 }
 
