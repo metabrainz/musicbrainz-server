@@ -30,6 +30,8 @@ use MusicBrainz::Server::Data::Utils qw(
     partial_date_to_hash
     split_relationship_by_attributes
     trim
+    remove_invalid_characters
+    collapse_whitespace
 );
 use MusicBrainz::Server::Edit::Utils qw( boolean_from_json );
 use MusicBrainz::Server::Translation qw( l );
@@ -163,6 +165,7 @@ sub process_entity {
     my ($c, $loader, $data) = @_;
 
     trim_string($data, 'name');
+    trim_string($data, 'comment');
     process_artist_credit($c, $loader, $data);
 }
 
@@ -179,8 +182,14 @@ sub process_artist_credits {
 
     for my $ac (@artist_credits) {
         my @names = @{ $ac->{names} };
+        my $i = 0;
 
         for my $name (@names) {
+            if (my $join_phrase = $name->{join_phrase}) {
+                $join_phrase = collapse_whitespace(remove_invalid_characters($join_phrase));
+                $join_phrase =~ s/\s+$// if $i == $#names;
+                $name->{join_phrase} = $join_phrase;
+            }
             my $artist = $name->{artist};
 
             trim_string($name, 'name');
@@ -189,6 +198,7 @@ sub process_artist_credits {
             if (!$artist->{id} && is_guid($artist->{gid}))  {
                 push @artist_gids, $artist->{gid};
             }
+            $i++;
         }
     }
 

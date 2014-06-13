@@ -39,7 +39,8 @@ sub prepare_test_database {
         INSERT INTO country_area (area) VALUES (107);
 
         INSERT INTO artist (id, gid, name, sort_name)
-        VALUES (39282, '0798d15b-64e2-499f-9969-70167b1d8617', 'Boredoms', 'Boredoms');
+        VALUES (39282, '0798d15b-64e2-499f-9969-70167b1d8617', 'Boredoms', 'Boredoms'),
+               (66666, '1e6092a0-73d3-465a-b06a-99c81f7bec37', 'a fake artist', 'a fake artist');
 
         INSERT INTO url (id, gid, url)
         VALUES (2, 'de409476-4ad8-4ce8-af2f-d47bee0edf97', 'http://en.wikipedia.org/wiki/Boredoms');
@@ -80,9 +81,30 @@ test 'previewing/creating/editing a release group and release' => sub {
     my $artist_credit = {
         names => [
             {
+                artist => { id => 39282, name => "  Boredoms  " },
+                name => "  Boredoms  ",
+                join_phrase => "  plus  ",
+            },
+            {
+                artist => { id => 66666, name => "a fake artist" },
+                name => "a fake artist",
+                join_phrase => "  and  a  trailing  join  phrase  ",
+            },
+        ]
+    };
+
+    my $cleaned_artist_credit = {
+        names => [
+            {
                 artist => { id => 39282, name => "Boredoms" },
-                name => "Boredoms"
-            }
+                name => "Boredoms",
+                join_phrase => " plus ",
+            },
+            {
+                artist => { id => 66666, name => "a fake artist" },
+                name => "a fake artist",
+                join_phrase => " and a trailing join phrase",
+            },
         ]
     };
 
@@ -90,7 +112,7 @@ test 'previewing/creating/editing a release group and release' => sub {
         edit_type         => $EDIT_RELEASE_CREATE,
         name              => '  Vision  Creation  Newsun  ',
         release_group_id  => undef,
-        comment           => 'limited edition',
+        comment           => '  limited  edition  ',
         barcode           => '4943674011582',
         language_id       => 486,
         packaging_id      => undef,
@@ -112,7 +134,7 @@ test 'previewing/creating/editing a release group and release' => sub {
 
     $html = $response->{previews}->[0]->{preview};
 
-    like($html, qr/Boredoms/, 'preview has artist name');
+    like($html, qr{<bdi>Boredoms</bdi></a> plus <a href=".*" title="a fake artist"><bdi>a fake artist</bdi></a> and a trailing join phrase}, 'preview has artist name');
     like($html, qr/0798d15b-64e2-499f-9969-70167b1d8617/, 'preview has artist gid');
     like($html, qr/Vision Creation Newsun/, 'preview has release name');
     like($html, qr/limited edition/, 'preview has release comment');
@@ -433,7 +455,7 @@ test 'previewing/creating/editing a release group and release' => sub {
                     recording_id => 27,
                     position => 1,
                     id => 109,
-                    artist_credit => ignore(),
+                    artist_credit => $cleaned_artist_credit,
                 },
                 {
                     length => 2138333,
@@ -442,7 +464,7 @@ test 'previewing/creating/editing a release group and release' => sub {
                     recording_id => 28,
                     position => 2,
                     id => 110,
-                    artist_credit => ignore(),
+                    artist_credit => $cleaned_artist_credit,
                 },
                 {
                     length => 333826,
@@ -451,7 +473,7 @@ test 'previewing/creating/editing a release group and release' => sub {
                     recording_id => 29,
                     position => 3,
                     id => 111,
-                    artist_credit => ignore(),
+                    artist_credit => $cleaned_artist_credit,
                 }
             ]
         },
