@@ -116,32 +116,38 @@ sub select_options
 sub select_options_tree
 {
     my ($c, $model, %opts) = @_;
+    my $coll = $c->get_collator();
 
     my $model_ref = ref($model) ? $model : $c->model($model);
     my $root_option = $model_ref->get_tree;
 
     return [
-        map {
-            build_options_tree($_, 'l_name', '')
-        } $root_option->all_children
+        build_options_tree($root_option, 'l_name', $coll)
     ];
 }
 
 sub build_options_tree
 {
-    my ($root, $attr, $indent) = @_;
+    my ($root, $attr, $coll, $indent) = @_;
 
     my @options;
 
     push @options, {
         value => $root->id,
-        label => $indent . $root->$attr,
+        label => ($indent // '') . $root->$attr,
     } if $root->id;
 
-    $indent .= '&#xa0;&#xa0;&#xa0;';
+    $indent .= '&#xa0;&#xa0;&#xa0;' if defined $indent;
+    $indent //= ''; # for the first level
 
-    foreach my $child ($root->all_children) {
-        push @options, build_options_tree($child, $attr, $indent);
+    my @children =
+        sort_by {
+            (sprintf "%+012d", $_->child_order) .
+            $coll->getSortKey($_->$attr)
+        } $root->all_children;
+
+    foreach my $child (@children) {
+        push @options, build_options_tree($child, $attr, $coll, $indent);
     }
     return @options;
 }
