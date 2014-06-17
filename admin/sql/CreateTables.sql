@@ -553,6 +553,7 @@ CREATE TABLE event ( -- replicate (verbose)
     end_date_day        SMALLINT,
     time                TIME WITHOUT TIME ZONE,
     type                INTEGER, -- references event_type.id
+    cancelled           BOOLEAN NOT NULL DEFAULT FALSE,
     setlist             TEXT,
     comment             VARCHAR(255) NOT NULL DEFAULT '',
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
