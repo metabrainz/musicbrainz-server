@@ -29,6 +29,10 @@ Currently we ignore the following warnings:
      These are problems with how our HTML is structured, and these should
      be fixed.  See MBS-xxxx.
 
+  4. Bad value "X-UA-Compatible" for attribute "http-equiv" on element "meta".
+     I assume this is some whitelist it has, and it's an IE workaround anyway,
+     so I'm ignoring it.
+
 =cut
 
 sub ignore_warning
@@ -39,6 +43,7 @@ sub ignore_warning
         '^An .img. element must have an .alt. attribute',
         '^Element .input. with attribute .type. whose value is .button.',
         '^Element .* not allowed as child of element .* in this context.',
+        '^Bad value .X-UA-Compatible. for attribute .http-equiv. on element .meta..',
     );
 
     for my $test (@ignored)
