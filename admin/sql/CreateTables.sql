@@ -575,6 +575,18 @@ CREATE TABLE event ( -- replicate (verbose)
       )
 );
 
+CREATE TABLE event_meta ( -- replicate
+    id                  INTEGER NOT NULL, -- PK, references event.id CASCADE
+    rating              SMALLINT CHECK (rating >= 0 AND rating <= 100),
+    rating_count        INTEGER
+);
+
+CREATE TABLE event_rating_raw (
+    event               INTEGER NOT NULL, -- PK, references event.id
+    editor              INTEGER NOT NULL, -- PK, references editor.id
+    rating              SMALLINT NOT NULL CHECK (rating >= 0 AND rating <= 100)
+);
+
 CREATE TABLE event_tag_raw (
     event               INTEGER NOT NULL, -- PK, references event.id
     editor              INTEGER NOT NULL, -- PK, references editor.id

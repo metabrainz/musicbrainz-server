@@ -66,6 +66,8 @@ ALTER TABLE event_alias DROP CONSTRAINT IF EXISTS event_alias_pkey;
 ALTER TABLE event_alias_type DROP CONSTRAINT IF EXISTS event_alias_type_pkey;
 ALTER TABLE event_annotation DROP CONSTRAINT IF EXISTS event_annotation_pkey;
 ALTER TABLE event_gid_redirect DROP CONSTRAINT IF EXISTS event_gid_redirect_pkey;
+ALTER TABLE event_meta DROP CONSTRAINT IF EXISTS event_meta_pkey;
+ALTER TABLE event_rating_raw DROP CONSTRAINT IF EXISTS event_rating_raw_pkey;
 ALTER TABLE event_tag DROP CONSTRAINT IF EXISTS event_tag_pkey;
 ALTER TABLE event_tag_raw DROP CONSTRAINT IF EXISTS event_tag_raw_pkey;
 ALTER TABLE event_type DROP CONSTRAINT IF EXISTS event_type_pkey;

@@ -596,6 +596,22 @@ ALTER TABLE event_gid_redirect
    FOREIGN KEY (new_id)
    REFERENCES event(id);
 
+ALTER TABLE event_meta
+   ADD CONSTRAINT event_meta_fk_id
+   FOREIGN KEY (id)
+   REFERENCES event(id)
+   ON DELETE CASCADE;
+
+ALTER TABLE event_rating_raw
+   ADD CONSTRAINT event_rating_raw_fk_event
+   FOREIGN KEY (event)
+   REFERENCES event(id);
+
+ALTER TABLE event_rating_raw
+   ADD CONSTRAINT event_rating_raw_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
+
 ALTER TABLE event_tag
    ADD CONSTRAINT event_tag_fk_event
    FOREIGN KEY (event)

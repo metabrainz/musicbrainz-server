@@ -108,6 +108,9 @@ CREATE UNIQUE INDEX event_idx_uniq_name_comment ON event (name, comment) WHERE c
 CREATE INDEX event_alias_idx_event ON event_alias (event);
 CREATE UNIQUE INDEX event_alias_idx_primary ON event_alias (event, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
 
+CREATE INDEX event_rating_raw_idx_event ON event_rating_raw (event);
+CREATE INDEX event_rating_raw_idx_editor ON event_rating_raw (editor);
+
 CREATE INDEX event_tag_idx_tag ON event_tag (tag);
 
 CREATE INDEX event_tag_raw_idx_tag ON event_tag_raw (tag);

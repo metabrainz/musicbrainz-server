@@ -66,6 +66,8 @@ ALTER TABLE event_alias ADD CONSTRAINT event_alias_pkey PRIMARY KEY (id);
 ALTER TABLE event_alias_type ADD CONSTRAINT event_alias_type_pkey PRIMARY KEY (id);
 ALTER TABLE event_annotation ADD CONSTRAINT event_annotation_pkey PRIMARY KEY (event, annotation);
 ALTER TABLE event_gid_redirect ADD CONSTRAINT event_gid_redirect_pkey PRIMARY KEY (gid);
+ALTER TABLE event_meta ADD CONSTRAINT event_meta_pkey PRIMARY KEY (id);
+ALTER TABLE event_rating_raw ADD CONSTRAINT event_rating_raw_pkey PRIMARY KEY (event, editor);
 ALTER TABLE event_tag ADD CONSTRAINT event_tag_pkey PRIMARY KEY (event, tag);
 ALTER TABLE event_tag_raw ADD CONSTRAINT event_tag_raw_pkey PRIMARY KEY (event, editor, tag);
 ALTER TABLE event_type ADD CONSTRAINT event_type_pkey PRIMARY KEY (id);

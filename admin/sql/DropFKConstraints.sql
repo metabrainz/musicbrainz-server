@@ -116,6 +116,9 @@ ALTER TABLE event_alias_type DROP CONSTRAINT IF EXISTS event_alias_type_fk_paren
 ALTER TABLE event_annotation DROP CONSTRAINT IF EXISTS event_annotation_fk_event;
 ALTER TABLE event_annotation DROP CONSTRAINT IF EXISTS event_annotation_fk_annotation;
 ALTER TABLE event_gid_redirect DROP CONSTRAINT IF EXISTS event_gid_redirect_fk_new_id;
+ALTER TABLE event_meta DROP CONSTRAINT IF EXISTS event_meta_fk_id;
+ALTER TABLE event_rating_raw DROP CONSTRAINT IF EXISTS event_rating_raw_fk_event;
+ALTER TABLE event_rating_raw DROP CONSTRAINT IF EXISTS event_rating_raw_fk_editor;
 ALTER TABLE event_tag DROP CONSTRAINT IF EXISTS event_tag_fk_event;
 ALTER TABLE event_tag DROP CONSTRAINT IF EXISTS event_tag_fk_tag;
 ALTER TABLE event_tag_raw DROP CONSTRAINT IF EXISTS event_tag_raw_fk_event;

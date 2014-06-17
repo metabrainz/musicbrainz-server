@@ -81,6 +81,8 @@ DROP INDEX event_idx_gid;
 DROP INDEX event_idx_name;
 DROP INDEX event_idx_null_comment;
 DROP INDEX event_idx_uniq_name_comment;
+DROP INDEX event_rating_raw_idx_editor;
+DROP INDEX event_rating_raw_idx_event;
 DROP INDEX event_tag_idx_tag;
 DROP INDEX event_tag_raw_idx_editor;
 DROP INDEX event_tag_raw_idx_tag;

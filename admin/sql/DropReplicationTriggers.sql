@@ -27,6 +27,7 @@ DROP TRIGGER reptg_event_alias ON event_alias;
 DROP TRIGGER reptg_event_alias_type ON event_alias_type;
 DROP TRIGGER reptg_event_annotation ON event_annotation;
 DROP TRIGGER reptg_event_gid_redirect ON event_gid_redirect;
+DROP TRIGGER reptg_event_meta ON event_meta;
 DROP TRIGGER reptg_event_tag ON event_tag;
 DROP TRIGGER reptg_event_type ON event_type;
 DROP TRIGGER reptg_gender ON gender;

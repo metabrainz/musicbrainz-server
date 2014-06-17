@@ -107,6 +107,10 @@ CREATE TRIGGER "reptg_event_gid_redirect"
 AFTER INSERT OR DELETE OR UPDATE ON "event_gid_redirect"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
+CREATE TRIGGER "reptg_event_meta"
+AFTER INSERT OR DELETE OR UPDATE ON "event_meta"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_event_tag"
 AFTER INSERT OR DELETE OR UPDATE ON "event_tag"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
