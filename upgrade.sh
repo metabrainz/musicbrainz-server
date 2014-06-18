@@ -70,9 +70,6 @@ echo `date` : 'Running upgrade scripts for all nodes'
 echo `date` : 'Making some (potentially) missing primary keys'
 ./admin/psql READWRITE < ./admin/sql/updates/20140509-place-example-pkeys.sql
 
-echo `date` : 'Adding events'
-OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140606-events.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-
 ################################################################################
 # Re-enable replication
 
@@ -95,9 +92,6 @@ if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
 then
     echo `date` : 'Running upgrade scripts for master/standalone nodes'
     ./admin/psql READWRITE < ./admin/sql/updates/schema-change/${NEW_SCHEMA_SEQUENCE}.standalone.sql || exit 1
-
-    echo `date` : 'Adding constraints for events'
-    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140606-events-fks.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
     echo `date` : Enabling last_updated triggers
     ./admin/sql/EnableLastUpdatedTriggers.pl

@@ -173,6 +173,12 @@ CREATE TABLE l_event_release_group_example ( -- replicate (verbose)
   name TEXT NOT NULL
 );
 
+CREATE TABLE l_event_series_example ( -- replicate (verbose)
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_event_series.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
 CREATE TABLE l_event_url_example ( -- replicate (verbose)
   id INTEGER NOT NULL, -- PK, references musicbrainz.l_event_url.id
   published BOOLEAN NOT NULL,
