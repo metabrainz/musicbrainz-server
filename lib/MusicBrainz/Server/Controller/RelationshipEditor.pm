@@ -13,8 +13,6 @@ use MusicBrainz::Server::Constants qw(
 );
 use Try::Tiny;
 
-with 'MusicBrainz::Server::Controller::Role::RelationshipEditor';
-
 __PACKAGE__->config( namespace => 'relationship_editor' );
 
 our $valid_params = qr/

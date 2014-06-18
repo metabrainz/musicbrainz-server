@@ -7,6 +7,11 @@ has 'entity_id' => (
     is  => 'rw'
 );
 
+has 'entity_gid' => (
+    isa => 'Str',
+    is  => 'rw'
+);
+
 override 'to_hash' => sub
 {
     my $self = shift;
@@ -14,6 +19,7 @@ override 'to_hash' => sub
     die "Role::Insert used without setting entity_id!"
         unless $self->entity_id;
     $hash->{entity_id} = $self->entity_id;
+    $hash->{entity_gid} = $self->entity_gid if $self->entity_gid;
     return $hash;
 };
 
@@ -23,6 +29,8 @@ before 'restore' => sub
     # Sadly, we now have some edits (AddReleaseEdits) that didn't have an entity_id set
     $self->entity_id(delete $hash->{entity_id})
         if $hash->{entity_id};
+    $self->entity_gid(delete $hash->{entity_gid})
+        if $hash->{entity_gid};
 };
 
 1;

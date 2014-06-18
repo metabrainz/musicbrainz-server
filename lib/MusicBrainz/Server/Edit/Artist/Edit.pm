@@ -61,6 +61,7 @@ has '+data' => (
     isa => Dict[
         entity => Dict[
             id => Int,
+            gid => Optional[Str],
             name => Str
         ],
         new => change_fields(),

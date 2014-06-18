@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# nikki, 2013
+# nikki, 2013-2014
 # <email address hidden>, 2012
 #   <email address hidden>, 2012
 # Mihkel Tõnnov <email address hidden>, 2008-2009,2011-2014
@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-27 14:50-0700\n"
-"PO-Revision-Date: 2014-05-27 21:51+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-05-29 23:05+0000\n"
+"Last-Translator: nikki\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -528,16 +528,16 @@ msgstr "Lisa näide"
 
 #: ../root/instrument/create.tt:1 ../root/instrument/create.tt:3
 msgid "Add Instrument"
-msgstr ""
+msgstr "Instrumendi lisamine"
 
 #: ../root/admin/index.tt:10 ../root/layout/menu.tt:90
 msgctxt "button/menu"
 msgid "Add Instrument"
-msgstr ""
+msgstr "Lisa instrument"
 
 #: ../root/instrument/add_alias.tt:1
 msgid "Add Instrument Alias"
-msgstr ""
+msgstr "Instrumendi aliase lisamine"
 
 #: ../root/label/create.tt:1 ../root/label/create.tt:3
 msgid "Add Label"
@@ -599,16 +599,16 @@ msgstr "Lisa väljalaskerühm"
 
 #: ../root/series/create.tt:1 ../root/series/create.tt:3
 msgid "Add Series"
-msgstr ""
+msgstr "Seeria lisamine"
 
 #: ../root/layout/menu.tt:238
 msgctxt "button/menu"
 msgid "Add Series"
-msgstr ""
+msgstr "Lisa seeria"
 
 #: ../root/series/add_alias.tt:1
 msgid "Add Series Alias"
-msgstr ""
+msgstr "Seeria aliase lisamine"
 
 #: ../root/layout/menu.tt:229
 msgctxt "button/menu"
@@ -693,7 +693,7 @@ msgstr "Lisa uus väljalaskerühm"
 
 #: ../root/scripts/text_strings.tt:136
 msgid "Add a new series"
-msgstr ""
+msgstr "Lisa uus seeria"
 
 #: ../root/scripts/text_strings.tt:137
 msgid "Add a new work"
@@ -713,20 +713,20 @@ msgstr "Lisa veel üks"
 
 #: ../root/scripts/text_strings.tt:176
 msgid "Add another area"
-msgstr ""
+msgstr "Lisa veel üks piirkond"
 
 #: ../root/scripts/text_strings.tt:177
 msgid "Add another artist"
-msgstr ""
+msgstr "Lisa veel üks artist"
 
 #: ../root/components/relationship-editor.tt:166
 #: ../root/scripts/text_strings.tt:178
 msgid "Add another instrument"
-msgstr ""
+msgstr "Lisa veel üks instrument"
 
 #: ../root/scripts/text_strings.tt:179
 msgid "Add another label"
-msgstr ""
+msgstr "Lisa veel üks plaadifirma"
 
 #: ../root/components/forms.tt:398
 msgid "Add another link:"
@@ -738,23 +738,23 @@ msgstr "Lisa veel üks helikandja"
 
 #: ../root/scripts/text_strings.tt:180
 msgid "Add another place"
-msgstr ""
+msgstr "Lisa veel üks koht"
 
 #: ../root/scripts/text_strings.tt:181
 msgid "Add another recording"
-msgstr ""
+msgstr "Lisa veel üks salvestis"
 
 #: ../root/scripts/text_strings.tt:182
 msgid "Add another release"
-msgstr ""
+msgstr "Lisa veel üks väljalase"
 
 #: ../root/scripts/text_strings.tt:183
 msgid "Add another release group"
-msgstr ""
+msgstr "Lisa veel üks väljalaskerühm"
 
 #: ../root/scripts/text_strings.tt:184
 msgid "Add another series"
-msgstr ""
+msgstr "Lisa veel üks seeria"
 
 #: ../root/scripts/text_strings.tt:44
 msgid "Add another track"
@@ -762,7 +762,7 @@ msgstr "Lisa veel üks lugu"
 
 #: ../root/scripts/text_strings.tt:185
 msgid "Add another work"
-msgstr ""
+msgstr "Lisa veel üks teos"
 
 #: ../root/area/add_alias.tt:2
 #: ../lib/MusicBrainz/Server/Edit/Area/AddAlias.pm:11
@@ -789,7 +789,7 @@ msgstr "Lisa toimetusmärge"
 #: ../root/instrument/add_alias.tt:2
 #: ../lib/MusicBrainz/Server/Edit/Instrument/AddAlias.pm:11
 msgid "Add instrument alias"
-msgstr ""
+msgstr "Instrumendi aliase lisamine"
 
 #: ../root/label/add_alias.tt:2
 #: ../lib/MusicBrainz/Server/Edit/Label/AddAlias.pm:11
@@ -854,7 +854,7 @@ msgstr "Vali märgitud teosed mestimiseks"
 #: ../root/series/add_alias.tt:2
 #: ../lib/MusicBrainz/Server/Edit/Series/AddAlias.pm:11
 msgid "Add series alias"
-msgstr ""
+msgstr "Seeria aliase lisamine"
 
 #: ../root/release/sidebar.tt:136
 msgid "Add to a new collection"
@@ -1049,7 +1049,7 @@ msgstr "Teised kasutajad tohivad seda kogu näha"
 
 #: ../root/edit/details/edit_relationship_type.tt:46
 msgid "Allows dates:"
-msgstr ""
+msgstr "Lubatud kuupäevad"
 
 #: ../root/components/common-macros.tt:647
 msgid "Already expired"
@@ -1090,7 +1090,7 @@ msgstr "Võid ka {uri|lisada uue väljalaske}."
 
 #: ../root/search/results-series.tt:29
 msgid "Alternatively, you may {uri|add a new series}."
-msgstr ""
+msgstr "Võid ka {uri|lisada uue seeria}."
 
 #: ../root/search/results-work.tt:61
 msgid "Alternatively, you may {uri|add a new work}."
@@ -1307,7 +1307,7 @@ msgstr "Kas oled kindel, et soovid eemaldada alloleva kaanepildi artisti {artist
 msgid ""
 "Are you sure you wish to remove the instrument {instrument} from "
 "MusicBrainz?"
-msgstr ""
+msgstr "Kas oled kindel, et soovid instrumendi „{instrument}” MusicBrainzist eemaldada?"
 
 #: ../root/label/delete.tt:5
 msgid "Are you sure you wish to remove the label {label} from MusicBrainz?"
@@ -1315,7 +1315,7 @@ msgstr "Kas oled kindel, et soovid plaadifirma {label} MusicBrainzist eemaldada?
 
 #: ../root/series/delete.tt:5
 msgid "Are you sure you wish to remove the series {series} from MusicBrainz?"
-msgstr ""
+msgstr "Kas oled kindel, et soovid seeria „{series}” MusicBrainzist eemaldada?"
 
 #: ../root/area/edits.tt:5 ../root/area/header.tt:21
 #: ../root/components/common-macros.tt:581
@@ -1680,7 +1680,7 @@ msgstr "Lisatavate plaadifirmade automaatne jälgimine"
 
 #: ../root/account/preferences.tt:47
 msgid "Automatically subscribe me to series I create."
-msgstr ""
+msgstr "Lisatavate seeriate automaatne jälgimine"
 
 #: ../root/components/ratings.tt:19
 msgid "Average rating:"
@@ -1929,7 +1929,7 @@ msgstr "Väljalasete sirvimine"
 
 #: ../root/browse/entity.tt:1
 msgid "Browse Series"
-msgstr ""
+msgstr "Seeriate sirvimine"
 
 #: ../root/browse/entity.tt:1
 msgid "Browse Works"
@@ -1961,7 +1961,7 @@ msgstr "Sirvi väljalaskeid"
 
 #: ../root/browse/index.tt:13
 msgid "Browse series"
-msgstr ""
+msgstr "Sirvi seeriaid"
 
 #: ../root/browse/index.tt:10
 msgid "Browse works"
@@ -2541,7 +2541,7 @@ msgstr "Kustuta {e}"
 
 #: ../root/user/profile.tt:50
 msgid "Deleted User"
-msgstr ""
+msgstr "Kustutatud kasutaja"
 
 #: ../root/edit/details/edit_relationship_type.tt:40
 msgid "Deprecated:"
@@ -2881,11 +2881,11 @@ msgstr "Kaanepildi muutmine"
 
 #: ../root/instrument/edit.tt:1
 msgid "Edit Instrument"
-msgstr ""
+msgstr "Instrumendi toimetamine"
 
 #: ../root/instrument/edit_alias.tt:1
 msgid "Edit Instrument Alias"
-msgstr ""
+msgstr "Instrumendi aliase muutmine"
 
 #: ../root/label/edit.tt:1
 msgid "Edit Label"
@@ -2958,11 +2958,11 @@ msgstr "Väljalaskerühma annotatsiooni muutmine"
 
 #: ../root/series/edit.tt:1
 msgid "Edit Series"
-msgstr ""
+msgstr "Seeria toimetamine"
 
 #: ../root/series/edit_alias.tt:1
 msgid "Edit Series Alias"
-msgstr ""
+msgstr "Seeria aliase muutmine"
 
 #: ../root/doc/edit_types.tt:1 ../root/doc/edit_types.tt:3
 #: ../root/doc/edit_type.tt:35 ../root/edit/info.tt:67
@@ -3024,11 +3024,11 @@ msgstr "Toimetuse #{id} toimetusandmed"
 #: ../root/instrument/edit_alias.tt:2
 #: ../lib/MusicBrainz/Server/Edit/Instrument/EditAlias.pm:12
 msgid "Edit instrument alias"
-msgstr ""
+msgstr "Instrumendi aliase muutmine"
 
 #: ../root/instrument/edit_annotation.tt:2
 msgid "Edit instrument annotation"
-msgstr ""
+msgstr "Instrumendi annotatsiooni muutmine"
 
 #: ../root/label/edit_alias.tt:2
 #: ../lib/MusicBrainz/Server/Edit/Label/EditAlias.pm:12
@@ -3090,11 +3090,11 @@ msgstr "Väljalaskerühma annotatsiooni muutmine"
 #: ../root/series/edit_alias.tt:2
 #: ../lib/MusicBrainz/Server/Edit/Series/EditAlias.pm:12
 msgid "Edit series alias"
-msgstr ""
+msgstr "Seeria aliase muutmine"
 
 #: ../root/series/edit_annotation.tt:2
 msgid "Edit series annotation"
-msgstr ""
+msgstr "Seeria annotatsiooni muutmine"
 
 #: ../root/admin/edit_user.tt:42
 msgid "Edit user"
@@ -3195,7 +3195,7 @@ msgstr "Toimetused jälgitaval sisul"
 
 #: ../root/instrument/edits.tt:3
 msgid "Edits for {instrument}"
-msgstr ""
+msgstr "Toimetused: {instrument}"
 
 #: ../root/label/edits.tt:3
 msgid "Edits for {label}"
@@ -3219,7 +3219,7 @@ msgstr "Toimetused: {place}"
 
 #: ../root/series/edits.tt:3
 msgid "Edits for {series}"
-msgstr ""
+msgstr "Toimetused: „{series}”"
 
 #: ../root/release/edits.tt:3 ../root/release_group/edits.tt:3
 #: ../root/work/edits.tt:3
@@ -3542,7 +3542,7 @@ msgstr "Nurjunud"
 
 #: ../root/components/common-macros.tt:1000
 msgid "Few relationships"
-msgstr ""
+msgstr "Vähe seoseid"
 
 #: ../root/release/add_cover_art.tt:68
 msgid "File:"
@@ -4204,11 +4204,11 @@ msgstr "Paigaldatud rakendus"
 #: ../lib/MusicBrainz/Server/Edit/Instrument.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:46
 msgid "Instrument"
-msgstr ""
+msgstr "instrument"
 
 #: ../root/instrument/edit_form.tt:9
 msgid "Instrument Details"
-msgstr ""
+msgstr "Instrumendi üksikasjad"
 
 #: ../root/browse/instrument.tt:11 ../root/browse/instrument.tt:13
 msgid "Instrument List"
@@ -4216,11 +4216,11 @@ msgstr ""
 
 #: ../root/instrument/not_found.tt:1 ../root/instrument/not_found.tt:2
 msgid "Instrument Not Found"
-msgstr ""
+msgstr "Instrumenti ei leitud"
 
 #: ../root/instrument/layout.tt:11
 msgid "Instrument information"
-msgstr ""
+msgstr "Instrumendi teave"
 
 #: ../root/browse/index.tt:14
 msgid "Instrument list"
@@ -4235,7 +4235,7 @@ msgstr ""
 #: ../root/edit/details/remove_instrument_alias.tt:3
 #: ../root/edit/details/remove_instrument.tt:3
 msgid "Instrument:"
-msgstr ""
+msgstr "Instrument:"
 
 #: ../root/main/500.tt:67
 msgid "Interface language:"
@@ -4705,7 +4705,7 @@ msgstr "Käsitsi"
 
 #: ../root/components/common-macros.tt:1000
 msgid "Many relationships"
-msgstr ""
+msgstr "Palju seoseid"
 
 #: ../root/release/lookup.tt:8
 msgid "Match"
@@ -4786,7 +4786,7 @@ msgstr "Artistide mestimine"
 
 #: ../root/instrument/merge.tt:1 ../root/instrument/merge.tt:3
 msgid "Merge Instruments"
-msgstr ""
+msgstr "Instrumentide mestimine"
 
 #: ../root/label/merge.tt:1 ../root/label/merge.tt:3
 msgid "Merge Labels"
@@ -4814,7 +4814,7 @@ msgstr "Väljalasete mestimine"
 
 #: ../root/series/merge.tt:1 ../root/series/merge.tt:3
 msgid "Merge Series"
-msgstr ""
+msgstr "Seeriate mestimine"
 
 #: ../root/work/merge.tt:1 ../root/work/merge.tt:3
 msgid "Merge Works"
@@ -4834,7 +4834,7 @@ msgstr "Atribuudid mestitakse:"
 
 #: ../root/instrument/layout.tt:33
 msgid "Merge instrument"
-msgstr ""
+msgstr "Mesti instrument"
 
 #: ../root/label/layout.tt:67
 msgid "Merge label"
@@ -4873,7 +4873,7 @@ msgstr "Mesti väljalaskerühmad"
 #: ../root/series/layout.tt:19
 #: ../lib/MusicBrainz/Server/Edit/Series/Merge.pm:11
 msgid "Merge series"
-msgstr ""
+msgstr "Mesti seeria"
 
 #: ../root/edit/details/merge_releases.tt:133 ../root/release/merge.tt:55
 msgid "Merge strategy:"
@@ -4929,11 +4929,11 @@ msgstr "Liiguta plaat ülespoole"
 
 #: ../root/forms/relationship-editor.tt:34
 msgid "Move entity down"
-msgstr ""
+msgstr "Liiguta allapoole"
 
 #: ../root/forms/relationship-editor.tt:35
 msgid "Move entity up"
-msgstr ""
+msgstr "Liiguta ülespoole"
 
 #: ../root/release/add_cover_art.tt:40
 msgid "Move file down"
@@ -5145,7 +5145,7 @@ msgstr "Uus pilt tuleb siia"
 
 #: ../root/edit/details/reorder_relationships.tt:10
 msgid "New Order"
-msgstr ""
+msgstr "Uus järjestus"
 
 #: ../root/relationship/linkattributetype/create.tt:1
 #: ../root/relationship/linkattributetype/create.tt:3
@@ -5524,7 +5524,7 @@ msgstr "Vana artist"
 
 #: ../root/edit/details/reorder_relationships.tt:7
 msgid "Old Order"
-msgstr ""
+msgstr "Vana järjestus"
 
 #: ../root/edit/details/edit_medium.tt:51
 msgid "Old Tracklist"
@@ -5634,13 +5634,13 @@ msgstr "Või..."
 #: ../root/edit/details/merge_series.tt:10
 #: ../root/edit/details/merge_series.tt:35 ../root/series/merge.tt:14
 msgid "Ordering Type"
-msgstr ""
+msgstr "Järjestuse tüüp"
 
 #: ../root/edit/details/add_series.tt:30
 #: ../root/edit/details/edit_series.tt:23 ../root/series/edit_form.tt:34
 #: ../root/series/layout.tt:8
 msgid "Ordering Type:"
-msgstr ""
+msgstr "Järjestuse tüüp:"
 
 #: ../root/otherlookup/results.tt:1 ../root/otherlookup/results.tt:3
 msgid "Other Lookup Results"
@@ -5881,7 +5881,7 @@ msgstr "Palun sisesta {doc_disambiguation|täpsustus}, et aidata seda kohta teis
 msgid ""
 "Please enter a {doc_disambiguation|disambiguation} to help distinguish this "
 "series from the others."
-msgstr ""
+msgstr "Palun sisesta {doc_disambiguation|täpsustus}, et aidata seda seeriat teistest eristada."
 
 #: ../root/components/tag.tt:7
 msgid ""
@@ -6021,7 +6021,7 @@ msgstr "Võimalikud duplikaatkohad"
 
 #: ../root/series/edit_form.tt:13
 msgid "Possible Duplicate Series"
-msgstr ""
+msgstr "Võimalikud duplikaatseeriad"
 
 #: ../root/cdtoc/lookup.tt:29
 msgid "Possible Mediums"
@@ -6870,11 +6870,11 @@ msgstr "Eemalda näide"
 
 #: ../root/instrument/delete.tt:1 ../root/instrument/delete.tt:2
 msgid "Remove Instrument"
-msgstr ""
+msgstr "Eemalda instrument"
 
 #: ../root/instrument/delete_alias.tt:1
 msgid "Remove Instrument Alias"
-msgstr ""
+msgstr "Instrumendi aliase eemaldamine"
 
 #: ../root/label/delete.tt:2 ../root/release/edit/information.tt:164
 msgid "Remove Label"
@@ -6924,11 +6924,11 @@ msgstr "Eemalda väljalaskerühm "
 
 #: ../root/series/delete.tt:2
 msgid "Remove Series"
-msgstr ""
+msgstr "Eemalda seeria"
 
 #: ../root/series/delete_alias.tt:1
 msgid "Remove Series Alias"
-msgstr ""
+msgstr "Seeria aliase eemaldamine"
 
 #: ../root/work/delete_alias.tt:1
 msgid "Remove Work Alias"
@@ -6971,12 +6971,12 @@ msgstr "Eemalda kogust {collection}"
 #: ../root/instrument/layout.tt:36
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Delete.pm:10
 msgid "Remove instrument"
-msgstr ""
+msgstr "Eemalda instrument"
 
 #: ../root/instrument/delete_alias.tt:2
 #: ../lib/MusicBrainz/Server/Edit/Instrument/DeleteAlias.pm:14
 msgid "Remove instrument alias"
-msgstr ""
+msgstr "Instrumendi aliase eemaldamine"
 
 #: ../root/label/layout.tt:70
 #: ../lib/MusicBrainz/Server/Edit/Label/Delete.pm:12
@@ -7016,7 +7016,7 @@ msgstr "Eemalda valitud väljalasked kogust"
 #: ../root/series/delete_alias.tt:2
 #: ../lib/MusicBrainz/Server/Edit/Series/DeleteAlias.pm:14
 msgid "Remove series alias"
-msgstr ""
+msgstr "Seeria aliase eemaldamine"
 
 #: ../root/release/edit/tracklist.tt:297
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveTrack.pm:10
@@ -7404,34 +7404,34 @@ msgstr "Lause"
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:47
 msgctxt "singular"
 msgid "Series"
-msgstr ""
+msgstr "seeria"
 
 #: ../root/series/edit_form.tt:30
 msgid "Series Details"
-msgstr ""
+msgstr "Seeria üksikasjad"
 
 #: ../root/series/not_found.tt:1 ../root/series/not_found.tt:2
 msgid "Series Not Found"
-msgstr ""
+msgstr "Seeriat ei leitud"
 
 #: ../root/user/subscriptions/menu.tt:6 ../root/user/subscriptions/series.tt:1
 msgid "Series Subscriptions"
-msgstr ""
+msgstr "Jälgitavad seeriad"
 
 #: ../root/series/layout.tt:4
 msgid "Series information"
-msgstr ""
+msgstr "Seeria teave"
 
 #: ../root/edit/details/add_series_annotation.tt:3
 #: ../root/edit/details/add_series.tt:3 ../root/edit/details/edit_series.tt:5
 #: ../root/edit/details/remove_series.tt:3
 msgid "Series:"
-msgstr ""
+msgstr "Seeria:"
 
 #: ../root/components/common-macros.tt:565
 msgctxt "singular"
 msgid "Series:"
-msgstr ""
+msgstr "Seeria:"
 
 #: ../root/release_group/set_cover_art.tt:1
 msgid "Set Release Group Cover Art"
@@ -7725,7 +7725,7 @@ msgstr "Vabandust, selle MusicBrainzi ID-ga väljalaset ei leitud. Võid proovid
 msgid ""
 "Sorry, we could not find a series with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr ""
+msgstr "Vabandust, selle MusicBrainzi ID-ga seeriat ei leitud. Võid proovida {search_url|seda otsida}."
 
 #: ../root/work/not_found.tt:4
 msgid ""
@@ -7765,7 +7765,7 @@ msgstr "Vabandust, selle nimega toimetajat ei leitud. Võid proovida {search_url
 msgid ""
 "Sorry, we could not find an instrument with that MusicBrainz ID. You may "
 "wish to try and {search_url|search for it} instead."
-msgstr ""
+msgstr "Vabandust, selle MusicBrainzi ID-ga instrumenti ei leitud. Võid proovida {search_url|seda otsida}."
 
 #: ../root/search/editor.tt:18
 msgid ""
@@ -8355,19 +8355,19 @@ msgstr "Otsinguserveril ei õnnestunud sisemise vea tõttu päringut täita. Tav
 
 #: ../root/scripts/text_strings.tt:190
 msgid "The series you’ve selected is for recordings."
-msgstr ""
+msgstr "Valitud seeria on salvestiste jaoks."
 
 #: ../root/scripts/text_strings.tt:192
 msgid "The series you’ve selected is for release groups."
-msgstr ""
+msgstr "Valitud seeria on väljalaskerühmade jaoks."
 
 #: ../root/scripts/text_strings.tt:191
 msgid "The series you’ve selected is for releases."
-msgstr ""
+msgstr "Valitud seeria on väljalasete jaoks."
 
 #: ../root/scripts/text_strings.tt:193
 msgid "The series you’ve selected is for works."
-msgstr ""
+msgstr "Valitud seeria on teoste jaoks."
 
 #: ../root/layout.tt:61
 msgid "The server is temporary in read-only mode for database maintainance."
@@ -8434,7 +8434,7 @@ msgstr "{label} pole hetkel ühegi kasutaja jälgimisloendis."
 
 #: ../root/series/subscribers.tt:22
 msgid "There are currently no users subscribed to {series}."
-msgstr ""
+msgstr "„{series}” pole hetkel ühegi kasutaja jälgimisloendis."
 
 #: ../root/release/discids.tt:49
 msgid ""
@@ -8489,8 +8489,8 @@ msgstr[1] "{label} on hetkel {num} kasutaja jälgimisloendis:"
 #: ../root/series/subscribers.tt:4
 msgid "There is currently {num} user subscribed to {series}:"
 msgid_plural "There are currently {num} users subscribed to {series}:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "„{series}” on hetkel {num} kasutaja jälgimisloendis:"
+msgstr[1] "„{series}” on hetkel {num} kasutaja jälgimisloendis:"
 
 #: ../root/browse/entity.tt:35
 msgid "There is no data to display."
@@ -8745,7 +8745,7 @@ msgstr "See grupp on laiali läinud"
 msgid ""
 "This instrument cannot be removed because there are still relationships "
 "attributed to it."
-msgstr ""
+msgstr "Seda instrumenti ei saa eemaldada, kuna sel on ikka veel seoseid."
 
 #: ../root/layout.tt:37 ../lib/DBDefs/Default.pm:139
 msgid "This is a MusicBrainz development server."
@@ -8922,7 +8922,7 @@ msgstr "See salvestis on video"
 
 #: ../root/relationship/linktype/form.tt:17
 msgid "This relationship allows setting dates"
-msgstr ""
+msgstr "See seos lubab kuupäevade määramist"
 
 #: ../root/scripts/text_strings.tt:171
 msgid "This relationship already exists."
@@ -8949,7 +8949,7 @@ msgstr "Sel seosel pole ühtki näidet."
 
 #: ../root/doc/relationship_type.tt:51
 msgid "This relationship type doesn't allow any attributes."
-msgstr ""
+msgstr "See seosetüüp ei luba ühtegi atribuuti."
 
 #: ../root/doc/relationship_type.tt:11 ../root/scripts/text_strings.tt:129
 msgid "This relationship type is deprecated and should not be used."
@@ -9418,17 +9418,17 @@ msgstr "See eeldab, et vastavatel helikandjatel on sama palju lugusid."
 msgid ""
 "This series cannot be removed because there are still relationships using "
 "it."
-msgstr ""
+msgstr "Seda seeriat ei saa eemaldada, kuna sel on ikka veel seoseid."
 
 #: ../root/series/index.tt:6
 msgid ""
 "This series has no relationships and will be removed automatically in the "
 "next few days. If this is not intended, please add more data to this series."
-msgstr ""
+msgstr "Sel seerial pole seoseid, niisiis eemaldatakse see järgmise paari päeva jooksul automaatselt andmebaasist. Eemaldamise takistamiseks lisa palun seeriale andmeid."
 
 #: ../root/series/index.tt:48
 msgid "This series is currently empty."
-msgstr ""
+msgstr "See seeria on hetkel tühi."
 
 #: ../root/user/profile.tt:194
 msgid "This table shows a summary of votes cast by this editor."
@@ -9935,7 +9935,7 @@ msgstr "Autoriseerimata päring"
 
 #: ../root/browse/instrument.tt:21
 msgid "Unclassified instrument"
-msgstr ""
+msgstr "Klassifitseerimata instrument"
 
 #: ../root/components/common-macros.tt:1000 ../root/report/artist_list.tt:17
 #: ../root/report/artists_with_multiple_occurances_in_artist_credits.tt:25
@@ -10306,7 +10306,7 @@ msgstr "Andmebaasis on juba mõni väga sarnase nimega koht:"
 
 #: ../root/series/edit_form.tt:15
 msgid "We found the following series with very similar names:"
-msgstr ""
+msgstr "Andmebaasis on juba mõni väga sarnase pealkirjaga seeria:"
 
 #: ../root/search/editor.tt:5
 msgid ""
@@ -10600,7 +10600,7 @@ msgstr "Jah, tahan ikkagi uue koha lisada"
 
 #: ../root/series/edit_form.tt:22
 msgid "Yes, I still want to create a new series."
-msgstr ""
+msgstr "Jah, tahan ikkagi uue seeria lisada"
 
 #: ../root/admin/wikidoc/delete.tt:9
 msgid "Yes, I'm sure"
@@ -10641,7 +10641,7 @@ msgid ""
 "You are about to merge the following instruments into a single instrument. "
 "Please select the instrument which you would like other instruments to be "
 "merged into:"
-msgstr ""
+msgstr "Asusid järgnevaid instrumente üheks mestima. Palun vali instrument, millesse ülejäänud mestida:"
 
 #: ../root/label/merge.tt:4
 msgid ""
@@ -10680,7 +10680,7 @@ msgstr "Asusid järgnevaid väljalaskeid üheks mestima. Palun vali väljalase, 
 msgid ""
 "You are about to merge the following series into a single series. Please "
 "select the series which you would like other series to be merged into:"
-msgstr ""
+msgstr "Asusid järgnevaid seeriaid üheks mestima. Palun vali seeria, millesse ülejäänud mestida:"
 
 #: ../root/work/merge.tt:4
 msgid ""
@@ -11293,7 +11293,7 @@ msgstr "saada e-kiri"
 #: ../root/components/common-macros.tt:141
 msgctxt "plural"
 msgid "series"
-msgstr ""
+msgstr "seeriate"
 
 #: ../root/cdtoc/attach_list.tt:32 ../root/cdtoc/attach_list.tt:56
 msgid "show tracklist"
@@ -11405,7 +11405,7 @@ msgstr[1] "{artist} ei ole avaldanud ühtki {n} looga väljalaset."
 #: ../lib/MusicBrainz/Server/Entity/Relationship.pm:207
 #, perl-brace-format
 msgid "{attribute}: {value}"
-msgstr ""
+msgstr "{attribute}: {value}"
 
 #: ../root/components/relationships-table.tt:21
 #: ../lib/MusicBrainz/Server/Entity/Link.pm:114
@@ -11636,8 +11636,8 @@ msgstr[1] "Leiti {num} väljalaskerühma"
 #: ../root/user/subscriptions/layout.tt:31
 msgid "{num} series"
 msgid_plural "{num} series"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{num} seeria"
+msgstr[1] "{num} seeriat"
 
 #: ../root/tag/work.tt:1
 msgid "{num} work found"
@@ -11659,7 +11659,7 @@ msgstr[1] "{num} aasta eest"
 
 #: ../root/scripts/text_strings.tt:188
 msgid "{num}. {relationship}"
-msgstr ""
+msgstr "{num}. {relationship}"
 
 #: ../root/release/edit_relationships.tt:24
 msgid "{n} recording selected"
@@ -11713,7 +11713,7 @@ msgstr "{type0}–{type1} seosetüübid"
 
 #: ../root/instrument/layout.tt:1
 msgid "{type} “{instrument}”"
-msgstr ""
+msgstr "{type} „{instrument}”"
 
 #: ../root/work/layout.tt:1
 msgid "{type} “{work}”"
@@ -11971,7 +11971,7 @@ msgstr "Paistab, et meie Redise-server on maas, mistõttu mõned asjad ei pruugi
 
 #: ../lib/MusicBrainz/Server/Controller/Series.pm:122
 msgid "Series that have different entity types cannot be merged."
-msgstr ""
+msgstr "Eri tüüpi seeriate mestmine pole võimalik."
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:253
 #, perl-brace-format
@@ -11995,7 +11995,7 @@ msgstr "Sobimatu sisukord"
 msgid ""
 "You must be logged in to submit edits. {url|Log in} first, and then try "
 "submitting your edits again."
-msgstr ""
+msgstr "Toimetamiseks pead olema sisselogitud. {url|Logi sisse} ja proovi siis uuesti oma toimetust sisestada."
 
 #: ../lib/MusicBrainz/Server/ControllerUtils/Delete.pm:25
 msgid ""
@@ -12218,19 +12218,19 @@ msgstr "Loopikkuste määramine"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/AddAnnotation.pm:11
 msgid "Add instrument annotation"
-msgstr ""
+msgstr "Instrumendi annotatsiooni lisamine"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Create.pm:17
 msgid "Add instrument"
-msgstr ""
+msgstr "Instrumendi lisamine"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Edit.pm:27
 msgid "Edit instrument"
-msgstr ""
+msgstr "Instrumendi toimetamine"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Merge.pm:11
 msgid "Merge instruments"
-msgstr ""
+msgstr "Instrumentide mestimine"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/AddAnnotation.pm:11
 msgid "Add label annotation"
@@ -12338,7 +12338,7 @@ msgstr "Seosetüübi eemaldamine"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Reorder.pm:22
 msgid "Reorder relationships"
-msgstr ""
+msgstr "Seoste järjestuse muutmine"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/AddCoverArt.pm:20
 msgid "Add cover art"
@@ -12398,19 +12398,19 @@ msgstr "Väljalaskerühma toimetamine"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/AddAnnotation.pm:11
 msgid "Add series annotation"
-msgstr ""
+msgstr "Seeria annotatsiooni lisamine"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Create.pm:20
 msgid "Add series"
-msgstr ""
+msgstr "Seeria lisamine"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Delete.pm:12
 msgid "Remove series"
-msgstr ""
+msgstr "Seeria eemaldamine"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Edit.pm:24
 msgid "Edit series"
-msgstr ""
+msgstr "Seeria toimetamine"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:281
 msgid "Applied"
@@ -12781,7 +12781,7 @@ msgstr "Parooli kinnitus erineb paroolist."
 
 #: ../lib/MusicBrainz/Server/Form/User/Register.pm:45
 msgid "This username is reserved for internal use"
-msgstr ""
+msgstr "See kasutajanimi on reserveeritud sisekasutuseks."
 
 #: ../lib/MusicBrainz/Server/Form/User/Register.pm:49
 msgid "Please choose another username, this one is already taken"

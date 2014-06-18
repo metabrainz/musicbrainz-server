@@ -8,10 +8,11 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIPS_REORDER
 );
 use List::MoreUtils qw( uniq );
-use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Data::Utils qw(
+    type_to_model
+    split_relationship_by_attributes
+);
 use MusicBrainz::Server::Edit::Relationship::Edit;
-
-has attr_tree => ( is => 'rw' );
 
 =method try_and_edit
 
@@ -55,17 +56,22 @@ table.
 sub try_and_insert {
     my ($self, $c, $form, %params) = @_;
 
-    my $edit;
+    my @edits;
+    my $attributes = $c->model('LinkAttributeType')->get_by_ids(@{ $params{attributes} // [] });
+    my @relationships = split_relationship_by_attributes($attributes, \%params);
+
     $c->model('Relationship')->lock_and_do(
         $params{link_type}->entity0_type,
         $params{link_type}->entity1_type,
         sub {
-            $edit = $self->_try_and_insert_edit(
-                $c, $form, $EDIT_RELATIONSHIP_CREATE, %params
-            );
+            @edits = map {
+                $self->_try_and_insert_edit(
+                    $c, $form, $EDIT_RELATIONSHIP_CREATE, %$_
+                )
+            } @relationships
         }
     );
-    return $edit;
+    return @edits;
 }
 
 sub delete_relationship {

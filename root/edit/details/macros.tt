@@ -15,6 +15,16 @@
        display_diff(label, old, new, '\s+');
     END -%]
 
+[%- MACRO display_html_diff(label, old, new) BLOCK -%]
+  [%- IF old != new -%]
+    <tr>
+      <th>[% label %]</th>
+      <td class="old">[% Diff.diff_html_side(old, new, '-') %]</td>
+      <td class="new">[% Diff.diff_html_side(old, new, '+') %]</td>
+    </tr>
+  [%- END -%]
+[%- END -%]
+
 [%- MACRO display_full_change(label, old, new) BLOCK -%]
   [%- IF old != new -%]
     <tr>

@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-05-26 09:29+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-05-29 20:08+0000\n"
+"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1327,11 +1327,11 @@ msgstr ""
 
 #: ../root/statistics/index.tt:647 ../root/statistics/view_js.tt:58
 msgid "Instruments"
-msgstr ""
+msgstr "Instrumendid"
 
 #: ../root/statistics/index.tt:64 ../root/statistics/index.tt:654
 msgid "Instruments:"
-msgstr ""
+msgstr "Instrumente:"
 
 #: ../root/statistics/view_js.tt:29
 msgid "Label Countries"
@@ -1845,12 +1845,12 @@ msgstr "Teisesed tüübid"
 #: ../root/statistics/index.tt:625 ../root/statistics/view_js.tt:57
 msgctxt "plural"
 msgid "Series"
-msgstr ""
+msgstr "Seeriad"
 
 #: ../root/statistics/index.tt:60 ../root/statistics/index.tt:632
 msgctxt "plural"
 msgid "Series:"
-msgstr ""
+msgstr "Seeriaid:"
 
 #: ../root/statistics/no_statistics.tt:3
 msgid ""

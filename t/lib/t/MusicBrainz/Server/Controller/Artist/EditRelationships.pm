@@ -17,7 +17,7 @@ test 'adding a relationship' => sub {
     $mech->get_ok('/login');
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
-    my ($edit) = capture_edits {
+    my @edits = capture_edits {
         $mech->post("/artist/745c079d-374e-4436-9448-da92dedef3ce/edit", {
             'edit-artist.name' => 'Test Artist',
             'edit-artist.sort_name' => 'Artist, Test',
@@ -38,9 +38,10 @@ test 'adding a relationship' => sub {
         });
     } $c;
 
-    isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Create');
+    isa_ok($edits[0], 'MusicBrainz::Server::Edit::Relationship::Create');
+    isa_ok($edits[1], 'MusicBrainz::Server::Edit::Relationship::Create');
 
-    cmp_deeply($edit->data,  {
+    my %edit_data = (
         type1       => 'recording',
         type0       => 'artist',
         link_type   => {
@@ -55,7 +56,16 @@ test 'adding a relationship' => sub {
         begin_date  => { year => 1999, month => 1, day => 1 },
         end_date    => { year => 1999, month => 2, day => undef },
         ended       => 1,
-        attributes  => bag(1, 3, 4),
+    );
+
+    cmp_deeply($edits[0]->data,  {
+        %edit_data,
+        attributes => bag(1, 3),
+    });
+
+    cmp_deeply($edits[1]->data,  {
+        %edit_data,
+        attributes => bag(1, 4),
     });
 };
 

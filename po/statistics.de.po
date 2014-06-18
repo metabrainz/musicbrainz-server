@@ -13,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-05-26 09:29+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-05-30 00:23+0000\n"
+"Last-Translator: nikki\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -669,7 +669,7 @@ msgstr "Künstler mit Typ Gruppe"
 
 #: ../root/statistics/view_js.tt:125
 msgid "Artists with type set to orchestra"
-msgstr ""
+msgstr "Künstler mit Typ Orchester"
 
 #: ../root/statistics/view_js.tt:123
 msgid "Artists with type set to other"
@@ -2089,11 +2089,11 @@ msgstr "manuell ausgewählt:"
 
 #: ../root/statistics/index.tt:171
 msgid "of type Character:"
-msgstr ""
+msgstr "mit Typ Figur:"
 
 #: ../root/statistics/index.tt:165
 msgid "of type Choir:"
-msgstr ""
+msgstr "mit Typ Chor:"
 
 #: ../root/statistics/index.tt:153
 msgid "of type Group:"
@@ -2101,7 +2101,7 @@ msgstr "mit Typ Gruppe:"
 
 #: ../root/statistics/index.tt:159
 msgid "of type Orchestra:"
-msgstr ""
+msgstr "mit Typ Orchester:"
 
 #: ../root/statistics/index.tt:177
 msgid "of type Other:"

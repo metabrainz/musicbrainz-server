@@ -51,6 +51,7 @@ sub initialize
     $self->data({
         entity => {
             id => $entity->id,
+            ($entity->can('gid') ? (gid => $entity->gid) : ()),
             name => $entity->name
         },
         $self->_change_data($entity, %opts)

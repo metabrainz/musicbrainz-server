@@ -15,7 +15,7 @@
                         html_escape(edit.data.new.name)) ||
       '<tr><th>' _ l('Name:') _ '</th><td colspan=2>' _ html_escape(edit.data.old.name) _ '</td></tr>' -%]
 
-  [%- display_word_diff(l('Description:'),
+  [%- display_html_diff(l('Description:'),
                         edit.data.old.description,
                         edit.data.new.description) ||
       '<tr><th>' _ l('Description:') _ '</th><td colspan=2>' _ html_escape(edit.data.old.description) _ '</td></tr>' -%]
