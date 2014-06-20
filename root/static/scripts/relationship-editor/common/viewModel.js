@@ -45,7 +45,6 @@
             this.cache = {};
             this.allowedRelations = this.getAllowedRelations();
             this.uniqueID = _.uniqueId("relationship-editor-");
-            this.relationshipsBySource = {};
 
             if (options.formName) {
                 this.formName = options.formName;

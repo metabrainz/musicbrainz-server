@@ -75,7 +75,7 @@
                         });
                     });
                 });
-            })
+            });
 
             var rg = this.source.releaseGroup;
             _.each(rg.relationships(), function (r) {
