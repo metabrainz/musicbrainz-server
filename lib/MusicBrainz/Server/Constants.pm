@@ -200,6 +200,15 @@ Readonly our $EDIT_INSTRUMENT_ADD_ALIAS => 136;
 Readonly our $EDIT_INSTRUMENT_DELETE_ALIAS => 137;
 Readonly our $EDIT_INSTRUMENT_EDIT_ALIAS => 138;
 
+Readonly our $EDIT_EVENT_CREATE => 150;
+Readonly our $EDIT_EVENT_EDIT => 151;
+Readonly our $EDIT_EVENT_DELETE => 152;
+Readonly our $EDIT_EVENT_MERGE => 153;
+Readonly our $EDIT_EVENT_ADD_ANNOTATION => 154;
+Readonly our $EDIT_EVENT_ADD_ALIAS => 155;
+Readonly our $EDIT_EVENT_DELETE_ALIAS => 156;
+Readonly our $EDIT_EVENT_EDIT_ALIAS => 157;
+
 Readonly our $EDIT_WIKIDOC_CHANGE => 120;
 
 Readonly our $EDIT_URL_EDIT => 101;

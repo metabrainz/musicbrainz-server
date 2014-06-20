@@ -9,6 +9,7 @@ for my $cls (qw(AggregatedTag AliasType Annotation Application
                 Barcode CDTOC CDStub Collection Coordinates
                 CoverArtType
                 Editor EditorOAuthToken
+                Event EventAlias EventType
                 Instrument InstrumentType
                 Label LabelAlias LabelType
                 Link LinkAttribute LinkAttributeType LinkType LinkTypeAttribute

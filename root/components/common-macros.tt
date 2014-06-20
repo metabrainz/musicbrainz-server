@@ -230,6 +230,7 @@ END -%]
       ELSIF entity.isa('MusicBrainz::Server::Entity::Area'); link_area(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Collection'); link_collection(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Work'); link_work(entity, action, text);
+      ELSIF entity.isa('MusicBrainz::Server::Entity::Event'); link_event(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Instrument'); link_instrument(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Label'); link_label(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Place'); link_place(entity, action, text);
@@ -276,6 +277,7 @@ END -%]
     IF entity.isa('MusicBrainz::Server::Entity::Artist'); "artist";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Area'); "area";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Work'); "work";
+    ELSIF entity.isa('MusicBrainz::Server::Entity::Event'); "event";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Instrument'); "instrument";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Label'); "label";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Place'); "place";
@@ -366,6 +368,15 @@ END -%]
     link = c.uri_for_action("/collection/$action", [ collection.gid ]);
     text = html_escape(text == '' ? collection.name : text);
     '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
+END -%]
+
+[%~ MACRO link_event(event, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/event/$action", [ event.gid ]);
+    text = html_escape(text == '' ? event.name : text);
+    '<span class="mp">' IF event.edits_pending AND action == 'show';
+    '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
+    '</span>' IF event.edits_pending AND action == 'show';
 END -%]
 
 [%~ MACRO link_release(release, action, text) BLOCK;
@@ -565,6 +576,7 @@ END -%]
 [%~ MACRO entity_label(type) BLOCK;
     IF type == 'artist'; l('Artist:');
     ELSIF type == 'area'; l('Area:');
+    ELSIF type == 'event'; l('Event:');
     ELSIF type == 'instrument'; l('Instrument:');
     ELSIF type == 'label'; l('Label:');
     ELSIF type == 'place'; l('Place:');
@@ -580,6 +592,7 @@ END -%]
 [%~ MACRO format_entity_type_name(type_name) BLOCK -%]
     [%- IF    type_name == 'artist'; l('Artist');
         ELSIF type_name == 'area'; l('Area');
+        ELSIF type_name == 'event'; l('Event:');
         ELSIF type_name == 'instrument'; l('Instrument');
         ELSIF type_name == 'place'; l('Place');
         ELSIF type_name == 'release'; l('Release');

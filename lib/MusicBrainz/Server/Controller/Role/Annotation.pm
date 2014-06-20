@@ -19,6 +19,7 @@ my %model_to_edit_type = (
     Area => $EDIT_AREA_ADD_ANNOTATION,
     Instrument => $EDIT_INSTRUMENT_ADD_ANNOTATION,
     Series => $EDIT_SERIES_ADD_ANNOTATION,
+    Event => $EDIT_EVENT_ADD_ANNOTATION,
 );
 
 after 'load' => sub
