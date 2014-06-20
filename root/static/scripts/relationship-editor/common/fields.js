@@ -383,7 +383,7 @@
         },
 
         linkPhrase: function (source) {
-            return this.phraseAndExtraAttributes()[this.entities().indexOf(source)];
+            return this.phraseAndExtraAttributes()[_.indexOf(this.entities(), source)];
         },
 
         lowerCasePhrase: function (source) {
