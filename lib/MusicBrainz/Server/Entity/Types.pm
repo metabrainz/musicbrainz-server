@@ -21,7 +21,7 @@ for my $cls (qw(AggregatedTag AliasType Annotation Application
                 Relationship
                 ReleaseGroup ReleaseGroupSecondaryType ReleaseGroupType
                 Release ReleaseEvent ReleaseStatus ReleasePackaging ReleaseLabel
-                Script Tag Track UserTag
+                Script Tag Time Track UserTag
                 Series SeriesOrderingType SeriesType
                 Work WorkAlias WorkType
                 WorkAttribute WorkAttributeType WorkAttributeTypeAllowedValue)) {
