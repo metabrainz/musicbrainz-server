@@ -464,7 +464,11 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         if (localStorage.recentAutocompleteEntities === undefined) {
             recentEntities = {};
         } else {
-            recentEntities = JSON.parse(localStorage.recentAutocompleteEntities);
+            try {
+                recentEntities = JSON.parse(localStorage.recentAutocompleteEntities);
+            } catch (e) {
+                recentEntities = {};
+            }
         }
 
         if (arguments.length) {
