@@ -175,6 +175,9 @@ END -%]
     [%- IF entity.isa('MusicBrainz::Server::Entity::Area') -%]
         [%- historical(entity) -%]
     [%- END -%]
+    [%- IF entity.isa('MusicBrainz::Server::Entity::Event') -%]
+        [%- cancelled(entity) -%]
+    [%- END -%]
 [%- END -%]
 
 [%~ MACRO historical(entity) BLOCK -%]
@@ -187,6 +190,14 @@ END -%]
             [%- ELSE -%]
                 [%- l("historical") -%]
             [%- END -%]
+        [%- -%]</bdi>)</span>
+    [%- END -%]
+[%- END -%]
+
+[%~ MACRO cancelled(entity) BLOCK -%]
+    [%- IF entity.cancelled -%]
+        <span class="cancelled">(<bdi>
+            [%- l("cancelled") -%]
         [%- -%]</bdi>)</span>
     [%- END -%]
 [%- END -%]

@@ -8,6 +8,7 @@ extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Taggable';
 with 'MusicBrainz::Server::Entity::Role::Linkable';
 with 'MusicBrainz::Server::Entity::Role::Annotation';
+with 'MusicBrainz::Server::Entity::Role::Age';
 with 'MusicBrainz::Server::Entity::Role::LastUpdate';
 with 'MusicBrainz::Server::Entity::Role::Rating';
 
@@ -18,7 +19,7 @@ has 'type_id' => (
 
 has 'type' => (
     is => 'rw',
-    isa => 'SeriesType',
+    isa => 'EventType',
 );
 
 sub type_name
