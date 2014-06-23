@@ -458,15 +458,21 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
     },
 
     recentEntities: function () {
-        var entityType = this.entity.replace("-", "_");
-        var recentEntities;
+        if (!window.localStorage) {
+            return [];
+        }
 
-        if (localStorage.recentAutocompleteEntities === undefined) {
-            recentEntities = {};
-        } else {
+        var entityType = this.entity.replace("-", "_");
+        var recentEntities = {};
+
+        if (localStorage.recentAutocompleteEntities) {
             try {
                 recentEntities = JSON.parse(localStorage.recentAutocompleteEntities);
             } catch (e) {
+                recentEntities = {};
+            }
+
+            if (!_.isPlainObject(recentEntities)) {
                 recentEntities = {};
             }
         }
