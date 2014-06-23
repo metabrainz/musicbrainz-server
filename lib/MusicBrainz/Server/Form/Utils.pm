@@ -194,6 +194,7 @@ sub build_type_info {
             cardinality0        => $root->entity0_cardinality,
             cardinality1        => $root->entity1_cardinality,
             orderableDirection  => $root->orderable_direction,
+            childOrder          => $root->child_order,
         };
 
         $result->{description} = $root->l_description if $root->description;

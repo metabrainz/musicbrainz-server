@@ -71,4 +71,14 @@
         return output;
     };
 
+
+    var lang = document.documentElement.lang;
+
+    if (typeof Intl === "undefined") {
+        i18n.compare = function (a, b) { return a.localeCompare(b, lang) };
+    } else {
+        var collator = new Intl.Collator(lang);
+        i18n.compare = function (a, b) { return collator.compare(a, b) };
+    }
+
 }(MB.i18n = {}));

@@ -324,9 +324,15 @@
                 })
             }
 
-            return _.map(targetTypes, function (type) {
+            var options = _.map(targetTypes, function (type) {
                 return { value: type, text: MB.text.Entity[type] };
             });
+
+            options.sort(function (a, b) {
+                return MB.i18n.compare(a.text, b.text);
+            });
+
+            return options;
         },
 
         targetTypeChanged: function (newType) {
