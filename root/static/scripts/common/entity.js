@@ -71,11 +71,25 @@
         if (!entityClass) {
             throw "Unknown type of entity: " + type;
         }
-        var id = (type === "url" && !data.gid) ? data.name : data.gid;
-        if (id) {
-            return MB.entityCache[id] || (MB.entityCache[id] = new entityClass(data));
+        var entity = MB.entityCache[data.gid];
+
+        if (type === "url") {
+            entity = entity || MB.entityCache[data.name];
         }
-        return new entityClass(data);
+
+        if (!entity) {
+            entity = new entityClass(data);
+
+            if (data.gid) {
+                MB.entityCache[data.gid] = entity;
+            }
+
+            if (data.name && type === "url") {
+                MB.entityCache[data.name] = entity;
+            }
+        }
+
+        return entity;
     };
 
     // Used by MB.entity() above to cache everything with a GID.
