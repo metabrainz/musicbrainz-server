@@ -59,9 +59,9 @@ sub _columns
     return 'artist.id, artist.gid, artist.name, artist.sort_name, ' .
            'artist.type, artist.area, artist.begin_area, artist.end_area, ' .
            'gender, artist.edits_pending, artist.comment, artist.last_updated, ' .
-           'begin_date_year, begin_date_month, begin_date_day, ' .
-           'end_date_year, end_date_month, end_date_day,' .
-           'ended';
+           'artist.begin_date_year, artist.begin_date_month, artist.begin_date_day, ' .
+           'artist.end_date_year, artist.end_date_month, artist.end_date_day,' .
+           'artist.ended';
 }
 
 sub _id_column
@@ -117,6 +117,21 @@ sub find_by_subscribed_editor
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $editor_id, $offset || 0);
+}
+
+sub find_by_area {
+    my ($self, $area_id, $limit, $offset) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                    LEFT JOIN area ON artist.area = area.id
+                    LEFT JOIN area begin_area ON artist.begin_area = begin_area.id
+                    LEFT JOIN area end_area ON artist.end_area = end_area.id
+                 WHERE ? IN (area.id, begin_area.id, end_area.id)
+                 ORDER BY musicbrainz_collate(artist.name), artist.id
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $area_id, $offset || 0);
 }
 
 sub find_by_recording
