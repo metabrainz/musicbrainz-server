@@ -86,7 +86,7 @@ sub serialize_relationship {
     my $out = {
         id              => $relationship->id,
         linkTypeID      => $link->type_id,
-        attributes      => [ sort map { $_->id } $link->all_attributes ],
+        attributes      => [ sort map { $_->type->id } $link->all_attributes ],
         ended           => $link->ended ? \1 : \0,
         target          => $self->$entity( $_->target ),
         editsPending    => $relationship->edits_pending ? \1 : \0,
@@ -94,8 +94,16 @@ sub serialize_relationship {
         linkOrder       => $relationship->link_order,
     };
 
-    if (any { $_->free_text } $link->all_attributes) {
+    if (any { $_->type->free_text } $link->all_attributes) {
         $out->{attributeTextValues} = $link->attribute_text_values;
+    }
+
+    if (any { $_->credited_as } $link->all_attributes) {
+        $out->{attributeCredits} = {
+            map {
+                $_->credited_as ? ($_->type->id => $_->credited_as) : ()
+            } $link->all_attributes
+        };
     }
 
     $out->{beginDate} = $link->begin_date->is_empty ? undef : partial_date_to_hash($link->begin_date);
