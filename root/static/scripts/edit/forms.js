@@ -11,6 +11,7 @@ MB.forms = {
 
         function buildOptions(parent, indent) {
             var i = 0, children = parent.children, child;
+            if (!children) { return; }
 
             while (child = children[i++]) {
                 var opt = {};
@@ -21,9 +22,7 @@ MB.forms = {
                 opt.data = child;
                 options.push(opt);
 
-                if (child.children) {
-                    buildOptions(child, indent + 1);
-                }
+                buildOptions(child, indent + 1);
             }
         }
 
