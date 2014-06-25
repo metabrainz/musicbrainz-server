@@ -567,7 +567,8 @@ MB.Control.URLCleanup = function (options) {
     validationRules[ MB.constants.LINK_TYPES.discogs.artist ] = function (url) {
         return url.match(/discogs\.com\/(artist|user)\//) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.discogs.label ] = function (url) {
+    validationRules[ MB.constants.LINK_TYPES.discogs.label ] =
+    validationRules[ MB.constants.LINK_TYPES.discogs.series ] = function (url) {
         return url.match(/discogs\.com\/label\//) != null;
     }
     validationRules[ MB.constants.LINK_TYPES.discogs.release_group ] = function (url) {
@@ -596,21 +597,13 @@ MB.Control.URLCleanup = function (options) {
     }
 
     // allow only Wikipedia pages with the Wikipedia rel
-    validationRules[ MB.constants.LINK_TYPES.wikipedia.artist ] = function (url) {
+    function validateWikipedia(url) {
         return url.match(/wikipedia\.org\//) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.wikipedia.work ] = function (url) {
-        return url.match(/wikipedia\.org\//) != null;
-    }
-    validationRules[ MB.constants.LINK_TYPES.wikipedia.label ] = function (url) {
-        return url.match(/wikipedia\.org\//) != null;
-    }
-    validationRules[ MB.constants.LINK_TYPES.wikipedia.release_group ] = function (url) {
-        return url.match(/wikipedia\.org\//) != null;
-    }
-    validationRules[ MB.constants.LINK_TYPES.wikipedia.area ] = function (url) {
-        return url.match(/wikipedia\.org\//) != null;
-    }
+
+    _.each(MB.constants.LINK_TYPES.wikipedia, function (id) {
+        validationRules[id] = validateWikipedia;
+    });
 
     // allow only Myspace pages with the Myspace rel
     validationRules[ MB.constants.LINK_TYPES.myspace.artist ] = function (url) {
@@ -713,21 +706,13 @@ MB.Control.URLCleanup = function (options) {
     }
 
     // allow only Wikidata pages with the Wikidata rel
-    validationRules[ MB.constants.LINK_TYPES.wikidata.artist ] = function (url) {
+    function validateWikidata(url) {
         return url.match(/wikidata\.org\//) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.wikidata.work ] = function (url) {
-        return url.match(/wikidata\.org\//) != null;
-    }
-    validationRules[ MB.constants.LINK_TYPES.wikidata.label ] = function (url) {
-        return url.match(/wikidata\.org\//) != null;
-    }
-    validationRules[ MB.constants.LINK_TYPES.wikidata.release_group ] = function (url) {
-        return url.match(/wikidata\.org\//) != null;
-    }
-    validationRules[ MB.constants.LINK_TYPES.wikidata.area ] = function (url) {
-        return url.match(/wikidata\.org\//) != null;
-    }
+
+    _.each(MB.constants.LINK_TYPES.wikidata, function (id) {
+        validationRules[id] = validateWikidata;
+    });
 
     // allow only top-level Bandcamp pages as artist/label URLs
     validationRules[ MB.constants.LINK_TYPES.bandcamp.artist ] = function (url) {
