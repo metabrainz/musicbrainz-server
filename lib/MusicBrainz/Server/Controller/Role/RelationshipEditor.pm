@@ -128,7 +128,6 @@ sub _try_and_insert_edit {
         attributes   => $params{attributes},
         entity0_id   => $params{entity0}->id,
         entity1_id   => $params{entity1}->id,
-        attribute_text_values => $params{attribute_text_values} // {},
     });
 
     return $self->_insert_edit($c, $form, edit_type => $edit_type, %params);

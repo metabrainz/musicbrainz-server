@@ -3,7 +3,7 @@ use strict;
 use Moose;
 use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
 use MooseX::Types::Moose qw( ArrayRef Int Str Bool );
-use MooseX::Types::Structured qw( Dict );
+use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIPS_REORDER
     $EXPIRE_ACCEPT
@@ -15,6 +15,7 @@ use MusicBrainz::Server::Edit::Types qw( PartialDateHash );
 use MusicBrainz::Server::Translation qw ( N_l );
 use Try::Tiny;
 use aliased 'MusicBrainz::Server::Entity::Link';
+use aliased 'MusicBrainz::Server::Entity::LinkAttribute';
 use aliased 'MusicBrainz::Server::Entity::Relationship';
 
 extends 'MusicBrainz::Server::Edit';
@@ -41,7 +42,11 @@ subtype 'LinkTypeHash'
 subtype 'ReorderedRelationshipHash'
     => as Dict[
         id => Int,
-        attributes => ArrayRef[Int],
+        attributes => ArrayRef[Dict[
+            id => Int,
+            credited_as => Optional[Str],
+            text_value => Optional[Str],
+        ]],
         begin_date => PartialDateHash,
         end_date => PartialDateHash,
         ended => Bool,
@@ -53,7 +58,6 @@ subtype 'ReorderedRelationshipHash'
             id => Int,
             name => Str,
         ],
-        attribute_text_values => Dict,
     ];
 
 has '+data' => (
@@ -66,6 +70,7 @@ has '+data' => (
                 new_order => Int,
             ]
         ],
+        edit_version => Optional[Int],
     ]
 );
 
@@ -83,9 +88,7 @@ sub foreign_keys {
     $load{$model1} = {};
 
     for (map { $_->{relationship} } @{ $self->data->{relationship_order} }) {
-        push @{ $load{LinkAttributeType} },
-             @{ $_->{attributes} }, keys %{ $_->{attribute_text_values} };
-
+        push @{ $load{LinkAttributeType} }, map { $_->{id} } @{ $_->{attributes} };
         $load{$model0}->{ $_->{entity0}{id} } = [];
         $load{$model1}->{ $_->{entity1}{id} } = [];
     }
@@ -113,13 +116,17 @@ sub _build_relationship {
                     if ($attr) {
                         my $root_id = $self->c->model('LinkAttributeType')->find_root($attr->id);
                         $attr->root($self->c->model('LinkAttributeType')->get_by_id($root_id));
-                        $attr;
+
+                        LinkAttribute->new(
+                            type => $attr,
+                            credited_as => $_->{credited_as},
+                            text_value => $_->{text_value},
+                        );
                     } else {
                         ();
                     }
                 } @{ $data->{attributes} }
             ],
-            attribute_text_values => $data->{attribute_text_values} // {},
         ),
         entity0 => $loaded->{$model0}{ $data->{entity0}{id} } ||
             $self->c->model($model0)->_entity_class->new(name => $data->{entity0}{name}),
@@ -201,7 +208,13 @@ sub initialize {
             begin_date => partial_date_to_hash($link->begin_date),
             end_date => partial_date_to_hash($link->end_date),
             ended => $link->ended,
-            attributes => [ map { $_->id } $link->all_attributes ],
+            attributes => [
+                map +{
+                    id => $_->type->id,
+                    $_->credited_as ? (credited_as => $_->credited_as) : (),
+                    $_->text_value ? (text_value => $_->text_value) : (),
+                }, $link->all_attributes
+            ],
             entity0 => {
                 id => $relationship->entity0_id,
                 name => $relationship->entity0->name
@@ -210,7 +223,6 @@ sub initialize {
                 id => $relationship->entity1_id,
                 name => $relationship->entity1->name
             },
-            attribute_text_values => $link->attribute_text_values,
         };
     }
 
@@ -254,5 +266,13 @@ sub accept {
         map { $_->{relationship}{id} => $_->{new_order} } @{ $self->data->{relationship_order} }
     );
 }
+
+before restore => sub {
+    my ($self, $data) = @_;
+
+    unless (defined $data->{edit_version}) {
+        $self->restore_int_attributes($_->{relationship}) for @{ $data->{relationship_order} };
+    }
+};
 
 1;

@@ -211,7 +211,6 @@ sub _interpolate
     my ($self, $phrase) = @_;
 
     my @attrs = $self->link->all_attributes;
-    my $text_attrs = $self->link->attribute_text_values;
     my %attrs;
     foreach my $attr (@attrs) {
         my $type = $attr->type;
@@ -226,7 +225,7 @@ sub _interpolate
             $value = l('{attribute} [{credited_as}]', { attribute => $value, credited_as => $credit })
         }
 
-        if ($type->free_text && (my $text_value = $text_attrs->{$type->id})) {
+        if (my $text_value = $attr->text_value) {
             $value = l('{attribute}: {value}', { attribute => $value, value => $text_value });
         }
 

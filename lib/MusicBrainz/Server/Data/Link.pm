@@ -61,7 +61,9 @@ sub _load_attributes
                 root_attr.name AS root_name,
                 COALESCE(text_value, '') AS text_value,
                 COALESCE((SELECT true FROM link_text_attribute_type ltat
-                          WHERE ltat.attribute_type = attr.id), false) AS free_text
+                          WHERE ltat.attribute_type = attr.id), false) AS free_text,
+                COALESCE((SELECT true FROM link_creditable_attribute_type lcat
+                          WHERE lcat.attribute_type = attr.id), false) AS creditable
             FROM link_attribute
                 JOIN link_attribute_type AS attr ON attr.id = link_attribute.attribute_type
                 JOIN link_attribute_type AS root_attr ON root_attr.id = attr.root
@@ -77,6 +79,7 @@ sub _load_attributes
                     gid => $row->{gid},
                     name => $row->{name},
                     free_text => $row->{free_text},
+                    creditable => $row->{creditable},
                     root => MusicBrainz::Server::Entity::LinkAttributeType->new(
                         id => $row->{root_id},
                         gid => $row->{root_gid},
@@ -85,17 +88,14 @@ sub _load_attributes
                 );
 
                 my $attr = MusicBrainz::Server::Entity::LinkAttribute->new(
+                    type => $attr_type,
                     credited_as => $row->{credited_as},
-                    type => $attr_type
+                    text_value => $row->{text_value},
                 );
 
                 $link->add_attribute($attr) unless any {
                     $attr_type->id == $_->type->id
                 } $link->all_attributes;
-
-                if ($row->{free_text} && defined($row->{text_value})) {
-                    $link->attribute_text_values->{$row->{id}} = $row->{text_value};
-                }
             }
         }
     }
@@ -158,9 +158,7 @@ sub find
         }
     }
 
-    $self->_fix_attributes($values);
-
-    my @attrs = @{ $values->{attributes} };
+    my @attrs = @{ $values->{attributes} // [] };
 
     push @conditions, "attribute_count = ?";
     push @args, scalar(@attrs);
@@ -169,7 +167,7 @@ sub find
     foreach my $attr (@attrs) {
         push @joins, "JOIN link_attribute a$i ON a$i.link = link.id";
         push @conditions, "a$i.attribute_type = ?";
-        push @args, $attr->{id};
+        push @args, $attr->{type}{id};
 
         push @joins,
             "LEFT JOIN link_attribute_credit ac$i ON
@@ -185,16 +183,12 @@ sub find
             push @conditions, "ac$i.credited_as IS NULL";
         }
 
-        $i += 1;
-    }
+        if (my $text_value = $attr->{text_value}) {
+            push @joins, "JOIN link_attribute_text_value latv$i ON latv$i.link = link.id";
+            push @conditions, "latv$i.attribute_type = ?", "latv$i.text_value = ?";
+            push @args, $attr->{type}{id}, $text_value;
+        }
 
-    my %attrs = %{ $values->{attribute_text_values} };
-
-    $i = 0;
-    foreach my $attr (keys %attrs) {
-        push @joins, "JOIN link_attribute_text_value latv$i ON latv$i.link = link.id";
-        push @conditions, "latv$i.attribute_type = ?", "latv$i.text_value = ?";
-        push @args, $attr, $attrs{$attr};
         $i += 1;
     }
 
@@ -206,12 +200,10 @@ sub find_or_insert
 {
     my ($self, $values) = @_;
 
-    $self->_fix_attributes($values);
-
     my $id = $self->find($values);
     return $id if defined $id;
 
-    my @attrs = @{ $values->{attributes} };
+    my @attrs = @{ $values->{attributes} // [] };
 
     my $row = {
         link_type      => $values->{link_type_id},
@@ -223,7 +215,7 @@ sub find_or_insert
     $id = $self->sql->insert_row("link", $row, "id");
 
     foreach my $attr (@attrs) {
-        my $attribute_type = $attr->{id};
+        my $attribute_type = $attr->{type}{id};
 
         $self->sql->insert_row("link_attribute", {
             link           => $id,
@@ -237,46 +229,17 @@ sub find_or_insert
                 credited_as => $credited_as
             });
         }
-    }
 
-    my %attrs = %{ $values->{attribute_text_values} };
-
-    foreach my $attr (keys %attrs) {
-        $self->sql->insert_row("link_attribute_text_value", {
-            link           => $id,
-            attribute_type => $attr,
-            text_value     => $attrs{$attr},
-        });
+        if (my $text_value = $attr->{text_value}) {
+            $self->sql->insert_row("link_attribute_text_value", {
+                link           => $id,
+                attribute_type => $attribute_type,
+                text_value     => $text_value
+            });
+        }
     }
 
     return $id;
-}
-
-sub _fix_attributes {
-    my ($self, $values) = @_;
-
-    my @ids = @{ $values->{attributes} // [] };
-    my %text_values = %{ $values->{attribute_text_values} // {} };
-    my %has_attribute = map { $_ => 1 } @ids;
-
-    # Text values should be truthy, and they should also appear in the
-    # attributes array.
-    my %new_text_values = map {
-        my $value = $text_values{$_};
-
-        $has_attribute{$_} && defined($value) && $value ne "" ? ($_ => $value) : ()
-    } keys %text_values;
-
-    my $attributes = $self->c->model('LinkAttributeType')->get_by_ids(@ids, keys %new_text_values);
-
-    # The attributes array shouldn't contain ids for any text attributes that
-    # don't also appear in the text values hash.
-    my @new_ids = map {
-        $attributes->{$_}->free_text && !exists($new_text_values{$_}) ? () : $_
-    } @ids;
-
-    $values->{attributes} = \@new_ids;
-    $values->{attribute_text_values} = \%new_text_values;
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -29,7 +29,7 @@
             });
 
             this.placeholder = params.placeholder || "";
-            this.value = params.valueObservable;
+            this.relationship = params.relationship;
 
             this.term = ko.observable("");
             this.term.subscribe(this.termChanged, this);
@@ -38,9 +38,10 @@
             this.menuVisible = ko.observable(false);
             this.menuVisible.subscribe(this.menuVisibleChanged, this);
 
+            var options = params.options;
             var optionNodes = [];
 
-            for (var i = 0, node, option; option = params.options[i]; i++) {
+            for (var i = 0, node, option; option = options[i]; i++) {
                 node = document.createElement("a")
                 node.href = "#";
                 node.style.paddingLeft = option.depth + "em";
@@ -49,20 +50,21 @@
                 optionNodes.push(node);
             }
 
+            this.selectedAttributes = ko.computed(function () {
+                var attributesByGID = params.relationship.attributesByGID();
+                var attributes = [], attribute;
+
+                for (var i = 0, len = options.length; i < len; i++) {
+                    if (attribute = attributesByGID[options[i].value]) {
+                        attributes.push(attribute);
+                    }
+                }
+                return attributes;
+            });
+
             this.optionNodes = optionNodes.slice(0);
             this.$menu.empty().append(optionNodes);
-
             this.firstVisibleOption = ko.observable(this.optionNodes[0]);
-            var currentValue = this.value.peek();
-
-            this.selectedOptions = ko.observableArray(
-                _.filter(params.options, function (option) {
-                    return _.contains(currentValue, option.value);
-                })
-            );
-
-            this.selectedOptions.subscribe(this.selectedOptionsChanged, this);
-            this.previousOptions = this.selectedOptions.slice(0);
         },
 
         termChanged: function (term) {
@@ -77,13 +79,8 @@
             }
         },
 
-        selectedOptionsChanged: function (options) {
-            this.previousOptions = options.slice(0);
-            this.value(_(options).pluck("value").map(Number).sortBy().value());
-        },
-
         updateOptions: function (term) {
-            var selected = this.selectedOptions.peek();
+            var selected = this.relationship.attributes.peek();
             var self = this;
             var menu = this.$menu[0];
 
@@ -92,9 +89,10 @@
 
             var optionNodes = _.filter(this.optionNodes, function (node) {
                 var option = node.optionData;
+                var typeGID = option.value;
 
                 var visible = matchIndex(option, term) >= 0 &&
-                              selected.indexOf(option) < 0;
+                    _.findIndex(selected, function (a) { return a.type.gid === typeGID }) < 0;
 
                 node.style.display = visible ? "block" : "none";
                 return visible;
@@ -105,7 +103,7 @@
         },
 
         select: function (option) {
-            this.selectedOptions.push(option);
+            this.relationship.addAttribute(option.value);
             this.menuVisible(false);
             this.term("");
             this.inputHasFocus(true);
@@ -115,15 +113,25 @@
         deselect: function (event) {
             event.preventDefault();
 
-            var option = ko.dataFor(event.target);
-            var selected = this.selectedOptions.peek();
-            var index = selected.indexOf(option);
+            var attribute = ko.dataFor(event.target);
+            var typeGID = attribute.typeGID;
 
-            this.selectedOptions.remove(option);
+            this.relationship.removeAttribute(typeGID);
             this.menuVisible(false);
             this.updateOptions(this.term.peek());
 
-            var nextIndex = selected[index] ? index : index - 1;
+            var nodes = this.optionNodes, node;
+            var nextIndex = _.findIndex(nodes, function (node) {
+                return node.optionData.value === typeGID;
+            });
+
+            while (node = nodes[++nextIndex]) {
+                if (node.style.display === "block") {
+                    ++nextIndex;
+                    break;
+                }
+            }
+            --nextIndex;
 
             if (nextIndex >= 0) {
                 MB.utility.deferFocus("a:eq(" + nextIndex + ")", this.$items);

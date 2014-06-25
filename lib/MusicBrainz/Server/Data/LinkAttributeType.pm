@@ -16,6 +16,7 @@ use MusicBrainz::Server::Data::Utils qw(
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'linkattrtype' };
+with 'MusicBrainz::Server::Data::Role::GetByGID';
 with 'MusicBrainz::Server::Data::Role::OptionsTree';
 
 sub _table
@@ -30,7 +31,12 @@ sub _columns
                 (SELECT true FROM link_text_attribute_type
                  WHERE attribute_type = link_attribute_type.id),
                 false
-            ) AS free_text';
+            ) AS free_text, ' .
+           'COALESCE(
+                (SELECT true FROM link_creditable_attribute_type
+                 WHERE attribute_type = link_attribute_type.id),
+                false
+            ) AS creditable';
 }
 
 sub _column_mapping
@@ -44,6 +50,7 @@ sub _column_mapping
         name        => 'name',
         description => 'description',
         free_text   => 'free_text',
+        creditable  => 'creditable',
     };
 }
 

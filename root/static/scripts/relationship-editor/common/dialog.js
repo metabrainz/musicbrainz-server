@@ -71,8 +71,10 @@
         init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
             var relationship = valueAccessor();
 
-            var initialData = _.map(ko.unwrap(relationship.attributeValue(14)), function (id) {
-                return ko.observable(MB.entity(MB.attrInfoByID[id], "instrument"));
+            var initialData = $.map(relationship.attributes.peek(), function (attribute) {
+                if (attribute.type.rootID == 14) {
+                    return ko.observable(MB.entity(attribute.type, "instrument"));
+                }
             });
 
             var instruments = ko.observableArray(initialData);
@@ -85,7 +87,24 @@
                 instruments: instruments,
 
                 addItem: function () {
-                    instruments.push(ko.observable(MB.entity.Instrument({})));
+                    var observable = ko.observable(MB.entity.Instrument({}));
+                    var previousGID;
+
+                    instruments.push(observable);
+
+                    ko.computed({
+                        read: function () {
+                            var typeGID = observable().gid;
+                            if (typeGID) {
+                                relationship.addAttribute(typeGID);
+                            } else {
+                                relationship.removeAttribute(previousGID);
+                            }
+                            previousGID = typeGID;
+                        },
+                        disposeWhenNodeIsRemoved: element
+                    });
+
                     focusLastInput();
                 },
 
@@ -93,6 +112,7 @@
                     var index = instruments.indexOf(item);
 
                     instruments.remove(item);
+                    relationship.removeAttribute(item().gid);
 
                     index = index === instruments().length ? index - 1 : index;
                     var $nextButton = $(element).find("button.remove-item:eq(" + index + ")");
@@ -105,22 +125,9 @@
                 }
             };
 
-            if (!initialData.length) vm.addItem();
-
-            function getID(observable) {
-                var gid = observable().gid
-
-                return gid && MB.attrInfoByID[gid].id;
+            if (!initialData.length) {
+                vm.addItem();
             }
-
-            ko.computed({
-                read: function () {
-                    relationship.attributeValue(
-                        14, _(instruments()).map(getID).compact().sortBy().value()
-                    );
-                },
-                disposeWhenNodeIsRemoved: element
-            });
 
             var childBindingContext = bindingContext.createChildContext(vm);
             ko.applyBindingsToDescendants(childBindingContext, element);

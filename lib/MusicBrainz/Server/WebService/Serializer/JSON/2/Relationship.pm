@@ -20,12 +20,9 @@ sub serialize
     $body = merge($body, date_period($entity->link));
     $body->{attributes} = [ map { $_->type->name } $entity->link->all_attributes ];
 
-    my %text_attrs = %{ $entity->link->attribute_text_values };
-
     $body->{"attribute-values"} = {
         map {
-            my $type = $_->type;
-            $text_attrs{$type->id} ? ($type->name => $text_attrs{$type->id}) : ()
+            $_->text_value ? ($_->type->name => $_->text_value) : ()
         }
         $entity->link->all_attributes
     };

@@ -94,22 +94,22 @@ role {
                     $target = serialize_entity($entity, $target_type);
                 }
 
-                my $attribute_text_values = {};
-                for (@{ $_->{attribute_text_values} // [] }) {
-                    $attribute_text_values->{$_->{attribute}} = trim($_->{text_value});
-                }
-
                 push @result, {
                     id          => $_->{relationship_id},
                     linkTypeID  => $_->{link_type_id},
                     removed     => $_->{removed} ? \1 : \0,
-                    attributes  => $_->{attributes} // [],
+                    attributes  => [ map +{
+                        type => {
+                            gid => $_->{type}{gid},
+                        },
+                        $_->{credited_as} ? (credit => $_->{credited_as}) : (),
+                        $_->{text_value} ? (textValue => $_->{text_value}) : (),
+                    }, @{ $_->{attributes} // [] } ],
                     beginDate   => $_->{period}->{begin_date} // {},
                     endDate     => $_->{period}->{end_date} // {},
                     ended       => $_->{period}->{ended} ? \1 : \0,
                     target      => $target // { entityType => $target_type },
                     linkOrder   => $_->{link_order} // 0,
-                    attributeTextValues => $attribute_text_values,
                     $_->{backward} ? (direction => "backward") : (),
                 };
             }
@@ -218,17 +218,6 @@ role {
             }
 
             $args{attributes} = $field->{attributes} if $field->{attributes};
-
-            if ($field->{attribute_text_values}) {
-                my %attribute_text_values;
-
-                for (@{ $field->{attribute_text_values} // [] }) {
-                    $attribute_text_values{$_->{attribute}} = $_->{text_value};
-                }
-
-                $args{attribute_text_values} = \%attribute_text_values;
-            }
-
             $args{ended} ||= 0;
 
             unless ($field->{removed}) {

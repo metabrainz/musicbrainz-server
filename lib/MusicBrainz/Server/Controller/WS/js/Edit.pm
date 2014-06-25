@@ -270,12 +270,15 @@ sub process_relationship {
     $data->{end_date} = delete $data->{endDate} // {};
     $data->{ended} = boolean_from_json($data->{ended});
 
-    my $text_values = delete $data->{attributeTextValues} // {};
-    $data->{attribute_text_values} = $text_values;
-
-    for my $id (keys %$text_values) {
-        trim_string($text_values, $id);
-    }
+    $data->{attributes} = [
+        map +{
+            type => {
+                gid => $_->{type}{gid},
+            },
+            exists $_->{credit} ? (credited_as => trim($_->{credit})) : (),
+            exists $_->{textValue} ? (text_value => trim($_->{textValue})) : (),
+        }, @{ $data->{attributes} // [] }
+    ];
 
     delete $data->{id};
     delete $data->{linkTypeID};
@@ -446,7 +449,7 @@ sub process_edits {
 
     for my $edit (@$edits) {
         if ($edit->{edit_type} == $EDIT_RELATIONSHIP_CREATE) {
-            push @attribute_ids, @{ $edit->{attributes} // [] };
+            push @attribute_ids, map { $_->{type}{id} } @{ $edit->{attributes} // [] };
         }
     }
 
@@ -529,7 +532,6 @@ sub create_edits {
                             end_date => $opts->{end_date},
                             ended => $opts->{ended},
                             attributes => $opts->{attributes},
-                            attribute_text_values => $opts->{attribute_text_values},
                         }
                     );
             }

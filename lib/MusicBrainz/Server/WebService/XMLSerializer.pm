@@ -1003,13 +1003,10 @@ sub _serialize_relation
     push @list, $gen->end($rel->link->end_date->format) unless $rel->link->end_date->is_empty;
     push @list, $gen->ended('true') if $rel->link->ended;
 
-    my %text_attrs = %{ $rel->link->attribute_text_values };
-
     push @list, $gen->attribute_list(
         map {
-            my $type = $_->type;
-            $text_attrs{$type->id} ? $gen->attribute({ value => $text_attrs{$type->id} }, $type->name)
-                                   : $gen->attribute($type->name)
+            $_->text_value ? $gen->attribute({ value => $_->text_value }, $_->type->name)
+                           : $gen->attribute($_->type->name)
         } $rel->link->all_attributes
     ) if ($rel->link->all_attributes);
 
