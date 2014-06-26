@@ -27,7 +27,7 @@
 
         [% IF obj.children %]
             <ul>
-                [% FOR child IN obj.sorted_children %]
+                [% FOR child IN obj.sorted_children(coll) %]
                 [% PROCESS link_type obj=child %]
                 [% END %]
             </ul>
@@ -56,7 +56,8 @@
         </p>
 
         <ul>
-            [% FOR child IN root.sorted_children %]
+            [% coll = c.get_collator %]
+            [% FOR child IN root.sorted_children(coll) %]
                 [% PROCESS link_type obj=child %]
             [% END %]
         </ul>
