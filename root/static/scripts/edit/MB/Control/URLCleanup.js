@@ -567,10 +567,14 @@ MB.Control.URLCleanup = function (options) {
     validationRules[ MB.constants.LINK_TYPES.discogs.artist ] = function (url) {
         return url.match(/discogs\.com\/(artist|user)\//) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.discogs.label ] =
-    validationRules[ MB.constants.LINK_TYPES.discogs.series ] = function (url) {
+
+    function validateDiscogsLabel(url) {
         return url.match(/discogs\.com\/label\//) != null;
     }
+
+    validationRules[ MB.constants.LINK_TYPES.discogs.label ] = validateDiscogsLabel;
+    validationRules[ MB.constants.LINK_TYPES.discogs.series ] = validateDiscogsLabel;
+
     validationRules[ MB.constants.LINK_TYPES.discogs.release_group ] = function (url) {
         return url.match(/discogs\.com\/master\//) != null;
     }
