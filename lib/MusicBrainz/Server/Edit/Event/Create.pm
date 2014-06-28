@@ -38,8 +38,8 @@ sub foreign_keys
 {
     my $self = shift;
     return {
-        event       => [ $self->entity_id ],
-        eventType   => [ $self->data->{type_id} ],
+        Event       => [ $self->entity_id ],
+        EventType   => [ $self->data->{type_id} ],
     };
 }
 
@@ -51,11 +51,11 @@ sub build_display_data
 
     return {
         ( map { $_ => $_ ? $self->data->{$_} : '' } qw( name ) ),
-        type        => $type ? $loaded->{eventType}->{$type} : '',
+        type        => $type ? $loaded->{EventType}->{$type} : '',
         begin_date  => PartialDate->new($self->data->{begin_date}),
         end_date    => PartialDate->new($self->data->{end_date}),
-        event       => ($self->entity_id && $loaded->{event}->{ $self->entity_id }) ||
-            event->new( name => $self->data->{name} ),
+        event       => ($self->entity_id && $loaded->{Event}->{ $self->entity_id }) ||
+            Event->new( name => $self->data->{name} ),
         ended       => $self->data->{ended} // 0,
         cancelled   => $self->data->{cancelled} // 0,
         comment     => $self->data->{comment},

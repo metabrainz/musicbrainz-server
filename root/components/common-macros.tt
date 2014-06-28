@@ -169,14 +169,14 @@ END -%]
     END -%]
 
 [%~ MACRO disambiguation(entity) BLOCK -%]
+    [%- IF entity.isa('MusicBrainz::Server::Entity::Event') -%]
+        [%- cancelled(entity) -%]
+    [%- END -%]
     [%- IF entity.comment -%]
         [%- ' <span class="comment">(<bdi>' _ html_escape("${entity.comment}") _ '</bdi>)</span>' -%]
     [%- END -%]
     [%- IF entity.isa('MusicBrainz::Server::Entity::Area') -%]
         [%- historical(entity) -%]
-    [%- END -%]
-    [%- IF entity.isa('MusicBrainz::Server::Entity::Event') -%]
-        [%- cancelled(entity) -%]
     [%- END -%]
 [%- END -%]
 
@@ -603,7 +603,7 @@ END -%]
 [%~ MACRO format_entity_type_name(type_name) BLOCK -%]
     [%- IF    type_name == 'artist'; l('Artist');
         ELSIF type_name == 'area'; l('Area');
-        ELSIF type_name == 'event'; l('Event:');
+        ELSIF type_name == 'event'; l('Event');
         ELSIF type_name == 'instrument'; l('Instrument');
         ELSIF type_name == 'place'; l('Place');
         ELSIF type_name == 'release'; l('Release');

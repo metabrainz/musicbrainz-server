@@ -3,6 +3,7 @@ package MusicBrainz::Server::Entity::Event;
 use Moose;
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
+use Time::Piece;
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Taggable';
@@ -11,6 +12,9 @@ with 'MusicBrainz::Server::Entity::Role::Annotation';
 with 'MusicBrainz::Server::Entity::Role::Age';
 with 'MusicBrainz::Server::Entity::Role::LastUpdate';
 with 'MusicBrainz::Server::Entity::Role::Rating';
+
+use MooseX::Types::Structured qw( Dict );
+use MooseX::Types::Moose qw( ArrayRef Object Str );
 
 has 'type_id' => (
     is => 'rw',
@@ -51,7 +55,30 @@ has 'cancelled' => (
 
 has 'time' => (
     is => 'rw',
-    isa => 'Str',
+    isa => 'Time',
+);
+
+sub formatted_time
+{
+    my ($self) = @_;
+    my $t = Time::Piece->strptime($self->time, '%H:%M');
+    return $t->strftime('%H:%M');
+}
+
+has 'performers' => (
+    traits => [ 'Array' ],
+    is => 'ro',
+    isa => ArrayRef[
+        Dict[
+            roles => ArrayRef[Str],
+            entity => Object
+        ]
+    ],
+    default => sub { [] },
+    handles => {
+        add_performer => 'push',
+        all_performers => 'elements',
+    }
 );
 
 __PACKAGE__->meta->make_immutable;

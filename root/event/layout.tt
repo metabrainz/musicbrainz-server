@@ -27,7 +27,7 @@
                     [% END %]
             [%- END -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Time:')
-               content=html_escape(event.time) class="time"
+               content=html_escape(event.formatted_time) class="time"
                    IF event.time -%]
         [% END %]
         [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=event -%]

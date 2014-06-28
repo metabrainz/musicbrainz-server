@@ -2,6 +2,7 @@ package MusicBrainz::Server::Data::Event;
 
 use Moose;
 use namespace::autoclean;
+use List::AllUtils qw( uniq zip );
 use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Entity::Event;
@@ -38,8 +39,8 @@ sub _table
 
 sub _columns
 {
-    return 'event.id, gid, event.name, event.type, event.time, event.cancelled, event.setlist,' .
-           'event.edits_pending, begin_date_year, begin_date_month, begin_date_day, ' .
+    return 'event.id, gid, event.name, event.type, event.time, event.cancelled,' .
+           'event.setlist, event.edits_pending, begin_date_year, begin_date_month, begin_date_day, ' .
            'end_date_year, end_date_month, end_date_day, ended, comment, event.last_updated';
 }
 
@@ -204,6 +205,98 @@ sub is_empty {
           $used_in_relationship
         )
 EOSQL
+}
+
+=method find_artists
+
+This method will return a map with lists of artist names for the given
+event. 
+
+=cut
+
+sub find_artists
+{
+    my ($self, $events, $limit) = @_;
+
+    my @ids = map { $_->id } @$events;
+    return () unless @ids;
+
+    my (%performers);
+    $self->_find_performers(\@ids, \%performers);
+
+    my %map = map +{
+        $_ => {
+            performers => { hits => 0, results => [] }
+        }
+    }, @ids;
+
+    for my $event_id (@ids) {
+        my @performers = uniq map { $_->{entity}->name } @{ $performers{$event_id} };
+
+        $map{$event_id} = {
+            performers => {
+                hits => scalar @performers,
+                results => $limit && scalar @performers > $limit
+                    ? [ @performers[ 0 .. ($limit-1) ] ]
+                    : \@performers,
+            },
+        }
+    }
+
+    return %map;
+}
+
+=method load_performers
+
+This method will load the event's performers based on the event-artist
+relationships.
+
+=cut
+
+sub load_performers
+{
+    my ($self, @events) = @_;
+
+    @events = grep { scalar $_->all_performers == 0 } @events;
+    my @ids = map { $_->id } @events;
+    return () unless @ids;
+
+    my %map;
+    $self->_find_performers(\@ids, \%map);
+    for my $event (@events) {
+        $event->add_performer(@{ $map{$event->id} })
+            if exists $map{$event->id};
+    }
+}
+
+sub _find_performers
+{
+    my ($self, $ids, $map) = @_;
+    return unless @$ids;
+
+    my $query = "
+        SELECT lae.entity1 AS event, lae.entity0 AS artist, array_agg(lt.name) AS roles
+        FROM l_artist_event lae
+        JOIN link l ON lae.link = l.id
+        JOIN link_type lt ON l.link_type = lt.id
+        WHERE lae.entity1 IN (" . placeholders(@$ids) . ")
+        GROUP BY lae.entity1, lae.entity0
+        ORDER BY count(*) DESC, artist
+    ";
+
+    my $rows = $self->sql->select_list_of_lists($query, @$ids);
+
+    my @artist_ids = map { $_->[1] } @$rows;
+    my $artists = $self->c->model('Artist')->get_by_ids(@artist_ids);
+
+    for my $row (@$rows) {
+        my ($event_id, $artist_id, $roles) = @$row;
+        $map->{$event_id} ||= [];
+        push @{ $map->{$event_id} }, {
+            entity => $artists->{$artist_id},
+            roles => $roles
+        }
+    }
 }
 
 __PACKAGE__->meta->make_immutable;
