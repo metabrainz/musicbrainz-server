@@ -72,12 +72,13 @@
     };
 
 
-    var lang = document.documentElement.lang;
+    var lang = document.documentElement.lang,
+        collatorOptions = { numeric: true };
 
     if (typeof Intl === "undefined") {
-        i18n.compare = function (a, b) { return a.localeCompare(b, lang) };
+        i18n.compare = function (a, b) { return a.localeCompare(b, lang, collatorOptions) };
     } else {
-        var collator = new Intl.Collator(lang);
+        var collator = new Intl.Collator(lang, collatorOptions);
         i18n.compare = function (a, b) { return collator.compare(a, b) };
     }
 
