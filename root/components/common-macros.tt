@@ -322,9 +322,9 @@ END -%]
     IF artist.comment; hover = hover _ ' (' _ html_escape(artist.comment) _ ')'; END;
     '<span class="mp">' IF artist.edits_pending AND action == 'show';
     '<span class="name-variation">' IF text != '' AND text != artist.name AND action == 'show';
-    text = html_escape(text == '' ? artist.name : text);
-    '<a href="' _ link _ '" title="' _ hover _ '"><bdi>' _ text _ '</bdi></a>';
-    '</span>' IF text != artist.name AND action == 'show';
+    escaped_text = html_escape(text == '' ? artist.name : text);
+    '<a href="' _ link _ '" title="' _ hover _ '"><bdi>' _ escaped_text _ '</bdi></a>';
+    '</span>' IF text != '' AND text != artist.name AND action == 'show';
     '</span>' IF artist.edits_pending AND action == 'show';
 END -%]
 
@@ -393,9 +393,9 @@ END -%]
     hover = html_escape(recording.name) IF text != recording.name AND action == 'show';
     '<span class="mp">' IF recording.edits_pending AND action == 'show';
     '<span class="name-variation">' IF text != '' AND text != recording.name AND action == 'show';
-    text = no_escape ? text : html_escape(text == '' ? recording.name : text);
-    '<a href="' _ link _ '" title="' _ hover _ '" class="' _ class _ '"><bdi>' _ text _ '</bdi></a>';
-    '</span>' IF text != recording.name AND action == 'show';
+    escaped_text = no_escape ? text : html_escape(text == '' ? recording.name : text);
+    '<a href="' _ link _ '" title="' _ hover _ '" class="' _ class _ '"><bdi>' _ escaped_text _ '</bdi></a>';
+    '</span>' IF text != '' AND text != recording.name AND action == 'show';
     '</span>' IF recording.edits_pending AND action == 'show';
 END -%]
 
