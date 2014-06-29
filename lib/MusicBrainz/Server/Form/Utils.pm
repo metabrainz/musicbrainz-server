@@ -140,13 +140,7 @@ sub build_options_tree
     $indent .= '&#xa0;&#xa0;&#xa0;' if defined $indent;
     $indent //= ''; # for the first level
 
-    my @children =
-        sort_by {
-            (sprintf "%+012d", $_->child_order) .
-            $coll->getSortKey($_->$attr)
-        } $root->all_children;
-
-    foreach my $child (@children) {
+    foreach my $child ($root->sorted_children($coll)) {
         push @options, build_options_tree($child, $attr, $coll, $indent);
     }
     return @options;

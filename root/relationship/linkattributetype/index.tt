@@ -9,7 +9,8 @@
         [%- END -%]
 
         [% IF root.children.size %]
-            [% FOR obj IN root.sorted_children %]
+            [% coll = c.get_collator %]
+            [% FOR obj IN root.sorted_children(coll) %]
                 <h2 id="[% obj.name %]">[% obj.l_name FILTER ucfirst | html %]</h2>
                 [% PROCESS attribute_details obj=obj toplevel=1 %]
 
@@ -17,7 +18,7 @@
                 <br/><br/>
                 [% l('Possible values:') %]
                 <ul>
-                    [% FOR child IN obj.sorted_children %]
+                    [% FOR child IN obj.sorted_children(coll) %]
                     [% PROCESS attribute_tree obj=child %]
                     [% END %]
                 </ul>
