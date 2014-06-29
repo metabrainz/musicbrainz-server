@@ -6,7 +6,7 @@ extends 'MusicBrainz::Server::Entity::URL';
 
 sub pretty_name { 'OZON.ru' }
 
-override url => sub {
+override affiliate_url => sub {
     my $self = shift;
     my $url = super();
     $url->query_form(partner => 'musicbrainz');

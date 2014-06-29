@@ -21,10 +21,12 @@
 
         urlChanged: function (value) {
             var entities = this.entities().slice(0);
-            var backward = this.parent.source === entities[1];
+            var targetIndex = this.parent.source === entities[1] ? 0 : 1;
 
-            entities[backward ? 0 : 1] = MB.entity({ name: value }, "url");
-            this.entities(entities);
+            if (entities[targetIndex].name !== value) {
+                entities[targetIndex] = MB.entity({ name: value }, "url");
+                this.entities(entities);
+            }
 
             var error = this.error();
 

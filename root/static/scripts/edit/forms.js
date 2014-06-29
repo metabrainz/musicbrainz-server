@@ -5,25 +5,34 @@
 
 MB.forms = {
 
-    buildOptionsTree: function (root, textAttr, valueAttr, callback) {
+    buildOptionsTree: function (root, textAttr, valueAttr, callback, sortFunc) {
         var options = [];
         var nbsp = String.fromCharCode(160);
 
         function buildOptions(parent, indent) {
             var i = 0, children = parent.children, child;
+            if (!children) { return; }
+
+            if (callback) {
+                while (child = children[i++]) {
+                    callback(child);
+                }
+                i = 0;
+            }
+
+            if (sortFunc) {
+                children = children.concat().sort(sortFunc);
+            }
 
             while (child = children[i++]) {
                 var opt = {};
 
-                callback && callback(child, opt);
                 opt.value = child[valueAttr];
                 opt.text = _.str.repeat(nbsp, indent * 2) + child[textAttr];
                 opt.data = child;
                 options.push(opt);
 
-                if (child.children) {
-                    buildOptions(child, indent + 1);
-                }
+                buildOptions(child, indent + 1);
             }
         }
 
@@ -40,10 +49,6 @@ MB.forms = {
         }
 
         function callback(data, option) {
-            if (!data.description) {
-                option.disabled = true;
-            }
-
             if (data[textAttr]) return;
 
             var phrase = backward ? data.reversePhrase : data.phrase;
@@ -65,7 +70,19 @@ MB.forms = {
             data[textAttr] = phrase;
         }
 
-        return MB.forms.buildOptionsTree(root, textAttr, "id", callback);
+        function sortFunc(a, b) {
+            return (a.childOrder - b.childOrder) || MB.i18n.compare(a[textAttr], b[textAttr]);
+        }
+
+        var options = MB.forms.buildOptionsTree(root, textAttr, "id", callback, sortFunc);
+
+        for (var i = 0, len = options.length, option; i < len; i++) {
+            if ((option = options[i]) && !option.data.description) {
+                option.disabled = true;
+            }
+        }
+
+        return options;
     },
 
     setDisabledOption: function (option, data) {

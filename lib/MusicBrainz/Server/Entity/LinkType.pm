@@ -6,19 +6,14 @@ use MusicBrainz::Server::Translation::Relationships qw( l );
 
 extends 'MusicBrainz::Server::Entity';
 
+with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
+    type => 'LinkType',
+    sort_criterion => 'name',
+};
+
 has 'gid' => (
     is => 'rw',
     isa => 'Str',
-);
-
-has 'parent_id' => (
-    is => 'rw',
-    isa => 'Maybe[Int]',
-);
-
-has 'parent' => (
-    is => 'rw',
-    isa => 'LinkType',
 );
 
 has 'entity0_type' => (
@@ -76,27 +71,9 @@ sub l_description {
     return l($self->description);
 }
 
-has 'child_order' => (
-    is => 'rw',
-    isa => 'Int',
-);
-
 has 'priority' => (
     is => 'rw',
     isa => 'Int',
-);
-
-has 'children' => (
-    is => 'rw',
-    isa => 'ArrayRef[LinkType]',
-    lazy => 1,
-    default => sub { [] },
-    traits => [ 'Array' ],
-    handles => {
-        all_children => 'elements',
-        add_child => 'push',
-        clear_children => 'clear'
-    }
 );
 
 has 'attributes' => (
@@ -111,11 +88,6 @@ has 'attributes' => (
         add_attribute => 'push'
     }
 );
-
-sub sorted_children {
-    my $self = shift;
-    return sort { $a->child_order <=> $b->child_order || lc($a->name) cmp lc($b->name) } $self->all_children;
-}
 
 has 'documentation' => (
     is => 'rw'

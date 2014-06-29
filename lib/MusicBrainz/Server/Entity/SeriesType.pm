@@ -6,6 +6,10 @@ use MusicBrainz::Server::Translation::Attributes qw( lp );
 
 extends 'MusicBrainz::Server::Entity';
 
+with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
+    type => 'SeriesType',
+};
+
 has name => (
     is => 'rw',
     isa => 'Str',
@@ -19,34 +23,6 @@ sub l_name {
 has entity_type => (
     is => 'rw',
     isa => 'Str',
-);
-
-has parent_id => (
-    is => 'rw',
-    isa => 'Maybe[Int]',
-);
-
-has parent => (
-    is => 'rw',
-    isa => 'Maybe[SeriesType]',
-);
-
-has children => (
-    is => 'rw',
-    isa => 'ArrayRef[SeriesType]',
-    lazy => 1,
-    default => sub { [] },
-    traits => [ 'Array' ],
-    handles => {
-        all_children => 'elements',
-        add_child => 'push',
-        clear_children => 'clear'
-    }
-);
-
-has child_order => (
-    is => 'rw',
-    isa => 'Int',
 );
 
 has description => (

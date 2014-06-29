@@ -5,6 +5,11 @@ use MusicBrainz::Server::Translation::Attributes qw( lp );
 
 extends 'MusicBrainz::Server::Entity';
 
+with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
+    type => 'WorkAttributeTypeAllowedValue',
+    sort_criterion => 'l_value',
+};
+
 has work_attribute_type_id => (
     is => 'rw',
     isa => 'Int',
@@ -13,34 +18,6 @@ has work_attribute_type_id => (
 has value => (
     is => 'rw',
     isa => 'Str',
-);
-
-has child_order => (
-    is => 'rw',
-    isa => 'Int',
-);
-
-has parent_id => (
-    is => 'rw',
-    isa => 'Maybe[Int]',
-);
-
-has parent => (
-    is => 'rw',
-    isa => 'Maybe[WorkAttributeTypeAllowedValue]',
-);
-
-has children => (
-    is => 'rw',
-    isa => 'ArrayRef[WorkAttributeTypeAllowedValue]',
-    lazy => 1,
-    default => sub { [] },
-    traits => [ 'Array' ],
-    handles => {
-        all_children => 'elements',
-        add_child => 'push',
-        clear_children => 'clear'
-    }
 );
 
 has description => (
