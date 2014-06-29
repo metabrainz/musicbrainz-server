@@ -1,5 +1,3 @@
-lib/knockout/knockout-postbox.js
-
 scripts/edit/confirmNavigationFallback.js
 
 # utils.js must be loaded first!
