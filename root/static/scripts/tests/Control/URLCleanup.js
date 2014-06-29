@@ -648,6 +648,11 @@ MB.tests.URLCleanup.GuessType = function () {
                     'artist'
                 ],
                 [
+                    'http://www.discogs.com/master/view/267989',
+                    'http://www.discogs.com/master/267989',
+                    'release_group'
+                ],
+                [
                     // FIXME Need a "bad" archive.org link
                     'http://web.archive.org/web/20100904165354/i265.photobucket.com/albums/ii229/drsaunde/487015.jpg',
                     'http://web.archive.org/web/20100904165354/i265.photobucket.com/albums/ii229/drsaunde/487015.jpg',
