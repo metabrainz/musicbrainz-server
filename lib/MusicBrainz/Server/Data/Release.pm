@@ -157,6 +157,20 @@ sub find_artist_credits_by_artist
     return $self->c->model('ArtistCredit')->find_by_ids($ids);
 }
 
+sub find_by_area {
+    my ($self, $area_id, $limit, $offset) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                   JOIN release_event ON release.id = release_event.release
+                   JOIN area ON release_event.country = area.id
+                 WHERE area.id = ?
+                 ORDER BY musicbrainz_collate(release.name), release.id
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $area_id, $offset || 0);
+}
+
 sub find_by_artist
 {
     my ($self, $artist_id, $limit, $offset, %args) = @_;

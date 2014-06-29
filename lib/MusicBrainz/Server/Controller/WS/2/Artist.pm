@@ -14,7 +14,7 @@ my $ws_defs = Data::OptList::mkopt([
      },
      artist => {
                          method   => 'GET',
-                         linked   => [ qw(recording release release-group work) ],
+                         linked   => [ qw(area recording release release-group work) ],
                          inc      => [ qw(aliases annotation
                                           _relations tags user-tags ratings user-ratings) ],
                          optional => [ qw(fmt limit offset) ],
@@ -137,8 +137,13 @@ sub artist_browse : Private
 
     my $artists;
     my $total;
-    if ($resource eq 'recording')
-    {
+    if ($resource eq 'area') {
+        my $area = $c->model('Area')->get_by_gid($id);
+        $c->detach('not_found') unless ($area);
+
+        my @tmp = $c->model('Artist')->find_by_area($area->id, $limit, $offset);
+        $artists = $self->make_list(@tmp, $offset);
+    } elsif ($resource eq 'recording') {
         my $recording = $c->model('Recording')->get_by_gid($id);
         $c->detach('not_found') unless ($recording);
 

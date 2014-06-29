@@ -14,6 +14,7 @@ my $ws_defs = Data::OptList::mkopt([
      },
      place => {
                          method   => 'GET',
+                         linked   => [ qw(area) ],
                          inc      => [ qw(aliases annotation
                                           _relations tags user-tags ratings user-ratings) ],
                          optional => [ qw(fmt limit offset) ],
@@ -93,6 +94,14 @@ sub place_browse : Private
 
     my $places;
     my $total;
+
+    if ($resource eq 'area') {
+        my $area = $c->model('Area')->get_by_gid($id);
+        $c->detach('not_found') unless ($area);
+
+        my @tmp = $c->model('Place')->find_by_area($area->id, $limit, $offset);
+        $places = $self->make_list(@tmp, $offset);
+    }
 
     my $stash = WebServiceStash->new;
 

@@ -14,7 +14,7 @@ my $ws_defs = Data::OptList::mkopt([
      },
      label => {
                          method   => 'GET',
-                         linked   => [ qw(release) ],
+                         linked   => [ qw(area release) ],
                          inc      => [ qw(aliases annotation
                                           _relations tags user-tags ratings user-ratings) ],
                          optional => [ qw(fmt limit offset) ],
@@ -105,8 +105,13 @@ sub label_browse : Private
 
     my $labels;
     my $total;
-    if ($resource eq 'release')
-    {
+    if ($resource eq 'area') {
+        my $area = $c->model('Area')->get_by_gid($id);
+        $c->detach('not_found') unless ($area);
+
+        my @tmp = $c->model('Label')->find_by_area($area->id, $limit, $offset);
+        $labels = $self->make_list(@tmp, $offset);
+    } elsif ($resource eq 'release') {
         my $release = $c->model('Release')->get_by_gid($id);
         $c->detach('not_found') unless ($release);
 
