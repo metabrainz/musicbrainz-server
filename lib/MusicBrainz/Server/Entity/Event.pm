@@ -61,6 +61,7 @@ has 'time' => (
 sub formatted_time
 {
     my ($self) = @_;
+    return undef if !$self->time;
     my $t = Time::Piece->strptime($self->time, '%H:%M');
     return $t->strftime('%H:%M');
 }

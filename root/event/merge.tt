@@ -45,7 +45,7 @@
                               l('[unknown]');
                             END; -%]
                      </td>
-                     <td>[% entity.time %]</td>
+                     <td>[% entity.formatted_time %]</td>
                  </tr>
             [%- END -%]
             </tbody>

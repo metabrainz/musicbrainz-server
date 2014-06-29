@@ -15,6 +15,7 @@ use MusicBrainz::Server::Entity::Area;
 use MusicBrainz::Server::Entity::AreaType;
 use MusicBrainz::Server::Entity::ArtistType;
 use MusicBrainz::Server::Entity::Barcode;
+use MusicBrainz::Server::Entity::Event;
 use MusicBrainz::Server::Entity::Gender;
 use MusicBrainz::Server::Entity::ISRC;
 use MusicBrainz::Server::Entity::ISWC;
@@ -47,6 +48,7 @@ use MusicBrainz::Server::Entity::WorkType;
 use MusicBrainz::Server::Exceptions;
 use MusicBrainz::Server::Data::Artist;
 use MusicBrainz::Server::Data::Area;
+use MusicBrainz::Server::Data::Event;
 use MusicBrainz::Server::Data::Instrument;
 use MusicBrainz::Server::Data::Label;
 use MusicBrainz::Server::Data::Recording;
@@ -69,6 +71,7 @@ extends 'MusicBrainz::Server::Data::Entity';
 Readonly my %TYPE_TO_DATA_CLASS => (
     artist        => 'MusicBrainz::Server::Data::Artist',
     area          => 'MusicBrainz::Server::Data::Area',
+    event         => 'MusicBrainz::Server::Data::Event',
     instrument    => 'MusicBrainz::Server::Data::Instrument',
     label         => 'MusicBrainz::Server::Data::Label',
     place         => 'MusicBrainz::Server::Data::Place',
@@ -209,7 +212,7 @@ sub search
         $hard_search_limit = int($offset * 1.2);
     }
 
-    elsif ($type eq "label" || $type eq "work" || $type eq "place" || $type eq "area" || $type eq "instrument" || $type eq "series") {
+    elsif ($type eq "label" || $type eq "work" || $type eq "place" || $type eq "area" || $type eq "instrument" || $type eq "series" || $type eq "event") {
         my $where_deleted = "WHERE entity.id != ?";
         if ($type eq "label") {
             $deleted_entity = $DLABEL_ID;
@@ -225,6 +228,8 @@ sub search
         $extra_columns .= 'iso_3166_1s.codes AS iso_3166_1, iso_3166_2s.codes AS iso_3166_2, iso_3166_3s.codes AS iso_3166_3,' if $type eq 'area';
         $extra_columns .= 'entity.label_code, entity.area,' if $type eq 'label';
         $extra_columns .= 'entity.ordering_type,' if $type eq 'series';
+        $extra_columns .= 'entity.time, entity.cancelled, entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
+                entity.end_date_year, entity.end_date_month, entity.end_date_day, entity.ended,' if $type eq 'event';
 
         my $extra_groupby_columns = $extra_columns;
         $extra_groupby_columns =~ s/[^ ,]+ AS //g;
@@ -351,7 +356,7 @@ my %mapping = (
 
 sub schema_fixup_type {
     my ($self, $data, $type) = @_;
-    if (exists $data->{type} && $type ~~ [qw(area artist instrument label place series release-group work)]) {
+    if (exists $data->{type} && $type ~~ [qw(area artist event instrument label place series release-group work)]) {
         my $type_model = $type;
         $type_model =~ s/-/_/g; # fix release-group to release_group
         my $prop = $type eq 'release-group' ? 'primary_type' : 'type';

@@ -8,7 +8,7 @@
     [%~ IF event.end_date.format ~%]
         [%~ meta_desc.push(l("Defunct:") _ ' ' _ event.end_date.format) ~%]
     [%~ END ~%]
-    [%~ meta_desc.push(html_escape(event.time)) IF event.time ~%]
+    [%~ meta_desc.push(html_escape(event.formatted_time)) IF event.time ~%]
     <meta name="description" content="[% comma_only_list(meta_desc) %]"/>
 [% END %]
 
