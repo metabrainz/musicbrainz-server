@@ -3,7 +3,7 @@
 # nikki, 2013-2014
 # lorenzpressler <email address hidden>, 2012
 # nikki, 2013
-# jus <email address hidden>, 2014
+# S.Brandt <email address hidden>, 2014
 # Shepard, 2013-2014
 msgid ""
 msgstr ""

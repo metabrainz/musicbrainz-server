@@ -3276,8 +3276,8 @@ msgstr ""
 msgid "recording engineers"
 msgstr ""
 
-#: DB:link_type/link_phrase:695 DB:link_type/link_phrase:698
-#: DB:link_type/link_phrase:699 DB:link_type/link_phrase:693
+#: DB:link_type/link_phrase:698 DB:link_type/link_phrase:699
+#: DB:link_type/link_phrase:695 DB:link_type/link_phrase:693
 msgid "recording location for"
 msgstr ""
 
@@ -3542,8 +3542,8 @@ msgstr ""
 msgid "was the mixing location for"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:695 DB:link_type/long_link_phrase:698
-#: DB:link_type/long_link_phrase:699 DB:link_type/long_link_phrase:693
+#: DB:link_type/long_link_phrase:698 DB:link_type/long_link_phrase:699
+#: DB:link_type/long_link_phrase:695 DB:link_type/long_link_phrase:693
 msgid "was the recording location for"
 msgstr ""
 

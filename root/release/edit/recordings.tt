@@ -171,12 +171,12 @@
             <td class="artist" data-bind="html: artistCredit.html({ target: '_blank' })"></td>
             <td class="length" data-bind="text: formattedLength"></td>
           </tr>
-          <!-- ko if: $data.appearsOn && appearsOn.length > 0 -->
+          <!-- ko if: $data.appearsOn && appearsOn.results.length > 0 -->
           <tr>
             <td></td>
             <td colspan="3" class="appears-on">
               [%- l('appears on:') %]
-              <span class="appears" data-bind="html: _.invoke(appearsOn, 'html').join(', ')"></span>
+              <span class="appears" data-bind="html: _.invoke(appearsOn.results, 'html').join(', ')"></span>
             </td>
           </tr>
           <!-- /ko -->

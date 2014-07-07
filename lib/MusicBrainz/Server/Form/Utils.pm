@@ -14,7 +14,6 @@ use Sub::Exporter -setup => {
     exports => [qw(
                       language_options
                       script_options
-                      link_type_options
                       select_options
                       select_options_tree
                       build_grouped_options
@@ -71,31 +70,6 @@ sub script_options {
     return \@sorted;
 }
 
-sub link_type_options
-{
-    my ($root, $attr, $ignore, $indent) = @_;
-
-    my @options;
-    if ($root->id && $root->name ne $ignore) {
-        my $label = trim($root->$attr);
-        my $unac = decode("utf-16", unac_string_utf16(encode("utf-16", $label)));
-
-        if (defined($indent)) {
-            $label = $indent . $label;
-            $indent .= '&#160;&#160;&#160;';
-        }
-        push @options, {
-            value => $root->id,
-            label => $label,
-            'data-unaccented' => $unac
-        };
-    }
-    foreach my $child ($root->all_children) {
-        push @options, @{ link_type_options($child, $attr, $ignore, $indent) };
-    }
-    return \@options;
-}
-
 sub select_options
 {
     my ($c, $model, %opts) = @_;
@@ -116,32 +90,32 @@ sub select_options
 sub select_options_tree
 {
     my ($c, $model, %opts) = @_;
+    my $coll = $c->get_collator();
 
     my $model_ref = ref($model) ? $model : $c->model($model);
     my $root_option = $model_ref->get_tree;
 
     return [
-        map {
-            build_options_tree($_, 'l_name', '')
-        } $root_option->all_children
+        build_options_tree($root_option, 'l_name', $coll)
     ];
 }
 
 sub build_options_tree
 {
-    my ($root, $attr, $indent) = @_;
+    my ($root, $attr, $coll, $indent) = @_;
 
     my @options;
 
     push @options, {
         value => $root->id,
-        label => $indent . $root->$attr,
+        label => ($indent // '') . $root->$attr,
     } if $root->id;
 
-    $indent .= '&#xa0;&#xa0;&#xa0;';
+    $indent .= '&#xa0;&#xa0;&#xa0;' if defined $indent;
+    $indent //= ''; # for the first level
 
-    foreach my $child ($root->all_children) {
-        push @options, build_options_tree($child, $attr, $indent);
+    foreach my $child ($root->sorted_children($coll)) {
+        push @options, build_options_tree($child, $attr, $coll, $indent);
     }
     return @options;
 }
@@ -188,6 +162,7 @@ sub build_type_info {
             cardinality0        => $root->entity0_cardinality,
             cardinality1        => $root->entity1_cardinality,
             orderableDirection  => $root->orderable_direction,
+            childOrder          => $root->child_order,
         };
 
         $result->{description} = $root->l_description if $root->description;

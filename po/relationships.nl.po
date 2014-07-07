@@ -3270,8 +3270,8 @@ msgstr "opnametechnische functie bij"
 msgid "recording engineers"
 msgstr "opnametechnici"
 
-#: DB:link_type/link_phrase:695 DB:link_type/link_phrase:698
-#: DB:link_type/link_phrase:699 DB:link_type/link_phrase:693
+#: DB:link_type/link_phrase:698 DB:link_type/link_phrase:699
+#: DB:link_type/link_phrase:695 DB:link_type/link_phrase:693
 msgid "recording location for"
 msgstr "opnamelocatie van"
 
@@ -3536,8 +3536,8 @@ msgstr "was de masteringlocatie van"
 msgid "was the mixing location for"
 msgstr "was de mixlocatie van"
 
-#: DB:link_type/long_link_phrase:695 DB:link_type/long_link_phrase:698
-#: DB:link_type/long_link_phrase:699 DB:link_type/long_link_phrase:693
+#: DB:link_type/long_link_phrase:698 DB:link_type/long_link_phrase:699
+#: DB:link_type/long_link_phrase:695 DB:link_type/long_link_phrase:693
 msgid "was the recording location for"
 msgstr "was de opnamelocatie van"
 

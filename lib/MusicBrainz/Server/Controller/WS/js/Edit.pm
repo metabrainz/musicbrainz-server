@@ -21,6 +21,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_CREATE
     $EDIT_RELATIONSHIP_EDIT
     $EDIT_RELATIONSHIP_DELETE
+    $EDIT_WORK_CREATE
     $AUTO_EDITOR_FLAG
 );
 use MusicBrainz::Server::Data::Utils qw(
@@ -28,6 +29,9 @@ use MusicBrainz::Server::Data::Utils qw(
     model_to_type
     partial_date_to_hash
     split_relationship_by_attributes
+    trim
+    remove_invalid_characters
+    collapse_whitespace
 );
 use MusicBrainz::Server::Edit::Utils qw( boolean_from_json );
 use MusicBrainz::Server::Translation qw( l );
@@ -64,19 +68,19 @@ sub load_entity_prop {
 
 our $data_processors = {
 
-    $EDIT_RELEASE_CREATE => \&process_artist_credit,
+    $EDIT_RELEASE_CREATE => \&process_entity,
 
     $EDIT_RELEASE_EDIT => sub {
         my ($c, $loader, $data) = @_;
 
-        process_artist_credit($c, $loader, $data);
-
+        process_entity($c, $loader, $data);
         load_entity_prop($loader, $data, 'to_edit', 'Release');
     },
 
     $EDIT_RELEASE_ADDRELEASELABEL => sub {
         my ($c, $loader, $data) = @_;
 
+        process_release_label($c, $loader, $data);
         load_entity_prop($loader, $data, 'release', 'Release');
         load_entity_prop($loader, $data, 'label', 'Label') if $data->{label};
     },
@@ -84,6 +88,7 @@ our $data_processors = {
     $EDIT_RELEASE_ADD_ANNOTATION => sub {
         my ($c, $loader, $data) = @_;
 
+        process_release_label($c, $loader, $data);
         load_entity_prop($loader, $data, 'entity', 'Release');
     },
 
@@ -131,8 +136,7 @@ our $data_processors = {
     $EDIT_RECORDING_EDIT => sub {
         my ($c, $loader, $data) = @_;
 
-        process_artist_credit($c, $loader, $data);
-
+        process_entity($c, $loader, $data);
         load_entity_prop($loader, $data, 'to_edit', 'Recording');
     },
 
@@ -146,9 +150,30 @@ our $data_processors = {
         load_entity_prop($loader, $data, 'release', 'Release');
     },
 
-    $EDIT_RELEASEGROUP_CREATE => \&process_artist_credit,
+    $EDIT_RELEASEGROUP_CREATE => \&process_entity,
+
+    $EDIT_WORK_CREATE => \&process_entity,
 };
 
+
+sub trim_string {
+    my ($data, $name) = @_;
+    $data->{$name} = trim($data->{$name}) if $data->{$name};
+}
+
+sub process_entity {
+    my ($c, $loader, $data) = @_;
+
+    trim_string($data, 'name');
+    trim_string($data, 'comment');
+    process_artist_credit($c, $loader, $data);
+}
+
+sub process_release_label {
+    my ($c, $loader, $data) = @_;
+
+    trim_string($data, 'catalog_number');
+}
 
 sub process_artist_credits {
     my ($c, $loader, @artist_credits) = @_;
@@ -157,13 +182,23 @@ sub process_artist_credits {
 
     for my $ac (@artist_credits) {
         my @names = @{ $ac->{names} };
+        my $i = 0;
 
         for my $name (@names) {
+            if (my $join_phrase = $name->{join_phrase}) {
+                $join_phrase = collapse_whitespace(remove_invalid_characters($join_phrase));
+                $join_phrase =~ s/\s+$// if $i == $#names;
+                $name->{join_phrase} = $join_phrase;
+            }
             my $artist = $name->{artist};
+
+            trim_string($name, 'name');
+            trim_string($artist, 'name');
 
             if (!$artist->{id} && is_guid($artist->{gid}))  {
                 push @artist_gids, $artist->{gid};
             }
+            $i++;
         }
     }
 
@@ -197,18 +232,19 @@ sub process_medium {
 
     return unless defined $data->{tracklist};
 
+    trim_string($data, 'name');
+
     my @tracks = @{ $data->{tracklist} };
     my @recording_gids = grep { $_ } map { $_->{recording_gid} } @tracks;
     my $recordings = $c->model('Recording')->get_by_gids(@recording_gids);
 
-    my @track_acs = grep { $_ } map { $_->{artist_credit} } @tracks;
-    process_artist_credits($c, $loader, @track_acs) if scalar @track_acs;
-
     my $process_track = sub {
         my $track = shift;
-        my $recording_gid = delete $track->{recording_gid};
 
-        if (defined $recording_gid) {
+        process_entity($c, $loader, $track);
+        trim_string($track, 'number');
+
+        if (my $recording_gid = delete $track->{recording_gid}) {
             $track->{recording} = $recordings->{$recording_gid};
             $track->{recording_id} = $recordings->{$recording_gid}->id;
         }
@@ -233,7 +269,13 @@ sub process_relationship {
     $data->{begin_date} = delete $data->{beginDate} // {};
     $data->{end_date} = delete $data->{endDate} // {};
     $data->{ended} = boolean_from_json($data->{ended});
-    $data->{attribute_text_values} = delete $data->{attributeTextValues} // {};
+
+    my $text_values = delete $data->{attributeTextValues} // {};
+    $data->{attribute_text_values} = $text_values;
+
+    for my $id (keys %$text_values) {
+        trim_string($text_values, $id);
+    }
 
     delete $data->{id};
     delete $data->{linkTypeID};

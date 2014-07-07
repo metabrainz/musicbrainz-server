@@ -1,11 +1,11 @@
 # 
 # Translators:
-# Adolfo Jayme Barrientos <email address hidden>, 2014
+# Adolfo Jayme Barrientos <email address hidden>, 2014
 # Alexander Dupuy <email address hidden>, 2012
 # gr0uch0mars <email address hidden>, 2011
 # Héctor Arroyo <email address hidden>, 2012
-# kelopez <email address hidden>, 2012
-# martinipd <email address hidden>, 2014
+# Kevin López Brante <email address hidden>, 2012
+# Marta PD <email address hidden>, 2014
 # Nicolás Tamargo <email address hidden>, 2011-2013
 # kelopezcl <email address hidden>, 2012
 #   Tobias Quathamer <email address hidden>, 2007
@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2014-05-29 15:01+0000\n"
-"Last-Translator: martinipd <email address hidden>\n"
+"Last-Translator: Marta PD <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3274,8 +3274,8 @@ msgstr ""
 msgid "recording engineers"
 msgstr "ingenieros de grabación"
 
-#: DB:link_type/link_phrase:695 DB:link_type/link_phrase:698
-#: DB:link_type/link_phrase:699 DB:link_type/link_phrase:693
+#: DB:link_type/link_phrase:698 DB:link_type/link_phrase:699
+#: DB:link_type/link_phrase:695 DB:link_type/link_phrase:693
 msgid "recording location for"
 msgstr ""
 
@@ -3540,8 +3540,8 @@ msgstr ""
 msgid "was the mixing location for"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:695 DB:link_type/long_link_phrase:698
-#: DB:link_type/long_link_phrase:699 DB:link_type/long_link_phrase:693
+#: DB:link_type/long_link_phrase:698 DB:link_type/long_link_phrase:699
+#: DB:link_type/long_link_phrase:695 DB:link_type/long_link_phrase:693
 msgid "was the recording location for"
 msgstr ""
 

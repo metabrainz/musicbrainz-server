@@ -50,7 +50,7 @@
       <table class="tbl" id="tracklist">
         <thead>
           <tr>
-            <th class="pos t">#</th>
+            <th class="pos t">[%~ l('#') ~%]</th>
             <th class="recordings">
               [% l('Recording') %]
               <!-- ko text: checkboxes.recordingMessage() --><!-- /ko -->

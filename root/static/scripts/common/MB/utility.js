@@ -266,18 +266,6 @@ MB.utility.parseDate = (function () {
     };
 }());
 
-MB.utility.joinList = function (items) {
-    if (items.length > 1) {
-        var a = items.pop();
-        var b = items.join(MB.text.EnumerationComma);
-        return MB.i18n.expand(MB.text.EnumerationAnd, { b: b, a: a });
-    } else if (items.length === 1) {
-        return items[0];
-    }
-    return "";
-};
-
-
 MB.utility.filesize = function (size) {
     /* 1 decimal place.  false disables bit sizes. */
     return filesize(size, 1, false);

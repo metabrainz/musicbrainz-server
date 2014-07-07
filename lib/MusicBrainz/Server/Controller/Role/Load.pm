@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::Role::Load;
 use MooseX::Role::Parameterized -metaclass => 'MusicBrainz::Server::Controller::Role::Meta::Parameterizable';
 use MusicBrainz::Server::Data::Utils 'model_to_type';
 use MusicBrainz::Server::Validation qw( is_guid );
+use MusicBrainz::Server::Constants qw( %ENTITIES );
 
 parameter 'model' => (
     isa => 'Str',
@@ -52,6 +53,8 @@ role
 
         # Second is useful to roles or other places that need introspection
         $c->stash( entity       => $entity );
+
+        $c->stash( entity_properties => $ENTITIES{ model_to_type($model) } );
     };
 
     method _load => sub

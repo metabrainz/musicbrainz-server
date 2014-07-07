@@ -1,0 +1,113 @@
+[%~ entitytype = entity_type(entity) ~%]
+[%~ edit_links_other = edit_links_other || [] ~%]
+[%~ WRAPPER 'layout/sidebar.tt' ~%]
+    [%~ content ~%]
+
+    [%~ IF entity_properties.ratings ~%]
+        [%~ INCLUDE "layout/sidebar/sidebar-rating.tt" entity=entity ~%]
+    [%~ END ~%]
+
+    [%~ IF entity_properties.tags ~%]
+        [%~ INCLUDE "layout/sidebar/sidebar-tags.tt" entity=entity tags=top_tags
+            more=more_tags
+            async = c.uri_for_action("/$entitytype/tag_async", [ entity.gid ])
+        -%]
+    [%~ END ~%]
+
+    [%~ INCLUDE "layout/sidebar/sidebar-favicons.tt" source=entity UNLESS entitytype == 'url' ~%]
+
+    <h2 class="editing">[%~ l('Editing') ~%]</h2>
+    <ul class="links">
+        [%~ IF c.user_exists ~%]
+            [%~ UNLESS (entitytype == 'area' && !c.user.is_location_editor) || (entitytype == 'instrument' && !c.user.is_relationship_editor) ~%]
+                [%~ IF entity_properties.annotations && !entity.is_special_purpose ~%]
+                    [%~ edit_links_other.push({ url => c.uri_for(c.controller.action_for('edit_annotation'), [ entity.gid ], { returnto => c.req.uri }), text => entity.latest_annotation.text ? l('Edit annotation') : l('Add annotation') }) ~%]
+                    [%~ edit_links_other.push({ url => c.uri_for_action(c.controller.action_for('annotation_history'), [ entity.gid ]), text => l('View annotation history') }) IF number_of_revisions > 0 ~%]
+                [%~ END ~%]
+
+                [%~ IF entity_properties.merging ~%]
+                    [%~ edit_links_other.push({ url => c.uri_for_action("/$entitytype/merge_queue", { 'add-to-merge' => entity.id }), text => l('Merge') }) ~%]
+                [%~ END ~%]
+
+                [%~ IF entity_properties.removal.manual ~%]
+                    [%~ edit_links_other.push({ url => c.uri_for_action("/$entitytype/delete", [ entity.gid ]), text => l('Remove') }) ~%]
+                [%~ END ~%]
+            [%~ END ~%]
+
+            [%~ IF edit_links_add_entity.size > 0 ~%]
+                [%~ FOREACH link IN edit_links_add_entity ~%]
+                    <li><a href="[%~ link.url ~%]">[%~ link.text ~%]</a></li>
+                [%~ END ~%]
+            [%~ END ~%]
+
+            [%~ IF edit_links_other.size > 0 ~%]
+                [%~ '<hr/>' IF edit_links_add_entity.size > 0 ~%]
+                [%~ FOREACH link IN edit_links_other ~%]
+                    <li><a href="[%~ link.url ~%]">[%~ link.text ~%]</a></li>
+                [%~ END ~%]
+            [%~ END ~%]
+
+            [%~ UNLESS entity.is_special_purpose ~%]
+                [%~ '<hr/>' IF edit_links_add_entity.size + edit_links_other.size > 0 ~%]
+                <li>[%~ link_entity(entity, 'open_edits', l('Open edits')) ~%]</li>
+                <li>[%~ link_entity(entity, 'edits', l('Editing history')) ~%]</li>
+            [%~ END ~%]
+        [%~ ELSE ~%]
+            <li>[%~ request_login(l('Log in to edit')) ~%]</li>
+        [%~ END ~%]
+    </ul>
+
+    [%~ IF entity_properties.subscriptions ~%]
+        [%~ IF c.user_exists && !entity.is_special_purpose ~%]
+        <h2 class="subscriptions">[%~ l("Subscriptions") ~%]</h2>
+        <ul class="links">
+            [%~ IF subscribed ~%]
+                <li><a href="[%~ c.uri_for_action("/account/subscriptions/$entitytype/remove", { id => entity.id }) ~%]">[%~ l('Unsubscribe') ~%]</a></li>
+            [%~ ELSE ~%]
+                <li><a href="[%~ c.uri_for_action("/account/subscriptions/$entitytype/add", { id => entity.id }) ~%]">[%~ l('Subscribe') ~%]</a></li>
+            [%~ END ~%]
+            <li>[%~ link_entity(entity, 'subscribers', l('Subscribers')) ~%]</li>
+        </ul>
+        [%~ END ~%]
+    [%~ END ~%]
+
+    [%~ IF c.user_exists && entity_properties.collections ~%]
+        <h2 class="collections">[%~ l('Collections') ~%]</h2>
+        <ul class="links">
+        [%~ IF collections.size ~%]
+            [%~ FOREACH collection IN collections ~%]
+                <li>
+                [%~ IF containment.${collection.id} ~%]
+                    <a href="[%~ c.uri_for_action("/collection/remove", [collection.gid], { release => release.id }) ~%]">
+                        [%~ IF collections.size == 1 ~%]
+                            [%~ l('Remove from my collection') ~%]
+                        [%~ ELSE ~%]
+                            [%~ l('Remove from {collection}', { collection => collection.name }) ~%]
+                        [%~ END ~%]
+                    </a>
+                [%~ ELSE ~%]
+                    <a href="[%~ c.uri_for_action("/collection/add", [collection.gid], { release => release.id }) ~%]">
+                    [%~ IF collections.size == 1 ~%]
+                        [%~ l('Add to my collection') ~%]
+                    [%~ ELSE ~%]
+                        [%~ l('Add to {collection}', {collection => collection.name }) ~%]
+                    [%~ END ~%]
+                    </a>
+                [%~ END ~%]
+                </li>
+            [%~ END ~%]
+        [%~ ELSE ~%]
+            <li>[%~ l("You have no collections!") ~%]</li>
+        [%~ END ~%]
+            <li><a href="[%~ c.uri_for_action("/collection/create", { release => release.id }) ~%]">[%~ l('Add to a new collection') ~%]</a></li>
+            <li>[%~ link_release(release, 'collections', ln('Found in {num} user collection', 'Found in {num} user collections',
+                                                           all_collections.size, { num => all_collections.size }) ) ~%]</li>
+        </ul>
+    [%~ END ~%]
+
+    [%~ INCLUDE "layout/sidebar/sidebar-licenses.tt" source=entity ~%]
+
+    [%~ IF entity.last_updated ~%]
+        <p class="lastupdate">[%~ l('Last updated on {date}', { date => UserDate.format(entity.last_updated) }) ~%]</p>
+    [%~ END ~%]
+[%~ END ~%]

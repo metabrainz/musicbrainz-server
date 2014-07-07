@@ -43,7 +43,7 @@ EOSQL
         ok($mech->success);
 
         my @redir = $response->redirects;
-        like($redir[0]->content, qr{http://localhost/relationship-attributes\?msg=updated}, "Redirect contains link to main relationship page.");
+        like($redir[0]->content, qr{http://localhost/relationship-attributes}, "Redirect contains link to main relationship page.");
     } $test->c;
 
     is(@edits, 1);

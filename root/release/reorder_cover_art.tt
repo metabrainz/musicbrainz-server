@@ -7,7 +7,7 @@
     [%- USE r = FormRenderer(form) -%]
 
     <div class="row" id="cover-art-position-row">
-      <label id="cover-art-position-label" class="required">Position:</label>
+      <label id="cover-art-position-label" class="required">[%~ add_colon(l('Position')) ~%]</label>
 
       <div class="image-position">
       [%- SET count = 0 -%]

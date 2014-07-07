@@ -2,8 +2,8 @@
 # Translators:
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
-# momocat <email address hidden>, 2014
-# Luca Salini <email address hidden>, 2012
+# Monica <email address hidden>, 2014
+# salorock <email address hidden>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"

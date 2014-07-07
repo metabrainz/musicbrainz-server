@@ -1,7 +1,7 @@
 # 
 # Translators:
 # Daniel Schury <email address hidden>, 2011
-# Mineo <email address hidden>, 2011
+# Wieland Hoffmann <email address hidden>, 2011
 # Nikolai Prokoschenko <email address hidden>, 2011
 # Shepard, 2011
 # Tobias Quathamer <email address hidden>, 2007

@@ -10,19 +10,13 @@ use MusicBrainz::Server::Constants qw( $INSTRUMENT_ROOT_ID );
 
 extends 'MusicBrainz::Server::Entity';
 
+with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
+    type => 'LinkAttributeType',
+};
+
 has 'gid' => (
     is => 'rw',
     isa => 'Str',
-);
-
-has 'parent_id' => (
-    is => 'rw',
-    isa => 'Maybe[Int]',
-);
-
-has 'parent' => (
-    is => 'rw',
-    isa => 'LinkAttributeType',
 );
 
 has 'root_id' => (
@@ -63,29 +57,6 @@ sub l_description {
     } else {
         return MusicBrainz::Server::Translation::Relationships::l($self->description);
     }
-}
-
-has 'child_order' => (
-    is => 'rw',
-    isa => 'Int',
-);
-
-has 'children' => (
-    is => 'rw',
-    isa => 'ArrayRef[LinkAttributeType]',
-    lazy => 1,
-    default => sub { [] },
-    traits => [ 'Array' ],
-    handles => {
-        all_children => 'elements',
-        add_child => 'push',
-        clear_children => 'clear'
-    }
-);
-
-sub sorted_children {
-    my $self = shift;
-    return sort { $a->child_order <=> $b->child_order || lc($a->l_name) cmp lc($b->l_name) } $self->all_children;
 }
 
 has 'free_text' => (

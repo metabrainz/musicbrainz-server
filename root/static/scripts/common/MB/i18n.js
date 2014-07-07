@@ -45,4 +45,41 @@
         return string;
     };
 
+
+    i18n.commaList = function (items) {
+        var count = items.length;
+
+        if (count <= 1) {
+            return items[0] || "";
+        }
+
+        var output = i18n.expand(MB.text.LastTwoListItems, {
+            last_list_item: items[count - 1],
+            almost_last_list_item: items[count - 2]
+        });
+
+        items = items.slice(0, -2).reverse();
+        count -= 2;
+
+        for (var i = 0; i < count; i++) {
+            output = i18n.expand(MB.text.ListItemCommaRest, {
+                list_item: items[i],
+                rest: output
+            });
+        }
+
+        return output;
+    };
+
+
+    var lang = document.documentElement.lang,
+        collatorOptions = { numeric: true };
+
+    if (typeof Intl === "undefined") {
+        i18n.compare = function (a, b) { return a.localeCompare(b, lang, collatorOptions) };
+    } else {
+        var collator = new Intl.Collator(lang, collatorOptions);
+        i18n.compare = function (a, b) { return collator.compare(a, b) };
+    }
+
 }(MB.i18n = {}));

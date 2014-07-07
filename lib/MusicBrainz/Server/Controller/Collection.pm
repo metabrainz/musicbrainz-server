@@ -37,7 +37,7 @@ sub own_collection : Chained('load') CaptureArgs(0) {
 
     my $collection = $c->stash->{collection};
     $c->forward('/user/do_login') if !$c->user_exists;
-    $c->detach('/error_403') if !$collection->public && $c->user->id != $collection->editor_id;
+    $c->detach('/error_403') if $c->user->id != $collection->editor_id;
 }
 
 sub add : Chained('own_collection') RequireAuth

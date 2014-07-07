@@ -454,6 +454,7 @@ Readonly our %ENTITIES => (
     },
     collection => {
         mbid => { relatable => 0 },
+        table => 'editor_collection',
         model      => 'Collection',
         subscriptions => { entity => 1 }
     },

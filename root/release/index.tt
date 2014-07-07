@@ -28,7 +28,7 @@
     </style>
 
     <script type="text/html" id="relationship-group">
-      <dt><!-- ko text: key --><!-- /ko -->:</dt>
+      <dt><span data-bind="html: key"></span>:</dt>
       <dd data-bind="html: _.map(value, function (v) { return v.target.html() }).join(', ')">
       </dd>
     </script>
@@ -36,7 +36,7 @@
     <table class="tbl">
       <thead>
         <tr>
-          <th class="pos t">#</th>
+          <th class="pos t">[%~ l('#') ~%]</th>
           <!-- ko if: $root.showVideo -->
           <th class="video c"></th>
           <!-- /ko -->
@@ -85,7 +85,7 @@
                       <!-- ko if: key == 'work' -->
                         <!-- ko foreachKv: value -->
                           <!-- ko foreach: value -->
-                            <dt><!-- ko text: $parent.key --><!-- /ko -->:</dt>
+                            <dt><span data-bind="html: $parent.key"></span>:</dt>
                             <dd>
                               <span data-bind="html: target.html()"></span>
                               <!-- ko foreachKv: groupedSubRelationships -->
@@ -248,7 +248,7 @@
     $(function () {
         MB.utility.rememberCheckbox("#bottom-credits", "bottom-credits");
 
-        var $bottom_tables = $("table.details");
+        var $bottom_tables = $("table.details").not($("table.details", "#release-group-relationships"));
         var $inline_ars = $("table.tbl div.ars");
 
         function switchToInlineCredits() {
@@ -333,4 +333,9 @@
         [% l('{link} has no relationships.', { link => link_entity(release) }) -%]
     </p>
 
+    <div id="release-group-relationships">
+      [%- INCLUDE "components/relationships.tt"
+            source=release.release_group
+            relationships_heading=l('Release Group Relationships') -%]
+    </div>
 [%- END -%]

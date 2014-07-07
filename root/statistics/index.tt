@@ -105,6 +105,10 @@
     <th colspan="4">[% l('Identifiers') %]</th>
 </tr>
 <tr>
+    <th>[% l('MBIDs:') %]</th>
+    <td colspan="3">[% add_commas(stats.statistic('count.mbid')) %]</td>
+</tr>
+<tr>
     <th>[% l('ISRCs (all / unique):') %]</th>
     <td>[% add_commas(stats.statistic('count.isrc.all')) %]</td><td>/</td><td>[% add_commas(stats.statistic('count.isrc')) %]</td>
 </tr>

@@ -1,11 +1,12 @@
 # 
 # Translators:
-# Nozomu KURASAWA <email address hidden>, 2012-2013
+# Nozomu Kurasawa <email address hidden>, 2012-2013
+# Osamu Takahashi, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-05-20 19:03+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-05-30 15:32+0000\n"
+"Last-Translator: Osamu Takahashi\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +26,7 @@ msgstr "Allmusic"
 #: DB:link_type/link_phrase:286 DB:link_type/reverse_link_phrase:284
 #: DB:link_type/reverse_link_phrase:283 DB:link_type/reverse_link_phrase:285
 msgid "Allmusic page for"
-msgstr ""
+msgstr "Allmusicのページ"
 
 #: DB:link_type/link_phrase:190
 msgid "BBC Music"
@@ -33,7 +34,7 @@ msgstr "BBC Music"
 
 #: DB:link_type/reverse_link_phrase:190
 msgid "BBC Music page for"
-msgstr ""
+msgstr "BBC Musicのページ"
 
 #: DB:link_type/link_phrase:719 DB:link_type/link_phrase:718
 msgid "Bandcamp"
@@ -125,7 +126,7 @@ msgid ""
 "For works that have lyrics, this indicates that those lyrics are not "
 "relevant to this recording. Examples include instrumental arrangements, or "
 "\"beats\" from hip-hop songs which may be reused with different lyrics."
-msgstr ""
+msgstr "歌詞のある曲については、これは、歌詞と録音が関係しないことを意味します。たとえば、インストゥルメンタルのアレンジや、ヒップホップのトラックで、別の歌詞を載せて使われているものなどが該当します。"
 
 #: DB:link_type/link_phrase:713
 msgid "Geonames"
@@ -823,7 +824,7 @@ msgid ""
 "release.​This allows a release to be linked to its supporting singles, EPs, "
 "and remix releases. A 'supporting release' is one which is released to "
 "increase sales of an album or to create publicity for an album."
-msgstr ""
+msgstr "これは、この版が別の版と関係してリリースされたことを意味します。これにより、あるリリースと別のシングル、EP、リミックスなどを関連付けることが可能になります。関連するリリースとは、アルバムの売上を伸ばすためのリリースや、アルバムを普及させるためのリリースをいいます。"
 
 #: DB:link_type/description:11
 msgid ""
@@ -878,17 +879,17 @@ msgid ""
 "This indicates that the group had multiple conductors who were led by this "
 "conductor. This may be indicated by either the title of \"principal "
 "conductor\" or \"first conductor\"."
-msgstr ""
+msgstr "これは、グループにこの指揮者によって率いられる複数の指揮者がいたことを意味します。「首席指揮者」や「第一指揮者」とも呼ばれます。"
 
 #: DB:link_attribute_type/description:579
 msgid ""
 "This indicates that the recording is not of the entire work, e.g. excerpts "
 "from, conclusion of, etc."
-msgstr ""
+msgstr "これは、録音が完全版ではなく、抜粋や追完などであることを意味します。"
 
 #: DB:link_attribute_type/description:578
 msgid "This indicates that the recording is of a live performance."
-msgstr ""
+msgstr "これは、ライブ録音であることを示します。"
 
 #: DB:link_attribute_type/description:750
 msgid ""
@@ -3265,8 +3266,8 @@ msgstr ""
 msgid "recording engineers"
 msgstr ""
 
-#: DB:link_type/link_phrase:695 DB:link_type/link_phrase:698
-#: DB:link_type/link_phrase:699 DB:link_type/link_phrase:693
+#: DB:link_type/link_phrase:698 DB:link_type/link_phrase:699
+#: DB:link_type/link_phrase:695 DB:link_type/link_phrase:693
 msgid "recording location for"
 msgstr ""
 
@@ -3531,8 +3532,8 @@ msgstr ""
 msgid "was the mixing location for"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:695 DB:link_type/long_link_phrase:698
-#: DB:link_type/long_link_phrase:699 DB:link_type/long_link_phrase:693
+#: DB:link_type/long_link_phrase:698 DB:link_type/long_link_phrase:699
+#: DB:link_type/long_link_phrase:695 DB:link_type/long_link_phrase:693
 msgid "was the recording location for"
 msgstr ""
 
@@ -3550,15 +3551,15 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:704
 msgid "works as a mastering engineer at"
-msgstr ""
+msgstr "マスタリングエンジニアとして仕事"
 
 #: DB:link_type/long_link_phrase:703
 msgid "works as a mixing engineer at"
-msgstr ""
+msgstr "ミキシングエンジニアとして仕事"
 
 #: DB:link_type/long_link_phrase:702
 msgid "works as a recording engineer at"
-msgstr ""
+msgstr "レコーディングエンジニアとして仕事"
 
 #: DB:link_type/long_link_phrase:701
 msgid "works as an engineer at"

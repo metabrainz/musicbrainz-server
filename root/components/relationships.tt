@@ -22,7 +22,7 @@
   [% END %]
 [% END %]
 
-<h2>[% l("Relationships") %]</h2>
+<h2 class="relationships">[% relationships_heading OR l("Relationships") %]</h2>
 
 [% IF relationships.size %]
   [% static_display(relationships) %]

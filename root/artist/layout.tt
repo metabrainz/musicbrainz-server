@@ -1,148 +1,85 @@
-[%- WRAPPER "layout.tt" title=title ? artist.name _ " - ${title}" : artist.name canonical_url=replace_gid(entity.gid) -%]
-  [%- IF !full_width -%]
-    [% WRAPPER 'layout/sidebar.tt' %]
-        [%- show_image() -%]
+[%~ WRAPPER "layout.tt" title=title ? artist.name _ " - ${title}" : artist.name canonical_url=replace_gid(entity.gid) ~%]
+    [%~ IF !full_width ~%]
+        [%~ edit_links_add_entity = [] ~%]
+        [%~ edit_links_other = [] ~%]
+        [%~ UNLESS artist.is_special_purpose ~%]
+            [%~ edit_links_add_entity.push({ url => c.uri_for_action('/release_group/create', { artist = artist.gid }), text => l('Add release group') }) ~%]
+            [%~ edit_links_add_entity.push({ url => c.uri_for_action('/release_editor/add', { artist = artist.gid }), text => l('Add release') }) ~%]
+            [%~ edit_links_add_entity.push({ url => c.uri_for_action('/recording/create', { artist = artist.gid }), text => l('Add recording') }) ~%]
+            [%~ edit_links_add_entity.push({ url => c.uri_for_action('/work/create', { artist = artist.gid }), text => l('Add work') }) ~%]
 
-        <h2 class="artist-information">[% l('Artist information') %]</h2>
-        [% WRAPPER 'layout/sidebar/properties.tt' %]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('Sort name:')
-               content=html_escape(artist.sort_name) class="sort-name"
-                   IF artist.name != artist.sort_name -%]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
-               content=html_escape(artist.l_type_name) class="type"
-                   IF artist.type -%]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('Gender:')
-               class="gender"
-               content=html_escape(artist.l_gender_name)
-                   IF artist.gender -%]
-            [%- UNLESS artist.begin_date.is_empty AND artist.end_date.is_empty AND !artist.ended AND !artist.begin_area AND !artist.end_area -%]
-                    [%- IF artist.begin_date.format %]
-                        [% date_period_label = artist_begin_label_from_type(artist.type_id) %]
-                        [% WRAPPER 'layout/sidebar/property.tt' label=date_period_label %]
-                            [% artist.begin_date.format %]
-                            [% IF artist.has_age AND not artist.end_date.format %]
-                                (<span style="display:none">[% display_age(artist.age) %]</span>[% display_age_ago(artist.age) %])
-                            [% END %]
-                        [% END %]
-                    [%- END -%]
-                    [%- IF artist.begin_area %]
-                        [% INCLUDE 'layout/sidebar/property.tt' label= artist_begin_area_label_from_type(artist.type_id)
+            [%~ edit_links_other.push({ url => c.uri_for_action('/artist/split', [ artist.gid ]), text => l('Split into separate artists') }) ~%]
+        [%~ END ~%]
+
+        [%~ WRAPPER 'layout/sidebar/shared-entity-sidebar.tt' entity=artist edit_links_add_entity=edit_links_add_entity edit_links_other=edit_links_other ~%]
+            [%~ show_image() ~%]
+
+            <h2 class="artist-information">[%~ l('Artist information') ~%]</h2>
+            [%~ WRAPPER 'layout/sidebar/properties.tt' ~%]
+                [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Sort name:')
+                     content=html_escape(artist.sort_name) class="sort-name"
+                         IF artist.name != artist.sort_name ~%]
+                [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
+                     content=html_escape(artist.l_type_name) class="type"
+                         IF artist.type ~%]
+                [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Gender:')
+                     class="gender"
+                     content=html_escape(artist.l_gender_name)
+                         IF artist.gender ~%]
+                [%~ UNLESS artist.begin_date.is_empty AND artist.end_date.is_empty AND !artist.ended AND !artist.begin_area AND !artist.end_area ~%]
+                    [%~ IF artist.begin_date.format ~%]
+                        [%~ date_period_label = artist_begin_label_from_type(artist.type_id) ~%]
+                        [%~ WRAPPER 'layout/sidebar/property.tt' label=date_period_label ~%]
+                            [%~ artist.begin_date.format ~%]
+                            [%~ IF artist.has_age AND not artist.end_date.format ~%]
+                                [%~ bracketed(display_age_ago(artist.age)) ~%]
+                            [%~ END ~%]
+                        [%~ END ~%]
+                    [%~ END ~%]
+                    [%~ IF artist.begin_area ~%]
+                        [%~ INCLUDE 'layout/sidebar/property.tt' label= artist_begin_area_label_from_type(artist.type_id)
                             content=descriptive_link(artist.begin_area)
                             class="begin_area"
                         %]
-                    [%- END -%]
-                    [% date_period_label = artist_end_label_from_type(artist.type_id) %]
-                    [% IF artist.end_date.format %]
-                        [% WRAPPER 'layout/sidebar/property.tt' label=date_period_label %]
-                            [% artist.end_date.format %]
-                            [% IF artist.has_age %]
-                                ([% display_age(artist.age, artist.type_id == 1) %])
-                            [% END %]
-                        [% END %]
-                    [% ELSIF artist.ended %]
-                        [% WRAPPER 'layout/sidebar/property.tt' label=date_period_label %]
-                            [% l('[unknown]') %]
-                        [% END %]
-                    [% END %]
-                    [%- IF artist.end_area %]
-                        [% INCLUDE 'layout/sidebar/property.tt' label= artist_end_area_label_from_type(artist.type_id)
+                    [%~ END ~%]
+                    [%~ date_period_label = artist_end_label_from_type(artist.type_id) ~%]
+                    [%~ IF artist.end_date.format ~%]
+                        [%~ WRAPPER 'layout/sidebar/property.tt' label=date_period_label ~%]
+                            [%~ artist.end_date.format ~%]
+                            [%~ IF artist.has_age ~%]
+                                [%~ bracketed(display_age(artist.age, artist.type_id == 1)) ~%]
+                            [%~ END ~%]
+                        [%~ END ~%]
+                    [%~ ELSIF artist.ended ~%]
+                        [%~ WRAPPER 'layout/sidebar/property.tt' label=date_period_label ~%]
+                            [%~ l('[unknown]') ~%]
+                        [%~ END ~%]
+                    [%~ END ~%]
+                    [%~ IF artist.end_area ~%]
+                        [%~ INCLUDE 'layout/sidebar/property.tt' label= artist_end_area_label_from_type(artist.type_id)
                             content=descriptive_link(artist.end_area)
                             class="end_area"
                         %]
-                    [%- END -%]
-            [%- END -%]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('Area:')
-               content=descriptive_link(artist.area)
-               class="area"
-                   IF artist.area -%]
-            [%- FOR ipi_code IN artist.ipi_codes -%]
-              [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
-                 content=html_escape(ipi_code.ipi) class="ipi-code" %]
-            [%- END -%]
-            [%- FOR isni_code IN artist.isni_codes -%]
-              [% INCLUDE 'layout/sidebar/property.tt' label=l('ISNI code:')
-                 content=link_isni(isni_code.isni) class="isni-code" %]
-            [%- END -%]
-        [% END %]
+                    [%~ END ~%]
+                [%~ END ~%]
+                [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Area:')
+                     content=descriptive_link(artist.area)
+                     class="area"
+                         IF artist.area ~%]
+                [%~ FOR ipi_code IN artist.ipi_codes ~%]
+                    [%~ INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
+                         content=html_escape(ipi_code.ipi) class="ipi-code" ~%]
+                [%~ END ~%]
+                [%~ FOR isni_code IN artist.isni_codes ~%]
+                    [%~ INCLUDE 'layout/sidebar/property.tt' label=l('ISNI code:')
+                         content=link_isni(isni_code.isni) class="isni-code" ~%]
+                [%~ END ~%]
+            [%~ END ~%]
+        [%~ END ~%]
+    [%~ END ~%]
 
-        [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=artist -%]
-        [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=artist tags=top_tags
-            more=more_tags tag_this_text=l('Tag this artist')
-            async = c.uri_for_action('/artist/tag_async', [ artist.gid ])
-            -%]
-
-        <h2 class="editing">[% l('Editing') %]</h2>
-        <ul class="links">
-            [% IF c.user_exists %]
-                [% UNLESS artist.is_special_purpose %]
-                <li>
-                  <a href="[% c.uri_for_action('/release_group/create', { artist = artist.gid }) %]">
-                    [% l('Add release group') %]
-                  </a>
-                </li>
-                <li>
-                  <a href="[% c.uri_for_action('/release_editor/add', { artist = artist.gid }) %]">
-                    [% l('Add release') %]
-                  </a>
-                </li>
-                <li>
-                  <a href="[% c.uri_for_action('/recording/create', { artist = artist.gid }) %]">
-                    [% l('Add recording') %]
-                  </a>
-                </li>
-                <li>
-                  <a href="[% c.uri_for_action('/work/create', { artist = artist.gid }) %]">
-                    [% l('Add work') %]
-                  </a>
-                </li>
-
-                  <hr/>
-
-                  [% annotation_links(artist) %]
-                  <li>
-                    [% link_artist(artist, 'split', l('Split into separate artists')) %]
-                  </li>
-                [% END %]
-
-                  <li>
-                    <a href="[% c.uri_for_action('/artist/merge_queue', { 'add-to-merge' => artist.id }) %]">
-                      [% l('Merge artist') %]
-                    </a>
-                  </li>
-
-                [% UNLESS artist.is_special_purpose %]
-                  <hr/>
-
-                  <li>[% link_entity(artist, 'open_edits', l('Open edits')) %]</li>
-                  <li>[% link_entity(artist, 'edits', l('Editing history')) %]</li>
-                [% END %]
-            [% ELSE %]
-                <li>[% request_login(l('Log in to edit')) %]</li>
-            [% END %]
-        </ul>
-
-        [% IF c.user_exists && !artist.is_special_purpose %]
-        <h2 class="subscriptions">[% l("Subscriptions") %]</h2>
-        <ul class="links">
-            [% IF c.user_exists && !artist.is_special_purpose %]
-                [% IF subscribed %]
-                    <li><a href="[% c.uri_for_action('/account/subscriptions/artist/remove', { id => artist.id }) %]">[% l('Unsubscribe') %]</a></li>
-                [% ELSE %]
-                    <li><a href="[% c.uri_for_action('/account/subscriptions/artist/add', { id => artist.id }) %]">[% l('Subscribe') %]</a></li>
-                [% END %]
-                <li>[% link_entity(artist, 'subscribers', l('Subscribers')) %]</li>
-            [% END %]
-        </ul>
-        [% END %]
-
-        [%- INCLUDE "layout/sidebar/sidebar-favicons.tt" source=artist -%]
-        [%- INCLUDE "layout/sidebar/sidebar-affiliates.tt" source=artist -%]
-        [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=artist -%]
-    [% END %]
-  [%- END -%]
-
-  <div id="content">
-    [%- INCLUDE "artist/header.tt" -%]
-    [%- content -%]
-  </div>
-[%- END -%]
+    <div id="content">
+        [%~ INCLUDE "artist/header.tt" ~%]
+        [%~ content ~%]
+    </div>
+[%~ END ~%]

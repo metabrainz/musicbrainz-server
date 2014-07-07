@@ -532,7 +532,7 @@ sub _with_primary_alias {
                     $_->primary_for_locale
                 } @{ $result->{aliases} };
 
-            $out->{primary_alias} = $primary_alias && $primary_alias->name;
+            $out->{primaryAlias} = $primary_alias && $primary_alias->name;
             push @output, $out;
         }
     }

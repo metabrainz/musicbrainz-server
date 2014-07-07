@@ -1,3 +1,0 @@
-[% IF entity.last_updated %]
-<p class="lastupdate">[% l('Last updated on {date}', { date => UserDate.format(entity.last_updated) }) %]</p>
-[% END %]

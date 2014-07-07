@@ -33,7 +33,7 @@
 
   [% IF edit.historic_type == 25 %]
   <tr>
-    <th>Note:</th>
+    <th>[%~ add_colon(l('Note')) ~%]</th>
     <td>[% l('This edit was a "Merge Releases (Various Artists)" edit which additionally
                 set the release artist to Various Artists.') %]</td>
   </tr>

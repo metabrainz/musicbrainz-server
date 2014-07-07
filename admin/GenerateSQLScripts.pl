@@ -13,6 +13,11 @@ print "Regenerating SQL scripts in $dir...\n";
 sub find_search_path
 {
     my $search_path = '';
+    my $infile = "CreateTables.sql";
+    unless (-e "$dir/$infile") {
+        print "Could not find $infile, search_path might not be correct\n";
+        return $search_path;
+    }
     open FILE, "<$dir/CreateTables.sql";
     while (<FILE>) {
         if ($_ =~ /^SET search_path = .*$/) {
@@ -28,7 +33,12 @@ my $search_path = find_search_path();
 
 sub process_tables
 {
-    open FILE, "<$dir/CreateTables.sql";
+    my $infile = "CreateTables.sql";
+    unless (-e "$dir/$infile") {
+        print "Could not find $infile, skipping\n";
+        return;
+    }
+    open FILE, "<$dir/$infile";
     my $create_tables_sql = do { local $/; <FILE> };
     close FILE;
 

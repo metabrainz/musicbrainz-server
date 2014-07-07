@@ -137,10 +137,13 @@ role {
             end_date            => PartialDate->new($self->data->{end_date}),
             primary_for_locale  => $self->data->{primary_for_locale},
             ended               => $self->data->{ended} // 0,
+            entity_type         => $entity_type,
             $entity_type        => $loaded->{$model}->{$self->$entity_id} //
                                     $self->c->model($model)->_entity_class->new(name => $self->data->{entity}{name}),
         };
     };
 };
+
+sub edit_template { "add_alias" };
 
 1;

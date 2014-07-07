@@ -1,26 +1,17 @@
 package MusicBrainz::Server::Controller::Role::Annotation;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 
-use MusicBrainz::Server::Constants qw( :annotation );
+use MusicBrainz::Server::Constants qw( :annotation entities_with );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation qw( is_positive_integer is_nat );
 
 requires 'load', 'show';
 
-my %model_to_edit_type = (
-    Artist => $EDIT_ARTIST_ADD_ANNOTATION,
-    Label => $EDIT_LABEL_ADD_ANNOTATION,
-    Place => $EDIT_PLACE_ADD_ANNOTATION,
-    Recording => $EDIT_RECORDING_ADD_ANNOTATION,
-    Release => $EDIT_RELEASE_ADD_ANNOTATION,
-    ReleaseGroup => $EDIT_RELEASEGROUP_ADD_ANNOTATION,
-    Work => $EDIT_WORK_ADD_ANNOTATION,
-    Area => $EDIT_AREA_ADD_ANNOTATION,
-    Instrument => $EDIT_INSTRUMENT_ADD_ANNOTATION,
-    Series => $EDIT_SERIES_ADD_ANNOTATION,
-    Event => $EDIT_EVENT_ADD_ANNOTATION,
-);
+my %model_to_edit_type = entities_with('annotations', take => sub {
+    my ($type, $properties) = @_;
+    return ($properties->{model} => $properties->{annotations}{edit_type});
+});
 
 after 'load' => sub
 {
@@ -115,39 +106,28 @@ sub edit_annotation : Chained('load') PathPart Edit
     my $annotation_model = $c->model($model)->annotation;
     $annotation_model->load_latest($entity);
 
-    my $form = $c->form(
-        form             => 'Annotation',
-        init_object      => $entity->latest_annotation,
-        annotation_model => $annotation_model,
-        entity_id        => $entity->id
-    );
-
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params))
-    {
-        if ($form->field('preview')->input) {
-            $c->stash(
-                show_preview => 1,
-                preview      => $form->field('text')->value
-            );
-        }
-        else
-        {
-            $c->model('MB')->with_transaction(sub {
-                $self->_insert_edit(
-                    $c,
-                    $form,
-                    edit_type => $model_to_edit_type{$model},
-                    (map { $_->name => $_->value } $form->edit_fields),
-                    entity => $entity
-                );
-            });
-
+    $self->edit_action($c,
+        form        => 'Annotation',
+        form_args   => { annotation_model => $annotation_model, entity_id => $entity->id },
+        type        => $model_to_edit_type{$model},
+        item        => $entity->latest_annotation,
+        edit_args   => { entity => $entity },
+        redirect    => sub {
             my $redirect = $c->req->params->{returnto} ||
               $c->uri_for_action($self->action_for('show'), [ $entity->gid ]);
+
             $c->response->redirect($redirect);
-            $c->detach;
+        },
+        pre_creation => sub {
+            my $form = shift;
+
+            if ($form->field('preview')->input) {
+                $c->stash(show_preview => 1, preview => $form->field('text')->value);
+                return 0;
+            }
+            return 1;
         }
-    }
+    );
 }
 
 sub annotation_history : Chained('load') PathPart('annotations') RequireAuth

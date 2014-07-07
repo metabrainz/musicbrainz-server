@@ -216,10 +216,6 @@ msgstr ""
 msgid "An Irish/Scottish harp."
 msgstr ""
 
-#: DB:instrument/description:397
-msgid "Armenian traditional woodwind instrument"
-msgstr ""
-
 #: DB:instrument/description:428
 msgid ""
 "Bagpipes played by pumping air into a bellow and then from the bellow into "
@@ -282,10 +278,6 @@ msgstr ""
 
 #: DB:instrument/description:156
 msgid "Conch shell"
-msgstr ""
-
-#: DB:instrument/description:203
-msgid "Cornett (not to be confused with Cornet)"
 msgstr ""
 
 #: DB:instrument/description:348
@@ -758,6 +750,15 @@ msgid ""
 "the crumhorn but with a closed bell."
 msgstr ""
 
+#: DB:instrument/description:25
+msgid "The cornet is a brass instrument very similar to the trumpet."
+msgstr ""
+
+#: DB:instrument/description:203
+msgid ""
+"The cornett (not to be confused with the cornet) is an early wind instrument."
+msgstr ""
+
 #: DB:instrument/description:491
 msgid "The cuíca is a Brazilian friction drum often used in samba music."
 msgstr ""
@@ -820,7 +821,7 @@ msgstr ""
 #: DB:instrument/description:317
 msgid ""
 "The ding tac ta is a free reed wind instrument played by the Ê Đê minority "
-"in Vietnam. It is made of a bamboo tube with three holes with a gourd wind "
+"in Vietnam. It is made of a bamboo tube with three holes and a gourd wind "
 "chamber."
 msgstr ""
 
@@ -853,6 +854,10 @@ msgid ""
 "The double bass, also known as contrabass or upright bass as well as many "
 "other names, is the largest and lowest-pitched bowed string instrument of "
 "the violin family in the modern symphony orchestra."
+msgstr ""
+
+#: DB:instrument/description:397
+msgid "The duduk is a traditional Armenian double reed woodwind instrument."
 msgstr ""
 
 #: DB:instrument/description:496

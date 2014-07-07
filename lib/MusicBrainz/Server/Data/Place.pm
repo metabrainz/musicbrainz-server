@@ -17,6 +17,7 @@ use MusicBrainz::Server::Data::Utils qw(
     merge_string_attributes
     merge_partial_date
     placeholders
+    query_to_list_limited
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 use MusicBrainz::Server::Data::Utils::Uniqueness qw( assert_uniqueness_conserved );
@@ -40,9 +41,9 @@ sub _table
 
 sub _columns
 {
-    return 'place.id, gid, place.name, place.type, place.address, place.area, place.coordinates[0] as coordinates_x, ' .
-           'place.coordinates[1] as coordinates_y, place.edits_pending, begin_date_year, begin_date_month, begin_date_day, ' .
-           'end_date_year, end_date_month, end_date_day, ended, comment, place.last_updated';
+    return 'place.id, place.gid, place.name, place.type, place.address, place.area, place.coordinates[0] as coordinates_x, ' .
+           'place.coordinates[1] as coordinates_y, place.edits_pending, place.begin_date_year, place.begin_date_month, place.begin_date_day, ' .
+           'place.end_date_year, place.end_date_month, place.end_date_day, place.ended, place.comment, place.last_updated';
 }
 
 sub browse_column { 'name' }
@@ -201,6 +202,19 @@ sub is_empty {
           $used_in_relationship
         )
 EOSQL
+}
+
+sub find_by_area {
+    my ($self, $area_id, $limit, $offset) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                    JOIN area ON place.area = area.id
+                 WHERE area.id = ?
+                 ORDER BY musicbrainz_collate(place.name), place.id
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $area_id, $offset || 0);
 }
 
 __PACKAGE__->meta->make_immutable;

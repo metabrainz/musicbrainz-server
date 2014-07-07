@@ -1,10 +1,10 @@
 # 
 # Translators:
-# Phonebox, 2013
+# phonebox, 2013
 # ListMyCDs.com Martikainen <>, 2012
-# Phonebox, 2014
+# phonebox, 2014
 # Timo Martikainen <>, 2012
-# ListMyCDs.com Martikainen <email address hidden>, 2013
+# Timo Martikainen <email address hidden>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"

@@ -5,6 +5,10 @@ use MusicBrainz::Server::Translation::Attributes qw( lp );
 
 extends 'MusicBrainz::Server::Entity';
 
+with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
+    type => 'MediumFormat',
+};
+
 has 'name' => (
     is => 'rw',
     isa => 'Str'
@@ -20,37 +24,9 @@ has 'year' => (
     isa => 'Maybe[Int]'
 );
 
-has 'child_order' => (
-    is => 'rw',
-    isa => 'Int',
-);
-
-has 'parent_id' => (
-    is => 'rw',
-    isa => 'Maybe[Int]',
-);
-
-has 'parent' => (
-    is => 'rw',
-    isa => 'MediumFormat',
-);
-
 has 'has_discids' => (
     is => 'rw',
     isa => 'Bool'
-);
-
-has 'children' => (
-    is => 'rw',
-    isa => 'ArrayRef[MediumFormat]',
-    lazy => 1,
-    default => sub { [] },
-    traits => [ 'Array' ],
-    handles => {
-        all_children => 'elements',
-        add_child => 'push',
-        clear_children => 'clear'
-    }
 );
 
 has 'description' => (

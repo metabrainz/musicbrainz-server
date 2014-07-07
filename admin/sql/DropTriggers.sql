@@ -257,6 +257,8 @@ DROP TRIGGER url_gc_a_upd_l_release_url ON l_release_url;
 DROP TRIGGER url_gc_a_del_l_release_url ON l_release_url;
 DROP TRIGGER url_gc_a_upd_l_release_group_url ON l_release_group_url;
 DROP TRIGGER url_gc_a_del_l_release_group_url ON l_release_group_url;
+DROP TRIGGER url_gc_a_upd_l_series_url ON l_series_url;
+DROP TRIGGER url_gc_a_del_l_series_url ON l_series_url;
 DROP TRIGGER url_gc_a_upd_l_url_url ON l_url_url;
 DROP TRIGGER url_gc_a_del_l_url_url ON l_url_url;
 DROP TRIGGER url_gc_a_upd_l_url_work ON l_url_work;

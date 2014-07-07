@@ -50,3 +50,12 @@ test("MB.i18n.expand", function () {
         "Replacement with RegExp-escaped characters"
     );
 });
+
+
+test("MB.i18n.commaList", function () {
+    equal(MB.i18n.commaList([]), "", "empty list");
+    equal(MB.i18n.commaList(["a"]), "a", "list with one item");
+    equal(MB.i18n.commaList(["a", "b"]), "a and b", "list with two items");
+    equal(MB.i18n.commaList(["a", "b", "c"]), "a, b and c", "list with three items");
+    equal(MB.i18n.commaList(["a", "b", "c", "d"]), "a, b, c and d", "list with four items");
+});

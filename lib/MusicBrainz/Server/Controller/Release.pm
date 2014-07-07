@@ -68,7 +68,7 @@ after 'load' => sub
     # Load release group
     $c->model('ReleaseGroup')->load($release);
     $c->model('ReleaseGroup')->load_meta($release->release_group);
-    $c->model('Relationship')->load_subset([ 'url' ], $release->release_group);
+    $c->model('Relationship')->load($release->release_group);
     if ($c->user_exists) {
         $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, $release->release_group);
     }

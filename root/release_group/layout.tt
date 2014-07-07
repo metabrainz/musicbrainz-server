@@ -3,70 +3,33 @@
     name => rg.name
 }) %]
 [%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title canonical_url=replace_gid(entity.gid) -%]
-  [%- IF !full_width -%]
-    [% WRAPPER 'layout/sidebar.tt' %]
+    [%- IF !full_width -%]
+        [%~ edit_links_add_entity = [] ~%]
+        [%~ edit_links_other = [] ~%]
+        [%~ edit_links_add_entity.push({ url => c.uri_for_action('/release_editor/add', { 'release-group' = rg.gid }), text => l('Add release') }) ~%]
+        [%~ edit_links_other.push({ url => c.uri_for_action('/release_group/set_cover_art', [ rg.gid ]), text => l('Set cover art') }) ~%]
 
-    [%- IF rg.cover_art -%]
-      <div class="cover-art">
-        [%- display_artwork(rg.cover_art) -%]
-      </div>
-    [%- END -%]
+        [% WRAPPER 'layout/sidebar/shared-entity-sidebar.tt' entity=rg edit_links_add_entity=edit_links_add_entity edit_links_other=edit_links_other %]
+            [%- IF rg.cover_art -%]
+                <div class="cover-art">
+                [%- display_artwork(rg.cover_art) -%]
+                </div>
+            [%- END -%]
 
-        <h2 class="release-group-information">[% l('Release group information') %]</h2>
+            <h2 class="release-group-information">[% l('Release group information') %]</h2>
 
-        [% WRAPPER 'layout/sidebar/properties.tt' %]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('Artist:')
-               content=artist_credit(rg.artist_credit) class="artist" %]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
-               content=html_escape(rg.l_type_name) class="type"
-                   IF rg.primary_type || rg.all_secondary_types -%]
-        [%- END -%]
+            [% WRAPPER 'layout/sidebar/properties.tt' %]
+                [% INCLUDE 'layout/sidebar/property.tt' label=l('Artist:')
+                    content=artist_credit(rg.artist_credit) class="artist" %]
+                [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
+                    content=html_escape(rg.l_type_name) class="type"
+                        IF rg.primary_type || rg.all_secondary_types -%]
+            [%- END -%]
+        [%~ END ~%]
+    [%~ END ~%]
 
-        [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=rg -%]
-        [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=rg tags=top_tags
-            more=more_tags tag_this_text=l('Tag release group')
-            async = c.uri_for_action('/release_group/tag_async', [ rg.gid ])
-            -%]
-
-        <h2 class="editing">[% l('Editing') %]</h2>
-        <ul class="links">
-            [% IF c.user_exists %]
-                <li>
-                  <a href="[% c.uri_for_action('/release_editor/add', { 'release-group' = rg.gid }) %]">
-                    [% l('Add release') %]
-                  </a>
-                </li>
-                <hr/>
-
-                [% annotation_links(rg) %]
-                <li>
-                  <a href="[% c.uri_for_action('/release_group/merge_queue', { 'add-to-merge' => rg.id }) %]">
-                    [% l('Merge release group') %]
-                  </a>
-                </li>
-                <li>
-                  <a href="[% c.uri_for_action('/release_group/set_cover_art', [ rg.gid ]) %]">
-                    [% l('Set cover art') %]
-                  </a>
-                </li>
-
-                <hr/>
-
-                <li>[% link_entity(rg, 'open_edits', l('Open edits')) %]</li>
-                <li>[% link_entity(rg, 'edits', l('Editing history')) %]</li>
-            [% ELSE %]
-               <li>[% request_login(l('Log in to edit')) %]</li>
-            [% END %]
-        </ul>
-
-        [%- INCLUDE "layout/sidebar/sidebar-favicons.tt" source=rg -%]
-
-        [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=rg -%]
-    [% END %]
-  [%- END -%]
-
-  <div id="content">
-    [%- INCLUDE "release_group/header.tt" -%]
-    [%- content -%]
-  </div>
+    <div id="content">
+        [%- INCLUDE "release_group/header.tt" -%]
+        [%- content -%]
+    </div>
 [%- END -%]

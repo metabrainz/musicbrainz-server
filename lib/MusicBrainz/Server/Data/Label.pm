@@ -52,10 +52,10 @@ sub _table
 
 sub _columns
 {
-    return 'label.id, gid, name, ' .
+    return 'label.id, label.gid, label.name, ' .
            'label.type, label.area, label.edits_pending, label.label_code, ' .
-           'begin_date_year, begin_date_month, begin_date_day, ' .
-           'end_date_year, end_date_month, end_date_day, ended, comment, label.last_updated';
+           'label.begin_date_year, label.begin_date_month, label.begin_date_day, ' .
+           'label.end_date_year, label.end_date_month, label.end_date_day, label.ended, label.comment, label.last_updated';
 }
 
 sub _id_column
@@ -103,6 +103,19 @@ sub find_by_subscribed_editor
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $editor_id, $offset || 0);
+}
+
+sub find_by_area {
+    my ($self, $area_id, $limit, $offset) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                    JOIN area ON label.area = area.id
+                 WHERE area.id = ?
+                 ORDER BY musicbrainz_collate(label.name), label.id
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $area_id, $offset || 0);
 }
 
 sub find_by_artist

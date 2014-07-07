@@ -24,9 +24,17 @@ INSERT INTO area (id, gid, name, type) VALUES
 INSERT INTO country_area (area) VALUES ( 13), ( 81), (107), (150), (221), (222), (241);
 INSERT INTO iso_3166_1 (area, code) VALUES ( 13, 'AU'), ( 81, 'DE'), (107, 'JP'), (150, 'NL'), (221, 'GB'), (222, 'US'), (241, 'XE');
 
+INSERT INTO link_attribute_type (id, root, gid, name, description) VALUES
+    (14, 14, '0abd7f04-5e28-425b-956f-94789d9bcbe2', 'instrument', 'This attribute describes the possible instruments that can be captured as part of a performance.'),
+    (788, 788, 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a', 'number', 'This attribute indicates the number of a work in a series.');
+
+INSERT INTO link_text_attribute_type (attribute_type) VALUES (788);
+
 -- Types, statuses, etc.
 INSERT INTO artist_type (id, name) VALUES (1, 'Person');
 INSERT INTO artist_type (id, name) VALUES (2, 'Group');
+
+INSERT INTO instrument_type (id, name) VALUES (1, 'Wind instrument');
 
 INSERT INTO gender (id, name) VALUES (2, 'Female');
 
@@ -36,6 +44,14 @@ INSERT INTO label_type (id, name) VALUES (6, 'Reissue Production');
 INSERT INTO label_type (id, name) VALUES (7, 'Publisher');
 
 INSERT INTO place_type (id, name) VALUES (1, 'Venue');
+
+INSERT INTO series_type (id, name, entity_type, parent, description) VALUES
+    (4, 'Work', 'work', NULL, 'Indicates that the series is of works.'),
+    (5, 'Catalogue', 'work', 4, 'Indicates that the series is a works catalogue.');
+
+INSERT INTO series_ordering_type (id, name, description) VALUES
+    (1, 'Automatic', 'Sorts the items in the series automatically by their number attributes, using a natural sort order.'),
+    (2, 'Manual', 'Allows for manually setting the position of each item in the series.');
 
 INSERT INTO work_type (id, name) VALUES (17, 'Song');
 
@@ -407,6 +423,16 @@ INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, positi
 INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES (100300, 781759, '', 'SKC', 1);
 INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES (135345, 792488, '♥', 'm-flo', 0);
 INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES (9496, 792488, '', 'BoA', 1);
+
+-- Instruments
+
+SELECT setval('link_attribute_type_id_seq', (SELECT MAX(id) FROM link_attribute_type));
+
+INSERT INTO instrument (id, gid, name, type) VALUES (7, '3590521b-8c97-4f4b-b1bb-5f68d3663d8a', 'English horn', 1);
+
+INSERT INTO instrument_alias (id, instrument, name, sort_name) VALUES
+    (1, 7, 'cor anglais', 'cor anglais'),
+    (2, 7, 'English horn', 'English horn');
 
 -- RGs
 
@@ -1604,6 +1630,14 @@ INSERT INTO release_label (catalog_number, id, label, last_updated, release) VAL
 INSERT INTO place (id, gid, name, type, address, area, coordinates, comment, edits_pending, last_updated, begin_date_year, begin_date_month, begin_date_day, end_date_year, end_date_month, end_date_day, ended) VALUES (1, 'df9269dd-0470-4ea2-97e8-c11e46080edd', 'A Test Place', 1, 'An Address', 241, '(0.323,1.234)', 'A PLACE!', 0, '2013-09-07 14:40:22.041309+00', 2013, NULL, NULL, NULL, NULL, NULL, '0');
 
 INSERT INTO place_alias (id, place, name, locale, edits_pending, last_updated, type, sort_name, begin_date_year, begin_date_month, begin_date_day, end_date_year, end_date_month, end_date_day, primary_for_locale, ended) VALUES (1, 1, 'A Test Place Alias', NULL, 0, '2013-09-16 11:00:11.746172+00', NULL, 'A Test Place Alias', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0');
+
+-- Series
+
+INSERT INTO series (id, gid, name, type, ordering_attribute, ordering_type) VALUES
+    (25, 'd977f7fd-96c9-4e3e-83b5-eb484a9e6582', 'Bach-Werke-Verzeichnis', 5, 788, 1);
+
+INSERT INTO series_alias (id, series, name, sort_name) VALUES
+    (7, 25, 'BWV', 'BWV');
 
 -- Works
 
