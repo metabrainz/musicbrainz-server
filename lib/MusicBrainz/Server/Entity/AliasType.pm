@@ -5,37 +5,13 @@ use MusicBrainz::Server::Translation::Attributes qw( lp );
 
 extends 'MusicBrainz::Server::Entity';
 
+with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
+    type => 'AliasType',
+};
+
 has 'name' => (
     is => 'rw',
     isa => 'Str'
-);
-
-has 'child_order' => (
-    is => 'rw',
-    isa => 'Int',
-);
-
-has 'parent_id' => (
-    is => 'rw',
-    isa => 'Maybe[Int]',
-);
-
-has 'parent' => (
-    is => 'rw',
-    isa => 'AliasType',
-);
-
-has 'children' => (
-    is => 'rw',
-    isa => 'ArrayRef[AliasType]',
-    lazy => 1,
-    default => sub { [] },
-    traits => [ 'Array' ],
-    handles => {
-        all_children => 'elements',
-        add_child => 'push',
-        clear_children => 'clear'
-    }
 );
 
 has 'description' => (

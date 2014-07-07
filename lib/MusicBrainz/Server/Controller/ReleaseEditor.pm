@@ -19,7 +19,6 @@ use MusicBrainz::Server::Data::Utils qw( trim );
 use MusicBrainz::Server::Form::Utils qw(
     language_options
     script_options
-    link_type_options
     select_options
     select_options_tree
     build_grouped_options

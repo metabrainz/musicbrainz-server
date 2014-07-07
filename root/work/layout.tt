@@ -20,7 +20,7 @@
                             [%~ link_iswc(iswc) ~%]
                         [%~ END ~%]
                     [%~ END ~%]
-                    [%~ FOR attribute=work.attributes ~%]
+                    [%~ FOR attribute=work.sorted_attributes ~%]
                         [%~ INCLUDE 'layout/sidebar/property.tt'
                                 class='work-attribute work-attribute-' _ css_class_name(attribute.type.name)
                                 content=html_escape(attribute.l_value)

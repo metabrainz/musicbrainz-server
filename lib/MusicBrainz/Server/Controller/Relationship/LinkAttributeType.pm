@@ -56,8 +56,7 @@ sub create : Path('/relationship-attributes/create') Args(0) RequireAuth(relatio
             );
         });
 
-        my $url = $c->uri_for_action('relationship/linkattributetype/index', { msg => 'created' });
-        $c->response->redirect($url);
+        $c->response->redirect($c->uri_for_action('relationship/linkattributetype/index'));
         $c->detach;
     }
 }
@@ -88,8 +87,7 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
             );
         });
 
-        my $url = $c->uri_for_action('relationship/linkattributetype/index', { msg => 'updated' });
-        $c->response->redirect($url);
+        $c->response->redirect($c->uri_for_action('relationship/linkattributetype/index'));
         $c->detach;
     }
 }
@@ -122,8 +120,7 @@ sub delete : Chained('load') RequireAuth(relationship_editor)
             );
         });
 
-        my $url = $c->uri_for_action('relationship/linkattributetype/index', { msg => 'deleted' });
-        $c->response->redirect($url);
+        $c->response->redirect($c->uri_for_action('relationship/linkattributetype/index'));
         $c->detach;
     }
 }
