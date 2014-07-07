@@ -505,6 +505,7 @@ Readonly our @FULL_TABLE_LIST => qw(
     edit
     edit_area
     edit_artist
+    edit_event
     edit_instrument
     edit_label
     edit_note
@@ -515,6 +516,7 @@ Readonly our @FULL_TABLE_LIST => qw(
     edit_series
     edit_url
     edit_work
+    event_tag_raw
     label_rating_raw
     label_tag_raw
     place_tag_raw
@@ -576,6 +578,13 @@ Readonly our @FULL_TABLE_LIST => qw(
     editor_watch_preferences
     editor_watch_release_group_type
     editor_watch_release_status
+    event
+    event_alias
+    event_alias_type
+    event_annotation
+    event_gid_redirect
+    event_tag
+    event_type
     gender
     instrument
     instrument_alias
@@ -587,6 +596,7 @@ Readonly our @FULL_TABLE_LIST => qw(
     iswc
     l_area_area
     l_area_artist
+    l_area_event
     l_area_instrument
     l_area_label
     l_area_place
@@ -597,6 +607,7 @@ Readonly our @FULL_TABLE_LIST => qw(
     l_area_url
     l_area_work
     l_artist_artist
+    l_artist_event
     l_artist_instrument
     l_artist_label
     l_artist_place
@@ -606,6 +617,16 @@ Readonly our @FULL_TABLE_LIST => qw(
     l_artist_series
     l_artist_url
     l_artist_work
+    l_event_event
+    l_event_instrument
+    l_event_label
+    l_event_place
+    l_event_recording
+    l_event_release
+    l_event_release_group
+    l_event_series
+    l_event_url
+    l_event_work
     l_instrument_instrument
     l_instrument_label
     l_instrument_place

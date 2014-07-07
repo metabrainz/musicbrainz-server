@@ -246,6 +246,17 @@ ALTER TABLE edit_artist
    REFERENCES artist(id)
    ON DELETE CASCADE;
 
+ALTER TABLE edit_event
+   ADD CONSTRAINT edit_event_fk_edit
+   FOREIGN KEY (edit)
+   REFERENCES edit(id);
+
+ALTER TABLE edit_event
+   ADD CONSTRAINT edit_event_fk_event
+   FOREIGN KEY (event)
+   REFERENCES event(id)
+   ON DELETE CASCADE;
+
 ALTER TABLE edit_instrument
    ADD CONSTRAINT edit_instrument_fk_edit
    FOREIGN KEY (edit)
@@ -550,6 +561,87 @@ ALTER TABLE editor_watch_release_status
    FOREIGN KEY (release_status)
    REFERENCES release_status(id);
 
+ALTER TABLE event
+   ADD CONSTRAINT event_fk_type
+   FOREIGN KEY (type)
+   REFERENCES event_type(id);
+
+ALTER TABLE event_alias
+   ADD CONSTRAINT event_alias_fk_event
+   FOREIGN KEY (event)
+   REFERENCES event(id);
+
+ALTER TABLE event_alias
+   ADD CONSTRAINT event_alias_fk_type
+   FOREIGN KEY (type)
+   REFERENCES event_alias_type(id);
+
+ALTER TABLE event_alias_type
+   ADD CONSTRAINT event_alias_type_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES event_alias_type(id);
+
+ALTER TABLE event_annotation
+   ADD CONSTRAINT event_annotation_fk_event
+   FOREIGN KEY (event)
+   REFERENCES event(id);
+
+ALTER TABLE event_annotation
+   ADD CONSTRAINT event_annotation_fk_annotation
+   FOREIGN KEY (annotation)
+   REFERENCES annotation(id);
+
+ALTER TABLE event_gid_redirect
+   ADD CONSTRAINT event_gid_redirect_fk_new_id
+   FOREIGN KEY (new_id)
+   REFERENCES event(id);
+
+ALTER TABLE event_meta
+   ADD CONSTRAINT event_meta_fk_id
+   FOREIGN KEY (id)
+   REFERENCES event(id)
+   ON DELETE CASCADE;
+
+ALTER TABLE event_rating_raw
+   ADD CONSTRAINT event_rating_raw_fk_event
+   FOREIGN KEY (event)
+   REFERENCES event(id);
+
+ALTER TABLE event_rating_raw
+   ADD CONSTRAINT event_rating_raw_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
+
+ALTER TABLE event_tag
+   ADD CONSTRAINT event_tag_fk_event
+   FOREIGN KEY (event)
+   REFERENCES event(id);
+
+ALTER TABLE event_tag
+   ADD CONSTRAINT event_tag_fk_tag
+   FOREIGN KEY (tag)
+   REFERENCES tag(id);
+
+ALTER TABLE event_tag_raw
+   ADD CONSTRAINT event_tag_raw_fk_event
+   FOREIGN KEY (event)
+   REFERENCES event(id);
+
+ALTER TABLE event_tag_raw
+   ADD CONSTRAINT event_tag_raw_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
+
+ALTER TABLE event_tag_raw
+   ADD CONSTRAINT event_tag_raw_fk_tag
+   FOREIGN KEY (tag)
+   REFERENCES tag(id);
+
+ALTER TABLE event_type
+   ADD CONSTRAINT event_type_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES event_type(id);
+
 ALTER TABLE gender
    ADD CONSTRAINT gender_fk_parent
    FOREIGN KEY (parent)
@@ -649,6 +741,21 @@ ALTER TABLE l_area_artist
    ADD CONSTRAINT l_area_artist_fk_entity1
    FOREIGN KEY (entity1)
    REFERENCES artist(id);
+
+ALTER TABLE l_area_event
+   ADD CONSTRAINT l_area_event_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_area_event
+   ADD CONSTRAINT l_area_event_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES area(id);
+
+ALTER TABLE l_area_event
+   ADD CONSTRAINT l_area_event_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES event(id);
 
 ALTER TABLE l_area_instrument
    ADD CONSTRAINT l_area_instrument_fk_link
@@ -800,6 +907,21 @@ ALTER TABLE l_artist_artist
    FOREIGN KEY (entity1)
    REFERENCES artist(id);
 
+ALTER TABLE l_artist_event
+   ADD CONSTRAINT l_artist_event_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_artist_event
+   ADD CONSTRAINT l_artist_event_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES artist(id);
+
+ALTER TABLE l_artist_event
+   ADD CONSTRAINT l_artist_event_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES event(id);
+
 ALTER TABLE l_artist_instrument
    ADD CONSTRAINT l_artist_instrument_fk_link
    FOREIGN KEY (link)
@@ -932,6 +1054,156 @@ ALTER TABLE l_artist_work
 
 ALTER TABLE l_artist_work
    ADD CONSTRAINT l_artist_work_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES work(id);
+
+ALTER TABLE l_event_event
+   ADD CONSTRAINT l_event_event_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_event_event
+   ADD CONSTRAINT l_event_event_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES event(id);
+
+ALTER TABLE l_event_event
+   ADD CONSTRAINT l_event_event_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES event(id);
+
+ALTER TABLE l_event_instrument
+   ADD CONSTRAINT l_event_instrument_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_event_instrument
+   ADD CONSTRAINT l_event_instrument_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES event(id);
+
+ALTER TABLE l_event_instrument
+   ADD CONSTRAINT l_event_instrument_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES instrument(id);
+
+ALTER TABLE l_event_label
+   ADD CONSTRAINT l_event_label_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_event_label
+   ADD CONSTRAINT l_event_label_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES event(id);
+
+ALTER TABLE l_event_label
+   ADD CONSTRAINT l_event_label_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES label(id);
+
+ALTER TABLE l_event_place
+   ADD CONSTRAINT l_event_place_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_event_place
+   ADD CONSTRAINT l_event_place_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES event(id);
+
+ALTER TABLE l_event_place
+   ADD CONSTRAINT l_event_place_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES place(id);
+
+ALTER TABLE l_event_recording
+   ADD CONSTRAINT l_event_recording_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_event_recording
+   ADD CONSTRAINT l_event_recording_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES event(id);
+
+ALTER TABLE l_event_recording
+   ADD CONSTRAINT l_event_recording_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES recording(id);
+
+ALTER TABLE l_event_release
+   ADD CONSTRAINT l_event_release_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_event_release
+   ADD CONSTRAINT l_event_release_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES event(id);
+
+ALTER TABLE l_event_release
+   ADD CONSTRAINT l_event_release_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES release(id);
+
+ALTER TABLE l_event_release_group
+   ADD CONSTRAINT l_event_release_group_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_event_release_group
+   ADD CONSTRAINT l_event_release_group_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES event(id);
+
+ALTER TABLE l_event_release_group
+   ADD CONSTRAINT l_event_release_group_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES release_group(id);
+
+ALTER TABLE l_event_series
+   ADD CONSTRAINT l_event_series_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_event_series
+   ADD CONSTRAINT l_event_series_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES event(id);
+
+ALTER TABLE l_event_series
+   ADD CONSTRAINT l_event_series_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES series(id);
+
+ALTER TABLE l_event_url
+   ADD CONSTRAINT l_event_url_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_event_url
+   ADD CONSTRAINT l_event_url_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES event(id);
+
+ALTER TABLE l_event_url
+   ADD CONSTRAINT l_event_url_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES url(id);
+
+ALTER TABLE l_event_work
+   ADD CONSTRAINT l_event_work_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_event_work
+   ADD CONSTRAINT l_event_work_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES event(id);
+
+ALTER TABLE l_event_work
+   ADD CONSTRAINT l_event_work_fk_entity1
    FOREIGN KEY (entity1)
    REFERENCES work(id);
 
