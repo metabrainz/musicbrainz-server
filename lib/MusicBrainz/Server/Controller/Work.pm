@@ -103,14 +103,16 @@ sub stash_work_attribute_json {
     my ($c) = @_;
     state $json = JSON::Any->new( utf8 => 1 );
 
-    state $build_json;
+    my $build_json;
+    my $coll = $c->get_collator();
 
     $build_json = sub {
         my ($root, $out) = @_;
 
         $out //= {};
 
-        my @children = map { $build_json->($_, $_->to_json_hash) } $root->all_children;
+        my @children = map { $build_json->($_, $_->to_json_hash) }
+                       $root->sorted_children($coll);
         $out->{children} = [ @children ] if scalar(@children);
 
         return $out;

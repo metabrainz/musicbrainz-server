@@ -119,12 +119,7 @@ sub create : Chained('type_specific') PathPart('create') RequireAuth(relationshi
             );
         });
 
-        my $url = $c->uri_for_action(
-            '/relationship/linktype/tree',
-            [ $c->stash->{types} ],
-            { msg => 'created' }
-        );
-        $c->response->redirect($url);
+        $c->response->redirect($c->uri_for_action('/relationship/linktype/tree', [ $c->stash->{types} ]));
         $c->detach;
     }
 }
@@ -267,11 +262,7 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
                 );
             });
 
-            my $url = $c->uri_for_action(
-                '/doc/relationship_type', [ $link_type->gid ],
-                { msg => 'updated' }
-            );
-            $c->response->redirect($url);
+            $c->response->redirect($c->uri_for_action('/doc/relationship_type', [ $link_type->gid ]));
             $c->detach;
         }
     }
@@ -312,8 +303,7 @@ sub delete : Chained('load') RequireAuth(relationship_editor)
             );
         });
 
-        my $url = $c->uri_for_action('/relationship/linktype/tree', [ $c->stash->{types} ], { msg => 'deleted' });
-        $c->response->redirect($url);
+        $c->response->redirect($c->uri_for_action('/relationship/linktype/tree', [ $c->stash->{types} ]));
         $c->detach;
     }
 }

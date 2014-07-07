@@ -7,7 +7,7 @@ use warnings FATAL => 'all';
 use List::AllUtils qw( any );
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
 use MusicBrainz::Server::Constants qw( :edit_status :vote );
-use MusicBrainz::Server::Constants qw( $VARTIST_ID $EDITOR_MODBOT $EDITOR_FREEDB :quality );
+use MusicBrainz::Server::Constants qw( $VARTIST_ID $EDITOR_MODBOT $EDITOR_FREEDB :quality entities_with );
 use MusicBrainz::Server::Data::Relationship;
 use MusicBrainz::Server::Translation::Statistics qw( l );
 use MusicBrainz::Server::Replication ':replication_type';
@@ -190,6 +190,14 @@ my %stats = (
 
             return \%map;
         }
+    },
+    "count.mbid" => {
+        DESC => "Count of all MBIDs known/allocated",
+        SQL => "SELECT count(gid) FROM (" .
+            join(' UNION ALL ',
+                 (map { "SELECT gid FROM $_" } entities_with('mbid', take => sub { my $type = shift; return shift->{table} // $type })),
+                 (map { "SELECT gid FROM ${_}_gid_redirect" } entities_with(['mbid', 'relatable'])))
+        . ") q"
     },
     "count.release" => {
         DESC => "Count of all releases",

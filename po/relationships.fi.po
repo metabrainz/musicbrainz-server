@@ -1,12 +1,12 @@
 # 
 # Translators:
 # nikki, 2014
-# jozo <email address hidden>, 2014
-# ListMyCDs.com Martikainen <email address hidden>, 2012
+# Kai Kasurinen <email address hidden>, 2014
+# Timo Martikainen <email address hidden>, 2012
 # nikki, 2012-2013
-# Phonebox, 2014
+# phonebox, 2014
 # Timo Martikainen <>, 2012
-# ListMyCDs.com Martikainen <email address hidden>, 2012-2013
+# Timo Martikainen <email address hidden>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
@@ -3271,8 +3271,8 @@ msgstr ""
 msgid "recording engineers"
 msgstr ""
 
-#: DB:link_type/link_phrase:695 DB:link_type/link_phrase:698
-#: DB:link_type/link_phrase:699 DB:link_type/link_phrase:693
+#: DB:link_type/link_phrase:698 DB:link_type/link_phrase:699
+#: DB:link_type/link_phrase:695 DB:link_type/link_phrase:693
 msgid "recording location for"
 msgstr "äänityspaikkana kohteelle"
 
@@ -3537,8 +3537,8 @@ msgstr "oli masterointipaikkana kohteelle"
 msgid "was the mixing location for"
 msgstr "oli miksauspaikkana kohteelle"
 
-#: DB:link_type/long_link_phrase:695 DB:link_type/long_link_phrase:698
-#: DB:link_type/long_link_phrase:699 DB:link_type/long_link_phrase:693
+#: DB:link_type/long_link_phrase:698 DB:link_type/long_link_phrase:699
+#: DB:link_type/long_link_phrase:695 DB:link_type/long_link_phrase:693
 msgid "was the recording location for"
 msgstr "oli äänityspaikkana kohteelle"
 

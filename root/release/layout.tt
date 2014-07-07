@@ -1,14 +1,91 @@
-[% main_title = l('Release “{name}” by {artist}', {
-    artist => artist_credit(release.artist_credit, plain => 1),
-    name => release.name
-}) %]
-[%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title canonical_url=replace_gid(entity.gid) -%]
+[%~ main_title = l('Release “{name}” by {artist}', {
+        artist => artist_credit(release.artist_credit, plain => 1),
+        name => release.name
+}) ~%]
+[%~ WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title canonical_url=replace_gid(entity.gid) ~%]
+    [%~ IF !full_width ~%]
+        [%~ edit_links_other = [] ~%]
+        [%~ edit_links_other.push({ url => c.uri_for_action('/release/edit_relationships', [ release.gid ]), text => l('Edit relationships') }) ~%]
+        [%~ edit_links_other.push({ url => c.uri_for_action('/release/change_quality', [ release.gid ]), text => l('Change release quality') }) ~%]
 
-    [% INCLUDE 'release/sidebar.tt' editing=0 UNLESS full_width %]
+        [%~ WRAPPER 'layout/sidebar/shared-entity-sidebar.tt' entity=release edit_links_other=edit_links_other ~%]
+            <div class="cover-art">
+                [%~ IF (release.cover_art_presence == 'present' AND release_artwork) ~%]
+                    [%~ SET cover_art_message = l("Front cover image failed to load correctly.<br/>{all|View all artwork}.",
+                                                { all => c.uri_for_action('/release/cover_art', [ release.gid ]) }) ~%]
+                    [%~ display_artwork(release_artwork, cover_art_url(release.cover_art_url), cover_art_message) ~%]
+                [%~ ELSIF (release.cover_art_presence != 'darkened' AND release.cover_art_url) ~%]
+                    <img src="[%~ cover_art_url(release.cover_art_url) ~%]" />
+                    [%~ host = release.cover_art_url.match('https?://([^/]+)').join('') ~%]
+                    [%~ IF host.match('images-amazon.com') ~%]
+                        <span class="cover-art-note">[%~ l("Cover art from {cover|Amazon}", { cover => cover_art_url(release.cover_art_url) }) ~%]</span>
+                    [%~ ELSE ~%]
+                        <span class="cover-art-note">[%~ l("Cover art from {cover|host}", { cover => cover_art_url(release.cover_art_url), host => host }) ~%]</span>
+                    [%~ END ~%]
+                [%~ ELSE ~%]
+                    <p class="cover-art-note" style="text-align:left">
+                    [%~ IF release.cover_art_presence == 'present';
+                            l("No front cover image available.<br/>{all|View all artwork}.",
+                                { all => c.uri_for_action('/release/cover_art', [ release.gid ]) });
+                        ELSE;
+                            l("No cover art available.");
+                        END ~%]
+                    </p>
+                [%~ END ~%]
+            </div>
+
+            <h2 class="release-information">[%~ l('Release information') ~%]</h2>
+            [%~ WRAPPER 'layout/sidebar/properties.tt';
+                INCLUDE 'layout/sidebar/property.tt' label=l('Barcode:') class="barcode"
+                    content=release.barcode.format IF release.barcode.format;
+                INCLUDE 'layout/sidebar/property.tt' label=l('Format:') class="format"
+                    content=html_escape(release.combined_format_name) IF release.combined_format_name;
+                INCLUDE 'layout/sidebar/property.tt' label=l('Length:') class="length"
+                    content=format_length(release.length) IF release.length;
+            END ~%]
+
+            <h2 class="additional-details">[%~ l('Additional details') ~%]</h2>
+            [%~ WRAPPER 'layout/sidebar/properties.tt';
+                INCLUDE 'layout/sidebar/property.tt' label=l('Type:') class="type"
+                    content=release.release_group.l_type_name IF release.release_group.type_name;
+                INCLUDE 'layout/sidebar/property.tt' label=l('Packaging:') class="packaging"
+                    content=release.packaging.l_name IF release.packaging.name;
+                INCLUDE 'layout/sidebar/property.tt' label=lp('Status:', 'release status') class="status"
+                    content=release.status.l_name IF release.status.name;
+                INCLUDE 'layout/sidebar/property.tt' label=l('Language:')
+                    content=link_searchable_property('lang', release.language.iso_code_3, 'release', release.language.l_name)
+                    class="language"
+                        IF release.language.name;
+                INCLUDE 'layout/sidebar/property.tt' label=l('Script:')
+                    content=link_searchable_property('script', release.script.iso_code, 'release', release.script.l_name)
+                    class="script"
+                        IF release.script.name;
+                INCLUDE 'layout/sidebar/property.tt' label=l('Data Quality:') class="data-quality"
+                    content=quality_name(release.quality) IF release.quality != -1;
+            END ~%]
+
+            [%~ IF release.labels.size ~%]
+                <h2 class="labels">[%~ l('Labels') ~%]</h2>
+                <ul class="links">
+                    [%~ FOR label=release.labels ~%]
+                        <li>
+                            [%~ link_label(label.label) _ '<br />' ~%]
+                            <span class="catalog-number">[%~ html_escape(label.catalog_number) ~%]</span>
+                        </li>
+                    [%~ END ~%]
+                </ul>
+            [%~ END ~%]
+
+            [%~ IF release.events.size ~%]
+                <h2 class="release-events">[%~ l('Release events') ~%]</h2>
+                [%~ release_events(release.events) ~%]
+            [%~ END ~%]
+        [%~ END ~%]
+    [%~ END ~%]
 
     <div id="content">
-        [%- INCLUDE "release/header.tt" -%]
-        [%- content -%]
+        [%~ INCLUDE "release/header.tt" ~%]
+        [%~ content ~%]
     </div>
+[%~ END ~%]
 
-[% END %]

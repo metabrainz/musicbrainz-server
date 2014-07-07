@@ -66,3 +66,5 @@ MB.constants.ENTITIES = [
 
 MB.constants.MAX_LENGTH_DIFFERENCE = 10500;
 MB.constants.MIN_NAME_SIMILARITY = 0.75;
+
+MB.constants.MAX_RECENT_ENTITIES = 10;

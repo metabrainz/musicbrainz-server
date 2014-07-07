@@ -76,7 +76,7 @@
       <span class="[% 'diff-only-a' IF old_rel.source.id != new_rel.source.id %]">
         [% descriptive_link(old_rel.source); %]
       </span>
-      [% Diff.diff_side(old_rel.verbose_phrase, new_rel.verbose_phrase, '-', '\s+') %]
+      [% Diff.diff_html_side(old_rel.verbose_phrase, new_rel.verbose_phrase, '-', '\s+') %]
       <span class="[% 'diff-only-a' IF old_rel.target.id != new_rel.target.id %]">
         [% descriptive_link(old_rel.target); %]
       </span>
@@ -89,7 +89,7 @@
       <span class="[% 'diff-only-b' IF old_rel.source.id != new_rel.source.id %]">
         [% descriptive_link(new_rel.source); %]
       </span>
-      [% Diff.diff_side(old_rel.verbose_phrase, new_rel.verbose_phrase, '+', '\s+') %]
+      [% Diff.diff_html_side(old_rel.verbose_phrase, new_rel.verbose_phrase, '+', '\s+') %]
       <span class="[% 'diff-only-b' IF old_rel.target.id != new_rel.target.id %]">
         [% descriptive_link(new_rel.target); %]
       </span>

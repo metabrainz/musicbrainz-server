@@ -3,6 +3,7 @@ use Moose::Role;
 use namespace::autoclean;
 
 use Encode;
+use JSON;
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use Text::Trim;
 
@@ -85,8 +86,13 @@ sub _indexed_search {
 
     my (@output, $pager);
 
-    if ($response->{pager})
-    {
+    if ($response->{error}) {
+        my $json = JSON->new;
+        $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+        $c->res->body($json->encode($response));
+        $c->res->status($response->{code});
+        $c->detach;
+    } else {
         $pager = $response->{pager};
 
         for my $result (@{ $response->{results} })
@@ -97,18 +103,6 @@ sub _indexed_search {
         }
 
         $self->_load_entities($c, @output);
-    }
-    else
-    {
-        # If an error occurred just ignore it for now and return an
-        # empty list.  The javascript code for autocomplete doesn't
-        # have any way to gracefully report or deal with
-        # errors. --warp.
-
-        $pager = Data::Page->new;
-        $pager->entries_per_page($limit);
-        $pager->current_page($page);
-        $pager->total_entries(0);
     }
 
     return ([ $self->_format_output($c, @output) ], $pager);

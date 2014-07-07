@@ -60,10 +60,10 @@
       [% IF NOT release.gid %]
         <!-- ko with: releaseGroup -->
         [% table_row_select('primary-type', l('Primary Type:'), 2,
-            'value: typeID, disable: !!gid', primary_types) %]
+            'value: typeID, disable: !!$data.gid', primary_types) %]
 
         [% table_row_select('secondary-types', l('Secondary Types:'), 2,
-            'selectedOptions: secondaryTypeIDs, disable: !!gid', secondary_types, 1) %]
+            'selectedOptions: secondaryTypeIDs, disable: !!$data.gid', secondary_types, 1) %]
         <!-- /ko -->
       [% ELSE %]
       <tr>

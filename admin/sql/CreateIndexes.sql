@@ -305,7 +305,7 @@ CREATE INDEX editor_collection_idx_editor ON editor_collection (editor);
 CREATE UNIQUE INDEX cdtoc_idx_discid ON cdtoc (discid);
 CREATE INDEX cdtoc_idx_freedb_id ON cdtoc (freedb_id);
 
-CREATE INDEX medium_idx_release ON medium (release);
+CREATE UNIQUE INDEX medium_idx_uniq ON medium (release, position);
 
 CREATE INDEX medium_cdtoc_idx_medium ON medium_cdtoc (medium);
 CREATE INDEX medium_cdtoc_idx_cdtoc ON medium_cdtoc (cdtoc);

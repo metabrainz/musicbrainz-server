@@ -124,8 +124,8 @@
         ConfirmNavigation: '[% l('All of your changes will be lost if you leave this page.') | js %]',
         SubmissionError: '[% l('We\'re very sorry, an error occurred during submission. The server may be under heavy load; please wait a moment and try again.') | js %]',
         VoteOnAllEdits: '[% l('Vote on all edits:') | js %]',
-        EnumerationComma: '[% l(', ') | js %]',
-        EnumerationAnd: '[% l('{b} and {a}') | js %]',
+        LastTwoListItems: '[% l('{almost_last_list_item} and {last_list_item}') | js %]',
+        ListItemCommaRest: '[% l('{list_item}, {rest}') | js %]',
         RelationshipTypeDeprecated: '[% l('This relationship type is deprecated and should not be used.') %]',
         AddANewEntity: {
             artist:          "[% l('Add a new artist') | js %]",
@@ -191,7 +191,8 @@
             release: '[% l('The series you’ve selected is for releases.') | js %]',
             release_group: '[% l('The series you’ve selected is for release groups.') | js %]',
             work: '[% l('The series you’ve selected is for works.') | js %]'
-
-        }
+        },
+        InlineSearchFailed: '[% l('An error occurred while searching. Click here to try again.') | js %]',
+        ClearRecentItems: '[% l('Clear recent items') | js %]'
     });
 })(MB);

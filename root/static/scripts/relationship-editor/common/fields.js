@@ -242,7 +242,7 @@
                     if (_.isArray(newValue)) newValue = newValue[0];
 
                     if (attr.freeText) {
-                        newValue = String(newValue || "");
+                        newValue = _.str.clean(newValue);
                     } else if (isBooleanAttr(attr)) {
                         newValue = !!newValue;
                     }
@@ -250,7 +250,7 @@
                     newValue = _.isArray(newValue) ? newValue.slice(0) : [newValue];
 
                     if (attr.freeText) {
-                        newValue = flattenValues(newValue).map(String).value();
+                        newValue = flattenValues(newValue).map(_.str.clean).value();
                     } else {
                         newValue = flattenAttributeIDs(newValue);
                     }
@@ -343,17 +343,17 @@
                 if (alts && (alts = alts.split("|"))) {
                     return (
                         values.length
-                            ? alts[0].replace(/%/g, MB.utility.joinList(values))
+                            ? alts[0].replace(/%/g, MB.i18n.commaList(values))
                             : alts[1] || ""
                     );
                 }
 
-                return MB.utility.joinList(values);
+                return MB.i18n.commaList(values);
             }));
 
             var self = this;
 
-            extraAttributes = MB.utility.joinList(
+            extraAttributes = MB.i18n.commaList(
                 _(extraAttributes).values().flatten().map(function (attr) {
                     if (attr.freeText) {
                         var value = ko.unwrap(self.attributeValue(attr.id));

@@ -185,6 +185,19 @@ sub is_empty {
 
 sub can_delete { 1 }
 
+sub delete
+{
+    my ($self, @ids) = @_;
+    @ids = grep { $self->can_delete($_) } @ids;
+
+    # No deleting relationship-related stuff because it should probably fail if it's trying to do that
+    $self->annotation->delete(@ids);
+    $self->alias->delete_entities(@ids);
+    $self->remove_gid_redirects(@ids);
+    $self->delete_returning_gids('series', @ids);
+    return 1;
+}
+
 sub get_entities {
     my ($self, $series, $limit, $offset) = @_;
 

@@ -5,7 +5,7 @@
 
         [%- IF obj.children.size -%]
         <ul>
-            [% FOR child IN obj.sorted_children %]
+            [% FOR child IN obj.sorted_children(c.get_collator) %]
             [% PROCESS attribute_tree obj=child %]
             [% END %]
         </ul>

@@ -209,6 +209,7 @@
             <option value="[% format.value %]">[% format.label %]</option>
             [%- END %]
           </select>
+          (<a href="[% c.uri_for('/doc/Release/Format') %]" target="_blank">[% l('help') %]</a>)
           <!-- ko if: release.mediums().length > 1 || name() -->
             <label data-bind="attr: { for: 'disc-title-' + $index() }">[% l('Disc title:') %]</label>
             <input type="text" data-bind="value: name, attr: { id: 'disc-title-' + $index() }" />

@@ -177,6 +177,8 @@ sub edit_action
     my $form = $c->form( form => $opts{form}, ctx => $c, %form_args );
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->body_params)) {
+        return if exists $opts{pre_creation} && !$opts{pre_creation}->($form);
+
         my @options = (map { $_->name => $_->value } $form->edit_fields);
         my %extra   = %{ $opts{edit_args} || {} };
 

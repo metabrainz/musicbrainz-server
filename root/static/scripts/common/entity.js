@@ -22,8 +22,33 @@
     // Base class that both core and non-core entities inherit from. The only
     // purpose this really serves is allowing the `data instanceof Entity`
     // check in MB.entity() to work.
-    var Entity = aclass();
+    var Entity = aclass({
 
+        init: function (data) {
+            _.assign(this, data);
+            this.name = this.name || "";
+        },
+
+        toJSON: function () {
+            var key, result = {};
+            for (key in this) {
+                toJSON(result, this[key], key);
+            }
+            return result;
+        }
+    });
+
+    var primitiveTypes = /^(boolean|number|string)$/;
+
+    function toJSON(result, value, key) {
+        while (ko.isObservable(value)) {
+            value = value();
+        }
+
+        if (!value || primitiveTypes.test(typeof value)) {
+            result[key] = value;
+        }
+    }
 
     // Usually, this function should be called to create new entities instead
     // of directly instantiating any of the classes below. MB.entity() caches
@@ -46,11 +71,25 @@
         if (!entityClass) {
             throw "Unknown type of entity: " + type;
         }
-        var id = (type === "url" && !data.gid) ? data.name : data.gid;
-        if (id) {
-            return MB.entityCache[id] || (MB.entityCache[id] = new entityClass(data));
+        var entity = MB.entityCache[data.gid];
+
+        if (type === "url") {
+            entity = entity || MB.entityCache[data.name];
         }
-        return new entityClass(data);
+
+        if (!entity) {
+            entity = new entityClass(data);
+
+            if (data.gid) {
+                MB.entityCache[data.gid] = entity;
+            }
+
+            if (data.name && type === "url") {
+                MB.entityCache[data.name] = entity;
+            }
+        }
+
+        return entity;
     };
 
     // Used by MB.entity() above to cache everything with a GID.
@@ -72,20 +111,8 @@
             {variable: "data"}
         ),
 
-        init: function (data) {
-            this.id = data.id;
-            this.gid = data.gid;
-            this.name = data.name || "";
-            this.editsPending = data.editsPending;
+        after$init: function (data) {
             this.relationships = ko.observableArray([]);
-
-            if (data.sortName) {
-                this.sortName = data.sortName;
-            }
-
-            if (data.comment) {
-                this.comment = data.comment;
-            }
 
             if (data.artistCredit) {
                 this.artistCredit = new MB.entity.ArtistCredit(data.artistCredit);
@@ -103,41 +130,19 @@
             return json.name;
         },
 
-        toJSON: function () {
-            var obj = {
-                entityType: this.entityType,
-                id:         this.id,
-                gid:        this.gid,
-                name:       ko.unwrap(this.name),
-                comment:    ko.unwrap(this.comment)
-            };
-
-            if (this.sortName) {
-                obj.sortName = this.sortName;
-            }
+        around$toJSON: function (supr) {
+            var json = supr();
 
             if (this.artistCredit) {
-                obj.artistCredit = this.artistCredit.toJSON();
+                json.artistCredit = this.artistCredit.toJSON();
             }
-
-            return obj;
+            return json;
         }
     });
 
     MB.entity.Editor = aclass(MB.entity.CoreEntity, {
         entityType: "editor",
-        init: function (data) {
-            this.id = data.id;
-            this.name = data.name;
-        },
-        toJSON: function () {
-            var obj = {
-                entityType: this.entityType,
-                id:         this.id,
-                name:       ko.unwrap(this.name)
-            };
-            return obj;
-        },
+
         template: _.template(
             "<a href=\"/<%= data.entityType %>/<%- data.name %>\">" +
             "<bdi><%- data.name %></bdi></a>",
@@ -160,24 +165,18 @@
         entityType: "recording",
 
         after$init: function (data) {
-            this.length = data.length;
             this.formattedLength = MB.utility.formatTrackLength(data.length);
-            this.video = data.video;
 
             // Returned from the /ws/js/recording search.
-            if (_.isObject(data.appearsOn)) {
+            if (this.appearsOn) {
                 // Depending on where we're getting the data from (search
                 // server, /ws/js...) we may have either releases or release
                 // groups here. Assume the latter by default.
-                var appearsOnType = data.appearsOn.entityType || "release_group";
+                var appearsOnType = this.appearsOn.entityType || "release_group";
 
-                this.appearsOn = _.map(data.appearsOn.results, function (appearance) {
+                this.appearsOn.results = _.map(this.appearsOn.results, function (appearance) {
                     return MB.entity(appearance, appearsOnType);
                 });
-            }
-
-            if (_.isString(data.artist)) {
-                this.artist = data.artist;
             }
         },
 
@@ -188,6 +187,10 @@
                 params.video = MB.text.Video;
             }
             return supr(params);
+        },
+
+        around$toJSON: function (supr) {
+            return _.assign(supr(), { isrcs: this.isrcs, appearsOn: this.appearsOn });
         }
     });
 
@@ -205,14 +208,7 @@
         }
     });
 
-    MB.entity.ReleaseGroup = aclass(MB.entity.CoreEntity, {
-        entityType: "release_group",
-
-        after$init: function (data) {
-            this.typeID = data.typeID;
-            this.secondaryTypeIDs = data.secondaryTypeIDs;
-        }
-    });
+    MB.entity.ReleaseGroup = aclass(MB.entity.CoreEntity, { entityType: "release_group" });
 
     MB.entity.Series = aclass(MB.entity.CoreEntity, {
         entityType: "series",
@@ -238,11 +234,7 @@
         entityType: "track",
 
         after$init: function (data) {
-            this.number = data.number;
-            this.position = data.position;
-            this.length = data.length;
             this.formattedLength = MB.utility.formatTrackLength(this.length);
-            this.gid = data.gid;
 
             if (data.recording) {
                 this.recording = MB.entity(data.recording, "recording");
@@ -273,7 +265,13 @@
 
     MB.entity.URL = aclass(MB.entity.CoreEntity, { entityType: "url" });
 
-    MB.entity.Work = aclass(MB.entity.CoreEntity, { entityType: "work" });
+    MB.entity.Work = aclass(MB.entity.CoreEntity, {
+        entityType: "work",
+
+        around$toJSON: function (supr) {
+            return _.assign(supr(), { artists: this.artists });
+        }
+    });
 
 
     // "ko.unwrap" is used throughout this class because the classes in
@@ -333,13 +331,9 @@
                    ko.unwrap(this.joinPhrase) === ko.unwrap(other.joinPhrase);
         },
 
-        toJSON: function () {
+        around$toJSON: function (supr) {
             var artist = ko.unwrap(this.artist);
-            return {
-                artist: artist ? artist.toJSON() : null,
-                name: ko.unwrap(this.name) || "",
-                joinPhrase: ko.unwrap(this.joinPhrase) || ""
-            };
+            return _.assign(supr(), { artist: artist ? artist.toJSON() : null });
         },
 
         text: function () {
@@ -371,20 +365,6 @@
                     }
                 )
             );
-        },
-
-        toJSON: function () {
-            var artist = ko.unwrap(this.artist) || {};
-
-            return {
-                artist: {
-                    name: artist.name,
-                    id:   artist.id,
-                    gid:  artist.gid
-                },
-                name: ko.unwrap(this.name),
-                joinPhrase: ko.unwrap(this.joinPhrase)
-            };
         }
     });
 
@@ -449,21 +429,16 @@
     });
 
 
-    MB.entity.Medium = aclass(Entity, function (data) {
-        this.format = data.format;
-        this.formatID = data.formatID;
-        this.name = data.name;
-        this.position = data.position;
+    MB.entity.Medium = aclass(Entity, {
+        after$init: function (data) {
+            this.tracks = _.map(data.tracks, MB.entity.Track);
 
-        this.tracks = _.map(data.tracks, MB.entity.Track);
+            this.positionName = "";
+            this.positionName += (this.format || MB.text.Medium) + " " + this.position;
 
-        this.editsPending = data.editsPending;
-
-        this.positionName = "";
-        this.positionName += (this.format || MB.text.Medium) + " " + this.position;
-
-        if (this.name) {
-            this.positionName += ": " + this.name;
+            if (this.name) {
+                this.positionName += ": " + this.name;
+            }
         }
     });
 
