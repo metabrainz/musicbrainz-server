@@ -3,7 +3,6 @@ package MusicBrainz::Server::Entity::Event;
 use Moose;
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
-use Time::Piece;
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Taggable';
@@ -15,6 +14,7 @@ with 'MusicBrainz::Server::Entity::Role::Rating';
 
 use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( ArrayRef Object Str );
+use MusicBrainz::Server::Types qw( Time );
 
 has 'type_id' => (
     is => 'rw',
@@ -55,15 +55,14 @@ has 'cancelled' => (
 
 has 'time' => (
     is => 'rw',
-    isa => 'Time',
+    isa => Time,
+    coerce => 1,
 );
 
 sub formatted_time
 {
     my ($self) = @_;
-    return undef if !$self->time;
-    my $t = Time::Piece->strptime($self->time, '%H:%M');
-    return $t->strftime('%H:%M');
+    return $self->time ? $self->time->strftime('%H:%M') : undef;
 }
 
 has 'performers' => (

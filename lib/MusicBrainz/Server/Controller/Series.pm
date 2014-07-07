@@ -57,6 +57,11 @@ sub show : PathPart('') Chained('load') {
         $item_numbers->{$_->{entity}->id} = $_->{ordering_key};
     }
 
+    if ($series->type->entity_type eq 'event') {
+        $c->model('Event')->load_performers(@entities);
+        $c->model('Event')->rating->load_user_ratings($c->user->id, @entities) if $c->user_exists;
+    }
+
     if ($series->type->entity_type eq 'recording') {
         $c->model('ISRC')->load_for_recordings(@entities);
         $c->model('ArtistCredit')->load(@entities);

@@ -8,6 +8,7 @@ use Carp qw( carp croak );
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Data::Artist;
 use MusicBrainz::Server::Data::Area;
+use MusicBrainz::Server::Data::Event;
 use MusicBrainz::Server::Data::Instrument;
 use MusicBrainz::Server::Data::Label;
 use MusicBrainz::Server::Data::Link;
@@ -15,6 +16,7 @@ use MusicBrainz::Server::Data::LinkType;
 use MusicBrainz::Server::Data::Place;
 use MusicBrainz::Server::Data::Recording;
 use MusicBrainz::Server::Data::ReleaseGroup;
+use MusicBrainz::Server::Data::Series;
 use MusicBrainz::Server::Data::URL;
 use MusicBrainz::Server::Data::Work;
 use MusicBrainz::Server::Data::Utils qw(

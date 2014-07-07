@@ -1,6 +1,5 @@
 package MusicBrainz::Server::Form::Field::Time;
 use HTML::FormHandler::Moose;
-use Time::Piece;
 
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation qw( is_valid_time );
@@ -20,8 +19,7 @@ apply ([
 
 sub format_time {
     my ($self, $value) = @_;
-    my $t = Time::Piece->strptime($value, '%H:%M');
-    return $t->strftime('%H:%M');
+    return $value ? $value->strftime('%H:%M') : undef;
 }
 
 1;

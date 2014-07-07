@@ -10,6 +10,7 @@
                             <th>[% l('Artists') %]</th>
                             <th>[% l('Begin') %]</th>
                             <th>[% l('End') %]</th>
+                            <th>[% l('Time') %]</th>
                         </tr>
                     </thead>
                     <tbody>

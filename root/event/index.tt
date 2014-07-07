@@ -25,8 +25,7 @@
 
     [%- show_wikipedia_extract() -%]
 
-    [% INCLUDE "components/relationships.tt" source=event
-        relationships=event.grouped_relationships('area', 'artist', 'label', 'event', 'url', 'work', 'series', 'instrument') %]
+    [% INCLUDE "components/relationships.tt" source=event %]
 
     [%- IF event.setlist -%]
     <h2 class="setlist">[% l('Setlist') %]</h2>
