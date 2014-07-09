@@ -12,7 +12,11 @@
               <th>[% relationship.key %]:</th>
               <td>
                   [% FOR rel IN relationship.value %]
-                      [% relationship_target_links(rel) %]
+                      [% IF rel.link_order %]
+                        [% l('{num}. {relationship}', { num => rel.link_order, relationship => relationship_target_links(rel) }) %]
+                      [% ELSE %]
+                        [% relationship_target_links(rel) %]
+                      [% END %]
                       <br />
                   [% END %]
               </td>
