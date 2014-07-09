@@ -25,24 +25,27 @@
             return targetType !== "url";
         },
 
-        hasChanges: function (entity) {
-            return entity.changedRelationships(this).length > 0;
-        },
-
         getEdits: function (addChanged) {
-            _.each(this.source.changedRelationships(this), addChanged);
+            var source = this.source;
+            _.each(source.relationships(), function (r) {
+                addChanged(r, source);
+            });
         },
 
         submit: function (data, event) {
             event.preventDefault();
 
+            var self = this;
             var edits = [];
             var alreadyAdded = {};
 
             this.submissionLoading(true);
 
-            function addChanged(relationship) {
+            function addChanged(relationship, source) {
                 if (alreadyAdded[relationship.uniqueID]) {
+                    return;
+                }
+                if (!vm.containsRelationship(relationship, source)) {
                     return;
                 }
                 alreadyAdded[relationship.uniqueID] = true;
@@ -135,54 +138,23 @@
             }
         },
 
-        beforeRelationshipRemove: function (element) {
-            if (element.nodeType === 1) {
-                $(element).fadeOut("fast", function () { $(element).remove() });
-            }
-        },
+        _sortedRelationships: function (relationships, source) {
+            var self = this, sorted;
 
-        afterRelationshipAdd: function (element) {
-            if (element.nodeType === 1) {
-                $(element).hide().fadeIn("fast");
-            }
-        },
+            sorted = relationships.sortBy(function (relationship) {
+                return relationship.lowerCaseTargetName(source);
+            }).sortBy("linkOrder");
 
-        // functions beforeRelationshipMove and afterRelationshipMove based on
-        // http://jsfiddle.net/mbest/9gvDL/ by Michael Best
-
-        beforeRelationshipMove: function (element) {
-            if (element.nodeType === 1) {
-                element.savedOffsetTop = element.offsetTop;
-                element.moving = $.Deferred();
-            }
-        },
-
-        afterRelationshipMove: function (element) {
-            if (element.nodeType !== 1 || element.offsetTop === element.savedOffsetTop) {
-                return;
-            }
-            var tempElement = element.cloneNode(true);
-            element.tempElement = tempElement;
-
-            $(element).css({ visibility: "hidden" });
-
-            $(tempElement).css({
-                position: "absolute",
-                width: getComputedStyle(element).width
-            });
-
-            element.parentNode.appendChild(tempElement);
-
-            $(tempElement)
-                .css({ top: element.savedOffsetTop })
-                .animate({ top: element.offsetTop }, "fast", function () {
-                    $(element).css({ visibility: "visible" });
-                    element.parentNode.removeChild(tempElement);
-
-                    element.moving.resolve();
-                    delete element.moving;
-                    delete element.tempElement;
+            if (source.entityType === "series") {
+                sorted = sorted.sortBy(function (relationship) {
+                    if (+source.orderingTypeID() === MB.constants.SERIES_ORDERING_TYPE_AUTOMATIC) {
+                        return relationship.paddedSeriesNumber();
+                    }
+                    return "";
                 });
+            }
+
+            return sorted;
         }
     });
 
@@ -199,5 +171,109 @@
                 .toggleClass("rel-edit", !added && relationship.edited());
         }
     };
+
+
+    function addHiddenInputs(vm) {
+        var fieldPrefix = vm.formName + "." + vm.fieldName;
+        var relationships = vm.source.relationshipsInViewModel(vm)();
+        var hiddenInputs = document.createDocumentFragment();
+        var index = 0;
+
+        function pushInput(prefix, name, value) {
+            var input = document.createElement("input");
+            input.type = "hidden";
+            input.name = prefix + "." + name;
+            input.value = value;
+            hiddenInputs.appendChild(input);
+        }
+
+        for (var i = 0, len = relationships.length; i < len; i++) {
+            var relationship = relationships[i],
+                editData = relationship.editData(),
+                prefix = fieldPrefix + "." + index;
+
+            if (!editData.linkTypeID) {
+                continue;
+            }
+
+            if (relationship.id) {
+                pushInput(prefix, "relationship_id", relationship.id);
+            }
+
+            if (relationship.removed()) {
+                pushInput(prefix, "removed", 1);
+            }
+
+            var target = relationship.target(vm.source),
+                attributes = editData.attributes,
+                attributeTextValues = editData.attributeTextValues,
+                attrTextIndex = 0;
+
+            if (target.entityType === "url") {
+                pushInput(prefix, "text", target.name);
+            } else {
+                pushInput(prefix, "target", target.gid);
+            }
+
+            for (var j = 0, id; id = attributes[j]; j++) {
+                pushInput(prefix, "attributes." + i, id);
+            }
+
+            for (id in attributeTextValues) {
+                var value = attributeTextValues[id],
+                    attrTextPrefix = prefix + ".attribute_text_values." + (attrTextIndex++);
+
+                pushInput(attrTextPrefix, "attribute", id);
+                pushInput(attrTextPrefix, "text_value", value);
+            }
+
+            var beginDate = editData.beginDate,
+                endDate = editData.endDate,
+                ended = editData.ended;
+
+            if (beginDate) {
+                pushInput(prefix, "period.begin_date.year", beginDate.year);
+                pushInput(prefix, "period.begin_date.month", beginDate.month);
+                pushInput(prefix, "period.begin_date.day", beginDate.day);
+            }
+
+            if (endDate) {
+                pushInput(prefix, "period.end_date.year", endDate.year);
+                pushInput(prefix, "period.end_date.month", endDate.month);
+                pushInput(prefix, "period.end_date.day", endDate.day);
+            }
+
+            if (ended) {
+                pushInput(prefix, "period.ended", 1);
+            }
+
+            if (vm.source !== relationship.entities()[0]) {
+                pushInput(prefix, "backward", 1);
+            }
+
+            pushInput(prefix, "link_type_id", editData.linkTypeID || "");
+
+            var oldLinkOrder = relationship.original.linkOrder || 0,
+                newLinkOrder = editData.linkOrder;
+
+            if (oldLinkOrder !== newLinkOrder) {
+                pushInput(prefix, "link_order", newLinkOrder);
+            }
+
+            index++;
+        }
+
+        $("#relationship-editor").append(hiddenInputs);
+    }
+
+    $(document).on("submit", "form", function () {
+        if (MB.sourceRelationshipEditor) {
+            addHiddenInputs(MB.sourceRelationshipEditor);
+        }
+
+        if (MB.sourceExternalLinksEditor) {
+            addHiddenInputs(MB.sourceExternalLinksEditor);
+        }
+    });
 
 }(MB.relationshipEditor = MB.relationshipEditor || {}));

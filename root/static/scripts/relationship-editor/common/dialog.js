@@ -457,7 +457,8 @@
                 var linkType = relationship.linkTypeInfo();
 
                 if (linkType.orderableDirection) {
-                    var maxLinkOrder = _(source.getRelationshipGroup(linkType.id, relationship.parent))
+                    var maxLinkOrder = _(source.relationships())
+                        .filter(function (r) { return r.linkTypeID() === linkType.id })
                         .invoke("linkOrder").max().value();
 
                     relationship.linkOrder(_.isFinite(maxLinkOrder) ? (maxLinkOrder + 1) : 1);

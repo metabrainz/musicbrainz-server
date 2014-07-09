@@ -433,6 +433,8 @@ test("link phrase interpolation", function () {
         linkTypeID: 148
     }, source);
 
+    var entities = relationship.entities();
+
     // link phrase construction
 
     var tests = [
@@ -470,7 +472,7 @@ test("link phrase interpolation", function () {
         relationship.attributes(test.attributes);
 
         equal(
-            relationship.phraseAndExtraAttributes(source)[0],
+            relationship.phraseAndExtraAttributes()[entities.indexOf(source)],
             test.expected,
             [test.linkTypeID, JSON.stringify(test.attributes)].join(", ")
         );
