@@ -253,8 +253,11 @@
 
             pushInput(prefix, "link_type_id", editData.linkTypeID || "");
 
-            if (editData.linkOrder !== relationship.linkOrder()) {
-                pushInput(prefix, "link_order", editData.linkOrder);
+            var oldLinkOrder = relationship.original.linkOrder || 0,
+                newLinkOrder = editData.linkOrder;
+
+            if (oldLinkOrder !== newLinkOrder) {
+                pushInput(prefix, "link_order", newLinkOrder);
             }
 
             index++;
