@@ -323,8 +323,7 @@
 
         isVariousArtists: function () {
             var artist = ko.unwrap(this.artist);
-            return artist && (artist.gid === MB.constants.VARTIST_GID ||
-                              artist.id == MB.constants.VARTIST_ID);
+            return artist && artist.gid === MB.constants.VARTIST_GID;
         },
 
         isEqual: function (other) {
