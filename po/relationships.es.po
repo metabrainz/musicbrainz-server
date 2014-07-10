@@ -13,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-05-29 15:01+0000\n"
-"Last-Translator: Marta PD <email address hidden>\n"
+"PO-Revision-Date: 2014-07-10 00:01+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3849,13 +3849,9 @@ msgstr "miembros {founder:fundadores} {additional:adicionales}"
 msgid "{additional} {guest} {solo} performer"
 msgstr ""
 
-#: DB:link_type/link_phrase:44 DB:link_type/reverse_link_phrase:44
-#: DB:link_type/reverse_link_phrase:148
+#: DB:link_type/link_phrase:44 DB:link_type/link_phrase:148
+#: DB:link_type/reverse_link_phrase:44 DB:link_type/reverse_link_phrase:148
 msgid "{additional} {guest} {solo} {instrument:%|instruments}"
-msgstr ""
-
-#: DB:link_type/link_phrase:148
-msgid "{additional} {guest} {solo} {instrument} {instrument:%|instruments}"
 msgstr ""
 
 #: DB:link_type/link_phrase:60 DB:link_type/link_phrase:149
