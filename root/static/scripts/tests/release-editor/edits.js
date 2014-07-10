@@ -4,16 +4,6 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 
-MB.edit.preview = function () {
-    return $.Deferred().resolve({ previews: [] });
-};
-
-
-MB.edit.create = function () {
-    return $.Deferred().resolve({ edits: [] });
-};
-
-
 MB.typeInfoByID = {
     76: {
       deprecated: false,

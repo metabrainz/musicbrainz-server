@@ -37,6 +37,14 @@
     <script type="text/javascript" charset="utf-8" src="../edit/common.js"></script>
     <script type="text/javascript" charset="utf-8" src="../edit/MB/edit.js"></script>
     <script type="text/javascript" charset="utf-8" src="../edit/MB/Control/Bubble.js"></script>
+    <script>
+      MB.edit.preview = function (data, context) {
+        return $.Deferred().resolveWith(context, [{ previews: [] }, data]);
+      };
+      MB.edit.create = function (data, context) {
+        return $.Deferred().resolveWith(context, [{ edits: [] }, data]);
+      };
+    </script>
 
     <!-- ArtistCredit -->
     <script type="text/javascript" charset="utf-8" src="../edit/MB/Control/ArtistCredit.js"></script>
@@ -71,7 +79,6 @@
     <script type="text/javascript" charset="utf-8" src="../guess-case/MB/GuessCase/Work.js"></script>
 
     <!-- Release Editor -->
-    <script type="text/javascript" charset="utf-8" src="../edit/MB/edit.js"></script>
     <script type="text/javascript" charset="utf-8" src="../release-editor/utils.js"></script>
     <script type="text/javascript" charset="utf-8" src="../release-editor/actions.js"></script>
     <script type="text/javascript" charset="utf-8" src="../release-editor/bubbles.js"></script>
