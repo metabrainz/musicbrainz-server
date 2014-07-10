@@ -22,11 +22,14 @@
             var newRelationships = _(relationships)
                 .map(function (data) { return viewModel.getRelationship(data, self) })
                 .compact()
+                .value();
+
+            var allRelationships = _(this.relationships.peek())
+                .union(newRelationships)
                 .sortBy(function (r) { return r.lowerCasePhrase(self) })
                 .value();
 
-            var existingRelationships = this.relationships.peek();
-            this.relationships(_.union(existingRelationships, newRelationships));
+            this.relationships(allRelationships);
 
             _.each(relationships, function (data) {
                 MB.entity(data.target).parseRelationships(data.target.relationships, viewModel);
