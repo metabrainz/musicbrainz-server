@@ -218,11 +218,7 @@
             return sourceType === "url" || targetType === "url";
         },
 
-        _sortedRelationships: function (relationships, source) {
-            return relationships.sortBy(function (relationship) {
-                return relationship.lowerCasePhrase(source);
-            }).sortBy("isEmpty");
-        }
+        _sortedRelationships: _.identity
     });
 
 
