@@ -253,11 +253,14 @@
 
             pushInput(prefix, "link_type_id", editData.linkTypeID || "");
 
-            var oldLinkOrder = relationship.original.linkOrder || 0,
-                newLinkOrder = editData.linkOrder;
+            var original = relationship.original;
+            if (original) {
+                var oldLinkOrder = original.linkOrder || 0,
+                    newLinkOrder = editData.linkOrder;
 
-            if (oldLinkOrder !== newLinkOrder) {
-                pushInput(prefix, "link_order", newLinkOrder);
+                if (oldLinkOrder !== newLinkOrder) {
+                    pushInput(prefix, "link_order", newLinkOrder);
+                }
             }
 
             index++;
