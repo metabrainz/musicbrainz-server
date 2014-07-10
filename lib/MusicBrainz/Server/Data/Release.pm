@@ -1069,11 +1069,14 @@ sub merge
         confess('medium_positions does not account for all mediums in all releases')
             if (keys %positions != grep { exists $positions{$_} } @medium_ids);
 
-        foreach my $id (@medium_ids) {
-            next unless exists $positions{$id};
-            $self->sql->do('UPDATE medium SET release = ?, position = ? WHERE id = ?',
-                           $new_id, $positions{$id}, $id);
-        }
+        # Set all medium positions in one query; otherwise medium_idx_uniq will
+        # sometimes cause individual reorders to fail when they produce
+        # duplicate positions. (MBS-7736)
+        my $q = "WITH new_positions (medium, position) AS " .
+                "(VALUES " . join(', ', ('(?::integer,?::integer)') x keys %positions) .") " .
+                "UPDATE medium SET release = ?, position = new_positions.position " .
+                "FROM new_positions WHERE medium.id = new_positions.medium";
+        $self->sql->do($q, %positions, $new_id);
 
         if ($update_names) {
             foreach my $id (@medium_ids) {
