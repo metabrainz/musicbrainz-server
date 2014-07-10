@@ -45,7 +45,7 @@
                 if (alreadyAdded[relationship.uniqueID]) {
                     return;
                 }
-                if (!vm.containsRelationship(relationship, source)) {
+                if (!self.containsRelationship(relationship, source)) {
                     return;
                 }
                 alreadyAdded[relationship.uniqueID] = true;
