@@ -37,10 +37,7 @@
                 For tracks, formattedLength is an observable, hence the
                 function invocation. For recordings, it's a string. This is
                 because track lengths are directly editable from the UI, and
-                recording lengths are not. While it's possible to propagate
-                track lengths to their recordings, it's not possible to set
-                an arbitrary recording length via the UI (other than by
-                changing the track as well).
+                recording lengths are not.
              %]
             <td class="length" data-bind="text: '(' + (formattedLength() || '?:??') + ')'"></td>
 
