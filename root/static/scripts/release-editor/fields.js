@@ -189,6 +189,14 @@
             }
 
             this.recordingValue(value);
+        },
+
+        hasNameAndArtist: function () {
+            return this.name() && this.artistCredit.isComplete();
+        },
+
+        hasVariousArtists: function () {
+            return this.artistCredit.isVariousArtists();
         }
     });
 
@@ -206,6 +214,9 @@
                 utils.mapChild(this, data.tracks, fields.Track)
             )
             .extend({ withError: true });
+
+            this.tracksAreComplete = this.tracks.all("hasNameAndArtist");
+            this.hasVariousArtistTracks = this.tracks.any("hasVariousArtists");
 
             $.extend(this, _.pick(data, "id", "originalID"));
 
@@ -543,6 +554,11 @@
             this.mediums.original = ko.observable(this.existingMediumData());
             this.original = ko.observable(MB.edit.fields.release(this));
 
+            this.loadedMediums = this.mediums.filter("loaded");
+            this.tracksAreComplete = this.loadedMediums.all("tracksAreComplete");
+            this.hasTracks = this.mediums.any("hasTracks");
+            this.needsRecordings = this.mediums.any("needsRecordings");
+
             // Ensure there's at least one event, label, and medium to edit.
 
             if (!this.events().length) {
@@ -571,10 +587,6 @@
             if (mediums.length <= 3) {
                 _.invoke(mediums, "loadTracks");
             }
-        },
-
-        hasTracks: function () {
-            return _.some(_.invoke(this.mediums(), "hasTracks"));
         },
 
         hasOneEmptyMedium: function () {

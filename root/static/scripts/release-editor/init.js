@@ -72,15 +72,10 @@ MB.releaseEditor.init = function (options) {
         var tabEnabled = addingRelease ? release.hasTracks() : true;
 
         if (tabEnabled) {
-            tabEnabled = _.all(release.mediums(), function (medium) {
-                // If we're editing a release and the mediums aren't loaded
-                // (because there are many discs), we should still allow the
-                // user to edit the recordings if that's all they want to do.
-
-                return !medium.loaded() || _.all(medium.tracks(), function (track) {
-                    return track.name() && track.artistCredit.isComplete();
-                });
-            });
+            // If we're editing a release and the mediums aren't loaded
+            // (because there are many discs), we should still allow the
+            // user to edit the recordings if that's all they want to do.
+            tabEnabled = release.tracksAreComplete();
         }
 
         var tabNumber = addingRelease ? 3 : 2;

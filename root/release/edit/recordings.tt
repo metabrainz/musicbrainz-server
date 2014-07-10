@@ -1,5 +1,5 @@
 <div class="changes" data-bind="with: rootField.release">
-  <!-- ko if: _.any(_.invoke(mediums(), "needsRecordings")) -->
+  <!-- ko if: needsRecordings -->
     <div class="notice field-error" data-visible="1">
       <p><strong>[% l('Note:') %]</strong> [%- l('All tracks require an associated recording. Click “Edit” to select a recording for each track. Choose “Add a new recording” if an appropriate one doesn’t exist yet.') -%]</p>
 

@@ -232,7 +232,7 @@
       </div>
     <!-- /ko -->
 
-    <!-- ko if: _.any(tracks(), function (track) { return track.artistCredit.isVariousArtists() }) -->
+    <!-- ko if: hasVariousArtistTracks -->
       <div class="various-artists warning">
         [%- warning_icon %]
         <p>
