@@ -9,6 +9,7 @@ for my $cls (qw(AggregatedTag AliasType Annotation Application
                 Barcode CDTOC CDStub Collection Coordinates
                 CoverArtType
                 Editor EditorOAuthToken
+                Event EventAlias EventType
                 Instrument InstrumentType
                 Label LabelAlias LabelType
                 Link LinkAttribute LinkAttributeType LinkType LinkTypeAttribute
@@ -20,7 +21,7 @@ for my $cls (qw(AggregatedTag AliasType Annotation Application
                 Relationship
                 ReleaseGroup ReleaseGroupSecondaryType ReleaseGroupType
                 Release ReleaseEvent ReleaseStatus ReleasePackaging ReleaseLabel
-                Script Tag Track UserTag
+                Script Tag Time Track UserTag
                 Series SeriesOrderingType SeriesType
                 Work WorkAlias WorkType
                 WorkAttribute WorkAttributeType WorkAttributeTypeAllowedValue)) {
