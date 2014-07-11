@@ -60,6 +60,7 @@ sub entities {
         'Place' => 'place',
         'Instrument' => 'instrument',
         'Series' => 'series',
+        'Event' => 'event',
     };
 }
 

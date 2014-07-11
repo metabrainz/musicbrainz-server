@@ -1,0 +1,15 @@
+[%- info_links = [
+    ['index', link_event(event, 'show', l('Overview'))],
+    ['aliases', link_event(event, 'aliases', l('Aliases'))],
+    ['details', link_event(event, 'details', l('Details'))],
+    ['edit', link_event(event, 'edit', l('Edit'))],
+] -%]
+
+<div class="eventheader">
+    <h1>[%- link_entity(event) %]</h1>
+    <p class="subheader">
+        <span class="prefix">~</span> [% html_escape(event.l_type_name) or l('Event') %]
+    </p>
+</div>
+
+[%- INCLUDE 'components/tabs.tt' list=info_links -%]

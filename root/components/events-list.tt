@@ -1,0 +1,61 @@
+<table class="tbl">
+  <thead>
+    <tr>
+      [% IF c.user_exists AND !no_checkboxes %]
+      <th>
+        <input type="checkbox" />
+      </th>
+      [% END %]
+      [% IF series_item_numbers %]
+      <th style="width: 1em">[% l('#') %]</th>
+      [% END %]
+      <th>[% l('Event') %]</th>
+      <th>[% l('Type') %]</th>
+      <th>[% l('Artists') %]</th>
+      <th>[% l('Begin') %]</th>
+      <th>[% l('End') %]</th>
+      <th>[% l('Time') %]</th>
+      [% UNLESS no_ratings %]
+      <th>[% l('Rating') %]</th>
+      [% END %]
+    </tr>
+  </thead>
+  <tbody>
+    [% FOR event IN events %]
+    <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
+      [% IF c.user_exists AND !no_checkboxes %]
+      <td>
+        <input type="checkbox" name="add-to-merge" value="[% event.id %]" />
+      </td>
+      [% END %]
+      [% IF series_item_numbers %]
+      <td style="width: 1em">
+        [% event_id=event.id; series_item_numbers.$event_id %]
+      </td>
+      [% END %]
+      <td>
+        [% descriptive_link(event) %]
+      </td>
+      <td>
+        [% event.l_type_name %]
+      </td>
+      <td>
+        <ul>
+          [% FOR rel_artist=event.performers %]
+            <li>
+              [% l('{artist} ({roles})', { artist => link_artist(rel_artist.entity),
+                   roles  => rel_artist.roles.join(', ') }) %]
+            </li>
+          [% END %]
+        </ul>
+      </td>
+      <td>[% event.begin_date.format %]</td>
+      <td>[% event.end_date.format %]</td>
+      <td>[% event.formatted_time %]</td>
+      [% UNLESS no_ratings %]
+      <td>[% rating_stars(event) %]</td>
+      [% END %]
+    </tr>
+    [% END %]
+  </tbody>
+</table>
