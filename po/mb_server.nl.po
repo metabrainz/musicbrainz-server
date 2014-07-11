@@ -22,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-09 16:59-0700\n"
-"PO-Revision-Date: 2014-07-10 00:01+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"POT-Creation-Date: 2014-07-10 18:30-0700\n"
+"PO-Revision-Date: 2014-07-10 06:59+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -153,7 +153,7 @@ msgstr "(<strong>ongeverifieerd!</strong>)"
 msgid "(No details about this error are available)"
 msgstr "(Van deze foutmelding zijn geen details beschikbaar)"
 
-#: ../root/release/edit/recordings.tt:53
+#: ../root/release/edit/recordings.tt:50
 msgid "(add a new recording)"
 msgstr "(nieuwe opname toevoegen)"
 
@@ -272,7 +272,7 @@ msgid ""
 msgstr "* Geeft het totaal aantal secondes verschil aan tussen de cd die u opvroeg en de gevonden resultaten."
 
 #: ../root/components/relationships-table.tt:44
-#: ../lib/MusicBrainz/Server/Entity/Relationship.pm:173
+#: ../lib/MusicBrainz/Server/Entity/Relationship.pm:186
 msgid ", "
 msgstr ", "
 
@@ -687,7 +687,7 @@ msgstr "Een nieuwe platenmaatschappij toevoegen"
 msgid "Add a new place"
 msgstr "Een nieuwe plaats toevoegen"
 
-#: ../root/release/edit/recordings.tt:191 ../root/scripts/text_strings.tt:134
+#: ../root/release/edit/recordings.tt:186 ../root/scripts/text_strings.tt:134
 msgid "Add a new recording"
 msgstr "Nieuwe opname toevoegen"
 
@@ -1044,7 +1044,7 @@ msgstr "Al verlopen"
 msgid "Also performs as"
 msgstr "Treedt ook op als"
 
-#: ../root/release/edit/recordings.tt:82
+#: ../root/release/edit/recordings.tt:78
 msgid "Also update the recording with track changes"
 msgstr "Bewerkingen aan nummers ook op de opnames toepassen"
 
@@ -2181,7 +2181,7 @@ msgstr "Uitgavegroep leegmaken"
 msgid "Clear work"
 msgstr "Compositie leegmaken"
 
-#: ../root/release/edit/recordings.tt:99
+#: ../root/release/edit/recordings.tt:94
 msgid "Click Edit to edit the recording associations for this disc."
 msgstr "Klik bewerken om de gekoppelde opnames voor dit medium te wijzigen."
 
@@ -2336,7 +2336,7 @@ msgstr "Kopiëren"
 msgid "Copy Credits"
 msgstr "Vermeldingen kopiëren"
 
-#: ../root/release/edit/recordings.tt:128
+#: ../root/release/edit/recordings.tt:123
 msgid "Copy all track changes to associated recordings."
 msgstr "Kopieer alle bewerkingen naar gekoppelde opnames."
 
@@ -2779,7 +2779,7 @@ msgstr "Gereed"
 msgid "Duration:"
 msgstr "Duur:"
 
-#: ../root/release/edit/recordings.tt:137
+#: ../root/release/edit/recordings.tt:132
 msgid ""
 "Each track in the MusicBrainz database has to be linked to a recording, "
 "choose the appropriate recording or look for it in the database."
@@ -2795,7 +2795,7 @@ msgstr "Elk nummer in de gegevensbank van MusicBrainz moet gekoppeld zijn aan ee
 #: ../root/relationship/linkattributetype/common.tt:25
 #: ../root/relationship/linktype/tree.tt:17 ../root/release/cover_art.tt:27
 #: ../root/release/discids.tt:12 ../root/release/edit/information.tt:54
-#: ../root/release/edit/recordings.tt:63 ../root/release/edit/recordings.tt:94
+#: ../root/release/edit/recordings.tt:60 ../root/release/edit/recordings.tt:89
 #: ../root/release/edit/tracklist.tt:288 ../root/release_group/header.tt:1
 #: ../root/release/tabs.tt:1 ../root/series/header.tt:1
 #: ../root/url/header.tt:1 ../root/user/collections.tt:26
@@ -3975,7 +3975,7 @@ msgid ""
 "field, but add it as a URL relationship later."
 msgstr "Als dit een Amazon ASIN is, voer dit dan niet in als catalogusnummer, maar voeg later een URL-relatie toe."
 
-#: ../root/release/edit/recordings.tt:139
+#: ../root/release/edit/recordings.tt:134
 msgid ""
 "If we do not have a recording for this track in the database yet, please "
 "select \"Add a new recording\" below."
@@ -4115,7 +4115,7 @@ msgstr "Geïndexeerd zoeken"
 msgid "Indexed search with {doc|advanced query syntax}"
 msgstr "Geïndexeerd zoeken met {doc|geavanceerde zoeksyntaxis}"
 
-#: ../root/release/edit/recordings.tt:122
+#: ../root/release/edit/recordings.tt:117
 msgid "Infer track durations from associated recordings"
 msgstr "Leid de duur van de nummers af van de gekoppelde opnames."
 
@@ -4532,7 +4532,7 @@ msgstr "Lange koppelzin:"
 msgid "Looking for help? Check out our {doc|documentation} or {faq|FAQ}."
 msgstr "Zoekt u hulp? Kijk bij onze {doc|documentatie} of {faq|FAQ}."
 
-#: ../root/release/edit/recordings.tt:154
+#: ../root/release/edit/recordings.tt:149
 msgid "Looking for suggested recordings..."
 msgstr "Aan het zoeken naar voorgestelde opnames…"
 
@@ -5318,7 +5318,7 @@ msgstr "Let op: dit zoekt nu alleen naar bewerkingen die relaties toevoegen of w
 msgid "Notify me by email on new releases to my watched artists"
 msgstr "Stuur mij een e-mail bij nieuwe uitgaves van artiesten die ik volg"
 
-#: ../root/release/edit/recordings.tt:105
+#: ../root/release/edit/recordings.tt:100
 msgid "Now loading recording associations..."
 msgstr "Bezig met het laden van koppelingen van opnames…"
 
@@ -5454,7 +5454,7 @@ msgstr "Open in de tagger"
 msgid "Opened:"
 msgstr "Geopend:"
 
-#: ../root/release/edit/recordings.tt:118 ../root/release/edit/tracklist.tt:11
+#: ../root/release/edit/recordings.tt:113 ../root/release/edit/tracklist.tt:11
 msgid "Options"
 msgstr "Opties"
 
@@ -6379,7 +6379,7 @@ msgstr "Informatie over de uitgavegroep"
 
 #: ../root/release/layout.tt:84
 msgid "Release group rating"
-msgstr ""
+msgstr "Waardering van de uitgavegroep"
 
 #: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:2
 msgid "Release group ratings"
@@ -7041,7 +7041,7 @@ msgstr "In de gegevensbank naar deze cd zoeken"
 msgid "Search the documentation..."
 msgstr "Documentatie doorzoeken…"
 
-#: ../root/release/edit/recordings.tt:142
+#: ../root/release/edit/recordings.tt:137
 msgid "Search:"
 msgstr "Zoeken:"
 
@@ -7757,7 +7757,7 @@ msgstr "Abonnementen"
 msgid "Success!"
 msgstr "Success!"
 
-#: ../root/release/edit/recordings.tt:161
+#: ../root/release/edit/recordings.tt:156
 msgid "Suggested recordings:"
 msgstr "Voorgestelde opnames:"
 
@@ -10639,7 +10639,7 @@ msgstr "alle"
 msgid "any"
 msgstr "enige"
 
-#: ../root/release/edit/recordings.tt:178 ../root/scripts/text_strings.tt:27
+#: ../root/release/edit/recordings.tt:173 ../root/scripts/text_strings.tt:27
 msgid "appears on:"
 msgstr "verschijnt op:"
 
@@ -10671,7 +10671,7 @@ msgstr "tussen"
 msgid "bot"
 msgstr "robot"
 
-#: ../root/release/edit/recordings.tt:69 ../root/release/edit/recordings.tt:72
+#: ../root/release/edit/recordings.tt:66 ../root/release/edit/recordings.tt:69
 msgid "by"
 msgstr "door"
 
@@ -11037,7 +11037,7 @@ msgstr[0] "{artist} heeft geen uitgaves met maar {n} nummer."
 msgstr[1] "{artist} heeft geen uitgaves met maar {n} nummers."
 
 #: ../root/scripts/text_strings.tt:187
-#: ../lib/MusicBrainz/Server/Entity/Relationship.pm:212
+#: ../lib/MusicBrainz/Server/Entity/Relationship.pm:225
 #, perl-brace-format
 msgid "{attribute}: {value}"
 msgstr "{attribute}: {value}"
@@ -12218,7 +12218,7 @@ msgstr "Nieuwe ISRC's in de gegevensbank indienen"
 msgid "Submit new barcodes to the database"
 msgstr "Nieuwe streepjescodes in de gegevensbank indienen"
 
-#: ../lib/MusicBrainz/Server/Entity/Relationship.pm:174
+#: ../lib/MusicBrainz/Server/Entity/Relationship.pm:187
 #, perl-brace-format
 msgid "{b} and {a}"
 msgstr "{b} en {a}"

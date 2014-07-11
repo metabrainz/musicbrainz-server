@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-09 16:59-0700\n"
+"POT-Creation-Date: 2014-07-10 18:30-0700\n"
 "PO-Revision-Date: 2014-07-10 00:01+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/musicbrainz/language/el/)\n"
@@ -149,7 +149,7 @@ msgstr "(<strong>δεν έχει εγκριθεί!</strong>)"
 msgid "(No details about this error are available)"
 msgstr "(Δεν υπάρχουν διαθέσιμες λεπτομέρειες για αυτό το σφάλμα)"
 
-#: ../root/release/edit/recordings.tt:53
+#: ../root/release/edit/recordings.tt:50
 msgid "(add a new recording)"
 msgstr "(προσθήκη νέας ηχογράφησης)"
 
@@ -268,7 +268,7 @@ msgid ""
 msgstr "* Η ομοιότητα δείχνει τη συνολική διαφορά σε δευτερόλεπτα μεταξύ του CD που ζητήσατε και των στοιχείων που βρέθηκαν τα οποία ταιριάζουν."
 
 #: ../root/components/relationships-table.tt:44
-#: ../lib/MusicBrainz/Server/Entity/Relationship.pm:173
+#: ../lib/MusicBrainz/Server/Entity/Relationship.pm:186
 msgid ", "
 msgstr ", "
 
@@ -683,7 +683,7 @@ msgstr ""
 msgid "Add a new place"
 msgstr ""
 
-#: ../root/release/edit/recordings.tt:191 ../root/scripts/text_strings.tt:134
+#: ../root/release/edit/recordings.tt:186 ../root/scripts/text_strings.tt:134
 msgid "Add a new recording"
 msgstr "Προσθήκη μιας νέας ηχογράφησης"
 
@@ -1040,7 +1040,7 @@ msgstr "Έληξε ήδη"
 msgid "Also performs as"
 msgstr ""
 
-#: ../root/release/edit/recordings.tt:82
+#: ../root/release/edit/recordings.tt:78
 msgid "Also update the recording with track changes"
 msgstr "Επίσης ενημέρωση και της ηχογράφησης με τις αλλαγές του κομματιού"
 
@@ -2177,7 +2177,7 @@ msgstr "Καθαρισμός ομάδας κυκλοφορίας"
 msgid "Clear work"
 msgstr "Καθαρισμός έργου"
 
-#: ../root/release/edit/recordings.tt:99
+#: ../root/release/edit/recordings.tt:94
 msgid "Click Edit to edit the recording associations for this disc."
 msgstr "Κάντε κλικ στο Επεξεργασία για να επεξεργαστείτε του συσχετισμούς ηχογράφησης για αυτό το δίσκο."
 
@@ -2332,7 +2332,7 @@ msgstr "Αντιγραφή"
 msgid "Copy Credits"
 msgstr ""
 
-#: ../root/release/edit/recordings.tt:128
+#: ../root/release/edit/recordings.tt:123
 msgid "Copy all track changes to associated recordings."
 msgstr "Αντιγραφή όλων τον αλλαγών στα κομμάτια στις σχετιζόμενες ηχογραφήσεις."
 
@@ -2775,7 +2775,7 @@ msgstr "Εντάξει"
 msgid "Duration:"
 msgstr "Διάρκεια:"
 
-#: ../root/release/edit/recordings.tt:137
+#: ../root/release/edit/recordings.tt:132
 msgid ""
 "Each track in the MusicBrainz database has to be linked to a recording, "
 "choose the appropriate recording or look for it in the database."
@@ -2791,7 +2791,7 @@ msgstr "Κάθε κομμάτι στη βάση δεδομένων του MusicB
 #: ../root/relationship/linkattributetype/common.tt:25
 #: ../root/relationship/linktype/tree.tt:17 ../root/release/cover_art.tt:27
 #: ../root/release/discids.tt:12 ../root/release/edit/information.tt:54
-#: ../root/release/edit/recordings.tt:63 ../root/release/edit/recordings.tt:94
+#: ../root/release/edit/recordings.tt:60 ../root/release/edit/recordings.tt:89
 #: ../root/release/edit/tracklist.tt:288 ../root/release_group/header.tt:1
 #: ../root/release/tabs.tt:1 ../root/series/header.tt:1
 #: ../root/url/header.tt:1 ../root/user/collections.tt:26
@@ -3971,7 +3971,7 @@ msgid ""
 "field, but add it as a URL relationship later."
 msgstr "Αν αυτό είναι ένα Amazon ASIN, παρακαλούμε μην το εισάγετε στο πεδίο αριθμού καταλόγου, αλλά προσθέστε το ως σχέση URL αργότερα."
 
-#: ../root/release/edit/recordings.tt:139
+#: ../root/release/edit/recordings.tt:134
 msgid ""
 "If we do not have a recording for this track in the database yet, please "
 "select \"Add a new recording\" below."
@@ -4111,7 +4111,7 @@ msgstr ""
 msgid "Indexed search with {doc|advanced query syntax}"
 msgstr ""
 
-#: ../root/release/edit/recordings.tt:122
+#: ../root/release/edit/recordings.tt:117
 msgid "Infer track durations from associated recordings"
 msgstr ""
 
@@ -4528,7 +4528,7 @@ msgstr ""
 msgid "Looking for help? Check out our {doc|documentation} or {faq|FAQ}."
 msgstr "Χρειάζεστε βοήθεια; Διαβάστε την {doc|τεκμηρίωσή} μας ή τις {faq|Συχνές Ερωτήσεις}."
 
-#: ../root/release/edit/recordings.tt:154
+#: ../root/release/edit/recordings.tt:149
 msgid "Looking for suggested recordings..."
 msgstr ""
 
@@ -5314,7 +5314,7 @@ msgstr ""
 msgid "Notify me by email on new releases to my watched artists"
 msgstr "Ειδοποιείστε με μέσω email για νέες κυκλοφορίες από τους καλλιτέχνες που παρακολουθώ."
 
-#: ../root/release/edit/recordings.tt:105
+#: ../root/release/edit/recordings.tt:100
 msgid "Now loading recording associations..."
 msgstr "Φόρτωμα των συσχετισμών ηχογράφησης..."
 
@@ -5450,7 +5450,7 @@ msgstr ""
 msgid "Opened:"
 msgstr "Άνοιξε:"
 
-#: ../root/release/edit/recordings.tt:118 ../root/release/edit/tracklist.tt:11
+#: ../root/release/edit/recordings.tt:113 ../root/release/edit/tracklist.tt:11
 msgid "Options"
 msgstr "Επιλογές"
 
@@ -7037,7 +7037,7 @@ msgstr "Αναζητήστε αυτό το CD στη βάση δεδομένων
 msgid "Search the documentation..."
 msgstr "Αναζήτηση τεκμηρίωσης..."
 
-#: ../root/release/edit/recordings.tt:142
+#: ../root/release/edit/recordings.tt:137
 msgid "Search:"
 msgstr "Αναζήτηση:"
 
@@ -7753,7 +7753,7 @@ msgstr "Λίστα παρακολουθήσεων"
 msgid "Success!"
 msgstr ""
 
-#: ../root/release/edit/recordings.tt:161
+#: ../root/release/edit/recordings.tt:156
 msgid "Suggested recordings:"
 msgstr ""
 
@@ -10635,7 +10635,7 @@ msgstr ""
 msgid "any"
 msgstr ""
 
-#: ../root/release/edit/recordings.tt:178 ../root/scripts/text_strings.tt:27
+#: ../root/release/edit/recordings.tt:173 ../root/scripts/text_strings.tt:27
 msgid "appears on:"
 msgstr "εμφανίζεται σε:"
 
@@ -10667,7 +10667,7 @@ msgstr "μεταξύ"
 msgid "bot"
 msgstr "bot"
 
-#: ../root/release/edit/recordings.tt:69 ../root/release/edit/recordings.tt:72
+#: ../root/release/edit/recordings.tt:66 ../root/release/edit/recordings.tt:69
 msgid "by"
 msgstr "από"
 
@@ -11033,7 +11033,7 @@ msgstr[0] "Ο καλλιτέχνης {artist} δεν έχει κυκλοφορί
 msgstr[1] "Ο καλλιτέχνης {artist} δεν έχει κυκλοφορίες με {n} κομμάτια."
 
 #: ../root/scripts/text_strings.tt:187
-#: ../lib/MusicBrainz/Server/Entity/Relationship.pm:212
+#: ../lib/MusicBrainz/Server/Entity/Relationship.pm:225
 #, perl-brace-format
 msgid "{attribute}: {value}"
 msgstr ""
@@ -12214,7 +12214,7 @@ msgstr ""
 msgid "Submit new barcodes to the database"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Entity/Relationship.pm:174
+#: ../lib/MusicBrainz/Server/Entity/Relationship.pm:187
 #, perl-brace-format
 msgid "{b} and {a}"
 msgstr "{b} και {a}"
