@@ -189,6 +189,14 @@
             }
 
             this.recordingValue(value);
+        },
+
+        hasNameAndArtist: function () {
+            return this.name() && this.artistCredit.isComplete();
+        },
+
+        hasVariousArtists: function () {
+            return this.artistCredit.isVariousArtists();
         }
     });
 
@@ -207,6 +215,9 @@
             )
             .extend({ withError: true });
 
+            this.tracksAreComplete = this.tracks.all("hasNameAndArtist");
+            this.hasVariousArtistTracks = this.tracks.any("hasVariousArtists");
+
             $.extend(this, _.pick(data, "id", "originalID"));
 
             // The medium is considered to be loaded if it has tracks, or if
@@ -223,6 +234,7 @@
             this.collapsed.subscribe(this.collapsedChanged, this);
             this.addTrackCount = ko.observable("");
             this.original = ko.observable(this.id ? MB.edit.fields.medium(this) : {});
+            this.uniqueID = this.id || _.uniqueId("new-");
         },
 
         hasToc: function () {
@@ -543,6 +555,11 @@
             this.mediums.original = ko.observable(this.existingMediumData());
             this.original = ko.observable(MB.edit.fields.release(this));
 
+            this.loadedMediums = this.mediums.filter("loaded");
+            this.tracksAreComplete = this.loadedMediums.all("tracksAreComplete");
+            this.hasTracks = this.mediums.any("hasTracks");
+            this.needsRecordings = this.mediums.any("needsRecordings");
+
             // Ensure there's at least one event, label, and medium to edit.
 
             if (!this.events().length) {
@@ -571,10 +588,6 @@
             if (mediums.length <= 3) {
                 _.invoke(mediums, "loadTracks");
             }
-        },
-
-        hasTracks: function () {
-            return _.some(_.invoke(this.mediums(), "hasTracks"));
         },
 
         hasOneEmptyMedium: function () {

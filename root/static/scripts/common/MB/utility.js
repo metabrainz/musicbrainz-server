@@ -275,10 +275,6 @@ MB.utility.percentOf = function (x, y) {
     return x * y / 100;
 };
 
-MB.utility.moveArrayItem = function (array, from, to) {
-    array.splice(to, 0, array.splice(from, 1)[0]);
-};
-
 // Compares two names, considers them equivalent if there are only case
 // changes, changes in punctuation and/or changes in whitespace between
 // the two strings.

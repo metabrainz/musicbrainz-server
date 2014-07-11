@@ -349,7 +349,11 @@
         }
 
         function getPreview(edit) { return previews[edit.hash] }
-        function addPreview(tuple) { previews[tuple[0].hash] = tuple[1] }
+        function addPreview(tuple) {
+            var editHash = tuple[0].hash, preview = tuple[1];
+            preview.editHash = editHash;
+            previews[editHash] = preview;
+        }
         function isNewEdit(edit) { return previews[edit.hash] === undefined }
 
         ko.computed(function () {
