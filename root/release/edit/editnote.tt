@@ -15,12 +15,12 @@
     <div class="loading-message">[% l('Loading edit previews...') %]</div>
   <!-- /ko -->
 
-  <!-- ko foreach: editPreviews -->
+  <div data-bind="loop: { items: editPreviews, id: 'editHash' }">
     <div class="edit-list">
       <h2 data-bind="text: editName"></h2>
       <div class="edit-details" data-bind="html: preview"></div>
     </div>
-  <!-- /ko -->
+  </div>
 
   <div class="half-width">
     <fieldset class="editnote">

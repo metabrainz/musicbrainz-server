@@ -234,6 +234,7 @@
             this.collapsed.subscribe(this.collapsedChanged, this);
             this.addTrackCount = ko.observable("");
             this.original = ko.observable(this.id ? MB.edit.fields.medium(this) : {});
+            this.uniqueID = this.id || _.uniqueId("new-");
         },
 
         hasToc: function () {

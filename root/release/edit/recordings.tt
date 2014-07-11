@@ -13,7 +13,7 @@
 
   <div class="half-width" data-bind="affectsBubble: $root.recordingBubble">
 
-  <!-- ko foreach: mediums -->
+  <div data-bind="loop: { items: mediums, id: 'uniqueID' }">
     <fieldset>
       <legend data-bind="text: formattedName()"></legend>
 
@@ -27,8 +27,8 @@
           </tr>
         </thead>
 
-        <tbody data-bind="foreach: { data: tracks, if: loaded }">
-          <tr class="track" data-bind="css: { ev: $index() % 2 > 0 }">
+        <tbody data-bind="loop: { items: tracks, id: 'uniqueID' }">
+          <tr class="track" data-bind="css: { ev: position() % 2 === 0 }">
 
             <td rowspan="2" class="position" data-bind="text: position"></td>
 
@@ -61,7 +61,7 @@
             </td>
           </tr>
 
-          <tr class="artist" data-bind="css: { ev: $index() % 2 > 0 }">
+          <tr class="artist" data-bind="css: { ev: position() % 2 === 0 }">
             <td colspan="2" data-bind="with: artistCredit.html({ target: '_blank' })">
               [% l('by') %] <span data-bind="html: $data"></span>
             </td>
@@ -70,17 +70,15 @@
             </td>
           </tr>
 
-          <!-- ko if: differsFromRecording() -->
-            <tr data-bind="css: { ev: $index() % 2 > 0 }">
-              <td></td>
-              <td colspan="5" class="checkbox">
-                <label>
-                  <input type="checkbox" data-bind="checked: updateRecording, disable: $root.copyTrackChangesToRecordings" />
-                  [% l('Also update the recording with track changes') %]
-                </label>
-              </td>
-            </tr>
-          <!-- /ko -->
+          <tr data-bind="if: differsFromRecording(), css: { ev: position() % 2 === 0 }">
+            <td></td>
+            <td colspan="5" class="checkbox">
+              <label>
+                <input type="checkbox" data-bind="checked: updateRecording, disable: $root.copyTrackChangesToRecordings" />
+                [% l('Also update the recording with track changes') %]
+              </label>
+            </td>
+          </tr>
         </tbody>
       </table>
 
@@ -106,8 +104,8 @@
       </div>
       <!-- /ko -->
     </fieldset>
+  </div>
 
-  <!-- /ko -->
   </div>
 
   <!-- ko if: hasTracks() -->

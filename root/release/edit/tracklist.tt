@@ -191,7 +191,7 @@
     </div>
   <!-- /ko -->
 
-  <!-- ko foreach: mediums -->
+  <div data-bind="loop: { items: mediums, id: 'uniqueID' }">
   <fieldset class="advanced-disc">
     <legend data-bind="text: formattedName()"></legend>
 
@@ -202,8 +202,8 @@
         </td>
 
         <td class="format">
-          <label data-bind="attr: { for: 'disc-format-' + $index() }">[% l('Format:') %]</label>
-          <select data-bind="value: formatID, attr: { id: 'disc-format-' + $index() }">
+          <label data-bind="attr: { for: 'disc-format-' + uniqueID }">[% l('Format:') %]</label>
+          <select data-bind="value: formatID, attr: { id: 'disc-format-' + uniqueID }">
             <option value="" selected="selected">&#160;</option>
             [%- FOR format=formats %]
             <option value="[% format.value %]">[% format.label %]</option>
@@ -211,8 +211,8 @@
           </select>
           (<a href="[% c.uri_for('/doc/Release/Format') %]" target="_blank">[% l('help') %]</a>)
           <!-- ko if: release.mediums().length > 1 || name() -->
-            <label data-bind="attr: { for: 'disc-title-' + $index() }">[% l('Disc title:') %]</label>
-            <input type="text" data-bind="value: name, attr: { id: 'disc-title-' + $index() }" />
+            <label data-bind="attr: { for: 'disc-title-' + uniqueID }">[% l('Disc title:') %]</label>
+            <input type="text" data-bind="value: name, attr: { id: 'disc-title-' + uniqueID }" />
             <button type="button" class="icon guesscase-medium" title="[% l('Guess case disc title') %]" data-click="guessCaseMediumName"></button>
           <!-- /ko -->
         </td>
@@ -256,7 +256,7 @@
             <th class="icons"></th>
           </tr>
         </thead>
-        <tbody data-bind="foreach: tracks">
+        <tbody data-bind="loop: { items: tracks, id: 'uniqueID' }">
           <tr class="track" data-bind="attr: { id: elementID }">
             <td class="reorder">
               <button type="button" class="icon track-down" title="[% l('Move track down') %]" data-bind="disableBecauseDiscIDs: true" data-click="moveTrackDown"></button>
@@ -332,7 +332,7 @@
     </div>
 
   </fieldset>
-  <!-- /ko -->
+  </div>
 
   <!-- ko ifnot: _.isEmpty(mediums()) -->
     <div data-bind="guessCase: _.bind($root.guessCaseMediaNames, $data)">
