@@ -1,0 +1,14 @@
+<div id="largemap"></div>
+<script type="text/javascript">//<![CDATA[
+    var lat = [% entity.coordinates.latitude %];
+    var lon = [% entity.coordinates.longitude %];
+
+    var map = L.map('largemap').setView([lat, lon], 14);
+
+    L.tileLayer('http://otile2.mqcdn.com/tiles/1.0.0/osm//{z}/{x}/{y}.png', {
+        attribution: 'Tiles Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">, Map data &copy; <a href="//www.openstreetmap.org/">OpenStreetMap</a> (<a href="//www.openstreetmap.org/copyright">License</a>)'
+    }).addTo(map);
+
+    L.Icon.Default.imagePath = '/static/lib/leaflet/images';
+    L.marker([lat, lon], { title: '[% entity.name | js %]' }).addTo(map);
+//]]></script>
