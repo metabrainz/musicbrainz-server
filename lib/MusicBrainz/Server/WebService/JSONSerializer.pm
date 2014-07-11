@@ -633,6 +633,30 @@ sub _instrument {
     };
 }
 
+sub autocomplete_event
+{
+    my ($self, $results, $pager) = @_;
+
+    my $output = _with_primary_alias(
+        $results,
+        sub {
+            my $result = shift;
+
+            my $out = $self->_event( $result->{entity} );
+            $out->{performers} = $result->{performers};
+
+            return $out;
+        }
+    );
+
+    push @$output, {
+        pages => $pager->last_page,
+        current => $pager->current_page
+    } if $pager;
+
+    return encode_json($output);
+}
+
 sub _event {
     my ($self, $event) = @_;
 
@@ -644,6 +668,9 @@ sub _event {
         typeID  => $event->type_id,
         comment => $event->comment,
         $event->type ? (typeName => $event->type->name) : (),
+        begin_date => $event->begin_date->format,
+        end_date   => $event->end_date->format,
+        time       => $event->formatted_time,
     };
 }
 

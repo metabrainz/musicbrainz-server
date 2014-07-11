@@ -200,8 +200,8 @@ END -%]
 [%~ MACRO cancelled(entity) BLOCK -%]
     [%- IF entity.cancelled -%]
         <span class="cancelled">(<bdi>
-            [%- l("cancelled") -%]
-        [%- -%]</bdi>)</span>
+            [%~ l("cancelled") ~%]
+            </bdi>)</span>
     [%- END -%]
 [%- END -%]
 
@@ -428,12 +428,7 @@ END -%]
 END -%]
 
 [%~ MACRO link_event(event, action, text) BLOCK;
-    action = action || 'show';
-    link = c.uri_for_action("/event/$action", [ event.gid ]);
-    text = html_escape(text == '' ? event.name : text);
-    '<span class="mp">' IF event.edits_pending AND action == 'show';
-    '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
-    '</span>' IF event.edits_pending AND action == 'show';
+    INCLUDE _link_mbid_entity entity=event type='event' action=action content=text;
 END -%]
 
 [%~ MACRO link_release(release, action, text) BLOCK;

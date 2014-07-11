@@ -120,7 +120,7 @@ sub update
     return 1;
 }
 
-sub can_delete {1}
+sub can_delete { 1 }
 
 sub delete
 {
@@ -305,7 +305,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2014 Metabrainz Foundation
+Copyright (C) 2014 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

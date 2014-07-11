@@ -150,7 +150,7 @@ sub search
 
         $hard_search_limit = $offset * 2;
     }
-    elsif ($type eq "recording" || $type eq "release" || $type eq "release_group") {
+    elsif ($type ~~ [qw(recording release release_group)]) {
         my $extra_columns = "";
         $extra_columns .= 'entity.type AS primary_type_id,'
             if ($type eq 'release_group');
@@ -212,7 +212,7 @@ sub search
         $hard_search_limit = int($offset * 1.2);
     }
 
-    elsif ($type eq "label" || $type eq "work" || $type eq "place" || $type eq "area" || $type eq "instrument" || $type eq "series" || $type eq "event") {
+    elsif ($type ~~ [qw(area event instrument label place series work)]) {
         my $where_deleted = "WHERE entity.id != ?";
         if ($type eq "label") {
             $deleted_entity = $DLABEL_ID;

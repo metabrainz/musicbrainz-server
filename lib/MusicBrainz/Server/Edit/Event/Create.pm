@@ -50,7 +50,7 @@ sub build_display_data
     my $type = $self->data->{type_id};
 
     return {
-        ( map { $_ => $_ ? $self->data->{$_} : '' } qw( name ) ),
+        name        => $self->data->{name} // '',
         type        => $type ? $loaded->{EventType}->{$type} : '',
         begin_date  => PartialDate->new($self->data->{begin_date}),
         end_date    => PartialDate->new($self->data->{end_date}),
