@@ -156,6 +156,10 @@ MB.releaseEditor.init = function (options) {
 
     this.rootField = this.fields.Root();
 
+    this.rootField.missingEditNote = function () {
+        return self.action === "add" && !self.rootField.editNote();
+    };
+
     this.seed(options.seed);
 
     if (this.action === "edit") {

@@ -668,11 +668,9 @@
 
 
     fields.Root = aclass(function () {
-        var self = this;
         this.release = ko.observable().syncWith("releaseField", true, true);
         this.asAutoEditor = ko.observable(true);
         this.editNote = ko.observable("");
-        this.missingEditNote = ko.computed(function () { return !self.editNote() });
     });
 
 
