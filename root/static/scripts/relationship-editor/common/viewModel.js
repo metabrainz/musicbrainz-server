@@ -165,13 +165,7 @@
         },
 
         containsRelationship: function (relationship, source) {
-            var entityTypes = relationship.entityTypes;
-
-            if (entityTypes === "recording-work" && this instanceof RE.ReleaseViewModel) {
-                return false;
-            }
-
-            var types = entityTypes.split("-"),
+            var types = relationship.entityTypes.split("-"),
                 targetType = source.entityType === types[0] ? types[1] : types[0];
 
             if (!this.typesAreAccepted(source.entityType, targetType)) {
