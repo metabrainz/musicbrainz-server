@@ -176,7 +176,7 @@
 </div>
 
 <div data-bind="with: rootField.release, affectsBubble: trackArtistBubble">
-  <!-- ko if: needsMediums -->
+  <!-- ko if: needsMediums() -->
     <p>[% l('You haven\'t added any media yet. Click on the "Add Disc" button below to add one.') %]</p>
   <!-- /ko -->
 
