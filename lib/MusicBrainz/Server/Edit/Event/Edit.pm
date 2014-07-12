@@ -5,11 +5,14 @@ use Moose;
 use MusicBrainz::Server::Constants qw( $EDIT_EVENT_EDIT );
 use MusicBrainz::Server::Constants qw( :edit_status );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
+use MusicBrainz::Server::Types qw( Time );
 use MusicBrainz::Server::Edit::Utils qw(
     changed_relations
     changed_display_data
     date_closure
     merge_partial_date
+    merge_time
+    time_closure
 );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Translation qw( N_l );
@@ -112,6 +115,7 @@ sub _mapping
     return (
         begin_date => date_closure('begin_date'),
         end_date => date_closure('end_date'),
+        time => time_closure('time'),
     );
 }
 
@@ -171,6 +175,10 @@ around extract_property => sub {
 
         when ('end_date') {
             return merge_partial_date('end_date' => $ancestor, $current, $new);
+        }
+
+        when ('time') {
+            return merge_time('time' => $ancestor, $current, $new);
         }
 
         default {

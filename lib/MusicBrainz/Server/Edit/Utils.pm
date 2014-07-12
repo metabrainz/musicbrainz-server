@@ -30,6 +30,7 @@ our @EXPORT_OK = qw(
     clean_submitted_artist_credits
     coordinate_closure
     date_closure
+    time_closure
     edit_status_name
     conditions_without_autoedit
     hash_artist_credit
@@ -40,6 +41,7 @@ our @EXPORT_OK = qw(
     merge_coordinates
     merge_partial_date
     merge_set
+    merge_time
     merge_value
     normalize_date_period
     load_artist_credit_definitions
@@ -95,6 +97,15 @@ sub coordinate_closure
     return sub {
         my $a = shift;
         return coordinates_to_hash($a->$attr);
+    };
+}
+
+sub time_closure
+{
+    my $attr = shift;
+    return sub {
+        my $a = shift;
+        return $a->$attr->strftime('%H:%M');
     };
 }
 
@@ -376,22 +387,6 @@ sub merge_coordinates {
     );
 }
 
-=method merge_list
-
-Merge any list of strings.
-
-=cut
-
-sub merge_list {
-    my ($name, $ancestor, $current, $new) = @_;
-
-    return (
-        [ PartialDate->new($ancestor->{$name})->format, $ancestor->{$name} ],
-        [ $current->$name->format, partial_date_to_hash($current->$name) ],
-        [ PartialDate->new($new->{$name})->format, $new->{$name} ],
-    );
-}
-
 =method merge_barcode
 
 Merge barcodes, using the formatted representation as the hash key.
@@ -405,6 +400,16 @@ sub merge_barcode {
         [ Barcode->new($ancestor->{barcode})->format, $ancestor->{barcode} ],
         [ $current->barcode->format, $current->barcode->code ],
         [ Barcode->new($new->{barcode})->format, $new->{barcode} ],
+    );
+}
+
+sub merge_time {
+    my ($name, $ancestor, $current, $new) = @_;
+
+    return (
+        [ defined $ancestor->{$name} ? $ancestor->{$name} : undef, $ancestor->{$name} ],
+        [ defined $current->$name ? $current->$name->strftime('%H:%M') : undef, $current->$name ],
+        [ defined $new->{$name} ? $new->{$name} : undef, $new->{$name} ],
     );
 }
 

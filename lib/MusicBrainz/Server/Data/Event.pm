@@ -18,7 +18,6 @@ use MusicBrainz::Server::Data::Utils qw(
     placeholders
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
-use MusicBrainz::Server::Data::Utils::Uniqueness qw( assert_uniqueness_conserved );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'event' };
@@ -39,9 +38,11 @@ sub _table
 
 sub _columns
 {
-    return 'event.id, gid, event.name, event.type, event.time, event.cancelled,' .
-           'event.setlist, event.edits_pending, begin_date_year, begin_date_month, begin_date_day, ' .
-           'end_date_year, end_date_month, end_date_day, ended, comment, event.last_updated';
+    return 'event.id, event.gid, event.name, event.type, event.time, event.cancelled,' .
+           'event.setlist, event.edits_pending, event.begin_date_year, ' .
+           'event.begin_date_month, event.begin_date_day, event.end_date_year, ' .
+           'event.end_date_month, event.end_date_day, event.ended, ' . 
+           'event.comment, event.last_updated';
 }
 
 sub browse_column { 'name' }
@@ -55,8 +56,6 @@ sub _gid_redirect_table
 {
     return 'event_gid_redirect';
 }
-
-sub _table_join_name {}
 
 sub _column_mapping
 {
