@@ -584,13 +584,6 @@
                 }
             });
 
-            this.needsReleaseGroup = ko.computed(function () {
-                if (releaseEditor.action === "add") {
-                    return false;
-                }
-                return !self.releaseGroup().gid;
-            });
-
             this.mediums = ko.observableArray(
                 utils.mapChild(this, data.mediums, fields.Medium)
             );
@@ -602,13 +595,7 @@
             this.tracksAreComplete = this.loadedMediums.all("tracksAreComplete");
             this.hasTracks = this.mediums.any("hasTracks");
             this.needsRecordings = this.mediums.any("needsRecordings");
-            this.needsTracks = ko.computed(function () { return !self.hasTracks() });
-            this.needsTrackInfo = ko.computed(function () { return !self.tracksAreComplete() });
             this.hasInvalidFormats = this.mediums.any("hasInvalidFormat");
-
-            this.needsMediums = ko.computed(function () {
-                return self.mediums().length === 0;
-            });
 
             // Ensure there's at least one event, label, and medium to edit.
 
@@ -633,6 +620,14 @@
 
             this.hasInvalidLinks = this.externalLinks.links.any("error");
         },
+
+        needsReleaseGroup: function () {
+            return releaseEditor.action === "edit" && !this.releaseGroup().gid;
+        },
+
+        needsMediums: function () { return !this.mediums().length },
+        needsTracks: function () { return !this.hasTracks() },
+        needsTrackInfo: function () { return !this.tracksAreComplete() },
 
         loadMedia: function () {
             var mediums = this.mediums();

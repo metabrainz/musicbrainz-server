@@ -50,7 +50,7 @@
 
 
     function showErrorHandler(handler) {
-        return function (element, valueAccessor) {
+        return function (element, valueAccessor, allBindings, vm) {
             var $element = $(element).hide(),
                 errorField = valueAccessor();
 
@@ -58,7 +58,7 @@
             _.defer(function () {
                 ko.computed({
                     read: function () {
-                        var value = errorField(),
+                        var value = errorField.call(vm),
                             $panel = $element.parents(".ui-tabs-panel");
 
                         if (_.isString(value)) {
