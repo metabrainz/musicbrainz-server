@@ -54,12 +54,6 @@ sub place_toplevel
     $c->model('Place')->annotation->load_latest($place)
         if $c->stash->{inc}->annotation;
 
-    if ($c->stash->{inc}->aliases)
-    {
-        my $aliases = $c->model('Place')->alias->find_by_entity_id($place->id);
-        $opts->{aliases} = $aliases;
-    }
-
     $self->load_relationships($c, $stash, $place);
 }
 

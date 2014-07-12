@@ -49,11 +49,6 @@ sub instrument_toplevel {
     $c->model('Instrument')->annotation->load_latest($instrument)
         if $c->stash->{inc}->annotation;
 
-    if ($c->stash->{inc}->aliases) {
-        my $aliases = $c->model('Instrument')->alias->find_by_entity_id($instrument->id);
-        $opts->{aliases} = $aliases;
-    }
-
     $self->load_relationships($c, $stash, $instrument);
 }
 
