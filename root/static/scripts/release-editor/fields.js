@@ -7,18 +7,13 @@
 
     var fields = releaseEditor.fields = releaseEditor.fields || {};
     var utils = releaseEditor.utils;
-
-
-    ko.extenders.withError = function (target) {
-        target.error = releaseEditor.validation.errorField();
-    };
+    var validation = releaseEditor.validation = releaseEditor.validation || {};
 
 
     fields.ArtistCredit = aclass(MB.Control.ArtistCredit, {
 
         around$init: function (supr, data) {
             supr({ initialData: data });
-            this.error = releaseEditor.validation.errorField();
         }
     });
 
@@ -207,16 +202,18 @@
             this.release = release;
             this.name = ko.observable(data.name);
             this.position = ko.observable(data.position || 1);
-            this.formatID = ko.observable(data.formatID).extend({ withError: true });
-            this.needsRecordings = releaseEditor.validation.errorField(false);
+            this.formatID = ko.observable(data.formatID);
 
             this.tracks = ko.observableArray(
                 utils.mapChild(this, data.tracks, fields.Track)
-            )
-            .extend({ withError: true });
+            );
 
+            var self = this;
+
+            this.needsRecordings = this.tracks.any("needsRecording");
             this.tracksAreComplete = this.tracks.all("hasNameAndArtist");
             this.hasVariousArtistTracks = this.tracks.any("hasVariousArtists");
+            this.needsTrackInfo = ko.computed(function () { return !self.tracksAreComplete() });
 
             $.extend(this, _.pick(data, "id", "originalID"));
 
@@ -228,6 +225,10 @@
             this.toc = ko.observable(data.toc || null);
             this.toc.subscribe(this.tocChanged, this);
 
+            this.hasInvalidFormat = ko.computed(function () {
+                return self.id && self.hasToc() && !self.canHaveDiscID();
+            });
+
             this.loaded = ko.observable(loaded);
             this.loading = ko.observable(false);
             this.collapsed = ko.observable(!loaded);
@@ -235,6 +236,10 @@
             this.addTrackCount = ko.observable("");
             this.original = ko.observable(this.id ? MB.edit.fields.medium(this) : {});
             this.uniqueID = this.id || _.uniqueId("new-");
+
+            this.needsTracks = ko.computed(function () {
+                return self.loaded() && self.tracks().length === 0;
+            });
         },
 
         hasToc: function () {
@@ -317,7 +322,7 @@
             this.collapsed(false);
         },
 
-        hasTracks: function () { return !_.isEmpty(this.tracks()) },
+        hasTracks: function () { return this.tracks().length > 0 },
 
         formattedName: function () {
             var name = this.name(),
@@ -370,7 +375,6 @@
 
             this.typeID = ko.observable(data.typeID)
             this.secondaryTypeIDs = ko.observableArray(data.secondaryTypeIDs);
-            this.error = releaseEditor.validation.errorField();
         }
     });
 
@@ -383,13 +387,19 @@
             this.date = {
                 year:   ko.observable(date.year),
                 month:  ko.observable(date.month),
-                day:    ko.observable(date.day),
-                error:  releaseEditor.validation.errorField()
+                day:    ko.observable(date.day)
             };
 
-            this.countryID = ko.observable(data.countryID).extend({ withError: true });
-
+            this.countryID = ko.observable(data.countryID);
             this.release = release;
+            this.isDuplicate = ko.observable(false);
+
+            var self = this;
+
+            this.hasInvalidDate = ko.computed(function () {
+                var date = self.unwrapDate();
+                return !MB.utility.validDate(date.year, date.month, date.day);
+            });
         },
 
         unwrapDate: function () {
@@ -417,12 +427,16 @@
         init: function (data, release) {
             if (data.id) this.id = data.id;
 
-            this.label = ko.observable(MB.entity(data.label || {}, "label"))
-                .extend({ withError: true });
-
+            this.label = ko.observable(MB.entity(data.label || {}, "label"));
             this.catalogNumber = ko.observable(data.catalogNumber);
-
             this.release = release;
+
+            var self = this;
+
+            this.needsLabel = ko.computed(function () {
+                var label = self.label() || {};
+                return Boolean(label.name && !label.gid && !self.catalogNumber());
+            });
         },
 
         labelHTML: function () {
@@ -439,7 +453,7 @@
             this.barcode = ko.observable(data);
             this.message = ko.observable("");
             this.confirmed = ko.observable(false);
-            this.error = releaseEditor.validation.errorField();
+            this.error = ko.observable("");
 
             this.value = ko.computed({
                 read: this.barcode,
@@ -499,7 +513,8 @@
             var currentName = data.name;
 
             this.gid = ko.observable(data.gid);
-            this.name = ko.observable(currentName).extend({ withError: true });
+            this.name = ko.observable(currentName);
+            this.needsName = ko.observable(!currentName);
 
             this.name.subscribe(function (newName) {
                 var releaseGroup = self.releaseGroup();
@@ -510,10 +525,15 @@
                     self.releaseGroup.notifySubscribers(releaseGroup);
                 }
                 currentName = newName;
+                self.needsName(!newName);
             });
 
             this.artistCredit = fields.ArtistCredit(data.artistCredit);
             this.artistCredit.saved = fields.ArtistCredit(data.artistCredit);
+
+            this.needsArtistCredit = ko.computed(function () {
+                return !self.artistCredit.isComplete();
+            });
 
             this.statusID = ko.observable(data.statusID);
             this.languageID = ko.observable(data.languageID);
@@ -528,6 +548,22 @@
                 utils.mapChild(this, data.events, fields.ReleaseEvent)
             );
 
+            function countryID(event) { return event.countryID() }
+
+            function nonEmptyEvent(event) {
+                var date = event.unwrapDate();
+                return event.countryID() || date.year || date.month || date.day;
+            }
+
+            ko.computed(function () {
+                _(self.events()).groupBy(countryID).each(function (events) {
+                    _.invoke(events, "isDuplicate", _.filter(events, nonEmptyEvent).length > 1);
+                });
+            });
+
+            this.hasDuplicateCountries = this.events.any("isDuplicate");
+            this.hasInvalidDates = this.events.any("hasInvalidDate");
+
             this.labels = ko.observableArray(
                 utils.mapChild(this, data.labels, fields.ReleaseLabel)
             );
@@ -536,10 +572,11 @@
                 _.map(this.labels.peek(), MB.edit.fields.releaseLabel)
             );
 
+            this.needsLabels = this.labels.any("needsLabel");
+
             this.releaseGroup = ko.observable(
                 fields.ReleaseGroup(data.releaseGroup || {})
-            )
-            .extend({ withError: true });
+            );
 
             this.releaseGroup.subscribe(function (releaseGroup) {
                 if (releaseGroup.artistCredit && !self.artistCredit.text()) {
@@ -547,10 +584,16 @@
                 }
             });
 
+            this.needsReleaseGroup = ko.computed(function () {
+                if (releaseEditor.action === "add") {
+                    return false;
+                }
+                return !self.releaseGroup().gid;
+            });
+
             this.mediums = ko.observableArray(
                 utils.mapChild(this, data.mediums, fields.Medium)
-            )
-            .extend({ withError: true });
+            );
 
             this.mediums.original = ko.observable(this.existingMediumData());
             this.original = ko.observable(MB.edit.fields.release(this));
@@ -559,6 +602,13 @@
             this.tracksAreComplete = this.loadedMediums.all("tracksAreComplete");
             this.hasTracks = this.mediums.any("hasTracks");
             this.needsRecordings = this.mediums.any("needsRecordings");
+            this.needsTracks = ko.computed(function () { return !self.hasTracks() });
+            this.needsTrackInfo = ko.computed(function () { return !self.tracksAreComplete() });
+            this.hasInvalidFormats = this.mediums.any("hasInvalidFormat");
+
+            this.needsMediums = ko.computed(function () {
+                return self.mediums().length === 0;
+            });
 
             // Ensure there's at least one event, label, and medium to edit.
 
@@ -580,6 +630,8 @@
                 source: this,
                 sourceData: data
             });
+
+            this.hasInvalidLinks = this.externalLinks.links.any("error");
         },
 
         loadMedia: function () {
@@ -616,9 +668,11 @@
 
 
     fields.Root = aclass(function () {
+        var self = this;
         this.release = ko.observable().syncWith("releaseField", true, true);
         this.asAutoEditor = ko.observable(true);
-        this.editNote = ko.observable("").extend({ withError: true });
+        this.editNote = ko.observable("");
+        this.missingEditNote = ko.computed(function () { return !self.editNote() });
     });
 
 

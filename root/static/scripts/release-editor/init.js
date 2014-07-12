@@ -222,4 +222,14 @@ MB.releaseEditor.autoOpenTheAddDiscDialog = function (release) {
     }
 };
 
+
+MB.releaseEditor.allowsSubmission = function () {
+    return (
+        !this.submissionInProgress() &&
+        !this.validation.errorsExist() &&
+        (this.action === "edit" || this.rootField.editNote()) &&
+        this.allEdits().length > 0
+    );
+};
+
 $(MB.confirmNavigationFallback);

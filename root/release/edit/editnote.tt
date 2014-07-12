@@ -1,11 +1,11 @@
 <div id="form">
-  <!-- ko if: validation.errorsExistOtherThanAMissingEditNote -->
+  <!-- ko if: validation.errorsExist -->
     <div class="warning">
-      <p data-bind="text: MB.text.ErrorsPreventSubmission"></p>
+      <p>[% l('Some errors were detected in the data you’ve entered. Click on the tabs shaded red and correct any visible errors.') %]</p>
     </div>
   <!-- /ko -->
 
-  <!-- ko if: allEdits().length === 0 && validation.errorCount() === 0 && !submissionInProgress() -->
+  <!-- ko if: allEdits().length === 0 && !validation.errorsExist() && !submissionInProgress() -->
     <div class="warning">
       <p data-bind="text: MB.text.NoChanges"></p>
     </div>
@@ -28,7 +28,9 @@
       <!-- ko with: rootField -->
         [% edit_note(0, 1) %]
 
-        <p class="error field-error" data-bind="showErrorRightAway: editNote"></p>
+        <p class="error field-error" data-bind="showErrorRightAway: missingEditNote">
+          [% l('You must provide an edit note when adding a release. Even just a URL or something like “CD in hand” helps!') %]
+        </p>
 
         [% as_auto_editor(1) %]
       <!-- /ko -->

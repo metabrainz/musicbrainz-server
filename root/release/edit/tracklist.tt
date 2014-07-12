@@ -176,13 +176,15 @@
 </div>
 
 <div data-bind="with: rootField.release, affectsBubble: trackArtistBubble">
-  <!-- ko if: _.isEmpty(mediums()) -->
+  <!-- ko if: needsMediums -->
     <p>[% l('You haven\'t added any media yet. Click on the "Add Disc" button below to add one.') %]</p>
   <!-- /ko -->
 
-  <p class="error field-error" data-bind="showErrorWhenTabIsSwitched: mediums"></p>
+  <p class="error field-error" data-bind="showErrorWhenTabIsSwitched: needsMediums">
+    [% l('A release must contain at least one medium.') %]
+  </p>
 
-  <!-- ko if: !_.isEmpty(mediums()) && !_(mediums()).invoke("loading").any() &&
+  <!-- ko if: !needsMediums() && mediums().length === loadedMediums().length &&
               _(mediums()).invoke("toc").filter().size() < _($data.seededTocs).values().size() -->
     <div class="warning">
       <p>
@@ -223,7 +225,12 @@
           <button type="button" class="icon remove-item" title="[% l('Remove disc') %]" style="margin-left: 16px" data-click="removeMedium"></button>
         </td>
       </tr>
-      [% table_row_error(2, 'showErrorRightAway: formatID') %]
+
+      [% table_row_error(
+           2, 'showErrorRightAway: hasInvalidFormat',
+           l('This medium already has disc IDs, so you may only change the format to a format that can have disc IDs.')
+         )
+       %]
     </table>
 
     <!-- ko if: loading -->
@@ -243,7 +250,13 @@
     <!-- /ko -->
 
     <div data-bind="visible: loaded() && !collapsed()">
-      <p class="error field-error" style="padding: 1em" data-bind="showErrorWhenTabIsSwitched: tracks"></p>
+      <p class="error field-error" style="padding: 1em" data-bind="showErrorWhenTabIsSwitched: needsTracks">
+        [% l('A tracklist is required.') %]
+      </p>
+
+      <p class="error field-error" style="padding: 1em" data-bind="showErrorWhenTabIsSwitched: needsTrackInfo">
+        [% l('You must enter a title and select an artist for every track.') %]
+      </p>
 
       <table class="medium tbl">
         <thead>

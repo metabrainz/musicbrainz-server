@@ -1,7 +1,9 @@
-[% MACRO table_row_error(colspan, data_bind) BLOCK -%]
+[% MACRO table_row_error(colspan, data_bind, message) BLOCK -%]
   <tr class="error">
     <td></td>
-    <td colspan="[% colspan %]" class="error field-error" data-bind="[% data_bind %]"></td>
+    <td colspan="[% colspan %]" class="error field-error" data-bind="[% data_bind %]">
+      [% message IF message %]
+    </td>
   </tr>
 [%- END %]
 

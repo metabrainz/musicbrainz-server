@@ -169,7 +169,7 @@ ko.bindingHandlers.loop = {
                     continue;
                 }
 
-                var elementsToInsert, elementsToInsertBefore;
+                var elementsToInsert, elementsToInsertBefore, elementToInsertBefore;
                 if (currentElements.length === 1) {
                     elementsToInsert = currentElements[0];
                 } else {
@@ -179,8 +179,9 @@ ko.bindingHandlers.loop = {
                     }
                 }
 
-                if (nextItem && (elementsToInsertBefore = elements[nextItem[idAttribute]])) {
-                    parentNode.insertBefore(elementsToInsert, elementsToInsertBefore[0]);
+                if (nextItem && (elementsToInsertBefore = elements[nextItem[idAttribute]])
+                             && (parentNode.contains(elementToInsertBefore = elementsToInsertBefore[0]))) {
+                    parentNode.insertBefore(elementsToInsert, elementToInsertBefore);
                 } else {
                     parentNode.appendChild(elementsToInsert);
                 }
