@@ -23,6 +23,7 @@ $mech->default_header("Accept" => "application/xml");
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
+MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_alias');
 
 $mech->get('/ws/2/instrument/3590521b-8c97-4f4b-b1bb-5f68d3663d8a?inc=coffee');
 is($mech->status, 400);
@@ -49,7 +50,7 @@ ws_test 'instrument lookup, inc=aliases',
         <name>English horn</name>
         <alias-list count="2">
             <alias sort-name="English horn">English horn</alias>
-            <alias sort-name="cor anglais">cor anglais</alias>
+            <alias sort-name="cor anglais" primary="primary" locale="fr" type="Instrument name">cor anglais</alias>
         </alias-list>
     </instrument>
 </metadata>';
