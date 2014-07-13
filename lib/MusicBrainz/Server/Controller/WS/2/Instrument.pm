@@ -42,6 +42,8 @@ sub instrument_toplevel {
 
     my $opts = $stash->store($instrument);
 
+    $self->linked_instruments($c, $stash, [ $instrument ]);
+
     $c->model('InstrumentType')->load($instrument);
 
     $c->model('Instrument')->annotation->load_latest($instrument)
