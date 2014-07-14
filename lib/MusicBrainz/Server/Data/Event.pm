@@ -152,8 +152,8 @@ sub _merge_impl
                            new_id => $new_id
                         ));
 
-    merge_table_attributes(@merge_options, columns => [ qw( type ) ]);
-    merge_string_attributes(@merge_options, columns => [ qw( time setlist ) ]);
+    merge_table_attributes(@merge_options, columns => [ qw( time type ) ]);
+    merge_string_attributes(@merge_options, columns => [ qw( setlist ) ]);
     merge_partial_date(@merge_options, field => $_) for qw( begin_date end_date );
 
     $self->_delete_and_redirect_gids('event', $new_id, @old_ids);
