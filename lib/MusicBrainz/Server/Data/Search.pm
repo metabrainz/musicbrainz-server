@@ -166,13 +166,13 @@ sub search
         my ($join_sql, $where_sql)
             = ("JOIN ${type} entity ON r.name = entity.name", '');
 
-        if ($type eq 'release' && $where && exists $where->{track_count}) {
+        if ($type eq 'release' && $where && defined $where->{track_count}) {
             $join_sql .= ' JOIN medium ON medium.release = entity.id';
             $where_sql = 'WHERE medium.track_count = ?';
             push @where_args, $where->{track_count};
         }
         elsif ($type eq 'recording') {
-            if ($where && exists $where->{artist})
+            if ($where && defined $where->{artist})
             {
                 $join_sql .= " JOIN artist_credit ON artist_credit.id = entity.artist_credit";
                 $where_sql = 'WHERE artist_credit.name LIKE ?';
@@ -351,7 +351,7 @@ my %mapping = (
 
 sub schema_fixup_type {
     my ($self, $data, $type) = @_;
-    if (exists $data->{type} && $type ~~ [qw(area artist instrument label place series release-group work)]) {
+    if (defined $data->{type} && $type ~~ [qw(area artist instrument label place series release-group work)]) {
         my $type_model = $type;
         $type_model =~ s/-/_/g; # fix release-group to release_group
         my $prop = $type eq 'release-group' ? 'primary_type' : 'type';
@@ -369,7 +369,7 @@ sub schema_fixup
 
     return unless (ref($data) eq 'HASH');
 
-    if (exists $data->{id} && $type eq 'freedb')
+    if (defined $data->{id} && $type eq 'freedb')
     {
         $data->{discid} = $data->{id};
         delete $data->{name};
@@ -385,7 +385,7 @@ sub schema_fixup
 
     foreach my $k (keys %mapping)
     {
-        if (exists $data->{$k})
+        if (defined $data->{$k})
         {
             $data->{$mapping{$k}} = $data->{$k} if ($mapping{$k});
             delete $data->{$k};
@@ -393,24 +393,24 @@ sub schema_fixup
     }
 
     $data = $self->schema_fixup_type($data, $type);
-    if ($type eq 'place' && exists $data->{coordinates})
+    if ($type eq 'place' && defined $data->{coordinates})
     {
         $data->{coordinates} = MusicBrainz::Server::Entity::Coordinates->new( $data->{coordinates} );
     }
-    if (($type eq 'artist' || $type eq 'label' || $type eq 'area' || $type eq 'place') && exists $data->{'life-span'})
+    if (($type eq 'artist' || $type eq 'label' || $type eq 'area' || $type eq 'place') && defined $data->{'life-span'})
     {
         $data->{begin_date} = MusicBrainz::Server::Entity::PartialDate->new($data->{'life-span'}->{begin})
-            if (exists $data->{'life-span'}->{begin});
+            if (defined $data->{'life-span'}->{begin});
         $data->{end_date} = MusicBrainz::Server::Entity::PartialDate->new($data->{'life-span'}->{end})
-            if (exists $data->{'life-span'}->{end});
+            if (defined $data->{'life-span'}->{end});
         $data->{ended} = $data->{'life-span'}->{ended} eq 'true'
-            if exists $data->{'life-span'}->{ended};
+            if defined $data->{'life-span'}->{ended};
     }
     if ($type eq 'area') {
         for my $prop (qw( iso_3166_1 iso_3166_2 iso_3166_3 )) {
             my $json_prop = $prop . '-codes';
             $json_prop =~ s/_/-/g;
-            if (exists $data->{$json_prop}) {
+            if (defined $data->{$json_prop}) {
                 $data->{$prop} = $data->{$json_prop};
                 delete $data->{$json_prop};
             }
@@ -420,7 +420,7 @@ sub schema_fixup
         for my $prop (qw( area begin_area end_area )) {
             my $json_prop = $prop;
             $json_prop =~ s/_/-/;
-            if (exists $data->{$json_prop})
+            if (defined $data->{$json_prop})
             {
                 my $area = delete $data->{$json_prop};
                 $area->{gid} = $area->{id};
@@ -429,17 +429,17 @@ sub schema_fixup
             }
         }
     }
-    if ($type eq 'artist' && exists $data->{gender}) {
+    if ($type eq 'artist' && defined $data->{gender}) {
         $data->{gender} = MusicBrainz::Server::Entity::Gender->new( name => ucfirst($data->{gender}) );
     }
-    if ($type eq 'cdstub' && exists $data->{gid})
+    if ($type eq 'cdstub' && defined $data->{gid})
     {
         $data->{discid} = $data->{gid};
         delete $data->{gid};
         $data->{title} = $data->{name};
         delete $data->{name};
     }
-    if ($type eq 'annotation' && exists $data->{entity})
+    if ($type eq 'annotation' && defined $data->{entity})
     {
         my $parent_type = $data->{type};
         $parent_type =~ s/-/_/g;
@@ -448,15 +448,15 @@ sub schema_fixup
         delete $data->{entity};
         delete $data->{type};
     }
-    if ($type eq 'freedb' && exists $data->{name})
+    if ($type eq 'freedb' && defined $data->{name})
     {
         $data->{title} = $data->{name};
         delete $data->{name};
     }
     if (($type eq 'cdstub' || $type eq 'freedb')
-        && (exists $data->{"count"}))
+        && (defined $data->{"count"}))
     {
-        if (exists $data->{barcode})
+        if (defined $data->{barcode})
         {
             $data->{barcode} = MusicBrainz::Server::Entity::Barcode->new( $data->{barcode} );
         }
@@ -466,13 +466,13 @@ sub schema_fixup
     }
     if ($type eq 'release')
     {
-        if (exists $data->{"release-events"})
+        if (defined $data->{"release-events"})
         {
             $data->{events} = [];
             for my $release_event_data (@{$data->{"release-events"}})
             {
                 my $release_event = MusicBrainz::Server::Entity::ReleaseEvent->new(
-                    country => exists($release_event_data->{area}) ?
+                    country => defined($release_event_data->{area}) ?
                         MusicBrainz::Server::Entity::Area->new( gid => $release_event_data->{area}->{id},
                                                                 iso_3166_1 => $release_event_data->{area}->{"iso-3166-1-code-list"}->{"iso-3166-1-code"},
                                                                 name => $release_event_data->{area}->{name} )
@@ -483,19 +483,19 @@ sub schema_fixup
             }
             delete $data->{"release-events"};
         }
-        if (exists $data->{barcode})
+        if (defined $data->{barcode})
         {
             $data->{barcode} = MusicBrainz::Server::Entity::Barcode->new( $data->{barcode} );
         }
-        if (exists $data->{"text-representation"} &&
-            exists $data->{"text-representation"}->{language})
+        if (defined $data->{"text-representation"} &&
+            defined $data->{"text-representation"}->{language})
         {
             $data->{language} = MusicBrainz::Server::Entity::Language->new( {
                 iso_code_3 => $data->{"text-representation"}->{language}
             } );
         }
-        if (exists $data->{"text-representation"} &&
-            exists $data->{"text-representation"}->{script})
+        if (defined $data->{"text-representation"} &&
+            defined $data->{"text-representation"}->{script})
         {
             $data->{script} = MusicBrainz::Server::Entity::Script->new(
                     { iso_code => $data->{"text-representation"}->{script} }
@@ -517,7 +517,7 @@ sub schema_fixup
             ];
         }
 
-        if (exists $data->{"media"})
+        if (defined $data->{"media"})
         {
             $data->{mediums} = [];
             for my $medium_data (@{$data->{"media"}})
@@ -572,10 +572,10 @@ sub schema_fixup
         }
     }
     if ($type eq 'recording' &&
-        exists $data->{"releases"} &&
-        exists $data->{"releases"}->[0] &&
-        exists $data->{"releases"}->[0]->{"media"} &&
-        exists $data->{"releases"}->[0]->{"media"}->[0])
+        defined $data->{"releases"} &&
+        defined $data->{"releases"}->[0] &&
+        defined $data->{"releases"}->[0]->{"media"} &&
+        defined $data->{"releases"}->[0]->{"media"}->[0])
     {
         my @releases;
 
@@ -606,18 +606,18 @@ sub schema_fixup
         $data->{_extra} = \@releases;
     }
 
-    if ($type eq 'recording' && exists $data->{'isrcs'}) {
+    if ($type eq 'recording' && defined $data->{'isrcs'}) {
         $data->{isrcs} = [
             map { MusicBrainz::Server::Entity::ISRC->new( isrc => $_->{id} ) } @{ $data->{'isrcs'} }
         ];
     }
 
     if ($type eq 'recording') {
-        $data->{video} = exists $data->{video} && $data->{video} eq 'true';
+        $data->{video} = defined $data->{video} && $data->{video} eq 'true';
     }
 
-    if (exists $data->{"relations"} &&
-        exists $data->{"relations"}->[0])
+    if (defined $data->{"relations"} &&
+        defined $data->{"relations"}->[0])
     {
         my @relationships;
 
@@ -667,7 +667,7 @@ sub schema_fixup
 
     # BUG? On occasion an artist-credit object hash shows up nested inside an artist-credit array
     # for a recording search: recording[]>releases[]>media[]>track[]>artist-credit{}>artist-credit[]
-    if (exists $data->{'artist_credit'} &&
+    if (defined $data->{'artist_credit'} &&
         ref($data->{'artist_credit'}) eq 'ARRAY')
     {
         my @credits;
@@ -683,7 +683,7 @@ sub schema_fixup
     }
 
     if ($type eq 'work') {
-        if (exists $data->{relationships}) {
+        if (defined $data->{relationships}) {
             my %relationship_map = partition_by { $_->entity1->gid }
                 @{ $data->{relationships} };
 
@@ -698,13 +698,13 @@ sub schema_fixup
             ];
         }
 
-        if (exists $data->{language}) {
+        if (defined $data->{language}) {
             $data->{language} = MusicBrainz::Server::Entity::Language->new({
                 iso_code_3 => $data->{language}
             });
         }
 
-        if (exists $data->{'iswcs'}) {
+        if (defined $data->{'iswcs'}) {
             $data->{iswcs} = [
                 map {
                     MusicBrainz::Server::Entity::ISWC->new( iswc => $_ )
@@ -763,7 +763,7 @@ sub external_search
     }
     else
     {
-        $ua = LWP::UserAgent->new if (!exists $ua);
+        $ua = LWP::UserAgent->new if (!defined $ua);
     }
 
     $ua->timeout(5);
@@ -771,7 +771,7 @@ sub external_search
 
     # Dispatch the search request.
     my $response = get_chunked_with_retry($ua, $search_url);
-    if (!exists $response) {
+    if (!defined $response) {
         return { code => 500, error => 'We could not fetch the document from the search server. Please try again.' };
     }
     elsif (!$response->is_success)
@@ -867,10 +867,10 @@ sub combine_rules
     for my $key (keys %rules) {
         my $spec = $rules{$key};
         my $parameter = $spec->{parameter} || $key;
-        next unless exists $inputs->{$parameter};
+        next unless defined $inputs->{$parameter};
 
         my $input = $inputs->{$parameter};
-        next if exists $spec->{check} && !$spec->{check}->($input);
+        next if defined $spec->{check} && !$spec->{check}->($input);
 
         $input = escape_query($input) if $spec->{escape};
         my $process = $spec->{process} || sub { shift };
