@@ -623,7 +623,8 @@ sub schema_fixup
 
         foreach my $rel (@{ $data->{"relation-list"} })
         {
-            my $entity_type = $rel_group->{'target-type'};
+            # BUG: jsonnew doesn't provide a target-type here, lets make one up
+            my $entity_type = 'artist';
 
             my %entity = %{ $rel->{$entity_type} };
 
@@ -664,7 +665,10 @@ sub schema_fixup
         }
     }
 
-    if (exists $data->{'artist_credit'})
+    # BUG? On occasion an artist-credit object hash shows up nested inside an artist-credit array
+    # for a recording search: recording[]>releases[]>media[]>track[]>artist-credit{}>artist-credit[]
+    if (exists $data->{'artist_credit'} &&
+        ref($data->{'artist_credit'}) eq 'ARRAY')
     {
         my @credits;
         foreach my $namecredit (@{$data->{"artist_credit"}})
