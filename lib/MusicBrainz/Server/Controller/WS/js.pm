@@ -10,6 +10,7 @@ use List::UtilsBy qw( uniq_by );
 use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Filters;
 use MusicBrainz::Server::Data::Search qw( escape_query alias_query );
+use MusicBrainz::Server::Constants qw( entities_with );
 use MusicBrainz::Server::Validation qw( is_guid );
 use Readonly;
 use Text::Trim;
@@ -46,22 +47,6 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      defs => $ws_defs,
      version => 'js',
 };
-
-sub entities {
-    return {
-        'Artist' => 'artist',
-        'Work' => 'work',
-        'Recording' => 'recording',
-        'ReleaseGroup' => 'release-group',
-        'Release' => 'release',
-        'Label' => 'label',
-        'URL' => 'url',
-        'Area' => 'area',
-        'Place' => 'place',
-        'Instrument' => 'instrument',
-        'Series' => 'series',
-    };
-}
 
 sub medium : Chained('root') PathPart Args(1) {
     my ($self, $c, $id) = @_;
@@ -308,7 +293,7 @@ sub entity : Chained('root') PathPart('entity') Args(1)
 
     my $entity;
     my $type;
-    for (keys %{ $self->entities }) {
+    for (entities_with(['mbid', 'relatable'], take => 'model')) {
         $type = $_;
         $entity = $c->model($type)->get_by_gid($gid);
         last if defined $entity;
