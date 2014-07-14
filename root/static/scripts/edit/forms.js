@@ -169,7 +169,7 @@ ko.bindingHandlers.loop = {
                     continue;
                 }
 
-                var elementsToInsert, elementsToInsertBefore, elementToInsertBefore;
+                var elementsToInsert, elementsToInsertBefore;
                 if (currentElements.length === 1) {
                     elementsToInsert = currentElements[0];
                 } else {
@@ -179,9 +179,23 @@ ko.bindingHandlers.loop = {
                     }
                 }
 
+                /* The conditional here guards against three things:
+
+                   (1) That nextItem will be undefined if it's the last item
+                       in the array.
+
+                   (2) That nextItem won't have elements associated with it
+                       if they haven't been created yet (obviously), which is
+                       always the case when things are being rendered for the
+                       first time (sequentially).
+
+                   (3) That nextItem's elements won't exist on the page if
+                       they were previously removed, but haven't been purged
+                       from `elements` yet (below).
+                */
                 if (nextItem && (elementsToInsertBefore = elements[nextItem[idAttribute]])
-                             && (parentNode.contains(elementToInsertBefore = elementsToInsertBefore[0]))) {
-                    parentNode.insertBefore(elementsToInsert, elementToInsertBefore);
+                             && (parentNode.contains(elementsToInsertBefore[0]))) {
+                    parentNode.insertBefore(elementsToInsert, elementsToInsertBefore[0]);
                 } else {
                     parentNode.appendChild(elementsToInsert);
                 }
