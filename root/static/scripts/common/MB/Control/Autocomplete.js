@@ -78,7 +78,6 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         this.totalPages = 1;
         this.pageTerm = "";
         this.indexedSearch = true;
-        this.changeEntity(this.options.entity);
 
         this.setObservable(
             this.options.currentSelection || ko.observable({
@@ -455,6 +454,9 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
 
     changeEntity: function (entity) {
         this.entity = entity.replace("_", "-");
+        if (entity === "event") {
+            this.indexedSearch = false;
+        }
     },
 
     recentEntities: function () {
