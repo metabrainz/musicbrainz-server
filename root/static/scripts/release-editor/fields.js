@@ -211,9 +211,9 @@
             var self = this;
 
             this.needsRecordings = this.tracks.any("needsRecording");
-            this.tracksAreComplete = this.tracks.all("hasNameAndArtist");
+            this.hasTrackInfo = this.tracks.all("hasNameAndArtist");
             this.hasVariousArtistTracks = this.tracks.any("hasVariousArtists");
-            this.needsTrackInfo = ko.computed(function () { return !self.tracksAreComplete() });
+            this.needsTrackInfo = ko.computed(function () { return !self.hasTrackInfo() });
 
             $.extend(this, _.pick(data, "id", "originalID"));
 
@@ -597,13 +597,13 @@
             this.original = ko.observable(MB.edit.fields.release(this));
 
             this.loadedMediums = this.mediums.filter("loaded");
-            this.tracksAreComplete = this.loadedMediums.all("tracksAreComplete");
+            this.hasTrackInfo = this.loadedMediums.all("hasTrackInfo");
             this.hasTracks = this.mediums.any("hasTracks");
             this.needsRecordings = errorField(this.mediums.any("needsRecordings"));
             this.hasInvalidFormats = errorField(this.mediums.any("hasInvalidFormat"));
             this.needsMediums = errorField(function () { return !self.mediums().length });
             this.needsTracks = errorField(function () { return !self.hasTracks() });
-            this.needsTrackInfo = errorField(function () { return !self.tracksAreComplete() });
+            this.needsTrackInfo = errorField(function () { return !self.hasTrackInfo() });
 
             // Ensure there's at least one event, label, and medium to edit.
 
