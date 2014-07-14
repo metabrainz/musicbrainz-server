@@ -13,6 +13,7 @@
     [l('Works'), work_tags, work_count, '/tag/work', 'works', N_ln('See all {num} works', 'See all {num} works')],
     [l('Labels'), label_tags, label_count, '/tag/label', 'labels', N_ln('See all {num} labels', 'See all {num} labels')],
     [l('Places'), place_tags, place_count, '/tag/place', 'places', N_ln('See all {num} places', 'See all {num} places')],
+    [l('Events'), event_tags, event_count, '/tag/event', 'events', N_ln('See all {num} events', 'See all {num} events')],
 ] %]
     [% IF section.1.size %]
         <h2>[% section.0 %]</h2>

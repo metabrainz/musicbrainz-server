@@ -1,6 +1,7 @@
 [%- info_links = [
     ['index', link_event(event, 'show', l('Overview'))],
     ['aliases', link_event(event, 'aliases', l('Aliases'))],
+    ['tags', link_event(event, 'tags', l('Tags'))],
     ['details', link_event(event, 'details', l('Details'))],
     ['edit', link_event(event, 'edit', l('Edit'))],
 ] -%]
