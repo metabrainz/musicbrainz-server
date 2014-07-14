@@ -41,9 +41,9 @@ sub _table
 
 sub _columns
 {
-    return 'area.id, gid, area.name, area.comment, area.type, ' .
-           'area.edits_pending, begin_date_year, begin_date_month, begin_date_day, ' .
-           'end_date_year, end_date_month, end_date_day, ended, area.last_updated, ' .
+    return 'area.id, area.gid, area.name, area.comment, area.type, ' .
+           'area.edits_pending, area.begin_date_year, area.begin_date_month, area.begin_date_day, ' .
+           'area.end_date_year, area.end_date_month, area.end_date_day, area.ended, area.last_updated, ' .
            'iso_3166_1s.codes AS iso_3166_1, iso_3166_2s.codes AS iso_3166_2, ' .
            'iso_3166_3s.codes AS iso_3166_3';
 }
