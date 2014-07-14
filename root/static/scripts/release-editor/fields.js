@@ -453,7 +453,7 @@
             this.barcode = ko.observable(data);
             this.message = ko.observable("");
             this.confirmed = ko.observable(false);
-            this.error = ko.observable("");
+            this.error = validation.errorField(ko.observable(""));
 
             this.value = ko.computed({
                 read: this.barcode,
@@ -510,11 +510,12 @@
             $.extend(this, _.pick(data, "trackCounts", "formats", "countryCodes"));
 
             var self = this;
+            var errorField = validation.errorField;
             var currentName = data.name;
 
             this.gid = ko.observable(data.gid);
             this.name = ko.observable(currentName);
-            this.needsName = ko.observable(!currentName);
+            this.needsName = errorField(ko.observable(!currentName));
 
             this.name.subscribe(function (newName) {
                 var releaseGroup = self.releaseGroup();
@@ -531,7 +532,7 @@
             this.artistCredit = fields.ArtistCredit(data.artistCredit);
             this.artistCredit.saved = fields.ArtistCredit(data.artistCredit);
 
-            this.needsArtistCredit = ko.computed(function () {
+            this.needsArtistCredit = errorField(function () {
                 return !self.artistCredit.isComplete();
             });
 
@@ -561,8 +562,8 @@
                 });
             });
 
-            this.hasDuplicateCountries = this.events.any("isDuplicate");
-            this.hasInvalidDates = this.events.any("hasInvalidDate");
+            this.hasDuplicateCountries = errorField(this.events.any("isDuplicate"));
+            this.hasInvalidDates = errorField(this.events.any("hasInvalidDate"));
 
             this.labels = ko.observableArray(
                 utils.mapChild(this, data.labels, fields.ReleaseLabel)
@@ -572,7 +573,7 @@
                 _.map(this.labels.peek(), MB.edit.fields.releaseLabel)
             );
 
-            this.needsLabels = this.labels.any("needsLabel");
+            this.needsLabels = errorField(this.labels.any("needsLabel"));
 
             this.releaseGroup = ko.observable(
                 fields.ReleaseGroup(data.releaseGroup || {})
@@ -582,6 +583,10 @@
                 if (releaseGroup.artistCredit && !self.artistCredit.text()) {
                     self.artistCredit.setNames(releaseGroup.artistCredit.names);
                 }
+            });
+
+            this.needsReleaseGroup = errorField(function () {
+                return releaseEditor.action === "edit" && !self.releaseGroup().gid;
             });
 
             this.mediums = ko.observableArray(
@@ -594,8 +599,11 @@
             this.loadedMediums = this.mediums.filter("loaded");
             this.tracksAreComplete = this.loadedMediums.all("tracksAreComplete");
             this.hasTracks = this.mediums.any("hasTracks");
-            this.needsRecordings = this.mediums.any("needsRecordings");
-            this.hasInvalidFormats = this.mediums.any("hasInvalidFormat");
+            this.needsRecordings = errorField(this.mediums.any("needsRecordings"));
+            this.hasInvalidFormats = errorField(this.mediums.any("hasInvalidFormat"));
+            this.needsMediums = errorField(function () { return !self.mediums().length });
+            this.needsTracks = errorField(function () { return !self.hasTracks() });
+            this.needsTrackInfo = errorField(function () { return !self.tracksAreComplete() });
 
             // Ensure there's at least one event, label, and medium to edit.
 
@@ -618,16 +626,8 @@
                 sourceData: data
             });
 
-            this.hasInvalidLinks = this.externalLinks.links.any("error");
+            this.hasInvalidLinks = errorField(this.externalLinks.links.any("error"));
         },
-
-        needsReleaseGroup: function () {
-            return releaseEditor.action === "edit" && !this.releaseGroup().gid;
-        },
-
-        needsMediums: function () { return !this.mediums().length },
-        needsTracks: function () { return !this.hasTracks() },
-        needsTrackInfo: function () { return !this.tracksAreComplete() },
 
         loadMedia: function () {
             var mediums = this.mediums();

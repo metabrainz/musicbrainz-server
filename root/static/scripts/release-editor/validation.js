@@ -10,25 +10,22 @@
 
 
     var releaseField = ko.observable().subscribeTo("releaseField", true);
+    var errorFields = validation.errorFields = ko.observableArray([]);
 
 
-    validation.errorsExist = utils.withRelease(function (release) {
-        return (
-               release.needsName()
-            || release.needsReleaseGroup()
-            || release.needsArtistCredit()
-            || release.hasInvalidDates()
-            || release.hasDuplicateCountries()
-            || release.needsLabels()
-            || release.barcode.error()
-            || release.hasInvalidLinks()
-            || release.needsMediums()
-            || release.hasInvalidFormats()
-            || release.needsTracks()
-            || release.needsTrackInfo()
-            || release.needsRecordings()
-        );
-    }, false);
+    validation.errorField = function (func) {
+        var observable = ko.isObservable(func) ? func : ko.computed(func);
+        errorFields.push(observable);
+        return observable;
+    };
+
+    validation.errorsExist = ko.computed(function () {
+        var fields = errorFields();
+        for (var i = 0, len = fields.length; i < len; i++) {
+            if (fields[i]()) return true;
+        }
+        return false;
+    });
 
 
     function markTabWithErrors($panel) {
