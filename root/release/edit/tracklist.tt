@@ -12,22 +12,22 @@
 
   <label>
     <input type="checkbox" data-bind="checked: $root.trackParser.options.trackArtists" />
-    [% l('Parse track artists') %]
+    [%= l('Parse track artists') %]
   </label>
   <br />
   <label>
     <input type="checkbox" data-bind="checked: $root.trackParser.options.trackNumbers" />
-    [% l('Lines start with a track number') %]
+    [%= l('Lines start with a track number') %]
   </label>
   <br />
   <label>
     <input type="checkbox" data-bind="checked: $root.trackParser.options.vinylNumbers" />
-    [% l('Enable vinyl track numbers') %]
+    [%= l('Enable vinyl track numbers') %]
   </label>
   <br />
   <label>
     <input type="checkbox" data-bind="checked: $root.trackParser.options.trackTimes" />
-    [% l('Detect track durations') %]
+    [%= l('Detect track durations') %]
   </label>
 </script>
 
@@ -80,7 +80,7 @@
     <div class="search-result">
       <a class="icon" href="#" data-click="toggle">
         <span class="ui-icon" data-bind="css: { 'ui-icon-triangle-1-e': !expanded(), 'ui-icon-triangle-1-s': expanded() }">
-          [%- l("Expand") -%]
+          [%~ l("Expand") ~%]
         </span>
         <bdi data-bind="text: name"></bdi>
       </a>
@@ -115,7 +115,7 @@
 
     <!-- ko if: expanded() && loading() -->
       <p class="loading-message">
-        [% l('Now loading tracklist...') %]
+        [%~ l('Now loading tracklist...') ~%]
       </p>
     <!-- /ko -->
 
@@ -149,23 +149,17 @@
   </div>
 
   <div id="add-disc-medium">
-    <p>
-      [% l('Use the following fields to search for an existing tracklist.') %]
-    </p>
+    <p>[% l('Use the following fields to search for an existing tracklist.') %]</p>
     <!-- ko template: { name: "template.medium-search", data: mediumSearch } --><!-- /ko -->
   </div>
 
   <div id="add-disc-cdstub">
-    <p>
-      [% l('Use the following fields to search for a CD stub.') %]
-    </p>
+    <p>[% l('Use the following fields to search for a CD stub.') %]</p>
     <!-- ko template: { name: "template.medium-search", data: cdstubSearch } --><!-- /ko -->
   </div>
 
   <div id="add-disc-freedb">
-    <p>
-      [% l('Use the following fields to search for a FreeDB entry.') %]
-    </p>
+    <p>[% l('Use the following fields to search for a FreeDB entry.') %]</p>
     <!-- ko template: { name: "template.medium-search", data: freedbSearch } --><!-- /ko -->
   </div>
 
@@ -181,14 +175,14 @@
   <!-- /ko -->
 
   <p class="error field-error" data-bind="showErrorWhenTabIsSwitched: needsMediums">
-    [% l('A release must contain at least one medium.') %]
+    [%~ l('A release must contain at least one medium.') ~%]
   </p>
 
   <!-- ko if: !needsMediums() && mediums().length === loadedMediums().length &&
               _(mediums()).invoke("toc").filter().size() < _($data.seededTocs).values().size() -->
     <div class="warning">
       <p>
-        [% l('You’ve seeded some Disc IDs that aren’t matched to any medium. If this is wrong, use the “Attach Disc ID” options below.') %]
+        [%~ l('You’ve seeded some Disc IDs that aren’t matched to any medium. If this is wrong, use the “Attach Disc ID” options below.') ~%]
       </p>
     </div>
   <!-- /ko -->
@@ -226,7 +220,7 @@
         </td>
       </tr>
 
-      [% table_row_error(
+      [%- table_row_error(
            2, 'showErrorRightAway: hasInvalidFormat',
            l('This medium already has disc IDs, so you may only change the format to a format that can have disc IDs.')
          )
@@ -251,11 +245,11 @@
 
     <div data-bind="visible: loaded() && !collapsed()">
       <p class="error field-error" style="padding: 1em" data-bind="showErrorWhenTabIsSwitched: needsTracks">
-        [% l('A tracklist is required.') %]
+        [%~ l('A tracklist is required.') ~%]
       </p>
 
       <p class="error field-error" style="padding: 1em" data-bind="showErrorWhenTabIsSwitched: needsTrackInfo">
-        [% l('You must enter a title and select an artist for every track.') %]
+        [%~ l('You must enter a title and select an artist for every track.') ~%]
       </p>
 
       <table class="medium tbl">

@@ -4,7 +4,7 @@
 
     <p data-bind="ifnot: _.isEmpty(tracksWithUnsetPreviousRecordings())">
       <button class="styled-button" data-click="reuseUnsetPreviousRecordings">
-        [% l('Reuse previous recordings') | html %]
+        [%~ l('Reuse previous recordings') | html ~%]
       </button>
     </p>
   </div>

@@ -2,7 +2,7 @@
   <tr class="error">
     <td></td>
     <td colspan="[% colspan %]" class="error field-error" data-bind="[% data_bind %]">
-      [% message IF message %]
+      [%~ message IF message ~%]
     </td>
   </tr>
 [%- END %]
