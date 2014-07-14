@@ -379,6 +379,10 @@ sub schema_fixup
     $data->{gid} = $data->{id};
     $data->{id} = 1;
 
+    # MusicBrainz::Server::Entity::Role::Taggable expects 'tags' to contain an ArrayRef[AggregatedTag].
+    # If tags are required in search results they will need to be listed under a different key value.
+    delete $data->{tags};
+
     foreach my $k (keys %mapping)
     {
         if (exists $data->{$k})
@@ -404,11 +408,10 @@ sub schema_fixup
     }
     if ($type eq 'area') {
         for my $prop (qw( iso_3166_1 iso_3166_2 iso_3166_3 )) {
-            my $json_subprop = $prop . '-code';
-            $json_subprop =~ s/_/-/g;
-            my $json_prop = $json_subprop . '-list';
+            my $json_prop = $prop . '-codes';
+            $json_prop =~ s/_/-/g;
             if (exists $data->{$json_prop}) {
-                $data->{$prop} = $data->{$json_prop}->{$json_subprop};
+                $data->{$prop} = $data->{$json_prop};
                 delete $data->{$json_prop};
             }
         }
@@ -451,26 +454,25 @@ sub schema_fixup
         delete $data->{name};
     }
     if (($type eq 'cdstub' || $type eq 'freedb')
-        && (exists $data->{"track-list"} && exists $data->{"track-list"}->{count}))
+        && (exists $data->{"count"}))
     {
         if (exists $data->{barcode})
         {
             $data->{barcode} = MusicBrainz::Server::Entity::Barcode->new( $data->{barcode} );
         }
 
-        $data->{track_count} = $data->{"track-list"}->{count};
-        delete $data->{"track-list"}->{count};
+        $data->{track_count} = $data->{"count"};
+        delete $data->{"count"};
     }
     if ($type eq 'release')
     {
-        if (exists $data->{"release-event-list"} &&
-            exists $data->{"release-event-list"}->{"release-event"})
+        if (exists $data->{"release-events"})
         {
             $data->{events} = [];
-            for my $release_event_data (@{$data->{"release-event-list"}->{"release-event"}})
+            for my $release_event_data (@{$data->{"release-events"}})
             {
                 my $release_event = MusicBrainz::Server::Entity::ReleaseEvent->new(
-                    country => defined($release_event_data->{area}) ?
+                    country => exists($release_event_data->{area}) ?
                         MusicBrainz::Server::Entity::Area->new( gid => $release_event_data->{area}->{id},
                                                                 iso_3166_1 => $release_event_data->{area}->{"iso-3166-1-code-list"}->{"iso-3166-1-code"},
                                                                 name => $release_event_data->{area}->{name} )
@@ -479,7 +481,7 @@ sub schema_fixup
 
                 push @{$data->{events}}, $release_event;
             }
-            delete $data->{"release-event-list"};
+            delete $data->{"release-events"};
         }
         if (exists $data->{barcode})
         {
@@ -500,30 +502,29 @@ sub schema_fixup
             );
         }
 
-        if ($data->{'label-info-list'}) {
+        if ($data->{'label-info'}) {
             $data->{labels} = [
                 map {
                     MusicBrainz::Server::Entity::ReleaseLabel->new(
-                        label => $_->{label} &&
+                        label => $_->{label}->{id} &&
                             MusicBrainz::Server::Entity::Label->new(
-                                name => $_->{label}{name},
-                                gid => $_->{label}{id}
+                                name => $_->{label}->{name},
+                                gid => $_->{label}->{id}
                             ),
                         catalog_number => $_->{'catalog-number'}
                     )
-                } @{ $data->{'label-info-list'}{'label-info'} // [] }
+                } @{ $data->{'label-info'}}
             ];
         }
 
-        if (exists $data->{"medium-list"} &&
-            exists $data->{"medium-list"}->{medium})
+        if (exists $data->{"media"})
         {
             $data->{mediums} = [];
-            for my $medium_data (@{$data->{"medium-list"}->{medium}})
+            for my $medium_data (@{$data->{"media"}})
             {
                 my $format = $medium_data->{format};
                 my $medium = MusicBrainz::Server::Entity::Medium->new(
-                    track_count => $medium_data->{"track-list"}->{"count"},
+                    track_count => $medium_data->{"track-count"},
                     format => $format &&
                         MusicBrainz::Server::Entity::MediumFormat->new(
                             name => $format
@@ -532,7 +533,7 @@ sub schema_fixup
 
                 push @{$data->{mediums}}, $medium;
             }
-            delete $data->{"medium-list"};
+            delete $data->{"media"};
         }
 
         my $release_group = delete $data->{'release-group'};
@@ -545,13 +546,13 @@ sub schema_fixup
                 );
         }
 
-        if ($release_group->{'secondary-type-list'}) {
+        if ($release_group->{'secondary-types'}) {
             $rg_args{secondary_types} = [
                 map {
                     MusicBrainz::Server::Entity::ReleaseGroupSecondaryType->new(
                         name => $_
                     )
-                } @{ $release_group->{'secondary-type-list'}{'secondary-type'} }
+                } @{ $release_group->{'secondary-types'} }
             ]
         }
 
@@ -571,20 +572,20 @@ sub schema_fixup
         }
     }
     if ($type eq 'recording' &&
-        exists $data->{"release-list"} &&
-        exists $data->{"release-list"}->{release}->[0] &&
-        exists $data->{"release-list"}->{release}->[0]->{"medium-list"} &&
-        exists $data->{"release-list"}->{release}->[0]->{"medium-list"}->{medium})
+        exists $data->{"releases"} &&
+        exists $data->{"releases"}->[0] &&
+        exists $data->{"releases"}->[0]->{"media"} &&
+        exists $data->{"releases"}->[0]->{"media"}->[0])
     {
         my @releases;
 
-        foreach my $release (@{$data->{"release-list"}->{release}})
+        foreach my $release (@{$data->{"releases"}})
         {
             my $medium = MusicBrainz::Server::Entity::Medium->new(
-                position  => $release->{"medium-list"}->{medium}->[0]->{"position"},
-                track_count => $release->{"medium-list"}->{medium}->[0]->{"track-list"}->{"count"},
+                position  => $release->{"media"}->[0]->{"position"},
+                track_count => $release->{"media"}->[0]->{"track-count"},
                 tracks => [ MusicBrainz::Server::Entity::Track->new(
-                    position => $release->{"medium-list"}->{medium}->[0]->{"track-list"}->{"offset"} + 1,
+                    position => $release->{"media"}->[0]->{"track-offset"} + 1,
                     recording => MusicBrainz::Server::Entity::Recording->new(
                         gid => $data->{gid}
                     )
@@ -592,7 +593,7 @@ sub schema_fixup
             );
             my $release_group = MusicBrainz::Server::Entity::ReleaseGroup->new(
                 primary_type => MusicBrainz::Server::Entity::ReleaseGroupType->new(
-                    name => $release->{"release-group"}->{type} || ''
+                    name => $release->{"release-group"}->{"primary-type"} || ''
                 )
             );
             push @releases, MusicBrainz::Server::Entity::Release->new(
@@ -605,47 +606,43 @@ sub schema_fixup
         $data->{_extra} = \@releases;
     }
 
-    if ($type eq 'recording' && exists $data->{'isrc-list'}) {
+    if ($type eq 'recording' && exists $data->{'isrcs'}) {
         $data->{isrcs} = [
-            map { MusicBrainz::Server::Entity::ISRC->new( isrc => $_->{id} ) } @{ $data->{'isrc-list'}{'isrc'} }
+            map { MusicBrainz::Server::Entity::ISRC->new( isrc => $_->{id} ) } @{ $data->{'isrcs'} }
         ];
     }
 
     if ($type eq 'recording') {
-        $data->{video} = defined $data->{video} && $data->{video} eq 'true';
+        $data->{video} = exists $data->{video} && $data->{video} eq 'true';
     }
 
-    if (exists $data->{"relation-list"} &&
-        exists $data->{"relation-list"}->[0] &&
-        exists $data->{"relation-list"}->[0]->{"relation"})
+    if (exists $data->{"relations"} &&
+        exists $data->{"relations"}->[0])
     {
         my @relationships;
 
-        foreach my $rel_group (@{ $data->{"relation-list"} })
+        foreach my $rel (@{ $data->{"relation-list"} })
         {
             my $entity_type = $rel_group->{'target-type'};
 
-            foreach my $rel (@{ $rel_group->{"relation"} })
-            {
-                my %entity = %{ $rel->{$entity_type} };
+            my %entity = %{ $rel->{$entity_type} };
 
-                # The search server returns the MBID in the 'id' attribute, so we
-                # need to rename that.
-                $entity{gid} = delete $entity{id};
-                %entity = %{ $self->schema_fixup_type(\%entity, $entity_type) };
+            # The search server returns the MBID in the 'id' attribute, so we
+            # need to rename that.
+            $entity{gid} = delete $entity{id};
+            %entity = %{ $self->schema_fixup_type(\%entity, $entity_type) };
 
-                my $entity = $self->c->model( type_to_model ($entity_type) )->
-                    _entity_class->new(%entity);
+            my $entity = $self->c->model( type_to_model ($entity_type) )->
+                _entity_class->new(%entity);
 
-                push @relationships, MusicBrainz::Server::Entity::Relationship->new(
-                    entity1 => $entity,
-                    link => MusicBrainz::Server::Entity::Link->new(
-                        type => MusicBrainz::Server::Entity::LinkType->new(
-                            name => $rel->{type}
-                        )
+            push @relationships, MusicBrainz::Server::Entity::Relationship->new(
+                entity1 => $entity,
+                link => MusicBrainz::Server::Entity::Link->new(
+                    type => MusicBrainz::Server::Entity::LinkType->new(
+                        name => $rel->{type}
                     )
-                );
-            }
+                )
+            );
         }
 
         $data->{relationships} = \@relationships;
@@ -670,7 +667,7 @@ sub schema_fixup
     if (exists $data->{'artist_credit'})
     {
         my @credits;
-        foreach my $namecredit (@{$data->{"artist_credit"}->{"name-credit"}})
+        foreach my $namecredit (@{$data->{"artist_credit"}})
         {
             my $artist = MusicBrainz::Server::Entity::Artist->new($namecredit->{artist});
             push @credits, MusicBrainz::Server::Entity::ArtistCreditName->new( {
@@ -703,11 +700,11 @@ sub schema_fixup
             });
         }
 
-        if (exists $data->{'iswc-list'}) {
+        if (exists $data->{'iswcs'}) {
             $data->{iswcs} = [
                 map {
                     MusicBrainz::Server::Entity::ISWC->new( iswc => $_ )
-                } @{ $data->{'iswc-list'}{iswc} }
+                } @{ $data->{'iswcs'} }
             ]
         }
     }
@@ -747,7 +744,7 @@ sub external_search
 
     $query = uri_escape_utf8($query);
     $type =~ s/release_group/release-group/;
-    my $search_url = sprintf("http://%s/ws/2/%s/?query=%s&offset=%s&max=%s&fmt=json&dismax=%s",
+    my $search_url = sprintf("http://%s/ws/2/%s/?query=%s&offset=%s&max=%s&fmt=jsonnew&dismax=%s",
                                  DBDefs->LUCENE_SERVER,
                                  $type,
                                  $query,
@@ -762,7 +759,7 @@ sub external_search
     }
     else
     {
-        $ua = LWP::UserAgent->new if (!defined $ua);
+        $ua = LWP::UserAgent->new if (!exists $ua);
     }
 
     $ua->timeout(5);
@@ -770,7 +767,7 @@ sub external_search
 
     # Dispatch the search request.
     my $response = get_chunked_with_retry($ua, $search_url);
-    if (!defined $response) {
+    if (!exists $response) {
         return { code => 500, error => 'We could not fetch the document from the search server. Please try again.' };
     }
     elsif (!$response->is_success)
@@ -805,13 +802,22 @@ sub external_search
 
         my @results;
         my $xmltype = $type;
-        $xmltype =~ s/freedb/freedb-disc/;
         my $pos = 0;
         my $last_updated = $data->{created} ?
             DateTime::Format::ISO8601->parse_datetime($data->{created}) :
             undef;
 
-        foreach my $t (@{$data->{"$xmltype-list"}->{$xmltype}})
+        # Use types as provided by jsonnew format
+        $xmltype =~ s/annotation/annotations/;
+        $xmltype =~ s/area/areas/;
+        $xmltype =~ s/cdstub/cdstubs/;
+        $xmltype =~ s/freedb/freedb-discs/;
+        $xmltype =~ s/label/labels/;
+        $xmltype =~ s/place/places/;
+        $xmltype =~ s/release$/releases/;
+        $xmltype =~ s/release-group/release-groups/;
+
+        foreach my $t (@{$data->{$xmltype}})
         {
             $self->schema_fixup($t, $type);
             push @results, MusicBrainz::Server::Entity::SearchResult->new(
@@ -821,7 +827,7 @@ sub external_search
                     extra  => $t->{_extra} || []   # Not all data fits into the object model, this is for those cases
                 );
         }
-        my ($total_hits) = $data->{"$xmltype-list"}->{count};
+        my ($total_hits) = $data->{count};
 
         # If the user searches for annotations, they will get the results in wikiformat - we need to
         # convert this to HTML.
