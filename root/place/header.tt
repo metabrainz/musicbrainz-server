@@ -1,5 +1,6 @@
 [%- info_links = [
     ['index', link_place(place, 'show', l('Overview'))],
+    ['events', link_place(place, 'events', l('Events'))],
     ['performances', link_place(place, 'performances', l('Performances'))],
     ['aliases', link_place(place, 'aliases', l('Aliases'))],
     ['tags', link_place(place, 'tags', l('Tags'))],
