@@ -29,6 +29,7 @@ my %serializers =
         CDStubTOC
         CDTOC
         Collection
+        Event
         Instrument
         Label
         Place

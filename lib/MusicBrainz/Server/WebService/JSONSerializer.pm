@@ -52,6 +52,7 @@ sub release_group_list { shift->entity_list(@_, "release-group", "release-groups
 sub work_list          { shift->entity_list(@_, "work", "works") };
 sub area_list          { shift->entity_list(@_, "area", "areas") };
 sub place_list         { shift->entity_list(@_, "place", "places") };
+sub event_list         { shift->entity_list(@_, "event", "events") };
 
 sub serialize_release
 {
@@ -629,6 +630,47 @@ sub _instrument {
         comment => $instrument->comment,
         description => $instrument->l_description,
         $instrument->type ? (typeName => $instrument->type->name) : (),
+    };
+}
+
+sub autocomplete_event
+{
+    my ($self, $results, $pager) = @_;
+
+    my $output = _with_primary_alias(
+        $results,
+        sub {
+            my $result = shift;
+
+            my $out = $self->_event( $result->{entity} );
+            $out->{related_entities} = $result->{related_entities};
+
+            return $out;
+        }
+    );
+
+    push @$output, {
+        pages => $pager->last_page,
+        current => $pager->current_page
+    } if $pager;
+
+    return encode_json($output);
+}
+
+sub _event {
+    my ($self, $event) = @_;
+
+    return {
+        entityType => "event",
+        name    => $event->name,
+        id      => $event->id,
+        gid     => $event->gid,
+        typeID  => $event->type_id,
+        comment => $event->comment,
+        $event->type ? (typeName => $event->type->name) : (),
+        begin_date => $event->begin_date->format,
+        end_date   => $event->end_date->format,
+        time       => $event->formatted_time,
     };
 }
 
