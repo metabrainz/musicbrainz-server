@@ -12,8 +12,8 @@
       <th>[% l('Event') %]</th>
       <th>[% l('Type') %]</th>
       <th>[% l('Artists') %]</th>
-      <th>[% l('Begin') %]</th>
-      <th>[% l('End') %]</th>
+      <th>[% l('Location') %]</th>
+      <th>[% l('Date') %]</th>
       <th>[% l('Time') %]</th>
       [% UNLESS no_ratings %]
       <th>[% l('Rating') %]</th>
@@ -49,8 +49,25 @@
           [% END %]
         </ul>
       </td>
-      <td>[% event.begin_date.format %]</td>
-      <td>[% event.end_date.format %]</td>
+      <td>
+        <ul>
+          [% FOR rel_place=event.locations %]
+            <li>
+              [% l('{place}', { place => link_place(rel_place.entity) }) %]
+            </li>
+          [% END %]
+        </ul>
+      </td>
+      [%- IF event.begin_date.format == event.end_date.format %]
+          <td>[% event.begin_date.format %]</td>
+      [%- ELSIF event.begin_date.format && event.end_date.format %]
+          <td>[% l('{begindate} – {enddate}', { begindate => event.begin_date.format,
+                                                enddate   => event.end_date.format }) %]</td>
+      [% ELSIF event.begin_date.format %]
+          <td>[% l('{begindate} – ????', { begindate => event.begin_date.format }) %]</td>
+      [% ELSIF event.end_date.format %]
+          <td>[% l('???? – {enddate}', { enddate   => event.end_date.format }) %]</td>
+      [%- END -%]
       <td>[% event.formatted_time %]</td>
       [% UNLESS no_ratings %]
       <td>[% rating_stars(event) %]</td>

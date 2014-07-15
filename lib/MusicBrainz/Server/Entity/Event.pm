@@ -81,6 +81,21 @@ has 'performers' => (
     }
 );
 
+has 'locations' => (
+    traits => [ 'Array' ],
+    is => 'ro',
+    isa => ArrayRef[
+        Dict[
+            entity => Object
+        ]
+    ],
+    default => sub { [] },
+    handles => {
+        add_location => 'push',
+        all_locations => 'elements',
+    }
+);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

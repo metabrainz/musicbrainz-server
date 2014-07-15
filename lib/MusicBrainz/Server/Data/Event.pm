@@ -298,6 +298,58 @@ sub _find_performers
     }
 }
 
+=method load_locations
+
+This method will load the event's locations based on the event-place
+and event-area relationships.
+
+=cut
+
+sub load_locations
+{
+    my ($self, @events) = @_;
+
+    @events = grep { scalar $_->all_locations == 0 } @events;
+    my @ids = map { $_->id } @events;
+    return () unless @ids;
+
+    my %map;
+    $self->_find_locations(\@ids, \%map);
+    for my $event (@events) {
+        $event->add_location(@{ $map{$event->id} })
+            if exists $map{$event->id};
+    }
+}
+
+sub _find_locations
+{
+    my ($self, $ids, $map) = @_;
+    return unless @$ids;
+
+    my $query = "
+        SELECT lep.entity0 AS event, lep.entity1 AS place
+        FROM l_event_place lep
+        JOIN link l ON lep.link = l.id
+        JOIN link_type lt ON l.link_type = lt.id
+        WHERE lep.entity0 IN (" . placeholders(@$ids) . ")
+        GROUP BY lep.entity0, lep.entity1
+        ORDER BY count(*) DESC, place
+    ";
+
+    my $rows = $self->sql->select_list_of_lists($query, @$ids);
+
+    my @place_ids = map { $_->[1] } @$rows;
+    my $places = $self->c->model('Place')->get_by_ids(@place_ids);
+
+    for my $row (@$rows) {
+        my ($event_id, $place_id) = @$row;
+        $map->{$event_id} ||= [];
+        push @{ $map->{$event_id} }, {
+            entity => $places->{$place_id}
+        }
+    }
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
