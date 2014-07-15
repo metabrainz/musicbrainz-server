@@ -88,7 +88,6 @@ Shows all events of a place.
 sub events : Chained('load')
 {
     my ($self, $c) = @_;
-    my $place = $c->stash->{place};
     my $events = $self->_load_paged($c, sub {
         $c->model('Event')->find_by_place($c->stash->{place}->id, shift, shift);
     });
