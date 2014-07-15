@@ -61,19 +61,10 @@ sub _gid_redirect_table
 sub _column_mapping
 {
     return {
-        id => 'id',
-        gid => 'gid',
-        name => 'name',
         type_id => 'type',
-        time => 'time',
-        setlist => 'setlist',
         begin_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'begin_date_') },
         end_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'end_date_') },
-        edits_pending => 'edits_pending',
-        comment => 'comment',
-        last_updated => 'last_updated',
-        ended => 'ended',
-        cancelled => 'cancelled'
+        map { $_ => $_ } qw( id gid comment setlist time ended name cancelled edits_pending last_updated)
     };
 }
 

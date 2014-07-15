@@ -18,7 +18,7 @@ sub serialize
 
     $body{name} = $entity->name;
     $body{disambiguation} = $entity->comment // "";
-    $body{time} = $entity->time // "";
+    $body{time} = $entity->formatted_time // "";
     $body{type} = $entity->type_name;
     $body{setlist} = $entity->setlist // "";
     $body{cancelled} = $entity->cancelled;
