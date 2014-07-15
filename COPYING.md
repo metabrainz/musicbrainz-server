@@ -3,7 +3,7 @@ Introduction
 
 The majority of the source code in the musicbrainz-server repository
 is licensed under GNU General Public License (GPL) Version 2. However,
-a small number of files are available under different license.
+a small number of files are available under a different license.
 
 The following files are licensed under the BSD 2-clause license,
 which is included in this file below the GPL version 2 license text:
