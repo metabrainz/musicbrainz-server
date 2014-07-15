@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-10 18:30-0700\n"
+"POT-Creation-Date: 2014-07-14 21:06-0700\n"
 "PO-Revision-Date: 2014-07-10 00:01+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/musicbrainz/language/el/)\n"
@@ -82,7 +82,7 @@ msgstr "Το \"YY\" είναι τα τελευταία δύο ψηφία του 
 #: ../root/edit/details/historic/add_release.tt:49 ../root/freedb/show.tt:10
 #: ../root/freedb/show.tt:61 ../root/recording/index.tt:9
 #: ../root/release/edit_relationships.tt:53
-#: ../root/release/edit/tracklist.tt:99 ../root/release/edit/tracklist.tt:252
+#: ../root/release/edit/tracklist.tt:99 ../root/release/edit/tracklist.tt:259
 #: ../root/release_group/releases-list.tt:8 ../root/release/index.tt:39
 msgid "#"
 msgstr "#"
@@ -149,7 +149,7 @@ msgstr "(<strong>δεν έχει εγκριθεί!</strong>)"
 msgid "(No details about this error are available)"
 msgstr "(Δεν υπάρχουν διαθέσιμες λεπτομέρειες για αυτό το σφάλμα)"
 
-#: ../root/release/edit/recordings.tt:50
+#: ../root/release/edit/recordings.tt:48
 msgid "(add a new recording)"
 msgstr "(προσθήκη νέας ηχογράφησης)"
 
@@ -408,11 +408,11 @@ msgid_plural "{n} private collections"
 msgstr[0] "Μια προσωπική συλλογή"
 msgstr[1] "{n} προσωπικές συλλογές"
 
-#: ../root/scripts/text_strings.tt:161
+#: ../root/release/edit/tracklist.tt:178
 msgid "A release must contain at least one medium."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:157
+#: ../root/release/edit/information.tt:14
 msgid "A release title is required."
 msgstr ""
 
@@ -421,7 +421,7 @@ msgid ""
 "A simple list of all entities is available from our {url|browse} pages."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:156
+#: ../root/release/edit/tracklist.tt:248
 msgid "A tracklist is required."
 msgstr ""
 
@@ -501,7 +501,7 @@ msgid "Add Artist Alias"
 msgstr "Προσθήκη ψευδωνύμου καλλιτέχνη"
 
 #: ../root/components/forms.tt:365 ../root/components/forms.tt:366
-#: ../root/release/edit/tracklist.tt:385
+#: ../root/release/edit/tracklist.tt:392
 msgid "Add Artist Credit"
 msgstr ""
 
@@ -519,13 +519,13 @@ msgctxt "header"
 msgid "Add Cover Art"
 msgstr "Προσθήκη εξωφύλλου"
 
-#: ../root/release/edit/layout.tt:60 ../root/release/edit/tracklist.tt:174
-#: ../root/scripts/text_strings.tt:151
+#: ../root/release/edit/layout.tt:60 ../root/release/edit/tracklist.tt:168
+#: ../root/scripts/text_strings.tt:150
 msgid "Add Disc"
 msgstr "Προσθήκη δίσκου"
 
+#: ../root/release/edit/information.tt:135
 #: ../root/release/edit/information.tt:136
-#: ../root/release/edit/information.tt:137
 msgctxt "button/menu"
 msgid "Add Event"
 msgstr ""
@@ -551,8 +551,8 @@ msgstr ""
 msgid "Add Label"
 msgstr ""
 
-#: ../root/layout/menu.tt:217 ../root/release/edit/information.tt:174
-#: ../root/release/edit/information.tt:175
+#: ../root/layout/menu.tt:217 ../root/release/edit/information.tt:173
+#: ../root/release/edit/information.tt:174
 msgctxt "button/menu"
 msgid "Add Label"
 msgstr "Προσθήκη δισκογραφικής εταιρείας"
@@ -561,7 +561,7 @@ msgstr "Προσθήκη δισκογραφικής εταιρείας"
 msgid "Add Label Alias"
 msgstr "Προσθήκη ψευδωνύμου δισκογραφικής εταιρείας"
 
-#: ../root/edit/info.tt:13 ../root/scripts/text_strings.tt:121
+#: ../root/edit/info.tt:13 ../root/scripts/text_strings.tt:120
 msgid "Add Note"
 msgstr "Προσθήκη σημείωσης"
 
@@ -582,7 +582,7 @@ msgstr ""
 msgid "Add Place Alias"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:165
+#: ../root/scripts/text_strings.tt:154
 msgid "Add Release"
 msgstr ""
 
@@ -667,7 +667,7 @@ msgstr "Προσθήκη μιας γλώσσας"
 msgid "Add a new alias"
 msgstr "Προσθήκη νέου ψευδωνύμου"
 
-#: ../root/scripts/text_strings.tt:131
+#: ../root/scripts/text_strings.tt:130
 msgid "Add a new artist"
 msgstr ""
 
@@ -675,15 +675,15 @@ msgstr ""
 msgid "Add a new entry"
 msgstr "Προσθήκη μιας νέας καταχώρησης"
 
-#: ../root/scripts/text_strings.tt:132
+#: ../root/scripts/text_strings.tt:131
 msgid "Add a new label"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:133
+#: ../root/scripts/text_strings.tt:132
 msgid "Add a new place"
 msgstr ""
 
-#: ../root/release/edit/recordings.tt:186 ../root/scripts/text_strings.tt:134
+#: ../root/release/edit/recordings.tt:184 ../root/scripts/text_strings.tt:133
 msgid "Add a new recording"
 msgstr "Προσθήκη μιας νέας ηχογράφησης"
 
@@ -695,15 +695,15 @@ msgstr "Προσθήκη μιας νέας ηχογράφησης"
 msgid "Add a new release"
 msgstr "Προσθήκη μιας νέας κυκλοφορίας"
 
-#: ../root/scripts/text_strings.tt:135
+#: ../root/scripts/text_strings.tt:134
 msgid "Add a new release group"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:136
+#: ../root/scripts/text_strings.tt:135
 msgid "Add a new series"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:137
+#: ../root/scripts/text_strings.tt:136
 msgid "Add a new work"
 msgstr ""
 
@@ -719,20 +719,20 @@ msgstr "Προσθήκη σχολίου"
 msgid "Add another"
 msgstr "Προσθήκη άλλου"
 
-#: ../root/scripts/text_strings.tt:176
+#: ../root/scripts/text_strings.tt:165
 msgid "Add another area"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:177
+#: ../root/scripts/text_strings.tt:166
 msgid "Add another artist"
 msgstr ""
 
 #: ../root/components/relationship-editor.tt:166
-#: ../root/scripts/text_strings.tt:178
+#: ../root/scripts/text_strings.tt:167
 msgid "Add another instrument"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:179
+#: ../root/scripts/text_strings.tt:168
 msgid "Add another label"
 msgstr ""
 
@@ -744,23 +744,23 @@ msgstr ""
 msgid "Add another medium"
 msgstr "Προσθήκη άλλου μέσου"
 
-#: ../root/scripts/text_strings.tt:180
+#: ../root/scripts/text_strings.tt:169
 msgid "Add another place"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:181
+#: ../root/scripts/text_strings.tt:170
 msgid "Add another recording"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:182
+#: ../root/scripts/text_strings.tt:171
 msgid "Add another release"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:183
+#: ../root/scripts/text_strings.tt:172
 msgid "Add another release group"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:184
+#: ../root/scripts/text_strings.tt:173
 msgid "Add another series"
 msgstr ""
 
@@ -768,7 +768,7 @@ msgstr ""
 msgid "Add another track"
 msgstr "Προσθήκη άλλου κομματιού"
 
-#: ../root/scripts/text_strings.tt:185
+#: ../root/scripts/text_strings.tt:174
 msgid "Add another work"
 msgstr ""
 
@@ -876,7 +876,7 @@ msgstr "Προσθήκη στη συλλογή μου"
 msgid "Add to {collection}"
 msgstr "Προσθήκη σε {collection}"
 
-#: ../root/release/edit/tracklist.tt:329
+#: ../root/release/edit/tracklist.tt:336
 msgid "Add track(s)"
 msgstr "Προσθήκη κομματιού(-ών)"
 
@@ -893,7 +893,7 @@ msgstr "Προσθήκη ψευδωνύμου έργου"
 msgid "Add {item}"
 msgstr "Προσθήκη {item}"
 
-#: ../root/release/edit/tracklist.tt:328
+#: ../root/release/edit/tracklist.tt:335
 msgid "Add {num} track(s)"
 msgstr "Προσθήκη {num} κομματιού(-ών)"
 
@@ -913,7 +913,7 @@ msgstr "Προστέθηκε:"
 msgid "Additional details"
 msgstr "Πρόσθετες λεπτομέρειες"
 
-#: ../root/release/edit/information.tt:206
+#: ../root/release/edit/information.tt:205
 msgid "Additional information"
 msgstr "Πρόσθετες πληροφορίες"
 
@@ -989,7 +989,7 @@ msgstr "Όλες οι επεξεργασίες"
 msgid "All My Edits"
 msgstr "Όλες οι επεξεργασίες μου"
 
-#: ../root/scripts/text_strings.tt:124
+#: ../root/scripts/text_strings.tt:123
 msgid "All of your changes will be lost if you leave this page."
 msgstr ""
 
@@ -1001,7 +1001,7 @@ msgstr ""
 msgid "All sizes:"
 msgstr ""
 
-#: ../root/release/edit/recordings.tt:4
+#: ../root/release/edit/recordings.tt:3
 msgid ""
 "All tracks require an associated recording. Click “Edit” to select a "
 "recording for each track. Choose “Add a new recording” if an appropriate one"
@@ -1040,7 +1040,7 @@ msgstr "Έληξε ήδη"
 msgid "Also performs as"
 msgstr ""
 
-#: ../root/release/edit/recordings.tt:78
+#: ../root/release/edit/recordings.tt:76
 msgid "Also update the recording with track changes"
 msgstr "Επίσης ενημέρωση και της ηχογράφησης με τις αλλαγές του κομματιού"
 
@@ -1121,7 +1121,7 @@ msgstr "Προέκυψε ένα σφάλμα: "
 msgid "An error occurred while creating the works."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:195
+#: ../root/scripts/text_strings.tt:184
 msgid "An error occurred while searching. Click here to try again."
 msgstr ""
 
@@ -1181,7 +1181,7 @@ msgstr "Τελευταία τροποποίηση σχολίου από {user} �
 msgid "Annotation last modified on {date}."
 msgstr "Τελευταία τροποποίηση σχολίου στις {date}."
 
-#: ../root/annotation/edit.tt:15 ../root/release/edit/information.tt:210
+#: ../root/annotation/edit.tt:15 ../root/release/edit/information.tt:209
 msgid "Annotation:"
 msgstr "Σχόλιο:"
 
@@ -1364,7 +1364,7 @@ msgstr ""
 #: ../root/edit/details/merge_releases.tt:19 ../root/edit/search_macros.tt:307
 #: ../root/freedb/show.tt:63 ../root/isrc/index.tt:17
 #: ../root/otherlookup/results-release.tt:11
-#: ../root/release/edit/tracklist.tt:101 ../root/release/edit/tracklist.tt:254
+#: ../root/release/edit/tracklist.tt:101 ../root/release/edit/tracklist.tt:261
 #: ../root/release_group/merge.tt:13 ../root/release_group/releases-list.tt:12
 #: ../root/release/index.tt:55 ../root/release/lookup.tt:10
 #: ../root/release/merge.tt:14 ../root/report/artist_list.tt:7
@@ -1423,7 +1423,7 @@ msgstr "Δε βρέθηκε καλλιτέχνης"
 msgid "Artist Subscriptions"
 msgstr "Παρακολουθήσεις καλλιτεχνών"
 
-#: ../root/release/edit/tracklist.tt:355
+#: ../root/release/edit/tracklist.tt:362
 msgid "Artist as credited on this track:"
 msgstr ""
 
@@ -1443,7 +1443,7 @@ msgstr ""
 msgid "Artist credits:"
 msgstr ""
 
-#: ../root/components/forms.tt:334 ../root/release/edit/tracklist.tt:354
+#: ../root/components/forms.tt:334 ../root/release/edit/tracklist.tt:361
 msgid "Artist in MusicBrainz:"
 msgstr ""
 
@@ -1588,7 +1588,7 @@ msgctxt "header"
 msgid "Attach CD TOC"
 msgstr "Επισύναψη CD TOC"
 
-#: ../root/cdtoc/lookup.tt:52 ../root/release/edit/tracklist.tt:307
+#: ../root/cdtoc/lookup.tt:52 ../root/release/edit/tracklist.tt:314
 msgid "Attach Disc ID"
 msgstr ""
 
@@ -1703,7 +1703,7 @@ msgstr "Barcode"
 #: ../root/edit/details/edit_barcodes.tt:21
 #: ../root/edit/details/edit_release_label.tt:53
 #: ../root/edit/details/edit_release.tt:74 ../root/otherlookup/form.tt:3
-#: ../root/release/edit/information.tt:181 ../root/release/index.tt:17
+#: ../root/release/edit/information.tt:180 ../root/release/index.tt:17
 #: ../root/release/layout.tt:38
 msgid "Barcode:"
 msgstr "Barcode:"
@@ -2059,7 +2059,7 @@ msgstr ""
 msgid "Captcha incorrect. Try again."
 msgstr "Ο έλεγχος captcha ήταν λανθασμένος. Δοκιμάστε ξανά."
 
-#: ../root/release/edit/information.tt:159
+#: ../root/release/edit/information.tt:158
 msgid "Cat. No:"
 msgstr ""
 
@@ -2095,7 +2095,7 @@ msgstr "# κατάλογου"
 msgid "Change Password"
 msgstr "Αλλαγή κωδικού πρόσβασης"
 
-#: ../root/release/edit/tracklist.tt:395
+#: ../root/release/edit/tracklist.tt:402
 msgid "Change all artists on this release that match “{name}”"
 msgstr ""
 
@@ -2157,7 +2157,7 @@ msgstr "Καθαρισμός καλλιτέχνη"
 msgid "Clear label"
 msgstr "Καθαρισμός δισκογραφικής εταιρείας"
 
-#: ../root/scripts/text_strings.tt:196
+#: ../root/scripts/text_strings.tt:185
 msgid "Clear recent items"
 msgstr ""
 
@@ -2177,7 +2177,7 @@ msgstr "Καθαρισμός ομάδας κυκλοφορίας"
 msgid "Clear work"
 msgstr "Καθαρισμός έργου"
 
-#: ../root/release/edit/recordings.tt:94
+#: ../root/release/edit/recordings.tt:92
 msgid "Click Edit to edit the recording associations for this disc."
 msgstr "Κάντε κλικ στο Επεξεργασία για να επεξεργαστείτε του συσχετισμούς ηχογράφησης για αυτό το δίσκο."
 
@@ -2198,7 +2198,7 @@ msgstr "Κάντε κλικ {link|εδώ} για να συνεχίσετε στ�
 msgid "Client:"
 msgstr "Πελάτης:"
 
-#: ../root/release/edit/tracklist.tt:132 ../root/release/edit/tracklist.tt:173
+#: ../root/release/edit/tracklist.tt:132 ../root/release/edit/tracklist.tt:167
 msgid "Close"
 msgstr ""
 
@@ -2227,7 +2227,7 @@ msgstr "Συνεργασία"
 msgid "Collaborator"
 msgstr "Συνεργάτης"
 
-#: ../root/release/edit/tracklist.tt:201
+#: ../root/release/edit/tracklist.tt:197
 msgid "Collapse Disc"
 msgstr "Σύμπτυξη Δίσκου"
 
@@ -2328,11 +2328,11 @@ msgstr ""
 msgid "Copy"
 msgstr "Αντιγραφή"
 
-#: ../root/components/forms.tt:380 ../root/release/edit/tracklist.tt:402
+#: ../root/components/forms.tt:380 ../root/release/edit/tracklist.tt:409
 msgid "Copy Credits"
 msgstr ""
 
-#: ../root/release/edit/recordings.tt:123
+#: ../root/release/edit/recordings.tt:121
 msgid "Copy all track changes to associated recordings."
 msgstr "Αντιγραφή όλων τον αλλαγών στα κομμάτια στις σχετιζόμενες ηχογραφήσεις."
 
@@ -2496,7 +2496,7 @@ msgstr "Διαγραφή"
 msgid "Delete Account"
 msgstr "Διαγραφή λογαριασμού"
 
-#: ../root/scripts/text_strings.tt:122
+#: ../root/scripts/text_strings.tt:121
 msgid "Delete Note"
 msgstr ""
 
@@ -2610,7 +2610,7 @@ msgstr "Απευθείας αναζήτηση βάσης δεδομένων"
 #: ../root/edit/details/edit_series.tt:14 ../root/edit/details/edit_work.tt:15
 #: ../root/instrument/edit_form.tt:11 ../root/label/edit_form.tt:32
 #: ../root/place/edit_form.tt:34 ../root/recording/edit_form.tt:14
-#: ../root/release/edit/information.tt:217
+#: ../root/release/edit/information.tt:216
 #: ../root/release_group/edit_form.tt:14 ../root/series/edit_form.tt:32
 #: ../root/work/edit_form.tt:14
 msgid "Disambiguation:"
@@ -2651,15 +2651,15 @@ msgstr "Disc IDs"
 msgid "Disc IDs with superfluous data tracks"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:214
+#: ../root/release/edit/tracklist.tt:210
 msgid "Disc title:"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:148
+#: ../root/scripts/text_strings.tt:147
 msgid "Disc {num}"
 msgstr "Δίσκος {num}"
 
-#: ../root/scripts/text_strings.tt:149
+#: ../root/scripts/text_strings.tt:148
 msgid "Disc {num}: {title}"
 msgstr "Δίσκος {num}: {title}"
 
@@ -2767,7 +2767,7 @@ msgid "Donation Check"
 msgstr "Έλεγχος δωρεάς"
 
 #: ../root/components/forms.tt:382 ../root/components/relationship-editor.tt:7
-#: ../root/release/edit/macros.tt:43
+#: ../root/release/edit/macros.tt:45
 msgid "Done"
 msgstr "Εντάξει"
 
@@ -2775,7 +2775,7 @@ msgstr "Εντάξει"
 msgid "Duration:"
 msgstr "Διάρκεια:"
 
-#: ../root/release/edit/recordings.tt:132
+#: ../root/release/edit/recordings.tt:130
 msgid ""
 "Each track in the MusicBrainz database has to be linked to a recording, "
 "choose the appropriate recording or look for it in the database."
@@ -2791,8 +2791,8 @@ msgstr "Κάθε κομμάτι στη βάση δεδομένων του MusicB
 #: ../root/relationship/linkattributetype/common.tt:25
 #: ../root/relationship/linktype/tree.tt:17 ../root/release/cover_art.tt:27
 #: ../root/release/discids.tt:12 ../root/release/edit/information.tt:54
-#: ../root/release/edit/recordings.tt:60 ../root/release/edit/recordings.tt:89
-#: ../root/release/edit/tracklist.tt:288 ../root/release_group/header.tt:1
+#: ../root/release/edit/recordings.tt:58 ../root/release/edit/recordings.tt:87
+#: ../root/release/edit/tracklist.tt:295 ../root/release_group/header.tt:1
 #: ../root/release/tabs.tt:1 ../root/series/header.tt:1
 #: ../root/url/header.tt:1 ../root/user/collections.tt:26
 #: ../root/work/header.tt:1
@@ -2913,7 +2913,7 @@ msgstr "Επεξεργασία τύπων σχέσης"
 msgid "Edit Relationships: {release}"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:167
+#: ../root/scripts/text_strings.tt:156
 msgid "Edit Release"
 msgstr ""
 
@@ -3308,7 +3308,7 @@ msgstr ""
 msgid "Enter a tracklist below:"
 msgstr "Εισάγετε τη λίστα κομματιών παρακάτω:"
 
-#: ../root/scripts/text_strings.tt:170
+#: ../root/scripts/text_strings.tt:159
 #: ../lib/MusicBrainz/Server/Form/Field/URL.pm:21
 msgid "Enter a valid url e.g. \"http://google.com/\""
 msgstr "Πληκτρολογήστε ένα έγκυρο url π.χ. \"http://google.com/\""
@@ -3405,7 +3405,7 @@ msgstr "Υπάρχουσα λίστα κομματιών"
 msgid "Expand"
 msgstr "Ανάπτυξη"
 
-#: ../root/release/edit/tracklist.tt:201
+#: ../root/release/edit/tracklist.tt:197
 msgid "Expand Disc"
 msgstr "Ανάπτυξη δίσκου"
 
@@ -3446,7 +3446,7 @@ msgstr[1] ""
 #: ../root/area/edit_form.tt:31 ../root/artist/edit_form.tt:87
 #: ../root/instrument/edit_form.tt:23 ../root/label/edit_form.tt:67
 #: ../root/place/edit_form.tt:64 ../root/recording/edit_form.tt:25
-#: ../root/release/edit/information.tt:227
+#: ../root/release/edit/information.tt:226
 #: ../root/release_group/edit_form.tt:22 ../root/series/edit_form.tt:40
 #: ../root/work/edit_form.tt:91
 msgid "External Links"
@@ -3559,7 +3559,7 @@ msgstr "Μορφή"
 #: ../root/edit/details/add_medium.tt:26
 #: ../root/edit/details/edit_medium.tt:37
 #: ../root/edit/details/edit_release_label.tt:59
-#: ../root/release/edit/tracklist.tt:205 ../root/release/index.tt:5
+#: ../root/release/edit/tracklist.tt:201 ../root/release/index.tt:5
 #: ../root/release/layout.tt:38
 msgid "Format:"
 msgstr "Μορφή:"
@@ -3764,11 +3764,11 @@ msgctxt "header"
 msgid "Guess case"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:216
+#: ../root/release/edit/tracklist.tt:212
 msgid "Guess case disc title"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:296
+#: ../root/release/edit/tracklist.tt:303
 msgid "Guess case track"
 msgstr ""
 
@@ -3810,7 +3810,7 @@ msgstr ""
 msgid "How editing works"
 msgstr "Πώς λειτουργεί η επεξεργασία"
 
-#: ../root/release/edit/information.tt:289
+#: ../root/release/edit/information.tt:288
 msgid "I confirm that this is the barcode as it appears on the release."
 msgstr "Επιβεβαιώνω ότι αυτό είναι το barcode, όπως φαίνεται στην κυκλοφορία."
 
@@ -3965,13 +3965,13 @@ msgid ""
 "message that is shown above."
 msgstr "Αν το πρόβλημα επιμένει, παρακαλούμε κάντε {report|αναφορά σφάλματος} και συμπεριλάβετε ότι μήνυμα σφάλματος φαίνεται παραπάνω."
 
-#: ../root/release/edit/information.tt:266
+#: ../root/release/edit/information.tt:265
 msgid ""
 "If this is an Amazon ASIN, please do not enter it in the catalog number "
 "field, but add it as a URL relationship later."
 msgstr "Αν αυτό είναι ένα Amazon ASIN, παρακαλούμε μην το εισάγετε στο πεδίο αριθμού καταλόγου, αλλά προσθέστε το ως σχέση URL αργότερα."
 
-#: ../root/release/edit/recordings.tt:134
+#: ../root/release/edit/recordings.tt:132
 msgid ""
 "If we do not have a recording for this track in the database yet, please "
 "select \"Add a new recording\" below."
@@ -3985,7 +3985,7 @@ msgstr "Αν δε βρήκατε αυτό που ψάχνετε, μπορείτ�
 msgid "If you change your email address, you will be required to verify it."
 msgstr ""
 
-#: ../root/release/edit/information.tt:295
+#: ../root/release/edit/information.tt:294
 msgid ""
 "If you do not know whether the release has a barcode or not, just leave this"
 " blank."
@@ -4059,7 +4059,7 @@ msgstr ""
 msgid "Image not available yet, please try again in a few minutes."
 msgstr "Η εικόνα δεν είναι διαθέσιμη ακόμα, παρακαλούμε δοκιμάστε ξανά σε μερικά λεπτά."
 
-#: ../root/scripts/text_strings.tt:139
+#: ../root/scripts/text_strings.tt:138
 msgid "Image {current} of {total}"
 msgstr ""
 
@@ -4111,7 +4111,7 @@ msgstr ""
 msgid "Indexed search with {doc|advanced query syntax}"
 msgstr ""
 
-#: ../root/release/edit/recordings.tt:117
+#: ../root/release/edit/recordings.tt:115
 msgid "Infer track durations from associated recordings"
 msgstr ""
 
@@ -4206,7 +4206,7 @@ msgstr "Η javascript πρέπει να είναι ενεργοποιημένη.
 msgid "Join phrase"
 msgstr "Φράση ένωσης"
 
-#: ../root/components/forms.tt:354 ../root/release/edit/tracklist.tt:356
+#: ../root/components/forms.tt:354 ../root/release/edit/tracklist.tt:363
 msgid "Join phrase:"
 msgstr ""
 
@@ -4292,7 +4292,7 @@ msgstr "Βαθμολογίες δισκογραφικής εταιρείας"
 #: ../root/edit/details/edit_release_label.tt:11
 #: ../root/edit/details/remove_label.tt:3
 #: ../root/edit/details/remove_release_label.tt:7
-#: ../root/release/edit/information.tt:144 ../root/release/index.tt:15
+#: ../root/release/edit/information.tt:143 ../root/release/index.tt:15
 msgid "Label:"
 msgstr "Δισκογαφική εταιρεία:"
 
@@ -4389,7 +4389,7 @@ msgstr ""
 #: ../root/edit/details/historic/add_release.tt:52 ../root/freedb/show.tt:12
 #: ../root/freedb/show.tt:64 ../root/isrc/index.tt:18
 #: ../root/recording/index.tt:11 ../root/release/discids.tt:10
-#: ../root/release/edit/tracklist.tt:102 ../root/release/edit/tracklist.tt:255
+#: ../root/release/edit/tracklist.tt:102 ../root/release/edit/tracklist.tt:262
 #: ../root/release/index.tt:58 ../root/report/isrc_with_many_recordings.tt:26
 #: ../root/search/lib/inline-results-recording.tt:9
 msgid "Length"
@@ -4528,7 +4528,7 @@ msgstr ""
 msgid "Looking for help? Check out our {doc|documentation} or {faq|FAQ}."
 msgstr "Χρειάζεστε βοήθεια; Διαβάστε την {doc|τεκμηρίωσή} μας ή τις {faq|Συχνές Ερωτήσεις}."
 
-#: ../root/release/edit/recordings.tt:149
+#: ../root/release/edit/recordings.tt:147
 msgid "Looking for suggested recordings..."
 msgstr ""
 
@@ -4783,11 +4783,11 @@ msgstr "Μετακίνηση"
 msgid "Move Disc ID"
 msgstr "Μετακίνηση disc ID"
 
-#: ../root/release/edit/tracklist.tt:221
+#: ../root/release/edit/tracklist.tt:217
 msgid "Move disc down"
 msgstr "Μετακίνηση δίσκου προς τα κάτω"
 
-#: ../root/release/edit/tracklist.tt:222
+#: ../root/release/edit/tracklist.tt:218
 msgid "Move disc up"
 msgstr "Μετακίνηση δίσκου προς τα πάνω"
 
@@ -4807,11 +4807,11 @@ msgstr ""
 msgid "Move file up"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:262
+#: ../root/release/edit/tracklist.tt:269
 msgid "Move track down"
 msgstr "Μετακίνηση κομματιού προς τα  κάτω"
 
-#: ../root/release/edit/tracklist.tt:263
+#: ../root/release/edit/tracklist.tt:270
 msgid "Move track up"
 msgstr "Μετακίνηση κομματιού προς τα  πάνω"
 
@@ -5082,7 +5082,7 @@ msgstr "Νέα γραφή:"
 msgid "New version:"
 msgstr "Νέα έκδοση:"
 
-#: ../root/release/edit/macros.tt:42 ../root/scripts/text_strings.tt:32
+#: ../root/release/edit/macros.tt:44 ../root/scripts/text_strings.tt:32
 msgid "Next"
 msgstr "Επόμενο"
 
@@ -5292,7 +5292,7 @@ msgstr "Δε βρέθηκε; Δοκιμάστε ξανά με απευθείας
 msgid "Note"
 msgstr ""
 
-#: ../root/release/edit/information.tt:251
+#: ../root/release/edit/information.tt:250
 msgid ""
 "Note! If you do not know the month or day of release, please leave them "
 "empty.  January 1st is not often the actual release date, please double "
@@ -5300,7 +5300,7 @@ msgid ""
 msgstr "Προσοχή! Αν δεν ξέρετε το μήνα ή τη μέρα κυκλοφορίας, παρακαλούμε αφήστε τα κενά. Η 1η Ιανουαρίου συνήθως δεν είναι η πραγματική ημερομηνία κυκλοφορίας, παρακαλούμε σιγουρευτείτε ότι έχετε εισαγάγει σωστά την ημερομηνία κυκλοφορίας."
 
 #: ../root/edit/details/set_track_lengths.tt:42
-#: ../root/release/edit/recordings.tt:4
+#: ../root/release/edit/recordings.tt:3
 msgid "Note:"
 msgstr "Σημείωση:"
 
@@ -5314,11 +5314,11 @@ msgstr ""
 msgid "Notify me by email on new releases to my watched artists"
 msgstr "Ειδοποιείστε με μέσω email για νέες κυκλοφορίες από τους καλλιτέχνες που παρακολουθώ."
 
-#: ../root/release/edit/recordings.tt:100
+#: ../root/release/edit/recordings.tt:98
 msgid "Now loading recording associations..."
 msgstr "Φόρτωμα των συσχετισμών ηχογράφησης..."
 
-#: ../root/release/edit/tracklist.tt:118 ../root/release/edit/tracklist.tt:231
+#: ../root/release/edit/tracklist.tt:118 ../root/release/edit/tracklist.tt:232
 msgid "Now loading tracklist..."
 msgstr "Φόρτωμα της λίστας κομματιών..."
 
@@ -5450,7 +5450,7 @@ msgstr ""
 msgid "Opened:"
 msgstr "Άνοιξε:"
 
-#: ../root/release/edit/recordings.tt:113 ../root/release/edit/tracklist.tt:11
+#: ../root/release/edit/recordings.tt:111 ../root/release/edit/tracklist.tt:11
 msgid "Options"
 msgstr "Επιλογές"
 
@@ -5511,7 +5511,7 @@ msgstr "PUIDs:"
 
 #: ../root/edit/details/add_release.tt:60
 #: ../root/edit/details/edit_release.tt:70
-#: ../root/release/edit/information.tt:199 ../root/release/layout.tt:48
+#: ../root/release/edit/information.tt:198 ../root/release/layout.tt:48
 msgid "Packaging:"
 msgstr "Συσκευασία:"
 
@@ -5574,7 +5574,7 @@ msgstr ""
 msgid "Password:"
 msgstr "Κωδικός πρόσβασης:"
 
-#: ../root/components/forms.tt:381 ../root/release/edit/tracklist.tt:403
+#: ../root/components/forms.tt:381 ../root/release/edit/tracklist.tt:410
 msgid "Paste Credits"
 msgstr ""
 
@@ -5712,7 +5712,7 @@ msgid ""
 "may wish to see the {tagsyn|tag syntax documentation} for more information"
 msgstr "Παρακαλούμε εισάγετε τις ετικέτες στην περιοχή κειμένου παρακάτω. Οι ετικέτες διαχωρίζονται με κόμμα, και ίσως θέλετε να δείε την {tagsyn|τεκμηρίωση σύνταξης ετικετών} για περισσότερες πληροφορίες"
 
-#: ../root/release/edit/information.tt:280
+#: ../root/release/edit/information.tt:279
 msgid ""
 "Please enter the barcode of the release you are entering, see <a "
 "href=\"{url}\" target=\"_blank\">Barcode</a> for more information."
@@ -5776,7 +5776,7 @@ msgid ""
 "documentation for a description of these types."
 msgstr "Παρακαλούμε δείτε την τεκμηρίωση για τους <a href=\"{doc}\" target=\"_blank\">Τύπους εξωφύλλου</a> για μια περιγραφή αυτών των τύπων."
 
-#: ../root/scripts/text_strings.tt:144
+#: ../root/scripts/text_strings.tt:143
 msgid "Please select a link type for the URL you’ve entered."
 msgstr ""
 
@@ -5870,7 +5870,7 @@ msgid "Preview"
 msgstr "Προεπισκόπηση"
 
 #: ../root/annotation/edit.tt:7 ../root/components/forms.tt:327
-#: ../root/release/edit/tracklist.tt:349
+#: ../root/release/edit/tracklist.tt:356
 msgid "Preview:"
 msgstr "Προεπισκόπηση:"
 
@@ -5878,7 +5878,7 @@ msgstr "Προεπισκόπηση:"
 msgid "Preview: "
 msgstr "Προεπισκόπηση:"
 
-#: ../root/release/edit/macros.tt:41 ../root/scripts/text_strings.tt:33
+#: ../root/release/edit/macros.tt:43 ../root/scripts/text_strings.tt:33
 msgid "Previous"
 msgstr "Προηγούμενο"
 
@@ -6658,7 +6658,7 @@ msgstr ""
 msgid "Remove Artist Alias"
 msgstr "Κατάργηση ψευδωνύμου καλλιτέχνη"
 
-#: ../root/components/forms.tt:343 ../root/release/edit/tracklist.tt:377
+#: ../root/components/forms.tt:343 ../root/release/edit/tracklist.tt:384
 msgid "Remove Artist Credit"
 msgstr ""
 
@@ -6686,7 +6686,7 @@ msgstr ""
 msgid "Remove Instrument Alias"
 msgstr ""
 
-#: ../root/label/delete.tt:2 ../root/release/edit/information.tt:164
+#: ../root/label/delete.tt:2 ../root/release/edit/information.tt:163
 msgid "Remove Label"
 msgstr "Κατάργηση δισκογραφική εταιρείας"
 
@@ -6762,7 +6762,7 @@ msgstr ""
 msgid "Remove collection"
 msgstr "Κατάργηση συλλογής"
 
-#: ../root/release/edit/tracklist.tt:223
+#: ../root/release/edit/tracklist.tt:219
 msgid "Remove disc"
 msgstr "Κατάργηση δίσκου"
 
@@ -6803,7 +6803,7 @@ msgstr "Κατάργηση επιλεγμένων κυκλοφοριών από 
 msgid "Remove series alias"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:298
+#: ../root/release/edit/tracklist.tt:305
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveTrack.pm:10
 msgid "Remove track"
 msgstr "Κατάργηση κομματιού"
@@ -6878,7 +6878,7 @@ msgstr "Απαιτεί:"
 msgid "Reset Password"
 msgstr "Επαναφορά κωδικού πρόσβασης"
 
-#: ../root/release/edit/tracklist.tt:323
+#: ../root/release/edit/tracklist.tt:330
 msgid "Reset track numbers"
 msgstr ""
 
@@ -6893,7 +6893,7 @@ msgstr "Αποτελέσματα ανά σελίδα:"
 msgid "Results:"
 msgstr "Αποτελέσματα:"
 
-#: ../root/release/edit/recordings.tt:8
+#: ../root/release/edit/recordings.tt:7
 msgid "Reuse previous recordings"
 msgstr ""
 
@@ -6908,7 +6908,7 @@ msgstr "Εμφάνιση της διεύθυνσης email μου"
 msgid "Reverse link phrase:"
 msgstr ""
 
-#: ../root/release/edit/information.tt:273
+#: ../root/release/edit/information.tt:272
 msgid ""
 "Review the <a href=\"{url}\" target=\"_blank\">list of packaging types</a> "
 "for help."
@@ -7037,7 +7037,7 @@ msgstr "Αναζητήστε αυτό το CD στη βάση δεδομένων
 msgid "Search the documentation..."
 msgstr "Αναζήτηση τεκμηρίωσης..."
 
-#: ../root/release/edit/recordings.tt:137
+#: ../root/release/edit/recordings.tt:135
 msgid "Search:"
 msgstr "Αναζήτηση:"
 
@@ -7378,7 +7378,7 @@ msgstr ""
 msgid "Some artists credited with alternative names"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:120
+#: ../root/release/edit/editnote.tt:4
 msgid ""
 "Some errors were detected in the data you’ve entered. Click on the tabs "
 "shaded red and correct any visible errors."
@@ -7709,7 +7709,7 @@ msgstr ""
 msgid "Submit votes &amp; edit notes"
 msgstr "Υποβολή ψήφων &amp; σημειώσεων επεξεργασίας"
 
-#: ../root/release/edit/editnote.tt:38
+#: ../root/release/edit/editnote.tt:40
 #: ../root/release/edit_relationships.tt:107
 #: ../root/release/edit_relationships.tt:167
 msgid "Submitting edits..."
@@ -7753,7 +7753,7 @@ msgstr "Λίστα παρακολουθήσεων"
 msgid "Success!"
 msgstr ""
 
-#: ../root/release/edit/recordings.tt:156
+#: ../root/release/edit/recordings.tt:154
 msgid "Suggested recordings:"
 msgstr ""
 
@@ -7761,7 +7761,7 @@ msgstr ""
 msgid "Summary:"
 msgstr "Σύνοψη:"
 
-#: ../root/release/edit/tracklist.tt:324
+#: ../root/release/edit/tracklist.tt:331
 msgid "Swap track titles with artist credits"
 msgstr ""
 
@@ -7899,7 +7899,7 @@ msgstr ""
 msgid "The Dawn of the Project"
 msgstr "Η αυγή του πρότζεκτ"
 
-#: ../root/release/edit/information.tt:301
+#: ../root/release/edit/information.tt:300
 msgid "The annotation field functions like a miniature wiki."
 msgstr "Το πεδίο σχολίων λειτουργεί σαν ένα μικροσκοπικό wiki."
 
@@ -7946,7 +7946,7 @@ msgstr "Το barcode που έχετε εισάγει μοιάζει με κωδ
 msgid "The blog is currently unavailable."
 msgstr ""
 
-#: ../root/release/edit/information.tt:263
+#: ../root/release/edit/information.tt:262
 msgid "The catalog number you have entered looks like an Amazon ASIN."
 msgstr "Ο αριθμός καταλόγου που εισάγατε μοιάζε με Amazon ASIN."
 
@@ -7954,7 +7954,7 @@ msgstr "Ο αριθμός καταλόγου που εισάγατε μοιάζ�
 msgid "The check digit is {checkdigit}."
 msgstr ""
 
-#: ../root/release/edit/information.tt:310
+#: ../root/release/edit/information.tt:309
 msgid ""
 "The comment field is used to help users distinguish between identically "
 "named releases."
@@ -7980,7 +7980,7 @@ msgstr ""
 msgid "The database has no tags."
 msgstr "Η βάση δεδομένων δεν έχει ετικέτες."
 
-#: ../root/scripts/text_strings.tt:96
+#: ../root/release/edit/information.tt:128 ../root/scripts/text_strings.tt:96
 msgid "The date you've entered is not valid."
 msgstr ""
 
@@ -8024,7 +8024,7 @@ msgstr ""
 msgid "The following {count} users have auto-editor privileges:"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:152
+#: ../root/scripts/text_strings.tt:151
 msgid ""
 "The information you‘ve provided contains errors, and was not entered; please"
 " visit the tabs shaded in red, fix all visible errors, and try again."
@@ -8051,7 +8051,7 @@ msgstr ""
 msgid "The page you requested is private."
 msgstr "Η σελίδα που ζητήσατε είναι προσωπική."
 
-#: ../root/release/edit/information.tt:304
+#: ../root/release/edit/information.tt:303
 msgid ""
 "The purpose of this field is to add information that usually doesn't fit "
 "into the strict structural data schema of MusicBrainz (be it due to "
@@ -8087,19 +8087,19 @@ msgid ""
 "This is usually only temporary, so please retry your search again later."
 msgstr "Ο εξυπηρετητής αναζήτησης δεν μπόρεσε να εκπληρώσει το αίτημά σας λόγω ενός εσωτερικού σφάλματος. Αυτό συνήθως είναι προσωρινό, οπότε ξαναδοκιμάστε αργότερα."
 
-#: ../root/scripts/text_strings.tt:190
+#: ../root/scripts/text_strings.tt:179
 msgid "The series you’ve selected is for recordings."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:192
+#: ../root/scripts/text_strings.tt:181
 msgid "The series you’ve selected is for release groups."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:191
+#: ../root/scripts/text_strings.tt:180
 msgid "The series you’ve selected is for releases."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:193
+#: ../root/scripts/text_strings.tt:182
 msgid "The series you’ve selected is for works."
 msgstr ""
 
@@ -8254,7 +8254,7 @@ msgid ""
 " a work, please {search_url|search for the work} and add it."
 msgstr "Αυτό το ISWC δε σχετίζεται με κανένα έργο. Αν επιθυμείτε να το σχετίσετε με ένα έργο, παρακαλούμε {search_url|αναζητήστε το έργο} και προσθέστε το."
 
-#: ../root/scripts/text_strings.tt:143
+#: ../root/scripts/text_strings.tt:142
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
 "formatted."
@@ -8437,7 +8437,7 @@ msgstr "Αυτό το στοιχείο έχει καταργηθεί και δε
 msgid "This entity will be created when edits are entered."
 msgstr "Αυτό το στοιχείο θα δημιουργηθεί μόλις καταχωρηθούν οι τροποποιήσεις."
 
-#: ../root/release/edit/information.tt:313
+#: ../root/release/edit/information.tt:312
 msgid ""
 "This field is not a place to store general background information about the "
 "release: that kind of information should go in the annotation field."
@@ -8539,7 +8539,7 @@ msgstr ""
 msgid "This label has no tags."
 msgstr "Αυτή η δισκογραφική εταιρεία δεν έχει ετικέτες."
 
-#: ../root/scripts/text_strings.tt:155
+#: ../root/release/edit/tracklist.tt:223
 msgid ""
 "This medium already has disc IDs, so you may only change the format to a "
 "format that can have disc IDs."
@@ -8562,21 +8562,21 @@ msgid ""
 " used on the target mediums."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:140
+#: ../root/scripts/text_strings.tt:139
 msgid ""
 "This mode capitalises almost all words, with some words (mainly articles and"
 " short prepositions) lowercased. Some words may need to be manually "
 "capitalised to follow the {url|English capitalisation guidelines}."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:141
+#: ../root/scripts/text_strings.tt:140
 msgid ""
 "This mode capitalises the first word of a sentence, most other words are "
 "lowercased. Some words, often proper nouns, may need to be manually fixed "
 "according to the {url|relevant language guidelines}."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:142
+#: ../root/scripts/text_strings.tt:141
 msgid ""
 "This mode capitalises titles as sentence mode, but also inserts spaces "
 "before semicolons, colons, exclamation marks and question marks, and inside "
@@ -8644,7 +8644,7 @@ msgstr ""
 msgid "This relationship allows setting dates"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:171
+#: ../root/scripts/text_strings.tt:160
 msgid "This relationship already exists."
 msgstr ""
 
@@ -8671,7 +8671,7 @@ msgstr ""
 msgid "This relationship type doesn't allow any attributes."
 msgstr ""
 
-#: ../root/doc/relationship_type.tt:11 ../root/scripts/text_strings.tt:129
+#: ../root/doc/relationship_type.tt:11 ../root/scripts/text_strings.tt:128
 msgid "This relationship type is deprecated and should not be used."
 msgstr ""
 
@@ -8680,7 +8680,7 @@ msgid ""
 "This relationship type is only used for grouping other relationship types."
 msgstr ""
 
-#: ../root/release/edit/information.tt:194
+#: ../root/release/edit/information.tt:193
 msgid "This release does not have a barcode"
 msgstr "Αυτή η κυκλοφορία δεν έχει barcode"
 
@@ -8705,7 +8705,7 @@ msgstr ""
 msgid "This release has no tags."
 msgstr "Αυτή η κυκλοφορία δεν έχει ετικέτες."
 
-#: ../root/release/edit/information.tt:319
+#: ../root/release/edit/information.tt:318
 msgid ""
 "This release status should be used for unofficial translations and "
 "transliterations of tracklists and release titles, and does not denote a "
@@ -9158,7 +9158,7 @@ msgstr ""
 msgid "This track's MBID will change when this edit is applied."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:123
+#: ../root/scripts/text_strings.tt:122
 msgid ""
 "This tracklist has artist credits with information that will be lost if you "
 "swap artist credits with track titles. This cannot be undone. Do you wish to"
@@ -9219,7 +9219,7 @@ msgstr "Ζώνη ώρας:"
 #: ../root/edit/details/edit_medium.tt:57
 #: ../root/edit/details/edit_medium.tt:61 ../root/isrc/index.tt:16
 #: ../root/iswc/index.tt:16 ../root/recording/index.tt:10
-#: ../root/release/edit/tracklist.tt:100 ../root/release/edit/tracklist.tt:253
+#: ../root/release/edit/tracklist.tt:100 ../root/release/edit/tracklist.tt:260
 #: ../root/release/index.tt:52 ../root/search/results-freedb.tt:12
 msgid "Title"
 msgstr "Τίτλος"
@@ -9393,7 +9393,7 @@ msgstr ""
 msgid "Track Not Found"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:322 ../root/scripts/text_strings.tt:150
+#: ../root/release/edit/tracklist.tt:329 ../root/scripts/text_strings.tt:149
 msgid "Track Parser"
 msgstr ""
 
@@ -9436,7 +9436,7 @@ msgstr "Κομμάτι:"
 
 #: ../root/cdstub/edit_form.tt:12 ../root/cdstub/index.tt:7
 #: ../root/release/edit/layout.tt:16 ../root/release/index.tt:25
-#: ../root/scripts/text_strings.tt:147
+#: ../root/scripts/text_strings.tt:146
 msgid "Tracklist"
 msgstr "Λίστα κομματιών"
 
@@ -9715,15 +9715,15 @@ msgid ""
 "href=\"{url}\">Artist Credit</a> documentation for more information."
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:160
+#: ../root/release/edit/tracklist.tt:157
 msgid "Use the following fields to search for a CD stub."
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:167
+#: ../root/release/edit/tracklist.tt:162
 msgid "Use the following fields to search for a FreeDB entry."
 msgstr "Χρησιμοποιήστε τα ακόλουθα πεδία για να αναζητήσετε μία καταχώρηση FreeDB."
 
-#: ../root/release/edit/tracklist.tt:153
+#: ../root/release/edit/tracklist.tt:152
 msgid "Use the following fields to search for an existing tracklist."
 msgstr "Χρησιμοποιήστε τα ακόλουθα πεδία για να αναζητήσετε μία υπάρχουσα λίστα κομματιών."
 
@@ -9854,7 +9854,7 @@ msgstr "Ψηφίστε ΝΑΙ."
 msgid "Vote on Edits"
 msgstr "Ψήφος στις τροποποιήσεις"
 
-#: ../root/scripts/text_strings.tt:126
+#: ../root/scripts/text_strings.tt:125
 msgid "Vote on all edits:"
 msgstr ""
 
@@ -9931,14 +9931,14 @@ msgstr "Η ψηφοφορία δεν είναι ανοικτή ακόμα. Αν 
 msgid "Voting period (days)"
 msgstr "Διάστημα ψηφοφορίας (ημέρες)"
 
-#: ../root/release/edit/information.tt:248
+#: ../root/release/edit/information.tt:247
 msgid ""
 "Warning! \"1990-10-25\" is the bogus date that Amazon gives to all releases "
 "for which they don't know the actual date. <b>Please use this date only if "
 "you're certain this date is correct!</b>"
 msgstr "Προειδοποίηση! Το \"1990-10-25\" είναι η ψεύτικη ημερομηνία που δίνει το Amazon σε όλες τις κυκλοφορίες που δε γνωρίζει την πραγματική ημερομηνία. <b>Παρακαλούμε χρησιμοποιήστε αυτή την ημερομηνία μόνο αν είστε σίγουροι ότι είναι σωστή!</b>"
 
-#: ../root/release/edit/tracklist.tt:239
+#: ../root/release/edit/tracklist.tt:240
 msgid "Warning:"
 msgstr "Προειδοποίηση:"
 
@@ -10032,7 +10032,7 @@ msgid ""
 "your request &#x2014; the problem may go away."
 msgstr "Λυπούμαστε πραγματικά για αυτό το πρόβλημα. Παρακαλούμε περιμένετε μερικά λεπτά και επαναλάβετε το αίτημά σας &#x2014; το πρόβλημα μπορεί να εξαφανιστεί."
 
-#: ../root/scripts/text_strings.tt:125
+#: ../root/scripts/text_strings.tt:124
 msgid ""
 "We're very sorry, an error occurred during submission. The server may be "
 "under heavy load; please wait a moment and try again."
@@ -10401,7 +10401,7 @@ msgid ""
 "use by other relationships."
 msgstr "Δεν μπορείτε να καταργήσετε το γνώρισμα σχέσης \"{type}\" καθώς είναι ακόμα σε χρήση από άλλες σχέσεις."
 
-#: ../root/scripts/text_strings.tt:159
+#: ../root/release/edit/information.tt:129
 msgid "You cannot use the same country more than once."
 msgstr ""
 
@@ -10447,13 +10447,13 @@ msgid ""
 "recording."
 msgstr "Χρησιμοποιήσατε τον καλλιτέχνη ειδικού σκοπού {valink|Διάφοροι Καλλιτέχνες} για αυτή την ηχογράφηση."
 
-#: ../root/release/edit/tracklist.tt:180
+#: ../root/release/edit/tracklist.tt:174
 msgid ""
 "You haven't added any media yet. Click on the \"Add Disc\" button below to "
 "add one."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:153
+#: ../root/release/edit/information.tt:58
 msgid "You haven‘t entered a complete artist credit."
 msgstr ""
 
@@ -10481,7 +10481,7 @@ msgstr "Μπορείτε να συνεχίσετε στο <a href=\"{uri}\">πρ
 msgid "You must be logged in to vote on edits"
 msgstr "Πρέπει να είστε συνδεδεμένοι για να ψηφίσετε για τροποποιήσεις"
 
-#: ../root/scripts/text_strings.tt:154
+#: ../root/release/edit/tracklist.tt:252
 msgid "You must enter a title and select an artist for every track."
 msgstr ""
 
@@ -10497,17 +10497,17 @@ msgid ""
 "database."
 msgstr "Πρέπει να παρέχετε μια έγκυρη διεύθυνση ηλεκτρονικού ταχυδρομείου εάν θέλετε να συνεισφέρετε στη βάση δεδομένων."
 
-#: ../root/scripts/text_strings.tt:162
+#: ../root/release/edit/editnote.tt:32
 msgid ""
 "You must provide an edit note when adding a release. Even just a URL or "
 "something like “CD in hand” helps!"
 msgstr "Πρέπει να γράψετε μία σημείωση επεξεργασίας όταν προσθέτετε μια κυκλοφορία. Ακόμα και ένα απλό URL ή κάτι σαν \"Έχω το CD στο χέρι\" βοηθάει!"
 
-#: ../root/scripts/text_strings.tt:160
+#: ../root/release/edit/information.tt:167
 msgid "You must select an existing label."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:158
+#: ../root/release/edit/information.tt:34
 msgid "You must select an existing release group."
 msgstr ""
 
@@ -10523,15 +10523,15 @@ msgstr ""
 msgid "You need to be logged in to view this page."
 msgstr "Πρέπει να είστε συνδεδεμένοι για να δείτε αυτή τη σελίδα."
 
-#: ../root/scripts/text_strings.tt:172
+#: ../root/scripts/text_strings.tt:161
 msgid "You selected {area}."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:146
+#: ../root/scripts/text_strings.tt:145
 msgid "You selected {label}."
 msgstr "Επιλέξατε την {label}."
 
-#: ../root/scripts/text_strings.tt:145
+#: ../root/scripts/text_strings.tt:144
 msgid "You selected {releasegroup}."
 msgstr "Επιλέξατε την {releasegroup}."
 
@@ -10581,13 +10581,13 @@ msgstr "Η αναζήτησή σας κρίθηκε ως μη έγκυρη απ�
 msgid "Your username will be publicly visible."
 msgstr "Το όνομα χρήστη σας θα είναι ορατό δημόσια."
 
-#: ../root/release/edit/tracklist.tt:189
+#: ../root/release/edit/tracklist.tt:185
 msgid ""
 "You’ve seeded some Disc IDs that aren’t matched to any medium. If this is "
 "wrong, use the “Attach Disc ID” options below."
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:240
+#: ../root/release/edit/tracklist.tt:241
 msgid ""
 "You’ve used the {valink|Various Artists} special purpose artist on some "
 "tracks below. {valink|Various Artists} should very rarely be used on tracks;"
@@ -10635,7 +10635,7 @@ msgstr ""
 msgid "any"
 msgstr ""
 
-#: ../root/release/edit/recordings.tt:173 ../root/scripts/text_strings.tt:27
+#: ../root/release/edit/recordings.tt:171 ../root/scripts/text_strings.tt:27
 msgid "appears on:"
 msgstr "εμφανίζεται σε:"
 
@@ -10667,11 +10667,11 @@ msgstr "μεταξύ"
 msgid "bot"
 msgstr "bot"
 
-#: ../root/release/edit/recordings.tt:66 ../root/release/edit/recordings.tt:69
+#: ../root/release/edit/recordings.tt:64 ../root/release/edit/recordings.tt:67
 msgid "by"
 msgstr "από"
 
-#: ../root/scripts/text_strings.tt:163
+#: ../root/scripts/text_strings.tt:152
 msgid "by {artist}"
 msgstr "από {artist}"
 
@@ -10734,7 +10734,7 @@ msgstr ""
 
 #: ../root/components/relationship-editor.tt:67
 #: ../root/components/relationship-editor.tt:93
-#: ../root/release/edit/tracklist.tt:212
+#: ../root/release/edit/tracklist.tt:208
 msgid "help"
 msgstr ""
 
@@ -10902,7 +10902,7 @@ msgstr "τυχαία"
 msgid "raw edit data"
 msgstr ""
 
-#: ../root/release/edit/recordings.tt:25
+#: ../root/release/edit/recordings.tt:23
 msgid "recording"
 msgstr "ηχογράφηση"
 
@@ -10963,7 +10963,7 @@ msgid ""
 "alone indent"
 msgstr ""
 
-#: ../root/release/edit/recordings.tt:24
+#: ../root/release/edit/recordings.tt:22
 msgid "track"
 msgstr "κομμάτι"
 
@@ -10985,7 +10985,7 @@ msgstr "μη παρακολούθηση"
 msgid "until {date}"
 msgstr "μέχρι {date}"
 
-#: ../root/scripts/text_strings.tt:169
+#: ../root/scripts/text_strings.tt:158
 msgid "video"
 msgstr ""
 
@@ -11003,7 +11003,7 @@ msgid ""
 "{about|More Information} &#x2014; {faq|FAQs} &#x2014; {contact|Contact Us}"
 msgstr "{about|Περισσότερες πληροφορίες} &#x2014; {faq|Συχνές ερωτήσεις} &#x2014; {contact|Επικοινωνήστε μαζί μας}"
 
-#: ../root/components/common-macros.tt:127 ../root/scripts/text_strings.tt:127
+#: ../root/components/common-macros.tt:127 ../root/scripts/text_strings.tt:126
 msgid "{almost_last_list_item} and {last_list_item}"
 msgstr ""
 
@@ -11032,7 +11032,7 @@ msgid_plural "{artist} has no releases which have {n} tracks."
 msgstr[0] "Ο καλλιτέχνης {artist} δεν έχει κυκλοφορίες με μόνο {n} κομμάτι."
 msgstr[1] "Ο καλλιτέχνης {artist} δεν έχει κυκλοφορίες με {n} κομμάτια."
 
-#: ../root/scripts/text_strings.tt:187
+#: ../root/scripts/text_strings.tt:176
 #: ../lib/MusicBrainz/Server/Entity/Relationship.pm:225
 #, perl-brace-format
 msgid "{attribute}: {value}"
@@ -11079,7 +11079,7 @@ msgid_plural "{count} private ratings not listed."
 msgstr[0] "{count} ιδιωτική βαθμολογία δεν εμφανίζεται."
 msgstr[1] "{count} ιδιωτικές βαθμολογίες δεν εμφανίζονται."
 
-#: ../root/scripts/text_strings.tt:173
+#: ../root/scripts/text_strings.tt:162
 msgid "{description} ({url|more documentation})"
 msgstr ""
 
@@ -11128,7 +11128,7 @@ msgid "{entity0}-{entity1}"
 msgstr ""
 
 #: ../root/components/common-macros.tt:266 ../root/main/index.tt:124
-#: ../root/scripts/text_strings.tt:164
+#: ../root/scripts/text_strings.tt:153
 msgid "{entity} by {artist}"
 msgstr "{entity} από {artist}"
 
@@ -11152,7 +11152,7 @@ msgstr "{link} δεν έχει βαθμολογίες."
 msgid "{link} has no relationships."
 msgstr "{link} δεν έχει σχέσεις."
 
-#: ../root/components/common-macros.tt:129 ../root/scripts/text_strings.tt:128
+#: ../root/components/common-macros.tt:129 ../root/scripts/text_strings.tt:127
 msgid "{list_item}, {rest}"
 msgstr ""
 
@@ -11160,11 +11160,11 @@ msgstr ""
 msgid "{mbid|<abbr title=\"MusicBrainz Identifier\">MBID</abbr>}:"
 msgstr "{mbid|<abbr title=\"MusicBrainz Identifier\">MBID</abbr>}:"
 
-#: ../root/scripts/text_strings.tt:166
+#: ../root/scripts/text_strings.tt:155
 msgid "{name} - Add Release"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:168
+#: ../root/scripts/text_strings.tt:157
 msgid "{name} - Edit Release"
 msgstr ""
 
@@ -11282,7 +11282,7 @@ msgid_plural "{num} years ago"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/components/relationships.tt:16 ../root/scripts/text_strings.tt:188
+#: ../root/components/relationships.tt:16 ../root/scripts/text_strings.tt:177
 msgid "{num}. {relationship}"
 msgstr ""
 
@@ -11378,7 +11378,7 @@ msgid ""
 " that the artist has been entered correctly."
 msgstr ""
 
-#: ../root/components/common-macros.tt:943 ../root/scripts/text_strings.tt:174
+#: ../root/components/common-macros.tt:943 ../root/scripts/text_strings.tt:163
 msgid "{variable}:"
 msgstr ""
 
