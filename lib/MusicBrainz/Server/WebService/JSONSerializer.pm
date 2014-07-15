@@ -643,7 +643,7 @@ sub autocomplete_event
             my $result = shift;
 
             my $out = $self->_event( $result->{entity} );
-            $out->{performers} = $result->{performers};
+            $out->{related_entities} = $result->{related_entities};
 
             return $out;
         }

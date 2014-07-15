@@ -273,26 +273,35 @@ event.
 
 =cut
 
-sub find_artists
+sub find_related_entities
 {
     my ($self, $events, $limit) = @_;
 
     my @ids = map { $_->id } @$events;
     return () unless @ids;
 
-    my (%performers);
+    my (%performers, %locations);
     $self->_find_performers(\@ids, \%performers);
+    $self->_find_locations(\@ids, \%locations);
 
     my %map = map +{
         $_ => {
-            performers => { hits => 0, results => [] }
+            performers => { hits => 0, results => [] },
+            locations => { hits => 0, results => [] }
         }
     }, @ids;
 
     for my $event_id (@ids) {
         my @performers = uniq map { $_->{entity}->name } @{ $performers{$event_id} };
+        my @locations = uniq map { $_->{entity}->name } @{ $locations{$event_id} };
 
         $map{$event_id} = {
+            locations => {
+                hits => scalar @locations,
+                results => $limit && scalar @locations > $limit
+                    ? [ @locations[ 0 .. ($limit-1) ] ]
+                    : \@locations,
+            },
             performers => {
                 hits => scalar @performers,
                 results => $limit && scalar @performers > $limit
