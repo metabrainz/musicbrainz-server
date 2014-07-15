@@ -29,7 +29,6 @@
         </p>
         [% form_row_date(r, 'period.begin_date', l('Begin date:')) %]
         [% form_row_date(r, 'period.end_date', l('End date:')) %]
-        [%# form_row_checkbox(r, 'period.ended', l('This event has ended.')) %]
         [%- form_row_text_long(r, 'time', l('Time:')) -%]
       </fieldset>
 

@@ -48,8 +48,6 @@ sub edit_field_names
 
 sub options_type_id { select_options_tree(shift->ctx, 'EventType') }
 
-sub dupe_model { shift->ctx->model('Event') }
-
 1;
 
 =head1 COPYRIGHT
