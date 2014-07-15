@@ -10,9 +10,18 @@
       <th style="width: 1em">[% l('#') %]</th>
       [% END %]
       <th>[% l('Event') %]</th>
+      [% UNLESS no_type %]
       <th>[% l('Type') %]</th>
+      [% END %]
+      [% UNLESS no_artists %]
       <th>[% l('Artists') %]</th>
+      [% END %]
+      [% IF artist_roles %]
+      <th>[% l('Role') %]</th>
+      [% END %]
+      [% UNLESS no_location %]
       <th>[% l('Location') %]</th>
+      [% END %]
       <th>[% l('Date') %]</th>
       <th>[% l('Time') %]</th>
       [% UNLESS no_ratings %]
@@ -36,28 +45,43 @@
       <td>
         [% descriptive_link(event) %]
       </td>
-      <td>
-        [% event.l_type_name %]
-      </td>
-      <td>
-        <ul>
+      [% UNLESS no_type %]
+        <td>
+          [% event.l_type_name %]
+        </td>
+      [% END %]
+      [% UNLESS no_artists %]
+        <td>
+          <ul>
+            [% FOR rel_artist=event.performers %]
+              <li>
+                [% l('{artist} ({roles})', { artist => link_artist(rel_artist.entity),
+                     roles  => rel_artist.roles.join(', ') }) %]
+              </li>
+            [% END %]
+          </ul>
+        </td>
+      [% END %]
+      [% IF artist_roles %]
+        <td>
           [% FOR rel_artist=event.performers %]
-            <li>
-              [% l('{artist} ({roles})', { artist => link_artist(rel_artist.entity),
-                   roles  => rel_artist.roles.join(', ') }) %]
-            </li>
+            [% IF rel_artist.entity.id == artist.id %]
+              [% rel_artist.roles.join(', ') %]
+            [% END %]
           [% END %]
-        </ul>
-      </td>
-      <td>
-        <ul>
-          [% FOR rel_place=event.locations %]
-            <li>
-              [% l('{place}', { place => link_place(rel_place.entity) }) %]
-            </li>
-          [% END %]
-        </ul>
-      </td>
+        </td>
+      [% END %]
+      [% UNLESS no_location %]
+        <td>
+          <ul>
+            [% FOR rel_place=event.locations %]
+              <li>
+                [% l('{place}', { place => link_place(rel_place.entity) }) %]
+              </li>
+            [% END %]
+          </ul>
+        </td>
+      [% END %]
       [%- IF event.begin_date.format == event.end_date.format %]
           <td>[% event.begin_date.format %]</td>
       [%- ELSIF event.begin_date.format && event.end_date.format %]
@@ -70,7 +94,7 @@
       [%- END -%]
       <td>[% event.formatted_time %]</td>
       [% UNLESS no_ratings %]
-      <td>[% rating_stars(event) %]</td>
+        <td>[% rating_stars(event) %]</td>
       [% END %]
     </tr>
     [% END %]
