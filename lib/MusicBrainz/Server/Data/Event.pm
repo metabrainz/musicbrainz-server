@@ -16,6 +16,7 @@ use MusicBrainz::Server::Data::Utils qw(
     merge_string_attributes
     merge_partial_date
     placeholders
+    query_to_list_limited
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 
@@ -204,6 +205,65 @@ sub is_empty {
           $used_in_relationship
         )
 EOSQL
+}
+
+sub load_related_info {
+    my ($self, @events) = @_;
+
+    my $c = $self->c;
+    $c->model('Event')->load_performers(@events);
+    $c->model('Event')->load_locations(@events);
+    $c->model('EventType')->load(@events);
+}
+
+sub find_by_artist
+{
+    my ($self, $artist_id, $limit, $offset) = @_;
+
+    my $query =
+        'SELECT ' . $self->_columns .'
+           FROM (
+                    SELECT entity1 AS event
+                      FROM l_artist_event ar
+                      JOIN link ON ar.link = link.id
+                      JOIN link_type lt ON lt.id = link.link_type
+                     WHERE entity0 = ?
+                ) s, ' . $self->_table .'
+          WHERE event.id = s.event
+       ORDER BY musicbrainz_collate(event.name)
+         OFFSET ?';
+
+    # We actually use this for the side effect in the closure
+    return query_to_list_limited(
+        $self->c->sql, $offset, $limit, sub {
+            $self->_new_from_row(shift);
+        },
+        $query, $artist_id, $offset || 0);
+}
+
+sub find_by_place
+{
+    my ($self, $place_id, $limit, $offset) = @_;
+
+    my $query =
+        'SELECT ' . $self->_columns .'
+           FROM (
+                    SELECT entity0 AS event
+                      FROM l_event_place ar
+                      JOIN link ON ar.link = link.id
+                      JOIN link_type lt ON lt.id = link.link_type
+                     WHERE entity1 = ?
+                ) s, ' . $self->_table .'
+          WHERE event.id = s.event
+       ORDER BY musicbrainz_collate(event.name)
+         OFFSET ?';
+
+    # We actually use this for the side effect in the closure
+    return query_to_list_limited(
+        $self->c->sql, $offset, $limit, sub {
+            $self->_new_from_row(shift);
+        },
+        $query, $place_id, $offset || 0);
 }
 
 =method find_artists
