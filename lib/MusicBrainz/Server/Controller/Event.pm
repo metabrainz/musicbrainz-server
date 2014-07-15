@@ -90,12 +90,6 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
     edit_type      => $EDIT_EVENT_EDIT,
 };
 
-before edit => sub {
-    my ($self, $c) = @_;
-
-    $c->model('Relationship')->load($c->stash->{event});
-};
-
 with 'MusicBrainz::Server::Controller::Role::Delete' => {
     edit_type      => $EDIT_EVENT_DELETE,
 };
