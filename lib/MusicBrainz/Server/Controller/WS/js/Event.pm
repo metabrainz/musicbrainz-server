@@ -42,4 +42,9 @@ around _format_output => sub {
     }, $self->$orig($c, @entities);
 };
 
+after _load_entities => sub {
+    my ($self, $c, @entities) = @_;
+    $c->model('EventType')->load(@entities);
+};
+
 1;

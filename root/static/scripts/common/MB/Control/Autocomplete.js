@@ -813,6 +813,10 @@ MB.Control.autocomplete_formatters = {
                       _.escape(comment.join(", ")) + ')</span>');
         }
 
+        if (item.typeName) {
+            a.append(' <span class="autocomplete-comment">(' + _.escape(item.typeName) + ')</span>');
+        }
+
         if (item.begin_date || item.time)
         {
             a.append('<br /><span class="autocomplete-comment">' + (item.begin_date ? (item.begin_date + ' ') : '') + (item.time ? item.time : '') + '</span>');
