@@ -1,32 +1,32 @@
 <table class="tbl">
   <thead>
     <tr>
-      [% IF c.user_exists AND !no_checkboxes %]
-      <th>
-        <input type="checkbox" />
-      </th>
-      [% END %]
-      [% IF series_item_numbers %]
-      <th style="width: 1em">[% l('#') %]</th>
-      [% END %]
-      <th>[% l('Event') %]</th>
-      [% UNLESS no_type %]
-      <th>[% l('Type') %]</th>
-      [% END %]
-      [% UNLESS no_artists %]
-      <th>[% l('Artists') %]</th>
-      [% END %]
-      [% IF artist_roles %]
-      <th>[% l('Role') %]</th>
-      [% END %]
-      [% UNLESS no_location %]
-      <th>[% l('Location') %]</th>
-      [% END %]
-      <th>[% l('Date') %]</th>
-      <th>[% l('Time') %]</th>
-      [% UNLESS no_ratings %]
-      <th>[% l('Rating') %]</th>
-      [% END %]
+      [%~ IF c.user_exists AND !no_checkboxes ~%]
+        <th>
+          <input type="checkbox" />
+        </th>
+      [%~ END ~%]
+      [%~ IF series_item_numbers ~%]
+        <th style="width: 1em">[%~ l('#') ~%]</th>
+      [%~ END ~%]
+      <th>[%~ l('Event') ~%]</th>
+      [%~ UNLESS no_type ~%]
+        <th>[%~ l('Type') ~%]</th>
+      [%~ END ~%]
+      [%~ UNLESS no_artists ~%]
+        <th>[%~ l('Artists') ~%]</th>
+      [%~ END ~%]
+      [%~ IF artist_roles ~%]
+        <th>[%~ l('Role') ~%]</th>
+      [%~ END ~%]
+      [%~ UNLESS no_location ~%]
+        <th>[%~ l('Location') ~%]</th>
+      [%~ END ~%]
+      <th>[%~ l('Date') ~%]</th>
+      <th>[%~ l('Time') ~%]</th>
+      [%~ UNLESS no_ratings ~%]
+        <th>[%~ l('Rating') ~%]</th>
+      [%~ END ~%]
     </tr>
   </thead>
   <tbody>
@@ -85,12 +85,12 @@
       [%- IF event.begin_date.format == event.end_date.format %]
           <td>[% event.begin_date.format %]</td>
       [%- ELSIF event.begin_date.format && event.end_date.format %]
-          <td>[% l('{begindate} – {enddate}', { begindate => event.begin_date.format,
+          <td>[% l('{begindate} &#x2013; {enddate}', { begindate => event.begin_date.format,
                                                 enddate   => event.end_date.format }) %]</td>
       [% ELSIF event.begin_date.format %]
-          <td>[% l('{begindate} – ????', { begindate => event.begin_date.format }) %]</td>
+          <td>[% l('{begindate} &#x2013; ????', { begindate => event.begin_date.format }) %]</td>
       [% ELSIF event.end_date.format %]
-          <td>[% l('???? – {enddate}', { enddate   => event.end_date.format }) %]</td>
+          <td>[% l('???? &#x2013; {enddate}', { enddate   => event.end_date.format }) %]</td>
       [%- END -%]
       <td>[% event.formatted_time %]</td>
       [% UNLESS no_ratings %]
