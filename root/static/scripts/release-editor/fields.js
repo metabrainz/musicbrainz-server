@@ -602,7 +602,7 @@
             this.needsRecordings = errorField(this.mediums.any("needsRecordings"));
             this.hasInvalidFormats = errorField(this.mediums.any("hasInvalidFormat"));
             this.needsMediums = errorField(function () { return !self.mediums().length });
-            this.needsTracks = errorField(function () { return !self.hasTracks() });
+            this.needsTracks = errorField(this.mediums.any("needsTracks"));
             this.needsTrackInfo = errorField(function () { return !self.hasTrackInfo() });
 
             // Ensure there's at least one event, label, and medium to edit.

@@ -23,6 +23,10 @@ test("non-loaded mediums validate, even though they have no tracks (MBS-7222)", 
     ok(!medium.needsTracks(), "medium doesn't require tracks");
     ok(!medium.needsTrackInfo(), "medium doesn't require track info");
     ok(!medium.needsRecordings(), "medium doesn't require recordings");
+    ok(!release.needsMediums(), "release doesn't need mediums");
+    ok(!release.needsTracks(), "release doesn't need tracks");
+    ok(!release.needsTrackInfo(), "release doesn't need track info");
+    ok(!release.needsRecordings(), "release doesn't need recordings");
 });
 
 
