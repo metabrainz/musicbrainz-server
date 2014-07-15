@@ -34,12 +34,17 @@ sub search : Chained('root') PathPart('event')
 
 around _format_output => sub {
     my ($orig, $self, $c, @entities) = @_;
-    my %artists = $c->model('Event')->find_artists(\@entities, 3);
+    my %related_entities = $c->model('Event')->find_related_entities(\@entities, 3);
 
     return map +{
         %$_,
-        artists => $artists{$_->{entity}->id},
+        related_entities => $related_entities{$_->{entity}->id},
     }, $self->$orig($c, @entities);
+};
+
+after _load_entities => sub {
+    my ($self, $c, @entities) = @_;
+    $c->model('EventType')->load(@entities);
 };
 
 1;
