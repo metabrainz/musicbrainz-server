@@ -219,7 +219,7 @@ ko.bindingHandlers.loop = {
             // Brief timeout in case a removed item gets re-added.
             setTimeout(function () {
                 for (var i = 0, removal; removal = removals[i]; i++) {
-                    if (!document.contains(removal.node)) {
+                    if (!document.body.contains(removal.node)) {
                         ko.cleanNode(removal.node);
                         delete elements[removal.itemID];
                     }
