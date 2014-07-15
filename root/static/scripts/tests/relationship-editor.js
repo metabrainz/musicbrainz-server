@@ -770,8 +770,10 @@ test("backwardness of submitted relationships is preserved (MBS-7636)", function
 });
 
 
-test("edit submission request is entered for release (MBS-7740)", function () {
-    var relationship = this.vm.getRelationship({
+test("edit submission request is entered for release (MBS-7740, MBS-7746)", function () {
+    var recording = this.vm.source.mediums()[0].tracks[0].recording;
+
+    var relationship1 = this.vm.getRelationship({
         target: {
             id: 102938,
             entityType: "release",
@@ -779,33 +781,68 @@ test("edit submission request is entered for release (MBS-7740)", function () {
         },
         linkTypeID: 69,
         attributes: []
-    }, this.vm.source.mediums()[0].tracks[0].recording);
+    }, recording);
 
-    relationship.show();
+    var relationship2 = this.vm.getRelationship({
+        target: {
+            id: 839201,
+            entityType: "work",
+            gid: this.fakeGID1
+        },
+        linkTypeID: 278,
+        attributes: []
+    }, recording);
+
+    relationship1.show();
+    relationship2.show();
 
     this.vm.submissionDone = function (data, submitted) {
-        deepEqual(submitted.edits[0], {
-            "edit_type": 90,
-            "linkTypeID": 69,
-            "entities": [
-                {
-                    "entityType": "recording",
-                    "gid": "87ec065e-f139-41b9-b3b9-f746addf5b1e",
-                    "name": "Love Me Do"
-                },
-                {
-                    "entityType": "release",
-                    "gid": "c4804cb2-bf33-4394-bb5f-3fac972fa7a5",
-                    "name": ""
-                }
-            ],
-            "attributes": [],
-            "linkOrder": 0,
-            "beginDate": null,
-            "endDate": null,
-            "ended": false,
-            "hash": "e201ef6c17e846c125a10aa7c32978b5a7e8374a"
-        });
+        deepEqual(submitted.edits, [
+            {
+                "edit_type": 90,
+                "linkTypeID": 69,
+                "entities": [
+                    {
+                        "entityType": "recording",
+                        "gid": "87ec065e-f139-41b9-b3b9-f746addf5b1e",
+                        "name": "Love Me Do"
+                    },
+                    {
+                        "entityType": "release",
+                        "gid": "c4804cb2-bf33-4394-bb5f-3fac972fa7a5",
+                        "name": ""
+                    }
+                ],
+                "attributes": [],
+                "linkOrder": 0,
+                "beginDate": null,
+                "endDate": null,
+                "ended": false,
+                "hash": "e201ef6c17e846c125a10aa7c32978b5a7e8374a"
+            },
+            {
+                "edit_type": 90,
+                "linkTypeID": 278,
+                "entities": [
+                    {
+                        "entityType": "recording",
+                        "gid": "87ec065e-f139-41b9-b3b9-f746addf5b1e",
+                        "name": "Love Me Do"
+                    },
+                    {
+                        "entityType": "work",
+                        "gid": "acb75d59-b0dc-4105-bad6-81ac8c66da4d",
+                        "name": ""
+                    }
+                ],
+                "attributes": [],
+                "linkOrder": 0,
+                "beginDate": null,
+                "endDate": null,
+                "ended": false,
+                "hash": "361082ca99b79b1bf70cbed7895f2fde7536d4f0"
+            }
+        ]);
     };
 
     this.vm.submit(null, $.Event());

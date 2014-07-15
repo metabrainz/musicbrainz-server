@@ -65,14 +65,14 @@
 
                     _.each(recording.relationships(), function (r) {
                         addChanged(r, recording);
-                    });
 
-                    _.each(recording.performances(), function (r) {
-                        var work = r.entities()[1];
+                        if (r.entityTypes === "recording-work") {
+                            var work = r.entities()[1];
 
-                        _.each(work.relationships(), function (r) {
-                            addChanged(r, work);
-                        });
+                            _.each(work.relationships(), function (r) {
+                                addChanged(r, work);
+                            });
+                        }
                     });
                 });
             });
@@ -174,7 +174,10 @@
         _sortedRelationships: function (relationships, source) {
             var self = this;
 
-            return relationships.sortBy(function (relationship) {
+            return relationships.filter(function (relationship) {
+                return relationship.entityTypes !== "recording-work";
+
+            }).sortBy(function (relationship) {
                 return relationship.lowerCaseTargetName(source);
 
             }).sortBy("linkOrder").sortBy(function (relationship) {

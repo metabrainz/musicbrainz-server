@@ -17,6 +17,12 @@
 
             this.url = ko.observable(data.target.name);
             this.url.subscribe(this.urlChanged, this);
+
+            this.error = ko.computed({
+                read: this._error,
+                owner: this,
+                deferEvaluation: true // needs linkTypeID, etc.
+            });
         },
 
         urlChanged: function (value) {
@@ -28,7 +34,8 @@
                 this.entities(entities);
             }
 
-            var error = this.error();
+            // this.error hasn't updated yet, and we need the latest value.
+            var error = this._error();
 
             if (this.cleanup && (!error || error === MB.text.SelectURLType)) {
                 var linkType = this.cleanup.guessType(this.cleanup.sourceType, value);
@@ -94,9 +101,9 @@
             var linksArray = this.parent.nonRemovedOrEmptyLinks(),
                 index = linksArray.indexOf(this);
 
-            if (this.id) {
-                this.removed(true);
+            this.removed(true);
 
+            if (this.id) {
                 // The original data won't be used, but the new data could
                 // have errors that prevents everything from validating, so
                 // we have to revert it.
@@ -105,14 +112,15 @@
                 this.entities(_.map(this.original.entities, function (data) {
                     return MB.entity(data);
                 }));
-            }
-            else {
+            } else {
                 // this.cleanup is undefined for tests that don't deal with
                 // markup (since it's set by the urlCleanup bindingHandler).
                 this.cleanup && this.cleanup.toggleEvents("off");
                 this.parent.source.relationships.remove(this);
                 this.errorObservable && this.errorObservable.dispose();
             }
+
+            this.error.dispose();
 
             var linkToFocus = linksArray[index + 1] || linksArray[index - 1];
 
@@ -132,7 +140,7 @@
             return links.length === 1 && links[0] === this;
         },
 
-        error: function () {
+        _error: function () {
             var url = this.url();
             var linkType = this.linkTypeID();
 

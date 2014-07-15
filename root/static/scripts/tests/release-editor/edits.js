@@ -598,16 +598,16 @@ test("edits are not generated for external links that duplicate existing removed
     release.relationships.push(addedDuplicate);
 
     equal(releaseEditor.edits.externalLinks(release).length, 1);
-    equal(releaseEditor.validation.errorCount(), 1);
+    equal(releaseEditor.validation.errorsExist(), true);
 
     addedDuplicate.remove();
 
-    equal(releaseEditor.validation.errorCount(), 0);
+    equal(releaseEditor.validation.errorsExist(), false);
 
     existingRelationship2.url(existingRelationship1.url());
 
     equal(releaseEditor.edits.externalLinks(release).length, 1);
-    equal(releaseEditor.validation.errorCount(), 1);
+    equal(releaseEditor.validation.errorsExist(), true);
 });
 
 

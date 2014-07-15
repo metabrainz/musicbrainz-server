@@ -179,9 +179,39 @@ ko.bindingHandlers.loop = {
                     }
                 }
 
-                if (nextItem && (elementsToInsertBefore = elements[nextItem[idAttribute]])) {
-                    parentNode.insertBefore(elementsToInsert, elementsToInsertBefore[0]);
-                } else {
+                // Find where to insert the elements associated with this
+                // item. The final result should be in the same order as the
+                // items are in their containing array.
+                var inserted = false, nextItem;
+
+                // Loop through the items after the current one, and find one
+                // that actually has elements on the page (i.e. something we
+                // can insertBefore). It doesn't matter if we don't insert
+                // before the *immediate* nextItem, because when *that* item
+                // is dealt with it'll be inserted before the same item we
+                // used (thus settling after us). nextItem will be undefined
+                // when it's past the last item in the array, and the for-
+                // loop will end; if we haven't inserted our elements by
+                // then, we can just use appendChild.
+
+                for (var j = change.index + 1; nextItem = items[j]; j++) {
+                    // nextItem won't have elements associated with it if
+                    // they haven't been created yet (obviously), which is
+                    // always the case when things are being rendered for the
+                    // first time (sequentially).
+                    elementsToInsertBefore = elements[nextItem[idAttribute]];
+
+                    // nextItem's elements won't exist on the page if they
+                    // were previously removed, but haven't been purged from
+                    // `elements` yet (below).
+                    if (elementsToInsertBefore && parentNode.contains(elementsToInsertBefore[0])) {
+                        parentNode.insertBefore(elementsToInsert, elementsToInsertBefore[0]);
+                        inserted = true;
+                        break;
+                    }
+                }
+
+                if (!inserted) {
                     parentNode.appendChild(elementsToInsert);
                 }
             }

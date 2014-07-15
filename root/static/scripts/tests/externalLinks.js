@@ -9,7 +9,7 @@ module("external links editor", {
 
         $("#qunit-fixture").append($.parseHTML('\
             <table id="external-links-editor">\
-            <tbody data-bind="foreach: links()">\
+            <tbody data-bind="loop: { items: nonRemovedLinks, id: \'uniqueID\' }">\
               <tr data-bind="urlCleanup: \'artist\'">\
                 <td>\
                   <select data-bind="value: linkTypeID, visible: showTypeSelection()">\
@@ -22,13 +22,11 @@ module("external links editor", {
                 </td>\
                 <td>\
                   <input type="text" data-bind="value: url" />\
+                  <!-- ko with: error() -->\
+                    <div class="errors" data-bind="text: $data"></div>\
+                  <!-- /ko -->\
                 </td>\
               </tr>\
-              <!-- ko with: error() -->\
-              <tr>\
-                <td class="errors" data-bind="text: $data"></td>\
-              </tr>\
-              <!-- /ko -->\
             </tbody>\
             </table>\
             <div id="external-link-bubble"></div>\

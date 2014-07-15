@@ -75,7 +75,7 @@ MB.releaseEditor.init = function (options) {
             // If we're editing a release and the mediums aren't loaded
             // (because there are many discs), we should still allow the
             // user to edit the recordings if that's all they want to do.
-            tabEnabled = release.tracksAreComplete();
+            tabEnabled = release.hasTrackInfo();
         }
 
         var tabNumber = addingRelease ? 3 : 2;
@@ -156,6 +156,10 @@ MB.releaseEditor.init = function (options) {
 
     this.rootField = this.fields.Root();
 
+    this.rootField.missingEditNote = function () {
+        return self.action === "add" && !self.rootField.editNote();
+    };
+
     this.seed(options.seed);
 
     if (this.action === "edit") {
@@ -220,6 +224,16 @@ MB.releaseEditor.autoOpenTheAddDiscDialog = function (release) {
     } else if (addDiscUI) {
         addDiscUI.close();
     }
+};
+
+
+MB.releaseEditor.allowsSubmission = function () {
+    return (
+        !this.submissionInProgress() &&
+        !this.validation.errorsExist() &&
+        (this.action === "edit" || this.rootField.editNote()) &&
+        this.allEdits().length > 0
+    );
 };
 
 $(MB.confirmNavigationFallback);

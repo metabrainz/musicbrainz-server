@@ -351,18 +351,17 @@
         function getPreview(edit) { return previews[edit.hash] }
         function addPreview(tuple) {
             var editHash = tuple[0].hash, preview = tuple[1];
-            preview.editHash = editHash;
-            previews[editHash] = preview;
+            if (preview) {
+                preview.editHash = editHash;
+                previews[editHash] = preview;
+            }
         }
         function isNewEdit(edit) { return previews[edit.hash] === undefined }
 
         ko.computed(function () {
             var edits = releaseEditor.allEdits();
 
-            // Don't generate edit previews if there are errors, *unless*
-            // having a missing edit note is the only error. However, do
-            // remove stale previews that may reference changed data.
-            if (releaseEditor.validation.errorsExistOtherThanAMissingEditNote()) {
+            if (releaseEditor.validation.errorsExist()) {
                 refreshPreviews([]);
                 return;
             }
@@ -556,8 +555,7 @@
 
 
     releaseEditor.submitEdits = function () {
-        if (releaseEditor.submissionInProgress() ||
-            releaseEditor.validation.errorCount() > 0) {
+        if (!releaseEditor.allowsSubmission()) {
             return;
         }
 
