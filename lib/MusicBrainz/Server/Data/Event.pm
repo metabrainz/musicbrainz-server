@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::Event;
 
 use Moose;
 use namespace::autoclean;
-use List::AllUtils qw( uniq zip );
+use List::AllUtils qw( uniq );
 use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Entity::Event;
@@ -166,10 +166,7 @@ sub _hash_to_row
     my ($self, $event, $names) = @_;
     my $row = hash_to_row($event, {
         type => 'type_id',
-        ended => 'ended',
-        name => 'name',
-        cancelled => 'cancelled',
-        map { $_ => $_ } qw( comment setlist time)
+        map { $_ => $_ } qw( comment setlist time ended name cancelled )
     });
 
     add_partial_date_to_row($row, $event->{begin_date}, 'begin_date');
