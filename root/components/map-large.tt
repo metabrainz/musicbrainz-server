@@ -5,8 +5,9 @@
 
     var map = L.map('largemap').setView([lat, lon], 14);
 
-    L.tileLayer('https://otile2-s.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png', {
-        attribution: 'Tiles Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">, Map data &copy; <a href="//www.openstreetmap.org/">OpenStreetMap</a> (<a href="//www.openstreetmap.org/copyright">License</a>)'
+    L.tileLayer('http://{s}.tiles.mapbox.com/v3/[%~ mapbox_map_id ~%]/{z}/{x}/{y}.png', {
+        attribution: "<a href='https://www.mapbox.com/about/maps/' target='_blank'>&copy; Mapbox &copy; OpenStreetMap</a> <a class='mapbox-improve-map' href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a>",
+        maxZoom: 18
     }).addTo(map);
 
     L.Icon.Default.imagePath = '/static/lib/leaflet/images';
