@@ -1,5 +1,5 @@
 [%~ WRAPPER "place/layout.tt" title=l('Map') page='map' ~%]
-    [%~ IF place.coordinates.latitude.defined && place.coordinates.longitude.defined ~%]
+    [%~ IF place.coordinates.defined ~%]
         [%~ INCLUDE 'components/map-large.tt' entity=place ~%]
     [%~ ELSE ~%]
         <p>[%~ l('A map cannot be shown because this place has no coordinates.') ~%]</p>
