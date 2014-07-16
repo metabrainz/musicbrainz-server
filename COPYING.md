@@ -8,8 +8,7 @@ a small number of files are available under a different license.
 The following files are licensed under the BSD 2-clause license,
 which is included in this file below the GPL version 2 license text:
 
-* <add filenames here>
-
+* root/static/lib/leaflet/
 
 
 GNU General Public License Version 2
