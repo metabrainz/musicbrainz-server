@@ -351,12 +351,9 @@ my %mapping = (
 
 sub schema_fixup_type {
     my ($self, $data, $type) = @_;
-    if (exists $data->{type} && $type ~~ [qw(area artist instrument label place series release-group work)]) {
-        my $type_model = $type;
-        $type_model =~ s/-/_/g; # fix release-group to release_group
-        my $prop = $type eq 'release-group' ? 'primary_type' : 'type';
-        my $model = 'MusicBrainz::Server::Entity::' . type_to_model($type_model) . 'Type';
-        $data->{$prop} = $model->new( name => $data->{type} );
+    if (exists $data->{type} && $type ~~ [qw(area artist instrument label place series work)]) {
+        my $model = 'MusicBrainz::Server::Entity::' . type_to_model($type) . 'Type';
+        $data->{type} = $model->new( name => $data->{type} );
     }
     return $data;
 }
@@ -536,27 +533,8 @@ sub schema_fixup
         }
 
         my $release_group = delete $data->{'release-group'};
-
-        my %rg_args;
-        if ($release_group->{'primary-type'}) {
-            $rg_args{primary_type} =
-                MusicBrainz::Server::Entity::ReleaseGroupType->new(
-                    name => $release_group->{'primary-type'}
-                );
-        }
-
-        if ($release_group->{'secondary-type-list'}) {
-            $rg_args{secondary_types} = [
-                map {
-                    MusicBrainz::Server::Entity::ReleaseGroupSecondaryType->new(
-                        name => $_
-                    )
-                } @{ $release_group->{'secondary-type-list'}{'secondary-type'} }
-            ]
-        }
-
         $data->{release_group} = MusicBrainz::Server::Entity::ReleaseGroup->new(
-            %rg_args
+            fixup_rg($release_group)
         );
 
         if ($data->{status}) {
@@ -569,6 +547,9 @@ sub schema_fixup
                 name => delete $data->{packaging}
             )
         }
+    }
+    if ($type eq 'release-group') {
+        fixup_rg($data, $data);
     }
     if ($type eq 'recording' &&
         exists $data->{"release-list"} &&
@@ -711,6 +692,31 @@ sub schema_fixup
             ]
         }
     }
+}
+
+sub fixup_rg {
+    my $release_group = shift;
+    my $rg_args = shift // {};
+        # can be passed as a parameter for in-place modification
+
+    if ($release_group->{'primary-type'}) {
+        $rg_args->{primary_type} =
+            MusicBrainz::Server::Entity::ReleaseGroupType->new(
+                name => $release_group->{'primary-type'}
+            );
+    }
+
+    if ($release_group->{'secondary-type-list'}) {
+        $rg_args->{secondary_types} = [
+            map {
+                MusicBrainz::Server::Entity::ReleaseGroupSecondaryType->new(
+                    name => $_
+                )
+            } @{ $release_group->{'secondary-type-list'}{'secondary-type'} }
+        ]
+    }
+
+    return %$rg_args;
 }
 
 # Escape special characters in a Lucene search query
