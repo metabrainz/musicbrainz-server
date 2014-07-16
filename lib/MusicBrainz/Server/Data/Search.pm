@@ -56,7 +56,7 @@ use MusicBrainz::Server::Data::Series;
 use MusicBrainz::Server::Data::Tag;
 use MusicBrainz::Server::Data::Utils qw( ref_to_type );
 use MusicBrainz::Server::Data::Work;
-use MusicBrainz::Server::Constants qw( $DARTIST_ID $DLABEL_ID );
+use MusicBrainz::Server::Constants qw( entities_with $DARTIST_ID $DLABEL_ID );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::ExternalUtils qw( get_chunked_with_retry );
 use DateTime::Format::ISO8601;
@@ -351,7 +351,7 @@ my %mapping = (
 
 sub schema_fixup_type {
     my ($self, $data, $type) = @_;
-    if (exists $data->{type} && $type ~~ [qw(area artist instrument label place series work)]) {
+    if (exists $data->{type} && $type ~~ [ entities_with(['type', 'simple']) ]) {
         my $model = 'MusicBrainz::Server::Entity::' . type_to_model($type) . 'Type';
         $data->{type} = $model->new( name => $data->{type} );
     }
@@ -386,6 +386,7 @@ sub schema_fixup
     }
 
     $data = $self->schema_fixup_type($data, $type);
+
     if ($type eq 'place' && exists $data->{coordinates})
     {
         $data->{coordinates} = MusicBrainz::Server::Entity::Coordinates->new( $data->{coordinates} );
