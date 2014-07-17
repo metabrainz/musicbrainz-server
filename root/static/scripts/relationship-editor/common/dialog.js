@@ -70,41 +70,44 @@
 
         init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
             var relationship = valueAccessor();
+            var instruments = ko.observableArray([]);
 
-            var initialData = $.map(relationship.attributes.peek(), function (attribute) {
-                if (attribute.type.rootID == 14) {
-                    return ko.observable(MB.entity(attribute.type, "instrument"));
-                }
-            });
+            function addInstrument(instrument) {
+                var observable = ko.observable(instrument);
+                var previousGID = instrument.gid;
 
-            var instruments = ko.observableArray(initialData);
+                instruments.push(observable);
+
+                observable.subscribe(function (instrument) {
+                    var gid = instrument.gid;
+                    if (gid) {
+                        relationship.addAttribute(gid);
+                    } else {
+                        relationship.removeAttribute(previousGID);
+                    }
+                    previousGID = gid;
+                });
+            }
 
             function focusLastInput() {
                 $(element).find(".ui-autocomplete-input:last").focus();
+            }
+
+            _.each(relationship.attributes.peek(), function (attribute) {
+                if (attribute.type.rootID == 14) {
+                    addInstrument(MB.entity(attribute.type, "instrument"));
+                }
+            });
+
+            if (!instruments.peek().length) {
+                addInstrument(MB.entity.Instrument({}));
             }
 
             var vm = {
                 instruments: instruments,
 
                 addItem: function () {
-                    var observable = ko.observable(MB.entity.Instrument({}));
-                    var previousGID;
-
-                    instruments.push(observable);
-
-                    ko.computed({
-                        read: function () {
-                            var typeGID = observable().gid;
-                            if (typeGID) {
-                                relationship.addAttribute(typeGID);
-                            } else {
-                                relationship.removeAttribute(previousGID);
-                            }
-                            previousGID = typeGID;
-                        },
-                        disposeWhenNodeIsRemoved: element
-                    });
-
+                    addInstrument(MB.entity.Instrument({}));
                     focusLastInput();
                 },
 
@@ -124,10 +127,6 @@
                     }
                 }
             };
-
-            if (!initialData.length) {
-                vm.addItem();
-            }
 
             var childBindingContext = bindingContext.createChildContext(vm);
             ko.applyBindingsToDescendants(childBindingContext, element);
