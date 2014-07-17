@@ -107,6 +107,8 @@
 
                 if (!typeAttributes[attribute.type.id]) {
                     this.removeAttribute(attribute.type.gid);
+                    --i;
+                    --len;
                 }
             }
         },
