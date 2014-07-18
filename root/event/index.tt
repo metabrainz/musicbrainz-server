@@ -31,7 +31,7 @@
     <h2 class="setlist">[% l('Setlist') %]</h2>
     <div class="setlist">
         <div class="setlist-body">
-                [% event.setlist | format_wikitext  %]
+                [% event.setlist  %]
         </div>
     [%- END -%]
 
