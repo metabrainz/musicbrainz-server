@@ -18,6 +18,7 @@ END -%]
 [%~ MACRO va_doc_link BLOCK -%]
     [%- doc_link('Style/Unknown_and_untitled/Special_purpose_artist#List_of_official_SPAs') -%]
 [%- END -%]
+[%~ MACRO yesno(b) BLOCK; b ? l('Yes') : l('No'); END ~%]
 
 [%~ MACRO wiki_history_link(server, id, version) BLOCK -%]
 //[%- server -%]/[%- id -%]?oldid=[%- version -%]

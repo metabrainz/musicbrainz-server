@@ -41,8 +41,8 @@
                   '-') %]
 
   [% display_diff(l('Ended:'),
-                  edit.display_data.ended.old ? l('Yes') : l('No'),
-                  edit.display_data.ended.new ? l('Yes') : l('No'),
+                  yesno(edit.display_data.ended.old),
+                  yesno(edit.display_data.ended.new),
                   '-') %]
 
   [% display_full_change(l('Area:'),
