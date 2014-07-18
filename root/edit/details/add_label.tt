@@ -41,7 +41,7 @@
 
   <tr>
     <th>[% l('Ended:') %]</th>
-    <td>[% edit.display_data.ended ? l('Yes') : l('No') %]</td>
+    <td>[% yesno(edit.display_data.ended) %]</td>
   </tr>
 
   [% IF edit.display_data.area %]
