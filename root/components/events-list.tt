@@ -82,16 +82,16 @@
           </ul>
         </td>
       [%~ END ~%]
-      [%~- IF event.begin_date.format == event.end_date.format ~%]
+      [%~ IF event.begin_date.format == event.end_date.format ~%]
           <td>[%~ event.begin_date.format ~%]</td>
-      [%~- ELSIF event.begin_date.format && event.end_date.format ~%]
+      [%~ ELSIF event.begin_date.format && event.end_date.format ~%]
           <td>[%~ l('{begindate} &#x2013; {enddate}', { begindate => event.begin_date.format,
                                                 enddate   => event.end_date.format }) ~%]</td>
       [%~ ELSIF event.begin_date.format ~%]
           <td>[%~ l('{begindate} &#x2013; ????', { begindate => event.begin_date.format }) ~%]</td>
       [%~ ELSIF event.end_date.format ~%]
           <td>[%~ l('???? &#x2013; {enddate}', { enddate   => event.end_date.format }) ~%]</td>
-      [%~- END -~%]
+      [%~ END ~%]
       <td>[%~ event.formatted_time ~%]</td>
       [%~ UNLESS no_ratings ~%]
         <td>[%~ rating_stars(event) ~%]</td>
