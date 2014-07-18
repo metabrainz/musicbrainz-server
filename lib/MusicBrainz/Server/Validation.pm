@@ -219,7 +219,7 @@ sub is_valid_isrc
 
 sub is_valid_time
 {
-    my $time = $_[0];
+    my $time = shift;
     return $time =~ /^([01][0-9]|2[0-3]):[0-5][0-9]$/;
 }
 

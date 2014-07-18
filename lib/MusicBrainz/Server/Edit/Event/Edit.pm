@@ -5,7 +5,6 @@ use Moose;
 use MusicBrainz::Server::Constants qw( $EDIT_EVENT_EDIT );
 use MusicBrainz::Server::Constants qw( :edit_status );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
-use MusicBrainz::Server::Types qw( Time );
 use MusicBrainz::Server::Edit::Utils qw(
     changed_relations
     changed_display_data
@@ -20,7 +19,7 @@ use MusicBrainz::Server::Validation qw( normalise_strings );
 
 use JSON::Any;
 
-use MooseX::Types::Moose qw( ArrayRef Bool Int Maybe Str );
+use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 
 use aliased 'MusicBrainz::Server::Entity::Event';
