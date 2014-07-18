@@ -204,6 +204,31 @@ sub load_related_info {
     $c->model('EventType')->load(@events);
 }
 
+sub find_by_area
+{
+    my ($self, $area_id, $limit, $offset) = @_;
+
+    my $query =
+        'SELECT ' . $self->_columns .'
+           FROM (
+                    SELECT entity1 AS event
+                      FROM l_area_event ar
+                      JOIN link ON ar.link = link.id
+                      JOIN link_type lt ON lt.id = link.link_type
+                     WHERE entity0 = ?
+                ) s, ' . $self->_table .'
+          WHERE event.id = s.event
+       ORDER BY musicbrainz_collate(event.name)
+         OFFSET ?';
+
+    # We actually use this for the side effect in the closure
+    return query_to_list_limited(
+        $self->c->sql, $offset, $limit, sub {
+            $self->_new_from_row(shift);
+        },
+        $query, $area_id, $offset || 0);
+}
+
 sub find_by_artist
 {
     my ($self, $artist_id, $limit, $offset) = @_;

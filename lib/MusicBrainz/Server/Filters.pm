@@ -15,7 +15,7 @@ use Try::Tiny;
 use URI::Escape;
 
 use Sub::Exporter -setup => {
-    exports => [qw( format_editnote format_wikitext )]
+    exports => [qw( format_editnote format_setlist format_wikitext )]
 };
 
 sub release_date
@@ -45,6 +45,19 @@ sub format_distance
     my $ms = shift;
     return "0 s" if (!$ms);
     return MusicBrainz::Server::Track::FormatTrackLength($ms);
+}
+
+sub format_setlist {
+    my ($text) = @_;
+
+    # Encode < and >
+    $text =~ s/</&lt;/g;
+    $text =~ s/>/&gt;/g;
+
+    # Fix newlines
+    $text =~ s/(\015\012|\012\015|\012|\015)/<br\/>/g;
+
+    return $text;
 }
 
 sub format_wikitext

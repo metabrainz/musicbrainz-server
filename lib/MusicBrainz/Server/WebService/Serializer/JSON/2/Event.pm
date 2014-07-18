@@ -1,6 +1,6 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Event;
 use Moose;
-use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( serialize_entity );
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( boolean serialize_entity );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Aliases';
@@ -21,7 +21,7 @@ sub serialize
     $body{time} = $entity->formatted_time // "";
     $body{type} = $entity->type_name;
     $body{setlist} = $entity->setlist // "";
-    $body{cancelled} = $entity->cancelled;
+    $body{cancelled} = boolean($entity->cancelled);
 
     return \%body;
 };
