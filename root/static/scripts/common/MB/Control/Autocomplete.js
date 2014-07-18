@@ -78,6 +78,7 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         this.totalPages = 1;
         this.pageTerm = "";
         this.indexedSearch = true;
+        this.changeEntity(this.options.entity);
 
         this.setObservable(
             this.options.currentSelection || ko.observable({

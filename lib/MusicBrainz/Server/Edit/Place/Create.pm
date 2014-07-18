@@ -7,7 +7,7 @@ use MusicBrainz::Server::Translation qw( N_l );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use aliased 'MusicBrainz::Server::Entity::Coordinates';
 use Moose::Util::TypeConstraints;
-use MooseX::Types::Moose qw( ArrayRef Bool Str Int );
+use MooseX::Types::Moose qw( Bool Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 
 use aliased 'MusicBrainz::Server::Entity::Place';

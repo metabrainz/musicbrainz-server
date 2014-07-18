@@ -6,7 +6,7 @@ use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Translation qw( N_l );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use Moose::Util::TypeConstraints;
-use MooseX::Types::Moose qw( ArrayRef Bool Str Int );
+use MooseX::Types::Moose qw( Bool Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 
 use aliased 'MusicBrainz::Server::Entity::Event';
