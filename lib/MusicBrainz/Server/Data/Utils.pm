@@ -577,9 +577,9 @@ sub split_relationship_by_attributes {
         }
     }
 
-    for (@to_split) {
+    for my $id (@to_split) {
         my $cloned_data = clone($data);
-        $cloned_data->{attributes} = [@others, $_];
+        $cloned_data->{attributes} = [@others, $id];
         push @new_data, $cloned_data;
     }
 

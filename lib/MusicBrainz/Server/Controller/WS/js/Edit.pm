@@ -32,6 +32,7 @@ use MusicBrainz::Server::Data::Utils qw(
     trim
     remove_invalid_characters
     collapse_whitespace
+    non_empty
 );
 use MusicBrainz::Server::Edit::Utils qw( boolean_from_json );
 use MusicBrainz::Server::Translation qw( l );
@@ -271,13 +272,17 @@ sub process_relationship {
     $data->{ended} = boolean_from_json($data->{ended});
 
     $data->{attributes} = [
-        map +{
-            type => {
-                gid => $_->{type}{gid},
-            },
-            exists $_->{credit} ? (credited_as => trim($_->{credit})) : (),
-            exists $_->{textValue} ? (text_value => trim($_->{textValue})) : (),
-        }, @{ $data->{attributes} // [] }
+        map {
+            my $credited_as = trim($_->{credit});
+            my $text_value = trim($_->{textValue});
+            {
+                type => {
+                    gid => $_->{type}{gid}
+                },
+                non_empty($credited_as) ? (credited_as => $credited_as) : (),
+                non_empty($text_value) ? (text_value => $text_value) : (),
+            }
+        } @{ $data->{attributes} // [] }
     ];
 
     delete $data->{id};

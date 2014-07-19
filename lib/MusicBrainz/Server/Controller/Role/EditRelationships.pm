@@ -3,7 +3,7 @@ use JSON;
 use MooseX::Role::Parameterized -metaclass => 'MusicBrainz::Server::Controller::Role::Meta::Parameterizable';
 use MusicBrainz::Server::CGI::Expand qw( expand_hash );
 use MusicBrainz::Server::Constants qw( $SERIES_ORDERING_TYPE_MANUAL );
-use MusicBrainz::Server::Data::Utils qw( model_to_type ref_to_type type_to_model trim );
+use MusicBrainz::Server::Data::Utils qw( model_to_type ref_to_type type_to_model trim non_empty );
 use MusicBrainz::Server::Form::Utils qw( build_type_info build_attr_info );
 use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
 
@@ -102,8 +102,8 @@ role {
                         type => {
                             gid => $_->{type}{gid},
                         },
-                        defined $_->{credited_as} ? (credit => $_->{credited_as}) : (),
-                        defined $_->{text_value} ? (textValue => $_->{text_value}) : (),
+                        non_empty($_->{credited_as}) ? (credit => $_->{credited_as}) : (),
+                        non_empty($_->{text_value}) ? (textValue => $_->{text_value}) : (),
                     }, @{ $_->{attributes} // [] } ],
                     beginDate   => $_->{period}->{begin_date} // {},
                     endDate     => $_->{period}->{end_date} // {},

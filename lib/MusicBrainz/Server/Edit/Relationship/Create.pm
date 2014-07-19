@@ -101,9 +101,7 @@ sub initialize
     delete $opts{begin_date} unless any { defined($_) } values %{ $opts{begin_date} };
     delete $opts{end_date} unless any { defined($_) } values %{ $opts{end_date} };
 
-    $opts{edit_version} = 2;
-
-    $self->data({ %opts });
+    $self->data({ %opts, edit_version => 2 });
 }
 
 sub foreign_keys
@@ -111,10 +109,8 @@ sub foreign_keys
     my ($self) = @_;
 
     my %load = (
-        LinkType => [ $self->data->{link_type}{id} ],
-        LinkAttributeType => [
-            map { $_->{type}{id} } @{ $self->data->{attributes} // [] }
-        ],
+        LinkType            => [ $self->data->{link_type}{id} ],
+        LinkAttributeType   => [ map { $_->{type}{id} } @{ $self->data->{attributes} // [] } ],
     );
 
     my $type0 = $self->data->{type0};
