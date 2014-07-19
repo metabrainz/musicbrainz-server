@@ -11,6 +11,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_EDIT
     $EDIT_RELATIONSHIP_DELETE
 );
+use MusicBrainz::Server::Data::Utils qw( non_empty );
 use Try::Tiny;
 
 __PACKAGE__->config( namespace => 'relationship_editor' );
@@ -77,6 +78,18 @@ sub submit_edits {
 
         $rel->{entities} = delete $rel->{entity};
         $rel->{linkTypeID} = delete $rel->{link_type};
+
+        if (my $attributes = delete $rel->{attributes}) {
+            # This is really stupid because it gets converted back again to
+            # the existing format in /ws/js.
+            $rel->{attributes} = [ map +{
+                type => {
+                    gid => $_->{type}{gid}
+                },
+                non_empty($_->{credited_as}) ? (credit => $_->{credited_as}) : (),
+                non_empty($_->{text_value}) ? (textValue => $_->{text_value}) : (),
+            }, @$attributes ];
+        }
 
         if (my $period = delete $rel->{period}) {
             $rel->{beginDate} = $period->{begin_date} if $period->{begin_date};

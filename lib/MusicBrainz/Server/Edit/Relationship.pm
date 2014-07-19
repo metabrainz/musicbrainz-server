@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Edit::Relationship;
 use List::UtilsBy qw( sort_by partition_by );
 use Moose::Role;
+use MusicBrainz::Server::Data::Utils qw( non_empty );
 use namespace::autoclean;
 
 use MusicBrainz::Server::Translation 'l';
@@ -57,8 +58,7 @@ sub check_attributes {
             my $data = $attributes_by_gid{$gid}->[0];
 
             if ($lat->free_text) {
-                die "Attribute $gid requires a text value"
-                    unless defined($data->{text_value}) && $data->{text_value} ne "";
+                die "Attribute $gid requires a text value" unless non_empty($data->{text_value});
             }
 
             $data->{type} = {
@@ -108,7 +108,8 @@ sub serialize_link_attributes {
                 id => $type->id,
                 gid => $type->gid,
             },
-            $type->creditable ? (credited_as => $_->credited_as) : (),
+            $type->creditable && non_empty($_->credited_as) ? (credited_as => $_->credited_as) : (),
+            # text values are required
             $type->free_text ? (text_value => $_->text_value) : (),
         }
     } @attributes ];

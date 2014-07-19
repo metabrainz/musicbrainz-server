@@ -12,6 +12,7 @@ use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
     load_subobjects
     placeholders
+    non_empty
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -175,19 +176,17 @@ sub find
                (a$i.attribute_type = ac$i.attribute_type
                   AND a$i.link = ac$i.link)";
 
-        my $credited_as = $attr->{credited_as};
-        if (defined $credited_as && $credited_as ne "") {
+        if (non_empty($attr->{credited_as})) {
             push @conditions, "ac$i.credited_as = ?";
-            push @args, $credited_as;
+            push @args, $attr->{credited_as};
         } else {
             push @conditions, "ac$i.credited_as IS NULL";
         }
 
-        my $text_value = $attr->{text_value};
-        if (defined $text_value && $text_value ne "") {
+        if (non_empty($attr->{text_value})) {
             push @joins, "JOIN link_attribute_text_value latv$i ON latv$i.link = link.id";
             push @conditions, "latv$i.attribute_type = ?", "latv$i.text_value = ?";
-            push @args, $attr->{type}{id}, $text_value;
+            push @args, $attr->{type}{id}, $attr->{text_value};
         }
 
         $i += 1;
@@ -223,21 +222,19 @@ sub find_or_insert
             attribute_type => $attribute_type,
         });
 
-        my $credited_as = $attr->{credited_as};
-        if (defined $credited_as && $credited_as ne "") {
+        if (non_empty($attr->{credited_as})) {
             $self->sql->insert_row("link_attribute_credit", {
                 attribute_type => $attribute_type,
                 link => $id,
-                credited_as => $credited_as
+                credited_as => $attr->{credited_as}
             });
         }
 
-        my $text_value = $attr->{text_value};
-        if (defined $text_value && $text_value ne "") {
+        if (non_empty($attr->{text_value})) {
             $self->sql->insert_row("link_attribute_text_value", {
                 link           => $id,
                 attribute_type => $attribute_type,
-                text_value     => $text_value
+                text_value     => $attr->{text_value}
             });
         }
     }

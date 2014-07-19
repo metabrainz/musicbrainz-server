@@ -67,6 +67,7 @@ our @EXPORT_OK = qw(
     trim
     type_to_model
     split_relationship_by_attributes
+    non_empty
 );
 
 Readonly my %TYPE_TO_MODEL => map { $_ => $ENTITIES{$_}{model} } grep { $ENTITIES{$_}{model} } keys %ENTITIES;
@@ -584,6 +585,11 @@ sub split_relationship_by_attributes {
 
     push @new_data, $data unless scalar(@new_data);
     return @new_data;
+}
+
+sub non_empty {
+    my $value = shift;
+    return defined($value) && $value ne "";
 }
 
 1;

@@ -275,6 +275,40 @@ test 'Attributes are validated against the new link type, not old one (MBS-7614)
     }, qr/Attribute 2 is unsupported for link type 3/;
 };
 
+test 'Instrument credits can be added to an existing relationship' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
+
+    my $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
+    $c->model('Link')->load($rel);
+    $c->model('LinkType')->load($rel->link);
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELATIONSHIP_EDIT,
+        editor_id => 1,
+        relationship => $rel,
+        link_type => $c->model('LinkType')->get_by_id(1),
+        attributes => [
+            {
+                type => {
+                    gid => '63021302-86cd-4aee-80df-2270d54f4978'
+                },
+                credited_as => 'crazy guitar'
+            }
+        ],
+    );
+
+    accept_edit($c, $edit);
+
+    $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
+    $c->model('Link')->load($rel);
+    $c->model('LinkType')->load($rel->link);
+
+    is($rel->link->attributes->[0]->credited_as, 'crazy guitar');
+};
+
 sub _create_edit {
     my $c = shift;
 
