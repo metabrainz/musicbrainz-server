@@ -6,16 +6,23 @@
             [%- PROCESS extra_header_start -%]
             <th>[% l('Artist') %]</th>
             <th>[% l('Release Group') %]</th>
+            <th>[% l('Type') %]</th>
         </tr>
     </thead>
     <tbody>
         [%- FOR item IN items -%]
+        [%~ IF item.key && (!lastkey.defined || lastkey != item.key) ~%]
+        <tr class="subh"><td colspan="4"></td></tr>
+        [%~ END ~%]
+
         <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
             [% BLOCK extra_row_start %][% END %]
             [%- PROCESS extra_row_start -%]
             <td>[% artist_credit(item.release_group.artist_credit) %]</td>
             <td>[% link_entity(item.release_group) %]</td>
+            <td>[% item.release_group.type_name %]</td>
         </tr>
+        [%~ lastkey = item.key IF item.key ~%]
         [%- END -%]
     </tbody>
 </table>
