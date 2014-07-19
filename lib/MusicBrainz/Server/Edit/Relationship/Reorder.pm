@@ -11,7 +11,7 @@ use MusicBrainz::Server::Constants qw(
 );
 use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash type_to_model );
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Edit::Types qw( PartialDateHash );
+use MusicBrainz::Server::Edit::Types qw( PartialDateHash LinkAttributesArray );
 use MusicBrainz::Server::Translation qw ( N_l );
 use Try::Tiny;
 use aliased 'MusicBrainz::Server::Entity::Link';
@@ -42,11 +42,7 @@ subtype 'LinkTypeHash'
 subtype 'ReorderedRelationshipHash'
     => as Dict[
         id => Int,
-        attributes => ArrayRef[Dict[
-            id => Int,
-            credited_as => Optional[Str],
-            text_value => Optional[Str],
-        ]],
+        attributes => LinkAttributesArray,
         begin_date => PartialDateHash,
         end_date => PartialDateHash,
         ended => Bool,
@@ -88,7 +84,7 @@ sub foreign_keys {
     $load{$model1} = {};
 
     for (map { $_->{relationship} } @{ $self->data->{relationship_order} }) {
-        push @{ $load{LinkAttributeType} }, map { $_->{id} } @{ $_->{attributes} };
+        push @{ $load{LinkAttributeType} }, map { $_->{type}{id} } @{ $_->{attributes} };
         $load{$model0}->{ $_->{entity0}{id} } = [];
         $load{$model1}->{ $_->{entity1}{id} } = [];
     }
@@ -111,7 +107,7 @@ sub _build_relationship {
             ended      => $data->{ended},
             attributes => [
                 map {
-                    my $attr = $loaded->{LinkAttributeType}{$_};
+                    my $attr = $loaded->{LinkAttributeType}{$_->{type}{id}};
 
                     if ($attr) {
                         my $root_id = $self->c->model('LinkAttributeType')->find_root($attr->id);
@@ -208,13 +204,7 @@ sub initialize {
             begin_date => partial_date_to_hash($link->begin_date),
             end_date => partial_date_to_hash($link->end_date),
             ended => $link->ended,
-            attributes => [
-                map +{
-                    id => $_->type->id,
-                    $_->credited_as ? (credited_as => $_->credited_as) : (),
-                    $_->text_value ? (text_value => $_->text_value) : (),
-                }, $link->all_attributes
-            ],
+            attributes => $self->serialize_link_attributes($link->all_attributes),
             entity0 => {
                 id => $relationship->entity0_id,
                 name => $relationship->entity0->name
