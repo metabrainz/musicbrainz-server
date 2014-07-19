@@ -114,7 +114,7 @@
             event.preventDefault();
 
             var attribute = ko.dataFor(event.target);
-            var typeGID = attribute.typeGID;
+            var typeGID = attribute.type.gid;
 
             this.relationship.removeAttribute(typeGID);
             this.menuVisible(false);
