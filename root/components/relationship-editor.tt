@@ -142,7 +142,7 @@
 </script>
 
 <script type="text/html" id="template.edit-attribute">
-  <div>
+  <div class="attribute-container">
     <!-- ko ifnot: attribute.children || attribute.freeText -->
     <label>
       <input type="checkbox" data-bind="attributeProperty: { relationship: relationship, typeGID: attribute.gid }" />
@@ -150,10 +150,11 @@
     </label>
     <!-- /ko -->
     <!-- ko if: attribute.id == 14 -->
+      <!-- ko text: MB.i18n.expand(MB.text.AddColon, { variable: attribute.l_name }) --><!-- /ko -->
       <div data-bind="instrumentSelect: relationship">
         <!-- ko foreach: instruments -->
-          <div>
-            <span class="autocomplete" style="width: auto;">
+          <div class="instrument-selection-credit">
+            <span class="autocomplete">
               <input data-bind="autocomplete: { entity: 'instrument', currentSelection: $rawData }" />
               <img class="search" src="/static/images/icons/search.png" />
             </span>
@@ -172,7 +173,7 @@
       </div>
     <!-- /ko -->
     <!-- ko if: attribute.children && max !== 1 && attribute.id != 14 -->
-      <!-- ko text: attribute.l_name --><!-- /ko -->
+      <!-- ko text: MB.i18n.expand(MB.text.AddColon, { variable: attribute.l_name }) --><!-- /ko -->
       <div class="multiselect" data-bind="
               component: {
                 name: 'multiselect',
