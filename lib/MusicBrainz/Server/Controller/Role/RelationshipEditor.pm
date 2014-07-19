@@ -57,7 +57,9 @@ sub try_and_insert {
     my ($self, $c, $form, %params) = @_;
 
     my @edits;
-    my $attributes = $c->model('LinkAttributeType')->get_by_ids(@{ $params{attributes} // [] });
+    my $attributes = $c->model('LinkAttributeType')->get_by_gids(
+        map { $_->{type}{gid} } @{ $params{attributes} // [] }
+    );
     my @relationships = split_relationship_by_attributes($attributes, \%params);
 
     $c->model('Relationship')->lock_and_do(

@@ -1,10 +1,43 @@
 package t::MusicBrainz::Server::Controller::RelationshipEditor;
 use Test::Routine;
 use Test::More;
-use Test::Deep qw( cmp_bag cmp_deeply bag );
+use Test::Deep qw( cmp_deeply );
 use MusicBrainz::Server::Test qw( capture_edits );
 
 with 't::Context', 't::Mechanize';
+
+our $additional_attribute = {
+    type => {
+        root_id => 1,
+        root_gid => '36990974-4f29-4ea1-b562-3838fa9b8832',
+        root_name => 'additional',
+        id => 1,
+        gid => '36990974-4f29-4ea1-b562-3838fa9b8832',
+        name => 'additional',
+    }
+};
+
+our $string_instruments_attribute = {
+    type => {
+        root_id => 14,
+        root_gid => '108d76bd-95eb-4099-aed6-447e4ec78553',
+        root_name => 'instrument',
+        id => 3,
+        gid => '4f7bb10f-396c-466a-8221-8e93f5e454f9',
+        name => 'String Instruments',
+    }
+};
+
+our $guitar_attribute = {
+    type => {
+        root_id => 14,
+        root_gid => '108d76bd-95eb-4099-aed6-447e4ec78553',
+        root_name => 'instrument',
+        id => 4,
+        gid => 'c3273296-91ba-453d-94e4-2fb6e958568e',
+        name => 'Guitar',
+    }
+};
 
 test 'Can add relationship' => sub {
     my $test = shift;
@@ -19,9 +52,9 @@ test 'Can add relationship' => sub {
         $mech->post("/relationship-editor", {
                 'rel-editor.rels.0.link_type' => '1',
                 'rel-editor.rels.0.action' => 'add',
-                'rel-editor.rels.0.attrs.additional' => '1',
-                'rel-editor.rels.0.attrs.instrument.0.id' => '3',
-                'rel-editor.rels.0.attrs.instrument.1.id' => '4',
+                'rel-editor.rels.0.attributes.0.type.gid' => '36990974-4f29-4ea1-b562-3838fa9b8832',
+                'rel-editor.rels.0.attributes.1.type.gid' => '4f7bb10f-396c-466a-8221-8e93f5e454f9',
+                'rel-editor.rels.0.attributes.2.type.gid' => 'c3273296-91ba-453d-94e4-2fb6e958568e',
                 'rel-editor.rels.0.entity.0.gid' => '745c079d-374e-4436-9448-da92dedef3ce',
                 'rel-editor.rels.0.entity.0.type' => 'artist',
                 'rel-editor.rels.0.entity.1.gid' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
@@ -51,21 +84,22 @@ test 'Can add relationship' => sub {
             long_link_phrase    => 'performer',
             reverse_link_phrase => 'has {additional} {instrument} performed by',
         },
-        entity1     => { id => 2, name => 'King of the Mountain' },
-        entity0     => { id => 3, name => 'Test Artist' },
-        begin_date  => { year => 1999, month => 1, day => 1 },
-        end_date    => { year => 1999, month => 1, day => 1 },
-        ended       => 1,
+        entity1         => { id => 2, name => 'King of the Mountain' },
+        entity0         => { id => 3, name => 'Test Artist' },
+        begin_date      => { year => 1999, month => 1, day => 1 },
+        end_date        => { year => 1999, month => 1, day => 1 },
+        ended           => 1,
+        edit_version    => 2,
     );
 
     cmp_deeply($edits[0]->data,  {
         %edit_data,
-        attributes => bag(1, 3),
+        attributes => [$additional_attribute, $string_instruments_attribute]
     });
 
     cmp_deeply($edits[1]->data,  {
         %edit_data,
-        attributes => bag(1, 4),
+        attributes => [$additional_attribute, $guitar_attribute]
     });
 };
 
@@ -83,9 +117,9 @@ test 'Can edit relationship' => sub {
                 'rel-editor.rels.0.id' => '1',
                 'rel-editor.rels.0.link_type' => '1',
                 'rel-editor.rels.0.action' => 'edit',
-                'rel-editor.rels.0.attrs.additional' => '1',
-                'rel-editor.rels.0.attrs.instrument.0.id' => '3',
-                'rel-editor.rels.0.attrs.instrument.1.id' => '4',
+                'rel-editor.rels.0.attributes.0.type.gid' => '36990974-4f29-4ea1-b562-3838fa9b8832',
+                'rel-editor.rels.0.attributes.1.type.gid' => '4f7bb10f-396c-466a-8221-8e93f5e454f9',
+                'rel-editor.rels.0.attributes.2.type.gid' => 'c3273296-91ba-453d-94e4-2fb6e958568e',
                 'rel-editor.rels.0.entity.0.gid' => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7',
                 'rel-editor.rels.0.entity.0.type' => 'artist',
                 'rel-editor.rels.0.entity.1.gid' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
@@ -108,7 +142,7 @@ test 'Can edit relationship' => sub {
     is($edit->data->{type0}, 'artist');
     is($edit->data->{type1}, 'recording');
     is($edit->data->{link}{link_type}{id}, 1);
-    cmp_bag($edit->data->{new}{attributes}, [1, 3, 4]);
+    cmp_deeply($edit->data->{new}{attributes}, [$additional_attribute, $string_instruments_attribute, $guitar_attribute]);
     is($edit->data->{new}{begin_date}{year}, 1999);
     is($edit->data->{new}{begin_date}{month}, 1);
     is($edit->data->{new}{begin_date}{day}, 1);
@@ -134,9 +168,9 @@ test 'Can remove relationship' => sub {
                 'rel-editor.rels.0.id' => '1',
                 'rel-editor.rels.0.link_type' => '1',
                 'rel-editor.rels.0.action' => 'remove',
-                'rel-editor.rels.0.attrs.additional' => '1',
-                'rel-editor.rels.0.attrs.instrument.0.id' => '3',
-                'rel-editor.rels.0.attrs.instrument.1.id' => '4',
+                'rel-editor.rels.0.attributes.0.type.gid' => '36990974-4f29-4ea1-b562-3838fa9b8832',
+                'rel-editor.rels.0.attributes.1.type.gid' => '4f7bb10f-396c-466a-8221-8e93f5e454f9',
+                'rel-editor.rels.0.attributes.2.type.gid' => 'c3273296-91ba-453d-94e4-2fb6e958568e',
                 'rel-editor.rels.0.entity.0.gid' => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7',
                 'rel-editor.rels.0.entity.0.type' => 'artist',
                 'rel-editor.rels.0.entity.1.gid' => '54b9d183-7dab-42ba-94a3-7388a66604b8',

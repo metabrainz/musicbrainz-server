@@ -102,8 +102,8 @@ role {
                         type => {
                             gid => $_->{type}{gid},
                         },
-                        $_->{credited_as} ? (credit => $_->{credited_as}) : (),
-                        $_->{text_value} ? (textValue => $_->{text_value}) : (),
+                        defined $_->{credited_as} ? (credit => $_->{credited_as}) : (),
+                        defined $_->{text_value} ? (textValue => $_->{text_value}) : (),
                     }, @{ $_->{attributes} // [] } ],
                     beginDate   => $_->{period}->{begin_date} // {},
                     endDate     => $_->{period}->{end_date} // {},

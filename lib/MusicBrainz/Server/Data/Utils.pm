@@ -561,13 +561,13 @@ sub take_while (&@) {
 }
 
 sub split_relationship_by_attributes {
-    my ($attributes_by_id, $data) = @_;
+    my ($attributes_by_gid, $data) = @_;
 
     my @attributes = @{ $data->{attributes} // [] };
     my (@to_split, @others, @new_data);
 
     for (@attributes) {
-        my $root = $attributes_by_id->{$_->{type}{id}}->root_id;
+        my $root = $attributes_by_gid->{$_->{type}{gid}}->root_id;
 
         if ($root == $INSTRUMENT_ROOT_ID || $root == $VOCAL_ROOT_ID) {
             push @to_split, $_;

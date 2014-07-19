@@ -89,6 +89,7 @@ sub _load_attributes
 
                 my $attr = MusicBrainz::Server::Entity::LinkAttribute->new(
                     type => $attr_type,
+                    type_id => $attr_type->id,
                     credited_as => $row->{credited_as},
                     text_value => $row->{text_value},
                 );
@@ -175,15 +176,15 @@ sub find
                   AND a$i.link = ac$i.link)";
 
         my $credited_as = $attr->{credited_as};
-        if (defined $credited_as) {
+        if (defined $credited_as && $credited_as ne "") {
             push @conditions, "ac$i.credited_as = ?";
             push @args, $credited_as;
-        }
-        else {
+        } else {
             push @conditions, "ac$i.credited_as IS NULL";
         }
 
-        if (my $text_value = $attr->{text_value}) {
+        my $text_value = $attr->{text_value};
+        if (defined $text_value && $text_value ne "") {
             push @joins, "JOIN link_attribute_text_value latv$i ON latv$i.link = link.id";
             push @conditions, "latv$i.attribute_type = ?", "latv$i.text_value = ?";
             push @args, $attr->{type}{id}, $text_value;
@@ -222,7 +223,8 @@ sub find_or_insert
             attribute_type => $attribute_type,
         });
 
-        if (my $credited_as = $attr->{credited_as}) {
+        my $credited_as = $attr->{credited_as};
+        if (defined $credited_as && $credited_as ne "") {
             $self->sql->insert_row("link_attribute_credit", {
                 attribute_type => $attribute_type,
                 link => $id,
@@ -230,7 +232,8 @@ sub find_or_insert
             });
         }
 
-        if (my $text_value = $attr->{text_value}) {
+        my $text_value = $attr->{text_value};
+        if (defined $text_value && $text_value ne "") {
             $self->sql->insert_row("link_attribute_text_value", {
                 link           => $id,
                 attribute_type => $attribute_type,

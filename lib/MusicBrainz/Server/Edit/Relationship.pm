@@ -16,6 +16,14 @@ sub check_attributes {
 
     my %attribute_bounds = map { $_->type_id => [$_->min, $_->max] } $link_type->all_attributes;
     my $link_attribute_types = $self->c->model('LinkAttributeType')->get_by_gids(@attribute_gids);
+
+    my $roots = $self->c->sql->select_list_of_hashes(q{
+        SELECT id, name, gid FROM link_attribute_type WHERE id IN (
+            SELECT root FROM link_attribute_type WHERE gid = any(?)
+        )
+    }, \@attribute_gids);
+
+    my %roots_by_id = map { $_->{id} => $_ } @$roots;
     my %attributes_by_root = partition_by { $link_attribute_types->{$_}->root_id } @attribute_gids;
 
     for my $root_id (keys %attributes_by_root) {
@@ -45,6 +53,7 @@ sub check_attributes {
 
         for my $gid (@values) {
             my $lat = $link_attribute_types->{$gid};
+            my $root = $roots_by_id{$lat->root_id};
             my $data = $attributes_by_gid{$gid}->[0];
 
             if ($lat->free_text) {
@@ -53,10 +62,12 @@ sub check_attributes {
             }
 
             $data->{type} = {
-                root_id => $lat->root_id,
-                name => $lat->name,
+                root_id => $root->{id},
+                root_gid => $root->{gid},
+                root_name => $root->{name},
                 id => $lat->id,
                 gid => $lat->gid,
+                name => $lat->name,
             };
 
             delete $data->{text_value} if exists $data->{text_value} && !$lat->free_text;

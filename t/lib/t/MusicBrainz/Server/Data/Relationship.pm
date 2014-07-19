@@ -211,7 +211,11 @@ $rel = $rel_data->insert('artist', 'recording', {
     link_type_id => 1,
     begin_date => { year => 2008, month => 2, day => 3 },
     end_date => { year => 2008, month => 2, day => 8 },
-    attributes => [ map +{ id => $_ }, (1, 3, 4) ],
+    attributes => [
+        { type => { id => 1 } },
+        { type => { id => 3 } },
+        { type => { id => 4 } },
+    ],
     entity0_id => 1,
     entity1_id => 1
 });
@@ -243,7 +247,7 @@ $rel_data->update('artist', 'recording', 100, {
     begin_date => undef,
     end_date => undef,
     ended => 0,
-    attributes => [{ id => 3 }],
+    attributes => [{ type => { id => 3 } }],
     entity0_id => 1,
     entity1_id => 1
 });

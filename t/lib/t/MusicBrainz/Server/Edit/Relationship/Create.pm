@@ -106,8 +106,12 @@ subtest 'Text attributes of value 0 are supported' => sub {
         entity0 => $e0,
         entity1 => $e1,
         link_type => $c->model('LinkType')->get_by_id(1),
-        attributes => [3],
-        attribute_text_values => { 3 => 0 },
+        attributes => [
+            {
+                type => { gid => 'e4e7d1a0-dc7c-11e3-9c1a-0800200c9a66' },
+                text_value => 0
+            }
+        ],
         ended => 1,
     );
 
@@ -116,7 +120,7 @@ subtest 'Text attributes of value 0 are supported' => sub {
     my $rel = $c->model('Relationship')->get_by_id('artist', 'artist', $edit->entity_id);
     $c->model('Link')->load($rel);
 
-    is_deeply($rel->link->attribute_text_values, { 3 => 0 });
+    is($rel->link->attributes->[0]->text_value, 0);
 };
 
 };

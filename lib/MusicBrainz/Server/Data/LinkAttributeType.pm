@@ -232,12 +232,6 @@ for my $method (qw( delete update )) {
     };
 }
 
-sub text_attribute_types {
-    my ($self) = @_;
-
-    return $self->get_tree('WHERE id IN (SELECT attribute_type FROM link_text_attribute_type)');
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

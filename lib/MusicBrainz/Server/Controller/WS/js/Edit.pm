@@ -445,15 +445,15 @@ sub process_edits {
     };
 
     my @new_edits;
-    my @attribute_ids;
+    my @attribute_gids;
 
     for my $edit (@$edits) {
         if ($edit->{edit_type} == $EDIT_RELATIONSHIP_CREATE) {
-            push @attribute_ids, map { $_->{type}{id} } @{ $edit->{attributes} // [] };
+            push @attribute_gids, map { $_->{type}{gid} } @{ $edit->{attributes} // [] };
         }
     }
 
-    my $attributes = $c->model('LinkAttributeType')->get_by_ids(@attribute_ids);
+    my $attributes = $c->model('LinkAttributeType')->get_by_gids(@attribute_gids);
 
     for my $edit (@$edits) {
         if ($edit->{edit_type} == $EDIT_RELATIONSHIP_CREATE) {
