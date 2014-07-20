@@ -6,6 +6,7 @@ use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Validation qw( trim_in_place );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Data::Relationship;
+use MusicBrainz::Server::Data::Utils qw( non_empty );
 use MusicBrainz::Server::Constants qw( $INSTRUMENT_ROOT_ID );
 
 use overload '<=>' => \&_cmp, fallback => 1;
@@ -221,12 +222,12 @@ sub _interpolate
             $value = "<a href=\"/instrument/".$type->gid."\">$value</a>";
         }
 
-        if (my $credit = $attr->credited_as) {
-            $value = l('{attribute} [{credited_as}]', { attribute => $value, credited_as => $credit })
+        if (non_empty($attr->credited_as)) {
+            $value = l('{attribute} [{credited_as}]', { attribute => $value, credited_as => $attr->credited_as })
         }
 
-        if (my $text_value = $attr->text_value) {
-            $value = l('{attribute}: {value}', { attribute => $value, value => $text_value });
+        if (non_empty($attr->text_value)) {
+            $value = l('{attribute}: {value}', { attribute => $value, value => $attr->text_value });
         }
 
         if (exists $attrs{$name}) {
