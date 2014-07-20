@@ -1,7 +1,8 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Relationship;
 use Moose;
-use Hash::Merge qw(merge);
-use String::CamelCase qw(camelize);
+use Hash::Merge qw( merge );
+use String::CamelCase qw( camelize );
+use MusicBrainz::Server::Data::Utils qw( non_empty );
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( date_period serialize_entity );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
@@ -22,7 +23,7 @@ sub serialize
 
     $body->{"attribute-values"} = {
         map {
-            $_->text_value ? ($_->type->name => $_->text_value) : ()
+            non_empty($_->text_value) ? ($_->type->name => $_->text_value) : ()
         }
         $entity->link->all_attributes
     };

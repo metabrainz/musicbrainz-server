@@ -5,6 +5,7 @@ use Scalar::Util 'reftype';
 use Readonly;
 use List::UtilsBy qw( nsort_by sort_by );
 use MusicBrainz::Server::Constants qw( $VARTIST_ID :quality );
+use MusicBrainz::Server::Data::Utils qw( non_empty );
 use MusicBrainz::Server::WebService::Escape qw( xml_escape );
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Validation;
@@ -1005,8 +1006,9 @@ sub _serialize_relation
 
     push @list, $gen->attribute_list(
         map {
-            $_->text_value ? $gen->attribute({ value => $_->text_value }, $_->type->name)
-                           : $gen->attribute($_->type->name)
+            non_empty($_->text_value)
+                ? $gen->attribute({ value => $_->text_value }, $_->type->name)
+                : $gen->attribute($_->type->name)
         } $rel->link->all_attributes
     ) if ($rel->link->all_attributes);
 
