@@ -28,6 +28,13 @@ sub serialize
         $entity->link->all_attributes
     };
 
+    $body->{"attribute-credits"} = {
+        map {
+            non_empty($_->credited_as) ? ($_->type->name => $_->credited_as) : ()
+        }
+        $entity->link->all_attributes
+    };
+
     $body->{$entity->target_type} = serialize_entity($entity->target, $inc, $opts);
 
     return $body;
