@@ -221,7 +221,6 @@ sub find_by_area
        ORDER BY musicbrainz_collate(event.name)
          OFFSET ?';
 
-    # We actually use this for the side effect in the closure
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub {
             $self->_new_from_row(shift);
@@ -246,7 +245,6 @@ sub find_by_artist
        ORDER BY musicbrainz_collate(event.name)
          OFFSET ?';
 
-    # We actually use this for the side effect in the closure
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub {
             $self->_new_from_row(shift);
@@ -271,7 +269,6 @@ sub find_by_place
        ORDER BY musicbrainz_collate(event.name)
          OFFSET ?';
 
-    # We actually use this for the side effect in the closure
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub {
             $self->_new_from_row(shift);
@@ -279,10 +276,10 @@ sub find_by_place
         $query, $place_id, $offset || 0);
 }
 
-=method find_artists
+=method find_related_entities
 
-This method will return a map with lists of artist names for the given
-event. 
+This method will return a map with lists of artists and locations 
+for the given event. 
 
 =cut
 
