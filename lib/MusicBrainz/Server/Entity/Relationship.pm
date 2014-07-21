@@ -222,7 +222,7 @@ sub _interpolate
             $value = "<a href=\"/instrument/".$type->gid."\">$value</a>";
         }
 
-        if (non_empty($attr->credited_as)) {
+        if (non_empty($attr->credited_as) && $type->l_name ne $attr->credited_as) {
             $value = l('{attribute} [{credited_as}]', { attribute => $value, credited_as => $attr->credited_as })
         }
 
