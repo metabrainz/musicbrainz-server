@@ -86,7 +86,7 @@
           <td>[%~ event.begin_date.format ~%]</td>
       [%~ ELSIF event.begin_date.format && event.end_date.format ~%]
           <td>[%~ l('{begindate} &#x2013; {enddate}', { begindate => event.begin_date.format,
-                                                enddate   => event.end_date.format }) ~%]</td>
+                                                        enddate   => event.end_date.format }) ~%]</td>
       [%~ ELSIF event.begin_date.format ~%]
           <td>[%~ l('{begindate} &#x2013; ????', { begindate => event.begin_date.format }) ~%]</td>
       [%~ ELSIF event.end_date.format ~%]
