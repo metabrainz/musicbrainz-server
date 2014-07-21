@@ -386,16 +386,15 @@
 
 [%- MACRO external_links_editor(form, entity_type) BLOCK -%]
   <table id="external-links-editor" class="row-form">
-  <tbody>
-    <!-- ko foreach: _.reject(links(), function (link) { return link.removed() }) -->
+  <tbody data-bind="loop: { items: nonRemovedLinks, id: 'uniqueID' }">
     <tr data-bind="urlCleanup: '[% entity_type %]'">
       <td>
         <!-- ko ifnot: showTypeSelection() -->
-          <label data-bind="attr: { 'for': 'external-link-' + $index() }">
+          <label>
             <!-- ko if: matchesType() && faviconClass() -->
               <span data-bind="attr: { 'class': 'favicon ' + faviconClass() }"></span>
             <!-- /ko -->
-            <!-- ko text: linkPhrase() || (isOnlyLink() ? "[% l('Add link:') | html %]" : "[% l('Add another link:') | html %]") --><!-- /ko -->
+            <!-- ko text: linkPhrase(parent.source) || (isOnlyLink() ? "[% l('Add link:') | html %]" : "[% l('Add another link:') | html %]") --><!-- /ko -->
           </label>
         <!-- /ko -->
       <select class="link-type"
@@ -416,42 +415,27 @@
           data-bind="
             value: url,
             valueUpdate: 'input',
-            attr: { id: 'external-link-' + $index() },
-            controlsBubble: parent.bubbleDoc"
-        />
+            controlsBubble: parent.bubbleDoc" />
+
+        <!-- ko with: error() -->
+          <div class="error field-error" data-visible="1" data-bind="text: $data"></div>
+        <!-- /ko -->
+
+        <!-- ko if: linkTypeAttributes().length -->
+          <div data-bind="foreach: linkTypeAttributes()">
+            <!-- ko template: {
+                      name: "template.edit-attribute",
+                      data: _.assign({ relationship: $parent }, $data),
+                    }
+              --><!-- /ko -->
+          </div>
+        <!-- /ko -->
       </td>
       <td>
         <!-- ko ifnot: isEmpty() -->
           <button type="button" class="nobutton remove" data-bind="hasFocus: removeButtonFocused" data-click="remove">
             <div class="remove-item icon img" title="[% l('Remove Link') %]"></div>
           </button>
-        <!-- /ko -->
-      </td>
-    </tr>
-    <!-- ko with: error() -->
-    <tr>
-      <td></td>
-      <td class="error field-error" data-visible="1" data-bind="text: $data"></td>
-      <td></td>
-    </tr>
-    <!-- /ko -->
-    <!-- ko if: linkTypeAttributes().length -->
-    <tr>
-      <td></td>
-      <td data-bind="foreach: linkTypeAttributes()">
-        <!-- ko template: {
-                  name: "template.edit-attribute",
-                  data: _.assign({ relationship: $parent }, $data),
-                }
-          --><!-- /ko -->
-      </td>
-    </tr>
-    <!-- /ko -->
-    <!-- /ko -->
-    <tr style="display: none;">
-      <td colspan="3">
-        <!-- ko foreach: hiddenInputs() -->
-          <input type="hidden" data-bind="attr: { name: name, value: value }" />
         <!-- /ko -->
       </td>
     </tr>

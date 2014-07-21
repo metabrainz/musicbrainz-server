@@ -72,7 +72,7 @@
     };
 
 
-    var lang = document.documentElement.lang,
+    var lang = document.documentElement.lang || "en",
         collatorOptions = { numeric: true };
 
     if (typeof Intl === "undefined") {

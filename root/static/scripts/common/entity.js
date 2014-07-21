@@ -224,9 +224,11 @@
             if (!type) return [];
 
             var gid = MB.constants.PART_OF_SERIES_LINK_TYPES_BY_ENTITY[type.entityType];
-            var linkTypeInfo = MB.typeInfoByID[gid];
+            var linkTypeID = MB.typeInfoByID[gid].id;
 
-            return this.getRelationshipGroup(linkTypeInfo.id, viewModel);
+            return _.filter(this.displayableRelationships(viewModel)(), function (r) {
+                return r.linkTypeID() === linkTypeID;
+            });
         }
     });
 
@@ -321,8 +323,7 @@
 
         isVariousArtists: function () {
             var artist = ko.unwrap(this.artist);
-            return artist && (artist.gid === MB.constants.VARTIST_GID ||
-                              artist.id == MB.constants.VARTIST_ID);
+            return artist && artist.gid === MB.constants.VARTIST_GID;
         },
 
         isEqual: function (other) {

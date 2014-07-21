@@ -392,6 +392,7 @@ module("relationship editor", {
 
         this.fakeGID0 = "a0ba91b0-c564-4eec-be2e-9ff071a47b59";
         this.fakeGID1 = "acb75d59-b0dc-4105-bad6-81ac8c66da4d";
+        this.fakeGID2 = "c4804cb2-bf33-4394-bb5f-3fac972fa7a5";
 
         // _.defer makes its target functions asynchronous. It is redefined
         // here to call its target right away, so that we don't have to deal
@@ -433,6 +434,8 @@ test("link phrase interpolation", function () {
         linkTypeID: 148
     }, source);
 
+    var entities = relationship.entities();
+
     // link phrase construction
 
     var tests = [
@@ -470,7 +473,7 @@ test("link phrase interpolation", function () {
         relationship.attributes(test.attributes);
 
         equal(
-            relationship.phraseAndExtraAttributes(source)[0],
+            relationship.phraseAndExtraAttributes()[entities.indexOf(source)],
             test.expected,
             [test.linkTypeID, JSON.stringify(test.attributes)].join(", ")
         );
@@ -764,4 +767,83 @@ test("backwardness of submitted relationships is preserved (MBS-7636)", function
     var entities = this.vm.source.relationships()[0].entities();
     equal(entities[0].gid, this.fakeGID1);
     equal(entities[1].gid, this.fakeGID0);
+});
+
+
+test("edit submission request is entered for release (MBS-7740, MBS-7746)", function () {
+    var recording = this.vm.source.mediums()[0].tracks[0].recording;
+
+    var relationship1 = this.vm.getRelationship({
+        target: {
+            id: 102938,
+            entityType: "release",
+            gid: this.fakeGID2
+        },
+        linkTypeID: 69,
+        attributes: []
+    }, recording);
+
+    var relationship2 = this.vm.getRelationship({
+        target: {
+            id: 839201,
+            entityType: "work",
+            gid: this.fakeGID1
+        },
+        linkTypeID: 278,
+        attributes: []
+    }, recording);
+
+    relationship1.show();
+    relationship2.show();
+
+    this.vm.submissionDone = function (data, submitted) {
+        deepEqual(submitted.edits, [
+            {
+                "edit_type": 90,
+                "linkTypeID": 69,
+                "entities": [
+                    {
+                        "entityType": "recording",
+                        "gid": "87ec065e-f139-41b9-b3b9-f746addf5b1e",
+                        "name": "Love Me Do"
+                    },
+                    {
+                        "entityType": "release",
+                        "gid": "c4804cb2-bf33-4394-bb5f-3fac972fa7a5",
+                        "name": ""
+                    }
+                ],
+                "attributes": [],
+                "linkOrder": 0,
+                "beginDate": null,
+                "endDate": null,
+                "ended": false,
+                "hash": "e201ef6c17e846c125a10aa7c32978b5a7e8374a"
+            },
+            {
+                "edit_type": 90,
+                "linkTypeID": 278,
+                "entities": [
+                    {
+                        "entityType": "recording",
+                        "gid": "87ec065e-f139-41b9-b3b9-f746addf5b1e",
+                        "name": "Love Me Do"
+                    },
+                    {
+                        "entityType": "work",
+                        "gid": "acb75d59-b0dc-4105-bad6-81ac8c66da4d",
+                        "name": ""
+                    }
+                ],
+                "attributes": [],
+                "linkOrder": 0,
+                "beginDate": null,
+                "endDate": null,
+                "ended": false,
+                "hash": "361082ca99b79b1bf70cbed7895f2fde7536d4f0"
+            }
+        ]);
+    };
+
+    this.vm.submit(null, $.Event());
 });
