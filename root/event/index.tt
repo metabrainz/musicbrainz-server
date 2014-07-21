@@ -29,10 +29,9 @@
 
     [%- IF event.setlist -%]
     <h2 class="setlist">[% l('Setlist') %]</h2>
-    <div class="setlist">
-        <div class="setlist-body">
-                [% event.setlist | format_setlist %]
-        </div>
+    <p class="setlist">
+        [% event.setlist | format_setlist %]
+    </p>
     [%- END -%]
 
 [% END %]
