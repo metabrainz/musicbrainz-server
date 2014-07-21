@@ -292,34 +292,30 @@ END -%]
 END -%]
 
 [%~ BLOCK _generic_link;
-    IF NOT options.size;
-        content;
-        RETURN;
+    FOR option = options.reverse;
+        content = SWITCH option;
+            CASE 'isolate';
+                '<bdi>' _ content _ '</bdi>';
+            CASE 'escape';
+                html_escape(content);
+            CASE 'link';  # add. parameter: link, hover
+                SET hover = ' title="' _ hover _ '"' IF hover != '';
+                '<a href="' _ link _ '"' _ hover _ '>' _ content _ '</a>';
+            CASE 'code';
+                '<code>' _ content _ '</code>';
+            CASE 'edits_pending';
+                '<span class="mp">' _ content _ '</span>';
+            CASE 'name_variation';
+                '<span class="name-variation">' _ content _ '</span>';
+            CASE 'flagclass';  # add. parameter: flag
+                '<span class="flag flag-' _ flag _ '">' _ content _ '</span>';
+            CASE 'info_link';  # add. parameter: infolink
+                content _ ' [<a href="' _ infolink _ '">' _ l('info') _ '</a>]';
+            CASE 'avatar'; # add. parameter: avatar
+                '<img src="' _ avatar _ '" class="gravatar" />' _ content;
+        END;
     END;
-
-    option = options.pop;
-    content = SWITCH option;
-        CASE 'isolate';
-            '<bdi>' _ content _ '</bdi>';
-        CASE 'escape';
-            html_escape(content);
-        CASE 'link';  # add. parameter: link, hover
-            SET hover = ' title="' _ hover _ '"' IF hover != '';
-            '<a href="' _ link _ '"' _ hover _ '>' _ content _ '</a>';
-        CASE 'code';
-            '<code>' _ content _ '</code>';
-        CASE 'edits_pending';
-            '<span class="mp">' _ content _ '</span>';
-        CASE 'name_variation';
-            '<span class="name-variation">' _ content _ '</span>';
-        CASE 'flagclass';  # add. parameter: flag
-            '<span class="flag flag-' _ flag _ '">' _ content _ '</span>';
-        CASE 'info_link';  # add. parameter: infolink
-            content _ ' [<a href="' _ infolink _ '">' _ l('info') _ '</a>]';
-        CASE 'avatar'; # add. parameter: avatar
-            '<img src="' _ avatar _ '" class="gravatar" />' _ content;
-    END;
-    PROCESS _generic_link;
+    content;
    END -%]
 
 [%~ BLOCK _link_mbid_entity;
