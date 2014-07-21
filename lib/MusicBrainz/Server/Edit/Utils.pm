@@ -105,7 +105,7 @@ sub time_closure
     my $attr = shift;
     return sub {
         my $a = shift;
-        return $a->$attr->strftime('%H:%M');
+        return $a->$attr ? $a->$attr->strftime('%H:%M') : undef;
     };
 }
 
