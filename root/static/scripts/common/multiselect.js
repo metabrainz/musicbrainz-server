@@ -51,15 +51,9 @@
             }
 
             this.selectedAttributes = ko.computed(function () {
-                var attributesByGID = params.relationship.attributesByGID();
-                var attributes = [], attribute;
-
-                for (var i = 0, len = options.length; i < len; i++) {
-                    if (attribute = attributesByGID[options[i].value]) {
-                        attributes.push(attribute);
-                    }
-                }
-                return attributes;
+                return _.filter(params.relationship.attributes(), function (attribute) {
+                    return attribute.type.root === params.attribute;
+                });
             });
 
             this.optionNodes = optionNodes.slice(0);
@@ -91,8 +85,10 @@
                 var option = node.optionData;
                 var typeGID = option.value;
 
-                var visible = matchIndex(option, term) >= 0 &&
-                    _.findIndex(selected, function (a) { return a.type.gid === typeGID }) < 0;
+                var visible = matchIndex(option, term) >= 0 && (
+                    MB.attrInfoByID[typeGID].creditable ||
+                    _.findIndex(selected, function (a) { return a.type.gid === typeGID }) < 0
+                );
 
                 node.style.display = visible ? "block" : "none";
                 return visible;
@@ -116,7 +112,7 @@
             var attribute = ko.dataFor(event.target);
             var typeGID = attribute.type.gid;
 
-            this.relationship.removeAttribute(typeGID);
+            this.relationship.attributes.remove(attribute);
             this.menuVisible(false);
             this.updateOptions(this.term.peek());
 

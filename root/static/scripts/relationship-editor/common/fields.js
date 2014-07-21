@@ -45,10 +45,6 @@
             this.attributes = ko.observableArray([]);
             this.setAttributes(data.attributes);
 
-            this.attributesByGID = ko.computed(function () {
-                return _.indexBy(self.attributes(), getAttributeGID);
-            });
-
             this.linkOrder = ko.observable(data.linkOrder || 0);
             this.removed = ko.observable(!!data.removed);
             this.editsPending = Boolean(data.editsPending);
@@ -106,7 +102,7 @@
                 attribute = attributes[i];
 
                 if (!typeAttributes[attribute.type.id]) {
-                    this.removeAttribute(attribute.type.gid);
+                    this.attributes.remove(attribute);
                     --i;
                     --len;
                 }
@@ -202,6 +198,15 @@
             this.removed(true);
         },
 
+        getAttribute: function (typeGID) {
+            var attributes = this.attributes();
+
+            for (var i = 0, linkAttribute; linkAttribute = attributes[i]; i++) {
+                if (linkAttribute.type.gid === typeGID) return linkAttribute;
+            }
+            return new fields.LinkAttribute({ type: { gid: typeGID }});
+        },
+
         setAttributes: function (attributes) {
             this.attributes(_.map(attributes, function (data) {
                 return new fields.LinkAttribute(data);
@@ -212,21 +217,6 @@
             var attribute = new fields.LinkAttribute({ type: { gid: typeGID } });
             this.attributes.push(attribute);
             return attribute;
-        },
-
-        getAttribute: function (typeGID) {
-            return this.attributesByGID()[typeGID];
-        },
-
-        removeAttribute: function (typeGID) {
-            var attributes = this.attributes.peek(), attribute;
-
-            for (var i = 0; attribute = attributes[i]; i++) {
-                if (attribute.type.gid === typeGID) {
-                    this.attributes.splice(i, 1);
-                    return;
-                }
-            }
         },
 
         linkTypeAttributes: function () {
@@ -327,13 +317,19 @@
         },
 
         paddedSeriesNumber: function () {
-            var attribute = this.getAttribute(MB.constants.SERIES_ORDERING_ATTRIBUTE);
+            var attributes = this.attributes(), numberAttribute;
 
-            if (!attribute) {
+            for (var i = 0; numberAttribute = attributes[i]; i++) {
+                if (numberAttribute.type.gid === MB.constants.SERIES_ORDERING_ATTRIBUTE) {
+                    break;
+                }
+            }
+
+            if (!numberAttribute) {
                 return "";
             }
 
-            var parts = _.compact(attribute.textValue().split(/(\d+)/)),
+            var parts = _.compact(numberAttribute.textValue().split(/(\d+)/)),
                 integerRegex = /^\d+$/;
 
             for (var i = 0, part; part = parts[i]; i++) {
@@ -400,7 +396,7 @@
                 _.isEqual(this.entities(), other.entities()) &&
                 MB.utility.mergeDates(this.period.beginDate, other.period.beginDate) &&
                 MB.utility.mergeDates(this.period.endDate, other.period.endDate) &&
-                _.isEqual(this.attributes(), other.attributes())
+                attributesAreEqual(this.attributes(), other.attributes())
             );
         },
 
@@ -432,51 +428,43 @@
         var type = this.type = MB.attrInfoByID[data.type.gid];
 
         if (type.creditable) {
-            this.credit = ko.observable(data.credit || "");
+            this.credit = ko.observable(ko.unwrap(data.credit) || "");
         }
 
         if (type.freeText) {
-            this.textValue = ko.observable(data.textValue || "");
+            this.textValue = ko.observable(ko.unwrap(data.textValue) || "");
         }
     };
 
+    fields.LinkAttribute.prototype.identity = function () {
+        var type = this.type;
 
-    ko.bindingHandlers.attributeProperty = {
+        if (type.creditable) {
+            return type.gid + "\0" + _.str.clean(this.credit());
+        }
+        if (type.freeText) {
+            return type.gid + "\0" + _.str.clean(this.textValue());
+        }
+        return type.gid;
+    };
 
+    ko.bindingHandlers.textAttribute = {
         init: function (element, valueAccessor) {
             var options = valueAccessor(),
-                relationship = options.relationship,
-                typeGID = options.typeGID,
-                property = options.property,
-                value = ko.observable(""),
-                attribute = relationship.getAttribute(typeGID);
+                linkAttribute = options.relationship.getAttribute(options.typeGID),
+                currentValue = linkAttribute.textValue.peek();
 
-            if (!property) {
-                value(!!attribute);
-            } else if (attribute) {
-                value(attribute[property].peek());
-            }
-
-            value.subscribe(function (newValue) {
-                if (!newValue && property !== "credit") {
-                    relationship.removeAttribute(typeGID);
-                } else {
-                    var attribute = relationship.getAttribute(typeGID);
-
-                    if (!attribute) {
-                        attribute = relationship.addAttribute(typeGID);
-                    }
-
-                    if (property) {
-                        attribute[property](newValue);
-                    }
+            linkAttribute.textValue.subscribe(function (newValue) {
+                if (newValue && !currentValue) {
+                    options.relationship.attributes.push(linkAttribute);
+                } else if (currentValue && !newValue) {
+                    options.relationship.attributes.remove(linkAttribute);
                 }
+                currentValue = newValue;
             });
-
-            ko.applyBindingsToNode(element, property ? { value: value } : { checked: value });
+            ko.applyBindingsToNode(element, { value: linkAttribute.textValue });
         }
     };
-
 
     function entitiesComparer(a, b) {
         return a[0] === b[0] && a[1] === b[1];
@@ -491,8 +479,22 @@
         return target;
     }
 
-    function getAttributeGID(attribute) {
-        return attribute.type.gid;
+    function attributesAreEqual(attributesA, attributesB) {
+        if (attributesA.length !== attributesB.length) {
+            return false;
+        }
+        for (var i = 0, a; a = attributesA[i]; i++) {
+            var match = false;
+
+            for (var j = i, b; b = attributesB[j]; j++) {
+                if (a.identity() === b.identity()) {
+                    match = true;
+                    break;
+                }
+            }
+            if (!match) return false;
+        }
+        return true;
     }
 
 }(MB.relationshipEditor = MB.relationshipEditor || {}));

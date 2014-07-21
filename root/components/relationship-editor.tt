@@ -145,7 +145,7 @@
   <div class="attribute-container">
     <!-- ko ifnot: attribute.children || attribute.freeText -->
     <label>
-      <input type="checkbox" data-bind="attributeProperty: { relationship: relationship, typeGID: attribute.gid }" />
+      <input type="checkbox" data-bind="checked: relationship.attributes, checkedValue: relationship.getAttribute(attribute.gid)" />
       <!-- ko text: attribute.l_name --><!-- /ko -->
     </label>
     <!-- /ko -->
@@ -158,9 +158,8 @@
               <input data-bind="autocomplete: { entity: 'instrument', currentSelection: $rawData }" />
               <img class="search" src="/static/images/icons/search.png" />
             </span>
-            <!-- ko if: $data.id -->
-              <input type="text" class="attribute-credit" placeholder="[% l('credited as') %]"
-                     data-bind="attributeProperty: { relationship: $parents[1].relationship, typeGID: gid, property: 'credit' }" />
+            <!-- ko with: $rawData.linkAttribute -->
+              <input type="text" class="attribute-credit" placeholder="[% l('credited as') %]" data-bind="value: credit" />
             <!-- /ko -->
             <!-- ko if: $parent.instruments().length > 1 -->
               <button class="icon remove-item" data-bind="click: _.partial($parent.removeItem, $rawData)"></button>
@@ -181,14 +180,15 @@
                   options: MB.forms.buildOptionsTree(attribute, 'l_name', 'gid'),
                   placeholder: attribute.id == 14 ? MB.text.FocusInstrument :
                                attribute.id == 3  ? MB.text.FocusVocal : '',
-                  relationship: relationship
+                  relationship: relationship,
+                  attribute: attribute
                 }
               }"></div>
     <!-- /ko -->
     <!-- ko if: attribute.freeText -->
     <label>
       <!-- ko text: MB.i18n.expand(MB.text.AddColon, { variable: attribute.l_name }) --><!-- /ko -->
-      <input data-bind="attributeProperty: { relationship: relationship, typeGID: attribute.gid, property: 'textValue' }
+      <input data-bind="textAttribute: { relationship: relationship, typeGID: attribute.gid }
                         attr: { placeholder: attribute.l_name }" />
     </label>
     <!-- /ko -->
