@@ -80,6 +80,8 @@
                 <h2 class="release-events">[%~ l('Release events') ~%]</h2>
                 [%~ release_events(release.events) ~%]
             [%~ END ~%]
+
+            [%~ INCLUDE "layout/sidebar/sidebar-rating.tt" entity=release.release_group rating_heading=l('Release group rating') ~%]
         [%~ END ~%]
     [%~ END ~%]
 

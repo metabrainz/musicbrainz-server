@@ -1,19 +1,17 @@
 <div class="changes" data-bind="with: rootField.release">
-  <!-- ko if: _.any(_.invoke(mediums(), "needsRecordings")) -->
-    <div class="notice field-error" data-visible="1">
-      <p><strong>[% l('Note:') %]</strong> [%- l('All tracks require an associated recording. Click “Edit” to select a recording for each track. Choose “Add a new recording” if an appropriate one doesn’t exist yet.') -%]</p>
+  <div class="notice field-error" data-bind="showErrorRightAway: needsRecordings">
+    <p><strong>[% l('Note:') %]</strong> [%- l('All tracks require an associated recording. Click “Edit” to select a recording for each track. Choose “Add a new recording” if an appropriate one doesn’t exist yet.') -%]</p>
 
-      <p data-bind="ifnot: _.isEmpty(tracksWithUnsetPreviousRecordings())">
-        <button class="styled-button" data-click="reuseUnsetPreviousRecordings">
-          [% l('Reuse previous recordings') | html %]
-        </button>
-      </p>
-    </div>
-  <!-- /ko -->
+    <p data-bind="ifnot: _.isEmpty(tracksWithUnsetPreviousRecordings())">
+      <button class="styled-button" data-click="reuseUnsetPreviousRecordings">
+        [%~ l('Reuse previous recordings') | html ~%]
+      </button>
+    </p>
+  </div>
 
   <div class="half-width" data-bind="affectsBubble: $root.recordingBubble">
 
-  <!-- ko foreach: mediums -->
+  <div data-bind="loop: { items: mediums, id: 'uniqueID' }">
     <fieldset>
       <legend data-bind="text: formattedName()"></legend>
 
@@ -27,8 +25,8 @@
           </tr>
         </thead>
 
-        <tbody data-bind="foreach: { data: tracks, if: loaded }">
-          <tr class="track" data-bind="css: { ev: $index() % 2 > 0 }">
+        <tbody data-bind="loop: { items: tracks, id: 'uniqueID' }">
+          <tr class="track" data-bind="css: { ev: position() % 2 === 0 }">
 
             <td rowspan="2" class="position" data-bind="text: position"></td>
 
@@ -37,10 +35,7 @@
                 For tracks, formattedLength is an observable, hence the
                 function invocation. For recordings, it's a string. This is
                 because track lengths are directly editable from the UI, and
-                recording lengths are not. While it's possible to propagate
-                track lengths to their recordings, it's not possible to set
-                an arbitrary recording length via the UI (other than by
-                changing the track as well).
+                recording lengths are not.
              %]
             <td class="length" data-bind="text: '(' + (formattedLength() || '?:??') + ')'"></td>
 
@@ -64,7 +59,7 @@
             </td>
           </tr>
 
-          <tr class="artist" data-bind="css: { ev: $index() % 2 > 0 }">
+          <tr class="artist" data-bind="css: { ev: position() % 2 === 0 }">
             <td colspan="2" data-bind="with: artistCredit.html({ target: '_blank' })">
               [% l('by') %] <span data-bind="html: $data"></span>
             </td>
@@ -73,17 +68,15 @@
             </td>
           </tr>
 
-          <!-- ko if: differsFromRecording() -->
-            <tr data-bind="css: { ev: $index() % 2 > 0 }">
-              <td></td>
-              <td colspan="5" class="checkbox">
-                <label>
-                  <input type="checkbox" data-bind="checked: updateRecording, disable: $root.copyTrackChangesToRecordings" />
-                  [% l('Also update the recording with track changes') %]
-                </label>
-              </td>
-            </tr>
-          <!-- /ko -->
+          <tr data-bind="if: differsFromRecording(), css: { ev: position() % 2 === 0 }">
+            <td></td>
+            <td colspan="5" class="checkbox">
+              <label>
+                <input type="checkbox" data-bind="checked: updateRecording, disable: $root.copyTrackChangesToRecordings" />
+                [% l('Also update the recording with track changes') %]
+              </label>
+            </td>
+          </tr>
         </tbody>
       </table>
 
@@ -109,8 +102,8 @@
       </div>
       <!-- /ko -->
     </fieldset>
+  </div>
 
-  <!-- /ko -->
   </div>
 
   <!-- ko if: hasTracks() -->

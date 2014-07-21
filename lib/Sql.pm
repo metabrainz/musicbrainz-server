@@ -182,7 +182,7 @@ sub insert_many {
 
 sub update_row
 {
-    my ($self, $table, $update, $conditions) = @_;
+    my ($self, $table, $update, $conditions, $returning) = @_;
     my @update_columns = keys %$update;
     my @condition_columns = keys %$conditions;
 
@@ -191,22 +191,32 @@ sub update_row
 
     my $query = "UPDATE $table SET " . join(', ', map { "$_ = ?" } @update_columns) .
                 ' WHERE ' . join(' AND ', map { "$_ = ?" } @condition_columns);
+    my @args = ((map { $update->{$_} } @update_columns), (map { $conditions->{$_} } @condition_columns));
 
-    $self->do($query,
-        (map { $update->{$_} } @update_columns),
-        (map { $conditions->{$_} } @condition_columns));
+    if ($returning) {
+        $query .= " RETURNING $returning";
+        return $self->select_single_value($query, @args);
+    } else {
+        $self->do($query, @args);
+    }
 }
 
 sub delete_row
 {
-    my ($self, $table, $conditions) = @_;
+    my ($self, $table, $conditions, $returning) = @_;
     my @condition_columns = keys %$conditions;
 
     croak 'delete_row called with no where clause' unless @condition_columns;
 
     my $query = "DELETE FROM $table WHERE " . join(' AND ', map { "$_ = ?" } @condition_columns);
+    my @args = map { $conditions->{$_} } @condition_columns;
 
-    $self->do($query, (map { $conditions->{$_} } @condition_columns));
+    if ($returning) {
+        $query .= " RETURNING $returning";
+        return $self->select_single_value($query, @args);
+    } else {
+        $self->do($query, @args);
+    }
 }
 
 has 'transaction_depth' => (

@@ -32,7 +32,6 @@ var MB = {
     constants: {}
 };
 
-MB.constants.VARTIST_ID = 1;
 MB.constants.VARTIST_GID = '89ad4ac3-39f7-470e-963a-56509c546377';
 MB.constants.VARTIST_NAME = 'Various Artists';
 

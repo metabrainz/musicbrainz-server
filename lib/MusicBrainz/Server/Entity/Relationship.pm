@@ -77,6 +77,19 @@ sub editor_can_edit
         $self->link->type->entity0_type, $self->link->type->entity1_type);
 }
 
+sub entity_is_orderable {
+    my ($self, $entity) = @_;
+
+    my $orderable_direction = $self->link->type->orderable_direction;
+
+    return 1 if (
+        ($orderable_direction == 1 && $entity == $self->entity1) ||
+        ($orderable_direction == 2 && $entity == $self->entity0)
+    );
+
+    return 0;
+}
+
 sub _source_target_prop
 {
     my ($self, %opts) = @_;

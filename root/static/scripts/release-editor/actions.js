@@ -54,29 +54,31 @@
         // Tracklist tab
 
         moveMediumUp: function (medium) {
-            this.changeMediumPosition(medium, function (i) { return i - 1 });
+            this.changeMediumPosition(medium, -1);
         },
 
         moveMediumDown: function (medium) {
-            this.changeMediumPosition(medium, function (i) { return i + 1 });
+            this.changeMediumPosition(medium, 1);
         },
 
-        changeMediumPosition: function (medium, getNewPosition) {
-            var oldPosition = medium.position();
-            var newPosition = getNewPosition(oldPosition);
+        changeMediumPosition: function (medium, offset) {
+            var oldPosition = medium.position.peek();
+            var newPosition = oldPosition + offset;
 
             if (newPosition <= 0) return;
 
             medium.position(newPosition);
 
-            var mediums = medium.release.mediums;
-            var index = mediums.indexOf(medium);
-            var possibleNewIndex = getNewPosition(index);
-            var neighbor = mediums.peek()[possibleNewIndex];
+            var mediums = medium.release.mediums.peek();
+            var index = _.indexOf(mediums, medium);
+            var possibleNewIndex = index + offset;
+            var neighbor = mediums[possibleNewIndex];
 
-            if (neighbor && newPosition === neighbor.position()) {
+            if (neighbor && newPosition === neighbor.position.peek()) {
                 neighbor.position(oldPosition);
-                MB.utility.moveArrayItem(mediums, index, possibleNewIndex);
+                mediums[index] = neighbor;
+                mediums[possibleNewIndex] = medium;
+                medium.release.mediums.notifySubscribers(mediums);
             }
         },
 
@@ -115,8 +117,8 @@
             var previous = track.previous();
             if (!previous) return false;
 
-            var tracks = track.medium.tracks;
-            var index = _.indexOf(tracks.peek(), track);
+            var tracks = track.medium.tracks.peek();
+            var index = _.indexOf(tracks, track);
             var oldNumber = track.number.peek();
 
             track.position(index);
@@ -125,7 +127,9 @@
             previous.position(index + 1);
             previous.number(oldNumber);
 
-            MB.utility.moveArrayItem(tracks, index, index - 1);
+            tracks[index] = previous;
+            tracks[index - 1] = track;
+            track.medium.tracks.notifySubscribers(tracks);
 
             if (keepFocus !== false) {
                 MB.utility.deferFocus("button.track-up", "#" + track.elementID);

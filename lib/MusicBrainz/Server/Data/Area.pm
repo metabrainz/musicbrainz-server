@@ -243,6 +243,8 @@ sub _merge_impl
         [ artist => "begin_area" ],
         [ artist => "end_area" ],
         [ label => "area" ],
+        [ place => "area" ],
+        [ editor => "area" ],
         [ release_country => "country" ]
     ) {
         my ($table, $column) = @$update;
@@ -252,7 +254,6 @@ sub _merge_impl
         );
     }
 
-    my $all_ids = [ $new_id, @old_ids ];
     $self->sql->do(
         'DELETE FROM country_area WHERE area = any(?)',
         \@old_ids
