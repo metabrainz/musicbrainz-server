@@ -55,7 +55,7 @@ has '+data' => (
     isa => Dict[
         entity => Dict[
             id => Int,
-            gid => Optional[Str],
+            gid => Str,
             name => Str
         ],
         new => change_fields(),
@@ -122,16 +122,11 @@ sub allow_auto_edit
 {
     my ($self) = @_;
 
-    # Changing name is allowed if the change only affects
-    # small things like case etc.
-    my ($old_name, $new_name) = normalise_strings(
-        $self->data->{old}{name}, $self->data->{new}{name});
-
-    return 0 if $old_name ne $new_name;
-
-    my ($old_comment, $new_comment) = normalise_strings(
-        $self->data->{old}{comment}, $self->data->{new}{comment});
-    return 0 if $old_comment ne $new_comment;
+    foreach my $prop (qw(name comment time setlist)) {
+        my ($old_prop, $new_prop) = normalise_strings(
+            $self->data->{old}{$prop}, $self->data->{new}{$prop});
+        return 0 if $old_prop ne $new_prop;
+    }
 
     # Adding a date is automatic if there was no date yet.
     return 0 if exists $self->data->{old}{begin_date}
@@ -141,14 +136,6 @@ sub allow_auto_edit
 
     return 0 if exists $self->data->{old}{type_id}
         and $self->data->{old}{type_id} != 0;
-
-    my ($old_time, $new_time) = normalise_strings(
-        $self->data->{old}{time}, $self->data->{new}{time});
-    return 0 if $old_time ne $new_time;
-
-    my ($old_setlist, $new_setlist) = normalise_strings(
-        $self->data->{old}{setlist}, $self->data->{new}{setlist});
-    return 0 if $old_setlist ne $new_setlist;
 
     return 1;
 }
