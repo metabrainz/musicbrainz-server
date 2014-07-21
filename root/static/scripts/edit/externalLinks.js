@@ -17,10 +17,12 @@
 
             this.url = ko.observable(data.target.name);
             this.url.subscribe(this.urlChanged, this);
-        },
 
-        around$linkPhrase: function (supr) {
-            return supr(this.parent.source);
+            this.error = ko.computed({
+                read: this._error,
+                owner: this,
+                deferEvaluation: true // needs linkTypeID, etc.
+            });
         },
 
         urlChanged: function (value) {
@@ -32,7 +34,8 @@
                 this.entities(entities);
             }
 
-            var error = this.error();
+            // this.error hasn't updated yet, and we need the latest value.
+            var error = this._error();
 
             if (this.cleanup && (!error || error === MB.text.SelectURLType)) {
                 var linkType = this.cleanup.guessType(this.cleanup.sourceType, value);
@@ -57,7 +60,7 @@
             }
 
             this.faviconClass("");
-            this.parent.ensureOneEmptyLinkExists(this);
+            this.parent.lastEditedLink = this;
         },
 
         after$linkTypeIDChanged: function (value) {
@@ -73,7 +76,7 @@
             } else {
                 this.linkTypeDescription("");
             }
-            this.parent.ensureOneEmptyLinkExists(this);
+            this.parent.lastEditedLink = this;
         },
 
         matchesType: function () {
@@ -95,15 +98,12 @@
         },
 
         remove: function () {
-            var linksArray = _.reject(this.parent.links(), function (link) {
-                return link.removed() || link.isEmpty();
-            });
+            var linksArray = this.parent.nonRemovedOrEmptyLinks(),
+                index = linksArray.indexOf(this);
 
-            var index = linksArray.indexOf(this);
+            this.removed(true);
 
             if (this.id) {
-                this.removed(true);
-
                 // The original data won't be used, but the new data could
                 // have errors that prevents everything from validating, so
                 // we have to revert it.
@@ -112,8 +112,7 @@
                 this.entities(_.map(this.original.entities, function (data) {
                     return MB.entity(data);
                 }));
-            }
-            else {
+            } else {
                 // this.cleanup is undefined for tests that don't deal with
                 // markup (since it's set by the urlCleanup bindingHandler).
                 this.cleanup && this.cleanup.toggleEvents("off");
@@ -121,12 +120,13 @@
                 this.errorObservable && this.errorObservable.dispose();
             }
 
+            this.error.dispose();
+
             var linkToFocus = linksArray[index + 1] || linksArray[index - 1];
 
             if (linkToFocus) {
                 linkToFocus.removeButtonFocused(true);
-            }
-            else {
+            } else {
                 $("#add-external-link").focus();
             }
         },
@@ -140,7 +140,7 @@
             return links.length === 1 && links[0] === this;
         },
 
-        error: function () {
+        _error: function () {
             var url = this.url();
             var linkType = this.linkTypeID();
 
@@ -184,7 +184,30 @@
         fieldName: "url",
 
         after$init: function () {
-            this.ensureOneEmptyLinkExists();
+            this.links = this.source.displayableRelationships(this);
+            this.nonRemovedLinks = this.links.reject("removed");
+            this.emptyLinks = this.links.filter("isEmpty");
+
+            this.nonRemovedOrEmptyLinks = this.links.reject(function (relationship) {
+                return relationship.removed() || relationship.isEmpty();
+            });
+
+            var self = this;
+            this.lastEditedLink = null;
+
+            function ensureOneEmptyLinkExists(emptyLinks) {
+                var relationships = self.source.relationships;
+
+                if (!emptyLinks.length) {
+                    relationships.push(self.getRelationship({ target: MB.entity.URL({}) }, self.source));
+
+                } else if (emptyLinks.length > 1) {
+                    relationships.removeAll(_.without(emptyLinks, self.lastEditedLink));
+                }
+            }
+
+            this.emptyLinks.subscribe(ensureOneEmptyLinkExists);
+            ensureOneEmptyLinkExists([]);
 
             this.bubbleDoc = MB.Control.BubbleDoc("Information").extend({
                 canBeShown: function (link) {
@@ -199,30 +222,11 @@
             });
         },
 
-        links: function () {
-            return this.source.displayRelationships(this);
-        },
-
         typesAreAccepted: function (sourceType, targetType) {
             return sourceType === "url" || targetType === "url";
         },
 
-        ensureOneEmptyLinkExists: function (activeLink) {
-            var relationships = this.source.relationships;
-
-            var emptyLinks = _.filter(
-                this.links(), function (link) { return link.isEmpty() }
-            );
-
-            if (!emptyLinks.length) {
-                var data = { target: MB.entity.URL({}) };
-
-                relationships.push(this.getRelationship(data, this.source));
-            }
-            else if (emptyLinks.length > 1) {
-                relationships.removeAll(_.without(emptyLinks, activeLink));
-            }
-        }
+        _sortedRelationships: _.identity
     });
 
 

@@ -136,7 +136,7 @@
       ([% l('ended') %])
     <!-- /ko -->
   <!-- /ko -->
-  <!-- ko with: relationship.phraseAndExtraAttributes(source)[1] -->
+  <!-- ko with: relationship.phraseAndExtraAttributes()[2] -->
     (<!-- ko text: $data --><!-- /ko -->)
   <!-- /ko -->
 </script>

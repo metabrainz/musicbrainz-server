@@ -174,3 +174,11 @@ license:    MIT
 version:    2.4.1
 author:     John-David Dalton
 url:        http://lodash.com/
+
+-- knockout/knockout-arrayTransforms.js
+
+library:    knockout-arrayTransforms
+license:    MIT (X11)
+version:    0.5.1
+author:     Michael Wiencek
+url:        https://github.com/mwiencek/knockout-arrayTransforms

@@ -11,7 +11,7 @@
         </td>
       </tr>
 
-      [% table_row_error(2, 'showErrorWhenTabIsSwitched: name') %]
+      [% table_row_error(2, 'showErrorWhenTabIsSwitched: needsName', l('A release title is required.')) %]
 
       <tr>
         <td><label for="release-group">[% l('Release Group:') %]</label></td>
@@ -31,7 +31,7 @@
         </td>
       </tr>
 
-      [% table_row_error(2, 'showErrorWhenTabIsSwitched: releaseGroup') %]
+      [% table_row_error(2, 'showErrorWhenTabIsSwitched: needsReleaseGroup', l('You must select an existing release group.')) %]
 
       <tr data-bind="with: artistCredit">
         <td><label for="release-artist" class="required">[% l('Artist:') %]</label></td>
@@ -55,7 +55,7 @@
         </td>
       </tr>
 
-      [% table_row_error(2, 'showErrorWhenTabIsSwitched: artistCredit') %]
+      [% table_row_error(2, 'showErrorWhenTabIsSwitched: needsArtistCredit', l('You haven‘t entered a complete artist credit.')) %]
 
       [% IF NOT release.gid %]
         <!-- ko with: releaseGroup -->
@@ -125,9 +125,8 @@
         </td>
       </tr>
 
-      [% table_row_error(4, 'showErrorRightAway: date') %]
-
-      [% table_row_error(4, 'showErrorRightAway: countryID') %]
+      [% table_row_error(4, 'showErrorRightAway: hasInvalidDate', l('The date you\'ve entered is not valid.')) %]
+      [% table_row_error(4, 'showErrorRightAway: isDuplicate', l('You cannot use the same country more than once.')) %]
     <!-- /ko -->
 
       <tr>
@@ -165,7 +164,7 @@
         </td>
       </tr>
 
-      [% table_row_error(4, 'showErrorWhenTabIsSwitched: label') %]
+      [% table_row_error(4, 'showErrorWhenTabIsSwitched: needsLabel', l('You must select an existing label.')) %]
     <!-- /ko -->
 
       <tr>
@@ -184,7 +183,7 @@
         </td>
       </tr>
 
-      [% table_row_error(4, 'showErrorRightAway: barcode') %]
+      [% table_row_error(4, 'showErrorRightAway: barcode.error') %]
 
       <tr>
         <td></td>

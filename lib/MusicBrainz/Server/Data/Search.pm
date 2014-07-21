@@ -143,7 +143,7 @@ sub search
                 entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
                 entity.end_date_year, entity.end_date_month, entity.end_date_day, entity.ended
             ORDER BY
-                rank DESC, sort_name, name
+                rank DESC, sort_name, name, entity.gid
             OFFSET
                 ?
         ";
@@ -204,7 +204,7 @@ sub search
                 $where_sql
             ORDER BY
                 r.rank DESC, r.name
-                $extra_ordering
+                ${extra_ordering}, entity.gid
             OFFSET
                 ?
         ";
@@ -269,7 +269,7 @@ sub search
             GROUP BY
                 $extra_groupby_columns entity.id, entity.gid, entity.name, entity.comment, entity.type
             ORDER BY
-                rank DESC, entity.name
+                rank DESC, entity.name, entity.gid
             OFFSET
                 ?
         ";
