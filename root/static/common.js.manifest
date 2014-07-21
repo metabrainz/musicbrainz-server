@@ -10,8 +10,6 @@ lib/lodash/lodash.compat.js
 lib/underscore.string/underscore.string.js
 
 lib/knockout/knockout-latest.debug.js
-lib/knockout/knockout-delegatedEvents.js
-lib/knockout/knockout-postbox.js
 
 lib/leaflet/leaflet-src.js
 

@@ -182,3 +182,11 @@ license:    2-clause BSD
 version:    0.7.3
 author:     Vladimir Agafonkin, CloudMade
 url:        http://leafletjs.com/
+
+-- knockout/knockout-arrayTransforms.js
+
+library:    knockout-arrayTransforms
+license:    MIT (X11)
+version:    0.5.1
+author:     Michael Wiencek
+url:        https://github.com/mwiencek/knockout-arrayTransforms

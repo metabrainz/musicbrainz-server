@@ -37,6 +37,7 @@ releaseEditor.test = {
                 }
 
                 MB.entityCache = {};
+                releaseEditor.validation.errorFields([]);
             }
         });
     },

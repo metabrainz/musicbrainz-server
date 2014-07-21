@@ -4,20 +4,11 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 
-MB.edit.preview = function () {
-    return $.Deferred().resolve({ previews: [] });
-};
-
-
-MB.edit.create = function () {
-    return $.Deferred().resolve({ edits: [] });
-};
-
-
 MB.typeInfoByID = {
     76: {
       deprecated: false,
       phrase: "Discogs",
+      reversePhrase: "Discogs",
       type0: "release",
       type1: "url",
       cardinality0: 0,
@@ -26,6 +17,7 @@ MB.typeInfoByID = {
     77: {
       deprecated: false,
       phrase: "Wikipedia",
+      reversePhrase: "Wikipedia",
       type0: "release",
       type1: "url",
       cardinality0: 0,
@@ -507,8 +499,9 @@ test("relationshipCreate edit for external link is generated for existing releas
             "name": "http://www.discogs.com/release/1369894"
           }
         ],
-        "hash": "bd2ef529fccb9993de3575f4865dd341b78d3664",
-        "linkTypeID": 76
+        "hash": "c8e0f2e69d34f7ea6df91bd8e370754c3b8b0c54",
+        "linkTypeID": 76,
+        "linkOrder": 0
       }
     ]);
 });
@@ -545,9 +538,10 @@ test("relationshipEdit edit for external link is generated for existing release"
             "name": "http://www.amazon.co.jp/gp/product/B00003IQQD"
           }
         ],
-        "hash": "1b778d8d4db3f01cef707c72c3ac247317af6309",
+        "hash": "b4b5ad9bc88cef61dbd72b389332e05796bc5456",
         "id": 123,
-        "linkTypeID": 77
+        "linkTypeID": 77,
+        "linkOrder": 0
       }
     ]);
 });
@@ -578,8 +572,9 @@ test("relationshipDelete edit for external link is generated for existing releas
             "name": "http://www.discogs.com/release/1369894"
           }
         ],
-        "hash": "8c56b314d97a3e83ef32874819b920f4f4264db0",
-        "id": 123
+        "hash": "a9f08b6e211d48c130655ff393a3ef43617d49d6",
+        "id": 123,
+        "linkOrder": 0
       }
     ]);
 });
@@ -603,16 +598,16 @@ test("edits are not generated for external links that duplicate existing removed
     release.relationships.push(addedDuplicate);
 
     equal(releaseEditor.edits.externalLinks(release).length, 1);
-    equal(releaseEditor.validation.errorCount(), 1);
+    equal(releaseEditor.validation.errorsExist(), true);
 
     addedDuplicate.remove();
 
-    equal(releaseEditor.validation.errorCount(), 0);
+    equal(releaseEditor.validation.errorsExist(), false);
 
     existingRelationship2.url(existingRelationship1.url());
 
     equal(releaseEditor.edits.externalLinks(release).length, 1);
-    equal(releaseEditor.validation.errorCount(), 1);
+    equal(releaseEditor.validation.errorsExist(), true);
 });
 
 
