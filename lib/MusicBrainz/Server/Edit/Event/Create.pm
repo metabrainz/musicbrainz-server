@@ -7,7 +7,7 @@ use MusicBrainz::Server::Translation qw( N_l );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use Moose::Util::TypeConstraints;
 use MooseX::Types::Moose qw( Bool Str Int );
-use MooseX::Types::Structured qw( Dict Optional );
+use MooseX::Types::Structured qw( Dict );
 
 use aliased 'MusicBrainz::Server::Entity::Event';
 
@@ -23,14 +23,14 @@ sub event_id { shift->entity_id }
 has '+data' => (
     isa => Dict[
         name        => Str,
-        comment     => Nullable[Str],
+        comment     => Str,
         type_id     => Nullable[Int],
-        setlist     => Nullable[Str],
+        setlist     => Str,
         time        => Nullable[Str],
         begin_date  => Nullable[PartialDateHash],
         end_date    => Nullable[PartialDateHash],
-        ended       => Optional[Bool],
-        cancelled   => Optional[Bool],
+        ended       => Bool,
+        cancelled   => Bool,
     ]
 );
 
