@@ -60,9 +60,11 @@ subtype ArtistCreditDefinition,
 subtype LinkAttributesArray,
     as ArrayRef[Dict[
         type => Dict[
-            root_name => Optional[Str],
-            root_id => Optional[Int],
-            root_gid => Optional[Str],
+            root => Optional[Dict[
+                name => Optional[Str],
+                id => Optional[Int],
+                gid => Optional[Str],
+            ]],
             name => Optional[Str],
             id => Int,
             gid => Optional[Str],

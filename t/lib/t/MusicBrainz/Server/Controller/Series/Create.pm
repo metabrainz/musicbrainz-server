@@ -87,9 +87,11 @@ test all => sub {
             id => 1,
             gid => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a',
             name => 'number',
-            root_id => 1,
-            root_gid => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a',
-            root_name => 'number',
+            root => {
+                id => 1,
+                gid => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a',
+                name => 'number',
+            }
         }
     };
 

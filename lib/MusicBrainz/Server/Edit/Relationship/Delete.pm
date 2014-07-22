@@ -96,7 +96,7 @@ sub build_display_data
                 type => MusicBrainz::Server::Entity::LinkAttributeType->new(
                     name => $type->{name},
                     root => MusicBrainz::Server::Entity::LinkAttributeType->new(
-                        name => $type->{root_name},
+                        name => $type->{root}{name},
                     )
                 ),
                 credited_as => $_->{credited_as},
@@ -249,7 +249,20 @@ before restore => sub {
     my $link = $data->{relationship}{link};
 
     if (my $attributes = $link->{attributes}) {
-        $link->{attributes} = [ map +{ type => $_ }, @$attributes ];
+        $link->{attributes} = [
+            map +{
+                type => {
+                    root => {
+                        id => $_->{root_id},
+                        gid => $_->{root_gid},
+                        name => $_->{root_name},
+                    },
+                    id => $_->{id},
+                    gid => $_->{gid},
+                    name => $_->{name},
+                }
+            }, @$attributes
+        ];
     }
 };
 

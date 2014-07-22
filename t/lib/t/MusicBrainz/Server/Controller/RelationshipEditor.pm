@@ -19,9 +19,11 @@ with 't::Context', 't::Mechanize';
 
 our $additional_attribute = {
     type => {
-        root_id => 1,
-        root_gid => '36990974-4f29-4ea1-b562-3838fa9b8832',
-        root_name => 'additional',
+        root => {
+            id => 1,
+            gid => '36990974-4f29-4ea1-b562-3838fa9b8832',
+            name => 'additional',
+        },
         id => 1,
         gid => '36990974-4f29-4ea1-b562-3838fa9b8832',
         name => 'additional',
@@ -30,9 +32,11 @@ our $additional_attribute = {
 
 our $string_instruments_attribute = {
     type => {
-        root_id => 14,
-        root_gid => '108d76bd-95eb-4099-aed6-447e4ec78553',
-        root_name => 'instrument',
+        root => {
+            id => 14,
+            gid => '108d76bd-95eb-4099-aed6-447e4ec78553',
+            name => 'instrument',
+        },
         id => 3,
         gid => '4f7bb10f-396c-466a-8221-8e93f5e454f9',
         name => 'String Instruments',
@@ -41,9 +45,11 @@ our $string_instruments_attribute = {
 
 our $guitar_attribute = {
     type => {
-        root_id => 14,
-        root_gid => '108d76bd-95eb-4099-aed6-447e4ec78553',
-        root_name => 'instrument',
+        root => {
+            id => 14,
+            gid => '108d76bd-95eb-4099-aed6-447e4ec78553',
+            name => 'instrument',
+        },
         id => 4,
         gid => 'c3273296-91ba-453d-94e4-2fb6e958568e',
         name => 'Guitar',

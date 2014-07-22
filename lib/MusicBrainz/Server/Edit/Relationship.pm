@@ -62,9 +62,7 @@ sub check_attributes {
             }
 
             $data->{type} = {
-                root_id => $root->{id},
-                root_gid => $root->{gid},
-                root_name => $root->{name},
+                root => $root,
                 id => $lat->id,
                 gid => $lat->gid,
                 name => $lat->name,
@@ -101,9 +99,11 @@ sub serialize_link_attributes {
         my $root = $type->root;
         {
             type => {
-                root_name => $root->name,
-                root_id => $root->id,
-                root_gid => $root->gid,
+                root => {
+                    name => $root->name,
+                    id => $root->id,
+                    gid => $root->gid,
+                },
                 name => $type->name,
                 id => $type->id,
                 gid => $type->gid,
