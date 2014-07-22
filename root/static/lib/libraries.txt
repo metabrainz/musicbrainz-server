@@ -175,6 +175,14 @@ version:    2.4.1
 author:     John-David Dalton
 url:        http://lodash.com/
 
+-- leaflet/
+
+library:    Leaflet
+license:    2-clause BSD
+version:    0.7.3
+author:     Vladimir Agafonkin, CloudMade
+url:        http://leafletjs.com/
+
 -- knockout/knockout-arrayTransforms.js
 
 library:    knockout-arrayTransforms

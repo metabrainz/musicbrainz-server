@@ -11,6 +11,8 @@ lib/underscore.string/underscore.string.js
 
 lib/knockout/knockout-latest.debug.js
 
+lib/leaflet/leaflet-src.js
+
 lib/aclass/aclass.js
 
 scripts/common
