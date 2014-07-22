@@ -323,6 +323,7 @@ Readonly our %ENTITIES => (
         edit_table => 1,
         merging => 1,
         model      => 'Area',
+        type => { simple => 1 },
         annotations => { edit_type => $EDIT_AREA_ADD_ANNOTATION },
         removal     => { manual => 1 }
     },
@@ -331,6 +332,7 @@ Readonly our %ENTITIES => (
         edit_table => 1,
         merging => 1,
         model      => 'Artist',
+        type => { simple => 1 },
         annotations => { edit_type => $EDIT_ARTIST_ADD_ANNOTATION },
         ratings    => 1,
         tags       => 1,
@@ -342,6 +344,7 @@ Readonly our %ENTITIES => (
         edit_table => 1,
         merging => 1,
         model      => 'Instrument',
+        type => { simple => 1 },
         annotations => { edit_type => $EDIT_INSTRUMENT_ADD_ANNOTATION },
         removal     => { manual => 1 }
     },
@@ -350,6 +353,7 @@ Readonly our %ENTITIES => (
         edit_table => 1,
         merging => 1,
         model      => 'Label',
+        type => { simple => 1 },
         annotations => { edit_type => $EDIT_LABEL_ADD_ANNOTATION },
         ratings    => 1,
         tags       => 1,
@@ -361,6 +365,7 @@ Readonly our %ENTITIES => (
         edit_table => 1,
         merging => 1,
         model      => 'Place',
+        type => { simple => 1 },
         annotations => { edit_type => $EDIT_PLACE_ADD_ANNOTATION },
         tags       => 1,
         removal     => { automatic => 1 }
@@ -392,6 +397,7 @@ Readonly our %ENTITIES => (
         edit_table => 1,
         merging => 1,
         model      => 'ReleaseGroup',
+        type => { complex => 1 },
         url        => 'release-group',
         annotations => { edit_type => $EDIT_RELEASEGROUP_ADD_ANNOTATION },
         ratings    => 1,
@@ -404,6 +410,7 @@ Readonly our %ENTITIES => (
         edit_table => 1,
         merging => 1,
         model      => 'Series',
+        type => { simple => 1 },
         annotations => { edit_type => $EDIT_SERIES_ADD_ANNOTATION },
         subscriptions => { entity => 1, deleted => 1 },
         removal     => { automatic => 1 }
@@ -418,6 +425,7 @@ Readonly our %ENTITIES => (
         edit_table => 1,
         merging => 1,
         model      => 'Work',
+        type => { simple => 1 },
         annotations => { edit_type => $EDIT_WORK_ADD_ANNOTATION },
         ratings    => 1,
         tags       => 1,
