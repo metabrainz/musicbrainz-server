@@ -144,6 +144,8 @@ sub find
          $values->{end_date}->{month} ||
          $values->{end_date}->{day});
 
+    $values->{ended} //= 0;
+
     push @conditions, "ended = ?";
     push @args, $values->{ended};
 
@@ -206,7 +208,7 @@ sub find_or_insert
     my @attrs = @{ $values->{attributes} // [] };
 
     my $row = {
-        link_type      => $values->{link_type_id},
+        link_type => $values->{link_type_id},
         attribute_count => scalar(@attrs),
         ended => $values->{ended}
     };

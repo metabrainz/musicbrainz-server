@@ -17,21 +17,21 @@ MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationships');
 my $link_id = $test->c->model('Link')->find_or_insert({
     link_type_id => 1,
     ended => 0,
-    attributes => [ { id => 4 } ],
+    attributes => [{ type => { id => 4 } }],
 });
 is($link_id, 1);
 
 $link_id = $test->c->model('Link')->find_or_insert({
     link_type_id => 1,
     ended => 0,
-    attributes => [ map +{ id => $_ }, (1, 3) ],
+    attributes => [ map +{ type => { id => $_ } }, (1, 3) ],
 });
 is($link_id, 2);
 
 $link_id = $test->c->model('Link')->find_or_insert({
     link_type_id => 1,
     ended => 0,
-    attributes => [ map +{ id => $_ }, ( 3, 1 ) ],
+    attributes => [ map +{ type => { id => $_ } }, ( 3, 1 ) ],
 });
 is($link_id, 2);
 
@@ -41,7 +41,7 @@ $link_id = $test->c->model('Link')->find_or_insert({
     begin_date => { year => 2009 },
     end_date => { year => 2010 },
     ended => 0,
-    attributes => [ map +{ id => $_ }, (1, 3) ],
+    attributes => [ map +{ type => { id => $_ } }, (1, 3) ],
 });
 $test->c->sql->commit;
 is($link_id, 100);
@@ -56,10 +56,26 @@ $link_id = $test->c->model('Link')->find_or_insert({
     begin_date => { year => 2009 },
     end_date => { year => 2010 },
     ended => 0,
-    attributes => [ map +{ id => $_ }, (1, 3) ],
+    attributes => [ map +{ type => { id => $_ } }, (1, 3) ],
 });
 $test->c->sql->commit;
 is($link_id, 100, "find_or_insert() correctly re-uses a link with end date");
+
+$test->c->sql->begin;
+$link_id = $test->c->model('Link')->find_or_insert({
+    link_type_id => 743,
+    attributes => [{ type => { id => 779 }, text_value => 'oh look a number' }],
+});
+$test->c->sql->commit;
+is($link_id, 3, "find_or_insert() correctly re-uses a link with a text value");
+
+$test->c->sql->begin;
+$link_id = $test->c->model('Link')->find_or_insert({
+    link_type_id => 1,
+    attributes => [{ type => { id => 4 }, credited_as => 'crazy guitar' }],
+});
+$test->c->sql->commit;
+is($link_id, 4, "find_or_insert() correctly re-uses a link with an attribute credit");
 
 };
 
