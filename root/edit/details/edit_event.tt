@@ -17,8 +17,8 @@
                   '\s+') %]
 
   [% display_diff(l('Cancelled:'),
-                  edit.display_data.cancelled.old ? l('Yes') : l('No'),
-                  edit.display_data.cancelled.new ? l('Yes') : l('No'),
+                  yesno(edit.display_data.cancelled.old),
+                  yesno(edit.display_data.cancelled.new),
                   '-') %]
 
   [% display_full_change(l('Type:'),
