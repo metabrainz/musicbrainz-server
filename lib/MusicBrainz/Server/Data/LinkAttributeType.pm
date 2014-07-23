@@ -59,11 +59,10 @@ sub _entity_class
     return 'MusicBrainz::Server::Entity::LinkAttributeType';
 }
 
-sub load
-{
+sub load {
     my ($self, @objs) = @_;
 
-    load_subobjects($self, 'type', @objs);
+    load_subobjects($self, ['type', 'root'], @objs);
 }
 
 sub find_root

@@ -79,12 +79,12 @@ sub foreign_keys {
     my %load;
 
     $load{LinkType} = [$self->data->{link_type}{id}];
-    $load{LinkAttributeType} = [];
+    $load{LinkAttributeType} = {};
     $load{$model0} = {};
     $load{$model1} = {};
 
     for (map { $_->{relationship} } @{ $self->data->{relationship_order} }) {
-        push @{ $load{LinkAttributeType} }, map { $_->{type}{id} } @{ $_->{attributes} };
+        $load{LinkAttributeType}->{$_->{type}{id}} = ['LinkAttributeType'] for @{ $_->{attributes} };
         $load{$model0}->{ $_->{entity0}{id} } = [];
         $load{$model1}->{ $_->{entity1}{id} } = [];
     }
@@ -110,9 +110,6 @@ sub _build_relationship {
                     my $attr = $loaded->{LinkAttributeType}{$_->{type}{id}};
 
                     if ($attr) {
-                        my $root_id = $self->c->model('LinkAttributeType')->find_root($attr->id);
-                        $attr->root($self->c->model('LinkAttributeType')->get_by_id($root_id));
-
                         LinkAttribute->new(
                             type => $attr,
                             credited_as => $_->{credited_as},

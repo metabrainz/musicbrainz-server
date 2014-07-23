@@ -110,7 +110,7 @@ sub foreign_keys
 
     my %load = (
         LinkType            => [ $self->data->{link_type}{id} ],
-        LinkAttributeType   => [ map { $_->{type}{id} } @{ $self->data->{attributes} // [] } ],
+        LinkAttributeType   => { map { $_->{type}{id} => ['LinkAttributeType'] } @{ $self->data->{attributes} // [] } },
     );
 
     my $type0 = $self->data->{type0};
@@ -134,6 +134,9 @@ sub build_display_data
     my $model0 = type_to_model($self->data->{type0});
     my $model1 = type_to_model($self->data->{type1});
 
+    use Data::Dumper;
+    print Dumper($self->data->{attributes}, $loaded);
+
     return {
         relationship => Relationship->new(
             link => Link->new(
@@ -146,8 +149,6 @@ sub build_display_data
                     map {
                         my $attr = $loaded->{LinkAttributeType}{ $_->{type}{id} };
                         if ($attr) {
-                            my $root_id = $self->c->model('LinkAttributeType')->find_root($attr->id);
-                            $attr->root( $self->c->model('LinkAttributeType')->get_by_id($root_id) );
                             MusicBrainz::Server::Entity::LinkAttribute->new(
                                 type => $attr,
                                 credited_as => $_->{credited_as},
@@ -171,7 +172,7 @@ sub build_display_data
             link_order => $self->data->{link_order} // 0,
         ),
         unknown_attributes => scalar(
-            grep { !exists $loaded->{LinkAttributeType}{$_} }
+            grep { !exists $loaded->{LinkAttributeType}{$_->{type}{id}} }
                 @{ $self->data->{attributes} // [] }
         )
     }

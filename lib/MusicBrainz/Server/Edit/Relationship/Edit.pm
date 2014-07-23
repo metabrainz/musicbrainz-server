@@ -109,13 +109,13 @@ sub foreign_keys
         $self->data->{new}{link_type} ? $self->data->{new}{link_type}{id} : (),
         $self->data->{old}{link_type} ? $self->data->{old}{link_type}{id} : (),
     ];
-    $load{LinkAttributeType} = [
-        map { $_->{type}{id} } (
+    $load{LinkAttributeType} = {
+        map { $_->{type}{id} => ['LinkAttributeType'] } (
             @{ $self->data->{link}->{attributes} },
             @{ $self->data->{new}->{attributes} || [] },
             @{ $self->data->{old}->{attributes} || [] },
         )
-    ];
+    };
 
     my $old = $self->data->{old};
     my $new = $self->data->{new};
@@ -162,8 +162,6 @@ sub _build_relationship
                     my $attr = $loaded->{LinkAttributeType}{ $_->{type}{id} };
 
                     if ($attr) {
-                        my $root_id = $self->c->model('LinkAttributeType')->find_root($attr->id);
-                        $attr->root( $self->c->model('LinkAttributeType')->get_by_id($root_id) );
                         MusicBrainz::Server::Entity::LinkAttribute->new(
                             type => $attr,
                             credited_as => $_->{credited_as},
