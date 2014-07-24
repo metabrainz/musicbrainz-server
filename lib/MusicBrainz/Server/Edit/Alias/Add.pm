@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Alias::Add;
 use MooseX::Role::Parameterized;
 use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
-use MusicBrainz::Server::Data::Utils qw( model_to_type );
+use MusicBrainz::Server::Data::Utils qw( model_to_type non_empty );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
@@ -97,6 +97,7 @@ role {
             id => $entity->id,
             name => $entity->name
         };
+        $opts{sort_name} = $opts{name} unless non_empty($opts{sort_name});
         $self->data(\%opts);
     };
 

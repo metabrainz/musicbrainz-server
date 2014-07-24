@@ -9,6 +9,7 @@ use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Data::Utils qw(
     type_to_model
+    non_empty
 );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Edit::Exceptions;
@@ -164,6 +165,12 @@ sub initialize
     my $alias = delete $opts{alias};
     die "You must specify the alias object to edit" unless defined $alias;
     my $entity = delete $opts{entity} or die 'Missing "entity" argument';
+
+    unless (non_empty($opts{sort_name})) {
+        delete $opts{sort_name};
+        $opts{sort_name} = $opts{name} if non_empty($opts{name});
+    }
+
     $self->data({
         alias_id => $alias->id,
         entity => {
