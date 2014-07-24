@@ -28,6 +28,7 @@ EOSQL
 
     $mech->get_ok(
         '/relationship-attribute/77a0f1d3-f9ec-4055-a6e7-24d7258c21f7/edit');
+    html_ok($mech->content);
 
     my ($new_name, $new_description) = (
         'Additional additional', 'Extra additional'

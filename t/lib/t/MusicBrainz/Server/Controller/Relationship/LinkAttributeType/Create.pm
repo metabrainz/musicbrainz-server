@@ -24,6 +24,7 @@ test 'Can create new relationship attribute' => sub {
     my $mech = $test->mech;
 
     $mech->get_ok('/relationship-attributes/create');
+    html_ok($mech->content);
 
     my ($name, $child_order) = (
         'Additional additional', 1
@@ -60,6 +61,7 @@ INSERT INTO link_attribute_type (id, parent, root, gid, name)
 EOSQL
 
     $mech->get_ok('/relationship-attributes/create?parent=' . $gid);
+    html_ok($mech->content);
 
     my $parent = $test->c->model('LinkAttributeType')->get_by_gid($gid);
     my ($parent_id, $parent_name, $name, $child_order) = (
