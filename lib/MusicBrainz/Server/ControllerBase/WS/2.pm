@@ -353,9 +353,9 @@ sub linked_instruments
     $self->_aliases($c, 'Instrument', $instruments, $stash);
 }
 
-sub linked_lists
+sub linked_collections
 {
-    my ($self, $c, $stash, $lists) = @_;
+    my ($self, $c, $stash, $collections) = @_;
 }
 
 sub linked_labels
