@@ -107,7 +107,7 @@ sub textarea
             name => $field->html_name,
             id => $self->_id($field),
             %{ $attrs || {} },
-        }, $field->fif);
+        }, $self->h->entity_encode($field->fif));
 }
 
 sub label
