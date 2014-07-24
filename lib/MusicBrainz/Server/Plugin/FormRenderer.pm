@@ -174,7 +174,7 @@ sub select
         my $option_html = $self->h->option(
             {
                 %$option, selected => $selected ? "selected" : undef,
-            }, $label);
+            }, $self->h->entity_encode($label));
 
         if ($grp)
         {
