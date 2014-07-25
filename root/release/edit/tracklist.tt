@@ -10,25 +10,54 @@
 
   <h3 class="track-parser-options">[% l('Options') %]</h3>
 
-  <label>
-    <input type="checkbox" data-bind="checked: $root.trackParser.options.trackArtists" />
-    [%= l('Parse track artists') %]
-  </label>
-  <br />
-  <label>
-    <input type="checkbox" data-bind="checked: $root.trackParser.options.trackNumbers" />
-    [%= l('Lines start with a track number') %]
-  </label>
-  <br />
-  <label>
-    <input type="checkbox" data-bind="checked: $root.trackParser.options.vinylNumbers" />
-    [%= l('Enable vinyl track numbers') %]
-  </label>
-  <br />
-  <label>
-    <input type="checkbox" data-bind="checked: $root.trackParser.options.trackTimes" />
-    [%= l('Detect track durations') %]
-  </label>
+  <ul id="track-parser-options" data-bind="with: $root.trackParser.options">
+    <li>
+      <label>
+        <input type="checkbox" data-bind="checked: hasTrackNumbers" />
+        [%= l('Lines start with a track number') %]
+      </label>
+      <ul>
+        <li>
+          <label>
+            <input type="checkbox" data-bind="checked: hasVinylNumbers, enable: hasTrackNumbers" />
+            [%= l('Enable vinyl track numbers') %]
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" data-bind="checked: useTrackNumbers, enable: hasTrackNumbers" />
+            [%= l('Use track numbers') %]
+          </label>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <label>
+        <input type="checkbox" data-bind="checked: hasTrackArtists" />
+        [%= l('Lines contain track artists') %]
+      </label>
+      <ul>
+        <li>
+          <label>
+            <input type="checkbox" data-bind="checked: useTrackArtists, enable: hasTrackArtists" />
+            [%= l('Use track artists') %]
+          </label>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <label>
+        <input type="checkbox" data-bind="checked: useTrackNames" />
+        [%= l('Use track titles') %]
+      </label>
+    </li>
+    <li>
+      <label>
+        <input type="checkbox" data-bind="checked: useTrackLengths" />
+        [%= l('Use track lengths') %]
+      </label>
+    </li>
+  </ul>
 </script>
 
 <script type="text/html" id="template.medium-search">
