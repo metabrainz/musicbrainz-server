@@ -216,7 +216,7 @@
             }
 
             for (var j = 0, id; id = attributes[j]; j++) {
-                pushInput(prefix, "attributes." + i, id);
+                pushInput(prefix, "attributes." + j, id);
             }
 
             for (id in attributeTextValues) {

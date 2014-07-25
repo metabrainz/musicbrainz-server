@@ -90,6 +90,10 @@ module("external links editor", {
         });
 
         MB.sourceExternalLinksEditor = this.viewModel;
+    },
+
+    teardown: function () {
+        MB.sourceExternalLinksEditor = null;
     }
 });
 
