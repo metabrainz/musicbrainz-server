@@ -19,6 +19,10 @@
           [% r.textarea('setlist', { cols => 80, rows => 10 }) %]
           [% field_errors(r.form, 'setlist') %]
         [% END %]
+        <p>
+            [%- l('Add @ at line start to indicate artists, * for a work/song, # for additional info (such as "Encore").
+                   [mbid|name] allows linking to artists and works.') -%]
+        </p>
       </fieldset>
 
 
