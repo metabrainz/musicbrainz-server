@@ -40,7 +40,7 @@
     [% END %]
 
     [% WRAPPER form_row %]
-        [% r.label('attributes', l('Attributes:')) %]
+        <label>[% l('Attributes:') %]</label>
         [% FOR field IN form.field('attributes').fields %]
             <div class="no-label">
                     [% r.hidden(field.field('type')) %]
@@ -79,7 +79,7 @@
                            type="hidden" />
 
                     <a data-bind="text: source.name, attr: { href: '[% c.uri_for("/${link_type.entity0_type}/") %]' + source.mbid }"></a>
-                    <span data-bind="html: phrase" /></span>
+                    <span data-bind="html: phrase"></span>
                     <a data-bind="text: target.name, attr: { href: '[% c.uri_for("/${link_type.entity1_type}/") %]' + target.mbid }"></a>
                 </div>
                 [% END %]
@@ -101,7 +101,7 @@
         [% END %]
 
         [%- WRAPPER form_row -%]
-          <label for="" class="required">[% l('Endpoint:') %]</label>
+          <label class="required">[% l('Endpoint:') %]</label>
           <select style="width: 130px; margin-right: 4px;"
               data-bind="options: availableEntityTypes, value: selectedEntityType,
                          optionsText: 'text', optionsValue: 'value'">
@@ -132,7 +132,7 @@
                                name="current-example.relationship"
                                data-bind="checkObject: $root.currentExample.relationship" />
                         <a data-bind="text: source.name, attr: { href: '[% c.uri_for("/${link_type.entity0_type}/") %]' + source.mbid }"></a>
-                        <span data-bind="html: phrase" /></span>
+                        <span data-bind="html: phrase"></span>
                         <a data-bind="text: target.name, attr: { href: '[% c.uri_for("/${link_type.entity1_type}/") %]' + target.mbid }"></a>
                     </li>
                 </ul>
