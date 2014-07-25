@@ -50,7 +50,7 @@ ws_test 'instrument lookup, inc=aliases',
         <name>English horn</name>
         <alias-list count="2">
             <alias sort-name="English horn">English horn</alias>
-            <alias sort-name="cor anglais" primary="primary" locale="FR" type="Instrument name">cor anglais</alias>
+            <alias sort-name="cor anglais" primary="primary" locale="fr" type="Instrument name">cor anglais</alias>
         </alias-list>
     </instrument>
 </metadata>';

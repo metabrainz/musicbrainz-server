@@ -96,7 +96,7 @@ sub _serialize_alias
         foreach my $al (sort_by { $_->name } @$aliases)
         {
             push @alias_list, $gen->alias({
-                $al->locale ? ( locale => uc($al->locale) ) : (),
+                $al->locale ? ( locale => $al->locale ) : (),
                 'sort-name' => $al->sort_name,
                 $al->type ? ( type => $al->type_name ) : (),
                 $al->primary_for_locale ? (primary => 'primary') : (),
