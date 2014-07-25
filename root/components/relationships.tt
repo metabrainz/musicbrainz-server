@@ -41,3 +41,11 @@
     [%- static_display(work.grouped_relationships('area', 'artist', 'label', 'place', 'work')) -%]
   [% END %]
 [% END %]
+
+[% IF source.related_series.size %]
+  <h2 class="related-series">[% l('Related series') %]</h2>
+  [% FOR series=source.related_series %]
+    <h3>[% link_entity(series) %]</h3>
+    [%- static_display(series.grouped_relationships('url')) -%]
+  [% END %]
+[% END %]

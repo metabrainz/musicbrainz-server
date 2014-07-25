@@ -46,6 +46,7 @@ after 'load' => sub
 
     $c->model('EventType')->load($event);
     $c->model('Relationship')->load($event);
+    $c->model('Relationship')->load($event->related_series);
 };
 
 =head2 show
