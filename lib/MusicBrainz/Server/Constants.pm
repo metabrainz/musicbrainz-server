@@ -460,6 +460,12 @@ Readonly our %ENTITIES => (
     },
     freedb => {
         model => 'FreeDB'
+    },
+    tag => {
+        model => 'Tag'
+    },
+    editor => {
+        model => 'Editor'
     }
 );
 

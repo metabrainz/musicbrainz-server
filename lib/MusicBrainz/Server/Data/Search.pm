@@ -66,21 +66,6 @@ no if $] >= 5.018, warnings => "experimental::smartmatch";
 
 extends 'MusicBrainz::Server::Data::Entity';
 
-Readonly my %TYPE_TO_DATA_CLASS => (
-    artist        => 'MusicBrainz::Server::Data::Artist',
-    area          => 'MusicBrainz::Server::Data::Area',
-    instrument    => 'MusicBrainz::Server::Data::Instrument',
-    label         => 'MusicBrainz::Server::Data::Label',
-    place         => 'MusicBrainz::Server::Data::Place',
-    recording     => 'MusicBrainz::Server::Data::Recording',
-    release       => 'MusicBrainz::Server::Data::Release',
-    release_group => 'MusicBrainz::Server::Data::ReleaseGroup',
-    series        => 'MusicBrainz::Server::Data::Series',
-    work          => 'MusicBrainz::Server::Data::Work',
-    tag           => 'MusicBrainz::Server::Data::Tag',
-    editor        => 'MusicBrainz::Server::Data::Editor'
-);
-
 use Sub::Exporter -setup => {
     exports => [qw( escape_query alias_query )]
 };
@@ -319,10 +304,12 @@ sub search
     for my $row (@rows) {
         last unless ($limit--);
 
+        my $model = 'MusicBrainz::Server::Data::' . type_to_model($type);
+
         my $res = MusicBrainz::Server::Entity::SearchResult->new(
             position => $pos++,
             score => int(1000 * $row->{rank}),
-            entity => $TYPE_TO_DATA_CLASS{$type}->_new_from_row($row)
+            entity => $model->_new_from_row($row)
         );
         push @result, $res;
     }
