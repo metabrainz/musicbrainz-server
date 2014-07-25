@@ -66,7 +66,7 @@ sub _serialize_life_span
         my @span;
         push @span, $gen->begin($entity->begin_date->format) if $has_begin_date;
         push @span, $gen->end($entity->end_date->format) if $has_end_date;
-        push @span, $gen->ended('true') if $entity->ended;
+        push @span, $gen->ended('true') if ($entity->ended && !$entity->isa('MusicBrainz::Server::Entity::Event'));
         push @$data, $gen->life_span(@span);
     }
 }
@@ -1066,6 +1066,50 @@ sub _serialize_series
     push @$data, $gen->series(\%attrs, @list);
 }
 
+sub _serialize_event_list
+{
+    my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
+
+    if (@{ $list->{items} })
+    {
+        my @list;
+        foreach my $event (sort_by { $_->gid } @{ $list->{items} })
+        {
+            $self->_serialize_event(\@list, $gen, $event, $inc, $stash, $toplevel);
+        }
+        push @$data, $gen->event_list($self->_list_attributes ($list), @list);
+    }
+}
+
+sub _serialize_event
+{
+    my ($self, $data, $gen, $event, $inc, $stash, $toplevel) = @_;
+
+    my $opts = $stash->store ($event);
+
+    my %attrs;
+    $attrs{id} = $event->gid;
+    $attrs{type} = $event->type->name if $event->type;
+
+    my @list;
+    push @list, $gen->name($event->name);
+    push @list, $gen->disambiguation($event->comment) if $event->comment;
+
+    $self->_serialize_life_span(\@list, $gen, $event, $inc, $opts);
+    push @list, $gen->time($event->formatted_time);
+    push @list, $gen->setlist($event->setlist);
+
+    $self->_serialize_annotation(\@list, $gen, $event, $inc, $opts) if $toplevel;
+
+    $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
+        if ($inc->aliases && $opts->{aliases});
+
+    $self->_serialize_relation_lists($event, \@list, $gen, $event->relationships, $inc, $stash) if ($inc->has_rels);
+    $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
+
+    push @$data, $gen->event(\%attrs, @list);
+}
+
 sub _serialize_isrc_list
 {
     my ($self, $data, $gen, $isrcs, $inc, $stash, $toplevel) = @_;
@@ -1325,6 +1369,15 @@ sub series_resource
     return $data->[0];
 }
 
+sub event_resource
+{
+    my ($self, $gen, $event, $inc, $stash) = @_;
+
+    my $data = [];
+    $self->_serialize_event($data, $gen, $event, $inc, $stash, 1);
+    return $data->[0];
+}
+
 sub url_resource
 {
     my ($self, $gen, $url, $inc, $stash) = @_;
@@ -1447,6 +1500,16 @@ sub instrument_list_resource {
 
     my $data = [];
     $self->_serialize_instrument_list($data, $gen, $instruments, $inc, $stash, 1);
+
+    return $data->[0];
+}
+
+sub event_list_resource
+{
+    my ($self, $gen, $events, $inc, $stash) = @_;
+
+    my $data = [];
+    $self->_serialize_event_list($data, $gen, $events, $inc, $stash, 1);
 
     return $data->[0];
 }
