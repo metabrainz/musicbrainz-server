@@ -19,7 +19,7 @@ use MusicBrainz::Server::Validation qw( normalise_strings );
 
 use JSON::Any;
 
-use MooseX::Types::Moose qw( ArrayRef Bool Int Maybe Str );
+use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 
 use aliased 'MusicBrainz::Server::Entity::Place';

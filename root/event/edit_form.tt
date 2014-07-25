@@ -1,0 +1,60 @@
+[% script_manifest('guess-case.js.manifest') %]
+[% script_manifest('edit.js.manifest') %]
+
+<p>[%- l('For more information, check the {doc_doc|documentation}.', {doc_doc => doc_link('Event')}) -%]</p>
+
+<form action="[% c.req.uri %]" method="post" class="edit-event">
+    [%- USE r = FormRenderer(form) -%]
+
+    <div class="half-width">
+
+      <fieldset>
+        <legend>[% l('Event Details') %]</legend>
+        [%- form_row_text_long(r, 'name', l('Name:')) -%]
+        [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
+        [%- form_row_select(r, 'type_id', l('Type:')) -%]
+        [% form_row_checkbox(r, 'cancelled', l('This event was cancelled.')) %]
+        [% WRAPPER form_row %]
+          [% r.label('setlist', l('Setlist:')) %]
+          [% r.textarea('setlist', { cols => 80, rows => 10 }) %]
+          [% field_errors(r.form, 'setlist') %]
+        [% END %]
+      </fieldset>
+
+
+      <fieldset>
+        <legend>[% l('Date Period') %]</legend>
+        <p>
+            [%- l('Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just YYYY are OK, or you can omit the date entirely.') -%]
+        </p>
+        [% form_row_date(r, 'period.begin_date', l('Begin date:')) %]
+        [% form_row_date(r, 'period.end_date', l('End date:')) %]
+        [%- form_row_text_long(r, 'time', l('Time:')) -%]
+      </fieldset>
+
+      [% PROCESS 'forms/relationship-editor.tt' %]
+
+      <fieldset>
+        <legend>[% l('External Links') %]</legend>
+        [% external_links_editor(r.form, 'event') %]
+      </fieldset>
+
+      [% INCLUDE 'forms/edit-note.tt' %]
+
+      [% enter_edit() %]
+  </div>
+
+  <div class="documentation">
+    [%- guesscase_bubble(1) -%]
+    [%- external_link_bubble() -%]
+  </div>
+
+</form>
+
+<script type="text/javascript">//<![CDATA[
+  (function () {
+    MB.Control.initialize_guess_case("event", "id-edit-event");
+
+    MB.utility.setDefaultAction("form.edit-event", "button.submit.positive");
+  }());
+//]]></script>

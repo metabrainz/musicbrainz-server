@@ -39,6 +39,7 @@ our %relation_types = (
     2 => {
         "area-rels" => 1,
         "artist-rels" => 1,
+        "event-rels" => 1,
         "instrument-rels" => 1,
         "release-rels" => 1,
         "release-group-rels" => 1,

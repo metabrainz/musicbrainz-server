@@ -1,0 +1,4 @@
+[%- WRAPPER 'event/layout.tt' title=l('Add Event Alias') full_width=1 -%]
+    <h2>[% l('Add event alias') %]</h2>
+    [%- INCLUDE 'alias/edit_form.tt' search_hint_type_id=2 entity_type_name='event' -%]
+[%- END -%]
