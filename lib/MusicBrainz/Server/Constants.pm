@@ -200,6 +200,15 @@ Readonly our $EDIT_INSTRUMENT_ADD_ALIAS => 136;
 Readonly our $EDIT_INSTRUMENT_DELETE_ALIAS => 137;
 Readonly our $EDIT_INSTRUMENT_EDIT_ALIAS => 138;
 
+Readonly our $EDIT_EVENT_CREATE => 150;
+Readonly our $EDIT_EVENT_EDIT => 151;
+Readonly our $EDIT_EVENT_DELETE => 152;
+Readonly our $EDIT_EVENT_MERGE => 153;
+Readonly our $EDIT_EVENT_ADD_ANNOTATION => 154;
+Readonly our $EDIT_EVENT_ADD_ALIAS => 155;
+Readonly our $EDIT_EVENT_DELETE_ALIAS => 156;
+Readonly our $EDIT_EVENT_EDIT_ALIAS => 157;
+
 Readonly our $EDIT_WIKIDOC_CHANGE => 120;
 
 Readonly our $EDIT_URL_EDIT => 101;
@@ -309,6 +318,7 @@ Readonly our $SERIES_ORDERING_TYPE_AUTOMATIC => 1;
 Readonly our $SERIES_ORDERING_TYPE_MANUAL => 2;
 
 Readonly our %PART_OF_SERIES => (
+    event           => '707d947d-9563-328a-9a7d-0c5b9c3a9791',
     recording       => 'ea6f0698-6782-30d6-b16d-293081b66774',
     release         => '3fa29f01-8e13-3e49-9b0a-ad212aa2f81d',
     release_group   => '01018437-91d8-36b9-bf89-3f885d53b5bd',
@@ -335,6 +345,16 @@ Readonly our %ENTITIES => (
         ratings    => 1,
         tags       => 1,
         subscriptions => { entity => 1, deleted => 1 },
+        removal     => { automatic => 1 }
+    },
+    event => {
+        mbid => { relatable => 1 },
+        edit_table => 1,
+        merging => 1,
+        model      => 'Event',
+        annotations => { edit_type => $EDIT_EVENT_ADD_ANNOTATION },
+        ratings    => 1,
+        tags       => 1,
         removal     => { automatic => 1 }
     },
     instrument => {
