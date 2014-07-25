@@ -1,0 +1,9 @@
+[%- WRAPPER 'place/layout.tt' title='Events' page='events' -%]
+    <h2>[% l('Events') %]</h2>
+
+    [% IF events.size %]
+      [% INCLUDE 'components/events-list.tt' no_location=1 WRAPPER 'components/with-pager.tt' %]
+    [% ELSE %]
+      [% l('This place is not currently associated with any events.') %]
+    [% END %]
+[%- END -%]

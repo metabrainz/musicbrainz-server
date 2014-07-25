@@ -1,0 +1,38 @@
+[% BLOCK layout_head %]
+    [%~ meta_desc = [] ~%]
+    [%~ meta_desc.push(html_escape(event.comment)) IF event.comment ~%]
+    [%~ meta_desc.push(l('Type:') _ ' ' _ html_escape(event.type_name)) IF event.type ~%]
+    [%~ IF event.begin_date.format ~%]
+        [%~ meta_desc.push(l("Start:") _ ' ' _ event.begin_date.format) ~%]
+    [%~ END ~%]
+    [%~ IF event.end_date.format ~%]
+        [%~ meta_desc.push(l("End:") _ ' ' _ event.end_date.format) ~%]
+    [%~ END ~%]
+    [%~ meta_desc.push(html_escape(event.formatted_time)) IF event.time ~%]
+    <meta name="description" content="[% comma_only_list(meta_desc) %]"/>
+[% END %]
+
+[%- WRAPPER "event/layout.tt" page='index' -%]
+    [%- INCLUDE 'event/annotation.tt' summary=1 -%]
+
+    [% IF eligible_for_cleanup %]
+      <p class="cleanup">
+          [% l('This event has no relationships and will be removed
+                automatically in the next few days. If this is not intended,
+                please add more data to this event.') %]
+      </p>
+    [% END %]
+
+    [%- show_wikipedia_extract() -%]
+
+    [% INCLUDE "components/relationships.tt" source=event %]
+
+    [%- IF event.setlist -%]
+    <h2 class="setlist">[% l('Setlist') %]</h2>
+    <div class="setlist">
+        <div class="setlist-body">
+                [% event.setlist  %]
+        </div>
+    [%- END -%]
+
+[% END %]
