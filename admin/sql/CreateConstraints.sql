@@ -146,4 +146,7 @@ ALTER TABLE artist ADD CONSTRAINT artist_va_check
 ALTER TABLE release_unknown_country ADD CONSTRAINT non_empty_date
     CHECK (date_year IS NOT NULL OR date_month IS NOT NULL OR date_day IS NOT NULL);
 
+ALTER TABLE medium ADD CONSTRAINT medium_uniq
+    UNIQUE (release, position) DEFERRABLE INITIALLY IMMEDIATE;
+
 COMMIT;

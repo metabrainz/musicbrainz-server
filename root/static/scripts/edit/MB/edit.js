@@ -128,11 +128,7 @@
                 data.attributeTextValues = textAttrs;
             }
 
-            var linkOrder = number(relationship.linkOrder);
-
-            if (linkOrder !== null) {
-                data.linkOrder = linkOrder;
-            }
+            data.linkOrder = number(relationship.linkOrder) || 0;
 
             if (relationship.hasDates()) {
                 data.beginDate = fields.partialDate(period.beginDate);

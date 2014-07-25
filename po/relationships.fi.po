@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-05-20 19:03+0000\n"
+"PO-Revision-Date: 2014-07-10 00:01+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -3846,14 +3846,10 @@ msgstr "{additional} {founder:perustaja}jäsenet"
 msgid "{additional} {guest} {solo} performer"
 msgstr "{additional} {guest:vieras-}{solo:soolo}esittäjä"
 
-#: DB:link_type/link_phrase:44 DB:link_type/reverse_link_phrase:44
-#: DB:link_type/reverse_link_phrase:148
+#: DB:link_type/link_phrase:44 DB:link_type/link_phrase:148
+#: DB:link_type/reverse_link_phrase:44 DB:link_type/reverse_link_phrase:148
 msgid "{additional} {guest} {solo} {instrument:%|instruments}"
 msgstr "{additional:lisäksi} {guest:vieras} {solo} {instrument:%|soittimet}"
-
-#: DB:link_type/link_phrase:148
-msgid "{additional} {guest} {solo} {instrument} {instrument:%|instruments}"
-msgstr "{additional:lisäksi} {guest:vieras} {solo} {instrument} {instrument:%|soittimet}"
 
 #: DB:link_type/link_phrase:60 DB:link_type/link_phrase:149
 #: DB:link_type/reverse_link_phrase:60 DB:link_type/reverse_link_phrase:149

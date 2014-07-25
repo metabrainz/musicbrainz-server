@@ -9,7 +9,7 @@ module("external links editor", {
 
         $("#qunit-fixture").append($.parseHTML('\
             <table id="external-links-editor">\
-            <tbody data-bind="foreach: links()">\
+            <tbody data-bind="loop: { items: nonRemovedLinks, id: \'uniqueID\' }">\
               <tr data-bind="urlCleanup: \'artist\'">\
                 <td>\
                   <select data-bind="value: linkTypeID, visible: showTypeSelection()">\
@@ -22,22 +22,22 @@ module("external links editor", {
                 </td>\
                 <td>\
                   <input type="text" data-bind="value: url" />\
+                  <!-- ko with: error() -->\
+                    <div class="errors" data-bind="text: $data"></div>\
+                  <!-- /ko -->\
                 </td>\
               </tr>\
-              <!-- ko with: error() -->\
-              <tr>\
-                <td class="errors" data-bind="text: $data"></td>\
-              </tr>\
-              <!-- /ko -->\
             </tbody>\
             </table>\
             <div id="external-link-bubble"></div>\
+            <div id="relationship-editor"></div>\
         '));
 
         MB.typeInfoByID = {
             179: {
                 deprecated: false,
                 phrase: "Wikipedia",
+                reversePhrase: "Wikipedia",
                 type0: "artist",
                 type1: "url",
                 cardinality0: 0,
@@ -46,6 +46,7 @@ module("external links editor", {
             180: {
                 deprecated: false,
                 phrase: "Discogs",
+                reversePhrase: "Discogs",
                 type0: "artist",
                 type1: "url",
                 cardinality0: 0,
@@ -54,6 +55,7 @@ module("external links editor", {
             181: {
                 deprecated: true,
                 phrase: "MusicMoz",
+                reversePhrase: "MusicMoz",
                 type0: "artist",
                 type1: "url",
                 cardinality0: 0,
@@ -62,6 +64,7 @@ module("external links editor", {
             188: {
                 deprecated: false,
                 phrase: "other databases",
+                reversePhrase: "other databases",
                 type0: "artist",
                 type1: "url",
                 cardinality0: 0,
@@ -85,6 +88,12 @@ module("external links editor", {
             sourceData: { entityType: "artist", relationships: [] },
             formName: "edit-artist"
         });
+
+        MB.sourceExternalLinksEditor = this.viewModel;
+    },
+
+    teardown: function () {
+        MB.sourceExternalLinksEditor = null;
     }
 });
 
@@ -94,7 +103,7 @@ test("automatic link type detection for URL", function () {
 
     ok(url.matchesType(), "wikipedia page is detected");
     equal(url.faviconClass(), "wikipedia-favicon", "wikipedia favicon is used");
-    equal(url.linkPhrase(), "Wikipedia", "wikipedia label is used");
+    equal(url.linkPhrase(this.viewModel.source), "Wikipedia", "wikipedia label is used");
     equal(url.linkTypeID(), 179, "internal link type is set to 179");
     equal(url.cleanup.typeControl.val(), 179, "option with value 179 is selected");
 });
@@ -124,6 +133,12 @@ test("deprecated link type detection", function () {
 
 test("hidden input data for form submission", function () {
     var source = this.viewModel.source;
+    var $re = $("#relationship-editor");
+    var $form = $("<form>", { action: "#" }).appendTo($re);
+
+    document.onsubmit = function () {
+        return false;
+    };
 
     var existingURL = this.viewModel.getRelationship({
         id: 1,
@@ -143,29 +158,33 @@ test("hidden input data for form submission", function () {
     addedURL.cleanup.urlControl.change();
     addedURL.cleanup.typeControl.change();
 
-    deepEqual(this.viewModel.hiddenInputs(), [
-        { name: "edit-artist.url.0.relationship_id", value: 1 },
-        { name: "edit-artist.url.0.text", value: "http://en.wikipedia.org/wiki/Deerhunter" },
-        { name: "edit-artist.url.0.link_type_id", value: 179 },
-        { name: "edit-artist.url.1.text", value: "http://rateyourmusic.com/artist/deerhunter" },
-        { name: "edit-artist.url.1.link_type_id", value: 188 }
-    ]);
+    $form.submit();
+    equal($re.find("input[name=edit-artist\\.url\\.0\\.relationship_id]").val(), "1");
+    equal($re.find("input[name=edit-artist\\.url\\.0\\.text]").val(), "http://en.wikipedia.org/wiki/Deerhunter");
+    equal($re.find("input[name=edit-artist\\.url\\.0\\.link_type_id]").val(), "179");
+    equal($re.find("input[name=edit-artist\\.url\\.1\\.text]").val(), "http://rateyourmusic.com/artist/deerhunter");
+    equal($re.find("input[name=edit-artist\\.url\\.1\\.link_type_id]").val(), "188");
+
+    $re.empty();
+    $form.remove();
+    $form = $("<form>", { action: "#" }).appendTo($re);
 
     existingURL.cleanup.urlControl.val("http://en.wikipedia.org/wiki/dEErHuNtER").change();
     addedURL.remove();
 
-    deepEqual(this.viewModel.hiddenInputs(), [
-        { name: "edit-artist.url.0.relationship_id", value: 1 },
-        { name: "edit-artist.url.0.text", value: "http://en.wikipedia.org/wiki/dEErHuNtER" },
-        { name: "edit-artist.url.0.link_type_id", value: 179 }
-    ]);
+    $form.submit();
+    equal($re.find("input[name=edit-artist\\.url\\.0\\.relationship_id]").val(), "1");
+    equal($re.find("input[name=edit-artist\\.url\\.0\\.text]").val(), "http://en.wikipedia.org/wiki/dEErHuNtER");
+    equal($re.find("input[name=edit-artist\\.url\\.0\\.link_type_id]").val(), "179");
 
+    $re.empty();
+    $form.remove();
+    $form = $("<form>", { action: "#" }).appendTo($re);
     existingURL.removed(true);
 
-    deepEqual(this.viewModel.hiddenInputs(), [
-        { name: "edit-artist.url.0.relationship_id", value: 1 },
-        { name: "edit-artist.url.0.removed", value: 1 },
-        { name: "edit-artist.url.0.text", value: "http://en.wikipedia.org/wiki/dEErHuNtER" },
-        { name: "edit-artist.url.0.link_type_id", value: 179 }
-    ]);
+    $form.submit();
+    equal($re.find("input[name=edit-artist\\.url\\.0\\.relationship_id]").val(), "1");
+    equal($re.find("input[name=edit-artist\\.url\\.0\\.removed]").val(), "1");
+    equal($re.find("input[name=edit-artist\\.url\\.0\\.text]").val(), "http://en.wikipedia.org/wiki/dEErHuNtER");
+    equal($re.find("input[name=edit-artist\\.url\\.0\\.link_type_id]").val(), "179");
 });

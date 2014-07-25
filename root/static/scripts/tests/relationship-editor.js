@@ -175,6 +175,24 @@ var typeInfo = {
             cardinality0: 0,
             cardinality1: 0
         }
+    ],
+    "artist-artist": [
+        {
+            id: 103,
+            gid: "5be4c609-9afa-4ea0-910b-12ffb71e3821",
+            type0: "artist",
+            type1: "artist",
+            description: "This indicates a person is a member of a group.",
+            phrase: "{additional} {founder:founding} member of",
+            reversePhrase: "{additional} {founder:founding} members",
+            attributes: { 1: { min: 0, max: 1 }, 3: { min: 0, max: null }, 14: { min: 0, max: null } },
+            hasDates:true,
+            cardinality0: 0,
+            cardinality1: 0,
+            orderableDirection: 0,
+            childOrder: 0,
+            deprecated: false,
+        }
     ]
 };
 
@@ -392,6 +410,7 @@ module("relationship editor", {
 
         this.fakeGID0 = "a0ba91b0-c564-4eec-be2e-9ff071a47b59";
         this.fakeGID1 = "acb75d59-b0dc-4105-bad6-81ac8c66da4d";
+        this.fakeGID2 = "c4804cb2-bf33-4394-bb5f-3fac972fa7a5";
 
         // _.defer makes its target functions asynchronous. It is redefined
         // here to call its target right away, so that we don't have to deal
@@ -433,6 +452,8 @@ test("link phrase interpolation", function () {
         linkTypeID: 148
     }, source);
 
+    var entities = relationship.entities();
+
     // link phrase construction
 
     var tests = [
@@ -470,7 +491,7 @@ test("link phrase interpolation", function () {
         relationship.attributes(test.attributes);
 
         equal(
-            relationship.phraseAndExtraAttributes(source)[0],
+            relationship.phraseAndExtraAttributes()[entities.indexOf(source)],
             test.expected,
             [test.linkTypeID, JSON.stringify(test.attributes)].join(", ")
         );
@@ -764,4 +785,202 @@ test("backwardness of submitted relationships is preserved (MBS-7636)", function
     var entities = this.vm.source.relationships()[0].entities();
     equal(entities[0].gid, this.fakeGID1);
     equal(entities[1].gid, this.fakeGID0);
+});
+
+
+test("edit submission request is entered for release (MBS-7740, MBS-7746)", function () {
+    var recording = this.vm.source.mediums()[0].tracks[0].recording;
+
+    var relationship1 = this.vm.getRelationship({
+        target: {
+            id: 102938,
+            entityType: "release",
+            gid: this.fakeGID2
+        },
+        linkTypeID: 69,
+        attributes: []
+    }, recording);
+
+    var relationship2 = this.vm.getRelationship({
+        target: {
+            id: 839201,
+            entityType: "work",
+            gid: this.fakeGID1
+        },
+        linkTypeID: 278,
+        attributes: []
+    }, recording);
+
+    relationship1.show();
+    relationship2.show();
+
+    this.vm.submissionDone = function (data, submitted) {
+        deepEqual(submitted.edits, [
+            {
+                "edit_type": 90,
+                "linkTypeID": 69,
+                "entities": [
+                    {
+                        "entityType": "recording",
+                        "gid": "87ec065e-f139-41b9-b3b9-f746addf5b1e",
+                        "name": "Love Me Do"
+                    },
+                    {
+                        "entityType": "release",
+                        "gid": "c4804cb2-bf33-4394-bb5f-3fac972fa7a5",
+                        "name": ""
+                    }
+                ],
+                "attributes": [],
+                "linkOrder": 0,
+                "beginDate": null,
+                "endDate": null,
+                "ended": false,
+                "hash": "e201ef6c17e846c125a10aa7c32978b5a7e8374a"
+            },
+            {
+                "edit_type": 90,
+                "linkTypeID": 278,
+                "entities": [
+                    {
+                        "entityType": "recording",
+                        "gid": "87ec065e-f139-41b9-b3b9-f746addf5b1e",
+                        "name": "Love Me Do"
+                    },
+                    {
+                        "entityType": "work",
+                        "gid": "acb75d59-b0dc-4105-bad6-81ac8c66da4d",
+                        "name": ""
+                    }
+                ],
+                "attributes": [],
+                "linkOrder": 0,
+                "beginDate": null,
+                "endDate": null,
+                "ended": false,
+                "hash": "361082ca99b79b1bf70cbed7895f2fde7536d4f0"
+            }
+        ]);
+    };
+
+    this.vm.submit(null, $.Event());
+});
+
+
+test("hidden input fields are generated for non-release forms", function () {
+    var $form = $("<form>").attr("action", "#");
+    var $inputs = $("<div>").attr("id", "relationship-editor");
+
+    $form[0].onsubmit = function () {
+        return false;
+    };
+
+    $("#qunit-fixture").append($form, $inputs);
+
+    this.vm = MB.relationshipEditor.GenericEntityViewModel({
+        sourceData: {
+            entityType: "artist",
+            name: "The Beatles",
+            gid: "b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d",
+            relationships: [
+                {
+                    linkTypeID: 103,
+                    direction: "backward",
+                    ended: true,
+                    target: {
+                        entityType: "artist",
+                        sortName: "McCartney, Paul",
+                        comment: "",
+                        name: "Paul McCartney",
+                        id: 2122,
+                        gid: "ba550d0e-adac-4864-b88b-407cab5e76af"
+                    },
+                    id: 131689,
+                    attributes: [277, 4],
+                    verbosePhrase: "is/was a member of"
+                },
+                {
+                    linkTypeID: 103,
+                    direction: "backward",
+                    ended: true,
+                    target: {
+                        entityType: "artist",
+                        sortName: "Sutcliffe, Stuart",
+                        comment: "",
+                        name: "Stuart Sutcliffe",
+                        id: 321117,
+                        gid: "49a51491-650e-44b3-8085-2f07ac2986dd"
+                    },
+                    id: 35568,
+                    attributes: [277],
+                    verbosePhrase: "is/was a member of"
+                }
+            ]
+        },
+        formName: "edit-artist"
+    });
+
+    MB.sourceRelationshipEditor = this.vm;
+
+    var newRelationship = this.vm.getRelationship({
+        linkTypeID: 103,
+        direction: "backward",
+        ended: true,
+        target: {
+            entityType: "artist",
+            sortName: "Harrison, George",
+            comment: "The Beatles",
+            name: "George Harrison",
+            id: 2863,
+            gid: "42a8f507-8412-4611-854f-926571049fa0"
+        },
+        attributes: [229, 4],
+        verbosePhrase: "is/was a member of"
+    }, this.vm.source);
+
+    newRelationship.show();
+
+    var relationships = this.vm.source.relationships();
+    relationships[0].period.beginDate.month(7);
+    relationships[0].period.beginDate.year(1957);
+    relationships[0].period.endDate.day(10);
+    relationships[0].period.endDate.month(4);
+    relationships[0].period.endDate.year(1970);
+    relationships[0].attributes([]);
+    relationships[1].removed(true);
+
+    $form.submit();
+
+    var formData = _.transform(
+        _.toArray($inputs.find("input[type=hidden]")),
+        function (result, input) { result[input.name] = input.value },
+        {}
+    );
+
+    deepEqual(formData, {
+        "edit-artist.rel.0.relationship_id": "131689",
+        "edit-artist.rel.0.target": "ba550d0e-adac-4864-b88b-407cab5e76af",
+        "edit-artist.rel.0.period.begin_date.year": "1957",
+        "edit-artist.rel.0.period.begin_date.month": "7",
+        "edit-artist.rel.0.period.begin_date.day": "",
+        "edit-artist.rel.0.period.end_date.year": "1970",
+        "edit-artist.rel.0.period.end_date.month": "4",
+        "edit-artist.rel.0.period.end_date.day": "10",
+        "edit-artist.rel.0.period.ended": "1",
+        "edit-artist.rel.0.backward": "1",
+        "edit-artist.rel.0.link_type_id": "103",
+        "edit-artist.rel.1.relationship_id": "35568",
+        "edit-artist.rel.1.removed": "1",
+        "edit-artist.rel.1.target": "49a51491-650e-44b3-8085-2f07ac2986dd",
+        "edit-artist.rel.1.attributes.0": "277",
+        "edit-artist.rel.1.period.ended": "1",
+        "edit-artist.rel.1.backward": "1",
+        "edit-artist.rel.1.link_type_id": "103",
+        "edit-artist.rel.2.target": "42a8f507-8412-4611-854f-926571049fa0",
+        "edit-artist.rel.2.attributes.0": "4",
+        "edit-artist.rel.2.attributes.1": "229",
+        "edit-artist.rel.2.period.ended": "1",
+        "edit-artist.rel.2.backward": "1",
+        "edit-artist.rel.2.link_type_id": "103"
+    });
 });

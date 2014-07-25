@@ -1,4 +1,4 @@
-<h2 class="rating">[% l('Rating') %]</h2>
+<h2 class="rating">[% rating_heading || l('Rating') %]</h2>
 <p>
     [% rating_stars(entity) %]
     [%- IF entity.rating_count -%]
