@@ -19,7 +19,7 @@ has_field 'type_id' => (
 );
 
 has_field 'setlist' => (
-    type => '+MusicBrainz::Server::Form::Field::Text',
+    type => 'Text',
     not_nullable => 1
 );
 

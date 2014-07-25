@@ -29,7 +29,7 @@
         </p>
         [% form_row_date(r, 'period.begin_date', l('Begin date:')) %]
         [% form_row_date(r, 'period.end_date', l('End date:')) %]
-        [%- form_row_text_long(r, 'time', l('Time:')) -%]
+        [%- form_row_time(r, 'time', l('Time:')) -%]
       </fieldset>
 
       [% PROCESS 'forms/relationship-editor.tt' %]
