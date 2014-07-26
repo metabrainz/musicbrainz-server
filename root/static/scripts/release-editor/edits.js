@@ -323,7 +323,7 @@
             var root = releaseEditor.rootField;
 
             return Array.prototype.concat(
-                releaseEditor.edits.releaseGroup(release),
+                releaseEditor.action === "add" ? releaseEditor.edits.releaseGroup(release) : [],
                 releaseEditor.edits.release(release),
                 releaseEditor.edits.releaseLabel(release),
                 releaseEditor.edits.medium(release),
