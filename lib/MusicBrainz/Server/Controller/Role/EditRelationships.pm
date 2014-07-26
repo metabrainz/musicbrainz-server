@@ -180,7 +180,12 @@ role {
                 defined $post_creation && $post_creation->($edit, $form)
             );
 
-            $source = $source // $c->model($model)->get_by_id($edit->entity_id);
+            if ($edit) {
+                # For edit edit-types, $source is already defined, but its
+                # properties may have changed and may be needed by
+                # edit_relationships, e.g. series ordering types.
+                $source = $c->model($model)->get_by_id($edit->entity_id);
+            }
 
             my $url_changes = 0;
             if ($form_name ne "edit-url") {
@@ -220,6 +225,22 @@ role {
             $args{attributes} = $field->{attributes} if $field->{attributes};
             $args{ended} ||= 0;
 
+            my $relationship;
+            if ($field->{relationship_id}) {
+                $relationship = $c->model('Relationship')->get_by_id(
+                   $link_type->entity0_type, $link_type->entity1_type, $field->{relationship_id}
+                );
+
+                # MBS-7354: relationship may have been deleted after the form was created
+                defined $relationship or next;
+
+                $c->model('Link')->load($relationship);
+                $c->model('LinkType')->load($relationship->link);
+                $c->model('Relationship')->load_entities($relationship);
+
+                $args{relationship} = $relationship;
+            }
+
             unless ($field->{removed}) {
                 $args{link_type} = $link_type;
 
@@ -230,6 +251,8 @@ role {
                 } elsif ($field->{target}) {
                     $target = $entity_map->{type_to_model($field->{target_type})}->{$field->{target}};
                     next unless $target;
+                } elsif ($relationship) {
+                    $target = $field->{forward} ? $relationship->entity1 : $relationship->entity0;
                 }
 
                 $args{entity0} = $field->{forward} ? $source : $target;
@@ -237,18 +260,7 @@ role {
                 $args{link_order} = $field->{link_order} // 0;
             }
 
-            if ($field->{relationship_id}) {
-                my $relationship = $c->model('Relationship')->get_by_id(
-                   $link_type->entity0_type, $link_type->entity1_type, $field->{relationship_id}
-                );
-
-                defined $relationship or next; # MBS-7354: relationship may have been deleted after the form was created
-
-                $args{relationship} = $relationship;
-                $c->model('Link')->load($relationship);
-                $c->model('LinkType')->load($relationship->link);
-                $c->model('Relationship')->load_entities($relationship);
-
+            if ($relationship) {
                 if ($field->{removed}) {
                     push @edits, $self->delete_relationship($c, $form, %args);
                 } else {
@@ -256,7 +268,10 @@ role {
 
                     my $orderable_direction = $link_type->orderable_direction;
 
-                    if ($orderable_direction != 0 && $field->{link_order} != $relationship->link_order) {
+                    next if $orderable_direction == 0;
+                    next unless non_empty($field->{link_order});
+
+                    if ($field->{link_order} != $relationship->link_order) {
                         my $orderable_entity = $orderable_direction == 1 ? $relationship->entity1 : $relationship->entity0;
                         my $unorderable_entity = $orderable_direction == 1 ? $relationship->entity0 : $relationship->entity1;
                         my $is_series = $unorderable_entity->isa('MusicBrainz::Server::Entity::Series');

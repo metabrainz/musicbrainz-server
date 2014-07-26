@@ -76,16 +76,6 @@
                     }
                 });
             }
-
-            if (options.fieldErrors) {
-                _.each(source.relationships(), function (relationship, index) {
-                    var errors = options.fieldErrors[index];
-
-                    if (errors) {
-                        relationship.error(errors.text || errors.link_type_id);
-                    }
-                });
-            }
         },
 
         getAllowedRelations: function () {

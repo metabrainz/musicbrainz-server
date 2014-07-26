@@ -223,6 +223,8 @@ sub initialize {
         entity1_type => $lt->entity1_type,
     };
 
+    $opts{edit_version} = 2;
+
     $self->data(\%opts);
 
     return $self;

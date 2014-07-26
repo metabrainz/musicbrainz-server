@@ -139,7 +139,11 @@
                 return output;
             }).sortBy(function (a) { return a.type.id }).value();
 
-            data.linkOrder = number(relationship.linkOrder) || 0;
+            if (_.isNumber(data.linkTypeID)) {
+                if (MB.typeInfoByID[data.linkTypeID].orderableDirection !== 0) {
+                    data.linkOrder = number(relationship.linkOrder) || 0;
+                }
+            }
 
             if (relationship.hasDates()) {
                 data.beginDate = fields.partialDate(period.beginDate);

@@ -55,7 +55,7 @@ sub releases_get : Chained('load') PathPart('releases') Args(0)
 
     my $opts = $stash->store($collection);
 
-    $self->linked_lists($c, $stash, [ $collection ]);
+    $self->linked_collections($c, $stash, [ $collection ]);
 
     $c->model('Editor')->load($collection);
 

@@ -3,29 +3,6 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-
-MB.typeInfoByID = {
-    76: {
-      deprecated: false,
-      phrase: "Discogs",
-      reversePhrase: "Discogs",
-      type0: "release",
-      type1: "url",
-      cardinality0: 0,
-      cardinality1: 0
-    },
-    77: {
-      deprecated: false,
-      phrase: "Wikipedia",
-      reversePhrase: "Wikipedia",
-      type0: "release",
-      type1: "url",
-      cardinality0: 0,
-      cardinality1: 0
-    }
-};
-
-
 releaseEditor.test.module("add-release edits", function () {
     var data = $.extend(true, {}, releaseEditor.test.testRelease);
     var medium = data.mediums[0];
@@ -484,10 +461,7 @@ test("relationshipCreate edit for external link is generated for existing releas
     deepEqual(releaseEditor.edits.externalLinks(release), [
       {
         "attributes": [],
-        "beginDate": null,
         "edit_type": 90,
-        "endDate": null,
-        "ended": false,
         "entities": [
           {
             "entityType": "release",
@@ -499,9 +473,8 @@ test("relationshipCreate edit for external link is generated for existing releas
             "name": "http://www.discogs.com/release/1369894"
           }
         ],
-        "hash": "c8e0f2e69d34f7ea6df91bd8e370754c3b8b0c54",
-        "linkTypeID": 76,
-        "linkOrder": 0
+        "hash": "05d4c2a59527d50caf84db74df7814f125f41728",
+        "linkTypeID": 76
       }
     ]);
 });
@@ -538,10 +511,9 @@ test("relationshipEdit edit for external link is generated for existing release"
             "name": "http://www.amazon.co.jp/gp/product/B00003IQQD"
           }
         ],
-        "hash": "b4b5ad9bc88cef61dbd72b389332e05796bc5456",
+        "hash": "1b778d8d4db3f01cef707c72c3ac247317af6309",
         "id": 123,
-        "linkTypeID": 77,
-        "linkOrder": 0
+        "linkTypeID": 77
       }
     ]);
 });
@@ -557,10 +529,7 @@ test("relationshipDelete edit for external link is generated for existing releas
     deepEqual(releaseEditor.edits.externalLinks(release), [
       {
         "attributes": [],
-        "beginDate": null,
         "edit_type": 92,
-        "endDate": null,
-        "ended": false,
         "entities": [
           {
             "entityType": "release",
@@ -572,9 +541,8 @@ test("relationshipDelete edit for external link is generated for existing releas
             "name": "http://www.discogs.com/release/1369894"
           }
         ],
-        "hash": "a9f08b6e211d48c130655ff393a3ef43617d49d6",
-        "id": 123,
-        "linkOrder": 0
+        "hash": "9d7f27c130d713ebe7ecfed7a58a1645f13bac42",
+        "id": 123
       }
     ]);
 });
