@@ -2,6 +2,7 @@ package MusicBrainz::Server::Edit::Relationship::Edit;
 use Moose;
 use Carp;
 use Clone 'clone';
+use Data::Compare;
 use List::UtilsBy qw( sort_by );
 use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
 use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
@@ -13,8 +14,9 @@ use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Edit::Types qw( LinkAttributesArray PartialDateHash Nullable NullableOnPreview );
 use MusicBrainz::Server::Edit::Utils qw( normalize_date_period );
 use MusicBrainz::Server::Data::Utils qw(
-  partial_date_to_hash
-  type_to_model
+    partial_date_to_hash
+    type_to_model
+    remove_equal
 );
 use MusicBrainz::Server::Translation qw( N_l );
 
@@ -282,6 +284,23 @@ around _changes => sub {
             delete $old->{$prop};
         }
     }
+
+    my @old_attributes = sort_by { $_->{type}{id} } @{ $old->{attributes} // [] };
+    my @new_attributes = sort_by { $_->{type}{id} } @{ $new->{attributes} // [] };
+
+    $old->{attributes} = \@old_attributes;
+    $new->{attributes} = \@new_attributes;
+
+    if (@old_attributes != @new_attributes) {
+        return %data;
+    }
+
+    for (my $i = 0; $i < @old_attributes; $i++) {
+        return %data unless Compare($old_attributes[$i], $new_attributes[$i]);
+    }
+
+    delete $old->{attributes};
+    delete $new->{attributes};
 
     return %data;
 };
