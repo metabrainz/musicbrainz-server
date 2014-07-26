@@ -134,9 +134,6 @@ sub build_display_data
     my $model0 = type_to_model($self->data->{type0});
     my $model1 = type_to_model($self->data->{type1});
 
-    use Data::Dumper;
-    print Dumper($self->data->{attributes}, $loaded);
-
     return {
         relationship => Relationship->new(
             link => Link->new(
