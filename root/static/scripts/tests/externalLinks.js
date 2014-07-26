@@ -33,45 +33,6 @@ module("external links editor", {
             <div id="relationship-editor"></div>\
         '));
 
-        MB.typeInfoByID = {
-            179: {
-                deprecated: false,
-                phrase: "Wikipedia",
-                reversePhrase: "Wikipedia",
-                type0: "artist",
-                type1: "url",
-                cardinality0: 0,
-                cardinality1: 0
-            },
-            180: {
-                deprecated: false,
-                phrase: "Discogs",
-                reversePhrase: "Discogs",
-                type0: "artist",
-                type1: "url",
-                cardinality0: 0,
-                cardinality1: 0
-            },
-            181: {
-                deprecated: true,
-                phrase: "MusicMoz",
-                reversePhrase: "MusicMoz",
-                type0: "artist",
-                type1: "url",
-                cardinality0: 0,
-                cardinality1: 0
-            },
-            188: {
-                deprecated: false,
-                phrase: "other databases",
-                reversePhrase: "other databases",
-                type0: "artist",
-                type1: "url",
-                cardinality0: 0,
-                cardinality1: 0
-            }
-        };
-
         MB.faviconClasses = { "wikipedia.org": "wikipedia" };
 
         this.addURL = function (name) {
@@ -121,6 +82,12 @@ test("invalid URL detection", function () {
 
 test("deprecated link type detection", function () {
     var url = this.addURL("http://musicmoz.org/Bands_and_Artists/B/Beatles,_The/");
+
+    MB.typeInfoByID[181] = {
+        deprecated: true,
+        phrase: "MusicMoz",
+        reversePhrase: "MusicMoz"
+    };
 
     url.cleanup.typeControl.val(181).change();
 

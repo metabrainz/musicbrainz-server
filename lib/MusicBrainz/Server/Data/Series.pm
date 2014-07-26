@@ -169,7 +169,7 @@ sub update {
     $self->sql->update_row('series', $row, { id => $series_id }) if %$row;
 
     if ($series->ordering_type_id != $SERIES_ORDERING_TYPE_AUTOMATIC &&
-            $row->{ordering_type} == $SERIES_ORDERING_TYPE_AUTOMATIC) {
+            ($row->{ordering_type} // 0) == $SERIES_ORDERING_TYPE_AUTOMATIC) {
         $self->c->model('Series')->automatically_reorder($series_id);
     }
 
