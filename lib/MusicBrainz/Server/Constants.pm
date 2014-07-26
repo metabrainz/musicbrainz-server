@@ -505,9 +505,6 @@ Readonly our %ENTITIES => (
     },
     tag => {
         model => 'Tag'
-    },
-    editor => {
-        model => 'Editor'
     }
 );
 
