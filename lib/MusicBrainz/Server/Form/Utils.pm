@@ -3,6 +3,8 @@ package MusicBrainz::Server::Form::Utils;
 use strict;
 use warnings;
 
+use charnames ':full'; # only necessary before Perl 5.16
+
 use Encode;
 use MusicBrainz::Server::Translation qw( l lp );
 use Text::Trim qw( trim );
@@ -111,7 +113,7 @@ sub build_options_tree
         label => ($indent // '') . $root->$attr,
     } if $root->id;
 
-    $indent .= '&#xa0;&#xa0;&#xa0;' if defined $indent;
+    $indent .= "\N{NO-BREAK SPACE}" x 3 if defined $indent;
     $indent //= ''; # for the first level
 
     foreach my $child ($root->sorted_children($coll)) {
