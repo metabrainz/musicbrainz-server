@@ -86,11 +86,7 @@ test("deprecated link type detection", function () {
     MB.typeInfoByID[181] = {
         deprecated: true,
         phrase: "MusicMoz",
-        reversePhrase: "MusicMoz",
-        type0: "artist",
-        type1: "url",
-        cardinality0: 0,
-        cardinality1: 0
+        reversePhrase: "MusicMoz"
     };
 
     url.cleanup.typeControl.val(181).change();
