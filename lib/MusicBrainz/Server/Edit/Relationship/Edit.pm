@@ -16,7 +16,6 @@ use MusicBrainz::Server::Edit::Utils qw( normalize_date_period );
 use MusicBrainz::Server::Data::Utils qw(
     partial_date_to_hash
     type_to_model
-    remove_equal
 );
 use MusicBrainz::Server::Translation qw( N_l );
 
