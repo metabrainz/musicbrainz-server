@@ -50,6 +50,7 @@ require Exporter;
         is_valid_isrc
         format_isrc
         is_valid_time
+        is_valid_setlist
         is_valid_iso_3166_1
         is_valid_iso_3166_2
         is_valid_iso_3166_3
@@ -221,6 +222,12 @@ sub is_valid_time
 {
     my $time = shift;
     return $time =~ /^([01][0-9]|2[0-3]):[0-5][0-9]$/;
+}
+
+sub is_valid_setlist
+{
+    my $setlist = shift;
+    my @invalid_lines = grep { $_ !~ /^([@#*] |\s*$)/ } split('\r\n', $setlist); return @invalid_lines ? 0 : 1;
 }
 
 sub is_valid_iso_3166_1
