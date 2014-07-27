@@ -358,7 +358,7 @@
         }
         function isNewEdit(edit) { return previews[edit.hash] === undefined }
 
-        ko.computed(function () {
+        utils.debounce(ko.computed(function () {
             var edits = releaseEditor.allEdits();
 
             if (releaseEditor.validation.errorsExist()) {
@@ -384,7 +384,7 @@
                 .always(function () {
                     releaseEditor.loadingEditPreviews(false);
                 });
-        });
+        }), 100);
     };
 
 
