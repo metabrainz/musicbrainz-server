@@ -625,7 +625,7 @@ MB.constants.CLEANUPS = {
 };
 
 function test_all(tests, text) {
-    for (i = 0; i < tests.length; i++) {
+    for (var i = 0; i < tests.length; i++) {
         if (tests[i].test(text))
             return true;
     }
