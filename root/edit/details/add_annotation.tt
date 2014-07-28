@@ -1,14 +1,10 @@
-<table class="details add-release-annotation">
+<table class="details add-[%~ edit.display_data.entity_type ~%]-annotation">
+    [%~ IF edit.display_data.${edit.display_data.entity_type} || !edit.preview ~%]
     <tr>
-        <th>[%~ add_colon(l('Releases')) ~%]</th>
-        <td>
-            <ul>
-            [%~ FOR release=edit.display_data.releases ~%]
-                <li>[%~ descriptive_link(release) ~%]</li>
-            [%~ END %]
-            </ul>
-        </td>
+        <th>[%~ entity_label(edit.display_data.entity_type) ~%]</th>
+        <td>[%~ descriptive_link(edit.display_data.${edit.display_data.entity_type}) ~%]</td>
     </tr>
+    [%~ END ~%]
 
     <tr>
         <th>[%~ add_colon(l('Text')) ~%]</th>
