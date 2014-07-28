@@ -218,7 +218,7 @@ sub find_by_area
                      WHERE entity0 = ?
                 ) s, ' . $self->_table .'
           WHERE event.id = s.event
-       ORDER BY musicbrainz_collate(event.name)
+       ORDER BY event.begin_date_year, event.begin_date_month, event.begin_date_day, event.time, musicbrainz_collate(event.name)
          OFFSET ?';
 
     return query_to_list_limited(
@@ -242,7 +242,7 @@ sub find_by_artist
                      WHERE entity0 = ?
                 ) s, ' . $self->_table .'
           WHERE event.id = s.event
-       ORDER BY musicbrainz_collate(event.name)
+       ORDER BY event.begin_date_year, event.begin_date_month, event.begin_date_day, event.time, musicbrainz_collate(event.name)
          OFFSET ?';
 
     return query_to_list_limited(
@@ -266,7 +266,7 @@ sub find_by_place
                      WHERE entity1 = ?
                 ) s, ' . $self->_table .'
           WHERE event.id = s.event
-       ORDER BY musicbrainz_collate(event.name)
+       ORDER BY event.begin_date_year, event.begin_date_month, event.begin_date_day, event.time, musicbrainz_collate(event.name)
          OFFSET ?';
 
     return query_to_list_limited(

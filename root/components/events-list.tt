@@ -76,7 +76,7 @@
           <ul>
             [%~ FOR rel_place=event.locations ~%]
               <li>
-                [%~ l('{place}', { place => link_place(rel_place.entity) }) ~%]
+                [%~ descriptive_link(rel_place.entity) ~%]
               </li>
             [%~ END ~%]
           </ul>
