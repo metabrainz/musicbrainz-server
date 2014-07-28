@@ -41,6 +41,7 @@
 
         init: function (options) {
             var self = this;
+            var source = this.source = options.source || MB.entity(options.sourceData);
 
             this.cache = {};
             this.allowedRelations = this.getAllowedRelations();
@@ -50,12 +51,7 @@
                 this.formName = options.formName;
             }
 
-            var source = this.source = options.source;
-
             if (options.sourceData) {
-                if (!source) {
-                    source = this.source = MB.entity(options.sourceData);
-                }
                 source.parseRelationships(options.sourceData.relationships, this);
 
                 _.each(options.sourceData.submittedRelationships, function (data) {

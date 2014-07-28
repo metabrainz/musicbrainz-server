@@ -223,7 +223,7 @@
         },
 
         typesAreAccepted: function (sourceType, targetType) {
-            return sourceType === "url" || targetType === "url";
+            return sourceType === this.source.entityType && targetType === "url";
         },
 
         _sortedRelationships: _.identity

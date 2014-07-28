@@ -764,3 +764,34 @@ test("link orders are submitted for new, orderable relationships (MBS-7775)", fu
         "edit-series.rel.2.target": "3c8460ee-25ec-45b2-8990-0c1e78fe2ead"
     });
 });
+
+
+test("relationships for entities not editable under the viewModel are ignored (MBS-7782)", function () {
+    setupGenericRelationshipEditor(this, {
+        sourceData: {
+            entityType: "series",
+            name: "「神のみぞ知るセカイ」キャラクターCD",
+            gid: "0fda0386-cd02-422a-9baa-54dc91ea4771",
+            relationships: []
+        },
+        formName: "edit-series"
+    });
+
+    var artist = MB.entity({
+        entityType: "artist",
+        name: "Foo",
+        gid: this.fakeGID0
+    });
+
+    var newRelationship = this.vm.getRelationship({
+        linkTypeID: 65,
+        target: {
+            entityType: "release_group",
+            name: "「神のみぞ知るセカイ」キャラクターCD.0",
+            gid: "0a95623a-08d1-41a6-9f0c-409e40ce4476"
+        }
+    }, artist);
+
+    equal(newRelationship, null);
+    equal(artist.relationships().length, 0);
+});

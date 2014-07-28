@@ -14,7 +14,7 @@
       <legend>[% l('Alias Details') %]</legend>
       [% form_row_text_long(r, 'name', l('Alias name:')) %]
       [% WRAPPER form_row %]
-        [% r.label('sort_name', l('Sort name:'), { class => 'required' }) %]
+        [% r.label('sort_name', l('Sort name:')) %]
         [% r.text('sort_name', { size => 47 })  %]
         [% field_errors(form, 'sort_name') %]
       [% END %]

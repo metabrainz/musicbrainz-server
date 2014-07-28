@@ -22,7 +22,7 @@
         },
 
         typesAreAccepted: function (sourceType, targetType) {
-            return targetType !== "url";
+            return sourceType === this.source.entityType && targetType !== "url";
         },
 
         getEdits: function (addChanged) {
