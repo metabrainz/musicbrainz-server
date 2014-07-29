@@ -266,12 +266,35 @@
     }
 
     $(document).on("submit", "form", function () {
-        if (MB.sourceRelationshipEditor) {
-            addHiddenInputs(MB.sourceRelationshipEditor);
+        var submitted = [], vm, source;
+
+        if (vm = MB.sourceRelationshipEditor) {
+            addHiddenInputs(vm);
+            source = vm.source;
+            submitted = submitted.concat(source.relationshipsInViewModel(vm)());
         }
 
-        if (MB.sourceExternalLinksEditor) {
-            addHiddenInputs(MB.sourceExternalLinksEditor);
+        if (vm = MB.sourceExternalLinksEditor) {
+            addHiddenInputs(vm);
+            source = vm.source;
+            submitted = submitted.concat(source.relationshipsInViewModel(vm)());
+        }
+
+        if (submitted.length && window.sessionStorage) {
+            sessionStorage.submittedRelationships = JSON.stringify(
+                _.map(submitted, function (relationship) {
+                    var data = relationship.editData();
+
+                    data.target = relationship.target(source);
+                    data.removed = relationship.removed();
+
+                    if (data.entities[1].gid === source.gid) {
+                        data.direction = "backward";
+                    }
+
+                    return data;
+                })
+            );
         }
     });
 
