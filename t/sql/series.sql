@@ -57,8 +57,11 @@ INSERT INTO series_alias (id, series, name, type, sort_name) VALUES
     (1, 1, 'Test Recording Series Alias', 2, 'Test Recording Series Alias');
 
 INSERT INTO link (id, link_type, attribute_count) VALUES
-    (1, 1, 0), (2, 1, 0), (3, 1, 0), (4, 1, 0),
-    (5, 2, 0), (6, 2, 0), (7, 2, 0), (8, 2, 0);
+    (1, 1, 1), (2, 1, 1), (3, 1, 1), (4, 1, 1),
+    (5, 2, 1), (6, 2, 1), (7, 2, 1), (8, 2, 1);
+
+INSERT INTO link_attribute (link, attribute_type) VALUES
+    (1, 1), (2, 1), (3, 1), (4, 1), (5, 1), (6, 1), (7, 1), (8, 1);
 
 INSERT INTO link_attribute_text_value (link, attribute_type, text_value) VALUES
     (1, 1, 'A1'), (2, 1, 'A11'), (3, 1, 'A10'), (4, 1, 'A100'),

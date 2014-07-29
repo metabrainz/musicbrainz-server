@@ -65,6 +65,7 @@ role {
             changelog     => $self->data->{changelog},
             annotation_id => $self->annotation_id,
             text          => $self->data->{text},
+            entity_type   => $entity_type,
         };
 
         unless ($self->preview) {
@@ -146,5 +147,7 @@ role {
         };
     };
 };
+
+sub edit_template { "add_annotation" };
 
 1;

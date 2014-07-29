@@ -22,7 +22,7 @@
         },
 
         typesAreAccepted: function (sourceType, targetType) {
-            return targetType !== "url";
+            return sourceType === this.source.entityType && targetType !== "url";
         },
 
         getEdits: function (addChanged) {
@@ -253,13 +253,9 @@
 
             pushInput(prefix, "link_type_id", editData.linkTypeID || "");
 
-            var original = relationship.original;
-            if (original) {
-                var oldLinkOrder = original.linkOrder || 0,
-                    newLinkOrder = editData.linkOrder;
-
-                if (oldLinkOrder !== newLinkOrder) {
-                    pushInput(prefix, "link_order", newLinkOrder);
+            if (relationship.linkTypeInfo().orderableDirection !== 0) {
+                if (relationship.added() || relationship.original.linkOrder !== editData.linkOrder) {
+                    pushInput(prefix, "link_order", editData.linkOrder);
                 }
             }
 
