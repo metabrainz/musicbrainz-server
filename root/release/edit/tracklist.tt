@@ -10,54 +10,63 @@
 
   <h3 class="track-parser-options">[% l('Options') %]</h3>
 
-  <ul id="track-parser-options" data-bind="with: $root.trackParser.options">
-    <li>
-      <label>
-        <input type="checkbox" data-bind="checked: hasTrackNumbers" />
-        [%= l('Lines start with a track number') %]
-      </label>
-      <ul>
-        <li>
-          <label>
-            <input type="checkbox" data-bind="checked: hasVinylNumbers, enable: hasTrackNumbers" />
-            [%= l('Enable vinyl track numbers') %]
-          </label>
-        </li>
-        <li>
-          <label>
-            <input type="checkbox" data-bind="checked: useTrackNumbers, enable: hasTrackNumbers" />
-            [%= l('Use track numbers') %]
-          </label>
-        </li>
-      </ul>
-    </li>
-    <li>
-      <label>
-        <input type="checkbox" data-bind="checked: hasTrackArtists" />
-        [%= l('Lines contain track artists') %]
-      </label>
-      <ul>
-        <li>
-          <label>
-            <input type="checkbox" data-bind="checked: useTrackArtists, enable: hasTrackArtists" />
-            [%= l('Use track artists') %]
-          </label>
-        </li>
-      </ul>
-    </li>
-    <li>
-      <label>
-        <input type="checkbox" data-bind="checked: useTrackNames" />
-        [%= l('Use track titles') %]
-      </label>
-    </li>
-    <li>
-      <label>
-        <input type="checkbox" data-bind="checked: useTrackLengths" />
-        [%= l('Use track lengths') %]
-      </label>
-    </li>
-  </ul>
+  <table id="track-parser-options" data-bind="with: $root.trackParser.options">
+    <tr>
+      <td>
+        <label>
+          <input type="checkbox" data-bind="checked: hasTrackNumbers" />
+          [%= l('Lines start with a track number') %]
+        </label>
+      </td>
+      <td>
+        <label>
+          <input type="checkbox" data-bind="checked: useTrackNumbers, enable: hasTrackNumbers" />
+          [%= l('Use track numbers') %]
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding-left: 2em">
+        <label>
+          <input type="checkbox" data-bind="checked: hasVinylNumbers, enable: hasTrackNumbers" />
+          [%= l('Enable vinyl track numbers') %]
+        </label>
+      </td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>
+        <label>
+          <input type="checkbox" data-bind="checked: hasTrackArtists" />
+          [%= l('Lines contain track artists') %]
+        </label>
+      </td>
+      <td>
+        <label>
+          <input type="checkbox" data-bind="checked: useTrackArtists, enable: hasTrackArtists" />
+          [%= l('Use track artists') %]
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <label>
+          <input type="checkbox" data-bind="checked: useTrackNames" />
+          [%= l('Use track titles') %]
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <label>
+          <input type="checkbox" data-bind="checked: useTrackLengths" />
+          [%= l('Use track lengths') %]
+        </label>
+      </td>
+    </tr>
+  </table>
 </script>
 
 <script type="text/html" id="template.medium-search">
