@@ -627,29 +627,31 @@
         return attribute.type.creditable;
     }
 
-    function linkAttributeID(attribute) {
-        return attribute.identity();
+    function linkAttributeTypeID(attribute) {
+        return attribute.type.id;
     }
 
     function splitByCreditableAttributes(relationship) {
         var attributes = relationship.attributes(),
-            creditable = _.filter(attributes, isCreditable);
+            creditable = _.filter(attributes, isCreditable),
+            relationships = [relationship];
 
         if (!creditable.length) {
-            return [relationship];
+            return relationships;
         }
 
-        var notCreditable = _.reject(attributes, isCreditable),
-            relationships = [];
+        var notCreditable = _.reject(attributes, isCreditable);
 
-        _(creditable).indexBy(linkAttributeID).each(function (attribute) {
-            if (_.contains(relationships, relationship)) {
-                var newRelationship = relationship.clone();
-            } else {
-                var newRelationship = relationship;
-            }
+        function split(attribute) {
+            var newRelationship = relationship.clone();
             newRelationship.setAttributes(notCreditable.concat([attribute]));
             relationships.push(newRelationship);
+        }
+
+        _(creditable).groupBy(linkAttributeTypeID).each(function (attributes) {
+            var extra = _.rest(attributes);
+            relationship.attributes.removeAll(extra);
+            _.each(extra, split);
         });
 
         return relationships;
