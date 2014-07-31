@@ -356,4 +356,6 @@ MB.Control.initializeBubble = function (bubble, control, vm, canBeShown) {
 
     ko.applyBindingsToNode($(bubble)[0], { bubble: bubbleDoc }, vm);
     ko.applyBindingsToNode($(control)[0], { controlsBubble: bubbleDoc }, vm);
+
+    return bubbleDoc;
 };
