@@ -14,7 +14,7 @@
   </thead>
   <tbody>
     [% FOR track=entity.tracks %]
-    <tr class="[% 'ev' IF loop.index % 2 == 0 %]">
+    <tr class="[% loop.parity %]">
       <td class="pos t">[% loop.count %]</td>
       <td>
         [% track.freedb_title | html %]
@@ -66,7 +66,7 @@
   </thead>
   <tbody>
     [% FOR track=entity.tracks %]
-    <tr class="[% 'ev' IF loop.index % 2 == 0 %]">
+    <tr class="[% loop.parity %]">
       <td class="pos t">[% loop.count %]</td>
       <td>
         [% track.title | html %]
