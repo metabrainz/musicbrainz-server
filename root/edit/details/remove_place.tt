@@ -1,6 +1,0 @@
-<table class="details remove-place">
-  <tr>
-    <th>[% l('Place:') %]</th>
-    <td>[% descriptive_link(edit.display_data.entity) %]</td>
-  </tr>
-</table>
