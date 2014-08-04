@@ -68,6 +68,7 @@ sub edit_field_names {
 }
 
 sub _locale_name_special_cases {
+    # Special-case some locales that have a non-descriptive name
     my $locale = shift;
     if ($locale->id eq 'el_POLYTON') {
         return 'Greek Polytonic';
@@ -84,7 +85,6 @@ sub options_locale {
     my ($self, $field) = @_;
     return [
         map {
-            # Special-case el_POLYTON, because it has a stupid non-descriptive name
             $_->id => indentation($_->id =~ /_/ ? 1 : 0) . _locale_name_special_cases($_)
         }
             sort_by { $_->name }
