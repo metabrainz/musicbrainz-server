@@ -4,7 +4,7 @@ use HTML::FormHandler::Moose;
 use DateTime::Locale;
 use List::UtilsBy 'sort_by';
 use MusicBrainz::Server::Translation qw( l ln );
-use MusicBrainz::Server::Form::Utils qw( select_options_tree );
+use MusicBrainz::Server::Form::Utils qw( select_options_tree indentation );
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
@@ -85,7 +85,7 @@ sub options_locale {
     return [
         map {
             # Special-case el_POLYTON, because it has a stupid non-descriptive name
-            $_->id => ($_->id =~ /_/ ? "&#xa0;&#xa0;&#xa0;" : '') . _locale_name_special_cases($_)
+            $_->id => indentation($_->id =~ /_/ ? 1 : 0) . _locale_name_special_cases($_)
         }
             sort_by { $_->name }
             sort_by { $_->id }
