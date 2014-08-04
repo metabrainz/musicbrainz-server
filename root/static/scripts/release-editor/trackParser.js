@@ -33,7 +33,7 @@ MB.releaseEditor.trackParser = {
         var options = ko.toJS(this.options);
         var lines = _.reject(_.str.lines(str), _.str.isBlank);
 
-        var currentPosition = 0;
+        var currentPosition = medium.hasPregap() ? -1 : 0;
         var currentTracks;
         var matchedTracks = {};
         var dataTrackPairs = [];

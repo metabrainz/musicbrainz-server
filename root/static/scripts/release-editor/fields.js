@@ -116,7 +116,31 @@
                     this.formattedLength(length);
                 }
             }
-            this.length(MB.utility.unformatTrackLength(length));
+
+            var oldLength = this.length();
+            var newLength = MB.utility.unformatTrackLength(length);
+            this.length(newLength);
+
+            // If the length being changed is for a pregap track and the medium
+            // has cdtocs attached, make sure the new length doesn't exceed the
+            // maximum possible allowed by any of the tocs.
+
+            var $lengthInput = $("input.track-length", "#track-row-" + this.uniqueID);
+            $lengthInput.attr("title", "");
+
+            var hasTooltip = !!$lengthInput.data("ui-tooltip");
+
+            if (this.medium.hasInvalidPregapLength()) {
+                $lengthInput.attr("title", MB.text.InvalidPregapLength);
+
+                if (!hasTooltip) {
+                    $lengthInput.tooltip();
+                }
+
+                $lengthInput.tooltip("open");
+            } else if (hasTooltip) {
+                $lengthInput.tooltip("close").tooltip("destroy");
+            }
         },
 
         previous: function () {
@@ -211,6 +235,24 @@
 
             var self = this;
 
+            var hasPregap = ko.computed(function () {
+                var tracks = self.tracks();
+                return tracks.length > 0 && tracks[0].position() == 0;
+            });
+
+            this.hasPregap = ko.computed({
+                read: hasPregap,
+                write: function (newValue) {
+                    var oldValue = hasPregap();
+
+                    if (oldValue && !newValue) {
+                        self.tracks.shift();
+                    } else if (newValue && !oldValue) {
+                        self.tracks.unshift(fields.Track({ position: 0, number: 0 }, self));
+                    }
+                }
+            });
+
             this.needsRecordings = this.tracks.any("needsRecording");
             this.hasTrackInfo = this.tracks.all("hasNameAndArtist");
             this.hasVariousArtistTracks = this.tracks.any("hasVariousArtists");
@@ -222,12 +264,15 @@
             // there's no ID to load tracks from.
             var loaded = !!(this.tracks().length || !(this.id || this.originalID));
 
-            this.cdtocs = data.cdtocs || 0;
+            if (data.cdtocs) {
+                this.cdtocs = data.cdtocs;
+            }
+
             this.toc = ko.observable(data.toc || null);
             this.toc.subscribe(this.tocChanged, this);
 
             this.hasInvalidFormat = ko.computed(function () {
-                return self.id && self.hasToc() && !self.canHaveDiscID();
+                return (self.hasExistingTocs() || hasPregap()) && !self.canHaveDiscID();
             });
 
             this.loaded = ko.observable(loaded);
@@ -243,8 +288,12 @@
             });
         },
 
+        hasExistingTocs: function () {
+            return !!(this.id && this.cdtocs && this.cdtocs.length);
+        },
+
         hasToc: function () {
-            return !!this.cdtocs || (this.toc() ? true : false);
+            return this.hasExistingTocs() || (this.toc() ? true : false);
         },
 
         tocChanged: function (toc) {
@@ -273,6 +322,22 @@
                     )
                 );
             });
+        },
+
+        hasInvalidPregapLength: function () {
+            if (!this.hasPregap() || !this.hasToc()) {
+                return;
+            }
+
+            var maxLength = -Infinity;
+            var cdtocs = (this.cdtocs || []).concat(this.toc() || []);
+
+            _.each(cdtocs, function (toc) {
+                toc = toc.split(/\s+/);
+                maxLength = Math.max(maxLength, toc[3] / 75 * 1000);
+            });
+
+            return this.tracks()[0].length() > maxLength;
         },
 
         collapsedChanged: function (collapsed) {
@@ -606,6 +671,7 @@
             this.needsMediums = errorField(function () { return !self.mediums().length });
             this.needsTracks = errorField(this.mediums.any("needsTracks"));
             this.needsTrackInfo = errorField(function () { return !self.hasTrackInfo() });
+            this.hasInvalidPregapLength = errorField(this.mediums.any("hasInvalidPregapLength"));
 
             // Ensure there's at least one event, label, and medium to edit.
 
@@ -674,12 +740,12 @@
     ko.bindingHandlers.disableBecauseDiscIDs = {
 
         update: function (element, valueAccessor, allBindings, viewModel) {
-            var hasDiscID = viewModel.medium.hasToc();
+            var disabled = ko.unwrap(valueAccessor()) && viewModel.medium.hasToc();
 
             $(element)
-                .prop("disabled", hasDiscID)
-                .toggleClass("disabled-hint", hasDiscID)
-                .attr("title", hasDiscID ? MB.text.DoNotChangeTracks : "");
+                .prop("disabled", disabled)
+                .toggleClass("disabled-hint", disabled)
+                .attr("title", disabled ? MB.text.DoNotChangeTracks : "");
         }
     };
 

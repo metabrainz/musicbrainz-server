@@ -22,7 +22,7 @@ sub serialize
         } sort_by { $_->cdtoc->discid } $entity->all_cdtocs ];
     }
 
-    $body{"track-count"} = $entity->track_count;
+    $body{"track-count"} = $entity->postgap_track_count;
 
     # Not all tracks in the tracklists may have been loaded.  If not all
     # tracks have been loaded, only one them will have been loaded which
@@ -32,35 +32,41 @@ sub serialize
     my @tracks = nsort_by { $_->position } $entity->all_tracks;
     my $min = scalar @tracks ? $tracks[0]->position : 0;
 
-    my @list;
-    foreach my $track_entity (@tracks)
-    {
-        my %track_output = (
-            id => $track_entity->gid,
-            length => $track_entity->length,
-            number => $track_entity->number,
-            title => $track_entity->name
-        );
-
-        $track_output{recording} = serialize_entity(
-            $track_entity->recording, $inc, $stash)
-            if $inc->recordings;
-
-        $track_output{"artist-credit"} = serialize_entity(
-            $track_entity->artist_credit, $inc, $stash)
-            if $inc->artist_credits;
-
-        push @list, \%track_output;
+    if (@tracks && $entity->has_pregap) {
+        $body{pregap} = $self->serialize_track($tracks[0], $inc, $stash);
     }
 
-    if (scalar @list)
-    {
+    my @list;
+    foreach my $track_entity ($entity->postgap_tracks) {
+        push @list, $self->serialize_track($track_entity, $inc, $stash);
+    }
+
+    if (scalar @list) {
         $body{tracks} = \@list ;
-        $body{"track-offset"} = number($min - 1);
+        $body{"track-offset"} = number($entity->has_pregap ? 0 : $min - 1);
     }
 
     return \%body;
 };
+
+sub serialize_track {
+    my ($self, $entity, $inc, $stash) = @_;
+
+    my %track_output = (
+        id => $entity->gid,
+        length => $entity->length,
+        number => $entity->number,
+        title => $entity->name
+    );
+
+    $track_output{recording} = serialize_entity($entity->recording, $inc, $stash)
+        if $inc->recordings;
+
+    $track_output{"artist-credit"} = serialize_entity($entity->artist_credit, $inc, $stash)
+        if $inc->artist_credits;
+
+    return \%track_output;
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

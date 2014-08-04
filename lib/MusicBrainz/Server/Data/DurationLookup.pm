@@ -77,7 +77,7 @@ sub lookup
                     edits_pending
                FROM medium_index
                JOIN medium ON medium_index.medium = medium.id
-             WHERE  medium.track_count = ?
+             WHERE  medium.track_count = ? + COALESCE((SELECT 1 FROM track WHERE medium = medium.id AND position = 0), 0)
                 AND toc <@ create_bounding_cube($dur_string, ?)
            ORDER BY distance", $toc_info{tracks}, $fuzzy);
 
@@ -123,11 +123,20 @@ sub update
 
     my %disc = %{ $results->[0] };
 
+    # get track count, excluding any pregap
+    my $track_count = $self->sql->select_single_value(
+        "SELECT count(*) FROM track WHERE medium = ? AND track.position > 0",
+        $medium_id
+    );
+
+    # create_cube_from_durations requires at least one track
+    return unless $track_count > 0;
+
     my $create_cube = 'create_cube_from_durations((
                     SELECT array(
                         SELECT t.length
                           FROM track t
-                         WHERE medium = ?
+                         WHERE medium = ? AND t.position > 0
                       ORDER BY t.position
                     )
             ))';

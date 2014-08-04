@@ -114,21 +114,25 @@
         },
 
         moveTrackUp: function (track, event, keepFocus) {
-            var previous = track.previous();
-            if (!previous) return false;
+            var previous = track.previous(),
+                position = track.position();
 
+            if (!previous || position == 1) {
+                return false;
+            }
+
+            var previousPosition = previous.position();
             var tracks = track.medium.tracks.peek();
-            var index = _.indexOf(tracks, track);
             var oldNumber = track.number.peek();
 
-            track.position(index);
+            track.position(previousPosition);
             track.number(previous.number.peek());
 
-            previous.position(index + 1);
+            previous.position(position);
             previous.number(oldNumber);
 
-            tracks[index] = previous;
-            tracks[index - 1] = track;
+            tracks[position] = previous;
+            tracks[previousPosition] = track;
             track.medium.tracks.notifySubscribers(tracks);
 
             if (keepFocus !== false) {
@@ -142,6 +146,9 @@
         },
 
         moveTrackDown: function (track) {
+            if (track.position() == 0) {
+                return; // can't move pregap tracks
+            }
             var nextTrack = track.next();
 
             if (nextTrack && this.moveTrackUp(nextTrack, null, false)) {

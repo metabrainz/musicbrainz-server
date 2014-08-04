@@ -260,7 +260,7 @@
 
       [%- table_row_error(
            2, 'showErrorRightAway: hasInvalidFormat',
-           l('This medium already has disc IDs, so you may only change the format to a format that can have disc IDs.')
+           l('This medium has a disc ID or pregap track, so you can only change the format to one that can have disc IDs.')
          )
        %]
     </table>
@@ -290,6 +290,10 @@
         [%~ l('You must enter a title and select an artist for every track.') ~%]
       </p>
 
+      <p class="error field-error" style="padding: 1em" data-bind="showErrorWhenTabIsSwitched: hasInvalidPregapLength">
+        <!-- ko text: MB.text.InvalidPregapLength --><!-- /ko -->
+      </p>
+
       <table class="medium tbl">
         <thead>
           <tr>
@@ -304,8 +308,13 @@
         <tbody data-bind="loop: { items: tracks, id: 'uniqueID' }">
           <tr class="track" data-bind="attr: { id: elementID }">
             <td class="reorder">
-              <button type="button" class="icon track-down" title="[% l('Move track down') %]" data-bind="disableBecauseDiscIDs: true" data-click="moveTrackDown"></button>
-              <button type="button" class="icon track-up" title="[% l('Move track up') %]" data-bind="disableBecauseDiscIDs: true" data-click="moveTrackUp"></button>
+              <!-- ko if: position() == 0 -->
+                [% l('Pregap') %]
+              <!-- /ko -->
+              <!-- ko if: position() > 0 -->
+                <button type="button" class="icon track-down" title="[% l('Move track down') %]" data-bind="disableBecauseDiscIDs: true" data-click="moveTrackDown"></button>
+                <button type="button" class="icon track-up" title="[% l('Move track up') %]" data-bind="disableBecauseDiscIDs: true" data-click="moveTrackUp"></button>
+              <!-- /ko -->
             </td>
 
             <td class="position">
@@ -334,7 +343,7 @@
             </td>
 
             <td class="length">
-              <input type="text" class="track-length" size="5" data-bind="value: formattedLength, disableBecauseDiscIDs: true" placeholder="?:??" />
+              <input type="text" class="track-length" size="5" data-bind="value: formattedLength, valueUpdate: 'input', disableBecauseDiscIDs: position() > 0, css: { error: position() == 0 && medium.hasInvalidPregapLength() }" placeholder="?:??" />
             </td>
 
             <td class="icon">
@@ -363,6 +372,15 @@
       <!-- /ko -->
 
       <div id="tracklist-tools">
+        <!-- ko if: canHaveDiscID() -->
+          <p style="margin-top: 0;">
+            <label>
+              <input type="checkbox" data-bind="checked: hasPregap" />
+              [% l('This disc has a hidden pregap track.') %]
+            </label>
+          </p>
+        <!-- /ko -->
+
         <div class="buttons">
           <button data-click="openTrackParser">[% l('Track Parser') %]</button>
           <button data-click="resetTrackNumbers">[%- l('Reset track numbers') -%]</button>

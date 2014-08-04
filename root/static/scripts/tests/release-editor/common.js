@@ -156,7 +156,10 @@ releaseEditor.test.testRelease = {
       format: "CD",
       name: null,
       position: 1,
-      cdtocs: 2,
+      cdtocs: [
+        "1 9 304912 150 61807 86027 116895 146370 174812 207905 236857 271077",
+        "1 9 304974 153 61810 86030 116898 146373 174815 207908 236860 271079"
+      ],
       formatID: 1,
       id: 249113
     }
@@ -218,7 +221,7 @@ releaseEditor.test.testMedium = {
   format: "CD",
   name: null,
   position: 2,
-  cdtocs: 1,
+  cdtocs: ["1 3 192512 150 7100 167475"],
   formatID: 1,
   id: 249114
 };

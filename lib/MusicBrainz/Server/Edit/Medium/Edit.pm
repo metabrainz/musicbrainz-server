@@ -134,6 +134,8 @@ sub initialize
     my $tracklist = delete $opts{tracklist};
     my $data;
 
+    $self->check_pregap_against_format($tracklist, $opts{format_id});
+
     # FIXME: really should receive an entity on preview too.
     if ($self->preview && !defined $entity)
     {
@@ -347,6 +349,7 @@ sub accept {
 
     if ($data_new_tracklist) {
         my $medium = $self->c->model('Medium')->get_by_id($self->medium_id);
+        $self->c->model('MediumFormat')->load($medium);
         $self->c->model('Track')->load_for_mediums($medium);
         $self->c->model('ArtistCredit')->load($medium->all_tracks);
 
@@ -389,7 +392,21 @@ sub accept {
         } 'Merged properties are all the same length';
 
         # Create the final merged tracklist
+
+        # Check for a pregap track. The medium must support disc ids, and the
+        # first track must have position 0.
         my $position = 1;
+
+        if ($medium->may_have_discids) {
+            my @new_tracks = @$data_new_tracklist;
+            if (@new_tracks) {
+                my $first_position = $new_tracks[0]->{position};
+                if (defined($first_position) && $first_position == 0) {
+                    $position = 0;
+                }
+            }
+        }
+
         my @final_tracklist;
         my $existing_recordings = $self->c->model('Recording')->get_by_ids(@merged_recordings);
         while (1) {

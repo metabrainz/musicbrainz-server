@@ -28,7 +28,7 @@
 
     function value(arg) { return typeof arg === "function" ? arg() : arg }
     function string(arg) { return _.str.clean(value(arg)) }
-    function number(arg) { return parseInt(value(arg), 10) || null }
+    function number(arg) { var num = parseInt(value(arg), 10); return isNaN(num) ? null : num }
     function array(arg, type) { return _.map(value(arg), type) }
     function nullableString(arg) { return string(arg) || null }
 

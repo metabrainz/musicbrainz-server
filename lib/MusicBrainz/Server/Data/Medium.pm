@@ -25,7 +25,8 @@ sub _table
 sub _columns
 {
     return 'medium.id, release, position, format, medium.name,
-            medium.edits_pending, track_count';
+            medium.edits_pending, track_count,
+            COALESCE((SELECT true FROM track WHERE medium = medium.id AND position = 0), false) AS has_pregap';
 }
 
 sub _id_column
@@ -43,6 +44,7 @@ sub _column_mapping
         name          => 'name',
         format_id     => 'format',
         edits_pending => 'edits_pending',
+        has_pregap    => 'has_pregap',
     };
 }
 
@@ -167,7 +169,8 @@ sub find_for_cdstub {
            JOIN release ON name.id = release.id
            JOIN medium ON medium.release = release.id
       LEFT JOIN medium_format ON medium.format = medium_format.id
-          WHERE track_count = ? AND (medium_format.id IS NULL OR medium_format.has_discids)
+          WHERE track_count = ? + COALESCE((SELECT 1 FROM track WHERE medium = medium.id AND position = 0), 0)
+          AND (medium_format.id IS NULL OR medium_format.has_discids)
        ORDER BY name.rank DESC, musicbrainz_collate(name.name),
                 release.artist_credit";
 
@@ -196,10 +199,11 @@ sub set_lengths_to_cdtoc
     $self->c->model('ArtistCredit')->load($medium->all_tracks);
 
     my @recording_ids;
-
     my @info = @{ $cdtoc->track_details };
+    my @medium_tracks = $medium->postgap_tracks;
+
     for my $i (0..$#info) {
-        my $track = $medium->tracks->[$i];
+        my $track = $medium_tracks[$i];
 
         $self->c->model('Track')->update(
             $track->id, { length => $info[$i]->{length_time} }

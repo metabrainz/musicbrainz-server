@@ -263,7 +263,7 @@ sub _medium
         name      => $medium->name,
         format    => $medium->l_format_name,
         formatID  => $medium->format_id,
-        cdtocs    => scalar($medium->all_cdtocs),
+        cdtocs    => [ map { $_->cdtoc->toc } $medium->all_cdtocs ],
     };
 
     if ($inc_recordings) {
