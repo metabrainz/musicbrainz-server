@@ -201,6 +201,7 @@ sub load_related_info {
     my $c = $self->c;
     $c->model('Event')->load_performers(@events);
     $c->model('Event')->load_locations(@events);
+    $c->model('Event')->load_areas(@events);
     $c->model('EventType')->load(@events);
 }
 
@@ -290,20 +291,23 @@ sub find_related_entities
     my @ids = map { $_->id } @$events;
     return () unless @ids;
 
-    my (%performers, %locations);
+    my (%performers, %locations, %areas);
     $self->_find_performers(\@ids, \%performers);
     $self->_find_locations(\@ids, \%locations);
+    $self->_find_areas(\@ids, \%areas);
 
     my %map = map +{
         $_ => {
             performers => { hits => 0, results => [] },
-            locations => { hits => 0, results => [] }
+            locations => { hits => 0, results => [] },
+            areas => { hits => 0, results => [] }
         }
     }, @ids;
 
     for my $event_id (@ids) {
         my @performers = uniq map { $_->{entity}->name } @{ $performers{$event_id} };
         my @locations = uniq map { $_->{entity}->name } @{ $locations{$event_id} };
+        my @areas = uniq map { $_->{entity}->name } @{ $areas{$event_id} };
 
         $map{$event_id} = {
             locations => {
@@ -311,6 +315,12 @@ sub find_related_entities
                 results => $limit && scalar @locations > $limit
                     ? [ @locations[ 0 .. ($limit-1) ] ]
                     : \@locations,
+            },
+            areas => {
+                hits => scalar @areas,
+                results => $limit && scalar @areas > $limit
+                    ? [ @areas[ 0 .. ($limit-1) ] ]
+                    : \@areas,
             },
             performers => {
                 hits => scalar @performers,
@@ -379,8 +389,7 @@ sub _find_performers
 
 =method load_locations
 
-This method will load the event's locations based on the event-place
-and event-area relationships.
+This method will load the event's locations based on the event-place relationships.
 
 =cut
 
@@ -425,6 +434,59 @@ sub _find_locations
         $map->{$event_id} ||= [];
         push @{ $map->{$event_id} }, {
             entity => $places->{$place_id}
+        }
+    }
+}
+
+=method load_areas
+
+This method will load the event's areas based on the area-event relationships.
+
+=cut
+
+## TO-DO: merge this with the place method above.
+
+sub load_areas
+{
+    my ($self, @events) = @_;
+
+    @events = grep { scalar $_->all_areas == 0 } @events;
+    my @ids = map { $_->id } @events;
+    return () unless @ids;
+
+    my %map;
+    $self->_find_areas(\@ids, \%map);
+    for my $event (@events) {
+        $event->add_area(@{ $map{$event->id} })
+            if exists $map{$event->id};
+    }
+}
+
+sub _find_areas
+{
+    my ($self, $ids, $map) = @_;
+    return unless @$ids;
+
+    my $query = "
+        SELECT lare.entity1 AS event, lare.entity0 AS area
+        FROM l_area_event lare
+        JOIN link l ON lare.link = l.id
+        JOIN link_type lt ON l.link_type = lt.id
+        WHERE lare.entity1 IN (" . placeholders(@$ids) . ")
+        GROUP BY lare.entity1, lare.entity0
+        ORDER BY count(*) DESC, area
+    ";
+
+    my $rows = $self->sql->select_list_of_lists($query, @$ids);
+
+    my @area_ids = map { $_->[1] } @$rows;
+    my $areas = $self->c->model('Area')->get_by_ids(@area_ids);
+
+    for my $row (@$rows) {
+        my ($event_id, $area_id) = @$row;
+        $map->{$event_id} ||= [];
+        push @{ $map->{$event_id} }, {
+            entity => $areas->{$area_id}
         }
     }
 }

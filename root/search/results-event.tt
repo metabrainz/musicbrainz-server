@@ -35,6 +35,9 @@
                                 [% FOR rel_place=result.entity.locations %]
                                   <li>[% l('{place}', { place => link_place(rel_place.entity) }) %]</li>
                                 [% END %]
+                                [% FOR rel_area=result.entity.areas %]
+                                  <li>[% l('{area}', { area => link_area(rel_area.entity) }) %]</li>
+                                [% END %]
                               </ul>
                             </td>
                             [%- IF result.entity.begin_date.format == result.entity.end_date.format %]

@@ -97,6 +97,21 @@ has 'locations' => (
     }
 );
 
+has 'areas' => (
+    traits => [ 'Array' ],
+    is => 'ro',
+    isa => ArrayRef[
+        Dict[
+            entity => Object
+        ]
+    ],
+    default => sub { [] },
+    handles => {
+        add_area => 'push',
+        all_areas => 'elements',
+    }
+);
+
 sub related_series {
     my $self = shift;
     return uniq_by { $_->id }

@@ -79,6 +79,11 @@
                 [%~ descriptive_link(rel_place.entity) ~%]
               </li>
             [%~ END ~%]
+            [%~ FOR rel_area=event.areas ~%]
+              <li>
+                [%~ descriptive_link(rel_area.entity) ~%]
+              </li>
+            [%~ END ~%]
           </ul>
         </td>
       [%~ END ~%]
