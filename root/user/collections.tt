@@ -8,6 +8,7 @@
     <thead>
         <tr>
             <th>[% l('Collection') %]</th>
+            <th>[% l('Type') %]</th>
             <th>[% l('Releases') %]</th>
             [% IF viewing_own_profile %]
             <th>[% l('Privacy') %]</th>
@@ -19,6 +20,7 @@
     [%- FOR collection=collections -%]
         <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
             <td>[% link_collection(collection) %]</td>
+            <td>[% collection.type.l_name %]</td>
             <td>[% collection.release_count %]</td>
             [% IF viewing_own_profile %]
             <td>[% collection.public ? l('Public') : l('Private') %]</td>

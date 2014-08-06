@@ -87,6 +87,10 @@ CREATE TRIGGER "reptg_country_area"
 AFTER INSERT OR DELETE OR UPDATE ON "country_area"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
+CREATE TRIGGER "reptg_editor_collection_type"
+AFTER INSERT OR DELETE OR UPDATE ON "editor_collection_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_gender"
 AFTER INSERT OR DELETE OR UPDATE ON "gender"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();

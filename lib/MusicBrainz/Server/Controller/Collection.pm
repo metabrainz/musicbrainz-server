@@ -26,6 +26,7 @@ after 'load' => sub
 
     # Load editor
     $c->model('Editor')->load($collection);
+    $c->model('CollectionType')->load($collection);
 
     $c->stash(
         my_collection => $c->user_exists && $c->user->id == $collection->editor_id

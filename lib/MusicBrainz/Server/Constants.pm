@@ -726,6 +726,7 @@ Readonly our @FULL_TABLE_LIST => qw(
     link_type_attribute_type
     editor_collection
     editor_collection_release
+    editor_collection_type
     medium
     medium_cdtoc
     medium_format

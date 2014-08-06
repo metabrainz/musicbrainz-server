@@ -1581,7 +1581,16 @@ CREATE TABLE editor_collection
     editor              INTEGER NOT NULL, -- references editor.id
     name                VARCHAR NOT NULL,
     public              BOOLEAN NOT NULL DEFAULT FALSE,
-    description         TEXT DEFAULT '' NOT NULL
+    description         TEXT DEFAULT '' NOT NULL,
+    type                INTEGER, -- references editor_collection_type.id
+);
+
+CREATE TABLE editor_collection_type ( -- replicate
+    id                  SERIAL,
+    name                VARCHAR(255) NOT NULL,
+    parent              INTEGER, -- references editor_collection_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT
 );
 
 CREATE TABLE editor_collection_release

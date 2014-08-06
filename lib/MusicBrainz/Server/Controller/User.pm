@@ -298,6 +298,7 @@ sub collections : Chained('load') PathPart('collections')
         return ($collections, $hits);
     });
     $c->model('Collection')->load_release_count(@$collections);
+    $c->model('CollectionType')->load(@$collections);
 
     $c->stash(
         user => $user,
