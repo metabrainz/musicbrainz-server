@@ -190,7 +190,7 @@ MB.constants.LINK_TYPES = {
 
 MB.constants.CLEANUPS = {
     wikipedia: {
-        match: new RegExp("^(https?://)?(([^/]+\\.)?wikipedia|secure\\.wikimedia)\\.","i"),
+        match: [ new RegExp("^(https?://)?(([^/]+\\.)?wikipedia|secure\\.wikimedia)\\.","i") ],
         type: MB.constants.LINK_TYPES.wikipedia,
         clean: function (url) {
             url =  url.replace(/^https:\/\/secure\.wikimedia\.org\/wikipedia\/([a-z-]+)\/wiki\/(.*)/, "http://$1.wikipedia.org/wiki/$2");
@@ -204,7 +204,7 @@ MB.constants.CLEANUPS = {
         }
     },
     discogs: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?discogs\\.com","i"),
+        match: [ new RegExp("^(https?://)?([^/]+\\.)?discogs\\.com","i") ],
         type: MB.constants.LINK_TYPES.discogs,
         clean: function (url) {
             url = url.replace(/\/viewimages\?release=([0-9]*)/, "/release/$1");
@@ -217,53 +217,53 @@ MB.constants.CLEANUPS = {
         }
     },
     imdb: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?imdb\\.","i"),
+        match: [ new RegExp("^(https?://)?([^/]+\\.)?imdb\\.","i") ],
         type: MB.constants.LINK_TYPES.imdb,
         clean: function (url) {
             return url.replace(/^https?:\/\/([^.]+\.)?imdb\.(com|de|it|es|fr|pt)\/([a-z]+\/[a-z0-9]+)(\/.*)*$/, "http://www.imdb.com/$3/");
         }
     },
     imdbsamples: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?imdb\\.","i"),
+        match: [ new RegExp("^(https?://)?([^/]+\\.)?imdb\\.","i") ],
         type: MB.constants.LINK_TYPES.imdbsamples,
         clean: function (url) {
             return url.replace(/^https?:\/\/([^.]+\.)?imdb\.(com|de|it|es|fr|pt)\/([a-z]+\/[a-z0-9]+)(\/.*)*$/, "http://www.imdb.com/$3/");
         }
     },
     mora: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?mora\\.jp","i"),
+        match: [ new RegExp("^(https?://)?([^/]+\\.)?mora\\.jp","i") ],
         type: MB.constants.LINK_TYPES.downloadpurchase,
         clean: function (url) {
             return url.replace(/^(?:https?:\/\/)?(?:[^.]+\.)?mora\.jp\/package\/([0-9]+)\/([a-zA-Z0-9_-]+)(\/)?.*$/, "http://mora.jp/package/$1/$2/");
         }
     },
     myspace: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?myspace\\.(com|de|fr)","i"),
+        match: [ new RegExp("^(https?://)?([^/]+\\.)?myspace\\.(com|de|fr)","i") ],
         type: MB.constants.LINK_TYPES.myspace,
         clean: function (url) {
             return url.replace(/^(https?:\/\/)?([^.]+\.)?myspace\.(com|de|fr)/, "https://myspace.com");
         }
     },
     purevolume: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?purevolume\\.com","i"),
+        match: [ new RegExp("^(https?://)?([^/]+\\.)?purevolume\\.com","i") ],
         type: MB.constants.LINK_TYPES.purevolume
     },
     recochoku: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?recochoku\\.jp","i"),
+        match: [ new RegExp("^(https?://)?([^/]+\\.)?recochoku\\.jp","i") ],
         type: MB.constants.LINK_TYPES.downloadpurchase,
         clean: function (url) {
             return url.replace(/^(?:https?:\/\/)?(?:[^.]+\.)?recochoku\.jp\/(album|song)\/([a-zA-Z0-9]+)(\/)?.*$/, "http://recochoku.jp/$1/$2/");
         }
     },
     allmusic: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?allmusic\\.com","i"),
+        match: [ new RegExp("^(https?://)?([^/]+\\.)?allmusic\\.com","i") ],
         type: MB.constants.LINK_TYPES.allmusic,
         clean: function (url) {
             return url.replace(/^https?:\/\/(?:[^.]+\.)?allmusic\.com\/(artist|album|composition|song|performance)\/(?:[^\/]*-)?((?:mn|mw|mc|mt|mq)[0-9]+).*/, "http://www.allmusic.com/$1/$2");
         }
     },
     amazon: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?(amazon\\.(com|ca|co\\.uk|fr|at|de|it|co\\.jp|jp|cn|es)|amzn\\.com)","i"),
+        match: [ new RegExp("^(https?://)?([^/]+\\.)?(amazon\\.(com|ca|co\\.uk|fr|at|de|it|co\\.jp|jp|cn|es)|amzn\\.com)","i") ],
         type: MB.constants.LINK_TYPES.amazon,
         clean: function (url) {
             // determine tld, asin from url, and build standard format [1],
@@ -293,7 +293,7 @@ MB.constants.CLEANUPS = {
         }
     },
     archive: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?archive\\.org/","i"),
+        match: [ new RegExp("^(https?://)?([^/]+\\.)?archive\\.org/","i") ],
         clean: function (url) {
             url = url.replace(/^https?:\/\/(www.)?archive.org\//, "https://archive.org/");
             // clean up links to files
@@ -304,13 +304,13 @@ MB.constants.CLEANUPS = {
         }
     },
    blogspot: {
-        match: new RegExp("^(https?://)?(www\\.)?[^./]+\\.blogspot\\.([a-z]{2,3}\\.)?[a-z]{2,3}/?","i"),
+        match: [ new RegExp("^(https?://)?(www\\.)?[^./]+\\.blogspot\\.([a-z]{2,3}\\.)?[a-z]{2,3}/?","i") ],
         clean: function(url) {
             return url = url.replace(/(www\.)?([^.\/]+)\.blogspot\.([a-z]{2,3}\.)?[a-z]{2,3}(\/)?/, "$2.blogspot.com/");
         }
     },
     cdbaby: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?cdbaby\\.(com|name)","i"),
+        match: [ new RegExp("^(https?://)?([^/]+\\.)?cdbaby\\.(com|name)","i") ],
         clean: function (url) {
             if ((m = url.match(/(?:https?:\/\/)?(?:www\.)?cdbaby\.com\/cd\/([^\/]+)(\/(from\/[^\/]+)?)?/)) != null)
                 url = "http://www.cdbaby.com/cd/" + m[1].toLowerCase();
@@ -319,7 +319,12 @@ MB.constants.CLEANUPS = {
         }
     },
     downloadpurchase: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?(beatport\\.com|junodownload\\.com|audiojelly\\.com|itunes\\.apple\\.com/)", "i"),
+        match: [
+            new RegExp("^(https?://)?([^/]+\\.)?beatport\\.com", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?junodownload\\.com", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?audiojelly\\.com", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?itunes\\.apple\\.com/", "i")
+        ],
         type: MB.constants.LINK_TYPES.downloadpurchase,
         clean: function (url) {
             // iTunes cleanup
@@ -327,7 +332,7 @@ MB.constants.CLEANUPS = {
         }
     },
     jamendo: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?jamendo\\.com","i"),
+        match: [ new RegExp("^(https?://)?([^/]+\\.)?jamendo\\.com","i") ],
         type: MB.constants.LINK_TYPES.downloadfree,
         clean: function (url) {
             url =  url.replace(/jamendo\.com\/(?:\w\w\/)?(album|list|track)\/([^\/]+)(\/.*)?$/, "jamendo.com/$1/$2");
@@ -337,7 +342,10 @@ MB.constants.CLEANUPS = {
         }
     },
     license: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?(artlibre\\.org/licence|creativecommons\\.org/(licenses|publicdomain)/)", "i"),
+        match: [
+            new RegExp("^(https?://)?([^/]+\\.)?artlibre\\.org/licence", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?creativecommons\\.org/(licenses|publicdomain)/", "i")
+        ],
         type: MB.constants.LINK_TYPES.license,
         clean: function (url) {
             url = url.replace(/^(https?:\/\/)?([^\/]+\.)?creativecommons\.org\//, "http://creativecommons.org/");
@@ -354,18 +362,31 @@ MB.constants.CLEANUPS = {
         }
     },
     lyrics: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?(lyrics\\.wikia\\.com|directlyrics\\.com|decoda\\.com|kasi-time\\.com|wikisource\\.org|recmusic\\.org|utamap\\.com|j-lyric\\.net|lyricsnmusic\\.com|muzikum\\.eu|rapgenius\\.com|gutenberg\\.org)", "i"),
+        match: [
+            new RegExp("^(https?://)?([^/]+\\.)?lyrics\\.wikia\\.com", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?directlyrics\\.com", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?decoda\\.com", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?kasi-time\\.com", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?wikisource\\.org", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?recmusic\\.org", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?utamap\\.com", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?j-lyric\\.net", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?lyricsnmusic\\.com", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?muzikum\\.eu", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?rapgenius\\.com", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?gutenberg\\.org", "i")
+        ],
         type: MB.constants.LINK_TYPES.lyrics,
         clean: function (url) {
             return url.replace(/^https:\/\/([a-z-]+\.)?wikisource\.org/, "http://$1wikisource.org");
         }
     },
     bbcmusic: {
-        match: new RegExp("^(https?://)?(www\\.)?bbc\\.co\\.uk/music/artists/", "i"),
+        match: [ new RegExp("^(https?://)?(www\\.)?bbc\\.co\\.uk/music/artists/", "i") ],
         type: MB.constants.LINK_TYPES.bbcmusic
     },
     image: {
-        match: new RegExp("^(https?://)?(commons\\.wikimedia\\.org|upload\\.wikimedia\\.org/wikipedia/commons/)","i"),
+        match: [ new RegExp("^(https?://)?(commons\\.wikimedia\\.org|upload\\.wikimedia\\.org/wikipedia/commons/)","i") ],
         type: MB.constants.LINK_TYPES.image,
         clean: function (url) {
             url = url.replace(/^https?:\/\/upload\.wikimedia\.org\/wikipedia\/commons\/(thumb\/)?[0-9a-z]\/[0-9a-z]{2}\/([^\/]+)(\/[^\/]+)?$/, "https://commons.wikimedia.org/wiki/File:$2");
@@ -374,31 +395,56 @@ MB.constants.CLEANUPS = {
         }
     },
     discographyentry: {
-        match: new RegExp("^(https?://)?(www\\.)?(naxos\\.com/catalogue/item\\.asp|bis\\.se/index\\.php\\?op=album|universal-music\\.co\\.jp/([a-z0-9-]+/)?[a-z0-9-]+/products/[a-z]{4}-[0-9]{5}/$|lantis\\.jp/release-item2\\.php\\?id=[0-9a-f]{32}$|jvcmusic\\.co\\.jp/[a-z-]+/Discography/[A0-9-]+/[A-Z]{4}-[0-9]+\\.html$|wmg\\.jp/artist/[A-Za-z0-9]+/[A-Z]{4}[0-9]{9}\\.html$|avexnet\\.jp/id/[a-z0-9]{5}/discography/product/[A-Z0-9]{4}-[0-9]{5}\\.html$|kingrecords\\.co\\.jp/cs/g/g[A-Z]{4}-[0-9]+/$)", "i"),
+        match: [
+            new RegExp("^(https?://)?(www\\.)?naxos\\.com/catalogue/item\\.asp", "i"),
+            new RegExp("^(https?://)?(www\\.)?bis\\.se/index\\.php\\?op=album", "i"),
+            new RegExp("^(https?://)?(www\\.)?universal-music\\.co\\.jp/([a-z0-9-]+/)?[a-z0-9-]+/products/[a-z]{4}-[0-9]{5}/$", "i"),
+            new RegExp("^(https?://)?(www\\.)?lantis\\.jp/release-item2\\.php\\?id=[0-9a-f]{32}$", "i"),
+            new RegExp("^(https?://)?(www\\.)?jvcmusic\\.co\\.jp/[a-z-]+/Discography/[A0-9-]+/[A-Z]{4}-[0-9]+\\.html$", "i"),
+            new RegExp("^(https?://)?(www\\.)?wmg\\.jp/artist/[A-Za-z0-9]+/[A-Z]{4}[0-9]{9}\\.html$", "i"),
+            new RegExp("^(https?://)?(www\\.)?avexnet\\.jp/id/[a-z0-9]{5}/discography/product/[A-Z0-9]{4}-[0-9]{5}\\.html$", "i"),
+            new RegExp("^(https?://)?(www\\.)?kingrecords\\.co\\.jp/cs/g/g[A-Z]{4}-[0-9]+/$", "i")
+        ],
         type: MB.constants.LINK_TYPES.discographyentry
     },
     ozonru: {
-        match: new RegExp("^(https?://)?(www\\.)?ozon\\.ru/context/detail/id/", "i"),
+        match: [ new RegExp("^(https?://)?(www\\.)?ozon\\.ru/context/detail/id/", "i") ],
         type: MB.constants.LINK_TYPES.mailorder
     },
     review: {
-        match: new RegExp("^(https?://)?(www\\.)?(bbc\\.co\\.uk/music/reviews/|metal-archives\\.com/reviews/)", "i"),
+        match: [
+            new RegExp("^(https?://)?(www\\.)?bbc\\.co\\.uk/music/reviews/", "i"),
+            new RegExp("^(https?://)?(www\\.)?metal-archives\\.com/reviews/", "i")
+        ],
         type: MB.constants.LINK_TYPES.review
     },
     score: {
-        match: new RegExp("^(https?://)?((www\\.)?(imslp\\.org/|neyzen\\.com)|commons\\.wikimedia\\.org|www3?\\.cpdl\\.org)", "i"),
+        match: [
+            new RegExp("^(https?://)?(www\\.)?imslp\\.org/", "i"),
+            new RegExp("^(https?://)?(www\\.)?neyzen\\.com", "i"),
+            new RegExp("^(https?://)?commons\\.wikimedia\\.org", "i"),
+            new RegExp("^(https?://)?www3?\\.cpdl\\.org", "i")
+        ],
         type: MB.constants.LINK_TYPES.score
     },
     secondhandsongs: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?secondhandsongs\\.com/", "i"),
+        match: [ new RegExp("^(https?://)?([^/]+\\.)?secondhandsongs\\.com/", "i") ],
         type: MB.constants.LINK_TYPES.secondhandsongs
     },
     songfacts: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?songfacts\\.com/", "i"),
+        match: [ new RegExp("^(https?://)?([^/]+\\.)?songfacts\\.com/", "i") ],
         type: MB.constants.LINK_TYPES.songfacts
     },
     socialnetwork: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?(facebook\\.com|(last\\.fm|lastfm\\.(at|br|de|es|fr|it|jp|pl|pt|ru|se|com\\.tr))/(music|label|venue|user|group)|reverbnation\\.com|plus\\.google\\.com|vk\\.com|twitter\\.com|instagram\\.com)/", "i"),
+        match: [
+            new RegExp("^(https?://)?([^/]+\\.)?facebook\\.com/", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?(last\\.fm|lastfm\\.(at|br|de|es|fr|it|jp|pl|pt|ru|se|com\\.tr))/(music|label|venue|user|group)/", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?reverbnation\\.com/", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?plus\\.google\\.com/", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?vk\\.com/", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?twitter\\.com/", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?instagram\\.com/", "i")
+        ],
         type: MB.constants.LINK_TYPES.socialnetwork,
         clean: function (url) {
             url = url.replace(/^(https?:\/\/)?([^\/]+\.)?facebook\.com(\/#!)?/, "https://www.facebook.com");
@@ -423,14 +469,20 @@ MB.constants.CLEANUPS = {
         }
     },
     soundcloud: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?soundcloud\\.com","i"),
+        match: [ new RegExp("^(https?://)?([^/]+\\.)?soundcloud\\.com","i") ],
         type: MB.constants.LINK_TYPES.soundcloud,
         clean: function (url) {
             return url.replace(/^(https?:\/\/)?(www\.)?soundcloud\.com(\/#!)?/, "https://soundcloud.com");
         }
     },
     blog: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?(ameblo\\.jp|blog\\.livedoor\\.jp|([^./]+)\\.jugem\\.jp|([^./]+)\\.exblog\\.jp|([^./]+)\\.tumblr\\.com)", "i"),
+        match: [
+            new RegExp("^(https?://)?([^/]+\\.)?ameblo\\.jp", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?blog\\.livedoor\\.jp", "i"),
+            new RegExp("^(https?://)?([^./]+)\\.jugem\\.jp", "i"),
+            new RegExp("^(https?://)?([^./]+)\\.exblog\\.jp", "i"),
+            new RegExp("^(https?://)?([^./]+)\\.tumblr\\.com", "i")
+        ],
         type: MB.constants.LINK_TYPES.blog,
         clean: function (url) {
             url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ameblo\.jp\/([^\/]+).*$/, "http://ameblo.jp/$1/");
@@ -438,7 +490,7 @@ MB.constants.CLEANUPS = {
         }
     },
     spotify: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?(spotify\\.com)", "i"),
+        match: [ new RegExp("^(https?://)?([^/]+\\.)?(spotify\\.com)", "i") ],
         type: MB.constants.LINK_TYPES.streamingmusic,
         clean: function (url) {
             url = url.replace(/^https?:\/\/embed\.spotify\.com\/\?uri=spotify:([a-z]+):([a-zA-Z0-9_-]+)$/, "http://open.spotify.com/$1/$2");
@@ -446,7 +498,7 @@ MB.constants.CLEANUPS = {
         }
     },
     viaf: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?viaf\\.org", "i"),
+        match: [ new RegExp("^(https?://)?([^/]+\\.)?viaf\\.org", "i") ],
         type: MB.constants.LINK_TYPES.viaf,
         clean: function (url) {
             url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?viaf\.org\/viaf\/([0-9]+).*$/,
@@ -455,7 +507,7 @@ MB.constants.CLEANUPS = {
         }
     },
     vimeo: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?(vimeo\\.com/)", "i"),
+        match: [ new RegExp("^(https?://)?([^/]+\\.)?(vimeo\\.com/)", "i") ],
         type: MB.constants.LINK_TYPES.vimeo,
         clean: function (url) {
             url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?vimeo\.com/, "http://vimeo.com");
@@ -465,7 +517,7 @@ MB.constants.CLEANUPS = {
         }
     },
     youtube: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?(youtube\\.com/|youtu\\.be/)", "i"),
+        match: [ new RegExp("^(https?://)?([^/]+\\.)?(youtube\\.com/|youtu\\.be/)", "i") ],
         type: MB.constants.LINK_TYPES.youtube,
         clean: function (url) {
             url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtube\.com(?:\/#)?/, "http://www.youtube.com");
@@ -480,28 +532,62 @@ MB.constants.CLEANUPS = {
         }
     },
     vgmdb: {
-        match: new RegExp("^(https?://)?vgmdb\\.(net|com)/", "i"),
+        match: [ new RegExp("^(https?://)?vgmdb\\.(net|com)/", "i") ],
         type: MB.constants.LINK_TYPES.vgmdb,
         clean: function (url) {
             return url.replace(/^(?:https?:\/\/)?vgmdb\.(?:net|com)\/(album|artist|org)\/([0-9]+).*$/, "http://vgmdb.net/$1/$2");
         }
     },
     wikidata: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?wikidata\\.org","i"),
+        match: [ new RegExp("^(https?://)?([^/]+\\.)?wikidata\\.org","i") ],
         type: MB.constants.LINK_TYPES.wikidata,
         clean: function (url) {
             return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?wikidata\.org\/wiki\/(Q([0-9]+)).*$/, "http://www.wikidata.org/wiki/$1");
         }
     },
     bandcamp: {
-        match: new RegExp("^(https?://)?([^/]+)\\.bandcamp\\.com","i"),
+        match: [ new RegExp("^(https?://)?([^/]+)\\.bandcamp\\.com","i") ],
         type: MB.constants.LINK_TYPES.bandcamp,
         clean: function (url) {
             return url.replace(/^(?:https?:\/\/)?([^\/]+)\.bandcamp\.com(?:\/(((album|track)\/([^\/\?]+)))?)?.*$/, "http://$1.bandcamp.com/$2");
         }
     },
     otherdatabases: {
-        match: new RegExp("^(https?://)?(www\\.)?(rateyourmusic\\.com/|worldcat\\.org/|musicmoz\\.org/|45cat\\.com/|musik-sammler\\.de/|discografia\\.dds\\.it/|ester\\.ee|encyclopedisque\\.fr/|discosdobrasil\\.com\\.br/|isrc\\.ncl\\.edu\\.tw/|rolldabeats\\.com/|psydb\\.net/|metal-archives\\.com/(bands?|albums|artists|labels)|spirit-of-metal\\.com/|ibdb\\.com/|lortel.\\org/|theatricalia\\.com/|ocremix\\.org/|(trove\\.)?nla\\.gov\\.au/|rockensdanmarkskort\\.dk|(wiki\\.)?rockinchina\\.com|(www\\.)?dhhu\\.dk|thesession\\.org|openlibrary\\.org|animenewsnetwork\\.com|generasia\\.com/wiki/|soundtrackcollector\\.com|rockipedia\\.no|whosampled\\.com|maniadb\\.com|imvdb\\.com|residentadvisor\\.net|vkdb\\.jp)", "i"),
+        match: [
+            new RegExp("^(https?://)?(www\\.)?rateyourmusic\\.com/", "i"),
+            new RegExp("^(https?://)?(www\\.)?worldcat\\.org/", "i"),
+            new RegExp("^(https?://)?(www\\.)?musicmoz\\.org/", "i"),
+            new RegExp("^(https?://)?(www\\.)?45cat\\.com/", "i"),
+            new RegExp("^(https?://)?(www\\.)?musik-sammler\\.de/", "i"),
+            new RegExp("^(https?://)?(www\\.)?discografia\\.dds\\.it/", "i"),
+            new RegExp("^(https?://)?(www\\.)?ester\\.ee/", "i"),
+            new RegExp("^(https?://)?(www\\.)?encyclopedisque\\.fr/", "i"),
+            new RegExp("^(https?://)?(www\\.)?discosdobrasil\\.com\\.br/", "i"),
+            new RegExp("^(https?://)?(www\\.)?isrc\\.ncl\\.edu\\.tw/", "i"),
+            new RegExp("^(https?://)?(www\\.)?rolldabeats\\.com/", "i"),
+            new RegExp("^(https?://)?(www\\.)?psydb\\.net/", "i"),
+            new RegExp("^(https?://)?(www\\.)?metal-archives\\.com/(bands?|albums|artists|labels)", "i"),
+            new RegExp("^(https?://)?(www\\.)?spirit-of-metal\\.com/", "i"),
+            new RegExp("^(https?://)?(www\\.)?ibdb\\.com/", "i"),
+            new RegExp("^(https?://)?(www\\.)?lortel.\\org/", "i"),
+            new RegExp("^(https?://)?(www\\.)?theatricalia\\.com/", "i"),
+            new RegExp("^(https?://)?(www\\.)?ocremix\\.org/", "i"),
+            new RegExp("^(https?://)?(www\\.)?(trove\\.)?nla\\.gov\\.au/", "i"),
+            new RegExp("^(https?://)?(www\\.)?rockensdanmarkskort\\.dk", "i"),
+            new RegExp("^(https?://)?(wiki\\.)?rockinchina\\.com", "i"),
+            new RegExp("^(https?://)?(www\\.)?dhhu\\.dk", "i"),
+            new RegExp("^(https?://)?(www\\.)?thesession\\.org", "i"),
+            new RegExp("^(https?://)?(www\\.)?openlibrary\\.org", "i"),
+            new RegExp("^(https?://)?(www\\.)?animenewsnetwork\\.com", "i"),
+            new RegExp("^(https?://)?(www\\.)?generasia\\.com/wiki/", "i"),
+            new RegExp("^(https?://)?(www\\.)?soundtrackcollector\\.com", "i"),
+            new RegExp("^(https?://)?(www\\.)?rockipedia\\.no", "i"),
+            new RegExp("^(https?://)?(www\\.)?whosampled\\.com", "i"),
+            new RegExp("^(https?://)?(www\\.)?maniadb\\.com", "i"),
+            new RegExp("^(https?://)?(www\\.)?imvdb\\.com", "i"),
+            new RegExp("^(https?://)?(www\\.)?residentadvisor\\.net", "i"),
+            new RegExp("^(https?://)?(www\\.)?vkdb\\.jp", "i")
+        ],
         type: MB.constants.LINK_TYPES.otherdatabases,
         clean: function (url) {
             //Removing cruft from Worldcat URLs
@@ -537,6 +623,12 @@ MB.constants.CLEANUPS = {
     }
 };
 
+function test_all(tests, text) {
+    for (var i = 0; i < tests.length; i++) {
+        if (tests[i].test(text))
+            return true;
+    }
+}
 
 MB.Control.URLCleanup = function (options) {
     options = options || {};
@@ -556,13 +648,13 @@ MB.Control.URLCleanup = function (options) {
     var validationRules = self.validationRules = {};
     // "has lyrics at" is only allowed for certain lyrics sites
     validationRules[ MB.constants.LINK_TYPES.lyrics.artist ] = function (url) {
-        return MB.constants.CLEANUPS.lyrics.match.test(url)
+        return test_all(MB.constants.CLEANUPS.lyrics.match, url)
     };
     validationRules[ MB.constants.LINK_TYPES.lyrics.release_group ] = function (url) {
-        return MB.constants.CLEANUPS.lyrics.match.test(url)
+        return test_all(MB.constants.CLEANUPS.lyrics.match, url)
     };
     validationRules[ MB.constants.LINK_TYPES.lyrics.work ] = function (url) {
-        return MB.constants.CLEANUPS.lyrics.match.test(url)
+        return test_all(MB.constants.CLEANUPS.lyrics.match, url)
     };
     // allow Discogs page only for the correct entities
     validationRules[ MB.constants.LINK_TYPES.discogs.artist ] = function (url) {
@@ -735,7 +827,7 @@ MB.Control.URLCleanup = function (options) {
 
     // only allow domains on the score whitelist
     var validateScore = function (url) {
-        return MB.constants.CLEANUPS.score.match.test(url)
+        return test_all(MB.constants.CLEANUPS.score.match, url)
     };
     validationRules[ MB.constants.LINK_TYPES.score.release_group ] = validateScore;
     validationRules[ MB.constants.LINK_TYPES.score.work ] = validateScore;
@@ -752,7 +844,7 @@ MB.Control.URLCleanup = function (options) {
 
     // only allow domains on the other databases whitelist
     var validateOtherDatabases = function (url) {
-        return MB.constants.CLEANUPS.otherdatabases.match.test(url)
+        return test_all(MB.constants.CLEANUPS.otherdatabases.match, url)
     };
     validationRules[ MB.constants.LINK_TYPES.otherdatabases.artist ] = function (url) {return validateOtherDatabases(url) && STCollector_is_not_RG(url)}
     validationRules[ MB.constants.LINK_TYPES.otherdatabases.label ] = validateOtherDatabases
@@ -782,7 +874,7 @@ MB.Control.URLCleanup = function (options) {
 
     self.guessType = function (sourceType, currentURL) {
         var cleanup = _.find(MB.constants.CLEANUPS, function (cleanup) {
-            return (cleanup.type || {})[sourceType] && cleanup.match.test(currentURL);
+            return (cleanup.type || {})[sourceType] && test_all(cleanup.match, currentURL);
         });
 
         return cleanup && cleanup.type[sourceType];
@@ -792,7 +884,7 @@ MB.Control.URLCleanup = function (options) {
         dirtyURL = _.str.trim(dirtyURL).replace(/(%E2%80%8E|\u200E)$/, "");
 
         var cleanup = _.find(MB.constants.CLEANUPS, function (cleanup) {
-            return cleanup.clean && cleanup.match.test(dirtyURL);
+            return cleanup.clean && test_all(cleanup.match, dirtyURL);
         });
 
         return cleanup ? cleanup.clean(dirtyURL) : dirtyURL;

@@ -323,7 +323,14 @@ Readonly our %ENTITIES => (
         edit_table => 1,
         merging => 1,
         model      => 'Area',
+        type => { simple => 1 },
         annotations => { edit_type => $EDIT_AREA_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_AREA_ADD_ALIAS,
+            edit_edit_type => $EDIT_AREA_EDIT_ALIAS,
+            delete_edit_type => $EDIT_AREA_DELETE_ALIAS,
+            search_hint_type => 3
+        },
         removal     => { manual => 1 }
     },
     artist => {
@@ -331,7 +338,14 @@ Readonly our %ENTITIES => (
         edit_table => 1,
         merging => 1,
         model      => 'Artist',
+        type => { simple => 1 },
         annotations => { edit_type => $EDIT_ARTIST_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_ARTIST_ADD_ALIAS,
+            edit_edit_type => $EDIT_ARTIST_EDIT_ALIAS,
+            delete_edit_type => $EDIT_ARTIST_DELETE_ALIAS,
+            search_hint_type => 3
+        },
         ratings    => 1,
         tags       => 1,
         subscriptions => { entity => 1, deleted => 1 },
@@ -342,7 +356,14 @@ Readonly our %ENTITIES => (
         edit_table => 1,
         merging => 1,
         model      => 'Instrument',
+        type => { simple => 1 },
         annotations => { edit_type => $EDIT_INSTRUMENT_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_INSTRUMENT_ADD_ALIAS,
+            edit_edit_type => $EDIT_INSTRUMENT_EDIT_ALIAS,
+            delete_edit_type => $EDIT_INSTRUMENT_DELETE_ALIAS,
+            search_hint_type => 2
+        },
         removal     => { manual => 1 }
     },
     label => {
@@ -350,7 +371,14 @@ Readonly our %ENTITIES => (
         edit_table => 1,
         merging => 1,
         model      => 'Label',
+        type => { simple => 1 },
         annotations => { edit_type => $EDIT_LABEL_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_LABEL_ADD_ALIAS,
+            edit_edit_type => $EDIT_LABEL_EDIT_ALIAS,
+            delete_edit_type => $EDIT_LABEL_DELETE_ALIAS,
+            search_hint_type => 2
+        },
         ratings    => 1,
         tags       => 1,
         subscriptions => { entity => 1, deleted => 1 },
@@ -361,7 +389,14 @@ Readonly our %ENTITIES => (
         edit_table => 1,
         merging => 1,
         model      => 'Place',
+        type => { simple => 1 },
         annotations => { edit_type => $EDIT_PLACE_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_PLACE_ADD_ALIAS,
+            edit_edit_type => $EDIT_PLACE_EDIT_ALIAS,
+            delete_edit_type => $EDIT_PLACE_DELETE_ALIAS,
+            search_hint_type => 2
+        },
         tags       => 1,
         removal     => { automatic => 1 }
     },
@@ -392,6 +427,7 @@ Readonly our %ENTITIES => (
         edit_table => 1,
         merging => 1,
         model      => 'ReleaseGroup',
+        type => { complex => 1 },
         url        => 'release-group',
         annotations => { edit_type => $EDIT_RELEASEGROUP_ADD_ANNOTATION },
         ratings    => 1,
@@ -404,7 +440,14 @@ Readonly our %ENTITIES => (
         edit_table => 1,
         merging => 1,
         model      => 'Series',
+        type => { simple => 1 },
         annotations => { edit_type => $EDIT_SERIES_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_SERIES_ADD_ALIAS,
+            edit_edit_type => $EDIT_SERIES_EDIT_ALIAS,
+            delete_edit_type => $EDIT_SERIES_DELETE_ALIAS,
+            search_hint_type => 2
+        },
         subscriptions => { entity => 1, deleted => 1 },
         removal     => { automatic => 1 }
     },
@@ -418,7 +461,14 @@ Readonly our %ENTITIES => (
         edit_table => 1,
         merging => 1,
         model      => 'Work',
+        type => { simple => 1 },
         annotations => { edit_type => $EDIT_WORK_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_WORK_ADD_ALIAS,
+            edit_edit_type => $EDIT_WORK_EDIT_ALIAS,
+            delete_edit_type => $EDIT_WORK_DELETE_ALIAS,
+            search_hint_type => 2
+        },
         ratings    => 1,
         tags       => 1,
         removal     => { automatic => 1 }
@@ -452,6 +502,9 @@ Readonly our %ENTITIES => (
     },
     freedb => {
         model => 'FreeDB'
+    },
+    tag => {
+        model => 'Tag'
     }
 );
 

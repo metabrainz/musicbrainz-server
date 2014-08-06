@@ -53,12 +53,6 @@ sub area_toplevel
     $c->model('Area')->annotation->load_latest($area)
         if $c->stash->{inc}->annotation;
 
-    if ($c->stash->{inc}->aliases)
-    {
-        my $aliases = $c->model('Area')->alias->find_by_entity_id($area->id);
-        $opts->{aliases} = $aliases;
-    }
-
     $self->load_relationships($c, $stash, $area);
 }
 
