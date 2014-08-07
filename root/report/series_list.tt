@@ -4,7 +4,7 @@
         <tr>
             [% BLOCK extra_header_start %][% END %]
             [%- PROCESS extra_header_start -%]
-            <th>[% l('Place') %]</th>
+            <th>[% l('Series') %]</th>
             [%- PROCESS extra_header_end -%]
         </tr>
     </thead>
@@ -14,7 +14,7 @@
             <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                 [% BLOCK extra_row_start %][% END %]
                 [%- PROCESS extra_row_start -%]
-                <td>[% link_entity(item.place) %]</td>
+                <td>[% link_entity(item.series) %]</td>
                 [%- PROCESS extra_row_end -%]
             </tr>
         [%- END -%]

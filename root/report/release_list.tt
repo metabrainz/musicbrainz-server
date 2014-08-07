@@ -6,6 +6,7 @@
             [%- PROCESS extra_header_start -%]
             <th>[% l('Release') %]</th>
             <th>[% l('Artist') %]</th>
+            [%- PROCESS extra_header_end -%]
         </tr>
     </thead>
     <tbody>
@@ -15,6 +16,7 @@
             [%- PROCESS extra_row_start -%]
             <td>[% link_entity(item.release) %]</td>
             <td>[% artist_credit(item.release.artist_credit) %]</td>
+            [%- PROCESS extra_row_end -%]
         </tr>
         [%- END -%]
     </tbody>

@@ -5,6 +5,7 @@
             [% BLOCK extra_header_start %][% END %]
             [%- PROCESS extra_header_start -%]
             <th>[% l('Label') %]</th>
+            [%- PROCESS extra_header_end -%]
         </tr>
     </thead>
     <tbody>
@@ -14,6 +15,7 @@
                 [% BLOCK extra_row_start %][% END %]
                 [%- PROCESS extra_row_start -%]
                 <td>[% link_entity(item.label) %]</td>
+                [%- PROCESS extra_row_end -%]
             </tr>
         [%- END -%]
     </tbody>
