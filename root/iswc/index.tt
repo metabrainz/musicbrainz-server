@@ -22,7 +22,7 @@
         </thead>
         <tbody>
             [%- FOR work=works -%]
-            <tr class="[% loop.count %]">
+            <tr class="[% loop.parity %]">
                 [% IF c.user_exists %]
                 <td>
                   <input type="checkbox" name="add-to-merge"
