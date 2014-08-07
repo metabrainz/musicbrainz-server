@@ -19,7 +19,7 @@
             </thead>
             <tbody>
             [% FOR entity=to_merge %]
-                 <tr [% ' class="ev"' IF loop.count % 2 == 0 %]>
+                 <tr class="[% loop.parity %]">
                     <td>
                         <input type="hidden" name="merge.merging.[% loop.index %]" value="[% entity.id %]" />
                         <input type="radio" name="merge.target" value="[% entity.id %]"

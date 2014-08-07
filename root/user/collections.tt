@@ -18,7 +18,7 @@
     </thead>
     <tbody>
     [%- FOR collection=collections -%]
-        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+        <tr class="[% loop.parity %]">
             <td>[% link_collection(collection) %]</td>
             <td>[% collection.release_count %]</td>
             [% IF viewing_own_profile %]
