@@ -19,6 +19,10 @@
           [% r.textarea('setlist', { cols => 80, rows => 10 }) %]
           [% field_errors(r.form, 'setlist') %]
         [% END %]
+        <p>
+            [%- l('Add @ at line start to indicate artists, * for a work/song, # for additional info (such as "Encore").
+                   [mbid|name] allows linking to artists and works.') -%]
+        </p>
       </fieldset>
 
 
@@ -29,7 +33,7 @@
         </p>
         [% form_row_date(r, 'period.begin_date', l('Begin date:')) %]
         [% form_row_date(r, 'period.end_date', l('End date:')) %]
-        [%- form_row_text_long(r, 'time', l('Time:')) -%]
+        [%- form_row_time(r, 'time', l('Time:')) -%]
       </fieldset>
 
       [% PROCESS 'forms/relationship-editor.tt' %]
