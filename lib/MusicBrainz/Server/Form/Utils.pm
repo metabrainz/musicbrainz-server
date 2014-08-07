@@ -3,6 +3,8 @@ package MusicBrainz::Server::Form::Utils;
 use strict;
 use warnings;
 
+use charnames ':full'; # only necessary before Perl 5.16
+
 use Encode;
 use MusicBrainz::Server::Translation qw( l lp );
 use Text::Trim qw( trim );
@@ -20,6 +22,7 @@ use Sub::Exporter -setup => {
                       build_type_info
                       build_attr_info
                       build_options_tree
+                      indentation
               )]
 };
 
@@ -103,19 +106,17 @@ sub select_options_tree
 sub build_options_tree
 {
     my ($root, $attr, $coll, $indent) = @_;
+    $indent //= -1;
 
     my @options;
 
     push @options, {
         value => $root->id,
-        label => ($indent // '') . $root->$attr,
+        label => indentation($indent) . $root->$attr,
     } if $root->id;
 
-    $indent .= '&#xa0;&#xa0;&#xa0;' if defined $indent;
-    $indent //= ''; # for the first level
-
     foreach my $child ($root->sorted_children($coll)) {
-        push @options, build_options_tree($child, $attr, $coll, $indent);
+        push @options, build_options_tree($child, $attr, $coll, $indent + 1);
     }
     return @options;
 }
@@ -210,6 +211,11 @@ sub build_child_info {
     my ($root, $builder) = @_;
 
     return [ map { $builder->($_) } $root->all_children ];
+}
+
+sub indentation {
+    my $level = shift;
+    return "\N{NO-BREAK SPACE}" x (3 * $level);
 }
 
 1;

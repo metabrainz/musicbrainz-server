@@ -38,8 +38,8 @@
                            show_locale(edit.display_data.locale.new)) ~%]
 
     [%~ display_full_change(add_colon(l('Primary for locale')),
-                           edit.display_data.primary_for_locale.old ? l('Yes') : l('No'),
-                           edit.display_data.primary_for_locale.new ? l('Yes') : l('No')) ~%]
+                           yesno(edit.display_data.primary_for_locale.old),
+                           yesno(edit.display_data.primary_for_locale.new)) ~%]
 
     [%~ display_full_change(add_colon(l('Type')),
                            html_escape(edit.display_data.type.old.name),
@@ -56,7 +56,7 @@
                     '\s+') ~%]
 
     [%~ display_diff(add_colon(l('Ended')),
-                    edit.display_data.ended.old ? l('Yes') : l('No'),
-                    edit.display_data.ended.new ? l('Yes') : l('No'),
+                    yesno(edit.display_data.ended.old),
+                    yesno(edit.display_data.ended.new),
                     '-') ~%]
 </table>

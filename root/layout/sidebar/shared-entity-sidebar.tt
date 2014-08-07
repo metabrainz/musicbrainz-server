@@ -1,5 +1,6 @@
 [%~ entitytype = entity_type(entity) ~%]
-[%~ edit_links_other = edit_links_other || [] ~%]
+[%~ DEFAULT edit_links_other = []
+            edit_links_add_entity = [] ~%]
 [%~ WRAPPER 'layout/sidebar.tt' ~%]
     [%~ content ~%]
 

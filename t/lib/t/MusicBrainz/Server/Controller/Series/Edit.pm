@@ -2,7 +2,7 @@ package t::MusicBrainz::Server::Controller::Series::Edit;
 use Test::Routine;
 use Test::More;
 use Test::Deep;
-use MusicBrainz::Server::Test qw( html_ok );
+use MusicBrainz::Server::Test qw( capture_edits html_ok );
 
 with 't::Edit';
 with 't::Mechanize';
@@ -51,12 +51,65 @@ test all => sub {
         }
     });
 
+    $edit->accept;
     $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
     html_ok($mech->content, '..valid xml');
     $mech->text_contains('New Name!', '..has new name');
     $mech->text_contains('Test Recording Series', '..has old name');
-    $mech->text_contains('Automatic', '..has new ordering type');
-    $mech->text_contains('Manual', '..has old ordering type');
+    $mech->text_contains('Automatic', '..has old ordering type');
+    $mech->text_contains('Manual', '..has new ordering type');
+
+    my @edits = capture_edits {
+        $mech->post("/series/a8749d0c-4a5a-4403-97c5-f6cd018f8e6d/edit", {
+            'edit-series.name' => 'New Name!',
+            'edit-series.comment' => 'new comment!',
+            'edit-series.type_id' => 1,
+            'edit-series.ordering_type_id' => 2,
+            'edit-series.rel.0.relationship_id' => 1,
+            'edit-series.rel.0.link_type_id' => 1,
+            'edit-series.rel.0.attributes.0' => 1,
+            'edit-series.rel.0.attribute_text_values.0.attribute' => 1,
+            'edit-series.rel.0.attribute_text_values.0.text_value' => 'B1',
+            'edit-series.rel.1.relationship_id' => 2,
+            'edit-series.rel.1.link_type_id' => 1,
+            'edit-series.rel.1.attributes.0' => 1,
+            'edit-series.rel.1.attribute_text_values.0.attribute' => 1,
+            'edit-series.rel.1.attribute_text_values.0.text_value' => 'B11',
+            'edit-series.rel.1.link_order' => '3',
+        });
+    } $c;
+
+    $edit = $edits[0];
+    isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Edit');
+
+    cmp_deeply($edit->data->{old}, {
+        attribute_text_values => { 1 => 'A1' }
+    });
+
+    cmp_deeply($edit->data->{new}, {
+        attribute_text_values => { 1 => 'B1' }
+    });
+
+    $edit = $edits[1];
+    isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Edit');
+
+    cmp_deeply($edit->data->{old}, {
+        attribute_text_values => { 1 => 'A11' }
+    });
+
+    cmp_deeply($edit->data->{new}, {
+        attribute_text_values => { 1 => 'B11' }
+    });
+
+    $edit = $edits[2];
+
+    cmp_deeply($edit->data->{relationship_order}, [
+        {
+            relationship => ignore(),
+            old_order => 2,
+            new_order => 3,
+        }
+    ]);
 };
 
 1;

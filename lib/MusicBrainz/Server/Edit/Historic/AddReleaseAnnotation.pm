@@ -49,7 +49,7 @@ sub build_display_data
         releases => [ map {
             $loaded->{Release}{$_}
         } @{ $self->data->{release_ids} } ],
-        annotation => $self->data->{text},
+        text => $self->data->{text},
         changelog => $self->data->{changelog}
     };
 }

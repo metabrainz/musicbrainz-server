@@ -93,7 +93,7 @@ sub allow_auto_edit {
     return 1 unless scalar(@$items);
 
     # Changing the ordering type is not allowed if there are items.
-    return 0 if $self->data->{old}{ordering_type_id} != $self->data->{new}{ordering_type_id};
+    return 0 if ($self->data->{old}{ordering_type_id} // 0) != ($self->data->{new}{ordering_type_id} // 0);
 
     # Changing name is allowed if the change only affects
     # small things like case etc.

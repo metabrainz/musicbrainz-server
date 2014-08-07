@@ -2,6 +2,7 @@
     ['index', link_place(place, 'show', l('Overview'))],
     ['performances', link_place(place, 'performances', l('Performances'))],
     ['aliases', link_place(place, 'aliases', l('Aliases'))],
+    ['map', link_place(place, 'map', l('Map'))],
     ['tags', link_place(place, 'tags', l('Tags'))],
     ['details', link_place(place, 'details', l('Details'))],
     ['edit', link_place(place, 'edit', l('Edit'))],

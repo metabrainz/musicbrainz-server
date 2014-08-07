@@ -32,7 +32,7 @@
 
   <tr>
     <th>[% l('Video:') %]</th>
-    <td>[% edit.display_data.video ? l('Yes') : l('No') %]</td>
+    <td>[% yesno(edit.display_data.video) %]</td>
   </tr>
 
 </table>

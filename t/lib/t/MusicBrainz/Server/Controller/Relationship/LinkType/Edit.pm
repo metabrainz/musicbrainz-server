@@ -32,6 +32,7 @@ EOSQL
     my $new_name = 'Renamed';
 
     $mech->get_ok('/relationship/77a0f1d3-f9ec-4055-a6e7-24d7258c21f7/edit');
+    html_ok($mech->content);
     my @edits = capture_edits {
         my $response = $mech->submit_form(
             with_fields => {
