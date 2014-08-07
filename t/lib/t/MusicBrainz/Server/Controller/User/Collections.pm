@@ -24,7 +24,7 @@ test 'Viewing your own collections' => sub {
     my $tx = test_xpath_html($mech->content);
 
     $tx->is('count(//div[@id="page"]//table//th)',
-            4, 'your collection list has 4 cols');
+            5, 'your collection list has 5 cols');
 
     $tx->is('//div[@id="page"]//table/tbody/tr[1]/td[2]',
             2, 'number of collections is correct');
