@@ -560,8 +560,7 @@ MB.constants.CLEANUPS = {
             new RegExp("^(https?://)?(www\\.)?45cat\\.com/", "i"),
             new RegExp("^(https?://)?(www\\.)?musik-sammler\\.de/", "i"),
             new RegExp("^(https?://)?(www\\.)?discografia\\.dds\\.it/", "i"),
-            new RegExp("^(https?://)?(www\\.)?tallinn\\.ester\\.ee/", "i"),
-            new RegExp("^(https?://)?(www\\.)?tartu\\.ester\\.ee/", "i"),
+            new RegExp("^(https?://)?(www\\.)?ester\\.ee/", "i"),
             new RegExp("^(https?://)?(www\\.)?encyclopedisque\\.fr/", "i"),
             new RegExp("^(https?://)?(www\\.)?discosdobrasil\\.com\\.br/", "i"),
             new RegExp("^(https?://)?(www\\.)?isrc\\.ncl\\.edu\\.tw/", "i"),
@@ -596,7 +595,7 @@ MB.constants.CLEANUPS = {
             //Standardising IBDb not to use www
             url = url.replace(/^(https?:\/\/)?(www\.)?ibdb\.com/, "http://ibdb.com");
             //Standardising ESTER to their default parameters
-            url = url.replace(/^(?:https?:\/\/)?(tallinn|tartu)\.ester\.ee\/record=([^~]+)(?:.*)?$/, "http://$1.ester.ee/record=$2~S1*est");
+            url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ester\.ee\/record=([^~]+)(?:.*)?$/, "http://www.ester.ee/record=$1~S1*est");
             //Standardising Trove
             url = url.replace(/^(?:https?:\/\/)?trove.nla.gov.au\/work\/([^\/?]+)(?:\?.*)?$/, "http://trove.nla.gov.au/work/$1");
             //Standardising Rockens Danmarkskort

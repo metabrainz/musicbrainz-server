@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Entity::URL::ESTERTallinn;
+package MusicBrainz::Server::Entity::URL::ESTER;
 
 use Moose;
 
@@ -8,7 +8,7 @@ with 'MusicBrainz::Server::Entity::URL::Sidebar';
 sub sidebar_name {
     my $self = shift;
 
-    return "ESTER Tallinn";
+    return "ESTER";
 }
 
 sub url_is_scheme_independent { 1 }
