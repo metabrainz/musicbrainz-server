@@ -1095,6 +1095,8 @@ sub _serialize_event
     push @list, $gen->name($event->name);
     push @list, $gen->disambiguation($event->comment) if $event->comment;
 
+    push @list, $gen->cancelled('true') if $event->cancelled;
+
     $self->_serialize_life_span(\@list, $gen, $event, $inc, $opts);
     push @list, $gen->time($event->formatted_time);
     push @list, $gen->setlist($event->setlist);
