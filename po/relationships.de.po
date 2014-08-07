@@ -2,13 +2,14 @@
 # Translators:
 # nikki, 2014
 # nikki2 <email address hidden>, 2012
+# Johannes Dewender <email address hidden>, 2014
 # nikki, 2013
 # Shepard, 2013-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-07-10 02:14+0000\n"
-"Last-Translator: nikki\n"
+"PO-Revision-Date: 2014-08-07 20:42+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -905,7 +906,7 @@ msgid ""
 "is an EP rather than a single."
 msgstr ""
 
-#: DB:link_type/description:282 DB:link_type/description:293
+#: DB:link_type/description:293 DB:link_type/description:282
 #: DB:link_type/description:295 DB:link_type/description:297
 #: DB:link_type/description:296 DB:link_type/description:298
 #: DB:link_type/description:158 DB:link_type/description:41
@@ -1003,12 +1004,6 @@ msgid ""
 "songs, one after the other. If the tracks are pitched or blended into each "
 "other, it is more appropriate to credit this person as a <a "
 "href=\"/relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\">DJ-mixer</a>."
-msgstr ""
-
-#: DB:link_type/description:98
-msgid ""
-"This indicates the recording studio where at least part of this release "
-"group was recorded."
 msgstr ""
 
 #: DB:link_type/description:349
@@ -1185,8 +1180,8 @@ msgstr ""
 
 #: DB:link_type/description:429
 msgid ""
-"This link is used to associate an artist or label with their page on a "
-"social networking site such as Facebook or Twitter"
+"This link is used to associate a place with its page on a social networking "
+"site such as Facebook or Twitter"
 msgstr ""
 
 #: DB:link_type/description:288
@@ -1477,7 +1472,7 @@ msgstr ""
 #: DB:link_type/description:6
 msgid ""
 "This links two releases, where one is a <a "
-"href=\"/doc/Mix_Terminology#remaster\">remaster</a> of the other.​ This is "
+"href=\"/doc/Mix_Terminology#remaster\">remaster</a> of the other. This is "
 "usually done to improve the audio quality or to adjust for more modern "
 "playback equipment. The process generally doesn't involve changing the music"
 " in any artistically important way. It may, however, result in recordings "
@@ -1611,12 +1606,6 @@ msgid ""
 "relationship type."
 msgstr ""
 
-#: DB:link_type/description:101
-msgid ""
-"This relationship is used to link an artist to a person who has compiled a "
-"catalogue of that artist's works."
-msgstr ""
-
 #: DB:link_type/description:729
 msgid ""
 "This relationship links the release of a show's episode (for example a "
@@ -1627,14 +1616,14 @@ msgstr ""
 msgid ""
 "This relationship specifies that an artist is a <a "
 "href=\"http://en.wikipedia.org/wiki/Tribute_act\">tribute</a> to another "
-"specific artist/band; that is, it primarily performs covers of that artist.​"
-" They may also be referred to as cover bands. Some tribute artists may name "
+"specific artist/band; that is, it primarily performs covers of that artist. "
+"They may also be referred to as cover bands. Some tribute artists may name "
 "themselves, dress, and/or act similarly to the artists they pay tribute to."
 msgstr ""
 
 #: DB:link_type/description:462
 msgid ""
-"This relationship type can be used to link a MusicBrainz artist to the "
+"This relationship type can be used to link a MusicBrainz place to the "
 "equivalent entry in Myspace."
 msgstr ""
 
@@ -1650,8 +1639,8 @@ msgstr ""
 
 #: DB:link_type/description:528
 msgid ""
-"This relationship type can be used to link an artist to the equivalent entry"
-" in YouTube. URLs should follow the format "
+"This relationship type can be used to link a place to the equivalent entry "
+"in YouTube. URLs should follow the format "
 "http://www.youtube.com/user/<username>"
 msgstr ""
 
@@ -1704,12 +1693,6 @@ msgstr ""
 #: DB:link_type/description:270
 msgid "This relationship type is <strong>deprecated</strong>."
 msgstr "Dieser Beziehungstyp ist <strong>veraltet</strong>."
-
-#: DB:link_type/description:131
-msgid ""
-"This relationship type is <strong>deprecated</strong>. Add liner notes info "
-"on the release level."
-msgstr ""
 
 #: DB:link_type/description:15
 msgid ""
@@ -1782,7 +1765,7 @@ msgstr ""
 
 #: DB:link_type/description:191
 msgid ""
-"This relationship type links an artist to its corresponding page <a "
+"This relationship type links an artist to its corresponding page at <a "
 "href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated"
 " to cataloguing the music of video games and anime."
 msgstr ""
@@ -1796,6 +1779,11 @@ msgid ""
 "This relationship type links an artist to their online community pages. An "
 "online community is a web site providing information, music, and/or news, "
 "and may act as an unofficial homepage for an entity."
+msgstr ""
+
+#: DB:link_type/description:752
+msgid ""
+"This relationship type links instruments to the areas they originate from."
 msgstr ""
 
 #: DB:link_attribute_type/description:596
@@ -2264,6 +2252,10 @@ msgstr "Seite zum kostenlosen Musik-Streamen für"
 msgid "free music {video} streaming page for"
 msgstr "Seite zum kostenlosen Musik-{video:Video-}Streamen für"
 
+#: DB:link_type/reverse_link_phrase:752
+msgid "from"
+msgstr ""
+
 #: DB:link_type/link_phrase:257 DB:link_type/link_phrase:73
 #: DB:link_type/link_phrase:187 DB:link_type/reverse_link_phrase:257
 #: DB:link_type/reverse_link_phrase:73 DB:link_type/reverse_link_phrase:187
@@ -2408,7 +2400,7 @@ msgstr "hat eine Rezension unter"
 #: DB:link_type/long_link_phrase:192 DB:link_type/long_link_phrase:218
 #: DB:link_type/long_link_phrase:429
 msgid "has a social networking page at"
-msgstr "hat eine soziale Netzwerkseite unter"
+msgstr "hat eine Seite in einem sozialen Netzwerk unter"
 
 #: DB:link_type/long_link_phrase:284 DB:link_type/long_link_phrase:283
 #: DB:link_type/long_link_phrase:285
@@ -2531,6 +2523,10 @@ msgstr "hat Geschwister"
 msgid "has subtype"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:752
+msgid "has traditional instrument"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:65
 msgid "has tribute album(s)"
 msgstr "hat Hommagealbum"
@@ -2599,6 +2595,10 @@ msgstr ""
 #: DB:link_attribute_type/name:580
 msgid "instrumental"
 msgstr "instrumental"
+
+#: DB:link_type/link_phrase:752
+msgid "instruments"
+msgstr ""
 
 #: DB:link_type/reverse_link_phrase:707
 msgid "interview with"
@@ -3171,13 +3171,11 @@ msgid "producers"
 msgstr "Produzenten"
 
 #: DB:link_type/link_phrase:256 DB:link_type/link_phrase:160
-#: DB:link_type/link_phrase:59 DB:link_type/link_phrase:87
-#: DB:link_type/link_phrase:72 DB:link_type/reverse_link_phrase:256
-#: DB:link_type/reverse_link_phrase:160 DB:link_type/reverse_link_phrase:59
-#: DB:link_type/reverse_link_phrase:87 DB:link_type/reverse_link_phrase:72
+#: DB:link_type/link_phrase:59 DB:link_type/link_phrase:72
+#: DB:link_type/reverse_link_phrase:256 DB:link_type/reverse_link_phrase:160
+#: DB:link_type/reverse_link_phrase:59 DB:link_type/reverse_link_phrase:72
 #: DB:link_type/long_link_phrase:256 DB:link_type/long_link_phrase:160
-#: DB:link_type/long_link_phrase:59 DB:link_type/long_link_phrase:87
-#: DB:link_type/long_link_phrase:72
+#: DB:link_type/long_link_phrase:59 DB:link_type/long_link_phrase:72
 msgid "production"
 msgstr "Produktion"
 
@@ -3272,10 +3270,6 @@ msgstr "Aufnahmetechniker"
 #: DB:link_type/link_phrase:695 DB:link_type/link_phrase:693
 msgid "recording location for"
 msgstr "Aufnahmeort für"
-
-#: DB:link_type/link_phrase:98 DB:link_type/reverse_link_phrase:98
-msgid "recording studio"
-msgstr "Tonstudio"
 
 #: DB:link_type/reverse_link_phrase:244 DB:link_type/reverse_link_phrase:239
 msgid "referred to in medleys"
@@ -3394,7 +3388,7 @@ msgstr "soziale Netzwerke"
 #: DB:link_type/reverse_link_phrase:192 DB:link_type/reverse_link_phrase:218
 #: DB:link_type/reverse_link_phrase:429
 msgid "social networking page for"
-msgstr "soziale Netzwerkseite für"
+msgstr "Seite in einem sozialen Netzwerk für"
 
 #: DB:link_attribute_type/name:596
 msgid "solo"
@@ -3514,10 +3508,6 @@ msgstr "Stimme von"
 msgid "voiced by"
 msgstr "gesprochen von"
 
-#: DB:link_type/long_link_phrase:98
-msgid "was recorded by studio at"
-msgstr "wurde aufgenommen vom Studio unter"
-
 #: DB:link_type/long_link_phrase:3
 msgid "was released in support of"
 msgstr ""
@@ -3538,10 +3528,6 @@ msgstr "war die Mix-Örtlichkeit für"
 #: DB:link_type/long_link_phrase:695 DB:link_type/long_link_phrase:693
 msgid "was the recording location for"
 msgstr "war der Aufnahmeort für"
-
-#: DB:link_type/long_link_phrase:101
-msgid "was {additional:additionally} catalogued by"
-msgstr ""
 
 #: DB:link_type/description:733
 msgid "wikidata"
@@ -3567,7 +3553,7 @@ msgstr "arbeitet als Aufnahmetechniker bei"
 msgid "works as an engineer at"
 msgstr "arbeitet als Techniker (Engineer) bei"
 
-#: DB:link_type/long_link_phrase:131 DB:link_type/long_link_phrase:24
+#: DB:link_type/long_link_phrase:24
 msgid "wrote {additional} liner notes for"
 msgstr "schrieb {additional:zusätzlichen} Covertext für"
 
@@ -3589,14 +3575,6 @@ msgstr ""
 #: DB:link_type/long_link_phrase:296 DB:link_type/long_link_phrase:298
 #: DB:link_type/long_link_phrase:294
 msgid "{additional:additionally} arranged {vocal:%|vocals} on"
-msgstr ""
-
-#: DB:link_type/reverse_link_phrase:101
-msgid "{additional:additionally} catalogued"
-msgstr ""
-
-#: DB:link_type/link_phrase:101
-msgid "{additional:additionally} catalogued by"
 msgstr ""
 
 #: DB:link_type/link_phrase:55 DB:link_type/link_phrase:168
@@ -3756,8 +3734,7 @@ msgstr "{additional:zusätzliche} Design/Illustrationen"
 msgid "{additional} graphic design"
 msgstr "{additional:zusätzliches} Grafikdesign"
 
-#: DB:link_type/link_phrase:131 DB:link_type/link_phrase:24
-#: DB:link_type/reverse_link_phrase:131 DB:link_type/reverse_link_phrase:24
+#: DB:link_type/link_phrase:24 DB:link_type/reverse_link_phrase:24
 msgid "{additional} liner notes"
 msgstr "{additional:zusätzliche} Covertexte"
 

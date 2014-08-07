@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-07-10 00:01+0000\n"
+"PO-Revision-Date: 2014-08-07 20:42+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -907,7 +907,7 @@ msgid ""
 "is an EP rather than a single."
 msgstr "Dit geeft aan dat de uitgavegroep die bij een andere uitgavegroep hoort geen single maar een EP is."
 
-#: DB:link_type/description:282 DB:link_type/description:293
+#: DB:link_type/description:293 DB:link_type/description:282
 #: DB:link_type/description:295 DB:link_type/description:297
 #: DB:link_type/description:296 DB:link_type/description:298
 #: DB:link_type/description:158 DB:link_type/description:41
@@ -1006,12 +1006,6 @@ msgid ""
 "other, it is more appropriate to credit this person as a <a "
 "href=\"/relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\">DJ-mixer</a>."
 msgstr "Geeft de persoon aan die de opnames selecteerde en de volgorde bepaalde voor een verzamelalbum. Dit is van toepassing op een lang nummer dat meerdere nummers bevat. Als de opnames in elkaar overlopen kan deze persoon beter als <a href=\"/relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\">Mix-DJ</a> worden beschreven."
-
-#: DB:link_type/description:98
-msgid ""
-"This indicates the recording studio where at least part of this release "
-"group was recorded."
-msgstr "Dit geeft een opnamestudio aan waar ten minste een deel van deze uitgavegroep is opgenomen."
 
 #: DB:link_type/description:349
 msgid ""
@@ -1187,9 +1181,9 @@ msgstr "Dit wordt gebruikt om aan te geven dat een <a href=\"/doc/Artist\" title
 
 #: DB:link_type/description:429
 msgid ""
-"This link is used to associate an artist or label with their page on a "
-"social networking site such as Facebook or Twitter"
-msgstr "Dit wordt gebruikt om een artiest of platenmaatschappij te koppelen met hun pagina op een sociale netwerksite zoals Facebook of Twitter."
+"This link is used to associate a place with its page on a social networking "
+"site such as Facebook or Twitter"
+msgstr ""
 
 #: DB:link_type/description:288
 msgid ""
@@ -1479,12 +1473,12 @@ msgstr "Dit koppelt twee <a href=\"/doc/Work\" title=\"Work\">composities</a>, w
 #: DB:link_type/description:6
 msgid ""
 "This links two releases, where one is a <a "
-"href=\"/doc/Mix_Terminology#remaster\">remaster</a> of the other.​ This is "
+"href=\"/doc/Mix_Terminology#remaster\">remaster</a> of the other. This is "
 "usually done to improve the audio quality or to adjust for more modern "
 "playback equipment. The process generally doesn't involve changing the music"
 " in any artistically important way. It may, however, result in recordings "
 "that differ in length by a few seconds."
-msgstr "Dit koppelt twee uitgaves, waarbij de ene een <a href=\"/doc/Mix_Terminology#remaster\">remaster</a> is van de andere. Dit wordt meestal gedaan om de geluidskwaliteit te verbeteren of om het geluid aan te passen aan moderne afspeelapparatuur. Bij dit proces wordt de muziek meestal niet op een artistiek belangrijke manier veranderd. Het kan er wel voor zorgen dat de opnames een paar seconden in lengte verschillen."
+msgstr ""
 
 #: DB:link_type/description:110
 msgid "This links two siblings (brothers or sisters)."
@@ -1613,12 +1607,6 @@ msgid ""
 "relationship type."
 msgstr "Deze relatie wordt gebruikt om een compositie te koppelen aan de artiest die verantwoordelijk is voor het schrijven van de muziek en/of de teksten op de uitgave, als er geen specifiekere informatie beschikbaar is. Gebruik als het bekend is de specifiekere relaties voor componist, tekstschrijver of librettist in plaats van deze relatie."
 
-#: DB:link_type/description:101
-msgid ""
-"This relationship is used to link an artist to a person who has compiled a "
-"catalogue of that artist's works."
-msgstr "Deze relatie wordt gebruikt om een artiest aan een persoon te koppelen die een catalogus van de composities van de artiest heeft opgesteld."
-
 #: DB:link_type/description:729
 msgid ""
 "This relationship links the release of a show's episode (for example a "
@@ -1629,16 +1617,16 @@ msgstr "Deze relatie koppelt een uitgave van een aflevering van een show (bijvoo
 msgid ""
 "This relationship specifies that an artist is a <a "
 "href=\"http://en.wikipedia.org/wiki/Tribute_act\">tribute</a> to another "
-"specific artist/band; that is, it primarily performs covers of that artist.​"
-" They may also be referred to as cover bands. Some tribute artists may name "
+"specific artist/band; that is, it primarily performs covers of that artist. "
+"They may also be referred to as cover bands. Some tribute artists may name "
 "themselves, dress, and/or act similarly to the artists they pay tribute to."
-msgstr "Deze relatie geeft aan dat een artiest een <a href=\"http://en.wikipedia.org/wiki/Tribute_act\">hommage</a> aan een andere specifieke artiest/band is. De artiest speelt voornamelijk covers van die artiest. Ze worden ook wel cover bands genoemd. Sommige tribute artiesten noemen, kleden of gedragen zich op een vergelijkbare manier als de artiesten aan wie ze een hommage brengen."
+msgstr ""
 
 #: DB:link_type/description:462
 msgid ""
-"This relationship type can be used to link a MusicBrainz artist to the "
+"This relationship type can be used to link a MusicBrainz place to the "
 "equivalent entry in Myspace."
-msgstr "Deze relatie kan gebruikt worden om een artiest op MusicBrainz te koppelen aan de overeenkomstige pagina op Myspace."
+msgstr ""
 
 #: DB:link_type/description:116
 msgid ""
@@ -1652,10 +1640,10 @@ msgstr "Deze relatie kan worden gebruikt om een plaats te koppelen aan zijn webl
 
 #: DB:link_type/description:528
 msgid ""
-"This relationship type can be used to link an artist to the equivalent entry"
-" in YouTube. URLs should follow the format "
+"This relationship type can be used to link a place to the equivalent entry "
+"in YouTube. URLs should follow the format "
 "http://www.youtube.com/user/<username>"
-msgstr "Dit relatietype kan worden gebruikt om een artiest aan de overeenkomstige pagina op YouTube te koppelen. URL's moeten de opmaak http://www.youtube.com/user/<username> hebben."
+msgstr ""
 
 #: DB:link_type/description:258
 msgid ""
@@ -1706,12 +1694,6 @@ msgstr "Deze type relatie is <strong>verouderd</strong>! Upload afbeeldingen op 
 #: DB:link_type/description:270
 msgid "This relationship type is <strong>deprecated</strong>."
 msgstr "Dit relatietype is <strong>verouderd</strong>."
-
-#: DB:link_type/description:131
-msgid ""
-"This relationship type is <strong>deprecated</strong>. Add liner notes info "
-"on the release level."
-msgstr "Dit relatietype is <strong>verouderd</strong>. Voeg relaties voor boekteksten in op uitgaveniveau."
 
 #: DB:link_type/description:15
 msgid ""
@@ -1784,10 +1766,10 @@ msgstr "Dit relatietype koppelt een uitgave aan de overeenkomstige pagina op <a 
 
 #: DB:link_type/description:191
 msgid ""
-"This relationship type links an artist to its corresponding page <a "
+"This relationship type links an artist to its corresponding page at <a "
 "href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated"
 " to cataloguing the music of video games and anime."
-msgstr "Dit relatietype koppelt een artiest aan de overeenkomstige pagina op <a href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is een gemeenschappelijk project dat is toegewijd aan het catalogiseren van muziek uit computerspellen en anime."
+msgstr ""
 
 #: DB:link_type/description:189
 msgid "This relationship type links an artist to their Myspace page."
@@ -1799,6 +1781,11 @@ msgid ""
 "online community is a web site providing information, music, and/or news, "
 "and may act as an unofficial homepage for an entity."
 msgstr "Dit relatietype koppelt een artiest aan zijn online gemeenschapspagina's. Een online gemeenschap is een internetpagina met informatie, muziek en/of nieuws, en kan een onofficiële thuispagina van een object zijn."
+
+#: DB:link_type/description:752
+msgid ""
+"This relationship type links instruments to the areas they originate from."
+msgstr ""
 
 #: DB:link_attribute_type/description:596
 msgid ""
@@ -1897,7 +1884,7 @@ msgstr "aanvullend"
 
 #: DB:link_attribute_type/description:5 DB:link_attribute_type/name:5
 msgid "alto vocals"
-msgstr "alt"
+msgstr "altvocalen"
 
 #: DB:link_type/link_phrase:357
 msgid "anthem"
@@ -1938,15 +1925,15 @@ msgstr "achtergrondvocalen"
 
 #: DB:link_attribute_type/description:6 DB:link_attribute_type/name:6
 msgid "baritone vocals"
-msgstr "bariton"
+msgstr "baritonvocalen"
 
 #: DB:link_attribute_type/description:7 DB:link_attribute_type/name:7
 msgid "bass vocals"
-msgstr "bas"
+msgstr "basvocalen"
 
 #: DB:link_attribute_type/description:231 DB:link_attribute_type/name:231
 msgid "bass-baritone vocals"
-msgstr "bas-bariton"
+msgstr "bas-baritonvocalen"
 
 #: DB:link_type/link_phrase:182
 msgid "biographies"
@@ -2094,7 +2081,7 @@ msgstr "contract"
 
 #: DB:link_attribute_type/description:230 DB:link_attribute_type/name:230
 msgid "contralto vocals"
-msgstr "contralto"
+msgstr "contraltovocalen"
 
 #: DB:link_type/reverse_link_phrase:708 DB:link_type/reverse_link_phrase:709
 msgid "copyrighted by"
@@ -2102,7 +2089,7 @@ msgstr "auteursrecht gedeponeerd door"
 
 #: DB:link_attribute_type/description:8 DB:link_attribute_type/name:8
 msgid "countertenor vocals"
-msgstr "contratenor"
+msgstr "contratenorvocalen"
 
 #: DB:link_attribute_type/name:567
 msgid "cover"
@@ -2265,6 +2252,10 @@ msgstr "gratis muziekstreampagina van"
 #: DB:link_type/reverse_link_phrase:85 DB:link_type/reverse_link_phrase:268
 msgid "free music {video} streaming page for"
 msgstr "gratis muziek{video} streamingpagina van"
+
+#: DB:link_type/reverse_link_phrase:752
+msgid "from"
+msgstr ""
 
 #: DB:link_type/link_phrase:257 DB:link_type/link_phrase:73
 #: DB:link_type/link_phrase:187 DB:link_type/reverse_link_phrase:257
@@ -2533,6 +2524,10 @@ msgstr "heeft broer(s) of zus(sen)"
 msgid "has subtype"
 msgstr "heeft subtype"
 
+#: DB:link_type/long_link_phrase:752
+msgid "has traditional instrument"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:65
 msgid "has tribute album(s)"
 msgstr "heeft hommage-album(s)"
@@ -2601,6 +2596,10 @@ msgstr "informatiepagina"
 #: DB:link_attribute_type/name:580
 msgid "instrumental"
 msgstr "instrumentaal"
+
+#: DB:link_type/link_phrase:752
+msgid "instruments"
+msgstr ""
 
 #: DB:link_type/reverse_link_phrase:707
 msgid "interview with"
@@ -2671,7 +2670,7 @@ msgstr "is een hommage aan"
 msgid ""
 "is a {live} {medley:medley including a} {partial} {instrumental} {cover} "
 "recording of"
-msgstr "is een {live:live} {medley:medley met een} {partial:gedeeltelijke} {instrumental:instrumentale} {cover:cover} opname van"
+msgstr "is een {live:live-}{medley:medley met een }{partial:gedeeltelijke }{instrumental:instrumentale }{cover:cover-}opname van"
 
 #: DB:link_type/long_link_phrase:15
 msgid "is a {translated} {parody} cover of"
@@ -2765,7 +2764,7 @@ msgstr "is/was {additional:aanvullend|een} lid van {founder:en oprichter van|}"
 msgid ""
 "is/was {assistant:an|a} {assistant} {principal} {guest} conductor {emeritus}"
 " for"
-msgstr "is/was {assistant:een|een} {assistant:assisterend} {emeritus:emeritus} {principal:hoofd} {guest:gast}dirigent van"
+msgstr "is/was {assistant:een|een} {assistant:assisterend} {emeritus:emeritus} {principal:hoofd}{guest:gast}dirigent van"
 
 #: DB:link_type/reverse_link_phrase:226
 msgid "karaoke version of"
@@ -2936,7 +2935,7 @@ msgstr "medley van"
 
 #: DB:link_attribute_type/description:9 DB:link_attribute_type/name:9
 msgid "mezzo-soprano vocals"
-msgstr "mezzo-sopraan"
+msgstr "mezzo-sopraanvocalen"
 
 #: DB:link_attribute_type/name:2
 msgid "minor"
@@ -3096,7 +3095,7 @@ msgstr "treedt op als {additional:aanvullend} koordirigent op"
 
 #: DB:link_type/long_link_phrase:44 DB:link_type/long_link_phrase:148
 msgid "performed {additional} {guest} {solo} {instrument:%|instruments} on"
-msgstr "speelde {additional:aanvullend} {guest:gast} {solo:solo} {instrument:%|instrumenten} op"
+msgstr "speelde {additional:aanvullend} {guest:gast} {solo:solo} {instrument:%|instrument} op"
 
 #: DB:link_type/long_link_phrase:60
 msgid "performed {additional} {guest} {solo} {vocal} {vocal:|vocals} on"
@@ -3173,13 +3172,11 @@ msgid "producers"
 msgstr "producenten"
 
 #: DB:link_type/link_phrase:256 DB:link_type/link_phrase:160
-#: DB:link_type/link_phrase:59 DB:link_type/link_phrase:87
-#: DB:link_type/link_phrase:72 DB:link_type/reverse_link_phrase:256
-#: DB:link_type/reverse_link_phrase:160 DB:link_type/reverse_link_phrase:59
-#: DB:link_type/reverse_link_phrase:87 DB:link_type/reverse_link_phrase:72
+#: DB:link_type/link_phrase:59 DB:link_type/link_phrase:72
+#: DB:link_type/reverse_link_phrase:256 DB:link_type/reverse_link_phrase:160
+#: DB:link_type/reverse_link_phrase:59 DB:link_type/reverse_link_phrase:72
 #: DB:link_type/long_link_phrase:256 DB:link_type/long_link_phrase:160
-#: DB:link_type/long_link_phrase:59 DB:link_type/long_link_phrase:87
-#: DB:link_type/long_link_phrase:72
+#: DB:link_type/long_link_phrase:59 DB:link_type/long_link_phrase:72
 msgid "production"
 msgstr "productie"
 
@@ -3274,10 +3271,6 @@ msgstr "opnametechnici"
 #: DB:link_type/link_phrase:695 DB:link_type/link_phrase:693
 msgid "recording location for"
 msgstr "opnamelocatie van"
-
-#: DB:link_type/link_phrase:98 DB:link_type/reverse_link_phrase:98
-msgid "recording studio"
-msgstr "opnamestudio"
 
 #: DB:link_type/reverse_link_phrase:244 DB:link_type/reverse_link_phrase:239
 msgid "referred to in medleys"
@@ -3404,7 +3397,7 @@ msgstr "solo"
 
 #: DB:link_attribute_type/description:10 DB:link_attribute_type/name:10
 msgid "soprano vocals"
-msgstr "sopraan"
+msgstr "sopraanvocalen"
 
 #: DB:link_attribute_type/name:561
 msgid "spoken vocals"
@@ -3456,7 +3449,7 @@ msgstr "ondersteunend {instrument:instrument} voor"
 
 #: DB:link_attribute_type/description:11 DB:link_attribute_type/name:11
 msgid "tenor vocals"
-msgstr "tenor"
+msgstr "tenorvocalen"
 
 #: DB:link_attribute_type/name:517
 msgid "translated"
@@ -3516,10 +3509,6 @@ msgstr "stem van"
 msgid "voiced by"
 msgstr "ingesproken door"
 
-#: DB:link_type/long_link_phrase:98
-msgid "was recorded by studio at"
-msgstr "werd opgenomen door de studio op"
-
 #: DB:link_type/long_link_phrase:3
 msgid "was released in support of"
 msgstr "werd uitgebracht als ondersteuning van"
@@ -3540,10 +3529,6 @@ msgstr "was de mixlocatie van"
 #: DB:link_type/long_link_phrase:695 DB:link_type/long_link_phrase:693
 msgid "was the recording location for"
 msgstr "was de opnamelocatie van"
-
-#: DB:link_type/long_link_phrase:101
-msgid "was {additional:additionally} catalogued by"
-msgstr "is {additional:aanvullend} gecatalogiseerd door"
 
 #: DB:link_type/description:733
 msgid "wikidata"
@@ -3569,7 +3554,7 @@ msgstr "werkt als opnametechnicus bij"
 msgid "works as an engineer at"
 msgstr "werkt als technicus bij"
 
-#: DB:link_type/long_link_phrase:131 DB:link_type/long_link_phrase:24
+#: DB:link_type/long_link_phrase:24
 msgid "wrote {additional} liner notes for"
 msgstr "schreef {additional:aanvullend} het boekje van"
 
@@ -3592,14 +3577,6 @@ msgstr "arrangeerde {additional:aanvullende} {instrument:%|instrumenten} op"
 #: DB:link_type/long_link_phrase:294
 msgid "{additional:additionally} arranged {vocal:%|vocals} on"
 msgstr "arrangeerde {additional:aanvullende} {vocal:%|vocalen} op"
-
-#: DB:link_type/reverse_link_phrase:101
-msgid "{additional:additionally} catalogued"
-msgstr "catalogiseerde {additional:aanvullend}"
-
-#: DB:link_type/link_phrase:101
-msgid "{additional:additionally} catalogued by"
-msgstr "{additional:aanvullend} gecatalogiseerd door"
 
 #: DB:link_type/link_phrase:55 DB:link_type/link_phrase:168
 #: DB:link_type/long_link_phrase:55 DB:link_type/long_link_phrase:168
@@ -3694,7 +3671,7 @@ msgstr "werkte als {associate:partner} {additional:aanvullend} {assistant:assist
 msgid ""
 "{additional:additionally} {assistant} {associate} "
 "{co:co-}{executive:executive }produced"
-msgstr "{additional:aanvullend} {assistant:assisterend} {associate:partner-} {executive:leidinggevende} {co:co-}producent"
+msgstr "is {additional:aanvullend} {assistant:assisterend} {associate:partner-} {executive:leidinggevende} {co:co-}producent van"
 
 #: DB:link_type/link_phrase:51 DB:link_type/link_phrase:156
 #: DB:link_type/long_link_phrase:51 DB:link_type/long_link_phrase:156
@@ -3758,8 +3735,7 @@ msgstr "{additional:aanvullend} ontwerp/illustratie"
 msgid "{additional} graphic design"
 msgstr "{additional:aanvullend} grafisch ontwerp"
 
-#: DB:link_type/link_phrase:131 DB:link_type/link_phrase:24
-#: DB:link_type/reverse_link_phrase:131 DB:link_type/reverse_link_phrase:24
+#: DB:link_type/link_phrase:24 DB:link_type/reverse_link_phrase:24
 msgid "{additional} liner notes"
 msgstr "{additional:aanvullende} boektekst"
 
@@ -3888,7 +3864,7 @@ msgstr "{additional:aanvullend} {translated:vertaalde} liedtekst"
 #: DB:link_type/reverse_link_phrase:296 DB:link_type/reverse_link_phrase:298
 #: DB:link_type/reverse_link_phrase:294
 msgid "{additional} {vocal:%|vocals} arranger"
-msgstr "{additional:aanvullend} {vocal:%|vocals:vocalen} arrangeur"
+msgstr "{additional:aanvullend} {vocal:%|vocaal} arrangeur"
 
 #: DB:link_type/reverse_link_phrase:305
 msgid "{assistant} {principal} {guest} conductor {emeritus}"
@@ -3936,8 +3912,8 @@ msgstr "{video} kan gratis gestreamd worden op"
 
 #: DB:link_type/reverse_link_phrase:107
 msgid "{vocal:%|vocals} support by"
-msgstr "{vocal:%|vocals:vocale} ondersteuning door"
+msgstr "{vocal:%|vocale} ondersteuning door"
 
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
-msgstr "{vocal:%|vocals:vocale} ondersteuning voor"
+msgstr "{vocal:%|vocale} ondersteuning voor"

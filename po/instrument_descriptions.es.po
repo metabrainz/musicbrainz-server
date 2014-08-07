@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-06-10 16:59+0000\n"
+"PO-Revision-Date: 2014-08-07 20:42+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -46,6 +46,12 @@ msgid ""
 "inverted metal bowls."
 msgstr ""
 
+#: DB:instrument/description:153
+msgid ""
+"A bullroarer consists of a piece of wood attached to a long cord which is "
+"then swung in a circle."
+msgstr ""
+
 #: DB:instrument/description:471
 msgid "A chamber organ is a small pipe organ."
 msgstr ""
@@ -69,6 +75,10 @@ msgstr ""
 msgid "A classical guitar strung with nylon strings."
 msgstr ""
 
+#: DB:instrument/description:658
+msgid "A cylindrical drum is a straight-sided and generally two-headed drum."
+msgstr ""
+
 #: DB:instrument/description:469
 msgid ""
 "A descant or soprano recorder is the most common size of recorder and is "
@@ -87,6 +97,10 @@ msgstr ""
 
 #: DB:instrument/description:523
 msgid "A five-string banjo is a banjo with five strings."
+msgstr ""
+
+#: DB:instrument/description:656
+msgid "A four-string banjo is a banjo with four strings."
 msgstr ""
 
 #: DB:instrument/description:639
@@ -136,6 +150,12 @@ msgid ""
 " chambers fitted with a free reed."
 msgstr ""
 
+#: DB:instrument/description:145
+msgid ""
+"A musical saw is a hand saw used as a musical instrument. It is usually "
+"played by bowing the non-serrated edge."
+msgstr ""
+
 #: DB:instrument/description:504
 msgid ""
 "A piano whose strings are bowed, using nylon filament or other materials"
@@ -150,6 +170,12 @@ msgid ""
 "A prepared piano is a piano that has had its sound altered by placing "
 "objects (preparations) between or on the strings or on the hammers or "
 "dampers."
+msgstr ""
+
+#: DB:instrument/description:366
+msgid ""
+"A slit drum is a hollow percussion instrument made of wood or bamboo with a "
+"slit at the top."
 msgstr ""
 
 #: DB:instrument/description:147
@@ -169,6 +195,11 @@ msgstr ""
 #: DB:instrument/description:607
 msgid ""
 "A tar is a single-headed frame drum from North Africa and the Middle East."
+msgstr ""
+
+#: DB:instrument/description:657
+msgid ""
+"A tenor banjo is a four-string banjo with tenor tuning, usually C G D A."
 msgstr ""
 
 #: DB:instrument/description:615
@@ -195,6 +226,12 @@ msgstr ""
 msgid ""
 "A valveless trumpet, in the model of the ones from the 16th to 18th "
 "centuries"
+msgstr ""
+
+#: DB:instrument/description:650
+msgid ""
+"A vessel flute is a type of flute with an enclosed rather than cylindrical "
+"body."
 msgstr ""
 
 #: DB:instrument/description:595
@@ -229,6 +266,18 @@ msgstr ""
 msgid "An Irish/Scottish harp."
 msgstr ""
 
+#: DB:instrument/description:654
+msgid ""
+"An archtop guitar is a steel-stringed acoustic or semi-acoustic guitar with "
+"a distinctive arched top, which is particularly popular with jazz players."
+msgstr ""
+
+#: DB:instrument/description:674
+msgid ""
+"An idiophone is a musical instrument which creates sound by the instrument "
+"as a whole vibrating without the use of strings or membranes."
+msgstr ""
+
 #: DB:instrument/description:428
 msgid ""
 "Bagpipes played by pumping air into a bellow and then from the bellow into "
@@ -239,13 +288,13 @@ msgstr ""
 msgid "Balafon, Malian 'gourd xylophone'"
 msgstr ""
 
-#: DB:instrument/description:394
-msgid "Bandura, modern day Ukraininan zither"
-msgstr "Bandura, cítara ucraniana actual."
-
 #: DB:instrument/description:393
-msgid "Bandura, ukrainian 14th century lute"
-msgstr "Bandura, laúd ucraniano del siglo XIV"
+msgid "Bandura, Ukrainian 14th century lute"
+msgstr ""
+
+#: DB:instrument/description:394
+msgid "Bandura, modern day Ukrainian zither"
+msgstr ""
 
 #: DB:instrument/description:207
 msgid "Bass (modern, typically electrical, but not always)"
@@ -305,12 +354,12 @@ msgstr ""
 msgid "Dobro, resonator guitar"
 msgstr ""
 
-#: DB:instrument/description:399
-msgid "Dohol, traditional Iranian drum"
-msgstr ""
-
 #: DB:instrument/description:535
 msgid "Double headed drum from India."
+msgstr ""
+
+#: DB:instrument/description:659
+msgid "Dunun is a family of West African cylindrical drums."
 msgstr ""
 
 #: DB:instrument/description:441
@@ -380,6 +429,18 @@ msgstr ""
 msgid ""
 "Keyed brass instruments use holes along the body of the instrument in a "
 "similar way to a woodwind instrument."
+msgstr ""
+
+#: DB:instrument/description:673
+msgid ""
+"Klong that are large barrel drums from Thailand. They are played in a pair "
+"using wooden sticks and are used in the piphat ensemble."
+msgstr ""
+
+#: DB:instrument/description:652
+msgid ""
+"Krakebs are large metal castanet-like instruments which are the primary "
+"rhythmic component of Gnawa music."
 msgstr ""
 
 #: DB:instrument/description:632
@@ -499,6 +560,10 @@ msgid ""
 "block. The sound produced is used to keep time."
 msgstr ""
 
+#: DB:instrument/description:667
+msgid "Pi is a family of quadruple reed oboes from Thailand."
+msgstr ""
+
 #: DB:instrument/description:339
 msgid "Pí thiu or Pí khui vertical flute"
 msgstr ""
@@ -533,8 +598,10 @@ msgid ""
 " electric guitar"
 msgstr ""
 
-#: DB:instrument/description:366
-msgid "Slit drum, hollowed out tree with slits"
+#: DB:instrument/description:675
+msgid ""
+"Struck idiophones are idiophones where the sound is created by the "
+"instrument being struck. These are the most common type of idiophone."
 msgstr ""
 
 #: DB:instrument/description:391
@@ -563,6 +630,12 @@ msgstr ""
 
 #: DB:instrument/description:561
 msgid "The Lyricon is an electronic wind instrument."
+msgstr ""
+
+#: DB:instrument/description:664
+msgid ""
+"The Paraguayan harp is a 32-48-string diatonic harp used in Paraguay and "
+"Venezuela."
 msgstr ""
 
 #: DB:instrument/description:647
@@ -707,6 +780,12 @@ msgstr ""
 
 #: DB:instrument/description:528
 msgid "The bulbul tarang is a string instrument from India and Pakistan."
+msgstr ""
+
+#: DB:instrument/description:655
+msgid ""
+"The buzuq is a long-necked fretted lute related to the Greek bouzouki and "
+"Turkish saz which is associated with the music of Lebanon and Syria."
 msgstr ""
 
 #: DB:instrument/description:524
@@ -857,6 +936,10 @@ msgid ""
 "instrument."
 msgstr ""
 
+#: DB:instrument/description:399
+msgid "The dohol is a large cylindrical drum used in Iran and Afghanistan."
+msgstr ""
+
 #: DB:instrument/description:598
 msgid "The dombra is a long-necked lute from central Asia."
 msgstr ""
@@ -955,6 +1038,13 @@ msgid ""
 "which typically has 6 strings."
 msgstr ""
 
+#: DB:instrument/description:285
+msgid ""
+"The glass harmonica is an instrument made of a series of glass bowls mounted"
+" on a spindle which is then turned. It is played by touching the rims of the"
+" bowls with a finger."
+msgstr ""
+
 #: DB:instrument/description:582
 msgid ""
 "The gralla is a traditional Catalan double reed instrument in the oboe "
@@ -965,6 +1055,12 @@ msgstr ""
 msgid ""
 "The guitalele is a guitar-ukulele hybrid, combining the small size of a "
 "guitalele with the six strings of a classical guitar."
+msgstr ""
+
+#: DB:instrument/description:325
+msgid ""
+"The gumbri or sintir is a three-stringed skin-covered bass plucked lute from"
+" North Africa."
 msgstr ""
 
 #: DB:instrument/description:506
@@ -981,6 +1077,18 @@ msgstr ""
 
 #: DB:instrument/description:486
 msgid "The haegeum is a traditional Korean string instrument."
+msgstr ""
+
+#: DB:instrument/description:43
+msgid ""
+"The harmonica or blues harp is a type of mouth organ commonly found in "
+"blues, American folk, jazz, country and rock and roll music."
+msgstr ""
+
+#: DB:instrument/description:58
+msgid ""
+"The harp is a plucked string instrument consisting of multiple strings "
+"stretched across a vertical frame."
 msgstr ""
 
 #: DB:instrument/description:579
@@ -1063,6 +1171,12 @@ msgstr ""
 msgid "The khim is a hammered dulcimer from Thailand and Cambodia."
 msgstr ""
 
+#: DB:instrument/description:666
+msgid ""
+"The khlui is a vertical duct flute from Thailand which is generally made of "
+"bamboo."
+msgstr ""
+
 #: DB:instrument/description:621
 msgid ""
 "The khong wong is a gong circle consisting of a number of gongs in a "
@@ -1093,6 +1207,24 @@ msgstr ""
 msgid ""
 "The kkwaenggwari is a small flat brass gong, typically about 20cm in "
 "diameter, which is used primarily in the folk music of Korea."
+msgstr ""
+
+#: DB:instrument/description:671
+msgid ""
+"The klong khaek is a double-headed barrel drum from Thailand. The heads are "
+"different sizes."
+msgstr ""
+
+#: DB:instrument/description:672
+msgid ""
+"The klong song na is a barrel drum from Thailand. It is played with the "
+"hands and is used in the piphat ensemble."
+msgstr ""
+
+#: DB:instrument/description:670
+msgid ""
+"The klong yao is a goblet drum from Thailand which is usually decorated with"
+" a colourful skirt."
 msgstr ""
 
 #: DB:instrument/description:223
@@ -1139,6 +1271,12 @@ msgstr ""
 msgid ""
 "The kōauau is a small ductless and notchless Maori flute which is four to "
 "eight inches long and has three to six fingerholes placed along the pipe."
+msgstr ""
+
+#: DB:instrument/description:144
+msgid ""
+"The lasso d'amore, whirly tube or corrugaphone is a corrugated plastic tube "
+"which is spun in a circle."
 msgstr ""
 
 #: DB:instrument/description:518
@@ -1222,6 +1360,12 @@ msgid ""
 "European classical music."
 msgstr ""
 
+#: DB:instrument/description:15
+msgid ""
+"The ocarina is a type of vessel flute which has a mouthpiece extending from "
+"the body."
+msgstr ""
+
 #: DB:instrument/description:601
 msgid ""
 "The octave mandolin is a fretted string instrument with four pairs of "
@@ -1239,6 +1383,10 @@ msgstr ""
 msgid ""
 "The pedal piano is a kind of piano that includes a pedalboard, enabling bass"
 " register notes to be played with the feet, as is standard on the organ."
+msgstr ""
+
+#: DB:instrument/description:668
+msgid "The pi nai is a type of pi normally used in the piphat ensemble."
 msgstr ""
 
 #: DB:instrument/description:350
@@ -1281,6 +1429,12 @@ msgstr ""
 msgid ""
 "The ranat ek is a Thai xylophone which consists of 21 wooden bars suspended "
 "by cords over a boat-shaped trough resonator and struck by two mallets."
+msgstr ""
+
+#: DB:instrument/description:665
+msgid ""
+"The ranat kaeo is a Thai instrument similar to a xylophone consisting of "
+"glass bars of varying lengths."
 msgstr ""
 
 #: DB:instrument/description:620
@@ -1371,7 +1525,7 @@ msgstr ""
 #: DB:instrument/description:630
 msgid ""
 "The setar is a long-necked three-stringed lute found in Iran and Central "
-"asia."
+"Asia."
 msgstr ""
 
 #: DB:instrument/description:173
@@ -1458,6 +1612,12 @@ msgid ""
 "but no thumb-holes. It has a modal tuning."
 msgstr ""
 
+#: DB:instrument/description:653
+msgid ""
+"The steel-string guitar is a modern form of acoustic guitar that is strung "
+"with steel strings."
+msgstr ""
+
 #: DB:instrument/description:548
 msgid ""
 "The suona is a Chinese shawm frequently used in the folk music of northern "
@@ -1512,6 +1672,10 @@ msgid ""
 "played in Estonia."
 msgstr ""
 
+#: DB:instrument/description:669
+msgid "The taphon is a traditional barrel drum from Thailand."
+msgstr ""
+
 #: DB:instrument/description:467
 msgid ""
 "The tar is a long-necked, waisted lute found in Azerbaijan, Iran, Armenia, "
@@ -1523,6 +1687,10 @@ msgstr ""
 msgid ""
 "The taragot is a Turkish/Hungarian/Romanian reed instrument related to the "
 "saxophone and clarinet."
+msgstr ""
+
+#: DB:instrument/description:662
+msgid "The tenor trombone is a trombone pitched in B♭."
 msgstr ""
 
 #: DB:instrument/description:480
@@ -1544,6 +1712,12 @@ msgstr ""
 msgid ""
 "The tonkori is a plucked string instrument played by the Ainu of northern "
 "Japan and Sakhalin."
+msgstr ""
+
+#: DB:instrument/description:663
+msgid ""
+"The tromboon is an instrument created by attaching the reed of a bassoon to "
+"the body of a trombone."
 msgstr ""
 
 #: DB:instrument/description:305
@@ -1592,6 +1766,19 @@ msgid ""
 "The vichitra veena is a plucked string instrument used in Hindustani music."
 msgstr ""
 
+#: DB:instrument/description:660
+msgid ""
+"The viola caipira (or simply viola) is a steel-string guitar from Brazil "
+"which has ten strings in five courses."
+msgstr ""
+
+#: DB:instrument/description:661
+msgid ""
+"The violino piccolo is a stringed instrument of the baroque period. Most "
+"examples are similar to a child's size violin in size and are tuned a third "
+"or a fourth higher."
+msgstr ""
+
 #: DB:instrument/description:509
 msgid ""
 "The virginals is a smaller and simpler rectangular form of the harpsichord "
@@ -1606,6 +1793,11 @@ msgstr ""
 msgid ""
 "The xiaoluo is a Chinese small flat gong whose pitch rises when struck with "
 "the side of a flat wooden stick."
+msgstr ""
+
+#: DB:instrument/description:651
+msgid ""
+"The xun is a vessel flute from China which has a blowing hole at the top."
 msgstr ""
 
 #: DB:instrument/description:254
@@ -1741,11 +1933,6 @@ msgstr ""
 msgid "Theatre organ, such as the Wurlitzer"
 msgstr ""
 
-#: DB:instrument/description:325
-msgid ""
-"This is a three-stringed skin-covered bass plucked lute from North-Africa."
-msgstr ""
-
 #: DB:instrument/description:167
 msgid "Timpani (Kettle drum)"
 msgstr ""
@@ -1764,10 +1951,6 @@ msgstr ""
 
 #: DB:instrument/description:211
 msgid "Turkish three-stringed bowed instrument"
-msgstr ""
-
-#: DB:instrument/description:187
-msgid "Uilleann/Union/Irish pipes"
 msgstr ""
 
 #: DB:instrument/description:201
