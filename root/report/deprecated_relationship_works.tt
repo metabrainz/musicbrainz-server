@@ -1,6 +1,6 @@
 [%- WRAPPER 'layout.tt' title=l('Works with deprecated relationships') full_width=1 -%]
 
-<h1>[% l('Artists with deprecated relationships') %]</h1>
+<h1>[% l('Works with deprecated relationships') %]</h1>
 
 <ul>
     <li>[% l('This report lists works which have relationships using deprecated and grouping-only relationship types') -%]
