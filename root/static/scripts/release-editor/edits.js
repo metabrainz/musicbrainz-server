@@ -323,7 +323,7 @@
             var root = releaseEditor.rootField;
 
             return Array.prototype.concat(
-                releaseEditor.edits.releaseGroup(release),
+                releaseEditor.action === "add" ? releaseEditor.edits.releaseGroup(release) : [],
                 releaseEditor.edits.release(release),
                 releaseEditor.edits.releaseLabel(release),
                 releaseEditor.edits.medium(release),
@@ -358,7 +358,7 @@
         }
         function isNewEdit(edit) { return previews[edit.hash] === undefined }
 
-        ko.computed(function () {
+        utils.debounce(ko.computed(function () {
             var edits = releaseEditor.allEdits();
 
             if (releaseEditor.validation.errorsExist()) {
@@ -384,7 +384,7 @@
                 .always(function () {
                     releaseEditor.loadingEditPreviews(false);
                 });
-        });
+        }), 100);
     };
 
 
