@@ -1069,6 +1069,22 @@ MB.tests.URLCleanup.GuessType = function () {
                     'https://commons.wikimedia.org/wiki/File:Kimigayo.score.png',
                     'work'
                 ],
+                // Genius
+                [
+                    'http://genius.com/artists/Dramatik',
+                    'http://genius.com/artists/Dramatik',
+                    'artist'
+                ],
+                [
+                    'http://genius.com/albums/The-dream/Terius-nash-1977',
+                    'http://genius.com/albums/The-dream/Terius-nash-1977',
+                    'release_group'
+                ],
+                [
+                    'http://rock.genius.com/The-beatles-she-loves-you-lyrics',
+                    'http://rock.genius.com/The-beatles-she-loves-you-lyrics',
+                    'work'
+                ],
             ];
 
         $.each(tests, function (i, test) {

@@ -373,12 +373,14 @@ MB.constants.CLEANUPS = {
             new RegExp("^(https?://)?([^/]+\\.)?j-lyric\\.net", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?lyricsnmusic\\.com", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?muzikum\\.eu", "i"),
-            new RegExp("^(https?://)?([^/]+\\.)?rapgenius\\.com", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?genius\\.com", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?gutenberg\\.org", "i")
         ],
         type: MB.constants.LINK_TYPES.lyrics,
         clean: function (url) {
-            return url.replace(/^https:\/\/([a-z-]+\.)?wikisource\.org/, "http://$1wikisource.org");
+            url = url.replace(/^https:\/\/([a-z-]+\.)?wikisource\.org/, "http://$1wikisource.org");
+            url = url.replace(/^https?:\/\/(?:.+\.)?genius\.com/, "http://$1genius.com");
+            return url;
         }
     },
     bbcmusic: {

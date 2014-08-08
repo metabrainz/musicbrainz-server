@@ -51,8 +51,7 @@ use constant FAVICON_CLASSES => {
     'soundtrackcollector.com'   => 'STcollector',
     'wikidata.org'              => 'wikidata',
     'recmusic.org/lieder'       => 'lieder',
-    'rock.rapgenius.com'        => 'rockgenius',
-    'http://rapgenius.com'      => 'rapgenius',
+    'genius.com'                => 'genius',
     'imvdb.com'                 => 'imvdb',
     'residentadvisor.net'       => 'residentadvisor',
 };
