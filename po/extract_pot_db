@@ -69,7 +69,7 @@ my @DBDEFS = (
               {'domain' => 'attributes', 'table' => 'work_attribute_type_allowed_value', columns => ['value', 'description'], ctx => 'NULL'},
               {'domain' => 'attributes', 'table' => 'series_type', columns => ['name', 'description'], ctx => 'NULL'},
               {'domain' => 'attributes', 'table' => 'series_ordering_type', columns => ['name', 'description'], ctx => 'NULL'},
-              {'domain' => 'attributes', 'table' => 'editor_collection_type', columns => ['name', 'description'], ctx => 'NULL'},
+              {'domain' => 'attributes', 'table' => 'editor_collection_type', columns => ['name', 'description'], ctx => 'NULL', 'ctxtable' => 'collection_type'},
               {'domain' => 'relationships', 'table' => 'link_attribute_type', 'columns' => ['description', 'name'], 'where' => 'root != 14'},
               {'domain' => 'relationships', 'table' => 'link_type', 'columns' => ['description', 'link_phrase', 'reverse_link_phrase', 'long_link_phrase']},
               {'domain' => 'instruments', 'table' => 'instrument', 'columns' => ['name']},
