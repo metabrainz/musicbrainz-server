@@ -72,7 +72,7 @@ my @DBDEFS = (
               {'domain' => 'relationships', 'table' => 'link_attribute_type', 'columns' => ['description', 'name'], 'where' => 'root != 14'},
               {'domain' => 'relationships', 'table' => 'link_type', 'columns' => ['description', 'link_phrase', 'reverse_link_phrase', 'long_link_phrase']},
               {'domain' => 'instruments', 'table' => 'instrument', 'columns' => ['name'], 'ctx' => 'comment'},
-              {'domain' => 'instrument_descriptions', 'table' => 'instrument', 'columns' => ['description'], 'ctx' => 'comment', comment => ['name']}
+              {'domain' => 'instrument_descriptions', 'table' => 'instrument', 'columns' => ['description'], comment => ['name']}
              );
 my @po_objects = map { parse_db($_); } grep { $_->{domain} eq $domain } @DBDEFS;
 
