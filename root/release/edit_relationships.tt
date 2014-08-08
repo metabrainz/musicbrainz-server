@@ -75,6 +75,10 @@
         </tbody>
       </table>
 
+      <p data-bind="if: loadingRelease">
+        <span class="loading-message">[% l('Loading...') %]</span>
+      </p>
+
       <h2>[% l('Release Relationships') %]</h2>
 
       <div id="release-rels" class="ars">
