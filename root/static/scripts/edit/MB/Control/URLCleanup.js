@@ -379,7 +379,7 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.lyrics,
         clean: function (url) {
             url = url.replace(/^https:\/\/([a-z-]+\.)?wikisource\.org/, "http://$1wikisource.org");
-            url = url.replace(/^https?:\/\/(?:.+\.)?genius\.com/, "http://$1genius.com");
+            url = url.replace(/^https?:\/\/(.+\.)?genius\.com/, "http://$1genius.com");
             return url;
         }
     },
