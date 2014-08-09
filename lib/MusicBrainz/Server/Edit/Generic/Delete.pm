@@ -72,7 +72,7 @@ sub build_display_data
     my $model = $self->_delete_model;
     my $entity_type = model_to_type($model);
     return {
-        $entity_type => $loaded->{$model}->{$self->data->{entity_id}} ||
+        entity => $loaded->{$model}->{$self->data->{entity_id}} ||
             $self->c->model($model)->_entity_class->new(
                 name => $self->data->{name}
             ),
