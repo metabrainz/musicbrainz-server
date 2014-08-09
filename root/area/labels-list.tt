@@ -11,7 +11,7 @@
   </thead>
   <tbody>
     [% FOR label IN labels %]
-    <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
+    <tr class="[% loop.parity %]">
       <td>
         [% descriptive_link(label) %]
       </td>

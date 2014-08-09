@@ -29,7 +29,7 @@ END -%]
             </thead>
             <tbody>
                 [% FOR token IN tokens %]
-                <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                <tr class="[% loop.parity %]">
                     <td>[% token.application.name %]</td>
                     <td>[% format_scopes(token) %]</td>
                     <td><a href="[% c.uri_for_action('/account/revoke_application_access', [ token.application_id, token.scope ]) %]">[% l('Revoke Access') %]</a></td>
@@ -60,7 +60,7 @@ END -%]
             </thead>
             <tbody>
                 [% FOR application IN applications %]
-                <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                <tr class="[% loop.parity %]">
                     <td>[% application.name %]</td>
                     <td>
                         [% IF application.oauth_redirect_uri %]

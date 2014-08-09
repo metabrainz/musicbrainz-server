@@ -32,7 +32,7 @@
       [% IF !lastkey.defined || lastkey != item.key %]
         <tr class="subh"><td colspan="4"></td></tr>
       [% END %]
-      <tr class="[% loop.index % 2 == 0 ? 'ev' : '' %]">
+      <tr class="[% loop.parity %]">
         <td>
           <input type="checkbox" name="add-to-merge"
                  value="[% item.artist.id %]" />
