@@ -71,8 +71,8 @@ my @DBDEFS = (
               {'domain' => 'attributes', 'table' => 'series_ordering_type', columns => ['name', 'description'], ctx => 'NULL'},
               {'domain' => 'relationships', 'table' => 'link_attribute_type', 'columns' => ['description', 'name'], 'where' => 'root != 14'},
               {'domain' => 'relationships', 'table' => 'link_type', 'columns' => ['description', 'link_phrase', 'reverse_link_phrase', 'long_link_phrase']},
-              {'domain' => 'instruments', 'table' => 'instrument', 'columns' => ['name']},
-              {'domain' => 'instrument_descriptions', 'table' => 'instrument', 'columns' => ['description']}
+              {'domain' => 'instruments', 'table' => 'instrument', 'columns' => ['name'], 'ctx' => 'comment'},
+              {'domain' => 'instrument_descriptions', 'table' => 'instrument', 'columns' => ['description'], comment => ['name']}
              );
 my @po_objects = map { parse_db($_); } grep { $_->{domain} eq $domain } @DBDEFS;
 
@@ -133,9 +133,7 @@ sub parse_db {
                        if ($ctx ne 'NULL') {
                            my $ctxt = shift @{$value};
                            if ($ctxt) {
-                               $po->msgctxt("$ctxtable:$ctxt");
-                           } else {
-                               $po->msgctxt("$ctxtable:$id");
+                               $po->msgctxt("$ctxt");
                            }
                        } else {
                            $po->msgctxt("$ctxtable");
