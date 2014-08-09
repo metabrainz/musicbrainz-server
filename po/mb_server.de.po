@@ -37,7 +37,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-07 13:40-0700\n"
+"POT-Creation-Date: 2014-08-09 13:40-0700\n"
 "PO-Revision-Date: 2014-08-07 20:42+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
@@ -820,12 +820,12 @@ msgstr "Örtlichkeitsalias hinzufügen"
 msgid "Add recording"
 msgstr "Aufnahme hinzufügen"
 
-#: ../root/release/edit_relationships.tt:216
+#: ../root/release/edit_relationships.tt:220
 msgid "Add related work"
 msgstr "Mit Werk verbinden"
 
 #: ../root/forms/relationship-editor.tt:11
-#: ../root/release/edit_relationships.tt:198
+#: ../root/release/edit_relationships.tt:202
 #: ../root/scripts/text_strings.tt:94
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddLink.pm:10
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:26
@@ -1120,7 +1120,7 @@ msgstr "Beim Laden dieser Bearbeitung ist ein Fehler aufgetreten."
 msgid "An error occured: "
 msgstr "Ein Fehler trat auf: "
 
-#: ../root/release/edit_relationships.tt:174
+#: ../root/release/edit_relationships.tt:178
 msgid "An error occurred while creating the works."
 msgstr "Beim Erstellen der Werke ist ein Fehler aufgetreten."
 
@@ -2858,7 +2858,7 @@ msgid "Edit Not Found"
 msgstr "Bearbeitung nicht gefunden"
 
 #: ../root/forms/edit-note.tt:2 ../root/release/edit/editnote.tt:27
-#: ../root/release/edit/layout.tt:18 ../root/release/edit_relationships.tt:96
+#: ../root/release/edit/layout.tt:18 ../root/release/edit_relationships.tt:100
 msgid "Edit Note"
 msgstr "Bearbeitungsbemerkung"
 
@@ -3299,7 +3299,7 @@ msgid "Enter a valid url e.g. \"http://google.com/\""
 msgstr "Gib eine gültige URL an, z.&#xa0;B. „http://google.com/“"
 
 #: ../root/components/forms.tt:51 ../root/release/add_cover_art.tt:142
-#: ../root/release/edit/layout.tt:63 ../root/release/edit_relationships.tt:103
+#: ../root/release/edit/layout.tt:63 ../root/release/edit_relationships.tt:107
 msgid "Enter edit"
 msgstr "Bearbeitung eingeben"
 
@@ -4446,6 +4446,7 @@ msgstr "Lade"
 msgid "Loading edit previews..."
 msgstr "Lade Bearbeitungsvorschauen …"
 
+#: ../root/release/edit_relationships.tt:79
 #: ../root/scripts/text_strings.tt:100
 msgid "Loading..."
 msgstr "Lade …"
@@ -4549,7 +4550,7 @@ msgstr "Benutzernamen vergessen"
 msgid "Low"
 msgstr "Niedrig"
 
-#: ../root/release/edit_relationships.tt:150 ../root/work/edit_form.tt:16
+#: ../root/release/edit_relationships.tt:154 ../root/work/edit_form.tt:16
 #: ../root/work/index.tt:4 ../root/work/layout.tt:14
 msgid "Lyrics Language:"
 msgstr "Liedtextsprache:"
@@ -5384,7 +5385,7 @@ msgid ""
 "{edit} or perhaps it has already been closed."
 msgstr "Nur der Benutzer, der eine Bearbeitung erstellt hat, kann sie auch wieder abbrechen. Entweder hast Du {edit} nicht erstellt oder vielleicht ist sie auch schon geschlossen worden."
 
-#: ../root/release/edit_relationships.tt:133
+#: ../root/release/edit_relationships.tt:137
 msgid ""
 "Only use this option after you’ve tried searching for the work(s) you want "
 "to create, and are certain they do not already exist on MusicBrainz."
@@ -6257,7 +6258,7 @@ msgstr "Veröffentlichungsgruppendetails"
 msgid "Release Group Not Found"
 msgstr "Veröffentlichungsgruppe nicht gefunden"
 
-#: ../root/release/edit_relationships.tt:84 ../root/release/index.tt:337
+#: ../root/release/edit_relationships.tt:88 ../root/release/index.tt:337
 msgid "Release Group Relationships"
 msgstr "Veröffentlichungsgruppenbeziehungen"
 
@@ -6300,7 +6301,7 @@ msgstr "Veröffentlichung nicht gefunden"
 msgid "Release Quality"
 msgstr "Veröffentlichungsqualität"
 
-#: ../root/release/edit_relationships.tt:78
+#: ../root/release/edit_relationships.tt:82
 msgid "Release Relationships"
 msgstr "Veröffentlichungsbeziehungen"
 
@@ -7677,8 +7678,8 @@ msgid "Submit votes &amp; edit notes"
 msgstr "Stimmen und Bearbeitungsbemerkungen abschicken"
 
 #: ../root/release/edit/editnote.tt:40
-#: ../root/release/edit_relationships.tt:107
-#: ../root/release/edit_relationships.tt:167
+#: ../root/release/edit_relationships.tt:111
+#: ../root/release/edit_relationships.tt:171
 msgid "Submitting edits..."
 msgstr "Übermittle Bearbeitungen …"
 
@@ -9151,15 +9152,15 @@ msgstr "Dieser Benutzer ist automatisiert."
 msgid "This user is new to MusicBrainz."
 msgstr "Dieser Benutzer ist neu in MusicBrainz."
 
-#: ../root/release/edit_relationships.tt:114
+#: ../root/release/edit_relationships.tt:118
 msgid "This will add a relationship to all checked recordings."
 msgstr "Dies fügt eine Beziehung zu allen ausgewählten Aufnahmen hinzu."
 
-#: ../root/release/edit_relationships.tt:117
+#: ../root/release/edit_relationships.tt:121
 msgid "This will add a relationship to all checked works."
 msgstr "Dies fügt eine Beziehung zu allen ausgewählten Werken hinzu."
 
-#: ../root/release/edit_relationships.tt:130
+#: ../root/release/edit_relationships.tt:134
 msgid ""
 "This will create a new work for each checked recording that has no work "
 "already. The work names will be the same as their respective recording."
@@ -10120,7 +10121,7 @@ msgstr "Werkdetails"
 msgid "Work Not Found"
 msgstr "Werk nicht gefunden"
 
-#: ../root/release/edit_relationships.tt:139
+#: ../root/release/edit_relationships.tt:143
 msgid "Work Type:"
 msgstr "Werktyp:"
 

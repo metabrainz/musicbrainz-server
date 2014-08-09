@@ -15,8 +15,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-08-07 20:42+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-08-08 01:20+0000\n"
+"Last-Translator: yahoe.001\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1189,7 +1189,7 @@ msgstr "Ceci est utilisé pour spécifier qu'un<a href=\"/doc/Artist\" title=\"A
 msgid ""
 "This link is used to associate a place with its page on a social networking "
 "site such as Facebook or Twitter"
-msgstr ""
+msgstr "Ce lien est utilisé pour associer un lieu à sa page sur un site de réseau social tel que Facebook ou Twitter."
 
 #: DB:link_type/description:288
 msgid ""
@@ -1484,7 +1484,7 @@ msgid ""
 "playback equipment. The process generally doesn't involve changing the music"
 " in any artistically important way. It may, however, result in recordings "
 "that differ in length by a few seconds."
-msgstr ""
+msgstr "Ceci relie deux parutions, l'une étant un <a href=\"/doc/Mix_Terminology#remaster\">rematriçage</a> de l'autre. On y procède habituellement pour améliorer la qualité audio ou pour l'ajuster à des équipement de reproduction plus modernes. Le processus n'implique généralement pas de changer la musique d'une façon artistique importante. Il est toutefois possible que les enregistrements soient plus longs de quelques secondes."
 
 #: DB:link_type/description:110
 msgid "This links two siblings (brothers or sisters)."
@@ -1626,13 +1626,13 @@ msgid ""
 "specific artist/band; that is, it primarily performs covers of that artist. "
 "They may also be referred to as cover bands. Some tribute artists may name "
 "themselves, dress, and/or act similarly to the artists they pay tribute to."
-msgstr ""
+msgstr "Cette relation spécifie qu'un artiste est un <a href=\"http://en.wikipedia.org/wiki/Tribute_act\">hommage</a> à un autre artiste spécifique/groupe ; c.-à-d. qu'il interprète principalement des reprises de cet artiste. On y réfère aussi comme groupe de reprise. Certains de ces artistes peuvent s'habiller et/ou se comporter comme les artistes auxquels ils rendent hommage."
 
 #: DB:link_type/description:462
 msgid ""
 "This relationship type can be used to link a MusicBrainz place to the "
 "equivalent entry in Myspace."
-msgstr ""
+msgstr "Ce type de relation peut être utilisé pour relier un lieu MusicBrainz à l'entrée équivalente de Myspace."
 
 #: DB:link_type/description:116
 msgid ""
@@ -1649,7 +1649,7 @@ msgid ""
 "This relationship type can be used to link a place to the equivalent entry "
 "in YouTube. URLs should follow the format "
 "http://www.youtube.com/user/<username>"
-msgstr ""
+msgstr "Ce type de relation peut être utilisé pour relier un lieu à l'entrée équivalente de YouTube. Les URL devraient être au format shttp://www.youtube.com/user/<username>"
 
 #: DB:link_type/description:258
 msgid ""
@@ -1761,21 +1761,21 @@ msgid ""
 "This relationship type links a label to its corresponding page at <a "
 "href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated"
 " to cataloguing the music of video games and anime."
-msgstr "Ce type de relation relie un label à sa page correspondante sur <a href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb est un projet communautaire dédié au catalogage de la musique des jeux vidéo et des dessins animés."
+msgstr "Ce type de relation relie un label à sa page correspondante sur <a href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb est un projet communautaire dédié au catalogage de la musique des jeux vidéo et des animes."
 
 #: DB:link_type/description:86
 msgid ""
 "This relationship type links a release to its corresponding page <a "
 "href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated"
 " to cataloguing the music of video games and anime."
-msgstr "Ce type de relation relie une parution à sa page correspondante sur <a href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb est un projet communautaire dédié au catalogage de la musique des jeux vidéo et des dessins animés."
+msgstr "Ce type de relation relie une parution à sa page correspondante sur <a href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb est un projet communautaire dédié au catalogage de la musique des jeux vidéo et des animes."
 
 #: DB:link_type/description:191
 msgid ""
 "This relationship type links an artist to its corresponding page at <a "
 "href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated"
 " to cataloguing the music of video games and anime."
-msgstr ""
+msgstr "Ce type de relation relie un artiste à sa page correspondante sur <a href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb est un projet communautaire dédié au catalogage de la musique des jeux vidéo et des animes."
 
 #: DB:link_type/description:189
 msgid "This relationship type links an artist to their Myspace page."
@@ -1791,7 +1791,7 @@ msgstr "Ce type de relation relie un artiste aux pages de sa communauté en lign
 #: DB:link_type/description:752
 msgid ""
 "This relationship type links instruments to the areas they originate from."
-msgstr ""
+msgstr "Ce type de relation relie les instruments aux régions dont ils proviennent."
 
 #: DB:link_attribute_type/description:596
 msgid ""
@@ -2261,7 +2261,7 @@ msgstr "page de diffusion musicale {video} en flux pour"
 
 #: DB:link_type/reverse_link_phrase:752
 msgid "from"
-msgstr ""
+msgstr "de"
 
 #: DB:link_type/link_phrase:257 DB:link_type/link_phrase:73
 #: DB:link_type/link_phrase:187 DB:link_type/reverse_link_phrase:257
@@ -2532,7 +2532,7 @@ msgstr "a un sous-type"
 
 #: DB:link_type/long_link_phrase:752
 msgid "has traditional instrument"
-msgstr ""
+msgstr "a un instrument traditionnel"
 
 #: DB:link_type/long_link_phrase:65
 msgid "has tribute album(s)"
@@ -2605,7 +2605,7 @@ msgstr "instrumental"
 
 #: DB:link_type/link_phrase:752
 msgid "instruments"
-msgstr ""
+msgstr "instruments"
 
 #: DB:link_type/reverse_link_phrase:707
 msgid "interview with"

@@ -21,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-07 13:40-0700\n"
-"PO-Revision-Date: 2014-08-07 20:42+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"POT-Creation-Date: 2014-08-09 13:40-0700\n"
+"PO-Revision-Date: 2014-08-09 14:27+0000\n"
+"Last-Translator: salorock <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -387,7 +387,7 @@ msgstr "È stata trovata una bozza CD che corrisponde all'ID disco che hai forni
 
 #: ../root/place/map.tt:5
 msgid "A map cannot be shown because this place has no coordinates."
-msgstr ""
+msgstr "Impossibile visualizzare una cartina poiché questo luogo non ha coordinate."
 
 #: ../root/release/collections.tt:18
 msgid "A private collection"
@@ -804,12 +804,12 @@ msgstr "Aggiungi alias al luogo"
 msgid "Add recording"
 msgstr "Aggiungi registrazione"
 
-#: ../root/release/edit_relationships.tt:216
+#: ../root/release/edit_relationships.tt:220
 msgid "Add related work"
 msgstr "Aggiungi opera collegata"
 
 #: ../root/forms/relationship-editor.tt:11
-#: ../root/release/edit_relationships.tt:198
+#: ../root/release/edit_relationships.tt:202
 #: ../root/scripts/text_strings.tt:94
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddLink.pm:10
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:26
@@ -1104,7 +1104,7 @@ msgstr "Si è verificato un errore durante il caricamento di questa modifica."
 msgid "An error occured: "
 msgstr "Si è verificato un errore: "
 
-#: ../root/release/edit_relationships.tt:174
+#: ../root/release/edit_relationships.tt:178
 msgid "An error occurred while creating the works."
 msgstr "Si è verificato un errore durante la creazione delle opere."
 
@@ -2842,7 +2842,7 @@ msgid "Edit Not Found"
 msgstr "Modifica non trovata"
 
 #: ../root/forms/edit-note.tt:2 ../root/release/edit/editnote.tt:27
-#: ../root/release/edit/layout.tt:18 ../root/release/edit_relationships.tt:96
+#: ../root/release/edit/layout.tt:18 ../root/release/edit_relationships.tt:100
 msgid "Edit Note"
 msgstr "Nota di modifica"
 
@@ -3283,7 +3283,7 @@ msgid "Enter a valid url e.g. \"http://google.com/\""
 msgstr "Inserisci un URL valido, ad es. \"http://google.com/\""
 
 #: ../root/components/forms.tt:51 ../root/release/add_cover_art.tt:142
-#: ../root/release/edit/layout.tt:63 ../root/release/edit_relationships.tt:103
+#: ../root/release/edit/layout.tt:63 ../root/release/edit_relationships.tt:107
 msgid "Enter edit"
 msgstr "Inserisci modifica"
 
@@ -4387,7 +4387,7 @@ msgstr "Utente limitato"
 
 #: ../root/release/edit/tracklist.tt:41
 msgid "Lines contain track artists"
-msgstr ""
+msgstr "Le righe contengono gli artisti delle tracce"
 
 #: ../root/release/edit/tracklist.tt:18
 msgid "Lines start with a track number"
@@ -4430,6 +4430,7 @@ msgstr "Caricamento in corso"
 msgid "Loading edit previews..."
 msgstr "Caricamento anteprima modifiche in corso..."
 
+#: ../root/release/edit_relationships.tt:79
 #: ../root/scripts/text_strings.tt:100
 msgid "Loading..."
 msgstr "Caricamento in corso..."
@@ -4533,7 +4534,7 @@ msgstr "Nome utente dimenticato"
 msgid "Low"
 msgstr "Bassa"
 
-#: ../root/release/edit_relationships.tt:150 ../root/work/edit_form.tt:16
+#: ../root/release/edit_relationships.tt:154 ../root/work/edit_form.tt:16
 #: ../root/work/index.tt:4 ../root/work/layout.tt:14
 msgid "Lyrics Language:"
 msgstr "Lingua del testo:"
@@ -4583,7 +4584,7 @@ msgstr "Molte relazioni"
 
 #: ../root/place/header.tt:1 ../root/place/map.tt:1
 msgid "Map"
-msgstr ""
+msgstr "Cartina"
 
 #: ../root/release/lookup.tt:8
 msgid "Match"
@@ -5368,7 +5369,7 @@ msgid ""
 "{edit} or perhaps it has already been closed."
 msgstr "Solo l'utente che ha creato una modifica la può annullare: non hai creato tu {edit} o forse la modifica è già stata chiusa."
 
-#: ../root/release/edit_relationships.tt:133
+#: ../root/release/edit_relationships.tt:137
 msgid ""
 "Only use this option after you’ve tried searching for the work(s) you want "
 "to create, and are certain they do not already exist on MusicBrainz."
@@ -6241,7 +6242,7 @@ msgstr "Dettagli del gruppo di pubblicazioni"
 msgid "Release Group Not Found"
 msgstr "Gruppo di pubblicazioni non trovato"
 
-#: ../root/release/edit_relationships.tt:84 ../root/release/index.tt:337
+#: ../root/release/edit_relationships.tt:88 ../root/release/index.tt:337
 msgid "Release Group Relationships"
 msgstr "Relazioni del gruppo di pubblicazioni"
 
@@ -6284,7 +6285,7 @@ msgstr "Pubblicazione non trovata"
 msgid "Release Quality"
 msgstr "Qualità della pubblicazione"
 
-#: ../root/release/edit_relationships.tt:78
+#: ../root/release/edit_relationships.tt:82
 msgid "Release Relationships"
 msgstr "Relazioni della pubblicazione"
 
@@ -7661,8 +7662,8 @@ msgid "Submit votes &amp; edit notes"
 msgstr "Invia voti e note di modifica"
 
 #: ../root/release/edit/editnote.tt:40
-#: ../root/release/edit_relationships.tt:107
-#: ../root/release/edit_relationships.tt:167
+#: ../root/release/edit_relationships.tt:111
+#: ../root/release/edit_relationships.tt:171
 msgid "Submitting edits..."
 msgstr "Invio modifiche in corso..."
 
@@ -7673,7 +7674,7 @@ msgstr "Sottoscrivi"
 
 #: ../root/user/collections.tt:13
 msgid "Subscribed"
-msgstr ""
+msgstr "Sottoscritte"
 
 #: ../root/edit/list_header.tt:19
 msgid "Subscribed editors"
@@ -7715,7 +7716,7 @@ msgstr "Registrazioni suggerite:"
 #: ../root/edit/details/add_annotation.tt:21
 #: ../root/edit/details/historic/add_release_annotation.tt:25
 msgid "Summary"
-msgstr ""
+msgstr "Riepilogo"
 
 #: ../root/release/edit/tracklist.tt:369
 msgid "Swap track titles with artist credits"
@@ -7828,7 +7829,7 @@ msgstr "Funzionalità di prova"
 #: ../root/edit/details/add_annotation.tt:10
 #: ../root/edit/details/historic/add_release_annotation.tt:14
 msgid "Text"
-msgstr ""
+msgstr "Testo"
 
 #: ../root/account/donation.tt:14
 msgid "Thank you for contributing to MusicBrainz."
@@ -8224,7 +8225,7 @@ msgstr "Questo alias non è più attuale."
 #: ../root/edit/details/add_annotation.tt:15
 #: ../root/edit/details/historic/add_release_annotation.tt:19
 msgid "This annotation is empty."
-msgstr ""
+msgstr "Questa annotazione è vuota."
 
 #: ../root/area/delete.tt:14
 msgid ""
@@ -9135,15 +9136,15 @@ msgstr "Questo utente è automatizzato."
 msgid "This user is new to MusicBrainz."
 msgstr "Questo utente è nuovo di MusicBrainz."
 
-#: ../root/release/edit_relationships.tt:114
+#: ../root/release/edit_relationships.tt:118
 msgid "This will add a relationship to all checked recordings."
 msgstr "Quest'operazione aggiungerà una relazione ad ogni registrazione selezionata."
 
-#: ../root/release/edit_relationships.tt:117
+#: ../root/release/edit_relationships.tt:121
 msgid "This will add a relationship to all checked works."
 msgstr "Quest'operazione aggiungerà una relazione ad ogni opera selezionata."
 
-#: ../root/release/edit_relationships.tt:130
+#: ../root/release/edit_relationships.tt:134
 msgid ""
 "This will create a new work for each checked recording that has no work "
 "already. The work names will be the same as their respective recording."
@@ -9691,19 +9692,19 @@ msgstr "Utilizza i seguenti campi per cercare un elenco di tracce esistente."
 
 #: ../root/release/edit/tracklist.tt:47
 msgid "Use track artists"
-msgstr ""
+msgstr "Utilizza artisti tracce"
 
 #: ../root/release/edit/tracklist.tt:65
 msgid "Use track lengths"
-msgstr ""
+msgstr "Utilizza durata tracce"
 
 #: ../root/release/edit/tracklist.tt:24
 msgid "Use track numbers"
-msgstr ""
+msgstr "Utilizza numeri di traccia"
 
 #: ../root/release/edit/tracklist.tt:56
 msgid "Use track titles"
-msgstr ""
+msgstr "Utilizza titoli tracce"
 
 #: ../root/search/form.tt:39
 msgid "Use {doc|advanced query syntax}"
@@ -10104,7 +10105,7 @@ msgstr "Dettagli dell'opera"
 msgid "Work Not Found"
 msgstr "Opera non trovata"
 
-#: ../root/release/edit_relationships.tt:139
+#: ../root/release/edit_relationships.tt:143
 msgid "Work Type:"
 msgstr "Tipo di opera:"
 
@@ -10594,7 +10595,7 @@ msgstr "a {num} anni"
 
 #: ../root/report/duplicate_artists.tt:41
 msgid "alias:"
-msgstr ""
+msgstr "alias:"
 
 #: ../root/edit/search_macros.tt:28
 msgid "all"

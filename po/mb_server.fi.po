@@ -25,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-07 13:40-0700\n"
-"PO-Revision-Date: 2014-08-07 20:42+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"POT-Creation-Date: 2014-08-09 13:40-0700\n"
+"PO-Revision-Date: 2014-08-07 23:27+0000\n"
+"Last-Translator: Jaakko Perttilä <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -808,12 +808,12 @@ msgstr "Lisää paikalle alias"
 msgid "Add recording"
 msgstr "Lisää äänite"
 
-#: ../root/release/edit_relationships.tt:216
+#: ../root/release/edit_relationships.tt:220
 msgid "Add related work"
 msgstr "Lisää yhteys teokseen"
 
 #: ../root/forms/relationship-editor.tt:11
-#: ../root/release/edit_relationships.tt:198
+#: ../root/release/edit_relationships.tt:202
 #: ../root/scripts/text_strings.tt:94
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddLink.pm:10
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:26
@@ -1108,7 +1108,7 @@ msgstr "Virhe ladattaessa muokkausta."
 msgid "An error occured: "
 msgstr "Virhe: "
 
-#: ../root/release/edit_relationships.tt:174
+#: ../root/release/edit_relationships.tt:178
 msgid "An error occurred while creating the works."
 msgstr "Virhe kesken teoksen luonnin."
 
@@ -2846,7 +2846,7 @@ msgid "Edit Not Found"
 msgstr "Muokkausta ei löytynyt"
 
 #: ../root/forms/edit-note.tt:2 ../root/release/edit/editnote.tt:27
-#: ../root/release/edit/layout.tt:18 ../root/release/edit_relationships.tt:96
+#: ../root/release/edit/layout.tt:18 ../root/release/edit_relationships.tt:100
 msgid "Edit Note"
 msgstr "Muokkausmerkintä"
 
@@ -3287,7 +3287,7 @@ msgid "Enter a valid url e.g. \"http://google.com/\""
 msgstr "Syötä kelvollinen url-osoite, esimerkiksi \"http://google.com/\""
 
 #: ../root/components/forms.tt:51 ../root/release/add_cover_art.tt:142
-#: ../root/release/edit/layout.tt:63 ../root/release/edit_relationships.tt:103
+#: ../root/release/edit/layout.tt:63 ../root/release/edit_relationships.tt:107
 msgid "Enter edit"
 msgstr "Lisää muokkaus"
 
@@ -4434,6 +4434,7 @@ msgstr "Ladataan"
 msgid "Loading edit previews..."
 msgstr "Ladataan muokkauksien esikatselua..."
 
+#: ../root/release/edit_relationships.tt:79
 #: ../root/scripts/text_strings.tt:100
 msgid "Loading..."
 msgstr "Ladataan..."
@@ -4537,7 +4538,7 @@ msgstr "Kadonnut käyttäjänimi"
 msgid "Low"
 msgstr "Matala"
 
-#: ../root/release/edit_relationships.tt:150 ../root/work/edit_form.tt:16
+#: ../root/release/edit_relationships.tt:154 ../root/work/edit_form.tt:16
 #: ../root/work/index.tt:4 ../root/work/layout.tt:14
 msgid "Lyrics Language:"
 msgstr "Sanoituksen kieli:"
@@ -5372,7 +5373,7 @@ msgid ""
 "{edit} or perhaps it has already been closed."
 msgstr "Muokkauksen voi peruuttaa ainoastaan sen luonut käyttäjä. Joko et luonut muokkausta {edit} tai muokkaus voi olla suljettu. "
 
-#: ../root/release/edit_relationships.tt:133
+#: ../root/release/edit_relationships.tt:137
 msgid ""
 "Only use this option after you’ve tried searching for the work(s) you want "
 "to create, and are certain they do not already exist on MusicBrainz."
@@ -6245,7 +6246,7 @@ msgstr "Lisätietoja julkaisuryhmästä"
 msgid "Release Group Not Found"
 msgstr "Julkaisuryhmää ei löytynyt"
 
-#: ../root/release/edit_relationships.tt:84 ../root/release/index.tt:337
+#: ../root/release/edit_relationships.tt:88 ../root/release/index.tt:337
 msgid "Release Group Relationships"
 msgstr "Julkaisuryhmän yhteydet"
 
@@ -6288,7 +6289,7 @@ msgstr "Julkaisu ei löydy"
 msgid "Release Quality"
 msgstr "Julkaisun laatu"
 
-#: ../root/release/edit_relationships.tt:78
+#: ../root/release/edit_relationships.tt:82
 msgid "Release Relationships"
 msgstr "Julkaisun yhteydet"
 
@@ -7665,8 +7666,8 @@ msgid "Submit votes &amp; edit notes"
 msgstr "Äänestä &amp; muokkaa huomautuksia"
 
 #: ../root/release/edit/editnote.tt:40
-#: ../root/release/edit_relationships.tt:107
-#: ../root/release/edit_relationships.tt:167
+#: ../root/release/edit_relationships.tt:111
+#: ../root/release/edit_relationships.tt:171
 msgid "Submitting edits..."
 msgstr "Lähetetään muokkauksia..."
 
@@ -8327,42 +8328,42 @@ msgstr "Tämä määritetyyppi on tarkoitettu vain ryhmittelyyn, valitse alatyyp
 #: ../root/edit/details/edit_url.tt:31
 msgid "This change affects {num} relationship."
 msgid_plural "This change affects {num} relationships."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Tämä muutos vaikuttaa {num} yhteyteen."
+msgstr[1] "Tämä muutos vaikuttaa {num} yhteyteen."
 
 #: ../root/edit/details/merge_releases.tt:125
 msgid ""
 "This edit does not store recording merge information and is closed, so no "
 "recording merge information can be shown."
-msgstr "Tämä muokkaus ei sisällä tietoa äänitteiden sulautumisesta ja on suljettu, joten tietoa äänitteiden sulautumisesta ei voida näyttää."
+msgstr "Tämä muokkaustyyppi ei tallenna tietoa äänitteiden sulauttamisesta. Koska muokkaus on suljettu, tietoa äänitteiden sulauttamisesta ei voida näyttää."
 
 #: ../root/components/common-macros.tt:588
 msgid ""
 "This edit failed because it affected high quality data and did not receive "
 "any votes."
-msgstr "Tämä muokkaus epäonnistui, sillä se vaikutti korkean laadun dataan ja eikä saanut ainuttakaan ääntä."
+msgstr "Tämä muokkaus epäonnistui, sillä se vaikutti korkean laatuluokituksen kohteeseen, eikä saanut ainuttakaan ääntä."
 
 #: ../root/components/common-macros.tt:588
 msgid ""
 "This edit failed because the data it was changing was modified after this "
 "edit was created. This may happen when the same edit is entered in twice; "
 "one will pass but the other will fail."
-msgstr "Tämä muokkaus epäonnistui, sillä data jota olit muokkaamassa, on muuttunut muokkauksesi jälkeen. Tällaista saattaa tapahtua kun samansisältöinen muokkaus syötetään kahteen kertaan; yksi onnistuu mutta toinen ei."
+msgstr "Tämä muokkaus epäonnistui, sillä kohteena oleva tieto ehti muuttua tämän muokkauksen jälkeen. Näin käy esimerkiksi silloin, kun sama muokkaus syötetään kahdesti: toinen onnistuu ja toinen epäonnistuu."
 
 #: ../root/components/common-macros.tt:588
 msgid "This edit failed because there were insufficient \"yes\" votes."
-msgstr "Tämä muokkaus epäonnistui, johtuen riittämättömästä kyllä-äänien määrästä. "
+msgstr "Tämä muokkaus epäonnistui, sillä se ei saanut tarpeeksi puoltavia ääniä. "
 
 #: ../root/components/common-macros.tt:588
 msgid ""
 "This edit failed due to an internal error and may need to be entered again."
-msgstr "Tämä muokkaus epäonnistui sisäisestä virheestä johtuen ja täytyy mahdollisesti lisätä uudelleen. "
+msgstr "Tämä muokkaus epäonnistui sisäisen virheen takia ja sen saattaa joutua syöttämään uudelleen."
 
 #: ../root/components/common-macros.tt:588
 msgid ""
 "This edit failed either because an entity it was modifying no longer exists,"
 " or the entity can not be modified in this manner anymore."
-msgstr "Tämä muokkaus epäonnistui, sillä muokattavaa kokonaisuutta ei enää ole, tai sitä ei voitu muokata enää tällä tapaa."
+msgstr "Tämä muokkaus epäonnistui, joko siksi, että muokattavaa kokonaisuutta ei enää ole, tai sitä ei voida muokata enää tällä tapaa."
 
 #: ../root/components/common-macros.tt:588
 msgid "This edit has been successfully applied."
@@ -8374,25 +8375,25 @@ msgstr "Tämä muokkaus on avoinna ja odottaa ääniä tullakseen hyväksytyksi.
 
 #: ../root/edit/details/set_track_lengths.tt:43
 msgid "This edit makes subsecond changes to track lengths"
-msgstr ""
+msgstr "Tämä muokkaus tekee alle sekunnin kestoisia muutoksia kappaleiden kestoihin"
 
 #: ../root/edit/details/historic/merge_releases.tt:37
 msgid ""
 "This edit was a \"Merge Releases (Various Artists)\" edit which additionally"
 " set the release artist to Various Artists."
-msgstr "Tämä muokkaus oli \"Sulauta julkaisut (eri esittäjiä)\" muokkaus, joka lisäksi asetti julkaisun artistiksi eri esittäjiä."
+msgstr "Tämä oli \"Sulauta julkaisut (eri esittäjiä)\" -muokkaus, joka lisäksi asetti julkaisun artistiksi eri esittäjiä."
 
 #: ../root/edit/details/edit_url.tt:41
 msgid "This edit was a merge."
-msgstr ""
+msgstr "Tämä muokkaus oli sulauttaminen."
 
 #: ../root/components/common-macros.tt:588
 msgid "This edit was cancelled."
-msgstr "Tämä muokkaus on peruttu."
+msgstr "Tämä muokkaus peruttiin."
 
 #: ../root/components/common-macros.tt:588
 msgid "This edit was recently cancelled."
-msgstr "Tämä muokkaus on peruttu äskettäin."
+msgstr "Tämä muokkaus peruttiin äskettäin."
 
 #: ../root/components/common-macros.tt:258
 #: ../lib/MusicBrainz/Server/Plugin/Diff.pm:150
@@ -8407,14 +8408,14 @@ msgstr "Tämä kokonaisuus luodaan kun muokkaukset on syötetty."
 msgid ""
 "This field is not a place to store general background information about the "
 "release: that kind of information should go in the annotation field."
-msgstr "Tähän kenttään ei tule tallentaa yleistä saati nippelitietoa julkaisusta. Sitä varten on lisätietokenttä."
+msgstr "Tähän kenttään ei tule tallentaa yleistä, saati nippelitietoa, julkaisusta. Sitä varten on lisätietokenttä."
 
 #: ../root/artist/edit_credit.tt:15
 msgid ""
 "This form allows you to edit the artist credit \"{ac}\". When the edit is "
 "accepted, all tracks, recordings, releases and release groups using this "
 "artist credit will be update to use the new one."
-msgstr "Tällä lomakkeella voi muuttaa artistin tekijänimeä \"{ac}\". Kun muutos on hyväksytty, kaikki kappaleet, äänitteet, julkaisut ja julkaisuryhmät, jotka ovat merkittyjä tälle tekijänimelle päivittyvät uuteen nimeen."
+msgstr "Tällä lomakkeella voi muuttaa artistin tekijänimeä \"{ac}\". Kun muokkaus on hyväksytty, kaikki kappaleet, äänitteet, julkaisut ja julkaisuryhmät, jotka ovat merkittyjä tälle tekijänimelle päivittyvät uuteen nimeen."
 
 #: ../root/artist/split.tt:32
 msgid ""
@@ -8441,13 +8442,13 @@ msgstr "Tämä on MusicBrainzin ohjelmistokehitykseen tarkoitettu testipalvelin.
 msgid ""
 "This is a Musicbrainz mirror server. To edit or make changes to the data "
 "please {uri|return to musicbrainz.org}."
-msgstr "Tämä on MusicBrainzin peilipalvelin. Muokataksesi tai tehdäksesi muutoksia tietoihin käytä {uri|palaa musicbrainz.org -sivulle}."
+msgstr "Tämä on MusicBrainzin peilipalvelin. Muokataksesi tai tehdäksesi muutoksia tietoihin {uri|palaa musicbrainz.org -sivulle}."
 
 #: ../root/components/common-macros.tt:103
 msgid ""
 "This is a PDF file, the thumbnail may not show the entire contents of the "
 "file."
-msgstr ""
+msgstr "Tämä on PDF-tiedosto. Esikatselukuva ei välttämättä näytä tiedoston täyttä sisältöä."
 
 #: ../root/account/edit.tt:14
 msgid ""
@@ -8478,7 +8479,7 @@ msgstr "Tämä on ensisijainen alias tälle lokaalille."
 #: ../root/edit/data.tt:29
 msgid ""
 "This is the raw data for edit #{id}. It is available for debugging purposes."
-msgstr ""
+msgstr "Tässä on muokkauksen #{id} tietokonekielinen muoto. Se tarjotaan ohjelmavirheiden jäljitystä varten."
 
 #: ../root/label/delete.tt:14
 msgid ""
@@ -8526,21 +8527,21 @@ msgid ""
 "This merge strategy will merge all mediums together into a single set of "
 "mediums. Recordings between mediums will also be merged, into the recordings"
 " used on the target mediums."
-msgstr ""
+msgstr "Tämä sulauttamismenetelmä sulauttaa kaikki tallenteet yhteen, yhdeksi monitallenteiseksi julkaisuksi. Tallenteiden väliset äänitteet sulautetaan myös äänitteisiin, jotka ovat kohteena olevilla tallenteilla."
 
 #: ../root/scripts/text_strings.tt:139
 msgid ""
 "This mode capitalises almost all words, with some words (mainly articles and"
 " short prepositions) lowercased. Some words may need to be manually "
 "capitalised to follow the {url|English capitalisation guidelines}."
-msgstr ""
+msgstr "Tämä tapa vaihtaa ison alkukirjaimen lähes kaikkiin sanoihin (esim. artikkelit ja lyhyet prepositiot jäävät pienellä kirjoitetuiksi). Joitakin sanoja saatetaan joutua muuttamaan vielä käsin, jotta ne noudattavat {url|englanninkielisten nimien tyyliopasta}."
 
 #: ../root/scripts/text_strings.tt:140
 msgid ""
 "This mode capitalises the first word of a sentence, most other words are "
 "lowercased. Some words, often proper nouns, may need to be manually fixed "
 "according to the {url|relevant language guidelines}."
-msgstr ""
+msgstr "Tämä tapa vaihtaa ison alkukirjaimen vain lauseen ensimmäiseen sanaan. Muut sanat jätetään pienellä kirjoitetuiksi. Jotkin sanat, kuten erisnimet, saatetaan joutua korjaamaan käsin noudattamaan {url|kyseisen kielen tyyliopasta}."
 
 #: ../root/scripts/text_strings.tt:141
 msgid ""
@@ -8548,17 +8549,17 @@ msgid ""
 "before semicolons, colons, exclamation marks and question marks, and inside "
 "guillemets. Some words may need to be manually capitalised to follow the "
 "{url|French capitalisation guidelines}."
-msgstr ""
+msgstr "Tämä tapa vaihtaa isot alkukirjaimet kuten lauseenomainen tapa. Lisäksi välilyönti lisätään ennen puoli- ja kaksoispisteitä, sekä huuto- ja kysymysmerkkejä. Välilyönnit lisätään myös kulmalainausmerkkien sisään. Jotkin sanat saatetaan joutua korjaamaan käsin noudattamaan {url|ranskan kielen tyyliopasta}."
 
 #: ../root/doc/page.tt:22
 msgid ""
 "This page has not been reviewed by our documentation team ({more_info|more "
 "info})."
-msgstr ""
+msgstr "Tätä sivua ei ole tarkistettu dokumentaatioryhmän toimesta ({more_info|lisää tietoa})."
 
 #: ../root/doc/page.tt:31
 msgid "This page is {doc|transcluded} from revision {version} of {title}."
-msgstr ""
+msgstr "Tämä sivu on {doc|sisällytetty} aiheen {title} versiosta {version}."
 
 #: ../root/doc/page.tt:41
 msgid "This page is {doc|transcluded} from {title}."
@@ -8588,11 +8589,11 @@ msgstr "Tällä paikalla ei ole luokituksia."
 
 #: ../root/recording/delete.tt:14
 msgid "This recording cannot be removed because it is still used on releases."
-msgstr ""
+msgstr "Tätä äänitettä ei voida poistaa, sillä se on yhä käytössä julkaisuissa."
 
 #: ../root/recording/fingerprints.tt:46
 msgid "This recording does not have any associated AcoustIDs"
-msgstr "Tähän äänitteeseen ei liity AcoustID-äänitunnistetta"
+msgstr "Tällä äänitteellä ei ole yhteenkuuluvia AcoustID-äänitunnisteita"
 
 #: ../root/recording/tags.tt:2
 msgid "This recording has no tags."
@@ -8665,7 +8666,7 @@ msgstr "Tätä julkaisuryhmää ei ole luokiteltu."
 msgid ""
 "This release group will be removed automatically once it has no releases nor"
 " relationships."
-msgstr ""
+msgstr "Tämä julkaisuryhmä tullaan poistamaan automaattisesti kun sillä ei ole enää julkaisuja, eikä yhteyksiä."
 
 #: ../root/release/tags.tt:2
 msgid "This release has no tags."
@@ -8678,7 +8679,7 @@ msgid ""
 "separate real release. It should not be used to denote bootlegs, "
 "mixtape/street albums, demos, or digital albums. Be sure to link to the "
 "corresponding real release with the {url|transl(iter)ation relationship}."
-msgstr ""
+msgstr "Tätä julkaisun tilaa tulisi käyttää vain epävirallisissa käännöksissä ja translitteroinneissa kappalelistoista ja julkaisujen nimistä. Tämä ei merkitse erillistä oikeaa julkaisua. Tätä ei tule käyttää merkitsemään bootleg-, mixtape/street-, demo- tai digitaalisia julkaisuja. Muista luoda yhteys vastaavaan oikeaan julkaisuun {url|käännös/translitterointi-yhteydellä}."
 
 #: ../root/report/duplicate_artists.tt:6
 msgid ""
@@ -8688,7 +8689,7 @@ msgid ""
 "they're different, add {disambiguation_comment|disambiguation comments} to "
 "them (and once a group of similarly named artists have disambiguation "
 "comments, they will stop appearing here)."
-msgstr ""
+msgstr "Tämä raportti pyrkii tunnistamaan artistit, joilla on hyvin samankaltainen nimi. Jos kaksi artistia on oikeasti samoja, niin sulauta ne (muista {how_to_write_edit_notes|muokkausmerkintä} ja todistelu). Jos artistit ovat eri artisteja, niin lisää {disambiguation_comment|täsmennyskommentit} niille (sitten kun samannimisillä artisteilla on täsmennyskommentit, ne eivät päädy enää tähän raporttiin)."
 
 #: ../root/report/tracks_named_with_sequence.tt:6
 msgid ""
@@ -8696,7 +8697,7 @@ msgid ""
 "track number, e.g. \"1) Some Name\" (instead of just \"Some Name\"). Notice "
 "that sometimes this is justified and correct, don't automatically assume it "
 "is a mistake! If you confirm it is a mistake, please correct it."
-msgstr ""
+msgstr "Tämä raportti pyrkii tunnistamaan julkaisut, joissa kappaleiden nimissä on kappalenumerot. esim. \"1) Kappaleen nimi\" (eikä \"Kappaleen nimi\"). Huomioi, että joskus tämä on oikeutettua ja oikein. Älä oleta automaattisesti näiden olevan väärin! Jos pystyt varmistamaan virheet, niin korjaa ne."
 
 #: ../root/report/releases_to_convert.tt:7
 msgid ""
@@ -8704,46 +8705,46 @@ msgid ""
 "artists (because the track artists are on the title field, for example). "
 "Currently it does this by looking for releases where every track contains "
 "\"/\" or \"-\"."
-msgstr ""
+msgstr "Tämä raportti pyrkii tunnistamaan julkaisut, jotka tulisi muuttaa useiden artistien julkaisuiksi (esim. artistit nimettyinä kappaleisiin). Tällä hetkellä tähän poimitaan julkaisut, joissa kaikki kappaleet sisältävät merkin \"/\" tai \"-\"."
 
 #: ../root/report/deprecated_relationship_urls.tt:6
 msgid ""
 "This report lists URLs which have relationships using deprecated and "
 "grouping-only relationship types"
-msgstr ""
+msgstr "Tämä raportti listaa URL-osoitteet, joissa on vanhentuneita ja vain ryhmittämiseen tarkoitettuja yhteystyyppejä."
 
 #: ../root/report/tracks_without_times.tt:6
 msgid ""
 "This report lists all releases where some or all tracks have unknown track "
 "lengths."
-msgstr ""
+msgstr "Tämä raportti listaa kaikki julkaisut, joissa on tuntemattomia kappaleiden pituuksia."
 
 #: ../root/report/mediums_with_sequence_issues.tt:6
 msgid ""
 "This report lists all releases where the mediums are not continuous (e.g. "
 "there is no \"medium 2\"), or with duplicated mediums (e.g. there are two "
 "\"medium 4\"s)."
-msgstr ""
+msgstr "Tämä raportti listaa kaikki julkaisut, joissa tallenteet eivät ole yhtäjaksoisesti (esim. \"tallenne 2\" puuttuu), tai niissä on kahdentunut tallenne (esim. kaksi kertaa \"tallenne 4\")."
 
 #: ../root/report/tracks_with_sequence_issues.tt:6
 msgid ""
 "This report lists all releases where the track numbers are not continuous "
 "(e.g. there is no \"track 2\"), or with duplicated track numbers (e.g. there"
 " are two \"track 4\"s)."
-msgstr ""
+msgstr "Tämä raportti listaa kaikki julkaisut, joissa kappalenumerot eivät ole yhtäjaksoisesti (esim. \"kappale 2\" puuttuu), tai niissä on kahdentunut kappalenumero (esim. kaksi kertaa \"kappale 4\")."
 
 #: ../root/report/artists_with_multiple_occurances_in_artist_credits.tt:6
 msgid ""
 "This report lists artists that appear more than once in different positions "
 "within the same artist credit."
-msgstr ""
+msgstr "Tämä raportti listaa artistit, jotka ovat merkittynä useamman kerran, eri kohdissa, samassa tekijätiedossa."
 
 #: ../root/report/artists_with_no_subscribers.tt:6
 msgid ""
 "This report lists artists that have no editors subscribed to them, and whose"
 " changes may therefore be under-reviewed. Artists with more release groups "
 "and more open edits are listed first."
-msgstr ""
+msgstr "Tämä raportti listaa artistit, joilla ei ole editoreja seuraamassa muutoksia, ja joihin tehdyt muutokset saattavat jäädä tarkistamatta. Artistit, joilla on enemmän julkaisuryhmiä ja enemmän avoimia muokkauksia listataan ensin."
 
 #: ../root/report/artists_that_may_be_groups.tt:6
 msgid ""
@@ -8752,7 +8753,7 @@ msgid ""
 "members. If you find that an artist here is indeed a group, change its type."
 " If it is not, please make sure that the \"member of\" relationships are in "
 "the right direction and are correct."
-msgstr ""
+msgstr "Tämä raportti listaa artistit, joiden tyyppi on muuta kuin <em>ryhmä</em>, mutta saattavat olla <em>ryhmiä</em>, sillä niiden jäseniksi on yhdistetty muita artisteja. Jos huomaat, että tässä listattu artisti onkin ryhmä, muuta sen tyyppiä. Jos se ei ole, tarkista että jäsenenä-yhteys on oikeaan suuntaan ja oikeellinen."
 
 #: ../root/report/artists_that_may_be_persons.tt:6
 msgid ""
@@ -8940,7 +8941,7 @@ msgstr ""
 msgid ""
 "This report shows recordings where the linked tracks have times that vary by"
 " more than 30 seconds."
-msgstr ""
+msgstr "Tämä raportti näyttää äänitteet, joihin yhdistetyissä kappaleissa on heittoa yli 30 sekuntia."
 
 #: ../root/report/featuring_recordings.tt:6
 msgid ""
@@ -8949,7 +8950,7 @@ msgid ""
 " recordings, this is inherited from an older version of MusicBrainz and "
 "should be fixed (both on the recordings and on the tracks!). Consult the "
 "{featured_artists|page about featured artists} to know more."
-msgstr ""
+msgstr "Tämä raportti näyttää äänitteet, joissa on vieraileva artisti äänitteen nimessä. Klassisen musiikin äänitteiden kanssa voit turvautua {CSG|klassisen musiikin tyylioppaaseen}. Muissa äänitteissä, tyyli pohjautuu vanhasta MusicBrainzin versiosta, ja tulee korjata, niin äänitteistä, kuin kappaleiden nimistäkin. Turvaudu {featured_artists|dokumentaatioon vierailevista artisteista} tietääksesi lisää."
 
 #: ../root/report/featuring_release_groups.tt:6
 msgid ""
@@ -8958,7 +8959,7 @@ msgid ""
 "non-classical release groups, this is inherited from an older version of "
 "MusicBrainz and should be fixed. Consult the {featured_artists|page about "
 "featured artists} to know more."
-msgstr ""
+msgstr "Tämä raportti näyttää julkaisuryhmät, joissa on vieraileva artisti julkaisuryhmän nimessä. Klassisen musiikin julkaisuryhmien kanssa voit turvautua {CSG|klassisen musiikin tyylioppaaseen}. Muissa julkaisuryhmissä, tyyli pohjautuu vanhasta MusicBrainzin versiosta, ja tulee korjata. Turvaudu {featured_artists|dokumentaatioon vierailevista artisteista} tietääksesi lisää."
 
 #: ../root/report/set_in_different_rg.tt:6
 msgid ""
@@ -9139,15 +9140,15 @@ msgstr "Tämä on automatisoitu käyttäjä."
 msgid "This user is new to MusicBrainz."
 msgstr "Tämä on MusicBrainzin uusi käyttäjä."
 
-#: ../root/release/edit_relationships.tt:114
+#: ../root/release/edit_relationships.tt:118
 msgid "This will add a relationship to all checked recordings."
 msgstr "Tämä lisää yhteyden kaikkiin valittuihin äänitteisiin."
 
-#: ../root/release/edit_relationships.tt:117
+#: ../root/release/edit_relationships.tt:121
 msgid "This will add a relationship to all checked works."
 msgstr "Tämä lisää yhteyden kaikkiin valittuihin teoksiin."
 
-#: ../root/release/edit_relationships.tt:130
+#: ../root/release/edit_relationships.tt:134
 msgid ""
 "This will create a new work for each checked recording that has no work "
 "already. The work names will be the same as their respective recording."
@@ -10108,7 +10109,7 @@ msgstr "Lisätietoja teoksesta"
 msgid "Work Not Found"
 msgstr "Teosta ei löytynyt"
 
-#: ../root/release/edit_relationships.tt:139
+#: ../root/release/edit_relationships.tt:143
 msgid "Work Type:"
 msgstr "Teoksen tyyppi:"
 

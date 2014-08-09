@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-07 13:40-0700\n"
+"POT-Creation-Date: 2014-08-09 13:40-0700\n"
 "PO-Revision-Date: 2014-08-07 20:42+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
@@ -797,12 +797,12 @@ msgstr "Plaadifirma aliase lisamine"
 msgid "Add recording"
 msgstr "Lisa salvestis"
 
-#: ../root/release/edit_relationships.tt:216
+#: ../root/release/edit_relationships.tt:220
 msgid "Add related work"
 msgstr "Lisa seotud teos"
 
 #: ../root/forms/relationship-editor.tt:11
-#: ../root/release/edit_relationships.tt:198
+#: ../root/release/edit_relationships.tt:202
 #: ../root/scripts/text_strings.tt:94
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddLink.pm:10
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:26
@@ -1097,7 +1097,7 @@ msgstr "Toimetuse laadimisel tekkis tõrge."
 msgid "An error occured: "
 msgstr "Ilmnes viga:"
 
-#: ../root/release/edit_relationships.tt:174
+#: ../root/release/edit_relationships.tt:178
 msgid "An error occurred while creating the works."
 msgstr "Teoste loomisel ilmnes viga."
 
@@ -2835,7 +2835,7 @@ msgid "Edit Not Found"
 msgstr "Toimetust ei leitud"
 
 #: ../root/forms/edit-note.tt:2 ../root/release/edit/editnote.tt:27
-#: ../root/release/edit/layout.tt:18 ../root/release/edit_relationships.tt:96
+#: ../root/release/edit/layout.tt:18 ../root/release/edit_relationships.tt:100
 msgid "Edit Note"
 msgstr "Toimetusmärge"
 
@@ -3276,7 +3276,7 @@ msgid "Enter a valid url e.g. \"http://google.com/\""
 msgstr "Sisesta korrektne URL, nagu nt „http://google.com/”"
 
 #: ../root/components/forms.tt:51 ../root/release/add_cover_art.tt:142
-#: ../root/release/edit/layout.tt:63 ../root/release/edit_relationships.tt:103
+#: ../root/release/edit/layout.tt:63 ../root/release/edit_relationships.tt:107
 msgid "Enter edit"
 msgstr "Toimeta"
 
@@ -4423,6 +4423,7 @@ msgstr "Laadimine..."
 msgid "Loading edit previews..."
 msgstr "Toimetuste eelvaate laadimine..."
 
+#: ../root/release/edit_relationships.tt:79
 #: ../root/scripts/text_strings.tt:100
 msgid "Loading..."
 msgstr "Laadimine..."
@@ -4526,7 +4527,7 @@ msgstr "Unustatud kasutajanimi"
 msgid "Low"
 msgstr "madal"
 
-#: ../root/release/edit_relationships.tt:150 ../root/work/edit_form.tt:16
+#: ../root/release/edit_relationships.tt:154 ../root/work/edit_form.tt:16
 #: ../root/work/index.tt:4 ../root/work/layout.tt:14
 msgid "Lyrics Language:"
 msgstr "Sõnade keel:"
@@ -5361,7 +5362,7 @@ msgid ""
 "{edit} or perhaps it has already been closed."
 msgstr "Toimetuse saab tühistada ainult see toimetaja, kelle oma see on. {edit} pole kas sinu tehtud või siis on see juba suletud."
 
-#: ../root/release/edit_relationships.tt:133
+#: ../root/release/edit_relationships.tt:137
 msgid ""
 "Only use this option after you’ve tried searching for the work(s) you want "
 "to create, and are certain they do not already exist on MusicBrainz."
@@ -6234,7 +6235,7 @@ msgstr "Väljalaskerühma üksikasjad"
 msgid "Release Group Not Found"
 msgstr "Väljalaskerühma ei leitud"
 
-#: ../root/release/edit_relationships.tt:84 ../root/release/index.tt:337
+#: ../root/release/edit_relationships.tt:88 ../root/release/index.tt:337
 msgid "Release Group Relationships"
 msgstr "Väljalaskerühma seosed"
 
@@ -6277,7 +6278,7 @@ msgstr "Väljalaset ei leitud"
 msgid "Release Quality"
 msgstr "Väljalaske teabekvaliteet"
 
-#: ../root/release/edit_relationships.tt:78
+#: ../root/release/edit_relationships.tt:82
 msgid "Release Relationships"
 msgstr "Väljalaske seosed"
 
@@ -7654,8 +7655,8 @@ msgid "Submit votes &amp; edit notes"
 msgstr "Anna hääled &amp; lisa märked"
 
 #: ../root/release/edit/editnote.tt:40
-#: ../root/release/edit_relationships.tt:107
-#: ../root/release/edit_relationships.tt:167
+#: ../root/release/edit_relationships.tt:111
+#: ../root/release/edit_relationships.tt:171
 msgid "Submitting edits..."
 msgstr "Toimetuste sisestamine..."
 
@@ -9128,15 +9129,15 @@ msgstr "See kasutaja on automaat."
 msgid "This user is new to MusicBrainz."
 msgstr "See kasutaja on MusicBrainzis uus."
 
-#: ../root/release/edit_relationships.tt:114
+#: ../root/release/edit_relationships.tt:118
 msgid "This will add a relationship to all checked recordings."
 msgstr "Lisatakse samasugune seos kõigile valitud salvestistele."
 
-#: ../root/release/edit_relationships.tt:117
+#: ../root/release/edit_relationships.tt:121
 msgid "This will add a relationship to all checked works."
 msgstr "Lisatakse samasugune seos kõigile valitud teostele."
 
-#: ../root/release/edit_relationships.tt:130
+#: ../root/release/edit_relationships.tt:134
 msgid ""
 "This will create a new work for each checked recording that has no work "
 "already. The work names will be the same as their respective recording."
@@ -10097,7 +10098,7 @@ msgstr "Teose üksikasjad"
 msgid "Work Not Found"
 msgstr "Teost ei leitud"
 
-#: ../root/release/edit_relationships.tt:139
+#: ../root/release/edit_relationships.tt:143
 msgid "Work Type:"
 msgstr "Teose tüüp:"
 
