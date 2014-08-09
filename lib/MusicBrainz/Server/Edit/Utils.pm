@@ -31,7 +31,6 @@ our @EXPORT_OK = qw(
     coordinate_closure
     date_closure
     edit_status_name
-    conditions_without_autoedit
     hash_artist_credit
     hash_artist_credit_without_join_phrases
     large_spread
@@ -68,14 +67,6 @@ sub verify_artist_credits
             'An artist that is used in the new artist credits has been deleted'
         )
     }
-}
-
-sub conditions_without_autoedit
-{
-    my $conditions = shift;
-    $conditions->{auto_edit} = 0;
-
-    return $conditions;
 }
 
 sub date_closure
