@@ -5,6 +5,7 @@ use namespace::autoclean;
 use MusicBrainz::Server::Entity::Language;
 
 use MusicBrainz::Server::Data::Utils qw( load_subobjects );
+use MusicBrainz::Server::Translation qw( l );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'lng' };
@@ -30,6 +31,17 @@ sub load
 {
     my ($self, @objs) = @_;
     load_subobjects($self, 'language', @objs);
+}
+
+sub load_for_works {
+    my ($self, @objs) = @_;
+    load_subobjects($self, 'language', @objs);
+
+    for my $work (@objs) {
+        if ($work->{language}->{iso_code_3} eq "zxx") {
+            $work->{language}->{name} = l("[No lyrics]");
+        }
+    }
 }
 
 sub find_by_code
