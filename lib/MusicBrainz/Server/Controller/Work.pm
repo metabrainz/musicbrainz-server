@@ -59,7 +59,7 @@ for my $action (qw( show aliases tags details )) {
         my ($self, $c) = @_;
         my $work = $c->stash->{work};
         $c->model('WorkType')->load($work);
-        $c->model('Language')->load($work);
+        $c->model('Language')->load_for_works($work);
         $c->model('WorkAttribute')->load_for_works($work);
     };
 }
@@ -139,7 +139,7 @@ sub _merge_load_entities
     $c->model('Work')->load_writers(@works);
     $c->model('Work')->load_recording_artists(@works);
     $c->model('WorkAttribute')->load_for_works(@works);
-    $c->model('Language')->load(@works);
+    $c->model('Language')->load_for_works(@works);
     $c->model('ISWC')->load_for_works(@works);
 };
 
