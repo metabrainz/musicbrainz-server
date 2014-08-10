@@ -6,6 +6,8 @@
             [%- PROCESS extra_header_start -%]
             <th>[% l('Artist') %]</th>
             <th>[% l('Type') %]</th>
+            [% BLOCK extra_header_end %][% END %]
+            [%- PROCESS extra_header_end -%]
         </tr>
     </thead>
     <tbody>
@@ -15,6 +17,8 @@
             [%- PROCESS extra_row_start -%]
             <td>[% link_entity(item.artist) %]</td>
             <td>[% item.artist.type ? item.artist.type.name : l('Unknown') %]</td>
+            [% BLOCK extra_row_end %][% END %]
+            [%- PROCESS extra_row_end -%]
         </tr>
         [%- END -%]
     </tbody>
