@@ -40,9 +40,9 @@ sub language_options {
     my @languages = $c->model('Language')->get_all;
     if ($context eq "work") {
         for my $language (@languages) {
-            if ($language->{iso_code_3} && $language->{iso_code_3} eq "zxx") {
-                $language->{name} = l("[No lyrics]");
-                $language->{frequency} = 2;
+            if ($language->iso_code_3 && $language->iso_code_3 eq "zxx") {
+                $language->name(l("[No lyrics]"));
+                $language->frequency($frequent);
             }
         }
     }

@@ -38,8 +38,8 @@ sub load_for_works {
     load_subobjects($self, 'language', @objs);
 
     for my $work (@objs) {
-        if ($work->{language}->{iso_code_3} eq "zxx") {
-            $work->{language}->{name} = l("[No lyrics]");
+        if ($work->language && $work->language->iso_code_3 eq "zxx") {
+            $work->language->name(l("[No lyrics]"));
         }
     }
 }
