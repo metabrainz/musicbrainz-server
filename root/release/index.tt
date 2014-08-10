@@ -68,7 +68,7 @@
             </td>
           </tr>
           <!-- ko foreach: tracks -->
-          <tr data-bind="css: { ev: ($index() + 1) % 2 == 0, mp: editsPending > 0 }, attr: { id: gid }">
+          <tr data-bind="css: { even: ($index() + 1) % 2 == 0, mp: editsPending > 0 }, attr: { id: gid }">
               <td class="pos t">
                 <!-- ko text: number --><!-- /ko -->
               </td>

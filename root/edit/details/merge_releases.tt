@@ -31,7 +31,7 @@
     [% FOR change=edit.display_data.changes %]
       [% release_row(change.release) %]
       [% FOR medium=change.mediums %]
-        <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
+        <tr class="[% loop.parity %]">
           <td colspan="9">
             [% IF edit.data.item('_edit_version') == 3 && (medium.old_name || medium.new_name);
                 IF medium.old_name;
@@ -104,8 +104,8 @@
     <tbody>
     [%~ FOR merge = edit.display_data.recording_merges ~%]
         [%~ SET rowspan = merge.sources.size ~%]
-        [%~ SET ev = loop.count % 2 ~%]
-        <tr[% IF ev == 0 %] class="ev"[% END %]>
+        [%~ SET zebra = loop.parity ~%]
+        <tr class="[% zebra %]">
             <td[% IF rowspan > 1 %] rowspan=[% rowspan %][% END %]>[% merge.medium %].[% merge.track %]</td>
             <td>[% link_entity(merge.sources.0) %]</td>
             <td[% ' class="warn-lengths"' IF merge.large_spread %]>[% merge.sources.0.length | format_length %]</td>
@@ -114,7 +114,7 @@
         </tr>
         [% FOR source = merge.sources ~%]
         [%~ UNLESS loop.first ~%]
-        <tr[% IF ev == 0 %] class="ev"[% END %]>
+        <tr class="[% zebra %]">
             <td>[% link_entity(source) %]</td>
             <td[% ' class="warn-lengths"' IF merge.large_spread %]>[% source.length | format_length %]</td>
         </tr>

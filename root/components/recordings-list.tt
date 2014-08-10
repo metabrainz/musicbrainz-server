@@ -37,7 +37,7 @@
     <tbody>
         [%- FOR recording=recordings -%]
           [% IF recording.gid %]
-          <tr [% ' class="ev"' IF loop.count % 2 == 0 %]>
+          <tr class="[% loop.parity %]">
               [% PROCESS recording_row_checkbox %]
               [% IF series_item_numbers %]
                 <td style="width: 1em">
@@ -71,7 +71,7 @@
               [%- END -%]
           </tr>
           [% ELSE %]
-          <tr [% ' class="ev"' IF loop.count % 2 == 0 %]>
+          <tr class="[% loop.parity %]">
               [% PROCESS recording_row_checkbox %]
               [%- IF show_video -%]
                   <td class="video c[%- IF recording.video %] is-video[%- END -%]"[% IF recording.video %] title="[% l("This recording is a video") %]"[% END %]></td>

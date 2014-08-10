@@ -12,7 +12,7 @@
         </thead>
         <tbody>
           [% FOR entity=edit.display_data.old %]
-            <tr [% ' class="ev"' IF loop.count % 2 == 0 %]>
+            <tr class="[% loop.parity %]">
               <td>
                 [% descriptive_link(entity) %]
               </td>
@@ -37,7 +37,7 @@
         </thead>
         <tbody>
           [% FOR entity=[edit.display_data.new] %]
-            <tr [% ' class="ev"' IF loop.count % 2 == 0 %]>
+            <tr class="[% loop.parity %]">
               <td>
                 [% descriptive_link(entity) %]
               </td>

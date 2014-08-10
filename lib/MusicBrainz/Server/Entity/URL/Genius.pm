@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Entity::URL::ESTERTallinn;
+package MusicBrainz::Server::Entity::URL::Genius;
 
 use Moose;
 
@@ -8,10 +8,8 @@ with 'MusicBrainz::Server::Entity::URL::Sidebar';
 sub sidebar_name {
     my $self = shift;
 
-    return "ESTER Tallinn";
+    return "Genius";
 }
-
-sub url_is_scheme_independent { 1 }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
@@ -19,7 +17,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2012 MetaBrainz Foundation
+Copyright (C) 2014 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

@@ -54,23 +54,19 @@
             if (options.sourceData) {
                 source.parseRelationships(options.sourceData.relationships, this);
 
-                _.each(options.sourceData.submittedRelationships, function (data) {
-                    var relationship = self.getRelationship(data, source);
-
-                    if (!relationship) {
-                        return;
-                    } else if (relationship.id) {
-                        var target = MB.entity(data.target);
-                        var entities = _.sortBy([source, target], "entityType");
-
-                        if (source.entityType === target.entityType && data.direction === "backward") {
-                            entities.reverse();
+                if (window.sessionStorage && sessionStorage.submittedRelationships) {
+                    _.each(JSON.parse(sessionStorage.submittedRelationships), function (data) {
+                        var relationship = self.getRelationship(data, source);
+                        if (!relationship) {
+                            return;
+                        } else if (relationship.id) {
+                            relationship.fromJS(data);
+                        } else {
+                            relationship.show();
                         }
-                        relationship.fromJS(_.assign(_.clone(data), { entities: entities }));
-                    } else {
-                        relationship.show();
-                    }
-                });
+                    });
+                    delete sessionStorage.submittedRelationships;
+                }
             }
         },
 

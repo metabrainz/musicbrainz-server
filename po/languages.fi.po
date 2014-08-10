@@ -4,8 +4,9 @@
 # ListMyCDs.com Martikainen <>, 2012
 # Timo Martikainen <email address hidden>, 2012
 # phonebox, 2014
+# phonebox, 2014
 # Timo Martikainen <>, 2012
-# Timo Martikainen <email address hidden>, 2013
+# Timo Martikainen <email address hidden>, 2012-2013
 #   Tommi Vainikainen <email address hidden>, 2008
 # Tommi Vainikainen <email address hidden>, 2005
 msgid ""

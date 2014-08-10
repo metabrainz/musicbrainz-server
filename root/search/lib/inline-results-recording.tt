@@ -23,7 +23,7 @@
       [%- FOR result=results -%]
         [% IF result.extra.size %]
           [%- FOR release=result.extra -%]
-            <tr[% ' class="ev"' IF linenum % 2 == 0 %]>
+            <tr[% ' class="even"' IF linenum % 2 == 0 %]>
               [%- IF loop.count == 1 -%]
                 <td>[% result.score %]</td>
                 <td class="video c[%- IF result.entity.video %] is-video[%- END -%]"[% IF result.entity.video %] title="[% l("This recording is a video") %]"[% END %]></td>
@@ -49,7 +49,7 @@
             </tr>
           [%- END -%]
         [% ELSE %]
-          <tr[% ' class="ev"' IF linenum % 2 == 0 %]>
+          <tr[% ' class="even"' IF linenum % 2 == 0 %]>
             <td>[% result.score %]</td>
             <td class="video c[%- IF result.entity.video %] is-video[%- END -%]"[% IF result.entity.video %] title="[% l("This recording is a video") %]"[% END %]></td>
             <td>[% link_entity(result.entity) %]</td>

@@ -28,7 +28,7 @@
     </thead>
     <tbody>
     [%- FOR release=releases -%]
-      <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+      <tr class="[% loop.parity %]">
         [% IF c.user_exists && !no_checkboxes %]
           <td>
             <input type="checkbox" name="add-to-merge" value="[% release.id %]" />

@@ -19,7 +19,7 @@
                     </thead>
                     <tbody>
                         [%- FOR result=results -%]
-                        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                        <tr class="[% loop.parity %]">
                             <td>[% result.score %]</td>
                             <td>[% result.entity.title %]</td>
                             <td>[% result.entity.artist %]</td>

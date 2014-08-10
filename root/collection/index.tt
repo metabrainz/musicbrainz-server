@@ -28,7 +28,7 @@
           <tbody>
               <h2>[% l('Releases') %]</h2>
               [%- FOR release=releases -%]
-              <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+              <tr class="[% loop.parity %]">
                   [% IF my_collection %]
                   <td>
                     <input type="checkbox" name="remove" value="[% release.id %]" />

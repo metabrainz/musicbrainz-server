@@ -22,6 +22,7 @@ use Sub::Exporter -setup => {
                       build_type_info
                       build_attr_info
                       build_options_tree
+                      indentation
               )]
 };
 
@@ -111,7 +112,7 @@ sub build_options_tree
 
     push @options, {
         value => $root->id,
-        label => "\N{NO-BREAK SPACE}" x (3 * $indent) . $root->$attr,
+        label => indentation($indent) . $root->$attr,
     } if $root->id;
 
     foreach my $child ($root->sorted_children($coll)) {
@@ -211,6 +212,11 @@ sub build_child_info {
     my ($root, $builder) = @_;
 
     return [ map { $builder->($_) } $root->all_children ];
+}
+
+sub indentation {
+    my $level = shift;
+    return "\N{NO-BREAK SPACE}" x (3 * $level);
 }
 
 1;

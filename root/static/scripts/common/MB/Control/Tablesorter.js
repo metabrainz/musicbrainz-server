@@ -12,9 +12,9 @@ $.tablesorter.addWidget({
     format: function (table) {
         $('tbody tr', table).each(function (index) {
             if ((index + 1) % 2 == 0) {
-                $(this).addClass("ev");
+                $(this).addClass("even");
             } else {
-                $(this).removeClass("ev");
+                $(this).removeClass("even");
             }
         });
     }

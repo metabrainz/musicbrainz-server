@@ -1040,7 +1040,7 @@ sub _serialize_series_list
         {
             $self->_serialize_series(\@list, $gen, $series, $inc, $stash, $toplevel);
         }
-        push @$data, $gen->series_list($self->_list_attributes ($list), @list);
+        push @$data, $gen->series_list($self->_list_attributes($list), @list);
     }
 }
 
@@ -1048,7 +1048,7 @@ sub _serialize_series
 {
     my ($self, $data, $gen, $series, $inc, $stash, $toplevel) = @_;
 
-    my $opts = $stash->store ($series);
+    my $opts = $stash->store($series);
 
     my %attrs;
     $attrs{id} = $series->gid;
