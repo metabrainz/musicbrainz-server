@@ -670,6 +670,10 @@ MB.Control.URLCleanup = function (options) {
     validationRules[ MB.constants.LINK_TYPES.discogs.label ] = validateDiscogsLabel;
     validationRules[ MB.constants.LINK_TYPES.discogs.series ] = validateDiscogsLabel;
 
+    validationRules[ MB.constants.LINK_TYPES.discogs.place ] = function (url) {
+        return url.match(/discogs\.com\/(artist|label)\//) != null;
+    };
+
     validationRules[ MB.constants.LINK_TYPES.discogs.release_group ] = function (url) {
         return url.match(/discogs\.com\/master\//) != null;
     }
@@ -854,6 +858,7 @@ MB.Control.URLCleanup = function (options) {
     validationRules[ MB.constants.LINK_TYPES.otherdatabases.release ] = function (url) {return validateOtherDatabases(url) && STCollector_is_not_RG(url) && STCollector_is_not_artist(url)}
     validationRules[ MB.constants.LINK_TYPES.otherdatabases.work ] = validateOtherDatabases
     validationRules[ MB.constants.LINK_TYPES.otherdatabases.recording ] = validateOtherDatabases
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.place ] = validateOtherDatabases;
 
     var validateFacebook = function (url) {
         if (url.match(/facebook.com\/pages\//)) {
