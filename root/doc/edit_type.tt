@@ -1,14 +1,7 @@
 [% USE class = Class(edit_type) %]
-[% quality_levels = [ 0, 1, 2 ] %]
 [%- MACRO edit_type_property(label, property) BLOCK -%]
          <th>[% label %]</th>
-         [% IF class.edit_conditions_vary %]
-             [% FOR quality=quality_levels %]
-             <td>[% class.edit_conditions.${quality}.${property} %]</td>
-             [% END %]
-         [% ELSE %]
-             <td>[% class.edit_conditions.0.${property} %]</td>
-         [% END %]
+             <td>[% class.edit_conditions.${property} %]</td>
 [%- END -%]
 
 [%- MACRO expire_action_name(expire_action) BLOCK -%]
@@ -44,16 +37,6 @@
 
    <h2>[% l('Details') %]</h2>
    <table class="tbl">
-     [% IF class.edit_conditions_vary %]
-     <thead>
-       <tr>
-         <th>[% l('Data Quality') %]</th>
-             [% FOR quality=quality_levels %]
-             <th>[% quality_name(quality) %]</th>
-             [% END %]
-       </tr>
-     </thead>
-     [% END %]
      <tbody>
        <tr>
          [% edit_type_property(l('Voting period (days)'), 'duration') %]
@@ -63,23 +46,11 @@
        </tr>
        <tr>
          <th>[% l('Expire action') %]</th>
-         [% IF class.edit_conditions_vary %]
-             [% FOR quality=quality_levels %]
-             <td>[%- expire_action_name(class.edit_conditions.${quality}.expire_action) -%]</td>
-             [% END %]
-         [% ELSE %]
-             <td>[%- expire_action_name(class.edit_conditions.0.expire_action) -%]</td>
-         [% END %]
+             <td>[%- expire_action_name(class.edit_conditions.expire_action) -%]</td>
        </tr>
        <tr class="even">
          <th>[% l('Can be approved') %]</th>
-         [% IF class.edit_conditions_vary %]
-             [% FOR quality=quality_levels %]
-             <td>[% class.edit_conditions.${quality}.auto_edit ? l('&#10004;') : l('&#10005;') %]</td>
-             [% END %]
-         [% ELSE %]
-             <td>[% class.edit_conditions.0.auto_edit ? l('&#10004;') : l('&#10005;') %]</td>
-         [% END %]
+             <td>[% class.edit_conditions.auto_edit ? l('&#10004;') : l('&#10005;') %]</td>
        </tr>
      </tbody>
    </table>

@@ -16,6 +16,7 @@ with 'MusicBrainz::Server::Edit::Role::SubscribeOnCreation' => {
     editor_subscription_preference => sub { shift->subscribe_to_created_series }
 };
 with 'MusicBrainz::Server::Edit::Role::Insert';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_name { N_l('Add series') }
 sub edit_type { $EDIT_SERIES_CREATE }
@@ -52,8 +53,6 @@ sub build_display_data {
         ordering_type       => $loaded->{SeriesOrderingType}->{$self->data->{ordering_type_id}},
     };
 }
-
-sub allow_auto_edit { 1 }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

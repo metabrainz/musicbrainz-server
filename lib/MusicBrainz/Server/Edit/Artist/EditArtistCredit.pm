@@ -14,12 +14,12 @@ use MusicBrainz::Server::Edit::Utils qw(
     clean_submitted_artist_credits
     load_artist_credit_definitions
     verify_artist_credits
-    conditions_without_autoedit
 );
 use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Artist';
+with 'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
 
 sub edit_name { N_l('Edit artist credit') }
 sub edit_kind { 'edit' }
@@ -119,10 +119,5 @@ sub accept {
         $self->data->{new}{artist_credit}
     );
 }
-
-around edit_conditions => sub {
-    my ($orig, $self, @args) = @_;
-    return conditions_without_autoedit($self->$orig(@args));
-};
 
 1;

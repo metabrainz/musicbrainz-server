@@ -9,6 +9,7 @@ use MusicBrainz::Server::Edit::Exceptions;
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Recording';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
 
@@ -59,8 +60,6 @@ sub build_display_data
         } } @{ $self->data->{puids} } ]
     }
 }
-
-sub allow_auto_edit { 1 }
 
 sub initialize { die 'This edit is read only' }
 sub insert { die 'This edit is read only' }
