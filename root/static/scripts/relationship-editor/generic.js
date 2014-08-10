@@ -265,8 +265,11 @@
         $("#relationship-editor").append(hiddenInputs);
     }
 
-    $(document).on("submit", "form", function () {
+    $(document).on("submit", "form", _.once(function () {
         var submitted = [], vm, source;
+
+        $("button[type=submit]").prop("disabled", true);
+        $("input[type=hidden]", "#relationship-editor").remove();
 
         if (vm = MB.sourceRelationshipEditor) {
             addHiddenInputs(vm);
@@ -296,6 +299,6 @@
                 })
             );
         }
-    });
+    }));
 
 }(MB.relationshipEditor = MB.relationshipEditor || {}));
