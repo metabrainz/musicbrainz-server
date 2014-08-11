@@ -1,6 +1,6 @@
-[%- WRAPPER 'layout.tt' title=l('Work annotations') full_width=1 -%]
+[%- WRAPPER 'layout.tt' title=l('Recording annotations') full_width=1 -%]
 
-<h1>[% l('Work annotations') %]</h1>
+<h1>[% l('Recording annotations') %]</h1>
 
 <ul>
     <li>[% l('This report lists recordings with annotations.') -%]
