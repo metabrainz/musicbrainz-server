@@ -350,6 +350,7 @@ Readonly our %ENTITIES => (
         ratings    => 1,
         tags       => 1,
         subscriptions => { entity => 1, deleted => 1 },
+        report_filter => 1,
         removal     => { automatic => 1 }
     },
     instrument => {
@@ -383,6 +384,7 @@ Readonly our %ENTITIES => (
         ratings    => 1,
         tags       => 1,
         subscriptions => { entity => 1, deleted => 1 },
+        report_filter => 1,
         removal     => { manual => 1, automatic => 1 }
     },
     place => {
@@ -410,6 +412,7 @@ Readonly our %ENTITIES => (
         ratings    => 1,
         tags       => 1,
         artist_credits => 1,
+        report_filter => 1,
         removal     => { manual => 1 }
     },
     release => {
@@ -421,6 +424,7 @@ Readonly our %ENTITIES => (
         tags       => 1,
         artist_credits => 1,
         removal     => { manual => 1 },
+        report_filter => 1,
         collections => 1
     },
     release_group => {
@@ -434,6 +438,7 @@ Readonly our %ENTITIES => (
         ratings    => 1,
         tags       => 1,
         artist_credits => 1,
+        report_filter => 1,
         removal     => { automatic => 1 }
     },
     series => {
@@ -450,6 +455,7 @@ Readonly our %ENTITIES => (
             search_hint_type => 2
         },
         subscriptions => { entity => 1, deleted => 1 },
+        report_filter => 1,
         removal     => { automatic => 1 }
     },
     url => {
@@ -472,6 +478,7 @@ Readonly our %ENTITIES => (
         },
         ratings    => 1,
         tags       => 1,
+        report_filter => 1,
         removal     => { automatic => 1 }
     },
     track => {
