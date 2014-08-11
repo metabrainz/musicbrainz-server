@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-10 16:55-0700\n"
-"PO-Revision-Date: 2014-08-10 23:56+0000\n"
+"POT-Creation-Date: 2014-08-10 17:55-0700\n"
+"PO-Revision-Date: 2014-08-11 00:57+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -1423,7 +1423,7 @@ msgstr "Seuratut artistit"
 #: ../root/report/annotations_artists.tt:1
 #: ../root/report/annotations_artists.tt:3
 msgid "Artist annotations"
-msgstr ""
+msgstr "Artistin lisätietokenttiä"
 
 #: ../root/release/edit/tracklist.tt:400
 msgid "Artist as credited on this track:"
@@ -1541,7 +1541,7 @@ msgstr "Artistit, joilla on yhteistyö-yhteyksiä"
 
 #: ../root/report/index.tt:28
 msgid "Artists with annotations"
-msgstr ""
+msgstr "Artistit, joilla lisätietokenttä"
 
 #: ../root/report/deprecated_relationship_artists.tt:1
 #: ../root/report/deprecated_relationship_artists.tt:3
@@ -4266,7 +4266,7 @@ msgstr "Seuratut levymerkit"
 #: ../root/report/annotations_labels.tt:1
 #: ../root/report/annotations_labels.tt:3
 msgid "Label annotations"
-msgstr ""
+msgstr "Levymerkin lisätietokenttiä"
 
 #: ../root/edit/details/add_label.tt:63 ../root/edit/details/edit_label.tt:29
 #: ../root/label/edit_form.tt:46 ../root/label/layout.tt:46
@@ -4298,7 +4298,7 @@ msgstr "Levymerkit"
 
 #: ../root/report/index.tt:37
 msgid "Labels with annotations"
-msgstr ""
+msgstr "Levymerkit, joilla lisätietokenttä"
 
 #: ../root/report/deprecated_relationship_labels.tt:1
 #: ../root/report/deprecated_relationship_labels.tt:3
@@ -4361,7 +4361,7 @@ msgstr "Viimeiset 28 päivää"
 #: ../root/report/annotations_series.tt:13
 #: ../root/report/annotations_works.tt:13
 msgid "Last edited"
-msgstr ""
+msgstr "Viimeksi muokattu"
 
 #: ../root/cdstub/layout.tt:10
 msgid "Last modified:"
@@ -5618,7 +5618,7 @@ msgstr "Paikkaa ei löydy"
 #: ../root/report/annotations_places.tt:1
 #: ../root/report/annotations_places.tt:3
 msgid "Place annotations"
-msgstr ""
+msgstr "Paikan lisätietokenttiä"
 
 #: ../root/place/layout.tt:6
 msgid "Place information"
@@ -5637,7 +5637,7 @@ msgstr "Paikat"
 
 #: ../root/report/index.tt:101
 msgid "Places with annotations"
-msgstr ""
+msgstr "Paikat, joilla lisätietokenttä"
 
 #: ../root/report/deprecated_relationship_places.tt:1
 #: ../root/report/deprecated_relationship_places.tt:3
@@ -6030,6 +6030,11 @@ msgstr "Äänitteiden sulautumiset"
 msgid "Recording Not Found"
 msgstr "Äänitettä ei löydy"
 
+#: ../root/report/annotations_recordings.tt:1
+#: ../root/report/annotations_recordings.tt:3
+msgid "Recording annotations"
+msgstr ""
+
 #: ../root/recording/edits.tt:6 ../root/recording/header.tt:19
 msgid "Recording by {artist}"
 msgstr "Äänite artistilta {artist}"
@@ -6078,7 +6083,7 @@ msgstr "Äänitteitä, joissa eripituisia kappaleita"
 
 #: ../root/report/index.tt:94
 msgid "Recordings with annotations"
-msgstr ""
+msgstr "Äänitteet, joilla lisätietokenttä"
 
 #: ../root/report/deprecated_relationship_recordings.tt:1
 #: ../root/report/deprecated_relationship_recordings.tt:3
@@ -6351,7 +6356,7 @@ msgstr "Julkaisun nimi"
 #: ../root/report/annotations_releases.tt:1
 #: ../root/report/annotations_releases.tt:3
 msgid "Release annotations"
-msgstr ""
+msgstr "Julkaisujen lisätietokenttiä"
 
 #: ../root/release/edits.tt:6 ../root/release/header.tt:8
 msgid "Release by {artist}"
@@ -6379,7 +6384,7 @@ msgstr "Julkaisuryhmä"
 #: ../root/report/annotations_release_groups.tt:1
 #: ../root/report/annotations_release_groups.tt:3
 msgid "Release group annotations"
-msgstr ""
+msgstr "Julkaisuryhmien lisätietokenttiä"
 
 #: ../root/release_group/edits.tt:6 ../root/release_group/header.tt:12
 msgid "Release group by {artist}"
@@ -6423,7 +6428,7 @@ msgstr "Julkaisuryhmät, jotka saattavat vaatia sulauttamisen"
 
 #: ../root/report/index.tt:48
 msgid "Release groups with annotations"
-msgstr ""
+msgstr "Julkaisuryhmät, joilla lisätietokenttä"
 
 #: ../root/report/duplicate_relationships_release_groups.tt:1
 #: ../root/report/duplicate_relationships_release_groups.tt:3
@@ -6560,7 +6565,7 @@ msgstr "Julkaisut, joissa ainoalla tallenteella nimi"
 
 #: ../root/report/index.tt:82
 msgid "Releases with annotations"
-msgstr ""
+msgstr "Julkaisut, joilla lisätietokenttä"
 
 #: ../root/report/index.tt:69
 msgid "Releases with catalog numbers that look like ASINs"
@@ -7197,7 +7202,7 @@ msgstr "lause"
 
 #: ../root/report/index.tt:104 ../root/report/series_list.tt:7
 msgid "Series"
-msgstr ""
+msgstr "Sarjat"
 
 #: ../root/components/common-macros.tt:561
 #: ../root/edit/details/merge_series.tt:8
@@ -7225,7 +7230,7 @@ msgstr "Sarjan seuraajat"
 #: ../root/report/annotations_series.tt:1
 #: ../root/report/annotations_series.tt:3
 msgid "Series annotations"
-msgstr ""
+msgstr "Sarjojen lisätietokenttiä"
 
 #: ../root/series/layout.tt:4
 msgid "Series information"
@@ -7233,7 +7238,7 @@ msgstr "Tietoja sarjasta"
 
 #: ../root/report/index.tt:107
 msgid "Series with annotations"
-msgstr ""
+msgstr "Sarjat, joilla lisätietokenttä"
 
 #: ../root/edit/details/add_series.tt:3 ../root/edit/details/edit_series.tt:5
 msgid "Series:"
@@ -8883,7 +8888,7 @@ msgstr "Tämä raportti listaa artistit, joilla on vanhentuneita ja vain ryhmitt
 
 #: ../root/report/annotations_artists.tt:6
 msgid "This report lists artists with annotations."
-msgstr ""
+msgstr "Tämä raportti listaa artistit, joilla lisätietokenttä."
 
 #: ../root/report/duplicate_relationships_labels.tt:6
 msgid ""
@@ -8899,7 +8904,7 @@ msgstr "Tämä raportti listaa levymerkit, joilla on vanhentuneita ja vain ryhmi
 
 #: ../root/report/annotations_labels.tt:6
 msgid "This report lists labels with annotations."
-msgstr ""
+msgstr "Tämä raportti listaa levymerkit, joilla lisätietokenttä."
 
 #: ../root/report/deprecated_relationship_places.tt:6
 msgid ""
@@ -8909,7 +8914,7 @@ msgstr "Tämä raportti listaa paikat, joilla on vanhentuneita ja vain ryhmittä
 
 #: ../root/report/annotations_places.tt:6
 msgid "This report lists places with annotations."
-msgstr ""
+msgstr "Tämä raportti listaa paikat, joilla lisätietokenttä."
 
 #: ../root/report/duplicate_relationships_recordings.tt:6
 msgid ""
@@ -8925,7 +8930,7 @@ msgstr "Tämä raportti listaa äänitteet, joilla on vanhentuneita ja vain ryhm
 
 #: ../root/report/annotations_recordings.tt:6
 msgid "This report lists recordings with annotations."
-msgstr ""
+msgstr "Tämä raportti listaa äänitteet, joilla lisätietokenttä."
 
 #: ../root/report/duplicate_relationships_release_groups.tt:6
 msgid ""
@@ -8941,7 +8946,7 @@ msgstr "Tämä raportti listaa julkaisuryhmät, joilla on vanhentuneita ja vain 
 
 #: ../root/report/annotations_release_groups.tt:6
 msgid "This report lists release groups with annotations."
-msgstr ""
+msgstr "Tämä raportti listaa julkaisuryhmät, joilla lisätietokenttä."
 
 #: ../root/report/duplicate_relationships_releases.tt:6
 msgid ""
@@ -8957,7 +8962,7 @@ msgstr "Tämä raportti listaa julkaisut, joilla on vanhentuneita ja vain ryhmit
 
 #: ../root/report/annotations_releases.tt:6
 msgid "This report lists releases with annotations."
-msgstr ""
+msgstr "Tämä raportti listaa julkaisut, joilla lisätietokenttä."
 
 #: ../root/report/superfluous_data_tracks.tt:6
 msgid ""
@@ -8968,7 +8973,7 @@ msgstr "Tämä raportti listaa julkaisut, joilla ei ole levyn tunnistetta ja joi
 
 #: ../root/report/annotations_series.tt:6
 msgid "This report lists series with annotations."
-msgstr ""
+msgstr "Tämä raportti listaa sarjat, joilla lisätietokenttä."
 
 #: ../root/report/duplicate_relationships_works.tt:6
 msgid ""
@@ -8985,7 +8990,7 @@ msgstr "Tämä raportti listaa teokset, joilla on vanhentuneita ja vain ryhmitt�
 
 #: ../root/report/annotations_works.tt:6
 msgid "This report lists works with annotations."
-msgstr ""
+msgstr "Tämä raportti listaa teokset, joilla lisätietokenttä."
 
 #: ../root/report/isrc_with_many_recordings.tt:6
 msgid ""
@@ -9457,7 +9462,7 @@ msgstr "Julkaisuja yhteensä: {count}"
 
 #: ../root/report/annotations_series.tt:8
 msgid "Total series found: {count}"
-msgstr ""
+msgstr "Sarjoja löytyi yhteensä: {count}"
 
 #: ../root/cdstub/index.tt:17 ../root/cdtoc/info.tt:19
 msgid "Total tracks:"
@@ -10235,11 +10240,9 @@ msgstr "Teosta ei löytynyt"
 msgid "Work Type:"
 msgstr "Teoksen tyyppi:"
 
-#: ../root/report/annotations_recordings.tt:1
-#: ../root/report/annotations_recordings.tt:3
 #: ../root/report/annotations_works.tt:1 ../root/report/annotations_works.tt:3
 msgid "Work annotations"
-msgstr ""
+msgstr "Teosten lisätietokenttiä"
 
 #: ../root/work/layout.tt:9
 msgid "Work information"
@@ -10266,7 +10269,7 @@ msgstr "Teokset"
 
 #: ../root/report/index.tt:115
 msgid "Works with annotations"
-msgstr ""
+msgstr "Teokset, joilla lisätietokenttä"
 
 #: ../root/report/deprecated_relationship_works.tt:1
 #: ../root/report/deprecated_relationship_works.tt:3
@@ -11784,7 +11787,7 @@ msgstr "Tällä levyn tunnisteella on jo CD-tynkä"
 #: ../lib/MusicBrainz/Server/Data/Language.pm:42
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:44
 msgid "[No lyrics]"
-msgstr ""
+msgstr "[Ei sanoituksia]"
 
 #: ../lib/MusicBrainz/Server/Data/LinkType.pm:153
 #, perl-brace-format

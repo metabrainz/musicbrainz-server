@@ -27,8 +27,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-10 16:55-0700\n"
-"PO-Revision-Date: 2014-08-10 23:56+0000\n"
+"POT-Creation-Date: 2014-08-10 17:55-0700\n"
+"PO-Revision-Date: 2014-08-11 00:57+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -1425,7 +1425,7 @@ msgstr "Abonnement à cet artiste"
 #: ../root/report/annotations_artists.tt:1
 #: ../root/report/annotations_artists.tt:3
 msgid "Artist annotations"
-msgstr ""
+msgstr "Annotations sur les artistes"
 
 #: ../root/release/edit/tracklist.tt:400
 msgid "Artist as credited on this track:"
@@ -1543,7 +1543,7 @@ msgstr "Artistes ayant des relations de collaboration"
 
 #: ../root/report/index.tt:28
 msgid "Artists with annotations"
-msgstr ""
+msgstr "Artistes avec des annotations"
 
 #: ../root/report/deprecated_relationship_artists.tt:1
 #: ../root/report/deprecated_relationship_artists.tt:3
@@ -4268,7 +4268,7 @@ msgstr "Abonnements au label"
 #: ../root/report/annotations_labels.tt:1
 #: ../root/report/annotations_labels.tt:3
 msgid "Label annotations"
-msgstr ""
+msgstr "Annotations sur les labels"
 
 #: ../root/edit/details/add_label.tt:63 ../root/edit/details/edit_label.tt:29
 #: ../root/label/edit_form.tt:46 ../root/label/layout.tt:46
@@ -4300,7 +4300,7 @@ msgstr "Labels"
 
 #: ../root/report/index.tt:37
 msgid "Labels with annotations"
-msgstr ""
+msgstr "Labels avec des annotations"
 
 #: ../root/report/deprecated_relationship_labels.tt:1
 #: ../root/report/deprecated_relationship_labels.tt:3
@@ -4363,7 +4363,7 @@ msgstr "Les 28 derniers jours"
 #: ../root/report/annotations_series.tt:13
 #: ../root/report/annotations_works.tt:13
 msgid "Last edited"
-msgstr ""
+msgstr "Dernière modification"
 
 #: ../root/cdstub/layout.tt:10
 msgid "Last modified:"
@@ -4379,7 +4379,7 @@ msgstr "Modifié en dernier le {date}"
 
 #: ../root/components/details.tt:15
 msgid "Last updated:"
-msgstr "Dernière miss à jour en dernier :"
+msgstr "Dernière mise à jour :"
 
 #: ../root/search/results-layout.tt:6
 msgid "Last updated: {date}"
@@ -5620,7 +5620,7 @@ msgstr "Lieu introuvable"
 #: ../root/report/annotations_places.tt:1
 #: ../root/report/annotations_places.tt:3
 msgid "Place annotations"
-msgstr ""
+msgstr "Annotation sur les lieux"
 
 #: ../root/place/layout.tt:6
 msgid "Place information"
@@ -5639,7 +5639,7 @@ msgstr "Lieux"
 
 #: ../root/report/index.tt:101
 msgid "Places with annotations"
-msgstr ""
+msgstr "Lieux avec annotations"
 
 #: ../root/report/deprecated_relationship_places.tt:1
 #: ../root/report/deprecated_relationship_places.tt:3
@@ -6032,6 +6032,11 @@ msgstr "Fusions d'enregistrement"
 msgid "Recording Not Found"
 msgstr "Enregistrement introuvable"
 
+#: ../root/report/annotations_recordings.tt:1
+#: ../root/report/annotations_recordings.tt:3
+msgid "Recording annotations"
+msgstr ""
+
 #: ../root/recording/edits.tt:6 ../root/recording/header.tt:19
 msgid "Recording by {artist}"
 msgstr "Enregistrement par {artist}"
@@ -6080,7 +6085,7 @@ msgstr "Enregistrements à durée de piste variable"
 
 #: ../root/report/index.tt:94
 msgid "Recordings with annotations"
-msgstr ""
+msgstr "Enregistrements avec des annotations"
 
 #: ../root/report/deprecated_relationship_recordings.tt:1
 #: ../root/report/deprecated_relationship_recordings.tt:3
@@ -6353,7 +6358,7 @@ msgstr "Titre de parution"
 #: ../root/report/annotations_releases.tt:1
 #: ../root/report/annotations_releases.tt:3
 msgid "Release annotations"
-msgstr ""
+msgstr "Annotations sur les parutions"
 
 #: ../root/release/edits.tt:6 ../root/release/header.tt:8
 msgid "Release by {artist}"
@@ -6381,7 +6386,7 @@ msgstr "Groupe de parution"
 #: ../root/report/annotations_release_groups.tt:1
 #: ../root/report/annotations_release_groups.tt:3
 msgid "Release group annotations"
-msgstr ""
+msgstr "Annotations sur les groupes de parution"
 
 #: ../root/release_group/edits.tt:6 ../root/release_group/header.tt:12
 msgid "Release group by {artist}"
@@ -6425,7 +6430,7 @@ msgstr "Groupe de parution qu'il faudrait peut-être fusionner"
 
 #: ../root/report/index.tt:48
 msgid "Release groups with annotations"
-msgstr ""
+msgstr "Groupes de parution avec des annotations"
 
 #: ../root/report/duplicate_relationships_release_groups.tt:1
 #: ../root/report/duplicate_relationships_release_groups.tt:3
@@ -6562,7 +6567,7 @@ msgstr "Parutions avec un support simple qui a un nom"
 
 #: ../root/report/index.tt:82
 msgid "Releases with annotations"
-msgstr ""
+msgstr "Parutions avec des annotations"
 
 #: ../root/report/index.tt:69
 msgid "Releases with catalog numbers that look like ASINs"
@@ -7199,7 +7204,7 @@ msgstr "Phrase"
 
 #: ../root/report/index.tt:104 ../root/report/series_list.tt:7
 msgid "Series"
-msgstr ""
+msgstr "Série"
 
 #: ../root/components/common-macros.tt:561
 #: ../root/edit/details/merge_series.tt:8
@@ -7227,7 +7232,7 @@ msgstr "Abonnements à des séries"
 #: ../root/report/annotations_series.tt:1
 #: ../root/report/annotations_series.tt:3
 msgid "Series annotations"
-msgstr ""
+msgstr "Annotations sur les séries"
 
 #: ../root/series/layout.tt:4
 msgid "Series information"
@@ -7235,7 +7240,7 @@ msgstr "Informations sur la série"
 
 #: ../root/report/index.tt:107
 msgid "Series with annotations"
-msgstr ""
+msgstr "Séries avec annotations"
 
 #: ../root/edit/details/add_series.tt:3 ../root/edit/details/edit_series.tt:5
 msgid "Series:"
@@ -8885,7 +8890,7 @@ msgstr "Ce rapport liste des artistes qui ont des relations utilisant des types 
 
 #: ../root/report/annotations_artists.tt:6
 msgid "This report lists artists with annotations."
-msgstr ""
+msgstr "Ce rapport liste les artistes avec des annotations."
 
 #: ../root/report/duplicate_relationships_labels.tt:6
 msgid ""
@@ -8901,7 +8906,7 @@ msgstr "Ce rapport liste des labels qui ont des relations utilisant des types de
 
 #: ../root/report/annotations_labels.tt:6
 msgid "This report lists labels with annotations."
-msgstr ""
+msgstr "Ce rapport liste les labels avec des annotations."
 
 #: ../root/report/deprecated_relationship_places.tt:6
 msgid ""
@@ -8911,7 +8916,7 @@ msgstr "Ce rapport liste des lieux qui ont des relations utilisant des types de 
 
 #: ../root/report/annotations_places.tt:6
 msgid "This report lists places with annotations."
-msgstr ""
+msgstr "Ce rapport liste les lieux avec des annotations."
 
 #: ../root/report/duplicate_relationships_recordings.tt:6
 msgid ""
@@ -8927,7 +8932,7 @@ msgstr "Ce rapport liste des enregistrements qui ont des relations utilisant des
 
 #: ../root/report/annotations_recordings.tt:6
 msgid "This report lists recordings with annotations."
-msgstr ""
+msgstr "Ce rapport liste les enregistrements avec des annotations."
 
 #: ../root/report/duplicate_relationships_release_groups.tt:6
 msgid ""
@@ -8943,7 +8948,7 @@ msgstr "Ce rapport liste des groupes de parution qui ont des relations utilisant
 
 #: ../root/report/annotations_release_groups.tt:6
 msgid "This report lists release groups with annotations."
-msgstr ""
+msgstr "Ce rapport liste les groupes de parutions avec des annotations. "
 
 #: ../root/report/duplicate_relationships_releases.tt:6
 msgid ""
@@ -8959,7 +8964,7 @@ msgstr "Ce rapport liste des parutions qui ont des relations utilisant des types
 
 #: ../root/report/annotations_releases.tt:6
 msgid "This report lists releases with annotations."
-msgstr ""
+msgstr "Ce rapport liste les parutions avec des annotations."
 
 #: ../root/report/superfluous_data_tracks.tt:6
 msgid ""
@@ -8970,7 +8975,7 @@ msgstr "Ce rapporte liste les parutions sans ID de disque qui contiennent probab
 
 #: ../root/report/annotations_series.tt:6
 msgid "This report lists series with annotations."
-msgstr ""
+msgstr "Ce rapport liste les séries avec des annotations."
 
 #: ../root/report/duplicate_relationships_works.tt:6
 msgid ""
@@ -8987,7 +8992,7 @@ msgstr "Ce rapport liste des œuvres qui ont des relations utilisant des types d
 
 #: ../root/report/annotations_works.tt:6
 msgid "This report lists works with annotations."
-msgstr ""
+msgstr "Ce rapport liste les oeuvres avec des annotations."
 
 #: ../root/report/isrc_with_many_recordings.tt:6
 msgid ""
@@ -9459,7 +9464,7 @@ msgstr "Total des parutions : {count}"
 
 #: ../root/report/annotations_series.tt:8
 msgid "Total series found: {count}"
-msgstr ""
+msgstr "Total de séries trouvées : [count]"
 
 #: ../root/cdstub/index.tt:17 ../root/cdtoc/info.tt:19
 msgid "Total tracks:"
@@ -10237,11 +10242,9 @@ msgstr "Œuvre introuvable"
 msgid "Work Type:"
 msgstr "Type d'oeuvre :"
 
-#: ../root/report/annotations_recordings.tt:1
-#: ../root/report/annotations_recordings.tt:3
 #: ../root/report/annotations_works.tt:1 ../root/report/annotations_works.tt:3
 msgid "Work annotations"
-msgstr ""
+msgstr "Annotations sur les œuvres"
 
 #: ../root/work/layout.tt:9
 msgid "Work information"
@@ -10268,7 +10271,7 @@ msgstr "Œuvres"
 
 #: ../root/report/index.tt:115
 msgid "Works with annotations"
-msgstr ""
+msgstr "Oeuvres avec des annotations"
 
 #: ../root/report/deprecated_relationship_works.tt:1
 #: ../root/report/deprecated_relationship_works.tt:3
@@ -11786,7 +11789,7 @@ msgstr "Il y a déjà un coupon de CD avec cet ID de disque"
 #: ../lib/MusicBrainz/Server/Data/Language.pm:42
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:44
 msgid "[No lyrics]"
-msgstr ""
+msgstr "[pas de parole]"
 
 #: ../lib/MusicBrainz/Server/Data/LinkType.pm:153
 #, perl-brace-format

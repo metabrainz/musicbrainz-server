@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-10 16:55-0700\n"
-"PO-Revision-Date: 2014-08-10 23:56+0000\n"
+"POT-Creation-Date: 2014-08-10 17:55-0700\n"
+"PO-Revision-Date: 2014-08-11 00:57+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -6019,6 +6019,11 @@ msgstr "Mestitavad salvestised"
 msgid "Recording Not Found"
 msgstr "Salvestist ei leitud"
 
+#: ../root/report/annotations_recordings.tt:1
+#: ../root/report/annotations_recordings.tt:3
+msgid "Recording annotations"
+msgstr ""
+
 #: ../root/recording/edits.tt:6 ../root/recording/header.tt:19
 msgid "Recording by {artist}"
 msgstr "salvestis ~ {artist}"
@@ -10224,8 +10229,6 @@ msgstr "Teost ei leitud"
 msgid "Work Type:"
 msgstr "Teose tüüp:"
 
-#: ../root/report/annotations_recordings.tt:1
-#: ../root/report/annotations_recordings.tt:3
 #: ../root/report/annotations_works.tt:1 ../root/report/annotations_works.tt:3
 msgid "Work annotations"
 msgstr ""

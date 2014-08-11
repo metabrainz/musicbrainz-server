@@ -22,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-10 16:55-0700\n"
-"PO-Revision-Date: 2014-08-10 23:56+0000\n"
+"POT-Creation-Date: 2014-08-10 17:55-0700\n"
+"PO-Revision-Date: 2014-08-11 00:57+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -6027,6 +6027,11 @@ msgstr "Opnamesamenvoegingen"
 msgid "Recording Not Found"
 msgstr "Opname niet gevonden"
 
+#: ../root/report/annotations_recordings.tt:1
+#: ../root/report/annotations_recordings.tt:3
+msgid "Recording annotations"
+msgstr ""
+
 #: ../root/recording/edits.tt:6 ../root/recording/header.tt:19
 msgid "Recording by {artist}"
 msgstr "Opname van {artist}"
@@ -10232,8 +10237,6 @@ msgstr "Compositie niet gevonden"
 msgid "Work Type:"
 msgstr "Type compositie:"
 
-#: ../root/report/annotations_recordings.tt:1
-#: ../root/report/annotations_recordings.tt:3
 #: ../root/report/annotations_works.tt:1 ../root/report/annotations_works.tt:3
 msgid "Work annotations"
 msgstr ""
