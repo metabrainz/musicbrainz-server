@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-10 16:55-0700\n"
+"POT-Creation-Date: 2014-08-10 17:55-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6011,6 +6011,11 @@ msgstr ""
 msgid "Recording Not Found"
 msgstr ""
 
+#: ../root/report/annotations_recordings.tt:1
+#: ../root/report/annotations_recordings.tt:3
+msgid "Recording annotations"
+msgstr ""
+
 #: ../root/recording/edits.tt:6 ../root/recording/header.tt:19
 msgid "Recording by {artist}"
 msgstr ""
@@ -10215,8 +10220,6 @@ msgstr ""
 msgid "Work Type:"
 msgstr ""
 
-#: ../root/report/annotations_recordings.tt:1
-#: ../root/report/annotations_recordings.tt:3
 #: ../root/report/annotations_works.tt:1 ../root/report/annotations_works.tt:3
 msgid "Work annotations"
 msgstr ""
