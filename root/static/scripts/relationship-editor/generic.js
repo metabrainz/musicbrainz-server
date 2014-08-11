@@ -265,7 +265,7 @@
         $("#relationship-editor").append(hiddenInputs);
     }
 
-    $(document).on("submit", "form", _.once(function () {
+    RE.prepareSubmission = function () {
         var submitted = [], vm, source;
 
         $("button[type=submit]").prop("disabled", true);
@@ -299,6 +299,8 @@
                 })
             );
         }
-    }));
+    };
+
+    $(document).on("submit", "form", _.once(RE.prepareSubmission));
 
 }(MB.relationshipEditor = MB.relationshipEditor || {}));

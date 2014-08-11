@@ -74,12 +74,6 @@ function setupReleaseRelationshipEditor(self) {
 }
 
 function setupGenericRelationshipEditor(self, options) {
-    self.$form = $("<form>").attr("action", "#");
-
-    self.$form[0].onsubmit = function () {
-        return false;
-    };
-
     var $inputs = $("<div>").attr("id", "relationship-editor");
 
     self.formData = function () {
@@ -87,7 +81,7 @@ function setupGenericRelationshipEditor(self, options) {
         return _.transform(inputsArray, function (result, input) { result[input.name] = input.value }, {});
     };
 
-    $("#qunit-fixture").append(self.$form, $inputs);
+    $("#qunit-fixture").append($inputs);
 
     self.vm = self.RE.GenericEntityViewModel(options);
     MB.sourceRelationshipEditor = self.vm;
@@ -647,7 +641,7 @@ test("hidden input fields are generated for non-release forms", function () {
     relationships[0].attributes([]);
     relationships[1].removed(true);
 
-    this.$form.submit();
+    this.RE.prepareSubmission();
 
     deepEqual(this.formData(), {
         "edit-artist.rel.0.relationship_id": "131689",
@@ -735,7 +729,7 @@ test("link orders are submitted for new, orderable relationships (MBS-7775)", fu
     newRelationship2.show();
     newRelationship3.show();
 
-    this.$form.submit();
+    this.RE.prepareSubmission();
 
     deepEqual(this.formData(), {
         "edit-series.rel.0.attribute_text_values.0.attribute": "788",
