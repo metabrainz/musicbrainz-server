@@ -198,9 +198,11 @@
         openTrackParser: function (medium) { this.trackParserDialog.open(medium) },
 
         resetTrackNumbers: function (medium) {
+            var offset = medium.hasPregap() ? 0 : 1;
+
             _.each(medium.tracks(), function (track, i) {
-                track.position(i + 1);
-                track.number(i + 1);
+                track.position(i + offset);
+                track.number(i + offset);
             });
         },
 
