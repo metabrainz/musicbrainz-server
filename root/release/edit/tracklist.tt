@@ -376,7 +376,7 @@
           <p style="margin-top: 0;">
             <label>
               <input type="checkbox" data-bind="checked: hasPregap" />
-              [% l('This disc has a hidden pregap track.') %]
+              [% l('This disc has a hidden pregap track before track 1 ({info|more info})', { info => { href => doc_link('Hidden_Track'), target => '_blank' } }) %]
             </label>
           </p>
         <!-- /ko -->
