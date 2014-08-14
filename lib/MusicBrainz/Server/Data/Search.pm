@@ -166,13 +166,13 @@ sub search
         my ($join_sql, $where_sql)
             = ("JOIN ${type} entity ON r.name = entity.name", '');
 
-        if ($type eq 'release' && $where && defined $where->{track_count}) {
+        if ($type eq 'release' && $where && exists $where->{track_count}) {
             $join_sql .= ' JOIN medium ON medium.release = entity.id';
             $where_sql = 'WHERE medium.track_count = ?';
             push @where_args, $where->{track_count};
         }
         elsif ($type eq 'recording') {
-            if ($where && defined $where->{artist})
+            if ($where && exists $where->{artist})
             {
                 $join_sql .= " JOIN artist_credit ON artist_credit.id = entity.artist_credit";
                 $where_sql = 'WHERE artist_credit.name LIKE ?';
