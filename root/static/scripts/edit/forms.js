@@ -159,7 +159,14 @@ ko.bindingHandlers.loop = {
                 } else if (status === "deleted") {
                     if (change.moved === undefined) {
                         for (j = 0; node = currentElements[j]; j++) {
-                            parentNode.removeChild(node);
+                            // If the node is already removed for some unknown
+                            // reason, don't outright explode. It's possible
+                            // an exception occurred somewhere in the middle
+                            // of an arrayChange notification, causing
+                            // knockout to send duplicate changes afterward.
+                            if (node.parentNode) {
+                                node.parentNode.removeChild(node);
+                            }
                             removals.push({ node: node, itemID: itemID });
                         }
                     }
