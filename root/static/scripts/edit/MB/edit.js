@@ -128,10 +128,10 @@
                 data.attributeTextValues = textAttrs;
             }
 
-            var linkOrder = number(relationship.linkOrder);
-
-            if (linkOrder !== null) {
-                data.linkOrder = linkOrder;
+            if (_.isNumber(data.linkTypeID)) {
+                if (MB.typeInfoByID[data.linkTypeID].orderableDirection !== 0) {
+                    data.linkOrder = number(relationship.linkOrder) || 0;
+                }
             }
 
             if (relationship.hasDates()) {

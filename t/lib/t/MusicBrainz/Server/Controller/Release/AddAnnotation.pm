@@ -39,8 +39,6 @@ $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
 $mech->content_contains('Changelog here', '..has changelog entry');
 $mech->content_contains('Aerial', '..has release name');
 $mech->content_like(qr{release/f205627f-b70a-409d-adbe-66289b614e80/?"}, '..has a link to the artist');
-$mech->content_contains('release/f205627f-b70a-409d-adbe-66289b614e80/annotation/' . $edit->annotation_id,
-                        '..has a link to the annotation');
 
 };
 

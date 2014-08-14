@@ -6,9 +6,12 @@
 (function (RE) {
 
     function mapItems(result, item) {
-        result[item.id] = item;
-        result[item.gid] = item;
-
+        if (item.id) {
+            result[item.id] = item;
+        }
+        if (item.gid) {
+            result[item.gid] = item;
+        }
         _.transform(item.children, mapItems, result);
     }
 
@@ -38,18 +41,17 @@
 
         init: function (options) {
             var self = this;
+            var source = this.source = options.source || MB.entity(options.sourceData);
 
             this.cache = {};
             this.allowedRelations = this.getAllowedRelations();
+            this.uniqueID = _.uniqueId("relationship-editor-");
 
             if (options.formName) {
                 this.formName = options.formName;
             }
 
-            this.source = options.source;
-
             if (options.sourceData) {
-                var source = this.source = options.source || MB.entity(options.sourceData);
                 source.parseRelationships(options.sourceData.relationships, this);
 
                 _.each(options.sourceData.submittedRelationships, function (data) {
@@ -67,16 +69,6 @@
                         relationship.fromJS(_.assign(_.clone(data), { entities: entities }));
                     } else {
                         relationship.show();
-                    }
-                });
-            }
-
-            if (options.fieldErrors) {
-                _.each(this.source.relationships(), function (relationship, index) {
-                    var errors = options.fieldErrors[index];
-
-                    if (errors) {
-                        relationship.error(errors.text || errors.link_type_id);
                     }
                 });
             }
@@ -158,131 +150,23 @@
             return false;
         },
 
-        orderedRelationships: function (relationships, source) {
-            var self = this;
+        containsRelationship: function (relationship, source) {
+            var types = relationship.entityTypes.split("-"),
+                targetType = source.entityType === types[0] ? types[1] : types[0];
 
-            var automaticallyOrderedSeries = source.entityType === "series" &&
-                    +source.orderingTypeID() === MB.constants.SERIES_ORDERING_TYPE_AUTOMATIC;
+            if (!this.typesAreAccepted(source.entityType, targetType)) {
+                return false;
+            }
 
-            return relationships.slice(0).sort(function (a, b) {
-                var targetA = a.target(source);
-                var targetB = b.target(source);
+            return this.goodCardinality(
+                relationship.linkTypeID(),
+                source.entityType,
+                source === relationship.entities()[1]
 
-                if (!a.entityIsOrdered(targetA) || !b.entityIsOrdered(targetB)) {
-                    return 0;
-                }
-
-                if (automaticallyOrderedSeries) {
-                    var numberA = ko.unwrap(a.attributeValue(MB.constants.SERIES_ORDERING_ATTRIBUTE)) || "";
-                    var numberB = ko.unwrap(b.attributeValue(MB.constants.SERIES_ORDERING_ATTRIBUTE)) || "";
-
-                    var partsA = _.compact(numberA.split(/(\d+)/));
-                    var partsB = _.compact(numberB.split(/(\d+)/));
-
-                    var maxPartsLength = Math.max(partsA.length, partsB.length);
-                    var order = 0;
-
-                    for (var i = 0; i <= maxPartsLength; i++) {
-                        var partA = partsA[i] || "";
-                        var partB = partsB[i] || "";
-
-                        var aIsNumber = /^\d+$/.test(partA);
-                        var bIsNumber = /^\d+$/.test(partB);
-
-                        if (aIsNumber && bIsNumber) {
-                            order = partA - partB;
-                        } else {
-                            order = (partA == partB) ? 0 : (partA < partB ? -1 : 1);
-                        }
-
-                        if (order !== 0) break;
-                    }
-
-                    return order;
-                }
-
-                return a.linkOrder() - b.linkOrder();
-            });
-        },
-
-        hiddenInputs: function () {
-            var fieldPrefix = this.formName + "." + this.fieldName;
-            var source = this.source;
-            var relationships = source.displayRelationships(this);
-            var index = 0;
-
-            return _.flatten(_.map(relationships, function (relationship) {
-                var editData = relationship.editData();
-                var hidden = [];
-
-                if (!editData.linkTypeID) {
-                    return hidden;
-                }
-
-                var prefix = fieldPrefix + "." + index;
-                var target = relationship.target(source);
-
-                if (relationship.id) {
-                    hidden.push({ name: prefix + ".relationship_id", value: relationship.id });
-                }
-
-                if (relationship.removed()) {
-                    hidden.push({ name: prefix + ".removed", value: 1 });
-                }
-
-                if (target.entityType === "url") {
-                    hidden.push({ name: prefix + ".text", value: target.name });
-                }
-                else {
-                    hidden.push({ name: prefix + ".target", value: target.gid });
-                }
-
-                _.each(editData.attributes, function (id, i) {
-                    hidden.push({ name: prefix + ".attributes." + i, value: id });
-                });
-
-                var attrTextIndex = 0;
-
-                _.each(editData.attributeTextValues, function (value, id) {
-                    var attrTextPrefix = prefix + ".attribute_text_values." + (attrTextIndex++);
-
-                    hidden.push({ name: attrTextPrefix + ".attribute", value: id });
-                    hidden.push({ name: attrTextPrefix + ".text_value", value: value });
-                });
-
-                var beginDate = editData.beginDate;
-                var endDate = editData.endDate;
-                var ended = editData.ended;
-
-                if (beginDate) {
-                    hidden.push({ name: prefix + ".period.begin_date.year", value: beginDate.year });
-                    hidden.push({ name: prefix + ".period.begin_date.month", value: beginDate.month });
-                    hidden.push({ name: prefix + ".period.begin_date.day", value: beginDate.day });
-                }
-
-                if (endDate) {
-                    hidden.push({ name: prefix + ".period.end_date.year", value: endDate.year });
-                    hidden.push({ name: prefix + ".period.end_date.month", value: endDate.month });
-                    hidden.push({ name: prefix + ".period.end_date.day", value: endDate.day });
-                }
-
-                if (ended) {
-                    hidden.push({ name: prefix + ".period.ended", value: 1 });
-                }
-
-                if (source !== relationship.entities()[0]) {
-                    hidden.push({ name: prefix + ".backward", value: 1 });
-                }
-
-                hidden.push({ name: prefix + ".link_type_id", value: editData.linkTypeID || "" });
-
-                if (_.isNumber(editData.linkOrder)) {
-                    hidden.push({ name: prefix + ".link_order", value: editData.linkOrder });
-                }
-
-                index++;
-                return hidden;
-            }));
+            // Always display added/edited/removed relationships, even if
+            // the cardinality is wrong; otherwise invisible changes can
+            // be submitted.
+            ) || relationship.hasChanges();
         }
     });
 

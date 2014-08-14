@@ -43,11 +43,6 @@ sub series_toplevel {
     $c->model('Series')->annotation->load_latest($series)
         if $c->stash->{inc}->annotation;
 
-    if ($c->stash->{inc}->aliases) {
-        my $aliases = $c->model('Series')->alias->find_by_entity_id($series->id);
-        $opts->{aliases} = $aliases;
-    }
-
     $self->load_relationships($c, $stash, $series);
 }
 

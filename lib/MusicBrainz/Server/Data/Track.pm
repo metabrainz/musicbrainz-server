@@ -173,12 +173,14 @@ sub insert
 sub update
 {
     my ($self, $track_id, $update) = @_;
+    my $old_recording = $self->sql->select_single_value('SELECT recording FROM track WHERE id = ? FOR UPDATE', $track_id);
+
     my $row = $self->_create_row($update);
     $self->sql->update_row('track', $row, { id => $track_id });
 
     my $mediums = $self->_medium_ids($track_id);
     $self->c->model('DurationLookup')->update($mediums->[0]);
-    $self->c->model('Recording')->_delete_from_cache($row->{recording});
+    $self->c->model('Recording')->_delete_from_cache($row->{recording}, $old_recording);
 }
 
 sub delete

@@ -16,10 +16,17 @@ test("non-loaded mediums validate, even though they have no tracks (MBS-7222)", 
         ]
     });
 
-    var release = releaseEditor.rootField.release();
+    var release = releaseEditor.rootField.release(),
+        medium = release.mediums()[0];
 
-    ok(!release.mediums()[0].loaded(), "medium is not loaded");
-    ok(!release.mediums()[0].tracks.error(), "tracks are error-free");
+    ok(!medium.loaded(), "medium is not loaded");
+    ok(!medium.needsTracks(), "medium doesn't require tracks");
+    ok(!medium.needsTrackInfo(), "medium doesn't require track info");
+    ok(!medium.needsRecordings(), "medium doesn't require recordings");
+    ok(!release.needsMediums(), "release doesn't need mediums");
+    ok(!release.needsTracks(), "release doesn't need tracks");
+    ok(!release.needsTrackInfo(), "release doesn't need track info");
+    ok(!release.needsRecordings(), "release doesn't need recordings");
 });
 
 
@@ -39,8 +46,9 @@ test("duplicate release countries are rejected, including null ones (MBS-7624)",
     var release = releaseEditor.rootField.release();
     var events = release.events();
 
-    ok(events[0].countryID.error());
-    ok(events[1].countryID.error());
-    ok(events[2].countryID.error());
-    ok(events[3].countryID.error());
+    ok(events[0].isDuplicate());
+    ok(events[1].isDuplicate());
+    ok(events[2].isDuplicate());
+    ok(events[3].isDuplicate());
+    ok(releaseEditor.validation.errorsExist());
 });

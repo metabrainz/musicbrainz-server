@@ -1,7 +1,5 @@
 [%- PROCESS 'edit/details/macros.tt' -%]
 
-[%- MACRO yesno(b) BLOCK; b ? l('Yes') : l('No'); END -%]
-
 <table class="details edit-relationship-type">
   [%- IF edit.display_data.link_type -%]
       <tr>

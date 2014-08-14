@@ -903,6 +903,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Hēmavati"
 msgstr ""
 
+#: DB:work_attribute_type/name:14
+msgctxt "work_attribute_type"
+msgid "Identifiers"
+msgstr ""
+
 #: DB:label_type/name:9
 msgctxt "label_type"
 msgid "Imprint"
