@@ -1098,8 +1098,8 @@ sub _serialize_event
     push @list, $gen->cancelled('true') if $event->cancelled;
 
     $self->_serialize_life_span(\@list, $gen, $event, $inc, $opts);
-    push @list, $gen->time($event->formatted_time);
-    push @list, $gen->setlist($event->setlist);
+    push @list, $gen->time($event->formatted_time) if $event->formatted_time;
+    push @list, $gen->setlist($event->setlist) if $event->setlist;
 
     $self->_serialize_annotation(\@list, $gen, $event, $inc, $opts) if $toplevel;
 
