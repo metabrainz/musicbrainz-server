@@ -815,7 +815,9 @@ sub external_search
         $xmltype =~ s/annotation/annotations/;
         $xmltype =~ s/area/areas/;
         $xmltype =~ s/cdstub/cdstubs/;
+        $xmltype =~ s/editor/editors/;
         $xmltype =~ s/freedb/freedb-discs/;
+        $xmltype =~ s/instrument/instruments/;
         $xmltype =~ s/label/labels/;
         $xmltype =~ s/place/places/;
         $xmltype =~ s/release$/releases/;
