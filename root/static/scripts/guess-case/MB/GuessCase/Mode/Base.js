@@ -25,12 +25,9 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
 MB.GuessCase.Mode._fix = function (name, re, replace) {
     var self = {};
 
-    if (typeof(re) == 'string')
-    {
+    if (typeof(re) == 'string') {
         self.string = re;
-    }
-    else
-    {
+    } else {
         self.re = re;
     }
 
@@ -109,12 +106,10 @@ MB.GuessCase.Mode.Base = function () {
     };
 
     self.isLowerCaseWord = function (w) {
-
         if (!self.lowerCaseWords) {
             self.lowerCaseWords = gc.u.toAssocArray(self.getLowerCaseWords());
         }
         return gc.u.inArray(self.lowerCaseWords,w);
-
     }; // lowercase_words
 
     /**
@@ -136,11 +131,12 @@ MB.GuessCase.Mode.Base = function () {
             "rza", "gza", "odb", "dmx", "2xlc" // artists
         ];
     };
+
     self.getRomanNumberals = function () {
         return ["i","ii","iii","iv","v","vi","vii","viii","ix","x"];
     };
-    self.isUpperCaseWord = function (w) {
 
+    self.isUpperCaseWord = function (w) {
         if (!self.upperCaseWords) {
             self.upperCaseWords = gc.u.toAssocArray(self.getUpperCaseWords());
         }
@@ -163,7 +159,6 @@ MB.GuessCase.Mode.Base = function () {
      * My Track 12" remix => My Track (12" remix)
      **/
     self.prepExtraTitleInfo = function (w) {
-
         var lastword = w.length-1, wi = lastword;
         var handlePreProcess = false;
         var isDoubleQuote = false;
@@ -221,7 +216,6 @@ MB.GuessCase.Mode.Base = function () {
      * keschte          2005-11-10              first version
      **/
     self.preProcessCommons = function (is) {
-
         if (!gc.re.PREPROCESS_COMMONS) {
             gc.re.PREPROCESS_COMMONS = [
                 self.fix("D.J. -> DJ", /(\b|^)D\.?J\.?(\s|\)|$)/i, "DJ"),
@@ -240,7 +234,6 @@ MB.GuessCase.Mode.Base = function () {
      * keschte          2005-11-10              first version
      **/
     self.preProcessTitles = function (is) {
-
         if (!gc.re.PREPROCESS_FIXLIST) {
             gc.re.PREPROCESS_FIXLIST = [
 
@@ -319,7 +312,6 @@ MB.GuessCase.Mode.Base = function () {
      * aren't handled in the specific function.
      **/
     self.runPostProcess = function (is) {
-
         if (!gc.re.POSTPROCESS_FIXLIST) {
             gc.re.POSTPROCESS_FIXLIST = [
 
@@ -355,9 +347,7 @@ MB.GuessCase.Mode.Base = function () {
      * @param list      the list of fix objects to apply.
      **/
     self.runFixes = function (is, list) {
-
-        var replace_match = function (matcher, is)
-        {
+        var replace_match = function (matcher, is) {
             // get reference to first set of parentheses
             var a = matcher[1];
             a = (MB.utility.isNullOrEmpty(a) ? "" : a);
@@ -373,31 +363,23 @@ MB.GuessCase.Mode.Base = function () {
 
         var matcher = null;
         var len = list.length;
-        for (var i=0; i<len; i++) {
+        for (var i = 0; i < len; i++) {
             var fix = list[i];
 
             if (fix && fix.name) {
-                if (fix.string)
-                {
+                if (fix.string) {
                     // iterate through the whole string and replace. there could
                     // be multiple occurences of the search string.
                     var pos = 0;
-                    while ((pos = is.indexOf(fix.string, pos)) != -1)
-                    {
+                    while ((pos = is.indexOf(fix.string, pos)) != -1) {
                         is = is.replace(fix.string, fix.replace);
                     }
-                }
-                else if (fix.loop)
-                {
-                    while ((matches = fix.re.exec(is)))
-                    {
+                } else if (fix.loop) {
+                    while ((matches = fix.re.exec(is))) {
                         is = replace_match(matches, is);
                     }
-                }
-                else
-                {
-                    if ((matches = is.match(fix.re)) != null)
-                    {
+                } else {
+                    if ((matches = is.match(fix.re)) != null) {
                         is = replace_match(matches, is);
                     }
                 }
@@ -410,7 +392,6 @@ MB.GuessCase.Mode.Base = function () {
      * Take care of (bonus),(bonus track)
      **/
     self.stripInformationToOmit = function (is) {
-
         if (!gc.re.PREPROCESS_STRIPINFOTOOMIT) {
             gc.re.PREPROCESS_STRIPINFOTOOMIT = [
                 self.fix("Trim 'bonus (track)?'", /[\(\[]?bonus(\s+track)?s?\s*[\)\]]?$/i, ""),
@@ -418,7 +399,7 @@ MB.GuessCase.Mode.Base = function () {
             ];
         }
         var os = is, list = gc.re.PREPROCESS_STRIPINFOTOOMIT;
-        for (var i=list.length-1; i>=0; i--) {
+        for (var i = list.length - 1; i >= 0; i--) {
             var matcher = null;
             var fix = list[i];
             if ((matcher = os.match(fix.re)) != null) {
@@ -454,7 +435,6 @@ MB.GuessCase.Mode.Base = function () {
      *          Match failed.
      **/
     self.runFinalChecks = function (is) {
-
         if (!gc.re.VINYL) {
             gc.re.VINYL = /(\s+|\()((\d+)(inch\b|in\b|'+|"))([^s]|$)/i;
         }
@@ -481,9 +461,8 @@ MB.GuessCase.Mode.Base = function () {
      * Delegate function for Mode specific word handling.
      * This is mostly used for context based titling changes.
      *
-     * @return  false, such that the normal word handling can
-     *                  take place for the current word, if that should
-     *                  not be done, return true.
+     * @return  false, such that the normal word handling can take place for
+     *          the current word, if that should not be done, return true.
      **/
     self.doWord = function () {
         return false;

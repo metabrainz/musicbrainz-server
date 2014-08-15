@@ -30,7 +30,6 @@ MB.GuessCase.Output = function () {
     // ----------------------------------------------------------------------------
     // member variables
     // ---------------------------------------------------------------------------
-
     self._w = [];
 
     // ----------------------------------------------------------------------------
@@ -41,24 +40,23 @@ MB.GuessCase.Output = function () {
      * Initialise the GcOutput object for another run
      **/
     self.init = function () {
-	self._w = [];
-	self._output = "";
+        self._w = [];
+        self._output = "";
     };
 
     /**
      * @returns the length
      **/
     self.getLength = function () {
-	return self._w.length;
+       return self._w.length;
     };
-
 
     /**
      * @returns if the array is empty
      **/
     self.isEmpty = function () {
-	var f = (self.getLength() == 0);
-	return f;
+        var f = (self.getLength() == 0);
+        return f;
     };
 
     /**
@@ -66,30 +64,30 @@ MB.GuessCase.Output = function () {
      * object, and appends it to the wordlist.
      **/
     self.appendCurrentWord = function () {
-	var w;
-	if ((w = gc.i.getCurrentWord()) != null) {
-	    self.appendWord(w);
-	}
+        var w;
+        if ((w = gc.i.getCurrentWord()) != null) {
+            self.appendWord(w);
+        }
     };
 
     /**
      * Append the word w to the worlist
      *
-     * @param w		the word
+     * @param w        the word
      **/
     self.appendWord = function (w) {
-	if (w == " ") {
-	    gc.o.appendSpace();
-	} else if (w != "" && w != null) {
-	    self._w[self._w.length] = w;
-	}
+        if (w == " ") {
+            gc.o.appendSpace();
+        } else if (w != "" && w != null) {
+            self._w[self._w.length] = w;
+        }
     };
 
     /**
      * Adds a space to the processed wordslist
      **/
     self.appendSpace = function () {
-	self._w[self._w.length] = " ";
+       self._w[self._w.length] = " ";
     };
 
     /**
@@ -97,118 +95,115 @@ MB.GuessCase.Output = function () {
      * processed wordlist if needed. The flag is *NOT* reset.
      **/
     self.appendSpaceIfNeeded = function () {
-	if (gc.f.spaceNextWord) {
-	    gc.o.appendSpace();
-	}
+        if (gc.f.spaceNextWord) {
+            gc.o.appendSpace();
+        }
     };
 
     /**
      * Returns the word at the index, or null if index outside bounds
      **/
     self.getWordAtIndex = function (index) {
-	if (self._w[index]) {
-	    return self._w[index];
-	} else {
-	    return null;
-	}
+        if (self._w[index]) {
+            return self._w[index];
+        } else {
+            return null;
+        }
     };
 
     /**
      * Returns the word at the index, or null if index outside bounds
      **/
     self.setWordAtIndex = function (index, word) {
-	if (self.getWordAtIndex(index)) {
-	    self._w[index] = word;
-	}
+        if (self.getWordAtIndex(index)) {
+            self._w[index] = word;
+        }
     };
 
     /**
      * Returns the last word of the wordlist
      **/
     self.getLastWord = function () {
-	if (!self.isEmpty()) {
-	    return self._w[self._w.length-1];
-	} else {
-	    return null;
-	}
+        if (!self.isEmpty()) {
+            return self._w[self._w.length-1];
+        } else {
+            return null;
+        }
     };
 
     /**
      * Returns the last word of the wordlist
      **/
     self.dropLastWord = function () {
-	if (!self.isEmpty()) {
-	    return self._w.pop();
-	}
-	return null;
+        if (!self.isEmpty()) {
+            return self._w.pop();
+        }
+        return null;
     };
 
     /**
      * Capitalize the word at the current cursor position.
      **/
     self.capitalizeWordAtIndex = function (index, overrideCaps) {
-	overrideCaps = (overrideCaps != null ? overrideCaps : gc.f.forceCaps);
-	if ((!gc.mode.isSentenceCaps() || overrideCaps) &&
-	    (!self.isEmpty()) &&
-	    (self.getWordAtIndex(index) != null)) {
+        overrideCaps = (overrideCaps != null ? overrideCaps : gc.f.forceCaps);
+        if ((!gc.mode.isSentenceCaps() || overrideCaps) &&
+            (!self.isEmpty()) &&
+            (self.getWordAtIndex(index) != null)) {
 
-	    // don't capitalize last word before puncuation/end of string in sentence mode.
-	    var w = self.getWordAtIndex(index), o = w;
+            // don't capitalize last word before puncuation/end of string in sentence mode.
+            var w = self.getWordAtIndex(index), o = w;
 
-	    // check that last word is NOT an acronym.
-	    if (w.match(/^\w\..*/) == null) {
+            // check that last word is NOT an acronym.
+            if (w.match(/^\w\..*/) == null) {
+                // some words that were manipulated might have space padding
+                var probe = gc.u.trim(w.toLowerCase());
 
-		// some words that were manipulated might have space padding
-		var probe = gc.u.trim(w.toLowerCase());
+                // If inside brackets, do nothing.
+                if (!overrideCaps &&
+                    gc.f.isInsideBrackets() &&
+                    gc.u.isLowerCaseBracketWord(probe)) {
 
-		// If inside brackets, do nothing.
-		if (!overrideCaps &&
-		    gc.f.isInsideBrackets() &&
-		    gc.u.isLowerCaseBracketWord(probe)) {
-
-		    // If it is an UPPERCASE word,do nothing.
-		} else if (!overrideCaps &&
-			   gc.mode.isUpperCaseWord(probe)) {
-
-		    // else capitalize the current word.
-		} else {
-		    // rewind pos pointer on input
-		    var bef = gc.i.getPos(), pos = bef-1;
-		    while (pos >= 0 && gc.u.trim(gc.i.getWordAtIndex(pos).toLowerCase()) != probe) {
-			pos--;
-		    }
-		    gc.i.setPos(pos);
-		    o = gc.u.titleString(w, overrideCaps);
-		    // restore pos pointer on input
-		    gc.i.setPos(bef);
-		    if (w != o) {
-			self.setWordAtIndex(index, o);
-		    }
-		}
-	    }
-	}
+                    // If it is an UPPERCASE word,do nothing.
+                } else if (!overrideCaps && gc.mode.isUpperCaseWord(probe)) {
+                    // else capitalize the current word.
+                } else {
+                    // rewind pos pointer on input
+                    var bef = gc.i.getPos(), pos = bef-1;
+                    while (pos >= 0 && gc.u.trim(gc.i.getWordAtIndex(pos).toLowerCase()) != probe) {
+                        pos--;
+                    }
+                    gc.i.setPos(pos);
+                    o = gc.u.titleString(w, overrideCaps);
+                    // restore pos pointer on input
+                    gc.i.setPos(bef);
+                    if (w != o) {
+                        self.setWordAtIndex(index, o);
+                    }
+                }
+            }
+        }
     };
 
     /**
      * Capitalize the word at the current cursor position.
      * Modifies the last element of the processed wordlist
      *
-     * @param	overrideCaps	can be used to override
-     *							the gc.f.forceCaps parameter.
+     * @param    overrideCaps    can be used to override
+     *                            the gc.f.forceCaps parameter.
      **/
     self.capitalizeLastWord = function (overrideCaps) {
-	self.capitalizeWordAtIndex(self.getLength()-1, overrideCaps);
+        self.capitalizeWordAtIndex(self.getLength()-1, overrideCaps);
     };
 
     /**
      * Apply post-processing, and return the string
      **/
     self.getOutput = function () {
-	// if *not* sentence mode, force caps on last word.
-	gc.f.forceCaps = !gc.mode.isSentenceCaps();
-	self.capitalizeLastWord();
+        // if *not* sentence mode, force caps on last word.
+        gc.f.forceCaps = !gc.mode.isSentenceCaps();
+        self.capitalizeLastWord();
 
-	self.closeOpenBrackets();
+        self.closeOpenBrackets();
         return gc.u.trim(self._w.join(""));
     };
 
@@ -216,12 +211,12 @@ MB.GuessCase.Output = function () {
      * Work through the stack of opened parentheses and close them
      **/
     self.closeOpenBrackets = function () {
-	var parts = new Array();
-	while (gc.f.isInsideBrackets()) {
-	    // close brackets that were opened before
-	    parts[parts.length] = gc.f.popBracket();
-	}
-	self.appendWord(parts.join(""));
+        var parts = new Array();
+        while (gc.f.isInsideBrackets()) {
+            // close brackets that were opened before
+            parts[parts.length] = gc.f.popBracket();
+        }
+        self.appendWord(parts.join(""));
     };
 
     /**
@@ -229,29 +224,29 @@ MB.GuessCase.Output = function () {
      * and after the current cursor position, and modifies
      * the spaces of the input string.
      *
-     * @param c		configuration wrapper
-     *				c.apply: 	if true, apply changes
-     *				c.capslast: if true, capitalize word before
+     * @param c        configuration wrapper
+     *                c.apply:     if true, apply changes
+     *                c.capslast: if true, capitalize word before
      **/
     self.appendWordPreserveWhiteSpace = function (c) {
-	if (c) {
-	    var ws = { before: gc.i.isPreviousWord(" "), after: gc.i.isNextWord(" ") };
-	    if (c.apply) {
-		// do not register method, such that this message appears as
-		// it were sent from the calling method.
-		if (c.capslast) {
-		    // capitalize last word before current
-	            self.capitalizeLastWord(!gc.mode.isSentenceCaps());
-		}
-		if (ws.before) {
-		    self.appendSpace();  // preserve whitespace before,
-		}
-		self.appendCurrentWord(); // append current word
-		gc.f.spaceNextWord = (ws.after); // and afterwards as well
-	    }
-	    return ws;
-	}
-	return null;
+        if (c) {
+            var ws = { before: gc.i.isPreviousWord(" "), after: gc.i.isNextWord(" ") };
+            if (c.apply) {
+                // do not register method, such that this message appears as
+                // it were sent from the calling method.
+                if (c.capslast) {
+                    // capitalize last word before current
+                    self.capitalizeLastWord(!gc.mode.isSentenceCaps());
+                }
+                if (ws.before) {
+                    self.appendSpace();  // preserve whitespace before,
+                }
+                self.appendCurrentWord(); // append current word
+                gc.f.spaceNextWord = (ws.after); // and afterwards as well
+            }
+            return ws;
+        }
+        return null;
     };
 
     return self;
