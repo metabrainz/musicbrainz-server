@@ -16,6 +16,12 @@
         );
 
     if (!browserIsSupported) {
+        var notice = "Unsupported browser detected: " + window.navigator.userAgent;
+        if (window.console) {
+            console.log(notice);
+        } else if (window.opera) {
+            opera.postError(notice);
+        }
         return;
     }
 
