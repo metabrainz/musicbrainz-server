@@ -32,8 +32,8 @@ ko.postbox.serializer = _.identity;
 // But the loop bindingHandler which we use depends on moves always being
 // detected, so we must disable this limit by passing a falsy value as the
 // third argument.
-//ko.utils.__findMovesInArrayComparison = ko.utils.findMovesInArrayComparison;
+ko.utils.__findMovesInArrayComparison = ko.utils.findMovesInArrayComparison;
 
-//ko.utils.findMovesInArrayComparison = function (left, right) {
-//    ko.utils.__findMovesInArrayComparison(left, right, false);
-//};
+ko.utils.findMovesInArrayComparison = function (left, right) {
+    ko.utils.__findMovesInArrayComparison(left, right, false);
+};
