@@ -6,14 +6,18 @@ with 'MusicBrainz::Server::Data::Role::Context';
 with 'MusicBrainz::Server::Data::Role::SelectAll';
 
 sub get_tree {
-    my ($self, $where_query) = @_;
+    my ($self, $filter) = @_;
 
     my @objects;
+
+    $filter ||= sub { return 1 };
 
     my %id_to_obj = map {
         my $obj = $_;
         push @objects, $obj;
         $obj->id => $obj;
+    } grep {
+        $filter->($_);
     } $self->get_all;
 
     my $root = $self->_entity_class->new;
