@@ -22,7 +22,6 @@ my $mech = $test->mech;
 $mech->default_header("Accept" => "application/xml");
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
-MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
 
 $mech->get('/ws/2/event/eb668bdc-a928-49a1-beb7-8e37db2a5b65?inc=coffee');
 is($mech->status, 400);
