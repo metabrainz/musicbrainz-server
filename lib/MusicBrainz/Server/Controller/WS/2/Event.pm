@@ -16,7 +16,7 @@ my $ws_defs = Data::OptList::mkopt([
                          inc      => [ qw(aliases annotation _relations
                                           tags user-tags ratings user-ratings) ],
                          optional => [ qw(fmt limit offset) ],
-                         linked   => [ qw( artist place location ) ]
+                         linked   => [ qw( area artist place ) ]
      },
      event => {
                          method   => 'GET',
