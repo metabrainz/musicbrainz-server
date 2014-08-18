@@ -51,6 +51,7 @@
 
 <script>
   $(function () {
+    MB.formWasPosted = [% c.form_posted ? 'true' : 'false' %];
     MB.relationshipEditor.exportTypeInfo([% type_info %], [% attr_info %]);
 
     var sourceData = [% source_entity %];
