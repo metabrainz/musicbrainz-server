@@ -485,9 +485,14 @@ test("backwardness of submitted relationships is preserved (MBS-7636)", function
         }
     ]);
 
+    // Pretend the form was posted.
+    MB.formWasPosted = true;
+
     this.vm = this.RE.GenericEntityViewModel({
         sourceData: source
     });
+
+    MB.formWasPosted = false;
 
     var entities = this.vm.source.relationships()[0].entities();
     equal(entities[0].gid, this.fakeGID1);
