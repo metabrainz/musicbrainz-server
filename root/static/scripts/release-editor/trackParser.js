@@ -18,10 +18,13 @@ MB.releaseEditor.trackParser = {
     trackTime: /\(?((?:[0-9０-９]+[：，．':,.])?[0-9０-９\?]+[：，．':,.][0-5０-５\?][0-9０-９\?])\)?$/,
 
     options: {
-        trackArtists: MB.utility.optionCookie("trackparser_trackartists"),
-        trackNumbers: MB.utility.optionCookie("trackparser_tracknumbers"),
-        trackTimes: MB.utility.optionCookie("trackparser_tracktimes"),
-        vinylNumbers: MB.utility.optionCookie("trackparser_vinylnumbers")
+        hasTrackNumbers: MB.utility.optionCookie("trackparser_tracknumbers", true),
+        hasTrackArtists: MB.utility.optionCookie("trackparser_trackartists", true),
+        hasVinylNumbers: MB.utility.optionCookie("trackparser_vinylnumbers", true),
+        useTrackNumbers: MB.utility.optionCookie("trackparser_usetracknumbers", true),
+        useTrackNames: MB.utility.optionCookie("trackparser_usetracknames", true),
+        useTrackArtists: MB.utility.optionCookie("trackparser_usetrackartists", true),
+        useTrackLengths: MB.utility.optionCookie("trackparser_tracktimes", true)
     },
 
     parse: function (str, medium) {
@@ -68,12 +71,12 @@ MB.releaseEditor.trackParser = {
 
             // Check for tracks with similar names to existing tracks, so that
             // we can reuse them if possible. If the medium has a CDTOC, don't
-            // do this because we can't move tracks around.
+            // do this because we can't move tracks around. Also don't do this
+            // if the user says not to use track names.
 
-            if (hasTocs) {
+            if (hasTocs || !options.useTrackNames) {
                 data.matchedTrack = currentTracks.shift();
-            }
-            else {
+            } else {
                 // Pair every parsed track object with every existing track,
                 // along with their similarity.
                 dataTrackPairs = dataTrackPairs.concat(
@@ -131,16 +134,23 @@ MB.releaseEditor.trackParser = {
 
             if (matchedTrack) {
                 matchedTrack.position(data.position);
-                matchedTrack.number(data.number ? data.number : data.position);
-                matchedTrack.name(data.name);
 
-                if (options.trackTimes && !hasTocs && data.formattedLength) {
+                if (options.useTrackNumbers) {
+                    matchedTrack.number(data.number ? data.number : data.position);
+                }
+
+                if (options.useTrackNames) {
+                    matchedTrack.name(data.name);
+                }
+
+                if (options.useTrackLengths && !hasTocs && data.formattedLength) {
                     matchedTrack.formattedLength(data.formattedLength);
                 }
 
-                if (options.trackArtists) {
+                if (options.useTrackArtists) {
                     matchedTrack.artistCredit.setNames(data.artistCredit);
                 }
+
                 return matchedTrack;
             }
 
@@ -179,7 +189,7 @@ MB.releaseEditor.trackParser = {
         var match = line.match(this.trackTime);
 
         if (match !== null) {
-            if (options.trackTimes && match[1] !== "?:??") {
+            if (options.useTrackLengths && match[1] !== "?:??") {
                 data.formattedLength = MB.utility.fullWidthConverter(match[1]);
                 data.length = MB.utility.unformatTrackLength(data.formattedLength);
             }
@@ -188,17 +198,18 @@ MB.releaseEditor.trackParser = {
         }
 
         // Parse the track number.
-        if (options.trackNumbers) {
-            match = options.vinylNumbers ? line.match(this.vinylNumber)
-                                         : line.match(this.trackNumber);
+        if (options.hasTrackNumbers) {
+            match = line.match(options.hasVinylNumbers ? this.vinylNumber : this.trackNumber);
 
             // There should always be a track number if this option's set.
             if (match === null) return {};
 
-            data.number = MB.utility.fullWidthConverter(match[1]);
+            if (options.useTrackNumbers) {
+                data.number = MB.utility.fullWidthConverter(match[1]);
 
-            if (/^\d+$/.test(data.number)) {
-                data.number = data.number.replace(/^0+(\d+)/, "$1");
+                if (/^\d+$/.test(data.number)) {
+                    data.number = data.number.replace(/^0+(\d+)/, "$1");
+                }
             }
 
             // Remove the track number from the line.
@@ -206,8 +217,10 @@ MB.releaseEditor.trackParser = {
         }
 
         // Parse the track title and artist.
-        if (!options.trackArtists) {
-            data.name = _.str.clean(line);
+        if (!options.hasTrackArtists) {
+            if (options.useTrackNames) {
+                data.name = _.str.clean(line);
+            }
             return data;
         }
 
@@ -219,23 +232,32 @@ MB.releaseEditor.trackParser = {
         // artist is the last name.
 
         if (names.length > 1) {
-            data.artist = names.pop();
+            var artist = names.pop();
 
-            // Use whatever's left as the name, including any separators.
-            data.name = _.str.trim(
-                _.first(parts, _.lastIndexOf(parts, data.artist)).join(""),
-                this.separators
-            );
-        }
-        else {
+            if (options.useTrackArtists) {
+                data.artist = artist;
+            }
+
+            if (options.useTrackNames) {
+                // Use whatever's left as the name, including any separators.
+                var withoutArtist = _.first(parts, _.lastIndexOf(parts, artist));
+
+                data.name = _.str.trim(withoutArtist.join(""), this.separators);
+            }
+        } else if (options.useTrackNames) {
             data.name = _.str.clean(line);
         }
 
         // Either of these could be the artist name (they may have to be
         // swapped by the user afterwards), so run `cleanArtistName` on both.
 
-        data.name = this.cleanArtistName(data.name || "");
-        data.artist = this.cleanArtistName(data.artist || "");
+        if (options.useTrackNames) {
+            data.name = this.cleanArtistName(data.name || "");
+        }
+
+        if (options.useTrackArtists) {
+            data.artist = this.cleanArtistName(data.artist || "");
+        }
 
         return data;
     },
@@ -255,23 +277,19 @@ MB.releaseEditor.trackParser = {
         var options = ko.toJS(this.options);
 
         return _.reduce(medium.tracks(), function (memo, track) {
-            if (options.trackNumbers) {
+            if (options.hasTrackNumbers) {
                 memo += track.number.peek() + ". ";
             }
 
             memo += track.name.peek() || "";
 
-            if (options.trackArtists) {
+            if (options.hasTrackArtists) {
                 var artist = track.artistCredit.text();
 
                 if (artist) memo += " - " + artist;
             }
 
-            if (options.trackTimes) {
-                var length = track.formattedLength.peek();
-
-                memo += " (" + (length || "?:??") + ")";
-            }
+            memo += " (" + (track.formattedLength.peek() || "?:??") + ")";
 
             return memo + "\n";
         }, "");

@@ -23,6 +23,7 @@ sub edit_name { N_l('Reorder relationships') }
 sub edit_kind { 'other' }
 sub edit_type { $EDIT_RELATIONSHIPS_REORDER }
 
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Relationship';
 with 'MusicBrainz::Server::Edit::Relationship::RelatedEntities';
@@ -156,23 +157,6 @@ sub adjust_edit_pending
         $adjust,
         map { $_->{relationship}{id} } @{ $self->data->{relationship_order} }
     );
-}
-
-sub allow_auto_edit { 1 }
-
-sub edit_conditions {
-    my $conditions = {
-        duration      => 0,
-        votes         => 0,
-        expire_action => $EXPIRE_ACCEPT,
-        auto_edit     => 1,
-    };
-
-    return {
-        $QUALITY_LOW    => $conditions,
-        $QUALITY_NORMAL => $conditions,
-        $QUALITY_HIGH   => $conditions,
-    };
 }
 
 sub initialize {

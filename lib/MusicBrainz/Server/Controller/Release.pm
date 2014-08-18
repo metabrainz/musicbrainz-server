@@ -728,7 +728,7 @@ sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit {
 
     $c->stash(
         work_types      => select_options($c, 'WorkType'),
-        work_languages  => build_grouped_options($c, language_options($c)),
+        work_languages  => build_grouped_options($c, language_options($c, 'work')),
         source_entity   => $json->encode(JSONSerializer->_release($release, 0, 0, 1)),
         attr_info       => $json->encode(build_attr_info($attr_tree)),
         type_info       => $json->encode(build_type_info($c, qr/(recording|work|release)/, @link_type_tree)),

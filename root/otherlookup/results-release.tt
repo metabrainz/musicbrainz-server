@@ -26,7 +26,7 @@
     </thead>
     <tbody>
       [%- FOR result=results -%]
-        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+        <tr class="[% loop.parity %]">
           <td>[% link_entity(result) %]</td>
           <td>[% artist_credit(result.artist_credit) %]</td>
           <td>[% html_escape(result.combined_format_name) or "-" %]</td>

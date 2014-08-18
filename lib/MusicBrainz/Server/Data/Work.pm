@@ -253,7 +253,7 @@ sub load_related_info {
     $c->model('WorkAttribute')->load_for_works(@works);
     $c->model('ISWC')->load_for_works(@works);
     $c->model('WorkType')->load(@works);
-    $c->model('Language')->load(@works);
+    $c->model('Language')->load_for_works(@works);
 }
 
 =method load_ids

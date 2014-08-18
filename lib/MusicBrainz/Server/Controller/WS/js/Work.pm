@@ -34,7 +34,7 @@ sub search : Chained('root') PathPart('work')
 
 after _load_entities => sub {
     my ($self, $c, @entities) = @_;
-    $c->model('Language')->load(@entities);
+    $c->model('Language')->load_for_works(@entities);
 };
 
 around _format_output => sub {

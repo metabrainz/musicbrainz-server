@@ -124,7 +124,7 @@
 [%- END -%]
 
 [%- MACRO ac_row(row_counter, startnum, endnum, thisac) BLOCK -%]
-  <tr class="[% row_counter % 2 == 0 ? 'ev' : '' %]">
+  <tr class="[% row_counter % 2 == 0 ? 'even' : '' %]">
     <td class="pos t">
       [% startnum %][% IF endnum AND endnum != startnum %]-[% endnum %][% END %]
     </td>
@@ -155,7 +155,7 @@
 END -%]
 
 [%- MACRO ac_diff_row(row_counter, startnum, endnum, oldac, newac) BLOCK -%]
-  <tr class="[% row_counter % 2 == 0 ? 'ev' : '' %]">
+  <tr class="[% row_counter % 2 == 0 ? 'even' : '' %]">
     <td class="pos t">
       [% startnum %][% IF endnum AND endnum != startnum %]-[% endnum %][% END %]
     </td>

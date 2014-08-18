@@ -3,21 +3,17 @@ use Moose;
 use MooseX::ABC;
 
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_DELETE );
-use MusicBrainz::Server::Edit::Utils qw( conditions_without_autoedit );
 use MusicBrainz::Server::Data::Artist;
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Constants qw( :edit_status );
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
+use MusicBrainz::Server::Data::Utils qw( model_to_type );
 
 extends 'MusicBrainz::Server::Edit';
 requires '_delete_model';
-
-around edit_conditions => sub {
-    my ($orig, $self, @args) = @_;
-    return conditions_without_autoedit($self->$orig(@args));
-};
+with 'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
 
 sub edit_kind { 'remove' }
 
@@ -69,11 +65,13 @@ sub build_display_data
     my ($self, $loaded) = @_;
 
     my $model = $self->_delete_model;
+    my $entity_type = model_to_type($model);
     return {
         entity => $loaded->{$model}->{$self->data->{entity_id}} ||
             $self->c->model($model)->_entity_class->new(
                 name => $self->data->{name}
-            )
+            ),
+        entity_type => $entity_type,
     };
 }
 
@@ -102,6 +100,8 @@ override 'accept' => sub
 
 # We do allow auto edits for this (as ModBot needs to insert them)
 sub modbot_auto_edit { 1 }
+
+sub edit_template { "remove_entity" };
 
 __PACKAGE__->meta->make_immutable;
 
