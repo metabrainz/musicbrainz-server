@@ -67,7 +67,12 @@
                             }
                         });
                     }
-                    delete sessionStorage.submittedRelationships;
+
+                    _.defer(function () {
+                        // Give time for other view models, like the external
+                        // links editor, to parse the relationships.
+                        delete sessionStorage.submittedRelationships;
+                    });
                 }
             }
         },
