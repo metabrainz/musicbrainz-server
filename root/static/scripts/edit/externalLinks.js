@@ -188,7 +188,7 @@
 
             // Terribly get seeded URLs
 
-            if (!window.sessionStorage || !sessionStorage.submittedRelationships) {
+            if (!MB.formWasPosted) {
                 var urlField = new RegExp("(?:\\?|&)edit-" + source.entityType + "\\.url\\.([0-9]+)\\.(text|link_type_id)=([^&]+)", "g"),
                     urls = {}, match;
 
