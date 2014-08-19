@@ -212,24 +212,24 @@ sub merge_instrument_attributes {
     $self->sql->do('DELETE FROM link_attribute WHERE link = any(?)', \@old_link_ids);
     $self->sql->do('DELETE FROM link WHERE id = any(?)', \@old_link_ids);
 
-    $self->c->model('Link')->_delete_from_cache(@old_link_ids);
+    #$self->c->model('Link')->_delete_from_cache(@old_link_ids);
 }
 
 # The entries in the memcached store for 'Link' objects also have all attributes
 # loaded. Thus changing an attribute should clear all of these link objects.
-for my $method (qw( delete update )) {
-    before $method => sub {
-        my ($self, $id) = @_;
-        $self->c->model('Link')->_delete_from_cache(
-            @{ $self->sql->select_single_column_array(
-                'SELECT id FROM link
-                 JOIN link_attribute la ON link.id = la.link
-                 WHERE la.attribute_type = ?',
-                $id
-            ) }
-        );
-    };
-}
+#for my $method (qw( delete update )) {
+#    before $method => sub {
+#        my ($self, $id) = @_;
+#        $self->c->model('Link')->_delete_from_cache(
+#            @{ $self->sql->select_single_column_array(
+#                'SELECT id FROM link
+#                 JOIN link_attribute la ON link.id = la.link
+#                 WHERE la.attribute_type = ?',
+#                $id
+#            ) }
+#        );
+#    };
+#}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
