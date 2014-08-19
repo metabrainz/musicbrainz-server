@@ -373,12 +373,14 @@ MB.constants.CLEANUPS = {
             new RegExp("^(https?://)?([^/]+\\.)?j-lyric\\.net", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?lyricsnmusic\\.com", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?muzikum\\.eu", "i"),
-            new RegExp("^(https?://)?([^/]+\\.)?rapgenius\\.com", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?genius\\.com", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?gutenberg\\.org", "i")
         ],
         type: MB.constants.LINK_TYPES.lyrics,
         clean: function (url) {
-            return url.replace(/^https:\/\/([a-z-]+\.)?wikisource\.org/, "http://$1wikisource.org");
+            url = url.replace(/^https:\/\/([a-z-]+\.)?wikisource\.org/, "http://$1wikisource.org");
+            url = url.replace(/^https?:\/\/(.+\.)?genius\.com/, "http://$1genius.com");
+            return url;
         }
     },
     bbcmusic: {
@@ -438,7 +440,7 @@ MB.constants.CLEANUPS = {
     socialnetwork: {
         match: [
             new RegExp("^(https?://)?([^/]+\\.)?facebook\\.com/", "i"),
-            new RegExp("^(https?://)?([^/]+\\.)?(last\\.fm|lastfm\\.(at|br|de|es|fr|it|jp|pl|pt|ru|se|com\\.tr))/(music|label|venue|user|group)/", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?(last\\.fm|lastfm\\.(at|com|com\\.br|de|es|fr|it|jp|pl|pt|ru|se|com\\.tr))/(music|label|venue|user|group)/", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?reverbnation\\.com/", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?plus\\.google\\.com/", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?vk\\.com/", "i"),
@@ -461,7 +463,7 @@ MB.constants.CLEANUPS = {
                     url = url.replace(/(facebook\.com\/.*)\/$/, "$1");
                 }
             }
-            url = url.replace(/^(https?:\/\/)?((www|cn|m)\.)?(last\.fm|lastfm\.(at|br|de|es|fr|it|jp|pl|pt|ru|se|com\.tr))/, "http://www.last.fm");
+            url = url.replace(/^(https?:\/\/)?((www|cn|m)\.)?(last\.fm|lastfm\.(at|com|com\\.br|de|es|fr|it|jp|pl|pt|ru|se|com\.tr))/, "http://www.last.fm");
             url = url.replace(/^http:\/\/www\.last\.fm\/music\/([^?]+).*/, "http://www.last.fm/music/$1");
             url = url.replace(/^(?:https?:\/\/)?plus\.google\.com\/(?:u\/[0-9]\/)?([0-9]+)(\/.*)?$/, "https://plus.google.com/$1");
             url = url.replace(/^(?:https?:\/\/)?(?:(?:www|mobile)\.)?twitter\.com(?:\/#!)?\/@?([^\/]+)\/?$/, "https://twitter.com/$1");
@@ -560,8 +562,7 @@ MB.constants.CLEANUPS = {
             new RegExp("^(https?://)?(www\\.)?45cat\\.com/", "i"),
             new RegExp("^(https?://)?(www\\.)?musik-sammler\\.de/", "i"),
             new RegExp("^(https?://)?(www\\.)?discografia\\.dds\\.it/", "i"),
-            new RegExp("^(https?://)?(www\\.)?tallinn\\.ester\\.ee/", "i"),
-            new RegExp("^(https?://)?(www\\.)?tartu\\.ester\\.ee/", "i"),
+            new RegExp("^(https?://)?(www\\.)?ester\\.ee/", "i"),
             new RegExp("^(https?://)?(www\\.)?encyclopedisque\\.fr/", "i"),
             new RegExp("^(https?://)?(www\\.)?discosdobrasil\\.com\\.br/", "i"),
             new RegExp("^(https?://)?(www\\.)?isrc\\.ncl\\.edu\\.tw/", "i"),
@@ -596,7 +597,7 @@ MB.constants.CLEANUPS = {
             //Standardising IBDb not to use www
             url = url.replace(/^(https?:\/\/)?(www\.)?ibdb\.com/, "http://ibdb.com");
             //Standardising ESTER to their default parameters
-            url = url.replace(/^(?:https?:\/\/)?(tallinn|tartu)\.ester\.ee\/record=([^~]+)(?:.*)?$/, "http://$1.ester.ee/record=$2~S1*est");
+            url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ester\.ee\/record=([^~]+)(?:.*)?$/, "http://www.ester.ee/record=$1~S1*est");
             //Standardising Trove
             url = url.replace(/^(?:https?:\/\/)?trove.nla.gov.au\/work\/([^\/?]+)(?:\?.*)?$/, "http://trove.nla.gov.au/work/$1");
             //Standardising Rockens Danmarkskort
@@ -668,6 +669,10 @@ MB.Control.URLCleanup = function (options) {
 
     validationRules[ MB.constants.LINK_TYPES.discogs.label ] = validateDiscogsLabel;
     validationRules[ MB.constants.LINK_TYPES.discogs.series ] = validateDiscogsLabel;
+
+    validationRules[ MB.constants.LINK_TYPES.discogs.place ] = function (url) {
+        return url.match(/discogs\.com\/(artist|label)\//) != null;
+    };
 
     validationRules[ MB.constants.LINK_TYPES.discogs.release_group ] = function (url) {
         return url.match(/discogs\.com\/master\//) != null;
@@ -853,6 +858,7 @@ MB.Control.URLCleanup = function (options) {
     validationRules[ MB.constants.LINK_TYPES.otherdatabases.release ] = function (url) {return validateOtherDatabases(url) && STCollector_is_not_RG(url) && STCollector_is_not_artist(url)}
     validationRules[ MB.constants.LINK_TYPES.otherdatabases.work ] = validateOtherDatabases
     validationRules[ MB.constants.LINK_TYPES.otherdatabases.recording ] = validateOtherDatabases
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.place ] = validateOtherDatabases;
 
     var validateFacebook = function (url) {
         if (url.match(/facebook.com\/pages\//)) {

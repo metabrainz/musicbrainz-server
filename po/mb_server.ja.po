@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-14 21:06-0700\n"
-"PO-Revision-Date: 2014-07-10 00:01+0000\n"
+"POT-Creation-Date: 2014-08-10 17:55-0700\n"
+"PO-Revision-Date: 2014-08-11 00:57+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -78,16 +78,16 @@ msgstr "「YY」は登録された年の最後の２桁。"
 #: ../root/edit/details/historic/add_release.tt:49 ../root/freedb/show.tt:10
 #: ../root/freedb/show.tt:61 ../root/recording/index.tt:9
 #: ../root/release/edit_relationships.tt:53
-#: ../root/release/edit/tracklist.tt:99 ../root/release/edit/tracklist.tt:259
+#: ../root/release/edit/tracklist.tt:137 ../root/release/edit/tracklist.tt:297
 #: ../root/release_group/releases-list.tt:8 ../root/release/index.tt:39
 msgid "#"
 msgstr "＃"
 
-#: ../root/doc/edit_type.tt:78 ../root/doc/edit_type.tt:81
+#: ../root/doc/edit_type.tt:53
 msgid "&#10004;"
 msgstr "&#10004;"
 
-#: ../root/doc/edit_type.tt:78 ../root/doc/edit_type.tt:81
+#: ../root/doc/edit_type.tt:53
 msgid "&#10005;"
 msgstr "&#10005;"
 
@@ -149,10 +149,6 @@ msgstr "（このエラーについて詳細がありません）"
 msgid "(add a new recording)"
 msgstr "（新しいレコーディングを追加）"
 
-#: ../root/edit/details/add_release_annotation.tt:17
-msgid "(click here to display annotation)"
-msgstr "（ここにクリックして注釈を表示します）"
-
 #: ../root/edit/details/macros.tt:38
 msgid "(ended)"
 msgstr ""
@@ -166,28 +162,12 @@ msgid "(new release group)"
 msgstr "（新たなリリースグループ）"
 
 #: ../root/annotation/common.tt:9
-#: ../root/edit/details/add_area_annotation.tt:10
-#: ../root/edit/details/add_artist_annotation.tt:10
-#: ../root/edit/details/add_instrument_annotation.tt:10
-#: ../root/edit/details/add_label_annotation.tt:10
-#: ../root/edit/details/add_place_annotation.tt:10
-#: ../root/edit/details/add_recording_annotation.tt:10
-#: ../root/edit/details/add_release_annotation.tt:35
-#: ../root/edit/details/add_release_annotation.tt:38
-#: ../root/edit/details/add_release_group_annotation.tt:10
-#: ../root/edit/details/add_series_annotation.tt:10
-#: ../root/edit/details/add_work_annotation.tt:10
 msgid "(no changelog)"
 msgstr "（更新履歴無し）"
 
 #: ../root/release/add_cover_art.tt:107
 msgid "(no other cover art)"
 msgstr "（他のカバーアートありません）"
-
-#: ../root/edit/details/historic/add_release_annotation.tt:21
-msgctxt "annotation changes"
-msgid "(none)"
-msgstr "（無し）"
 
 #: ../root/edit/details/remove_cover_art.tt:29
 msgctxt "comment"
@@ -290,7 +270,7 @@ msgstr "100%"
 msgid "1st seconder:"
 msgstr "第一賛成者："
 
-#: ../root/components/common-macros.tt:110
+#: ../root/components/common-macros.tt:111
 msgid "250px"
 msgstr ""
 
@@ -298,7 +278,7 @@ msgstr ""
 msgid "2nd seconder:"
 msgstr "第二賛成者："
 
-#: ../root/components/common-macros.tt:111
+#: ../root/components/common-macros.tt:112
 msgid "500px"
 msgstr ""
 
@@ -326,7 +306,7 @@ msgstr "<strong>終了：</strong> <em>キャンセル中</em>"
 msgid "<strong>Closed:</strong> {date}"
 msgstr "<strong>終了：</strong> {date}"
 
-#: ../root/components/common-macros.tt:719
+#: ../root/components/common-macros.tt:716
 msgid "<strong>Error</strong>:"
 msgstr "<strong>エラー</strong>:"
 
@@ -347,7 +327,7 @@ msgid ""
 "updating a page!"
 msgstr "<strong>備考：</strong> MediaWikiはバージョン番号とページ名が合ってるかどうかを確認せず、バージョン番号と関連してるページを表示します。ページを更新する際は十分注意してご確認ください。"
 
-#: ../root/components/common-macros.tt:732
+#: ../root/components/common-macros.tt:729
 msgid "<strong>Note</strong>:"
 msgstr "<strong>注目：</strong>"
 
@@ -371,7 +351,7 @@ msgid ""
 "you wish to continue with the merge."
 msgstr ""
 
-#: ../root/components/common-macros.tt:726 ../root/recording/edit.tt:10
+#: ../root/components/common-macros.tt:723 ../root/recording/edit.tt:10
 msgid "<strong>Warning</strong>:"
 msgstr "<strong>注意</strong>"
 
@@ -397,12 +377,16 @@ msgid ""
 "MusicBrainz release"
 msgstr "提出したディスクIDはCDスタブとマッチしました。以下のトラックリストは正しそうであれば、新しいMusicBrainzリリースの起点として使えます。"
 
+#: ../root/place/map.tt:5
+msgid "A map cannot be shown because this place has no coordinates."
+msgstr ""
+
 #: ../root/release/collections.tt:18
 msgid "A private collection"
 msgid_plural "{n} private collections"
 msgstr[0] "{n} 非公開のコレクション"
 
-#: ../root/release/edit/tracklist.tt:178
+#: ../root/release/edit/tracklist.tt:216
 msgid "A release must contain at least one medium."
 msgstr ""
 
@@ -415,7 +399,7 @@ msgid ""
 "A simple list of all entities is available from our {url|browse} pages."
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:248
+#: ../root/release/edit/tracklist.tt:286
 msgid "A tracklist is required."
 msgstr ""
 
@@ -428,7 +412,7 @@ msgstr "このサイトについて"
 msgid "Abstain"
 msgstr "棄権"
 
-#: ../root/doc/edit_type.tt:15
+#: ../root/doc/edit_type.tt:8
 msgid "Accept"
 msgstr "同意"
 
@@ -436,7 +420,7 @@ msgstr "同意"
 msgid "Accept edit"
 msgstr "編集を承認"
 
-#: ../root/components/common-macros.tt:585
+#: ../root/components/common-macros.tt:582
 msgid "Accept upon expiration"
 msgstr "締め切りに承認"
 
@@ -464,7 +448,7 @@ msgstr "アクション"
 #: ../root/account/applications.tt:27 ../root/account/applications.tt:58
 #: ../root/admin/wikidoc/index.tt:36 ../root/artist/aliases.tt:23
 #: ../root/components/aliases.tt:19 ../root/recording/fingerprints.tt:8
-#: ../root/user/collections.tt:14
+#: ../root/user/collections.tt:15
 msgid "Actions"
 msgstr "アクション"
 
@@ -495,7 +479,7 @@ msgid "Add Artist Alias"
 msgstr "アーティストの別名を追加"
 
 #: ../root/components/forms.tt:365 ../root/components/forms.tt:366
-#: ../root/release/edit/tracklist.tt:392
+#: ../root/release/edit/tracklist.tt:430
 msgid "Add Artist Credit"
 msgstr "アーティストクレジットの追加"
 
@@ -513,7 +497,7 @@ msgctxt "header"
 msgid "Add Cover Art"
 msgstr "カバーアートを追加"
 
-#: ../root/release/edit/layout.tt:60 ../root/release/edit/tracklist.tt:168
+#: ../root/release/edit/layout.tt:60 ../root/release/edit/tracklist.tt:206
 #: ../root/scripts/text_strings.tt:150
 msgid "Add Disc"
 msgstr "ディスクを追加"
@@ -705,7 +689,7 @@ msgstr ""
 msgid "Add an edit note"
 msgstr "編集メモを追加"
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:24
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:25
 msgid "Add annotation"
 msgstr "注釈を追加"
 
@@ -811,12 +795,12 @@ msgstr ""
 msgid "Add recording"
 msgstr "レコーディングを追加"
 
-#: ../root/release/edit_relationships.tt:216
+#: ../root/release/edit_relationships.tt:220
 msgid "Add related work"
 msgstr "関連ワークを追加"
 
 #: ../root/forms/relationship-editor.tt:11
-#: ../root/release/edit_relationships.tt:198
+#: ../root/release/edit_relationships.tt:202
 #: ../root/scripts/text_strings.tt:94
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddLink.pm:10
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:26
@@ -831,7 +815,7 @@ msgid "Add release"
 msgstr "リリースを追加"
 
 #: ../root/artist/layout.tt:6
-#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Create.pm:24
+#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Create.pm:25
 msgid "Add release group"
 msgstr "リリースグループを追加"
 
@@ -858,23 +842,23 @@ msgstr "選択されたワークをマージ"
 msgid "Add series alias"
 msgstr ""
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:102
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:103
 msgid "Add to a new collection"
 msgstr "新しいコレクションに追加"
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:91
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:92
 msgid "Add to my collection"
 msgstr "自分のコレクションに追加"
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:93
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:94
 msgid "Add to {collection}"
 msgstr "{collection} に追加"
 
-#: ../root/release/edit/tracklist.tt:336
+#: ../root/release/edit/tracklist.tt:374
 msgid "Add track(s)"
 msgstr "トラックを追加"
 
-#: ../root/artist/layout.tt:9 ../lib/MusicBrainz/Server/Edit/Work/Create.pm:16
+#: ../root/artist/layout.tt:9 ../lib/MusicBrainz/Server/Edit/Work/Create.pm:17
 msgid "Add work"
 msgstr "ワークを追加"
 
@@ -887,7 +871,7 @@ msgstr "ワークの別名を追加"
 msgid "Add {item}"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:335
+#: ../root/release/edit/tracklist.tt:373
 msgid "Add {num} track(s)"
 msgstr "{num}件のトラックを追加"
 
@@ -1022,11 +1006,11 @@ msgstr "自分のタグを公開して"
 msgid "Allow other users to see this collection"
 msgstr "このコレクションを公開して"
 
-#: ../root/edit/details/edit_relationship_type.tt:46
+#: ../root/edit/details/edit_relationship_type.tt:44
 msgid "Allows dates:"
 msgstr ""
 
-#: ../root/components/common-macros.tt:630
+#: ../root/components/common-macros.tt:627
 msgid "Already expired"
 msgstr "既に締め切りました"
 
@@ -1080,7 +1064,7 @@ msgstr "又は、新たな{uri|ワークを追加}できます。"
 msgid "Amazon URLs Linked to Multiple Releases"
 msgstr "複数のリリースに接続されたAmazonのURL"
 
-#: ../root/report/index.tt:57
+#: ../root/report/index.tt:60
 msgid "Amazon URLs linked to multiple releases"
 msgstr "複数のリリースに接続されたAmazonのURL"
 
@@ -1106,11 +1090,11 @@ msgstr "この編集をロード中にエラーが発生しました"
 msgid "An error occured while loading this edit."
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:76
+#: ../root/release/edit/tracklist.tt:114
 msgid "An error occured: "
 msgstr "エラーが発生しました："
 
-#: ../root/release/edit_relationships.tt:174
+#: ../root/release/edit_relationships.tt:178
 msgid "An error occurred while creating the works."
 msgstr ""
 
@@ -1120,13 +1104,20 @@ msgstr ""
 
 #: ../root/annotation/common.tt:2 ../root/area/annotation_revision.tt:1
 #: ../root/artist/annotation_revision.tt:1
-#: ../root/edit/details/historic/add_release_annotation.tt:13
 #: ../root/instrument/annotation_revision.tt:1
 #: ../root/label/annotation_revision.tt:1
 #: ../root/place/annotation_revision.tt:1
 #: ../root/recording/annotation_revision.tt:1
 #: ../root/release/annotation_revision.tt:1
 #: ../root/release_group/annotation_revision.tt:1
+#: ../root/report/annotations_artists.tt:13
+#: ../root/report/annotations_labels.tt:13
+#: ../root/report/annotations_places.tt:12
+#: ../root/report/annotations_recordings.tt:13
+#: ../root/report/annotations_release_groups.tt:13
+#: ../root/report/annotations_releases.tt:13
+#: ../root/report/annotations_series.tt:13
+#: ../root/report/annotations_works.tt:13
 #: ../root/search/results-annotation.tt:10
 #: ../root/series/annotation_revision.tt:1
 #: ../root/work/annotation_revision.tt:1
@@ -1300,7 +1291,7 @@ msgid "Are you sure you wish to remove the series {series} from MusicBrainz?"
 msgstr ""
 
 #: ../root/area/edits.tt:5 ../root/area/header.tt:21
-#: ../root/components/common-macros.tt:564
+#: ../root/components/common-macros.tt:561
 #: ../root/edit/details/merge_labels.tt:11
 #: ../root/edit/details/merge_labels.tt:48
 #: ../root/edit/details/merge_places.tt:11
@@ -1327,15 +1318,14 @@ msgid "Area information"
 msgstr "地域の情報"
 
 #: ../root/artist/edit_form.tt:38 ../root/artist/index.tt:14
-#: ../root/artist/layout.tt:65 ../root/components/common-macros.tt:548
-#: ../root/edit/details/add_area_annotation.tt:3
+#: ../root/artist/layout.tt:65 ../root/components/common-macros.tt:545
 #: ../root/edit/details/add_area.tt:3 ../root/edit/details/add_artist.tt:37
 #: ../root/edit/details/add_label.tt:49 ../root/edit/details/add_place.tt:37
 #: ../root/edit/details/edit_area.tt:5 ../root/edit/details/edit_artist.tt:34
 #: ../root/edit/details/edit_label.tt:48 ../root/edit/details/edit_place.tt:28
-#: ../root/edit/details/remove_area.tt:3 ../root/label/edit_form.tt:36
-#: ../root/label/index.tt:12 ../root/label/layout.tt:50
-#: ../root/place/edit_form.tt:39 ../root/place/layout.tt:36
+#: ../root/label/edit_form.tt:36 ../root/label/index.tt:12
+#: ../root/label/layout.tt:50 ../root/place/edit_form.tt:39
+#: ../root/place/layout.tt:36
 msgid "Area:"
 msgstr "地域："
 
@@ -1343,7 +1333,7 @@ msgstr "地域："
 #: ../root/artist/header.tt:19 ../root/cdstub/browse.tt:9
 #: ../root/cdstub/cdstub.tt:7 ../root/cdtoc/attach_filter_release.tt:29
 #: ../root/cdtoc/list.tt:7 ../root/cdtoc/lookup.tt:39
-#: ../root/collection/index.tt:18 ../root/components/common-macros.tt:564
+#: ../root/collection/index.tt:18 ../root/components/common-macros.tt:561
 #: ../root/components/recordings-list.tt:29
 #: ../root/components/relationships-table.tt:9
 #: ../root/components/release_groups-list.tt:11
@@ -1357,7 +1347,7 @@ msgstr "地域："
 #: ../root/edit/details/merge_releases.tt:19 ../root/edit/search_macros.tt:307
 #: ../root/freedb/show.tt:63 ../root/isrc/index.tt:17
 #: ../root/otherlookup/results-release.tt:11
-#: ../root/release/edit/tracklist.tt:101 ../root/release/edit/tracklist.tt:261
+#: ../root/release/edit/tracklist.tt:139 ../root/release/edit/tracklist.tt:299
 #: ../root/release_group/merge.tt:13 ../root/release_group/releases-list.tt:12
 #: ../root/release/index.tt:55 ../root/release/lookup.tt:10
 #: ../root/release/merge.tt:14 ../root/report/artist_list.tt:7
@@ -1416,7 +1406,12 @@ msgstr "アーティストが見つかりません"
 msgid "Artist Subscriptions"
 msgstr "アーティストの購読"
 
-#: ../root/release/edit/tracklist.tt:362
+#: ../root/report/annotations_artists.tt:1
+#: ../root/report/annotations_artists.tt:3
+msgid "Artist annotations"
+msgstr ""
+
+#: ../root/release/edit/tracklist.tt:400
 msgid "Artist as credited on this track:"
 msgstr ""
 
@@ -1436,7 +1431,7 @@ msgstr "アーティストクレジット"
 msgid "Artist credits:"
 msgstr "アーティストクレジット:"
 
-#: ../root/components/forms.tt:334 ../root/release/edit/tracklist.tt:361
+#: ../root/components/forms.tt:334 ../root/release/edit/tracklist.tt:399
 msgid "Artist in MusicBrainz:"
 msgstr "MusicBrainz内のアーティスト:"
 
@@ -1458,8 +1453,7 @@ msgstr "アーティスト {n}:"
 
 #: ../root/cdstub/edit_form.tt:6 ../root/cdstub/import.tt:7
 #: ../root/cdtoc/attach_filter_artist.tt:8 ../root/cdtoc/lookup.tt:61
-#: ../root/components/common-macros.tt:548 ../root/components/forms.tt:175
-#: ../root/edit/details/add_artist_annotation.tt:3
+#: ../root/components/common-macros.tt:545 ../root/components/forms.tt:175
 #: ../root/edit/details/add_artist.tt:3
 #: ../root/edit/details/add_release_group.tt:15
 #: ../root/edit/details/add_release.tt:15
@@ -1476,9 +1470,9 @@ msgstr "アーティスト {n}:"
 #: ../root/edit/details/historic/mac_to_sac.tt:19
 #: ../root/edit/details/historic/move_release.tt:19
 #: ../root/edit/details/historic/remove_release.tt:17
-#: ../root/edit/details/remove_artist.tt:3 ../root/recording/layout.tt:9
-#: ../root/release/edit/information.tt:37 ../root/release/edit/tracklist.tt:42
-#: ../root/release_group/layout.tt:22 ../root/taglookup/form.tt:4
+#: ../root/recording/layout.tt:9 ../root/release/edit/information.tt:37
+#: ../root/release/edit/tracklist.tt:80 ../root/release_group/layout.tt:22
+#: ../root/taglookup/form.tt:4
 msgid "Artist:"
 msgstr "アーティスト:"
 
@@ -1531,9 +1525,12 @@ msgstr "コラボにみえるアーティスト"
 msgid "Artists with Collaboration Relationships"
 msgstr "コラボ関連持ちのアーティスト"
 
+#: ../root/report/index.tt:28
+msgid "Artists with annotations"
+msgstr ""
+
 #: ../root/report/deprecated_relationship_artists.tt:1
 #: ../root/report/deprecated_relationship_artists.tt:3
-#: ../root/report/deprecated_relationship_works.tt:3
 #: ../root/report/index.tt:27
 msgid "Artists with deprecated relationships"
 msgstr ""
@@ -1579,7 +1576,7 @@ msgctxt "header"
 msgid "Attach CD TOC"
 msgstr "CD TOC の添付"
 
-#: ../root/cdtoc/lookup.tt:52 ../root/release/edit/tracklist.tt:314
+#: ../root/cdtoc/lookup.tt:52 ../root/release/edit/tracklist.tt:352
 msgid "Attach Disc ID"
 msgstr "DiscIDを接続"
 
@@ -1595,7 +1592,7 @@ msgstr "属性"
 
 #: ../root/components/relationship-editor.tt:92
 #: ../root/edit/details/add_relationship_type.tt:30
-#: ../root/edit/details/edit_relationship_type.tt:64
+#: ../root/edit/details/edit_relationship_type.tt:62
 #: ../root/relationship/linktype/form.tt:43
 msgid "Attributes:"
 msgstr "属性："
@@ -1789,7 +1786,7 @@ msgstr "開始地域："
 msgid "Begin Date"
 msgstr "開始日"
 
-#: ../root/components/common-macros.tt:802 ../root/scripts/text_strings.tt:73
+#: ../root/components/common-macros.tt:799 ../root/scripts/text_strings.tt:73
 msgid "Begin area:"
 msgstr "開始地域："
 
@@ -1800,7 +1797,7 @@ msgstr ""
 
 #: ../root/alias/edit_form.tt:34 ../root/area/edit_form.tt:23
 #: ../root/area/layout.tt:12 ../root/artist/edit_form.tt:57
-#: ../root/components/common-macros.tt:798
+#: ../root/components/common-macros.tt:795
 #: ../root/components/relationship-editor.tt:107
 #: ../root/edit/details/add_area.tt:58 ../root/edit/details/add_label.tt:30
 #: ../root/edit/details/add_place.tt:51 ../root/edit/details/edit_area.tt:42
@@ -1837,11 +1834,11 @@ msgstr "生年月日:"
 msgid "Blog"
 msgstr "ブログ"
 
-#: ../root/components/common-macros.tt:802 ../root/scripts/text_strings.tt:74
+#: ../root/components/common-macros.tt:799 ../root/scripts/text_strings.tt:74
 msgid "Born in:"
 msgstr "出身："
 
-#: ../root/components/common-macros.tt:798 ../root/scripts/text_strings.tt:69
+#: ../root/components/common-macros.tt:795 ../root/scripts/text_strings.tt:69
 msgid "Born:"
 msgstr "出生："
 
@@ -1971,7 +1968,7 @@ msgstr "{artist}のCDスタブ"
 msgid "CD stub details"
 msgstr "CDスタブの詳細"
 
-#: ../root/release/edit/tracklist.tt:143
+#: ../root/release/edit/tracklist.tt:181
 msgid "CD stub import"
 msgstr "CDスタブをインポート"
 
@@ -1991,7 +1988,7 @@ msgstr "CDスタブは、匿名でMusicBrainzにデータを提出できるフ�
 msgid "Callback URL:"
 msgstr "コールバックURL："
 
-#: ../root/doc/edit_type.tt:75
+#: ../root/doc/edit_type.tt:52
 msgid "Can be approved"
 msgstr "承認できる"
 
@@ -2002,7 +1999,7 @@ msgstr "承認できる"
 #: ../root/elections/nominate.tt:10 ../root/instrument/merge.tt:36
 #: ../root/label/merge.tt:49 ../root/layout/merge-helper.tt:34
 #: ../root/place/merge.tt:48 ../root/recording/merge.tt:26
-#: ../root/release/edit/layout.tt:54 ../root/release/edit/tracklist.tt:49
+#: ../root/release/edit/layout.tt:54 ../root/release/edit/tracklist.tt:87
 #: ../root/release_group/merge.tt:44 ../root/release/merge.tt:127
 #: ../root/series/merge.tt:37 ../root/work/merge.tt:67
 msgid "Cancel"
@@ -2021,7 +2018,7 @@ msgstr "編集キャンセル"
 msgid "Cancel the election"
 msgstr "選挙キャンセル"
 
-#: ../root/user/profile.tt:172 ../lib/MusicBrainz/Server/Edit/Utils.pm:287
+#: ../root/user/profile.tt:172 ../lib/MusicBrainz/Server/Edit/Utils.pm:276
 msgid "Cancelled"
 msgstr "キャンセルされた"
 
@@ -2086,7 +2083,7 @@ msgstr "カタログ番号"
 msgid "Change Password"
 msgstr "パスワード変更"
 
-#: ../root/release/edit/tracklist.tt:402
+#: ../root/release/edit/tracklist.tt:440
 msgid "Change all artists on this release that match “{name}”"
 msgstr ""
 
@@ -2105,16 +2102,6 @@ msgid "Change release quality"
 msgstr "リリース品質を変更"
 
 #: ../root/annotation/common.tt:9 ../root/annotation/edit.tt:21
-#: ../root/edit/details/add_area_annotation.tt:7
-#: ../root/edit/details/add_artist_annotation.tt:7
-#: ../root/edit/details/add_instrument_annotation.tt:7
-#: ../root/edit/details/add_label_annotation.tt:7
-#: ../root/edit/details/add_place_annotation.tt:7
-#: ../root/edit/details/add_recording_annotation.tt:7
-#: ../root/edit/details/add_release_group_annotation.tt:7
-#: ../root/edit/details/add_series_annotation.tt:7
-#: ../root/edit/details/add_work_annotation.tt:7
-#: ../root/edit/details/historic/add_release_annotation.tt:19
 msgid "Changelog:"
 msgstr "更新履歴："
 
@@ -2125,7 +2112,7 @@ msgstr "変更"
 #: ../root/doc/relationship_type.tt:32
 #: ../root/edit/details/add_relationship_attribute.tt:11
 #: ../root/edit/details/edit_relationship_attribute.tt:18
-#: ../root/edit/details/edit_relationship_type.tt:35
+#: ../root/edit/details/edit_relationship_type.tt:33
 #: ../root/relationship/linkattributetype/form.tt:7
 #: ../root/relationship/linktype/form.tt:7
 #: ../root/relationship/linktype/tree.tt:6
@@ -2189,7 +2176,7 @@ msgstr "ユーザーページは{link|こちらへ}。"
 msgid "Client:"
 msgstr "クライアント："
 
-#: ../root/release/edit/tracklist.tt:132 ../root/release/edit/tracklist.tt:167
+#: ../root/release/edit/tracklist.tt:170 ../root/release/edit/tracklist.tt:205
 msgid "Close"
 msgstr ""
 
@@ -2218,7 +2205,7 @@ msgstr "コラボレーション"
 msgid "Collaborator"
 msgstr "コラボレーたー"
 
-#: ../root/release/edit/tracklist.tt:197
+#: ../root/release/edit/tracklist.tt:235
 msgid "Collapse Disc"
 msgstr "ディスクを折りたたむ"
 
@@ -2251,7 +2238,7 @@ msgstr "コレクションの情報"
 msgid "Collection “{collection}”"
 msgstr "「{collection}」のコレクション"
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:75
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:76
 #: ../root/release/collections.tt:1 ../root/release/collections.tt:2
 #: ../root/user/collections.tt:1 ../root/user/collections.tt:3
 #: ../root/user/profile/layout.tt:12
@@ -2319,7 +2306,7 @@ msgstr ""
 msgid "Copy"
 msgstr "コピー"
 
-#: ../root/components/forms.tt:380 ../root/release/edit/tracklist.tt:409
+#: ../root/components/forms.tt:380 ../root/release/edit/tracklist.tt:447
 msgid "Copy Credits"
 msgstr ""
 
@@ -2374,7 +2361,7 @@ msgstr "作成"
 msgid "Create Account"
 msgstr "アカウント作成"
 
-#: ../root/user/collections.tt:44
+#: ../root/user/collections.tt:46
 msgid "Create a new collection"
 msgstr "新しいコレクションを作成"
 
@@ -2415,10 +2402,6 @@ msgstr "DD"
 #: ../root/layout/menu.tt:121
 msgid "Data Licenses"
 msgstr "データのライセンス"
-
-#: ../root/doc/edit_type.tt:50
-msgid "Data Quality"
-msgstr "データ品質"
 
 #: ../root/edit/details/change_release_quality.tt:7
 #: ../root/edit/details/historic/change_artist_quality.tt:7
@@ -2507,11 +2490,11 @@ msgstr "{e} を削除"
 msgid "Deleted User"
 msgstr ""
 
-#: ../root/edit/details/edit_relationship_type.tt:40
+#: ../root/edit/details/edit_relationship_type.tt:38
 msgid "Deprecated:"
 msgstr ""
 
-#: ../root/collection/index.tt:5 ../root/doc/edit_type.tt:40
+#: ../root/collection/index.tt:5 ../root/doc/edit_type.tt:33
 #: ../root/doc/relationship_type.tt:25
 #: ../root/edit/details/merge_instruments.tt:10
 #: ../root/edit/details/merge_instruments.tt:35 ../root/instrument/index.tt:11
@@ -2524,7 +2507,7 @@ msgstr "説明"
 #: ../root/edit/details/add_relationship_type.tt:8
 #: ../root/edit/details/edit_instrument.tt:23
 #: ../root/edit/details/edit_relationship_attribute.tt:9
-#: ../root/edit/details/edit_relationship_type.tt:18
+#: ../root/edit/details/edit_relationship_type.tt:16
 #: ../root/edit/details/edit_url.tt:25
 #: ../root/edit/details/remove_relationship_attribute.tt:7
 #: ../root/edit/details/remove_relationship_type.tt:15
@@ -2537,7 +2520,7 @@ msgstr "説明："
 
 #: ../root/area/details.tt:1 ../root/area/header.tt:1
 #: ../root/artist/details.tt:1 ../root/artist/header.tt:1
-#: ../root/components/details.tt:2 ../root/doc/edit_type.tt:45
+#: ../root/components/details.tt:2 ../root/doc/edit_type.tt:38
 #: ../root/elections/show.tt:7 ../root/instrument/details.tt:1
 #: ../root/instrument/header.tt:1 ../root/label/details.tt:1
 #: ../root/label/header.tt:1 ../root/place/details.tt:1
@@ -2549,10 +2532,6 @@ msgstr "説明："
 #: ../root/work/header.tt:1
 msgid "Details"
 msgstr "詳細"
-
-#: ../root/release/edit/tracklist.tt:30
-msgid "Detect track durations"
-msgstr "トラック時間を解析"
 
 #: ../root/account/applications.tt:45
 msgid "Developer Applications"
@@ -2570,11 +2549,11 @@ msgstr "開発者"
 msgid "Development"
 msgstr "開発"
 
-#: ../root/components/common-macros.tt:810 ../root/scripts/text_strings.tt:74
+#: ../root/components/common-macros.tt:807 ../root/scripts/text_strings.tt:74
 msgid "Died in:"
 msgstr "死没："
 
-#: ../root/components/common-macros.tt:806 ../root/scripts/text_strings.tt:69
+#: ../root/components/common-macros.tt:803 ../root/scripts/text_strings.tt:69
 msgid "Died:"
 msgstr "死没："
 
@@ -2642,7 +2621,7 @@ msgstr "ディスク ID"
 msgid "Disc IDs with superfluous data tracks"
 msgstr "余分なデータトラックを含むディスク ID"
 
-#: ../root/release/edit/tracklist.tt:210
+#: ../root/release/edit/tracklist.tt:248
 msgid "Disc title:"
 msgstr ""
 
@@ -2682,15 +2661,15 @@ msgstr "複数のリリースに接続されたDiscogsのURL"
 msgid "Discogs URLs linked to multiple artists"
 msgstr ""
 
-#: ../root/report/index.tt:33
+#: ../root/report/index.tt:34
 msgid "Discogs URLs linked to multiple labels"
 msgstr ""
 
-#: ../root/report/index.tt:43
+#: ../root/report/index.tt:45
 msgid "Discogs URLs linked to multiple release groups"
 msgstr "複数のリリースグループに接続されたDiscogsのURL"
 
-#: ../root/report/index.tt:58
+#: ../root/report/index.tt:61
 msgid "Discogs URLs linked to multiple releases"
 msgstr "複数のリリースに接続されたDiscogsのURL"
 
@@ -2698,7 +2677,7 @@ msgstr "複数のリリースに接続されたDiscogsのURL"
 msgid "Discs as Separate Releases"
 msgstr "別リリースのディスク"
 
-#: ../root/report/index.tt:60
+#: ../root/report/index.tt:63
 msgid "Discs entered as separate releases"
 msgstr "別のリリースで入力されたディスク"
 
@@ -2710,11 +2689,11 @@ msgstr "クレジットをインラインで表示"
 msgid "Display Credits at Bottom"
 msgstr "クレジットを以下で表示"
 
-#: ../root/components/common-macros.tt:810 ../root/scripts/text_strings.tt:75
+#: ../root/components/common-macros.tt:807 ../root/scripts/text_strings.tt:75
 msgid "Dissolved in:"
 msgstr "解散："
 
-#: ../root/components/common-macros.tt:806 ../root/scripts/text_strings.tt:70
+#: ../root/components/common-macros.tt:803 ../root/scripts/text_strings.tt:70
 msgid "Dissolved:"
 msgstr "解散："
 
@@ -2739,7 +2718,7 @@ msgid "Documentation Search"
 msgstr "ドキュメント検索"
 
 #: ../root/edit/details/add_relationship_type.tt:44
-#: ../root/edit/details/edit_relationship_type.tt:94
+#: ../root/edit/details/edit_relationship_type.tt:92
 #: ../root/relationship/linktype/form.tt:56
 msgid "Documentation:"
 msgstr "ドキュメント："
@@ -2783,9 +2762,9 @@ msgstr "MusicBrainzデータベースに、各トラックはレコーディン�
 #: ../root/relationship/linktype/tree.tt:17 ../root/release/cover_art.tt:27
 #: ../root/release/discids.tt:12 ../root/release/edit/information.tt:54
 #: ../root/release/edit/recordings.tt:58 ../root/release/edit/recordings.tt:87
-#: ../root/release/edit/tracklist.tt:295 ../root/release_group/header.tt:1
+#: ../root/release/edit/tracklist.tt:333 ../root/release_group/header.tt:1
 #: ../root/release/tabs.tt:1 ../root/series/header.tt:1
-#: ../root/url/header.tt:1 ../root/user/collections.tt:26
+#: ../root/url/header.tt:1 ../root/user/collections.tt:28
 #: ../root/work/header.tt:1
 msgid "Edit"
 msgstr "編集"
@@ -2864,7 +2843,7 @@ msgid "Edit Not Found"
 msgstr "編集見つかりません"
 
 #: ../root/forms/edit-note.tt:2 ../root/release/edit/editnote.tt:27
-#: ../root/release/edit/layout.tt:18 ../root/release/edit_relationships.tt:96
+#: ../root/release/edit/layout.tt:18 ../root/release/edit_relationships.tt:100
 msgid "Edit Note"
 msgstr "メモを編集"
 
@@ -2929,7 +2908,7 @@ msgid "Edit Series Alias"
 msgstr ""
 
 #: ../root/doc/edit_types.tt:1 ../root/doc/edit_types.tt:3
-#: ../root/doc/edit_type.tt:35 ../root/edit/info.tt:67
+#: ../root/doc/edit_type.tt:28 ../root/edit/info.tt:67
 #: ../root/layout/menu.tt:265
 msgid "Edit Types"
 msgstr "タイプを編集"
@@ -2955,7 +2934,7 @@ msgstr "ワークの別名を編集"
 msgid "Edit Work Annotation"
 msgstr "ワークの注釈を編集"
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:24
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:25
 msgid "Edit annotation"
 msgstr "注釈を編集"
 
@@ -3079,7 +3058,7 @@ msgstr "編集"
 
 #: ../root/account/preferences.tt:42 ../root/collection/layout.tt:11
 #: ../root/layout/menu.tt:211
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:19
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:20
 msgid "Editing"
 msgstr "編集"
 
@@ -3088,7 +3067,7 @@ msgid "Editing FAQ"
 msgstr "編集のよくある質問"
 
 #: ../root/collection/layout.tt:15
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:53
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:54
 msgid "Editing history"
 msgstr "編集履歴"
 
@@ -3224,7 +3203,7 @@ msgstr "メール："
 msgid "Emphasis:"
 msgstr "強調："
 
-#: ../root/release/edit/tracklist.tt:25
+#: ../root/release/edit/tracklist.tt:32
 msgid "Enable vinyl track numbers"
 msgstr "バイナルレコードのトラック番号を使用"
 
@@ -3255,7 +3234,7 @@ msgstr "終了地域："
 msgid "End Date"
 msgstr "終了日"
 
-#: ../root/components/common-macros.tt:810 ../root/scripts/text_strings.tt:73
+#: ../root/components/common-macros.tt:807 ../root/scripts/text_strings.tt:73
 msgid "End area:"
 msgstr "終了地域："
 
@@ -3266,7 +3245,7 @@ msgstr "終了日"
 
 #: ../root/alias/edit_form.tt:35 ../root/area/edit_form.tt:24
 #: ../root/area/layout.tt:20 ../root/area/layout.tt:27
-#: ../root/artist/edit_form.tt:69 ../root/components/common-macros.tt:806
+#: ../root/artist/edit_form.tt:69 ../root/components/common-macros.tt:803
 #: ../root/components/relationship-editor.tt:111
 #: ../root/edit/details/add_area.tt:65 ../root/edit/details/add_label.tt:37
 #: ../root/edit/details/add_place.tt:58 ../root/edit/details/edit_area.tt:47
@@ -3305,7 +3284,7 @@ msgid "Enter a valid url e.g. \"http://google.com/\""
 msgstr "有効な URL を入力してください。 例: \"http://google.com/\""
 
 #: ../root/components/forms.tt:51 ../root/release/add_cover_art.tt:142
-#: ../root/release/edit/layout.tt:63 ../root/release/edit_relationships.tt:103
+#: ../root/release/edit/layout.tt:63 ../root/release/edit_relationships.tt:107
 msgid "Enter edit"
 msgstr "提出"
 
@@ -3331,12 +3310,12 @@ msgstr "同じエンティティと関連できません。"
 msgid "Entity Not Found"
 msgstr "エンティティが見つかりません"
 
-#: ../root/edit/details/edit_relationship_type.tt:8
+#: ../root/edit/details/edit_relationship_type.tt:6
 msgid "Entity types:"
 msgstr "エンティティのタイプ："
 
 #: ../root/report/not_available.tt:1 ../root/report/not_available.tt:3
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:284
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:273
 msgid "Error"
 msgstr "エラー"
 
@@ -3366,7 +3345,7 @@ msgid "Error:"
 msgid_plural "Errors:"
 msgstr[0] "エラー："
 
-#: ../root/components/common-macros.tt:144
+#: ../root/components/common-macros.tt:145
 msgid "Error: Unknown Type"
 msgstr "エラー：タイプ不明"
 
@@ -3383,19 +3362,19 @@ msgstr "URL等だけでも助かります。"
 msgid "Examples"
 msgstr "例"
 
-#: ../root/edit/details/edit_relationship_type.tt:101
+#: ../root/edit/details/edit_relationship_type.tt:99
 msgid "Examples:"
 msgstr "例："
 
-#: ../root/release/edit/tracklist.tt:142
+#: ../root/release/edit/tracklist.tt:180
 msgid "Existing tracklist"
 msgstr "既存のトラックリスト"
 
-#: ../root/release/edit/tracklist.tt:83
+#: ../root/release/edit/tracklist.tt:121
 msgid "Expand"
 msgstr "展開"
 
-#: ../root/release/edit/tracklist.tt:197
+#: ../root/release/edit/tracklist.tt:235
 msgid "Expand Disc"
 msgstr "ディスクを展開"
 
@@ -3403,7 +3382,7 @@ msgstr "ディスクを展開"
 msgid "Expand all descriptions"
 msgstr ""
 
-#: ../root/doc/edit_type.tt:65
+#: ../root/doc/edit_type.tt:48
 msgid "Expire action"
 msgstr "行動を満了"
 
@@ -3411,19 +3390,19 @@ msgstr "行動を満了"
 msgid "Expired"
 msgstr "満了"
 
-#: ../root/components/common-macros.tt:611
+#: ../root/components/common-macros.tt:608
 msgid "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} day</span>"
 msgid_plural ""
 "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} days</span>"
 msgstr[0] ""
 
-#: ../root/components/common-macros.tt:617
+#: ../root/components/common-macros.tt:614
 msgid "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} hour</span>"
 msgid_plural ""
 "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} hours</span>"
 msgstr[0] ""
 
-#: ../root/components/common-macros.tt:623
+#: ../root/components/common-macros.tt:620
 msgid "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} minute</span>"
 msgid_plural ""
 "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} "
@@ -3451,7 +3430,7 @@ msgstr "よくある質問"
 msgid "Failed"
 msgstr "失敗"
 
-#: ../root/components/common-macros.tt:958
+#: ../root/components/common-macros.tt:955
 msgid "Few relationships"
 msgstr ""
 
@@ -3465,7 +3444,7 @@ msgstr "ファイル:"
 msgid "Filename:"
 msgstr "ファイル名:"
 
-#: ../root/components/common-macros.tt:784
+#: ../root/components/common-macros.tt:781
 msgid "Filter"
 msgstr "フィルター"
 
@@ -3546,7 +3525,7 @@ msgstr "フォーマット"
 #: ../root/edit/details/add_medium.tt:26
 #: ../root/edit/details/edit_medium.tt:37
 #: ../root/edit/details/edit_release_label.tt:59
-#: ../root/release/edit/tracklist.tt:201 ../root/release/index.tt:5
+#: ../root/release/edit/tracklist.tt:239 ../root/release/index.tt:5
 #: ../root/release/layout.tt:38
 msgid "Format:"
 msgstr "フォーマット:"
@@ -3584,7 +3563,7 @@ msgid "Found at least {n} edit"
 msgid_plural "Found at least {n} edits"
 msgstr[0] ""
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:103
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:104
 msgid "Found in {num} user collection"
 msgid_plural "Found in {num} user collections"
 msgstr[0] "{num}のユーザーコレクションに発見"
@@ -3608,11 +3587,11 @@ msgid "Found {n} result for \"{q}\""
 msgid_plural "Found {n} results for \"{q}\""
 msgstr[0] ""
 
-#: ../root/components/common-macros.tt:802 ../root/scripts/text_strings.tt:75
+#: ../root/components/common-macros.tt:799 ../root/scripts/text_strings.tt:75
 msgid "Founded in:"
 msgstr "結成："
 
-#: ../root/components/common-macros.tt:798 ../root/label/index.tt:7
+#: ../root/components/common-macros.tt:795 ../root/label/index.tt:7
 #: ../root/label/layout.tt:15 ../root/place/index.tt:6
 #: ../root/place/layout.tt:13 ../root/scripts/text_strings.tt:70
 msgid "Founded:"
@@ -3634,7 +3613,7 @@ msgstr "FreeDB ID"
 msgid "FreeDB ID:"
 msgstr "FreeDB ID："
 
-#: ../root/release/edit/tracklist.tt:144
+#: ../root/release/edit/tracklist.tt:182
 msgid "FreeDB import"
 msgstr "FreeDBインポート"
 
@@ -3676,6 +3655,14 @@ msgstr "性別:"
 msgid "General Information"
 msgstr "一般情報"
 
+#: ../root/report/annotations_artists.tt:9
+#: ../root/report/annotations_labels.tt:9
+#: ../root/report/annotations_places.tt:9
+#: ../root/report/annotations_recordings.tt:9
+#: ../root/report/annotations_release_groups.tt:9
+#: ../root/report/annotations_releases.tt:9
+#: ../root/report/annotations_series.tt:9
+#: ../root/report/annotations_works.tt:9
 #: ../root/report/artists_containing_disambiguation_comments.tt:9
 #: ../root/report/artists_that_may_be_groups.tt:12
 #: ../root/report/artists_that_may_be_persons.tt:13
@@ -3746,11 +3733,11 @@ msgctxt "header"
 msgid "Guess case"
 msgstr "大文字小文字を推測"
 
-#: ../root/release/edit/tracklist.tt:212
+#: ../root/release/edit/tracklist.tt:250
 msgid "Guess case disc title"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:303
+#: ../root/release/edit/tracklist.tt:341
 msgid "Guess case track"
 msgstr ""
 
@@ -3766,7 +3753,7 @@ msgstr "見出し："
 msgid "Help:"
 msgstr "ヘルプ："
 
-#: ../root/components/common-macros.tt:578
+#: ../root/components/common-macros.tt:575
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:200
 msgid "High"
 msgstr "高"
@@ -3890,12 +3877,12 @@ msgstr "ISRC「{isrc}」"
 msgid "ISRC:"
 msgstr "ISRC:"
 
-#: ../root/components/recordings-list.tt:31 ../root/report/index.tt:112
+#: ../root/components/recordings-list.tt:31 ../root/report/index.tt:125
 #: ../root/search/lib/inline-results-recording.tt:11
 msgid "ISRCs"
 msgstr "ISRC"
 
-#: ../root/report/index.tt:115 ../root/report/isrc_with_many_recordings.tt:1
+#: ../root/report/index.tt:128 ../root/report/isrc_with_many_recordings.tt:1
 #: ../root/report/isrc_with_many_recordings.tt:3
 msgid "ISRCs with multiple recordings"
 msgstr ""
@@ -3928,11 +3915,11 @@ msgstr "ISWC 「{iswc}」"
 msgid "ISWC:"
 msgstr "ISWC:"
 
-#: ../root/report/index.tt:118
+#: ../root/report/index.tt:131
 msgid "ISWCs"
 msgstr "ISWC"
 
-#: ../root/report/index.tt:121 ../root/report/iswc_with_many_works.tt:7
+#: ../root/report/index.tt:134 ../root/report/iswc_with_many_works.tt:7
 #: ../root/report/iswc_with_many_works.tt:9
 msgid "ISWCs with multiple works"
 msgstr "複数のワークがあるISWC"
@@ -4037,7 +4024,7 @@ msgstr ""
 msgid "Image from Wikimedia Commons"
 msgstr ""
 
-#: ../root/components/common-macros.tt:89
+#: ../root/components/common-macros.tt:90
 msgid "Image not available yet, please try again in a few minutes."
 msgstr ""
 
@@ -4101,7 +4088,7 @@ msgstr "トラックの収録時間を関連されたレコーディングから
 msgid "Installed Application"
 msgstr "インストールされたアプリケーション"
 
-#: ../root/components/common-macros.tt:564
+#: ../root/components/common-macros.tt:561
 #: ../root/edit/details/merge_instruments.tt:8
 #: ../root/edit/details/merge_instruments.tt:33
 #: ../root/edit/search_macros.tt:307 ../root/instrument/edits.tt:5
@@ -4132,11 +4119,9 @@ msgstr ""
 msgid "Instrument list"
 msgstr ""
 
-#: ../root/components/common-macros.tt:548
-#: ../root/edit/details/add_instrument_annotation.tt:3
+#: ../root/components/common-macros.tt:545
 #: ../root/edit/details/add_instrument.tt:3
 #: ../root/edit/details/edit_instrument.tt:5
-#: ../root/edit/details/remove_instrument.tt:3
 msgid "Instrument:"
 msgstr "楽器:"
 
@@ -4188,7 +4173,7 @@ msgstr "Javascript を有効にしてください。"
 msgid "Join phrase"
 msgstr "フレーズを結合"
 
-#: ../root/components/forms.tt:354 ../root/release/edit/tracklist.tt:363
+#: ../root/components/forms.tt:354 ../root/release/edit/tracklist.tt:401
 msgid "Join phrase:"
 msgstr ""
 
@@ -4202,7 +4187,7 @@ msgstr " ログイン状態を保持"
 
 #: ../root/area/labels-list.tt:4 ../root/cdtoc/attach_artist_releases.tt:18
 #: ../root/cdtoc/attach_filter_release.tt:32 ../root/cdtoc/list.tt:9
-#: ../root/collection/index.tt:23 ../root/components/common-macros.tt:564
+#: ../root/collection/index.tt:23 ../root/components/common-macros.tt:561
 #: ../root/edit/details/edit_release_events.tt:7
 #: ../root/edit/details/historic/add_release.tt:77
 #: ../root/edit/details/merge_labels.tt:8
@@ -4253,6 +4238,11 @@ msgstr "レーベルがありません"
 msgid "Label Subscriptions"
 msgstr "レーベルの購読"
 
+#: ../root/report/annotations_labels.tt:1
+#: ../root/report/annotations_labels.tt:3
+msgid "Label annotations"
+msgstr ""
+
 #: ../root/edit/details/add_label.tt:63 ../root/edit/details/edit_label.tt:29
 #: ../root/label/edit_form.tt:46 ../root/label/layout.tt:46
 msgid "Label code:"
@@ -4266,33 +4256,34 @@ msgstr "レーベル情報"
 msgid "Label ratings"
 msgstr "レーベルの評価"
 
-#: ../root/components/common-macros.tt:548
-#: ../root/edit/details/add_label_annotation.tt:3
-#: ../root/edit/details/add_label.tt:3
+#: ../root/components/common-macros.tt:545 ../root/edit/details/add_label.tt:3
 #: ../root/edit/details/add_release_label.tt:9
 #: ../root/edit/details/edit_label.tt:5
 #: ../root/edit/details/edit_release_label.tt:11
-#: ../root/edit/details/remove_label.tt:3
 #: ../root/edit/details/remove_release_label.tt:7
 #: ../root/release/edit/information.tt:143 ../root/release/index.tt:15
 msgid "Label:"
 msgstr "レーベル:"
 
 #: ../root/area/header.tt:1 ../root/area/labels.tt:2
-#: ../root/release/layout.tt:68 ../root/report/index.tt:30
+#: ../root/release/layout.tt:68 ../root/report/index.tt:31
 #: ../root/tag/header.tt:1 ../root/tag/index.tt:8 ../root/user/tag.tt:4
 msgid "Labels"
 msgstr "レーベル"
 
+#: ../root/report/index.tt:37
+msgid "Labels with annotations"
+msgstr ""
+
 #: ../root/report/deprecated_relationship_labels.tt:1
 #: ../root/report/deprecated_relationship_labels.tt:3
-#: ../root/report/index.tt:35
+#: ../root/report/index.tt:36
 msgid "Labels with deprecated relationships"
 msgstr ""
 
 #: ../root/report/duplicate_relationships_labels.tt:1
 #: ../root/report/duplicate_relationships_labels.tt:3
-#: ../root/report/index.tt:34
+#: ../root/report/index.tt:35
 msgid "Labels with possible duplicate relationships"
 msgstr "複写の関連を持つ可能性のあるレーベル"
 
@@ -4336,6 +4327,17 @@ msgstr ""
 msgid "Last 28 days"
 msgstr "最近28日間"
 
+#: ../root/report/annotations_artists.tt:13
+#: ../root/report/annotations_labels.tt:13
+#: ../root/report/annotations_places.tt:12
+#: ../root/report/annotations_recordings.tt:13
+#: ../root/report/annotations_release_groups.tt:13
+#: ../root/report/annotations_releases.tt:13
+#: ../root/report/annotations_series.tt:13
+#: ../root/report/annotations_works.tt:13
+msgid "Last edited"
+msgstr ""
+
 #: ../root/cdstub/layout.tt:10
 msgid "Last modified:"
 msgstr "最終変更:"
@@ -4344,7 +4346,7 @@ msgstr "最終変更:"
 msgid "Last replication packet received at {datetime}"
 msgstr ""
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:111
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:112
 msgid "Last updated on {date}"
 msgstr "{date} に最終更新"
 
@@ -4371,7 +4373,7 @@ msgstr ""
 #: ../root/edit/details/historic/add_release.tt:52 ../root/freedb/show.tt:12
 #: ../root/freedb/show.tt:64 ../root/isrc/index.tt:18
 #: ../root/recording/index.tt:11 ../root/release/discids.tt:10
-#: ../root/release/edit/tracklist.tt:102 ../root/release/edit/tracklist.tt:262
+#: ../root/release/edit/tracklist.tt:140 ../root/release/edit/tracklist.tt:300
 #: ../root/release/index.tt:58 ../root/report/isrc_with_many_recordings.tt:26
 #: ../root/search/lib/inline-results-recording.tt:9
 msgid "Length"
@@ -4401,7 +4403,11 @@ msgstr ""
 msgid "Limited User"
 msgstr "制限ユーザー"
 
-#: ../root/release/edit/tracklist.tt:20
+#: ../root/release/edit/tracklist.tt:41
+msgid "Lines contain track artists"
+msgstr ""
+
+#: ../root/release/edit/tracklist.tt:18
 msgid "Lines start with a track number"
 msgstr ""
 
@@ -4414,7 +4420,7 @@ msgid "Link order:"
 msgstr ""
 
 #: ../root/edit/details/add_relationship_type.tt:13
-#: ../root/edit/details/edit_relationship_type.tt:23
+#: ../root/edit/details/edit_relationship_type.tt:21
 msgid "Link phrase:"
 msgstr ""
 
@@ -4442,6 +4448,7 @@ msgstr ""
 msgid "Loading edit previews..."
 msgstr ""
 
+#: ../root/release/edit_relationships.tt:79
 #: ../root/scripts/text_strings.tt:100
 msgid "Loading..."
 msgstr "ロード中..."
@@ -4485,12 +4492,12 @@ msgstr "ログイン"
 msgid "Log Out"
 msgstr "ログアウト"
 
-#: ../root/components/common-macros.tt:498
+#: ../root/components/common-macros.tt:495
 msgid "Log in"
 msgstr "ログイン"
 
 #: ../root/collection/layout.tt:17
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:56
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:57
 msgid "Log in to edit"
 msgstr "ログインしてから編集"
 
@@ -4499,7 +4506,7 @@ msgid "Log in to upload cover art"
 msgstr "ログインしてからカバーアートをアップロード"
 
 #: ../root/doc/relationship_type.tt:44
-#: ../root/edit/details/edit_relationship_type.tt:31
+#: ../root/edit/details/edit_relationship_type.tt:29
 #: ../root/relationship/linktype/form.tt:15
 #: ../root/relationship/linktype/tree.tt:10
 msgid "Long link phrase:"
@@ -4540,12 +4547,12 @@ msgstr "パスワード忘れた"
 msgid "Lost Username"
 msgstr "ユーザー名忘れた"
 
-#: ../root/components/common-macros.tt:578
+#: ../root/components/common-macros.tt:575
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:200
 msgid "Low"
 msgstr "低"
 
-#: ../root/release/edit_relationships.tt:150 ../root/work/edit_form.tt:16
+#: ../root/release/edit_relationships.tt:154 ../root/work/edit_form.tt:16
 #: ../root/work/index.tt:4 ../root/work/layout.tt:14
 msgid "Lyrics Language:"
 msgstr "歌詞の言語:"
@@ -4585,12 +4592,16 @@ msgid ""
 " need to be set as medium 2 of the release being merged."
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:141
+#: ../root/release/edit/tracklist.tt:179
 msgid "Manual entry"
 msgstr "手動的入力"
 
-#: ../root/components/common-macros.tt:958
+#: ../root/components/common-macros.tt:955
 msgid "Many relationships"
+msgstr ""
+
+#: ../root/place/header.tt:1 ../root/place/map.tt:1
+msgid "Map"
 msgstr ""
 
 #: ../root/release/lookup.tt:8
@@ -4602,7 +4613,7 @@ msgid "Matching CDs"
 msgstr ""
 
 #: ../root/cdtoc/lookup.tt:38 ../root/cdtoc/set_durations.tt:10
-#: ../root/components/common-macros.tt:763 ../root/scripts/text_strings.tt:91
+#: ../root/components/common-macros.tt:760 ../root/scripts/text_strings.tt:91
 #: ../root/search/lib/inline-results-recording.tt:17
 #: ../lib/MusicBrainz/Server/Edit/Medium.pm:7
 msgid "Medium"
@@ -4659,7 +4670,7 @@ msgid "Member since:"
 msgstr "登録日:"
 
 #: ../root/layout/merge-helper.tt:30
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:29
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:30
 msgid "Merge"
 msgstr "マージ"
 
@@ -4765,11 +4776,11 @@ msgstr "移動"
 msgid "Move Disc ID"
 msgstr "ディスク ID を移動"
 
-#: ../root/release/edit/tracklist.tt:217
+#: ../root/release/edit/tracklist.tt:255
 msgid "Move disc down"
 msgstr "ディスクを下へ移動"
 
-#: ../root/release/edit/tracklist.tt:218
+#: ../root/release/edit/tracklist.tt:256
 msgid "Move disc up"
 msgstr "ディスクを上へ移動"
 
@@ -4789,11 +4800,11 @@ msgstr ""
 msgid "Move file up"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:269
+#: ../root/release/edit/tracklist.tt:307
 msgid "Move track down"
 msgstr "トラックを下へ移動"
 
-#: ../root/release/edit/tracklist.tt:270
+#: ../root/release/edit/tracklist.tt:308
 msgid "Move track up"
 msgstr "トラックを上へ移動"
 
@@ -4951,7 +4962,7 @@ msgstr "名前"
 #: ../root/edit/details/edit_place.tt:9
 #: ../root/edit/details/edit_recording.tt:12
 #: ../root/edit/details/edit_relationship_attribute.tt:4
-#: ../root/edit/details/edit_relationship_type.tt:13
+#: ../root/edit/details/edit_relationship_type.tt:11
 #: ../root/edit/details/edit_release_group.tt:11
 #: ../root/edit/details/edit_release.tt:9
 #: ../root/edit/details/edit_series.tt:9 ../root/edit/details/edit_work.tt:11
@@ -5072,20 +5083,7 @@ msgstr "次へ"
 msgid "Next »"
 msgstr "次 »"
 
-#: ../root/edit/details/add_alias.tt:29 ../root/edit/details/add_alias.tt:52
-#: ../root/edit/details/add_area.tt:72 ../root/edit/details/add_artist.tt:67
-#: ../root/edit/details/add_label.tt:44 ../root/edit/details/add_place.tt:65
-#: ../root/edit/details/add_standalone_recording.tt:35
-#: ../root/edit/details/edit_alias.tt:40 ../root/edit/details/edit_alias.tt:58
-#: ../root/edit/details/edit_area.tt:52 ../root/edit/details/edit_artist.tt:58
-#: ../root/edit/details/edit_label.tt:43 ../root/edit/details/edit_place.tt:46
-#: ../root/edit/details/edit_recording.tt:26
-#: ../root/edit/details/edit_relationship_type.tt:3
-#: ../root/edit/details/historic/merge_releases.tt:26
-#: ../root/edit/details/historic/merge_releases.tt:31
-#: ../root/edit/details/historic/move_release.tt:15
-#: ../root/edit/details/merge_artists.tt:5
-#: ../root/edit/details/remove_alias.tt:28 ../root/edit/search_macros.tt:244
+#: ../root/components/common-macros.tt:21 ../root/edit/search_macros.tt:244
 #: ../root/edit/vote.tt:17 ../lib/MusicBrainz/Server/Data/Vote.pm:192
 msgid "No"
 msgstr "いいえ"
@@ -5186,7 +5184,7 @@ msgstr ""
 msgid "No releases with this tag were found."
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:72 ../root/scripts/text_strings.tt:34
+#: ../root/release/edit/tracklist.tt:110 ../root/scripts/text_strings.tt:34
 msgid "No results"
 msgstr ""
 
@@ -5246,7 +5244,7 @@ msgstr "{type0}・{type1}の関連タイプ見つかりません。"
 msgid "Nominate a candidate for auto-editor"
 msgstr ""
 
-#: ../root/report/index.tt:77
+#: ../root/report/index.tt:80
 #: ../root/report/releases_with_download_relationships.tt:1
 #: ../root/report/releases_with_download_relationships.tt:3
 msgid "Non-digital releases with download relationships"
@@ -5256,7 +5254,7 @@ msgstr ""
 msgid "None"
 msgstr "無し"
 
-#: ../root/components/common-macros.tt:578
+#: ../root/components/common-macros.tt:575
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:200
 msgid "Normal"
 msgstr "中"
@@ -5300,7 +5298,7 @@ msgstr ""
 msgid "Now loading recording associations..."
 msgstr "レコーディング情報を読み込み中…"
 
-#: ../root/release/edit/tracklist.tt:118 ../root/release/edit/tracklist.tt:232
+#: ../root/release/edit/tracklist.tt:156 ../root/release/edit/tracklist.tt:270
 msgid "Now loading tracklist..."
 msgstr "トラックリストを読み込み中…"
 
@@ -5389,7 +5387,7 @@ msgid ""
 "{edit} or perhaps it has already been closed."
 msgstr "編集を作成したユーザーしかキャンセルできません。{edit}を作成してない、又は既に終了しました。"
 
-#: ../root/release/edit_relationships.tt:133
+#: ../root/release/edit_relationships.tt:137
 msgid ""
 "Only use this option after you’ve tried searching for the work(s) you want "
 "to create, and are certain they do not already exist on MusicBrainz."
@@ -5409,7 +5407,7 @@ msgstr ""
 msgid "Oops, something went wrong!"
 msgstr ""
 
-#: ../root/user/profile.tt:168 ../lib/MusicBrainz/Server/Edit/Utils.pm:280
+#: ../root/user/profile.tt:168 ../lib/MusicBrainz/Server/Edit/Utils.pm:269
 msgid "Open"
 msgstr ""
 
@@ -5419,12 +5417,12 @@ msgid "Open Edits"
 msgstr "オープン中編集"
 
 #: ../root/collection/layout.tt:14 ../root/edit/list_header.tt:15
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:52
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:53
 msgid "Open edits"
 msgstr "オープン中編集"
 
-#: ../root/components/common-macros.tt:506
-#: ../root/components/common-macros.tt:511
+#: ../root/components/common-macros.tt:503
+#: ../root/components/common-macros.tt:508
 msgid "Open in tagger"
 msgstr ""
 
@@ -5479,7 +5477,7 @@ msgstr "概要"
 msgid "Owner:"
 msgstr ""
 
-#: ../root/components/common-macros.tt:102
+#: ../root/components/common-macros.tt:103
 msgid "PDF file"
 msgstr ""
 
@@ -5527,7 +5525,7 @@ msgstr ""
 msgid "Page:"
 msgstr ""
 
-#: ../root/edit/details/edit_relationship_type.tt:88
+#: ../root/edit/details/edit_relationship_type.tt:86
 msgid "Parent"
 msgstr "親"
 
@@ -5538,13 +5536,9 @@ msgstr "親"
 msgid "Parent:"
 msgstr "親："
 
-#: ../root/release/edit/tracklist.tt:133
+#: ../root/release/edit/tracklist.tt:171
 msgid "Parse Tracks"
 msgstr "トラックを解析"
-
-#: ../root/release/edit/tracklist.tt:15
-msgid "Parse track artists"
-msgstr "トラックのアーティストを解析"
 
 #: ../root/report/part_of_set_relationships.tt:1
 #: ../root/report/part_of_set_relationships.tt:3
@@ -5556,7 +5550,7 @@ msgstr ""
 msgid "Password:"
 msgstr "パスワード："
 
-#: ../root/components/forms.tt:381 ../root/release/edit/tracklist.tt:410
+#: ../root/components/forms.tt:381 ../root/release/edit/tracklist.tt:448
 msgid "Paste Credits"
 msgstr ""
 
@@ -5577,10 +5571,10 @@ msgstr "永続リンク"
 msgid "Phrase:"
 msgstr "句："
 
-#: ../root/area/places-list.tt:4 ../root/components/common-macros.tt:564
+#: ../root/area/places-list.tt:4 ../root/components/common-macros.tt:561
 #: ../root/edit/details/merge_places.tt:8
 #: ../root/edit/details/merge_places.tt:45 ../root/edit/search_macros.tt:307
-#: ../root/place/edits.tt:5 ../root/place/header.tt:14
+#: ../root/place/edits.tt:5 ../root/place/header.tt:15
 #: ../root/place/merge.tt:11 ../root/report/place_list.tt:7
 #: ../root/scripts/text_strings.tt:108
 #: ../lib/MusicBrainz/Server/Edit/Place.pm:7
@@ -5596,26 +5590,33 @@ msgstr ""
 msgid "Place Not Found"
 msgstr ""
 
+#: ../root/report/annotations_places.tt:1
+#: ../root/report/annotations_places.tt:3
+msgid "Place annotations"
+msgstr ""
+
 #: ../root/place/layout.tt:6
 msgid "Place information"
 msgstr ""
 
-#: ../root/components/common-macros.tt:548
-#: ../root/edit/details/add_place_annotation.tt:3
-#: ../root/edit/details/add_place.tt:3 ../root/edit/details/edit_place.tt:5
-#: ../root/edit/details/remove_place.tt:3
+#: ../root/components/common-macros.tt:545 ../root/edit/details/add_place.tt:3
+#: ../root/edit/details/edit_place.tt:5
 msgid "Place:"
 msgstr ""
 
 #: ../root/area/header.tt:1 ../root/area/places.tt:2
-#: ../root/report/index.tt:92 ../root/tag/header.tt:1 ../root/tag/index.tt:8
+#: ../root/report/index.tt:97 ../root/tag/header.tt:1 ../root/tag/index.tt:8
 #: ../root/user/tag.tt:4
 msgid "Places"
 msgstr ""
 
+#: ../root/report/index.tt:101
+msgid "Places with annotations"
+msgstr ""
+
 #: ../root/report/deprecated_relationship_places.tt:1
 #: ../root/report/deprecated_relationship_places.tt:3
-#: ../root/report/index.tt:95
+#: ../root/report/index.tt:100
 msgid "Places with deprecated relationships"
 msgstr ""
 
@@ -5852,7 +5853,7 @@ msgid "Preview"
 msgstr "プレビュー"
 
 #: ../root/annotation/edit.tt:7 ../root/components/forms.tt:327
-#: ../root/release/edit/tracklist.tt:356
+#: ../root/release/edit/tracklist.tt:394
 msgid "Preview:"
 msgstr "プレビュー："
 
@@ -5880,7 +5881,7 @@ msgstr ""
 msgid "Priority:"
 msgstr "優先権："
 
-#: ../root/account/preferences.tt:22 ../root/user/collections.tt:13
+#: ../root/account/preferences.tt:22 ../root/user/collections.tt:14
 msgid "Privacy"
 msgstr "プライバシー"
 
@@ -5888,7 +5889,7 @@ msgstr "プライバシー"
 msgid "Privacy Policy"
 msgstr "プライバシーポリシー"
 
-#: ../root/user/collections.tt:24
+#: ../root/user/collections.tt:26
 msgid "Private"
 msgstr "プライベート"
 
@@ -5917,7 +5918,7 @@ msgstr "推薦者"
 msgid "Proposer:"
 msgstr "推薦者："
 
-#: ../root/user/collections.tt:24
+#: ../root/user/collections.tt:26
 msgid "Public"
 msgstr "公開"
 
@@ -5981,7 +5982,7 @@ msgstr "トランスクルージョンの説明は{doc|WikiDocs}をご参照く�
 msgid "Recent Additions"
 msgstr "最近の追加"
 
-#: ../root/components/common-macros.tt:564
+#: ../root/components/common-macros.tt:561
 #: ../root/edit/details/merge_releases.tt:100
 #: ../root/edit/search_macros.tt:307 ../root/release/edit_relationships.tt:55
 #: ../root/report/isrc_with_many_recordings.tt:25
@@ -6003,6 +6004,11 @@ msgstr ""
 msgid "Recording Not Found"
 msgstr "レコーディングは見つかりませんでした"
 
+#: ../root/report/annotations_recordings.tt:1
+#: ../root/report/annotations_recordings.tt:3
+msgid "Recording annotations"
+msgstr ""
+
 #: ../root/recording/edits.tt:6 ../root/recording/header.tt:19
 msgid "Recording by {artist}"
 msgstr "{artist}のレコーディング"
@@ -6019,8 +6025,7 @@ msgstr "レコーディングの評価"
 msgid "Recording “{name}” by {artist}"
 msgstr "{artist}のレコーディング「{name}」"
 
-#: ../root/components/common-macros.tt:548
-#: ../root/edit/details/add_recording_annotation.tt:3
+#: ../root/components/common-macros.tt:545
 #: ../root/edit/details/add_standalone_recording.tt:3
 #: ../root/edit/details/edit_recording.tt:8
 #: ../root/edit/details/historic/change_track_artist.tt:3
@@ -6028,14 +6033,13 @@ msgstr "{artist}のレコーディング「{name}」"
 #: ../root/edit/details/historic/edit_track_name.tt:6
 #: ../root/edit/details/historic/edit_track_number.tt:6
 #: ../root/edit/details/remove_isrc.tt:7 ../root/edit/details/remove_puid.tt:3
-#: ../root/edit/details/remove_recording.tt:3
 msgid "Recording:"
 msgstr "レコーディング："
 
 #: ../root/artist/header.tt:1 ../root/artist/recordings.tt:1
 #: ../root/artist/recordings.tt:4 ../root/instrument/header.tt:1
 #: ../root/instrument/recordings.tt:1 ../root/instrument/recordings.tt:2
-#: ../root/release/edit/layout.tt:17 ../root/report/index.tt:81
+#: ../root/release/edit/layout.tt:17 ../root/report/index.tt:85
 #: ../root/series/index.tt:15 ../root/tag/header.tt:1 ../root/tag/index.tt:8
 #: ../root/user/tag.tt:4 ../root/work/index.tt:37
 msgid "Recordings"
@@ -6051,28 +6055,32 @@ msgstr ""
 msgid "Recordings with Varying Track Lengths"
 msgstr ""
 
+#: ../root/report/index.tt:94
+msgid "Recordings with annotations"
+msgstr ""
+
 #: ../root/report/deprecated_relationship_recordings.tt:1
 #: ../root/report/deprecated_relationship_recordings.tt:3
-#: ../root/report/index.tt:89
+#: ../root/report/index.tt:93
 msgid "Recordings with deprecated relationships"
 msgstr ""
 
-#: ../root/report/index.tt:84
+#: ../root/report/index.tt:88
 msgid "Recordings with earliest release relationships"
 msgstr ""
 
 #: ../root/report/duplicate_relationships_recordings.tt:1
 #: ../root/report/duplicate_relationships_recordings.tt:3
-#: ../root/report/index.tt:87
+#: ../root/report/index.tt:91
 msgid "Recordings with possible duplicate relationships"
 msgstr "複写の関連を持つ可能性のあるレコーディング"
 
 #: ../root/report/featuring_recordings.tt:1
-#: ../root/report/featuring_recordings.tt:3 ../root/report/index.tt:86
+#: ../root/report/featuring_recordings.tt:3 ../root/report/index.tt:90
 msgid "Recordings with titles containing featuring artists"
 msgstr "フィーチャリングアーティストを含むレコーディング名"
 
-#: ../root/report/index.tt:88
+#: ../root/report/index.tt:92
 msgid "Recordings with varying track times"
 msgstr ""
 
@@ -6097,7 +6105,7 @@ msgstr "登録"
 msgid "Register Application"
 msgstr "アプリケーションを登録"
 
-#: ../root/doc/edit_type.tt:15
+#: ../root/doc/edit_type.tt:8
 msgid "Reject"
 msgstr "拒否"
 
@@ -6105,7 +6113,7 @@ msgstr "拒否"
 msgid "Reject edit"
 msgstr "編集を拒否"
 
-#: ../root/components/common-macros.tt:585
+#: ../root/components/common-macros.tt:582
 msgid "Reject upon expiration"
 msgstr "締め切りに拒否"
 
@@ -6216,7 +6224,7 @@ msgstr "関連："
 
 #: ../root/cdtoc/attach_artist_releases.tt:15
 #: ../root/cdtoc/attach_filter_release.tt:28 ../root/cdtoc/lookup.tt:37
-#: ../root/collection/index.tt:17 ../root/components/common-macros.tt:564
+#: ../root/collection/index.tt:17 ../root/components/common-macros.tt:561
 #: ../root/edit/details/edit_release_events.tt:4
 #: ../root/edit/details/merge_releases.tt:18 ../root/edit/search_macros.tt:307
 #: ../root/release/edit/duplicates.tt:10 ../root/release_group/index.tt:23
@@ -6252,7 +6260,7 @@ msgstr "リリースイベント"
 msgid "Release Events:"
 msgstr "リリースイベント："
 
-#: ../root/components/common-macros.tt:564 ../root/edit/search_macros.tt:307
+#: ../root/components/common-macros.tt:561 ../root/edit/search_macros.tt:307
 #: ../root/report/release_group_list.tt:8
 #: ../root/search/results-release_group.tt:8
 #: ../root/search/results-release-group.tt:8
@@ -6268,7 +6276,7 @@ msgstr "リリースグループ詳細"
 msgid "Release Group Not Found"
 msgstr "リリースグループ見つかりません"
 
-#: ../root/release/edit_relationships.tt:84 ../root/release/index.tt:337
+#: ../root/release/edit_relationships.tt:88 ../root/release/index.tt:337
 msgid "Release Group Relationships"
 msgstr "リリースグループの関連"
 
@@ -6291,7 +6299,7 @@ msgstr "リリースグループ"
 
 #: ../root/report/deprecated_relationship_release_groups.tt:1
 #: ../root/report/deprecated_relationship_release_groups.tt:3
-#: ../root/report/index.tt:45
+#: ../root/report/index.tt:47
 msgid "Release Groups with deprecated relationships"
 msgstr ""
 
@@ -6311,13 +6319,18 @@ msgstr "リリースが見つかりません"
 msgid "Release Quality"
 msgstr "リリース品質"
 
-#: ../root/release/edit_relationships.tt:78
+#: ../root/release/edit_relationships.tt:82
 msgid "Release Relationships"
 msgstr "リリースの関連"
 
 #: ../root/recording/index.tt:12
 msgid "Release Title"
 msgstr "リリース名"
+
+#: ../root/report/annotations_releases.tt:1
+#: ../root/report/annotations_releases.tt:3
+msgid "Release annotations"
+msgstr ""
 
 #: ../root/release/edits.tt:6 ../root/release/header.tt:8
 msgid "Release by {artist}"
@@ -6341,6 +6354,11 @@ msgstr "リリースイベント："
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup.pm:7
 msgid "Release group"
 msgstr "リリースグループ"
+
+#: ../root/report/annotations_release_groups.tt:1
+#: ../root/report/annotations_release_groups.tt:3
+msgid "Release group annotations"
+msgstr ""
 
 #: ../root/release_group/edits.tt:6 ../root/release_group/header.tt:12
 msgid "Release group by {artist}"
@@ -6366,32 +6384,34 @@ msgstr "リリースグループ評価"
 msgid "Release group “{name}” by {artist}"
 msgstr "{artist}のリリースグループ「{name}」"
 
-#: ../root/components/common-macros.tt:548
-#: ../root/edit/details/add_release_group_annotation.tt:3
+#: ../root/components/common-macros.tt:545
 #: ../root/edit/details/add_release.tt:20
 #: ../root/edit/details/historic/change_release_group.tt:13
 #: ../root/edit/details/historic/move_release_to_rg.tt:7
-#: ../root/edit/details/remove_release_group.tt:3
 #: ../root/edit/details/set_cover_art.tt:5
 msgid "Release group:"
 msgstr "リリースグループ："
 
-#: ../root/report/index.tt:38
+#: ../root/report/index.tt:40
 msgid "Release groups"
 msgstr "リリースグループ"
 
-#: ../root/report/index.tt:41
+#: ../root/report/index.tt:43
 msgid "Release groups that might need to be merged"
+msgstr ""
+
+#: ../root/report/index.tt:48
+msgid "Release groups with annotations"
 msgstr ""
 
 #: ../root/report/duplicate_relationships_release_groups.tt:1
 #: ../root/report/duplicate_relationships_release_groups.tt:3
-#: ../root/report/index.tt:44
+#: ../root/report/index.tt:46
 msgid "Release groups with possible duplicate relationships"
 msgstr "複写の関連を持つ可能性のあるリリースグループ"
 
 #: ../root/report/featuring_release_groups.tt:1
-#: ../root/report/featuring_release_groups.tt:3 ../root/report/index.tt:42
+#: ../root/report/featuring_release_groups.tt:3 ../root/report/index.tt:44
 msgid "Release groups with titles containing featuring artists"
 msgstr "フィーチャリングアーティストを含む曲名のあるリリースグループ"
 
@@ -6407,10 +6427,9 @@ msgstr "リリース名："
 msgid "Release “{name}” by {artist}"
 msgstr "{artist}のリリース「{name}」"
 
-#: ../root/cdtoc/lookup.tt:71 ../root/components/common-macros.tt:548
+#: ../root/cdtoc/lookup.tt:71 ../root/components/common-macros.tt:545
 #: ../root/edit/details/add_cover_art.tt:5
 #: ../root/edit/details/add_medium.tt:5
-#: ../root/edit/details/add_release_annotation.tt:4
 #: ../root/edit/details/add_release_label.tt:4
 #: ../root/edit/details/add_release.tt:3
 #: ../root/edit/details/change_release_quality.tt:3
@@ -6422,10 +6441,9 @@ msgstr "{artist}のリリース「{name}」"
 #: ../root/edit/details/historic/move_release_to_rg.tt:3
 #: ../root/edit/details/remove_cover_art.tt:5
 #: ../root/edit/details/remove_release_label.tt:3
-#: ../root/edit/details/remove_release.tt:3
 #: ../root/edit/details/reorder_cover_art.tt:9
 #: ../root/edit/details/reorder_mediums.tt:4
-#: ../root/release/edit/tracklist.tt:37 ../root/taglookup/form.tt:5
+#: ../root/release/edit/tracklist.tt:75 ../root/taglookup/form.tt:5
 msgid "Release:"
 msgstr "リリース："
 
@@ -6433,11 +6451,12 @@ msgstr "リリース："
 #: ../root/area/releases.tt:4 ../root/artist/header.tt:1
 #: ../root/artist/releases.tt:1 ../root/artist/releases.tt:4
 #: ../root/collection/index.tt:29 ../root/components/release_groups-list.tt:14
+#: ../root/edit/details/historic/add_release_annotation.tt:3
 #: ../root/edit/details/merge_release_groups.tt:8
 #: ../root/instrument/header.tt:1 ../root/instrument/releases.tt:1
 #: ../root/instrument/releases.tt:2 ../root/label/header.tt:1
 #: ../root/label/index.tt:29 ../root/recording/header.tt:1
-#: ../root/release_group/merge.tt:17 ../root/report/index.tt:48
+#: ../root/release_group/merge.tt:17 ../root/report/index.tt:51
 #: ../root/series/index.tt:15 ../root/tag/header.tt:1 ../root/tag/index.tt:8
 #: ../root/user/collections.tt:11 ../root/user/tag.tt:4
 msgid "Releases"
@@ -6467,42 +6486,42 @@ msgstr "Discogsリンクが複数あるリリース"
 msgid "Releases With Some Formats Unset"
 msgstr "フォーマット未定のリリース"
 
-#: ../root/report/index.tt:69
+#: ../root/report/index.tt:72
 #: ../root/report/releases_in_caa_with_cover_art_relationships.tt:1
 msgid ""
 "Releases in the Cover Art Archive that still have cover art relationships"
 msgstr ""
 
-#: ../root/report/index.tt:71
+#: ../root/report/index.tt:74
 msgid "Releases of any sort that still have cover art relationships"
 msgstr ""
 
-#: ../root/report/index.tt:64 ../root/report/released_too_early.tt:1
+#: ../root/report/index.tt:67 ../root/report/released_too_early.tt:1
 #: ../root/report/released_too_early.tt:3
 msgid "Releases released too early"
 msgstr "発売日が早すぎるリリース"
 
-#: ../root/report/index.tt:65
+#: ../root/report/index.tt:68
 msgid "Releases where some (but not all) mediums have no format set"
 msgstr ""
 
-#: ../root/report/index.tt:55
+#: ../root/report/index.tt:58
 msgid "Releases which have multiple ASINs"
 msgstr "ASINが複数あるリリース"
 
-#: ../root/report/index.tt:56
+#: ../root/report/index.tt:59
 msgid "Releases which have multiple Discogs links"
 msgstr "Discogsリンクが複数あるリリース"
 
-#: ../root/report/index.tt:59
+#: ../root/report/index.tt:62
 msgid "Releases which have part of set relationships"
 msgstr ""
 
-#: ../root/report/index.tt:54
+#: ../root/report/index.tt:57
 msgid "Releases which have unexpected Amazon URLs"
 msgstr "意外なAmazonリンクのあるリリース"
 
-#: ../root/report/index.tt:51 ../root/report/releases_to_convert.tt:1
+#: ../root/report/index.tt:54 ../root/report/releases_to_convert.tt:1
 #: ../root/report/releases_to_convert.tt:3
 msgid "Releases which might need converting to \"multiple artists\""
 msgstr ""
@@ -6512,19 +6531,23 @@ msgstr ""
 msgid "Releases with Cover Art relationships"
 msgstr ""
 
-#: ../root/report/index.tt:76
+#: ../root/report/index.tt:79
 #: ../root/report/single_medium_releases_with_medium_titles.tt:1
 #: ../root/report/single_medium_releases_with_medium_titles.tt:3
 msgid "Releases with a single medium that has a name"
 msgstr ""
 
-#: ../root/report/index.tt:66
+#: ../root/report/index.tt:82
+msgid "Releases with annotations"
+msgstr ""
+
+#: ../root/report/index.tt:69
 msgid "Releases with catalog numbers that look like ASINs"
 msgstr "ASINに見えるカタログ番号のあるリリース"
 
 #: ../root/report/deprecated_relationship_releases.tt:1
 #: ../root/report/deprecated_relationship_releases.tt:3
-#: ../root/report/index.tt:78
+#: ../root/report/index.tt:81
 msgid "Releases with deprecated relationships"
 msgstr ""
 
@@ -6533,26 +6556,26 @@ msgstr ""
 msgid "Releases with medium number issues"
 msgstr ""
 
-#: ../root/report/index.tt:72
+#: ../root/report/index.tt:75
 msgid "Releases with non-sequential mediums"
 msgstr ""
 
-#: ../root/report/index.tt:61
+#: ../root/report/index.tt:64
 msgid "Releases with non-sequential track numbers"
 msgstr "非順次的なトラック番号のあるリリース"
 
 #: ../root/report/duplicate_relationships_releases.tt:1
 #: ../root/report/duplicate_relationships_releases.tt:3
-#: ../root/report/index.tt:75
+#: ../root/report/index.tt:78
 msgid "Releases with possible duplicate relationships"
 msgstr "複写の関連を持つ可能性のあるリリース"
 
-#: ../root/report/index.tt:62 ../root/report/superfluous_data_tracks.tt:3
+#: ../root/report/index.tt:65 ../root/report/superfluous_data_tracks.tt:3
 msgid "Releases with superfluous data tracks"
 msgstr "余分なデータトラックのあるリリース"
 
 #: ../root/report/featuring_releases.tt:1
-#: ../root/report/featuring_releases.tt:3 ../root/report/index.tt:63
+#: ../root/report/featuring_releases.tt:3 ../root/report/index.tt:66
 msgid "Releases with titles containing featuring artists"
 msgstr "フィーチャリングアーティストを含む曲名のあるリリース"
 
@@ -6561,29 +6584,28 @@ msgstr "フィーチャリングアーティストを含む曲名のあるリリ
 msgid "Releases with track number issues"
 msgstr ""
 
-#: ../root/report/index.tt:74 ../root/report/tracks_without_times.tt:1
+#: ../root/report/index.tt:77 ../root/report/tracks_without_times.tt:1
 #: ../root/report/tracks_without_times.tt:3
 msgid "Releases with unknown track times"
 msgstr "トラック時間が不明のリリース"
 
-#: ../root/report/index.tt:73
+#: ../root/report/index.tt:76
 #: ../root/report/releases_with_unlikely_language_script.tt:1
 #: ../root/report/releases_with_unlikely_language_script.tt:3
 msgid "Releases with unlikely language/script pairs"
 msgstr "言語と表記が合わないリリース"
 
-#: ../root/report/index.tt:52 ../root/report/releases_without_language.tt:1
+#: ../root/report/index.tt:55 ../root/report/releases_without_language.tt:1
 #: ../root/report/releases_without_language.tt:3
 msgid "Releases without language"
 msgstr "言語未定のリリース"
 
-#: ../root/report/index.tt:53 ../root/report/releases_without_script.tt:1
+#: ../root/report/index.tt:56 ../root/report/releases_without_script.tt:1
 #: ../root/report/releases_without_script.tt:3
 msgid "Releases without script"
 msgstr "表記未定のリリース"
 
 #: ../root/edit/details/historic/add_disc_id.tt:3
-#: ../root/edit/details/historic/add_release_annotation.tt:3
 #: ../root/edit/details/historic/add_release.tt:3
 #: ../root/edit/details/historic/add_track_kv.tt:3
 #: ../root/edit/details/historic/add_track_old.tt:3
@@ -6609,7 +6631,7 @@ msgstr "リリース："
 #: ../root/collection/delete.tt:1 ../root/collection/header.tt:7
 #: ../root/components/aliases.tt:63 ../root/doc/relationship_type.tt:19
 #: ../root/label/delete.tt:1
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:33
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:34
 #: ../root/recording/delete.tt:1
 #: ../root/relationship/linkattributetype/common.tt:26
 #: ../root/relationship/linkattributetype/delete.tt:11
@@ -6618,7 +6640,7 @@ msgstr "リリース："
 #: ../root/release/add_cover_art.tt:63 ../root/release/cover_art.tt:30
 #: ../root/release/delete.tt:1 ../root/release/discids.tt:36
 #: ../root/scripts/text_strings.tt:40 ../root/series/delete.tt:1
-#: ../root/user/collections.tt:27
+#: ../root/user/collections.tt:29
 msgid "Remove"
 msgstr "削除"
 
@@ -6639,7 +6661,7 @@ msgstr "地域の別名を削除"
 msgid "Remove Artist Alias"
 msgstr "アーティストの別名を削除"
 
-#: ../root/components/forms.tt:343 ../root/release/edit/tracklist.tt:384
+#: ../root/components/forms.tt:343 ../root/release/edit/tracklist.tt:422
 msgid "Remove Artist Credit"
 msgstr "アーティストクレジットを削除"
 
@@ -6743,15 +6765,15 @@ msgstr ""
 msgid "Remove collection"
 msgstr "コレクションを削除"
 
-#: ../root/release/edit/tracklist.tt:219
+#: ../root/release/edit/tracklist.tt:257
 msgid "Remove disc"
 msgstr "ディスクを削除"
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:83
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:84
 msgid "Remove from my collection"
 msgstr "自分のコレクションから外す"
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:85
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:86
 msgid "Remove from {collection}"
 msgstr "{collection}から外しました"
 
@@ -6784,7 +6806,7 @@ msgstr "コレクションから選択されたリリースを外す"
 msgid "Remove series alias"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:305
+#: ../root/release/edit/tracklist.tt:343
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveTrack.pm:10
 msgid "Remove track"
 msgstr "トラックを削除"
@@ -6859,7 +6881,7 @@ msgstr ""
 msgid "Reset Password"
 msgstr "パスワードをリセット"
 
-#: ../root/release/edit/tracklist.tt:330
+#: ../root/release/edit/tracklist.tt:368
 msgid "Reset track numbers"
 msgstr "トラック番号をリセット"
 
@@ -6883,7 +6905,7 @@ msgid "Reveal my email address"
 msgstr "メルアドを表示して"
 
 #: ../root/doc/relationship_type.tt:43
-#: ../root/edit/details/edit_relationship_type.tt:27
+#: ../root/edit/details/edit_relationship_type.tt:25
 #: ../root/relationship/linktype/form.tt:14
 #: ../root/relationship/linktype/tree.tt:9
 msgid "Reverse link phrase:"
@@ -6944,10 +6966,10 @@ msgstr "表記："
 #: ../root/cdtoc/attach_filter_artist.tt:10
 #: ../root/cdtoc/attach_filter_release.tt:11 ../root/cdtoc/lookup.tt:63
 #: ../root/cdtoc/lookup.tt:73 ../root/cdtoc/move_search.tt:17
-#: ../root/components/common-macros.tt:792 ../root/components/search.tt:11
+#: ../root/components/common-macros.tt:789 ../root/components/search.tt:11
 #: ../root/edit/search_macros.tt:105 ../root/layout/menu.tt:194
 #: ../root/layout.tt:15 ../root/otherlookup/form.tt:20
-#: ../root/release/edit/tracklist.tt:49 ../root/search/form.tt:42
+#: ../root/release/edit/tracklist.tt:87 ../root/search/form.tt:42
 #: ../root/search/index.tt:1 ../root/search/index.tt:3
 #: ../root/taglookup/form.tt:12
 msgid "Search"
@@ -7014,7 +7036,7 @@ msgstr "検索方法："
 msgid "Search the database for this CD"
 msgstr ""
 
-#: ../root/components/common-macros.tt:791
+#: ../root/components/common-macros.tt:788
 msgid "Search the documentation..."
 msgstr "ドキュメントを検索…"
 
@@ -7022,7 +7044,7 @@ msgstr "ドキュメントを検索…"
 msgid "Search:"
 msgstr "検索："
 
-#: ../root/release/edit/tracklist.tt:68 ../root/scripts/text_strings.tt:36
+#: ../root/release/edit/tracklist.tt:106 ../root/scripts/text_strings.tt:36
 msgid "Searching..."
 msgstr "検索中…"
 
@@ -7110,7 +7132,7 @@ msgstr ""
 msgid "Select"
 msgstr "選択"
 
-#: ../root/release/edit/tracklist.tt:55
+#: ../root/release/edit/tracklist.tt:93
 msgid "Select a disc from the search results below and then click \"Add Disc\"."
 msgstr ""
 
@@ -7145,7 +7167,11 @@ msgstr ""
 msgid "Sentence"
 msgstr ""
 
-#: ../root/components/common-macros.tt:564
+#: ../root/report/index.tt:104 ../root/report/series_list.tt:7
+msgid "Series"
+msgstr ""
+
+#: ../root/components/common-macros.tt:561
 #: ../root/edit/details/merge_series.tt:8
 #: ../root/edit/details/merge_series.tt:33 ../root/edit/search_macros.tt:307
 #: ../root/scripts/text_strings.tt:112 ../root/series/edits.tt:5
@@ -7168,17 +7194,24 @@ msgstr ""
 msgid "Series Subscriptions"
 msgstr ""
 
+#: ../root/report/annotations_series.tt:1
+#: ../root/report/annotations_series.tt:3
+msgid "Series annotations"
+msgstr ""
+
 #: ../root/series/layout.tt:4
 msgid "Series information"
 msgstr ""
 
-#: ../root/edit/details/add_series_annotation.tt:3
+#: ../root/report/index.tt:107
+msgid "Series with annotations"
+msgstr ""
+
 #: ../root/edit/details/add_series.tt:3 ../root/edit/details/edit_series.tt:5
-#: ../root/edit/details/remove_series.tt:3
 msgid "Series:"
 msgstr ""
 
-#: ../root/components/common-macros.tt:548
+#: ../root/components/common-macros.tt:545
 msgctxt "singular"
 msgid "Series:"
 msgstr ""
@@ -7684,15 +7717,19 @@ msgid "Submit votes &amp; edit notes"
 msgstr ""
 
 #: ../root/release/edit/editnote.tt:40
-#: ../root/release/edit_relationships.tt:107
-#: ../root/release/edit_relationships.tt:167
+#: ../root/release/edit_relationships.tt:111
+#: ../root/release/edit_relationships.tt:171
 msgid "Submitting edits..."
 msgstr ""
 
 #: ../root/collection/layout.tt:27
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:67
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:68
 msgid "Subscribe"
 msgstr "購読"
+
+#: ../root/user/collections.tt:13
+msgid "Subscribed"
+msgstr ""
 
 #: ../root/edit/list_header.tt:19
 msgid "Subscribed editors"
@@ -7706,7 +7743,7 @@ msgstr "購読してるエンティティ"
 #: ../root/collection/layout.tt:29 ../root/collection/subscribers.tt:1
 #: ../root/collection/subscribers.tt:2 ../root/label/subscribers.tt:1
 #: ../root/label/subscribers.tt:2
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:69
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:70
 #: ../root/series/subscribers.tt:1 ../root/series/subscribers.tt:2
 #: ../root/user/profile/layout.tt:12 ../root/user/subscribers.tt:1
 #: ../root/user/subscribers.tt:2
@@ -7718,7 +7755,7 @@ msgid "Subscribers:"
 msgstr "購読者："
 
 #: ../root/collection/layout.tt:22 ../root/layout/menu.tt:46
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:62
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:63
 #: ../root/user/profile/layout.tt:12
 msgid "Subscriptions"
 msgstr "購読"
@@ -7731,11 +7768,12 @@ msgstr "完了しました！"
 msgid "Suggested recordings:"
 msgstr ""
 
-#: ../root/edit/details/add_release_annotation.tt:30
-msgid "Summary:"
-msgstr "概要："
+#: ../root/edit/details/add_annotation.tt:21
+#: ../root/edit/details/historic/add_release_annotation.tt:25
+msgid "Summary"
+msgstr ""
 
-#: ../root/release/edit/tracklist.tt:331
+#: ../root/release/edit/tracklist.tt:369
 msgid "Swap track titles with artist credits"
 msgstr "トラック名とアーティスト名を交換"
 
@@ -7843,9 +7881,10 @@ msgstr ""
 msgid "Testing features"
 msgstr ""
 
-#: ../root/edit/details/add_release_annotation.tt:13
-msgid "Text:"
-msgstr "内容："
+#: ../root/edit/details/add_annotation.tt:10
+#: ../root/edit/details/historic/add_release_annotation.tt:14
+msgid "Text"
+msgstr ""
 
 #: ../root/account/donation.tt:14
 msgid "Thank you for contributing to MusicBrainz."
@@ -8233,6 +8272,11 @@ msgstr ""
 msgid "This alias is no longer current."
 msgstr ""
 
+#: ../root/edit/details/add_annotation.tt:15
+#: ../root/edit/details/historic/add_release_annotation.tt:19
+msgid "This annotation is empty."
+msgstr ""
+
 #: ../root/area/delete.tt:14
 msgid ""
 "This area cannot be removed because there are still artists, labels, and/or "
@@ -8338,39 +8382,39 @@ msgid ""
 "recording merge information can be shown."
 msgstr ""
 
-#: ../root/components/common-macros.tt:591
+#: ../root/components/common-macros.tt:588
 msgid ""
 "This edit failed because it affected high quality data and did not receive "
 "any votes."
 msgstr ""
 
-#: ../root/components/common-macros.tt:591
+#: ../root/components/common-macros.tt:588
 msgid ""
 "This edit failed because the data it was changing was modified after this "
 "edit was created. This may happen when the same edit is entered in twice; "
 "one will pass but the other will fail."
 msgstr ""
 
-#: ../root/components/common-macros.tt:591
+#: ../root/components/common-macros.tt:588
 msgid "This edit failed because there were insufficient \"yes\" votes."
 msgstr ""
 
-#: ../root/components/common-macros.tt:591
+#: ../root/components/common-macros.tt:588
 msgid ""
 "This edit failed due to an internal error and may need to be entered again."
 msgstr ""
 
-#: ../root/components/common-macros.tt:591
+#: ../root/components/common-macros.tt:588
 msgid ""
 "This edit failed either because an entity it was modifying no longer exists,"
 " or the entity can not be modified in this manner anymore."
 msgstr ""
 
-#: ../root/components/common-macros.tt:591
+#: ../root/components/common-macros.tt:588
 msgid "This edit has been successfully applied."
 msgstr ""
 
-#: ../root/components/common-macros.tt:591
+#: ../root/components/common-macros.tt:588
 msgid "This edit is open and awaiting votes before it can be applied."
 msgstr ""
 
@@ -8388,20 +8432,20 @@ msgstr ""
 msgid "This edit was a merge."
 msgstr ""
 
-#: ../root/components/common-macros.tt:591
+#: ../root/components/common-macros.tt:588
 msgid "This edit was cancelled."
 msgstr "この編集はキャンセルされました。"
 
-#: ../root/components/common-macros.tt:591
+#: ../root/components/common-macros.tt:588
 msgid "This edit was recently cancelled."
 msgstr "この編集は最近キャンセルされました。"
 
-#: ../root/components/common-macros.tt:257
+#: ../root/components/common-macros.tt:258
 #: ../lib/MusicBrainz/Server/Plugin/Diff.pm:150
 msgid "This entity has been removed, and cannot be displayed correctly."
 msgstr "エンティティが削除されたため、正しく表示できません。"
 
-#: ../root/components/common-macros.tt:257
+#: ../root/components/common-macros.tt:258
 msgid "This entity will be created when edits are entered."
 msgstr ""
 
@@ -8445,7 +8489,7 @@ msgid ""
 "please {uri|return to musicbrainz.org}."
 msgstr ""
 
-#: ../root/components/common-macros.tt:102
+#: ../root/components/common-macros.tt:103
 msgid ""
 "This is a PDF file, the thumbnail may not show the entire contents of the "
 "file."
@@ -8507,7 +8551,7 @@ msgstr "このレーベルは関連やリリースが付いてないため、数
 msgid "This label has no tags."
 msgstr "このレーベルはタグがありません。"
 
-#: ../root/release/edit/tracklist.tt:223
+#: ../root/release/edit/tracklist.tt:261
 msgid ""
 "This medium already has disc IDs, so you may only change the format to a "
 "format that can have disc IDs."
@@ -8803,6 +8847,10 @@ msgid ""
 "grouping-only relationship types"
 msgstr ""
 
+#: ../root/report/annotations_artists.tt:6
+msgid "This report lists artists with annotations."
+msgstr ""
+
 #: ../root/report/duplicate_relationships_labels.tt:6
 msgid ""
 "This report lists labels which have multiple relationships to the same "
@@ -8815,10 +8863,18 @@ msgid ""
 "grouping-only relationship types"
 msgstr ""
 
+#: ../root/report/annotations_labels.tt:6
+msgid "This report lists labels with annotations."
+msgstr ""
+
 #: ../root/report/deprecated_relationship_places.tt:6
 msgid ""
 "This report lists places which have relationships using deprecated and "
 "grouping-only relationship types"
+msgstr ""
+
+#: ../root/report/annotations_places.tt:6
+msgid "This report lists places with annotations."
 msgstr ""
 
 #: ../root/report/duplicate_relationships_recordings.tt:6
@@ -8833,6 +8889,10 @@ msgid ""
 "grouping-only relationship types"
 msgstr ""
 
+#: ../root/report/annotations_recordings.tt:6
+msgid "This report lists recordings with annotations."
+msgstr ""
+
 #: ../root/report/duplicate_relationships_release_groups.tt:6
 msgid ""
 "This report lists release groups which have multiple relationships to the "
@@ -8843,6 +8903,10 @@ msgstr ""
 msgid ""
 "This report lists release groups which have relationships using deprecated "
 "and grouping-only relationship types"
+msgstr ""
+
+#: ../root/report/annotations_release_groups.tt:6
+msgid "This report lists release groups with annotations."
 msgstr ""
 
 #: ../root/report/duplicate_relationships_releases.tt:6
@@ -8857,11 +8921,19 @@ msgid ""
 "grouping-only relationship types"
 msgstr ""
 
+#: ../root/report/annotations_releases.tt:6
+msgid "This report lists releases with annotations."
+msgstr ""
+
 #: ../root/report/superfluous_data_tracks.tt:6
 msgid ""
 "This report lists releases without any disc IDs that probably contain data "
 "tracks (like videos). A data track should be deleted if it is the last track"
 " of the CD and there is no disc ID."
+msgstr ""
+
+#: ../root/report/annotations_series.tt:6
+msgid "This report lists series with annotations."
 msgstr ""
 
 #: ../root/report/duplicate_relationships_works.tt:6
@@ -8875,6 +8947,10 @@ msgstr ""
 msgid ""
 "This report lists works which have relationships using deprecated and "
 "grouping-only relationship types"
+msgstr ""
+
+#: ../root/report/annotations_works.tt:6
+msgid "This report lists works with annotations."
 msgstr ""
 
 #: ../root/report/isrc_with_many_recordings.tt:6
@@ -9133,23 +9209,23 @@ msgid ""
 " continue?"
 msgstr ""
 
-#: ../root/components/common-macros.tt:477
+#: ../root/components/common-macros.tt:474
 msgid "This user is automated."
 msgstr "このユーザーはボットです。"
 
-#: ../root/components/common-macros.tt:476
+#: ../root/components/common-macros.tt:473
 msgid "This user is new to MusicBrainz."
 msgstr "MusicBrainzの初心者です。"
 
-#: ../root/release/edit_relationships.tt:114
+#: ../root/release/edit_relationships.tt:118
 msgid "This will add a relationship to all checked recordings."
 msgstr "選択されたレコーディングの全てに関連を追加します。"
 
-#: ../root/release/edit_relationships.tt:117
+#: ../root/release/edit_relationships.tt:121
 msgid "This will add a relationship to all checked works."
 msgstr "選択されたワークの全てに関連を追加します。"
 
-#: ../root/release/edit_relationships.tt:130
+#: ../root/release/edit_relationships.tt:134
 msgid ""
 "This will create a new work for each checked recording that has no work "
 "already. The work names will be the same as their respective recording."
@@ -9187,7 +9263,7 @@ msgstr "タイムゾーン："
 #: ../root/edit/details/edit_medium.tt:57
 #: ../root/edit/details/edit_medium.tt:61 ../root/isrc/index.tt:16
 #: ../root/iswc/index.tt:16 ../root/recording/index.tt:10
-#: ../root/release/edit/tracklist.tt:100 ../root/release/edit/tracklist.tt:260
+#: ../root/release/edit/tracklist.tt:138 ../root/release/edit/tracklist.tt:298
 #: ../root/release/index.tt:52 ../root/search/results-freedb.tt:12
 msgid "Title"
 msgstr "タイトル"
@@ -9209,7 +9285,7 @@ msgid ""
 "testing servers:"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:138
+#: ../root/release/edit/tracklist.tt:176
 msgid ""
 "To create a new tracklist, use an existing tracklist or import a disc from a"
 " CD stub or FreeDB, select the appropriate tab."
@@ -9257,6 +9333,7 @@ msgstr "ISWC合計： {count}"
 msgid "Total URLs found: {count}"
 msgstr ""
 
+#: ../root/report/annotations_artists.tt:8
 #: ../root/report/artists_containing_disambiguation_comments.tt:8
 #: ../root/report/artists_that_may_be_groups.tt:11
 #: ../root/report/artists_that_may_be_persons.tt:12
@@ -9274,6 +9351,7 @@ msgstr "アーティスト合計： {count}"
 msgid "Total duplicate groups: {count}"
 msgstr "複製グループ合計： {count}"
 
+#: ../root/report/annotations_labels.tt:8
 #: ../root/report/deprecated_relationship_labels.tt:8
 #: ../root/report/discogs_links_with_multiple_labels.tt:7
 #: ../root/report/duplicate_relationships_labels.tt:8
@@ -9284,10 +9362,12 @@ msgstr ""
 msgid "Total length:"
 msgstr "合計時間："
 
+#: ../root/report/annotations_places.tt:8
 #: ../root/report/deprecated_relationship_places.tt:8
 msgid "Total places found: {count}"
 msgstr ""
 
+#: ../root/report/annotations_recordings.tt:8
 #: ../root/report/deprecated_relationship_recordings.tt:8
 #: ../root/report/duplicate_relationships_recordings.tt:7
 #: ../root/report/featuring_recordings.tt:13
@@ -9296,6 +9376,7 @@ msgstr ""
 msgid "Total recordings found: {count}"
 msgstr "レコーディング合計： {count}"
 
+#: ../root/report/annotations_release_groups.tt:8
 #: ../root/report/deprecated_relationship_release_groups.tt:8
 #: ../root/report/discogs_links_with_multiple_release_groups.tt:7
 #: ../root/report/duplicate_relationships_release_groups.tt:8
@@ -9307,6 +9388,7 @@ msgstr "リリースグループ合計： {count}"
 msgid "Total release groups: {count}"
 msgstr "リリースグループ合計： {count}"
 
+#: ../root/report/annotations_releases.tt:8
 #: ../root/report/asins_with_multiple_releases.tt:15
 #: ../root/report/bad_amazon_urls.tt:10
 #: ../root/report/cat_no_looks_like_asin.tt:9
@@ -9339,10 +9421,15 @@ msgstr "リリース合計： {count}"
 msgid "Total releases: {count}"
 msgstr "リリース合計： {count}"
 
+#: ../root/report/annotations_series.tt:8
+msgid "Total series found: {count}"
+msgstr ""
+
 #: ../root/cdstub/index.tt:17 ../root/cdtoc/info.tt:19
 msgid "Total tracks:"
 msgstr "トラック合計："
 
+#: ../root/report/annotations_works.tt:8
 #: ../root/report/deprecated_relationship_works.tt:8
 #: ../root/report/duplicate_relationships_works.tt:8
 msgid "Total works found: {count}"
@@ -9361,7 +9448,7 @@ msgstr ""
 msgid "Track Not Found"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:329 ../root/scripts/text_strings.tt:149
+#: ../root/release/edit/tracklist.tt:367 ../root/scripts/text_strings.tt:149
 msgid "Track Parser"
 msgstr "トラックパーサ"
 
@@ -9369,7 +9456,7 @@ msgstr "トラックパーサ"
 msgid "Track Relationships"
 msgstr "トラックの関連"
 
-#: ../root/release/edit/tracklist.tt:46
+#: ../root/release/edit/tracklist.tt:84
 msgid "Track count:"
 msgstr "トラック数："
 
@@ -9423,7 +9510,7 @@ msgstr "トラックリスト："
 msgid "Tracks"
 msgstr "トラック"
 
-#: ../root/report/index.tt:85
+#: ../root/report/index.tt:89
 msgid "Tracks whose names include their sequence numbers"
 msgstr "順序番号を含むトラック名"
 
@@ -9458,7 +9545,7 @@ msgid ""
 "{uri|WikiDocs} transclusion table."
 msgstr ""
 
-#: ../root/report/index.tt:67
+#: ../root/report/index.tt:70
 msgid ""
 "Translated/Transliterated Pseudo-Releases not linked to an original version"
 msgstr ""
@@ -9543,7 +9630,7 @@ msgstr "タイプ：{type}、ステータス：{status}"
 msgid "Types:"
 msgstr "タイプ："
 
-#: ../root/components/common-macros.tt:564 ../root/report/artist_url_list.tt:5
+#: ../root/components/common-macros.tt:561 ../root/report/artist_url_list.tt:5
 #: ../root/report/bad_amazon_urls.tt:21 ../root/report/label_url_list.tt:5
 #: ../root/report/release_group_url_list.tt:5
 #: ../root/report/release_url_list.tt:5 ../root/report/url_list.tt:7
@@ -9564,7 +9651,7 @@ msgstr "URL情報"
 msgid "URL Not Found"
 msgstr "URL見つかりません"
 
-#: ../root/components/common-macros.tt:548 ../root/components/forms.tt:314
+#: ../root/components/common-macros.tt:545 ../root/components/forms.tt:314
 #: ../root/edit/details/edit_url.tt:5 ../root/edit/details/edit_url.tt:11
 #: ../root/main/500.tt:72 ../root/otherlookup/form.tt:3 ../root/url/edit.tt:7
 #: ../root/url/index.tt:5
@@ -9575,13 +9662,13 @@ msgstr "URL："
 msgid "URL; [URL]; [URL|label]"
 msgstr ""
 
-#: ../root/components/common-macros.tt:144 ../root/report/index.tt:105
+#: ../root/components/common-macros.tt:145 ../root/report/index.tt:118
 msgid "URLs"
 msgstr ""
 
 #: ../root/report/deprecated_relationship_urls.tt:1
 #: ../root/report/deprecated_relationship_urls.tt:3
-#: ../root/report/index.tt:108
+#: ../root/report/index.tt:121
 msgid "URLs with deprecated relationships"
 msgstr ""
 
@@ -9602,7 +9689,7 @@ msgstr "無許可のリクエスト"
 msgid "Unclassified instrument"
 msgstr ""
 
-#: ../root/components/common-macros.tt:958 ../root/report/artist_list.tt:17
+#: ../root/components/common-macros.tt:955 ../root/report/artist_list.tt:19
 #: ../root/report/artists_with_multiple_occurances_in_artist_credits.tt:25
 msgid "Unknown"
 msgstr "不明"
@@ -9621,7 +9708,7 @@ msgid "Unspecified type"
 msgstr "タイプ未定"
 
 #: ../root/collection/layout.tt:25
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:65
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:66
 #: ../root/user/subscriptions/table.tt:28
 msgid "Unsubscribe"
 msgstr "購読解除"
@@ -9683,16 +9770,32 @@ msgid ""
 "href=\"{url}\">Artist Credit</a> documentation for more information."
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:157
+#: ../root/release/edit/tracklist.tt:195
 msgid "Use the following fields to search for a CD stub."
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:162
+#: ../root/release/edit/tracklist.tt:200
 msgid "Use the following fields to search for a FreeDB entry."
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:152
+#: ../root/release/edit/tracklist.tt:190
 msgid "Use the following fields to search for an existing tracklist."
+msgstr ""
+
+#: ../root/release/edit/tracklist.tt:47
+msgid "Use track artists"
+msgstr ""
+
+#: ../root/release/edit/tracklist.tt:65
+msgid "Use track lengths"
+msgstr ""
+
+#: ../root/release/edit/tracklist.tt:24
+msgid "Use track numbers"
+msgstr ""
+
+#: ../root/release/edit/tracklist.tt:56
+msgid "Use track titles"
 msgstr ""
 
 #: ../root/search/form.tt:39
@@ -9778,7 +9881,7 @@ msgid "View all relationships"
 msgstr "全関連を表示"
 
 #: ../root/annotation/common.tt:21
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:25
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:26
 msgid "View annotation history"
 msgstr "注釈の履歴を表示"
 
@@ -9838,7 +9941,7 @@ msgstr "否決"
 msgid "Voter"
 msgstr "投票者"
 
-#: ../root/doc/edit_type.tt:62 ../root/edit/index.tt:20
+#: ../root/doc/edit_type.tt:45 ../root/edit/index.tt:20
 #: ../root/user/edits.tt:1
 msgid "Votes"
 msgstr "投票数"
@@ -9895,7 +9998,7 @@ msgid ""
 "been found."
 msgstr ""
 
-#: ../root/doc/edit_type.tt:59
+#: ../root/doc/edit_type.tt:42
 msgid "Voting period (days)"
 msgstr "投票時間（日）"
 
@@ -9906,7 +10009,7 @@ msgid ""
 "you're certain this date is correct!</b>"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:240
+#: ../root/release/edit/tracklist.tt:278
 msgid "Warning:"
 msgstr "注意："
 
@@ -10073,7 +10176,7 @@ msgid ""
 "Commons BY-SA license}"
 msgstr ""
 
-#: ../root/components/common-macros.tt:564 ../root/components/works-list.tt:12
+#: ../root/components/common-macros.tt:561 ../root/components/works-list.tt:12
 #: ../root/edit/search_macros.tt:307 ../root/report/iswc_with_many_works.tt:25
 #: ../root/report/work_list.tt:7 ../root/scripts/text_strings.tt:114
 #: ../root/work/edits.tt:6 ../root/work/header.tt:13 ../root/work/merge.tt:11
@@ -10094,9 +10197,13 @@ msgstr "ワークの詳細"
 msgid "Work Not Found"
 msgstr "ワーク見つかりません"
 
-#: ../root/release/edit_relationships.tt:139
+#: ../root/release/edit_relationships.tt:143
 msgid "Work Type:"
 msgstr "ワークタイプ："
+
+#: ../root/report/annotations_works.tt:1 ../root/report/annotations_works.tt:3
+msgid "Work annotations"
+msgstr ""
 
 #: ../root/work/layout.tt:9
 msgid "Work information"
@@ -10110,27 +10217,30 @@ msgstr "ワークの評価"
 msgid "Work type:"
 msgstr "ワークのタイプ："
 
-#: ../root/components/common-macros.tt:548
-#: ../root/edit/details/add_work_annotation.tt:3
-#: ../root/edit/details/add_work.tt:3 ../root/edit/details/edit_work.tt:5
-#: ../root/edit/details/remove_iswc.tt:7 ../root/edit/details/remove_work.tt:3
+#: ../root/components/common-macros.tt:545 ../root/edit/details/add_work.tt:3
+#: ../root/edit/details/edit_work.tt:5 ../root/edit/details/remove_iswc.tt:7
 msgid "Work:"
 msgstr "ワーク："
 
 #: ../root/artist/header.tt:1 ../root/artist/works.tt:2
-#: ../root/report/index.tt:98 ../root/series/index.tt:15
+#: ../root/report/index.tt:110 ../root/series/index.tt:15
 #: ../root/tag/header.tt:1 ../root/tag/index.tt:8 ../root/user/tag.tt:4
 msgid "Works"
 msgstr "ワーク"
 
+#: ../root/report/index.tt:115
+msgid "Works with annotations"
+msgstr ""
+
 #: ../root/report/deprecated_relationship_works.tt:1
-#: ../root/report/index.tt:102
+#: ../root/report/deprecated_relationship_works.tt:3
+#: ../root/report/index.tt:114
 msgid "Works with deprecated relationships"
 msgstr ""
 
 #: ../root/report/duplicate_relationships_works.tt:1
 #: ../root/report/duplicate_relationships_works.tt:3
-#: ../root/report/index.tt:101
+#: ../root/report/index.tt:113
 msgid "Works with possible duplicate relationships"
 msgstr "複写の関連を持つ可能性のあるワーク"
 
@@ -10173,20 +10283,7 @@ msgstr "年"
 msgid "Year:"
 msgstr "年:"
 
-#: ../root/edit/details/add_alias.tt:29 ../root/edit/details/add_alias.tt:52
-#: ../root/edit/details/add_area.tt:72 ../root/edit/details/add_artist.tt:67
-#: ../root/edit/details/add_label.tt:44 ../root/edit/details/add_place.tt:65
-#: ../root/edit/details/add_standalone_recording.tt:35
-#: ../root/edit/details/edit_alias.tt:40 ../root/edit/details/edit_alias.tt:58
-#: ../root/edit/details/edit_area.tt:52 ../root/edit/details/edit_artist.tt:58
-#: ../root/edit/details/edit_label.tt:43 ../root/edit/details/edit_place.tt:46
-#: ../root/edit/details/edit_recording.tt:26
-#: ../root/edit/details/edit_relationship_type.tt:3
-#: ../root/edit/details/historic/merge_releases.tt:26
-#: ../root/edit/details/historic/merge_releases.tt:31
-#: ../root/edit/details/historic/move_release.tt:15
-#: ../root/edit/details/merge_artists.tt:5
-#: ../root/edit/details/remove_alias.tt:28 ../root/edit/search_macros.tt:244
+#: ../root/components/common-macros.tt:21 ../root/edit/search_macros.tt:244
 #: ../root/edit/vote.tt:14 ../lib/MusicBrainz/Server/Data/Vote.pm:193
 msgid "Yes"
 msgstr "はい"
@@ -10396,11 +10493,11 @@ msgid ""
 "to complete the authorization process:"
 msgstr ""
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:100
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:101
 msgid "You have no collections!"
 msgstr "コレクションがありません。"
 
-#: ../root/user/collections.tt:37
+#: ../root/user/collections.tt:39
 msgid "You have no collections."
 msgstr "コレクションがありません"
 
@@ -10414,7 +10511,7 @@ msgid ""
 "recording."
 msgstr "このレコーディングに「{valink|Various Artists}」という特殊目的のアーティストを使いました。"
 
-#: ../root/release/edit/tracklist.tt:174
+#: ../root/release/edit/tracklist.tt:212
 msgid ""
 "You haven't added any media yet. Click on the \"Add Disc\" button below to "
 "add one."
@@ -10448,7 +10545,7 @@ msgstr ""
 msgid "You must be logged in to vote on edits"
 msgstr "編集に投票するため、ログインしてください。"
 
-#: ../root/release/edit/tracklist.tt:252
+#: ../root/release/edit/tracklist.tt:290
 msgid "You must enter a title and select an artist for every track."
 msgstr ""
 
@@ -10548,13 +10645,13 @@ msgstr ""
 msgid "Your username will be publicly visible."
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:185
+#: ../root/release/edit/tracklist.tt:223
 msgid ""
 "You’ve seeded some Disc IDs that aren’t matched to any medium. If this is "
 "wrong, use the “Attach Disc ID” options below."
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:241
+#: ../root/release/edit/tracklist.tt:279
 msgid ""
 "You’ve used the {valink|Various Artists} special purpose artist on some "
 "tracks below. {valink|Various Artists} should very rarely be used on tracks;"
@@ -10565,7 +10662,7 @@ msgstr ""
 msgid "[ Unknown ]"
 msgstr "［不明］"
 
-#: ../root/components/common-macros.tt:257
+#: ../root/components/common-macros.tt:258
 #: ../root/edit/details/edit_alias.tt:17
 msgid "[removed]"
 msgstr ""
@@ -10590,9 +10687,13 @@ msgstr "曖昧さ回避のメモを追加"
 msgid "after"
 msgstr ""
 
-#: ../root/components/common-macros.tt:47
+#: ../root/components/common-macros.tt:48
 msgid "aged {num}"
 msgstr "{num}歳"
+
+#: ../root/report/duplicate_artists.tt:41
+msgid "alias:"
+msgstr ""
 
 #: ../root/edit/search_macros.tt:28
 msgid "all"
@@ -10606,11 +10707,11 @@ msgstr "いずれか"
 msgid "appears on:"
 msgstr ""
 
-#: ../root/components/common-macros.tt:144
+#: ../root/components/common-macros.tt:145
 msgid "areas"
 msgstr "地域"
 
-#: ../root/components/common-macros.tt:144
+#: ../root/components/common-macros.tt:145
 msgid "artists"
 msgstr "アーティスト"
 
@@ -10618,7 +10719,7 @@ msgstr "アーティスト"
 msgid "auto-edits"
 msgstr "自動編集"
 
-#: ../root/components/common-macros.tt:635
+#: ../root/components/common-macros.tt:632
 msgid "automatically applied"
 msgstr "自動適用"
 
@@ -10630,7 +10731,7 @@ msgstr ""
 msgid "between"
 msgstr ""
 
-#: ../root/components/common-macros.tt:477
+#: ../root/components/common-macros.tt:474
 msgid "bot"
 msgstr "ボット"
 
@@ -10650,7 +10751,7 @@ msgstr "差分"
 msgid "do not match"
 msgstr ""
 
-#: ../root/components/common-macros.tt:144
+#: ../root/components/common-macros.tt:145
 msgid "editors"
 msgstr "編集者"
 
@@ -10662,14 +10763,14 @@ msgstr ""
 msgid "end date"
 msgstr ""
 
-#: ../root/components/common-macros.tt:643
+#: ../root/components/common-macros.tt:640
 #: ../root/components/relationship-editor.tt:136
 msgid "ended"
 msgstr "終了"
 
 #: ../root/doc/relationship_type.tt:34
 #: ../root/edit/details/add_relationship_type.tt:19
-#: ../root/edit/details/edit_relationship_type.tt:52
+#: ../root/edit/details/edit_relationship_type.tt:50
 #: ../root/relationship/linktype/form.tt:26
 #: ../root/relationship/linktype/tree.tt:12
 msgid "entity0 cardinality:"
@@ -10677,21 +10778,21 @@ msgstr ""
 
 #: ../root/doc/relationship_type.tt:35
 #: ../root/edit/details/add_relationship_type.tt:23
-#: ../root/edit/details/edit_relationship_type.tt:57
+#: ../root/edit/details/edit_relationship_type.tt:55
 #: ../root/relationship/linktype/form.tt:31
 #: ../root/relationship/linktype/tree.tt:13
 msgid "entity1 cardinality:"
 msgstr ""
 
-#: ../root/components/common-macros.tt:643 ../root/edit/details/macros.tt:38
+#: ../root/components/common-macros.tt:640 ../root/edit/details/macros.tt:38
 msgid "from {begin_date} until {end_date}"
 msgstr "{begin_date} から {end_date} まで"
 
-#: ../root/components/common-macros.tt:643 ../root/edit/details/macros.tt:38
+#: ../root/components/common-macros.tt:640 ../root/edit/details/macros.tt:38
 msgid "from {date} to ????"
 msgstr "{date}から"
 
-#: ../root/components/common-macros.tt:643 ../root/edit/details/macros.tt:38
+#: ../root/components/common-macros.tt:640 ../root/edit/details/macros.tt:38
 msgid "from {date} to present"
 msgstr "{date}から現在まで"
 
@@ -10701,7 +10802,7 @@ msgstr ""
 
 #: ../root/components/relationship-editor.tt:67
 #: ../root/components/relationship-editor.tt:93
-#: ../root/release/edit/tracklist.tt:208
+#: ../root/release/edit/tracklist.tt:246
 msgid "help"
 msgstr "ヘルプ"
 
@@ -10709,15 +10810,15 @@ msgstr "ヘルプ"
 msgid "hide tracklist"
 msgstr "トラックリストを隠す"
 
-#: ../root/components/common-macros.tt:191
+#: ../root/components/common-macros.tt:192
 msgid "historical"
 msgstr ""
 
-#: ../root/components/common-macros.tt:189
+#: ../root/components/common-macros.tt:190
 msgid "historical, until {end}"
 msgstr ""
 
-#: ../root/components/common-macros.tt:187
+#: ../root/components/common-macros.tt:188
 msgid "historical, {begin}-{end}"
 msgstr ""
 
@@ -10725,7 +10826,7 @@ msgstr ""
 msgid "import"
 msgstr "インポート"
 
-#: ../root/components/common-macros.tt:643 ../root/edit/details/macros.tt:38
+#: ../root/components/common-macros.tt:640 ../root/edit/details/macros.tt:38
 msgid "in {date}"
 msgstr ""
 
@@ -10733,8 +10834,8 @@ msgstr ""
 msgid "in {parent_areas}"
 msgstr ""
 
-#: ../root/components/common-macros.tt:230
-#: ../root/components/common-macros.tt:294
+#: ../root/components/common-macros.tt:231
+#: ../root/components/common-macros.tt:295
 msgid "info"
 msgstr "情報"
 
@@ -10778,11 +10879,11 @@ msgstr ""
 msgid "is not"
 msgstr ""
 
-#: ../root/components/common-macros.tt:144
+#: ../root/components/common-macros.tt:145
 msgid "labels"
 msgstr "レーベル"
 
-#: ../root/components/common-macros.tt:476
+#: ../root/components/common-macros.tt:473
 msgid "limited user"
 msgstr "制限ユーザー"
 
@@ -10827,7 +10928,7 @@ msgstr ""
 msgid "on"
 msgstr ""
 
-#: ../root/components/common-macros.tt:643 ../root/edit/details/macros.tt:38
+#: ../root/components/common-macros.tt:640 ../root/edit/details/macros.tt:38
 msgid "on {date}"
 msgstr ""
 
@@ -10835,11 +10936,11 @@ msgstr ""
 msgid "or drop files here"
 msgstr ""
 
-#: ../root/components/common-macros.tt:112
+#: ../root/components/common-macros.tt:113
 msgid "original"
 msgstr ""
 
-#: ../root/components/common-macros.tt:144
+#: ../root/components/common-macros.tt:145
 msgid "places"
 msgstr ""
 
@@ -10871,15 +10972,15 @@ msgstr ""
 msgid "recording"
 msgstr "レコーディング"
 
-#: ../root/components/common-macros.tt:144
+#: ../root/components/common-macros.tt:145
 msgid "recordings"
 msgstr "レコーディング"
 
-#: ../root/components/common-macros.tt:144
+#: ../root/components/common-macros.tt:145
 msgid "release groups"
 msgstr "リリースグループ"
 
-#: ../root/components/common-macros.tt:144
+#: ../root/components/common-macros.tt:145
 msgid "releases"
 msgstr "リリース"
 
@@ -10904,7 +11005,7 @@ msgstr[0] ""
 msgid "send email"
 msgstr "メール送信"
 
-#: ../root/components/common-macros.tt:144
+#: ../root/components/common-macros.tt:145
 msgctxt "plural"
 msgid "series"
 msgstr ""
@@ -10936,7 +11037,7 @@ msgid "track {tracks}"
 msgid_plural "tracks {tracks}"
 msgstr[0] "トラック {tracks}"
 
-#: ../root/components/common-macros.tt:144
+#: ../root/components/common-macros.tt:145
 msgid "tracks"
 msgstr "トラック"
 
@@ -10944,7 +11045,7 @@ msgstr "トラック"
 msgid "unsubscribe"
 msgstr "購読を解除"
 
-#: ../root/components/common-macros.tt:643 ../root/edit/details/macros.tt:38
+#: ../root/components/common-macros.tt:640 ../root/edit/details/macros.tt:38
 msgid "until {date}"
 msgstr "{date} まで"
 
@@ -10957,7 +11058,7 @@ msgstr ""
 msgid "view all aliases"
 msgstr "別名の全てを表示"
 
-#: ../root/components/common-macros.tt:144
+#: ../root/components/common-macros.tt:145
 msgid "works"
 msgstr "ワーク"
 
@@ -10966,7 +11067,7 @@ msgid ""
 "{about|More Information} &#x2014; {faq|FAQs} &#x2014; {contact|Contact Us}"
 msgstr ""
 
-#: ../root/components/common-macros.tt:127 ../root/scripts/text_strings.tt:126
+#: ../root/components/common-macros.tt:128 ../root/scripts/text_strings.tt:126
 msgid "{almost_last_list_item} and {last_list_item}"
 msgstr ""
 
@@ -10985,7 +11086,7 @@ msgstr "{artist} ({roles})"
 msgid "{artist} - {name}"
 msgstr "{artist} - {name}"
 
-#: ../root/components/common-macros.tt:211
+#: ../root/components/common-macros.tt:212
 msgid "{artist} as {name}"
 msgstr "{artist} （{name}として）"
 
@@ -11020,7 +11121,7 @@ msgstr "{begindate}～{enddate}"
 msgid "{collection} by {owner}"
 msgstr ""
 
-#: ../root/components/common-macros.tt:138
+#: ../root/components/common-macros.tt:139
 msgid "{commas_only_list_item}, {rest}"
 msgstr ""
 
@@ -11087,7 +11188,7 @@ msgstr ""
 msgid "{entity0}-{entity1}"
 msgstr ""
 
-#: ../root/components/common-macros.tt:266 ../root/main/index.tt:124
+#: ../root/components/common-macros.tt:267 ../root/main/index.tt:124
 #: ../root/scripts/text_strings.tt:153
 msgid "{entity} by {artist}"
 msgstr "{artist}の{entity}"
@@ -11100,7 +11201,7 @@ msgstr "{entity}は別名がありません。"
 msgid "{format} {position} {name} on {release} by {artist}"
 msgstr "{artist}の{release}　{format} {position}：{name}"
 
-#: ../root/components/common-macros.tt:136
+#: ../root/components/common-macros.tt:137
 msgid "{last_list_item}"
 msgstr ""
 
@@ -11112,7 +11213,7 @@ msgstr "{link}は評価がありません。"
 msgid "{link} has no relationships."
 msgstr "{link}は関連がありません。"
 
-#: ../root/components/common-macros.tt:129 ../root/scripts/text_strings.tt:127
+#: ../root/components/common-macros.tt:130 ../root/scripts/text_strings.tt:127
 msgid "{list_item}, {rest}"
 msgstr ""
 
@@ -11143,12 +11244,12 @@ msgid "{num} collection"
 msgid_plural "{num} collections"
 msgstr[0] "{num}のコレクション"
 
-#: ../root/components/common-macros.tt:47
+#: ../root/components/common-macros.tt:48
 msgid "{num} day"
 msgid_plural "{num} days"
 msgstr[0] "{num}日"
 
-#: ../root/components/common-macros.tt:61
+#: ../root/components/common-macros.tt:62
 msgid "{num} day ago"
 msgid_plural "{num} days ago"
 msgstr[0] "{num}日前"
@@ -11168,12 +11269,12 @@ msgid "{num} label found"
 msgid_plural "{num} labels found"
 msgstr[0] ""
 
-#: ../root/components/common-macros.tt:47
+#: ../root/components/common-macros.tt:48
 msgid "{num} month"
 msgid_plural "{num} months"
 msgstr[0] "{num}ヶ月"
 
-#: ../root/components/common-macros.tt:61
+#: ../root/components/common-macros.tt:62
 msgid "{num} month ago"
 msgid_plural "{num} months ago"
 msgstr[0] "{num}ヶ月前"
@@ -11213,12 +11314,12 @@ msgid "{num} work found"
 msgid_plural "{num} works found"
 msgstr[0] ""
 
-#: ../root/components/common-macros.tt:47
+#: ../root/components/common-macros.tt:48
 msgid "{num} year"
 msgid_plural "{num} years"
 msgstr[0] "{num}年"
 
-#: ../root/components/common-macros.tt:61
+#: ../root/components/common-macros.tt:62
 msgid "{num} year ago"
 msgid_plural "{num} years ago"
 msgstr[0] "{num}年前"
@@ -11241,7 +11342,7 @@ msgstr[0] ""
 msgid "{percentage}%"
 msgstr "{percentage}%"
 
-#: ../root/components/common-macros.tt:266
+#: ../root/components/common-macros.tt:267
 msgid "{place} in {area}"
 msgstr ""
 
@@ -11294,7 +11395,7 @@ msgstr ""
 msgid "{user}"
 msgstr "{user}"
 
-#: ../root/user/collections.tt:39
+#: ../root/user/collections.tt:41
 msgid "{user} has no public collections."
 msgstr ""
 
@@ -11316,11 +11417,11 @@ msgid ""
 " that the artist has been entered correctly."
 msgstr ""
 
-#: ../root/components/common-macros.tt:943 ../root/scripts/text_strings.tt:163
+#: ../root/components/common-macros.tt:940 ../root/scripts/text_strings.tt:163
 msgid "{variable}:"
 msgstr "{variable}："
 
-#: ../root/components/common-macros.tt:635
+#: ../root/components/common-macros.tt:632
 msgid "{yes} yes : {no} no"
 msgstr ""
 
@@ -11542,12 +11643,12 @@ msgstr "この編集者 {name} は、アカウントに email アドレスを関
 msgid "Your message could not be sent"
 msgstr "あなたのメッセージを送信できません"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:363
+#: ../lib/MusicBrainz/Server/Controller/User.pm:369
 #, perl-brace-format
 msgid "'{type}' is not an entity type that can have ratings."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/WS/2/DiscID.pm:88
+#: ../lib/MusicBrainz/Server/Controller/WS/2/DiscID.pm:90
 msgid "Invalid TOC"
 msgstr "不正なTOCです"
 
@@ -11611,6 +11712,11 @@ msgstr "このディスク ID に対する MusicBrainz リリースが、既に�
 msgid "There is already a CD stub with this disc ID"
 msgstr "このディスク ID に対する CD スタブが、既にあります"
 
+#: ../lib/MusicBrainz/Server/Data/Language.pm:42
+#: ../lib/MusicBrainz/Server/Form/Utils.pm:44
+msgid "[No lyrics]"
+msgstr ""
+
 #: ../lib/MusicBrainz/Server/Data/LinkType.pm:153
 #, perl-brace-format
 msgid "{t0}-{t1} relationships"
@@ -11624,7 +11730,7 @@ msgstr "合計"
 msgid "Add area annotation"
 msgstr "地域の注釈を追加"
 
-#: ../lib/MusicBrainz/Server/Edit/Area/Create.pm:18
+#: ../lib/MusicBrainz/Server/Edit/Area/Create.pm:19
 msgid "Add area"
 msgstr "地域を追加"
 
@@ -11644,7 +11750,7 @@ msgstr "地域をマージ"
 msgid "Add artist annotation"
 msgstr "アーティストの注釈を追加"
 
-#: ../lib/MusicBrainz/Server/Edit/Artist/Create.pm:23
+#: ../lib/MusicBrainz/Server/Edit/Artist/Create.pm:24
 msgid "Add artist"
 msgstr "アーティストを追加"
 
@@ -11755,7 +11861,7 @@ msgid "Change release group (historic)"
 msgstr "リリースグループを変更（履歴的）"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveDiscID.pm:11
-#: ../lib/MusicBrainz/Server/Edit/Medium/RemoveDiscID.pm:11
+#: ../lib/MusicBrainz/Server/Edit/Medium/RemoveDiscID.pm:9
 msgid "Remove disc ID"
 msgstr "ディスク ID を削除"
 
@@ -11789,7 +11895,7 @@ msgstr "トラック長をセット"
 msgid "Add instrument annotation"
 msgstr "楽器の注釈を追加"
 
-#: ../lib/MusicBrainz/Server/Edit/Instrument/Create.pm:17
+#: ../lib/MusicBrainz/Server/Edit/Instrument/Create.pm:18
 msgid "Add instrument"
 msgstr "楽器を追加"
 
@@ -11809,7 +11915,7 @@ msgstr "楽器をマージ"
 msgid "Add label annotation"
 msgstr "レーベルの注釈を追加"
 
-#: ../lib/MusicBrainz/Server/Edit/Label/Create.pm:24
+#: ../lib/MusicBrainz/Server/Edit/Label/Create.pm:25
 msgid "Add label"
 msgstr "レーベルを追加"
 
@@ -11845,7 +11951,7 @@ msgstr "PUIDを削除"
 msgid "Add place annotation"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Place/Create.pm:20
+#: ../lib/MusicBrainz/Server/Edit/Place/Create.pm:21
 msgid "Add place"
 msgstr ""
 
@@ -11869,7 +11975,7 @@ msgstr "レコーディングの注釈を追加"
 msgid "Add ISRCs"
 msgstr "ISRCを追加"
 
-#: ../lib/MusicBrainz/Server/Edit/Recording/AddPUIDs.pm:15
+#: ../lib/MusicBrainz/Server/Edit/Recording/AddPUIDs.pm:16
 msgid "Add PUIDs"
 msgstr "PUIDを追加"
 
@@ -11957,7 +12063,7 @@ msgstr "リリースレーベルを編集"
 msgid "Remove cover art"
 msgstr "カバーアートを削除"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/ReorderCoverArt.pm:23
+#: ../lib/MusicBrainz/Server/Edit/Release/ReorderCoverArt.pm:24
 msgid "Reorder cover art"
 msgstr "カバーアートを並べ替え"
 
@@ -11981,7 +12087,7 @@ msgstr "リリースグループを編集"
 msgid "Add series annotation"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Series/Create.pm:20
+#: ../lib/MusicBrainz/Server/Edit/Series/Create.pm:21
 msgid "Add series"
 msgstr ""
 
@@ -11997,23 +12103,23 @@ msgstr ""
 msgid "Merge series"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:281
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:270
 msgid "Applied"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:282
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:271
 msgid "Failed vote"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:283
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:272
 msgid "Failed dependency"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:285
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:274
 msgid "Failed prerequisite"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:286
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:275
 msgid "No votes"
 msgstr ""
 
@@ -12021,7 +12127,7 @@ msgstr ""
 msgid "Wiki documentation"
 msgstr "Wiki ドキュメント"
 
-#: ../lib/MusicBrainz/Server/Edit/WikiDoc/Change.pm:14
+#: ../lib/MusicBrainz/Server/Edit/WikiDoc/Change.pm:15
 msgid "Change WikiDoc"
 msgstr "WikiDocを変更"
 
@@ -12029,7 +12135,7 @@ msgstr "WikiDocを変更"
 msgid "Add work annotation"
 msgstr "ワークの注釈を追加"
 
-#: ../lib/MusicBrainz/Server/Edit/Work/AddISWCs.pm:22
+#: ../lib/MusicBrainz/Server/Edit/Work/AddISWCs.pm:19
 msgid "Add ISWCs"
 msgstr "ISWCを追加"
 
@@ -12393,22 +12499,22 @@ msgstr "2週間"
 msgid "A month"
 msgstr "1ヶ月"
 
-#: ../lib/MusicBrainz/Server/Form/Utils.pm:42
+#: ../lib/MusicBrainz/Server/Form/Utils.pm:56
 msgctxt "language optgroup"
 msgid "Frequently used"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Utils.pm:42
+#: ../lib/MusicBrainz/Server/Form/Utils.pm:56
 msgctxt "language optgroup"
 msgid "Other"
 msgstr "その他"
 
-#: ../lib/MusicBrainz/Server/Form/Utils.pm:66
+#: ../lib/MusicBrainz/Server/Form/Utils.pm:80
 msgctxt "script optgroup"
 msgid "Frequently used"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Utils.pm:66
+#: ../lib/MusicBrainz/Server/Form/Utils.pm:80
 msgctxt "script optgroup"
 msgid "Other"
 msgstr "その他"

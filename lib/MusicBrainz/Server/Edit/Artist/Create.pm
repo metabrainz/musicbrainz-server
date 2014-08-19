@@ -19,6 +19,7 @@ with 'MusicBrainz::Server::Edit::Role::SubscribeOnCreation' => {
     editor_subscription_preference => sub { shift->subscribe_to_created_artists }
 };
 with 'MusicBrainz::Server::Edit::Role::Insert';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_name { N_l('Add artist') }
 sub edit_type { $EDIT_ARTIST_CREATE }
@@ -100,8 +101,6 @@ sub restore {
 
     $self->data($data);
 }
-
-sub allow_auto_edit { 1 }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

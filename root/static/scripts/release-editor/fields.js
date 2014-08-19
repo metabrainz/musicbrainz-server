@@ -357,7 +357,8 @@
             37, // HQCD
             38, // Hybrid SACD
             39, // CD+G
-            40  // 8cm CD+G
+            40, // 8cm CD+G
+            41  // CDV
         ],
 
         canHaveDiscID: function () {

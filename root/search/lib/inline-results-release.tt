@@ -25,7 +25,7 @@
     </thead>
     <tbody>
       [%- FOR result=results -%]
-        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+        <tr class="[% loop.parity %]">
           [%- IF results.0.score.defined -%]
             <td>[% result.score %]</td>
           [%- END -%]

@@ -14,6 +14,7 @@ use aliased 'MusicBrainz::Server::Entity::Area';
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Area';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_name { N_l('Add area') }
 sub edit_type { $EDIT_AREA_CREATE }
@@ -79,8 +80,6 @@ sub _insert_hash
     my ($self, $data) = @_;
     return $data;
 };
-
-sub allow_auto_edit { 1 }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

@@ -4,9 +4,7 @@ use Method::Signatures::Simple;
 use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( Int Str );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_REMOVE_DISCID );
-use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Translation qw( N_l );
-use MusicBrainz::Server::Edit::Utils qw( conditions_without_autoedit );
 
 sub edit_name { N_l('Remove disc ID') }
 sub edit_type { $EDIT_MEDIUM_REMOVE_DISCID }
@@ -15,6 +13,7 @@ sub edit_kind { 'remove' }
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Medium';
+with 'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
 
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 use aliased 'MusicBrainz::Server::Entity::Release';
@@ -41,11 +40,6 @@ has '+data' => (
         ]
     ]
 );
-
-around edit_conditions => sub {
-    my ($orig, $self, @args) = @_;
-    return conditions_without_autoedit($self->$orig(@args));
-};
 
 method initialize (%opts) {
     my $medium = delete $opts{medium} or die 'Missing "medium" parameter';

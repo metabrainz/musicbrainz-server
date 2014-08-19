@@ -109,7 +109,7 @@ sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth HiddenOnSlaves 
 
         $editor = $c->model('Editor')->get_by_id($id);
         $c->response->redirect(
-            $c->uri_for_action('/user/profile', [ $editor->name ]));
+            $editor ? $c->uri_for_action('/user/profile', [ $editor->name ]) : $c->uri_for('/'));
     }
 }
 

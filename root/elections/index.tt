@@ -20,7 +20,7 @@
         </thead>
         <tbody>
         [%- FOR election IN elections -%]
-            <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+            <tr class="[% loop.parity %]">
                 <td>[% link_editor(election.candidate) %]</td>
                 <td>[% lp(election.status_name_short, 'autoeditor election status (short)') %]</td>
                 <td>[% UserDate.format(election.propose_time) %]</td>

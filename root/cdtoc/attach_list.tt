@@ -1,5 +1,5 @@
 [% MACRO attach_list_row(release, show_artists) BLOCK %]
-  <tr[% ' class="ev"' IF zebra % 2 == 0 %]>
+  <tr[% ' class="even"' IF zebra % 2 == 0 %]>
     <td colspan="2">
       [% link_release(release) %]
       [% disambiguation(release) %]
@@ -19,7 +19,7 @@
   [% FOR medium=release.mediums %]
     [% NEXT UNLESS
         medium.track_count == cdtoc.track_count %]
-      <tr[% ' class="ev"' IF zebra % 2 == 0 %]>
+      <tr[% ' class="even"' IF zebra % 2 == 0 %]>
         <td class="pos"></td>
         <td>
           <label[% IF !medium.may_have_discids %] title="[%l('This medium format cannot have a disc ID attached') %]"[% END %]>

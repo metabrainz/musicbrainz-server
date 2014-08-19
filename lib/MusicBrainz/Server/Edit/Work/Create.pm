@@ -10,6 +10,7 @@ use MusicBrainz::Server::Translation qw( N_l );
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Work';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 use aliased 'MusicBrainz::Server::Entity::Work';
 
@@ -58,8 +59,6 @@ sub build_display_data
         ),
     };
 }
-
-sub allow_auto_edit { 1 }
 
 after insert => sub {
     my $self = shift;

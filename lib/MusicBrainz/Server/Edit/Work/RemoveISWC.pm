@@ -3,7 +3,6 @@ use Moose;
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_REMOVE_ISWC );
-use MusicBrainz::Server::Edit::Utils qw( conditions_without_autoedit );
 use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Work';
@@ -12,15 +11,11 @@ use aliased 'MusicBrainz::Server::Entity::ISWC';
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Work';
+with 'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
 
 sub edit_name { N_l('Remove ISWC') }
 sub edit_kind { 'remove' }
 sub edit_type { $EDIT_WORK_REMOVE_ISWC }
-
-around edit_conditions => sub {
-    my ($orig, $self, @args) = @_;
-    return conditions_without_autoedit($self->$orig(@args));
-};
 
 sub work_id { shift->data->{work}{id} }
 
