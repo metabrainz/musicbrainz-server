@@ -164,7 +164,11 @@
         </td>
       </tr>
 
-      [% table_row_error(4, 'showErrorWhenTabIsSwitched: needsLabel', l('You must select an existing label.')) %]
+      [% table_row_error(
+           4, 'showErrorWhenTabIsSwitched: needsLabel',
+           '<!-- ko text: MB.i18n.expand(MB.text.NeedsLabel, { name: label().name }) --><!-- /ko -->'
+         )
+      %]
     <!-- /ko -->
 
       <tr>

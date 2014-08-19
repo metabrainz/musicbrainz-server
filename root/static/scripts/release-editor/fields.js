@@ -436,7 +436,7 @@
 
             this.needsLabel = ko.computed(function () {
                 var label = self.label() || {};
-                return Boolean(label.name && !label.gid && !self.catalogNumber());
+                return !!(label.name && !label.gid);
             });
         },
 
