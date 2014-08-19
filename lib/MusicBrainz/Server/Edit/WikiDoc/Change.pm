@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Edit::WikiDoc::Change;
 use Moose;
 
-use MusicBrainz::Server::Constants qw( $EDIT_WIKIDOC_CHANGE :expire_action :quality );
+use MusicBrainz::Server::Constants qw( $EDIT_WIKIDOC_CHANGE );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Translation qw( N_l );
 use MooseX::Types::Moose qw( Int Str );
@@ -9,25 +9,11 @@ use MooseX::Types::Structured qw( Dict );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::WikiDoc';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_type { $EDIT_WIKIDOC_CHANGE }
 sub edit_name { N_l("Change WikiDoc") }
 sub edit_kind { 'other' }
-
-sub edit_conditions
-{
-    my $conditions = {
-        duration      => 0,
-        votes         => 0,
-        expire_action => $EXPIRE_ACCEPT,
-        auto_edit     => 1,
-    };
-    return {
-        $QUALITY_LOW    => $conditions,
-        $QUALITY_NORMAL => $conditions,
-        $QUALITY_HIGH   => $conditions,
-    };
-}
 
 has '+data' => (
     isa => Dict[

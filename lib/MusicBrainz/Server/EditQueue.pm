@@ -192,7 +192,7 @@ sub _determine_new_status
     my $no_votes = $edit->no_votes;
 
     my $quality = $edit->quality;
-    my $conditions = $edit->edit_conditions->{$quality};
+    my $conditions = $edit->edit_conditions;
 
     # Let's deal with expired edits first
     if ($edit->is_expired) {

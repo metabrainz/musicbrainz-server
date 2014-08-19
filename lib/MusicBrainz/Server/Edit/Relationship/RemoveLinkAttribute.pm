@@ -3,12 +3,12 @@ use Moose;
 use MooseX::Types::Structured qw( Dict Optional );
 use MooseX::Types::Moose qw( Str Int );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_REMOVE_LINK_ATTRIBUTE );
-use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Relationship';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_name { N_l('Remove relationship attribute') }
 sub edit_kind { 'remove' }
@@ -28,23 +28,6 @@ sub accept {
     my $self = shift;
     $self->c->model('LinkAttributeType')->delete($self->data->{id})
 };
-
-sub edit_conditions
-{
-    my $conditions = {
-        duration      => 0,
-        votes         => 0,
-        expire_action => $EXPIRE_ACCEPT,
-        auto_edit     => 1,
-    };
-    return {
-        $QUALITY_LOW    => $conditions,
-        $QUALITY_NORMAL => $conditions,
-        $QUALITY_HIGH   => $conditions,
-    };
-}
-
-sub allow_auto_edit { 1 }
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

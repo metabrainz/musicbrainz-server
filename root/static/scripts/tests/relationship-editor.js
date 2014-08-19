@@ -1,340 +1,3 @@
-var typeInfo = {
-    "recording-release": [
-        {
-            attributes: { 1: { min: 0, max: 1 }, 14: { min: 0, max: null } },
-            reversePhrase: "{additional:additionally} {instrument} sampled by",
-            id: 69,
-            phrase: "{additional} {instrument} samples from",
-            description: 1,
-            type0: "recording",
-            type1: "release",
-            cardinality0: 0,
-            cardinality1: 1
-        }
-    ],
-    "artist-recording": [
-        {
-            reversePhrase: "performance",
-            children: [
-                {
-                    attributes: { 1: { min: 0, max: 1 }, 194: { min: 0, max: 1 }, 596: { min: 0, max: 1 } },
-                    reversePhrase: "{additional} {guest} {solo} performer",
-                    children: [
-                        {
-                            attributes: { 1: { min: 0, max: 1 }, 14: [1, null], 194: { min: 0, max: 1 }, 596: { min: 0, max: 1 } },
-                            reversePhrase: "{additional} {guest} {solo} {instrument}",
-                            id: 148,
-                            phrase: "{additional} {guest} {solo} {instrument}",
-                            description: 1,
-                            type0: "artist",
-                            type1: "recording",
-                            cardinality0: 1,
-                            cardinality1: 0
-                        },
-                        {
-                            attributes: { 1: { min: 0, max: 1 }, 3: { min: 0, max: null }, 194: { min: 0, max: 1 }, 596: { min: 0, max: 1 } },
-                            reversePhrase: "{additional} {guest} {solo} {vocal:%|vocals}",
-                            id: 149,
-                            phrase: "{additional} {guest} {solo} {vocal:%|vocals}",
-                            description: 1,
-                            type0: "artist",
-                            type1: "recording",
-                            cardinality0: 1,
-                            cardinality1: 0
-                        }
-                    ],
-                    id: 156,
-                    phrase: "{additional:additionally} {guest} {solo} performed",
-                    description: 1,
-                    type0: "artist",
-                    type1: "recording",
-                    cardinality0: 1,
-                    cardinality1: 0
-                }
-            ],
-            id: 122,
-            phrase: "performance",
-            type0: "artist",
-            type1: "recording",
-            cardinality0: 1,
-            cardinality1: 0
-        },
-        {
-            reversePhrase: "remixes",
-            children: [
-                {
-                    attributes: { 1: { min: 0, max: 1 }, 14: { min: 0, max: null } },
-                    reversePhrase: "contains {additional} {instrument} samples by",
-                    id: 154,
-                    phrase: "produced {instrument} material that was {additional:additionally} sampled in",
-                    description: 1,
-                    type0: "artist",
-                    type1: "recording",
-                    cardinality0: 1,
-                    cardinality1: 0
-                }
-            ],
-            id: 157,
-            phrase: "remixes",
-            type0: "artist",
-            type1: "recording",
-            cardinality0: 1,
-            cardinality1: 0
-        },
-        {
-            reversePhrase: "production",
-            children: [
-                {
-                    attributes: { 1: { min: 0, max: 1 }, 424: { min: 0, max: 1 }, 425: { min: 0, max: 1 }, 526: { min: 0, max: 1 }, 527: { min: 0, max: 1 } },
-                    reversePhrase: "{additional} {assistant} {associate} {co:co-}{executive:executive }producer",
-                    id: 141,
-                    phrase: "{additional:additionally} {assistant} {associate} {co:co-}{executive:executive }produced",
-                    description: 1,
-                    type0: "artist",
-                    type1: "recording",
-                    cardinality0: 1,
-                    cardinality1: 0
-                }
-            ],
-            id: 160,
-            phrase: "production",
-            type0: "artist",
-            type1: "recording",
-            cardinality0: 1,
-            cardinality1: 0
-        }
-    ],
-    "recording-work": [
-        {
-            reversePhrase: "covers or other versions",
-            children: [
-                {
-                    attributes: { 567: { min: 0, max: 1 }, 578: { min: 0, max: 1 }, 579: { min: 0, max: 1 }, 580: { min: 0, max: 1 } },
-                    reversePhrase: "{partial} {live} {instrumental} {cover} recordings",
-                    id: 278,
-                    phrase: "{partial} {live} {instrumental} {cover} recording of",
-                    description: 1,
-                    type0: "recording",
-                    type1: "work",
-                    cardinality0: 0,
-                    cardinality1: 1
-                }
-            ],
-            id: 245,
-            phrase: "covers or other versions",
-            type0: "recording",
-            type1: "work",
-            cardinality0: 0,
-            cardinality1: 1
-        }
-    ],
-    "artist-work": [
-        {
-            reversePhrase: "composition",
-            children: [
-                {
-                    attributes: { 1: { min: 0, max: 1 } },
-                    reversePhrase: "{additional} writer",
-                    id: 167,
-                    phrase: "{additional:additionally} wrote",
-                    description: 1,
-                    type0: "artist",
-                    type1: "work",
-                    cardinality0: 1,
-                    cardinality1: 0
-                }
-            ],
-            id: 170,
-            phrase: "composition",
-            type0: "artist",
-            type1: "work",
-            cardinality0: 1,
-            cardinality1: 0
-        }
-    ],
-    "recording-recording": [
-        {
-            children: [
-                {
-                    attributes: { 1: { min: 0, max: 1 } },
-                    description: 1,
-                    id: 231,
-                    phrase: "{additional} samples",
-                    reversePhrase: "{additional:additionally} sampled by",
-                    type0: "recording",
-                    type1: "recording",
-                    cardinality0: 0,
-                    cardinality1: 0
-                }
-            ],
-            id: 234,
-            phrase: "remixes",
-            reversePhrase: "remixes",
-            type0: "recording",
-            type1: "recording",
-            cardinality0: 0,
-            cardinality1: 0
-        }
-    ],
-    "artist-artist": [
-        {
-            id: 103,
-            gid: "5be4c609-9afa-4ea0-910b-12ffb71e3821",
-            type0: "artist",
-            type1: "artist",
-            description: "This indicates a person is a member of a group.",
-            phrase: "{additional} {founder:founding} member of",
-            reversePhrase: "{additional} {founder:founding} members",
-            attributes: { 1: { min: 0, max: 1 }, 3: { min: 0, max: null }, 14: { min: 0, max: null } },
-            hasDates:true,
-            cardinality0: 0,
-            cardinality1: 0,
-            orderableDirection: 0,
-            childOrder: 0,
-            deprecated: false,
-        }
-    ]
-};
-
-var attrInfo = {
-    partial: {
-        name: "partial",
-        l_name: "partial",
-        id: 579,
-        root_id: 579
-    },
-    cover: {
-        name: "cover",
-        l_name: "cover",
-        id: 567,
-        root_id: 567
-    },
-    executive: {
-        name: "executive",
-        l_name: "executive",
-        id: 425,
-        root_id: 425
-    },
-    co: {
-        name: "co",
-        l_name: "co",
-        id: 424,
-        root_id: 424
-    },
-    solo: {
-        name: "solo",
-        l_name: "solo",
-        id: 596,
-        root_id: 596
-    },
-    instrumental: {
-        name: "instrumental",
-        l_name: "instrumental",
-        id: 580,
-        root_id: 580
-    },
-    instrument: {
-        name: "instrument",
-        l_name: "instrument",
-        children: [
-            {
-                name: "strings",
-                l_name: "strings",
-                children: [
-                    {
-                        name: "plucked string instruments",
-                        l_name: "plucked string instruments",
-                        children: [
-                            {
-                                name: "guitars",
-                                l_name: "guitars",
-                                children: [
-                                    {
-                                        name: "guitar",
-                                        l_name: "guitar",
-                                        id: 229,
-                                        root_id: 14
-                                    },
-                                    {
-                                        name: "bass guitar",
-                                        l_name: "bass guitar",
-                                        id: 277,
-                                        root_id: 14
-                                    }
-                                ],
-                                id: 75,
-                                root_id: 14
-                            },
-                            {
-                                name: "lyre",
-                                l_name: "lyre",
-                                id: 109,
-                                root_id: 14
-                            },
-                            {
-                                name: "zither",
-                                l_name: "zither",
-                                id: 123,
-                                root_id: 14
-                            }
-                        ],
-                        id: 302,
-                        root_id: 14
-                    }
-                ],
-                id: 69,
-                root_id: 14
-            }
-        ],
-        id: 14,
-        root_id: 14
-    },
-    vocal: {
-        l_name: "vocal",
-        name: "vocal",
-        id: 3,
-        root_id: 3,
-        children: [
-            {
-                l_name: "lead vocals",
-                name: "lead vocals",
-                id: 4,
-                root_id: 3
-            }
-        ]
-    },
-    associate: {
-        name: "associate",
-        l_name: "associate",
-        id: 527,
-        root_id: 527
-    },
-    assistant: {
-        name: "assistant",
-        l_name: "assistant",
-        id: 526,
-        root_id: 526
-    },
-    additional: {
-        name: "additional",
-        l_name: "additional",
-        id: 1,
-        root_id: 1
-    },
-    live: {
-        name: "live",
-        l_name: "live",
-        id: 578,
-        root_id: 578
-    },
-    guest: {
-        name: "guest",
-        l_name: "guest",
-        id: 194,
-        root_id: 194
-    }
-};
-
 var testRelease = {
     entityType: "release",
     relationships: {},
@@ -402,11 +65,33 @@ var testRelease = {
 };
 
 
+function setupReleaseRelationshipEditor(self) {
+    self.vm = self.RE.ReleaseViewModel({
+        sourceData: _.omit(testRelease, "mediums")
+    });
+
+    self.vm.releaseLoaded(testRelease);
+}
+
+function setupGenericRelationshipEditor(self, options) {
+    var $inputs = $("<div>").attr("id", "relationship-editor");
+
+    self.formData = function () {
+        var inputsArray = _.toArray($inputs.find("input[type=hidden]"));
+        return _.transform(inputsArray, function (result, input) { result[input.name] = input.value }, {});
+    };
+
+    $("#qunit-fixture").append($inputs);
+
+    self.vm = self.RE.GenericEntityViewModel(options);
+    MB.sourceRelationshipEditor = self.vm;
+}
+
+
 module("relationship editor", {
 
     setup: function () {
-        $("#qunit-fixture")
-            .append('<div id="content"></div><div id="dialog"></div>');
+        $("#qunit-fixture").append('<div id="content"></div><div id="dialog"></div>');
 
         this.fakeGID0 = "a0ba91b0-c564-4eec-be2e-9ff071a47b59";
         this.fakeGID1 = "acb75d59-b0dc-4105-bad6-81ac8c66da4d";
@@ -423,14 +108,6 @@ module("relationship editor", {
         }
 
         this.RE = MB.relationshipEditor;
-
-        this.RE.exportTypeInfo(typeInfo, attrInfo);
-
-        this.vm = this.RE.ReleaseViewModel({
-            sourceData: _.omit(testRelease, "mediums")
-        });
-
-        this.vm.releaseLoaded(testRelease);
     },
 
     teardown: function () {
@@ -439,11 +116,15 @@ module("relationship editor", {
         this.vm = null;
 
         MB.entityCache = {};
+        MB.sourceRelationshipEditor = null;
+        delete sessionStorage.submittedRelationships;
     }
 });
 
 
 test("link phrase interpolation", function () {
+    setupReleaseRelationshipEditor(this);
+
     var source = MB.entity({ entityType: "recording" });
     var target = MB.entity({ entityType: "artist" });
 
@@ -471,7 +152,8 @@ test("link phrase interpolation", function () {
         {
             linkTypeID: 154,
             attributes: [1, 69, 75, 109, 302],
-            expected: "contains additional strings, guitars, lyre and plucked string instruments samples by"
+            expected: "contains additional samples by",
+            expectedExtra: "strings, guitars, lyre and plucked string instruments"
         },
         // MBS-6129
         {
@@ -490,11 +172,17 @@ test("link phrase interpolation", function () {
         relationship.linkTypeID(test.linkTypeID);
         relationship.attributes(test.attributes);
 
+        var result = relationship.phraseAndExtraAttributes();
+
         equal(
-            relationship.phraseAndExtraAttributes()[entities.indexOf(source)],
+            result[entities.indexOf(source)],
             test.expected,
             [test.linkTypeID, JSON.stringify(test.attributes)].join(", ")
         );
+
+        if (test.expectedExtra) {
+            equal(result[2], test.expectedExtra);
+        }
     });
 
     relationship.remove();
@@ -502,6 +190,8 @@ test("link phrase interpolation", function () {
 
 
 test("merging duplicate relationships", function () {
+    setupReleaseRelationshipEditor(this);
+
     var source = MB.entity({ entityType: "recording", name: "foo" });
     var target = MB.entity({ entityType: "artist", name: "bar" });
 
@@ -568,6 +258,8 @@ test("merging duplicate relationships", function () {
 
 
 test("dialog backwardness", function () {
+    setupReleaseRelationshipEditor(this);
+
     var self = this;
 
     var release = MB.entity({ entityType: "release" });
@@ -631,6 +323,8 @@ test("dialog backwardness", function () {
 
 
 test("AddDialog", function () {
+    setupReleaseRelationshipEditor(this);
+
     var source = this.vm.source.mediums()[0].tracks[0].recording;
     var target = MB.entity({ entityType: "artist", gid: this.fakeGID0 });
 
@@ -648,6 +342,8 @@ test("AddDialog", function () {
 
 
 test("BatchRelationshipDialog", function () {
+    setupReleaseRelationshipEditor(this);
+
     var target = MB.entity({ entityType: "artist", gid: this.fakeGID0 });
     var recordings = _.pluck(this.vm.source.mediums()[0].tracks, "recording");
 
@@ -676,6 +372,8 @@ test("BatchRelationshipDialog", function () {
 
 
 test("BatchCreateWorksDialog", function () {
+    setupReleaseRelationshipEditor(this);
+
     var recordings = _.pluck(this.vm.source.mediums()[0].tracks, "recording");
 
     var dialog = this.RE.UI.BatchCreateWorksDialog({
@@ -710,6 +408,8 @@ test("BatchCreateWorksDialog", function () {
 
 
 test("canceling an edit dialog reverts the changes", function () {
+    setupReleaseRelationshipEditor(this);
+
     var source = this.vm.source.mediums()[0].tracks[0].recording;
     var target = MB.entity({ entityType: "artist", name: "foo", gid: this.fakeGID0 });
 
@@ -744,6 +444,8 @@ test("canceling an edit dialog reverts the changes", function () {
 
 
 test("MBS-5389: added recording-recording relationship appears under both recordings", function () {
+    setupReleaseRelationshipEditor(this);
+
     var tracks = this.vm.source.mediums()[0].tracks;
 
     var recording0 = tracks[0].recording;
@@ -764,23 +466,33 @@ test("MBS-5389: added recording-recording relationship appears under both record
 
 
 test("backwardness of submitted relationships is preserved (MBS-7636)", function () {
-    this.vm = this.RE.GenericEntityViewModel({
-        sourceData: {
+    var source = {
             entityType: "recording",
-            gid: this.fakeGID0,
-            submittedRelationships: [
-                {
-                    id: 123,
-                    linkTypeID: 234,
-                    target: {
-                        entityType: "recording",
-                        gid: this.fakeGID1
-                    },
-                    direction: "backward"
-                }
-            ]
+            gid: this.fakeGID0
+        },
+        target = {
+            entityType: "recording",
+            gid: this.fakeGID1
+        };
+
+    sessionStorage.submittedRelationships = JSON.stringify([
+        {
+            id: 123,
+            linkTypeID: 234,
+            target: target,
+            entities: [target, source],
+            direction: "backward"
         }
+    ]);
+
+    // Pretend the form was posted.
+    MB.formWasPosted = true;
+
+    this.vm = this.RE.GenericEntityViewModel({
+        sourceData: source
     });
+
+    MB.formWasPosted = false;
 
     var entities = this.vm.source.relationships()[0].entities();
     equal(entities[0].gid, this.fakeGID1);
@@ -789,6 +501,8 @@ test("backwardness of submitted relationships is preserved (MBS-7636)", function
 
 
 test("edit submission request is entered for release (MBS-7740, MBS-7746)", function () {
+    setupReleaseRelationshipEditor(this);
+
     var recording = this.vm.source.mediums()[0].tracks[0].recording;
 
     var relationship1 = this.vm.getRelationship({
@@ -832,11 +546,10 @@ test("edit submission request is entered for release (MBS-7740, MBS-7746)", func
                     }
                 ],
                 "attributes": [],
-                "linkOrder": 0,
                 "beginDate": null,
                 "endDate": null,
                 "ended": false,
-                "hash": "e201ef6c17e846c125a10aa7c32978b5a7e8374a"
+                "hash": "c0362ff126851edb86c3581bc7e1596624ed0ea3"
             },
             {
                 "edit_type": 90,
@@ -854,11 +567,10 @@ test("edit submission request is entered for release (MBS-7740, MBS-7746)", func
                     }
                 ],
                 "attributes": [],
-                "linkOrder": 0,
                 "beginDate": null,
                 "endDate": null,
                 "ended": false,
-                "hash": "361082ca99b79b1bf70cbed7895f2fde7536d4f0"
+                "hash": "52e6994e72cd0d0599c2793d65da793af9487686"
             }
         ]);
     };
@@ -868,16 +580,7 @@ test("edit submission request is entered for release (MBS-7740, MBS-7746)", func
 
 
 test("hidden input fields are generated for non-release forms", function () {
-    var $form = $("<form>").attr("action", "#");
-    var $inputs = $("<div>").attr("id", "relationship-editor");
-
-    $form[0].onsubmit = function () {
-        return false;
-    };
-
-    $("#qunit-fixture").append($form, $inputs);
-
-    this.vm = MB.relationshipEditor.GenericEntityViewModel({
+    setupGenericRelationshipEditor(this, {
         sourceData: {
             entityType: "artist",
             name: "The Beatles",
@@ -920,8 +623,6 @@ test("hidden input fields are generated for non-release forms", function () {
         formName: "edit-artist"
     });
 
-    MB.sourceRelationshipEditor = this.vm;
-
     var newRelationship = this.vm.getRelationship({
         linkTypeID: 103,
         direction: "backward",
@@ -949,15 +650,9 @@ test("hidden input fields are generated for non-release forms", function () {
     relationships[0].attributes([]);
     relationships[1].removed(true);
 
-    $form.submit();
+    this.RE.prepareSubmission();
 
-    var formData = _.transform(
-        _.toArray($inputs.find("input[type=hidden]")),
-        function (result, input) { result[input.name] = input.value },
-        {}
-    );
-
-    deepEqual(formData, {
+    deepEqual(this.formData(), {
         "edit-artist.rel.0.relationship_id": "131689",
         "edit-artist.rel.0.target": "ba550d0e-adac-4864-b88b-407cab5e76af",
         "edit-artist.rel.0.period.begin_date.year": "1957",
@@ -983,4 +678,120 @@ test("hidden input fields are generated for non-release forms", function () {
         "edit-artist.rel.2.backward": "1",
         "edit-artist.rel.2.link_type_id": "103"
     });
+});
+
+
+test("link orders are submitted for new, orderable relationships (MBS-7775)", function () {
+    setupGenericRelationshipEditor(this, {
+        sourceData: {
+            entityType: "series",
+            name: "「神のみぞ知るセカイ」キャラクターCD",
+            gid: "0fda0386-cd02-422a-9baa-54dc91ea4771",
+            relationships: []
+        },
+        formName: "edit-series"
+    });
+
+    var newRelationship1 = this.vm.getRelationship({
+        linkTypeID: 742,
+        direction: "backward",
+        target: {
+            entityType: "release_group",
+            name: "「神のみぞ知るセカイ」キャラクターCD.0",
+            gid: "0a95623a-08d1-41a6-9f0c-409e40ce4476"
+        },
+        linkOrder: 1,
+        attributes: [788],
+        attributeTextValues: { 788: "20101110" },
+        verbosePhrase: "is a part of"
+    }, this.vm.source);
+
+    var newRelationship2 = this.vm.getRelationship({
+        linkTypeID: 742,
+        direction: "backward",
+        target: {
+            entityType: "release_group",
+            name: "「神のみぞ知るセカイ」キャラクターCD.1",
+            gid: "4550586c-c886-483d-922b-4e810f7c85fc"
+        },
+        linkOrder: 2,
+        attributes: [788],
+        attributeTextValues: { 788: "1" },
+        verbosePhrase: "is a part of"
+    }, this.vm.source);
+
+    var newRelationship3 = this.vm.getRelationship({
+        linkTypeID: 742,
+        direction: "backward",
+        target: {
+            entityType: "release_group",
+            name: "「神のみぞ知るセカイ」キャラクターCD.2",
+            gid: "3c8460ee-25ec-45b2-8990-0c1e78fe2ead"
+        },
+        linkOrder: 3,
+        attributes: [788],
+        attributeTextValues: { 788: "2" },
+        verbosePhrase: "is a part of"
+    }, this.vm.source);
+
+    newRelationship1.show();
+    newRelationship2.show();
+    newRelationship3.show();
+
+    this.RE.prepareSubmission();
+
+    deepEqual(this.formData(), {
+        "edit-series.rel.0.attribute_text_values.0.attribute": "788",
+        "edit-series.rel.0.attribute_text_values.0.text_value": "20101110",
+        "edit-series.rel.0.attributes.0": "788",
+        "edit-series.rel.0.backward": "1",
+        "edit-series.rel.0.link_order": "1",
+        "edit-series.rel.0.link_type_id": "742",
+        "edit-series.rel.0.target": "0a95623a-08d1-41a6-9f0c-409e40ce4476",
+        "edit-series.rel.1.attribute_text_values.0.attribute": "788",
+        "edit-series.rel.1.attribute_text_values.0.text_value": "1",
+        "edit-series.rel.1.attributes.0": "788",
+        "edit-series.rel.1.backward": "1",
+        "edit-series.rel.1.link_order": "2",
+        "edit-series.rel.1.link_type_id": "742",
+        "edit-series.rel.1.target": "4550586c-c886-483d-922b-4e810f7c85fc",
+        "edit-series.rel.2.attribute_text_values.0.attribute": "788",
+        "edit-series.rel.2.attribute_text_values.0.text_value": "2",
+        "edit-series.rel.2.attributes.0": "788",
+        "edit-series.rel.2.backward": "1",
+        "edit-series.rel.2.link_order": "3",
+        "edit-series.rel.2.link_type_id": "742",
+        "edit-series.rel.2.target": "3c8460ee-25ec-45b2-8990-0c1e78fe2ead"
+    });
+});
+
+
+test("relationships for entities not editable under the viewModel are ignored (MBS-7782)", function () {
+    setupGenericRelationshipEditor(this, {
+        sourceData: {
+            entityType: "series",
+            name: "「神のみぞ知るセカイ」キャラクターCD",
+            gid: "0fda0386-cd02-422a-9baa-54dc91ea4771",
+            relationships: []
+        },
+        formName: "edit-series"
+    });
+
+    var artist = MB.entity({
+        entityType: "artist",
+        name: "Foo",
+        gid: this.fakeGID0
+    });
+
+    var newRelationship = this.vm.getRelationship({
+        linkTypeID: 65,
+        target: {
+            entityType: "release_group",
+            name: "「神のみぞ知るセカイ」キャラクターCD.0",
+            gid: "0a95623a-08d1-41a6-9f0c-409e40ce4476"
+        }
+    }, artist);
+
+    equal(newRelationship, null);
+    equal(artist.relationships().length, 0);
 });

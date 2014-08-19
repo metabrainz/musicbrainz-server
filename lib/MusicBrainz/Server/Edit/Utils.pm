@@ -4,7 +4,7 @@ use warnings;
 use 5.10.0;
 
 use List::MoreUtils qw( minmax uniq );
-use MusicBrainz::Server::Constants qw( :edit_status :vote $AUTO_EDITOR_FLAG :quality :expire_action );
+use MusicBrainz::Server::Constants qw( :edit_status :vote $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref collapse_whitespace coordinates_to_hash trim partial_date_to_hash );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::ArtistCredit;
@@ -32,7 +32,6 @@ our @EXPORT_OK = qw(
     date_closure
     time_closure
     edit_status_name
-    conditions_without_autoedit
     hash_artist_credit
     hash_artist_credit_without_join_phrases
     large_spread
@@ -70,16 +69,6 @@ sub verify_artist_credits
             'An artist that is used in the new artist credits has been deleted'
         )
     }
-}
-
-sub conditions_without_autoedit
-{
-    my $conditions = shift;
-    foreach my $quality (keys %$conditions) {
-        $conditions->{$quality}->{auto_edit} = 0;
-    }
-
-    return $conditions;
 }
 
 sub date_closure

@@ -63,7 +63,12 @@ sub is_empty {
     my ($self) = @_;
 
     my $value = $self->value;
-    return 1 unless $value->{link_type_id} || $value->{text} || $value->{target};
+    return 1 unless (
+        $value->{link_type_id} ||
+        $value->{text} ||
+        $value->{target} ||
+        $value->{relationship_id}
+    );
     return 0;
 }
 

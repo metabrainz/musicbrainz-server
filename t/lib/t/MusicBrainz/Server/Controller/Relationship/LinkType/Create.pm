@@ -25,6 +25,7 @@ test 'Creating new relationship types under /relationship/artist-artist as admin
         (1, 'Link type', 'Forward', 'Reverse', 'Short', 1, 0, 0);
 
     $mech->get_ok('/relationships/artist-artist/create');
+    html_ok($mech->content);
     my @edits = capture_edits {
         my $response = $mech->submit_form(
             with_fields => {

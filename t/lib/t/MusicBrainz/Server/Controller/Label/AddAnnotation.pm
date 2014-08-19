@@ -41,8 +41,6 @@ $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
 $mech->content_contains('Changelog here', '..has changelog entry');
 $mech->content_contains('Another Label', '..has label name');
 $mech->content_like(qr{label/4b4ccf60-658e-11de-8a39-0800200c9a66/?"}, '..has a link to the label');
-$mech->content_contains('label/4b4ccf60-658e-11de-8a39-0800200c9a66/annotation/' . $edit->annotation_id,
-                        '..has a link to the annotation');
 
 };
 

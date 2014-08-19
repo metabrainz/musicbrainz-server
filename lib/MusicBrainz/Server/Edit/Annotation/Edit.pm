@@ -4,7 +4,6 @@ use Carp;
 use MooseX::Role::Parameterized;
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
-use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::Edit::Types qw( Nullable NullableOnPreview );
 
@@ -21,6 +20,7 @@ role {
 
     with "MusicBrainz::Server::Edit::$model";
     with 'MusicBrainz::Server::Edit::Role::Preview';
+    with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
     has data => (
         is => 'rw',
@@ -65,6 +65,7 @@ role {
             changelog     => $self->data->{changelog},
             annotation_id => $self->annotation_id,
             text          => $self->data->{text},
+            entity_type   => $entity_type,
         };
 
         unless ($self->preview) {
@@ -73,20 +74,6 @@ role {
         }
 
         return $data;
-    };
-
-    method edit_conditions => sub {
-        my $conditions = {
-            duration      => 0,
-            votes         => 0,
-            expire_action => $EXPIRE_ACCEPT,
-            auto_edit     => 1,
-        };
-        return {
-            $QUALITY_LOW    => $conditions,
-            $QUALITY_NORMAL => $conditions,
-            $QUALITY_HIGH   => $conditions,
-        };
     };
 
     method insert => sub {
@@ -146,5 +133,7 @@ role {
         };
     };
 };
+
+sub edit_template { "add_annotation" };
 
 1;

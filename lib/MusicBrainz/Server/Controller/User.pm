@@ -299,6 +299,12 @@ sub collections : Chained('load') PathPart('collections')
     });
     $c->model('Collection')->load_release_count(@$collections);
 
+    if ($c->user_exists) {
+        for my $collection (@$collections) {
+            $collection->{'subscribed'} = $c->model('Collection')->subscription->check_subscription($c->user->id, $collection->id);
+        }
+    }
+
     $c->stash(
         user => $user,
         collections => $collections,

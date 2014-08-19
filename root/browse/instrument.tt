@@ -16,7 +16,7 @@
             <h2>[% type.l_name %]</h2>
             [% PROCESS instruments obj=entities.${type.id} %]
         [%~ END ~%]
-    
+
         [%~ IF entities.unknown.size ~%]
             <h2>[% l("Unclassified instrument") %]</h2>
             [% PROCESS instruments obj=entities.unknown %]

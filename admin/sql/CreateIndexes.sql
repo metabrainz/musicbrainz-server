@@ -98,6 +98,7 @@ CREATE INDEX edit_work_idx ON edit_work (work);
 CREATE INDEX edit_url_idx ON edit_url (url);
 
 CREATE INDEX edit_note_idx_edit ON edit_note (edit);
+CREATE INDEX edit_note_idx_editor ON edit_note (editor);
 
 CREATE UNIQUE INDEX event_idx_gid ON event (gid);
 CREATE INDEX event_idx_name ON event (name);

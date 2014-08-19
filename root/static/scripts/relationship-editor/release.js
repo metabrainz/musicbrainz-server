@@ -40,11 +40,17 @@
             );
 
             this.source.mediums = ko.observableArray([]);
+            this.loadingRelease = ko.observable(false);
 
             ko.applyBindings(this, document.getElementById("content"));
 
+            this.loadingRelease(true);
             var url = "/ws/js/release/" + this.source.gid + "?inc=rels+media+recordings";
-            MB.utility.request({ url: url }, this).done(this.releaseLoaded);
+            MB.utility.request({ url: url }, this)
+                .done(this.releaseLoaded)
+                .always(function () {
+                    self.loadingRelease(false);
+                });
 
             window.onbeforeunload = function () {
                 var $changes = $(".link-phrase")
@@ -183,6 +189,12 @@
             }).sortBy("linkOrder").sortBy(function (relationship) {
                 return relationship.lowerCasePhrase(source);
             });
+        },
+
+        _acceptedTypes: ["release", "release_group", "recording", "work"],
+
+        typesAreAccepted: function (sourceType, targetType) {
+            return targetType !== "url" && _.contains(this._acceptedTypes, sourceType);
         }
     });
 
