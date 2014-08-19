@@ -44,8 +44,6 @@ test all => sub {
     $mech->content_contains('And a changelog', '..has changelog entry');
     $mech->content_contains('Test Recording Series', '..has series name');
     $mech->content_like(qr{series/a8749d0c-4a5a-4403-97c5-f6cd018f8e6d/?"}, '..has a link to the series');
-    $mech->content_contains('series/a8749d0c-4a5a-4403-97c5-f6cd018f8e6d/annotation/' . $edit->annotation_id,
-                            '..has a link to the annotation');
 };
 
 1;

@@ -56,8 +56,8 @@
                          edit.display_data.end_area.new ? descriptive_link(edit.display_data.end_area.new): '') %]
 
   [% display_diff(l('Ended:'),
-                  edit.display_data.ended.old ? l('Yes') : l('No'),
-                  edit.display_data.ended.new ? l('Yes') : l('No'),
+                  yesno(edit.display_data.ended.old),
+                  yesno(edit.display_data.ended.new),
                   '-') %]
 
   [% display_diff(l('IPI code:'),

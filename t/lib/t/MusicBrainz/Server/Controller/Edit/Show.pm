@@ -22,19 +22,18 @@ my $hard_mock_edit_class = $mock_edit_class + 1;
     package t::Controller::Edit::Show::MockEdit::Hard;
     use Moose;
     extends 't::Controller::Edit::Show::MockEdit';
-    sub edit_name { 'Remove label' } # Just so we use an edit template
+    sub edit_name { 'Remove label' }
+    sub edit_template { "remove_entity" };
     sub edit_type { $hard_mock_edit_class }
 
     use MusicBrainz::Server::Constants qw( :expire_action :quality );
     sub determine_quality { $QUALITY_HIGH }
     sub edit_conditions {
         return {
-            $QUALITY_HIGH => {
-                duration      => 29,
-                votes         => 50,
-                expire_action => $EXPIRE_REJECT,
-                auto_edit     => 0
-            }
+            duration      => 29,
+            votes         => 50,
+            expire_action => $EXPIRE_REJECT,
+            auto_edit     => 0
         };
     }
 };

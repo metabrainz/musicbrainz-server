@@ -5,6 +5,7 @@ use aliased 'MusicBrainz::Server::WebService::WebServiceIncV1';
 use MusicBrainz::Server::Constants qw(
     $ACCESS_SCOPE_TAG
     $ACCESS_SCOPE_RATING
+    entities_with
 );
 use Class::MOP;
 use Readonly;
@@ -36,20 +37,12 @@ our %relation_types = (
         "work-rels" => 1,
         "url-rels" => 1,
     },
-    2 => {
-        "area-rels" => 1,
-        "artist-rels" => 1,
-        "event-rels" => 1,
-        "instrument-rels" => 1,
-        "release-rels" => 1,
-        "release-group-rels" => 1,
-        "recording-rels" => 1,
-        "series-rels" => 1,
-        "label-rels" => 1,
-        "place-rels" => 1,
-        "work-rels" => 1,
-        "url-rels" => 1,
-    },
+    2 => { entities_with(['mbid', 'relatable'],
+        take => sub {
+            my ($type, $info) = @_;
+            return (($info->{url} // $type) . '-rels' => 1)
+        })
+    }
 );
 
 

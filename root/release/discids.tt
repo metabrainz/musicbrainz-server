@@ -21,7 +21,7 @@
                     </td>
                 </tr>
                 [% FOR medium_cdtoc IN medium.cdtocs %]
-                <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                <tr class="[% loop.parity %]">
                     <td>
                       [% '<span class="mp">' IF medium_cdtoc.edits_pending %]
                         <code>[% link_cdtoc(medium_cdtoc.cdtoc) %]</code>

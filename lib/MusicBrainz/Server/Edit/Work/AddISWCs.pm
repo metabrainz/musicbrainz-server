@@ -2,11 +2,7 @@ package MusicBrainz::Server::Edit::Work::AddISWCs;
 use Moose;
 use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( ArrayRef Str Int );
-use MusicBrainz::Server::Constants qw(
-     $EDIT_WORK_ADD_ISWCS
-     :expire_action
-     :quality
-);
+use MusicBrainz::Server::Constants qw( $EDIT_WORK_ADD_ISWCS );
 use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Edit::Exceptions;
 
@@ -15,6 +11,7 @@ with 'MusicBrainz::Server::Edit::Work::RelatedEntities' => {
     -excludes => 'work_ids'
 };
 with 'MusicBrainz::Server::Edit::Work';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 use aliased 'MusicBrainz::Server::Entity::Work';
 
@@ -49,21 +46,6 @@ sub initialize
             iswcs => \@iswcs
         });
     }
-}
-
-sub edit_conditions
-{
-    my $conditions = {
-        duration      => 0,
-        votes         => 0,
-        expire_action => $EXPIRE_ACCEPT,
-        auto_edit     => 1,
-    };
-    return {
-        $QUALITY_LOW    => $conditions,
-        $QUALITY_NORMAL => $conditions,
-        $QUALITY_HIGH   => $conditions,
-    };
 }
 
 sub _build_related_entities

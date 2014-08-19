@@ -7,12 +7,10 @@ use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Utils qw( edit_status_name );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
-use MusicBrainz::Server::Constants qw( :edit_status :vote $AUTO_EDITOR_FLAG $REQUIRED_VOTES );
+use MusicBrainz::Server::Constants qw( :edit_status :vote $AUTO_EDITOR_FLAG $REQUIRED_VOTES $OPEN_EDIT_DURATION );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Types
     DateTime => { -as => 'DateTimeType' }, 'EditStatus', 'Quality';
-
-use Data::Compare qw( Compare );
 
 sub edit_type { die 'Unimplemented' }
 sub edit_name { die 'Unimplemented' }
@@ -174,20 +172,11 @@ sub editor_may_add_note
 sub edit_conditions
 {
     return {
-        map { $_ =>
-               { duration      => 7,
-                 votes         => $REQUIRED_VOTES,
-                 expire_action => $EXPIRE_ACCEPT,
-                 auto_edit     => 1 }
-            } ($QUALITY_LOW, $QUALITY_NORMAL, $QUALITY_HIGH)
+        duration      => $OPEN_EDIT_DURATION,
+        votes         => $REQUIRED_VOTES,
+        expire_action => $EXPIRE_ACCEPT,
+        auto_edit     => 1
     };
-}
-
-sub edit_conditions_vary
-{
-    my $self = shift;
-    my ($low, $normal, $high) = map { $self->edit_conditions->{$_} } ($QUALITY_LOW, $QUALITY_NORMAL, $QUALITY_HIGH);
-    return !Compare($low, $normal) || !Compare($normal, $high);
 }
 
 sub allow_auto_edit
@@ -200,7 +189,7 @@ sub modbot_auto_edit { 0 }
 sub conditions
 {
     my $self = shift;
-    return $self->edit_conditions->{ $self->quality };
+    return $self->edit_conditions;
 }
 
 sub determine_quality
@@ -212,7 +201,7 @@ sub can_approve
 {
     my ($self, $privs) = @_;
 
-    my $conditions = $self->edit_conditions->{$self->quality};
+    my $conditions = $self->edit_conditions;
     return
          $self->is_open
       && $conditions->{auto_edit}

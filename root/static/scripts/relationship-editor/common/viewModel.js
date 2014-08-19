@@ -41,6 +41,7 @@
 
         init: function (options) {
             var self = this;
+            var source = this.source = options.source || MB.entity(options.sourceData);
 
             this.cache = {};
             this.allowedRelations = this.getAllowedRelations();
@@ -50,31 +51,29 @@
                 this.formName = options.formName;
             }
 
-            var source = this.source = options.source;
-
             if (options.sourceData) {
-                if (!source) {
-                    source = this.source = MB.entity(options.sourceData);
-                }
                 source.parseRelationships(options.sourceData.relationships, this);
 
-                _.each(options.sourceData.submittedRelationships, function (data) {
-                    var relationship = self.getRelationship(data, source);
-
-                    if (!relationship) {
-                        return;
-                    } else if (relationship.id) {
-                        var target = MB.entity(data.target);
-                        var entities = _.sortBy([source, target], "entityType");
-
-                        if (source.entityType === target.entityType && data.direction === "backward") {
-                            entities.reverse();
-                        }
-                        relationship.fromJS(_.assign(_.clone(data), { entities: entities }));
-                    } else {
-                        relationship.show();
+                if (window.sessionStorage && sessionStorage.submittedRelationships) {
+                    if (MB.formWasPosted) {
+                        _.each(JSON.parse(sessionStorage.submittedRelationships), function (data) {
+                            var relationship = self.getRelationship(data, source);
+                            if (!relationship) {
+                                return;
+                            } else if (relationship.id) {
+                                relationship.fromJS(data);
+                            } else {
+                                relationship.show();
+                            }
+                        });
                     }
-                });
+
+                    _.defer(function () {
+                        // Give time for other view models, like the external
+                        // links editor, to parse the relationships.
+                        delete sessionStorage.submittedRelationships;
+                    });
+                }
             }
         },
 

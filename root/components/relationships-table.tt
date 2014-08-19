@@ -16,7 +16,7 @@
                     <th colspan="3">[% l(relationship.key) %]</th>
                 </tr>
                 [% FOR rel IN relationship.value %]
-                <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
+                <tr class="[% loop.parity %]">
                     <td>
                     [% IF !rel.link.begin_date.is_empty AND rel.link.begin_date.format == rel.link.end_date.format;
                          rel.link.begin_date.format;

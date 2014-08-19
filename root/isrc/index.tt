@@ -20,7 +20,7 @@
         </thead>
         <tbody>
             [%- FOR recording=recordings -%]
-            <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+            <tr class="[% loop.parity %]">
                 [% IF c.user_exists %]
                 <td>
                   <input type="checkbox" name="add-to-merge"

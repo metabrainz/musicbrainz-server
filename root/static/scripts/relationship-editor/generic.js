@@ -22,7 +22,7 @@
         },
 
         typesAreAccepted: function (sourceType, targetType) {
-            return targetType !== "url";
+            return sourceType === this.source.entityType && targetType !== "url";
         },
 
         getEdits: function (addChanged) {
@@ -253,13 +253,9 @@
 
             pushInput(prefix, "link_type_id", editData.linkTypeID || "");
 
-            var original = relationship.original;
-            if (original) {
-                var oldLinkOrder = original.linkOrder || 0,
-                    newLinkOrder = editData.linkOrder;
-
-                if (oldLinkOrder !== newLinkOrder) {
-                    pushInput(prefix, "link_order", newLinkOrder);
+            if (relationship.linkTypeInfo().orderableDirection !== 0) {
+                if (relationship.added() || relationship.original.linkOrder !== editData.linkOrder) {
+                    pushInput(prefix, "link_order", editData.linkOrder);
                 }
             }
 
@@ -269,14 +265,42 @@
         $("#relationship-editor").append(hiddenInputs);
     }
 
-    $(document).on("submit", "form", function () {
-        if (MB.sourceRelationshipEditor) {
-            addHiddenInputs(MB.sourceRelationshipEditor);
+    RE.prepareSubmission = function () {
+        var submitted = [], vm, source;
+
+        $("button[type=submit]").prop("disabled", true);
+        $("input[type=hidden]", "#relationship-editor").remove();
+
+        if (vm = MB.sourceRelationshipEditor) {
+            addHiddenInputs(vm);
+            source = vm.source;
+            submitted = submitted.concat(source.relationshipsInViewModel(vm)());
         }
 
-        if (MB.sourceExternalLinksEditor) {
-            addHiddenInputs(MB.sourceExternalLinksEditor);
+        if (vm = MB.sourceExternalLinksEditor) {
+            addHiddenInputs(vm);
+            source = vm.source;
+            submitted = submitted.concat(source.relationshipsInViewModel(vm)());
         }
-    });
+
+        if (submitted.length && window.sessionStorage) {
+            sessionStorage.submittedRelationships = JSON.stringify(
+                _.map(submitted, function (relationship) {
+                    var data = relationship.editData();
+
+                    data.target = relationship.target(source);
+                    data.removed = relationship.removed();
+
+                    if (data.entities[1].gid === source.gid) {
+                        data.direction = "backward";
+                    }
+
+                    return data;
+                })
+            );
+        }
+    };
+
+    $(document).on("submit", "form", _.once(RE.prepareSubmission));
 
 }(MB.relationshipEditor = MB.relationshipEditor || {}));

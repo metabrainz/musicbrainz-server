@@ -14,7 +14,7 @@
     </thead>
     <tbody>
     [%- FOR entity IN entities -%]
-        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+        <tr class="[% loop.parity %]">
         [% IF viewing_own_profile %]
         <td><input name="id" type="checkbox" value="[% entity.id %]" /></td>
         [% END %]

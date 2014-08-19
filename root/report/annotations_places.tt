@@ -1,0 +1,16 @@
+[%- WRAPPER 'layout.tt' title=l('Place annotations') full_width=1 -%]
+
+<h1>[% l('Place annotations') %]</h1>
+
+<ul>
+    <li>[% l('This report lists places with annotations.') -%]
+    </li>
+    <li>[% l('Total places found: {count}', { count => pager.total_entries }) %]</li>
+    <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+</ul>
+
+[% BLOCK extra_header_end %]<th>[% l('Annotation') %]</th><th style="width:10em">[% l('Last edited') %]</th>[% END %]
+[% BLOCK extra_row_end %]<td>[% item.text | format_wikitext %]</td><td>[% item.created %]</td>[% END %]
+[%- INCLUDE 'report/place_list.tt' -%]
+
+[%- END -%]

@@ -6,15 +6,19 @@
 releaseEditor.test.module("track parser", function () {
 
     releaseEditor.trackParser.options = {
-        trackNumbers: true,
-        vinylNumbers: false,
-        trackTimes: true
+        hasTrackNumbers: true,
+        hasVinylNumbers: false,
+        hasTrackArtists: false,
+        useTrackNumbers: true,
+        useTrackArtists: true,
+        useTrackNames: true,
+        useTrackLengths: true,
     };
 });
 
 
 test("track numbers", function () {
-    releaseEditor.trackParser.options.vinylNumbers = true;
+    releaseEditor.trackParser.options.hasVinylNumbers = true;
 
     var input = [
         "a1  Kermis         02:04",
@@ -134,16 +138,15 @@ test("MBS-7451: track parser can clear TOC track lengths", function () {
     medium.cdtocs = 1;
 
     re.trackParser.options = {
-        trackNumbers: false,
-        vinylNumbers: false,
-        trackTimes: true
+        hasTrackNumbers: false,
+        useTrackLengths: true
     };
 
     // The string does not include track numbers.
     var input = re.trackParser.mediumToString(medium);
 
     // Re-enable track numbers so that parsing anything fails.
-    re.trackParser.options.trackNumbers = true;
+    re.trackParser.options.hasTrackNumbers = true;
 
     medium.tracks(re.trackParser.parse(input, medium));
 
@@ -161,7 +164,7 @@ test("MBS-7456: Failing to parse artists does not break track autocompletes", fu
     var re = releaseEditor;
 
     re.trackParser.options.trackArtists = true;
-    re.trackParser.options.trackTimes = false;
+    re.trackParser.options.useTrackLengths = false;
 
     re.rootField = re.fields.Root();
 
@@ -188,4 +191,81 @@ test("MBS-7456: Failing to parse artists does not break track autocompletes", fu
 
     // The issue described in the ticket throws an exception.
     expect(0);
+});
+
+
+test("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3732)", function () {
+    var re = releaseEditor;
+    var trackParser = re.trackParser;
+
+    trackParser.options = {
+        hasTrackNumbers: true,
+        hasVinylNumbers: true,
+        hasTrackArtists: true,
+        useTrackNumbers: true,
+        useTrackArtists: false,
+        useTrackNames: false,
+        useTrackLengths: false,
+    };
+
+    re.rootField = re.fields.Root();
+
+    var release = re.fields.Release({
+        mediums: [{
+            tracks: [{
+                number: "1",
+                name: "foo",
+                artistCredit: [{ name: "bar" }],
+                length: 180000
+            }]
+        }]
+    });
+
+    re.rootField.release(release);
+
+    // Parse only numbers
+    var medium = release.mediums()[0];
+    medium.tracks(trackParser.parse("A1. FOO! - BAR! (2:55)", medium));
+
+    var track = medium.tracks()[0];
+    equal(track.number(), "A1", "number was used");
+    equal(track.name(), "foo", "name was not used");
+    equal(track.artistCredit.text(), "bar", "artist was not used");
+    equal(track.formattedLength(), "3:00", "length was not used");
+
+    // Parse only titles
+    trackParser.options.useTrackNumbers = false;
+    trackParser.options.useTrackNames = true;
+
+    medium.tracks(trackParser.parse("B1. FOO! - BAR! (2:55)", medium));
+
+    track = medium.tracks()[0];
+    equal(track.number(), "A1", "number was not used");
+    equal(track.name(), "FOO!", "name was used");
+    equal(track.artistCredit.text(), "bar", "artist was not used");
+    equal(track.formattedLength(), "3:00", "length was not used");
+
+    // Parse only artists
+    trackParser.options.useTrackNames = false;
+    trackParser.options.useTrackArtists = true;
+
+    medium.tracks(trackParser.parse("B1. oof - BAR! (2:55)", medium));
+
+    track = medium.tracks()[0];
+    equal(track.number(), "A1", "number was not used");
+    equal(track.name(), "FOO!", "name was not used");
+    equal(track.artistCredit.text(), "BAR!", "artist was used");
+    equal(track.formattedLength(), "3:00", "length was not used");
+
+    // Parse only lengths
+    trackParser.options.useTrackArtists = false;
+    trackParser.options.useTrackLengths = true;
+
+    medium.tracks(trackParser.parse("B1. oof - rab (2:55)", medium));
+
+    track = medium.tracks()[0];
+    equal(track.number(), "A1", "number was not used");
+    equal(track.name(), "FOO!", "name was not used");
+    equal(track.artistCredit.text(), "BAR!", "artist was not used");
+    equal(track.formattedLength(), "2:55", "length was used");
 });

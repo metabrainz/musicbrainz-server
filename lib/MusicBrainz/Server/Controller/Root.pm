@@ -372,6 +372,8 @@ sub end : ActionClass('RenderView')
     $c->stash->{various_artist_mbid} = ModDefs::VARTIST_MBID;
 
     $c->stash->{wiki_server} = DBDefs->WIKITRANS_SERVER;
+
+    $c->stash->{mapbox_map_id} = DBDefs->MAPBOX_MAP_ID;
 }
 
 =head1 LICENSE

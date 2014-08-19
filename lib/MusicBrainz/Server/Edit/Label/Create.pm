@@ -17,6 +17,7 @@ with 'MusicBrainz::Server::Edit::Role::SubscribeOnCreation' => {
     editor_subscription_preference => sub { shift->subscribe_to_created_labels }
 };
 with 'MusicBrainz::Server::Edit::Role::Insert';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 use aliased 'MusicBrainz::Server::Entity::Label';
 use aliased 'MusicBrainz::Server::Entity::Area';
@@ -91,8 +92,6 @@ sub restore {
 
     $self->data($data);
 }
-
-sub allow_auto_edit { 1 }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

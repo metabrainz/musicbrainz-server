@@ -25,7 +25,7 @@
     [%~ END ~%]
     <tr>
         <th>[%~ add_colon(l('Primary for locale')) ~%]</th>
-        <td>[%~ edit.display_data.primary_for_locale ? l('Yes') : l('No') ~%]</td>
+        <td>[%~ yesno(edit.display_data.primary_for_locale) ~%]</td>
     </tr>
     [%~ IF edit.display_data.type.name ~%]
     <tr>

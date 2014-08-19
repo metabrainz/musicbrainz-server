@@ -11,7 +11,7 @@
         </thead>
         <tbody>
             [%- FOR track=cdstubtoc.cdstub.tracks; %]
-            <tr class="[% ' ev' IF loop.count % 2 == 0 %]">
+            <tr class="[% loop.parity %]">
                 <td>[% track.sequence %]</td>
                 <td>[% track.title %]</td>
                 [%- IF show_artists -%]
