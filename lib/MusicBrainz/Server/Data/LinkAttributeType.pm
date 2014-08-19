@@ -16,6 +16,7 @@ use MusicBrainz::Server::Data::Utils qw(
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'linkattrtype' };
+with 'MusicBrainz::Server::Data::Role::GetByGID';
 with 'MusicBrainz::Server::Data::Role::OptionsTree';
 
 sub _table
@@ -30,7 +31,12 @@ sub _columns
                 (SELECT true FROM link_text_attribute_type
                  WHERE attribute_type = link_attribute_type.id),
                 false
-            ) AS free_text';
+            ) AS free_text, ' .
+           'COALESCE(
+                (SELECT true FROM link_creditable_attribute_type
+                 WHERE attribute_type = link_attribute_type.id),
+                false
+            ) AS creditable';
 }
 
 sub _column_mapping
@@ -44,6 +50,7 @@ sub _column_mapping
         name        => 'name',
         description => 'description',
         free_text   => 'free_text',
+        creditable  => 'creditable',
     };
 }
 
@@ -52,11 +59,10 @@ sub _entity_class
     return 'MusicBrainz::Server::Entity::LinkAttributeType';
 }
 
-sub load
-{
+sub load {
     my ($self, @objs) = @_;
 
-    load_subobjects($self, 'type', @objs);
+    load_subobjects($self, ['type', 'root'], @objs);
 }
 
 sub find_root
@@ -223,12 +229,6 @@ for my $method (qw( delete update )) {
             ) }
         );
     };
-}
-
-sub text_attribute_types {
-    my ($self) = @_;
-
-    return $self->get_tree('WHERE id IN (SELECT attribute_type FROM link_text_attribute_type)');
 }
 
 __PACKAGE__->meta->make_immutable;

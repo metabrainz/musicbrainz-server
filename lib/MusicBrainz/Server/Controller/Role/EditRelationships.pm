@@ -156,17 +156,6 @@ role {
             }
 
             $args{attributes} = $field->{attributes} if $field->{attributes};
-
-            if ($field->{attribute_text_values}) {
-                my %attribute_text_values;
-
-                for (@{ $field->{attribute_text_values} // [] }) {
-                    $attribute_text_values{$_->{attribute}} = $_->{text_value};
-                }
-
-                $args{attribute_text_values} = \%attribute_text_values;
-            }
-
             $args{ended} ||= 0;
 
             my $relationship;

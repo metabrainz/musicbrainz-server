@@ -32,6 +32,7 @@ use MusicBrainz::Server::Data::Utils qw(
     trim
     remove_invalid_characters
     collapse_whitespace
+    non_empty
 );
 use MusicBrainz::Server::Edit::Utils qw( boolean_from_json );
 use MusicBrainz::Server::Translation qw( l );
@@ -268,12 +269,19 @@ sub process_relationship {
     $data->{end_date} = delete $data->{endDate} // {};
     $data->{ended} = boolean_from_json($data->{ended});
 
-    my $text_values = delete $data->{attributeTextValues} // {};
-    $data->{attribute_text_values} = $text_values;
-
-    for my $id (keys %$text_values) {
-        trim_string($text_values, $id);
-    }
+    $data->{attributes} = [
+        map {
+            my $credited_as = trim($_->{credit});
+            my $text_value = trim($_->{textValue});
+            {
+                type => {
+                    gid => $_->{type}{gid}
+                },
+                non_empty($credited_as) ? (credited_as => $credited_as) : (),
+                non_empty($text_value) ? (text_value => $text_value) : (),
+            }
+        } @{ $data->{attributes} // [] }
+    ];
 
     delete $data->{id};
     delete $data->{linkTypeID};
@@ -408,15 +416,15 @@ sub process_edits {
     };
 
     my @new_edits;
-    my @attribute_ids;
+    my @attribute_gids;
 
     for my $edit (@$edits) {
         if ($edit->{edit_type} == $EDIT_RELATIONSHIP_CREATE) {
-            push @attribute_ids, @{ $edit->{attributes} // [] };
+            push @attribute_gids, map { $_->{type}{gid} } @{ $edit->{attributes} // [] };
         }
     }
 
-    my $attributes = $c->model('LinkAttributeType')->get_by_ids(@attribute_ids);
+    my $attributes = $c->model('LinkAttributeType')->get_by_gids(@attribute_gids);
 
     for my $edit (@$edits) {
         if ($edit->{edit_type} == $EDIT_RELATIONSHIP_CREATE) {
@@ -494,7 +502,6 @@ sub create_edits {
                             end_date => $opts->{end_date},
                             ended => $opts->{ended},
                             attributes => $opts->{attributes},
-                            attribute_text_values => $opts->{attribute_text_values},
                         }
                     );
             }

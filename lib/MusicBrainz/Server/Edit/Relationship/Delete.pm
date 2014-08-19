@@ -6,13 +6,14 @@ use MusicBrainz::Server::Data::Utils qw(
     partial_date_to_hash
     type_to_model
 );
-use MusicBrainz::Server::Edit::Types qw( PartialDateHash );
+use MusicBrainz::Server::Edit::Types qw( LinkAttributesArray PartialDateHash );
 use MusicBrainz::Server::Entity::Types;
 use MooseX::Types::Moose qw( Int Str ArrayRef );
 use MooseX::Types::Structured qw( Dict Optional );
 
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Entity::Link;
+use MusicBrainz::Server::Entity::LinkAttribute;
 use MusicBrainz::Server::Entity::LinkAttributeType;
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Translation qw( N_l );
@@ -44,14 +45,7 @@ has '+data' => (
             link => Dict[
                 begin_date => PartialDateHash,
                 end_date => PartialDateHash,
-                attributes => Optional[ArrayRef[Dict[
-                    root_name => Str,
-                    root_id => Int,
-                    root_gid => Optional[Str],
-                    name => Str,
-                    id => Optional[Int],
-                    gid => Optional[Str]
-                ]]],
+                attributes => Optional[LinkAttributesArray],
                 type => Dict[
                     id => Optional[Int],
                     entity0_type => Str,
@@ -59,7 +53,8 @@ has '+data' => (
                     long_link_phrase => Optional[Str]
                 ]
             ]
-        ]
+        ],
+        edit_version => Optional[Int],
     ]
 );
 
@@ -89,7 +84,22 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
 
-    my $attrs = $self->data->{relationship}{phrase} ? [] : [map { MusicBrainz::Server::Entity::LinkAttributeType->new(name => $_->{name}, root => MusicBrainz::Server::Entity::LinkAttributeType->new( name => $_->{root_name}, id => $_->{root_id})); } @{ $self->data->{relationship}{link}{attributes} }];
+    my $attrs = $self->data->{relationship}{phrase} ? [] : [
+        map {
+            my $type = $_->{type};
+            MusicBrainz::Server::Entity::LinkAttribute->new(
+                type => MusicBrainz::Server::Entity::LinkAttributeType->new(
+                    name => $type->{name},
+                    root => MusicBrainz::Server::Entity::LinkAttributeType->new(
+                        name => $type->{root}{name},
+                    )
+                ),
+                credited_as => $_->{credited_as},
+                text_value => $_->{text_value},
+            );
+        } @{ $self->data->{relationship}{link}{attributes} }
+    ];
+
     my $link = MusicBrainz::Server::Entity::Link->new(
         begin_date => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{relationship}{link}{begin_date}),
         end_date => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{relationship}{link}{end_date}),
@@ -187,12 +197,7 @@ sub initialize
             link => {
                 begin_date => partial_date_to_hash($relationship->link->begin_date),
                 end_date => partial_date_to_hash($relationship->link->end_date),
-                attributes => [map { { root_name => $_->root->name,
-                                       root_id => $_->root->id,
-                                       root_gid => $_->root->gid,
-                                       name => $_->name,
-                                       id => $_->id,
-                                       gid => $_->gid } } $relationship->link->all_attributes],
+                attributes => $self->serialize_link_attributes($relationship->link->all_attributes),
                 type => {
                     id => $relationship->link->type->id,
                     entity0_type => $relationship->link->type->entity0_type,
@@ -200,7 +205,8 @@ sub initialize
                     long_link_phrase => $relationship->link->type->long_link_phrase,
                 }
             }
-        }
+        },
+        edit_version => 2,
     });
 }
 
@@ -229,6 +235,31 @@ sub accept
         $self->c->model('CoverArt')->cache_cover_art($release);
     }
 }
+
+before restore => sub {
+    my ($self, $data) = @_;
+
+    return if defined $data->{edit_version};
+
+    my $link = $data->{relationship}{link};
+
+    if (my $attributes = $link->{attributes}) {
+        $link->{attributes} = [
+            map +{
+                type => {
+                    root => {
+                        id => $_->{root_id},
+                        gid => $_->{root_gid},
+                        name => $_->{root_name},
+                    },
+                    id => $_->{id},
+                    gid => $_->{gid},
+                    name => $_->{name},
+                }
+            }, @$attributes
+        ];
+    }
+};
 
 __PACKAGE__->meta->make_immutable;
 

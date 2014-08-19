@@ -394,7 +394,6 @@ sub exists
             end_date => $values->{end_date},
             ended => $values->{ended},
             attributes => $values->{attributes},
-            attribute_text_values => $values->{attribute_text_values},
         })
     );
 }
@@ -428,7 +427,6 @@ sub insert
             end_date => $values->{end_date},
             ended => $values->{ended},
             attributes => $values->{attributes},
-            attribute_text_values => $values->{attribute_text_values},
         }),
         entity0 => $values->{entity0_id},
         entity1 => $values->{entity1_id},
@@ -454,7 +452,7 @@ sub update
 
     my %link = map {
         $_ => $values->{$_};
-    } qw( link_type_id begin_date end_date attributes ended attribute_text_values );
+    } qw( link_type_id begin_date end_date attributes ended );
 
     my $old = $self->sql->select_single_row_hash(
         "SELECT link, entity0, entity1 FROM l_${type0}_${type1} WHERE id = ?", $id

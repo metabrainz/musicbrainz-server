@@ -43,25 +43,32 @@ sub recordings : Chained('load') {
     my ($self, $c) = @_;
 
     my $instrument = $c->stash->{instrument};
-    my $recordings;
+    my ($results, @recordings, %instrument_credits);
 
-    $recordings = $self->_load_paged($c, sub {
+    $results = $self->_load_paged($c, sub {
         $c->model('Recording')->find_by_instrument($instrument->id, shift, shift);
     });
 
-    $c->model('Recording')->load_meta(@$recordings);
+    for my $item (@$results) {
+        push @recordings, $item->{recording};
+        my @credits = grep { $_ } @{ $item->{instrument_credits} // [] };
+        $instrument_credits{$item->{recording}->gid} = \@credits if @credits;
+    }
+
+    $c->model('Recording')->load_meta(@recordings);
 
     if ($c->user_exists) {
-        $c->model('Recording')->rating->load_user_ratings($c->user->id, @$recordings);
+        $c->model('Recording')->rating->load_user_ratings($c->user->id, @recordings);
     }
 
     $c->stash( template => 'instrument/recordings.tt' );
 
-    $c->model('ISRC')->load_for_recordings(@$recordings);
-    $c->model('ArtistCredit')->load(@$recordings);
+    $c->model('ISRC')->load_for_recordings(@recordings);
+    $c->model('ArtistCredit')->load(@recordings);
 
     $c->stash(
-        recordings => $recordings,
+        recordings => \@recordings,
+        instrument_credits => \%instrument_credits,
     );
 }
 
@@ -69,22 +76,29 @@ sub releases : Chained('load') {
     my ($self, $c) = @_;
 
     my $instrument = $c->stash->{instrument};
-    my $releases;
+    my ($results, @releases, %instrument_credits);
 
-    $releases = $self->_load_paged($c, sub {
-            $c->model('Release')->find_by_instrument($instrument->id, shift, shift);
-        });
+    $results = $self->_load_paged($c, sub {
+        $c->model('Release')->find_by_instrument($instrument->id, shift, shift);
+    });
+
+    for my $item (@$results) {
+        push @releases, $item->{release};
+        my @credits = grep { $_ } @{ $item->{instrument_credits} // [] };
+        $instrument_credits{$item->{release}->gid} = \@credits if @credits;
+    }
 
     $c->stash( template => 'instrument/releases.tt' );
 
-    $c->model('ArtistCredit')->load(@$releases);
-    $c->model('Medium')->load_for_releases(@$releases);
-    $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
-    $c->model('Release')->load_release_events(@$releases);
-    $c->model('ReleaseLabel')->load(@$releases);
-    $c->model('Label')->load(map { $_->all_labels } @$releases);
+    $c->model('ArtistCredit')->load(@releases);
+    $c->model('Medium')->load_for_releases(@releases);
+    $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
+    $c->model('Release')->load_release_events(@releases);
+    $c->model('ReleaseLabel')->load(@releases);
+    $c->model('Label')->load(map { $_->all_labels } @releases);
     $c->stash(
-        releases => $releases,
+        releases => \@releases,
+        instrument_credits => \%instrument_credits,
     );
 }
 

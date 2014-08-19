@@ -6,6 +6,7 @@ use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Validation qw( trim_in_place );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Data::Relationship;
+use MusicBrainz::Server::Data::Utils qw( non_empty );
 use MusicBrainz::Server::Constants qw( $INSTRUMENT_ROOT_ID );
 
 use overload '<=>' => \&_cmp, fallback => 1;
@@ -211,24 +212,27 @@ sub _interpolate
     my ($self, $phrase) = @_;
 
     my @attrs = $self->link->all_attributes;
-    my $text_attrs = $self->link->attribute_text_values;
     my %attrs;
     foreach my $attr (@attrs) {
-        my $name = lc $attr->root->name;
-        my $value = $attr->l_name;
+        my $type = $attr->type;
+        my $name = lc $type->root->name;
+        my $value = $type->l_name;
 
-        if ($attr->root->id == $INSTRUMENT_ROOT_ID && $attr->gid) {
-            $value = "<a href=\"/instrument/".$attr->gid."\">$value</a>";
+        if ($type->root->id == $INSTRUMENT_ROOT_ID && $type->gid) {
+            $value = "<a href=\"/instrument/".$type->gid."\">$value</a>";
         }
 
-        if ($attr->free_text && (my $text_value = $text_attrs->{$attr->id})) {
-            $value = l('{attribute}: {value}', { attribute => $value, value => $text_value });
+        if (non_empty($attr->credited_as) && $type->l_name ne $attr->credited_as) {
+            $value = l('{attribute} [{credited_as}]', { attribute => $value, credited_as => $attr->credited_as })
+        }
+
+        if (non_empty($attr->text_value)) {
+            $value = l('{attribute}: {value}', { attribute => $value, value => $attr->text_value });
         }
 
         if (exists $attrs{$name}) {
             push @{$attrs{$name}}, $value;
-        }
-        else {
+        } else {
             $attrs{$name} = [ $value ];
         }
     }
