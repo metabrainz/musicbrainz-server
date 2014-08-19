@@ -13,6 +13,16 @@ has 'type' => (
     isa => 'LinkAttributeType',
 );
 
+has 'credited_as' => (
+    is => 'rw',
+    isa => 'Maybe[Str]',
+);
+
+has 'text_value' => (
+    is => 'rw',
+    isa => 'Maybe[Str]',
+);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

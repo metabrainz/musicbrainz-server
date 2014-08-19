@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-10 17:55-0700\n"
-"PO-Revision-Date: 2014-08-11 10:49+0000\n"
+"PO-Revision-Date: 2014-08-12 18:29+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1195,7 +1195,7 @@ msgstr "Staat op uitgaves"
 #: ../root/edit/details/merge_releases.tt:135
 #: ../lib/MusicBrainz/Server/Form/Merge/Release.pm:50
 msgid "Append mediums to target release"
-msgstr "Voeg media toe aan de doeluitgave"
+msgstr "Media aan de doeluitgave toevoegen"
 
 #: ../root/account/applications.tt:25 ../root/account/applications.tt:54
 msgid "Application"
@@ -9867,7 +9867,7 @@ msgid ""
 "may specify the new order of mediums. The order does not have to be "
 "continuous, but all medium positions must be positive, and multiple mediums "
 "cannot be in the same position"
-msgstr "Door deze samenvoegingsstrategie te gebruiken worden alle media van alle uitgaves gebruikt. U kunt een nieuwe volgorde van media instellen, Deze volgorde hoeft niet continue te zijn, maar alle posities van de media moeten positief zijn, en meerdere media mogen niet dezelfde positie hebben."
+msgstr "Door deze samenvoegingsstrategie te gebruiken worden alle media van alle uitgaves gebruikt. U kunt een nieuwe volgorde van media instellen. Deze volgorde hoeft niet continue te zijn, maar alle posities van de media moeten positief zijn, en meerdere media mogen niet dezelfde positie hebben."
 
 #: ../root/search/form.tt:53
 msgid ""

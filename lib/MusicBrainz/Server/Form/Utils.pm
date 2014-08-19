@@ -200,10 +200,11 @@ sub build_attr_info {
         my $attr = {
             id          => $_->id,
             gid         => $_->gid,
-            root_id     => $_->root_id,
+            rootID      => $_->root_id,
             name        => $_->name,
             l_name      => $_->l_name,
             freeText    => $_->free_text ? \1 : \0,
+            creditable  => $_->creditable ? \1 : \0,
         };
 
         $attr->{description} = $_->l_description if $_->description;

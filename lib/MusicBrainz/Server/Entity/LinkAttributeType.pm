@@ -64,6 +64,11 @@ has 'free_text' => (
     isa => 'Bool',
 );
 
+has 'creditable' => (
+    is => 'rw',
+    isa => 'Bool',
+);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

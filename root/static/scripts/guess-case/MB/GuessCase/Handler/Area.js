@@ -38,8 +38,8 @@ MB.GuessCase.Handler.Area = function () {
      * Guess the releasename given in string is, and
      * returns the guessed name.
      *
-     * @param        is                the inputstring
-     * @returns os                the processed string
+     * @param   is      the inputstring
+     * @returns os      the processed string
      **/
     self.process = function (is) {
         is = gc.mode.stripInformationToOmit(is);

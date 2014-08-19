@@ -131,18 +131,28 @@ sub find_by_artist
 sub find_by_instrument {
     my ($self, $instrument_id, $limit, $offset) = @_;
 
-    my $query = "SELECT " . $self->_columns . "
+    my $query = "SELECT " . $self->_columns . ", array_agg(lac.credited_as) AS instrument_credits
                  FROM " . $self->_table . "
                      JOIN l_artist_recording ON l_artist_recording.entity1 = recording.id
                      JOIN link_attribute ON link_attribute.link = l_artist_recording.link
                      JOIN link_attribute_type ON link_attribute_type.id = link_attribute.attribute_type
                      JOIN instrument ON instrument.gid = link_attribute_type.gid
+                     LEFT JOIN link_attribute_credit lac ON (
+                         lac.link = link_attribute.link AND
+                         lac.attribute_type = link_attribute.attribute_type
+                     )
                  WHERE instrument.id = ?
+                 GROUP BY recording.id
                  ORDER BY musicbrainz_collate(recording.name)
                  OFFSET ?";
 
     return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit,
+        sub {
+            my ($row) = @_;
+            my $credits = delete $row->{instrument_credits};
+            return { recording => $self->_new_from_row($row), instrument_credits => $credits };
+        },
         $query, $instrument_id, $offset || 0);
 }
 

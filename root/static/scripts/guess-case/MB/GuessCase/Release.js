@@ -31,9 +31,7 @@ MB.GuessCase._Release = function () {
 };
 
 $('document').ready(function () {
-
     MB.GuessCase.release = MB.GuessCase._Release();
     MB.GuessCase["release_group"] = MB.GuessCase.release;
     MB.GuessCase["release-group"] = MB.GuessCase.release;
-
 });

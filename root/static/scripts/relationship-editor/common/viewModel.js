@@ -30,7 +30,7 @@
         });
 
         _.each(MB.attrInfoByID, function (attr) {
-            attr.root = MB.attrInfoByID[attr.root_id];
+            attr.root = MB.attrInfoByID[attr.rootID];
         });
     };
 
@@ -55,17 +55,24 @@
                 source.parseRelationships(options.sourceData.relationships, this);
 
                 if (window.sessionStorage && sessionStorage.submittedRelationships) {
-                    _.each(JSON.parse(sessionStorage.submittedRelationships), function (data) {
-                        var relationship = self.getRelationship(data, source);
-                        if (!relationship) {
-                            return;
-                        } else if (relationship.id) {
-                            relationship.fromJS(data);
-                        } else {
-                            relationship.show();
-                        }
+                    if (MB.formWasPosted) {
+                        _.each(JSON.parse(sessionStorage.submittedRelationships), function (data) {
+                            var relationship = self.getRelationship(data, source);
+                            if (!relationship) {
+                                return;
+                            } else if (relationship.id) {
+                                relationship.fromJS(data);
+                            } else {
+                                relationship.show();
+                            }
+                        });
+                    }
+
+                    _.defer(function () {
+                        // Give time for other view models, like the external
+                        // links editor, to parse the relationships.
+                        delete sessionStorage.submittedRelationships;
                     });
-                    delete sessionStorage.submittedRelationships;
                 }
             }
         },

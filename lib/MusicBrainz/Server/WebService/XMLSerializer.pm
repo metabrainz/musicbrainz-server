@@ -5,6 +5,7 @@ use Scalar::Util 'reftype';
 use Readonly;
 use List::UtilsBy qw( nsort_by sort_by );
 use MusicBrainz::Server::Constants qw( $VARTIST_ID :quality );
+use MusicBrainz::Server::Data::Utils qw( non_empty );
 use MusicBrainz::Server::WebService::Escape qw( xml_escape );
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Validation;
@@ -1003,12 +1004,15 @@ sub _serialize_relation
     push @list, $gen->end($rel->link->end_date->format) unless $rel->link->end_date->is_empty;
     push @list, $gen->ended('true') if $rel->link->ended;
 
-    my %text_attrs = %{ $rel->link->attribute_text_values };
-
     push @list, $gen->attribute_list(
         map {
-            $text_attrs{$_->id} ? $gen->attribute({ value => $text_attrs{$_->id} }, $_->name)
-                                : $gen->attribute($_->name)
+            if (non_empty($_->text_value)) {
+                $gen->attribute({ value => $_->text_value }, $_->type->name);
+            } elsif (non_empty($_->credited_as)) {
+                $gen->attribute({ 'credited-as' => $_->credited_as }, $_->type->name);
+            } else {
+                $gen->attribute($_->type->name)
+            }
         } $rel->link->all_attributes
     ) if ($rel->link->all_attributes);
 

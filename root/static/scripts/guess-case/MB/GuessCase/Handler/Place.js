@@ -94,7 +94,7 @@ MB.GuessCase.Handler.Place = function () {
         collabSplit = (is.indexOf(" & ") != -1 ? " & " : collabSplit);
 
         var as = is.split(collabSplit);
-        for (var splitindex=0; splitindex<as.length; splitindex++) {
+        for (var splitindex = 0; splitindex < as.length; splitindex++) {
             var place = as[splitindex];
             if (!MB.utility.isNullOrEmpty(place)) {
                 place = gc.u.trim(place);
@@ -114,7 +114,7 @@ MB.GuessCase.Handler.Place = function () {
                 }
 
                 var t = [];
-                for (i=0; i<words.length; i++) {
+                for (i = 0; i < words.length; i++) {
                     var w = words[i];
                     if (!MB.utility.isNullOrEmpty(w)) {
                         // skip empty names

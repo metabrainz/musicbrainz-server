@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Controller::WS::js::Edit;
 use DBDefs;
 use File::Spec::Functions qw( catdir );
-use JSON::Any;
+use JSON qw( encode_json );
 use List::MoreUtils qw( any );
 use Moose;
 use MusicBrainz::Server::Constants qw(
@@ -32,6 +32,7 @@ use MusicBrainz::Server::Data::Utils qw(
     trim
     remove_invalid_characters
     collapse_whitespace
+    non_empty
 );
 use MusicBrainz::Server::Edit::Utils qw( boolean_from_json );
 use MusicBrainz::Server::Translation qw( l );
@@ -55,8 +56,6 @@ our $TT = Template->new(
 
     %{ MusicBrainz::Server->config->{'View::Default'} }
 );
-
-our $JSON = JSON::Any->new( utf8 => 0 );
 
 
 sub load_entity_prop {
@@ -270,12 +269,19 @@ sub process_relationship {
     $data->{end_date} = delete $data->{endDate} // {};
     $data->{ended} = boolean_from_json($data->{ended});
 
-    my $text_values = delete $data->{attributeTextValues} // {};
-    $data->{attribute_text_values} = $text_values;
-
-    for my $id (keys %$text_values) {
-        trim_string($text_values, $id);
-    }
+    $data->{attributes} = [
+        map {
+            my $credited_as = trim($_->{credit});
+            my $text_value = trim($_->{textValue});
+            {
+                type => {
+                    gid => $_->{type}{gid}
+                },
+                non_empty($credited_as) ? (credited_as => $credited_as) : (),
+                non_empty($text_value) ? (text_value => $text_value) : (),
+            }
+        } @{ $data->{attributes} // [] }
+    ];
 
     delete $data->{id};
     delete $data->{linkTypeID};
@@ -315,38 +321,6 @@ sub process_relationship {
             $data->{$prop} = $data->{relationship}->$prop;
         }
     }
-}
-
-sub detach_with_error {
-    my ($c, $error) = @_;
-
-    $c->res->body($JSON->encode({ error => $error }));
-    $c->res->status(400);
-    $c->detach;
-}
-
-sub critical_error {
-    my ($c, $error) = @_;
-
-    $c->error($error);
-    $c->stash->{error_body_in_stash} = 1;
-    $c->stash->{body} = $JSON->encode({ error => $error });
-    $c->stash->{status} = 400;
-}
-
-sub get_request_body {
-    my $c = shift;
-
-    my $body = $c->req->body;
-
-    detach_with_error($c, 'empty request') unless $body;
-
-    my $json_string = <$body>;
-    my $decoded_object = eval { $JSON->decode($json_string) };
-
-    detach_with_error($c, "$@") if $@;
-
-    return $decoded_object;
 }
 
 sub process_edits {
@@ -442,15 +416,15 @@ sub process_edits {
     };
 
     my @new_edits;
-    my @attribute_ids;
+    my @attribute_gids;
 
     for my $edit (@$edits) {
         if ($edit->{edit_type} == $EDIT_RELATIONSHIP_CREATE) {
-            push @attribute_ids, @{ $edit->{attributes} // [] };
+            push @attribute_gids, map { $_->{type}{gid} } @{ $edit->{attributes} // [] };
         }
     }
 
-    my $attributes = $c->model('LinkAttributeType')->get_by_ids(@attribute_ids);
+    my $attributes = $c->model('LinkAttributeType')->get_by_gids(@attribute_gids);
 
     for my $edit (@$edits) {
         if ($edit->{edit_type} == $EDIT_RELATIONSHIP_CREATE) {
@@ -504,9 +478,8 @@ sub create_edits {
 
     try {
         $data->{edits} = process_edits($c, $data->{edits}, $previewing);
-    }
-    catch {
-        detach_with_error($c, $_);
+    } catch {
+        $c->forward('/ws/js/detach_with_error', [$_]);
     };
 
     my $action = $previewing ? 'preview' : 'create';
@@ -529,7 +502,6 @@ sub create_edits {
                             end_date => $opts->{end_date},
                             ended => $opts->{ended},
                             attributes => $opts->{attributes},
-                            attribute_text_values => $opts->{attribute_text_values},
                         }
                     );
             }
@@ -542,7 +514,7 @@ sub create_edits {
         }
         catch {
             unless (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::NoChanges') {
-                critical_error($c, $_);
+                $c->forward('/ws/js/critical_error', [$_, { error => $_ }, 400]);
             }
         };
         $edit;
@@ -554,20 +526,18 @@ sub edit : Chained('/') PathPart('ws/js/edit') CaptureArgs(0) Edit {
 
     $c->res->content_type('application/json; charset=utf-8');
 
-    $c->forward('/user/cookie_login') unless $c->user_exists;
-
-    detach_with_error($c, {
+    $c->forward('/ws/js/check_login', [{
         errorCode => $ERROR_NOT_LOGGED_IN,
         message => l('You must be logged in to submit edits. {url|Log in} ' .
                      'first, and then try submitting your edits again.',
                      { url => { href => $c->uri_for_action('/user/login'), target => '_blank' } }),
-    }) unless $c->user_exists;
+    }]);
 }
 
 sub create : Chained('edit') PathPart('create') Edit {
     my ($self, $c) = @_;
 
-    $self->submit_edits($c, get_request_body($c));
+    $self->submit_edits($c, $c->forward('/ws/js/get_json_request_body'));
 }
 
 sub submit_edits {
@@ -577,11 +547,11 @@ sub submit_edits {
     my @edit_types = map { $_->{edit_type} } @edit_data;
 
     if (any { !defined($_) } @edit_types) {
-        detach_with_error($c, 'edit_type required');
+        $c->forward('/ws/js/detach_with_error', ['edit_type required']);
     }
 
     if (!$data->{editNote} && any { $_ == $EDIT_RELEASE_CREATE } @edit_types) {
-        detach_with_error($c, 'editNote required');
+        $c->forward('/ws/js/detach_with_error', ['editNote required']);
     }
 
     my @edits;
@@ -662,13 +632,13 @@ sub submit_edits {
         $response
     } @edits;
 
-    $c->res->body($JSON->encode({ edits => \@response }));
+    $c->res->body(encode_json({ edits => \@response }));
 }
 
 sub preview : Chained('edit') PathPart('preview') Edit {
     my ($self, $c) = @_;
 
-    my $data = get_request_body($c);
+    my $data = $c->forward('/ws/js/get_json_request_body');
 
     my @edits = grep { $_ } $self->create_edits($c, $data, 1);
 
@@ -681,13 +651,13 @@ sub preview : Chained('edit') PathPart('preview') Edit {
         my $vars = { edit => $edit, c => $c, allow_new => 1 };
         my $out = '';
 
-        my $preview = $TT->process("edit/details/${edit_template}.tt", $vars, \$out)
+        my $preview = $TT->process("edit/details/${edit_template}.tt", $vars, \$out, binmode => 1)
             ? $out : '' . $TT->error();
 
         { preview => $preview, editName => $edit->edit_name };
     } @edits;
 
-    $c->res->body($JSON->encode({ previews => \@previews }));
+    $c->res->body(encode_json({ previews => \@previews }));
 }
 
 no Moose;

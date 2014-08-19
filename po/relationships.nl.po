@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-08-08 17:35+0000\n"
+"PO-Revision-Date: 2014-08-14 07:37+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -3091,7 +3091,7 @@ msgstr "sprak de stem in van"
 
 #: DB:link_type/long_link_phrase:152 DB:link_type/long_link_phrase:53
 msgid "performed {additional} chorus master on"
-msgstr "treedt op als {additional:aanvullend} koordirigent op"
+msgstr "treedt op als {additional:aanvullend} koorleider op"
 
 #: DB:link_type/long_link_phrase:44 DB:link_type/long_link_phrase:148
 msgid "performed {additional} {guest} {solo} {instrument:%|instruments} on"
@@ -3710,7 +3710,7 @@ msgstr "{additional:aanvullende} artistieke leiding op"
 #: DB:link_type/link_phrase:152 DB:link_type/link_phrase:53
 #: DB:link_type/reverse_link_phrase:152 DB:link_type/reverse_link_phrase:53
 msgid "{additional} chorus master"
-msgstr "{additional:aanvullend} koordirigent"
+msgstr "{additional:aanvullend} koorleider"
 
 #: DB:link_type/reverse_link_phrase:55 DB:link_type/reverse_link_phrase:168
 msgid "{additional} composer"

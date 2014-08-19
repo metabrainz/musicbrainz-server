@@ -11,6 +11,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_EDIT
     $EDIT_RELATIONSHIP_DELETE
 );
+use MusicBrainz::Server::Data::Utils qw( non_empty );
 use Try::Tiny;
 
 __PACKAGE__->config( namespace => 'relationship_editor' );
@@ -23,7 +24,7 @@ our $valid_params = qr/
             |link_type
             |entity\.(0|1)\.(gid|type|url)
             |period\.((begin_date|end_date)\.(year|month|day)|ended)
-            |attrs\.[^\.]+(\.[0-9]+)?
+            |attributes\.[0-9]+\.(type\.gid|text_value|credited_as)
         )
         |edit_note
         |as_auto_editor
@@ -61,7 +62,6 @@ sub base : Path('/relationship-editor') Args(0) Edit {
 sub submit_edits {
     my ($self, $c, $params) = @_;
 
-    my $attr_tree = $c->model('LinkAttributeType')->get_tree;
     my @rels = @{ $params->{rels} // [] };
 
     foreach my $rel (@rels) {
@@ -79,18 +79,16 @@ sub submit_edits {
         $rel->{entities} = delete $rel->{entity};
         $rel->{linkTypeID} = delete $rel->{link_type};
 
-        if (my $attrs = delete $rel->{attrs}) {
-            my @flattend;
-
-            for my $root ($attr_tree->all_children) {
-                my $value = $attrs->{$root->name};
-                next unless defined($value);
-
-                push @flattend, scalar($root->all_children)
-                    ? @$value : $value ? $root->id : ();
-            }
-
-            $rel->{attributes} = \@flattend;
+        if (my $attributes = delete $rel->{attributes}) {
+            # This is really stupid because it gets converted back again to
+            # the existing format in /ws/js.
+            $rel->{attributes} = [ map +{
+                type => {
+                    gid => $_->{type}{gid}
+                },
+                non_empty($_->{credited_as}) ? (credit => $_->{credited_as}) : (),
+                non_empty($_->{text_value}) ? (textValue => $_->{text_value}) : (),
+            }, @$attributes ];
         }
 
         if (my $period = delete $rel->{period}) {
