@@ -16,6 +16,7 @@ use MusicBrainz::Server::Data::Utils qw(
 
 extends 'MusicBrainz::Server::Data::Entity';
 #with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'linkattrtype' };
+sub _id_cache_prefix { 'linkattrtype' } # delete when above line is uncommented
 with 'MusicBrainz::Server::Data::Role::GetByGID';
 with 'MusicBrainz::Server::Data::Role::OptionsTree';
 
