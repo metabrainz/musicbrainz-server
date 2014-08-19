@@ -15,7 +15,7 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'linkattrtype' };
+#with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'linkattrtype' };
 with 'MusicBrainz::Server::Data::Role::GetByGID';
 with 'MusicBrainz::Server::Data::Role::OptionsTree';
 
