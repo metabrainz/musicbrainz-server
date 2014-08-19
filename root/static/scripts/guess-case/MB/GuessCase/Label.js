@@ -33,7 +33,5 @@ MB.GuessCase._Label = function () {
 };
 
 $('document').ready(function () {
-
     MB.GuessCase.label = MB.GuessCase._Label();
-
 });
