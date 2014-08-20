@@ -639,7 +639,7 @@ END -%]
 [%~ MACRO display_relationship(relationship, phrase_field) BLOCK; -%]
   [%- phrase_field = phrase_field || 'phrase';
     extra_attributes_field = "extra_${phrase_field}_attributes";
-    IF relationship.edits_pending; '<span class="mp">'; END;
+    IF relationship.edits_pending; '<span class="mp mp-rel">'; END;
     relationship.${ phrase_field };
     ' ';
     descriptive_link(relationship.target);
@@ -861,7 +861,7 @@ END -%]
 [%- END -%]
 
 [%~ MACRO relationship_target_links(rel) BLOCK -%]
-  <span[% IF rel.edits_pending %] class="mp"[% END %]>
+  <span[% IF rel.edits_pending %] class="mp mp-rel"[% END %]>
   [% IF rel.target.artist_credit AND
         rel.target.artist_credit.name == hide_ac %]
       [% link_entity(rel.target) %]
