@@ -41,19 +41,12 @@
                     </td>
                     [% IF rel.link.attributes.size %]
                     <td>
-                      [%- FOR attr=rel.link.attributes;
-                            IF attr.type.root.id == 14;
-                                attr_name = '<a href="' _ c.uri_for_action('/instrument/show', [ attr.type.gid ]) _ '">' _ html_escape(attr.type.l_name) _ '</a>';
-                            ELSE;
-                                attr_name = attr.type.l_name | html;
-                            END;
-                            IF attr.credited_as.defined;
-                                l('{attribute} [{credited_as}]', { attribute => attr_name, credited_as => attr.credited_as });
-                            ELSE;
-                                attr_name;
-                            END;
-                            l(', ') UNLESS loop.last;
-                         END %]
+                      [%~ attr_list = [];
+                          FOR attr=rel.link.attributes;
+                            attr_list.push(attr.html);
+                          END;
+                          comma_list(attr_list);
+                       %]
                     </td>
                     [% END %]
                     <td>

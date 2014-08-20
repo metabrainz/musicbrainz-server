@@ -6,8 +6,6 @@ use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Validation qw( trim_in_place );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Data::Relationship;
-use MusicBrainz::Server::Data::Utils qw( non_empty );
-use MusicBrainz::Server::Constants qw( $INSTRUMENT_ROOT_ID );
 
 use overload '<=>' => \&_cmp, fallback => 1;
 
@@ -214,26 +212,12 @@ sub _interpolate
     my @attrs = $self->link->all_attributes;
     my %attrs;
     foreach my $attr (@attrs) {
-        my $type = $attr->type;
-        my $name = lc $type->root->name;
-        my $value = $type->l_name;
-
-        if ($type->root->id == $INSTRUMENT_ROOT_ID && $type->gid) {
-            $value = "<a href=\"/instrument/".$type->gid."\">$value</a>";
-        }
-
-        if (non_empty($attr->credited_as) && $type->l_name ne $attr->credited_as) {
-            $value = l('{attribute} [{credited_as}]', { attribute => $value, credited_as => $attr->credited_as })
-        }
-
-        if (non_empty($attr->text_value)) {
-            $value = l('{attribute}: {value}', { attribute => $value, value => $attr->text_value });
-        }
+        my $name = lc $attr->type->root->name;
 
         if (exists $attrs{$name}) {
-            push @{$attrs{$name}}, $value;
+            push @{$attrs{$name}}, $attr->html;
         } else {
-            $attrs{$name} = [ $value ];
+            $attrs{$name} = [ $attr->html ];
         }
     }
     my %extra_attrs = %attrs;
