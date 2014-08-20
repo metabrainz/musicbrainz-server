@@ -31,6 +31,10 @@
                         entity: dialog.targetType(),
 
                         setEntity: function (type) {
+                            if (dialog.disableTypeSelection) {
+                                return false;
+                            }
+
                             var possible = dialog.targetTypeOptions();
 
                             if (!_.find(possible, { value: type })) {
