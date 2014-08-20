@@ -195,6 +195,7 @@
                                     artist => {
                                         gid => $_->artist->gid,
                                         id => $_->artist->id,
+                                        editsPending => $_->artist->edits_pending,
                                         sortName => $_->artist->sort_name,
                                         name => $_->artist->name,
                                         comment => $_->artist->comment
@@ -234,6 +235,7 @@
                     artist => {
                         gid => $_->artist->gid,
                         id => $_->artist->id,
+                        editsPending => $_->artist->edits_pending,
                         sortName => $_->artist->sort_name,
                         name => $_->artist->name
                     }
