@@ -29,7 +29,7 @@
 
     <script type="text/html" id="relationship-group">
       <dt><span data-bind="html: key"></span>:</dt>
-      <dd data-bind="html: _.map(value, function (v) { return v.target.html() }).join(', ')">
+      <dd data-bind="html: _.map(value, MB.Release.relationshipLink).join(', ')">
       </dd>
     </script>
 
@@ -87,7 +87,7 @@
                           <!-- ko foreach: value -->
                             <dt><span data-bind="html: $parent.key"></span>:</dt>
                             <dd>
-                              <span data-bind="html: target.html()"></span>
+                              <span data-bind="html: MB.Release.relationshipLink($data)"></span>
                               <!-- ko foreachKv: groupedSubRelationships -->
                                 <!-- ko if: key == 'artist' -->
                                   <dl class="ars">
@@ -171,6 +171,7 @@
                     sortName => $target->can('sort_name') ? $target->sort_name : undef,
                     comment => $target->can('comment') ? $target->comment : ''
                 },
+                editsPending => $rel->edits_pending,
                 phrase => $rel->phrase
             );
         };
