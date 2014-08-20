@@ -208,7 +208,7 @@ MB.GuessCase.Handler.Artist = function () {
                 }
 
                 // we have to reorder the names
-                var i=0;
+                var i = 0;
                 if (reorder) {
                     var reOrderedNames = [];
                     if (names.length > 1) {
@@ -231,24 +231,8 @@ MB.GuessCase.Handler.Artist = function () {
                         names = reOrderedNames;
                     }
                 }
-                var t = [];
-                for (i = 0; i < names.length; i++) {
-                    var w = names[i];
-                    if (!MB.utility.isNullOrEmpty(w)) {
-                        // skip empty names
-                        t.push(w);
-                    }
-                    if (i < names.length-1) {
-                        // if not last word, add space
-                        t.push(" ");
-                    }
-                }
 
-                // append string
-                if (!MB.utility.isNullOrEmpty(append)) {
-                    t.push(append);
-                }
-                artist = gc.u.trim(t.join(""));
+                artist = gc.u.trim(_.compact(names).join(" ") + (append || ""));
             }
 
             if (!MB.utility.isNullOrEmpty(artist)) {
