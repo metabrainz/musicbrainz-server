@@ -429,43 +429,6 @@ MB.GuessCase.Main = function () {
         return os;
     };
 
-    /**
-     * Accessor function: Returns the current word of
-     * the input object
-     *
-     * @see Log#logMessage
-     **/
-    self.getCurrentWord = function () {
-        return gc.i.getCurrentWord();
-    };
-
-    /**
-     * Accessor function: Returns the GcOutput object
-     *
-     * @see Sandbox/JSUnit tests
-     **/
-    self.getInput = function () {
-        return gc.i;
-    };
-
-    /**
-     * Accessor function: Returns the GcOutput object
-     *
-     * @see Sandbox/JSUnit tests
-     **/
-    self.getOutput = function () {
-        return gc.o;
-    };
-
-    /**
-     * Accessor function: Returns the GcUtils object.
-     *
-     * @see Sandbox/JSUnit tests
-     **/
-    self.getUtils = function () {
-        return gc.u;
-    };
-
     /* FIXME: ugly hack, need to get rid of using a global 'gc' everywhere. */
     window.gc = self;
 

@@ -34,12 +34,6 @@ MB.GuessCase.Handler.Base = function () {
     var self = {};
 
     // ----------------------------------------------------------------------------
-    // register class/global id
-    // ---------------------------------------------------------------------------
-    self.CN = "GcHandler";
-    self.GID = "gc.base";
-
-    // ----------------------------------------------------------------------------
     // member variables
     // ---------------------------------------------------------------------------
 
@@ -103,15 +97,6 @@ MB.GuessCase.Handler.Base = function () {
             default:
                 return is;
         }
-    };
-
-    /**
-     * Returns the output string from GuessCaseOutput
-     **/
-    self.getOutput = function () {
-        var is = gc.o.getOutput();
-        var os = self.runPostProcess(is);
-        return os;
     };
 
     /**
@@ -521,7 +506,6 @@ MB.GuessCase.Handler.Base = function () {
             gc.f.openingBracket = true;
             gc.f.forceCaps = !forcelowercase;
             gc.o.appendCurrentWord();
-            gc.f.disc = false;
             gc.f.part = false;
             gc.f.volume = false;
             return true;
@@ -760,7 +744,7 @@ MB.GuessCase.Handler.Base = function () {
             gc.i.setPos(subIndex-1);
             var number = tmp.join("");
 
-            if (gc.f.disc || gc.f.part || gc.f.volume) {
+            if (gc.f.part || gc.f.volume) {
                 // delete leading '0',if last word was a seriesnumberstyle word.
                 // e.g. disc 02 -> disc 2
                 number = number.replace(/^0*/,"");
@@ -772,7 +756,7 @@ MB.GuessCase.Handler.Base = function () {
             // e.g. Releasename cd 4 -> Releasename (disc 4)
             // but  Releasename cd 4 the name -> Releasename (disc 4: The Name)
             var addcolon = false;
-            if (gc.f.disc || gc.f.volume) {
+            if (gc.f.volume) {
                 var pos = gc.i.getPos();
                 if (pos < gc.i.getLength()-2) {
                     var nword = gc.i.getWordAtIndex(pos+1);
@@ -780,7 +764,6 @@ MB.GuessCase.Handler.Base = function () {
                     var nwordm = nword.match(/[\):\-&]/);
                     var nawordm = naword.match(/[\(:\-&]/);
 
-                    // alert(nword+"="+nwordm+"    "+naword+"="+nawordm);
                     // only add a colon,if the next word is not ")",":","-","&"
                     // and the word after the next is not "-","&","("
                     if (nwordm == null && nawordm == null) {
@@ -952,79 +935,6 @@ MB.GuessCase.Handler.Base = function () {
             }
             gc.i.setPos(wi);
             return true;
-        }
-        return false;
-    };
-
-    /**
-     * correct cd{n},disc{n},disk{n},disque{n} terms
-     **/
-    self.doDiscNumberStyle = function () {
-        if (!gc.re.DISCNUMBERSTYLE) {
-            gc.re.DISCNUMBERSTYLE = /^(Cd|Disk|Discque|Disc)([^\s\d]*)(\s*)(\d*)/i;
-        }
-
-        var matcher = null;
-        var w = gc.i.getCurrentWord();
-
-        if (!(gc.f.isInsideBrackets() && gc.f.colon) && // do not convert xxx (disc 1: cd) to "...: disc"
-            !gc.i.isFirstWord() && // do not convert "cd.." to "Disc..."
-            gc.i.hasMoreWords() && // do not convert "cd.." to "Disc..."
-            (matcher = w.match(gc.re.DISCNUMBERSTYLE)) != null) {
-
-            // test for disc/disk and variants
-            // If first word is not one of "Cd","Disk","Disque","Disc" but i.e. Discography,give up.
-            if (matcher[2] != "") {
-                return false;
-            }
-
-            // check if a number is part of the disc title,i.e. Cd2,has to
-            // be expanded to Cd-space-2
-            if (matcher[4] != "") {
-                var np = matcher[4];
-                np = np.replace("^0",""); // delete leading '0',e.g. disc 02 -> disc 2
-
-                gc.i.insertWordsAtIndex(gc.i.getPos()+1, [" ", np]);
-                // add space before the number
-                // add numeric part
-            }
-
-            // from next position on, skip spaces and dots.
-            var pos = gc.i.getPos();
-            var len = gc.i.getLength();
-            var wi = pos + 1, si = wi;
-            while ((wi < len - 1) && (gc.i.getWordAtIndex(wi).match(gc.re.SPACES_DOTS) != null)) {
-                wi++;
-            }
-
-            // test for number, or roman numeral
-            w = (gc.i.getWordAtIndex(wi) || "");
-
-            if (w.match(gc.re.SERIES_NUMBER) || gc.i.getWordAtIndex(pos-2) == "bonus") {
-                // delete hypen,or colon if one occurs before
-                // disc: e.g. Releasename - Disk1
-                // disc: Releasename,Volume 2: cd 1
-                var lw = gc.o.getLastWord();
-                if (lw == "-" || lw == ":") {
-                    gc.o.dropLastWord();
-                }
-                gc.o.appendSpaceIfNeeded();
-                if (!gc.f.isInsideBrackets()) {
-                    // if not inside brackets,open up a new pair.
-
-                    gc.i.insertWordAtEnd(")");
-                    gc.i.updateCurrentWord("(");
-                    self.doOpeningBracket();
-                }
-                gc.o.appendWord("disc");
-                gc.f.resetContext();
-                gc.f.openingBracket = false; // reset bracket flag set by handler
-                gc.f.spaceNextWord = false;
-                gc.f.forceCaps = false;
-                gc.f.number = false;
-                gc.f.disc = true;
-                return true;
-            }
         }
         return false;
     };

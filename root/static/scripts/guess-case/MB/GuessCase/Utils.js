@@ -333,15 +333,8 @@ MB.GuessCase.Utils = function () {
             } else if (gc.mode.isUpperCaseWord(LC)) {
                 os = UC;
 
-            } else if (gc.f.isInsideBrackets()) {
-                if (gc.u.isLowerCaseBracketWord(LC)) {
-                    // handle special case: (disc 1: Disc x)
-                    // e.g. do not lowercase disc!
-                    if (gc.f.colon && LC == "disc") {
-                    } else {
-                        os = LC;
-                    }
-                }
+            } else if (gc.f.isInsideBrackets() && gc.u.isLowerCaseBracketWord(LC)) {
+                os = LC;
             }
         }
         return os;
