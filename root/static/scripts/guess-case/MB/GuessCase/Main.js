@@ -122,6 +122,8 @@ MB.GuessCase.Main = function () {
     self.guessPlace = guess(MB.GuessCase.Handler.Place, "process");
     self.guessPlaceSortname = guess(MB.GuessCase.Handler.Place, "guessSortName");
 
+    // Series doesn't have it's own handler, and just uses the work handler
+    // because additional behavior isn't needed.
     self.guessSeries = guess(MB.GuessCase.Handler.Work, "process");
     self.guessSeriesSortname = guess(MB.GuessCase.Handler.Work, "guessSortName");
 
