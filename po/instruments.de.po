@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-08-07 20:42+0000\n"
+"PO-Revision-Date: 2014-08-21 15:12+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -2233,13 +2233,15 @@ msgstr ""
 msgid "taphon"
 msgstr ""
 
-#: DB:instrument/name:607
-msgid "tar (drum)"
-msgstr "Tar (Trommel)"
-
 #: DB:instrument/name:467
-msgid "tar (lute)"
-msgstr "Tar (Laute)"
+msgctxt "lute"
+msgid "tar"
+msgstr ""
+
+#: DB:instrument/name:607
+msgctxt "drum"
+msgid "tar"
+msgstr ""
 
 #: DB:instrument/name:440
 msgid "taragot"
@@ -2699,7 +2701,7 @@ msgstr ""
 
 #: DB:instrument/name:558
 msgid "ōtsuzumi"
-msgstr "Ozutsumi"
+msgstr "Otsuzumi"
 
 #: DB:instrument/name:589
 msgid "żafżafa"

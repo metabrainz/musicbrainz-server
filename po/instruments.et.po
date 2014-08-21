@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-08-07 20:42+0000\n"
+"PO-Revision-Date: 2014-08-21 15:12+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -2231,13 +2231,15 @@ msgstr "lint"
 msgid "taphon"
 msgstr ""
 
-#: DB:instrument/name:607
-msgid "tar (drum)"
-msgstr "tar (trumm)"
-
 #: DB:instrument/name:467
-msgid "tar (lute)"
-msgstr "tar (lauto)"
+msgctxt "lute"
+msgid "tar"
+msgstr ""
+
+#: DB:instrument/name:607
+msgctxt "drum"
+msgid "tar"
+msgstr ""
 
 #: DB:instrument/name:440
 msgid "taragot"

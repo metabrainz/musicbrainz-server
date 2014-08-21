@@ -223,7 +223,7 @@ msgid ""
 "of an instrument."
 msgstr ""
 
-#. name:tar (drum)
+#. name:tar
 #: DB:instrument/description:607
 msgid ""
 "A tar is a single-headed frame drum from North Africa and the Middle East."
@@ -1977,7 +1977,7 @@ msgstr ""
 msgid "The taphon is a traditional barrel drum from Thailand."
 msgstr ""
 
-#. name:tar (lute)
+#. name:tar
 #: DB:instrument/description:467
 msgid ""
 "The tar is a long-necked, waisted lute found in Azerbaijan, Iran, Armenia, "
