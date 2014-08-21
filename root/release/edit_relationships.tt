@@ -75,6 +75,10 @@
         </tbody>
       </table>
 
+      <p data-bind="if: loadingRelease">
+        <span class="loading-message">[% l('Loading...') %]</span>
+      </p>
+
       <h2>[% l('Release Relationships') %]</h2>
 
       <div id="release-rels" class="ars">
@@ -200,7 +204,7 @@
     </script>
 
     <script type="text/html" id="template.track">
-      <tr class="track" data-bind="css: {ev: position % 2 == 0}">
+      <tr class="track" data-bind="css: {even: position % 2 == 0}">
         <td class="pos t" data-bind="text: number"></td>
         <td class="recording">
           <!-- ko with: recording --><input type="checkbox"><!-- /ko -->

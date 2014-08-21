@@ -7,7 +7,7 @@ use Data::Page;
 use DBDefs;
 use MusicBrainz::Server::EditRegistry;
 use MusicBrainz::Server::Edit::Utils qw( status_names );
-use MusicBrainz::Server::Constants qw( $STATUS_OPEN :quality );
+use MusicBrainz::Server::Constants qw( $STATUS_OPEN :quality $REQUIRED_VOTES $OPEN_EDIT_DURATION );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 use MusicBrainz::Server::EditSearch::Query;
 use MusicBrainz::Server::Data::Utils qw( type_to_model load_everything_for_edits );
@@ -277,6 +277,8 @@ sub edit_types : Path('/doc/Edit_Types')
     }
 
     $c->stash(
+        open_edit_duration => $OPEN_EDIT_DURATION,
+        required_votes => $REQUIRED_VOTES,
         by_category => \%by_category,
         template => 'doc/edit_types.tt'
     );

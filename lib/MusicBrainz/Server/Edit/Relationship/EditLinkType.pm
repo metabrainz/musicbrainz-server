@@ -4,7 +4,6 @@ use Data::Compare;
 use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
 use MooseX::Types::Structured qw( Dict  Optional Tuple );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_EDIT_LINK_TYPE );
-use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Entity::ExampleRelationship;
@@ -17,6 +16,7 @@ use aliased 'MusicBrainz::Server::Entity::LinkType';
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Relationship';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_name { N_l('Edit relationship type') }
 sub edit_kind { 'edit' }
@@ -83,21 +83,6 @@ has '+data' => (
         types   => Optional[Tuple[Str, Str]],
     ]
 );
-
-sub edit_conditions
-{
-    my $conditions = {
-        duration      => 0,
-        votes         => 0,
-        expire_action => $EXPIRE_ACCEPT,
-        auto_edit     => 1,
-    };
-    return {
-        $QUALITY_LOW    => $conditions,
-        $QUALITY_NORMAL => $conditions,
-        $QUALITY_HIGH   => $conditions,
-    };
-}
 
 sub foreign_keys {
     my $self = shift;
@@ -201,8 +186,6 @@ sub build_display_data {
 
     return $display_data;
 }
-
-sub allow_auto_edit { 1 }
 
 sub accept {
     my $self = shift;

@@ -3,27 +3,27 @@ package MusicBrainz::Server::WebService::WebServiceInc;
 use Moose;
 with qw(MooseX::Clone);
 use MusicBrainz::Server::WebService::Exceptions;
+use MusicBrainz::Server::Constants qw( entities_with );
 
 has $_ => (
     is  => 'rw',
     isa => 'Int',
     default => 0
-) for qw(
+) for (qw(
           aliases discids isrcs media puids various_artists artist_credits
           artists labels recordings releases release_groups works
-          artist_rels label_rels recording_rels release_rels
-          release_group_rels url_rels work_rels area_rels place_rels instrument_rels
           tags ratings user_tags user_ratings collections
           recording_level_rels work_level_rels rels annotation release_events
-);
+), map { $_ . '_rels' } entities_with(['mbid', 'relatable']));
 
 sub has_rels
 {
     my ($self) = @_;
 
-    return 1 if ($self->artist_rels || $self->label_rels || $self->recording_rels ||
-                 $self->release_rels || $self->release_group_rels || $self->url_rels ||
-                 $self->work_rels || $self->area_rels || $self->place_rels || $self->instrument_rels);
+    for my $type (entities_with(['mbid','relatable'])) {
+        my $meth = $type . '_rels';
+        return 1 if $self->$meth;
+    }
 
     return 0;
 }
@@ -33,16 +33,10 @@ sub get_rel_types
     my ($self) = @_;
 
     my @rels;
-    push @rels, 'artist' if ($self->artist_rels);
-    push @rels, 'area' if ($self->area_rels);
-    push @rels, 'instrument' if ($self->instrument_rels);
-    push @rels, 'label' if ($self->label_rels);
-    push @rels, 'place' if ($self->place_rels);
-    push @rels, 'recording' if ($self->recording_rels);
-    push @rels, 'release' if ($self->release_rels);
-    push @rels, 'release_group' if ($self->release_group_rels);
-    push @rels, 'url' if ($self->url_rels);
-    push @rels, 'work' if ($self->work_rels);
+    for my $type (entities_with(['mbid', 'relatable'])) {
+        my $meth = $type . '_rels';
+        push @rels, $type if ($self->$meth);
+    }
 
     return \@rels;
 }

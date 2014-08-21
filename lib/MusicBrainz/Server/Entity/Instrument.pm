@@ -15,7 +15,11 @@ use MooseX::Types::Moose qw( ArrayRef Object Str );
 
 sub l_name {
     my $self = shift;
-    return MusicBrainz::Server::Translation::Instruments::l($self->name);
+    if ($self->comment) {
+        return MusicBrainz::Server::Translation::Instruments::lp($self->name, $self->comment);
+    } else {
+        return MusicBrainz::Server::Translation::Instruments::l($self->name);
+    }
 }
 
 has 'type_id' => (

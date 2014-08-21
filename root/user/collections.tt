@@ -10,6 +10,7 @@
             <th>[% l('Collection') %]</th>
             <th>[% l('Releases') %]</th>
             [% IF viewing_own_profile %]
+            <th>[% l('Subscribed') %]</th>
             <th>[% l('Privacy') %]</th>
             <th class="actions-header">[% l('Actions') %]</th>
             [% END %]
@@ -17,10 +18,11 @@
     </thead>
     <tbody>
     [%- FOR collection=collections -%]
-        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+        <tr class="[% loop.parity %]">
             <td>[% link_collection(collection) %]</td>
             <td>[% collection.release_count %]</td>
             [% IF viewing_own_profile %]
+            <td>[% yesno(collection.subscribed) %]</td>
             <td>[% collection.public ? l('Public') : l('Private') %]</td>
             <td>
                 [% link_collection(collection, 'edit', l('Edit')) %] |

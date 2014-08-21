@@ -1,6 +1,0 @@
-<table class="details remove-series">
-  <tr>
-    <th>[% l('Series:') %]</th>
-    <td>[% descriptive_link(edit.display_data.entity) %]</td>
-  </tr>
-</table>

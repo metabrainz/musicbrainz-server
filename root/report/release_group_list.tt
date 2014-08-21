@@ -6,15 +6,19 @@
             [%- PROCESS extra_header_start -%]
             <th>[% l('Artist') %]</th>
             <th>[% l('Release Group') %]</th>
+            [% BLOCK extra_header_end %][% END %]
+            [%- PROCESS extra_header_end -%]
         </tr>
     </thead>
     <tbody>
         [%- FOR item IN items -%]
-        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+        <tr class="[% loop.parity %]">
             [% BLOCK extra_row_start %][% END %]
             [%- PROCESS extra_row_start -%]
             <td>[% artist_credit(item.release_group.artist_credit) %]</td>
             <td>[% link_entity(item.release_group) %]</td>
+            [% BLOCK extra_row_end %][% END %]
+            [%- PROCESS extra_row_end -%]
         </tr>
         [%- END -%]
     </tbody>

@@ -13,6 +13,7 @@ use aliased 'MusicBrainz::Server::Entity::Instrument';
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Instrument';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_name { N_l('Add instrument') }
 sub edit_type { $EDIT_INSTRUMENT_CREATE }
@@ -51,8 +52,6 @@ sub build_display_data {
         description => $self->data->{description},
     };
 }
-
-sub allow_auto_edit { 1 }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
