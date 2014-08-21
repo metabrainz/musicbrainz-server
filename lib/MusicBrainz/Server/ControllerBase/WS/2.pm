@@ -481,6 +481,14 @@ sub linked_series {
     $self->_aliases($c, 'Series', $series, $stash);
 }
 
+sub linked_events
+{
+    my ($self, $c, $stash, $events) = @_;
+
+    $self->_tags_and_ratings($c, 'Event', $events, $stash);
+    $self->_aliases($c, 'Event', $events, $stash);
+}
+
 sub _validate_post
 {
     my ($self, $c) = @_;
