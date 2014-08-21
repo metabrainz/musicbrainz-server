@@ -37,7 +37,9 @@
                        END; -%]
                     </td>
                     <td colspan="[% rel.link.attributes.size ? "1" : "2" %]">
+                        [%~ '<span class="mp mp-rel">' IF rel.edits_pending ~%]
                         [% link_entity(rel.target) %]
+                        [%~ '</span>' IF rel.edits_pending ~%]
                     </td>
                     [% IF rel.link.attributes.size %]
                     <td>

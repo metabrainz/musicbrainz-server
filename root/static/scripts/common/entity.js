@@ -287,11 +287,13 @@
     MB.entity.ArtistCreditName = aclass(Entity, {
 
         template: _.template(
+            "<% if (data.editsPending > 0) print('<span class=\"mp\">'); %>" +
             "<% if (data.nameVariation) print('<span class=\"name-variation\">'); %>" +
             "<a href=\"/artist/<%- data.gid %>\"" +
             "<% if (data.target) print(' target=\"_blank\"'); %>" +
             " title=\"<%- data.title %>\"><bdi><%- data.name %></bdi></a>" +
             "<% if (data.nameVariation) print('</span>'); %>" +
+            "<% if (data.editsPending > 0) print('</span>'); %>" +
             "<%- data.join %>",
             null,
             {variable: "data"}
@@ -362,6 +364,7 @@
                         title: title,
                         name:  name,
                         join:  ko.unwrap(this.joinPhrase),
+                        editsPending: artist.editsPending,
                         nameVariation: name !== artist.name
                     }
                 )
