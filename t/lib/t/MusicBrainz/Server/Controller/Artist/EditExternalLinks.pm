@@ -122,6 +122,7 @@ is_deeply($edits[2]->data, {
                 'day' => undef,
                 'year' => undef
             },
+            ended => 0,
             'type' => {
                 'entity0_type' => 'artist',
                 'long_link_phrase' => 'allmusic',
