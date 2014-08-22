@@ -62,6 +62,7 @@ test('filesize.js wrapper', function () {
 
 test("formatDate", function () {
     equal(MB.utility.formatDate({}), "");
+    equal(MB.utility.formatDate({ year: 0 }), "0000");
     equal(MB.utility.formatDate({ year: 1999 }), "1999");
     equal(MB.utility.formatDate({ year: 1999, month: 1 }), "1999-01");
     equal(MB.utility.formatDate({ year: 1999, month: 1, day: 1 }), "1999-01-01");

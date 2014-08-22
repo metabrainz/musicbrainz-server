@@ -195,6 +195,10 @@ MB.utility.iteratePromises = function (promises) {
     return deferred.promise();
 };
 
+function empty(value) {
+    return value === null || value === undefined || value === "";
+}
+
 MB.utility.validDate = (function () {
     var daysInMonth = {
         "true":  [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
@@ -371,7 +375,7 @@ MB.utility.formatDate = function (date) {
     var d = ko.unwrap(date.day);
 
     return (
-        (y ?       _.str.pad(y, 4, "0") : (m || d ? "????" : "")) +
+        (!empty(y) ? _.str.pad(y, 4, "0") : (m || d ? "????" : "")) +
         (m ? "-" + _.str.pad(m, 2, "0") : (d ? "-??" : "")) +
         (d ? "-" + _.str.pad(d, 2, "0") : "")
     );
