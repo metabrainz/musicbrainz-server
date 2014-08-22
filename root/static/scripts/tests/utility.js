@@ -70,6 +70,8 @@ test("formatDate", function () {
     equal(MB.utility.formatDate({ month: 1 }), "????-01");
     equal(MB.utility.formatDate({ month: 1, day: 1 }), "????-01-01");
     equal(MB.utility.formatDate({ day: 1 }), "????-??-01");
+    equal(MB.utility.formatDate({ year: 0, month: 1, day: 1 }), "0000-01-01");
+    equal(MB.utility.formatDate({ year: -1, month: 1, day: 1 }), "-001-01-01");
 });
 
 

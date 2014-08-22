@@ -375,7 +375,8 @@ MB.utility.formatDate = function (date) {
     var d = ko.unwrap(date.day);
 
     return (
-        (!empty(y) ? _.str.pad(y, 4, "0") : (m || d ? "????" : "")) +
+        (!empty(y) ? ( y < 0 ? "-" + _.str.pad(-y, 3, "0") : _.str.pad(y, 4, "0"))
+                   : (m || d ? "????" : "")) +
         (m ? "-" + _.str.pad(m, 2, "0") : (d ? "-??" : "")) +
         (d ? "-" + _.str.pad(d, 2, "0") : "")
     );
