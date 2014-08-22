@@ -19,7 +19,6 @@ sub load_relationships
     } else {
         @rels = $c->model('Relationship')->load($entity);
         $self->url_relationships_loaded($c);
-        $c->stash(AAtest => "ALL RELATIONSHIPS FOUND");
     }
 
     return @rels;
