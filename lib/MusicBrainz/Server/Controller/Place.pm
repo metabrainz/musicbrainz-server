@@ -14,6 +14,7 @@ with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
+with 'MusicBrainz::Server::Controller::Role::RelationshipWrapper';
 with 'MusicBrainz::Server::Controller::Role::CommonsImage';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 
@@ -63,7 +64,7 @@ after 'load' => sub
     $c->model('PlaceType')->load($place);
     $c->model('Area')->load($place);
     $c->model('Area')->load_containment($place->area);
-    $c->model('Relationship')->load($place);
+    $self->load_relationships($c);
 };
 
 =head2 show

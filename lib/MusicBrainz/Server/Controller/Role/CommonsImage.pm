@@ -3,8 +3,6 @@ use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 use List::UtilsBy qw( sort_by );
 use namespace::autoclean;
 
-with 'MusicBrainz::Server::Controller::Role::RelationshipWrapper';
-
 after url_relationships_loaded => sub {
     my ($self, $c) = @_;
 

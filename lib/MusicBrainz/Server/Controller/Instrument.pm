@@ -21,6 +21,7 @@ with 'MusicBrainz::Server::Controller::Role::Alias';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
+with 'MusicBrainz::Server::Controller::Role::RelationshipWrapper';
 with 'MusicBrainz::Server::Controller::Role::CommonsImage';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 
@@ -36,7 +37,7 @@ after 'load' => sub {
     my ($self, $c) = @_;
     my $instrument = $c->stash->{instrument};
     $c->model('InstrumentType')->load($instrument);
-    $c->model('Relationship')->load($instrument);
+    $self->load_relationships($c);
 };
 
 sub recordings : Chained('load') {
