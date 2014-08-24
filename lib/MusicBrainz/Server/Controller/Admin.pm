@@ -114,6 +114,22 @@ sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth HiddenOnSlaves 
     }
 }
 
+sub edit_banner : Path('/admin/banner/edit') Args(0) RequireAuth(banner_editor) {
+    my ($self, $c) = @_;
+
+    my $current_message = $c->stash->{server_details}->{alert};
+    my $form = $c->form( form => 'Admin::Banner',
+                         init_object => { message => $current_message } );
+
+    if ($c->form_posted && $form->process( params => $c->req->params )) {
+        $c->model('MB')->context->redis->set('alert', $form->values->{message});
+
+        $c->flash->{message} = l('Banner updated. Remember that each server has its own, independent banner.');
+        $c->response->redirect($c->uri_for('/'));
+        $c->detach;
+    }
+}
+
 1;
 
 =head1 COPYRIGHT

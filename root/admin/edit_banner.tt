@@ -1,0 +1,19 @@
+[% WRAPPER "layout.tt" title=l("Edit Banner Message") full_width=1 %]
+    <div id="content">
+        <h1>[% l("Edit Banner Message") %]</h1>
+
+        <p>
+            [%~ l('This will set the banner message that is shown at the top of each page. An empty string removes the banner.') ~%]
+        </p>
+
+        [%- USE r = FormRenderer(form) -%]
+
+        <form action="[% c.req.uri | html %]" method="post">
+            [% form_row_textarea(r, 'message', add_colon(l('Banner message'))) %]
+
+            <div class="row no-label">
+                [% form_submit(l('Update')) %]
+            </div>
+        </form>
+    </div>
+[% END %]
