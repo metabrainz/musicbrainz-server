@@ -21,6 +21,9 @@
                 <span class='deleted'>[%~ l('[removed]') ~%]</span>
             [%~ ELSE ~%]
                 [%~ isolate_text(edit.alias.name) =%]
+                [%~ bracketed(edit.alias.primary_for_locale ?
+                        l('primary for {locale}', { locale => show_locale(edit.alias.locale) }) :
+                        show_locale(edit.alias.locale)) ~%]
             [%~ END ~%]
         </td>
     </tr>
