@@ -257,7 +257,7 @@
 
   <div class="bubble" data-bind="bubble: $root.labelBubble">
     <!-- ko with: target() && target().label() -->
-      <!-- ko if: gid -->
+      <!-- ko if: $data.gid -->
         <p data-bind="html: MB.i18n.expand(MB.text.SelectedLabel, { label: html({ target: '_blank' }) })"></p>
       <!-- /ko -->
     <!-- /ko -->
