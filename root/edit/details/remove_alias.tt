@@ -10,7 +10,7 @@
     </tr>
     <tr>
         <th>[%~ add_colon(l('Alias')) ~%]</th>
-        <td>[%~ edit.display_data.alias | html ~%]</td>
+        <td>[%~ isolate_text(edit.display_data.alias) ~%]</td>
     </tr>
     [%~ IF edit.display_data.sort_name ~%]
     <tr>

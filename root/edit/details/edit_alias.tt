@@ -20,7 +20,7 @@
             [%~ IF !edit.alias.name ~%]
                 <span class='deleted'>[%~ l('[removed]') ~%]</span>
             [%~ ELSE ~%]
-                [%~ edit.alias.name | html ~%]
+                [%~ isolate_text(edit.alias.name) =%]
             [%~ END ~%]
         </td>
     </tr>
