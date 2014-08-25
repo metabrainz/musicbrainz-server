@@ -229,6 +229,14 @@
             return _.filter(this.displayableRelationships(viewModel)(), function (r) {
                 return r.linkTypeID() === linkTypeID;
             });
+        },
+
+        around$toJSON: function (supr) {
+            return _.assign(supr(), {
+                type: this.type(),
+                typeID: this.typeID,
+                orderingTypeID: this.orderingTypeID
+            });
         }
     });
 
