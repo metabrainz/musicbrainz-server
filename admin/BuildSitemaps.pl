@@ -51,8 +51,7 @@ GetOptions(
     "web-server=s"                => \$web_server,
 ) or exit 2;
 
-sub usage
-{
+sub usage {
     print <<EOF;
 Usage: BuildSitemaps.pl [options]
 
