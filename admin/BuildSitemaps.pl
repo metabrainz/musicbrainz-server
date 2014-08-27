@@ -83,10 +83,15 @@ my $index_filename = "sitemap-index.xml";
 $index_filename .= '.gz' if $fCompress;
 
 $index->write("$FindBin::Bin/../root/static/sitemaps/$index_filename");
+push @sitemap_files, $index_filename;
+
+# This needs pushing or it'll get deleted every time
+push @sitemap_files, '.gitkeep';
+
 print localtime() . " Built index $index_filename, deleting outdated files\n";
 my @files = read_dir("$FindBin::Bin/../root/static/sitemaps");
 for my $file (@files) {
-    if ($file ne $index_filename && !grep { $_ eq $file } @sitemap_files) {
+    if (!grep { $_ eq $file } @sitemap_files) {
         print localtime() . " removing $file\n";
         unlink "$FindBin::Bin/../root/static/sitemaps/$file";
     }
@@ -121,6 +126,7 @@ sub build_one_sitemap {
     my $filename = "sitemap-$entity_type-$minimum_batch_number.xml";
     $filename .= '.gz' if $fCompress;
 
+    local $| = 1; # autoflush stdout
     print localtime() . " Building $filename...";
 
     my $local_filename = "$FindBin::Bin/../root/static/sitemaps/$filename";
