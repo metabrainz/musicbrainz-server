@@ -38,8 +38,11 @@ use Getopt::Long;
 
 use WWW::SitemapIndex::XML;
 use WWW::Sitemap::XML;
+use DateTime;
 use List::Util qw( min );
+use List::UtilsBy qw( sort_by );
 use File::Slurp qw( read_dir );
+use Digest::MD5 qw( md5_hex );
 
 my $web_server = DBDefs->CANONICAL_SERVER;
 my $fHelp;
@@ -70,8 +73,19 @@ my $sql = Sql->new($c->conn);
 
 print localtime() . " Building sitemaps and sitemap index files\n";
 
+my $index_filename = "sitemap-index.xml";
+$index_filename .= '.gz' if $fCompress;
+my $index_localname = "$FindBin::Bin/../root/static/sitemaps/$index_filename";
+
 my $index = WWW::SitemapIndex::XML->new();
 my @sitemap_files;
+my %old_sitemap_modtime;
+
+if (-f $index_localname) {
+    my $old_index = WWW::SitemapIndex::XML->new();
+    $old_index->load( location => $index_localname );
+    %old_sitemap_modtime = map { $_->loc => $_->lastmod } grep { $_->loc && $_->lastmod } $old_index->sitemaps;
+}
 
 $sql->begin;
 for my $entity_type (entities_with(['mbid', 'indexable']), 'cdtoc') {
@@ -79,10 +93,7 @@ for my $entity_type (entities_with(['mbid', 'indexable']), 'cdtoc') {
 }
 $sql->commit;
 
-my $index_filename = "sitemap-index.xml";
-$index_filename .= '.gz' if $fCompress;
-
-$index->write("$FindBin::Bin/../root/static/sitemaps/$index_filename");
+$index->write($index_localname);
 push @sitemap_files, $index_filename;
 
 # This needs pushing or it'll get deleted every time
@@ -122,6 +133,7 @@ sub build_one_entity {
 
 sub build_one_sitemap {
     my ($entity_type, $batch_info, $index, $sql) = @_;
+
     my $minimum_batch_number = min(@{ $batch_info->{batches} });
     my $filename = "sitemap-$entity_type-$minimum_batch_number.xml";
     $filename .= '.gz' if $fCompress;
@@ -131,6 +143,11 @@ sub build_one_sitemap {
 
     my $local_filename = "$FindBin::Bin/../root/static/sitemaps/$filename";
     my $remote_filename = $web_server . '/' . $filename;
+    my $existing_md5;
+
+    if (-f $local_filename) {
+        $existing_md5 = hash_sitemap($local_filename);
+    }
 
     my $entity_url = $ENTITIES{$entity_type} && $ENTITIES{$entity_type}{url} || $entity_type;
     my $entity_id = $entity_type eq 'cdtoc' ? 'discid' : 'gid';
@@ -142,11 +159,25 @@ sub build_one_sitemap {
     );
     for my $id (@$ids) {
         my $url = $web_server . '/' . $entity_url . '/' . $id;
-        $map->add($url);
+        my %add_opts = (loc => $url);
+        $map->add(%add_opts);
     }
     $map->write($local_filename);
     push @sitemap_files, $filename;
 
-    $index->add($remote_filename);
+    my $modtime = DateTime->now->date(); # YYYY-MM-DD
+    if ($existing_md5 && $existing_md5 eq hash_sitemap($local_filename) && $old_sitemap_modtime{$remote_filename}) {
+        print "using previous modtime, since file unchanged...";
+        $modtime = $old_sitemap_modtime{$remote_filename};
+    }
+
+    $index->add(loc => $remote_filename, lastmod => $modtime);
     print " built.\n";
+}
+
+sub hash_sitemap {
+    my ($filename) = @_;
+    my $map = WWW::Sitemap::XML->new();
+    $map->load( location => $filename );
+    return md5_hex(join('|', map { join(',', $_->loc, $_->lastmod // '', $_->changefreq // '', $_->priority // '') } sort_by { $_->loc } $map->urls));
 }
