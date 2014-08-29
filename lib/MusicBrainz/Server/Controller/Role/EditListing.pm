@@ -17,6 +17,7 @@ sub edits : Chained('load') PathPart RequireAuth
         }
     });
     $c->stash(
+        template => 'entity/edits.tt',
         refine_url_args =>
             { auto_edit_filter => '', order=> 'desc', negation=> 0,
               combinator=>'and',
@@ -40,7 +41,7 @@ sub open_edits : Chained('load') PathPart RequireAuth
     });
 
     $c->stash(
-        template => model_to_type( $self->{model} ) . '/edits.tt' ,
+        template => 'entity/edits.tt',
         refine_url_args =>
             { auto_edit_filter => '', order=> 'desc', negation=> 0,
               combinator=>'and',
