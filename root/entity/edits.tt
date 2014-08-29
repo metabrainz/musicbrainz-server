@@ -9,8 +9,8 @@
     SET link_for_heading = link_entity(entity);
     SET link_for_heading = link_entity(entity, 'show', entity.url) IF ent_type == 'url';
 
-    SET layout_title = l('Edits for {name}', { name => name_for_title });
-    SET heading = l('Edits for {name}', { name => link_for_heading });
+    SET layout_title = all_edits ? l('Edits for {name}', { name => name_for_title }) : l('Open Edits for {name}', { name => name_for_title });
+    SET heading = all_edits ? l('Edits for {name}', { name => link_for_heading }) : l('Open Edits for {name}', { name => link_for_heading });
     SET subheading = html_escape(entity.l_type_name) or format_entity_type_name(ent_type);
 
     IF entity.artist_credit.defined;
