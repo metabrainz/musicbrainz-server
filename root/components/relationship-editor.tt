@@ -116,15 +116,15 @@
       <td class="error" data-bind="text: $data"></td>
     </tr>
     <!-- /ko -->
+    <tr>
+      <td colspan="2">
+        <label>
+          <input type="checkbox" data-bind="checked: relationship().period.ended" />
+          [% l('This relationship has ended.') %]
+        </label>
+      </td>
+    </tr>
   <!-- /ko -->
-  <tr>
-    <td colspan="2">
-      <label>
-        <input type="checkbox" data-bind="checked: relationship().period.ended" />
-        [% l('This relationship has ended.') %]
-      </label>
-    </td>
-  </tr>
 </script>
 
 <script type="text/html" id="template.extra-attributes-and-dates">
