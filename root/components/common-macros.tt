@@ -332,8 +332,13 @@ END -%]
         mod_content = default_content.defined ? default_content : entity.name;
     END;
 
-    options.unshift('name_variation') IF namevar AND action == 'show' AND content != ''
-                                         AND (noescape ? content.remove('</?span\b[^>]*>') : content) != entity.name;
+    IF namevar AND action == 'show' AND content != ''
+            AND (noescape ? content.remove('</?span\b[^>]*>') : content) != entity.name;
+        options.unshift('name_variation');
+        hover = hover != '' ? l('{name} – {additional_info}', { name => html_escape(entity.name), additional_info => hover })
+                            : html_escape(entity.name);
+    END;
+
     options.unshift('edits_pending') IF entity.edits_pending AND action == 'show';
 
     IF action == 'show' AND entity.iso_3166_1.0;
@@ -421,8 +426,7 @@ END -%]
 END -%]
 
 [%~ MACRO link_recording(recording, action, text, no_escape) BLOCK;
-    SET hover = html_escape(recording.name) IF text != recording.name AND action == 'show';
-    INCLUDE _link_mbid_entity entity=recording type='recording' action=action content=text hover=hover namevar=1 noescape=no_escape;
+    INCLUDE _link_mbid_entity entity=recording type='recording' action=action content=text namevar=1 noescape=no_escape;
 END -%]
 
 [%~ MACRO link_series(series, action, text) BLOCK;
