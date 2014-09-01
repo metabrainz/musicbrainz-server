@@ -13,13 +13,13 @@
             </thead>
             <tbody>
                 [%- FOR cdstub=cdstubs; %]
-                <tr class="[% ' ev' IF loop.count % 2 == 0 %]">
+                <tr class="[% loop.parity %]">
                     <td>[% link_cdstub(cdstub, "show", cdstub.title) %]</td>
                     <td>[% cdstub.artist || l('Various Artists') %]</td>
                     <td>[% cdstub.lookup_count %]</td>
                     <td>[% cdstub.modify_count %]</td>
                 </tr>
-                <tr class="[% ' ev' IF loop.count % 2 == 0 %]">
+                <tr class="[% loop.parity %]">
                     <td colspan="4" class="lastupdate">[%- l('Added {add}, last modified {lastmod}',
                         { add => display_age_ago(Age.age(cdstub.date_added)), lastmod => display_age_ago(Age.age(cdstub.last_modified)) }) -%]</td>
                 </tr>

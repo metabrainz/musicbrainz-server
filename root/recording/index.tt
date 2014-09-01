@@ -24,7 +24,7 @@
                   </tr>
                   [%- FOREACH track=group %]
                     [%- release=track.medium.release -%]
-                    <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                    <tr class="[% loop.parity %]">
                       <td>[%- track.medium.position -%].[%- track.position -%]</td>
                       <td>[%- html_escape(track.name) -%]</td>
                       <td>[%- format_length(track.length) -%]</td>

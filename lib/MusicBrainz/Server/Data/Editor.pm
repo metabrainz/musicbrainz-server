@@ -497,7 +497,9 @@ sub delete {
 
     $self->sql->do("DELETE FROM editor_preference WHERE editor = ?", $editor_id);
     $self->c->model('EditorLanguage')->delete_editor($editor_id);
+
     $self->c->model('EditorOAuthToken')->delete_editor($editor_id);
+    $self->c->model('Application')->delete_editor($editor_id);
 
     $self->c->model('EditorSubscriptions')->delete_editor($editor_id);
     $self->c->model('Editor')->unsubscribe_to($editor_id);
@@ -520,6 +522,23 @@ sub delete {
 
     for my $edit (@edits) {
         $self->c->model('Edit')->cancel($edit);
+    }
+
+    # Delete completely if they're not actually referred to by anything
+    # These AND NOT EXISTS clauses are ordered by likelihood of a row existing
+    # and whether or not they have an index to use, as postgresql will not execute
+    # the later clauses if an earlier one has already excluded the lone editor row.
+    my $should_delete = $self->sql->select_single_value(
+        "SELECT TRUE FROM editor WHERE id = ? " .
+        "AND NOT EXISTS (SELECT TRUE FROM edit WHERE editor = editor.id) " .
+        "AND NOT EXISTS (SELECT TRUE FROM edit_note WHERE editor = editor.id) " .
+        "AND NOT EXISTS (SELECT TRUE FROM vote WHERE editor = editor.id) " .
+        "AND NOT EXISTS (SELECT TRUE FROM annotation WHERE editor = editor.id) " .
+        "AND NOT EXISTS (SELECT TRUE FROM autoeditor_election_vote WHERE voter = editor.id) " .
+        "AND NOT EXISTS (SELECT TRUE FROM autoeditor_election WHERE candidate = editor.id OR proposer = editor.id OR seconder_1 = editor.id OR seconder_2 = editor.id)",
+        $editor_id);
+    if ($should_delete) {
+        $self->sql->do("DELETE FROM editor WHERE id = ?", $editor_id);
     }
 
     $self->sql->commit;

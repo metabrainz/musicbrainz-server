@@ -23,7 +23,7 @@
             </thead>
             <tbody>
             [%- FOR release=to_merge -%]
-              <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+              <tr class="[% loop.parity %]">
                 <td>
                   <input type="hidden" name="merge.merging.[% loop.index %]" value="[% release.id %]" />
                   <input type="radio" name="merge.target" value="[% release.id %]" />
@@ -87,7 +87,7 @@
                 </th>
               </tr>
               [% FOR track=medium.tracks %]
-              <tr class="[% 'ev' IF loop.index % 2 == 0 %]">
+              <tr class="[% loop.parity %]">
                 <td class="pos t">
                   <span style="display: none">[% track.position %]</span>
                   [% track.number %]

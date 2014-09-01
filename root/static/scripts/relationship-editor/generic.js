@@ -265,14 +265,42 @@
         $("#relationship-editor").append(hiddenInputs);
     }
 
-    $(document).on("submit", "form", function () {
-        if (MB.sourceRelationshipEditor) {
-            addHiddenInputs(MB.sourceRelationshipEditor);
+    RE.prepareSubmission = function () {
+        var submitted = [], vm, source;
+
+        $("button[type=submit]").prop("disabled", true);
+        $("input[type=hidden]", "#relationship-editor").remove();
+
+        if (vm = MB.sourceRelationshipEditor) {
+            addHiddenInputs(vm);
+            source = vm.source;
+            submitted = submitted.concat(source.relationshipsInViewModel(vm)());
         }
 
-        if (MB.sourceExternalLinksEditor) {
-            addHiddenInputs(MB.sourceExternalLinksEditor);
+        if (vm = MB.sourceExternalLinksEditor) {
+            addHiddenInputs(vm);
+            source = vm.source;
+            submitted = submitted.concat(source.relationshipsInViewModel(vm)());
         }
-    });
+
+        if (submitted.length && window.sessionStorage) {
+            sessionStorage.submittedRelationships = JSON.stringify(
+                _.map(submitted, function (relationship) {
+                    var data = relationship.editData();
+
+                    data.target = relationship.target(source);
+                    data.removed = relationship.removed();
+
+                    if (data.entities[1].gid === source.gid) {
+                        data.direction = "backward";
+                    }
+
+                    return data;
+                })
+            );
+        }
+    };
+
+    $(document).on("submit", "form", _.once(RE.prepareSubmission));
 
 }(MB.relationshipEditor = MB.relationshipEditor || {}));

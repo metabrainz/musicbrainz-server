@@ -40,11 +40,17 @@
             );
 
             this.source.mediums = ko.observableArray([]);
+            this.loadingRelease = ko.observable(false);
 
             ko.applyBindings(this, document.getElementById("content"));
 
+            this.loadingRelease(true);
             var url = "/ws/js/release/" + this.source.gid + "?inc=rels+media+recordings";
-            MB.utility.request({ url: url }, this).done(this.releaseLoaded);
+            MB.utility.request({ url: url }, this)
+                .done(this.releaseLoaded)
+                .always(function () {
+                    self.loadingRelease(false);
+                });
 
             window.onbeforeunload = function () {
                 var $changes = $(".link-phrase")

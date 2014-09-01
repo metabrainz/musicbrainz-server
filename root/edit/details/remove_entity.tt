@@ -1,0 +1,6 @@
+<table class="details remove-[%~ edit.display_data.entity_type ~%]">
+    <tr>
+        <th>[%~ entity_label(edit.display_data.entity_type) ~%]</th>
+        <td>[%~ descriptive_link(edit.display_data.entity) ~%]</td>
+    </tr>
+</table>

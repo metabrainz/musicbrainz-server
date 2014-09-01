@@ -10,10 +10,13 @@ releaseEditor.test.module("release editor dialogs", function () {
     releaseEditor.test.setupReleaseAdd();
 
     releaseEditor.trackParser.options = {
-        trackArtists: false,
-        trackNumbers: true,
-        trackTimes: true,
-        vinylNumbers: false
+        hasTrackNumbers: true,
+        hasVinylNumbers: false,
+        hasTrackArtists: false,
+        useTrackNumbers: true,
+        useTrackArtists: true,
+        useTrackNames: true,
+        useTrackLengths: true
     };
 
     $("#qunit-fixture").append(

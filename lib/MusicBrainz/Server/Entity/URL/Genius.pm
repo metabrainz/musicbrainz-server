@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Entity::URL::RapGenius;
+package MusicBrainz::Server::Entity::URL::Genius;
 
 use Moose;
 
@@ -8,7 +8,7 @@ with 'MusicBrainz::Server::Entity::URL::Sidebar';
 sub sidebar_name {
     my $self = shift;
 
-    return "Rap Genius";
+    return "Genius";
 }
 
 __PACKAGE__->meta->make_immutable;

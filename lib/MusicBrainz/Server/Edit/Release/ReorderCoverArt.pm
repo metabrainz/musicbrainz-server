@@ -5,7 +5,7 @@ use namespace::autoclean;
 use MooseX::Types::Moose qw( ArrayRef Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 
-use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REORDER_COVER_ART $EXPIRE_ACCEPT :quality );
+use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REORDER_COVER_ART );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
 use MusicBrainz::Server::Translation qw( N_l );
@@ -19,6 +19,7 @@ use aliased 'MusicBrainz::Server::Entity::Artwork';
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Release';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_name { N_l('Reorder cover art') }
 sub edit_kind { 'other' }
@@ -60,21 +61,6 @@ sub initialize {
         old => $opts{old},
         new => $opts{new},
     });
-}
-
-sub edit_conditions
-{
-    my $conditions = {
-        duration      => 0,
-        votes         => 0,
-        expire_action => $EXPIRE_ACCEPT,
-        auto_edit     => 1,
-    };
-    return {
-        $QUALITY_LOW    => $conditions,
-        $QUALITY_NORMAL => $conditions,
-        $QUALITY_HIGH   => $conditions,
-    };
 }
 
 sub accept {

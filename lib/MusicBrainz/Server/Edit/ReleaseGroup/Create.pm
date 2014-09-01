@@ -18,6 +18,7 @@ extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities';
 with 'MusicBrainz::Server::Edit::ReleaseGroup';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
 
@@ -86,8 +87,6 @@ sub _insert_hash
     $data->{comment} = '' unless defined $data->{comment};
     return $data;
 }
-
-sub allow_auto_edit { 1 }
 
 before accept => sub {
     my ($self) = @_;

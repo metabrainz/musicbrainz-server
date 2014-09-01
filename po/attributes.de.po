@@ -19,8 +19,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-07-10 00:01+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-08-11 20:55+0000\n"
+"Last-Translator: nikki\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -406,7 +406,7 @@ msgstr "Kassettenhülle"
 #: DB:series_type/name:5
 msgctxt "series_type"
 msgid "Catalogue"
-msgstr ""
+msgstr "Werkverzeichnis"
 
 #: DB:work_attribute_type_allowed_value/value:291
 msgctxt "work_attribute_type_allowed_value"
@@ -936,7 +936,7 @@ msgstr "Imprint"
 #: DB:series_type/description:5
 msgctxt "series_type"
 msgid "Indicates that the series is a work catalogue."
-msgstr ""
+msgstr "Gibt an, dass die Serie ein Werkverzeichnis ist."
 
 #: DB:series_type/description:3
 msgctxt "series_type"
