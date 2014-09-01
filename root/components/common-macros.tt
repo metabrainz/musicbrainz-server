@@ -332,7 +332,8 @@ END -%]
         mod_content = default_content.defined ? default_content : entity.name;
     END;
 
-    options.unshift('name_variation') IF namevar AND action == 'show' AND content != '' AND content != entity.name;
+    options.unshift('name_variation') IF namevar AND action == 'show' AND content != ''
+                                         AND (noescape ? content.remove('</?span\b[^>]*>') : content) != entity.name;
     options.unshift('edits_pending') IF entity.edits_pending AND action == 'show';
 
     IF action == 'show' AND entity.iso_3166_1.0;
