@@ -591,10 +591,17 @@ sub schema_fixup
     {
         my @relationships;
 
-        foreach my $rel (@{ $data->{"relation-list"} })
+        foreach my $rel (@{ $data->{"relations"} })
         {
-            # BUG: jsonnew doesn't provide a target-type here, lets make one up
-            my $entity_type = 'artist';
+            my $target_type;
+            for (entities_with(['mbid', 'relatable'], take => sub { my $type = shift; return shift->{url} // $type })) {
+                if (exists $rel->{$_}) {
+                    $target_type = $_;
+                    last;
+                }
+            }
+
+            my $entity_type = $target_type;
 
             my %entity = %{ $rel->{$entity_type} };
 
