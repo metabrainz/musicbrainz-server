@@ -1,6 +1,8 @@
 package MusicBrainz::Server::Controller::Role::Relationship;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 
+with 'MusicBrainz::Server::Controller::Role::RelationshipWrapper';
+
 requires 'load';
 
 sub relationships : Chained('load') PathPart('relationships')

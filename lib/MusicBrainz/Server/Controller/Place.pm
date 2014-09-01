@@ -12,9 +12,9 @@ with 'MusicBrainz::Server::Controller::Role::Alias';
 with 'MusicBrainz::Server::Controller::Role::Cleanup';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
+with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
-with 'MusicBrainz::Server::Controller::Role::RelationshipWrapper';
 with 'MusicBrainz::Server::Controller::Role::CommonsImage';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 
