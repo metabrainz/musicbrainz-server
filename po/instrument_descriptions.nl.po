@@ -219,7 +219,7 @@ msgid ""
 "of an instrument."
 msgstr "Een talkbox of jappiotube is een apparaat waarmee geluidseffecten kunnen worden opgewekt, door het geluid van een instrument via een slang in de mond van de speler te brengen."
 
-#. name:tar (drum)
+#. name:tar
 #: DB:instrument/description:607
 msgid ""
 "A tar is a single-headed frame drum from North Africa and the Middle East."
@@ -1973,7 +1973,7 @@ msgstr "De talharpa is een viersnarige lier die met strijkstok wordt bespeeld en
 msgid "The taphon is a traditional barrel drum from Thailand."
 msgstr "Een taphon (Thai: ตะโพน) is een traditionele vattrommel uit Thailand."
 
-#. name:tar (lute)
+#. name:tar
 #: DB:instrument/description:467
 msgid ""
 "The tar is a long-necked, waisted lute found in Azerbaijan, Iran, Armenia, "

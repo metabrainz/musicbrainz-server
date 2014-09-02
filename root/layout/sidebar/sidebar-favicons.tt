@@ -1,8 +1,10 @@
 [%- MACRO display_favicon(url, rel_edits_pending, text, class) BLOCK -%]
        <li class="[% class || favicon_class(url) %]">
-          [% '<span class="mp">' IF rel_edits_pending || url.edits_pending %]
+          [% '<span class="mp mp-rel">' IF rel_edits_pending %]
+          [% '<span class="mp">' IF url.edits_pending %]
           <a href="[% url.href_url %]">[%- text || url.sidebar_name | html -%]</a>
-          [% '</span>' IF rel_edits_pending || url.edits_pending %]
+          [% '</span>' IF url.edits_pending %]
+          [% '</span>' IF rel_edits_pending %]
         </li>
 [%- END -%]
 

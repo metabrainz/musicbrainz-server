@@ -30,7 +30,7 @@
         });
 
         _.each(MB.attrInfoByID, function (attr) {
-            attr.root = MB.attrInfoByID[attr.root_id];
+            attr.root = MB.attrInfoByID[attr.rootID];
         });
     };
 

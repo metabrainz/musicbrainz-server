@@ -562,25 +562,22 @@ sub take_while (&@) {
 }
 
 sub split_relationship_by_attributes {
-    my ($attributes_by_id, $data) = @_;
+    my ($attributes_by_gid, $data) = @_;
 
     my @attributes = @{ $data->{attributes} // [] };
-    my (@instruments, @vocals, @others, @new_data);
+    my (@to_split, @others, @new_data);
 
     for (@attributes) {
-        my $root = $attributes_by_id->{$_}->root_id;
-        push @instruments, $_ if $root == $INSTRUMENT_ROOT_ID;
-        push @vocals, $_ if $root == $VOCAL_ROOT_ID;
-        push @others, $_ if $root != $INSTRUMENT_ROOT_ID && $root != $VOCAL_ROOT_ID;
+        my $root = $attributes_by_gid->{$_->{type}{gid}}->root_id;
+
+        if ($root == $INSTRUMENT_ROOT_ID || $root == $VOCAL_ROOT_ID) {
+            push @to_split, $_;
+        } else {
+            push @others, $_;
+        }
     }
 
-    for my $id (@instruments) {
-        my $cloned_data = clone($data);
-        $cloned_data->{attributes} = [@others, $id];
-        push @new_data, $cloned_data;
-    }
-
-    for my $id (@vocals) {
+    for my $id (@to_split) {
         my $cloned_data = clone($data);
         $cloned_data->{attributes} = [@others, $id];
         push @new_data, $cloned_data;

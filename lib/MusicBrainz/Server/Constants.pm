@@ -335,7 +335,7 @@ Readonly our %ENTITIES => (
         removal     => { manual => 1 }
     },
     artist => {
-        mbid => { relatable => 1 },
+        mbid => { relatable => 1, indexable => 1 },
         edit_table => 1,
         merging => 1,
         model      => 'Artist',
@@ -354,7 +354,7 @@ Readonly our %ENTITIES => (
         removal     => { automatic => 1 }
     },
     instrument => {
-        mbid => { relatable => 1 },
+        mbid => { relatable => 1, indexable => 1 },
         edit_table => 1,
         merging => 1,
         model      => 'Instrument',
@@ -369,7 +369,7 @@ Readonly our %ENTITIES => (
         removal     => { manual => 1 }
     },
     label => {
-        mbid => { relatable => 1 },
+        mbid => { relatable => 1, indexable => 1 },
         edit_table => 1,
         merging => 1,
         model      => 'Label',
@@ -388,7 +388,7 @@ Readonly our %ENTITIES => (
         removal     => { manual => 1, automatic => 1 }
     },
     place => {
-        mbid => { relatable => 1 },
+        mbid => { relatable => 1, indexable => 1 },
         edit_table => 1,
         merging => 1,
         model      => 'Place',
@@ -416,7 +416,7 @@ Readonly our %ENTITIES => (
         removal     => { manual => 1 }
     },
     release => {
-        mbid => { relatable => 1 },
+        mbid => { relatable => 1, indexable => 1 },
         edit_table => 1,
         merging => 1,
         model      => 'Release',
@@ -428,7 +428,7 @@ Readonly our %ENTITIES => (
         collections => 1
     },
     release_group => {
-        mbid => { relatable => 1 },
+        mbid => { relatable => 1, indexable => 1 },
         edit_table => 1,
         merging => 1,
         model      => 'ReleaseGroup',
@@ -442,7 +442,7 @@ Readonly our %ENTITIES => (
         removal     => { automatic => 1 }
     },
     series => {
-        mbid => { relatable => 1 },
+        mbid => { relatable => 1, indexable => 1 },
         edit_table => 1,
         merging => 1,
         model      => 'Series',
@@ -464,7 +464,7 @@ Readonly our %ENTITIES => (
         model => 'URL'
     },
     work => {
-        mbid => { relatable => 1 },
+        mbid => { relatable => 1, indexable => 1 },
         edit_table => 1,
         merging => 1,
         model      => 'Work',

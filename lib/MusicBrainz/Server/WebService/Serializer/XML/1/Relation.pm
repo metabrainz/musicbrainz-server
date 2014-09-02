@@ -28,7 +28,7 @@ sub attributes {
 
     push @attrs, ( attributes =>
         join(' ', map {
-            my $s = $_->name;
+            my $s = $_->type->name;
             $s =~ s/\s+/_/g;
             $s = camelize($s);
             $s =~ s/_//g;

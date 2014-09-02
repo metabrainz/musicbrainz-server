@@ -67,14 +67,12 @@ test all => sub {
             'edit-series.ordering_type_id' => 2,
             'edit-series.rel.0.relationship_id' => 1,
             'edit-series.rel.0.link_type_id' => 1,
-            'edit-series.rel.0.attributes.0' => 1,
-            'edit-series.rel.0.attribute_text_values.0.attribute' => 1,
-            'edit-series.rel.0.attribute_text_values.0.text_value' => 'B1',
+            'edit-series.rel.0.attributes.0.type.gid' => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a',
+            'edit-series.rel.0.attributes.0.text_value' => 'B1',
             'edit-series.rel.1.relationship_id' => 2,
             'edit-series.rel.1.link_type_id' => 1,
-            'edit-series.rel.1.attributes.0' => 1,
-            'edit-series.rel.1.attribute_text_values.0.attribute' => 1,
-            'edit-series.rel.1.attribute_text_values.0.text_value' => 'B11',
+            'edit-series.rel.1.attributes.0.type.gid' => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a',
+            'edit-series.rel.1.attributes.0.text_value' => 'B11',
             'edit-series.rel.1.link_order' => '3',
         });
     } $c;
@@ -82,23 +80,36 @@ test all => sub {
     $edit = $edits[0];
     isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Edit');
 
+    my $number_attribute = {
+        type => {
+            id => 1,
+            gid => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a',
+            name => 'number',
+            root => {
+                id => 1,
+                gid => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a',
+                name => 'number',
+            }
+        }
+    };
+
     cmp_deeply($edit->data->{old}, {
-        attribute_text_values => { 1 => 'A1' }
+        attributes => [{ %$number_attribute, text_value => 'A1' }]
     });
 
     cmp_deeply($edit->data->{new}, {
-        attribute_text_values => { 1 => 'B1' }
+        attributes => [{ %$number_attribute, text_value => 'B1' }]
     });
 
     $edit = $edits[1];
     isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Edit');
 
     cmp_deeply($edit->data->{old}, {
-        attribute_text_values => { 1 => 'A11' }
+        attributes => [{ %$number_attribute, text_value => 'A11' }]
     });
 
     cmp_deeply($edit->data->{new}, {
-        attribute_text_values => { 1 => 'B11' }
+        attributes => [{ %$number_attribute, text_value => 'B11' }]
     });
 
     $edit = $edits[2];

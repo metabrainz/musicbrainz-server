@@ -33,7 +33,5 @@ MB.GuessCase._Artist = function () {
 };
 
 $('document').ready(function () {
-
     MB.GuessCase.artist = MB.GuessCase._Artist();
-
 });

@@ -15,7 +15,9 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'linkattrtype' };
+#with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'linkattrtype' };
+sub _id_cache_prefix { 'linkattrtype' } # delete when above line is uncommented
+with 'MusicBrainz::Server::Data::Role::GetByGID';
 with 'MusicBrainz::Server::Data::Role::OptionsTree';
 
 sub _table
@@ -30,7 +32,12 @@ sub _columns
                 (SELECT true FROM link_text_attribute_type
                  WHERE attribute_type = link_attribute_type.id),
                 false
-            ) AS free_text';
+            ) AS free_text, ' .
+           'COALESCE(
+                (SELECT true FROM link_creditable_attribute_type
+                 WHERE attribute_type = link_attribute_type.id),
+                false
+            ) AS creditable';
 }
 
 sub _column_mapping
@@ -44,6 +51,7 @@ sub _column_mapping
         name        => 'name',
         description => 'description',
         free_text   => 'free_text',
+        creditable  => 'creditable',
     };
 }
 
@@ -52,11 +60,10 @@ sub _entity_class
     return 'MusicBrainz::Server::Entity::LinkAttributeType';
 }
 
-sub load
-{
+sub load {
     my ($self, @objs) = @_;
 
-    load_subobjects($self, 'type', @objs);
+    load_subobjects($self, ['type', 'root'], @objs);
 }
 
 sub find_root
@@ -206,30 +213,24 @@ sub merge_instrument_attributes {
     $self->sql->do('DELETE FROM link_attribute WHERE link = any(?)', \@old_link_ids);
     $self->sql->do('DELETE FROM link WHERE id = any(?)', \@old_link_ids);
 
-    $self->c->model('Link')->_delete_from_cache(@old_link_ids);
+    #$self->c->model('Link')->_delete_from_cache(@old_link_ids);
 }
 
 # The entries in the memcached store for 'Link' objects also have all attributes
 # loaded. Thus changing an attribute should clear all of these link objects.
-for my $method (qw( delete update )) {
-    before $method => sub {
-        my ($self, $id) = @_;
-        $self->c->model('Link')->_delete_from_cache(
-            @{ $self->sql->select_single_column_array(
-                'SELECT id FROM link
-                 JOIN link_attribute la ON link.id = la.link
-                 WHERE la.attribute_type = ?',
-                $id
-            ) }
-        );
-    };
-}
-
-sub text_attribute_types {
-    my ($self) = @_;
-
-    return $self->get_tree('WHERE id IN (SELECT attribute_type FROM link_text_attribute_type)');
-}
+#for my $method (qw( delete update )) {
+#    before $method => sub {
+#        my ($self, $id) = @_;
+#        $self->c->model('Link')->_delete_from_cache(
+#            @{ $self->sql->select_single_column_array(
+#                'SELECT id FROM link
+#                 JOIN link_attribute la ON link.id = la.link
+#                 WHERE la.attribute_type = ?',
+#                $id
+#            ) }
+#        );
+#    };
+#}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

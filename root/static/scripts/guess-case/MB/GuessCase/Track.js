@@ -25,9 +25,7 @@ MB.GuessCase._Track = function () {
     var self = {};
 
     var guess = function (data) {
-
-        if (_.isString(data))
-        {
+        if (_.isString(data)) {
             return self.gc.guessTrack(data);
         }
 
@@ -46,8 +44,6 @@ MB.GuessCase._Track = function () {
 };
 
 $('document').ready(function () {
-
     MB.GuessCase.track = MB.GuessCase._Track();
     MB.GuessCase.recording = MB.GuessCase.track;
-
 });

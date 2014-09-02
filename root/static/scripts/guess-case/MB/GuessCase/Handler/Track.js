@@ -36,68 +36,67 @@ MB.GuessCase.Handler.Track = function () {
      * Guess the trackname given in string is, and
      * returns the guessed name.
      *
-     * @param	is		the inputstring
-     * @returns os		the processed string
+     * @param    is        the inputstring
+     * @returns os        the processed string
      **/
     self.process = function (is) {
-	is = gc.mode.stripInformationToOmit(is);
-	is = gc.mode.preProcessCommons(is);
-	is = gc.mode.preProcessTitles(is);
-	var words = gc.i.splitWordsAndPunctuation(is);
-	words = gc.mode.prepExtraTitleInfo(words);
-	gc.o.init();
-	gc.i.init(is, words);
-	while (!gc.i.isIndexAtEnd()) {
-	    self.processWord();
-	}
-	var os = gc.o.getOutput();
-	os = gc.mode.runPostProcess(os);
-	os = gc.mode.runFinalChecks(os);
-	return os;
+        is = gc.mode.stripInformationToOmit(is);
+        is = gc.mode.preProcessCommons(is);
+        is = gc.mode.preProcessTitles(is);
+        var words = gc.i.splitWordsAndPunctuation(is);
+        words = gc.mode.prepExtraTitleInfo(words);
+        gc.o.init();
+        gc.i.init(is, words);
+        while (!gc.i.isIndexAtEnd()) {
+            self.processWord();
+        }
+        var os = gc.o.getOutput();
+        os = gc.mode.runPostProcess(os);
+        os = gc.mode.runFinalChecks(os);
+        return os;
     };
 
     /**
      * Detect if UntitledTrackStyle and DataTrackStyle needs
      * to be applied.
      *
-     * - data [track]			-> [data track]
-     * - silence|silent [track]	-> [silence]
-     * - untitled [track]		-> [untitled]
-     * - unknown|bonus [track]	-> [unknown]
+     * - data [track]            -> [data track]
+     * - silence|silent [track]    -> [silence]
+     * - untitled [track]        -> [untitled]
+     * - unknown|bonus [track]    -> [unknown]
      **/
     self.checkSpecialCase = function (is) {
-	if (is) {
-	    if (!gc.re.TRACK_DATATRACK) {
-		// data tracks
-		gc.re.TRACK_DATATRACK = /^([\(\[]?\s*data(\s+track)?\s*[\)\]]?$)/i;
-		// silence
-		gc.re.TRACK_SILENCE = /^([\(\[]?\s*(silen(t|ce)|blank)(\s+track)?\s*[\)\]]?)$/i;
-		// untitled
-		gc.re.TRACK_UNTITLED = /^([\(\[]?\s*untitled(\s+track)?\s*[\)\]]?)$/i;
-		// unknown
-		gc.re.TRACK_UNKNOWN = /^([\(\[]?\s*(unknown|bonus|hidden)(\s+track)?\s*[\)\]]?)$/i;
-		// any number of question marks
-		gc.re.TRACK_MYSTERY = /^\?+$/i;
-	    }
-	    if (is.match(gc.re.TRACK_DATATRACK)) {
-		return self.SPECIALCASE_DATA_TRACK;
+        if (is) {
+            if (!gc.re.TRACK_DATATRACK) {
+                // data tracks
+                gc.re.TRACK_DATATRACK = /^([\(\[]?\s*data(\s+track)?\s*[\)\]]?$)/i;
+                // silence
+                gc.re.TRACK_SILENCE = /^([\(\[]?\s*(silen(t|ce)|blank)(\s+track)?\s*[\)\]]?)$/i;
+                // untitled
+                gc.re.TRACK_UNTITLED = /^([\(\[]?\s*untitled(\s+track)?\s*[\)\]]?)$/i;
+                // unknown
+                gc.re.TRACK_UNKNOWN = /^([\(\[]?\s*(unknown|bonus|hidden)(\s+track)?\s*[\)\]]?)$/i;
+                // any number of question marks
+                gc.re.TRACK_MYSTERY = /^\?+$/i;
+            }
+            if (is.match(gc.re.TRACK_DATATRACK)) {
+                return self.SPECIALCASE_DATA_TRACK;
 
-	    } else if (is.match(gc.re.TRACK_SILENCE)) {
-		return self.SPECIALCASE_SILENCE;
+            } else if (is.match(gc.re.TRACK_SILENCE)) {
+                return self.SPECIALCASE_SILENCE;
 
-	    } else if (is.match(gc.re.TRACK_UNTITLED)) {
-		return self.SPECIALCASE_UNTITLED;
+            } else if (is.match(gc.re.TRACK_UNTITLED)) {
+                return self.SPECIALCASE_UNTITLED;
 
-	    } else if (is.match(gc.re.TRACK_UNKNOWN)) {
-		return self.SPECIALCASE_UNKNOWN;
+            } else if (is.match(gc.re.TRACK_UNKNOWN)) {
+                return self.SPECIALCASE_UNKNOWN;
 
-	    } else if (is.match(gc.re.TRACK_MYSTERY)) {
-		return self.SPECIALCASE_UNKNOWN;
-	    }
-	}
-	return self.NOT_A_SPECIALCASE;
+            } else if (is.match(gc.re.TRACK_MYSTERY)) {
+                return self.SPECIALCASE_UNKNOWN;
+            }
+        }
+        return self.NOT_A_SPECIALCASE;
     };
-
 
     /**
      * Delegate function which handles words not handled
@@ -110,39 +109,38 @@ MB.GuessCase.Handler.Track = function () {
      *
      **/
     self.doWord = function () {
-
         if (self.doIgnoreWords()) {
         } else if (self.doFeaturingArtistStyle()) {
         } else if (self.doVersusStyle()) {
-	} else if (self.doVolumeNumberStyle()) {
-	} else if (self.doPartNumberStyle()) {
-	} else if (gc.mode.doWord()) {
-	} else {
-	    if (gc.i.matchCurrentWord(/7in/i)) {
-		gc.o.appendSpaceIfNeeded();
-		gc.o.appendWord('7"');
-		gc.f.resetContext();
-		gc.f.spaceNextWord = false;
-		gc.f.forceCaps = false;
-	    } else if (gc.i.matchCurrentWord(/12in/i)) {
-		gc.o.appendSpaceIfNeeded();
-		gc.o.appendWord('12"');
-		gc.f.resetContext();
-		gc.f.spaceNextWord = false;
-		gc.f.forceCaps = false;
-	    } else {
-		// handle other cases (e.g. normal words)
-		gc.o.appendSpaceIfNeeded();
-		gc.i.capitalizeCurrentWord();
+        } else if (self.doVolumeNumberStyle()) {
+        } else if (self.doPartNumberStyle()) {
+        } else if (gc.mode.doWord()) {
+        } else {
+            if (gc.i.matchCurrentWord(/7in/i)) {
+                gc.o.appendSpaceIfNeeded();
+                gc.o.appendWord('7"');
+                gc.f.resetContext();
+                gc.f.spaceNextWord = false;
+                gc.f.forceCaps = false;
+            } else if (gc.i.matchCurrentWord(/12in/i)) {
+                gc.o.appendSpaceIfNeeded();
+                gc.o.appendWord('12"');
+                gc.f.resetContext();
+                gc.f.spaceNextWord = false;
+                gc.f.forceCaps = false;
+            } else {
+                // handle other cases (e.g. normal words)
+                gc.o.appendSpaceIfNeeded();
+                gc.i.capitalizeCurrentWord();
 
-		gc.o.appendCurrentWord();
-		gc.f.resetContext();
-		gc.f.spaceNextWord = true;
-		gc.f.forceCaps = false;
-	    }
-	}
-	gc.f.number = false;
-	return null;
+                gc.o.appendCurrentWord();
+                gc.f.resetContext();
+                gc.f.spaceNextWord = true;
+                gc.f.forceCaps = false;
+            }
+        }
+        gc.f.number = false;
+        return null;
     };
 
     return self;

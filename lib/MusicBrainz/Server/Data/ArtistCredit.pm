@@ -19,6 +19,7 @@ sub get_by_ids
     my $query = "SELECT artist, artist_credit_name.name, join_phrase, artist_credit,
                         artist.id, gid, artist.name AS artist_name,
                         artist.sort_name AS sort_name,
+                        artist.edits_pending AS edits_pending,
                         comment " .
                 "FROM artist_credit_name " .
                 "JOIN artist ON artist.id=artist_credit_name.artist " .
@@ -43,6 +44,7 @@ sub get_by_ids
             gid => $row->{gid},
             name => $row->{artist_name},
             sort_name => $row->{sort_name},
+            edits_pending => $row->{edits_pending},
             comment => $row->{comment}
         ));
         my $id = $row->{artist_credit};

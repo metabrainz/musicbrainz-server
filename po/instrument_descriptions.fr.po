@@ -223,7 +223,7 @@ msgid ""
 "of an instrument."
 msgstr "Une « talkbox » est une boîte à effet qui permet au musicien de modifier le son d'un instrument."
 
-#. name:tar (drum)
+#. name:tar
 #: DB:instrument/description:607
 msgid ""
 "A tar is a single-headed frame drum from North Africa and the Middle East."
@@ -1977,7 +1977,7 @@ msgstr "Le talharpa est une lyre à quatre cordes frottées d'Europe du Nord pri
 msgid "The taphon is a traditional barrel drum from Thailand."
 msgstr "Le taphon est un tambour tonneau traditionnel de Thaïlande."
 
-#. name:tar (lute)
+#. name:tar
 #: DB:instrument/description:467
 msgid ""
 "The tar is a long-necked, waisted lute found in Azerbaijan, Iran, Armenia, "
