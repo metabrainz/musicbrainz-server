@@ -277,7 +277,6 @@ DROP INDEX medium_cdtoc_idx_cdtoc;
 DROP INDEX medium_cdtoc_idx_medium;
 DROP INDEX medium_cdtoc_idx_uniq;
 DROP INDEX medium_idx_track_count;
-DROP INDEX medium_idx_uniq;
 DROP INDEX medium_index_idx;
 DROP INDEX place_alias_idx_place;
 DROP INDEX place_alias_idx_primary;

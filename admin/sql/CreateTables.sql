@@ -1839,6 +1839,12 @@ CREATE TABLE editor_collection
     description         TEXT DEFAULT '' NOT NULL
 );
 
+CREATE TABLE editor_collection_event
+(
+    collection          INTEGER NOT NULL, -- PK, references editor_collection.id
+    event               INTEGER NOT NULL -- PK, references event.id
+);
+
 CREATE TABLE editor_collection_release
 (
     collection          INTEGER NOT NULL, -- PK, references editor_collection.id

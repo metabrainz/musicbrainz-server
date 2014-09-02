@@ -253,6 +253,24 @@ sub find_by_artist
         $query, $artist_id, $offset || 0);
 }
 
+sub find_by_collection
+{
+    my ($self, $collection_id, $limit, $offset) = @_;
+
+    my $query = "
+      SELECT DISTINCT ON (event.id)
+        " . $self->_columns . "
+        FROM " . $self->_table . "
+        JOIN editor_collection_event ece ON event.id = ece.event
+        WHERE ece.collection = ?
+        ORDER BY begin_date_year, begin_date_month, begin_date_day, time, musicbrainz_collate(name)
+      OFFSET ?";
+
+    return query_to_list_limited(
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $collection_id, $offset || 0);
+}
+
 sub find_by_place
 {
     my ($self, $place_id, $limit, $offset) = @_;

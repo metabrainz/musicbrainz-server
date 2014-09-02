@@ -49,6 +49,32 @@ after 'load' => sub
     $c->model('Relationship')->load($event->related_series);
 };
 
+# Stuff that has the side bar and thus needs to display collection information
+after [qw( show aliases collections details tags )] => sub {
+    my ($self, $c) = @_;
+
+    my $event = $c->stash->{event};
+
+    my @collections;
+    my %containment;
+    if ($c->user_exists) {
+        # Make a list of collections and whether this event is contained in them
+        @collections = $c->model('Collection')->find_all_by_editor($c->user->id);
+        foreach my $collection (@collections) {
+            $containment{$collection->id} = 1
+                if ($c->model('Collection')->check_event($collection->id, $event->id));
+        }
+    }
+
+    my @all_collections = $c->model('Collection')->find_all_by_event($event->id);
+
+    $c->stash(
+        collections => \@collections,
+        containment => \%containment,
+        all_collections => \@all_collections,
+    );
+};
+
 =head2 show
 
 Shows an event's main landing page.
@@ -64,6 +90,36 @@ sub show : PathPart('') Chained('load')
     $c->stash(template => 'event/index.tt');
 }
 
+=head2 collections
+
+View a list of collections that this event has been added to.
+
+=cut
+
+sub collections : Chained('load') RequireAuth
+{
+    my ($self, $c) = @_;
+
+    my @all_collections = $c->model('Collection')->find_all_by_event($c->stash->{event}->id);
+    my @public_collections;
+    my $private_collections = 0;
+
+    # Keep public collections;
+    # count private collection
+    foreach my $collection (@all_collections) {
+        push(@public_collections, $collection)
+            if ($collection->{'public'} == 1);
+        $private_collections++
+            if ($collection->{'public'} == 0);
+    }
+
+    $c->model('Editor')->load(@public_collections);
+
+    $c->stash(
+        public_collections => \@public_collections,
+        private_collections => $private_collections,
+    );
+}
 
 sub _merge_load_entities
 {
