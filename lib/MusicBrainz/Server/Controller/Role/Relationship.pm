@@ -1,20 +1,22 @@
 package MusicBrainz::Server::Controller::Role::Relationship;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 
+with 'MusicBrainz::Server::Controller::Role::RelationshipWrapper';
+
 requires 'load';
 
 sub relationships : Chained('load') PathPart('relationships')
 {
     my ($self, $c) = @_;
     my $entity = $c->stash->{$self->{entity_name}};
-    $c->model('Relationship')->load($entity);
+    $self->load_relationships($c);
 }
 
 after 'load' => sub {
     my ($self, $c) = @_;
     my $entity = $c->stash->{entity};
     if ($c->action->name ne 'relationships') {
-        $c->model('Relationship')->load_subset([ 'url' ], $entity);
+        $self->load_relationships($c, ['url']);
     }
 };
 

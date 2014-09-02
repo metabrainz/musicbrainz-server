@@ -3,7 +3,7 @@ use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 use List::UtilsBy qw( sort_by );
 use namespace::autoclean;
 
-after show => sub {
+after url_relationships_loaded => sub {
     my ($self, $c) = @_;
 
     $self->_get_commons_image($c, 1);
