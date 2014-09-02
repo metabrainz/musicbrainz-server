@@ -1,5 +1,6 @@
 # 
 # Translators:
+# nikki, 2014
 # nikki2 <email address hidden>, 2012
 # Nozomu Kurasawa <email address hidden>, 2013
 # Osamu Takahashi, 2014
@@ -7,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-08-21 15:12+0000\n"
+"PO-Revision-Date: 2014-09-02 18:46+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +23,7 @@ msgstr "12弦ギター"
 
 #: DB:instrument/name:516
 msgid "17-string koto"
-msgstr "十七絃箏"
+msgstr "十七絃"
 
 #: DB:instrument/name:66
 msgid "Appalachian dulcimer"
@@ -894,6 +895,10 @@ msgstr ""
 
 #: DB:instrument/name:327
 msgid "ebow"
+msgstr ""
+
+#: DB:instrument/name:677
+msgid "effects"
 msgstr ""
 
 #: DB:instrument/name:643

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-06-11 23:31+0000\n"
+"PO-Revision-Date: 2014-09-02 18:46+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -504,8 +504,9 @@ msgid "100%"
 msgstr "100%"
 
 #: ../root/statistics/index.tt:892
-msgid "Abstain:"
-msgstr "棄権"
+msgctxt "vote"
+msgid "Abstain"
+msgstr ""
 
 #: ../root/statistics/view_js.tt:80
 msgid "Abstentions"
@@ -564,8 +565,9 @@ msgid "Applied:"
 msgstr ""
 
 #: ../root/statistics/index.tt:874
-msgid "Approve:"
-msgstr "承認："
+msgctxt "vote"
+msgid "Approve"
+msgstr ""
 
 #: ../root/statistics/index.tt:573 ../root/statistics/view_js.tt:55
 msgid "Areas"
@@ -1468,6 +1470,11 @@ msgstr ""
 msgid "MusicBrainz Events:"
 msgstr ""
 
+#: ../root/statistics/index.tt:886
+msgctxt "vote"
+msgid "No"
+msgstr ""
+
 #: ../root/statistics/no_statistics.tt:2
 msgid "No Statistics"
 msgstr ""
@@ -1511,10 +1518,6 @@ msgstr ""
 
 #: ../root/statistics/coverart.tt:56 ../root/statistics/coverart.tt:139
 msgid "No type"
-msgstr ""
-
-#: ../root/statistics/index.tt:886
-msgid "No:"
 msgstr ""
 
 #: ../root/statistics/index.tt:204
@@ -2036,12 +2039,13 @@ msgstr "ワーク"
 msgid "Works:"
 msgstr "ワーク："
 
-#: ../root/statistics/view_js.tt:78
-msgid "Yes Votes"
+#: ../root/statistics/index.tt:880
+msgctxt "vote"
+msgid "Yes"
 msgstr ""
 
-#: ../root/statistics/index.tt:880
-msgid "Yes:"
+#: ../root/statistics/view_js.tt:78
+msgid "Yes Votes"
 msgstr ""
 
 #: ../root/statistics/index.tt:858 ../root/statistics/index.tt:910

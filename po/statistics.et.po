@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-06-11 23:31+0000\n"
+"PO-Revision-Date: 2014-09-02 18:46+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -502,8 +502,9 @@ msgid "100%"
 msgstr "100%"
 
 #: ../root/statistics/index.tt:892
-msgid "Abstain:"
-msgstr "Erapooletu:"
+msgctxt "vote"
+msgid "Abstain"
+msgstr ""
 
 #: ../root/statistics/view_js.tt:80
 msgid "Abstentions"
@@ -562,8 +563,9 @@ msgid "Applied:"
 msgstr "Rakendatud:"
 
 #: ../root/statistics/index.tt:874
-msgid "Approve:"
-msgstr "Heakskiidetud:"
+msgctxt "vote"
+msgid "Approve"
+msgstr ""
 
 #: ../root/statistics/index.tt:573 ../root/statistics/view_js.tt:55
 msgid "Areas"
@@ -1467,6 +1469,11 @@ msgstr "MusicBrainzi sündmused"
 msgid "MusicBrainz Events:"
 msgstr "MusicBrainzi sündmused:"
 
+#: ../root/statistics/index.tt:886
+msgctxt "vote"
+msgid "No"
+msgstr ""
+
 #: ../root/statistics/no_statistics.tt:2
 msgid "No Statistics"
 msgstr "Statistika puudub"
@@ -1511,10 +1518,6 @@ msgstr "[määramata]"
 #: ../root/statistics/coverart.tt:56 ../root/statistics/coverart.tt:139
 msgid "No type"
 msgstr "[määramata]"
-
-#: ../root/statistics/index.tt:886
-msgid "No:"
-msgstr "Ei:"
 
 #: ../root/statistics/index.tt:204
 msgid "Non-group artists:"
@@ -2038,13 +2041,14 @@ msgstr "Teosed"
 msgid "Works:"
 msgstr "Teoseid:"
 
+#: ../root/statistics/index.tt:880
+msgctxt "vote"
+msgid "Yes"
+msgstr ""
+
 #: ../root/statistics/view_js.tt:78
 msgid "Yes Votes"
 msgstr ""
-
-#: ../root/statistics/index.tt:880
-msgid "Yes:"
-msgstr "Jah:"
 
 #: ../root/statistics/index.tt:858 ../root/statistics/index.tt:910
 msgid "Yesterday:"

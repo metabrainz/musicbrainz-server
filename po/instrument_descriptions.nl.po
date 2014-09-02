@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-08-08 21:17+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2014-09-02 18:46+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -430,6 +430,13 @@ msgid ""
 "controller."
 msgstr "EWI is een afkorting voor Electric Wind Instrument en is de naam van Akai's blaas-synthesizer."
 
+#. name:effects
+#: DB:instrument/description:677
+msgid ""
+"Effects refers to devices which enable a musician to modify the sound of an "
+"instrument."
+msgstr ""
+
 #. name:electric fretless guitar
 #: DB:instrument/description:538
 msgid "Electric guitar without frets."
@@ -596,7 +603,7 @@ msgstr "Een dubbelrietinstrument met een conisch geboorde buis met een licht tre
 #. name:oboe d'amore
 #: DB:instrument/description:473
 msgid "Oboe d'amore / Oboe d'amour (mezzo-soprano)"
-msgstr "Oboe d'amore / Liefdeshobo (mezzo-sopraan)."
+msgstr "Oboe d’amore / Liefdeshobo (mezzo-sopraan)."
 
 #. name:other flutes
 #: DB:instrument/description:195
@@ -1324,7 +1331,7 @@ msgstr "De jing is een grote gong die wordt gebruikt bij traditionele Koreaanse 
 msgid ""
 "The jing'erhu is a Chinese bowed string instrument, similar to the erhu, so "
 "named because is played in Beijing opera."
-msgstr "De jing'erhu (Chinees: 京二胡, pinyin: jīng'èrhú) is een Chinees strijkinstrument, vergelijkbaar met de erhu."
+msgstr "De jing’erhu (Chinees: 京二胡, pinyin: jīng’èrhú) is een Chinees strijkinstrument, vergelijkbaar met de erhu."
 
 #. name:jinghu
 #: DB:instrument/description:214
@@ -1341,7 +1348,7 @@ msgid ""
 "number of different sized bamboo tubes laid horizontally which are played by"
 " the musician clapping their slightly cupped hands in front of the tubes in "
 "order to push air into the tubes."
-msgstr "De k'lông pút (ook geschreven als klom put, klon put of klong put) is een instrument uit de centrale hooglanden van Vietnam en word bespeeld door etnische groepen zoals de Xơ Đăng en de Bahnar. Het bestaat uit een aantal liggende bamboebuizen van verschillende formaat die worden bespeeld door muzikanten die hun licht gebogen handen voor de buizen klappen om lucht door de buizen te stuwen."
+msgstr "De k’lông pút (ook geschreven als klom put, klon put of klong put) is een instrument uit de centrale hooglanden van Vietnam en word bespeeld door etnische groepen zoals de Xơ Đăng en de Bahnar. Het bestaat uit een aantal liggende bamboebuizen van verschillende formaat die worden bespeeld door muzikanten die hun licht gebogen handen voor de buizen klappen om lucht door de buizen te stuwen."
 
 #. name:kamancheh
 #: DB:instrument/description:503
@@ -1504,7 +1511,7 @@ msgstr "De kōauau is een kleine fluit van de Maori zonder bek van tien tot twin
 msgid ""
 "The lasso d'amore, whirly tube or corrugaphone is a corrugated plastic tube "
 "which is spun in a circle."
-msgstr "Een lasso d'amore is een geribbelde plastic buis die wordt rondgezwaaid om geluid te maken."
+msgstr "Een lasso d’amore is een geribbelde plastic buis die wordt rondgezwaaid om geluid te maken."
 
 #. name:launeddas
 #: DB:instrument/description:518
@@ -1936,7 +1943,7 @@ msgstr "De sênh tiền is een Vietnamees instrument bestaande uit een combinati
 msgid ""
 "The t'rưng is a bamboo xylophone from the central highlands of Vietnam which"
 " is played by ethnic groups such as the Bahnar and the Ê Đê."
-msgstr "De t'rưng (t'rung) is een xylofoon van bamboe uit de centrale hooglanden van Vietnam en wordt bespeeld door etnische groepen zoals de Bahnar en de Ê Đê."
+msgstr "De t’rưng (t’rung) is een xylofoon van bamboe uit de centrale hooglanden van Vietnam en wordt bespeeld door etnische groepen zoals de Bahnar en de Ê Đê."
 
 #. name:tack piano
 #: DB:instrument/description:636
@@ -2211,7 +2218,7 @@ msgid ""
 "instruments. A dulcimer with thirty-six strings, struck with two small "
 "rubber-clad dubs. It has many counterparts in various countries, such as the"
 " \"santoor\" in India and also the \"cimbalon\" in Hungary."
-msgstr "De đàn tam thập lục is een relatief recent geïmporteerde toevoeging aan de Vietnamese instrumenten. Een dulcimer met 36 snaren, aangeslagen met twee kleine met rubber beklede plectra. Het heeft vele tegenhangers in verschillende landen, zoals de „santoor\" in India en ook de „cimbalon\" in Hongarije."
+msgstr "De đàn tam thập lục is een relatief recent geïmporteerde toevoeging aan de Vietnamese instrumenten. Een dulcimer met 36 snaren, aangeslagen met twee kleine met rubber beklede plectra. Het heeft vele tegenhangers in verschillende landen, zoals de „santoor” in India en ook de „cimbalon” in Hongarije."
 
 #. name:đàn tranh
 #: DB:instrument/description:250

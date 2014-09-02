@@ -11,6 +11,7 @@
 # Nikolai Prokoschenko <email address hidden>, 2011
 # nikki, 2013
 # Philipp Wolfer <email address hidden>, 2012
+# S.Brandt <email address hidden>, 2014
 # Shepard <email address hidden>, 2011
 # Shepard, 2011
 # Shepard, 2013-2014
@@ -19,8 +20,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-08-21 15:12+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-08-23 09:16+0000\n"
+"Last-Translator: S.Brandt <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -361,7 +362,7 @@ msgstr "CD-R"
 #: DB:medium_format/name:41
 msgctxt "medium_format"
 msgid "CDV"
-msgstr ""
+msgstr "CDV"
 
 #: DB:work_attribute_type_allowed_value/value:63
 msgctxt "work_attribute_type_allowed_value"
@@ -931,7 +932,7 @@ msgstr "Hēmavati"
 #: DB:work_attribute_type/name:14
 msgctxt "work_attribute_type"
 msgid "Identifiers"
-msgstr ""
+msgstr "Identifikatoren"
 
 #: DB:label_type/name:9
 msgctxt "label_type"

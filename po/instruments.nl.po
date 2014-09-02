@@ -1,12 +1,13 @@
 # 
 # Translators:
+# nikki, 2014
 # Maurits Meulenbelt <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2013-2014
 # Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-08-21 15:12+0000\n"
+"PO-Revision-Date: 2014-09-02 18:46+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -49,7 +50,7 @@ msgstr "Kretenzische lier"
 
 #: DB:instrument/name:118
 msgid "Denis d'or"
-msgstr "Denis d'or"
+msgstr "Denis d’or"
 
 #: DB:instrument/name:602
 msgid "Disk Drive"
@@ -549,7 +550,7 @@ msgstr "carillon"
 
 #: DB:instrument/name:109
 msgid "castanets"
-msgstr "castagnetten "
+msgstr "castagnetten"
 
 #: DB:instrument/name:524
 msgid "cavaquinho"
@@ -895,6 +896,10 @@ msgstr "duxianqin"
 msgid "ebow"
 msgstr "e-bow"
 
+#: DB:instrument/name:677
+msgid "effects"
+msgstr ""
+
 #: DB:instrument/name:643
 msgid "ektara"
 msgstr "ektara"
@@ -1009,7 +1014,7 @@ msgstr "fluit"
 
 #: DB:instrument/name:415
 msgid "flûte d'amour"
-msgstr "flûte d'amour"
+msgstr "flûte d’amour"
 
 #: DB:instrument/name:353
 msgid "folk harp"
@@ -1285,7 +1290,7 @@ msgstr "jug"
 
 #: DB:instrument/name:283
 msgid "k'lông pút"
-msgstr "k'lông pút"
+msgstr "k’lông pút"
 
 #: DB:instrument/name:503
 msgid "kamancheh"
@@ -1461,7 +1466,7 @@ msgstr "laserharp"
 
 #: DB:instrument/name:144
 msgid "lasso d'amore"
-msgstr "lasso d'amore"
+msgstr "lasso d’amore"
 
 #: DB:instrument/name:518
 msgid "launeddas"
@@ -1641,7 +1646,7 @@ msgstr "hobo"
 
 #: DB:instrument/name:473
 msgid "oboe d'amore"
-msgstr "oboe d'amore"
+msgstr "oboe d’amore"
 
 #: DB:instrument/name:572
 msgid "oboe da caccia"
@@ -2157,7 +2162,7 @@ msgstr "sênh tiền"
 
 #: DB:instrument/name:304
 msgid "t'rưng"
-msgstr "t'rưng"
+msgstr "t’rưng"
 
 #: DB:instrument/name:185
 msgid "tabla"
@@ -2234,12 +2239,12 @@ msgstr "taphon"
 #: DB:instrument/name:467
 msgctxt "lute"
 msgid "tar"
-msgstr ""
+msgstr "tār"
 
 #: DB:instrument/name:607
 msgctxt "drum"
 msgid "tar"
-msgstr ""
+msgstr "tar"
 
 #: DB:instrument/name:440
 msgid "taragot"
@@ -2495,7 +2500,7 @@ msgstr "viola caipira"
 
 #: DB:instrument/name:94
 msgid "viola d'amore"
-msgstr "viola d'amore"
+msgstr "viola d’amore"
 
 #: DB:instrument/name:93
 msgid "viola da gamba"

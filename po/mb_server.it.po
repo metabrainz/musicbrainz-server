@@ -21,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-21 08:10-0700\n"
-"PO-Revision-Date: 2014-08-21 15:12+0000\n"
+"POT-Creation-Date: 2014-09-02 11:45-0700\n"
+"PO-Revision-Date: 2014-09-02 18:46+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -411,10 +411,15 @@ msgstr "È necessario un elenco di tracce."
 msgid "About"
 msgstr "Info"
 
-#: ../root/edit/search_macros.tt:244 ../root/edit/vote.tt:20
-#: ../root/elections/show.tt:81 ../lib/MusicBrainz/Server/Data/Vote.pm:191
+#: ../root/elections/show.tt:81
 msgid "Abstain"
 msgstr "Astenuto"
+
+#: ../root/edit/search_macros.tt:244 ../root/edit/vote.tt:20
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:191
+msgctxt "vote"
+msgid "Abstain"
+msgstr ""
 
 #: ../root/doc/edit_type.tt:8
 msgid "Accept"
@@ -444,6 +449,14 @@ msgstr "Account creato"
 #: ../root/admin/edit_user.tt:25 ../root/admin/edit_user.tt:29
 msgid "Account admin"
 msgstr "Amministrazione account"
+
+#: ../root/user/privileged.tt:46
+msgid "Account administrators"
+msgstr ""
+
+#: ../root/user/privileged.tt:47
+msgid "Account administrators can edit and delete user accounts."
+msgstr ""
 
 #: ../root/search/results-freedb.tt:17
 msgid "Action"
@@ -1202,8 +1215,9 @@ msgstr "Applicazioni"
 
 #: ../root/edit/search_macros.tt:244
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:194
+msgctxt "vote"
 msgid "Approve"
-msgstr "Approva"
+msgstr ""
 
 #: ../root/edit/edit_header.tt:76 ../root/edit/info.tt:17
 msgid "Approve edit"
@@ -1853,7 +1867,7 @@ msgstr "Nato:"
 msgid "Bot"
 msgstr "Bot"
 
-#: ../root/user/privileged.tt:46
+#: ../root/user/privileged.tt:51
 msgid "Bots"
 msgstr "Bot"
 
@@ -3880,10 +3894,6 @@ msgstr "ISRC attualmente non in uso"
 msgid "ISRC {isrc} to {recording}"
 msgstr "ISRC {isrc} a {recording}"
 
-#: ../root/edit/details/add_isrcs.tt:15
-msgid "ISRC {isrc} to {recording} by {artist}"
-msgstr "ISRC {isrc} a {recording} di {artist}"
-
 #: ../root/isrc/index.tt:1 ../root/isrc/index.tt:3
 msgid "ISRC “{isrc}”"
 msgstr "ISRC “{isrc}”"
@@ -4118,7 +4128,7 @@ msgstr "Strumento"
 #: ../root/components/recordings-list.tt:34
 #: ../root/release_group/releases-list.tt:23
 msgid "Instrument Credits"
-msgstr ""
+msgstr "Accreditamenti strumenti"
 
 #: ../root/instrument/edit_form.tt:9
 msgid "Instrument Details"
@@ -5104,10 +5114,15 @@ msgstr "Seguente"
 msgid "Next »"
 msgstr "Seguente »"
 
-#: ../root/components/common-macros.tt:21 ../root/edit/search_macros.tt:244
-#: ../root/edit/vote.tt:17 ../lib/MusicBrainz/Server/Data/Vote.pm:192
+#: ../root/components/common-macros.tt:21
 msgid "No"
 msgstr "No"
+
+#: ../root/edit/search_macros.tt:244 ../root/edit/vote.tt:17
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:192
+msgctxt "vote"
+msgid "No"
+msgstr ""
 
 #: ../root/tag/not_found.tt:4
 msgid "No MusicBrainz entities have yet been tagged with \"{tag}\"."
@@ -6147,7 +6162,7 @@ msgstr "Metti in relazione registrazione con opera"
 msgid "Related Works"
 msgstr "Opere collegate"
 
-#: ../root/edit/data.tt:14
+#: ../root/edit/data.tt:15
 msgid "Related entities:"
 msgstr "Entità collegate:"
 
@@ -7180,7 +7195,7 @@ msgid "Send"
 msgstr "Invia"
 
 #: ../root/account/lost_username.tt:14 ../root/user/contact.tt:1
-#: ../root/user/contact.tt:3 ../lib/MusicBrainz/Server/Controller/User.pm:251
+#: ../root/user/contact.tt:3 ../lib/MusicBrainz/Server/Controller/User.pm:252
 msgid "Send Email"
 msgstr "Invia email"
 
@@ -7258,7 +7273,7 @@ msgid "Set a new password for your MusicBrainz account."
 msgstr "Imposta una nuova password per il tuo account di MusicBrainz."
 
 #: ../root/release_group/layout.tt:10 ../root/release_group/set_cover_art.tt:4
-#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/SetCoverArt.pm:19
+#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/SetCoverArt.pm:20
 msgid "Set cover art"
 msgstr "Imposta copertina"
 
@@ -8046,9 +8061,13 @@ msgstr "La data finale non può precedere quella iniziale."
 msgid "The following attributes can be used with this relationship type:"
 msgstr "È possibile utilizzare i seguenti attributi con questo tipo di relazione:"
 
-#: ../root/user/privileged.tt:47
+#: ../root/user/privileged.tt:52
 msgid "The following {count} user accounts are bots:"
 msgstr "I {count} account utente seguenti sono bot:"
+
+#: ../root/user/privileged.tt:48
+msgid "The following {count} users are account administrators:"
+msgstr ""
 
 #: ../root/user/privileged.tt:43
 msgid "The following {count} users are location editors:"
@@ -8556,7 +8575,7 @@ msgstr "Questa è una {history|revisione vecchia} di questa annotazione, come mo
 msgid "This is the primary alias for this locale"
 msgstr "Questo è l'alias primario per questo ambiente linguistico"
 
-#: ../root/edit/data.tt:29
+#: ../root/edit/data.tt:31
 msgid ""
 "This is the raw data for edit #{id}. It is available for debugging purposes."
 msgstr "Questi sono i dati grezzi per la modifica #{id}, disponibili a fini di debug."
@@ -8702,7 +8721,7 @@ msgid ""
 "which no longer exist."
 msgstr "Questa modifica di relazione includeva anche cambiamenti ad attributi di relazione che non esistono più."
 
-#: ../root/components/relationship-editor.tt:124
+#: ../root/components/relationship-editor.tt:123
 msgid "This relationship has ended."
 msgstr "Questa relazione si è conclusa."
 
@@ -9932,7 +9951,7 @@ msgstr "Visualizza dettagli"
 msgid "View on wiki"
 msgstr "Visualizza nella wiki"
 
-#: ../root/edit/data.tt:30
+#: ../root/edit/data.tt:32
 msgid "View the human-readable rendering instead."
 msgstr "Visualizza la versione leggibile."
 
@@ -10318,10 +10337,15 @@ msgstr "Anno"
 msgid "Year:"
 msgstr "Anno:"
 
-#: ../root/components/common-macros.tt:21 ../root/edit/search_macros.tt:244
-#: ../root/edit/vote.tt:14 ../lib/MusicBrainz/Server/Data/Vote.pm:193
+#: ../root/components/common-macros.tt:21
 msgid "Yes"
 msgstr "Sì"
+
+#: ../root/edit/search_macros.tt:244 ../root/edit/vote.tt:14
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:193
+msgctxt "vote"
+msgid "Yes"
+msgstr ""
 
 #: ../root/edit/search_macros.tt:307
 msgid "Yes vote count"
@@ -10563,7 +10587,7 @@ msgstr "Non hai effettuato nessuna modifica!"
 
 #: ../root/scripts/text_strings.tt:146
 msgid "You haven’t selected a label for “{name}”."
-msgstr ""
+msgstr "Non hai selezionato un'etichetta per \"{name}\"."
 
 #: ../root/edit/cancel.tt:14
 msgid ""
@@ -10782,7 +10806,7 @@ msgstr "di {artist}"
 #: ../root/components/relationship-editor.tt:162
 #: ../root/components/relationship-editor.tt:207
 msgid "credited as"
-msgstr ""
+msgstr "accreditato come"
 
 #: ../root/admin/wikidoc/index.tt:53
 msgid "diff"
@@ -11145,7 +11169,7 @@ msgstr[1] "{artist} non ha nessuna pubblicazione con {n} tracce."
 #: ../lib/MusicBrainz/Server/Entity/LinkAttribute.pm:41
 #, perl-brace-format
 msgid "{attribute} [{credited_as}]"
-msgstr ""
+msgstr "{attribute} [{credited_as}]"
 
 #: ../root/scripts/text_strings.tt:177
 #: ../lib/MusicBrainz/Server/Entity/LinkAttribute.pm:45
@@ -11713,16 +11737,16 @@ msgstr "Il nostro server Redis sembra essere inattivo; alcune funzionalità potr
 msgid "Series that have different entity types cannot be merged."
 msgstr "Le serie con tipi di entità diversi non possono essere unite."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:252
+#: ../lib/MusicBrainz/Server/Controller/User.pm:253
 #, perl-brace-format
 msgid "The editor {name} has no email address attached to their account."
 msgstr "L'editor {name} non ha nessun indirizzo email collegato al suo account."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:280
+#: ../lib/MusicBrainz/Server/Controller/User.pm:281
 msgid "Your message could not be sent"
 msgstr "Non è stato possibile inviare il tuo messaggio"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:369
+#: ../lib/MusicBrainz/Server/Controller/User.pm:370
 #, perl-brace-format
 msgid "'{type}' is not an entity type that can have ratings."
 msgstr "'{type}' non è un tipo di entità che può ricevere valutazioni."
@@ -12050,7 +12074,7 @@ msgstr "Unisci luoghi"
 msgid "Add recording annotation"
 msgstr "Aggiungi annotazione alla registrazione"
 
-#: ../lib/MusicBrainz/Server/Edit/Recording/AddISRCs.pm:21
+#: ../lib/MusicBrainz/Server/Edit/Recording/AddISRCs.pm:22
 msgid "Add ISRCs"
 msgstr "Aggiungi ISRC"
 
@@ -12214,7 +12238,7 @@ msgstr "Cambia WikiDoc"
 msgid "Add work annotation"
 msgstr "Aggiungi annotazione all'opera"
 
-#: ../lib/MusicBrainz/Server/Edit/Work/AddISWCs.pm:19
+#: ../lib/MusicBrainz/Server/Edit/Work/AddISWCs.pm:20
 msgid "Add ISWCs"
 msgstr "Aggiungi ISWC"
 

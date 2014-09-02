@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-21 08:10-0700\n"
-"PO-Revision-Date: 2014-08-21 15:12+0000\n"
+"POT-Creation-Date: 2014-09-02 11:45-0700\n"
+"PO-Revision-Date: 2014-09-02 18:46+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -415,10 +415,15 @@ msgstr "Kappalelista vaaditaan."
 msgid "About"
 msgstr "Yleistä"
 
-#: ../root/edit/search_macros.tt:244 ../root/edit/vote.tt:20
-#: ../root/elections/show.tt:81 ../lib/MusicBrainz/Server/Data/Vote.pm:191
+#: ../root/elections/show.tt:81
 msgid "Abstain"
 msgstr "Tyhjä"
+
+#: ../root/edit/search_macros.tt:244 ../root/edit/vote.tt:20
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:191
+msgctxt "vote"
+msgid "Abstain"
+msgstr ""
 
 #: ../root/doc/edit_type.tt:8
 msgid "Accept"
@@ -448,6 +453,14 @@ msgstr "Käyttäjätunnus luotu"
 #: ../root/admin/edit_user.tt:25 ../root/admin/edit_user.tt:29
 msgid "Account admin"
 msgstr "Käyttäjätunnuksien hallinnointi"
+
+#: ../root/user/privileged.tt:46
+msgid "Account administrators"
+msgstr ""
+
+#: ../root/user/privileged.tt:47
+msgid "Account administrators can edit and delete user accounts."
+msgstr ""
 
 #: ../root/search/results-freedb.tt:17
 msgid "Action"
@@ -1206,8 +1219,9 @@ msgstr "Sovellukset"
 
 #: ../root/edit/search_macros.tt:244
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:194
+msgctxt "vote"
 msgid "Approve"
-msgstr "Hyväksy"
+msgstr ""
 
 #: ../root/edit/edit_header.tt:76 ../root/edit/info.tt:17
 msgid "Approve edit"
@@ -1857,7 +1871,7 @@ msgstr "Syntymäaika:"
 msgid "Bot"
 msgstr "Botti"
 
-#: ../root/user/privileged.tt:46
+#: ../root/user/privileged.tt:51
 msgid "Bots"
 msgstr "Botit"
 
@@ -3884,10 +3898,6 @@ msgstr "ISRC-koodi ei ole parhaillaan käytössä"
 msgid "ISRC {isrc} to {recording}"
 msgstr "ISRC-koodi {isrc} äänitteelle {recording}"
 
-#: ../root/edit/details/add_isrcs.tt:15
-msgid "ISRC {isrc} to {recording} by {artist}"
-msgstr "ISRC-koodi {isrc} artistin {artist} äänitteelle {recording} "
-
 #: ../root/isrc/index.tt:1 ../root/isrc/index.tt:3
 msgid "ISRC “{isrc}”"
 msgstr "ISRC-koodi \"{isrc}\""
@@ -5108,10 +5118,15 @@ msgstr "Seuraava"
 msgid "Next »"
 msgstr "Seuraava »"
 
-#: ../root/components/common-macros.tt:21 ../root/edit/search_macros.tt:244
-#: ../root/edit/vote.tt:17 ../lib/MusicBrainz/Server/Data/Vote.pm:192
+#: ../root/components/common-macros.tt:21
 msgid "No"
 msgstr "Ei"
+
+#: ../root/edit/search_macros.tt:244 ../root/edit/vote.tt:17
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:192
+msgctxt "vote"
+msgid "No"
+msgstr ""
 
 #: ../root/tag/not_found.tt:4
 msgid "No MusicBrainz entities have yet been tagged with \"{tag}\"."
@@ -6151,7 +6166,7 @@ msgstr "Yhdistä äänite teokseen"
 msgid "Related Works"
 msgstr "Yhdistetyt teokset"
 
-#: ../root/edit/data.tt:14
+#: ../root/edit/data.tt:15
 msgid "Related entities:"
 msgstr "Yhdistetyt kokonaisuudet:"
 
@@ -7184,7 +7199,7 @@ msgid "Send"
 msgstr "Lähetä"
 
 #: ../root/account/lost_username.tt:14 ../root/user/contact.tt:1
-#: ../root/user/contact.tt:3 ../lib/MusicBrainz/Server/Controller/User.pm:251
+#: ../root/user/contact.tt:3 ../lib/MusicBrainz/Server/Controller/User.pm:252
 msgid "Send Email"
 msgstr "Lähetä sähköposti"
 
@@ -7262,7 +7277,7 @@ msgid "Set a new password for your MusicBrainz account."
 msgstr "Aseta uusi salasana MusicBrainz-käyttäjätunnuksellesi."
 
 #: ../root/release_group/layout.tt:10 ../root/release_group/set_cover_art.tt:4
-#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/SetCoverArt.pm:19
+#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/SetCoverArt.pm:20
 msgid "Set cover art"
 msgstr "Aseta kansitaide"
 
@@ -8050,9 +8065,13 @@ msgstr "Loppuajankohta ei voi olla ennen aloitusajankohtaa."
 msgid "The following attributes can be used with this relationship type:"
 msgstr "Seuraavia määritteitä ei voi käyttää valitulle yhteystyypille:"
 
-#: ../root/user/privileged.tt:47
+#: ../root/user/privileged.tt:52
 msgid "The following {count} user accounts are bots:"
 msgstr "Seuraavat {count} käyttäjätunnusta ovat botteja: "
+
+#: ../root/user/privileged.tt:48
+msgid "The following {count} users are account administrators:"
+msgstr ""
 
 #: ../root/user/privileged.tt:43
 msgid "The following {count} users are location editors:"
@@ -8560,7 +8579,7 @@ msgstr "Tämä on {history|vanha versio} lisätietokentästä, jonka {user} muok
 msgid "This is the primary alias for this locale"
 msgstr "Tämä on ensisijainen alias tälle lokaalille."
 
-#: ../root/edit/data.tt:29
+#: ../root/edit/data.tt:31
 msgid ""
 "This is the raw data for edit #{id}. It is available for debugging purposes."
 msgstr "Tässä on muokkauksen #{id} tietokonekielinen muoto. Se tarjotaan ohjelmavirheiden jäljitystä varten."
@@ -8706,7 +8725,7 @@ msgid ""
 "which no longer exist."
 msgstr "Tämä yhteyksien muokkaus sisälsi myös muutoksia yhteyksien määritteisiin, joita ei enää ole."
 
-#: ../root/components/relationship-editor.tt:124
+#: ../root/components/relationship-editor.tt:123
 msgid "This relationship has ended."
 msgstr "Tämä yhteys on päättynyt."
 
@@ -9936,7 +9955,7 @@ msgstr "Näytä lisätiedot"
 msgid "View on wiki"
 msgstr "Näytä wikissä"
 
-#: ../root/edit/data.tt:30
+#: ../root/edit/data.tt:32
 msgid "View the human-readable rendering instead."
 msgstr "Näytä ihmisille luettava esitystapa sen sijaan."
 
@@ -10322,10 +10341,15 @@ msgstr "Vuosi"
 msgid "Year:"
 msgstr "Vuosi: "
 
-#: ../root/components/common-macros.tt:21 ../root/edit/search_macros.tt:244
-#: ../root/edit/vote.tt:14 ../lib/MusicBrainz/Server/Data/Vote.pm:193
+#: ../root/components/common-macros.tt:21
 msgid "Yes"
 msgstr "Kyllä"
+
+#: ../root/edit/search_macros.tt:244 ../root/edit/vote.tt:14
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:193
+msgctxt "vote"
+msgid "Yes"
+msgstr ""
 
 #: ../root/edit/search_macros.tt:307
 msgid "Yes vote count"
@@ -11717,16 +11741,16 @@ msgstr "Redis-palvelimemme tuntuu olevan kaatunut. Jotkin ominaisuudet eivät v�
 msgid "Series that have different entity types cannot be merged."
 msgstr "Sarjoja, joiden kokonaisuudet ovat erilaisia, ei voida sulauttaa."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:252
+#: ../lib/MusicBrainz/Server/Controller/User.pm:253
 #, perl-brace-format
 msgid "The editor {name} has no email address attached to their account."
 msgstr "Käyttäjä {name} ei ole antanut sähköpostiosoitetta tilitietoihinsa."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:280
+#: ../lib/MusicBrainz/Server/Controller/User.pm:281
 msgid "Your message could not be sent"
 msgstr "Viestiäsi ei voitu lähettää"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:369
+#: ../lib/MusicBrainz/Server/Controller/User.pm:370
 #, perl-brace-format
 msgid "'{type}' is not an entity type that can have ratings."
 msgstr "'{type}' ei ole kokonaisuus joka tukee arvosteluja."
@@ -12054,7 +12078,7 @@ msgstr "Sulauta paikat"
 msgid "Add recording annotation"
 msgstr "Lisää äänitteelle lisätietoja"
 
-#: ../lib/MusicBrainz/Server/Edit/Recording/AddISRCs.pm:21
+#: ../lib/MusicBrainz/Server/Edit/Recording/AddISRCs.pm:22
 msgid "Add ISRCs"
 msgstr "Lisää ISRC-koodeja"
 
@@ -12218,7 +12242,7 @@ msgstr "Muokkaa WikiDoc:ia"
 msgid "Add work annotation"
 msgstr "Lisää teokselle lisätietoja"
 
-#: ../lib/MusicBrainz/Server/Edit/Work/AddISWCs.pm:19
+#: ../lib/MusicBrainz/Server/Edit/Work/AddISWCs.pm:20
 msgid "Add ISWCs"
 msgstr "Lisää ISWC-koodi"
 

@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-07-31 08:39+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2014-09-02 18:46+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -338,7 +338,7 @@ msgid ""
 "MusicBrainz partners with MusicIP and starts using MusicDNS's PUID acoustic "
 "fingerprints. Picard becomes the official MusicBrainz tagger with PUID "
 "support, which causes edit activity to decrease."
-msgstr "MusicBrainz begint een partnerschap met MusicIP en begint de PUID akoestische vingerafdrukken van MusicDNS te gebruiken. Picard wordt de officiële tagger van MusicBrainz met ondersteuning voor PUID's, waardoor er minder bewerkingen worden gedaan."
+msgstr "MusicBrainz begint een partnerschap met MusicIP en begint de PUID akoestische vingerafdrukken van MusicDNS te gebruiken. Picard wordt de officiële tagger van MusicBrainz met ondersteuning voor PUID’s, waardoor er minder bewerkingen worden gedaan."
 
 #: DB:statistics.statistic_event/title:2006-03-12
 msgid "MusicIP PUID"
@@ -505,8 +505,9 @@ msgid "100%"
 msgstr "100%"
 
 #: ../root/statistics/index.tt:892
-msgid "Abstain:"
-msgstr "onthouding:"
+msgctxt "vote"
+msgid "Abstain"
+msgstr ""
 
 #: ../root/statistics/view_js.tt:80
 msgid "Abstentions"
@@ -565,8 +566,9 @@ msgid "Applied:"
 msgstr "doorgevoerd:"
 
 #: ../root/statistics/index.tt:874
-msgid "Approve:"
-msgstr "bevestigd:"
+msgctxt "vote"
+msgid "Approve"
+msgstr ""
 
 #: ../root/statistics/index.tt:573 ../root/statistics/view_js.tt:55
 msgid "Areas"
@@ -1470,6 +1472,11 @@ msgstr "Gebeurtenissen op MusicBrainz"
 msgid "MusicBrainz Events:"
 msgstr "Gebeurtenissen op MusicBrainz:"
 
+#: ../root/statistics/index.tt:886
+msgctxt "vote"
+msgid "No"
+msgstr ""
+
 #: ../root/statistics/no_statistics.tt:2
 msgid "No Statistics"
 msgstr "Geen statistieken"
@@ -1514,10 +1521,6 @@ msgstr "Geen status ingesteld"
 #: ../root/statistics/coverart.tt:56 ../root/statistics/coverart.tt:139
 msgid "No type"
 msgstr "Geen type"
-
-#: ../root/statistics/index.tt:886
-msgid "No:"
-msgstr "tegen:"
 
 #: ../root/statistics/index.tt:204
 msgid "Non-group artists:"
@@ -2041,13 +2044,14 @@ msgstr "Composities"
 msgid "Works:"
 msgstr "Composities:"
 
+#: ../root/statistics/index.tt:880
+msgctxt "vote"
+msgid "Yes"
+msgstr ""
+
 #: ../root/statistics/view_js.tt:78
 msgid "Yes Votes"
 msgstr "Voorstemmen"
-
-#: ../root/statistics/index.tt:880
-msgid "Yes:"
-msgstr "voor:"
 
 #: ../root/statistics/index.tt:858 ../root/statistics/index.tt:910
 msgid "Yesterday:"

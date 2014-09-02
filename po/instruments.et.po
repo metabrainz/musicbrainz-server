@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-08-21 15:12+0000\n"
+"PO-Revision-Date: 2014-09-02 18:46+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -894,6 +894,10 @@ msgstr "dúxiánqín"
 #: DB:instrument/name:327
 msgid "ebow"
 msgstr "e-bow"
+
+#: DB:instrument/name:677
+msgid "effects"
+msgstr ""
 
 #: DB:instrument/name:643
 msgid "ektara"

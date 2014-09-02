@@ -1,12 +1,13 @@
 # 
 # Translators:
+# Ettore Atalan <email address hidden>, 2014
 # lorenzpressler <email address hidden>, 2012
 # S.Brandt <email address hidden>, 2014
 # Shepard, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-08-07 20:42+0000\n"
+"PO-Revision-Date: 2014-09-02 18:46+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -430,6 +431,13 @@ msgid ""
 "controller."
 msgstr ""
 
+#. name:effects
+#: DB:instrument/description:677
+msgid ""
+"Effects refers to devices which enable a musician to modify the sound of an "
+"instrument."
+msgstr ""
+
 #. name:electric fretless guitar
 #: DB:instrument/description:538
 msgid "Electric guitar without frets."
@@ -683,7 +691,7 @@ msgstr ""
 #. name:santur
 #: DB:instrument/description:255
 msgid "Santur, Middle Eastern"
-msgstr ""
+msgstr "Santur, Mittlerer Osten"
 
 #. name:shawm
 #: DB:instrument/description:408
