@@ -234,7 +234,7 @@
                     return attribute.type.rootID == rootID;
                 });
 
-                if (value.length < min) {
+                if (values.length < min) {
                     return MB.text.AttributeRequired;
                 }
             }
