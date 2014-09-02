@@ -15,7 +15,7 @@ use MusicBrainz::Server::Edit::Types qw(
     Nullable
     NullableOnPreview
 );
-use MusicBrainz::Server::Edit::Utils qw( verify_artist_credits );
+use MusicBrainz::Server::Edit::Utils qw( check_track_hash verify_artist_credits );
 use MusicBrainz::Server::Entity::Medium;
 use MusicBrainz::Server::Translation qw( N_l );
 
@@ -76,7 +76,9 @@ sub initialize {
     my ($self, %opts) = @_;
 
     my $tracklist = delete $opts{tracklist};
-    $opts{tracklist} = tracks_to_hash($tracklist);
+    $tracklist = tracks_to_hash($tracklist);
+    check_track_hash($tracklist);
+    $opts{tracklist} = $tracklist;
 
     my $release = delete $opts{release};
     die 'Missing "release" argument' unless ($release || $self->preview);
