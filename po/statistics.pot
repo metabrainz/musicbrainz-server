@@ -498,7 +498,8 @@ msgid "100%"
 msgstr ""
 
 #: ../root/statistics/index.tt:892
-msgid "Abstain:"
+msgctxt "vote"
+msgid "Abstain"
 msgstr ""
 
 #: ../root/statistics/view_js.tt:80
@@ -558,7 +559,8 @@ msgid "Applied:"
 msgstr ""
 
 #: ../root/statistics/index.tt:874
-msgid "Approve:"
+msgctxt "vote"
+msgid "Approve"
 msgstr ""
 
 #: ../root/statistics/index.tt:573 ../root/statistics/view_js.tt:55
@@ -1463,6 +1465,11 @@ msgstr ""
 msgid "MusicBrainz Events:"
 msgstr ""
 
+#: ../root/statistics/index.tt:886
+msgctxt "vote"
+msgid "No"
+msgstr ""
+
 #: ../root/statistics/no_statistics.tt:2
 msgid "No Statistics"
 msgstr ""
@@ -1506,10 +1513,6 @@ msgstr ""
 
 #: ../root/statistics/coverart.tt:56 ../root/statistics/coverart.tt:139
 msgid "No type"
-msgstr ""
-
-#: ../root/statistics/index.tt:886
-msgid "No:"
 msgstr ""
 
 #: ../root/statistics/index.tt:204
@@ -2033,12 +2036,13 @@ msgstr ""
 msgid "Works:"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:78
-msgid "Yes Votes"
+#: ../root/statistics/index.tt:880
+msgctxt "vote"
+msgid "Yes"
 msgstr ""
 
-#: ../root/statistics/index.tt:880
-msgid "Yes:"
+#: ../root/statistics/view_js.tt:78
+msgid "Yes Votes"
 msgstr ""
 
 #: ../root/statistics/index.tt:858 ../root/statistics/index.tt:910
