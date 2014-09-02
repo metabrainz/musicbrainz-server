@@ -1,6 +1,8 @@
 package MusicBrainz::Server::Controller::Role::RelationshipWrapper;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 
+no if $] >= 5.018, warnings => "experimental::smartmatch";
+
 requires 'load';
 
 sub load_relationships
