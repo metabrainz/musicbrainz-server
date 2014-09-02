@@ -166,7 +166,7 @@ sub build_one_sitemap {
     push @sitemap_files, $filename;
 
     my $modtime = DateTime->now->date(); # YYYY-MM-DD
-    if ($existing_md5 && $existing_md5 eq hash_sitemap($local_filename) && $old_sitemap_modtime{$remote_filename}) {
+    if ($existing_md5 && $existing_md5 eq hash_sitemap($map) && $old_sitemap_modtime{$remote_filename}) {
         print "using previous modtime, since file unchanged...";
         $modtime = $old_sitemap_modtime{$remote_filename};
     }
@@ -176,8 +176,13 @@ sub build_one_sitemap {
 }
 
 sub hash_sitemap {
-    my ($filename) = @_;
-    my $map = WWW::Sitemap::XML->new();
-    $map->load( location => $filename );
+    my ($filename_or_map) = @_;
+    my $map;
+    if (ref($filename_or_map) eq '') {
+        $map = WWW::Sitemap::XML->new();
+        $map->load( location => $filename_or_map );
+    } else {
+        $map = $filename_or_map;
+    }
     return md5_hex(join('|', map { join(',', $_->loc, $_->lastmod // '', $_->changefreq // '', $_->priority // '') } sort_by { $_->loc } $map->urls));
 }
