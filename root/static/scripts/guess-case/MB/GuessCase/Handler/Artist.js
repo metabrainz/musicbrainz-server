@@ -147,16 +147,7 @@ MB.GuessCase.Handler.Artist = function () {
      * Guesses the sortname for artists
      **/
     self.guessSortName = function (is, person) {
-        is = gc.u.trim(is);
-
-        // let's see if we got a compound artist
-        var collabSplit = " and ";
-        collabSplit = (is.indexOf(" + ") != -1 ? " + " : collabSplit);
-        collabSplit = (is.indexOf(" & ") != -1 ? " & " : collabSplit);
-
-        var as = is.split(collabSplit);
-        for (var splitindex = 0; splitindex < as.length; splitindex++) {
-            var artist = as[splitindex];
+        return self.sortCompoundName(is, function (artist) {
             if (!MB.utility.isNullOrEmpty(artist)) {
                 artist = gc.u.trim(artist);
                 var append = "";
@@ -232,16 +223,9 @@ MB.GuessCase.Handler.Artist = function () {
                     }
                 }
 
-                artist = gc.u.trim(_.compact(names).join(" ") + (append || ""));
+                return gc.u.trim(_.compact(names).join(" ") + (append || ""));
             }
-
-            if (!MB.utility.isNullOrEmpty(artist)) {
-                as[splitindex] = artist;
-            } else {
-                delete as[splitindex];
-            }
-        }
-        return gc.u.trim(as.join(collabSplit));
+        });
     };
 
     return self;

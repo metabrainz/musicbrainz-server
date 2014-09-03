@@ -102,9 +102,7 @@ MB.GuessCase.Handler.Work = function () {
     /**
      * Guesses the sortname for works
      **/
-    self.guessSortName = function (is) {
-        return gc.u.trim(is);
-    };
+    self.guessSortName = self.moveArticleToEnd;
 
     return self;
 };

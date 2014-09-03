@@ -1038,5 +1038,22 @@ MB.GuessCase.Handler.Base = function () {
         return false;
     };
 
+    self.moveArticleToEnd = function (is) {
+        return gc.u.trim(is).replace(
+            /^(The|Los) (.+)$/,
+            function (match, article, name) { return name + ", " + article }
+        );
+    };
+
+    self.sortCompoundName = function (is, callback) {
+        is = gc.u.trim(is);
+
+        var joinPhrase = " and ";
+        joinPhrase = (is.indexOf(" + ") != -1 ? " + " : joinPhrase);
+        joinPhrase = (is.indexOf(" & ") != -1 ? " & " : joinPhrase);
+
+        return $.map(is.split(joinPhrase), callback).join(joinPhrase);
+    };
+
     return self;
 };
