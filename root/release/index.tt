@@ -167,6 +167,7 @@
                 target => {
                     gid => $target->gid,
                     entityType => $rel->target_type,
+                    editsPending => $target->edits_pending,
                     name => $target->name,
                     sortName => $target->can('sort_name') ? $target->sort_name : undef,
                     comment => $target->can('comment') ? $target->comment : ''
