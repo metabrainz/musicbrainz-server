@@ -13,10 +13,10 @@
         <div class="vote">
             [%~ vote_checkbox(lp('Yes', 'vote'), 1) ~%]
         </div>
-        <div clpass="vote">
+        <div class="vote">
             [%~ vote_checkbox(lp('No', 'vote'), 0) ~%]
         </div>
-        <div clpass="vote">
+        <div class="vote">
             [%~ vote_checkbox(lp('Abstain', 'vote'), -1) ~%]
         </div>
         <div class="vote">
