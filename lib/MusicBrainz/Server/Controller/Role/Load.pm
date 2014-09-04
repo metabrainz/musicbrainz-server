@@ -57,7 +57,7 @@ role
 
         my $entity_properties = $ENTITIES{ model_to_type($model) };
 
-        if (exists $entity_properties->{mbid} && $entity_properties->{mbid}->{relatable}) {
+        if (exists $entity_properties->{mbid} && $entity_properties->{mbid}{relatable}) {
             my $action = $c->action->name;
 
             if ($action ~~ $params->relationships->{all}) {
