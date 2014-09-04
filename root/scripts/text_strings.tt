@@ -184,6 +184,7 @@
             work: '[% l('The series you’ve selected is for works.') | js %]'
         },
         InlineSearchFailed: '[% l('An error occurred while searching. Click here to try again.') | js %]',
-        ClearRecentItems: '[% l('Clear recent items') | js %]'
+        ClearRecentItems: '[% l('Clear recent items') | js %]',
+        ErrorLoadingRelease: '[% l('Error loading release: {error}') | js %]'
     });
 })(MB);
