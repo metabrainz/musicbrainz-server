@@ -5,7 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model           => 'Artist',
-    relationships   => { all => ['relationships'], cardinal => ['edit'] },
+    relationships   => { all => ['relationships'], cardinal => ['edit'], subset => { split => ['artist'] } },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
@@ -565,7 +565,6 @@ sub stop_watching : Chained('load') RequireAuth {
 sub split : Chained('load') Edit {
     my ($self, $c) = @_;
     my $artist = $c->stash->{artist};
-    $c->model('Relationship')->load_subset(['artist'], $artist);
 
     if (!can_split($artist)) {
         $c->stash( template => 'artist/cannot_split.tt' );
