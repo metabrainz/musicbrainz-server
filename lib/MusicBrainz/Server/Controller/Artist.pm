@@ -5,7 +5,12 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model           => 'Artist',
-    relationships   => { all => ['relationships'], cardinal => ['edit'], subset => { split => ['artist'] } },
+    relationships   => {
+        all         => ['relationships'],
+        cardinal    => ['edit'],
+        subset      => { split => ['artist'] },
+        default     => ['url']
+    },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';

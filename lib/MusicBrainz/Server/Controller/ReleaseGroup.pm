@@ -14,7 +14,7 @@ use MusicBrainz::Server::Entity::Util::Release qw( group_by_release_status );
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model           => 'ReleaseGroup',
     entity_name     => 'rg',
-    relationships   => { all => ['show'], cardinal => ['edit'] },
+    relationships   => { all => ['show'], cardinal => ['edit'], default => ['url'] },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';

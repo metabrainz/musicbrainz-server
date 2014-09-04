@@ -6,7 +6,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model           => 'Label',
     entity_name     => 'label',
-    relationships   => { all => ['relationships'], cardinal => ['edit'] },
+    relationships   => { all => ['relationships'], cardinal => ['edit'], default => ['url'] },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';

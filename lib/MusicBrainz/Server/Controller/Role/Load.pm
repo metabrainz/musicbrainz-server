@@ -56,15 +56,18 @@ role
 
         if (exists $entity_properties->{mbid} && $entity_properties->{mbid}{relatable}) {
             my $action = $c->action->name;
+            my $relationships = $params->relationships;
 
-            if ($action ~~ $params->relationships->{all}) {
+            if ($action ~~ $relationships->{all}) {
                 $c->model('Relationship')->load($entity);
-            } elsif ($action ~~ $params->relationships->{cardinal}) {
+            } elsif ($action ~~ $relationships->{cardinal}) {
                 $c->model('Relationship')->load_cardinal($entity);
-            } elsif (my $types = $params->relationships->{subset}->{$action}) {
-                $c->model('Relationship')->load_subset($types, $entity);
             } else {
-                $c->model('Relationship')->load_subset(['url'], $entity);
+                my $types = $relationships->{subset}->{$action} // $relationships->{default};
+
+                if ($types) {
+                    $c->model('Relationship')->load_subset($types, $entity);
+                }
             }
         }
 

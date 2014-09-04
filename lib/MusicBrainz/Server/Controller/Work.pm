@@ -17,7 +17,7 @@ use MusicBrainz::Server::Translation qw( l );
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model           => 'Work',
     entity_name     => 'work',
-    relationships   => { all => ['show'], cardinal => ['edit'] },
+    relationships   => { all => ['show'], cardinal => ['edit'], default => ['url'] },
 };
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Alias';
