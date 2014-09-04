@@ -12,8 +12,9 @@ use MusicBrainz::Server::Constants qw(
 use MusicBrainz::Server::Entity::Util::Release qw( group_by_release_status );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model       => 'ReleaseGroup',
-    entity_name => 'rg',
+    model           => 'ReleaseGroup',
+    entity_name     => 'rg',
+    relationships   => { all => ['show'], cardinal => ['edit'] },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
@@ -33,8 +34,7 @@ __PACKAGE__->config(
 
 sub base : Chained('/') PathPart('release-group') CaptureArgs(0) { }
 
-after 'load' => sub
-{
+after 'load' => sub {
     my ($self, $c) = @_;
 
     my $rg = $c->stash->{rg};
@@ -45,12 +45,10 @@ after 'load' => sub
     $c->model('ReleaseGroupType')->load($rg);
     $c->model('ArtistCredit')->load($rg);
     $c->model('Artwork')->load_for_release_groups($rg);
-    $c->model('Relationship')->load($rg);
     $c->stash( can_delete => $c->model('ReleaseGroup')->can_delete($rg->id) );
 };
 
-sub show : Chained('load') PathPart('')
-{
+sub show : Chained('load') PathPart('') {
     my ($self, $c) = @_;
 
     my $rg = $c->stash->{rg};

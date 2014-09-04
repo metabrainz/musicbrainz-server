@@ -33,6 +33,8 @@ role {
         my $entity_name = $self->{entity_name};
         my $edit_entity = $c->stash->{ $entity_name };
 
+        $c->model('Relationship')->load_cardinal($edit_entity);
+
         return $self->edit_action($c,
             form        => $params->form,
             type        => $params->edit_type,

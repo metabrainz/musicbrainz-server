@@ -12,8 +12,9 @@ use MusicBrainz::Server::Translation qw( l );
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model       => 'Series',
-    entity_name => 'series',
+    model           => 'Series',
+    entity_name     => 'series',
+    relationships   => { cardinal => ['edit'], subset => { show => ['artist', 'url'] } },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
@@ -32,12 +33,13 @@ after load => sub {
 
     my $series = $c->stash->{series};
 
+    $c->model('SeriesType')->load($series);
+    $c->model('SeriesOrderingType')->load($series);
+
     if ($c->user_exists) {
         $c->stash->{subscribed} = $c->model('Series')
             ->subscription->check_subscription($c->user->id, $series->id);
     }
-
-    $self->_load_entities($c, $series);
 };
 
 sub show : PathPart('') Chained('load') {
@@ -92,14 +94,6 @@ sub show : PathPart('') Chained('load') {
     );
 }
 
-sub _load_entities {
-    my ($self, $c, @series) = @_;
-
-    $c->model('Relationship')->load(@series);
-    $c->model('SeriesType')->load(@series);
-    $c->model('SeriesOrderingType')->load(@series);
-}
-
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_SERIES_MERGE,
 };
@@ -107,7 +101,9 @@ with 'MusicBrainz::Server::Controller::Role::Merge' => {
 sub _merge_load_entities {
     my ($self, $c, @series) = @_;
 
-    $self->_load_entities($c, @series);
+    $c->model('Relationship')->load(@series);
+    $c->model('SeriesType')->load(@series);
+    $c->model('SeriesOrderingType')->load(@series);
 }
 
 around _merge_submit => sub {

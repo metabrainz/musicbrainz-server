@@ -15,8 +15,9 @@ use MusicBrainz::Server::Constants qw(
 use MusicBrainz::Server::Translation qw( l );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model       => 'Work',
-    entity_name => 'work',
+    model           => 'Work',
+    entity_name     => 'work',
+    relationships   => { all => ['show'], cardinal => ['edit'] },
 };
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Alias';
@@ -39,7 +40,7 @@ after 'load' => sub
     my $work = $c->stash->{work};
     $c->model('Work')->load_meta($work);
     $c->model('ISWC')->load_for_works($work);
-    $c->model('Relationship')->load($work);
+
     if ($c->user_exists) {
         $c->model('Work')->rating->load_user_ratings($c->user->id, $work);
     }
@@ -54,15 +55,13 @@ sub show : PathPart('') Chained('load')
     $c->stash->{template} = 'work/index.tt';
 }
 
-for my $action (qw( show aliases tags details )) {
-    after $action => sub {
-        my ($self, $c) = @_;
-        my $work = $c->stash->{work};
-        $c->model('WorkType')->load($work);
-        $c->model('Language')->load_for_works($work);
-        $c->model('WorkAttribute')->load_for_works($work);
-    };
-}
+after qw( show aliases tags details ) => sub {
+    my ($self, $c) = @_;
+    my $work = $c->stash->{work};
+    $c->model('WorkType')->load($work);
+    $c->model('Language')->load_for_works($work);
+    $c->model('WorkAttribute')->load_for_works($work);
+};
 
 with 'MusicBrainz::Server::Controller::Role::IdentifierSet' => {
     entity_type => 'work',
@@ -156,8 +155,7 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
     dialog_template => 'work/edit_form.tt',
 };
 
-before 'create' => sub
-{
+before 'create' => sub {
     my ($self, $c) = @_;
     stash_work_attribute_json($c);
 };

@@ -4,6 +4,8 @@ use MusicBrainz::Server::Data::Utils 'model_to_type';
 use MusicBrainz::Server::Validation qw( is_guid );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 
+no if $] >= 5.018, warnings => "experimental::smartmatch";
+
 parameter 'model' => (
     isa => 'Str',
     required => 1
@@ -16,6 +18,12 @@ parameter 'entity_name' => (
 parameter 'arg_count' => (
     isa => 'Int',
     default => 1
+);
+
+parameter 'relationships' => (
+    isa => 'HashRef',
+    required => 0,
+    default => sub { {} }
 );
 
 role
@@ -47,14 +55,30 @@ role
             $self->not_found($c, @args);
         }
 
+        my $entity_properties = $ENTITIES{ model_to_type($model) };
+
+        if (exists $entity_properties->{mbid} && $entity_properties->{mbid}->{relatable}) {
+            my $action = $c->action->name;
+
+            if ($action ~~ $params->relationships->{all}) {
+                $c->model('Relationship')->load($entity);
+            } elsif ($action ~~ $params->relationships->{cardinal}) {
+                $c->model('Relationship')->load_cardinal($entity);
+            } elsif (my $types = $params->relationships->{subset}->{$action}) {
+                $c->model('Relationship')->load_subset($types, $entity);
+            } else {
+                $c->model('Relationship')->load_subset(['url'], $entity);
+            }
+        }
+
         # First stash is more convenient for the actual controller
         $c->stash( $entity_name => $entity )
-          if $entity_name && !$c->stash->{$entity_name};
+            if $entity_name && !$c->stash->{$entity_name};
 
         # Second is useful to roles or other places that need introspection
-        $c->stash( entity       => $entity );
+        $c->stash( entity => $entity );
 
-        $c->stash( entity_properties => $ENTITIES{ model_to_type($model) } );
+        $c->stash( entity_properties => $entity_properties );
     };
 
     method _load => sub

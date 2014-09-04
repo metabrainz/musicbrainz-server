@@ -4,7 +4,8 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model       => 'Area',
+    model           => 'Area',
+    relationships   => { all => ['show'], cardinal => ['edit'] },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
@@ -53,15 +54,13 @@ Extends loading by fetching any extra data required in the area header.
 
 =cut
 
-after 'load' => sub
-{
+after 'load' => sub {
     my ($self, $c) = @_;
 
     my $area = $c->stash->{area};
 
     $c->model('AreaType')->load($area);
     $c->model('Area')->load_containment($area);
-    $c->model('Relationship')->load($area);
 };
 
 =head2 show
