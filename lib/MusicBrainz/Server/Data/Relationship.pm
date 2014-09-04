@@ -129,6 +129,7 @@ sub _load
         my $type0 = $t->[0];
         my $type1 = $t->[1];
         my (@cond, @params, $target, $target_id, $source_id, $query);
+
         if ($type eq $type0) {
             push @cond, "entity0 IN (" . placeholders(@ids) . ")";
             push @params, @ids;
@@ -144,6 +145,11 @@ sub _load
             $source_id = 'entity1';
         }
 
+        # If the source and target types are the same, two possible conditions
+        # will have been added above, so join them with an OR.
+        @cond = ("(" . join(" OR ", @cond) . ")");
+        push @cond, "${source_id}_cardinality = 0" if $use_cardinality;
+
         my $select = "l_${type0}_${type1}.* FROM l_${type0}_${type1}
                       JOIN link l ON link = l.id
                       JOIN link_type lt ON lt.id = l.link_type";
@@ -152,19 +158,12 @@ sub _load
                      l.end_date_year,   l.end_date_month,   l.end_date_day,
                      l.ended';
 
-        if ($target eq 'url') {
-            $query = "
-            SELECT $select
-              JOIN $target ON $target_id = ${target}.id
-            WHERE " . join(" OR ", @cond) . "
-            ORDER BY $order, url";
-        } else {
-            $query = "
-            SELECT $select
-              JOIN $target ON $target_id = ${target}.id
-            WHERE (" . join(" OR ", @cond) . ")" . ($use_cardinality ? " AND ${source_id}_cardinality = 0" : "") . "
-            ORDER BY $order, musicbrainz_collate(${target}.name)";
-        }
+        $order .= $target eq 'url' ? ', url' : ", musicbrainz_collate(${target}.name)";
+
+        $query = "SELECT $select
+                    JOIN $target ON $target_id = ${target}.id
+                   WHERE " . join(" AND ", @cond) . "
+                   ORDER BY $order";
 
         for my $row (@{ $self->sql->select_list_of_hashes($query, @params) }) {
             my $entity0 = $row->{entity0};
