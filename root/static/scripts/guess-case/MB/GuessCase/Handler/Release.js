@@ -80,8 +80,7 @@ MB.GuessCase.Handler.Release = function () {
      *
      **/
     self.doWord = function () {
-        if (self.doDiscNumberStyle()) {
-        } else if (self.doFeaturingArtistStyle()) {
+        if (self.doFeaturingArtistStyle()) {
         } else if (self.doVersusStyle()) {
         } else if (self.doVolumeNumberStyle()) {
         } else if (self.doPartNumberStyle()) {

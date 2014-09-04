@@ -86,59 +86,7 @@ MB.GuessCase.Handler.Place = function () {
      * Guesses the sortname for place aliases
      **/
     self.guessSortName = function (is) {
-        is = gc.u.trim(is);
-
-        // let's see if we got a compound place
-        var collabSplit = " and ";
-        collabSplit = (is.indexOf(" + ") != -1 ? " + " : collabSplit);
-        collabSplit = (is.indexOf(" & ") != -1 ? " & " : collabSplit);
-
-        var as = is.split(collabSplit);
-        for (var splitindex = 0; splitindex < as.length; splitindex++) {
-            var place = as[splitindex];
-            if (!MB.utility.isNullOrEmpty(place)) {
-                place = gc.u.trim(place);
-                var append = "";
-
-                var words = place.split(" ");
-
-                // handle some special cases, like The and Los which
-                // are sorted at the end.
-                if (!gc.re.SORTNAME_THE) {
-                    gc.re.SORTNAME_THE = /^The$/i; // match The
-                }
-                var firstWord = words[0];
-                if (firstWord.match(gc.re.SORTNAME_THE)) {
-                    append = (", The" + append); // handle The xyz -> xyz, The
-                    words[0] = null;
-                }
-
-                var t = [];
-                for (i = 0; i < words.length; i++) {
-                    var w = words[i];
-                    if (!MB.utility.isNullOrEmpty(w)) {
-                        // skip empty names
-                        t.push(w);
-                    }
-                    if (i < words.length-1) {
-                        // if not last word, add space
-                        t.push(" ");
-                    }
-                }
-
-                // append string
-                if (!MB.utility.isNullOrEmpty(append)) {
-                    t.push(append);
-                }
-                place = gc.u.trim(t.join(""));
-            }
-            if (!MB.utility.isNullOrEmpty(place)) {
-                as[splitindex] = place;
-            } else {
-                delete as[splitindex];
-            }
-        }
-        return gc.u.trim(as.join(collabSplit));
+        return self.sortCompoundName(is, self.moveArticleToEnd);
     };
 
     return self;
