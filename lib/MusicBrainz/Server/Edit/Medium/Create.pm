@@ -15,7 +15,7 @@ use MusicBrainz::Server::Edit::Types qw(
     Nullable
     NullableOnPreview
 );
-use MusicBrainz::Server::Edit::Utils qw( check_track_hash verify_artist_credits );
+use MusicBrainz::Server::Edit::Utils qw( verify_artist_credits );
 use MusicBrainz::Server::Entity::Medium;
 use MusicBrainz::Server::Translation qw( N_l );
 
