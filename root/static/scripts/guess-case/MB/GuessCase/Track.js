@@ -24,21 +24,8 @@ MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
 MB.GuessCase._Track = function () {
     var self = {};
 
-    var guess = function (data) {
-        if (_.isString(data)) {
-            return self.gc.guessTrack(data);
-        }
-
-        var ret = [];
-        $.each(data, function (idx, line) {
-            ret.push(self.gc.guessTrack(line));
-        });
-
-        return ret;
-    };
-
     self.gc = MB.GuessCase.Main();
-    self.guess = guess;
+    self.guess = self.gc.guessTrack;
 
     return self;
 };
