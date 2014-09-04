@@ -22,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-02 11:45-0700\n"
-"PO-Revision-Date: 2014-09-02 18:46+0000\n"
+"POT-Creation-Date: 2014-09-04 13:49-0700\n"
+"PO-Revision-Date: 2014-09-04 20:50+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -420,7 +420,7 @@ msgstr "Onthouding"
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:191
 msgctxt "vote"
 msgid "Abstain"
-msgstr ""
+msgstr "Onthouding"
 
 #: ../root/doc/edit_type.tt:8
 msgid "Accept"
@@ -453,11 +453,11 @@ msgstr "Accountbeheerder"
 
 #: ../root/user/privileged.tt:46
 msgid "Account administrators"
-msgstr ""
+msgstr "Accountbeheerders"
 
 #: ../root/user/privileged.tt:47
 msgid "Account administrators can edit and delete user accounts."
-msgstr ""
+msgstr "Accountbeheerders kunnen gebruikersaccounts bewerken en verwijderen."
 
 #: ../root/search/results-freedb.tt:17
 msgid "Action"
@@ -515,7 +515,7 @@ msgctxt "header"
 msgid "Add Cover Art"
 msgstr "Afbeelding toevoegen"
 
-#: ../root/release/edit/layout.tt:60 ../root/release/edit/tracklist.tt:206
+#: ../root/release/edit/layout.tt:64 ../root/release/edit/tracklist.tt:206
 #: ../root/scripts/text_strings.tt:151
 msgid "Add Disc"
 msgstr "Medium toevoegen"
@@ -1218,7 +1218,7 @@ msgstr "Applicaties"
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:194
 msgctxt "vote"
 msgid "Approve"
-msgstr ""
+msgstr "Goedkeuren"
 
 #: ../root/edit/edit_header.tt:76 ../root/edit/info.tt:17
 msgid "Approve edit"
@@ -2021,7 +2021,7 @@ msgstr "Kan goedgekeurd worden"
 #: ../root/elections/nominate.tt:10 ../root/instrument/merge.tt:36
 #: ../root/label/merge.tt:49 ../root/layout/merge-helper.tt:34
 #: ../root/place/merge.tt:48 ../root/recording/merge.tt:26
-#: ../root/release/edit/layout.tt:54 ../root/release/edit/tracklist.tt:87
+#: ../root/release/edit/layout.tt:58 ../root/release/edit/tracklist.tt:87
 #: ../root/release_group/merge.tt:44 ../root/release/merge.tt:127
 #: ../root/series/merge.tt:37 ../root/work/merge.tt:67
 msgid "Cancel"
@@ -3306,7 +3306,7 @@ msgid "Enter a valid url e.g. \"http://google.com/\""
 msgstr "Voer een geldige URL in, bijv. „http://google.nl/”"
 
 #: ../root/components/forms.tt:51 ../root/release/add_cover_art.tt:142
-#: ../root/release/edit/layout.tt:63 ../root/release/edit_relationships.tt:107
+#: ../root/release/edit/layout.tt:67 ../root/release/edit_relationships.tt:107
 msgid "Enter edit"
 msgstr "Bewerking invoeren"
 
@@ -3353,6 +3353,10 @@ msgstr "Fout bij het annuleren van de bewerking"
 #: ../root/scripts/text_strings.tt:101
 msgid "Error loading relationships."
 msgstr "Fout bij het laden van de relaties."
+
+#: ../root/scripts/text_strings.tt:188
+msgid "Error loading release: {error}"
+msgstr ""
 
 #: ../root/main/400.tt:8 ../root/main/404.tt:12 ../root/main/500.tt:37
 msgid "Error message: "
@@ -5111,19 +5115,19 @@ msgstr "Nieuwe versie:"
 msgid "Next"
 msgstr "Volgende"
 
-#: ../root/release/edit/layout.tt:57
+#: ../root/release/edit/layout.tt:61
 msgid "Next »"
 msgstr "Volgende »"
 
 #: ../root/components/common-macros.tt:21
 msgid "No"
-msgstr "Tegen"
+msgstr "Nee"
 
 #: ../root/edit/search_macros.tt:244 ../root/edit/vote.tt:17
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:192
 msgctxt "vote"
 msgid "No"
-msgstr ""
+msgstr "Tegen"
 
 #: ../root/tag/not_found.tt:4
 msgid "No MusicBrainz entities have yet been tagged with \"{tag}\"."
@@ -8068,7 +8072,7 @@ msgstr "De volgende {count} gebruikers zijn robots:"
 
 #: ../root/user/privileged.tt:48
 msgid "The following {count} users are account administrators:"
-msgstr ""
+msgstr "De volgende {count} gebruikers zijn accountbeheerders:"
 
 #: ../root/user/privileged.tt:43
 msgid "The following {count} users are location editors:"
@@ -10340,13 +10344,13 @@ msgstr "Jaar:"
 
 #: ../root/components/common-macros.tt:21
 msgid "Yes"
-msgstr "Voor"
+msgstr "Ja"
 
 #: ../root/edit/search_macros.tt:244 ../root/edit/vote.tt:14
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:193
 msgctxt "vote"
 msgid "Yes"
-msgstr ""
+msgstr "Voor"
 
 #: ../root/edit/search_macros.tt:307
 msgid "Yes vote count"
@@ -11526,7 +11530,7 @@ msgstr "{variable}:"
 msgid "{yes} yes : {no} no"
 msgstr "{yes} voor : {no} tegen"
 
-#: ../root/release/edit/layout.tt:56
+#: ../root/release/edit/layout.tt:60
 msgid "« Previous"
 msgstr "« Vorige"
 

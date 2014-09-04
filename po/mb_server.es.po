@@ -26,8 +26,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-02 11:45-0700\n"
-"PO-Revision-Date: 2014-09-02 18:46+0000\n"
+"POT-Creation-Date: 2014-09-04 13:49-0700\n"
+"PO-Revision-Date: 2014-09-04 20:50+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -519,7 +519,7 @@ msgctxt "header"
 msgid "Add Cover Art"
 msgstr "Añadir imágenes"
 
-#: ../root/release/edit/layout.tt:60 ../root/release/edit/tracklist.tt:206
+#: ../root/release/edit/layout.tt:64 ../root/release/edit/tracklist.tt:206
 #: ../root/scripts/text_strings.tt:151
 msgid "Add Disc"
 msgstr "Añadir disco"
@@ -2025,7 +2025,7 @@ msgstr "Puede ser aprobada"
 #: ../root/elections/nominate.tt:10 ../root/instrument/merge.tt:36
 #: ../root/label/merge.tt:49 ../root/layout/merge-helper.tt:34
 #: ../root/place/merge.tt:48 ../root/recording/merge.tt:26
-#: ../root/release/edit/layout.tt:54 ../root/release/edit/tracklist.tt:87
+#: ../root/release/edit/layout.tt:58 ../root/release/edit/tracklist.tt:87
 #: ../root/release_group/merge.tt:44 ../root/release/merge.tt:127
 #: ../root/series/merge.tt:37 ../root/work/merge.tt:67
 msgid "Cancel"
@@ -3310,7 +3310,7 @@ msgid "Enter a valid url e.g. \"http://google.com/\""
 msgstr "Introduce una URL válida (como \"http://google.com/\")"
 
 #: ../root/components/forms.tt:51 ../root/release/add_cover_art.tt:142
-#: ../root/release/edit/layout.tt:63 ../root/release/edit_relationships.tt:107
+#: ../root/release/edit/layout.tt:67 ../root/release/edit_relationships.tt:107
 msgid "Enter edit"
 msgstr "Introducir edición"
 
@@ -3357,6 +3357,10 @@ msgstr "Error al cancelar la edición"
 #: ../root/scripts/text_strings.tt:101
 msgid "Error loading relationships."
 msgstr "Error al cargar las relaciones"
+
+#: ../root/scripts/text_strings.tt:188
+msgid "Error loading release: {error}"
+msgstr ""
 
 #: ../root/main/400.tt:8 ../root/main/404.tt:12 ../root/main/500.tt:37
 msgid "Error message: "
@@ -5115,7 +5119,7 @@ msgstr "Nueva versión:"
 msgid "Next"
 msgstr "Siguiente"
 
-#: ../root/release/edit/layout.tt:57
+#: ../root/release/edit/layout.tt:61
 msgid "Next »"
 msgstr "Siguiente »"
 
@@ -11530,7 +11534,7 @@ msgstr ""
 msgid "{yes} yes : {no} no"
 msgstr "{yes} sí : {no} no"
 
-#: ../root/release/edit/layout.tt:56
+#: ../root/release/edit/layout.tt:60
 msgid "« Previous"
 msgstr "« Anterior"
 

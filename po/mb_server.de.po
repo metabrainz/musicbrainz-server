@@ -10,6 +10,7 @@
 # Daniel Schury <email address hidden>, 2011
 # <email address hidden>, 2012
 #   <email address hidden>, 2012
+# Ettore Atalan <email address hidden>, 2014
 # Ian McEwen <email address hidden>, 2012
 # Ian McEwen <email address hidden>, 2012-2013
 # Johannes Dewender <email address hidden>, 2013
@@ -37,8 +38,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-02 11:45-0700\n"
-"PO-Revision-Date: 2014-09-02 18:46+0000\n"
+"POT-Creation-Date: 2014-09-04 13:49-0700\n"
+"PO-Revision-Date: 2014-09-04 20:50+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -435,7 +436,7 @@ msgstr "Enthalten"
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:191
 msgctxt "vote"
 msgid "Abstain"
-msgstr ""
+msgstr "Enthalten"
 
 #: ../root/doc/edit_type.tt:8
 msgid "Accept"
@@ -530,7 +531,7 @@ msgctxt "header"
 msgid "Add Cover Art"
 msgstr "Cover-Art hinzufügen"
 
-#: ../root/release/edit/layout.tt:60 ../root/release/edit/tracklist.tt:206
+#: ../root/release/edit/layout.tt:64 ../root/release/edit/tracklist.tt:206
 #: ../root/scripts/text_strings.tt:151
 msgid "Add Disc"
 msgstr "Medium hinzufügen"
@@ -1233,7 +1234,7 @@ msgstr "Anwendungen"
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:194
 msgctxt "vote"
 msgid "Approve"
-msgstr ""
+msgstr "Bestätigen"
 
 #: ../root/edit/edit_header.tt:76 ../root/edit/info.tt:17
 msgid "Approve edit"
@@ -2036,7 +2037,7 @@ msgstr "Kann abgesegnet werden"
 #: ../root/elections/nominate.tt:10 ../root/instrument/merge.tt:36
 #: ../root/label/merge.tt:49 ../root/layout/merge-helper.tt:34
 #: ../root/place/merge.tt:48 ../root/recording/merge.tt:26
-#: ../root/release/edit/layout.tt:54 ../root/release/edit/tracklist.tt:87
+#: ../root/release/edit/layout.tt:58 ../root/release/edit/tracklist.tt:87
 #: ../root/release_group/merge.tt:44 ../root/release/merge.tt:127
 #: ../root/series/merge.tt:37 ../root/work/merge.tt:67
 msgid "Cancel"
@@ -2174,7 +2175,7 @@ msgstr "Label leeren"
 
 #: ../root/scripts/text_strings.tt:187
 msgid "Clear recent items"
-msgstr ""
+msgstr "Letzte Elemente löschen"
 
 #: ../root/scripts/text_strings.tt:83
 msgid "Clear recording"
@@ -3321,7 +3322,7 @@ msgid "Enter a valid url e.g. \"http://google.com/\""
 msgstr "Gib eine gültige URL an, z.&#xa0;B. „http://google.com/“"
 
 #: ../root/components/forms.tt:51 ../root/release/add_cover_art.tt:142
-#: ../root/release/edit/layout.tt:63 ../root/release/edit_relationships.tt:107
+#: ../root/release/edit/layout.tt:67 ../root/release/edit_relationships.tt:107
 msgid "Enter edit"
 msgstr "Bearbeitung eingeben"
 
@@ -3368,6 +3369,10 @@ msgstr "Fehler beim Abbrechen einer Bearbeitung"
 #: ../root/scripts/text_strings.tt:101
 msgid "Error loading relationships."
 msgstr "Fehler beim Laden der Beziehungen."
+
+#: ../root/scripts/text_strings.tt:188
+msgid "Error loading release: {error}"
+msgstr ""
 
 #: ../root/main/400.tt:8 ../root/main/404.tt:12 ../root/main/500.tt:37
 msgid "Error message: "
@@ -4452,7 +4457,7 @@ msgstr "Eingeschränkter Benutzer"
 
 #: ../root/release/edit/tracklist.tt:41
 msgid "Lines contain track artists"
-msgstr ""
+msgstr "Zeilen enthalten Titelkünstler"
 
 #: ../root/release/edit/tracklist.tt:18
 msgid "Lines start with a track number"
@@ -5126,7 +5131,7 @@ msgstr "Neue Version:"
 msgid "Next"
 msgstr "Weiter"
 
-#: ../root/release/edit/layout.tt:57
+#: ../root/release/edit/layout.tt:61
 msgid "Next »"
 msgstr "Weiter »"
 
@@ -5138,7 +5143,7 @@ msgstr "Nein"
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:192
 msgctxt "vote"
 msgid "No"
-msgstr ""
+msgstr "Nein"
 
 #: ../root/tag/not_found.tt:4
 msgid "No MusicBrainz entities have yet been tagged with \"{tag}\"."
@@ -8083,7 +8088,7 @@ msgstr "Die folgenden {count} Benutzerkonten sind Bots:"
 
 #: ../root/user/privileged.tt:48
 msgid "The following {count} users are account administrators:"
-msgstr ""
+msgstr "Die folgenden {count} Benutzer sind Kontoadministratoren:"
 
 #: ../root/user/privileged.tt:43
 msgid "The following {count} users are location editors:"
@@ -10361,7 +10366,7 @@ msgstr "Ja"
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:193
 msgctxt "vote"
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #: ../root/edit/search_macros.tt:307
 msgid "Yes vote count"
@@ -11541,7 +11546,7 @@ msgstr "{variable}:"
 msgid "{yes} yes : {no} no"
 msgstr "{yes} ja : {no} nein"
 
-#: ../root/release/edit/layout.tt:56
+#: ../root/release/edit/layout.tt:60
 msgid "« Previous"
 msgstr "« Vorheriges"
 

@@ -27,8 +27,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-02 11:45-0700\n"
-"PO-Revision-Date: 2014-09-02 18:46+0000\n"
+"POT-Creation-Date: 2014-09-04 13:49-0700\n"
+"PO-Revision-Date: 2014-09-04 20:50+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -458,11 +458,11 @@ msgstr "Administration du compte"
 
 #: ../root/user/privileged.tt:46
 msgid "Account administrators"
-msgstr ""
+msgstr "Administrateurs de compte"
 
 #: ../root/user/privileged.tt:47
 msgid "Account administrators can edit and delete user accounts."
-msgstr ""
+msgstr "Les administrateurs de compte peuvent modifier et supprimer les comptes d'utilisateurs."
 
 #: ../root/search/results-freedb.tt:17
 msgid "Action"
@@ -520,7 +520,7 @@ msgctxt "header"
 msgid "Add Cover Art"
 msgstr "Ajouter une Illustration"
 
-#: ../root/release/edit/layout.tt:60 ../root/release/edit/tracklist.tt:206
+#: ../root/release/edit/layout.tt:64 ../root/release/edit/tracklist.tt:206
 #: ../root/scripts/text_strings.tt:151
 msgid "Add Disc"
 msgstr "Ajouter un disque"
@@ -2026,7 +2026,7 @@ msgstr "Peut être approuvé"
 #: ../root/elections/nominate.tt:10 ../root/instrument/merge.tt:36
 #: ../root/label/merge.tt:49 ../root/layout/merge-helper.tt:34
 #: ../root/place/merge.tt:48 ../root/recording/merge.tt:26
-#: ../root/release/edit/layout.tt:54 ../root/release/edit/tracklist.tt:87
+#: ../root/release/edit/layout.tt:58 ../root/release/edit/tracklist.tt:87
 #: ../root/release_group/merge.tt:44 ../root/release/merge.tt:127
 #: ../root/series/merge.tt:37 ../root/work/merge.tt:67
 msgid "Cancel"
@@ -3311,7 +3311,7 @@ msgid "Enter a valid url e.g. \"http://google.com/\""
 msgstr "Saisir une URL valide, par exemple « http://google.com/ »"
 
 #: ../root/components/forms.tt:51 ../root/release/add_cover_art.tt:142
-#: ../root/release/edit/layout.tt:63 ../root/release/edit_relationships.tt:107
+#: ../root/release/edit/layout.tt:67 ../root/release/edit_relationships.tt:107
 msgid "Enter edit"
 msgstr "Saisir une modification"
 
@@ -3358,6 +3358,10 @@ msgstr "Erreur à l'annulation de votre modification"
 #: ../root/scripts/text_strings.tt:101
 msgid "Error loading relationships."
 msgstr "Erreur durant le chargement des relations."
+
+#: ../root/scripts/text_strings.tt:188
+msgid "Error loading release: {error}"
+msgstr ""
 
 #: ../root/main/400.tt:8 ../root/main/404.tt:12 ../root/main/500.tt:37
 msgid "Error message: "
@@ -5116,7 +5120,7 @@ msgstr "Nouvelle version : "
 msgid "Next"
 msgstr "Suivant "
 
-#: ../root/release/edit/layout.tt:57
+#: ../root/release/edit/layout.tt:61
 msgid "Next »"
 msgstr "Suivant »"
 
@@ -5128,7 +5132,7 @@ msgstr "Non"
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:192
 msgctxt "vote"
 msgid "No"
-msgstr ""
+msgstr "Non"
 
 #: ../root/tag/not_found.tt:4
 msgid "No MusicBrainz entities have yet been tagged with \"{tag}\"."
@@ -8073,7 +8077,7 @@ msgstr "Les {count} utilisateurs suivants sont des robots :"
 
 #: ../root/user/privileged.tt:48
 msgid "The following {count} users are account administrators:"
-msgstr ""
+msgstr "Les {count} utilisateurs suivants sont des administrateurs de compte :"
 
 #: ../root/user/privileged.tt:43
 msgid "The following {count} users are location editors:"
@@ -10351,7 +10355,7 @@ msgstr "Oui"
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:193
 msgctxt "vote"
 msgid "Yes"
-msgstr ""
+msgstr "Oui"
 
 #: ../root/edit/search_macros.tt:307
 msgid "Yes vote count"
@@ -11531,7 +11535,7 @@ msgstr "{variable} :"
 msgid "{yes} yes : {no} no"
 msgstr "{yes} oui : {no} non"
 
-#: ../root/release/edit/layout.tt:56
+#: ../root/release/edit/layout.tt:60
 msgid "« Previous"
 msgstr "« Précédent"
 

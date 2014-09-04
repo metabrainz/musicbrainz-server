@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-02 11:45-0700\n"
-"PO-Revision-Date: 2014-09-02 18:46+0000\n"
+"POT-Creation-Date: 2014-09-04 13:49-0700\n"
+"PO-Revision-Date: 2014-09-04 20:50+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -507,7 +507,7 @@ msgctxt "header"
 msgid "Add Cover Art"
 msgstr "Kaanepildi lisamine"
 
-#: ../root/release/edit/layout.tt:60 ../root/release/edit/tracklist.tt:206
+#: ../root/release/edit/layout.tt:64 ../root/release/edit/tracklist.tt:206
 #: ../root/scripts/text_strings.tt:151
 msgid "Add Disc"
 msgstr "Lisa plaat"
@@ -2013,7 +2013,7 @@ msgstr "Heakskiidetav"
 #: ../root/elections/nominate.tt:10 ../root/instrument/merge.tt:36
 #: ../root/label/merge.tt:49 ../root/layout/merge-helper.tt:34
 #: ../root/place/merge.tt:48 ../root/recording/merge.tt:26
-#: ../root/release/edit/layout.tt:54 ../root/release/edit/tracklist.tt:87
+#: ../root/release/edit/layout.tt:58 ../root/release/edit/tracklist.tt:87
 #: ../root/release_group/merge.tt:44 ../root/release/merge.tt:127
 #: ../root/series/merge.tt:37 ../root/work/merge.tt:67
 msgid "Cancel"
@@ -3298,7 +3298,7 @@ msgid "Enter a valid url e.g. \"http://google.com/\""
 msgstr "Sisesta korrektne URL, nagu nt „http://google.com/”"
 
 #: ../root/components/forms.tt:51 ../root/release/add_cover_art.tt:142
-#: ../root/release/edit/layout.tt:63 ../root/release/edit_relationships.tt:107
+#: ../root/release/edit/layout.tt:67 ../root/release/edit_relationships.tt:107
 msgid "Enter edit"
 msgstr "Toimeta"
 
@@ -3345,6 +3345,10 @@ msgstr "Viga toimetuse tühistamisel"
 #: ../root/scripts/text_strings.tt:101
 msgid "Error loading relationships."
 msgstr "Viga seoste laadimisel."
+
+#: ../root/scripts/text_strings.tt:188
+msgid "Error loading release: {error}"
+msgstr ""
 
 #: ../root/main/400.tt:8 ../root/main/404.tt:12 ../root/main/500.tt:37
 msgid "Error message: "
@@ -5103,7 +5107,7 @@ msgstr "Uus versioon:"
 msgid "Next"
 msgstr "Järgmine"
 
-#: ../root/release/edit/layout.tt:57
+#: ../root/release/edit/layout.tt:61
 msgid "Next »"
 msgstr "Edasi »"
 
@@ -11518,7 +11522,7 @@ msgstr "{variable}:"
 msgid "{yes} yes : {no} no"
 msgstr "{yes} poolt : {no} vastu"
 
-#: ../root/release/edit/layout.tt:56
+#: ../root/release/edit/layout.tt:60
 msgid "« Previous"
 msgstr "« Tagasi"
 

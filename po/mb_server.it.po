@@ -21,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-02 11:45-0700\n"
-"PO-Revision-Date: 2014-09-02 18:46+0000\n"
+"POT-Creation-Date: 2014-09-04 13:49-0700\n"
+"PO-Revision-Date: 2014-09-04 20:50+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -419,7 +419,7 @@ msgstr "Astenuto"
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:191
 msgctxt "vote"
 msgid "Abstain"
-msgstr ""
+msgstr "Astenuto"
 
 #: ../root/doc/edit_type.tt:8
 msgid "Accept"
@@ -452,11 +452,11 @@ msgstr "Amministrazione account"
 
 #: ../root/user/privileged.tt:46
 msgid "Account administrators"
-msgstr ""
+msgstr "Amministratori account"
 
 #: ../root/user/privileged.tt:47
 msgid "Account administrators can edit and delete user accounts."
-msgstr ""
+msgstr "Gli amministratori degli account possono modificare ed eliminare gli account utente."
 
 #: ../root/search/results-freedb.tt:17
 msgid "Action"
@@ -514,7 +514,7 @@ msgctxt "header"
 msgid "Add Cover Art"
 msgstr "Aggiungi copertina"
 
-#: ../root/release/edit/layout.tt:60 ../root/release/edit/tracklist.tt:206
+#: ../root/release/edit/layout.tt:64 ../root/release/edit/tracklist.tt:206
 #: ../root/scripts/text_strings.tt:151
 msgid "Add Disc"
 msgstr "Aggiungi disco"
@@ -1217,7 +1217,7 @@ msgstr "Applicazioni"
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:194
 msgctxt "vote"
 msgid "Approve"
-msgstr ""
+msgstr "Approva"
 
 #: ../root/edit/edit_header.tt:76 ../root/edit/info.tt:17
 msgid "Approve edit"
@@ -2020,7 +2020,7 @@ msgstr "Può essere approvato"
 #: ../root/elections/nominate.tt:10 ../root/instrument/merge.tt:36
 #: ../root/label/merge.tt:49 ../root/layout/merge-helper.tt:34
 #: ../root/place/merge.tt:48 ../root/recording/merge.tt:26
-#: ../root/release/edit/layout.tt:54 ../root/release/edit/tracklist.tt:87
+#: ../root/release/edit/layout.tt:58 ../root/release/edit/tracklist.tt:87
 #: ../root/release_group/merge.tt:44 ../root/release/merge.tt:127
 #: ../root/series/merge.tt:37 ../root/work/merge.tt:67
 msgid "Cancel"
@@ -3305,7 +3305,7 @@ msgid "Enter a valid url e.g. \"http://google.com/\""
 msgstr "Inserisci un URL valido, ad es. \"http://google.com/\""
 
 #: ../root/components/forms.tt:51 ../root/release/add_cover_art.tt:142
-#: ../root/release/edit/layout.tt:63 ../root/release/edit_relationships.tt:107
+#: ../root/release/edit/layout.tt:67 ../root/release/edit_relationships.tt:107
 msgid "Enter edit"
 msgstr "Inserisci modifica"
 
@@ -3352,6 +3352,10 @@ msgstr "Errore durante l'annullamento della modifica"
 #: ../root/scripts/text_strings.tt:101
 msgid "Error loading relationships."
 msgstr "Errore nel caricamento delle relazioni."
+
+#: ../root/scripts/text_strings.tt:188
+msgid "Error loading release: {error}"
+msgstr ""
 
 #: ../root/main/400.tt:8 ../root/main/404.tt:12 ../root/main/500.tt:37
 msgid "Error message: "
@@ -5110,7 +5114,7 @@ msgstr "Nuova versione:"
 msgid "Next"
 msgstr "Seguente"
 
-#: ../root/release/edit/layout.tt:57
+#: ../root/release/edit/layout.tt:61
 msgid "Next »"
 msgstr "Seguente »"
 
@@ -5122,7 +5126,7 @@ msgstr "No"
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:192
 msgctxt "vote"
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: ../root/tag/not_found.tt:4
 msgid "No MusicBrainz entities have yet been tagged with \"{tag}\"."
@@ -8067,7 +8071,7 @@ msgstr "I {count} account utente seguenti sono bot:"
 
 #: ../root/user/privileged.tt:48
 msgid "The following {count} users are account administrators:"
-msgstr ""
+msgstr "I {count} utenti seguenti sono amministratori account:"
 
 #: ../root/user/privileged.tt:43
 msgid "The following {count} users are location editors:"
@@ -10345,7 +10349,7 @@ msgstr "Sì"
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:193
 msgctxt "vote"
 msgid "Yes"
-msgstr ""
+msgstr "Sì"
 
 #: ../root/edit/search_macros.tt:307
 msgid "Yes vote count"
@@ -11525,7 +11529,7 @@ msgstr "{variable}:"
 msgid "{yes} yes : {no} no"
 msgstr "{yes} sì : {no} no"
 
-#: ../root/release/edit/layout.tt:56
+#: ../root/release/edit/layout.tt:60
 msgid "« Previous"
 msgstr "« Precedente"
 
