@@ -25,6 +25,7 @@
 
             $.extend(this, _.pick(data, "id", "gid"));
 
+            data.name = data.name || "";
             this.name = ko.observable(data.name);
             this.name.original = data.name;
             this.name.subscribe(this.nameChanged, this);
