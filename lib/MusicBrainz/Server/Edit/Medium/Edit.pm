@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Edit::Medium::Edit;
 use Carp;
 use Clone 'clone';
-use List::AllUtils qw( any uniq );
+use List::AllUtils qw( any );
 use Algorithm::Diff qw( diff sdiff );
 use Algorithm::Merge qw( merge );
 use Data::Compare;
@@ -169,13 +169,11 @@ sub initialize
             unless (Compare(filter_subsecond_differences($old),
                             filter_subsecond_differences($new)))
             {
+                check_tracklist_hash($new);
+
                 $data->{old}{tracklist} = $old;
                 $data->{new}{tracklist} = $new;
             }
-
-            my @track_ids = grep { defined $_ } map { $_->{id} } @$new;
-            die "Track IDs are not unique (MBS-7303)"
-                unless scalar @track_ids == scalar uniq @track_ids;
         }
 
         MusicBrainz::Server::Edit::Exceptions::NoChanges->throw

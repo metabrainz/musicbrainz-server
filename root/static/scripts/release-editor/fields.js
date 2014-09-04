@@ -262,7 +262,7 @@
                 var self = this;
 
                 _.times(trackCount - tracks.length, function () {
-                    self.tracks.push(fields.Track({ position: tracks.length }, self));
+                    self.tracks.push(fields.Track({ position: tracks.length + 1 }, self));
                 });
             }
 
