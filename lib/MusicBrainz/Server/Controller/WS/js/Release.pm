@@ -69,6 +69,12 @@ sub release : Chained('root') PathPart('release') Args(1)
     }
 
     my $release = $c->model('Release')->get_by_gid($gid);
+
+    unless (defined $release) {
+        $c->stash->{error} = "Release $gid does not exist.";
+        $c->detach('bad_req');
+    }
+
     $c->model('ReleaseGroup')->load($release);
     $c->model('ReleaseGroup')->load_meta($release->release_group);
     $c->model('ArtistCredit')->load($release, $release->release_group);
