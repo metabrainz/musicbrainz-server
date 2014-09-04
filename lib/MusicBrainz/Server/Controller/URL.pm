@@ -49,11 +49,6 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
     edit_type => $EDIT_URL_EDIT,
 };
 
-before edit => sub {
-    my ($self, $c) = @_;
-    $c->model('Relationship')->load($c->stash->{url});
-};
-
 =head1 LICENSE
 
 This software is provided "as is", without warranty of any kind, express or

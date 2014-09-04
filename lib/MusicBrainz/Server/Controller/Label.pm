@@ -4,8 +4,9 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model       => 'Label',
-    entity_name => 'label',
+    model           => 'Label',
+    entity_name     => 'label',
+    relationships   => { all => ['relationships'], cardinal => ['edit'] },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
@@ -15,7 +16,6 @@ with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::IPI';
 with 'MusicBrainz::Server::Controller::Role::ISNI';
-with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::Rating';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::Subscribe';
@@ -96,6 +96,8 @@ sub show : PathPart('') Chained('load')
     );
 }
 
+sub relationships : Chained('load') PathPart('relationships') {}
+
 sub _merge_load_entities
 {
     my ($self, $c, @labels) = @_;
@@ -120,12 +122,6 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
     form           => 'Label',
     edit_type      => $EDIT_LABEL_EDIT,
-};
-
-before edit => sub {
-    my ($self, $c) = @_;
-
-    $c->model('Relationship')->load($c->stash->{label});
 };
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {

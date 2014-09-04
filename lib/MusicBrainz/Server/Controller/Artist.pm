@@ -4,7 +4,8 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model       => 'Artist',
+    model           => 'Artist',
+    relationships   => { all => ['relationships'], cardinal => ['edit'], subset => { split => ['artist'] } },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
@@ -13,7 +14,6 @@ with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::IPI';
 with 'MusicBrainz::Server::Controller::Role::ISNI';
-with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::Rating';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::Subscribe';
@@ -236,6 +236,8 @@ sub show : PathPart('') Chained('load')
     $c->stash(other_identities => \@other_identities);
 }
 
+sub relationships : Chained('load') PathPart('relationships') {}
+
 =head2 works
 
 Shows all works of an artist. For various artists, the results would be
@@ -449,12 +451,6 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
     }
 };
 
-before edit => sub {
-    my ($self, $c) = @_;
-
-    $c->model('Relationship')->load($c->stash->{artist});
-};
-
 =head2 add_release
 
 Add a new release to this artist.
@@ -569,7 +565,6 @@ sub stop_watching : Chained('load') RequireAuth {
 sub split : Chained('load') Edit {
     my ($self, $c) = @_;
     my $artist = $c->stash->{artist};
-    $c->model('Relationship')->load($artist);
 
     if (!can_split($artist)) {
         $c->stash( template => 'artist/cannot_split.tt' );
