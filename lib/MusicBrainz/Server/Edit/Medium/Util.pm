@@ -63,11 +63,11 @@ sub tracks_to_hash
 sub check_track_hash {
     my $tracks = shift;
 
-    my @track_ids = grep { defined $_ } map { $_->{id} } @$new;
+    my @track_ids = grep { defined $_ } map { $_->{id} } @$tracks;
     die "Track IDs are not unique (MBS-7303)"
         unless scalar @track_ids == scalar uniq @track_ids;
 
-    my @track_pos = sort { $a <=> $b } map { $_->{position} } @$new;
+    my @track_pos = sort { $a <=> $b } map { $_->{position} } @$tracks;
     die "No tracks" unless @track_pos;
     die "Track positions not given for all tracks"
         unless all { defined $_ } @track_pos;
