@@ -22,6 +22,7 @@ use MusicBrainz::Server::Edit::Types qw(
     Nullable
     NullableOnPreview
 );
+use MusicBrainz::Server::Edit::Medium::Util qw( check_track_hash );
 use MusicBrainz::Server::Edit::Utils qw( verify_artist_credits hash_artist_credit hash_artist_credit_without_join_phrases );
 use MusicBrainz::Server::Log qw( log_assertion log_debug );
 use MusicBrainz::Server::Validation 'normalise_strings';
@@ -169,7 +170,7 @@ sub initialize
             unless (Compare(filter_subsecond_differences($old),
                             filter_subsecond_differences($new)))
             {
-                check_tracklist_hash($new);
+                check_track_hash($new);
 
                 $data->{old}{tracklist} = $old;
                 $data->{new}{tracklist} = $new;
