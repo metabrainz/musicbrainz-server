@@ -50,10 +50,7 @@ role
 
         my $entity = $self->_load($c, @args);
 
-        if (!defined $entity) {
-            # This will detach for us
-            $self->not_found($c, @args);
-        }
+        $c->detach('not_found') unless defined $entity;
 
         my $entity_properties = $ENTITIES{ model_to_type($model) };
 
