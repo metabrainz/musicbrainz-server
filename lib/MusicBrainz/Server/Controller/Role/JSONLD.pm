@@ -4,9 +4,8 @@ use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_e
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 
 parameter 'endpoints' => (
-    isa => 'ArrayRef',
-    required => 0,
-    default => sub { [] }
+    isa => 'HashRef',
+    required => 1
 );
 
 role
@@ -22,10 +21,19 @@ role
         $c->stash->{jsonld_stash} = WebServiceStash->new();
     };
 
-    after @$endpoints => sub {
-        my ($self, $c, @args) = @_;
-        $c->stash->{jsonld_data} = serialize_entity($c->stash->{entity}, undef, $c->stash->{jsonld_stash}, 1);
-    };
+    for my $endpoint (keys %$endpoints) {
+        after $endpoint => sub {
+            my ($self, $c, @args) = @_;
+            my $entity = $c->stash->{entity};
+            my $stash = $c->stash->{jsonld_stash};
+            for my $copy (@{ $endpoints->{$endpoint}{copy_stash} // []}) {
+                my $from = ref $copy eq 'HASH' ? $copy->{from} : $copy;
+                my $to = ref $copy eq 'HASH' ? $copy->{to} : $copy;
+                $stash->store($entity)->{$to} = $c->stash->{$from};
+            }
+            $c->stash->{jsonld_data} = serialize_entity($entity, undef, $stash, 1);
+        };
+    }
 };
 
 1;
