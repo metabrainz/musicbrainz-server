@@ -1,4 +1,4 @@
-package MusicBrainz::Server::WebService::Serializer::JSON::LD::Artist;
+package MusicBrainz::Server::WebService::Serializer::JSON::LD::Label;
 use Moose;
 use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_entity );
 
@@ -13,8 +13,7 @@ around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
     my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
 
-    $ret->{'@type'} = 'MusicGroup';
-    $ret->{groupOrigin} = serialize_entity($entity->begin_area, $inc, $stash) if $entity->begin_area;
+    $ret->{'@type'} = 'Organization';
 
     return $ret;
 };

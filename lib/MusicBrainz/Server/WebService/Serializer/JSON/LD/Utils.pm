@@ -16,13 +16,9 @@ our @EXPORT_OK = qw(
 #        CDTOC
 #        Collection
 #        Instrument
-#        Label
-#        Place
 #        Medium
 #        Recording
 #        Relationship
-#        Release
-#        ReleaseGroup
 #        Series
 #        URL
 #        Work
@@ -35,6 +31,10 @@ my %serializers =
     } qw(
         Area
         Artist
+        Label
+        Place
+        Release
+        ReleaseGroup
     );
 
 sub serializer

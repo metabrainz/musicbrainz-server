@@ -14,6 +14,9 @@ with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Tag';
+with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
+    endpoints => {show => {}}
+};
 
 use List::Util qw( first );
 use List::MoreUtils qw( part uniq );
