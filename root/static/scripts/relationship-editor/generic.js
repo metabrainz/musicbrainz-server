@@ -281,7 +281,7 @@
             submitted = submitted.concat(source.relationshipsInViewModel(vm)());
         }
 
-        if (submitted.length && window.sessionStorage) {
+        if (submitted.length && MB.hasSessionStorage) {
             sessionStorage.submittedRelationships = JSON.stringify(
                 _.map(submitted, function (relationship) {
                     var data = relationship.editData();

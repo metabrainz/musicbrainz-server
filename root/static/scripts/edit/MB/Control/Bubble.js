@@ -146,13 +146,28 @@ MB.Control.ArtistCreditBubbleBase = {
 
     copyArtistCredit: function () {
         var names = this.target().toJSON();
-        if (names.length === 0) names.push({});
 
-        localStorage.copiedArtistCredit = JSON.stringify(names);
+        if (names.length === 0) {
+            names.push({});
+        }
+
+        if (MB.hasLocalStorage) {
+            localStorage.copiedArtistCredit = JSON.stringify(names);
+        } else {
+            MB.copiedArtistCredit = JSON.stringify(names);
+        }
     },
 
     pasteArtistCredit: function () {
-        var names = JSON.parse(localStorage.copiedArtistCredit || "[{}]");
+        var copiedArtistCredit;
+
+        if (MB.hasLocalStorage) {
+            copiedArtistCredit = localStorage.copiedArtistCredit;
+        } else {
+            copiedArtistCredit = MB.copiedArtistCredit;
+        }
+
+        var names = JSON.parse(copiedArtistCredit || "[{}]");
         this.target().setNames(names);
     }
 };
