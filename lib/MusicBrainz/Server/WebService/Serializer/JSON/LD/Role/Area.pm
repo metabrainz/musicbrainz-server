@@ -1,14 +1,27 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Area;
-use Moose::Role;
+use MooseX::Role::Parameterized;
+
 use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_entity );
 
-around serialize => sub {
-    my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
-    my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
+parameter 'property' => (
+    isa => 'Str',
+    required => 0,
+    default => sub { 'location' }
+);
 
-    $ret->{location} = serialize_entity($entity->area, $inc, $stash) if $entity->area;
+role {
+    my $params = shift;
+    my $property = $params->property;
 
-    return $ret;
+    requires 'serialize';
+    around serialize => sub {
+        my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
+        my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
+
+        $ret->{$property} = serialize_entity($entity->area, $inc, $stash) if $entity->area;
+
+        return $ret;
+    };
 };
 
 no Moose::Role;

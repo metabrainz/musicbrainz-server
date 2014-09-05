@@ -7,7 +7,7 @@ with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Name';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::LifeSpan';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Aliases';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Area';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Area' => { property => 'containedIn' };
 
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
