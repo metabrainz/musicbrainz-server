@@ -36,6 +36,10 @@
     [%- END -%]
     [%- BLOCK layout_head %][% END -%]
     [%- INCLUDE layout_head -%]
+    [%~ IF jsonld_data ~%]
+      [%~ USE JSON.Escape ~%]
+      <script type="application/ld+json">[% jsonld_data.json %]</script>
+    [%~ END ~%]
     [%- IF google_analytics_code -%]
       <script type="text/javascript">
         var _gaq = _gaq || [];
