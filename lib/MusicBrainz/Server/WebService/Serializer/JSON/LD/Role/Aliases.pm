@@ -1,25 +1,30 @@
-package MusicBrainz::Server::WebService::Serializer::JSON::LD::Artist;
-use Moose;
-use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_entity );
-
-extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Name';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::LifeSpan';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Aliases';
+package MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Aliases;
+use Moose::Role;
+use MusicBrainz::Server::Constants qw( %ENTITIES );
+use MusicBrainz::Server::Data::Utils qw( ref_to_type );
+use List::UtilsBy qw( sort_by );
 
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
     my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
 
-    $ret->{'@type'} = 'MusicGroup';
-    $ret->{groupOrigin} = serialize_entity($entity->begin_area, $inc, $stash) if $entity->begin_area;
+    my $entity_type = ref_to_type($entity);
+    my $entity_search_hint_type = $ENTITIES{$entity_type}{aliases}{search_hint_type};
+
+    my $opts = $stash->store($entity);
+
+    my @aliases;
+    for my $alias (grep { $_->type_id != $entity_search_hint_type } sort_by { $_->name } @{ $opts->{aliases} // [] })
+    {
+        push @aliases, $alias->name;
+    }
+
+    $ret->{alternateName} = \@aliases if @aliases;
 
     return $ret;
 };
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
+no Moose::Role;
 1;
 
 =head1 COPYRIGHT

@@ -9,6 +9,7 @@ with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Name';
 # Role::LifeSpan is not included here because schema.org does not have
 # properties for begin/end dates for areas, and since those fields are
 # not highly used in MusicBrainz anyway.
+with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Aliases';
 
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
