@@ -4,14 +4,15 @@
 # Benjamin Sonntag <email address hidden>, 2011-2012
 # Benjamin Sonntag <email address hidden>, 2011
 # Dibou <email address hidden>, 2012
+# Laurent Monin <email address hidden>, 2014
 # Lotheric <email address hidden>, 2011
 # murdos <email address hidden>, 2011-2012
 # yahoe.001, 2013-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-09-03 14:23+0000\n"
-"Last-Translator: yahoe.001\n"
+"PO-Revision-Date: 2014-09-05 13:25+0000\n"
+"Last-Translator: Laurent Monin <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -510,7 +511,7 @@ msgstr "100 %"
 #: ../root/statistics/index.tt:892
 msgctxt "vote"
 msgid "Abstain"
-msgstr ""
+msgstr "S'abstenir"
 
 #: ../root/statistics/view_js.tt:80
 msgid "Abstentions"
@@ -571,7 +572,7 @@ msgstr "Appliqué :"
 #: ../root/statistics/index.tt:874
 msgctxt "vote"
 msgid "Approve"
-msgstr ""
+msgstr "Approuver"
 
 #: ../root/statistics/index.tt:573 ../root/statistics/view_js.tt:55
 msgid "Areas"
