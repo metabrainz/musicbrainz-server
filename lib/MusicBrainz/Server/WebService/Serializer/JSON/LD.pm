@@ -2,6 +2,11 @@ package MusicBrainz::Server::WebService::Serializer::JSON::LD;
 use Moose;
 use JSON;
 
+sub serialize {
+    my ($self, $entity, $inc, $stash, $toplevel) = @_;
+    return {'@context' => 'http://schema.org'};
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

@@ -1,22 +1,22 @@
-package MusicBrainz::Server::WebService::JSONLDSerializer;
+package MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID;
+use Moose::Role;
+use MusicBrainz::Server::Constants qw( %ENTITIES );
+use MusicBrainz::Server::Data::Utils qw( ref_to_type );
+use DBDefs;
 
-use Moose;
-use JSON;
-use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_entity );
+around serialize => sub {
+    my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
+    my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
 
-sub mime_type { 'application/ld+json' }
-sub fmt { 'jsonld' }
+    my $entity_type = ref_to_type($entity);
+    my $entity_url = $ENTITIES{$entity_type}{url} // $entity_type;
 
-sub serialize
-{
-    my ($self, $type, $entity, $inc, $stash) = @_;
+    $ret->{'@id'} = DBDefs->CANONICAL_SERVER . '/' . $entity_url . '/' . $entity->gid;
 
-    my $ret = serialize_entity($entity, $inc, $stash, 1);
-    return encode_json($ret);
-}
+    return $ret;
+};
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
+no Moose::Role;
 1;
 
 =head1 COPYRIGHT
@@ -38,3 +38,4 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 =cut
+

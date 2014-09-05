@@ -4,27 +4,14 @@ use warnings;
 use strict;
 
 use base 'Exporter';
-#use Class::Load qw( load_class );
-#use List::UtilsBy qw( sort_by );
-#
-#our @EXPORT_OK = qw(
-#    boolean
-#    count_of
-#    list_of
-#    number
-#    date_period
-#    serializer
-#    serialize_entity
-#);
-#
-#my %serializers =
-#    map {
-#        my $class = "MusicBrainz::Server::WebService::Serializer::JSON::LD::$_";
-#        load_class($class);
-#        "MusicBrainz::Server::Entity::$_" => $class->new
-#    } qw(
+use Class::Load qw( load_class );
+
+our @EXPORT_OK = qw(
+    serializer
+    serialize_entity
+);
+
 #        Area
-#        Artist
 #        ArtistCredit
 #        CDStubTOC
 #        CDTOC
@@ -40,75 +27,36 @@ use base 'Exporter';
 #        Series
 #        URL
 #        Work
-#    );
-#
-#sub boolean { return (shift) ? JSON::true : JSON::false; }
-#
-#sub number {
-#    my $value = shift;
-#    return defined $value ? $value + 0 : JSON::null;
-#}
-#
-#sub date_period {
-#    my $entity = shift;
-#
-#    my %lifespan = (
-#        begin => JSON::null,
-#        end => JSON::null,
-#        ended => boolean($entity->ended),
-#        );
-#
-#    $lifespan{begin} = $entity->begin_date->format if !$entity->begin_date->is_empty;
-#    $lifespan{end} = $entity->end_date->format if !$entity->end_date->is_empty;
-#
-#    return \%lifespan;
-#}
-#
-#sub serializer
-#{
-#    my $entity = shift;
-#
-#    my $serializer;
-#
-#    for my $class (keys %serializers) {
-#        if ($entity->isa($class)) {
-#            return $serializers{$class};
-#        }
-#    }
-#
-#    die 'No serializer found for ' . ref($entity);
-#}
+
+my %serializers =
+    map {
+        my $class = "MusicBrainz::Server::WebService::Serializer::JSON::LD::$_";
+        load_class($class);
+        "MusicBrainz::Server::Entity::$_" => $class->new
+    } qw(
+        Artist
+    );
+
+sub serializer
+{
+    my $entity = shift;
+
+    my $serializer;
+
+    for my $class (keys %serializers) {
+        if ($entity->isa($class)) {
+            return $serializers{$class};
+        }
+    }
+
+    die 'No serializer found for ' . ref($entity);
+}
 
 sub serialize_entity
 {
     return unless defined $_[0];
-    return {}
-    #return serializer($_[0])->serialize(@_);
+    return serializer($_[0])->serialize(@_);
 }
-
-#sub list_of
-#{
-#    my ($entity, $inc, $stash, $type, $toplevel) = @_;
-#
-#    my $opts = $stash->store($entity);
-#    my $list = $opts->{$type};
-#    my $items = (ref $list eq 'HASH') ? $list->{items} : $list;
-#
-#    return [
-#        map { serialize_entity($_, $inc, $stash, $toplevel) }
-#        sort_by { $_->gid } @$items ];
-#}
-#
-#sub count_of
-#{
-#    my ($entity, $inc, $stash, $type, $toplevel) = @_;
-#
-#    my $opts = $stash->store($entity);
-#    my $list = $opts->{$type};
-#    my $items = (ref $list eq 'HASH') ? $list->{items} : $list;
-#
-#    return number(scalar @$items);
-#}
 
 1;
 

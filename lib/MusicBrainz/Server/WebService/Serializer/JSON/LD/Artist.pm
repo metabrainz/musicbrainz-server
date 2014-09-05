@@ -1,19 +1,19 @@
-package MusicBrainz::Server::WebService::JSONLDSerializer;
-
+package MusicBrainz::Server::WebService::Serializer::JSON::LD::Artist;
 use Moose;
-use JSON;
 use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_entity );
 
-sub mime_type { 'application/ld+json' }
-sub fmt { 'jsonld' }
+extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
 
-sub serialize
-{
-    my ($self, $type, $entity, $inc, $stash) = @_;
+around serialize => sub {
+    my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
+    my %body = %{ $self->$orig($entity, $inc, $stash, $toplevel) };
 
-    my $ret = serialize_entity($entity, $inc, $stash, 1);
-    return encode_json($ret);
-}
+    $body{'@type'} = 'MusicGroup';
+    $body{name} = $entity->name;
+
+    return \%body;
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
@@ -38,3 +38,4 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 =cut
+
