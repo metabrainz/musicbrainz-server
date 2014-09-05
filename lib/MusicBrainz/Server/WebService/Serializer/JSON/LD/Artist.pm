@@ -5,6 +5,7 @@ use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_e
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Name';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::LifeSpan';
 
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
