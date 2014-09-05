@@ -115,17 +115,23 @@ sub build_one_entity {
         "SELECT batch, count(id) from (SELECT id, ceil(id / 50000.0) AS batch FROM $entity_type) q GROUP BY batch ORDER BY batch ASC"
     );
     my @batches;
-    my $batch = {count => 0, batches => []};
-    for my $raw_batch (@$raw_batches) {
-        if ($batch->{count} + $raw_batch->{count} <= 50000) {
-            $batch->{count} = $batch->{count} + $raw_batch->{count};
-            push @{$batch->{batches}}, $raw_batch->{batch};
-        } else {
-            push @batches, $batch;
-            $batch = {count => $raw_batch->{count}, batches => [$raw_batch->{batch}]};
+    if (scalar @$raw_batches > 1) {
+        my $batch = {count => 0, batches => []};
+        # Exclude the last batch, which should always be its own sitemap.
+        for my $raw_batch (@{ $raw_batches }[0..scalar @$raw_batches-2]) {
+            if ($batch->{count} + $raw_batch->{count} <= 50000) {
+                $batch->{count} = $batch->{count} + $raw_batch->{count};
+                push @{$batch->{batches}}, $raw_batch->{batch};
+            } else {
+                push @batches, $batch;
+                $batch = {count => $raw_batch->{count}, batches => [$raw_batch->{batch}]};
+            }
         }
+        push @batches, $batch;
     }
-    push @batches, $batch;
+    my $last_batch = $raw_batches->[scalar @$raw_batches - 1];
+    push @batches, {count =>   $last_batch->{count},
+                    batches => [$last_batch->{batch}]};
     for my $batch_info (@batches) {
         build_one_sitemap($entity_type, $batch_info, $index, $sql);
     }
