@@ -1,6 +1,7 @@
-package MusicBrainz::Server::WebService::Serializer::JSON::LD::Artist;
+package MusicBrainz::Server::WebService::Serializer::JSON::LD::Area;
 use Moose;
 use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_entity );
+use MusicBrainz::Server::Constants qw( $AREA_TYPE_COUNTRY $AREA_TYPE_CITY );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
@@ -10,8 +11,13 @@ around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
     my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
 
-    $ret->{'@type'} = 'MusicGroup';
-    $ret->{groupOrigin} = serialize_entity($entity->begin_area) if $entity->begin_area;
+    if ($entity->type_id == $AREA_TYPE_COUNTRY) {
+        $ret->{'@type'} = 'Country';
+    } elsif ($entity->type_id == $AREA_TYPE_CITY) {
+        $ret->{'@type'} = 'City';
+    } else {
+        $ret->{'@type'} = 'AdministrativeArea';
+    }
 
     return $ret;
 };

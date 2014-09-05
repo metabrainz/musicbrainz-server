@@ -11,7 +11,6 @@ our @EXPORT_OK = qw(
     serialize_entity
 );
 
-#        Area
 #        ArtistCredit
 #        CDStubTOC
 #        CDTOC
@@ -34,6 +33,7 @@ my %serializers =
         load_class($class);
         "MusicBrainz::Server::Entity::$_" => $class->new
     } qw(
+        Area
         Artist
     );
 

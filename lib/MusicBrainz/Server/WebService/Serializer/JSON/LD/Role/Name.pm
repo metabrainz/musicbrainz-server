@@ -1,23 +1,16 @@
-package MusicBrainz::Server::WebService::Serializer::JSON::LD::Artist;
-use Moose;
-use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_entity );
-
-extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Name';
+package MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Name;
+use Moose::Role;
 
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
     my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
 
-    $ret->{'@type'} = 'MusicGroup';
-    $ret->{groupOrigin} = serialize_entity($entity->begin_area) if $entity->begin_area;
+    $ret->{name} = $entity->name;
 
     return $ret;
 };
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
+no Moose::Role;
 1;
 
 =head1 COPYRIGHT
