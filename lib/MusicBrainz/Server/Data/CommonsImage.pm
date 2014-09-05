@@ -24,7 +24,7 @@ sub get_commons_image
                                       $COMMONS_CACHE_TIMEOUT,
                                       $title, "commons",
                                       \&_commons_image_callback,
-                                      { cache_only => $cache_only });
+                                      cache_only => $cache_only);
 }
 
 sub _commons_image_callback
