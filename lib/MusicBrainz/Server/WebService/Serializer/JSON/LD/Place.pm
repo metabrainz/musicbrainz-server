@@ -15,9 +15,9 @@ around serialize => sub {
 
     $ret->{'@type'} = 'Place';
     $ret->{geo} = {
-        '@type' => 'GeoCoordinates',
-        latitude => $entity->coordinates->latitude,
-        latitude => $entity->coordinates->longitude
+        '@type'   => 'GeoCoordinates',
+        latitude  => $entity->coordinates->latitude,
+        longitude => $entity->coordinates->longitude
     } if $entity->coordinates;
 
     return $ret;
