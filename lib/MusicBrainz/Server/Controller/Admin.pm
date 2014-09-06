@@ -31,6 +31,7 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves
             location_editor => $user->is_location_editor,
             no_nag          => $user->is_nag_free,
             wiki_transcluder=> $user->is_wiki_transcluder,
+            banner_editor   => $user->is_banner_editor,
             mbid_submitter  => $user->is_mbid_submitter,
             account_admin   => $user->is_account_admin,
         },

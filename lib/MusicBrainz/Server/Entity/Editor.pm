@@ -84,6 +84,12 @@ sub is_location_editor
     return (shift->privileges & $mask) > 0;
 }
 
+sub is_banner_editor
+{
+    my $mask = $BANNER_EDITOR_FLAG;
+    return (shift->privileges & $mask) > 0;
+}
+
 has 'email' => (
     is        => 'rw',
     isa       => 'Str',
@@ -142,7 +148,8 @@ sub is_newbie
 sub is_admin
 {
     my $self = shift;
-    return $self->is_relationship_editor || $self->is_wiki_transcluder || $self->is_location_editor;
+    return $self->is_relationship_editor || $self->is_wiki_transcluder ||
+           $self->is_location_editor || $self->is_banner_editor;
 }
 
 has 'preferences' => (
@@ -337,6 +344,10 @@ The editor is able to select wiki pages for transclusion
 =head2 is_account_admin
 
 The editor is able to administer the accounts of other editors
+
+=head2 is_banner_editor
+
+The editor is able to change the banner message
 
 =head1 COPYRIGHT
 
