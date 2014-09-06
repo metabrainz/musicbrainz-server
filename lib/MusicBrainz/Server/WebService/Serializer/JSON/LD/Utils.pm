@@ -9,6 +9,7 @@ use Class::Load qw( load_class );
 our @EXPORT_OK = qw(
     serializer
     serialize_entity
+    list_or_single
 );
 
 #        ArtistCredit
@@ -56,6 +57,18 @@ sub serialize_entity
 {
     return unless defined $_[0];
     return serializer($_[0])->serialize(@_);
+}
+
+=head2 list_or_single
+
+Given a list, return the first element if there's only one,
+otherwise return an arrayref. To be used for sets which are
+potentially only one element.
+
+=cut
+
+sub list_or_single {
+    return scalar @_ == 1 ? $_[0] : \@_;
 }
 
 1;
