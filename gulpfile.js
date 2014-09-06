@@ -44,9 +44,10 @@ function buildManifest(fileType, compile, options) {
                 fs.writeFileSync(revManifestPath, JSON.stringify(revManifest));
 
                 callback();
-            }));
-
-        callback();
+            }))
+            .on("finish", function () {
+                callback();
+            });
     });
 }
 
