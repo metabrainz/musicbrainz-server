@@ -16,15 +16,6 @@ if (fs.existsSync(revManifestPath)) {
     revManifest = JSON.parse(fs.readFileSync(revManifestPath));
 }
 
-function unlinkFile(file) {
-    // Synchronous so that we don't remove files that haven't changed
-    fs.unlinkSync(file);
-}
-
-function unlinkFiles(error, files) {
-    files.forEach(unlinkFile);
-}
-
 function buildManifest(fileType, compile, options) {
     return through2.obj(function (chunk, encoding, callback) {
         var globs = [], lines = chunk.contents.toString("utf8").split("\n");
@@ -60,8 +51,6 @@ function buildManifest(fileType, compile, options) {
 }
 
 gulp.task("styles", function () {
-    glob.sync("./root/static/build/*.css", unlinkFiles);
-
     return gulp.src("./root/static/*.css.manifest")
         .pipe(
             buildManifest(
@@ -77,8 +66,6 @@ gulp.task("styles", function () {
 });
 
 gulp.task("scripts", function () {
-    glob.sync("./root/static/build/*.js", unlinkFiles);
-
     return gulp.src("./root/static/*.js.manifest")
         .pipe(
             buildManifest(
@@ -90,6 +77,25 @@ gulp.task("scripts", function () {
                 }
             )
         );
+});
+
+gulp.task("clean", function () {
+    var fileRegex = /^([a-z\-]+)-[a-f0-9]+\.(js|css)$/,
+        existingFiles = fs.readdirSync("./root/static/build/");
+
+    existingFiles.forEach(function (file) {
+        if (file !== "rev-manifest.json" && revManifest[file.replace(fileRegex, "$1.$2")] !== file) {
+            fs.unlinkSync("./root/static/build/" + file);
+        }
+    });
+
+    Object.keys(revManifest).forEach(function (key) {
+        if (!fs.existsSync("./root/static/" + key + ".manifest")) {
+            delete existingFiles[key];
+        }
+    });
+
+    fs.writeFileSync(revManifestPath, JSON.stringify(revManifest));
 });
 
 gulp.task("default", ["styles", "scripts"]);
