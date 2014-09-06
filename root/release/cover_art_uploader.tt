@@ -1,6 +1,6 @@
 <html>
   <head>
-    [%- css_manifest('common') -%]
+    [%- css_manifest('common.css.manifest') -%]
     [%- script_manifest('common.js.manifest') -%]
     <style type="text/css">
       body { min-width: 200px; width: auto; background: #fff; padding: 0; margin: 0; }
