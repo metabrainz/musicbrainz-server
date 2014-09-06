@@ -754,7 +754,7 @@ END -%]
 [%~ MACRO css_manifest(manifest) BLOCK ~%]
   [%~ IF server_details.developement_server ~%]
     [%~ USE date -%]
-    <link rel="stylesheet/less" type="text/css" href="[% c.uri_for("/static/") %][%- manifest -%].less" />
+    <link rel="stylesheet/less" type="text/css" href="[% c.uri_for("/static/") %][%- manifest.replace('\.css\.manifest', '.less') -%]" />
   [%~ ELSE ~%]
     <link rel="stylesheet" type="text/css" href="[% c.uri_for('/static/build/') %][% c.model('FileCache').manifest_signature(manifest) %]" />
   [%~ END ~%]
