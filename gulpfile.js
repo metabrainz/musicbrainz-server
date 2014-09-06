@@ -4,6 +4,7 @@ var concat          = require("gulp-concat"),
     glob            = require("glob"),
     gulp            = require("gulp"),
     rev             = require("gulp-rev"),
+    sourcemaps      = require("gulp-sourcemaps"),
     through2        = require("through2"),
 
     commentOrEmpty  = /^(\s*$|#)/,
@@ -33,9 +34,11 @@ function buildManifest(fileType, compile, options) {
         });
 
         gulp.src(globs)
-            .pipe(compile(options))
+            .pipe(sourcemaps.init())
             .pipe(concat(chunk.relative.replace(manifestName, "$1.$2")))
+            .pipe(compile(options))
             .pipe(rev())
+            .pipe(sourcemaps.write("./"))
             .pipe(gulp.dest("./root/static/build/"))
             .pipe(rev.manifest())
             .pipe(through2.obj(function (chunk, encoding, callback) {
@@ -85,8 +88,12 @@ gulp.task("clean", function () {
         existingFiles = fs.readdirSync("./root/static/build/");
 
     existingFiles.forEach(function (file) {
-        if (file !== "rev-manifest.json" && revManifest[file.replace(fileRegex, "$1.$2")] !== file) {
+        if (fileRegex.test(file) && revManifest[file.replace(fileRegex, "$1.$2")] !== file) {
             fs.unlinkSync("./root/static/build/" + file);
+
+            if (existingFiles.indexOf(file + ".map") >= 0) {
+                fs.unlinkSync("./root/static/build/" + file + ".map");
+            }
         }
     });
 
