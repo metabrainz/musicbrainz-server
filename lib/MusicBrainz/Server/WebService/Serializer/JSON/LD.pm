@@ -4,7 +4,7 @@ use JSON;
 
 sub serialize {
     my ($self, $entity, $inc, $stash, $toplevel) = @_;
-    return {'@context' => 'http://schema.org'};
+    return $toplevel ? {'@context' => 'http://schema.org'} : {};
 }
 
 __PACKAGE__->meta->make_immutable;
