@@ -2,6 +2,7 @@ package MusicBrainz::Server::WebService::Serializer::JSON::LD::Release;
 use Moose;
 use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_entity );
 use MusicBrainz::Server::Track qw( format_iso_duration );
+use List::AllUtils qw( uniq );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
@@ -20,6 +21,10 @@ around serialize => sub {
     if ($entity->length) {
         $ret->{duration} = format_iso_duration($entity->length);
     }
+    my @medium_formats = uniq grep { defined } map { medium_format($_->format) } $entity->all_mediums;
+    if (@medium_formats) {
+        $ret->{hasReleaseFormat} = scalar @medium_formats == 1 ? $medium_formats[0] : \@medium_formats;
+    }
 
     return $ret;
 };
@@ -34,6 +39,28 @@ sub release_event {
         $ret->{releaseCountry} = serialize_entity($event->country, $inc, $stash)
     }
     return $ret;
+}
+
+sub medium_format {
+    my ($format) = @_;
+    my %map = (
+        1 => 'CD',
+        2 => 'DVD',
+        5 => 'LaserDisc',
+        7 => 'Vinyl',
+        8 => 'Cassette',
+        12 => 'Digital'
+    );
+    # NOTE: this does not deal with multiple steps in the tree, which as of
+    # this writing only applies to 8cm CD+G. It also outputs nothing in the
+    # case of it not being one of these few formats. I'm not sure of the
+    # best mitigation for either problem.
+    my $name;
+    if ($name = $map{$format->id}) {
+        return "http://schema.org/${name}Format";
+    } elsif ($name = $map{$format->parent ? $format->parent->id : $format->parent_id}) {
+        return "http://schema.org/${name}Format";
+    }
 }
 
 __PACKAGE__->meta->make_immutable;
