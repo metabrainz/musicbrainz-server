@@ -1,6 +1,7 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::LD::Release;
 use Moose;
 use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_entity );
+use MusicBrainz::Server::Track qw( format_iso_duration );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
@@ -15,6 +16,9 @@ around serialize => sub {
         $ret->{hasReleaseRegion} = [
             map { release_event($_, $inc, $stash) } $entity->all_events
         ];
+    }
+    if ($entity->length) {
+        $ret->{duration} = format_iso_duration($entity->length);
     }
 
     return $ret;

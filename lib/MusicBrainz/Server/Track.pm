@@ -11,13 +11,17 @@ use Sub::Exporter -setup => {
         },
         unformat_track_length => sub {
             sub { UnformatTrackLength(shift) }
-        }
+        },
+        format_iso_duration => sub {
+            sub { FormatTrackLength(shift, print_formats => {hms => "PT%dH%02dM%02dS", ms => "PT0H%02dM%02dS"}) }
+        },
     ]
 };
 
 sub FormatTrackLength
 {
-    my $ms = shift;
+    my ($ms, %opts) = @_;
+    my $print_formats = $opts{print_formats} // {hms => "%d:%02d:%02d", ms => "%d:%02d"};
 
     return "?:??" unless $ms;
     return $ms unless looks_like_number($ms);
@@ -35,8 +39,8 @@ sub FormatTrackLength
     ($minutes, $seconds) = (floor($seconds / $one_minute), $seconds % $one_minute);
 
     return $hours > 0 ?
-        sprintf("%d:%02d:%02d", $hours, $minutes, $seconds) :
-        sprintf("%d:%02d", $minutes, $seconds);
+        sprintf($print_formats->{hms}, $hours, $minutes, $seconds) :
+        sprintf($print_formats->{ms}, $minutes, $seconds);
 }
 
 sub UnformatTrackLength
