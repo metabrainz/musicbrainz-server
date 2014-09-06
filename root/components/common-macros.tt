@@ -292,7 +292,7 @@ END -%]
     END;
 END -%]
 
-[%~ BLOCK _generic_link;
+[%~ BLOCK _wrap_text;
     FOR option = options.reverse;
         content = SWITCH option;
             CASE 'isolate';
@@ -353,7 +353,7 @@ END -%]
         link = entity.href_url;
     END;
 
-    INCLUDE _generic_link options=options content=mod_content link=link hover=hover flag=flag infolink=infolink;
+    INCLUDE _wrap_text options=options content=mod_content link=link hover=hover flag=flag infolink=infolink;
 END -%]
 
 [%~ BLOCK _link_other_entity;
@@ -371,7 +371,7 @@ END -%]
     options.unshift('link');
     options.unshift('edits_pending') IF edits_pending AND action == 'show';
 
-    INCLUDE _generic_link options=options content=mod_content link=link avatar=avatar;
+    INCLUDE _wrap_text options=options content=mod_content link=link avatar=avatar;
 END -%]
 
 [%~ MACRO link_work(work, action, text) BLOCK;
@@ -494,7 +494,7 @@ END -%]
 END -%]
 
 [%~ MACRO simple_link(url, text) BLOCK;
-    INCLUDE _generic_link options=['link'] content=text link=url;
+    INCLUDE _wrap_text options=['link'] content=text link=url;
 END -%]
 
 [%~ MACRO request_login(text) BLOCK;
