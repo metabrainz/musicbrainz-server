@@ -747,7 +747,7 @@ END -%]
         <script type="text/javascript" src="[% c.uri_for("/static/") %][%- file -%]"></script>
     [%~ END ~%]
   [%~ ELSE ~%]
-    <script src="[% c.uri_for("/static/") %][% c.model('FileCache').manifest_signature(manifest, 'js') %].js"></script>
+    <script src="[% c.uri_for("/static/build/") %][% c.model('FileCache').manifest_signature(manifest) %]"></script>
   [%~ END ~%]
 [%~ END ~%]
 
@@ -756,7 +756,7 @@ END -%]
     [%~ USE date -%]
     <link rel="stylesheet/less" type="text/css" href="[% c.uri_for("/static/") %][%- manifest -%].less" />
   [%~ ELSE ~%]
-    <link rel="stylesheet" type="text/css" href="[% c.uri_for('/static/styles/') %][% c.model('FileCache').manifest_signature(manifest _ '.css.manifest', 'css') %].css" />
+    <link rel="stylesheet" type="text/css" href="[% c.uri_for('/static/build/') %][% c.model('FileCache').manifest_signature(manifest) %]" />
   [%~ END ~%]
 [%~ END ~%]
 

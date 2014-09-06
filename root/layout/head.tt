@@ -11,7 +11,7 @@
     <script type="text/javascript">//<![CDATA[
         document.cookie = "javascript=true; path=/";
     //]]></script>
-    [% css_manifest('common') %]
+    [% css_manifest('common.css.manifest') %]
     [%- IF c.debug -%]
         <link rel="stylesheet" type="text/css" href="/static/styles/debug.css" />
     [%- END %]
