@@ -133,16 +133,34 @@ sub build_one_entity {
     push @batches, {count =>   $last_batch->{count},
                     batches => [$last_batch->{batch}]};
     for my $batch_info (@batches) {
-        build_one_sitemap($entity_type, $batch_info, $index, $sql);
+        build_one_batch($entity_type, $batch_info, $index, $sql);
+    }
+}
+
+sub build_one_batch {
+    my ($entity_type, $batch_info, $index, $sql) = @_;
+    my $entity_properties = $ENTITIES{$entity_type} // {};
+
+    my $minimum_batch_number = min(@{ $batch_info->{batches} });
+    my $entity_id = $entity_type eq 'cdtoc' ? 'discid' : 'gid';
+    my $ids = $sql->select_single_column_array(
+        "SELECT $entity_id FROM $entity_type WHERE ceil(id / 50000.0) = any(?) ORDER BY id ASC",
+        $batch_info->{batches}
+    );
+
+    build_one_sitemap($entity_type, $minimum_batch_number, $entity_properties, $index, $ids);
+    if ($entity_properties->{aliases}) {
+        build_one_sitemap($entity_type, $minimum_batch_number, $entity_properties, $index, $ids, suffix => 'aliases', priority => 0.25);
     }
 }
 
 sub build_one_sitemap {
-    my ($entity_type, $batch_info, $index, $sql) = @_;
-
-    my $minimum_batch_number = min(@{ $batch_info->{batches} });
-    my $filename = "sitemap-$entity_type-$minimum_batch_number.xml";
-    $filename .= '.gz' if $fCompress;
+    my ($entity_type, $minimum_batch_number, $entity_properties, $index, $ids, %opts) = @_;
+    my $filename = "sitemap-$entity_type-$minimum_batch_number";
+    if ($opts{suffix}) {
+        $filename .= "-$opts{suffix}";
+    }
+    $filename .= $fCompress ? '.xml.gz' : '.xml';
 
     local $| = 1; # autoflush stdout
     print localtime() . " Building $filename...";
@@ -155,17 +173,19 @@ sub build_one_sitemap {
         $existing_md5 = hash_sitemap($local_filename);
     }
 
-    my $entity_url = $ENTITIES{$entity_type} && $ENTITIES{$entity_type}{url} || $entity_type;
-    my $entity_id = $entity_type eq 'cdtoc' ? 'discid' : 'gid';
+    my $entity_url = $entity_properties->{url} || $entity_type;
 
     my $map = WWW::Sitemap::XML->new();
-    my $ids = $sql->select_single_column_array(
-        "SELECT $entity_id FROM $entity_type WHERE ceil(id / 50000.0) = any(?) ORDER BY id ASC",
-        $batch_info->{batches}
-    );
     for my $id (@$ids) {
         my $url = $web_server . '/' . $entity_url . '/' . $id;
+        if ($opts{suffix}) {
+            $url .= "/$opts{suffix}";
+        }
+        # Default priority is 0.5, per spec.
         my %add_opts = (loc => $url);
+        if ($opts{priority}) {
+            $add_opts{priority} = $opts{priority};
+        }
         $map->add(%add_opts);
     }
     $map->write($local_filename);
