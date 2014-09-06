@@ -11,9 +11,26 @@ around serialize => sub {
     my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
 
     $ret->{'@type'} = 'MusicRelease';
+    if ($entity->all_events) {
+        $ret->{hasReleaseRegion} = [
+            map { release_event($_, $inc, $stash) } $entity->all_events
+        ];
+    }
 
     return $ret;
 };
+
+sub release_event {
+    my ($event, $inc, $stash) = @_;
+    my $ret = {'@type' => 'CreativeWorkReleaseRegion'};
+    if ($event->date) {
+        $ret->{releaseDate} = $event->date->format;
+    }
+    if ($event->country) {
+        $ret->{releaseCountry} = serialize_entity($event->country, $inc, $stash)
+    }
+    return $ret;
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
