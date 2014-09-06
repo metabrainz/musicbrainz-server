@@ -58,7 +58,7 @@ gulp.task("styles", function () {
                 require("gulp-less"),
                 {
                     rootpath: "/static/",
-                    compress: true,
+                    cleancss: true,
                     relativeUrls: true
                 }
             )
