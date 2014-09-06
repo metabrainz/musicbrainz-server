@@ -2,7 +2,7 @@ package MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Aliases;
 use Moose::Role;
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( ref_to_type );
-use List::UtilsBy qw( sort_by );
+use List::AllUtils qw( uniq );
 
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
@@ -14,12 +14,12 @@ around serialize => sub {
     my $opts = $stash->store($entity);
 
     my @aliases;
-    for my $alias (grep { $_->type_id != $entity_search_hint_type } sort_by { $_->name } @{ $opts->{aliases} // [] })
+    for my $alias (grep { $_->type_id != $entity_search_hint_type } @{ $opts->{aliases} // [] })
     {
         push @aliases, $alias->name;
     }
 
-    $ret->{alternateName} = \@aliases if @aliases;
+    $ret->{alternateName} = [uniq @aliases] if @aliases;
 
     return $ret;
 };
