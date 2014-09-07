@@ -103,9 +103,6 @@ CREATE INDEX edit_note_idx_editor ON edit_note (editor);
 CREATE UNIQUE INDEX event_idx_gid ON event (gid);
 CREATE INDEX event_idx_name ON event (name);
 
-CREATE UNIQUE INDEX event_idx_null_comment ON event (name) WHERE comment IS NULL;
-CREATE UNIQUE INDEX event_idx_uniq_name_comment ON event (name, comment) WHERE comment IS NOT NULL;
-
 CREATE INDEX event_alias_idx_event ON event_alias (event);
 CREATE UNIQUE INDEX event_alias_idx_primary ON event_alias (event, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
 

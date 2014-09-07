@@ -378,7 +378,8 @@ Readonly our %ENTITIES => (
         },
         ratings    => 1,
         tags       => 1,
-        removal     => { automatic => 1 }
+        removal     => { automatic => 1 },
+        collections => 1
     },
     instrument => {
         mbid => { relatable => 1 },
@@ -781,6 +782,7 @@ Readonly our @FULL_TABLE_LIST => qw(
     link_type
     link_type_attribute_type
     editor_collection
+    editor_collection_event
     editor_collection_release
     medium
     medium_cdtoc
