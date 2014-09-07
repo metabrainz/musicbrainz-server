@@ -35,6 +35,8 @@ use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
 use DBDefs;
 use Sql;
 use Getopt::Long;
+use URI::Escape qw( uri_escape_utf8 );
+use Try::Tiny;
 
 use WWW::SitemapIndex::XML;
 use WWW::Sitemap::XML;
@@ -47,10 +49,12 @@ use Digest::MD5 qw( md5_hex );
 my $web_server = DBDefs->CANONICAL_SERVER;
 my $fHelp;
 my $fCompress = 1;
+my $fPing = 0;
 
 GetOptions(
     "help"                        => \$fHelp,
     "compress|c!"                 => \$fCompress,
+    "ping|p"                      => \$fPing,
     "web-server=s"                => \$web_server,
 ) or exit 2;
 
@@ -59,7 +63,8 @@ sub usage {
 Usage: BuildSitemaps.pl [options]
 
     --help             show this help
-    --compress         compress (default true)
+    --compress/-c      compress (default true)
+    --ping/-p          ping search engines once built
     --web-server       provide a web server as the base to use in sitemap-index
                        files (without trailing slash).
                        Defaults to DBDefs->CANONICAL_SERVER
@@ -106,6 +111,10 @@ for my $file (@files) {
         print localtime() . " removing $file\n";
         unlink "$FindBin::Bin/../root/static/sitemaps/$file";
     }
+}
+if ($fPing) {
+    print localtime() . " Pinging search engines\n";
+    ping_search_engines($c, "$web_server/$index_filename");
 }
 print localtime() . " Done\n";
 
@@ -199,6 +208,20 @@ sub build_one_sitemap {
 
     $index->add(loc => $remote_filename, lastmod => $modtime);
     print " built.\n";
+}
+
+sub ping_search_engines {
+    my ($c, $url) = @_;
+
+    my @sitemap_prefixes = ('http://www.google.com/webmasters/tools/ping?sitemap=', 'http://www.bing.com/webmaster/ping.aspx?siteMap=');
+    for my $prefix (@sitemap_prefixes) {
+        try {
+            my $ping_url = $prefix . uri_escape_utf8($url);
+            $c->lwp->get($ping_url);
+        } catch {
+            print "Failed to ping $prefix.\n";
+        }
+    }
 }
 
 sub hash_sitemap {

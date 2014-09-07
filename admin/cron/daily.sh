@@ -49,7 +49,7 @@ echo `date`" : Removing unused works"
 OUTPUT=`./admin/cleanup/RemoveEmpty work` || echo "$OUTPUT"
 
 echo `date`" : Building sitemaps"
-OUTPUT=`./admin/BuildSitemaps.pl` || echo "$OUTPUT"
+OUTPUT=`./admin/BuildSitemaps.pl -p` || echo "$OUTPUT"
 
 # Dump all the data
 # Only do this on the nominated days (0=Sun 6=Sat)
