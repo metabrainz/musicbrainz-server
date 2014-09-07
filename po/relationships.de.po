@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-08-24 17:04+0000\n"
+"PO-Revision-Date: 2014-09-05 22:05+0000\n"
 "Last-Translator: Ettore Atalan <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -1885,7 +1885,7 @@ msgstr "zusätzlich"
 
 #: DB:link_attribute_type/description:5 DB:link_attribute_type/name:5
 msgid "alto vocals"
-msgstr ""
+msgstr "Hochgesang"
 
 #: DB:link_type/link_phrase:357
 msgid "anthem"
@@ -1922,11 +1922,11 @@ msgstr "ausgekoppelte {EP:EPs|Singles}"
 
 #: DB:link_attribute_type/description:12 DB:link_attribute_type/name:12
 msgid "background vocals"
-msgstr ""
+msgstr "Hintergrundgesang"
 
 #: DB:link_attribute_type/description:6 DB:link_attribute_type/name:6
 msgid "baritone vocals"
-msgstr ""
+msgstr "Baritongesang"
 
 #: DB:link_attribute_type/description:7 DB:link_attribute_type/name:7
 msgid "bass vocals"
@@ -1994,11 +1994,11 @@ msgstr "Katalog wiederveröffentlicht von"
 
 #: DB:link_type/link_phrase:751 DB:link_type/long_link_phrase:751
 msgid "catalogued"
-msgstr ""
+msgstr "katalogisiert"
 
 #: DB:link_type/reverse_link_phrase:751
 msgid "cataloguer"
-msgstr ""
+msgstr "Titelaufnehmer"
 
 #: DB:link_type/reverse_link_phrase:750
 msgid "catalogues work of"
@@ -2014,7 +2014,7 @@ msgstr "Kinder"
 
 #: DB:link_attribute_type/description:13 DB:link_attribute_type/name:13
 msgid "choir vocals"
-msgstr ""
+msgstr "Chorgesang"
 
 #: DB:link_attribute_type/name:424
 msgid "co"
@@ -2043,7 +2043,7 @@ msgstr "zusammengetragen in"
 
 #: DB:link_type/reverse_link_phrase:48 DB:link_type/reverse_link_phrase:147
 msgid "compiler"
-msgstr ""
+msgstr "Zusammensteller"
 
 #: DB:link_type/link_phrase:58 DB:link_type/link_phrase:170
 #: DB:link_type/reverse_link_phrase:58 DB:link_type/reverse_link_phrase:170
@@ -2065,7 +2065,7 @@ msgstr "enthält Liedtexte für"
 
 #: DB:link_type/long_link_phrase:274
 msgid "contains the score for"
-msgstr ""
+msgstr "enthält die Partitur für"
 
 #: DB:link_type/reverse_link_phrase:49 DB:link_type/reverse_link_phrase:154
 msgid "contains {additional} samples by"
@@ -2090,7 +2090,7 @@ msgstr "urheberrechtlich geschützt von"
 
 #: DB:link_attribute_type/description:8 DB:link_attribute_type/name:8
 msgid "countertenor vocals"
-msgstr ""
+msgstr "Countertenorgesang"
 
 #: DB:link_attribute_type/name:567
 msgid "cover"
@@ -2124,11 +2124,11 @@ msgstr "kreative Position"
 
 #: DB:link_type/link_phrase:737
 msgid "derivations"
-msgstr ""
+msgstr "Ableitungen"
 
 #: DB:link_type/description:737 DB:link_type/reverse_link_phrase:737
 msgid "derived from"
-msgstr ""
+msgstr "abgeleitet von"
 
 #: DB:link_type/link_phrase:88 DB:link_type/link_phrase:171
 #: DB:link_type/reverse_link_phrase:88 DB:link_type/reverse_link_phrase:171
@@ -2154,7 +2154,7 @@ msgstr "Diskografieseiten"
 
 #: DB:link_type/link_phrase:361 DB:link_type/long_link_phrase:361
 msgid "distributed"
-msgstr ""
+msgstr "verbreitet"
 
 #: DB:link_type/reverse_link_phrase:361
 msgid "distributed by"
@@ -2272,7 +2272,7 @@ msgstr "Gast"
 
 #: DB:link_type/long_link_phrase:115
 msgid "had a creative position at"
-msgstr ""
+msgstr "hatte eine kreative Position bei"
 
 #: DB:link_type/long_link_phrase:117
 msgid "had a producer position at"
@@ -2484,7 +2484,7 @@ msgstr "hat Liedtexte verfügbar unter"
 
 #: DB:link_type/long_link_phrase:316
 msgid "has orchestration"
-msgstr ""
+msgstr "hat Orchestrierung"
 
 #: DB:link_type/long_link_phrase:739 DB:link_type/long_link_phrase:717
 #: DB:link_type/long_link_phrase:281 DB:link_type/long_link_phrase:356
@@ -2495,11 +2495,11 @@ msgstr "hat Teil"
 #: DB:link_type/link_phrase:743 DB:link_type/reverse_link_phrase:742
 #: DB:link_type/reverse_link_phrase:740 DB:link_type/reverse_link_phrase:741
 msgid "has parts"
-msgstr ""
+msgstr "hat Parte"
 
 #: DB:link_type/link_phrase:723 DB:link_type/long_link_phrase:723
 msgid "has personal label"
-msgstr ""
+msgstr "hat persönliche Bezeichnung"
 
 #: DB:link_type/link_phrase:724 DB:link_type/long_link_phrase:724
 msgid "has personal publisher"
@@ -2515,7 +2515,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:729
 msgid "has show notes at"
-msgstr ""
+msgstr "hat angezeigte Noten bei"
 
 #: DB:link_type/long_link_phrase:110
 msgid "has sibling(s)"
@@ -2556,12 +2556,12 @@ msgstr "Geschichtsseite für"
 #: DB:link_type/link_phrase:708 DB:link_type/link_phrase:709
 #: DB:link_type/long_link_phrase:708 DB:link_type/long_link_phrase:709
 msgid "holds copyright for"
-msgstr ""
+msgstr "hält Urheberrecht an"
 
 #: DB:link_type/link_phrase:710 DB:link_type/link_phrase:711
 #: DB:link_type/long_link_phrase:710 DB:link_type/long_link_phrase:711
 msgid "holds phonographic copyright for"
-msgstr ""
+msgstr "hält phonographisches Urheberrecht an"
 
 #: DB:link_type/reverse_link_phrase:700
 msgid "hosted concerts by"
@@ -2592,7 +2592,7 @@ msgstr ""
 #: DB:link_type/description:734 DB:link_type/link_phrase:734
 #: DB:link_type/reverse_link_phrase:734 DB:link_type/long_link_phrase:734
 msgid "information page"
-msgstr ""
+msgstr "Informationsseite"
 
 #: DB:link_attribute_type/name:580
 msgid "instrumental"
@@ -2653,7 +2653,7 @@ msgstr "ist eine Seite in einer Datenbank für"
 #: DB:link_type/long_link_phrase:742 DB:link_type/long_link_phrase:740
 #: DB:link_type/long_link_phrase:741
 msgid "is a part of"
-msgstr ""
+msgstr "ist ein Part von"
 
 #: DB:link_type/long_link_phrase:6 DB:link_type/long_link_phrase:236
 msgid "is a remaster of"
@@ -2695,7 +2695,7 @@ msgstr "ist lizensiert unter"
 
 #: DB:link_type/long_link_phrase:738
 msgid "is related to"
-msgstr ""
+msgstr "ist bezogen auf"
 
 #: DB:link_type/long_link_phrase:312
 msgid "is the VIAF ID for"
@@ -2789,7 +2789,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:4
 msgid "lead vocals"
-msgstr ""
+msgstr "Sologesang"
 
 #: DB:link_type/reverse_link_phrase:108
 msgid "legal name"
@@ -2936,7 +2936,7 @@ msgstr "Medley von"
 
 #: DB:link_attribute_type/description:9 DB:link_attribute_type/name:9
 msgid "mezzo-soprano vocals"
-msgstr ""
+msgstr "Mezzosoprangesang"
 
 #: DB:link_attribute_type/name:2
 msgid "minor"
@@ -2991,7 +2991,7 @@ msgstr "musikalische Beziehung"
 
 #: DB:link_attribute_type/name:788
 msgid "number"
-msgstr ""
+msgstr "Nummer"
 
 #: DB:link_type/reverse_link_phrase:745 DB:link_type/reverse_link_phrase:287
 #: DB:link_type/reverse_link_phrase:183 DB:link_type/reverse_link_phrase:219
@@ -3025,11 +3025,11 @@ msgstr "Orchester spielte {additional:zusätzlich}"
 
 #: DB:link_type/reverse_link_phrase:316
 msgid "orchestration of"
-msgstr ""
+msgstr "Orchestrierung von"
 
 #: DB:link_type/link_phrase:316
 msgid "orchestrations"
-msgstr ""
+msgstr "Orchestrierungen"
 
 #: DB:link_type/link_phrase:746 DB:link_type/link_phrase:96
 #: DB:link_type/link_phrase:730 DB:link_type/link_phrase:82
@@ -3112,7 +3112,7 @@ msgstr "triff auf als"
 
 #: DB:link_type/reverse_link_phrase:723
 msgid "personal label for"
-msgstr ""
+msgstr "persönliche Bezeichnung für"
 
 #: DB:link_type/reverse_link_phrase:724
 msgid "personal publisher for"
@@ -3125,7 +3125,7 @@ msgstr "persönliche Beziehung"
 
 #: DB:link_type/reverse_link_phrase:710 DB:link_type/reverse_link_phrase:711
 msgid "phonographic copyright by"
-msgstr ""
+msgstr "phonographisches Urheberrecht von"
 
 #: DB:link_type/reverse_link_phrase:173 DB:link_type/reverse_link_phrase:396
 msgid "picture of"
@@ -3183,11 +3183,11 @@ msgstr "Produktion"
 
 #: DB:link_type/link_phrase:359 DB:link_type/long_link_phrase:359
 msgid "promoted"
-msgstr ""
+msgstr "gefördert"
 
 #: DB:link_type/reverse_link_phrase:359
 msgid "promoted by"
-msgstr ""
+msgstr "gefördert durch"
 
 #: DB:link_type/long_link_phrase:135 DB:link_type/long_link_phrase:62
 msgid "provided artist & repertoire support for"
@@ -3287,7 +3287,7 @@ msgstr ""
 
 #: DB:link_type/description:738
 msgid "related to"
-msgstr ""
+msgstr "bezogen auf"
 
 #: DB:link_type/link_phrase:3
 msgid "released in support of"
@@ -3356,19 +3356,19 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:274
 msgid "score"
-msgstr ""
+msgstr "Partitur"
 
 #: DB:link_type/link_phrase:274
 msgid "score for"
-msgstr ""
+msgstr "Partitur für"
 
 #: DB:link_type/link_phrase:729
 msgid "show notes"
-msgstr ""
+msgstr "Noten anzeigen"
 
 #: DB:link_type/reverse_link_phrase:729
 msgid "show notes for"
-msgstr ""
+msgstr "Noten anzeigen für"
 
 #: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110
 msgid "siblings"
@@ -3398,11 +3398,11 @@ msgstr "Solo"
 
 #: DB:link_attribute_type/description:10 DB:link_attribute_type/name:10
 msgid "soprano vocals"
-msgstr ""
+msgstr "Soprangesang"
 
 #: DB:link_attribute_type/name:561
 msgid "spoken vocals"
-msgstr ""
+msgstr "Sprechgesang"
 
 #: DB:link_type/link_phrase:194
 msgid "stream for free"
@@ -3825,12 +3825,12 @@ msgstr "{additional:zusätzliche(r)} {guest:Gast-}{solo:Solo-}Interpret(in)"
 #: DB:link_type/link_phrase:44 DB:link_type/link_phrase:148
 #: DB:link_type/reverse_link_phrase:44 DB:link_type/reverse_link_phrase:148
 msgid "{additional} {guest} {solo} {instrument:%|instruments}"
-msgstr ""
+msgstr "{additional} {guest} {solo} {instrument:%|instruments}"
 
 #: DB:link_type/link_phrase:60 DB:link_type/link_phrase:149
 #: DB:link_type/reverse_link_phrase:60 DB:link_type/reverse_link_phrase:149
 msgid "{additional} {guest} {solo} {vocal} {vocal:|vocals}"
-msgstr ""
+msgstr "{additional} {guest} {solo} {vocal} {vocal:|vocals}"
 
 #: DB:link_type/reverse_link_phrase:282 DB:link_type/reverse_link_phrase:158
 #: DB:link_type/reverse_link_phrase:41
@@ -3913,7 +3913,7 @@ msgstr "{video:Video} kann kostenlos gestreamt werden unter"
 
 #: DB:link_type/reverse_link_phrase:107
 msgid "{vocal:%|vocals} support by"
-msgstr ""
+msgstr "{vocal:%|vocals} support by"
 
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
