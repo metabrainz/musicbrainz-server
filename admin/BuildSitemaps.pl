@@ -35,6 +35,8 @@ use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
 use DBDefs;
 use Sql;
 use Getopt::Long;
+use URI::Escape qw( uri_escape_utf8 );
+use Try::Tiny;
 
 use WWW::SitemapIndex::XML;
 use WWW::Sitemap::XML;
@@ -47,10 +49,12 @@ use Digest::MD5 qw( md5_hex );
 my $web_server = DBDefs->CANONICAL_SERVER;
 my $fHelp;
 my $fCompress = 1;
+my $fPing = 0;
 
 GetOptions(
     "help"                        => \$fHelp,
     "compress|c!"                 => \$fCompress,
+    "ping|p"                      => \$fPing,
     "web-server=s"                => \$web_server,
 ) or exit 2;
 
@@ -59,7 +63,8 @@ sub usage {
 Usage: BuildSitemaps.pl [options]
 
     --help             show this help
-    --compress         compress (default true)
+    --compress/-c      compress (default true)
+    --ping/-p          ping search engines once built
     --web-server       provide a web server as the base to use in sitemap-index
                        files (without trailing slash).
                        Defaults to DBDefs->CANONICAL_SERVER
@@ -107,6 +112,10 @@ for my $file (@files) {
         unlink "$FindBin::Bin/../root/static/sitemaps/$file";
     }
 }
+if ($fPing) {
+    print localtime() . " Pinging search engines\n";
+    ping_search_engines($c, "$web_server/$index_filename");
+}
 print localtime() . " Done\n";
 
 sub build_one_entity {
@@ -133,16 +142,34 @@ sub build_one_entity {
     push @batches, {count =>   $last_batch->{count},
                     batches => [$last_batch->{batch}]};
     for my $batch_info (@batches) {
-        build_one_sitemap($entity_type, $batch_info, $index, $sql);
+        build_one_batch($entity_type, $batch_info, $index, $sql);
+    }
+}
+
+sub build_one_batch {
+    my ($entity_type, $batch_info, $index, $sql) = @_;
+    my $entity_properties = $ENTITIES{$entity_type} // {};
+
+    my $minimum_batch_number = min(@{ $batch_info->{batches} });
+    my $entity_id = $entity_type eq 'cdtoc' ? 'discid' : 'gid';
+    my $ids = $sql->select_single_column_array(
+        "SELECT $entity_id FROM $entity_type WHERE ceil(id / 50000.0) = any(?) ORDER BY id ASC",
+        $batch_info->{batches}
+    );
+
+    build_one_sitemap($entity_type, $minimum_batch_number, $entity_properties, $index, $ids);
+    if ($entity_properties->{aliases}) {
+        build_one_sitemap($entity_type, $minimum_batch_number, $entity_properties, $index, $ids, suffix => 'aliases', priority => 0.25);
     }
 }
 
 sub build_one_sitemap {
-    my ($entity_type, $batch_info, $index, $sql) = @_;
-
-    my $minimum_batch_number = min(@{ $batch_info->{batches} });
-    my $filename = "sitemap-$entity_type-$minimum_batch_number.xml";
-    $filename .= '.gz' if $fCompress;
+    my ($entity_type, $minimum_batch_number, $entity_properties, $index, $ids, %opts) = @_;
+    my $filename = "sitemap-$entity_type-$minimum_batch_number";
+    if ($opts{suffix}) {
+        $filename .= "-$opts{suffix}";
+    }
+    $filename .= $fCompress ? '.xml.gz' : '.xml';
 
     local $| = 1; # autoflush stdout
     print localtime() . " Building $filename...";
@@ -155,17 +182,19 @@ sub build_one_sitemap {
         $existing_md5 = hash_sitemap($local_filename);
     }
 
-    my $entity_url = $ENTITIES{$entity_type} && $ENTITIES{$entity_type}{url} || $entity_type;
-    my $entity_id = $entity_type eq 'cdtoc' ? 'discid' : 'gid';
+    my $entity_url = $entity_properties->{url} || $entity_type;
 
     my $map = WWW::Sitemap::XML->new();
-    my $ids = $sql->select_single_column_array(
-        "SELECT $entity_id FROM $entity_type WHERE ceil(id / 50000.0) = any(?) ORDER BY id ASC",
-        $batch_info->{batches}
-    );
     for my $id (@$ids) {
         my $url = $web_server . '/' . $entity_url . '/' . $id;
+        if ($opts{suffix}) {
+            $url .= "/$opts{suffix}";
+        }
+        # Default priority is 0.5, per spec.
         my %add_opts = (loc => $url);
+        if ($opts{priority}) {
+            $add_opts{priority} = $opts{priority};
+        }
         $map->add(%add_opts);
     }
     $map->write($local_filename);
@@ -179,6 +208,20 @@ sub build_one_sitemap {
 
     $index->add(loc => $remote_filename, lastmod => $modtime);
     print " built.\n";
+}
+
+sub ping_search_engines {
+    my ($c, $url) = @_;
+
+    my @sitemap_prefixes = ('http://www.google.com/webmasters/tools/ping?sitemap=', 'http://www.bing.com/webmaster/ping.aspx?siteMap=');
+    for my $prefix (@sitemap_prefixes) {
+        try {
+            my $ping_url = $prefix . uri_escape_utf8($url);
+            $c->lwp->get($ping_url);
+        } catch {
+            print "Failed to ping $prefix.\n";
+        }
+    }
 }
 
 sub hash_sitemap {
