@@ -79,6 +79,7 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   "Controller::Admin::WikiDoc::history",
   "Controller::Admin::WikiDoc::index",
   "Controller::Admin::delete_user",
+  "Controller::Admin::edit_banner",
   "Controller::Admin::edit_user",
   "Controller::Admin::index",
   "Controller::Ajax::filter_artist_recordings_form",
