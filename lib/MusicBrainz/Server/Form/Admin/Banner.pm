@@ -1,60 +1,22 @@
-package MusicBrainz::Server::Form::User::AdjustFlags;
+package MusicBrainz::Server::Form::Admin::Banner;
 
 use HTML::FormHandler::Moose;
 
 extends 'MusicBrainz::Server::Form';
 
-has '+name' => ( default => 'flags' );
+has '+name' => ( default => 'banner' );
 
-has_field 'submitted' => (
-    type => 'Integer',
-);
-
-has_field 'auto_editor' => (
-    type => 'Boolean',
-);
-
-has_field 'bot' => (
-    type => 'Boolean',
-);
-
-has_field 'untrusted' => (
-    type => 'Boolean',
-);
-
-has_field 'link_editor' => (
-    type => 'Boolean',
-);
-
-has_field 'location_editor' => (
-    type => 'Boolean',
-);
-
-has_field 'no_nag' => (
-    type => 'Boolean',
-);
-
-has_field 'wiki_transcluder' => (
-    type => 'Boolean',
-);
-
-has_field 'banner_editor' => (
-    type => 'Boolean',
-);
-
-has_field 'mbid_submitter' => (
-    type => 'Boolean',
-);
-
-has_field 'account_admin' => (
-    type => 'Boolean',
+has_field 'message' => (
+    type => '+MusicBrainz::Server::Form::Field::Text',
+    not_nullable => 1,
+    input_without_param => '',
 );
 
 1;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2010 Pavan Chander
+Copyright (C) 2014 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
