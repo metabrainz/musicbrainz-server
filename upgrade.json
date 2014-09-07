@@ -5,8 +5,8 @@
   },
 
   "21": {
-    "slave": ["20140606-events.sql"],
-    "standalone": ["20140606-events-fks.sql"]
+    "slave": ["20140606-events.sql", "20140906-event-collections.sql"],
+    "standalone": ["20140606-events-fks.sql", "20140906-event-collections-fks.sql"]
   }
 
 }

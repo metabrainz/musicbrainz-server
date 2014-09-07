@@ -161,11 +161,17 @@ sub find_by_collection
 
     $status_cond = ' AND status = ' . $status if defined($status);
 
-    my $query = 'SELECT DISTINCT ' . $self->_columns . ' FROM ' . $self->_table .
-                ' JOIN edit_release er ON edit.id = er.edit
-                  JOIN editor_collection_release ecr ON er.release = ecr.release
-                  WHERE collection = ? ' . $status_cond . '
-                  ORDER BY edit.id DESC OFFSET ? LIMIT 500';
+    my $query = 'SELECT * FROM (
+                  SELECT ' . $self->_columns . ' FROM ' . $self->_table .
+                 ' JOIN edit_release er ON edit.id = er.edit
+                   JOIN editor_collection_release ecr ON er.release = ecr.release
+                   WHERE collection = ? ' . $status_cond . '
+                  UNION
+                  SELECT ' . $self->_columns . ' FROM ' . $self->_table .
+                 ' JOIN edit_event ee ON edit.id = ee.edit
+                   JOIN editor_collection_event ece ON ee.event = ece.event
+                   WHERE collection = ? ' . $status_cond . ') edits
+                  ORDER BY id DESC OFFSET ? LIMIT 500';
 
     return query_to_list_limited($self->c->sql, $offset, $limit, sub {
             return $self->_new_from_row(shift);
@@ -193,6 +199,11 @@ sub find_for_subscription
         my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
                     ' JOIN edit_release er ON edit.id = er.edit
                       JOIN editor_collection_release ecr ON er.release = ecr.release
+                      WHERE collection = ? AND edit.id > ? AND status IN (?, ?)
+                     UNION
+                     SELECT ' . $self->_columns . ' FROM ' . $self->_table .
+                    ' JOIN edit_event ee ON edit.id = ee.edit
+                      JOIN editor_collection_event ece ON ee.event = ece.event
                       WHERE collection = ? AND edit.id > ? AND status IN (?, ?)';
 
         return query_to_list(
@@ -295,8 +306,14 @@ SELECT * FROM edit, (
     WHERE el.status = ? AND esl.editor = ?
     UNION
     SELECT edit FROM edit_release er
-    RIGHT JOIN editor_collection_release ec ON er.release = ec.release
-    JOIN editor_subscribe_collection esc ON esc.collection = ec.collection
+    RIGHT JOIN editor_collection_release ecr ON er.release = ecr.release
+    JOIN editor_subscribe_collection esc ON esc.collection = ecr.collection
+    JOIN edit ON er.edit = edit.id
+    WHERE edit.status = ? AND esc.editor = ? AND esc.available
+    UNION
+    SELECT edit FROM edit_event er
+    RIGHT JOIN editor_collection_event ece ON ee.event = ece.event
+    JOIN editor_subscribe_collection esc ON esc.collection = ece.collection
     JOIN edit ON er.edit = edit.id
     WHERE edit.status = ? AND esc.editor = ? AND esc.available
     UNION
