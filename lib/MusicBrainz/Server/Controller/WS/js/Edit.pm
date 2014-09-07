@@ -280,8 +280,9 @@ sub process_relationship {
                 non_empty($credited_as) ? (credited_as => $credited_as) : (),
                 non_empty($text_value) ? (text_value => $text_value) : (),
             }
-        } @{ $data->{attributes} // [] }
-    ];
+        } @{ $data->{attributes} }
+    ]
+        if defined $data->{attributes};
 
     delete $data->{id};
     delete $data->{linkTypeID};
