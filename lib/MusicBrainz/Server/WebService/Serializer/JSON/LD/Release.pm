@@ -32,7 +32,7 @@ around serialize => sub {
             $ret->{recordLabel} = list_or_single(@labels);
         }
     }
-    my @medium_formats = uniq grep { defined } map { medium_format($_->format) } $entity->all_mediums;
+    my @medium_formats = uniq map { medium_format($_->format) } grep { defined $_->format } $entity->all_mediums;
     if (@medium_formats) {
         $ret->{hasReleaseFormat} = list_or_single(@medium_formats);
     }
