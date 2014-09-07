@@ -686,6 +686,75 @@ test 'editing a relationship' => sub {
 };
 
 
+test 'editing a relationship with an unchanged attribute' => sub {
+    my $test = shift;
+    my ($c, $mech) = ($test->c, $test->mech);
+
+    prepare_test_database($c);
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+    my $edit_data = [ {
+        edit_type   => $EDIT_RELATIONSHIP_EDIT,
+        id          => 1,
+        linkTypeID  => 1,
+        entities    => [
+            {
+                gid         => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7',
+                entityType  => 'artist',
+            },
+            {
+                gid         => '54b9d183-7dab-42ba-94a3-7388a66604b8',
+                entityType  => 'recording',
+            }
+        ],
+        beginDate   => { year => 1999, month => 1, day => 1 },
+        endDate     => { year => 2009, month => 9, day => 9 },
+        ended       => 1,
+    } ];
+
+    my @edits = capture_edits {
+        post_json($mech, '/ws/js/edit/create', encode_json({ edits => $edit_data }));
+    } $c;
+
+    my $edit = $edits[0];
+    isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Edit');
+
+    cmp_deeply($edit->data, {
+        type0 => 'artist',
+        type1 => 'recording',
+        link => {
+            link_type => {
+                id                  => 1,
+                name                => 'instrument',
+                link_phrase         => 'performed {additional} {instrument} on',
+                long_link_phrase    => 'performer',
+                reverse_link_phrase => 'has {additional} {instrument} performed by',
+            },
+            entity1 => { id => 2, name => 'King of the Mountain' },
+            entity0 => { id => 8, name => 'Test Alias' },
+            begin_date  => { month => undef, day => undef, year => undef },
+            end_date    => { month => undef, day => undef, year => undef },
+            ended       => 0,
+            attributes  => [$guitar_attribute],
+        },
+        relationship_id => 1,
+        new => {
+            begin_date  => { month => 1, day => 1, year => 1999 },
+            end_date    => { month => 9, day => 9, year => 2009 },
+            ended       => 1,
+        },
+        old => {
+            begin_date  => { month => undef, day => undef, year => undef },
+            end_date    => { month => undef, day => undef, year => undef },
+            ended       => 0,
+        },
+        edit_version => 2,
+    });
+};
+
+
 test 'removing a relationship' => sub {
     my $test = shift;
     my ($c, $mech) = ($test->c, $test->mech);
