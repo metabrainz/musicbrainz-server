@@ -166,11 +166,11 @@ test('Work', function () {
     ];
 
     $.each(tests, function (idx, test) {
-        var gc = MB.GuessCase.work.gc;
+        var gc = window.gc;
 
         gc.CFG_UC_ROMANNUMERALS = test.roman;
         gc.CFG_UC_UPPERCASED = test.keepuppercase;
-        gc.mode = MB.GuessCase.Mode[test.mode]();
+        gc.mode = MB.GuessCase.Mode[test.mode];
 
         result = MB.GuessCase.work.guess(test.input);
         equal(result, test.expected, test.input);
@@ -306,7 +306,7 @@ test('BugFixes', function () {
     ];
 
     $.each(tests, function (idx, test) {
-        MB.GuessCase.work.gc.mode = MB.GuessCase.Mode[test.mode]();
+        window.gc.mode = MB.GuessCase.Mode[test.mode];
 
         result = MB.GuessCase.work.guess(test.input);
         equal(result, test.expected, test.bug + ', ' + test.input);
