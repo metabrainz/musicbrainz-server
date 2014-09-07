@@ -10,6 +10,7 @@ our @EXPORT_OK = qw(
     serializer
     serialize_entity
     list_or_single
+    artwork
 );
 
 #        ArtistCredit
@@ -69,6 +70,26 @@ potentially only one element.
 
 sub list_or_single {
     return scalar @_ == 1 ? $_[0] : \@_;
+}
+
+=head2 artwork
+
+Provides serialization given an Entity::Artwork. Used by both
+Release and ReleaseGroup, hence being here.
+
+=cut
+
+sub artwork {
+    my ($artwork) = @_;
+    return { '@type' => 'ImageObject',
+             contentUrl => $artwork->image,
+             encodingFormat => $artwork->suffix,
+             ($artwork->is_front ? (representativeOfPage => 'True') : ()),
+             thumbnail => [
+                 {'@type' => 'ImageObject', contentUrl => $artwork->small_thumbnail, encodingFormat => 'jpg'},
+                 {'@type' => 'ImageObject', contentUrl => $artwork->large_thumbnail, encodingFormat => 'jpg'}
+             ]
+           };
 }
 
 1;

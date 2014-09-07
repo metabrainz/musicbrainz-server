@@ -1,6 +1,6 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::LD::ReleaseGroup;
 use Moose;
-use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_entity );
+use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_entity artwork );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
@@ -12,6 +12,9 @@ around serialize => sub {
 
     $ret->{'@type'} = 'MusicAlbum';
 
+    if ($entity->cover_art) {
+        $ret->{image} = artwork($entity->cover_art);
+    }
     return $ret;
 };
 

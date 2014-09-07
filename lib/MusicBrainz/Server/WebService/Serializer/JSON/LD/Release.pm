@@ -1,6 +1,6 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::LD::Release;
 use Moose;
-use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_entity list_or_single );
+use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_entity list_or_single artwork );
 use MusicBrainz::Server::Track qw( format_iso_duration );
 use List::AllUtils qw( uniq );
 use List::UtilsBy qw( uniq_by );
@@ -35,6 +35,10 @@ around serialize => sub {
     my @medium_formats = uniq map { medium_format($_->format) } grep { defined $_->format } $entity->all_mediums;
     if (@medium_formats) {
         $ret->{hasReleaseFormat} = list_or_single(@medium_formats);
+    }
+
+    if ($stash->store($entity)->{cover_art}) {
+        $ret->{image} = list_or_single(map { artwork($_) } @{ $stash->store($entity)->{cover_art} });
     }
 
     return $ret;
