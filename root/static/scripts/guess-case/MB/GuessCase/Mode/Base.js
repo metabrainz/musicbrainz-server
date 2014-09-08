@@ -22,43 +22,15 @@
 MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
 MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
 
-MB.GuessCase.Mode._fix = function (name, re, replace) {
-    var self = {};
-
-    if (typeof(re) == 'string') {
-        self.string = re;
-    } else {
-        self.re = re;
-    }
-
-    self.name = name;
-    self.replace = replace;
-
-    return self;
-}
-
-MB.GuessCase.Mode._fix_all = function (name, re, replace) {
-    var self = MB.GuessCase.Mode._fix(name, re, replace);
-
-    /* NOTE: if loop is set to true runFixes will use RegExp.exec() in
-     * a while loop.   So please make sure your regexp has the /g flag.
-     *
-     * RANT: why is there no way to introspect a RegExp object?  If the
-     * flags could be read this could be automatic.  sigh.
-     */
-    self.loop = true;
-
-    return self;
-};
-
 /**
  * Models a GuessCase mode.
  **/
 (function () {
     var self = {};
 
-    self.fix = MB.GuessCase.Mode._fix;
-    self.fix_all = MB.GuessCase.Mode._fix_all;
+    self.fix = function (name, re, replace) {
+        return { name: name, re: re, replace: replace };
+    };
 
     // ----------------------------------------------------------------------------
     // member functions
@@ -229,54 +201,54 @@ MB.GuessCase.Mode._fix_all = function (name, re, replace) {
             gc.re.PREPROCESS_FIXLIST = [
 
                 // trim spaces from brackets.
-                self.fix("spaces after opening brackets", /(^|\s)([\(\{\[])\s+($|\b)/i, "$2" )
-                , self.fix("spaces before closing brackets", /(\b|^)\s+([\)\}\]])($|\b)/i, "$2" )
+                self.fix("spaces after opening brackets", /(^|\s)([\(\{\[])\s+($|\b)/i, "$2"),
+                self.fix("spaces before closing brackets", /(\b|^)\s+([\)\}\]])($|\b)/i, "$2"),
 
                 // remix variants
-                , self.fix("re-mix -> remix", /(\b|^)re-mix(\b)/i, "remix" )
-                , self.fix("re-mix -> remix", /(\b|^)re-mix(\b)/i, "remix" )
-                , self.fix("remx -> remix", /(\b|^)remx(\b)/i, "remix" )
-                , self.fix("re-mixes -> remixes", /(\b|^)re-mixes(\b)/i, "remixes" )
-                , self.fix("re-make -> remake", /(\b|^)re-make(\b)/i, "remake" )
-                , self.fix("re-makes -> remakes", /(\b|^)re-makes(\b)/i, "remakes" )
-                , self.fix("re-edit variants, prepare for postprocess", /(\b|^)re-?edit(\b)/i, "re_edit" )
-                , self.fix("RMX -> remix", /(\b|^)RMX(\b)/i, "remix" )
+                self.fix("re-mix -> remix", /(\b|^)re-mix(\b)/i, "remix"),
+                self.fix("re-mix -> remix", /(\b|^)re-mix(\b)/i, "remix"),
+                self.fix("remx -> remix", /(\b|^)remx(\b)/i, "remix"),
+                self.fix("re-mixes -> remixes", /(\b|^)re-mixes(\b)/i, "remixes"),
+                self.fix("re-make -> remake", /(\b|^)re-make(\b)/i, "remake"),
+                self.fix("re-makes -> remakes", /(\b|^)re-makes(\b)/i, "remakes"),
+                self.fix("re-edit variants, prepare for postprocess", /(\b|^)re-?edit(\b)/i, "re_edit"),
+                self.fix("RMX -> remix", /(\b|^)RMX(\b)/i, "remix"),
 
                 // extra title information
-                , self.fix("alt.take -> alternate take", /(\b|^)alt[\.]? take(\b)/i, "alternate take")
-                , self.fix("instr. -> instrumental", /(\b|^)instr\.?(\b)/i, "instrumental")
-                , self.fix("altern. -> alternate", /(\b|^)altern\.?(\s|\)|$)/i, "alternate" )
-                , self.fix("orig. -> original", /(\b|^)orig\.?(\s|\)|$)/i, "original" )
-                , self.fix("ver(s). -> version", /(\b|^)vers?\.(\s|\)|$)/i, "version" )
-                , self.fix("Extendet -> extended", /(\b|^)Extendet(\b)/i, "extended" )
-                , self.fix("extd. -> extended", /(\b|^)ext[d]?\.?(\s|\)|$)/i, "extended" )
+                self.fix("alt.take -> alternate take", /(\b|^)alt[\.]? take(\b)/i, "alternate take"),
+                self.fix("instr. -> instrumental", /(\b|^)instr\.?(\b)/i, "instrumental"),
+                self.fix("altern. -> alternate", /(\b|^)altern\.?(\s|\)|$)/i, "alternate"),
+                self.fix("orig. -> original", /(\b|^)orig\.?(\s|\)|$)/i, "original"),
+                self.fix("ver(s). -> version", /(\b|^)vers?\.(\s|\)|$)/i, "version"),
+                self.fix("Extendet -> extended", /(\b|^)Extendet(\b)/i, "extended"),
+                self.fix("extd. -> extended", /(\b|^)ext[d]?\.?(\s|\)|$)/i, "extended"),
 
                 // featuring variant
-                , self.fix("/w -> ft. ", /(\s)[\/]w(\s)/i, "ft." )
-                , self.fix("f. -> ft. ", /(\s)f\.(\s)/i, "ft." )
-                , self.fix("f/ -> ft. ", /(\s)f\/(\s)/i, "ft." )
-                , self.fix("'featuring - ' -> feat", /(\s)featuring -(\s)/i, "feat" )
+                self.fix("/w -> ft. ", /(\s)[\/]w(\s)/i, "ft."),
+                self.fix("f. -> ft. ", /(\s)f\.(\s)/i, "ft."),
+                self.fix("f/ -> ft. ", /(\s)f\/(\s)/i, "ft."),
+                self.fix("'featuring - ' -> feat", /(\s)featuring -(\s)/i, "feat"),
 
                 // without (jira ticket MBS-1312).
-                , self.fix("w/o -> without", /(\b|^)w[\/]o(\b)/i, "without" )
+                self.fix("w/o -> without", /(\b|^)w[\/]o(\b)/i, "without"),
 
                 // vinyl
-                , self.fix("12'' -> 12\"", /(\s|^|\()(\d+)''(\s|$)/i, "$2\"" )
-                , self.fix("12in -> 12\"", /(\s|^|\()(\d+)in(ch)?(\s|$)/i, "$2\"" )
+                self.fix("12'' -> 12\"", /(\s|^|\()(\d+)''(\s|$)/i, "$2\""),
+                self.fix("12in -> 12\"", /(\s|^|\()(\d+)in(ch)?(\s|$)/i, "$2\""),
 
                 // combined word hacks, e.g. replace spaces with underscores,
                 // (e.g. "a cappella" -> a_capella), such that it can be handled
                 // correctly in post-processing
-                , self.fix("A Capella preprocess", /(\b|^)a\s?c+ap+el+a(\b)/i, "a_cappella" )
-                , self.fix("OC ReMix preprocess", /(\b|^)oc\sremix(\b)/i, "oc_remix" )
-                , self.fix_all("a.k.a. preprocess", /(\b|^)aka(\b)/ig, "a_k_a_" )
-                , self.fix_all("a.k.a. preprocess", /(\b|^)a\/k\/a(\b)/ig, "a_k_a_" )
-                , self.fix_all("a.k.a. preprocess", /(\b|^)a\.k\.a\.(\s)/ig, "a_k_a_" )
+                self.fix("A Capella preprocess", /(\b|^)a\s?c+ap+el+a(\b)/i, "a_cappella"),
+                self.fix("OC ReMix preprocess", /(\b|^)oc\sremix(\b)/i, "oc_remix"),
+                self.fix("a.k.a. preprocess", /(\b|^)aka(\b)/ig, "a_k_a_"),
+                self.fix("a.k.a. preprocess", /(\b|^)a\/k\/a(\b)/ig, "a_k_a_"),
+                self.fix("a.k.a. preprocess", /(\b|^)a\.k\.a\.(\s)/ig, "a_k_a_"),
 
                 // Handle Part/Volume abbreviations
-                , self.fix("Standalone Pt. -> Part", /(^|\s)Pt\.?(\s|$)/i, "Part" )
-                , self.fix("Standalone Pts. -> Parts", /(^|\s)Pts\.(\s|$)/i, "Parts" )
-                , self.fix("Standalone Vol. -> Volume", /(^|\s)Vol\.(\s|$)/i, "Volume" )
+                self.fix("Standalone Pt. -> Part", /(^|\s)Pt\.?(\s|$)/i, "Part"),
+                self.fix("Standalone Pts. -> Parts", /(^|\s)Pts\.(\s|$)/i, "Parts"),
+                self.fix("Standalone Vol. -> Volume", /(^|\s)Vol\.(\s|$)/i, "Volume"),
 
                 // Get parts out of brackets
                 // Name [Part 1] -> Name, Part 1
@@ -284,14 +256,14 @@ MB.GuessCase.Mode._fix_all = function (name, re, replace) {
                 // Name [Parts 1] -> Name, Parts 1
                 // Name (Parts 1-2) -> Name, Parts 1-2
                 // Name (Parts x & y) -> Name, Parts x & y
-                , self.fix("Pt -> , Part", /((,|\s|:|!)+)\s*(Part|Pt)[\.\s#]*((\d|[ivx]|[\-,&\s])+)(\s|:|$)/i, "Part $4")
-                , self.fix("Pts -> , Parts", /((,|\s|:|!)+)\s*(Parts|Pts)[\.\s#]*((\d|[ivx]|[\-&,\s])+)(\s|:|$)/i, "Parts $4")
-                , self.fix("Vol -> , Volume", /((,|\s|:|!)+)\s*(Volume|Vol)[\.\s#]*((\d|[ivx]|[\-&,\s])+)(\s|:|$)/i, "Volume $4")
-                , self.fix("(Pt) -> , Part", /((,|\s|:|!)+)([\(\[])\s*(Part|Pt)[\.\s#]*((\d|[ivx]|[\-,&\s])+)([\)\]])(\s|:|$)/i, "Part $5")
-                , self.fix("(Pts) -> , Parts", /((,|\s|:|!)+)([\(\[])\s*(Parts|Pts)[\.\s#]*((\d|[ivx]|[\-&,\s])+)([\)\]])(\s|:|$)/i, "Parts $5")
-                , self.fix("(Vol) -> , Volume", /((,|\s|:|!)+)([\(\[])\s*(Volume|Vol)[\.\s#]*((\d|[ivx]|[\-&,\s])+)([\)\]])(\s|:|$)/i, "Volume $5")
-                , self.fix(": Part -> , Part", /(\b|^): Part(\b)/i, ", part" )
-                , self.fix(": Parts -> , Parts", /(\b|^): Part(\b)/i, ", parts" )
+                self.fix("Pt -> , Part", /((,|\s|:|!)+)\s*(Part|Pt)[\.\s#]*((\d|[ivx]|[\-,&\s])+)(\s|:|$)/i, "Part $4"),
+                self.fix("Pts -> , Parts", /((,|\s|:|!)+)\s*(Parts|Pts)[\.\s#]*((\d|[ivx]|[\-&,\s])+)(\s|:|$)/i, "Parts $4"),
+                self.fix("Vol -> , Volume", /((,|\s|:|!)+)\s*(Volume|Vol)[\.\s#]*((\d|[ivx]|[\-&,\s])+)(\s|:|$)/i, "Volume $4"),
+                self.fix("(Pt) -> , Part", /((,|\s|:|!)+)([\(\[])\s*(Part|Pt)[\.\s#]*((\d|[ivx]|[\-,&\s])+)([\)\]])(\s|:|$)/i, "Part $5"),
+                self.fix("(Pts) -> , Parts", /((,|\s|:|!)+)([\(\[])\s*(Parts|Pts)[\.\s#]*((\d|[ivx]|[\-&,\s])+)([\)\]])(\s|:|$)/i, "Parts $5"),
+                self.fix("(Vol) -> , Volume", /((,|\s|:|!)+)([\(\[])\s*(Volume|Vol)[\.\s#]*((\d|[ivx]|[\-&,\s])+)([\)\]])(\s|:|$)/i, "Volume $5"),
+                self.fix(": Part -> , Part", /(\b|^): Part(\b)/i, ", part"),
+                self.fix(": Parts -> , Parts", /(\b|^): Part(\b)/i, ", parts")
             ];
         }
 
@@ -307,21 +279,21 @@ MB.GuessCase.Mode._fix_all = function (name, re, replace) {
             gc.re.POSTPROCESS_FIXLIST = [
 
                 // see combined words hack in preProcessTitles
-                self.fix("a_cappella inside brackets", /(\b|^)a_cappella(\b)/, "a cappella")
-                , self.fix("a_cappella outside brackets", /(\b|^)A_cappella(\b)/, "A Cappella")
-                , self.fix("oc_remix", /(\b|^)oc_remix(\b)/i, "OC ReMix")
-                , self.fix("re_edit inside brackets", /(\b|^)Re_edit(\b)/, "re-edit")
-                , self.fix_all("a.k.a. lowercase", /(\b|^)a_k_a_(\b|$)/ig, "a.k.a.")
+                self.fix("a_cappella inside brackets", /(\b|^)a_cappella(\b)/, "a cappella"),
+                self.fix("a_cappella outside brackets", /(\b|^)A_cappella(\b)/, "A Cappella"),
+                self.fix("oc_remix", /(\b|^)oc_remix(\b)/i, "OC ReMix"),
+                self.fix("re_edit inside brackets", /(\b|^)Re_edit(\b)/, "re-edit"),
+                self.fix("a.k.a. lowercase", /(\b|^)a_k_a_(\b|$)/ig, "a.k.a."),
 
                 // 'fe' is considered a lowercase word, but "Santa Fe" is very common in
                 // song titles, so change that "fe" back into "Fe".
-                , self.fix_all("a.k.a. lowercase", /(\b|^)Santa fe(\b|$)/g, "Santa Fe")
+                self.fix("a.k.a. lowercase", /(\b|^)Santa fe(\b|$)/g, "Santa Fe"),
 
                 // TODO: check if needed?
-                , self.fix("whitespace in R&B", /(\b|^)R\s*&\s*B(\b)/i, "R&B")
-                , self.fix("[live] to (live)", /(\b|^)\[live\](\b)/i, "(live)")
-                , self.fix("Djs to DJs", /(\b|^)Djs(\b)/i, "DJs")
-                , self.fix("Rock 'n' Roll", /(\s|^)Rock '?n'? Roll(\s|$)/i, "Rock 'n' Roll")
+                self.fix("whitespace in R&B", /(\b|^)R\s*&\s*B(\b)/i, "R&B"),
+                self.fix("[live] to (live)", /(\b|^)\[live\](\b)/i, "(live)"),
+                self.fix("Djs to DJs", /(\b|^)Djs(\b)/i, "DJs"),
+                self.fix("Rock 'n' Roll", /(\s|^)Rock '?n'? Roll(\s|$)/i, "Rock 'n' Roll")
             ];
         }
         var os = self.runFixes(is, gc.re.POSTPROCESS_FIXLIST);
@@ -358,14 +330,7 @@ MB.GuessCase.Mode._fix_all = function (name, re, replace) {
             var fix = list[i];
 
             if (fix && fix.name) {
-                if (fix.string) {
-                    // iterate through the whole string and replace. there could
-                    // be multiple occurences of the search string.
-                    var pos = 0;
-                    while ((pos = is.indexOf(fix.string, pos)) != -1) {
-                        is = is.replace(fix.string, fix.replace);
-                    }
-                } else if (fix.loop) {
+                if (fix.re.global) {
                     while ((matches = fix.re.exec(is))) {
                         is = replace_match(matches, is);
                     }
