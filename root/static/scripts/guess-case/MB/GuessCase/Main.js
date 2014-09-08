@@ -19,20 +19,14 @@
 
 */
 
-MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
-
 /**
  * Main class of the GC functionality
  **/
-MB.GuessCase.Main = function () {
-    if (window.gc) {
-        return window.gc; /* yay. we're a singleton now. */
-    }
-
+(function () {
     var self = {};
 
     self.modeName = $.cookie("guesscase_mode") || "English";
-    self.mode = MB.GuessCase.Mode[self.modeName]();
+    self.mode = MB.GuessCase.Mode[self.modeName];
 
     /* config. */
     self.CFG_UC_ROMANNUMERALS = $.cookie("guesscase_roman") !== "false";
@@ -45,18 +39,12 @@ MB.GuessCase.Main = function () {
     self.f = MB.GuessCase.Flags();
     self.i = MB.GuessCase.Input();
     self.o = MB.GuessCase.Output();
-    self.artistHandler = null;
-    self.labelHandler = null;
-    self.releaseHandler = null;
-    self.trackHandler = null;
+
     self.re = {
         // define commonly used RE's
         SPACES_DOTS: /\s|\./i,
         SERIES_NUMBER: /^(\d+|[ivx]+)$/i
     }; // holder for the regular expressions
-
-    /* FIXME: inconsistent. */
-    self.artistmode = MB.GuessCase.Mode.Artist();
 
     // ----------------------------------------------------------------------------
     // member functions
@@ -69,7 +57,7 @@ MB.GuessCase.Main = function () {
         self.f.init(); // init flags object
     };
 
-    function guess(handlerConstructor, method, mode) {
+    function guess(handlerName, method, modeName) {
         var handler;
 
         /**
@@ -81,12 +69,12 @@ MB.GuessCase.Main = function () {
         return function (is) {
             gc.init();
 
-            if (mode) {
+            if (modeName) {
                 var previousMode = self.mode;
-                self.mode = mode;
+                self.mode = MB.GuessCase.Mode[modeName];
             }
 
-            handler = handler || handlerConstructor();
+            handler = handler || MB.GuessCase.Handler[handlerName]();
 
             // we need to query the handler if the input string is
             // a special case, fetch the correct format, if the
@@ -99,7 +87,7 @@ MB.GuessCase.Main = function () {
                 var os = handler[method].apply(handler, arguments);
             }
 
-            if (mode) {
+            if (modeName) {
                 self.mode = previousMode;
             }
 
@@ -107,32 +95,49 @@ MB.GuessCase.Main = function () {
         };
     }
 
-    self.guessArtist = guess(MB.GuessCase.Handler.Artist, "process", self.artistmode);
-    self.guessArtistSortname = guess(MB.GuessCase.Handler.Artist, "guessSortName", self.artistmode);
+    MB.GuessCase.area = {
+        guess: guess("Area", "process"),
+        sortname: guess("Area", "guessSortName")
+    };
 
-    self.guessLabel = guess(MB.GuessCase.Handler.Label, "process");
-    self.guessLabelSortname = guess(MB.GuessCase.Handler.Label, "guessSortName");
+    MB.GuessCase.artist = {
+        guess: guess("Artist", "process", "Artist"),
+        sortname: guess("Artist", "guessSortName", "Artist")
+    };
 
-    self.guessWork = guess(MB.GuessCase.Handler.Work, "process");
-    self.guessWorkSortname = guess(MB.GuessCase.Handler.Work, "guessSortName");
+    MB.GuessCase.label = {
+        // This probably shouldn't be using the "Artist" mode, but it always has been.
+        guess: guess("Label", "process", "Artist"),
+        sortname: guess("Label", "guessSortName", "Artist")
+    };
 
-    self.guessArea = guess(MB.GuessCase.Handler.Area, "process");
-    self.guessAreaSortname = guess(MB.GuessCase.Handler.Area, "guessSortName");
+    MB.GuessCase.place = {
+        guess: guess("Place", "process"),
+        sortname: guess("Place", "guessSortName")
+    };
 
-    self.guessPlace = guess(MB.GuessCase.Handler.Place, "process");
-    self.guessPlaceSortname = guess(MB.GuessCase.Handler.Place, "guessSortName");
+    MB.GuessCase.release = {
+        guess: guess("Release", "process")
+    };
+
+    MB.GuessCase["release_group"] = MB.GuessCase.release;
+    MB.GuessCase["release-group"] = MB.GuessCase.release;
+
+    MB.GuessCase.track = {
+        guess: guess("Track", "process")
+    };
+
+    MB.GuessCase.recording = MB.GuessCase.track;
+
+    MB.GuessCase.work = {
+        guess: guess("Work", "process"),
+        sortname: guess("Work", "guessSortName")
+    };
 
     // Series doesn't have it's own handler, and just uses the work handler
     // because additional behavior isn't needed.
-    self.guessSeries = guess(MB.GuessCase.Handler.Work, "process");
-    self.guessSeriesSortname = guess(MB.GuessCase.Handler.Work, "guessSortName");
-
-    self.guessRelease = guess(MB.GuessCase.Handler.Release, "process");
-
-    self.guessTrack = guess(MB.GuessCase.Handler.Track, "process");
+    MB.GuessCase.series = MB.GuessCase.work;
 
     /* FIXME: ugly hack, need to get rid of using a global 'gc' everywhere. */
     window.gc = self;
-
-    return self;
-};
+}());

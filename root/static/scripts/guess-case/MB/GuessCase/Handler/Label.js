@@ -40,7 +40,7 @@ MB.GuessCase.Handler.Label = function () {
      * @returns os        the processed string
      **/
     self.process = function (is) {
-        is = gc.artistmode.preProcessCommons(is);
+        is = gc.mode.preProcessCommons(is);
         var w = gc.i.splitWordsAndPunctuation(is);
         gc.o.init();
         gc.i.init(is, w);
@@ -48,7 +48,7 @@ MB.GuessCase.Handler.Label = function () {
             self.processWord();
         }
         var os = gc.o.getOutput();
-        return gc.artistmode.runPostProcess(os);
+        return gc.mode.runPostProcess(os);
     };
 
     /**
