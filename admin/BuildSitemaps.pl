@@ -45,6 +45,13 @@ use List::Util qw( min );
 use List::UtilsBy qw( sort_by );
 use File::Slurp qw( read_dir );
 use Digest::MD5 qw( md5_hex );
+use Readonly;
+
+# Constants
+Readonly my $EMPTY_PAGE_PRIORITY => 0.1;
+Readonly my $SECONDARY_PAGE_PRIORITY => 0.3;
+
+# Check options
 
 my $web_server = DBDefs->CANONICAL_SERVER;
 my $fHelp;
@@ -73,35 +80,45 @@ EOF
 
 usage(), exit if $fHelp;
 
+# Create a context to use
+
 my $c = MusicBrainz::Server::Context->create_script_context;
 my $sql = Sql->new($c->conn);
 
 print localtime() . " Building sitemaps and sitemap index files\n";
+
+# Set up a sitemap index object
 
 my $index_filename = "sitemap-index.xml";
 $index_filename .= '.gz' if $fCompress;
 my $index_localname = "$FindBin::Bin/../root/static/sitemaps/$index_filename";
 
 my $index = WWW::SitemapIndex::XML->new();
-my @sitemap_files;
-my %old_sitemap_modtime;
 
+# Create a (global) variable to store the list of sitemap files in;
+# this is used to determine which files to delete during cleanup
+my @sitemap_files;
+
+# Load old index (if present) to load old sitemap modtimes
+my %old_sitemap_modtime;
 if (-f $index_localname) {
     my $old_index = WWW::SitemapIndex::XML->new();
     $old_index->load( location => $index_localname );
     %old_sitemap_modtime = map { $_->loc => $_->lastmod } grep { $_->loc && $_->lastmod } $old_index->sitemaps;
 }
 
+# Start building sitemaps, all in the same transaction.
 $sql->begin;
 for my $entity_type (entities_with(['mbid', 'indexable']), 'cdtoc') {
     build_one_entity($entity_type, $index, $sql);
 }
 $sql->commit;
 
+# Now that all sitemaps have been built, write index.
 $index->write($index_localname);
 push @sitemap_files, $index_filename;
 
-# This needs pushing or it'll get deleted every time
+# This needs adding or it'll get deleted every time
 push @sitemap_files, '.gitkeep';
 
 print localtime() . " Built index $index_filename, deleting outdated files\n";
@@ -112,22 +129,33 @@ for my $file (@files) {
         unlink "$FindBin::Bin/../root/static/sitemaps/$file";
     }
 }
+
+# Ping search engines, if applicable
 if ($fPing) {
     print localtime() . " Pinging search engines\n";
     ping_search_engines($c, "$web_server/$index_filename");
 }
+
 print localtime() . " Done\n";
+
+# --------------- END MAIN BODY ---------------
 
 sub build_one_entity {
     my ($entity_type, $index, $sql) = @_;
+    my $entity_properties = $ENTITIES{$entity_type} // {};
+
+    # Find the counts in each potential batch of 50,000
     my $raw_batches = $sql->select_list_of_hashes(
         "SELECT batch, count(id) from (SELECT id, ceil(id / 50000.0) AS batch FROM $entity_type) q GROUP BY batch ORDER BY batch ASC"
     );
     my @batches;
+
+    # Exclude the last batch, which should always be its own sitemap.
     if (scalar @$raw_batches > 1) {
         my $batch = {count => 0, batches => []};
-        # Exclude the last batch, which should always be its own sitemap.
         for my $raw_batch (@{ $raw_batches }[0..scalar @$raw_batches-2]) {
+            # Add this potential batch to the previous one if the sum will come out less than 50,000
+            # Otherwise create a new batch and push the previous one onto the list.
             if ($batch->{count} + $raw_batch->{count} <= 50000) {
                 $batch->{count} = $batch->{count} + $raw_batch->{count};
                 push @{$batch->{batches}}, $raw_batch->{batch};
@@ -138,36 +166,74 @@ sub build_one_entity {
         }
         push @batches, $batch;
     }
+
+    # Add last batch.
     my $last_batch = $raw_batches->[scalar @$raw_batches - 1];
     push @batches, {count =>   $last_batch->{count},
                     batches => [$last_batch->{batch}]};
+
+    # Build information for extra sitemaps to build based on the type of entity,
+    # including how to calculate priority values, and extra SQL if needed.
+    my $suffix_info = {};
+    if ($entity_properties->{aliases}) {
+        $suffix_info->{aliases} = {
+            priority => sub {
+                my (%opts) = @_;
+                return $SECONDARY_PAGE_PRIORITY if $opts{has_aliases};
+                return $EMPTY_PAGE_PRIORITY;
+            },
+            extra_sql => {columns => "EXISTS (SELECT true FROM ${entity_type}_alias a WHERE a.$entity_type = ${entity_type}.id) AS has_aliases"}
+        };
+    }
+    if ($entity_type eq 'release') {
+        $suffix_info->{'cover-art'} = {
+            priority => sub {
+                my (%opts) = @_;
+                return $SECONDARY_PAGE_PRIORITY if $opts{cover_art_presence} eq 'present';
+                return $EMPTY_PAGE_PRIORITY;
+            },
+            extra_sql => {join => 'release_meta ON release.id = release_meta.id',
+                          columns => 'cover_art_presence'}
+        };
+    }
+
     for my $batch_info (@batches) {
-        build_one_batch($entity_type, $batch_info, $index, $sql);
+        build_one_batch($entity_type, $batch_info, $suffix_info, $index, $sql);
     }
 }
 
 sub build_one_batch {
-    my ($entity_type, $batch_info, $index, $sql) = @_;
-    my $entity_properties = $ENTITIES{$entity_type} // {};
+    my ($entity_type, $batch_info, $suffix_info, $index, $sql) = @_;
 
     my $minimum_batch_number = min(@{ $batch_info->{batches} });
     my $entity_id = $entity_type eq 'cdtoc' ? 'discid' : 'gid';
-    my $ids = $sql->select_single_column_array(
-        "SELECT $entity_id FROM $entity_type WHERE ceil(id / 50000.0) = any(?) ORDER BY id ASC",
-        $batch_info->{batches}
-    );
 
-    build_one_sitemap($entity_type, $minimum_batch_number, $entity_properties, $index, $ids);
-    if ($entity_properties->{aliases}) {
-        build_one_sitemap($entity_type, $minimum_batch_number, $entity_properties, $index, $ids, suffix => 'aliases', priority => 0.25);
+    # Merge the extra joins/columns needed for particular suffixes
+    my %extra_sql = (join => '', columns => []);
+    for my $suffix (keys %$suffix_info) {
+        my %extra = %{$suffix_info->{$suffix}{extra_sql} // {}};
+        if ($extra{columns}) {
+            push(@{ $extra_sql{columns} }, $extra{columns});
+        }
+        if ($extra{join}) {
+            $extra_sql{join} .= " JOIN $extra{join}";
+        }
     }
-    if ($entity_type eq 'release') {
-        build_one_sitemap($entity_type, $minimum_batch_number, $entity_properties, $index, $ids, suffix => 'cover-art', priority => 0.25);
+    my $query = "SELECT " . join(', ', "$entity_id AS main_id", @{ $extra_sql{columns}}) .
+                 " FROM $entity_type" . ( $extra_sql{join} ? $extra_sql{join} : '') .
+                " WHERE ceil(${entity_type}.id / 50000.0) = any(?) ORDER BY ${entity_type}.id ASC";
+    my $ids = $sql->select_list_of_hashes($query, $batch_info->{batches});
+
+    build_one_sitemap($entity_type, $minimum_batch_number, $index, $ids);
+    for my $suffix (keys %$suffix_info) {
+        my %opts = (suffix => $suffix, %{ $suffix_info->{$suffix} // {}});
+        build_one_sitemap($entity_type, $minimum_batch_number, $index, $ids, %opts);
     }
 }
 
 sub build_one_sitemap {
-    my ($entity_type, $minimum_batch_number, $entity_properties, $index, $ids, %opts) = @_;
+    my ($entity_type, $minimum_batch_number, $index, $ids, %opts) = @_;
+    my $entity_properties = $ENTITIES{$entity_type} // {};
     my $filename = "sitemap-$entity_type-$minimum_batch_number";
     if ($opts{suffix}) {
         $filename .= "-$opts{suffix}";
@@ -188,7 +254,8 @@ sub build_one_sitemap {
     my $entity_url = $entity_properties->{url} || $entity_type;
 
     my $map = WWW::Sitemap::XML->new();
-    for my $id (@$ids) {
+    for my $id_info (@$ids) {
+        my $id = $id_info->{main_id};
         my $url = $web_server . '/' . $entity_url . '/' . $id;
         if ($opts{suffix}) {
             $url .= "/$opts{suffix}";
@@ -196,7 +263,7 @@ sub build_one_sitemap {
         # Default priority is 0.5, per spec.
         my %add_opts = (loc => $url);
         if ($opts{priority}) {
-            $add_opts{priority} = $opts{priority};
+            $add_opts{priority} = ref $opts{priority} eq 'CODE' ? $opts{priority}->(%$id_info) : $opts{priority};
         }
         $map->add(%add_opts);
     }
