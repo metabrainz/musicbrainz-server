@@ -37,6 +37,7 @@ function buildManifest(fileType, compile, options) {
             .pipe(sourcemaps.init())
             .pipe(concat(chunk.relative.replace(manifestName, "$1.$2")))
             .pipe(compile(options))
+            .on("error", console.log)
             .pipe(rev())
             .pipe(sourcemaps.write("./"))
             .pipe(gulp.dest("./root/static/build/"))
@@ -104,6 +105,14 @@ gulp.task("clean", function () {
     });
 
     fs.writeFileSync(revManifestPath, JSON.stringify(revManifest));
+});
+
+gulp.task("jshint", function () {
+    var jshint = require("gulp-jshint");
+
+    return gulp.src("./root/static/scripts/**/*.js")
+        .pipe(jshint())
+        .pipe(jshint.reporter("default"));
 });
 
 gulp.task("default", ["styles", "scripts"]);
