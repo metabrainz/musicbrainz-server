@@ -101,7 +101,7 @@
             for (var i = 0, len = attributes.length; i < len; i++) {
                 attribute = attributes[i];
 
-                if (!typeAttributes[attribute.type.id]) {
+                if (!typeAttributes || !typeAttributes[attribute.type.id]) {
                     this.attributes.remove(attribute);
                     --i;
                     --len;
