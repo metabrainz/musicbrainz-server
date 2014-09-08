@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-09-06 21:30+0000\n"
+"PO-Revision-Date: 2014-09-07 18:06+0000\n"
 "Last-Translator: Timo Martikainen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -237,7 +237,7 @@ msgstr "agogo"
 
 #: DB:instrument/name:642
 msgid "ajaeng"
-msgstr ""
+msgstr "ajaeng"
 
 #: DB:instrument/name:508
 msgid "algozey"
@@ -277,7 +277,7 @@ msgstr "arkaaiset ja muut jousisoittimet"
 
 #: DB:instrument/name:507
 msgid "archlute"
-msgstr ""
+msgstr "arkkiluuttu"
 
 #: DB:instrument/name:654
 msgid "archtop guitar"
@@ -285,7 +285,7 @@ msgstr ""
 
 #: DB:instrument/name:634
 msgid "arghul"
-msgstr ""
+msgstr "arghūl"
 
 #: DB:instrument/name:565
 msgid "atarigane"
@@ -361,7 +361,7 @@ msgstr "baritonisaksofoni"
 
 #: DB:instrument/name:521
 msgid "baroque trumpet"
-msgstr ""
+msgstr "barokkitrumpetti"
 
 #: DB:instrument/name:587
 msgid "barrel drum"

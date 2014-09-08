@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-09-06 21:25+0000\n"
+"PO-Revision-Date: 2014-09-07 18:06+0000\n"
 "Last-Translator: Timo Martikainen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -265,7 +265,7 @@ msgstr ""
 msgid ""
 "A valveless trumpet, in the model of the ones from the 16th to 18th "
 "centuries"
-msgstr ""
+msgstr "Venttiilitön trumpetti, malli 1500-1700 luvuilta. "
 
 #. name:vessel flute
 #: DB:instrument/description:650
@@ -824,7 +824,7 @@ msgstr ""
 #. name:ajaeng
 #: DB:instrument/description:642
 msgid "The ajaeng is a bowed Korean zither with 7 (sometimes 8 or 9) strings."
-msgstr ""
+msgstr "Korealainen 7 (joskus myös 8-9) kielinen jousella soitettava sitra. "
 
 #. name:archlute
 #: DB:instrument/description:507
@@ -839,7 +839,7 @@ msgstr ""
 msgid ""
 "The arghul is a traditional Egyptian double-pipe, single-reed woodwind "
 "instrument."
-msgstr ""
+msgstr "Arghul on perinteinen egyptiläinen kaksipillinen yksinkertaisella ruokolehdellä varustettu puupuhallin. "
 
 #. name:atarigane
 #: DB:instrument/description:565
@@ -1130,7 +1130,7 @@ msgstr ""
 msgid ""
 "The domra is a long-necked Russian string instrument of the lute family with"
 " a round body and three or four metal strings."
-msgstr ""
+msgstr "Pitkäkaulainen venäläinen luuttuperheen jousisoitin. Pyöreä koppa ja kolme tai neljä metallikieltä. "
 
 #. name:double bass / contrabass / acoustic upright bass
 #: DB:instrument/description:48

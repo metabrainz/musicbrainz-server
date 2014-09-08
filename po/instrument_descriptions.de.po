@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-09-02 19:28+0000\n"
+"PO-Revision-Date: 2014-09-07 11:38+0000\n"
 "Last-Translator: Ettore Atalan <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -2416,4 +2416,4 @@ msgstr ""
 #. name:đại cô/tiểu cô
 #: DB:instrument/description:266
 msgid "variously sized drums"
-msgstr ""
+msgstr "unterschiedlich große Trommeln"

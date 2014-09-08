@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-09-02 18:46+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-09-07 17:48+0000\n"
+"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -809,7 +809,7 @@ msgstr "dilruba"
 
 #: DB:instrument/name:317
 msgid "ding tac ta"
-msgstr ""
+msgstr "ding tac ta"
 
 #: DB:instrument/name:220
 msgid "diyingehu"
@@ -897,7 +897,7 @@ msgstr "e-bow"
 
 #: DB:instrument/name:677
 msgid "effects"
-msgstr ""
+msgstr "efektid"
 
 #: DB:instrument/name:643
 msgid "ektara"
@@ -941,7 +941,7 @@ msgstr "elektrikontrabass"
 
 #: DB:instrument/name:648
 msgid "electric viola"
-msgstr ""
+msgstr "elektrivioola"
 
 #: DB:instrument/name:212
 msgid "electric violin"
@@ -1029,7 +1029,7 @@ msgstr "pianoforte"
 
 #: DB:instrument/name:656
 msgid "four-string banjo"
-msgstr ""
+msgstr "4-keelne bandžo"
 
 #: DB:instrument/name:570
 msgid "fourth flute"
@@ -1073,7 +1073,7 @@ msgstr "gankogui"
 
 #: DB:instrument/name:644
 msgid "ganzá"
-msgstr ""
+msgstr "ganzá"
 
 #: DB:instrument/name:216
 msgid "gaohu"
@@ -1817,7 +1817,7 @@ msgstr "ranat ek"
 
 #: DB:instrument/name:665
 msgid "ranat kaeo"
-msgstr ""
+msgstr "ranat kaeo"
 
 #: DB:instrument/name:620
 msgid "ranat thum"
@@ -2177,7 +2177,7 @@ msgstr ""
 
 #: DB:instrument/name:641
 msgid "taepyeongso"
-msgstr ""
+msgstr "taepyeongso"
 
 #: DB:instrument/name:378
 msgid "taiko"
@@ -2238,12 +2238,12 @@ msgstr ""
 #: DB:instrument/name:467
 msgctxt "lute"
 msgid "tar"
-msgstr ""
+msgstr "tar"
 
 #: DB:instrument/name:607
 msgctxt "drum"
 msgid "tar"
-msgstr ""
+msgstr "tar"
 
 #: DB:instrument/name:440
 msgid "taragot"
@@ -2375,7 +2375,7 @@ msgstr "tromboon"
 
 #: DB:instrument/name:663
 msgid "tromboon"
-msgstr ""
+msgstr "trombott"
 
 #: DB:instrument/name:33
 msgid "trumpet"
@@ -2603,7 +2603,7 @@ msgstr "xiǎoluó"
 
 #: DB:instrument/name:651
 msgid "xun"
-msgstr ""
+msgstr "xūn"
 
 #: DB:instrument/name:170
 msgid "xylophone"
