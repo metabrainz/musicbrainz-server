@@ -161,6 +161,9 @@ sub build_one_batch {
     if ($entity_properties->{aliases}) {
         build_one_sitemap($entity_type, $minimum_batch_number, $entity_properties, $index, $ids, suffix => 'aliases', priority => 0.25);
     }
+    if ($entity_type eq 'release') {
+        build_one_sitemap($entity_type, $minimum_batch_number, $entity_properties, $index, $ids, suffix => 'cover-art', priority => 0.25);
+    }
 }
 
 sub build_one_sitemap {
