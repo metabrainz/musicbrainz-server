@@ -286,6 +286,7 @@ END -%]
 [%~ MACRO entity_type(entity) BLOCK;
     IF entity.isa('MusicBrainz::Server::Entity::Artist'); "artist";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Area'); "area";
+    ELSIF entity.isa('MusicBrainz::Server::Entity::Collection'); "collection";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Work'); "work";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Instrument'); "instrument";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Label'); "label";
