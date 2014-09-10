@@ -308,4 +308,28 @@ test 'Cannot create a relationship under a grouping relationship' => sub {
     like($mech->uri, qr{/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit$}, "page hasn't changed");
 };
 
+
+test 'Duplicate relationships are ignored' => sub {
+    my $test = shift;
+    my ($c, $mech) = ($test->c, $test->mech);
+
+    MusicBrainz::Server::Test->prepare_test_database($c);
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+    # Duplicates a relationship in admin/sql/InsertTestData.sql
+    my ($edit) = capture_edits {
+        $mech->post("/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit", {
+            'edit-artist.name' => 'Test Alias',
+            'edit-artist.sort_name' => 'Kate Bush',
+            'edit-artist.rel.0.link_type_id' => '1',
+            'edit-artist.rel.0.target' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
+            'edit-artist.rel.0.attributes.0.type.gid' => 'c3273296-91ba-453d-94e4-2fb6e958568e',
+        });
+    } $c;
+
+    ok(!defined $edit, "no edits were made");
+};
+
 1;
