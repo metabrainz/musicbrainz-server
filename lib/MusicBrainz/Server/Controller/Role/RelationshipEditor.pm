@@ -1,4 +1,5 @@
 package MusicBrainz::Server::Controller::Role::RelationshipEditor;
+use List::UtilsBy qw( uniq_by );
 use Moose::Role;
 
 use MusicBrainz::Server::Constants qw(
@@ -27,6 +28,10 @@ locking and race conditions.
 
 sub try_and_edit {
     my ($self, $c, $form, %params) = @_;
+
+    if (my $attributes = $params{attributes}) {
+        @$attributes = uniq_by { $_->{type}{gid} } @$attributes;
+    }
 
     my $edit;
     $c->model('Relationship')->lock_and_do(
