@@ -342,7 +342,6 @@ test 'Duplicate link attribute types are ignored' => sub {
     $mech->get_ok('/login');
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
-    # Duplicates a relationship in admin/sql/InsertTestData.sql
     my @edits = capture_edits {
         $mech->post("/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit", {
             'edit-artist.name' => 'Test Alias',
