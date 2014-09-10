@@ -35,26 +35,6 @@ MB.GuessCase.Handler.Place = function () {
     };
 
     /**
-     * Guess the releasename given in string is, and
-     * returns the guessed name.
-     *
-     * @param        is                the inputstring
-     * @returns os                the processed string
-     **/
-    self.process = function (is) {
-        is = gc.mode.preProcessCommons(is);
-        var words = gc.i.splitWordsAndPunctuation(is);
-        gc.o.init();
-        gc.i.init(is, words);
-        while (!gc.i.isIndexAtEnd()) {
-            self.processWord();
-        }
-        var os = gc.o.getOutput();
-        os = gc.mode.runPostProcess(os);
-        return os;
-    };
-
-    /**
      * Delegate function which handles words not handled
      * in the common word handlers.
      *

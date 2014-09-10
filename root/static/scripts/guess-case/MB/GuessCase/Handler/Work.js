@@ -44,28 +44,9 @@ MB.GuessCase.Handler.Work = function () {
         return self.NOT_A_SPECIALCASE;
     };
 
-    /**
-     * Guess the releasename given in string is, and
-     * returns the guessed name.
-     *
-     * @param        is                the inputstring
-     * @returns os                the processed string
-     **/
-    self.process = function (is) {
-        is = gc.mode.stripInformationToOmit(is);
-        is = gc.mode.preProcessCommons(is);
+    self.getWordsForProcessing = function (is) {
         is = gc.mode.preProcessTitles(is);
-        var words = gc.i.splitWordsAndPunctuation(is);
-        words = gc.mode.prepExtraTitleInfo(words);
-        gc.o.init();
-        gc.i.init(is, words);
-        while (!gc.i.isIndexAtEnd()) {
-            self.processWord();
-        }
-        var os = gc.o.getOutput();
-        os = gc.mode.runPostProcess(os);
-        os = gc.mode.runFinalChecks(os);
-        return os;
+        return gc.mode.prepExtraTitleInfo(gc.i.splitWordsAndPunctuation(is));
     };
 
     /**

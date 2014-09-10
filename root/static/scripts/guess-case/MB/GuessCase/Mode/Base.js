@@ -173,22 +173,6 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
     };
 
     /**
-     * Note:    this function is run before all guess types
-     *                  (artist|release|track)
-     *
-     * keschte          2005-11-10              first version
-     **/
-    self.preProcessCommons = function (is) {
-        if (!gc.re.PREPROCESS_COMMONS) {
-            gc.re.PREPROCESS_COMMONS = [
-                self.fix("D.J. -> DJ", /(\b|^)D\.?J\.?(\s|\)|$)/i, "DJ"),
-                self.fix("M.C. -> MC", /(\b|^)M\.?C\.?(\s|\)|$)/i, "MC")
-            ];
-        }
-        return self.runFixes(is, gc.re.PREPROCESS_COMMONS);
-    };
-
-    /**
      * Take care of mis-spellings that need to be fixed before
      * splitting the string into words.
      * Note:    this function is run before release and track guess
@@ -345,28 +329,6 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
     };
 
     /**
-     * Take care of (bonus),(bonus track)
-     **/
-    self.stripInformationToOmit = function (is) {
-        if (!gc.re.PREPROCESS_STRIPINFOTOOMIT) {
-            gc.re.PREPROCESS_STRIPINFOTOOMIT = [
-                self.fix("Trim 'bonus (track)?'", /[\(\[]?bonus(\s+track)?s?\s*[\)\]]?$/i, ""),
-                self.fix("Trim 'retail (version)?'", /[\(\[]?retail(\s+version)?\s*[\)\]]?$/i, "")
-            ];
-        }
-        var os = is, list = gc.re.PREPROCESS_STRIPINFOTOOMIT;
-        for (var i = list.length - 1; i >= 0; i--) {
-            var matcher = null;
-            var fix = list[i];
-            if ((matcher = os.match(fix.re)) != null) {
-                os = os.replace(fix.re, fix.replace);
-            }
-        }
-
-        return os;
-    };
-
-    /**
      * Look for, and convert vinyl expressions
      * * look only at substrings which start with ' '  OR '('
      * * convert 7',7'',7",7in,7inch TO '7"_' (with a following SPACE)
@@ -376,41 +338,20 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
      *  Original string: "Fine Day (Mike Koglin 12' mix)"
      *          Last matched portion: " 12' "
      *          Matched portion 1 = " "
-     *          Matched portion 2 = "12'"
-     *          Matched portion 3 = "12"
-     *          Matched portion 4 = "'"
-     *          Matched portion 5 = " "
+     *          Matched portion 2 = "12"
+     *          Matched portion 3 = " "
      *  Original string: "Where Love Lives (Come on In) (12"Classic mix)"
      *          Last matched portion: "(12"C"
      *          Matched portion 1 = "("
-     *          Matched portion 2 = "12""
-     *          Matched portion 3 = "12"
-     *          Matched portion 4 = """
-     *          Matched portion 5 = "C"
+     *          Matched portion 2 = "12"
+     *          Matched portion 3 = "C"
      *  Original string: "greatest 80's hits"
      *          Match failed.
      **/
-    self.runFinalChecks = function (is) {
-        if (!gc.re.VINYL) {
-            gc.re.VINYL = /(\s+|\()((\d+)(inch\b|in\b|'+|"))([^s]|$)/i;
-        }
-        var matcher = null, os = is;
-        if ((matcher = is.match(gc.re.VINYL)) != null) {
-            var mindex = matcher.index;
-            var mlenght  = matcher[1].length + matcher[2].length + matcher[5].length; // calculate the length of the expression
-            var firstPart = is.substring(0, mindex);
-            var lastPart = is.substring(mindex + mlenght, is.length); // add number
-            var parts = []; // compile the vinyl designation.
-            parts.push(firstPart);
-            parts.push(matcher[1]); // add matched first expression (either ' ' or '('
-            parts.push(matcher[3]); // add matched number, but skip the in, inch, '' part
-            parts.push('"'); // add vinyl doubleqoute
-            parts.push((matcher[5]) != " " && matcher[5] != ")" && matcher[5] != "," ? " " : ""); // add space after ",if none is present and next character is not ")" or ","
-            parts.push(matcher[5]); // add first character of next word / space.
-            parts.push(lastPart); // add rest of string
-            os = parts.join("");
-        }
-        return os;
+    self.fixVinylSizes = function (is) {
+        return is
+            .replace(/(\s+|\()(7|10|12)(?:inch\b|in\b|'|''|")([^s]|$)/ig, "$1$2\"$3")
+            .replace(/((?:\s+|\()(?:7|10|12)")([^),\s])/, "$1 $2");
     };
 
     /**
@@ -441,11 +382,11 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
     MB.GuessCase.Mode.French = $.extend({}, self, {
         description: MB.text.GuessCaseDescriptionFrench,
 
-        runFinalChecks: function (is) {
-            os = is.replace(/([!\?;:]+)/gi, " $1");
-            os = os.replace(/([«]+)/gi, "$1 ");
-            os = os.replace(/([»]+)/gi, " $1");
-            return os;
+        runPostProcess: function (is) {
+            return self.runPostProcess(is)
+                .replace(/([!\?;:]+)/gi, " $1")
+                .replace(/([«]+)/gi, "$1 ")
+                .replace(/([»]+)/gi, " $1");
         }
     });
 
