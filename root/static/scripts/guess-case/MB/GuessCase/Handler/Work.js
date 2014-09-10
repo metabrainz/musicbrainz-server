@@ -68,13 +68,7 @@ MB.GuessCase.Handler.Work = function () {
         } else if (self.doPartNumberStyle()) {
         } else if (gc.mode.doWord()) {
         } else {
-            // handle normal word.
-            gc.o.appendSpaceIfNeeded();
-            gc.i.capitalizeCurrentWord();
-            gc.o.appendCurrentWord();
-            gc.f.resetContext();
-            gc.f.forceCaps = false;
-            gc.f.spaceNextWord = true;
+            self.doNormalWord();
         }
         gc.f.number = false;
         return null;

@@ -167,6 +167,15 @@ MB.GuessCase.Handler.Base = function () {
      **/
     self.doWord = function () {};
 
+    self.doNormalWord = function () {
+        gc.o.appendSpaceIfNeeded();
+        gc.i.capitalizeCurrentWord();
+        gc.o.appendCurrentWord();
+        gc.f.resetContext();
+        gc.f.forceCaps = false;
+        gc.f.spaceNextWord = true;
+    };
+
     /**
      * Deal with whitespace (\t)
      * primarily we only look at whitespace for context purposes
