@@ -29,7 +29,9 @@ MB.GuessCase.Handler.Track = function () {
     var self = MB.GuessCase.Handler.Base();
 
     self.removeBonusInfo = function (is) {
-        return is.replace(/[\(\[]?bonus(\s+track)?s?\s*[\)\]]?$/i, "");
+        return is
+            .replace(/[\(\[]?bonus(\s+track)?s?\s*[\)\]]?$/i, "")
+            .replace(/[\(\[]?retail(\s+version)?\s*[\)\]]?$/i, "");
     };
 
     /**
