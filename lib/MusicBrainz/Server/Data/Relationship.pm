@@ -1,6 +1,5 @@
 package MusicBrainz::Server::Data::Relationship;
 
-use List::UtilsBy qw( uniq_by );
 use Moose;
 use namespace::autoclean;
 use Readonly;
@@ -481,10 +480,6 @@ sub update
 
     $self->_check_series_type($new->{entity0}, $link{link_type_id}, $type1) if $series0_changed;
     $self->_check_series_type($new->{entity1}, $link{link_type_id}, $type0) if $series1_changed;
-
-    if (my $attributes = $link{attributes}) {
-        @$attributes = uniq_by { $_->{type}{gid} } @$attributes;
-    }
 
     $new->{link} = $self->c->model('Link')->find_or_insert(\%link);
     $self->sql->update_row("l_${type0}_${type1}", $new, { id => $id });
