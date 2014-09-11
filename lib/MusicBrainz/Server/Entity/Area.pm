@@ -55,14 +55,29 @@ has 'parent_country' => (
     isa => 'Maybe[Area]',
 );
 
+has 'parent_country_depth' => (
+    is => 'rw',
+    isa => 'Maybe[Int]',
+);
+
 has 'parent_subdivision' => (
     is => 'rw',
     isa => 'Maybe[Area]',
 );
 
+has 'parent_subdivision_depth' => (
+    is => 'rw',
+    isa => 'Maybe[Int]',
+);
+
 has 'parent_city' => (
     is => 'rw',
     isa => 'Maybe[Area]',
+);
+
+has 'parent_city_depth' => (
+    is => 'rw',
+    isa => 'Maybe[Int]',
 );
 
 has 'iso_3166_1' => (

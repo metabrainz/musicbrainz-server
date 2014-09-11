@@ -108,7 +108,7 @@ sub load_containment
 
     # See admin/sql/CreateViews.sql for a description of the area_containment view.
     # If more types are added to %type_parent_attribute the view should be updated.
-    my $query = "SELECT descendant, parent, type FROM area_containment WHERE descendant = any(?)";
+    my $query = "SELECT descendant, parent, type, array_length(descendant_hierarchy,1) AS depth FROM area_containment WHERE descendant = any(?)";
     my $containment = $self->sql->select_list_of_hashes($query, \@all_ids);
 
     my @parent_ids = grep { defined } map { $_->{parent} } @$containment;
@@ -119,9 +119,11 @@ sub load_containment
     for my $data (@$containment) {
         if (my $entities = $obj_id_map{$data->{descendant}}) {
             my $type = $type_parent_attribute{$data->{type}};
+            my $type_depth = $type . '_depth';
             my $parent_obj = $parent_objects->{$data->{parent}};
             for my $entity (@$entities) {
                 $entity->$type($parent_obj);
+                $entity->$type_depth($data->{depth});
             }
         }
     }
