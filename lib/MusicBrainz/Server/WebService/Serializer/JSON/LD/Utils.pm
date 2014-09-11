@@ -19,7 +19,6 @@ our @EXPORT_OK = qw(
 #        Collection
 #        Instrument
 #        Medium
-#        Recording
 #        Relationship
 #        Series
 #        URL
@@ -35,6 +34,7 @@ my %serializers =
         Artist
         Label
         Place
+        Recording
         Release
         ReleaseGroup
     );
