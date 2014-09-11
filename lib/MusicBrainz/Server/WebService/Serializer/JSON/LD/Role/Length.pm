@@ -1,27 +1,19 @@
-package MusicBrainz::Server::WebService::Serializer::JSON::LD::Recording;
-use Moose;
-use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_entity );
-
-extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Name';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Length';
+package MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Length;
+use Moose::Role;
+use MusicBrainz::Server::Track qw( format_iso_duration );
 
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
     my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
 
-    $ret->{'@type'} = 'MusicRecording';
-
-    if ($stash->store($entity)->{trackNumber}) {
-        $ret->{trackNumber} = $stash->store($entity)->{trackNumber};
+    if ($entity->length) {
+        $ret->{duration} = format_iso_duration($entity->length);
     }
 
     return $ret;
 };
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
+no Moose::Role;
 1;
 
 =head1 COPYRIGHT
