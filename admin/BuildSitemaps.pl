@@ -142,7 +142,6 @@ print localtime() . " Done\n";
 
 sub build_one_entity {
     my ($entity_type, $index, $sql) = @_;
-    my $entity_properties = $ENTITIES{$entity_type} // {};
 
     # Find the counts in each potential batch of 50,000
     my $raw_batches = $sql->select_list_of_hashes(
@@ -172,11 +171,22 @@ sub build_one_entity {
     push @batches, {count =>   $last_batch->{count},
                     batches => [$last_batch->{batch}]};
 
-    # Build information for extra sitemaps to build based on the type of entity,
-    # including how to calculate priority values, and extra SQL if needed.
+    my $suffix_info = build_suffix_info($entity_type);
+
+    for my $batch_info (@batches) {
+        build_one_batch($entity_type, $batch_info, $suffix_info, $index, $sql);
+    }
+}
+
+# Build information for extra sitemaps to build based on the type of entity,
+# including how to calculate priority values, and extra SQL if needed.
+sub build_suffix_info {
+    my ($entity_type) = @_;
+    my $entity_properties = $ENTITIES{$entity_type} // {};
     my $suffix_info = {};
     if ($entity_properties->{aliases}) {
         $suffix_info->{aliases} = {
+            suffix => 'aliases',
             priority => sub {
                 my (%opts) = @_;
                 return $SECONDARY_PAGE_PRIORITY if $opts{has_aliases};
@@ -187,6 +197,7 @@ sub build_one_entity {
     }
     if ($entity_type eq 'release') {
         $suffix_info->{'cover-art'} = {
+            suffix => 'cover-art',
             priority => sub {
                 my (%opts) = @_;
                 return $SECONDARY_PAGE_PRIORITY if $opts{cover_art_presence} eq 'present';
@@ -196,10 +207,7 @@ sub build_one_entity {
                           columns => 'cover_art_presence'}
         };
     }
-
-    for my $batch_info (@batches) {
-        build_one_batch($entity_type, $batch_info, $suffix_info, $index, $sql);
-    }
+    return $suffix_info;
 }
 
 sub build_one_batch {
@@ -219,14 +227,17 @@ sub build_one_batch {
             $extra_sql{join} .= " JOIN $extra{join}";
         }
     }
-    my $query = "SELECT " . join(', ', "$entity_id AS main_id", @{ $extra_sql{columns}}) .
-                 " FROM $entity_type" . ( $extra_sql{join} ? $extra_sql{join} : '') .
-                " WHERE ceil(${entity_type}.id / 50000.0) = any(?) ORDER BY ${entity_type}.id ASC";
+    my $columns = join(', ', "$entity_id AS main_id", @{ $extra_sql{columns} });
+    my $tables = $entity_type . $extra_sql{join};
+
+    my $query = "SELECT $columns FROM $tables " .
+                "WHERE ceil(${entity_type}.id / 50000.0) = any(?) " .
+                "ORDER BY ${entity_type}.id ASC";
     my $ids = $sql->select_list_of_hashes($query, $batch_info->{batches});
 
     build_one_sitemap($entity_type, $minimum_batch_number, $index, $ids);
     for my $suffix (keys %$suffix_info) {
-        my %opts = (suffix => $suffix, %{ $suffix_info->{$suffix} // {}});
+        my %opts = %{ $suffix_info->{$suffix} // {}};
         build_one_sitemap($entity_type, $minimum_batch_number, $index, $ids, %opts);
     }
 }
