@@ -941,4 +941,26 @@ test 'MBS-7464: URLs are validated/canonicalized' => sub {
     is($url->id, 2, 'existing URL is used');
 };
 
+
+test 'Edits are rejected without a confirmed email address' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c = $test->c;
+
+    prepare_test_database($c);
+
+    $c->model('Editor')->insert({
+        name => 'stupid editor',
+        password => 'password'
+    });
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'stupid editor', password => 'password' } );
+
+    post_json($mech, '/ws/js/edit/create', encode_json({ edits => [] }));
+
+    my $response = from_json($mech->content);
+    is($response->{error}, 'a confirmed email address is required', 'error is returned for unconfirmed email');
+};
+
 1;
