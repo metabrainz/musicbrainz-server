@@ -533,6 +533,10 @@ sub edit : Chained('/') PathPart('ws/js/edit') CaptureArgs(0) Edit {
                      'first, and then try submitting your edits again.',
                      { url => { href => $c->uri_for_action('/user/login'), target => '_blank' } }),
     }]);
+
+    unless ($c->user->has_confirmed_email_address) {
+        $c->forward('/ws/js/detach_with_error', ['a confirmed email address is required']);
+    }
 }
 
 sub create : Chained('edit') PathPart('create') Edit {
