@@ -9,18 +9,11 @@ sub combine_with_query {
     my ($self, $query) = @_;
     return unless $self->arguments;
 
-    my $join_e_idx = $query->inc_joins;
-    my $edit_alias = "edit_release_$join_e_idx";
-    $query->add_join("JOIN edit_release $edit_alias ON $edit_alias.edit = edit.id");
-
-    my $join_r_idx = $query->inc_joins;
-    my $release_alias = "release_$join_r_idx";
-    $query->add_join("JOIN release $release_alias ON $release_alias.id = $edit_alias.release");
-
     $query->add_where([
-        join(' ', "$release_alias.language", $self->operator,
+        'EXISTS (SELECT 1 FROM edit_release A JOIN release B ON A.release = B.id WHERE A.edit = edit.id AND ' .
+        join(' ', "B.language", $self->operator,
              $self->operator eq '='  ? 'any(?)' :
-             $self->operator eq '!=' ? 'all(?)' : die 'Shouldnt get here'),
+             $self->operator eq '!=' ? 'all(?)' : die 'Shouldn\'t get here') . ')',
         $self->sql_arguments
     ]) if $self->arguments > 0;
 }

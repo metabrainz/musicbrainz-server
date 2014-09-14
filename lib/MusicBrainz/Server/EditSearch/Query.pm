@@ -72,27 +72,6 @@ has auto_edit_filter => (
     default => undef
 );
 
-has join => (
-    isa => ArrayRef[Str],
-    is => 'bare',
-    default => sub { [] },
-    traits => [ 'Array' ],
-    handles => {
-        join => 'elements',
-        add_join => 'push',
-    }
-);
-
-has join_counter => (
-    isa => Int,
-    is => 'ro',
-    default => 0,
-    traits => [ 'Counter' ],
-    handles => {
-        inc_joins => 'inc',
-    }
-);
-
 has where => (
     isa => ArrayRef[ Tuple[ Str, ArrayRef[Any] ] ],
     is => 'bare',
@@ -166,9 +145,8 @@ sub as_string {
                                         qw( edit.open_time edit.id ))
         unless $self->order eq 'rand';
 
-    return 'SELECT DISTINCT edit.* FROM edit ' .
-        join(' ', $self->join) .
-        ' WHERE ' . $ae_predicate . ($self->negate ? 'NOT' : '') . ' (' .
+    return 'SELECT edit.* FROM edit ' .
+        'WHERE ' . $ae_predicate . ($self->negate ? 'NOT ' : '') . '(' .
             join(" $comb ", map { '(' . $_->[0] . ')' } $self->where) .
         ")
          $order
