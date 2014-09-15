@@ -54,7 +54,7 @@ MB.GuessCase.Mode._fix_all = function (name, re, replace) {
 /**
  * Models a GuessCase mode.
  **/
-MB.GuessCase.Mode.Base = function () {
+(function () {
     var self = {};
 
     self.fix = MB.GuessCase.Mode._fix;
@@ -64,20 +64,11 @@ MB.GuessCase.Mode.Base = function () {
     // member functions
     // ---------------------------------------------------------------------------
 
-    /**
-     * Set the instance variables.
-     */
-    self.setConfig = function (name, desc) {
-        self._name = name;
-        self._desc = (desc || "");
-    };
-
-    self.getName = function () { return self._name; };
+    self.description = "";
 
     self.getDescription = function () {
-        var s = self._desc;
-        s = s.replace('<a ', '<a target="_blank" '); /* Work around MBS-5734 */
-        return s;
+        /* Work around MBS-5734 */
+        return self.description.replace('<a ', '<a target="_blank" ');
     };
 
     /**
@@ -468,5 +459,32 @@ MB.GuessCase.Mode.Base = function () {
         return false;
     };
 
-    return self;
-};
+    MB.GuessCase.Mode.Artist = $.extend({}, self, {
+        isLowerCaseWord: function (w) {
+            return w === 'the' ? false : self.isLowerCaseWord(w);
+        },
+
+        isSentenceCaps: function () { return false }
+    });
+
+    MB.GuessCase.Mode.English = $.extend({}, self, {
+        description: MB.text.GuessCaseDescriptionEnglish,
+
+        isSentenceCaps: function () { return false }
+    });
+
+    MB.GuessCase.Mode.French = $.extend({}, self, {
+        description: MB.text.GuessCaseDescriptionFrench,
+
+        runFinalChecks: function (is) {
+            os = is.replace(/([!\?;:]+)/gi, " $1");
+            os = os.replace(/([«]+)/gi, "$1 ");
+            os = os.replace(/([»]+)/gi, " $1");
+            return os;
+        }
+    });
+
+    MB.GuessCase.Mode.Sentence = $.extend({}, self, {
+        description: MB.text.GuessCaseDescriptionSentence
+    });
+}());

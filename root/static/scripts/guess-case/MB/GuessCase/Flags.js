@@ -44,7 +44,6 @@ MB.GuessCase.Flags = function () {
      * Reset the variables for the SeriesNumberStyle
      **/
     self.resetSeriesNumberStyleFlags = function () {
-        self.disc = false; // flag is used for the detection of SeriesStyles
         self.part = false;
         self.volume = false;
         self.feat = false;

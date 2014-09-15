@@ -4,8 +4,9 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
-    entity_name => 'recording',
-    model       => 'Recording',
+    entity_name     => 'recording',
+    model           => 'Recording',
+    relationships   => { all => ['show'], cardinal => ['edit'], default => ['url'] },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
@@ -65,11 +66,6 @@ after 'load' => sub
     }
     $c->model('ISRC')->load_for_recordings($recording);
     $c->model('ArtistCredit')->load($recording);
-
-    # Recording relationships must be loaded before related_works.
-    $c->model('Relationship')->load($recording);
-    $c->model('Relationship')->load($recording->related_works);
-
 };
 
 sub _row_id_to_gid
@@ -80,16 +76,12 @@ sub _row_id_to_gid
     return $track->recording->gid;
 }
 
-after 'tags' => sub
-{
+sub show : Chained('load') PathPart('') {
     my ($self, $c) = @_;
     my $recording = $c->stash->{recording};
-};
 
-sub show : Chained('load') PathPart('')
-{
-    my ($self, $c) = @_;
-    my $recording = $c->stash->{recording};
+    $c->model('Relationship')->load($recording->related_works);
+
     my $tracks = $self->_load_paged($c, sub {
         $c->model('Track')->find_by_recording($recording->id, shift, shift);
     });

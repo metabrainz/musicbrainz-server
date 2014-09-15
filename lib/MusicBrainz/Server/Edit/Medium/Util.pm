@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use Clone qw(clone);
+use List::AllUtils qw( all any uniq );
 use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
@@ -22,6 +23,7 @@ use aliased 'MusicBrainz::Server::Entity::Recording';
 use aliased 'MusicBrainz::Server::Entity::Track';
 
 use Sub::Exporter -setup => { exports => [qw(
+    check_track_hash
     display_tracklist
     filter_subsecond_differences
     track
@@ -56,6 +58,24 @@ sub tracks_to_hash
     }, @$tracks ];
 
     return $tmp;
+}
+
+sub check_track_hash {
+    my $tracks = shift;
+
+    my @track_ids = grep { defined $_ } map { $_->{id} } @$tracks;
+    die "Track IDs are not unique (MBS-7303)"
+        unless scalar @track_ids == scalar uniq @track_ids;
+
+    my @track_pos = sort { $a <=> $b } map { $_->{position} } @$tracks;
+    die "No tracks" unless @track_pos;
+    die "Track positions not given for all tracks"
+        unless all { defined $_ } @track_pos;
+    die "Track positions are not unique (MBS-7721)"
+        unless scalar @track_pos == scalar uniq @track_pos;
+    die "Track positions are non-contiguous (MBS-7846)"
+        unless ($track_pos[0] == 0 || $track_pos[0] == 1)
+            && scalar @track_pos == $track_pos[-1] - $track_pos[0] + 1;
 }
 
 sub tracklist_foreign_keys {

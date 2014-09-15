@@ -422,6 +422,13 @@ msgid ""
 "controller."
 msgstr ""
 
+#. name:effects 
+#: DB:instrument/description:677
+msgid ""
+"Effects refers to devices which enable a musician to modify the sound of an "
+"instrument."
+msgstr ""
+
 #. name:electric fretless guitar 
 #: DB:instrument/description:538
 msgid "Electric guitar without frets."

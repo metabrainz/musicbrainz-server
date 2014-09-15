@@ -15,6 +15,7 @@ use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::ReleaseGroup';
 with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_name { N_l('Set cover art') }
 sub edit_kind { 'other' }

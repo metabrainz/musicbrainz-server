@@ -29,12 +29,6 @@ MB.GuessCase.Handler.Artist = function () {
     var self = MB.GuessCase.Handler.Base();
 
     // ----------------------------------------------------------------------------
-    // member variables
-    // ---------------------------------------------------------------------------
-    self.UNKNOWN = "[unknown]";
-    self.NOARTIST = "[unknown]";
-
-    // ----------------------------------------------------------------------------
     // member functions
     // ---------------------------------------------------------------------------
 
@@ -46,7 +40,7 @@ MB.GuessCase.Handler.Artist = function () {
      * @returns os      the processed string
      **/
     self.process = function (is) {
-        is = gc.artistmode.preProcessCommons(is);
+        is = gc.mode.preProcessCommons(is);
         var w = gc.i.splitWordsAndPunctuation(is);
         gc.o.init();
         gc.i.init(is, w);
@@ -54,7 +48,7 @@ MB.GuessCase.Handler.Artist = function () {
             self.processWord();
         }
         var os = gc.o.getOutput();
-        return gc.artistmode.runPostProcess(os);
+        return gc.mode.runPostProcess(os);
     };
 
     /**
@@ -153,16 +147,7 @@ MB.GuessCase.Handler.Artist = function () {
      * Guesses the sortname for artists
      **/
     self.guessSortName = function (is, person) {
-        is = gc.u.trim(is);
-
-        // let's see if we got a compound artist
-        var collabSplit = " and ";
-        collabSplit = (is.indexOf(" + ") != -1 ? " + " : collabSplit);
-        collabSplit = (is.indexOf(" & ") != -1 ? " & " : collabSplit);
-
-        var as = is.split(collabSplit);
-        for (var splitindex = 0; splitindex < as.length; splitindex++) {
-            var artist = as[splitindex];
+        return self.sortCompoundName(is, function (artist) {
             if (!MB.utility.isNullOrEmpty(artist)) {
                 artist = gc.u.trim(artist);
                 var append = "";
@@ -214,7 +199,7 @@ MB.GuessCase.Handler.Artist = function () {
                 }
 
                 // we have to reorder the names
-                var i=0;
+                var i = 0;
                 if (reorder) {
                     var reOrderedNames = [];
                     if (names.length > 1) {
@@ -237,33 +222,10 @@ MB.GuessCase.Handler.Artist = function () {
                         names = reOrderedNames;
                     }
                 }
-                var t = [];
-                for (i = 0; i < names.length; i++) {
-                    var w = names[i];
-                    if (!MB.utility.isNullOrEmpty(w)) {
-                        // skip empty names
-                        t.push(w);
-                    }
-                    if (i < names.length-1) {
-                        // if not last word, add space
-                        t.push(" ");
-                    }
-                }
 
-                // append string
-                if (!MB.utility.isNullOrEmpty(append)) {
-                    t.push(append);
-                }
-                artist = gc.u.trim(t.join(""));
+                return gc.u.trim(_.compact(names).join(" ") + (append || ""));
             }
-
-            if (!MB.utility.isNullOrEmpty(artist)) {
-                as[splitindex] = artist;
-            } else {
-                delete as[splitindex];
-            }
-        }
-        return gc.u.trim(as.join(collabSplit));
+        });
     };
 
     return self;

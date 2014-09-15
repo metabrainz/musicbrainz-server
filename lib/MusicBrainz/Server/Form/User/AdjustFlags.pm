@@ -38,6 +38,10 @@ has_field 'wiki_transcluder' => (
     type => 'Boolean',
 );
 
+has_field 'banner_editor' => (
+    type => 'Boolean',
+);
+
 has_field 'mbid_submitter' => (
     type => 'Boolean',
 );

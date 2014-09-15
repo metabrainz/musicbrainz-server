@@ -14,6 +14,7 @@ with 'MusicBrainz::Server::Edit::Work';
 with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 use aliased 'MusicBrainz::Server::Entity::Work';
+use aliased 'MusicBrainz::Server::Entity::ISWC';
 
 sub edit_type { $EDIT_WORK_ADD_ISWCS }
 sub edit_name { N_l('Add ISWCs') }
@@ -72,7 +73,7 @@ sub build_display_data
             map { +{
                 work => $loaded->{Work}{ $_->{work}{id} }
                     || Work->new( name => $_->{work}{name} ),
-                iswc      => $_->{iswc}
+                iswc => ISWC->new( iswc => $_->{iswc} ),
             } } @{ $self->data->{iswcs} }
         ]
     }

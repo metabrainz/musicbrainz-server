@@ -67,3 +67,12 @@ MB.constants.MAX_LENGTH_DIFFERENCE = 10500;
 MB.constants.MIN_NAME_SIMILARITY = 0.75;
 
 MB.constants.MAX_RECENT_ENTITIES = 10;
+
+// https://bugzilla.mozilla.org/show_bug.cgi?id=365772
+try {
+    MB.hasLocalStorage = !!window.localStorage;
+    MB.hasSessionStorage = !!window.sessionStorage;
+} catch (e) {
+    MB.hasLocalStorage = false;
+    MB.hasSessionStorage = false;
+}

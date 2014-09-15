@@ -32,7 +32,8 @@ our %EXPORT_TAGS = (
     privileges      => [
         qw( $AUTO_EDITOR_FLAG         $BOT_FLAG           $UNTRUSTED_FLAG
             $RELATIONSHIP_EDITOR_FLAG $DONT_NAG_FLAG      $WIKI_TRANSCLUSION_FLAG
-            $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG $LOCATION_EDITOR_FLAG )
+            $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG $LOCATION_EDITOR_FLAG
+            $BANNER_EDITOR_FLAG )
     ],
     election_status => [
         qw( $ELECTION_SECONDER_1 $ELECTION_SECONDER_2 $ELECTION_OPEN
@@ -54,7 +55,9 @@ our @EXPORT_OK = (
         $AUTO_EDITOR_FLAG         $BOT_FLAG            $UNTRUSTED_FLAG
         $RELATIONSHIP_EDITOR_FLAG $DONT_NAG_FLAG       $WIKI_TRANSCLUSION_FLAG
         $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG  $LOCATION_EDITOR_FLAG
-        $COVERART_FRONT_TYPE      $COVERART_BACK_TYPE  $AREA_TYPE_COUNTRY
+        $BANNER_EDITOR_FLAG
+        $COVERART_FRONT_TYPE      $COVERART_BACK_TYPE
+        $AREA_TYPE_COUNTRY        $AREA_TYPE_CITY
         $INSTRUMENT_ROOT_ID       $VOCAL_ROOT_ID       $REQUIRED_VOTES $OPEN_EDIT_DURATION
         %PART_OF_SERIES           $ARTIST_ARTIST_COLLABORATION
         @FULL_TABLE_LIST          %ENTITIES            entities_with
@@ -279,6 +282,7 @@ Readonly our $WIKI_TRANSCLUSION_FLAG   => 32;
 Readonly our $MBID_SUBMITTER_FLAG      => 64;
 Readonly our $ACCOUNT_ADMIN_FLAG       => 128;
 Readonly our $LOCATION_EDITOR_FLAG     => 256;
+Readonly our $BANNER_EDITOR_FLAG       => 512;
 
 Readonly our $ELECTION_VOTE_NO      => -1;
 Readonly our $ELECTION_VOTE_ABSTAIN => 0;
@@ -291,6 +295,7 @@ Readonly our $INSTRUMENT_ROOT_ID => 14;
 Readonly our $VOCAL_ROOT_ID => 3;
 
 Readonly our $AREA_TYPE_COUNTRY => 1;
+Readonly our $AREA_TYPE_CITY => 3;
 
 Readonly our $REQUIRED_VOTES => 3;
 Readonly our $OPEN_EDIT_DURATION => 7;

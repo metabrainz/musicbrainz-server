@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Edit::Medium::Edit;
 use Carp;
 use Clone 'clone';
-use List::AllUtils qw( any uniq );
+use List::AllUtils qw( any );
 use Algorithm::Diff qw( diff sdiff );
 use Algorithm::Merge qw( merge );
 use Data::Compare;
@@ -22,6 +22,7 @@ use MusicBrainz::Server::Edit::Types qw(
     Nullable
     NullableOnPreview
 );
+use MusicBrainz::Server::Edit::Medium::Util qw( check_track_hash );
 use MusicBrainz::Server::Edit::Utils qw( verify_artist_credits hash_artist_credit hash_artist_credit_without_join_phrases );
 use MusicBrainz::Server::Log qw( log_assertion log_debug );
 use MusicBrainz::Server::Validation 'normalise_strings';
@@ -169,13 +170,11 @@ sub initialize
             unless (Compare(filter_subsecond_differences($old),
                             filter_subsecond_differences($new)))
             {
+                check_track_hash($new);
+
                 $data->{old}{tracklist} = $old;
                 $data->{new}{tracklist} = $new;
             }
-
-            my @track_ids = grep { defined $_ } map { $_->{id} } @$new;
-            die "Track IDs are not unique (MBS-7303)"
-                unless scalar @track_ids == scalar uniq @track_ids;
         }
 
         MusicBrainz::Server::Edit::Exceptions::NoChanges->throw

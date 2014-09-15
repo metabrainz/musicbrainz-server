@@ -1,21 +1,19 @@
-package MusicBrainz::Server::Controller::Role::Relationship;
-use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
+package MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID;
+use Moose::Role;
+use MusicBrainz::Server::Constants qw( %ENTITIES );
+use MusicBrainz::Server::Data::Utils qw( ref_to_type );
+use DBDefs;
 
-requires 'load';
+around serialize => sub {
+    my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
+    my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
 
-sub relationships : Chained('load') PathPart('relationships')
-{
-    my ($self, $c) = @_;
-    my $entity = $c->stash->{$self->{entity_name}};
-    $c->model('Relationship')->load($entity);
-}
+    my $entity_type = ref_to_type($entity);
+    my $entity_url = $ENTITIES{$entity_type}{url} // $entity_type;
 
-after 'load' => sub {
-    my ($self, $c) = @_;
-    my $entity = $c->stash->{entity};
-    if ($c->action->name ne 'relationships') {
-        $c->model('Relationship')->load_subset([ 'url' ], $entity);
-    }
+    $ret->{'@id'} = DBDefs->CANONICAL_SERVER . '/' . $entity_url . '/' . $entity->gid;
+
+    return $ret;
 };
 
 no Moose::Role;
@@ -23,7 +21,7 @@ no Moose::Role;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2014 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -40,3 +38,4 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 =cut
+

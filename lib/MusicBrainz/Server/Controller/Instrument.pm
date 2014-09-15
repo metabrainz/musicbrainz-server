@@ -12,8 +12,9 @@ use MusicBrainz::Server::Constants qw(
 use MusicBrainz::Server::Translation qw( l );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model       => 'Instrument',
-    entity_name => 'instrument',
+    model           => 'Instrument',
+    entity_name     => 'instrument',
+    relationships   => { cardinal => ['show', 'edit'], default => ['url'] },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
@@ -36,7 +37,6 @@ after 'load' => sub {
     my ($self, $c) = @_;
     my $instrument = $c->stash->{instrument};
     $c->model('InstrumentType')->load($instrument);
-    $c->model('Relationship')->load($instrument);
 };
 
 sub recordings : Chained('load') {

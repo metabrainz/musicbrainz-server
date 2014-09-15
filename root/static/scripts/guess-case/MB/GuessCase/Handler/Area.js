@@ -70,8 +70,7 @@ MB.GuessCase.Handler.Area = function () {
      *
      **/
     self.doWord = function () {
-        if (self.doDiscNumberStyle()) {
-        } else if (self.doIgnoreWords()) {
+        if (self.doIgnoreWords()) {
         } else if (self.doFeaturingArtistStyle()) {
         } else if (self.doVersusStyle()) {
         } else if (self.doVolumeNumberStyle()) {

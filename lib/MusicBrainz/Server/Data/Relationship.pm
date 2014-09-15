@@ -115,7 +115,7 @@ sub get_by_ids
 
 sub _load
 {
-    my ($self, $type, $target_types, @objs) = @_;
+    my ($self, $type, $target_types, $use_cardinality, @objs) = @_;
     my @target_types = @$target_types;
     my @types = map { [ sort($type, $_) ] } @target_types;
     my @rels;
@@ -128,39 +128,42 @@ sub _load
 
         my $type0 = $t->[0];
         my $type1 = $t->[1];
-        my (@cond, @params, $target, $target_id, $query);
+        my (@cond, @params, $target, $target_id, $source_id, $query);
+
         if ($type eq $type0) {
             push @cond, "entity0 IN (" . placeholders(@ids) . ")";
             push @params, @ids;
             $target = $type1;
             $target_id = 'entity1';
+            $source_id = 'entity0';
         }
         if ($type eq $type1) {
             push @cond, "entity1 IN (" . placeholders(@ids) . ")";
             push @params, @ids;
             $target = $type0;
             $target_id = 'entity0';
+            $source_id = 'entity1';
         }
 
+        # If the source and target types are the same, two possible conditions
+        # will have been added above, so join them with an OR.
+        @cond = ("(" . join(" OR ", @cond) . ")");
+        push @cond, "${source_id}_cardinality = 0" if $use_cardinality;
+
         my $select = "l_${type0}_${type1}.* FROM l_${type0}_${type1}
-                      JOIN link l ON link = l.id";
+                      JOIN link l ON link = l.id
+                      JOIN link_type lt ON lt.id = l.link_type";
+
         my $order = 'l.begin_date_year, l.begin_date_month, l.begin_date_day,
                      l.end_date_year,   l.end_date_month,   l.end_date_day,
                      l.ended';
 
-        if ($target eq 'url') {
-            $query = "
-            SELECT $select
-              JOIN $target ON $target_id = ${target}.id
-            WHERE " . join(" OR ", @cond) . "
-            ORDER BY $order, url";
-        } else {
-            $query = "
-            SELECT $select
-              JOIN $target ON $target_id = ${target}.id
-            WHERE " . join(" OR ", @cond) . "
-            ORDER BY $order, musicbrainz_collate(name)";
-        }
+        $order .= $target eq 'url' ? ', url' : ", musicbrainz_collate(${target}.name)";
+
+        $query = "SELECT $select
+                    JOIN $target ON $target_id = ${target}.id
+                   WHERE " . join(" AND ", @cond) . "
+                   ORDER BY $order";
 
         for my $row (@{ $self->sql->select_list_of_hashes($query, @params) }) {
             my $entity0 = $row->{entity0};
@@ -231,9 +234,8 @@ sub load_entities
     $self->c->model('SeriesType')->load(@series);
 }
 
-sub load_subset
-{
-    my ($self, $types, @objs) = @_;
+sub _load_subset {
+    my ($self, $types, $use_cardinality, @objs) = @_;
     my %objs_by_type;
     return unless @objs; # nothing to do
     foreach my $obj (@objs) {
@@ -245,7 +247,7 @@ sub load_subset
 
     my @rels;
     foreach my $type (keys %objs_by_type) {
-        push @rels, $self->_load($type, $types, @{$objs_by_type{$type}});
+        push @rels, $self->_load($type, $types, $use_cardinality, @{$objs_by_type{$type}});
     }
 
     $self->c->model('Link')->load(@rels);
@@ -255,10 +257,19 @@ sub load_subset
     return @rels;
 }
 
-sub load
-{
+sub load_subset {
+    my ($self, $types, @objs) = @_;
+    return $self->_load_subset($types, 0, @objs);
+}
+
+sub load {
     my ($self, @objs) = @_;
-    return $self->load_subset(\@TYPES, @objs);
+    return $self->_load_subset(\@TYPES, 0, @objs);
+}
+
+sub load_cardinal {
+    my ($self, @objs) = @_;
+    return $self->_load_subset(\@TYPES, 1, @objs);
 }
 
 sub _generate_table_list

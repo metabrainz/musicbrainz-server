@@ -9,7 +9,7 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list
 );
 use MusicBrainz::Server::Email;
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw( l lp );
 use MusicBrainz::Server::Constants qw( :vote );
 use MusicBrainz::Server::Types qw( VoteOption );
 
@@ -188,10 +188,10 @@ sub summarize_votes
 {
     my ($self, $vote_kind, $all_votes, $recent_votes) = @_;
     my %names = (
-        $VOTE_ABSTAIN => l('Abstain'),
-        $VOTE_NO => l('No'),
-        $VOTE_YES => l('Yes'),
-        $VOTE_APPROVE => l('Approve'),
+        $VOTE_ABSTAIN => lp('Abstain', 'vote'),
+        $VOTE_NO => lp('No', 'vote'),
+        $VOTE_YES => lp('Yes', 'vote'),
+        $VOTE_APPROVE => lp('Approve', 'vote'),
     );
 
     return (

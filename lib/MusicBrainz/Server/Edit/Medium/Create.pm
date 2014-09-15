@@ -76,7 +76,9 @@ sub initialize {
     my ($self, %opts) = @_;
 
     my $tracklist = delete $opts{tracklist};
-    $opts{tracklist} = tracks_to_hash($tracklist);
+    $tracklist = tracks_to_hash($tracklist);
+    check_track_hash($tracklist);
+    $opts{tracklist} = $tracklist;
 
     my $release = delete $opts{release};
     die 'Missing "release" argument' unless ($release || $self->preview);

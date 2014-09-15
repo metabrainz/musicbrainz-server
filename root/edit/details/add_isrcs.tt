@@ -12,16 +12,9 @@
       <ul>
         [% FOR addition=edit.display_data.additions %]
         <li>
-          [% IF addition.recording.artist_credit;
-               l('ISRC {isrc} to {recording} by {artist}',
-                 { isrc => link_isrc(addition),
-                   recording => link_entity(addition.recording),
-                   artist => artist_credit(addition.recording.artist_credit) });
-             ELSE;
-               l('ISRC {isrc} to {recording}',
-                 { isrc => link_isrc(addition.isrc),
-                   recording => link_entity(addition.recording) });
-             END %]
+          [%~ l('ISRC {isrc} to {recording}',
+                { isrc => link_isrc(addition.isrc),
+                  recording => descriptive_link(addition.recording) }) ~%]
         </li>
         [% END %]
       </ul>
