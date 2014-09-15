@@ -49,6 +49,7 @@ DROP INDEX edit_instrument_idx;
 DROP INDEX edit_label_idx;
 DROP INDEX edit_label_idx_status;
 DROP INDEX edit_note_idx_edit;
+DROP INDEX edit_note_idx_editor;
 DROP INDEX edit_open_time_date;
 DROP INDEX edit_place_idx;
 DROP INDEX edit_recording_idx;

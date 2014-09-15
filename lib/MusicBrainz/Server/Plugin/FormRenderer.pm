@@ -107,7 +107,7 @@ sub textarea
             name => $field->html_name,
             id => $self->_id($field),
             %{ $attrs || {} },
-        }, $field->fif);
+        }, $self->h->entity_encode($field->fif));
 }
 
 sub label
@@ -174,7 +174,7 @@ sub select
         my $option_html = $self->h->option(
             {
                 %$option, selected => $selected ? "selected" : undef,
-            }, $label);
+            }, $self->h->entity_encode($label));
 
         if ($grp)
         {

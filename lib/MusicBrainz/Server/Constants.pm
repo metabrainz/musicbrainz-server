@@ -55,7 +55,7 @@ our @EXPORT_OK = (
         $RELATIONSHIP_EDITOR_FLAG $DONT_NAG_FLAG       $WIKI_TRANSCLUSION_FLAG
         $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG  $LOCATION_EDITOR_FLAG
         $COVERART_FRONT_TYPE      $COVERART_BACK_TYPE  $AREA_TYPE_COUNTRY
-        $INSTRUMENT_ROOT_ID       $VOCAL_ROOT_ID       $REQUIRED_VOTES
+        $INSTRUMENT_ROOT_ID       $VOCAL_ROOT_ID       $REQUIRED_VOTES $OPEN_EDIT_DURATION
         %PART_OF_SERIES           $ARTIST_ARTIST_COLLABORATION
         @FULL_TABLE_LIST          %ENTITIES            entities_with
     ),
@@ -302,6 +302,7 @@ Readonly our $VOCAL_ROOT_ID => 3;
 Readonly our $AREA_TYPE_COUNTRY => 1;
 
 Readonly our $REQUIRED_VOTES => 3;
+Readonly our $OPEN_EDIT_DURATION => 7;
 Readonly our $EDIT_MINIMUM_RESPONSE_PERIOD => DateTime::Duration->new(hours => 72);
 
 Readonly our $ACCESS_SCOPE_PROFILE        => 1;
@@ -333,7 +334,14 @@ Readonly our %ENTITIES => (
         edit_table => 1,
         merging => 1,
         model      => 'Area',
+        type => { simple => 1 },
         annotations => { edit_type => $EDIT_AREA_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_AREA_ADD_ALIAS,
+            edit_edit_type => $EDIT_AREA_EDIT_ALIAS,
+            delete_edit_type => $EDIT_AREA_DELETE_ALIAS,
+            search_hint_type => 3
+        },
         removal     => { manual => 1 }
     },
     artist => {
@@ -341,10 +349,35 @@ Readonly our %ENTITIES => (
         edit_table => 1,
         merging => 1,
         model      => 'Artist',
+        type => { simple => 1 },
         annotations => { edit_type => $EDIT_ARTIST_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_ARTIST_ADD_ALIAS,
+            edit_edit_type => $EDIT_ARTIST_EDIT_ALIAS,
+            delete_edit_type => $EDIT_ARTIST_DELETE_ALIAS,
+            search_hint_type => 3
+        },
         ratings    => 1,
         tags       => 1,
         subscriptions => { entity => 1, deleted => 1 },
+        report_filter => 1,
+        removal     => { automatic => 1 }
+    },
+    event => {
+        mbid => { relatable => 1 },
+        edit_table => 1,
+        merging => 1,
+        model      => 'Event',
+        type => { simple => 1 },
+        annotations => { edit_type => $EDIT_EVENT_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_EVENT_ADD_ALIAS,
+            edit_edit_type => $EDIT_EVENT_EDIT_ALIAS,
+            delete_edit_type => $EDIT_EVENT_DELETE_ALIAS,
+            search_hint_type => 2
+        },
+        ratings    => 1,
+        tags       => 1,
         removal     => { automatic => 1 }
     },
     event => {
@@ -363,7 +396,14 @@ Readonly our %ENTITIES => (
         edit_table => 1,
         merging => 1,
         model      => 'Instrument',
+        type => { simple => 1 },
         annotations => { edit_type => $EDIT_INSTRUMENT_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_INSTRUMENT_ADD_ALIAS,
+            edit_edit_type => $EDIT_INSTRUMENT_EDIT_ALIAS,
+            delete_edit_type => $EDIT_INSTRUMENT_DELETE_ALIAS,
+            search_hint_type => 2
+        },
         removal     => { manual => 1 }
     },
     label => {
@@ -371,10 +411,18 @@ Readonly our %ENTITIES => (
         edit_table => 1,
         merging => 1,
         model      => 'Label',
+        type => { simple => 1 },
         annotations => { edit_type => $EDIT_LABEL_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_LABEL_ADD_ALIAS,
+            edit_edit_type => $EDIT_LABEL_EDIT_ALIAS,
+            delete_edit_type => $EDIT_LABEL_DELETE_ALIAS,
+            search_hint_type => 2
+        },
         ratings    => 1,
         tags       => 1,
         subscriptions => { entity => 1, deleted => 1 },
+        report_filter => 1,
         removal     => { manual => 1, automatic => 1 }
     },
     place => {
@@ -382,7 +430,14 @@ Readonly our %ENTITIES => (
         edit_table => 1,
         merging => 1,
         model      => 'Place',
+        type => { simple => 1 },
         annotations => { edit_type => $EDIT_PLACE_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_PLACE_ADD_ALIAS,
+            edit_edit_type => $EDIT_PLACE_EDIT_ALIAS,
+            delete_edit_type => $EDIT_PLACE_DELETE_ALIAS,
+            search_hint_type => 2
+        },
         tags       => 1,
         removal     => { automatic => 1 }
     },
@@ -395,6 +450,7 @@ Readonly our %ENTITIES => (
         ratings    => 1,
         tags       => 1,
         artist_credits => 1,
+        report_filter => 1,
         removal     => { manual => 1 }
     },
     release => {
@@ -406,6 +462,7 @@ Readonly our %ENTITIES => (
         tags       => 1,
         artist_credits => 1,
         removal     => { manual => 1 },
+        report_filter => 1,
         collections => 1
     },
     release_group => {
@@ -413,11 +470,13 @@ Readonly our %ENTITIES => (
         edit_table => 1,
         merging => 1,
         model      => 'ReleaseGroup',
+        type => { complex => 1 },
         url        => 'release-group',
         annotations => { edit_type => $EDIT_RELEASEGROUP_ADD_ANNOTATION },
         ratings    => 1,
         tags       => 1,
         artist_credits => 1,
+        report_filter => 1,
         removal     => { automatic => 1 }
     },
     series => {
@@ -425,8 +484,16 @@ Readonly our %ENTITIES => (
         edit_table => 1,
         merging => 1,
         model      => 'Series',
+        type => { simple => 1 },
         annotations => { edit_type => $EDIT_SERIES_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_SERIES_ADD_ALIAS,
+            edit_edit_type => $EDIT_SERIES_EDIT_ALIAS,
+            delete_edit_type => $EDIT_SERIES_DELETE_ALIAS,
+            search_hint_type => 2
+        },
         subscriptions => { entity => 1, deleted => 1 },
+        report_filter => 1,
         removal     => { automatic => 1 }
     },
     url => {
@@ -439,9 +506,17 @@ Readonly our %ENTITIES => (
         edit_table => 1,
         merging => 1,
         model      => 'Work',
+        type => { simple => 1 },
         annotations => { edit_type => $EDIT_WORK_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_WORK_ADD_ALIAS,
+            edit_edit_type => $EDIT_WORK_EDIT_ALIAS,
+            delete_edit_type => $EDIT_WORK_DELETE_ALIAS,
+            search_hint_type => 2
+        },
         ratings    => 1,
         tags       => 1,
+        report_filter => 1,
         removal     => { automatic => 1 }
     },
     track => {
@@ -473,6 +548,9 @@ Readonly our %ENTITIES => (
     },
     freedb => {
         model => 'FreeDB'
+    },
+    tag => {
+        model => 'Tag'
     }
 );
 

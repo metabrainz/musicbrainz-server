@@ -39,7 +39,7 @@
             </thead>
             <tbody>
                 [% FOR page IN pages %]
-                    <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                    <tr class="[% loop.parity %]">
                         <td class="title"><a href="[% doc_link(page.id) %]">[% page.id | html %]</a></td>
                         <td class="c transcluded-version"[% ' style="text-align:right"' IF updates_required && c.user.is_wiki_transcluder %]>
                             [% page.version %]

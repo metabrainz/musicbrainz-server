@@ -83,7 +83,7 @@
                                              html_escape(new_track.name), '-', '\s+');
               old_track_length = Diff.diff_side(format_length(old_track.length),
                                                 format_length(new_track.length), '-'); -%]
-           <tr class="[% loop.index % 2 == 0 ? 'ev' : '' %]">
+           <tr class="[% loop.parity %]">
              <td class="pos t">
                [% old_number_diff %]
              </td>
@@ -195,7 +195,7 @@
           [% FOR assoc=edit.display_data.recording_changes;
                old_track = assoc.1;
                new_track = assoc.2 %]
-               <tr class="[% loop.index % 2 == 0 ? 'ev' : '' %]">
+               <tr class="[% loop.parity %]">
                  <td class="pos t">
                    <span style="display: none">[% new_track.position %]</span>
                    [% new_track.number %]

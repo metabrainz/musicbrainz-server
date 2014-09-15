@@ -4,12 +4,12 @@ use MooseX::ABC;
 
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Edit::Utils qw( conditions_without_autoedit );
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict );
 
 extends 'MusicBrainz::Server::Edit';
 requires '_merge_model';
+with 'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
 
 sub edit_kind { 'merge' }
 
@@ -28,11 +28,6 @@ sub _build_related_entities
         model_to_type($self->_merge_model) => $self->_entity_ids
     }
 }
-
-around edit_conditions => sub {
-    my ($orig, $self, @args) = @_;
-    return conditions_without_autoedit($self->$orig(@args));
-};
 
 has '+data' => (
     isa => Dict[

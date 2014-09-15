@@ -378,6 +378,8 @@ sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { "//coverartarchive.org" };
 # Add a Google Analytics tracking code to enable Google Analytics tracking.
 sub GOOGLE_ANALYTICS_CODE { '' }
 
+sub MAPBOX_MAP_ID { 'musicbrainz.iplg7e52' }
+
 # Disallow OAuth2 requests over plain HTTP
 sub OAUTH2_ENFORCE_TLS { my $self = shift; !$self->DB_STAGING_SERVER }
 

@@ -1,18 +1,34 @@
-package MusicBrainz::Server::Entity::URL::RockGenius;
+use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
 
+for my $type (grep { $_ ne 'instrument' && $_ ne 'area' } entities_with('annotations')) {
+    my $model = $ENTITIES{$type}{model};
+    my $plural = $type eq 'series' ? $model : "${model}s";
+    my $has_subs = $ENTITIES{$type}{report_filter};
+    my $subs_section = '';
+
+    if ($has_subs) {
+        $subs_section = <<EOF;
+     'MusicBrainz::Server::Report::FilterForEditor::${model}ID',
+EOF
+    }
+
+    eval <<EOF;
+package MusicBrainz::Server::Report::Annotations$plural;
 use Moose;
 
-extends 'MusicBrainz::Server::Entity::URL';
-with 'MusicBrainz::Server::Entity::URL::Sidebar';
+with 'MusicBrainz::Server::Report::${model}Report',
+$subs_section
+     'MusicBrainz::Server::Report::AnnotationReport';
 
-sub sidebar_name {
-    my $self = shift;
-
-    return "Rock Genius";
-}
+sub entity_type { '$type' }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
+
+1;
+EOF
+}
+
 1;
 
 =head1 COPYRIGHT

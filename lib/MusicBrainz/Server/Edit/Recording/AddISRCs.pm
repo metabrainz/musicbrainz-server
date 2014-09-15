@@ -3,8 +3,7 @@ use Moose;
 use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( ArrayRef Str Int );
 use List::MoreUtils qw( uniq );
-use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_ISRCS
-                                       :expire_action :quality );
+use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_ISRCS );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Edit::Exceptions;
@@ -14,6 +13,7 @@ with 'MusicBrainz::Server::Edit::Recording::RelatedEntities' => {
     -excludes => 'recording_ids'
 };
 with 'MusicBrainz::Server::Edit::Recording';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
 
@@ -51,21 +51,6 @@ sub initialize
             client_version => $opts{client_version}
         });
     }
-}
-
-sub edit_conditions
-{
-    my $conditions = {
-        duration      => 0,
-        votes         => 0,
-        expire_action => $EXPIRE_ACCEPT,
-        auto_edit     => 1,
-    };
-    return {
-        $QUALITY_LOW    => $conditions,
-        $QUALITY_NORMAL => $conditions,
-        $QUALITY_HIGH   => $conditions,
-    };
 }
 
 sub _build_related_entities

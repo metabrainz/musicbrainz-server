@@ -310,34 +310,30 @@ END -%]
 END -%]
 
 [%~ BLOCK _generic_link;
-    IF NOT options.size;
-        content;
-        RETURN;
+    FOR option = options.reverse;
+        content = SWITCH option;
+            CASE 'isolate';
+                '<bdi>' _ content _ '</bdi>';
+            CASE 'escape';
+                html_escape(content);
+            CASE 'link';  # add. parameter: link, hover
+                SET hover = ' title="' _ hover _ '"' IF hover != '';
+                '<a href="' _ link _ '"' _ hover _ '>' _ content _ '</a>';
+            CASE 'code';
+                '<code>' _ content _ '</code>';
+            CASE 'edits_pending';
+                '<span class="mp">' _ content _ '</span>';
+            CASE 'name_variation';
+                '<span class="name-variation">' _ content _ '</span>';
+            CASE 'flagclass';  # add. parameter: flag
+                '<span class="flag flag-' _ flag _ '">' _ content _ '</span>';
+            CASE 'info_link';  # add. parameter: infolink
+                content _ ' [<a href="' _ infolink _ '">' _ l('info') _ '</a>]';
+            CASE 'avatar'; # add. parameter: avatar
+                '<img src="' _ avatar _ '" class="gravatar" />' _ content;
+        END;
     END;
-
-    option = options.pop;
-    content = SWITCH option;
-        CASE 'isolate';
-            '<bdi>' _ content _ '</bdi>';
-        CASE 'escape';
-            html_escape(content);
-        CASE 'link';  # add. parameter: link, hover
-            SET hover = ' title="' _ hover _ '"' IF hover != '';
-            '<a href="' _ link _ '"' _ hover _ '>' _ content _ '</a>';
-        CASE 'code';
-            '<code>' _ content _ '</code>';
-        CASE 'edits_pending';
-            '<span class="mp">' _ content _ '</span>';
-        CASE 'name_variation';
-            '<span class="name-variation">' _ content _ '</span>';
-        CASE 'flagclass';  # add. parameter: flag
-            '<span class="flag flag-' _ flag _ '">' _ content _ '</span>';
-        CASE 'info_link';  # add. parameter: infolink
-            content _ ' [<a href="' _ infolink _ '">' _ l('info') _ '</a>]';
-        CASE 'avatar'; # add. parameter: avatar
-            '<img src="' _ avatar _ '" class="gravatar" />' _ content;
-    END;
-    PROCESS _generic_link;
+    content;
    END -%]
 
 [%~ BLOCK _link_mbid_entity;
@@ -372,7 +368,7 @@ END -%]
 END -%]
 
 [%~ BLOCK _link_other_entity;
-    # parameters: content, action, type, default_content, action_params, edits_pending, code, avatar
+    # parameters: content, action, type, default_content, action_params, edits_pending, code_tag, avatar
     DEFAULT action = 'show';
     SET action_params = [] UNLESS action_params.size;
     action_params.push(default_content);
@@ -380,7 +376,7 @@ END -%]
     mod_content = content != '' ? content : default_content;
 
     options = ['escape'];
-    options.unshift('code') IF code;
+    options.unshift('code') IF code_tag;
     options.unshift('isolate');
     options.unshift('avatar') IF avatar;
     options.unshift('link');
@@ -462,11 +458,11 @@ END -%]
 END -%]
 
 [%~ MACRO link_isrc(isrc, action, text) BLOCK;
-    INCLUDE _link_other_entity content=text action=action type='isrc' default_content=isrc.isrc edits_pending=isrc.edits_pending code=1;
+    INCLUDE _link_other_entity content=text action=action type='isrc' default_content=isrc.isrc edits_pending=isrc.edits_pending code_tag=1;
 END -%]
 
 [%~ MACRO link_iswc(iswc, action, text) BLOCK;
-    INCLUDE _link_other_entity content=text action=action type='iswc' default_content=iswc.iswc edits_pending=iswc.edits_pending code=1;
+    INCLUDE _link_other_entity content=text action=action type='iswc' default_content=iswc.iswc edits_pending=iswc.edits_pending code_tag=1;
 END -%]
 
 [%~ MACRO link_cdtoc(cdtoc, action, text) BLOCK;

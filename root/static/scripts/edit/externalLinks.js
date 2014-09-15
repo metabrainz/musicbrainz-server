@@ -184,22 +184,41 @@
         fieldName: "url",
 
         after$init: function () {
+            var self = this, source = this.source;
+
+            // Terribly get seeded URLs
+
+            if (!MB.formWasPosted) {
+                var urlField = new RegExp("(?:\\?|&)edit-" + source.entityType + "\\.url\\.([0-9]+)\\.(text|link_type_id)=([^&]+)", "g"),
+                    urls = {}, match;
+
+                while (match = urlField.exec(window.location.search)) {
+                    (urls[match[1]] = urls[match[1]] || {})[match[2]] = decodeURIComponent(match[3]);
+                }
+
+                _.each(urls, function (data) {
+                    data = {
+                        target: { name: data.text || "", entityType: "url" },
+                        linkTypeID: MB.typeInfoByID[data.link_type_id] ? data.link_type_id : null
+                    };
+                    self.getRelationship(data, source).show();
+                });
+            }
+
             this.links = this.source.displayableRelationships(this);
             this.nonRemovedLinks = this.links.reject("removed");
             this.emptyLinks = this.links.filter("isEmpty");
+            this.lastEditedLink = null;
 
             this.nonRemovedOrEmptyLinks = this.links.reject(function (relationship) {
                 return relationship.removed() || relationship.isEmpty();
             });
 
-            var self = this;
-            this.lastEditedLink = null;
-
             function ensureOneEmptyLinkExists(emptyLinks) {
-                var relationships = self.source.relationships;
+                var relationships = source.relationships;
 
                 if (!emptyLinks.length) {
-                    relationships.push(self.getRelationship({ target: MB.entity.URL({}) }, self.source));
+                    relationships.push(self.getRelationship({ target: MB.entity.URL({}) }, source));
 
                 } else if (emptyLinks.length > 1) {
                     relationships.removeAll(_.without(emptyLinks, self.lastEditedLink));
@@ -223,7 +242,7 @@
         },
 
         typesAreAccepted: function (sourceType, targetType) {
-            return sourceType === "url" || targetType === "url";
+            return sourceType === this.source.entityType && targetType === "url";
         },
 
         _sortedRelationships: _.identity

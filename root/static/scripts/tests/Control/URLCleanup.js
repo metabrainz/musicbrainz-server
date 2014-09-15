@@ -1063,10 +1063,33 @@ MB.tests.URLCleanup.GuessType = function () {
                     'http://vgmdb.net/album/29727',
                     'release'
                 ],
-
+                [
+                    'http://www.lastfm.com.br/venue/8803923+Gigantinho',
+                    'http://www.last.fm/venue/8803923+Gigantinho',
+                ],
+                [
+                    'http://www.lastfm.com/music/Carving+Colours',
+                    'http://www.last.fm/music/Carving+Colours',
+                ],
                 [
                     'http://commons.wikimedia.org/wiki/File:Kimigayo.score.png?uselang=de',
                     'https://commons.wikimedia.org/wiki/File:Kimigayo.score.png',
+                    'work'
+                ],
+                // Genius
+                [
+                    'http://genius.com/artists/Dramatik',
+                    'http://genius.com/artists/Dramatik',
+                    'artist'
+                ],
+                [
+                    'http://genius.com/albums/The-dream/Terius-nash-1977',
+                    'http://genius.com/albums/The-dream/Terius-nash-1977',
+                    'release_group'
+                ],
+                [
+                    'http://rock.genius.com/The-beatles-she-loves-you-lyrics',
+                    'http://rock.genius.com/The-beatles-she-loves-you-lyrics',
                     'work'
                 ],
             ];

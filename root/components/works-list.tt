@@ -23,7 +23,7 @@
   </thead>
   <tbody>
     [% FOR work IN works %]
-    <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
+    <tr class="[% loop.parity %]">
       [% IF c.user_exists AND !no_checkboxes %]
       <td>
         <input type="checkbox" name="add-to-merge" value="[% work.id %]" />

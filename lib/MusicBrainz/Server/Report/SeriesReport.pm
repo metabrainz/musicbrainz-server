@@ -1,25 +1,32 @@
-package MusicBrainz::Server::Entity::URL::ESTERTallinn;
+package MusicBrainz::Server::Report::SeriesReport;
+use Moose::Role;
 
-use Moose;
+with 'MusicBrainz::Server::Report::QueryReport';
 
-extends 'MusicBrainz::Server::Entity::URL';
-with 'MusicBrainz::Server::Entity::URL::Sidebar';
-
-sub sidebar_name {
+around inflate_rows => sub {
+    my $orig = shift;
     my $self = shift;
 
-    return "ESTER Tallinn";
-}
+    my $items = $self->$orig(@_);
 
-sub url_is_scheme_independent { 1 }
+    my $series = $self->c->model('Series')->get_by_ids(
+        map { $_->{series_id} } @$items
+    );
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
+    return [
+        map +{
+            %$_,
+            series => $series->{ $_->{series_id} }
+        },
+            @$items
+    ];
+};
+
 1;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2012 MetaBrainz Foundation
+Copyright (C) 2014 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

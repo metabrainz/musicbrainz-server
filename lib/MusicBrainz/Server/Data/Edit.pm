@@ -458,7 +458,7 @@ sub create
     };
 
     my $quality = $edit->determine_quality // $QUALITY_UNKNOWN_MAPPED;
-    my $conditions = $edit->edit_conditions->{$quality};
+    my $conditions = $edit->edit_conditions;
 
     # Edit conditions allow auto edit and the edit requires no votes
     $edit->auto_edit(1)

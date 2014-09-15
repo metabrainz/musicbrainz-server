@@ -12,7 +12,7 @@ around inflate_rows => sub {
     $self->c->model('Work')->load_writers(map { $_->{work} } @$rows);
     $self->c->model('Work')->load_recording_artists(map { $_->{work} } @$rows);
     $self->c->model('WorkType')->load(map { $_->{work} } @$rows);
-    $self->c->model('Language')->load(map { $_->{work} } @$rows);
+    $self->c->model('Language')->load_for_works(map { $_->{work} } @$rows);
 
     return $rows;
 };

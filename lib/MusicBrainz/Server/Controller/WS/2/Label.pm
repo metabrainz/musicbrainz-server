@@ -56,12 +56,6 @@ sub label_toplevel
     $c->model('Label')->annotation->load_latest($label)
         if $c->stash->{inc}->annotation;
 
-    if ($c->stash->{inc}->aliases)
-    {
-        my $aliases = $c->model('Label')->alias->find_by_entity_id($label->id);
-        $opts->{aliases} = $aliases;
-    }
-
     if ($c->stash->{inc}->releases)
     {
         my @results = $c->model('Release')->find_by_label(

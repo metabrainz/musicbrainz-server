@@ -104,6 +104,14 @@ Shows performances linked to a place.
 
 sub performances : Chained('load') { }
 
+=head2 map
+
+Shows a map for a place.
+
+=cut
+
+sub map : Chained('load') { }
+
 =head2 WRITE METHODS
 
 =cut
