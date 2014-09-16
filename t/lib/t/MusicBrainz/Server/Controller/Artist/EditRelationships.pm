@@ -308,4 +308,63 @@ test 'Cannot create a relationship under a grouping relationship' => sub {
     like($mech->uri, qr{/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit$}, "page hasn't changed");
 };
 
+
+test 'Duplicate relationships are ignored' => sub {
+    my $test = shift;
+    my ($c, $mech) = ($test->c, $test->mech);
+
+    MusicBrainz::Server::Test->prepare_test_database($c);
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+    # Duplicates a relationship in admin/sql/InsertTestData.sql
+    my ($edit) = capture_edits {
+        $mech->post("/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit", {
+            'edit-artist.name' => 'Test Alias',
+            'edit-artist.sort_name' => 'Kate Bush',
+            'edit-artist.rel.0.link_type_id' => '1',
+            'edit-artist.rel.0.target' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
+            'edit-artist.rel.0.attributes.0.type.gid' => 'c3273296-91ba-453d-94e4-2fb6e958568e',
+        });
+    } $c;
+
+    ok(!defined $edit, "no edits were made");
+};
+
+
+test 'Duplicate link attribute types are ignored' => sub {
+    my $test = shift;
+    my ($c, $mech) = ($test->c, $test->mech);
+
+    MusicBrainz::Server::Test->prepare_test_database($c);
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+    my @edits = capture_edits {
+        $mech->post("/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit", {
+            'edit-artist.name' => 'Test Alias',
+            'edit-artist.sort_name' => 'Kate Bush',
+
+            # Adds a new relationship with a dupe guitar.
+            'edit-artist.rel.0.link_type_id' => '1',
+            'edit-artist.rel.0.attributes.0.type.gid' => 'c3273296-91ba-453d-94e4-2fb6e958568e',
+            'edit-artist.rel.0.attributes.1.type.gid' => 'c3273296-91ba-453d-94e4-2fb6e958568e',
+            'edit-artist.rel.0.target' => 'b1d58a57-a0f3-4db8-aa94-868cdc7bc3bb',
+
+            # Edits an existing relationship to add a dupe guitar. Should be entirely ignored.
+            'edit-artist.rel.1.relationship_id' => '1',
+            'edit-artist.rel.1.link_type_id' => '1',
+            'edit-artist.rel.1.target' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
+            'edit-artist.rel.1.attributes.0.type.gid' => 'c3273296-91ba-453d-94e4-2fb6e958568e',
+            'edit-artist.rel.1.attributes.1.type.gid' => 'c3273296-91ba-453d-94e4-2fb6e958568e',
+        });
+    } $c;
+
+    is(scalar @edits, 1);
+    isa_ok($edits[0], 'MusicBrainz::Server::Edit::Relationship::Create');
+    cmp_deeply($edits[0]->data->{attributes}, [$guitar_attribute]);
+};
+
 1;
