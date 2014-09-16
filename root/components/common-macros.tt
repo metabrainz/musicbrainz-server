@@ -405,10 +405,15 @@ END -%]
 
 [%~ MACRO link_area_containment(area) BLOCK;
     areas = [];
-    IF area.parent_city; areas.push(link_area(area.parent_city)); END;
-    IF area.parent_subdivision; areas.push(link_area(area.parent_subdivision)); END;
-    IF area.parent_country; areas.push(link_area(area.parent_country)); END;
-    comma_only_list(areas);
+    IF area.parent_city; areas.push({link => link_area(area.parent_city), depth => area.parent_city_depth}); END;
+    IF area.parent_subdivision; areas.push({link => link_area(area.parent_subdivision), depth => area.parent_subdivision_depth}); END;
+    IF area.parent_country; areas.push({link => link_area(area.parent_country), depth => area.parent_country_depth}); END;
+    areas = areas.nsort('depth');
+    link_areas = [];
+    FOR area=areas;
+      link_areas.push(area.link);
+    END;
+    comma_only_list(link_areas);
 END -%]
 
 [%~ MACRO link_area_with_containment(area, action, text) BLOCK;
