@@ -318,7 +318,7 @@ AND NOT EXISTS (
     AND vote.editor = ?
 )
 ORDER BY open_time ASC
-OFFSET ?";
+OFFSET ? LIMIT 500";
 
     return query_to_list_limited(
         $self->sql, $offset, $limit,
@@ -347,7 +347,7 @@ sub subscribed_editor_edits {
                    AND vote.superseded = FALSE
                 )
        ORDER BY open_time ASC
-         OFFSET ?';
+         OFFSET ? LIMIT 500';
 
     return query_to_list_limited(
         $self->sql, $offset, $limit,
