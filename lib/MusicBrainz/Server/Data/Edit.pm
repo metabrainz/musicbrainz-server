@@ -336,17 +336,10 @@ OFFSET ?";
 sub subscribed_editor_edits {
     my ($self, $editor_id, $limit, $offset) = @_;
 
-    my @editor_ids = @{
-        $self->c->sql->select_single_column_array(
-            'SELECT subscribed_editor FROM editor_subscribe_editor
-              WHERE editor = ?',
-            $editor_id)
-    } or return;
-
     my $query =
         'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
         ' WHERE status = ?
-            AND editor IN (' . placeholders(@editor_ids) . ')
+            AND editor IN (SELECT subscribed_editor FROM editor_subscribe_editor WHERE editor = ?)
             AND NOT EXISTS (
                 SELECT TRUE FROM vote
                  WHERE vote.edit = edit.id
@@ -361,7 +354,7 @@ sub subscribed_editor_edits {
         sub {
             return $self->_new_from_row(shift);
         },
-        $query, $STATUS_OPEN, @editor_ids, $editor_id, $offset);
+        $query, $STATUS_OPEN, $editor_id, $editor_id, $offset);
 }
 
 sub merge_entities
