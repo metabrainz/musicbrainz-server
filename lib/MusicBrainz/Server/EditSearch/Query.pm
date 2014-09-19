@@ -5,6 +5,7 @@ use MusicBrainz::Server::CGI::Expand qw( expand_hash );
 use MooseX::Types::Moose qw( Any ArrayRef Bool Int Maybe Str );
 use MooseX::Types::Structured qw( Map Tuple );
 use Moose::Util::TypeConstraints qw( enum role_type );
+use MusicBrainz::Server::Constants qw( $EDIT_COUNT_LIMIT );
 use MusicBrainz::Server::EditSearch::Predicate::Date;
 use MusicBrainz::Server::EditSearch::Predicate::ID;
 use MusicBrainz::Server::EditSearch::Predicate::Set;
@@ -150,7 +151,7 @@ sub as_string {
             join(" $comb ", map { '(' . $_->[0] . ')' } $self->where) .
         ")
          $order
-         LIMIT 500 OFFSET ?";
+         LIMIT $EDIT_COUNT_LIMIT OFFSET ?";
 }
 
 sub arguments {

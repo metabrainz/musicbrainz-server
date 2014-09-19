@@ -20,6 +20,7 @@ use MusicBrainz::Server::Constants qw(
     $UNTRUSTED_FLAG
     $VOTE_APPROVE
     $EDIT_MINIMUM_RESPONSE_PERIOD
+    $EDIT_COUNT_LIMIT
     $QUALITY_UNKNOWN_MAPPED
     $EDITOR_MODBOT
     entities_with );
@@ -146,7 +147,7 @@ sub find
 
     my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table;
     $query .= ' WHERE ' . join ' AND ', map { "($_)" } @pred if @pred;
-    $query .= ' ORDER BY id DESC OFFSET ? LIMIT 500';
+    $query .= ' ORDER BY id DESC OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
 
     return query_to_list_limited($self->c->sql, $offset, $limit, sub {
             return $self->_new_from_row(shift);
@@ -167,7 +168,7 @@ sub find_by_collection
                                            ON er.release = ecr.release
                                      WHERE ecr.collection = ?)
                   ' . $status_cond . '
-                  ORDER BY edit.id DESC OFFSET ? LIMIT 500';
+                  ORDER BY edit.id DESC OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
 
     return query_to_list_limited($self->c->sql, $offset, $limit, sub {
             return $self->_new_from_row(shift);
@@ -232,7 +233,7 @@ sub find_by_voter
            JOIN vote ON vote.edit = edit.id
           WHERE vote.editor = ? AND vote.superseded = FALSE
        ORDER BY id DESC
-         OFFSET ? LIMIT 500';
+         OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
 
     return query_to_list_limited(
         $self->sql, $offset, $limit,
@@ -255,7 +256,7 @@ sub find_open_for_editor
                    AND vote.superseded = FALSE
                 )
        ORDER BY open_time ASC
-         OFFSET ? LIMIT 500';
+         OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
 
     return query_to_list_limited(
         $self->sql, $offset, $limit,
@@ -318,7 +319,7 @@ AND NOT EXISTS (
     AND vote.editor = ?
 )
 ORDER BY open_time ASC
-OFFSET ? LIMIT 500";
+OFFSET ? LIMIT $EDIT_COUNT_LIMIT";
 
     return query_to_list_limited(
         $self->sql, $offset, $limit,
@@ -347,7 +348,7 @@ sub subscribed_editor_edits {
                    AND vote.superseded = FALSE
                 )
        ORDER BY open_time ASC
-         OFFSET ? LIMIT 500';
+         OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
 
     return query_to_list_limited(
         $self->sql, $offset, $limit,
