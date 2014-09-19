@@ -142,8 +142,7 @@ sub as_string {
         'autoedit = ? AND ' : '';
 
     my $order = '';
-    $order = 'ORDER BY ' . join(', ', map { "$_ " . $self->order }
-                                        qw( edit.open_time edit.id ))
+    $order = 'ORDER BY edit.id ' . $self->order
         unless $self->order eq 'rand';
 
     return 'SELECT edit.* FROM edit ' .

@@ -255,7 +255,7 @@ sub find_open_for_editor
                    AND vote.editor = ?
                    AND vote.superseded = FALSE
                 )
-       ORDER BY open_time ASC
+       ORDER BY id ASC
          OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
 
     return query_to_list_limited(
@@ -318,7 +318,7 @@ AND NOT EXISTS (
     WHERE vote.edit = edit.id
     AND vote.editor = ?
 )
-ORDER BY open_time ASC
+ORDER BY id ASC
 OFFSET ? LIMIT $EDIT_COUNT_LIMIT";
 
     return query_to_list_limited(
@@ -347,7 +347,7 @@ sub subscribed_editor_edits {
                    AND vote.editor = ?
                    AND vote.superseded = FALSE
                 )
-       ORDER BY open_time ASC
+       ORDER BY id ASC
          OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
 
     return query_to_list_limited(
