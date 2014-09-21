@@ -1,10 +1,3 @@
-[%- info_links = [
-    ['index', link_series(series, 'show', l('Overview'))],
-    ['aliases', link_series(series, 'aliases', l('Aliases'))],
-    ['details', link_series(series, 'details', l('Details'))],
-    ['edit', link_series(series, 'edit', l('Edit'))],
-] -%]
-
 <div class="seriesheader">
     <h1>[%- link_entity(series) %]</h1>
     <p class="subheader">
@@ -12,4 +5,4 @@
     </p>
 </div>
 
-[%- INCLUDE 'components/tabs.tt' list=info_links -%]
+[%- INCLUDE 'components/entity-tabs.tt' edit_tab='default' -%]
