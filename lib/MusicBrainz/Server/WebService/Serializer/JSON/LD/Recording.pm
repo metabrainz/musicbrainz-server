@@ -1,25 +1,20 @@
-package MusicBrainz::Server::WebService::Serializer::JSON::LD::ReleaseGroup;
+package MusicBrainz::Server::WebService::Serializer::JSON::LD::Recording;
 use Moose;
-use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_entity list_or_single artwork );
+use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_entity );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Name';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Length';
 
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
     my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
 
-    $ret->{'@type'} = 'MusicAlbum';
+    $ret->{'@type'} = 'MusicRecording';
 
-    if ($entity->cover_art) {
-        $ret->{image} = artwork($entity->cover_art);
-    }
-
-    if ($stash->store($entity)->{releases}) {
-        my $items = $stash->store($entity)->{releases}{items};
-        my @releases = map { serialize_entity($_, $inc, $stash) } @$items;
-        $ret->{albumRelease} = list_or_single(@releases);
+    if ($stash->store($entity)->{trackNumber}) {
+        $ret->{trackNumber} = $stash->store($entity)->{trackNumber};
     }
 
     return $ret;
