@@ -1,24 +1,21 @@
-package MusicBrainz::Server::WebService::Serializer::JSON::LD::Recording;
+package MusicBrainz::Server::WebService::Serializer::JSON::LD::Work;
 use Moose;
+
 use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( list_or_single );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Name';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Length';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Aliases';
 
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
     my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
 
-    $ret->{'@type'} = 'MusicRecording';
+    $ret->{'@type'} = 'MusicComposition';
 
-    if ($stash->store($entity)->{trackNumber}) {
-        $ret->{trackNumber} = $stash->store($entity)->{trackNumber};
-    }
-
-    if ($entity->all_isrcs) {
-       $ret->{'isrc'} = list_or_single(map { $_->isrc } $entity->all_isrcs);
+    if ($entity->all_iswcs) {
+       $ret->{'iswc'} = list_or_single(map { $_->iswc } $entity->all_iswcs);
     }
 
     return $ret;

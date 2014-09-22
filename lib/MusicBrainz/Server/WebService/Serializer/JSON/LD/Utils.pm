@@ -22,7 +22,6 @@ our @EXPORT_OK = qw(
 #        Relationship
 #        Series
 #        URL
-#        Work
 
 my %serializers =
     map {
@@ -37,6 +36,7 @@ my %serializers =
         Recording
         Release
         ReleaseGroup
+        Work
     );
 
 sub serializer
