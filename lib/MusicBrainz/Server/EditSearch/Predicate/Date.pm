@@ -21,9 +21,10 @@ override combine_with_query => sub {
 
     if ($self->operator eq '=') {
         $query->add_where([
-            "date_trunc('day', edit." . $self->field_name . " AT TIME ZONE 'UTC') = ".
-            "date_trunc('day', ? AT TIME ZONE 'UTC')",
-            $self->sql_arguments
+            'edit.' . $self->field_name . ' BETWEEN '.
+            "date_trunc('day', ? AT TIME ZONE 'UTC') AND " .
+            "date_trunc('day', ? AT TIME ZONE 'UTC') + interval '1 day'",
+            [ $self->sql_arguments->[0], @{ $self->sql_arguments } ]
         ]);
     }
     else {
