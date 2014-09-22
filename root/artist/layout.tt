@@ -72,7 +72,7 @@
                 [%~ END ~%]
                 [%~ FOR isni_code IN artist.isni_codes ~%]
                     [%~ INCLUDE 'layout/sidebar/property.tt' label=l('ISNI code:')
-                         content=link_isni(isni_code.isni) class="isni-code" ~%]
+                         content=link_isni(isni_code) class="isni-code" ~%]
                 [%~ END ~%]
             [%~ END ~%]
         [%~ END ~%]

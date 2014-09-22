@@ -939,8 +939,8 @@ END -%]
     END -%]
 
 [%~ MACRO link_isni(isni) BLOCK -%]
-    <a href="http://isni-url.oclc.nl/isni/[% isni %]">
-        [%- format_isni(isni) -%]
+    <a href="[% isni.url %]">
+        [%- format_isni(isni.isni) -%]
     </a>
 [%- END -%]
 

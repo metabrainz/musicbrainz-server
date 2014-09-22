@@ -4,6 +4,8 @@ use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( ref_to_type );
 use DBDefs;
 
+with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::SameAs';
+
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
     my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
