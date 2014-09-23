@@ -232,7 +232,7 @@ sub find_by_voter
            FROM ' . $self->_table . '
            JOIN vote ON vote.edit = edit.id
           WHERE vote.editor = ? AND vote.superseded = FALSE
-       ORDER BY id DESC
+       ORDER BY vote_time DESC
          OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
 
     return query_to_list_limited(
