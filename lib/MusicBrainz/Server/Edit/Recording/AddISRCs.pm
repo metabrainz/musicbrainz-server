@@ -3,8 +3,7 @@ use Moose;
 use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( ArrayRef Str Int );
 use List::MoreUtils qw( uniq );
-use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_ISRCS
-                                       :expire_action :quality );
+use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_ISRCS );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Edit::Exceptions;
@@ -14,8 +13,10 @@ with 'MusicBrainz::Server::Edit::Recording::RelatedEntities' => {
     -excludes => 'recording_ids'
 };
 with 'MusicBrainz::Server::Edit::Recording';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
+use aliased 'MusicBrainz::Server::Entity::ISRC';
 
 sub edit_type { $EDIT_RECORDING_ADD_ISRCS }
 sub edit_name { N_l('Add ISRCs') }
@@ -53,21 +54,6 @@ sub initialize
     }
 }
 
-sub edit_conditions
-{
-    my $conditions = {
-        duration      => 0,
-        votes         => 0,
-        expire_action => $EXPIRE_ACCEPT,
-        auto_edit     => 1,
-    };
-    return {
-        $QUALITY_LOW    => $conditions,
-        $QUALITY_NORMAL => $conditions,
-        $QUALITY_HIGH   => $conditions,
-    };
-}
-
 sub _build_related_entities
 {
     my $self = shift;
@@ -96,7 +82,7 @@ sub build_display_data
             map { +{
                 recording => $loaded->{Recording}{ $_->{recording}{id} }
                     || Recording->new( name => $_->{recording}{name} ),
-                isrc      => $_->{isrc},
+                isrc      => ISRC->new( isrc => $_->{isrc} ),
                 source    => $_->{source}
             } } @{ $self->data->{isrcs} }
         ]

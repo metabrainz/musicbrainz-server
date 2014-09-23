@@ -16,7 +16,7 @@
                     <th colspan="3">[% l(relationship.key) %]</th>
                 </tr>
                 [% FOR rel IN relationship.value %]
-                <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
+                <tr class="[% loop.parity %]">
                     <td>
                     [% IF !rel.link.begin_date.is_empty AND rel.link.begin_date.format == rel.link.end_date.format;
                          rel.link.begin_date.format;
@@ -37,18 +37,18 @@
                        END; -%]
                     </td>
                     <td colspan="[% rel.link.attributes.size ? "1" : "2" %]">
+                        [%~ '<span class="mp mp-rel">' IF rel.edits_pending ~%]
                         [% link_entity(rel.target) %]
+                        [%~ '</span>' IF rel.edits_pending ~%]
                     </td>
                     [% IF rel.link.attributes.size %]
                     <td>
-                      [%- FOR attr=rel.link.attributes;
-                            IF attr.root.id == 14;
-                                '<a href="' _ c.uri_for_action('/instrument/show', [ attr.gid ]) _ '">' _ html_escape(attr.l_name) _ '</a>';
-                            ELSE;
-                                attr.l_name | html;
-                            END;
-                            l(', ') UNLESS loop.last;
-                         END %]
+                      [%~ attr_list = [];
+                          FOR attr=rel.link.attributes;
+                            attr_list.push(attr.html);
+                          END;
+                          comma_list(attr_list);
+                       %]
                     </td>
                     [% END %]
                     <td>

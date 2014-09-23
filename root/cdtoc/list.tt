@@ -22,7 +22,7 @@
         [% medium=medium_cdtoc.medium;
            release=medium.release;
            classes = [];
-           classes.push('ev') IF loop.count % 2 == 0;
+           classes.push(loop.parity);
            classes.push('mp') IF medium_cdtoc.edits_pending > 0; %]
         <tr class="[% classes.join(' ') %]">
             <td>[% medium.position %]/[% release.medium_count %]</td>

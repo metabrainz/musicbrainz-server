@@ -71,54 +71,6 @@ role {
         my $model = $self->config->{model};
         my $source_type = model_to_type($model);
         my $source = $c->stash->{$self->{entity_name}};
-
-        my $submitted_rel_data = sub {
-            my @rels = grep {
-                $_ && ($_->{text} || (($_->{target} || $_->{removed}) && $_->{link_type_id}))
-            } @_;
-
-            my @result;
-            my $entity_map = load_entities($c, $source_type, @rels);
-
-            for (@rels) {
-                my $target_type = $_->{target_type};
-                my $target;
-
-                next unless $target_type;
-
-                if ($target_type eq 'url') {
-                    $target = { name => $_->{text}, entityType => 'url' };
-                } elsif ($_->{target}) {
-                    my $entity = $entity_map->{type_to_model($target_type)}->{$_->{target}};
-                    next unless $entity;
-                    $target = serialize_entity($entity, $target_type);
-                }
-
-                my $attribute_text_values = {};
-                for (@{ $_->{attribute_text_values} // [] }) {
-                    $attribute_text_values->{$_->{attribute}} = trim($_->{text_value});
-                }
-
-                push @result, {
-                    id          => $_->{relationship_id},
-                    linkTypeID  => $_->{link_type_id},
-                    removed     => $_->{removed} ? \1 : \0,
-                    attributes  => $_->{attributes} // [],
-                    beginDate   => $_->{period}->{begin_date} // {},
-                    endDate     => $_->{period}->{end_date} // {},
-                    ended       => $_->{period}->{ended} ? \1 : \0,
-                    target      => $target // { entityType => $target_type },
-                    linkOrder   => $_->{link_order} // 0,
-                    attributeTextValues => $attribute_text_values,
-                    $_->{backward} ? (direction => "backward") : (),
-                };
-            }
-
-            # Convert body/query params to the data format used by the
-            # JavaScript (same as JSONSerializer->serialize_relationship).
-            return \@result;
-        };
-
         my $source_entity = $source ? serialize_entity($source, $source_type) :
                                     { entityType => $source_type };
 
@@ -141,25 +93,6 @@ role {
 
         # Grrr. release_group => release-group.
         $form_name =~ s/_/-/;
-
-        if ($c->form_posted) {
-            my $body_params = expand_hash($c->req->body_params);
-
-            $source_entity->{submittedRelationships} = $submitted_rel_data->(
-                @{ $body_params->{$form_name}->{rel} },
-                @{ $form_name eq "edit-url" ? [] : $body_params->{$form_name}->{url} }
-            );
-        }
-        else {
-            my $query_params = expand_hash($c->req->query_params);
-
-            my $submitted_relationships = $submitted_rel_data->(
-                @{ $query_params->{$form_name}->{rel} },
-                @{ $form_name eq "edit-url" ? [] : $query_params->{$form_name}->{url} }
-            );
-
-            $source_entity->{submittedRelationships} = $submitted_relationships // [];
-        }
 
         my $json = JSON->new;
         my @link_type_tree = $c->model('LinkType')->get_full_tree;
@@ -223,17 +156,6 @@ role {
             }
 
             $args{attributes} = $field->{attributes} if $field->{attributes};
-
-            if ($field->{attribute_text_values}) {
-                my %attribute_text_values;
-
-                for (@{ $field->{attribute_text_values} // [] }) {
-                    $attribute_text_values{$_->{attribute}} = $_->{text_value};
-                }
-
-                $args{attribute_text_values} = \%attribute_text_values;
-            }
-
             $args{ended} ||= 0;
 
             my $relationship;

@@ -65,6 +65,9 @@ var testRelease = {
 };
 
 
+function id2attr(id) { return { type: MB.attrInfoByID[id] } }
+function ids2attrs(ids) { return _.map(ids, id2attr) }
+
 function setupReleaseRelationshipEditor(self) {
     self.vm = self.RE.ReleaseViewModel({
         sourceData: _.omit(testRelease, "mediums")
@@ -74,12 +77,6 @@ function setupReleaseRelationshipEditor(self) {
 }
 
 function setupGenericRelationshipEditor(self, options) {
-    self.$form = $("<form>").attr("action", "#");
-
-    self.$form[0].onsubmit = function () {
-        return false;
-    };
-
     var $inputs = $("<div>").attr("id", "relationship-editor");
 
     self.formData = function () {
@@ -87,7 +84,7 @@ function setupGenericRelationshipEditor(self, options) {
         return _.transform(inputsArray, function (result, input) { result[input.name] = input.value }, {});
     };
 
-    $("#qunit-fixture").append(self.$form, $inputs);
+    $("#qunit-fixture").append($inputs);
 
     self.vm = self.RE.GenericEntityViewModel(options);
     MB.sourceRelationshipEditor = self.vm;
@@ -123,6 +120,7 @@ module("relationship editor", {
 
         MB.entityCache = {};
         MB.sourceRelationshipEditor = null;
+        delete sessionStorage.submittedRelationships;
     }
 });
 
@@ -146,43 +144,43 @@ test("link phrase interpolation", function () {
         // test attribute interpolation
         {
             linkTypeID: 148,
-            attributes: [123, 229, 277, 596],
+            attributes: ids2attrs([123, 229, 277, 596]),
             expected: "solo zither, guitar and bass guitar"
         },
         {
             linkTypeID: 141,
-            attributes: [424, 425],
+            attributes: ids2attrs([424, 425]),
             expected: "co-executive producer"
         },
         {
             linkTypeID: 154,
-            attributes: [1, 69, 75, 109, 302],
+            attributes: ids2attrs([1, 69, 75, 109, 302]),
             expected: "contains additional samples by",
             expectedExtra: "strings, guitars, lyre and plucked string instruments"
         },
         // MBS-6129
         {
             linkTypeID: 149,
-            attributes: [4],
+            attributes: ids2attrs([4]),
             expected: "lead vocals"
         },
         {
             linkTypeID: 149,
-            attributes: [],
+            attributes: ids2attrs([]),
             expected: "vocals"
         }
     ];
 
     _.each(tests, function (test) {
         relationship.linkTypeID(test.linkTypeID);
-        relationship.attributes(test.attributes);
+        relationship.setAttributes(test.attributes);
 
         var result = relationship.phraseAndExtraAttributes();
 
         equal(
             result[entities.indexOf(source)],
             test.expected,
-            [test.linkTypeID, JSON.stringify(test.attributes)].join(", ")
+            [test.linkTypeID, JSON.stringify(_(test.attributes).pluck("type").pluck("id").value())].join(", ")
         );
 
         if (test.expectedExtra) {
@@ -203,7 +201,7 @@ test("merging duplicate relationships", function () {
     var relationship = this.vm.getRelationship({
         target: target,
         linkTypeID: 148,
-        attributes: [123, 194, 277],
+        attributes: ids2attrs([123, 194, 277]),
         beginDate: { year: 2001 },
         endDate: null,
         ended: false
@@ -212,7 +210,7 @@ test("merging duplicate relationships", function () {
     var duplicateRelationship = this.vm.getRelationship({
         target: target,
         linkTypeID: 148,
-        attributes: [123, 194, 277],
+        attributes: ids2attrs([123, 194, 277]),
         beginDate: null,
         endDate: { year: 2002 },
         ended: true
@@ -224,7 +222,7 @@ test("merging duplicate relationships", function () {
     ok(source.mergeRelationship(duplicateRelationship), "relationships were merged");
 
     deepEqual(
-        relationship.attributes(),
+        _(relationship.attributes()).pluck("type").pluck("id").value(),
         [123, 194, 277],
         "attributes are the same"
     );
@@ -337,7 +335,7 @@ test("AddDialog", function () {
     var relationship = dialog.relationship();
 
     relationship.linkTypeID(148);
-    relationship.attributes([229]);
+    relationship.setAttributes(ids2attrs([229]));
     dialog.accept();
 
     equal(source.relationships()[0], relationship, "relationship is added");
@@ -359,20 +357,24 @@ test("BatchRelationshipDialog", function () {
     });
 
     var relationship = dialog.relationship();
-    var relationships;
+    var relationships, attributes;
 
     relationship.linkTypeID(154);
-    relationship.attributes([1]);
+    relationship.setAttributes(ids2attrs([1]));
 
     dialog.accept();
 
     relationships = recordings[0].relationships();
+    attributes = relationships[0].attributes();
     equal(relationships[0].entities()[0], target, "recording 0 has relationship with correct target");
-    deepEqual(relationships[0].attributes(), [1], "recording 0 has relationship with correct attributes");
+    equal(attributes.length, 1, "recording 0 has 1 attribute");
+    equal(attributes[0].type.id, 1, "recording 0 has relationship with additional attribute");
 
     relationships = recordings[1].relationships();
+    attributes = relationships[0].attributes();
     equal(relationships[0].entities()[0], target, "recording 1 has relationship with correct target");
-    deepEqual(relationships[0].attributes(), [1], "recording 1 has relationship with correct attributes");
+    equal(attributes.length, 1, "recording 1 has 1 attribute");
+    equal(attributes[0].type.id, 1, "recording 1 has relationship with additional attribute");
 });
 
 
@@ -434,7 +436,7 @@ test("canceling an edit dialog reverts the changes", function () {
     var dialogRelationship = dialog.relationship();
 
     dialogRelationship.entities([newTarget, source]);
-    dialogRelationship.attributes([229]);
+    dialogRelationship.setAttributes(ids2attrs([229]));
     dialogRelationship.period.beginDate.year(1999);
     dialogRelationship.period.endDate.year(2000);
 
@@ -471,23 +473,33 @@ test("MBS-5389: added recording-recording relationship appears under both record
 
 
 test("backwardness of submitted relationships is preserved (MBS-7636)", function () {
-    this.vm = this.RE.GenericEntityViewModel({
-        sourceData: {
+    var source = {
             entityType: "recording",
-            gid: this.fakeGID0,
-            submittedRelationships: [
-                {
-                    id: 123,
-                    linkTypeID: 234,
-                    target: {
-                        entityType: "recording",
-                        gid: this.fakeGID1
-                    },
-                    direction: "backward"
-                }
-            ]
+            gid: this.fakeGID0
+        },
+        target = {
+            entityType: "recording",
+            gid: this.fakeGID1
+        };
+
+    sessionStorage.submittedRelationships = JSON.stringify([
+        {
+            id: 123,
+            linkTypeID: 234,
+            target: target,
+            entities: [target, source],
+            direction: "backward"
         }
+    ]);
+
+    // Pretend the form was posted.
+    MB.formWasPosted = true;
+
+    this.vm = this.RE.GenericEntityViewModel({
+        sourceData: source
     });
+
+    MB.formWasPosted = false;
 
     var entities = this.vm.source.relationships()[0].entities();
     equal(entities[0].gid, this.fakeGID1);
@@ -594,7 +606,7 @@ test("hidden input fields are generated for non-release forms", function () {
                         gid: "ba550d0e-adac-4864-b88b-407cab5e76af"
                     },
                     id: 131689,
-                    attributes: [277, 4],
+                    attributes: ids2attrs([277, 4]),
                     verbosePhrase: "is/was a member of"
                 },
                 {
@@ -610,7 +622,7 @@ test("hidden input fields are generated for non-release forms", function () {
                         gid: "49a51491-650e-44b3-8085-2f07ac2986dd"
                     },
                     id: 35568,
-                    attributes: [277],
+                    attributes: ids2attrs([277]),
                     verbosePhrase: "is/was a member of"
                 }
             ]
@@ -630,7 +642,7 @@ test("hidden input fields are generated for non-release forms", function () {
             id: 2863,
             gid: "42a8f507-8412-4611-854f-926571049fa0"
         },
-        attributes: [229, 4],
+        attributes: ids2attrs([229, 4]),
         verbosePhrase: "is/was a member of"
     }, this.vm.source);
 
@@ -645,7 +657,7 @@ test("hidden input fields are generated for non-release forms", function () {
     relationships[0].attributes([]);
     relationships[1].removed(true);
 
-    this.$form.submit();
+    this.RE.prepareSubmission();
 
     deepEqual(this.formData(), {
         "edit-artist.rel.0.relationship_id": "131689",
@@ -662,13 +674,13 @@ test("hidden input fields are generated for non-release forms", function () {
         "edit-artist.rel.1.relationship_id": "35568",
         "edit-artist.rel.1.removed": "1",
         "edit-artist.rel.1.target": "49a51491-650e-44b3-8085-2f07ac2986dd",
-        "edit-artist.rel.1.attributes.0": "277",
+        "edit-artist.rel.1.attributes.0.type.gid": "17f9f065-2312-4a24-8309-6f6dd63e2e33",
         "edit-artist.rel.1.period.ended": "1",
         "edit-artist.rel.1.backward": "1",
         "edit-artist.rel.1.link_type_id": "103",
         "edit-artist.rel.2.target": "42a8f507-8412-4611-854f-926571049fa0",
-        "edit-artist.rel.2.attributes.0": "4",
-        "edit-artist.rel.2.attributes.1": "229",
+        "edit-artist.rel.2.attributes.0.type.gid": "63021302-86cd-4aee-80df-2270d54f4978",
+        "edit-artist.rel.2.attributes.1.type.gid": "8e2a3255-87c2-4809-a174-98cb3704f1a5",
         "edit-artist.rel.2.period.ended": "1",
         "edit-artist.rel.2.backward": "1",
         "edit-artist.rel.2.link_type_id": "103"
@@ -696,8 +708,7 @@ test("link orders are submitted for new, orderable relationships (MBS-7775)", fu
             gid: "0a95623a-08d1-41a6-9f0c-409e40ce4476"
         },
         linkOrder: 1,
-        attributes: [788],
-        attributeTextValues: { 788: "20101110" },
+        attributes: ids2attrs([788]),
         verbosePhrase: "is a part of"
     }, this.vm.source);
 
@@ -710,8 +721,7 @@ test("link orders are submitted for new, orderable relationships (MBS-7775)", fu
             gid: "4550586c-c886-483d-922b-4e810f7c85fc"
         },
         linkOrder: 2,
-        attributes: [788],
-        attributeTextValues: { 788: "1" },
+        attributes: ids2attrs([788]),
         verbosePhrase: "is a part of"
     }, this.vm.source);
 
@@ -724,35 +734,35 @@ test("link orders are submitted for new, orderable relationships (MBS-7775)", fu
             gid: "3c8460ee-25ec-45b2-8990-0c1e78fe2ead"
         },
         linkOrder: 3,
-        attributes: [788],
-        attributeTextValues: { 788: "2" },
+        attributes: ids2attrs([788]),
         verbosePhrase: "is a part of"
     }, this.vm.source);
+
+    newRelationship1.attributes()[0].textValue("20101110");
+    newRelationship2.attributes()[0].textValue("1");
+    newRelationship3.attributes()[0].textValue("2");
 
     newRelationship1.show();
     newRelationship2.show();
     newRelationship3.show();
 
-    this.$form.submit();
+    this.RE.prepareSubmission();
 
     deepEqual(this.formData(), {
-        "edit-series.rel.0.attribute_text_values.0.attribute": "788",
-        "edit-series.rel.0.attribute_text_values.0.text_value": "20101110",
-        "edit-series.rel.0.attributes.0": "788",
+        "edit-series.rel.0.attributes.0.type.gid": "a59c5830-5ec7-38fe-9a21-c7ea54f6650a",
+        "edit-series.rel.0.attributes.0.text_value": "20101110",
         "edit-series.rel.0.backward": "1",
         "edit-series.rel.0.link_order": "1",
         "edit-series.rel.0.link_type_id": "742",
         "edit-series.rel.0.target": "0a95623a-08d1-41a6-9f0c-409e40ce4476",
-        "edit-series.rel.1.attribute_text_values.0.attribute": "788",
-        "edit-series.rel.1.attribute_text_values.0.text_value": "1",
-        "edit-series.rel.1.attributes.0": "788",
+        "edit-series.rel.1.attributes.0.type.gid": "a59c5830-5ec7-38fe-9a21-c7ea54f6650a",
+        "edit-series.rel.1.attributes.0.text_value": "1",
         "edit-series.rel.1.backward": "1",
         "edit-series.rel.1.link_order": "2",
         "edit-series.rel.1.link_type_id": "742",
         "edit-series.rel.1.target": "4550586c-c886-483d-922b-4e810f7c85fc",
-        "edit-series.rel.2.attribute_text_values.0.attribute": "788",
-        "edit-series.rel.2.attribute_text_values.0.text_value": "2",
-        "edit-series.rel.2.attributes.0": "788",
+        "edit-series.rel.2.attributes.0.type.gid": "a59c5830-5ec7-38fe-9a21-c7ea54f6650a",
+        "edit-series.rel.2.attributes.0.text_value": "2",
         "edit-series.rel.2.backward": "1",
         "edit-series.rel.2.link_order": "3",
         "edit-series.rel.2.link_type_id": "742",

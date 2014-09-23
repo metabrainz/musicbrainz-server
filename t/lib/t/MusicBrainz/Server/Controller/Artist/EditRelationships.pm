@@ -1,6 +1,12 @@
 package t::MusicBrainz::Server::Controller::Artist::EditRelationships;
+use t::MusicBrainz::Server::Controller::RelationshipEditor qw(
+    $additional_attribute
+    $string_instruments_attribute
+    $guitar_attribute
+    $crazy_guitar
+);
 use utf8;
-use Test::Deep qw( cmp_deeply bag );
+use Test::Deep qw( cmp_deeply );
 use Test::Routine;
 use Test::Fatal;
 use Test::More;
@@ -25,9 +31,10 @@ test 'adding a relationship' => sub {
             'edit-artist.gender_id' => '1',
             'edit-artist.period.ended' => '1',
             'edit-artist.rel.0.link_type_id' => '1',
-            'edit-artist.rel.0.attributes.0' => '1',
-            'edit-artist.rel.0.attributes.1' => '3',
-            'edit-artist.rel.0.attributes.2' => '4',
+            'edit-artist.rel.0.attributes.0.type.gid' => '36990974-4f29-4ea1-b562-3838fa9b8832',
+            'edit-artist.rel.0.attributes.1.type.gid' => '4f7bb10f-396c-466a-8221-8e93f5e454f9',
+            'edit-artist.rel.0.attributes.2.type.gid' => 'c3273296-91ba-453d-94e4-2fb6e958568e',
+            'edit-artist.rel.0.attributes.2.credited_as' => 'crazy guitar',
             'edit-artist.rel.0.target' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
             'edit-artist.rel.0.period.begin_date.year' => '1999',
             'edit-artist.rel.0.period.begin_date.month' => '1',
@@ -51,21 +58,22 @@ test 'adding a relationship' => sub {
             long_link_phrase    => 'performer',
             reverse_link_phrase => 'has {additional} {instrument} performed by',
         },
-        entity1     => { id => 2, name => 'King of the Mountain' },
-        entity0     => { id => 3, name => 'Test Artist' },
-        begin_date  => { year => 1999, month => 1, day => 1 },
-        end_date    => { year => 1999, month => 2, day => undef },
-        ended       => 1,
+        entity1         => { id => 2, name => 'King of the Mountain' },
+        entity0         => { id => 3, name => 'Test Artist' },
+        begin_date      => { year => 1999, month => 1, day => 1 },
+        end_date        => { year => 1999, month => 2, day => undef },
+        ended           => 1,
+        edit_version    => 2,
     );
 
     cmp_deeply($edits[0]->data,  {
         %edit_data,
-        attributes => bag(1, 3),
+        attributes => [$additional_attribute, $string_instruments_attribute]
     });
 
     cmp_deeply($edits[1]->data,  {
         %edit_data,
-        attributes => bag(1, 4),
+        attributes => [$additional_attribute, $crazy_guitar]
     });
 };
 
@@ -86,9 +94,10 @@ test 'editing a relationship' => sub {
                 'edit-artist.sort_name' => 'Kate Bush',
                 'edit-artist.rel.0.relationship_id' => '3',
                 'edit-artist.rel.0.link_type_id' => '1',
-                'edit-artist.rel.0.attributes.0' => '1',
-                'edit-artist.rel.0.attributes.1' => '3',
-                'edit-artist.rel.0.attributes.2' => '4',
+                'edit-artist.rel.0.attributes.0.type.gid' => '36990974-4f29-4ea1-b562-3838fa9b8832',
+                'edit-artist.rel.0.attributes.1.type.gid' => '4f7bb10f-396c-466a-8221-8e93f5e454f9',
+                'edit-artist.rel.0.attributes.2.type.gid' => 'c3273296-91ba-453d-94e4-2fb6e958568e',
+                'edit-artist.rel.0.attributes.2.credited_as' => 'crazy guitar',
                 'edit-artist.rel.0.target' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
                 'edit-artist.rel.0.period.begin_date.year' => '1999',
                 'edit-artist.rel.0.period.begin_date.month' => '1',
@@ -120,8 +129,7 @@ test 'editing a relationship' => sub {
                 begin_date  => { month => undef, day => undef, year => undef },
                 end_date    => { month => undef, day => undef, year => undef },
                 ended       => 0,
-                attributes  => bag(3, 1),
-                attribute_text_values => {},
+                attributes  => [$additional_attribute, $string_instruments_attribute],
             },
             relationship_id => 3,
             new => {
@@ -129,15 +137,16 @@ test 'editing a relationship' => sub {
                 begin_date  => { month => 1, day => 1, year => 1999 },
                 end_date    => { month => 9, day => 9, year => 2009 },
                 ended       => 1,
-                attributes  => bag(1, 3, 4),
+                attributes  => [$additional_attribute, $string_instruments_attribute, $crazy_guitar],
             },
             old => {
                 entity1     => { id => 3, name => 'π' },
                 begin_date  => { month => undef, day => undef, year => undef },
                 end_date    => { month => undef, day => undef, year => undef },
                 ended       => 0,
-                attributes  => bag(3, 1),
+                attributes  => [$additional_attribute, $string_instruments_attribute],
             },
+            edit_version => 2,
         });
 
         ok !exception { $edit->accept };
@@ -150,8 +159,9 @@ test 'editing a relationship' => sub {
                 'edit-artist.sort_name' => 'Kate Bush',
                 'edit-artist.rel.0.relationship_id' => '3',
                 'edit-artist.rel.0.link_type_id' => '1',
-                'edit-artist.rel.0.attributes.0' => '1',
-                'edit-artist.rel.0.attributes.1' => '4',
+                'edit-artist.rel.0.attributes.0.type.gid' => '36990974-4f29-4ea1-b562-3838fa9b8832',
+                'edit-artist.rel.0.attributes.1.type.gid' => 'c3273296-91ba-453d-94e4-2fb6e958568e',
+                'edit-artist.rel.0.attributes.1.credited_as' => 'crazy guitar',
                 'edit-artist.rel.0.target' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
                 'edit-artist.rel.0.period.begin_date.year' => '1999',
                 'edit-artist.rel.0.period.begin_date.month' => '1',
@@ -183,18 +193,18 @@ test 'editing a relationship' => sub {
                 begin_date  => { month => 1, day => 1, year => 1999 },
                 end_date    => { month => 9, day => 9, year => 2009 },
                 ended       => 1,
-                attributes  => bag(1, 3, 4),
-                attribute_text_values => {},
+                attributes  => [$additional_attribute, $string_instruments_attribute, $crazy_guitar],
             },
             relationship_id => 3,
             new => {
                 end_date    => { month => undef, day => undef, year => undef },
-                attributes  => bag(1, 4),
+                attributes  => [$additional_attribute, $crazy_guitar]
             },
             old => {
                 end_date    => { month => 9, day => 9, year => 2009 },
-                attributes  => bag(1, 3, 4),
+                attributes  => [$additional_attribute, $string_instruments_attribute, $crazy_guitar]
             },
+            edit_version => 2,
         });
 
         ok !exception { $edit->accept };
@@ -207,8 +217,9 @@ test 'editing a relationship' => sub {
                 'edit-artist.sort_name' => 'Kate Bush',
                 'edit-artist.rel.0.relationship_id' => '3',
                 'edit-artist.rel.0.link_type_id' => '1',
-                'edit-artist.rel.0.attributes.0' => '1',
-                'edit-artist.rel.0.attributes.1' => '4',
+                'edit-artist.rel.0.attributes.0.type.gid' => '36990974-4f29-4ea1-b562-3838fa9b8832',
+                'edit-artist.rel.0.attributes.1.type.gid' => 'c3273296-91ba-453d-94e4-2fb6e958568e',
+                'edit-artist.rel.0.attributes.1.credited_as' => 'crazy guitar',
                 'edit-artist.rel.0.target' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
             });
         } $c;
@@ -233,8 +244,7 @@ test 'editing a relationship' => sub {
                 begin_date  => { month => 1, day => 1, year => 1999 },
                 end_date    => { month => undef, day => undef, year => undef },
                 ended       => 1,
-                attributes  => bag(1, 4),
-                attribute_text_values => {},
+                attributes  => [$additional_attribute, $crazy_guitar],
             },
             relationship_id => 3,
             new => {
@@ -245,6 +255,7 @@ test 'editing a relationship' => sub {
                 begin_date  => { month => 1, day => 1, year => 1999 },
                 ended       => 1,
             },
+            edit_version => 2,
         });
 
         ok !exception { $edit->accept };

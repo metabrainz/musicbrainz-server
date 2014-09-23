@@ -458,7 +458,7 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
     },
 
     recentEntities: function () {
-        if (!window.localStorage) {
+        if (!MB.hasLocalStorage) {
             return [];
         }
 

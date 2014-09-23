@@ -35,7 +35,7 @@
             <tbody>
         [% last_rg_type = rgtype %]
     [% END %]
-    <tr [% ' class="ev"' IF loop.count % 2 == 0 %]>
+    <tr class="[% loop.parity %]">
         [% IF c.user_exists && !no_checkboxes %]
         <td>
           <input type="checkbox" name="add-to-merge" value="[% rg.id %]" />

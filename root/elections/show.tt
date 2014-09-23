@@ -120,11 +120,11 @@
         </thead>
         <tbody>
         [%- FOR vote IN election.votes -%]
-            <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+            <tr class="[% loop.parity %]">
                 <td>[% link_editor(vote.voter) %]</td>
                 <td>
                 [% IF c.user_exists && c.user.id == vote.voter.id %]
-                    [% l(vote.vote_name) %]
+                    [% lp(vote.vote_name, 'vote') %]
                 [% ELSE %]
                     [% l('(private)') %]
                 [% END %]

@@ -6,8 +6,9 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 use MusicBrainz::Server::Constants qw( $EDIT_URL_EDIT );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model => 'URL',
-    entity_name => 'url'
+    model           => 'URL',
+    entity_name     => 'url',
+    relationships   => { all => ['show', 'edit'] }
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
@@ -31,10 +32,8 @@ relationships).
 
 sub base : Chained('/') PathPart('url') CaptureArgs(0) { }
 
-sub show : Chained('load') PathPart('')
-{
+sub show : Chained('load') PathPart('') {
     my ($self, $c) = @_;
-    $c->model('Relationship')->load($c->stash->{url});
     $c->stash->{template} = 'url/index.tt';
 }
 
@@ -47,11 +46,6 @@ Edit the details of an already existing link
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
     form      => 'URL',
     edit_type => $EDIT_URL_EDIT,
-};
-
-before edit => sub {
-    my ($self, $c) = @_;
-    $c->model('Relationship')->load($c->stash->{url});
 };
 
 =head1 LICENSE

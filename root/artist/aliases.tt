@@ -27,7 +27,7 @@
             </thead>
             <tbody>
             [%- FOREACH ac IN artist_credits -%]
-                <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                <tr class="[% loop.parity %]">
                     <td>
                         [% artist_credit(ac) %]
                     </td>

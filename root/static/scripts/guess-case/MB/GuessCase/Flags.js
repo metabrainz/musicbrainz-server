@@ -31,43 +31,41 @@ MB.GuessCase.Flags = function () {
      * Reset the context
      **/
     self.resetContext = function () {
-	self.whitespace = false;
-	self.openingBracket = false;
-	self.hypen = false;
-	self.colon = false;
-	self.acronym_split = false;
-	self.singlequote = false;
-	self.ellipsis = false;
+        self.whitespace = false;
+        self.openingBracket = false;
+        self.hypen = false;
+        self.colon = false;
+        self.acronym_split = false;
+        self.singlequote = false;
+        self.ellipsis = false;
     };
 
     /**
      * Reset the variables for the SeriesNumberStyle
      **/
     self.resetSeriesNumberStyleFlags = function () {
-	self.disc = false; // flag is used for the detection of SeriesStyles
-	self.part = false;
-	self.volume = false;
-	self.feat = false;
+        self.part = false;
+        self.volume = false;
+        self.feat = false;
     };
-
 
     /**
      * Reset the variables for the processed string
      **/
     self.resetOutputFlags = function () {
-	// flag to force next to caps first letter.
-	// seeded true because the first word is always capped
-	self.forceCaps = true;
- 	// flag to force a space before the next word
-	self.spaceNextWord = false;
+        // flag to force next to caps first letter.
+        // seeded true because the first word is always capped
+        self.forceCaps = true;
+         // flag to force a space before the next word
+        self.spaceNextWord = false;
     };
 
     /**
      * Reset the open/closed bracket variables
      **/
     self.resetBrackets = function () {
-	self.openBrackets = new Array();
-	self.slurpExtraTitleInformation = false;
+        self.openBrackets = new Array();
+        self.slurpExtraTitleInformation = false;
     };
 
     /**
@@ -75,52 +73,56 @@ MB.GuessCase.Flags = function () {
      * in the string.
      **/
     self.isInsideBrackets = function () {
-	return (self.openBrackets.length > 0);
+        return (self.openBrackets.length > 0);
     };
+
     self.pushBracket = function (b) {
-	self.openBrackets.push(b);
+        self.openBrackets.push(b);
     };
+
     self.popBracket = function (b) {
-	if (self.openBrackets.length == 0) {
-	    return null;
-	} else {
-	    var cb = self.getCurrentCloseBracket();
-	    self.openBrackets.pop();
-	    return cb;
-	}
+        if (self.openBrackets.length == 0) {
+            return null;
+        } else {
+            var cb = self.getCurrentCloseBracket();
+            self.openBrackets.pop();
+            return cb;
+        }
     };
+
     self.getOpenedBracket = function (b) {
-	if (self.openBrackets.length == 0) {
-	    return null;
-	} else {
-	    return self.openBrackets[self.openBrackets.length-1];
-	}
+        if (self.openBrackets.length == 0) {
+            return null;
+        } else {
+            return self.openBrackets[self.openBrackets.length-1];
+        }
     };
+
     self.getCurrentCloseBracket = function () {
-	var ob;
-	if ((ob = self.getOpenedBracket()) != null) {
-	    return gc.u.getCorrespondingBracket(ob);
-	}
-	return null;
+        var ob;
+        if ((ob = self.getOpenedBracket()) != null) {
+            return gc.u.getCorrespondingBracket(ob);
+        }
+        return null;
     };
 
     /**
      * Initialise GcFlags object for another run
      **/
     self.init = function () {
-	self.resetOutputFlags();
-	self.resetBrackets();
-	self.resetContext();
-	self.resetSeriesNumberStyleFlags();
-	self.acronym = false; // flag so we know not to lowercase acronyms if followed by major punctuation
-	self.number = false; // flag is used for the number splitting routine (ie: 10,000,000)
+        self.resetOutputFlags();
+        self.resetBrackets();
+        self.resetContext();
+        self.resetSeriesNumberStyleFlags();
+        self.acronym = false; // flag so we know not to lowercase acronyms if followed by major punctuation
+        self.number = false; // flag is used for the number splitting routine (ie: 10,000,000)
 
-	// defines the current number split. note that this will not be cleared, which
-	// has the side-effect of forcing the first type of number split encountered
-	// to be the only one used for the entire string,assuming that people aren't
-	// going to be mixing grammar in titles.
-	self.numberSplitChar = null;
-	self.numberSplitExpect = false;
+        // defines the current number split. note that this will not be cleared, which
+        // has the side-effect of forcing the first type of number split encountered
+        // to be the only one used for the entire string,assuming that people aren't
+        // going to be mixing grammar in titles.
+        self.numberSplitChar = null;
+        self.numberSplitExpect = false;
     };
 
     self.init();

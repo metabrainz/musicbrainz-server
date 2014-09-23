@@ -24,3 +24,16 @@ ko.utils.domNodeDisposal.cleanExternalData = function () {};
 // The default ko.postbox behavior converts objects to JSON and then compares
 // them, but this causes it to do a strict equals comparison instead.
 ko.postbox.serializer = _.identity;
+
+
+// By default, knockout limits the number of items it'll loop through before
+// giving up finding any moves in an arrayChange sequence, presumably to
+// limit its polynomial time complexity in the case of really large arrays.
+// But the loop bindingHandler which we use depends on moves always being
+// detected, so we must disable this limit by passing a falsy value as the
+// third argument.
+ko.utils.__findMovesInArrayComparison = ko.utils.findMovesInArrayComparison;
+
+ko.utils.findMovesInArrayComparison = function (left, right) {
+    ko.utils.__findMovesInArrayComparison(left, right, false);
+};

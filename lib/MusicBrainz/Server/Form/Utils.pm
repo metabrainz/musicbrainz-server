@@ -22,11 +22,13 @@ use Sub::Exporter -setup => {
                       build_type_info
                       build_attr_info
                       build_options_tree
+                      indentation
               )]
 };
 
 sub language_options {
     my $c = shift;
+    my $context = shift // "";
 
     # group list of languages in <optgroups>.
     # most frequently used languages have hardcoded value 2.
@@ -34,6 +36,16 @@ sub language_options {
 
     my $frequent = 2;
     my $skip = 0;
+
+    my @languages = $c->model('Language')->get_all;
+    if ($context eq "work") {
+        for my $language (@languages) {
+            if ($language->iso_code_3 && $language->iso_code_3 eq "zxx") {
+                $language->name(l("[No lyrics]"));
+                $language->frequency($frequent);
+            }
+        }
+    }
 
     my $coll = $c->get_collator();
     my @sorted = sort_by { $coll->getSortKey($_->{label}) } map {
@@ -44,7 +56,7 @@ sub language_options {
             'optgroup' => $_->{frequency} eq $frequent ? lp('Frequently used', 'language optgroup') : lp('Other', 'language optgroup'),
             'optgroup_order' => $_->{frequency} eq $frequent ? 1 : 2,
         }
-    } grep { $_->{frequency} ne $skip } $c->model('Language')->get_all;
+    } grep { $_->{frequency} ne $skip } @languages;
 
     return \@sorted;
 }
@@ -91,14 +103,16 @@ sub select_options
 
 sub select_options_tree
 {
-    my ($c, $model, %opts) = @_;
-    my $coll = $c->get_collator();
+    my ($c, $root_or_model, %opts) = @_;
+    # $root_or_model may be the root node, a model, or the name of a model.
 
-    my $model_ref = ref($model) ? $model : $c->model($model);
-    my $root_option = $model_ref->get_tree;
+    my $accessor = $opts{accessor} // 'l_name';
+    my $coll = $c->get_collator();
+    $root_or_model = ref($root_or_model) ? $root_or_model : $c->model($root_or_model);
+    my $root_option = $root_or_model->can('get_tree') ? $root_or_model->get_tree : $root_or_model;
 
     return [
-        build_options_tree($root_option, 'l_name', $coll)
+        build_options_tree($root_option, $accessor, $coll)
     ];
 }
 
@@ -111,7 +125,7 @@ sub build_options_tree
 
     push @options, {
         value => $root->id,
-        label => "\N{NO-BREAK SPACE}" x (3 * $indent) . $root->$attr,
+        label => indentation($indent) . $root->$attr,
     } if $root->id;
 
     foreach my $child ($root->sorted_children($coll)) {
@@ -188,10 +202,11 @@ sub build_attr_info {
         my $attr = {
             id          => $_->id,
             gid         => $_->gid,
-            root_id     => $_->root_id,
+            rootID      => $_->root_id,
             name        => $_->name,
             l_name      => $_->l_name,
             freeText    => $_->free_text ? \1 : \0,
+            creditable  => $_->creditable ? \1 : \0,
         };
 
         $attr->{description} = $_->l_description if $_->description;
@@ -210,6 +225,11 @@ sub build_child_info {
     my ($root, $builder) = @_;
 
     return [ map { $builder->($_) } $root->all_children ];
+}
+
+sub indentation {
+    my $level = shift;
+    return "\N{NO-BREAK SPACE}" x (3 * $level);
 }
 
 1;

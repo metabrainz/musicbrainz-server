@@ -20,6 +20,7 @@ extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::Insert';
 with 'MusicBrainz::Server::Edit::Medium';
 with 'MusicBrainz::Server::Edit::Role::Preview';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 has '+data' => (
     isa => Dict[
@@ -34,8 +35,6 @@ has '+data' => (
 );
 
 method release_id { $self->data->{release}{id} }
-
-method allow_auto_edit { 1 }
 
 method alter_edit_pending
 {

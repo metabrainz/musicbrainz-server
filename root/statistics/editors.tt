@@ -13,10 +13,10 @@
     <tbody>
     [%- FOR data_point=data_points -%]
       [%- IF !data_point.count AND loop.count == 1 -%]
-      <tr class="ev"><td colspan=3>[% l('There is no data to display here.') %]</td></tr>
+      <tr class="even"><td colspan=3>[% l('There is no data to display here.') %]</td></tr>
       [%- END -%]
       [%- LAST UNLESS data_point.count -%]
-      <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
+      <tr class="[% loop.parity %]">
         <td class="t">[% loop.count %]</td>
         <td>[% link_editor(data_point.editor) %]</td>
         <td>[% add_commas(data_point.count) %]</td>

@@ -9,7 +9,7 @@
     </thead>
     <tbody>
         [%- FOR item IN items -%]
-        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+        <tr class="[% loop.parity %]">
             [% BLOCK extra_row_start %][% END %]
             [%- PROCESS extra_row_start -%]
             <td>[% link_entity(item.url) %]</td>

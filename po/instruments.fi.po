@@ -1,15 +1,17 @@
 # 
 # Translators:
+# Jaakko Perttilä <email address hidden>, 2014
 # phonebox, 2013
 # ListMyCDs.com Martikainen <>, 2012
+# phonebox, 2013-2014
 # phonebox, 2014
 # Timo Martikainen <>, 2012
-# Timo Martikainen <email address hidden>, 2013
+# Timo Martikainen <email address hidden>, 2013-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-05-27 21:51+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-09-07 18:06+0000\n"
+"Last-Translator: Timo Martikainen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,11 +29,11 @@ msgstr "17-kielinen koto"
 
 #: DB:instrument/name:66
 msgid "Appalachian dulcimer"
-msgstr "appalakkien dulcimer"
+msgstr "Appalakkien dulcimer"
 
 #: DB:instrument/name:421
 msgid "Baltic psalteries"
-msgstr "baltialaiset kantelesoittimet"
+msgstr "Baltialaiset kantelesoittimet"
 
 #: DB:instrument/name:457
 msgid "Batá drum"
@@ -47,7 +49,7 @@ msgstr "Chapman stick"
 
 #: DB:instrument/name:482
 msgid "Cretan lyra"
-msgstr "kreetalainen lyyra"
+msgstr "Kreetalainen lyyra"
 
 #: DB:instrument/name:118
 msgid "Denis d'or"
@@ -59,11 +61,11 @@ msgstr ""
 
 #: DB:instrument/name:119
 msgid "Dubreq Stylophone"
-msgstr "stylofoni"
+msgstr "Stylofoni"
 
 #: DB:instrument/name:574
 msgid "E-flat clarinet"
-msgstr ""
+msgstr "Es-klarinetti"
 
 #: DB:instrument/name:441
 msgid "EWI"
@@ -71,7 +73,7 @@ msgstr ""
 
 #: DB:instrument/name:7
 msgid "English horn"
-msgstr ""
+msgstr "englannintorvi"
 
 #: DB:instrument/name:604
 msgid "Floppy Drive"
@@ -79,7 +81,7 @@ msgstr ""
 
 #: DB:instrument/name:30
 msgid "French horn"
-msgstr ""
+msgstr "käyrätorvi"
 
 #: DB:instrument/name:356
 msgid "German harp"
@@ -136,6 +138,10 @@ msgstr "Moog"
 #: DB:instrument/name:358
 msgid "Northumbrian pipes"
 msgstr "Northumbrian säkkipilli"
+
+#: DB:instrument/name:664
+msgid "Paraguayan harp"
+msgstr ""
 
 #: DB:instrument/name:647
 msgid "Portuguese guitar"
@@ -199,7 +205,7 @@ msgstr "Wurlitzer-sähköpiano"
 
 #: DB:instrument/name:563
 msgid "Xaphoon"
-msgstr ""
+msgstr "xaphoon"
 
 #: DB:instrument/name:41
 msgid "accordion"
@@ -231,7 +237,7 @@ msgstr "agogo"
 
 #: DB:instrument/name:642
 msgid "ajaeng"
-msgstr ""
+msgstr "ajaeng"
 
 #: DB:instrument/name:508
 msgid "algozey"
@@ -271,11 +277,15 @@ msgstr "arkaaiset ja muut jousisoittimet"
 
 #: DB:instrument/name:507
 msgid "archlute"
+msgstr "arkkiluuttu"
+
+#: DB:instrument/name:654
+msgid "archtop guitar"
 msgstr ""
 
 #: DB:instrument/name:634
 msgid "arghul"
-msgstr ""
+msgstr "arghūl"
 
 #: DB:instrument/name:565
 msgid "atarigane"
@@ -351,7 +361,7 @@ msgstr "baritonisaksofoni"
 
 #: DB:instrument/name:521
 msgid "baroque trumpet"
-msgstr ""
+msgstr "barokkitrumpetti"
 
 #: DB:instrument/name:587
 msgid "barrel drum"
@@ -518,16 +528,20 @@ msgid "bulbul tarang"
 msgstr ""
 
 #: DB:instrument/name:153
-msgid "bull-roarer"
+msgid "bullroarer"
 msgstr ""
 
 #: DB:instrument/name:360
 msgid "button accordion"
 msgstr "näppäinharmonikka"
 
+#: DB:instrument/name:655
+msgid "buzuq"
+msgstr ""
+
 #: DB:instrument/name:336
 msgid "cajón"
-msgstr ""
+msgstr "cajon"
 
 #: DB:instrument/name:127
 msgid "calliope"
@@ -535,7 +549,7 @@ msgstr "höyryurut (calliope)"
 
 #: DB:instrument/name:128
 msgid "carillon"
-msgstr "kellopeli"
+msgstr "tornikellopeli"
 
 #: DB:instrument/name:109
 msgid "castanets"
@@ -721,6 +735,10 @@ msgstr ""
 msgid "cuíca"
 msgstr ""
 
+#: DB:instrument/name:658
+msgid "cylindrical drum"
+msgstr ""
+
 #: DB:instrument/name:271
 msgid "cymbals"
 msgstr "symbaalit"
@@ -743,7 +761,7 @@ msgstr ""
 
 #: DB:instrument/name:326
 msgid "daf"
-msgstr ""
+msgstr "duff"
 
 #: DB:instrument/name:532
 msgid "daire"
@@ -854,7 +872,7 @@ msgid "duck call"
 msgstr ""
 
 #: DB:instrument/name:194
-msgid "duct flutes"
+msgid "duct flute"
 msgstr ""
 
 #: DB:instrument/name:397
@@ -864,6 +882,10 @@ msgstr "duduk"
 #: DB:instrument/name:496
 msgid "dulcian"
 msgstr "dulcian"
+
+#: DB:instrument/name:659
+msgid "dunun"
+msgstr ""
 
 #: DB:instrument/name:629
 msgid "dutar"
@@ -875,6 +897,10 @@ msgstr ""
 
 #: DB:instrument/name:327
 msgid "ebow"
+msgstr ""
+
+#: DB:instrument/name:677
+msgid "effects"
 msgstr ""
 
 #: DB:instrument/name:643
@@ -1005,6 +1031,10 @@ msgstr ""
 msgid "fortepiano"
 msgstr "fortepiano"
 
+#: DB:instrument/name:656
+msgid "four-string banjo"
+msgstr ""
+
 #: DB:instrument/name:570
 msgid "fourth flute"
 msgstr ""
@@ -1074,7 +1104,7 @@ msgid "ghatam"
 msgstr ""
 
 #: DB:instrument/name:285
-msgid "glass (h)armonica"
+msgid "glass harmonica"
 msgstr ""
 
 #: DB:instrument/name:165
@@ -1233,6 +1263,10 @@ msgstr ""
 msgid "hurdy gurdy"
 msgstr "kampiliira"
 
+#: DB:instrument/name:674
+msgid "idiophone"
+msgstr ""
+
 #: DB:instrument/name:495
 msgid "janggu"
 msgstr ""
@@ -1321,6 +1355,10 @@ msgstr ""
 msgid "khim"
 msgstr ""
 
+#: DB:instrument/name:666
+msgid "khlui"
+msgstr ""
+
 #: DB:instrument/name:621
 msgid "khong wong"
 msgstr ""
@@ -1353,6 +1391,22 @@ msgstr "kithara"
 msgid "kkwaenggwari"
 msgstr ""
 
+#: DB:instrument/name:671
+msgid "klong khaek"
+msgstr ""
+
+#: DB:instrument/name:672
+msgid "klong song na"
+msgstr ""
+
+#: DB:instrument/name:673
+msgid "klong that"
+msgstr ""
+
+#: DB:instrument/name:670
+msgid "klong yao"
+msgstr ""
+
 #: DB:instrument/name:223
 msgid "kokyu"
 msgstr ""
@@ -1375,6 +1429,10 @@ msgstr "koto"
 
 #: DB:instrument/name:557
 msgid "kotsuzumi"
+msgstr ""
+
+#: DB:instrument/name:652
+msgid "krakebs"
 msgstr ""
 
 #: DB:instrument/name:525
@@ -1681,6 +1739,14 @@ msgstr "lyömäsoittimet"
 msgid "phách"
 msgstr ""
 
+#: DB:instrument/name:667
+msgid "pi"
+msgstr ""
+
+#: DB:instrument/name:668
+msgid "pi nai"
+msgstr ""
+
 #: DB:instrument/name:137
 msgid "piano"
 msgstr "piano"
@@ -1751,6 +1817,10 @@ msgstr ""
 
 #: DB:instrument/name:614
 msgid "ranat ek"
+msgstr ""
+
+#: DB:instrument/name:665
+msgid "ranat kaeo"
 msgstr ""
 
 #: DB:instrument/name:620
@@ -2033,6 +2103,10 @@ msgstr "lusikat"
 msgid "steel guitar"
 msgstr "steel-kitara"
 
+#: DB:instrument/name:653
+msgid "steel-string guitar"
+msgstr ""
+
 #: DB:instrument/name:273
 msgid "steelpan"
 msgstr "steel pan"
@@ -2040,6 +2114,10 @@ msgstr "steel pan"
 #: DB:instrument/name:46
 msgid "strings"
 msgstr "kielisoittimet"
+
+#: DB:instrument/name:675
+msgid "struck idiophone"
+msgstr ""
 
 #: DB:instrument/name:252
 msgid "struck string instruments"
@@ -2157,12 +2235,18 @@ msgstr ""
 msgid "tape"
 msgstr ""
 
-#: DB:instrument/name:607
-msgid "tar (drum)"
+#: DB:instrument/name:669
+msgid "taphon"
 msgstr ""
 
 #: DB:instrument/name:467
-msgid "tar (lute)"
+msgctxt "lute"
+msgid "tar"
+msgstr ""
+
+#: DB:instrument/name:607
+msgctxt "drum"
+msgid "tar"
 msgstr ""
 
 #: DB:instrument/name:440
@@ -2181,6 +2265,10 @@ msgstr "Teleharmonium"
 msgid "temple blocks"
 msgstr ""
 
+#: DB:instrument/name:657
+msgid "tenor banjo"
+msgstr ""
+
 #: DB:instrument/name:434
 msgid "tenor guitar"
 msgstr "tenorikitara"
@@ -2197,9 +2285,13 @@ msgstr "tenorinokkahuilu"
 msgid "tenor saxophone"
 msgstr "tenorisaksofoni"
 
+#: DB:instrument/name:662
+msgid "tenor trombone"
+msgstr ""
+
 #: DB:instrument/name:615
 msgid "tenor violin"
-msgstr ""
+msgstr "tenoriviulu"
 
 #: DB:instrument/name:480
 msgid "thavil"
@@ -2284,6 +2376,10 @@ msgstr "triangeli"
 #: DB:instrument/name:32
 msgid "trombone"
 msgstr "pasuuna"
+
+#: DB:instrument/name:663
+msgid "tromboon"
+msgstr ""
 
 #: DB:instrument/name:33
 msgid "trumpet"
@@ -2377,6 +2473,10 @@ msgstr ""
 msgid "vessel drum"
 msgstr ""
 
+#: DB:instrument/name:650
+msgid "vessel flute"
+msgstr ""
+
 #: DB:instrument/name:169
 msgid "vibraphone"
 msgstr "vibrafoni"
@@ -2397,6 +2497,10 @@ msgstr ""
 msgid "viola"
 msgstr "alttoviulu"
 
+#: DB:instrument/name:660
+msgid "viola caipira"
+msgstr ""
+
 #: DB:instrument/name:94
 msgid "viola d'amore"
 msgstr "viola d'amore"
@@ -2412,6 +2516,10 @@ msgstr "viola organista"
 #: DB:instrument/name:62
 msgid "violin"
 msgstr "viulu"
+
+#: DB:instrument/name:661
+msgid "violino piccolo"
+msgstr ""
 
 #: DB:instrument/name:59
 msgid "violins"
@@ -2495,6 +2603,10 @@ msgstr ""
 
 #: DB:instrument/name:550
 msgid "xiaoluo"
+msgstr ""
+
+#: DB:instrument/name:651
+msgid "xun"
 msgstr ""
 
 #: DB:instrument/name:170

@@ -15,7 +15,7 @@ __PACKAGE__->config(
     paging_limit => 50,
 );
 
-sub not_found
+sub not_found : Private
 {
     my ($self, $c) = @_;
     $c->response->status(404);

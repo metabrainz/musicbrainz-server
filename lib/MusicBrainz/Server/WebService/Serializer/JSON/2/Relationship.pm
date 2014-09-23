@@ -1,7 +1,9 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Relationship;
 use Moose;
-use Hash::Merge qw(merge);
-use String::CamelCase qw(camelize);
+use Hash::Merge qw( merge );
+use List::AllUtils qw( any );
+use String::CamelCase qw( camelize );
+use MusicBrainz::Server::Data::Utils qw( non_empty );
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( date_period serialize_entity );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
@@ -12,22 +14,28 @@ sub serialize
 {
     my ($self, $entity, $inc, $opts) = @_;
     my $body;
+    my @attributes = $entity->link->all_attributes;
 
     $body->{type} = $entity->link->type->name;
     $body->{"type-id"} = $entity->link->type->gid;
     $body->{direction} = $entity->direction == 2 ? "backward" : "forward";
 
     $body = merge($body, date_period($entity->link));
-    $body->{attributes} = [ map { $_->name } $entity->link->all_attributes ];
-
-    my %text_attrs = %{ $entity->link->attribute_text_values };
+    $body->{attributes} = [ map { $_->type->name } @attributes ];
 
     $body->{"attribute-values"} = {
         map {
-            $text_attrs{$_->id} ? ($_->name => $text_attrs{$_->id}) : ()
+            non_empty($_->text_value) ? ($_->type->name => $_->text_value) : ()
         }
-        $entity->link->all_attributes
+        @attributes
     };
+
+    $body->{"attribute-credits"} = {
+        map {
+            non_empty($_->credited_as) ? ($_->type->name => $_->credited_as) : ()
+        }
+        @attributes
+    } if any { $_->type->creditable } @attributes;
 
     $body->{$entity->target_type} = serialize_entity($entity->target, $inc, $opts);
 

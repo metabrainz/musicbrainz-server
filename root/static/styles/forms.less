@@ -157,6 +157,7 @@ span.success { color: @positive-text; }
 
 input.error,
 select.error {
+    color: @text-black;
     background: @negative-bg ! important;
 }
 
@@ -578,6 +579,21 @@ div.rel-editor-dialog {
     }
 
     .change-direction { padding: 2px !important; }
+
+    .attribute-container {
+        margin-bottom: @form-margin / 2;
+    }
+
+    .attribute-credit {
+        width: 40% !important;
+    }
+
+    .instrument-selection-credit {
+        span.autocomplete {
+            width: 50%;
+            input { width: 100%; }
+        }
+    }
 }
 
 #relationship-editor {

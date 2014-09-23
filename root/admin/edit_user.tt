@@ -8,6 +8,7 @@
         [% form_row_checkbox(r, 'wiki_transcluder', l('Transclusion editor')) %]
         [% form_row_checkbox(r, 'link_editor', l('Relationship editor')) %]
         [% form_row_checkbox(r, 'location_editor', l('Location editor')) %]
+        [% form_row_checkbox(r, 'banner_editor', l('Banner message editor')) %]
 
         <h2>[%- l('Technical flags') -%]</h2>
         [% form_row_checkbox(r, 'bot', l('Bot')) %]

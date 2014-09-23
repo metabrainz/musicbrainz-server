@@ -132,8 +132,8 @@
         return relationship.entityTypes === "recording-work";
     }
 
-    function isFreeText(id) {
-        return MB.attrInfoByID[id].freeText;
+    function isFreeText(linkAttribute) {
+        return MB.attrInfoByID[linkAttribute.type.id].freeText;
     }
 
     function cacheByID(func) {
