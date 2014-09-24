@@ -1,3 +1,6 @@
+[%~ WRAPPER "$entitytype/layout.tt" title=l('Edit Annotation') full_width=1 ~%]
+<h2>[% l('Edit annotation') %]</h2>
+
 <p>[% l('Please note that any content submitted to MusicBrainz will be made available
          to the public under {open|open licenses}, do not submit
          any copyrighted text here! ',
@@ -64,3 +67,4 @@
   you'll have to write
   <code>&amp;#91;unknown&amp;#93;</code> then it will appear the way you
   intended it to show.") %]</p>
+[%~ END ~%]
