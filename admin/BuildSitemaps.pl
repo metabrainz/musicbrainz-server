@@ -8,6 +8,7 @@ use lib "$FindBin::Bin/../lib";
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
+use MusicBrainz::Server::Data::Relationship;
 use DBDefs;
 use Sql;
 use Getopt::Long;
@@ -270,6 +271,19 @@ sub build_suffix_info {
             },
             extra_sql => {join => 'release_meta ON release.id = release_meta.id',
                           columns => 'cover_art_presence'}
+        };
+    }
+    if ($entity_properties->{mbid}{relatable} eq 'dedicated') {
+        my @tables = MusicBrainz::Server::Data::Relationship::_generate_table_list($entity_type, grep { $_ ne 'url' } entities_with(['mbid','relatable']));
+        my $select = join(' UNION ALL ', map { 'SELECT TRUE FROM ' . $_->[0] . ' WHERE ' . $_->[1] . " = ${entity_type}.id" } @tables);
+        $suffix_info->{relationships} = {
+            suffix => 'relationships',
+            priority => sub {
+                my (%opts) = @_;
+                return $SECONDARY_PAGE_PRIORITY if $opts{has_non_url_rels};
+                return $EMPTY_PAGE_PRIORITY;
+            },
+            extra_sql => {columns => "EXISTS ($select) AS has_non_url_rels"}
         };
     }
     return $suffix_info;
