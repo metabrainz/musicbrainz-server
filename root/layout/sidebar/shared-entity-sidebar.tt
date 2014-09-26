@@ -48,11 +48,9 @@
                 [%~ END ~%]
             [%~ END ~%]
 
-            [%~ UNLESS entity.is_special_purpose ~%]
-                [%~ '<hr/>' IF edit_links_add_entity.size + edit_links_other.size > 0 ~%]
-                <li>[%~ link_entity(entity, 'open_edits', l('Open edits')) ~%]</li>
-                <li>[%~ link_entity(entity, 'edits', l('Editing history')) ~%]</li>
-            [%~ END ~%]
+            [%~ '<hr/>' IF edit_links_add_entity.size + edit_links_other.size > 0 ~%]
+            <li>[%~ link_entity(entity, 'open_edits', l('Open edits')) ~%]</li>
+            <li>[%~ link_entity(entity, 'edits', l('Editing history')) ~%]</li>
         [%~ ELSE ~%]
             <li>[%~ request_login(l('Log in to edit')) ~%]</li>
         [%~ END ~%]
