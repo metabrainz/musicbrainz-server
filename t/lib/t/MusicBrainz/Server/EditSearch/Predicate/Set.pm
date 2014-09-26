@@ -25,7 +25,6 @@ test 'operator BETWEEN' => sub {
     my $query = Query->new( fields => [ $field ] );
     $field->combine_with_query($query);
 
-    is_deeply([$query->join], [], 'doesnt add any new joins');
     my ($where_clause) = $query->where;
     my ($sql, $arglist) = @$where_clause;
     is($sql, 'edit.type = any(?)');
