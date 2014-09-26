@@ -412,7 +412,7 @@ END -%]
 END -%]
 
 [%~ MACRO link_area_with_containment(area, action, text) BLOCK;
-    link_area(area, action, text);
+    link_entity(area, action, text);
     IF link_area_containment(area); ', ' _ link_area_containment(area); END;
 END -%]
 
