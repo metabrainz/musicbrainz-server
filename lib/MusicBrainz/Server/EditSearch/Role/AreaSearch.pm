@@ -1,7 +1,6 @@
 package MusicBrainz::Server::EditSearch::Role::AreaSearch;
 use MooseX::Role::Parameterized;
 use namespace::autoclean;
-use feature 'switch';
 
 parameter 'type' => (
     isa => 'Str',

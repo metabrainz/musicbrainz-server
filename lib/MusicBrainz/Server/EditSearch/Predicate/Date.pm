@@ -1,7 +1,6 @@
 package MusicBrainz::Server::EditSearch::Predicate::Date;
 use Moose;
 use namespace::autoclean;
-use feature 'switch';
 
 use DateTime::Format::Natural;
 use DateTime::Format::Pg;

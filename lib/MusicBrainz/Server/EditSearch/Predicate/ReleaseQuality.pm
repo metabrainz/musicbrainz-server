@@ -1,7 +1,6 @@
 package MusicBrainz::Server::EditSearch::Predicate::ReleaseQuality;
 use Moose;
 use namespace::autoclean;
-use feature 'switch';
 
 extends 'MusicBrainz::Server::EditSearch::Predicate::Set';
 
