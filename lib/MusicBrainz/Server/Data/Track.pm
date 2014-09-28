@@ -101,9 +101,8 @@ sub find_by_recording
         SELECT *
         FROM (
           SELECT DISTINCT ON (track.id, medium.id)
-            track.id, track.name, track.medium, track.position,
-                track.length, track.artist_credit, track.edits_pending,
-                medium.id AS m_id, medium.format AS m_format,
+            " . $self->_columns . ",
+            medium.id AS m_id, medium.format AS m_format,
                 medium.position AS m_position, medium.name AS m_name,
                 medium.release AS m_release,
                 medium.track_count AS m_track_count,
