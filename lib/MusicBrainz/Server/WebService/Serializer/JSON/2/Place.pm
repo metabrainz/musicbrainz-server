@@ -20,10 +20,12 @@ sub serialize
     $body{address} = $entity->address;
     $body{type} = $entity->type_name;
     $body{area} = $entity->area ? serialize_entity($entity->area) : JSON::null;
-    $body{coordinates} = {
-        latitude => $entity->coordinates->latitude // JSON::null,
-        longitude => $entity->coordinates->longitude // JSON::null,
-    };
+    $body{coordinates} = $entity->coordinates ?
+            {
+                latitude => $entity->coordinates->latitude,
+                longitude => $entity->coordinates->longitude,
+            }
+        : JSON::null;
 
     return \%body;
 };
