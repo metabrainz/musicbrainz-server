@@ -273,8 +273,8 @@
 
   <div class="bubble" data-bind="bubble: $root.packagingBubble">
     <p>
-      [% l('Review the <a href="{url}" target="_blank">list of packaging types</a> for help.',
-           { url => doc_link('Release/Packaging') }) %]
+      [% l('Review the {packaging|list of packaging types} for help.',
+           { packaging => { href => doc_link('Release/Packaging'), target => '_blank' } }) %]
     </p>
   </div>
 
