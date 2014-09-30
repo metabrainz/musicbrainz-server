@@ -10,7 +10,7 @@
         </p>
         [% IF emailed %]
             <p>
-                [% l('Because you provided an email address, an verification
+                [% l('Because you provided an email address, a verification
                       email has been sent to <code>{addr}</code>. Please check
                       your mailbox and click on the link in the email to verify
                       the new email address.',
