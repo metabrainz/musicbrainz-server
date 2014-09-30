@@ -1,6 +1,6 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::LD::ReleaseGroup;
 use Moose;
-use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_entity artwork );
+use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_entity list_or_single artwork );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
@@ -15,6 +15,13 @@ around serialize => sub {
     if ($entity->cover_art) {
         $ret->{image} = artwork($entity->cover_art);
     }
+
+    if ($stash->store($entity)->{releases}) {
+        my $items = $stash->store($entity)->{releases}{items};
+        my @releases = map { serialize_entity($_, $inc, $stash) } @$items;
+        $ret->{albumRelease} = list_or_single(@releases);
+    }
+
     return $ret;
 };
 

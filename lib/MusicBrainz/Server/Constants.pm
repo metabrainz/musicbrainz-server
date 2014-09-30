@@ -325,7 +325,7 @@ Readonly our $SERIES_ORDERING_ATTRIBUTE => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a
 
 Readonly our %ENTITIES => (
     area => {
-        mbid => { relatable => 1 },
+        mbid => { relatable => 'overview' },
         edit_table => 1,
         merging => 1,
         model      => 'Area',
@@ -340,7 +340,7 @@ Readonly our %ENTITIES => (
         removal     => { manual => 1 }
     },
     artist => {
-        mbid => { relatable => 1, indexable => 1 },
+        mbid => { relatable => 'dedicated', indexable => 1 },
         edit_table => 1,
         merging => 1,
         model      => 'Artist',
@@ -359,7 +359,7 @@ Readonly our %ENTITIES => (
         removal     => { automatic => 1 }
     },
     instrument => {
-        mbid => { relatable => 1, indexable => 1 },
+        mbid => { relatable => 'overview', indexable => 1 },
         edit_table => 1,
         merging => 1,
         model      => 'Instrument',
@@ -374,7 +374,7 @@ Readonly our %ENTITIES => (
         removal     => { manual => 1 }
     },
     label => {
-        mbid => { relatable => 1, indexable => 1 },
+        mbid => { relatable => 'dedicated', indexable => 1 },
         edit_table => 1,
         merging => 1,
         model      => 'Label',
@@ -393,7 +393,7 @@ Readonly our %ENTITIES => (
         removal     => { manual => 1, automatic => 1 }
     },
     place => {
-        mbid => { relatable => 1, indexable => 1 },
+        mbid => { relatable => 'overview', indexable => 1 },
         edit_table => 1,
         merging => 1,
         model      => 'Place',
@@ -409,7 +409,7 @@ Readonly our %ENTITIES => (
         removal     => { automatic => 1 }
     },
     recording => {
-        mbid => { relatable => 1 },
+        mbid => { relatable => 'overview' },
         edit_table => 1,
         merging => 1,
         model      => 'Recording',
@@ -421,7 +421,7 @@ Readonly our %ENTITIES => (
         removal     => { manual => 1 }
     },
     release => {
-        mbid => { relatable => 1, indexable => 1 },
+        mbid => { relatable => 'overview', indexable => 1 },
         edit_table => 1,
         merging => 1,
         model      => 'Release',
@@ -433,7 +433,7 @@ Readonly our %ENTITIES => (
         collections => 1
     },
     release_group => {
-        mbid => { relatable => 1, indexable => 1 },
+        mbid => { relatable => 'overview', indexable => 1 },
         edit_table => 1,
         merging => 1,
         model      => 'ReleaseGroup',
@@ -447,7 +447,7 @@ Readonly our %ENTITIES => (
         removal     => { automatic => 1 }
     },
     series => {
-        mbid => { relatable => 1, indexable => 1 },
+        mbid => { relatable => 'overview', indexable => 1 },
         edit_table => 1,
         merging => 1,
         model      => 'Series',
@@ -464,12 +464,12 @@ Readonly our %ENTITIES => (
         removal     => { automatic => 1 }
     },
     url => {
-        mbid => { relatable => 1 },
+        mbid => { relatable => 'overview' },
         edit_table => 1,
         model => 'URL'
     },
     work => {
-        mbid => { relatable => 1, indexable => 1 },
+        mbid => { relatable => 'overview', indexable => 1 },
         edit_table => 1,
         merging => 1,
         model      => 'Work',

@@ -26,7 +26,7 @@ with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::Cleanup';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
-    endpoints => {show => {}}
+    endpoints => {show => {copy_stash => [{from => 'releases_jsonld', to => 'releases'}]}}
 };
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
@@ -69,6 +69,7 @@ sub show : Chained('load') PathPart('') {
 
     $c->stash(
         template => 'release_group/index.tt',
+        releases_jsonld => {items => $releases},
         releases => group_by_release_status(@$releases),
     );
 }

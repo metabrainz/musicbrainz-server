@@ -7,9 +7,10 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
     model           => 'Place',
     relationships   => {
         cardinal    => ['edit'],
-        subset => {
+        default     => ['url'],
+        subset      => {
             show => [qw( area artist label place url work series instrument )],
-            performances => [qw( release release_group recording work )],
+            performances => [qw( release release_group recording work url )],
         }
     },
 };

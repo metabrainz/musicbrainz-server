@@ -51,21 +51,13 @@ MB.GuessCase.Handler.Release = function () {
      * @param    is        the inputstring
      * @returns os        the processed string
      **/
-    self.process = function (is) {
-        is = gc.mode.stripInformationToOmit(is);
-        is = gc.mode.preProcessCommons(is);
+    self.process = _.wrap(self.process, function (process, os) {
+        return gc.mode.fixVinylSizes(process(os));
+    });
+
+    self.getWordsForProcessing = function (is) {
         is = gc.mode.preProcessTitles(is);
-        var words = gc.i.splitWordsAndPunctuation(is);
-        words = gc.mode.prepExtraTitleInfo(words);
-        gc.o.init();
-        gc.i.init(is, words);
-        while (!gc.i.isIndexAtEnd()) {
-            self.processWord();
-        }
-        var os = gc.o.getOutput();
-        os = gc.mode.runPostProcess(os);
-        os = gc.mode.runFinalChecks(os);
-        return os;
+        return gc.mode.prepExtraTitleInfo(gc.i.splitWordsAndPunctuation(is));
     };
 
     /**
@@ -86,13 +78,7 @@ MB.GuessCase.Handler.Release = function () {
         } else if (self.doPartNumberStyle()) {
         } else if (gc.mode.doWord()) {
         } else {
-            // handle normal word.
-            gc.o.appendSpaceIfNeeded();
-            gc.i.capitalizeCurrentWord();
-            gc.o.appendCurrentWord();
-            gc.f.resetContext();
-            gc.f.forceCaps = false;
-            gc.f.spaceNextWord = true;
+            self.doNormalWord();
         }
         gc.f.number = false;
         return null;

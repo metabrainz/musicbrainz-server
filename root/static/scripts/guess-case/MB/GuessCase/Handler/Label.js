@@ -28,29 +28,6 @@ MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
 MB.GuessCase.Handler.Label = function () {
     var self = MB.GuessCase.Handler.Base();
 
-    // ----------------------------------------------------------------------------
-    // member functions
-    // ---------------------------------------------------------------------------
-
-    /**
-     * Guess the label name given in string is, and
-     * returns the guessed name.
-     *
-     * @param   is        the inputstring
-     * @returns os        the processed string
-     **/
-    self.process = function (is) {
-        is = gc.mode.preProcessCommons(is);
-        var w = gc.i.splitWordsAndPunctuation(is);
-        gc.o.init();
-        gc.i.init(is, w);
-        while (!gc.i.isIndexAtEnd()) {
-            self.processWord();
-        }
-        var os = gc.o.getOutput();
-        return gc.mode.runPostProcess(os);
-    };
-
     /**
      * Checks special cases of labels
      * - empty, unknown -> [unknown]

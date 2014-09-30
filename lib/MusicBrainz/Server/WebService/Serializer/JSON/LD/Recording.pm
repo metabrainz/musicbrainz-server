@@ -1,24 +1,31 @@
-package MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID;
-use Moose::Role;
-use MusicBrainz::Server::Constants qw( %ENTITIES );
-use MusicBrainz::Server::Data::Utils qw( ref_to_type );
-use DBDefs;
+package MusicBrainz::Server::WebService::Serializer::JSON::LD::Recording;
+use Moose;
+use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( list_or_single );
 
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::SameAs';
+extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Name';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Length';
 
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
     my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
 
-    my $entity_type = ref_to_type($entity);
-    my $entity_url = $ENTITIES{$entity_type}{url} // $entity_type;
+    $ret->{'@type'} = 'MusicRecording';
 
-    $ret->{'@id'} = DBDefs->CANONICAL_SERVER . '/' . $entity_url . '/' . $entity->gid;
+    if ($stash->store($entity)->{trackNumber}) {
+        $ret->{trackNumber} = $stash->store($entity)->{trackNumber};
+    }
+
+    if ($entity->all_isrcs) {
+       $ret->{'isrc'} = list_or_single(map { $_->isrc } $entity->all_isrcs);
+    }
 
     return $ret;
 };
 
-no Moose::Role;
+__PACKAGE__->meta->make_immutable;
+no Moose;
 1;
 
 =head1 COPYRIGHT

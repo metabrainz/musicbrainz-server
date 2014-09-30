@@ -1,27 +1,24 @@
-package MusicBrainz::Server::Entity::ISNI;
+package MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Length;
+use Moose::Role;
+use MusicBrainz::Server::Track qw( format_iso_duration );
 
-use Moose;
+around serialize => sub {
+    my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
+    my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
 
-extends 'MusicBrainz::Server::Entity';
-with 'MusicBrainz::Server::Entity::Role::Editable';
+    if ($entity->length) {
+        $ret->{duration} = format_iso_duration($entity->length);
+    }
 
-has 'isni' => (
-    is => 'rw',
-    isa => 'Str'
-);
+    return $ret;
+};
 
-sub url {
-    my ($self) = @_;
-    return "http://isni-url.oclc.nl/isni/" . $self->isni;
-}
-
-__PACKAGE__->meta->make_immutable;
-no Moose;
+no Moose::Role;
 1;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2012 MetaBrainz Foundation
+Copyright (C) 2014 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -38,3 +35,4 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 =cut
+

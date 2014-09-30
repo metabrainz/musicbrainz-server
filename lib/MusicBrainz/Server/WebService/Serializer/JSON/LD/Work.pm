@@ -1,24 +1,28 @@
-package MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID;
-use Moose::Role;
-use MusicBrainz::Server::Constants qw( %ENTITIES );
-use MusicBrainz::Server::Data::Utils qw( ref_to_type );
-use DBDefs;
+package MusicBrainz::Server::WebService::Serializer::JSON::LD::Work;
+use Moose;
 
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::SameAs';
+use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( list_or_single );
+
+extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Name';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Aliases';
 
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
     my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
 
-    my $entity_type = ref_to_type($entity);
-    my $entity_url = $ENTITIES{$entity_type}{url} // $entity_type;
+    $ret->{'@type'} = 'MusicComposition';
 
-    $ret->{'@id'} = DBDefs->CANONICAL_SERVER . '/' . $entity_url . '/' . $entity->gid;
+    if ($entity->all_iswcs) {
+       $ret->{'iswc'} = list_or_single(map { $_->iswc } $entity->all_iswcs);
+    }
 
     return $ret;
 };
 
-no Moose::Role;
+__PACKAGE__->meta->make_immutable;
+no Moose;
 1;
 
 =head1 COPYRIGHT
