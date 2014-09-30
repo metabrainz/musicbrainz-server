@@ -10,7 +10,7 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
         default     => ['url'],
         subset      => {
             show => [qw( area artist label place url work series instrument )],
-            performances => [qw( release release_group recording work )],
+            performances => [qw( release release_group recording work url )],
         }
     },
 };
