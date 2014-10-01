@@ -1,0 +1,62 @@
+[%~ MACRO tab_link_name(slug)
+    SWITCH slug;
+        CASE 'artists';
+            l('Artists');
+        CASE 'labels';
+            l('Labels');
+        CASE 'places';
+            l('Places');
+        CASE 'recordings';
+            l('Recordings');
+        CASE 'releases';
+            l('Releases');
+        CASE 'works';
+            l('Works');
+        CASE 'performances';
+            l('Performances');
+        CASE 'map';
+            l('Map');
+        CASE 'fingerprints';
+            l('Fingerprints');
+        CASE 'discids';
+            l('DiscIDs');
+        CASE 'cover_art';
+            l('Cover Art');
+        CASE DEFAULT;
+            l('Error: Unknown Tab Type');
+    END ~%]
+
+[%~ info_links = [
+    ['index', link_entity(entity, 'show', l('Overview'))],
+] ~%]
+
+[%~ IF entity_properties.custom_tabs;
+    FOR tab IN entity_properties.custom_tabs;
+       info_links.push([tab, link_entity(entity, tab, tab_link_name(tab))]);
+    END;
+END ~%]
+
+[%~ IF entity_properties.mbid.relatable == 'dedicated';
+    info_links.push(['relationships', link_entity(entity, 'relationships', l('Relationships'))]);
+END ~%]
+
+[%~ IF entity_properties.aliases;
+    info_links.push(['aliases', link_entity(entity, 'aliases', l('Aliases'))]);
+END ~%]
+
+[%~ IF entity_properties.tags;
+    info_links.push(['tags', link_entity(entity, 'tags', l('Tags'))]);
+END ~%]
+
+[%~ UNLESS entity_properties.mbid.no_details;
+    info_links.push(['details', link_entity(entity, 'details', l('Details'))]);
+END ~%]
+
+[%~ IF edit_tab == 'default';
+    edit_tab = ['edit', link_entity(entity, 'edit', l('Edit'))];
+END ~%]
+[%~ IF edit_tab;
+    info_links.push(edit_tab);
+END ~%]
+
+[%~ INCLUDE 'components/tabs.tt' list=info_links ~%]

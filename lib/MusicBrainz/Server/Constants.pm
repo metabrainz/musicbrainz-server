@@ -326,6 +326,7 @@ Readonly our $SERIES_ORDERING_ATTRIBUTE => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a
 Readonly our %ENTITIES => (
     area => {
         mbid => { relatable => 'overview' },
+        custom_tabs => ['artists', 'labels', 'releases', 'places'],
         edit_table => 1,
         merging => 1,
         model      => 'Area',
@@ -341,6 +342,7 @@ Readonly our %ENTITIES => (
     },
     artist => {
         mbid => { relatable => 'dedicated', indexable => 1 },
+        custom_tabs => ['releases', 'recordings', 'works'],
         edit_table => 1,
         merging => 1,
         model      => 'Artist',
@@ -360,6 +362,7 @@ Readonly our %ENTITIES => (
     },
     instrument => {
         mbid => { relatable => 'overview', indexable => 1 },
+        custom_tabs => ['releases', 'recordings'],
         edit_table => 1,
         merging => 1,
         model      => 'Instrument',
@@ -394,6 +397,7 @@ Readonly our %ENTITIES => (
     },
     place => {
         mbid => { relatable => 'overview', indexable => 1 },
+        custom_tabs => ['performances', 'map'],
         edit_table => 1,
         merging => 1,
         model      => 'Place',
@@ -410,6 +414,7 @@ Readonly our %ENTITIES => (
     },
     recording => {
         mbid => { relatable => 'overview' },
+        custom_tabs => ['fingerprints'],
         edit_table => 1,
         merging => 1,
         model      => 'Recording',
@@ -422,6 +427,7 @@ Readonly our %ENTITIES => (
     },
     release => {
         mbid => { relatable => 'overview', indexable => 1 },
+        custom_tabs => ['discids', 'cover_art'],
         edit_table => 1,
         merging => 1,
         model      => 'Release',
@@ -464,7 +470,7 @@ Readonly our %ENTITIES => (
         removal     => { automatic => 1 }
     },
     url => {
-        mbid => { relatable => 'overview' },
+        mbid => { relatable => 'overview', no_details => 1 },
         edit_table => 1,
         model => 'URL'
     },
