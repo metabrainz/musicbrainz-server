@@ -441,7 +441,7 @@ MB.constants.CLEANUPS = {
     socialnetwork: {
         match: [
             new RegExp("^(https?://)?([^/]+\\.)?facebook\\.com/", "i"),
-            new RegExp("^(https?://)?([^/]+\\.)?(last\\.fm|lastfm\\.(at|com|com\\.br|de|es|fr|it|jp|pl|pt|ru|se|com\\.tr))/(music|label|venue|user|group)/", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?(last\\.fm|lastfm\\.(com\\.br|com\\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/(music|label|venue|user|group)/", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?reverbnation\\.com/", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?plus\\.google\\.com/", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?vk\\.com/", "i"),
@@ -464,7 +464,7 @@ MB.constants.CLEANUPS = {
                     url = url.replace(/(facebook\.com\/.*)\/$/, "$1");
                 }
             }
-            url = url.replace(/^(https?:\/\/)?((www|cn|m)\.)?(last\.fm|lastfm\.(at|com|com\\.br|de|es|fr|it|jp|pl|pt|ru|se|com\.tr))/, "http://www.last.fm");
+            url = url.replace(/^(https?:\/\/)?((www|cn|m)\.)?(last\.fm|lastfm\.(com\.br|com\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/, "http://www.last.fm");
             url = url.replace(/^http:\/\/www\.last\.fm\/music\/([^?]+).*/, "http://www.last.fm/music/$1");
             url = url.replace(/^(?:https?:\/\/)?plus\.google\.com\/(?:u\/[0-9]\/)?([0-9]+)(\/.*)?$/, "https://plus.google.com/$1");
             url = url.replace(/^(?:https?:\/\/)?(?:(?:www|mobile)\.)?twitter\.com(?:\/#!)?\/@?([^\/]+)\/?$/, "https://twitter.com/$1");
@@ -577,7 +577,7 @@ MB.constants.CLEANUPS = {
             new RegExp("^(https?://)?(www\\.)?ocremix\\.org/", "i"),
             new RegExp("^(https?://)?(www\\.)?(trove\\.)?nla\\.gov\\.au/", "i"),
             new RegExp("^(https?://)?(www\\.)?rockensdanmarkskort\\.dk", "i"),
-            new RegExp("^(https?://)?(wiki\\.)?rockinchina\\.com", "i"),
+            new RegExp("^(https?://)?((www|wiki)\\.)?rockinchina\\.com", "i"),
             new RegExp("^(https?://)?(www\\.)?dhhu\\.dk", "i"),
             new RegExp("^(https?://)?(www\\.)?thesession\\.org", "i"),
             new RegExp("^(https?://)?(www\\.)?openlibrary\\.org", "i"),
