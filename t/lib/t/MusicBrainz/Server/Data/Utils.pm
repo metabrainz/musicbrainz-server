@@ -4,7 +4,7 @@ use Test::Moose;
 use Test::More;
 
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Data::Utils qw( order_by query_to_list query_to_list_limited remove_invalid_characters generate_gid take_while trim );
+use MusicBrainz::Server::Data::Utils qw( order_by query_to_list query_to_list_limited generate_gid take_while sanitize trim );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Test;
 
@@ -93,29 +93,47 @@ test 'Test take_while' => sub {
               []);
 };
 
-test 'Test remove_invalid_characters' => sub {
+test 'Test trim and sanitize' => sub {
+    my $run = sub {
+        my ($input, $res_trim, $descr_trim, $res_sanitize, $descr_sanitize) = @_;
+        $res_sanitize //= $res_trim;
+        $descr_sanitize //= $descr_trim;
+
+        is(trim($input), $res_trim, 'trim ' . $descr_trim);
+        is(sanitize($input), $res_sanitize, 'sanitize ' . $descr_sanitize);
+    };
+
     # MBS-4606
-    is(remove_invalid_characters("The Upper Hand of Christmas C\x{200B}*\x{200B}*\x{200B}* EP"),
-       'The Upper Hand of Christmas C*** EP',
-       'remove_invalid_characters removes zero-width space');
+    $run->("The Upper Hand of Christmas C\x{200B}*\x{200B}*\x{200B}* EP",
+           'The Upper Hand of Christmas C*** EP',
+           'removes zero-width space');
 
-    is(remove_invalid_characters("Soft\x{00AD}Hyphen"),
-       'SoftHyphen',
-       'remove_invalid_characters removes soft hyphens');
+    $run->("Soft\x{00AD}Hyphen",
+           'SoftHyphen',
+           'removes soft hyphens');
 
-    is(remove_invalid_characters("NAK follows\x15"),
-       'NAK follows',
-       'remove_invalid_characters removes control characters (NAK)');
-};
+    $run->("NAK follows\x15",
+           'NAK follows',
+           'removes control characters (NAK)');
 
-test 'Test trim' => sub {
-    is(trim("   Gutta \t cauat\nlapidem "),
-       'Gutta cauat lapidem',
-       'normalizes whitespace');
+    $run->("   Gutta \t cauat\nlapidem ",
+           'Gutta cauat lapidem',
+           'normalizes whitespace, removes leading/trailing whitespace',
+           ' Gutta cauat lapidem ',
+           'normalizes whitespace, keeps leading/trailing whitespace');
 
-    is(trim("NAK follows after space \x15"),
-       'NAK follows after space',
-       'ignores words of invalid characters (MBS-7604)');
+    $run->("NAK follows after space \x15",
+           'NAK follows after space',
+           'removes words of invalid characters (MBS-7604)',
+           'NAK follows after space ');
+
+    $run->("\x{30A2}\x{30B7}\x{30BF}\x{30AB}\x{26ED9}\x{8A18}",
+           "\x{30A2}\x{30B7}\x{30BF}\x{30AB}\x{26ED9}\x{8A18}",
+           'does not touch characters outside the BMP');
+
+    $run->("Le\x{323}\x{302} Quye\x{302}n; Le\x{302}\x{323} Quy\x{EA}n; L\x{EA}\x{323} Q.; L\x{1EC7} Q.",
+           "L\x{1EC7} Quy\x{EA}n; L\x{1EC7} Quy\x{EA}n; L\x{1EC7} Q.; L\x{1EC7} Q.",
+           'normalizes to NFC (MBS-6010)');
 };
 
 1;
