@@ -14,6 +14,12 @@ CREATE INDEX iso_3166_3_idx_area ON iso_3166_3 (area);
 CREATE INDEX area_alias_idx_area ON area_alias (area);
 CREATE UNIQUE INDEX area_alias_idx_primary ON area_alias (area, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
 
+CREATE INDEX area_tag_idx_tag ON area_tag (tag);
+
+CREATE INDEX area_tag_raw_idx_area ON area_tag_raw (area);
+CREATE INDEX area_tag_raw_idx_tag ON area_tag_raw (tag);
+CREATE INDEX area_tag_raw_idx_editor ON area_tag_raw (editor);
+
 CREATE UNIQUE INDEX artist_idx_gid ON artist (gid);
 CREATE INDEX artist_idx_name ON artist (name);
 CREATE INDEX artist_idx_sort_name ON artist (sort_name);
@@ -122,6 +128,12 @@ CREATE INDEX instrument_idx_name ON instrument (name);
 
 CREATE INDEX instrument_alias_idx_instrument ON instrument_alias (instrument);
 CREATE UNIQUE INDEX instrument_alias_idx_primary ON instrument_alias (instrument, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
+
+CREATE INDEX instrument_tag_idx_tag ON instrument_tag (tag);
+
+CREATE INDEX instrument_tag_raw_idx_instrument ON instrument_tag_raw (instrument);
+CREATE INDEX instrument_tag_raw_idx_tag ON instrument_tag_raw (tag);
+CREATE INDEX instrument_tag_raw_idx_editor ON instrument_tag_raw (editor);
 
 CREATE INDEX isrc_idx_isrc ON isrc (isrc);
 CREATE INDEX isrc_idx_recording ON isrc (recording);
@@ -419,6 +431,12 @@ CREATE INDEX series_idx_name ON series (name);
 
 CREATE INDEX series_alias_idx_series ON series_alias (series);
 CREATE UNIQUE INDEX series_alias_idx_primary ON series_alias (series, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
+
+CREATE INDEX series_tag_idx_tag ON series_tag (tag);
+
+CREATE INDEX series_tag_raw_idx_series ON series_tag_raw (series);
+CREATE INDEX series_tag_raw_idx_tag ON series_tag_raw (tag);
+CREATE INDEX series_tag_raw_idx_editor ON series_tag_raw (editor);
 
 CREATE UNIQUE INDEX tag_idx_name ON tag (name);
 

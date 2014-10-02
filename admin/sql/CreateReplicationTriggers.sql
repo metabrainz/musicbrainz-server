@@ -27,6 +27,10 @@ CREATE TRIGGER "reptg_area_gid_redirect"
 AFTER INSERT OR DELETE OR UPDATE ON "area_gid_redirect"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
+CREATE TRIGGER "reptg_area_tag"
+AFTER INSERT OR DELETE OR UPDATE ON "area_tag"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
 CREATE TRIGGER "reptg_area_type"
 AFTER INSERT OR DELETE OR UPDATE ON "area_type"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -141,6 +145,10 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_instrument_gid_redirect"
 AFTER INSERT OR DELETE OR UPDATE ON "instrument_gid_redirect"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_instrument_tag"
+AFTER INSERT OR DELETE OR UPDATE ON "instrument_tag"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_instrument_type"
@@ -729,6 +737,10 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_series_ordering_type"
 AFTER INSERT OR DELETE OR UPDATE ON "series_ordering_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_series_tag"
+AFTER INSERT OR DELETE OR UPDATE ON "series_tag"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_series_type"

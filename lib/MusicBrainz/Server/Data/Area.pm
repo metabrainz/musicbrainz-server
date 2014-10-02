@@ -28,24 +28,21 @@ with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'area' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'area' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'area' };
+with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'area' };
 
 Readonly my @CODE_TYPES => qw( iso_3166_1 iso_3166_2 iso_3166_3 );
 
-sub _table
-{
-    return 'area ' .
-           'LEFT JOIN (SELECT area, array_agg(code) AS codes FROM iso_3166_1 GROUP BY area) iso_3166_1s ON iso_3166_1s.area = area.id ' .
-           'LEFT JOIN (SELECT area, array_agg(code) AS codes FROM iso_3166_2 GROUP BY area) iso_3166_2s ON iso_3166_2s.area = area.id ' .
-           'LEFT JOIN (SELECT area, array_agg(code) AS codes FROM iso_3166_3 GROUP BY area) iso_3166_3s ON iso_3166_3s.area = area.id';
+sub _table {
+    return 'area';
 }
 
-sub _columns
-{
+sub _columns {
     return 'area.id, area.gid, area.name, area.comment, area.type, ' .
            'area.edits_pending, area.begin_date_year, area.begin_date_month, area.begin_date_day, ' .
            'area.end_date_year, area.end_date_month, area.end_date_day, area.ended, area.last_updated, ' .
-           'iso_3166_1s.codes AS iso_3166_1, iso_3166_2s.codes AS iso_3166_2, ' .
-           'iso_3166_3s.codes AS iso_3166_3';
+           '(SELECT array_agg(code) FROM iso_3166_1 WHERE iso_3166_1.area = area.id) AS iso_3166_1, ' .
+           '(SELECT array_agg(code) FROM iso_3166_2 WHERE iso_3166_2.area = area.id) AS iso_3166_2, ' .
+           '(SELECT array_agg(code) FROM iso_3166_3 WHERE iso_3166_3.area = area.id) AS iso_3166_3';
 }
 
 sub _id_column
@@ -210,6 +207,7 @@ sub delete
     $self->c->model('Relationship')->delete_entities('area', @area_ids);
     $self->annotation->delete(@area_ids);
     $self->alias->delete_entities(@area_ids);
+    $self->tags->delete(@area_ids);
     $self->remove_gid_redirects(@area_ids);
     for my $code_table (@CODE_TYPES) {
         $self->sql->do("DELETE FROM $code_table WHERE area IN (" . placeholders(@area_ids) . ")", @area_ids);
@@ -224,6 +222,7 @@ sub _merge_impl
 
     $self->alias->merge($new_id, @old_ids);
     $self->annotation->merge($new_id, @old_ids);
+    $self->tags->merge($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('area', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('area', $new_id, @old_ids);
     $self->merge_codes($new_id, @old_ids);

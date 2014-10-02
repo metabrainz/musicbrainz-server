@@ -5,6 +5,7 @@
     ['releases', link_area(area, 'releases', l('Releases'))],
     ['places', link_area(area, 'places', l('Places'))],
     ['aliases', link_area(area, 'aliases', l('Aliases'))],
+    ['tags', link_area(area, 'tags', l('Tags'))],
     ['details', link_area(area, 'details', l('Details'))],
 ] -%]
 

@@ -3,6 +3,7 @@
     ['releases', link_instrument(instrument, 'releases', l('Releases'))],
     ['recordings', link_instrument(instrument, 'recordings', l('Recordings'))],
     ['aliases', link_instrument(instrument, 'aliases', l('Aliases'))],
+    ['tags', link_instrument(instrument, 'tags', l('Tags'))],
     ['details', link_instrument(instrument, 'details', l('Details'))],
 ] -%]
 

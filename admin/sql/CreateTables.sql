@@ -111,6 +111,19 @@ CREATE TABLE area_annotation ( -- replicate (verbose)
     annotation  INTEGER NOT NULL -- PK, references annotation.id
 );
 
+CREATE TABLE area_tag ( -- replicate (verbose)
+    area                INTEGER NOT NULL, -- PK, references area.id
+    tag                 INTEGER NOT NULL, -- PK, references tag.id
+    count               INTEGER NOT NULL,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE area_tag_raw (
+    area                INTEGER NOT NULL, -- PK, references area.id
+    editor              INTEGER NOT NULL, -- PK, references editor.id
+    tag                 INTEGER NOT NULL -- PK, references tag.id
+);
+
 CREATE TABLE artist ( -- replicate (verbose)
     id                  SERIAL,
     gid                 UUID NOT NULL,
@@ -757,6 +770,19 @@ CREATE TABLE instrument_alias ( -- replicate (verbose)
 CREATE TABLE instrument_annotation ( -- replicate (verbose)
     instrument  INTEGER NOT NULL, -- PK, references instrument.id
     annotation  INTEGER NOT NULL -- PK, references annotation.id
+);
+
+CREATE TABLE instrument_tag ( -- replicate (verbose)
+    instrument          INTEGER NOT NULL, -- PK, references instrument.id
+    tag                 INTEGER NOT NULL, -- PK, references tag.id
+    count               INTEGER NOT NULL,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE instrument_tag_raw (
+    instrument          INTEGER NOT NULL, -- PK, references instrument.id
+    editor              INTEGER NOT NULL, -- PK, references editor.id
+    tag                 INTEGER NOT NULL -- PK, references tag.id
 );
 
 CREATE TABLE iso_3166_1 ( -- replicate
@@ -2386,6 +2412,19 @@ CREATE TABLE series_alias ( -- replicate (verbose)
 CREATE TABLE series_annotation ( -- replicate (verbose)
     series              INTEGER NOT NULL, -- PK, references series.id
     annotation          INTEGER NOT NULL -- PK, references annotation.id
+);
+
+CREATE TABLE series_tag ( -- replicate (verbose)
+    series              INTEGER NOT NULL, -- PK, references series.id
+    tag                 INTEGER NOT NULL, -- PK, references tag.id
+    count               INTEGER NOT NULL,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE series_tag_raw (
+    series              INTEGER NOT NULL, -- PK, references series.id
+    editor              INTEGER NOT NULL, -- PK, references editor.id
+    tag                 INTEGER NOT NULL -- PK, references tag.id
 );
 
 CREATE TABLE tag ( -- replicate (verbose)
