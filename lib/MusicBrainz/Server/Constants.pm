@@ -59,6 +59,7 @@ our @EXPORT_OK = (
         $COVERART_FRONT_TYPE      $COVERART_BACK_TYPE
         $AREA_TYPE_COUNTRY        $AREA_TYPE_CITY
         $INSTRUMENT_ROOT_ID       $VOCAL_ROOT_ID       $REQUIRED_VOTES $OPEN_EDIT_DURATION
+        $EDIT_COUNT_LIMIT
         %PART_OF_SERIES           $ARTIST_ARTIST_COLLABORATION
         @FULL_TABLE_LIST          %ENTITIES            entities_with
     ),
@@ -300,6 +301,7 @@ Readonly our $AREA_TYPE_CITY => 3;
 Readonly our $REQUIRED_VOTES => 3;
 Readonly our $OPEN_EDIT_DURATION => 7;
 Readonly our $EDIT_MINIMUM_RESPONSE_PERIOD => DateTime::Duration->new(hours => 72);
+Readonly our $EDIT_COUNT_LIMIT => 500;
 
 Readonly our $ACCESS_SCOPE_PROFILE        => 1;
 Readonly our $ACCESS_SCOPE_EMAIL          => 2;
