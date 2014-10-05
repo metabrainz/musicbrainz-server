@@ -134,7 +134,7 @@
       <p data-bind="with: target">
         [% l('Search:') %]
         <span class="autocomplete">
-          <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+          <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
           <input type="text" class="name" data-bind="autocomplete: { entity: 'recording', currentSelection: recording, lookupHook: $root.recordingAssociation.autocompleteHook($data) }" />
         </span>
       </p>
