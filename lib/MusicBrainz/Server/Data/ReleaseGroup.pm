@@ -420,7 +420,6 @@ sub insert
 {
     my ($self, @groups) = @_;
     my @created;
-    my $release_data = MusicBrainz::Server::Data::Release->new(c => $self->c);
     my $class = $self->_entity_class;
     for my $group (@groups)
     {

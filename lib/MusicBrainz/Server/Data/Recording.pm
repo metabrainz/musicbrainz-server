@@ -178,7 +178,6 @@ sub load
 sub insert
 {
     my ($self, @recordings) = @_;
-    my $track_data = MusicBrainz::Server::Data::Track->new(c => $self->c);
     my $class = $self->_entity_class;
     my @created;
     for my $recording (@recordings)
