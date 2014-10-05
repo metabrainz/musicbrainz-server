@@ -9,7 +9,7 @@
 
   <h2>[% l('Medium') %]</h2>
   <table class="tbl"><tbody>
-  [%- INCLUDE 'medium/tracklist.tt' medium=medium show_artists=1 hide_rating=1 -%]
+  [%- INCLUDE 'medium/tracklist.tt' tracks=medium.tracks show_artists=1 hide_rating=1 -%]
   </tbody></table>
 
   <h2>[% l('Changes') %]</h2>
