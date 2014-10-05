@@ -188,6 +188,8 @@ sub _hash_to_row
     });
 }
 
+sub insert { confess "Should not be used for URLs" }
+
 sub find_or_insert
 {
     my ($self, $url) = @_;

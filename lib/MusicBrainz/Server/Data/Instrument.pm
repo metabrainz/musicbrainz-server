@@ -6,7 +6,6 @@ use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Data::Utils qw(
     defined_hash
-    generate_gid
     hash_to_row
     load_subobjects
     merge_string_attributes
@@ -55,21 +54,6 @@ sub _id_column {
 sub load {
     my ($self, @objs) = @_;
     load_subobjects($self, 'instrument', @objs);
-}
-
-sub insert {
-    my ($self, @instruments) = @_;
-    my $class = $self->_entity_class;
-    my @created;
-    for my $instrument (@instruments) {
-        my $row = $self->_hash_to_row($instrument);
-        $row->{gid} = $instrument->{gid} || generate_gid();
-        push @created, $class->new(
-            id => $self->sql->insert_row('instrument', $row, 'id'),
-            gid => $row->{gid}
-        );
-    }
-    return @instruments > 1 ? @created : $created[0];
 }
 
 sub update {

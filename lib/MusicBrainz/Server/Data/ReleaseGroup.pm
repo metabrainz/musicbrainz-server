@@ -8,7 +8,6 @@ use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::Utils qw(
     check_in_use
-    generate_gid
     hash_to_row
     load_subobjects
     merge_table_attributes
@@ -416,24 +415,9 @@ sub find_by_recording
         $query, $recording);
 }
 
-sub insert
-{
-    my ($self, @groups) = @_;
-    my @created;
-    my $class = $self->_entity_class;
-    for my $group (@groups)
-    {
-        my $row = $self->_hash_to_row($group);
-        $row->{gid} = $group->{gid} || generate_gid();
-        my $new = $class->new(
-            id => $self->sql->insert_row('release_group', $row, 'id'),
-            gid => $row->{gid}
-        );
-        push @created, $new;
-
-        $self->c->model('ReleaseGroupSecondaryType')->set_types($new->id, $group->{secondary_type_ids})
-    }
-    return @groups > 1 ? @created : $created[0];
+sub _insert_hook_after_each {
+    my ($self, $created, $rg) = @_;
+    $self->c->model('ReleaseGroupSecondaryType')->set_types($created->id, $rg->{secondary_type_ids});
 }
 
 sub update

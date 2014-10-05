@@ -15,7 +15,6 @@ use MusicBrainz::Server::Data::Track;
 use MusicBrainz::Server::Data::ReleaseGroup;
 use MusicBrainz::Server::Data::Utils qw(
     defined_hash
-    generate_gid
     hash_to_row
     merge_boolean_attributes
     merge_table_attributes
@@ -173,23 +172,6 @@ sub load
 {
     my ($self, @objs) = @_;
     return load_subobjects($self, 'recording', @objs);
-}
-
-sub insert
-{
-    my ($self, @recordings) = @_;
-    my $class = $self->_entity_class;
-    my @created;
-    for my $recording (@recordings)
-    {
-        my $row = $self->_hash_to_row($recording);
-        $row->{gid} = $recording->{gid} || generate_gid();
-        push @created, $class->new(
-            id => $self->sql->insert_row('recording', $row, 'id'),
-            gid => $row->{gid}
-        );
-    }
-    return @recordings > 1 ? @created : $created[0];
 }
 
 sub update

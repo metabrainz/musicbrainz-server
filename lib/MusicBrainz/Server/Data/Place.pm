@@ -10,7 +10,6 @@ use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
     add_coordinates_to_row
-    generate_gid
     hash_to_row
     load_subobjects
     merge_table_attributes
@@ -80,27 +79,6 @@ sub load
 {
     my ($self, @objs) = @_;
     load_subobjects($self, 'place', @objs);
-}
-
-sub insert
-{
-    my ($self, @places) = @_;
-    my $class = $self->_entity_class;
-    my @created;
-    for my $place (@places)
-    {
-        my $row = $self->_hash_to_row($place);
-        $row->{gid} = $place->{gid} || generate_gid();
-
-        my $created = $class->new(
-            name => $place->{name},
-            id => $self->sql->insert_row('place', $row, 'id'),
-            gid => $row->{gid}
-        );
-
-        push @created, $created;
-    }
-    return @places > 1 ? @created : $created[0];
 }
 
 sub update

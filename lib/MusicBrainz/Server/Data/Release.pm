@@ -14,7 +14,6 @@ use MusicBrainz::Server::Entity::Release;
 use MusicBrainz::Server::Entity::ReleaseEvent;
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
-    generate_gid
     hash_to_row
     load_subobjects
     merge_table_attributes
@@ -736,26 +735,12 @@ sub find_by_collection
         $query, $collection_id, $offset || 0);
 }
 
-sub insert
-{
-    my ($self, @releases) = @_;
-    my @created;
-    my $class = $self->_entity_class;
-    for my $release (@releases)
-    {
-        my $row = $self->_hash_to_row($release);
-        $row->{gid} = $release->{gid} || generate_gid();
-        my $id = $self->sql->insert_row('release', $row, 'id');
-        push @created, $class->new(
-            id => $id,
-            gid => $row->{gid},
-            name => $release->{name}
-        );
-        $self->set_release_events(
-            $id, _release_events_from_spec($release->{events} // [])
-        );
-    }
-    return @releases > 1 ? @created : $created[0];
+sub _insert_hook_after_each {
+    my ($self, $created, $release) = @_;
+
+    $self->set_release_events(
+        $created->id, _release_events_from_spec($release->{events} // [])
+    );
 }
 
 sub _release_events_from_spec {

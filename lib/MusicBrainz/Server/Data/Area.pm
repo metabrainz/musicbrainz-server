@@ -10,7 +10,6 @@ use MusicBrainz::Server::Entity::PartialDate;
 use Readonly;
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
-    generate_gid
     hash_to_row
     load_subobjects
     merge_table_attributes
@@ -141,27 +140,9 @@ sub set_all_codes
     }
 }
 
-sub insert
-{
-    my ($self, @areas) = @_;
-    my $class = $self->_entity_class;
-    my @created;
-    for my $area (@areas)
-    {
-        my $row = $self->_hash_to_row($area);
-        $row->{gid} = $area->{gid} || generate_gid();
-
-        my $created = $class->new(
-            name => $area->{name},
-            id => $self->sql->insert_row('area', $row, 'id'),
-            gid => $row->{gid}
-        );
-
-        $self->set_all_codes($created->id, $area);
-
-        push @created, $created;
-    }
-    return @areas > 1 ? @created : $created[0];
+sub _insert_hook_after_each {
+    my ($self, $created, $area) = @_;
+    $self->set_all_codes($created->id, $area);
 }
 
 sub update
