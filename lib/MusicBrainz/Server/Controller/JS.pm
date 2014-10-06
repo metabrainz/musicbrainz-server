@@ -1,6 +1,5 @@
 package MusicBrainz::Server::Controller::JS;
 use Moose;
-use MusicBrainz::Server::Data::Utils qw( generate_gid );
 use Date::Calc qw( Today Add_Delta_Days Date_to_Time );
 use DBDefs;
 
