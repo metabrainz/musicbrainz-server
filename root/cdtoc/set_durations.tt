@@ -16,12 +16,9 @@
   [%- track_duration_changes([1 .. medium.tracks.size], medium.tracks, cdtoc.track_details, 'length', 'length_time') -%]
 
   <p>
-    [% l('The medium you are altering is part of the following release:') %]
+    [%~ l('The medium you are altering is part of the following release: {release}',
+          { release => descriptive_link(medium.release) }) ~%]
   </p>
-  <ul>
-    <li>[% l('{release} by {artist}', { release => link_entity(medium.release),
-                                        artist => artist_credit(medium.release.artist_credit) }) %]</li>
-  </ul>
 
   <form method="post">
   [% INCLUDE 'forms/edit-note.tt' %]
