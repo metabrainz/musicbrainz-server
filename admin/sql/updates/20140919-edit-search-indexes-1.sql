@@ -18,6 +18,6 @@ CREATE INDEX CONCURRENTLY vote_idx_editor_vote_time ON vote (editor, vote_time);
 CREATE INDEX CONCURRENTLY vote_idx_editor_edit ON vote (editor, edit) WHERE superseded = FALSE;
 DROP INDEX IF EXISTS vote_idx_editor;
 
-ALTER INDEX IF EXISTS edit_idx_vote_time RENAME vote_idx_vote_time;
+ALTER INDEX edit_idx_vote_time RENAME TO vote_idx_vote_time;
 
 ANALYZE vote;
