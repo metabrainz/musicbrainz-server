@@ -55,3 +55,4 @@ SELECT setval('instrument_type_id_seq', (SELECT MAX(id) FROM instrument_type));
 SELECT setval('instrument_id_seq', (SELECT MAX(id) FROM instrument));
 SELECT setval('annotation_id_seq', (SELECT MAX(id) FROM annotation));
 SELECT setval('link_attribute_type_id_seq', (SELECT MAX(id) FROM link_attribute_type));
+SELECT setval('link_id_seq', (SELECT MAX(id) FROM link));

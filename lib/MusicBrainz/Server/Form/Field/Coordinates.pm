@@ -51,6 +51,7 @@ sub validate {
         return;
     }
 
+    $self->value(undef);
     return $self->add_error(l('These coordinates could not be parsed'));
 }
 

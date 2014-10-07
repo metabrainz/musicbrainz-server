@@ -65,6 +65,7 @@ use Date::Calc qw( check_date Delta_YMD );
 use Encode qw( decode encode );
 use Scalar::Util qw( looks_like_number );
 use Text::Unaccent qw( unac_string_utf16 );
+use utf8;
 
 sub unaccent_utf16 ($)
 {
