@@ -3,9 +3,7 @@
 <h1>[% l('Releases with medium number issues') %]</h1>
 
 <ul>
-    <li>[% l('This report lists all releases where the mediums are not
-              continuous (e.g. there is no "medium 2"), or with duplicated
-              mediums (e.g. there are two "medium 4"s).') %]</li>
+    <li>[% l('This report lists all releases with gaps in the medium numbers (e.g. there is a medium 1 and 3 but no medium 2).') %]</li>
     <li>[% l('Total releases: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
     [%- INCLUDE 'report/filter_link.tt' -%]
