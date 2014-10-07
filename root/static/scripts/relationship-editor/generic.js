@@ -299,6 +299,6 @@
         }
     };
 
-    $(document).on("submit", "form", _.once(RE.prepareSubmission));
+    $(document).on("submit", "#page form:not(#relationship-editor-form)", _.once(RE.prepareSubmission));
 
 }(MB.relationshipEditor = MB.relationshipEditor || {}));
