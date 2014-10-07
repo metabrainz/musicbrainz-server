@@ -26,7 +26,7 @@
                 },
                 controlsBubble: $root.releaseGroupBubble"
             />
-            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
           </span>
         </td>
       </tr>
@@ -47,7 +47,7 @@
               data-form="[% form.name IF form.html_prefix %]"
               data-artist="[% html_escape(form.field('artist_credit').json) IF form %]"
             />
-            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
           </span>
         </td>
         <td>
@@ -152,7 +152,7 @@
                 },
                 controlsBubble: $root.labelBubble"
             />
-            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
           </span>
         </td>
         <td><label>[% l('Cat. No:') %]</label></td>

@@ -320,7 +320,7 @@ END -%]
             CASE 'info_link';  # add. parameter: infolink
                 content _ ' [<a href="' _ infolink _ '">' _ l('info') _ '</a>]';
             CASE 'avatar'; # add. parameter: avatar
-                '<img src="' _ avatar _ '" class="gravatar" />' _ content;
+                '<img src="' _ avatar _ '" class="gravatar" alt="" />' _ content;
         END;
     END;
     content;
@@ -518,12 +518,12 @@ END -%]
         [% USE date %]
         <a href="http://127.0.0.1:[% c.session.tport %]/openalbum?id=[% entity.gid %]&t=[% date.now %]"
             class="tagger-icon" title="[% l('Open in tagger') %]">
-            <img src="[% c.uri_for('/static/images/icons/mblookup-tagger.png') %]" alt="Tagger">
+            <img src="[% c.uri_for('/static/images/icons/mblookup-tagger.png') %]" alt="[% l('Tagger') %]">
         </a>
     [%- ELSIF entity.isa('MusicBrainz::Server::Entity::Recording') -%]
         <a href="http://127.0.0.1:[% c.session.tport %]/opennat?id=[% entity.gid %]"
             class="tagger-icon" title="[% l('Open in tagger') %]">
-            <img src="[% c.uri_for('/static/images/icons/mblookup-tagger.png') %]" alt="Tagger">
+            <img src="[% c.uri_for('/static/images/icons/mblookup-tagger.png') %]" alt="[% l('Tagger') %]">
         </a>
     [%- END -%]
 [%- END -%]
@@ -796,7 +796,7 @@ END -%]
 [%- END -%]
 
 [%~ MACRO filter_button BLOCK -%]
-  <div style="float:right;margin-top:1.5em;"><a class="filter-button"><img src="[% c.uri_for('/static/images/icons/filter.png') %]" /></a> <a class="filter-button" href="#">[% l("Filter") %]</a></div>
+  <div style="float:right;margin-top:1.5em;"><a class="filter-button"><img src="[% c.uri_for('/static/images/icons/filter.png') %]" alt="" /></a> <a class="filter-button" href="#">[% l("Filter") %]</a></div>
 [%- END -%]
 
 [%~ MACRO wikidoc_search_box BLOCK -%]
