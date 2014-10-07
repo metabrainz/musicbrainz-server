@@ -70,7 +70,7 @@
         <td><label>[% l('Type:') %]</label></td>
         <td colspan="2">
           [% l('To edit types, please {edit_page|edit the release group}.',
-                edit_page => c.uri_for_action('/release_group/edit', [ release.release_group.gid ])) %]
+                edit_page => { href => c.uri_for_action('/release_group/edit', [ release.release_group.gid ]), target => '_blank' }) %]
         </td>
       </tr>
       [% END %]
