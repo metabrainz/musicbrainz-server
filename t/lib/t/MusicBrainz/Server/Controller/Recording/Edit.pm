@@ -1,7 +1,7 @@
 package t::MusicBrainz::Server::Controller::Recording::Edit;
 use Test::Routine;
 use Test::More;
-use Test::Deep;
+use Test::Deep qw( cmp_deeply re );
 use MusicBrainz::Server::Test qw( capture_edits html_ok );
 use HTTP::Request::Common;
 use List::UtilsBy qw( sort_by );
