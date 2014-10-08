@@ -10,6 +10,11 @@ has 'isni' => (
     isa => 'Str'
 );
 
+sub url {
+    my ($self) = @_;
+    return "http://isni-url.oclc.nl/isni/" . $self->isni;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

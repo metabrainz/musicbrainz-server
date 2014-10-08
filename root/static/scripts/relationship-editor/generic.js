@@ -204,28 +204,26 @@
                 pushInput(prefix, "removed", 1);
             }
 
-            var target = relationship.target(vm.source),
-                attributes = editData.attributes,
-                attributeTextValues = editData.attributeTextValues,
-                attrTextIndex = 0;
-
+            var target = relationship.target(vm.source);
             if (target.entityType === "url") {
                 pushInput(prefix, "text", target.name);
             } else {
                 pushInput(prefix, "target", target.gid);
             }
 
-            for (var j = 0, id; id = attributes[j]; j++) {
-                pushInput(prefix, "attributes." + j, id);
-            }
+            _.each(editData.attributes, function (attribute, i) {
+                var attrPrefix = prefix + ".attributes." + i;
 
-            for (id in attributeTextValues) {
-                var value = attributeTextValues[id],
-                    attrTextPrefix = prefix + ".attribute_text_values." + (attrTextIndex++);
+                pushInput(attrPrefix, "type.gid", attribute.type.gid);
 
-                pushInput(attrTextPrefix, "attribute", id);
-                pushInput(attrTextPrefix, "text_value", value);
-            }
+                if (attribute.credit) {
+                    pushInput(attrPrefix, "credited_as", attribute.credit);
+                }
+
+                if (attribute.textValue) {
+                    pushInput(attrPrefix, "text_value", attribute.textValue);
+                }
+            });
 
             var beginDate = editData.beginDate,
                 endDate = editData.endDate,
@@ -283,7 +281,7 @@
             submitted = submitted.concat(source.relationshipsInViewModel(vm)());
         }
 
-        if (submitted.length && window.sessionStorage) {
+        if (submitted.length && MB.hasSessionStorage) {
             sessionStorage.submittedRelationships = JSON.stringify(
                 _.map(submitted, function (relationship) {
                     var data = relationship.editData();

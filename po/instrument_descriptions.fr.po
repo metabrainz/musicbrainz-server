@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-08-08 01:19+0000\n"
+"PO-Revision-Date: 2014-09-03 14:28+0000\n"
 "Last-Translator: yahoe.001\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -223,7 +223,7 @@ msgid ""
 "of an instrument."
 msgstr "Une « talkbox » est une boîte à effet qui permet au musicien de modifier le son d'un instrument."
 
-#. name:tar (drum)
+#. name:tar
 #: DB:instrument/description:607
 msgid ""
 "A tar is a single-headed frame drum from North Africa and the Middle East."
@@ -433,6 +433,13 @@ msgid ""
 "EWI (an acronym for electric wind instrument) is the name of Akai's wind "
 "controller."
 msgstr "Un EWi (anglais : electronic wind instrument) est un instrument à vent électronique permettant de piloter un synthétiseur."
+
+#. name:effects
+#: DB:instrument/description:677
+msgid ""
+"Effects refers to devices which enable a musician to modify the sound of an "
+"instrument."
+msgstr "Les effets sont des dispositifs qui permettent au musicien de modifier le son d'un instrument."
 
 #. name:electric fretless guitar
 #: DB:instrument/description:538
@@ -1977,7 +1984,7 @@ msgstr "Le talharpa est une lyre à quatre cordes frottées d'Europe du Nord pri
 msgid "The taphon is a traditional barrel drum from Thailand."
 msgstr "Le taphon est un tambour tonneau traditionnel de Thaïlande."
 
-#. name:tar (lute)
+#. name:tar
 #: DB:instrument/description:467
 msgid ""
 "The tar is a long-necked, waisted lute found in Azerbaijan, Iran, Armenia, "

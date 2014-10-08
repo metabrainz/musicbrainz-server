@@ -47,7 +47,13 @@ test all => sub {
         beginDate => undef,
         id => 6751,
         verbosePhrase => 'vocal',
-        attributes => [194],
+        attributes => [
+            {
+                type => {
+                    gid => 'b3045913-62ac-433e-9211-ac683cdf6b5c',
+                },
+            }
+        ],
         linkOrder => 0,
     }, "BoA performed vocals");
 

@@ -48,10 +48,9 @@
        [%- guesscase_bubble() -%]
      </div>
    </form>
+
+    <script type="text/javascript">//<![CDATA[
+        MB.Control.initialize_artist_credit();
+    //]]></script>
    [% END %]
-
-  <script type="text/javascript">//<![CDATA[
-      MB.Control.initialize_artist_credit();
-  //]]></script>
-
 [% END %]

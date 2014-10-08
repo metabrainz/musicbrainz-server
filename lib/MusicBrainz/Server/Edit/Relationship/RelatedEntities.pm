@@ -28,11 +28,17 @@ around _build_related_entities => sub {
     my @gids = ();
     if ($self->data->{relationship}) {
         my $attributes = $self->data->{relationship}->{link}->{attributes};
-        @gids = map { $_->{gid} } @$attributes;
+        @gids = map { $_->{type}{gid} } @$attributes;
     }
 
     # Extract attributes from add/edit relationship edits
-    my $attributes = $self->c->model('LinkAttributeType')->get_by_ids(@{ $self->data->{attributes} }, @{ $self->data->{old}->{attributes} }, @{ $self->data->{new}->{attributes} });
+    my $attributes = $self->c->model('LinkAttributeType')->get_by_ids(
+        map { $_->{type}{id} } (
+            @{ $self->data->{attributes} },
+            @{ $self->data->{old}->{attributes} },
+            @{ $self->data->{new}->{attributes} }
+        )
+    );
 
     # Use gids to find matching instrument entities, so that we can show relationship edits in instrument edit histories
     my $instruments = $self->c->model('Instrument')->get_by_gids(@gids, map { $_->gid } values %$attributes);

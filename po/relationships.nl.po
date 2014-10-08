@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-08-14 07:37+0000\n"
+"PO-Revision-Date: 2014-08-24 14:38+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -130,7 +130,7 @@ msgid ""
 "For works that have lyrics, this indicates that those lyrics are not "
 "relevant to this recording. Examples include instrumental arrangements, or "
 "\"beats\" from hip-hop songs which may be reused with different lyrics."
-msgstr "Dit geeft bij composities met teksten aan dat deze teksten niet relevant zijn voor deze opname. Dit is bijvoorbeeld bij instrumentale uitvoeringen of „beats“ van hiphopnummers."
+msgstr "Dit geeft bij composities met teksten aan dat deze teksten niet relevant zijn voor deze opname. Dit is bijvoorbeeld bij instrumentale uitvoeringen of „beats” van hiphopnummers."
 
 #: DB:link_type/link_phrase:713
 msgid "Geonames"
@@ -828,7 +828,7 @@ msgid ""
 "release.​This allows a release to be linked to its supporting singles, EPs, "
 "and remix releases. A 'supporting release' is one which is released to "
 "increase sales of an album or to create publicity for an album."
-msgstr "Dit geeft aan dat een uitgave is uitgebracht ter ondersteuning van een andere uitgave. Dit laat een uitgave gekoppeld worden aan ondersteunende singles, EP's en remix-uitgaves. Een „ondersteunende uitgave“ wordt uitgegeven om de verkoop van een album te ondersteunen of om publiciteit te genereren voor een album."
+msgstr "Dit geeft aan dat een uitgave is uitgebracht ter ondersteuning van een andere uitgave. Dit laat een uitgave gekoppeld worden aan ondersteunende singles, EP’s en remix-uitgaves. Een „ondersteunende uitgave” wordt uitgegeven om de verkoop van een album te ondersteunen of om publiciteit te genereren voor een album."
 
 #: DB:link_type/description:11
 msgid ""
@@ -917,7 +917,7 @@ msgid ""
 "performance. 'Arrangement' is used as a catch-all term for all processes "
 "that turn a composition into a form that can be played by a specific type of"
 " ensemble."
-msgstr "Dit geeft de artiest aan die een melodie heeft aangepast naar een vorm die uitgevoerd kan worden. „Arrangement\" wordt gebruikt als algemene term voor alle processen die een compositie geschikt maken om door een specifiek ensemble gespeeld te worden."
+msgstr "Dit geeft de artiest aan die een melodie heeft aangepast naar een vorm die uitgevoerd kan worden. „Arrangement” wordt gebruikt als algemene term voor alle processen die een compositie geschikt maken om door een specifiek ensemble gespeeld te worden."
 
 #: DB:link_type/description:152
 msgid ""
@@ -1288,7 +1288,7 @@ msgid ""
 " played by other (sometimes very unknown) bands, to honor the target artist."
 " Often they are various artist compilations, but a single artist can perform"
 " the entire tribute album."
-msgstr "Dit koppelt een uitgavegroep aan een artiest, om aan te geven dat dit een eerbetoon is. Deze albums hebben vaak een titel in de vorm „A Tribute to …“. Ze bestaan vaak uit nieuwe uitvoeringen van nummers van de artiest, gespeeld door andere artiesten als eerbetoon aan de doelartiest. Dit zijn vaak compilaties door diverse artiesten, maar soms speelt een artiest op het hele album."
+msgstr "Dit koppelt een uitgavegroep aan een artiest, om aan te geven dat dit een eerbetoon is. Deze albums hebben vaak een titel in de vorm „A Tribute to …”. Ze bestaan vaak uit nieuwe uitvoeringen van nummers van de artiest, gespeeld door andere artiesten als eerbetoon aan de doelartiest. Dit zijn vaak compilaties door diverse artiesten, maar soms speelt een artiest op het hele album."
 
 #: DB:link_type/description:721
 msgid "This links a release group with the place that held its launch event."
@@ -1414,7 +1414,7 @@ msgid ""
 "material. The person who edited the recording can be linked using the <a "
 "href=\"/relationship/40dff87a-e475-4aa6-b615-9935b564d756\">editor "
 "relationship type</a>."
-msgstr "Dit koppelt een edit aan zijn originele opname. Een „edit“ kan een radio-edit zijn (waarbij een nummer wordt ingekort tot ongeveer 3 minuten om het geschikt te maken voor de radio), of een verkorte, gecensureerde of anders bewerkte versie van hetzelfde materiaal. De persoon die de opname bewerkt heeft kan met het <a href=\"/relationship/40dff87a-e475-4aa6-b615-9935b564d756\">editor-relatietype</a> gekoppeld worden."
+msgstr "Dit koppelt een edit aan zijn originele opname. Een „edit” kan een radio-edit zijn (waarbij een nummer wordt ingekort tot ongeveer 3 minuten om het geschikt te maken voor de radio), of een verkorte, gecensureerde of anders bewerkte versie van hetzelfde materiaal. De persoon die de opname bewerkt heeft kan met het <a href=\"/relationship/40dff87a-e475-4aa6-b615-9935b564d756\">editor-relatietype</a> gekoppeld worden."
 
 #: DB:link_type/description:289
 msgid ""
@@ -1575,7 +1575,7 @@ msgstr "Deze relatie geeft aan dat de platenmaatschappij de houder van het auteu
 msgid ""
 "This relationship is deprecated, please use the \"medley\" attribute of "
 "\"recording of\" instead."
-msgstr "Deze relatie is verouderd. Gebruik in plaats hiervan de eigenschap „medley“ van de relatie „opname van“."
+msgstr "Deze relatie is verouderd. Gebruik in plaats hiervan de eigenschap „medley” van de relatie „opname van”."
 
 #: DB:link_type/description:751
 msgid ""

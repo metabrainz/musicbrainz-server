@@ -25,6 +25,7 @@
 
             $.extend(this, _.pick(data, "id", "gid"));
 
+            data.name = data.name || "";
             this.name = ko.observable(data.name);
             this.name.original = data.name;
             this.name.subscribe(this.nameChanged, this);
@@ -261,7 +262,7 @@
                 var self = this;
 
                 _.times(trackCount - tracks.length, function () {
-                    self.tracks.push(fields.Track({ position: tracks.length }, self));
+                    self.tracks.push(fields.Track({ position: tracks.length + 1 }, self));
                 });
             }
 
@@ -436,7 +437,7 @@
 
             this.needsLabel = ko.computed(function () {
                 var label = self.label() || {};
-                return Boolean(label.name && !label.gid && !self.catalogNumber());
+                return !!(label.name && !label.gid);
             });
         },
 

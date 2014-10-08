@@ -1,4 +1,10 @@
 package t::MusicBrainz::Server::Controller::WS::js::Edit;
+use t::MusicBrainz::Server::Controller::RelationshipEditor qw(
+    $additional_attribute
+    $string_instruments_attribute
+    $guitar_attribute
+    $crazy_guitar
+);
 use utf8;
 use JSON;
 use MusicBrainz::Server::Constants qw(
@@ -547,7 +553,11 @@ test 'adding a relationship' => sub {
     my $edit_data = [ {
         edit_type   => $EDIT_RELATIONSHIP_CREATE,
         linkTypeID  => 1,
-        attributes  => [1, 3, 4],
+        attributes  => [
+            { type => { gid => '36990974-4f29-4ea1-b562-3838fa9b8832' } },
+            { type => { gid => '4f7bb10f-396c-466a-8221-8e93f5e454f9' } },
+            { type => { gid => 'c3273296-91ba-453d-94e4-2fb6e958568e' }, credit => 'crazy guitar' },
+        ],
         entities    => [
             {
                 gid         => '745c079d-374e-4436-9448-da92dedef3ce',
@@ -580,21 +590,22 @@ test 'adding a relationship' => sub {
             long_link_phrase    => 'performer',
             reverse_link_phrase => 'has {additional} {instrument} performed by',
         },
-        entity1     => { id => 2, name => 'King of the Mountain' },
-        entity0     => { id => 3, name => 'Test Artist' },
-        begin_date  => { year => 1999, month => 1, day => 1 },
-        end_date    => { year => 1999, month => 2, day => undef },
-        ended       => 1,
+        entity1         => { id => 2, name => 'King of the Mountain' },
+        entity0         => { id => 3, name => 'Test Artist' },
+        begin_date      => { year => 1999, month => 1, day => 1 },
+        end_date        => { year => 1999, month => 2, day => undef },
+        ended           => 1,
+        edit_version    => 2,
     );
 
     cmp_deeply($edits[0]->data,  {
         %edit_data,
-        attributes => bag(1, 3),
+        attributes => [$additional_attribute, $string_instruments_attribute]
     });
 
     cmp_deeply($edits[1]->data,  {
         %edit_data,
-        attributes => bag(1, 4),
+        attributes => [$additional_attribute, $crazy_guitar]
     });
 };
 
@@ -612,7 +623,11 @@ test 'editing a relationship' => sub {
         edit_type   => $EDIT_RELATIONSHIP_EDIT,
         id          => 1,
         linkTypeID  => 1,
-        attributes  => [1, 3, 4],
+        attributes  => [
+            { type => { gid => '36990974-4f29-4ea1-b562-3838fa9b8832' } },
+            { type => { gid => '4f7bb10f-396c-466a-8221-8e93f5e454f9' } },
+            { type => { gid => 'c3273296-91ba-453d-94e4-2fb6e958568e' }, credit => 'crazy guitar' },
+        ],
         entities    => [
             {
                 gid         => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7',
@@ -651,22 +666,157 @@ test 'editing a relationship' => sub {
             begin_date  => { month => undef, day => undef, year => undef },
             end_date    => { month => undef, day => undef, year => undef },
             ended       => 0,
-            attributes  => [4],
-            attribute_text_values => {},
+            attributes  => [$guitar_attribute],
         },
         relationship_id => 1,
         new => {
             begin_date  => { month => 1, day => 1, year => 1999 },
             end_date    => { month => 9, day => 9, year => 2009 },
             ended       => 1,
-            attributes  => [1, 3, 4]
+            attributes  => [$additional_attribute, $string_instruments_attribute, $crazy_guitar]
         },
         old => {
             begin_date  => { month => undef, day => undef, year => undef },
             end_date    => { month => undef, day => undef, year => undef },
             ended       => 0,
-            attributes  => [4]
+            attributes  => [$guitar_attribute]
         },
+        edit_version => 2,
+    });
+};
+
+
+test 'editing a relationship with an unchanged attribute' => sub {
+    my $test = shift;
+    my ($c, $mech) = ($test->c, $test->mech);
+
+    prepare_test_database($c);
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+    my $edit_data = [ {
+        edit_type   => $EDIT_RELATIONSHIP_EDIT,
+        id          => 1,
+        linkTypeID  => 1,
+        entities    => [
+            {
+                gid         => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7',
+                entityType  => 'artist',
+            },
+            {
+                gid         => '54b9d183-7dab-42ba-94a3-7388a66604b8',
+                entityType  => 'recording',
+            }
+        ],
+        beginDate   => { year => 1999, month => 1, day => 1 },
+        endDate     => { year => 2009, month => 9, day => 9 },
+        ended       => 1,
+    } ];
+
+    my @edits = capture_edits {
+        post_json($mech, '/ws/js/edit/create', encode_json({ edits => $edit_data }));
+    } $c;
+
+    my $edit = $edits[0];
+    isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Edit');
+
+    cmp_deeply($edit->data, {
+        type0 => 'artist',
+        type1 => 'recording',
+        link => {
+            link_type => {
+                id                  => 1,
+                name                => 'instrument',
+                link_phrase         => 'performed {additional} {instrument} on',
+                long_link_phrase    => 'performer',
+                reverse_link_phrase => 'has {additional} {instrument} performed by',
+            },
+            entity1 => { id => 2, name => 'King of the Mountain' },
+            entity0 => { id => 8, name => 'Test Alias' },
+            begin_date  => { month => undef, day => undef, year => undef },
+            end_date    => { month => undef, day => undef, year => undef },
+            ended       => 0,
+            attributes  => [$guitar_attribute],
+        },
+        relationship_id => 1,
+        new => {
+            begin_date  => { month => 1, day => 1, year => 1999 },
+            end_date    => { month => 9, day => 9, year => 2009 },
+            ended       => 1,
+        },
+        old => {
+            begin_date  => { month => undef, day => undef, year => undef },
+            end_date    => { month => undef, day => undef, year => undef },
+            ended       => 0,
+        },
+        edit_version => 2,
+    });
+};
+
+
+test 'removing an attribute from a relationship' => sub {
+    my $test = shift;
+    my ($c, $mech) = ($test->c, $test->mech);
+
+    prepare_test_database($c);
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+    my $edit_data = [ {
+        edit_type   => $EDIT_RELATIONSHIP_EDIT,
+        id          => 1,
+        linkTypeID  => 1,
+        entities    => [
+            {
+                gid         => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7',
+                entityType  => 'artist',
+            },
+            {
+                gid         => '54b9d183-7dab-42ba-94a3-7388a66604b8',
+                entityType  => 'recording',
+            }
+        ],
+        attributes  => [],
+        beginDate   => { year => undef, month => undef, day => undef },
+        endDate     => { year => undef, month => undef, day => undef },
+        ended       => 0,
+    } ];
+
+    my @edits = capture_edits {
+        post_json($mech, '/ws/js/edit/create', encode_json({ edits => $edit_data }));
+    } $c;
+
+    my $edit = $edits[0];
+    isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Edit');
+
+    cmp_deeply($edit->data, {
+        type0 => 'artist',
+        type1 => 'recording',
+        link => {
+            link_type => {
+                id                  => 1,
+                name                => 'instrument',
+                link_phrase         => 'performed {additional} {instrument} on',
+                long_link_phrase    => 'performer',
+                reverse_link_phrase => 'has {additional} {instrument} performed by',
+            },
+            entity1 => { id => 2, name => 'King of the Mountain' },
+            entity0 => { id => 8, name => 'Test Alias' },
+            begin_date  => { month => undef, day => undef, year => undef },
+            end_date    => { month => undef, day => undef, year => undef },
+            ended       => 0,
+            attributes  => [$guitar_attribute],
+        },
+        relationship_id => 1,
+        new => {
+            attributes  => [],
+        },
+        old => {
+            attributes  => [$guitar_attribute],
+        },
+        edit_version => 2,
     });
 };
 
@@ -789,6 +939,28 @@ test 'MBS-7464: URLs are validated/canonicalized' => sub {
 
     is($url->url, 'http://en.wikipedia.org/wiki/Boredoms', 'URL is canonicalized');
     is($url->id, 2, 'existing URL is used');
+};
+
+
+test 'Edits are rejected without a confirmed email address' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c = $test->c;
+
+    prepare_test_database($c);
+
+    $c->model('Editor')->insert({
+        name => 'stupid editor',
+        password => 'password'
+    });
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'stupid editor', password => 'password' } );
+
+    post_json($mech, '/ws/js/edit/create', encode_json({ edits => [] }));
+
+    my $response = from_json($mech->content);
+    is($response->{error}, 'a confirmed email address is required', 'error is returned for unconfirmed email');
 };
 
 1;

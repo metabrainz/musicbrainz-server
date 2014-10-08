@@ -4,7 +4,7 @@ use Moose;
 use JSON;
 use List::MoreUtils qw( any );
 use List::UtilsBy 'sort_by';
-use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash );
+use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash non_empty );
 use MusicBrainz::Server::WebService::WebServiceInc;
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of number serializer serialize_entity );
 
@@ -87,17 +87,21 @@ sub serialize_relationship {
     my $out = {
         id              => $relationship->id,
         linkTypeID      => $link->type_id,
-        attributes      => [ sort map { $_->id } $link->all_attributes ],
+        attributes      => [
+            map +{
+                type => {
+                    gid => $_->type->gid,
+                },
+                non_empty($_->credited_as) ? (credit => $_->credited_as) : (),
+                non_empty($_->text_value) ? (textValue => $_->text_value) : (),
+            }, $link->all_attributes
+        ],
         ended           => $link->ended ? \1 : \0,
         target          => $self->$entity( $_->target ),
         editsPending    => $relationship->edits_pending ? \1 : \0,
         verbosePhrase   => $relationship->verbose_phrase,
         linkOrder       => $relationship->link_order,
     };
-
-    if (any { $_->free_text } $link->all_attributes) {
-        $out->{attributeTextValues} = $link->attribute_text_values;
-    }
 
     $out->{beginDate} = $link->begin_date->is_empty ? undef : partial_date_to_hash($link->begin_date);
     $out->{endDate} = $link->end_date->is_empty ? undef : partial_date_to_hash($link->end_date);

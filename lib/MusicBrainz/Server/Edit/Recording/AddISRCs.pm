@@ -16,6 +16,7 @@ with 'MusicBrainz::Server::Edit::Recording';
 with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
+use aliased 'MusicBrainz::Server::Entity::ISRC';
 
 sub edit_type { $EDIT_RECORDING_ADD_ISRCS }
 sub edit_name { N_l('Add ISRCs') }
@@ -81,7 +82,7 @@ sub build_display_data
             map { +{
                 recording => $loaded->{Recording}{ $_->{recording}{id} }
                     || Recording->new( name => $_->{recording}{name} ),
-                isrc      => $_->{isrc},
+                isrc      => ISRC->new( isrc => $_->{isrc} ),
                 source    => $_->{source}
             } } @{ $self->data->{isrcs} }
         ]

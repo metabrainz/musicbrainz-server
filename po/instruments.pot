@@ -888,6 +888,10 @@ msgstr ""
 msgid "ebow"
 msgstr ""
 
+#: DB:instrument/name:677
+msgid "effects"
+msgstr ""
+
 #: DB:instrument/name:643
 msgid "ektara"
 msgstr ""
@@ -2224,12 +2228,14 @@ msgstr ""
 msgid "taphon"
 msgstr ""
 
-#: DB:instrument/name:607
-msgid "tar (drum)"
+#: DB:instrument/name:467
+msgctxt "lute"
+msgid "tar"
 msgstr ""
 
-#: DB:instrument/name:467
-msgid "tar (lute)"
+#: DB:instrument/name:607
+msgctxt "drum"
+msgid "tar"
 msgstr ""
 
 #: DB:instrument/name:440

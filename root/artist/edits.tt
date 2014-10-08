@@ -1,9 +1,0 @@
-[% WRAPPER 'layout.tt' title=l('Edits for {name}', { name => html_escape(artist.name) }) full_width=1 %]
-    <div class="artistheader">
-        <h1>[% l('Edits for {link}', { link => link_entity(artist) }) %]</h1>
-        <p class="subheader">
-            <span class="prefix">~</span> [% html_escape(artist.type_name) or l('Artist') %]
-        </p>
-    </div>
-    [% INCLUDE 'edit/list.tt' %]
-[% END %]

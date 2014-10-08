@@ -1,5 +1,6 @@
 # 
 # Translators:
+# nikki, 2014
 # Alexander Dupuy <email address hidden>, 2012
 # gr0uch0mars <email address hidden>, 2011
 # Héctor Arroyo <email address hidden>, 2012
@@ -12,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-08-07 20:42+0000\n"
+"PO-Revision-Date: 2014-09-02 18:46+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -900,6 +901,10 @@ msgstr ""
 #: DB:instrument/name:327
 msgid "ebow"
 msgstr "ebow"
+
+#: DB:instrument/name:677
+msgid "effects"
+msgstr ""
 
 #: DB:instrument/name:643
 msgid "ektara"
@@ -2237,12 +2242,14 @@ msgstr "cinta"
 msgid "taphon"
 msgstr ""
 
-#: DB:instrument/name:607
-msgid "tar (drum)"
+#: DB:instrument/name:467
+msgctxt "lute"
+msgid "tar"
 msgstr ""
 
-#: DB:instrument/name:467
-msgid "tar (lute)"
+#: DB:instrument/name:607
+msgctxt "drum"
+msgid "tar"
 msgstr ""
 
 #: DB:instrument/name:440
@@ -2255,7 +2262,7 @@ msgstr ""
 
 #: DB:instrument/name:125
 msgid "teleharmonium"
-msgstr "telarmonio "
+msgstr "telarmonio"
 
 #: DB:instrument/name:172
 msgid "temple blocks"

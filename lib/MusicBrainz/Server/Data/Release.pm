@@ -214,19 +214,24 @@ sub find_by_instrument {
     my $query = "
       SELECT *
       FROM (
-        SELECT DISTINCT ON (release.id)
-          " . $self->_columns . ",
+        SELECT " . $self->_columns . ",
           date_year, date_month, date_day,
-          area.name AS country_name
+          area.name AS country_name,
+          array_agg(lac.credited_as) AS instrument_credits
         FROM " . $self->_table . "
         JOIN l_artist_release ON l_artist_release.entity1 = release.id
         JOIN link_attribute ON link_attribute.link = l_artist_release.link
         JOIN link_attribute_type ON link_attribute_type.id = link_attribute.attribute_type
         JOIN instrument ON instrument.gid = link_attribute_type.gid
+        LEFT JOIN link_attribute_credit lac ON (
+          lac.link = link_attribute.link AND
+          lac.attribute_type = link_attribute.attribute_type
+        )
         " . join(' ', @$extra_joins) . "
         LEFT JOIN release_event ON release_event.release = release.id
         LEFT JOIN area ON area.id = release_event.country
          WHERE " . join(" AND ", @$conditions) . "
+        GROUP BY release.id, date_year, date_month, date_day, country_name
         ORDER BY release.id, date_year, date_month, date_day,
           musicbrainz_collate(release.name), country_name,
           barcode
@@ -236,7 +241,12 @@ sub find_by_instrument {
         barcode
       OFFSET ?";
     return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit,
+        sub {
+            my ($row) = @_;
+            my $credits = delete $row->{instrument_credits};
+            return { release => $self->_new_from_row($row), instrument_credits => $credits };
+        },
         $query, @$params, $offset || 0);
 }
 
