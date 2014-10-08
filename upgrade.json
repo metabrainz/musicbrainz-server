@@ -5,7 +5,7 @@
   },
 
   "21": {
-    "slave": ["20140606-events.sql"],
+    "slave": ["20140606-events.sql", "20141008-instrument-indexes.sql"],
     "standalone": ["20140606-events-fks.sql"]
   }
 
