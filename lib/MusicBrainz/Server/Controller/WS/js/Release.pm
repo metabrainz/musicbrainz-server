@@ -69,6 +69,12 @@ sub release : Chained('root') PathPart('release') Args(1)
     }
 
     my $release = $c->model('Release')->get_by_gid($gid);
+
+    unless (defined $release) {
+        $c->stash->{error} = "Release $gid does not exist.";
+        $c->detach('bad_req');
+    }
+
     $c->model('ReleaseGroup')->load($release);
     $c->model('ReleaseGroup')->load_meta($release->release_group);
     $c->model('ArtistCredit')->load($release, $release->release_group);
@@ -94,15 +100,15 @@ sub release : Chained('root') PathPart('release') Args(1)
         $c->model('ArtistCredit')->load(@recordings);
 
         if ($c->stash->{inc}->rels) {
-            $c->model('Relationship')->load(@recordings);
+            $c->model('Relationship')->load_cardinal(@recordings);
             my @recording_rels = map { $_->all_relationships } @recordings;
             my @works = grep { $_->isa(Work) } map { $_->target } @recording_rels;
-            $c->model('Relationship')->load(@works);
+            $c->model('Relationship')->load_cardinal(@works);
         }
     }
 
     if ($c->stash->{inc}->rels) {
-        $c->model('Relationship')->load($release->release_group, $release);
+        $c->model('Relationship')->load_cardinal($release->release_group, $release);
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');

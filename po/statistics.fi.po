@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-08-06 01:21+0000\n"
-"Last-Translator: Jaakko Perttilä <email address hidden>\n"
+"PO-Revision-Date: 2014-09-07 17:55+0000\n"
+"Last-Translator: Timo Martikainen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -508,8 +508,9 @@ msgid "100%"
 msgstr "100%"
 
 #: ../root/statistics/index.tt:892
-msgid "Abstain:"
-msgstr "Tyhjiä:"
+msgctxt "vote"
+msgid "Abstain"
+msgstr ""
 
 #: ../root/statistics/view_js.tt:80
 msgid "Abstentions"
@@ -568,8 +569,9 @@ msgid "Applied:"
 msgstr "Hyväksytty:"
 
 #: ../root/statistics/index.tt:874
-msgid "Approve:"
-msgstr "Hyväksytty:"
+msgctxt "vote"
+msgid "Approve"
+msgstr ""
 
 #: ../root/statistics/index.tt:573 ../root/statistics/view_js.tt:55
 msgid "Areas"
@@ -1010,7 +1012,7 @@ msgstr "Kaikkien muokkausten määrä"
 
 #: ../root/statistics/view_js.tt:58
 msgid "Count of all instruments"
-msgstr ""
+msgstr "Kaikkien soitinten määrä"
 
 #: ../root/statistics/view_js.tt:54
 msgid "Count of all labels"
@@ -1038,7 +1040,7 @@ msgstr "Kaikkien julkaisujen määrä"
 
 #: ../root/statistics/view_js.tt:57
 msgid "Count of all series"
-msgstr ""
+msgstr "Kaikkien sarjojen määrä"
 
 #: ../root/statistics/view_js.tt:74
 msgid "Count of all votes"
@@ -1333,11 +1335,11 @@ msgstr "Laaja"
 
 #: ../root/statistics/index.tt:651 ../root/statistics/view_js.tt:58
 msgid "Instruments"
-msgstr ""
+msgstr "Soittimet"
 
 #: ../root/statistics/index.tt:64 ../root/statistics/index.tt:658
 msgid "Instruments:"
-msgstr ""
+msgstr "Soittimet:"
 
 #: ../root/statistics/view_js.tt:29
 msgid "Label Countries"
@@ -1473,6 +1475,11 @@ msgstr "MusicBrainzin tapahtumia"
 msgid "MusicBrainz Events:"
 msgstr "MusicBrainzin tapahtumia:"
 
+#: ../root/statistics/index.tt:886
+msgctxt "vote"
+msgid "No"
+msgstr ""
+
 #: ../root/statistics/no_statistics.tt:2
 msgid "No Statistics"
 msgstr "Ei tilastoja"
@@ -1517,10 +1524,6 @@ msgstr "Ei tilaa asetettu"
 #: ../root/statistics/coverart.tt:56 ../root/statistics/coverart.tt:139
 msgid "No type"
 msgstr "Ei tyyppiä"
-
-#: ../root/statistics/index.tt:886
-msgid "No:"
-msgstr "Ei:"
 
 #: ../root/statistics/index.tt:204
 msgid "Non-group artists:"
@@ -1855,12 +1858,12 @@ msgstr "Toissijaiset tyypit"
 #: ../root/statistics/index.tt:629 ../root/statistics/view_js.tt:57
 msgctxt "plural"
 msgid "Series"
-msgstr ""
+msgstr "Sarjat"
 
 #: ../root/statistics/index.tt:60 ../root/statistics/index.tt:636
 msgctxt "plural"
 msgid "Series:"
-msgstr ""
+msgstr "Sarjat:"
 
 #: ../root/statistics/no_statistics.tt:3
 msgid ""
@@ -2044,13 +2047,14 @@ msgstr "Teokset"
 msgid "Works:"
 msgstr "Teokset:"
 
+#: ../root/statistics/index.tt:880
+msgctxt "vote"
+msgid "Yes"
+msgstr ""
+
 #: ../root/statistics/view_js.tt:78
 msgid "Yes Votes"
 msgstr "Kyllä-äänet"
-
-#: ../root/statistics/index.tt:880
-msgid "Yes:"
-msgstr "Kyllä:"
 
 #: ../root/statistics/index.tt:858 ../root/statistics/index.tt:910
 msgid "Yesterday:"

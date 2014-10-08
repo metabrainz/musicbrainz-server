@@ -32,40 +32,32 @@ MB.GuessCase.Handler.Release = function () {
      * Checks special cases of releases
      **/
     self.checkSpecialCase = function (is) {
-	if (is) {
-	    if (!gc.re.RELEASE_UNTITLED) {
-		// untitled
-		gc.re.RELEASE_UNTITLED = /^([\(\[]?\s*untitled\s*[\)\]]?)$/i;
-	    }
-	    if (is.match(gc.re.RELEASE_UNTITLED)) {
-		return self.SPECIALCASE_UNTITLED;
-	    }
-	}
-	return self.NOT_A_SPECIALCASE;
+        if (is) {
+            if (!gc.re.RELEASE_UNTITLED) {
+                // untitled
+                gc.re.RELEASE_UNTITLED = /^([\(\[]?\s*untitled\s*[\)\]]?)$/i;
+            }
+            if (is.match(gc.re.RELEASE_UNTITLED)) {
+                return self.SPECIALCASE_UNTITLED;
+            }
+        }
+        return self.NOT_A_SPECIALCASE;
     };
 
     /**
      * Guess the releasename given in string is, and
      * returns the guessed name.
      *
-     * @param	is		the inputstring
-     * @returns os		the processed string
+     * @param    is        the inputstring
+     * @returns os        the processed string
      **/
-    self.process = function (is) {
-	is = gc.mode.stripInformationToOmit(is);
-	is = gc.mode.preProcessCommons(is);
-	is = gc.mode.preProcessTitles(is);
-	var words = gc.i.splitWordsAndPunctuation(is);
-	words = gc.mode.prepExtraTitleInfo(words);
-	gc.o.init();
-	gc.i.init(is, words);
-	while (!gc.i.isIndexAtEnd()) {
-	    self.processWord();
-	}
-	var os = gc.o.getOutput();
-	os = gc.mode.runPostProcess(os);
-	os = gc.mode.runFinalChecks(os);
-	return os;
+    self.process = _.wrap(self.process, function (process, os) {
+        return gc.mode.fixVinylSizes(process(os));
+    });
+
+    self.getWordsForProcessing = function (is) {
+        is = gc.mode.preProcessTitles(is);
+        return gc.mode.prepExtraTitleInfo(gc.i.splitWordsAndPunctuation(is));
     };
 
     /**
@@ -80,23 +72,16 @@ MB.GuessCase.Handler.Release = function () {
      *
      **/
     self.doWord = function () {
-	if (self.doDiscNumberStyle()) {
-	} else if (self.doFeaturingArtistStyle()) {
-	} else if (self.doVersusStyle()) {
-	} else if (self.doVolumeNumberStyle()) {
-	} else if (self.doPartNumberStyle()) {
-	} else if (gc.mode.doWord()) {
-	} else {
-	    // handle normal word.
-	    gc.o.appendSpaceIfNeeded();
-	    gc.i.capitalizeCurrentWord();
-	    gc.o.appendCurrentWord();
-	    gc.f.resetContext();
-	    gc.f.forceCaps = false;
-	    gc.f.spaceNextWord = true;
-	}
-	gc.f.number = false;
-	return null;
+        if (self.doFeaturingArtistStyle()) {
+        } else if (self.doVersusStyle()) {
+        } else if (self.doVolumeNumberStyle()) {
+        } else if (self.doPartNumberStyle()) {
+        } else if (gc.mode.doWord()) {
+        } else {
+            self.doNormalWord();
+        }
+        gc.f.number = false;
+        return null;
     };
 
     return self;

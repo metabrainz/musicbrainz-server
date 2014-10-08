@@ -20,7 +20,7 @@ sub _load_tree
 {
     my ($self, $c) = @_;
 
-    my $tree = $c->model('LinkAttributeType')->get_tree("WHERE root != $INSTRUMENT_ROOT_ID");
+    my $tree = $c->model('LinkAttributeType')->get_tree(sub { return shift->root_id != $INSTRUMENT_ROOT_ID });
     $c->stash( root => $tree );
 }
 

@@ -11,7 +11,7 @@
     <script type="text/javascript">//<![CDATA[
         document.cookie = "javascript=true; path=/";
     //]]></script>
-    [% css_manifest('common') %]
+    [% css_manifest('common.css.manifest') %]
     [%- IF c.debug -%]
         <link rel="stylesheet" type="text/css" href="/static/styles/debug.css" />
     [%- END %]
@@ -36,6 +36,10 @@
     [%- END -%]
     [%- BLOCK layout_head %][% END -%]
     [%- INCLUDE layout_head -%]
+    [%~ IF jsonld_data ~%]
+      [%~ USE JSON.Escape ~%]
+      <script type="application/ld+json">[% jsonld_data.json %]</script>
+    [%~ END ~%]
     [%- IF google_analytics_code -%]
       <script type="text/javascript">
         var _gaq = _gaq || [];

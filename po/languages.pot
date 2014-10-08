@@ -353,6 +353,11 @@ msgstr ""
 msgid "Cebuano"
 msgstr ""
 
+#. frequency:1 iso_code_3:xce 
+#: DB:language/name:7217
+msgid "Celtiberian"
+msgstr ""
+
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:71
 msgid "Celtic languages"

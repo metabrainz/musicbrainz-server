@@ -1,10 +1,30 @@
-[%- IF c.action.name == "votes";
-   page_title = l('Votes');
-   page_heading = l('Votes by {name}', { name => html_escape(user.name) });
-ELSE;
-   page_title = l('Edits');
-   page_heading = l('Edits by {name}', { name => html_escape(user.name) });
-END; -%]
+[%- param = { name => html_escape(user.name) };
+    SWITCH c.action.name;
+        CASE 'votes';
+            page_title = l('Votes');
+            page_heading = l('Votes by {name}', param);
+        CASE 'open';
+            page_title = l('Open Edits');
+            page_heading = l('Open Edits by {name}', param);
+        CASE 'cancelled';
+            page_title = l('Cancelled Edits');
+            page_heading = l('Cancelled Edits by {name}', param);
+        CASE 'accepted';
+            page_title = l('Accepted Edits');
+            page_heading = l('Accepted Edits by {name}', param);
+        CASE 'failed';
+            page_title = l('Failed Edits');
+            page_heading = l('Failed Edits by {name}', param);
+        CASE 'rejected';
+            page_title = l('Rejected Edits');
+            page_heading = l('Rejected Edits by {name}', param);
+        CASE 'autoedits';
+            page_title = l('Auto-Edits');
+            page_heading = l('Auto-Edits by {name}', param);
+        CASE DEFAULT;
+            page_title = l('Edits');
+            page_heading = l('Edits by {name}', param);
+    END ~%]
 
 [% WRAPPER 'user/profile/layout.tt' title=page_title %]
    <h2>[% page_heading %]</h2>
