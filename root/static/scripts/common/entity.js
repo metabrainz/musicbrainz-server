@@ -153,6 +153,8 @@
 
     MB.entity.Artist = aclass(MB.entity.CoreEntity, { entityType: "artist" });
 
+    MB.entity.Event = aclass(MB.entity.CoreEntity, { entityType: "event" });
+
     MB.entity.Instrument = aclass(MB.entity.CoreEntity, { entityType: "instrument" });
 
     MB.entity.Label = aclass(MB.entity.CoreEntity, { entityType: "label" });
@@ -460,6 +462,7 @@
 
     var coreEntityMapping = {
         artist:        MB.entity.Artist,
+        event:         MB.entity.Event,
         instrument:    MB.entity.Instrument,
         label:         MB.entity.Label,
         area:          MB.entity.Area,

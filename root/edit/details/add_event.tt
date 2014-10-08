@@ -1,0 +1,60 @@
+<table class="details">
+    <tr>
+        <th>[% l('Event:') %]</th>
+        <td>[% link_entity(edit.display_data.event) %]</td>
+    </tr>
+</table>
+
+<table class="details add-event">
+  <tr>
+    <th>[% l('Name:') %]</th>
+    <td>[% edit.display_data.name | html %]</td>
+  </tr>
+
+  [% IF edit.display_data.comment %]
+  <tr>
+    <th>[% l('Disambiguation:') %]</th>
+    <td>[% edit.display_data.comment | html %]</td>
+  </tr>
+  [% END %]
+
+  <tr>
+    <th>[% l('Cancelled:') %]</th>
+    <td>[% edit.display_data.cancelled ? l('Yes') : l('No') %]</td>
+  </tr>
+
+  [% IF edit.display_data.type %]
+  <tr>
+    <th>[% l('Type:') %]</th>
+    <td>[% edit.display_data.type.name %]</td>
+  </tr>
+  [% END %]
+
+  [% IF !edit.display_data.begin_date.is_empty %]
+  <tr>
+    <th>[% l('Begin date:') %]</th>
+    <td>[% edit.display_data.begin_date.format %]</td>
+  </tr>
+  [% END %]
+
+  [% IF !edit.display_data.end_date.is_empty %]
+  <tr>
+    <th>[% l('End date:') %]</th>
+    <td>[% edit.display_data.end_date.format %]</td>
+  </tr>
+  [% END %]
+
+  [% IF edit.display_data.time %]
+  <tr>
+    <th>[% l('Time:') %]</th>
+    <td>[% edit.display_data.time | html %]</td>
+  </tr>
+  [% END %]
+
+  [% IF edit.display_data.setlist %]
+  <tr>
+    <th>[% l('Setlist:') %]</th>
+    <td>[% edit.display_data.setlist %]</td>
+  </tr>
+  [% END %]
+</table>

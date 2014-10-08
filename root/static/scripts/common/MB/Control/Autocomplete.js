@@ -455,6 +455,9 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
 
     changeEntity: function (entity) {
         this.entity = entity.replace("_", "-");
+        if (entity === "event") {
+            this.indexedSearch = false;
+        }
     },
 
     recentEntities: function () {
@@ -786,10 +789,61 @@ MB.Control.autocomplete_formatters = {
         }
 
         return $("<li>").append(a).appendTo(ul);
+    },
+
+    "event": function (ul, item) {
+        var a = $("<a>").text(item.name);
+        var comment = [];
+
+        if (item.primaryAlias && item.primaryAlias != item.name)
+        {
+            comment.push(item.primaryAlias);
+        }
+
+        if (item.comment)
+        {
+            comment.push(item.comment);
+        }
+
+        if (comment.length)
+        {
+            a.append(' <span class="autocomplete-comment">(' +
+                      _.escape(comment.join(", ")) + ')</span>');
+        }
+
+        if (item.typeName) {
+            a.append(' <span class="autocomplete-comment">(' + _.escape(item.typeName) + ')</span>');
+        }
+
+        if (item.begin_date || item.time)
+        {
+            a.append('<br /><span class="autocomplete-comment">' + (item.begin_date ? (item.begin_date + ' ') : '') + (item.time ? item.time : '') + '</span>');
+        }
+
+        var entityRenderer = function (prefix, related_entities) {
+            if (related_entities && related_entities.hits > 0)
+            {
+                var toRender = related_entities.results;
+                if (related_entities.hits > toRender.length)
+                {
+                    toRender.push('...');
+                }
+
+                a.append('<br /><span class="autocomplete-comment">' +
+                        prefix + ': ' +
+                        _.escape(toRender.join(", ")) + '</span>');
+            }
+        };
+
+        if (item.related_entities) {
+            entityRenderer("Performers", item.related_entities.performers);
+            entityRenderer("Location", item.related_entities.locations);
+        }
+
+        return $("<li>").append(a).appendTo(ul);
     }
 
 };
-
 
 /*
    MB.Control.EntityAutocomplete is a helper class which simplifies using

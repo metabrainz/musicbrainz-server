@@ -1,0 +1,59 @@
+[% WRAPPER 'layout.tt' title=l('Merge Events') full_width=1 %]
+    <div id="content">
+    <h1>[% l('Merge Events') %]</h1>
+    <p>[% l('You are about to merge the following events into a single event. Please
+             select the event which you would like other events to be merged into:') %]</p>
+    <form action="[% c.req.uri %]" method="post">
+        <table class="tbl">
+            <thead>
+                <tr>
+                    <th style="width: 1em"></th>
+                    <th>[% l('Event') %]</th>
+                    <th>[% l('Artists') %]</th>
+                    <th>[% l('Type') %]</th>
+                    <th>[% l('Begin') %]</th>
+                    <th>[% l('End') %]</th>
+                    <th>[% l('Time') %]</th>
+                </tr>
+            </thead>
+            <tbody>
+            [% FOR entity=to_merge %]
+                 <tr [% ' class="ev"' IF loop.count % 2 == 0 %]>
+                     <td>
+                         <input type="hidden" name="merge.merging.[% loop.index %]" value="[% entity.id %]" />
+                         <input type="radio" name="merge.target" value="[% entity.id %]"
+                             [% 'checked="checked"' IF entity.id == form.field('target').value %] />
+                     </td>
+                     <td>
+                         [% link_entity(entity) %]
+                     </td>
+                     <td>
+                      <ul>
+                        [% FOR rel_artist=entity.performers %]
+                        <li>
+                          [% l('{artist} ({roles})', { artist => link_artist(rel_artist.entity),
+                          roles  => rel_artist.roles.join(', ') }) %]</li>
+                        [% END %]
+                      </ul>
+                     </td>
+                     <td>[% entity.l_type_name  %]</td>
+                     <td>[% entity.begin_date.format %]</td>
+                     <td>
+                         [% IF !entity.end_date.is_empty;
+                              entity.end_date.format;
+                            ELSIF entity.ended;
+                              l('[unknown]');
+                            END; -%]
+                     </td>
+                     <td>[% entity.formatted_time %]</td>
+                 </tr>
+            [%- END -%]
+            </tbody>
+        </table>
+        [% field_errors(form, 'target') %]
+
+        [% INCLUDE "forms/edit-note.tt" %]
+        [% enter_edit('<button type="submit" name="submit" value="cancel" class="negative">' _ l('Cancel') _ '</button>') %]
+    </form>
+    </div>
+[% END %]

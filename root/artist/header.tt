@@ -3,6 +3,7 @@
     ['releases', link_artist(artist, 'releases', l('Releases'))],
     ['recordings', link_artist(artist, 'recordings', l('Recordings'))],
     ['works', link_artist(artist, 'works', l('Works'))],
+    ['events', link_artist(artist, 'events', l('Events'))],
     ['relationships', link_artist(artist, 'relationships', l('Relationships'))],
     ['aliases', link_artist(artist, 'aliases', l('Aliases'))],
     ['tags', link_artist(artist, 'tags', l('Tags'))],
