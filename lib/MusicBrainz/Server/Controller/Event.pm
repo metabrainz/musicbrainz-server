@@ -6,6 +6,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model       => 'Event',
     entity_name => 'event',
+    relationships   => { all => ['show'], cardinal => ['edit'], default => ['url'] },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
@@ -13,7 +14,6 @@ with 'MusicBrainz::Server::Controller::Role::Alias';
 with 'MusicBrainz::Server::Controller::Role::Cleanup';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
-with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::Rating';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
@@ -45,7 +45,6 @@ after 'load' => sub
     }
 
     $c->model('EventType')->load($event);
-    $c->model('Relationship')->load($event);
 };
 
 =head2 show
