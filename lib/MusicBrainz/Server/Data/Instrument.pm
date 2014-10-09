@@ -113,6 +113,11 @@ sub delete {
     return;
 }
 
+after qw( insert update delete ) => sub {
+    my ($self) = @_;
+    $self->c->model('LinkAttributeType')->_delete_from_cache('all');
+};
+
 sub _merge_impl {
     my ($self, $new_id, @old_ids) = @_;
 

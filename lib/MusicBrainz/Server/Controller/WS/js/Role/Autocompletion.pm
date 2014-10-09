@@ -41,7 +41,7 @@ sub _load_entities {
     my ($self, $c, @entities) = @_;
 
     if ($c->stash->{inc}->{rels}) {
-        $c->model('Relationship')->load(@entities);
+        $c->model('Relationship')->load_cardinal(@entities);
     }
 }
 

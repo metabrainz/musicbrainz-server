@@ -164,7 +164,11 @@
         </td>
       </tr>
 
-      [% table_row_error(4, 'showErrorWhenTabIsSwitched: needsLabel', l('You must select an existing label.')) %]
+      [% table_row_error(
+           4, 'showErrorWhenTabIsSwitched: needsLabel',
+           '<!-- ko text: MB.i18n.expand(MB.text.NeedsLabel, { name: label().name }) --><!-- /ko -->'
+         )
+      %]
     <!-- /ko -->
 
       <tr>
@@ -253,7 +257,7 @@
 
   <div class="bubble" data-bind="bubble: $root.labelBubble">
     <!-- ko with: target() && target().label() -->
-      <!-- ko if: gid -->
+      <!-- ko if: $data.gid -->
         <p data-bind="html: MB.i18n.expand(MB.text.SelectedLabel, { label: html({ target: '_blank' }) })"></p>
       <!-- /ko -->
     <!-- /ko -->

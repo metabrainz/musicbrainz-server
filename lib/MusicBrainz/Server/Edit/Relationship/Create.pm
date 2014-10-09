@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Relationship::Create;
 use Moose;
 
 use List::AllUtils qw( any );
-use MusicBrainz::Server::Edit::Types qw( PartialDateHash );
+use MusicBrainz::Server::Edit::Types qw( LinkAttributesArray PartialDateHash Nullable NullableOnPreview );
 use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
@@ -15,7 +15,6 @@ use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_CREATE );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Edit::Utils qw( normalize_date_period );
-use MusicBrainz::Server::Edit::Types qw( Nullable NullableOnPreview );
 
 use aliased 'MusicBrainz::Server::Entity::Link';
 use aliased 'MusicBrainz::Server::Entity::LinkType';
@@ -43,14 +42,14 @@ has '+data' => (
             reverse_link_phrase => Str,
             long_link_phrase => Str
         ],
-        attributes   => Nullable[ArrayRef[Int]],
+        attributes   => Nullable[LinkAttributesArray],
         begin_date   => Nullable[PartialDateHash],
         end_date     => Nullable[PartialDateHash],
         type0        => Str,
         type1        => Str,
         ended        => Optional[Bool],
         link_order   => Optional[Int],
-        attribute_text_values => Optional[Dict],
+        edit_version => Optional[Int],
     ]
 );
 
@@ -66,14 +65,11 @@ sub initialize
 
     if (my $attributes = $opts{attributes}) {
         if (@$attributes) {
-            $self->check_attributes($lt, $attributes, $opts{attribute_text_values} // {});
+            $self->check_attributes($lt, $attributes);
         } else {
             delete $opts{attributes};
-            delete $opts{attribute_text_values};
         }
     }
-
-    delete $opts{attribute_text_values} unless %{ $opts{attribute_text_values} // {} };
 
     die "Entities in a relationship cannot be the same"
         if $lt->entity0_type eq $lt->entity1_type && $e0->id == $e1->id;
@@ -105,7 +101,7 @@ sub initialize
     delete $opts{begin_date} unless any { defined($_) } values %{ $opts{begin_date} };
     delete $opts{end_date} unless any { defined($_) } values %{ $opts{end_date} };
 
-    $self->data({ %opts });
+    $self->data({ %opts, edit_version => 2 });
 }
 
 sub foreign_keys
@@ -114,7 +110,7 @@ sub foreign_keys
 
     my %load = (
         LinkType            => [ $self->data->{link_type}{id} ],
-        LinkAttributeType   =>   $self->data->{attributes},
+        LinkAttributeType   => { map { $_->{type}{id} => ['LinkAttributeType'] } @{ $self->data->{attributes} // [] } },
     );
 
     my $type0 = $self->data->{type0};
@@ -148,18 +144,19 @@ sub build_display_data
                 ended      => $self->data->{ended},
                 attributes => [
                     map {
-                        my $attr = $loaded->{LinkAttributeType}{ $_ };
+                        my $attr = $loaded->{LinkAttributeType}{ $_->{type}{id} };
                         if ($attr) {
-                            my $root_id = $self->c->model('LinkAttributeType')->find_root($attr->id);
-                            $attr->root( $self->c->model('LinkAttributeType')->get_by_id($root_id) );
-                            $attr;
+                            MusicBrainz::Server::Entity::LinkAttribute->new(
+                                type => $attr,
+                                credited_as => $_->{credited_as},
+                                text_value => $_->{text_value},
+                            )
                         }
                         else {
                             ()
                         }
                     } @{ $self->data->{attributes} }
                 ],
-                attribute_text_values => $self->data->{attribute_text_values} // {},
             ),
             entity0 => $loaded->{$model0}{ $self->data->{entity0}{id} } ||
                 $self->c->model($model0)->_entity_class->new(
@@ -172,7 +169,7 @@ sub build_display_data
             link_order => $self->data->{link_order} // 0,
         ),
         unknown_attributes => scalar(
-            grep { !exists $loaded->{LinkAttributeType}{$_} }
+            grep { !exists $loaded->{LinkAttributeType}{$_->{type}{id}} }
                 @{ $self->data->{attributes} // [] }
         )
     }
@@ -227,7 +224,6 @@ sub insert
             end_date     => $self->data->{end_date},
             ended        => $self->data->{ended},
             link_order   => $self->data->{link_order} // 0,
-            attribute_text_values => $self->data->{attribute_text_values},
         });
 
     $self->entity_id($relationship->id);
@@ -268,6 +264,8 @@ before restore => sub {
     $data->{link_type}{long_link_phrase} =
         delete $data->{link_type}{short_link_phrase}
             if exists $data->{link_type}{short_link_phrase};
+
+    $self->restore_int_attributes($data) unless defined $data->{edit_version};
 };
 
 __PACKAGE__->meta->make_immutable;

@@ -124,7 +124,7 @@
                 <td>[% link_editor(vote.voter) %]</td>
                 <td>
                 [% IF c.user_exists && c.user.id == vote.voter.id %]
-                    [% l(vote.vote_name) %]
+                    [% lp(vote.vote_name, 'vote') %]
                 [% ELSE %]
                     [% l('(private)') %]
                 [% END %]

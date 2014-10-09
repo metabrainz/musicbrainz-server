@@ -9,6 +9,7 @@ use MusicBrainz::Server::Data::Utils qw( type_to_model model_to_type object_to_i
 use MusicBrainz::Server::Validation qw( is_guid is_nat );
 use MusicBrainz::Server::WebService::Format;
 use MusicBrainz::Server::WebService::JSONSerializer;
+use MusicBrainz::Server::WebService::JSONLDSerializer;
 use MusicBrainz::Server::WebService::XMLSerializer;
 use Readonly;
 use Scalar::Util qw( looks_like_number );
@@ -19,6 +20,7 @@ with 'MusicBrainz::Server::WebService::Format' =>
     serializers => [
         'MusicBrainz::Server::WebService::XMLSerializer',
         'MusicBrainz::Server::WebService::JSONSerializer',
+        'MusicBrainz::Server::WebService::JSONLDSerializer',
     ]
 };
 

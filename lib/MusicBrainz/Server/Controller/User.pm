@@ -24,6 +24,8 @@ use MusicBrainz::Server::Constants qw(
     $WIKI_TRANSCLUSION_FLAG
     $RELATIONSHIP_EDITOR_FLAG
     $LOCATION_EDITOR_FLAG
+    $BANNER_EDITOR_FLAG
+    $ACCOUNT_ADMIN_FLAG
     entities_with
 );
 
@@ -445,7 +447,6 @@ sub tag : Chained('load') PathPart('tag') Args(1)
     );
 }
 
-
 sub privileged : Path('/privileged')
 {
     my ($self, $c) = @_;
@@ -455,12 +456,16 @@ sub privileged : Path('/privileged')
     my @transclusion_editors = $c->model('Editor')->find_by_privileges($WIKI_TRANSCLUSION_FLAG);
     my @relationship_editors = $c->model('Editor')->find_by_privileges($RELATIONSHIP_EDITOR_FLAG);
     my @location_editors = $c->model('Editor')->find_by_privileges($LOCATION_EDITOR_FLAG);
+    my @banner_editors = $c->model('Editor')->find_by_privileges($BANNER_EDITOR_FLAG);
+    my @account_admins = $c->model('Editor')->find_by_privileges($ACCOUNT_ADMIN_FLAG);
 
     $c->model('Editor')->load_preferences(@bots);
     $c->model('Editor')->load_preferences(@auto_editors);
     $c->model('Editor')->load_preferences(@transclusion_editors);
     $c->model('Editor')->load_preferences(@relationship_editors);
     $c->model('Editor')->load_preferences(@location_editors);
+    $c->model('Editor')->load_preferences(@banner_editors);
+    $c->model('Editor')->load_preferences(@account_admins);
 
     $c->stash(
         bots => [ @bots ],
@@ -468,6 +473,8 @@ sub privileged : Path('/privileged')
         transclusion_editors => [ @transclusion_editors ],
         relationship_editors => [ @relationship_editors ],
         location_editors => [ @location_editors ],
+        banner_editors => [ @banner_editors ],
+        account_admins => [ @account_admins ],
         template => 'user/privileged.tt',
     );
 }

@@ -1,13 +1,14 @@
 # 
 # Translators:
+# Ettore Atalan <email address hidden>, 2014
 # lorenzpressler <email address hidden>, 2012
 # S.Brandt <email address hidden>, 2014
 # Shepard, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-08-07 20:42+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-09-07 11:38+0000\n"
+"Last-Translator: Ettore Atalan <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -219,7 +220,7 @@ msgid ""
 "of an instrument."
 msgstr ""
 
-#. name:tar (drum)
+#. name:tar
 #: DB:instrument/description:607
 msgid ""
 "A tar is a single-headed frame drum from North Africa and the Middle East."
@@ -305,7 +306,7 @@ msgstr ""
 #. name:Irish harp / clàrsach
 #: DB:instrument/description:355
 msgid "An Irish/Scottish harp."
-msgstr ""
+msgstr "Eine irisch/schottische Harfe."
 
 #. name:archtop guitar
 #: DB:instrument/description:654
@@ -428,6 +429,13 @@ msgstr ""
 msgid ""
 "EWI (an acronym for electric wind instrument) is the name of Akai's wind "
 "controller."
+msgstr ""
+
+#. name:effects
+#: DB:instrument/description:677
+msgid ""
+"Effects refers to devices which enable a musician to modify the sound of an "
+"instrument."
 msgstr ""
 
 #. name:electric fretless guitar
@@ -683,7 +691,7 @@ msgstr ""
 #. name:santur
 #: DB:instrument/description:255
 msgid "Santur, Middle Eastern"
-msgstr ""
+msgstr "Santur, Mittlerer Osten"
 
 #. name:shawm
 #: DB:instrument/description:408
@@ -1973,7 +1981,7 @@ msgstr ""
 msgid "The taphon is a traditional barrel drum from Thailand."
 msgstr ""
 
-#. name:tar (lute)
+#. name:tar
 #: DB:instrument/description:467
 msgid ""
 "The tar is a long-necked, waisted lute found in Azerbaijan, Iran, Armenia, "
@@ -2408,4 +2416,4 @@ msgstr ""
 #. name:đại cô/tiểu cô
 #: DB:instrument/description:266
 msgid "variously sized drums"
-msgstr ""
+msgstr "unterschiedlich große Trommeln"

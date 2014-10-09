@@ -29,7 +29,10 @@ var MB = {
     text: {},
 
     // Hold constants
-    constants: {}
+    constants: {},
+
+    // Holds data where localStorage isn't supported
+    store: {}
 };
 
 MB.constants.VARTIST_GID = '89ad4ac3-39f7-470e-963a-56509c546377';
@@ -68,3 +71,36 @@ MB.constants.MAX_LENGTH_DIFFERENCE = 10500;
 MB.constants.MIN_NAME_SIMILARITY = 0.75;
 
 MB.constants.MAX_RECENT_ENTITIES = 10;
+
+// https://bugzilla.mozilla.org/show_bug.cgi?id=365772
+try {
+    MB.hasLocalStorage = !!window.localStorage;
+    MB.hasSessionStorage = !!window.sessionStorage;
+} catch (e) {
+    MB.hasLocalStorage = false;
+    MB.hasSessionStorage = false;
+}
+
+MB.localStorage = function (name, value) {
+    if (arguments.length > 1) {
+        var inLocalStorage = false;
+
+        if (MB.hasLocalStorage) {
+            try {
+                localStorage[name] = value;
+                inLocalStorage = true;
+            } catch (e) {
+                // NS_ERROR_DOM_QUOTA_REACHED
+                // NS_ERROR_FILE_NO_DEVICE_SPACE
+            }
+        }
+        if (!inLocalStorage) {
+            MB.store[name] = value;
+        }
+    } else {
+        if (MB.hasLocalStorage && localStorage.hasOwnProperty(name)) {
+            return localStorage[name];
+        }
+        return MB.store[name];
+    }
+};

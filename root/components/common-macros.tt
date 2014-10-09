@@ -20,6 +20,10 @@ END -%]
 [%- END -%]
 [%~ MACRO yesno(b) BLOCK; b ? l('Yes') : l('No'); END ~%]
 
+[%~ MACRO isolate_text(text) BLOCK;
+    INCLUDE _wrap_text options=['isolate', 'escape'] content=text;
+END ~%]
+
 [%~ MACRO wiki_history_link(server, id, version) BLOCK -%]
 //[%- server -%]/[%- id -%]?oldid=[%- version -%]
 [%- END -%]
@@ -296,6 +300,7 @@ END -%]
 [%~ MACRO entity_type(entity) BLOCK;
     IF entity.isa('MusicBrainz::Server::Entity::Artist'); "artist";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Area'); "area";
+    ELSIF entity.isa('MusicBrainz::Server::Entity::Collection'); "collection";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Work'); "work";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Event'); "event";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Instrument'); "instrument";
@@ -309,7 +314,7 @@ END -%]
     END;
 END -%]
 
-[%~ BLOCK _generic_link;
+[%~ BLOCK _wrap_text;
     FOR option = options.reverse;
         content = SWITCH option;
             CASE 'isolate';
@@ -349,7 +354,13 @@ END -%]
         mod_content = default_content.defined ? default_content : entity.name;
     END;
 
-    options.unshift('name_variation') IF namevar AND action == 'show' AND content != '' AND content != entity.name;
+    IF namevar AND action == 'show' AND content != ''
+            AND (noescape ? content.remove('</?span\b[^>]*>') : content) != entity.name;
+        options.unshift('name_variation');
+        hover = hover != '' ? l('{name} – {additional_info}', { name => html_escape(entity.name), additional_info => hover })
+                            : html_escape(entity.name);
+    END;
+
     options.unshift('edits_pending') IF entity.edits_pending AND action == 'show';
 
     IF action == 'show' AND entity.iso_3166_1.0;
@@ -364,7 +375,7 @@ END -%]
         link = entity.href_url;
     END;
 
-    INCLUDE _generic_link options=options content=mod_content link=link hover=hover flag=flag infolink=infolink;
+    INCLUDE _wrap_text options=options content=mod_content link=link hover=hover flag=flag infolink=infolink;
 END -%]
 
 [%~ BLOCK _link_other_entity;
@@ -382,7 +393,7 @@ END -%]
     options.unshift('link');
     options.unshift('edits_pending') IF edits_pending AND action == 'show';
 
-    INCLUDE _generic_link options=options content=mod_content link=link avatar=avatar;
+    INCLUDE _wrap_text options=options content=mod_content link=link avatar=avatar;
 END -%]
 
 [%~ MACRO link_work(work, action, text) BLOCK;
@@ -409,10 +420,15 @@ END -%]
 
 [%~ MACRO link_area_containment(area) BLOCK;
     areas = [];
-    IF area.parent_city; areas.push(link_area(area.parent_city)); END;
-    IF area.parent_subdivision; areas.push(link_area(area.parent_subdivision)); END;
-    IF area.parent_country; areas.push(link_area(area.parent_country)); END;
-    comma_only_list(areas);
+    IF area.parent_city; areas.push({link => link_area(area.parent_city), depth => area.parent_city_depth}); END;
+    IF area.parent_subdivision; areas.push({link => link_area(area.parent_subdivision), depth => area.parent_subdivision_depth}); END;
+    IF area.parent_country; areas.push({link => link_area(area.parent_country), depth => area.parent_country_depth}); END;
+    areas = areas.nsort('depth');
+    link_areas = [];
+    FOR area=areas;
+      link_areas.push(area.link);
+    END;
+    comma_only_list(link_areas);
 END -%]
 
 [%~ MACRO link_area_with_containment(area, action, text) BLOCK;
@@ -441,8 +457,7 @@ END -%]
 END -%]
 
 [%~ MACRO link_recording(recording, action, text, no_escape) BLOCK;
-    SET hover = html_escape(recording.name) IF text != recording.name AND action == 'show';
-    INCLUDE _link_mbid_entity entity=recording type='recording' action=action content=text hover=hover namevar=1 noescape=no_escape;
+    INCLUDE _link_mbid_entity entity=recording type='recording' action=action content=text namevar=1 noescape=no_escape;
 END -%]
 
 [%~ MACRO link_series(series, action, text) BLOCK;
@@ -510,7 +525,7 @@ END -%]
 END -%]
 
 [%~ MACRO simple_link(url, text) BLOCK;
-    INCLUDE _generic_link options=['link'] content=text link=url;
+    INCLUDE _wrap_text options=['link'] content=text link=url;
 END -%]
 
 [%~ MACRO request_login(text) BLOCK;
@@ -583,6 +598,7 @@ END -%]
     [%- IF    type_name == 'artist'; l('Artist');
         ELSIF type_name == 'area'; l('Area');
         ELSIF type_name == 'event'; l('Event');
+        ELSIF type_name == 'collection'; l('Collection');
         ELSIF type_name == 'instrument'; l('Instrument');
         ELSIF type_name == 'place'; l('Place');
         ELSIF type_name == 'release'; l('Release');
@@ -662,7 +678,7 @@ END -%]
 [%~ MACRO display_relationship(relationship, phrase_field) BLOCK; -%]
   [%- phrase_field = phrase_field || 'phrase';
     extra_attributes_field = "extra_${phrase_field}_attributes";
-    IF relationship.edits_pending; '<span class="mp">'; END;
+    IF relationship.edits_pending; '<span class="mp mp-rel">'; END;
     relationship.${ phrase_field };
     ' ';
     descriptive_link(relationship.target);
@@ -764,16 +780,16 @@ END -%]
         <script type="text/javascript" src="[% c.uri_for("/static/") %][%- file -%]"></script>
     [%~ END ~%]
   [%~ ELSE ~%]
-    <script src="[% c.uri_for("/static/") %][% c.model('FileCache').manifest_signature(manifest, 'js') %].js"></script>
+    <script src="[% c.uri_for("/static/build/") %][% c.model('FileCache').manifest_signature(manifest) %]"></script>
   [%~ END ~%]
 [%~ END ~%]
 
 [%~ MACRO css_manifest(manifest) BLOCK ~%]
   [%~ IF server_details.developement_server ~%]
     [%~ USE date -%]
-    <link rel="stylesheet/less" type="text/css" href="[% c.uri_for("/static/") %][%- manifest -%].less" />
+    <link rel="stylesheet/less" type="text/css" href="[% c.uri_for("/static/") %][%- manifest.replace('\.css\.manifest', '.less') -%]" />
   [%~ ELSE ~%]
-    <link rel="stylesheet" type="text/css" href="[% c.uri_for('/static/styles/') %][% c.model('FileCache').manifest_signature(manifest _ '.css.manifest', 'css') %].css" />
+    <link rel="stylesheet" type="text/css" href="[% c.uri_for('/static/build/') %][% c.model('FileCache').manifest_signature(manifest) %]" />
   [%~ END ~%]
 [%~ END ~%]
 
@@ -884,7 +900,7 @@ END -%]
 [%- END -%]
 
 [%~ MACRO relationship_target_links(rel) BLOCK -%]
-  <span[% IF rel.edits_pending %] class="mp"[% END %]>
+  <span[% IF rel.edits_pending %] class="mp mp-rel"[% END %]>
   [% IF rel.target.artist_credit AND
         rel.target.artist_credit.name == hide_ac %]
       [% link_entity(rel.target) %]
@@ -944,8 +960,8 @@ END -%]
     END -%]
 
 [%~ MACRO link_isni(isni) BLOCK -%]
-    <a href="http://isni-url.oclc.nl/isni/[% isni %]">
-        [%- format_isni(isni) -%]
+    <a href="[% isni.url %]">
+        [%- format_isni(isni.isni) -%]
     </a>
 [%- END -%]
 
