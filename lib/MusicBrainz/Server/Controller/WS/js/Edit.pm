@@ -36,12 +36,11 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Edit::Utils qw( boolean_from_json );
 use MusicBrainz::Server::Translation qw( l );
-use MusicBrainz::Server::Validation qw( is_guid is_valid_url );
+use MusicBrainz::Server::Validation qw( is_guid is_valid_url is_valid_partial_date );
 use Readonly;
 use Scalar::Util qw( looks_like_number );
 use Try::Tiny;
 use URI;
-use Date::Calc;
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 use aliased 'MusicBrainz::Server::Entity::Track';
 use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
@@ -272,8 +271,7 @@ sub process_relationship {
 
     for my $date ("begin_date", "end_date") {
         my ($year, $month, $day) = ($data->{$date}{year}, $data->{$date}{month}, $data->{$date}{day});
-        die "invalid $date" if $year && $month && $day &&
-               !Date::Calc::check_date($year, $month, $day);
+        die "invalid $date: $year-$month-$day" unless is_valid_partial_date($year, $month, $day);
     }
 
     $data->{attributes} = [
