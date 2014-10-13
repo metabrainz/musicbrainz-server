@@ -417,7 +417,7 @@ sub find_by_recording
 
 sub _insert_hook_after_each {
     my ($self, $created, $rg) = @_;
-    $self->c->model('ReleaseGroupSecondaryType')->set_types($created->id, $rg->{secondary_type_ids});
+    $self->c->model('ReleaseGroupSecondaryType')->set_types($created->{id}, $rg->{secondary_type_ids});
 }
 
 sub update

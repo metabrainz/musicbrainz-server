@@ -152,8 +152,8 @@ sub load
 sub _insert_hook_after_each {
     my ($self, $created, $label) = @_;
 
-    $self->ipi->set_ipis($created->id, @{ $label->{ipi_codes} });
-    $self->isni->set_isnis($created->id, @{ $label->{isni_codes} });
+    $self->ipi->set_ipis($created->{id}, @{ $label->{ipi_codes} });
+    $self->isni->set_isnis($created->{id}, @{ $label->{isni_codes} });
 }
 
 sub update

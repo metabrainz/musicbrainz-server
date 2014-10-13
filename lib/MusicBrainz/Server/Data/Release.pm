@@ -739,7 +739,7 @@ sub _insert_hook_after_each {
     my ($self, $created, $release) = @_;
 
     $self->set_release_events(
-        $created->id, _release_events_from_spec($release->{events} // [])
+        $created->{id}, _release_events_from_spec($release->{events} // [])
     );
 }
 

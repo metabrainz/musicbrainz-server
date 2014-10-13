@@ -142,7 +142,7 @@ sub set_all_codes
 
 sub _insert_hook_after_each {
     my ($self, $created, $area) = @_;
-    $self->set_all_codes($created->id, $area);
+    $self->set_all_codes($created->{id}, $area);
 }
 
 sub update

@@ -434,7 +434,7 @@ sub accept {
 
             if (!$track->{recording_id}) {
                 $track->{recording_id} = $self->c->model('Recording')->insert({
-                    %$track, artist_credit => $track->{artist_credit_id} })->id;
+                    %$track, artist_credit => $track->{artist_credit_id} })->{id};
 
                 # We are in the processing of closing this edit. The edit exists, so we need to add a new link
                 $self->c->model('Edit')->add_link('recording', $track->{recording_id}, $self->id);

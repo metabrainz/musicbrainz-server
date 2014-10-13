@@ -88,10 +88,10 @@ sub insert {
         my $row = $self->_insert_hook_make_row($entity, $extra_data);
         $row->{gid} = $entity->{gid} || generate_gid();
 
-        my $created = $class->new(
+        my $created = {
             id => $self->sql->insert_row($self->_main_table, $row, 'id'),
             gid => $row->{gid},
-        );
+        };
 
         $self->_insert_hook_after_each($created, $entity, $extra_data);
 
