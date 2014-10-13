@@ -49,8 +49,6 @@ sub _id_column
     return 'place.id';
 }
 
-sub _table_join_name {}
-
 sub _column_mapping
 {
     return {
