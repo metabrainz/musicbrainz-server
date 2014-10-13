@@ -44,11 +44,7 @@ with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'label' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::Area';
 
-sub _table
-{
-    my $self = shift;
-    return 'label';
-}
+sub _type { 'label' }
 
 sub _columns
 {
@@ -61,11 +57,6 @@ sub _columns
 sub _id_column
 {
     return 'label.id';
-}
-
-sub _gid_redirect_table
-{
-    return 'label_gid_redirect';
 }
 
 sub _column_mapping
@@ -84,11 +75,6 @@ sub _column_mapping
         last_updated => 'last_updated',
         ended => 'ended'
     };
-}
-
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::Label';
 }
 
 sub find_by_subscribed_editor

@@ -37,10 +37,7 @@ with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'recording' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 
-sub _table
-{
-    return 'recording';
-}
+sub _type { 'recording' }
 
 sub _columns
 {
@@ -67,16 +64,6 @@ sub _column_mapping
 sub _id_column
 {
     return 'recording.id';
-}
-
-sub _gid_redirect_table
-{
-    return 'recording_gid_redirect';
-}
-
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::Recording';
 }
 
 sub find_artist_credits_by_artist

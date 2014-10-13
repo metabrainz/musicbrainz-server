@@ -40,10 +40,7 @@ use Readonly;
 Readonly our $MERGE_APPEND => 1;
 Readonly our $MERGE_MERGE => 2;
 
-sub _table
-{
-    return 'release';
-}
+sub _type { 'release' }
 
 sub _columns
 {
@@ -56,11 +53,6 @@ sub _columns
 sub _id_column
 {
     return 'release.id';
-}
-
-sub _gid_redirect_table
-{
-    return 'release_gid_redirect';
 }
 
 sub _column_mapping
@@ -86,11 +78,6 @@ sub _column_mapping
         },
         last_updated => 'last_updated'
     };
-}
-
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::Release';
 }
 
 sub _where_filter

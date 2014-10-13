@@ -34,10 +34,7 @@ with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'place' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::Area';
 
-sub _table
-{
-    return 'place ';
-}
+sub _type { 'place' }
 
 sub _columns
 {
@@ -51,11 +48,6 @@ sub browse_column { 'name' }
 sub _id_column
 {
     return 'place.id';
-}
-
-sub _gid_redirect_table
-{
-    return 'place_gid_redirect';
 }
 
 sub _table_join_name {}
@@ -77,11 +69,6 @@ sub _column_mapping
         last_updated => 'last_updated',
         ended => 'ended'
     };
-}
-
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::Place';
 }
 
 sub _area_cols

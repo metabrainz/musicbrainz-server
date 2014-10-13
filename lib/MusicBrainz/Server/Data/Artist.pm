@@ -46,13 +46,9 @@ with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Area';
 
-sub browse_column { 'sort_name' }
+sub _type { 'artist' }
 
-sub _table
-{
-    my $self = shift;
-    return 'artist';
-}
+sub browse_column { 'sort_name' }
 
 sub _columns
 {
@@ -67,11 +63,6 @@ sub _columns
 sub _id_column
 {
     return 'artist.id';
-}
-
-sub _gid_redirect_table
-{
-    return 'artist_gid_redirect';
 }
 
 sub _column_mapping
@@ -93,11 +84,6 @@ sub _column_mapping
         last_updated => 'last_updated',
         ended => 'ended'
     };
-}
-
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::Artist';
 }
 
 after '_delete_from_cache' => sub {

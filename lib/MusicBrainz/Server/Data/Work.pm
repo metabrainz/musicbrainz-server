@@ -31,11 +31,7 @@ with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'work' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 
-sub _table
-{
-    my $self = shift;
-    return 'work';
-}
+sub _type { 'work' }
 
 sub _columns
 {
@@ -60,16 +56,6 @@ sub _column_mapping
 sub _id_column
 {
     return 'work.id';
-}
-
-sub _gid_redirect_table
-{
-    return 'work_gid_redirect';
-}
-
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::Work';
 }
 
 sub find_by_artist

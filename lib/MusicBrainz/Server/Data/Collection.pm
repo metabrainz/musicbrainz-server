@@ -22,10 +22,7 @@ with 'MusicBrainz::Server::Data::Role::Subscription' => {
     active_class => 'MusicBrainz::Server::Entity::CollectionSubscription'
 };
 
-sub _table
-{
-    return 'editor_collection';
-}
+sub _type { 'collection' }
 
 sub _columns
 {
@@ -47,11 +44,6 @@ sub _column_mapping
         public => 'public',
         description => 'description',
     };
-}
-
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::Collection';
 }
 
 sub find_by_subscribed_editor

@@ -2,6 +2,7 @@ package MusicBrainz::Server::Data::CoreEntity;
 
 use Moose;
 use namespace::autoclean;
+use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list query_to_list_limited );
 use MusicBrainz::Server::Validation qw( is_guid );
 use Sql;
@@ -9,9 +10,21 @@ use Sql;
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::GetByGID';
 
-sub _gid_redirect_table
-{
-    return undef;
+sub _main_table {
+    my $type = shift->_type;
+    return $ENTITIES{$type}{table} // $type;
+}
+
+# Override this for joins etc. if necessary.
+sub _table { shift->_main_table }
+
+sub _entity_class { 'MusicBrainz::Server::Entity::' . $ENTITIES{shift->_type}{model} }
+
+sub _gid_redirect_table {
+    my $self = shift;
+
+    return $self->_main_table . '_gid_redirect'
+        if $ENTITIES{$self->_type}{mbid}{multiple};
 }
 
 around get_by_gids => sub

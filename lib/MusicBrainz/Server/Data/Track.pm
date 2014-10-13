@@ -19,15 +19,7 @@ extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'track' };
 
-sub _table
-{
-    return 'track';
-}
-
-sub _gid_redirect_table
-{
-    return 'track_gid_redirect';
-}
+sub _type { 'track' }
 
 sub _columns
 {
@@ -55,11 +47,6 @@ sub _column_mapping
 sub _id_column
 {
     return 'track.id';
-}
-
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::Track';
 }
 
 sub _medium_ids

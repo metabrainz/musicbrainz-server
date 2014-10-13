@@ -28,10 +28,7 @@ with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'instrument' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 
-sub _table {
-    my $self = shift;
-    return 'instrument';
-}
+sub _type { 'instrument' }
 
 sub _columns {
     return 'instrument.id, instrument.gid, instrument.type, instrument.name,
@@ -53,14 +50,6 @@ sub _column_mapping {
 
 sub _id_column {
     return 'instrument.id';
-}
-
-sub _gid_redirect_table {
-    return 'instrument_gid_redirect';
-}
-
-sub _entity_class {
-    return 'MusicBrainz::Server::Entity::Instrument';
 }
 
 sub load {

@@ -31,9 +31,12 @@ with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release_group
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::Browse';
 
+sub _type { 'release_group' }
+
 sub _table
 {
-    return 'release_group rg
+    my $self = shift;
+    return $self->_main_table . ' rg
             JOIN release_group_meta rgm ON rgm.id = rg.id';
 }
 
@@ -64,16 +67,6 @@ sub _column_mapping {
 sub _id_column
 {
     return 'rg.id';
-}
-
-sub _gid_redirect_table
-{
-    return 'release_group_gid_redirect';
-}
-
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::ReleaseGroup';
 }
 
 sub _where_filter

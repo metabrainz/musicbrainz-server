@@ -37,9 +37,7 @@ with 'MusicBrainz::Server::Data::Role::Subscription' => {
     deleted_class => 'MusicBrainz::Server::Entity::Subscription::DeletedSeries'
 };
 
-sub _table {
-    return 'series';
-}
+sub _type { 'series' }
 
 sub _columns {
     return 'series.id, series.gid, series.name, series.comment, ' .
@@ -61,14 +59,6 @@ sub _column_mapping {
 
 sub _id_column {
     return 'series.id';
-}
-
-sub _gid_redirect_table {
-    return 'series_gid_redirect';
-}
-
-sub _entity_class {
-    return 'MusicBrainz::Server::Entity::Series';
 }
 
 sub _hash_to_row {
