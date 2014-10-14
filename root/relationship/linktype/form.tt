@@ -107,7 +107,7 @@
                          optionsText: 'text', optionsValue: 'value'">
           </select>
           <span class="autocomplete">
-            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
             <input type="text" class="name" value="" style="width: 170px;" />
             <input type="hidden" class="id" value=""  />
             <input type="hidden" class="gid" value=""

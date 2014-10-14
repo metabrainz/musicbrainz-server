@@ -29,9 +29,8 @@ use MusicBrainz::Server::Data::Utils qw(
     model_to_type
     partial_date_to_hash
     split_relationship_by_attributes
+    sanitize
     trim
-    remove_invalid_characters
-    collapse_whitespace
     non_empty
 );
 use MusicBrainz::Server::Edit::Utils qw( boolean_from_json );
@@ -185,7 +184,7 @@ sub process_artist_credits {
 
         for my $name (@names) {
             if (my $join_phrase = $name->{join_phrase}) {
-                $join_phrase = collapse_whitespace(remove_invalid_characters($join_phrase));
+                $join_phrase = sanitize($join_phrase);
                 $join_phrase =~ s/\s+$// if $i == $#names;
                 $name->{join_phrase} = $join_phrase;
             }

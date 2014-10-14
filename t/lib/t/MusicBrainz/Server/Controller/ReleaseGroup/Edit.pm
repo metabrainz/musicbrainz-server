@@ -1,7 +1,7 @@
 package t::MusicBrainz::Server::Controller::ReleaseGroup::Edit;
 use Test::Routine;
 use Test::More;
-use Test::Deep;
+use Test::Deep qw( cmp_deeply re );
 use HTTP::Request::Common;
 use MusicBrainz::Server::Test qw( html_ok );
 

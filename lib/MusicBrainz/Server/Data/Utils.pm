@@ -28,6 +28,7 @@ use Scalar::Util 'blessed';
 use Sql;
 use Storable;
 use Text::Trim qw();
+use Unicode::Normalize qw( NFC );
 
 our @EXPORT_OK = qw(
     add_partial_date_to_row
@@ -35,7 +36,6 @@ our @EXPORT_OK = qw(
     artist_credit_to_ref
     check_data
     check_in_use
-    collapse_whitespace
     copy_escape
     coordinates_to_hash
     defined_hash
@@ -62,7 +62,7 @@ our @EXPORT_OK = qw(
     query_to_list_limited
     ref_to_type
     remove_equal
-    remove_invalid_characters
+    sanitize
     take_while
     trim
     type_to_model
@@ -316,7 +316,6 @@ sub add_coordinates_to_row
         undef;
 }
 
-
 sub collapse_whitespace {
     my $t = shift;
 
@@ -329,15 +328,25 @@ sub collapse_whitespace {
     return $t;
 }
 
+sub sanitize {
+    my $t = shift;
+
+    $t = NFC($t);
+    $t = remove_invalid_characters($t);
+    $t = collapse_whitespace($t);
+
+    return $t;
+}
+
 sub trim {
     my $t = shift;
 
-    $t = remove_invalid_characters($t);
+    $t = sanitize($t);
 
     # Remove leading and trailing space
     $t = Text::Trim::trim($t);
 
-    return collapse_whitespace($t);
+    return $t;
 }
 
 sub remove_invalid_characters {

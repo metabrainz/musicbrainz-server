@@ -21,7 +21,7 @@ my $ws_defs = Data::OptList::mkopt([
      },
      release => {
                          method   => 'GET',
-                         linked   => [ qw(area track_artist artist label recording release-group) ],
+                         linked   => [ qw(area track_artist artist label recording release-group track) ],
                          inc      => [ qw(artist-credits labels recordings discids
                                           release-groups media _relations annotation) ],
                          optional => [ qw(fmt limit offset) ],
@@ -198,36 +198,37 @@ sub release_browse : Private
         my @tmp = $c->model('Release')->find_by_artist(
             $artist->id, $limit, $offset, filter => { status => $c->stash->{status}, type => $c->stash->{type} });
         $releases = $self->make_list(@tmp, $offset);
-    }
-    elsif ($resource eq 'track_artist')
-    {
+    } elsif ($resource eq 'track_artist') {
         my $artist = $c->model('Artist')->get_by_gid($id);
         $c->detach('not_found') unless ($artist);
 
         my @tmp = $c->model('Release')->find_by_track_artist(
             $artist->id, $limit, $offset, filter => { status => $c->stash->{status}, type => $c->stash->{type} });
         $releases = $self->make_list(@tmp, $offset);
-    }
-    elsif ($resource eq 'label')
-    {
+    } elsif ($resource eq 'track') {
+        my $track = $c->model('Track')->get_by_gid($id);
+        $c->detach('not_found') unless ($track);
+
+        $c->model('Medium')->load($track);
+        $c->model('Release')->load($track->medium);
+
+        $c->stash->{inc}->recordings(1);
+        $releases = $self->make_list([ $track->medium->release ], 1, 0);
+    } elsif ($resource eq 'label') {
         my $label = $c->model('Label')->get_by_gid($id);
         $c->detach('not_found') unless ($label);
 
         my @tmp = $c->model('Release')->find_by_label(
             $label->id, $limit, $offset, filter => { status => $c->stash->{status}, type => $c->stash->{type} });
         $releases = $self->make_list(@tmp, $offset);
-    }
-    elsif ($resource eq 'release-group')
-    {
+    } elsif ($resource eq 'release-group') {
         my $rg = $c->model('ReleaseGroup')->get_by_gid($id);
         $c->detach('not_found') unless ($rg);
 
         my @tmp = $c->model('Release')->find_by_release_group(
             $rg->id, $limit, $offset, filter => { status => $c->stash->{status} });
         $releases = $self->make_list(@tmp, $offset);
-    }
-    elsif ($resource eq 'recording')
-    {
+    } elsif ($resource eq 'recording') {
         my $recording = $c->model('Recording')->get_by_gid($id);
         $c->detach('not_found') unless ($recording);
 

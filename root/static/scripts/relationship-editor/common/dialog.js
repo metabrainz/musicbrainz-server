@@ -369,6 +369,7 @@
 
             var entityTypes = [this.source.entityType, newType].sort().join("-");
             data.linkTypeID = defaultLinkType({ children: MB.typeInfo[entityTypes] });
+            data.attributes = [];
 
             var newRelationship = this.viewModel.getRelationship(data, this.source);
 

@@ -95,7 +95,7 @@
         <p id="errors-msg" class="warning" data-bind="html: submissionError"></p>
       <!-- /ko -->
 
-      <form>
+      <form id="relationship-editor-form">
         <fieldset class="editnote">
           <legend>[%- l('Edit Note') -%]</legend>
           [% edit_note(0, 1) %]

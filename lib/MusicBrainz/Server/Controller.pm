@@ -5,7 +5,7 @@ BEGIN { extends 'Catalyst::Controller'; }
 use Carp;
 use Data::Page;
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Constants qw( $UNTRUSTED_FLAG );
+use MusicBrainz::Server::Constants qw( $UNTRUSTED_FLAG $EDIT_COUNT_LIMIT );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation;
 use Try::Tiny;
@@ -273,7 +273,8 @@ sub _load_paged
     $pager->total_entries($total || 0);
     $pager->current_page($page);
 
-    $c->stash( $prefix . "pager" => $pager );
+    $c->stash( $prefix . "pager" => $pager,
+               edit_count_limit => $EDIT_COUNT_LIMIT );
     return $data;
 }
 

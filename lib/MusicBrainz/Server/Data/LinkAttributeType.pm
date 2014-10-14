@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::LinkAttributeType;
 
+use JSON;
 use Moose;
 use namespace::autoclean;
 use Sql;
@@ -27,6 +28,8 @@ sub _table
 sub _columns
 {
     return 'id, parent, child_order, gid, name, description, root, ' .
+           '(SELECT r.name FROM link_attribute_type r WHERE r.id = link_attribute_type.root) root_name, ' .
+           '(SELECT r.gid FROM link_attribute_type r WHERE r.id = link_attribute_type.root) root_gid, ' .
            'COALESCE(
                 (SELECT true FROM link_text_attribute_type
                  WHERE attribute_type = link_attribute_type.id),
@@ -51,6 +54,14 @@ sub _column_mapping
         description => 'description',
         free_text   => 'free_text',
         creditable  => 'creditable',
+        root => sub {
+            my ($row) = @_;
+            MusicBrainz::Server::Entity::LinkAttributeType->new({
+                id => $row->{root},
+                gid => $row->{root_gid},
+                name => $row->{root_name}
+            });
+        }
     };
 }
 
@@ -170,14 +181,14 @@ sub merge_instrument_attributes {
         SELECT link.id AS id, link_type AS link_type_id,
                begin_date_year, begin_date_month, begin_date_day,
                end_date_year, end_date_month, end_date_day, ended,
-               array_agg(CASE
-                   WHEN link_attribute.attribute_type = any(?)
-                   THEN ?
-                   ELSE link_attribute.attribute_type
-                   END) attributes,
+               array_agg(CASE WHEN la.attribute_type = any(?) THEN ? ELSE la.attribute_type END) attributes,
+               array_agg(latv.text_value) attribute_text_values,
+               array_agg(lac.credited_as) attribute_credits,
                link_type.entity_type0, link_type.entity_type1
           FROM link
-          JOIN link_attribute ON link_attribute.link = link.id
+          JOIN link_attribute la ON la.link = link.id
+          LEFT JOIN link_attribute_text_value latv ON (latv.link = la.link AND latv.attribute_type = la.attribute_type)
+          LEFT JOIN link_attribute_credit lac ON (lac.link = la.link AND lac.attribute_type = la.attribute_type)
           JOIN link_type ON link.link_type = link_type.id
           WHERE link.id IN (
               SELECT link from link_attribute where attribute_type = any(?)
@@ -201,7 +212,25 @@ sub merge_instrument_attributes {
                 day => delete $new_link->{$date_type . '_day'},
             };
         }
-        $new_link->{attributes} = [uniq(@{ $new_link->{attributes} })];
+
+        my @attributes = @{ delete $new_link->{attributes} };
+        my @attribute_text_values = @{ delete $new_link->{attribute_text_values} };
+        my @attribute_credits = @{ delete $new_link->{attribute_credits} };
+        my %new_attributes;
+
+        for (my $i = 0; $i < @attributes; $i++) {
+            my $link_attribute = {
+                type => {
+                    id => $attributes[$i],
+                },
+                text_value => $attribute_text_values[$i],
+                credited_as => $attribute_credits[$i]
+            };
+            $new_attributes{JSON->new->canonical->encode($link_attribute)} = $link_attribute;
+        }
+
+        $new_link->{attributes} = [values %new_attributes];
+
         my $new_link_id = $self->c->model('Link')->find_or_insert($new_link);
         $self->sql->do("UPDATE l_${entity_type0}_${entity_type1} SET link = ? WHERE link = ?",
                        $new_link_id, $old_link_id);
