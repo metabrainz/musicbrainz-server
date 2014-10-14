@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-09-07 17:48+0000\n"
-"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
+"PO-Revision-Date: 2014-10-02 15:00+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -154,6 +154,10 @@ msgstr "Rhodes-klaver"
 #: DB:instrument/name:476
 msgid "Saraswati veena"
 msgstr "sarasvati vina"
+
+#: DB:instrument/name:679
+msgid "Schwyzerörgeli"
+msgstr ""
 
 #: DB:instrument/name:427
 msgid "Scottish smallpipes"
@@ -915,6 +919,10 @@ msgstr "elektritšello"
 msgid "electric fretless guitar"
 msgstr "astmetraatideta (krihvideta) elektrikitarr"
 
+#: DB:instrument/name:682
+msgid "electric grand piano"
+msgstr ""
+
 #: DB:instrument/name:55
 msgid "electric guitar"
 msgstr "elektrikitarr"
@@ -1215,6 +1223,10 @@ msgstr "harmoonium"
 msgid "harp"
 msgstr "harf"
 
+#: DB:instrument/name:681
+msgid "harp guitar"
+msgstr ""
+
 #: DB:instrument/name:131
 msgid "harpsichord"
 msgstr "klavessiin"
@@ -1226,6 +1238,10 @@ msgstr "hekelfon (baritonoboe)"
 #: DB:instrument/name:579
 msgid "heike biwa"
 msgstr "heike biwa"
+
+#: DB:instrument/name:678
+msgid "helicon"
+msgstr ""
 
 #: DB:instrument/name:454
 msgid "hi-hat"
@@ -1686,10 +1702,6 @@ msgstr "orpharion"
 #: DB:instrument/name:588
 msgid "other drums"
 msgstr "muud trummid"
-
-#: DB:instrument/name:195
-msgid "other flutes"
-msgstr "muud flöödid"
 
 #: DB:instrument/name:141
 msgid "other instruments"
@@ -2704,6 +2716,10 @@ msgstr "đại cô/tiểu cô"
 #: DB:instrument/name:558
 msgid "ōtsuzumi"
 msgstr "ōtsuzumi"
+
+#: DB:instrument/name:680
+msgid "šargija"
+msgstr ""
 
 #: DB:instrument/name:589
 msgid "żafżafa"

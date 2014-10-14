@@ -1,7 +1,7 @@
 package t::MusicBrainz::Server::Controller::OAuth2;
 use Test::Routine;
 use Test::More;
-use Test::Deep;
+use Test::Deep qw( cmp_set );
 use utf8;
 
 use URI;

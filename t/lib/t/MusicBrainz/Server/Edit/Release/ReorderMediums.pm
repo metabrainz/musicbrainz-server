@@ -77,23 +77,10 @@ has medium_positions => (
     }
 );
 
-test 'Pending edits' => sub {
-    my $test = shift;
-    my $edit = $test->edit;
-
-    $test->clear_release;
-
-    is($test->release_to_edit->edits_pending, 1);
-    is($test->release_to_edit->mediums->[0]->edits_pending, 1); # XXX this one doesn't need to be highlighted
-    is($test->release_to_edit->mediums->[1]->edits_pending, 1);
-    is($test->release_to_edit->mediums->[2]->edits_pending, 1);
-    is($test->release_to_edit->mediums->[3]->edits_pending, 1);
-    is($test->release_to_edit->mediums->[4]->edits_pending, 1); # XXX this one doesn't need to be highlighted
-};
-
 test 'Accept edit' => sub {
     my $test = shift;
-    accept_edit($test->c, $test->edit);
+    # Edit should already be accepted, since it is an autoedit
+    ok(!$test->edit->is_open, "Edit should be automatically accepted.");
 
     $test->clear_release;
 
@@ -101,18 +88,6 @@ test 'Accept edit' => sub {
     position_ok($test->release_to_edit, 102, 3);
     position_ok($test->release_to_edit, 103, 4);
     position_ok($test->release_to_edit, 104, 2);
-    position_ok($test->release_to_edit, 105, 5);
-};
-
-test 'Reject edit' => sub {
-    my $test = shift;
-
-    $test->clear_release;
-
-    position_ok($test->release_to_edit, 101, 1);
-    position_ok($test->release_to_edit, 102, 2);
-    position_ok($test->release_to_edit, 103, 3);
-    position_ok($test->release_to_edit, 104, 4);
     position_ok($test->release_to_edit, 105, 5);
 };
 

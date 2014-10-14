@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-09-02 19:26+0000\n"
-"Last-Translator: Ettore Atalan <email address hidden>\n"
+"PO-Revision-Date: 2014-10-02 15:00+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -157,6 +157,10 @@ msgstr "Rhodes Piano"
 #: DB:instrument/name:476
 msgid "Saraswati veena"
 msgstr "Saraswati Vina"
+
+#: DB:instrument/name:679
+msgid "Schwyzerörgeli"
+msgstr ""
 
 #: DB:instrument/name:427
 msgid "Scottish smallpipes"
@@ -918,6 +922,10 @@ msgstr "E-Cello"
 msgid "electric fretless guitar"
 msgstr "bundlose E-Gitarre"
 
+#: DB:instrument/name:682
+msgid "electric grand piano"
+msgstr ""
+
 #: DB:instrument/name:55
 msgid "electric guitar"
 msgstr "E-Gitarre"
@@ -1218,6 +1226,10 @@ msgstr "Harmonium"
 msgid "harp"
 msgstr "Harfe"
 
+#: DB:instrument/name:681
+msgid "harp guitar"
+msgstr ""
+
 #: DB:instrument/name:131
 msgid "harpsichord"
 msgstr "Cembalo"
@@ -1228,6 +1240,10 @@ msgstr "Heckelphon"
 
 #: DB:instrument/name:579
 msgid "heike biwa"
+msgstr ""
+
+#: DB:instrument/name:678
+msgid "helicon"
 msgstr ""
 
 #: DB:instrument/name:454
@@ -1689,10 +1705,6 @@ msgstr ""
 #: DB:instrument/name:588
 msgid "other drums"
 msgstr "Andere Trommeln"
-
-#: DB:instrument/name:195
-msgid "other flutes"
-msgstr "andere Flöten"
 
 #: DB:instrument/name:141
 msgid "other instruments"
@@ -2707,6 +2719,10 @@ msgstr ""
 #: DB:instrument/name:558
 msgid "ōtsuzumi"
 msgstr "Otsuzumi"
+
+#: DB:instrument/name:680
+msgid "šargija"
+msgstr ""
 
 #: DB:instrument/name:589
 msgid "żafżafa"
