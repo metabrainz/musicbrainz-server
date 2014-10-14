@@ -21,7 +21,7 @@ sub requires_edit_note_text {
 
 sub default_make_votable {
     my $self = shift;
-    return $self->ctx->user->is_auto_editor;
+    return 0;
 };
 
 after validate => sub {

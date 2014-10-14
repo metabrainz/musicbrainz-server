@@ -5,7 +5,7 @@ BEGIN { extends 'Catalyst::Controller'; }
 use Carp;
 use Data::Page;
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Constants qw( $AUTO_EDITOR_FLAG );
+use MusicBrainz::Server::Constants qw( $UNTRUSTED_FLAG );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation;
 use Try::Tiny;
@@ -77,11 +77,10 @@ sub _insert_edit {
         $c->detach('/error_401');
     }
 
-    my $privs   = $c->user->privileges;
-    if ($c->user->is_auto_editor &&
-        $form->field('make_votable') &&
-        !$form->field('make_votable')->value) {
-        $privs &= ~$AUTO_EDITOR_FLAG;
+    my $privs = $c->user->privileges;
+    if ($form->field('make_votable') &&
+        $form->field('make_votable')->value) {
+        $privs |= $UNTRUSTED_FLAG;
     }
 
     my $edit;

@@ -5,24 +5,20 @@
 [%~ END -%]
 
 [%- MACRO make_votable(ko) BLOCK -%]
-  [%- IF c.user.is_auto_editor -%]
     <div class="row no-label">
       <div class="auto-editor">
         [% IF ko %]
           <label>
             <input type="checkbox" data-bind="checked: makeVotable" />
-            [% l('Enable {autoed|auto-editor} privileges for this edit.', { autoed => { href => doc_link('Auto-Editor'), target => '_blank' } }) -%]
+            [% l('Make all edits votable.') -%]
           </label>
         [% ELSE %]
           [%- USE r = FormRenderer(form) -%]
           [%- r.checkbox('make_votable') -%]
-          [%- r.label('make_votable',
-                     l('Enable {autoed|auto-editor} privileges for this edit.',
-                      { autoed = doc_link('Auto-Editor') }), inline => 1) -%]
+          [%- r.label('make_votable', l('Make all edits votable.'), inline => 1) -%]
         [% END %]
       </div>
     </div>
-  [%- END -%]
 [%- END -%]
 
 [%- MACRO edit_note(hide_help, ko) BLOCK -%]

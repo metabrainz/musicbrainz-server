@@ -15,7 +15,7 @@
 
         after$init: function () {
             this.editNote = ko.observable("");
-            this.makeVotable = ko.observable(true);
+            this.makeVotable = ko.observable(false);
 
             this.submissionLoading = ko.observable(false);
             this.submissionError = ko.observable("");
