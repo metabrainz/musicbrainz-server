@@ -473,7 +473,7 @@ sub create_edits {
 
     my $privs = $c->user->privileges;
 
-    if ($c->user->is_auto_editor && !$data->{asAutoEditor}) {
+    if ($c->user->is_auto_editor && !$data->{makeVotable}) {
         $privs &= ~$AUTO_EDITOR_FLAG;
     }
 

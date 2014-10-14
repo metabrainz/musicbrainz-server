@@ -280,8 +280,8 @@ MB.CoverArt.submit_edit = function (file_upload, postfields, mime_type, position
     formdata.append('add-cover-art.mime_type', mime_type);
     formdata.append('add-cover-art.comment', file_upload.comment());
     formdata.append('add-cover-art.edit_note', $('textarea.edit-note').val());
-    if ($('#id-add-cover-art\\.as_auto_editor').prop('checked')) {
-        formdata.append('add-cover-art.as_auto_editor', 'on');
+    if ($('#id-add-cover-art\\.make_votable').prop('checked')) {
+        formdata.append('add-cover-art.make_votable', 'on');
     }
 
     _(file_upload.types()).each(function (checkbox) {

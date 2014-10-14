@@ -101,7 +101,7 @@
           [% edit_note(0, 1) %]
         </fieldset>
 
-        [% as_auto_editor(1) %]
+        [% make_votable(1) %]
 
         <div class="row no-label buttons">
           <button type="submit" class="submit positive" data-bind="click: submit, disable: submissionLoading">[% l('Enter edit') %]</button>

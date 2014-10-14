@@ -4,19 +4,19 @@
     </span>
 [%~ END -%]
 
-[%- MACRO as_auto_editor(ko) BLOCK -%]
+[%- MACRO make_votable(ko) BLOCK -%]
   [%- IF c.user.is_auto_editor -%]
     <div class="row no-label">
       <div class="auto-editor">
         [% IF ko %]
           <label>
-            <input type="checkbox" data-bind="checked: asAutoEditor" />
+            <input type="checkbox" data-bind="checked: makeVotable" />
             [% l('Enable {autoed|auto-editor} privileges for this edit.', { autoed => { href => doc_link('Auto-Editor'), target => '_blank' } }) -%]
           </label>
         [% ELSE %]
           [%- USE r = FormRenderer(form) -%]
-          [%- r.checkbox('as_auto_editor') -%]
-          [%- r.label('as_auto_editor',
+          [%- r.checkbox('make_votable') -%]
+          [%- r.label('make_votable',
                      l('Enable {autoed|auto-editor} privileges for this edit.',
                       { autoed = doc_link('Auto-Editor') }), inline => 1) -%]
         [% END %]
@@ -46,7 +46,7 @@
 [%- END -%]
 
 [%- MACRO enter_edit(extra) BLOCK -%]
-    [%- as_auto_editor() -%]
+    [%- make_votable() -%]
     <div class="row no-label buttons">
         <button type="submit" class="submit positive">[% l('Enter edit') %]</button>
         [% extra %]

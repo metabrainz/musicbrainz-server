@@ -408,7 +408,7 @@
         var root = releaseEditor.rootField;
 
         var args = {
-            asAutoEditor: root.asAutoEditor(),
+            makeVotable: root.makeVotable(),
             editNote: root.editNote()
         };
 
