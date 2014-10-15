@@ -10,7 +10,6 @@ use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
     add_coordinates_to_row
-    generate_gid
     hash_to_row
     load_subobjects
     merge_table_attributes
@@ -34,10 +33,7 @@ with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'place' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::Area';
 
-sub _table
-{
-    return 'place ';
-}
+sub _type { 'place' }
 
 sub _columns
 {
@@ -52,13 +48,6 @@ sub _id_column
 {
     return 'place.id';
 }
-
-sub _gid_redirect_table
-{
-    return 'place_gid_redirect';
-}
-
-sub _table_join_name {}
 
 sub _column_mapping
 {
@@ -79,11 +68,6 @@ sub _column_mapping
     };
 }
 
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::Place';
-}
-
 sub _area_cols
 {
     return ['area']
@@ -93,27 +77,6 @@ sub load
 {
     my ($self, @objs) = @_;
     load_subobjects($self, 'place', @objs);
-}
-
-sub insert
-{
-    my ($self, @places) = @_;
-    my $class = $self->_entity_class;
-    my @created;
-    for my $place (@places)
-    {
-        my $row = $self->_hash_to_row($place);
-        $row->{gid} = $place->{gid} || generate_gid();
-
-        my $created = $class->new(
-            name => $place->{name},
-            id => $self->sql->insert_row('place', $row, 'id'),
-            gid => $row->{gid}
-        );
-
-        push @created, $created;
-    }
-    return @places > 1 ? @created : $created[0];
 }
 
 sub update

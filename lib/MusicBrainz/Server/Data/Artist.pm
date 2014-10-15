@@ -13,7 +13,6 @@ use MusicBrainz::Server::Data::Utils qw(
     is_special_artist
     add_partial_date_to_row
     defined_hash
-    generate_gid
     hash_to_row
     load_subobjects
     merge_table_attributes
@@ -46,13 +45,9 @@ with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Area';
 
-sub browse_column { 'sort_name' }
+sub _type { 'artist' }
 
-sub _table
-{
-    my $self = shift;
-    return 'artist';
-}
+sub browse_column { 'sort_name' }
 
 sub _columns
 {
@@ -67,11 +62,6 @@ sub _columns
 sub _id_column
 {
     return 'artist.id';
-}
-
-sub _gid_redirect_table
-{
-    return 'artist_gid_redirect';
 }
 
 sub _column_mapping
@@ -93,11 +83,6 @@ sub _column_mapping
         last_updated => 'last_updated',
         ended => 'ended'
     };
-}
-
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::Artist';
 }
 
 after '_delete_from_cache' => sub {
@@ -220,28 +205,11 @@ sub load
     load_subobjects($self, 'artist', @objs);
 }
 
-sub insert
-{
-    my ($self, @artists) = @_;
-    my $class = $self->_entity_class;
-    my @created;
-    for my $artist (@artists)
-    {
-        my $row = $self->_hash_to_row($artist);
-        $row->{gid} = $artist->{gid} || generate_gid();
+sub _insert_hook_after_each {
+    my ($self, $created, $artist) = @_;
 
-        my $created = $class->new(
-            name => $artist->{name},
-            id => $self->sql->insert_row('artist', $row, 'id'),
-            gid => $row->{gid}
-        );
-
-        $self->ipi->set_ipis($created->id, @{ $artist->{ipi_codes} });
-        $self->isni->set_isnis($created->id, @{ $artist->{isni_codes} });
-
-        push @created, $created;
-    }
-    return @artists > 1 ? @created : $created[0];
+    $self->ipi->set_ipis($created->{id}, @{ $artist->{ipi_codes} });
+    $self->isni->set_isnis($created->{id}, @{ $artist->{isni_codes} });
 }
 
 sub update
