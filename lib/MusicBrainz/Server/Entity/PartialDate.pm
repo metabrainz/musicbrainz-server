@@ -111,6 +111,11 @@ sub _cmp
     my @begin = ($a->year, $a->month || 1, $a->day || 1);
     my @end =   ($b->year, $b->month || 12, $b->day || Date::Calc::Days_in_Month($b->year, $b->month || 12));
 
+    # Sort invalid dates first. Should make it obvious something is broken :)
+    return  0 if (!Date::Calc::check_date(@begin) && !Date::Calc::check_date(@end));
+    return  1 if (!Date::Calc::check_date(@end));
+    return -1 if (!Date::Calc::check_date(@begin));
+
     my ($days) = Date::Calc::Delta_Days(@begin, @end);
 
     return $days > 0 ? -1
