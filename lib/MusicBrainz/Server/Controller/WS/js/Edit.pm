@@ -252,6 +252,7 @@ sub process_medium {
 
         my $ac = $track->{artist_credit};
         $track->{artist_credit} = ArtistCredit->from_array($ac->{names}) if $ac;
+        $track->{is_data_track} = boolean_from_json($track->{is_data_track});
 
         return Track->new(%$track);
     };

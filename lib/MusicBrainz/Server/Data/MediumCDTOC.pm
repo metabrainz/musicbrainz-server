@@ -104,7 +104,7 @@ sub insert
     my ($medium_id, $set_track_lengths) = @{ $self->sql->select_single_row_array(
         'SELECT track.medium, bool_and(track.length IS NULL)
            FROM track
-          WHERE track.medium = ? AND track.position > 0
+          WHERE track.medium = ? AND track.position > 0 AND track.is_data_track = false
        GROUP BY track.medium',
         $hash->{medium}
     ) || [ undef, 0 ] };

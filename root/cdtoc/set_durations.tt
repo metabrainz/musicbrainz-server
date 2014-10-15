@@ -13,7 +13,7 @@
   </tbody></table>
 
   <h2>[% l('Changes') %]</h2>
-  [%- track_duration_changes([1 .. medium.postgap_tracks.size], medium.postgap_tracks, cdtoc.track_details, 'length', 'length_time') -%]
+  [%- track_duration_changes([1 .. medium.cdtoc_tracks.size], medium.cdtoc_tracks, cdtoc.track_details, 'length', 'length_time') -%]
 
   <p>
     [% l('The medium you are altering is part of the following release:') %]

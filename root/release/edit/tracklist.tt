@@ -163,6 +163,56 @@
   <!-- /ko -->
 </script>
 
+<script type="text/html" id="template.track-row">
+  <tr class="track" data-bind="attr: { id: elementID }">
+    <td class="reorder">
+      <!-- ko if: position() == 0 -->
+        [% l('Pregap') %]
+      <!-- /ko -->
+      <!-- ko if: position() > 0 -->
+        <button type="button" class="icon track-down" title="[% l('Move track down') %]" data-bind="disableBecauseDiscIDs: true" data-click="moveTrackDown"></button>
+        <button type="button" class="icon track-up" title="[% l('Move track up') %]" data-bind="disableBecauseDiscIDs: true" data-click="moveTrackUp"></button>
+      <!-- /ko -->
+    </td>
+
+    <td class="position">
+      <input class="pos" type="text" data-bind="value: number" />
+    </td>
+
+    <td class="title">
+      <input type="text" class="track-name" data-bind="value: name, valueUpdate: 'input'" />
+    </td>
+
+    <td class="artist autocomplete">
+      <span class="autocomplete" style="width: 100%">
+        <input type="text" class="track-artist"
+          data-bind="
+            autocomplete: {
+              entity: 'artist',
+              artistCredit: artistCredit
+            }"
+        />
+        <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+      </span>
+    </td>
+
+    <td class="credits-button buttons" data-bind="with: artistCredit">
+      <button data-bind="controlsBubble: $root.trackArtistBubble">[% l('Edit') | html_entity %]</button>
+    </td>
+
+    <td class="length">
+      <input type="text" class="track-length" size="5" data-bind="value: formattedLength, valueUpdate: 'input', disableBecauseDiscIDs: position() > 0, css: { error: position() == 0 && medium.hasInvalidPregapLength() }" placeholder="?:??" />
+    </td>
+
+    <td class="icon">
+      <button type="button" class="icon guesscase-track" title="[% l('Guess case track') %]" data-click="guessCaseTrackName"></button>
+      <!-- ko ifnot: medium.hasToc() -->
+      <button type="button" class="icon remove-item" title="[% l('Remove track') %]" data-click="removeTrack"></button>
+      <!-- /ko -->
+    </td>
+  </tr>
+</script>
+
 <div id="track-parser-dialog" style="display: none;" data-bind="with: $root.trackParserDialog, delegatedHandler: 'click'">
   <!-- ko template: "template.track-parser" --><!-- /ko -->
 
@@ -305,54 +355,21 @@
             <th class="icons"></th>
           </tr>
         </thead>
-        <tbody data-bind="loop: { items: tracks, id: 'uniqueID' }">
-          <tr class="track" data-bind="attr: { id: elementID }">
-            <td class="reorder">
-              <!-- ko if: position() == 0 -->
-                [% l('Pregap') %]
-              <!-- /ko -->
-              <!-- ko if: position() > 0 -->
-                <button type="button" class="icon track-down" title="[% l('Move track down') %]" data-bind="disableBecauseDiscIDs: true" data-click="moveTrackDown"></button>
-                <button type="button" class="icon track-up" title="[% l('Move track up') %]" data-bind="disableBecauseDiscIDs: true" data-click="moveTrackUp"></button>
-              <!-- /ko -->
-            </td>
-
-            <td class="position">
-              <input class="pos" type="text" data-bind="value: number" />
-            </td>
-
-            <td class="title">
-              <input type="text" class="track-name" data-bind="value: name, valueUpdate: 'input'" />
-            </td>
-
-            <td class="artist autocomplete">
-              <span class="autocomplete" style="width: 100%">
-                <input type="text" class="track-artist"
-                  data-bind="
-                    autocomplete: {
-                      entity: 'artist',
-                      artistCredit: artistCredit
-                    }"
-                />
-                <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
-              </span>
-            </td>
-
-            <td class="credits-button buttons" data-bind="with: artistCredit">
-              <button data-bind="controlsBubble: $root.trackArtistBubble">[% l('Edit') | html_entity %]</button>
-            </td>
-
-            <td class="length">
-              <input type="text" class="track-length" size="5" data-bind="value: formattedLength, valueUpdate: 'input', disableBecauseDiscIDs: position() > 0, css: { error: position() == 0 && medium.hasInvalidPregapLength() }" placeholder="?:??" />
-            </td>
-
-            <td class="icon">
-              <button type="button" class="icon guesscase-track" title="[% l('Guess case track') %]" data-click="guessCaseTrackName"></button>
-              <!-- ko ifnot: medium.hasToc() -->
-              <button type="button" class="icon remove-item" title="[% l('Remove track') %]" data-click="removeTrack"></button>
-              <!-- /ko -->
-            </td>
-          </tr>
+        <tbody>
+          <!-- ko loop: { items: audioTracks, id: 'uniqueID' } -->
+            <!-- ko template: "template.track-row" --><!-- /ko -->
+          <!-- /ko -->
+          <!-- ko if: hasDataTracks -->
+            <tr class="subh">
+              <td colspan="100">
+                [% data_track_icon %]
+                [% l('Data Tracks') %]
+              </td>
+            </tr>
+            <!-- ko loop: { items: dataTracks, id: 'uniqueID' } -->
+              <!-- ko template: "template.track-row" --><!-- /ko -->
+            <!-- /ko -->
+          <!-- /ko -->
         </tbody>
       </table>
 
@@ -377,6 +394,12 @@
             <label>
               <input type="checkbox" data-bind="checked: hasPregap" />
               [% l('This disc has a hidden pregap track before track 1 ({info|more info})', { info => { href => doc_link('Hidden_Track'), target => '_blank' } }) %]
+            </label>
+          </p>
+          <p style="margin-top: 0;">
+            <label>
+              <input type="checkbox" data-bind="checked: hasDataTracks" />
+              [% l('This disc contains data tracks at the end ({info|more info})', { info => { href => doc_link('Data_Track'), target => '_blank' } }) %]
             </label>
           </p>
         <!-- /ko -->

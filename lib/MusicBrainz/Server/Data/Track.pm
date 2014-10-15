@@ -28,11 +28,10 @@ sub _columns
 {
     return 'track.id, track.gid, track.name, track.medium, track.recording,
             track.number, track.position, track.length, track.artist_credit,
-            track.edits_pending';
+            track.edits_pending, track.is_data_track';
 }
 
-sub _column_mapping
-{
+sub _column_mapping {
     return {
         id               => 'id',
         gid              => 'gid',
@@ -44,6 +43,7 @@ sub _column_mapping
         length           => 'length',
         artist_credit_id => 'artist_credit',
         edits_pending    => 'edits_pending',
+        is_data_track    => 'is_data_track',
     };
 }
 
@@ -103,6 +103,7 @@ sub find_by_recording
           SELECT DISTINCT ON (track.id, medium.id)
             track.id, track.name, track.medium, track.position,
                 track.length, track.artist_credit, track.edits_pending,
+                track.is_data_track,
                 medium.id AS m_id, medium.format AS m_format,
                 medium.position AS m_position, medium.name AS m_name,
                 medium.release AS m_release,

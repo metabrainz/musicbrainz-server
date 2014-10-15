@@ -155,7 +155,7 @@ sub search
 
         if ($type eq 'release' && $where && exists $where->{track_count}) {
             $join_sql .= ' JOIN medium ON medium.release = entity.id';
-            $where_sql = 'WHERE medium.track_count = ? + COALESCE((SELECT 1 FROM track WHERE medium = medium.id AND position = 0), 0)';
+            $where_sql = 'WHERE track_count_matches_cdtoc(medium, ?)';
             push @where_args, $where->{track_count};
         }
         elsif ($type eq 'recording') {

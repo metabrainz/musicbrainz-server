@@ -77,7 +77,7 @@ sub lookup
                     edits_pending
                FROM medium_index
                JOIN medium ON medium_index.medium = medium.id
-             WHERE  medium.track_count = ? + COALESCE((SELECT 1 FROM track WHERE medium = medium.id AND position = 0), 0)
+             WHERE  track_count_matches_cdtoc(medium, ?)
                 AND toc <@ create_bounding_cube($dur_string, ?)
            ORDER BY distance", $toc_info{tracks}, $fuzzy);
 
@@ -125,7 +125,7 @@ sub update
 
     # get track count, excluding any pregap
     my $track_count = $self->sql->select_single_value(
-        "SELECT count(*) FROM track WHERE medium = ? AND track.position > 0",
+        "SELECT count(*) FROM track WHERE medium = ? AND position > 0 AND is_data_track = false",
         $medium_id
     );
 
@@ -136,7 +136,7 @@ sub update
                     SELECT array(
                         SELECT t.length
                           FROM track t
-                         WHERE medium = ? AND t.position > 0
+                         WHERE medium = ? AND t.position > 0 AND t.is_data_track = false
                       ORDER BY t.position
                     )
             ))';

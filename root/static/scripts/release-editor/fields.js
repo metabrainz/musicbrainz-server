@@ -45,6 +45,7 @@
             this.formattedLength = ko.observable(MB.utility.formatTrackLength(data.length));
             this.position = ko.observable(data.position);
             this.number = ko.observable(data.number);
+            this.isDataTrack = ko.observable(!!data.isDataTrack);
             this.updateRecording = ko.observable(false).subscribeTo("updateRecordings", true);
             this.hasNewRecording = ko.observable(true);
 
@@ -229,9 +230,8 @@
             this.position = ko.observable(data.position || 1);
             this.formatID = ko.observable(data.formatID);
 
-            this.tracks = ko.observableArray(
-                utils.mapChild(this, data.tracks, fields.Track)
-            );
+            var tracks = data.tracks;
+            this.tracks = ko.observableArray(utils.mapChild(this, tracks, fields.Track));
 
             var self = this;
 
@@ -249,6 +249,31 @@
                         self.tracks.shift();
                     } else if (newValue && !oldValue) {
                         self.tracks.unshift(fields.Track({ position: 0, number: 0 }, self));
+                    }
+                }
+            });
+
+            this.audioTracks = this.tracks.reject("isDataTrack");
+            this.dataTracks = this.tracks.filter("isDataTrack");
+
+            var hasDataTracks = ko.computed(function () {
+                return self.dataTracks().length > 0;
+            });
+
+            this.hasDataTracks = ko.computed({
+                read: hasDataTracks,
+                write: function (newValue) {
+                    var oldValue = hasDataTracks();
+
+                    if (oldValue && !newValue) {
+                        var dataTracks = self.dataTracks();
+
+                        while (dataTracks.length) {
+                            dataTracks[0].isDataTrack(false);
+                        }
+                    } else if (newValue && !oldValue) {
+                        var position = self.tracks().length + 1;
+                        self.tracks.push(fields.Track({ position: position, number: position, isDataTrack: true }, self));
                     }
                 }
             });

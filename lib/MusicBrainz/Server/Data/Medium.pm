@@ -26,7 +26,8 @@ sub _columns
 {
     return 'medium.id, release, position, format, medium.name,
             medium.edits_pending, track_count,
-            COALESCE((SELECT true FROM track WHERE medium = medium.id AND position = 0), false) AS has_pregap';
+            COALESCE((SELECT true FROM track WHERE medium = medium.id AND position = 0), false) AS has_pregap,
+            (SELECT count(*) FROM track WHERE medium = medium.id AND position > 0 AND is_data_track = false) AS cdtoc_track_count';
 }
 
 sub _id_column
@@ -37,14 +38,15 @@ sub _id_column
 sub _column_mapping
 {
     return {
-        id            => 'id',
-        track_count   => 'track_count',
-        release_id    => 'release',
-        position      => 'position',
-        name          => 'name',
-        format_id     => 'format',
-        edits_pending => 'edits_pending',
-        has_pregap    => 'has_pregap',
+        id                  => 'id',
+        track_count         => 'track_count',
+        release_id          => 'release',
+        position            => 'position',
+        name                => 'name',
+        format_id           => 'format',
+        edits_pending       => 'edits_pending',
+        has_pregap          => 'has_pregap',
+        cdtoc_track_count   => 'cdtoc_track_count',
     };
 }
 
@@ -90,7 +92,13 @@ sub update
 
     my $row = $self->_create_row($medium_hash);
     return unless %$row;
+
     $self->sql->update_row('medium', $row, { id => $medium_id });
+
+    if ($row->{format}) {
+        my $has_discids = $self->sql->select_single_value('SELECT has_discids FROM medium_format WHERE id = ?', $row->{format});
+        $self->sql->do('UPDATE track SET is_data_track = false WHERE medium = ?', $medium_id) unless $has_discids;
+    }
 }
 
 sub insert
@@ -169,7 +177,7 @@ sub find_for_cdstub {
            JOIN release ON name.id = release.id
            JOIN medium ON medium.release = release.id
       LEFT JOIN medium_format ON medium.format = medium_format.id
-          WHERE track_count = ? + COALESCE((SELECT 1 FROM track WHERE medium = medium.id AND position = 0), 0)
+          WHERE track_count_matches_cdtoc(medium, ?)
           AND (medium_format.id IS NULL OR medium_format.has_discids)
        ORDER BY name.rank DESC, musicbrainz_collate(name.name),
                 release.artist_credit";
@@ -200,7 +208,7 @@ sub set_lengths_to_cdtoc
 
     my @recording_ids;
     my @info = @{ $cdtoc->track_details };
-    my @medium_tracks = $medium->postgap_tracks;
+    my @medium_tracks = $medium->cdtoc_tracks;
 
     for my $i (0..$#info) {
         my $track = $medium_tracks[$i];

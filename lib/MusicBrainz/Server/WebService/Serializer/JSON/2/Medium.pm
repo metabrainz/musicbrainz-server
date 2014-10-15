@@ -22,7 +22,7 @@ sub serialize
         } sort_by { $_->cdtoc->discid } $entity->all_cdtocs ];
     }
 
-    $body{"track-count"} = $entity->postgap_track_count;
+    $body{"track-count"} = $entity->cdtoc_track_count;
 
     # Not all tracks in the tracklists may have been loaded.  If not all
     # tracks have been loaded, only one them will have been loaded which
@@ -37,7 +37,7 @@ sub serialize
     }
 
     my @list;
-    foreach my $track_entity ($entity->postgap_tracks) {
+    foreach my $track_entity ($entity->cdtoc_tracks) {
         push @list, $self->serialize_track($track_entity, $inc, $stash);
     }
 

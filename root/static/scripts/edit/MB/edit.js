@@ -227,7 +227,8 @@
                 recording_gid:  nullableString(recording.gid),
                 position:       number(track.position),
                 number:         string(track.number),
-                length:         number(track.length)
+                length:         number(track.length),
+                is_data_track:  !!ko.unwrap(track.isDataTrack)
             };
         },
 

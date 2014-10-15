@@ -294,7 +294,8 @@ sub _track
         position      => $track->position,
         number        => $track->number,
         length        => $track->length,
-        artistCredit  => $self->_artist_credit( $track->artist_credit )
+        artistCredit  => $self->_artist_credit( $track->artist_credit ),
+        isDataTrack   => $track->is_data_track ? \1 : \0,
     };
 
     if ($track->recording) {

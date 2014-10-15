@@ -1,5 +1,4 @@
 package MusicBrainz::Server::Entity::Medium;
-use List::UtilsBy qw( nsort_by );
 use Moose;
 
 use MusicBrainz::Server::Entity::Types;
@@ -128,17 +127,15 @@ has 'has_pregap' => (
     isa => 'Bool',
 );
 
-# If the medium has a pregap track, returns track_count - 1
-sub postgap_track_count {
-    my ($self) = @_;
-    return $self->track_count - ($self->has_pregap ? 1 : 0);
-}
+# If the medium has pregap/data tracks, they're excluded from this count.
+has 'cdtoc_track_count' => (
+    is => 'rw',
+    isa => 'Int',
+);
 
-sub postgap_tracks {
+sub cdtoc_tracks {
     my ($self) = @_;
-
-    my @tracks = $self->all_tracks;
-    return nsort_by { $_->position } ($self->has_pregap ? @tracks[1 .. $#tracks] : @tracks);
+    return grep { $_->position > 0 && !$_->is_data_track } $self->all_tracks;
 }
 
 __PACKAGE__->meta->make_immutable;

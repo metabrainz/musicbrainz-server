@@ -5,8 +5,8 @@
   },
 
   "21": {
-    "slave": ["20140606-events.sql", "20141008-instrument-indexes.sql"],
-    "standalone": ["20140606-events-fks.sql"]
+    "slave": ["20140606-events.sql", "20141008-instrument-indexes.sql", "20141014-mbs-7784-data-tracks.sql"],
+    "standalone": ["20140606-events-fks.sql", "20141014-mbs-7784-data-tracks-standalone.sql"]
   }
 
 }

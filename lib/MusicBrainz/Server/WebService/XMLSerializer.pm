@@ -609,12 +609,12 @@ sub _serialize_tracks
     }
 
     my @list;
-    foreach my $track ($medium->postgap_tracks) {
+    foreach my $track ($medium->cdtoc_tracks) {
         $min = $track->position if $track->position < $min;
         $self->_serialize_track(\@list, $gen, $track, $inc, $stash);
     }
 
-    my %attr = ( count => $medium->postgap_track_count );
+    my %attr = ( count => $medium->cdtoc_track_count );
     $attr{offset} = ($medium->has_pregap ? 0 : $min - 1) if @tracks;
 
     push @$data, $gen->track_list(\%attr, @list);
