@@ -43,7 +43,7 @@
                     $('#acoustids').after(buildAcoustidTable(json.tracks, '[% recording.gid %]'));
                 }
                 else {
-                    $('#acoustids').after('<p>[% l('This recording does not have any associated AcoustIDs') %]<\/p>');
+                    $('#acoustids').after('<p>[% l('This recording does not have any associated AcoustIDs') | js %]<\/p>');
                 }
             }
         );
