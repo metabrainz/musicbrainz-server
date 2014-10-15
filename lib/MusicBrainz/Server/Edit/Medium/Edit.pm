@@ -5,6 +5,7 @@ use List::AllUtils qw( any );
 use Algorithm::Diff qw( diff sdiff );
 use Algorithm::Merge qw( merge );
 use Data::Compare;
+use Set::Scalar;
 use Moose;
 use MooseX::Types::Moose qw( ArrayRef Bool Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
@@ -171,6 +172,11 @@ sub initialize
                             filter_subsecond_differences($new)))
             {
                 check_track_hash($new);
+                my $id_set = sub {
+                    Set::Scalar->new(grep { defined $_ } map { $_->{id} } @_)
+                };
+                die 'New tracklist uses track IDs not in the old tracklist'
+                    unless $id_set->(@$new) <= $id_set->(@$old);
 
                 $data->{old}{tracklist} = $old;
                 $data->{new}{tracklist} = $new;
