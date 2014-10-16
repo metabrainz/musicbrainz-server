@@ -13,16 +13,12 @@ has_field 'edit_note' => (
 
 has_field 'make_votable' => (
     type => 'Checkbox',
+    default => 0,
 );
 
 sub requires_edit_note_text {
     l("You must provide an edit note");
 }
-
-sub default_make_votable {
-    my $self = shift;
-    return 0;
-};
 
 after validate => sub {
     my $self = shift;
