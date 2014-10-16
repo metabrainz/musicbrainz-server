@@ -301,7 +301,10 @@
         tracksLoaded: function (data) {
             var tracks = data.tracks;
 
-            this.tracks(utils.mapChild(this, data.tracks, fields.Track));
+            var pp = this.id ? // no ID means this medium is being reused
+                fields.Track :
+                function (track, parent) { return fields.Track(_.omit(track, 'id'), parent); };
+            this.tracks(utils.mapChild(this, data.tracks, pp));
 
             if (this.release.seededTocs) {
                 var toc = this.release.seededTocs[this.position()];
