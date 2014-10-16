@@ -143,7 +143,7 @@ sub _insert_hook_make_row {
     my ($self, $track_hash, $extra_data) = @_;
 
     delete $track_hash->{id};
-    $track_hash->{number} ||= "".$track_hash->{position};
+    $track_hash->{number} //= '';
     my $row = $self->_create_row($track_hash);
 
     push @{ $extra_data->{recording_ids} }, $row->{recording};
