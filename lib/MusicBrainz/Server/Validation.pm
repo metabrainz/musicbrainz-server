@@ -23,9 +23,6 @@
 #   $Id: MusicBrainz.pm 8398 2006-08-13 01:45:27Z nikki $
 #____________________________________________________________________________
 
-use 5.008;
-no warnings qw( portable );
-
 package MusicBrainz::Server::Validation;
 
 require Exporter;
