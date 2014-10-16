@@ -25,6 +25,8 @@ test 'Test trim_in_place' => sub {
 
 test 'Test is_positive_integer' => sub {
     ok(is_positive_integer(1), "Actual positive integer");
+    ok(!is_positive_integer(0), 'Zero');
+    ok(!is_positive_integer('123 is a nice number'), 'Number plus letters');
     ok(!is_positive_integer(-1), "Negative integer");
     ok(!is_positive_integer(undef), "Passing undef to is_positive_integer");
     ok(!is_positive_integer([1, 2, 3, 4]), "Passing arrayref to is_positive_integer");

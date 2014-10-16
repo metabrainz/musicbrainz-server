@@ -78,10 +78,16 @@ sub unaccent_utf16 ($)
 # Validation and sanitisation section
 ################################################################################
 
+sub is_integer
+{
+    my $t = shift;
+    defined($t) and not ref($t) and $t =~ /\A(-?\d{1,20})\z/;
+}
+
 sub is_positive_integer
 {
     my $t = shift;
-    defined($t) and not ref($t) and $t =~ /\A(\d{1,20})\z/;
+    is_integer($t) and $t > 0;
 }
 
 sub is_guid
