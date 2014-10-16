@@ -81,7 +81,7 @@ sub unaccent_utf16 ($)
 sub is_integer
 {
     my $t = shift;
-    defined($t) and not ref($t) and $t =~ /\A(-?\d{1,20})\z/;
+    defined($t) and not ref($t) and $t =~ /\A(-?[0-9]{1,20})\z/;
 }
 
 sub is_positive_integer
@@ -128,27 +128,27 @@ sub is_valid_iswc
 {
     my $iswc = shift;
     $iswc =~ s/\s//g;
-    return $iswc =~ /^T-?\d{3}\.?\d{3}\.?\d{3}[-.]?\d$/;
+    return $iswc =~ /^T-?[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}[-.]?[0-9]$/;
 }
 
 sub format_iswc
 {
     my $iswc = shift;
     $iswc =~ s/\s//g;
-    $iswc =~ s/^T-?(\d{3})\.?(\d{3})\.?(\d{3})[-.]?(\d)/T-$1.$2.$3-$4/;
+    $iswc =~ s/^T-?([0-9]{3})\.?([0-9]{3})\.?([0-9]{3})[-.]?([0-9])/T-$1.$2.$3-$4/;
     return $iswc;
 }
 
 sub is_valid_ipi
 {
     my $ipi = shift;
-    return $ipi =~ /^\d{11}$/;
+    return $ipi =~ /^[0-9]{11}$/;
 }
 
 sub format_ipi
 {
     my $ipi = shift;
-    return $ipi unless $ipi =~ /^[\d\s.]{9,}$/;
+    return $ipi unless $ipi =~ /^[0-9\s.]{9,}$/;
     $ipi =~ s/[\s.]//g;
     return sprintf("%011.0f", $ipi)
 }
@@ -157,7 +157,7 @@ sub is_valid_isni
 {
     my $isni = shift;
     $isni =~ s/[\s\.-]//g;
-    return $isni =~ /^\d{15}[\dX]$/;
+    return $isni =~ /^[0-9]{15}[0-9X]$/;
 }
 
 sub format_isni
@@ -346,7 +346,7 @@ sub validate_coordinates {
     }
 
     my $separators = '\s?,?\s?';
-    my $number_part = q{\d+(?:[\.,]\d+|)};
+    my $number_part = q{[0-9]+(?:[\.,][0-9]+)?};
 
     $coordinates =~ tr/　．０-９/ .0-9/; # replace fullwidth characters with normal ASCII
     $coordinates =~ s/(北|南)緯\s*(${number_part})度\s*(${number_part})分\s*(${number_part})秒${separators}(東|西)経\s*(${number_part})度\s*(${number_part})分\s*(${number_part})秒/$2° $3' $4" $1, $6° $7' $8" $5/;
