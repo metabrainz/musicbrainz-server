@@ -30,11 +30,12 @@ around BUILDARGS => sub {
     return $class->$orig( @_ ) unless @_ == 1;
 
     my $info = shift;
-    if (!ref($info) && defined($info) && $info =~ /(\d{4})?-?(\d{1,2})?-?(\d{1,2})?/)
+    if (!ref($info) && defined($info)
+        && $info =~ /^ (?: (-?\d{1,4} | \?\?\?\?) (?: -? (\d{1,2} | \?\?) (?: -? (\d{1,2}) )? )? )? $/x)
     {
         $info = {};
-        $info->{year} = $1 if ($1 && $1 > 0);
-        $info->{month} = $2 if ($2 && $2 > 0);
+        $info->{year} = $1 if (defined $1 && $1 ne '????');
+        $info->{month} = $2 if ($2 && $2 ne '??' && $2 > 0);
         $info->{day} = $3 if ($3 && $3 > 0);
         return $class->$orig( $info );
     }

@@ -1,11 +1,10 @@
 package MusicBrainz::Server::Entity::Link;
 use Moose;
 
-use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
-use MusicBrainz::Server::Translation qw( l );
 
 extends 'MusicBrainz::Server::Entity';
+with 'MusicBrainz::Server::Entity::Role::DatePeriod';
 
 has 'type_id' => (
     is => 'rw',
@@ -15,25 +14,6 @@ has 'type_id' => (
 has 'type' => (
     is => 'rw',
     isa => 'LinkType',
-);
-
-has 'begin_date' => (
-    is => 'rw',
-    isa => 'PartialDate',
-    lazy => 1,
-    default => sub { MusicBrainz::Server::Entity::PartialDate->new() },
-);
-
-has 'end_date' => (
-    is => 'rw',
-    isa => 'PartialDate',
-    lazy => 1,
-    default => sub { MusicBrainz::Server::Entity::PartialDate->new() },
-);
-
-has 'ended' => (
-    is => 'rw',
-    isa => 'Bool',
 );
 
 has 'attributes' => (
@@ -47,12 +27,6 @@ has 'attributes' => (
         all_attributes   => 'elements',
         add_attribute    => 'push'
     }
-);
-
-has 'formatted_date' => (
-    is => 'ro',
-    builder => '_build_formatted_date',
-    lazy => 1
 );
 
 sub has_attribute
@@ -82,33 +56,6 @@ sub get_attribute
         }
     }
     return \@values;
-}
-
-sub _build_formatted_date {
-    my ($self) = @_;
-
-    my $begin_date = $self->begin_date;
-    my $end_date = $self->end_date;
-    my $ended = $self->ended;
-
-    if ($begin_date->is_empty && $end_date->is_empty) {
-        return $ended ? l(' &#x2013; ????') : '';
-    }
-    if ($begin_date->format eq $end_date->format) {
-        return $begin_date->format;
-    }
-    if (!$begin_date->is_empty && !$end_date->is_empty) {
-        return l('{begindate} &#x2013; {enddate}',
-            { begindate => $begin_date->format, enddate => $end_date->format });
-    }
-    if ($begin_date->is_empty) {
-        return l('&#x2013; {enddate}', { enddate => $end_date->format });
-    }
-    if ($end_date->is_empty) {
-        return l('{begindate} &#x2013;' . ($ended ? ' ????' : ''),
-            { begindate => $begin_date->format });
-    }
-    return '';
 }
 
 __PACKAGE__->meta->make_immutable;
