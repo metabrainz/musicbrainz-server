@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-10-02 15:00+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-10-02 15:35+0000\n"
+"Last-Translator: yahoe.001\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -119,7 +119,7 @@ msgstr "Un banjo à cinq cordes."
 msgid ""
 "A flute is an aerophone or reedless wind instrument that produces its sound "
 "from the flow of air across an opening."
-msgstr ""
+msgstr "Une flûte est un aérophone ou un instrument de musique sans anche produisant un son lorsque de l'air est soufflé par son embouchure."
 
 #. name:four-string banjo
 #: DB:instrument/description:656
@@ -787,7 +787,7 @@ msgstr "La sarasvati vînâ est un instrument indien à cordes pincées utilisé
 msgid ""
 "The Schwyzerörgeli is a type of diatonic button accordion used in Swiss folk"
 " music."
-msgstr ""
+msgstr "L'accordéon schwyzois est une sorte d'accordéon diatonique à boutons utilisé dans la musique folklorique suisse."
 
 #. name:Stroh violin
 #: DB:instrument/description:451
@@ -1297,7 +1297,7 @@ msgstr "L'harmonica est un type d'orgue de bouche habituellement trouvé dans le
 msgid ""
 "The harp guitar is a guitar-based string instrument with any number of "
 "additional unstopped strings which can accommodate individual plucking."
-msgstr ""
+msgstr "La guitare-harpe est un instrument à cordes basé sur la guitare, agrémenté de cordes supplémentaires qui ne sont pas fixées au manche et qui peuvent être pincées individuellement."
 
 #. name:harp
 #: DB:instrument/description:58
@@ -2268,7 +2268,7 @@ msgstr "L'ōtsuzumi est un tambour japonais en forme de sablier, plus grand que 
 msgid ""
 "The šargija is a long necked plucked lute used in the folk music of the "
 "Balkans."
-msgstr ""
+msgstr "Le šargija est un luth à cordes pincées à long manche utilisé dans la musique folklorique des Balkans."
 
 #. name:żafżafa
 #: DB:instrument/description:589
@@ -2388,7 +2388,7 @@ msgstr "comme utiliser des lecteurs pour faire de la musique, disques durs, lect
 #. name:conch
 #: DB:instrument/description:156
 msgid "conch shell"
-msgstr ""
+msgstr "conque"
 
 #. name:bombarde
 #: DB:instrument/description:431

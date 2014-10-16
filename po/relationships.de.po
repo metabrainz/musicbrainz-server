@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-10-02 15:00+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-10-02 17:21+0000\n"
+"Last-Translator: Ettore Atalan <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3336,7 +3336,7 @@ msgstr "Rezensionen"
 
 #: DB:link_type/reverse_link_phrase:315
 msgid "revision of"
-msgstr ""
+msgstr "Revision von"
 
 #: DB:link_type/reverse_link_phrase:349
 msgid "rights society"
@@ -3478,7 +3478,7 @@ msgstr "Hommage an"
 
 #: DB:link_type/description:736 DB:link_type/reverse_link_phrase:736
 msgid "type of"
-msgstr ""
+msgstr "Typ von"
 
 #: DB:link_attribute_type/name:582
 msgid "video"
@@ -3883,13 +3883,13 @@ msgstr "{bonus:kann|ist} Teil eines Sets {bonus:sein}, das nächste Medium im Se
 msgid ""
 "{live} {medley:medley including a} {partial} {instrumental} {cover} "
 "recording of"
-msgstr ""
+msgstr "{live} {medley:medley including a} {partial} {instrumental} {cover} Aufnahme von"
 
 #: DB:link_type/reverse_link_phrase:278
 msgid ""
 "{live} {medley:medleys including} {partial} {instrumental} {cover} "
 "recordings"
-msgstr ""
+msgstr "{live} {medley:medleys including} {partial} {instrumental} {cover} Aufnahmen"
 
 #: DB:link_type/reverse_link_phrase:15
 msgid "{translated} {parody:parodies|covers}"
@@ -3913,4 +3913,4 @@ msgstr "{vocal:%|vocals} support by"
 
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
-msgstr ""
+msgstr "{vocal:%|vocals}-Unterstützung für"
