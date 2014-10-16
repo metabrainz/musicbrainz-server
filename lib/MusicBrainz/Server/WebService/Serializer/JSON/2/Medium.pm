@@ -46,6 +46,10 @@ sub serialize
         $body{"track-offset"} = number($entity->has_pregap ? 0 : $min - 1);
     }
 
+    if (my @data_tracks = grep { $_->position > 0 && $_->is_data_track } @tracks) {
+        $body{"data-tracks"} = [ map { $self->serialize_track($_, $inc, $stash) } @data_tracks ];
+    }
+
     return \%body;
 };
 

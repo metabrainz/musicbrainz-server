@@ -618,6 +618,12 @@ sub _serialize_tracks
     $attr{offset} = ($medium->has_pregap ? 0 : $min - 1) if @tracks;
 
     push @$data, $gen->track_list(\%attr, @list);
+
+    if (my @data_tracks = grep { $_->position > 0 && $_->is_data_track } @tracks) {
+        @list = ();
+        $self->_serialize_track(\@list, $gen, $_, $inc, $stash) for @data_tracks;
+        push @$data, $gen->data_track_list({ count => scalar(@list) }, @list);
+    }
 }
 
 sub _serialize_track
