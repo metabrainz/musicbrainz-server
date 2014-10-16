@@ -140,14 +140,16 @@
                             trackData.length = newRecording.length || trackData.length;
                         }
 
-                        if (track.updateRecording() && track.differsFromRecording()) {
-                            _.extend(newRecording, {
-                                name:           trackData.name,
-                                artist_credit:  trackData.artist_credit,
-                                length:         trackData.length
-                            });
+                        var oldRecording = track.recording.savedEditData;
 
-                            var oldRecording = track.recording.savedEditData;
+                        if (oldRecording) {
+                            if (track.updateRecordingTitle()) {
+                                newRecording.name = trackData.name;
+                            }
+
+                            if (track.updateRecordingArtist()) {
+                                newRecording.artist_credit = trackData.artist_credit;
+                            }
 
                             if (!_.isEqual(newRecording, oldRecording)) {
                                 edits.push(MB.edit.recordingEdit(newRecording, oldRecording));
@@ -323,7 +325,7 @@
             var root = releaseEditor.rootField;
 
             return Array.prototype.concat(
-                releaseEditor.edits.releaseGroup(release),
+                releaseEditor.action === "add" ? releaseEditor.edits.releaseGroup(release) : [],
                 releaseEditor.edits.release(release),
                 releaseEditor.edits.releaseLabel(release),
                 releaseEditor.edits.medium(release),
@@ -342,23 +344,26 @@
 
 
     releaseEditor.getEditPreviews = function () {
-        var previews = {};
+        var previews = {}, previewRequest = null;
 
         function refreshPreviews(edits) {
             releaseEditor.editPreviews(_.compact(_.map(edits, getPreview)));
         }
 
         function getPreview(edit) { return previews[edit.hash] }
-        function addPreview(tuple) { previews[tuple[0].hash] = tuple[1] }
+        function addPreview(tuple) {
+            var editHash = tuple[0].hash, preview = tuple[1];
+            if (preview) {
+                preview.editHash = editHash;
+                previews[editHash] = preview;
+            }
+        }
         function isNewEdit(edit) { return previews[edit.hash] === undefined }
 
-        ko.computed(function () {
+        utils.debounce(ko.computed(function () {
             var edits = releaseEditor.allEdits();
 
-            // Don't generate edit previews if there are errors, *unless*
-            // having a missing edit note is the only error. However, do
-            // remove stale previews that may reference changed data.
-            if (releaseEditor.validation.errorsExistOtherThanAMissingEditNote()) {
+            if (releaseEditor.validation.errorsExist()) {
                 refreshPreviews([]);
                 return;
             }
@@ -372,16 +377,28 @@
 
             releaseEditor.loadingEditPreviews(true);
 
-            MB.edit.preview({ edits: addedEdits })
+            if (previewRequest) {
+                previewRequest.abort();
+            }
+
+            previewRequest = MB.edit.preview({ edits: addedEdits })
                 .done(function (data) {
                     _.each(_.zip(addedEdits, data.previews), addPreview);
 
-                    refreshPreviews(edits);
+                    // Make sure edits haven't changed while request was pending
+                    if (edits === releaseEditor.allEdits()) {
+                        // and that errors haven't occurred.
+                        if (releaseEditor.validation.errorsExist()) {
+                            edits = [];
+                        }
+                        refreshPreviews(edits);
+                    }
                 })
                 .always(function () {
                     releaseEditor.loadingEditPreviews(false);
+                    previewRequest = null;
                 });
-        });
+        }), 100);
     };
 
 
@@ -393,7 +410,7 @@
         var root = releaseEditor.rootField;
 
         var args = {
-            asAutoEditor: root.asAutoEditor(),
+            makeVotable: root.makeVotable(),
             editNote: root.editNote()
         };
 
@@ -552,8 +569,7 @@
 
 
     releaseEditor.submitEdits = function () {
-        if (releaseEditor.submissionInProgress() ||
-            releaseEditor.validation.errorCount() > 0) {
+        if (!releaseEditor.allowsSubmission()) {
             return;
         }
 

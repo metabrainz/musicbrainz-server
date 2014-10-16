@@ -21,11 +21,10 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      defs => $ws_defs,
 };
 
-sub discid : Chained('root') PathPart('discid') Args(1)
-{
+sub discid : Chained('root') PathPart('discid') {
     my ($self, $c, $id) = @_;
 
-    if (!is_valid_discid($id))
+    if (!is_valid_discid($id) && !(exists $c->req->query_params->{toc}))
     {
         $c->stash->{error} = "Invalid discid.";
         $c->detach('bad_req');
@@ -45,40 +44,42 @@ sub discid : Chained('root') PathPart('discid') Args(1)
     $c->stash->{inc}->discids(1);
 
     my $stash = WebServiceStash->new;
-    my $cdtoc = $c->model('CDTOC')->get_by_discid($id);
-    if ($cdtoc) {
-        my @mediumcdtocs = $c->model('MediumCDTOC')->find_by_discid($cdtoc->discid);
-        $c->model('Medium')->load(@mediumcdtocs);
+    if (is_valid_discid($id)) {
+        my $cdtoc = $c->model('CDTOC')->get_by_discid($id);
+        if ($cdtoc) {
+            my @mediumcdtocs = $c->model('MediumCDTOC')->find_by_discid($cdtoc->discid);
+            $c->model('Medium')->load(@mediumcdtocs);
 
-        my $opts = $stash->store($cdtoc);
+            my $opts = $stash->store($cdtoc);
 
-        my @releases = $c->model('Release')->find_by_medium(
-            [ map { $_->medium_id } @mediumcdtocs ], $c->stash->{status}, $c->stash->{type}
-        );
+            my @releases = $c->model('Release')->find_by_medium(
+                [ map { $_->medium_id } @mediumcdtocs ], $c->stash->{status}, $c->stash->{type}
+            );
 
-        $opts->{releases} = $self->make_list(\@releases);
+            $opts->{releases} = $self->make_list(\@releases);
 
-        for (@releases) {
-            $c->controller('WS::2::Release')->release_toplevel($c, $stash, $_);
-        }
-
-        $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-        $c->res->body($c->stash->{serializer}->serialize('discid', $cdtoc, $c->stash->{inc}, $stash));
-        return;
-    }
-
-    if (!exists $c->req->query_params->{cdstubs} || $c->req->query_params->{cdstubs} eq 'yes')
-    {
-        my $cd_stub_toc = $c->model('CDStubTOC')->get_by_discid($id);
-        if ($cd_stub_toc) {
-            $c->model('CDStub')->load($cd_stub_toc);
-            $c->model('CDStub')->increment_lookup_count($cd_stub_toc->cdstub->id);
-            $c->model('CDStubTrack')->load_for_cdstub($cd_stub_toc->cdstub);
-            $cd_stub_toc->update_track_lengths;
+            for (@releases) {
+                $c->controller('WS::2::Release')->release_toplevel($c, $stash, $_);
+            }
 
             $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-            $c->res->body($c->stash->{serializer}->serialize('cdstub', $cd_stub_toc, $c->stash->{inc}, $stash));
+            $c->res->body($c->stash->{serializer}->serialize('discid', $cdtoc, $c->stash->{inc}, $stash));
             return;
+        }
+
+        if (!exists $c->req->query_params->{cdstubs} || $c->req->query_params->{cdstubs} eq 'yes')
+        {
+            my $cd_stub_toc = $c->model('CDStubTOC')->get_by_discid($id);
+            if ($cd_stub_toc) {
+                $c->model('CDStub')->load($cd_stub_toc);
+                $c->model('CDStub')->increment_lookup_count($cd_stub_toc->cdstub->id);
+                $c->model('CDStubTrack')->load_for_cdstub($cd_stub_toc->cdstub);
+                $cd_stub_toc->update_track_lengths;
+
+                $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+                $c->res->body($c->stash->{serializer}->serialize('cdstub', $cd_stub_toc, $c->stash->{inc}, $stash));
+                return;
+            }
         }
     }
 
@@ -92,7 +93,10 @@ sub discid : Chained('root') PathPart('discid') Args(1)
 
         $c->model('MediumFormat')->load(map { $_->medium } @$results);
 
-        my @mediums = grep { $_->may_have_discids } map { $_->medium } @$results;
+        my @mediums = map { $_->medium } @$results;
+        unless (exists $c->req->query_params->{"media-format"} && $c->req->query_params->{'media-format'} eq "all") {
+            @mediums = grep { $_->may_have_discids } @mediums;
+        }
         $c->model('Release')->load(@mediums);
 
         my @releases = map { $_->release } @mediums;

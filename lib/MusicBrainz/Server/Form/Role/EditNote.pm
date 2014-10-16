@@ -11,7 +11,7 @@ has_field 'edit_note' => (
     localize_meth => sub { my ($self, @message) = @_; return l(@message); }
 );
 
-has_field 'as_auto_editor' => (
+has_field 'make_votable' => (
     type => 'Checkbox',
 );
 
@@ -19,10 +19,9 @@ sub requires_edit_note_text {
     l("You must provide an edit note");
 }
 
-sub default_as_auto_editor
-{
+sub default_make_votable {
     my $self = shift;
-    return $self->ctx->user->is_auto_editor;
+    return 0;
 };
 
 after validate => sub {

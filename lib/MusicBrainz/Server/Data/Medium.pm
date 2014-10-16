@@ -100,13 +100,12 @@ sub insert
         my $tracklist = delete $medium_hash->{tracklist};
         my $row = $self->_create_row($medium_hash);
 
-        my $medium_created = $class->new(
+        my $medium_created = {
             id => $self->sql->insert_row('medium', $row, 'id'),
-            %{ $medium_hash }
-        );
+        };
 
         for my $track (@$tracklist) {
-            $track->{medium_id} = $medium_created->id;
+            $track->{medium_id} = $medium_created->{id};
             $track->{artist_credit_id} =
                 $self->c->model('ArtistCredit')->find_or_insert(
                     delete $track->{artist_credit});
@@ -131,6 +130,7 @@ sub delete
     };
 
     $self->c->model('MediumCDTOC')->delete($_) for @tocs;
+    $self->sql->do('DELETE FROM track_gid_redirect WHERE new_id IN (SELECT id FROM track WHERE medium IN (' . placeholders(@ids) . '))', @ids);
     $self->sql->do('DELETE FROM track WHERE medium IN (' . placeholders(@ids) . ')', @ids);
     $self->sql->do('DELETE FROM medium WHERE id IN (' . placeholders(@ids) . ')', @ids);
 }
@@ -237,6 +237,8 @@ sub merge
 
         $self->c->model('Recording')->merge(@$recording_merge);
     }
+
+    $self->c->model('Track')->merge_mediums($new_medium_id, $old_medium_id);
 }
 
 

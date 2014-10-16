@@ -5,6 +5,14 @@ use MusicBrainz::Server::PagedReport;
 
 @all = qw(
     ASINsWithMultipleReleases
+    AnnotationsArtists
+    AnnotationsLabels
+    AnnotationsPlaces
+    AnnotationsRecordings
+    AnnotationsReleases
+    AnnotationsReleaseGroups
+    AnnotationsSeries
+    AnnotationsWorks
     ArtistsContainingDisambiguationComments
     ArtistsWithMultipleOccurancesInArtistCredits
     ArtistsThatMayBeGroups
@@ -65,6 +73,7 @@ use MusicBrainz::Server::PagedReport;
 );
 
 use MusicBrainz::Server::Report::ASINsWithMultipleReleases;
+use MusicBrainz::Server::Report::AnnotationReports;
 use MusicBrainz::Server::Report::ArtistsContainingDisambiguationComments;
 use MusicBrainz::Server::Report::ArtistsThatMayBeGroups;
 use MusicBrainz::Server::Report::ArtistsThatMayBePersons;

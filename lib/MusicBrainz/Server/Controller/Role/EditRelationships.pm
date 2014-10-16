@@ -3,7 +3,7 @@ use JSON;
 use MooseX::Role::Parameterized -metaclass => 'MusicBrainz::Server::Controller::Role::Meta::Parameterizable';
 use MusicBrainz::Server::CGI::Expand qw( expand_hash );
 use MusicBrainz::Server::Constants qw( $SERIES_ORDERING_TYPE_MANUAL );
-use MusicBrainz::Server::Data::Utils qw( model_to_type ref_to_type type_to_model trim );
+use MusicBrainz::Server::Data::Utils qw( model_to_type ref_to_type type_to_model trim non_empty );
 use MusicBrainz::Server::Form::Utils qw( build_type_info build_attr_info );
 use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
 
@@ -71,54 +71,6 @@ role {
         my $model = $self->config->{model};
         my $source_type = model_to_type($model);
         my $source = $c->stash->{$self->{entity_name}};
-
-        my $submitted_rel_data = sub {
-            my @rels = grep {
-                $_ && ($_->{text} || (($_->{target} || $_->{removed}) && $_->{link_type_id}))
-            } @_;
-
-            my @result;
-            my $entity_map = load_entities($c, $source_type, @rels);
-
-            for (@rels) {
-                my $target_type = $_->{target_type};
-                my $target;
-
-                next unless $target_type;
-
-                if ($target_type eq 'url') {
-                    $target = { name => $_->{text}, entityType => 'url' };
-                } elsif ($_->{target}) {
-                    my $entity = $entity_map->{type_to_model($target_type)}->{$_->{target}};
-                    next unless $entity;
-                    $target = serialize_entity($entity, $target_type);
-                }
-
-                my $attribute_text_values = {};
-                for (@{ $_->{attribute_text_values} // [] }) {
-                    $attribute_text_values->{$_->{attribute}} = trim($_->{text_value});
-                }
-
-                push @result, {
-                    id          => $_->{relationship_id},
-                    linkTypeID  => $_->{link_type_id},
-                    removed     => $_->{removed} ? \1 : \0,
-                    attributes  => $_->{attributes} // [],
-                    beginDate   => $_->{period}->{begin_date} // {},
-                    endDate     => $_->{period}->{end_date} // {},
-                    ended       => $_->{period}->{ended} ? \1 : \0,
-                    target      => $target // { entityType => $target_type },
-                    linkOrder   => $_->{link_order} // 0,
-                    attributeTextValues => $attribute_text_values,
-                    $_->{backward} ? (direction => "backward") : (),
-                };
-            }
-
-            # Convert body/query params to the data format used by the
-            # JavaScript (same as JSONSerializer->serialize_relationship).
-            return \@result;
-        };
-
         my $source_entity = $source ? serialize_entity($source, $source_type) :
                                     { entityType => $source_type };
 
@@ -142,25 +94,6 @@ role {
         # Grrr. release_group => release-group.
         $form_name =~ s/_/-/;
 
-        if ($c->form_posted) {
-            my $body_params = expand_hash($c->req->body_params);
-
-            $source_entity->{submittedRelationships} = $submitted_rel_data->(
-                @{ $body_params->{$form_name}->{rel} },
-                @{ $form_name eq "edit-url" ? [] : $body_params->{$form_name}->{url} }
-            );
-        }
-        else {
-            my $query_params = expand_hash($c->req->query_params);
-
-            my $submitted_relationships = $submitted_rel_data->(
-                @{ $query_params->{$form_name}->{rel} },
-                @{ $form_name eq "edit-url" ? [] : $query_params->{$form_name}->{url} }
-            );
-
-            $source_entity->{submittedRelationships} = $submitted_relationships // [];
-        }
-
         my $json = JSON->new;
         my @link_type_tree = $c->model('LinkType')->get_full_tree;
         my $attr_tree = $c->model('LinkAttributeType')->get_tree;
@@ -180,7 +113,12 @@ role {
                 defined $post_creation && $post_creation->($edit, $form)
             );
 
-            $source = $source // $c->model($model)->get_by_id($edit->entity_id);
+            if ($edit) {
+                # For edit edit-types, $source is already defined, but its
+                # properties may have changed and may be needed by
+                # edit_relationships, e.g. series ordering types.
+                $source = $c->model($model)->get_by_id($edit->entity_id);
+            }
 
             my $url_changes = 0;
             if ($form_name ne "edit-url") {
@@ -207,6 +145,10 @@ role {
         my $entity_map = load_entities($c, ref_to_type($source), @field_values);
         my %reordered_relationships;
 
+        my $link_attribute_types = $c->model('LinkAttributeType')->get_by_gids(
+            map { $_->{type}{gid} } map { @{ $_->{attributes} // [] } } @field_values
+        );
+
         for my $field (@field_values) {
             my %args;
             my $link_type = $field->{link_type};
@@ -217,19 +159,31 @@ role {
                 $args{ended} = $period->{ended} if $period->{ended};
             }
 
-            $args{attributes} = $field->{attributes} if $field->{attributes};
-
-            if ($field->{attribute_text_values}) {
-                my %attribute_text_values;
-
-                for (@{ $field->{attribute_text_values} // [] }) {
-                    $attribute_text_values{$_->{attribute}} = $_->{text_value};
+            if (my $attributes = $field->{attributes}) {
+                for (@$attributes) {
+                    my $type = $link_attribute_types->{$_->{type}{gid}};
+                    $_->{type} = $type->to_json_hash if $type;
                 }
-
-                $args{attribute_text_values} = \%attribute_text_values;
+                $args{attributes} = [ grep { $_->{type}{id} } @$attributes ];
             }
 
             $args{ended} ||= 0;
+
+            my $relationship;
+            if ($field->{relationship_id}) {
+                $relationship = $c->model('Relationship')->get_by_id(
+                   $link_type->entity0_type, $link_type->entity1_type, $field->{relationship_id}
+                );
+
+                # MBS-7354: relationship may have been deleted after the form was created
+                defined $relationship or next;
+
+                $c->model('Link')->load($relationship);
+                $c->model('LinkType')->load($relationship->link);
+                $c->model('Relationship')->load_entities($relationship);
+
+                $args{relationship} = $relationship;
+            }
 
             unless ($field->{removed}) {
                 $args{link_type} = $link_type;
@@ -241,6 +195,8 @@ role {
                 } elsif ($field->{target}) {
                     $target = $entity_map->{type_to_model($field->{target_type})}->{$field->{target}};
                     next unless $target;
+                } elsif ($relationship) {
+                    $target = $field->{forward} ? $relationship->entity1 : $relationship->entity0;
                 }
 
                 $args{entity0} = $field->{forward} ? $source : $target;
@@ -248,18 +204,7 @@ role {
                 $args{link_order} = $field->{link_order} // 0;
             }
 
-            if ($field->{relationship_id}) {
-                my $relationship = $c->model('Relationship')->get_by_id(
-                   $link_type->entity0_type, $link_type->entity1_type, $field->{relationship_id}
-                );
-
-                defined $relationship or next; # MBS-7354: relationship may have been deleted after the form was created
-
-                $args{relationship} = $relationship;
-                $c->model('Link')->load($relationship);
-                $c->model('LinkType')->load($relationship->link);
-                $c->model('Relationship')->load_entities($relationship);
-
+            if ($relationship) {
                 if ($field->{removed}) {
                     push @edits, $self->delete_relationship($c, $form, %args);
                 } else {
@@ -267,7 +212,10 @@ role {
 
                     my $orderable_direction = $link_type->orderable_direction;
 
-                    if ($orderable_direction != 0 && $field->{link_order} != $relationship->link_order) {
+                    next if $orderable_direction == 0;
+                    next unless non_empty($field->{link_order});
+
+                    if ($field->{link_order} != $relationship->link_order) {
                         my $orderable_entity = $orderable_direction == 1 ? $relationship->entity1 : $relationship->entity0;
                         my $unorderable_entity = $orderable_direction == 1 ? $relationship->entity0 : $relationship->entity1;
                         my $is_series = $unorderable_entity->isa('MusicBrainz::Server::Entity::Series');

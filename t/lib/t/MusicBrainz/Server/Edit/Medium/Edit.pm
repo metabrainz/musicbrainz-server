@@ -321,12 +321,12 @@ test 'Accept/failure conditions regarding links' => sub {
             to_edit   => $medium,
             tracklist => [
                 $track->meta->clone_object($track,
-                    recording_id => $merge_me->id
+                    recording_id => $merge_me->{id}
                 )
             ]
         );
 
-        $c->model('Recording')->merge($merge_target->id, $merge_me->id);
+        $c->model('Recording')->merge($merge_target->{id}, $merge_me->{id});
 
         isa_ok exception { $edit->accept }, 'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
     };
@@ -359,7 +359,7 @@ test 'Accept/failure conditions regarding links' => sub {
                                 )
                             )]),
                     position => 2,
-                    recording_id => $new_rec->id,
+                    recording_id => $new_rec->{id},
                     length => undef
                 )
             ]
@@ -396,7 +396,7 @@ test 'Accept/failure conditions regarding links' => sub {
             name => 'New recording'
         });
 
-        $c->model('Recording')->merge($recording->id, $new_rec->id);
+        $c->model('Recording')->merge($recording->{id}, $new_rec->{id});
 
         $edit->accept;
 

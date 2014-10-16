@@ -1,0 +1,34 @@
+<div id="largemap"></div>
+<script type="text/javascript">//<![CDATA[
+    var map, marker;
+
+    [%~ IF entity.coordinates.defined ~%]
+        var lat = [% entity.coordinates.latitude %];
+        var lon = [% entity.coordinates.longitude %];
+        var zoom = 16;
+    [%~ ELSE ~%]
+        var lat = 0;
+        var lon = 0;
+        var zoom = 2;
+    [%~ END ~%]
+
+    [%~ IF editing ~%]
+        var title = '';
+        var draggable = true;
+    [%~ ELSE ~%]
+        var title = '[% entity.name | js %]';
+        var draggable = false;
+    [%~ END ~%]
+
+    map = L.map('largemap').setView([lat, lon], zoom);
+
+    L.tileLayer('http://{s}.tiles.mapbox.com/v3/[%~ mapbox_map_id ~%]/{z}/{x}/{y}.png', {
+        attribution: "<a href='https://www.mapbox.com/about/maps/' target='_blank'>&copy; Mapbox &copy; OpenStreetMap</a> <a class='mapbox-improve-map' href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a>",
+        maxZoom: 18
+    }).addTo(map);
+
+    L.Icon.Default.imagePath = '/static/lib/leaflet/images';
+    marker = L.marker([lat, lon], { title: title, draggable: draggable });
+    marker.addTo(map);
+
+//]]></script>

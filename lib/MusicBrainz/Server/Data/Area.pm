@@ -10,7 +10,6 @@ use MusicBrainz::Server::Entity::PartialDate;
 use Readonly;
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
-    generate_gid
     hash_to_row
     load_subobjects
     merge_table_attributes
@@ -31,9 +30,12 @@ with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'area' };
 
 Readonly my @CODE_TYPES => qw( iso_3166_1 iso_3166_2 iso_3166_3 );
 
+sub _type { 'area' }
+
 sub _table
 {
-    return 'area ' .
+    my $self = shift;
+    return $self->_main_table . ' ' .
            'LEFT JOIN (SELECT area, array_agg(code) AS codes FROM iso_3166_1 GROUP BY area) iso_3166_1s ON iso_3166_1s.area = area.id ' .
            'LEFT JOIN (SELECT area, array_agg(code) AS codes FROM iso_3166_2 GROUP BY area) iso_3166_2s ON iso_3166_2s.area = area.id ' .
            'LEFT JOIN (SELECT area, array_agg(code) AS codes FROM iso_3166_3 GROUP BY area) iso_3166_3s ON iso_3166_3s.area = area.id';
@@ -53,11 +55,6 @@ sub _id_column
     return 'area.id';
 }
 
-sub _gid_redirect_table
-{
-    return 'area_gid_redirect';
-}
-
 sub _column_mapping
 {
     return {
@@ -66,11 +63,6 @@ sub _column_mapping
         type_id => 'type',
         map {$_ => $_} qw( id gid name comment edits_pending last_updated ended iso_3166_1 iso_3166_2 iso_3166_3 )
     };
-}
-
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::Area';
 }
 
 sub load
@@ -108,7 +100,7 @@ sub load_containment
 
     # See admin/sql/CreateViews.sql for a description of the area_containment view.
     # If more types are added to %type_parent_attribute the view should be updated.
-    my $query = "SELECT descendant, parent, type FROM area_containment WHERE descendant = any(?)";
+    my $query = "SELECT descendant, parent, type, array_length(descendant_hierarchy,1) AS depth FROM area_containment WHERE descendant = any(?)";
     my $containment = $self->sql->select_list_of_hashes($query, \@all_ids);
 
     my @parent_ids = grep { defined } map { $_->{parent} } @$containment;
@@ -119,9 +111,11 @@ sub load_containment
     for my $data (@$containment) {
         if (my $entities = $obj_id_map{$data->{descendant}}) {
             my $type = $type_parent_attribute{$data->{type}};
+            my $type_depth = $type . '_depth';
             my $parent_obj = $parent_objects->{$data->{parent}};
             for my $entity (@$entities) {
                 $entity->$type($parent_obj);
+                $entity->$type_depth($data->{depth});
             }
         }
     }
@@ -146,27 +140,9 @@ sub set_all_codes
     }
 }
 
-sub insert
-{
-    my ($self, @areas) = @_;
-    my $class = $self->_entity_class;
-    my @created;
-    for my $area (@areas)
-    {
-        my $row = $self->_hash_to_row($area);
-        $row->{gid} = $area->{gid} || generate_gid();
-
-        my $created = $class->new(
-            name => $area->{name},
-            id => $self->sql->insert_row('area', $row, 'id'),
-            gid => $row->{gid}
-        );
-
-        $self->set_all_codes($created->id, $area);
-
-        push @created, $created;
-    }
-    return @areas > 1 ? @created : $created[0];
+sub _insert_hook_after_each {
+    my ($self, $created, $area) = @_;
+    $self->set_all_codes($created->{id}, $area);
 }
 
 sub update
@@ -243,6 +219,8 @@ sub _merge_impl
         [ artist => "begin_area" ],
         [ artist => "end_area" ],
         [ label => "area" ],
+        [ place => "area" ],
+        [ editor => "area" ],
         [ release_country => "country" ]
     ) {
         my ($table, $column) = @$update;
@@ -252,7 +230,6 @@ sub _merge_impl
         );
     }
 
-    my $all_ids = [ $new_id, @old_ids ];
     $self->sql->do(
         'DELETE FROM country_area WHERE area = any(?)',
         \@old_ids

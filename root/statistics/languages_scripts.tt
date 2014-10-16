@@ -1,7 +1,7 @@
 [%- PROCESS "statistics/macros-header.tt" -%]
 
 [%- MACRO entry(entity, type) BLOCK -%]
-<tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+<tr class="[% loop.parity %]">
   <td class="t">[% loop.count %]</td>
   [% IF type == 'lang' %]
     <td>[% entity.entity.l_name || l('Unknown language') %]</td>

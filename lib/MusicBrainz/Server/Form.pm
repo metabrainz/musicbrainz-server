@@ -66,7 +66,7 @@ sub serialize
     # ->fif provides convenient access to all values.
     my $fif = $self->_fix_fif($self->fif);
 
-    my @attribute_names = qw/ label title style css_class id disabled readonly order /;
+    my @attribute_names = qw/ label title style id disabled readonly order /;
     my $name = $self->name;
     my $attributes = {};
 

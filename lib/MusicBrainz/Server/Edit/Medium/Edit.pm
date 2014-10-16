@@ -1,10 +1,11 @@
 package MusicBrainz::Server::Edit::Medium::Edit;
 use Carp;
 use Clone 'clone';
-use List::AllUtils qw( any uniq );
+use List::AllUtils qw( any );
 use Algorithm::Diff qw( diff sdiff );
 use Algorithm::Merge qw( merge );
 use Data::Compare;
+use Set::Scalar;
 use Moose;
 use MooseX::Types::Moose qw( ArrayRef Bool Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
@@ -22,6 +23,7 @@ use MusicBrainz::Server::Edit::Types qw(
     Nullable
     NullableOnPreview
 );
+use MusicBrainz::Server::Edit::Medium::Util qw( check_track_hash );
 use MusicBrainz::Server::Edit::Utils qw( verify_artist_credits hash_artist_credit hash_artist_credit_without_join_phrases );
 use MusicBrainz::Server::Log qw( log_assertion log_debug );
 use MusicBrainz::Server::Validation 'normalise_strings';
@@ -169,13 +171,16 @@ sub initialize
             unless (Compare(filter_subsecond_differences($old),
                             filter_subsecond_differences($new)))
             {
+                check_track_hash($new);
+                my $id_set = sub {
+                    Set::Scalar->new(grep { defined $_ } map { $_->{id} } @_)
+                };
+                die 'New tracklist uses track IDs not in the old tracklist'
+                    unless $id_set->(@$new) <= $id_set->(@$old);
+
                 $data->{old}{tracklist} = $old;
                 $data->{new}{tracklist} = $new;
             }
-
-            my @track_ids = grep { defined $_ } map { $_->{id} } @$new;
-            die "Track IDs are not unique (MBS-7303)"
-                unless scalar @track_ids == scalar uniq @track_ids;
         }
 
         MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
@@ -435,7 +440,7 @@ sub accept {
 
             if (!$track->{recording_id}) {
                 $track->{recording_id} = $self->c->model('Recording')->insert({
-                    %$track, artist_credit => $track->{artist_credit_id} })->id;
+                    %$track, artist_credit => $track->{artist_credit_id} })->{id};
 
                 # We are in the processing of closing this edit. The edit exists, so we need to add a new link
                 $self->c->model('Edit')->add_link('recording', $track->{recording_id}, $self->id);

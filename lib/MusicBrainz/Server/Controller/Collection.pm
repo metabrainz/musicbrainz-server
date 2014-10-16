@@ -123,10 +123,6 @@ sub open_edits : Chained('load') PathPart RequireAuth
     my ($self, $c) = @_;
 
     $self->_list_edits($c, $STATUS_OPEN);
-
-    $c->stash(
-        template => model_to_type( $self->{model} ) . '/edits.tt'
-    );
 }
 
 sub _list_edits {
@@ -137,7 +133,11 @@ sub _list_edits {
         $c->model('Edit')->find_by_collection($c->stash->{collection}->id, $limit, $offset, $status);
     });
 
-    $c->stash( edits => $edits ); # stash early in case an ISE occurs
+    $c->stash(  # stash early in case an ISE occurs while loading the edits
+        template => 'entity/edits.tt',
+        edits => $edits,
+        all_edits => defined $status ? 0 : 1,
+    );
 
     load_everything_for_edits($c, $edits);
 }
@@ -163,11 +163,11 @@ sub create : Local RequireAuth
         my $params = $c->req->params;
         if (exists $params->{"release"}) {
             my $release_id = $params->{"release"};
-            $c->model('Collection')->add_releases_to_collection($collection->id, $release_id);
+            $c->model('Collection')->add_releases_to_collection($collection->{id}, $release_id);
         }
 
         $c->response->redirect(
-            $c->uri_for_action($self->action_for('show'), [ $collection->gid ]));
+            $c->uri_for_action($self->action_for('show'), [ $collection->{gid} ]));
     }
 }
 

@@ -6,7 +6,6 @@ use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Validation qw( trim_in_place );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Data::Relationship;
-use MusicBrainz::Server::Constants qw( $INSTRUMENT_ROOT_ID );
 
 use overload '<=>' => \&_cmp, fallback => 1;
 
@@ -75,6 +74,19 @@ sub editor_can_edit
     my ($self, $editor) = @_;
     return MusicBrainz::Server::Data::Relationship->editor_can_edit($editor,
         $self->link->type->entity0_type, $self->link->type->entity1_type);
+}
+
+sub entity_is_orderable {
+    my ($self, $entity) = @_;
+
+    my $orderable_direction = $self->link->type->orderable_direction;
+
+    return 1 if (
+        ($orderable_direction == 1 && $entity == $self->entity1) ||
+        ($orderable_direction == 2 && $entity == $self->entity0)
+    );
+
+    return 0;
 }
 
 sub _source_target_prop
@@ -198,25 +210,14 @@ sub _interpolate
     my ($self, $phrase) = @_;
 
     my @attrs = $self->link->all_attributes;
-    my $text_attrs = $self->link->attribute_text_values;
     my %attrs;
     foreach my $attr (@attrs) {
-        my $name = lc $attr->root->name;
-        my $value = $attr->l_name;
-
-        if ($attr->root->id == $INSTRUMENT_ROOT_ID && $attr->gid) {
-            $value = "<a href=\"/instrument/".$attr->gid."\">$value</a>";
-        }
-
-        if ($attr->free_text && (my $text_value = $text_attrs->{$attr->id})) {
-            $value = l('{attribute}: {value}', { attribute => $value, value => $text_value });
-        }
+        my $name = lc $attr->type->root->name;
 
         if (exists $attrs{$name}) {
-            push @{$attrs{$name}}, $value;
-        }
-        else {
-            $attrs{$name} = [ $value ];
+            push @{$attrs{$name}}, $attr->html;
+        } else {
+            $attrs{$name} = [ $attr->html ];
         }
     }
     my %extra_attrs = %attrs;

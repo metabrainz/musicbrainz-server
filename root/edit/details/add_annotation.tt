@@ -1,0 +1,27 @@
+<table class="details add-[%~ edit.display_data.entity_type ~%]-annotation">
+    [%~ IF edit.display_data.${edit.display_data.entity_type} || !edit.preview ~%]
+    <tr>
+        <th>[%~ entity_label(edit.display_data.entity_type) ~%]</th>
+        <td>[%~ descriptive_link(edit.display_data.${edit.display_data.entity_type}) ~%]</td>
+    </tr>
+    [%~ END ~%]
+
+    <tr>
+        <th>[%~ add_colon(l('Text')) ~%]</th>
+        <td>
+            [%~ IF edit.display_data.text ~%]
+                [%~ edit.display_data.text | format_wikitext ~%]
+            [%~ ELSE ~%]
+                <p><span class="comment">[%~ l('This annotation is empty.') ~%]</span></p>
+            [%~ END ~%]
+        </td>
+    </tr>
+    [%~ IF edit.display_data.changelog ~%]
+    <tr>
+        <th>[%~ add_colon(l('Summary')) ~%]</th>
+        <td>
+            [%~ edit.display_data.changelog ~%]
+        </td>
+    </tr>
+    [%~ END ~%]
+</table>

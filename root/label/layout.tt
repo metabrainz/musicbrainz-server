@@ -40,7 +40,7 @@
 
                 [%~ FOR isni_code IN label.isni_codes ~%]
                     [%~ INCLUDE 'layout/sidebar/property.tt' label=l('ISNI code:')
-                         content=link_isni(isni_code.isni) class="isni-code" ~%]
+                         content=link_isni(isni_code) class="isni-code" ~%]
                 [%~ END ~%]
 
                 [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Label code:')

@@ -4,12 +4,12 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js'; }
 
 use Data::OptList;
-use Encode qw( decode encode );
-use JSON qw( encode_json );
+use JSON qw( encode_json decode_json );
 use List::UtilsBy qw( uniq_by );
 use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Filters;
 use MusicBrainz::Server::Data::Search qw( escape_query alias_query );
+use MusicBrainz::Server::Constants qw( entities_with );
 use MusicBrainz::Server::Validation qw( is_guid );
 use Readonly;
 use Text::Trim;
@@ -38,6 +38,9 @@ my $ws_defs = Data::OptList::mkopt([
     },
     "events" => {
         method => 'GET'
+    },
+    "error" => {
+        method => 'POST'
     }
 ]);
 
@@ -46,22 +49,6 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      defs => $ws_defs,
      version => 'js',
 };
-
-sub entities {
-    return {
-        'Artist' => 'artist',
-        'Work' => 'work',
-        'Recording' => 'recording',
-        'ReleaseGroup' => 'release-group',
-        'Release' => 'release',
-        'Label' => 'label',
-        'URL' => 'url',
-        'Area' => 'area',
-        'Place' => 'place',
-        'Instrument' => 'instrument',
-        'Series' => 'series',
-    };
-}
 
 sub medium : Chained('root') PathPart Args(1) {
     my ($self, $c, $id) = @_;
@@ -308,7 +295,7 @@ sub entity : Chained('root') PathPart('entity') Args(1)
 
     my $entity;
     my $type;
-    for (keys %{ $self->entities }) {
+    for (entities_with(['mbid', 'relatable'], take => 'model')) {
         $type = $_;
         $entity = $c->model($type)->get_by_gid($gid);
         last if defined $entity;
@@ -350,6 +337,55 @@ sub events : Chained('root') PathPart('events') {
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body(encode_json($events));
+}
+
+sub error : Chained('root') PathPart('error') {
+    my ($self, $c) = @_;
+
+    $self->check_login($c, 'not logged in');
+
+    my $body = $self->get_json_request_body($c);
+    $self->detach_with_error($c, 'missing parameters') unless $body->{error};
+    $self->critical_error($c, $body->{error}, encode_json({ message => "OK" }), 200);
+}
+
+sub detach_with_error : Private {
+    my ($self, $c, $error) = @_;
+
+    $c->res->content_type('application/json; charset=utf-8');
+    $c->res->body(encode_json({ error => $error }));
+    $c->res->status(400);
+    $c->detach;
+}
+
+sub critical_error : Private {
+    my ($self, $c, $error, $response_body, $status) = @_;
+
+    $c->error($error);
+    $c->stash->{error_body_in_stash} = 1;
+    $c->stash->{body} = $response_body;
+    $c->stash->{status} = $status;
+}
+
+sub get_json_request_body : Private {
+    my ($self, $c) = @_;
+
+    my $body = $c->req->body;
+    $self->detach_with_error($c, 'empty request') unless $body;
+
+    my $json_string = <$body>;
+    my $decoded_object = eval { decode_json($json_string) };
+
+    $self->detach_with_error($c, "$@") if $@;
+
+    return $decoded_object;
+}
+
+sub check_login : Private {
+    my ($self, $c, $error) = @_;
+
+    $c->forward('/user/cookie_login') unless $c->user_exists;
+    $self->detach_with_error($c, $error) unless $c->user_exists;
 }
 
 no Moose;

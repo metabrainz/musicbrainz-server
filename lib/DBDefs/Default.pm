@@ -248,21 +248,6 @@ sub CACHE_MANAGER_OPTIONS {
 sub RATELIMIT_SERVER { undef }
 
 ################################################################################
-# Minify settings
-################################################################################
-
-# The following two values determine how scripts and styles are minified. By
-# default, a dummy minifier is used:
-sub MINIFY_DUMMY { shift; my %args = @_; return $args{input}; }
-sub MINIFY_SCRIPTS { return \&MINIFY_DUMMY; }
-sub MINIFY_STYLES { return \&MINIFY_DUMMY; }
-
-# If you wish to minify either javascript or css, uncomment the following lines
-# and install the neccesary CPAN packages.
-# sub MINIFY_SCRIPTS { use Javascript::Closure; return \&Javascript::Closure::minify }
-# sub MINIFY_STYLES { use CSS::Minifier; return \&CSS::Minifier::minify }
-
-################################################################################
 # Sessions (advanced)
 ################################################################################
 
@@ -377,6 +362,8 @@ sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { "//coverartarchive.org" };
 
 # Add a Google Analytics tracking code to enable Google Analytics tracking.
 sub GOOGLE_ANALYTICS_CODE { '' }
+
+sub MAPBOX_MAP_ID { 'musicbrainz.iplg7e52' }
 
 # Disallow OAuth2 requests over plain HTTP
 sub OAUTH2_ENFORCE_TLS { my $self = shift; !$self->DB_STAGING_SERVER }

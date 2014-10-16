@@ -10,25 +10,63 @@
 
   <h3 class="track-parser-options">[% l('Options') %]</h3>
 
-  <label>
-    <input type="checkbox" data-bind="checked: $root.trackParser.options.trackArtists" />
-    [% l('Parse track artists') %]
-  </label>
-  <br />
-  <label>
-    <input type="checkbox" data-bind="checked: $root.trackParser.options.trackNumbers" />
-    [% l('Lines start with a track number') %]
-  </label>
-  <br />
-  <label>
-    <input type="checkbox" data-bind="checked: $root.trackParser.options.vinylNumbers" />
-    [% l('Enable vinyl track numbers') %]
-  </label>
-  <br />
-  <label>
-    <input type="checkbox" data-bind="checked: $root.trackParser.options.trackTimes" />
-    [% l('Detect track durations') %]
-  </label>
+  <table id="track-parser-options" data-bind="with: $root.trackParser.options">
+    <tr>
+      <td>
+        <label>
+          <input type="checkbox" data-bind="checked: hasTrackNumbers" />
+          [%= l('Lines start with a track number') %]
+        </label>
+      </td>
+      <td>
+        <label>
+          <input type="checkbox" data-bind="checked: useTrackNumbers, enable: hasTrackNumbers" />
+          [%= l('Use track numbers') %]
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding-left: 2em">
+        <label>
+          <input type="checkbox" data-bind="checked: hasVinylNumbers, enable: hasTrackNumbers" />
+          [%= l('Enable vinyl track numbers') %]
+        </label>
+      </td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>
+        <label>
+          <input type="checkbox" data-bind="checked: hasTrackArtists" />
+          [%= l('Lines contain track artists') %]
+        </label>
+      </td>
+      <td>
+        <label>
+          <input type="checkbox" data-bind="checked: useTrackArtists, enable: hasTrackArtists" />
+          [%= l('Use track artists') %]
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <label>
+          <input type="checkbox" data-bind="checked: useTrackNames" />
+          [%= l('Use track titles') %]
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <label>
+          <input type="checkbox" data-bind="checked: useTrackLengths" />
+          [%= l('Use track lengths') %]
+        </label>
+      </td>
+    </tr>
+  </table>
 </script>
 
 <script type="text/html" id="template.medium-search">
@@ -80,7 +118,7 @@
     <div class="search-result">
       <a class="icon" href="#" data-click="toggle">
         <span class="ui-icon" data-bind="css: { 'ui-icon-triangle-1-e': !expanded(), 'ui-icon-triangle-1-s': expanded() }">
-          [%- l("Expand") -%]
+          [%~ l("Expand") ~%]
         </span>
         <bdi data-bind="text: name"></bdi>
       </a>
@@ -115,7 +153,7 @@
 
     <!-- ko if: expanded() && loading() -->
       <p class="loading-message">
-        [% l('Now loading tracklist...') %]
+        [%~ l('Now loading tracklist...') ~%]
       </p>
     <!-- /ko -->
 
@@ -149,23 +187,17 @@
   </div>
 
   <div id="add-disc-medium">
-    <p>
-      [% l('Use the following fields to search for an existing tracklist.') %]
-    </p>
+    <p>[% l('Use the following fields to search for an existing tracklist.') %]</p>
     <!-- ko template: { name: "template.medium-search", data: mediumSearch } --><!-- /ko -->
   </div>
 
   <div id="add-disc-cdstub">
-    <p>
-      [% l('Use the following fields to search for a CD stub.') %]
-    </p>
+    <p>[% l('Use the following fields to search for a CD stub.') %]</p>
     <!-- ko template: { name: "template.medium-search", data: cdstubSearch } --><!-- /ko -->
   </div>
 
   <div id="add-disc-freedb">
-    <p>
-      [% l('Use the following fields to search for a FreeDB entry.') %]
-    </p>
+    <p>[% l('Use the following fields to search for a FreeDB entry.') %]</p>
     <!-- ko template: { name: "template.medium-search", data: freedbSearch } --><!-- /ko -->
   </div>
 
@@ -176,22 +208,24 @@
 </div>
 
 <div data-bind="with: rootField.release, affectsBubble: trackArtistBubble">
-  <!-- ko if: _.isEmpty(mediums()) -->
+  <!-- ko if: needsMediums() -->
     <p>[% l('You haven\'t added any media yet. Click on the "Add Disc" button below to add one.') %]</p>
   <!-- /ko -->
 
-  <p class="error field-error" data-bind="showErrorWhenTabIsSwitched: mediums"></p>
+  <p class="error field-error" data-bind="showErrorWhenTabIsSwitched: needsMediums">
+    [%~ l('A release must contain at least one medium.') ~%]
+  </p>
 
-  <!-- ko if: !_.isEmpty(mediums()) && !_(mediums()).invoke("loading").any() &&
+  <!-- ko if: !needsMediums() && mediums().length === loadedMediums().length &&
               _(mediums()).invoke("toc").filter().size() < _($data.seededTocs).values().size() -->
     <div class="warning">
       <p>
-        [% l('You’ve seeded some Disc IDs that aren’t matched to any medium. If this is wrong, use the “Attach Disc ID” options below.') %]
+        [%~ l('You’ve seeded some Disc IDs that aren’t matched to any medium. If this is wrong, use the “Attach Disc ID” options below.') ~%]
       </p>
     </div>
   <!-- /ko -->
 
-  <!-- ko foreach: mediums -->
+  <div data-bind="loop: { items: mediums, id: 'uniqueID' }">
   <fieldset class="advanced-disc">
     <legend data-bind="text: formattedName()"></legend>
 
@@ -202,8 +236,8 @@
         </td>
 
         <td class="format">
-          <label data-bind="attr: { for: 'disc-format-' + $index() }">[% l('Format:') %]</label>
-          <select data-bind="value: formatID, attr: { id: 'disc-format-' + $index() }">
+          <label data-bind="attr: { for: 'disc-format-' + uniqueID }">[% l('Format:') %]</label>
+          <select data-bind="value: formatID, attr: { id: 'disc-format-' + uniqueID }">
             <option value="" selected="selected">&#160;</option>
             [%- FOR format=formats %]
             <option value="[% format.value %]">[% format.label %]</option>
@@ -211,8 +245,8 @@
           </select>
           (<a href="[% c.uri_for('/doc/Release/Format') %]" target="_blank">[% l('help') %]</a>)
           <!-- ko if: release.mediums().length > 1 || name() -->
-            <label data-bind="attr: { for: 'disc-title-' + $index() }">[% l('Disc title:') %]</label>
-            <input type="text" data-bind="value: name, attr: { id: 'disc-title-' + $index() }" />
+            <label data-bind="attr: { for: 'disc-title-' + uniqueID }">[% l('Disc title:') %]</label>
+            <input type="text" data-bind="value: name, attr: { id: 'disc-title-' + uniqueID }" />
             <button type="button" class="icon guesscase-medium" title="[% l('Guess case disc title') %]" data-click="guessCaseMediumName"></button>
           <!-- /ko -->
         </td>
@@ -223,7 +257,12 @@
           <button type="button" class="icon remove-item" title="[% l('Remove disc') %]" style="margin-left: 16px" data-click="removeMedium"></button>
         </td>
       </tr>
-      [% table_row_error(2, 'showErrorRightAway: formatID') %]
+
+      [%- table_row_error(
+           2, 'showErrorRightAway: hasInvalidFormat',
+           l('This medium already has disc IDs, so you may only change the format to a format that can have disc IDs.')
+         )
+       %]
     </table>
 
     <!-- ko if: loading -->
@@ -232,7 +271,7 @@
       </div>
     <!-- /ko -->
 
-    <!-- ko if: _.any(tracks(), function (track) { return track.artistCredit.isVariousArtists() }) -->
+    <!-- ko if: hasVariousArtistTracks -->
       <div class="various-artists warning">
         [%- warning_icon %]
         <p>
@@ -243,7 +282,13 @@
     <!-- /ko -->
 
     <div data-bind="visible: loaded() && !collapsed()">
-      <p class="error field-error" style="padding: 1em" data-bind="showErrorWhenTabIsSwitched: tracks"></p>
+      <p class="error field-error" style="padding: 1em" data-bind="showErrorWhenTabIsSwitched: needsTracks">
+        [%~ l('A tracklist is required.') ~%]
+      </p>
+
+      <p class="error field-error" style="padding: 1em" data-bind="showErrorWhenTabIsSwitched: needsTrackInfo">
+        [%~ l('You must enter a title and select an artist for every track.') ~%]
+      </p>
 
       <table class="medium tbl">
         <thead>
@@ -256,7 +301,7 @@
             <th class="icons"></th>
           </tr>
         </thead>
-        <tbody data-bind="foreach: tracks">
+        <tbody data-bind="loop: { items: tracks, id: 'uniqueID' }">
           <tr class="track" data-bind="attr: { id: elementID }">
             <td class="reorder">
               <button type="button" class="icon track-down" title="[% l('Move track down') %]" data-bind="disableBecauseDiscIDs: true" data-click="moveTrackDown"></button>
@@ -280,7 +325,7 @@
                       artistCredit: artistCredit
                     }"
                 />
-                <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+                <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
               </span>
             </td>
 
@@ -332,7 +377,7 @@
     </div>
 
   </fieldset>
-  <!-- /ko -->
+  </div>
 
   <!-- ko ifnot: _.isEmpty(mediums()) -->
     <div data-bind="guessCase: _.bind($root.guessCaseMediaNames, $data)">
@@ -364,7 +409,7 @@
         <td>
           <span class="artist autocomplete">
             <input type="text" data-bind="autocomplete: { entity: 'artist', currentSelection: artist }, css: { 'various-artists': isVariousArtists() }" />
-            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
           </span>
         </td>
         <td>

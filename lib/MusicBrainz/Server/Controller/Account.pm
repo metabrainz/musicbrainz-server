@@ -338,7 +338,7 @@ when use to update the database data when we receive a valid POST request.
 
 =cut
 
-sub change_password : Path('/account/change-password') DenyWhenReadonly
+sub change_password : Path('/account/change-password') RequireSSL DenyWhenReadonly
 {
     my ($self, $c) = @_;
 
@@ -560,7 +560,7 @@ sub donation : Local RequireAuth HiddenOnSlaves
     );
 }
 
-sub applications : Path('/account/applications') RequireAuth
+sub applications : Path('/account/applications') RequireAuth RequireSSL
 {
     my ($self, $c) = @_;
 
@@ -592,7 +592,7 @@ sub revoke_application_access : Path('/account/applications/revoke-access') Args
     }
 }
 
-sub register_application : Path('/account/applications/register') RequireAuth DenyWhenReadonly
+sub register_application : Path('/account/applications/register') RequireAuth RequireSSL DenyWhenReadonly
 {
     my ($self, $c) = @_;
 
@@ -610,7 +610,7 @@ sub register_application : Path('/account/applications/register') RequireAuth De
     }
 }
 
-sub edit_application : Path('/account/applications/edit') Args(1) RequireAuth DenyWhenReadonly
+sub edit_application : Path('/account/applications/edit') Args(1) RequireAuth RequireSSL DenyWhenReadonly
 {
     my ($self, $c, $id) = @_;
 
@@ -633,7 +633,7 @@ sub edit_application : Path('/account/applications/edit') Args(1) RequireAuth De
     }
 }
 
-sub remove_application : Path('/account/applications/remove') Args(1) RequireAuth DenyWhenReadonly
+sub remove_application : Path('/account/applications/remove') Args(1) RequireAuth RequireSSL DenyWhenReadonly
 {
     my ($self, $c, $id) = @_;
 

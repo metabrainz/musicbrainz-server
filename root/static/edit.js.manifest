@@ -1,10 +1,13 @@
 lib/filesize.js/lib/filesize.js
-lib/json
+lib/json/
 lib/sha1/sha1.js
+lib/knockout/knockout-delegatedEvents.js
+lib/knockout/knockout-postbox.js
+lib/knockout/knockout-arrayTransforms.js
 scripts/relationship-editor/common/fields.js
 scripts/relationship-editor/common/viewModel.js
 scripts/relationship-editor/common/entity.js
 scripts/relationship-editor/common/dialog.js
 scripts/relationship-editor/generic.js
 scripts/relationship-editor/release.js
-scripts/edit
+scripts/edit/

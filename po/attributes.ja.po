@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-05-31 03:05+0000\n"
-"Last-Translator: Osamu Takahashi\n"
+"PO-Revision-Date: 2014-10-02 15:00+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -345,6 +345,11 @@ msgstr "CD+G"
 msgctxt "medium_format"
 msgid "CD-R"
 msgstr "CD-R"
+
+#: DB:medium_format/name:41
+msgctxt "medium_format"
+msgid "CDV"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:63
 msgctxt "work_attribute_type_allowed_value"
@@ -911,6 +916,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Hēmavati"
 msgstr ""
 
+#: DB:work_attribute_type/name:14
+msgctxt "work_attribute_type"
+msgid "Identifiers"
+msgstr ""
+
 #: DB:label_type/name:9
 msgctxt "label_type"
 msgid "Imprint"
@@ -955,6 +965,11 @@ msgstr ""
 msgctxt "release_group_secondary_type"
 msgid "Interview"
 msgstr "インタビュー"
+
+#: DB:area_type/name:6
+msgctxt "area_type"
+msgid "Island"
+msgstr ""
 
 #: DB:work_attribute_type/name:3
 msgctxt "work_attribute_type"

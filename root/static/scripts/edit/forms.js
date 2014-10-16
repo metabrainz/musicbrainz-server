@@ -93,6 +93,169 @@ MB.forms = {
 };
 
 
+ko.bindingHandlers.loop = {
+
+    init: function (parentNode, valueAccessor, allBindings, viewModel, bindingContext) {
+        var options = valueAccessor(), observableArray = options.items;
+
+        // The way this binding handler works is by using the "arrayChange"
+        // event found on observableArrays, which notifies a list of changes
+        // we can apply to the UI.
+
+        if (!ko.isObservable(observableArray) || !observableArray.cacheDiffForKnownOperation) {
+            throw new Error("items must an an observableArray");
+        }
+
+        var idAttribute = options.id,
+            elements = options.elements || {},
+            template = [],
+            node = parentNode.firstChild;
+
+        while (node) {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+                template.push(node);
+            }
+            node = node.nextSibling;
+        }
+
+        delete node;
+        ko.utils.emptyDomNode(parentNode);
+
+        function update(changes) {
+            var activeElement = document.activeElement,
+                items = observableArray.peek(),
+                removals = [];
+
+            for (var i = 0, change, j, node; change = changes[i]; i++) {
+                var status = change.status;
+
+                if (status === "retained") {
+                    continue;
+                }
+
+                var item = change.value,
+                    itemID = item[idAttribute],
+                    currentElements = elements[itemID],
+                    nextItem = items[change.index + 1];
+
+                if (status === "added") {
+                    if (change.moved === undefined) {
+                        var newContext = bindingContext.createChildContext(item);
+
+                        if (!currentElements) {
+                            currentElements = [];
+                            for (j = 0; node = template[j];  j++) {
+                                currentElements.push(node.cloneNode(true));
+                            }
+                            elements[itemID] = currentElements;
+                        }
+
+                        for (j = 0; node = currentElements[j]; j++) {
+                            if (!ko.contextFor(node)) {
+                                ko.applyBindings(newContext, node);
+                            }
+                        }
+                    }
+                } else if (status === "deleted") {
+                    if (change.moved === undefined) {
+                        for (j = 0; node = currentElements[j]; j++) {
+                            // If the node is already removed for some unknown
+                            // reason, don't outright explode. It's possible
+                            // an exception occurred somewhere in the middle
+                            // of an arrayChange notification, causing
+                            // knockout to send duplicate changes afterward.
+                            if (node.parentNode) {
+                                node.parentNode.removeChild(node);
+                            }
+                            removals.push({ node: node, itemID: itemID });
+                        }
+                    }
+                    // When knockout detects a moved item, it sends both "added"
+                    // and "deleted" changes for it. We only need to handle the
+                    // former.
+                    continue;
+                }
+
+                var elementsToInsert, elementsToInsertBefore;
+                if (currentElements.length === 1) {
+                    elementsToInsert = currentElements[0];
+                } else {
+                    elementsToInsert = document.createDocumentFragment();
+                    for (j = 0; node = currentElements[j]; j++) {
+                        elementsToInsert.appendChild(node);
+                    }
+                }
+
+                // Find where to insert the elements associated with this
+                // item. The final result should be in the same order as the
+                // items are in their containing array.
+                var inserted = false, nextItem;
+
+                // Loop through the items after the current one, and find one
+                // that actually has elements on the page (i.e. something we
+                // can insertBefore). It doesn't matter if we don't insert
+                // before the *immediate* nextItem, because when *that* item
+                // is dealt with it'll be inserted before the same item we
+                // used (thus settling after us). nextItem will be undefined
+                // when it's past the last item in the array, and the for-
+                // loop will end; if we haven't inserted our elements by
+                // then, we can just use appendChild.
+
+                for (var j = change.index + 1; nextItem = items[j]; j++) {
+                    // nextItem won't have elements associated with it if
+                    // they haven't been created yet (obviously), which is
+                    // always the case when things are being rendered for the
+                    // first time (sequentially).
+                    elementsToInsertBefore = elements[nextItem[idAttribute]];
+
+                    // nextItem's elements won't exist on the page if they
+                    // were previously removed, but haven't been purged from
+                    // `elements` yet (below).
+                    if (elementsToInsertBefore && parentNode.contains(elementsToInsertBefore[0])) {
+                        parentNode.insertBefore(elementsToInsert, elementsToInsertBefore[0]);
+                        inserted = true;
+                        break;
+                    }
+                }
+
+                if (!inserted) {
+                    parentNode.appendChild(elementsToInsert);
+                }
+            }
+
+            // Brief timeout in case a removed item gets re-added.
+            setTimeout(function () {
+                for (var i = 0, removal; removal = removals[i]; i++) {
+                    if (!document.body.contains(removal.node)) {
+                        ko.cleanNode(removal.node);
+                        delete elements[removal.itemID];
+                    }
+                }
+            }, 100);
+
+            if (parentNode.contains(activeElement)) {
+                activeElement.focus();
+            }
+        }
+
+        var changeSubscription = observableArray.subscribe(update, null, "arrayChange");
+
+        function nodeDisposal() {
+            ko.utils.domNodeDisposal.removeDisposeCallback(parentNode, nodeDisposal);
+            changeSubscription.dispose();
+        }
+
+        ko.utils.domNodeDisposal.addDisposeCallback(parentNode, nodeDisposal);
+
+        update(_.map(observableArray.peek(), function (value, index) {
+            return { status: "added", value: value, index: index };
+        }));
+
+        return { controlsDescendantBindings: true };
+    }
+};
+
+
 /* Helper binding that matches an input and label (assuming a table layout)
    together in a foreach loop, by assigning an id composed of a prefix
    concatenated with the index of the item in the loop.

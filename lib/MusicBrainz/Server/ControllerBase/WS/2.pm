@@ -9,6 +9,7 @@ use MusicBrainz::Server::Data::Utils qw( type_to_model model_to_type object_to_i
 use MusicBrainz::Server::Validation qw( is_guid is_nat );
 use MusicBrainz::Server::WebService::Format;
 use MusicBrainz::Server::WebService::JSONSerializer;
+use MusicBrainz::Server::WebService::JSONLDSerializer;
 use MusicBrainz::Server::WebService::XMLSerializer;
 use Readonly;
 use Scalar::Util qw( looks_like_number );
@@ -19,6 +20,7 @@ with 'MusicBrainz::Server::WebService::Format' =>
     serializers => [
         'MusicBrainz::Server::WebService::XMLSerializer',
         'MusicBrainz::Server::WebService::JSONSerializer',
+        'MusicBrainz::Server::WebService::JSONLDSerializer',
     ]
 };
 
@@ -346,9 +348,16 @@ sub linked_areas
     $self->_aliases($c, 'Area', $areas, $stash);
 }
 
-sub linked_lists
+sub linked_instruments
 {
-    my ($self, $c, $stash, $lists) = @_;
+    my ($self, $c, $stash, $instruments) = @_;
+
+    $self->_aliases($c, 'Instrument', $instruments, $stash);
+}
+
+sub linked_collections
+{
+    my ($self, $c, $stash, $collections) = @_;
 }
 
 sub linked_labels

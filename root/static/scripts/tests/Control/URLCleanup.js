@@ -643,6 +643,16 @@ MB.tests.URLCleanup.GuessType = function () {
                     'artist'
                 ],
                 [
+                    'http://www.discogs.com/artist/1944002-',
+                    'http://www.discogs.com/artist/1944002',
+                    'artist'
+                ],
+                [
+                    'http://www.discogs.com/master/view/267989',
+                    'http://www.discogs.com/master/267989',
+                    'release_group'
+                ],
+                [
                     // FIXME Need a "bad" archive.org link
                     'http://web.archive.org/web/20100904165354/i265.photobucket.com/albums/ii229/drsaunde/487015.jpg',
                     'http://web.archive.org/web/20100904165354/i265.photobucket.com/albums/ii229/drsaunde/487015.jpg',
@@ -1053,10 +1063,37 @@ MB.tests.URLCleanup.GuessType = function () {
                     'http://vgmdb.net/album/29727',
                     'release'
                 ],
-
+                [
+                    'http://www.lastfm.com.br/venue/8803923+Gigantinho',
+                    'http://www.last.fm/venue/8803923+Gigantinho',
+                ],
+                [
+                    'http://www.lastfm.com/music/Carving+Colours',
+                    'http://www.last.fm/music/Carving+Colours',
+                ],
                 [
                     'http://commons.wikimedia.org/wiki/File:Kimigayo.score.png?uselang=de',
                     'https://commons.wikimedia.org/wiki/File:Kimigayo.score.png',
+                    'work'
+                ],
+                [
+                    'http://commons.wikimedia.org/wiki/Main_Page#mediaviewer/File:Origanum_vulgare_-_harilik_pune.jpg',
+                    'https://commons.wikimedia.org/wiki/File:Origanum_vulgare_-_harilik_pune.jpg'
+                ],
+                // Genius
+                [
+                    'http://genius.com/artists/Dramatik',
+                    'http://genius.com/artists/Dramatik',
+                    'artist'
+                ],
+                [
+                    'http://genius.com/albums/The-dream/Terius-nash-1977',
+                    'http://genius.com/albums/The-dream/Terius-nash-1977',
+                    'release_group'
+                ],
+                [
+                    'http://rock.genius.com/The-beatles-she-loves-you-lyrics',
+                    'http://rock.genius.com/The-beatles-she-loves-you-lyrics',
                     'work'
                 ],
             ];

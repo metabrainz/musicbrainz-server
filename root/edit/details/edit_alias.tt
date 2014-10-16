@@ -6,7 +6,11 @@
 <table class="details edit-[%~ edit.display_data.entity_type ~%]-alias">
     <tr>
         <th>[%~ entity_label(edit.display_data.entity_type) ~%]</th>
-        <td colspan="2">[%~ descriptive_link(edit.display_data.${edit.display_data.entity_type}) ~%]</td>
+        <td colspan="2">
+            [%~ descriptive_link(edit.display_data.${edit.display_data.entity_type}) ~%]
+            [%~ bracketed(link_entity(edit.display_data.${edit.display_data.entity_type}, 'aliases', l('view all aliases')))
+                IF entity_exists(edit.display_data.${edit.display_data.entity_type}) ~%]
+        </td>
     </tr>
 
     [%~ IF entity_exists(edit.display_data.${edit.display_data.entity_type}) ~%]
@@ -16,9 +20,11 @@
             [%~ IF !edit.alias.name ~%]
                 <span class='deleted'>[%~ l('[removed]') ~%]</span>
             [%~ ELSE ~%]
-                [%~ edit.alias.name | html ~%]
+                [%~ isolate_text(edit.alias.name) =%]
+                [%~ bracketed(edit.alias.primary_for_locale ?
+                        l('primary for {locale}', { locale => show_locale(edit.alias.locale) }) :
+                        show_locale(edit.alias.locale)) ~%]
             [%~ END ~%]
-            [%~ bracketed(link_entity(edit.display_data.${edit.display_data.entity_type}, 'aliases', l('view all aliases'))) ~%]
         </td>
     </tr>
     [%~ END ~%]
@@ -38,8 +44,8 @@
                            show_locale(edit.display_data.locale.new)) ~%]
 
     [%~ display_full_change(add_colon(l('Primary for locale')),
-                           edit.display_data.primary_for_locale.old ? l('Yes') : l('No'),
-                           edit.display_data.primary_for_locale.new ? l('Yes') : l('No')) ~%]
+                           yesno(edit.display_data.primary_for_locale.old),
+                           yesno(edit.display_data.primary_for_locale.new)) ~%]
 
     [%~ display_full_change(add_colon(l('Type')),
                            html_escape(edit.display_data.type.old.name),
@@ -56,7 +62,7 @@
                     '\s+') ~%]
 
     [%~ display_diff(add_colon(l('Ended')),
-                    edit.display_data.ended.old ? l('Yes') : l('No'),
-                    edit.display_data.ended.new ? l('Yes') : l('No'),
+                    yesno(edit.display_data.ended.old),
+                    yesno(edit.display_data.ended.new),
                     '-') ~%]
 </table>

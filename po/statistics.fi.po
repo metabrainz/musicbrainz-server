@@ -1,14 +1,17 @@
 # 
 # Translators:
-# Kai Kasurinen <email address hidden>, 2014
-# Kai Kasurinen <email address hidden>, 2014
+# Jaakko Perttilä <email address hidden>, 2014
+# jozo, 2014
+# jozo, 2014
+# jozo, 2014
+# phonebox, 2014
 # phonebox, 2014
 # Timo Martikainen <email address hidden>, 2012-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-06-11 23:31+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-10-02 08:12+0000\n"
+"Last-Translator: phonebox\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,11 +23,11 @@ msgstr ""
 msgid ""
 "A new AJAX coverart uploader is released, making it easier to add cover art "
 "to releases."
-msgstr ""
+msgstr "Uusi AJAX-pohjainen kansitaiteen lähetysohjelma on julkaistu. Se helpottaa kuvien liittämistä julkaisuihin."
 
 #: DB:statistics.statistic_event/description:2006-08-15
 msgid "A rift in the MusicBrainz community leads to a Great Dispute."
-msgstr ""
+msgstr "Välirikko MusicBrainz-yhteisössä johtaa Suureen väittelyyn."
 
 #: DB:statistics.statistic_event/description:2003-01-21
 msgid ""
@@ -370,11 +373,11 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2008-09-23
 msgid "Oliver Charles becomes employee #1 of MetaBrainz Foundation."
-msgstr ""
+msgstr "Oliver Charlesista tulee MetaBrainz Foundationin ensimmäinen työntekijä."
 
 #: DB:statistics.statistic_event/description:2010-06-18
 msgid "Oliver Charles begins working for MusicBrainz full-time."
-msgstr ""
+msgstr "Oliver Charles alkaa työskennellä täyspäiväisesti MusicBrainzille."
 
 #: DB:statistics.statistic_event/title:2010-06-18
 msgid "Oliver Charles joins MusicBrainz full-time"
@@ -505,8 +508,9 @@ msgid "100%"
 msgstr "100%"
 
 #: ../root/statistics/index.tt:892
-msgid "Abstain:"
-msgstr "Tyhjiä:"
+msgctxt "vote"
+msgid "Abstain"
+msgstr ""
 
 #: ../root/statistics/view_js.tt:80
 msgid "Abstentions"
@@ -565,8 +569,9 @@ msgid "Applied:"
 msgstr "Hyväksytty:"
 
 #: ../root/statistics/index.tt:874
-msgid "Approve:"
-msgstr "Hyväksytty:"
+msgctxt "vote"
+msgid "Approve"
+msgstr ""
 
 #: ../root/statistics/index.tt:573 ../root/statistics/view_js.tt:55
 msgid "Areas"
@@ -1007,7 +1012,7 @@ msgstr "Kaikkien muokkausten määrä"
 
 #: ../root/statistics/view_js.tt:58
 msgid "Count of all instruments"
-msgstr ""
+msgstr "Kaikkien soitinten määrä"
 
 #: ../root/statistics/view_js.tt:54
 msgid "Count of all labels"
@@ -1035,7 +1040,7 @@ msgstr "Kaikkien julkaisujen määrä"
 
 #: ../root/statistics/view_js.tt:57
 msgid "Count of all series"
-msgstr ""
+msgstr "Kaikkien sarjojen määrä"
 
 #: ../root/statistics/view_js.tt:74
 msgid "Count of all votes"
@@ -1212,7 +1217,7 @@ msgstr ""
 
 #: ../root/statistics/timeline.tt:59
 msgid "Exact Values (items vs. day)"
-msgstr "Tarkat arvot (kohdetta verrattuna päivään)"
+msgstr "Tarkat arvot (kohdetta suhteessa päivään)"
 
 #: ../root/statistics/relationships.tt:31
 msgid "Exclusive"
@@ -1258,7 +1263,7 @@ msgstr "Äänestystilastoissa vain kyllä ja ei äänet lasketaan, tyhjiä ään
 
 #: ../root/statistics/formats.tt:25
 msgid "Format"
-msgstr "Tollennusformaatti"
+msgstr "Tallenteen muoto"
 
 #: ../root/statistics/layout.tt:5 ../root/statistics/view_js.tt:37
 msgid "Formats"
@@ -1330,11 +1335,11 @@ msgstr "Laaja"
 
 #: ../root/statistics/index.tt:651 ../root/statistics/view_js.tt:58
 msgid "Instruments"
-msgstr ""
+msgstr "Soittimet"
 
 #: ../root/statistics/index.tt:64 ../root/statistics/index.tt:658
 msgid "Instruments:"
-msgstr ""
+msgstr "Soittimet:"
 
 #: ../root/statistics/view_js.tt:29
 msgid "Label Countries"
@@ -1456,7 +1461,7 @@ msgstr "Tallenteet:"
 
 #: ../root/statistics/editors.tt:36
 msgid "Most active editors in the past week"
-msgstr "Aktivisimmat muokkaajat viikon ajalta"
+msgstr "Aktiivisimmat muokkaajat viikon ajalta"
 
 #: ../root/statistics/editors.tt:42
 msgid "Most active voters in the past week"
@@ -1469,6 +1474,11 @@ msgstr "MusicBrainzin tapahtumia"
 #: ../root/statistics/timeline.tt:52
 msgid "MusicBrainz Events:"
 msgstr "MusicBrainzin tapahtumia:"
+
+#: ../root/statistics/index.tt:886
+msgctxt "vote"
+msgid "No"
+msgstr "Ei"
 
 #: ../root/statistics/no_statistics.tt:2
 msgid "No Statistics"
@@ -1514,10 +1524,6 @@ msgstr "Ei tilaa asetettu"
 #: ../root/statistics/coverart.tt:56 ../root/statistics/coverart.tt:139
 msgid "No type"
 msgstr "Ei tyyppiä"
-
-#: ../root/statistics/index.tt:886
-msgid "No:"
-msgstr "Ei:"
 
 #: ../root/statistics/index.tt:204
 msgid "Non-group artists:"
@@ -1579,7 +1585,7 @@ msgstr "Yleiskatsaus"
 
 #: ../root/statistics/coverart.tt:145
 msgid "Per release"
-msgstr ""
+msgstr "Per julkaisu"
 
 #: ../root/statistics/view_js.tt:121
 msgid "Persons"
@@ -1587,7 +1593,7 @@ msgstr "Henkilöt"
 
 #: ../root/statistics/view_js.tt:199
 msgid "Pieces of Cover Art"
-msgstr "Kappaletta kansitaidetta"
+msgstr "Kansitaidetta yhteensä"
 
 #: ../root/statistics/coverart.tt:120
 msgid "Pieces of cover art"
@@ -1770,11 +1776,11 @@ msgstr[1] ""
 
 #: ../root/statistics/view_js.tt:202 ../root/statistics/view_js.tt:204
 msgid "Releases with Amazon Cover Art"
-msgstr ""
+msgstr "Julkaisut, joille löytää kansitaide Amazonista"
 
 #: ../root/statistics/view_js.tt:203
 msgid "Releases with CAA Cover Art"
-msgstr ""
+msgstr "Kansitaiteelliset julkaisut"
 
 #: ../root/statistics/view_js.tt:200
 msgid "Releases with Cover Art"
@@ -1782,7 +1788,7 @@ msgstr "Julkaisut, joissa kansitaidetta"
 
 #: ../root/statistics/view_js.tt:204
 msgid "Releases with Cover Art from Relationships"
-msgstr ""
+msgstr "Julkaisut, joilta löydyy kansitaide-yhteyksiä"
 
 #: ../root/statistics/view_js.tt:152
 msgid "Releases with Disc IDs"
@@ -1794,7 +1800,7 @@ msgstr "Julkaisut joilla ei kansitaidetta"
 
 #: ../root/statistics/view_js.tt:109
 msgid "Releases with a no-format medium"
-msgstr ""
+msgstr "Julkaisut, joiden formaatti on tuntematon"
 
 #: ../root/statistics/index.tt:405
 msgid "Releases with at least one disc ID:"
@@ -1835,7 +1841,7 @@ msgstr "Julkaisut:"
 
 #: ../root/statistics/timeline.tt:50
 msgid "Reset:"
-msgstr ""
+msgstr "Palaa alkutilaan: "
 
 #: ../root/statistics/languages_scripts.tt:53
 msgid "Script"
@@ -1852,12 +1858,12 @@ msgstr "Toissijaiset tyypit"
 #: ../root/statistics/index.tt:629 ../root/statistics/view_js.tt:57
 msgctxt "plural"
 msgid "Series"
-msgstr ""
+msgstr "Sarjat"
 
 #: ../root/statistics/index.tt:60 ../root/statistics/index.tt:636
 msgctxt "plural"
 msgid "Series:"
-msgstr ""
+msgstr "Sarjat:"
 
 #: ../root/statistics/no_statistics.tt:3
 msgid ""
@@ -1865,7 +1871,7 @@ msgid ""
 "administrator for this server, you should run "
 "<code>./admin/CollectStats.pl</code> or import <code>mbdump-"
 "stats.tar.bz2</code>."
-msgstr ""
+msgstr "Tälle palvelimelle ei ole vielä kerätty statistiikkoja. Jos olet palvelimen ylläpitäjä, sinun tulee joko ajaa <code>./admin/CollectStats.pl</code> tai tuoda <code>mbdump-stats.tar.bz2</code>."
 
 #: ../root/statistics/index.tt:87
 msgid "Tags (raw / aggregated):"
@@ -1877,7 +1883,7 @@ msgstr "Luokitukset (käsittelemätön)"
 
 #: ../root/statistics/editors.tt:16
 msgid "There is no data to display here."
-msgstr ""
+msgstr "Ei näytettävissä olevaa tietoa. "
 
 #: ../root/statistics/layout.tt:5
 msgid "Timeline"
@@ -2041,13 +2047,14 @@ msgstr "Teokset"
 msgid "Works:"
 msgstr "Teokset:"
 
+#: ../root/statistics/index.tt:880
+msgctxt "vote"
+msgid "Yes"
+msgstr "Kyllä"
+
 #: ../root/statistics/view_js.tt:78
 msgid "Yes Votes"
 msgstr "Kyllä-äänet"
-
-#: ../root/statistics/index.tt:880
-msgid "Yes:"
-msgstr "Kyllä:"
 
 #: ../root/statistics/index.tt:858 ../root/statistics/index.tt:910
 msgid "Yesterday:"
@@ -2055,7 +2062,7 @@ msgstr "Eilinen:"
 
 #: ../root/statistics/timeline.tt:49
 msgid "Zoom:"
-msgstr ""
+msgstr "Suurenna:"
 
 #: ../root/statistics/index.tt:692
 msgid "active ever:"
@@ -2119,7 +2126,7 @@ msgstr "jotka muokkaavat:"
 
 #: ../root/statistics/index.tt:699
 msgid "who edited and/or voted in the last 7 days:"
-msgstr "jotka muokaaneet ja/tai äänestäneet viimeisen 7 päivän aikana:"
+msgstr "jotka muokanneet ja/tai äänestäneet viimeisen 7 päivän aikana:"
 
 #: ../root/statistics/index.tt:707
 msgid "who edited in the last 7 days:"
@@ -2135,7 +2142,7 @@ msgstr "jotka jättävät muokkausmerkintöjä:"
 
 #: ../root/statistics/index.tt:764
 msgid "who use collections:"
-msgstr "jotka käyttävät kokoelmaa:"
+msgstr "jotka käyttävät kokoelmia:"
 
 #: ../root/statistics/index.tt:750
 msgid "who use ratings:"

@@ -11,6 +11,15 @@
     <p>[% l('This page requires JavaScript.') %]</p>
   </noscript>
 
+  <div style="display:none">[% warning(l('The Cover Art Archive is currently experiencing difficulties. Adding images for this release is unlikely to work at the moment.'), 'caa-warning') %]</div>
+  <script type="text/javascript">
+    $.getJSON("//s3.us.archive.org/?check_limit=1&accesskey=[% access_key %]&bucket=mbid-[% entity.gid %]", function (data) {
+        if (data.over_limit == 1) {
+            $(".caa-warning").parent().toggle();
+        }
+    });
+  </script>
+
   <form id="add-cover-art" class="cover-art" action="[% c.req.uri %]" method="post" >
     [%- USE r = FormRenderer(form) -%]
 
@@ -136,7 +145,7 @@
     <div style="clear: left;"> </div>
 
     [%- INCLUDE 'forms/edit-note.tt' -%]
-    [%- as_auto_editor() -%]
+    [%- make_votable() -%]
     <div class="row no-label buttons">
         <button id="add-cover-art-submit" type="submit" disabled="disabled"
                 class="submit positive">[% l('Enter edit') %]</button>

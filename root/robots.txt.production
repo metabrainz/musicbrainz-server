@@ -30,3 +30,5 @@ Disallow: /ws
 
 User-agent: ia_archiver
 Allow: /
+
+Sitemap: https://musicbrainz.org/sitemap-index.xml.gz

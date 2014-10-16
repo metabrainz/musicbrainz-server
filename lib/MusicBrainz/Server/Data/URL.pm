@@ -13,6 +13,8 @@ with
     'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'url' },
     'MusicBrainz::Server::Data::Role::Merge';
 
+sub _type { 'url' }
+
 my %URL_SPECIALIZATIONS = (
 
     # External links section
@@ -29,10 +31,10 @@ my %URL_SPECIALIZATIONS = (
     'Discogs'             => qr{^https?://(?:www.)?discogs.com/}i,
     'DiscosDoBrasil'      => qr{^https?://(?:www.)?discosdobrasil.com.br/}i,
     'Encyclopedisque'     => qr{^https?://(?:www.)?encyclopedisque.fr/}i,
-    'ESTERTallinn'        => qr{^https?://tallinn.ester.ee/}i,
-    'ESTERTartu'          => qr{^https?://tartu.ester.ee/}i,
+    'ESTER'               => qr{^https?://(?:www.)?ester.ee/}i,
     'Facebook'            => qr{^https?://(?:www.)?facebook.com/}i,
     'Generasia'           => qr{^https?://(?:www.)?generasia.com/wiki/}i,
+    'Genius'              => qr{^https?://(?:[^/]+\.)?genius.com/}i,
     'GooglePlus'          => qr{^https?://(?:www.)?plus.google.com/}i,
     'IBDb'                => qr{^https?://(?:www.)?ibdb.com/}i,
     'IMDb'                => qr{^https?://(?:www.)?imdb.com/}i,
@@ -56,11 +58,9 @@ my %URL_SPECIALIZATIONS = (
     'Ozon'                => qr{^https?://(?:www.)?ozon.ru/}i,
     'PsyDB'               => qr{^https?://(?:www.)?psydb.net/}i,
     'PureVolume'          => qr{^https?://(?:www.)?purevolume.com/}i,
-    'RapGenius'           => qr{^https?://(?:www.)?rapgenius.com/}i,
     'Rateyourmusic'       => qr{^https?://(?:www.)?rateyourmusic.com/}i,
     'ResidentAdvisor'     => qr{^https?://(?:www.)?residentadvisor.net/}i,
     'RockensDanmarkskort' => qr{^https?://(?:www.)?rockensdanmarkskort.dk/}i,
-    'RockGenius'          => qr{^https?://(?:www.)?rock.rapgenius.com/}i,
     'RockInChina'         => qr{^https?://(?:www.)?rockinchina.com/}i,
     'Rockipedia'          => qr{^https?://(?:www.)?rockipedia.no/}i,
     'Rolldabeats'         => qr{^https?://(?:www.)?rolldabeats.com/}i,
@@ -99,16 +99,6 @@ my %URL_SPECIALIZATIONS = (
     'ArtLibre'          => qr{^http://artlibre.org/licence/lal}i,
 
 );
-
-sub _gid_redirect_table
-{
-    return 'url_gid_redirect';
-}
-
-sub _table
-{
-    return 'url';
-}
 
 sub _columns
 {
@@ -197,6 +187,8 @@ sub _hash_to_row
         url => 'url',
     });
 }
+
+sub insert { confess "Should not be used for URLs" }
 
 sub find_or_insert
 {

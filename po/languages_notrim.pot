@@ -5923,7 +5923,7 @@ msgstr ""
 msgid "Cebuano"
 msgstr ""
 
-#. frequency:0 iso_code_3:xce 
+#. frequency:1 iso_code_3:xce 
 #: DB:language/name:7217
 msgid "Celtiberian"
 msgstr ""

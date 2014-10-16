@@ -61,27 +61,22 @@ CREATE INDEX editor_subscribe_series_idx_uniq ON editor_subscribe_series (editor
 CREATE INDEX editor_subscribe_series_idx_series ON editor_subscribe_series (series);
 CREATE INDEX editor_subscribe_editor_idx_uniq ON editor_subscribe_editor (editor, subscribed_editor);
 
-CREATE INDEX edit_idx_editor ON edit (editor);
-CREATE INDEX edit_idx_type ON edit (type);
-CREATE INDEX edit_idx_open_time ON edit (open_time);
-CREATE INDEX edit_idx_vote_time ON vote (vote_time);
+CREATE INDEX edit_idx_editor_id_desc ON edit (editor, id DESC); -- DESC only for historical reasons
+CREATE INDEX edit_idx_type_id ON edit (type, id);
+
+-- Index for the "last 24 hours" edit count on the user profile
+CREATE INDEX edit_idx_editor_open_time ON edit (editor, open_time);
 
 -- Partial index for status (excludes applied edits)
-CREATE INDEX edit_idx_status ON edit (status) WHERE status != 2;
-
--- Partial index for open time on open edits (speeds up ordering on /edit/open and edit searches dramatically)
-CREATE INDEX edit_idx_open_edits_open_time ON edit (open_time) WHERE status = 1;
+CREATE INDEX edit_idx_status_id ON edit (status, id) WHERE status <> 2;
 
 -- Indexes for materialized edit status
 CREATE INDEX edit_artist_idx_status ON edit_artist (status);
 CREATE INDEX edit_label_idx_status ON edit_label (status);
 
--- Index for viewing the latest edits for users
-CREATE INDEX edit_idx_editor_id_desc ON edit (editor, id DESC);
-
-CREATE INDEX edit_open_time_date ON edit (date_trunc('day', open_time AT TIME ZONE 'UTC'));
-CREATE INDEX edit_close_time_date ON edit (date_trunc('day', close_time AT TIME ZONE 'UTC'));
-CREATE INDEX edit_expire_time_date ON edit (date_trunc('day', expire_time AT TIME ZONE 'UTC'));
+CREATE INDEX edit_idx_open_time ON edit (open_time);
+CREATE INDEX edit_idx_close_time ON edit (close_time);
+CREATE INDEX edit_idx_expire_time ON edit (expire_time);
 
 -- Entity indexes
 CREATE INDEX edit_area_idx ON edit_area (area);
@@ -97,6 +92,7 @@ CREATE INDEX edit_work_idx ON edit_work (work);
 CREATE INDEX edit_url_idx ON edit_url (url);
 
 CREATE INDEX edit_note_idx_edit ON edit_note (edit);
+CREATE INDEX edit_note_idx_editor ON edit_note (editor);
 
 CREATE UNIQUE INDEX instrument_idx_gid ON instrument (gid);
 CREATE INDEX instrument_idx_name ON instrument (name);
@@ -305,8 +301,6 @@ CREATE INDEX editor_collection_idx_editor ON editor_collection (editor);
 CREATE UNIQUE INDEX cdtoc_idx_discid ON cdtoc (discid);
 CREATE INDEX cdtoc_idx_freedb_id ON cdtoc (freedb_id);
 
-CREATE UNIQUE INDEX medium_idx_uniq ON medium (release, position);
-
 CREATE INDEX medium_cdtoc_idx_medium ON medium_cdtoc (medium);
 CREATE INDEX medium_cdtoc_idx_cdtoc ON medium_cdtoc (cdtoc);
 CREATE UNIQUE INDEX medium_cdtoc_idx_uniq ON medium_cdtoc (medium, cdtoc);
@@ -395,7 +389,9 @@ CREATE UNIQUE INDEX url_idx_gid ON url (gid);
 CREATE UNIQUE INDEX url_idx_url ON url (url);
 
 CREATE INDEX vote_idx_edit ON vote (edit);
-CREATE INDEX vote_idx_editor ON vote (editor);
+CREATE INDEX vote_idx_editor_vote_time ON vote (editor, vote_time);
+CREATE INDEX vote_idx_editor_edit ON vote (editor, edit) WHERE superseded = FALSE;
+CREATE INDEX vote_idx_vote_time ON vote (vote_time);
 
 CREATE UNIQUE INDEX work_idx_gid ON work (gid);
 CREATE INDEX work_idx_name ON work (name);

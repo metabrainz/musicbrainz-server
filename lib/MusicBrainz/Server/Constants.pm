@@ -32,7 +32,8 @@ our %EXPORT_TAGS = (
     privileges      => [
         qw( $AUTO_EDITOR_FLAG         $BOT_FLAG           $UNTRUSTED_FLAG
             $RELATIONSHIP_EDITOR_FLAG $DONT_NAG_FLAG      $WIKI_TRANSCLUSION_FLAG
-            $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG $LOCATION_EDITOR_FLAG )
+            $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG $LOCATION_EDITOR_FLAG
+            $BANNER_EDITOR_FLAG )
     ],
     election_status => [
         qw( $ELECTION_SECONDER_1 $ELECTION_SECONDER_2 $ELECTION_OPEN
@@ -54,8 +55,11 @@ our @EXPORT_OK = (
         $AUTO_EDITOR_FLAG         $BOT_FLAG            $UNTRUSTED_FLAG
         $RELATIONSHIP_EDITOR_FLAG $DONT_NAG_FLAG       $WIKI_TRANSCLUSION_FLAG
         $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG  $LOCATION_EDITOR_FLAG
-        $COVERART_FRONT_TYPE      $COVERART_BACK_TYPE  $AREA_TYPE_COUNTRY
-        $INSTRUMENT_ROOT_ID       $VOCAL_ROOT_ID       $REQUIRED_VOTES
+        $BANNER_EDITOR_FLAG
+        $COVERART_FRONT_TYPE      $COVERART_BACK_TYPE
+        $AREA_TYPE_COUNTRY        $AREA_TYPE_CITY
+        $INSTRUMENT_ROOT_ID       $VOCAL_ROOT_ID       $REQUIRED_VOTES $OPEN_EDIT_DURATION
+        $EDIT_COUNT_LIMIT
         %PART_OF_SERIES           $ARTIST_ARTIST_COLLABORATION
         @FULL_TABLE_LIST          %ENTITIES            entities_with
     ),
@@ -279,6 +283,7 @@ Readonly our $WIKI_TRANSCLUSION_FLAG   => 32;
 Readonly our $MBID_SUBMITTER_FLAG      => 64;
 Readonly our $ACCOUNT_ADMIN_FLAG       => 128;
 Readonly our $LOCATION_EDITOR_FLAG     => 256;
+Readonly our $BANNER_EDITOR_FLAG       => 512;
 
 Readonly our $ELECTION_VOTE_NO      => -1;
 Readonly our $ELECTION_VOTE_ABSTAIN => 0;
@@ -291,9 +296,12 @@ Readonly our $INSTRUMENT_ROOT_ID => 14;
 Readonly our $VOCAL_ROOT_ID => 3;
 
 Readonly our $AREA_TYPE_COUNTRY => 1;
+Readonly our $AREA_TYPE_CITY => 3;
 
 Readonly our $REQUIRED_VOTES => 3;
+Readonly our $OPEN_EDIT_DURATION => 7;
 Readonly our $EDIT_MINIMUM_RESPONSE_PERIOD => DateTime::Duration->new(hours => 72);
+Readonly our $EDIT_COUNT_LIMIT => 500;
 
 Readonly our $ACCESS_SCOPE_PROFILE        => 1;
 Readonly our $ACCESS_SCOPE_EMAIL          => 2;
@@ -319,54 +327,96 @@ Readonly our $SERIES_ORDERING_ATTRIBUTE => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a
 
 Readonly our %ENTITIES => (
     area => {
-        mbid => { relatable => 1 },
+        mbid => { relatable => 'overview', multiple => 1 },
+        custom_tabs => ['artists', 'labels', 'releases', 'places'],
         edit_table => 1,
         merging => 1,
         model      => 'Area',
+        type => { simple => 1 },
         annotations => { edit_type => $EDIT_AREA_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_AREA_ADD_ALIAS,
+            edit_edit_type => $EDIT_AREA_EDIT_ALIAS,
+            delete_edit_type => $EDIT_AREA_DELETE_ALIAS,
+            search_hint_type => 3
+        },
         removal     => { manual => 1 }
     },
     artist => {
-        mbid => { relatable => 1 },
+        mbid => { relatable => 'dedicated', multiple => 1, indexable => 1 },
+        custom_tabs => ['releases', 'recordings', 'works'],
         edit_table => 1,
         merging => 1,
         model      => 'Artist',
+        type => { simple => 1 },
         annotations => { edit_type => $EDIT_ARTIST_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_ARTIST_ADD_ALIAS,
+            edit_edit_type => $EDIT_ARTIST_EDIT_ALIAS,
+            delete_edit_type => $EDIT_ARTIST_DELETE_ALIAS,
+            search_hint_type => 3
+        },
         ratings    => 1,
         tags       => 1,
         subscriptions => { entity => 1, deleted => 1 },
+        report_filter => 1,
         removal     => { automatic => 1 }
     },
     instrument => {
-        mbid => { relatable => 1 },
+        mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
+        custom_tabs => ['releases', 'recordings'],
         edit_table => 1,
         merging => 1,
         model      => 'Instrument',
+        type => { simple => 1 },
         annotations => { edit_type => $EDIT_INSTRUMENT_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_INSTRUMENT_ADD_ALIAS,
+            edit_edit_type => $EDIT_INSTRUMENT_EDIT_ALIAS,
+            delete_edit_type => $EDIT_INSTRUMENT_DELETE_ALIAS,
+            search_hint_type => 2
+        },
         removal     => { manual => 1 }
     },
     label => {
-        mbid => { relatable => 1 },
+        mbid => { relatable => 'dedicated', multiple => 1, indexable => 1 },
         edit_table => 1,
         merging => 1,
         model      => 'Label',
+        type => { simple => 1 },
         annotations => { edit_type => $EDIT_LABEL_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_LABEL_ADD_ALIAS,
+            edit_edit_type => $EDIT_LABEL_EDIT_ALIAS,
+            delete_edit_type => $EDIT_LABEL_DELETE_ALIAS,
+            search_hint_type => 2
+        },
         ratings    => 1,
         tags       => 1,
         subscriptions => { entity => 1, deleted => 1 },
+        report_filter => 1,
         removal     => { manual => 1, automatic => 1 }
     },
     place => {
-        mbid => { relatable => 1 },
+        mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
+        custom_tabs => ['performances', 'map'],
         edit_table => 1,
         merging => 1,
         model      => 'Place',
+        type => { simple => 1 },
         annotations => { edit_type => $EDIT_PLACE_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_PLACE_ADD_ALIAS,
+            edit_edit_type => $EDIT_PLACE_EDIT_ALIAS,
+            delete_edit_type => $EDIT_PLACE_DELETE_ALIAS,
+            search_hint_type => 2
+        },
         tags       => 1,
         removal     => { automatic => 1 }
     },
     recording => {
-        mbid => { relatable => 1 },
+        mbid => { relatable => 'overview', multiple => 1 },
+        custom_tabs => ['fingerprints'],
         edit_table => 1,
         merging => 1,
         model      => 'Recording',
@@ -374,10 +424,12 @@ Readonly our %ENTITIES => (
         ratings    => 1,
         tags       => 1,
         artist_credits => 1,
+        report_filter => 1,
         removal     => { manual => 1 }
     },
     release => {
-        mbid => { relatable => 1 },
+        mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
+        custom_tabs => ['discids', 'cover_art'],
         edit_table => 1,
         merging => 1,
         model      => 'Release',
@@ -385,46 +437,65 @@ Readonly our %ENTITIES => (
         tags       => 1,
         artist_credits => 1,
         removal     => { manual => 1 },
+        report_filter => 1,
         collections => 1
     },
     release_group => {
-        mbid => { relatable => 1 },
+        mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
         edit_table => 1,
         merging => 1,
         model      => 'ReleaseGroup',
+        type => { complex => 1 },
         url        => 'release-group',
         annotations => { edit_type => $EDIT_RELEASEGROUP_ADD_ANNOTATION },
         ratings    => 1,
         tags       => 1,
         artist_credits => 1,
+        report_filter => 1,
         removal     => { automatic => 1 }
     },
     series => {
-        mbid => { relatable => 1 },
+        mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
         edit_table => 1,
         merging => 1,
         model      => 'Series',
+        type => { simple => 1 },
         annotations => { edit_type => $EDIT_SERIES_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_SERIES_ADD_ALIAS,
+            edit_edit_type => $EDIT_SERIES_EDIT_ALIAS,
+            delete_edit_type => $EDIT_SERIES_DELETE_ALIAS,
+            search_hint_type => 2
+        },
         subscriptions => { entity => 1, deleted => 1 },
+        report_filter => 1,
         removal     => { automatic => 1 }
     },
     url => {
-        mbid => { relatable => 1 },
+        mbid => { relatable => 'overview', multiple => 1, no_details => 1 },
         edit_table => 1,
         model => 'URL'
     },
     work => {
-        mbid => { relatable => 1 },
+        mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
         edit_table => 1,
         merging => 1,
         model      => 'Work',
+        type => { simple => 1 },
         annotations => { edit_type => $EDIT_WORK_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_WORK_ADD_ALIAS,
+            edit_edit_type => $EDIT_WORK_EDIT_ALIAS,
+            delete_edit_type => $EDIT_WORK_DELETE_ALIAS,
+            search_hint_type => 2
+        },
         ratings    => 1,
         tags       => 1,
+        report_filter => 1,
         removal     => { automatic => 1 }
     },
     track => {
-        mbid => { relatable => 0 },
+        mbid => { multiple => 1 },
         model      => 'Track',
         artist_credits => 1
     },
@@ -452,6 +523,9 @@ Readonly our %ENTITIES => (
     },
     freedb => {
         model => 'FreeDB'
+    },
+    tag => {
+        model => 'Tag'
     }
 );
 

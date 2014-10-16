@@ -10,12 +10,11 @@ use Authen::Passphrase::RejectAll;
 use DateTime;
 use Digest::MD5 qw( md5_hex );
 use Encode;
-use Math::Random::Secure qw();
 use MusicBrainz::Server::Constants qw( $STATUS_DELETED $STATUS_OPEN entities_with );
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Editor;
 use MusicBrainz::Server::Data::Utils qw(
-    generate_gid
+    generate_token
     hash_to_row
     load_subobjects
     placeholders
@@ -321,6 +320,7 @@ sub update_privileges
                 + $values->{location_editor}  * $LOCATION_EDITOR_FLAG
                 + $values->{no_nag}           * $DONT_NAG_FLAG
                 + $values->{wiki_transcluder} * $WIKI_TRANSCLUSION_FLAG
+                + $values->{banner_editor}    * $BANNER_EDITOR_FLAG
                 + $values->{mbid_submitter}   * $MBID_SUBMITTER_FLAG
                 + $values->{account_admin}    * $ACCOUNT_ADMIN_FLAG;
 
@@ -497,7 +497,9 @@ sub delete {
 
     $self->sql->do("DELETE FROM editor_preference WHERE editor = ?", $editor_id);
     $self->c->model('EditorLanguage')->delete_editor($editor_id);
+
     $self->c->model('EditorOAuthToken')->delete_editor($editor_id);
+    $self->c->model('Application')->delete_editor($editor_id);
 
     $self->c->model('EditorSubscriptions')->delete_editor($editor_id);
     $self->c->model('Editor')->unsubscribe_to($editor_id);
@@ -520,6 +522,23 @@ sub delete {
 
     for my $edit (@edits) {
         $self->c->model('Edit')->cancel($edit);
+    }
+
+    # Delete completely if they're not actually referred to by anything
+    # These AND NOT EXISTS clauses are ordered by likelihood of a row existing
+    # and whether or not they have an index to use, as postgresql will not execute
+    # the later clauses if an earlier one has already excluded the lone editor row.
+    my $should_delete = $self->sql->select_single_value(
+        "SELECT TRUE FROM editor WHERE id = ? " .
+        "AND NOT EXISTS (SELECT TRUE FROM edit WHERE editor = editor.id) " .
+        "AND NOT EXISTS (SELECT TRUE FROM edit_note WHERE editor = editor.id) " .
+        "AND NOT EXISTS (SELECT TRUE FROM vote WHERE editor = editor.id) " .
+        "AND NOT EXISTS (SELECT TRUE FROM annotation WHERE editor = editor.id) " .
+        "AND NOT EXISTS (SELECT TRUE FROM autoeditor_election_vote WHERE voter = editor.id) " .
+        "AND NOT EXISTS (SELECT TRUE FROM autoeditor_election WHERE candidate = editor.id OR proposer = editor.id OR seconder_1 = editor.id OR seconder_2 = editor.id)",
+        $editor_id);
+    if ($should_delete) {
+        $self->sql->do("DELETE FROM editor WHERE id = ?", $editor_id);
     }
 
     $self->sql->commit;
@@ -623,8 +642,7 @@ sub allocate_remember_me_token {
             lc $user_name
         )
     ) {
-        # Generate a 128-bit token. irand is 32-bit.
-        my $token = join('', map { '' . Math::Random::Secure::irand() } (0 .. 3));
+        my $token = generate_token();
 
         my $key = "$normalized_name|$token";
         $self->redis->add($key, 1);

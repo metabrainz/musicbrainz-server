@@ -7,6 +7,7 @@ use MusicBrainz::Server::Constants qw( $INSTRUMENT_ROOT_ID );
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Entity::LinkType;
 use MusicBrainz::Server::Entity::LinkAttributeType;
+use MusicBrainz::Server::Entity::LinkAttribute;
 use MusicBrainz::Server::Entity::Link;
 
 
@@ -39,12 +40,14 @@ $rel = MusicBrainz::Server::Entity::Relationship->new(
     link => MusicBrainz::Server::Entity::Link->new(
         type => $link_type,
         attributes => [
-            MusicBrainz::Server::Entity::LinkAttributeType->new(
-                name => 'additional',
-                root => MusicBrainz::Server::Entity::LinkAttributeType->new(
+            MusicBrainz::Server::Entity::LinkAttribute->new(
+                type => MusicBrainz::Server::Entity::LinkAttributeType->new(
                     name => 'additional',
-                    id => 1
-                ),
+                    root => MusicBrainz::Server::Entity::LinkAttributeType->new(
+                        name => 'additional',
+                        id => 1
+                    ),
+                )
             ),
         ]
     ),
@@ -56,12 +59,14 @@ $rel = MusicBrainz::Server::Entity::Relationship->new(
     link => MusicBrainz::Server::Entity::Link->new(
         type => $link_type,
         attributes => [
-            MusicBrainz::Server::Entity::LinkAttributeType->new(
-                name => 'orchestra',
-                root => MusicBrainz::Server::Entity::LinkAttributeType->new(
-                    name => 'instrument',
-                    id => $INSTRUMENT_ROOT_ID
-                ),
+            MusicBrainz::Server::Entity::LinkAttribute->new(
+                type => MusicBrainz::Server::Entity::LinkAttributeType->new(
+                    name => 'orchestra',
+                    root => MusicBrainz::Server::Entity::LinkAttributeType->new(
+                        name => 'instrument',
+                        id => $INSTRUMENT_ROOT_ID
+                    ),
+                )
             ),
         ]
     ),
@@ -73,20 +78,24 @@ $rel = MusicBrainz::Server::Entity::Relationship->new(
     link => MusicBrainz::Server::Entity::Link->new(
         type => $link_type,
         attributes => [
-            MusicBrainz::Server::Entity::LinkAttributeType->new(
-                name => 'orchestra',
-                root => MusicBrainz::Server::Entity::LinkAttributeType->new(
-                    name => 'instrument',
-                    id => $INSTRUMENT_ROOT_ID
+            MusicBrainz::Server::Entity::LinkAttribute->new(
+                type => MusicBrainz::Server::Entity::LinkAttributeType->new(
+                    name => 'orchestra',
+                    root => MusicBrainz::Server::Entity::LinkAttributeType->new(
+                        name => 'instrument',
+                        id => $INSTRUMENT_ROOT_ID
+                    ),
                 ),
             ),
-            MusicBrainz::Server::Entity::LinkAttributeType->new(
-                name => 'piano',
-                root => MusicBrainz::Server::Entity::LinkAttributeType->new(
-                    name => 'instrument',
-                    id => $INSTRUMENT_ROOT_ID
+            MusicBrainz::Server::Entity::LinkAttribute->new(
+                type => MusicBrainz::Server::Entity::LinkAttributeType->new(
+                    name => 'piano',
+                    root => MusicBrainz::Server::Entity::LinkAttributeType->new(
+                        name => 'instrument',
+                        id => $INSTRUMENT_ROOT_ID
+                    ),
                 ),
-            ),
+            )
         ]
     ),
 );
@@ -97,19 +106,23 @@ $rel = MusicBrainz::Server::Entity::Relationship->new(
     link => MusicBrainz::Server::Entity::Link->new(
         type => $link_type,
         attributes => [
-            MusicBrainz::Server::Entity::LinkAttributeType->new(
-                name => 'orchestra',
-                root => MusicBrainz::Server::Entity::LinkAttributeType->new(
-                    name => 'instrument',
-                    id => $INSTRUMENT_ROOT_ID
+            MusicBrainz::Server::Entity::LinkAttribute->new(
+                type => MusicBrainz::Server::Entity::LinkAttributeType->new(
+                    name => 'orchestra',
+                    root => MusicBrainz::Server::Entity::LinkAttributeType->new(
+                        name => 'instrument',
+                        id => $INSTRUMENT_ROOT_ID
+                    ),
                 ),
             ),
-            MusicBrainz::Server::Entity::LinkAttributeType->new(
-                name => 'additional',
-                root => MusicBrainz::Server::Entity::LinkAttributeType->new(
+            MusicBrainz::Server::Entity::LinkAttribute->new(
+                type => MusicBrainz::Server::Entity::LinkAttributeType->new(
                     name => 'additional',
-                    id => $INSTRUMENT_ROOT_ID
-                ),
+                    root => MusicBrainz::Server::Entity::LinkAttributeType->new(
+                        name => 'additional',
+                        id => $INSTRUMENT_ROOT_ID
+                    ),
+                )
             ),
         ]
     ),
@@ -126,27 +139,33 @@ $rel = MusicBrainz::Server::Entity::Relationship->new(
     link => MusicBrainz::Server::Entity::Link->new(
         type => $member_link_type,
         attributes => [
-            MusicBrainz::Server::Entity::LinkAttributeType->new(
-                name => 'founding',
-                root => MusicBrainz::Server::Entity::LinkAttributeType->new(
+            MusicBrainz::Server::Entity::LinkAttribute->new(
+                type => MusicBrainz::Server::Entity::LinkAttributeType->new(
                     name => 'founding',
-                    id => $INSTRUMENT_ROOT_ID
+                    root => MusicBrainz::Server::Entity::LinkAttributeType->new(
+                        name => 'founding',
+                        id => $INSTRUMENT_ROOT_ID
+                    ),
                 ),
             ),
-            MusicBrainz::Server::Entity::LinkAttributeType->new(
-                name => 'vocal',
-                root => MusicBrainz::Server::Entity::LinkAttributeType->new(
+            MusicBrainz::Server::Entity::LinkAttribute->new(
+                type => MusicBrainz::Server::Entity::LinkAttributeType->new(
                     name => 'vocal',
-                    id => $INSTRUMENT_ROOT_ID
+                    root => MusicBrainz::Server::Entity::LinkAttributeType->new(
+                        name => 'vocal',
+                        id => $INSTRUMENT_ROOT_ID
+                    ),
                 ),
             ),
-            MusicBrainz::Server::Entity::LinkAttributeType->new(
-                name => 'guitar',
-                root => MusicBrainz::Server::Entity::LinkAttributeType->new(
-                    name => 'instrument',
-                    id => $INSTRUMENT_ROOT_ID
+            MusicBrainz::Server::Entity::LinkAttribute->new(
+                type => MusicBrainz::Server::Entity::LinkAttributeType->new(
+                    name => 'guitar',
+                    root => MusicBrainz::Server::Entity::LinkAttributeType->new(
+                        name => 'instrument',
+                        id => $INSTRUMENT_ROOT_ID
+                    ),
                 ),
-            ),
+            )
         ]
     ),
 );

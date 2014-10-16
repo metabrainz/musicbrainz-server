@@ -15,7 +15,6 @@ use MusicBrainz::Server::Data::Track;
 use MusicBrainz::Server::Data::ReleaseGroup;
 use MusicBrainz::Server::Data::Utils qw(
     defined_hash
-    generate_gid
     hash_to_row
     merge_boolean_attributes
     merge_table_attributes
@@ -37,10 +36,7 @@ with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'recording' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 
-sub _table
-{
-    return 'recording';
-}
+sub _type { 'recording' }
 
 sub _columns
 {
@@ -67,16 +63,6 @@ sub _column_mapping
 sub _id_column
 {
     return 'recording.id';
-}
-
-sub _gid_redirect_table
-{
-    return 'recording_gid_redirect';
-}
-
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::Recording';
 }
 
 sub find_artist_credits_by_artist
@@ -131,18 +117,28 @@ sub find_by_artist
 sub find_by_instrument {
     my ($self, $instrument_id, $limit, $offset) = @_;
 
-    my $query = "SELECT " . $self->_columns . "
+    my $query = "SELECT " . $self->_columns . ", array_agg(lac.credited_as) AS instrument_credits
                  FROM " . $self->_table . "
                      JOIN l_artist_recording ON l_artist_recording.entity1 = recording.id
                      JOIN link_attribute ON link_attribute.link = l_artist_recording.link
                      JOIN link_attribute_type ON link_attribute_type.id = link_attribute.attribute_type
                      JOIN instrument ON instrument.gid = link_attribute_type.gid
+                     LEFT JOIN link_attribute_credit lac ON (
+                         lac.link = link_attribute.link AND
+                         lac.attribute_type = link_attribute.attribute_type
+                     )
                  WHERE instrument.id = ?
+                 GROUP BY recording.id
                  ORDER BY musicbrainz_collate(recording.name)
                  OFFSET ?";
 
     return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit,
+        sub {
+            my ($row) = @_;
+            my $credits = delete $row->{instrument_credits};
+            return { recording => $self->_new_from_row($row), instrument_credits => $credits };
+        },
         $query, $instrument_id, $offset || 0);
 }
 
@@ -176,24 +172,6 @@ sub load
 {
     my ($self, @objs) = @_;
     return load_subobjects($self, 'recording', @objs);
-}
-
-sub insert
-{
-    my ($self, @recordings) = @_;
-    my $track_data = MusicBrainz::Server::Data::Track->new(c => $self->c);
-    my $class = $self->_entity_class;
-    my @created;
-    for my $recording (@recordings)
-    {
-        my $row = $self->_hash_to_row($recording);
-        $row->{gid} = $recording->{gid} || generate_gid();
-        push @created, $class->new(
-            id => $self->sql->insert_row('recording', $row, 'id'),
-            gid => $row->{gid}
-        );
-    }
-    return @recordings > 1 ? @created : $created[0];
 }
 
 sub update

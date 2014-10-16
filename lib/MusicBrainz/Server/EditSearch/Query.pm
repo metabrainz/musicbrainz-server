@@ -5,6 +5,7 @@ use MusicBrainz::Server::CGI::Expand qw( expand_hash );
 use MooseX::Types::Moose qw( Any ArrayRef Bool Int Maybe Str );
 use MooseX::Types::Structured qw( Map Tuple );
 use Moose::Util::TypeConstraints qw( enum role_type );
+use MusicBrainz::Server::Constants qw( $EDIT_COUNT_LIMIT );
 use MusicBrainz::Server::EditSearch::Predicate::Date;
 use MusicBrainz::Server::EditSearch::Predicate::ID;
 use MusicBrainz::Server::EditSearch::Predicate::Set;
@@ -70,27 +71,6 @@ has auto_edit_filter => (
     isa => Maybe[Bool],
     is => 'ro',
     default => undef
-);
-
-has join => (
-    isa => ArrayRef[Str],
-    is => 'bare',
-    default => sub { [] },
-    traits => [ 'Array' ],
-    handles => {
-        join => 'elements',
-        add_join => 'push',
-    }
-);
-
-has join_counter => (
-    isa => Int,
-    is => 'ro',
-    default => 0,
-    traits => [ 'Counter' ],
-    handles => {
-        inc_joins => 'inc',
-    }
 );
 
 has where => (
@@ -162,17 +142,15 @@ sub as_string {
         'autoedit = ? AND ' : '';
 
     my $order = '';
-    $order = 'ORDER BY ' . join(', ', map { "$_ " . $self->order }
-                                        qw( edit.open_time edit.id ))
+    $order = 'ORDER BY edit.id ' . $self->order
         unless $self->order eq 'rand';
 
-    return 'SELECT DISTINCT edit.* FROM edit ' .
-        join(' ', $self->join) .
-        ' WHERE ' . $ae_predicate . ($self->negate ? 'NOT' : '') . ' (' .
+    return 'SELECT edit.* FROM edit ' .
+        'WHERE ' . $ae_predicate . ($self->negate ? 'NOT ' : '') . '(' .
             join(" $comb ", map { '(' . $_->[0] . ')' } $self->where) .
         ")
          $order
-         LIMIT 500 OFFSET ?";
+         LIMIT $EDIT_COUNT_LIMIT OFFSET ?";
 }
 
 sub arguments {

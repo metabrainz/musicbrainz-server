@@ -16,13 +16,13 @@ my $ws_defs = Data::OptList::mkopt([
                          method   => 'GET',
                          linked   => [ qw(area) ],
                          inc      => [ qw(aliases annotation
-                                          _relations tags user-tags ratings user-ratings) ],
+                                          _relations tags user-tags) ],
                          optional => [ qw(fmt limit offset) ],
      },
      place => {
                          method   => 'GET',
                          inc      => [ qw(aliases annotation
-                                          _relations tags user-tags ratings user-ratings) ],
+                                          _relations tags user-tags) ],
                          optional => [ qw(fmt) ],
      }
 ]);
@@ -53,12 +53,6 @@ sub place_toplevel
 
     $c->model('Place')->annotation->load_latest($place)
         if $c->stash->{inc}->annotation;
-
-    if ($c->stash->{inc}->aliases)
-    {
-        my $aliases = $c->model('Place')->alias->find_by_entity_id($place->id);
-        $opts->{aliases} = $aliases;
-    }
 
     $self->load_relationships($c, $stash, $place);
 }

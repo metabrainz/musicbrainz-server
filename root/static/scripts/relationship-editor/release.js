@@ -10,8 +10,6 @@
 
     RE.ReleaseViewModel = aclass(RE.GenericEntityViewModel, {
 
-        reject: /url|work-recording/,
-
         after$init: function (options) {
             var self = this;
 
@@ -42,38 +40,53 @@
             );
 
             this.source.mediums = ko.observableArray([]);
-
-            MB.entity.Recording.around("displayRelationships", function (supr, vm) {
-                return _.difference(supr(vm), this.performances());
-            });
-
-            MB.entity.Work.around("displayRelationships", function (supr, vm) {
-                return _.reject(supr(vm), { entityTypes: "recording-work" });
-            });
+            this.loadingRelease = ko.observable(false);
 
             ko.applyBindings(this, document.getElementById("content"));
 
-            var gid = this.source.gid;
-            var url = "/ws/js/release/" + gid + "?inc=rels+media+recordings";
-
+            this.loadingRelease(true);
+            var url = "/ws/js/release/" + this.source.gid + "?inc=rels+media+recordings";
             MB.utility.request({ url: url }, this)
                 .done(this.releaseLoaded)
-                .done(function () {
-                    ko.computed(function () {
-                        var hasChanges = self.hasChanges(self.source);
-
-                        window.onbeforeunload = hasChanges ?
-                            _.constant(MB.text.ConfirmNavigation) : undefined;
-                    });
+                .always(function () {
+                    self.loadingRelease(false);
                 });
-        },
 
-        around$hasChanges: function (supr, entity) {
-            return supr(entity) || entity.releaseGroup.changedRelationships(this).length > 0;
+            window.onbeforeunload = function () {
+                var $changes = $(".link-phrase")
+                    .filter(".rel-edit:eq(0), .rel-add:eq(0), .rel-remove:eq(0)");
+
+                if ($changes.length) {
+                    return MB.text.ConfirmNavigation;
+                }
+            };
         },
 
         after$getEdits: function (addChanged) {
-            _.each(this.source.releaseGroup.changedRelationships(this), addChanged);
+            var self = this;
+
+            _.each(this.source.mediums(), function (medium) {
+                _.each(medium.tracks, function (track) {
+                    var recording = track.recording;
+
+                    _.each(recording.relationships(), function (r) {
+                        addChanged(r, recording);
+
+                        if (r.entityTypes === "recording-work") {
+                            var work = r.entities()[1];
+
+                            _.each(work.relationships(), function (r) {
+                                addChanged(r, work);
+                            });
+                        }
+                    });
+                });
+            });
+
+            var rg = this.source.releaseGroup;
+            _.each(rg.relationships(), function (r) {
+                addChanged(r, rg);
+            });
         },
 
         submissionDone: function () {
@@ -162,6 +175,26 @@
                     .prop("checked", false)
                     .click();
             }
+        },
+
+        _sortedRelationships: function (relationships, source) {
+            var self = this;
+
+            return relationships.filter(function (relationship) {
+                return relationship.entityTypes !== "recording-work";
+
+            }).sortBy(function (relationship) {
+                return relationship.lowerCaseTargetName(source);
+
+            }).sortBy("linkOrder").sortBy(function (relationship) {
+                return relationship.lowerCasePhrase(source);
+            });
+        },
+
+        _acceptedTypes: ["release", "release_group", "recording", "work"],
+
+        typesAreAccepted: function (sourceType, targetType) {
+            return targetType !== "url" && _.contains(this._acceptedTypes, sourceType);
         }
     });
 

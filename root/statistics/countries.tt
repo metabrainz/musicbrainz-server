@@ -1,7 +1,7 @@
 [%- PROCESS "statistics/macros-header.tt" -%]
 
 [%- MACRO country_entry(country) BLOCK -%]
-<tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+<tr class="[% loop.parity %]">
     <td class="t">[% loop.count %]</td>
     [%- IF country.entity.country_code != '' -%]
     <td>[% link_entity(country.entity) %]</td>

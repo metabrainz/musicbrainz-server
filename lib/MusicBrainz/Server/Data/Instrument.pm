@@ -6,7 +6,6 @@ use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Data::Utils qw(
     defined_hash
-    generate_gid
     hash_to_row
     load_subobjects
     merge_string_attributes
@@ -28,10 +27,7 @@ with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'instrument' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 
-sub _table {
-    my $self = shift;
-    return 'instrument';
-}
+sub _type { 'instrument' }
 
 sub _columns {
     return 'instrument.id, instrument.gid, instrument.type, instrument.name,
@@ -55,32 +51,9 @@ sub _id_column {
     return 'instrument.id';
 }
 
-sub _gid_redirect_table {
-    return 'instrument_gid_redirect';
-}
-
-sub _entity_class {
-    return 'MusicBrainz::Server::Entity::Instrument';
-}
-
 sub load {
     my ($self, @objs) = @_;
     load_subobjects($self, 'instrument', @objs);
-}
-
-sub insert {
-    my ($self, @instruments) = @_;
-    my $class = $self->_entity_class;
-    my @created;
-    for my $instrument (@instruments) {
-        my $row = $self->_hash_to_row($instrument);
-        $row->{gid} = $instrument->{gid} || generate_gid();
-        push @created, $class->new(
-            id => $self->sql->insert_row('instrument', $row, 'id'),
-            gid => $row->{gid}
-        );
-    }
-    return @instruments > 1 ? @created : $created[0];
 }
 
 sub update {
@@ -112,6 +85,11 @@ sub delete {
     $self->sql->do('DELETE FROM instrument WHERE id = ?', $instrument_id);
     return;
 }
+
+after qw( insert update delete merge ) => sub {
+    my ($self) = @_;
+    $self->c->model('LinkAttributeType')->_delete_from_cache('all');
+};
 
 sub _merge_impl {
     my ($self, $new_id, @old_ids) = @_;

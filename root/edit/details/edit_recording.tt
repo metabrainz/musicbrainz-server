@@ -24,8 +24,8 @@
                   format_length(edit.display_data.length.new)) %]
 
   [% display_diff(l('Video:'),
-                  edit.display_data.video.old ? l('Yes') : l('No'),
-                  edit.display_data.video.new ? l('Yes') : l('No'),
+                  yesno(edit.display_data.video.old),
+                  yesno(edit.display_data.video.new),
                   '-') %]
 
   [%- IF edit.display_data.artist_credit -%]

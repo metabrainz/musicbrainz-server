@@ -8,7 +8,7 @@
   </thead>
   <tbody>
     [% FOR place IN places %]
-    <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
+    <tr class="[% loop.parity %]">
       <td>
         [% link_entity(place) %]
       </td>

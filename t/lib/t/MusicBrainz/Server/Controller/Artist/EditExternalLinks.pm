@@ -32,6 +32,7 @@ my @edits = capture_edits {
             'edit-artist.url.2.relationship_id' => '2',
             'edit-artist.url.2.link_type_id' => '2',
             'edit-artist.url.2.removed' => '1',
+            'edit-artist.make_votable' => '1'
         });
 } $c;
 
@@ -69,7 +70,6 @@ is_deeply($edits[0]->data, {
             'year' => undef
         },
         'attributes' => [],
-        'attribute_text_values' => {},
     },
     'relationship_id' => 1,
     'type0' => 'artist',
@@ -84,7 +84,8 @@ is_deeply($edits[0]->data, {
             'name' => 'http://zh-yue.wikipedia.org/wiki/%E7%8E%8B%E8%8F%B2',
             'id' => 3
         }
-    }
+    },
+    'edit_version' => 2,
 });
 
 is_deeply($edits[1]->data, {
@@ -106,6 +107,7 @@ is_deeply($edits[1]->data, {
         'id' => 100
     },
     'type0' => 'artist',
+    'edit_version' => 2,
 });
 
 is_deeply($edits[2]->data, {
@@ -121,6 +123,7 @@ is_deeply($edits[2]->data, {
                 'day' => undef,
                 'year' => undef
             },
+            ended => 0,
             'type' => {
                 'entity0_type' => 'artist',
                 'long_link_phrase' => 'allmusic',
@@ -138,7 +141,8 @@ is_deeply($edits[2]->data, {
             'id' => 100
         },
         'id' => 2
-    }
+    },
+    'edit_version' => 2,
 });
 
 
@@ -154,7 +158,7 @@ is_deeply($edits[2]->data, {
             'edit-artist.url.0.relationship_id' => '1',
             'edit-artist.url.0.link_type_id' => '1',
             'edit-artist.url.0.text' => 'http://zh-yue.wikipedia.org/wiki/王菲',
-            'edit-artist.as_auto_editor' => '1',
+            'edit-artist.make_votable' => '1',
         });
 } $c;
 

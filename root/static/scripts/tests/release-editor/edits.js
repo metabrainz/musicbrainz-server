@@ -3,37 +3,6 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-
-MB.edit.preview = function () {
-    return $.Deferred().resolve({ previews: [] });
-};
-
-
-MB.edit.create = function () {
-    return $.Deferred().resolve({ edits: [] });
-};
-
-
-MB.typeInfoByID = {
-    76: {
-      deprecated: false,
-      phrase: "Discogs",
-      type0: "release",
-      type1: "url",
-      cardinality0: 0,
-      cardinality1: 0
-    },
-    77: {
-      deprecated: false,
-      phrase: "Wikipedia",
-      type0: "release",
-      type1: "url",
-      cardinality0: 0,
-      cardinality1: 0
-    }
-};
-
-
 releaseEditor.test.module("add-release edits", function () {
     var data = $.extend(true, {}, releaseEditor.test.testRelease);
     var medium = data.mediums[0];
@@ -115,7 +84,7 @@ test("releaseAddReleaseLabel edits are generated for new release", function () {
 
 
 test("recordingEdit edits are generated for new release", function () {
-    releaseEditor.copyTrackChangesToRecordings(true);
+    releaseEditor.copyTrackTitlesToRecordings(true);
 
     var track = this.release.mediums()[0].tracks()[0];
 
@@ -144,20 +113,21 @@ test("recordingEdit edits are generated for new release", function () {
             }
           ]
         },
-        length: 722093,
+        length: 822093,
         comment: "",
         video: false,
         edit_type: 72,
-        hash: "ccc1d1492d135248dbe0c799855d74aed8a1bdf4"
+        hash: "e14c68fb875cf1169b1c1a6ffd2a31de09ee8534"
       }
     ]);
 
-    releaseEditor.copyTrackChangesToRecordings(false);
+    releaseEditor.copyTrackTitlesToRecordings(false);
 });
 
 
 test("recordingEdit edits are generated for new mediums (MBS-7271)", function () {
-    releaseEditor.copyTrackChangesToRecordings(true);
+    releaseEditor.copyTrackTitlesToRecordings(true);
+    releaseEditor.copyTrackArtistsToRecordings(true);
 
     var trackData = {
         name: "foo",
@@ -204,7 +174,8 @@ test("recordingEdit edits are generated for new mediums (MBS-7271)", function ()
       }
     ]);
 
-    releaseEditor.copyTrackChangesToRecordings(false);
+    releaseEditor.copyTrackTitlesToRecordings(false);
+    releaseEditor.copyTrackArtistsToRecordings(false);
 });
 
 
@@ -492,10 +463,7 @@ test("relationshipCreate edit for external link is generated for existing releas
     deepEqual(releaseEditor.edits.externalLinks(release), [
       {
         "attributes": [],
-        "beginDate": null,
         "edit_type": 90,
-        "endDate": null,
-        "ended": false,
         "entities": [
           {
             "entityType": "release",
@@ -507,7 +475,7 @@ test("relationshipCreate edit for external link is generated for existing releas
             "name": "http://www.discogs.com/release/1369894"
           }
         ],
-        "hash": "bd2ef529fccb9993de3575f4865dd341b78d3664",
+        "hash": "05d4c2a59527d50caf84db74df7814f125f41728",
         "linkTypeID": 76
       }
     ]);
@@ -563,10 +531,7 @@ test("relationshipDelete edit for external link is generated for existing releas
     deepEqual(releaseEditor.edits.externalLinks(release), [
       {
         "attributes": [],
-        "beginDate": null,
         "edit_type": 92,
-        "endDate": null,
-        "ended": false,
         "entities": [
           {
             "entityType": "release",
@@ -578,7 +543,7 @@ test("relationshipDelete edit for external link is generated for existing releas
             "name": "http://www.discogs.com/release/1369894"
           }
         ],
-        "hash": "8c56b314d97a3e83ef32874819b920f4f4264db0",
+        "hash": "9d7f27c130d713ebe7ecfed7a58a1645f13bac42",
         "id": 123
       }
     ]);
@@ -603,16 +568,16 @@ test("edits are not generated for external links that duplicate existing removed
     release.relationships.push(addedDuplicate);
 
     equal(releaseEditor.edits.externalLinks(release).length, 1);
-    equal(releaseEditor.validation.errorCount(), 1);
+    equal(releaseEditor.validation.errorsExist(), true);
 
     addedDuplicate.remove();
 
-    equal(releaseEditor.validation.errorCount(), 0);
+    equal(releaseEditor.validation.errorsExist(), false);
 
     existingRelationship2.url(existingRelationship1.url());
 
     equal(releaseEditor.edits.externalLinks(release).length, 1);
-    equal(releaseEditor.validation.errorCount(), 1);
+    equal(releaseEditor.validation.errorsExist(), true);
 });
 
 

@@ -1,8 +1,3 @@
-[%- info_links = [
-    ['index', link_url(url, 'show', l('Overview'))],
-    ['edit', link_url(url, 'edit', l('Edit'))],
-] -%]
-
 <div class="urlheader">
 <h1>
   [% '<span class="mp">' IF url.edits_pending %]
@@ -14,4 +9,4 @@
 </p>
 </div>
 
-[% INCLUDE 'components/tabs.tt' list=info_links %]
+[% INCLUDE 'components/entity-tabs.tt' edit_tab='default' %]

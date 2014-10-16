@@ -20,6 +20,7 @@
             [%- END -%]
             <th>[% l('Catalog#') %]</th>
             <th>[% l('Barcode') %]</th>
+            [% IF instrument_credits.size %]<th>[% l('Instrument Credits') %]</th>[% END %]
             [%- IF c.try_get_session('tport') -%]
               <th>[% l('Tagger') %]</th>
             [%- END -%]
@@ -27,7 +28,7 @@
     </thead>
     <tbody>
     [%- FOR release=releases -%]
-      <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+      <tr class="[% loop.parity %]">
         [% IF c.user_exists && !no_checkboxes %]
           <td>
             <input type="checkbox" name="add-to-merge" value="[% release.id %]" />
@@ -56,6 +57,13 @@
               <td>[% release_catno_list(release.labels) %]</td>
           [%- END -%]
           <td>[% release.barcode.format %]</td>
+          [%- IF instrument_credits.size -%]
+            <td>
+              [%~ release_gid = release.gid;
+                  comma_list(instrument_credits.$release_gid) IF instrument_credits.$release_gid
+              ~%]
+            </td>
+          [%- END -%]
           [%- IF c.try_get_session('tport') -%]
             <td>[% tagger_icon(release) %]</td>
           [%- END -%]

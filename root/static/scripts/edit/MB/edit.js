@@ -121,17 +121,28 @@
                 entities:   array(relationship.entities, this.relationshipEntity)
             };
 
-            data.attributes = _.map(_.result(relationship, "attributes"), Number);
+            data.attributes = _(ko.unwrap(relationship.attributes)).map(function (attribute) {
+                var output = {
+                    type: {
+                        gid: string(attribute.type.gid)
+                    }
+                }, credit, textValue;
 
-            var textAttrs = relationship.attributeTextValues();
-            if (!_.isEmpty(textAttrs)) {
-                data.attributeTextValues = textAttrs;
-            }
+                if (credit = string(attribute.credit)) {
+                    output.credit = credit;
+                }
 
-            var linkOrder = number(relationship.linkOrder);
+                if (textValue = string(attribute.textValue)) {
+                    output.textValue = textValue;
+                }
 
-            if (linkOrder !== null) {
-                data.linkOrder = linkOrder;
+                return output;
+            }).sortBy(function (a) { return a.type.id }).value();
+
+            if (_.isNumber(data.linkTypeID)) {
+                if (MB.typeInfoByID[data.linkTypeID].orderableDirection !== 0) {
+                    data.linkOrder = number(relationship.linkOrder) || 0;
+                }
             }
 
             if (relationship.hasDates()) {

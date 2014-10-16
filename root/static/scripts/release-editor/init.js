@@ -6,7 +6,8 @@
 MB.releaseEditor = _.extend(MB.releaseEditor || {}, {
 
     activeTabID: ko.observable("#information"),
-    activeTabIndex: ko.observable(0)
+    activeTabIndex: ko.observable(0),
+    loadError: ko.observable("")
 });
 
 
@@ -72,15 +73,10 @@ MB.releaseEditor.init = function (options) {
         var tabEnabled = addingRelease ? release.hasTracks() : true;
 
         if (tabEnabled) {
-            tabEnabled = _.all(release.mediums(), function (medium) {
-                // If we're editing a release and the mediums aren't loaded
-                // (because there are many discs), we should still allow the
-                // user to edit the recordings if that's all they want to do.
-
-                return !medium.loaded() || _.all(medium.tracks(), function (track) {
-                    return track.name() && track.artistCredit.isComplete();
-                });
-            });
+            // If we're editing a release and the mediums aren't loaded
+            // (because there are many discs), we should still allow the
+            // user to edit the recordings if that's all they want to do.
+            tabEnabled = release.hasTrackInfo();
         }
 
         var tabNumber = addingRelease ? 3 : 2;
@@ -161,6 +157,10 @@ MB.releaseEditor.init = function (options) {
 
     this.rootField = this.fields.Root();
 
+    this.rootField.missingEditNote = function () {
+        return self.action === "add" && !self.rootField.editNote();
+    };
+
     this.seed(options.seed);
 
     if (this.action === "edit") {
@@ -187,11 +187,25 @@ MB.releaseEditor.loadRelease = function (gid, callback) {
         data: { inc: "annotation+release-events+labels+media+rels" }
     };
 
-    return MB.utility.request(args, this).done(callback || this.releaseLoaded);
+    return MB.utility.request(args, this)
+            .done(callback || this.releaseLoaded)
+            .fail(function (jqXHR, status, error) {
+                error = jqXHR.status + " (" + error + ")"
+
+                // If there wasn't an ISE, the response should parse as JSON.
+                try {
+                    error += ": " + JSON.parse(jqXHR.responseText).error;
+                } catch (e) {};
+
+                this.loadError(error);
+            });
+
 };
 
 
 MB.releaseEditor.releaseLoaded = function (data) {
+    this.loadError("");
+
     var seed = this.seededReleaseData;
     delete this.seededReleaseData;
 
@@ -225,6 +239,16 @@ MB.releaseEditor.autoOpenTheAddDiscDialog = function (release) {
     } else if (addDiscUI) {
         addDiscUI.close();
     }
+};
+
+
+MB.releaseEditor.allowsSubmission = function () {
+    return (
+        !this.submissionInProgress() &&
+        !this.validation.errorsExist() &&
+        (this.action === "edit" || this.rootField.editNote()) &&
+        this.allEdits().length > 0
+    );
 };
 
 $(MB.confirmNavigationFallback);

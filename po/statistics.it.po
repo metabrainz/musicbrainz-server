@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-06-11 23:31+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-09-03 23:21+0000\n"
+"Last-Translator: salorock <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -506,8 +506,9 @@ msgid "100%"
 msgstr "100%"
 
 #: ../root/statistics/index.tt:892
-msgid "Abstain:"
-msgstr "Astenuto:"
+msgctxt "vote"
+msgid "Abstain"
+msgstr "Astenuto"
 
 #: ../root/statistics/view_js.tt:80
 msgid "Abstentions"
@@ -566,8 +567,9 @@ msgid "Applied:"
 msgstr "Applicate:"
 
 #: ../root/statistics/index.tt:874
-msgid "Approve:"
-msgstr "Approva:"
+msgctxt "vote"
+msgid "Approve"
+msgstr "Approva"
 
 #: ../root/statistics/index.tt:573 ../root/statistics/view_js.tt:55
 msgid "Areas"
@@ -1415,7 +1417,7 @@ msgstr "Qualità dati bassa:"
 
 #: ../root/statistics/index.tt:108
 msgid "MBIDs:"
-msgstr ""
+msgstr "MBID:"
 
 #: ../root/statistics/view_js.tt:117
 msgid "Male Artists"
@@ -1471,6 +1473,11 @@ msgstr "Eventi di MusicBrainz"
 msgid "MusicBrainz Events:"
 msgstr "Eventi di MusicBrainz:"
 
+#: ../root/statistics/index.tt:886
+msgctxt "vote"
+msgid "No"
+msgstr "No"
+
 #: ../root/statistics/no_statistics.tt:2
 msgid "No Statistics"
 msgstr "Nessuna statistica"
@@ -1515,10 +1522,6 @@ msgstr "Nessuno status impostato"
 #: ../root/statistics/coverart.tt:56 ../root/statistics/coverart.tt:139
 msgid "No type"
 msgstr "Nessun tipo"
-
-#: ../root/statistics/index.tt:886
-msgid "No:"
-msgstr "No:"
 
 #: ../root/statistics/index.tt:204
 msgid "Non-group artists:"
@@ -2042,13 +2045,14 @@ msgstr "Opere"
 msgid "Works:"
 msgstr "Opere:"
 
+#: ../root/statistics/index.tt:880
+msgctxt "vote"
+msgid "Yes"
+msgstr "Sì"
+
 #: ../root/statistics/view_js.tt:78
 msgid "Yes Votes"
 msgstr "Voti positivi"
-
-#: ../root/statistics/index.tt:880
-msgid "Yes:"
-msgstr "Sì:"
 
 #: ../root/statistics/index.tt:858 ../root/statistics/index.tt:910
 msgid "Yesterday:"

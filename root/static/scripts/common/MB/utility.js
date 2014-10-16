@@ -195,6 +195,10 @@ MB.utility.iteratePromises = function (promises) {
     return deferred.promise();
 };
 
+function empty(value) {
+    return value === null || value === undefined || value === "";
+}
+
 MB.utility.validDate = (function () {
     var daysInMonth = {
         "true":  [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
@@ -273,10 +277,6 @@ MB.utility.filesize = function (size) {
 
 MB.utility.percentOf = function (x, y) {
     return x * y / 100;
-};
-
-MB.utility.moveArrayItem = function (array, from, to) {
-    array.splice(to, 0, array.splice(from, 1)[0]);
 };
 
 // Compares two names, considers them equivalent if there are only case
@@ -375,7 +375,8 @@ MB.utility.formatDate = function (date) {
     var d = ko.unwrap(date.day);
 
     return (
-        (y ?       _.str.pad(y, 4, "0") : (m || d ? "????" : "")) +
+        (!empty(y) ? ( y < 0 ? "-" + _.str.pad(-y, 3, "0") : _.str.pad(y, 4, "0"))
+                   : (m || d ? "????" : "")) +
         (m ? "-" + _.str.pad(m, 2, "0") : (d ? "-??" : "")) +
         (d ? "-" + _.str.pad(d, 2, "0") : "")
     );

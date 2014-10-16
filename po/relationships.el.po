@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-05-20 19:03+0000\n"
+"PO-Revision-Date: 2014-10-02 15:00+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -904,7 +904,7 @@ msgid ""
 "is an EP rather than a single."
 msgstr ""
 
-#: DB:link_type/description:282 DB:link_type/description:293
+#: DB:link_type/description:293 DB:link_type/description:282
 #: DB:link_type/description:295 DB:link_type/description:297
 #: DB:link_type/description:296 DB:link_type/description:298
 #: DB:link_type/description:158 DB:link_type/description:41
@@ -1002,12 +1002,6 @@ msgid ""
 "songs, one after the other. If the tracks are pitched or blended into each "
 "other, it is more appropriate to credit this person as a <a "
 "href=\"/relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\">DJ-mixer</a>."
-msgstr ""
-
-#: DB:link_type/description:98
-msgid ""
-"This indicates the recording studio where at least part of this release "
-"group was recorded."
 msgstr ""
 
 #: DB:link_type/description:349
@@ -1184,8 +1178,8 @@ msgstr ""
 
 #: DB:link_type/description:429
 msgid ""
-"This link is used to associate an artist or label with their page on a "
-"social networking site such as Facebook or Twitter"
+"This link is used to associate a place with its page on a social networking "
+"site such as Facebook or Twitter"
 msgstr ""
 
 #: DB:link_type/description:288
@@ -1476,7 +1470,7 @@ msgstr ""
 #: DB:link_type/description:6
 msgid ""
 "This links two releases, where one is a <a "
-"href=\"/doc/Mix_Terminology#remaster\">remaster</a> of the other.​ This is "
+"href=\"/doc/Mix_Terminology#remaster\">remaster</a> of the other. This is "
 "usually done to improve the audio quality or to adjust for more modern "
 "playback equipment. The process generally doesn't involve changing the music"
 " in any artistically important way. It may, however, result in recordings "
@@ -1574,12 +1568,6 @@ msgid ""
 "release."
 msgstr ""
 
-#: DB:link_type/description:244
-msgid ""
-"This relationship is deprecated, please use the \"medley\" attribute of "
-"\"recording of\" instead."
-msgstr ""
-
 #: DB:link_type/description:751
 msgid ""
 "This relationship is used to link a catalogue work series to a person who "
@@ -1610,12 +1598,6 @@ msgid ""
 "relationship type."
 msgstr ""
 
-#: DB:link_type/description:101
-msgid ""
-"This relationship is used to link an artist to a person who has compiled a "
-"catalogue of that artist's works."
-msgstr ""
-
 #: DB:link_type/description:729
 msgid ""
 "This relationship links the release of a show's episode (for example a "
@@ -1626,14 +1608,14 @@ msgstr ""
 msgid ""
 "This relationship specifies that an artist is a <a "
 "href=\"http://en.wikipedia.org/wiki/Tribute_act\">tribute</a> to another "
-"specific artist/band; that is, it primarily performs covers of that artist.​"
-" They may also be referred to as cover bands. Some tribute artists may name "
+"specific artist/band; that is, it primarily performs covers of that artist. "
+"They may also be referred to as cover bands. Some tribute artists may name "
 "themselves, dress, and/or act similarly to the artists they pay tribute to."
 msgstr ""
 
 #: DB:link_type/description:462
 msgid ""
-"This relationship type can be used to link a MusicBrainz artist to the "
+"This relationship type can be used to link a MusicBrainz place to the "
 "equivalent entry in Myspace."
 msgstr ""
 
@@ -1649,8 +1631,8 @@ msgstr ""
 
 #: DB:link_type/description:528
 msgid ""
-"This relationship type can be used to link an artist to the equivalent entry"
-" in YouTube. URLs should follow the format "
+"This relationship type can be used to link a place to the equivalent entry "
+"in YouTube. URLs should follow the format "
 "http://www.youtube.com/user/<username>"
 msgstr ""
 
@@ -1702,12 +1684,6 @@ msgstr ""
 
 #: DB:link_type/description:270
 msgid "This relationship type is <strong>deprecated</strong>."
-msgstr ""
-
-#: DB:link_type/description:131
-msgid ""
-"This relationship type is <strong>deprecated</strong>. Add liner notes info "
-"on the release level."
 msgstr ""
 
 #: DB:link_type/description:15
@@ -1781,7 +1757,7 @@ msgstr ""
 
 #: DB:link_type/description:191
 msgid ""
-"This relationship type links an artist to its corresponding page <a "
+"This relationship type links an artist to its corresponding page at <a "
 "href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated"
 " to cataloguing the music of video games and anime."
 msgstr ""
@@ -1795,6 +1771,11 @@ msgid ""
 "This relationship type links an artist to their online community pages. An "
 "online community is a web site providing information, music, and/or news, "
 "and may act as an unofficial homepage for an entity."
+msgstr ""
+
+#: DB:link_type/description:752
+msgid ""
+"This relationship type links instruments to the areas they originate from."
 msgstr ""
 
 #: DB:link_attribute_type/description:596
@@ -1865,7 +1846,7 @@ msgstr ""
 
 #: DB:link_type/link_phrase:355 DB:link_type/link_phrase:89
 #: DB:link_type/link_phrase:179 DB:link_type/link_phrase:216
-#: DB:link_type/link_phrase:731 DB:link_type/link_phrase:595
+#: DB:link_type/link_phrase:595 DB:link_type/link_phrase:731
 #: DB:link_type/link_phrase:744 DB:link_type/reverse_link_phrase:279
 #: DB:link_type/reverse_link_phrase:731 DB:link_type/long_link_phrase:731
 msgid "Wikipedia"
@@ -2263,6 +2244,10 @@ msgstr ""
 msgid "free music {video} streaming page for"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:752
+msgid "from"
+msgstr ""
+
 #: DB:link_type/link_phrase:257 DB:link_type/link_phrase:73
 #: DB:link_type/link_phrase:187 DB:link_type/reverse_link_phrase:257
 #: DB:link_type/reverse_link_phrase:73 DB:link_type/reverse_link_phrase:187
@@ -2530,6 +2515,10 @@ msgstr "έχει αδέρφια"
 msgid "has subtype"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:752
+msgid "has traditional instrument"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:65
 msgid "has tribute album(s)"
 msgstr "έχει άλμπουμ αφιερώματα"
@@ -2599,6 +2588,10 @@ msgstr ""
 msgid "instrumental"
 msgstr "ορχηστρικό"
 
+#: DB:link_type/link_phrase:752
+msgid "instruments"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:707
 msgid "interview with"
 msgstr ""
@@ -2639,11 +2632,12 @@ msgstr "είναι ζωντανή εκτέλεση του"
 msgid "is a mash-up of"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:244 DB:link_type/long_link_phrase:239
+#: DB:link_type/long_link_phrase:239
 msgid "is a medley of"
 msgstr "είναι ποτ πουρί του"
 
-#: DB:link_type/long_link_phrase:730 DB:link_type/long_link_phrase:273
+#: DB:link_type/long_link_phrase:753 DB:link_type/long_link_phrase:730
+#: DB:link_type/long_link_phrase:273
 msgid "is a page in a database for"
 msgstr "είναι σελίδα σε μια βάση δεδομένων για"
 
@@ -2927,7 +2921,7 @@ msgstr "μέσο 9"
 msgid "medley"
 msgstr ""
 
-#: DB:link_type/link_phrase:244 DB:link_type/link_phrase:239
+#: DB:link_type/link_phrase:239
 msgid "medley of"
 msgstr "ποτ πουρί του"
 
@@ -3028,11 +3022,12 @@ msgstr ""
 msgid "orchestrations"
 msgstr ""
 
-#: DB:link_type/link_phrase:746 DB:link_type/link_phrase:96
-#: DB:link_type/link_phrase:730 DB:link_type/link_phrase:82
-#: DB:link_type/link_phrase:306 DB:link_type/link_phrase:222
-#: DB:link_type/link_phrase:273 DB:link_type/link_phrase:188
-#: DB:link_type/link_phrase:561 DB:link_type/reverse_link_phrase:746
+#: DB:link_type/link_phrase:753 DB:link_type/link_phrase:746
+#: DB:link_type/link_phrase:96 DB:link_type/link_phrase:730
+#: DB:link_type/link_phrase:82 DB:link_type/link_phrase:306
+#: DB:link_type/link_phrase:222 DB:link_type/link_phrase:273
+#: DB:link_type/link_phrase:188 DB:link_type/link_phrase:561
+#: DB:link_type/reverse_link_phrase:753 DB:link_type/reverse_link_phrase:746
 #: DB:link_type/reverse_link_phrase:96 DB:link_type/reverse_link_phrase:730
 #: DB:link_type/reverse_link_phrase:82 DB:link_type/reverse_link_phrase:306
 #: DB:link_type/reverse_link_phrase:222 DB:link_type/reverse_link_phrase:273
@@ -3170,13 +3165,11 @@ msgid "producers"
 msgstr "παραγωγοί"
 
 #: DB:link_type/link_phrase:256 DB:link_type/link_phrase:160
-#: DB:link_type/link_phrase:59 DB:link_type/link_phrase:87
-#: DB:link_type/link_phrase:72 DB:link_type/reverse_link_phrase:256
-#: DB:link_type/reverse_link_phrase:160 DB:link_type/reverse_link_phrase:59
-#: DB:link_type/reverse_link_phrase:87 DB:link_type/reverse_link_phrase:72
+#: DB:link_type/link_phrase:59 DB:link_type/link_phrase:72
+#: DB:link_type/reverse_link_phrase:256 DB:link_type/reverse_link_phrase:160
+#: DB:link_type/reverse_link_phrase:59 DB:link_type/reverse_link_phrase:72
 #: DB:link_type/long_link_phrase:256 DB:link_type/long_link_phrase:160
-#: DB:link_type/long_link_phrase:59 DB:link_type/long_link_phrase:87
-#: DB:link_type/long_link_phrase:72
+#: DB:link_type/long_link_phrase:59 DB:link_type/long_link_phrase:72
 msgid "production"
 msgstr "παραγωγή"
 
@@ -3272,11 +3265,7 @@ msgstr ""
 msgid "recording location for"
 msgstr ""
 
-#: DB:link_type/link_phrase:98 DB:link_type/reverse_link_phrase:98
-msgid "recording studio"
-msgstr "στούντιο ηχογράφησης"
-
-#: DB:link_type/reverse_link_phrase:244 DB:link_type/reverse_link_phrase:239
+#: DB:link_type/reverse_link_phrase:239
 msgid "referred to in medleys"
 msgstr "αναφέρεται σε ποτ πουρί"
 
@@ -3513,10 +3502,6 @@ msgstr "φωνή του"
 msgid "voiced by"
 msgstr "φωνητικά από"
 
-#: DB:link_type/long_link_phrase:98
-msgid "was recorded by studio at"
-msgstr "ηχογραφήθηκε από στούντιο στο"
-
 #: DB:link_type/long_link_phrase:3
 msgid "was released in support of"
 msgstr ""
@@ -3536,10 +3521,6 @@ msgstr ""
 #: DB:link_type/long_link_phrase:698 DB:link_type/long_link_phrase:699
 #: DB:link_type/long_link_phrase:695 DB:link_type/long_link_phrase:693
 msgid "was the recording location for"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:101
-msgid "was {additional:additionally} catalogued by"
 msgstr ""
 
 #: DB:link_type/description:733
@@ -3566,7 +3547,7 @@ msgstr ""
 msgid "works as an engineer at"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:131 DB:link_type/long_link_phrase:24
+#: DB:link_type/long_link_phrase:24
 msgid "wrote {additional} liner notes for"
 msgstr ""
 
@@ -3588,14 +3569,6 @@ msgstr ""
 #: DB:link_type/long_link_phrase:296 DB:link_type/long_link_phrase:298
 #: DB:link_type/long_link_phrase:294
 msgid "{additional:additionally} arranged {vocal:%|vocals} on"
-msgstr ""
-
-#: DB:link_type/reverse_link_phrase:101
-msgid "{additional:additionally} catalogued"
-msgstr ""
-
-#: DB:link_type/link_phrase:101
-msgid "{additional:additionally} catalogued by"
 msgstr ""
 
 #: DB:link_type/link_phrase:55 DB:link_type/link_phrase:168
@@ -3755,8 +3728,7 @@ msgstr "{additional} σχεδιασμός/παρουσίαση"
 msgid "{additional} graphic design"
 msgstr "{additional} γραφιστικά"
 
-#: DB:link_type/link_phrase:131 DB:link_type/link_phrase:24
-#: DB:link_type/reverse_link_phrase:131 DB:link_type/reverse_link_phrase:24
+#: DB:link_type/link_phrase:24 DB:link_type/reverse_link_phrase:24
 msgid "{additional} liner notes"
 msgstr ""
 
@@ -3842,13 +3814,9 @@ msgstr "{additional} {founder:ιδρυτικά} μέλη"
 msgid "{additional} {guest} {solo} performer"
 msgstr ""
 
-#: DB:link_type/link_phrase:44 DB:link_type/reverse_link_phrase:44
-#: DB:link_type/reverse_link_phrase:148
+#: DB:link_type/link_phrase:44 DB:link_type/link_phrase:148
+#: DB:link_type/reverse_link_phrase:44 DB:link_type/reverse_link_phrase:148
 msgid "{additional} {guest} {solo} {instrument:%|instruments}"
-msgstr ""
-
-#: DB:link_type/link_phrase:148
-msgid "{additional} {guest} {solo} {instrument} {instrument:%|instruments}"
 msgstr ""
 
 #: DB:link_type/link_phrase:60 DB:link_type/link_phrase:149

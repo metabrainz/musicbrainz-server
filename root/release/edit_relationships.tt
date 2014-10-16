@@ -62,8 +62,7 @@
             </th>
           </tr>
         </thead>
-        <tbody data-bind="with: source">
-          <!-- ko foreach: mediums -->
+        <tbody data-bind="foreach: source.mediums">
           <tr class="subh">
             <td></td>
             <td colspan="2">
@@ -73,33 +72,36 @@
             <td><input type="checkbox" class="medium-works"></td>
           </tr>
           <!-- ko template: {name: 'template.track', foreach: tracks} --><!-- /ko -->
-          <!-- /ko -->
         </tbody>
       </table>
 
+      <p data-bind="if: loadingRelease">
+        <span class="loading-message">[% l('Loading...') %]</span>
+      </p>
+
       <h2>[% l('Release Relationships') %]</h2>
 
-      <div id="release-rels" class="ars" data-bind="with: source">
-        <!-- ko template: "template.relationships" --><!-- /ko -->
+      <div id="release-rels" class="ars">
+        <!-- ko template: { name: "template.relationships", data: source } --><!-- /ko -->
       </div>
 
       <h2>[% l('Release Group Relationships') %]</h2>
 
-      <div id="release-group-rels" class="ars" data-bind="with: source">
-        <!-- ko template: { name: 'template.relationships', data: releaseGroup } --><!-- /ko -->
+      <div id="release-group-rels" class="ars">
+        <!-- ko template: { name: "template.relationships", data: source.releaseGroup } --><!-- /ko -->
       </div>
 
       <!-- ko if: submissionError -->
         <p id="errors-msg" class="warning" data-bind="html: submissionError"></p>
       <!-- /ko -->
 
-      <form>
+      <form id="relationship-editor-form">
         <fieldset class="editnote">
           <legend>[%- l('Edit Note') -%]</legend>
           [% edit_note(0, 1) %]
         </fieldset>
 
-        [% as_auto_editor(1) %]
+        [% make_votable(1) %]
 
         <div class="row no-label buttons">
           <button type="submit" class="submit positive" data-bind="click: submit, disable: submissionLoading">[% l('Enter edit') %]</button>
@@ -182,16 +184,19 @@
     </script>
 
     <script type="text/html" id="template.relationships">
-      <div class="ars" data-bind="
-           template: {
-              name: 'template.relationship',
-              foreach: $root.orderedRelationships(
-                         _(displayRelationships($root))
-                           .sortBy(function (r) { return r.lowerCaseTargetName($data) })
-                           .sortBy(function (r) { return r.lowerCasePhrase($data) })
-                           .value(), $data
-                       )
-            }">
+      <div class="ars" data-bind="loop: { items: displayableRelationships($root), id: 'uniqueID' }">
+        <div class="ar">
+          <span class="remove-button" data-click="removeRelationship">&#215;</span>
+          <!-- ko template: "template.link.phrase" --><!-- /ko -->:
+          <span class="entity"
+                data-bind="html: target($parent).html({ target: '_blank' }),
+                           css: { 'rel-edit': editsPending }"></span>
+          <!-- ko template: {
+                    name: "template.extra-attributes-and-dates",
+                    data: { source: $parents, relationship: $data }
+                  }
+            --><!-- /ko -->
+        </div>
       </div>
       <span class="add-rel btn" data-click="openAddDialog">
         <img src="/static/images/icons/add.png" class="bottom" /> [% l('Add relationship') %]
@@ -199,7 +204,7 @@
     </script>
 
     <script type="text/html" id="template.track">
-      <tr class="track" data-bind="css: {ev: position % 2 == 0}">
+      <tr class="track" data-bind="css: {even: position % 2 == 0}">
         <td class="pos t" data-bind="text: number"></td>
         <td class="recording">
           <!-- ko with: recording --><input type="checkbox"><!-- /ko -->
@@ -226,23 +231,8 @@
     </script>
 
     <script type="text/html" id="template.link.phrase"><!--
-      --><span class="link-phrase" data-bind="text: phraseAndExtraAttributes($parent)[0], relationshipStyling: true" data-click="openEditDialog"></span><!--
+      --><span class="link-phrase" data-bind="text: linkPhrase($parent), relationshipStyling: true" data-click="openEditDialog"></span><!--
     --></script>
-
-    <script type="text/html" id="template.relationship">
-      <div class="ar">
-        <span class="remove-button" data-click="removeRelationship">&#215;</span>
-        <!-- ko template: "template.link.phrase" --><!-- /ko -->:
-        <span class="entity"
-              data-bind="html: target($parent).html({ target: '_blank' }),
-                         css: { 'rel-edit': editsPending }"></span>
-        <!-- ko template: {
-                  name: "template.extra-attributes-and-dates",
-                  data: { source: $parents, relationship: $data }
-                }
-          --><!-- /ko -->
-      </div>
-    </script>
 
     <script type="text/html" id="template.relationship.performance">
       <div class="ar">

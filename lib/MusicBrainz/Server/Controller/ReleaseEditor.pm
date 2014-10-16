@@ -15,7 +15,7 @@ use Scalar::Util qw( looks_like_number );
 use MusicBrainz::Server::CGI::Expand qw( expand_hash );
 use MusicBrainz::Server::Track qw( unformat_track_length );
 use MusicBrainz::Server::Translation qw( l );
-use MusicBrainz::Server::Data::Utils qw( trim );
+use MusicBrainz::Server::Data::Utils qw( sanitize trim );
 use MusicBrainz::Server::Form::Utils qw(
     language_options
     script_options
@@ -127,7 +127,7 @@ sub _process_seeded_data
     my @known_fields = qw( name release_group type comment annotation barcode
                            language script status packaging events labels
                            date country artist_credit mediums urls edit_note
-                           redirect_uri as_auto_editor );
+                           redirect_uri make_votable );
 
     _report_unknown_fields('', $params, \@errors, @known_fields);
 
@@ -263,8 +263,8 @@ sub _process_seeded_data
 
     $result->{editNote} = $params->{edit_note} if $params->{edit_note};
 
-    if (defined $params->{as_auto_editor}) {
-        $result->{asAutoEditor} = $params->{as_auto_editor};
+    if (defined $params->{make_votable}) {
+        $result->{makeVotable} = $params->{make_votable};
     }
 
     return { seed => $result, errors => \@errors };
@@ -536,7 +536,7 @@ sub _seeded_artist_credit_name
     }
 
     if (my $join = _seeded_string($params->{join_phrase}, "$field_name.join_phrase", $errors)) {
-        $result->{joinPhrase} = $join;
+        $result->{joinPhrase} = sanitize($join);
     }
 
     $result->{artist} //= _seeded_hash($c, \&_seeded_artist, $params->{artist},

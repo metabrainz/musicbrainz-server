@@ -10,10 +10,6 @@
 
     fields.Relationship = aclass({
 
-        rateLimitOptions: {
-            rateLimit: { method: "notifyWhenChangesStop", timeout: 100 }
-        },
-
         init: function (data, source, parent) {
             var self = this;
 
@@ -46,9 +42,8 @@
                 ended: ko.observable(!!data.ended)
             };
 
-            this.attributeValues = ko.observable({});
-            this.attributes(data.attributes);
-            this.setAttributeValues(data.attributeTextValues);
+            this.attributes = ko.observableArray([]);
+            this.setAttributes(data.attributes);
 
             this.linkOrder = ko.observable(data.linkOrder || 0);
             this.removed = ko.observable(!!data.removed);
@@ -58,8 +53,12 @@
                 return MB.edit.fields.relationship(self);
             });
 
+            this.phraseAndExtraAttributes = ko.computed(function () {
+                return self._phraseAndExtraAttributes();
+            });
+
             if (data.id) {
-                this.original = MB.edit.fields.relationship(this);
+                this.original = this.editData.peek();
             }
 
             // By default, show all existing relationships on the page.
@@ -74,8 +73,7 @@
             setPartialDate(this.period.endDate, data.endDate || {});
             this.period.ended(!!data.ended);
 
-            this.attributes(data.attributes);
-            this.setAttributeValues(data.attributeTextValues);
+            this.setAttributes(data.attributes);
             this.linkOrder(data.linkOrder || 0);
 
             _.has(data, "removed") && this.removed(!!data.removed);
@@ -90,23 +88,25 @@
             throw new Error("The given entity is not used by this relationship");
         },
 
-        linkPhrase: function (source) {
-            var typeInfo = this.linkTypeInfo();
-            var forward = source === this.entities()[0];
-
-            return typeInfo ? (forward ? typeInfo.phrase : typeInfo.reversePhrase) : "";
-        },
-
         linkTypeIDChanged: function () {
             var typeInfo = this.linkTypeInfo();
-            var attrValues = {};
-            var self = this;
 
-            _.each(typeInfo && typeInfo.attributes, function (attrInfo, id) {
-                attrValues[id] = self.attributeValue(id);
-            });
+            if (!typeInfo) {
+                return;
+            }
 
-            this.attributeValues(attrValues);
+            var typeAttributes = typeInfo.attributes,
+                attributes = this.attributes(), attribute;
+
+            for (var i = 0, len = attributes.length; i < len; i++) {
+                attribute = attributes[i];
+
+                if (!typeAttributes || !typeAttributes[attribute.type.id]) {
+                    this.attributes.remove(attribute);
+                    --i;
+                    --len;
+                }
+            }
         },
 
         linkTypeInfo: function () {
@@ -198,111 +198,25 @@
             this.removed(true);
         },
 
-        attributeValue: function (id) {
-            var attr = MB.attrInfoByID[id];
-            if (!attr) return;
+        getAttribute: function (typeGID) {
+            var attributes = this.attributes();
 
-            // The id parameter could also be a gid.
-            // Ensure it's an integer id.
-            id = attr.id;
-
-            var typeInfo = this.linkTypeInfo();
-            if (!typeInfo) return;
-
-            var attrInfo = typeInfo.attributes && typeInfo.attributes[id];
-            if (!attrInfo) return;
-
-            // Only acquire a dependency on attributeValues if we're reading
-            // the value of an attribute, not if we're writing to it.
-            if (arguments.length === 1) {
-                var attributeValues = this.attributeValues();
-            } else {
-                var attributeValues = this.attributeValues.peek();
+            for (var i = 0, linkAttribute; linkAttribute = attributes[i]; i++) {
+                if (linkAttribute.type.gid === typeGID) return linkAttribute;
             }
-
-            var value = attributeValues[id];
-            var isNew = !value;
-
-            if (isNew) {
-                if (attrInfo.max === 1) {
-                    var defaultValue = attr.freeText ? "" : (isBooleanAttr(attr) ? false : undefined);
-                    value = attributeValues[id] = ko.observable(defaultValue);
-                } else {
-                    value = attributeValues[id] = ko.observableArray([]);
-                }
-            }
-
-            if (arguments.length === 1) {
-                isNew && this.attributeValues.notifySubscribers(attributeValues);
-                return value;
-            } else {
-                var newValue = arguments[1];
-
-                if (attrInfo.max === 1) {
-                    if (_.isArray(newValue)) newValue = newValue[0];
-
-                    if (attr.freeText) {
-                        newValue = _.str.clean(newValue);
-                    } else if (isBooleanAttr(attr)) {
-                        newValue = !!newValue;
-                    }
-                } else {
-                    newValue = _.isArray(newValue) ? newValue.slice(0) : [newValue];
-
-                    if (attr.freeText) {
-                        newValue = flattenValues(newValue).map(_.str.clean).value();
-                    } else {
-                        newValue = flattenAttributeIDs(newValue);
-                    }
-                }
-                value(newValue);
-                this.attributeValues.notifySubscribers(attributeValues);
-            }
+            return new fields.LinkAttribute({ type: { gid: typeGID }});
         },
 
-        setAttributeValues: function (values) {
-            var self = this;
-
-            _.each(values, function (value, id) {
-                self.attributeValue(id, value);
-            });
+        setAttributes: function (attributes) {
+            this.attributes(_.map(attributes, function (data) {
+                return new fields.LinkAttribute(data);
+            }));
         },
 
-        attributes: function (ids) {
-            if (arguments.length > 0) {
-                var typeInfo = this.linkTypeInfo();
-
-                if (typeInfo) {
-                    var self = this;
-
-                    ids = _.transform(ids, attrIDsByRootID, {});
-
-                    _.each(typeInfo.attributes, function (attrInfo, id) {
-                        self.attributeValue(id, ids[id] || []);
-                    });
-                }
-            } else {
-                return flattenAttributeIDs(_.map(this.attributeValues(), unwrapAttributeValue));
-            }
-        },
-
-        attributeTextValues: function () {
-            var typeInfo = this.linkTypeInfo();
-
-            if (typeInfo) {
-                var self = this;
-                var attributeValues = this.attributeValues();
-
-                return _.transform(typeInfo.attributes, function (result, info, id) {
-                    var attr = info.attribute;
-
-                    if (attr.freeText) {
-                        result[id] = ko.unwrap(attributeValues[id]);
-                    }
-                }, {});
-            }
-
-            return {};
+        addAttribute: function (typeGID) {
+            var attribute = new fields.LinkAttribute({ type: { gid: typeGID } });
+            this.attributes.push(attribute);
+            return attribute;
         },
 
         linkTypeAttributes: function () {
@@ -311,11 +225,16 @@
         },
 
         attributeError: function (rootInfo) {
-            var value = ko.unwrap(this.attributeValue(rootInfo.attribute.id));
             var min = rootInfo.min;
 
             if (min > 0) {
-                if (!value || (_.isArray(value) && value.length < min)) {
+                var rootID = rootInfo.attribute.id;
+
+                var values = _.filter(this.attributes(), function (attribute) {
+                    return attribute.type.rootID == rootID;
+                });
+
+                if (values.length < min) {
                     return MB.text.AttributeRequired;
                 }
             }
@@ -323,61 +242,103 @@
             return "";
         },
 
-        phraseAndExtraAttributes: function (source) {
-            var origPhrase = this.linkPhrase(source);
-            var attributeIDs = this.attributes();
-            var extraAttributes = _.transform(attributeIDs, attrsByRootName, {});
+        _phraseRegex: /\{(.*?)(?::(.*?))?\}/g,
 
-            var phrase = _.str.clean(origPhrase.replace(/\{(.*?)(?::(.*?))?\}/g,
-                    function (match, name, alts) {
+        _phraseAndExtraAttributes: function () {
+            var attributes = this.attributes();
+            var attributesByName = {};
 
-                delete extraAttributes[name];
-                var root = MB.attrInfo[name];
+            for (var i = 0, len = attributes.length; i < len; i++) {
+                var attribute = attributes[i];
+                var type = attribute.type;
+                var value = type.l_name;
 
-                var values = _.transform(attributeIDs, function (result, id) {
-                    var attr = MB.attrInfoByID[id];
+                if (type.freeText) {
+                    value = _.str.clean(attribute.textValue());
 
-                    if (attr.root === root) result.push(attr.l_name);
-                });
-
-                if (alts && (alts = alts.split("|"))) {
-                    return (
-                        values.length
-                            ? alts[0].replace(/%/g, MB.i18n.commaList(values))
-                            : alts[1] || ""
-                    );
+                    if (value) {
+                        value = MB.i18n.expand(MB.text.AttributeTextValue, {
+                            attribute: type.l_name, value: value
+                        });
+                    }
                 }
 
-                return MB.i18n.commaList(values);
-            }));
+                if (type.creditable) {
+                    var credit = _.str.clean(attribute.credit());
 
-            var self = this;
-
-            extraAttributes = MB.i18n.commaList(
-                _(extraAttributes).values().flatten().map(function (attr) {
-                    if (attr.freeText) {
-                        var value = ko.unwrap(self.attributeValue(attr.id));
-
-                        if (!value) return "";
-
-                        return MB.i18n.expand(MB.text.AttributeTextValue, {
-                            attribute: attr.l_name, value: value
+                    if (credit) {
+                        value = MB.i18n.expand(MB.text.AttributeCredit, {
+                            attribute: type.l_name, credited_as: credit
                         });
-                    } else {
-                        return attr.l_name;
                     }
-                }).value()
-            );
+                }
 
-            return [phrase, extraAttributes];
+                if (value) {
+                    var rootName = type.root.name;
+                    (attributesByName[rootName] = attributesByName[rootName] || []).push(value);
+                }
+            }
+
+            var extraAttributes = _.clone(attributesByName);
+
+            function interpolate(match, name, alts) {
+                var values = attributesByName[name] || [];
+                delete extraAttributes[name];
+
+                var replacement = MB.i18n.commaList(values)
+
+                if (alts && (alts = alts.split("|"))) {
+                    replacement = values.length ? alts[0].replace(/%/g, replacement) : alts[1] || "";
+                }
+
+                return replacement;
+            }
+
+            var typeInfo = this.linkTypeInfo();
+            var regex = this._phraseRegex;
+
+            return [
+                typeInfo ? _.str.clean(typeInfo.phrase.replace(regex, interpolate)) : "",
+                typeInfo ? _.str.clean(typeInfo.reversePhrase.replace(regex, interpolate)) : "",
+                MB.i18n.commaList(_.flatten(_.values(extraAttributes)))
+            ];
+        },
+
+        linkPhrase: function (source) {
+            return this.phraseAndExtraAttributes()[_.indexOf(this.entities(), source)];
         },
 
         lowerCasePhrase: function (source) {
-            return this.phraseAndExtraAttributes()[0].toLowerCase();
+            return this.linkPhrase(source).toLowerCase();
         },
 
         lowerCaseTargetName: function (source) {
             return ko.unwrap(this.target(source).name).toLowerCase();
+        },
+
+        paddedSeriesNumber: function () {
+            var attributes = this.attributes(), numberAttribute;
+
+            for (var i = 0; numberAttribute = attributes[i]; i++) {
+                if (numberAttribute.type.gid === MB.constants.SERIES_ORDERING_ATTRIBUTE) {
+                    break;
+                }
+            }
+
+            if (!numberAttribute) {
+                return "";
+            }
+
+            var parts = _.compact(numberAttribute.textValue().split(/(\d+)/)),
+                integerRegex = /^\d+$/;
+
+            for (var i = 0, part; part = parts[i]; i++) {
+                if (integerRegex.test(part)) {
+                    parts[i] = _.str.lpad(part, 10, "0");
+                }
+            }
+
+            return parts.join("");
         },
 
         entityIsOrdered: function (entity) {
@@ -416,26 +377,10 @@
 
         moveEntityUp: function () {
             this.linkOrder(Math.max(this.linkOrder() - 1, 0));
-
-            var row = $("#relationship-" + this.uniqueID)[0];
-
-            row.tempElement && $("button.move-up", row.tempElement).focus();
-
-            row.moving && row.moving.done(function () {
-                MB.utility.deferFocus("button.move-up", row);
-            });
         },
 
         moveEntityDown: function () {
             this.linkOrder(this.linkOrder() + 1);
-
-            var row = $("#relationship-" + this.uniqueID)[0];
-
-            row.tempElement && $("button.move-down", row.tempElement).focus();
-
-            row.moving && row.moving.done(function () {
-                MB.utility.deferFocus("button.move-down", row);
-            });
         },
 
         showLinkOrder: function (source) {
@@ -451,7 +396,7 @@
                 _.isEqual(this.entities(), other.entities()) &&
                 MB.utility.mergeDates(this.period.beginDate, other.period.beginDate) &&
                 MB.utility.mergeDates(this.period.endDate, other.period.endDate) &&
-                _.isEqual(this.attributes(), other.attributes())
+                attributesAreEqual(this.attributes(), other.attributes())
             );
         },
 
@@ -479,51 +424,53 @@
     });
 
 
+    fields.LinkAttribute = function (data) {
+        var type = this.type = MB.attrInfoByID[data.type.gid];
+
+        if (type.creditable) {
+            this.credit = ko.observable(ko.unwrap(data.credit) || "");
+        }
+
+        if (type.freeText) {
+            this.textValue = ko.observable(ko.unwrap(data.textValue) || "");
+        }
+    };
+
+    fields.LinkAttribute.prototype.identity = function () {
+        var type = this.type;
+
+        if (type.creditable) {
+            return type.gid + "\0" + _.str.clean(this.credit());
+        }
+        if (type.freeText) {
+            return type.gid + "\0" + _.str.clean(this.textValue());
+        }
+        return type.gid;
+    };
+
+    ko.bindingHandlers.textAttribute = {
+        init: function (element, valueAccessor) {
+            var options = valueAccessor(),
+                linkAttribute = options.relationship.getAttribute(options.typeGID),
+                currentValue = linkAttribute.textValue.peek();
+
+            linkAttribute.textValue.subscribe(function (newValue) {
+                if (newValue && !currentValue) {
+                    options.relationship.attributes.push(linkAttribute);
+                } else if (currentValue && !newValue) {
+                    options.relationship.attributes.remove(linkAttribute);
+                }
+                currentValue = newValue;
+            });
+            ko.applyBindingsToNode(element, { value: linkAttribute.textValue });
+        }
+    };
+
     function entitiesComparer(a, b) {
         return a[0] === b[0] && a[1] === b[1];
     }
 
     function linkTypeComparer(a, b) { return a != b }
-
-
-    function attrsByRootName(result, id) {
-        var attr = MB.attrInfoByID[id];
-        var root = attr.root.name;
-
-        (result[root] = result[root] || []).push(attr);
-    }
-
-
-    function attrIDsByRootID(result, id) {
-        var rootID = MB.attrInfoByID[id].root_id;
-
-        (result[rootID] = result[rootID] || []).push(id);
-    }
-
-
-    function unwrapAttributeValue(value, rootID) {
-        var attr = MB.attrInfoByID[rootID];
-
-        value = ko.unwrap(value);
-
-        return (attr.freeText || isBooleanAttr(attr)) ? (value ? rootID : null) : value;
-    }
-
-
-    function isBooleanAttr(attr) {
-        return !(attr.children || attr.freeText);
-    }
-
-
-    function flattenValues(values) {
-        return _(values).flatten().compact();
-    }
-
-
-    function flattenAttributeIDs(ids) {
-        return flattenValues(ids).map(Number).sortBy().value();
-    }
-
 
     function setPartialDate(target, data) {
         _.each(["year", "month", "day"], function (key) {
@@ -532,5 +479,22 @@
         return target;
     }
 
+    function attributesAreEqual(attributesA, attributesB) {
+        if (attributesA.length !== attributesB.length) {
+            return false;
+        }
+        for (var i = 0, a; a = attributesA[i]; i++) {
+            var match = false;
+
+            for (var j = i, b; b = attributesB[j]; j++) {
+                if (a.identity() === b.identity()) {
+                    match = true;
+                    break;
+                }
+            }
+            if (!match) return false;
+        }
+        return true;
+    }
 
 }(MB.relationshipEditor = MB.relationshipEditor || {}));

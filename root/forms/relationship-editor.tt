@@ -12,24 +12,16 @@
     </button>
   </legend>
 
-  <table class="details row-form" style="width: 100%; position: relative;">
-    <tbody data-bind="foreach: _.sortBy(groupedRelationships($root, $data), 'linkPhrase')">
+  <table class="details row-form" style="width: 100%;">
+    <tbody data-bind="loop: { items: groupedRelationships($root), id: 'key', elements: relationshipElements }">
       <tr>
         <th>
-          <label data-bind="text: MB.i18n.expand(MB.text.AddColon, { variable: linkPhrase })"></label>
+          <label data-bind="text: MB.i18n.expand(MB.text.AddColon, { variable: key })"></label>
         </th>
-        <td class="relationship-list"
-            style="position: relative"
-            data-bind="foreach: {
-                         data: relationships,
-                         beforeRemove: $root.beforeRelationshipRemove,
-                         afterAdd: $root.afterRelationshipAdd,
-                         beforeMove: $root.beforeRelationshipMove,
-                         afterMove: $root.afterRelationshipMove
-                       }">
-          <div data-bind="attr: { id: 'relationship-' + uniqueID }">
-            <button type="button" class="icon remove-item" data-bind="attr: { id: 'remove-' + uniqueID }" data-click="removeRelationship"></button>
-            <button type="button" class="icon edit-item" data-bind="attr: { id: 'edit-' + uniqueID }, disable: removed" data-click="openEditDialog"></button>
+        <td class="relationship-list" data-bind="loop: { items: values, id: 'uniqueID' }">
+          <div>
+            <button type="button" class="icon remove-item" data-click="removeRelationship"></button>
+            <button type="button" class="icon edit-item" data-bind="disable: removed" data-click="openEditDialog"></button>
             <!-- ko if: entityCanBeReordered(target($parents[1])) -->
               <button type="button" class="icon move-down" title="[% l('Move entity down') %]" data-click="moveEntityDown"></button>
               <button type="button" class="icon move-up" title="[% l('Move entity up') %]" data-click="moveEntityUp"></button>
@@ -42,28 +34,24 @@
             <!-- /ko -->
             <!-- ko template: {
                       name: "template.extra-attributes-and-dates",
-                      data: { source: $parents[1], relationship: $data }
-                    }
-              --><!-- /ko -->
+                      data: { source: $parent, relationship: $data }
+                    } --><!-- /ko -->
           </div>
         </td>
       </tr>
       <tr>
         <td></td>
         <td data-bind="with: $parent">
-          <button type="button" class="add-item with-label" data-click="openAddDialog" data-bind="text: MB.text.AddAnotherEntity[$parent.targetType]"></button>
+          <button type="button" class="add-item with-label" data-click="openAddDialog" data-bind="text: MB.text.AddAnotherEntity[$parent.values.peek()[0].target($data).entityType]"></button>
         </td>
       </tr>
     </tbody>
   </table>
-
-  <!-- ko foreach: $root.hiddenInputs() -->
-    <input type="hidden" data-bind="attr: { name: name, value: value }" />
-  <!-- /ko -->
 </fieldset>
 
 <script>
   $(function () {
+    MB.formWasPosted = [% c.form_posted ? 'true' : 'false' %];
     MB.relationshipEditor.exportTypeInfo([% type_info %], [% attr_info %]);
 
     var sourceData = [% source_entity %];
@@ -75,7 +63,7 @@
     });
 
     if ($("#external-links-editor").length) {
-      MB.Control.externalLinks.applyBindings({
+      MB.sourceExternalLinksEditor = MB.Control.externalLinks.applyBindings({
         sourceData: sourceData,
         formName: "[% form.name | js %]"
       });

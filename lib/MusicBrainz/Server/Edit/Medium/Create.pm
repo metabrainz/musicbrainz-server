@@ -76,7 +76,11 @@ sub initialize {
     my ($self, %opts) = @_;
 
     my $tracklist = delete $opts{tracklist};
-    $opts{tracklist} = tracks_to_hash($tracklist);
+    $tracklist = tracks_to_hash($tracklist);
+    check_track_hash($tracklist);
+    die 'Tracklist specifies track IDs'
+        if grep { defined $_ } map { $_->{id} } @$tracklist;
+    $opts{tracklist} = $tracklist;
 
     my $release = delete $opts{release};
     die 'Missing "release" argument' unless ($release || $self->preview);
@@ -146,7 +150,7 @@ sub _insert_hash {
         $track->{recording_id} ||= $self->c->model('Recording')->insert({
             %$track,
             artist_credit => $self->c->model('ArtistCredit')->find_or_insert($track->{artist_credit}),
-        })->id;
+        })->{id};
         delete $track->{medium_id};
     }
 

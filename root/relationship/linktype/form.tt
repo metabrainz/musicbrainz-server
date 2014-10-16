@@ -40,7 +40,7 @@
     [% END %]
 
     [% WRAPPER form_row %]
-        [% r.label('attributes', l('Attributes:')) %]
+        <label>[% l('Attributes:') %]</label>
         [% FOR field IN form.field('attributes').fields %]
             <div class="no-label">
                     [% r.hidden(field.field('type')) %]
@@ -79,7 +79,7 @@
                            type="hidden" />
 
                     <a data-bind="text: source.name, attr: { href: '[% c.uri_for("/${link_type.entity0_type}/") %]' + source.mbid }"></a>
-                    <span data-bind="html: phrase" /></span>
+                    <span data-bind="html: phrase"></span>
                     <a data-bind="text: target.name, attr: { href: '[% c.uri_for("/${link_type.entity1_type}/") %]' + target.mbid }"></a>
                 </div>
                 [% END %]
@@ -101,13 +101,13 @@
         [% END %]
 
         [%- WRAPPER form_row -%]
-          <label for="" class="required">[% l('Endpoint:') %]</label>
+          <label class="required">[% l('Endpoint:') %]</label>
           <select style="width: 130px; margin-right: 4px;"
               data-bind="options: availableEntityTypes, value: selectedEntityType,
                          optionsText: 'text', optionsValue: 'value'">
           </select>
           <span class="autocomplete">
-            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
             <input type="text" class="name" value="" style="width: 170px;" />
             <input type="hidden" class="id" value=""  />
             <input type="hidden" class="gid" value=""
@@ -132,7 +132,7 @@
                                name="current-example.relationship"
                                data-bind="checkObject: $root.currentExample.relationship" />
                         <a data-bind="text: source.name, attr: { href: '[% c.uri_for("/${link_type.entity0_type}/") %]' + source.mbid }"></a>
-                        <span data-bind="html: phrase" /></span>
+                        <span data-bind="html: phrase"></span>
                         <a data-bind="text: target.name, attr: { href: '[% c.uri_for("/${link_type.entity1_type}/") %]' + target.mbid }"></a>
                     </li>
                 </ul>
@@ -143,7 +143,7 @@
         [% WRAPPER form_row %]
             <div class="no-label">
                 <button data-bind="click: currentExample.add, enable: currentExample.relationship()">
-                    [% l('Add Example') %]</button>
+                    [% l('Add Example') %]
                 </button>
             </div>
         [% END %]

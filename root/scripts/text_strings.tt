@@ -117,7 +117,6 @@
         FocusInstrument: '[% l('Click here to choose an instrument') | js %]',
         FocusVocal: '[% l('Click here to choose a vocal') | js %]',
         NoChanges: '[% l('You haven’t made any changes!') | js %]',
-        ErrorsPreventSubmission: '[% l('Some errors were detected in the data you’ve entered. Click on the tabs shaded red and correct any visible errors.') | js %]',
         AddNote: '[% l('Add Note') | js %]',
         DeleteNote: '[% l('Delete Note') | js %]',
         ConfirmSwap: '[% l('This tracklist has artist credits with information that will be lost if you swap artist credits with track titles. This cannot be undone. Do you wish to continue?') | js %]',
@@ -144,22 +143,13 @@
         SelectURLType: '[% l('Please select a link type for the URL you’ve entered.') | js %]',
         SelectedReleaseGroup: '[% l('You selected {releasegroup}.') | js %]',
         SelectedLabel: '[% l('You selected {label}.') | js %]',
+        NeedsLabel: '[% l('You haven’t selected a label for “{name}”.') | js %]',
         Tracklist: '[% l('Tracklist') | js %]',
         DiscNumber: '[% l('Disc {num}') | js %]',
         DiscNumberTitle: '[% l('Disc {num}: {title}') | js %]',
         TrackParser: '[% l('Track Parser') | js %]',
         AddDisc: '[% l('Add Disc') | js %]',
         ReleaseSubmissionError: '[% l('The information you‘ve provided contains errors, and was not entered; please visit the tabs shaded in red, fix all visible errors, and try again.') | js %]',
-        MissingArtist: '[% l('You haven‘t entered a complete artist credit.') | js %]',
-        TrackInfoRequired: '[% l('You must enter a title and select an artist for every track.') | js %]',
-        MediumHasDiscID: '[% l('This medium already has disc IDs, so you may only change the format to a format that can have disc IDs.') | js %]',
-        TracklistRequired: '[% l('A tracklist is required.') | js %]',
-        ReleaseNameRequired: '[% l('A release title is required.') | js %]',
-        SelectAReleaseGroup: '[% l('You must select an existing release group.') | js %]',
-        DuplicateReleaseCountry: '[% l('You cannot use the same country more than once.') | js %]',
-        SelectALabel: '[% l('You must select an existing label.') | js %]',
-        MediumRequired: '[% l('A release must contain at least one medium.') | js %]',
-        EditNoteRequired: '[% l('You must provide an edit note when adding a release. Even just a URL or something like “CD in hand” helps!') | js %]',
         ByArtist: '[% l('by {artist}') | js %]',
         EntityByArtist: '[% l('{entity} by {artist}') | js %]',
         AddReleaseNoTitle: '[% l('Add Release') | js %]',
@@ -185,6 +175,7 @@
             work:            "[% l('Add another work') | js %]"
         },
         AttributeTextValue: '[% l('{attribute}: {value}') | js %]',
+        AttributeCredit: '[% l('{attribute} [{credited_as}]') | js %]',
         OrderedRelationship: '[% l('{num}. {relationship}') | js %]',
         IncorrectEntityForSeries: {
             recording: '[% l('The series you’ve selected is for recordings.') | js %]',
@@ -193,6 +184,7 @@
             work: '[% l('The series you’ve selected is for works.') | js %]'
         },
         InlineSearchFailed: '[% l('An error occurred while searching. Click here to try again.') | js %]',
-        ClearRecentItems: '[% l('Clear recent items') | js %]'
+        ClearRecentItems: '[% l('Clear recent items') | js %]',
+        ErrorLoadingRelease: '[% l('Error loading release: {error}') | js %]'
     });
 })(MB);

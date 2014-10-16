@@ -4,7 +4,15 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model       => 'Place',
+    model           => 'Place',
+    relationships   => {
+        cardinal    => ['edit'],
+        default     => ['url'],
+        subset      => {
+            show => [qw( area artist label place url work series instrument )],
+            performances => [qw( release release_group recording work url )],
+        }
+    },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
@@ -16,6 +24,9 @@ with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::CommonsImage';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
+with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
+    endpoints => {show => {}, aliases => {copy_stash => ['aliases']}}
+};
 
 use Data::Page;
 use HTTP::Status qw( :constants );
@@ -54,8 +65,7 @@ Extends loading by fetching any extra data required in the place header.
 
 =cut
 
-after 'load' => sub
-{
+after 'load' => sub {
     my ($self, $c) = @_;
 
     my $place = $c->stash->{place};
@@ -63,7 +73,6 @@ after 'load' => sub
     $c->model('PlaceType')->load($place);
     $c->model('Area')->load($place);
     $c->model('Area')->load_containment($place->area);
-    $c->model('Relationship')->load($place);
 };
 
 =head2 show
@@ -72,8 +81,7 @@ Shows a place's main landing page.
 
 =cut
 
-sub show : PathPart('') Chained('load')
-{
+sub show : PathPart('') Chained('load') {
     my ($self, $c) = @_;
 
     $c->stash(template => 'place/index.tt');
@@ -86,6 +94,14 @@ Shows performances linked to a place.
 =cut
 
 sub performances : Chained('load') { }
+
+=head2 map
+
+Shows a map for a place.
+
+=cut
+
+sub map : Chained('load') { }
 
 =head2 WRITE METHODS
 

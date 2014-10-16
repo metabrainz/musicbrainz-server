@@ -4,25 +4,21 @@
     </span>
 [%~ END -%]
 
-[%- MACRO as_auto_editor(ko) BLOCK -%]
-  [%- IF c.user.is_auto_editor -%]
+[%- MACRO make_votable(ko) BLOCK -%]
     <div class="row no-label">
       <div class="auto-editor">
         [% IF ko %]
           <label>
-            <input type="checkbox" data-bind="checked: asAutoEditor" />
-            [% l('Enable {autoed|auto-editor} privileges for this edit.', { autoed => { href => doc_link('Auto-Editor'), target => '_blank' } }) -%]
+            <input type="checkbox" data-bind="checked: makeVotable" />
+            [% l('Make all edits votable.') -%]
           </label>
         [% ELSE %]
           [%- USE r = FormRenderer(form) -%]
-          [%- r.checkbox('as_auto_editor') -%]
-          [%- r.label('as_auto_editor',
-                     l('Enable {autoed|auto-editor} privileges for this edit.',
-                      { autoed = doc_link('Auto-Editor') }), inline => 1) -%]
+          [%- r.checkbox('make_votable') -%]
+          [%- r.label('make_votable', l('Make all edits votable.'), inline => 1) -%]
         [% END %]
       </div>
     </div>
-  [%- END -%]
 [%- END -%]
 
 [%- MACRO edit_note(hide_help, ko) BLOCK -%]
@@ -46,7 +42,7 @@
 [%- END -%]
 
 [%- MACRO enter_edit(extra) BLOCK -%]
-    [%- as_auto_editor() -%]
+    [%- make_votable() -%]
     <div class="row no-label buttons">
         <button type="submit" class="submit positive">[% l('Enter edit') %]</button>
         [% extra %]
@@ -175,7 +171,7 @@
         <label for="[% id %]" class="required">[% l('Artist:') %]</label>
         <span class="autocomplete">
           <input id="[% id %]" type="text" class="artist-credit-input" data-bind="autocomplete: { entity: 'artist', artistCredit: $data }" data-hidden-inputs="[% 1 IF form %]" data-form="[% form.name IF form.html_prefix %]" data-artist="[% html_escape(form.field('artist_credit').json) IF form %]" />
-          <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+          <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
         </span>
         <button type="button" class="styled-button" id="open-ac" data-bind="controlsBubble: $root.artistBubble">[% l('Edit') | html_entity %]</button>
         [%- IF form -%]
@@ -195,7 +191,7 @@
   <fieldset class="guesscase">
     <legend>[% lp('Guess case', 'header') %]</legend>
     [% IF show_icon %]
-      <img src="[% c.uri_for("/static/images/icons/guesscase.32x32.png") %]" style="float: left; margin: 1em;" />
+      <img src="[% c.uri_for("/static/images/icons/guesscase.32x32.png") %]" style="float: left; margin: 1em;" alt="" />
     [% END %]
     <div style="float: right; margin: 10px;" class="buttons">
       <button type="button" data-bind="click: guessCase">[% lp('Guess case', 'button/menu') %]</button>
@@ -336,7 +332,7 @@
         <td>
           <span class="artist autocomplete">
             <input type="text" class="name" data-bind="withLabel: 'ac-artist-search', autocomplete: { entity: 'artist', currentSelection: artist }, css: { 'various-artists': isVariousArtists() }"/>
-            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
           </span>
         </td>
         <td>
@@ -386,16 +382,15 @@
 
 [%- MACRO external_links_editor(form, entity_type) BLOCK -%]
   <table id="external-links-editor" class="row-form">
-  <tbody>
-    <!-- ko foreach: _.reject(links(), function (link) { return link.removed() }) -->
+  <tbody data-bind="loop: { items: nonRemovedLinks, id: 'uniqueID' }">
     <tr data-bind="urlCleanup: '[% entity_type %]'">
       <td>
         <!-- ko ifnot: showTypeSelection() -->
-          <label data-bind="attr: { 'for': 'external-link-' + $index() }">
+          <label>
             <!-- ko if: matchesType() && faviconClass() -->
               <span data-bind="attr: { 'class': 'favicon ' + faviconClass() }"></span>
             <!-- /ko -->
-            <!-- ko text: linkPhrase() || (isOnlyLink() ? "[% l('Add link:') | html %]" : "[% l('Add another link:') | html %]") --><!-- /ko -->
+            <!-- ko text: linkPhrase(parent.source) || (isOnlyLink() ? "[% l('Add link:') | html %]" : "[% l('Add another link:') | html %]") --><!-- /ko -->
           </label>
         <!-- /ko -->
       <select class="link-type"
@@ -416,42 +411,27 @@
           data-bind="
             value: url,
             valueUpdate: 'input',
-            attr: { id: 'external-link-' + $index() },
-            controlsBubble: parent.bubbleDoc"
-        />
+            controlsBubble: parent.bubbleDoc" />
+
+        <!-- ko with: error() -->
+          <div class="error field-error" data-visible="1" data-bind="text: $data"></div>
+        <!-- /ko -->
+
+        <!-- ko if: linkTypeAttributes().length -->
+          <div data-bind="foreach: linkTypeAttributes()">
+            <!-- ko template: {
+                      name: "template.edit-attribute",
+                      data: _.assign({ relationship: $parent }, $data),
+                    }
+              --><!-- /ko -->
+          </div>
+        <!-- /ko -->
       </td>
       <td>
         <!-- ko ifnot: isEmpty() -->
           <button type="button" class="nobutton remove" data-bind="hasFocus: removeButtonFocused" data-click="remove">
             <div class="remove-item icon img" title="[% l('Remove Link') %]"></div>
           </button>
-        <!-- /ko -->
-      </td>
-    </tr>
-    <!-- ko with: error() -->
-    <tr>
-      <td></td>
-      <td class="error field-error" data-visible="1" data-bind="text: $data"></td>
-      <td></td>
-    </tr>
-    <!-- /ko -->
-    <!-- ko if: linkTypeAttributes().length -->
-    <tr>
-      <td></td>
-      <td data-bind="foreach: linkTypeAttributes()">
-        <!-- ko template: {
-                  name: "template.edit-attribute",
-                  data: _.assign({ relationship: $parent }, $data),
-                }
-          --><!-- /ko -->
-      </td>
-    </tr>
-    <!-- /ko -->
-    <!-- /ko -->
-    <tr style="display: none;">
-      <td colspan="3">
-        <!-- ko foreach: hiddenInputs() -->
-          <input type="hidden" data-bind="attr: { name: name, value: value }" />
         <!-- /ko -->
       </td>
     </tr>

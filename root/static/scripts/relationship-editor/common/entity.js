@@ -5,12 +5,12 @@
 
 (function (RE) {
 
-    var rateLimitOptions = {
-        rateLimit: { method: "notifyWhenChangesStop", timeout: 100 }
-    };
-
-
     MB.entity.CoreEntity.extend({
+
+        after$init: function () {
+            this.uniqueID = _.uniqueId("entity-");
+            this.relationshipElements = {};
+        },
 
         parseRelationships: function (relationships, viewModel) {
             var self = this;
@@ -22,42 +22,66 @@
             var newRelationships = _(relationships)
                 .map(function (data) { return viewModel.getRelationship(data, self) })
                 .compact()
+                .value();
+
+            var allRelationships = _(this.relationships.peek())
+                .union(newRelationships)
                 .sortBy(function (r) { return r.lowerCasePhrase(self) })
                 .value();
 
-            var existingRelationships = this.relationships.peek();
-            this.relationships(_.union(existingRelationships, newRelationships));
+            this.relationships(allRelationships);
 
             _.each(relationships, function (data) {
                 MB.entity(data.target).parseRelationships(data.target.relationships, viewModel);
             });
         },
 
-        displayRelationships: function (viewModel) {
+        displayableRelationships: cacheByID(function (vm) {
+            return vm._sortedRelationships(this.relationshipsInViewModel(vm), this);
+        }),
+
+        relationshipsInViewModel: cacheByID(function (vm) {
+            var self = this;
+            return this.relationships.filter(function (relationship) {
+                return vm.containsRelationship(relationship, self);
+            });
+        }),
+
+        groupedRelationships: cacheByID(function (vm) {
             var self = this;
 
-            return _.filter(this.relationships(), function (relationship) {
-                var types = relationship.entityTypes.split("-");
-                var targetType = self.entityType === types[0] ? types[1] : types[0];
+            function linkPhrase(relationship) {
+                return relationship.linkPhrase(self);
+            }
 
-                if (!viewModel.typesAreAccepted(self.entityType, targetType)) {
-                    return false;
-                }
+            function openAddDialog(source, event) {
+                var relationships = this.values(),
+                    firstRelationship = relationships[0];
 
-                // Always display added/edited/removed relationships, even if
-                // the cardinality is wrong; otherwise invisible changes can
-                // be submitted.
-                if (relationship.hasChanges()) {
-                    return true;
-                }
+                var dialog = RE.UI.AddDialog({
+                    source: self,
+                    target: MB.entity({}, firstRelationship.target(self).entityType),
+                    direction: self === firstRelationship.entities()[1] ? "backward" : "forward",
+                    viewModel: vm
+                });
 
-                return viewModel.goodCardinality(
-                    relationship.linkTypeID(),
-                    self.entityType,
-                    self === relationship.entities()[1]
-                );
-            });
-        },
+                var relationship = dialog.relationship();
+                relationship.linkTypeID(firstRelationship.linkTypeID());
+
+                var attributeLists = _.invoke(relationships, "attributes"),
+                    commonAttributes = _.reject(_.intersection.apply(_, attributeLists), isFreeText);
+
+                relationship.attributes(commonAttributes);
+                MB.utility.deferFocus("input.name", "#dialog");
+                dialog.open(event.target);
+            }
+
+            return this.displayableRelationships(vm)
+                .groupBy(linkPhrase).sortBy("key").map(function (group) {
+                    group.openAddDialog = openAddDialog;
+                    return group;
+                });
+        }),
 
         // searches this entity's relationships for potential duplicate "rel"
         // if it is a duplicate, remove and merge it
@@ -88,97 +112,6 @@
             return false;
         },
 
-        changedRelationships: function (viewModel) {
-            return _.filter(this.displayRelationships(viewModel), hasChanges);
-        },
-
-        groupedRelationships: function (viewModel) {
-            var self = this;
-            var oldGroups = this.__groupedRelationships = this.__groupedRelationships || [];
-            var newGroups = [];
-
-            function sortKey(relationship) {
-                var targetType = relationship.target(self).entityType;
-                var linkTypeID = relationship.linkTypeID();
-                var linkPhrase = relationship.phraseAndExtraAttributes(self);
-
-                return targetType + "\0" + linkTypeID + "\0" + linkPhrase[0];
-            }
-
-            // This is mostly designed so that the knockout foreach binding
-            // doesn't wastefully redraw the entire list (and break the active
-            // focus in the process).
-
-            _(self.displayRelationships(viewModel))
-                .groupBy(sortKey)
-                .each(function (relationships, key) {
-                    var group = _.findWhere(oldGroups, { sortKey: key });
-
-                    var attributes = _.apply(_, _.invoke(relationships, "attributes"))
-                                      .intersection().reject(isFreeText).value();
-
-                    relationships = viewModel.orderedRelationships(
-                        _(relationships)
-                            .sortBy(function (r) { return r.lowerCasePhrase(self) })
-                            .sortBy(function (r) { return r.lowerCaseTargetName(self) })
-                            .value(), self
-                    );
-
-                    if (group) {
-                        group.relationships(relationships);
-                    } else {
-                        var keyParts = key.split("\0");
-
-                        group = {
-                            sortKey: key,
-                            targetType: keyParts[0],
-                            linkTypeID: +keyParts[1],
-                            linkPhrase: keyParts[2],
-                            relationships: ko.observableArray(relationships),
-
-                            openAddDialog: function (source, event) {
-                                var backward = source === group.relationships()[0].entities()[1];
-
-                                var dialog = RE.UI.AddDialog({
-                                    source: source,
-                                    target: MB.entity({}, keyParts[0]),
-                                    direction: backward ? "backward" : "forward",
-                                    viewModel: viewModel
-                                });
-
-                                var relationship = dialog.relationship();
-                                relationship.linkTypeID(keyParts[1]);
-                                relationship.attributes(attributes.slice(0));
-
-                                MB.utility.deferFocus("input.name", "#dialog");
-
-                                dialog.open(event.target);
-                            }
-                        };
-                    }
-
-                    newGroups.push(group);
-                    delete relationships;
-                    delete key;
-                });
-
-            // jQuery UI dialogs have an "opener" property that points to the
-            // button or other element that opened the dialog, so that focus
-            // can be returned once the dialog is closed. Because updating
-            // groupedRelationships may cause knockout to remove the opener,
-            // we update it based on the ID of the previous one.
-
-            var dialog = viewModel.activeDialog.peek();
-
-            if (dialog && dialog.widget.isOpen()) {
-                _.defer(function () {
-                    dialog.widget.opener = $("#" + dialog.widget.opener.attr("id"));
-                });
-            }
-
-            return (this.__groupedRelationships = _.sortBy(newGroups, "sortKey"));
-        },
-
         getRelationshipGroup: function (linkTypeID, viewModel) {
             return _(this.groupedRelationships(viewModel))
                 .values().where({ linkTypeID: +linkTypeID })
@@ -187,60 +120,29 @@
     });
 
 
-    function isFreeText(id) {
-        return MB.attrInfoByID[id].freeText;
-    }
-
-    function hasChanges(relationship) {
-        return relationship.hasChanges();
-    }
-
-    function filterPerformances() {
-        return _.filter(this.relationships(), { entityTypes: "recording-work" });
-    }
-
-
     MB.entity.Recording.extend({
 
-        performances: filterPerformances,
-
-        around$changedRelationships: function (supr, viewModel) {
-            return supr(viewModel).concat(
-                _.transform(this.performances(), function (result, relationship) {
-                    if (relationship.hasChanges()) result.push(relationship);
-
-                    result.push.apply(
-                        result,
-                        relationship.entities()[1].changedRelationships(viewModel)
-                    );
-                })
-            );
+        after$init: function () {
+            this.performances = this.relationships.filter(isPerformance);
         }
     });
 
 
-    MB.entity.Release.extend({
+    function isPerformance(relationship) {
+        return relationship.entityTypes === "recording-work";
+    }
 
-        around$changedRelationships: function (supr, viewModel) {
-            return supr(viewModel).concat(
-                _.transform(this.mediums(), function (result, medium) {
-                    _.each(medium.tracks, function (track) {
-                        result.push.apply(
-                            result,
-                            track.recording.changedRelationships(viewModel)
-                        );
-                    });
-                })
-            );
-        }
-    });
+    function isFreeText(linkAttribute) {
+        return MB.attrInfoByID[linkAttribute.type.id].freeText;
+    }
 
+    function cacheByID(func) {
+        var cacheID = _.uniqueId("cache-");
 
-    MB.entity.Work.extend({
-
-        performanceCount: function () {
-            return filterPerformances.call(this).length;
-        }
-    });
+        return function (vm) {
+            var cache = this[cacheID] = this[cacheID] || {};
+            return cache[vm.uniqueID] || (cache[vm.uniqueID] = func.call(this, vm));
+        };
+    }
 
 }(MB.relationshipEditor = MB.relationshipEditor || {}));

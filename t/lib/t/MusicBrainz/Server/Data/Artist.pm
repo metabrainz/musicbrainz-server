@@ -159,10 +159,9 @@ $artist = $artist_data->insert({
         begin_date => { year => 2000, month => 1, day => 2 },
         end_date => { year => 1999, month => 3, day => 4 },
     });
-isa_ok($artist, 'MusicBrainz::Server::Entity::Artist');
-ok($artist->id > 4);
+ok($artist->{id} > 4);
 
-$artist = $artist_data->get_by_id($artist->id);
+$artist = $artist_data->get_by_id($artist->{id});
 is($artist->name, 'New Artist');
 is($artist->sort_name, 'Artist, New');
 is($artist->begin_date->year, 2000);
@@ -280,7 +279,6 @@ ok(!$artist_data->can_delete(3));
         type_id => 1,
         gender_id => 1,
     });
-    isa_ok($artist, 'MusicBrainz::Server::Entity::Artist');
 
     my $found = $artist_data->search_by_names('Test Artist', 'Minimal Artist');
     is(scalar @{ $found->{'Test Artist'} }, 2, 'Found two test artists');

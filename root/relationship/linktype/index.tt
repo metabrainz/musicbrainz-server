@@ -2,7 +2,7 @@
     <div id="content" class="wikicontent">
         [%- INCLUDE 'relationship/header.tt' page='index' %]
 
-        <table border="1">
+        <table class="wikitable">
             <tr>
                 <th></th>
                 [% FOR type IN types %]

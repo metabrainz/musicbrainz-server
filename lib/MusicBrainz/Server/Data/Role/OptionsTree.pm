@@ -3,30 +3,22 @@ use Moose::Role;
 use namespace::autoclean;
 
 with 'MusicBrainz::Server::Data::Role::Context';
+with 'MusicBrainz::Server::Data::Role::SelectAll';
 
 sub get_tree {
-    my ($self, $where_query) = @_;
+    my ($self, $filter) = @_;
 
-    my $mapping = $self->_column_mapping;
-    my @attrs = keys %$mapping;
     my @objects;
 
+    $filter ||= sub { return 1 };
+
     my %id_to_obj = map {
-        my $row = $_;
-
-        my $obj = $self->_entity_class->new(
-            map { $_ => $row->{$mapping->{$_} // $_} } (@attrs ? @attrs : keys %$row)
-        );
-
+        my $obj = $_;
         push @objects, $obj;
         $obj->id => $obj;
-    } @{
-        $self->sql->select_list_of_hashes(
-            'SELECT ' . $self->_columns . ' FROM ' . $self->_table . ' ' .
-            ($where_query // '') .
-            ' ORDER BY child_order, id'
-        )
-    };
+    } grep {
+        $filter->($_);
+    } $self->get_all;
 
     my $root = $self->_entity_class->new;
 

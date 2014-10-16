@@ -6,7 +6,9 @@ use DBDefs;
 use Digest::MD5 qw( md5_hex );
 use Digest::MD5::File qw( file_md5_hex );
 use File::Find;
+use File::Slurp qw( read_file );
 use IO::All;
+use JSON qw( decode_json );
 use List::MoreUtils qw( uniq );
 use Path::Class qw( dir file );
 use MooseX::Types::Moose qw( Str );
@@ -15,7 +17,7 @@ use Try::Tiny;
 
 has manifest_signatures => (
     isa => Map[Str, Str],
-    is => 'ro',
+    is => 'rw',
     traits => [ 'Hash' ],
     default => sub { {} }
 );
@@ -28,14 +30,12 @@ has file_signatures => (
 );
 
 sub manifest_signature {
-    my ($self, $manifest, $type) = @_;
-    unless (exists $self->manifest_signatures->{$manifest}) {
-        my $signature = md5_hex(join ',', map {
-            join(':', file($_)->basename, file_md5_hex($_));
-        } map { DBDefs->STATIC_FILES_DIR . "/$_" }
-            $self->manifest_files($manifest, $type));
+    my ($self, $manifest) = @_;
 
-        $self->manifest_signatures->{$manifest} = $signature;
+    $manifest =~ s/\.manifest$//;
+
+    unless (exists $self->manifest_signatures->{$manifest}) {
+        $self->manifest_signatures(decode_json(read_file(DBDefs->STATIC_FILES_DIR . "/build/rev-manifest.json")));
     }
 
     return $self->manifest_signatures->{$manifest};
@@ -102,57 +102,6 @@ sub manifest_files {
         # Ignore blank lines/comments in the manifest
         grep { !/^(#.*|\s*)$/ }
             io("$relative_to/$manifest")->chomp->slurp;
-}
-
-sub squash {
-    my ($self, $minifier, $manifest, $type, $prefix) = @_;
-    my $hash = $self->manifest_signature($manifest, $type);
-    my $filename = DBDefs->STATIC_FILES_DIR . "/$prefix$hash.$type";
-
-    if (!-f $filename) {
-        my $input = join("\n",
-            map { io($_)->all }
-                 map { DBDefs->STATIC_FILES_DIR . "/$_" }
-                    $self->manifest_files($manifest, $type));
-
-        printf STDERR "Compiling $manifest...";
-        try {
-            my $output = $minifier->(input => $input);
-            if ($output =~ /^\s+$/) {
-                die "Empty file generated. Perhaps a trailing comma in a .js file?";
-            }
-            $output > io($filename);
-            printf STDERR "OK\n";
-        } catch {
-            my $err = $_;
-            printf STDERR "FAIL\n";
-            printf STDERR "Error: $err\n";
-            printf STDERR "Deleting $prefix$hash.$type.\n";
-            system("rm -f $filename");
-        }
-    } else {
-        printf STDERR "$manifest already compiled.\n";
-    }
-}
-
-sub compile_javascript_manifest {
-    my ($self, $manifest) = @_;
-    return $self->squash(DBDefs->MINIFY_SCRIPTS, $manifest, 'js', '');
-}
-
-sub compile_css_manifest {
-    my ($self, $manifest) = @_;
-    my $less_manifest = $manifest;
-    $less_manifest =~ s/\.css\.manifest/\.less/;
-    if (-f $less_manifest) {
-        my $css = $less_manifest;
-        $css =~ s/\.less$/\.css/;
-        printf STDERR "Compiling $less_manifest to $css...\n";
-
-        my $lessc = DBDefs->MB_SERVER_ROOT . '/node_modules/.bin/lessc';
-        system "$lessc -x -rp='/static/' -ru $less_manifest $css"
-    }
-    return $self->squash(DBDefs->MINIFY_STYLES, $manifest, 'css', 'styles/');
 }
 
 __PACKAGE__->meta->make_immutable;
