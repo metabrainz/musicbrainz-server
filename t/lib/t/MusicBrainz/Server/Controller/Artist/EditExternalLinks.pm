@@ -32,6 +32,7 @@ my @edits = capture_edits {
             'edit-artist.url.2.relationship_id' => '2',
             'edit-artist.url.2.link_type_id' => '2',
             'edit-artist.url.2.removed' => '1',
+            'edit-artist.make_votable' => '1'
         });
 } $c;
 
