@@ -139,7 +139,13 @@
         },
 
         artistDiffersFromRecording: function () {
-            return !this.artistCredit.isEqual(this.recording().artistCredit);
+            var artistCredit = this.recording().artistCredit;
+
+            if (!artistCredit) {
+                return false;
+            }
+
+            return !this.artistCredit.isEqual(artistCredit);
         },
 
         hasExistingRecording: function () {
