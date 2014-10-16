@@ -84,7 +84,7 @@ test("releaseAddReleaseLabel edits are generated for new release", function () {
 
 
 test("recordingEdit edits are generated for new release", function () {
-    releaseEditor.copyTrackChangesToRecordings(true);
+    releaseEditor.copyTrackTitlesToRecordings(true);
 
     var track = this.release.mediums()[0].tracks()[0];
 
@@ -113,20 +113,21 @@ test("recordingEdit edits are generated for new release", function () {
             }
           ]
         },
-        length: 722093,
+        length: 822093,
         comment: "",
         video: false,
         edit_type: 72,
-        hash: "ccc1d1492d135248dbe0c799855d74aed8a1bdf4"
+        hash: "e14c68fb875cf1169b1c1a6ffd2a31de09ee8534"
       }
     ]);
 
-    releaseEditor.copyTrackChangesToRecordings(false);
+    releaseEditor.copyTrackTitlesToRecordings(false);
 });
 
 
 test("recordingEdit edits are generated for new mediums (MBS-7271)", function () {
-    releaseEditor.copyTrackChangesToRecordings(true);
+    releaseEditor.copyTrackTitlesToRecordings(true);
+    releaseEditor.copyTrackArtistsToRecordings(true);
 
     var trackData = {
         name: "foo",
@@ -173,7 +174,8 @@ test("recordingEdit edits are generated for new mediums (MBS-7271)", function ()
       }
     ]);
 
-    releaseEditor.copyTrackChangesToRecordings(false);
+    releaseEditor.copyTrackTitlesToRecordings(false);
+    releaseEditor.copyTrackArtistsToRecordings(false);
 });
 
 
