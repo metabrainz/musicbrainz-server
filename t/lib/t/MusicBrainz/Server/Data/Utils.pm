@@ -134,6 +134,47 @@ test 'Test trim and sanitize' => sub {
     $run->("Le\x{323}\x{302} Quye\x{302}n; Le\x{302}\x{323} Quy\x{EA}n; L\x{EA}\x{323} Q.; L\x{1EC7} Q.",
            "L\x{1EC7} Quy\x{EA}n; L\x{1EC7} Quy\x{EA}n; L\x{1EC7} Q.; L\x{1EC7} Q.",
            'normalizes to NFC (MBS-6010)');
+
+    $run->("Brilliant Classics \x{200E}",
+           'Brilliant Classics',
+           'removes LRM from the end of strings containing only LTR characters',
+           'Brilliant Classics ');
+
+    $run->("Brilliant Classics.\x{200F}",
+           'Brilliant Classics.',
+           'removes RLM from the end of strings containing only LTR characters, even next to a weak character');
+
+    $run->("\x{200F}\x{5DE}\x{5E8}\x{5D8}\x{5D9}\x{5DF} \x{5D1}\x{5D5}\x{5D1}\x{5E8}\x{200E}",
+           "\x{5DE}\x{5E8}\x{5D8}\x{5D9}\x{5DF} \x{5D1}\x{5D5}\x{5D1}\x{5E8}",
+           'removes LRM/RLM from the ends of strings containing Hebrew characters');
+
+    $run->("\x{5DE}\x{5E8}\x{5D8}\x{5D9}\x{5DF} \x{5D1}\x{5D5}\x{5D1}\x{5E8}\x{200E}\x{200F}",
+           "\x{5DE}\x{5E8}\x{5D8}\x{5D9}\x{5DF} \x{5D1}\x{5D5}\x{5D1}\x{5E8}",
+           'removes groups of LRM/RLM');
+
+    $run->("\x{5DE}\x{5E8}\x{5D8}\x{5D9}\x{5DF} \x{5D1}\x{5D5}\x{5D1}\x{5E8}!\x{200E}",
+           "\x{5DE}\x{5E8}\x{5D8}\x{5D9}\x{5DF} \x{5D1}\x{5D5}\x{5D1}\x{5E8}!\x{200E}",
+           'does not remove LRM from the end of a string RTL characters, if next to a neutral character');
+
+    $run->("Francisco T\x{E1}rrega\x{200E} - Lagrima",
+           "Francisco T\x{E1}rrega - Lagrima",
+           'removes LRM from the interior of strings without RTL characters');
+
+    $run->("Francisco\x{200F} T\x{E1}rrega\x{200F}\x{200E} - Lagrima",
+           "Francisco T\x{E1}rrega - Lagrima",
+           'removes multiple LRM/RLM from strings without RTL characters');
+
+    $run->("\x{5D0}\x{5D5}\x{5BC}\x{5DE}\x{200F}\x{5D9} 2",
+           "\x{5D0}\x{5D5}\x{5BC}\x{5DE}\x{5D9} 2",
+           'removes LRM/RLM from the interior of strings if between strong characters');
+
+    $run->("Dakhma (\x{62F}\x{62E}\x{645}\x{647}\x{200E})",
+           "Dakhma (\x{62F}\x{62E}\x{645}\x{647}\x{200E})",
+           'retains LRM between strong and neutral character in strings with RTL characters');
+
+    $run->("A\x{200F}\x{62F}\x{200E}B\x{200E}\x{5D1}\x{200F}C",
+           "A\x{62F}B\x{5D1}C",
+           'removes LRM/RLM from between strong characters of different directionality');
 };
 
 1;
