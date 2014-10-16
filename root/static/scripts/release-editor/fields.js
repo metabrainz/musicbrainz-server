@@ -663,7 +663,7 @@
 
     fields.Root = aclass(function () {
         this.release = ko.observable().syncWith("releaseField", true, true);
-        this.asAutoEditor = ko.observable(true);
+        this.makeVotable = ko.observable(false);
         this.editNote = ko.observable("");
     });
 

@@ -27,7 +27,7 @@ our $valid_params = qr/
             |attributes\.[0-9]+\.(type\.gid|text_value|credited_as)
         )
         |edit_note
-        |as_auto_editor
+        |make_votable
     )$
 /x;
 
@@ -112,7 +112,7 @@ sub submit_edits {
 
     MusicBrainz::Server::Controller::WS::js::Edit->submit_edits($c, {
         edits => \@rels,
-        asAutoEditor => $params->{as_auto_editor},
+        makeVotable => $params->{make_votable},
         editNote => $params->{edit_note},
     });
 }

@@ -157,7 +157,7 @@ is_deeply($edits[2]->data, {
             'edit-artist.url.0.relationship_id' => '1',
             'edit-artist.url.0.link_type_id' => '1',
             'edit-artist.url.0.text' => 'http://zh-yue.wikipedia.org/wiki/王菲',
-            'edit-artist.as_auto_editor' => '1',
+            'edit-artist.make_votable' => '1',
         });
 } $c;
 

@@ -174,7 +174,7 @@ test 'previewing/creating/editing a release group and release' => sub {
     @edits = capture_edits {
         post_json($mech, '/ws/js/edit/create', encode_json({
             edits => $release_edits,
-            asAutoEditor => 0,
+            makeVotable => 0,
         }));
     } $c;
 
@@ -188,7 +188,7 @@ test 'previewing/creating/editing a release group and release' => sub {
         post_json($mech, '/ws/js/edit/create', encode_json({
             edits => $release_edits,
             editNote => 'foo',
-            asAutoEditor => 0,
+            makeVotable => 0,
         }));
     } $c;
 
@@ -334,7 +334,7 @@ test 'previewing/creating/editing a release group and release' => sub {
     @edits = capture_edits {
         post_json($mech, '/ws/js/edit/create', encode_json({
             edits => $medium_edits,
-            asAutoEditor => 0,
+            makeVotable => 0,
         }));
     } $c;
 
@@ -438,7 +438,7 @@ test 'previewing/creating/editing a release group and release' => sub {
     @edits = capture_edits {
         post_json($mech, '/ws/js/edit/create', encode_json({
             edits => $medium_edits,
-            asAutoEditor => 0,
+            makeVotable => 0,
         }));
     } $c;
 
@@ -513,7 +513,7 @@ test 'previewing/creating/editing a release group and release' => sub {
     @edits = capture_edits {
         post_json($mech, '/ws/js/edit/create', encode_json({
             edits => $release_label_edits,
-            asAutoEditor => 0,
+            makeVotable => 0,
         }));
     } $c;
 

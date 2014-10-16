@@ -22,7 +22,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_EDIT
     $EDIT_RELATIONSHIP_DELETE
     $EDIT_WORK_CREATE
-    $AUTO_EDITOR_FLAG
+    $UNTRUSTED_FLAG
 );
 use MusicBrainz::Server::Data::Utils qw(
     type_to_model
@@ -472,8 +472,8 @@ sub create_edits {
 
     my $privs = $c->user->privileges;
 
-    if ($c->user->is_auto_editor && !$data->{asAutoEditor}) {
-        $privs &= ~$AUTO_EDITOR_FLAG;
+    if ($data->{makeVotable}) {
+        $privs |= $UNTRUSTED_FLAG;
     }
 
     try {

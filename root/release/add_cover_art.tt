@@ -145,7 +145,7 @@
     <div style="clear: left;"> </div>
 
     [%- INCLUDE 'forms/edit-note.tt' -%]
-    [%- as_auto_editor() -%]
+    [%- make_votable() -%]
     <div class="row no-label buttons">
         <button id="add-cover-art-submit" type="submit" disabled="disabled"
                 class="submit positive">[% l('Enter edit') %]</button>
