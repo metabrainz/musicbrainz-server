@@ -433,7 +433,7 @@ ALTER TABLE event_type ADD CONSTRAINT event_type_pkey PRIMARY KEY (id);
 CREATE UNIQUE INDEX l_area_event_idx_uniq ON l_area_event (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_artist_event_idx_uniq ON l_artist_event (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_event_event_idx_uniq ON l_event_event (entity0, entity1, link, link_order);
-CREATE UNIQUE INDEX l_event_instrument_idx_uniq ON l_event_label (entity0, entity1, link, link_order);
+CREATE UNIQUE INDEX l_event_instrument_idx_uniq ON l_event_instrument (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_event_label_idx_uniq ON l_event_label (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_event_place_idx_uniq ON l_event_place (entity0, entity1, link, link_order);
 CREATE UNIQUE INDEX l_event_recording_idx_uniq ON l_event_recording (entity0, entity1, link, link_order);
