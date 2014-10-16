@@ -22,6 +22,7 @@ use MusicBrainz::Server::Validation qw(
     normalise_strings
     is_valid_barcode
     is_valid_ean
+    is_valid_partial_date
 );
 
 test 'Test trim_in_place' => sub {
@@ -158,6 +159,31 @@ test 'Test is_valid_ean' => sub {
     ok(!is_valid_ean('12345678912345677'), "Invalid (17 chars)");
     ok(is_valid_ean('123456789123456789'), "Valid SSCC (18 chars)");
     ok(!is_valid_ean('123456789123456787'), "Invalid SSCC (18 chars)");
+};
+
+test 'Test is_valid_partial_date' => sub {
+    ok(is_valid_partial_date(2014, 10, 16), 'normal complete date');
+    ok(is_valid_partial_date(2014, undef, 16), 'incomplete date');
+    ok(is_valid_partial_date(undef, undef, undef), 'empty date');
+
+    ok(!is_valid_partial_date('2014a', undef, 16), 'non-number');
+
+    ok(!is_valid_partial_date(undef, 13, undef), 'invalid month');
+    ok(!is_valid_partial_date(undef, undef, 32), 'invalid day-of-month');
+    ok(!is_valid_partial_date(undef, 6, 31), 'invalid month/day combination');
+
+    ok(is_valid_partial_date(1980, 7, 31), 'last of July');
+
+    subtest 'February 29th (leap years)' => sub {
+        my $run = sub { is_valid_partial_date(shift, 2, 29); };
+
+        ok(!$run->(2014), 'regular non-leap year');
+        ok($run->(2012), 'regular leap year');
+        ok($run->(2000), '2000 was a leap year');
+        ok($run->(1600), '1600 was a leap year');
+        ok(!$run->(1900), '1900 was no leap year');
+        ok($run->(undef), 'unknown year may be a leap year');
+    };
 };
 
 test 'Test encode_entities' => sub {
