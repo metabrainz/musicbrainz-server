@@ -3,7 +3,26 @@ use Test::Routine;
 use Test::More;
 use Test::Warn;
 
-use MusicBrainz::Server::Validation qw( is_positive_integer is_guid trim_in_place is_valid_url is_valid_isrc format_isrc is_valid_discid is_freedb_id is_valid_iswc format_iswc is_valid_ipi format_ipi is_valid_isni format_isni encode_entities normalise_strings is_valid_barcode is_valid_ean );
+use MusicBrainz::Server::Validation qw(
+    is_positive_integer
+    is_guid
+    trim_in_place
+    is_valid_url
+    is_valid_isrc
+    format_isrc
+    is_valid_discid
+    is_freedb_id
+    is_valid_iswc
+    format_iswc
+    is_valid_ipi
+    format_ipi
+    is_valid_isni
+    format_isni
+    encode_entities
+    normalise_strings
+    is_valid_barcode
+    is_valid_ean
+);
 
 test 'Test trim_in_place' => sub {
     my $a = '  ';
