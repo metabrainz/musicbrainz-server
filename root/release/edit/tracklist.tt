@@ -310,7 +310,7 @@
 
       [%- table_row_error(
            2, 'showErrorRightAway: hasInvalidFormat',
-           l('This medium has a disc ID or pregap track, so you can only change the format to one that can have disc IDs.')
+           l('This medium has a disc ID, pregap track, or data track, so you can only change the format to one that can have disc IDs.')
          )
        %]
     </table>

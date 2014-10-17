@@ -297,7 +297,7 @@
             this.toc.subscribe(this.tocChanged, this);
 
             this.hasInvalidFormat = ko.computed(function () {
-                return (self.hasExistingTocs() || hasPregap()) && !self.canHaveDiscID();
+                return !self.canHaveDiscID() && (self.hasExistingTocs() || hasPregap() || hasDataTracks());
             });
 
             this.loaded = ko.observable(loaded);
