@@ -1,3 +1,6 @@
+[% WRAPPER "$entitytype/layout.tt" full_width=1 title=l('Annotation history') %]
+  <h2>[% l('Annotation history') %]</h2>
+
 [% WRAPPER 'components/with-pager.tt' %]
 <form action="[% c.uri_for_action(c.namespace _ '/annotation_diff', [ entity.gid ]) %]">
   <table class="tbl" id="annotation-history">
@@ -65,3 +68,4 @@
     $table.find("input.old, input.new").change(reset);
   }());
 //]]></script>
+[%~ END ~%]
