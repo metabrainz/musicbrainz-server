@@ -157,7 +157,7 @@ ko.bindingHandlers.loop = {
                                 tmpElementContainer.appendChild(node.cloneNode(true));
                             }
 
-                            ko.applyBindings(newContext, tmpElementContainer);
+                            ko.applyBindingsToDescendants(newContext, tmpElementContainer)
                             currentElements = _.toArray(tmpElementContainer.childNodes);
                             elements[itemID] = currentElements;
                             tmpElementContainer = null;
