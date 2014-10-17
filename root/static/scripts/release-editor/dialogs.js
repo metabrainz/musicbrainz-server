@@ -95,6 +95,7 @@
         },
 
         parseTrack: function (track, index) {
+            track.id = null;
             track.position = track.position || (index + 1);
             track.number = track.position;
             track.formattedLength = MB.utility.formatTrackLength(track.length);
