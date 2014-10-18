@@ -1,4 +1,4 @@
-[% WRAPPER "$entitytype/layout.tt" full_width=1 title=l('Annotation history') %]
+[% WRAPPER "$entity_type/layout.tt" full_width=1 title=l('Annotation history') %]
   <h2>[% l('Annotation history') %]</h2>
 
 [% WRAPPER 'components/with-pager.tt' %]
