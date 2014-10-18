@@ -185,6 +185,9 @@ MB.constants.LINK_TYPES = {
     bandcamp: {
         artist: 718,
         label: 719
+    },
+    imslp: {
+        artist: 754
     }
 };
 
@@ -555,6 +558,12 @@ MB.constants.CLEANUPS = {
             return url.replace(/^(?:https?:\/\/)?([^\/]+)\.bandcamp\.com(?:\/(((album|track)\/([^\/\?]+)))?)?.*$/, "http://$1.bandcamp.com/$2");
         }
     },
+    score: {
+        match: [
+            new RegExp("^(https?://)?(www\\.)?imslp\\.org/", "i"),
+        ],
+        type: MB.constants.LINK_TYPES.imslp
+    },
     otherdatabases: {
         match: [
             new RegExp("^(https?://)?(www\\.)?rateyourmusic\\.com/", "i"),
@@ -824,6 +833,11 @@ MB.Control.URLCleanup = function (options) {
     }
     validationRules[ MB.constants.LINK_TYPES.bandcamp.label ] = function (url) {
         return url.match(/\.bandcamp\.com\/$/) != null;
+    }
+
+    // allow only IMSLP pages with the IMSLP rel
+    validationRules[ MB.constants.LINK_TYPES.imslp.artist ] = function (url) {
+        return url.match(/imslp\.org\//) != null;
     }
 
     // avoid wikipedia being added as release-level discography entry
