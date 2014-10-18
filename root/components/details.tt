@@ -1,4 +1,4 @@
-[%~ entitytype = entity_type(entity).replace('_', '-') ~%]
+[%~ entity_type_for_url = entity_properties.url || entity_type ~%]
 <h2>[%~ l('Details') ~%]</h2>
 <table class="details">
     <tr>
@@ -26,7 +26,7 @@
     <tr>
         <th>[%~ l('XML:') ~%]</th>
         <td>
-            [%~ link = c.uri_for("/ws/2/$entitytype", entity.gid, { 'inc' => xml_inc }) ~%]
+            [%~ link = c.uri_for("/ws/2/$entity_type_for_url", entity.gid, { 'inc' => xml_inc }) ~%]
             <a href="[%~ link ~%]">[%~ display_url(link) ~%]</a>
         </td>
     </tr>

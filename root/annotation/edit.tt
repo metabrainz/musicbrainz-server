@@ -1,4 +1,4 @@
-[%~ WRAPPER "$entitytype/layout.tt" title=l('Edit Annotation') full_width=1 ~%]
+[%~ WRAPPER "$entity_type/layout.tt" title=l('Edit Annotation') full_width=1 ~%]
 <h2>[% l('Edit annotation') %]</h2>
 
 <p>[% l('Please note that any content submitted to MusicBrainz will be made available

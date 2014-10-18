@@ -1,4 +1,4 @@
-[%~ SET ent_type = entity_type(entity);
+[%~ SET ent_type = get_entity_type(entity);
     SET type_for_css = ent_type;
     SET type_for_css = 'rg' IF ent_type == 'release_group';
 
