@@ -27,7 +27,6 @@ sub latest_annotation : Chained('load') PathPart('annotation')
     my ($self, $c) = @_;
     my $entity = $c->stash->{entity};
     my $model = $self->{model};
-    my $entity_type = model_to_type($model);
 
     my $annotation = $c->model($self->{model})->annotation->get_latest($entity->id);
 
@@ -43,7 +42,6 @@ sub latest_annotation : Chained('load') PathPart('annotation')
     $c->stash(
         annotation => $annotation,
         number_of_revisions => scalar @$annotations,
-        entitytype => $entity_type,
         template   => 'annotation/revision.tt'
     );
 }
@@ -53,7 +51,6 @@ sub annotation_revision : Chained('load') PathPart('annotation') Args(1)
     my ($self, $c, $id) = @_;
     my $entity = $c->stash->{entity};
     my $model = $self->{model};
-    my $entity_type = model_to_type($model);
 
     if (!is_nat($id)) {
         $c->stash(
@@ -77,7 +74,6 @@ sub annotation_revision : Chained('load') PathPart('annotation') Args(1)
     $c->stash(
         annotation => $annotation,
         number_of_revisions => scalar @$annotations,
-        entitytype => $entity_type,
         template   => 'annotation/revision.tt'
     );
 }
@@ -98,11 +94,9 @@ after 'load' => sub {
     my (undef, $no) = $c->model($self->{model})->annotation
         ->get_history($c->stash->{entity}->id, 50, 0);
 
-    my $entity_type = model_to_type($self->{model});
 
     $c->stash(
         number_of_revisions => $no,
-        entitytype => $entity_type,
     );
 };
 
@@ -113,11 +107,9 @@ sub edit_annotation : Chained('load') PathPart Edit
     my $entity = $c->stash->{entity};
     my $annotation_model = $c->model($model)->annotation;
     $annotation_model->load_latest($entity);
-    my $entity_type = model_to_type($self->{model});
 
     $c->stash(
         template   => 'annotation/edit.tt',
-        entitytype => $entity_type,
     );
 
     $self->edit_action($c,
@@ -151,7 +143,6 @@ sub annotation_history : Chained('load') PathPart('annotations') RequireAuth
     my $model            = $self->{model};
     my $entity           = $c->stash->{entity};
     my $annotation_model = $c->model($model)->annotation;
-    my $entity_type = model_to_type($model);
 
     my $annotations = $self->_load_paged(
         $c, sub {
@@ -161,7 +152,6 @@ sub annotation_history : Chained('load') PathPart('annotations') RequireAuth
 
     $c->model('Editor')->load(@$annotations);
     $c->stash(
-        entitytype => $entity_type,
         template => 'annotation/history.tt',
         annotations => $annotations
     );
@@ -174,7 +164,6 @@ sub annotation_diff : Chained('load') PathPart('annotations-differences') Requir
     my $model            = $self->{model};
     my $entity           = $c->stash->{entity};
     my $annotation_model = $c->model($model)->annotation;
-    my $entity_type = model_to_type($model);
 
     my $old = $c->req->query_params->{old};
     my $new = $c->req->query_params->{new};
@@ -195,7 +184,6 @@ sub annotation_diff : Chained('load') PathPart('annotations-differences') Requir
     $c->model('Editor')->load($old_annotation);
 
     $c->stash(
-        entitytype => $entity_type,
         template => 'annotation/diff.tt',
         old => $old_annotation,
         new => $new_annotation
