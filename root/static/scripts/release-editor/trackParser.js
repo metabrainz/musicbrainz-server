@@ -158,16 +158,31 @@ MB.releaseEditor.trackParser = {
         });
 
         // Force the number of tracks if there's a CDTOC.
-        currentTracks = medium && medium.tracks.peek();
-        var currentTrackCount = currentTracks && currentTracks.length;
+        if (medium) {
+            currentTracks = medium.tracks.peek();
 
-        if (hasTocs && newTracks.length < currentTrackCount) {
-            var difference = currentTrackCount - newTracks.length;
+            var currentTrackCount = currentTracks.length,
+                dataTracksEnded = false;
 
-            while (difference-- > 0) {
-                newTracks.push(MB.releaseEditor.fields.Track({
-                    length: currentTracks[currentTrackCount - difference - 1].length.peek()
-                }, medium));
+            if (hasTocs && newTracks.length < currentTrackCount) {
+                var difference = currentTrackCount - newTracks.length;
+
+                while (difference-- > 0) {
+                    newTracks.push(MB.releaseEditor.fields.Track({
+                        length: currentTracks[currentTrackCount - difference - 1].length.peek()
+                    }, medium));
+                }
+            }
+
+            if (medium.hasDataTracks()) {
+                // Data tracks must be contiguous at the end of the medium.
+                _.each(newTracks.concat().reverse(), function (track) {
+                    if (dataTracksEnded) {
+                        track.isDataTrack(false);
+                    } else if (!track.isDataTrack()) {
+                        dataTracksEnded = true;
+                    }
+                });
             }
         }
 
