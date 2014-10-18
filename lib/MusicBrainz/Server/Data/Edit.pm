@@ -660,7 +660,7 @@ sub default_includes {
     }
 }
 
-# Runs its own transaction
+# Must be called in a transaction
 sub approve
 {
     my ($self, $edit, $editor) = @_;
