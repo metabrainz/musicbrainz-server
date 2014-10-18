@@ -1,4 +1,4 @@
-[%~ entity_type_for_url = entity_type(entity).replace('_', '-') ~%]
+[%~ entity_type_for_url = get_entity_type(entity).replace('_', '-') ~%]
 <h2>[%~ l('Details') ~%]</h2>
 <table class="details">
     <tr>

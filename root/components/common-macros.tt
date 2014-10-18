@@ -274,16 +274,16 @@ END -%]
     IF entity.artist_credit.defined;
         l('{entity} by {artist}', { entity => link_entity(entity),
                                     artist => artist_credit(entity.artist_credit) });
-    ELSIF entity_type(entity) == 'place' && entity.area.defined;
+    ELSIF get_entity_type(entity) == 'place' && entity.area.defined;
         l('{place} in {area}', { place => link_entity(entity),
                                  area => link_area_with_containment(entity.area) });
-    ELSIF entity_type(entity) == 'area' && entity.gid;
+    ELSIF get_entity_type(entity) == 'area' && entity.gid;
         link_area_with_containment(entity);
     ELSE;
         link_entity(entity);
     END; -%]
 
-[%~ MACRO entity_type(entity) BLOCK;
+[%~ MACRO get_entity_type(entity) BLOCK;
     IF entity.isa('MusicBrainz::Server::Entity::Artist'); "artist";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Area'); "area";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Collection'); "collection";
