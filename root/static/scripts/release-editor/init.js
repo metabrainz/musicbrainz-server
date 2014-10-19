@@ -6,7 +6,8 @@
 MB.releaseEditor = _.extend(MB.releaseEditor || {}, {
 
     activeTabID: ko.observable("#information"),
-    activeTabIndex: ko.observable(0)
+    activeTabIndex: ko.observable(0),
+    loadError: ko.observable("")
 });
 
 
@@ -186,11 +187,25 @@ MB.releaseEditor.loadRelease = function (gid, callback) {
         data: { inc: "annotation+release-events+labels+media+rels" }
     };
 
-    return MB.utility.request(args, this).done(callback || this.releaseLoaded);
+    return MB.utility.request(args, this)
+            .done(callback || this.releaseLoaded)
+            .fail(function (jqXHR, status, error) {
+                error = jqXHR.status + " (" + error + ")"
+
+                // If there wasn't an ISE, the response should parse as JSON.
+                try {
+                    error += ": " + JSON.parse(jqXHR.responseText).error;
+                } catch (e) {};
+
+                this.loadError(error);
+            });
+
 };
 
 
 MB.releaseEditor.releaseLoaded = function (data) {
+    this.loadError("");
+
     var seed = this.seededReleaseData;
     delete this.seededReleaseData;
 

@@ -4,13 +4,14 @@
 # Benjamin Sonntag <email address hidden>, 2011-2012
 # Benjamin Sonntag <email address hidden>, 2011
 # Dibou <email address hidden>, 2012
+# Laurent Monin <email address hidden>, 2014
 # Lotheric <email address hidden>, 2011
 # murdos <email address hidden>, 2011-2012
 # yahoe.001, 2013-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-07-25 16:10+0000\n"
+"PO-Revision-Date: 2014-09-06 15:35+0000\n"
 "Last-Translator: yahoe.001\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -508,8 +509,9 @@ msgid "100%"
 msgstr "100 %"
 
 #: ../root/statistics/index.tt:892
-msgid "Abstain:"
-msgstr "S'abstenir :"
+msgctxt "vote"
+msgid "Abstain"
+msgstr "S'abstenir"
 
 #: ../root/statistics/view_js.tt:80
 msgid "Abstentions"
@@ -568,8 +570,9 @@ msgid "Applied:"
 msgstr "Appliqué :"
 
 #: ../root/statistics/index.tt:874
-msgid "Approve:"
-msgstr "Approuve :"
+msgctxt "vote"
+msgid "Approve"
+msgstr "Approuver"
 
 #: ../root/statistics/index.tt:573 ../root/statistics/view_js.tt:55
 msgid "Areas"
@@ -1473,6 +1476,11 @@ msgstr "Événements MusicBrainz"
 msgid "MusicBrainz Events:"
 msgstr "Événements MusicBrainz :"
 
+#: ../root/statistics/index.tt:886
+msgctxt "vote"
+msgid "No"
+msgstr "Non"
+
 #: ../root/statistics/no_statistics.tt:2
 msgid "No Statistics"
 msgstr "Pas de statistiques"
@@ -1517,10 +1525,6 @@ msgstr "Pas de statut de défini"
 #: ../root/statistics/coverart.tt:56 ../root/statistics/coverart.tt:139
 msgid "No type"
 msgstr "Pas de type"
-
-#: ../root/statistics/index.tt:886
-msgid "No:"
-msgstr "Non : "
 
 #: ../root/statistics/index.tt:204
 msgid "Non-group artists:"
@@ -2044,13 +2048,14 @@ msgstr "Œuvres"
 msgid "Works:"
 msgstr "Œuvres :"
 
+#: ../root/statistics/index.tt:880
+msgctxt "vote"
+msgid "Yes"
+msgstr "Oui"
+
 #: ../root/statistics/view_js.tt:78
 msgid "Yes Votes"
 msgstr "Votes oui"
-
-#: ../root/statistics/index.tt:880
-msgid "Yes:"
-msgstr "Oui :"
 
 #: ../root/statistics/index.tt:858 ../root/statistics/index.tt:910
 msgid "Yesterday:"

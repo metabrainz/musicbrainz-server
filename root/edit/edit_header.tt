@@ -24,13 +24,13 @@
                         [%~ IF voter && voter.id != c.user.id ~%]
                             <div class="my-vote">
                                 <strong>[%- l('Their vote: ') -%]</strong>
-                                [%- l(edit.latest_vote_for_editor(voter.id).vote_name) ~%]
+                                [%- lp(edit.latest_vote_for_editor(voter.id).vote_name, 'vote') ~%]
                             </div>
                         [%~ ELSE ~%]
                           [%~ IF edit.latest_vote_for_editor(c.user.id) ~%]
                               <div class="my-vote">
                                   <strong>[%- l('My vote: ') -%]</strong>
-                                  [%- l(edit.latest_vote_for_editor(c.user.id).vote_name) ~%]
+                                  [%- lp(edit.latest_vote_for_editor(c.user.id).vote_name, 'vote') ~%]
                               </div>
                           [%~ ELSIF c.user.id == edit.editor_id ~%]
                               <div class="my-vote">

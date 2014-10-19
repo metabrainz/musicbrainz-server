@@ -25,19 +25,19 @@ has_field 'attributes' => (
     type => 'Repeatable',
 );
 
-has_field 'attributes.contains' => (
-    type => 'Integer',
+has_field 'attributes.type' => (
+    type => 'Compound',
 );
 
-has_field 'attribute_text_values' => (
-    type => 'Repeatable',
+has_field 'attributes.type.gid' => (
+    type => '+MusicBrainz::Server::Form::Field::GID',
 );
 
-has_field 'attribute_text_values.attribute' => (
-    type => 'Integer',
+has_field 'attributes.credited_as' => (
+    type => '+MusicBrainz::Server::Form::Field::Text',
 );
 
-has_field 'attribute_text_values.text_value' => (
+has_field 'attributes.text_value' => (
     type => '+MusicBrainz::Server::Form::Field::Text',
 );
 

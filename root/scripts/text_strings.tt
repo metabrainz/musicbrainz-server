@@ -145,6 +145,7 @@
         SelectURLType: '[% l('Please select a link type for the URL you’ve entered.') | js %]',
         SelectedReleaseGroup: '[% l('You selected {releasegroup}.') | js %]',
         SelectedLabel: '[% l('You selected {label}.') | js %]',
+        NeedsLabel: '[% l('You haven’t selected a label for “{name}”.') | js %]',
         Tracklist: '[% l('Tracklist') | js %]',
         DiscNumber: '[% l('Disc {num}') | js %]',
         DiscNumberTitle: '[% l('Disc {num}: {title}') | js %]',
@@ -177,6 +178,7 @@
             work:            "[% l('Add another work') | js %]"
         },
         AttributeTextValue: '[% l('{attribute}: {value}') | js %]',
+        AttributeCredit: '[% l('{attribute} [{credited_as}]') | js %]',
         OrderedRelationship: '[% l('{num}. {relationship}') | js %]',
         IncorrectEntityForSeries: {
             recording: '[% l('The series you’ve selected is for recordings.') | js %]',
@@ -185,6 +187,7 @@
             work: '[% l('The series you’ve selected is for works.') | js %]'
         },
         InlineSearchFailed: '[% l('An error occurred while searching. Click here to try again.') | js %]',
-        ClearRecentItems: '[% l('Clear recent items') | js %]'
+        ClearRecentItems: '[% l('Clear recent items') | js %]',
+        ErrorLoadingRelease: '[% l('Error loading release: {error}') | js %]'
     });
 })(MB);

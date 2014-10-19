@@ -69,7 +69,6 @@ is_deeply($edits[0]->data, {
             'year' => undef
         },
         'attributes' => [],
-        'attribute_text_values' => {},
     },
     'relationship_id' => 1,
     'type0' => 'artist',
@@ -84,7 +83,8 @@ is_deeply($edits[0]->data, {
             'name' => 'http://zh-yue.wikipedia.org/wiki/%E7%8E%8B%E8%8F%B2',
             'id' => 3
         }
-    }
+    },
+    'edit_version' => 2,
 });
 
 is_deeply($edits[1]->data, {
@@ -106,6 +106,7 @@ is_deeply($edits[1]->data, {
         'id' => 100
     },
     'type0' => 'artist',
+    'edit_version' => 2,
 });
 
 is_deeply($edits[2]->data, {
@@ -121,6 +122,7 @@ is_deeply($edits[2]->data, {
                 'day' => undef,
                 'year' => undef
             },
+            ended => 0,
             'type' => {
                 'entity0_type' => 'artist',
                 'long_link_phrase' => 'allmusic',
@@ -138,7 +140,8 @@ is_deeply($edits[2]->data, {
             'id' => 100
         },
         'id' => 2
-    }
+    },
+    'edit_version' => 2,
 });
 
 

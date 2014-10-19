@@ -10,12 +10,12 @@
 # phonebox, 2014
 # phonebox, 2014
 # Timo Martikainen <>, 2012
-# Timo Martikainen <email address hidden>, 2012-2013
+# Timo Martikainen <email address hidden>, 2012-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-08-07 20:42+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-09-08 01:23+0000\n"
+"Last-Translator: nikki\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1131,7 +1131,7 @@ msgstr ""
 
 #: DB:link_type/description:714
 msgid "This is used to link an artist to its primary concert venue."
-msgstr ""
+msgstr "Käytetään yhdistämään artisti pääasialliseen esiintymispaikkaansa."
 
 #: DB:link_type/description:192
 msgid ""
@@ -1918,7 +1918,7 @@ msgstr "apulais"
 
 #: DB:link_attribute_type/name:527
 msgid "associate"
-msgstr ""
+msgstr "yhteis"
 
 #: DB:link_type/reverse_link_phrase:11
 msgid "associated {EP:EPs|singles}"
@@ -2211,15 +2211,15 @@ msgstr "emeritus"
 
 #: DB:link_type/link_phrase:120
 msgid "engineer position"
-msgstr ""
+msgstr "teknikko"
 
 #: DB:link_type/link_phrase:701
 msgid "engineer position at"
-msgstr ""
+msgstr "teknikko paikassa"
 
 #: DB:link_type/reverse_link_phrase:120 DB:link_type/reverse_link_phrase:701
 msgid "engineers"
-msgstr ""
+msgstr "teknikot"
 
 #: DB:link_attribute_type/name:425
 msgid "executive"
@@ -2488,7 +2488,7 @@ msgstr "omaa sanoitukset saatavilla"
 
 #: DB:link_type/long_link_phrase:316
 msgid "has orchestration"
-msgstr ""
+msgstr "orkestraatio"
 
 #: DB:link_type/long_link_phrase:739 DB:link_type/long_link_phrase:717
 #: DB:link_type/long_link_phrase:281 DB:link_type/long_link_phrase:356
@@ -2511,7 +2511,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:714
 msgid "has primary concert venue at"
-msgstr ""
+msgstr "pääasiallinen esiintymispaikka"
 
 #: DB:link_type/link_phrase:315 DB:link_type/long_link_phrase:315
 msgid "has revision"
@@ -2604,7 +2604,7 @@ msgstr "instrumentaali"
 
 #: DB:link_type/link_phrase:752
 msgid "instruments"
-msgstr ""
+msgstr "soittimet"
 
 #: DB:link_type/reverse_link_phrase:707
 msgid "interview with"
@@ -2962,11 +2962,11 @@ msgstr ""
 
 #: DB:link_type/link_phrase:703
 msgid "mixing engineer position at"
-msgstr ""
+msgstr "miksaaja paikassa"
 
 #: DB:link_type/reverse_link_phrase:703
 msgid "mixing engineers"
-msgstr ""
+msgstr "miksaaja"
 
 #: DB:link_type/link_phrase:694 DB:link_type/link_phrase:696
 msgid "mixing location for"
@@ -3025,11 +3025,11 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:150 DB:link_type/long_link_phrase:45
 msgid "orchestra {additional:additionally} performed"
-msgstr ""
+msgstr "orkesteri {additional:lisäksi} esiintyi"
 
 #: DB:link_type/reverse_link_phrase:316
 msgid "orchestration of"
-msgstr ""
+msgstr "orkestraatio"
 
 #: DB:link_type/link_phrase:316
 msgid "orchestrations"
@@ -3073,7 +3073,7 @@ msgstr "parodia"
 #: DB:link_type/reverse_link_phrase:717 DB:link_type/reverse_link_phrase:281
 #: DB:link_type/reverse_link_phrase:356 DB:link_type/reverse_link_phrase:743
 msgid "part of"
-msgstr "osana"
+msgstr "kuuluu osana"
 
 #: DB:link_attribute_type/name:579
 msgid "partial"
@@ -3141,11 +3141,11 @@ msgstr "kuvat"
 
 #: DB:link_type/reverse_link_phrase:716 DB:link_type/reverse_link_phrase:715
 msgid "premiered at"
-msgstr ""
+msgstr "ensiesitys"
 
 #: DB:link_type/link_phrase:716 DB:link_type/link_phrase:715
 msgid "premieres hosted"
-msgstr ""
+msgstr "ensiesitettyjä teoksia"
 
 #: DB:link_type/reverse_link_phrase:1
 msgid "previous disc"
@@ -3153,11 +3153,11 @@ msgstr "aiempi levy"
 
 #: DB:link_type/link_phrase:714
 msgid "primary concert venue"
-msgstr ""
+msgstr "pääasiallinen esiintymispaikka"
 
 #: DB:link_type/reverse_link_phrase:714
 msgid "primary concert venue of"
-msgstr ""
+msgstr "artistien pääasiallinen esiintymispaikka"
 
 #: DB:link_attribute_type/name:618
 msgid "principal"
@@ -3591,7 +3591,7 @@ msgstr "{additional} säveltänyt"
 #: DB:link_type/link_phrase:46 DB:link_type/link_phrase:151
 #: DB:link_type/long_link_phrase:46 DB:link_type/long_link_phrase:151
 msgid "{additional:additionally} conducted"
-msgstr "{additional} johti kapellimestarina"
+msgstr "johti {additional:lisä}kapellimestarina"
 
 #: DB:link_type/link_phrase:40 DB:link_type/link_phrase:164
 #: DB:link_type/link_phrase:300 DB:link_type/long_link_phrase:40
@@ -3662,7 +3662,7 @@ msgstr "{additional:lisä} {assistant:apulais} {associate:kumppani} {co:co-}ää
 #: DB:link_type/long_link_phrase:29 DB:link_type/long_link_phrase:133
 msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}sound engineered"
-msgstr ""
+msgstr "toimi {additional:lisä}{assistant}{associate}{co:co-}ääniteknikkona"
 
 #: DB:link_type/link_phrase:28 DB:link_type/link_phrase:138
 #: DB:link_type/long_link_phrase:28 DB:link_type/long_link_phrase:138
@@ -3747,11 +3747,11 @@ msgstr "{additional} kansitekstit"
 #: DB:link_type/link_phrase:150 DB:link_type/link_phrase:45
 #: DB:link_type/reverse_link_phrase:150 DB:link_type/reverse_link_phrase:45
 msgid "{additional} orchestra"
-msgstr ""
+msgstr "[additional:lisä]orkesteri"
 
 #: DB:link_type/reverse_link_phrase:164 DB:link_type/reverse_link_phrase:300
 msgid "{additional} orchestrator"
-msgstr "{additional}orkestroija"
+msgstr "{additional:lisä}orkestroija"
 
 #: DB:link_type/link_phrase:123 DB:link_type/link_phrase:20
 #: DB:link_type/reverse_link_phrase:123 DB:link_type/reverse_link_phrase:20
@@ -3797,22 +3797,22 @@ msgstr "{additional} {assistant} {associate} {co:co-}miksaus"
 
 #: DB:link_type/reverse_link_phrase:29 DB:link_type/reverse_link_phrase:133
 msgid "{additional} {assistant} {associate} {co:co-}sound engineer"
-msgstr ""
+msgstr "{additional} {assistant} {associate} {co:co-}ääniteknikko"
 
 #: DB:link_type/reverse_link_phrase:28 DB:link_type/reverse_link_phrase:138
 msgid ""
 "{additional} {assistant} {associate} {co:co-}{executive:executive }engineer"
-msgstr ""
+msgstr "{additional} {assistant} {associate} {co:co-}{executive:executive }teknikko"
 
 #: DB:link_type/reverse_link_phrase:30 DB:link_type/reverse_link_phrase:141
 msgid ""
 "{additional} {assistant} {associate} {co:co-}{executive:executive }producer"
-msgstr "{additional} {assistant} {associate} {co} {executive}tuottaja"
+msgstr "{additional:lisä}{assistant:apulais}{associate}{co} {executive:pää}tuottaja"
 
 #: DB:link_type/link_phrase:37 DB:link_type/link_phrase:132
 #: DB:link_type/reverse_link_phrase:37 DB:link_type/reverse_link_phrase:132
 msgid "{additional} {assistant} {associate} {instrument} programming"
-msgstr ""
+msgstr "{additional}{assistant}{associate}{instrument}ohjelmointi"
 
 #: DB:link_type/link_phrase:103
 msgid "{additional} {founder:founding} member of"
@@ -3839,7 +3839,7 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:282 DB:link_type/reverse_link_phrase:158
 #: DB:link_type/reverse_link_phrase:41
 msgid "{additional} {instrument:%|instruments} arranger"
-msgstr "{additional} {instrument:%|instruments:instrumenttien} sovittaja"
+msgstr "{additional} {instrument:%|instruments} sovittaja"
 
 #: DB:link_type/link_phrase:102
 msgid "{additional} {minor} collaborator on"
@@ -3873,7 +3873,7 @@ msgstr "{additional}{vocal:%|vocals}sovittaja"
 
 #: DB:link_type/reverse_link_phrase:305
 msgid "{assistant} {principal} {guest} conductor {emeritus}"
-msgstr "{assistant} {emeritus}-{principal:pää}{guest:vieras}kapellimestari"
+msgstr "{assistant:apulais}{emeritus}{principal:yli}{guest:vieras}kapellimestari"
 
 #: DB:link_type/link_phrase:305
 msgid "{assistant} {principal} {guest} conductor {emeritus} for"

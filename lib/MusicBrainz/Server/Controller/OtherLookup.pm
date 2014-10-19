@@ -4,6 +4,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use Moose::Util qw( find_meta );
 use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Constants qw( entities_with );
 
 sub lookup_handler {
     my ($name, $code) = @_;
@@ -59,7 +60,7 @@ lookup_handler 'barcode' => sub {
 lookup_handler 'mbid' => sub {
     my ($self, $c, $gid) = @_;
 
-    for my $model (qw(Artist Label Recording Release ReleaseGroup Track URL Work)) {
+    for my $model (entities_with('mbid', take => 'model')) {
         my $entity = $c->model($model)->get_by_gid($gid) or next;
         $c->response->redirect(
             $c->uri_for_action(

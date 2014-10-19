@@ -201,16 +201,6 @@ Creating the database
         sudo make install
         cd ..
 
-    Note: If you are using Ubuntu 11.10, the collate extension currently does
-    not work with gcc 4.6 and needs to be built with an older version such as
-    gcc 4.4. To do this, run the following:
-
-        sudo apt-get install gcc-4.4
-        cd postgresql-musicbrainz-collate
-        CC=gcc-4.4 make -e
-        sudo make install
-        cd ..
-
 
 2.  Setup PostgreSQL authentication
 
