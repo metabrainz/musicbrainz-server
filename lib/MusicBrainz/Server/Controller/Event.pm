@@ -6,6 +6,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model       => 'Event',
     entity_name => 'event',
+    relationships   => { all => ['show'], cardinal => ['edit'], default => ['url'] },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
@@ -44,6 +45,7 @@ after 'load' => sub
     }
 
     $c->model('EventType')->load($event);
+<<<<<<< HEAD
     $c->model('Relationship')->load($event);
     $c->model('Relationship')->load($event->related_series);
 };
@@ -72,6 +74,8 @@ after [qw( show aliases collections details tags )] => sub {
         containment => \%containment,
         all_collections => \@all_collections,
     );
+=======
+>>>>>>> 63215886e09775be783ea6872e35facafcfabe1f
 };
 
 =head2 show
