@@ -572,44 +572,46 @@ table.tbl ul {
 }
 
 /* Paginator */
-.pageselector a, .pageselector span {
-    font-size: 90%;
-    padding: 0.05em 0.4em;
-}
+.pageselector {
+    a, span {
+        font-size: 90%;
+        padding: 0.05em 0.4em;
+    }
 
-.pageselector a {
-    border: solid 1px @text-black;
-    text-decoration: none;
-    background-color: #FFF;
-    color: @text-black;
-}
+    a {
+        border: solid 1px @text-black;
+        text-decoration: none;
+        background-color: #FFF;
+        color: @text-black;
 
-.pageselector a:hover {
-    background-color: @musicbrainz-orange;
-}
+        &:hover {
+            background-color: @musicbrainz-orange;
+        }
 
-.pageselector a.sel {
-    background-color: @musicbrainz-orange;
-    font-weight: bold;
-}
+        &.sel {
+            background-color: @musicbrainz-orange;
+            font-weight: bold;
+        }
+    }
 
-.pageselector span {
-    border: solid 1px @dark-border;
-    background-color: @very-light-bg;
-    color: @dark-text;
-}
+    span {
+        border: solid 1px @dark-border;
+        background-color: @very-light-bg;
+        color: @dark-text;
+    }
 
-.pageselector em {
-    font-style: normal;
-    margin-left: 0.5em;
-}
+    em {
+        font-style: normal;
+        margin-left: 0.5em;
+    }
 
-.pageselector + .tbl {
-    margin-top: 0px !important;
-}
+    + .tbl {
+        margin-top: 0px !important;
+    }
 
-.pageselector-results {
-    margin-bottom: 0;
+    &-results {
+        margin-bottom: 0;
+    }
 }
 
 /* Browse Entity pages */
