@@ -9,26 +9,41 @@ body {
     margin: auto;
 }
 
-a { color:@link-default; text-decoration: none; }
-a:visited { color:@link-visited; }
-a:hover { color: @text-orange; text-decoration: underline; }
-a:active, a:focus { outline-style: none; }
+a {
+    color:@link-default;
+    text-decoration: none;
 
-a.icon:hover { text-decoration: none; }
+    &:visited {
+        color:@link-visited;
+    }
 
-a>img { border: 0; }
+    &:hover {
+        color: @text-orange;
+        text-decoration: underline;
+    }
+    &.icon:hover {
+        text-decoration: none;
+    }
 
-/* TODO:
-** When we start using relative links for internal links, add:
-** a[href^="http://"], a[href^="https://"], */
-a.external {
-    background: data-uri('../images/icons/external.png') no-repeat right;
-    padding-right: 13px;
-}
 
-a.internal {
-    background: none;
-    padding-right: 0;
+    &:active, &:focus {
+        outline-style: none;
+    }
+
+    > img { border: 0; }
+
+    /* TODO:
+    ** When we start using relative links for internal links, add:
+    ** a[href^="http://"], a[href^="https://"], */
+    &.external {
+        background: data-uri('../images/icons/external.png') no-repeat right;
+        padding-right: 13px;
+    }
+
+    &.internal {
+        background: none;
+        padding-right: 0;
+    }
 }
 
 p {
