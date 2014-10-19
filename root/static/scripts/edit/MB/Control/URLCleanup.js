@@ -558,10 +558,8 @@ MB.constants.CLEANUPS = {
             return url.replace(/^(?:https?:\/\/)?([^\/]+)\.bandcamp\.com(?:\/(((album|track)\/([^\/\?]+)))?)?.*$/, "http://$1.bandcamp.com/$2");
         }
     },
-    score: {
-        match: [
-            new RegExp("^(https?://)?(www\\.)?imslp\\.org/", "i"),
-        ],
+    imslp: {
+        match: [ new RegExp("^(https?://)?(www\\.)?imslp\\.org/", "i") ],
         type: MB.constants.LINK_TYPES.imslp
     },
     otherdatabases: {
@@ -836,9 +834,10 @@ MB.Control.URLCleanup = function (options) {
     }
 
     // allow only IMSLP pages with the IMSLP rel
-    validationRules[ MB.constants.LINK_TYPES.imslp.artist ] = function (url) {
-        return url.match(/imslp\.org\//) != null;
-    }
+    var validateIMSLP = function (url) {
+        return test_all(MB.constants.CLEANUPS.imslp.match, url)
+    };
+    validationRules[ MB.constants.LINK_TYPES.imslp.artist ] = validateIMSLP;
 
     // avoid wikipedia being added as release-level discography entry
     validationRules [ MB.constants.LINK_TYPES.discographyentry.release ] = function (url) {
