@@ -43,8 +43,7 @@ MB.Timeline.TimelineViewModel = aclass({
         });
         self.zoomHashPart = ko.computed({
             read: function () {
-                var item_fix = function (item) { return (item !== null ? item : null) };
-                var parts = _.map(self.zoomArray(), item_fix);
+                var parts = self.zoomArray();
                 if (_.filter(parts).length > 0) {
                     return ['g'].concat(parts).join('/');
                 } else {
@@ -132,8 +131,8 @@ MB.Timeline.TimelineViewModel = aclass({
                     if (match = part.match(/^(-)?([rv])-?$/)) { // trailing - for backwards-compatibility
                         var meth = match[2] === 'r' ? 'rate' : 'events';
                         self.options[meth](!(match[1] === '-'));
-                    } else if (match = part.match(/^(-)?c-(.*)$/)) {
-                        var category = _.find(self.categories(), { hashIdentifier: match[2] }).value();
+                    } else if (match = part.match(/^(-)?(c-.*)$/)) {
+                        var category = _.find(self.categories(), { hashIdentifier: match[2] });
                         if (category) { category.enabled(!(match[1] === '-')) }
                     } else if (match = part.match(/^g\/.*$/)) {
                         self.zoomHashPart(part);
@@ -150,12 +149,14 @@ MB.Timeline.TimelineViewModel = aclass({
             rateLimit: { method: "notifyWhenChangesStop", timeout: 1000 }
         });
         self.initialHash = location.hash.replace(/^#/, '');
-        self.updateHash = ko.computed(function () {
+
+        // Update location.hash whenever self.hash() changes.
+        ko.computed(function () {
             location.hash = self.hash();
         });
 
         // rateLimit to load asynchronously
-        self.loadWhenChecked = ko.computed(function () {
+        ko.computed(function () {
             if (self.options.events() && !self.loadedEvents() && !self.loadingEvents()) {
                 self.loadEvents();
             }
@@ -170,9 +171,7 @@ MB.Timeline.TimelineViewModel = aclass({
     },
     addLine: function(name) {
         var newLine = MB.text.Timeline.Stat(name)
-        var category = _.find(this.categories(), function (category) {
-            return category.name === newLine.Category
-        });
+        var category = _.find(this.categories(), { name: newLine.Category });
 
         if (!category) {
             var newCategory = MB.text.Timeline.Category[newLine.Category];
@@ -236,7 +235,7 @@ MB.Timeline.TimelineCategory = aclass({
         });
 
         // rateLimit to load asynchronously
-        self.loadWhenChecked = ko.computed(function () {
+        ko.computed(function () {
             _.forEach(self.needLoadingLines(), function (line) { line.loadData() });
         }).extend({
             rateLimit: { method: "notifyWhenChangesStop", timeout: 1 }
@@ -280,7 +279,7 @@ MB.Timeline.TimelineLine = aclass({
         });
     },
     calculateRateData: function (data) {
-        if (!data) { return null; }
+        if (!data || !data.length) { return {data: [], thresholds: {min: null, max: null}}; }
         var weekData = [];
         var oneDay = 1000 * 60 * 60 * 24;
         var dataPrev = data[0][1];
