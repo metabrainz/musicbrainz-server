@@ -639,16 +639,37 @@ table.tbl ul {
 }
 
 /* Entity details & edit details */
-table.details th {
-    text-align: right;
-    padding-left: 10pt;
-    width: 240px;
-    vertical-align: top;
-}
+table.details {
+    th {
+        text-align: right;
+        padding-left: 10pt;
+        width: 240px;
+        vertical-align: top;
+    }
 
-table.details td span.new,
-table.details td.new {
-    background: @positive-light-bg;
+    td {
+        vertical-align: top;
+
+        span.new, span.old,
+        &.new, &.old {
+            border: 1px solid @medium-border;
+        }
+
+        span.new, &.new {
+            background: @positive-light-bg;
+        }
+
+        span.old, &.old {
+            background: @negative-light-bg;
+        }
+    }
+
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        list-style-image: none;
+    }
 }
 
 div.diff .diff-only-b,
@@ -657,31 +678,10 @@ tr.diff-addition {
     background: @positive-bg;
 }
 
-table.details td span.old,
-table.details td.old {
-    background: @negative-light-bg;
-}
-
 div.diff .diff-only-a,
 span.diff-only-a,
 tr.diff-removal {
     background: @negative-bg;
-}
-
-table.details td span.new,
-table.details td span.old,
-table.details td.new,
-table.details td.old {
-    border: 1px solid @medium-border;
-}
-
-table.details td { vertical-align: top; }
-
-table.details ul {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    list-style-image: none;
 }
 
 /* Statistics pages */
