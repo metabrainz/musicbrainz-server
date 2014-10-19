@@ -15,7 +15,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-10-02 15:00+0000\n"
+"PO-Revision-Date: 2014-10-19 10:43+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -159,6 +159,14 @@ msgstr "Entrée IMDb échantillonnée dans "
 #: DB:link_type/reverse_link_phrase:178 DB:link_type/reverse_link_phrase:706
 msgid "IMDb page for"
 msgstr "Page IMDb pour"
+
+#: DB:link_type/link_phrase:754
+msgid "IMSLP"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:754
+msgid "IMSLP page for"
+msgstr ""
 
 #: DB:link_attribute_type/description:516
 msgid "Indicates a bonus disc"
@@ -1387,6 +1395,12 @@ msgid ""
 "href=\"http://www.imdb.com/\">IMDb</a>."
 msgstr "Ceci relie un artiste à sa page sur <a href=\"http://www.imdb.com/\">IMDb</a>."
 
+#: DB:link_type/description:754
+msgid ""
+"This links an artist to its page in <a "
+"href=\"http://www.imslp.org/\">IMSLP</a>."
+msgstr ""
+
 #: DB:link_type/description:291
 msgid "This links an artist to its profile at SoundCloud."
 msgstr "Ceci relie un artiste à son profil sur SoundCloud."
@@ -2412,6 +2426,10 @@ msgstr "a une page Allmusic à"
 #: DB:link_type/long_link_phrase:178 DB:link_type/long_link_phrase:706
 msgid "has an IMDb page at"
 msgstr "à une page IMDb à"
+
+#: DB:link_type/long_link_phrase:754
+msgid "has an IMSLP page at"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:707
 msgid "has an interview at"

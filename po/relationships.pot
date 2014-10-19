@@ -144,6 +144,14 @@ msgstr ""
 msgid "IMDb page for"
 msgstr ""
 
+#: DB:link_type/link_phrase:754
+msgid "IMSLP"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:754
+msgid "IMSLP page for"
+msgstr ""
+
 #: DB:link_attribute_type/description:516
 msgid "Indicates a bonus disc"
 msgstr ""
@@ -1375,6 +1383,12 @@ msgid ""
 "a>."
 msgstr ""
 
+#: DB:link_type/description:754
+msgid ""
+"This links an artist to its page in <a href=\"http://www.imslp.org/\">IMSLP</"
+"a>."
+msgstr ""
+
 #: DB:link_type/description:291
 msgid "This links an artist to its profile at SoundCloud."
 msgstr ""
@@ -2411,6 +2425,10 @@ msgstr ""
 #: DB:link_type/long_link_phrase:313 DB:link_type/long_link_phrase:97
 #: DB:link_type/long_link_phrase:178 DB:link_type/long_link_phrase:706
 msgid "has an IMDb page at"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:754
+msgid "has an IMSLP page at"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:707
