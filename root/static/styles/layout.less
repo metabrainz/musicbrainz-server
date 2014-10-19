@@ -142,16 +142,6 @@ h1 img.gravatar {
     color: @light-text;
 }
 
-#header-logo #headerid-query {
-    width: 18em;
-}
-
-#header-logo #id-type {
-    margin-right: 4px;
-    margin-left: 10px;
-    padding: 2px;
-}
-
 #header-logo a {
     color: @text-white;
 }
@@ -185,12 +175,6 @@ h1 img.gravatar {
 
 #header-menu ul.r {
     float: right;
-}
-
-#header-menu form {
-    padding: 4px 0;
-    margin: 0;
-    vertical-align: middle;
 }
 
 #header-menu ul {
@@ -285,17 +269,15 @@ h1 img.gravatar {
     color: @text-orange;
     position: relative;
     border-radius: 6px;
+
+    p {
+        margin: 0;
+    }
 }
 
 .flash {
     color: @text-black;
     font-weight: normal;
-}
-
-.flash p,
-.server-details p,
-.warning-header p {
-    margin: 0;
 }
 
 .warning-header {
@@ -310,11 +292,11 @@ div.warning {
     min-height: 54px;
     width: 60em;
     background: @warning-background;
-}
 
-div.caa-warning p,
-div.warning p,
-div.notice p { margin: 1em; }
+    p {
+        margin: 1em;
+    }
+}
 
 div.warning img.warning {
     float: left;
