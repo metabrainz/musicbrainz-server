@@ -13,8 +13,8 @@
   <!-- ko if: relationship().editsPending -->
     <p class="msg warning">
       [% l('Warning: This relationship has pending edits.
-            <a target="_blank" data-bind="attr: { href: relationship().openEdits() }">Click here</a>
-            to view these edits and make sure they do not conflict with your own.') %]
+            {show|Click here} to view these edits and make sure they do not conflict with your own.',
+           { show => { 'data-bind' => 'attr: { href: relationship().openEdits() }', target => '_blank' } }) %]
     </p>
   <!-- /ko -->
   <table>

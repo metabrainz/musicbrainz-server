@@ -92,7 +92,7 @@
             </div>
             <div class="cover-art-types-help row" data-bind="visible: status() == 'waiting'">
               <label>&nbsp;</label>
-              <p>[%- l('Please see the <a href="{doc}" target="_blank">Cover Art Types</a> documentation for a description of these types.', {doc => doc_link('Cover_Art/Types')}) -%]</p>
+              <p>[%- l('Please see the {doc|Cover Art Types} documentation for a description of these types.', { doc => { href => doc_link('Cover_Art/Types'), target => '_blank' } }) -%]</p>
             </div>
             <div class="comment row" data-bind="visible: status() == 'waiting'">
               <label>[%- l('Comment:') -%]</label>
