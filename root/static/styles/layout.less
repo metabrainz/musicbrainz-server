@@ -106,8 +106,6 @@ pre code {
     width: 100%;
 }
 
-#header img.gravatar { display: none; }
-
 img.gravatar {
     display: inline;
     max-height: 1em;
@@ -116,10 +114,14 @@ img.gravatar {
     padding: 1px;
     background: #fff;
     margin-right: 0.35em;
-}
 
-h1 img.gravatar {
-    max-height: 3em;
+    #header & {
+        display: none;
+    }
+
+    h1 & {
+        max-height: 3em;
+    }
 }
 
 #header-logo {
