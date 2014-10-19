@@ -484,36 +484,101 @@ table.tbl {
     width: 100%;
     border-top: solid 1px @dark-border;
     border-bottom: solid 1px @dark-border;
+
+    th {
+        font-size: 95%;
+        background: url('../images/layout/table-header.gif') repeat-x 0 50%;
+        padding: 0.2em 0.4em;
+        text-align: left;
+        border-bottom: solid 1px @dark-border;
+        border-left: solid 1px @medium-border;
+        word-break: keep-all;
+        white-space: nowrap;
+
+        a {
+            color: @text-black;
+        }
+
+        &:first-child {
+            border-left: none;
+        }
+    }
+
+    td {
+        padding: 0.2em 0.4em;
+    }
+
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    tr.subh {
+        td, th {
+            font-size: 95%;
+            background: url('../images/layout/table-header-2.gif') repeat-x 0 50%;
+            font-weight: bold;
+            border-top: solid 1px @dark-border;
+            border-bottom: solid 1px @dark-border;
+        }
+    }
+
+    tbody th {
+        border-right: 1px solid @dark-border;
+        background: none;
+
+        &:last-child {
+            border-right: 0;
+        }
+    }
+
+    /* Striping */
+    tr.even td,
+    tr.even th {
+        padding: 0.2em 0.4em;
+        background: @even-table-row;
+    }
+    tr:target td { background-color: @highlight-table-row; }
+
+    /* Fixed widths and other custom styles */
+    .pos { width: 1em; white-space: nowrap; }
+    .year { width: 4em; }
+    .count { width: 2em; }
+    .rating { width: 50px; }
+    .treleases { width: 3em; }
+    .t { text-align: right; }
+
+    .video {
+        width: 15px;
+
+        &.is-video {
+            background-repeat: no-repeat;
+            background-position: 50% 2px;
+            background-image: data-uri('../images/icons/video.png');
+        }
+    }
+
+    /* Sortable table headers/images */
+    thead tr .header {
+        cursor: pointer;
+    }
+    thead tr .header .arrow {
+        background: url('../images/layout/bg.gif') no-repeat center right;
+        display: inline-block;
+        height: 9px;
+        width: 21px;
+    }
+    thead tr .headerSortUp .arrow {
+        background-image: url('../images/layout/asc.gif');
+    }
+    thead tr .headerSortDown .arrow {
+        background-image: url('../images/layout/desc.gif');
+    }
 }
 
-table.tbl th {
-    font-size: 95%;
-    background: url('../images/layout/table-header.gif') repeat-x 0 50%;
-    padding: 0.2em 0.4em;
-    text-align: left;
-    border-bottom: solid 1px @dark-border;
-    border-left: solid 1px @medium-border;
-}
 
-table.tbl thead tr .header {
-    cursor: pointer;
-}
-
-table.tbl thead tr .header .arrow {
-    background: url('../images/layout/bg.gif') no-repeat center right;
-    display: inline-block;
-    height: 9px;
-    width: 21px;
-}
-
-table.tbl thead tr .headerSortUp .arrow {
-    background-image: url('../images/layout/asc.gif');
-}
-
-table.tbl thead tr .headerSortDown .arrow {
-    background-image: url('../images/layout/desc.gif');
-}
-
+/* Nesting of different table types */
 table.details table.tbl {
     margin-top: 0;
 }
@@ -527,66 +592,6 @@ table.details table.tbl th {
 }
 
 .deleted { color: @dark-text; }
-
-table.tbl tr.subh td,
-table.tbl tr.subh th {
-    font-size: 95%;
-    background: url('../images/layout/table-header-2.gif') repeat-x 0 50%;
-    font-weight: bold;
-    border-top: solid 1px @dark-border;
-    border-bottom: solid 1px @dark-border;
-}
-
-table.tbl tbody th {
-    border-right: 1px solid @dark-border;
-    background: none;
-}
-
-table.tbl tbody th:last-child { border-right: 0; }
-
-table.tbl th a {
-    color: @text-black;
-}
-
-table.tbl th:first-child {
-    border-left: none;
-}
-
-table.tbl td {
-    padding: 0.2em 0.4em;
-}
-
-table.tbl tr.even td,
-table.tbl tr.even th {
-    padding: 0.2em 0.4em;
-    background: @even-table-row;
-}
-
-table.tbl tr:target td { background-color: @highlight-table-row; }
-
-table.tbl .pos { width: 1em; white-space: nowrap; }
-table.tbl th { word-break: keep-all; white-space: nowrap; }
-
-table.tbl .year { width: 4em; }
-table.tbl .count { width: 2em; }
-table.tbl .rating { width: 50px; }
-table.tbl .video {
-    width: 15px;
-
-    &.is-video {
-        background-repeat: no-repeat;
-        background-position: 50% 2px;
-        background-image: data-uri('../images/icons/video.png');
-    }
-}
-table.tbl .treleases { width: 3em; }
-table.tbl .t { text-align: right; }
-
-table.tbl ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
 
 /* Paginator */
 .pageselector {
