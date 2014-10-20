@@ -1,4 +1,0 @@
-[%- WRAPPER 'artist/layout.tt' title=l('Edit Artist Alias') full_width=1 -%]
-    <h2>[% l('Edit artist alias') %]</h2>
-    [%- INCLUDE 'alias/edit_form.tt' search_hint_type_id=3 entity_type_name='artist' -%]
-[%- END -%]
