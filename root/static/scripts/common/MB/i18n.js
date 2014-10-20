@@ -18,7 +18,7 @@
         var links = new RegExp("\\{(" + re + ")\\|(.*?)\\}", "g");
         var names = new RegExp("\\{(" + re + ")\\}", "g");
 
-        string = string.replace(links, function (match, p1, p2) {
+        string = (string || "").replace(links, function (match, p1, p2) {
             var v1 = args[p1];
             var v2 = args[p2];
 
@@ -33,7 +33,6 @@
             } else {
                 return "<a href=\"" + _.escape(v1) + "\">" + text + "<\/a>";
             }
-
         });
 
         string = string.replace(names, function (match, p1) {

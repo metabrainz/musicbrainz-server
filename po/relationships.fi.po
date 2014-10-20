@@ -14,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-09-08 01:23+0000\n"
-"Last-Translator: nikki\n"
+"PO-Revision-Date: 2014-10-02 15:00+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1576,12 +1576,6 @@ msgid ""
 "release."
 msgstr ""
 
-#: DB:link_type/description:244
-msgid ""
-"This relationship is deprecated, please use the \"medley\" attribute of "
-"\"recording of\" instead."
-msgstr ""
-
 #: DB:link_type/description:751
 msgid ""
 "This relationship is used to link a catalogue work series to a person who "
@@ -1860,7 +1854,7 @@ msgstr "Wikidata-sivuna"
 
 #: DB:link_type/link_phrase:355 DB:link_type/link_phrase:89
 #: DB:link_type/link_phrase:179 DB:link_type/link_phrase:216
-#: DB:link_type/link_phrase:731 DB:link_type/link_phrase:595
+#: DB:link_type/link_phrase:595 DB:link_type/link_phrase:731
 #: DB:link_type/link_phrase:744 DB:link_type/reverse_link_phrase:279
 #: DB:link_type/reverse_link_phrase:731 DB:link_type/long_link_phrase:731
 msgid "Wikipedia"
@@ -2646,11 +2640,12 @@ msgstr ""
 msgid "is a mash-up of"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:244 DB:link_type/long_link_phrase:239
+#: DB:link_type/long_link_phrase:239
 msgid "is a medley of"
 msgstr "on sävelmäketju"
 
-#: DB:link_type/long_link_phrase:730 DB:link_type/long_link_phrase:273
+#: DB:link_type/long_link_phrase:753 DB:link_type/long_link_phrase:730
+#: DB:link_type/long_link_phrase:273
 msgid "is a page in a database for"
 msgstr "on sivu tietokannassa"
 
@@ -2934,7 +2929,7 @@ msgstr "tallenne 9"
 msgid "medley"
 msgstr "sävelmäketju"
 
-#: DB:link_type/link_phrase:244 DB:link_type/link_phrase:239
+#: DB:link_type/link_phrase:239
 msgid "medley of"
 msgstr "sävelmäketju"
 
@@ -3035,11 +3030,12 @@ msgstr "orkestraatio"
 msgid "orchestrations"
 msgstr "orkestraatiot"
 
-#: DB:link_type/link_phrase:746 DB:link_type/link_phrase:96
-#: DB:link_type/link_phrase:730 DB:link_type/link_phrase:82
-#: DB:link_type/link_phrase:306 DB:link_type/link_phrase:222
-#: DB:link_type/link_phrase:273 DB:link_type/link_phrase:188
-#: DB:link_type/link_phrase:561 DB:link_type/reverse_link_phrase:746
+#: DB:link_type/link_phrase:753 DB:link_type/link_phrase:746
+#: DB:link_type/link_phrase:96 DB:link_type/link_phrase:730
+#: DB:link_type/link_phrase:82 DB:link_type/link_phrase:306
+#: DB:link_type/link_phrase:222 DB:link_type/link_phrase:273
+#: DB:link_type/link_phrase:188 DB:link_type/link_phrase:561
+#: DB:link_type/reverse_link_phrase:753 DB:link_type/reverse_link_phrase:746
 #: DB:link_type/reverse_link_phrase:96 DB:link_type/reverse_link_phrase:730
 #: DB:link_type/reverse_link_phrase:82 DB:link_type/reverse_link_phrase:306
 #: DB:link_type/reverse_link_phrase:222 DB:link_type/reverse_link_phrase:273
@@ -3161,7 +3157,7 @@ msgstr "artistien pääasiallinen esiintymispaikka"
 
 #: DB:link_attribute_type/name:618
 msgid "principal"
-msgstr "pää"
+msgstr "yli"
 
 #: DB:link_type/link_phrase:49 DB:link_type/link_phrase:154
 #: DB:link_type/long_link_phrase:49 DB:link_type/long_link_phrase:154
@@ -3277,7 +3273,7 @@ msgstr ""
 msgid "recording location for"
 msgstr "äänityspaikkana kohteelle"
 
-#: DB:link_type/reverse_link_phrase:244 DB:link_type/reverse_link_phrase:239
+#: DB:link_type/reverse_link_phrase:239
 msgid "referred to in medleys"
 msgstr "viitataan sävelmäketjuissa"
 
@@ -3747,7 +3743,7 @@ msgstr "{additional} kansitekstit"
 #: DB:link_type/link_phrase:150 DB:link_type/link_phrase:45
 #: DB:link_type/reverse_link_phrase:150 DB:link_type/reverse_link_phrase:45
 msgid "{additional} orchestra"
-msgstr "[additional:lisä]orkesteri"
+msgstr "{additional:lisä}orkesteri"
 
 #: DB:link_type/reverse_link_phrase:164 DB:link_type/reverse_link_phrase:300
 msgid "{additional} orchestrator"
@@ -3829,7 +3825,7 @@ msgstr "{additional} {guest:vieras-}{solo:soolo}esittäjä"
 #: DB:link_type/link_phrase:44 DB:link_type/link_phrase:148
 #: DB:link_type/reverse_link_phrase:44 DB:link_type/reverse_link_phrase:148
 msgid "{additional} {guest} {solo} {instrument:%|instruments}"
-msgstr "{additional:lisäksi} {guest:vieras} {solo} {instrument:%|soittimet}"
+msgstr "{additional:lisä}{guest:vieras}{instrument:%|soittimet}{solo}"
 
 #: DB:link_type/link_phrase:60 DB:link_type/link_phrase:149
 #: DB:link_type/reverse_link_phrase:60 DB:link_type/reverse_link_phrase:149
@@ -3877,7 +3873,7 @@ msgstr "{assistant:apulais}{emeritus}{principal:yli}{guest:vieras}kapellimestari
 
 #: DB:link_type/link_phrase:305
 msgid "{assistant} {principal} {guest} conductor {emeritus} for"
-msgstr "{assistant} {principal} {guest}{emeritus}kapellimestari"
+msgstr "{assistant}{principal:yli}{guest}{emeritus}kapellimestari"
 
 #: DB:link_type/link_phrase:1
 msgid "{bonus:bonus|next} disc"

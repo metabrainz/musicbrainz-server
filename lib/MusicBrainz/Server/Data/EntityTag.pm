@@ -7,6 +7,7 @@ use MusicBrainz::Server::Data::Utils qw(
     placeholders
     query_to_list
     query_to_list_limited
+    trim
 );
 use MusicBrainz::Server::Entity::AggregatedTag;
 use MusicBrainz::Server::Entity::UserTag;
@@ -200,12 +201,7 @@ sub parse_tags
     my ($self, $input) = @_;
 
     my @tags = grep {
-        # remove non-printable characters
-        $_ =~ s/[^[:print:]]//g;
-        # combine multiple spaces into one
-        $_ =~ s/\s+/ /sg;
-        # remove leading and trailing whitespace
-        $_ =~ s/^\s*(.*?)\s*$/$1/;
+        $_ = trim($_);
         $_ = lc($_);
     } split ',', $input;
 

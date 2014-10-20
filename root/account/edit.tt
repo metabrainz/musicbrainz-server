@@ -23,7 +23,7 @@
         [% area_field = form.field('area.name') %]
         <label for="id-profile.area.name">[% l('Location:') %]</label>
         <span class="area autocomplete">
-          <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+          <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
           <input type="hidden" class="gid" />
           [% r.hidden('area_id', class => 'id') %]
           [% r.text(area_field, class => 'name') %]

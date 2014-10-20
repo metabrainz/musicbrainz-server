@@ -162,7 +162,7 @@ role {
             if (my $attributes = $field->{attributes}) {
                 for (@$attributes) {
                     my $type = $link_attribute_types->{$_->{type}{gid}};
-                    $_->{type}{id} = $type->id if $type;
+                    $_->{type} = $type->to_json_hash if $type;
                 }
                 $args{attributes} = [ grep { $_->{type}{id} } @$attributes ];
             }
