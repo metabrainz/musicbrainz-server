@@ -260,7 +260,7 @@ MB.constants.CLEANUPS = {
         match: [ new RegExp("^(https?://)?([^/]+\\.)?allmusic\\.com","i") ],
         type: MB.constants.LINK_TYPES.allmusic,
         clean: function (url) {
-            return url.replace(/^https?:\/\/(?:[^.]+\.)?allmusic\.com\/(artist|album|composition|song|performance)(\/release)?\/(?:[^\/]*-)?((?:mn|mw|mc|mt|mq|mr)[0-9]+).*/, "http://www.allmusic.com/$1$2/$3");
+            return url.replace(/^https?:\/\/(?:[^.]+\.)?allmusic\.com\/(artist|album(?:\/release)?|composition|song|performance)\/(?:[^\/]*-)?((?:mn|mw|mc|mt|mq|mr)[0-9]+).*/, "http://www.allmusic.com/$1/$2");
         }
     },
     amazon: {
