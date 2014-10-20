@@ -326,21 +326,25 @@
 
             toc = toc.split(/\s+/);
 
+            var pregapOffset = this.hasPregap() ? 1 : 0;
             var tracks = this.tracks();
-            var trackCount = toc.length - 3;
+            var tocTrackCount = toc.length - 3;
+            var trackCount = tracks.length - pregapOffset;
 
-            if (tracks.length > trackCount) {
-                this.tracks(_.first(tracks, trackCount));
-            }
-            else if (tracks.length < trackCount) {
+            if (trackCount > tocTrackCount) {
+                this.tracks(_.first(tracks, tocTrackCount + pregapOffset));
+            } else if (trackCount < tocTrackCount) {
                 var self = this;
 
-                _.times(trackCount - tracks.length, function () {
-                    self.tracks.push(fields.Track({ position: tracks.length + 1 }, self));
+                _.times(tocTrackCount - trackCount, function () {
+                    self.tracks.push(fields.Track({ position: tracks.length + (1 - pregapOffset) }, self));
                 });
             }
 
-            _(tracks).first(trackCount).each(function (track, index) {
+            _(tracks).first(tocTrackCount + pregapOffset).each(function (track, index) {
+                if (track.position() === 0) {
+                    return;
+                }
                 track.formattedLength(
                     MB.utility.formatTrackLength(
                         ((toc[index + 4] || toc[2]) - toc[index + 3]) / 75 * 1000
