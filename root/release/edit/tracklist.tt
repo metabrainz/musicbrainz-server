@@ -275,7 +275,7 @@
     </div>
   <!-- /ko -->
 
-  <div data-bind="loop: { items: mediums, id: 'uniqueID' }">
+  <!-- ko loop: { items: mediums, id: 'uniqueID' } -->
   <fieldset class="advanced-disc">
     <legend data-bind="text: formattedName()"></legend>
 
@@ -418,7 +418,7 @@
     </div>
 
   </fieldset>
-  </div>
+  <!-- /ko -->
 
   <!-- ko ifnot: _.isEmpty(mediums()) -->
     <div data-bind="guessCase: _.bind($root.guessCaseMediaNames, $data)">
