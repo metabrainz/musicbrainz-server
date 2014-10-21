@@ -6,44 +6,42 @@ div.tabs {
     border-bottom: solid 1px @dark-border;
     padding-top: 1em;
     font-size: 95%;
-}
 
-div.tabs ul {
-    overflow: hidden;
-    padding: 0;
-    margin: 0;
-    list-style-type: none;
-    list-style-image: none;
-    width: 100%;
-    position: relative;
-    top: 1px;
-}
+    ul {
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+        list-style-image: none;
+        width: 100%;
+        position: relative;
+        top: 1px;
 
-div.tabs ul li {
-    float: left;
-}
+        li {
+            float: left;
 
-div.tabs ul li a {
-    display: block;
-    padding: 0.1em 0.5em;
-    margin-left: 4px;
-    text-decoration: none;
-    background: @very-light-bg;
-    color: @text-black;
-    border: solid 1px @dark-border;
-    border-bottom: solid 1px @dark-border;
-}
+            a {
+                display: block;
+                padding: 0.1em 0.5em;
+                margin-left: 4px;
+                text-decoration: none;
+                background: @very-light-bg;
+                color: @text-black;
+                border: solid 1px @dark-border;
+                border-bottom: solid 1px @dark-border;
+            }
 
-div.tabs ul li.sel a {
-    background: #fff;
-    color: @text-black;
-    font-weight: bold;
-    border-bottom: solid 1px #fff;
-}
+            &.sel a, a:hover {
+                background: #fff;
+                color: @text-black;
+            }
 
-div.tabs ul li a:hover {
-    background: #fff;
-    color: @text-black;
+            &.sel a {
+                font-weight: bold;
+                border-bottom: solid 1px #fff;
+            }
+        }
+    }
 }
 
 .blankheader,
@@ -68,10 +66,10 @@ div.tabs ul li a:hover {
 span.comment, span.historical {
     font-weight: normal;
     color: @dark-text;
-}
 
-h1 span.comment, span.historical {
-    font-size: 12px;
+    h1 & {
+        font-size: 12px;
+    }
 }
 
 p.subheader {
@@ -79,12 +77,22 @@ p.subheader {
     margin-bottom: 0;
     padding-left: 0.0em;
     font-size: 96%;
+
+    span {
+        color: @dark-text;
+    }
 }
 
-p.subheader span { color: @dark-text; }
+.tagger-icon {
+    img {
+        border: 0;
+    }
 
-.tagger-icon img { border: 0; }
-.releaseheader .tagger-icon, .recordingheader .tagger-icon { margin-top: 1em; float: right; }
+    .releaseheader &, .recordingheader & {
+        margin-top: 1em;
+        float: right;
+    }
+}
 
 .annotation {
     margin-top: 1em;
