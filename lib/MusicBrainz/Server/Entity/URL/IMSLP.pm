@@ -2,6 +2,7 @@ package MusicBrainz::Server::Entity::URL::IMSLP;
 
 use Moose;
 use MusicBrainz::Server::Filters;
+use MusicBrainz::Server::Translation qw( l );
 
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
@@ -33,7 +34,7 @@ sub sidebar_name {
     if ($self->url =~ m{^https?://(?:www.)?imslp.org/wiki/Category(.*)$}i) {
         return "IMSLP";
     } else {
-        return "Score at IMSLP";
+        return l("Score at IMSLP");
     }
 }
 
