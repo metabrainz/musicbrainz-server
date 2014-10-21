@@ -361,7 +361,7 @@
           <!-- /ko -->
           <!-- ko if: hasDataTracks -->
             <tr class="subh">
-              <td colspan="100">
+              <td colspan="7">
                 [% data_track_icon %]
                 [% l('Data Tracks') %]
               </td>

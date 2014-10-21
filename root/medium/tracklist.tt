@@ -30,7 +30,7 @@ dl.ars dt {
 [% IF track.is_data_track && !data_tracks_started %]
   [% data_tracks_started = 1 %]
 <tr class="subh">
-    <td colspan="100">
+    <td colspan="6">
       [% data_track_icon %]
       [% l('Data Tracks') %]
     </td>
