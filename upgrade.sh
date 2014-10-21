@@ -6,6 +6,7 @@ eval `./admin/ShowDBDefs`
 
 NEW_SCHEMA_SEQUENCE=21
 OLD_SCHEMA_SEQUENCE=$((NEW_SCHEMA_SEQUENCE - 1))
+URI_BASE='ftp://ftp.musicbrainz.org/pub/musicbrainz/data/schema-change-2014-11'
 
 while getopts "b:" option
 do
@@ -24,6 +25,16 @@ then
     exit -1
 fi
 
+# Slaves need to catch up on newly-replicated cdstub data
+if [ "$REPLICATION_TYPE" = "$RT_SLAVE" -a -n "$URI_BASE" ]
+then
+    echo `date` : Downloading a copy of the cdstub tables from $URI_BASE
+    mkdir -p catchup
+    OUTPUT=`wget -q "$URI_BASE/mbdump-cdstubs.tar.bz2" -O catchup/mbdump-cdstub.tar.bz2` || ( echo "$OUTPUT" ; exit 1 )
+
+    echo `date` : Deleting the contents of release_tag and reimporting from the downloaded copy
+    OUTPUT=`./admin/MBImport.pl --skip-editor --delete-first --no-update-replication-control catchup/mbdump-cdstubs.tar.bz2 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+fi
 
 ################################################################################
 # Backup and disable replication triggers
@@ -38,6 +49,9 @@ then
     echo `date`" : + weekly"
     ./admin/replication/BundleReplicationPackets $FTP_DATA_DIR/replication --period weekly --require-previous
 
+    echo `date` : 'Dump a copy of release_tag and documentation tables for import on slave databases.'
+    mkdir -p catchup
+    ./admin/ExportAllTables --table='release_raw' --table='cdtoc_raw' --table='track_raw'  -d catchup
     echo `date` : 'Drop replication triggers (musicbrainz)'
     ./admin/psql READWRITE < ./admin/sql/DropReplicationTriggers.sql
 
