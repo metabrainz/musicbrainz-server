@@ -66,6 +66,11 @@ my @group_core = qw(
     artist_isni
     artist_type
     cdtoc
+    event
+    event_alias
+    event_alias_type
+    event_gid_redirect
+    event_type
     gender
     instrument
     instrument_alias
@@ -77,6 +82,7 @@ my @group_core = qw(
     iswc
     l_area_area
     l_area_artist
+    l_area_event
     l_area_instrument
     l_area_label
     l_area_place
@@ -87,6 +93,7 @@ my @group_core = qw(
     l_area_url
     l_area_work
     l_artist_artist
+    l_artist_event
     l_artist_instrument
     l_artist_label
     l_artist_place
@@ -96,6 +103,16 @@ my @group_core = qw(
     l_artist_series
     l_artist_url
     l_artist_work
+    l_event_event
+    l_event_instrument
+    l_event_label
+    l_event_place
+    l_event_recording
+    l_event_release
+    l_event_release_group
+    l_event_series
+    l_event_url
+    l_event_work
     l_instrument_instrument
     l_instrument_label
     l_instrument_place
@@ -210,6 +227,8 @@ my @group_derived = qw(
     artist_annotation
     artist_meta
     artist_tag
+    event_annotation
+    event_tag
     label_annotation
     label_meta
     label_tag
@@ -243,6 +262,7 @@ my @group_edit = qw(
     edit
     edit_area
     edit_artist
+    edit_event
     edit_instrument
     edit_label
     edit_note
@@ -264,6 +284,7 @@ my @group_private = qw(
     autoeditor_election_vote
     editor
     editor_collection
+    editor_collection_event
     editor_collection_release
     editor_language
     editor_oauth_token
@@ -277,6 +298,7 @@ my @group_private = qw(
     editor_watch_preferences
     editor_watch_release_group_type
     editor_watch_release_status
+    event_tag_raw
     label_rating_raw
     label_tag_raw
     place_tag_raw

@@ -103,6 +103,7 @@
         Entity: {
             area:            "[% l('Area') | js %]",
             artist:          "[% l('Artist') | js %]",
+            event:           "[% l('Event') | js %]",
             instrument:      "[% l('Instrument') | js %]",
             label:           "[% l('Label') | js %]",
             place:           "[% l('Place') | js %]",
@@ -128,6 +129,7 @@
         RelationshipTypeDeprecated: '[% l('This relationship type is deprecated and should not be used.') %]',
         AddANewEntity: {
             artist:          "[% l('Add a new artist') | js %]",
+            event:           "[% l('Add a new event') | js %]",
             label:           "[% l('Add a new label') | js %]",
             place:           "[% l('Add a new place') | js %]",
             recording:       "[% l('Add a new recording') | js %]",
@@ -165,6 +167,7 @@
         AddAnotherEntity: {
             area:            "[% l('Add another area') | js %]",
             artist:          "[% l('Add another artist') | js %]",
+            event:           "[% l('Add another event') | js %]",
             instrument:      "[% l('Add another instrument') | js %]",
             label:           "[% l('Add another label') | js %]",
             place:           "[% l('Add another place') | js %]",
@@ -185,6 +188,7 @@
         },
         InlineSearchFailed: '[% l('An error occurred while searching. Click here to try again.') | js %]',
         ClearRecentItems: '[% l('Clear recent items') | js %]',
-        ErrorLoadingRelease: '[% l('Error loading release: {error}') | js %]'
+        ErrorLoadingRelease: '[% l('Error loading release: {error}') | js %]',
+        InvalidPregapLength: '[% l('None of the attached disc IDs can fit a pregap track of the given length.') | js %]'
     });
 })(MB);

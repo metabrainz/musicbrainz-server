@@ -204,6 +204,15 @@ Readonly our $EDIT_INSTRUMENT_ADD_ALIAS => 136;
 Readonly our $EDIT_INSTRUMENT_DELETE_ALIAS => 137;
 Readonly our $EDIT_INSTRUMENT_EDIT_ALIAS => 138;
 
+Readonly our $EDIT_EVENT_CREATE => 150;
+Readonly our $EDIT_EVENT_EDIT => 151;
+Readonly our $EDIT_EVENT_DELETE => 152;
+Readonly our $EDIT_EVENT_MERGE => 153;
+Readonly our $EDIT_EVENT_ADD_ANNOTATION => 154;
+Readonly our $EDIT_EVENT_ADD_ALIAS => 155;
+Readonly our $EDIT_EVENT_DELETE_ALIAS => 156;
+Readonly our $EDIT_EVENT_EDIT_ALIAS => 157;
+
 Readonly our $EDIT_WIKIDOC_CHANGE => 120;
 
 Readonly our $EDIT_URL_EDIT => 101;
@@ -317,6 +326,7 @@ Readonly our $SERIES_ORDERING_TYPE_AUTOMATIC => 1;
 Readonly our $SERIES_ORDERING_TYPE_MANUAL => 2;
 
 Readonly our %PART_OF_SERIES => (
+    event           => '707d947d-9563-328a-9a7d-0c5b9c3a9791',
     recording       => 'ea6f0698-6782-30d6-b16d-293081b66774',
     release         => '3fa29f01-8e13-3e49-9b0a-ad212aa2f81d',
     release_group   => '01018437-91d8-36b9-bf89-3f885d53b5bd',
@@ -344,7 +354,7 @@ Readonly our %ENTITIES => (
     },
     artist => {
         mbid => { relatable => 'dedicated', indexable => 1 },
-        custom_tabs => ['releases', 'recordings', 'works'],
+        custom_tabs => ['releases', 'recordings', 'works', 'events'],
         edit_table => 1,
         merging => 1,
         model      => 'Artist',
@@ -361,6 +371,24 @@ Readonly our %ENTITIES => (
         subscriptions => { entity => 1, deleted => 1 },
         report_filter => 1,
         removal     => { automatic => 1 }
+    },
+    event => {
+        mbid => { relatable => 'overview', indexable => 1 },
+        edit_table => 1,
+        merging => 1,
+        model      => 'Event',
+        type => { simple => 1 },
+        annotations => { edit_type => $EDIT_EVENT_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_EVENT_ADD_ALIAS,
+            edit_edit_type => $EDIT_EVENT_EDIT_ALIAS,
+            delete_edit_type => $EDIT_EVENT_DELETE_ALIAS,
+            search_hint_type => 2
+        },
+        ratings    => 1,
+        tags       => 1,
+        removal     => { automatic => 1 },
+        collections => 1
     },
     instrument => {
         mbid => { relatable => 'overview', indexable => 1 },
@@ -399,7 +427,7 @@ Readonly our %ENTITIES => (
     },
     place => {
         mbid => { relatable => 'overview', indexable => 1 },
-        custom_tabs => ['performances', 'map'],
+        custom_tabs => ['events', 'performances', 'map'],
         edit_table => 1,
         merging => 1,
         model      => 'Place',
@@ -579,6 +607,7 @@ Readonly our @FULL_TABLE_LIST => qw(
     edit
     edit_area
     edit_artist
+    edit_event
     edit_instrument
     edit_label
     edit_note
@@ -589,6 +618,7 @@ Readonly our @FULL_TABLE_LIST => qw(
     edit_series
     edit_url
     edit_work
+    event_tag_raw
     label_rating_raw
     label_tag_raw
     place_tag_raw
@@ -650,6 +680,13 @@ Readonly our @FULL_TABLE_LIST => qw(
     editor_watch_preferences
     editor_watch_release_group_type
     editor_watch_release_status
+    event
+    event_alias
+    event_alias_type
+    event_annotation
+    event_gid_redirect
+    event_tag
+    event_type
     gender
     instrument
     instrument_alias
@@ -661,6 +698,7 @@ Readonly our @FULL_TABLE_LIST => qw(
     iswc
     l_area_area
     l_area_artist
+    l_area_event
     l_area_instrument
     l_area_label
     l_area_place
@@ -671,6 +709,7 @@ Readonly our @FULL_TABLE_LIST => qw(
     l_area_url
     l_area_work
     l_artist_artist
+    l_artist_event
     l_artist_instrument
     l_artist_label
     l_artist_place
@@ -680,6 +719,16 @@ Readonly our @FULL_TABLE_LIST => qw(
     l_artist_series
     l_artist_url
     l_artist_work
+    l_event_event
+    l_event_instrument
+    l_event_label
+    l_event_place
+    l_event_recording
+    l_event_release
+    l_event_release_group
+    l_event_series
+    l_event_url
+    l_event_work
     l_instrument_instrument
     l_instrument_label
     l_instrument_place
@@ -746,6 +795,7 @@ Readonly our @FULL_TABLE_LIST => qw(
     link_type
     link_type_attribute_type
     editor_collection
+    editor_collection_event
     editor_collection_release
     editor_collection_type
     medium

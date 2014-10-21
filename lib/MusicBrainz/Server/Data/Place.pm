@@ -58,8 +58,6 @@ sub _gid_redirect_table
     return 'place_gid_redirect';
 }
 
-sub _table_join_name {}
-
 sub _column_mapping
 {
     return {
@@ -223,7 +221,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2013 Metabrainz Foundation
+Copyright (C) 2013 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

@@ -179,6 +179,9 @@ END -%]
     END -%]
 
 [%~ MACRO disambiguation(entity) BLOCK -%]
+    [%- IF entity.isa('MusicBrainz::Server::Entity::Event') -%]
+        [%- cancelled(entity) -%]
+    [%- END -%]
     [%- IF entity.comment -%]
         [%- ' <span class="comment">(<bdi>' _ html_escape("${entity.comment}") _ '</bdi>)</span>' -%]
     [%- END -%]
@@ -198,6 +201,14 @@ END -%]
                 [%- l("historical") -%]
             [%- END -%]
         [%- -%]</bdi>)</span>
+    [%- END -%]
+[%- END -%]
+
+[%~ MACRO cancelled(entity) BLOCK -%]
+    [%- IF entity.cancelled -%]
+        <span class="cancelled">(<bdi>
+            [%~ l("cancelled") ~%]
+            </bdi>)</span>
     [%- END -%]
 [%- END -%]
 
@@ -240,6 +251,7 @@ END -%]
       ELSIF entity.isa('MusicBrainz::Server::Entity::Area'); link_area(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Collection'); link_collection(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Work'); link_work(entity, action, text);
+      ELSIF entity.isa('MusicBrainz::Server::Entity::Event'); link_event(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Instrument'); link_instrument(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Label'); link_label(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Place'); link_place(entity, action, text);
@@ -288,6 +300,7 @@ END -%]
     ELSIF entity.isa('MusicBrainz::Server::Entity::Area'); "area";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Collection'); "collection";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Work'); "work";
+    ELSIF entity.isa('MusicBrainz::Server::Entity::Event'); "event";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Instrument'); "instrument";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Label'); "label";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Place'); "place";
@@ -429,6 +442,10 @@ END -%]
     INCLUDE _link_mbid_entity entity=collection type='collection' action=action content=text;
 END -%]
 
+[%~ MACRO link_event(event, action, text) BLOCK;
+    INCLUDE _link_mbid_entity entity=event type='event' action=action content=text;
+END -%]
+
 [%~ MACRO link_release(release, action, text) BLOCK;
     INCLUDE _link_mbid_entity entity=release type='release' action=action content=text;
 END -%]
@@ -562,6 +579,7 @@ END -%]
 [%~ MACRO entity_label(type) BLOCK;
     IF type == 'artist'; l('Artist:');
     ELSIF type == 'area'; l('Area:');
+    ELSIF type == 'event'; l('Event:');
     ELSIF type == 'instrument'; l('Instrument:');
     ELSIF type == 'label'; l('Label:');
     ELSIF type == 'place'; l('Place:');
@@ -577,6 +595,7 @@ END -%]
 [%~ MACRO format_entity_type_name(type_name) BLOCK -%]
     [%- IF    type_name == 'artist'; l('Artist');
         ELSIF type_name == 'area'; l('Area');
+        ELSIF type_name == 'event'; l('Event');
         ELSIF type_name == 'collection'; l('Collection');
         ELSIF type_name == 'instrument'; l('Instrument');
         ELSIF type_name == 'place'; l('Place');
@@ -979,4 +998,8 @@ END -%]
 [%~ USE Canonicalize ~%]
 [%~ MACRO replace_gid(new_gid) BLOCK ~%]
   [%~ Canonicalize.replace_gid(c, new_gid) ~%]
+[%~ END ~%]
+
+[%~ MACRO data_track_icon BLOCK ~%]
+  <img class="data-track" title="[% l('This track is a data track.') %]" />
 [%~ END ~%]

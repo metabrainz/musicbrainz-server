@@ -88,7 +88,6 @@ Shows artists for an area.
 sub artists : Chained('load')
 {
     my ($self, $c) = @_;
-    my $area = $c->stash->{area};
     my $artists = $self->_load_paged($c, sub {
         $c->model('Artist')->find_by_area($c->stash->{area}->id, shift, shift);
     });
@@ -109,7 +108,6 @@ Shows labels for an area.
 sub labels : Chained('load')
 {
     my ($self, $c) = @_;
-    my $area = $c->stash->{area};
     my $labels = $self->_load_paged($c, sub {
         $c->model('Label')->find_by_area($c->stash->{area}->id, shift, shift);
     });
@@ -130,7 +128,6 @@ sub releases : Chained('load')
 {
     my  ($self, $c) = @_;
 
-    my $area = $c->stash->{area};
     my $releases = $self->_load_paged($c, sub {
             $c->model('Release')->find_by_country($c->stash->{area}->id, shift, shift);
         });
@@ -156,7 +153,6 @@ Shows places for an area.
 sub places : Chained('load')
 {
     my ($self, $c) = @_;
-    my $area = $c->stash->{area};
     my $places = $self->_load_paged($c, sub {
         $c->model('Place')->find_by_area($c->stash->{area}->id, shift, shift);
     });

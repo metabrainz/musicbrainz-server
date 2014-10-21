@@ -420,8 +420,14 @@ sub _seeded_medium
         try {
             my $cdtoc = CDTOC->new_from_toc($toc);
             my $tracks = $result->{tracks};
+            my $track_count = scalar @$tracks;
 
-            if (scalar @$tracks > 0 && scalar @$tracks != $cdtoc->track_count) {
+            # This can only happen if a "pregap" field was sent for track 0.
+            if ($track_count && defined($tracks->[0]->{position}) && $tracks->[0]->{position} == 0) {
+                --$track_count;
+            }
+
+            if ($track_count > 0 && $track_count != $cdtoc->track_count) {
                 push @$errors, "Track counts of $field_name.toc and $field_name.track don’t match.";
             } else {
                 my $details = $cdtoc->track_details;
@@ -442,8 +448,9 @@ sub _seeded_medium
     my $position = 0;
 
     for my $track (@{ $result->{tracks} }) {
-        $track->{position} = ++$position;
-        $track->{number} = $position unless $track->{number};
+        $position++;
+        $track->{position} = $position unless defined $track->{position};
+        $track->{number} = $track->{position} unless defined $track->{number};
     }
 
     return $result;
@@ -453,7 +460,7 @@ sub _seeded_track
 {
     my ($c, $params, $field_name, $errors) = @_;
 
-    my @known_fields = qw( name number recording length artist_credit );
+    my @known_fields = qw( name number recording length artist_credit pregap );
     _report_unknown_fields($field_name, $params, $errors, @known_fields);
 
     my $result = {};
@@ -496,6 +503,10 @@ sub _seeded_track
         } else {
             push @$errors, "Invalid $field_name.recording: “$gid”.";
         }
+    }
+
+    if (my $pregap = $params->{pregap}) {
+        $result->{position} = 0;
     }
 
     return $result;

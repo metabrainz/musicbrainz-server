@@ -644,6 +644,8 @@ $BODY$
   EXCEPT
   SELECT entity1 FROM l_artist_artist
   EXCEPT
+  SELECT entity0 FROM l_artist_event
+  EXCEPT
   SELECT entity0 FROM l_artist_instrument
   EXCEPT
   SELECT entity0 FROM l_artist_label
@@ -686,6 +688,8 @@ $BODY$
   SELECT entity1 FROM l_area_label
   EXCEPT
   SELECT entity1 FROM l_artist_label
+  EXCEPT
+  SELECT entity1 FROM l_event_label
   EXCEPT
   SELECT entity1 FROM l_instrument_label
   EXCEPT
@@ -734,6 +738,8 @@ $BODY$
   EXCEPT
   SELECT entity1 FROM l_artist_release_group
   EXCEPT
+  SELECT entity1 FROM l_event_release_group
+  EXCEPT
   SELECT entity1 FROM l_instrument_release_group
   EXCEPT
   SELECT entity1 FROM l_label_release_group
@@ -778,6 +784,8 @@ $BODY$
   SELECT entity1 FROM l_area_work
   EXCEPT
   SELECT entity1 FROM l_artist_work
+  EXCEPT
+  SELECT entity1 FROM l_event_work
   EXCEPT
   SELECT entity1 FROM l_instrument_work
   EXCEPT
@@ -824,6 +832,8 @@ $BODY$
   EXCEPT
   SELECT entity1 FROM l_artist_place
   EXCEPT
+  SELECT entity1 FROM l_event_place
+  EXCEPT
   SELECT entity1 FROM l_instrument_place
   EXCEPT
   SELECT entity1 FROM l_label_place
@@ -869,6 +879,8 @@ $BODY$
   EXCEPT
   SELECT entity1 FROM l_artist_series
   EXCEPT
+  SELECT entity1 FROM l_event_series
+  EXCEPT
   SELECT entity1 FROM l_instrument_series
   EXCEPT
   SELECT entity1 FROM l_label_series
@@ -888,6 +900,53 @@ $BODY$
   SELECT entity0 FROM l_series_url
   EXCEPT
   SELECT entity0 FROM l_series_work;
+$BODY$
+LANGUAGE 'sql';
+
+-------------------------------------------------------------------
+-- Find events that are empty, and have not been updated within the
+-- last 1 day
+-------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION empty_events() RETURNS SETOF int AS
+$BODY$
+  SELECT id FROM event
+  WHERE
+    edits_pending = 0 AND
+    (
+      last_updated < now() - '1 day'::interval OR last_updated is NULL
+    )
+  EXCEPT
+  SELECT event
+  FROM edit_event
+  JOIN edit ON (edit.id = edit_event.edit)
+  WHERE edit.status = 1
+  EXCEPT
+  SELECT entity1 FROM l_area_event
+  EXCEPT
+  SELECT entity1 FROM l_artist_event
+  EXCEPT
+  SELECT entity1 FROM l_event_event
+  EXCEPT
+  SELECT entity0 FROM l_event_event
+  EXCEPT
+  SELECT entity0 FROM l_event_instrument
+  EXCEPT
+  SELECT entity0 FROM l_event_label
+  EXCEPT
+  SELECT entity0 FROM l_event_place
+  EXCEPT
+  SELECT entity0 FROM l_event_recording
+  EXCEPT
+  SELECT entity0 FROM l_event_release
+  EXCEPT
+  SELECT entity0 FROM l_event_release_group
+  EXCEPT
+  SELECT entity0 FROM l_event_series
+  EXCEPT
+  SELECT entity0 FROM l_event_url
+  EXCEPT
+  SELECT entity0 FROM l_event_work;
 $BODY$
 LANGUAGE 'sql';
 
@@ -991,6 +1050,11 @@ BEGIN
         LIMIT 1
       ) OR
       EXISTS (
+        SELECT TRUE FROM l_event_url
+        WHERE entity1 = url_row.id
+        LIMIT 1
+      ) OR
+      EXISTS (
         SELECT TRUE FROM l_instrument_url
         WHERE entity1 = url_row.id
         LIMIT 1
@@ -1077,6 +1141,18 @@ BEGIN
       UPDATE artist_alias SET primary_for_locale = FALSE
       WHERE locale = NEW.locale AND id != NEW.id
         AND artist = NEW.artist;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION unique_primary_event_alias()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.primary_for_locale THEN
+      UPDATE event_alias SET primary_for_locale = FALSE
+      WHERE locale = NEW.locale AND id != NEW.id
+        AND event = NEW.event;
     END IF;
     RETURN NEW;
 END;
@@ -1206,6 +1282,8 @@ AS $$
           UNION ALL
         SELECT TRUE FROM l_artist_recording WHERE entity1 = outer_r.id
           UNION ALL
+        SELECT TRUE FROM l_event_recording WHERE entity1 = outer_r.id
+          UNION ALL
         SELECT TRUE FROM l_instrument_recording WHERE entity1 = outer_r.id
           UNION ALL
         SELECT TRUE FROM l_label_recording WHERE entity1 = outer_r.id
@@ -1333,6 +1411,13 @@ BEGIN
     AND recording.length IS DISTINCT FROM track.median;
 END;
 $$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION track_count_matches_cdtoc(medium, int) RETURNS boolean AS $$
+    SELECT $1.track_count = $2 + COALESCE(
+        (SELECT count(*) FROM track
+         WHERE medium = $1.id AND (position = 0 OR is_data_track = true)
+    ), 0);
+$$ LANGUAGE SQL IMMUTABLE;
 
 COMMIT;
 -- vi: set ts=4 sw=4 et :

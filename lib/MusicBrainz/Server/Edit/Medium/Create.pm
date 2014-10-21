@@ -83,6 +83,8 @@ sub initialize {
     my $release = delete $opts{release};
     die 'Missing "release" argument' unless ($release || $self->preview);
 
+    $self->check_tracks_against_format($tracklist, $opts{format_id});
+
     $opts{release} = {
         id => $release->id,
         name => $release->name
