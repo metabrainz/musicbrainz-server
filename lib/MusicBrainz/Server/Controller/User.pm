@@ -300,6 +300,7 @@ sub collections : Chained('load') PathPart('collections')
         return ($collections, $hits);
     });
     $c->model('Collection')->load_release_count(@$collections);
+    $c->model('CollectionType')->load(@$collections);
 
     if ($c->user_exists) {
         for my $collection (@$collections) {

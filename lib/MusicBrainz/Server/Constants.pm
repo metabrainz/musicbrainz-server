@@ -797,6 +797,7 @@ Readonly our @FULL_TABLE_LIST => qw(
     editor_collection
     editor_collection_event
     editor_collection_release
+    editor_collection_type
     medium
     medium_cdtoc
     medium_format

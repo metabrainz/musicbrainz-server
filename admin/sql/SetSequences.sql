@@ -123,6 +123,7 @@ SELECT setval('link_id_seq', (SELECT MAX(id) FROM link));
 SELECT setval('link_attribute_type_id_seq', (SELECT MAX(id) FROM link_attribute_type));
 SELECT setval('link_type_id_seq', (SELECT MAX(id) FROM link_type));
 SELECT setval('editor_collection_id_seq', (SELECT MAX(id) FROM editor_collection));
+SELECT setval('editor_collection_type_id_seq', (SELECT MAX(id) FROM editor_collection_type));
 SELECT setval('editor_oauth_token_id_seq', (SELECT MAX(id) FROM editor_oauth_token));
 SELECT setval('medium_id_seq', (SELECT MAX(id) FROM medium));
 SELECT setval('medium_cdtoc_id_seq', (SELECT MAX(id) FROM medium_cdtoc));

@@ -381,6 +381,11 @@ ALTER TABLE editor_collection
    FOREIGN KEY (editor)
    REFERENCES editor(id);
 
+ALTER TABLE editor_collection
+   ADD CONSTRAINT editor_collection_fk_type
+   FOREIGN KEY (type)
+   REFERENCES editor_collection_type(id);
+
 ALTER TABLE editor_collection_event
    ADD CONSTRAINT editor_collection_event_fk_collection
    FOREIGN KEY (collection)
@@ -400,6 +405,11 @@ ALTER TABLE editor_collection_release
    ADD CONSTRAINT editor_collection_release_fk_release
    FOREIGN KEY (release)
    REFERENCES release(id);
+
+ALTER TABLE editor_collection_type
+   ADD CONSTRAINT editor_collection_type_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES editor_collection_type(id);
 
 ALTER TABLE editor_language
    ADD CONSTRAINT editor_language_fk_editor

@@ -66,6 +66,7 @@ my @group_core = qw(
     artist_isni
     artist_type
     cdtoc
+    editor_collection_type
     event
     event_alias
     event_alias_type

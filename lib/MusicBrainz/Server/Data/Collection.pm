@@ -29,7 +29,7 @@ sub _table
 
 sub _columns
 {
-    return 'editor_collection.id, gid, editor_collection.editor, name, public, description';
+    return 'editor_collection.id, gid, editor_collection.editor, name, public, description, editor_collection.type';
 }
 
 sub _id_column
@@ -46,6 +46,7 @@ sub _column_mapping
         name => 'name',
         public => 'public',
         description => 'description',
+        type_id => 'type',
     };
 }
 
@@ -283,7 +284,8 @@ sub _hash_to_row
     my %row = (
         name => $values->{name},
         public => $values->{public},
-        description => $values->{description}
+        description => $values->{description},
+        type => $values->{type_id},
     );
 
     return \%row;

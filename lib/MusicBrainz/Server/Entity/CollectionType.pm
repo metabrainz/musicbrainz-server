@@ -1,54 +1,27 @@
-package MusicBrainz::Server::Entity::Collection;
+package MusicBrainz::Server::Entity::CollectionType;
+
 use Moose;
+use MusicBrainz::Server::Translation::Attributes qw( lp );
 
-use MusicBrainz::Server::Entity::Types;
+extends 'MusicBrainz::Server::Entity';
 
-extends 'MusicBrainz::Server::Entity::CoreEntity';
+with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
+    type => 'CollectionType',
+};
 
-has 'editor' => (
-    is => 'ro',
-    isa => 'Editor',
-);
-
-has 'editor_id' => (
-    is => 'ro',
-    isa => 'Int',
-);
-
-has 'public' => (
-    is => 'rw',
-    isa => 'Bool'
-);
-
-has 'description' => (
+has 'name' => (
     is => 'rw',
     isa => 'Str'
 );
 
-has release_count => (
+has 'description' => (
     is => 'rw',
-    isa => 'Int',
-    predicate => 'loaded_release_count'
+    isa => 'Maybe[Str]',
 );
 
-has 'type_id' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'type' => (
-    is => 'rw',
-    isa => 'CollectionType',
-);
-
-sub type_name {
-    my ($self) = @_;
-    return $self->type ? $self->type->name : undef;
-}
-
-sub l_type_name {
-    my ($self) = @_;
-    return $self->type ? $self->type->l_name : undef;
+sub l_name {
+    my $self = shift;
+    return lp($self->name, 'collection_type')
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -57,7 +30,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2010 Sean Burke
+Copyright (C) 2014 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

@@ -8,6 +8,7 @@
     <thead>
         <tr>
             <th>[% l('Collection') %]</th>
+            <th>[% l('Type') %]</th>
             <th>[% l('Releases') %]</th>
             [% IF viewing_own_profile %]
             <th>[% l('Subscribed') %]</th>
@@ -20,6 +21,7 @@
     [%- FOR collection=collections -%]
         <tr class="[% loop.parity %]">
             <td>[% link_collection(collection) %]</td>
+            <td>[% collection.type.l_name %]</td>
             <td>[% collection.release_count %]</td>
             [% IF viewing_own_profile %]
             <td>[% yesno(collection.subscribed) %]</td>

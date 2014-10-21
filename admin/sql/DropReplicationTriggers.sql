@@ -22,6 +22,7 @@ DROP TRIGGER reptg_artist_tag ON artist_tag;
 DROP TRIGGER reptg_artist_type ON artist_type;
 DROP TRIGGER reptg_cdtoc ON cdtoc;
 DROP TRIGGER reptg_country_area ON country_area;
+DROP TRIGGER reptg_editor_collection_type ON editor_collection_type;
 DROP TRIGGER reptg_event ON event;
 DROP TRIGGER reptg_event_alias ON event_alias;
 DROP TRIGGER reptg_event_alias_type ON event_alias_type;
