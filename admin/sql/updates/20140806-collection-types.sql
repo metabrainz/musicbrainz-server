@@ -11,11 +11,6 @@ CREATE TABLE editor_collection_type ( -- replicate
 
 ALTER TABLE editor_collection_type ADD CONSTRAINT editor_collection_type_pkey PRIMARY KEY (id);
 
-ALTER TABLE editor_collection_type
-   ADD CONSTRAINT editor_collection_type_fk_parent
-   FOREIGN KEY (parent)
-   REFERENCES editor_collection_type(id);
-
 INSERT INTO editor_collection_type (id, name, child_order) VALUES
 	(1, 'Owned music', 1),
 	(2, 'Wishlist', 2),
@@ -25,10 +20,5 @@ SELECT setval('editor_collection_type_id_seq', (SELECT MAX(id) FROM editor_colle
 
 ALTER TABLE editor_collection
     ADD COLUMN type INTEGER;
-
-ALTER TABLE editor_collection
-   ADD CONSTRAINT editor_collection_fk_type
-   FOREIGN KEY (type)
-   REFERENCES editor_collection_type(id);
 
 COMMIT;

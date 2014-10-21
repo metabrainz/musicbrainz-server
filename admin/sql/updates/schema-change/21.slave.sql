@@ -3,6 +3,7 @@
 -- 20140906-event-collections.sql
 -- 20141008-instrument-indexes.sql
 -- 20141014-mbs-7784-data-tracks.sql
+-- 20140806-collection-types.sql
 \set ON_ERROR_STOP 1
 BEGIN;
 --------------------------------------------------------------------------------
@@ -978,5 +979,28 @@ CREATE OR REPLACE FUNCTION track_count_matches_cdtoc(medium, int) RETURNS boolea
          WHERE medium = $1.id AND (position = 0 OR is_data_track = true)
     ), 0);
 $$ LANGUAGE SQL IMMUTABLE;
+
+--------------------------------------------------------------------------------
+SELECT '20140806-collection-types.sql';
+
+CREATE TABLE editor_collection_type ( -- replicate
+    id                  SERIAL,
+    name                VARCHAR(255) NOT NULL,
+    parent              INTEGER, -- references editor_collection_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT
+);
+
+ALTER TABLE editor_collection_type ADD CONSTRAINT editor_collection_type_pkey PRIMARY KEY (id);
+
+INSERT INTO editor_collection_type (id, name, child_order) VALUES
+	(1, 'Owned music', 1),
+	(2, 'Wishlist', 2),
+	(3, 'Other', 99);
+
+SELECT setval('editor_collection_type_id_seq', (SELECT MAX(id) FROM editor_collection_type));
+
+ALTER TABLE editor_collection
+    ADD COLUMN type INTEGER;
 
 COMMIT;
