@@ -83,6 +83,10 @@ CREATE TRIGGER "reptg_cdtoc"
 AFTER INSERT OR DELETE OR UPDATE ON "cdtoc"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_cdtoc_raw"
+AFTER INSERT OR DELETE OR UPDATE ON "cdtoc_raw"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_country_area"
 AFTER INSERT OR DELETE OR UPDATE ON "country_area"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
@@ -691,6 +695,10 @@ CREATE TRIGGER "reptg_release_packaging"
 AFTER INSERT OR DELETE OR UPDATE ON "release_packaging"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_release_raw"
+AFTER INSERT OR DELETE OR UPDATE ON "release_raw"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_release_status"
 AFTER INSERT OR DELETE OR UPDATE ON "release_status"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -750,6 +758,10 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 CREATE TRIGGER "reptg_track_gid_redirect"
 AFTER INSERT OR DELETE OR UPDATE ON "track_gid_redirect"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_track_raw"
+AFTER INSERT OR DELETE OR UPDATE ON "track_raw"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_url"
 AFTER INSERT OR DELETE OR UPDATE ON "url"

@@ -324,9 +324,8 @@ CREATE TABLE cdtoc ( -- replicate
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE cdtoc_raw
-(
-    id                  SERIAL,
+CREATE TABLE cdtoc_raw ( -- replicate
+    id                  SERIAL, -- PK
     release             INTEGER NOT NULL, -- references release_raw.id
     discid              CHAR(28) NOT NULL,
     track_count          INTEGER NOT NULL,
@@ -2140,9 +2139,8 @@ CREATE TABLE release_unknown_country ( -- replicate (verbose)
   date_day SMALLINT
 );
 
-CREATE TABLE release_raw
-(
-    id                  SERIAL,
+CREATE TABLE release_raw ( -- replicate
+    id                  SERIAL, -- PK
     title               VARCHAR(255) NOT NULL,
     artist              VARCHAR(255),
     added               TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
@@ -2439,9 +2437,8 @@ CREATE TABLE track_gid_redirect ( -- replicate (verbose)
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE track_raw
-(
-    id                  SERIAL,
+CREATE TABLE track_raw ( -- replicate
+    id                  SERIAL, -- PK
     release             INTEGER NOT NULL,   -- references release_raw.id
     title               VARCHAR(255) NOT NULL,
     artist              VARCHAR(255),   -- For VA albums, otherwise empty
