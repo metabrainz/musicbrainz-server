@@ -82,7 +82,7 @@ has 'performers' => (
     }
 );
 
-has 'locations' => (
+has 'places' => (
     traits => [ 'Array' ],
     is => 'ro',
     isa => ArrayRef[
@@ -92,8 +92,8 @@ has 'locations' => (
     ],
     default => sub { [] },
     handles => {
-        add_location => 'push',
-        all_locations => 'elements',
+        add_place => 'push',
+        all_places => 'elements',
     }
 );
 

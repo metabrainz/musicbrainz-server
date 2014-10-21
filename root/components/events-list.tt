@@ -74,7 +74,7 @@
       [%~ UNLESS no_location ~%]
         <td>
           <ul>
-            [%~ FOR rel_place=event.locations ~%]
+            [%~ FOR rel_place=event.places ~%]
               <li>
                 [%~ descriptive_link(rel_place.entity) ~%]
               </li>

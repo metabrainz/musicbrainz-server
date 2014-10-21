@@ -163,7 +163,6 @@ sub direct : Private
         when ('event') {
             $c->model('Event')->load_performers(@entities);
             $c->model('Event')->load_locations(@entities);
-            $c->model('Event')->load_areas(@entities);
             $c->model('EventType')->load(@entities);
         }
     }
