@@ -708,7 +708,12 @@ test('Cleanup', function () {
                 'release_group'
             ],
             [
-                'http://thesession.org/recordings/artists/793',
+                'http://thesession.org/recordings/4740/edit',
+                'http://thesession.org/recordings/4740',
+                'release_group'
+            ],
+            [
+                'http://thesession.org/recordings/artists/793?test',
                 'http://thesession.org/recordings/artists/793',
                 'artist'
             ],
