@@ -390,17 +390,6 @@ Readonly our %ENTITIES => (
         removal     => { automatic => 1 },
         collections => 1
     },
-    event => {
-        mbid => { relatable => 1 },
-        edit_table => 1,
-        merging => 1,
-        model      => 'Event',
-        annotations => { edit_type => $EDIT_EVENT_ADD_ANNOTATION },
-        ratings    => 1,
-        tags       => 1,
-        removal     => { automatic => 1 },
-        collections => 1
-    },
     instrument => {
         mbid => { relatable => 'overview', indexable => 1 },
         custom_tabs => ['releases', 'recordings'],

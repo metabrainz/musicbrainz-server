@@ -198,30 +198,23 @@ sub find_for_subscription
     elsif ($subscription->isa(CollectionSubscription)) {
         return () if (!$subscription->available);
 
-<<<<<<< HEAD
-        my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
-                    ' JOIN edit_release er ON edit.id = er.edit
-                      JOIN editor_collection_release ecr ON er.release = ecr.release
-                      WHERE collection = ? AND edit.id > ? AND status IN (?, ?)
-                     UNION
-                     SELECT ' . $self->_columns . ' FROM ' . $self->_table .
-                    ' JOIN edit_event ee ON edit.id = ee.edit
-                      JOIN editor_collection_event ece ON ee.event = ece.event
-                      WHERE collection = ? AND edit.id > ? AND status IN (?, ?)';
-=======
         my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table . '
                       WHERE edit.id IN (SELECT er.edit
                                           FROM edit_release er JOIN editor_collection_release ecr
                                                ON er.release = ecr.release
-                                         WHERE ecr.collection = ?)
+                                         WHERE ecr.collection = ?
+                                        UNION
+                                        SELECT ee.edit
+                                          FROM edit_event ee JOIN editor_collection_event ece
+                                               ON ee.event = ece.event
+                                         WHERE ece.collection = ?)
                        AND id > ? AND status IN (?, ?)';
->>>>>>> d46098f3e220b737348bc7ec72132b5bc4f13ff6
 
         return query_to_list(
             $self->c->sql,
             sub { $self->_new_from_row(shift) },
-            $query, $subscription->target_id, $subscription->last_edit_sent,
-            $STATUS_OPEN, $STATUS_APPLIED
+            $query,  $subscription->target_id, $subscription->target_id, 
+            $subscription->last_edit_sent, $STATUS_OPEN, $STATUS_APPLIED
         );
     }
     elsif ($subscription->does(ActiveSubscription)) {
@@ -322,10 +315,10 @@ SELECT * FROM edit, (
     JOIN edit ON er.edit = edit.id
     WHERE edit.status = ? AND esc.editor = ? AND esc.available
     UNION
-    SELECT edit FROM edit_event er
+    SELECT edit FROM edit_event ee
     RIGHT JOIN editor_collection_event ece ON ee.event = ece.event
     JOIN editor_subscribe_collection esc ON esc.collection = ece.collection
-    JOIN edit ON er.edit = edit.id
+    JOIN edit ON ee.edit = edit.id
     WHERE edit.status = ? AND esc.editor = ? AND esc.available
     UNION
     SELECT edit FROM edit_series es

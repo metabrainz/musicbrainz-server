@@ -45,9 +45,6 @@ after 'load' => sub
     }
 
     $c->model('EventType')->load($event);
-<<<<<<< HEAD
-    $c->model('Relationship')->load($event);
-    $c->model('Relationship')->load($event->related_series);
 };
 
 # Stuff that has the side bar and thus needs to display collection information
@@ -74,8 +71,6 @@ after [qw( show aliases collections details tags )] => sub {
         containment => \%containment,
         all_collections => \@all_collections,
     );
-=======
->>>>>>> 63215886e09775be783ea6872e35facafcfabe1f
 };
 
 =head2 show
