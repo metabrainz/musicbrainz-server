@@ -16,10 +16,6 @@ ALTER TABLE editor_collection_type
    FOREIGN KEY (parent)
    REFERENCES editor_collection_type(id);
 
---CREATE TRIGGER "reptg_editor_collection_type"
---AFTER INSERT OR DELETE OR UPDATE ON "editor_collection_type"
---FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
 INSERT INTO editor_collection_type (id, name, child_order) VALUES
 	(1, 'Owned music', 1),
 	(2, 'Wishlist', 2),
