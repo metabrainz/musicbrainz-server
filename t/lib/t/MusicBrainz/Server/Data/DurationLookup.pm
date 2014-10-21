@@ -82,6 +82,62 @@ test 'tracklist used to fit lookup criteria but no longer does' => sub {
     is(scalar @$durationlookup, 0, "duration lookup did not find medium after it was edited");
 };
 
+test 'TOC lookup for disc with pregap track' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+tracklist');
+
+    my $artist_credit = {
+        names => [{
+            artist => { id => 1 },
+            name => 'Artist',
+            join_phrase => ''
+        }]
+    };
+
+    my $insert_hash = {
+        name => 'Bonus disc',
+        format_id => 1,
+        position => 3,
+        release_id => 1,
+        tracklist => [
+            {
+                name => 'Secret Hidden Track',
+                position => 0,
+                number => "00",
+                recording_id => 3,
+                length => 1122,
+                artist_credit => $artist_credit,
+            },
+            {
+                name => 'Dirty Electro Mix',
+                position => 1,
+                number => "A1",
+                recording_id => 1,
+                length => 330160,
+                artist_credit => $artist_credit,
+            }
+        ]
+    };
+
+    my $created = $c->model('Medium')->insert($insert_hash);
+    isa_ok($created, 'MusicBrainz::Server::Entity::Medium');
+
+    my $medium = $c->model('Medium')->get_by_id($created->id);
+    isa_ok($medium, 'MusicBrainz::Server::Entity::Medium');
+
+    $c->model('Track')->load_for_mediums($medium);
+    is($medium->length, 1122 + 330160, "inserted medium has expected length");
+
+    my $durationlookup = $c->model('DurationLookup')->lookup("1 1 39872 15110", 1);
+    is(scalar @$durationlookup, 1, "one match with TOC lookup");
+
+    $medium = $durationlookup->[0]->medium;
+    is($medium->id, $created->id);
+    is($medium->name, 'Bonus disc', 'TOC lookup found correct disc');
+};
+
 test all => sub {
 
 my $test = shift;

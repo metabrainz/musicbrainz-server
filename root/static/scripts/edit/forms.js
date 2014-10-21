@@ -108,18 +108,22 @@ ko.bindingHandlers.loop = {
 
         var idAttribute = options.id,
             elements = options.elements || {},
-            template = [],
-            node = parentNode.firstChild;
+            template = [];
 
-        while (node) {
-            if (node.nodeType === Node.ELEMENT_NODE) {
+        _.each(ko.virtualElements.childNodes(parentNode), function (node) {
+            if (node.nodeType === Node.ELEMENT_NODE || node.nodeType === Node.COMMENT_NODE) {
                 template.push(node);
             }
-            node = node.nextSibling;
+        });
+
+        // For regular DOM nodes this is the same as parentNode; if parentNode
+        // is a virtual element, this will be the parentNode of the comment.
+        var actualParentNode = parentNode;
+        while (actualParentNode.nodeType !== Node.ELEMENT_NODE) {
+            actualParentNode = actualParentNode.parentNode;
         }
 
-        delete node;
-        ko.utils.emptyDomNode(parentNode);
+        ko.virtualElements.emptyNode(parentNode);
 
         function update(changes) {
             var activeElement = document.activeElement,
@@ -136,24 +140,27 @@ ko.bindingHandlers.loop = {
                 var item = change.value,
                     itemID = item[idAttribute],
                     currentElements = elements[itemID],
-                    nextItem = items[change.index + 1];
+                    nextItem = items[change.index + 1],
+                    tmpElementContainer;
 
                 if (status === "added") {
                     if (change.moved === undefined) {
                         var newContext = bindingContext.createChildContext(item);
 
                         if (!currentElements) {
-                            currentElements = [];
-                            for (j = 0; node = template[j];  j++) {
-                                currentElements.push(node.cloneNode(true));
-                            }
-                            elements[itemID] = currentElements;
-                        }
+                            // Would simplify things to use a documentFragment,
+                            // but knockout doesn't support them.
+                            // https://github.com/knockout/knockout/pull/1432
+                            tmpElementContainer = document.createElement("div");
 
-                        for (j = 0; node = currentElements[j]; j++) {
-                            if (!ko.contextFor(node)) {
-                                ko.applyBindings(newContext, node);
+                            for (j = 0; node = template[j];  j++) {
+                                tmpElementContainer.appendChild(node.cloneNode(true));
                             }
+
+                            ko.applyBindingsToDescendants(newContext, tmpElementContainer)
+                            currentElements = _.toArray(tmpElementContainer.childNodes);
+                            elements[itemID] = currentElements;
+                            tmpElementContainer = null;
                         }
                     }
                 } else if (status === "deleted") {
@@ -176,7 +183,7 @@ ko.bindingHandlers.loop = {
                     continue;
                 }
 
-                var elementsToInsert, elementsToInsertBefore;
+                var elementsToInsert, elementsToInsertAfter;
                 if (currentElements.length === 1) {
                     elementsToInsert = currentElements[0];
                 } else {
@@ -189,38 +196,33 @@ ko.bindingHandlers.loop = {
                 // Find where to insert the elements associated with this
                 // item. The final result should be in the same order as the
                 // items are in their containing array.
-                var inserted = false, nextItem;
+                var prevItem;
 
-                // Loop through the items after the current one, and find one
+                // Loop through the items before the current one, and find one
                 // that actually has elements on the page (i.e. something we
-                // can insertBefore). It doesn't matter if we don't insert
-                // before the *immediate* nextItem, because when *that* item
-                // is dealt with it'll be inserted before the same item we
-                // used (thus settling after us). nextItem will be undefined
-                // when it's past the last item in the array, and the for-
-                // loop will end; if we haven't inserted our elements by
-                // then, we can just use appendChild.
+                // can insertAfter). It doesn't matter if we don't insert
+                // after the *immediate* prevItem, because when *that* item
+                // is dealt with it'll be inserted after the same item we
+                // used (thus settling before us). prevItem will be undefined
+                // when it's past the first item in the array, and the for-
+                // loop will end; insertAfter handles that by just prepending
+                // the elements to parentNode.
 
-                for (var j = change.index + 1; nextItem = items[j]; j++) {
-                    // nextItem won't have elements associated with it if
-                    // they haven't been created yet (obviously), which is
-                    // always the case when things are being rendered for the
-                    // first time (sequentially).
-                    elementsToInsertBefore = elements[nextItem[idAttribute]];
+                for (var j = change.index - 1; prevItem = items[j]; j--) {
+                    elementsToInsertAfter = elements[prevItem[idAttribute]];
 
-                    // nextItem's elements won't exist on the page if they
+                    // prevItem's elements won't exist on the page if they
                     // were previously removed, but haven't been purged from
                     // `elements` yet (below).
-                    if (elementsToInsertBefore && parentNode.contains(elementsToInsertBefore[0])) {
-                        parentNode.insertBefore(elementsToInsert, elementsToInsertBefore[0]);
-                        inserted = true;
-                        break;
+                    if (elementsToInsertAfter) {
+                        if (actualParentNode.contains(elementsToInsertAfter[0])) {
+                            break;
+                        }
+                        elementsToInsertAfter = null;
                     }
                 }
 
-                if (!inserted) {
-                    parentNode.appendChild(elementsToInsert);
-                }
+                ko.virtualElements.insertAfter(parentNode, elementsToInsert, _.last(elementsToInsertAfter));
             }
 
             // Brief timeout in case a removed item gets re-added.
@@ -233,7 +235,7 @@ ko.bindingHandlers.loop = {
                 }
             }, 100);
 
-            if (parentNode.contains(activeElement)) {
+            if (actualParentNode.contains(activeElement)) {
                 activeElement.focus();
             }
         }
@@ -254,6 +256,8 @@ ko.bindingHandlers.loop = {
         return { controlsDescendantBindings: true };
     }
 };
+
+ko.virtualElements.allowedBindings.loop = true;
 
 
 /* Helper binding that matches an input and label (assuming a table layout)

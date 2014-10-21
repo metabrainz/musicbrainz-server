@@ -374,7 +374,7 @@ Readonly our %ENTITIES => (
         removal     => { automatic => 1 }
     },
     event => {
-        mbid => { relatable => 1 },
+        mbid => { relatable => 'overview', indexable => 1 },
         edit_table => 1,
         merging => 1,
         model      => 'Event',

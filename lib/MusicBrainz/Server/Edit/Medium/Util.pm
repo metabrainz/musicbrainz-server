@@ -5,7 +5,7 @@ use warnings;
 
 use Clone qw(clone);
 use List::AllUtils qw( all any uniq );
-use MooseX::Types::Moose qw( Str Int );
+use MooseX::Types::Moose qw( Str Int Bool );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 use MusicBrainz::Server::Edit::Types qw(
@@ -55,6 +55,7 @@ sub tracks_to_hash
         position => $_->position,
         number => $_->number,
         length => $_->length,
+        is_data_track => $_->is_data_track,
     }, @$tracks ];
 
     return $tmp;
@@ -103,6 +104,7 @@ sub track {
         recording_id => NullableOnPreview[Int],
         position => Int,
         number => Nullable[Str],
+        is_data_track => Optional[Bool]
     ];
 }
 
@@ -117,6 +119,7 @@ sub display_tracklist {
                 artist_credit => artist_credit_preview($loaded, $_->{artist_credit}),
                 position => $_->{position},
                 number => $_->{number} // $_->{position},
+                is_data_track => $_->{is_data_track},
                 recording => !$_->{recording_id} || !$loaded->{Recording}{ $_->{recording_id} } ?
                     Recording->new( name => $_->{name} ) :
                     $loaded->{Recording}{ $_->{recording_id} },

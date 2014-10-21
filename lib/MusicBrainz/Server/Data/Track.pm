@@ -33,11 +33,10 @@ sub _columns
 {
     return 'track.id, track.gid, track.name, track.medium, track.recording,
             track.number, track.position, track.length, track.artist_credit,
-            track.edits_pending';
+            track.edits_pending, track.is_data_track';
 }
 
-sub _column_mapping
-{
+sub _column_mapping {
     return {
         id               => 'id',
         gid              => 'gid',
@@ -49,6 +48,7 @@ sub _column_mapping
         length           => 'length',
         artist_credit_id => 'artist_credit',
         edits_pending    => 'edits_pending',
+        is_data_track    => 'is_data_track',
     };
 }
 
