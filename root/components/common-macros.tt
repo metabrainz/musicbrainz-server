@@ -1001,5 +1001,5 @@ END -%]
 [%~ END ~%]
 
 [%~ MACRO data_track_icon BLOCK ~%]
-  <img class="data-track" src="[% c.uri_for("/static/images/icons/page_white_cd.png") %]" alt="[% l('Data Track') %]" title="[% l('Indicates that the track is a data track.') %]" />
+  <img class="data-track" title="[% l('This track is a data track.') %]" />
 [%~ END ~%]
