@@ -1076,6 +1076,10 @@ MB.tests.URLCleanup.GuessType = function () {
                     'https://commons.wikimedia.org/wiki/File:Kimigayo.score.png',
                     'work'
                 ],
+                [
+                    'http://commons.wikimedia.org/wiki/Main_Page#mediaviewer/File:Origanum_vulgare_-_harilik_pune.jpg',
+                    'https://commons.wikimedia.org/wiki/File:Origanum_vulgare_-_harilik_pune.jpg'
+                ],
                 // Genius
                 [
                     'http://genius.com/artists/Dramatik',

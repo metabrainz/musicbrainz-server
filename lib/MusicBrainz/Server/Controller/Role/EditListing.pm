@@ -67,7 +67,6 @@ sub _list {
 
     $c->stash(
         edits => $edits, # stash early in case an ISE occurs
-        guess_search => 1,
     );
 
     load_everything_for_edits($c, $edits);

@@ -1,12 +1,3 @@
-[%- info_links = [
-    ['index', link_label(label, 'show', l('Releases'))],
-    ['relationships', link_label(label, 'relationships', l('Relationships'))],
-    ['aliases', link_label(label, 'aliases', l('Aliases'))],
-    ['tags', link_label(label, 'tags', l('Tags'))],
-    ['details', link_label(label, 'details', l('Details'))],
-    ['edit', link_label(label, 'edit', l('Edit'))],
-] -%]
-
 <div class="labelheader">
     <h1>[%- link_label(label) %] [% disambiguation(label) -%]</h1>
     <p class="subheader">
@@ -14,4 +5,4 @@
     </p>
 </div>
 
-[%- INCLUDE 'components/tabs.tt' list=info_links -%]
+[%- INCLUDE 'components/entity-tabs.tt' edit_tab='default' -%]

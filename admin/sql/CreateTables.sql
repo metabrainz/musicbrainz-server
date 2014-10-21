@@ -1865,6 +1865,12 @@ CREATE TABLE editor_collection
     description         TEXT DEFAULT '' NOT NULL
 );
 
+CREATE TABLE editor_collection_event
+(
+    collection          INTEGER NOT NULL, -- PK, references editor_collection.id
+    event               INTEGER NOT NULL -- PK, references event.id
+);
+
 CREATE TABLE editor_collection_release
 (
     collection          INTEGER NOT NULL, -- PK, references editor_collection.id
@@ -1929,7 +1935,7 @@ CREATE TABLE medium_cdtoc ( -- replicate (verbose)
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE medium_format ( -- replicate
+CREATE TABLE medium_format ( -- replicate 
     id                  SERIAL,
     name                VARCHAR(100) NOT NULL,
     parent              INTEGER, -- references medium_format.id

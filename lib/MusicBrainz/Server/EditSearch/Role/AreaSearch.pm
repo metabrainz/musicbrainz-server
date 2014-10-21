@@ -1,7 +1,6 @@
 package MusicBrainz::Server::EditSearch::Role::AreaSearch;
 use MooseX::Role::Parameterized;
 use namespace::autoclean;
-use feature 'switch';
 
 parameter 'type' => (
     isa => 'Str',
@@ -31,31 +30,23 @@ role {
         my ($self, $query) = @_;
         return unless $self->arguments;
 
-        my $join_e_idx = $query->inc_joins;
-        my $edit_alias = "edit_${type}_$join_e_idx";
-        $query->add_join("JOIN edit_$type $edit_alias ON $edit_alias.edit = edit.id");
+        my $clause = "EXISTS (SELECT 1 FROM edit_$type A JOIN $type B ON A.$type = B.id ";
+        my $final_table_alias = 'B';
 
-        my $join_r_idx = $query->inc_joins;
-        my $type_alias = "${type}_$join_r_idx";
-        $query->add_join("JOIN $type $type_alias ON $type_alias.id = $edit_alias.$type");
-
-        my $final_table_alias = $type_alias;
         if ($extra_join_params && $extra_join_params->{table}) {
             my $extra_join = $extra_join_params->{table};
             my $type_col = $extra_join_params->{type_col} // 'id';
             my $extra_col = $extra_join_params->{extra_col} // $type;
+            $final_table_alias = 'C';
 
-            my $join_l_idx = $query->inc_joins;
-            my $extra_alias = "${extra_join}_$join_l_idx";
-            $query->add_join("JOIN $extra_join $extra_alias ON $type_alias.$type_col = $extra_alias.$extra_col");
-
-            $final_table_alias = $extra_alias;
+            $clause .= "JOIN $extra_join C ON B.$type_col = C.$extra_col ";
         }
-
+        $clause .= "WHERE A.edit = edit.id AND ";
         $query->add_where([
+            $clause .
             join(' ', "$final_table_alias.$column", $self->operator,
                  $self->operator eq '='  ? 'any(?)' :
-                 $self->operator eq '!=' ? 'all(?)' : die 'Shouldn\'t get here'),
+                 $self->operator eq '!=' ? 'all(?)' : die 'Shouldn\'t get here') . ')',
             $self->sql_arguments
         ]) if $self->arguments > 0;
     };

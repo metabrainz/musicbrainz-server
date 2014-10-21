@@ -15,7 +15,7 @@ use Scalar::Util qw( looks_like_number );
 use MusicBrainz::Server::CGI::Expand qw( expand_hash );
 use MusicBrainz::Server::Track qw( unformat_track_length );
 use MusicBrainz::Server::Translation qw( l );
-use MusicBrainz::Server::Data::Utils qw( trim );
+use MusicBrainz::Server::Data::Utils qw( sanitize trim );
 use MusicBrainz::Server::Form::Utils qw(
     language_options
     script_options
@@ -536,7 +536,7 @@ sub _seeded_artist_credit_name
     }
 
     if (my $join = _seeded_string($params->{join_phrase}, "$field_name.join_phrase", $errors)) {
-        $result->{joinPhrase} = $join;
+        $result->{joinPhrase} = sanitize($join);
     }
 
     $result->{artist} //= _seeded_hash($c, \&_seeded_artist, $params->{artist},

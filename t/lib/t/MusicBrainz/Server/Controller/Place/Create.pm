@@ -12,12 +12,9 @@ test 'Area and area containment shown in conjunction with place' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+area');
     MusicBrainz::Server::Test->prepare_test_database($c, '+area_hierarchy');
-    MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
-INSERT INTO editor (id, name, password, ha1, privs, email, email_confirm_date) VALUES
-    (1, 'alice', '{CLEARTEXT}password', '343cbae85500be826a413b9b6b242669', 0, 'alice@example.net', '2014-04-20');
-EOSQL
+    MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
     $mech->get_ok('/login');
-    $mech->submit_form( with_fields => { username => 'alice', password => 'password' } );
+    $mech->submit_form( with_fields => { username => 'Alice', password => 'secret1' } );
 
     $mech->get_ok('/place/create');
     html_ok($mech->content);

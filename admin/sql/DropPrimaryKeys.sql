@@ -47,6 +47,7 @@ ALTER TABLE edit_url DROP CONSTRAINT IF EXISTS edit_url_pkey;
 ALTER TABLE edit_work DROP CONSTRAINT IF EXISTS edit_work_pkey;
 ALTER TABLE editor DROP CONSTRAINT IF EXISTS editor_pkey;
 ALTER TABLE editor_collection DROP CONSTRAINT IF EXISTS editor_collection_pkey;
+ALTER TABLE editor_collection_event DROP CONSTRAINT IF EXISTS editor_collection_event_pkey;
 ALTER TABLE editor_collection_release DROP CONSTRAINT IF EXISTS editor_collection_release_pkey;
 ALTER TABLE editor_language DROP CONSTRAINT IF EXISTS editor_language_pkey;
 ALTER TABLE editor_oauth_token DROP CONSTRAINT IF EXISTS editor_oauth_token_pkey;

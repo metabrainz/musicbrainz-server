@@ -288,6 +288,7 @@ my @group_private = qw(
     autoeditor_election_vote
     editor
     editor_collection
+    editor_collection_event
     editor_collection_release
     editor_language
     editor_oauth_token

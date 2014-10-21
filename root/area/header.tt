@@ -1,20 +1,3 @@
-[%- info_links = [
-    ['index', link_area(area, 'show', l('Overview'))],
-    ['artists', link_area(area, 'artists', l('Artists'))],
-    ['labels', link_area(area, 'labels', l('Labels'))],
-    ['releases', link_area(area, 'releases', l('Releases'))],
-    ['places', link_area(area, 'places', l('Places'))],
-    ['aliases', link_area(area, 'aliases', l('Aliases'))],
-    ['tags', link_area(area, 'tags', l('Tags'))],
-    ['details', link_area(area, 'details', l('Details'))],
-] -%]
-
-[% IF c.user.is_location_editor %]
-    [%- info_links.push(
-        ['edit', link_area(area, 'edit', l('Edit'))],
-    ) -%]
-[% END %]
-
 <div class="areaheader">
     <h1>[%- link_area(area) %] [% disambiguation(area) %]</h1>
     <p class="subheader">
@@ -26,4 +9,8 @@
     </p>
 </div>
 
-[%- INCLUDE 'components/tabs.tt' list=info_links -%]
+[%~ IF c.user.is_location_editor;
+    edit_tab = ['edit', link_area(area, 'edit', l('Edit'))];
+END ~%]
+
+[%- INCLUDE 'components/entity-tabs.tt' edit_tab=edit_tab -%]

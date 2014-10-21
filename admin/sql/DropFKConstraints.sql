@@ -79,6 +79,8 @@ ALTER TABLE edit_work DROP CONSTRAINT IF EXISTS edit_work_fk_work;
 ALTER TABLE editor DROP CONSTRAINT IF EXISTS editor_fk_gender;
 ALTER TABLE editor DROP CONSTRAINT IF EXISTS editor_fk_area;
 ALTER TABLE editor_collection DROP CONSTRAINT IF EXISTS editor_collection_fk_editor;
+ALTER TABLE editor_collection_event DROP CONSTRAINT IF EXISTS editor_collection_event_fk_collection;
+ALTER TABLE editor_collection_event DROP CONSTRAINT IF EXISTS editor_collection_event_fk_event;
 ALTER TABLE editor_collection_release DROP CONSTRAINT IF EXISTS editor_collection_release_fk_collection;
 ALTER TABLE editor_collection_release DROP CONSTRAINT IF EXISTS editor_collection_release_fk_release;
 ALTER TABLE editor_language DROP CONSTRAINT IF EXISTS editor_language_fk_editor;
