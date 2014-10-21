@@ -192,7 +192,7 @@
               artistCredit: artistCredit
             }"
         />
-        <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+        <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
       </span>
     </td>
 
@@ -450,7 +450,7 @@
         <td>
           <span class="artist autocomplete">
             <input type="text" data-bind="autocomplete: { entity: 'artist', currentSelection: artist }, css: { 'various-artists': isVariousArtists() }" />
-            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
           </span>
         </td>
         <td>

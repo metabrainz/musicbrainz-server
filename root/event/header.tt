@@ -1,11 +1,3 @@
-[%- info_links = [
-    ['index', link_event(event, 'show', l('Overview'))],
-    ['aliases', link_event(event, 'aliases', l('Aliases'))],
-    ['tags', link_event(event, 'tags', l('Tags'))],
-    ['details', link_event(event, 'details', l('Details'))],
-    ['edit', link_event(event, 'edit', l('Edit'))],
-] -%]
-
 <div class="eventheader">
     <h1>[%- link_entity(event) %]</h1>
     <p class="subheader">
@@ -13,4 +5,4 @@
     </p>
 </div>
 
-[%- INCLUDE 'components/tabs.tt' list=info_links -%]
+[%- INCLUDE 'components/entity-tabs.tt' edit_tab='default' -%]

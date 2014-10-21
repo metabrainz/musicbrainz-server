@@ -105,7 +105,7 @@
             "<% } %>><bdi><%- data.name %></bdi></a><% if (data.comment) { %> " +
             "<span class=\"comment\">(<%- data.comment %>)</span><% } %>" +
             "<% if (data.video) { %> <span class=\"comment\">" +
-            "(<%- data.video %>)</span><% } %>" +
+            "(<%- data.videoString %>)</span><% } %>" +
             "<% if (data.editsPending) { %></span><% } %>",
             null,
             {variable: "data"}
@@ -184,10 +184,7 @@
 
         around$html: function (supr, params) {
             params = params || {};
-
-            if (this.video) {
-                params.video = MB.text.Video;
-            }
+            params.videoString = MB.text.Video;
             return supr(params);
         },
 

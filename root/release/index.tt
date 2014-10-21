@@ -88,7 +88,7 @@
     <script type="text/html" id="template.release-page-track">
       <tr data-bind="css: { even: ($index() + 1) % 2 == 0, mp: editsPending > 0 }, attr: { id: gid }">
         <td class="pos t">
-          <!-- ko text: number --><!-- /ko -->
+          <a data-bind="text: number, attr: { href: '/track/' + gid }"></a>
         </td>
         <!-- ko if: $root.showVideo -->
           <td class="video c" data-bind="css: { 'is-video': recording.video }, attr: { title: (recording.video ? '[% l("This recording is a video") | js %]': '')}"></td>

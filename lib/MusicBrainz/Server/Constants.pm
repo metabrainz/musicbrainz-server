@@ -59,6 +59,7 @@ our @EXPORT_OK = (
         $COVERART_FRONT_TYPE      $COVERART_BACK_TYPE
         $AREA_TYPE_COUNTRY        $AREA_TYPE_CITY
         $INSTRUMENT_ROOT_ID       $VOCAL_ROOT_ID       $REQUIRED_VOTES $OPEN_EDIT_DURATION
+        $EDIT_COUNT_LIMIT
         %PART_OF_SERIES           $ARTIST_ARTIST_COLLABORATION
         @FULL_TABLE_LIST          %ENTITIES            entities_with
     ),
@@ -309,6 +310,7 @@ Readonly our $AREA_TYPE_CITY => 3;
 Readonly our $REQUIRED_VOTES => 3;
 Readonly our $OPEN_EDIT_DURATION => 7;
 Readonly our $EDIT_MINIMUM_RESPONSE_PERIOD => DateTime::Duration->new(hours => 72);
+Readonly our $EDIT_COUNT_LIMIT => 500;
 
 Readonly our $ACCESS_SCOPE_PROFILE        => 1;
 Readonly our $ACCESS_SCOPE_EMAIL          => 2;
@@ -336,6 +338,7 @@ Readonly our $SERIES_ORDERING_ATTRIBUTE => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a
 Readonly our %ENTITIES => (
     area => {
         mbid => { relatable => 'overview' },
+        custom_tabs => ['artists', 'labels', 'releases', 'places'],
         edit_table => 1,
         merging => 1,
         model      => 'Area',
@@ -351,6 +354,7 @@ Readonly our %ENTITIES => (
     },
     artist => {
         mbid => { relatable => 'dedicated', indexable => 1 },
+        custom_tabs => ['releases', 'recordings', 'works', 'events'],
         edit_table => 1,
         merging => 1,
         model      => 'Artist',
@@ -383,10 +387,12 @@ Readonly our %ENTITIES => (
         },
         ratings    => 1,
         tags       => 1,
-        removal     => { automatic => 1 }
+        removal     => { automatic => 1 },
+        collections => 1
     },
     instrument => {
         mbid => { relatable => 'overview', indexable => 1 },
+        custom_tabs => ['releases', 'recordings'],
         edit_table => 1,
         merging => 1,
         model      => 'Instrument',
@@ -421,6 +427,7 @@ Readonly our %ENTITIES => (
     },
     place => {
         mbid => { relatable => 'overview', indexable => 1 },
+        custom_tabs => ['events', 'performances', 'map'],
         edit_table => 1,
         merging => 1,
         model      => 'Place',
@@ -437,6 +444,7 @@ Readonly our %ENTITIES => (
     },
     recording => {
         mbid => { relatable => 'overview' },
+        custom_tabs => ['fingerprints'],
         edit_table => 1,
         merging => 1,
         model      => 'Recording',
@@ -449,6 +457,7 @@ Readonly our %ENTITIES => (
     },
     release => {
         mbid => { relatable => 'overview', indexable => 1 },
+        custom_tabs => ['discids', 'cover_art'],
         edit_table => 1,
         merging => 1,
         model      => 'Release',
@@ -491,7 +500,7 @@ Readonly our %ENTITIES => (
         removal     => { automatic => 1 }
     },
     url => {
-        mbid => { relatable => 'overview' },
+        mbid => { relatable => 'overview', no_details => 1 },
         edit_table => 1,
         model => 'URL'
     },
@@ -786,6 +795,7 @@ Readonly our @FULL_TABLE_LIST => qw(
     link_type
     link_type_attribute_type
     editor_collection
+    editor_collection_event
     editor_collection_release
     medium
     medium_cdtoc

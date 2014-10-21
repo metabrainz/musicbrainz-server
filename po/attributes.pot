@@ -958,6 +958,11 @@ msgctxt "release_group_secondary_type"
 msgid "Interview"
 msgstr ""
 
+#: DB:area_type/name:6
+msgctxt "area_type"
+msgid "Island"
+msgstr ""
+
 #: DB:work_attribute_type/name:3
 msgctxt "work_attribute_type"
 msgid "JASRAC ID"

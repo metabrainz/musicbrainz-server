@@ -46,7 +46,6 @@ test 'Check unserialize(serialize(x)) == x' => sub {
     $form->field('foo.baz.0.qux')->disabled(1);
     $form->field('foo.baz.1.qux')->readonly(1);
     $form->field('foo.baz.2.qux')->style('border: 2px dashed red');
-    $form->field('foo.baz.2.qux')->css_class('error');
 
     my $data = $form->serialize;
 
@@ -63,7 +62,6 @@ test 'Check unserialize(serialize(x)) == x' => sub {
     is($form->field('foo.baz.1.qux')->disabled, undef, 'second field is not disabled');
     is($form->field('foo.baz.1.qux')->readonly, 1, 'second field is readonly');
     is($form->field('foo.baz.2.qux')->style, 'border: 2px dashed red', 'third field has style');
-    is($form->field('foo.baz.2.qux')->css_class, 'error', 'third field has error class');
 };
 
 1;

@@ -183,7 +183,7 @@
         <label for="[% id %]" class="required">[% l('Artist:') %]</label>
         <span class="autocomplete">
           <input id="[% id %]" type="text" class="artist-credit-input" data-bind="autocomplete: { entity: 'artist', artistCredit: $data }" data-hidden-inputs="[% 1 IF form %]" data-form="[% form.name IF form.html_prefix %]" data-artist="[% html_escape(form.field('artist_credit').json) IF form %]" />
-          <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+          <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
         </span>
         <button type="button" class="styled-button" id="open-ac" data-bind="controlsBubble: $root.artistBubble">[% l('Edit') | html_entity %]</button>
         [%- IF form -%]
@@ -203,7 +203,7 @@
   <fieldset class="guesscase">
     <legend>[% lp('Guess case', 'header') %]</legend>
     [% IF show_icon %]
-      <img src="[% c.uri_for("/static/images/icons/guesscase.32x32.png") %]" style="float: left; margin: 1em;" />
+      <img src="[% c.uri_for("/static/images/icons/guesscase.32x32.png") %]" style="float: left; margin: 1em;" alt="" />
     [% END %]
     <div style="float: right; margin: 10px;" class="buttons">
       <button type="button" data-bind="click: guessCase">[% lp('Guess case', 'button/menu') %]</button>
@@ -344,7 +344,7 @@
         <td>
           <span class="artist autocomplete">
             <input type="text" class="name" data-bind="withLabel: 'ac-artist-search', autocomplete: { entity: 'artist', currentSelection: artist }, css: { 'various-artists': isVariousArtists() }"/>
-            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
           </span>
         </td>
         <td>

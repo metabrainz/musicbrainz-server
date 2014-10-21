@@ -24,6 +24,11 @@ sub _table
     return 'track';
 }
 
+sub _gid_redirect_table
+{
+    return 'track_gid_redirect';
+}
+
 sub _columns
 {
     return 'track.id, track.gid, track.name, track.medium, track.recording,
@@ -101,10 +106,8 @@ sub find_by_recording
         SELECT *
         FROM (
           SELECT DISTINCT ON (track.id, medium.id)
-            track.id, track.name, track.medium, track.position,
-                track.length, track.artist_credit, track.edits_pending,
-                track.is_data_track,
-                medium.id AS m_id, medium.format AS m_format,
+            " . $self->_columns . ",
+            medium.id AS m_id, medium.format AS m_format,
                 medium.position AS m_position, medium.name AS m_name,
                 medium.release AS m_release,
                 medium.track_count AS m_track_count,
@@ -203,6 +206,27 @@ sub delete
     $self->c->model('DurationLookup')->update($_) for @$mediums;
     $self->c->model('Recording')->_delete_from_cache(@$recording_ids);
     return 1;
+}
+
+sub merge_mediums
+{
+    my ($self, $new_medium, $old_medium) = @_;
+
+    my @track_merges = @{
+        $self->sql->select_list_of_lists(
+            'SELECT DISTINCT newt.id AS new, oldt.id AS old
+               FROM track oldt
+               JOIN track newt ON newt.position = oldt.position
+              WHERE newt.medium = ? AND oldt.medium = ?',
+            $new_medium, $old_medium
+        )
+    };
+
+    for my $track_merge (@track_merges) {
+        my ($new, $old) = @$track_merge;
+
+        $self->_delete_and_redirect_gids('track', $new, $old);
+    }
 }
 
 sub _create_row

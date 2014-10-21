@@ -1,17 +1,3 @@
-[%- info_links = [
-    ['index', link_instrument(instrument, 'show', l('Overview'))],
-    ['releases', link_instrument(instrument, 'releases', l('Releases'))],
-    ['recordings', link_instrument(instrument, 'recordings', l('Recordings'))],
-    ['aliases', link_instrument(instrument, 'aliases', l('Aliases'))],
-    ['details', link_instrument(instrument, 'details', l('Details'))],
-] -%]
-
-[% IF c.user.is_relationship_editor %]
-    [%- info_links.push(
-        ['edit', link_instrument(instrument, 'edit', l('Edit'))],
-    ) -%]
-[% END %]
-
 <div class="instrumentheader">
     <h1>[% link_instrument(instrument) %] [% disambiguation(instrument) %]</h1>
     <p class="subheader">
@@ -20,4 +6,8 @@
     </p>
 </div>
 
-[% INCLUDE 'components/tabs.tt' list=info_links %]
+[%~ IF c.user.is_relationship_editor;
+    edit_tab = ['edit', link_instrument(instrument, 'edit', l('Edit'))];
+END ~%]
+
+[% INCLUDE 'components/entity-tabs.tt' edit_tab=edit_tab %]
