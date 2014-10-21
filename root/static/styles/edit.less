@@ -1,4 +1,3 @@
-@import "colors.less";
 /* Edit pages ('edit/index.tt' and 'edit/list.tt') */
 
 .edit-header {
@@ -22,68 +21,69 @@ dl.edit-status {
     float: right;
     margin-top: 7px;
     margin-right: -7px;
-}
 
-.edit-list .cancel-edit {
-    float: none;
-    display: inline-block;
-    margin: 10px -7px 10px 0;
+    .edit-list & {
+        float: none;
+        display: inline-block;
+        margin: 10px -7px 10px 0;
+    }
 }
 
 table.vote-tally {
     width: 100%;
     border-collapse: collapse;
+
+    tr {
+        border-top: 1px dotted @dark-border;
+        border-bottom: 1px dotted @light-border;
+
+        &.first {
+            border-bottom: none;
+        }
+    }
+
+    th {
+        text-align: right;
+        white-space: nowrap;
+    }
+
+    td.vote {
+        width: 100%;
+        padding: 5px 10px;
+    }
+
+    tr.superseded, tr.superseded a {
+        color: @dark-text;
+    }
+
+    .date {
+        text-align: right;
+        float: right;
+    }
 }
 
-table.vote-tally tr {
-    border-top: 1px dotted @dark-border;
-    border-bottom: 1px dotted @light-border;
-}
+.voteopts {
+    div {
+        text-align: center;
+        display: inline-block;
+        padding: 0px;
+        border: 1px solid transparent;
+    }
 
-table.vote-tally tr.first {
-    border-bottom: none;
-}
+    .vote-yes {
+        border: 1px solid @medium-border;
+        background-color: @positive-bg;
+    }
 
-table.vote-tally th {
-    text-align: right;
-    white-space: nowrap;
-}
+    .vote-no {
+        border: 1px solid @medium-border;
+        background-color: @negative-bg;
+    }
 
-table.vote-tally td.vote {
-    width: 100%;
-    padding: 5px 10px;
-}
-
-table.vote-tally tr.superseded,
-table.vote-tally tr.superseded a {
-    color: @dark-text;
-}
-
-table.vote-tally .date {
-    text-align: right;
-    float: right;
-}
-
-.voteopts div {
-    text-align: center;
-    display: inline-block;
-    padding: 0px;
-    border: 1px solid transparent;
-}
-
-.voteopts .vote-yes {
-    border: 1px solid @medium-border;
-    background-color: @positive-bg;
-}
-
-.voteopts .vote-no {
-    border: 1px solid @medium-border;
-    background-color: @negative-bg;
-}
-
-.voteopts .vote-abs {
-    border: 1px solid @medium-border;
-    background-color: @abstain-bg;
+    .vote-abs {
+        border: 1px solid @medium-border;
+        background-color: @abstain-bg;
+    }
 }
 
 .wrap-block {
@@ -99,96 +99,109 @@ table.vote-tally .date {
 ** Edit notes
 */
 
-.edit-notes .edit-note {
-    margin: 5px 0;
-    padding: 5px;
+.edit-notes {
+    .edit-note {
+        margin: 5px 0;
+        padding: 5px;
+    }
+
+    .edit-note-text {
+        padding-left: 1em;
+    }
+
+    .modbot {
+        color: @very-dark-text;
+
+        a {
+            color: @dark-text;
+        }
+    }
+
+    .edit-note h3 {
+        font-weight: normal;
+        background-color: @very-light-bg;
+        height: 16px;
+        margin: 0 0 10px;
+        padding: 5px 10px 5px 10px;
+
+        &.owner {
+            font-weight: bold;
+        }
+    }
+
+    .edit-note .editor-class {
+        font-weight: normal;
+        color: @dark-text;
+    }
+
+    .edit-note .date {
+        color: @effectively-black-text;
+        float: right;
+        font-weight: normal;
+    }
+
+    /* Not sure if this needs to be so heavily specified.
+       Seems to only appear inside .edit-note, which in
+       turn only appears inside .edit-notes, so could be
+       the plain .edit-note block, perhaps? */
+    h3 a img {
+        margin-right: 0.75em;
+    }
 }
 
-.edit-notes .edit-note-text {
-    padding-left: 1em;
+.edit-note {
+    &:target {
+        background: @highlight-table-row;
+    }
+
+    /* Adding voting icons to gravatars */
+    h3.No, h3.Yes {
+        position: relative;
+
+        .voting-icon {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top: 12px;
+            left: 17px;
+            background-repeat: no-repeat;
+        }
+    }
+
+    h3.No {
+        a img {
+            border-color: @no-border;
+        }
+
+        .voting-icon {
+            background-image: data-uri('../images/icons/delete.png');
+        }
+    }
+
+    h3.Yes {
+        a img {
+            border-color: @yes-border;
+        }
+
+        .voting-icon {
+            background-image: data-uri('../images/icons/add.png');
+        }
+    }
 }
 
-.edit-notes .modbot {
-    color: @very-dark-text;
-}
-
-.edit-notes .modbot a {
-    color: @dark-text;
-}
-
-.edit-notes .edit-note h3 {
-    font-weight: normal;
-    background-color: @very-light-bg;
-    height: 16px;
-    margin: 0 0 10px;
-    padding: 5px 10px 5px 10px;
-}
-
-.edit-notes .edit-note h3.owner {
-    font-weight: bold;
-}
-
-.edit-notes .edit-note .editor-class {
-    font-weight: normal;
-    color: @dark-text;
-}
-
-.edit-notes h3 a img {
-    margin-right: 0.75em;
-}
-
-.edit-note h3.No, .edit-note h3.Yes {
-    position: relative;
-}
-.edit-note h3.No a img {
-    border-color: @no-border;
-}
-
-.edit-note h3.No .voting-icon {
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    top: 12px;
-    left: 17px;
-    background-image: url('../images/icons/delete.png');
-    background-repeat: no-repeat;
-}
-
-.edit-note h3.Yes a img {
-    border-color: @yes-border;
-}
-
-.edit-note h3.Yes .voting-icon {
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    top: 12px;
-    left: 17px;
-    background-image: url('../images/icons/add.png');
-    background-repeat: no-repeat;
-}
-.edit-note:target {
-    background: @highlight-table-row;
-}
-
-.edit-notes .edit-note .date {
-    color: @effectively-black-text;
-    float: right;
-    font-weight: normal;
-}
 
 .add-edit-note {
     padding: 5px 0 5px 5px;
-}
 
-.add-edit-note textarea {
-    width: 98%;
-    display: block;
-}
+    textarea {
+        width: 98%;
+        display: block;
+    }
 
-.add-edit-note input {
-    display: none;
-    margin-top: 5px;
+    input {
+        display: none;
+        margin-top: 5px;
+    }
 }
 
 /*
@@ -199,65 +212,67 @@ table.vote-tally .date {
     clear: both;
     margin: 20px 0;
     background-color: @effectively-white-bg;
-}
 
-.edit-list .edit-header {
-    border-right: 10px solid transparent;
-    padding-top: 0;
-}
+    .edit-header {
+        border-right: 10px solid transparent;
+        padding-top: 0;
 
-.edit-list .edit-header > h2 {
-    margin-top: 0;
-}
+        > h2 {
+            margin-top: 0;
+        }
 
-.edit-list .edit-header h2 {
-    padding-top: 10px;
-}
+        h2 {
+            padding-top: 10px;
+        }
+    }
 
-.edit-list .edit-description {
-    float: right;
-    margin-top: 6px;
-}
+    .edit-description {
+        float: right;
+        margin-top: 6px;
+    }
 
-.edit-list .edit-expiration {
-    min-width: 170px;
-    font-weight: normal;
-}
+    .edit-expiration {
+        min-width: 170px;
+        font-weight: normal;
 
-.edit-list .open .edit-expiration {
-    font-weight: bold;
-}
+        .open & {
+            font-weight: bold;
+        }
+    }
 
-.edit-list .failed { border-right: solid 10px @failed-header; }
-.edit-list .edit-error { border-right: solid 10px @error-header; }
+    .failed {
+        border-right: solid 10px @failed-header;
+    }
 
-.edit-list .vote-count {
-    text-align: right;
-    padding-left: 20px;
-}
+    .edit-error {
+        border-right: solid 10px @error-header;
+    }
 
-.edit-list .edit-details {
-    margin: 10px 18em 0 20px;
-}
+    .vote-count {
+        text-align: right;
+        padding-left: 20px;
+    }
 
-.edit-list .edit-actions {
-    float: right;
-    background-color: @light-bg;
-    padding: 0 10px;
-}
+    .edit-details {
+        margin: 10px 18em 0 20px;
+    }
 
-.edit-list .edit-actions {
-    margin-bottom: 10px;
-}
+    .edit-actions {
+        float: right;
+        background-color: @light-bg;
+        padding: 0 10px;
+        margin-bottom: 10px;
 
-.edit-list .edit-actions .edit-status {
-    margin: 10px 0;
-    font-weight: bold;
-}
+        .edit-status {
+            margin: 10px 0;
+            font-weight: bold;
+        }
+    }
 
-.edit-list .edit-notes {
-    margin: 20px 20px 0 40px;
-    clear: both;
+    .edit-notes {
+        margin: 20px 20px 0 40px;
+        clear: both;
+    }
 }
 
 .seperator {
@@ -267,10 +282,10 @@ table.vote-tally .date {
 
 .search-toggle {
     text-align: center;
-}
 
-.search-toggle p {
-    margin: 5px;
+    p {
+        margin: 5px;
+    }
 }
 
 .search-refine {
@@ -278,10 +293,10 @@ table.vote-tally .date {
     padding: 5px;
     border-bottom: 2px solid @dark-border;
     background-color: @effectively-white-bg;
-}
 
-.search-refine div.row {
-    display: inline-block;
+    div.row {
+        display: inline-block;
+    }
 }
 
 .search-help {
@@ -289,11 +304,11 @@ table.vote-tally .date {
     margin-top: 1em;
     padding: 5px 10px;
     width: 100%;
-}
 
-.search-help th {
-    text-align: right;
-    width: 90px;
+    th {
+        text-align: right;
+        width: 90px;
+    }
 }
 
 .editnote p { margin-right: 2em; }
@@ -340,15 +355,23 @@ div.status span.msg {
     font-size: 120%;
 }
 
-form div.row ul.checkboxes { padding: 0; }
-form div.row ul.checkboxes li { display: inline; }
-form div.row ul.checkboxes li label {
-    float: none;
-    text-align: left;
-}
-form div.row ul.checkboxes li span {
-    display: inline-block;
-    min-width: 50px;
+/* Cover art type checkboxes */
+form div.row ul.checkboxes {
+    padding: 0;
+
+    li {
+        display: inline;
+
+        label {
+            float: none;
+            text-align: left;
+        }
+
+        span {
+            display: inline-block;
+            min-width: 50px;
+        }
+    }
 }
 
 img.uploader-preview-image {
@@ -405,11 +428,6 @@ div.thumb-position.moved {
     display: block;
 }
 
-.set-cover-art div.editimage img {
-    max-width: 125px;
-    max-height: 125px;
-}
-
 #set-cover-art-images { margin: 2em 0; overflow: hidden; }
 
 .set-cover-art div.cover-image { float: left; margin: 0 10px 10px 0; }
@@ -428,6 +446,11 @@ div.thumb-position.moved {
 .set-cover-art div.editimage.selected {
     background: @positive-bg;
     border: 1px solid @dark-border;
+}
+
+.set-cover-art div.editimage img {
+    max-width: 125px;
+    max-height: 125px;
 }
 
 div.editimage button.set-cover-art {
