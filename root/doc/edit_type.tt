@@ -21,7 +21,7 @@
 </style>
 [% END %]
 
-[% WRAPPER 'layout.tt' full_width=1 title=class.l_edit_name %]
+[% WRAPPER 'layout.tt' full_width=1 title=class.l_edit_name no_icons=1 %]
    <h1>[% class.l_edit_name %]</h1>
 
    <p>
