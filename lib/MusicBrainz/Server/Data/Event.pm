@@ -32,8 +32,7 @@ with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'event' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 
-sub _table
-{
+sub _type {
     return 'event ';
 }
 
@@ -53,11 +52,6 @@ sub _id_column
     return 'event.id';
 }
 
-sub _gid_redirect_table
-{
-    return 'event_gid_redirect';
-}
-
 sub _column_mapping
 {
     return {
@@ -68,36 +62,10 @@ sub _column_mapping
     };
 }
 
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::Event';
-}
-
 sub load
 {
     my ($self, @objs) = @_;
     load_subobjects($self, 'event', @objs);
-}
-
-sub insert
-{
-    my ($self, @events) = @_;
-    my $class = $self->_entity_class;
-    my @created;
-    for my $event (@events)
-    {
-        my $row = $self->_hash_to_row($event);
-        $row->{gid} = $event->{gid} || generate_gid();
-
-        my $created = $class->new(
-            name => $event->{name},
-            id => $self->sql->insert_row('event', $row, 'id'),
-            gid => $row->{gid}
-        );
-
-        push @created, $created;
-    }
-    return @events > 1 ? @created : $created[0];
 }
 
 sub update

@@ -75,10 +75,9 @@ $rec = $rec_data->insert({
         artist_credit => 1,
         comment => 'Drum & bass track',
     });
-isa_ok($rec, 'MusicBrainz::Server::Entity::Recording');
-ok($rec->id > 16);
+ok($rec->{id} > 16);
 
-$rec = $rec_data->get_by_id($rec->id);
+$rec = $rec_data->get_by_id($rec->{id});
 is($rec->name, 'Traits');
 is($rec->artist_credit_id, 1);
 is($rec->comment, 'Drum & bass track');

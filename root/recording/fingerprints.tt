@@ -29,7 +29,7 @@
                 if (mbid) {
                     link = row.find('a').last();
                     link.attr('href', '//acoustid.org/edit/toggle-track-mbid?track_gid=' + tracks[i].id + '&mbid=' + mbid + '&state=' + (tracks[i].disabled ? '0' : '1'));
-                    link.text(tracks[i].disabled ? '[% l('Link') %]' : '[% l('Unlink') %]');
+                    link.text(tracks[i].disabled ? '[% l('Link') | js %]' : '[% l('Unlink') | js %]');
                 }
                 tbl.find('tbody').append(row);
             }
@@ -43,7 +43,7 @@
                     $('#acoustids').after(buildAcoustidTable(json.tracks, '[% recording.gid %]'));
                 }
                 else {
-                    $('#acoustids').after('<p>[% l('This recording does not have any associated AcoustIDs') %]<\/p>');
+                    $('#acoustids').after('<p>[% l('This recording does not have any associated AcoustIDs') | js %]<\/p>');
                 }
             }
         );

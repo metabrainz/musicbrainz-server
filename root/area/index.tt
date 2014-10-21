@@ -1,5 +1,5 @@
 [%- WRAPPER "area/layout.tt" page='index' -%]
-    [%- INCLUDE 'area/annotation.tt' summary=1 -%]
+    [%- INCLUDE 'annotation/summary.tt' -%]
 
     [%- show_wikipedia_extract() -%]
 

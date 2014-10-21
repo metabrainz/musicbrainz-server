@@ -50,9 +50,8 @@ test 'Insert medium' => sub {
     };
 
     my $created = $c->model('Medium')->insert($insert_hash);
-    isa_ok($created, 'MusicBrainz::Server::Entity::Medium');
 
-    my $medium = $c->model('Medium')->get_by_id($created->id);
+    my $medium = $c->model('Medium')->get_by_id($created->{id});
     isa_ok($medium, 'MusicBrainz::Server::Entity::Medium');
 
     $c->model('Track')->load_for_mediums($medium);
@@ -69,7 +68,7 @@ test 'Insert medium' => sub {
     is(scalar @$durationlookup, 1, "one match with TOC lookup");
 
     $medium = $durationlookup->[0]->medium;
-    is($medium->id, $created->id);
+    is($medium->id, $created->{id});
     is($medium->name, 'Bonus disc', 'TOC lookup found correct disc');
 };
 

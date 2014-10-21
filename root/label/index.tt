@@ -14,8 +14,6 @@
 [% END %]
 
 [%- WRAPPER "label/layout.tt" page='index' -%]
-    [%- INCLUDE 'label/annotation.tt' summary=1 -%]
-
     [% IF eligible_for_cleanup %]
       <p class="cleanup">
           [% l('This label has no relationships or releases and will be removed
@@ -23,6 +21,8 @@
                 please add more data to this label.') %]
       </p>
     [% END %]
+
+    [%- INCLUDE 'annotation/summary.tt' -%]
 
     [%- show_wikipedia_extract() -%]
 

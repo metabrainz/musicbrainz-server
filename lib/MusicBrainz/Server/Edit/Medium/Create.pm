@@ -78,6 +78,8 @@ sub initialize {
     my $tracklist = delete $opts{tracklist};
     $tracklist = tracks_to_hash($tracklist);
     check_track_hash($tracklist);
+    die 'Tracklist specifies track IDs'
+        if grep { defined $_ } map { $_->{id} } @$tracklist;
     $opts{tracklist} = $tracklist;
 
     my $release = delete $opts{release};
@@ -150,7 +152,7 @@ sub _insert_hash {
         $track->{recording_id} ||= $self->c->model('Recording')->insert({
             %$track,
             artist_credit => $self->c->model('ArtistCredit')->find_or_insert($track->{artist_credit}),
-        })->id;
+        })->{id};
         delete $track->{medium_id};
     }
 

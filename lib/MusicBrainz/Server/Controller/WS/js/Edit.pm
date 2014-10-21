@@ -22,7 +22,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_EDIT
     $EDIT_RELATIONSHIP_DELETE
     $EDIT_WORK_CREATE
-    $AUTO_EDITOR_FLAG
+    $UNTRUSTED_FLAG
 );
 use MusicBrainz::Server::Data::Utils qw(
     type_to_model
@@ -35,7 +35,7 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Edit::Utils qw( boolean_from_json );
 use MusicBrainz::Server::Translation qw( l );
-use MusicBrainz::Server::Validation qw( is_guid is_valid_url );
+use MusicBrainz::Server::Validation qw( is_guid is_valid_url is_valid_partial_date );
 use Readonly;
 use Scalar::Util qw( looks_like_number );
 use Try::Tiny;
@@ -269,6 +269,11 @@ sub process_relationship {
     $data->{end_date} = delete $data->{endDate} // {};
     $data->{ended} = boolean_from_json($data->{ended});
 
+    for my $date ("begin_date", "end_date") {
+        my ($year, $month, $day) = ($data->{$date}{year}, $data->{$date}{month}, $data->{$date}{day});
+        die "invalid $date: $year-$month-$day" unless is_valid_partial_date($year, $month, $day);
+    }
+
     $data->{attributes} = [
         map {
             my $credited_as = trim($_->{credit});
@@ -473,8 +478,8 @@ sub create_edits {
 
     my $privs = $c->user->privileges;
 
-    if ($c->user->is_auto_editor && !$data->{asAutoEditor}) {
-        $privs &= ~$AUTO_EDITOR_FLAG;
+    if ($data->{makeVotable}) {
+        $privs |= $UNTRUSTED_FLAG;
     }
 
     try {

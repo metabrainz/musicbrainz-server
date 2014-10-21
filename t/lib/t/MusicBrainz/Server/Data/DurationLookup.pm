@@ -53,7 +53,7 @@ test 'tracklist used to fit lookup criteria but no longer does' => sub {
     is(scalar @$durationlookup, 0, "disc does not exist yet, no match with TOC lookup");
 
     my $created = $c->model('Medium')->insert($insert_hash);
-    my $medium = $c->model('Medium')->get_by_id($created->id);
+    my $medium = $c->model('Medium')->get_by_id($created->{id});
     isa_ok($medium, 'MusicBrainz::Server::Entity::Medium');
 
     $durationlookup = $c->model('DurationLookup')->lookup($toc, 10000);

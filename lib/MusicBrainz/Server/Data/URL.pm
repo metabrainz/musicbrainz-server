@@ -13,6 +13,8 @@ with
     'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'url' },
     'MusicBrainz::Server::Data::Role::Merge';
 
+sub _type { 'url' }
+
 my %URL_SPECIALIZATIONS = (
 
     # External links section
@@ -97,16 +99,6 @@ my %URL_SPECIALIZATIONS = (
     'ArtLibre'          => qr{^http://artlibre.org/licence/lal}i,
 
 );
-
-sub _gid_redirect_table
-{
-    return 'url_gid_redirect';
-}
-
-sub _table
-{
-    return 'url';
-}
 
 sub _columns
 {
@@ -195,6 +187,8 @@ sub _hash_to_row
         url => 'url',
     });
 }
+
+sub insert { confess "Should not be used for URLs" }
 
 sub find_or_insert
 {

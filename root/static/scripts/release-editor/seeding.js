@@ -24,8 +24,8 @@
             this.rootField.editNote(seed.editNote);
         }
 
-        if (seed.asAutoEditor !== undefined) {
-            this.rootField.asAutoEditor(!!seed.asAutoEditor);
+        if (seed.makeVotable !== undefined) {
+            this.rootField.makeVotable(!!seed.makeVotable);
         }
 
         if (this.action === "add") {

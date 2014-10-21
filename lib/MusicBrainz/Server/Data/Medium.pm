@@ -110,13 +110,12 @@ sub insert
         my $tracklist = delete $medium_hash->{tracklist};
         my $row = $self->_create_row($medium_hash);
 
-        my $medium_created = $class->new(
+        my $medium_created = {
             id => $self->sql->insert_row('medium', $row, 'id'),
-            %{ $medium_hash }
-        );
+        };
 
         for my $track (@$tracklist) {
-            $track->{medium_id} = $medium_created->id;
+            $track->{medium_id} = $medium_created->{id};
             $track->{artist_credit_id} =
                 $self->c->model('ArtistCredit')->find_or_insert(
                     delete $track->{artist_credit});

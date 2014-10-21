@@ -54,6 +54,7 @@ require Exporter;
         is_valid_iso_3166_1
         is_valid_iso_3166_2
         is_valid_iso_3166_3
+        is_valid_partial_date
         encode_entities
         normalise_strings
         is_nat
@@ -63,7 +64,7 @@ require Exporter;
 
 use strict;
 use Carp qw( carp cluck croak );
-use Date::Calc qw( check_date Delta_YMD );
+use Date::Calc qw( check_date );
 use Encode qw( decode encode );
 use Scalar::Util qw( looks_like_number );
 use Text::Unaccent qw( unac_string_utf16 );
@@ -248,6 +249,18 @@ sub is_valid_iso_3166_3
 {
     my $iso_3166_3 = shift;
     return $iso_3166_3 =~ /^[A-Z]{4}$/;
+}
+
+sub is_valid_partial_date
+{
+    my ($year, $month, $day) = @_;
+
+    # anything partial cannot be checked, and is therefore considered valid.
+    return 1 unless (defined $year && $month && $day);
+
+    return 1 if check_date($year, $month, $day);
+
+    return 0;
 }
 
 ################################################################################

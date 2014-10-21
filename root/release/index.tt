@@ -20,7 +20,7 @@
 [% END %]
 
 [%- WRAPPER 'release/layout.tt' page='index' -%]
-    [%- INCLUDE 'release/annotation.tt' summary=1 -%]
+    [%- INCLUDE 'annotation/summary.tt' -%]
 
     <h2 class="tracklist">[% l('Tracklist') %]</h2>
     <style>

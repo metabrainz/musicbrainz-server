@@ -533,9 +533,10 @@ sub _send_confirmation_email
         $c->flash->{message} = l(
             '<strong>We were unable to send a confirmation email to you.</strong><br/>Please confirm that you have entered a valid
              address by editing your {settings|account settings}. If the problem still persists, please contact us at
-             <a href="mailto:support@musicbrainz.org">support@musicbrainz.org</a>.',
+             {mail|support@musicbrainz.org}.',
             {
-                settings => $c->uri_for_action('/account/edit')
+                settings => $c->uri_for_action('/account/edit'),
+                mail => 'mailto:support@musicbrainz.org'
             }
         );
     };

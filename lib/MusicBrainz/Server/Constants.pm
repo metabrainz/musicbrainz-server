@@ -337,7 +337,7 @@ Readonly our $SERIES_ORDERING_ATTRIBUTE => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a
 
 Readonly our %ENTITIES => (
     area => {
-        mbid => { relatable => 'overview' },
+        mbid => { relatable => 'overview', multiple => 1 },
         custom_tabs => ['artists', 'labels', 'releases', 'places'],
         edit_table => 1,
         merging => 1,
@@ -354,7 +354,7 @@ Readonly our %ENTITIES => (
         tags        => 1
     },
     artist => {
-        mbid => { relatable => 'dedicated', indexable => 1 },
+        mbid => { relatable => 'dedicated', multiple => 1, indexable => 1 },
         custom_tabs => ['releases', 'recordings', 'works', 'events'],
         edit_table => 1,
         merging => 1,
@@ -374,7 +374,7 @@ Readonly our %ENTITIES => (
         removal     => { automatic => 1 }
     },
     event => {
-        mbid => { relatable => 'overview', indexable => 1 },
+        mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
         edit_table => 1,
         merging => 1,
         model      => 'Event',
@@ -392,7 +392,7 @@ Readonly our %ENTITIES => (
         collections => 1
     },
     instrument => {
-        mbid => { relatable => 'overview', indexable => 1 },
+        mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
         custom_tabs => ['releases', 'recordings'],
         edit_table => 1,
         merging => 1,
@@ -409,7 +409,7 @@ Readonly our %ENTITIES => (
         tags        => 1
     },
     label => {
-        mbid => { relatable => 'dedicated', indexable => 1 },
+        mbid => { relatable => 'dedicated', multiple => 1, indexable => 1 },
         edit_table => 1,
         merging => 1,
         model      => 'Label',
@@ -428,7 +428,7 @@ Readonly our %ENTITIES => (
         removal     => { manual => 1, automatic => 1 }
     },
     place => {
-        mbid => { relatable => 'overview', indexable => 1 },
+        mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
         custom_tabs => ['events', 'performances', 'map'],
         edit_table => 1,
         merging => 1,
@@ -445,7 +445,7 @@ Readonly our %ENTITIES => (
         removal     => { automatic => 1 }
     },
     recording => {
-        mbid => { relatable => 'overview' },
+        mbid => { relatable => 'overview', multiple => 1 },
         custom_tabs => ['fingerprints'],
         edit_table => 1,
         merging => 1,
@@ -458,7 +458,7 @@ Readonly our %ENTITIES => (
         removal     => { manual => 1 }
     },
     release => {
-        mbid => { relatable => 'overview', indexable => 1 },
+        mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
         custom_tabs => ['discids', 'cover_art'],
         edit_table => 1,
         merging => 1,
@@ -471,7 +471,7 @@ Readonly our %ENTITIES => (
         collections => 1
     },
     release_group => {
-        mbid => { relatable => 'overview', indexable => 1 },
+        mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
         edit_table => 1,
         merging => 1,
         model      => 'ReleaseGroup',
@@ -485,7 +485,7 @@ Readonly our %ENTITIES => (
         removal     => { automatic => 1 }
     },
     series => {
-        mbid => { relatable => 'overview', indexable => 1 },
+        mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
         edit_table => 1,
         merging => 1,
         model      => 'Series',
@@ -503,12 +503,12 @@ Readonly our %ENTITIES => (
         tags        => 1
     },
     url => {
-        mbid => { relatable => 'overview', no_details => 1 },
+        mbid => { relatable => 'overview', multiple => 1, no_details => 1 },
         edit_table => 1,
         model => 'URL'
     },
     work => {
-        mbid => { relatable => 'overview', indexable => 1 },
+        mbid => { relatable => 'overview', multiple => 1, indexable => 1 },
         edit_table => 1,
         merging => 1,
         model      => 'Work',
@@ -526,7 +526,7 @@ Readonly our %ENTITIES => (
         removal     => { automatic => 1 }
     },
     track => {
-        mbid => { relatable => 0 },
+        mbid => { multiple => 1 },
         model      => 'Track',
         artist_credits => 1
     },
