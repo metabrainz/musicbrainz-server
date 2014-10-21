@@ -999,3 +999,7 @@ END -%]
 [%~ MACRO replace_gid(new_gid) BLOCK ~%]
   [%~ Canonicalize.replace_gid(c, new_gid) ~%]
 [%~ END ~%]
+
+[%~ MACRO data_track_icon BLOCK ~%]
+  <img class="data-track" title="[% l('This track is a data track.') %]" />
+[%~ END ~%]

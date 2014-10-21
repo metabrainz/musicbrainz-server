@@ -59,6 +59,11 @@ has 'artist_credit' => (
     isa => 'ArtistCredit'
 );
 
+has 'is_data_track' => (
+    is => 'rw',
+    isa => 'Bool',
+);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

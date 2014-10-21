@@ -103,7 +103,7 @@ for my $medium (@mediums)
     $c->model('CDTOC')->load(@cdtocs);
 
     @cdtocs = map { $_->cdtoc }
-        grep { $medium_by_id{$_->medium_id}->track_count == $_->cdtoc->track_count }
+        grep { $medium_by_id{$_->medium_id}->cdtoc_track_count == $_->cdtoc->track_count }
             @cdtocs;
     my @tracks = $medium->all_tracks;
 

@@ -56,6 +56,7 @@ sub medium : Chained('root') PathPart Args(1) {
     my $medium = $c->model('Medium')->get_by_id($id);
     $c->model('MediumFormat')->load($medium);
     $c->model('MediumCDTOC')->load_for_mediums($medium);
+    $c->model('CDTOC')->load($medium->all_cdtocs);
     $c->model('Track')->load_for_mediums($medium);
     $c->model('ArtistCredit')->load($medium->all_tracks);
     $c->model('Artist')->load(map { @{ $_->artist_credit->names } }

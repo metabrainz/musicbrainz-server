@@ -551,7 +551,7 @@ sub find_for_cdtoc
         JOIN release_group
            ON release.release_group = release_group.id
         LEFT JOIN release_event ON release_event.release = release.id
-        WHERE medium.track_count = ?
+        WHERE track_count_matches_cdtoc(medium, ?)
           AND acn.artist = ?
           AND (medium_format.id IS NULL OR medium_format.has_discids)
         ORDER BY release.id, release.release_group,

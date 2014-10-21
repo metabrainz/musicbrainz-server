@@ -2,6 +2,7 @@
 -- 20140606-events.sql
 -- 20140906-event-collections.sql
 -- 20141008-instrument-indexes.sql
+-- 20141014-mbs-7784-data-tracks.sql
 \set ON_ERROR_STOP 1
 BEGIN;
 --------------------------------------------------------------------------------
@@ -966,4 +967,16 @@ CREATE INDEX l_area_instrument_idx_entity1 ON l_area_instrument (entity1);
 
 DROP INDEX IF EXISTS l_artist_instrument_idx_entity1;
 CREATE INDEX l_artist_instrument_idx_entity1 ON l_artist_instrument (entity1);
+--------------------------------------------------------------------------------
+SELECT '20141014-mbs-7784-data-tracks.sql';
+
+ALTER TABLE track ADD COLUMN is_data_track BOOLEAN NOT NULL DEFAULT FALSE;
+
+CREATE OR REPLACE FUNCTION track_count_matches_cdtoc(medium, int) RETURNS boolean AS $$
+    SELECT $1.track_count = $2 + COALESCE(
+        (SELECT count(*) FROM track
+         WHERE medium = $1.id AND (position = 0 OR is_data_track = true)
+    ), 0);
+$$ LANGUAGE SQL IMMUTABLE;
+
 COMMIT;
