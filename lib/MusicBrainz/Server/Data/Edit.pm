@@ -309,16 +309,15 @@ SELECT * FROM edit, (
     JOIN editor_subscribe_label esl ON esl.label = el.label
     WHERE el.status = ? AND esl.editor = ?
     UNION
-    SELECT edit FROM edit_release er
-    RIGHT JOIN editor_collection_release ecr ON er.release = ecr.release
-    JOIN editor_subscribe_collection esc ON esc.collection = ecr.collection
-    JOIN edit ON er.edit = edit.id
-    WHERE edit.status = ? AND esc.editor = ? AND esc.available
-    UNION
-    SELECT edit FROM edit_event ee
-    RIGHT JOIN editor_collection_event ece ON ee.event = ece.event
-    JOIN editor_subscribe_collection esc ON esc.collection = ece.collection
-    JOIN edit ON ee.edit = edit.id
+    SELECT edit FROM
+      (SELECT edit FROM edit_release er
+        JOIN editor_collection_release ecr ON er.release = ecr.release
+        JOIN editor_subscribe_collection esc ON esc.collection = ecr.collection
+      UNION
+      SELECT edit FROM edit_event ee
+        JOIN editor_collection_event ece ON ee.event = ece.event
+        JOIN editor_subscribe_collection esc ON esc.collection = ece.collection) ce
+      JOIN edit ON ce.edit = edit.id
     WHERE edit.status = ? AND esc.editor = ? AND esc.available
     UNION
     SELECT edit FROM edit_series es
