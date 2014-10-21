@@ -41,6 +41,7 @@
   </div>
 
   <div class="documentation">
+    [%- show_guesscase_modes = entity_type == 'work' ? 1 : 0 -%]
     [%- guesscase_bubble(show_guesscase_modes ? 0 : 1) -%]
     [%- sortname_bubble() -%]
   </div>
@@ -61,7 +62,7 @@
             .add('.partial-date input');
 
         conditionalFields.prop('disabled',
-          $('#id-edit-alias\\\.type_id').val() == [% search_hint_type_id %]);
+          $('#id-edit-alias\\\.type_id').val() == [% entity_properties.aliases.search_hint_type %]);
     }
 
     $('#id-edit-alias\\\.locale').keyup(togglePrimaryForLocale).change(togglePrimaryForLocale);
@@ -70,7 +71,7 @@
     $('#id-edit-alias\\\.type_id').keyup(denyDataForSearchHints).change(denyDataForSearchHints);
     denyDataForSearchHints();
 
-    MB.Control.initialize_guess_case('[% entity_type_name %]', 'id-edit-alias');
+    MB.Control.initialize_guess_case('[% entity_type %]', 'id-edit-alias');
 
     MB.utility.setDefaultAction('form.edit-alias', 'button.submit.positive');
 }());
