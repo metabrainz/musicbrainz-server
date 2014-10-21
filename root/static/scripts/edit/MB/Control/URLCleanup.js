@@ -603,7 +603,7 @@ MB.constants.CLEANUPS = {
             new RegExp("^(https?://)?(www\\.)?finnmusic\\.net", "i"),
             new RegExp("^(https?://)?(www\\.)?fono\\.fi", "i"),
             new RegExp("^(https?://)?(www\\.)?pomus\\.net", "i"),
-            new RegExp("^(https?://)?(www\\.)?stage48\\.net", "i"),
+            new RegExp("^(https?://)?(www\\.)?stage48\\.net/wiki/index.php", "i"),
             new RegExp("^(https?://)?(www22\\.)?big\\.or\\.jp", "i"),
             new RegExp("^(https?://)?(www\\.)?japanesemetal\\.gooside\\.com", "i"),
             new RegExp("^(https?://)?(www\\.)?d-nb\\.info", "i")
