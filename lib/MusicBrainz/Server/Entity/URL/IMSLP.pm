@@ -2,6 +2,7 @@ package MusicBrainz::Server::Entity::URL::IMSLP;
 
 use Moose;
 use MusicBrainz::Server::Filters;
+use MusicBrainz::Server::Translation qw( l );
 
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
@@ -27,7 +28,7 @@ sub pretty_name
     return $name;
 }
 
-sub sidebar_name { "Score at IMSLP" }
+sub sidebar_name { l("Score at IMSLP") }
 
 =method show_in_sidebar
 
