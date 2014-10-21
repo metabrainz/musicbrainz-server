@@ -148,12 +148,6 @@ MB.Timeline.TimelineViewModel = aclass({
         }).extend({
             rateLimit: { method: "notifyWhenChangesStop", timeout: 1000 }
         });
-        self.initialHash = location.hash.replace(/^#/, '');
-
-        // Update location.hash whenever self.hash() changes.
-        ko.computed(function () {
-            location.hash = self.hash();
-        });
 
         // rateLimit to load asynchronously
         ko.computed(function () {
@@ -185,7 +179,12 @@ MB.Timeline.TimelineViewModel = aclass({
         _.forEach(names, function (name) { self.addLine(name) });
     },
     setInitialHash: function() {
-        this.hash(this.initialHash);
+        this.hash(location.hash.replace(/^#/, ""));
+
+        // Update location.hash whenever this.hash() changes.
+        this.hash.subscribe(function (hash) {
+            location.hash = hash;
+        });
     },
     loadEvents: function () {
         var self = this;
