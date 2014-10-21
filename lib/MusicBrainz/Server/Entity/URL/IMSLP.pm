@@ -28,7 +28,19 @@ sub pretty_name
     return $name;
 }
 
+<<<<<<< HEAD
 sub sidebar_name { l("Score at IMSLP") }
+=======
+sub sidebar_name {
+    my $self = shift;
+
+    if ($self->url =~ m{^https?://(?:www.)?imslp.org/wiki/Category(.*)$}i) {
+        return "IMSLP";
+    } else {
+        return "Score at IMSLP";
+    }
+}
+>>>>>>> 121d415672a4efd6a16235f18046c0d006196015
 
 =method show_in_sidebar
 

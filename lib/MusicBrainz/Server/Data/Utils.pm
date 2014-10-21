@@ -333,6 +333,7 @@ sub sanitize {
 
     $t = NFC($t);
     $t = remove_invalid_characters($t);
+    $t = remove_direction_marks($t);
     $t = collapse_whitespace($t);
 
     return $t;
@@ -347,6 +348,32 @@ sub trim {
     $t = Text::Trim::trim($t);
 
     return $t;
+}
+
+sub remove_direction_marks {
+    my $t = shift;
+
+    # Remove LRM/RLM between strong characters
+    #   (start/end of string are treated like strong characters, too)
+    $t =~ s {
+                 (
+                     \A | [\p{Bidi_Class=Left_To_Right}\p{Bidi_Class=Right_To_Left}\p{Bidi_Class=Arabic_Letter}]
+                 )
+                 [\x{200E}\x{200F}]+
+                 (?= # look-ahead, so that the character is not consumed and can match on the next iteration
+                     \z | [\p{Bidi_Class=Left_To_Right}\p{Bidi_Class=Right_To_Left}\p{Bidi_Class=Arabic_Letter}]
+                 )
+            } {$1}gx;
+
+    # Remove LRM/RLM from strings without RTL characters
+    my $stripped = $t; $stripped =~ s/[\x{200E}\x{200F}]//g;
+    unless ($stripped =~ /[\p{Bidi_Class=Right_To_Left}\p{Bidi_Class=Arabic_Letter}]/)
+        # The test must be done on $stripped because RLM is in Right_To_Left itself.
+    {
+        return $stripped;
+    } else {
+        return $t;
+    }
 }
 
 sub remove_invalid_characters {

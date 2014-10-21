@@ -2,10 +2,11 @@
     <thead>
         <tr>
             <th>[% l('Position') %]</th>
-            <th>[% l('Format') %]</th>
             <th>[% l('Title') %]</th>
             <th>[% l('Artist') %]</th>
-            <th>[% l('Release Events') %]</th>
+            <th>[% l('Format') %]</th>
+            <th>[% l('Date') %]</th>
+            <th>[% l('Country') %]</th>
             <th>[% l('Label') %]</th>
             <th>[% l('Catalog#') %]</th>
             <th>[% l('Barcode') %]</th>
@@ -26,10 +27,11 @@
            classes.push('mp') IF medium_cdtoc.edits_pending > 0; %]
         <tr class="[% classes.join(' ') %]">
             <td>[% medium.position %]/[% release.medium_count %]</td>
-            <td>[% medium_format_name(medium) %]</td>
             <td>[% link_entity(release) %]</td>
             <td>[% artist_credit(release.artist_credit) %]</td>
-            <td>[% release_events(release.events) %]</td>
+            <td>[% medium_format_name(medium) %]</td>
+            <td>[% release_dates(release.events) %]</td>
+            <td>[% release_countries(release.events) %]</td>
             <td>[% release_label_list(release.labels) %]</td>
             <td>[% release_catno_list(release.labels) %]</td>
             <td>[% release.barcode.format %]</td>

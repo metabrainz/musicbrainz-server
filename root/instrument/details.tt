@@ -1,3 +1,0 @@
-[% WRAPPER "instrument/layout.tt" title=l('Details') page='details' %]
-    [%- INCLUDE "components/details.tt" entity=instrument xml_inc='aliases' -%]
-[% END %]

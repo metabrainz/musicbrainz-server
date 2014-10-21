@@ -196,7 +196,7 @@ my %stats = (
         SQL => "SELECT count(gid) FROM (" .
             join(' UNION ALL ',
                  (map { "SELECT gid FROM $_" } entities_with('mbid', take => sub { my $type = shift; return shift->{table} // $type })),
-                 (map { "SELECT gid FROM ${_}_gid_redirect" } entities_with(['mbid', 'relatable'])))
+                 (map { "SELECT gid FROM ${_}_gid_redirect" } entities_with(['mbid', 'multiple'])))
         . ") q"
     },
     "count.release" => {

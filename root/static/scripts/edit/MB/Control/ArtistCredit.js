@@ -32,16 +32,6 @@ MB.Control.ArtistCreditName = aclass(MB.entity.ArtistCreditName, {
         this.name.subscribe(this.nameChanged, this);
     },
 
-    guessCase: function () {
-        // only GuessCase new artists, not those which have already been
-        // identified.
-        if (!this.hasArtist()) {
-            this.artist({
-                name: MB.GuessCase.artist.guess(this.name.peek())
-            });
-        }
-    },
-
     artistChanged: function (artist) {
         var newName = artist ? artist.name : "";
 
@@ -174,10 +164,6 @@ MB.Control.ArtistCredit = aclass(MB.entity.ArtistCredit, {
         if (name2 && name2.automaticJoin && auto.test(name2.joinPhrase())) {
             name2.joinPhrase(", ");
         }
-    },
-
-    guessCase: function () {
-        _.invoke(this.names(), "guessCase");
     },
 
     isComplex: function () {

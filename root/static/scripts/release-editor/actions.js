@@ -246,9 +246,8 @@
 
         inferTrackDurationsFromRecordings: ko.observable(false),
 
-        copyTrackChangesToRecordings: ko.observable(false).publishOn(
-            "updateRecordings", true
-        )
+        copyTrackTitlesToRecordings: ko.observable(false).publishOn("updateRecordingTitles", true),
+        copyTrackArtistsToRecordings: ko.observable(false).publishOn("updateRecordingArtists", true)
     });
 
 }(MB.releaseEditor = MB.releaseEditor || {}));

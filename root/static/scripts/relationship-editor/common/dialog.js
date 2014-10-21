@@ -594,7 +594,7 @@
                 return MB.edit.workCreate(editData);
             });
 
-            MB.edit.create({ editNote: "", asAutoEditor: true, edits: edits })
+            MB.edit.create({ editNote: "", makeVotable: false, edits: edits })
                 .done(function (data) {
                     var works = _.pluck(data.edits, "entity");
 

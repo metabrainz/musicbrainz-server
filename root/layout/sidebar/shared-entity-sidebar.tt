@@ -1,4 +1,3 @@
-[%~ entitytype = entity_type(entity) ~%]
 [%~ DEFAULT edit_links_other = []
             edit_links_add_entity = [] ~%]
 [%~ WRAPPER 'layout/sidebar.tt' ~%]
@@ -11,27 +10,27 @@
     [%~ IF entity_properties.tags ~%]
         [%~ INCLUDE "layout/sidebar/sidebar-tags.tt" entity=entity tags=top_tags
             more=more_tags
-            async = c.uri_for_action("/$entitytype/tag_async", [ entity.gid ])
+            async = c.uri_for_action("/$entity_type/tag_async", [ entity.gid ])
         -%]
     [%~ END ~%]
 
-    [%~ INCLUDE "layout/sidebar/sidebar-favicons.tt" source=entity UNLESS entitytype == 'url' ~%]
+    [%~ INCLUDE "layout/sidebar/sidebar-favicons.tt" source=entity UNLESS entity_type == 'url' ~%]
 
     <h2 class="editing">[%~ l('Editing') ~%]</h2>
     <ul class="links">
         [%~ IF c.user_exists ~%]
-            [%~ UNLESS (entitytype == 'area' && !c.user.is_location_editor) || (entitytype == 'instrument' && !c.user.is_relationship_editor) ~%]
+            [%~ UNLESS (entity_type == 'area' && !c.user.is_location_editor) || (entity_type == 'instrument' && !c.user.is_relationship_editor) ~%]
                 [%~ IF entity_properties.annotations && !entity.is_special_purpose ~%]
                     [%~ edit_links_other.push({ url => c.uri_for(c.controller.action_for('edit_annotation'), [ entity.gid ], { returnto => c.req.uri }), text => entity.latest_annotation.text ? l('Edit annotation') : l('Add annotation') }) ~%]
                     [%~ edit_links_other.push({ url => c.uri_for_action(c.controller.action_for('annotation_history'), [ entity.gid ]), text => l('View annotation history') }) IF number_of_revisions > 0 ~%]
                 [%~ END ~%]
 
                 [%~ IF entity_properties.merging ~%]
-                    [%~ edit_links_other.push({ url => c.uri_for_action("/$entitytype/merge_queue", { 'add-to-merge' => entity.id }), text => l('Merge') }) ~%]
+                    [%~ edit_links_other.push({ url => c.uri_for_action("/$entity_type/merge_queue", { 'add-to-merge' => entity.id }), text => l('Merge') }) ~%]
                 [%~ END ~%]
 
                 [%~ IF entity_properties.removal.manual ~%]
-                    [%~ edit_links_other.push({ url => c.uri_for_action("/$entitytype/delete", [ entity.gid ]), text => l('Remove') }) ~%]
+                    [%~ edit_links_other.push({ url => c.uri_for_action("/$entity_type/delete", [ entity.gid ]), text => l('Remove') }) ~%]
                 [%~ END ~%]
             [%~ END ~%]
 
@@ -61,9 +60,9 @@
         <h2 class="subscriptions">[%~ l("Subscriptions") ~%]</h2>
         <ul class="links">
             [%~ IF subscribed ~%]
-                <li><a href="[%~ c.uri_for_action("/account/subscriptions/$entitytype/remove", { id => entity.id }) ~%]">[%~ l('Unsubscribe') ~%]</a></li>
+                <li><a href="[%~ c.uri_for_action("/account/subscriptions/$entity_type/remove", { id => entity.id }) ~%]">[%~ l('Unsubscribe') ~%]</a></li>
             [%~ ELSE ~%]
-                <li><a href="[%~ c.uri_for_action("/account/subscriptions/$entitytype/add", { id => entity.id }) ~%]">[%~ l('Subscribe') ~%]</a></li>
+                <li><a href="[%~ c.uri_for_action("/account/subscriptions/$entity_type/add", { id => entity.id }) ~%]">[%~ l('Subscribe') ~%]</a></li>
             [%~ END ~%]
             <li>[%~ link_entity(entity, 'subscribers', l('Subscribers')) ~%]</li>
         </ul>

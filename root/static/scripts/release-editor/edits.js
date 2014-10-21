@@ -140,14 +140,16 @@
                             trackData.length = newRecording.length || trackData.length;
                         }
 
-                        if (track.updateRecording() && track.differsFromRecording()) {
-                            _.extend(newRecording, {
-                                name:           trackData.name,
-                                artist_credit:  trackData.artist_credit,
-                                length:         trackData.length
-                            });
+                        var oldRecording = track.recording.savedEditData;
 
-                            var oldRecording = track.recording.savedEditData;
+                        if (oldRecording) {
+                            if (track.updateRecordingTitle()) {
+                                newRecording.name = trackData.name;
+                            }
+
+                            if (track.updateRecordingArtist()) {
+                                newRecording.artist_credit = trackData.artist_credit;
+                            }
 
                             if (!_.isEqual(newRecording, oldRecording)) {
                                 edits.push(MB.edit.recordingEdit(newRecording, oldRecording));
@@ -408,7 +410,7 @@
         var root = releaseEditor.rootField;
 
         var args = {
-            asAutoEditor: root.asAutoEditor(),
+            makeVotable: root.makeVotable(),
             editNote: root.editNote()
         };
 

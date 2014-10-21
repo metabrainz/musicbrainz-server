@@ -8,7 +8,7 @@ END -%]
 
 [%- MACRO rating_rate_url(entity, rating) BLOCK;
     c.uri_for_action("/rating/rate", {
-        entity_type => entity_type(entity),
+        entity_type => get_entity_type(entity),
         entity_id   => entity.id,
         rating      => rating * 20,
     });

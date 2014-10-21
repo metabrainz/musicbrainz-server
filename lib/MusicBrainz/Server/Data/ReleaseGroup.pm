@@ -8,7 +8,6 @@ use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::Utils qw(
     check_in_use
-    generate_gid
     hash_to_row
     load_subobjects
     merge_table_attributes
@@ -31,9 +30,12 @@ with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release_group
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::Browse';
 
+sub _type { 'release_group' }
+
 sub _table
 {
-    return 'release_group rg
+    my $self = shift;
+    return $self->_main_table . ' rg
             JOIN release_group_meta rgm ON rgm.id = rg.id';
 }
 
@@ -64,16 +66,6 @@ sub _column_mapping {
 sub _id_column
 {
     return 'rg.id';
-}
-
-sub _gid_redirect_table
-{
-    return 'release_group_gid_redirect';
-}
-
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::ReleaseGroup';
 }
 
 sub _where_filter
@@ -423,25 +415,9 @@ sub find_by_recording
         $query, $recording);
 }
 
-sub insert
-{
-    my ($self, @groups) = @_;
-    my @created;
-    my $release_data = MusicBrainz::Server::Data::Release->new(c => $self->c);
-    my $class = $self->_entity_class;
-    for my $group (@groups)
-    {
-        my $row = $self->_hash_to_row($group);
-        $row->{gid} = $group->{gid} || generate_gid();
-        my $new = $class->new(
-            id => $self->sql->insert_row('release_group', $row, 'id'),
-            gid => $row->{gid}
-        );
-        push @created, $new;
-
-        $self->c->model('ReleaseGroupSecondaryType')->set_types($new->id, $group->{secondary_type_ids})
-    }
-    return @groups > 1 ? @created : $created[0];
+sub _insert_hook_after_each {
+    my ($self, $created, $rg) = @_;
+    $self->c->model('ReleaseGroupSecondaryType')->set_types($created->{id}, $rg->{secondary_type_ids});
 }
 
 sub update

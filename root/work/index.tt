@@ -27,7 +27,8 @@
                 relationships to this work.') %]
       </p>
     [% END %]
-    [%- INCLUDE 'work/annotation.tt' summary=1 -%]
+
+    [%- INCLUDE 'annotation/summary.tt' -%]
 
     [%- show_wikipedia_extract() -%]
 

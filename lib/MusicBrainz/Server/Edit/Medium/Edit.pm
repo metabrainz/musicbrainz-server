@@ -5,6 +5,7 @@ use List::AllUtils qw( any );
 use Algorithm::Diff qw( diff sdiff );
 use Algorithm::Merge qw( merge );
 use Data::Compare;
+use Set::Scalar;
 use Moose;
 use MooseX::Types::Moose qw( ArrayRef Bool Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
@@ -171,6 +172,11 @@ sub initialize
                             filter_subsecond_differences($new)))
             {
                 check_track_hash($new);
+                my $id_set = sub {
+                    Set::Scalar->new(grep { defined $_ } map { $_->{id} } @_)
+                };
+                die 'New tracklist uses track IDs not in the old tracklist'
+                    unless $id_set->(@$new) <= $id_set->(@$old);
 
                 $data->{old}{tracklist} = $old;
                 $data->{new}{tracklist} = $new;
@@ -434,7 +440,7 @@ sub accept {
 
             if (!$track->{recording_id}) {
                 $track->{recording_id} = $self->c->model('Recording')->insert({
-                    %$track, artist_credit => $track->{artist_credit_id} })->id;
+                    %$track, artist_credit => $track->{artist_credit_id} })->{id};
 
                 # We are in the processing of closing this edit. The edit exists, so we need to add a new link
                 $self->c->model('Edit')->add_link('recording', $track->{recording_id}, $self->id);

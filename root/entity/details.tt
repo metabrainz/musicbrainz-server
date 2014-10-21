@@ -1,0 +1,40 @@
+[% WRAPPER "$entity_type/layout.tt" title=l('Details') page='details' %]
+    [%~ entity_type_for_url = entity_properties.url || entity_type ~%]
+    <h2>[%~ l('Details') ~%]</h2>
+    <table class="details">
+        <tr>
+            <th>[%~ l('Name:') ~%]</th>
+            <td>[%~ link_entity(entity) ~%]</td>
+        </tr>
+        <tr>
+            <th>[%~ l('{mbid|<abbr title="MusicBrainz Identifier">MBID</abbr>}:',
+                    { mbid => doc_link("MusicBrainz_Identifier") }) ~%]
+            </th>
+            <td><code>[%~ entity.gid ~%]</code></td>
+        </tr>
+        <tr>
+            <th>[%~ l('Last updated:') ~%]</th>
+            <td>[%~ UserDate.format(entity.last_updated) || l('(unknown)') ~%]</td>
+        </tr>
+        <tr>
+            <th>[%~ l('Permanent link:') ~%]</th>
+            <td>
+                [%~ USE Canonicalize ~%]
+                [%~ perma = Canonicalize.canonicalize(c.uri_for_action(c.controller.action_for('show'), [ entity.gid ])) ~%]
+                <a href="[%~ perma | url ~%]">[%~ perma | html ~%]</a>
+            </td>
+        </tr>
+        <tr>
+            <th>[%~ l('XML:') ~%]</th>
+            <td>
+                [%~ xml_inc = [] ~%]
+                [%~ xml_inc.push('aliases') IF entity_properties.aliases ~%]
+                [%~ xml_inc.push('artist-credits') IF entity_properties.artist_credits ~%] 
+                [%~ xml_inc.push('releases') IF entity_type == 'recording' || entity_type == 'release_group' ~%]
+                [%~ xml_inc.push('labels', 'discids', 'recordings') IF entity_type == 'release' ~%]
+                [%~ link = c.uri_for("/ws/2/$entity_type_for_url", entity.gid, { 'inc' => xml_inc.sort.join('+') }) ~%]
+                <a href="[%~ link ~%]">[%~ display_url(link) ~%]</a>
+            </td>
+        </tr>
+    </table>
+[% END %]

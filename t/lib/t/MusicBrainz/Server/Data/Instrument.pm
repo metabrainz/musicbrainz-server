@@ -59,10 +59,9 @@ test 'Create, update, delete instruments' => sub {
             comment => 'Instrument comment',
             type_id => 1,
         });
-    isa_ok($instrument, 'MusicBrainz::Server::Entity::Instrument');
-    ok($instrument->id > 4);
+    ok($instrument->{id} > 4);
 
-    $instrument = $instrument_data->get_by_id($instrument->id);
+    $instrument = $instrument_data->get_by_id($instrument->{id});
     is($instrument->name, 'New Instrument', 'newly-created instrument is correct');
     is($instrument->type_id, 1, 'newly-created instrument is correct');
     is($instrument->comment, 'Instrument comment', 'newly-created instrument is correct');

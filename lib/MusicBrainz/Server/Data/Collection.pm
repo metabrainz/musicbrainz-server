@@ -7,7 +7,6 @@ use Carp;
 use Sql;
 use MusicBrainz::Server::Entity::Collection;
 use MusicBrainz::Server::Data::Utils qw(
-    generate_gid
     load_subobjects
     placeholders
     query_to_list
@@ -22,10 +21,7 @@ with 'MusicBrainz::Server::Data::Role::Subscription' => {
     active_class => 'MusicBrainz::Server::Entity::CollectionSubscription'
 };
 
-sub _table
-{
-    return 'editor_collection';
-}
+sub _type { 'collection' }
 
 sub _columns
 {
@@ -47,11 +43,6 @@ sub _column_mapping
         public => 'public',
         description => 'description',
     };
-}
-
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::Collection';
 }
 
 sub find_by_subscribed_editor
@@ -199,23 +190,19 @@ sub load
     load_subobjects($self, 'collection', @objs);
 }
 
-sub insert
-{
-    my ($self, $editor_id, @collections) = @_;
-    my $class = $self->_entity_class;
-    my @created;
-    for my $collection (@collections) {
-        my $row = $self->_hash_to_row($collection);
-        $row->{editor} = $editor_id;
-        $row->{gid} = $collection->{gid} || generate_gid();
-
-        push @created, $class->new(
-            id => $self->sql->insert_row('editor_collection', $row, 'id'),
-            gid => $row->{gid}
-        );
-    }
-    return @created > 1 ? @created : $created[0];
+sub _insert_hook_prepare {
+    my ($self, $entities) = @_;
+    my $editor_id = shift @$entities;
+        # A bit of a hack: first parameter is not a collection.
+    return { editor_id => $editor_id };
 }
+
+around _insert_hook_make_row => sub {
+    my ($orig, $self, $entity, $extra_data) = @_;
+    my $row = $self->$orig($entity, $extra_data);
+    $row->{editor} = $extra_data->{editor_id};
+    return $row;
+};
 
 sub load_release_count {
     my ($self, @collections) = @_;

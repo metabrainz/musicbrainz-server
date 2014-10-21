@@ -45,7 +45,8 @@
             this.formattedLength = ko.observable(MB.utility.formatTrackLength(data.length));
             this.position = ko.observable(data.position);
             this.number = ko.observable(data.number);
-            this.updateRecording = ko.observable(false).subscribeTo("updateRecordings", true);
+            this.updateRecordingTitle = ko.observable(false).subscribeTo("updateRecordingTitles", true);
+            this.updateRecordingArtist = ko.observable(false).subscribeTo("updateRecordingArtists", true);
             this.hasNewRecording = ko.observable(true);
 
             this.recordingValue = ko.observable(
@@ -133,16 +134,18 @@
             return index < tracks.length - 1 ? tracks[index + 1] : null;
         },
 
-        differsFromRecording: function () {
-            var recording = this.recording();
-            var name = this.name();
+        titleDiffersFromRecording: function () {
+            return this.name() !== this.recording().name;
+        },
 
-            if (!recording.gid || !name) return false;
+        artistDiffersFromRecording: function () {
+            var artistCredit = this.recording().artistCredit;
 
-            var sameName = name === recording.name;
-            var sameArtist = this.artistCredit.isEqual(recording.artistCredit);
+            if (!artistCredit) {
+                return false;
+            }
 
-            return !(sameName && sameArtist);
+            return !this.artistCredit.isEqual(artistCredit);
         },
 
         hasExistingRecording: function () {
@@ -298,7 +301,10 @@
         tracksLoaded: function (data) {
             var tracks = data.tracks;
 
-            this.tracks(utils.mapChild(this, data.tracks, fields.Track));
+            var pp = this.id ? // no ID means this medium is being reused
+                fields.Track :
+                function (track, parent) { return fields.Track(_.omit(track, 'id'), parent); };
+            this.tracks(utils.mapChild(this, data.tracks, pp));
 
             if (this.release.seededTocs) {
                 var toc = this.release.seededTocs[this.position()];
@@ -666,7 +672,7 @@
 
     fields.Root = aclass(function () {
         this.release = ko.observable().syncWith("releaseField", true, true);
-        this.asAutoEditor = ko.observable(true);
+        this.makeVotable = ko.observable(false);
         this.editNote = ko.observable("");
     });
 
