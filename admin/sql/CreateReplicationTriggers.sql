@@ -89,7 +89,7 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_editor_collection_type"
 AFTER INSERT OR DELETE OR UPDATE ON "editor_collection_type"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_event"
 AFTER INSERT OR DELETE OR UPDATE ON "event"

@@ -66,6 +66,7 @@ DROP FUNCTION remove_unused_url();
 DROP FUNCTION replace_old_sub_on_add();
 DROP FUNCTION set_release_group_first_release_date(release_group_id INTEGER);
 DROP FUNCTION simplify_search_hints();
+DROP FUNCTION track_count_matches_cdtoc(medium, int);
 DROP FUNCTION trg_delete_unused_tag();
 DROP FUNCTION trg_delete_unused_tag_ref();
 DROP FUNCTION unique_primary_area_alias();

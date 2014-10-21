@@ -1837,7 +1837,7 @@ CREATE TABLE editor_collection
     name                VARCHAR NOT NULL,
     public              BOOLEAN NOT NULL DEFAULT FALSE,
     description         TEXT DEFAULT '' NOT NULL,
-    type                INTEGER, -- references editor_collection_type.id
+    type                INTEGER -- references editor_collection_type.id
 );
 
 CREATE TABLE editor_collection_type ( -- replicate
