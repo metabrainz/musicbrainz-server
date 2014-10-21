@@ -32,10 +32,6 @@ with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'area' };
 
 Readonly my @CODE_TYPES => qw( iso_3166_1 iso_3166_2 iso_3166_3 );
 
-sub _table {
-    return 'area';
-}
-
 sub _columns {
     return 'area.id, area.gid, area.name, area.comment, area.type, ' .
            'area.edits_pending, area.begin_date_year, area.begin_date_month, area.begin_date_day, ' .
