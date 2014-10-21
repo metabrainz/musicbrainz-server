@@ -38,8 +38,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-19 03:42-0700\n"
-"PO-Revision-Date: 2014-10-19 10:43+0000\n"
+"POT-Creation-Date: 2014-10-21 12:05-0700\n"
+"PO-Revision-Date: 2014-10-21 19:07+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -494,6 +494,10 @@ msgstr "Aktion"
 msgid "Actions"
 msgstr "Aktionen"
 
+#: ../root/entity/alias/add.tt:1
+msgid "Add Alias"
+msgstr ""
+
 #: ../root/area/create.tt:1 ../root/area/create.tt:3
 msgid "Add Area"
 msgstr "Gebiet hinzufügen"
@@ -503,10 +507,6 @@ msgctxt "button/menu"
 msgid "Add Area"
 msgstr "Gebiet hinzufügen"
 
-#: ../root/area/add_alias.tt:1
-msgid "Add Area Alias"
-msgstr "Gebietsalias hinzufügen"
-
 #: ../root/artist/create.tt:1 ../root/artist/create.tt:3
 msgid "Add Artist"
 msgstr "Künstler hinzufügen"
@@ -515,10 +515,6 @@ msgstr "Künstler hinzufügen"
 msgctxt "button/menu"
 msgid "Add Artist"
 msgstr "Künstler hinzufügen"
-
-#: ../root/artist/add_alias.tt:1
-msgid "Add Artist Alias"
-msgstr "Künstleralias hinzufügen"
 
 #: ../root/components/forms.tt:361 ../root/components/forms.tt:362
 #: ../root/release/edit/tracklist.tt:430
@@ -563,10 +559,6 @@ msgctxt "button/menu"
 msgid "Add Instrument"
 msgstr "Instrument hinzufügen"
 
-#: ../root/instrument/add_alias.tt:1
-msgid "Add Instrument Alias"
-msgstr "Instrumentenalias hinzufügen"
-
 #: ../root/label/create.tt:1 ../root/label/create.tt:3
 msgid "Add Label"
 msgstr "Label hinzufügen"
@@ -576,10 +568,6 @@ msgstr "Label hinzufügen"
 msgctxt "button/menu"
 msgid "Add Label"
 msgstr "Label hinzufügen"
-
-#: ../root/label/add_alias.tt:1
-msgid "Add Label Alias"
-msgstr "Labelalias hinzufügen"
 
 #: ../root/edit/info.tt:13 ../root/scripts/text_strings.tt:120
 msgid "Add Note"
@@ -597,10 +585,6 @@ msgstr "Örtlichkeit hinzufügen"
 msgctxt "button/menu"
 msgid "Add Place"
 msgstr "Örtlichkeit hinzufügen"
-
-#: ../root/place/add_alias.tt:1
-msgid "Add Place Alias"
-msgstr "Örtlichkeitsalias hinzufügen"
 
 #: ../root/scripts/text_strings.tt:155
 msgid "Add Release"
@@ -634,10 +618,6 @@ msgctxt "button/menu"
 msgid "Add Series"
 msgstr "Serie hinzufügen"
 
-#: ../root/series/add_alias.tt:1
-msgid "Add Series Alias"
-msgstr "Serienalias hinzufügen"
-
 #: ../root/layout/menu.tt:234
 msgctxt "button/menu"
 msgid "Add Standalone Recording"
@@ -661,10 +641,6 @@ msgstr "Werk hinzufügen"
 msgctxt "header"
 msgid "Add Work"
 msgstr "Werk hinzufügen"
-
-#: ../root/work/add_alias.tt:1
-msgid "Add Work Alias"
-msgstr "Werkalias hinzufügen"
 
 #: ../root/work/edit_form.tt:78
 msgctxt "button/menu"
@@ -726,6 +702,10 @@ msgstr "Eine neue Serie hinzufügen"
 #: ../root/scripts/text_strings.tt:136
 msgid "Add a new work"
 msgstr "Ein neues Werk hinzufügen"
+
+#: ../root/entity/alias/add.tt:2
+msgid "Add alias"
+msgstr ""
 
 #: ../root/edit/notes.tt:50
 msgid "Add an edit note"
@@ -792,16 +772,6 @@ msgstr "Weiteren Titel hinzufügen"
 msgid "Add another work"
 msgstr "Noch ein Werk hinzufügen"
 
-#: ../root/area/add_alias.tt:2
-#: ../lib/MusicBrainz/Server/Edit/Area/AddAlias.pm:11
-msgid "Add area alias"
-msgstr "Gebietsalias hinzufügen"
-
-#: ../root/artist/add_alias.tt:2
-#: ../lib/MusicBrainz/Server/Edit/Artist/AddAlias.pm:11
-msgid "Add artist alias"
-msgstr "Künstleralias hinzufügen"
-
 #: ../root/relationship/linkattributetype/common.tt:24
 msgid "Add child"
 msgstr "Kind hinzufügen"
@@ -814,24 +784,9 @@ msgstr "Disc-ID zu bestehender Veröffentlichung hinzufügen"
 msgid "Add edit note"
 msgstr "Bemerkung hinzufügen"
 
-#: ../root/instrument/add_alias.tt:2
-#: ../lib/MusicBrainz/Server/Edit/Instrument/AddAlias.pm:11
-msgid "Add instrument alias"
-msgstr "Instrumentenalias hinzufügen"
-
-#: ../root/label/add_alias.tt:2
-#: ../lib/MusicBrainz/Server/Edit/Label/AddAlias.pm:11
-msgid "Add label alias"
-msgstr "Labelalias hinzufügen"
-
 #: ../root/components/forms.tt:393
 msgid "Add link:"
 msgstr "Link hinzufügen:"
-
-#: ../root/place/add_alias.tt:2
-#: ../lib/MusicBrainz/Server/Edit/Place/AddAlias.pm:11
-msgid "Add place alias"
-msgstr "Örtlichkeitsalias hinzufügen"
 
 #: ../root/artist/layout.tt:8
 msgid "Add recording"
@@ -879,11 +834,6 @@ msgstr "Ausgewählte Veröffentlichungen zum Vereinen hinzufügen"
 msgid "Add selected works for merging"
 msgstr "Ausgewählte Werke zum Vereinen hinzufügen"
 
-#: ../root/series/add_alias.tt:2
-#: ../lib/MusicBrainz/Server/Edit/Series/AddAlias.pm:11
-msgid "Add series alias"
-msgstr "Serienalias hinzufügen"
-
 #: ../root/layout/sidebar/shared-entity-sidebar.tt:100
 msgid "Add to a new collection"
 msgstr "Zu neuer Sammlung hinzufügen"
@@ -903,11 +853,6 @@ msgstr "Titel hinzufügen"
 #: ../root/artist/layout.tt:9 ../lib/MusicBrainz/Server/Edit/Work/Create.pm:17
 msgid "Add work"
 msgstr "Werk hinzufügen"
-
-#: ../root/work/add_alias.tt:2
-#: ../lib/MusicBrainz/Server/Edit/Work/AddAlias.pm:12
-msgid "Add work alias"
-msgstr "Werkalias hinzufügen"
 
 #: ../root/components/forms.tt:143 ../root/components/forms.tt:144
 msgid "Add {item}"
@@ -978,11 +923,11 @@ msgstr "Alter:"
 msgid "Alias"
 msgstr "Alias"
 
-#: ../root/alias/edit_form.tt:14
+#: ../root/entity/alias/edit_form.tt:14
 msgid "Alias Details"
 msgstr "Aliasdetails"
 
-#: ../root/alias/edit_form.tt:15
+#: ../root/entity/alias/edit_form.tt:15
 msgid "Alias name:"
 msgstr "Aliasname:"
 
@@ -1102,7 +1047,7 @@ msgstr "Amazon-URLs, die mit mehreren Veröffentlichungen verbunden sind"
 msgid "Amazon URLs linked to multiple releases"
 msgstr "Amazon-URLs, die mit mehreren Veröffentlichungen verbunden sind"
 
-#: ../root/alias/edit_form.tt:5 ../root/components/aliases.tt:3
+#: ../root/components/aliases.tt:3 ../root/entity/alias/edit_form.tt:5
 msgid ""
 "An alias is an alternate name for an entity. They typically contain contain "
 "common mispellings or variations of the name and are also used to improve "
@@ -1772,9 +1717,9 @@ msgstr "Da eckige Klammern [] benutzt werden, um Links zu erstellen, musst Du di
 
 #: ../root/account/registered.tt:13
 msgid ""
-"Because you provided an email address, an verification email has been sent "
-"to <code>{addr}</code>. Please check your mailbox and click on the link in "
-"the email to verify the new email address."
+"Because you provided an email address, a verification email has been sent to"
+" <code>{addr}</code>. Please check your mailbox and click on the link in the"
+" email to verify the new email address."
 msgstr "Da Du eine E-Mail-Adresse angegeben hast, wurde eine Bestätigungs-E-Mail an <code>{addr}</code> geschickt. Bitte sehe in Deinem Posteingang nach und klicke auf den Link in der E-Mail, um Deine neue E-Mail-Adresse zu bestätigen."
 
 #: ../root/main/index.tt:96
@@ -1828,14 +1773,14 @@ msgstr "Anfangsgebiet:"
 msgid "Begin date"
 msgstr "Anfangsdatum"
 
-#: ../root/alias/edit_form.tt:34 ../root/area/edit_form.tt:23
-#: ../root/area/layout.tt:12 ../root/artist/edit_form.tt:57
-#: ../root/components/common-macros.tt:813
+#: ../root/area/edit_form.tt:23 ../root/area/layout.tt:12
+#: ../root/artist/edit_form.tt:57 ../root/components/common-macros.tt:813
 #: ../root/components/relationship-editor.tt:107
 #: ../root/edit/details/add_area.tt:58 ../root/edit/details/add_label.tt:30
 #: ../root/edit/details/add_place.tt:51 ../root/edit/details/edit_area.tt:42
 #: ../root/edit/details/edit_label.tt:33 ../root/edit/details/edit_place.tt:36
-#: ../root/label/edit_form.tt:59 ../root/place/edit_form.tt:57
+#: ../root/entity/alias/edit_form.tt:34 ../root/label/edit_form.tt:59
+#: ../root/place/edit_form.tt:57
 msgid "Begin date:"
 msgstr "Anfangsdatum:"
 
@@ -2478,8 +2423,8 @@ msgstr "Daten:"
 msgid "Date"
 msgstr "Datum"
 
-#: ../root/alias/edit_form.tt:29 ../root/area/edit_form.tt:19
-#: ../root/artist/edit_form.tt:53 ../root/label/edit_form.tt:55
+#: ../root/area/edit_form.tt:19 ../root/artist/edit_form.tt:53
+#: ../root/entity/alias/edit_form.tt:29 ../root/label/edit_form.tt:55
 #: ../root/place/edit_form.tt:53
 msgid "Date Period"
 msgstr "Zeitraum"
@@ -2493,8 +2438,8 @@ msgstr "Datums- / Uhrzeitformat:"
 msgid "Date:"
 msgstr "Datum:"
 
-#: ../root/alias/edit_form.tt:31 ../root/area/edit_form.tt:21
-#: ../root/artist/edit_form.tt:55 ../root/label/edit_form.tt:57
+#: ../root/area/edit_form.tt:21 ../root/artist/edit_form.tt:55
+#: ../root/entity/alias/edit_form.tt:31 ../root/label/edit_form.tt:57
 #: ../root/place/edit_form.tt:55
 msgid ""
 "Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just "
@@ -2811,6 +2756,10 @@ msgstr "Bearbeitung Nr. {id}"
 msgid "Edit #{id} - {name}"
 msgstr "Bearbeitung Nr. {id} - {name}"
 
+#: ../root/entity/alias/edit.tt:1
+msgid "Edit Alias"
+msgstr ""
+
 #: ../root/annotation/edit.tt:1
 msgid "Edit Annotation"
 msgstr "Anmerkungen bearbeiten"
@@ -2823,17 +2772,9 @@ msgstr "Anwendung bearbeiten"
 msgid "Edit Area"
 msgstr "Gebiet bearbeiten"
 
-#: ../root/area/edit_alias.tt:1
-msgid "Edit Area Alias"
-msgstr "Gebietsalias bearbeiten"
-
 #: ../root/artist/edit.tt:1
 msgid "Edit Artist"
 msgstr "Künstler bearbeiten"
-
-#: ../root/artist/edit_alias.tt:1
-msgid "Edit Artist Alias"
-msgstr "Künstleralias bearbeiten"
 
 #: ../root/artist/edit_credit.tt:1 ../root/artist/edit_credit.tt:9
 msgid "Edit Artist Credit"
@@ -2856,17 +2797,9 @@ msgstr "Cover-Art bearbeiten"
 msgid "Edit Instrument"
 msgstr "Instrument bearbeiten"
 
-#: ../root/instrument/edit_alias.tt:1
-msgid "Edit Instrument Alias"
-msgstr "Instrumentenalias bearbeiten"
-
 #: ../root/label/edit.tt:1
 msgid "Edit Label"
 msgstr "Label bearbeiten"
-
-#: ../root/label/edit_alias.tt:1
-msgid "Edit Label Alias"
-msgstr "Labelalias bearbeiten"
 
 #: ../root/edit/not_found.tt:1 ../root/edit/not_found.tt:2
 msgid "Edit Not Found"
@@ -2880,10 +2813,6 @@ msgstr "Bearbeitungsbemerkung"
 #: ../root/place/edit.tt:1
 msgid "Edit Place"
 msgstr "Örtlichkeit bearbeiten"
-
-#: ../root/place/edit_alias.tt:1
-msgid "Edit Place Alias"
-msgstr "Örtlichkeitsalias bearbeiten"
 
 #: ../root/account/edit_ok.tt:1 ../root/account/edit_ok.tt:3
 #: ../root/account/edit.tt:1 ../root/account/edit.tt:4
@@ -2921,10 +2850,6 @@ msgstr "Veröffentlichungsgruppe bearbeiten"
 msgid "Edit Series"
 msgstr "Serie bearbeiten"
 
-#: ../root/series/edit_alias.tt:1
-msgid "Edit Series Alias"
-msgstr "Serienalias bearbeiten"
-
 #: ../root/doc/edit_types.tt:1 ../root/doc/edit_types.tt:3
 #: ../root/doc/edit_type.tt:28 ../root/edit/info.tt:67
 #: ../root/layout/menu.tt:270
@@ -2944,24 +2869,14 @@ msgstr "Benutzer bearbeiten"
 msgid "Edit Work"
 msgstr "Werk bearbeiten"
 
-#: ../root/work/edit_alias.tt:1
-msgid "Edit Work Alias"
-msgstr "Werkalias bearbeiten"
+#: ../root/entity/alias/edit.tt:2
+msgid "Edit alias"
+msgstr ""
 
 #: ../root/annotation/edit.tt:2
 #: ../root/layout/sidebar/shared-entity-sidebar.tt:24
 msgid "Edit annotation"
 msgstr "Anmerkungen bearbeiten"
-
-#: ../root/area/edit_alias.tt:2
-#: ../lib/MusicBrainz/Server/Edit/Area/EditAlias.pm:12
-msgid "Edit area alias"
-msgstr "Gebietsalias bearbeiten"
-
-#: ../root/artist/edit_alias.tt:2
-#: ../lib/MusicBrainz/Server/Edit/Artist/EditAlias.pm:12
-msgid "Edit artist alias"
-msgstr "Künstleralias bearbeiten"
 
 #: ../root/edit/edit_header.tt:91
 msgid "Edit by {editor}"
@@ -2971,16 +2886,6 @@ msgstr "Bearbeitung von {editor}"
 msgid "Edit data for edit #{id}"
 msgstr "Bearbeitungsdaten für Bearbeitung Nr. {id}"
 
-#: ../root/instrument/edit_alias.tt:2
-#: ../lib/MusicBrainz/Server/Edit/Instrument/EditAlias.pm:12
-msgid "Edit instrument alias"
-msgstr "Instrumentenalias bearbeiten"
-
-#: ../root/label/edit_alias.tt:2
-#: ../lib/MusicBrainz/Server/Edit/Label/EditAlias.pm:12
-msgid "Edit label alias"
-msgstr "Labelalias bearbeiten"
-
 #: ../root/components/forms.tt:33 ../root/components/forms.tt:37
 #: ../root/edit/cancel.tt:19
 msgid "Edit note:"
@@ -2989,11 +2894,6 @@ msgstr "Bearbeitungsbemerkung:"
 #: ../root/edit/index.tt:74
 msgid "Edit notes"
 msgstr "Bearbeitungsbemerkungen"
-
-#: ../root/place/edit_alias.tt:2
-#: ../lib/MusicBrainz/Server/Edit/Place/EditAlias.pm:12
-msgid "Edit place alias"
-msgstr "Örtlichkeitsalias bearbeiten"
 
 #: ../root/admin/edit_user.tt:33
 msgid "Edit profile"
@@ -3013,19 +2913,9 @@ msgstr "Beziehung bearbeiten"
 msgid "Edit relationships"
 msgstr "Beziehungen bearbeiten"
 
-#: ../root/series/edit_alias.tt:2
-#: ../lib/MusicBrainz/Server/Edit/Series/EditAlias.pm:12
-msgid "Edit series alias"
-msgstr "Serienalias bearbeiten"
-
 #: ../root/admin/edit_user.tt:43
 msgid "Edit user"
 msgstr "Benutzer bearbeiten"
-
-#: ../root/work/edit_alias.tt:2
-#: ../lib/MusicBrainz/Server/Edit/Work/EditAlias.pm:13
-msgid "Edit work alias"
-msgstr "Werkalias bearbeiten"
 
 #: ../root/edit/details/edit_release_events.tt:58
 msgid "Edited"
@@ -3171,14 +3061,15 @@ msgstr "Endgebiet:"
 msgid "End date"
 msgstr "Enddatum"
 
-#: ../root/alias/edit_form.tt:35 ../root/area/edit_form.tt:24
-#: ../root/area/layout.tt:20 ../root/area/layout.tt:27
-#: ../root/artist/edit_form.tt:69 ../root/components/common-macros.tt:821
+#: ../root/area/edit_form.tt:24 ../root/area/layout.tt:20
+#: ../root/area/layout.tt:27 ../root/artist/edit_form.tt:69
+#: ../root/components/common-macros.tt:821
 #: ../root/components/relationship-editor.tt:111
 #: ../root/edit/details/add_area.tt:65 ../root/edit/details/add_label.tt:37
 #: ../root/edit/details/add_place.tt:58 ../root/edit/details/edit_area.tt:47
 #: ../root/edit/details/edit_label.tt:38 ../root/edit/details/edit_place.tt:41
-#: ../root/label/edit_form.tt:60 ../root/place/edit_form.tt:58
+#: ../root/entity/alias/edit_form.tt:35 ../root/label/edit_form.tt:60
+#: ../root/place/edit_form.tt:58
 msgid "End date:"
 msgstr "Enddatum:"
 
@@ -4056,7 +3947,7 @@ msgstr "Instrument"
 #: ../root/components/recordings-list.tt:34
 #: ../root/release_group/releases-list.tt:23
 msgid "Instrument Credits"
-msgstr ""
+msgstr "Instrumentennennungen"
 
 #: ../root/instrument/edit_form.tt:9
 msgid "Instrument Details"
@@ -4418,7 +4309,7 @@ msgstr "Lade …"
 msgid "Locale"
 msgstr "Sprachumgebung"
 
-#: ../root/alias/edit_form.tt:21
+#: ../root/entity/alias/edit_form.tt:21
 msgid "Locale:"
 msgstr "Sprachumgebung:"
 
@@ -4546,7 +4437,7 @@ msgstr "Spende jetzt!"
 
 #: ../root/components/forms.tt:13 ../root/components/forms.tt:18
 msgid "Make all edits votable."
-msgstr ""
+msgstr "Alle Bearbeitungen abstimmbar machen."
 
 #: ../root/release/merge.tt:109
 msgid ""
@@ -5600,12 +5491,6 @@ msgstr "Örtlichkeiten mit Anmerkungen"
 msgid "Places with deprecated relationships"
 msgstr "Örtlichkeiten mit veralteten Beziehungen"
 
-#: ../root/account/registered.tt:7
-msgid ""
-"Please <a href=\"{uri}\">update your profile</a> when you get time, to let "
-"other editors know a bit more about you."
-msgstr "Bitte <a href=\"{uri}\">aktualisiere bezeiten Dein Profil</a>, damit andere Bearbeiter ein bißchen mehr über Dich erfahren können."
-
 #: ../root/main/500.tt:85
 msgid ""
 "Please be sure to include the stack trace and request data shown above!"
@@ -5725,7 +5610,7 @@ msgid ""
 " entering this edit."
 msgstr "Bitte schau Dir die Dokumentation zum {doc_remove|Veröffentlichung-Entfernen-Bearbeitungstyp} durch, bevor Du diese Bearbeitung einreichst."
 
-#: ../root/alias/delete.tt:3
+#: ../root/entity/alias/delete.tt:6
 msgid "Please review the {doc|alias documentation} before entering this edit."
 msgstr "Bitte lies Dir die {doc|Alias-Dokumentation} durch, bevor Du diese Bearbeitung abschickst."
 
@@ -5735,9 +5620,9 @@ msgstr "Bitte suche nach dem Künstler, für den Du eine neue Veröffentlichung 
 
 #: ../root/release/add_cover_art.tt:95 ../root/release/cover_art_fields.tt:8
 msgid ""
-"Please see the <a href=\"{doc}\" target=\"_blank\">Cover Art Types</a> "
-"documentation for a description of these types."
-msgstr "Siehe bitte die Dokumentation der <a href=\"{doc}\" target=\"_blank\">Cover-Art-Typen</a> für eine Beschreibung dieser Typen."
+"Please see the {doc|Cover Art Types} documentation for a description of "
+"these types."
+msgstr ""
 
 #: ../root/scripts/text_strings.tt:143
 msgid "Please select a link type for the URL you’ve entered."
@@ -5778,6 +5663,12 @@ msgstr "Bitte benutze den „Sortiername“-Button, um den Sortiernamen zu errat
 #: ../root/main/503.tt:8
 msgid "Please wait a few minutes and repeat your request."
 msgstr "Bitte warte ein paar Minuten und versuch's dann noch einmal."
+
+#: ../root/account/registered.tt:7
+msgid ""
+"Please {acc_edit|update your profile} when you get time, to let other "
+"editors know a bit more about you."
+msgstr "Bitte {acc_edit|aktualisiere Dein Profil} bei Gelegenheit, damit andere Bearbeiter ein wenig mehr über Dich erfahren können."
 
 #: ../root/taglookup/not_found.tt:6
 msgid "Please {search|try again}, providing at least one of these parameters"
@@ -6625,6 +6516,10 @@ msgstr "Veröffentlichungen:"
 msgid "Remove"
 msgstr "Entfernen"
 
+#: ../root/entity/alias/delete.tt:1
+msgid "Remove Alias"
+msgstr ""
+
 #: ../root/account/remove_application.tt:1
 #: ../root/account/remove_application.tt:3
 msgid "Remove Application"
@@ -6633,14 +6528,6 @@ msgstr "Anwendung entfernen"
 #: ../root/area/delete.tt:2
 msgid "Remove Area"
 msgstr "Gebiet entfernen"
-
-#: ../root/area/delete_alias.tt:1
-msgid "Remove Area Alias"
-msgstr "Gebietsalias entfernen"
-
-#: ../root/artist/delete_alias.tt:1
-msgid "Remove Artist Alias"
-msgstr "Künstleralias entfernen"
 
 #: ../root/components/forms.tt:339 ../root/release/edit/tracklist.tt:422
 msgid "Remove Artist Credit"
@@ -6666,17 +6553,9 @@ msgstr "Beispiel entfernen"
 msgid "Remove Instrument"
 msgstr "Instrument entfernen"
 
-#: ../root/instrument/delete_alias.tt:1
-msgid "Remove Instrument Alias"
-msgstr "Instrumentenalias entfernen"
-
 #: ../root/label/delete.tt:2 ../root/release/edit/information.tt:163
 msgid "Remove Label"
 msgstr "Label entfernen"
-
-#: ../root/label/delete_alias.tt:1
-msgid "Remove Label Alias"
-msgstr "Labelalias entfernen"
 
 #: ../root/components/forms.tt:433
 msgid "Remove Link"
@@ -6685,10 +6564,6 @@ msgstr "Link entfernen"
 #: ../root/admin/wikidoc/delete.tt:1 ../root/admin/wikidoc/delete.tt:3
 msgid "Remove Page"
 msgstr "Seite entfernen"
-
-#: ../root/place/delete_alias.tt:1
-msgid "Remove Place Alias"
-msgstr "Örtlichkeitsalias entfernen"
 
 #: ../root/recording/delete.tt:2
 msgid "Remove Recording"
@@ -6720,23 +6595,9 @@ msgstr "Veröffentlichungsgruppe löschen "
 msgid "Remove Series"
 msgstr "Serie entfernen"
 
-#: ../root/series/delete_alias.tt:1
-msgid "Remove Series Alias"
-msgstr "Serienalias entfernen"
-
-#: ../root/work/delete_alias.tt:1
-msgid "Remove Work Alias"
-msgstr "Werkalias entfernen"
-
-#: ../root/area/delete_alias.tt:2
-#: ../lib/MusicBrainz/Server/Edit/Area/DeleteAlias.pm:14
-msgid "Remove area alias"
-msgstr "Gebietsalias entfernen"
-
-#: ../root/artist/delete_alias.tt:2
-#: ../lib/MusicBrainz/Server/Edit/Artist/DeleteAlias.pm:14
-msgid "Remove artist alias"
-msgstr "Künstleralias entfernen"
+#: ../root/entity/alias/delete.tt:2
+msgid "Remove alias"
+msgstr ""
 
 #: ../root/work/edit_form.tt:61
 msgid "Remove attribute"
@@ -6758,22 +6619,6 @@ msgstr "Aus meiner Sammlung entfernen"
 msgid "Remove from {collection}"
 msgstr "Aus Sammlung {collection} entfernen"
 
-#: ../root/instrument/delete_alias.tt:2
-#: ../lib/MusicBrainz/Server/Edit/Instrument/DeleteAlias.pm:14
-msgid "Remove instrument alias"
-msgstr "Instrumentenalias entfernen"
-
-#: ../root/label/delete_alias.tt:2
-#: ../lib/MusicBrainz/Server/Edit/Historic/RemoveLabelAlias.pm:11
-#: ../lib/MusicBrainz/Server/Edit/Label/DeleteAlias.pm:14
-msgid "Remove label alias"
-msgstr "Labelalias entfernen"
-
-#: ../root/place/delete_alias.tt:2
-#: ../lib/MusicBrainz/Server/Edit/Place/DeleteAlias.pm:14
-msgid "Remove place alias"
-msgstr "Örtlichkeitsalias entfernen"
-
 #: ../root/layout/merge-helper.tt:33
 msgid "Remove selected entities"
 msgstr "Ausgewählte Objekte löschen"
@@ -6782,20 +6627,10 @@ msgstr "Ausgewählte Objekte löschen"
 msgid "Remove selected releases from collection"
 msgstr "Ausgewählte Veröffentlichungen von Sammlung entfernen"
 
-#: ../root/series/delete_alias.tt:2
-#: ../lib/MusicBrainz/Server/Edit/Series/DeleteAlias.pm:14
-msgid "Remove series alias"
-msgstr "Serienalias entfernen"
-
 #: ../root/release/edit/tracklist.tt:343
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveTrack.pm:10
 msgid "Remove track"
 msgstr "Titel entfernen"
-
-#: ../root/work/delete_alias.tt:2
-#: ../lib/MusicBrainz/Server/Edit/Work/DeleteAlias.pm:15
-msgid "Remove work alias"
-msgstr "Werkalias entfernen"
 
 #: ../root/components/rating-macros.tt:1
 msgid "Remove your rating"
@@ -6893,10 +6728,8 @@ msgid "Reverse link phrase:"
 msgstr "Beziehungsphrase rückwärts:"
 
 #: ../root/release/edit/information.tt:276
-msgid ""
-"Review the <a href=\"{url}\" target=\"_blank\">list of packaging types</a> "
-"for help."
-msgstr "Konsultiere die <a href=\"{url}\" target=\"_blank\">Liste der Verpackungsarten</a> für Hilfe."
+msgid "Review the {packaging|list of packaging types} for help."
+msgstr "Konsultiere die {packaging|Liste der Verpackungsarten} für Hilfe."
 
 #: ../root/release/edit/layout.tt:27
 msgid ""
@@ -7592,11 +7425,11 @@ msgstr "Sortiername"
 msgid "Sort name"
 msgstr "Sortiername"
 
-#: ../root/alias/edit_form.tt:17 ../root/artist/edit_form.tt:32
-#: ../root/artist/layout.tt:19 ../root/edit/details/add_area.tt:16
-#: ../root/edit/details/add_artist.tt:14 ../root/edit/details/add_label.tt:16
-#: ../root/edit/details/edit_area.tt:16 ../root/edit/details/edit_artist.tt:16
-#: ../root/edit/details/edit_label.tt:14
+#: ../root/artist/edit_form.tt:32 ../root/artist/layout.tt:19
+#: ../root/edit/details/add_area.tt:16 ../root/edit/details/add_artist.tt:14
+#: ../root/edit/details/add_label.tt:16 ../root/edit/details/edit_area.tt:16
+#: ../root/edit/details/edit_artist.tt:16
+#: ../root/edit/details/edit_label.tt:14 ../root/entity/alias/edit_form.tt:17
 msgid "Sort name:"
 msgstr "Sortiername:"
 
@@ -8290,7 +8123,7 @@ msgid ""
 "formatted."
 msgstr "Diese URL ist für den ausgewählten Beziehungstyp nicht zugelassen, oder ist falsch formatiert."
 
-#: ../root/alias/edit_form.tt:36
+#: ../root/entity/alias/edit_form.tt:36
 msgid "This alias is no longer current."
 msgstr "Der Alias ist nicht mehr aktuell."
 
@@ -8540,7 +8373,7 @@ msgid ""
 " {date}. {current|View current revision}."
 msgstr "Dies ist eine {history|alte Revision} dieser Anmerkungen, bearbeitet von {user} am {date}. {current|Aktuelle Revision anzeigen}."
 
-#: ../root/alias/edit_form.tt:23
+#: ../root/entity/alias/edit_form.tt:23
 msgid "This is the primary alias for this locale"
 msgstr "Dies ist der Primäralias für diese Sprachumgebung."
 
@@ -9617,12 +9450,11 @@ msgstr "Twitter"
 msgid "Type"
 msgstr "Typ"
 
-#: ../root/account/register_application.tt:9 ../root/alias/edit_form.tt:25
-#: ../root/area/edit_form.tt:12 ../root/area/layout.tt:6
-#: ../root/artist/edit_form.tt:34 ../root/artist/index.tt:4
-#: ../root/artist/layout.tt:22 ../root/components/filter-form.tt:5
-#: ../root/edit/data.tt:5 ../root/edit/details/add_area.tt:30
-#: ../root/edit/details/add_artist.tt:25
+#: ../root/account/register_application.tt:9 ../root/area/edit_form.tt:12
+#: ../root/area/layout.tt:6 ../root/artist/edit_form.tt:34
+#: ../root/artist/index.tt:4 ../root/artist/layout.tt:22
+#: ../root/components/filter-form.tt:5 ../root/edit/data.tt:5
+#: ../root/edit/details/add_area.tt:30 ../root/edit/details/add_artist.tt:25
 #: ../root/edit/details/add_instrument.tt:23
 #: ../root/edit/details/add_label.tt:56 ../root/edit/details/add_place.tt:23
 #: ../root/edit/details/add_series.tt:23 ../root/edit/details/add_work.tt:30
@@ -9631,12 +9463,12 @@ msgstr "Typ"
 #: ../root/edit/details/edit_label.tt:25 ../root/edit/details/edit_place.tt:19
 #: ../root/edit/details/edit_series.tt:19
 #: ../root/edit/details/historic/add_release.tt:24
-#: ../root/instrument/edit_form.tt:12 ../root/instrument/index.tt:4
-#: ../root/instrument/layout.tt:13 ../root/label/edit_form.tt:33
-#: ../root/label/index.tt:4 ../root/label/layout.tt:9
-#: ../root/place/edit_form.tt:35 ../root/place/index.tt:4
-#: ../root/place/layout.tt:8 ../root/release/add_cover_art.tt:83
-#: ../root/release/cover_art_fields.tt:3
+#: ../root/entity/alias/edit_form.tt:25 ../root/instrument/edit_form.tt:12
+#: ../root/instrument/index.tt:4 ../root/instrument/layout.tt:13
+#: ../root/label/edit_form.tt:33 ../root/label/index.tt:4
+#: ../root/label/layout.tt:9 ../root/place/edit_form.tt:35
+#: ../root/place/index.tt:4 ../root/place/layout.tt:8
+#: ../root/release/add_cover_art.tt:83 ../root/release/cover_art_fields.tt:3
 #: ../root/release/edit/information.tt:70 ../root/release_group/layout.tt:24
 #: ../root/release/index.tt:4 ../root/release/layout.tt:48
 #: ../root/search/form.tt:5 ../root/series/edit_form.tt:33
@@ -9801,9 +9633,9 @@ msgstr "Benutze unseren <strong>XML-Web-Service</strong> oder die <strong>Entwic
 
 #: ../root/components/forms.tt:320
 msgid ""
-"Use the following fields to enter collaborations, see the <a "
-"href=\"{url}\">Artist Credit</a> documentation for more information."
-msgstr "Benutze die folgenden Felder, um Zusammenarbeiten einzugeben. Weitere Informationen findest Du in der Dokumentation zu <a href=\"{url}\">Künstlernennungen</a>."
+"Use the following fields to enter collaborations, see the {ac|Artist Credit}"
+" documentation for more information."
+msgstr ""
 
 #: ../root/release/edit/tracklist.tt:195
 msgid "Use the following fields to search for a CD stub."
@@ -10050,10 +9882,9 @@ msgstr "Achtung:"
 
 #: ../root/components/relationship-editor.tt:15
 msgid ""
-"Warning: This relationship has pending edits. <a target=\"_blank\" data-"
-"bind=\"attr: { href: relationship().openEdits() }\">Click here</a> to view "
+"Warning: This relationship has pending edits. {show|Click here} to view "
 "these edits and make sure they do not conflict with your own."
-msgstr "Warnung: Diese Beziehung hat ausstehende Bearbeitungen. <a target=\"_blank\" data-bind=\"attr: { href: relationship().openEdits() }\">Klicke hier</a>, um die Bearbeitungen zu betrachten und sicherzustellen, dass sie nicht mit Deinen eigenen im Konflikt stehen."
+msgstr ""
 
 #: ../root/watch/list.tt:1 ../root/watch/list.tt:2
 msgid "Watched Artists"
@@ -10582,9 +10413,9 @@ msgstr "Du kannst Spezialkünstler nicht bearbeiten."
 
 #: ../root/account/registered.tt:21
 msgid ""
-"You may proceed to <a href=\"{uri}\">your user profile</a>, or maybe you "
-"want to {edit|start editing}!"
-msgstr "Du kannst jetzt auf <a href=\"{uri}\">Dein Benutzerprofil</a> gehen oder vielleicht willst Du ja auch schon {edit|mit dem Bearbeiten anfangen}!"
+"You may proceed to {profile|your user profile}, or maybe you want to "
+"{edit|start editing}!"
+msgstr "Du kannst jetzt auf {profile|dein Benutzerprofil} gehen oder vielleicht möchtest Du ja auch schon {edit|mit dem Bearbeiten anfangen}!"
 
 #: ../root/edit/index.tt:69
 msgid "You must be logged in to vote on edits"
@@ -10648,7 +10479,7 @@ msgstr "Du wirst nie wieder belästigt werden!"
 msgid "You will not be nagged for another {days} days."
 msgstr "Du wirst für weitere {days} Tage nicht belästigt werden."
 
-#: ../root/alias/delete.tt:1
+#: ../root/entity/alias/delete.tt:4
 msgid "You're removing the alias <em>{alias}</em>."
 msgstr "Du entfernst den Alias <em>{alias}</em>."
 
@@ -11642,8 +11473,8 @@ msgstr "Dein Passwort wurde geändert."
 msgid ""
 "<strong>We were unable to send a confirmation email to you.</strong><br/>Please confirm that you have entered a valid\n"
 "             address by editing your {settings|account settings}. If the problem still persists, please contact us at\n"
-"             <a href=\"mailto:support@musicbrainz.org\">support@musicbrainz.org</a>."
-msgstr "<strong>Wir konnten Dir keine Bestätigungs-Mail schicken.</strong><br/>Bitte schau doch noch mal in Deinen {settings|Kontoeinstellungen}, ob Du eome gültige Adresse angegeben hast. Wenn das Problem weiterhin besteht, kontaktiere uns unter <a href=\"mailto:support@musicbrainz.org\">support@musicbrainz.org</a>."
+"             {mail|support@musicbrainz.org}."
+msgstr "<strong>Wir konnten Dir keine Bestätigungs-Mail schicken.</strong><br/>Bitte schau doch noch mal in Deinen {settings|Kontoeinstellungen}, ob Du eine gültige\nAdresse angegeben hast. Wenn das Problem weiterhin besteht, kontaktiere uns unter\n{mail|support@musicbrainz.org}."
 
 #: ../lib/MusicBrainz/Server/Controller/Admin.pm:77
 msgid "User successfully edited."
@@ -11831,6 +11662,10 @@ msgstr "{t0}-{t1}-Beziehungen"
 msgid "Total"
 msgstr "Insgesamt"
 
+#: ../lib/MusicBrainz/Server/Edit/Area/AddAlias.pm:11
+msgid "Add area alias"
+msgstr "Gebietsalias hinzufügen"
+
 #: ../lib/MusicBrainz/Server/Edit/Area/AddAnnotation.pm:11
 msgid "Add area annotation"
 msgstr "Gebietsanmerkungen hinzufügen"
@@ -11843,13 +11678,25 @@ msgstr "Gebiet hinzufügen"
 msgid "Remove area"
 msgstr "Gebiet entfernen"
 
+#: ../lib/MusicBrainz/Server/Edit/Area/DeleteAlias.pm:14
+msgid "Remove area alias"
+msgstr "Gebietsalias entfernen"
+
 #: ../lib/MusicBrainz/Server/Edit/Area/Edit.pm:32
 msgid "Edit area"
 msgstr "Gebiet bearbeiten"
 
+#: ../lib/MusicBrainz/Server/Edit/Area/EditAlias.pm:12
+msgid "Edit area alias"
+msgstr "Gebietsalias bearbeiten"
+
 #: ../lib/MusicBrainz/Server/Edit/Area/Merge.pm:11
 msgid "Merge areas"
 msgstr "Gebiete vereinen"
+
+#: ../lib/MusicBrainz/Server/Edit/Artist/AddAlias.pm:11
+msgid "Add artist alias"
+msgstr "Künstleralias hinzufügen"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/AddAnnotation.pm:11
 msgid "Add artist annotation"
@@ -11863,9 +11710,17 @@ msgstr "Künstler hinzufügen"
 msgid "Remove artist"
 msgstr "Künstler entfernen"
 
+#: ../lib/MusicBrainz/Server/Edit/Artist/DeleteAlias.pm:14
+msgid "Remove artist alias"
+msgstr "Künstleralias entfernen"
+
 #: ../lib/MusicBrainz/Server/Edit/Artist/Edit.pm:35
 msgid "Edit artist"
 msgstr "Künstler bearbeiten"
+
+#: ../lib/MusicBrainz/Server/Edit/Artist/EditAlias.pm:12
+msgid "Edit artist alias"
+msgstr "Künstleralias bearbeiten"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/EditArtistCredit.pm:24
 msgid "Edit artist credit"
@@ -11970,6 +11825,11 @@ msgstr "Veröffentlichungsgruppe ändern (historisch)"
 msgid "Remove disc ID"
 msgstr "Disc-ID entfernen"
 
+#: ../lib/MusicBrainz/Server/Edit/Historic/RemoveLabelAlias.pm:11
+#: ../lib/MusicBrainz/Server/Edit/Label/DeleteAlias.pm:14
+msgid "Remove label alias"
+msgstr "Labelalias entfernen"
+
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveLink.pm:10
 msgid "Remove relationship (historic)"
 msgstr "Beziehung entfernen (historisch)"
@@ -11996,6 +11856,10 @@ msgstr "Veröffentlichung in mehrere Künstler umwandeln (historisch)"
 msgid "Set track lengths"
 msgstr "Titellängen setzen"
 
+#: ../lib/MusicBrainz/Server/Edit/Instrument/AddAlias.pm:11
+msgid "Add instrument alias"
+msgstr "Instrumentenalias hinzufügen"
+
 #: ../lib/MusicBrainz/Server/Edit/Instrument/AddAnnotation.pm:11
 msgid "Add instrument annotation"
 msgstr "Instrumentenanmerkungen hinzufügen"
@@ -12008,13 +11872,25 @@ msgstr "Instrument hinzufügen"
 msgid "Remove instrument"
 msgstr "Instrument entfernen"
 
+#: ../lib/MusicBrainz/Server/Edit/Instrument/DeleteAlias.pm:14
+msgid "Remove instrument alias"
+msgstr "Instrumentenalias entfernen"
+
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Edit.pm:27
 msgid "Edit instrument"
 msgstr "Instrument bearbeiten"
 
+#: ../lib/MusicBrainz/Server/Edit/Instrument/EditAlias.pm:12
+msgid "Edit instrument alias"
+msgstr "Instrumentenalias bearbeiten"
+
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Merge.pm:11
 msgid "Merge instruments"
 msgstr "Instrumente vereinen"
+
+#: ../lib/MusicBrainz/Server/Edit/Label/AddAlias.pm:11
+msgid "Add label alias"
+msgstr "Labelalias hinzufügen"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/AddAnnotation.pm:11
 msgid "Add label annotation"
@@ -12031,6 +11907,10 @@ msgstr "Label entfernen"
 #: ../lib/MusicBrainz/Server/Edit/Label/Edit.pm:33
 msgid "Edit label"
 msgstr "Label bearbeiten"
+
+#: ../lib/MusicBrainz/Server/Edit/Label/EditAlias.pm:12
+msgid "Edit label alias"
+msgstr "Labelalias bearbeiten"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/Merge.pm:12
 msgid "Merge labels"
@@ -12052,6 +11932,10 @@ msgstr "Medium bearbeiten"
 msgid "Remove PUID"
 msgstr "PUID entfernen"
 
+#: ../lib/MusicBrainz/Server/Edit/Place/AddAlias.pm:11
+msgid "Add place alias"
+msgstr "Örtlichkeitsalias hinzufügen"
+
 #: ../lib/MusicBrainz/Server/Edit/Place/AddAnnotation.pm:11
 msgid "Add place annotation"
 msgstr "Örtlichkeitsanmerkungen hinzufügen"
@@ -12064,9 +11948,17 @@ msgstr "Örtlichkeit hinzufügen"
 msgid "Remove place"
 msgstr "Örtlichkeit entfernen"
 
+#: ../lib/MusicBrainz/Server/Edit/Place/DeleteAlias.pm:14
+msgid "Remove place alias"
+msgstr "Örtlichkeitsalias entfernen"
+
 #: ../lib/MusicBrainz/Server/Edit/Place/Edit.pm:36
 msgid "Edit place"
 msgstr "Örtlichkeit bearbeiten"
+
+#: ../lib/MusicBrainz/Server/Edit/Place/EditAlias.pm:12
+msgid "Edit place alias"
+msgstr "Örtlichkeitsalias bearbeiten"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Merge.pm:11
 msgid "Merge places"
@@ -12188,6 +12080,10 @@ msgstr "Veröffentlichungsgruppe entfernen"
 msgid "Edit release group"
 msgstr "Veröffentlichungsgruppe bearbeiten"
 
+#: ../lib/MusicBrainz/Server/Edit/Series/AddAlias.pm:11
+msgid "Add series alias"
+msgstr "Serienalias hinzufügen"
+
 #: ../lib/MusicBrainz/Server/Edit/Series/AddAnnotation.pm:11
 msgid "Add series annotation"
 msgstr "Serienanmerkungen hinzufügen"
@@ -12200,9 +12096,17 @@ msgstr "Serie hinzufügen"
 msgid "Remove series"
 msgstr "Serie entfernen"
 
+#: ../lib/MusicBrainz/Server/Edit/Series/DeleteAlias.pm:14
+msgid "Remove series alias"
+msgstr "Serienalias entfernen"
+
 #: ../lib/MusicBrainz/Server/Edit/Series/Edit.pm:24
 msgid "Edit series"
 msgstr "Serie bearbeiten"
+
+#: ../lib/MusicBrainz/Server/Edit/Series/EditAlias.pm:12
+msgid "Edit series alias"
+msgstr "Serienalias bearbeiten"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Merge.pm:11
 msgid "Merge series"
@@ -12236,6 +12140,10 @@ msgstr "Wiki-Dokumentation"
 msgid "Change WikiDoc"
 msgstr "WikiDoc ändern"
 
+#: ../lib/MusicBrainz/Server/Edit/Work/AddAlias.pm:12
+msgid "Add work alias"
+msgstr "Werkalias hinzufügen"
+
 #: ../lib/MusicBrainz/Server/Edit/Work/AddAnnotation.pm:12
 msgid "Add work annotation"
 msgstr "Werkanmerkungen hinzufügen"
@@ -12248,9 +12156,17 @@ msgstr "ISWCs hinzufügen"
 msgid "Remove work"
 msgstr "Werk entfernen"
 
+#: ../lib/MusicBrainz/Server/Edit/Work/DeleteAlias.pm:15
+msgid "Remove work alias"
+msgstr "Werkalias entfernen"
+
 #: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:71
 msgid "Edit work"
 msgstr "Werk bearbeiten"
+
+#: ../lib/MusicBrainz/Server/Edit/Work/EditAlias.pm:13
+msgid "Edit work alias"
+msgstr "Werkalias bearbeiten"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/Merge.pm:12
 msgid "Merge works"
@@ -12368,6 +12284,10 @@ msgstr ", "
 #, perl-brace-format
 msgid "{b} and {a}"
 msgstr "{b} und {a}"
+
+#: ../lib/MusicBrainz/Server/Entity/URL/IMSLP.pm:37
+msgid "Score at IMSLP"
+msgstr ""
 
 #: ../lib/MusicBrainz/Server/FilterUtils.pm:22
 msgid "Filter release groups"
