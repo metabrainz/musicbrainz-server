@@ -116,7 +116,7 @@ sub update
                 medium_index.medium IS NOT NULL AS has_index
            FROM track
       LEFT JOIN medium_index ON medium_index.medium = track.medium
-          WHERE track.medium = ?
+          WHERE track.medium = ? AND track.position > 0 AND track.is_data_track = false
        GROUP BY track.medium, medium_index.medium;", $medium_id);
 
     return unless $results;
@@ -128,9 +128,6 @@ sub update
         "SELECT count(*) FROM track WHERE medium = ? AND position > 0 AND is_data_track = false",
         $medium_id
     );
-
-    # create_cube_from_durations requires at least one track
-    return unless $track_count > 0;
 
     my $create_cube = 'create_cube_from_durations((
                     SELECT array(
