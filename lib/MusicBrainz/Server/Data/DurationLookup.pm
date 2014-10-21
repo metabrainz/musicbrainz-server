@@ -76,8 +76,8 @@ sub lookup
                     name,
                     edits_pending
                FROM medium_index
-               JOIN medium ON medium_index.medium = medium.id
-             WHERE  track_count_matches_cdtoc(medium, ?)
+               JOIN medium m ON medium_index.medium = m.id
+             WHERE  track_count_matches_cdtoc(m, ?)
                 AND toc <@ create_bounding_cube($dur_string, ?)
            ORDER BY distance", $toc_info{tracks}, $fuzzy);
 
