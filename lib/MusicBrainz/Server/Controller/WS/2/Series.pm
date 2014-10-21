@@ -13,7 +13,7 @@ my $ws_defs = Data::OptList::mkopt([
      },
      series => {
                          method   => 'GET',
-                         inc      => [ qw(aliases annotation _relations) ],
+                         inc      => [ qw(aliases annotation _relations tags user-tags) ],
                          optional => [ qw(fmt) ],
      }
 ]);

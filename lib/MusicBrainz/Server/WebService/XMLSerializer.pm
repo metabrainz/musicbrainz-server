@@ -970,6 +970,7 @@ sub _serialize_instrument {
         if ($inc->aliases && $opts->{aliases});
 
     $self->_serialize_relation_lists($instrument, \@list, $gen, $instrument->relationships, $inc, $stash) if ($inc->has_rels);
+    $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
     push @$data, $gen->instrument(\%attrs, @list);
 }
@@ -1078,6 +1079,7 @@ sub _serialize_series
         if ($inc->aliases && $opts->{aliases});
 
     $self->_serialize_relation_lists($series, \@list, $gen, $series->relationships, $inc, $stash) if ($inc->has_rels);
+    $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
     push @$data, $gen->series(\%attrs, @list);
 }

@@ -29,6 +29,7 @@ with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'series' 
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'series' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'series' };
 with 'MusicBrainz::Server::Data::Role::Merge';
+with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'series' };
 with 'MusicBrainz::Server::Data::Role::DeleteAndLog';
 with 'MusicBrainz::Server::Data::Role::Subscription' => {
     table => 'editor_subscribe_series',
@@ -88,6 +89,7 @@ sub _merge_impl {
     my ($self, $new_id, @old_ids) = @_;
 
     $self->alias->merge($new_id, @old_ids);
+    $self->tags->merge($new_id, @old_ids);
     $self->subscription->merge_entities($new_id, @old_ids);
     $self->annotation->merge($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('series', $new_id, @old_ids);
@@ -193,6 +195,7 @@ sub delete
     # No deleting relationship-related stuff because it should probably fail if it's trying to do that
     $self->annotation->delete(@ids);
     $self->alias->delete_entities(@ids);
+    $self->tags->delete(@ids);
     $self->remove_gid_redirects(@ids);
     $self->delete_returning_gids('series', @ids);
     return 1;

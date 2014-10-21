@@ -8,6 +8,8 @@ ALTER TABLE area_alias ADD CONSTRAINT area_alias_pkey PRIMARY KEY (id);
 ALTER TABLE area_alias_type ADD CONSTRAINT area_alias_type_pkey PRIMARY KEY (id);
 ALTER TABLE area_annotation ADD CONSTRAINT area_annotation_pkey PRIMARY KEY (area, annotation);
 ALTER TABLE area_gid_redirect ADD CONSTRAINT area_gid_redirect_pkey PRIMARY KEY (gid);
+ALTER TABLE area_tag ADD CONSTRAINT area_tag_pkey PRIMARY KEY (area, tag);
+ALTER TABLE area_tag_raw ADD CONSTRAINT area_tag_raw_pkey PRIMARY KEY (area, editor, tag);
 ALTER TABLE area_type ADD CONSTRAINT area_type_pkey PRIMARY KEY (id);
 ALTER TABLE artist ADD CONSTRAINT artist_pkey PRIMARY KEY (id);
 ALTER TABLE artist_alias ADD CONSTRAINT artist_alias_pkey PRIMARY KEY (id);
@@ -79,6 +81,8 @@ ALTER TABLE instrument_alias ADD CONSTRAINT instrument_alias_pkey PRIMARY KEY (i
 ALTER TABLE instrument_alias_type ADD CONSTRAINT instrument_alias_type_pkey PRIMARY KEY (id);
 ALTER TABLE instrument_annotation ADD CONSTRAINT instrument_annotation_pkey PRIMARY KEY (instrument, annotation);
 ALTER TABLE instrument_gid_redirect ADD CONSTRAINT instrument_gid_redirect_pkey PRIMARY KEY (gid);
+ALTER TABLE instrument_tag ADD CONSTRAINT instrument_tag_pkey PRIMARY KEY (instrument, tag);
+ALTER TABLE instrument_tag_raw ADD CONSTRAINT instrument_tag_raw_pkey PRIMARY KEY (instrument, editor, tag);
 ALTER TABLE instrument_type ADD CONSTRAINT instrument_type_pkey PRIMARY KEY (id);
 ALTER TABLE iso_3166_1 ADD CONSTRAINT iso_3166_1_pkey PRIMARY KEY (code);
 ALTER TABLE iso_3166_2 ADD CONSTRAINT iso_3166_2_pkey PRIMARY KEY (code);
@@ -238,6 +242,8 @@ ALTER TABLE series_annotation ADD CONSTRAINT series_annotation_pkey PRIMARY KEY 
 ALTER TABLE series_deletion ADD CONSTRAINT series_deletion_pkey PRIMARY KEY (gid);
 ALTER TABLE series_gid_redirect ADD CONSTRAINT series_gid_redirect_pkey PRIMARY KEY (gid);
 ALTER TABLE series_ordering_type ADD CONSTRAINT series_ordering_type_pkey PRIMARY KEY (id);
+ALTER TABLE series_tag ADD CONSTRAINT series_tag_pkey PRIMARY KEY (series, tag);
+ALTER TABLE series_tag_raw ADD CONSTRAINT series_tag_raw_pkey PRIMARY KEY (series, editor, tag);
 ALTER TABLE series_type ADD CONSTRAINT series_type_pkey PRIMARY KEY (id);
 ALTER TABLE tag ADD CONSTRAINT tag_pkey PRIMARY KEY (id);
 ALTER TABLE tag_relation ADD CONSTRAINT tag_relation_pkey PRIMARY KEY (tag1, tag2);

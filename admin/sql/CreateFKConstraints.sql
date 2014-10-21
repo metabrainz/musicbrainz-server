@@ -46,6 +46,31 @@ ALTER TABLE area_gid_redirect
    FOREIGN KEY (new_id)
    REFERENCES area(id);
 
+ALTER TABLE area_tag
+   ADD CONSTRAINT area_tag_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
+
+ALTER TABLE area_tag
+   ADD CONSTRAINT area_tag_fk_tag
+   FOREIGN KEY (tag)
+   REFERENCES tag(id);
+
+ALTER TABLE area_tag_raw
+   ADD CONSTRAINT area_tag_raw_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
+
+ALTER TABLE area_tag_raw
+   ADD CONSTRAINT area_tag_raw_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
+
+ALTER TABLE area_tag_raw
+   ADD CONSTRAINT area_tag_raw_fk_tag
+   FOREIGN KEY (tag)
+   REFERENCES tag(id);
+
 ALTER TABLE area_type
    ADD CONSTRAINT area_type_fk_parent
    FOREIGN KEY (parent)
@@ -701,6 +726,31 @@ ALTER TABLE instrument_gid_redirect
    ADD CONSTRAINT instrument_gid_redirect_fk_new_id
    FOREIGN KEY (new_id)
    REFERENCES instrument(id);
+
+ALTER TABLE instrument_tag
+   ADD CONSTRAINT instrument_tag_fk_instrument
+   FOREIGN KEY (instrument)
+   REFERENCES instrument(id);
+
+ALTER TABLE instrument_tag
+   ADD CONSTRAINT instrument_tag_fk_tag
+   FOREIGN KEY (tag)
+   REFERENCES tag(id);
+
+ALTER TABLE instrument_tag_raw
+   ADD CONSTRAINT instrument_tag_raw_fk_instrument
+   FOREIGN KEY (instrument)
+   REFERENCES instrument(id);
+
+ALTER TABLE instrument_tag_raw
+   ADD CONSTRAINT instrument_tag_raw_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
+
+ALTER TABLE instrument_tag_raw
+   ADD CONSTRAINT instrument_tag_raw_fk_tag
+   FOREIGN KEY (tag)
+   REFERENCES tag(id);
 
 ALTER TABLE instrument_type
    ADD CONSTRAINT instrument_type_fk_parent
@@ -2489,6 +2539,31 @@ ALTER TABLE series_ordering_type
    ADD CONSTRAINT series_ordering_type_fk_parent
    FOREIGN KEY (parent)
    REFERENCES series_ordering_type(id);
+
+ALTER TABLE series_tag
+   ADD CONSTRAINT series_tag_fk_series
+   FOREIGN KEY (series)
+   REFERENCES series(id);
+
+ALTER TABLE series_tag
+   ADD CONSTRAINT series_tag_fk_tag
+   FOREIGN KEY (tag)
+   REFERENCES tag(id);
+
+ALTER TABLE series_tag_raw
+   ADD CONSTRAINT series_tag_raw_fk_series
+   FOREIGN KEY (series)
+   REFERENCES series(id);
+
+ALTER TABLE series_tag_raw
+   ADD CONSTRAINT series_tag_raw_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
+
+ALTER TABLE series_tag_raw
+   ADD CONSTRAINT series_tag_raw_fk_tag
+   FOREIGN KEY (tag)
+   REFERENCES tag(id);
 
 ALTER TABLE series_type
    ADD CONSTRAINT series_type_fk_parent

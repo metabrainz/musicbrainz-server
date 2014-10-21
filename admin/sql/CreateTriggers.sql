@@ -7,6 +7,9 @@ CREATE TRIGGER b_upd_area BEFORE UPDATE ON area
 CREATE TRIGGER b_upd_area_alias BEFORE UPDATE ON area_alias
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER b_upd_area_tag BEFORE UPDATE ON area_tag
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
 CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON area_alias
     FOR EACH ROW EXECUTE PROCEDURE unique_primary_area_alias();
 
@@ -92,6 +95,9 @@ CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON instrument_alia
     FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
 
 CREATE TRIGGER b_upd_instrument_alias BEFORE UPDATE ON instrument_alias
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_instrument_tag BEFORE UPDATE ON instrument_tag
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON instrument_alias
@@ -440,6 +446,9 @@ CREATE TRIGGER b_upd_series BEFORE UPDATE ON series
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER b_upd_series_alias BEFORE UPDATE ON series_alias
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_series_tag BEFORE UPDATE ON series_tag
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON series_alias
@@ -899,6 +908,18 @@ FOR EACH ROW EXECUTE PROCEDURE trg_delete_unused_tag_ref();
 
 CREATE CONSTRAINT TRIGGER delete_unused_tag
 AFTER DELETE ON work_tag DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW EXECUTE PROCEDURE trg_delete_unused_tag_ref();
+
+CREATE CONSTRAINT TRIGGER delete_unused_tag
+AFTER DELETE ON area_tag DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW EXECUTE PROCEDURE trg_delete_unused_tag_ref();
+
+CREATE CONSTRAINT TRIGGER delete_unused_tag
+AFTER DELETE ON instrument_tag DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW EXECUTE PROCEDURE trg_delete_unused_tag_ref();
+
+CREATE CONSTRAINT TRIGGER delete_unused_tag
+AFTER DELETE ON series_tag DEFERRABLE INITIALLY DEFERRED
 FOR EACH ROW EXECUTE PROCEDURE trg_delete_unused_tag_ref();
 
 COMMIT;

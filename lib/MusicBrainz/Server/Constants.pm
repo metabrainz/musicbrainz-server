@@ -350,7 +350,8 @@ Readonly our %ENTITIES => (
             delete_edit_type => $EDIT_AREA_DELETE_ALIAS,
             search_hint_type => 3
         },
-        removal     => { manual => 1 }
+        removal     => { manual => 1 },
+        tags        => 1
     },
     artist => {
         mbid => { relatable => 'dedicated', indexable => 1 },
@@ -404,7 +405,8 @@ Readonly our %ENTITIES => (
             delete_edit_type => $EDIT_INSTRUMENT_DELETE_ALIAS,
             search_hint_type => 2
         },
-        removal     => { manual => 1 }
+        removal     => { manual => 1 },
+        tags        => 1
     },
     label => {
         mbid => { relatable => 'dedicated', indexable => 1 },
@@ -497,7 +499,8 @@ Readonly our %ENTITIES => (
         },
         subscriptions => { entity => 1, deleted => 1 },
         report_filter => 1,
-        removal     => { automatic => 1 }
+        removal     => { automatic => 1 },
+        tags        => 1
     },
     url => {
         mbid => { relatable => 'overview', no_details => 1 },
@@ -635,6 +638,8 @@ Readonly our @FULL_TABLE_LIST => qw(
     series_gid_redirect
     series_ordering_type
     series_type
+    series_tag
+    series_tag_raw
     track_raw
     vote
     work_rating_raw
@@ -647,6 +652,8 @@ Readonly our @FULL_TABLE_LIST => qw(
     area_alias_type
     area_annotation
     area_gid_redirect
+    area_tag
+    area_tag_raw
     country_area
     iso_3166_1
     iso_3166_2
@@ -694,6 +701,8 @@ Readonly our @FULL_TABLE_LIST => qw(
     instrument_annotation
     instrument_gid_redirect
     instrument_type
+    instrument_tag
+    instrument_tag_raw
     isrc
     iswc
     l_area_area
