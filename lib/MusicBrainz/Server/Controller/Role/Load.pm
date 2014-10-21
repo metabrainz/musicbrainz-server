@@ -52,7 +52,8 @@ role
 
         $c->detach('not_found') unless defined $entity;
 
-        my $entity_properties = $ENTITIES{ model_to_type($model) };
+        # defaulting to something non-undef silences a warning
+        my $entity_properties = $ENTITIES{ model_to_type($model) // 0 };
 
         if (exists $entity_properties->{mbid} && $entity_properties->{mbid}{relatable}) {
             my $action = $c->action->name;

@@ -1,12 +1,9 @@
 package MusicBrainz::Server::EditSearch::Predicate::LinkedEntity;
 use MooseX::Role::Parameterized;
 use namespace::autoclean;
-use feature 'switch';
 use Scalar::Util qw( looks_like_number );
 
 use MooseX::Types::Moose qw( Str );
-
-no if $] >= 5.018, warnings => "experimental::smartmatch";
 
 parameter type => (
     required => 1
@@ -31,26 +28,13 @@ role {
 
     method combine_with_query => sub {
         my ($self, $query) = @_;
-        my $join_idx = $query->inc_joins;
         my $table = join('_', 'edit', $params->type);
         my $column = $params->type;
-        my $alias = $table . $join_idx;
 
-        given ($self->operator) {
-            when ('=') {
-                $query->add_join("JOIN $table $alias ON $alias.edit = edit.id");
-                $query->add_where([
-                    "$alias.$column = ?", $self->sql_arguments
-                ]);
-            }
-
-            when ('!=') {
-                $query->add_where([
-                    "NOT EXISTS (SELECT TRUE from $table edit_entity WHERE edit_entity.edit = edit.id AND edit_entity.$column = ?)",
-                    $self->sql_arguments
-                ]);
-            }
-        };
+        $query->add_where([
+            ($self->operator eq '!=' ? 'NOT ' : '') .
+            "EXISTS (SELECT 1 FROM $table WHERE edit = edit.id AND $column = ?)", $self->sql_arguments
+        ]);
     };
 
     method valid => sub {

@@ -21,8 +21,7 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      defs => $ws_defs,
 };
 
-sub discid : Chained('root') PathPart('discid') Args(1)
-{
+sub discid : Chained('root') PathPart('discid') {
     my ($self, $c, $id) = @_;
 
     if (!is_valid_discid($id) && !(exists $c->req->query_params->{toc}))

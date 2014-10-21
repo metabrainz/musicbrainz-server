@@ -68,9 +68,10 @@ sub sameas_url{
     );
     my %acceptable_parents = map { $_ => 1 } @acceptable_parents;
 
-    if ($acceptable{$rel->link->type->gid} ||
-        $acceptable_parents{$rel->link->type->parent_id} ||
-        $acceptable_parents{$rel->link->type->id}) {
+    # Defaults to non-undef to silence warnings
+    if ($acceptable{$rel->link->type->gid // ''} ||
+        $acceptable_parents{$rel->link->type->parent_id // ''} ||
+        $acceptable_parents{$rel->link->type->id // ''}) {
         return $rel->target->url->as_string;
     }
 }

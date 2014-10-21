@@ -370,6 +370,7 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit
         index_url => DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $entity->gid . "/",
         images => \@artwork,
         mime_types => \@mime_types,
+        access_key => DBDefs->COVER_ART_ARCHIVE_ACCESS_KEY,
         cover_art_types_json => $json->encode(
             [ map {
                 { name => $_->name, l_name => $_->l_name, id => $_->id }

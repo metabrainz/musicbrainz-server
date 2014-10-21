@@ -1,7 +1,7 @@
 package t::MusicBrainz::Server::Controller::Series::Edit;
 use Test::Routine;
 use Test::More;
-use Test::Deep;
+use Test::Deep qw( cmp_deeply ignore re );
 use MusicBrainz::Server::Test qw( capture_edits html_ok );
 
 with 't::Edit';
