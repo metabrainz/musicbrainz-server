@@ -1,5 +1,6 @@
 package t::MusicBrainz::Server::Controller::WS::js::Release;
 use Test::More;
+use Test::Deep qw( cmp_deeply any );
 use Test::Routine;
 use JSON;
 use MusicBrainz::Server::Test;
@@ -30,10 +31,10 @@ test all => sub {
     my $rels = $data->{mediums}->[0]->{tracks}->[0]->{recording}->{relationships};
     my ($vocal_performance) = grep { $_->{id} == 6751 } @$rels;
 
-    is_deeply($vocal_performance, {
+    cmp_deeply($vocal_performance, {
         linkTypeID => 158,
         direction => 'backward',
-        ended => 'false',
+        ended => any('false', JSON::false),
         target => {
             comment => '',
             sortName => 'BoA',
@@ -42,12 +43,18 @@ test all => sub {
             id => 9496,
             gid => 'a16d1433-ba89-4f72-a47b-a370add0bb55'
         },
-        editsPending => 'false',
+        editsPending => any('false', JSON::false),
         endDate => undef,
         beginDate => undef,
         id => 6751,
         verbosePhrase => 'vocal',
-        attributes => [194],
+        attributes => [
+            {
+                type => {
+                    gid => 'b3045913-62ac-433e-9211-ac683cdf6b5c',
+                },
+            }
+        ],
         linkOrder => 0,
     }, "BoA performed vocals");
 

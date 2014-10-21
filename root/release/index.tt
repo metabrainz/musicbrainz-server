@@ -29,7 +29,7 @@
 
     <script type="text/html" id="relationship-group">
       <dt><span data-bind="html: key"></span>:</dt>
-      <dd data-bind="html: _.map(value, function (v) { return v.target.html() }).join(', ')">
+      <dd data-bind="html: _.map(value, MB.Release.relationshipLink).join(', ')">
       </dd>
     </script>
 
@@ -68,9 +68,9 @@
             </td>
           </tr>
           <!-- ko foreach: tracks -->
-          <tr data-bind="css: { ev: ($index() + 1) % 2 == 0, mp: editsPending > 0 }, attr: { id: gid }">
+          <tr data-bind="css: { even: ($index() + 1) % 2 == 0, mp: editsPending > 0 }, attr: { id: gid }">
               <td class="pos t">
-                <!-- ko text: number --><!-- /ko -->
+                <a data-bind="text: number, attr: { href: '/track/' + gid }"></a>
               </td>
               <!-- ko if: $root.showVideo -->
                 <td class="video c" data-bind="css: { 'is-video': recording.video }, attr: { title: (recording.video ? '[% l("This recording is a video") | js %]': '')}"></td>
@@ -87,7 +87,7 @@
                           <!-- ko foreach: value -->
                             <dt><span data-bind="html: $parent.key"></span>:</dt>
                             <dd>
-                              <span data-bind="html: target.html()"></span>
+                              <span data-bind="html: MB.Release.relationshipLink($data)"></span>
                               <!-- ko foreachKv: groupedSubRelationships -->
                                 <!-- ko if: key == 'artist' -->
                                   <dl class="ars">
@@ -167,10 +167,12 @@
                 target => {
                     gid => $target->gid,
                     entityType => $rel->target_type,
+                    editsPending => $target->edits_pending,
                     name => $target->name,
                     sortName => $target->can('sort_name') ? $target->sort_name : undef,
                     comment => $target->can('comment') ? $target->comment : ''
                 },
+                editsPending => $rel->edits_pending,
                 phrase => $rel->phrase
             );
         };
@@ -195,6 +197,7 @@
                                     artist => {
                                         gid => $_->artist->gid,
                                         id => $_->artist->id,
+                                        editsPending => $_->artist->edits_pending,
                                         sortName => $_->artist->sort_name,
                                         name => $_->artist->name,
                                         comment => $_->artist->comment
@@ -234,6 +237,7 @@
                     artist => {
                         gid => $_->artist->gid,
                         id => $_->artist->id,
+                        editsPending => $_->artist->edits_pending,
                         sortName => $_->artist->sort_name,
                         name => $_->artist->name
                     }

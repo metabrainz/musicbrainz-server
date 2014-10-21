@@ -76,7 +76,7 @@ sub get_available_languages
             $key = 'sitelinks';
             $callback = \&_wikidata_languages_callback;
         } else {
-            $url_pattern = "http://%s.wikipedia.org/w/api.php?action=query&prop=langlinks&lllimit=500&format=json&redirects=1&titles=%s";
+            $url_pattern = "http://%s.wikipedia.org/w/api.php?action=query&prop=langlinks&lllimit=max&format=json&redirects=1&titles=%s";
             $key = 'langlinks';
             $callback = \&_wikipedia_languages_callback;
             $language = $link->language;

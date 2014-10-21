@@ -26,7 +26,7 @@
                 },
                 controlsBubble: $root.releaseGroupBubble"
             />
-            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
           </span>
         </td>
       </tr>
@@ -47,7 +47,7 @@
               data-form="[% form.name IF form.html_prefix %]"
               data-artist="[% html_escape(form.field('artist_credit').json) IF form %]"
             />
-            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
           </span>
         </td>
         <td>
@@ -70,7 +70,7 @@
         <td><label>[% l('Type:') %]</label></td>
         <td colspan="2">
           [% l('To edit types, please {edit_page|edit the release group}.',
-                edit_page => c.uri_for_action('/release_group/edit', [ release.release_group.gid ])) %]
+                edit_page => { href => c.uri_for_action('/release_group/edit', [ release.release_group.gid ]), target => '_blank' }) %]
         </td>
       </tr>
       [% END %]
@@ -152,7 +152,7 @@
                 },
                 controlsBubble: $root.labelBubble"
             />
-            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
           </span>
         </td>
         <td><label>[% l('Cat. No:') %]</label></td>
@@ -164,7 +164,11 @@
         </td>
       </tr>
 
-      [% table_row_error(4, 'showErrorWhenTabIsSwitched: needsLabel', l('You must select an existing label.')) %]
+      [% table_row_error(
+           4, 'showErrorWhenTabIsSwitched: needsLabel',
+           '<!-- ko text: MB.i18n.expand(MB.text.NeedsLabel, { name: label().name }) --><!-- /ko -->'
+         )
+      %]
     <!-- /ko -->
 
       <tr>
@@ -253,7 +257,7 @@
 
   <div class="bubble" data-bind="bubble: $root.labelBubble">
     <!-- ko with: target() && target().label() -->
-      <!-- ko if: gid -->
+      <!-- ko if: $data.gid -->
         <p data-bind="html: MB.i18n.expand(MB.text.SelectedLabel, { label: html({ target: '_blank' }) })"></p>
       <!-- /ko -->
     <!-- /ko -->

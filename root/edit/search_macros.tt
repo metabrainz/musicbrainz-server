@@ -229,7 +229,7 @@
                  [ '!=', l('is not') ] ], field_contents) %]
 
   <span class="autocomplete [% autocomplete_name %]">
-      <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+      <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
       <input type="text" class="name" name="name" value="[% html_escape(field_contents.name) %]" style="width: 170px;" />
       <input type="hidden" class="gid" />
       <input type="hidden" class="id" name="args.0" value="[% html_escape(field_contents.argument(0)) %]" />
@@ -241,10 +241,10 @@
                  [ '!=', l('is not') ] ], field_contents) %]
   <input type="hidden" name="voter_id" value="[% c.user.id %]" />
   <select name="args" multiple="multiple">
-    [% FOR item=[ [  2,   l('Approve') ]
-                , [  1,   l('Yes') ]
-                , [  0,   l('No') ]
-                , [ -1,   l('Abstain') ]
+    [% FOR item=[ [  2,   lp('Approve', 'vote') ]
+                , [  1,   lp('Yes', 'vote') ]
+                , [  0,   lp('No', 'vote') ]
+                , [ -1,   lp('Abstain', 'vote') ]
                 , [ 'no', l('No vote') ]
                 ] %]
     <option value="[% html_escape(item.0) %]"
@@ -261,7 +261,7 @@
                ], field_contents) %]
 
   <span class="arg autocomplete [% field | replace('_', '-') %]">
-      <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+      <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
       <input type="text" class="name" name="name" value="[% html_escape(field_contents.name) %]" style="width: 170px;" />
       <input type="hidden" class="gid" />
       <input type="hidden" class="id" name="args.0" value="[% html_escape(field_contents.argument(0)) %]"  />

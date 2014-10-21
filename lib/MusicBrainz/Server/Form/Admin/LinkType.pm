@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Form::Admin::LinkType;
 
 use HTML::FormHandler::Moose;
+use MusicBrainz::Server::Form::Utils qw( select_options_tree );
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
@@ -109,25 +110,10 @@ has_field 'entity1_cardinality' => (
     default => 0
 );
 
-sub _build_parent_id_options
-{
-    my ($self, $root, $indent) = @_;
-
-    my @options;
-    if ($root->id) {
-        push @options, $root->id, $indent . $root->name if $root->id;
-        $indent .= '&#xa0;&#xa0;&#xa0;';
-    }
-    foreach my $child ($root->all_children) {
-        push @options, $self->_build_parent_id_options($child, $indent);
-    }
-    return @options;
-}
-
 sub options_parent_id
 {
     my ($self) = @_;
-    return [ $self->_build_parent_id_options($self->root, '') ];
+    return select_options_tree($self->ctx, $self->root, accessor => 'name');
 }
 
 1;

@@ -11,13 +11,13 @@
     [%~ END %][% END ~%]
     <div class="voteopts">
         <div class="vote">
-            [%~ vote_checkbox(l('Yes'), 1) ~%]
+            [%~ vote_checkbox(lp('Yes', 'vote'), 1) ~%]
         </div>
         <div class="vote">
-            [%~ vote_checkbox(l('No'), 0) ~%]
+            [%~ vote_checkbox(lp('No', 'vote'), 0) ~%]
         </div>
         <div class="vote">
-            [%~ vote_checkbox(l('Abstain'), -1) ~%]
+            [%~ vote_checkbox(lp('Abstain', 'vote'), -1) ~%]
         </div>
         <div class="vote">
             [%~ vote_checkbox(l('None'), -2) ~%]

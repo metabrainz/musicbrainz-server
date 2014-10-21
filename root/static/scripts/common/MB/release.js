@@ -36,6 +36,7 @@ MB.Release = (function (Release) {
           o[relationship.target.entityType][relationship.phrase] = [
             {
               target: MB.entity(relationship.target),
+              editsPending: relationship.editsPending,
               groupedSubRelationships:
                 computeGroupedRelationships(relationship.subRelationships)
             }
@@ -131,6 +132,14 @@ MB.Release = (function (Release) {
     );
 
     return model;
+  };
+
+  Release.relationshipLink = function (r) {
+    var t = r.target.html();
+    if (r.editsPending > 0) {
+      t = '<span class="mp mp-rel">' + t + '</span>';
+    }
+    return t;
   };
 
   return Release;

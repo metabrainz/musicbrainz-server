@@ -39,7 +39,7 @@
                 <tr class="[% 'superseded' IF vote.superseded %][% 'first' IF edit.votes.size == 1 %]">
                     <th>[% link_entity(vote.editor) %]</th>
                     <td class="vote">
-                        [% l(vote.vote_name) %]
+                        [% lp(vote.vote_name, 'vote') %]
                         <span class="date">[% UserDate.format(vote.vote_time) %]</span>
                     </td>
                 </tr>

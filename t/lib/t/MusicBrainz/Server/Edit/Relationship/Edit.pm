@@ -198,7 +198,7 @@ test 'Relationship link_order values are ignored' => sub {
         edit_type => $EDIT_RELATIONSHIP_EDIT,
         editor_id => 1,
         relationship => $rel,
-        attributes => [2],
+        attributes => [{ type => { gid => '6c0b9280-dc7c-11e3-9c1a-0800200c9a66' } }],
         link_order => 5,
     );
 
@@ -209,7 +209,7 @@ test 'Relationship link_order values are ignored' => sub {
     is($rel->link_order, 0);
 };
 
-test 'Text attributes with undef values are ignored' => sub {
+test 'Text attributes with undef values raise exceptions' => sub {
     my $test = shift;
     my $c = $test->c;
 
@@ -219,21 +219,22 @@ test 'Text attributes with undef values are ignored' => sub {
     $c->model('Link')->load($rel);
     $c->model('LinkType')->load($rel->link);
 
-    my $edit = $c->model('Edit')->create(
-        edit_type => $EDIT_RELATIONSHIP_EDIT,
-        editor_id => 1,
-        relationship => $rel,
-        attributes => [2],
-        attribute_text_values => { 3 => undef },
-    );
-
-    accept_edit($c, $edit);
-
-    $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 2);
-    $c->model('Link')->load($rel);
-
-    is_deeply([map { $_->id } $rel->link->all_attributes], [2]);
-    is_deeply($rel->link->attribute_text_values, {});
+    like(exception {
+        $c->model('Edit')->create(
+            edit_type => $EDIT_RELATIONSHIP_EDIT,
+            editor_id => 1,
+            relationship => $rel,
+            attributes => [
+                {
+                    type => { gid => '6c0b9280-dc7c-11e3-9c1a-0800200c9a66' },
+                },
+                {
+                    type => { gid => 'e4e7d1a0-dc7c-11e3-9c1a-0800200c9a66' },
+                    text_value => undef
+                }
+            ],
+        );
+    }, qr/Attribute e4e7d1a0-dc7c-11e3-9c1a-0800200c9a66 requires a text value/);
 };
 
 test 'Attributes are validated against the new link type, not old one (MBS-7614)' => sub {
@@ -251,7 +252,7 @@ test 'Attributes are validated against the new link type, not old one (MBS-7614)
         editor_id => 1,
         relationship => $rel,
         link_type => $c->model('LinkType')->get_by_id(1),
-        attributes => [2],
+        attributes => [{ type => { gid => '6c0b9280-dc7c-11e3-9c1a-0800200c9a66' } }],
     );
 
     accept_edit($c, $edit);
@@ -261,7 +262,7 @@ test 'Attributes are validated against the new link type, not old one (MBS-7614)
     $c->model('LinkType')->load($rel->link);
 
     is($rel->link->type_id, 1);
-    is_deeply([ map { $_->id } $rel->link->all_attributes ], [2]);
+    is_deeply([ map { $_->type_id } $rel->link->all_attributes ], [2]);
 
     # Make sure unchanged attributes are also validated against the new link type.
     like exception {
@@ -272,6 +273,40 @@ test 'Attributes are validated against the new link type, not old one (MBS-7614)
             link_type => $c->model('LinkType')->get_by_id(3),
         );
     }, qr/Attribute 2 is unsupported for link type 3/;
+};
+
+test 'Instrument credits can be added to an existing relationship' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
+
+    my $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
+    $c->model('Link')->load($rel);
+    $c->model('LinkType')->load($rel->link);
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELATIONSHIP_EDIT,
+        editor_id => 1,
+        relationship => $rel,
+        link_type => $c->model('LinkType')->get_by_id(1),
+        attributes => [
+            {
+                type => {
+                    gid => '63021302-86cd-4aee-80df-2270d54f4978'
+                },
+                credited_as => 'crazy guitar'
+            }
+        ],
+    );
+
+    accept_edit($c, $edit);
+
+    $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
+    $c->model('Link')->load($rel);
+    $c->model('LinkType')->load($rel->link);
+
+    is($rel->link->attributes->[0]->credited_as, 'crazy guitar');
 };
 
 sub _create_edit {

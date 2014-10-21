@@ -5,14 +5,18 @@ use MusicBrainz::Server::Track;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
-    entity_name => 'release',
-    model       => 'Release',
+    entity_name     => 'release',
+    model           => 'Release',
+    relationships   => { all => ['show'], cardinal => ['edit_relationships'], default => ['url'] },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Tag';
+with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
+    endpoints => {show => {}, cover_art => {copy_stash => ['cover_art']}}
+};
 
 use List::Util qw( first );
 use List::MoreUtils qw( part uniq );
@@ -162,7 +166,6 @@ sub show : Chained('load') PathPart('')
 
     $c->model('Relationship')->load(@recordings);
     $c->model('Relationship')->load(
-        $release,
         grep { $_->isa(Work) } map { $_->target }
             map { $_->all_relationships } @recordings);
 
@@ -367,6 +370,7 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit
         index_url => DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $entity->gid . "/",
         images => \@artwork,
         mime_types => \@mime_types,
+        access_key => DBDefs->COVER_ART_ARCHIVE_ACCESS_KEY,
         cover_art_types_json => $json->encode(
             [ map {
                 { name => $_->name, l_name => $_->l_name, id => $_->id }
@@ -720,7 +724,7 @@ sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit {
     $c->model('ArtistCredit')->load($release);
     $c->model('ReleaseGroup')->load($release);
     $c->model('ReleaseGroup')->load_meta($release->release_group);
-    $c->model('Relationship')->load($release, $release->release_group);
+    $c->model('Relationship')->load_cardinal($release->release_group);
 
     my $json = JSON->new;
     my @link_type_tree = $c->model('LinkType')->get_full_tree;
@@ -728,7 +732,7 @@ sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit {
 
     $c->stash(
         work_types      => select_options($c, 'WorkType'),
-        work_languages  => build_grouped_options($c, language_options($c)),
+        work_languages  => build_grouped_options($c, language_options($c, 'work')),
         source_entity   => $json->encode(JSONSerializer->_release($release, 0, 0, 1)),
         attr_info       => $json->encode(build_attr_info($attr_tree)),
         type_info       => $json->encode(build_type_info($c, qr/(recording|work|release)/, @link_type_tree)),

@@ -15,4 +15,4 @@ lib/leaflet/leaflet-src.js
 
 lib/aclass/aclass.js
 
-scripts/common
+scripts/common/

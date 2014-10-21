@@ -1,10 +1,3 @@
-[%- info_links = [
-    ['index', link_release_group(rg, 'show', l('Overview'))],
-    ['tags', link_release_group(rg, 'tags', l('Tags'))],
-    ['details', link_release_group(rg, 'details', l('Details'))],
-    ['edit', link_release_group(rg, 'edit', l('Edit'))],
-] -%]
-
 <div class="rgheader">
     <h1>[% link_release_group(rg) %] [% disambiguation(rg) %]</h1>
     <p class="subheader">
@@ -13,4 +6,4 @@
     </p>
 </div>
 
-[% INCLUDE 'components/tabs.tt' list=info_links %]
+[% INCLUDE 'components/entity-tabs.tt' edit_tab='default' %]

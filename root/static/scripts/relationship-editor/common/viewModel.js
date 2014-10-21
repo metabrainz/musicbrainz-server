@@ -30,7 +30,7 @@
         });
 
         _.each(MB.attrInfoByID, function (attr) {
-            attr.root = MB.attrInfoByID[attr.root_id];
+            attr.root = MB.attrInfoByID[attr.rootID];
         });
     };
 
@@ -54,23 +54,26 @@
             if (options.sourceData) {
                 source.parseRelationships(options.sourceData.relationships, this);
 
-                _.each(options.sourceData.submittedRelationships, function (data) {
-                    var relationship = self.getRelationship(data, source);
-
-                    if (!relationship) {
-                        return;
-                    } else if (relationship.id) {
-                        var target = MB.entity(data.target);
-                        var entities = _.sortBy([source, target], "entityType");
-
-                        if (source.entityType === target.entityType && data.direction === "backward") {
-                            entities.reverse();
-                        }
-                        relationship.fromJS(_.assign(_.clone(data), { entities: entities }));
-                    } else {
-                        relationship.show();
+                if (MB.hasSessionStorage && sessionStorage.submittedRelationships) {
+                    if (MB.formWasPosted) {
+                        _.each(JSON.parse(sessionStorage.submittedRelationships), function (data) {
+                            var relationship = self.getRelationship(data, source);
+                            if (!relationship) {
+                                return;
+                            } else if (relationship.id) {
+                                relationship.fromJS(data);
+                            } else {
+                                relationship.show();
+                            }
+                        });
                     }
-                });
+
+                    _.defer(function () {
+                        // Give time for other view models, like the external
+                        // links editor, to parse the relationships.
+                        delete sessionStorage.submittedRelationships;
+                    });
+                }
             }
         },
 

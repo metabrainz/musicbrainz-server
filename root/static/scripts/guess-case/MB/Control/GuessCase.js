@@ -109,7 +109,7 @@ ko.bindingHandlers.guessCase = {
     init: function (element, valueAccessor, allBindingsAccessor,
                     viewModel, bindingContext) {
 
-        var gc = MB.GuessCase.Main();
+        var gc = window.gc;
         var callback = valueAccessor();
         var cookieSettings = { path: "/", expires: 365 };
 
@@ -125,7 +125,7 @@ ko.bindingHandlers.guessCase = {
 
             if (modeName !== gc.modeName) {
                 gc.modeName = modeName;
-                gc.mode = MB.GuessCase.Mode[modeName]();
+                gc.mode = MB.GuessCase.Mode[modeName];
                 $.cookie("guesscase_mode", modeName, cookieSettings);
             }
             return gc.mode;

@@ -124,10 +124,6 @@ sub open_edits : Chained('load') PathPart RequireAuth
     my ($self, $c) = @_;
 
     $self->_list_edits($c, $STATUS_OPEN);
-
-    $c->stash(
-        template => model_to_type( $self->{model} ) . '/edits.tt'
-    );
 }
 
 sub _list_edits {
@@ -138,7 +134,11 @@ sub _list_edits {
         $c->model('Edit')->find_by_collection($c->stash->{collection}->id, $limit, $offset, $status);
     });
 
-    $c->stash( edits => $edits ); # stash early in case an ISE occurs
+    $c->stash(  # stash early in case an ISE occurs while loading the edits
+        template => 'entity/edits.tt',
+        edits => $edits,
+        all_edits => defined $status ? 0 : 1,
+    );
 
     load_everything_for_edits($c, $edits);
 }

@@ -1657,7 +1657,7 @@ CREATE TABLE medium_cdtoc ( -- replicate (verbose)
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE medium_format ( -- replicate 
+CREATE TABLE medium_format ( -- replicate
     id                  SERIAL,
     name                VARCHAR(100) NOT NULL,
     parent              INTEGER, -- references medium_format.id

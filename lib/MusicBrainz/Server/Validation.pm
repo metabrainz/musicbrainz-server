@@ -55,6 +55,7 @@ require Exporter;
         encode_entities
         normalise_strings
         is_nat
+        validate_coordinates
     )
 }
 
@@ -64,6 +65,7 @@ use Date::Calc qw( check_date Delta_YMD );
 use Encode qw( decode encode );
 use Scalar::Util qw( looks_like_number );
 use Text::Unaccent qw( unac_string_utf16 );
+use utf8;
 
 sub unaccent_utf16 ($)
 {
@@ -280,6 +282,83 @@ sub normalise_strings
 sub is_nat {
     my $n = shift;
     return looks_like_number($n) && int($n) == $n && $n >= 0;
+}
+
+sub degree {
+    my ($degrees, $dir) = @_;
+    return dms($degrees, 0, 0, $dir);
+}
+
+sub dms {
+    my ($degrees, $minutes, $seconds, $dir) = @_;
+    $degrees =~ s/,/./;
+    $minutes =~ s/,/./;
+    $seconds =~ s/,/./;
+
+    return
+        sprintf("%.6f", ((0+$degrees) + ((0+$minutes) * 60 + (0+$seconds)) / 3600) * direction($dir))
+        + 0; # remove trailing zeroes (MBS-7438)
+}
+
+my %DIRECTIONS = ( n => 1, s => -1, e => 1, w => -1 );
+sub direction { $DIRECTIONS{lc(shift() // '')} // 1 }
+
+sub swap {
+    my ($direction_lat, $direction_long, $lat, $long) = @_;
+
+    $direction_lat //= 'n';
+    $direction_long //= 'e';
+
+    # We expect lat/long, but can support long/lat
+    if (lc $direction_lat eq 'e' || lc $direction_lat eq 'w' ||
+        lc $direction_long eq 'n' || lc $direction_long eq 's') {
+        return ($long, $lat);
+    }
+    else {
+        return ($lat, $long);
+    }
+}
+
+sub validate_coordinates {
+    my $coordinates = shift;
+
+    if ($coordinates =~ /^\s*$/) {
+        return undef;
+    }
+
+    my $separators = '\s?,?\s?';
+    my $number_part = q{\d+(?:[\.,]\d+|)};
+
+    $coordinates =~ tr/　．０-９/ .0-9/; # replace fullwidth characters with normal ASCII
+    $coordinates =~ s/(北|南)緯\s*(${number_part})度\s*(${number_part})分\s*(${number_part})秒${separators}(東|西)経\s*(${number_part})度\s*(${number_part})分\s*(${number_part})秒/$2° $3' $4" $1, $6° $7' $8" $5/;
+    $coordinates =~ tr/北南東西/NSEW/; # replace CJK direction characters
+
+    my $degree_markers = q{°d};
+    my $minute_markers = q{′'};
+    my $second_markers = q{"″};
+
+    my $decimalPart = '([+\-]?'.$number_part.')\s?['. $degree_markers .']?\s?([NSEW]?)';
+    if ($coordinates =~ /^${decimalPart}${separators}${decimalPart}$/i) {
+        my ($lat, $long) = swap($2, $4, degree($1, $2), degree($3, $4));
+        return {
+            latitude => $lat,
+            longitude => $long
+        };
+    }
+
+    my $dmsPart = '(?:([+\-]?'.$number_part.')[:'.$degree_markers.']\s?' .
+                  '('.$number_part.')[:'.$minute_markers.']\s?' .
+                  '(?:('.$number_part.')['.$second_markers.']?)?\s?([NSEW]?))';
+    if ($coordinates =~ /^${dmsPart}${separators}${dmsPart}$/i) {
+        my ($lat, $long) = swap($4, $8, dms($1, $2, $3 // 0, $4), dms($5, $6, $7 // 0, $8));
+
+        return {
+            latitude  => $lat,
+            longitude => $long
+        };
+    }
+
+    return undef;
 }
 
 1;

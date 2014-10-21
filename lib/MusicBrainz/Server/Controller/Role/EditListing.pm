@@ -17,6 +17,8 @@ sub edits : Chained('load') PathPart RequireAuth
         }
     });
     $c->stash(
+        template => 'entity/edits.tt',
+        all_edits => 1,
         refine_url_args =>
             { auto_edit_filter => '', order=> 'desc', negation=> 0,
               combinator=>'and',
@@ -40,7 +42,8 @@ sub open_edits : Chained('load') PathPart RequireAuth
     });
 
     $c->stash(
-        template => model_to_type( $self->{model} ) . '/edits.tt' ,
+        template => 'entity/edits.tt',
+        all_edits => 0,
         refine_url_args =>
             { auto_edit_filter => '', order=> 'desc', negation=> 0,
               combinator=>'and',
@@ -64,7 +67,6 @@ sub _list {
 
     $c->stash(
         edits => $edits, # stash early in case an ISE occurs
-        guess_search => 1,
     );
 
     load_everything_for_edits($c, $edits);

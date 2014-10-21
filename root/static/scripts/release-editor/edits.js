@@ -323,7 +323,7 @@
             var root = releaseEditor.rootField;
 
             return Array.prototype.concat(
-                releaseEditor.edits.releaseGroup(release),
+                releaseEditor.action === "add" ? releaseEditor.edits.releaseGroup(release) : [],
                 releaseEditor.edits.release(release),
                 releaseEditor.edits.releaseLabel(release),
                 releaseEditor.edits.medium(release),
@@ -342,7 +342,7 @@
 
 
     releaseEditor.getEditPreviews = function () {
-        var previews = {};
+        var previews = {}, previewRequest = null;
 
         function refreshPreviews(edits) {
             releaseEditor.editPreviews(_.compact(_.map(edits, getPreview)));
@@ -358,7 +358,7 @@
         }
         function isNewEdit(edit) { return previews[edit.hash] === undefined }
 
-        ko.computed(function () {
+        utils.debounce(ko.computed(function () {
             var edits = releaseEditor.allEdits();
 
             if (releaseEditor.validation.errorsExist()) {
@@ -375,16 +375,28 @@
 
             releaseEditor.loadingEditPreviews(true);
 
-            MB.edit.preview({ edits: addedEdits })
+            if (previewRequest) {
+                previewRequest.abort();
+            }
+
+            previewRequest = MB.edit.preview({ edits: addedEdits })
                 .done(function (data) {
                     _.each(_.zip(addedEdits, data.previews), addPreview);
 
-                    refreshPreviews(edits);
+                    // Make sure edits haven't changed while request was pending
+                    if (edits === releaseEditor.allEdits()) {
+                        // and that errors haven't occurred.
+                        if (releaseEditor.validation.errorsExist()) {
+                            edits = [];
+                        }
+                        refreshPreviews(edits);
+                    }
                 })
                 .always(function () {
                     releaseEditor.loadingEditPreviews(false);
+                    previewRequest = null;
                 });
-        });
+        }), 100);
     };
 
 

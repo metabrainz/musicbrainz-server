@@ -125,7 +125,7 @@ sub work : Chained('load')
     $c->stash( entity_tags => $entity_tags );
 }
 
-sub not_found
+sub not_found : Private
 {
     my ($self, $c, $tagname) = @_;
     $c->response->status(404);

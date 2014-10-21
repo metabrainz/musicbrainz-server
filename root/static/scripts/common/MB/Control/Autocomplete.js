@@ -458,16 +458,13 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
     },
 
     recentEntities: function () {
-        if (!window.localStorage) {
-            return [];
-        }
-
         var entityType = this.entity.replace("-", "_");
         var recentEntities = {};
+        var storedRecentEntities = MB.localStorage("recentAutocompleteEntities");
 
-        if (localStorage.recentAutocompleteEntities) {
+        if (storedRecentEntities) {
             try {
-                recentEntities = JSON.parse(localStorage.recentAutocompleteEntities);
+                recentEntities = JSON.parse(storedRecentEntities);
             } catch (e) {
                 recentEntities = {};
             }
@@ -479,7 +476,7 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
 
         if (arguments.length) {
             recentEntities[entityType] = _.first(arguments[0], MB.constants.MAX_RECENT_ENTITIES);
-            localStorage.recentAutocompleteEntities = JSON.stringify(recentEntities);
+            MB.localStorage("recentAutocompleteEntities", JSON.stringify(recentEntities));
         } else {
             return recentEntities[entityType] || [];
         }

@@ -871,25 +871,25 @@
 </tr>
 <tr>
     <th></th>
-    <th colspan="3">[% l('Approve:') %]</th>
+    <th colspan="3">[% add_colon(lp('Approve', 'vote')) %]</th>
     <td>[% add_commas(stats.statistic('count.vote.approve')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.vote.approve', 'count.vote')) }) %]</td>
 </tr>
 <tr>
     <th></th>
-    <th colspan="3">[% l('Yes:') %]</th>
+    <th colspan="3">[% add_colon(lp('Yes', 'vote')) %]</th>
     <td>[% add_commas(stats.statistic('count.vote.yes')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.vote.yes', 'count.vote')) }) %]</td>
 </tr>
 <tr>
     <th></th>
-    <th colspan="3">[% l('No:') %]</th>
+    <th colspan="3">[% add_colon(lp('No', 'vote')) %]</th>
     <td>[% add_commas(stats.statistic('count.vote.no')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.vote.no', 'count.vote')) }) %]</td>
 </tr>
 <tr>
     <th></th>
-    <th colspan="3">[% l('Abstain:') %]</th>
+    <th colspan="3">[% add_colon(lp('Abstain', 'vote')) %]</th>
     <td>[% add_commas(stats.statistic('count.vote.abstain')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.vote.abstain', 'count.vote')) }) %]</td>
 </tr>

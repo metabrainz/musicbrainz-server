@@ -4,6 +4,8 @@ use MusicBrainz::Server::Data::Utils 'model_to_type';
 use MusicBrainz::Server::Validation qw( is_guid );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 
+no if $] >= 5.018, warnings => "experimental::smartmatch";
+
 parameter 'model' => (
     isa => 'Str',
     required => 1
@@ -16,6 +18,12 @@ parameter 'entity_name' => (
 parameter 'arg_count' => (
     isa => 'Int',
     default => 1
+);
+
+parameter 'relationships' => (
+    isa => 'HashRef',
+    required => 0,
+    default => sub { {} }
 );
 
 role
@@ -42,19 +50,36 @@ role
 
         my $entity = $self->_load($c, @args);
 
-        if (!defined $entity) {
-            # This will detach for us
-            $self->not_found($c, @args);
+        $c->detach('not_found') unless defined $entity;
+
+        # defaulting to something non-undef silences a warning
+        my $entity_properties = $ENTITIES{ model_to_type($model) // 0 };
+
+        if (exists $entity_properties->{mbid} && $entity_properties->{mbid}{relatable}) {
+            my $action = $c->action->name;
+            my $relationships = $params->relationships;
+
+            if ($action ~~ $relationships->{all}) {
+                $c->model('Relationship')->load($entity);
+            } elsif ($action ~~ $relationships->{cardinal}) {
+                $c->model('Relationship')->load_cardinal($entity);
+            } else {
+                my $types = $relationships->{subset}->{$action} // $relationships->{default};
+
+                if ($types) {
+                    $c->model('Relationship')->load_subset($types, $entity);
+                }
+            }
         }
 
         # First stash is more convenient for the actual controller
         $c->stash( $entity_name => $entity )
-          if $entity_name && !$c->stash->{$entity_name};
+            if $entity_name && !$c->stash->{$entity_name};
 
         # Second is useful to roles or other places that need introspection
-        $c->stash( entity       => $entity );
+        $c->stash( entity => $entity );
 
-        $c->stash( entity_properties => $ENTITIES{ model_to_type($model) } );
+        $c->stash( entity_properties => $entity_properties );
     };
 
     method _load => sub
