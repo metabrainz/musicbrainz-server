@@ -60,6 +60,7 @@ MB.constants.LINK_TYPES = {
     allmusic: {
         artist: 283,
         recording: 285,
+        release: 755,
         release_group: 284,
         work: 286
     },
@@ -262,7 +263,7 @@ MB.constants.CLEANUPS = {
         match: [ new RegExp("^(https?://)?([^/]+\\.)?allmusic\\.com","i") ],
         type: MB.constants.LINK_TYPES.allmusic,
         clean: function (url) {
-            return url.replace(/^https?:\/\/(?:[^.]+\.)?allmusic\.com\/(artist|album|composition|song|performance)\/(?:[^\/]*-)?((?:mn|mw|mc|mt|mq)[0-9]+).*/, "http://www.allmusic.com/$1/$2");
+            return url.replace(/^https?:\/\/(?:[^.]+\.)?allmusic\.com\/(artist|album(?:\/release)?|composition|song|performance)\/(?:[^\/]*-)?((?:mn|mw|mc|mt|mq|mr)[0-9]+).*/, "http://www.allmusic.com/$1/$2");
         }
     },
     amazon: {
@@ -709,6 +710,9 @@ MB.Control.URLCleanup = function (options) {
     }
     validationRules[ MB.constants.LINK_TYPES.allmusic.recording ] = function (url) {
         return url.match(/allmusic\.com\/performance\/mq/) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.allmusic.release ] = function (url) {
+        return url.match(/allmusic\.com\/album\/release\/mr/) != null;
     }
 
     // allow only artist pages in BBC Music links
