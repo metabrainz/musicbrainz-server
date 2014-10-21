@@ -1001,5 +1001,5 @@ END -%]
 [%~ END ~%]
 
 [%~ MACRO data_track_icon BLOCK ~%]
-  <span class="data-track" title="[% l('This track is a data track.') %]"></span>
+  <div class="data-track icon img" title="[% l('This track is a data track.') %]"></div>
 [%~ END ~%]
