@@ -119,7 +119,7 @@ sub update
           WHERE track.medium = ? AND track.position > 0 AND track.is_data_track = false
        GROUP BY track.medium, medium_index.medium;", $medium_id);
 
-    return unless $results;
+    return unless @$results;
 
     my %disc = %{ $results->[0] };
 
