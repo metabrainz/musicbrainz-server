@@ -1,5 +1,5 @@
 [% set_header() %]
-    [%- INCLUDE 'layout/head.tt' -%]
+    [%- INCLUDE 'layout/head.tt' homepage=homepage -%]
     <body>
         [%- IF c.debug -%][%- INCLUDE 'debug/stats.tt' -%][%- END ~%]
 
