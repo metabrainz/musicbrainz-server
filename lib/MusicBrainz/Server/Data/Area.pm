@@ -296,13 +296,13 @@ sub get_by_iso_3166_3 {
 
 sub _get_by_iso {
     my ($self, $table, @codes) = @_;
-    my $query = "SELECT ${table} AS iso_codes, " . $self->_columns .
-        " FROM " . $self->_table . " WHERE ${table} && ?";
+    my $query = "SELECT * FROM (SELECT " . $self->_columns .
+        " FROM " . $self->_table . ") q WHERE ${table} && ?";
 
     my %ret = map { $_ => undef } @codes;
     for my $row (@{ $self->sql->select_list_of_hashes($query, \@codes) }) {
         for my $code (@codes) {
-            if (any {$_ eq $code} @{ $row->{iso_codes} }) {
+            if (any {$_ eq $code} @{ $row->{$table} }) {
                 $ret{$code} = $self->_new_from_row($row);
             }
         }
