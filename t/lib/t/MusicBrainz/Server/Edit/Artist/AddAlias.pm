@@ -17,6 +17,9 @@ my $c = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+artistalias');
 
+my $alias_set = $c->model('Artist')->alias->find_by_entity_id(1);
+is(@$alias_set, 2);
+
 my $edit = _create_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::AddAlias');
 ok(defined $edit->alias_id);
@@ -31,24 +34,7 @@ is($edit->display_data->{artist}->id, 1);
 is($edit->display_data->{alias}, 'Another alias');
 
 my $artist = $c->model('Artist')->get_by_id(1);
-is($artist->edits_pending, 1);
-
-my $alias_set = $c->model('Artist')->alias->find_by_entity_id(1);
-is(@$alias_set, 3);
-
-reject_edit($c, $edit);
-
-$alias_set = $c->model('Artist')->alias->find_by_entity_id(1);
-is(@$alias_set, 2);
-
-$artist = $c->model('Artist')->get_by_id(1);
-is($artist->edits_pending, 0);
-
-$edit = _create_edit($c);
-accept_edit($c, $edit);
-
-$artist = $c->model('Artist')->get_by_id(1);
-is($artist->edits_pending, 0);
+is($artist->edits_pending, 0, "Alias addition was an autoedit");
 
 $alias_set = $c->model('Artist')->alias->find_by_entity_id(1);
 is(@$alias_set, 3);
