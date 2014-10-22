@@ -425,6 +425,7 @@ sub tag : Chained('load') PathPart('tag') Args(1)
     my $tag = $c->model('Tag')->get_by_name($tag_name);
     my %tags = ();
     my $tag_in_use = 0;
+    my @entities_with_tags = sort { $a <=> $b } entities_with('tags');
 
     # Determine whether this tag exists in the database
     if ($tag) {
@@ -432,7 +433,7 @@ sub tag : Chained('load') PathPart('tag') Args(1)
             $_ => [ $c->model(type_to_model($_))
                         ->tags->find_editor_entities($user->id, $tag->id)
                     ]
-        } entities_with('tags');
+        } @entities_with_tags;
 
         foreach my $entity_tags (values %tags) {
             $tag_in_use = 1 if @$entity_tags;
@@ -443,7 +444,8 @@ sub tag : Chained('load') PathPart('tag') Args(1)
     $c->stash(
         tag_name => $tag_name,
         tags => \%tags,
-        tag_in_use => $tag_in_use
+        tag_in_use => $tag_in_use,
+        entities_with_tags => \@entities_with_tags
     );
 }
 
