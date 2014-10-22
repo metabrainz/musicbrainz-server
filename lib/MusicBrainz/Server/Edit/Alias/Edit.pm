@@ -24,6 +24,7 @@ no if $] >= 5.018, warnings => "experimental::smartmatch";
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub _alias_model { die 'Not implemented' }
 
