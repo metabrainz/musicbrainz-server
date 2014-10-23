@@ -4,12 +4,11 @@ use namespace::autoclean;
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
 
 around 'edit_conditions' => sub {
-    my $conditions = {
-        duration      => 0,
-        votes         => 0,
-        expire_action => $EXPIRE_ACCEPT,
-        auto_edit     => 1,
-    };
+    my ($orig, $self, @args) = @_;
+
+    my $conditions = $self->$orig(@args);
+    $conditions->{auto_edit} = 1;
+
     return $conditions;
 };
 
