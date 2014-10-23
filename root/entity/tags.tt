@@ -1,0 +1,18 @@
+[%- WRAPPER "$entity_type/layout.tt" title=l('Tags') page='tags' -%]
+    [%- INCLUDE "components/tags.tt" entity=entity no_tags_text=l('Nobody has tagged this yet.') -%]
+
+    [% IF c.user_exists %]
+    
+        <h2>[% l('Update Tags') %]</h2>
+    
+        [%- USE r = FormRenderer(tag_form) -%]
+        <form action="[% c.req.uri %]" method="post">
+            <p>[% l('Please enter tags in the text area below. Tags are comma separated, and you may wish to
+                     see the {tagsyn|tag syntax documentation} for more information',
+                     { tagsyn => doc_link('Folksonomy_Tagging_Syntax') }) %]</p>
+            <p>[% r.textarea('tags', { cols => 50, rows => 5 }) %]</p>
+            [% form_submit(l('Submit tags')) %]
+        </form>
+    
+    [% END %]
+[%- END -%]
