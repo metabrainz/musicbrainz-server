@@ -158,7 +158,7 @@
         <a href="[% doc_link('Products') %]">[%  l('Products') %]</a>
         <ul>
             <li>
-                <a href="[% doc_link('MusicBrainz_Picard') %]">[% l('MusicBrainz Picard') %]</a>
+                <a href="//picard.musicbrainz.org">[% l('MusicBrainz Picard') %]</a>
             </li>
             <li>
                 <a href="[% doc_link('Jaikoz') %]">[% l('Jaikoz Tagger') %]</a>
