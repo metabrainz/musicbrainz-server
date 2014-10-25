@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-10-21 19:07+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-10-22 07:28+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -383,7 +383,7 @@ msgstr "Lead- of solovocaal"
 msgid ""
 "Links a recording to the area it was mixed in. Use only when the place is "
 "unknown!"
-msgstr ""
+msgstr "Koppelt een opname aan het gebied waarin het gemixt werd. Gebruik dit alleen als de plaats onbekend is!"
 
 #: DB:link_type/description:698
 msgid ""
@@ -403,13 +403,13 @@ msgstr "Koppelt een opname aan de plaats waar het opgenomen is."
 msgid ""
 "Links a release to the area it was mastered in. Use only when the place is "
 "unknown!"
-msgstr ""
+msgstr "Koppelt een uitgave aan het gebied waarin het gemasterd werd. Gebruik dit alleen als de plaats onbekend is!"
 
 #: DB:link_type/description:757
 msgid ""
 "Links a release to the area it was mixed in. Use only when the place is "
 "unknown!"
-msgstr ""
+msgstr "Koppelt een uitgave aan het gebied waarin het werd gemixt. Gebruik dit alleen als de plaats onbekend is!"
 
 #: DB:link_type/description:699
 msgid ""
@@ -1091,7 +1091,7 @@ msgstr "Dit wordt gebruikt om een platenmaatschappij aan een afbeelding van haar
 
 #: DB:link_type/description:216
 msgid "This is used to link a label to its corresponding Wikipedia page."
-msgstr "Dit wordt gebruikt om een platenmaatschappij aan de overeenkomstige pagina op Wikipedia te koppelen."
+msgstr "Dit wordt gebruikt om een platenmaatschappij aan haar overeenkomstige pagina op Wikipedia te koppelen."
 
 #: DB:link_type/description:218
 msgid ""
@@ -1106,7 +1106,7 @@ msgstr "Dit wordt gebruikt om een plaats aan de overeenkomstige pagina op Discog
 #: DB:link_type/description:285
 msgid ""
 "This is used to link a recording to its corresponding page on Allmusic."
-msgstr "Dit wordt gebruikt om een opname aan de overeenkomstige pagina op Allmusic te koppelen."
+msgstr "Dit wordt gebruikt om een opname aan zijn overeenkomstige pagina op Allmusic te koppelen."
 
 #: DB:link_type/description:8
 msgid ""
@@ -1120,17 +1120,17 @@ msgstr "Dit wordt gebruikt om een uitgavegroep met een <a href=\"/doc/Mix_Termin
 #: DB:link_type/description:284
 msgid ""
 "This is used to link a release group to its corresponding page on Allmusic."
-msgstr "Dit wordt gebruikt om een uitgavegroep aan de overeenkomstige pagina op Allmusic te koppelen."
+msgstr "Dit wordt gebruikt om een uitgavegroep aan zijn overeenkomstige pagina op Allmusic te koppelen."
 
 #: DB:link_type/description:308
 msgid ""
 "This is used to link a release to its corresponding page in SecondHandSongs "
 "database."
-msgstr "Dit wordt gebruikt om een uitgave aan de overeenkomstige pagina op SecondHandSongs te koppelen."
+msgstr "Dit wordt gebruikt om een uitgave aan zijn overeenkomstige pagina op SecondHandSongs te koppelen."
 
 #: DB:link_type/description:755
 msgid "This is used to link a release to its corresponding page on Allmusic."
-msgstr ""
+msgstr "Dit wordt gebruikt om een uitgave aan zijn overeenkomstige pagina op Allmusic te koppelen."
 
 #: DB:link_type/description:747
 msgid "This is used to link a series to the equivalent entry in Discogs."
@@ -1140,21 +1140,21 @@ msgstr "Dit wordt gebruikt om een serie aan de overeenkomstige pagina op Discogs
 msgid ""
 "This is used to link a work to its corresponding page in SecondHandSongs "
 "database."
-msgstr "Dit wordt gebruikt om een compositie aan de overeenkomstige pagina op SecondHandSongs te koppelen."
+msgstr "Dit wordt gebruikt om een compositie aan haar overeenkomstige pagina op SecondHandSongs te koppelen."
 
 #: DB:link_type/description:286
 msgid "This is used to link a work to its corresponding page on Allmusic."
-msgstr "Dit wordt gebruikt om een compositie aan de overeenkomstige pagina op Allmusic te koppelen."
+msgstr "Dit wordt gebruikt om een compositie aan haar overeenkomstige pagina op Allmusic te koppelen."
 
 #: DB:link_type/description:307
 msgid ""
 "This is used to link an artist to its corresponding page in SecondHandSongs "
 "database."
-msgstr "Dit wordt gebruikt om een artiest aan de overeenkomstige pagina op SecondHandSongs te koppelen."
+msgstr "Dit wordt gebruikt om een artiest aan zijn overeenkomstige pagina op SecondHandSongs te koppelen."
 
 #: DB:link_type/description:283
 msgid "This is used to link an artist to its corresponding page on Allmusic."
-msgstr "Dit wordt gebruikt om een artiest aan de overeenkomstige pagina op Allmusic te koppelen."
+msgstr "Dit wordt gebruikt om een artiest aan zijn overeenkomstige pagina op Allmusic te koppelen."
 
 #: DB:link_type/description:714
 msgid "This is used to link an artist to its primary concert venue."
@@ -1787,14 +1787,14 @@ msgid ""
 "This relationship type links a label to its corresponding page at <a "
 "href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated"
 " to cataloguing the music of video games and anime."
-msgstr "Dit relatietype koppelt een platenmaatschappij aan de overeenkomstige pagina op <a href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is een gemeenschappelijk project dat is toegewijd aan het catalogiseren van muziek uit computerspellen en anime."
+msgstr "Dit relatietype koppelt een platenmaatschappij aan haar overeenkomstige pagina op <a href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is een gemeenschappelijk project dat is toegewijd aan het catalogiseren van muziek uit computerspellen en anime."
 
 #: DB:link_type/description:86
 msgid ""
 "This relationship type links a release to its corresponding page <a "
 "href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated"
 " to cataloguing the music of video games and anime."
-msgstr "Dit relatietype koppelt een uitgave aan de overeenkomstige pagina op <a href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is een gemeenschappelijk project dat is toegewijd aan het catalogiseren van muziek uit computerspellen en anime."
+msgstr "Dit relatietype koppelt een uitgave aan zijn overeenkomstige pagina op <a href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is een gemeenschappelijk project dat is toegewijd aan het catalogiseren van muziek uit computerspellen en anime."
 
 #: DB:link_type/description:191
 msgid ""
@@ -2912,7 +2912,7 @@ msgstr "gemasterd bij"
 
 #: DB:link_type/reverse_link_phrase:756
 msgid "mastered in"
-msgstr ""
+msgstr "Gemasterd in"
 
 #: DB:link_type/link_phrase:704
 msgid "mastering engineer position at"
@@ -2998,7 +2998,7 @@ msgstr "gemixt bij"
 
 #: DB:link_type/reverse_link_phrase:757 DB:link_type/reverse_link_phrase:758
 msgid "mixed in"
-msgstr ""
+msgstr "Gemixt in"
 
 #: DB:link_type/link_phrase:703
 msgid "mixing engineer position at"
