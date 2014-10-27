@@ -131,10 +131,9 @@
 
                 _.each(medium.tracks(), function (track, i) {
                     var trackData = newMediumData.tracklist[i];
-                    var newRecording = track.recording();
 
-                    if (newRecording) {
-                        newRecording = MB.edit.fields.recording(newRecording);
+                    if (track.hasExistingRecording()) {
+                        var newRecording = MB.edit.fields.recording(track.recording());
 
                         if (inferTrackDurations) {
                             trackData.length = newRecording.length || trackData.length;
