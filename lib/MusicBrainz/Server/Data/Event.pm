@@ -33,7 +33,7 @@ with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'event' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 
 sub _type {
-    return 'event ';
+    return 'event';
 }
 
 sub _columns
@@ -41,7 +41,7 @@ sub _columns
     return 'event.id, event.gid, event.name, event.type, event.time, event.cancelled,' .
            'event.setlist, event.edits_pending, event.begin_date_year, ' .
            'event.begin_date_month, event.begin_date_day, event.end_date_year, ' .
-           'event.end_date_month, event.end_date_day, event.ended, ' . 
+           'event.end_date_month, event.end_date_day, event.ended, ' .
            'event.comment, event.last_updated';
 }
 
@@ -225,7 +225,7 @@ sub find_by_place
 =method find_artists
 
 This method will return a map with lists of artist names for the given
-event. 
+event.
 
 =cut
 
