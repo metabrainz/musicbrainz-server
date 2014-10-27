@@ -12,13 +12,15 @@ msgstr ""
 msgid "ASIN"
 msgstr ""
 
-#: DB:link_type/link_phrase:284 DB:link_type/link_phrase:283
-#: DB:link_type/link_phrase:285 DB:link_type/reverse_link_phrase:286
+#: DB:link_type/link_phrase:755 DB:link_type/link_phrase:284
+#: DB:link_type/link_phrase:283 DB:link_type/link_phrase:285
+#: DB:link_type/reverse_link_phrase:286
 msgid "Allmusic"
 msgstr ""
 
-#: DB:link_type/link_phrase:286 DB:link_type/reverse_link_phrase:284
-#: DB:link_type/reverse_link_phrase:283 DB:link_type/reverse_link_phrase:285
+#: DB:link_type/link_phrase:286 DB:link_type/reverse_link_phrase:755
+#: DB:link_type/reverse_link_phrase:284 DB:link_type/reverse_link_phrase:283
+#: DB:link_type/reverse_link_phrase:285
 msgid "Allmusic page for"
 msgstr ""
 
@@ -366,6 +368,12 @@ msgstr ""
 msgid "Lead or solo vocal"
 msgstr ""
 
+#: DB:link_type/description:758
+msgid ""
+"Links a recording to the area it was mixed in. Use only when the place is "
+"unknown!"
+msgstr ""
+
 #: DB:link_type/description:698
 msgid ""
 "Links a recording to the area it was recorded in. Use only when the place is "
@@ -378,6 +386,18 @@ msgstr ""
 
 #: DB:link_type/description:693
 msgid "Links a recording to the place it was recorded at."
+msgstr ""
+
+#: DB:link_type/description:756
+msgid ""
+"Links a release to the area it was mastered in. Use only when the place is "
+"unknown!"
+msgstr ""
+
+#: DB:link_type/description:757
+msgid ""
+"Links a release to the area it was mixed in. Use only when the place is "
+"unknown!"
 msgstr ""
 
 #: DB:link_type/description:699
@@ -1102,6 +1122,10 @@ msgstr ""
 msgid ""
 "This is used to link a release to its corresponding page in SecondHandSongs "
 "database."
+msgstr ""
+
+#: DB:link_type/description:755
+msgid "This is used to link a release to its corresponding page on Allmusic."
 msgstr ""
 
 #: DB:link_type/description:747
@@ -2417,8 +2441,8 @@ msgstr ""
 msgid "has a social networking page at"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:284 DB:link_type/long_link_phrase:283
-#: DB:link_type/long_link_phrase:285
+#: DB:link_type/long_link_phrase:755 DB:link_type/long_link_phrase:284
+#: DB:link_type/long_link_phrase:283 DB:link_type/long_link_phrase:285
 msgid "has an Allmusic page at"
 msgstr ""
 
@@ -2892,6 +2916,10 @@ msgstr ""
 msgid "mastered at"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:756
+msgid "mastered in"
+msgstr ""
+
 #: DB:link_type/link_phrase:704
 msgid "mastering engineer position at"
 msgstr ""
@@ -2900,7 +2928,7 @@ msgstr ""
 msgid "mastering engineers"
 msgstr ""
 
-#: DB:link_type/link_phrase:697
+#: DB:link_type/link_phrase:756 DB:link_type/link_phrase:697
 msgid "mastering location for"
 msgstr ""
 
@@ -2974,6 +3002,10 @@ msgstr ""
 msgid "mixed at"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:757 DB:link_type/reverse_link_phrase:758
+msgid "mixed in"
+msgstr ""
+
 #: DB:link_type/link_phrase:703
 msgid "mixing engineer position at"
 msgstr ""
@@ -2982,6 +3014,7 @@ msgstr ""
 msgid "mixing engineers"
 msgstr ""
 
+#: DB:link_type/link_phrase:757 DB:link_type/link_phrase:758
 #: DB:link_type/link_phrase:694 DB:link_type/link_phrase:696
 msgid "mixing location for"
 msgstr ""
@@ -3275,7 +3308,7 @@ msgstr ""
 msgid "recorded at"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:698 DB:link_type/reverse_link_phrase:699
+#: DB:link_type/reverse_link_phrase:699 DB:link_type/reverse_link_phrase:698
 msgid "recorded in"
 msgstr ""
 
@@ -3287,8 +3320,8 @@ msgstr ""
 msgid "recording engineers"
 msgstr ""
 
-#: DB:link_type/link_phrase:698 DB:link_type/link_phrase:699
-#: DB:link_type/link_phrase:695 DB:link_type/link_phrase:693
+#: DB:link_type/link_phrase:695 DB:link_type/link_phrase:699
+#: DB:link_type/link_phrase:698 DB:link_type/link_phrase:693
 msgid "recording location for"
 msgstr ""
 
@@ -3537,16 +3570,17 @@ msgstr ""
 msgid "was renamed into"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:697
+#: DB:link_type/long_link_phrase:756 DB:link_type/long_link_phrase:697
 msgid "was the mastering location for"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:757 DB:link_type/long_link_phrase:758
 #: DB:link_type/long_link_phrase:694 DB:link_type/long_link_phrase:696
 msgid "was the mixing location for"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:698 DB:link_type/long_link_phrase:699
-#: DB:link_type/long_link_phrase:695 DB:link_type/long_link_phrase:693
+#: DB:link_type/long_link_phrase:695 DB:link_type/long_link_phrase:699
+#: DB:link_type/long_link_phrase:698 DB:link_type/long_link_phrase:693
 msgid "was the recording location for"
 msgstr ""
 

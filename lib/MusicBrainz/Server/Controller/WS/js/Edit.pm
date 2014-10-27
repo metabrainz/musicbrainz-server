@@ -513,9 +513,9 @@ sub create_edits {
             }
 
             $edit = $c->model('Edit')->$action(
+                %$opts,
                 editor_id => $c->user->id,
                 privileges => $privs,
-                %$opts
             );
         }
         catch {

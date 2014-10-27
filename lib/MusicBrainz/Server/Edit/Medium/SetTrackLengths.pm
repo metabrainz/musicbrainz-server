@@ -14,6 +14,7 @@ use aliased 'MusicBrainz::Server::Entity::Release';
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Medium';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_name { N_l('Set track lengths') }
 sub edit_type { $EDIT_SET_TRACK_LENGTHS }

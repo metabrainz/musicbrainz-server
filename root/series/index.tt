@@ -29,7 +29,7 @@
       ELSIF series.type.entity_type == 'release';
         '<h2>' _ l('Releases') _ '</h2>';
         IF entities.size;
-          INCLUDE 'release_group/releases-list.tt'
+          INCLUDE 'components/releases-list.tt'
                   releases=entities no_checkboxes=1 show_artists=1
           WRAPPER 'components/with-pager.tt';
         END;

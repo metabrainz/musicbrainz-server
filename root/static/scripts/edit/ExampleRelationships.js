@@ -1,7 +1,7 @@
 MB.ExampleRelationshipsEditor = (function (ERE) {
 
 // Private variables
-var type0, type1, linkTypeName, jsRoot, formName;
+var type0, type1, linkTypeName, linkTypeID, jsRoot, formName;
 
 // Private methods
 var searchUrl;
@@ -13,6 +13,8 @@ ERE.init = function (config) {
     type0 = config.type0;
     type1 = config.type1;
     linkTypeName = config.linkTypeName;
+    linkTypeID = +config.linkTypeID;
+
     jsRoot = config.jsRoot;
     formName = config.formName;
 
@@ -110,46 +112,41 @@ RelationshipSearcher = function () {
 
         request.done(function (data, status, jqxhr) {
             var search_result_type = data.entityType.replace("-", "_");
-            var endPointType = search_result_type == type0 ? type1 : type0;
 
-            if (! (search_result_type === type0 || search_result_type === type1)) {
+            if (!(search_result_type === type0 || search_result_type === type1)) {
                 self.error('Invalid type for this relationship: ' +  search_result_type +
                            ' (expected ' + type0 + ' or ' + type1 + ')');
+                return;
             }
-            else if (! _.has(data.relationships, endPointType)) {
-                self.error('No ' + endPointType + ' relationships found for ' + data.name);
-            }
-            else if (! _.has(data.relationships[endPointType], linkTypeName)) {
+
+            var relationships = _.filter(data.relationships, { linkTypeID: linkTypeID });
+
+            if (!relationships.length) {
                 self.error('No ' + linkTypeName + ' relationships found for ' + data.name);
-            }
-            else
-            {
+            } else {
                 self.error(null);
 
-                _.each(
-                    data['relationships'][endPointType][linkTypeName],
-                    function (rel) {
-                        var source = data, target = rel.target;
+                _.each(relationships, function (rel) {
+                    var source = data, target = rel.target;
 
-                        if (rel.direction == "backward") {
-                            source = rel.target;
-                            target = data;
-                        }
-
-                        possible.results.push({
-                            id: rel.id,
-                            phrase: rel.verbosePhrase,
-                            source: {
-                                name: source.name,
-                                mbid: source.gid
-                            },
-                            target: {
-                                name: target.name,
-                                mbid: target.gid
-                            }
-                        })
+                    if (rel.direction == "backward") {
+                        source = rel.target;
+                        target = data;
                     }
-                );
+
+                    possible.results.push({
+                        id: rel.id,
+                        phrase: rel.verbosePhrase,
+                        source: {
+                            name: source.name,
+                            mbid: source.gid
+                        },
+                        target: {
+                            name: target.name,
+                            mbid: target.gid
+                        }
+                    })
+                });
             }
         });
     };

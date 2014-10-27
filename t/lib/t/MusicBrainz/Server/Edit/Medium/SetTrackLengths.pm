@@ -6,7 +6,7 @@ with 't::Edit';
 with 't::Context';
 
 use MusicBrainz::Server::Constants qw( $EDIT_SET_TRACK_LENGTHS );
-use MusicBrainz::Server::Test qw( accept_edit reject_edit );
+use MusicBrainz::Server::Test;
 
 test all => sub {
     my $test = shift;
@@ -21,8 +21,6 @@ test all => sub {
         cdtoc_id => 1
     );
     isa_ok($edit => 'MusicBrainz::Server::Edit::Medium::SetTrackLengths');
-
-    accept_edit($c, $edit);
 
     my $medium = $c->model('Medium')->get_by_id(1);
     $c->model('Track')->load_for_mediums($medium);
@@ -48,8 +46,6 @@ test 'Setting track lengths on medium with pregap track' => sub {
         cdtoc_id => 2
     );
     isa_ok($edit => 'MusicBrainz::Server::Edit::Medium::SetTrackLengths');
-
-    accept_edit($c, $edit);
 
     my $medium = $c->model('Medium')->get_by_id(4);
     $c->model('Track')->load_for_mediums($medium);

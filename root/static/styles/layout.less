@@ -1,5 +1,3 @@
-@import "colors.less";
-
 body {
     padding: 0 10px;
     margin: 0;
@@ -11,26 +9,41 @@ body {
     margin: auto;
 }
 
-a { color:@link-default; text-decoration: none; }
-a:visited { color:@link-visited; }
-a:hover { color: @text-orange; text-decoration: underline; }
-a:active, a:focus { outline-style: none; }
+a {
+    color:@link-default;
+    text-decoration: none;
 
-a.icon:hover { text-decoration: none; }
+    &:visited {
+        color:@link-visited;
+    }
 
-a>img { border: 0; }
+    &:hover {
+        color: @text-orange;
+        text-decoration: underline;
+    }
+    &.icon:hover {
+        text-decoration: none;
+    }
 
-/* TODO:
-** When we start using relative links for internal links, add:
-** a[href^="http://"], a[href^="https://"], */
-a.external {
-    background: data-uri('../images/icons/external.png') no-repeat right;
-    padding-right: 13px;
-}
 
-a.internal {
-    background: none;
-    padding-right: 0;
+    &:active, &:focus {
+        outline-style: none;
+    }
+
+    > img { border: 0; }
+
+    /* TODO:
+    ** When we start using relative links for internal links, add:
+    ** a[href^="http://"], a[href^="https://"], */
+    &.external {
+        background: data-uri('../images/icons/external.png') no-repeat right;
+        padding-right: 13px;
+    }
+
+    &.internal {
+        background: none;
+        padding-right: 0;
+    }
 }
 
 p {
@@ -101,14 +114,14 @@ pre code {
     word-wrap: break-word;
 }
 
+.deleted { color: @dark-text; }
+
 /*
 ** Header
 */
 #header {
     width: 100%;
 }
-
-#header img.gravatar { display: none; }
 
 img.gravatar {
     display: inline;
@@ -118,10 +131,14 @@ img.gravatar {
     padding: 1px;
     background: #fff;
     margin-right: 0.35em;
-}
 
-h1 img.gravatar {
-    max-height: 3em;
+    #header & {
+        display: none;
+    }
+
+    h1 & {
+        max-height: 3em;
+    }
 }
 
 #header-logo {
@@ -142,16 +159,6 @@ h1 img.gravatar {
     top: 2px;
     right: 18px;
     color: @light-text;
-}
-
-#header-logo #headerid-query {
-    width: 18em;
-}
-
-#header-logo #id-type {
-    margin-right: 4px;
-    margin-left: 10px;
-    padding: 2px;
 }
 
 #header-logo a {
@@ -187,12 +194,6 @@ h1 img.gravatar {
 
 #header-menu ul.r {
     float: right;
-}
-
-#header-menu form {
-    padding: 4px 0;
-    margin: 0;
-    vertical-align: middle;
 }
 
 #header-menu ul {
@@ -287,17 +288,15 @@ h1 img.gravatar {
     color: @text-orange;
     position: relative;
     border-radius: 6px;
+
+    p {
+        margin: 0;
+    }
 }
 
 .flash {
     color: @text-black;
     font-weight: normal;
-}
-
-.flash p,
-.server-details p,
-.warning-header p {
-    margin: 0;
 }
 
 .warning-header {
@@ -312,11 +311,11 @@ div.warning {
     min-height: 54px;
     width: 60em;
     background: @warning-background;
-}
 
-div.caa-warning p,
-div.warning p,
-div.notice p { margin: 1em; }
+    p {
+        margin: 1em;
+    }
+}
 
 div.warning img.warning {
     float: left;
@@ -327,32 +326,16 @@ div.warning img.warning {
 
 #content {
     margin-right: 250px;
-}
 
-#page.fullwidth #content {
-    margin-right: 0px;
+    #page.fullwidth & {
+        margin-right: 0px;
+    }
 }
 
 #sidebar {
     float: right;
     width: 218px;
     font-size: 95%;
-}
-
-#page.homepage .sidebar {
-    float: right;
-    font-size: 95%;
-    width: auto;
-}
-
-#page.homepage #sidebar {
-    margin-left: 2.5em;
-}
-
-#page.homepage .sidebar div:after {
-    visibility: hidden;
-    content: '&nbsp';
-    clear: both;
 }
 
 #sidebar p {
@@ -391,206 +374,6 @@ div.warning img.warning {
 
 #sidebar ul.external_links li.all-relationships {
     background-image: none;
-}
-
-.no-favicon {
-    background-image: data-uri("../images/favicons/external-16.png");
-}
-
-.home-favicon {
-    background-image: data-uri("../images/favicons/home-16.png");
-}
-
-.allmusic-favicon {
-    background-image: data-uri("../images/favicons/allmusic-16.png");
-}
-
-.amazon-favicon {
-    background-image: data-uri("../images/favicons/amazon-16.png");
-}
-
-.animenewsnetwork-favicon {
-    background-image: data-uri("../images/favicons/animenewsnetwork-16.png");
-}
-
-.wikipedia-favicon {
-    background-image: data-uri("../images/favicons/wikipedia-16.png");
-}
-
-.facebook-favicon {
-    background-image: data-uri("../images/favicons/facebook-16.png");
-}
-
-.generasia-favicon {
-    background-image: data-uri("../images/favicons/generasia-16.png");
-}
-
-.lastfm-favicon {
-    background-image: data-uri("../images/favicons/lastfm-16.png");
-}
-
-.myspace-favicon {
-    background-image: data-uri("../images/favicons/myspace-16.png");
-}
-
-.twitter-favicon {
-    background-image: data-uri("../images/favicons/twitter-16.png");
-}
-
-.youtube-favicon {
-    background-image: data-uri("../images/favicons/youtube-16.png");
-}
-
-.discogs-favicon {
-    background-image: data-uri("../images/favicons/discogs-16.png");
-}
-
-.rockensdanmarkskort-favicon {
-    background-image: data-uri("../images/favicons/rockensdanmarkskort-16.png");
-}
-
-.rockipedia-favicon {
-    background-image: data-uri("../images/favicons/rockipedia-16.png");
-}
-
-.secondhandsongs-favicon {
-    background-image: data-uri("../images/favicons/secondhandsongs-16.png");
-}
-
-.songfacts-favicon {
-    background-image: data-uri("../images/favicons/songfacts-16.png");
-}
-
-.soundcloud-favicon {
-    background-image: data-uri("../images/favicons/soundcloud-16.png");
-}
-
-.ibdb-favicon {
-    background-image: data-uri("../images/favicons/ibdb-16.png");
-}
-
-.imslp-favicon {
-    background-image: data-uri("../images/favicons/imslp-16.png");
-}
-
-.ESTER-favicon {
-    background-image: data-uri("../images/favicons/ESTER-16.png");
-}
-
-.worldcat-favicon {
-    background-image: data-uri("../images/favicons/worldcat-16.png");
-}
-
-.fortyfivecat-favicon {
-    background-image: data-uri("../images/favicons/45cat-16.png");
-}
-
-.rateyourmusic-favicon {
-    background-image: data-uri("../images/favicons/rateyourmusic-16.png");
-}
-
-.rolldabeats-favicon {
-    background-image: data-uri("../images/favicons/rolldabeats-16.png");
-}
-
-.psydb-favicon {
-    background-image: data-uri("../images/favicons/psydb-16.png");
-}
-
-.metalarchives-favicon {
-    background-image: data-uri("../images/favicons/metalarchives-16.png");
-}
-
-.spiritofmetal-favicon {
-    background-image: data-uri("../images/favicons/spiritofmetal-16.png");
-}
-
-.theatricalia-favicon {
-    background-image: data-uri("../images/favicons/theatricalia-16.png");
-}
-
-.ocremix-favicon {
-    background-image: data-uri("../images/favicons/ocremix-16.png");
-}
-
-.musiksammler-favicon {
-    background-image: data-uri("../images/favicons/sammler-16.png");
-}
-
-.encyclopedisque-favicon {
-    background-image: data-uri("../images/favicons/encyclopedisque-16.png");
-}
-
-.trove-favicon {
-    background-image: data-uri("../images/favicons/trove-16.png");
-}
-
-.ric-favicon {
-    background-image: data-uri("../images/favicons/ric-16.png");
-}
-
-.googleplus-favicon {
-    background-image: data-uri("../images/favicons/googleplus-16.png");
-}
-
-.dhhu-favicon {
-    background-image: data-uri("../images/favicons/dhhu-16.png");
-}
-
-.thesession-favicon {
-    background-image: data-uri("../images/favicons/thesession-16.png");
-}
-
-.lieder-favicon {
-    background-image: data-uri("../images/favicons/lieder-16.png");
-}
-
-.openlibrary-favicon {
-    background-image: data-uri("../images/favicons/openlibrary-16.png");
-}
-
-.whosampled-favicon {
-    background-image: data-uri("../images/favicons/whosampled-16.png");
-}
-
-.viaf-favicon {
-    background-image: data-uri("../images/favicons/viaf-16.png");
-}
-
-.vk-favicon {
-    background-image: data-uri("../images/favicons/vk-16.png");
-}
-
-.vkdb-favicon {
-    background-image: data-uri("../images/favicons/vkdb-16.png");
-}
-
-.bandcamp-favicon {
-    background-image: data-uri("../images/favicons/bandcamp-16.png");
-}
-
-.iTunes-favicon {
-    background-image: data-uri("../images/favicons/iTunes-16.png");
-}
-
-.spotify-favicon {
-    background-image: data-uri("../images/favicons/spotify-16.png");
-}
-
-.wikidata-favicon {
-    background-image: data-uri("../images/favicons/wikidata-16.png");
-}
-
-.genius-favicon {
-    background-image: data-uri("../images/favicons/genius-16.png");
-}
-
-.imvdb-favicon {
-    background-image: data-uri("../images/favicons/imvdb-16.png");
-}
-
-.residentadvisor-favicon {
-    background-image: data-uri("../images/favicons/residentadvisor-16.png");
 }
 
 #sidebar ul.licenses {
@@ -688,40 +471,105 @@ table.tbl {
     border-top: solid 1px @dark-border;
     border-bottom: solid 1px @dark-border;
 
+    th {
+        font-size: 95%;
+        background: url('../images/layout/table-header.gif') repeat-x 0 50%;
+        padding: 0.2em 0.4em;
+        text-align: left;
+        border-bottom: solid 1px @dark-border;
+        border-left: solid 1px @medium-border;
+        word-break: keep-all;
+        white-space: nowrap;
+
+        a {
+            color: @text-black;
+        }
+
+        &:first-child {
+            border-left: none;
+        }
+    }
+
+    td {
+        padding: 0.2em 0.4em;
+    }
+
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    tr.subh {
+        td, th {
+            font-size: 95%;
+            background: url('../images/layout/table-header-2.gif') repeat-x 0 50%;
+            font-weight: bold;
+            border-top: solid 1px @dark-border;
+            border-bottom: solid 1px @dark-border;
+        }
+    }
+
+    tbody th {
+        border-right: 1px solid @dark-border;
+        background: none;
+
+        &:last-child {
+            border-right: 0;
+        }
+    }
+
+    /* Striping */
+    tr.even td,
+    tr.even th {
+        padding: 0.2em 0.4em;
+        background: @even-table-row;
+    }
+    tr:target td { background-color: @highlight-table-row; }
+
+    /* Fixed widths and other custom styles */
+    .pos { width: 1em; white-space: nowrap; }
+    .year { width: 4em; }
+    .count { width: 2em; }
+    .rating { width: 50px; }
+    .treleases { width: 3em; }
+    .t { text-align: right; }
+
+    .video {
+        width: 15px;
+
+        &.is-video {
+            background-repeat: no-repeat;
+            background-position: 50% 2px;
+            background-image: data-uri('../images/icons/video.png');
+        }
+    }
+
     .data-track.icon {
         background: data-uri('../images/icons/page_white_cd.png');
         cursor: help !important;
     }
+
+    /* Sortable table headers/images */
+    thead tr .header {
+        cursor: pointer;
+    }
+    thead tr .header .arrow {
+        background: url('../images/layout/bg.gif') no-repeat center right;
+        display: inline-block;
+        height: 9px;
+        width: 21px;
+    }
+    thead tr .headerSortUp .arrow {
+        background-image: url('../images/layout/asc.gif');
+    }
+    thead tr .headerSortDown .arrow {
+        background-image: url('../images/layout/desc.gif');
+    }
 }
 
-table.tbl th {
-    font-size: 95%;
-    background: url('../images/layout/table-header.gif') repeat-x 0 50%;
-    padding: 0.2em 0.4em;
-    text-align: left;
-    border-bottom: solid 1px @dark-border;
-    border-left: solid 1px @medium-border;
-}
 
-table.tbl thead tr .header {
-    cursor: pointer;
-}
-
-table.tbl thead tr .header .arrow {
-    background: url('../images/layout/bg.gif') no-repeat center right;
-    display: inline-block;
-    height: 9px;
-    width: 21px;
-}
-
-table.tbl thead tr .headerSortUp .arrow {
-    background-image: url('../images/layout/asc.gif');
-}
-
-table.tbl thead tr .headerSortDown .arrow {
-    background-image: url('../images/layout/desc.gif');
-}
-
+/* Nesting of different table types */
 table.details table.tbl {
     margin-top: 0;
 }
@@ -734,107 +582,47 @@ table.details table.tbl th {
     width: auto;
 }
 
-.deleted { color: @dark-text; }
-
-table.tbl tr.subh td,
-table.tbl tr.subh th {
-    font-size: 95%;
-    background: url('../images/layout/table-header-2.gif') repeat-x 0 50%;
-    font-weight: bold;
-    border-top: solid 1px @dark-border;
-    border-bottom: solid 1px @dark-border;
-}
-
-table.tbl tbody th {
-    border-right: 1px solid @dark-border;
-    background: none;
-}
-
-table.tbl tbody th:last-child { border-right: 0; }
-
-table.tbl th a {
-    color: @text-black;
-}
-
-table.tbl th:first-child {
-    border-left: none;
-}
-
-table.tbl td {
-    padding: 0.2em 0.4em;
-}
-
-table.tbl tr.even td,
-table.tbl tr.even th {
-    padding: 0.2em 0.4em;
-    background: @even-table-row;
-}
-
-table.tbl tr:target td { background-color: @highlight-table-row; }
-
-table.tbl .pos { width: 1em; white-space: nowrap; }
-table.tbl th { word-break: keep-all; white-space: nowrap; }
-
-table.tbl .year { width: 4em; }
-table.tbl .count { width: 2em; }
-table.tbl .rating { width: 50px; }
-table.tbl .video {
-    width: 15px;
-
-    &.is-video {
-        background-repeat: no-repeat;
-        background-position: 50% 2px;
-        background-image: data-uri('../images/icons/video.png');
-    }
-}
-table.tbl .treleases { width: 3em; }
-table.tbl .t { text-align: right; }
-
-table.tbl ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
 /* Paginator */
-.pageselector a, .pageselector span {
-    font-size: 90%;
-    padding: 0.05em 0.4em;
-}
+.pageselector {
+    a, span {
+        font-size: 90%;
+        padding: 0.05em 0.4em;
+    }
 
-.pageselector a {
-    border: solid 1px @text-black;
-    text-decoration: none;
-    background-color: #FFF;
-    color: @text-black;
-}
+    a {
+        border: solid 1px @text-black;
+        text-decoration: none;
+        background-color: #FFF;
+        color: @text-black;
 
-.pageselector a:hover {
-    background-color: @musicbrainz-orange;
-}
+        &:hover {
+            background-color: @musicbrainz-orange;
+        }
 
-.pageselector a.sel {
-    background-color: @musicbrainz-orange;
-    font-weight: bold;
-}
+        &.sel {
+            background-color: @musicbrainz-orange;
+            font-weight: bold;
+        }
+    }
 
-.pageselector span {
-    border: solid 1px @dark-border;
-    background-color: @very-light-bg;
-    color: @dark-text;
-}
+    span {
+        border: solid 1px @dark-border;
+        background-color: @very-light-bg;
+        color: @dark-text;
+    }
 
-.pageselector em {
-    font-style: normal;
-    margin-left: 0.5em;
-}
+    em {
+        font-style: normal;
+        margin-left: 0.5em;
+    }
 
-.pageselector + .tbl {
-    margin-top: 0px !important;
-}
+    + .tbl {
+        margin-top: 0px !important;
+    }
 
-.pageselector-results {
-    margin-bottom: 0;
+    &-results {
+        margin-bottom: 0;
+    }
 }
 
 /* Browse Entity pages */
@@ -860,16 +648,37 @@ table.tbl ul {
 }
 
 /* Entity details & edit details */
-table.details th {
-    text-align: right;
-    padding-left: 10pt;
-    width: 240px;
-    vertical-align: top;
-}
+table.details {
+    th {
+        text-align: right;
+        padding-left: 10pt;
+        width: 240px;
+        vertical-align: top;
+    }
 
-table.details td span.new,
-table.details td.new {
-    background: @positive-light-bg;
+    td {
+        vertical-align: top;
+
+        span.new, span.old,
+        &.new, &.old {
+            border: 1px solid @medium-border;
+        }
+
+        span.new, &.new {
+            background: @positive-light-bg;
+        }
+
+        span.old, &.old {
+            background: @negative-light-bg;
+        }
+    }
+
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        list-style-image: none;
+    }
 }
 
 div.diff .diff-only-b,
@@ -878,31 +687,10 @@ tr.diff-addition {
     background: @positive-bg;
 }
 
-table.details td span.old,
-table.details td.old {
-    background: @negative-light-bg;
-}
-
 div.diff .diff-only-a,
 span.diff-only-a,
 tr.diff-removal {
     background: @negative-bg;
-}
-
-table.details td span.new,
-table.details td span.old,
-table.details td.new,
-table.details td.old {
-    border: 1px solid @medium-border;
-}
-
-table.details td { vertical-align: top; }
-
-table.details ul {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    list-style-image: none;
 }
 
 /* Statistics pages */
@@ -959,18 +747,6 @@ table.properties th {
     text-align: right;
 }
 
-/* Search Plugins */
-dl.search-plugins dt {
-    font-weight: bold;
-}
-
-dl.search-plugins dt,
-dl.search-plugins dd {
-    line-height: 200%;
-}
-
-div.searchform input#id-query { width: 30em }
-
 /* CSS columns (instead of using tables) */
 div.columns-2 div.column {
     float: left;
@@ -998,10 +774,15 @@ div.columns-5 div.column {
     border: 2px dashed @musicbrainz-purple;
     padding: 0 1em;
     margin: 1em 0;
-}
 
-.nagpanel .naglinkpanel { text-align: center; }
-.nagpanel .naglink { font-size: 200%; }
+    .naglinkpanel {
+        text-align: center;
+    }
+
+    .naglink {
+        font-size: 200%;
+    }
+}
 
 p.cleanup {
     text-align: center;
@@ -1069,8 +850,6 @@ div.artwork { position: relative; width: 250px; }
     top: 3px;
     right: 3px;
 }
-
-div.delete { display: hidden !important; }
 
 .annotation-toggle {
     display: block;

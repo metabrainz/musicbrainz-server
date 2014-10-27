@@ -107,7 +107,7 @@ MB.releaseEditor.trackParser = {
             var matchedTrackAC = matchedTrack && matchedTrack.artistCredit;
 
             // See if we can re-use the AC from the matched track or the release.
-            var matchedAC = _.find([ releaseAC, matchedTrackAC ],
+            var matchedAC = _.find([ matchedTrackAC, releaseAC ],
                 function (ac) {
                     if (!ac || ac.isVariousArtists()) return false;
 

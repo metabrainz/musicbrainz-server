@@ -60,6 +60,7 @@ MB.constants.LINK_TYPES = {
     allmusic: {
         artist: 283,
         recording: 285,
+        release: 755,
         release_group: 284,
         work: 286
     },
@@ -262,7 +263,7 @@ MB.constants.CLEANUPS = {
         match: [ new RegExp("^(https?://)?([^/]+\\.)?allmusic\\.com","i") ],
         type: MB.constants.LINK_TYPES.allmusic,
         clean: function (url) {
-            return url.replace(/^https?:\/\/(?:[^.]+\.)?allmusic\.com\/(artist|album|composition|song|performance)\/(?:[^\/]*-)?((?:mn|mw|mc|mt|mq)[0-9]+).*/, "http://www.allmusic.com/$1/$2");
+            return url.replace(/^https?:\/\/(?:[^.]+\.)?allmusic\.com\/(artist|album(?:\/release)?|composition|song|performance)\/(?:[^\/]*-)?((?:mn|mw|mc|mt|mq|mr)[0-9]+).*/, "http://www.allmusic.com/$1/$2");
         }
     },
     amazon: {
@@ -596,7 +597,16 @@ MB.constants.CLEANUPS = {
             new RegExp("^(https?://)?(www\\.)?maniadb\\.com", "i"),
             new RegExp("^(https?://)?(www\\.)?imvdb\\.com", "i"),
             new RegExp("^(https?://)?(www\\.)?residentadvisor\\.net", "i"),
-            new RegExp("^(https?://)?(www\\.)?vkdb\\.jp", "i")
+            new RegExp("^(https?://)?(www\\.)?vkdb\\.jp", "i"),
+            new RegExp("^(https?://)?(www\\.)?ci\\.nii\\.ac\\.jp", "i"),
+            new RegExp("^(https?://)?(www\\.)?iss\\.ndl\\.go\\.jp/", "i"),
+            new RegExp("^(https?://)?(www\\.)?finnmusic\\.net", "i"),
+            new RegExp("^(https?://)?(www\\.)?fono\\.fi", "i"),
+            new RegExp("^(https?://)?(www\\.)?pomus\\.net", "i"),
+            new RegExp("^(https?://)?(www\\.)?stage48\\.net/wiki/index.php", "i"),
+            new RegExp("^(https?://)?(www22\\.)?big\\.or\\.jp", "i"),
+            new RegExp("^(https?://)?(www\\.)?japanesemetal\\.gooside\\.com", "i"),
+            new RegExp("^(https?://)?(www\\.)?d-nb\\.info", "i")
         ],
         type: MB.constants.LINK_TYPES.otherdatabases,
         clean: function (url) {
@@ -617,7 +627,7 @@ MB.constants.CLEANUPS = {
             //Standardising DHHU
             url = url.replace(/^(?:https?:\/\/)?(www\.)?dhhu\.dk\/w\/(.*)+$/, "http://www.dhhu.dk/w/$2");
             //Standardising The Session
-            url = url.replace(/^(?:https?:\/\/)?(www\.)?thesession\.org\/([^\/]+)(\/.*)?\/([0-9]+)+(#.*)*$/, "http://thesession.org/$2/$4");
+            url = url.replace(/^(?:https?:\/\/)?(?:www\.)?thesession\.org\/(tunes|recordings(?:\/artists)?)(?:\/.*)?\/([0-9]+)(?:.*)?$/, "http://thesession.org/$1/$2");
             //Standardising Open Library
             url = url.replace(/^(?:https?:\/\/)?(www\.)?openlibrary\.org\/(authors|books|works)\/(OL[0-9]+[AMW]\/)(.*)*$/, "http://openlibrary.org/$2/$3");
             //Standardising Anime News Network
@@ -700,6 +710,9 @@ MB.Control.URLCleanup = function (options) {
     }
     validationRules[ MB.constants.LINK_TYPES.allmusic.recording ] = function (url) {
         return url.match(/allmusic\.com\/performance\/mq/) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.allmusic.release ] = function (url) {
+        return url.match(/allmusic\.com\/album\/release\/mr/) != null;
     }
 
     // allow only artist pages in BBC Music links

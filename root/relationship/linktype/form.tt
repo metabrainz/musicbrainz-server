@@ -156,6 +156,7 @@ var editor = MB.ExampleRelationshipsEditor.init({
     type0: '[% link_type.entity0_type %]',
     type1: '[% link_type.entity1_type %]',
     linkTypeName: '[% link_type.name %]',
+    linkTypeID: '[% link_type.id %]',
     jsRoot: '[% c.uri_for("/ws/js/entity/") %]'
 });
 
