@@ -122,9 +122,8 @@ test 'TOC lookup for disc with pregap track' => sub {
     };
 
     my $created = $c->model('Medium')->insert($insert_hash);
-    isa_ok($created, 'MusicBrainz::Server::Entity::Medium');
 
-    my $medium = $c->model('Medium')->get_by_id($created->id);
+    my $medium = $c->model('Medium')->get_by_id($created->{id});
     isa_ok($medium, 'MusicBrainz::Server::Entity::Medium');
 
     $c->model('Track')->load_for_mediums($medium);
