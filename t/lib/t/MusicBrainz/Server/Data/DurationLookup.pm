@@ -133,7 +133,7 @@ test 'TOC lookup for disc with pregap track' => sub {
     is(scalar @$durationlookup, 1, "one match with TOC lookup");
 
     $medium = $durationlookup->[0]->medium;
-    is($medium->id, $created->id);
+    is($medium->id, $created->{id});
     is($medium->name, 'Bonus disc', 'TOC lookup found correct disc');
 };
 
