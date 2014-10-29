@@ -92,8 +92,7 @@ sub load_containment
         # if the object type differs and the parent property is undefined
         # If all containments are loaded or match the object type, no loading needs to happen.
         return any { !defined($obj->{$type_parent_attribute{$_}}) &&
-                     !defined($obj_type) &&
-                     $obj_type != $_ } keys %type_parent_attribute;
+                     (!defined($obj_type) || $obj_type != $_) } keys %type_parent_attribute;
     };
     my @objects_to_use = grep { $use_object->($_) } @areas;
     return unless @objects_to_use;
