@@ -1,4 +1,0 @@
-[%- WRAPPER 'area/layout.tt' title=l('Tags') page='tags' -%]
-    [%- INCLUDE "components/tags.tt" no_tags_text=l('This area has no tags.') -%]
-    [%- INCLUDE "components/tag.tt" tag_this_text=l('Tag this area') -%]
-[%- END -%]
