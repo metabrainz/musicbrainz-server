@@ -9,4 +9,8 @@ CREATE TABLE editor_collection_event
 
 ALTER TABLE editor_collection_event ADD CONSTRAINT editor_collection_event_pkey PRIMARY KEY (collection, event);
 
+INSERT INTO editor_collection_type (id, name, child_order) VALUES
+	(4, 'Attending', 3),
+	(5, 'Maybe attending', 4);
+
 COMMIT;
