@@ -1,0 +1,24 @@
+<table class="tbl">
+    <thead>
+        <tr>
+            <th>[% l('Instrument') %]</th>
+            <th>[% l('Type') %]</th>
+            <th>[% l('Description') %]</th>
+        </tr>
+    </thead>
+    <tbody>
+        [% FOR entity IN instruments %]
+        <tr class="[% loop.parity %]">
+            <td>
+                [% descriptive_link(entity) %]
+            </td>
+            <td>
+                [% entity.l_type_name %]
+            </td>
+            <td>
+                [% entity.l_description %]
+            </td>
+        </tr>
+        [% END %]
+    </tbody>
+</table>

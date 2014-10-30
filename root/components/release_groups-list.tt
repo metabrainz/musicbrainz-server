@@ -10,7 +10,12 @@
       [% IF show_artists %]
       <th>[% l('Artist') %]</th>
       [% END %]
+      [% IF no_grouping %]
+      <th>[% l('Type') %]</th>
+      [% END %]
+      [%~ UNLESS no_ratings ~%]
       <th class="rating c">[% l('Rating') %]</th>
+      [%~ END ~%]
       <th class="count c">[% l('Releases') %]</th>
     </tr>
   </thead>
@@ -50,14 +55,16 @@
         <td>
           [% link_release_group(rg) %]
           [% disambiguation(rg) %]
-          [% FOR t=rg.secondary_types %]
-            <span class="release-group-type">[% t.l_name %]</span>
-          [% END %]
         </td>
         [% IF show_artists %]
         <td>[% artist_credit(rg.artist_credit) %]</td>
         [% END %]
+        [%~ IF no_grouping ~%]
+        <td>[% rg.l_type_name %]</td>
+        [%~ END ~%]
+        [%~ UNLESS no_ratings ~%]
         <td class="c">[% rating_stars(rg) %]</td>
+        [%~ END ~%]
         <td class="c">[% rg.release_count %]</td>
     </tr>
 [%- END -%]
