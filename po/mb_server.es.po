@@ -26,8 +26,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-21 12:05-0700\n"
-"PO-Revision-Date: 2014-10-21 19:07+0000\n"
+"POT-Creation-Date: 2014-10-29 18:05-0700\n"
+"PO-Revision-Date: 2014-10-30 01:09+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -82,7 +82,8 @@ msgstr "\"YY\" son los últimos dos dígitos del año de registro."
 
 #: ../root/cdstub/cdstub.tt:4 ../root/components/recordings-list.tt:22
 #: ../root/components/release_groups-list.tt:6
-#: ../root/components/works-list.tt:10 ../root/edit/details/add_medium.tt:49
+#: ../root/components/releases-list.tt:8 ../root/components/works-list.tt:10
+#: ../root/edit/details/add_medium.tt:49
 #: ../root/edit/details/edit_medium.tt:56
 #: ../root/edit/details/edit_medium.tt:60
 #: ../root/edit/details/edit_medium.tt:189
@@ -91,7 +92,7 @@ msgstr "\"YY\" son los últimos dos dígitos del año de registro."
 #: ../root/freedb/show.tt:61 ../root/recording/index.tt:10
 #: ../root/release/edit_relationships.tt:53
 #: ../root/release/edit/tracklist.tt:137 ../root/release/edit/tracklist.tt:297
-#: ../root/release_group/releases-list.tt:8 ../root/release/index.tt:39
+#: ../root/release/index.tt:39
 msgid "#"
 msgstr "#"
 
@@ -874,8 +875,7 @@ msgstr "Información adicional"
 msgid "Additions:"
 msgstr "Adiciones:"
 
-#: ../root/area/places-list.tt:6 ../root/edit/details/merge_places.tt:10
-#: ../root/edit/details/merge_places.tt:47 ../root/place/merge.tt:13
+#: ../root/components/places-list.tt:6 ../root/place/merge.tt:13
 #: ../root/search/results-place.tt:10
 msgid "Address"
 msgstr ""
@@ -1231,10 +1231,7 @@ msgid "Are you sure you wish to remove the series {series} from MusicBrainz?"
 msgstr ""
 
 #: ../root/area/header.tt:5 ../root/components/common-macros.tt:578
-#: ../root/edit/details/merge_labels.tt:11
-#: ../root/edit/details/merge_labels.tt:48
-#: ../root/edit/details/merge_places.tt:11
-#: ../root/edit/details/merge_places.tt:48 ../root/edit/search_macros.tt:307
+#: ../root/components/labels-list.tt:8 ../root/edit/search_macros.tt:307
 #: ../root/label/merge.tt:15 ../root/place/merge.tt:14
 #: ../root/scripts/text_strings.tt:104
 #: ../root/search/lib/inline-results-artist.tt:11
@@ -1268,28 +1265,28 @@ msgstr ""
 msgid "Area:"
 msgstr ""
 
-#: ../root/area/artists-list.tt:4 ../root/artist/header.tt:4
-#: ../root/cdstub/browse.tt:9 ../root/cdstub/cdstub.tt:7
-#: ../root/cdtoc/attach_filter_release.tt:29 ../root/cdtoc/list.tt:6
-#: ../root/cdtoc/lookup.tt:39 ../root/collection/index.tt:18
+#: ../root/artist/header.tt:4 ../root/cdstub/browse.tt:9
+#: ../root/cdstub/cdstub.tt:7 ../root/cdtoc/attach_filter_release.tt:29
+#: ../root/cdtoc/list.tt:6 ../root/cdtoc/lookup.tt:39
+#: ../root/collection/index.tt:18 ../root/components/artists-list.tt:4
 #: ../root/components/common-macros.tt:578
 #: ../root/components/recordings-list.tt:29
 #: ../root/components/relationships-table.tt:9
 #: ../root/components/release_groups-list.tt:11
+#: ../root/components/releases-list.tt:12
 #: ../root/components/results-generic.tt:6
 #: ../root/edit/details/add_medium.tt:50
 #: ../root/edit/details/edit_medium.tt:58
 #: ../root/edit/details/edit_medium.tt:62
 #: ../root/edit/details/historic/add_release.tt:51
 #: ../root/edit/details/historic/change_track_artist.tt:8
-#: ../root/edit/details/merge_release_groups.tt:5
 #: ../root/edit/details/merge_releases.tt:19 ../root/edit/search_macros.tt:307
 #: ../root/freedb/show.tt:63 ../root/isrc/index.tt:17
 #: ../root/otherlookup/results-release.tt:11
 #: ../root/release/edit/tracklist.tt:139 ../root/release/edit/tracklist.tt:299
-#: ../root/release_group/merge.tt:13 ../root/release_group/releases-list.tt:12
-#: ../root/release/index.tt:55 ../root/release/lookup.tt:10
-#: ../root/release/merge.tt:14 ../root/report/artist_list.tt:7
+#: ../root/release_group/merge.tt:13 ../root/release/index.tt:55
+#: ../root/release/lookup.tt:10 ../root/release/merge.tt:14
+#: ../root/report/artist_list.tt:7
 #: ../root/report/artists_with_multiple_occurances_in_artist_credits.tt:17
 #: ../root/report/artist_url_list.tt:6 ../root/report/bad_amazon_urls.tt:19
 #: ../root/report/cat_no_looks_like_asin.tt:20
@@ -1601,7 +1598,7 @@ msgstr "Quiero ser suscrito automáticamente a las discográficas que cree."
 msgid "Automatically subscribe me to series I create."
 msgstr ""
 
-#: ../root/components/ratings.tt:19
+#: ../root/entity/ratings.tt:20
 msgid "Average rating:"
 msgstr ""
 
@@ -1641,13 +1638,13 @@ msgstr ""
 
 #: ../root/cdtoc/attach_artist_releases.tt:20
 #: ../root/cdtoc/attach_filter_release.tt:34 ../root/cdtoc/list.tt:12
+#: ../root/components/releases-list.tt:22
 #: ../root/edit/details/edit_release_events.tt:9
 #: ../root/edit/details/historic/add_release.tt:79
 #: ../root/edit/details/merge_releases.tt:26
 #: ../root/otherlookup/results-release.tt:18
 #: ../root/release/edit/duplicates.tt:17 ../root/release_group/index.tt:30
-#: ../root/release_group/releases-list.tt:22 ../root/release/merge.tt:21
-#: ../root/search/lib/inline-results-release.tt:17
+#: ../root/release/merge.tt:21 ../root/search/lib/inline-results-release.tt:17
 msgid "Barcode"
 msgstr "Código de barras"
 
@@ -1729,10 +1726,7 @@ msgstr "Únete a MusicBrainz creando una cuenta, y consulta {how|cómo enviar in
 msgid "Began:"
 msgstr "Inicio:"
 
-#: ../root/edit/details/merge_labels.tt:12
-#: ../root/edit/details/merge_labels.tt:49
-#: ../root/edit/details/merge_places.tt:12
-#: ../root/edit/details/merge_places.tt:49 ../root/label/merge.tt:16
+#: ../root/components/labels-list.tt:10 ../root/label/merge.tt:16
 #: ../root/place/merge.tt:15 ../root/search/lib/inline-results-artist.tt:12
 #: ../root/search/results-area.tt:11 ../root/search/results-label.tt:12
 #: ../root/search/results-place.tt:12
@@ -1885,7 +1879,7 @@ msgstr ""
 msgid "Browse works"
 msgstr "Navegar por obras"
 
-#: ../root/layout.tt:93
+#: ../root/layout.tt:94
 msgid "Bug Tracker"
 msgstr "Seg. de fallos"
 
@@ -2044,11 +2038,11 @@ msgstr "Número de catálogo:"
 
 #: ../root/cdtoc/attach_artist_releases.tt:19
 #: ../root/cdtoc/attach_filter_release.tt:33 ../root/cdtoc/list.tt:11
-#: ../root/collection/index.tt:24 ../root/edit/details/merge_releases.tt:25
+#: ../root/collection/index.tt:24 ../root/components/releases-list.tt:21
+#: ../root/edit/details/merge_releases.tt:25
 #: ../root/otherlookup/results-release.tt:17 ../root/recording/index.tt:18
 #: ../root/release/edit/duplicates.tt:16 ../root/release_group/index.tt:29
-#: ../root/release_group/releases-list.tt:21 ../root/release/merge.tt:20
-#: ../root/search/lib/inline-results-release.tt:16
+#: ../root/release/merge.tt:20 ../root/search/lib/inline-results-release.tt:16
 msgid "Catalog#"
 msgstr "Nº de catálogo"
 
@@ -2162,7 +2156,7 @@ msgstr "Cerrada"
 msgid "Closed:"
 msgstr "Cerrado:"
 
-#: ../root/area/labels-list.tt:6 ../root/search/results-area.tt:10
+#: ../root/components/labels-list.tt:6 ../root/search/results-area.tt:10
 #: ../root/search/results-label.tt:10
 msgid "Code"
 msgstr "Código"
@@ -2294,14 +2288,13 @@ msgstr ""
 
 #: ../root/cdtoc/attach_artist_releases.tt:17
 #: ../root/cdtoc/attach_filter_release.tt:31 ../root/cdtoc/list.tt:9
-#: ../root/collection/index.tt:22
+#: ../root/collection/index.tt:22 ../root/components/releases-list.tt:17
 #: ../root/edit/details/edit_release_events.tt:6
 #: ../root/edit/details/historic/add_release.tt:76
 #: ../root/edit/details/merge_releases.tt:23
 #: ../root/otherlookup/results-release.tt:15 ../root/recording/index.tt:16
 #: ../root/release/edit/duplicates.tt:14 ../root/release_group/index.tt:27
-#: ../root/release_group/releases-list.tt:17 ../root/release/merge.tt:18
-#: ../root/search/lib/inline-results-release.tt:14
+#: ../root/release/merge.tt:18 ../root/search/lib/inline-results-release.tt:14
 msgid "Country"
 msgstr "País"
 
@@ -2314,7 +2307,7 @@ msgstr "País:"
 msgid "Cover Art"
 msgstr "Imágenes"
 
-#: ../root/layout.tt:106
+#: ../root/layout.tt:107
 msgid ""
 "Cover Art provided by the {caa|Cover Art Archive}. Hosted by {host|Digital "
 "West}. Sponsored by: {url1|Google}, {url2|OSUOSL} and {more|others...}. "
@@ -2401,13 +2394,14 @@ msgstr ""
 #: ../root/annotation/history.tt:12 ../root/cdtoc/attach_artist_releases.tt:16
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/list.tt:8
 #: ../root/collection/index.tt:21 ../root/components/relationships-table.tt:6
+#: ../root/components/releases-list.tt:16
 #: ../root/edit/details/edit_release_events.tt:5
 #: ../root/edit/details/historic/add_release.tt:75
 #: ../root/edit/details/merge_releases.tt:22 ../root/elections/show.tt:118
 #: ../root/otherlookup/results-release.tt:14 ../root/recording/index.tt:15
 #: ../root/release/edit/duplicates.tt:13 ../root/release_group/index.tt:26
-#: ../root/release_group/releases-list.tt:16 ../root/release/lookup.tt:11
-#: ../root/release/merge.tt:17 ../root/search/lib/inline-results-release.tt:13
+#: ../root/release/lookup.tt:11 ../root/release/merge.tt:17
+#: ../root/search/lib/inline-results-release.tt:13
 msgid "Date"
 msgstr "Fecha"
 
@@ -2473,11 +2467,10 @@ msgstr ""
 msgid "Deprecated:"
 msgstr ""
 
-#: ../root/collection/index.tt:5 ../root/doc/edit_type.tt:33
-#: ../root/doc/relationship_type.tt:25
-#: ../root/edit/details/merge_instruments.tt:10
-#: ../root/edit/details/merge_instruments.tt:35 ../root/instrument/index.tt:11
-#: ../root/instrument/merge.tt:13 ../root/search/results-instrument.tt:10
+#: ../root/collection/index.tt:5 ../root/components/instruments-list.tt:6
+#: ../root/doc/edit_type.tt:33 ../root/doc/relationship_type.tt:25
+#: ../root/instrument/index.tt:11 ../root/instrument/merge.tt:13
+#: ../root/search/results-instrument.tt:10
 msgid "Description"
 msgstr "Descripción"
 
@@ -2697,7 +2690,7 @@ msgstr ""
 msgid "Don't have an account? {uri|Create one now}!"
 msgstr "¿No tienes una cuenta? {uri|¡Créala ahora!}"
 
-#: ../root/layout.tt:90
+#: ../root/layout.tt:91
 msgid "Donate"
 msgstr "Donaciones"
 
@@ -3017,11 +3010,9 @@ msgstr "Énfasis:"
 msgid "Enable vinyl track numbers"
 msgstr "Permitir numeración de vinilo"
 
-#: ../root/cdtoc/info.tt:34 ../root/edit/details/merge_labels.tt:13
-#: ../root/edit/details/merge_labels.tt:50
-#: ../root/edit/details/merge_places.tt:13
-#: ../root/edit/details/merge_places.tt:50 ../root/label/merge.tt:17
-#: ../root/place/merge.tt:16 ../root/search/lib/inline-results-artist.tt:14
+#: ../root/cdtoc/info.tt:34 ../root/components/labels-list.tt:11
+#: ../root/label/merge.tt:17 ../root/place/merge.tt:16
+#: ../root/search/lib/inline-results-artist.tt:14
 #: ../root/search/results-area.tt:12 ../root/search/results-label.tt:13
 #: ../root/search/results-place.tt:13
 msgid "End"
@@ -3345,13 +3336,14 @@ msgid "Forgot your {link1|username} or {link2|password}?"
 msgstr "¿Has olvidado tu {link1|nombre de usuario} o {link2|contraseña}?"
 
 #: ../root/cdtoc/list.tt:7 ../root/collection/index.tt:19
+#: ../root/components/releases-list.tt:14
 #: ../root/edit/details/edit_release_events.tt:10
 #: ../root/edit/details/historic/add_release.tt:80
 #: ../root/edit/details/merge_releases.tt:20
 #: ../root/otherlookup/results-release.tt:12
 #: ../root/release/edit/duplicates.tt:11 ../root/release_group/index.tt:24
-#: ../root/release_group/releases-list.tt:14 ../root/release/lookup.tt:12
-#: ../root/release/merge.tt:15 ../root/search/lib/inline-results-release.tt:11
+#: ../root/release/lookup.tt:12 ../root/release/merge.tt:15
+#: ../root/search/lib/inline-results-release.tt:11
 msgid "Format"
 msgstr "Formato"
 
@@ -3363,7 +3355,7 @@ msgstr "Formato"
 msgid "Format:"
 msgstr "Formato:"
 
-#: ../root/layout/menu.tt:288 ../root/layout.tt:92
+#: ../root/layout/menu.tt:288 ../root/layout.tt:93
 msgid "Forums"
 msgstr "Foros"
 
@@ -3477,7 +3469,7 @@ msgstr ""
 msgid "Full TOC:"
 msgstr "TOC completo:"
 
-#: ../root/area/artists-list.tt:6
+#: ../root/components/artists-list.tt:6
 #: ../root/search/lib/inline-results-artist.tt:10
 msgid "Gender"
 msgstr "Género"
@@ -3923,17 +3915,16 @@ msgid "Installed Application"
 msgstr "Aplicación instalada"
 
 #: ../root/components/common-macros.tt:578
-#: ../root/edit/details/merge_instruments.tt:8
-#: ../root/edit/details/merge_instruments.tt:33
-#: ../root/edit/search_macros.tt:307 ../root/instrument/header.tt:5
-#: ../root/instrument/merge.tt:11 ../root/scripts/text_strings.tt:106
+#: ../root/components/instruments-list.tt:4 ../root/edit/search_macros.tt:307
+#: ../root/instrument/header.tt:5 ../root/instrument/merge.tt:11
+#: ../root/scripts/text_strings.tt:106
 #: ../lib/MusicBrainz/Server/Edit/Instrument.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:46
 msgid "Instrument"
 msgstr ""
 
 #: ../root/components/recordings-list.tt:34
-#: ../root/release_group/releases-list.tt:23
+#: ../root/components/releases-list.tt:23
 msgid "Instrument Credits"
 msgstr ""
 
@@ -3976,16 +3967,16 @@ msgid "Internal/Bot"
 msgstr "Interno/Bot"
 
 #: ../root/edit/details/merge_common.tt:17
-#: ../root/edit/details/merge_instruments.tt:28
-#: ../root/edit/details/merge_labels.tt:40
-#: ../root/edit/details/merge_places.tt:40
+#: ../root/edit/details/merge_instruments.tt:9
+#: ../root/edit/details/merge_labels.tt:10
+#: ../root/edit/details/merge_places.tt:10
 #: ../root/edit/details/merge_recordings.tt:11
-#: ../root/edit/details/merge_release_groups.tt:25
+#: ../root/edit/details/merge_release_groups.tt:10
 #: ../root/edit/details/merge_releases.tt:70
 #: ../root/edit/details/merge_releases.tt:75
 #: ../root/edit/details/merge_releases.tt:84
 #: ../root/edit/details/merge_releases.tt:101
-#: ../root/edit/details/merge_series.tt:28
+#: ../root/edit/details/merge_series.tt:9
 #: ../root/edit/details/merge_works.tt:10
 msgid "Into:"
 msgstr "En:"
@@ -4023,20 +4014,18 @@ msgstr ""
 msgid "Keep me logged in"
 msgstr "Mantenedme conectado"
 
-#: ../root/area/labels-list.tt:4 ../root/cdtoc/attach_artist_releases.tt:18
+#: ../root/cdtoc/attach_artist_releases.tt:18
 #: ../root/cdtoc/attach_filter_release.tt:32 ../root/cdtoc/list.tt:10
 #: ../root/collection/index.tt:23 ../root/components/common-macros.tt:578
+#: ../root/components/labels-list.tt:4 ../root/components/releases-list.tt:19
 #: ../root/edit/details/edit_release_events.tt:7
 #: ../root/edit/details/historic/add_release.tt:77
-#: ../root/edit/details/merge_labels.tt:8
-#: ../root/edit/details/merge_labels.tt:45
 #: ../root/edit/details/merge_releases.tt:24 ../root/edit/search_macros.tt:307
 #: ../root/label/header.tt:4 ../root/label/merge.tt:12
 #: ../root/otherlookup/results-release.tt:16 ../root/recording/index.tt:17
 #: ../root/release/edit/duplicates.tt:15 ../root/release_group/index.tt:28
-#: ../root/release_group/releases-list.tt:19 ../root/release/merge.tt:19
-#: ../root/report/label_list.tt:7 ../root/report/label_url_list.tt:6
-#: ../root/scripts/text_strings.tt:107
+#: ../root/release/merge.tt:19 ../root/report/label_list.tt:7
+#: ../root/report/label_url_list.tt:6 ../root/scripts/text_strings.tt:107
 #: ../root/search/lib/inline-results-release.tt:15
 #: ../lib/MusicBrainz/Server/Edit/Label.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:38
@@ -4047,8 +4036,7 @@ msgstr "Discográfica"
 msgid "Label Area"
 msgstr ""
 
-#: ../root/edit/details/merge_labels.tt:10
-#: ../root/edit/details/merge_labels.tt:47 ../root/label/merge.tt:14
+#: ../root/label/merge.tt:14
 msgid "Label Code"
 msgstr ""
 
@@ -4180,7 +4168,7 @@ msgstr ""
 msgid "Last modified:"
 msgstr "Última modificación:"
 
-#: ../root/layout.tt:100
+#: ../root/layout.tt:101
 msgid "Last replication packet received at {datetime}"
 msgstr ""
 
@@ -4587,7 +4575,7 @@ msgstr "Estrategia de fusión:"
 #: ../root/edit/details/merge_labels.tt:3
 #: ../root/edit/details/merge_places.tt:3
 #: ../root/edit/details/merge_recordings.tt:3
-#: ../root/edit/details/merge_release_groups.tt:13
+#: ../root/edit/details/merge_release_groups.tt:3
 #: ../root/edit/details/merge_series.tt:3
 #: ../root/edit/details/merge_works.tt:3
 msgid "Merge:"
@@ -4712,19 +4700,19 @@ msgid ""
 "MusicBrainz {free|free and open source}."
 msgstr "MusicBrainz es operada por la {uri|MetaBrainz Foundation}, una corporación californiana sin fines de lucro, exenta de impuestos 501(c)(3) dedicada a mantener a MusicBrainz {free|libre y de código abierto}."
 
-#: ../root/layout/head.tt:18
+#: ../root/layout/head.tt:19
 msgid "MusicBrainz: Artist"
 msgstr "MusicBrainz: Artista"
 
-#: ../root/layout/head.tt:19
+#: ../root/layout/head.tt:20
 msgid "MusicBrainz: Label"
 msgstr "MusicBrainz: Discográfica"
 
-#: ../root/layout/head.tt:20
+#: ../root/layout/head.tt:21
 msgid "MusicBrainz: Release"
 msgstr "MusicBrainz: Publicación"
 
-#: ../root/layout/head.tt:21
+#: ../root/layout/head.tt:22
 msgid "MusicBrainz: Track"
 msgstr "MusicBrainz: Pista"
 
@@ -4768,7 +4756,6 @@ msgstr "N/A"
 #: ../root/artist/aliases.tt:19 ../root/components/recordings-list.tt:27
 #: ../root/components/results-generic.tt:5
 #: ../root/edit/details/historic/add_release.tt:50
-#: ../root/edit/details/merge_release_groups.tt:4
 #: ../root/otherlookup/results-release.tt:10
 #: ../root/otherlookup/results-work.tt:7 ../root/release_group/merge.tt:12
 #: ../root/scripts/text_strings.tt:25
@@ -5087,6 +5074,10 @@ msgstr "No se encontraron obras con esta etiqueta."
 msgid "No {type0}-{type1} relationship types found."
 msgstr "No se han encontrado relaciones {type0}-{type1}."
 
+#: ../root/entity/tags.tt:2
+msgid "Nobody has tagged this yet."
+msgstr ""
+
 #: ../root/elections/nominate.tt:1 ../root/elections/nominate.tt:3
 msgid "Nominate a candidate for auto-editor"
 msgstr "Nominar a un candidato para ser autoeditor"
@@ -5301,8 +5292,7 @@ msgstr "Opciones"
 msgid "Or..."
 msgstr "O..."
 
-#: ../root/edit/details/merge_series.tt:10
-#: ../root/edit/details/merge_series.tt:35 ../root/series/merge.tt:14
+#: ../root/components/series-list.tt:6 ../root/series/merge.tt:14
 msgid "Ordering Type"
 msgstr ""
 
@@ -5431,11 +5421,10 @@ msgstr "Enlace permanente:"
 msgid "Phrase:"
 msgstr "Frase:"
 
-#: ../root/area/places-list.tt:4 ../root/components/common-macros.tt:578
-#: ../root/edit/details/merge_places.tt:8
-#: ../root/edit/details/merge_places.tt:45 ../root/edit/search_macros.tt:307
-#: ../root/place/header.tt:5 ../root/place/merge.tt:11
-#: ../root/report/place_list.tt:7 ../root/scripts/text_strings.tt:108
+#: ../root/components/common-macros.tt:578 ../root/components/places-list.tt:4
+#: ../root/edit/search_macros.tt:307 ../root/place/header.tt:5
+#: ../root/place/merge.tt:11 ../root/report/place_list.tt:7
+#: ../root/scripts/text_strings.tt:108
 #: ../lib/MusicBrainz/Server/Edit/Place.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:40
 msgid "Place"
@@ -5542,7 +5531,7 @@ msgid ""
 "series from the others."
 msgstr ""
 
-#: ../root/components/tag.tt:7
+#: ../root/entity/tags.tt:10
 msgid ""
 "Please enter tags in the text area below. Tags are comma separated, and you "
 "may wish to see the {tagsyn|tag syntax documentation} for more information"
@@ -5803,20 +5792,19 @@ msgid_plural "Rate: {rating} stars"
 msgstr[0] "Val.: {rating} estrella"
 msgstr[1] "Val.: {rating} estrellas"
 
-#: ../root/area/artists-list.tt:8 ../root/area/labels-list.tt:8
-#: ../root/collection/index.tt:25 ../root/components/recordings-list.tt:32
-#: ../root/components/release_groups-list.tt:13
+#: ../root/collection/index.tt:25 ../root/components/artists-list.tt:8
+#: ../root/components/labels-list.tt:13
+#: ../root/components/recordings-list.tt:32
+#: ../root/components/release_groups-list.tt:17
 #: ../root/components/works-list.tt:20
 #: ../root/layout/sidebar/sidebar-rating.tt:1
 #: ../root/release_group/merge.tt:16 ../root/release/index.tt:57
 msgid "Rating"
 msgstr "Valoración"
 
-#: ../root/artist/ratings.tt:1 ../root/components/ratings.tt:1
-#: ../root/label/ratings.tt:1 ../root/recording/ratings.tt:1
-#: ../root/release_group/ratings.tt:1 ../root/user/profile/layout.tt:19
-#: ../root/user/ratings_summary.tt:1 ../root/user/ratings_summary.tt:31
-#: ../root/work/ratings.tt:1
+#: ../root/entity/ratings.tt:1 ../root/entity/ratings.tt:2
+#: ../root/user/profile/layout.tt:19 ../root/user/ratings_summary.tt:1
+#: ../root/user/ratings_summary.tt:31
 msgid "Ratings"
 msgstr "Valoraciones"
 
@@ -6092,11 +6080,12 @@ msgstr "Relaciones:"
 #: ../root/cdtoc/attach_artist_releases.tt:15
 #: ../root/cdtoc/attach_filter_release.tt:28 ../root/cdtoc/lookup.tt:37
 #: ../root/collection/index.tt:17 ../root/components/common-macros.tt:578
+#: ../root/components/releases-list.tt:10
 #: ../root/edit/details/edit_release_events.tt:4
 #: ../root/edit/details/merge_releases.tt:18 ../root/edit/search_macros.tt:307
 #: ../root/release/edit/duplicates.tt:10 ../root/release_group/index.tt:23
-#: ../root/release_group/releases-list.tt:10 ../root/release/lookup.tt:9
-#: ../root/release/merge.tt:13 ../root/report/bad_amazon_urls.tt:20
+#: ../root/release/lookup.tt:9 ../root/release/merge.tt:13
+#: ../root/report/bad_amazon_urls.tt:20
 #: ../root/report/cat_no_looks_like_asin.tt:19
 #: ../root/report/release_list.tt:7 ../root/report/release_url_list.tt:6
 #: ../root/scripts/text_strings.tt:110
@@ -6311,9 +6300,8 @@ msgstr "Publicación:"
 #: ../root/area/releases.tt:1 ../root/area/releases.tt:4
 #: ../root/artist/releases.tt:1 ../root/artist/releases.tt:4
 #: ../root/collection/index.tt:29 ../root/components/entity-tabs.tt:1
-#: ../root/components/release_groups-list.tt:14
+#: ../root/components/release_groups-list.tt:19
 #: ../root/edit/details/historic/add_release_annotation.tt:3
-#: ../root/edit/details/merge_release_groups.tt:8
 #: ../root/instrument/releases.tt:1 ../root/instrument/releases.tt:2
 #: ../root/label/index.tt:29 ../root/release_group/merge.tt:17
 #: ../root/report/index.tt:51 ../root/series/index.tt:15
@@ -6734,13 +6722,13 @@ msgstr "Cancelar acceso"
 msgid "Revoke Application Access"
 msgstr ""
 
-#: ../root/layout.tt:20
+#: ../root/layout.tt:21
 msgid "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 msgstr "Ejecutando: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 
 #: ../root/account/edit.tt:100 ../root/account/preferences.tt:52
 #: ../root/relationship/linkattributetype/form.tt:21
-#: ../root/relationship/linktype/form.tt:193
+#: ../root/relationship/linktype/form.tt:194
 msgid "Save"
 msgstr "Guardar"
 
@@ -6776,7 +6764,7 @@ msgstr "Alfabeto:"
 #: ../root/components/search.tt:11 ../root/edit/search_macros.tt:105
 #: ../root/edit/search_macros.tt:232 ../root/edit/search_macros.tt:264
 #: ../root/label/edit_form.tt:38 ../root/layout/menu.tt:199
-#: ../root/layout.tt:15 ../root/otherlookup/form.tt:20
+#: ../root/layout.tt:16 ../root/otherlookup/form.tt:20
 #: ../root/place/edit_form.tt:41 ../root/relationship/linktype/form.tt:110
 #: ../root/release/edit/information.tt:29
 #: ../root/release/edit/information.tt:50
@@ -6991,11 +6979,10 @@ msgstr ""
 msgid "Series"
 msgstr ""
 
-#: ../root/components/common-macros.tt:578
-#: ../root/edit/details/merge_series.tt:8
-#: ../root/edit/details/merge_series.tt:33 ../root/edit/search_macros.tt:307
-#: ../root/scripts/text_strings.tt:112 ../root/series/header.tt:4
-#: ../root/series/merge.tt:12 ../lib/MusicBrainz/Server/Edit/Series.pm:7
+#: ../root/components/common-macros.tt:578 ../root/components/series-list.tt:4
+#: ../root/edit/search_macros.tt:307 ../root/scripts/text_strings.tt:112
+#: ../root/series/header.tt:4 ../root/series/merge.tt:12
+#: ../lib/MusicBrainz/Server/Edit/Series.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:47
 msgctxt "singular"
 msgid "Series"
@@ -7495,7 +7482,7 @@ msgctxt "release status"
 msgid "Status:"
 msgstr "Estatus:"
 
-#: ../root/layout.tt:96
+#: ../root/layout.tt:97
 msgid "Stop using beta site"
 msgstr "Dejar de usar la versión beta"
 
@@ -7521,6 +7508,10 @@ msgstr "Enviar"
 
 #: ../root/edit/index.tt:79
 msgid "Submit note"
+msgstr ""
+
+#: ../root/entity/tags.tt:14
+msgid "Submit tags"
 msgstr ""
 
 #: ../root/cdtoc/lookup.tt:105
@@ -7634,34 +7625,6 @@ msgstr "Etiqueta tu música"
 msgid "Tag lookup"
 msgstr "Búsqueda de etiquetas"
 
-#: ../root/artist/tags.tt:3
-msgid "Tag this artist"
-msgstr "Etiqueta este artista"
-
-#: ../root/label/tags.tt:3
-msgid "Tag this label"
-msgstr "Etiqueta esta discográfica"
-
-#: ../root/place/tags.tt:3
-msgid "Tag this place"
-msgstr ""
-
-#: ../root/recording/tags.tt:3
-msgid "Tag this recording"
-msgstr "Etiqueta esta grabación"
-
-#: ../root/release/tags.tt:3
-msgid "Tag this release"
-msgstr "Etiquetar esta publicación"
-
-#: ../root/release_group/tags.tt:3
-msgid "Tag this release group"
-msgstr "Etiquetar este grupo de publicaciones"
-
-#: ../root/work/tags.tt:3
-msgid "Tag this work"
-msgstr "Etiquetar esta obra."
-
 #: ../root/tag/header.tt:12 ../root/tag/layout.tt:1
 msgid "Tag “{tag}”"
 msgstr "Etiqueta \"{tag}\""
@@ -7670,21 +7633,18 @@ msgstr "Etiqueta \"{tag}\""
 #: ../root/cdtoc/attach_filter_release.tt:36 ../root/cdtoc/list.tt:14
 #: ../root/components/common-macros.tt:521
 #: ../root/components/common-macros.tt:526
+#: ../root/components/releases-list.tt:25
 #: ../root/otherlookup/results-release.tt:23 ../root/release_group/index.tt:32
-#: ../root/release_group/releases-list.tt:25
 #: ../root/search/lib/inline-results-recording.tt:14
 #: ../root/search/lib/inline-results-release.tt:22
 msgid "Tagger"
 msgstr "Etiquetador"
 
-#: ../root/artist/tags.tt:1 ../root/components/entity-tabs.tt:47
-#: ../root/components/tags.tt:5 ../root/label/tags.tt:1
-#: ../root/layout/menu.tt:207 ../root/layout/sidebar/sidebar-tags.tt:21
-#: ../root/place/tags.tt:1 ../root/recording/tags.tt:1
-#: ../root/release_group/tags.tt:1 ../root/release/tags.tt:1
-#: ../root/tag/cloud.tt:1 ../root/tag/cloud.tt:4
-#: ../root/user/profile/layout.tt:19 ../root/user/tags.tt:1
-#: ../root/work/tags.tt:1
+#: ../root/components/entity-tabs.tt:47 ../root/components/tags.tt:5
+#: ../root/entity/tags.tt:1 ../root/layout/menu.tt:207
+#: ../root/layout/sidebar/sidebar-tags.tt:21 ../root/tag/cloud.tt:1
+#: ../root/tag/cloud.tt:4 ../root/user/profile/layout.tt:19
+#: ../root/user/tags.tt:1
 msgid "Tags"
 msgstr "Etiquetas"
 
@@ -7804,7 +7764,7 @@ msgid ""
 "and may not display correctly"
 msgstr "Los datos de esta edición provienen originalmente de una versión anterior y puede que no se muestren correctamente"
 
-#: ../root/layout.tt:68
+#: ../root/layout.tt:69
 msgid ""
 "The data you have submitted does not make any changes to the data already "
 "present."
@@ -7950,7 +7910,7 @@ msgstr ""
 msgid "The series you’ve selected is for works."
 msgstr ""
 
-#: ../root/layout.tt:61
+#: ../root/layout.tt:62
 msgid "The server is temporary in read-only mode for database maintainance."
 msgstr "El servidor está en modo de solo lectura temporalmente mientras se realiza un mantenimiento de la base de datos."
 
@@ -8175,10 +8135,6 @@ msgstr "Este artista no tiene relaciones, grabaciones, publicaciones ni grupos d
 msgid "This artist has no release groups, only standalone recordings."
 msgstr ""
 
-#: ../root/artist/tags.tt:2
-msgid "This artist has no tags."
-msgstr "Este artista no tiene etiquetas."
-
 #: ../root/artist/cannot_split.tt:3
 msgid ""
 "This artist has relationships other than collaboration relationships, and "
@@ -8323,11 +8279,11 @@ msgid ""
 "attributed to it."
 msgstr ""
 
-#: ../root/layout.tt:37 ../lib/DBDefs/Default.pm:139
+#: ../root/layout.tt:38 ../lib/DBDefs/Default.pm:139
 msgid "This is a MusicBrainz development server."
 msgstr "Este es un servidor de desarrollo de MusicBrainz."
 
-#: ../root/layout.tt:46
+#: ../root/layout.tt:47
 msgid ""
 "This is a Musicbrainz mirror server. To edit or make changes to the data "
 "please {uri|return to musicbrainz.org}."
@@ -8390,10 +8346,6 @@ msgid ""
 "automatically in the next few days. If this is not intended, please add more"
 " data to this label."
 msgstr "Esta discográfica no tiene relaciones ni publicaciones y será eliminada automáticamente en unos días. Si deseas evitarlo, añade más información."
-
-#: ../root/label/tags.tt:2
-msgid "This label has no tags."
-msgstr "Esta discográfica no tiene etiquetas."
 
 #: ../root/release/edit/tracklist.tt:261
 msgid ""
@@ -8472,10 +8424,6 @@ msgid ""
 "next few days. If this is not intended, please add more data to this place."
 msgstr ""
 
-#: ../root/place/tags.tt:2
-msgid "This place has no tags."
-msgstr ""
-
 #: ../root/recording/delete.tt:14
 msgid "This recording cannot be removed because it is still used on releases."
 msgstr ""
@@ -8483,10 +8431,6 @@ msgstr ""
 #: ../root/recording/fingerprints.tt:46
 msgid "This recording does not have any associated AcoustIDs"
 msgstr "Esta grabación no está asociada a ningúna AcoustID."
-
-#: ../root/recording/tags.tt:2
-msgid "This recording has no tags."
-msgstr "Esta grabación no tiene etiquetas."
 
 #: ../root/components/recordings-list.tt:48
 #: ../root/components/recordings-list.tt:77 ../root/medium/tracklist.tt:37
@@ -8547,19 +8491,11 @@ msgid ""
 "add more data to this release group."
 msgstr ""
 
-#: ../root/release_group/tags.tt:2
-msgid "This release group has no tags."
-msgstr "Este grupo de publicaciones no tiene etiquetas."
-
 #: ../root/release_group/delete.tt:4
 msgid ""
 "This release group will be removed automatically once it has no releases nor"
 " relationships."
 msgstr ""
-
-#: ../root/release/tags.tt:2
-msgid "This release has no tags."
-msgstr "Esta publicación no tiene etiquetas."
 
 #: ../root/release/edit/information.tt:322
 msgid ""
@@ -9086,10 +9022,6 @@ msgid ""
 " few days. If this is not intended, please add relationships to this work."
 msgstr "Esta obra no tiene relaciones, y será eliminada automáticamente en unos días. Si deseas evitarlo, añade algunas relaciones."
 
-#: ../root/work/tags.tt:2
-msgid "This work has no tags."
-msgstr "Esta obra no tiene etiquetas."
-
 #: ../root/cdtoc/info.tt:37 ../root/cdtoc/info.tt:39 ../root/cdtoc/info.tt:41
 msgid "Time"
 msgstr "Duración"
@@ -9350,11 +9282,11 @@ msgstr "Lista de pistas"
 msgid "Tracklist:"
 msgstr "Lista de pistas:"
 
-#: ../root/collection/index.tt:20 ../root/edit/details/merge_releases.tt:21
+#: ../root/collection/index.tt:20 ../root/components/releases-list.tt:15
+#: ../root/edit/details/merge_releases.tt:21
 #: ../root/otherlookup/results-release.tt:13 ../root/release/discids.tt:9
 #: ../root/release/edit/duplicates.tt:12 ../root/release_group/index.tt:25
-#: ../root/release_group/releases-list.tt:15 ../root/release/merge.tt:16
-#: ../root/search/lib/inline-results-release.tt:12
+#: ../root/release/merge.tt:16 ../root/search/lib/inline-results-release.tt:12
 #: ../root/search/results-cdstub.tt:10 ../root/search/results-freedb.tt:14
 msgid "Tracks"
 msgstr "Pistas"
@@ -9399,25 +9331,18 @@ msgid ""
 "Translated/Transliterated Pseudo-Releases not linked to an original version"
 msgstr "Pseudo-lanzamientos traducidos/transliterados no enlazados con una versión original"
 
-#: ../root/layout.tt:94
+#: ../root/layout.tt:95
 msgid "Twitter"
 msgstr "Twitter"
 
-#: ../root/account/applications.tt:55 ../root/area/artists-list.tt:5
-#: ../root/area/labels-list.tt:5 ../root/area/places-list.tt:5
-#: ../root/components/aliases.tt:15
+#: ../root/account/applications.tt:55 ../root/components/aliases.tt:15
+#: ../root/components/artists-list.tt:5
+#: ../root/components/instruments-list.tt:5
+#: ../root/components/labels-list.tt:5 ../root/components/places-list.tt:5
 #: ../root/components/relationship-editor.tt:56
-#: ../root/components/works-list.tt:16 ../root/edit/details/add_alias.tt:35
-#: ../root/edit/details/edit_alias.tt:50
-#: ../root/edit/details/merge_instruments.tt:9
-#: ../root/edit/details/merge_instruments.tt:34
-#: ../root/edit/details/merge_labels.tt:9
-#: ../root/edit/details/merge_labels.tt:46
-#: ../root/edit/details/merge_places.tt:9
-#: ../root/edit/details/merge_places.tt:46
-#: ../root/edit/details/merge_release_groups.tt:6
-#: ../root/edit/details/merge_series.tt:9
-#: ../root/edit/details/merge_series.tt:34
+#: ../root/components/release_groups-list.tt:14
+#: ../root/components/series-list.tt:5 ../root/components/works-list.tt:16
+#: ../root/edit/details/add_alias.tt:35 ../root/edit/details/edit_alias.tt:50
 #: ../root/edit/details/remove_alias.tt:33 ../root/edit/search_macros.tt:307
 #: ../root/instrument/merge.tt:12 ../root/iswc/index.tt:19
 #: ../root/label/merge.tt:13 ../root/otherlookup/results-release.tt:20
@@ -9550,7 +9475,7 @@ msgstr "Desenlazar"
 msgid "Unlinked Pseudo-Releases"
 msgstr "Pseudo-lanzamientos no enlazados"
 
-#: ../root/components/release_groups-list.tt:32
+#: ../root/components/release_groups-list.tt:37
 msgid "Unspecified type"
 msgstr ""
 
@@ -9577,7 +9502,7 @@ msgstr "Actualizar"
 msgid "Update Page"
 msgstr "Actualizar página"
 
-#: ../root/components/tag.tt:3
+#: ../root/entity/tags.tt:6
 msgid "Update Tags"
 msgstr "Actualizar etiquetas"
 
@@ -9609,7 +9534,7 @@ msgstr "Poner en mayúsculas los números romanos"
 msgid "Usage Count"
 msgstr "Usos"
 
-#: ../root/layout.tt:96
+#: ../root/layout.tt:97
 msgid "Use beta site"
 msgstr "Usar la versión beta"
 
@@ -10004,7 +9929,7 @@ msgid ""
 "and following the merge link."
 msgstr "Cuando estés listo para unir éstos elementos haz click en el botón de unir. Puedes añadir más elementos a la cola de unión accediendo a las páginas de las entidades y haciendo click en el enlace de unir."
 
-#: ../root/layout.tt:91
+#: ../root/layout.tt:92
 msgid "Wiki"
 msgstr "Wiki"
 
@@ -10128,7 +10053,6 @@ msgid "Yate Music Tagger"
 msgstr "Yate Music Tagger"
 
 #: ../root/components/release_groups-list.tt:8
-#: ../root/edit/details/merge_release_groups.tt:7
 #: ../root/release_group/merge.tt:15 ../root/search/results-freedb.tt:16
 msgid "Year"
 msgstr "Año"
@@ -10528,12 +10452,10 @@ msgid "[removed]"
 msgstr "[eliminado]"
 
 #: ../root/area/layout.tt:28 ../root/artist/layout.tt:55
-#: ../root/components/aliases.tt:42 ../root/edit/details/merge_labels.tt:27
-#: ../root/edit/details/merge_labels.tt:64
-#: ../root/edit/details/merge_places.tt:27
-#: ../root/edit/details/merge_places.tt:64 ../root/label/layout.tt:31
-#: ../root/label/merge.tt:36 ../root/place/layout.tt:29
-#: ../root/place/merge.tt:35 ../root/search/lib/inline-results-artist.tt:32
+#: ../root/components/aliases.tt:42 ../root/components/labels-list.tt:34
+#: ../root/label/layout.tt:31 ../root/label/merge.tt:36
+#: ../root/place/layout.tt:29 ../root/place/merge.tt:35
+#: ../root/search/lib/inline-results-artist.tt:32
 #: ../root/search/results-area.tt:26 ../root/search/results-label.tt:28
 #: ../root/search/results-place.tt:28
 msgid "[unknown]"
@@ -10863,7 +10785,7 @@ msgstr "publicaciones"
 msgid "resend verification email"
 msgstr "reenviar correo de verificación"
 
-#: ../root/layout.tt:12
+#: ../root/layout.tt:13
 msgid "search"
 msgstr "búsqueda"
 
@@ -11020,7 +10942,7 @@ msgstr "{count} ({url|ver lista})"
 msgid "{count} ({view_url|view})"
 msgstr "{count} ({view_url|ver})"
 
-#: ../root/components/ratings.tt:16
+#: ../root/entity/ratings.tt:17
 msgid "{count} private rating not listed."
 msgid_plural "{count} private ratings not listed."
 msgstr[0] "{count} valoración privada no indicada."
@@ -11095,7 +11017,7 @@ msgstr "{format} {position} {name} de {release} de {artist}"
 msgid "{last_list_item}"
 msgstr "{last_list_item}"
 
-#: ../root/components/ratings.tt:21
+#: ../root/entity/ratings.tt:22
 msgid "{link} has no ratings."
 msgstr "{link} no tiene valoraciones"
 
@@ -11303,7 +11225,7 @@ msgstr "{type} “{work}”"
 msgid "{uri|Delete my account}"
 msgstr ""
 
-#: ../root/layout.tt:38
+#: ../root/layout.tt:39
 msgid "{uri|Return to musicbrainz.org}."
 msgstr ""
 
@@ -11840,7 +11762,7 @@ msgid "Convert release to multiple artists (historic)"
 msgstr "Convertir en publicación de múltiples artistas (histórico)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/SetTrackLengthsFromCDTOC.pm:10
-#: ../lib/MusicBrainz/Server/Edit/Medium/SetTrackLengths.pm:18
+#: ../lib/MusicBrainz/Server/Edit/Medium/SetTrackLengths.pm:19
 msgid "Set track lengths"
 msgstr "Aplicar a duraciones de pistas"
 
@@ -12036,7 +11958,7 @@ msgstr "Editar artista de la publicación"
 msgid "Edit barcodes"
 msgstr "Editar código de barras"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/EditCoverArt.pm:22
+#: ../lib/MusicBrainz/Server/Edit/Release/EditCoverArt.pm:23
 msgid "Edit cover art"
 msgstr "Editar imagen"
 

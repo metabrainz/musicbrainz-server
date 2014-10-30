@@ -1235,6 +1235,13 @@ msgid ""
 "family."
 msgstr ""
 
+#. name:guan 
+#: DB:instrument/description:683
+msgid ""
+"The guan is a Chinese double reed wind instrument made from hardwood or "
+"bamboo."
+msgstr ""
+
 #. name:guitalele 
 #: DB:instrument/description:645
 msgid ""

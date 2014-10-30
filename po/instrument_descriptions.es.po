@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-10-02 15:00+0000\n"
+"PO-Revision-Date: 2014-10-30 01:10+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -1251,6 +1251,13 @@ msgstr ""
 msgid ""
 "The gralla is a traditional Catalan double reed instrument in the oboe "
 "family."
+msgstr ""
+
+#. name:guan
+#: DB:instrument/description:683
+msgid ""
+"The guan is a Chinese double reed wind instrument made from hardwood or "
+"bamboo."
 msgstr ""
 
 #. name:guitalele

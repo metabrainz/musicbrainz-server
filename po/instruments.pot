@@ -1136,6 +1136,10 @@ msgstr ""
 msgid "great bass recorder / c-bass recorder"
 msgstr ""
 
+#: DB:instrument/name:683
+msgid "guan"
+msgstr ""
+
 #: DB:instrument/name:230
 msgid "gudok"
 msgstr ""

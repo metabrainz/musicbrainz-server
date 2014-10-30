@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-10-02 15:35+0000\n"
-"Last-Translator: yahoe.001\n"
+"PO-Revision-Date: 2014-10-30 01:10+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1145,6 +1145,10 @@ msgstr "piano à queue"
 #: DB:instrument/name:294
 msgid "great bass recorder / c-bass recorder"
 msgstr "flûte à bec grande basse"
+
+#: DB:instrument/name:683
+msgid "guan"
+msgstr ""
 
 #: DB:instrument/name:230
 msgid "gudok"

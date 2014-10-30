@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-10-13 13:34+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2014-10-30 01:10+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1247,6 +1247,13 @@ msgid ""
 "The gralla is a traditional Catalan double reed instrument in the oboe "
 "family."
 msgstr "De gralla is een traditionele Catalaans dubbelrietinstrument uit de familie van de hobo. Het instrument is ook bekend als xirimita."
+
+#. name:guan
+#: DB:instrument/description:683
+msgid ""
+"The guan is a Chinese double reed wind instrument made from hardwood or "
+"bamboo."
+msgstr ""
 
 #. name:guitalele
 #: DB:instrument/description:645

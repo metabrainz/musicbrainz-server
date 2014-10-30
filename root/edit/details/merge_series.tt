@@ -2,51 +2,13 @@
   <tr>
     <th>[% l('Merge:') %]</th>
     <td>
-      <table class="tbl">
-        <thead>
-          <tr>
-            <th>[% lp('Series', 'singular') %]</th>
-            <th>[% l('Type') %]</th>
-            <th>[% l('Ordering Type') %]</th>
-          </tr>
-        </thead>
-        <tbody>
-          [% FOR entity=edit.display_data.old %]
-            <tr class="[% loop.parity %]">
-              <td>
-                  [% descriptive_link(entity) %]
-              </td>
-              <td>[% entity.type.l_name  %]</td>
-              <td>[% entity.ordering_type.l_name %]</td>
-            </tr>
-          [% END %]
-        </tbody>
-      </table>
+      [%~ INCLUDE 'components/series-list.tt' series=edit.display_data.old ~%]
     </td>
   </tr>
   <tr>
     <th>[% l('Into:') %]</th>
     <td>
-      <table class="tbl">
-        <thead>
-          <tr>
-            <th>[% lp('Series', 'singular') %]</th>
-            <th>[% l('Type') %]</th>
-            <th>[% l('Ordering Type') %]</th>
-          </tr>
-        </thead>
-        <tbody>
-          [% FOR entity=[edit.display_data.new] %]
-            <tr class="[% loop.parity %]">
-              <td>
-                  [% descriptive_link(entity) %]
-              </td>
-              <td>[% entity.type.l_name  %]</td>
-              <td>[% entity.ordering_type.l_name %]</td>
-            </tr>
-          [% END %]
-        </tbody>
-      </table>
+      [%~ INCLUDE 'components/series-list.tt' series=edit.display_data.new ~%]
     </td>
   </tr>
 </table>
