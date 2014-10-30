@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-10-21 19:07+0000\n"
+"PO-Revision-Date: 2014-10-30 01:09+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -804,6 +804,18 @@ msgstr ""
 msgid ""
 "This indicates an artist who is responsible for the creative and practical "
 "day-to-day aspects involved with making a musical recording."
+msgstr ""
+
+#: DB:link_type/description:760
+msgid ""
+"This indicates an artist who was the concertmaster/leader for an orchestra "
+"or band on this recording."
+msgstr ""
+
+#: DB:link_type/description:759
+msgid ""
+"This indicates an artist who was the concertmaster/leader for an orchestra "
+"or band on this release."
 msgstr ""
 
 #: DB:link_type/description:305
@@ -2085,6 +2097,14 @@ msgstr ""
 #: DB:link_type/long_link_phrase:58 DB:link_type/long_link_phrase:170
 msgid "composition"
 msgstr "composición"
+
+#: DB:link_type/reverse_link_phrase:759 DB:link_type/reverse_link_phrase:760
+msgid "concertmaster"
+msgstr ""
+
+#: DB:link_type/link_phrase:759 DB:link_type/link_phrase:760
+msgid "concertmaster for"
+msgstr ""
 
 #: DB:link_type/link_phrase:739
 msgid "consists of"
@@ -3567,6 +3587,10 @@ msgstr ""
 #: DB:link_type/long_link_phrase:202
 msgid "was renamed into"
 msgstr "cambió el nombre a"
+
+#: DB:link_type/long_link_phrase:759 DB:link_type/long_link_phrase:760
+msgid "was the concertmaster for"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:756 DB:link_type/long_link_phrase:697
 msgid "was the mastering location for"
