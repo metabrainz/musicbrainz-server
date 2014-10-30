@@ -174,7 +174,7 @@ test 'previewing/creating/editing a release group and release' => sub {
     @edits = capture_edits {
         post_json($mech, '/ws/js/edit/create', encode_json({
             edits => $release_edits,
-            asAutoEditor => 0,
+            makeVotable => 0,
         }));
     } $c;
 
@@ -188,7 +188,7 @@ test 'previewing/creating/editing a release group and release' => sub {
         post_json($mech, '/ws/js/edit/create', encode_json({
             edits => $release_edits,
             editNote => 'foo',
-            asAutoEditor => 0,
+            makeVotable => 0,
         }));
     } $c;
 
@@ -334,7 +334,7 @@ test 'previewing/creating/editing a release group and release' => sub {
     @edits = capture_edits {
         post_json($mech, '/ws/js/edit/create', encode_json({
             edits => $medium_edits,
-            asAutoEditor => 0,
+            makeVotable => 0,
         }));
     } $c;
 
@@ -438,7 +438,7 @@ test 'previewing/creating/editing a release group and release' => sub {
     @edits = capture_edits {
         post_json($mech, '/ws/js/edit/create', encode_json({
             edits => $medium_edits,
-            asAutoEditor => 0,
+            makeVotable => 0,
         }));
     } $c;
 
@@ -513,7 +513,7 @@ test 'previewing/creating/editing a release group and release' => sub {
     @edits = capture_edits {
         post_json($mech, '/ws/js/edit/create', encode_json({
             edits => $release_label_edits,
-            asAutoEditor => 0,
+            makeVotable => 0,
         }));
     } $c;
 
@@ -607,6 +607,43 @@ test 'adding a relationship' => sub {
         %edit_data,
         attributes => [$additional_attribute, $crazy_guitar]
     });
+};
+
+test 'adding a relationship with an invalid date' => sub {
+    my $test = shift;
+    my ($c, $mech) = ($test->c, $test->mech);
+
+    prepare_test_database($c);
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+    my $edit_data = [ {
+        edit_type   => $EDIT_RELATIONSHIP_CREATE,
+        linkTypeID  => 1,
+        attributes  => [],
+        entities    => [
+            {
+                gid         => '745c079d-374e-4436-9448-da92dedef3ce',
+                entityType  => 'artist',
+            },
+            {
+                gid         => '54b9d183-7dab-42ba-94a3-7388a66604b8',
+                entityType  => 'recording',
+            }
+        ],
+        beginDate   => { year => 1994, month => 2, day => 29 },
+        endDate     => { year => 1999, month => 2, day => undef },
+    } ];
+
+    my @edits = capture_edits {
+        post_json($mech, '/ws/js/edit/create', encode_json({ edits => $edit_data }));
+    } $c;
+
+    ok(scalar(@edits) == 0, 'relationship for invalid date is not created');
+
+    my $response = from_json($mech->content);
+    like($response->{error}, qr/^invalid begin_date/, 'error is returned for invalid begin date');
 };
 
 

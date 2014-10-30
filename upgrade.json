@@ -5,8 +5,8 @@
   },
 
   "21": {
-    "slave": ["20140606-events.sql", "20140906-event-collections.sql", "20141008-instrument-indexes.sql"],
-    "standalone": ["20140606-events-fks.sql", "20140906-event-collections-fks.sql"]
+    "slave": ["20140606-events.sql", "20140906-event-collections.sql", "20141008-instrument-indexes.sql", "20141014-mbs-7784-data-tracks.sql", "20140806-collection-types.sql", "20141014-mbs-7551-tags.sql"],
+    "standalone": ["20140606-events-fks.sql", "20140906-event-collections-fks.sql", "20141021-collection-types-fks.sql", "20141014-mbs-7551-tags-fks.sql"]
   }
 
 }

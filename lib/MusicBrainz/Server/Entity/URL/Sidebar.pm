@@ -54,6 +54,12 @@ use constant FAVICON_CLASSES => {
     'genius.com'                => 'genius',
     'imvdb.com'                 => 'imvdb',
     'residentadvisor.net'       => 'residentadvisor',
+    'd-nb.info'                 => 'dnb',
+    'iss.ndl.go.jp'             => 'ndl',
+    'ci.nii.ac.jp'              => 'cinii',
+    'finnmusic.net'             => 'finnmusic',
+    'fono.fi'                   => 'fonofi',
+    'stage48.net'               => 'stage48',
 };
 
 our @EXPORT_OK = qw( FAVICON_CLASSES );

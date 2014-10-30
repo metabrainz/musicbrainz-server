@@ -1,4 +1,0 @@
-[%- WRAPPER 'work/layout.tt' title=l('Add Work Alias') full_width=1 -%]
-    <h2>[% l('Add work alias') %]</h2>
-    [%- INCLUDE 'alias/edit_form.tt' search_hint_type_id=2 show_guesscase_modes=1 entity_type_name='work' -%]
-[%- END -%]

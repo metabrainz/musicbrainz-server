@@ -19,7 +19,7 @@ server {
         gzip_buffers 16 8k;
     }
 
-    location ~* ^/static/(.*\.js|styles/[0-9a-f]*\.css)$ {
+    location /static/build/ {
         root /home/beta/musicbrainz-server/root;
         expires max;
         gzip  on;

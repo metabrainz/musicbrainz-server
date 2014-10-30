@@ -6,7 +6,6 @@ use MusicBrainz::Server::Entity::Track;
 use MusicBrainz::Server::Data::Medium;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::Utils qw(
-    generate_gid
     load_subobjects
     object_to_ids
     placeholders
@@ -19,25 +18,16 @@ extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'track' };
 
-sub _table
-{
-    return 'track';
-}
-
-sub _gid_redirect_table
-{
-    return 'track_gid_redirect';
-}
+sub _type { 'track' }
 
 sub _columns
 {
     return 'track.id, track.gid, track.name, track.medium, track.recording,
             track.number, track.position, track.length, track.artist_credit,
-            track.edits_pending';
+            track.edits_pending, track.is_data_track';
 }
 
-sub _column_mapping
-{
+sub _column_mapping {
     return {
         id               => 'id',
         gid              => 'gid',
@@ -49,17 +39,13 @@ sub _column_mapping
         length           => 'length',
         artist_credit_id => 'artist_credit',
         edits_pending    => 'edits_pending',
+        is_data_track    => 'is_data_track',
     };
 }
 
 sub _id_column
 {
     return 'track.id';
-}
-
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::Track';
 }
 
 sub _medium_ids
@@ -149,29 +135,32 @@ sub find_by_recording
         $query, $recording_id, $offset || 0);
 }
 
-sub insert
-{
-    my ($self, @track_hashes) = @_;
-    my $class = $self->_entity_class;
-    my @created;
-    my @recording_ids;
-    for my $track_hash (@track_hashes) {
-        delete $track_hash->{id};
+sub _insert_hook_prepare {
+    return { recording_ids => [] };
+}
 
-        $track_hash->{number} ||= "".$track_hash->{position};
+sub _insert_hook_make_row {
+    my ($self, $track_hash, $extra_data) = @_;
 
-        my $row = $self->_create_row($track_hash);
-        $row->{gid} = $track_hash->{gid} || generate_gid();
-        push @created, $class->new(
-            id => $self->sql->insert_row('track', $row, 'id')
-        );
+    delete $track_hash->{id};
+    $track_hash->{number} //= '';
+    my $row = $self->_create_row($track_hash);
 
-        $self->c->model('DurationLookup')->update($track_hash->{medium_id});
+    push @{ $extra_data->{recording_ids} }, $row->{recording};
 
-        push @recording_ids, $row->{recording};
-    }
-    $self->c->model('Recording')->_delete_from_cache(@recording_ids);
-    return @created > 1 ? @created : $created[0];
+    return $row;
+}
+
+sub _insert_hook_after_each {
+    my ($self, $created, $track_hash) = @_;
+
+    $self->c->model('DurationLookup')->update($track_hash->{medium_id});
+}
+
+sub _insert_hook_after {
+    my ($self, $created_entities, $extra_data) = @_;
+
+    $self->c->model('Recording')->_delete_from_cache(@{ $extra_data->{recording_ids} });
 }
 
 sub update

@@ -345,6 +345,7 @@ sub linked_areas
 {
     my ($self, $c, $stash, $areas) = @_;
 
+    $self->_tags($c, 'Area', $areas, $stash);
     $self->_aliases($c, 'Area', $areas, $stash);
 }
 
@@ -352,6 +353,7 @@ sub linked_instruments
 {
     my ($self, $c, $stash, $instruments) = @_;
 
+    $self->_tags($c, 'Instrument', $instruments, $stash);
     $self->_aliases($c, 'Instrument', $instruments, $stash);
 }
 
@@ -480,6 +482,7 @@ sub linked_works
 sub linked_series {
     my ($self, $c, $stash, $series) = @_;
 
+    $self->_tags($c, 'Series', $series, $stash);
     $self->_aliases($c, 'Series', $series, $stash);
 }
 

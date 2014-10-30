@@ -43,141 +43,150 @@
   [% USE Diff %]
   [% IF edit.display_data.tracklist_changes.size %]
   <tr>
-     <th>[% l('Tracklist:') %]</th>
-     <td colspan="2">
-       <table class="tbl">
-         <thead>
-           <tr>
-             <th colspan="4">[% l('Old Tracklist') %]</th>
-             <th colspan="4">[% l('New Tracklist') %]</th>
-             [% IF edit.display_data.changed_mbids %]<th></th>[% END %]
-           </tr>
-           <tr>
-             <th>[% l('#') %]</th>
-             <th>[% l('Title') %]</th>
-             <th>[% l('Artist') %]</th>
-             <th>[% l('Length') %]</th>
-             <th>[% l('#') %]</th>
-             <th>[% l('Title') %]</th>
-             <th>[% l('Artist') %]</th>
-             <th>[% l('Length') %]</th>
-             [% IF edit.display_data.changed_mbids %]<th></th>[% END %]
-           </tr>
-         </thead>
-         <tbody>
-         [% FOR change=edit.display_data.tracklist_changes %]
-           [% IF change.0 == 'c' OR change.0 == 'u' %]
-           [% old_track = change.1;
-              new_track = change.2;
-              artist_credit_differences = Diff.diff_artist_credits(old_track.artist_credit,
-                                                                   new_track.artist_credit);
-              new_number_diff = Diff.diff_side(html_escape(old_track.number),
-                                               html_escape(new_track.number), '+', '\s+');
-              new_name_diff = Diff.diff_side(html_escape(old_track.name),
-                                             html_escape(new_track.name), '+', '\s+');
-              new_track_length = Diff.diff_side(format_length(old_track.length),
-                                                format_length(new_track.length), '+');
-              old_number_diff = Diff.diff_side(html_escape(old_track.number),
-                                               html_escape(new_track.number), '-', '\s+');
-              old_name_diff = Diff.diff_side(html_escape(old_track.name),
-                                             html_escape(new_track.name), '-', '\s+');
-              old_track_length = Diff.diff_side(format_length(old_track.length),
-                                                format_length(new_track.length), '-'); -%]
-           <tr class="[% loop.parity %]">
-             <td class="pos t">
-               [% old_number_diff %]
-             </td>
-             <td>
-               [% IF old_track.recording.gid;
-                    link_recording(
-                      old_track.recording, 'show',
-                      old_name_diff, no_escape=1
-                    );
-                  ELSE;
-                    old_name_diff;
-                  END %]
-             </td>
-             <td>
-               [% artist_credit_differences.old %]
-             </td>
-             <td class="treleases">
-               [% old_track_length %]
-             </td>
-             <td class="pos t">
-               [% new_number_diff %]
-             </td>
-             <td>
-               [% IF new_track.recording.gid;
-                    link_recording(
-                      new_track.recording, 'show',
-                      new_name_diff, no_escape=1
-                    );
-                  ELSE;
-                    new_name_diff;
-                  END %]
-             </td>
-             <td>
-               [% artist_credit_differences.new %]
-             </td>
-             <td class="treleases">
-               [% new_track_length %]
-             </td>
-             [% IF edit.display_data.changed_mbids %]
-             <td>[% IF !new_track.id %][% changed_mbid_icon %][% END %]</td>
-             [% END %]
-           </tr>
-           [% ELSIF change.0 == '+' %]
-           [% track = change.2 %]
-           <tr class="diff-addition">
-             <td colspan="4"></td>
-             <td class="pos t">
-               [% track.number %]
-             </td>
-             <td>
-               [% IF track.recording.gid;
-                    link_recording(track.recording, 'show', track.name);
-                  ELSE;
-                    html_escape(track.name);
-                  END %]
-             </td>
-             <td>
-               [% artist_credit(track.artist_credit) %]
-             </td>
-             <td>
-               [% track.length | format_length %]
-             </td>
-             [% IF edit.display_data.changed_mbids %]
-             <td>[% IF !track.id %][% changed_mbid_icon %][% END %]</td>
-             [% END %]
-           </tr>
-           [% ELSIF change.0 == '-' %]
-           [% track = change.1 %]
-           <tr class="diff-removal">
-             <td class="pos t">
-               [% html_escape(track.number) %]
-             </td>
-             <td>
-               [% IF track.recording.gid;
-                    link_recording(track.recording, 'show', track.name);
-                  ELSE;
-                    html_escape(track.name);
-                  END %]
-             </td>
-             <td>
-               [% artist_credit(track.artist_credit) %]
-             </td>
-             <td>
-               [% track.length | format_length %]
-             </td>
-             <td colspan="[% edit.display_data.changed_mbids ? '5' : '4' %]"></td>
-           </tr>
-           [% END %]
-         [% END %]
-         </tbody>
-       </table>
-     </td>
-   </tr>
-   [% END %]
+    <th>[% l('Tracklist:') %]</th>
+    <td colspan="2">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th colspan="4">[% l('Old Tracklist') %]</th>
+            <th colspan="4">[% l('New Tracklist') %]</th>
+            [% IF edit.display_data.changed_mbids %]<th></th>[% END %]
+          </tr>
+          <tr>
+            <th>[% l('#') %]</th>
+            <th>[% l('Title') %]</th>
+            <th>[% l('Artist') %]</th>
+            <th>[% l('Length') %]</th>
+            <th>[% l('#') %]</th>
+            <th>[% l('Title') %]</th>
+            <th>[% l('Artist') %]</th>
+            <th>[% l('Length') %]</th>
+            [% IF edit.display_data.changed_mbids %]<th></th>[% END %]
+          </tr>
+        </thead>
+        <tbody>
+        [% FOR change=edit.display_data.tracklist_changes %]
+          [% IF change.0 == 'c' OR change.0 == 'u' %]
+          [% old_track = change.1;
+            new_track = change.2;
+            artist_credit_differences = Diff.diff_artist_credits(old_track.artist_credit,
+                                                                 new_track.artist_credit);
+            new_number_diff = Diff.diff_side(html_escape(old_track.number),
+                                             html_escape(new_track.number), '+', '\s+');
+            new_name_diff = Diff.diff_side(html_escape(old_track.name),
+                                           html_escape(new_track.name), '+', '\s+');
+            new_track_length = Diff.diff_side(format_length(old_track.length),
+                                              format_length(new_track.length), '+');
+            old_number_diff = Diff.diff_side(html_escape(old_track.number),
+                                             html_escape(new_track.number), '-', '\s+');
+            old_name_diff = Diff.diff_side(html_escape(old_track.name),
+                                           html_escape(new_track.name), '-', '\s+');
+            old_track_length = Diff.diff_side(format_length(old_track.length),
+                                              format_length(new_track.length), '-'); -%]
+          <tr class="[% loop.parity %]">
+            <td class="pos t">
+              [% old_number_diff %]
+            </td>
+            <td>
+              [%~ data_track_icon IF old_track.is_data_track %]
+              [% IF old_track.recording.gid;
+                   link_recording(
+                     old_track.recording, 'show',
+                     old_name_diff, no_escape=1
+                   );
+                 ELSE;
+                   old_name_diff;
+                 END %]
+            </td>
+            <td>
+              [% artist_credit_differences.old %]
+            </td>
+            <td class="treleases">
+              [% old_track_length %]
+            </td>
+            <td class="pos t">
+              [% new_number_diff %]
+            </td>
+            <td>
+              [%~ data_track_icon IF new_track.is_data_track %]
+              [% IF new_track.recording.gid;
+                   link_recording(
+                     new_track.recording, 'show',
+                     new_name_diff, no_escape=1
+                   );
+                 ELSE;
+                   new_name_diff;
+                 END %]
+            </td>
+            <td>
+              [% artist_credit_differences.new %]
+            </td>
+            <td class="treleases">
+              [% new_track_length %]
+            </td>
+            [% IF edit.display_data.changed_mbids %]
+            <td>[% IF !new_track.id %][% changed_mbid_icon %][% END %]</td>
+            [% END %]
+          </tr>
+          [% ELSIF change.0 == '+' %]
+          [% track = change.2 %]
+          <tr class="diff-addition">
+            <td colspan="4"></td>
+            <td class="pos t">
+              [% track.number %]
+            </td>
+            <td>
+              [%~ data_track_icon IF track.is_data_track %]
+              [% IF track.recording.gid;
+                   link_recording(track.recording, 'show', track.name);
+                 ELSE;
+                   html_escape(track.name);
+                 END %]
+            </td>
+            <td>
+              [% artist_credit(track.artist_credit) %]
+            </td>
+            <td>
+              [% track.length | format_length %]
+            </td>
+            [% IF edit.display_data.changed_mbids %]
+            <td>[% IF !track.id %][% changed_mbid_icon %][% END %]</td>
+            [% END %]
+          </tr>
+          [% ELSIF change.0 == '-' %]
+          [% track = change.1 %]
+          <tr class="diff-removal">
+            <td class="pos t">
+              [% html_escape(track.number) %]
+            </td>
+            <td>
+              [%~ data_track_icon IF track.is_data_track %]
+              [% IF track.recording.gid;
+                   link_recording(track.recording, 'show', track.name);
+                 ELSE;
+                   html_escape(track.name);
+                 END %]
+            </td>
+            <td>
+              [% artist_credit(track.artist_credit) %]
+            </td>
+            <td>
+              [% track.length | format_length %]
+            </td>
+            <td colspan="[% edit.display_data.changed_mbids ? '5' : '4' %]"></td>
+          </tr>
+          [% END %]
+        [% END %]
+        </tbody>
+      </table>
+      [% IF edit.display_data.data_track_changes %]
+      <p>
+        [% l('This edit changes which tracks are data tracks.') %]
+      </p>
+      [% END %]
+    </td>
+  </tr>
+  [% END %]
 
   [% IF edit.display_data.recording_changes.size %]
   <tr>

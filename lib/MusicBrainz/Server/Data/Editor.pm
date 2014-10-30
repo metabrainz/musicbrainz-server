@@ -14,7 +14,6 @@ use MusicBrainz::Server::Constants qw( $STATUS_DELETED $STATUS_OPEN entities_wit
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Editor;
 use MusicBrainz::Server::Data::Utils qw(
-    generate_gid
     generate_token
     hash_to_row
     load_subobjects

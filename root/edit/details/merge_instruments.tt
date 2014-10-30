@@ -2,51 +2,13 @@
   <tr>
     <th>[% l('Merge:') %]</th>
     <td>
-      <table class="tbl">
-        <thead>
-          <tr>
-            <th>[% l('Instrument') %]</th>
-            <th>[% l('Type') %]</th>
-            <th>[% l('Description') %]</th>
-          </tr>
-        </thead>
-        <tbody>
-          [% FOR entity=edit.display_data.old %]
-            <tr class="[% loop.parity %]">
-              <td>
-                [% descriptive_link(entity) %]
-              </td>
-              <td>[% entity.l_type_name  %]</td>
-              <td>[% l(entity.description)  %]</td>
-            </tr>
-          [% END %]
-        </tbody>
-      </table>
+      [%~ INCLUDE 'components/instruments-list.tt' instruments=edit.display_data.old ~%]
     </td>
   </tr>
   <tr>
     <th>[% l('Into:') %]</th>
     <td>
-      <table class="tbl">
-        <thead>
-          <tr>
-            <th>[% l('Instrument') %]</th>
-            <th>[% l('Type') %]</th>
-            <th>[% l('Description') %]</th>
-          </tr>
-        </thead>
-        <tbody>
-          [% FOR entity=[edit.display_data.new] %]
-            <tr class="[% loop.parity %]">
-              <td>
-                [% descriptive_link(entity) %]
-              </td>
-              <td>[% entity.l_type_name  %]</td>
-              <td>[% l(entity.description)  %]</td>
-            </tr>
-          [% END %]
-        </tbody>
-      </table>
+      [%~ INCLUDE 'components/instruments-list.tt' instruments=edit.display_data.new ~%]
     </td>
   </tr>
 </table>

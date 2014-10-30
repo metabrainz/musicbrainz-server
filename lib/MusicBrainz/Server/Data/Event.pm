@@ -32,9 +32,8 @@ with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'event' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 
-sub _table
-{
-    return 'event ';
+sub _type {
+    return 'event';
 }
 
 sub _columns
@@ -42,7 +41,7 @@ sub _columns
     return 'event.id, event.gid, event.name, event.type, event.time, event.cancelled,' .
            'event.setlist, event.edits_pending, event.begin_date_year, ' .
            'event.begin_date_month, event.begin_date_day, event.end_date_year, ' .
-           'event.end_date_month, event.end_date_day, event.ended, ' . 
+           'event.end_date_month, event.end_date_day, event.ended, ' .
            'event.comment, event.last_updated';
 }
 
@@ -51,11 +50,6 @@ sub browse_column { 'name' }
 sub _id_column
 {
     return 'event.id';
-}
-
-sub _gid_redirect_table
-{
-    return 'event_gid_redirect';
 }
 
 sub _column_mapping
@@ -68,36 +62,10 @@ sub _column_mapping
     };
 }
 
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::Event';
-}
-
 sub load
 {
     my ($self, @objs) = @_;
     load_subobjects($self, 'event', @objs);
-}
-
-sub insert
-{
-    my ($self, @events) = @_;
-    my $class = $self->_entity_class;
-    my @created;
-    for my $event (@events)
-    {
-        my $row = $self->_hash_to_row($event);
-        $row->{gid} = $event->{gid} || generate_gid();
-
-        my $created = $class->new(
-            name => $event->{name},
-            id => $self->sql->insert_row('event', $row, 'id'),
-            gid => $row->{gid}
-        );
-
-        push @created, $created;
-    }
-    return @events > 1 ? @created : $created[0];
 }
 
 sub update
@@ -418,17 +386,17 @@ sub load_locations
     my @ids = map { $_->id } @events;
     return () unless @ids;
 
-    my %map;
-    $self->_find_places(\@ids, \%map);
+    my %places_map;
+    $self->_find_places(\@ids, \%places_map);
     for my $event (@events) {
-        $event->add_place(@{ $map{$event->id} })
-            if exists $map{$event->id};
+        $event->add_place(@{ $places_map{$event->id} })
+            if exists $places_map{$event->id};
 
-    my %map;
-    $self->_find_areas(\@ids, \%map);
+    my %areas_map;
+    $self->_find_areas(\@ids, \%areas_map);
     for my $event (@events) {
-        $event->add_area(@{ $map{$event->id} })
-            if exists $map{$event->id};
+        $event->add_area(@{ $areas_map{$event->id} })
+            if exists $areas_map{$event->id};
     }
 }
 

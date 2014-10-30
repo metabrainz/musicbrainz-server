@@ -10,7 +10,6 @@ use MusicBrainz::Server::Entity::PartialDate;
 use Readonly;
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
-    generate_gid
     hash_to_row
     load_subobjects
     merge_table_attributes
@@ -28,34 +27,24 @@ with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'area' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'area' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'area' };
+with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'area' };
 
 Readonly my @CODE_TYPES => qw( iso_3166_1 iso_3166_2 iso_3166_3 );
 
-sub _table
-{
-    return 'area ' .
-           'LEFT JOIN (SELECT area, array_agg(code) AS codes FROM iso_3166_1 GROUP BY area) iso_3166_1s ON iso_3166_1s.area = area.id ' .
-           'LEFT JOIN (SELECT area, array_agg(code) AS codes FROM iso_3166_2 GROUP BY area) iso_3166_2s ON iso_3166_2s.area = area.id ' .
-           'LEFT JOIN (SELECT area, array_agg(code) AS codes FROM iso_3166_3 GROUP BY area) iso_3166_3s ON iso_3166_3s.area = area.id';
-}
+sub _type { 'area' }
 
-sub _columns
-{
+sub _columns {
     return 'area.id, area.gid, area.name, area.comment, area.type, ' .
            'area.edits_pending, area.begin_date_year, area.begin_date_month, area.begin_date_day, ' .
            'area.end_date_year, area.end_date_month, area.end_date_day, area.ended, area.last_updated, ' .
-           'iso_3166_1s.codes AS iso_3166_1, iso_3166_2s.codes AS iso_3166_2, ' .
-           'iso_3166_3s.codes AS iso_3166_3';
+           '(SELECT array_agg(code) FROM iso_3166_1 WHERE iso_3166_1.area = area.id) AS iso_3166_1, ' .
+           '(SELECT array_agg(code) FROM iso_3166_2 WHERE iso_3166_2.area = area.id) AS iso_3166_2, ' .
+           '(SELECT array_agg(code) FROM iso_3166_3 WHERE iso_3166_3.area = area.id) AS iso_3166_3';
 }
 
 sub _id_column
 {
     return 'area.id';
-}
-
-sub _gid_redirect_table
-{
-    return 'area_gid_redirect';
 }
 
 sub _column_mapping
@@ -66,11 +55,6 @@ sub _column_mapping
         type_id => 'type',
         map {$_ => $_} qw( id gid name comment edits_pending last_updated ended iso_3166_1 iso_3166_2 iso_3166_3 )
     };
-}
-
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::Area';
 }
 
 sub load
@@ -99,7 +83,8 @@ sub load_containment
         # For each containment type, loading should continue
         # if the object type differs and the parent property is undefined
         # If all containments are loaded or match the object type, no loading needs to happen.
-        return any { !defined($obj->{$type_parent_attribute{$_}}) && $obj_type != $_ } keys %type_parent_attribute;
+        return any { !defined($obj->{$type_parent_attribute{$_}}) &&
+                     (!defined($obj_type) || $obj_type != $_) } keys %type_parent_attribute;
     };
     my @objects_to_use = grep { $use_object->($_) } @areas;
     return unless @objects_to_use;
@@ -148,27 +133,9 @@ sub set_all_codes
     }
 }
 
-sub insert
-{
-    my ($self, @areas) = @_;
-    my $class = $self->_entity_class;
-    my @created;
-    for my $area (@areas)
-    {
-        my $row = $self->_hash_to_row($area);
-        $row->{gid} = $area->{gid} || generate_gid();
-
-        my $created = $class->new(
-            name => $area->{name},
-            id => $self->sql->insert_row('area', $row, 'id'),
-            gid => $row->{gid}
-        );
-
-        $self->set_all_codes($created->id, $area);
-
-        push @created, $created;
-    }
-    return @areas > 1 ? @created : $created[0];
+sub _insert_hook_after_each {
+    my ($self, $created, $area) = @_;
+    $self->set_all_codes($created->{id}, $area);
 }
 
 sub update
@@ -210,6 +177,7 @@ sub delete
     $self->c->model('Relationship')->delete_entities('area', @area_ids);
     $self->annotation->delete(@area_ids);
     $self->alias->delete_entities(@area_ids);
+    $self->tags->delete(@area_ids);
     $self->remove_gid_redirects(@area_ids);
     for my $code_table (@CODE_TYPES) {
         $self->sql->do("DELETE FROM $code_table WHERE area IN (" . placeholders(@area_ids) . ")", @area_ids);
@@ -224,6 +192,7 @@ sub _merge_impl
 
     $self->alias->merge($new_id, @old_ids);
     $self->annotation->merge($new_id, @old_ids);
+    $self->tags->merge($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('area', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('area', $new_id, @old_ids);
     $self->merge_codes($new_id, @old_ids);
@@ -328,13 +297,13 @@ sub get_by_iso_3166_3 {
 
 sub _get_by_iso {
     my ($self, $table, @codes) = @_;
-    my $query = "SELECT ${table}s.codes AS iso_codes, " . $self->_columns .
-        " FROM " . $self->_table . " WHERE ${table}s.codes && ?";
+    my $query = "SELECT * FROM (SELECT " . $self->_columns .
+        " FROM " . $self->_table . ") q WHERE ${table} && ?";
 
     my %ret = map { $_ => undef } @codes;
     for my $row (@{ $self->sql->select_list_of_hashes($query, \@codes) }) {
         for my $code (@codes) {
-            if (any {$_ eq $code} @{ $row->{iso_codes} }) {
+            if (any {$_ eq $code} @{ $row->{$table} }) {
                 $ret{$code} = $self->_new_from_row($row);
             }
         }

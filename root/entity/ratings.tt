@@ -1,0 +1,25 @@
+[%- WRAPPER "$entity_type/layout.tt" title=l('Ratings') page='ratings' -%]
+    <h2>[% l("Ratings") %]</h2>
+
+    [%- IF ratings.size -%]
+        <ul>
+        [%- private_ratings = 0 -%]
+        [%- FOREACH rating IN ratings -%]
+            [%- IF rating.editor.preferences.public_ratings == 0 -%]
+            [%- private_ratings = private_ratings + 1 -%]
+            [%- ELSE -%]
+            <li>[% show_rating(rating) %] - [% link_entity(rating.editor) %]</li>
+            [%- END -%]
+        [%- END -%]
+        </ul>
+        [%- IF private_ratings -%]
+        <p>
+          [%- ln('{count} private rating not listed.', '{count} private ratings not listed.', private_ratings, { count => private_ratings }); -%]
+        </p>
+        [%- END -%]
+        [%- l('Average rating:') -%] [% show_rating(entity) %]
+    [%- ELSE -%]
+        <p>[% l('{link} has no ratings.', { link => link_entity(entity) }) -%]</p>
+    [%- END -%]
+[%- END -%]
+

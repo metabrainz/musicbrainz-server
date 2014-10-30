@@ -17,6 +17,9 @@ my $c = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+labelalias');
 
+my $alias_set = $c->model('Label')->alias->find_by_entity_id(1);
+is(@$alias_set, 2);
+
 my $edit = _create_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Label::AddAlias');
 ok(defined $edit->alias_id);
@@ -27,28 +30,11 @@ is(@$edits, 1);
 is($edits->[0]->id, $edit->id);
 
 my $label = $c->model('Label')->get_by_id(1);
-is($label->edits_pending, 1);
+is($label->edits_pending, 0, "Adding aliases is an autoedit");
 
 $c->model('Edit')->load_all($edit);
 is($edit->display_data->{label}->id, 1);
 is($edit->display_data->{alias}, 'Another alias');
-
-my $alias_set = $c->model('Label')->alias->find_by_entity_id(1);
-is(@$alias_set, 3);
-
-reject_edit($c, $edit);
-
-$alias_set = $c->model('Label')->alias->find_by_entity_id(1);
-is(@$alias_set, 2);
-
-$label = $c->model('Label')->get_by_id(1);
-is($label->edits_pending, 0);
-
-$edit = _create_edit($c);
-accept_edit($c, $edit);
-
-$label = $c->model('Label')->get_by_id(1);
-is($label->edits_pending, 0);
 
 $alias_set = $c->model('Label')->alias->find_by_entity_id(1);
 is(@$alias_set, 3);

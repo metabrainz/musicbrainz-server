@@ -88,6 +88,7 @@ sub release : Chained('root') PathPart('release') Args(1)
 
     if ($c->stash->{inc}->media || $c->stash->{inc}->recordings) {
         $c->model('MediumCDTOC')->load_for_mediums($release->all_mediums);
+        $c->model('CDTOC')->load(map { $_->all_cdtocs } $release->all_mediums);
     }
 
     if ($c->stash->{inc}->recordings) {

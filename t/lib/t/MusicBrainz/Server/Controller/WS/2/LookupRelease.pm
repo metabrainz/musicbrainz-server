@@ -944,6 +944,95 @@ ws_test 'release lookup, track artists have no aliases',
   </release>
 </metadata>';
 
+ws_test 'release lookup, pregap track',
+    '/release/ec0d0122-b559-4aa1-a017-7068814aae57?inc=artists+recordings+artist-credits' =>
+    '<?xml version="1.0" ?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+  <release id="ec0d0122-b559-4aa1-a017-7068814aae57">
+    <title>Soup</title>
+    <status>Official</status>
+    <quality>normal</quality>
+    <text-representation>
+      <language>eng</language>
+      <script>Latn</script>
+    </text-representation>
+    <artist-credit>
+      <name-credit>
+        <artist id="38c5cdab-5d6d-43d1-85b0-dac41bde186e">
+          <name>Blind Melon</name>
+          <sort-name>Blind Melon</sort-name>
+        </artist>
+      </name-credit>
+    </artist-credit>
+    <barcode>0208311348266</barcode>
+    <cover-art-archive>
+      <artwork>false</artwork>
+      <count>0</count>
+      <front>false</front>
+      <back>false</back>
+    </cover-art-archive>
+    <medium-list count="1">
+      <medium>
+        <position>1</position>
+        <pregap id="1a0ba71b-fb23-3931-a426-cd204a82a90e">
+          <position>0</position>
+          <number>0</number>
+          <length>128000</length>
+          <recording id="c0beb80b-4185-4328-8761-b9e45a5d0ac6">
+            <title>Hello Goodbye [hidden track]</title>
+            <length>128000</length>
+            <artist-credit>
+              <name-credit>
+                <artist id="38c5cdab-5d6d-43d1-85b0-dac41bde186e">
+                  <name>Blind Melon</name>
+                  <sort-name>Blind Melon</sort-name>
+                </artist>
+              </name-credit>
+            </artist-credit>
+          </recording>
+        </pregap>
+        <track-list count="2" offset="0">
+          <track id="7b84af2d-96b3-3c50-a667-e7d10e8b000d">
+            <position>1</position>
+            <number>1</number>
+            <title>Galaxie</title>
+            <length>211133</length>
+            <recording id="c43ee188-0049-4eec-ba2e-0385c5edd2db">
+              <title>Hello Goodbye / Galaxie</title>
+              <length>211133</length>
+              <artist-credit>
+                <name-credit>
+                  <artist id="38c5cdab-5d6d-43d1-85b0-dac41bde186e">
+                    <name>Blind Melon</name>
+                    <sort-name>Blind Melon</sort-name>
+                  </artist>
+                </name-credit>
+              </artist-credit>
+            </recording>
+          </track>
+          <track id="e9f7ca98-ba9d-3276-97a4-26475c9f4527">
+            <position>2</position>
+            <number>2</number>
+            <length>240400</length>
+            <recording id="c830c239-3f91-4485-9577-4b86f92ad725">
+              <title>2 X 4</title>
+              <length>240400</length>
+              <artist-credit>
+                <name-credit>
+                  <artist id="38c5cdab-5d6d-43d1-85b0-dac41bde186e">
+                    <name>Blind Melon</name>
+                    <sort-name>Blind Melon</sort-name>
+                  </artist>
+                </name-credit>
+              </artist-credit>
+            </recording>
+          </track>
+        </track-list>
+      </medium>
+    </medium-list>
+  </release>
+</metadata>';
+
 };
 
 1;

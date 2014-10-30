@@ -1,4 +1,0 @@
-[% WRAPPER 'recording/layout.tt' title=l('Edit Recording Annotation') full_width=1 %]
-    <h2>[% l('Edit recording annotation') %]</h2>
-    [% INCLUDE 'annotation/edit.tt' %]
-[% END %]

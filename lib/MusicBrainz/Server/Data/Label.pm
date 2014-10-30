@@ -10,7 +10,6 @@ use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
     check_in_use
-    generate_gid
     hash_to_row
     load_subobjects
     merge_table_attributes
@@ -44,11 +43,7 @@ with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'label' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::Area';
 
-sub _table
-{
-    my $self = shift;
-    return 'label';
-}
+sub _type { 'label' }
 
 sub _columns
 {
@@ -61,11 +56,6 @@ sub _columns
 sub _id_column
 {
     return 'label.id';
-}
-
-sub _gid_redirect_table
-{
-    return 'label_gid_redirect';
 }
 
 sub _column_mapping
@@ -84,11 +74,6 @@ sub _column_mapping
         last_updated => 'last_updated',
         ended => 'ended'
     };
-}
-
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::Label';
 }
 
 sub find_by_subscribed_editor
@@ -164,28 +149,11 @@ sub load
     load_subobjects($self, 'label', @objs);
 }
 
-sub insert
-{
-    my ($self, @labels) = @_;
-    my $class = $self->_entity_class;
-    my @created;
-    for my $label (@labels)
-    {
-        my $row = $self->_hash_to_row($label);
-        $row->{gid} = $label->{gid} || generate_gid();
+sub _insert_hook_after_each {
+    my ($self, $created, $label) = @_;
 
-        my $created = $class->new(
-            name => $label->{name},
-            id => $self->sql->insert_row('label', $row, 'id'),
-            gid => $row->{gid}
-        );
-
-        $self->ipi->set_ipis($created->id, @{ $label->{ipi_codes} });
-        $self->isni->set_isnis($created->id, @{ $label->{isni_codes} });
-
-        push @created, $created;
-    }
-    return @labels > 1 ? @created : $created[0];
+    $self->ipi->set_ipis($created->{id}, @{ $label->{ipi_codes} });
+    $self->isni->set_isnis($created->{id}, @{ $label->{isni_codes} });
 }
 
 sub update

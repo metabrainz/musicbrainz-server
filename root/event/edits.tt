@@ -1,9 +1,0 @@
-[% WRAPPER 'layout.tt' title=l('Edits for {name}', { name => html_escape(event.name) }) full_width=1 %]
-    <div class="eventheader">
-        <h1>[% l('Edits for {event}', { event => link_entity(event) }) %]</h1>
-        <p class="subheader">
-            <span class="prefix">~</span> [% l('event') %]
-        </p>
-    </div>
-    [% INCLUDE 'edit/list.tt' %]
-[% END %]

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-10-02 15:00+0000\n"
+"PO-Revision-Date: 2014-10-30 01:10+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -158,7 +158,7 @@ msgstr "Saraswati veena"
 
 #: DB:instrument/name:679
 msgid "Schwyzerörgeli"
-msgstr ""
+msgstr "Schwyzerörgeli"
 
 #: DB:instrument/name:427
 msgid "Scottish smallpipes"
@@ -678,7 +678,7 @@ msgstr "zeeschelp"
 
 #: DB:instrument/name:102
 msgid "congas"
-msgstr "conga's"
+msgstr "conga’s"
 
 #: DB:instrument/name:390
 msgid "continuum"
@@ -922,7 +922,7 @@ msgstr "elektrische fretloze gitaar"
 
 #: DB:instrument/name:682
 msgid "electric grand piano"
-msgstr ""
+msgstr "elektrische vleugel"
 
 #: DB:instrument/name:55
 msgid "electric guitar"
@@ -1144,6 +1144,10 @@ msgstr "vleugel"
 msgid "great bass recorder / c-bass recorder"
 msgstr "grootbasblokfluit"
 
+#: DB:instrument/name:683
+msgid "guan"
+msgstr ""
+
 #: DB:instrument/name:230
 msgid "gudok"
 msgstr "gudok"
@@ -1226,7 +1230,7 @@ msgstr "harp"
 
 #: DB:instrument/name:681
 msgid "harp guitar"
-msgstr ""
+msgstr "harpgitaar"
 
 #: DB:instrument/name:131
 msgid "harpsichord"
@@ -1242,7 +1246,7 @@ msgstr "heike biwa"
 
 #: DB:instrument/name:678
 msgid "helicon"
-msgstr ""
+msgstr "helicon"
 
 #: DB:instrument/name:454
 msgid "hi-hat"
@@ -2720,7 +2724,7 @@ msgstr "ōtsuzumi"
 
 #: DB:instrument/name:680
 msgid "šargija"
-msgstr ""
+msgstr "šargija"
 
 #: DB:instrument/name:589
 msgid "żafżafa"

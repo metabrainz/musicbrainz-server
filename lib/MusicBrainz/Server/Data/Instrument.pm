@@ -6,7 +6,6 @@ use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Data::Utils qw(
     defined_hash
-    generate_gid
     hash_to_row
     load_subobjects
     merge_string_attributes
@@ -27,11 +26,9 @@ with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'instrument' };
 with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'instrument' };
 with 'MusicBrainz::Server::Data::Role::Merge';
+with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'instrument' };
 
-sub _table {
-    my $self = shift;
-    return 'instrument';
-}
+sub _type { 'instrument' }
 
 sub _columns {
     return 'instrument.id, instrument.gid, instrument.type, instrument.name,
@@ -55,32 +52,9 @@ sub _id_column {
     return 'instrument.id';
 }
 
-sub _gid_redirect_table {
-    return 'instrument_gid_redirect';
-}
-
-sub _entity_class {
-    return 'MusicBrainz::Server::Entity::Instrument';
-}
-
 sub load {
     my ($self, @objs) = @_;
     load_subobjects($self, 'instrument', @objs);
-}
-
-sub insert {
-    my ($self, @instruments) = @_;
-    my $class = $self->_entity_class;
-    my @created;
-    for my $instrument (@instruments) {
-        my $row = $self->_hash_to_row($instrument);
-        $row->{gid} = $instrument->{gid} || generate_gid();
-        push @created, $class->new(
-            id => $self->sql->insert_row('instrument', $row, 'id'),
-            gid => $row->{gid}
-        );
-    }
-    return @instruments > 1 ? @created : $created[0];
 }
 
 sub update {
@@ -108,6 +82,7 @@ sub delete {
     $self->c->model('Relationship')->delete_entities('instrument', $instrument_id);
     $self->annotation->delete($instrument_id);
     $self->alias->delete_entities($instrument_id);
+    $self->tags->delete($instrument_id);
     $self->remove_gid_redirects($instrument_id);
     $self->sql->do('DELETE FROM instrument WHERE id = ?', $instrument_id);
     return;
@@ -122,6 +97,7 @@ sub _merge_impl {
     my ($self, $new_id, @old_ids) = @_;
 
     $self->alias->merge($new_id, @old_ids);
+    $self->tags->merge($new_id, @old_ids);
     $self->annotation->merge($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('instrument', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('instrument', $new_id, @old_ids);

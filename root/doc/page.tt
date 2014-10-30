@@ -1,4 +1,4 @@
-[% WRAPPER "layout.tt" full_width=1 title=page.title -%]
+[% WRAPPER "layout.tt" full_width=1 title=page.title no_icons=1 -%]
     <div id="content" class="wikicontent">
         [%- IF google_custom_search -%]
           [%- wikidoc_search_box -%]

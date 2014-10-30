@@ -66,6 +66,7 @@ my @group_core = qw(
     artist_isni
     artist_type
     cdtoc
+    editor_collection_type
     event
     event_alias
     event_alias_type
@@ -224,11 +225,13 @@ my @group_core = qw(
 my @group_derived = qw(
     annotation
     area_annotation
+    area_tag
     artist_annotation
     artist_meta
     artist_tag
     event_annotation
     event_tag
+    instrument_tag
     label_annotation
     label_meta
     label_tag
@@ -244,6 +247,7 @@ my @group_derived = qw(
     release_group_tag
     release_tag
     series_annotation
+    series_tag
     tag
     tag_relation
     medium_index
@@ -278,6 +282,7 @@ my @group_edit = qw(
 
 my @group_private = qw(
     application
+    area_tag_raw
     artist_rating_raw
     artist_tag_raw
     autoeditor_election
@@ -299,6 +304,7 @@ my @group_private = qw(
     editor_watch_release_group_type
     editor_watch_release_status
     event_tag_raw
+    instrument_tag_raw
     label_rating_raw
     label_tag_raw
     place_tag_raw
@@ -308,6 +314,7 @@ my @group_private = qw(
     release_group_rating_raw
     release_group_tag_raw
     release_tag_raw
+    series_tag_raw
     work_rating_raw
     work_tag_raw
 );

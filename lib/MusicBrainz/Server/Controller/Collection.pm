@@ -26,6 +26,7 @@ after 'load' => sub
 
     # Load editor
     $c->model('Editor')->load($collection);
+    $c->model('CollectionType')->load($collection);
 
     $c->stash(
         my_collection => $c->user_exists && $c->user->id == $collection->editor_id
@@ -163,11 +164,11 @@ sub create : Local RequireAuth
         my $params = $c->req->params;
         if (exists $params->{"release"}) {
             my $release_id = $params->{"release"};
-            $c->model('Collection')->add_releases_to_collection($collection->id, $release_id);
+            $c->model('Collection')->add_releases_to_collection($collection->{id}, $release_id);
         }
 
         $c->response->redirect(
-            $c->uri_for_action($self->action_for('show'), [ $collection->gid ]));
+            $c->uri_for_action($self->action_for('show'), [ $collection->{gid} ]));
     }
 }
 

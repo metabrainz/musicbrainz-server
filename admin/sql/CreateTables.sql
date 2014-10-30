@@ -111,6 +111,19 @@ CREATE TABLE area_annotation ( -- replicate (verbose)
     annotation  INTEGER NOT NULL -- PK, references annotation.id
 );
 
+CREATE TABLE area_tag ( -- replicate (verbose)
+    area                INTEGER NOT NULL, -- PK, references area.id
+    tag                 INTEGER NOT NULL, -- PK, references tag.id
+    count               INTEGER NOT NULL,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE area_tag_raw (
+    area                INTEGER NOT NULL, -- PK, references area.id
+    editor              INTEGER NOT NULL, -- PK, references editor.id
+    tag                 INTEGER NOT NULL -- PK, references tag.id
+);
+
 CREATE TABLE artist ( -- replicate (verbose)
     id                  SERIAL,
     gid                 UUID NOT NULL,
@@ -324,9 +337,8 @@ CREATE TABLE cdtoc ( -- replicate
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE cdtoc_raw
-(
-    id                  SERIAL,
+CREATE TABLE cdtoc_raw ( -- replicate
+    id                  SERIAL, -- PK
     release             INTEGER NOT NULL, -- references release_raw.id
     discid              CHAR(28) NOT NULL,
     track_count          INTEGER NOT NULL,
@@ -757,6 +769,19 @@ CREATE TABLE instrument_alias ( -- replicate (verbose)
 CREATE TABLE instrument_annotation ( -- replicate (verbose)
     instrument  INTEGER NOT NULL, -- PK, references instrument.id
     annotation  INTEGER NOT NULL -- PK, references annotation.id
+);
+
+CREATE TABLE instrument_tag ( -- replicate (verbose)
+    instrument          INTEGER NOT NULL, -- PK, references instrument.id
+    tag                 INTEGER NOT NULL, -- PK, references tag.id
+    count               INTEGER NOT NULL,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE instrument_tag_raw (
+    instrument          INTEGER NOT NULL, -- PK, references instrument.id
+    editor              INTEGER NOT NULL, -- PK, references editor.id
+    tag                 INTEGER NOT NULL -- PK, references tag.id
 );
 
 CREATE TABLE iso_3166_1 ( -- replicate
@@ -1836,7 +1861,16 @@ CREATE TABLE editor_collection
     editor              INTEGER NOT NULL, -- references editor.id
     name                VARCHAR NOT NULL,
     public              BOOLEAN NOT NULL DEFAULT FALSE,
-    description         TEXT DEFAULT '' NOT NULL
+    description         TEXT DEFAULT '' NOT NULL,
+    type                INTEGER -- references editor_collection_type.id
+);
+
+CREATE TABLE editor_collection_type ( -- replicate
+    id                  SERIAL,
+    name                VARCHAR(255) NOT NULL,
+    parent              INTEGER, -- references editor_collection_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT
 );
 
 CREATE TABLE editor_collection_event
@@ -2131,9 +2165,8 @@ CREATE TABLE release_unknown_country ( -- replicate (verbose)
   date_day SMALLINT
 );
 
-CREATE TABLE release_raw
-(
-    id                  SERIAL,
+CREATE TABLE release_raw ( -- replicate
+    id                  SERIAL, -- PK
     title               VARCHAR(255) NOT NULL,
     artist              VARCHAR(255),
     added               TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
@@ -2394,6 +2427,19 @@ CREATE TABLE series_annotation ( -- replicate (verbose)
     annotation          INTEGER NOT NULL -- PK, references annotation.id
 );
 
+CREATE TABLE series_tag ( -- replicate (verbose)
+    series              INTEGER NOT NULL, -- PK, references series.id
+    tag                 INTEGER NOT NULL, -- PK, references tag.id
+    count               INTEGER NOT NULL,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE series_tag_raw (
+    series              INTEGER NOT NULL, -- PK, references series.id
+    editor              INTEGER NOT NULL, -- PK, references editor.id
+    tag                 INTEGER NOT NULL -- PK, references tag.id
+);
+
 CREATE TABLE tag ( -- replicate (verbose)
     id                  SERIAL,
     name                VARCHAR(255) NOT NULL,
@@ -2420,7 +2466,8 @@ CREATE TABLE track ( -- replicate (verbose)
     artist_credit       INTEGER NOT NULL, -- references artist_credit.id
     length              INTEGER CHECK (length IS NULL OR length > 0),
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    is_data_track       BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE track_gid_redirect ( -- replicate (verbose)
@@ -2429,9 +2476,8 @@ CREATE TABLE track_gid_redirect ( -- replicate (verbose)
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE track_raw
-(
-    id                  SERIAL,
+CREATE TABLE track_raw ( -- replicate
+    id                  SERIAL, -- PK
     release             INTEGER NOT NULL,   -- references release_raw.id
     title               VARCHAR(255) NOT NULL,
     artist              VARCHAR(255),   -- For VA albums, otherwise empty

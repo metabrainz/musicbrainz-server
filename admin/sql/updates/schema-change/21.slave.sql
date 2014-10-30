@@ -2,6 +2,9 @@
 -- 20140606-events.sql
 -- 20140906-event-collections.sql
 -- 20141008-instrument-indexes.sql
+-- 20141014-mbs-7784-data-tracks.sql
+-- 20140806-collection-types.sql
+-- 20141014-mbs-7551-tags.sql
 \set ON_ERROR_STOP 1
 BEGIN;
 --------------------------------------------------------------------------------
@@ -966,4 +969,108 @@ CREATE INDEX l_area_instrument_idx_entity1 ON l_area_instrument (entity1);
 
 DROP INDEX IF EXISTS l_artist_instrument_idx_entity1;
 CREATE INDEX l_artist_instrument_idx_entity1 ON l_artist_instrument (entity1);
+--------------------------------------------------------------------------------
+SELECT '20141014-mbs-7784-data-tracks.sql';
+
+ALTER TABLE track ADD COLUMN is_data_track BOOLEAN NOT NULL DEFAULT FALSE;
+
+CREATE OR REPLACE FUNCTION track_count_matches_cdtoc(medium, int) RETURNS boolean AS $$
+    SELECT $1.track_count = $2 + COALESCE(
+        (SELECT count(*) FROM track
+         WHERE medium = $1.id AND (position = 0 OR is_data_track = true)
+    ), 0);
+$$ LANGUAGE SQL IMMUTABLE;
+
+--------------------------------------------------------------------------------
+SELECT '20140806-collection-types.sql';
+
+CREATE TABLE editor_collection_type ( -- replicate
+    id                  SERIAL,
+    name                VARCHAR(255) NOT NULL,
+    parent              INTEGER, -- references editor_collection_type.id
+    child_order         INTEGER NOT NULL DEFAULT 0,
+    description         TEXT
+);
+
+ALTER TABLE editor_collection_type ADD CONSTRAINT editor_collection_type_pkey PRIMARY KEY (id);
+
+INSERT INTO editor_collection_type (id, name, child_order) VALUES
+	(1, 'Owned music', 1),
+	(2, 'Wishlist', 2),
+	(3, 'Other', 99);
+
+SELECT setval('editor_collection_type_id_seq', (SELECT MAX(id) FROM editor_collection_type));
+
+ALTER TABLE editor_collection
+    ADD COLUMN type INTEGER;
+
+--------------------------------------------------------------------------------
+SELECT '20141014-mbs-7551-tags.sql';
+
+CREATE TABLE area_tag (
+    area                INTEGER NOT NULL,
+    tag                 INTEGER NOT NULL,
+    count               INTEGER NOT NULL,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE area_tag_raw (
+    area                INTEGER NOT NULL,
+    editor              INTEGER NOT NULL,
+    tag                 INTEGER NOT NULL
+);
+
+CREATE TABLE instrument_tag (
+    instrument          INTEGER NOT NULL,
+    tag                 INTEGER NOT NULL,
+    count               INTEGER NOT NULL,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE instrument_tag_raw (
+    instrument          INTEGER NOT NULL,
+    editor              INTEGER NOT NULL,
+    tag                 INTEGER NOT NULL
+);
+
+CREATE TABLE series_tag (
+    series              INTEGER NOT NULL,
+    tag                 INTEGER NOT NULL,
+    count               INTEGER NOT NULL,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE series_tag_raw (
+    series              INTEGER NOT NULL,
+    editor              INTEGER NOT NULL,
+    tag                 INTEGER NOT NULL
+);
+
+ALTER TABLE area_tag ADD CONSTRAINT area_tag_pkey PRIMARY KEY (area, tag);
+ALTER TABLE area_tag_raw ADD CONSTRAINT area_tag_raw_pkey PRIMARY KEY (area, editor, tag);
+
+ALTER TABLE instrument_tag ADD CONSTRAINT instrument_tag_pkey PRIMARY KEY (instrument, tag);
+ALTER TABLE instrument_tag_raw ADD CONSTRAINT instrument_tag_raw_pkey PRIMARY KEY (instrument, editor, tag);
+
+ALTER TABLE series_tag ADD CONSTRAINT series_tag_pkey PRIMARY KEY (series, tag);
+ALTER TABLE series_tag_raw ADD CONSTRAINT series_tag_raw_pkey PRIMARY KEY (series, editor, tag);
+
+CREATE INDEX area_tag_idx_tag ON area_tag (tag);
+
+CREATE INDEX area_tag_raw_idx_area ON area_tag_raw (area);
+CREATE INDEX area_tag_raw_idx_tag ON area_tag_raw (tag);
+CREATE INDEX area_tag_raw_idx_editor ON area_tag_raw (editor);
+
+CREATE INDEX instrument_tag_idx_tag ON instrument_tag (tag);
+
+CREATE INDEX instrument_tag_raw_idx_instrument ON instrument_tag_raw (instrument);
+CREATE INDEX instrument_tag_raw_idx_tag ON instrument_tag_raw (tag);
+CREATE INDEX instrument_tag_raw_idx_editor ON instrument_tag_raw (editor);
+
+CREATE INDEX series_tag_idx_tag ON series_tag (tag);
+
+CREATE INDEX series_tag_raw_idx_series ON series_tag_raw (series);
+CREATE INDEX series_tag_raw_idx_tag ON series_tag_raw (tag);
+CREATE INDEX series_tag_raw_idx_editor ON series_tag_raw (editor);
+
 COMMIT;

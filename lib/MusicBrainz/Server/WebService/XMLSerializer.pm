@@ -601,23 +601,34 @@ sub _serialize_tracks
     # therefore can be represented as if a query had been performed with
     # limit = 1 and offset = track->position.
 
-    my $min = @{$medium->tracks} ? $medium->tracks->[0]->position : 0;
+    my @tracks = nsort_by { $_->position } $medium->all_tracks;
+    my $min = @tracks ? $tracks[0]->position : 0;
+
+    if (@tracks && $medium->has_pregap) {
+        $self->_serialize_track($data, $gen, $tracks[0], $inc, $stash, 1);
+    }
+
     my @list;
-    foreach my $track (nsort_by { $_->position } @{$medium->tracks})
-    {
+    foreach my $track ($medium->cdtoc_tracks) {
         $min = $track->position if $track->position < $min;
         $self->_serialize_track(\@list, $gen, $track, $inc, $stash);
     }
 
-    my %attr = ( count => $medium->track_count );
-    $attr{offset} = $min - 1 if $min > 0;
+    my %attr = ( count => $medium->cdtoc_track_count );
+    $attr{offset} = ($medium->has_pregap ? 0 : $min - 1) if @tracks;
 
     push @$data, $gen->track_list(\%attr, @list);
+
+    if (my @data_tracks = grep { $_->position > 0 && $_->is_data_track } @tracks) {
+        @list = ();
+        $self->_serialize_track(\@list, $gen, $_, $inc, $stash) for @data_tracks;
+        push @$data, $gen->data_track_list({ count => scalar(@list) }, @list);
+    }
 }
 
 sub _serialize_track
 {
-    my ($self, $data, $gen, $track, $inc, $stash) = @_;
+    my ($self, $data, $gen, $track, $inc, $stash, $pregap) = @_;
 
     my @track;
     push @track, $gen->position($track->position);
@@ -644,7 +655,8 @@ sub _serialize_track
     $self->_serialize_recording(\@track, $gen, $track->recording, $inc, $stash)
         if ($track->recording);
 
-    push @$data, $gen->track({ id => $track->gid }, @track);
+    my $node_name = $pregap ? 'pregap' : 'track';
+    push @$data, $gen->$node_name({ id => $track->gid }, @track);
 }
 
 sub _serialize_disc_list
@@ -958,6 +970,7 @@ sub _serialize_instrument {
         if ($inc->aliases && $opts->{aliases});
 
     $self->_serialize_relation_lists($instrument, \@list, $gen, $instrument->relationships, $inc, $stash) if ($inc->has_rels);
+    $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
     push @$data, $gen->instrument(\%attrs, @list);
 }
@@ -1066,6 +1079,7 @@ sub _serialize_series
         if ($inc->aliases && $opts->{aliases});
 
     $self->_serialize_relation_lists($series, \@list, $gen, $series->relationships, $inc, $stash) if ($inc->has_rels);
+    $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
     push @$data, $gen->series(\%attrs, @list);
 }

@@ -1,5 +1,6 @@
 [% set_header() %]
-    [%- INCLUDE 'layout/head.tt' -%]
+    [%- DEFAULT no_icons = homepage -%]
+    [%- INCLUDE 'layout/head.tt' no_icons=no_icons -%]
     <body>
         [%- IF c.debug -%][%- INCLUDE 'debug/stats.tt' -%][%- END ~%]
 

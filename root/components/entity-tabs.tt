@@ -21,7 +21,7 @@
         CASE 'fingerprints';
             l('Fingerprints');
         CASE 'discids';
-            l('DiscIDs');
+            l('Disc IDs');
         CASE 'cover_art';
             l('Cover Art');
         CASE DEFAULT;

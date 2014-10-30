@@ -1,6 +1,6 @@
 [%- DEFAULT relationships = source.grouped_relationships -%]
 
-[% hide_ac = entity_type(source) == 'artist' ? source.name
+[% hide_ac = get_entity_type(source) == 'artist' ? source.name
            : source.artist_credit.defined    ? source.artist_credit.name
            :                                   '' %]
 

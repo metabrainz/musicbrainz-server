@@ -14,6 +14,7 @@ use aliased 'MusicBrainz::Server::Entity::Release';
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Medium';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_name { N_l('Set track lengths') }
 sub edit_type { $EDIT_SET_TRACK_LENGTHS }
@@ -101,7 +102,7 @@ sub initialize {
             name => $_->name
         }, $medium->release ] ,
         length => {
-            old => [ map { $_->length } $medium->all_tracks ],
+            old => [ map { $_->length } $medium->cdtoc_tracks ],
             new => [ map { $_->{length_time} } @{ $cdtoc->track_details } ],
         }
     })
