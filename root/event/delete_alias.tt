@@ -1,4 +1,0 @@
-[%- WRAPPER 'event/layout.tt' title=l('Remove Event Alias') full_width=1 -%]
-    <h2>[% l('Remove event alias') %]</h2>
-    [% INCLUDE 'alias/delete.tt' %]
-[%- END -%]
