@@ -88,5 +88,18 @@ server {
         gzip_buffers 16 8k;
     }
 
+    location ~* ^/internal/search/(.*?)/(.*) {
+        internal;
+
+        # Extract url from the request
+        set $search_uri $2;
+        set $search_host $1;
+
+        # Compose url
+        set $search_url http://$search_host/$search_uri;
+
+        proxy_pass $search_url;
+    }
+
     include /etc/nginx/mbserver-rewrites.conf;
 }

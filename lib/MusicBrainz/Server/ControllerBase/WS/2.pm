@@ -195,15 +195,21 @@ sub _search
     my ($self, $c, $entity) = @_;
 
     my $result = $c->model('WebService')->xml_search($entity, $c->stash->{args});
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    if (exists $result->{xml})
-    {
-        $c->res->body($result->{xml});
-    }
-    else
-    {
-        $c->res->status($result->{code});
-        $c->res->body($c->stash->{serializer}->output_error($result->{error}));
+    if (DBDefs->LUCENE_X_ACCEL_REDIRECT && exists $result->{redirect_url}) {
+        $c->res->headers->header(
+            'X-Accel-Redirect' => $result->{redirect_url}
+        );
+    } else {
+        $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+        if (exists $result->{xml})
+        {
+            $c->res->body($result->{xml});
+        }
+        else
+        {
+            $c->res->status($result->{code});
+            $c->res->body($c->stash->{serializer}->output_error($result->{error}));
+        }
     }
 }
 
