@@ -96,7 +96,7 @@ server {
         set $search_host $1;
 
         # Compose url
-        set $search_url http://$search_host/$search_uri;
+        set $search_url http://$search_host/$search_uri?$args;
 
         proxy_pass $search_url;
     }
