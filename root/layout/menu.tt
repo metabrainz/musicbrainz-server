@@ -281,7 +281,7 @@
         <a href="[% doc_link('Contact_Us') %]">[% l('Contact Us') %]</a>
         <ul>
             <li>
-                <a href="[% doc_link('Mailing_Lists') %]">[% l('Mailing Lists') %]</a>
+                <a href="[% doc_link('Communication/Mailing_Lists') %]">[% l('Mailing Lists') %]</a>
             </li>
             <li>
                 <a href="http://forums.musicbrainz.org" class="internal">
