@@ -156,7 +156,7 @@ SELECT '20141014-mbs-7551-tags-fks.sql';
 ALTER TABLE area_tag ADD CONSTRAINT area_tag_fk_area FOREIGN KEY (area) REFERENCES area(id);
 ALTER TABLE area_tag ADD CONSTRAINT area_tag_fk_tag FOREIGN KEY (tag) REFERENCES tag(id);
 
-ALTER TABLE area_tag_raw ADD CONSTRAINT area_tag_raw_fk_area FOREIGN KEY (area) REFERENCES area(id)
+ALTER TABLE area_tag_raw ADD CONSTRAINT area_tag_raw_fk_area FOREIGN KEY (area) REFERENCES area(id);
 ALTER TABLE area_tag_raw ADD CONSTRAINT area_tag_raw_fk_editor FOREIGN KEY (editor) REFERENCES editor(id);
 ALTER TABLE area_tag_raw ADD CONSTRAINT area_tag_raw_fk_tag FOREIGN KEY (tag) REFERENCES tag(id);
 
