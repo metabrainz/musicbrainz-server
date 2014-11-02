@@ -67,8 +67,7 @@ map {
     };
 
     find_meta(__PACKAGE__)->add_method($_ => $method);
-
-    __PACKAGE__->config(action => { $_ => { Chained => 'load' } });
+    find_meta(__PACKAGE__)->register_method_attributes($method, [qw( Chained('Load') Local )]);
 } entities_with('tags');
 
 sub not_found : Private
