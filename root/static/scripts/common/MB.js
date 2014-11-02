@@ -97,8 +97,22 @@ MB.localStorage = function (name, value) {
             MB.store[name] = value;
         }
     } else {
-        if (MB.hasLocalStorage && localStorage.hasOwnProperty(name)) {
-            return localStorage[name];
+        var storedValue;
+
+        if (MB.hasLocalStorage) {
+            try {
+                storedValue = localStorage[name];
+            } catch (e) {
+                // NS_ERROR_FILE_CORRUPTED?
+            }
+
+            // localStorage.hasOwnProperty doesn't exist in IE8 and is outright
+            // broken in Opera (at least the Presto versions). Source:
+            // https://shanetomlinson.com/2012/localstorage-bugs-inconsistent-removeitem-delete/
+
+            if (storedValue !== undefined) {
+                return storedValue;
+            }
         }
         return MB.store[name];
     }
