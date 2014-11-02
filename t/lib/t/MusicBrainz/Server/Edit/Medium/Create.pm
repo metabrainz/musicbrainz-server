@@ -37,7 +37,8 @@ my $tracklist = [
                     )
                 )]),
         recording_id => 1,
-        position => 1
+        position => 1,
+        is_data_track => 0
     )
 ];
 
@@ -115,7 +116,8 @@ my $tracks_creating_recordings = [
                         name => 'Artist',
                     )
                 )]),
-        position => 1
+        position => 1,
+        is_data_track => 0
     )
 ];
 
