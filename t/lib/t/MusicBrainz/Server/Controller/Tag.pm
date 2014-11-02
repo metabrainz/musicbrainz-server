@@ -19,37 +19,37 @@ test 'Can view tags' => sub {
     $test->mech->get_ok('/tag/musical/artist');
     html_ok($test->mech->content);
     $test->mech->content_like(qr{Test Artist});
-    $test->mech->get_ok('/tag/not-used/artist');
+    $test->mech->get('/tag/not-used/artist');
     html_ok($test->mech->content);
-    $test->mech->content_like(qr{No artists});
+    $test->mech->content_like(qr{Tag Not Used});
 
     $test->mech->get_ok('/tag/musical/label');
     html_ok($test->mech->content);
     $test->mech->content_like(qr{Warp Records});
-    $test->mech->get_ok('/tag/not-used/label');
+    $test->mech->get('/tag/not-used/label');
     html_ok($test->mech->content);
-    $test->mech->content_like(qr{No labels});
+    $test->mech->content_like(qr{Tag Not Used});
 
     $test->mech->get_ok('/tag/musical/recording');
     html_ok($test->mech->content);
     $test->mech->content_like(qr{Dancing Queen.*?ABBA});
-    $test->mech->get_ok('/tag/not-used/recording');
+    $test->mech->get('/tag/not-used/recording');
     html_ok($test->mech->content);
-    $test->mech->content_like(qr{No recordings});
+    $test->mech->content_like(qr{Tag Not Used});
 
     $test->mech->get_ok('/tag/musical/release-group');
     html_ok($test->mech->content);
     $test->mech->content_like(qr{Arrival.*?ABBA});
-    $test->mech->get_ok('/tag/not-used/release-group');
+    $test->mech->get('/tag/not-used/release-group');
     html_ok($test->mech->content);
-    $test->mech->content_like(qr{No release groups});
+    $test->mech->content_like(qr{Tag Not Used});
 
     $test->mech->get_ok('/tag/musical/work');
     html_ok($test->mech->content);
     $test->mech->content_like(qr{Dancing Queen});
-    $test->mech->get_ok('/tag/not-used/work');
+    $test->mech->get('/tag/not-used/work');
     html_ok($test->mech->content);
-    $test->mech->content_like(qr{No works});
+    $test->mech->content_like(qr{Tag Not Used});
 
     $test->mech->get('/tag/not-found');
     html_ok($test->mech->content);
