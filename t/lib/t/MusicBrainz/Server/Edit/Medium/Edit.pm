@@ -87,9 +87,9 @@ test 'Unused tracks are correctly deleted after tracklist changes' => sub {
         $c, $medium,
         [
          Track->new(name => 'CONCRETE JUNGLE', position => 1, number => "A1",
-                    artist_credit => $new_artist_credit, recording_id => 1),
+                    artist_credit => $new_artist_credit, recording_id => 1, is_data_track => 0),
          Track->new(name => 'THUNDER TORNADO', position => 2, number => "A2",
-                    artist_credit => $new_artist_credit, recording_id => 1),
+                    artist_credit => $new_artist_credit, recording_id => 1, is_data_track => 0),
         ]);
 
     accept_edit($c, $edit1);
@@ -119,9 +119,9 @@ test 'Unused tracks are correctly deleted after tracklist changes' => sub {
         [
          Track->new(name => 'CONCRETE JUNGLE (CONCRETE MAN STAGE)',
                     id => $concrete_jungle_id, position => 1, number => "A1",
-                    artist_credit => $new_artist_credit, recording_id => 1),
+                    artist_credit => $new_artist_credit, recording_id => 1, is_data_track => 0),
          Track->new(name => 'PLUG ELECTRIC', position => 2, number => "A2",
-                    artist_credit => $new_artist_credit, recording_id => 1),
+                    artist_credit => $new_artist_credit, recording_id => 1, is_data_track => 0),
         ]);
 
     accept_edit($c, $edit2);
@@ -168,7 +168,8 @@ test 'Edits are rejected if they conflict' => sub {
                         )
                     )]),
             recording_id => 1,
-            position => 1
+            position => 1,
+            is_data_track => 0
         )
     ]);
     my $edit2 = create_edit($c, $medium, [
@@ -184,7 +185,8 @@ test 'Edits are rejected if they conflict' => sub {
                         )
                     )]),
             recording_id => 1,
-            position => 1
+            position => 1,
+            is_data_track => 0
         )
     ]);
 
@@ -248,7 +250,8 @@ test 'Accept/failure conditions regarding links' => sub {
                                 )
                             )]),
                     position => 1,
-                    length => undef
+                    length => undef,
+                    is_data_track => 0
                 )
             ]
         );
@@ -360,7 +363,8 @@ test 'Accept/failure conditions regarding links' => sub {
                             )]),
                     position => 2,
                     recording_id => $new_rec->{id},
-                    length => undef
+                    length => undef,
+                    is_data_track => 0
                 )
             ]
         );
@@ -440,7 +444,8 @@ test 'Auto-editing edit medium' => sub {
                                     )
                                 )]),
                         position => 1,
-                        length => undef
+                        length => undef,
+                        is_data_track => 0
                     )
                 ]
             )
@@ -500,7 +505,8 @@ sub create_edit {
                     )]),
             recording_id => 1,
             position => 1,
-            number => 1
+            number => 1,
+            is_data_track => 0
         )
     ];
 
