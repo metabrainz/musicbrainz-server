@@ -104,7 +104,7 @@ INSERT INTO link_attribute (link, attribute_type) VALUES (2, 3);
 INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (1, 1, 3, 1);
 INSERT INTO l_artist_work (id, link, entity0, entity1) VALUES (1, 2, 3, 1);
 
-INSERT INTO tag (id, name) VALUES (1, 'musical');
+INSERT INTO tag (id, name) VALUES (1, 'musical'), (2, 'not-used');
 INSERT INTO artist_tag (tag, artist, count) VALUES (1, 3, 2);
 
 ALTER SEQUENCE artist_alias_id_seq RESTART 2;
