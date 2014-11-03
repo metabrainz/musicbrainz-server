@@ -1,6 +1,6 @@
 [% WRAPPER "layout.tt" nosuffix=1 title=l("MusicBrainz - The Open Music Encyclopedia") homepage=1 %]
     <div class="sidebar" id="sidebar">
-      <div style="float: right;">
+      <div>
         <div id="taggers" class="triple-column feature-column">
             <h2 class="taggers">[% l('Tag Your Music') %]</h2>
             <img src="[% c.uri_for('/static/images/logos/musicbrainz-picard.png') %]" alt="MusicBrainz Picard logo" />
