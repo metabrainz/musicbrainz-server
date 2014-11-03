@@ -364,8 +364,11 @@ sub accept {
         $self->c->model('Track')->load_for_mediums($medium);
         $self->c->model('ArtistCredit')->load($medium->all_tracks);
 
-        # Make sure we aren't using undef for any new recording IDs, as it will merge incorrectly
-        $_->{recording_id} //= 0 for @$data_new_tracklist;
+        # Make sure we aren't using undef for recording_id or is_data_track, as it will merge incorrectly
+        for (@$data_new_tracklist) {
+            $_->{recording_id} //= 0;
+            $_->{is_data_track} //= 0;
+        }
 
         my (@merged_row_ids, @merged_numbers, @merged_names, @merged_recordings,
             @merged_lengths, @merged_artist_credits, @merged_is_data_tracks);
