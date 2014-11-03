@@ -1,6 +1,5 @@
 package MusicBrainz::Server::Controller::Tag;
 use Moose;
-use Moose::Util qw( find_meta );
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
@@ -54,6 +53,7 @@ sub show : Chained('load') PathPart('')
 
 map {
     my $entity_properties = $ENTITIES{$_};
+    my $url = $entity_properties->{url} // $_;
 
     my $method = sub {
         my ($self, $c) = @_;
@@ -66,8 +66,7 @@ map {
         $c->stash(entity_tags => $entity_tags);
     };
 
-    find_meta(__PACKAGE__)->add_method($_ => $method);
-    find_meta(__PACKAGE__)->register_method_attributes($method, [qw( Chained('Load') Local )]);
+    eval "sub $_ : Chained('load') PathPart('$url') { goto \$method }";
 } entities_with('tags');
 
 sub not_found : Private
