@@ -1,4 +1,0 @@
-[% WRAPPER 'series/layout.tt' title=l('Edit Annotation') full_width=1 %]
-    <h2>[% l('Edit series annotation') %]</h2>
-    [% INCLUDE 'annotation/edit.tt' %]
-[% END %]

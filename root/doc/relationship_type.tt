@@ -1,6 +1,6 @@
 [%- typename = relationship_type.name | ucfirst -%]
 [%- title = l("Relationship Type") _ " / " _ typename -%]
-[%- WRAPPER 'layout.tt' full_width=1 title=title -%]
+[%- WRAPPER 'layout.tt' full_width=1 title=title no_icons=1 -%]
     <h1 class="hierarchy-links"><a href="[% c.uri_for_action('/relationship/linktype/index') %]">[% l('Relationship Types') %]</a>
     / <a href="/relationships/[%- relationship_type.entity0_type -%]-[%- relationship_type.entity1_type -%]">[% l('{entity0}-{entity1}',
     { entity0 => format_entity_type_name(relationship_type.entity0_type), entity1 => format_entity_type_name(relationship_type.entity1_type) }) -%]</a>

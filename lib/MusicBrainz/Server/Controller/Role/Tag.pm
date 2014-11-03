@@ -42,6 +42,7 @@ sub tags : Chained('load') PathPart('tags')
     $c->stash(
         tags => $tags,
         user_tags => \@user_tags,
+        template => 'entity/tags.tt',
     );
 
     my @user_tag_names = map { $_->tag->name } @user_tags;

@@ -15,7 +15,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-10-02 15:00+0000\n"
+"PO-Revision-Date: 2014-10-30 01:09+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -28,13 +28,15 @@ msgstr ""
 msgid "ASIN"
 msgstr "ASIN"
 
-#: DB:link_type/link_phrase:284 DB:link_type/link_phrase:283
-#: DB:link_type/link_phrase:285 DB:link_type/reverse_link_phrase:286
+#: DB:link_type/link_phrase:755 DB:link_type/link_phrase:284
+#: DB:link_type/link_phrase:283 DB:link_type/link_phrase:285
+#: DB:link_type/reverse_link_phrase:286
 msgid "Allmusic"
 msgstr "Allmusic"
 
-#: DB:link_type/link_phrase:286 DB:link_type/reverse_link_phrase:284
-#: DB:link_type/reverse_link_phrase:283 DB:link_type/reverse_link_phrase:285
+#: DB:link_type/link_phrase:286 DB:link_type/reverse_link_phrase:755
+#: DB:link_type/reverse_link_phrase:284 DB:link_type/reverse_link_phrase:283
+#: DB:link_type/reverse_link_phrase:285
 msgid "Allmusic page for"
 msgstr "Page Allmusic pour"
 
@@ -159,6 +161,14 @@ msgstr "Entrée IMDb échantillonnée dans "
 #: DB:link_type/reverse_link_phrase:178 DB:link_type/reverse_link_phrase:706
 msgid "IMDb page for"
 msgstr "Page IMDb pour"
+
+#: DB:link_type/link_phrase:754
+msgid "IMSLP"
+msgstr "IMSLP"
+
+#: DB:link_type/reverse_link_phrase:754
+msgid "IMSLP page for"
+msgstr "Page IMSLP pour"
 
 #: DB:link_attribute_type/description:516
 msgid "Indicates a bonus disc"
@@ -375,6 +385,12 @@ msgstr "Indique l'éditeur de cette œuvre. Ce n'est <strong>pas</strong> le mê
 msgid "Lead or solo vocal"
 msgstr "Chanteur principal, solo"
 
+#: DB:link_type/description:758
+msgid ""
+"Links a recording to the area it was mixed in. Use only when the place is "
+"unknown!"
+msgstr "Relie un enregistrement à la région dans laquelle il a été mixé. À n'utiliser que lorsque le lieu est inconnu !"
+
 #: DB:link_type/description:698
 msgid ""
 "Links a recording to the area it was recorded in. Use only when the place is"
@@ -388,6 +404,18 @@ msgstr "Relie un enregistrement vers le lieu où il a été mixé."
 #: DB:link_type/description:693
 msgid "Links a recording to the place it was recorded at."
 msgstr "Relie un enregistrement vers le lieu où il a été enregistré."
+
+#: DB:link_type/description:756
+msgid ""
+"Links a release to the area it was mastered in. Use only when the place is "
+"unknown!"
+msgstr "Relie une parution à la région dans laquelle elle a été matricée. À n'utiliser que lorsque le lieu est inconnu !"
+
+#: DB:link_type/description:757
+msgid ""
+"Links a release to the area it was mixed in. Use only when the place is "
+"unknown!"
+msgstr "Relie une parution à la région dans laquelle elle a été mixé. À n'utiliser que lorsque le lieu est inconnu !"
 
 #: DB:link_type/description:699
 msgid ""
@@ -780,6 +808,18 @@ msgid ""
 "day-to-day aspects involved with making a musical recording."
 msgstr "Ceci indique un artiste qui est responsable des aspects créatifs et pratiques journaliers inhérents à un enregistrement musical."
 
+#: DB:link_type/description:760
+msgid ""
+"This indicates an artist who was the concertmaster/leader for an orchestra "
+"or band on this recording."
+msgstr ""
+
+#: DB:link_type/description:759
+msgid ""
+"This indicates an artist who was the concertmaster/leader for an orchestra "
+"or band on this release."
+msgstr ""
+
 #: DB:link_type/description:305
 msgid "This indicates that a person is, or was, a conductor for a group.​"
 msgstr "Ceci indique qu'une personne est, ou était, le chef d'un orchestre."
@@ -1106,6 +1146,10 @@ msgid ""
 "database."
 msgstr "Ceci est utilisé pour relier une parution à sa page correspondante dans la base de données de SecondHandSongs."
 
+#: DB:link_type/description:755
+msgid "This is used to link a release to its corresponding page on Allmusic."
+msgstr "Ceci est utilisé pour relier une parution à sa page correspondante sur Allmusic."
+
 #: DB:link_type/description:747
 msgid "This is used to link a series to the equivalent entry in Discogs."
 msgstr "Ceci est utilisé pour relier une série à l'entrée équivalente de Discogs."
@@ -1386,6 +1430,12 @@ msgid ""
 "This links an artist to its page in <a "
 "href=\"http://www.imdb.com/\">IMDb</a>."
 msgstr "Ceci relie un artiste à sa page sur <a href=\"http://www.imdb.com/\">IMDb</a>."
+
+#: DB:link_type/description:754
+msgid ""
+"This links an artist to its page in <a "
+"href=\"http://www.imslp.org/\">IMSLP</a>."
+msgstr "Ceci relie un artiste à sa page sur <a href=\"http://www.imslp.org/\">IMSLP</a>."
 
 #: DB:link_type/description:291
 msgid "This links an artist to its profile at SoundCloud."
@@ -2050,6 +2100,14 @@ msgstr "compilateur"
 msgid "composition"
 msgstr "composition"
 
+#: DB:link_type/reverse_link_phrase:759 DB:link_type/reverse_link_phrase:760
+msgid "concertmaster"
+msgstr ""
+
+#: DB:link_type/link_phrase:759 DB:link_type/link_phrase:760
+msgid "concertmaster for"
+msgstr ""
+
 #: DB:link_type/link_phrase:739
 msgid "consists of"
 msgstr "consiste en"
@@ -2403,8 +2461,8 @@ msgstr "à une page de critique à"
 msgid "has a social networking page at"
 msgstr "à une page de réseau social à"
 
-#: DB:link_type/long_link_phrase:284 DB:link_type/long_link_phrase:283
-#: DB:link_type/long_link_phrase:285
+#: DB:link_type/long_link_phrase:755 DB:link_type/long_link_phrase:284
+#: DB:link_type/long_link_phrase:283 DB:link_type/long_link_phrase:285
 msgid "has an Allmusic page at"
 msgstr "a une page Allmusic à"
 
@@ -2412,6 +2470,10 @@ msgstr "a une page Allmusic à"
 #: DB:link_type/long_link_phrase:178 DB:link_type/long_link_phrase:706
 msgid "has an IMDb page at"
 msgstr "à une page IMDb à"
+
+#: DB:link_type/long_link_phrase:754
+msgid "has an IMSLP page at"
+msgstr "à une page ISMLP à"
 
 #: DB:link_type/long_link_phrase:707
 msgid "has an interview at"
@@ -2874,6 +2936,10 @@ msgstr "collages"
 msgid "mastered at"
 msgstr "matricé à"
 
+#: DB:link_type/reverse_link_phrase:756
+msgid "mastered in"
+msgstr "matricé à"
+
 #: DB:link_type/link_phrase:704
 msgid "mastering engineer position at"
 msgstr "poste d'Ingénieur de matriçage à"
@@ -2882,7 +2948,7 @@ msgstr "poste d'Ingénieur de matriçage à"
 msgid "mastering engineers"
 msgstr "ingénieurs de matriçage"
 
-#: DB:link_type/link_phrase:697
+#: DB:link_type/link_phrase:756 DB:link_type/link_phrase:697
 msgid "mastering location for"
 msgstr "lieu de matriçage pour"
 
@@ -2956,6 +3022,10 @@ msgstr "soutien divers"
 msgid "mixed at"
 msgstr "mixé à"
 
+#: DB:link_type/reverse_link_phrase:757 DB:link_type/reverse_link_phrase:758
+msgid "mixed in"
+msgstr "mixé à"
+
 #: DB:link_type/link_phrase:703
 msgid "mixing engineer position at"
 msgstr "poste d'ingénieur de mixage à"
@@ -2964,6 +3034,7 @@ msgstr "poste d'ingénieur de mixage à"
 msgid "mixing engineers"
 msgstr "ingénieurs de mixage"
 
+#: DB:link_type/link_phrase:757 DB:link_type/link_phrase:758
 #: DB:link_type/link_phrase:694 DB:link_type/link_phrase:696
 msgid "mixing location for"
 msgstr "lieu de mixage pour"
@@ -3257,7 +3328,7 @@ msgstr "acheter de la musique par correspondance"
 msgid "recorded at"
 msgstr "enregistré à"
 
-#: DB:link_type/reverse_link_phrase:698 DB:link_type/reverse_link_phrase:699
+#: DB:link_type/reverse_link_phrase:699 DB:link_type/reverse_link_phrase:698
 msgid "recorded in"
 msgstr "enregistré en"
 
@@ -3269,8 +3340,8 @@ msgstr "poste d'ingénieur du son à"
 msgid "recording engineers"
 msgstr "ingénieurs du son "
 
-#: DB:link_type/link_phrase:698 DB:link_type/link_phrase:699
-#: DB:link_type/link_phrase:695 DB:link_type/link_phrase:693
+#: DB:link_type/link_phrase:695 DB:link_type/link_phrase:699
+#: DB:link_type/link_phrase:698 DB:link_type/link_phrase:693
 msgid "recording location for"
 msgstr "lieu d'enregistrement de"
 
@@ -3519,16 +3590,21 @@ msgstr "est paru en soutien à"
 msgid "was renamed into"
 msgstr "a été renommé en"
 
-#: DB:link_type/long_link_phrase:697
+#: DB:link_type/long_link_phrase:759 DB:link_type/long_link_phrase:760
+msgid "was the concertmaster for"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:756 DB:link_type/long_link_phrase:697
 msgid "was the mastering location for"
 msgstr "était le lieu de matriçage de"
 
+#: DB:link_type/long_link_phrase:757 DB:link_type/long_link_phrase:758
 #: DB:link_type/long_link_phrase:694 DB:link_type/long_link_phrase:696
 msgid "was the mixing location for"
 msgstr "était le lieu de mixage de"
 
-#: DB:link_type/long_link_phrase:698 DB:link_type/long_link_phrase:699
-#: DB:link_type/long_link_phrase:695 DB:link_type/long_link_phrase:693
+#: DB:link_type/long_link_phrase:695 DB:link_type/long_link_phrase:699
+#: DB:link_type/long_link_phrase:698 DB:link_type/long_link_phrase:693
 msgid "was the recording location for"
 msgstr "était le lieu d'enregistrement de"
 

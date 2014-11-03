@@ -1,0 +1,78 @@
+[% script_manifest('guess-case.js.manifest') %]
+[% script_manifest('edit.js.manifest') %]
+
+<p>
+  [%- l('An alias is an alternate name for an entity. They typically contain contain
+        common mispellings or variations of the name and are also used to improve search results.
+        View the {doc|alias documentation} for more details.', { doc => doc_link('Aliases') }) -%]
+</p>
+
+<form action="[% c.req.uri %]" method="post" class="edit-alias">
+  [% USE r = FormRenderer(form) %]
+  <div class="half-width">
+    <fieldset>
+      <legend>[% l('Alias Details') %]</legend>
+      [% form_row_text_long(r, 'name', l('Alias name:')) %]
+      [% WRAPPER form_row %]
+        [% r.label('sort_name', l('Sort name:')) %]
+        [% r.text('sort_name', { size => 47 })  %]
+        [% field_errors(form, 'sort_name') %]
+      [% END %]
+      [% form_row_select(r, 'locale', l('Locale:')) %]
+      <span id="allow_primary_for_locale" style="display: [% form.field('primary_for_locale').value ? 'block' : 'none' %]">
+        [% form_row_checkbox(r, 'primary_for_locale', l('This is the primary alias for this locale')) %]
+      </span>
+      [% form_row_select(r, 'type_id', l('Type:')) %]
+    </fieldset>
+
+    <fieldset>
+      <legend>[% l('Date Period') %]</legend>
+      <p>
+        [%- l('Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM
+               or just YYYY are OK, or you can omit the date entirely.') -%]
+      </p>
+      [% form_row_date(r, 'period.begin_date', l('Begin date:')) %]
+      [% form_row_date(r, 'period.end_date', l('End date:')) %]
+      [% form_row_checkbox(r, 'period.ended', l('This alias is no longer current.')) %]
+    </fieldset>
+
+    [% INCLUDE 'forms/edit-note.tt' %]
+    [% enter_edit() %]
+  </div>
+
+  <div class="documentation">
+    [%- show_guesscase_modes = entity_type == 'work' ? 1 : 0 -%]
+    [%- guesscase_bubble(show_guesscase_modes ? 0 : 1) -%]
+    [%- sortname_bubble() -%]
+  </div>
+</form>
+
+<script>//<![CDATA[
+(function () {
+    function togglePrimaryForLocale() {
+        var allowed = $('#id-edit-alias\\\.locale').val() != '';
+        $('#allow_primary_for_locale').toggle(allowed);
+        $('#allow_primary_for_locale input').prop('disabled', !allowed);
+    }
+
+    function denyDataForSearchHints() {
+        var conditionalFields = $('#id-edit-alias\\\.sort_name')
+            .add('#id-edit-alias\\\.locale')
+            .add('#id-edit-alias\\\.primary_for_locale')
+            .add('.partial-date input');
+
+        conditionalFields.prop('disabled',
+          $('#id-edit-alias\\\.type_id').val() == [% entity_properties.aliases.search_hint_type %]);
+    }
+
+    $('#id-edit-alias\\\.locale').keyup(togglePrimaryForLocale).change(togglePrimaryForLocale);
+    togglePrimaryForLocale();
+
+    $('#id-edit-alias\\\.type_id').keyup(denyDataForSearchHints).change(denyDataForSearchHints);
+    denyDataForSearchHints();
+
+    MB.Control.initialize_guess_case('[% entity_type %]', 'id-edit-alias');
+
+    MB.utility.setDefaultAction('form.edit-alias', 'button.submit.positive');
+}());
+//]]></script>

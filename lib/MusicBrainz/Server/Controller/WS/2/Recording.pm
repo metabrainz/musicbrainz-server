@@ -176,7 +176,6 @@ sub recording_search : Chained('root') PathPart('recording') Args(0)
     $c->detach('recording_submit') if $c->req->method eq 'POST';
     $c->detach('recording_browse') if ($c->stash->{linked});
 
-    my $result = $c->model('WebService')->xml_search('recording', $c->stash->{args});
     $self->_search($c, 'recording');
 }
 

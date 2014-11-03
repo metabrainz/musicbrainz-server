@@ -8,7 +8,6 @@ use MusicBrainz::Server::Constants qw(
     $SERIES_ORDERING_ATTRIBUTE
 );
 use MusicBrainz::Server::Data::Utils qw(
-    generate_gid
     hash_to_row
     type_to_model
     query_to_list_limited
@@ -37,9 +36,7 @@ with 'MusicBrainz::Server::Data::Role::Subscription' => {
     deleted_class => 'MusicBrainz::Server::Entity::Subscription::DeletedSeries'
 };
 
-sub _table {
-    return 'series';
-}
+sub _type { 'series' }
 
 sub _columns {
     return 'series.id, series.gid, series.name, series.comment, ' .
@@ -61,14 +58,6 @@ sub _column_mapping {
 
 sub _id_column {
     return 'series.id';
-}
-
-sub _gid_redirect_table {
-    return 'series_gid_redirect';
-}
-
-sub _entity_class {
-    return 'MusicBrainz::Server::Entity::Series';
 }
 
 sub _hash_to_row {
@@ -123,32 +112,21 @@ sub load
     load_subobjects($self, 'series', @objs);
 }
 
-sub insert {
-    my ($self, @series) = @_;
-
-    my $class = $self->_entity_class;
-    my @created;
-
-    my $ordering_attribute_id = $self->sql->select_single_value(
-        'SELECT id FROM link_attribute_type WHERE gid = ?', $SERIES_ORDERING_ATTRIBUTE
-    );
-
-    for my $series (@series) {
-        my $row = $self->_hash_to_row($series);
-        $row->{gid} = $series->{gid} || generate_gid();
-        $row->{ordering_attribute} = $ordering_attribute_id;
-
-        my $created = $class->new(
-            name => $series->{name},
-            id => $self->sql->insert_row('series', $row, 'id'),
-            gid => $row->{gid}
-        );
-
-        push @created, $created;
-    }
-
-    return @series > 1 ? @created : $created[0];
+sub _insert_hook_prepare {
+    my ($self) = @_;
+    return {
+        ordering_attribute_id => $self->sql->select_single_value(
+            'SELECT id FROM link_attribute_type WHERE gid = ?', $SERIES_ORDERING_ATTRIBUTE
+        ),
+    };
 }
+
+around _insert_hook_make_row => sub {
+    my ($orig, $self, $entity, $extra_data) = @_;
+    my $row = $self->$orig($entity, $extra_data);
+    $row->{ordering_attribute} = $extra_data->{ordering_attribute_id};
+    return $row;
+};
 
 sub update {
     my ($self, $series_id, $update) = @_;

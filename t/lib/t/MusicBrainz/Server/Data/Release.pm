@@ -388,7 +388,7 @@ $release = $release_data->insert({
     ]
 });
 
-$release = $release_data->get_by_id($release->id);
+$release = $release_data->get_by_id($release->{id});
 ok(defined $release, 'get release by id');
 is($release->name, 'Protection', 'release is called "Protection"');
 is($release->artist_credit_id, 1);

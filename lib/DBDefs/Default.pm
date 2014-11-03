@@ -95,6 +95,9 @@ sub WEB_SERVER                { "localhost:5000" }
 # Relevant only if SSL redirects are enabled
 sub WEB_SERVER_SSL            { "localhost" }
 sub LUCENE_SERVER             { "search.musicbrainz.org" }
+# Whether to use x-accel-redirect for webservice searches,
+# using /internal/search as the internal redirect
+sub LUCENE_X_ACCEL_REDIRECT   { 0 }
 # Used, for example, to have emails sent from the beta server list the
 # main server
 sub WEB_SERVER_USED_IN_EMAIL  { my $self = shift; $self->WEB_SERVER }

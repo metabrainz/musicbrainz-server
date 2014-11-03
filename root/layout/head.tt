@@ -12,6 +12,7 @@
         document.cookie = "javascript=true; path=/";
     //]]></script>
     [% css_manifest('common.css.manifest') %]
+    [% css_manifest('icons.css.manifest') UNLESS no_icons %]
     [%- IF c.debug -%]
         <link rel="stylesheet" type="text/css" href="/static/styles/debug.css" />
     [%- END %]

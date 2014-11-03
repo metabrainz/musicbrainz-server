@@ -52,6 +52,7 @@ require Exporter;
         is_valid_iso_3166_1
         is_valid_iso_3166_2
         is_valid_iso_3166_3
+        is_valid_partial_date
         encode_entities
         normalise_strings
         is_nat
@@ -61,7 +62,7 @@ require Exporter;
 
 use strict;
 use Carp qw( carp cluck croak );
-use Date::Calc qw( check_date Delta_YMD );
+use Date::Calc qw( check_date );
 use Encode qw( decode encode );
 use Scalar::Util qw( looks_like_number );
 use Text::Unaccent qw( unac_string_utf16 );
@@ -236,6 +237,18 @@ sub is_valid_iso_3166_3
     return $iso_3166_3 =~ /^[A-Z]{4}$/;
 }
 
+sub is_valid_partial_date
+{
+    my ($year, $month, $day) = @_;
+
+    # anything partial cannot be checked, and is therefore considered valid.
+    return 1 unless (defined $year && $month && $day);
+
+    return 1 if check_date($year, $month, $day);
+
+    return 0;
+}
+
 ################################################################################
 # Our own Mason "escape" handler
 ################################################################################
@@ -258,8 +271,15 @@ sub encode_entities
 sub normalise_strings
 {
     my @r = map {
+        my $t = $_;
+
+        # Using lc() on U+0130 LATIN CAPITAL LETTER I WITH DOT ABOVE turns it into U+0069 LATIN SMALL LETTER I
+        # and U+0307 COMBINING DOT ABOVE which causes problems later, so remove that before using lc().
+        # U+0131 LATIN SMALL LETTER DOTLESS I is not handled by the unaccent code, so replace that too while we're at it.
+        $t =~ tr/\x{0130}\x{0131}/i/;
+
         # Normalise to lower case
-        my $t = lc $_;
+        $t = lc $t;
 
         # Remove leading and trailing space
         $t =~ s/\A\s+//;
@@ -268,9 +288,17 @@ sub normalise_strings
         # Compress whitespace
         $t =~ s/\s+/ /g;
 
-        # So-called smart quotes; in reality, a backtick and an acute accent.
-        # Also double-quotes and angled double quotes.
-        $t =~ tr/\x{0060}\x{00B4}"\x{00AB}\x{00BB}/'/;
+        # Quotation marks and apostrophes
+        # 0060 grave accent, 00B4 acute accent, 00AB <<, 00BB >>, 02BB modifier letter turned comma (for Hawaiian)
+        # 05F3 hebrew geresh, 05F4 hebrew gershayim
+        # 2018 left single quote, 2019 right single quote, 201A low-9 single quote, 201B high-reversed-9 single quote
+        # 201C left double quote, 201D right double quote, 201E low-9 double quote, 201F high-reversed-9 double quote
+        # 2032 prime, 2033 double prime, 2039 <, 203A >
+        $t =~ tr/"\x{0060}\x{00B4}\x{00AB}\x{00BB}\x{02BB}\x{05F3}\x{05F4}\x{2018}-\x{201F}\x{2032}\x{2033}\x{2039}\x{203A}/'/;
+
+        # Dashes
+        # 05BE Hebrew maqaf, 2010 hyphen, 2012 figure dash, 2013 en-dash, 2212 minus
+        $t =~ tr/\x{05BE}\x{2010}\x{2012}\x{2013}\x{2212}/-/;
 
         # Unaccent what's left
         decode("utf-16", unaccent_utf16(encode("utf-16", $t)));

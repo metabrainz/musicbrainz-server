@@ -13,6 +13,8 @@ with
     'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'url' },
     'MusicBrainz::Server::Data::Role::Merge';
 
+sub _type { 'url' }
+
 my %URL_SPECIALIZATIONS = (
 
     # External links section
@@ -24,13 +26,17 @@ my %URL_SPECIALIZATIONS = (
     'Bandcamp'            => qr{^https?://([^/]+.)?bandcamp.com/}i,
     'Canzone'             => qr{^https?://(?:www.)?discografia.dds.it/}i,
     'CDBaby'              => qr{^https?://(?:www.)?cdbaby.com/}i,
+    'CiNii'               => qr{^https?://(?:www.)?ci.nii.ac.jp/}i,
     'Commons'             => qr{^https?://commons.wikimedia.org/wiki/File:}i,
     'DHHU'                => qr{^https?://(?:www.)?dhhu.dk/}i,
     'Discogs'             => qr{^https?://(?:www.)?discogs.com/}i,
     'DiscosDoBrasil'      => qr{^https?://(?:www.)?discosdobrasil.com.br/}i,
+    'DNB'                 => qr{^https?://(?:www.)?d-nb.info/}i,
     'Encyclopedisque'     => qr{^https?://(?:www.)?encyclopedisque.fr/}i,
     'ESTER'               => qr{^https?://(?:www.)?ester.ee/}i,
     'Facebook'            => qr{^https?://(?:www.)?facebook.com/}i,
+    'Finnmusic'           => qr{^https?://(?:www.)?finnmusic.net/}i,
+    'FonoFi'              => qr{^https?://(?:www.)?fono.fi/}i,
     'Generasia'           => qr{^https?://(?:www.)?generasia.com/wiki/}i,
     'Genius'              => qr{^https?://(?:[^/]+\.)?genius.com/}i,
     'GooglePlus'          => qr{^https?://(?:www.)?plus.google.com/}i,
@@ -43,6 +49,7 @@ my %URL_SPECIALIZATIONS = (
     'iTunes'              => qr{^https?://itunes.apple.com/}i,
     'ISRCTW'              => qr{^https?://(?:www.)?isrc.ncl.edu.tw/}i,
     'Jamendo'             => qr{^https?://(?:www.)?jamendo.com/}i,
+    'Japameta'            => qr{^https?://(?:www.)?japanesemetal.gooside.com/}i,
     'LastFM'              => qr{^https?://(?:www.)?last.fm/}i,
     'Lieder'              => qr{^https?://(?:www.)?recmusic.org/lieder/}i,
     'LyricWiki'           => qr{^https?://lyrics.wikia.com/}i,
@@ -51,9 +58,11 @@ my %URL_SPECIALIZATIONS = (
     'MusicMoz'            => qr{^https?://(?:www.)?musicmoz.org/}i,
     'MusikSammler'        => qr{^https?://(?:www.)?musik-sammler.de/}i,
     'MySpace'             => qr{^https?://(?:www.)?myspace.com/}i,
+    'NDL'                 => qr{^https?://(?:www.)?iss.ndl.go.jp/}i,
     'OCReMix'             => qr{^https?://(?:www.)?ocremix.org/}i,
     'OpenLibrary'         => qr{^https?://(?:www.)?openlibrary.org/}i,
     'Ozon'                => qr{^https?://(?:www.)?ozon.ru/}i,
+    'Pomus'               => qr{^https?://(?:www.)?pomus.net/}i,
     'PsyDB'               => qr{^https?://(?:www.)?psydb.net/}i,
     'PureVolume'          => qr{^https?://(?:www.)?purevolume.com/}i,
     'Rateyourmusic'       => qr{^https?://(?:www.)?rateyourmusic.com/}i,
@@ -65,6 +74,7 @@ my %URL_SPECIALIZATIONS = (
     'SecondHandSongs'     => qr{^https?://(?:www.)?secondhandsongs.com/}i,
     'Songfacts'           => qr{^https?://(?:www.)?songfacts.com/}i,
     'SoundCloud'          => qr{^https?://(?:www.)?soundcloud.com/}i,
+    'Stage48'             => qr{^https?://(?:www.)?stage48.net/}i,
     'STcollector'         => qr{^https?://(?:www.)?soundtrackcollector.com/}i,
     'Spotify'             => qr{^https?://([^/]+.)?spotify.com/}i,
     'SpiritOfMetal'       => qr{^https?://(?:www.)?spirit-of-metal.com/}i,
@@ -81,6 +91,7 @@ my %URL_SPECIALIZATIONS = (
     'Wikipedia'           => qr{^https?://([\w-]{2,})\.wikipedia.org/wiki/}i,
     'Worldcat'            => qr{^https?://(?:www.)?worldcat.org/}i,
     'YouTube'             => qr{^https?://(?:www.)?youtube.com/}i,
+    'Yunisan'             => qr{^https?://(?:www22.)?big.or.jp/}i,
 
     # License links
     'CCBY'              => qr{^http://creativecommons.org/licenses/by/}i,
@@ -97,16 +108,6 @@ my %URL_SPECIALIZATIONS = (
     'ArtLibre'          => qr{^http://artlibre.org/licence/lal}i,
 
 );
-
-sub _gid_redirect_table
-{
-    return 'url_gid_redirect';
-}
-
-sub _table
-{
-    return 'url';
-}
 
 sub _columns
 {
@@ -195,6 +196,8 @@ sub _hash_to_row
         url => 'url',
     });
 }
+
+sub insert { confess "Should not be used for URLs" }
 
 sub find_or_insert
 {

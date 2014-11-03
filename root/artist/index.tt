@@ -24,8 +24,6 @@
 END %]
 
 [%- WRAPPER "artist/layout.tt" page='index' -%]
-    [%- INCLUDE 'artist/annotation.tt' summary=1 -%]
-
     [% IF eligible_for_cleanup %]
       <p class="cleanup">
           [% l('This artist has no relationships, recordings, releases or
@@ -34,6 +32,8 @@ END %]
                 artist.') %]
       </p>
     [% END %]
+
+    [%- INCLUDE 'annotation/summary.tt' -%]
 
     [%- IF legal_name.defined;
         rel_artist_line(l('Legal name'), [ legal_name ]);

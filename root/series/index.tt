@@ -1,6 +1,4 @@
 [%- WRAPPER "series/layout.tt" page='index' -%]
-    [%- INCLUDE 'series/annotation.tt' summary=1 -%]
-
     [% IF eligible_for_cleanup %]
       <p class="cleanup">
           [% l('This series has no relationships and will be removed
@@ -8,6 +6,8 @@
                 please add more data to this series.') %]
       </p>
     [% END %]
+
+    [%- INCLUDE 'annotation/summary.tt' -%]
 
     [%- show_wikipedia_extract() -%]
 
@@ -22,7 +22,7 @@
       ELSIF series.type.entity_type == 'release';
         '<h2>' _ l('Releases') _ '</h2>';
         IF entities.size;
-          INCLUDE 'release_group/releases-list.tt'
+          INCLUDE 'components/releases-list.tt'
                   releases=entities no_checkboxes=1 show_artists=1
           WRAPPER 'components/with-pager.tt';
         END;

@@ -42,7 +42,7 @@ sub latest_annotation : Chained('load') PathPart('annotation')
     $c->stash(
         annotation => $annotation,
         number_of_revisions => scalar @$annotations,
-        template   => $self->action_namespace . '/annotation_revision.tt'
+        template   => 'annotation/revision.tt'
     );
 }
 
@@ -74,6 +74,7 @@ sub annotation_revision : Chained('load') PathPart('annotation') Args(1)
     $c->stash(
         annotation => $annotation,
         number_of_revisions => scalar @$annotations,
+        template   => 'annotation/revision.tt'
     );
 }
 
@@ -93,6 +94,7 @@ after 'load' => sub {
     my (undef, $no) = $c->model($self->{model})->annotation
         ->get_history($c->stash->{entity}->id, 50, 0);
 
+
     $c->stash(
         number_of_revisions => $no,
     );
@@ -105,6 +107,10 @@ sub edit_annotation : Chained('load') PathPart Edit
     my $entity = $c->stash->{entity};
     my $annotation_model = $c->model($model)->annotation;
     $annotation_model->load_latest($entity);
+
+    $c->stash(
+        template   => 'annotation/edit.tt',
+    );
 
     $self->edit_action($c,
         form        => 'Annotation',
@@ -145,7 +151,10 @@ sub annotation_history : Chained('load') PathPart('annotations') RequireAuth
     );
 
     $c->model('Editor')->load(@$annotations);
-    $c->stash( annotations => $annotations );
+    $c->stash(
+        template => 'annotation/history.tt',
+        annotations => $annotations
+    );
 }
 
 sub annotation_diff : Chained('load') PathPart('annotations-differences') RequireAuth
@@ -175,6 +184,7 @@ sub annotation_diff : Chained('load') PathPart('annotations-differences') Requir
     $c->model('Editor')->load($old_annotation);
 
     $c->stash(
+        template => 'annotation/diff.tt',
         old => $old_annotation,
         new => $new_annotation
     );
