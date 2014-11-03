@@ -391,6 +391,7 @@ sub load_locations
     for my $event (@events) {
         $event->add_place(@{ $places_map{$event->id} })
             if exists $places_map{$event->id};
+    }
 
     my %areas_map;
     $self->_find_areas(\@ids, \%areas_map);
