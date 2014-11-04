@@ -163,7 +163,7 @@ sub accept {
             for my $track ($medium->all_tracks) {
 
                 $self->c->model('Track')->update(
-                    $track->id, { artist_credit => $new_ac_id })
+                    $track->id, { artist_credit_id => $new_ac_id })
                     if ($track->artist_credit_id == $old_ac_id);
             }
         }

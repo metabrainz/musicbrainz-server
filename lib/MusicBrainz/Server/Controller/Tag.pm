@@ -54,6 +54,7 @@ sub show : Chained('load') PathPart('')
 
 map {
     my $entity_properties = $ENTITIES{$_};
+    my $url = $entity_properties->{url} // $_;
 
     my $method = sub {
         my ($self, $c) = @_;
@@ -67,7 +68,7 @@ map {
     };
 
     find_meta(__PACKAGE__)->add_method($_ => $method);
-    find_meta(__PACKAGE__)->register_method_attributes($method, [qw( Chained('Load') Local )]);
+    find_meta(__PACKAGE__)->register_method_attributes($method, ["Chained('load')", "PathPart('$url')"]);
 } entities_with('tags');
 
 sub not_found : Private

@@ -602,6 +602,7 @@ sub load_with_medium_for_recording
           medium.position AS m_position,
           medium.name AS m_name,
           medium.track_count AS m_track_count,
+          (SELECT count(*) FROM track WHERE medium = medium.id AND position > 0 AND is_data_track = false) AS m_cdtoc_track_count,
           track.id AS t_id,
           track.gid AS t_gid,
           track.name AS t_name,

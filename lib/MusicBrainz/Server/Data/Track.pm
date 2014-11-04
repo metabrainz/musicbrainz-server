@@ -6,6 +6,7 @@ use MusicBrainz::Server::Entity::Track;
 use MusicBrainz::Server::Data::Medium;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::Utils qw(
+    hash_to_row
     load_subobjects
     object_to_ids
     placeholders
@@ -144,6 +145,7 @@ sub _insert_hook_make_row {
 
     delete $track_hash->{id};
     $track_hash->{number} //= '';
+    $track_hash->{is_data_track} //= 0;
     my $row = $self->_create_row($track_hash);
 
     push @{ $extra_data->{recording_ids} }, $row->{recording};
@@ -218,21 +220,16 @@ sub merge_mediums
     }
 }
 
-sub _create_row
-{
+sub _create_row {
     my ($self, $track_hash) = @_;
 
-    my $mapping = $self->_column_mapping;
-    my %row = map {
-        my $mapped = $mapping->{$_} || $_;
-        $mapped => $track_hash->{$_}
-    } keys %$track_hash;
+    my $row = hash_to_row($track_hash, { reverse %{ $self->_column_mapping } });
 
-    if (exists $row{length} && defined($row{length})) {
-        $row{length} = undef if $row{length} == 0;
+    if (exists $row->{length} && defined($row->{length})) {
+        $row->{length} = undef if $row->{length} == 0;
     }
 
-    return { %row };
+    return $row;
 }
 
 __PACKAGE__->meta->make_immutable;

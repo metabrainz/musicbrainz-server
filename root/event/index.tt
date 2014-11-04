@@ -13,7 +13,7 @@
 [% END %]
 
 [%- WRAPPER "event/layout.tt" page='index' -%]
-    [%- INCLUDE 'event/annotation.tt' summary=1 -%]
+    [%- INCLUDE 'annotation/summary.tt' -%]
 
     [% IF eligible_for_cleanup %]
       <p class="cleanup">
