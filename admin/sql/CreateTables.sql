@@ -1862,12 +1862,13 @@ CREATE TABLE editor_collection
     name                VARCHAR NOT NULL,
     public              BOOLEAN NOT NULL DEFAULT FALSE,
     description         TEXT DEFAULT '' NOT NULL,
-    type                INTEGER -- references editor_collection_type.id
+    type                INTEGER NOT NULL -- references editor_collection_type.id
 );
 
 CREATE TABLE editor_collection_type ( -- replicate
     id                  SERIAL,
     name                VARCHAR(255) NOT NULL,
+    entity_type         VARCHAR(50) NOT NULL,
     parent              INTEGER, -- references editor_collection_type.id
     child_order         INTEGER NOT NULL DEFAULT 0,
     description         TEXT
