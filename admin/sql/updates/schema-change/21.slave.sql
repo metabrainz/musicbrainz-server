@@ -422,6 +422,13 @@ INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max) VALUE
 
 \unset EVENT_PART_OF_SERIES_GID
 
+-- Event types
+INSERT INTO event_type (id, name, parent, child_order, description) VALUES
+        (1, 'Concert', NULL, 1, 'An individual concert by a single artist or collaboration, often with supporting artists who perform before the main act.'),
+        (2, 'Festival', NULL, 2, 'An event where a number of different acts perform across the course of the day. Larger festivals may be spread across multiple days.'),
+        (3, 'Launch event', NULL, 3, 'A party, reception or other event held specifically for the launch of a release'),
+        (4, 'Convention/Expo', NULL, 4, 'A convention, expo or trade fair is an event which is not typically orientated around music performances, but can include them as side activities');
+
 --------------------
 -- CREATE INDEXES --
 --------------------
