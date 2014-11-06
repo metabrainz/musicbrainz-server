@@ -1038,68 +1038,34 @@ DECLARE
 BEGIN
   SELECT ARRAY(
     SELECT id FROM url url_row WHERE id = any(ids)
-    AND NOT (
-      EXISTS (
-        SELECT TRUE FROM l_area_url
-        WHERE entity1 = url_row.id
-        LIMIT 1
-      ) OR
-      EXISTS (
-        SELECT TRUE FROM l_artist_url
-        WHERE entity1 = url_row.id
-        LIMIT 1
-      ) OR
-      EXISTS (
-        SELECT TRUE FROM l_event_url
-        WHERE entity1 = url_row.id
-        LIMIT 1
-      ) OR
-      EXISTS (
-        SELECT TRUE FROM l_instrument_url
-        WHERE entity1 = url_row.id
-        LIMIT 1
-      ) OR
-      EXISTS (
-        SELECT TRUE FROM l_label_url
-        WHERE entity1 = url_row.id
-        LIMIT 1
-      ) OR
-      EXISTS (
-        SELECT TRUE FROM l_place_url
-        WHERE entity1 = url_row.id
-        LIMIT 1
-      ) OR
-      EXISTS (
-        SELECT TRUE FROM l_recording_url
-        WHERE entity1 = url_row.id
-        LIMIT 1
-      ) OR
-      EXISTS (
-        SELECT TRUE FROM l_release_url
-        WHERE entity1 = url_row.id
-        LIMIT 1
-      ) OR
-      EXISTS (
-        SELECT TRUE FROM l_release_group_url
-        WHERE entity1 = url_row.id
-        LIMIT 1
-      ) OR
-      EXISTS (
-        SELECT TRUE FROM l_series_url
-        WHERE entity1 = url_row.id
-        LIMIT 1
-      ) OR
-      EXISTS (
-        SELECT TRUE FROM l_url_url
-        WHERE entity0 = url_row.id OR entity1 = url_row.id
-        LIMIT 1
-      ) OR
-      EXISTS (
-        SELECT TRUE FROM l_url_work
-        WHERE entity0 = url_row.id
-        LIMIT 1
-      )
-    )
+    EXCEPT
+    SELECT url FROM edit_url JOIN edit ON (edit.id = edit_url.edit) WHERE edit.status = 1
+    EXCEPT
+    SELECT entity1 FROM l_area_url
+    EXCEPT
+    SELECT entity1 FROM l_artist_url
+    EXCEPT
+    SELECT entity1 FROM l_event_url
+    EXCEPT
+    SELECT entity1 FROM l_instrument_url
+    EXCEPT
+    SELECT entity1 FROM l_label_url
+    EXCEPT
+    SELECT entity1 FROM l_place_url
+    EXCEPT
+    SELECT entity1 FROM l_recording_url
+    EXCEPT
+    SELECT entity1 FROM l_release_url
+    EXCEPT
+    SELECT entity1 FROM l_release_group_url
+    EXCEPT
+    SELECT entity1 FROM l_series_url
+    EXCEPT
+    SELECT entity1 FROM l_url_url
+    EXCEPT
+    SELECT entity0 FROM l_url_url
+    EXCEPT
+    SELECT entity0 FROM l_url_work
   ) INTO clear_up;
 
   DELETE FROM url_gid_redirect WHERE new_id = any(clear_up);
