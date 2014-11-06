@@ -9,13 +9,13 @@ sub query {
 WITH duplicates AS (
     SELECT event.begin_date_year AS begin_date_year, event.begin_date_month AS begin_date_month, 
      event.begin_date_day AS begin_date_day, l_event_place.entity1 AS entity1
-    FROM event JOIN l_event_place ON event.id=l_event_place.entity0
+    FROM event JOIN l_event_place ON event.id = l_event_place.entity0
     GROUP BY l_event_place.entity1, event.begin_date_year, event.begin_date_month, event.begin_date_day
     HAVING COUNT(*) > 1
 ) 
 
-SELECT event.id AS event_id, row_number() OVER ( ORDER BY event.name )
-FROM event JOIN l_event_place ON event.id=l_event_place.entity0 
+SELECT event.id AS event_id, row_number() OVER ( ORDER BY musicbrainz_collate(place.name), event.begin_date_year, event.begin_date_month, event.begin_date_day )
+FROM event JOIN l_event_place ON event.id = l_event_place.entity0 JOIN place ON place.id = l_event_place.entity1
 JOIN duplicates on duplicates.begin_date_year = event.begin_date_year AND duplicates.begin_date_month = event.begin_date_month 
 AND duplicates.begin_date_day = event.begin_date_day AND l_event_place.entity1 = duplicates.entity1
 
