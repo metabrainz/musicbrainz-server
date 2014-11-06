@@ -12,7 +12,8 @@ around inflate_rows => sub {
     my $events = $self->c->model('Event')->get_by_ids(
         map { $_->{event_id} } @$items
     );
-    $self->$c->model('Event')->load_related_info(values %$events);
+
+    $self->c->model('Event')->load_related_info(values %$events);
 
     return [
         map +{

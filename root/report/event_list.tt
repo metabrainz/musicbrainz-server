@@ -1,0 +1,60 @@
+[%- WRAPPER 'components/with-pager.tt' -%]
+<table class="tbl">
+    <thead>
+        <tr>
+            [% BLOCK extra_header_start %][% END %]
+            [%- PROCESS extra_header_start -%]
+            <th>[% l('Event') %]</th>
+            <th>[% l('Type') %]</th>
+            <th>[% l('Artists') %]</th>
+            <th>[% l('Location') %]</th>
+            <th>[% l('Date') %]</th>
+            <th>[% l('Time') %]</th>
+            [% BLOCK extra_header_end %][% END %]
+            [%- PROCESS extra_header_end -%]
+        </tr>
+    </thead>
+    <tbody>
+        [%- FOR item IN items -%]
+        <tr class="[% loop.parity %]">
+            [% BLOCK extra_row_start %][% END %]
+            [%- PROCESS extra_row_start -%]
+            <td>[% link_entity(item.event) %]</td>
+            <td>[% item.event.l_type_name  %]</td>
+            <td>
+                <ul>
+                    [% FOR rel_artist=item.event.performers %]
+                    <li>
+                      [% l('{artist} ({roles})', { artist => link_artist(rel_artist.entity),
+                                                   roles  => rel_artist.roles.join(', ') }) %]</li>
+                    [% END %]
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    [% FOR rel_place=item.event.places %]
+                      <li>[% l('{place}', { place => link_place(rel_place.entity) }) %]</li>
+                    [% END %]
+                    [% FOR rel_area=item.event.areas %]
+                       <li>[% l('{area}', { area => link_area(rel_area.entity) }) %]</li>
+                    [% END %]
+                </ul>
+            </td>
+                [%- IF item.event.begin_date.format == item.event.end_date.format %]
+                    <td>[% item.event.begin_date.format %]</td>
+                [%- ELSIF item.event.begin_date.format && item.event.end_date.format %]
+                    <td>[% l('{begindate} &#x2013; {enddate}', { begindate => item.event.begin_date.format,
+                                                                 enddate   => item.event.end_date.format }) %]</td>
+                [% ELSIF item.event.begin_date.format %]
+                    <td>[% l('{begindate} &#x2013; ????', { begindate => item.event.begin_date.format }) %]</td>
+                [% ELSIF item.event.end_date.format %]
+                    <td>[% l('???? &#x2013; {enddate}', { enddate   => item.event.end_date.format }) %]</td>
+                [%- END -%]
+            <td>[% item.event.formatted_time %]</td>
+            [% BLOCK extra_row_end %][% END %]
+            [%- PROCESS extra_row_end -%]
+        </tr>
+        [%- END -%]
+    </tbody>
+</table>
+[%- END -%]
