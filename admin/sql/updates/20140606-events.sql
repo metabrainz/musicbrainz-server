@@ -402,8 +402,24 @@ INSERT INTO orderable_link_type (link_type, direction) VALUES
 
 ALTER TABLE series_type DROP CONSTRAINT IF EXISTS allowed_series_entity_type;
 
-INSERT INTO series_type (name, entity_type, parent, child_order, description) VALUES
-    ('Event', 'event', NULL, 5, 'Indicates that the series is of events.');
+INSERT INTO series_type (id, name, entity_type, parent, child_order, description) VALUES
+    (6, 'Event', 'event', NULL, 5, 'Indicates that the series is of events.'),
+    (7, 'Tour', 'event', 6, 0, 'Indicates a series of related concerts by an artist in different locations.'),
+    (8, 'Festival', 'event', 6, 1, 'Indicates a recurring festival, usually happening anually in the same location.'),
+    (9, 'Run', 'event', 6, 2, 'Indicates a series of performances of the same show at the same place.');
+
+ALTER TABLE series_type ADD CONSTRAINT allowed_series_entity_type
+  CHECK (
+    entity_type IN (
+      'event',
+      'recording',
+      'release',
+      'release_group',
+      'work'
+    )
+  );
+
+INSERT INTO event_alias_type (name) VALUES ('Event name'), ('Search hint');
 
 INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max) VALUES
     ((SELECT id FROM link_type WHERE gid = :EVENT_PART_OF_SERIES_GID),
