@@ -83,9 +83,13 @@ sub show : PathPart('') Chained('load')
 {
     my ($self, $c) = @_;
 
-    $c->model('Event')->load_performers($c->stash->{event});
+    my $event = $c->stash->{event};
+
+    $c->model('Event')->load_performers($event);
 
     $c->stash(template => 'event/index.tt');
+
+    $c->model('Relationship')->load($event->related_series);
 }
 
 =head2 collections
