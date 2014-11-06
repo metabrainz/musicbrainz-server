@@ -124,6 +124,31 @@ ALTER TABLE event_tag_raw ADD CONSTRAINT event_tag_raw_fk_tag FOREIGN KEY (tag) 
 
 ALTER TABLE event_type ADD CONSTRAINT event_type_fk_parent FOREIGN KEY (parent) REFERENCES event_type(id);
 
+--------------
+-- triggers --
+--------------
+
+CREATE TRIGGER b_upd_event BEFORE UPDATE ON event
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON event
+    FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
+
+CREATE TRIGGER b_upd_event_alias BEFORE UPDATE ON event_alias
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON event_alias
+    FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
+
+CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON event_alias
+    FOR EACH ROW EXECUTE PROCEDURE unique_primary_event_alias();
+
+CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON event_alias
+    FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(2);
+
+CREATE TRIGGER b_upd_event_tag BEFORE UPDATE ON event_tag
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
 --------------------------------------------------------------------------------
 SELECT '20140906-event-collections-fks.sql';
 
