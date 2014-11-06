@@ -29,7 +29,8 @@ MB.constants.LINK_TYPES = {
         area: 355,
         place: 595,
         instrument: 731,
-        series: 744
+        series: 744, 
+        event: 758  // TO-DO: Fix to real ID
     },
     discogs: {
         artist: 180,
@@ -124,7 +125,9 @@ MB.constants.LINK_TYPES = {
     socialnetwork: {
         artist: 192,
         label: 218,
-        place: 429
+        place: 429,
+        series: 764, // TO-DO: Fix to real ID
+        event: 765 // TO-DO: Fix to real ID
     },
     soundcloud: {
         artist: 291,
@@ -150,13 +153,16 @@ MB.constants.LINK_TYPES = {
     vgmdb: {
         artist: 191,
         label: 210,
-        release: 86
+        release: 86,
+        event: 755 // TO-DO: Fix to real ID
     },
     youtube: {
         artist: 193,
         label: 225,
         recording: 268,
-        place: 528
+        place: 528,
+        series: 763, // TO-DO: Fix to real ID
+        event: 762 // TO-DO: Fix to real ID
     },
     otherdatabases: {
         artist: 188,
@@ -181,11 +187,17 @@ MB.constants.LINK_TYPES = {
         work: 351,
         place: 594,
         instrument: 733,
-        series: 749
+        series: 749,
+        event: 758  // TO-DO: Fix to real ID
     },
     bandcamp: {
         artist: 718,
         label: 719
+    },
+    songkick: {
+        artist: 761,  // TO-DO: Fix to real ID
+        event: 754,  // TO-DO: Fix to real ID
+        place: 760  // TO-DO: Fix to real ID
     },
     imslp: {
         artist: 754
@@ -559,6 +571,10 @@ MB.constants.CLEANUPS = {
             return url.replace(/^(?:https?:\/\/)?([^\/]+)\.bandcamp\.com(?:\/(((album|track)\/([^\/\?]+)))?)?.*$/, "http://$1.bandcamp.com/$2");
         }
     },
+    songkick: {
+        match: [ new RegExp("^(https?://)?([^/]+\\.)?songkick\\.com","i") ],
+        type: MB.constants.LINK_TYPES.songkick
+    },
     imslp: {
         match: [ new RegExp("^(https?://)?(www\\.)?imslp\\.org/", "i") ],
         type: MB.constants.LINK_TYPES.imslp
@@ -787,6 +803,9 @@ MB.Control.URLCleanup = function (options) {
     validationRules[ MB.constants.LINK_TYPES.vgmdb.label ] = function (url) {
         return url.match(/vgmdb\.net\/org\//) != null;
     }
+    validationRules[ MB.constants.LINK_TYPES.vgmdb.event ] = function (url) {
+        return url.match(/vgmdb\.net\/event\//) != null;
+    }
 
     // allow only YouTube pages with the YouTube rel
     validationRules[ MB.constants.LINK_TYPES.youtube.artist ] = function (url) {
@@ -844,6 +863,17 @@ MB.Control.URLCleanup = function (options) {
     }
     validationRules[ MB.constants.LINK_TYPES.bandcamp.label ] = function (url) {
         return url.match(/\.bandcamp\.com\/$/) != null;
+    }
+
+    // allow only Songkick pages with the Songkick rel
+    validationRules[ MB.constants.LINK_TYPES.songkick.artist ] = function (url) {
+        return url.match(/songkick\.com\/artists\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.songkick.event ] = function (url) {
+        return url.match(/songkick\.com\/concerts\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.songkick.place ] = function (url) {
+        return url.match(/songkick\.com\/venues\//) != null;
     }
 
     // allow only IMSLP pages with the IMSLP rel

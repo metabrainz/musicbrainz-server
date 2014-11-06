@@ -32,8 +32,11 @@
                             </td>
                             <td>
                               <ul>
-                                [% FOR rel_place=result.entity.locations %]
+                                [% FOR rel_place=result.entity.places %]
                                   <li>[% l('{place}', { place => link_place(rel_place.entity) }) %]</li>
+                                [% END %]
+                                [% FOR rel_area=result.entity.areas %]
+                                  <li>[% l('{area}', { area => link_area(rel_area.entity) }) %]</li>
                                 [% END %]
                               </ul>
                             </td>

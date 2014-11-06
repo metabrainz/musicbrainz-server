@@ -132,6 +132,78 @@ sub delete_releases
               WHERE release IN (".placeholders(@ids).")", @ids);
 }
 
+sub add_events_to_collection
+{
+    my ($self, $collection_id, @event_ids) = @_;
+    return unless @event_ids;
+
+    $self->sql->auto_commit;
+
+    my @collection_ids = ($collection_id) x @event_ids;
+    $self->sql->do("
+        INSERT INTO editor_collection_event (collection, event)
+           SELECT DISTINCT add.collection, add.event
+             FROM (VALUES " . join(', ', ("(?::integer, ?::integer)") x @event_ids) . ") add (collection, event)
+            WHERE NOT EXISTS (
+              SELECT TRUE FROM editor_collection_event
+              WHERE collection = add.collection AND event = add.event
+              LIMIT 1
+            )", zip @collection_ids, @event_ids);
+}
+
+sub remove_events_from_collection
+{
+    my ($self, $collection_id, @event_ids) = @_;
+    return unless @event_ids;
+
+    $self->sql->auto_commit;
+    $self->sql->do("DELETE FROM editor_collection_event
+              WHERE collection = ? AND event IN (" . placeholders(@event_ids) . ")",
+              $collection_id, @event_ids);
+}
+
+sub check_event
+{
+    my ($self, $collection_id, $event_id) = @_;
+
+    return $self->sql->select_single_value("
+        SELECT 1 FROM editor_collection_event
+        WHERE collection = ? AND event = ?",
+        $collection_id, $event_id) ? 1 : 0;
+}
+
+sub merge_events
+{
+    my ($self, $new_id, @old_ids) = @_;
+
+    my @ids = ($new_id, @old_ids);
+
+    # Remove duplicate joins (ie, rows with event from @old_ids and pointing to
+    # a collection that already contains $new_id)
+    $self->sql->do(
+        "DELETE FROM editor_collection_event
+               WHERE event IN (" . placeholders(@ids) . ")
+                 AND (collection, event) NOT IN (
+                     SELECT DISTINCT ON (collection) collection, event
+                       FROM editor_collection_event
+                      WHERE event IN (" . placeholders(@ids) . ")
+                 )",
+        @ids, @ids);
+
+    # Move all remaining joins to the new event
+    $self->sql->do("UPDATE editor_collection_event SET event = ?
+              WHERE event IN (".placeholders(@ids).")",
+              $new_id, @ids);
+}
+
+sub delete_events
+{
+    my ($self, @ids) = @_;
+
+    $self->sql->do("DELETE FROM editor_collection_event
+              WHERE event IN (".placeholders(@ids).")", @ids);
+}
+
 sub find_by_editor
 {
     my ($self, $id, $show_private, $limit, $offset) = @_;
@@ -163,6 +235,21 @@ sub find_all_by_editor
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                  WHERE editor=? ";
+
+    $query .= "ORDER BY musicbrainz_collate(name)";
+    return query_to_list(
+        $self->c->sql, sub { $self->_new_from_row(@_) },
+        $query, $id);
+}
+
+sub find_all_by_event
+{
+    my ($self, $id) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                    JOIN editor_collection_event cr
+                        ON editor_collection.id = cr.collection
+                 WHERE cr.event = ? ";
 
     $query .= "ORDER BY musicbrainz_collate(name)";
     return query_to_list(
@@ -205,6 +292,25 @@ around _insert_hook_make_row => sub {
     return $row;
 };
 
+sub load_event_count {
+    my ($self, @collections) = @_;
+    return unless @collections;
+    my %collection_map = map { $_->id => $_ } grep { defined } @collections;
+    my $query =
+        'SELECT id, coalesce(
+           (SELECT count(event)
+              FROM editor_collection_event
+             WHERE collection = col.id), 0)
+           FROM (
+              VALUES '. join(', ', ("(?::integer)") x keys %collection_map) .'
+                ) col (id)';
+
+    for my $row (@{ $self->sql->select_list_of_lists($query, keys %collection_map) }) {
+        my ($id, $count) = @$row;
+        $collection_map{$id}->event_count($count);
+    }
+}
+
 sub load_release_count {
     my ($self, @collections) = @_;
     return unless @collections;
@@ -240,6 +346,10 @@ sub delete
     return unless @collection_ids;
 
     $self->sql->begin;
+
+    # Remove all events associated with the collection(s)
+    $self->sql->do('DELETE FROM editor_collection_event
+                    WHERE collection IN (' . placeholders(@collection_ids) . ')', @collection_ids);
 
     # Remove all releases associated with the collection(s)
     $self->sql->do('DELETE FROM editor_collection_release

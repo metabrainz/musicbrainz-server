@@ -299,6 +299,7 @@ sub collections : Chained('load') PathPart('collections')
         my ($collections, $hits) = $c->model('Collection')->find_by_editor($user->id, $show_private, shift, shift);
         return ($collections, $hits);
     });
+    $c->model('Collection')->load_event_count(@$collections);
     $c->model('Collection')->load_release_count(@$collections);
     $c->model('CollectionType')->load(@$collections);
 

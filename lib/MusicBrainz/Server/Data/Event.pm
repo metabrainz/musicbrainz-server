@@ -172,6 +172,30 @@ sub load_related_info {
     $c->model('EventType')->load(@events);
 }
 
+sub find_by_area
+{
+    my ($self, $area_id, $limit, $offset) = @_;
+
+    my $query =
+        'SELECT ' . $self->_columns .'
+           FROM (
+                    SELECT entity1 AS event
+                      FROM l_area_event ar
+                      JOIN link ON ar.link = link.id
+                      JOIN link_type lt ON lt.id = link.link_type
+                     WHERE entity0 = ?
+                ) s, ' . $self->_table .'
+          WHERE event.id = s.event
+       ORDER BY event.begin_date_year, event.begin_date_month, event.begin_date_day, event.time, musicbrainz_collate(event.name)
+         OFFSET ?';
+
+    return query_to_list_limited(
+        $self->c->sql, $offset, $limit, sub {
+            $self->_new_from_row(shift);
+        },
+        $query, $area_id, $offset || 0);
+}
+
 sub find_by_artist
 {
     my ($self, $artist_id, $limit, $offset) = @_;
@@ -186,15 +210,32 @@ sub find_by_artist
                      WHERE entity0 = ?
                 ) s, ' . $self->_table .'
           WHERE event.id = s.event
-       ORDER BY musicbrainz_collate(event.name)
+       ORDER BY event.begin_date_year, event.begin_date_month, event.begin_date_day, event.time, musicbrainz_collate(event.name)
          OFFSET ?';
 
-    # We actually use this for the side effect in the closure
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub {
             $self->_new_from_row(shift);
         },
         $query, $artist_id, $offset || 0);
+}
+
+sub find_by_collection
+{
+    my ($self, $collection_id, $limit, $offset) = @_;
+
+    my $query = "
+      SELECT DISTINCT ON (event.id)
+        " . $self->_columns . "
+        FROM " . $self->_table . "
+        JOIN editor_collection_event ece ON event.id = ece.event
+        WHERE ece.collection = ?
+        ORDER BY begin_date_year, begin_date_month, begin_date_day, time, musicbrainz_collate(name)
+      OFFSET ?";
+
+    return query_to_list_limited(
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $collection_id, $offset || 0);
 }
 
 sub find_by_place
@@ -211,10 +252,9 @@ sub find_by_place
                      WHERE entity1 = ?
                 ) s, ' . $self->_table .'
           WHERE event.id = s.event
-       ORDER BY musicbrainz_collate(event.name)
+       ORDER BY event.begin_date_year, event.begin_date_month, event.begin_date_day, event.time, musicbrainz_collate(event.name)
          OFFSET ?';
 
-    # We actually use this for the side effect in the closure
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub {
             $self->_new_from_row(shift);
@@ -222,10 +262,10 @@ sub find_by_place
         $query, $place_id, $offset || 0);
 }
 
-=method find_artists
+=method find_related_entities
 
-This method will return a map with lists of artist names for the given
-event.
+This method will return a map with lists of artists and locations 
+for the given event. 
 
 =cut
 
@@ -236,27 +276,36 @@ sub find_related_entities
     my @ids = map { $_->id } @$events;
     return () unless @ids;
 
-    my (%performers, %locations);
+    my (%performers, %places, %areas);
     $self->_find_performers(\@ids, \%performers);
-    $self->_find_locations(\@ids, \%locations);
+    $self->_find_places(\@ids, \%places);
+    $self->_find_areas(\@ids, \%areas);
 
     my %map = map +{
         $_ => {
             performers => { hits => 0, results => [] },
-            locations => { hits => 0, results => [] }
+            places => { hits => 0, results => [] },
+            areas => { hits => 0, results => [] }
         }
     }, @ids;
 
     for my $event_id (@ids) {
         my @performers = uniq map { $_->{entity}->name } @{ $performers{$event_id} };
-        my @locations = uniq map { $_->{entity}->name } @{ $locations{$event_id} };
+        my @places = uniq map { $_->{entity}->name } @{ $places{$event_id} };
+        my @areas = uniq map { $_->{entity}->name } @{ $areas{$event_id} };
 
         $map{$event_id} = {
-            locations => {
-                hits => scalar @locations,
-                results => $limit && scalar @locations > $limit
-                    ? [ @locations[ 0 .. ($limit-1) ] ]
-                    : \@locations,
+            places => {
+                hits => scalar @places,
+                results => $limit && scalar @places > $limit
+                    ? [ @places[ 0 .. ($limit-1) ] ]
+                    : \@places,
+            },
+            areas => {
+                hits => scalar @areas,
+                results => $limit && scalar @areas > $limit
+                    ? [ @areas[ 0 .. ($limit-1) ] ]
+                    : \@areas,
             },
             performers => {
                 hits => scalar @performers,
@@ -325,8 +374,7 @@ sub _find_performers
 
 =method load_locations
 
-This method will load the event's locations based on the event-place
-and event-area relationships.
+This method will load the event's locations based on the event-place and event-area relationships.
 
 =cut
 
@@ -334,19 +382,26 @@ sub load_locations
 {
     my ($self, @events) = @_;
 
-    @events = grep { scalar $_->all_locations == 0 } @events;
+    @events = grep { (scalar $_->all_places == 0) && (scalar $_->all_areas == 0) } @events;
     my @ids = map { $_->id } @events;
     return () unless @ids;
 
-    my %map;
-    $self->_find_locations(\@ids, \%map);
+    my %places_map;
+    $self->_find_places(\@ids, \%places_map);
     for my $event (@events) {
-        $event->add_location(@{ $map{$event->id} })
-            if exists $map{$event->id};
+        $event->add_place(@{ $places_map{$event->id} })
+            if exists $places_map{$event->id};
+    }
+
+    my %areas_map;
+    $self->_find_areas(\@ids, \%areas_map);
+    for my $event (@events) {
+        $event->add_area(@{ $areas_map{$event->id} })
+            if exists $areas_map{$event->id};
     }
 }
 
-sub _find_locations
+sub _find_places
 {
     my ($self, $ids, $map) = @_;
     return unless @$ids;
@@ -371,6 +426,35 @@ sub _find_locations
         $map->{$event_id} ||= [];
         push @{ $map->{$event_id} }, {
             entity => $places->{$place_id}
+        }
+    }
+}
+
+sub _find_areas
+{
+    my ($self, $ids, $map) = @_;
+    return unless @$ids;
+
+    my $query = "
+        SELECT lare.entity1 AS event, lare.entity0 AS area
+        FROM l_area_event lare
+        JOIN link l ON lare.link = l.id
+        JOIN link_type lt ON l.link_type = lt.id
+        WHERE lare.entity1 IN (" . placeholders(@$ids) . ")
+        GROUP BY lare.entity1, lare.entity0
+        ORDER BY count(*) DESC, area
+    ";
+
+    my $rows = $self->sql->select_list_of_lists($query, @$ids);
+
+    my @area_ids = map { $_->[1] } @$rows;
+    my $areas = $self->c->model('Area')->get_by_ids(@area_ids);
+
+    for my $row (@$rows) {
+        my ($event_id, $area_id) = @$row;
+        $map->{$event_id} ||= [];
+        push @{ $map->{$event_id} }, {
+            entity => $areas->{$area_id}
         }
     }
 }

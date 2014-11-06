@@ -20,7 +20,7 @@
 
   <tr>
     <th>[% l('Cancelled:') %]</th>
-    <td>[% edit.display_data.cancelled ? l('Yes') : l('No') %]</td>
+    <td>[% yesno(edit.display_data.cancelled) %]</td>
   </tr>
 
   [% IF edit.display_data.type %]

@@ -154,6 +154,8 @@ END -%]
             l('artists');
         CASE 'area';
             l('areas');
+        CASE 'event';
+            l('events');
         CASE 'instrument';
             l('instruments');
         CASE 'label';

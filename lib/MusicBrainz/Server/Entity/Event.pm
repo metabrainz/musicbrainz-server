@@ -15,6 +15,7 @@ with 'MusicBrainz::Server::Entity::Role::Rating';
 use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( ArrayRef Object Str );
 use MusicBrainz::Server::Types qw( Time );
+use List::UtilsBy qw( uniq_by );
 
 has 'type_id' => (
     is => 'rw',
@@ -81,7 +82,7 @@ has 'performers' => (
     }
 );
 
-has 'locations' => (
+has 'places' => (
     traits => [ 'Array' ],
     is => 'ro',
     isa => ArrayRef[
@@ -91,10 +92,35 @@ has 'locations' => (
     ],
     default => sub { [] },
     handles => {
-        add_location => 'push',
-        all_locations => 'elements',
+        add_place => 'push',
+        all_places => 'elements',
     }
 );
+
+has 'areas' => (
+    traits => [ 'Array' ],
+    is => 'ro',
+    isa => ArrayRef[
+        Dict[
+            entity => Object
+        ]
+    ],
+    default => sub { [] },
+    handles => {
+        add_area => 'push',
+        all_areas => 'elements',
+    }
+);
+
+sub related_series {
+    my $self = shift;
+    return uniq_by { $_->id }
+    map {
+        $_->entity1
+    } grep {
+        $_->link && $_->link->type && $_->link->type->entity1_type eq 'series'
+    } $self->all_relationships;
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
