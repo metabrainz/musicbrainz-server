@@ -31,7 +31,7 @@
   </thead>
   <tbody>
     [%~ FOR event IN events ~%]
-    <tr class="[%~ loop.index % 2 == 0 ? 'ev' : 'odd' ~%]">
+    <tr class="[% loop.parity %]">
       [%~ IF c.user_exists AND !no_checkboxes ~%]
       <td>
         <input type="checkbox" name="add-to-merge" value="[%~ event.id ~%]" />
