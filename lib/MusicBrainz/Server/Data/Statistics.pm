@@ -319,6 +319,32 @@ my %stats = (
         DESC => "Artists in no artist credits",
         SQL => "SELECT COUNT(DISTINCT artist.id) FROM artist LEFT OUTER JOIN artist_credit_name ON artist.id = artist_credit_name.artist WHERE artist_credit_name.artist_credit IS NULL",
     },
+    "count.event" => {
+        DESC => "Count of all events",
+        SQL => "SELECT COUNT(*) FROM event",
+    },
+    "count.event.type" => {
+        DESC => "Distribution of events by type",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT COALESCE(type.id::text, 'null'), COUNT(event.id) AS count
+                 FROM event_type type
+                 FULL OUTER JOIN event ON event.type = type.id
+                 GROUP BY type.id",
+            );
+
+            my %dist = map { @$_ } @$data;
+            $dist{null} ||= 0;
+
+            +{
+                map {
+                    "count.event.type.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
     "count.instrument" => {
         DESC => "Count of all instruments",
         SQL => "SELECT COUNT(*) FROM instrument",
@@ -610,6 +636,7 @@ my %stats = (
                 WITH tag_editors AS (
                   SELECT editor FROM artist_tag_raw
                   UNION SELECT editor FROM area_tag_raw
+                  UNION SELECT editor FROM area_event_raw
                   UNION SELECT editor FROM instrument_tag_raw
                   UNION SELECT editor FROM label_tag_raw
                   UNION SELECT editor FROM place_tag_raw
@@ -621,6 +648,7 @@ my %stats = (
                 ),
                 rating_editors AS (
                   SELECT editor FROM artist_rating_raw
+                  UNION SELECT editor FROM event_rating_raw
                   UNION SELECT editor FROM label_rating_raw
                   UNION SELECT editor FROM recording_rating_raw
                   UNION SELECT editor FROM work_rating_raw

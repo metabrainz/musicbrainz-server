@@ -32,6 +32,7 @@ sub statistics : Path('')
     my @place_types = sort_by { $_->l_name } $c->model('PlaceType')->get_all();
     my @series_types = sort_by { $_->l_name } $c->model('SeriesType')->get_all();
     my @instrument_types = sort_by { $_->l_name } $c->model('InstrumentType')->get_all();
+    my @event_types = sort_by { $_->l_name } $c->model('EventType')->get_all();
 
     my @work_attribute_types = sort_by { $_->l_name }
         $c->model('WorkAttributeType')->get_all;
@@ -47,6 +48,7 @@ sub statistics : Path('')
         place_types => \@place_types,
         series_types => \@series_types,
         instrument_types => \@instrument_types,
+        event_types => \@event_types,
         work_attribute_types => \@work_attribute_types,
         stats => $latest_stats
     );
@@ -56,7 +58,7 @@ sub timeline : Path('timeline/main')
 {
     my ($self, $c) = @_;
 
-    my @stats = qw( count.area count.artist count.place count.release count.medium count.releasegroup count.label count.work count.recording count.series count.instrument count.edit count.edit.open count.edit.perday count.edit.perweek count.vote count.vote.perday count.vote.perweek count.editor count.editor.valid count.editor.deleted count.editor.valid.active count.editor.editlastweek count.editor.votelastweek count.editor.activelastweek count.coverart count.release.has_caa );
+    my @stats = qw( count.area count.artist count.place count.release count.medium count.releasegroup count.label count.work count.recording count.series count.instrument count.event count.edit count.edit.open count.edit.perday count.edit.perweek count.vote count.vote.perday count.vote.perweek count.editor count.editor.valid count.editor.deleted count.editor.valid.active count.editor.editlastweek count.editor.votelastweek count.editor.activelastweek count.coverart count.release.has_caa );
     $c->stash(
         template => 'statistics/timeline.tt',
         stats => \@stats

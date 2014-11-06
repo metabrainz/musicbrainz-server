@@ -64,6 +64,10 @@
     <th>[% l('Instruments:') %]</th>
     <td colspan="3">[% add_commas(stats.statistic('count.instrument')) %]</td>
 </tr>
+<tr>
+    <th>[% l('Events:') %]</th>
+    <td colspan="3">[% add_commas(stats.statistic('count.event')) %]</td>
+</tr>
 </tbody>
 <tbody>
 <tr class="thead">
@@ -672,6 +676,34 @@
    <th>[% l('None') %]</th>
    <td>[% add_commas(stats.statistic('count.instrument.type.null')) %]</td>
    <td>[% l('{n}%', { n => round1(stats.ratio('count.instrument.type.null', 'count.instrument')) }) %]</td>
+</tr>
+</tbody>
+</table>
+
+<h2>[% l('Events') %]</h2>
+<table class="database-statistics">
+<tbody>
+<tr class="thead">
+    <th colspan="4">[% l('Types') %]</th>
+</tr>
+<tr>
+    <th colspan="2">[% l('Events:') %]</th>
+    <td>[% add_commas(stats.statistic('count.event')) %]</td>
+    <td></td>
+</tr>
+[% FOREACH event_type IN event_types %]
+<tr>
+   <th></th>
+   <th>[% event_type.l_name %]</th>
+   <td>[% add_commas(stats.statistic('count.event.type.' _ event_type.id)) %]</td>
+   <td>[% l('{n}%', { n => round1(stats.ratio('count.event.type.' _ event_type.id, 'count.event')) }) %]</td>
+</tr>
+[% END %]
+<tr>
+   <th></th>
+   <th>[% l('None') %]</th>
+   <td>[% add_commas(stats.statistic('count.event.type.null')) %]</td>
+   <td>[% l('{n}%', { n => round1(stats.ratio('count.event.type.null', 'count.event')) }) %]</td>
 </tr>
 </tbody>
 </table>

@@ -56,6 +56,7 @@
             "count.place": { Label: '[% l('Places') | js %]', Color: "#bc0a0a", Description: '[% l('Count of all places') | js %]', Category: "core-entities"  },
             "count.series": { Label: '[% lp('Series', 'plural') | js %]', Color: "#1a6756", Description: '[% l('Count of all series') | js %]', Category: "core-entities"  },
             "count.instrument": { Label: '[% l('Instruments') | js %]', Color: "#8fddc9", Description: '[% l('Count of all instruments') | js %]', Category: "core-entities"  },
+            "count.event": { Label: '[% l('Events') | js %]', Color: "#e8ab08", Description: '[% l('Count of all events') | js %]', Category: "core-entities"  },
 
             "count.edit": { Label: '[% l('Edits') | js %]', Color: '#ff00ff', Description: '[% l('Count of all edits') | js %]', Category: "edit-information", Hide: true },
             "count.edit.open": { Label: '[% l('Open Edits') | js %]', Color: '#ffe400', Description: '[% l('Count of open edits') | js %]', Category: "edit-information" },
