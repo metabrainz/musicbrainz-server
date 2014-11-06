@@ -2,7 +2,11 @@
     <h2>[% l('Events') %]</h2>
 
     [% IF events.size %]
-      [% INCLUDE 'components/events-list.tt' no_location=1 WRAPPER 'components/with-pager.tt' %]
+      <form action="[% c.uri_for_action('/event/merge_queue') %]"
+            method="post">
+        [% INCLUDE 'components/events-list.tt' no_location=1 WRAPPER 'components/with-pager.tt' %]
+        [% form_submit(l('Add selected events for merging')) WRAPPER form_row IF c.user_exists %]
+      </form>
     [% ELSE %]
       [% l('This place is not currently associated with any events.') %]
     [% END %]
