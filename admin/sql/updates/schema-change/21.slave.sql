@@ -1009,9 +1009,9 @@ CREATE TABLE editor_collection_type ( -- replicate
 ALTER TABLE editor_collection_type ADD CONSTRAINT editor_collection_type_pkey PRIMARY KEY (id);
 
 INSERT INTO editor_collection_type (id, name, entity_type, parent, child_order) VALUES
-        (1, 'Release', 'release', NULL, 1),
-	(2, 'Owned music', 'release', 1, 1),
-	(3, 'Wishlist', 'release', 1, 2);
+    (1, 'Release', 'release', NULL, 1),
+    (2, 'Owned music', 'release', 1, 1),
+    (3, 'Wishlist', 'release', 1, 2);
 
 SELECT setval('editor_collection_type_id_seq', (SELECT MAX(id) FROM editor_collection_type));
 
