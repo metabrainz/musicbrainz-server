@@ -13,6 +13,7 @@ has_field 'name' => (
 
 has_field 'type_id' => (
     type => 'Select',
+    required => 1,
 );
 
 has_field 'description' => (
