@@ -14,6 +14,11 @@ has 'name' => (
     isa => 'Str'
 );
 
+has entity_type => (
+    is => 'rw',
+    isa => 'Str',
+);
+
 has 'description' => (
     is => 'rw',
     isa => 'Maybe[Str]',

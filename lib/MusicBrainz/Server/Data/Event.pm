@@ -230,7 +230,7 @@ sub find_by_collection
         FROM " . $self->_table . "
         JOIN editor_collection_event ece ON event.id = ece.event
         WHERE ece.collection = ?
-        ORDER BY begin_date_year, begin_date_month, begin_date_day, time, musicbrainz_collate(name)
+        ORDER BY id, begin_date_year, begin_date_month, begin_date_day, time, musicbrainz_collate(name)
       OFFSET ?";
 
     return query_to_list_limited(

@@ -48,7 +48,7 @@ after 'load' => sub
 };
 
 # Stuff that has the side bar and thus needs to display collection information
-after [qw( show aliases collections details tags )] => sub {
+after [qw( show aliases attendance details tags )] => sub {
     my ($self, $c) = @_;
 
     my $event = $c->stash->{event};
@@ -92,13 +92,13 @@ sub show : PathPart('') Chained('load')
     $c->model('Relationship')->load($event->related_series);
 }
 
-=head2 collections
+=head2 attendance
 
 View a list of collections that this event has been added to.
 
 =cut
 
-sub collections : Chained('load') RequireAuth
+sub attendance : Chained('load') RequireAuth
 {
     my ($self, $c) = @_;
 

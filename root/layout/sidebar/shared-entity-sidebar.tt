@@ -70,7 +70,7 @@
     [%~ END ~%]
 
     [%~ IF c.user_exists && entity_properties.collections ~%]
-        [%~ IF entitytype == 'event' ~%]
+        [%~ IF entity_type == 'event' ~%]
             <h2 class="attendance">[%~ l('Attendance') ~%]</h2>
             <ul class="links">
             [%~ IF collections.size ~%]
@@ -91,7 +91,7 @@
                 <li>[%~ l("You have no attendance lists!") ~%]</li>
             [%~ END ~%]
                 <li><a href="[%~ c.uri_for_action("/collection/create", { event => event.id }) ~%]">[%~ l('Add to a new list') ~%]</a></li>
-                <li>[%~ link_event(event, 'collections', ln('Found in {num} attendance list', 'Found in {num} attendance lists',
+                <li>[%~ link_event(event, 'attendance', ln('Found in {num} attendance list', 'Found in {num} attendance lists',
                                                                all_collections.size, { num => all_collections.size }) ) ~%]</li>
             </ul>
         [%~ ELSE ~%]
