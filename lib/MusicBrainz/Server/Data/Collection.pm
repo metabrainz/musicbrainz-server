@@ -25,7 +25,7 @@ sub _type { 'collection' }
 
 sub _columns
 {
-    return 'editor_collection.id, gid, editor_collection.editor, name, public, description, editor_collection.type';
+    return 'editor_collection.id, editor_collection.gid, editor_collection.editor, editor_collection.name, public, editor_collection.description, editor_collection.type';
 }
 
 sub _id_column
@@ -242,14 +242,44 @@ sub find_all_by_editor
         $query, $id);
 }
 
+sub find_all_event_collections_by_editor
+{
+    my ($self, $id) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                    JOIN editor_collection_type ct
+                        ON editor_collection.type = ct.id
+                 WHERE editor=? AND ct.entity_type = 'event' ";
+
+    $query .= "ORDER BY musicbrainz_collate(editor_collection.name)";
+    return query_to_list(
+        $self->c->sql, sub { $self->_new_from_row(@_) },
+        $query, $id);
+}
+
+sub find_all_release_collections_by_editor
+{
+    my ($self, $id) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                    JOIN editor_collection_type ct
+                        ON editor_collection.type = ct.id
+                 WHERE editor=? AND ct.entity_type = 'release' ";
+
+    $query .= "ORDER BY musicbrainz_collate(editor_collection.name)";
+    return query_to_list(
+        $self->c->sql, sub { $self->_new_from_row(@_) },
+        $query, $id);
+}
+
 sub find_all_by_event
 {
     my ($self, $id) = @_;
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
-                    JOIN editor_collection_event cr
-                        ON editor_collection.id = cr.collection
-                 WHERE cr.event = ? ";
+                    JOIN editor_collection_event ce
+                        ON editor_collection.id = ce.collection
+                 WHERE ce.event = ? ";
 
     $query .= "ORDER BY musicbrainz_collate(name)";
     return query_to_list(
