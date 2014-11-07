@@ -221,12 +221,10 @@ sub _serialize_collection
     push @collection, $gen->name($collection->name);
     push @collection, $gen->editor($collection->editor->name);
 
-    if ($toplevel)
-    {
+    if ($toplevel) {
         $self->_serialize_release_list(\@collection, $gen, $opts->{releases}, $inc, $stash);
-    }
-    elsif ($collection->loaded_release_count) {
-        push @collection, $gen->release_list({ count => $collection->release_count });
+    } elsif ($collection->loaded_entity_count) {
+        push @collection, $gen->release_list({ count => $collection->entity_count });
     }
 
     push @$data, $gen->collection(\%attrs, @collection);

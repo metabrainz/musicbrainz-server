@@ -25,10 +25,10 @@ has 'description' => (
     isa => 'Str'
 );
 
-has release_count => (
+has entity_count => (
     is => 'rw',
     isa => 'Int',
-    predicate => 'loaded_release_count'
+    predicate => 'loaded_entity_count'
 );
 
 has 'type_id' => (

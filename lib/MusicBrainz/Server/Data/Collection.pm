@@ -292,41 +292,21 @@ around _insert_hook_make_row => sub {
     return $row;
 };
 
-sub load_event_count {
+sub load_entity_count {
     my ($self, @collections) = @_;
     return unless @collections;
     my %collection_map = map { $_->id => $_ } grep { defined } @collections;
     my $query =
-        'SELECT id, coalesce(
-           (SELECT count(event)
-              FROM editor_collection_event
-             WHERE collection = col.id), 0)
+        'SELECT id,
+              (coalesce((SELECT count(release) FROM editor_collection_release WHERE collection = col.id), 0) +
+               coalesce((SELECT count(event) FROM editor_collection_event WHERE collection = col.id), 0))
            FROM (
               VALUES '. join(', ', ("(?::integer)") x keys %collection_map) .'
                 ) col (id)';
 
     for my $row (@{ $self->sql->select_list_of_lists($query, keys %collection_map) }) {
         my ($id, $count) = @$row;
-        $collection_map{$id}->event_count($count);
-    }
-}
-
-sub load_release_count {
-    my ($self, @collections) = @_;
-    return unless @collections;
-    my %collection_map = map { $_->id => $_ } grep { defined } @collections;
-    my $query =
-        'SELECT id, coalesce(
-           (SELECT count(release)
-              FROM editor_collection_release
-             WHERE collection = col.id), 0)
-           FROM (
-              VALUES '. join(', ', ("(?::integer)") x keys %collection_map) .'
-                ) col (id)';
-
-    for my $row (@{ $self->sql->select_list_of_lists($query, keys %collection_map) }) {
-        my ($id, $count) = @$row;
-        $collection_map{$id}->release_count($count);
+        $collection_map{$id}->entity_count($count);
     }
 }
 
