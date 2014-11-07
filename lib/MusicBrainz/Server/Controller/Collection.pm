@@ -230,6 +230,10 @@ sub create : Local RequireAuth
             my $release_id = $params->{"release"};
             $c->model('Collection')->add_releases_to_collection($collection->{id}, $release_id);
         }
+        if (exists $params->{"event"}) {
+            my $event_id = $params->{"event"};
+            $c->model('Collection')->add_events_to_collection($collection->{id}, $event_id);
+        }
 
         $c->response->redirect(
             $c->uri_for_action($self->action_for('show'), [ $collection->{gid} ]));
