@@ -213,7 +213,7 @@ sub find_for_subscription
         return query_to_list(
             $self->c->sql,
             sub { $self->_new_from_row(shift) },
-            $query,  $subscription->target_id, $subscription->target_id, 
+            $query,  $subscription->target_id, $subscription->target_id,
             $subscription->last_edit_sent, $STATUS_OPEN, $STATUS_APPLIED
         );
     }
@@ -310,15 +310,17 @@ SELECT * FROM edit, (
     WHERE el.status = ? AND esl.editor = ?
     UNION
     SELECT edit FROM
-      (SELECT edit FROM edit_release er
+      (SELECT edit, esc.editor FROM edit_release er
         JOIN editor_collection_release ecr ON er.release = ecr.release
         JOIN editor_subscribe_collection esc ON esc.collection = ecr.collection
+        WHERE esc.available
       UNION
-      SELECT edit FROM edit_event ee
+      SELECT edit, esc.editor FROM edit_event ee
         JOIN editor_collection_event ece ON ee.event = ece.event
-        JOIN editor_subscribe_collection esc ON esc.collection = ece.collection) ce
+        JOIN editor_subscribe_collection esc ON esc.collection = ece.collection
+        WHERE esc.available) ce
       JOIN edit ON ce.edit = edit.id
-    WHERE edit.status = ? AND esc.editor = ? AND esc.available
+    WHERE edit.status = ? AND ce.editor = ?
     UNION
     SELECT edit FROM edit_series es
     JOIN editor_subscribe_series ess ON ess.series = es.series
