@@ -162,6 +162,14 @@ ALTER TABLE editor_collection_event
    FOREIGN KEY (event)
    REFERENCES event(id);
 
+ALTER TABLE editor_collection_type ADD CONSTRAINT allowed_collection_entity_type
+  CHECK (
+    entity_type IN (
+      'event',
+      'release'
+    )
+  );
+
 --------------------------------------------------------------------------------
 SELECT '20141021-collection-types-fks.sql';
 
