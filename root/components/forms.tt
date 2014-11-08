@@ -119,10 +119,11 @@
     </div>
 [%- END -%]
 
-[%- MACRO form_row_select(r, field_name, label, class) BLOCK -%]
+[%- MACRO form_row_select(r, field_name, label, class, attributes) BLOCK -%]
+    [% attributes = attributes || {}; attributes.class = class %]
     [% WRAPPER form_row %]
       [% r.label(field_name, label || r.form.field(field_name).label, { class => class }) %]
-      [% r.select(field_name, { class => class }) -%]
+      [% r.select(field_name, attributes) -%]
       [% field_errors(r.form, field_name) %]
     [% END %]
 [%- END -%]

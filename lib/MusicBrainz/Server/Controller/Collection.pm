@@ -67,7 +67,9 @@ sub add : Chained('own_collection') RequireAuth
         $c->response->redirect($c->req->referer || $c->uri_for_action('/event/show', [ $event->gid ]));
         $c->detach;
     }
-    # There should probably be an else here saying "wrong type!" or something
+    else {
+        $c->forward('show');
+    }
 }
 
 sub remove : Chained('own_collection') RequireAuth
@@ -96,7 +98,9 @@ sub remove : Chained('own_collection') RequireAuth
         $c->response->redirect($c->req->referer || $c->uri_for_action('/event/show', [ $event->gid ]));
         $c->detach;
     }
-    # There should probably be an else here saying "wrong type!" or something
+    else {
+        $c->forward('show');
+    }
 }
 
 sub show : Chained('load') PathPart('')
@@ -247,6 +251,8 @@ sub edit : Chained('own_collection') RequireAuth
     my $collection = $c->stash->{collection};
 
     my $form = $c->form( form => 'Collection', init_object => $collection );
+
+    $c->model('Collection')->load_entity_count($collection);
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         my %update = $self->_form_to_hash($form);

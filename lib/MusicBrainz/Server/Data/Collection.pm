@@ -346,6 +346,13 @@ sub update
     croak '$collection_id must be present and > 0' unless $collection_id > 0;
     my $row = $self->_hash_to_row($update);
 
+    my $collection = $self->c->model('Collection')->get_by_id($collection_id);
+    $self->c->model('Collection')->load_entity_count($collection);
+
+    if (defined($row->{type}) && $collection->type_id != $row->{type}) {
+        die "Cannot change the type of a non-empty collection" if $collection->entity_count != 0;
+    }
+
     $self->sql->auto_commit;
     $self->sql->update_row('editor_collection', $row, { id => $collection_id });
 }
