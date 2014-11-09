@@ -185,6 +185,7 @@
         },
         InlineSearchFailed: '[% l('An error occurred while searching. Click here to try again.') | js %]',
         ClearRecentItems: '[% l('Clear recent items') | js %]',
-        ErrorLoadingRelease: '[% l('Error loading release: {error}') | js %]'
+        ErrorLoadingRelease: '[% l('Error loading release: {error}') | js %]',
+        GuessCaseOptions: '[% l('Guess Case Options') | js %]'
     });
 })(MB);

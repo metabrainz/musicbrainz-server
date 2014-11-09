@@ -1,6 +1,5 @@
 [% WRAPPER 'artist/layout.tt' full_width=1 title=l('Split Artist') %]
   [% script_manifest('edit.js.manifest') %]
-  [% script_manifest('guess-case.js.manifest') %]
 
    [%- IF no_javascript -%]
      [%- warning( l("Javascript needs to be enabled."), "nojavascript" ) -%]
@@ -45,7 +44,6 @@
 
      <div class="documentation">
        [%- artist_credit_table() -%]
-       [%- guesscase_bubble() -%]
      </div>
    </form>
 

@@ -138,6 +138,13 @@
     // because additional behavior isn't needed.
     MB.GuessCase.series = MB.GuessCase.work;
 
+    // lol
+    MB.GuessCase.instrument = {
+        guess: function (string) {
+            return string.toLowerCase();
+        }
+    };
+
     /* FIXME: ugly hack, need to get rid of using a global 'gc' everywhere. */
     window.gc = self;
 }());

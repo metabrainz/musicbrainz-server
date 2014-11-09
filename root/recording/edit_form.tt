@@ -9,7 +9,7 @@
   <div class="half-width">
     <fieldset>
       <legend>[% l('Recording Details') %]</legend>
-      [%- form_row_text_long(r, 'name', l('Name:')) -%]
+      [%- form_row_name_with_guesscase(r, { icons => 2, with_options => 1 }) -%]
       [%- form_row_artist_credit(form) -%]
       [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
       [%- IF !form.used_by_tracks || form.field('length').has_errors;
@@ -33,12 +33,13 @@
 
   <div class="documentation">
     [%- artist_credit_table() -%]
-    [%- guesscase_bubble() -%]
     [%- isrc_bubble(link_entity(recording)) -%]
     [%- external_link_bubble() -%]
   </div>
 
 </form>
+
+[%- guesscase_options() -%]
 
 <script type="text/javascript">//<![CDATA[
   (function () {

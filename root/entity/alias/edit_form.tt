@@ -12,12 +12,8 @@
   <div class="half-width">
     <fieldset>
       <legend>[% l('Alias Details') %]</legend>
-      [% form_row_text_long(r, 'name', l('Alias name:')) %]
-      [% WRAPPER form_row %]
-        [% r.label('sort_name', l('Sort name:')) %]
-        [% r.text('sort_name', { size => 47 })  %]
-        [% field_errors(form, 'sort_name') %]
-      [% END %]
+      [%- form_row_name_with_guesscase(r, { icons => 2, label => l('Alias name:'), with_options => entity_type == 'work' ? 1 : 0 }) -%]
+      [%- form_row_sortname_with_guesscase(r) -%]
       [% form_row_select(r, 'locale', l('Locale:')) %]
       <span id="allow_primary_for_locale" style="display: [% form.field('primary_for_locale').value ? 'block' : 'none' %]">
         [% form_row_checkbox(r, 'primary_for_locale', l('This is the primary alias for this locale')) %]
@@ -41,11 +37,11 @@
   </div>
 
   <div class="documentation">
-    [%- show_guesscase_modes = entity_type == 'work' ? 1 : 0 -%]
-    [%- guesscase_bubble(show_guesscase_modes ? 0 : 1) -%]
     [%- sortname_bubble() -%]
   </div>
 </form>
+
+[%- guesscase_options() -%]
 
 <script>//<![CDATA[
 (function () {

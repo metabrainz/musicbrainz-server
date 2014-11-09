@@ -15,94 +15,42 @@
    You should have received a copy of the GNU General Public License
    along with this program; if not, write to the Free Software
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-
 */
 
-MB.Control.GuessCase = function (type, $name) {
-    var self = {};
+MB.Control.initialize_guess_case = function (type, formPrefix) {
+    formPrefix = formPrefix ? (formPrefix + "\\.") : "";
 
-    self.type = type;
-    self.$name = $name;
+    var $name = $("#" + formPrefix + "name");
+    var $options = $("#guesscase-options");
 
-    self.guessCase = function () {
-        self.$name.val(MB.GuessCase[self.type].guess(self.$name.val()));
-    };
-
-    return self;
-};
-
-
-MB.Control.SortName = function (type, $name, $sortname, $cont) {
-    var self = {};
-
-    self.type = type;
-    self.$name = $name;
-    self.$sortname = $sortname;
-
-    self.sortname = function (event) {
-        self.$sortname.val(MB.GuessCase[self.type].sortname(self.$name.val()));
-
-        event.preventDefault();
-    };
-
-    self.copy = function (event) {
-        self.$sortname.val(self.$name.val());
-
-        event.preventDefault();
-    };
-
-    self.initialize = function () {
-        $cont.on("click.mb", "a[href=#sortname]", self.sortname);
-        $cont.on("click.mb", "a[href=#copy]", self.copy);
-    };
-
-    return self;
-};
-
-MB.Control.ArtistSortName = function (type, $name, $sortname) {
-    var self = MB.Control.SortName(type, $name, $sortname, $('body'));
-
-    self.$type   = $('#id-edit-artist\\.type_id');
-
-    self.sortname = function (event) {
-        var person = self.$type.val() !== '2';
-
-        self.$sortname.val(MB.GuessCase.artist.sortname(self.$name.val(), person));
-
-        event.preventDefault();
-    };
-
-    return self;
-};
-
-
-/* A generic guess case initialize function for use outside the
-   release editor. */
-MB.Control.initialize_guess_case = function (type, form_prefix) {
-
-    var $name = $('input#' + form_prefix + '\\.name');
-    var $gcdoc = $('#guess-case-bubble');
-
-    var gc = MB.Control.GuessCase(type, $name);
-    MB.Control.initializeBubble($gcdoc, $name, gc);
-
-    var $sortname = $('input#' + form_prefix + '\\.sort_name');
-    var $sortdoc = $('#sortname-bubble');
-
-    if ($sortname.length && $sortdoc.length)
-    {
-        MB.Control.initializeBubble($sortdoc, $sortname);
-        if (type === 'artist')
-        {
-            MB.Control.ArtistSortName(type, $name, $sortname).initialize();
-        }
-        else
-        {
-            MB.Control.SortName(type, $name, $sortname, $('body')).initialize();
-        }
+    if ($options.length) {
+        $options.dialog({ title: MB.text.GuessCaseOptions, autoOpen: false });
+        ko.applyBindingsToNode($options[0], { guessCase: _.noop });
     }
-};
 
+    var guess = MB.GuessCase[type];
+
+    $name.parent()
+        .find("button.guesscase-title").on("click", function () { $name.val(guess.guess($name.val())) })
+        .end()
+        .find("button.guesscase-options").on("click", function () { $options.dialog("open") });
+
+    var $sortname = $("#" + formPrefix + "sort_name");
+    var $artistType = $('#id-edit-artist\\.type_id');
+
+    $sortname.parent()
+        .find("button.guesscase-sortname").on("click", function () {
+            var args = [$name.val()];
+
+            if (type === "artist") {
+                args.push($artistType.val() != 2 /* person */);
+            }
+
+            $sortname.val(guess.sortname.apply(guess, args));
+        })
+        .end()
+        .find("button.sortname-copy").on("click", function () { $sortname.val($name.val()) });
+};
 
 ko.bindingHandlers.guessCase = {
 

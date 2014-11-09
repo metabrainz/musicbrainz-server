@@ -30,7 +30,7 @@
 
       <fieldset>
         <legend>[% l('Place Details') %]</legend>
-        [%- form_row_text_long(r, 'name', l('Name:')) -%]
+        [%- form_row_name_with_guesscase(r, { icons => 1 }) -%]
         [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
         [%- form_row_select(r, 'type_id', l('Type:')) -%]
         [%- form_row_text_long(r, 'address', l('Address:')) -%]
@@ -72,7 +72,6 @@
   </div>
 
   <div class="documentation">
-    [%- guesscase_bubble(1) -%]
     [%- area_bubble() -%]
 
     <div class="bubble" id="coordinates-bubble">

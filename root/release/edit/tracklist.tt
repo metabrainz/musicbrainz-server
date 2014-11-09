@@ -247,7 +247,7 @@
           <!-- ko if: release.mediums().length > 1 || name() -->
             <label data-bind="attr: { for: 'disc-title-' + uniqueID }">[% l('Disc title:') %]</label>
             <input type="text" data-bind="value: name, attr: { id: 'disc-title-' + uniqueID }" />
-            <button type="button" class="icon guesscase-medium" title="[% l('Guess case disc title') %]" data-click="guessCaseMediumName"></button>
+            <button type="button" class="icon guesscase-title" title="[% l('Guess case disc title') %]" data-click="guessCaseMediumName"></button>
           <!-- /ko -->
         </td>
 
@@ -338,7 +338,7 @@
             </td>
 
             <td class="icon">
-              <button type="button" class="icon guesscase-track" title="[% l('Guess case track') %]" data-click="guessCaseTrackName"></button>
+              <button type="button" class="icon guesscase-title" title="[% l('Guess case track') %]" data-click="guessCaseTrackName"></button>
               <!-- ko ifnot: medium.hasToc() -->
               <button type="button" class="icon remove-item" title="[% l('Remove track') %]" data-click="removeTrack"></button>
               <!-- /ko -->

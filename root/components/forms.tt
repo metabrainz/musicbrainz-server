@@ -125,14 +125,14 @@
       <div class="form-row-text-list">
           <div style="display: none;"
                class="text-list-row [%- r.form.field(field_name).html_name _ "-template" -%]">
-              <input type="text" value="" name="" class="value with-remove" />
+              <input type="text" value="" name="" class="value with-button" />
               <button type="button" class="nobutton icon remove">
                 <div class="remove-item icon img" title="[% l('Remove {item}', item => item_name) %]"></div>
               </button>
           </div>
           [% FOR value=r.form.field(field_name).value -%]
           <div class="text-list-row">
-              <input type="text" value="[% value %]" name="[% r.form.field(field_name).html_name %].[% loop.index() %]" class="value with-remove" />
+              <input type="text" value="[% value %]" name="[% r.form.field(field_name).html_name %].[% loop.index() %]" class="value with-button" />
               <button type="button" class="nobutton remove">
               <div class="remove-item icon img" title="[% l('Remove {item}', item => item_name) %]"></div>
               </button>
@@ -187,6 +187,28 @@
     [% END %]
 [%- END -%]
 
+[%- MACRO form_row_name_with_guesscase(r, options) BLOCK -%]
+  [% WRAPPER form_row %]
+    [% r.label('name', options.label || l('Name:')) %]
+    [% r.text('name', { class => 'with-guesscase-' _ options.icons }) %]
+    <button type="button" class="guesscase-title icon" title="[% l('Guess case') %]"></button>
+    [%- IF options.with_options -%]
+      <button type="button" class="guesscase-options icon" title="[% l('Guess case options') %]"></button>
+    [%- END -%]
+    [% field_errors(r.form, 'name') %]
+  [% END %]
+[%- END -%]
+
+[%- MACRO form_row_sortname_with_guesscase(r) BLOCK -%]
+  [% WRAPPER form_row %]
+    [% r.label('sort_name', l('Sort name:')) %]
+    [% r.text('sort_name', { class => 'with-guesscase-2' }) %]
+    <button type="button" class="guesscase-sortname icon" title="[% l('Guess sort name') %]"></button>
+    <button type="button" class="sortname-copy icon" title="[% l('Copy name') %]"></button>
+    [% field_errors(r.form, 'sort_name') %]
+  [% END %]
+[%- END -%]
+
 [%- MACRO guesscase(show_icon) BLOCK -%]
   <fieldset class="guesscase">
     <legend>[% lp('Guess case', 'header') %]</legend>
@@ -216,59 +238,31 @@
   </fieldset>
 [%- END -%]
 
-[%- MACRO guesscase_bubble(hide_mode, bubble_name, gc_callback) BLOCK -%]
-    <div class="bubble" id="guess-case-bubble" data-bind="bubble: [% bubble_name %]">
-      <!-- ko guessCase: [% gc_callback || 'function () { target().guessCase.apply(target(), arguments) }' %] -->
-      <p>
-        [%- (l('Please use the Guess Case button to fix common style errors.')) -%]
-      </p>
-      <div class="buttons">
-        <button type="button" data-bind="click: guessCase">[% lp('Guess case', 'button/menu') %]</button>
-      </div>
-      <div class="guesscase-options">
-        <table>
-          <tr>
-            <td>
-            [%- UNLESS hide_mode -%]
-              <select data-bind="value: modeName">
-                <option value="English">[% l('English') %]</option>
-                <option value="Sentence">[% l('Sentence') %]</option>
-                <option value="French">[% l('French') %]</option>
-              </select>
-              <br />
-              <label>
-                <input type="checkbox" data-bind="checked: keepUpperCase" />
-                [% l('Keep all-uppercase words uppercased') %]
-              </label>
-              <br />
-              <label>
-                <input type="checkbox" data-bind="checked: upperCaseRoman" />
-                [% l('Uppercase roman numerals') %]
-              </label>
-            [%- END -%]
-            </td>
-            <td>
-            [%- UNLESS hide_mode -%]
-              <span data-bind="html: help"></span>
-            [%- END -%]
-            </td>
-          </tr>
-        </table>
-      </div>
-    <!-- /ko -->
-    </div>
-[%- END -%]
-
-[%- MACRO sortname_bubble BLOCK -%]
-    <div class="bubble" id="sortname-bubble">
-      <p>
-        [%- (l('Please use the Sort Name button to guess the sort name.')) -%]
-      </p>
-      <div class="buttons">
-        <a href="#sortname">[% l('Sort Name') %]</a>
-        <a href="#copy">[% l('Copy') %]</a>
-      </div>
-    </div>
+[%- MACRO guesscase_options BLOCK -%]
+  <table id="guesscase-options">
+    <tr>
+      <td>
+        <select data-bind="value: modeName">
+          <option value="English">[% l('English') %]</option>
+          <option value="Sentence">[% l('Sentence') %]</option>
+          <option value="French">[% l('French') %]</option>
+        </select>
+        <br />
+        <label>
+          <input type="checkbox" data-bind="checked: keepUpperCase" />
+          [% l('Keep all-uppercase words uppercased') %]
+        </label>
+        <br />
+        <label>
+          <input type="checkbox" data-bind="checked: upperCaseRoman" />
+          [% l('Uppercase roman numerals') %]
+        </label>
+      </td>
+      <td>
+        <span data-bind="html: help"></span>
+      </td>
+    </tr>
+  </table>
 [%- END -%]
 
 [%- MACRO iswc_bubble(work) BLOCK -%]
@@ -407,7 +401,7 @@
       </td>
       <td>
         <input type="text"
-          class="value with-remove"
+          class="value with-button"
           data-bind="
             value: url,
             valueUpdate: 'input',

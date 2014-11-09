@@ -46,11 +46,6 @@
             releaseLabel.release.labels.remove(releaseLabel);
         },
 
-        guessCaseReleaseName: function () {
-            var release = releaseEditor.rootField.release();
-            release.name(MB.GuessCase.release.guess(release.name.peek()));
-        },
-
         // Tracklist tab
 
         moveMediumUp: function (medium) {

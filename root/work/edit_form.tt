@@ -10,7 +10,7 @@
   <div class="half-width">
     <fieldset>
       <legend>[%- l('Work Details') -%]</legend>
-      [%- form_row_text_long(r, 'name', l('Name:')) -%]
+      [%- form_row_name_with_guesscase(r, { icons => 2, with_options => 1 }) -%]
       [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
       [%- form_row_select(r, 'type_id', l('Type:')) -%]
       [%- form_row_select(r, 'language_id', l('Lyrics Language:')) -%]
@@ -98,12 +98,13 @@
   </div>
 
   <div class="documentation">
-    [%- guesscase_bubble() -%]
     [%- iswc_bubble(link_entity(work)) -%]
     [%- external_link_bubble() -%]
   </div>
 
 </form>
+
+[%- guesscase_options() -%]
 
 <script type="text/javascript"
     src="[% c.uri_for('/static/scripts/edit/WorkAttributes.js') %]">
