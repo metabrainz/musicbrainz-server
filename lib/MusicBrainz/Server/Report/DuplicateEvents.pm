@@ -14,10 +14,14 @@ WITH duplicates AS (
     HAVING COUNT(*) > 1
 ) 
 
-SELECT event.id AS event_id, row_number() OVER ( ORDER BY musicbrainz_collate(place.name), event.begin_date_year, event.begin_date_month, event.begin_date_day )
-FROM event JOIN l_event_place ON event.id = l_event_place.entity0 JOIN place ON place.id = l_event_place.entity1
-JOIN duplicates on duplicates.begin_date_year = event.begin_date_year AND duplicates.begin_date_month = event.begin_date_month 
-AND duplicates.begin_date_day = event.begin_date_day AND l_event_place.entity1 = duplicates.entity1
+SELECT event.id AS event_id, row_number() 
+  OVER ( ORDER BY musicbrainz_collate(place.name), event.begin_date_year, event.begin_date_month, event.begin_date_day )
+FROM event JOIN l_event_place ON event.id = l_event_place.entity0 
+  JOIN place ON place.id = l_event_place.entity1
+  JOIN duplicates ON duplicates.begin_date_year = event.begin_date_year 
+    AND duplicates.begin_date_month = event.begin_date_month 
+    AND duplicates.begin_date_day = event.begin_date_day 
+    AND l_event_place.entity1 = duplicates.entity1
 
     ";
 }
