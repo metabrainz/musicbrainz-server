@@ -43,7 +43,7 @@
         </div>
 
         <div class="sidebar">
-          <div id="blog-feed" class="triple-column feature-column">
+          <div id="blog-feed" class="feature-column">
             <h2>[% l('MusicBrainz Blog') %]</h2>
             [% IF blog.defined %]
             <p style="margin: 1em 0 0;"><strong>[% l('Latest posts:') %]</strong></p>
@@ -64,7 +64,7 @@
 
         <div class="sidebar">
           <div>
-            <div id="taggers" class="triple-column feature-column">
+            <div id="taggers" class="feature-column">
                 <h2 class="taggers">[% l('Tag Your Music') %]</h2>
                 <ul>
                     <li><a href="//picard.musicbrainz.org">[% l('MusicBrainz Picard') %]</a></li>
@@ -75,7 +75,7 @@
                 </ul>
             </div>
 
-            <div id="quick-start" class="triple-column feature-column">
+            <div id="quick-start" class="feature-column">
                 <h2>[% l('Quick Start') %]</h2>
                 <ul>
                     <li><a href="[% doc_link('Beginners_Guide') %]">[% l('Beginners guide') %]</a></li>
@@ -89,21 +89,21 @@
     </div>
 
     <div id="triple">
-        <div id="community" class="triple-column feature-column">
+        <div id="community" class="feature-column">
             <h2 class="community">[% l('Community') %]</h2>
             <p>
                 <a href="[% doc_link('How_To_Contribute') %]">[% l('Become a part of our <strong>global community</strong> and <strong>start contributing!</strong>') %]</a>
             </p>
         </div>
 
-        <div id="products" class="triple-column feature-column">
+        <div id="products" class="feature-column">
             <h2 class="products">[% l('MusicBrainz Database') %]</h2>
             <p>
                 <a href="[% doc_link('MusicBrainz_Database') %]">[% l('The majority of the data in the <strong>MusicBrainz Database</strong> is released into the <strong>Public Domain</strong> and can be downloaded and used <strong>for free</strong>.') %]</a>
             </p>
         </div>
 
-        <div id="developers" class="triple-column feature-column">
+        <div id="developers" class="feature-column">
             <h2 class="developers">[% l('Developers') %]</h2>
             <p>
                 <a href="[% doc_link('Developer_Resources')  %]">[% l('Use our <strong>XML web service</strong> or <strong>development libraries</strong> to create your own MusicBrainz-enabled applications.') %]</a>

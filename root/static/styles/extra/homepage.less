@@ -8,6 +8,11 @@
         font-size: 95%;
         padding-left: 1em;
         width: 218px;
+
+        ul {
+            padding-left: 85px;
+            min-height: 65px;
+        }
     }
 }
 
@@ -15,7 +20,7 @@
     display: table;
     width: 100%;
 
-    .triple-column {
+    .feature-column {
         display: table-cell;
         vertical-align: top;
         padding-left: 2em;
@@ -32,11 +37,6 @@
     }
 }
 
-.triple-column ul {
-    padding-left: 85px;
-    min-height: 65px;
-}
-
 .feature-column h2 {
     color: @text-white;
     background-color: @musicbrainz-purple;
@@ -45,7 +45,7 @@
     border-bottom: 4px solid @musicbrainz-orange;
 }
 
-.sidebar .triple-column h2 {
+.sidebar .feature-column h2 {
     color: @text-black;
     background-color: @musicbrainz-orange;
     border-bottom: 4px solid @musicbrainz-purple;
