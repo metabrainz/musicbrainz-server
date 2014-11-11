@@ -1,49 +1,4 @@
 [% WRAPPER "layout.tt" nosuffix=1 title=l("MusicBrainz - The Open Music Encyclopedia") homepage=1 %]
-    <div class="sidebar">
-      <div>
-        <div id="taggers" class="triple-column feature-column">
-            <h2 class="taggers">[% l('Tag Your Music') %]</h2>
-            <ul>
-                <li><a href="//picard.musicbrainz.org">[% l('MusicBrainz Picard') %]</a></li>
-                <li><a href="[% doc_link('Jaikoz') %]">[% l('Jaikoz Tagger') %]</a></li>
-                <li><a href="[% doc_link('Magic_MP3_Tagger') %]">[% l('Magic MP3 Tagger') %]</a></li>
-                <li><a href="[% doc_link('Yate_Music_Tagger') %]">[% l('Yate Music Tagger') %]</a></li>
-                <li><a href="[% doc_link('SongKong_Tagger') %]">[% l('SongKong Tagger') %]</a></li>
-            </ul>
-        </div>
-
-        <div id="quick-start" class="triple-column feature-column">
-            <h2>[% l('Quick Start') %]</h2>
-            <ul>
-                <li><a href="[% doc_link('Beginners_Guide') %]">[% l('Beginners guide') %]</a></li>
-                <li><a href="[% doc_link('How_Editing_Works') %]">[% l('Editing introduction') %]</a></li>
-                <li><a href="[% doc_link('Style') %]">[% l('Style guidelines') %]</a></li>
-                <li><a href="[% doc_link('Frequently_Asked_Questions') %]">[% l('FAQs') %]</a></li>
-            </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="sidebar">
-      <div id="blog-feed" class="triple-column feature-column">
-        <h2>[% l('MusicBrainz Blog') %]</h2>
-        [% IF blog.defined %]
-        <p style="margin: 1em 0 0;"><strong>[% l('Latest posts:') %]</strong></p>
-        <ul style="margin: 0; padding-left: 20px;">
-          [% FOR item IN blog.items %]
-            <li><a href="[% item.url %]">[% item.title %]</a></li>
-            [% LAST IF loop.count == 6 %]
-          [% END %]
-        </ul>
-        <p style="margin: 1em 0; text-align: right;">
-          <strong><a href="http://blog.musicbrainz.org">[% l('Read more »') %]</a></strong>
-        </p>
-        [% ELSE %]
-        <p style="margin: 0; text-align: center">[% l('The blog is currently unavailable.') %]</p>
-        [% END %]
-      </div>
-    </div>
-
     <div id="content">
         <h1>[% l('Welcome to MusicBrainz!') %]</h1>
         <p>
@@ -84,6 +39,51 @@
                   free => doc_link('About/Data_License') }) %]
         </p>
 
+    </div>
+
+    <div class="sidebar">
+      <div id="blog-feed" class="triple-column feature-column">
+        <h2>[% l('MusicBrainz Blog') %]</h2>
+        [% IF blog.defined %]
+        <p style="margin: 1em 0 0;"><strong>[% l('Latest posts:') %]</strong></p>
+        <ul style="margin: 0; padding-left: 20px;">
+          [% FOR item IN blog.items %]
+            <li><a href="[% item.url %]">[% item.title %]</a></li>
+            [% LAST IF loop.count == 6 %]
+          [% END %]
+        </ul>
+        <p style="margin: 1em 0; text-align: right;">
+          <strong><a href="http://blog.musicbrainz.org">[% l('Read more »') %]</a></strong>
+        </p>
+        [% ELSE %]
+        <p style="margin: 0; text-align: center">[% l('The blog is currently unavailable.') %]</p>
+        [% END %]
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div>
+        <div id="taggers" class="triple-column feature-column">
+            <h2 class="taggers">[% l('Tag Your Music') %]</h2>
+            <ul>
+                <li><a href="//picard.musicbrainz.org">[% l('MusicBrainz Picard') %]</a></li>
+                <li><a href="[% doc_link('Jaikoz') %]">[% l('Jaikoz Tagger') %]</a></li>
+                <li><a href="[% doc_link('Magic_MP3_Tagger') %]">[% l('Magic MP3 Tagger') %]</a></li>
+                <li><a href="[% doc_link('Yate_Music_Tagger') %]">[% l('Yate Music Tagger') %]</a></li>
+                <li><a href="[% doc_link('SongKong_Tagger') %]">[% l('SongKong Tagger') %]</a></li>
+            </ul>
+        </div>
+
+        <div id="quick-start" class="triple-column feature-column">
+            <h2>[% l('Quick Start') %]</h2>
+            <ul>
+                <li><a href="[% doc_link('Beginners_Guide') %]">[% l('Beginners guide') %]</a></li>
+                <li><a href="[% doc_link('How_Editing_Works') %]">[% l('Editing introduction') %]</a></li>
+                <li><a href="[% doc_link('Style') %]">[% l('Style guidelines') %]</a></li>
+                <li><a href="[% doc_link('Frequently_Asked_Questions') %]">[% l('FAQs') %]</a></li>
+            </ul>
+        </div>
+      </div>
     </div>
 
     <div id="triple">
