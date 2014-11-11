@@ -11,29 +11,24 @@
     }
 }
 
-
 #triple {
-    clear: both;
-    margin-top: 20px;
-    overflow: auto;
+    display: table;
+    width: 100%;
 
     .triple-column {
-        float: left;
-        margin: 0 1%;
+        display: table-cell;
+        vertical-align: top;
+        padding-left: 2em;
         width: 32%;
 
         p {
             padding-left: 70px;
             min-height: 65px;
         }
-    }
 
-    .first-column {
-        margin-left: 0;
-    }
-
-    .last-column {
-        margin-right: 0;
+        &:first-child {
+            padding-left: 0;
+        }
     }
 }
 

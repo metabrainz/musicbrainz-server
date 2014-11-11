@@ -89,7 +89,7 @@
     </div>
 
     <div id="triple">
-        <div id="community" class="triple-column first-column feature-column">
+        <div id="community" class="triple-column feature-column">
             <h2 class="community">[% l('Community') %]</h2>
             <p>
                 <a href="[% doc_link('How_To_Contribute') %]">[% l('Become a part of our <strong>global community</strong> and <strong>start contributing!</strong>') %]</a>
@@ -103,7 +103,7 @@
             </p>
         </div>
 
-        <div id="developers" class="triple-column last-column feature-column">
+        <div id="developers" class="triple-column feature-column">
             <h2 class="developers">[% l('Developers') %]</h2>
             <p>
                 <a href="[% doc_link('Developer_Resources')  %]">[% l('Use our <strong>XML web service</strong> or <strong>development libraries</strong> to create your own MusicBrainz-enabled applications.') %]</a>
