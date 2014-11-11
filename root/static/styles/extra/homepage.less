@@ -1,12 +1,16 @@
-#page.homepage .sidebar {
-    float: right;
-    font-size: 95%;
-    width: auto;
+#page.homepage #maincontent {
+    display: table;
+    width: 100%;
+
+    .sidebar {
+        display: table-cell;
+        vertical-align: top;
+        font-size: 95%;
+        padding-left: 1em;
+        width: 218px;
+    }
 }
 
-.homepage #content {
-    margin-right: 460px;
-}
 
 #triple {
     clear: both;
@@ -56,16 +60,6 @@
     -moz-border-radius-topright: 10px;
     -webkit-border-top-left-radius: 10px;
     -webkit-border-top-right-radius: 10px;
-}
-
-.homepage .sidebar > div {
-    float: right;
-}
-
-.sidebar #blog-feed {
-    width: 209px;
-    height: auto;
-    margin-right: 2.5em;
 }
 
 .linkbar {
