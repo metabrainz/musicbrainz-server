@@ -2,6 +2,11 @@
 
 [%~ main_title = recording.video ? l('Video “{name}” by {artist}', title_args) : l('Recording “{name}” by {artist}', title_args) ~%]
 [%~ WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title canonical_url=replace_gid(entity.gid) ~%]
+    <div id="content">
+        [%~ INCLUDE 'recording/header.tt' ~%]
+        [%~ content ~%]
+    </div>
+
     [%~ IF !full_width ~%]
         [%~ WRAPPER 'layout/sidebar/shared-entity-sidebar.tt' entity=recording ~%]
             <h2 class="recording-information">[%~ l('Recording information') ~%]</h2>
@@ -19,9 +24,4 @@
             [%~ END ~%]
         [%~ END ~%]
     [%~ END ~%]
-
-    <div id="content">
-        [%~ INCLUDE 'recording/header.tt' ~%]
-        [%~ content ~%]
-    </div>
 [%~ END ~%]

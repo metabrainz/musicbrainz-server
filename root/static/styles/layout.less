@@ -258,18 +258,15 @@ img.gravatar {
 #page,
 #current-editing {
     margin-top: 1em;
-    padding: 1em 1em 1em 1em;
     padding: 16px;
-    background: #FFF url('../images/layout/page-bg.gif') repeat-y top right;
+    background: #FFF;
     overflow: visible;
     position: relative;
     border-radius: 6px;
-}
-
-#page.fullwidth,
-#page.homepage,
-#current-editing {
-    background-image: none;
+    display: table;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
 }
 
 #current-editing h2 {
@@ -324,18 +321,21 @@ div.warning img.warning {
     height: 32px;
 }
 
-#content {
-    margin-right: 250px;
+#content,
+#sidebar {
+    display: table-cell;
+    vertical-align: top;
+}
 
-    #page.fullwidth & {
-        margin-right: 0px;
-    }
+#content {
+    padding-right: 16px;
 }
 
 #sidebar {
-    float: right;
+    padding-left: 16px;
     width: 218px;
     font-size: 95%;
+    border-left: 1px solid @light-border;
 }
 
 #sidebar p {
