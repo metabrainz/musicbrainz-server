@@ -1,89 +1,91 @@
 [% WRAPPER "layout.tt" nosuffix=1 title=l("MusicBrainz - The Open Music Encyclopedia") homepage=1 %]
-    <div id="content">
-        <h1>[% l('Welcome to MusicBrainz!') %]</h1>
-        <p>
-            [% l('MusicBrainz is an open music encyclopedia that collects music metadata and makes it available to the public.') %]
-        </p>
+    <div id="maincontent">
+        <div id="content">
+            <h1>[% l('Welcome to MusicBrainz!') %]</h1>
+            <p>
+                [% l('MusicBrainz is an open music encyclopedia that collects music metadata and makes it available to the public.') %]
+            </p>
 
-        <p>
-            [% l('MusicBrainz aims to be:') %]
-        </p>
+            <p>
+                [% l('MusicBrainz aims to be:') %]
+            </p>
 
-        <ol>
-            <li>
-                [% l('<strong>The ultimate source of music information</strong> by allowing anyone to contribute and releasing the {doc|data} under {doc2|open licenses}.',
-                    { doc => doc_link('MusicBrainz_Database'),
-                      doc2 => doc_link('About/Data_License') }) %]
-            </li>
-            <li>
-                [% l('<strong>The universal lingua franca for music</strong> by providing a reliable and unambiguous form of {doc|music identification}, enabling both people and machines to have meaningful conversations about music.',
-                    { doc => doc_link('MusicBrainz_Identifier') }) %]
-            </li>
-        </ol>
+            <ol>
+                <li>
+                    [% l('<strong>The ultimate source of music information</strong> by allowing anyone to contribute and releasing the {doc|data} under {doc2|open licenses}.',
+                        { doc => doc_link('MusicBrainz_Database'),
+                          doc2 => doc_link('About/Data_License') }) %]
+                </li>
+                <li>
+                    [% l('<strong>The universal lingua franca for music</strong> by providing a reliable and unambiguous form of {doc|music identification}, enabling both people and machines to have meaningful conversations about music.',
+                        { doc => doc_link('MusicBrainz_Identifier') }) %]
+                </li>
+            </ol>
 
-        <p>
-            [% l('Like Wikipedia, MusicBrainz is maintained by a global community of users and we want everyone &#x2014; including you &#x2014; to {doc|participate and contribute}.',
-                { doc => doc_link('How_To_Contribute') }) %]
-        </p>
+            <p>
+                [% l('Like Wikipedia, MusicBrainz is maintained by a global community of users and we want everyone &#x2014; including you &#x2014; to {doc|participate and contribute}.',
+                    { doc => doc_link('How_To_Contribute') }) %]
+            </p>
 
-        <div class="linkbar">
-            [% l('{about|More Information} &#x2014; {faq|FAQs} &#x2014; {contact|Contact Us}',
-                { about => doc_link('About'),
-                  contact => doc_link('Contact_Us'),
-                  faq => doc_link('Frequently_Asked_Questions') }) %]
+            <div class="linkbar">
+                [% l('{about|More Information} &#x2014; {faq|FAQs} &#x2014; {contact|Contact Us}',
+                    { about => doc_link('About'),
+                      contact => doc_link('Contact_Us'),
+                      faq => doc_link('Frequently_Asked_Questions') }) %]
+            </div>
+
+            <p>
+                [% l('MusicBrainz is operated by the {uri|MetaBrainz Foundation}, a California based 501(c)(3) tax-exempt non-profit corporation dedicated to keeping MusicBrainz {free|free and open source}.',
+                    { uri => "http://metabrainz.org",
+                      free => doc_link('About/Data_License') }) %]
+            </p>
+
         </div>
 
-        <p>
-            [% l('MusicBrainz is operated by the {uri|MetaBrainz Foundation}, a California based 501(c)(3) tax-exempt non-profit corporation dedicated to keeping MusicBrainz {free|free and open source}.',
-                { uri => "http://metabrainz.org",
-                  free => doc_link('About/Data_License') }) %]
-        </p>
-
-    </div>
-
-    <div class="sidebar">
-      <div id="blog-feed" class="triple-column feature-column">
-        <h2>[% l('MusicBrainz Blog') %]</h2>
-        [% IF blog.defined %]
-        <p style="margin: 1em 0 0;"><strong>[% l('Latest posts:') %]</strong></p>
-        <ul style="margin: 0; padding-left: 20px;">
-          [% FOR item IN blog.items %]
-            <li><a href="[% item.url %]">[% item.title %]</a></li>
-            [% LAST IF loop.count == 6 %]
-          [% END %]
-        </ul>
-        <p style="margin: 1em 0; text-align: right;">
-          <strong><a href="http://blog.musicbrainz.org">[% l('Read more »') %]</a></strong>
-        </p>
-        [% ELSE %]
-        <p style="margin: 0; text-align: center">[% l('The blog is currently unavailable.') %]</p>
-        [% END %]
-      </div>
-    </div>
-
-    <div class="sidebar">
-      <div>
-        <div id="taggers" class="triple-column feature-column">
-            <h2 class="taggers">[% l('Tag Your Music') %]</h2>
-            <ul>
-                <li><a href="//picard.musicbrainz.org">[% l('MusicBrainz Picard') %]</a></li>
-                <li><a href="[% doc_link('Jaikoz') %]">[% l('Jaikoz Tagger') %]</a></li>
-                <li><a href="[% doc_link('Magic_MP3_Tagger') %]">[% l('Magic MP3 Tagger') %]</a></li>
-                <li><a href="[% doc_link('Yate_Music_Tagger') %]">[% l('Yate Music Tagger') %]</a></li>
-                <li><a href="[% doc_link('SongKong_Tagger') %]">[% l('SongKong Tagger') %]</a></li>
+        <div class="sidebar">
+          <div id="blog-feed" class="triple-column feature-column">
+            <h2>[% l('MusicBrainz Blog') %]</h2>
+            [% IF blog.defined %]
+            <p style="margin: 1em 0 0;"><strong>[% l('Latest posts:') %]</strong></p>
+            <ul style="margin: 0; padding-left: 20px;">
+              [% FOR item IN blog.items %]
+                <li><a href="[% item.url %]">[% item.title %]</a></li>
+                [% LAST IF loop.count == 6 %]
+              [% END %]
             </ul>
+            <p style="margin: 1em 0; text-align: right;">
+              <strong><a href="http://blog.musicbrainz.org">[% l('Read more »') %]</a></strong>
+            </p>
+            [% ELSE %]
+            <p style="margin: 0; text-align: center">[% l('The blog is currently unavailable.') %]</p>
+            [% END %]
+          </div>
         </div>
 
-        <div id="quick-start" class="triple-column feature-column">
-            <h2>[% l('Quick Start') %]</h2>
-            <ul>
-                <li><a href="[% doc_link('Beginners_Guide') %]">[% l('Beginners guide') %]</a></li>
-                <li><a href="[% doc_link('How_Editing_Works') %]">[% l('Editing introduction') %]</a></li>
-                <li><a href="[% doc_link('Style') %]">[% l('Style guidelines') %]</a></li>
-                <li><a href="[% doc_link('Frequently_Asked_Questions') %]">[% l('FAQs') %]</a></li>
-            </ul>
+        <div class="sidebar">
+          <div>
+            <div id="taggers" class="triple-column feature-column">
+                <h2 class="taggers">[% l('Tag Your Music') %]</h2>
+                <ul>
+                    <li><a href="//picard.musicbrainz.org">[% l('MusicBrainz Picard') %]</a></li>
+                    <li><a href="[% doc_link('Jaikoz') %]">[% l('Jaikoz Tagger') %]</a></li>
+                    <li><a href="[% doc_link('Magic_MP3_Tagger') %]">[% l('Magic MP3 Tagger') %]</a></li>
+                    <li><a href="[% doc_link('Yate_Music_Tagger') %]">[% l('Yate Music Tagger') %]</a></li>
+                    <li><a href="[% doc_link('SongKong_Tagger') %]">[% l('SongKong Tagger') %]</a></li>
+                </ul>
+            </div>
+
+            <div id="quick-start" class="triple-column feature-column">
+                <h2>[% l('Quick Start') %]</h2>
+                <ul>
+                    <li><a href="[% doc_link('Beginners_Guide') %]">[% l('Beginners guide') %]</a></li>
+                    <li><a href="[% doc_link('How_Editing_Works') %]">[% l('Editing introduction') %]</a></li>
+                    <li><a href="[% doc_link('Style') %]">[% l('Style guidelines') %]</a></li>
+                    <li><a href="[% doc_link('Frequently_Asked_Questions') %]">[% l('FAQs') %]</a></li>
+                </ul>
+            </div>
+          </div>
         </div>
-      </div>
     </div>
 
     <div id="triple">
