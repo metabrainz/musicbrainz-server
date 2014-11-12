@@ -15,7 +15,7 @@ sub _table {
 }
 
 sub _columns {
-    return 'id, name, parent AS parent_id, child_order, description';
+    return 'id, name, entity_type, parent AS parent_id, child_order, description';
 }
 
 sub _entity_class {

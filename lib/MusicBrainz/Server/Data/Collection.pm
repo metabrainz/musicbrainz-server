@@ -25,7 +25,7 @@ sub _type { 'collection' }
 
 sub _columns
 {
-    return 'editor_collection.id, gid, editor_collection.editor, name, public, description, editor_collection.type';
+    return 'editor_collection.id, editor_collection.gid, editor_collection.editor, editor_collection.name, public, editor_collection.description, editor_collection.type';
 }
 
 sub _id_column
@@ -231,12 +231,16 @@ sub get_first_collection
 
 sub find_all_by_editor
 {
-    my ($self, $id) = @_;
+    my ($self, $id, $entity_type) = @_;
+    my $extra_condition = (defined $entity_type) ? "AND ct.entity_type = '$entity_type'" : "";
+
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
-                 WHERE editor=? ";
+                    JOIN editor_collection_type ct
+                        ON editor_collection.type = ct.id
+                 WHERE editor=? $extra_condition";
 
-    $query .= "ORDER BY musicbrainz_collate(name)";
+    $query .= "ORDER BY musicbrainz_collate(editor_collection.name)";
     return query_to_list(
         $self->c->sql, sub { $self->_new_from_row(@_) },
         $query, $id);
@@ -247,9 +251,9 @@ sub find_all_by_event
     my ($self, $id) = @_;
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
-                    JOIN editor_collection_event cr
-                        ON editor_collection.id = cr.collection
-                 WHERE cr.event = ? ";
+                    JOIN editor_collection_event ce
+                        ON editor_collection.id = ce.collection
+                 WHERE ce.event = ? ";
 
     $query .= "ORDER BY musicbrainz_collate(name)";
     return query_to_list(
@@ -315,6 +319,13 @@ sub update
     my ($self, $collection_id, $update) = @_;
     croak '$collection_id must be present and > 0' unless $collection_id > 0;
     my $row = $self->_hash_to_row($update);
+
+    my $collection = $self->c->model('Collection')->get_by_id($collection_id);
+    $self->c->model('Collection')->load_entity_count($collection);
+
+    if (defined($row->{type}) && $collection->type_id != $row->{type}) {
+        die "Cannot change the type of a non-empty collection" if $collection->entity_count != 0;
+    }
 
     $self->sql->auto_commit;
     $self->sql->update_row('editor_collection', $row, { id => $collection_id });
