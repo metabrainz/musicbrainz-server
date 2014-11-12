@@ -220,6 +220,7 @@ sub _serialize_collection
     my @collection;
     push @collection, $gen->name($collection->name);
     push @collection, $gen->editor($collection->editor->name);
+    push @collection, $gen->type($collection->type->name);
 
     my $entity_type = $collection->type->entity_type;
 

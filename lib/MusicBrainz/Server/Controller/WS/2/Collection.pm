@@ -177,6 +177,7 @@ sub list_list : Chained('base') PathPart('')
     my @collections = $c->model('Collection')->find_all_by_editor($c->user->id);
     $c->model('Editor')->load(@collections);
     $c->model('Collection')->load_entity_count(@collections);
+    $c->model('CollectionType')->load(@collections);
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('collection_list', \@collections,
