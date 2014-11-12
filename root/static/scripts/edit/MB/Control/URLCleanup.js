@@ -21,186 +21,185 @@
 
 MB.constants.LINK_TYPES = {
     wikipedia: {
-        area: 355,
-        artist: 179,
-        label: 216,
-        release_group: 89,
-        work: 279,
-        area: 355,
-        place: 595,
-        instrument: 731,
-        series: 744, 
-        event: 758  // TO-DO: Fix to real ID
+        area: "9228621d-9720-35c3-ad3f-327d789464ec",
+        artist: "29651736-fa6d-48e4-aadc-a557c6add1cb",
+        label: "51e9db21-8864-49b3-aa58-470d7b81fa50",
+        release_group: "6578f0e9-1ace-4095-9de8-6e517ddb1ceb",
+        work: "b45a88d6-851e-4a6e-9ec8-9a5f4ebe76ab",
+        place: "82680bbb-0391-4344-9687-4f419df4b97a",
+        instrument: "b21fd997-c813-3bc6-99cc-c64323bd15d3",
+        series: "b2b9407a-dd32-30f4-aa48-b2fd2077d1d2",
+        event: "08a982f7-d754-39b2-8315-d7cae474c641"
     },
     discogs: {
-        artist: 180,
-        label: 217,
-        place: 705,
-        release: 76,
-        release_group: 90,
-        series: 747
+        artist: "04a5b104-a4c2-4bac-99a1-7b837c37d9e4",
+        label: "5b987f87-25bc-4a2d-b3f1-3618795b8207",
+        place: "1c140ac8-8dc2-449e-92cb-52c90d525640",
+        release: "4a78823c-1c53-4176-a5f3-58026c76f2bc",
+        release_group: "99e550f3-5ab4-3110-b5b9-fe01d970b126",
+        series: "338811ef-b1a9-449d-954e-115846f33a44"
     },
     imdb: {
-        artist: 178,
-        label: 313,
-        place: 706,
-        release_group: 97
+        artist: "94c8b0cc-4477-4106-932c-da60e63de61c",
+        label: "dfd36bc7-0c06-49fa-8b79-96978778c716",
+        place: "815bc5ca-c2fb-4dc6-a89b-9150888b0d4d",
+        release_group: "85b0a010-3237-47c7-8476-6fcefd4761af"
     },
     imdbsamples: {
-        release: 83,
-        recording: 258
+        release: "7387c5a2-9abe-4515-b667-9eb5ed4dd4ce",
+        recording: "dad34b86-5a1a-4628-acf5-a48ccb0785f2"
     },
     myspace: {
-        artist: 189,
-        label: 215,
-        place: 462
+        artist: "bac47923-ecde-4b59-822e-d08f0cd10156",
+        label: "240ba9dc-9898-4505-9bf7-32a53a695612",
+        place: "c809cb4a-2835-44fb-bc64-fd4882bd389c"
     },
     purevolume: {
-        artist: 174
+        artist: "b6f02157-a9d3-4f24-9057-0675b2dbc581"
     },
     allmusic: {
-        artist: 283,
-        recording: 285,
-        release: 755,
-        release_group: 284,
-        work: 286
+        artist: "6b3e3c85-0002-4f34-aca6-80ace0d7e846",
+        recording: "54482490-5ff1-4b1c-9382-b4d0ef8e0eac",
+        release: "90ff18ad-3e9d-4472-a3d1-71d4df7e8484",
+        release_group: "a50a1d20-2b20-4d2c-9a29-eb771dd78386",
+        work: "ca9c9f46-11bd-423a-b134-9109cbebe9d7"
     },
     amazon: {
-        release: 77
+        release: "4f2e710d-166c-480c-a293-2e2c8d658d87"
     },
     license: {
-        release: 301,
-        recording: 302
+        release: "004bd0c3-8a45-4309-ba52-fa99f3aa3d50",
+        recording: "f25e301d-b87b-4561-86a0-5d2df6d26c0a"
     },
     lyrics: {
-        artist: 197,
-        release_group: 93,
-        work: 271
+        artist: "e4d73442-3762-45a8-905c-401da65544ed",
+        release_group: "156344d3-da8b-40c6-8b10-7b1c22727124",
+        work: "e38e65aa-75e0-42ba-ace0-072aeb91a538"
     },
     bbcmusic: {
-        artist: 190
+        artist: "d028a975-000c-4525-9333-d3c8425e4b54"
     },
     discography: {
-        artist: 184
+        artist: "4fb0eeec-a6eb-4ae3-ad52-b55765b94e8f"
     },
     image: {
-        artist: 173,
-        label: 213,
-        place: 396,
-        work: 274, // This is the "score" type, which is here because of Wikipedia Commons URLs
-        instrument: 732
+        artist: "221132e9-e30e-43f2-a741-15afc4c5fa7c",
+        label: "b35f7822-bf3c-4148-b306-fb723c63ee8b",
+        place: "68a4537c-f2a6-49b8-81c5-82a62b0976b7",
+        // This is the "score" type, which is here because of Wikipedia Commons URLs
+        work: "0cc8527e-ea40-40dd-b144-3b7588e759bf",
+        instrument: "f64eacbd-1ea1-381e-9886-2cfb552b7d90"
     },
     discographyentry: {
-        release: 288
+        release: "823656dd-0309-4247-b282-b92d287d59c5"
     },
     mailorder: {
-        artist: 175,
-        release: 79
+        artist: "611b1862-67af-4253-a64f-34adba305d1d",
+        release: "3ee51e05-a06a-415e-b40c-b3f740dedfd7"
     },
     downloadpurchase: {
-        artist: 176,
-        recording: 254,
-        release: 74
+        artist: "f8319a2f-f824-4617-81c8-be6560b3b203",
+        recording: "92777657-504c-4acb-bd33-51a201bd57e1",
+        release: "98e08c20-8402-4163-8970-53504bb6a1e4"
     },
     downloadfree: {
-        artist: 177,
-        recording: 255,
-        release: 75
+        artist: "34ae77fe-defb-43ea-95d4-63c7540bac78",
+        recording: "45d0cbc5-d65b-4e77-bdfd-8a75207cb5c5",
+        release: "9896ecd0-6d29-482d-a21e-bd5d1b5e3425"
     },
     review: {
-        release_group: 94
+        release_group: "c3ac9c3b-f546-4d15-873f-b294d2c1b708"
     },
     score: {
-        release_group: 92,
-        work: 274
+        work: "0cc8527e-ea40-40dd-b144-3b7588e759bf"
     },
     secondhandsongs: {
-        artist: 307,
-        release: 308,
-        work: 280
+        artist: "79c5b84d-a206-4f4c-9832-78c028c312c3",
+        release: "0e555925-1b7d-475c-9b25-b9c349dcc3f3",
+        work: "b80dff64-9560-445a-b824-c8b432d77a52"
     },
     songfacts: {
-        work: 289
+        work: "80402bbc-1aec-41d1-a5be-b599b89bc3c3"
     },
     socialnetwork: {
-        artist: 192,
-        label: 218,
-        place: 429,
-        series: 764, // TO-DO: Fix to real ID
-        event: 765 // TO-DO: Fix to real ID
+        artist: "99429741-f3f6-484b-84f8-23af51991770",
+        label: "5d217d99-bc05-4a76-836d-c91eec4ba818",
+        place: "040de4d5-ace5-4cfb-8a45-95c5c73bce01",
+        series: "80d5e037-9aa7-3d80-80da-fb01d6dbc25b",
+        event: "68f5fcaa-b58c-3bfe-9b7c-75c2b56e839a"
     },
     soundcloud: {
-        artist: 291,
-        label: 290
+        artist: "89e4a949-0976-440d-bda1-5f772c1e5710",
+        label: "a31d05ba-3b82-47b2-ab8b-1fe73b5459e2"
     },
     blog: {
-        artist: 199,
-        label: 224,
-        place: 627
+        artist: "eb535226-f8ca-499d-9b18-6a144df4ae6f",
+        label: "1b431eba-0d25-4f27-9151-1bb607f5c8f8",
+        place: "e3051f32-527b-4c47-9993-71250a6cd99c"
     },
     streamingmusic: {
-        artist: 194,
-        recording: 268,
-        release: 85
+        artist: "769085a1-c2f7-4c24-a532-2375a77693bd",
+        recording: "7e41ef12-a124-4324-afdb-fdbae687a89c",
+        release: "08445ccf-7b99-4438-9f9a-fb9ac18099ee"
     },
     vimeo: {
         // Video channel for artist/label, streaming music for release/recording
-        artist: 303,
-        label: 304,
-        recording: 268,
-        release: 85
+        artist: "d86c9450-b6d0-4760-a275-e7547495b48b",
+        label: "20ad367c-cba0-4c02-bd61-2df3ae8cc799",
+        recording: "7e41ef12-a124-4324-afdb-fdbae687a89c",
+        release: "08445ccf-7b99-4438-9f9a-fb9ac18099ee"
     },
     vgmdb: {
-        artist: 191,
-        label: 210,
-        release: 86,
-        event: 755 // TO-DO: Fix to real ID
+        artist: "0af15ab3-c615-46d6-b95b-a5fcd2a92ed9",
+        label: "8a2d3e55-d291-4b99-87a0-c59c6b121762",
+        release: "6af0134a-df6a-425a-96e2-895f9cd342ba",
+        event: "5d3e0348-71a8-3dc1-b847-3a8f1d5de688"
     },
     youtube: {
-        artist: 193,
-        label: 225,
-        recording: 268,
-        place: 528,
-        series: 763, // TO-DO: Fix to real ID
-        event: 762 // TO-DO: Fix to real ID
+        artist: "6a540e5b-58c6-4192-b6ba-dbc71ec8fcf0",
+        label: "d9c71059-ba9d-4135-b909-481d12cf84e3",
+        recording: "7e41ef12-a124-4324-afdb-fdbae687a89c",
+        place: "22ec436d-bb65-4c83-a268-0fdb0dbd8834",
+        series: "f23802a4-36be-3751-8e4d-93422e08b3e8",
+        event: "fea46163-dc45-3af9-917e-1798f325d21a"
     },
     otherdatabases: {
-        artist: 188,
-        label: 222,
-        place: 561,
-        recording: 306,
-        release: 82,
-        release_group: 96,
-        series: 746,
-        work: 273
+        artist: "d94fb61c-fa20-4e3c-a19a-71a949fb2c55",
+        label: "83eca2b3-5ae1-43f5-a732-56fa9a8591b1",
+        place: "87a0a644-0a69-46c0-9e48-0656b8240d89",
+        recording: "bc21877b-e993-42ed-a7ce-9187ec9b638f",
+        release: "c74dee45-3c85-41e9-a804-92ab1c654446",
+        release_group: "38320e40-9f4a-3ae7-8cb2-3f3c9c5d856d",
+        series: "8a08d0f5-c7c4-4572-9d22-cee92693d820",
+        work: "190ea031-4355-405d-a43e-53eb4c5c4ada"
     },
     viaf: {
-        artist: 310,
-        label: 311,
-        work: 312
+        artist: "e8571dcc-35d4-4e91-a577-a3382fd84460",
+        label: "c4bee4f4-e622-4c74-b80b-585989de27f4",
+        work: "b6eaef52-68a0-4b50-b875-8acd7d9212ba"
     },
     wikidata: {
-        area: 358,
-        artist: 352,
-        label: 354,
-        release_group: 353,
-        work: 351,
-        place: 594,
-        instrument: 733,
-        series: 749,
-        event: 758  // TO-DO: Fix to real ID
+        area: "85c5256f-aef1-484f-979a-42007218a1c2",
+        artist: "689870a4-a1e4-4912-b17f-7b2664215698",
+        label: "75d87e83-d927-4580-ba63-44dc76256f98",
+        release_group: "b988d08c-5d86-4a57-9557-c83b399e3580",
+        work: "587fdd8f-080e-46a9-97af-6425ebbcb3a2",
+        place: "e6826618-b410-4b8d-b3b5-52e29eac5e1f",
+        instrument: "1486fccd-cf59-35e4-9399-b50e2b255877",
+        series: "a1eecd98-f2f2-420b-ba8e-e5bc61697869",
+        event: "b022d060-e6a8-340f-8c73-6b21b1d090b9"
     },
     bandcamp: {
-        artist: 718,
-        label: 719
+        artist: "c550166e-0548-4a18-b1d4-e2ae423a3e88",
+        label: "c535de4c-a112-4974-b138-5e0daa56eab5"
     },
     songkick: {
-        artist: 761,  // TO-DO: Fix to real ID
-        event: 754,  // TO-DO: Fix to real ID
-        place: 760  // TO-DO: Fix to real ID
+        artist: "aac9c4bc-a5b9-30b8-9839-e3ac314c6e58",
+        event: "125afc57-4d33-3b63-ab41-848a3a18d3a6",
+        place: "3eb58d3e-6f00-36a8-a115-3dad616b7391"
     },
     imslp: {
-        artist: 754
+        artist: "8147b6a2-ad14-4ce7-8f0a-697f9a31f68f"
     }
 };
 
