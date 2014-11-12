@@ -45,6 +45,7 @@
             <li><a href="[% c.uri_for_action('/report/show', 'DiscogsLinksWithMultipleReleaseGroups') %]">[% l('Discogs URLs linked to multiple release groups') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'DuplicateRelationshipsReleaseGroups') %]">[% l('Release groups with possible duplicate relationships') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'DeprecatedRelationshipReleaseGroups') %]">[% l('Release Groups with deprecated relationships') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'DuplicateReleaseGroups') %]">[% l('Possible duplicate release groups') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'AnnotationsReleaseGroups') %]">[% l('Release groups with annotations') %]</a></li>
         </ul>
 
