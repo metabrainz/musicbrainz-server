@@ -126,7 +126,6 @@ sub show : Chained('load') PathPart('')
     my $order = $c->req->params->{order} || 'date';
 
     if ($collection->type->entity_type eq 'release') {
-
         my $releases = $self->_load_paged($c, sub {
             $c->model('Release')->find_by_collection($collection->id, shift, shift, $order);
         });
@@ -147,7 +146,6 @@ sub show : Chained('load') PathPart('')
     }
 
     if ($collection->type->entity_type eq 'event') {
-
         my $events = $self->_load_paged($c, sub {
             $c->model('Event')->find_by_collection($collection->id, shift, shift, $order);
         });
@@ -161,7 +159,6 @@ sub show : Chained('load') PathPart('')
         $c->stash(
             events => $events
         );
-
     }
 
     $c->stash(
@@ -169,7 +166,6 @@ sub show : Chained('load') PathPart('')
         order => $order,
         template => 'collection/index.tt'
     );
-
 }
 
 sub edits : Chained('load') PathPart RequireAuth
