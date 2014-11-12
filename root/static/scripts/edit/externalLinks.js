@@ -41,7 +41,7 @@
                 var linkType = this.cleanup.guessType(this.cleanup.sourceType, value);
 
                 if (linkType) {
-                    this.linkTypeID(linkType);
+                    this.linkTypeID(MB.typeInfoByID[linkType].id);
 
                     // May have changed now that linkTypeID is set.
                     error = this.error();
@@ -80,13 +80,14 @@
         },
 
         matchesType: function () {
-            var currentType = this.linkTypeID();
+            var linkTypeID = this.linkTypeID();
+            var currentType = linkTypeID && MB.typeInfoByID[linkTypeID].gid;
 
             var guessedType = this.cleanup.guessType(
                 this.parent.source.entityType, this.url()
             );
 
-            return currentType == guessedType;
+            return currentType === guessedType;
         },
 
         showTypeSelection: function () {
@@ -154,8 +155,8 @@
                 return MB.text.EnterAValidURL;
             }
 
-            var checker = this.cleanup && this.cleanup.validationRules[linkType];
             var typeInfo = MB.typeInfoByID[linkType] || {};
+            var checker = this.cleanup && this.cleanup.validationRules[typeInfo.gid];
 
             if (!linkType) {
                 return MB.text.SelectURLType;

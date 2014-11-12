@@ -394,8 +394,7 @@
             } else if (typeInfo.deprecated) {
                 return MB.text.RelationshipTypeDeprecated;
             } else if (this.source.entityType === "url") {
-                var linkType = typeInfo.id;
-                var checker = MB.editURLCleanup.validationRules[linkType];
+                var checker = MB.editURLCleanup.validationRules[typeInfo.gid];
 
                 if (checker && !checker(this.source.name())) {
                     return MB.text.URLNotAllowed;
