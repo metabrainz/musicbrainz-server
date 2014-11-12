@@ -271,6 +271,10 @@ sub process_relationship {
     for my $date ("begin_date", "end_date") {
         my ($year, $month, $day) = ($data->{$date}{year}, $data->{$date}{month}, $data->{$date}{day});
         die "invalid $date: $year-$month-$day" unless is_valid_partial_date($year, $month, $day);
+
+        for (qw( year month day )) {
+            delete $data->{$date}{$_} unless non_empty($data->{$date}{$_});
+        }
     }
 
     $data->{attributes} = [
