@@ -54,7 +54,7 @@ function createBundle(resourceName, watch) {
         cache: {},
         packageCache: {},
         fullPaths: watch ? true : false,
-        debug: !!process.env.DEBUG
+        debug: !!process.env.SOURCEMAPS
     });
 
     if (process.env.UGLIFY) {
