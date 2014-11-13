@@ -18,7 +18,7 @@
 'use strict';
 
 // Namespaces
-var MB = {
+window.MB = {
     // Classes, common controls used throughout MusicBrainz
     Control: {},
 

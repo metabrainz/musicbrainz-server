@@ -753,14 +753,7 @@ END -%]
 [%- END -%]
 
 [%~ MACRO script_manifest(manifest) BLOCK ~%]
-  [%~ IF server_details.developement_server -%]
-    [%~ USE date ~%]
-    [%~ FOR file IN c.model('FileCache').manifest_files(manifest, 'js'); ~%]
-        <script type="text/javascript" src="[% c.uri_for("/static/") %][%- file -%]"></script>
-    [%~ END ~%]
-  [%~ ELSE ~%]
-    <script src="[% c.uri_for("/static/build/") %][% c.model('FileCache').manifest_signature(manifest) %]"></script>
-  [%~ END ~%]
+  <script src="[% c.uri_for("/static/build/") %][% c.model('FileCache').manifest_signature(manifest) %]"></script>
 [%~ END ~%]
 
 [%~ MACRO css_manifest(manifest) BLOCK ~%]

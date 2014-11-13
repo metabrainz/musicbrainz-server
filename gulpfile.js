@@ -1,15 +1,11 @@
-var concat          = require("gulp-concat"),
-    extend          = require("extend"),
+var extend          = require("extend"),
     fs              = require("fs"),
-    glob            = require("glob"),
     gulp            = require("gulp"),
     rev             = require("gulp-rev"),
-    sourcemaps      = require("gulp-sourcemaps"),
+    streamify       = require("gulp-streamify"),
     through2        = require("through2"),
+    Q               = require("q"),
 
-    commentOrEmpty  = /^(\s*$|#)/,
-    trailingSlash   = /\/$/,
-    manifestName    = /^([a-z\-]+)\.(js|css)\.manifest$/,
     revManifestPath = "./root/static/build/rev-manifest.json",
     revManifest     = {};
 
@@ -17,90 +13,94 @@ if (fs.existsSync(revManifestPath)) {
     revManifest = JSON.parse(fs.readFileSync(revManifestPath));
 }
 
-function buildManifest(fileType, compile, options) {
-    return through2.obj(function (chunk, encoding, callback) {
-        var globs = [], lines = chunk.contents.toString("utf8").split("\n");
+function buildResource(stream) {
+    var deferred = Q.defer();
 
-        lines.forEach(function (line) {
-            if (!commentOrEmpty.test(line)) {
-                line = "./root/static/" + line;
+    stream
+        .on("error", console.log)
+        .pipe(streamify(rev()))
+        .pipe(gulp.dest("./root/static/build/"))
+        .pipe(rev.manifest())
+        .pipe(through2.obj(function (chunk, encoding, callback) {
+            extend(revManifest, JSON.parse(chunk.contents));
 
-                if (trailingSlash.test(line)) {
-                    globs.push(line + "**/*." + fileType);
-                } else {
-                    globs.push(line);
-                }
-            }
+            fs.writeFileSync(revManifestPath, JSON.stringify(revManifest));
+
+            callback();
+        }))
+        .on("finish", function () {
+            deferred.resolve();
         });
 
-        gulp.src(globs)
-            .pipe(sourcemaps.init())
-            .pipe(concat(chunk.relative.replace(manifestName, "$1.$2")))
-            .pipe(compile(options))
-            .on("error", console.log)
-            .pipe(rev())
-            .pipe(sourcemaps.write("./"))
-            .pipe(gulp.dest("./root/static/build/"))
-            .pipe(rev.manifest())
-            .pipe(through2.obj(function (chunk, encoding, callback) {
-                extend(revManifest, JSON.parse(chunk.contents));
-
-                fs.writeFileSync(revManifestPath, JSON.stringify(revManifest));
-
-                callback();
-            }))
-            .on("finish", function () {
-                callback();
-            });
-    });
+    return deferred.promise;
 }
 
 gulp.task("styles", function () {
-    return gulp.src("./root/static/*.css.manifest")
-        .pipe(
-            buildManifest(
-                "less",
-                require("gulp-less"),
-                {
-                    rootpath: "/static/",
-                    cleancss: true,
-                    relativeUrls: true
-                }
-            )
-        );
+    var less = require("gulp-less");
+
+    return buildResource(
+        gulp.src("./root/static/*.less")
+            .pipe(less({
+                rootpath: "/static/",
+                cleancss: true,
+                relativeUrls: true
+            }))
+    );
 });
 
 gulp.task("scripts", function () {
-    return gulp.src("./root/static/*.js.manifest")
-        .pipe(
-            buildManifest(
-                "js",
-                require("gulp-uglify"),
-                {
-                    preserveComments: "some",
-                    output: { max_line_len: 256 }
-                }
-            )
-        );
+    var browserify = require("browserify");
+    var source = require("vinyl-source-stream");
+
+    function bundle(resourceName) {
+        var b = browserify("./root/static/scripts/" + resourceName, { debug: !!process.env.DEBUG });
+
+        switch (resourceName) {
+            case "common.js":
+                // XXX The jquery.flot.* plugins in statistics.js depend on jquery
+                b.require("./root/static/lib/jquery/jquery.js", { expose: "jquery" });
+
+                // XXX The knockout-* plugins in edit.js attempt to require() knockout as a CommonJS module
+                b.require("./root/static/lib/knockout/knockout-latest.debug.js", { expose: "knockout" });
+
+                break;
+            case "edit.js":
+                b.external("./root/static/lib/knockout/knockout-latest.debug.js");
+                break;
+            case "statistics.js":
+                b.external("./root/static/lib/jquery/jquery.js");
+                break;
+        }
+
+        if (process.env.UGLIFY) {
+            b.transform("uglifyify", {
+                // See https://github.com/substack/node-browserify#btransformtr-opts
+                global: true,
+
+                // Uglify options
+                preserveComments: "some",
+                output: { max_line_len: 256 }
+            });
+        }
+
+        return buildResource(b.bundle().pipe(source(resourceName)));
+    }
+
+    return Q.all([
+        bundle("common.js"),
+        bundle("edit.js"),
+        bundle("guess-case.js"),
+        bundle("release-editor.js"),
+        bundle("statistics.js")
+    ]);
 });
 
 gulp.task("clean", function () {
-    var fileRegex = /^([a-z\-]+)-[a-f0-9]+\.(js|css)$/,
-        existingFiles = fs.readdirSync("./root/static/build/");
+    var fileRegex = /^([a-z\-]+)-[a-f0-9]+\.(js|css)$/;
 
-    existingFiles.forEach(function (file) {
+    fs.readdirSync("./root/static/build/").forEach(function (file) {
         if (fileRegex.test(file) && revManifest[file.replace(fileRegex, "$1.$2")] !== file) {
             fs.unlinkSync("./root/static/build/" + file);
-
-            if (existingFiles.indexOf(file + ".map") >= 0) {
-                fs.unlinkSync("./root/static/build/" + file + ".map");
-            }
-        }
-    });
-
-    Object.keys(revManifest).forEach(function (key) {
-        if (!fs.existsSync("./root/static/" + key + ".manifest")) {
-            delete existingFiles[key];
         }
     });
 

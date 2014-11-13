@@ -98,22 +98,5 @@ sub _expand {
     }
 }
 
-sub manifest_files {
-    my ($self, $manifest, $type) = @_;
-
-    my $relative_to = DBDefs->STATIC_FILES_DIR;
-
-    return
-        # Convert paths back to relative paths of the manifest directory
-        map  { file($_)->relative($relative_to) }
-
-        # Expand directories to files
-        map  { _expand("$relative_to/$_", $type) }
-
-        # Ignore blank lines/comments in the manifest
-        grep { !/^(#.*|\s*)$/ }
-            io("$relative_to/$manifest")->chomp->slurp;
-}
-
 __PACKAGE__->meta->make_immutable;
 1;
