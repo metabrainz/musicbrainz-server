@@ -482,7 +482,20 @@ $(function () {
 
         // Trigger actually graphing things
         $(window).hashchange();
+
+        // Resize the graph when the window size changes
+        $(window).on("resize", _.debounce(function () {
+            if (typeof plot !== "undefined" && plot) {
+                plot.resize();
+                plot.setupGrid();
+                plot.draw();
+            }
+
+            if (typeof rateplot !== "undefined" && rateplot) {
+                rateplot.resize();
+                rateplot.setupGrid();
+                rateplot.draw();
+            }
+        }, 100));
     }
-
-
 });
