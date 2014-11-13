@@ -23,7 +23,7 @@ MB.Control.initialize_guess_case = function (type, formPrefix) {
     var $name = $("#" + formPrefix + "name");
     var $options = $("#guesscase-options");
 
-    if ($options.length) {
+    if ($options.length && !$options.data("ui-dialog")) {
         $options.dialog({ title: MB.text.GuessCaseOptions, autoOpen: false });
         ko.applyBindingsToNode($options[0], { guessCase: _.noop });
     }

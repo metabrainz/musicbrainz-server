@@ -334,5 +334,3 @@
     [% external_link_bubble() %]
   <!-- /ko -->
 </div>
-
-[%- guesscase_options() -%]
