@@ -38,8 +38,6 @@ has file_signatures => (
 sub manifest_signature {
     my ($self, $manifest) = @_;
 
-    $manifest =~ s/\.manifest$//;
-
     my $path = DBDefs->STATIC_FILES_DIR . "/build/rev-manifest.json";
     my @stat = stat($path);
     my $mtime = $stat[9];

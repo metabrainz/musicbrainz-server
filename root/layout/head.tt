@@ -11,8 +11,8 @@
     <script type="text/javascript">//<![CDATA[
         document.cookie = "javascript=true; path=/";
     //]]></script>
-    [% css_manifest('common.css.manifest') %]
-    [% css_manifest('icons.css.manifest') UNLESS no_icons %]
+    [% css_manifest('common.css') %]
+    [% css_manifest('icons.css') UNLESS no_icons %]
     [%- IF c.debug -%]
         <link rel="stylesheet" type="text/css" href="/static/styles/debug.css" />
     [%- END %]
@@ -25,7 +25,7 @@
           #header-menu li:hover ul { left: auto; }
         </style>
     [%~ ELSE ~%]
-        [%~ script_manifest('common.js.manifest') ~%]
+        [%~ script_manifest('common.js') ~%]
         <script type="text/javascript" src="
             [%- lang_hash = current_language;
                 IF current_language != 'en';
