@@ -231,40 +231,14 @@ sub get_first_collection
 
 sub find_all_by_editor
 {
-    my ($self, $id) = @_;
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
-                 WHERE editor=? ";
+    my ($self, $id, $entity_type) = @_;
+    my $extra_condition = (defined $entity_type) ? "AND ct.entity_type = '$entity_type'" : "";
 
-    $query .= "ORDER BY musicbrainz_collate(name)";
-    return query_to_list(
-        $self->c->sql, sub { $self->_new_from_row(@_) },
-        $query, $id);
-}
-
-sub find_all_event_collections_by_editor
-{
-    my ($self, $id) = @_;
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                     JOIN editor_collection_type ct
                         ON editor_collection.type = ct.id
-                 WHERE editor=? AND ct.entity_type = 'event' ";
-
-    $query .= "ORDER BY musicbrainz_collate(editor_collection.name)";
-    return query_to_list(
-        $self->c->sql, sub { $self->_new_from_row(@_) },
-        $query, $id);
-}
-
-sub find_all_release_collections_by_editor
-{
-    my ($self, $id) = @_;
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
-                    JOIN editor_collection_type ct
-                        ON editor_collection.type = ct.id
-                 WHERE editor=? AND ct.entity_type = 'release' ";
+                 WHERE editor=? $extra_condition";
 
     $query .= "ORDER BY musicbrainz_collate(editor_collection.name)";
     return query_to_list(

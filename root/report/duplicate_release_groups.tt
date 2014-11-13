@@ -1,0 +1,20 @@
+[%~ WRAPPER 'layout.tt' title=l('Possible duplicate release groups') full_width=1 ~%]
+
+<h1>[%~ l('Possible duplicate release groups') ~%]</h1>
+
+<ul>
+    <li>[%~ l("This report lists release groups with very similar names and artists.
+            If the releases in the release groups should be grouped together (see
+            the {url|guidelines}), they can be merged. If they shouldn't be grouped
+            together but they can be distinguished by the release group types, e.g.
+            when an artist has an album and single with the same name, then there is
+            usually no need to change anything. In other cases, a disambiguation comment may be helpful.", {
+            url => doc_link('Style/Release_Group') }) ~%]</li>
+    <li>[%~ l('Total release groups found: {count}', { count => pager.total_entries }) ~%]</li>
+    <li>[%~ l('Generated on {date}', { date => UserDate.format(generated) }) ~%]</li>
+    [%~ INCLUDE 'report/filter_link.tt' ~%]
+</ul>
+
+[%~ INCLUDE 'report/release_group_list.tt' ~%]
+
+[%~ END ~%]

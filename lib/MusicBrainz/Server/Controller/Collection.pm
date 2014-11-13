@@ -109,20 +109,23 @@ sub show : Chained('load') PathPart('')
 
     my $collection = $c->stash->{collection};
 
+    my $entity_type = $collection->type->entity_type;
+    my $removal_method = "remove_${entity_type}s_from_collection";
+
+    if ($c->form_posted && $c->stash->{my_collection}) {
+        my $remove_params = $c->req->params->{remove};
+        $c->model('Collection')->$removal_method(
+            $collection->id,
+            grep { looks_like_number($_) }
+                ref($remove_params) ? @$remove_params : ($remove_params)
+        );
+    }
+
+    $self->own_collection($c) if !$collection->public;
+
+    my $order = $c->req->params->{order} || 'date';
+
     if ($collection->type->entity_type eq 'release') {
-        if ($c->form_posted && $c->stash->{my_collection}) {
-            my $remove_params = $c->req->params->{remove};
-            $c->model('Collection')->remove_releases_from_collection(
-                $collection->id,
-                grep { looks_like_number($_) }
-                    ref($remove_params) ? @$remove_params : ($remove_params)
-            );
-        }
-
-        $self->own_collection($c) if !$collection->public;
-
-        my $order = $c->req->params->{order} || 'date';
-
         my $releases = $self->_load_paged($c, sub {
             $c->model('Release')->find_by_collection($collection->id, shift, shift, $order);
         });
@@ -138,27 +141,11 @@ sub show : Chained('load') PathPart('')
             $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, map { $_->release_group } @$releases);
         }
         $c->stash(
-            collection => $collection,
-            order => $order,
-            releases => $releases,
-            template => 'collection/index.tt'
+            releases => $releases
         );
     }
 
     if ($collection->type->entity_type eq 'event') {
-        if ($c->form_posted && $c->stash->{my_collection}) {
-            my $remove_params = $c->req->params->{remove};
-            $c->model('Collection')->remove_events_from_collection(
-                $collection->id,
-                grep { looks_like_number($_) }
-                    ref($remove_params) ? @$remove_params : ($remove_params)
-            );
-        }
-
-        $self->own_collection($c) if !$collection->public;
-
-        my $order = $c->req->params->{order} || 'date';
-
         my $events = $self->_load_paged($c, sub {
             $c->model('Event')->find_by_collection($collection->id, shift, shift, $order);
         });
@@ -170,14 +157,15 @@ sub show : Chained('load') PathPart('')
         }
 
         $c->stash(
-            collection => $collection,
-            order => $order,
-            events => $events,
-            template => 'collection/index.tt'
+            events => $events
         );
-
     }
 
+    $c->stash(
+        collection => $collection,
+        order => $order,
+        template => 'collection/index.tt'
+    );
 }
 
 sub edits : Chained('load') PathPart RequireAuth

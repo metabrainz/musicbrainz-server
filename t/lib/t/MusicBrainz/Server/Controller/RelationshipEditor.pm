@@ -240,6 +240,34 @@ test 'MBS-7058: Can submit a relationship without "ended" fields' => sub {
 };
 
 
+test 'Can submit a relationship with empty-string date values' => sub {
+    my $test = shift;
+    my ($c, $mech) = ($test->c, $test->mech);
+
+    MusicBrainz::Server::Test->prepare_test_database($c);
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+    my ($edit) = capture_edits {
+        $mech->post("/relationship-editor", {
+                'rel-editor.rels.0.link_type' => '1',
+                'rel-editor.rels.0.action' => 'add',
+                'rel-editor.rels.0.entity.0.gid' => '745c079d-374e-4436-9448-da92dedef3ce',
+                'rel-editor.rels.0.entity.0.type' => 'artist',
+                'rel-editor.rels.0.entity.1.gid' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
+                'rel-editor.rels.0.entity.1.type' => 'recording',
+                'rel-editor.rels.0.period.begin_date.year' => '',
+                'rel-editor.rels.0.period.begin_date.month' => '',
+                'rel-editor.rels.0.period.begin_date.day' => '',
+            }
+        );
+    } $c;
+
+    isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Create');
+};
+
+
 test 'mismatched link types are rejected' => sub {
     my $test = shift;
     my ($c, $mech) = ($test->c, $test->mech);

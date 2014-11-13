@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Report::ReleaseGroupReport;
+package MusicBrainz::Server::Report::EventReport;
 use Moose::Role;
 
 with 'MusicBrainz::Server::Report::QueryReport';
@@ -9,16 +9,16 @@ around inflate_rows => sub {
 
     my $items = $self->$orig(@_);
 
-    my $releasegroups = $self->c->model('ReleaseGroup')->get_by_ids(
-        map { $_->{release_group_id} } @$items
+    my $events = $self->c->model('Event')->get_by_ids(
+        map { $_->{event_id} } @$items
     );
-    $self->c->model('ArtistCredit')->load(values %$releasegroups);
-    $self->c->model('ReleaseGroupType')->load(values %$releasegroups);
+
+    $self->c->model('Event')->load_related_info(values %$events);
 
     return [
         map +{
             %$_,
-            release_group => $releasegroups->{ $_->{release_group_id} }
+            event => $events->{ $_->{event_id} }
         },
             @$items
     ];
@@ -29,7 +29,7 @@ around inflate_rows => sub {
 =head1 COPYRIGHT
 
 Copyright (C) 2009 MetaBrainz Foundation
-Copyright (C) 2012 MetaBrainz Foundation
+Copyright (C) 2014 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

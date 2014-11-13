@@ -152,11 +152,10 @@ sub find
     foreach my $date_key (qw( begin_date end_date )) {
         my $column_prefix = $date_key;
         foreach my $key (qw( year month day )) {
-            if (defined $values->{$date_key}->{$key}) {
+            if (non_empty($values->{$date_key}->{$key})) {
                 push @conditions, "${column_prefix}_${key} = ?";
                 push @args, $values->{$date_key}->{$key};
-            }
-            else {
+            } else {
                 push @conditions, "${column_prefix}_${key} IS NULL";
             }
         }
