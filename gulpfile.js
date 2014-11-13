@@ -57,16 +57,6 @@ function createBundle(resourceName, watch) {
         debug: !!process.env.DEBUG
     });
 
-    switch (resourceName) {
-        case "common.js":
-            // XXX The knockout-* plugins in edit.js attempt to require() knockout as a CommonJS module
-            b.require("./root/static/lib/knockout/knockout-latest.debug.js", { expose: "knockout" });
-            break;
-        case "edit.js":
-            b.external("./root/static/lib/knockout/knockout-latest.debug.js");
-            break;
-    }
-
     if (process.env.UGLIFY) {
         b.transform("uglifyify", {
             // See https://github.com/substack/node-browserify#btransformtr-opts

@@ -1,7 +1,3 @@
-require("knockout-arrayTransforms");
-require("knockout-delegatedEvents");
-require("knockout-postbox");
-
 require("../lib/filesize.js/lib/filesize.js");
 require("../lib/json/json2.js");
 require("../lib/sha1/sha1.js");
