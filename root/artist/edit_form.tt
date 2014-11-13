@@ -28,7 +28,7 @@
 
       <fieldset>
         <legend>[% l('Artist Details') %]</legend>
-        [%- form_row_name_with_guesscase(r, { icons => 2 }) -%]
+        [%- form_row_name_with_guesscase(r) -%]
         [%- form_row_sortname_with_guesscase(r) -%]
         [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
         [%- form_row_select(r, 'type_id', l('Type:')) -%]
@@ -114,6 +114,8 @@
   </div>
 
 </form>
+
+[%- guesscase_options() -%]
 
 <script type="text/javascript">//<![CDATA[
   (function () {

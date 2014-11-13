@@ -12,7 +12,7 @@
   <div class="half-width">
     <fieldset>
       <legend>[% l('Alias Details') %]</legend>
-      [%- form_row_name_with_guesscase(r, { icons => 2, label => l('Alias name:'), with_options => entity_type == 'work' ? 1 : 0 }) -%]
+      [%- form_row_name_with_guesscase(r, { label => l('Alias name:') }) -%]
       [%- form_row_sortname_with_guesscase(r) -%]
       [% form_row_select(r, 'locale', l('Locale:')) %]
       <span id="allow_primary_for_locale" style="display: [% form.field('primary_for_locale').value ? 'block' : 'none' %]">

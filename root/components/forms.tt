@@ -190,11 +190,9 @@
 [%- MACRO form_row_name_with_guesscase(r, options) BLOCK -%]
   [% WRAPPER form_row %]
     [% r.label('name', options.label || l('Name:')) %]
-    [% r.text('name', { class => 'with-guesscase-' _ options.icons }) %]
+    [% r.text('name', { class => 'with-guesscase' }) %]
     <button type="button" class="guesscase-title icon" title="[% l('Guess case') %]"></button>
-    [%- IF options.with_options -%]
-      <button type="button" class="guesscase-options icon" title="[% l('Guess case options') %]"></button>
-    [%- END -%]
+    <button type="button" class="guesscase-options icon" title="[% l('Guess case options') %]"></button>
     [% field_errors(r.form, 'name') %]
   [% END %]
 [%- END -%]
@@ -202,7 +200,7 @@
 [%- MACRO form_row_sortname_with_guesscase(r) BLOCK -%]
   [% WRAPPER form_row %]
     [% r.label('sort_name', l('Sort name:')) %]
-    [% r.text('sort_name', { class => 'with-guesscase-2' }) %]
+    [% r.text('sort_name', { class => 'with-guesscase' }) %]
     <button type="button" class="guesscase-sortname icon" title="[% l('Guess sort name') %]"></button>
     <button type="button" class="sortname-copy icon" title="[% l('Copy name') %]"></button>
     [% field_errors(r.form, 'sort_name') %]

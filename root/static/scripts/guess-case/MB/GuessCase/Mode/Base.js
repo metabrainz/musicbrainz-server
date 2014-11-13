@@ -365,14 +365,6 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
         return false;
     };
 
-    MB.GuessCase.Mode.Artist = $.extend({}, self, {
-        isLowerCaseWord: function (w) {
-            return w === 'the' ? false : self.isLowerCaseWord(w);
-        },
-
-        isSentenceCaps: function () { return false }
-    });
-
     MB.GuessCase.Mode.English = $.extend({}, self, {
         description: MB.text.GuessCaseDescriptionEnglish,
 
