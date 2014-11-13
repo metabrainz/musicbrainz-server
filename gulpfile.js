@@ -59,18 +59,11 @@ function createBundle(resourceName, watch) {
 
     switch (resourceName) {
         case "common.js":
-            // XXX The jquery.flot.* plugins in statistics.js depend on jquery
-            b.require("jquery", { expose: "jquery" });
-
             // XXX The knockout-* plugins in edit.js attempt to require() knockout as a CommonJS module
             b.require("./root/static/lib/knockout/knockout-latest.debug.js", { expose: "knockout" });
-
             break;
         case "edit.js":
             b.external("./root/static/lib/knockout/knockout-latest.debug.js");
-            break;
-        case "statistics.js":
-            b.external("./root/static/lib/jquery/jquery.js");
             break;
     }
 
