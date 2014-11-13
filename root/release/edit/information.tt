@@ -7,9 +7,17 @@
       <tr>
         <td><label for="title" class="required">[% l('Title:') %]</label></td>
         <td colspan="2">
-          <input id="name" type="text" size="47" data-bind="value: name" />
-          <button type="button" class="guesscase-title icon" title="[% l('Guess case') %]"></button>
-          <button type="button" class="guesscase-options icon" title="[% l('Guess case options') %]"></button>
+          <table>
+            <tr>
+              <td style="padding: 0">
+                <input id="name" type="text" size="47" data-bind="value: name" />
+              </td>
+              <td style="padding: 0; text-align: right; width: 42px">
+                <button type="button" class="guesscase-title icon" title="[% l('Guess case') %]"></button>
+                <button type="button" class="guesscase-options icon" title="[% l('Guess case options') %]"></button>
+              </td>
+            </tr>
+          </table>
         </td>
       </tr>
 
