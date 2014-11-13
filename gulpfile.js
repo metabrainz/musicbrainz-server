@@ -103,8 +103,6 @@ gulp.task("clean", function () {
             fs.unlinkSync("./root/static/build/" + file);
         }
     });
-
-    fs.writeFileSync(revManifestPath, JSON.stringify(revManifest));
 });
 
 gulp.task("jshint", function () {
