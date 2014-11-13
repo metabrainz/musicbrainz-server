@@ -11,9 +11,15 @@ use IO::All;
 use JSON qw( decode_json );
 use List::MoreUtils qw( uniq );
 use Path::Class qw( dir file );
-use MooseX::Types::Moose qw( Str );
+use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::Structured qw( Map );
 use Try::Tiny;
+
+has manifest_mtime => (
+    isa => Int,
+    is => 'rw',
+    default => sub { 0 }
+);
 
 has manifest_signatures => (
     isa => Map[Str, Str],
@@ -34,8 +40,13 @@ sub manifest_signature {
 
     $manifest =~ s/\.manifest$//;
 
-    unless (exists $self->manifest_signatures->{$manifest}) {
-        $self->manifest_signatures(decode_json(read_file(DBDefs->STATIC_FILES_DIR . "/build/rev-manifest.json")));
+    my $path = DBDefs->STATIC_FILES_DIR . "/build/rev-manifest.json";
+    my @stat = stat($path);
+    my $mtime = $stat[9];
+
+    if ($mtime > $self->manifest_mtime) {
+        $self->manifest_mtime($mtime);
+        $self->manifest_signatures(decode_json(read_file($path)));
     }
 
     return $self->manifest_signatures->{$manifest};
