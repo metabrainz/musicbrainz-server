@@ -1,7 +1,10 @@
-var extend          = require("extend"),
+var browserify      = require("browserify"),
+    extend          = require("extend"),
     fs              = require("fs"),
     gulp            = require("gulp"),
+    less            = require("gulp-less"),
     rev             = require("gulp-rev"),
+    source          = require("vinyl-source-stream"),
     streamify       = require("gulp-streamify"),
     through2        = require("through2"),
     Q               = require("q"),
@@ -13,19 +16,19 @@ if (fs.existsSync(revManifestPath)) {
     revManifest = JSON.parse(fs.readFileSync(revManifestPath));
 }
 
-function buildResource(stream) {
+function writeManifest() {
+    fs.writeFileSync(revManifestPath, JSON.stringify(revManifest));
+}
+
+function writeResource(stream) {
     var deferred = Q.defer();
 
     stream
-        .on("error", console.log)
         .pipe(streamify(rev()))
         .pipe(gulp.dest("./root/static/build/"))
         .pipe(rev.manifest())
         .pipe(through2.obj(function (chunk, encoding, callback) {
             extend(revManifest, JSON.parse(chunk.contents));
-
-            fs.writeFileSync(revManifestPath, JSON.stringify(revManifest));
-
             callback();
         }))
         .on("finish", function () {
@@ -35,10 +38,8 @@ function buildResource(stream) {
     return deferred.promise;
 }
 
-gulp.task("styles", function () {
-    var less = require("gulp-less");
-
-    return buildResource(
+function buildStyles() {
+    return writeResource(
         gulp.src("./root/static/*.less")
             .pipe(less({
                 rootpath: "/static/",
@@ -46,53 +47,95 @@ gulp.task("styles", function () {
                 relativeUrls: true
             }))
     );
+}
+
+function createBundle(resourceName, watch) {
+    var b = browserify("./root/static/scripts/" + resourceName, {
+        cache: {},
+        packageCache: {},
+        fullPaths: watch ? true : false,
+        debug: !!process.env.DEBUG
+    });
+
+    switch (resourceName) {
+        case "common.js":
+            // XXX The jquery.flot.* plugins in statistics.js depend on jquery
+            b.require("jquery", { expose: "jquery" });
+
+            // XXX The knockout-* plugins in edit.js attempt to require() knockout as a CommonJS module
+            b.require("./root/static/lib/knockout/knockout-latest.debug.js", { expose: "knockout" });
+
+            break;
+        case "edit.js":
+            b.external("./root/static/lib/knockout/knockout-latest.debug.js");
+            break;
+        case "statistics.js":
+            b.external("./root/static/lib/jquery/jquery.js");
+            break;
+    }
+
+    if (process.env.UGLIFY) {
+        b.transform("uglifyify", {
+            // See https://github.com/substack/node-browserify#btransformtr-opts
+            global: true,
+
+            // Uglify options
+            preserveComments: "some",
+            output: { max_line_len: 256 }
+        });
+    }
+
+    function build() {
+        return writeResource(
+            b.bundle()
+            .on("error", console.log)
+            .pipe(source(resourceName))
+        );
+    }
+
+    if (watch) {
+        b = require("watchify")(b);
+
+        function _build() {
+            console.log("building " + resourceName);
+            build().done(writeManifest);
+        }
+
+        _build();
+        b.on("update", _build);
+    }
+
+    return build();
+}
+
+function buildScripts(watch) {
+    return Q.all([
+        createBundle("common.js", watch),
+        createBundle("edit.js", watch),
+        createBundle("guess-case.js", watch),
+        createBundle("release-editor.js", watch),
+        createBundle("statistics.js", watch)
+    ]);
+}
+
+gulp.task("styles", function () {
+    return buildStyles().done(writeManifest);
 });
 
 gulp.task("scripts", function () {
-    var browserify = require("browserify");
-    var source = require("vinyl-source-stream");
+    return buildScripts(false).done(writeManifest);
+});
 
-    function bundle(resourceName) {
-        var b = browserify("./root/static/scripts/" + resourceName, { debug: !!process.env.DEBUG });
-
-        switch (resourceName) {
-            case "common.js":
-                // XXX The jquery.flot.* plugins in statistics.js depend on jquery
-                b.require("./root/static/lib/jquery/jquery.js", { expose: "jquery" });
-
-                // XXX The knockout-* plugins in edit.js attempt to require() knockout as a CommonJS module
-                b.require("./root/static/lib/knockout/knockout-latest.debug.js", { expose: "knockout" });
-
-                break;
-            case "edit.js":
-                b.external("./root/static/lib/knockout/knockout-latest.debug.js");
-                break;
-            case "statistics.js":
-                b.external("./root/static/lib/jquery/jquery.js");
-                break;
-        }
-
-        if (process.env.UGLIFY) {
-            b.transform("uglifyify", {
-                // See https://github.com/substack/node-browserify#btransformtr-opts
-                global: true,
-
-                // Uglify options
-                preserveComments: "some",
-                output: { max_line_len: 256 }
-            });
-        }
-
-        return buildResource(b.bundle().pipe(source(resourceName)));
+gulp.task("watch", function () {
+    function _buildStyles() {
+        console.log("building all styles");
+        buildStyles().done(writeManifest);
     }
 
-    return Q.all([
-        bundle("common.js"),
-        bundle("edit.js"),
-        bundle("guess-case.js"),
-        bundle("release-editor.js"),
-        bundle("statistics.js")
-    ]);
+    _buildStyles();
+    gulp.watch("./root/static/**/*.less", _buildStyles);
+
+    buildScripts(true);
 });
 
 gulp.task("clean", function () {

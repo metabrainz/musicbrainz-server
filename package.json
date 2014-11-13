@@ -21,7 +21,8 @@
     "q": ">= 1.1.1 < 2"
   },
   "devDependencies": {
-    "gulp-jshint": ">= 1.8.4 < 2"
+    "gulp-jshint": ">= 1.8.4",
+    "watchify": ">= 2.1.1"
   },
   "private": true,
   "browser": {
