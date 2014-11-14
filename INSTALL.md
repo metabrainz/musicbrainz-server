@@ -305,7 +305,6 @@ Starting the server
 
 You should now have everything ready to run the development server!
 
-
 The development server is a lightweight HTTP server that gives good debug
 output and is much more convenient than having to set up a standalone
 server. Just run:
