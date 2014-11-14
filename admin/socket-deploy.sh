@@ -20,7 +20,7 @@ echo `date` : "Checking npm dependencies"
 npm install
 
 echo `date` : "Rebuilding resources"
-UGLIFY=1 node_modules/.bin/gulp
+UGLIFY=1 script/compile_resources.pl
 
 echo `date` : "Building and installing translations"
 make -C po all_quiet && make -C po deploy
