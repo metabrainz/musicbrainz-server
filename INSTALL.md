@@ -66,8 +66,31 @@ Prerequisites
     in lib/DBDefs.pm.  The defaults should be fine if you don't use
     your redis install for anything else.
 
+7.  Node.js
 
-7.  Standard Development Tools
+    Node.js is required to build (and optionally minify) our JavaScript and CSS.
+    If you plan on accessing musicbrainz-server inside a web browser, you should
+    install Node. Do this by running:
+
+        sudo apt-get install nodejs
+
+    Node dependencies are managed using `npm`, which comes installed with the
+    nodejs package. To install these dependencies, run the following inside the
+    musicbrainz-server/ checkout:
+
+        npm install
+
+    Node dependencies are installed under ./node_modules.
+
+    We use Gulp as our JavaScript/CSS build system. This will be installed after
+    running the above. Calling `gulp` on its own will build everything necessary
+    to access the server in a web browser. It can be invoked by:
+
+        ./node_modules/.bin/gulp
+
+    If you'd like, you can add ./node_modules/.bin to your $PATH.
+
+8.  Standard Development Tools
 
     In order to install some of the required Perl and Postgresql modules, you'll
     need a C compiler and make. You can install a basic set of development tools
@@ -281,6 +304,7 @@ Starting the server
 ------------------
 
 You should now have everything ready to run the development server!
+
 
 The development server is a lightweight HTTP server that gives good debug
 output and is much more convenient than having to set up a standalone
