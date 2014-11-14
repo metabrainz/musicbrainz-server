@@ -1,0 +1,503 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-11-14 23:57-0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:62
+msgid "An error occurred while searching. Click here to try again."
+msgstr ""
+
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:163
+msgid "Clear recent items"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:384
+msgid "No results"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:391
+#: ../root/static/scripts/common/annotation.js:19
+msgid "Show more..."
+msgstr ""
+
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:397
+msgid "Not found? Try again with direct search."
+msgstr ""
+
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:398
+msgid "Slow? Switch back to indexed search."
+msgstr ""
+
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:581
+#: ../root/static/scripts/common/entity.js:185
+msgid "video"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/Control/EditList.js:48
+msgid "Vote on all edits:"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/Control/EditSummary.js:30
+msgid "Delete Note"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/Control/EditSummary.js:38
+msgid "Add Note"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/Control/TagEditor.js:43
+msgctxt "tag"
+msgid "(none)"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/i18n.js:61
+msgid "{almost_last_list_item} and {last_list_item}"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/i18n.js:70
+msgid "{list_item}, {rest}"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/i18n.js:88
+msgid "{variable}:"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/i18n.js:94
+msgid "Area"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/i18n.js:95
+msgid "Artist"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/i18n.js:96
+msgid "Instrument"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/i18n.js:97
+msgid "Label"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/i18n.js:98
+msgid "Place"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/i18n.js:99
+msgid "Recording"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/i18n.js:100
+msgid "Release"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/i18n.js:101
+msgid "Release group"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/i18n.js:102
+msgctxt "singular"
+msgid "Series"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/i18n.js:103
+msgid "URL"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/i18n.js:104
+msgid "Work"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/i18n.js:108
+msgid "Add a new artist"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/i18n.js:109
+msgid "Add a new label"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/i18n.js:110
+msgid "Add a new place"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/i18n.js:111
+msgid "Add a new recording"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/i18n.js:112
+msgid "Add a new release group"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/i18n.js:113
+msgid "Add a new series"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/i18n.js:114
+msgid "Add a new work"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/i18n.js:118
+msgid "Add another area"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/i18n.js:119
+msgid "Add another artist"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/i18n.js:120
+msgid "Add another instrument"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/i18n.js:121
+msgid "Add another label"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/i18n.js:122
+msgid "Add another place"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/i18n.js:123
+msgid "Add another recording"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/i18n.js:124
+msgid "Add another release"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/i18n.js:125
+msgid "Add another release group"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/i18n.js:126
+msgid "Add another series"
+msgstr ""
+
+#: ../root/static/scripts/common/MB/i18n.js:127
+msgid "Add another work"
+msgstr ""
+
+#: ../root/static/scripts/common/annotation.js:19
+msgid "Show less..."
+msgstr ""
+
+#: ../root/static/scripts/common/artworkViewer.js:29
+msgid "Previous"
+msgstr ""
+
+#: ../root/static/scripts/common/artworkViewer.js:33
+msgid "Next"
+msgstr ""
+
+#: ../root/static/scripts/common/artworkViewer.js:66
+msgid "Image {current} of {total}"
+msgstr ""
+
+#: ../root/static/scripts/common/dialogs.js:7
+msgid "Loading..."
+msgstr ""
+
+#: ../root/static/scripts/common/entity.js:447
+msgid "{medium_format} {position}: {title}"
+msgstr ""
+
+#: ../root/static/scripts/common/entity.js:447
+#: ../root/static/scripts/release-editor/fields.js:341
+msgid "Medium {position}: {title}"
+msgstr ""
+
+#: ../root/static/scripts/common/entity.js:449
+msgid "{medium_format} {position}"
+msgstr ""
+
+#: ../root/static/scripts/common/entity.js:449
+#: ../root/static/scripts/release-editor/fields.js:347
+msgid "Medium {position}"
+msgstr ""
+
+#: ../root/static/scripts/common/ratings.js:8
+msgid "Remove your rating"
+msgstr ""
+
+#: ../root/static/scripts/common/ratings.js:10
+msgid "Rate: {rating} star"
+msgid_plural "Rate: {rating} stars"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:57
+msgid "Began:"
+msgstr ""
+
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:57
+msgid "Ended:"
+msgstr ""
+
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:57
+msgid "This artist has ended."
+msgstr ""
+
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:58
+msgid "Begin area:"
+msgstr ""
+
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:58
+msgid "End area:"
+msgstr ""
+
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:63
+msgid "Born:"
+msgstr ""
+
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:63
+msgid "Died:"
+msgstr ""
+
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:63
+msgid "This person is deceased."
+msgstr ""
+
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:64
+msgid "Born in:"
+msgstr ""
+
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:64
+msgid "Died in:"
+msgstr ""
+
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:71
+msgid "Founded:"
+msgstr ""
+
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:71
+msgid "Dissolved:"
+msgstr ""
+
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:71
+msgid "This group has dissolved."
+msgstr ""
+
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:72
+msgid "Founded in:"
+msgstr ""
+
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:72
+msgid "Dissolved in:"
+msgstr ""
+
+#: ../root/static/scripts/edit/confirmNavigationFallback.js:32
+#: ../root/static/scripts/relationship-editor/release.js:51
+#: ../root/static/scripts/release-editor/init.js:152
+msgid "All of your changes will be lost if you leave this page."
+msgstr ""
+
+#: ../root/static/scripts/edit/externalLinks.js:10
+msgid "Please select a link type for the URL you’ve entered."
+msgstr ""
+
+#: ../root/static/scripts/edit/externalLinks.js:73
+#: ../root/static/scripts/relationship-editor/common/dialog.js:292
+msgid "{description} ({url|more documentation})"
+msgstr ""
+
+#: ../root/static/scripts/edit/externalLinks.js:154
+#: ../root/static/scripts/relationship-editor/common/dialog.js:418
+msgid "Required field."
+msgstr ""
+
+#: ../root/static/scripts/edit/externalLinks.js:156
+msgid "Enter a valid url e.g. \"http://google.com/\""
+msgstr ""
+
+#: ../root/static/scripts/edit/externalLinks.js:165
+#: ../root/static/scripts/relationship-editor/common/dialog.js:401
+msgid "This relationship type is deprecated and should not be used."
+msgstr ""
+
+#: ../root/static/scripts/edit/externalLinks.js:167
+#: ../root/static/scripts/relationship-editor/common/dialog.js:407
+msgid ""
+"This URL is not allowed for the selected link type, or is incorrectly "
+"formatted."
+msgstr ""
+
+#: ../root/static/scripts/edit/externalLinks.js:174
+msgid "This relationship already exists."
+msgstr ""
+
+#: ../root/static/scripts/guess-case/MB/GuessCase/Mode/Base.js:378
+msgid ""
+"This mode capitalises almost all words, with some words (mainly articles and "
+"short prepositions) lowercased. Some words may need to be manually "
+"capitalised to follow the {url|English capitalisation guidelines}."
+msgstr ""
+
+#: ../root/static/scripts/guess-case/MB/GuessCase/Mode/Base.js:389
+msgid ""
+"This mode capitalises titles as sentence mode, but also inserts spaces "
+"before semicolons, colons, exclamation marks and question marks, and inside "
+"guillemets. Some words may need to be manually capitalised to follow the "
+"{url|French capitalisation guidelines}."
+msgstr ""
+
+#: ../root/static/scripts/guess-case/MB/GuessCase/Mode/Base.js:406
+msgid ""
+"This mode capitalises the first word of a sentence, most other words are "
+"lowercased. Some words, often proper nouns, may need to be manually fixed "
+"according to the {url|relevant language guidelines}."
+msgstr ""
+
+#: ../root/static/scripts/relationship-editor/common/dialog.js:12
+msgid "The series you’ve selected is for recordings."
+msgstr ""
+
+#: ../root/static/scripts/relationship-editor/common/dialog.js:13
+msgid "The series you’ve selected is for releases."
+msgstr ""
+
+#: ../root/static/scripts/relationship-editor/common/dialog.js:14
+msgid "The series you’ve selected is for release groups."
+msgstr ""
+
+#: ../root/static/scripts/relationship-editor/common/dialog.js:15
+msgid "The series you’ve selected is for works."
+msgstr ""
+
+#: ../root/static/scripts/relationship-editor/common/dialog.js:397
+msgid "Please select a relationship type."
+msgstr ""
+
+#: ../root/static/scripts/relationship-editor/common/dialog.js:399
+msgid ""
+"Please select a subtype of the currently selected relationship type. The "
+"selected relationship type is only used for grouping subtypes."
+msgstr ""
+
+#: ../root/static/scripts/relationship-editor/common/dialog.js:420
+msgid "Entities in a relationship cannot be the same."
+msgstr ""
+
+#: ../root/static/scripts/relationship-editor/common/dialog.js:433
+msgid "The date you've entered is not valid."
+msgstr ""
+
+#: ../root/static/scripts/relationship-editor/common/dialog.js:444
+msgid "The end date cannot preceed the begin date."
+msgstr ""
+
+#: ../root/static/scripts/relationship-editor/common/fields.js:238
+msgid "This attribute is required."
+msgstr ""
+
+#: ../root/static/scripts/relationship-editor/common/fields.js:260
+msgid "{attribute}: {value}"
+msgstr ""
+
+#: ../root/static/scripts/relationship-editor/common/fields.js:270
+msgid "{attribute} [{credited_as}]"
+msgstr ""
+
+#: ../root/static/scripts/relationship-editor/generic.js:70
+msgid "You haven’t made any changes!"
+msgstr ""
+
+#: ../root/static/scripts/relationship-editor/release.js:21
+msgid "{n} recording selected"
+msgid_plural "{n} recordings selected"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../root/static/scripts/relationship-editor/release.js:25
+msgid "{n} work selected"
+msgid_plural "{n} works selected"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../root/static/scripts/release-editor/actions.js:208
+msgid ""
+"This tracklist has artist credits with information that will be lost if you "
+"swap artist credits with track titles. This cannot be undone. Do you wish to "
+"continue?"
+msgstr ""
+
+#: ../root/static/scripts/release-editor/dialogs.js:22
+msgid "Track Parser"
+msgstr ""
+
+#: ../root/static/scripts/release-editor/dialogs.js:248
+msgid "Add Disc"
+msgstr ""
+
+#: ../root/static/scripts/release-editor/fields.js:349
+msgid "Tracklist"
+msgstr ""
+
+#: ../root/static/scripts/release-editor/fields.js:686
+msgid ""
+"This medium has one or more discids which prevent this information from "
+"being changed."
+msgstr ""
+
+#: ../root/static/scripts/release-editor/init.js:128
+msgid "{name} - Add Release"
+msgstr ""
+
+#: ../root/static/scripts/release-editor/init.js:129
+msgid "Add Release"
+msgstr ""
+
+#: ../root/static/scripts/release-editor/init.js:133
+msgid "{name} - Edit Release"
+msgstr ""
+
+#: ../root/static/scripts/release-editor/init.js:134
+msgid "Edit Release"
+msgstr ""
+
+#: ../root/static/scripts/release-editor/validation.js:137
+msgid "The check digit is {checkdigit}."
+msgstr ""
+
+#: ../root/static/scripts/release-editor/validation.js:138
+msgid "Please double-check the barcode on the release."
+msgstr ""
+
+#: ../root/static/scripts/release-editor/validation.js:142
+msgid ""
+"The barcode you entered looks like a UPC code with the check digit missing."
+msgstr ""
+
+#: ../root/static/scripts/release-editor/validation.js:148
+msgid "The barcode you entered is a valid UPC code."
+msgstr ""
+
+#: ../root/static/scripts/release-editor/validation.js:151
+msgid ""
+"The barcode you entered is either an invalid UPC code, or an EAN code with "
+"the check digit missing."
+msgstr ""
+
+#: ../root/static/scripts/release-editor/validation.js:160
+msgid "The barcode you entered is a valid EAN code."
+msgstr ""
+
+#: ../root/static/scripts/release-editor/validation.js:163
+msgid "The barcode you entered is not a valid EAN code."
+msgstr ""
+
+#: ../root/static/scripts/release-editor/validation.js:170
+msgid "The barcode you entered is not a valid UPC or EAN code."
+msgstr ""
