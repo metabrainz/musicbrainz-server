@@ -119,7 +119,7 @@
               [% UNLESS hide_rating %]
                 <td class="rating c" data-bind="with: recording">
                   <span class="inline-rating">
-                    <span class="star-rating small-star">
+                    <span class="star-rating">
                       <!-- ko if: userRating !== null -->
                       <span class="current-user-rating"
                             data-bind="style: { width: userRating + '%' }, text: MB.utility.percentOf(userRating, 5)"></span>
