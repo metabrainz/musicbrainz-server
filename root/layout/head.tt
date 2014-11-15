@@ -22,6 +22,7 @@
           #header-menu li:hover ul { left: auto; }
         </style>
     </noscript>
+    [%~ script_manifest('jed-' _ current_language _ '.js') ~%]
     [%~ script_manifest('common.js') ~%]
     [%- BLOCK layout_head %][% END -%]
     [%- INCLUDE layout_head -%]

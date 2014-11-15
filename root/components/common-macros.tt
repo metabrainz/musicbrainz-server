@@ -787,7 +787,7 @@ END -%]
 [%- END -%]
 
 [%~ MACRO script_manifest(manifest) BLOCK ~%]
-  <script src="[% c.uri_for("/static/build/") %][% c.model('FileCache').manifest_signature(manifest, current_language) %]"></script>
+  <script src="[% c.uri_for("/static/build/") %][% c.model('FileCache').manifest_signature(manifest) %]"></script>
 [%~ END ~%]
 
 [%~ MACRO css_manifest(manifest) BLOCK ~%]

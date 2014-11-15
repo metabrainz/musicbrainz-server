@@ -5,7 +5,7 @@
 
 (function (i18n) {
 
-    var jed = require("./jed-wrapper.js");
+    var jed = require("jed-wrapper");
     var slice = Array.prototype.slice;
 
     function wrapGettext(method) {

@@ -42,7 +42,7 @@ has file_signatures => (
 );
 
 sub manifest_signature {
-    my ($self, $manifest, $language) = @_;
+    my ($self, $manifest) = @_;
 
     my $instance = $self->instance;
     my $time = time();
@@ -61,7 +61,6 @@ sub manifest_signature {
         }
     }
 
-    $manifest =~ s/([a-z\-])\.js/$1-$language.js/;
     return $self->manifest_signatures->{$manifest};
 }
 

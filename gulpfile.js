@@ -51,8 +51,8 @@ function buildStyles() {
     );
 }
 
-function createBundle(resourceName, lang, watch, callback) {
-    var b = browserify("./root/static/scripts/" + resourceName + ".js", {
+function createBundle(resourceName, watch, callback) {
+    var b = browserify("./root/static/scripts/" + resourceName, {
         cache: {},
         packageCache: {},
         fullPaths: watch ? true : false,
@@ -74,13 +74,11 @@ function createBundle(resourceName, lang, watch, callback) {
         });
     }
 
-    var outputFileName = resourceName + "-" + lang + ".js";
-
     function build() {
         return writeResource(
             b.bundle()
             .on("error", console.log)
-            .pipe(source(outputFileName))
+            .pipe(source(resourceName))
         );
     }
 
@@ -88,7 +86,7 @@ function createBundle(resourceName, lang, watch, callback) {
         b = require("watchify")(b);
 
         function _build() {
-            console.log("building " + outputFileName);
+            console.log("building " + resourceName);
             build().done(writeManifest);
         }
 
@@ -102,7 +100,6 @@ function createBundle(resourceName, lang, watch, callback) {
 function buildScripts(watch) {
     var promises = [];
     var languages = (process.env.LANGUAGES || "").split(",").filter(Boolean);
-    var jedWrapper = "./root/static/scripts/common/MB/jed-wrapper.js";
 
     if (!languages.length) {
         languages.push("en");
@@ -111,6 +108,7 @@ function buildScripts(watch) {
     languages.forEach(function (lang) {
         var srcPo;
         var tmpPo;
+        var jedWrapper = "./root/static/scripts/jed-" + lang + ".js";
         var jedOptions = {};
 
         if (lang !== "en") {
@@ -120,6 +118,7 @@ function buildScripts(watch) {
             // Create a temporary .po file containing only the strings used by root/static/scripts.
             shell.exec("msgcat --more-than=1 --use-first -o " + tmpPo + " " + srcPo + " ./po/javascript.pot");
             jedOptions = po2json.parseFileSync(tmpPo, { format: "jed" });
+            fs.unlinkSync(tmpPo);
         }
 
         fs.writeFileSync(
@@ -128,31 +127,27 @@ function buildScripts(watch) {
             'module.exports = new Jed(' + JSON.stringify(jedOptions) + ');\n'
         );
 
-        var langBundles = [
-            createBundle("common", lang, watch, function (b) {
-                // Needed by knockout-* plugins in edit.js
-                b.require('./root/static/lib/knockout/knockout-latest.debug.js', { expose: 'knockout' });
-            }),
-            createBundle("edit", lang, watch, function (b) {
-                b.external('./root/static/lib/knockout/knockout-latest.debug.js');
-            }),
-            createBundle("guess-case", lang, watch),
-            createBundle("release-editor", lang, watch),
-            createBundle("statistics", lang, watch)
-        ];
-
-        Q.all(langBundles).done(function () {
-            fs.unlinkSync(jedWrapper);
-
-            if (lang !== "en") {
-                fs.unlinkSync("po/javascript." + lang + ".po");
-            }
+        createBundle("jed-" + lang + ".js", watch, function (b) {
+            b.require(jedWrapper, { expose: 'jed-wrapper' });
+        }).done(function () {
+            //fs.unlinkSync(jedWrapper);
         });
-
-        promises = promises.concat(langBundles);
     });
 
-    return Q.all(promises);
+    return Q.all([
+        createBundle("common.js", watch, function (b) {
+            b.external("jed-wrapper");
+
+            // Needed by knockout-* plugins in edit.js
+            b.require('./root/static/lib/knockout/knockout-latest.debug.js', { expose: 'knockout' });
+        }),
+        createBundle("edit.js", watch, function (b) {
+            b.external('./root/static/lib/knockout/knockout-latest.debug.js');
+        }),
+        createBundle("guess-case.js", watch),
+        createBundle("release-editor.js", watch),
+        createBundle("statistics.js", watch)
+    ]);
 }
 
 gulp.task("styles", function () {
