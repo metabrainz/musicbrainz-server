@@ -79,26 +79,16 @@ END; -%]
 
 [%- USE JavaScript -%]
 [%~ MACRO display_artwork_image(artwork, fallback, message) BLOCK -%]
-    [%- IF no_javascript -%]
+    <noscript>
         <img src="[% artwork.small_thumbnail %]" />
-    [%- ELSE -%]
-        <img[% IF artwork_hover(artwork) %] title="[% artwork_hover(artwork) %]"[% END %] />
-        <script>
-          $('img').last().bind('error', function (event) {
-         [%- IF fallback -%]
-              if ($(this).attr("src") === "[% artwork.small_thumbnail %]") {
-                  $(this).attr("src", "[% fallback %]");
-              } else {
-         [%- END -%]
-                  $(this).closest('a').replaceWith('<em>
-                  [%~ message ? message : l('Image not available yet, please try again in a few minutes.') | js ~%]
-                  <\/em>');
-         [%- IF fallback -%]
-              }
-         [%- END -%]
-          }).attr("src", "[% artwork.small_thumbnail %]");
-        </script>
-    [%- END -%]
+    </noscript>
+
+    <span class="cover-art-image"
+        data-thumbnail="[% artwork.small_thumbnail %]"
+        data-fallback="[% fallback %]"
+        data-title="[% artwork_hover(artwork) | html %]"
+        data-message="[% message ? message : l('Image not available yet, please try again in a few minutes.') | html %]"
+    ></span>
 [% END %]
 
 [%~ MACRO display_artwork(artwork, fallback, message, rel) BLOCK -%]
