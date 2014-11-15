@@ -20,21 +20,21 @@
     <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Label") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_label.xml') %]" />
     <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Release") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_release.xml') %]" />
     <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Track") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_track.xml') %]" />
-    [% IF no_javascript ~%]
+    <noscript>
         <style type="text/css">
           #header-menu li:hover ul { left: auto; }
         </style>
-    [%~ ELSE ~%]
-        [%~ script_manifest('common.js.manifest') ~%]
-        <script type="text/javascript" src="
-            [%- lang_hash = current_language;
-                IF current_language != 'en';
-                    lang_hash = lang_hash _ '-' _ c.model('FileCache').pofile_signature('mb_server', current_language);
-                END;
-                c.uri_for('/scripts', lang_hash
-                    c.model('FileCache').template_signature('scripts/text_strings.tt'),
-                    'text.js') -%]"></script>
-    [%- END -%]
+    </noscript>
+
+    [%~ script_manifest('common.js.manifest') ~%]
+    <script type="text/javascript" src="
+        [%- lang_hash = current_language;
+            IF current_language != 'en';
+                lang_hash = lang_hash _ '-' _ c.model('FileCache').pofile_signature('mb_server', current_language);
+            END;
+            c.uri_for('/scripts', lang_hash
+                c.model('FileCache').template_signature('scripts/text_strings.tt'),
+                'text.js') -%]"></script>
     [%- BLOCK layout_head %][% END -%]
     [%- INCLUDE layout_head -%]
     [%~ IF jsonld_data ~%]
