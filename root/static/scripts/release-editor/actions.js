@@ -234,7 +234,13 @@
                 return track.artistCredit.isComplex();
             });
 
-            if (!requireConf || confirm(MB.text.ConfirmSwap)) {
+            var question = MB.i18n.l(
+                "This tracklist has artist credits with information that " +
+                "will be lost if you swap artist credits with track titles. " +
+                "This cannot be undone. Do you wish to continue?"
+            );
+
+            if (!requireConf || confirm(question)) {
                 _.each(tracks, function (track) {
                     var oldTitle = track.name();
 

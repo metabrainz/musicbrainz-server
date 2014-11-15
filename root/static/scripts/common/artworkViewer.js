@@ -26,11 +26,11 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
             // it doesn't save a whole lotta code anyway.
 
             this.$prev = $("<button>").attr("type", "button")
-                            .text(MB.text.Previous)
+                            .text(MB.i18n.l("Previous"))
                             .click(_.bind(this.prevImage, this));
 
             this.$next = $("<button>").attr("type", "button")
-                            .text(MB.text.Next)
+                            .text(MB.i18n.l("Next"))
                             .click(_.bind(this.nextImage, this));
 
             this.$pager = $("<div>").addClass("artwork-pager");
@@ -63,7 +63,7 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
         this.$next.prop("disabled", !this._nextImageLink);
 
         this.$pager.text(
-            MB.i18n.expand(MB.text.ImagePager, {
+            MB.i18n.l("Image {current} of {total}", {
                 current: index + 1, total: this.$artwork.length
             })
         );

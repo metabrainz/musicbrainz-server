@@ -184,7 +184,7 @@
 
         around$html: function (supr, params) {
             params = params || {};
-            params.videoString = MB.text.Video;
+            params.videoString = MB.i18n.l("video");
             return supr(params);
         },
 
@@ -444,12 +444,18 @@
         after$init: function (data) {
             this.tracks = _.map(data.tracks, MB.entity.Track);
 
-            this.positionName = "";
-            this.positionName += (this.format || MB.text.Medium) + " " + this.position;
-
+            var positionName;
             if (this.name) {
-                this.positionName += ": " + this.name;
+                positionName = this.format ? "{medium_format} {position}: {title}" : "Medium {position}: {title}";
+            } else {
+                positionName = this.format ? "{medium_format} {position}" : "Medium {position}";
             }
+
+            this.positionName = MB.i18n.l(positionName, {
+                medium_format: this.format,
+                position: this.position,
+                title: this.name
+            });
         }
     });
 

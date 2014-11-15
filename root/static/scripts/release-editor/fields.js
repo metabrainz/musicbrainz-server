@@ -472,17 +472,15 @@
 
             if (name) {
                 if (multidisc) {
-                    return MB.i18n.expand(
-                        MB.text.DiscNumberTitle, { num: position, title: name }
-                    );
+                    return MB.i18n.l("Medium {position}: {title}", { position: position, title: name });
                 }
                 return name;
 
             }
             else if (multidisc) {
-                return MB.i18n.expand(MB.text.DiscNumber, { num: position });
+                return MB.i18n.l("Medium {position}", { position: position });
             }
-            return MB.text.Tracklist;
+            return MB.i18n.l("Tracklist");
         },
 
         canHaveDiscID: function () {
@@ -810,7 +808,7 @@
             $(element)
                 .prop("disabled", disabled)
                 .toggleClass("disabled-hint", disabled)
-                .attr("title", disabled ? MB.text.DoNotChangeTracks : "");
+                .attr("title", disabled ? MB.i18n.l("This medium has one or more discids which prevent this information from being changed.") : "");
         }
     };
 

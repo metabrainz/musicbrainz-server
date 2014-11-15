@@ -57,7 +57,7 @@
                     .filter(".rel-edit:eq(0), .rel-add:eq(0), .rel-remove:eq(0)");
 
                 if ($changes.length) {
-                    return MB.text.ConfirmNavigation;
+                    return MB.i18n.l("All of your changes will be lost if you leave this page.");
                 }
             };
         },

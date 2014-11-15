@@ -4,7 +4,7 @@
 
         options: {
             width: 800,
-            title: MB.text.Loading,
+            title: MB.i18n.l("Loading..."),
             resizable: false
         },
 
@@ -82,7 +82,7 @@
             }
 
             var entity = this.options.entity;
-            this.options.title = MB.text.AddANewEntity[entity];
+            this.options.title = MB.i18n.strings.addANewEntity[entity];
             this._super(event);
 
             if (this.options.name) {

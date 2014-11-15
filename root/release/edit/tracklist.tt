@@ -96,7 +96,7 @@
   <!-- ko if: totalPages() > 1 -->
   <div style="text-align: center">
     <a href="#" data-click="previousPage">«</a>
-    <!-- ko text: MB.i18n.expand(MB.text.Pager, { page: currentPage(), total: totalPages() })
+    <!-- ko text: MB.i18n.expand('[% l('Page {page} of {total}') | js %]', { page: currentPage(), total: totalPages() })
     --><!-- /ko -->
     <a href="#" data-click="nextPage">»</a>
   </div>
@@ -127,7 +127,7 @@
         (<!-- ko text: format + ($data.position ? " " + $data.position : "") --><!-- /ko -->)
       <!-- /ko -->
 
-      <!-- ko text: MB.i18n.expand(MB.text.ByArtist, { artist: artist }) --><!-- /ko -->
+      <!-- ko text: MB.i18n.expand('[% l('by {artist}') | js %]', { artist: artist }) --><!-- /ko -->
     </div>
 
     <!-- ko if: expanded() && loaded() -->
@@ -387,9 +387,7 @@
                            optionsCaption: '',
                            value: toc"></select>
         <!-- ko with: toc -->
-          <a target="_blank"
-             data-bind="text: MB.text.link,
-                        attr: { href: '/cdtoc/' + $root.utils.calculateDiscID($data) }"></a>
+          <a target="_blank" data-bind="attr: { href: '/cdtoc/' + $root.utils.calculateDiscID($data) }">[% l('link') %]</a>
         <!-- /ko -->
       </div>
       <!-- /ko -->
@@ -439,7 +437,7 @@
       <tr data-bind="with: target">
         <td colspan="4" style="padding-bottom: 1em;">
           [% l('Preview:') %]
-          <span data-bind="html: track.name() ? MB.i18n.expand(MB.text.EntityByArtist, { entity: '<bdi>' + _.escape(track.name()) + '</bdi>', artist: html({ target: '_blank' }) }) : html({ target: '_blank' })"></span>
+          <span data-bind="html: track.name() ? MB.i18n.expand('[% l('{entity} by {artist}') | js %]', { entity: '<bdi>' + _.escape(track.name()) + '</bdi>', artist: html({ target: '_blank' }) }) : html({ target: '_blank' })"></span>
         </td>
       </tr>
       <tr class="artist-credit-header">

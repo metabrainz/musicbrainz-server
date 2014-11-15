@@ -86,7 +86,7 @@ function searchAndClick(self, itemToClick, callback) {
 asyncTest("clicking on actions should not close the menu (MBS-6912)", function () {
     expect(2);
 
-    var itemToClick = ":contains(" + MB.text.ShowMore + ")";
+    var itemToClick = ":contains(Show more...)";
 
     searchAndClick(this, itemToClick, function (self) {
         ok(self.$menu.is(":visible"), "menu is still open after clicking show more");
@@ -99,7 +99,7 @@ asyncTest("clicking on actions should not close the menu (MBS-6912)", function (
 asyncTest("clicking on actions should not prevent the menu from ever closing (MBS-6978)", function () {
     expect(2);
 
-    var itemToClick = ":contains(" + MB.text.ShowMore + ")";
+    var itemToClick = ":contains(Show more...)";
 
     searchAndClick(this, itemToClick, function (self) {
         blurAutocomplete(self);

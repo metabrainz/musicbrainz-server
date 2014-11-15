@@ -3,7 +3,9 @@ var browserify      = require("browserify"),
     fs              = require("fs"),
     gulp            = require("gulp"),
     less            = require("gulp-less"),
+    po2json         = require("po2json"),
     rev             = require("gulp-rev"),
+    shell           = require("shelljs"),
     source          = require("vinyl-source-stream"),
     streamify       = require("gulp-streamify"),
     through2        = require("through2"),
@@ -49,8 +51,8 @@ function buildStyles() {
     );
 }
 
-function createBundle(resourceName, watch, callback) {
-    var b = browserify("./root/static/scripts/" + resourceName, {
+function createBundle(resourceName, lang, watch, callback) {
+    var b = browserify("./root/static/scripts/" + resourceName + ".js", {
         cache: {},
         packageCache: {},
         fullPaths: watch ? true : false,
@@ -72,11 +74,13 @@ function createBundle(resourceName, watch, callback) {
         });
     }
 
+    var outputFileName = resourceName + "-" + lang + ".js";
+
     function build() {
         return writeResource(
             b.bundle()
             .on("error", console.log)
-            .pipe(source(resourceName))
+            .pipe(source(outputFileName))
         );
     }
 
@@ -84,7 +88,7 @@ function createBundle(resourceName, watch, callback) {
         b = require("watchify")(b);
 
         function _build() {
-            console.log("building " + resourceName);
+            console.log("building " + outputFileName);
             build().done(writeManifest);
         }
 
@@ -96,18 +100,59 @@ function createBundle(resourceName, watch, callback) {
 }
 
 function buildScripts(watch) {
-    return Q.all([
-        createBundle("common.js", watch, function (b) {
-            // Needed by knockout-* plugins in edit.js
-            b.require('./root/static/lib/knockout/knockout-latest.debug.js', { expose: 'knockout' });
-        }),
-        createBundle("edit.js", watch, function (b) {
-            b.external('./root/static/lib/knockout/knockout-latest.debug.js');
-        }),
-        createBundle("guess-case.js", watch),
-        createBundle("release-editor.js", watch),
-        createBundle("statistics.js", watch)
-    ]);
+    var promises = [];
+    var languages = (process.env.LANGUAGES || "").split(",").filter(Boolean);
+    var jedWrapper = "./root/static/scripts/common/MB/jed-wrapper.js";
+
+    if (!languages.length) {
+        languages.push("en");
+    }
+
+    languages.forEach(function (lang) {
+        var srcPo;
+        var tmpPo;
+        var jedOptions = {};
+
+        if (lang !== "en") {
+            srcPo = "./po/mb_server." + lang + ".po";
+            tmpPo = "./po/javascript." + lang + ".po";
+
+            // Create a temporary .po files containing only the strings used by root/static/scripts.
+            shell.exec("msgcat --more-than=1 --use-first -o " + tmpPo + " " + srcPo + " ./po/javascript.pot");
+            jedOptions = po2json.parseFileSync(tmpPo, { format: "jed" });
+        }
+
+        fs.writeFileSync(
+            jedWrapper,
+            'var Jed = require("jed");\n' +
+            'module.exports = new Jed(' + JSON.stringify(jedOptions) + ');\n'
+        );
+
+        var langBundles = [
+            createBundle("common", lang, watch, function (b) {
+                // Needed by knockout-* plugins in edit.js
+                b.require('./root/static/lib/knockout/knockout-latest.debug.js', { expose: 'knockout' });
+            }),
+            createBundle("edit", lang, watch, function (b) {
+                b.external('./root/static/lib/knockout/knockout-latest.debug.js');
+            }),
+            createBundle("guess-case", lang, watch),
+            createBundle("release-editor", lang, watch),
+            createBundle("statistics", lang, watch)
+        ];
+
+        Q.all(langBundles).done(function () {
+            fs.unlinkSync(jedWrapper);
+
+            if (lang !== "en") {
+                fs.unlinkSync("po/javascript." + lang + ".po");
+            }
+        });
+
+        promises = promises.concat(langBundles);
+    });
+
+    return Q.all(promises);
 }
 
 gulp.task("styles", function () {

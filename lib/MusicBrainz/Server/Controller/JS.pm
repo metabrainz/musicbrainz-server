@@ -20,12 +20,6 @@ sub js_text_setup : Chained('/') PathPart('scripts') CaptureArgs(2) {
     }
 }
 
-sub js_text_strings : Chained('js_text_setup') PathPart('text.js') {
-    my ($self, $c) = @_;
-    $c->res->content_type('text/javascript');
-    $c->stash->{template} = 'scripts/text_strings.tt';
-}
-
 sub statistics_js_text_strings : Chained('js_text_setup') PathPart('statistics/view.js') {
     my ($self, $c) = @_;
     my @countries = $c->model('CountryArea')->get_all();

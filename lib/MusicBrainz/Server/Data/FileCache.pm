@@ -42,7 +42,7 @@ has file_signatures => (
 );
 
 sub manifest_signature {
-    my ($self, $manifest) = @_;
+    my ($self, $manifest, $language) = @_;
 
     my $instance = $self->instance;
     my $time = time();
@@ -61,6 +61,7 @@ sub manifest_signature {
         }
     }
 
+    $manifest =~ s/([a-z\-])\.js/$1-$language.js/;
     return $self->manifest_signatures->{$manifest};
 }
 
@@ -73,31 +74,6 @@ sub template_signature {
     }
 
     return $instance->file_signatures->{$signature_key};
-}
-
-sub pofile_signature {
-    my ($self, $domain, $language) = @_;
-    my $instance = $self->instance;
-    my $signature_key = 'pofile' . $domain . $language;
-    unless (exists $instance->file_signatures->{$signature_key}) {
-        # First try the language as given, then fall back to the language without a country code.
-        my $hash = try {
-            file_md5_hex(_pofile_path($domain, $language));
-        } catch {
-            $language =~ s/[-_][A-Za-z]+$//;
-            file_md5_hex(_pofile_path($domain, $language));
-        };
-
-        $instance->file_signatures->{$signature_key} = $hash;
-    }
-
-    return $instance->file_signatures->{$signature_key};
-}
-
-sub _pofile_path
-{
-    my ($domain, $language) = @_;
-    return DBDefs->MB_SERVER_ROOT . "/po/" . $domain . "." . $language . ".po";
 }
 
 sub _expand {
