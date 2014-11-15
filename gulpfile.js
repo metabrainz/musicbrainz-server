@@ -117,7 +117,7 @@ function buildScripts(watch) {
             srcPo = "./po/mb_server." + lang + ".po";
             tmpPo = "./po/javascript." + lang + ".po";
 
-            // Create a temporary .po files containing only the strings used by root/static/scripts.
+            // Create a temporary .po file containing only the strings used by root/static/scripts.
             shell.exec("msgcat --more-than=1 --use-first -o " + tmpPo + " " + srcPo + " ./po/javascript.pot");
             jedOptions = po2json.parseFileSync(tmpPo, { format: "jed" });
         }
