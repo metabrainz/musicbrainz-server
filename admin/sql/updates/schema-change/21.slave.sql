@@ -955,6 +955,18 @@ AS $$
   END;
 $$ LANGUAGE 'plpgsql';
 
+CREATE OR REPLACE FUNCTION unique_primary_event_alias()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.primary_for_locale THEN
+      UPDATE event_alias SET primary_for_locale = FALSE
+      WHERE locale = NEW.locale AND id != NEW.id
+        AND event = NEW.event;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
 --------------------------------------------------------------------------------
 SELECT '20141008-instrument-indexes.sql';
 DROP INDEX IF EXISTS edit_instrument_idx;
@@ -1024,7 +1036,7 @@ CREATE TABLE editor_collection_event
 ALTER TABLE editor_collection_event ADD CONSTRAINT editor_collection_event_pkey PRIMARY KEY (collection, event);
 
 INSERT INTO editor_collection_type (id, name, entity_type, parent, child_order) VALUES
-        (4, 'Event', 'event', NULL, 2)
+        (4, 'Event', 'event', NULL, 2),
 	(5, 'Attending', 'event', 4, 1),
 	(6, 'Maybe attending', 'event', 4, 2);
 
