@@ -106,6 +106,9 @@ MB.Release = (function (Release) {
             })
           }
         );
+
+        medium.audioTracks = _.reject(medium.tracks, "isDataTrack");
+        medium.dataTracks = _.filter(medium.tracks, "isDataTrack");
       }
     );
 

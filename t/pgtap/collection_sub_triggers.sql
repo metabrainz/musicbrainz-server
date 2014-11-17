@@ -6,9 +6,13 @@ SELECT no_plan();
 --------------------------------------------------------------------------------
 -- Setup
 INSERT INTO editor (id, name, password, ha1) VALUES (1, 'editor1', '{CLEARTEXT}pass', '16a4862191803cb596ee4b16802bb7ee'), (2, 'editor2', '{CLEARTEXT}pass', 'ba025a52cc5ff57d5d10f31874a83de6');
-INSERT INTO editor_collection (id, gid, editor, name, public)
-    VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3cd', 1, 'collection1', TRUE),
-           (2, 'f34c079d-374e-4436-9448-da92dedef3cb', 1, 'collection2', TRUE);
+
+INSERT INTO editor_collection_type (id, name, entity_type, parent, child_order)
+    VALUES (1, 'Release', 'release', NULL, 1);
+
+INSERT INTO editor_collection (id, gid, editor, name, public, type)
+    VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3cd', 1, 'collection1', TRUE, 1),
+           (2, 'f34c079d-374e-4436-9448-da92dedef3cb', 1, 'collection2', TRUE, 1);
 ALTER SEQUENCE editor_collection_id_seq RESTART 3;
 
 INSERT INTO editor_subscribe_collection (id, editor, collection, last_edit_sent, available, last_seen_name)

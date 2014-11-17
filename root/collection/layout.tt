@@ -6,6 +6,9 @@
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Owner:')
                content=link_entity(collection.editor) %]
+            [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
+                     content=html_escape(collection.l_type_name) class="type"
+                         IF collection.type ~%]
         [%- END -%]
 
         <h2 class="editing">[% l('Editing') %]</h2>

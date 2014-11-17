@@ -7,53 +7,125 @@
        [%- END -%]
     </div>
 
-    [%- IF releases.size -%]
-      <form action="[% c.req.uri %]" method="post">
-        [%- WRAPPER 'components/with-pager.tt' -%]
-        <table class="tbl">
-          <thead>
-              <tr>
-                  [% IF my_collection %]<th><input type="checkbox" /></th>[% END %]
-                  [% sortble_table_header('title', l('Release')) %]
-                  [% sortble_table_header('artist', l('Artist')) %]
-                  [% sortble_table_header('format', l('Format')) %]
-                  [% sortble_table_header('tracks', l('Tracks')) %]
-                  <th>[% l('Date') %]</th>
-                  <th>[% l('Country') %]</th>
-                  [% sortble_table_header('label', l('Label')) %]
-                  [% sortble_table_header('catno', l('Catalog#')) %]
-                  <th>[% l('Rating') %]</th>
-              </tr>
-          </thead>
-          <tbody>
-              <h2>[% l('Releases') %]</h2>
-              [%- FOR release=releases -%]
-              <tr class="[% loop.parity %]">
-                  [% IF my_collection %]
-                  <td>
-                    <input type="checkbox" name="remove" value="[% release.id %]" />
-                  </td>
-                  [% END %]
-                  <td>[% link_entity(release) %]</td>
-                  <td>[% artist_credit(release.artist_credit) %]</td>
-                  <td>[% html_escape(release.combined_format_name) or "-" %]</td>
-                  <td>[% release.combined_track_count or "-" %]</td>
-                  <td>[% release_dates(release.events) %]</td>
-                  <td>[% release_countries(release.events) %]</td>
-                  <td>[% release_label_list(release.labels) %]</td>
-                  <td>[% release_catno_list(release.labels) %]</td>
-                  <td>[% rating_stars(release.release_group) %]</td>
-              </tr>
-              [%- END -%]
-          </tbody>
-        </table>
+    [%- IF collection.type.entity_type == 'release' -%]
+        [%- IF releases.size -%]
+          <form action="[% c.req.uri %]" method="post">
+            [%- WRAPPER 'components/with-pager.tt' -%]
+            <table class="tbl">
+              <thead>
+                  <tr>
+                      [% IF my_collection %]<th><input type="checkbox" /></th>[% END %]
+                      [% sortble_table_header('title', l('Release')) %]
+                      [% sortble_table_header('artist', l('Artist')) %]
+                      [% sortble_table_header('format', l('Format')) %]
+                      [% sortble_table_header('tracks', l('Tracks')) %]
+                      <th>[% l('Date') %]</th>
+                      <th>[% l('Country') %]</th>
+                      [% sortble_table_header('label', l('Label')) %]
+                      [% sortble_table_header('catno', l('Catalog#')) %]
+                      <th>[% l('Rating') %]</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <h2>[% l('Releases') %]</h2>
+                  [%- FOR release=releases -%]
+                  <tr class="[% loop.parity %]">
+                      [% IF my_collection %]
+                      <td>
+                        <input type="checkbox" name="remove" value="[% release.id %]" />
+                      </td>
+                      [% END %]
+                      <td>[% link_entity(release) %]</td>
+                      <td>[% artist_credit(release.artist_credit) %]</td>
+                      <td>[% html_escape(release.combined_format_name) or "-" %]</td>
+                      <td>[% release.combined_track_count or "-" %]</td>
+                      <td>[% release_dates(release.events) %]</td>
+                      <td>[% release_countries(release.events) %]</td>
+                      <td>[% release_label_list(release.labels) %]</td>
+                      <td>[% release_catno_list(release.labels) %]</td>
+                      <td>[% rating_stars(release.release_group) %]</td>
+                  </tr>
+                  [%- END -%]
+              </tbody>
+            </table>
 
-        <div class="row">[% form_submit(l('Remove selected releases from collection'))
-             IF my_collection %]</div>
+            <div class="row">[% form_submit(l('Remove selected releases from collection'))
+                 IF my_collection %]</div>
+            [%- END -%]
+          </form>
+        [%- ELSE -%]
+            <p>[%- l('No releases found in collection.') -%]</p>
         [%- END -%]
-      </form>
-    [%- ELSE -%]
-        <p>[%- l('No releases found in collection.') -%]</p>
-    [%- END -%]
 
+    [%- ELSIF collection.type.entity_type == 'event' -%]
+        [%- IF events.size -%]
+          <form action="[% c.req.uri %]" method="post">
+            [%- WRAPPER 'components/with-pager.tt' -%]
+            <table class="tbl">
+              <thead>
+                  <tr>
+                      [%~ IF my_collection ~%]<th><input type="checkbox" /></th>[%~ END ~%]
+                      [%~ sortble_table_header('name', l('Event')) ~%]
+                      [%~ sortble_table_header('tracks', l('Type')) ~%]
+                      [%~ sortble_table_header('artist', l('Artists')) ~%]
+                      [%~ sortble_table_header('format', l('Location')) ~%]
+                      <th>[%~ l('Date') ~%]</th>
+                      <th>[%~ l('Time') ~%]</th>
+                      <th>[%~ l('Rating') ~%]</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <h2>[% l('Events') %]</h2>
+                  [%- FOR event=events -%]
+                  <tr class="[% loop.parity %]">
+                      [% IF my_collection %]
+                      <td>
+                        <input type="checkbox" name="remove" value="[% event.id %]" />
+                      </td>
+                      [% END %]
+                      <td>[%~ descriptive_link(event) ~%]</td>
+                      <td>[%~ event.l_type_name ~%]</td>
+                      <td>          
+                          <ul>
+                              [%~ FOR rel_artist=event.performers ~%]
+                                  <li> [%~ l('{artist} ({roles})', { artist => link_artist(rel_artist.entity),
+                                                                     roles  => rel_artist.roles.join(', ') }) ~%]</li>
+                              [%~ END ~%]
+                          </ul>
+                      </td>
+                      <td>          
+                          <ul>
+                              [%~ FOR rel_place=event.places ~%]
+                                  <li>[%~ descriptive_link(rel_place.entity) ~%]</li>
+                              [%~ END ~%]
+                              [%~ FOR rel_area=event.areas ~%]
+                                  <li>[%~ descriptive_link(rel_area.entity) ~%]</li>
+                              [%~ END ~%]
+                          </ul>
+                      </td>
+                      [%~ IF event.begin_date.format == event.end_date.format ~%]
+                          <td>[%~ event.begin_date.format ~%]</td>
+                      [%~ ELSIF event.begin_date.format && event.end_date.format ~%]
+                          <td>[%~ l('{begindate} &#x2013; {enddate}', { begindate => event.begin_date.format,
+                                                                        enddate   => event.end_date.format }) ~%]</td>
+                      [%~ ELSIF event.begin_date.format ~%]
+                          <td>[%~ l('{begindate} &#x2013; ????', { begindate => event.begin_date.format }) ~%]</td>
+                      [%~ ELSIF event.end_date.format ~%]
+                          <td>[%~ l('???? &#x2013; {enddate}', { enddate   => event.end_date.format }) ~%]</td>
+                      [%~ END ~%]
+                      <td>[%~ event.formatted_time ~%]</td>
+                      <td>[%~ rating_stars(event) ~%]</td>
+                  </tr>
+                  [%- END -%]
+              </tbody>
+            </table>
+
+            <div class="row">[% form_submit(l('Remove selected events from collection'))
+                 IF my_collection %]</div>
+            [%- END -%]
+          </form>
+        [%- ELSE -%]
+            <p>[%- l('No events found in this list.') -%]</p>
+        [%- END -%]
+    [%- END -%]
 [% END %]

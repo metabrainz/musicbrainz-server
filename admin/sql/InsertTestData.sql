@@ -345,6 +345,7 @@ ALTER SEQUENCE tag_id_seq RESTART 100;
 
 ALTER SEQUENCE link_id_seq RESTART 3;
 ALTER SEQUENCE link_type_id_seq RESTART 3;
+ALTER SEQUENCE link_attribute_type_id_seq RESTART 5;
 
 ALTER SEQUENCE l_artist_recording_id_seq RESTART 4;
 

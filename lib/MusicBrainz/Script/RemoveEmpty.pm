@@ -10,6 +10,7 @@ use MusicBrainz::Server::Constants qw(
     $DARTIST_ID
     $DLABEL_ID
     $EDIT_ARTIST_DELETE
+    $EDIT_EVENT_DELETE
     $EDIT_LABEL_DELETE
     $EDIT_PLACE_DELETE
     $BOT_FLAG
@@ -27,6 +28,7 @@ with 'MusicBrainz::Script::Role::Context';
 
 my %entity_query_map = (
     artist => 'SELECT * FROM empty_artists()',
+    event => 'SELECT * FROM empty_events()',
     label => 'SELECT * FROM empty_labels()',
     place => 'SELECT * FROM empty_places()',
     release_group => 'SELECT * FROM empty_release_groups()',
@@ -36,6 +38,7 @@ my %entity_query_map = (
 
 my %skip_ids = (
     artist => [ $VARTIST_ID, $DARTIST_ID ],
+    event => [],
     label => [ $DLABEL_ID ],
     place => [],
     release_group => [],
@@ -45,6 +48,7 @@ my %skip_ids = (
 
 my %edit_class = (
     artist => $EDIT_ARTIST_DELETE,
+    event => $EDIT_EVENT_DELETE,
     label => $EDIT_LABEL_DELETE,
     place => $EDIT_PLACE_DELETE,
     release_group => $EDIT_RELEASEGROUP_DELETE,

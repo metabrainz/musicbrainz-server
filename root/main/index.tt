@@ -1,9 +1,8 @@
 [% WRAPPER "layout.tt" nosuffix=1 title=l("MusicBrainz - The Open Music Encyclopedia") homepage=1 %]
-    <div class="sidebar" id="sidebar">
-      <div style="float: right;">
+    <div class="sidebar">
+      <div>
         <div id="taggers" class="triple-column feature-column">
             <h2 class="taggers">[% l('Tag Your Music') %]</h2>
-            <img src="[% c.uri_for('/static/images/logos/musicbrainz-picard.png') %]" alt="MusicBrainz Picard logo" />
             <ul>
                 <li><a href="//picard.musicbrainz.org">[% l('MusicBrainz Picard') %]</a></li>
                 <li><a href="[% doc_link('Jaikoz') %]">[% l('Jaikoz Tagger') %]</a></li>
@@ -15,7 +14,6 @@
 
         <div id="quick-start" class="triple-column feature-column">
             <h2>[% l('Quick Start') %]</h2>
-            <img src="[% c.uri_for('/static/images/layout/quick-start.png') %]" alt="quick start icon" />
             <ul>
                 <li><a href="[% doc_link('Beginners_Guide') %]">[% l('Beginners guide') %]</a></li>
                 <li><a href="[% doc_link('How_Editing_Works') %]">[% l('Editing introduction') %]</a></li>
@@ -26,7 +24,7 @@
       </div>
     </div>
 
-    <div class="sidebar" id="sidebar2">
+    <div class="sidebar">
       <div id="blog-feed" class="triple-column feature-column">
         <h2>[% l('MusicBrainz Blog') %]</h2>
         [% IF blog.defined %]
@@ -91,7 +89,6 @@
     <div id="triple">
         <div id="community" class="triple-column first-column feature-column">
             <h2 class="community">[% l('Community') %]</h2>
-            <img src="[% c.uri_for('/static/images/layout/community.png') %]" alt="community icon" />
             <p>
                 <a href="[% doc_link('How_To_Contribute') %]">[% l('Become a part of our <strong>global community</strong> and <strong>start contributing!</strong>') %]</a>
             </p>
@@ -99,7 +96,6 @@
 
         <div id="products" class="triple-column feature-column">
             <h2 class="products">[% l('MusicBrainz Database') %]</h2>
-            <img src="[% c.uri_for('/static/images/layout/download.png') %]" alt="download icon" />
             <p>
                 <a href="[% doc_link('MusicBrainz_Database') %]">[% l('The majority of the data in the <strong>MusicBrainz Database</strong> is released into the <strong>Public Domain</strong> and can be downloaded and used <strong>for free</strong>.') %]</a>
             </p>
@@ -107,7 +103,6 @@
 
         <div id="developers" class="triple-column last-column feature-column">
             <h2 class="developers">[% l('Developers') %]</h2>
-            <img src="[% c.uri_for('/static/images/layout/developer.png') %]" alt="developers icon" />
             <p>
                 <a href="[% doc_link('Developer_Resources')  %]">[% l('Use our <strong>XML web service</strong> or <strong>development libraries</strong> to create your own MusicBrainz-enabled applications.') %]</a>
             </p>

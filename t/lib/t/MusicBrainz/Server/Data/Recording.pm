@@ -40,12 +40,12 @@ is ( $rec->length, undef );
 is ( $rec->edits_pending, 0 );
 
 my ($recs, $hits) = $rec_data->find_by_artist(1, 100, 0);
-is( $hits, 16 );
-is( scalar(@$recs), 16 );
+is( $hits, 17 );
+is( scalar(@$recs), 17 );
 is( $recs->[0]->name, "A Coral Room" );
 is( $recs->[1]->name, "Aerial" );
 is( $recs->[14]->name, "The Painter's Link" );
-is( $recs->[15]->name, "π" );
+is( $recs->[15]->name, "[pregap]" );
 
 my $annotation = $rec_data->annotation->get_latest(1);
 is ( $annotation->text, "Annotation" );

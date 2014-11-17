@@ -18,7 +18,7 @@
   </tr>
   [% FOR medium=release.mediums %]
     [% NEXT UNLESS
-        medium.track_count == cdtoc.track_count %]
+        medium.cdtoc_track_count == cdtoc.track_count %]
       <tr[% ' class="even"' IF zebra % 2 == 0 %]>
         <td class="pos"></td>
         <td>

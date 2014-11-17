@@ -9,7 +9,9 @@ around run_test => sub {
     MusicBrainz::Server::Test->prepare_test_database($test->c, <<'EOSQL');
 INSERT INTO track (id, gid, name, medium, recording, artist_credit, position, number)
     VALUES (1, '15d6a884-0274-486c-81fe-94ff57b8cf36', 1, 1, 1, 1, 1, 1),
-           (2, '03d0854f-6053-416c-a67f-8c79a796ed39', 1, 1, 1, 1, 2, 2);
+           (2, '03d0854f-6053-416c-a67f-8c79a796ed39', 1, 1, 1, 1, 2, 2),
+           (3, '04a37721-9932-48b8-b2a8-b4754c1bff73', 'Pregap Track', 2, 2, 1, 0, '0'),
+           (4, '4b194683-837f-4fe6-bc96-d2098157b587', 'Track', 2, 1, 1, 1, '1');
 EOSQL
     $test->_clear_edit;
     $test->$orig(@_);
@@ -20,8 +22,7 @@ with 't::Context';
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_ADD_DISCID );
-use MusicBrainz::Server::Constants qw( $STATUS_APPLIED $STATUS_FAILEDVOTE);
-use MusicBrainz::Server::Test qw( accept_edit reject_edit );
+use MusicBrainz::Server::Constants qw( $STATUS_APPLIED );
 
 has edit => (
     is => 'ro',
@@ -76,6 +77,25 @@ test 'MBS-7459: Previewing without medium position works' => sub {
     );
 
     ok !exception { $edit->build_display_data };
+};
+
+test 'Adding a disc ID to a medium with a pregap track ' => sub {
+    my $test = shift;
+    my $release = $test->c->model('Release')->get_by_id(2);
+
+    $test->c->model('Edit')->create(
+        edit_type => $EDIT_MEDIUM_ADD_DISCID,
+        editor_id => 1,
+        release => $release,
+        medium_id => 2,
+        cdtoc => '1 1 26064 1500',
+        release_name => 'Release + pregap stub name',
+    );
+
+    my $medium = $test->c->model('Medium')->get_by_id(2);
+    $test->c->model('Track')->load_for_mediums($medium);
+    is($medium->tracks->[0]->length, undef);
+    is($medium->tracks->[1]->length, 327520);
 };
 
 sub _build_edit {

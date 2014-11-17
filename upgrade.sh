@@ -4,9 +4,9 @@ set -o errexit
 cd `dirname $0`
 eval `./admin/ShowDBDefs`
 
-NEW_SCHEMA_SEQUENCE=20
+NEW_SCHEMA_SEQUENCE=21
 OLD_SCHEMA_SEQUENCE=$((NEW_SCHEMA_SEQUENCE - 1))
-URI_BASE='ftp://ftp.musicbrainz.org/pub/musicbrainz/data/schema-change-2014-05'
+URI_BASE='ftp://ftp.musicbrainz.org/pub/musicbrainz/data/schema-change-2014-11'
 
 while getopts "b:" option
 do
@@ -25,20 +25,15 @@ then
     exit -1
 fi
 
-
-# Slaves need to catch up on release_tag and other data
+# Slaves need to catch up on newly-replicated cdstub data
 if [ "$REPLICATION_TYPE" = "$RT_SLAVE" -a -n "$URI_BASE" ]
 then
-    echo `date` : Downloading a copy of the release_tag and place documentation tables from $URI_BASE
+    echo `date` : Downloading a copy of the cdstub tables from $URI_BASE
     mkdir -p catchup
-    OUTPUT=`wget -q "$URI_BASE/mbdump-derived.tar.bz2" -O catchup/mbdump-derived.tar.bz2` || ( echo "$OUTPUT" ; exit 1 )
-    OUTPUT=`wget -q "$URI_BASE/mbdump-documentation.tar.bz2" -O catchup/mbdump-documentation.tar.bz2` || ( echo "$OUTPUT" ; exit 1 )
+    OUTPUT=`wget -q "$URI_BASE/mbdump-cdstubs.tar.bz2" -O catchup/mbdump-cdstub.tar.bz2` || ( echo "$OUTPUT" ; exit 1 )
 
     echo `date` : Deleting the contents of release_tag and reimporting from the downloaded copy
-    OUTPUT=`./admin/MBImport.pl --skip-editor --delete-first --no-update-replication-control catchup/mbdump-derived.tar.bz2 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-
-    echo `date` : Deleting the contents of documentation.l_place_* and documentation.l_*_place and reimporting from the downloaded copy
-    OUTPUT=`./admin/MBImport.pl --skip-editor --delete-first --no-update-replication-control catchup/mbdump-documentation.tar.bz2 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+    OUTPUT=`./admin/MBImport.pl --skip-editor --delete-first --no-update-replication-control catchup/mbdump-cdstubs.tar.bz2 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 fi
 
 ################################################################################
@@ -56,8 +51,7 @@ then
 
     echo `date` : 'Dump a copy of release_tag and documentation tables for import on slave databases.'
     mkdir -p catchup
-    ./admin/ExportAllTables --table='release_tag' --table='documentation.l_area_place_example' --table='documentation.l_artist_place_example' --table='documentation.l_label_place_example' --table='documentation.l_place_place_example' --table='documentation.l_place_recording_example' --table='documentation.l_place_release_example' --table='documentation.l_place_release_group_example' --table='documentation.l_place_url_example' --table='documentation.l_place_work_example' -d catchup
-
+    ./admin/ExportAllTables --table='release_raw' --table='cdtoc_raw' --table='track_raw'  -d catchup
     echo `date` : 'Drop replication triggers (musicbrainz)'
     ./admin/psql READWRITE < ./admin/sql/DropReplicationTriggers.sql
 
