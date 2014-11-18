@@ -271,8 +271,12 @@
                     if (oldValue && !newValue) {
                         var dataTracks = self.dataTracks();
 
-                        while (dataTracks.length) {
-                            dataTracks[0].isDataTrack(false);
+                        if (self.hasToc()) {
+                            self.tracks.removeAll(dataTracks);
+                        } else {
+                            while (dataTracks.length) {
+                                dataTracks[0].isDataTrack(false);
+                            }
                         }
                     } else if (newValue && !oldValue) {
                         var position = self.tracks().length + 1;
