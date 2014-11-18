@@ -488,6 +488,44 @@ test 'Can build display data for removed mediums' => sub {
     ok !exception { $edit->build_display_data };
 };
 
+test 'Pregap tracks can be added' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_medium');
+
+    my $medium = $c->model('Medium')->get_by_id(1);
+
+    my $ac = ArtistCredit->new(
+        names => [
+            ArtistCreditName->new(
+                name => 'Warp Industries',
+                artist => Artist->new(
+                    id => 2,
+                    name => 'Artist',
+                ))]);
+
+    my $edit = create_edit($c, $medium, [
+        Track->new(
+            name => 'Pregap',
+            artist_credit => $ac,
+            recording_id => 2,
+            position => 0,
+            number => 0
+        )
+    ]);
+
+    $edit->accept;
+
+    $medium = $c->model('Medium')->get_by_id(1);
+    $c->model('Track')->load_for_mediums($medium);
+    my @tracks = $medium->all_tracks;
+
+    ok(@tracks == 1);
+    is($tracks[0]->position, 0);
+    ok(!$tracks[0]->is_data_track); # MBS-7988
+};
+
 sub create_edit {
     my ($c, $medium, $tracklist) = @_;
 

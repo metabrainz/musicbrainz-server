@@ -442,8 +442,6 @@ sub accept {
             my $recording_id = shift(@merged_recordings);
             my $is_data_track = shift(@merged_is_data_tracks);
 
-            $is_data_track = 1 if $position == 0;
-
             if (defined($recording_id) && $recording_id > 0 && !$existing_recordings->{$recording_id}) {
                 MusicBrainz::Server::Edit::Exceptions::FailedDependency
                   ->throw('This edit changes recording IDs, but some of the recordings no longer exist.');
