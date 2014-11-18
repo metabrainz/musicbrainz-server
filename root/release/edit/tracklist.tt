@@ -410,7 +410,7 @@
           <button data-click="swapTitlesWithArtists">[%- l('Swap track titles with artist credits') -%]</button>
         </div>
 
-        <div class="icon add-tracks" data-bind="ifnot: hasToc()">
+        <div class="icon add-tracks" data-bind="if: !hasToc() || hasDataTracks()">
           [% l('Add {num} track(s)', num => '<input type="text" maxlength="2" placeholder="1" data-bind="value: addTrackCount" />') %]
           <button type="button" class="icon add-item" title="[% l('Add track(s)') %]" data-click="addNewTracks"></button>
         </div>
