@@ -13,11 +13,11 @@
       [%- IF server_details.testing_features -%]
         [%- warning(l('This is a development server. Your email address is not private or secure. Proceed with caution!')) -%]
       [%- END -%]
-      [% form_row_text_long(r, 'email', l('Email:')) %]
+      [% form_row_email_long(r, 'email', l('Email:')) %]
       <div class="no-label">
         [% l('If you change your email address, you will be required to verify it.') %]
       </div>
-      [% form_row_text_long(r, 'website', l('Website:')) %]
+      [% form_row_url_long(r, 'website', l('Website:')) %]
       [% form_row_select(r, 'gender_id', l('Gender:')) %]
       [% WRAPPER form_row %]
         [% area_field = form.field('area.name') %]
@@ -54,16 +54,16 @@
           <li class="language">
             [% r.select(language.field('language_id')) %]
             [% r.select(language.field('fluency')) %]
-            <button class="remove">[% l('Remove') %]</button>
+            <span class="buttons inline"><button class="remove negative">[% l('Remove') %]</button></span>
           </li>
           [% END %]
           <li>
-            <button class="another">[% l('Add a language') %]</button>
+            <span class="buttons"><button class="another">[% l('Add a language') %]</button></span>
             [% extra_field = form.field('languages').field(form.field('languages').add_extra(1) - 1) %]
             <span id="add-language-template" style="display: none">
               [% r.select(extra_field.field('language_id'), name => '', id => 'fluency-template', class => 'language_id',) %]
               [% r.select(extra_field.field('fluency'), name => '', class => 'fluency') %]
-              <button class="remove">[% l('Remove') %]</button>
+              <span class="buttons inline"><button class="remove negative">[% l('Remove') %]</button></span>
             </span>
           </li>
         </ul>
@@ -75,7 +75,7 @@
 
           $('#edit-profile-form').on('click', 'button.remove', function (event) {
               event.preventDefault();
-              $(this).parent('li').remove();
+              $(this).parents('li').remove();
           });
 
           $('button.another').click(function (event) {
@@ -89,7 +89,7 @@
               newLanguage.find('select.fluency').attr('name',
                                                       'profile.languages.' + languageCount + '.fluency');
 
-              $(this).parent('li').before(newLanguage);
+              $(this).parents('li').before(newLanguage);
           });
           MB.utility.setDefaultAction('#edit-profile-form', '#edit-profile-submit button');
       });

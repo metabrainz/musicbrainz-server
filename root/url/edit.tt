@@ -4,7 +4,7 @@
     <h2>[% l('Edit URL') %]</h2>
     <form action="[% c.req.uri %]" method="post">
         [% USE r = FormRenderer(form) %]
-        [% form_row_text_long(r, 'url', l('URL:')) %]
+        [% form_row_url_long(r, 'url', l('URL:')) %]
 
         [% PROCESS 'forms/relationship-editor.tt' %]
 

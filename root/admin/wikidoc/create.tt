@@ -6,7 +6,7 @@
 
         <form action="[% c.req.uri | html %]" method="post">
             [% form_row_text_long(r, 'page', l('Page:')) %]
-            [% form_row_text(r, 'version', l('Version:')) %]
+            [% form_row_text(r, 'version', l('Version:'), { pattern => "[0-9]*" }) %]
 
             <div class="row no-label">
                 [% form_submit(l('Create')) %]

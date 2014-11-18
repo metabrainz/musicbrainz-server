@@ -52,6 +52,7 @@ sub _render_input
 {
     my ($self, $field, $type, %attrs) = @_;
     return unless ref $field;
+    $attrs{required} = "required" if $field->required;
     my $class = delete $attrs{class} || '';
     return $self->h->input({
             type => $type,
@@ -68,6 +69,24 @@ sub text
     my ($self, $field_name, $attrs) = @_;
     my $field = $self->_lookup_field($field_name) or return;
     return $self->_render_input($field, 'text', %$attrs);
+}
+
+sub email {
+    my ($self, $field_name, $attrs) = @_;
+    my $field = $self->_lookup_field($field_name) or return;
+    return $self->_render_input($field, 'email', %$attrs);
+}
+
+sub url {
+    my ($self, $field_name, $attrs) = @_;
+    my $field = $self->_lookup_field($field_name) or return;
+    return $self->_render_input($field, 'url', %$attrs);
+}
+
+sub number {
+    my ($self, $field_name, $attrs) = @_;
+    my $field = $self->_lookup_field($field_name) or return;
+    return $self->_render_input($field, 'number', %$attrs);
 }
 
 sub hidden
@@ -248,9 +267,9 @@ sub date
     my $field = $self->_lookup_field($field_name) or return;
     return $self->h->span({ class => 'partial-date' }, [
         join('-',
-             $self->text($field->field('year'),  { maxlength => 4, placeholder => l('YYYY'), size => 4 }),
-             $self->text($field->field('month'), { maxlength => 2, placeholder => l('MM'), size => 2 }),
-             $self->text($field->field('day'),   { maxlength => 2, placeholder => l('DD'), size => 2 }))
+             $self->text($field->field('year'),  { maxlength => 4, placeholder => l('YYYY'), size => 4, pattern => '[0-9]*' }),
+             $self->text($field->field('month'), { maxlength => 2, placeholder => l('MM'), size => 2, pattern => '[0-9]*' }),
+             $self->text($field->field('day'),   { maxlength => 2, placeholder => l('DD'), size => 2, pattern => '[0-9]*' }))
     ]);
 }
 
