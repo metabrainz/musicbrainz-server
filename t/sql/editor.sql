@@ -36,9 +36,12 @@ INSERT INTO release (id, gid, name, artist_credit, release_group)
 INSERT INTO editor_subscribe_editor (editor, subscribed_editor, last_edit_sent)
    VALUES (2, 1, 3);
 
-INSERT INTO editor_collection (id, gid, editor, name, public)
-    VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 2, 'kunos collection', FALSE),
-           (2, 'd34c079d-374e-4436-9448-da92dedef3ce', 1, 'new_collection', TRUE);
+INSERT INTO editor_collection_type (id, name, entity_type, parent, child_order)
+    VALUES (1, 'Release', 'release', NULL, 1);
+
+INSERT INTO editor_collection (id, gid, editor, name, public, type)
+    VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 2, 'kunos collection', FALSE, 1),
+           (2, 'd34c079d-374e-4436-9448-da92dedef3ce', 1, 'new_collection', TRUE, 1);
 
 INSERT INTO editor_collection_release (collection, release)
     VALUES (1, 1), (1, 2);

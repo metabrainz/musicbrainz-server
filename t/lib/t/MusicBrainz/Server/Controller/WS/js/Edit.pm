@@ -462,6 +462,7 @@ test 'previewing/creating/editing a release group and release' => sub {
                     position => 1,
                     id => 109,
                     artist_credit => $cleaned_artist_credit,
+                    is_data_track => 0
                 },
                 {
                     length => 2138333,
@@ -471,6 +472,7 @@ test 'previewing/creating/editing a release group and release' => sub {
                     position => 2,
                     id => 110,
                     artist_credit => $cleaned_artist_credit,
+                    is_data_track => 0
                 },
                 {
                     length => 333826,
@@ -480,6 +482,7 @@ test 'previewing/creating/editing a release group and release' => sub {
                     position => 3,
                     id => 111,
                     artist_credit => $cleaned_artist_credit,
+                    is_data_track => 0
                 }
             ]
         },

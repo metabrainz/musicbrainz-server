@@ -103,6 +103,27 @@ CREATE TEMPORARY TABLE tmp_recording_tag_relation
     weight FLOAT NOT NULL
 );
 
+CREATE TEMPORARY TABLE tmp_area_tag_relation
+(
+    tag1 INTEGER NOT NULL,
+    tag2 INTEGER NOT NULL,
+    weight FLOAT NOT NULL
+);
+
+CREATE TEMPORARY TABLE tmp_instrument_tag_relation
+(
+    tag1 INTEGER NOT NULL,
+    tag2 INTEGER NOT NULL,
+    weight FLOAT NOT NULL
+);
+
+CREATE TEMPORARY TABLE tmp_series_tag_relation
+(
+    tag1 INTEGER NOT NULL,
+    tag2 INTEGER NOT NULL,
+    weight FLOAT NOT NULL
+);
+
 
 INSERT INTO tmp_artist_tag_relation SELECT
     t1.tag, t2.tag,
@@ -156,6 +177,45 @@ GROUP BY t1.tag, t2.tag
 HAVING COUNT(*) >= 3;
 
 
+INSERT INTO tmp_area_tag_relation SELECT
+    t1.tag, t2.tag,
+    SUM(((t1.count + t2.count) / 2.0) / tc.max_count) AS weight
+FROM
+    area a
+    JOIN area_tag t1 ON t1.area = a.id
+    JOIN area_tag t2 ON t2.area = a.id
+    LEFT JOIN tmp_area_tag_count tc ON a.id = tc.id
+WHERE t1.tag < t2.tag
+GROUP BY t1.tag, t2.tag
+HAVING COUNT(*) >= 3;
+
+
+INSERT INTO tmp_instrument_tag_relation SELECT
+    t1.tag, t2.tag,
+    SUM(((t1.count + t2.count) / 2.0) / tc.max_count) AS weight
+FROM
+    instrument a
+    JOIN instrument_tag t1 ON t1.instrument = a.id
+    JOIN instrument_tag t2 ON t2.instrument = a.id
+    LEFT JOIN tmp_instrument_tag_count tc ON a.id = tc.id
+WHERE t1.tag < t2.tag
+GROUP BY t1.tag, t2.tag
+HAVING COUNT(*) >= 3;
+
+
+INSERT INTO tmp_series_tag_relation SELECT
+    t1.tag, t2.tag,
+    SUM(((t1.count + t2.count) / 2.0) / tc.max_count) AS weight
+FROM
+    series a
+    JOIN series_tag t1 ON t1.series = a.id
+    JOIN series_tag t2 ON t2.series = a.id
+    LEFT JOIN tmp_series_tag_count tc ON a.id = tc.id
+WHERE t1.tag < t2.tag
+GROUP BY t1.tag, t2.tag
+HAVING COUNT(*) >= 3;
+
+
 CREATE INDEX tmp_artist_tag_relation_tag1 ON tmp_artist_tag_relation (tag1);
 CREATE INDEX tmp_artist_tag_relation_tag2 ON tmp_artist_tag_relation (tag2);
 
@@ -168,6 +228,14 @@ CREATE INDEX tmp_label_tag_relation_tag2 ON tmp_label_tag_relation (tag2);
 CREATE INDEX tmp_recording_tag_relation_tag1 ON tmp_recording_tag_relation (tag1);
 CREATE INDEX tmp_recording_tag_relation_tag2 ON tmp_recording_tag_relation (tag2);
 
+CREATE INDEX tmp_series_tag_relation_tag1 ON tmp_series_tag_relation (tag1);
+CREATE INDEX tmp_series_tag_relation_tag2 ON tmp_series_tag_relation (tag2);
+
+CREATE INDEX tmp_area_tag_relation_tag1 ON tmp_area_tag_relation (tag1);
+CREATE INDEX tmp_area_tag_relation_tag2 ON tmp_area_tag_relation (tag2);
+
+CREATE INDEX tmp_instrument_tag_relation_tag1 ON tmp_instrument_tag_relation (tag1);
+CREATE INDEX tmp_instrument_tag_relation_tag2 ON tmp_instrument_tag_relation (tag2);
 
 ----------------------------------------
 -- Join the temporary table and calculate the final weights.

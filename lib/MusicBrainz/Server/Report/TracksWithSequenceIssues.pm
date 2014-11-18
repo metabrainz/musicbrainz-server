@@ -7,8 +7,10 @@ with 'MusicBrainz::Server::Report::ReleaseReport',
 
 sub query {
     # There are 3 checks going on in this query:
-    # 1. The first track should be '1'
-    # 2. The last track should match the amount of tracks
+    # 1. The first track should be '1' or possibly '0' if the medium format
+    #    supports disc IDs.
+    # 2. The last track should match the amount of tracks (minus 1 if there's
+    #    a pregap track 0).
     # 3. The sum of all tracks should match a standard arithmetic progression.
     #    This is used to ensure that the list of track positions is linear,
     #    has no gaps, and no duplicates.
@@ -33,10 +35,11 @@ FROM
       GROUP BY track.medium
    ) s
    JOIN medium ON medium.id = s.medium
+   LEFT JOIN medium_format ON medium_format.id = medium.format
    JOIN release ON release.id = medium.release
    WHERE
-     first_track != 1
-     OR last_track != s.track_count
+     (first_track != 1 AND NOT (first_track = 0 AND (medium_format.id IS NULL OR medium_format.has_discids))
+     OR (last_track != s.track_count AND NOT (last_track == s.track_count - 1 AND (medium_format.id IS NULL OR medium_format.has_discids))
      OR (s.track_count * (1 + s.track_count)) / 2 <> track_pos_acc
 ) release
 EOSQL

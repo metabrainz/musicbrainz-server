@@ -189,7 +189,7 @@ test("mediumCreate edits are generated for new release", function () {
       {
         "edit_type": 51,
         "format_id": 1,
-        "hash": "81aa9f2f8a196eb5c458a5c030248fd040c5b613",
+        "hash": "5f0c29deb70e582765ec7f89c69578d564296b9d",
         "position": 1,
         "release": undefined,
         "tracklist": [
@@ -212,7 +212,8 @@ test("mediumCreate edits are generated for new release", function () {
             "name": "○",
             "number": "1",
             "position": 1,
-            "recording_gid": "f66857fb-bb59-444e-97dc-62c73e5eddae"
+            "recording_gid": "f66857fb-bb59-444e-97dc-62c73e5eddae",
+            "is_data_track": false
           },
           {
             "artist_credit": {
@@ -233,14 +234,15 @@ test("mediumCreate edits are generated for new release", function () {
             "name": "☆",
             "number": "2",
             "position": 2,
-            "recording_gid": "6c97b1d7-aa12-480e-8376-fa435235f164"
+            "recording_gid": "6c97b1d7-aa12-480e-8376-fa435235f164",
+            "is_data_track": false
           }
         ]
       },
       {
         "edit_type": 51,
         "format_id": 1,
-        "hash": "544275b1da580ef7fda83ae98fa1b6e8288b4bdc",
+        "hash": "b3af2f50a1e9001b96105abf3d7a8a78b4ce7cbf",
         "position": 2,
         "release": undefined,
         "tracklist": [
@@ -263,7 +265,8 @@ test("mediumCreate edits are generated for new release", function () {
             "name": "☉",
             "number": "1",
             "position": 1,
-            "recording_gid": "19506825-c404-43eb-9b09-86fc152c6780"
+            "recording_gid": "19506825-c404-43eb-9b09-86fc152c6780",
+            "is_data_track": false
           }
         ]
       }
@@ -694,14 +697,14 @@ test("mediumCreate edits are not given conflicting positions", function () {
         "position": 4,
         "name": "foo",
         "release": "f4c552ab-515e-42df-a9ee-a370867d29d1",
-        "hash": "86fb29ac85836e0cab948ab091dc0883d08060f0"
+        "hash": "e886dc4907c701cf89e5e7b5fdebcb521fa04e44"
       },
       {
         "edit_type": MB.edit.TYPES.EDIT_MEDIUM_CREATE,
         "position": 2,
         "name": "bar",
         "release": "f4c552ab-515e-42df-a9ee-a370867d29d1",
-        "hash": "a904fb74fd07bd9ca4f80a25bd8e150a42950d8a"
+        "hash": "d8eeecbb56e1e9543a2fc4045f8c1fe5d2135e02"
       }
     ]);
 

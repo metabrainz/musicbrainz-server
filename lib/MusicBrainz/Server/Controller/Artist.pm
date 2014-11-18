@@ -248,15 +248,13 @@ sub relationships : Chained('load') PathPart('relationships') {}
 
 =head2 works
 
-Shows all works of an artist. For various artists, the results would be
-browsable (not just paginated)
+Shows all works of an artist.
 
 =cut
 
 sub works : Chained('load')
 {
     my ($self, $c) = @_;
-    my $artist = $c->stash->{artist};
     my $works = $self->_load_paged($c, sub {
         $c->model('Work')->find_by_artist($c->stash->{artist}->id, shift, shift);
     });
@@ -267,8 +265,7 @@ sub works : Chained('load')
 
 =head2 recordings
 
-Shows all recordings of an artist. For various artists, the results would be
-browsable (not just paginated)
+Shows all recordings of an artist. 
 
 =cut
 
@@ -321,6 +318,23 @@ sub recordings : Chained('load')
             $_->video
         } @$recordings),
     );
+}
+
+=head2 events
+
+Shows all events of an artist. 
+
+=cut
+
+sub events : Chained('load')
+{
+    my ($self, $c) = @_;
+    my $events = $self->_load_paged($c, sub {
+        $c->model('Event')->find_by_artist($c->stash->{artist}->id, shift, shift);
+    });
+    $c->model('Event')->load_related_info(@$events);
+    $c->model('Event')->rating->load_user_ratings($c->user->id, @$events) if $c->user_exists;
+    $c->stash( events => $events );
 }
 
 =head2 releases

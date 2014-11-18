@@ -35,12 +35,14 @@ use MusicBrainz::Server::PagedReport;
     DiscogsLinksWithMultipleReleaseGroups
     DiscogsLinksWithMultipleReleases
     DuplicateArtists
+    DuplicateEvents
     DuplicateRelationshipsArtists
     DuplicateRelationshipsReleaseGroups
     DuplicateRelationshipsReleases
     DuplicateRelationshipsRecordings
     DuplicateRelationshipsWorks
     DuplicateRelationshipsLabels
+    DuplicateReleaseGroups
     FeaturingRecordings
     FeaturingReleaseGroups
     FeaturingReleases
@@ -95,12 +97,14 @@ use MusicBrainz::Server::Report::DiscogsLinksWithMultipleLabels;
 use MusicBrainz::Server::Report::DiscogsLinksWithMultipleReleaseGroups;
 use MusicBrainz::Server::Report::DiscogsLinksWithMultipleReleases;
 use MusicBrainz::Server::Report::DuplicateArtists;
+use MusicBrainz::Server::Report::DuplicateEvents;
 use MusicBrainz::Server::Report::DuplicateRelationshipsArtists;
 use MusicBrainz::Server::Report::DuplicateRelationshipsReleaseGroups;
 use MusicBrainz::Server::Report::DuplicateRelationshipsReleases;
 use MusicBrainz::Server::Report::DuplicateRelationshipsRecordings;
 use MusicBrainz::Server::Report::DuplicateRelationshipsWorks;
 use MusicBrainz::Server::Report::DuplicateRelationshipsLabels;
+use MusicBrainz::Server::Report::DuplicateReleaseGroups;
 use MusicBrainz::Server::Report::FeaturingRecordings;
 use MusicBrainz::Server::Report::FeaturingReleaseGroups;
 use MusicBrainz::Server::Report::FeaturingReleases;

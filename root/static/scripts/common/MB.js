@@ -56,6 +56,7 @@ MB.constants.ENTITIES = [
   'area',
   'artist',
   'editor',
+  'event',
   'instrument',
   'label',
   'place',

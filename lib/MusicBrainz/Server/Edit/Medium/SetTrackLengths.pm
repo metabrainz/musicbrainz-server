@@ -102,7 +102,7 @@ sub initialize {
             name => $_->name
         }, $medium->release ] ,
         length => {
-            old => [ map { $_->length } $medium->all_tracks ],
+            old => [ map { $_->length } $medium->cdtoc_tracks ],
             new => [ map { $_->{length_time} } @{ $cdtoc->track_details } ],
         }
     })

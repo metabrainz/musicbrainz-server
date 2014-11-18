@@ -23,7 +23,8 @@ INSERT INTO recording (id, gid, name, artist_credit, length)
            (13, '2c89d9f6-fd0e-4e79-a654-828fbcf4656d', 'Aerial Tal', 1, 61333),
            (14, '61b13b9d-e839-4ea9-8453-208eaafb75bf', 'Somewhere in Between', 1, 300626),
            (15, 'd328d709-609c-4b88-90be-95815f041524', 'Nocturn', 1, 514679),
-           (16, '1539ac10-5081-4469-b8f2-c5896132724e', 'Aerial', 1, 472880);
+           (16, '1539ac10-5081-4469-b8f2-c5896132724e', 'Aerial', 1, 472880),
+           (17, '6745b0ee-b1c7-44da-8978-45996c3ff420', '[pregap]', 1, 148);
 
 INSERT INTO release_group (id, gid, name, artist_credit, type) VALUES (1, '7c3218d7-75e0-4e8c-971f-f097b6c308c5', 'Aerial', 1, 1);
 
@@ -76,6 +77,7 @@ INSERT INTO track (id, gid, medium, position, number, recording, name, artist_cr
 INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (30, '5cebf694-6346-44be-9724-375c08864a9d', 4, 7, 7, 14, 'Somewhere in Between', 1, 300626);
 INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (31, '14767038-01d2-4763-911a-10269df14d1b', 4, 8, 8, 15, 'Nocturn', 1, 514679);
 INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (32, '0a989191-d8ec-4147-9915-9ddcf59fea95', 4, 9, 9, 16, 'Aerial', 1, 472880);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (33, 'b5c9ac02-dc07-4850-9338-03a4588de554', 4, 0, 0, 17, '[pregap]', 1, 148);
 
 INSERT INTO cdtoc (id, discid, freedb_id, track_count, leadout_offset, track_offset, degraded)
        VALUES (1, 'BySFY0Ymit0miawEWumIN8Nvx-', '4b094107', 7, 171327,
