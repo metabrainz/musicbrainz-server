@@ -275,8 +275,7 @@
                             dataTracks[0].isDataTrack(false);
                         }
                     } else if (newValue && !oldValue) {
-                        var position = self.tracks().length + 1;
-                        self.tracks.push(fields.Track({ position: position, number: position, isDataTrack: true }, self));
+                        self.pushTrack({ isDataTrack: true });
                     }
                 }
             });
@@ -314,6 +313,24 @@
             this.needsTracks = ko.computed(function () {
                 return self.loaded() && self.tracks().length === 0;
             });
+        },
+
+        pushTrack: function (data) {
+            data = data || {};
+
+            if (data.position === undefined) {
+                data.position = this.tracks().length + (this.hasPregap() ? 0 : 1);
+            }
+
+            if (data.number === undefined) {
+                data.number = data.position;
+            }
+
+            if (this.hasDataTracks()) {
+                data.isDataTrack = true;
+            }
+
+            this.tracks.push(fields.Track(data, this));
         },
 
         hasExistingTocs: function () {
