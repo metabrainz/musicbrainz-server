@@ -148,14 +148,15 @@ form input[type=submit] {
 .star-rating a:focus,
 .star-rating .current-user-rating,
 .star-rating .current-rating {
-    background: url('../images/icons/rating_star.gif') left -1000px repeat-x;
+    background-image: url('../images/icons/rating_star_small.gif');
 }
 
 .star-rating {
     position:relative;
     display:block;
-    width:125px;
-    height:25px;
+    width: 50px;
+    height: 10px;
+    line-height: 10px;
     overflow:hidden;
     list-style:none;
     margin:0;
@@ -174,15 +175,13 @@ form input[type=submit] {
     top:0;
     left:0;
     text-indent:-1000em;
-    height:25px;
-    line-height:25px;
     outline:none;
     overflow:hidden;
     border: none;
 }
 
 .star-rating a:hover {
-    background-position: 0px -25px;
+    background-position: 0px -20px;
 }
 
 .star-rating a.stars-1 {
@@ -211,13 +210,11 @@ form input[type=submit] {
 }
 
 .star-rating .current-rating {
-    z-index:1;
-    background-position: 0px -75px;
+    background-position: 0px -30px;
 }
 
 .star-rating .current-user-rating {
-    z-index:1;
-    background-position: 0px -50px;
+    background-position: 0px -10px;
 }
 
 /* for an inline rater */
@@ -225,35 +222,6 @@ form input[type=submit] {
     display:-moz-inline-block;
     display:-moz-inline-box;
     display:inline-block;
-}
-
-/* smaller star */
-.small-star {
-    width:50px;
-    height:10px;
-}
-
-.small-star,
-.small-star a:hover,
-.small-star a:active,
-.small-star a:focus,
-.small-star .current-user-rating,
-.small-star .current-rating {
-    background-image: url('../images/icons/rating_star_small.gif');
-    line-height: 10px;
-    height: 10px;
-}
-
-.small-star a:hover {
-    background-position: 0px -20px;
-}
-
-.small-star .current-rating {
-    background-position: 0px -30px;
-}
-
-.small-star .current-user-rating {
-    background-position: 0px -10px;
 }
 
 /*
@@ -283,26 +251,6 @@ ul.tag-cloud li.tag4 { font-size: 1.7em; }
 ul.tag-cloud li.tag5 { font-size: 1.7em; font-weight: bold; }
 ul.tag-cloud li.tag6 { font-size: 2em; font-weight: bold;}
 ul.tag-cloud li.tag7 { font-size: 2.5em; font-weight: bold; }
-
-/*
-** Favicons
-*/
-
-ul.favicons {
-    list-style-image: none;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-ul.favicons li {
-    margin-right: 0.5em;
-    margin-bottom: 0.5em;
-}
-
-ul.favicons li img {
-    vertical-align: middle;
-}
 
 /*
 ** CAA image viewer
