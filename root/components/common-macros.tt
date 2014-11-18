@@ -84,7 +84,8 @@ END; -%]
     </noscript>
 
     <span class="cover-art-image"
-        data-thumbnail="[% artwork.small_thumbnail %]"
+        data-small-thumbnail="[% artwork.small_thumbnail %]"
+        data-large-thumbnail="[% artwork.large_thumbnail %]"
         data-fallback="[% fallback %]"
         data-title="[% artwork_hover(artwork) | html %]"
         data-message="[% message ? message : l('Image not available yet, please try again in a few minutes.') | html %]"
