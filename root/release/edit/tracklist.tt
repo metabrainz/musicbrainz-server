@@ -201,7 +201,7 @@
     </td>
 
     <td class="length">
-      <input type="text" class="track-length" size="5" data-bind="value: formattedLength, valueUpdate: 'input', disableBecauseDiscIDs: position() > 0, css: { error: position() == 0 && medium.hasInvalidPregapLength() }" placeholder="?:??" />
+      <input type="text" class="track-length" size="5" data-bind="value: formattedLength, valueUpdate: 'input', disableBecauseDiscIDs: position() > 0 && !isDataTrack(), css: { error: position() == 0 && medium.hasInvalidPregapLength() }" placeholder="?:??" />
     </td>
 
     <td class="icon">
