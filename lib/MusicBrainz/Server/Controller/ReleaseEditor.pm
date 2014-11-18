@@ -46,6 +46,9 @@ sub _init_release_editor
     my $url_link_types = $c->model('LinkType')->get_tree('release', 'url');
     my $attr_tree = $c->model('LinkAttributeType')->get_tree;
 
+    my @medium_formats = $c->model('MediumFormat')->get_all;
+    my $discid_formats = [ grep { $_ } map { $_->has_discids ? ($_->id) : () } @medium_formats ];
+
     $c->stash(
         template        => 'release/edit/layout.tt',
         # These need to be accessed by root/release/edit/information.tt.
@@ -59,6 +62,7 @@ sub _init_release_editor
         formats         => select_options_tree($c, 'MediumFormat'),
         type_info       => $json->encode(build_type_info($c, qr/release-url/, $url_link_types)),
         attr_info       => $json->encode(build_attr_info($attr_tree)),
+        discid_formats  => $json->encode($discid_formats),
         %options
     );
 }

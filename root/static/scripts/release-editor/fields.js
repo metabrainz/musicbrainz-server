@@ -445,27 +445,10 @@
             return MB.text.Tracklist;
         },
 
-        formatsWithDiscIDs: [
-            1,  // CD
-            3,  // SACD
-            4,  // DualDisc
-            13, // Other
-            25, // HDCD
-            33, // CD-R
-            34, // 8cm CD
-            35, // Blu-spec CD
-            36, // SHM-CD
-            37, // HQCD
-            38, // Hybrid SACD
-            39, // CD+G
-            40, // 8cm CD+G
-            41  // CDV
-        ],
-
         canHaveDiscID: function () {
             var formatID = parseInt(this.formatID(), 10);
 
-            return !formatID || _.contains(this.formatsWithDiscIDs, formatID);
+            return !formatID || _.contains(MB.formatsWithDiscIDs, formatID);
         }
     });
 
