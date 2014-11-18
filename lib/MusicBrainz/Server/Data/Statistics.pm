@@ -636,7 +636,7 @@ my %stats = (
                 WITH tag_editors AS (
                   SELECT editor FROM artist_tag_raw
                   UNION SELECT editor FROM area_tag_raw
-                  UNION SELECT editor FROM area_event_raw
+                  UNION SELECT editor FROM event_tag_raw
                   UNION SELECT editor FROM instrument_tag_raw
                   UNION SELECT editor FROM label_tag_raw
                   UNION SELECT editor FROM place_tag_raw
