@@ -335,7 +335,7 @@ END -%]
             CASE 'info_link';  # add. parameter: infolink
                 content _ ' [<a href="' _ infolink _ '">' _ l('info') _ '</a>]';
             CASE 'avatar'; # add. parameter: avatar
-                '<img src="' _ avatar _ '" class="gravatar" alt="" />' _ content;
+                '<img src="' _ avatar _ '" height="' _ image_size _ '" width="' _ image_size _ '" class="gravatar" alt="" />' _ content;
         END;
     END;
     content;
@@ -393,7 +393,7 @@ END -%]
     options.unshift('link');
     options.unshift('edits_pending') IF edits_pending AND action == 'show';
 
-    INCLUDE _wrap_text options=options content=mod_content link=link avatar=avatar;
+    INCLUDE _wrap_text options=options content=mod_content link=link avatar=avatar image_size=image_size;
 END -%]
 
 [%~ MACRO link_work(work, action, text) BLOCK;
@@ -498,11 +498,11 @@ END -%]
     DEFAULT action = 'profile';
     DEFAULT size = 12;
     IF editor.preferences.show_gravatar;
-      image_url = gravatar(editor.email) _ '&amp;s=' _ size;
+      image_url = gravatar(editor.email) _ '&amp;s=' _ size*2;
     ELSE;
-      image_url = '//gravatar.com/avatar/placeholder?d=mm&amp;s=' _ size;
+      image_url = '//gravatar.com/avatar/placeholder?d=mm&amp;s=' _ size*2;
     END;
-    INCLUDE _link_other_entity content=text action=action type='user' default_content=editor.name avatar=image_url;
+    INCLUDE _link_other_entity content=text action=action type='user' default_content=editor.name avatar=image_url image_size=size;
 END -%]
 
 [%~ MACRO editor_type_info(editor) BLOCK; -%]
