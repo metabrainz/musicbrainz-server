@@ -523,7 +523,7 @@ test 'Pregap tracks can be added' => sub {
 
     ok(@tracks == 1);
     is($tracks[0]->position, 0);
-    is($tracks[0]->is_data_track, 0); # MBS-7988
+    ok(!$tracks[0]->is_data_track); # MBS-7988
 };
 
 sub create_edit {
