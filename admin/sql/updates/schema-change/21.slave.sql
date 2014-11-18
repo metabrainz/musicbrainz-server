@@ -364,6 +364,9 @@ CREATE OR REPLACE VIEW event_series AS
 -- INSERT INITIAL DATA --
 -------------------------
 
+SELECT setval('link_type_id_seq', (SELECT MAX(id) FROM link_type));
+SELECT setval('link_attribute_type_id_seq', (SELECT MAX(id) FROM link_attribute_type));
+
 -- new relationship types
 -- URL rels
 INSERT INTO link_type (gid, entity_type0, entity_type1, name, description, link_phrase, reverse_link_phrase, long_link_phrase, priority, entity0_cardinality, entity1_cardinality) VALUES
@@ -391,8 +394,6 @@ INSERT INTO link_type (gid, entity_type0, entity_type1, name, description, link_
     (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/artist/event/host'), 'artist', 'event', 'host', 'Links an event to its host/MC. Event hosts usually do introductions to the show or each song.', 'host at', 'hosts', 'host at', 0, 1, 0);
 
 -- Part-of-series rel
-SELECT setval('link_type_id_seq', (SELECT MAX(id) FROM link_type));
-SELECT setval('link_attribute_type_id_seq', (SELECT MAX(id) FROM link_attribute_type));
 
 \set EVENT_PART_OF_SERIES_GID 'generate_uuid_v3(''6ba7b8119dad11d180b400c04fd430c8'', ''http://musicbrainz.org/linktype/event/series/part_of'')'
 

@@ -30,7 +30,7 @@ if [ "$REPLICATION_TYPE" = "$RT_SLAVE" -a -n "$URI_BASE" ]
 then
     echo `date` : Downloading a copy of the cdstub tables from $URI_BASE
     mkdir -p catchup
-    OUTPUT=`wget -q "$URI_BASE/mbdump-cdstubs.tar.bz2" -O catchup/mbdump-cdstub.tar.bz2` || ( echo "$OUTPUT" ; exit 1 )
+    OUTPUT=`wget -q "$URI_BASE/mbdump-cdstubs.tar.bz2" -O catchup/mbdump-cdstubs.tar.bz2` || ( echo "$OUTPUT" ; exit 1 )
 
     echo `date` : Deleting the contents of release_tag and reimporting from the downloaded copy
     OUTPUT=`./admin/MBImport.pl --skip-editor --delete-first --no-update-replication-control catchup/mbdump-cdstubs.tar.bz2 2>&1` || ( echo "$OUTPUT" ; exit 1 )
