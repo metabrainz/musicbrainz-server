@@ -170,8 +170,14 @@
         [% l('Pregap') %]
       <!-- /ko -->
       <!-- ko if: position() > 0 -->
-        <button type="button" class="icon track-down" title="[% l('Move track down') %]" data-bind="disableBecauseDiscIDs: true" data-click="moveTrackDown"></button>
-        <button type="button" class="icon track-up" title="[% l('Move track up') %]" data-bind="disableBecauseDiscIDs: true" data-click="moveTrackUp"></button>
+        <button type="button" class="icon track-down" title="[% l('Move track down') %]"
+          data-bind="disableBecauseDiscIDs: !isDataTrack()"
+          data-click="moveTrackDown">
+        </button>
+        <button type="button" class="icon track-up" title="[% l('Move track up') %]"
+          data-bind="disableBecauseDiscIDs: !isDataTrack() || (previous() && !previous().isDataTrack())"
+          data-click="moveTrackUp">
+        </button>
       <!-- /ko -->
     </td>
 
