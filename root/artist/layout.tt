@@ -1,4 +1,9 @@
 [%~ WRAPPER "layout.tt" title=title ? artist.name _ " - ${title}" : artist.name canonical_url=replace_gid(entity.gid) ~%]
+    <div id="content">
+        [%~ INCLUDE "artist/header.tt" ~%]
+        [%~ content ~%]
+    </div>
+
     [%~ IF !full_width ~%]
         [%~ edit_links_add_entity = [] ~%]
         [%~ edit_links_other = [] ~%]
@@ -77,9 +82,4 @@
             [%~ END ~%]
         [%~ END ~%]
     [%~ END ~%]
-
-    <div id="content">
-        [%~ INCLUDE "artist/header.tt" ~%]
-        [%~ content ~%]
-    </div>
 [%~ END ~%]
