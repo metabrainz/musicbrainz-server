@@ -7,6 +7,7 @@ extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'series_type' };
 with 'MusicBrainz::Server::Data::Role::SelectAll';
 with 'MusicBrainz::Server::Data::Role::OptionsTree';
+with 'MusicBrainz::Server::Data::Role::EntityType';
 
 sub _table {
     return 'series_type';
@@ -23,6 +24,13 @@ sub _entity_class {
 sub load {
     my ($self, @objs) = @_;
     load_subobjects($self, 'type', @objs);
+}
+
+sub in_use {
+    my ($self, $id) = @_;
+    return $self->sql->select_single_value(
+        'SELECT 1 FROM series WHERE type = ?',
+        $id);
 }
 
 __PACKAGE__->meta->make_immutable;

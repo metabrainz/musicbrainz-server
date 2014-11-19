@@ -10,6 +10,7 @@ extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'cat' };
 with 'MusicBrainz::Server::Data::Role::SelectAll';
 with 'MusicBrainz::Server::Data::Role::OptionsTree';
+with 'MusicBrainz::Server::Data::Role::EntityType';
 
 sub _table
 {
@@ -72,6 +73,13 @@ sub load_for
     {
         $obj_id_map{$cover_art_id}[0]->cover_art_types($types);
     }
+}
+
+sub in_use {
+    my ($self, $id) = @_;
+    return $self->sql->select_single_value(
+        'SELECT 1 FROM cover_art_archive.cover_art_type WHERE type_id = ?',
+        $id);
 }
 
 __PACKAGE__->meta->make_immutable;

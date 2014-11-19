@@ -10,6 +10,7 @@ extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'release_group_secondary_type' };
 with 'MusicBrainz::Server::Data::Role::SelectAll' => { order_by => [ 'name'] };
 with 'MusicBrainz::Server::Data::Role::OptionsTree';
+with 'MusicBrainz::Server::Data::Role::EntityType';
 
 sub _table
 {
@@ -74,6 +75,13 @@ sub delete_entities {
     $self->sql->do(
         "DELETE FROM release_group_secondary_type_join " .
         "WHERE release_group = any(?) ", \@ids);
+}
+
+sub in_use {
+    my ($self, $id) = @_;
+    return $self->sql->select_single_value(
+        'SELECT 1 FROM release_group_secondary_type_join WHERE secondary_type = ?',
+        $id);
 }
 
 __PACKAGE__->meta->make_immutable;

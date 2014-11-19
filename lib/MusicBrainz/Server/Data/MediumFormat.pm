@@ -3,12 +3,13 @@ package MusicBrainz::Server::Data::MediumFormat;
 use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Entity::MediumFormat;
-use MusicBrainz::Server::Data::Utils qw( load_subobjects );
+use MusicBrainz::Server::Data::Utils qw( load_subobjects hash_to_row );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'mf' };
 with 'MusicBrainz::Server::Data::Role::SelectAll';
 with 'MusicBrainz::Server::Data::Role::OptionsTree';
+with 'MusicBrainz::Server::Data::Role::EntityType';
 
 sub _table
 {
@@ -38,6 +39,26 @@ sub find_by_name
         'SELECT ' . $self->_columns . ' FROM ' . $self->_table . '
           WHERE lower(name) = lower(?)', $name);
     return $row ? $self->_new_from_row($row) : undef;
+}
+
+sub in_use {
+    my ($self, $id) = @_;
+    return $self->sql->select_single_value(
+        'SELECT 1 FROM medium WHERE format = ?',
+        $id);
+}
+
+sub _hash_to_row {
+    my ($self, $values) = @_;
+
+    return hash_to_row($values, {
+        parent          => 'parent_id',
+        child_order     => 'child_order',
+        name            => 'name',
+        description     => 'description',
+        year            => 'year',
+        has_discids     => 'has_discids',
+    });
 }
 
 __PACKAGE__->meta->make_immutable;

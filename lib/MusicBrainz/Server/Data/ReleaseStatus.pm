@@ -9,6 +9,7 @@ extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'rs' };
 with 'MusicBrainz::Server::Data::Role::SelectAll';
 with 'MusicBrainz::Server::Data::Role::OptionsTree';
+with 'MusicBrainz::Server::Data::Role::EntityType';
 
 sub _table
 {
@@ -38,6 +39,13 @@ sub find_by_name
         'SELECT ' . $self->_columns . ' FROM ' . $self->_table . '
           WHERE lower(name) = lower(?)', $name);
     return $row ? $self->_new_from_row($row) : undef;
+}
+
+sub in_use {
+    my ($self, $id) = @_;
+    return $self->sql->select_single_value(
+        'SELECT 1 FROM release WHERE status = ?',
+        $id);
 }
 
 __PACKAGE__->meta->make_immutable;

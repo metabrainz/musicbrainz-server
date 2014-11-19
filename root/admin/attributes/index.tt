@@ -1,0 +1,70 @@
+[% WRAPPER "layout.tt" full_width=1 title=(model ? model : l('Attributes')) -%]
+
+[% IF models %]
+    <h1>[% l('Attributes') %]</h1>
+    <ul>
+    [% FOR m IN models.sort %]
+        <li><a href="[% c.uri_for_action('/admin/attributes/attribute_index', [ m ]) %]">[% m %]</a></li>
+    [% END %]
+    </ul>
+[% ELSE %]
+
+    <h1><a href="[% c.uri_for_action('/admin/attributes/index') %]">[% l('Attributes') %]</a> / [% model %]</h1>
+
+    <table class="tbl">
+    <thead>
+        <tr>
+        <th>[% l('ID') %]</th>
+        <th>[% l('Name') %]</th>
+        <th>[% l('Description') %]</th>
+        <th>[% l('Child order') %]</th>
+        <th>[% l('Parent ID') %]</th>
+
+        [% IF model == "MediumFormat" %]
+        <th>[% l('Year') %]</th>
+        <th>[% l('Disc IDs allowed') %]</th>
+        [% END %]
+
+        [% IF model == "SeriesType" || model == "CollectionType" %]
+        <th>[% l('Entity type') %]</th>
+        [% END %]
+
+        [% IF model == "WorkAttributeType" %]
+        <th>[% l('Free text') %]</th>
+        [% END %]
+
+        <th>[% l('Actions') %]</th>
+        </tr>
+    </thead>
+
+    [% FOR attr IN attributes.sort('name') %]
+        <tr class=[% loop.parity %]>
+        <td>[% attr.id %]</td>
+        <td>[% attr.name %]</td>
+        <td>[% attr.description %]</td>
+        <td>[% attr.child_order %]</td>
+        <td>[% attr.parent_id %]</td>
+
+        [% IF model == "MediumFormat" %]
+        <td>[% attr.year %]</td>
+        <td>[% yesno(attr.has_discids) %]</td>
+        [% END %]
+
+        [% IF model == "SeriesType" || model == "CollectionType" %]
+        <td>[% attr.entity_type %]</td>
+        [% END %]
+
+        [% IF model == "WorkAttributeType" %]
+        <td>[% yesno(attr.free_text) %]</td>
+        [% END %]
+
+        <td><a href="[% c.uri_for_action('/admin/attributes/edit', [ model, attr.id ]) %]">[% l('Edit') %]</a> | <a href="[% c.uri_for_action('/admin/attributes/delete', [ model, attr.id ]) %]">[% l('Remove') %]</a></td>
+        </tr>
+    [% END %]
+    </table>
+
+    <p><span class="buttons"><a href="[% c.uri_for_action('/admin/attributes/create', [ model ]) %]">[% l('Add new attribute') %]</a></span></p>
+
+[% END %]
+
+[%- END -%]

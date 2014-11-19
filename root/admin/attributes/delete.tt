@@ -1,0 +1,15 @@
+[%- WRAPPER 'layout.tt' title=l('Remove Attribute') full_width=1 -%]
+    <div id="content">
+        <h1>[% l('Remove Attribute') %]</h1>
+
+        <p>
+            [%- l('Are you sure you wish to remove the <strong>{name}</strong> attribute?', { name => attribute.name }) -%]
+        </p>
+
+        <form action="[% c.req.uri %]" method="post">
+            <span class="buttons">
+                <button type="submit" name="confirm.submit">[% l('Remove') %]</button>
+            </span>
+        </form>
+    </div>
+[%- END -%]

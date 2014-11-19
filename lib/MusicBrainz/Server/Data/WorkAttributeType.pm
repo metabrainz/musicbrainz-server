@@ -2,13 +2,14 @@ package MusicBrainz::Server::Data::WorkAttributeType;
 
 use Moose;
 use namespace::autoclean;
-use MusicBrainz::Server::Data::Utils qw( load_subobjects );
+use MusicBrainz::Server::Data::Utils qw( load_subobjects hash_to_row );
 use MusicBrainz::Server::Entity::WorkAttributeType;
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'workattrtype' };
 with 'MusicBrainz::Server::Data::Role::OptionsTree';
 with 'MusicBrainz::Server::Data::Role::SelectAll';
+with 'MusicBrainz::Server::Data::Role::EntityType';
 
 sub _table
 {
@@ -42,6 +43,25 @@ sub load
 {
     my ($self, @objs) = @_;
     load_subobjects($self, 'type', @objs);
+}
+
+sub in_use {
+    my ($self, $id) = @_;
+    return $self->sql->select_single_value(
+        'SELECT 1 FROM work_attribute WHERE work_attribute_type = ?',
+        $id);
+}
+
+sub _hash_to_row {
+    my ($self, $values) = @_;
+
+    return hash_to_row($values, {
+        parent          => 'parent_id',
+        child_order     => 'child_order',
+        name            => 'name',
+        description     => 'description',
+        free_text       => 'free_text',
+    });
 }
 
 __PACKAGE__->meta->make_immutable;

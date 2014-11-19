@@ -4,11 +4,12 @@ use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Entity::Script;
 
-use MusicBrainz::Server::Data::Utils qw( load_subobjects );
+use MusicBrainz::Server::Data::Utils qw( load_subobjects hash_to_row );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'scr' };
 with 'MusicBrainz::Server::Data::Role::SelectAll' => { order_by => ['name'] };
+with 'MusicBrainz::Server::Data::Role::EntityType';
 
 sub _table
 {
@@ -35,6 +36,24 @@ sub find_by_code
 {
     my ($self, $code) = @_;
     return $self->_get_by_key('iso_code' => $code, transform => 'lower');
+}
+
+sub in_use {
+    my ($self, $id) = @_;
+    return $self->sql->select_single_value(
+        'SELECT 1 FROM release WHERE script = ?',
+        $id);
+}
+
+sub _hash_to_row {
+    my ($self, $values) = @_;
+
+    return hash_to_row($values, {
+        name          => 'name',
+        iso_code      => 'iso_code',
+        iso_number    => 'iso_number',
+        frequency     => 'frequency',
+    });
 }
 
 __PACKAGE__->meta->make_immutable;

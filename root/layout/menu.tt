@@ -103,6 +103,11 @@
                             <a href="[% c.uri_for_action('/admin/edit_banner') %]">[% l('Edit Banner Message') %]</a>
                         </li>
                     [% END %]
+                    [% IF c.user.is_account_admin %]
+                        <li>
+                            <a href="[% c.uri_for_action('/admin/attributes/index') %]">[% l('Edit Attributes') %]</a>
+                        </li>
+                    [% END %]
                 </ul>
             </li>
         [% END %]
