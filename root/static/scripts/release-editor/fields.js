@@ -350,6 +350,11 @@
             var tracks = this.tracks();
             var tocTracks = _.reject(tracks, function (t) { return t.position() == 0 || t.isDataTrack() });
             var trackCount = tocTracks.length;
+            var pregapOffset = this.hasPregap() ? 0 : 1;
+
+            var wasConsecutivelyNumbered = _.all(tracks, function (t, index) {
+                return t.number() == (index + pregapOffset);
+            });
 
             if (trackCount > tocTrackCount) {
                 tocTracks = tocTracks.slice(0, tocTrackCount);
@@ -370,8 +375,6 @@
                 )
             );
 
-            var pregapOffset = this.hasPregap() ? 0 : 1;
-
             _.each(tocTracks, function (track, index) {
                 track.formattedLength(
                     MB.utility.formatTrackLength(
@@ -383,12 +386,10 @@
             _.each(this.tracks(), function (track, index) {
                 track.position(pregapOffset + index);
 
-                // Reset track numbers that are empty or look like numbers.
-                var number = track.number();
-                if (/^\d+$/.test(number) || number === undefined) {
+                if (wasConsecutivelyNumbered) {
                     track.number(pregapOffset + index);
                 }
-            })
+            });
         },
 
         hasInvalidPregapLength: function () {
