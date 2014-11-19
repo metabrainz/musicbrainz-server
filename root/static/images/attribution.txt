@@ -105,7 +105,6 @@ Notes:
 
 Images:
 
-    icons/rating_star.gif
     icons/rating_star_small.gif
 
 

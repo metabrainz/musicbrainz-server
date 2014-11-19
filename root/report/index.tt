@@ -28,6 +28,12 @@
             <li><a href="[% c.uri_for_action('/report/show', 'AnnotationsArtists') %]">[% l('Artists with annotations') %]</a></li>
         </ul>
 
+        <h2>[% l('Events') %]</h2>
+
+        <ul>
+            <li><a href="[% c.uri_for_action('/report/show', 'DuplicateEvents') %]">[% l('Possibly duplicate events') %]</a></li>
+        </ul>
+
         <h2>[% l('Labels') %]</h2>
 
         <ul>

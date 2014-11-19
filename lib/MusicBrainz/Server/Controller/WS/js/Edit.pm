@@ -251,6 +251,7 @@ sub process_medium {
 
         my $ac = $track->{artist_credit};
         $track->{artist_credit} = ArtistCredit->from_array($ac->{names}) if $ac;
+        $track->{is_data_track} = boolean_from_json($track->{is_data_track});
 
         return Track->new(%$track);
     };
@@ -340,6 +341,8 @@ sub process_edits {
     my $relationships_to_load = {};
     my @link_types_to_load;
     my @props_to_load;
+    my @loaded_relationships;
+    my @non_existent_entities;
 
     for my $edit (@$edits) {
         my $edit_type = $edit->{edit_type};
@@ -364,8 +367,6 @@ sub process_edits {
         }
     }
 
-    my @loaded_relationships;
-
     while (my ($types, $edits) = each %$relationships_to_load) {
         my ($type0, $type1) = split /-/, $types;
 
@@ -377,7 +378,9 @@ sub process_edits {
         $c->model('Link')->load(@relationships);
 
         while (my ($id, $edit) = each %$edits) {
-            $edit->{relationship} = $relationships_by_id->{$id};
+            unless ($edit->{relationship} = $relationships_by_id->{$id}) {
+                push @non_existent_entities, { type => 'relationship', id => $id };
+            }
         }
 
         push @loaded_relationships, @relationships;
@@ -452,8 +455,6 @@ sub process_edits {
         ( map { $_ => $c->model($_)->get_by_ids(@{ $ids_to_load->{$_} }) } keys %$ids_to_load ),
         ( map { $_ => $c->model($_)->get_by_gids(@{ $gids_to_load->{$_} }) } keys %$gids_to_load ),
     );
-
-    my @non_existent_entities;
 
     for (@props_to_load) {
         my ($id, $model, $setter) = @$_;

@@ -35,6 +35,7 @@ use MusicBrainz::Server::PagedReport;
     DiscogsLinksWithMultipleReleaseGroups
     DiscogsLinksWithMultipleReleases
     DuplicateArtists
+    DuplicateEvents
     DuplicateRelationshipsArtists
     DuplicateRelationshipsReleaseGroups
     DuplicateRelationshipsReleases
@@ -96,6 +97,7 @@ use MusicBrainz::Server::Report::DiscogsLinksWithMultipleLabels;
 use MusicBrainz::Server::Report::DiscogsLinksWithMultipleReleaseGroups;
 use MusicBrainz::Server::Report::DiscogsLinksWithMultipleReleases;
 use MusicBrainz::Server::Report::DuplicateArtists;
+use MusicBrainz::Server::Report::DuplicateEvents;
 use MusicBrainz::Server::Report::DuplicateRelationshipsArtists;
 use MusicBrainz::Server::Report::DuplicateRelationshipsReleaseGroups;
 use MusicBrainz::Server::Report::DuplicateRelationshipsReleases;

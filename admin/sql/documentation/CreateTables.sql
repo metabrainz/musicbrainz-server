@@ -15,6 +15,12 @@ CREATE TABLE l_area_artist_example ( -- replicate (verbose)
   name TEXT NOT NULL
 );
 
+CREATE TABLE l_area_event_example ( -- replicate (verbose)
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_area_event.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
 CREATE TABLE l_area_instrument_example ( -- replicate (verbose)
   id INTEGER NOT NULL, -- PK, references musicbrainz.l_area_instrument.id
   published BOOLEAN NOT NULL,
@@ -70,6 +76,12 @@ CREATE TABLE l_artist_artist_example ( -- replicate (verbose)
   name TEXT NOT NULL
 );
 
+CREATE TABLE l_artist_event_example ( -- replicate (verbose)
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_artist_event.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
 CREATE TABLE l_artist_instrument_example ( -- replicate (verbose)
   id INTEGER NOT NULL, -- PK, references musicbrainz.l_artist_instrument.id
   published BOOLEAN NOT NULL,
@@ -118,6 +130,66 @@ CREATE TABLE l_artist_work_example ( -- replicate (verbose)
   name TEXT NOT NULL
 );
 
+
+CREATE TABLE l_event_event_example ( -- replicate (verbose)
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_event_event.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
+CREATE TABLE l_event_instrument_example ( -- replicate (verbose)
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_event_instrument.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
+CREATE TABLE l_event_label_example ( -- replicate (verbose)
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_event_label.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
+CREATE TABLE l_event_place_example ( -- replicate (verbose)
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_event_place.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
+CREATE TABLE l_event_recording_example ( -- replicate (verbose)
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_event_recording.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
+CREATE TABLE l_event_release_example ( -- replicate (verbose)
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_event_release.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
+CREATE TABLE l_event_release_group_example ( -- replicate (verbose)
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_event_release_group.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
+CREATE TABLE l_event_series_example ( -- replicate (verbose)
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_event_series.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
+CREATE TABLE l_event_url_example ( -- replicate (verbose)
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_event_url.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
+CREATE TABLE l_event_work_example ( -- replicate (verbose)
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_event_work.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
 
 CREATE TABLE l_instrument_instrument_example ( -- replicate (verbose)
   id INTEGER NOT NULL, -- PK, references musicbrainz.l_instrument_instrument.id

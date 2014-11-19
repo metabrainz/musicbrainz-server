@@ -409,4 +409,37 @@ test 'MBS-7447: seeding an invalid track length gives an ISE' => sub {
     ]);
 };
 
+
+test 'seeding a pregap track' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+url');
+
+    my $params = expand_hash({
+        "mediums.0.track.0.name" => 'foo',
+        "mediums.0.track.0.pregap" => '1',
+    });
+
+    my $result = MusicBrainz::Server::Controller::ReleaseEditor->_process_seeded_data($c, $params);
+
+    cmp_deeply($result, {
+        errors => [],
+        seed => {
+            mediums => [
+                {
+                    position => 1,
+                    tracks => [
+                        {
+                            name => 'foo',
+                            position => 0,
+                            number => 0,
+                        }
+                    ]
+                }
+            ]
+        },
+    });
+};
+
 1;

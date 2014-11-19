@@ -13,6 +13,10 @@ CREATE TRIGGER "reptg_l_area_artist_example"
 AFTER INSERT OR DELETE OR UPDATE ON "l_area_artist_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
+CREATE TRIGGER "reptg_l_area_event_example"
+AFTER INSERT OR DELETE OR UPDATE ON "l_area_event_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
 CREATE TRIGGER "reptg_l_area_instrument_example"
 AFTER INSERT OR DELETE OR UPDATE ON "l_area_instrument_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
@@ -53,6 +57,10 @@ CREATE TRIGGER "reptg_l_artist_artist_example"
 AFTER INSERT OR DELETE OR UPDATE ON "l_artist_artist_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
+CREATE TRIGGER "reptg_l_artist_event_example"
+AFTER INSERT OR DELETE OR UPDATE ON "l_artist_event_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
 CREATE TRIGGER "reptg_l_artist_instrument_example"
 AFTER INSERT OR DELETE OR UPDATE ON "l_artist_instrument_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
@@ -87,6 +95,42 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_l_artist_work_example"
 AFTER INSERT OR DELETE OR UPDATE ON "l_artist_work_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_l_event_event_example"
+AFTER INSERT OR DELETE OR UPDATE ON "l_event_event_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_l_event_instrument_example"
+AFTER INSERT OR DELETE OR UPDATE ON "l_event_instrument_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_l_event_label_example"
+AFTER INSERT OR DELETE OR UPDATE ON "l_event_label_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_l_event_place_example"
+AFTER INSERT OR DELETE OR UPDATE ON "l_event_place_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_l_event_recording_example"
+AFTER INSERT OR DELETE OR UPDATE ON "l_event_recording_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_l_event_release_example"
+AFTER INSERT OR DELETE OR UPDATE ON "l_event_release_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_l_event_release_group_example"
+AFTER INSERT OR DELETE OR UPDATE ON "l_event_release_group_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_l_event_url_example"
+AFTER INSERT OR DELETE OR UPDATE ON "l_event_url_example"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_l_event_work_example"
+AFTER INSERT OR DELETE OR UPDATE ON "l_event_work_example"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_l_instrument_instrument_example"

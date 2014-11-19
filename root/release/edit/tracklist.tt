@@ -163,6 +163,62 @@
   <!-- /ko -->
 </script>
 
+<script type="text/html" id="template.track-row">
+  <tr class="track" data-bind="attr: { id: elementID }">
+    <td class="reorder">
+      <!-- ko if: position() == 0 -->
+        [% l('Pregap') %]
+      <!-- /ko -->
+      <!-- ko if: position() > 0 -->
+        <button type="button" class="icon track-down" title="[% l('Move track down') %]"
+          data-bind="disableBecauseDiscIDs: !isDataTrack()"
+          data-click="moveTrackDown">
+        </button>
+        <button type="button" class="icon track-up" title="[% l('Move track up') %]"
+          data-bind="disableBecauseDiscIDs: !isDataTrack() || (previous() && !previous().isDataTrack())"
+          data-click="moveTrackUp">
+        </button>
+      <!-- /ko -->
+    </td>
+
+    <td class="position">
+      <input class="pos" type="text" data-bind="value: number" />
+    </td>
+
+    <td class="title">
+      <input type="text" class="track-name" data-bind="value: name, valueUpdate: 'input'" />
+    </td>
+
+    <td class="artist autocomplete">
+      <span class="autocomplete" style="width: 100%">
+        <input type="text" class="track-artist"
+          data-bind="
+            autocomplete: {
+              entity: 'artist',
+              artistCredit: artistCredit
+            }"
+        />
+        <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
+      </span>
+    </td>
+
+    <td class="credits-button buttons" data-bind="with: artistCredit">
+      <button data-bind="controlsBubble: $root.trackArtistBubble">[% l('Edit') | html_entity %]</button>
+    </td>
+
+    <td class="length">
+      <input type="text" class="track-length" size="5" data-bind="value: formattedLength, valueUpdate: 'input', disableBecauseDiscIDs: position() > 0 && !isDataTrack(), css: { error: position() == 0 && medium.hasInvalidPregapLength() }" placeholder="?:??" />
+    </td>
+
+    <td class="icon">
+      <button type="button" class="icon guesscase-track" title="[% l('Guess case track') %]" data-click="guessCaseTrackName"></button>
+      <!-- ko ifnot: medium.hasToc() -->
+      <button type="button" class="icon remove-item" title="[% l('Remove track') %]" data-click="removeTrack"></button>
+      <!-- /ko -->
+    </td>
+  </tr>
+</script>
+
 <div id="track-parser-dialog" style="display: none;" data-bind="with: $root.trackParserDialog, delegatedHandler: 'click'">
   <!-- ko template: "template.track-parser" --><!-- /ko -->
 
@@ -225,7 +281,7 @@
     </div>
   <!-- /ko -->
 
-  <div data-bind="loop: { items: mediums, id: 'uniqueID' }">
+  <!-- ko loop: { items: mediums, id: 'uniqueID' } -->
   <fieldset class="advanced-disc">
     <legend data-bind="text: formattedName()"></legend>
 
@@ -260,7 +316,7 @@
 
       [%- table_row_error(
            2, 'showErrorRightAway: hasInvalidFormat',
-           l('This medium already has disc IDs, so you may only change the format to a format that can have disc IDs.')
+           l('This medium has a disc ID, pregap track, or data track, so you can only change the format to one that can have disc IDs.')
          )
        %]
     </table>
@@ -290,6 +346,10 @@
         [%~ l('You must enter a title and select an artist for every track.') ~%]
       </p>
 
+      <p class="error field-error" style="padding: 1em" data-bind="showErrorWhenTabIsSwitched: hasInvalidPregapLength">
+        <!-- ko text: MB.text.InvalidPregapLength --><!-- /ko -->
+      </p>
+
       <table class="medium tbl">
         <thead>
           <tr>
@@ -301,49 +361,21 @@
             <th class="icons"></th>
           </tr>
         </thead>
-        <tbody data-bind="loop: { items: tracks, id: 'uniqueID' }">
-          <tr class="track" data-bind="attr: { id: elementID }">
-            <td class="reorder">
-              <button type="button" class="icon track-down" title="[% l('Move track down') %]" data-bind="disableBecauseDiscIDs: true" data-click="moveTrackDown"></button>
-              <button type="button" class="icon track-up" title="[% l('Move track up') %]" data-bind="disableBecauseDiscIDs: true" data-click="moveTrackUp"></button>
-            </td>
-
-            <td class="position">
-              <input class="pos" type="text" data-bind="value: number" />
-            </td>
-
-            <td class="title">
-              <input type="text" class="track-name" data-bind="value: name, valueUpdate: 'input'" />
-            </td>
-
-            <td class="artist autocomplete">
-              <span class="autocomplete" style="width: 100%">
-                <input type="text" class="track-artist"
-                  data-bind="
-                    autocomplete: {
-                      entity: 'artist',
-                      artistCredit: artistCredit
-                    }"
-                />
-                <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
-              </span>
-            </td>
-
-            <td class="credits-button buttons" data-bind="with: artistCredit">
-              <button data-bind="controlsBubble: $root.trackArtistBubble">[% l('Edit') | html_entity %]</button>
-            </td>
-
-            <td class="length">
-              <input type="text" class="track-length" size="5" data-bind="value: formattedLength, disableBecauseDiscIDs: true" placeholder="?:??" />
-            </td>
-
-            <td class="icon">
-              <button type="button" class="icon guesscase-track" title="[% l('Guess case track') %]" data-click="guessCaseTrackName"></button>
-              <!-- ko ifnot: medium.hasToc() -->
-              <button type="button" class="icon remove-item" title="[% l('Remove track') %]" data-click="removeTrack"></button>
-              <!-- /ko -->
-            </td>
-          </tr>
+        <tbody>
+          <!-- ko loop: { items: audioTracks, id: 'uniqueID' } -->
+            <!-- ko template: "template.track-row" --><!-- /ko -->
+          <!-- /ko -->
+          <!-- ko if: hasDataTracks -->
+            <tr class="subh">
+              <td colspan="7">
+                [% data_track_icon %]
+                [% l('Data Tracks') %]
+              </td>
+            </tr>
+            <!-- ko loop: { items: dataTracks, id: 'uniqueID' } -->
+              <!-- ko template: "template.track-row" --><!-- /ko -->
+            <!-- /ko -->
+          <!-- /ko -->
         </tbody>
       </table>
 
@@ -363,13 +395,28 @@
       <!-- /ko -->
 
       <div id="tracklist-tools">
+        <!-- ko if: canHaveDiscID() -->
+          <p style="margin-top: 0;">
+            <label>
+              <input type="checkbox" data-bind="checked: hasPregap" />
+              [% l('This disc has a hidden pregap track before track 1 ({info|more info})', { info => { href => doc_link('Hidden_Track'), target => '_blank' } }) %]
+            </label>
+          </p>
+          <p style="margin-top: 0;">
+            <label>
+              <input type="checkbox" data-bind="checked: hasDataTracks" />
+              [% l('This disc contains data tracks at the end ({info|more info})', { info => { href => doc_link('Data_Track'), target => '_blank' } }) %]
+            </label>
+          </p>
+        <!-- /ko -->
+
         <div class="buttons">
           <button data-click="openTrackParser">[% l('Track Parser') %]</button>
           <button data-click="resetTrackNumbers">[%- l('Reset track numbers') -%]</button>
           <button data-click="swapTitlesWithArtists">[%- l('Swap track titles with artist credits') -%]</button>
         </div>
 
-        <div class="icon add-tracks" data-bind="ifnot: hasToc()">
+        <div class="icon add-tracks" data-bind="if: !hasToc() || hasDataTracks()">
           [% l('Add {num} track(s)', num => '<input type="text" maxlength="2" placeholder="1" data-bind="value: addTrackCount" />') %]
           <button type="button" class="icon add-item" title="[% l('Add track(s)') %]" data-click="addNewTracks"></button>
         </div>
@@ -377,7 +424,7 @@
     </div>
 
   </fieldset>
-  </div>
+  <!-- /ko -->
 
   <!-- ko ifnot: _.isEmpty(mediums()) -->
     <div data-bind="guessCase: _.bind($root.guessCaseMediaNames, $data)">

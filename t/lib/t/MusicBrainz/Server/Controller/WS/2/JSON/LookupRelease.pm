@@ -152,7 +152,8 @@ test 'basic release with collections' => sub {
         $c,
         "INSERT INTO release_tag (count, release, tag) VALUES (1, 123054, 114); " .
         "INSERT INTO editor (id, name, password, ha1) VALUES (15412, 'editor', '{CLEARTEXT}mb', 'be88da857f697a78656b1307f89f90ab'); " .
-        "INSERT INTO editor_collection (id, gid, editor, name, public) VALUES (14933, 'f34c079d-374e-4436-9448-da92dedef3cd', 15412, 'My Collection', TRUE); " .
+        "INSERT INTO editor_collection_type (id, name, entity_type, parent, child_order) VALUES (1, 'Release', 'release', NULL, 1); " .
+        "INSERT INTO editor_collection (id, gid, editor, name, public, type) VALUES (14933, 'f34c079d-374e-4436-9448-da92dedef3cd', 15412, 'My Collection', TRUE, 1); " .
         "INSERT INTO editor_collection_release (collection, release) VALUES (14933, 123054); ");
 
     ws_test_json 'basic release with collections',
@@ -1109,6 +1110,100 @@ test 'release lookup, track artists have no tags' => sub {
             script => 'Latn'
         },
         title => 'For Beginner Piano'
+    });
+};
+
+test 'release lookup, pregap track' => sub {
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
+
+    my %artist_credit = ('artist-credit' => [{
+        artist => {
+            disambiguation => '',
+            id => '38c5cdab-5d6d-43d1-85b0-dac41bde186e',
+            name => 'Blind Melon',
+            'sort-name' => 'Blind Melon'
+        },
+        joinphrase => '',
+        name => 'Blind Melon'
+    }]);
+
+    ws_test_json 'release lookup, pregap track',
+    '/release/ec0d0122-b559-4aa1-a017-7068814aae57?inc=artists+recordings+artist-credits'
+    => encode_json({
+        %artist_credit,
+        asin => undef,
+        barcode => '0208311348266',
+        'cover-art-archive' => {
+            artwork => JSON::false,
+            back => JSON::false,
+            count => 0,
+            darkened => JSON::false,
+            front => JSON::false
+        },
+        disambiguation => '',
+        id => 'ec0d0122-b559-4aa1-a017-7068814aae57',
+        media => [ {
+            format => undef,
+            title => undef,
+            'track-count' => 2,
+            'track-offset' => 0,
+            position => 1,
+            pregap => {
+                id => '1a0ba71b-fb23-3931-a426-cd204a82a90e',
+                title => 'Hello Goodbye [hidden track]',
+                length => 128000,
+                number => '0',
+                %artist_credit,
+                recording => {
+                    id => 'c0beb80b-4185-4328-8761-b9e45a5d0ac6',
+                    title => 'Hello Goodbye [hidden track]',
+                    disambiguation => '',
+                    length => 128000,
+                    video => 0,
+                    %artist_credit,
+                }
+            },
+            tracks => [
+                {
+                    id => '7b84af2d-96b3-3c50-a667-e7d10e8b000d',
+                    title => 'Galaxie',
+                    length => 211133,
+                    number => '1',
+                    %artist_credit,
+                    recording => {
+                        id => 'c43ee188-0049-4eec-ba2e-0385c5edd2db',
+                        title => 'Hello Goodbye / Galaxie',
+                        disambiguation => '',
+                        length => 211133,
+                        video => 0,
+                        %artist_credit,
+                    }
+                },
+                {
+                    id => 'e9f7ca98-ba9d-3276-97a4-26475c9f4527',
+                    title => '2 X 4',
+                    length => 240400,
+                    number => '2',
+                    %artist_credit,
+                    recording => {
+                        id => 'c830c239-3f91-4485-9577-4b86f92ad725',
+                        title => '2 X 4',
+                        disambiguation => '',
+                        length => 240400,
+                        video => 0,
+                        %artist_credit,
+                    }
+                }
+            ]
+        } ],
+        packaging => undef,
+        quality => 'normal',
+        status => 'Official',
+        'text-representation' => {
+            language => 'eng',
+            script => 'Latn'
+        },
+        title => 'Soup'
     });
 };
 

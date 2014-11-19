@@ -1,23 +1,16 @@
 [% WRAPPER 'user/profile/layout.tt' page='tags' %]
 
 [% IF tag_in_use %]
-    [% FOR section=[
-        [l('Artists'), tags.artist],
-        [l('Release Groups'), tags.release_group],
-        [l('Releases'), tags.release],
-        [l('Recordings'), tags.recording],
-        [l('Works'), tags.work],
-        [l('Labels'), tags.label],
-        [l('Places'), tags.place],
-    ] %]
-    [% IF section.1.size %]
-        <h2>[% section.0 %]</h2>
-        <ul>
-            [% FOR entity=section.1 %]
-            <li>[% descriptive_link(entity) %]</li>
-            [% END %]
-        </ul>
-    [% END %]
+    [% FOR entity_type_name=entities_with_tags %]
+        [% tagged_entities = tags.$entity_type_name %]
+        [% IF tagged_entities.size %]
+            <h2>[% format_plural_entity_type_name(entity_type_name) %]</h2>
+            <ul>
+                [% FOR entity=tagged_entities %]
+                <li>[% descriptive_link(entity) %]</li>
+                [% END %]
+            </ul>
+        [% END %]
     [% END %]
 [% ELSE %]
     <p>[% l("{user} has not tagged anything with '{tag}'.",

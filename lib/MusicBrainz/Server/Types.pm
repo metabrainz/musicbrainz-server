@@ -12,7 +12,7 @@ use MusicBrainz::Server::Constants qw( :quality :election_status :vote :edit_sta
 use namespace::clean;
 
 use MooseX::Types -declare => [
-    qw( DateTime AutoEditorElectionStatus VoteOption EditStatus Quality )
+    qw( DateTime Time AutoEditorElectionStatus VoteOption EditStatus Quality )
 ];
 
 class_type 'DateTime';
@@ -22,6 +22,12 @@ subtype DateTime, as 'DateTime';
 coerce DateTime,
     from Str,
     via { DateTime::Format::Pg->parse_datetime($_) };
+
+subtype Time, as 'DateTime';
+
+coerce Time,
+    from Str,
+    via { DateTime::Format::Pg->parse_time($_) };
 
 subtype AutoEditorElectionStatus,
     as Int,
