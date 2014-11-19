@@ -64,6 +64,9 @@ sub show : PathPart('') Chained('load') {
         $c->model('Event')->load_performers(@entities);
         $c->model('Event')->load_locations(@entities);
         $c->model('Event')->rating->load_user_ratings($c->user->id, @entities) if $c->user_exists;
+        $c->model('Area')->load(map { map { $_->{entity} } $_->all_places } @entities);
+        $c->model('Area')->load_containment(map { map { $_->{entity}->area } $_->all_places } @entities);
+        $c->model('Area')->load_containment(map { map { $_->{entity} } $_->all_areas } @entities);
     }
 
     if ($series->type->entity_type eq 'recording') {
