@@ -1,5 +1,10 @@
 [% main_title = l("Collection “{collection}”", { collection => collection.name }) %]
 [%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title -%]
+  <div id="content">
+    [%- INCLUDE "collection/header.tt" -%]
+    [%- content -%]
+  </div>
+
   [%- IF !full_width -%]
     [% WRAPPER 'layout/sidebar.tt' %]
         <h2 class="collection-information">[% l('Collection information') %]</h2>
@@ -34,9 +39,4 @@
         [% END %]
     [% END %]
   [%- END -%]
-
-  <div id="content">
-    [%- INCLUDE "collection/header.tt" -%]
-    [%- content -%]
-  </div>
 [%- END -%]

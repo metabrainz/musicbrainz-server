@@ -6,12 +6,13 @@
           <input type="checkbox" />
         </th>
       [%~ END ~%]
+
       [%~ IF series_item_numbers ~%]
         <th style="width: 1em">[%~ l('#') ~%]</th>
       [%~ END ~%]
-      <th>[%~ l('Event') ~%]</th>
+      <th>[%~ sortable ? sortable_table_header('name', l('Event')) : l('Event') ~%]</th>
       [%~ UNLESS no_type ~%]
-        <th>[%~ l('Type') ~%]</th>
+        <th>[%~ sortable ? sortable_table_header('type', l('Type')) : l('Type') ~%]</th>
       [%~ END ~%]
       [%~ UNLESS no_artists ~%]
         <th>[%~ l('Artists') ~%]</th>
@@ -22,7 +23,7 @@
       [%~ UNLESS no_location ~%]
         <th>[%~ l('Location') ~%]</th>
       [%~ END ~%]
-      <th>[%~ l('Date') ~%]</th>
+      <th>[%~ sortable ? sortable_table_header('date', l('Date')) : l('Date') ~%]</th>
       <th>[%~ l('Time') ~%]</th>
       [%~ UNLESS no_ratings ~%]
         <th>[%~ l('Rating') ~%]</th>

@@ -114,11 +114,7 @@
           END;
       -%]
 
-      [% IF edit.is_open || !no_javascript %]
-        [%- display_artwork(edit.display_data.artwork, undef, history_message) -%]
-      [% ELSE %]
-        [%- history_message -%]
-      [% END %]
+      [%- display_artwork(edit.display_data.artwork, undef, history_message) -%]
     </td>
   </tr>
 [%- END -%]

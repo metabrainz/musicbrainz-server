@@ -399,6 +399,7 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   "Controller::WS::2::Collection::list_list",
   "Controller::WS::2::Collection::releases",
   "Controller::WS::2::Collection::releases_get",
+  "Controller::WS::2::Collection::events_get",
   "Controller::WS::2::DiscID::discid",
   "Controller::WS::2::FreeDB::freedb_search",
   "Controller::WS::2::Event::base",

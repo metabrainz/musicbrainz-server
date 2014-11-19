@@ -1,10 +1,8 @@
 [% WRAPPER 'layout.tt' title=l('Add Release Group') full_width=1 %]
-   [%- IF no_javascript -%]
-     [%- warning( l("Javascript needs to be enabled to edit the Artist field on this page."), "nojavascript" ) -%]
-   [%- END -%]
-
    [% INCLUDE 'artist/header.tt' artist=initial_artist IF initial_artist %]
 
    <h1>[% l('Add Release Group') %]</h1>
+   [%~ javascript_required() ~%]
+
    [% INCLUDE 'release_group/edit_form.tt' new=1 %]
 [% END %]
