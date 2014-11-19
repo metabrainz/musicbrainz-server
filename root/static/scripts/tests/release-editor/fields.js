@@ -97,3 +97,14 @@ test("loading a medium doesn't overwrite its original edit data", function () {
     equal(loadedTrack.name, "~fooo~", "loaded track name is ~foooo~");
     equal(loadedTrack.length, 12345, "loaded track length is 12345");
 });
+
+
+test("data tracks are appended with a correct position if there's a pregap (MBS-8013)", function () {
+    var fields = releaseEditor.fields;
+
+    var medium = fields.Medium({ tracks: [] }, this.release);
+    medium.hasPregap(true);
+    medium.hasDataTracks(true);
+
+    equal(medium.tracks()[1].position(), 1);
+});
