@@ -456,7 +456,7 @@ MB.constants.CLEANUPS = {
     socialnetwork: {
         match: [
             new RegExp("^(https?://)?([^/]+\\.)?facebook\\.com/", "i"),
-            new RegExp("^(https?://)?([^/]+\\.)?(last\\.fm|lastfm\\.(com\\.br|com\\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/(music|label|venue|user|group)/", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?(last\\.fm|lastfm\\.(com\\.br|com\\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/(music|label|venue|user|group|event)/", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?reverbnation\\.com/", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?plus\\.google\\.com/", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?vk\\.com/", "i"),
@@ -467,8 +467,8 @@ MB.constants.CLEANUPS = {
         clean: function (url) {
             url = url.replace(/^(https?:\/\/)?([^\/]+\.)?facebook\.com(\/#!)?/, "https://www.facebook.com");
             if (url.match(/^https:\/\/www\.facebook\.com.*$/)) {
-                // Remove ref (where the user came from) and sk (subpages in a page, since we want the main link)
-                url = url.replace(/([&?])(sk|ref|fref)=([^?&]*)/, "$1");
+                // Remove ref (where the user came from), sk (subpages in a page, since we want the main link) and a couple others
+                url = url.replace(/([&?])(sk|ref|fref|sid_reminder|ref_dashboard_filter)=([^?&]*)/, "$1");
                 // Ensure the first parameter left uses ? not to break the URL
                 url = url.replace(/([&?])&/, "$1");
                 url = url.replace(/[&?]$/, "");
