@@ -171,7 +171,7 @@ ws_test 'basic release with collections',
         <barcode>4942463511227</barcode>
         <asin>B00005LA6G</asin>
         <collection-list>
-            <collection id="f34c079d-374e-4436-9448-da92dedef3cd">
+            <collection type="Release" id="f34c079d-374e-4436-9448-da92dedef3cd">
                 <name>My Collection</name>
                 <editor>editor</editor>
                 <release-list count="1"/>
