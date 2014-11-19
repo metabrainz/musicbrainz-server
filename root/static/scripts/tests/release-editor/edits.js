@@ -4,6 +4,8 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 releaseEditor.test.module("add-release edits", function () {
+    MB.formatsWithDiscIDs = [1];
+
     var data = $.extend(true, {}, releaseEditor.test.testRelease);
     var medium = data.mediums[0];
 
