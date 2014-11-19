@@ -196,11 +196,6 @@ sub begin : Private
 
     $c->stats->enable(1) if DBDefs->DEVELOPMENT_SERVER;
 
-    # if no javascript cookie is set we don't know if javascript is enabled or not.
-    my $jscookie = $c->request->cookie('javascript');
-    my $js = $jscookie ? $jscookie->value : "unknown";
-    $c->response->cookies->{javascript} = { value => ($js eq "unknown" ? "false" : $js) };
-
     my $alert = '';
     try {
         $alert = $c->model('MB')->context->redis->get('alert');
@@ -209,8 +204,6 @@ sub begin : Private
         warn "Redis connection to get alert failed: $_";
     };
     $c->stash(
-        javascript => $js,
-        no_javascript => $js eq "false",
         wiki_server => DBDefs->WIKITRANS_SERVER,
         server_languages => Translation->instance->all_languages(),
         server_details => {
