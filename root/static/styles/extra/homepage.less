@@ -1,41 +1,40 @@
-#page.homepage .sidebar {
-    float: right;
-    font-size: 95%;
-    width: auto;
-}
+#page.homepage #maincontent {
+    display: table;
+    width: 100%;
 
-.homepage #content {
-    margin-right: 460px;
+    .sidebar {
+        display: table-cell;
+        vertical-align: top;
+        font-size: 95%;
+        padding-left: 1em;
+        width: 218px;
+
+        ul {
+            padding-left: 85px;
+            min-height: 65px;
+        }
+    }
 }
 
 #triple {
-    clear: both;
-    margin-top: 20px;
-    overflow: auto;
+    display: table;
+    width: 100%;
 
-    .triple-column {
-        float: left;
-        margin: 0 1%;
+    .feature-column {
+        display: table-cell;
+        vertical-align: top;
+        padding-left: 2em;
         width: 32%;
 
         p {
             padding-left: 70px;
             min-height: 65px;
         }
-    }
 
-    .first-column {
-        margin-left: 0;
+        &:first-child {
+            padding-left: 0;
+        }
     }
-
-    .last-column {
-        margin-right: 0;
-    }
-}
-
-.triple-column ul {
-    padding-left: 85px;
-    min-height: 65px;
 }
 
 .feature-column h2 {
@@ -46,7 +45,7 @@
     border-bottom: 4px solid @musicbrainz-orange;
 }
 
-.sidebar .triple-column h2 {
+.sidebar .feature-column h2 {
     color: @text-black;
     background-color: @musicbrainz-orange;
     border-bottom: 4px solid @musicbrainz-purple;
@@ -56,16 +55,6 @@
     -moz-border-radius-topright: 10px;
     -webkit-border-top-left-radius: 10px;
     -webkit-border-top-right-radius: 10px;
-}
-
-.homepage .sidebar > div {
-    float: right;
-}
-
-.sidebar #blog-feed {
-    width: 209px;
-    height: auto;
-    margin-right: 2.5em;
 }
 
 .linkbar {

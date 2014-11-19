@@ -28,13 +28,9 @@ END -%]
     </span>
     </p>
     [% IF c.user_exists %]
-        [% IF no_javascript %]
-            <p>[% link_entity(entity, 'tags', tag_this_text) %]</p>
-        [% ELSE %]
-            <form>
-                <input type="text" class="tag-input" value="[% sidebar_user_tags.join(', ') %]" />
-                [% form_submit(l('Tag', 'verb'), 'inline') %]
-            </form>
-        [% END %]
+        <form action="[% c.uri_for_action("/$entity_type/tags", [ entity.gid ]) %]" method="post">
+            <input type="text" class="tag-input" name="tag.tags" value="[% sidebar_user_tags.join(', ') %]" />
+            [% form_submit(l('Tag', 'verb'), 'inline') %]
+        </form>
     [% END %]
 </div>

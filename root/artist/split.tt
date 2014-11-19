@@ -2,9 +2,7 @@
   [% script_manifest('edit.js') %]
   [% script_manifest('guess-case.js') %]
 
-   [%- IF no_javascript -%]
-     [%- warning( l("Javascript needs to be enabled."), "nojavascript" ) -%]
-   [%- END -%]
+   [%~ javascript_required() ~%]
 
    <h2>[% l('Split Into Separate Artists') %]</h2>
 

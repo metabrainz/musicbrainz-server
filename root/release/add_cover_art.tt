@@ -7,9 +7,7 @@
 
   <h2>[%- lp('Add Cover Art', 'header') -%]</h2>
 
-  <noscript>
-    <p>[% l('This page requires JavaScript.') %]</p>
-  </noscript>
+  [%~ javascript_required() ~%]
 
   <div style="display:none">[% warning(l('The Cover Art Archive is currently experiencing difficulties. Adding images for this release is unlikely to work at the moment.'), 'caa-warning') %]</div>
   <script type="text/javascript">
