@@ -45,6 +45,7 @@ sub options_type
         'tag'           => lp('Tag', 'noun'),
         'instrument'    => l('Instrument'),
         'series'        => lp('Series', 'singular'),
+        'event'         => l('Event'),
     );
 
     push @options, ( 'doc' => l('Documentation') ) if DBDefs->GOOGLE_CUSTOM_SEARCH;

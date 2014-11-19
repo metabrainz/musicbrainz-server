@@ -26,6 +26,7 @@ with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'instrument' };
 with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'instrument' };
 with 'MusicBrainz::Server::Data::Role::Merge';
+with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'instrument' };
 
 sub _type { 'instrument' }
 
@@ -81,6 +82,7 @@ sub delete {
     $self->c->model('Relationship')->delete_entities('instrument', $instrument_id);
     $self->annotation->delete($instrument_id);
     $self->alias->delete_entities($instrument_id);
+    $self->tags->delete($instrument_id);
     $self->remove_gid_redirects($instrument_id);
     $self->sql->do('DELETE FROM instrument WHERE id = ?', $instrument_id);
     return;
@@ -95,6 +97,7 @@ sub _merge_impl {
     my ($self, $new_id, @old_ids) = @_;
 
     $self->alias->merge($new_id, @old_ids);
+    $self->tags->merge($new_id, @old_ids);
     $self->annotation->merge($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('instrument', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('instrument', $new_id, @old_ids);

@@ -112,7 +112,7 @@ test("internal track positions are updated appropriately after being reused", fu
     var release = re.rootField.release();
     var medium = release.mediums()[0];
 
-    medium.cdtocs = 0;
+    medium.cdtocs = [];
     medium.toc(null);
 
     var input = _.str.lines(re.trackParser.mediumToString(medium)).reverse().join("\n");
@@ -135,7 +135,7 @@ test("MBS-7451: track parser can clear TOC track lengths", function () {
     var release = re.rootField.release();
     var medium = release.mediums()[0];
 
-    medium.cdtocs = 1;
+    medium.cdtocs = ["1"];
 
     re.trackParser.options = {
         hasTrackNumbers: false,

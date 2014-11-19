@@ -15,7 +15,7 @@ use Try::Tiny;
 use URI::Escape;
 
 use Sub::Exporter -setup => {
-    exports => [qw( format_editnote format_wikitext )]
+    exports => [qw( format_editnote format_setlist format_wikitext )]
 };
 
 sub release_date
@@ -45,6 +45,60 @@ sub format_distance
     my $ms = shift;
     return "0 s" if (!$ms);
     return MusicBrainz::Server::Track::FormatTrackLength($ms);
+}
+
+sub format_setlist {
+    my ($text) = @_;
+
+    # Encode < and >
+    $text =~ s/</&lt;/g;
+    $text =~ s/>/&gt;/g;
+
+    # Lines starting with @ are artists
+    $text =~ s/^@ ([^\r\n]*)/format_setlist_artist($1)/meg;
+
+    # Lines starting with * are works
+    $text =~ s/^\* ([^\r\n]*)/format_setlist_work($1)/meg;
+
+    # Lines starting with # are comments
+    $text =~ s/^# ([^\r\n]*)/<span class=\"comment\">$1<\/span>/mg;
+
+    # Fix newlines
+    $text =~ s/(\015\012|\012\015|\012|\015)/<br\/>/g;
+
+    return $text;
+}
+
+sub format_setlist_artist {
+    my ($line) = @_;
+
+    $line =~ s/
+      \[
+      ([0-9a-f]{8} -
+       [0-9a-f]{4} -
+       [0-9a-f]{4} -
+       [0-9a-f]{4} -
+       [0-9a-f]{12})(?:\|([^\]]+))?\]
+    /_make_link("artist",$1,$2)/eixg;
+
+    $line = "<b>Artist: $line</b>";
+
+    return $line;
+}
+
+sub format_setlist_work {
+    my ($line) = @_;
+
+    $line =~ s/
+      \[
+      ([0-9a-f]{8} -
+       [0-9a-f]{4} -
+       [0-9a-f]{4} -
+       [0-9a-f]{4} -
+       [0-9a-f]{12})(?:\|([^\]]+))?\]
+    /_make_link("work",$1,$2)/eixg;
+
+    return $line;
 }
 
 sub format_wikitext

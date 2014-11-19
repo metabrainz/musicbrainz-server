@@ -13,6 +13,7 @@ around inflate_rows => sub {
         map { $_->{release_group_id} } @$items
     );
     $self->c->model('ArtistCredit')->load(values %$releasegroups);
+    $self->c->model('ReleaseGroupType')->load(values %$releasegroups);
 
     return [
         map +{

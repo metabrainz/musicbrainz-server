@@ -154,6 +154,8 @@ END -%]
             l('artists');
         CASE 'area';
             l('areas');
+        CASE 'event';
+            l('events');
         CASE 'instrument';
             l('instruments');
         CASE 'label';
@@ -179,6 +181,9 @@ END -%]
     END -%]
 
 [%~ MACRO disambiguation(entity) BLOCK -%]
+    [%- IF entity.isa('MusicBrainz::Server::Entity::Event') -%]
+        [%- cancelled(entity) -%]
+    [%- END -%]
     [%- IF entity.comment -%]
         [%- ' <span class="comment">(<bdi>' _ html_escape("${entity.comment}") _ '</bdi>)</span>' -%]
     [%- END -%]
@@ -198,6 +203,14 @@ END -%]
                 [%- l("historical") -%]
             [%- END -%]
         [%- -%]</bdi>)</span>
+    [%- END -%]
+[%- END -%]
+
+[%~ MACRO cancelled(entity) BLOCK -%]
+    [%- IF entity.cancelled -%]
+        <span class="cancelled">(<bdi>
+            [%~ l("cancelled") ~%]
+            </bdi>)</span>
     [%- END -%]
 [%- END -%]
 
@@ -240,6 +253,7 @@ END -%]
       ELSIF entity.isa('MusicBrainz::Server::Entity::Area'); link_area(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Collection'); link_collection(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Work'); link_work(entity, action, text);
+      ELSIF entity.isa('MusicBrainz::Server::Entity::Event'); link_event(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Instrument'); link_instrument(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Label'); link_label(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Place'); link_place(entity, action, text);
@@ -288,6 +302,7 @@ END -%]
     ELSIF entity.isa('MusicBrainz::Server::Entity::Area'); "area";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Collection'); "collection";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Work'); "work";
+    ELSIF entity.isa('MusicBrainz::Server::Entity::Event'); "event";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Instrument'); "instrument";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Label'); "label";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Place'); "place";
@@ -320,7 +335,7 @@ END -%]
             CASE 'info_link';  # add. parameter: infolink
                 content _ ' [<a href="' _ infolink _ '">' _ l('info') _ '</a>]';
             CASE 'avatar'; # add. parameter: avatar
-                '<img src="' _ avatar _ '" class="gravatar" alt="" />' _ content;
+                '<img src="' _ avatar _ '" height="' _ image_size _ '" width="' _ image_size _ '" class="gravatar" alt="" />' _ content;
         END;
     END;
     content;
@@ -378,7 +393,7 @@ END -%]
     options.unshift('link');
     options.unshift('edits_pending') IF edits_pending AND action == 'show';
 
-    INCLUDE _wrap_text options=options content=mod_content link=link avatar=avatar;
+    INCLUDE _wrap_text options=options content=mod_content link=link avatar=avatar image_size=image_size;
 END -%]
 
 [%~ MACRO link_work(work, action, text) BLOCK;
@@ -427,6 +442,10 @@ END -%]
 
 [%~ MACRO link_collection(collection, action, text) BLOCK;
     INCLUDE _link_mbid_entity entity=collection type='collection' action=action content=text;
+END -%]
+
+[%~ MACRO link_event(event, action, text) BLOCK;
+    INCLUDE _link_mbid_entity entity=event type='event' action=action content=text;
 END -%]
 
 [%~ MACRO link_release(release, action, text) BLOCK;
@@ -479,11 +498,11 @@ END -%]
     DEFAULT action = 'profile';
     DEFAULT size = 12;
     IF editor.preferences.show_gravatar;
-      image_url = gravatar(editor.email) _ '&amp;s=' _ size;
+      image_url = gravatar(editor.email) _ '&amp;s=' _ size*2;
     ELSE;
-      image_url = '//gravatar.com/avatar/placeholder?d=mm&amp;s=' _ size;
+      image_url = '//gravatar.com/avatar/placeholder?d=mm&amp;s=' _ size*2;
     END;
-    INCLUDE _link_other_entity content=text action=action type='user' default_content=editor.name avatar=image_url;
+    INCLUDE _link_other_entity content=text action=action type='user' default_content=editor.name avatar=image_url image_size=size;
 END -%]
 
 [%~ MACRO editor_type_info(editor) BLOCK; -%]
@@ -562,6 +581,7 @@ END -%]
 [%~ MACRO entity_label(type) BLOCK;
     IF type == 'artist'; l('Artist:');
     ELSIF type == 'area'; l('Area:');
+    ELSIF type == 'event'; l('Event:');
     ELSIF type == 'instrument'; l('Instrument:');
     ELSIF type == 'label'; l('Label:');
     ELSIF type == 'place'; l('Place:');
@@ -577,6 +597,7 @@ END -%]
 [%~ MACRO format_entity_type_name(type_name) BLOCK -%]
     [%- IF    type_name == 'artist'; l('Artist');
         ELSIF type_name == 'area'; l('Area');
+        ELSIF type_name == 'event'; l('Event');
         ELSIF type_name == 'collection'; l('Collection');
         ELSIF type_name == 'instrument'; l('Instrument');
         ELSIF type_name == 'place'; l('Place');
@@ -587,6 +608,23 @@ END -%]
         ELSIF type_name == 'work'; l('Work');
         ELSIF type_name == 'label'; l('Label');
         ELSIF type_name == 'url'; l('URL');
+    END -%]
+[%- END -%]
+
+[%~ MACRO format_plural_entity_type_name(type_name) BLOCK -%]
+    [%- IF    type_name == 'artist'; l('Artists');
+        ELSIF type_name == 'area'; l('Areas');
+        ELSIF type_name == 'event'; l('Events');
+        ELSIF type_name == 'collection'; l('Collections');
+        ELSIF type_name == 'instrument'; l('Instruments');
+        ELSIF type_name == 'place'; l('Places');
+        ELSIF type_name == 'release'; l('Releases');
+        ELSIF type_name == 'recording'; l('Recordings');
+        ELSIF type_name == 'release_group'; l('Release Groups');
+        ELSIF type_name == 'series'; lp('Series', 'plural');
+        ELSIF type_name == 'work'; l('Works');
+        ELSIF type_name == 'label'; l('Labels');
+        ELSIF type_name == 'url'; l('URLs');
     END -%]
 [%- END -%]
 
@@ -979,4 +1017,8 @@ END -%]
 [%~ USE Canonicalize ~%]
 [%~ MACRO replace_gid(new_gid) BLOCK ~%]
   [%~ Canonicalize.replace_gid(c, new_gid) ~%]
+[%~ END ~%]
+
+[%~ MACRO data_track_icon BLOCK ~%]
+  <div class="data-track icon img" title="[% l('This track is a data track.') %]"></div>
 [%~ END ~%]

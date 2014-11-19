@@ -7,7 +7,7 @@ use warnings FATAL => 'all';
 use List::AllUtils qw( any );
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
 use MusicBrainz::Server::Constants qw( :edit_status :vote );
-use MusicBrainz::Server::Constants qw( $VARTIST_ID $EDITOR_MODBOT $EDITOR_FREEDB :quality entities_with );
+use MusicBrainz::Server::Constants qw( $VARTIST_ID $EDITOR_MODBOT $EDITOR_FREEDB :quality %ENTITIES entities_with );
 use MusicBrainz::Server::Data::Relationship;
 use MusicBrainz::Server::Translation::Statistics qw( l );
 use MusicBrainz::Server::Replication ':replication_type';
@@ -319,6 +319,32 @@ my %stats = (
         DESC => "Artists in no artist credits",
         SQL => "SELECT COUNT(DISTINCT artist.id) FROM artist LEFT OUTER JOIN artist_credit_name ON artist.id = artist_credit_name.artist WHERE artist_credit_name.artist_credit IS NULL",
     },
+    "count.event" => {
+        DESC => "Count of all events",
+        SQL => "SELECT COUNT(*) FROM event",
+    },
+    "count.event.type" => {
+        DESC => "Distribution of events by type",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT COALESCE(type.id::text, 'null'), COUNT(event.id) AS count
+                 FROM event_type type
+                 FULL OUTER JOIN event ON event.type = type.id
+                 GROUP BY type.id",
+            );
+
+            my %dist = map { @$_ } @$data;
+            $dist{null} ||= 0;
+
+            +{
+                map {
+                    "count.event.type.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
     "count.instrument" => {
         DESC => "Count of all instruments",
         SQL => "SELECT COUNT(*) FROM instrument",
@@ -609,15 +635,20 @@ my %stats = (
             my $data = $sql->select_list_of_hashes(qq{
                 WITH tag_editors AS (
                   SELECT editor FROM artist_tag_raw
+                  UNION SELECT editor FROM area_tag_raw
+                  UNION SELECT editor FROM event_tag_raw
+                  UNION SELECT editor FROM instrument_tag_raw
                   UNION SELECT editor FROM label_tag_raw
                   UNION SELECT editor FROM place_tag_raw
                   UNION SELECT editor FROM recording_tag_raw
+                  UNION SELECT editor FROM series_tag_raw
                   UNION SELECT editor FROM work_tag_raw
                   UNION SELECT editor FROM release_tag_raw
                   UNION SELECT editor FROM release_group_tag_raw
                 ),
                 rating_editors AS (
                   SELECT editor FROM artist_rating_raw
+                  UNION SELECT editor FROM event_rating_raw
                   UNION SELECT editor FROM label_rating_raw
                   UNION SELECT editor FROM recording_rating_raw
                   UNION SELECT editor FROM work_rating_raw
@@ -1440,53 +1471,34 @@ my %stats = (
         DESC => "Count of all tags",
         SQL => "SELECT COUNT(*) FROM tag",
     },
-    "count.tag.raw.artist" => {
-        DESC => "Count of all artist raw tags",
-        SQL => "SELECT COUNT(*) FROM artist_tag_raw",
-        NONREPLICATED => 1,
-        PRIVATE => 1,
-    },
-    "count.tag.raw.label" => {
-        DESC => "Count of all label raw tags",
-        SQL => "SELECT COUNT(*) FROM label_tag_raw",
-        NONREPLICATED => 1,
-        PRIVATE => 1,
-    },
-    "count.tag.raw.releasegroup" => {
-        DESC => "Count of all release-group raw tags",
-        SQL => "SELECT COUNT(*) FROM release_group_tag_raw",
-        NONREPLICATED => 1,
-        PRIVATE => 1,
-    },
-    "count.tag.raw.release" => {
-        DESC => "Count of all release raw tags",
-        SQL => "SELECT COUNT(*) FROM release_tag_raw",
-        NONREPLICATED => 1,
-        PRIVATE => 1,
-    },
-    "count.tag.raw.recording" => {
-        DESC => "Count of all recording raw tags",
-        SQL => "SELECT COUNT(*) FROM recording_tag_raw",
-        NONREPLICATED => 1,
-        PRIVATE => 1,
-    },
-    "count.tag.raw.work" => {
-        DESC => "Count of all work raw tags",
-        SQL => "SELECT COUNT(*) FROM work_tag_raw",
-        NONREPLICATED => 1,
-        PRIVATE => 1,
-    },
+
+    (map {
+        my $name = $_;
+        $name =~ s/_//; # release_group -> releasegroup
+
+        my $entity_properties = $ENTITIES{$_};
+        my $url = $entity_properties->{url} // $_;
+
+        ("count.tag.raw.$name" => {
+            DESC => "Count of all $url raw tags",
+            SQL => "SELECT COUNT(*) FROM ${_}_tag_raw",
+            NONREPLICATED => 1,
+            PRIVATE => 1,
+        })
+    } entities_with(['tags'])),
+
     "count.tag.raw" => {
         DESC => "Count of all raw tags",
-        PREREQ => [qw[ count.tag.raw.artist count.tag.raw.label count.tag.raw.release count.tag.raw.releasegroup count.tag.raw.recording count.tag.raw.work ]],
+        PREREQ => [ map { $_ =~ s/_//; "count.tag.raw.$_" } entities_with(['tags']) ],
         CALC => sub {
             my ($self, $sql) = @_;
-            return $self->fetch('count.tag.raw.artist') +
-                   $self->fetch('count.tag.raw.label') +
-                   $self->fetch('count.tag.raw.release') +
-                   $self->fetch('count.tag.raw.releasegroup') +
-                   $self->fetch('count.tag.raw.work') +
-                   $self->fetch('count.tag.raw.recording');
+
+            my $count = 0;
+            for (entities_with(['tags'])) {
+                $_ =~ s/_//;
+                $count += $self->fetch("count.tag.raw.$_");
+            }
+            return $count;
         },
         NONREPLICATED => 1,
         PRIVATE => 1,

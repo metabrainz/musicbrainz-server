@@ -2,6 +2,8 @@
     SWITCH slug;
         CASE 'artists';
             l('Artists');
+        CASE 'events';
+            l('Events');
         CASE 'labels';
             l('Labels');
         CASE 'places';

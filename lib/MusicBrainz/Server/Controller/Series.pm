@@ -21,6 +21,7 @@ with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Alias';
 with 'MusicBrainz::Server::Controller::Role::Cleanup';
 with 'MusicBrainz::Server::Controller::Role::Details';
+with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Subscribe';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
@@ -57,6 +58,12 @@ sub show : PathPart('') Chained('load') {
     for (@$items) {
         push @entities, $_->{entity};
         $item_numbers->{$_->{entity}->id} = $_->{ordering_key};
+    }
+
+    if ($series->type->entity_type eq 'event') {
+        $c->model('Event')->load_performers(@entities);
+        $c->model('Event')->load_locations(@entities);
+        $c->model('Event')->rating->load_user_ratings($c->user->id, @entities) if $c->user_exists;
     }
 
     if ($series->type->entity_type eq 'recording') {
