@@ -33,10 +33,10 @@
             <td>
                 <ul>
                     [% FOR rel_place=item.event.places %]
-                      <li>[% l('{place}', { place => link_place(rel_place.entity) }) %]</li>
+                      <li>[% link_place(rel_place.entity) %]</li>
                     [% END %]
                     [% FOR rel_area=item.event.areas %]
-                       <li>[% l('{area}', { area => link_area(rel_area.entity) }) %]</li>
+                       <li>[% link_area(rel_area.entity) %]</li>
                     [% END %]
                 </ul>
             </td>

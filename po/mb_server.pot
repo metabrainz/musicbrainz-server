@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-19 15:01-0700\n"
+"POT-Creation-Date: 2014-11-19 15:16-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11200,10 +11200,6 @@ msgstr ""
 msgid "{app} is requesting permission to:"
 msgstr ""
 
-#: ../root/report/event_list.tt:39 ../root/search/results-event.tt:39
-msgid "{area}"
-msgstr ""
-
 #: ../root/components/events-list.tt:59 ../root/components/works-list.tt:44
 #: ../root/event/merge.tt:34 ../root/iswc/index.tt:37
 #: ../root/otherlookup/results-work.tt:20 ../root/report/event_list.tt:28
@@ -11547,10 +11543,6 @@ msgstr ""
 
 #: ../root/user/profile.tt:222 ../root/user/profile.tt:226
 msgid "{percentage}%"
-msgstr ""
-
-#: ../root/report/event_list.tt:36 ../root/search/results-event.tt:36
-msgid "{place}"
 msgstr ""
 
 #: ../root/components/common-macros.tt:278

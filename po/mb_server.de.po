@@ -39,9 +39,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-19 15:01-0700\n"
-"PO-Revision-Date: 2014-11-19 22:04+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"POT-Creation-Date: 2014-11-19 15:16-0700\n"
+"PO-Revision-Date: 2014-11-19 22:17+0000\n"
+"Last-Translator: nikki\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -563,7 +563,7 @@ msgstr "Medium hinzufügen"
 
 #: ../root/event/create.tt:1 ../root/event/create.tt:3
 msgid "Add Event"
-msgstr ""
+msgstr "Veranstaltung hinzufügen"
 
 #: ../root/layout/menu.tt:246 ../root/release/edit/information.tt:135
 #: ../root/release/edit/information.tt:136
@@ -698,7 +698,7 @@ msgstr "Einen neuen Eintrag hinzufügen"
 
 #: ../root/scripts/text_strings.tt:132
 msgid "Add a new event"
-msgstr ""
+msgstr "Eine neue Veranstaltung hinzufügen"
 
 #: ../root/scripts/text_strings.tt:133
 msgid "Add a new label"
@@ -758,7 +758,7 @@ msgstr "Noch einen Künstler hinzufügen"
 
 #: ../root/scripts/text_strings.tt:170
 msgid "Add another event"
-msgstr ""
+msgstr "Noch eine Veranstaltung hinzufügen"
 
 #: ../root/components/relationship-editor.tt:170
 #: ../root/scripts/text_strings.tt:171
@@ -855,7 +855,7 @@ msgstr "Ausgewählte Künstler zum Vereinen hinzufügen"
 
 #: ../root/artist/events.tt:8 ../root/place/events.tt:8
 msgid "Add selected events for merging"
-msgstr ""
+msgstr "Ausgewählte Veranstaltungen zum Vereinen hinzufügen"
 
 #: ../root/artist/recordings.tt:13 ../root/instrument/recordings.tt:8
 #: ../root/isrc/index.tt:37
@@ -1054,7 +1054,7 @@ msgstr "Stattdessen kannst Du auch {uri|einen neuen Künstler hinzufügen}."
 
 #: ../root/search/results-event.tt:63
 msgid "Alternatively, you may {uri|add a new event}."
-msgstr ""
+msgstr "Stattdessen kannst du auch {uri|eine neue Veranstaltung hinzufügen}."
 
 #: ../root/search/results-label.tt:43
 msgid "Alternatively, you may {uri|add a new label}."
@@ -1326,7 +1326,7 @@ msgstr "Gebiet:"
 #: ../root/components/common-macros.tt:604 ../root/tag/header.tt:1
 #: ../root/tag/index.tt:8
 msgid "Areas"
-msgstr ""
+msgstr "Gebiete"
 
 #: ../root/artist/header.tt:4 ../root/cdstub/browse.tt:9
 #: ../root/cdstub/cdstub.tt:7 ../root/cdtoc/attach_filter_release.tt:29
@@ -1897,7 +1897,7 @@ msgstr "Künstler durchstöbern"
 
 #: ../root/browse/entity.tt:1
 msgid "Browse Events"
-msgstr ""
+msgstr "Veranstaltungen durchstöbern"
 
 #: ../root/browse/entity.tt:1
 msgid "Browse Labels"
@@ -1933,7 +1933,7 @@ msgstr "Künstler durchstöbern"
 
 #: ../root/browse/index.tt:13
 msgid "Browse events"
-msgstr ""
+msgstr "Veranstaltungen durchstöbern"
 
 #: ../root/browse/index.tt:7
 msgid "Browse labels"
@@ -2873,7 +2873,7 @@ msgstr "Cover-Art bearbeiten"
 
 #: ../root/event/edit.tt:1
 msgid "Edit Event"
-msgstr ""
+msgstr "Veranstaltung bearbeiten"
 
 #: ../root/instrument/edit.tt:1
 msgid "Edit Instrument"
@@ -3134,7 +3134,7 @@ msgstr "Enddatum"
 
 #: ../root/event/layout.tt:22
 msgid "End Date:"
-msgstr ""
+msgstr "Enddatum:"
 
 #: ../root/components/common-macros.tt:858 ../root/scripts/text_strings.tt:73
 msgid "End area:"
@@ -3287,23 +3287,23 @@ msgstr "Es hilft schon viel, wenn Du nur ein oder zwei Links angibst!"
 #: ../lib/MusicBrainz/Server/Edit/Event.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:48
 msgid "Event"
-msgstr ""
+msgstr "Veranstaltung"
 
 #: ../root/event/edit_form.tt:12
 msgid "Event Details"
-msgstr ""
+msgstr "Veranstaltungsdetails"
 
 #: ../root/event/not_found.tt:1 ../root/event/not_found.tt:2
 msgid "Event Not Found"
-msgstr ""
+msgstr "Veranstaltung nicht gefunden"
 
 #: ../root/event/layout.tt:4
 msgid "Event information"
-msgstr ""
+msgstr "Veranstaltungsinformationen"
 
 #: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:2
 msgid "Event ratings"
-msgstr ""
+msgstr "Veranstaltungbewertungen"
 
 #: ../root/components/common-macros.tt:570
 #: ../root/edit/details/add_event_annotation.tt:3
@@ -4112,7 +4112,7 @@ msgstr "Instrument:"
 #: ../root/components/common-macros.tt:604 ../root/tag/header.tt:1
 #: ../root/tag/index.tt:8
 msgid "Instruments"
-msgstr ""
+msgstr "Instrumente"
 
 #: ../root/main/500.tt:67
 msgid "Interface language:"
@@ -7234,7 +7234,7 @@ msgstr "Serien"
 #: ../root/components/common-macros.tt:604 ../root/tag/header.tt:1
 msgctxt "plural"
 msgid "Series"
-msgstr ""
+msgstr "Serien"
 
 #: ../root/components/common-macros.tt:587 ../root/components/series-list.tt:4
 #: ../root/edit/search_macros.tt:307 ../root/scripts/text_strings.tt:113
@@ -11238,10 +11238,6 @@ msgstr "{almost_last_list_item} und {last_list_item}"
 msgid "{app} is requesting permission to:"
 msgstr "{app} erbittet Erlaubnis für"
 
-#: ../root/report/event_list.tt:39 ../root/search/results-event.tt:39
-msgid "{area}"
-msgstr ""
-
 #: ../root/components/events-list.tt:59 ../root/components/works-list.tt:44
 #: ../root/event/merge.tt:34 ../root/iswc/index.tt:37
 #: ../root/otherlookup/results-work.tt:20 ../root/report/event_list.tt:28
@@ -11586,10 +11582,6 @@ msgstr ""
 #: ../root/user/profile.tt:222 ../root/user/profile.tt:226
 msgid "{percentage}%"
 msgstr "{percentage}&#xa0;%"
-
-#: ../root/report/event_list.tt:36 ../root/search/results-event.tt:36
-msgid "{place}"
-msgstr ""
 
 #: ../root/components/common-macros.tt:278
 msgid "{place} in {area}"

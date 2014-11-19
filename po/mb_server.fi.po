@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-19 15:01-0700\n"
-"PO-Revision-Date: 2014-11-19 22:04+0000\n"
+"POT-Creation-Date: 2014-11-19 15:16-0700\n"
+"PO-Revision-Date: 2014-11-19 22:17+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -11224,10 +11224,6 @@ msgstr "{almost_last_list_item} ja {last_list_item}"
 msgid "{app} is requesting permission to:"
 msgstr "{app} pyytää lupaa:"
 
-#: ../root/report/event_list.tt:39 ../root/search/results-event.tt:39
-msgid "{area}"
-msgstr ""
-
 #: ../root/components/events-list.tt:59 ../root/components/works-list.tt:44
 #: ../root/event/merge.tt:34 ../root/iswc/index.tt:37
 #: ../root/otherlookup/results-work.tt:20 ../root/report/event_list.tt:28
@@ -11572,10 +11568,6 @@ msgstr ""
 #: ../root/user/profile.tt:222 ../root/user/profile.tt:226
 msgid "{percentage}%"
 msgstr "{percentage} %"
-
-#: ../root/report/event_list.tt:36 ../root/search/results-event.tt:36
-msgid "{place}"
-msgstr ""
 
 #: ../root/components/common-macros.tt:278
 msgid "{place} in {area}"

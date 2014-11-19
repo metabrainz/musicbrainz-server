@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-11-19 22:06+0000\n"
+"PO-Revision-Date: 2014-11-19 22:12+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1025,7 +1025,7 @@ msgstr "Totaal aantal bewerkingen"
 
 #: ../root/statistics/view_js.tt:59
 msgid "Count of all events"
-msgstr ""
+msgstr "Totaal aantal evenementen"
 
 #: ../root/statistics/view_js.tt:58
 msgid "Count of all instruments"
@@ -1154,7 +1154,7 @@ msgstr "Trek een rechthoek op een grafiek"
 
 #: ../root/statistics/view_js.tt:27
 msgid "Edit Information"
-msgstr "Bewerk informatie"
+msgstr "Informatie over bewerkingen"
 
 #: ../root/statistics/editors.tt:36 ../root/statistics/editors.tt:37
 msgid "Editor"
@@ -1234,11 +1234,11 @@ msgstr "Evalnochange edits"
 
 #: ../root/statistics/index.tt:683 ../root/statistics/view_js.tt:59
 msgid "Events"
-msgstr ""
+msgstr "Evenementen"
 
 #: ../root/statistics/index.tt:68 ../root/statistics/index.tt:690
 msgid "Events:"
-msgstr ""
+msgstr "Evenementen:"
 
 #: ../root/statistics/timeline.tt:59
 msgid "Exact Values (items vs. day)"

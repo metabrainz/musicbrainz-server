@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-11-19 22:04+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-11-19 22:17+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -259,7 +259,7 @@ msgstr "Geeft aan dat één object een cover is van een ander object"
 
 #: DB:link_type/description:802
 msgid "Indicates that the event is part of a series."
-msgstr ""
+msgstr "Geeft aan dat een evenement deel uitmaakt van een serie."
 
 #: DB:link_type/description:231
 msgid "Indicates that the recording contains samples from another."
@@ -359,7 +359,7 @@ msgstr "Geeft de officiële thuispagina van de artiest aan."
 
 #: DB:link_type/description:782
 msgid "Indicates the official homepage for an event."
-msgstr ""
+msgstr "Geeft de officiële thuispagina van een evenement aan."
 
 #: DB:link_type/description:716
 msgid "Indicates the place where the work had its first performance"
@@ -401,7 +401,7 @@ msgstr "Koppelt een opname aan het gebied waar het is opgenomen. Gebruik dit all
 
 #: DB:link_type/description:809
 msgid "Links a recording to the event it was recorded at."
-msgstr ""
+msgstr "Koppelt een opname aan het evenement waar het opgenomen is."
 
 #: DB:link_type/description:694
 msgid "Links a recording to the place it was mixed at."
@@ -413,7 +413,7 @@ msgstr "Koppelt een opname aan de plaats waar het opgenomen is."
 
 #: DB:link_type/description:797
 msgid "Links a release group with a launch event for it."
-msgstr ""
+msgstr "Koppelt een uitgavegroep aan het evenement waarop het gelanceerd is."
 
 #: DB:link_type/description:756
 msgid ""
@@ -435,7 +435,7 @@ msgstr "Koppelt een uitgave aan een gebied waar het opgenomen is. Gebruik dit al
 
 #: DB:link_type/description:810
 msgid "Links a release to the event it was recorded at."
-msgstr ""
+msgstr "Koppelt een uitgave aan het evenement waar het opgenomen is."
 
 #: DB:link_type/description:697
 msgid "Links a release to the place it was mastered at."
@@ -451,14 +451,14 @@ msgstr "Koppelt een uitgave aan de plaats waar het opgenomen is."
 
 #: DB:link_type/description:796
 msgid "Links a release with a launch event for it."
-msgstr ""
+msgstr "Koppelt een uitgave aan zijn lanceerevenement."
 
 #: DB:link_type/description:795
 msgid ""
 "Links a release with an event where it was available. This is intended for "
 "event-exclusive releases and/or releases available at events before the "
 "official launch date, not for every release in the merchandise stall."
-msgstr ""
+msgstr "Koppelt een uitgave aan het evenement waar het beschikbaar was. Dit is bedoeld voor uitgaves die specifiek bedoeld waren voor een bepaald evenement of voor uitgaves die beschikbaar waren op evenementen voor de officiële uitgavedatum, niet voor elke uitgave die te koop is of was."
 
 #: DB:link_type/description:700
 msgid ""
@@ -468,11 +468,11 @@ msgstr "Koppelt een artiest aan de plaats waar de artiest een concert hield. Voe
 
 #: DB:link_type/description:798
 msgid "Links an event to (one of) its main performer(s)."
-msgstr ""
+msgstr "Koppelt een evenement aan (een van de) belangrijkste optredende artiest(en)."
 
 #: DB:link_type/description:799
 msgid "Links an event to (one of) its support act(s)."
-msgstr ""
+msgstr "Koppelt een evenement aan (een van de) ondersteunende artiest(en)."
 
 #: DB:link_type/description:800
 msgid ""
