@@ -346,31 +346,49 @@
 
             toc = toc.split(/\s+/);
 
-            var pregapOffset = this.hasPregap() ? 1 : 0;
-            var tracks = this.tracks();
             var tocTrackCount = toc.length - 3;
-            var trackCount = tracks.length - pregapOffset;
+            var tracks = this.tracks();
+            var tocTracks = _.reject(tracks, function (t) { return t.position() == 0 || t.isDataTrack() });
+            var trackCount = tocTracks.length;
 
             if (trackCount > tocTrackCount) {
-                this.tracks(_.first(tracks, tocTrackCount + pregapOffset));
+                tocTracks = tocTracks.slice(0, tocTrackCount);
+
             } else if (trackCount < tocTrackCount) {
                 var self = this;
 
                 _.times(tocTrackCount - trackCount, function () {
-                    self.tracks.push(fields.Track({ position: tracks.length + (1 - pregapOffset) }, self));
+                    tocTracks.push(fields.Track({}, self));
                 });
             }
 
-            _(tracks).first(tocTrackCount + pregapOffset).each(function (track, index) {
-                if (track.position() === 0) {
-                    return;
-                }
+            this.tracks(
+                Array.prototype.concat(
+                    this.hasPregap() ? tracks[0] : [],
+                    tocTracks,
+                    this.dataTracks()
+                )
+            );
+
+            var pregapOffset = this.hasPregap() ? 0 : 1;
+
+            _.each(tocTracks, function (track, index) {
                 track.formattedLength(
                     MB.utility.formatTrackLength(
                         ((toc[index + 4] || toc[2]) - toc[index + 3]) / 75 * 1000
                     )
                 );
             });
+
+            _.each(this.tracks(), function (track, index) {
+                track.position(pregapOffset + index);
+
+                // Reset track numbers that are empty or look like numbers.
+                var number = track.number();
+                if (/^\d+$/.test(number) || number === undefined) {
+                    track.number(pregapOffset + index);
+                }
+            })
         },
 
         hasInvalidPregapLength: function () {
