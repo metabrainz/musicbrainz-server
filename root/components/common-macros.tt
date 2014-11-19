@@ -571,11 +571,9 @@ END -%]
     comma_only_list(out);
 END -%]
 
-[%~ MACRO sortble_table_header(name, label) BLOCK -%]
-    <th>
-        <a href="[% c.req.uri_with( order => order == name ? '-' _ name : name ) %]">[% label %]</a>
-        [%- IF order == name %]&#xa0;&#9652;[% ELSIF order == '-' _ name %]&#xa0;&#9662;[% END %]
-    </th>
+[%~ MACRO sortable_table_header(name, label) BLOCK -%]
+    <a href="[% c.req.uri_with( order => order == name ? '-' _ name : name ) %]">[% label %]</a>
+    [%- IF order == name %]&#xa0;&#9652;[% ELSIF order == '-' _ name %]&#xa0;&#9662;[% END %]
 [%- END -%]
 
 [%~ MACRO entity_label(type) BLOCK;
