@@ -172,6 +172,15 @@ sub load_related_info {
     $c->model('EventType')->load(@events);
 }
 
+sub load_areas {
+    my ($self, @events) = @_;
+
+    my $c = $self->c;
+    $c->model('Area')->load(map { map { $_->{entity} } $_->all_places } @events);
+    $c->model('Area')->load_containment(map { (map { $_->{entity} } $_->all_areas),
+                                              (map { $_->{entity}->area } $_->all_places) } @events);
+}
+
 sub find_by_area
 {
     my ($self, $area_id, $limit, $offset) = @_;

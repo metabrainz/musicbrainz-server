@@ -33,9 +33,7 @@ before build_display_data => sub {
 
     my @events = grep defined, map { $loaded->{Event}{$_} } $self->event_ids;
     $self->c->model('Event')->load_related_info(@events);
-    $self->c->model('Area')->load(map { map { $_->{entity} } $_->all_places } @events);
-    $self->c->model('Area')->load_containment(map { map { $_->{entity}->area } $_->all_places } @events);
-    $self->c->model('Area')->load_containment(map { map { $_->{entity} } $_->all_areas } @events);
+    $self->c->model('Event')->load_areas(@events);
 };
 
 

@@ -161,12 +161,8 @@ sub direct : Private
             $c->model('SeriesOrderingType')->load(@entities);
         }
         when ('event') {
-            $c->model('Event')->load_performers(@entities);
-            $c->model('Event')->load_locations(@entities);
-            $c->model('EventType')->load(@entities);
-            $c->model('Area')->load(map { map { $_->{entity} } $_->all_places } @entities);
-            $c->model('Area')->load_containment(map { map { $_->{entity}->area } $_->all_places } @entities);
-            $c->model('Area')->load_containment(map { map { $_->{entity} } $_->all_areas } @entities);
+            $c->model('Event')->load_related_info(@entities);
+            $c->model('Event')->load_areas(@entities);
         }
     }
 
