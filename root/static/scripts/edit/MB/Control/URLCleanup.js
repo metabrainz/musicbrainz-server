@@ -468,9 +468,9 @@ MB.constants.CLEANUPS = {
             url = url.replace(/^(https?:\/\/)?([^\/]+\.)?facebook\.com(\/#!)?/, "https://www.facebook.com");
             if (url.match(/^https:\/\/www\.facebook\.com.*$/)) {
                 // Remove ref (where the user came from), sk (subpages in a page, since we want the main link) and a couple others
-                url = url.replace(/([&?])(sk|ref|fref|sid_reminder|ref_dashboard_filter)=([^?&]*)/, "$1");
+                url = url.replace(new RegExp("([&?])(sk|ref|fref|sid_reminder|ref_dashboard_filter)=([^?&]*)", "g"), "$1");
                 // Ensure the first parameter left uses ? not to break the URL
-                url = url.replace(/([&?])&/, "$1");
+                url = url.replace(/([&?])&+/, "$1");
                 url = url.replace(/[&?]$/, "");
                 // Remove trailing slashes
                 if (url.match(/\?/)) {
