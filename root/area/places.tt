@@ -1,4 +1,4 @@
-[%- WRAPPER 'area/layout.tt' title='Places' page='places' -%]
+[%- WRAPPER 'area/layout.tt' title=l('Places') page='places' -%]
     <h2>[% l('Places') %]</h2>
 
     [% IF places.size %]
