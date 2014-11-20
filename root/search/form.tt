@@ -49,7 +49,4 @@
         [% l('Please note:') %]
     </strong>
     <p>[%- l('Search indexes are updated every 3 hours, use the direct database search if you require up to the minute correct results.') %]</p>
-    [%- IF no_javascript -%]
-      <p>[%- l('Using {doc|advanced query syntax} while performing a direct database search will result in inaccurate results.', { doc => doc_link('Text_Search_Syntax') }) %]</p>
-    [%- END -%]
 </div>

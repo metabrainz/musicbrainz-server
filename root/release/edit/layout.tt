@@ -76,6 +76,8 @@
   <script>
     MB.relationshipEditor.exportTypeInfo([% type_info %], [% attr_info %]);
 
+    MB.formatsWithDiscIDs = [% discid_formats %];
+
     MB.releaseEditor.init({
     [%- IF release.gid %]
       gid: "[% release.gid | js %]",

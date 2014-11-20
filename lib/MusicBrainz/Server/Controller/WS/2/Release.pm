@@ -142,6 +142,7 @@ sub release_toplevel
 
         $c->model('Editor')->load(@collections);
         $c->model('Collection')->load_entity_count(@collections);
+        $c->model('CollectionType')->load(@collections);
 
         $stash->store($release)->{collections} = \@collections;
     }

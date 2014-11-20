@@ -713,6 +713,9 @@ sub find_by_collection
             $also_select = "total_track_count";
             return "total_track_count, musicbrainz_collate(name)";
         },
+        "barcode" => sub {
+            return "length(barcode), barcode, musicbrainz_collate(name)"
+        },
     });
 
     my $query = "

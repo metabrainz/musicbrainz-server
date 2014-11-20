@@ -30,7 +30,7 @@ EOSQL
         '/collection/f34c079d-374e-4436-9448-da92dedef3ce/releases/' =>
         '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-  <collection id="f34c079d-374e-4436-9448-da92dedef3ce">
+  <collection type="Release" id="f34c079d-374e-4436-9448-da92dedef3ce">
     <name>my collection</name>
     <editor>new_editor</editor>
     <release-list count="1">
