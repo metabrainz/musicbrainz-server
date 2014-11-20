@@ -1,3 +1,0 @@
-[%- WRAPPER 'event/layout.tt' title=l('Edit Event') full_width=1 page='edit' -%]
-      [%- INCLUDE "event/edit_form.tt" -%]
-[%- END -%]
