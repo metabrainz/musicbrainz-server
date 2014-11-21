@@ -37,15 +37,15 @@
                 <p>
                     [%~ server_details.staging_server_description || l('This is a MusicBrainz development server.') =%]
                     [%= l('{uri|Return to musicbrainz.org}.',
-                          { uri => '//musicbrainz.org' _
+                          { uri => c.req.uri.replace('//.*?/','//musicbrainz.org/') _
                                    (server_details.beta_redirect == 'musicbrainz.org' ? '?unset_beta=1' : '' ) }) ~%]
                 </p>
             </div>
         [% ELSIF server_details.is_slave_db %]
             <div class="server-details">
                 <p>
-                    [% l('This is a Musicbrainz mirror server. To edit or make changes to the data please
-                          {uri|return to musicbrainz.org}.', { uri => '//musicbrainz.org' }) %]
+                    [% l('This is a MusicBrainz mirror server. To edit or make changes to the data please
+                          {uri|return to musicbrainz.org}.', { uri => c.req.uri.replace('//.*?/','//musicbrainz.org/') }) %]
                 </p>
             </div>
         [% END %]
