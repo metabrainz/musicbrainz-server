@@ -734,6 +734,44 @@ test("mediumCreate edits are not given conflicting positions", function () {
 });
 
 
+test("mediumCreate positions don't conflict with removed mediums (MBS-7952)", function () {
+    this.release = releaseEditor.fields.Release({
+        gid: "f4c552ab-515e-42df-a9ee-a370867d29d1",
+        mediums: [{ id: 123, position: 1 }]
+    });
+
+    releaseEditor.rootField.release(this.release);
+
+    var mediums = this.release.mediums;
+    var newMedium = releaseEditor.fields.Medium({ position: 2 });
+
+    newMedium.tracks.push(releaseEditor.fields.Track({}, newMedium));
+    mediums.push(newMedium);
+    releaseEditor.removeMedium(mediums()[0]);
+    releaseEditor.test.createMediums(this.release);
+
+    deepEqual(releaseEditor.edits.mediumReorder(this.release), [
+      {
+        "edit_type": MB.edit.TYPES.EDIT_RELEASE_REORDER_MEDIUMS,
+        "hash": "6a2634d88b570aef5d0dd8521c7166b4a40ec042",
+        "medium_positions": [
+          {
+            "medium_id": 123,
+            "new": 2,
+            "old": 1
+          },
+          {
+            "medium_id": 666,
+            "new": 1,
+            "old": 2
+          }
+        ],
+        "release": "f4c552ab-515e-42df-a9ee-a370867d29d1"
+      }
+    ]);
+});
+
+
 test("releaseDeleteReleaseLabel edits are not generated for non-existent release labels (MBS-7455)", function () {
     var release = this.release = releaseEditor.fields.Release({
         gid: "f4c552ab-515e-42df-a9ee-a370867d29d1",
