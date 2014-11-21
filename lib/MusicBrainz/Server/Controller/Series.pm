@@ -154,8 +154,8 @@ before qw( edit create ) => sub {
     };
 
     $c->stash(
-        series_types => encode_json($series_types),
-        series_ordering_types => encode_json($series_ordering_types),
+        series_types => $series_types,
+        series_ordering_types => $series_ordering_types,
     );
 };
 
