@@ -581,7 +581,7 @@ MB.constants.CLEANUPS = {
     },
     setlistfm: {
         match: [ new RegExp("^(https?://)?([^/]+\\.)?setlist\\.fm","i") ],
-        type: MB.constants.LINK_TYPES.songkick
+        type: MB.constants.LINK_TYPES.setlistfm
     },
     imslp: {
         match: [ new RegExp("^(https?://)?(www\\.)?imslp\\.org/", "i") ],
