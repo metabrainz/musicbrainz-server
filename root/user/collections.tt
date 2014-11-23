@@ -1,42 +1,81 @@
 [% WRAPPER "user/profile/layout.tt" title=l("Collections") page="collections" %]
 
-<h2>[% l("Collections") %]</h2>
+[%- IF release_collections.size -%]
 
-[%- IF collections.size -%]
-[% WRAPPER 'components/with-pager.tt' %]
-<table class="tbl">
-    <thead>
-        <tr>
-            <th>[% l('Collection') %]</th>
-            <th>[% l('Type') %]</th>
-            <th>[% l('Releases') %]</th>
-            [% IF viewing_own_profile %]
-            <th>[% l('Subscribed') %]</th>
-            <th>[% l('Privacy') %]</th>
-            <th class="actions-header">[% l('Actions') %]</th>
-            [% END %]
-        </tr>
-    </thead>
-    <tbody>
-    [%- FOR collection=collections -%]
-        <tr class="[% loop.parity %]">
-            <td>[% link_collection(collection) %]</td>
-            <td>[% collection.type.l_name %]</td>
-            <td>[% collection.entity_count %]</td>
-            [% IF viewing_own_profile %]
-            <td>[% yesno(collection.subscribed) %]</td>
-            <td>[% collection.public ? l('Public') : l('Private') %]</td>
-            <td>
-                [% link_collection(collection, 'edit', l('Edit')) %] |
-                [% link_collection(collection, 'delete', l('Remove')) %]
-            </td>
-            [% END %]
-        </tr>
-    [%- END -%]
-    </tbody>
-</table>
+    <h2>[% l("Release Collections") %]</h2>
+
+    <table class="tbl">
+        <thead>
+            <tr>
+                <th>[% l('Collection') %]</th>
+                <th>[% l('Type') %]</th>
+                <th>[% l('Releases') %]</th>
+                [% IF viewing_own_profile %]
+                    <th>[% l('Subscribed') %]</th>
+                    <th>[% l('Privacy') %]</th>
+                    <th class="actions-header">[% l('Actions') %]</th>
+                [% END %]
+            </tr>
+        </thead>
+        <tbody>
+            [%- FOR collection=release_collections -%]
+                <tr class="[% loop.parity %]">
+                    <td>[% link_collection(collection) %]</td>
+                    <td>[% collection.type.l_name %]</td>
+                    <td>[% collection.entity_count %]</td>
+                    [% IF viewing_own_profile %]
+                        <td>[% yesno(collection.subscribed) %]</td>
+                        <td>[% collection.public ? l('Public') : l('Private') %]</td>
+                        <td>
+                            [% link_collection(collection, 'edit', l('Edit')) %] |
+                            [% link_collection(collection, 'delete', l('Remove')) %]
+                        </td>
+                    [% END %]
+                </tr>
+            [%- END -%]
+        </tbody>
+    </table>
 [% END %]
-[%- ELSE -%]
+
+[%- IF event_collections.size -%]
+
+    <h2>[% l("Event Collections") %]</h2>
+
+    <table class="tbl">
+        <thead>
+            <tr>
+                <th>[% l('Collection') %]</th>
+                <th>[% l('Type') %]</th>
+                <th>[% l('Events') %]</th>
+                [% IF viewing_own_profile %]
+                    <th>[% l('Subscribed') %]</th>
+                    <th>[% l('Privacy') %]</th>
+                    <th class="actions-header">[% l('Actions') %]</th>
+                [% END %]
+            </tr>
+        </thead>
+        <tbody>
+            [%- FOR collection=event_collections -%]
+                <tr class="[% loop.parity %]">
+                    <td>[% link_collection(collection) %]</td>
+                    <td>[% collection.type.l_name %]</td>
+                    <td>[% collection.entity_count %]</td>
+                    [% IF viewing_own_profile %]
+                        <td>[% yesno(collection.subscribed) %]</td>
+                        <td>[% collection.public ? l('Public') : l('Private') %]</td>
+                        <td>
+                            [% link_collection(collection, 'edit', l('Edit')) %] |
+                            [% link_collection(collection, 'delete', l('Remove')) %]
+                        </td>
+                    [% END %]
+                </tr>
+            [%- END -%]
+        </tbody>
+    </table>
+[% END %]
+
+[%- IF !release_collections.size AND !event_collections.size -%]
+    <h2>[% l("Collections") %]</h2>
     [% IF viewing_own_profile %]
         <p>[% l('You have no collections.') -%]</p>
     [%- ELSE -%]

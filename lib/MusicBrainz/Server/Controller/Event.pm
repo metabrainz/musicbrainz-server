@@ -57,7 +57,7 @@ after [qw( show aliases attendance details tags )] => sub {
     my %containment;
     if ($c->user_exists) {
         # Make a list of collections and whether this event is contained in them
-        @collections = $c->model('Collection')->find_all_by_editor($c->user->id, 'event');
+        @collections = $c->model('Collection')->find_all_by_editor($c->user->id, 'true', 'event');
         foreach my $collection (@collections) {
             $containment{$collection->id} = 1
                 if ($c->model('Collection')->check_event($collection->id, $event->id));
