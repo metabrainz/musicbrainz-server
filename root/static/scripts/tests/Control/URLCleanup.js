@@ -528,6 +528,19 @@ test('Guess type', function () {
             [
                 'release_group', 'http://www.metal-archives.com/albums/Corubo/Ypykuera/193860',
                 MB.constants.LINK_TYPES.otherdatabases.release_group
+            ],
+            // setlist.fm
+            [
+                'artist', 'http://www.setlist.fm/setlists/foo-fighters-bd6893a.html',
+                MB.constants.LINK_TYPES.setlistfm.artist
+            ],
+            [
+                'event', 'http://www.setlist.fm/setlist/foo-fighters/2014/house-of-blues-new-orleans-la-13cda5b1.html',
+                MB.constants.LINK_TYPES.setlistfm.event
+            ],
+            [
+                'place', 'http://www.setlist.fm/venue/house-of-blues-new-orleans-la-usa-23d61c9f.html',
+                MB.constants.LINK_TYPES.setlistfm.place
             ]
         ];
 
