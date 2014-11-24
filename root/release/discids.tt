@@ -1,4 +1,4 @@
-[%- WRAPPER 'release/layout.tt' page='discids' -%]
+[%- WRAPPER 'release/layout.tt' page='discids' title=l('Disc IDs') -%]
 
     <h2>[% l('Disc IDs') %]</h2>
     [% IF has_cdtocs %]
