@@ -49,13 +49,17 @@ function buildStyles() {
     );
 }
 
-function createBundle(resourceName, watch) {
+function createBundle(resourceName, watch, callback) {
     var b = browserify("./root/static/scripts/" + resourceName, {
         cache: {},
         packageCache: {},
         fullPaths: watch ? true : false,
         debug: !!process.env.SOURCEMAPS
     });
+
+    if (callback) {
+        callback(b);
+    }
 
     if (process.env.UGLIFY) {
         b.transform("uglifyify", {
@@ -93,8 +97,13 @@ function createBundle(resourceName, watch) {
 
 function buildScripts(watch) {
     return Q.all([
-        createBundle("common.js", watch),
-        createBundle("edit.js", watch),
+        createBundle("common.js", watch, function (b) {
+            // Needed by knockout-* plugins in edit.js
+            b.require('./root/static/lib/knockout/knockout-latest.debug.js', { expose: 'knockout' });
+        }),
+        createBundle("edit.js", watch, function (b) {
+            b.external('./root/static/lib/knockout/knockout-latest.debug.js');
+        }),
         createBundle("guess-case.js", watch),
         createBundle("release-editor.js", watch),
         createBundle("statistics.js", watch)

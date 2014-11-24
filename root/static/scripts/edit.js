@@ -2,6 +2,10 @@ require("../lib/filesize.js/lib/filesize.js");
 require("../lib/json/json2.js");
 require("../lib/sha1/sha1.js");
 
+require("knockout-arrayTransforms");
+require("knockout-delegatedEvents");
+require("knockout-postbox");
+
 require("./relationship-editor/common/fields.js");
 require("./relationship-editor/common/viewModel.js");
 require("./relationship-editor/common/entity.js");

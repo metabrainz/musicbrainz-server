@@ -10,10 +10,6 @@ require("jquery.tablesorter");
 require("jquery.cookie");
 require("jquery.ui");
 
-require("knockout-arrayTransforms");
-require("knockout-delegatedEvents");
-require("knockout-postbox");
-
 require("./common/MB.js");
 require("./common/annotation.js");
 require("./common/artworkViewer.js");
