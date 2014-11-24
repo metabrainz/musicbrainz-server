@@ -63,8 +63,9 @@
 
 <script>//<![CDATA[
 $(function () {
-  MB.seriesTypesByID = [% series_types %];
-  MB.orderingTypesByID = [% series_ordering_types %];
+  [%- USE JSON.Escape -%]
+  MB.seriesTypesByID = [% series_types.json %];
+  MB.orderingTypesByID = [% series_ordering_types.json %];
 
   var $type = $("#id-edit-series\\.type_id");
   var $orderingType = $("#id-edit-series\\.ordering_type_id");
