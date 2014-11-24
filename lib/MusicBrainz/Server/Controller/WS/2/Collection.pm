@@ -174,7 +174,7 @@ sub list_list : Chained('base') PathPart('')
 
     my $stash = WebServiceStash->new;
 
-    my @collections = $c->model('Collection')->find_all_by_editor($c->user->id, 'true');
+    my @collections = $c->model('Collection')->find_all_by_editor($c->user->id, 1);
     $c->model('Editor')->load(@collections);
     $c->model('Collection')->load_entity_count(@collections);
     $c->model('CollectionType')->load(@collections);
