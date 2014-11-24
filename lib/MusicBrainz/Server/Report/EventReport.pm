@@ -14,6 +14,7 @@ around inflate_rows => sub {
     );
 
     $self->c->model('Event')->load_related_info(values %$events);
+    $self->c->model('Event')->load_areas(values %$events);
 
     return [
         map +{

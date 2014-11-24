@@ -161,9 +161,8 @@ sub direct : Private
             $c->model('SeriesOrderingType')->load(@entities);
         }
         when ('event') {
-            $c->model('Event')->load_performers(@entities);
-            $c->model('Event')->load_locations(@entities);
-            $c->model('EventType')->load(@entities);
+            $c->model('Event')->load_related_info(@entities);
+            $c->model('Event')->load_areas(@entities);
         }
     }
 

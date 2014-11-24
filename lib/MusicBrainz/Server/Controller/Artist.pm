@@ -333,7 +333,9 @@ sub events : Chained('load')
         $c->model('Event')->find_by_artist($c->stash->{artist}->id, shift, shift);
     });
     $c->model('Event')->load_related_info(@$events);
+    $c->model('Event')->load_areas(@$events);
     $c->model('Event')->rating->load_user_ratings($c->user->id, @$events) if $c->user_exists;
+
     $c->stash( events => $events );
 }
 
