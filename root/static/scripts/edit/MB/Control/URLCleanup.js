@@ -198,6 +198,11 @@ MB.constants.LINK_TYPES = {
         event: "125afc57-4d33-3b63-ab41-848a3a18d3a6",
         place: "3eb58d3e-6f00-36a8-a115-3dad616b7391"
     },
+    setlistfm: {
+        artist: "bf5d0d5e-27a1-4e94-9df7-3cdc67b3b207",
+        event: "027fce0c-c621-4fd1-b728-1678ae08f280",
+        place: "751e8fb1-ed8d-4a94-b71b-a38065054f5d"
+    },
     imslp: {
         artist: "8147b6a2-ad14-4ce7-8f0a-697f9a31f68f"
     }
@@ -574,6 +579,10 @@ MB.constants.CLEANUPS = {
         match: [ new RegExp("^(https?://)?([^/]+\\.)?songkick\\.com","i") ],
         type: MB.constants.LINK_TYPES.songkick
     },
+    setlistfm: {
+        match: [ new RegExp("^(https?://)?([^/]+\\.)?setlist\\.fm","i") ],
+        type: MB.constants.LINK_TYPES.setlistfm
+    },
     imslp: {
         match: [ new RegExp("^(https?://)?(www\\.)?imslp\\.org/", "i") ],
         type: MB.constants.LINK_TYPES.imslp
@@ -873,6 +882,17 @@ MB.Control.URLCleanup = function (options) {
     }
     validationRules[ MB.constants.LINK_TYPES.songkick.place ] = function (url) {
         return url.match(/songkick\.com\/venues\//) != null;
+    }
+
+    // allow only setlist.fm pages with the setlist.fm rel
+    validationRules[ MB.constants.LINK_TYPES.setlistfm.artist ] = function (url) {
+        return url.match(/setlist\.fm\/setlists\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.setlistfm.event ] = function (url) {
+        return url.match(/setlist\.fm\/setlist\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.setlistfm.place ] = function (url) {
+        return url.match(/setlist\.fm\/venue\//) != null;
     }
 
     // allow only IMSLP pages with the IMSLP rel
