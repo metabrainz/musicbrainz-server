@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-11-19 22:04+0000\n"
+"PO-Revision-Date: 2014-11-24 01:52+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -58,12 +58,20 @@ msgid ""
 "A convention, expo or trade fair is an event which is not typically "
 "orientated around music performances, but can include them as side "
 "activities"
-msgstr ""
+msgstr "Un congrès, une exposition ou un salon commercial est un événement qui ne tourne pas habituellement autour de spectacles musicaux, mais peut les inclure comme activités connexes"
 
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
 msgid "A major"
 msgstr "La majeur"
+
+#: DB:event_type/description:5
+msgctxt "event_type"
+msgid ""
+"A masterclass or clinic is an event where an artist meets with a small to "
+"medium-sized audience and instructs them individually and/or takes questions"
+" intended to improve the audience members' playing skills."
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:29
 msgctxt "work_attribute_type_allowed_value"
@@ -75,7 +83,7 @@ msgctxt "event_type"
 msgid ""
 "A party, reception or other event held specifically for the launch of a "
 "release"
-msgstr ""
+msgstr "Une fête, une réception ou autre événement tenu spécialement pour le lancement d'une parution"
 
 #: DB:work_attribute_type_allowed_value/value:26
 msgctxt "work_attribute_type_allowed_value"
@@ -127,14 +135,14 @@ msgctxt "event_type"
 msgid ""
 "An event where a number of different acts perform across the course of the "
 "day. Larger festivals may be spread across multiple days."
-msgstr ""
+msgstr "Un événement offrant différents spectacles durant la journée. Les festivals plus grands peuvent s'étendre sur plusieurs jours."
 
 #: DB:event_type/description:1
 msgctxt "event_type"
 msgid ""
 "An individual concert by a single artist or collaboration, often with "
 "supporting artists who perform before the main act."
-msgstr ""
+msgstr "Un concert individuel par un seul artiste ou en collaboration, souvent avec des artistes de soutien qui se produisent en première partie."
 
 #: DB:area_alias_type/name:1
 msgctxt "alias_type"
@@ -159,7 +167,7 @@ msgstr "Asāvēri"
 #: DB:editor_collection_type/name:5
 msgctxt "collection_type"
 msgid "Attending"
-msgstr ""
+msgstr "Présent"
 
 #: DB:work_type/name:25
 msgctxt "work_type"
@@ -489,7 +497,7 @@ msgstr "Compilation"
 #: DB:event_type/name:1
 msgctxt "event_type"
 msgid "Concert"
-msgstr ""
+msgstr "Concert"
 
 #: DB:work_type/name:4
 msgctxt "work_type"
@@ -499,7 +507,7 @@ msgstr "Concerto"
 #: DB:event_type/name:4
 msgctxt "event_type"
 msgid "Convention/Expo"
-msgstr ""
+msgstr "Congrès/exposition"
 
 #: DB:area_type/name:1
 msgctxt "area_type"
@@ -561,6 +569,11 @@ msgctxt "release_group_secondary_type"
 msgid "DJ-mix"
 msgstr "DJ-mix"
 
+#: DB:medium_format/name:44
+msgctxt "medium_format"
+msgid "DTS CD"
+msgstr ""
+
 #: DB:medium_format/name:2
 msgctxt "medium_format"
 msgid "DVD"
@@ -589,7 +602,7 @@ msgstr "Darbārī kānaḍa"
 #: DB:medium_format/name:43
 msgctxt "medium_format"
 msgid "Data CD"
-msgstr ""
+msgstr "CD de données"
 
 #: DB:release_group_secondary_type/name:10
 msgctxt "release_group_secondary_type"
@@ -739,22 +752,22 @@ msgstr "Instrument électronique"
 #: DB:medium_format/name:42
 msgctxt "medium_format"
 msgid "Enhanced CD"
-msgstr ""
+msgstr "CD-Extra"
 
 #: DB:series_type/name:6
 msgctxt "series_type"
 msgid "Event"
-msgstr ""
+msgstr "Événement"
 
 #: DB:editor_collection_type/name:4
 msgctxt "collection_type"
 msgid "Event"
-msgstr ""
+msgstr "Événement"
 
 #: DB:event_alias_type/name:1
 msgctxt "alias_type"
 msgid "Event name"
-msgstr ""
+msgstr "Nom de l'événement"
 
 #: DB:work_attribute_type_allowed_value/value:17
 msgctxt "work_attribute_type_allowed_value"
@@ -794,12 +807,12 @@ msgstr "Femme"
 #: DB:event_type/name:2
 msgctxt "event_type"
 msgid "Festival"
-msgstr ""
+msgstr "Festival"
 
 #: DB:series_type/name:8
 msgctxt "series_type"
 msgid "Festival"
-msgstr ""
+msgstr "Festival"
 
 #: DB:area_alias_type/name:2
 msgctxt "alias_type"
@@ -1021,18 +1034,18 @@ msgctxt "series_type"
 msgid ""
 "Indicates a recurring festival, usually happening anually in the same "
 "location."
-msgstr ""
+msgstr "Indique un festival récurrent, organisé habituellement tous les ans au même endroit."
 
 #: DB:series_type/description:9
 msgctxt "series_type"
 msgid "Indicates a series of performances of the same show at the same place."
-msgstr ""
+msgstr "Indique une série de représentations du même spectacle au même endroit."
 
 #: DB:series_type/description:7
 msgctxt "series_type"
 msgid ""
 "Indicates a series of related concerts by an artist in different locations."
-msgstr ""
+msgstr "Indique une série de concerts, inter-reliés, par un artiste en différents endroits."
 
 #: DB:series_type/description:5
 msgctxt "series_type"
@@ -1042,27 +1055,27 @@ msgstr "Indique que la série est un catalogue d’œuvres."
 #: DB:series_type/description:6
 msgctxt "series_type"
 msgid "Indicates that the series is of events."
-msgstr ""
+msgstr "Indique une série d'événements."
 
 #: DB:series_type/description:3
 msgctxt "series_type"
 msgid "Indicates that the series is of recordings."
-msgstr "Indique que c'est une série d'enregistrements."
+msgstr "Indique une série d'enregistrements."
 
 #: DB:series_type/description:1
 msgctxt "series_type"
 msgid "Indicates that the series is of release groups."
-msgstr "Indique que c'est une série de groupes de parution."
+msgstr "Indique une série de groupes de parution."
 
 #: DB:series_type/description:2
 msgctxt "series_type"
 msgid "Indicates that the series is of releases."
-msgstr "Indique que c'est une série de parutions."
+msgstr "Indique une série de parutions."
 
 #: DB:series_type/description:4
 msgctxt "series_type"
 msgid "Indicates that the series is of works."
-msgstr "Indique que c'est une série d’œuvres."
+msgstr "Indique une série d’œuvres."
 
 #: DB:place_type/name:5
 msgctxt "place_type"
@@ -1367,7 +1380,7 @@ msgstr "Latāngi"
 #: DB:event_type/name:3
 msgctxt "event_type"
 msgid "Launch event"
-msgstr ""
+msgstr "Événement de lancement"
 
 #: DB:work_attribute_type_allowed_value/value:160
 msgctxt "work_attribute_type_allowed_value"
@@ -1454,10 +1467,15 @@ msgctxt "work_type"
 msgid "Mass"
 msgstr "Messe"
 
+#: DB:event_type/name:5
+msgctxt "event_type"
+msgid "Masterclass/Clinic"
+msgstr ""
+
 #: DB:editor_collection_type/name:6
 msgctxt "collection_type"
 msgid "Maybe attending"
-msgstr ""
+msgstr "Sera peut-être présent"
 
 #: DB:work_attribute_type_allowed_value/value:175
 msgctxt "work_attribute_type_allowed_value"
@@ -1917,7 +1935,7 @@ msgstr "Parution"
 #: DB:editor_collection_type/name:1
 msgctxt "collection_type"
 msgid "Release"
-msgstr ""
+msgstr "Parution"
 
 #: DB:series_type/name:1
 msgctxt "series_type"
@@ -2252,7 +2270,7 @@ msgstr "Tiśra-jāti ēka"
 #: DB:series_type/name:7
 msgctxt "series_type"
 msgid "Tour"
-msgstr ""
+msgstr "Tournée"
 
 #: DB:cover_art_archive.art_type/name:7
 msgctxt "cover_art_type"
@@ -2422,7 +2440,7 @@ msgstr "Instruments à vent"
 #: DB:editor_collection_type/name:3
 msgctxt "collection_type"
 msgid "Wishlist"
-msgstr ""
+msgstr "Liste de souhaits"
 
 #: DB:series_type/name:4
 msgctxt "series_type"

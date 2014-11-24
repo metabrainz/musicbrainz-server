@@ -1,3 +1,5 @@
+[%~ javascript_required() ~%]
+
 [% script_manifest('guess-case.js') %]
 [% script_manifest('edit.js') %]
 

@@ -88,7 +88,7 @@
         [% external_links_editor(r.form, 'artist') %]
       </fieldset>
 
-      [% IF edit_artist_credits && artist_credits %]
+      [% IF artist_credits.size %]
       <fieldset>
         <legend>[% l('Artist Credits') %]</legend>
         <p>

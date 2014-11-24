@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-11-19 22:04+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-11-21 22:08+0000\n"
+"Last-Translator: salorock <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -573,7 +573,7 @@ msgstr "Approva"
 
 #: ../root/statistics/view_js.tt:186
 msgid "Area Tags (raw)"
-msgstr ""
+msgstr "Tag di aree (grezzi)"
 
 #: ../root/statistics/index.tt:577 ../root/statistics/view_js.tt:55
 msgid "Areas"
@@ -790,7 +790,7 @@ msgstr "Numero totale di astensioni"
 
 #: ../root/statistics/view_js.tt:186
 msgid "Count of all Area Tags (raw)"
-msgstr ""
+msgstr "Numero totale di tag di aree (grezzo)"
 
 #: ../root/statistics/view_js.tt:133
 msgid "Count of all Artist Credits"
@@ -862,7 +862,7 @@ msgstr "Numero totale di ISWC"
 
 #: ../root/statistics/view_js.tt:188
 msgid "Count of all Instrument Tags (raw)"
-msgstr ""
+msgstr "Numero totale di tag di strumenti (grezzo)"
 
 #: ../root/statistics/view_js.tt:173
 msgid "Count of all Label Ratings"
@@ -978,7 +978,7 @@ msgstr "Numero totale di pubblicazioni con {n} ID disco"
 
 #: ../root/statistics/view_js.tt:193
 msgid "Count of all Series Tags (raw)"
-msgstr ""
+msgstr "Numero totale di tag di serie (grezzo)"
 
 #: ../root/statistics/view_js.tt:184
 msgid "Count of all Tags"
@@ -1026,7 +1026,7 @@ msgstr "Numero totale di modifiche"
 
 #: ../root/statistics/view_js.tt:59
 msgid "Count of all events"
-msgstr ""
+msgstr "Numero totale di eventi"
 
 #: ../root/statistics/view_js.tt:58
 msgid "Count of all instruments"
@@ -1235,11 +1235,11 @@ msgstr "Modifiche evalnochange"
 
 #: ../root/statistics/index.tt:683 ../root/statistics/view_js.tt:59
 msgid "Events"
-msgstr ""
+msgstr "Eventi"
 
 #: ../root/statistics/index.tt:68 ../root/statistics/index.tt:690
 msgid "Events:"
-msgstr ""
+msgstr "Eventi:"
 
 #: ../root/statistics/timeline.tt:59
 msgid "Exact Values (items vs. day)"
@@ -1361,7 +1361,7 @@ msgstr "Incluse"
 
 #: ../root/statistics/view_js.tt:188
 msgid "Instrument Tags (raw)"
-msgstr ""
+msgstr "Tag di strumenti (grezzi)"
 
 #: ../root/statistics/index.tt:655 ../root/statistics/view_js.tt:58
 msgid "Instruments"
@@ -1892,7 +1892,7 @@ msgstr "Serie"
 
 #: ../root/statistics/view_js.tt:193
 msgid "Series Tags (raw)"
-msgstr ""
+msgstr "Tag di serie (grezzi)"
 
 #: ../root/statistics/index.tt:60 ../root/statistics/index.tt:640
 msgctxt "plural"

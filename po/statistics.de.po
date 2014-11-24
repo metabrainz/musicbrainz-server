@@ -14,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-11-19 22:04+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-11-19 22:30+0000\n"
+"Last-Translator: nikki\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -579,7 +579,7 @@ msgstr "Absegnen"
 
 #: ../root/statistics/view_js.tt:186
 msgid "Area Tags (raw)"
-msgstr ""
+msgstr "Gebiet-Tags (roh)"
 
 #: ../root/statistics/index.tt:577 ../root/statistics/view_js.tt:55
 msgid "Areas"
@@ -796,7 +796,7 @@ msgstr "Anzahl aller Enthaltungsstimmen"
 
 #: ../root/statistics/view_js.tt:186
 msgid "Count of all Area Tags (raw)"
-msgstr ""
+msgstr "Anzahl aller Gebiet-Tags (roh)"
 
 #: ../root/statistics/view_js.tt:133
 msgid "Count of all Artist Credits"
@@ -868,7 +868,7 @@ msgstr "Anzahl aller ISWCs"
 
 #: ../root/statistics/view_js.tt:188
 msgid "Count of all Instrument Tags (raw)"
-msgstr ""
+msgstr "Anzahl aller Instrument-Tags (roh)"
 
 #: ../root/statistics/view_js.tt:173
 msgid "Count of all Label Ratings"
@@ -984,7 +984,7 @@ msgstr "Anzahl aller Veröffentlichungen mit {n} Disc-IDs"
 
 #: ../root/statistics/view_js.tt:193
 msgid "Count of all Series Tags (raw)"
-msgstr ""
+msgstr "Anzahl aller Serie-Tags (roh)"
 
 #: ../root/statistics/view_js.tt:184
 msgid "Count of all Tags"
@@ -1032,7 +1032,7 @@ msgstr "Anzahl aller Bearbeitungen"
 
 #: ../root/statistics/view_js.tt:59
 msgid "Count of all events"
-msgstr ""
+msgstr "Anzahl aller Veranstaltungen"
 
 #: ../root/statistics/view_js.tt:58
 msgid "Count of all instruments"
@@ -1241,11 +1241,11 @@ msgstr ""
 
 #: ../root/statistics/index.tt:683 ../root/statistics/view_js.tt:59
 msgid "Events"
-msgstr ""
+msgstr "Veranstaltungen"
 
 #: ../root/statistics/index.tt:68 ../root/statistics/index.tt:690
 msgid "Events:"
-msgstr ""
+msgstr "Veranstaltungen:"
 
 #: ../root/statistics/timeline.tt:59
 msgid "Exact Values (items vs. day)"
@@ -1367,7 +1367,7 @@ msgstr "Inklusive"
 
 #: ../root/statistics/view_js.tt:188
 msgid "Instrument Tags (raw)"
-msgstr ""
+msgstr "Instrument-Tags (roh)"
 
 #: ../root/statistics/index.tt:655 ../root/statistics/view_js.tt:58
 msgid "Instruments"
@@ -1898,7 +1898,7 @@ msgstr "Serien"
 
 #: ../root/statistics/view_js.tt:193
 msgid "Series Tags (raw)"
-msgstr ""
+msgstr "Serie-Tags (roh)"
 
 #: ../root/statistics/index.tt:60 ../root/statistics/index.tt:640
 msgctxt "plural"
