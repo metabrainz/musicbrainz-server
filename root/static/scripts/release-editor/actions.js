@@ -88,6 +88,7 @@
             var position = medium.position();
 
             mediums.remove(medium);
+            medium.removed = true;
             mediums = mediums.peek();
 
             for (var i = index; medium = mediums[i]; i++) {

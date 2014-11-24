@@ -718,7 +718,8 @@
                 utils.mapChild(this, data.mediums, fields.Medium)
             );
 
-            this.mediums.original = ko.observable(this.existingMediumData());
+            this.mediums.original = ko.observableArray([]);
+            this.mediums.original(this.existingMediumData());
             this.original = ko.observable(MB.edit.fields.release(this));
 
             this.loadedMediums = this.mediums.filter("loaded");
@@ -779,9 +780,15 @@
         },
 
         existingMediumData: function () {
-            return _.transform(this.mediums(), function (result, medium) {
+            // This function should return the mediums on the release as they
+            // hopefully exist in the DB, so including ones removed from the
+            // page (as long as they have an id, i.e. were attached before).
+
+            var mediums = _.union(this.mediums(), this.mediums.original());
+
+            return _.transform(mediums, function (result, medium) {
                 if (medium.id) {
-                    result.push({ id: medium.id, position: medium.position() });
+                    result.push(medium);
                 }
             });
         }
