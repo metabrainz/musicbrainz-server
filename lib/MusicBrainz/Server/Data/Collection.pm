@@ -204,24 +204,6 @@ sub delete_events
               WHERE event IN (".placeholders(@ids).")", @ids);
 }
 
-sub find_by_editor
-{
-    my ($self, $id, $show_private, $limit, $offset) = @_;
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
-                 WHERE editor=? ";
-
-    if (!$show_private) {
-        $query .= "AND public=true ";
-    }
-
-    $query .= "ORDER BY musicbrainz_collate(name)
-                 OFFSET ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $id, $offset || 0);
-}
-
 sub get_first_collection
 {
     my ($self, $editor_id) = @_;
@@ -231,14 +213,17 @@ sub get_first_collection
 
 sub find_all_by_editor
 {
-    my ($self, $id, $entity_type) = @_;
-    my $extra_condition = (defined $entity_type) ? "AND ct.entity_type = '$entity_type'" : "";
+    my ($self, $id, $show_private, $entity_type) = @_;
+    my $extra_conditions = (defined $entity_type) ? "AND ct.entity_type = '$entity_type'" : "";
+    if (!$show_private) {
+        $extra_conditions .= "AND editor_collection.public=true ";
+    }
 
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                     JOIN editor_collection_type ct
                         ON editor_collection.type = ct.id
-                 WHERE editor=? $extra_condition";
+                 WHERE editor=? $extra_conditions";
 
     $query .= "ORDER BY musicbrainz_collate(editor_collection.name)";
     return query_to_list(
