@@ -157,7 +157,6 @@ Images:
     icons/mblookup-tag.gif
     icons/mblookup-tagger.png
     layout/header-logo.png          (source: src/sprites.psd)
-    layout/page-bg.gif
     layout/table-header.gif
     layout/table-header-2.gif
 
