@@ -1,4 +1,4 @@
-[%- WRAPPER 'recording/layout.tt' page='fingerprints' %]
+[%- WRAPPER 'recording/layout.tt' page='fingerprints' title=l('Fingerprints') %]
 
     <h2 id="acoustids">[%- l('Associated AcoustIDs') -%]</h2>
 

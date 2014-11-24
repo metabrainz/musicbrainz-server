@@ -1,4 +1,4 @@
-[% WRAPPER "layout.tt" nosuffix=1 title=l("MusicBrainz - The Open Music Encyclopedia") homepage=1 %]
+[% WRAPPER "layout.tt" title=l("MusicBrainz - The Open Music Encyclopedia") homepage=1 %]
     <div id="maincontent">
         <div id="content">
             <h1>[% l('Welcome to MusicBrainz!') %]</h1>

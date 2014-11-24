@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-11-19 22:04+0000\n"
+"PO-Revision-Date: 2014-11-24 01:52+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -383,6 +383,12 @@ msgstr ""
 msgid "Lead or solo vocal"
 msgstr ""
 
+#: DB:link_type/description:814
+msgid ""
+"Links a recording to the area it was engineered in. Use only when the place "
+"is unknown!"
+msgstr ""
+
 #: DB:link_type/description:758
 msgid ""
 "Links a recording to the area it was mixed in. Use only when the place is "
@@ -399,6 +405,10 @@ msgstr ""
 msgid "Links a recording to the event it was recorded at."
 msgstr ""
 
+#: DB:link_type/description:813
+msgid "Links a recording to the place it was engineered at."
+msgstr ""
+
 #: DB:link_type/description:694
 msgid "Links a recording to the place it was mixed at."
 msgstr ""
@@ -409,6 +419,12 @@ msgstr ""
 
 #: DB:link_type/description:797
 msgid "Links a release group with a launch event for it."
+msgstr ""
+
+#: DB:link_type/description:815
+msgid ""
+"Links a release to the area it was engineered in. Use only when the place is"
+" unknown!"
 msgstr ""
 
 #: DB:link_type/description:756
@@ -431,6 +447,10 @@ msgstr ""
 
 #: DB:link_type/description:810
 msgid "Links a release to the event it was recorded at."
+msgstr ""
+
+#: DB:link_type/description:812
+msgid "Links a release to the place it was engineered at."
 msgstr ""
 
 #: DB:link_type/description:697
@@ -613,13 +633,13 @@ msgstr ""
 msgid "Songfacts page for"
 msgstr ""
 
-#: DB:link_type/link_phrase:785 DB:link_type/link_phrase:787
-#: DB:link_type/link_phrase:786
+#: DB:link_type/link_phrase:786 DB:link_type/link_phrase:785
+#: DB:link_type/link_phrase:787
 msgid "Songkick"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:785 DB:link_type/reverse_link_phrase:787
-#: DB:link_type/reverse_link_phrase:786
+#: DB:link_type/reverse_link_phrase:786 DB:link_type/reverse_link_phrase:785
+#: DB:link_type/reverse_link_phrase:787
 msgid "Songkick page for"
 msgstr ""
 
@@ -750,8 +770,8 @@ msgstr ""
 #: DB:link_type/description:202
 msgid ""
 "This describes a situation where a label has changed its name, either for "
-"purely aesthetic reasons or following a buyout/sellout/spin-off.​ Extra care"
-" should be taken with cases where complicated merge/split/restructure "
+"purely aesthetic reasons or following a buyout/sellout/spin-off. Extra care "
+"should be taken with cases where complicated merge/split/restructure "
 "financial operations are done. For example, it's not a good idea to rename "
 "the label <a href=\"/label/99a24d71-54c1-4d3f-88cc-00fbcc4fce83\">Verve</a> "
 "into <a href=\"/label/4fb00dfd-7674-44c0-bf67-79daf8c61767\">The Verve Music"
@@ -1933,6 +1953,11 @@ msgid ""
 "This relationship type links a place to its corresponding page at Songkick."
 msgstr ""
 
+#: DB:link_type/description:817
+msgid ""
+"This relationship type links a place to its corresponding page at setlist.fm"
+msgstr ""
+
 #: DB:link_type/description:86
 msgid ""
 "This relationship type links a release to its corresponding page <a "
@@ -1951,6 +1976,12 @@ msgstr ""
 msgid ""
 "This relationship type links an artist to its corresponding page at "
 "Songkick."
+msgstr ""
+
+#: DB:link_type/description:816
+msgid ""
+"This relationship type links an artist to its corresponding page at "
+"setlist.fm"
 msgstr ""
 
 #: DB:link_type/description:189
@@ -1979,6 +2010,12 @@ msgstr ""
 #: DB:link_type/description:786
 msgid ""
 "This relationship type links an event to its corresponding page at Songkick."
+msgstr ""
+
+#: DB:link_type/description:811
+msgid ""
+"This relationship type links an event to its corresponding page at "
+"setlist.fm"
 msgstr ""
 
 #: DB:link_type/description:752
@@ -2439,6 +2476,19 @@ msgstr ""
 msgid "engineer position at"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:812 DB:link_type/reverse_link_phrase:813
+msgid "engineered at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:814 DB:link_type/reverse_link_phrase:815
+msgid "engineered in"
+msgstr ""
+
+#: DB:link_type/link_phrase:812 DB:link_type/link_phrase:813
+#: DB:link_type/link_phrase:814 DB:link_type/link_phrase:815
+msgid "engineering location for"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:120 DB:link_type/reverse_link_phrase:701
 msgid "engineers"
 msgstr ""
@@ -2563,8 +2613,8 @@ msgstr ""
 msgid "has a SecondHandSongs page at"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:785 DB:link_type/long_link_phrase:787
-#: DB:link_type/long_link_phrase:786
+#: DB:link_type/long_link_phrase:786 DB:link_type/long_link_phrase:785
+#: DB:link_type/long_link_phrase:787
 msgid "has a Songkick page at"
 msgstr ""
 
@@ -2642,6 +2692,11 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:94
 msgid "has a review page at"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:811 DB:link_type/long_link_phrase:816
+#: DB:link_type/long_link_phrase:817
+msgid "has a setlist.fm page at"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:784 DB:link_type/long_link_phrase:783
@@ -3254,7 +3309,7 @@ msgstr ""
 msgid "miscellaneous support"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:694 DB:link_type/reverse_link_phrase:696
+#: DB:link_type/reverse_link_phrase:696 DB:link_type/reverse_link_phrase:694
 msgid "mixed at"
 msgstr ""
 
@@ -3270,8 +3325,8 @@ msgstr ""
 msgid "mixing engineers"
 msgstr ""
 
-#: DB:link_type/link_phrase:757 DB:link_type/link_phrase:758
-#: DB:link_type/link_phrase:694 DB:link_type/link_phrase:696
+#: DB:link_type/link_phrase:757 DB:link_type/link_phrase:696
+#: DB:link_type/link_phrase:758 DB:link_type/link_phrase:694
 msgid "mixing location for"
 msgstr ""
 
@@ -3346,13 +3401,13 @@ msgstr ""
 msgid "orchestrations"
 msgstr ""
 
-#: DB:link_type/link_phrase:803 DB:link_type/link_phrase:753
+#: DB:link_type/link_phrase:753 DB:link_type/link_phrase:803
 #: DB:link_type/link_phrase:746 DB:link_type/link_phrase:96
 #: DB:link_type/link_phrase:730 DB:link_type/link_phrase:82
 #: DB:link_type/link_phrase:306 DB:link_type/link_phrase:222
 #: DB:link_type/link_phrase:273 DB:link_type/link_phrase:188
-#: DB:link_type/link_phrase:561 DB:link_type/reverse_link_phrase:803
-#: DB:link_type/reverse_link_phrase:753 DB:link_type/reverse_link_phrase:746
+#: DB:link_type/link_phrase:561 DB:link_type/reverse_link_phrase:753
+#: DB:link_type/reverse_link_phrase:803 DB:link_type/reverse_link_phrase:746
 #: DB:link_type/reverse_link_phrase:96 DB:link_type/reverse_link_phrase:730
 #: DB:link_type/reverse_link_phrase:82 DB:link_type/reverse_link_phrase:306
 #: DB:link_type/reverse_link_phrase:222 DB:link_type/reverse_link_phrase:273
@@ -3690,6 +3745,16 @@ msgstr ""
 msgid "score for"
 msgstr ""
 
+#: DB:link_type/link_phrase:811 DB:link_type/link_phrase:816
+#: DB:link_type/link_phrase:817
+msgid "setlist.fm"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:811 DB:link_type/reverse_link_phrase:816
+#: DB:link_type/reverse_link_phrase:817
+msgid "setlist.fm page for"
+msgstr ""
+
 #: DB:link_type/link_phrase:729
 msgid "show notes"
 msgstr ""
@@ -3890,12 +3955,17 @@ msgstr ""
 msgid "was the concertmaster for"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:812 DB:link_type/long_link_phrase:813
+#: DB:link_type/long_link_phrase:814 DB:link_type/long_link_phrase:815
+msgid "was the engineering location for"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:756 DB:link_type/long_link_phrase:697
 msgid "was the mastering location for"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:757 DB:link_type/long_link_phrase:758
-#: DB:link_type/long_link_phrase:694 DB:link_type/long_link_phrase:696
+#: DB:link_type/long_link_phrase:757 DB:link_type/long_link_phrase:696
+#: DB:link_type/long_link_phrase:758 DB:link_type/long_link_phrase:694
 msgid "was the mixing location for"
 msgstr ""
 

@@ -1,5 +1,0 @@
-[% WRAPPER 'release_group/layout.tt' title=l('Edit Release Group') full_width=1 page='edit' %]
-   [%~ javascript_required() ~%]
-
-   [% INCLUDE 'release_group/edit_form.tt' %]
-[% END %]

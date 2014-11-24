@@ -1,4 +1,4 @@
-[%- WRAPPER 'area/layout.tt' title='Labels' page='labels' -%]
+[%- WRAPPER 'area/layout.tt' title=l('Labels') page='labels' -%]
     <h2>[% l('Labels') %]</h2>
 
     [% IF labels.size %]

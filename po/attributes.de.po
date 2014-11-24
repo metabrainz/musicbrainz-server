@@ -5,6 +5,7 @@
 # Daniel Schury <email address hidden>, 2011
 # Daniel Schury <email address hidden>, 2011
 #   <email address hidden>, 2012
+# Ettore Atalan <email address hidden>, 2014
 # Mineo <email address hidden>, 2011
 # Wieland Hoffmann <email address hidden>, 2011
 # Nikolai Prokoschenko <email address hidden>, 2011
@@ -20,7 +21,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-11-19 22:04+0000\n"
+"PO-Revision-Date: 2014-11-24 01:52+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -66,6 +67,14 @@ msgstr ""
 msgctxt "work_attribute_type_allowed_value"
 msgid "A major"
 msgstr "A-Dur"
+
+#: DB:event_type/description:5
+msgctxt "event_type"
+msgid ""
+"A masterclass or clinic is an event where an artist meets with a small to "
+"medium-sized audience and instructs them individually and/or takes questions"
+" intended to improve the audience members' playing skills."
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:29
 msgctxt "work_attribute_type_allowed_value"
@@ -491,7 +500,7 @@ msgstr "Kompilation"
 #: DB:event_type/name:1
 msgctxt "event_type"
 msgid "Concert"
-msgstr ""
+msgstr "Konzert"
 
 #: DB:work_type/name:4
 msgctxt "work_type"
@@ -563,6 +572,11 @@ msgctxt "release_group_secondary_type"
 msgid "DJ-mix"
 msgstr "DJ-Mix"
 
+#: DB:medium_format/name:44
+msgctxt "medium_format"
+msgid "DTS CD"
+msgstr ""
+
 #: DB:medium_format/name:2
 msgctxt "medium_format"
 msgid "DVD"
@@ -591,7 +605,7 @@ msgstr "Darbārī kānaḍa"
 #: DB:medium_format/name:43
 msgctxt "medium_format"
 msgid "Data CD"
-msgstr ""
+msgstr "Daten-CD"
 
 #: DB:release_group_secondary_type/name:10
 msgctxt "release_group_secondary_type"
@@ -741,22 +755,22 @@ msgstr "Elektronisches Instrument"
 #: DB:medium_format/name:42
 msgctxt "medium_format"
 msgid "Enhanced CD"
-msgstr ""
+msgstr "Erweiterte CD"
 
 #: DB:series_type/name:6
 msgctxt "series_type"
 msgid "Event"
-msgstr ""
+msgstr "Veranstaltung"
 
 #: DB:editor_collection_type/name:4
 msgctxt "collection_type"
 msgid "Event"
-msgstr ""
+msgstr "Veranstaltung"
 
 #: DB:event_alias_type/name:1
 msgctxt "alias_type"
 msgid "Event name"
-msgstr ""
+msgstr "Veranstaltungsname"
 
 #: DB:work_attribute_type_allowed_value/value:17
 msgctxt "work_attribute_type_allowed_value"
@@ -796,12 +810,12 @@ msgstr "Weiblich"
 #: DB:event_type/name:2
 msgctxt "event_type"
 msgid "Festival"
-msgstr ""
+msgstr "Festival"
 
 #: DB:series_type/name:8
 msgctxt "series_type"
 msgid "Festival"
-msgstr ""
+msgstr "Festival"
 
 #: DB:area_alias_type/name:2
 msgctxt "alias_type"
@@ -1084,7 +1098,7 @@ msgstr "Interview"
 #: DB:area_type/name:6
 msgctxt "area_type"
 msgid "Island"
-msgstr ""
+msgstr "Insel"
 
 #: DB:work_attribute_type/name:3
 msgctxt "work_attribute_type"
@@ -1369,7 +1383,7 @@ msgstr "Latāngi"
 #: DB:event_type/name:3
 msgctxt "event_type"
 msgid "Launch event"
-msgstr ""
+msgstr "Auftaktveranstaltung"
 
 #: DB:work_attribute_type_allowed_value/value:160
 msgctxt "work_attribute_type_allowed_value"
@@ -1455,6 +1469,11 @@ msgstr "Manōranjani"
 msgctxt "work_type"
 msgid "Mass"
 msgstr "Messe"
+
+#: DB:event_type/name:5
+msgctxt "event_type"
+msgid "Masterclass/Clinic"
+msgstr ""
 
 #: DB:editor_collection_type/name:6
 msgctxt "collection_type"
@@ -1919,7 +1938,7 @@ msgstr "Veröffentlichung"
 #: DB:editor_collection_type/name:1
 msgctxt "collection_type"
 msgid "Release"
-msgstr ""
+msgstr "Veröffentlichung"
 
 #: DB:series_type/name:1
 msgctxt "series_type"
@@ -2254,7 +2273,7 @@ msgstr "Tiśra-jāti ēka"
 #: DB:series_type/name:7
 msgctxt "series_type"
 msgid "Tour"
-msgstr ""
+msgstr "Tour"
 
 #: DB:cover_art_archive.art_type/name:7
 msgctxt "cover_art_type"
@@ -2424,7 +2443,7 @@ msgstr "Blasinstrument"
 #: DB:editor_collection_type/name:3
 msgctxt "collection_type"
 msgid "Wishlist"
-msgstr ""
+msgstr "Wunschliste"
 
 #: DB:series_type/name:4
 msgctxt "series_type"
