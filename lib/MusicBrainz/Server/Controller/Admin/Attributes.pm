@@ -46,7 +46,12 @@ sub attribute_index : Chained('attribute_base') PathPart('') {
     my ($self, $c) = @_;
     my $model = $c->stash->{model};
     my @attr = $c->model($model)->get_all();
-    my $template = $model eq "Language" ? "admin/attributes/language.tt" : $model eq "Script" ? "admin/attributes/script.tt" : "admin/attributes/index.tt";
+
+    my %templates = (
+        Language => "admin/attributes/language.tt",
+        Script => "admin/attributes/script.tt"
+    );
+    my $template = $templates{$model} // "admin/attributes/index.tt";
 
     $c->stash(
         template => $template,
@@ -58,7 +63,11 @@ sub create : Chained('attribute_base') RequireAuth(account_admin) {
     my ($self, $c) = @_;
     my $model = $c->stash->{model};
 
-    my $form_name = $model eq "Language" ? "Admin::Attributes::Language" : $model eq "Script" ? "Admin::Attributes::Script" : "Admin::Attributes";
+    my %forms = (
+        Language => "Admin::Attributes::Language",
+        Script => "Admin::Attributes::Script"
+    );
+    my $form_name = $forms{$model} // "Admin::Attributes";
     my $form = $c->form( form => $form_name );
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {
@@ -75,7 +84,12 @@ sub edit : Chained('attribute_base') Args(1) RequireAuth(account_admin) {
     my ($self, $c, $id) = @_;
     my $model = $c->stash->{model};
     my $attr = $c->model($model)->get_by_id($id);
-    my $form_name = $model eq "Language" ? "Admin::Attributes::Language" : $model eq "Script" ? "Admin::Attributes::Script" : "Admin::Attributes";
+
+    my %forms = (
+        Language => "Admin::Attributes::Language",
+        Script => "Admin::Attributes::Script"
+    );
+    my $form_name = $forms{$model} // "Admin::Attributes";
     my $form = $c->form( form => $form_name, init_object => $attr );
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {
