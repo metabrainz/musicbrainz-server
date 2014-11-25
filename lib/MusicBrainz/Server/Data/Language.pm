@@ -54,7 +54,7 @@ sub find_by_code
 sub in_use {
     my ($self, $id) = @_;
     return $self->sql->select_single_value(
-        'SELECT 1 FROM release WHERE language = ? UNION SELECT 1 FROM work WHERE language = ? UNION SELECT 1 FROM editor_language WHERE language = ?',
+        'SELECT 1 FROM release WHERE language = ? UNION SELECT 1 FROM work WHERE language = ? UNION SELECT 1 FROM editor_language WHERE language = ? LIMIT 1',
         $id, $id, $id);
 }
 

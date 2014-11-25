@@ -44,7 +44,7 @@ sub find_by_name
 sub in_use {
     my ($self, $id) = @_;
     return $self->sql->select_single_value(
-        'SELECT 1 FROM release WHERE packaging = ?',
+        'SELECT 1 FROM release WHERE packaging = ? LIMIT 1',
         $id);
 }
 

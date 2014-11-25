@@ -41,7 +41,7 @@ sub find_by_code
 sub in_use {
     my ($self, $id) = @_;
     return $self->sql->select_single_value(
-        'SELECT 1 FROM release WHERE script = ?',
+        'SELECT 1 FROM release WHERE script = ? LIMIT 1',
         $id);
 }
 

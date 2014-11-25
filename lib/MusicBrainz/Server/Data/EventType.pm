@@ -35,7 +35,7 @@ sub load
 sub in_use {
     my ($self, $id) = @_;
     return $self->sql->select_single_value(
-        'SELECT 1 FROM event WHERE type = ?',
+        'SELECT 1 FROM event WHERE type = ? LIMIT 1',
         $id);
 }
 

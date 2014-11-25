@@ -78,7 +78,7 @@ sub load_for
 sub in_use {
     my ($self, $id) = @_;
     return $self->sql->select_single_value(
-        'SELECT 1 FROM cover_art_archive.cover_art_type WHERE type_id = ?',
+        'SELECT 1 FROM cover_art_archive.cover_art_type WHERE type_id = ? LIMIT 1',
         $id);
 }
 

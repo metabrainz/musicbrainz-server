@@ -31,7 +31,7 @@ sub load {
 sub in_use {
     my ($self, $id) = @_;
     return $self->sql->select_single_value(
-        'SELECT 1 FROM editor_collection WHERE type = ?',
+        'SELECT 1 FROM editor_collection WHERE type = ? LIMIT 1',
         $id);
 }
 

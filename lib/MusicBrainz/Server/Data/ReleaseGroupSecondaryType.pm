@@ -80,7 +80,7 @@ sub delete_entities {
 sub in_use {
     my ($self, $id) = @_;
     return $self->sql->select_single_value(
-        'SELECT 1 FROM release_group_secondary_type_join WHERE secondary_type = ?',
+        'SELECT 1 FROM release_group_secondary_type_join WHERE secondary_type = ? LIMIT 1',
         $id);
 }
 

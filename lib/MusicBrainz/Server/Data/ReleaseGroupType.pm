@@ -45,7 +45,7 @@ sub find_by_name
 sub in_use {
     my ($self, $id) = @_;
     return $self->sql->select_single_value(
-        'SELECT 1 FROM release_group WHERE type = ?',
+        'SELECT 1 FROM release_group WHERE type = ? LIMIT 1',
         $id);
 }
 
