@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Data::Role::EntityType;
+package MusicBrainz::Server::Data::Role::Attribute;
 use Moose::Role;
 use namespace::autoclean;
 use MusicBrainz::Server::Data::Utils qw( hash_to_row );

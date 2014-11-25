@@ -13,7 +13,7 @@ with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'g' };
 with 'MusicBrainz::Server::Data::Role::SelectAll';
 with 'MusicBrainz::Server::Data::Role::InsertUpdateDelete';
 with 'MusicBrainz::Server::Data::Role::OptionsTree';
-with 'MusicBrainz::Server::Data::Role::EntityType';
+with 'MusicBrainz::Server::Data::Role::Attribute';
 
 sub _table
 {
