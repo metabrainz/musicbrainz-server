@@ -376,8 +376,8 @@ END -%]
 
     IF type == 'event' AND content == '';
         options.unshift('show_dates');
-		date_range = display_date_range(entity.begin_date, entity.end_date);
-		dates = bracketed(date_range) IF date_range != '';
+        date_range = display_date_range(entity.begin_date, entity.end_date);
+        dates = bracketed(date_range) IF date_range != '';
     END;
 
     IF type == 'url' AND content == '';
