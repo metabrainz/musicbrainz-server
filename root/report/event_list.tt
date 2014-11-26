@@ -40,18 +40,7 @@
                     [% END %]
                 </ul>
             </td>
-            <td>
-                [%- IF item.event.begin_date.format == item.event.end_date.format %]
-                    [% item.event.begin_date.format %]
-                [%- ELSIF item.event.begin_date.format && item.event.end_date.format %]
-                    [% l('{begindate} &#x2013; {enddate}', { begindate => item.event.begin_date.format,
-                                                             enddate   => item.event.end_date.format }) %]
-                [% ELSIF item.event.begin_date.format %]
-                    [% l('{begindate} &#x2013; ????', { begindate => item.event.begin_date.format }) %]
-                [% ELSIF item.event.end_date.format %]
-                    [% l('???? &#x2013; {enddate}', { enddate   => item.event.end_date.format }) %]
-                [%- END -%]
-            </td>
+            <td>[% display_date_range(item.event.begin_date, item.event.end_date) %]</td>
             <td>[% item.event.formatted_time %]</td>
             [% BLOCK extra_row_end %][% END %]
             [%- PROCESS extra_row_end -%]
