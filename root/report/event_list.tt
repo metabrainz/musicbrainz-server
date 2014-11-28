@@ -40,7 +40,7 @@
                     [% END %]
                 </ul>
             </td>
-            <td>[% display_date_range(item.event.begin_date, item.event.end_date) %]</td>
+            <td>[% item.event.formatted_date %]</td>
             <td>[% item.event.formatted_time %]</td>
             [% BLOCK extra_row_end %][% END %]
             [%- PROCESS extra_row_end -%]

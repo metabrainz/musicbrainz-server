@@ -40,7 +40,7 @@
                                 [% END %]
                               </ul>
                             </td>
-                            <td>[% display_date_range(result.entity.begin_date, result.entity.end_date) %]</td>
+                            <td>[% result.entity.formatted_date %]</td>
                             <td>[% result.entity.formatted_time %]</td>
                         </tr>
                         [%- END -%]

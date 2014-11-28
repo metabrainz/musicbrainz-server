@@ -88,7 +88,7 @@
           </ul>
         </td>
       [%~ END ~%]
-      <td>[% display_date_range(event.begin_date, event.end_date) %]</td>
+      <td>[% event.formatted_date %]</td>
       <td>[%~ event.formatted_time ~%]</td>
       [%~ UNLESS no_ratings ~%]
         <td>[%~ rating_stars(event) ~%]</td>

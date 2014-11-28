@@ -73,19 +73,6 @@ END; -%]
         END;
     END -%]
 
-[%~ MACRO display_date_range(begin_date, end_date) BLOCK ~%]
-    [%~ IF begin_date.format == end_date.format ~%]
-        [%~ begin_date.format ~%]
-    [%~ ELSIF begin_date.format && end_date.format ~%]
-        [%~ l('{begindate} &#x2013; {enddate}', { begindate => begin_date.format,
-                                                  enddate   => end_date.format }) ~%]
-    [%~ ELSIF begin_date.format ~%]
-        [%~ l('{begindate} &#x2013; ????', { begindate => begin_date.format }) ~%]
-    [%~ ELSIF end_date.format ~%]
-        [%~ l('???? &#x2013; {enddate}', { enddate   => end_date.format }) ~%]
-    [%~ END ~%]
-[%~ END ~%]
-
 [%~ MACRO artwork_hover(artwork) BLOCK -%]
     [%- IF artwork.l_types; comma_only_list(artwork.l_types) | html; END %][% IF artwork.comment %] ([% artwork.comment | html%])[% END -%]
 [%- END -%]
@@ -339,7 +326,7 @@ END -%]
             CASE 'info_link';  # add. parameter: infolink
                 content _ ' [<a href="' _ infolink _ '">' _ l('info') _ '</a>]';
             CASE 'show_dates';
-                content _ dates;
+                dates ? content _ bracketed(dates) : content;
             CASE 'avatar'; # add. parameter: avatar
                 '<img src="' _ avatar _ '" height="' _ image_size _ '" width="' _ image_size _ '" class="gravatar" alt="" />' _ content;
         END;
@@ -376,8 +363,7 @@ END -%]
 
     IF type == 'event' AND content == '';
         options.unshift('show_dates');
-        date_range = display_date_range(entity.begin_date, entity.end_date);
-        dates = bracketed(date_range) IF date_range != '';
+        dates = entity.formatted_date;
     END;
 
     IF type == 'url' AND content == '';
