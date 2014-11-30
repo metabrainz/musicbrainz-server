@@ -345,7 +345,7 @@
           </span>
         </td>
         <td>
-          <input type="button" class="icon remove-artist-credit" title="[% l('Remove Artist Credit') %]" data-bind="click: $parents[1].removeArtistCreditName.bind($parents[1])" />
+          <button type="button" class="icon remove-artist-credit" title="[% l('Remove Artist Credit') %]" data-bind="click: $parents[1].removeArtistCreditName.bind($parents[1])"></button>
         </td>
       </tr>
       <tr>
