@@ -254,6 +254,8 @@ Creating the database
 
         Our database dumps are provided twice a week and can be downloaded from
         ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/
+        or the European mirror server at
+        ftp://eu.ftp.musicbrainz.org/MusicBrainz/data/fullexport/
 
         To get going, you need at least the mbdump.tar.bz2,
         mbdump-editor.tar.bz2 and mbdump-derived.tar.bz2 archives, but you can
