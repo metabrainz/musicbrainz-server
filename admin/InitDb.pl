@@ -41,7 +41,7 @@ my $REPTYPE = DBDefs->REPLICATION_TYPE;
 
 my $psql = "psql";
 my $path_to_pending_so;
-my $databaseName;
+my $databaseName = 'READWRITE';
 my $fFixUTF8 = 0;
 my $fCreateDB;
 my $fInstallExtension;
@@ -477,7 +477,6 @@ GetOptions(
     "tmp-dir=s"           => \$tmp_dir
 ) or exit 2;
 
-$databaseName = "READWRITE" if $databaseName eq '';
 my $DB = Databases->get($databaseName);
 # Register a new database connection as the system user, but to the MB
 # database
