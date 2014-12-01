@@ -620,7 +620,7 @@ sub _serialize_tracks
     }
 
     my @list;
-    foreach my $track ($medium->cdtoc_tracks) {
+    foreach my $track (@{ $medium->cdtoc_tracks }) {
         $min = $track->position if $track->position < $min;
         $self->_serialize_track(\@list, $gen, $track, $inc, $stash);
     }

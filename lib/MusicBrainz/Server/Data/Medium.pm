@@ -208,7 +208,7 @@ sub set_lengths_to_cdtoc
 
     my @recording_ids;
     my @info = @{ $cdtoc->track_details };
-    my @medium_tracks = $medium->cdtoc_tracks;
+    my @medium_tracks = @{ $medium->cdtoc_tracks };
 
     for my $i (0..$#info) {
         my $track = $medium_tracks[$i];
