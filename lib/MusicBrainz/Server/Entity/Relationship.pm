@@ -224,6 +224,9 @@ sub _interpolate
 
     my $replace_attrs = sub {
         my ($name, $alt) = @_;
+
+        return "{$name}" if $name eq "entity0" || $name eq "entity1";
+
         delete $extra_attrs{$name};
         if (!$alt) {
             return '' unless exists $attrs{$name};

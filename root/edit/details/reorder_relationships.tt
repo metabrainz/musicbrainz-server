@@ -13,7 +13,6 @@
   [%- FOR reorder_edit = edit.display_data.relationships -%]
   <tr>
     <td>
-      [% descriptive_link(reorder_edit.relationship.source) %]
       [% display_relationship(reorder_edit.relationship, 'verbose_phrase') %]
     </td>
     <td class="old">[% reorder_edit.old_order %]</td>

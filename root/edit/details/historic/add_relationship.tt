@@ -7,7 +7,6 @@
       <ul>
         [% FOR relationship=edit.display_data.relationships %]
         <li>
-           [% link_entity(relationship.source); %]
            [% display_relationship(relationship); %]
         </li>
         [% END %]

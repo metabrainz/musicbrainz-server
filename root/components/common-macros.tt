@@ -685,9 +685,15 @@ END -%]
   [%- phrase_field = phrase_field || 'phrase';
     extra_attributes_field = "extra_${phrase_field}_attributes";
     IF relationship.edits_pending; '<span class="mp mp-rel">'; END;
-    relationship.${ phrase_field };
+    IF phrase_field == "verbose_phrase";
+        phrase = relationship.verbose_phrase;
+        UNLESS phrase.match('\{entity0\}'); descriptive_link(relationship.source); ' '; END;
+        l(phrase, { entity0 => descriptive_link(relationship.source), entity1 => descriptive_link(relationship.target) });
+        UNLESS phrase.match('\{entity1\}'); ' '; descriptive_link(relationship.target); ' '; END;
+    ELSE;
+        relationship.${ phrase_field }; ' '; descriptive_link(relationship.target);
+    END;
     ' ';
-    descriptive_link(relationship.target);
     IF !relationship.link.begin_date.is_empty;
         ' ';
         IF !relationship.link.end_date.is_empty;

@@ -68,31 +68,32 @@
 [%- END -%]
 [%- END -%]
 
+[%~ MACRO differences_span(old_rel, new_rel, side, class) BLOCK ~%]
+    <span class="[% class IF old_rel.id != new_rel.id %]">
+        [% descriptive_link(old_rel) IF side == "old" %]
+        [% descriptive_link(new_rel) IF side == "new" %]
+    </span>
+[%~ END ~%]
+
 [%- MACRO display_relationship_differences(label, old_rel, new_rel) BLOCK -%]
   <tr>
     <th rowspan="2">[% l('Relationship:') %]</th>
 
     <td class="old">
-      <span class="[% 'diff-only-a' IF old_rel.source.id != new_rel.source.id %]">
-        [% descriptive_link(old_rel.source); %]
-      </span>
-      [% Diff.diff_html_side(old_rel.verbose_phrase, new_rel.verbose_phrase, '-', '\s+') %]
-      <span class="[% 'diff-only-a' IF old_rel.target.id != new_rel.target.id %]">
-        [% descriptive_link(old_rel.target); %]
-      </span>
+      [% l(Diff.diff_html_side(old_rel.verbose_phrase, new_rel.verbose_phrase, '-', '\s+'), {
+            entity0 => differences_span(old_rel.source, new_rel.source, 'old', 'diff-only-a'),
+            entity1 => differences_span(old_rel.target, new_rel.target, 'old', 'diff-only-a')
+        }) %]
       [% Diff.diff_side(relationship_date_text(old_rel), relationship_date_text(new_rel), '-') %]
       [% Diff.diff_side(relationship_extra_attributes(old_rel), relationship_extra_attributes(new_rel), '-') %]
     </td>
   </tr>
   <tr>
     <td class="new">
-      <span class="[% 'diff-only-b' IF old_rel.source.id != new_rel.source.id %]">
-        [% descriptive_link(new_rel.source); %]
-      </span>
-      [% Diff.diff_html_side(old_rel.verbose_phrase, new_rel.verbose_phrase, '+', '\s+') %]
-      <span class="[% 'diff-only-b' IF old_rel.target.id != new_rel.target.id %]">
-        [% descriptive_link(new_rel.target); %]
-      </span>
+      [% l(Diff.diff_html_side(old_rel.verbose_phrase, new_rel.verbose_phrase, '-', '\s+'), {
+            entity0 => differences_span(old_rel.source, new_rel.source, 'new', 'diff-only-b'),
+            entity1 => differences_span(old_rel.target, new_rel.target, 'new', 'diff-only-b')
+        }) %]
       [% Diff.diff_side(relationship_date_text(old_rel), relationship_date_text(new_rel), '+') %]
       [% Diff.diff_side(relationship_extra_attributes(old_rel), relationship_extra_attributes(new_rel), '+') %]
     </td>
