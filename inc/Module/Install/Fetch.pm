@@ -1,3 +1,4 @@
+#line 1
 package Module::Install::Fetch;
 
 use strict;
@@ -5,9 +6,9 @@ use Module::Install::Base ();
 
 use vars qw{$VERSION @ISA $ISCORE};
 BEGIN {
-        $VERSION = '0.94';
-        @ISA     = 'Module::Install::Base';
-        $ISCORE  = 1;
+	$VERSION = '1.12';
+	@ISA     = 'Module::Install::Base';
+	$ISCORE  = 1;
 }
 
 sub get_file {
