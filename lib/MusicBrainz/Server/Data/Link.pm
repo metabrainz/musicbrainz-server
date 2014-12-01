@@ -169,8 +169,15 @@ sub find
     my $i = 1;
     foreach my $attr (@attrs) {
         push @joins, "JOIN link_attribute a$i ON a$i.link = link.id";
-        push @conditions, "a$i.attribute_type = ?";
-        push @args, $attr->{type}{id};
+
+        if (non_empty($attr->{type}{id})) {
+            push @conditions, "a$i.attribute_type = ?";
+            push @args, $attr->{type}{id};
+        } else {
+            push @joins, "JOIN link_attribute_type lat$i ON lat$i.id = a$i.attribute_type";
+            push @conditions, "lat$i.gid = ?";
+            push @args, $attr->{type}{gid};
+        }
 
         push @joins,
             "LEFT JOIN link_attribute_credit ac$i ON
@@ -193,7 +200,7 @@ sub find
         $i += 1;
     }
 
-    my $query = "SELECT id FROM link " . join(" ", @joins) . " WHERE " . join(" AND ", @conditions);
+    my $query = "SELECT link.id FROM link " . join(" ", @joins) . " WHERE " . join(" AND ", @conditions);
     return $self->sql->select_single_value($query, @args);
 }
 

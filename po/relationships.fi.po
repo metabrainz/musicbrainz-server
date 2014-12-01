@@ -14,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-10-30 01:12+0000\n"
-"Last-Translator: Timo Martikainen <email address hidden>\n"
+"PO-Revision-Date: 2014-11-24 01:52+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -262,6 +262,10 @@ msgstr ""
 msgid "Indicates that one entity is a cover of another entity"
 msgstr ""
 
+#: DB:link_type/description:802
+msgid "Indicates that the event is part of a series."
+msgstr ""
+
 #: DB:link_type/description:231
 msgid "Indicates that the recording contains samples from another."
 msgstr ""
@@ -358,6 +362,10 @@ msgstr ""
 msgid "Indicates the official homepage for an artist."
 msgstr ""
 
+#: DB:link_type/description:782
+msgid "Indicates the official homepage for an event."
+msgstr ""
+
 #: DB:link_type/description:716
 msgid "Indicates the place where the work had its first performance"
 msgstr ""
@@ -384,6 +392,12 @@ msgstr ""
 msgid "Lead or solo vocal"
 msgstr "pää- tai soololaulu"
 
+#: DB:link_type/description:814
+msgid ""
+"Links a recording to the area it was engineered in. Use only when the place "
+"is unknown!"
+msgstr ""
+
 #: DB:link_type/description:758
 msgid ""
 "Links a recording to the area it was mixed in. Use only when the place is "
@@ -396,12 +410,30 @@ msgid ""
 " unknown!"
 msgstr ""
 
+#: DB:link_type/description:809
+msgid "Links a recording to the event it was recorded at."
+msgstr ""
+
+#: DB:link_type/description:813
+msgid "Links a recording to the place it was engineered at."
+msgstr ""
+
 #: DB:link_type/description:694
 msgid "Links a recording to the place it was mixed at."
 msgstr ""
 
 #: DB:link_type/description:693
 msgid "Links a recording to the place it was recorded at."
+msgstr ""
+
+#: DB:link_type/description:797
+msgid "Links a release group with a launch event for it."
+msgstr ""
+
+#: DB:link_type/description:815
+msgid ""
+"Links a release to the area it was engineered in. Use only when the place is"
+" unknown!"
 msgstr ""
 
 #: DB:link_type/description:756
@@ -422,6 +454,14 @@ msgid ""
 "unknown!"
 msgstr ""
 
+#: DB:link_type/description:810
+msgid "Links a release to the event it was recorded at."
+msgstr ""
+
+#: DB:link_type/description:812
+msgid "Links a release to the place it was engineered at."
+msgstr ""
+
 #: DB:link_type/description:697
 msgid "Links a release to the place it was mastered at."
 msgstr ""
@@ -434,10 +474,64 @@ msgstr ""
 msgid "Links a release to the place it was recorded at."
 msgstr ""
 
+#: DB:link_type/description:796
+msgid "Links a release with a launch event for it."
+msgstr ""
+
+#: DB:link_type/description:795
+msgid ""
+"Links a release with an event where it was available. This is intended for "
+"event-exclusive releases and/or releases available at events before the "
+"official launch date, not for every release in the merchandise stall."
+msgstr ""
+
 #: DB:link_type/description:700
 msgid ""
 "Links an artist to a place where they held a concert. Please include as "
 "detailed a date as possible."
+msgstr ""
+
+#: DB:link_type/description:798
+msgid "Links an event to (one of) its main performer(s)."
+msgstr ""
+
+#: DB:link_type/description:799
+msgid "Links an event to (one of) its support act(s)."
+msgstr ""
+
+#: DB:link_type/description:800
+msgid ""
+"Links an event to a guest performer. Guest performers usually make short "
+"appearances during other artist's set."
+msgstr ""
+
+#: DB:link_type/description:806
+msgid "Links an event to an artist that was a conductor in it."
+msgstr ""
+
+#: DB:link_type/description:807
+msgid "Links an event to an orchestra that performed in it."
+msgstr ""
+
+#: DB:link_type/description:801
+msgid ""
+"Links an event to its host/MC. Event hosts usually do introductions to the "
+"show or each song."
+msgstr ""
+
+#: DB:link_type/description:793
+msgid ""
+"Links an event to the area where it was held. Use only if the exact place is"
+" unknown."
+msgstr ""
+
+#: DB:link_type/description:794
+msgid "Links an event to the place where it was held."
+msgstr ""
+
+#: DB:link_attribute_type/description:830
+msgid ""
+"Local time a band's performance is scheduled to start, formatted HH:MM."
 msgstr ""
 
 #: DB:link_type/link_phrase:215 DB:link_type/link_phrase:189
@@ -468,6 +562,10 @@ msgstr ""
 
 #: DB:link_type/description:352
 msgid "Points to the Wikidata page for this artist."
+msgstr ""
+
+#: DB:link_type/description:790
+msgid "Points to the Wikidata page for this event."
 msgstr ""
 
 #: DB:link_type/description:354
@@ -501,6 +599,10 @@ msgstr "Viittaa tämän alueen Wikipedia-sivuun."
 #: DB:link_type/description:179
 msgid "Points to the Wikipedia page for this artist."
 msgstr "Viittaa tämän artistin Wikipedia-sivuun."
+
+#: DB:link_type/description:789
+msgid "Points to the Wikipedia page for this event."
+msgstr ""
 
 #: DB:link_type/description:595
 msgid "Points to the Wikipedia page for this place"
@@ -539,6 +641,16 @@ msgstr "Songfacts"
 #: DB:link_type/link_phrase:289
 msgid "Songfacts page for"
 msgstr "Songfacts sivuna"
+
+#: DB:link_type/link_phrase:786 DB:link_type/link_phrase:785
+#: DB:link_type/link_phrase:787
+msgid "Songkick"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:786 DB:link_type/reverse_link_phrase:785
+#: DB:link_type/reverse_link_phrase:787
+msgid "Songkick page for"
+msgstr ""
 
 #: DB:link_type/link_phrase:291 DB:link_type/link_phrase:290
 msgid "SoundCloud"
@@ -667,8 +779,8 @@ msgstr ""
 #: DB:link_type/description:202
 msgid ""
 "This describes a situation where a label has changed its name, either for "
-"purely aesthetic reasons or following a buyout/sellout/spin-off.​ Extra care"
-" should be taken with cases where complicated merge/split/restructure "
+"purely aesthetic reasons or following a buyout/sellout/spin-off. Extra care "
+"should be taken with cases where complicated merge/split/restructure "
 "financial operations are done. For example, it's not a good idea to rename "
 "the label <a href=\"/label/99a24d71-54c1-4d3f-88cc-00fbcc4fce83\">Verve</a> "
 "into <a href=\"/label/4fb00dfd-7674-44c0-bf67-79daf8c61767\">The Verve Music"
@@ -1234,6 +1346,18 @@ msgid ""
 "site such as Facebook or Twitter"
 msgstr ""
 
+#: DB:link_type/description:784
+msgid ""
+"This link is used to associate a series with its page on a social networking"
+" site such as Facebook or Twitter."
+msgstr ""
+
+#: DB:link_type/description:783
+msgid ""
+"This link is used to associate an event with its page on a social networking"
+" site such as Facebook or Twitter."
+msgstr ""
+
 #: DB:link_type/description:288
 msgid ""
 "This link points to a page for a particular release within a discography for"
@@ -1375,6 +1499,12 @@ msgstr ""
 msgid "This links a release with the place that held its launch event."
 msgstr ""
 
+#: DB:link_type/description:805
+msgid ""
+"This links a series to a channel, playlist, or user page on a video sharing "
+"site containing videos curated by it."
+msgstr ""
+
 #: DB:link_type/description:97
 msgid ""
 "This links a soundtrack release to the <a "
@@ -1477,14 +1607,21 @@ msgid ""
 " user contributed database concerned with the stories behind the songs."
 msgstr ""
 
-#: DB:link_type/description:746 DB:link_type/description:96
-#: DB:link_type/description:82 DB:link_type/description:306
-#: DB:link_type/description:222 DB:link_type/description:273
-#: DB:link_type/description:188 DB:link_type/description:561
+#: DB:link_type/description:803 DB:link_type/description:746
+#: DB:link_type/description:96 DB:link_type/description:82
+#: DB:link_type/description:306 DB:link_type/description:222
+#: DB:link_type/description:273 DB:link_type/description:188
+#: DB:link_type/description:561
 msgid ""
 "This links an entity to the equivalent entry in another database. Please "
 "respect the <a "
 "href=\"/doc/Other_Databases_Relationship_Type/Whitelist\">whitelist</a>."
+msgstr ""
+
+#: DB:link_type/description:804
+msgid ""
+"This links an event to a channel, playlist, or user page on a video sharing "
+"site containing videos curated by it."
 msgstr ""
 
 #: DB:link_type/description:111
@@ -1694,6 +1831,20 @@ msgid ""
 "http://www.youtube.com/user/<username>"
 msgstr ""
 
+#: DB:link_type/description:792
+msgid ""
+"This relationship type can be used to link a series to the equivalent entry "
+"in YouTube. URLs should follow the format "
+"http://www.youtube.com/user/&lt;username&gt;"
+msgstr ""
+
+#: DB:link_type/description:791
+msgid ""
+"This relationship type can be used to link an event to the equivalent entry "
+"in YouTube. URLs should follow the format "
+"http://www.youtube.com/user/&lt;username&gt;"
+msgstr ""
+
 #: DB:link_type/description:258
 msgid ""
 "This relationship type describes that the recording contains samples taken from a movie, show or game, which has an IMDB page at the given URL.\n"
@@ -1806,6 +1957,16 @@ msgid ""
 " to cataloguing the music of video games and anime."
 msgstr ""
 
+#: DB:link_type/description:787
+msgid ""
+"This relationship type links a place to its corresponding page at Songkick."
+msgstr ""
+
+#: DB:link_type/description:817
+msgid ""
+"This relationship type links a place to its corresponding page at setlist.fm"
+msgstr ""
+
 #: DB:link_type/description:86
 msgid ""
 "This relationship type links a release to its corresponding page <a "
@@ -1820,6 +1981,18 @@ msgid ""
 " to cataloguing the music of video games and anime."
 msgstr ""
 
+#: DB:link_type/description:785
+msgid ""
+"This relationship type links an artist to its corresponding page at "
+"Songkick."
+msgstr ""
+
+#: DB:link_type/description:816
+msgid ""
+"This relationship type links an artist to its corresponding page at "
+"setlist.fm"
+msgstr ""
+
 #: DB:link_type/description:189
 msgid "This relationship type links an artist to their Myspace page."
 msgstr ""
@@ -1829,6 +2002,29 @@ msgid ""
 "This relationship type links an artist to their online community pages. An "
 "online community is a web site providing information, music, and/or news, "
 "and may act as an unofficial homepage for an entity."
+msgstr ""
+
+#: DB:link_type/description:808
+msgid ""
+"This relationship type links an event to a promotional poster for the event."
+msgstr ""
+
+#: DB:link_type/description:788
+msgid ""
+"This relationship type links an event to its corresponding page at <a "
+"href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated"
+" to cataloguing the music of video games and anime."
+msgstr ""
+
+#: DB:link_type/description:786
+msgid ""
+"This relationship type links an event to its corresponding page at Songkick."
+msgstr ""
+
+#: DB:link_type/description:811
+msgid ""
+"This relationship type links an event to its corresponding page at "
+"setlist.fm"
 msgstr ""
 
 #: DB:link_type/description:752
@@ -1867,13 +2063,13 @@ msgid ""
 "spelling."
 msgstr ""
 
-#: DB:link_type/link_phrase:86 DB:link_type/link_phrase:191
-#: DB:link_type/link_phrase:210
+#: DB:link_type/link_phrase:788 DB:link_type/link_phrase:86
+#: DB:link_type/link_phrase:191 DB:link_type/link_phrase:210
 msgid "VGMdb"
 msgstr "VGMdb"
 
-#: DB:link_type/reverse_link_phrase:86 DB:link_type/reverse_link_phrase:191
-#: DB:link_type/reverse_link_phrase:210
+#: DB:link_type/reverse_link_phrase:788 DB:link_type/reverse_link_phrase:86
+#: DB:link_type/reverse_link_phrase:191 DB:link_type/reverse_link_phrase:210
 msgid "VGMdb page for"
 msgstr "VGMdb-sivuna"
 
@@ -1887,41 +2083,45 @@ msgstr "VIAF-tunniste"
 msgid "VIAF ID for"
 msgstr "VIAF-tunnisteena"
 
-#: DB:link_type/link_phrase:749 DB:link_type/link_phrase:352
-#: DB:link_type/link_phrase:353 DB:link_type/link_phrase:354
-#: DB:link_type/link_phrase:358 DB:link_type/link_phrase:594
-#: DB:link_type/link_phrase:733 DB:link_type/reverse_link_phrase:351
-#: DB:link_type/reverse_link_phrase:733 DB:link_type/long_link_phrase:733
+#: DB:link_type/link_phrase:790 DB:link_type/link_phrase:749
+#: DB:link_type/link_phrase:352 DB:link_type/link_phrase:353
+#: DB:link_type/link_phrase:354 DB:link_type/link_phrase:358
+#: DB:link_type/link_phrase:594 DB:link_type/link_phrase:733
+#: DB:link_type/reverse_link_phrase:351 DB:link_type/reverse_link_phrase:733
+#: DB:link_type/long_link_phrase:733
 msgid "Wikidata"
 msgstr "Wikidata"
 
-#: DB:link_type/link_phrase:351 DB:link_type/reverse_link_phrase:749
-#: DB:link_type/reverse_link_phrase:352 DB:link_type/reverse_link_phrase:353
-#: DB:link_type/reverse_link_phrase:354 DB:link_type/reverse_link_phrase:358
-#: DB:link_type/reverse_link_phrase:594
+#: DB:link_type/link_phrase:351 DB:link_type/reverse_link_phrase:790
+#: DB:link_type/reverse_link_phrase:749 DB:link_type/reverse_link_phrase:352
+#: DB:link_type/reverse_link_phrase:353 DB:link_type/reverse_link_phrase:354
+#: DB:link_type/reverse_link_phrase:358 DB:link_type/reverse_link_phrase:594
 msgid "Wikidata page for"
 msgstr "Wikidata-sivuna"
 
-#: DB:link_type/link_phrase:355 DB:link_type/link_phrase:89
-#: DB:link_type/link_phrase:179 DB:link_type/link_phrase:216
-#: DB:link_type/link_phrase:595 DB:link_type/link_phrase:731
-#: DB:link_type/link_phrase:744 DB:link_type/reverse_link_phrase:279
-#: DB:link_type/reverse_link_phrase:731 DB:link_type/long_link_phrase:731
+#: DB:link_type/link_phrase:789 DB:link_type/link_phrase:355
+#: DB:link_type/link_phrase:89 DB:link_type/link_phrase:179
+#: DB:link_type/link_phrase:216 DB:link_type/link_phrase:595
+#: DB:link_type/link_phrase:731 DB:link_type/link_phrase:744
+#: DB:link_type/reverse_link_phrase:279 DB:link_type/reverse_link_phrase:731
+#: DB:link_type/long_link_phrase:731
 msgid "Wikipedia"
 msgstr "Wikipedia"
 
-#: DB:link_type/link_phrase:279 DB:link_type/reverse_link_phrase:355
-#: DB:link_type/reverse_link_phrase:89 DB:link_type/reverse_link_phrase:179
-#: DB:link_type/reverse_link_phrase:216 DB:link_type/reverse_link_phrase:595
-#: DB:link_type/reverse_link_phrase:744
+#: DB:link_type/link_phrase:279 DB:link_type/reverse_link_phrase:789
+#: DB:link_type/reverse_link_phrase:355 DB:link_type/reverse_link_phrase:89
+#: DB:link_type/reverse_link_phrase:179 DB:link_type/reverse_link_phrase:216
+#: DB:link_type/reverse_link_phrase:595 DB:link_type/reverse_link_phrase:744
 msgid "Wikipedia page for"
 msgstr "Wikipedia-sivuna"
 
+#: DB:link_type/reverse_link_phrase:791 DB:link_type/reverse_link_phrase:792
 #: DB:link_type/reverse_link_phrase:193 DB:link_type/reverse_link_phrase:528
 #: DB:link_type/reverse_link_phrase:225
 msgid "YouTube channel for"
 msgstr "Youtube-kanavana"
 
+#: DB:link_type/link_phrase:791 DB:link_type/link_phrase:792
 #: DB:link_type/link_phrase:193 DB:link_type/link_phrase:528
 #: DB:link_type/link_phrase:225
 msgid "YouTube channels"
@@ -1966,6 +2166,14 @@ msgstr "yhteis"
 
 #: DB:link_type/reverse_link_phrase:11
 msgid "associated {EP:EPs|singles}"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:795
+msgid "available at"
+msgstr ""
+
+#: DB:link_type/link_phrase:795
+msgid "available releases"
 msgstr ""
 
 #: DB:link_attribute_type/description:12 DB:link_attribute_type/name:12
@@ -2106,6 +2314,14 @@ msgstr "konserttimestari"
 #: DB:link_type/link_phrase:759 DB:link_type/link_phrase:760
 msgid "concertmaster for"
 msgstr "konserttimestari"
+
+#: DB:link_type/link_phrase:806
+msgid "conductor at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:806
+msgid "conductors"
+msgstr ""
 
 #: DB:link_type/link_phrase:739
 msgid "consists of"
@@ -2269,6 +2485,19 @@ msgstr "teknikko"
 msgid "engineer position at"
 msgstr "teknikko paikassa"
 
+#: DB:link_type/reverse_link_phrase:812 DB:link_type/reverse_link_phrase:813
+msgid "engineered at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:814 DB:link_type/reverse_link_phrase:815
+msgid "engineered in"
+msgstr ""
+
+#: DB:link_type/link_phrase:812 DB:link_type/link_phrase:813
+#: DB:link_type/link_phrase:814 DB:link_type/link_phrase:815
+msgid "engineering location for"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:120 DB:link_type/reverse_link_phrase:701
 msgid "engineers"
 msgstr "teknikot"
@@ -2326,6 +2555,14 @@ msgstr "musiikki hankittavissa"
 msgid "guest"
 msgstr "vieras"
 
+#: DB:link_type/link_phrase:800 DB:link_type/long_link_phrase:800
+msgid "guest performer at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:800
+msgid "guest performers"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:115
 msgid "had a creative position at"
 msgstr ""
@@ -2340,6 +2577,10 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:120
 msgid "had an engineer position at"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:795
+msgid "had available releases"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:77
@@ -2381,24 +2622,31 @@ msgstr "omaa PureVolume-sivun"
 msgid "has a SecondHandSongs page at"
 msgstr "omaa SecondHandSongs-sivun"
 
+#: DB:link_type/long_link_phrase:786 DB:link_type/long_link_phrase:785
+#: DB:link_type/long_link_phrase:787
+msgid "has a Songkick page at"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:291 DB:link_type/long_link_phrase:290
 msgid "has a SoundCloud page at"
 msgstr "omaa SoundCloud-sivun"
 
-#: DB:link_type/long_link_phrase:86 DB:link_type/long_link_phrase:191
-#: DB:link_type/long_link_phrase:210
+#: DB:link_type/long_link_phrase:788 DB:link_type/long_link_phrase:86
+#: DB:link_type/long_link_phrase:191 DB:link_type/long_link_phrase:210
 msgid "has a VGMdb page at"
 msgstr "omaa VGMdb-sivun"
 
-#: DB:link_type/long_link_phrase:749 DB:link_type/long_link_phrase:352
-#: DB:link_type/long_link_phrase:353 DB:link_type/long_link_phrase:354
-#: DB:link_type/long_link_phrase:358 DB:link_type/long_link_phrase:594
+#: DB:link_type/long_link_phrase:790 DB:link_type/long_link_phrase:749
+#: DB:link_type/long_link_phrase:352 DB:link_type/long_link_phrase:353
+#: DB:link_type/long_link_phrase:354 DB:link_type/long_link_phrase:358
+#: DB:link_type/long_link_phrase:594
 msgid "has a Wikidata page at"
 msgstr "omaa Wikidata-sivun"
 
-#: DB:link_type/long_link_phrase:355 DB:link_type/long_link_phrase:89
-#: DB:link_type/long_link_phrase:179 DB:link_type/long_link_phrase:216
-#: DB:link_type/long_link_phrase:595 DB:link_type/long_link_phrase:744
+#: DB:link_type/long_link_phrase:789 DB:link_type/long_link_phrase:355
+#: DB:link_type/long_link_phrase:89 DB:link_type/long_link_phrase:179
+#: DB:link_type/long_link_phrase:216 DB:link_type/long_link_phrase:595
+#: DB:link_type/long_link_phrase:744
 msgid "has a Wikipedia page at"
 msgstr "omaa Wikipedia-sivun"
 
@@ -2440,10 +2688,10 @@ msgstr "omaa logon"
 msgid "has a miscellaneous role on"
 msgstr "oma sekalaisen roolin "
 
-#: DB:link_type/long_link_phrase:746 DB:link_type/long_link_phrase:96
-#: DB:link_type/long_link_phrase:82 DB:link_type/long_link_phrase:306
-#: DB:link_type/long_link_phrase:222 DB:link_type/long_link_phrase:188
-#: DB:link_type/long_link_phrase:561
+#: DB:link_type/long_link_phrase:803 DB:link_type/long_link_phrase:746
+#: DB:link_type/long_link_phrase:96 DB:link_type/long_link_phrase:82
+#: DB:link_type/long_link_phrase:306 DB:link_type/long_link_phrase:222
+#: DB:link_type/long_link_phrase:188 DB:link_type/long_link_phrase:561
 msgid "has a page in a database at"
 msgstr "omaa sivun tietokannassa"
 
@@ -2455,6 +2703,12 @@ msgstr "omaa kuvan"
 msgid "has a review page at"
 msgstr "omaa arvostelusivun"
 
+#: DB:link_type/long_link_phrase:811 DB:link_type/long_link_phrase:816
+#: DB:link_type/long_link_phrase:817
+msgid "has a setlist.fm page at"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:784 DB:link_type/long_link_phrase:783
 #: DB:link_type/long_link_phrase:192 DB:link_type/long_link_phrase:218
 #: DB:link_type/long_link_phrase:429
 msgid "has a social networking page at"
@@ -2478,17 +2732,19 @@ msgstr ""
 msgid "has an interview at"
 msgstr "omaa haastattelun"
 
+#: DB:link_type/long_link_phrase:791 DB:link_type/long_link_phrase:792
 #: DB:link_type/long_link_phrase:193 DB:link_type/long_link_phrase:528
 #: DB:link_type/long_link_phrase:225
 msgid "has an official YouTube channel at"
 msgstr "omaa virallisen Youtube-kanavan"
 
-#: DB:link_type/long_link_phrase:745 DB:link_type/long_link_phrase:287
-#: DB:link_type/long_link_phrase:183 DB:link_type/long_link_phrase:219
-#: DB:link_type/long_link_phrase:363
+#: DB:link_type/long_link_phrase:745 DB:link_type/long_link_phrase:782
+#: DB:link_type/long_link_phrase:287 DB:link_type/long_link_phrase:183
+#: DB:link_type/long_link_phrase:219 DB:link_type/long_link_phrase:363
 msgid "has an official homepage at"
 msgstr "omaa virallisen kotisivun"
 
+#: DB:link_type/long_link_phrase:804 DB:link_type/long_link_phrase:805
 #: DB:link_type/long_link_phrase:303 DB:link_type/long_link_phrase:304
 #: DB:link_type/long_link_phrase:495
 msgid "has an official video channel at"
@@ -2552,8 +2808,9 @@ msgstr "orkestraatio"
 msgid "has part"
 msgstr "omaa osan"
 
-#: DB:link_type/link_phrase:743 DB:link_type/reverse_link_phrase:742
-#: DB:link_type/reverse_link_phrase:740 DB:link_type/reverse_link_phrase:741
+#: DB:link_type/link_phrase:743 DB:link_type/reverse_link_phrase:802
+#: DB:link_type/reverse_link_phrase:742 DB:link_type/reverse_link_phrase:740
+#: DB:link_type/reverse_link_phrase:741
 msgid "has parts"
 msgstr ""
 
@@ -2563,6 +2820,10 @@ msgstr ""
 
 #: DB:link_type/link_phrase:724 DB:link_type/long_link_phrase:724
 msgid "has personal publisher"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:808
+msgid "has poster at"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:714
@@ -2601,8 +2862,24 @@ msgstr ""
 msgid "held a concert at"
 msgstr ""
 
+#: DB:link_type/link_phrase:794
+msgid "held at"
+msgstr ""
+
 #: DB:link_type/link_phrase:700
 msgid "held concerts at"
+msgstr ""
+
+#: DB:link_type/link_phrase:793 DB:link_type/reverse_link_phrase:794
+msgid "held events"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:793
+msgid "held in"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:793
+msgid "held the event"
 msgstr ""
 
 #: DB:link_type/link_phrase:211
@@ -2623,17 +2900,25 @@ msgstr ""
 msgid "holds phonographic copyright for"
 msgstr ""
 
+#: DB:link_type/link_phrase:801 DB:link_type/long_link_phrase:801
+msgid "host at"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:700
 msgid "hosted concerts by"
 msgstr ""
 
-#: DB:link_type/link_phrase:721 DB:link_type/link_phrase:720
-#: DB:link_type/long_link_phrase:721 DB:link_type/long_link_phrase:720
+#: DB:link_type/link_phrase:720 DB:link_type/link_phrase:721
+#: DB:link_type/long_link_phrase:720 DB:link_type/long_link_phrase:721
 msgid "hosted launch event for"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:716 DB:link_type/long_link_phrase:715
 msgid "hosted the premiere of"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:801
+msgid "hosts"
 msgstr ""
 
 #: DB:link_type/description:732 DB:link_type/link_phrase:732
@@ -2711,8 +2996,8 @@ msgstr "on sävelmäketju"
 msgid "is a page in a database for"
 msgstr "on sivu tietokannassa"
 
-#: DB:link_type/long_link_phrase:742 DB:link_type/long_link_phrase:740
-#: DB:link_type/long_link_phrase:741
+#: DB:link_type/long_link_phrase:802 DB:link_type/long_link_phrase:742
+#: DB:link_type/long_link_phrase:740 DB:link_type/long_link_phrase:741
 msgid "is a part of"
 msgstr ""
 
@@ -2844,8 +3129,16 @@ msgstr "myöhemmät julkaisut"
 msgid "later {translated} {parody} versions"
 msgstr "myöhemmät {translated:käännetyt} {parody:parodia}versiot"
 
-#: DB:link_type/reverse_link_phrase:721 DB:link_type/reverse_link_phrase:720
+#: DB:link_type/reverse_link_phrase:720 DB:link_type/reverse_link_phrase:721
 msgid "launch event at"
+msgstr ""
+
+#: DB:link_type/link_phrase:797 DB:link_type/link_phrase:796
+msgid "launch event for"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:797 DB:link_type/reverse_link_phrase:796
+msgid "launch events"
 msgstr ""
 
 #: DB:link_attribute_type/name:4
@@ -2910,6 +3203,14 @@ msgstr "sanoitussivuna"
 #: DB:link_type/reverse_link_phrase:175 DB:link_type/reverse_link_phrase:79
 msgid "mail-order purchase page for"
 msgstr "postimyyntisivustona"
+
+#: DB:link_type/link_phrase:798
+msgid "main performer at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:798
+msgid "main performers"
+msgstr ""
 
 #: DB:link_type/link_phrase:360 DB:link_type/long_link_phrase:360
 msgid "manufactured"
@@ -3017,7 +3318,7 @@ msgstr "sekalaiset roolit"
 msgid "miscellaneous support"
 msgstr "sekalainen tuki"
 
-#: DB:link_type/reverse_link_phrase:694 DB:link_type/reverse_link_phrase:696
+#: DB:link_type/reverse_link_phrase:696 DB:link_type/reverse_link_phrase:694
 msgid "mixed at"
 msgstr ""
 
@@ -3033,8 +3334,8 @@ msgstr "miksaaja paikassa"
 msgid "mixing engineers"
 msgstr "miksaaja"
 
-#: DB:link_type/link_phrase:757 DB:link_type/link_phrase:758
-#: DB:link_type/link_phrase:694 DB:link_type/link_phrase:696
+#: DB:link_type/link_phrase:757 DB:link_type/link_phrase:696
+#: DB:link_type/link_phrase:758 DB:link_type/link_phrase:694
 msgid "mixing location for"
 msgstr "miksauspaikkana kohteelle"
 
@@ -3063,15 +3364,15 @@ msgstr "musiikillinen yhteys"
 msgid "number"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:745 DB:link_type/reverse_link_phrase:287
-#: DB:link_type/reverse_link_phrase:183 DB:link_type/reverse_link_phrase:219
-#: DB:link_type/reverse_link_phrase:363
+#: DB:link_type/reverse_link_phrase:745 DB:link_type/reverse_link_phrase:782
+#: DB:link_type/reverse_link_phrase:287 DB:link_type/reverse_link_phrase:183
+#: DB:link_type/reverse_link_phrase:219 DB:link_type/reverse_link_phrase:363
 msgid "official homepage for"
 msgstr "virallisena kotisivuna"
 
-#: DB:link_type/link_phrase:745 DB:link_type/link_phrase:287
-#: DB:link_type/link_phrase:183 DB:link_type/link_phrase:219
-#: DB:link_type/link_phrase:363
+#: DB:link_type/link_phrase:745 DB:link_type/link_phrase:782
+#: DB:link_type/link_phrase:287 DB:link_type/link_phrase:183
+#: DB:link_type/link_phrase:219 DB:link_type/link_phrase:363
 msgid "official homepages"
 msgstr "virallinen kotisivu"
 
@@ -3089,9 +3390,17 @@ msgstr ""
 msgid "online data"
 msgstr ""
 
+#: DB:link_type/link_phrase:807
+msgid "orchestra at"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:150 DB:link_type/long_link_phrase:45
 msgid "orchestra {additional:additionally} performed"
 msgstr "orkesteri {additional:lisäksi} esiintyi"
+
+#: DB:link_type/reverse_link_phrase:807
+msgid "orchestras"
+msgstr ""
 
 #: DB:link_type/reverse_link_phrase:316
 msgid "orchestration of"
@@ -3101,12 +3410,13 @@ msgstr "orkestraatio"
 msgid "orchestrations"
 msgstr "orkestraatiot"
 
-#: DB:link_type/link_phrase:753 DB:link_type/link_phrase:746
-#: DB:link_type/link_phrase:96 DB:link_type/link_phrase:730
-#: DB:link_type/link_phrase:82 DB:link_type/link_phrase:306
-#: DB:link_type/link_phrase:222 DB:link_type/link_phrase:273
-#: DB:link_type/link_phrase:188 DB:link_type/link_phrase:561
-#: DB:link_type/reverse_link_phrase:753 DB:link_type/reverse_link_phrase:746
+#: DB:link_type/link_phrase:753 DB:link_type/link_phrase:803
+#: DB:link_type/link_phrase:746 DB:link_type/link_phrase:96
+#: DB:link_type/link_phrase:730 DB:link_type/link_phrase:82
+#: DB:link_type/link_phrase:306 DB:link_type/link_phrase:222
+#: DB:link_type/link_phrase:273 DB:link_type/link_phrase:188
+#: DB:link_type/link_phrase:561 DB:link_type/reverse_link_phrase:753
+#: DB:link_type/reverse_link_phrase:803 DB:link_type/reverse_link_phrase:746
 #: DB:link_type/reverse_link_phrase:96 DB:link_type/reverse_link_phrase:730
 #: DB:link_type/reverse_link_phrase:82 DB:link_type/reverse_link_phrase:306
 #: DB:link_type/reverse_link_phrase:222 DB:link_type/reverse_link_phrase:273
@@ -3135,10 +3445,11 @@ msgstr "vanhemmat"
 msgid "parody"
 msgstr "parodia"
 
-#: DB:link_type/link_phrase:742 DB:link_type/link_phrase:740
-#: DB:link_type/link_phrase:741 DB:link_type/reverse_link_phrase:739
-#: DB:link_type/reverse_link_phrase:717 DB:link_type/reverse_link_phrase:281
-#: DB:link_type/reverse_link_phrase:356 DB:link_type/reverse_link_phrase:743
+#: DB:link_type/link_phrase:802 DB:link_type/link_phrase:742
+#: DB:link_type/link_phrase:740 DB:link_type/link_phrase:741
+#: DB:link_type/reverse_link_phrase:739 DB:link_type/reverse_link_phrase:717
+#: DB:link_type/reverse_link_phrase:281 DB:link_type/reverse_link_phrase:356
+#: DB:link_type/reverse_link_phrase:743
 msgid "part of"
 msgstr "kuuluu osana"
 
@@ -3205,6 +3516,14 @@ msgstr ""
 #: DB:link_type/link_phrase:173 DB:link_type/link_phrase:396
 msgid "pictures"
 msgstr "kuvat"
+
+#: DB:link_type/link_phrase:808
+msgid "poster"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:808
+msgid "poster for"
+msgstr ""
 
 #: DB:link_type/reverse_link_phrase:716 DB:link_type/reverse_link_phrase:715
 msgid "premiered at"
@@ -3323,6 +3642,7 @@ msgstr "osta ladattavaa musiikkia"
 msgid "purchase music for mail-order"
 msgstr "osta musiikkia postimyynnistä"
 
+#: DB:link_type/reverse_link_phrase:809 DB:link_type/reverse_link_phrase:810
 #: DB:link_type/reverse_link_phrase:695 DB:link_type/reverse_link_phrase:693
 msgid "recorded at"
 msgstr "äänityspaikka"
@@ -3339,6 +3659,7 @@ msgstr ""
 msgid "recording engineers"
 msgstr ""
 
+#: DB:link_type/link_phrase:809 DB:link_type/link_phrase:810
 #: DB:link_type/link_phrase:695 DB:link_type/link_phrase:699
 #: DB:link_type/link_phrase:698 DB:link_type/link_phrase:693
 msgid "recording location for"
@@ -3433,6 +3754,16 @@ msgstr "nuotit"
 msgid "score for"
 msgstr "nuotit"
 
+#: DB:link_type/link_phrase:811 DB:link_type/link_phrase:816
+#: DB:link_type/link_phrase:817
+msgid "setlist.fm"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:811 DB:link_type/reverse_link_phrase:816
+#: DB:link_type/reverse_link_phrase:817
+msgid "setlist.fm page for"
+msgstr ""
+
 #: DB:link_type/link_phrase:729
 msgid "show notes"
 msgstr ""
@@ -3453,11 +3784,13 @@ msgstr ""
 msgid "signed by"
 msgstr ""
 
+#: DB:link_type/link_phrase:784 DB:link_type/link_phrase:783
 #: DB:link_type/link_phrase:192 DB:link_type/link_phrase:218
 #: DB:link_type/link_phrase:429
 msgid "social networking"
 msgstr "sosiaaliset verkot"
 
+#: DB:link_type/reverse_link_phrase:784 DB:link_type/reverse_link_phrase:783
 #: DB:link_type/reverse_link_phrase:192 DB:link_type/reverse_link_phrase:218
 #: DB:link_type/reverse_link_phrase:429
 msgid "social networking page for"
@@ -3499,6 +3832,14 @@ msgstr ""
 msgid "subtypes"
 msgstr ""
 
+#: DB:link_type/link_phrase:799
+msgid "support act at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:799
+msgid "support acts"
+msgstr ""
+
 #: DB:link_type/link_phrase:104
 msgid "supporting artist for"
 msgstr ""
@@ -3522,6 +3863,10 @@ msgstr ""
 #: DB:link_attribute_type/description:11 DB:link_attribute_type/name:11
 msgid "tenor vocals"
 msgstr "tenorilaulu"
+
+#: DB:link_attribute_type/name:830
+msgid "time"
+msgstr ""
 
 #: DB:link_attribute_type/name:517
 msgid "translated"
@@ -3559,11 +3904,13 @@ msgstr ""
 msgid "video"
 msgstr "video"
 
+#: DB:link_type/link_phrase:804 DB:link_type/link_phrase:805
 #: DB:link_type/link_phrase:303 DB:link_type/link_phrase:304
 #: DB:link_type/link_phrase:495
 msgid "video channel"
 msgstr "videokanava"
 
+#: DB:link_type/reverse_link_phrase:804 DB:link_type/reverse_link_phrase:805
 #: DB:link_type/reverse_link_phrase:303 DB:link_type/reverse_link_phrase:304
 #: DB:link_type/reverse_link_phrase:495
 msgid "video channel for"
@@ -3581,6 +3928,30 @@ msgstr ""
 msgid "voiced by"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:806
+msgid "was a conductor at"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:797 DB:link_type/long_link_phrase:796
+msgid "was a launch event for"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:798
+msgid "was a main performer at"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:799
+msgid "was a support act at"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:807
+msgid "was an orchestra at"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:794
+msgid "was held at"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:3
 msgid "was released in support of"
 msgstr ""
@@ -3591,17 +3962,23 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:759 DB:link_type/long_link_phrase:760
 msgid "was the concertmaster for"
-msgstr "oli konserttimestari artistille"
+msgstr "oli konserttimestari"
+
+#: DB:link_type/long_link_phrase:812 DB:link_type/long_link_phrase:813
+#: DB:link_type/long_link_phrase:814 DB:link_type/long_link_phrase:815
+msgid "was the engineering location for"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:756 DB:link_type/long_link_phrase:697
 msgid "was the mastering location for"
 msgstr "oli masterointipaikkana kohteelle"
 
-#: DB:link_type/long_link_phrase:757 DB:link_type/long_link_phrase:758
-#: DB:link_type/long_link_phrase:694 DB:link_type/long_link_phrase:696
+#: DB:link_type/long_link_phrase:757 DB:link_type/long_link_phrase:696
+#: DB:link_type/long_link_phrase:758 DB:link_type/long_link_phrase:694
 msgid "was the mixing location for"
 msgstr "oli miksauspaikkana kohteelle"
 
+#: DB:link_type/long_link_phrase:809 DB:link_type/long_link_phrase:810
 #: DB:link_type/long_link_phrase:695 DB:link_type/long_link_phrase:699
 #: DB:link_type/long_link_phrase:698 DB:link_type/long_link_phrase:693
 msgid "was the recording location for"

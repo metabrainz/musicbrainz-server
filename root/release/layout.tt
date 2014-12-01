@@ -3,6 +3,11 @@
         name => release.name
 }) ~%]
 [%~ WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title canonical_url=replace_gid(entity.gid) ~%]
+    <div id="content">
+        [%~ INCLUDE "release/header.tt" ~%]
+        [%~ content ~%]
+    </div>
+
     [%~ IF !full_width ~%]
         [%~ edit_links_other = [] ~%]
         [%~ edit_links_other.push({ url => c.uri_for_action('/release/edit_relationships', [ release.gid ]), text => l('Edit relationships') }) ~%]
@@ -84,10 +89,5 @@
             [%~ INCLUDE "layout/sidebar/sidebar-rating.tt" entity=release.release_group rating_heading=l('Release group rating') ~%]
         [%~ END ~%]
     [%~ END ~%]
-
-    <div id="content">
-        [%~ INCLUDE "release/header.tt" ~%]
-        [%~ content ~%]
-    </div>
 [%~ END ~%]
 

@@ -1,4 +1,4 @@
-[%- WRAPPER 'place/layout.tt' title='Events' page='events' -%]
+[%- WRAPPER 'place/layout.tt' title=l('Events') page='events' -%]
     <h2>[% l('Events') %]</h2>
 
     [% IF events.size %]

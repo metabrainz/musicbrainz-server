@@ -12,7 +12,7 @@ use Readonly;
 my $ws_defs = Data::OptList::mkopt([
      collection => {
                          method   => 'GET',
-                         inc      => [ qw(releases tags) ],
+                         inc      => [ qw(releases events tags) ],
                          optional => [ qw(fmt limit offset) ],
      },
      collection => {
@@ -37,6 +37,44 @@ Readonly our $MAX_ITEMS => 25;
 
 sub base : Chained('root') PathPart('collection') CaptureArgs(0) { }
 
+sub events_get : Chained('load') PathPart('events') Args(0)
+{
+    my ($self, $c) = @_;
+
+    my $collection = $c->stash->{entity} // $c->detach('not_found');
+
+    if (!$collection->public) {
+        $self->authenticate($c, $ACCESS_SCOPE_COLLECTION);
+        if ($c->user_exists) {
+            $self->_error($c, 'You do not have permission to view this collection')
+                unless $c->user->id == $collection->editor_id;
+        }
+    }
+
+    my $stash = WebServiceStash->new;
+
+    my $opts = $stash->store($collection);
+
+    $self->linked_collections($c, $stash, [ $collection ]);
+
+    $c->model('CollectionType')->load($collection);
+
+    $self->_error($c, 'This is not an event collection.'),
+        unless ($collection->type->entity_type eq 'event');
+
+    $c->model('Editor')->load($collection);
+
+    my ($limit, $offset) = $self->_limit_and_offset($c);
+    my @results = $c->model('Event')->find_by_collection($collection->id, $limit, $offset);
+
+    $opts->{events} = $self->make_list(@results);
+
+    $self->linked_events($c, $stash, $opts->{events}->{items});
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize('collection', $collection, $c->stash->{inc}, $stash));
+}
+
 sub releases_get : Chained('load') PathPart('releases') Args(0)
 {
     my ($self, $c) = @_;
@@ -57,6 +95,11 @@ sub releases_get : Chained('load') PathPart('releases') Args(0)
 
     $self->linked_collections($c, $stash, [ $collection ]);
 
+    $c->model('CollectionType')->load($collection);
+
+    $self->_error($c, 'This is not a release collection.'),
+        unless ($collection->type->entity_type eq 'release');
+
     $c->model('Editor')->load($collection);
 
     my ($limit, $offset) = $self->_limit_and_offset($c);
@@ -74,10 +117,15 @@ sub releases : Chained('load') PathPart('releases') Args(1) {
     my ($self, $c, $releases) = @_;
     my $collection = $c->stash->{entity} // $c->detach('not_found');
 
+    $c->model('CollectionType')->load($collection);
+
     $self->authenticate($c, $ACCESS_SCOPE_COLLECTION);
 
     $self->_error($c, 'You do not have permission to modify this collection')
         unless ($c->user->id == $collection->editor_id);
+
+    $self->_error($c, 'This is not a release collection')
+        unless ($collection->type->entity_type eq 'release');
 
     my $client = $c->req->query_params->{client}
         or $self->_error($c, 'You must provide information about your client, by the client query parameter');
@@ -126,9 +174,10 @@ sub list_list : Chained('base') PathPart('')
 
     my $stash = WebServiceStash->new;
 
-    my @collections = $c->model('Collection')->find_all_by_editor($c->user->id);
+    my @collections = $c->model('Collection')->find_all_by_editor($c->user->id, 1);
     $c->model('Editor')->load(@collections);
     $c->model('Collection')->load_entity_count(@collections);
+    $c->model('CollectionType')->load(@collections);
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('collection_list', \@collections,

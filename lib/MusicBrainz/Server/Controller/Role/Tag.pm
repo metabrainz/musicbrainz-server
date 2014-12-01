@@ -64,6 +64,7 @@ sub tag_async : Chained('load') PathPart('ajax/tag') DenyWhenReadonly
 {
     my ($self, $c) = @_;
 
+    $c->res->headers->header('X-Robots-Tag' => 'noindex');
     if (!$c->user_exists) {
         $c->res->status(401);
         $c->res->body('{}');

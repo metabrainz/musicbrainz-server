@@ -88,6 +88,7 @@
             var position = medium.position();
 
             mediums.remove(medium);
+            medium.removed = true;
             mediums = mediums.peek();
 
             for (var i = index; medium = mediums[i]; i++) {
@@ -249,31 +250,13 @@
         },
 
         addNewTracks: function (medium) {
-            var tracks = medium.tracks;
-            var trackCount = tracks.peek().length;
             var releaseAC = medium.release.artistCredit;
             var defaultAC = releaseAC.isVariousArtists() ? null : releaseAC.toJSON();
             var addTrackCount = parseInt(medium.addTrackCount(), 10) || 1;
-            var isDataTrack = false;
 
-            if (trackCount) {
-                isDataTrack = tracks.peek()[trackCount - 1].isDataTrack.peek();
-            }
-
-            var newTracks = _(addTrackCount).times(function (i) {
-                var position = trackCount + i + 1;
-
-                var args = {
-                    position: position,
-                    number: position,
-                    artistCredit: defaultAC,
-                    isDataTrack: isDataTrack
-                };
-
-                return releaseEditor.fields.Track(args, medium);
-            }).value();
-
-            tracks.push.apply(tracks, newTracks);
+            _.times(addTrackCount, function () {
+                medium.pushTrack({ artistCredit: defaultAC });
+            });
         },
 
         // Recordings tab

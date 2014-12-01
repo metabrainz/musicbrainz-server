@@ -331,7 +331,7 @@ sub build_display_data
             @$tracklist_changes ];
 
         $data->{data_track_changes} = any {
-            ($_->[1] && $_->[1]->{is_data_track}) ne ($_->[2] && $_->[2]->{is_data_track})
+            ($_->[1] ? $_->[1]->{is_data_track} : 0) != ($_->[2] ? $_->[2]->{is_data_track} : 0)
         } @$tracklist_changes;
     }
 

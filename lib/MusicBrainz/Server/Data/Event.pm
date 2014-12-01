@@ -15,6 +15,7 @@ use MusicBrainz::Server::Data::Utils qw(
     merge_table_attributes
     merge_string_attributes
     merge_partial_date
+    order_by
     placeholders
     query_to_list_limited
 );
@@ -172,6 +173,15 @@ sub load_related_info {
     $c->model('EventType')->load(@events);
 }
 
+sub load_areas {
+    my ($self, @events) = @_;
+
+    my $c = $self->c;
+    $c->model('Area')->load(map { map { $_->{entity} } $_->all_places } @events);
+    $c->model('Area')->load_containment(map { (map { $_->{entity} } $_->all_areas),
+                                              (map { $_->{entity}->area } $_->all_places) } @events);
+}
+
 sub find_by_area
 {
     my ($self, $area_id, $limit, $offset) = @_;
@@ -222,15 +232,34 @@ sub find_by_artist
 
 sub find_by_collection
 {
-    my ($self, $collection_id, $limit, $offset) = @_;
+    my ($self, $collection_id, $limit, $offset, $order) = @_;
+
+    my $extra_join = "";
+    my $also_select = "";
+
+    my $order_by = order_by($order, "date", {
+        "date" => sub {
+            return "begin_date_year, begin_date_month, begin_date_day, time, musicbrainz_collate(name)"
+        },
+        "name" => sub {
+            return "musicbrainz_collate(name), begin_date_year, begin_date_month, begin_date_day, time"
+        },
+        "type" => sub {
+            return "type, begin_date_year, begin_date_month, begin_date_day, time, musicbrainz_collate(name)"
+        },
+    });
 
     my $query = "
+      SELECT *
+      FROM (
       SELECT DISTINCT ON (event.id)
         " . $self->_columns . "
         FROM " . $self->_table . "
         JOIN editor_collection_event ece ON event.id = ece.event
         WHERE ece.collection = ?
         ORDER BY id, begin_date_year, begin_date_month, begin_date_day, time, musicbrainz_collate(name)
+      ) event
+      ORDER BY $order_by
       OFFSET ?";
 
     return query_to_list_limited(

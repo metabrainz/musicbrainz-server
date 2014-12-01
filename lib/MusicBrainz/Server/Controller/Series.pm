@@ -61,8 +61,8 @@ sub show : PathPart('') Chained('load') {
     }
 
     if ($series->type->entity_type eq 'event') {
-        $c->model('Event')->load_performers(@entities);
-        $c->model('Event')->load_locations(@entities);
+        $c->model('Event')->load_related_info(@entities);
+        $c->model('Event')->load_areas(@entities);
         $c->model('Event')->rating->load_user_ratings($c->user->id, @entities) if $c->user_exists;
     }
 
@@ -154,8 +154,8 @@ before qw( edit create ) => sub {
     };
 
     $c->stash(
-        series_types => encode_json($series_types),
-        series_ordering_types => encode_json($series_ordering_types),
+        series_types => $series_types,
+        series_ordering_types => $series_ordering_types,
     );
 };
 

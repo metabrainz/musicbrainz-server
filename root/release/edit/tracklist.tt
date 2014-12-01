@@ -170,8 +170,14 @@
         [% l('Pregap') %]
       <!-- /ko -->
       <!-- ko if: position() > 0 -->
-        <button type="button" class="icon track-down" title="[% l('Move track down') %]" data-bind="disableBecauseDiscIDs: true" data-click="moveTrackDown"></button>
-        <button type="button" class="icon track-up" title="[% l('Move track up') %]" data-bind="disableBecauseDiscIDs: true" data-click="moveTrackUp"></button>
+        <button type="button" class="icon track-down" title="[% l('Move track down') %]"
+          data-bind="disableBecauseDiscIDs: !isDataTrack()"
+          data-click="moveTrackDown">
+        </button>
+        <button type="button" class="icon track-up" title="[% l('Move track up') %]"
+          data-bind="disableBecauseDiscIDs: !isDataTrack() || (previous() && !previous().isDataTrack())"
+          data-click="moveTrackUp">
+        </button>
       <!-- /ko -->
     </td>
 
@@ -201,7 +207,7 @@
     </td>
 
     <td class="length">
-      <input type="text" class="track-length" size="5" data-bind="value: formattedLength, valueUpdate: 'input', disableBecauseDiscIDs: position() > 0, css: { error: position() == 0 && medium.hasInvalidPregapLength() }" placeholder="?:??" />
+      <input type="text" class="track-length" size="5" data-bind="value: formattedLength, valueUpdate: 'input', disableBecauseDiscIDs: position() > 0 && !isDataTrack(), css: { error: position() == 0 && medium.hasInvalidPregapLength() }" placeholder="?:??" />
     </td>
 
     <td class="icon">
@@ -410,7 +416,7 @@
           <button data-click="swapTitlesWithArtists">[%- l('Swap track titles with artist credits') -%]</button>
         </div>
 
-        <div class="icon add-tracks" data-bind="ifnot: hasToc()">
+        <div class="icon add-tracks" data-bind="if: !hasToc() || hasDataTracks()">
           [% l('Add {num} track(s)', num => '<input type="text" maxlength="2" placeholder="1" data-bind="value: addTrackCount" />') %]
           <button type="button" class="icon add-item" title="[% l('Add track(s)') %]" data-click="addNewTracks"></button>
         </div>

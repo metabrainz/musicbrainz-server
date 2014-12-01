@@ -271,12 +271,15 @@
                     if (oldValue && !newValue) {
                         var dataTracks = self.dataTracks();
 
-                        while (dataTracks.length) {
-                            dataTracks[0].isDataTrack(false);
+                        if (self.hasToc()) {
+                            self.tracks.removeAll(dataTracks);
+                        } else {
+                            while (dataTracks.length) {
+                                dataTracks[0].isDataTrack(false);
+                            }
                         }
                     } else if (newValue && !oldValue) {
-                        var position = self.tracks().length + 1;
-                        self.tracks.push(fields.Track({ position: position, number: position, isDataTrack: true }, self));
+                        self.pushTrack({ isDataTrack: true });
                     }
                 }
             });
@@ -316,6 +319,24 @@
             });
         },
 
+        pushTrack: function (data) {
+            data = data || {};
+
+            if (data.position === undefined) {
+                data.position = this.tracks().length + (this.hasPregap() ? 0 : 1);
+            }
+
+            if (data.number === undefined) {
+                data.number = data.position;
+            }
+
+            if (this.hasDataTracks()) {
+                data.isDataTrack = true;
+            }
+
+            this.tracks.push(fields.Track(data, this));
+        },
+
         hasExistingTocs: function () {
             return !!(this.id && this.cdtocs && this.cdtocs.length);
         },
@@ -329,30 +350,49 @@
 
             toc = toc.split(/\s+/);
 
-            var pregapOffset = this.hasPregap() ? 1 : 0;
-            var tracks = this.tracks();
             var tocTrackCount = toc.length - 3;
-            var trackCount = tracks.length - pregapOffset;
+            var tracks = this.tracks();
+            var tocTracks = _.reject(tracks, function (t) { return t.position() == 0 || t.isDataTrack() });
+            var trackCount = tocTracks.length;
+            var pregapOffset = this.hasPregap() ? 0 : 1;
+
+            var wasConsecutivelyNumbered = _.all(tracks, function (t, index) {
+                return t.number() == (index + pregapOffset);
+            });
 
             if (trackCount > tocTrackCount) {
-                this.tracks(_.first(tracks, tocTrackCount + pregapOffset));
+                tocTracks = tocTracks.slice(0, tocTrackCount);
+
             } else if (trackCount < tocTrackCount) {
                 var self = this;
 
                 _.times(tocTrackCount - trackCount, function () {
-                    self.tracks.push(fields.Track({ position: tracks.length + (1 - pregapOffset) }, self));
+                    tocTracks.push(fields.Track({}, self));
                 });
             }
 
-            _(tracks).first(tocTrackCount + pregapOffset).each(function (track, index) {
-                if (track.position() === 0) {
-                    return;
-                }
+            this.tracks(
+                Array.prototype.concat(
+                    this.hasPregap() ? tracks[0] : [],
+                    tocTracks,
+                    this.dataTracks()
+                )
+            );
+
+            _.each(tocTracks, function (track, index) {
                 track.formattedLength(
                     MB.utility.formatTrackLength(
                         ((toc[index + 4] || toc[2]) - toc[index + 3]) / 75 * 1000
                     )
                 );
+            });
+
+            _.each(this.tracks(), function (track, index) {
+                track.position(pregapOffset + index);
+
+                if (wasConsecutivelyNumbered) {
+                    track.number(pregapOffset + index);
+                }
             });
         },
 
@@ -445,27 +485,10 @@
             return MB.text.Tracklist;
         },
 
-        formatsWithDiscIDs: [
-            1,  // CD
-            3,  // SACD
-            4,  // DualDisc
-            13, // Other
-            25, // HDCD
-            33, // CD-R
-            34, // 8cm CD
-            35, // Blu-spec CD
-            36, // SHM-CD
-            37, // HQCD
-            38, // Hybrid SACD
-            39, // CD+G
-            40, // 8cm CD+G
-            41  // CDV
-        ],
-
         canHaveDiscID: function () {
             var formatID = parseInt(this.formatID(), 10);
 
-            return !formatID || _.contains(this.formatsWithDiscIDs, formatID);
+            return !formatID || _.contains(MB.formatsWithDiscIDs, formatID);
         }
     });
 
@@ -695,7 +718,8 @@
                 utils.mapChild(this, data.mediums, fields.Medium)
             );
 
-            this.mediums.original = ko.observable(this.existingMediumData());
+            this.mediums.original = ko.observableArray([]);
+            this.mediums.original(this.existingMediumData());
             this.original = ko.observable(MB.edit.fields.release(this));
 
             this.loadedMediums = this.mediums.filter("loaded");
@@ -756,9 +780,15 @@
         },
 
         existingMediumData: function () {
-            return _.transform(this.mediums(), function (result, medium) {
+            // This function should return the mediums on the release as they
+            // hopefully exist in the DB, so including ones removed from the
+            // page (as long as they have an id, i.e. were attached before).
+
+            var mediums = _.union(this.mediums(), this.mediums.original());
+
+            return _.transform(mediums, function (result, medium) {
                 if (medium.id) {
-                    result.push({ id: medium.id, position: medium.position() });
+                    result.push(medium);
                 }
             });
         }

@@ -33,6 +33,7 @@ before build_display_data => sub {
 
     my @events = grep defined, map { $loaded->{Event}{$_} } $self->event_ids;
     $self->c->model('Event')->load_related_info(@events);
+    $self->c->model('Event')->load_areas(@events);
 };
 
 

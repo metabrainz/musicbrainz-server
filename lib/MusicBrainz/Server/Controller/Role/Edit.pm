@@ -33,6 +33,8 @@ role {
         my $entity_name = $self->{entity_name};
         my $edit_entity = $c->stash->{ $entity_name };
 
+        $c->stash->{template} = 'entity/edit.tt';
+
         return $self->edit_action($c,
             form        => $params->form,
             type        => $params->edit_type,

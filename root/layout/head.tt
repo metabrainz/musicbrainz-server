@@ -3,14 +3,11 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>[% title %][% " - " IF title && !nosuffix %][% "MusicBrainz" IF !nosuffix %]</title>
+    <title>[% title %][% IF !homepage; " - " IF title; l('Page {n}', { n => pager.current_page }) _ " - " IF pager.current_page > 1; "MusicBrainz"; END %]</title>
     [%~ USE Canonicalize ~%]
     [%~ IF Canonicalize.canonicalize(canonical_url || c.req.uri) != c.req.uri ~%]
         <link rel="canonical" href="[% Canonicalize.canonicalize(canonical_url || c.req.uri) | html %]" />
     [%~ END ~%]
-    <script type="text/javascript">//<![CDATA[
-        document.cookie = "javascript=true; path=/";
-    //]]></script>
     [% css_manifest('common.css.manifest') %]
     [% css_manifest('icons.css.manifest') UNLESS no_icons %]
     [%- IF c.debug -%]
@@ -20,21 +17,21 @@
     <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Label") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_label.xml') %]" />
     <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Release") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_release.xml') %]" />
     <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Track") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_track.xml') %]" />
-    [% IF no_javascript ~%]
+    <noscript>
         <style type="text/css">
           #header-menu li:hover ul { left: auto; }
         </style>
-    [%~ ELSE ~%]
-        [%~ script_manifest('common.js.manifest') ~%]
-        <script type="text/javascript" src="
-            [%- lang_hash = current_language;
-                IF current_language != 'en';
-                    lang_hash = lang_hash _ '-' _ c.model('FileCache').pofile_signature('mb_server', current_language);
-                END;
-                c.uri_for('/scripts', lang_hash
-                    c.model('FileCache').template_signature('scripts/text_strings.tt'),
-                    'text.js') -%]"></script>
-    [%- END -%]
+    </noscript>
+
+    [%~ script_manifest('common.js.manifest') ~%]
+    <script type="text/javascript" src="
+        [%- lang_hash = current_language;
+            IF current_language != 'en';
+                lang_hash = lang_hash _ '-' _ c.model('FileCache').pofile_signature('mb_server', current_language);
+            END;
+            c.uri_for('/scripts', lang_hash
+                c.model('FileCache').template_signature('scripts/text_strings.tt'),
+                'text.js') -%]"></script>
     [%- BLOCK layout_head %][% END -%]
     [%- INCLUDE layout_head -%]
     [%~ IF jsonld_data ~%]
