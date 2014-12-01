@@ -30,7 +30,7 @@ Prerequisites
     PostgreSQL is required, along with its development libraries. To install
     using packages run the following, replacing 9.x with the latest version.
 
-        sudo apt-get install postgresql-9.x postgresql-server-dev-9.x postgresql-contrib-9.x
+        sudo apt-get install postgresql-9.x postgresql-server-dev-9.x postgresql-contrib-9.x postgresql-plperl-9.x
 
     Alternatively, you may compile PostgreSQL from source, but then make sure to
     also compile the cube extension found in contrib/cube. The database import
@@ -167,7 +167,12 @@ Below outlines how to setup MusicBrainz server with local::lib.
 
 2.  Install dependencies
 
-    To install the dependencies for MusicBrainz server, first make sure you are
+    First install one module as a system package (it is used by a database
+    function):
+
+        sudo apt-get install libjson-xs-perl
+
+    To install the other dependencies for MusicBrainz Server, make sure you are
     in the MusicBrainz source code directory and run the following:
 
         cpanm --installdeps --notest .
@@ -249,6 +254,8 @@ Creating the database
 
         Our database dumps are provided twice a week and can be downloaded from
         ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/
+        or the European mirror server at
+        ftp://eu.ftp.musicbrainz.org/MusicBrainz/data/fullexport/
 
         To get going, you need at least the mbdump.tar.bz2,
         mbdump-editor.tar.bz2 and mbdump-derived.tar.bz2 archives, but you can
