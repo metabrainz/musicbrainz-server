@@ -71,7 +71,10 @@ sub _id_column
 sub get_by_ids
 {
     my ($self, @ids) = @_;
-    @ids = grep defined, @ids;
+
+    # Max size for an int in postgresql:
+    # http://www.postgresql.org/docs/current/static/datatype-numeric.html
+    @ids = grep { defined($_) && $_ <= 2147483647 } @ids;
     return {} unless @ids;
 
     return $self->_get_by_keys($self->_id_column, uniq(@ids));
