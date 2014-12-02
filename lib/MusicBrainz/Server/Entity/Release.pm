@@ -188,28 +188,18 @@ sub combined_format_name
     return combined_medium_format_name(map { $_->l_format_name() || l('(unknown)') } @mediums );
 }
 
-sub has_multiple_artists
-{
+sub has_multiple_artists {
     my ($self) = @_;
     foreach my $medium ($self->all_mediums) {
-        foreach my $track ($medium->all_tracks) {
-            if ($track->artist_credit_id != $self->artist_credit_id) {
-                return 1;
-            }
-        }
+        return 1 if $medium->has_multiple_artists;
     }
     return 0;
 }
 
-sub includes_video
-{
+sub includes_video {
     my ($self) = @_;
     foreach my $medium ($self->all_mediums) {
-        foreach my $track ($medium->all_tracks) {
-            if ($track->recording->video) {
-                return 1;
-            }
-        }
+        return 1 if $medium->includes_video;
     }
     return 0;
 }

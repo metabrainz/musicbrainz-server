@@ -138,6 +138,22 @@ sub cdtoc_tracks {
     return grep { $_->position > 0 && !$_->is_data_track } $self->all_tracks;
 }
 
+sub has_multiple_artists {
+    my ($self) = @_;
+    foreach my $track ($self->all_tracks) {
+        return 1 if $track->artist_credit_id != $self->artist_credit_id;
+    }
+    return 0;
+}
+
+sub includes_video {
+    my ($self) = @_;
+    foreach my $track ($self->all_tracks) {
+        return 1 if $track->recording->video;
+    }
+    return 0;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
