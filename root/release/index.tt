@@ -25,11 +25,6 @@
     <h2 class="tracklist">[% l('Tracklist') %]</h2>
     <button type="button" id="toggle-credits"></button>
 
-    <style>
-    #toggle-credits { float: right; }
-    table.tbl td { vertical-align: top }
-    </style>
-
     [%~ PROCESS 'components/medium.tt' ~%]
 
     [% FOR medium IN release.all_mediums %]

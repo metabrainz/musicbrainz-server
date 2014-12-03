@@ -561,6 +561,8 @@ table.tbl {
     }
 }
 
+#toggle-credits { float: right; }
+
 table.tbl.medium {
     /* Kills the 2px borders between collapsed discs on release pages. */
     margin-top: -1px;
@@ -568,6 +570,9 @@ table.tbl.medium {
     .expand-triangle {
         color: @musicbrainz-purple;
     }
+
+    /* Visibly apparent for tracks with inline credits. */
+    td { vertical-align: top; }
 }
 
 /* Nesting of different table types */
