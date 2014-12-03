@@ -106,7 +106,7 @@ after show => sub {
         my $position = $args[1];
         my @mediums = $c->stash->{release}->all_mediums;
 
-        if (@mediums >= 10) {
+        if (@mediums > 10) {
             my $medium = $mediums[$position - 1] if looks_like_number($position);
 
             if ($medium) {
@@ -170,7 +170,7 @@ sub show : Chained('load') PathPart('') {
     my $release = $c->stash->{release};
     my @mediums = $release->all_mediums;
 
-    if (@mediums < 10) {
+    if (@mediums <= 10) {
         my $user_id = $c->user->id if $c->user_exists;
         $c->model('Medium')->load_related_info($user_id, @mediums);
     }
