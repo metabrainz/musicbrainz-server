@@ -117,6 +117,18 @@ div.buttons, span.buttons { display: inline-block; }
     padding: 2px 6px;
 }
 
+/* Buttons styled to look like links (class name from Bootstrap) */
+.btn-link {
+    color: @link-default;
+    background: none;
+    border: 0;
+
+    &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
+
 /* Legacy styling
    Inputs that use this shoud be converted to buttons */
 form div.row input[type=button],

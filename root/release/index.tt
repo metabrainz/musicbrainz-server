@@ -23,7 +23,7 @@
     [%- INCLUDE 'annotation/summary.tt' -%]
 
     <h2 class="tracklist">[% l('Tracklist') %]</h2>
-    <button type="button" id="toggle-credits"></button>
+    <button type="button" id="toggle-credits" class="btn-link"></button>
 
     [%~ PROCESS 'components/medium.tt' ~%]
 
