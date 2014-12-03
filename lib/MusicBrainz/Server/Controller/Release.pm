@@ -105,11 +105,14 @@ after show => sub {
     if ($args[0] eq 'disc') {
         my $position = $args[1];
         my @mediums = $c->stash->{release}->all_mediums;
-        my $medium = $mediums[$position - 1] if looks_like_number($position);
 
-        if ($medium) {
-            my $user_id = $c->user->id if $c->user_exists;
-            $c->model('Medium')->load_related_info($user_id, $medium);
+        if (@mediums >= 10) {
+            my $medium = $mediums[$position - 1] if looks_like_number($position);
+
+            if ($medium) {
+                my $user_id = $c->user->id if $c->user_exists;
+                $c->model('Medium')->load_related_info($user_id, $medium);
+            }
         }
     }
 };
