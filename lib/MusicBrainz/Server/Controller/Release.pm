@@ -172,6 +172,7 @@ sub show : Chained('load') PathPart('') {
         $c->model('Medium')->load_related_info($user_id, @mediums);
     }
 
+    $c->model('ArtistCredit')->load($release);
     $c->stash->{template} = 'release/index.tt';
 }
 
