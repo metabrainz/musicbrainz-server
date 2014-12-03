@@ -282,7 +282,7 @@ sub track_range {
     my $output = pop @ranges;
 
     for (reverse @ranges) {
-        $output = l('{list_item}, {rest}', { list_item => $_, rest => $output });
+        $output = l('{commas_only_list_item}, {rest}', { commas_only_list_item => $_, rest => $output });
     }
 
     return $output;
