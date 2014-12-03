@@ -382,7 +382,7 @@ sub schema_fixup
     {
         $data->{coordinates} = MusicBrainz::Server::Entity::Coordinates->new( $data->{coordinates} );
     }
-    if (($type eq 'artist' || $type eq 'label' || $type eq 'area' || $type eq 'place') && exists $data->{'life-span'})
+    if (($type ~~ [qw(artist event label area place)]) && exists $data->{'life-span'})
     {
         $data->{begin_date} = MusicBrainz::Server::Entity::PartialDate->new($data->{'life-span'}->{begin})
             if (exists $data->{'life-span'}->{begin});
