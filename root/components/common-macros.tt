@@ -769,12 +769,6 @@ END -%]
    </div>
 [%- END -%]
 
-[%~ MACRO notice(message) BLOCK -%]
-   <div class="notice">
-     <p>[% l('<strong>Note</strong>:') %] [% message %]</p>
-   </div>
-[%- END -%]
-
 [%~ MACRO javascript_required BLOCK ~%]
     <noscript>
      [%~ warning( l("Javascript is required for this page to work properly."), "nojavascript" ) ~%]
