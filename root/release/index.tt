@@ -33,7 +33,23 @@
     [%~ PROCESS 'components/medium.tt' ~%]
 
     [% FOR medium IN release.all_mediums %]
-      [% medium_table(medium) %]
+      <table class="tbl medium">
+        <thead>
+          <tr[% ' class="mp"' IF medium.edits_pending %]>
+            <th colspan="6">
+              <a class="expand-medium" id="disc[% medium.position %]" data-medium-id="[% medium.id %]"
+                 href="[% c.uri_for_action('/release/show', [medium.release.gid]) _
+                          '/disc/' _ medium.position _ '#disc' _ medium.position %]">
+                <span class="expand-triangle">
+                  [% medium.tracks.size ? '&#x25BC' : '&#x25B6' %]
+                </span>
+                [% medium.position_and_name %]
+              </a>
+            </th>
+          </tr>
+        </thead>
+        [% medium_body(medium) IF medium.tracks.size %]
+      </table>
     [% END %]
 
     <div id="bottom-credits">
