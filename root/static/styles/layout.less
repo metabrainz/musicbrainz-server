@@ -464,54 +464,52 @@ table.tbl {
     border-top: solid 1px @dark-border;
     border-bottom: solid 1px @dark-border;
 
-    > * > tr {
-        > td {
-            padding: 0.2em 0.4em;
+    th {
+        font-size: 95%;
+        background: data-uri('../images/layout/table-header.gif') repeat-x 0 50%;
+        padding: 0.2em 0.4em;
+        text-align: left;
+        border-bottom: solid 1px @dark-border;
+        border-left: solid 1px @medium-border;
+        word-break: keep-all;
+        white-space: nowrap;
+
+        a {
+            color: @text-black;
         }
 
-        > th {
-            font-size: 95%;
-            background: data-uri('../images/layout/table-header.gif') repeat-x 0 50%;
-            padding: 0.2em 0.4em;
-            text-align: left;
-            border-bottom: solid 1px @dark-border;
-            border-left: solid 1px @medium-border;
-            word-break: keep-all;
-            white-space: nowrap;
-
-            a {
-                color: @text-black;
-            }
-
-            &:first-child {
-                border-left: none;
-            }
-        }
-
-        &.subh {
-            > td, > th {
-                font-size: 95%;
-                background: data-uri('../images/layout/table-header-2.gif') repeat-x 0 50%;
-                font-weight: bold;
-                border-top: solid 1px @dark-border;
-                border-bottom: solid 1px @dark-border;
-            }
+        &:first-child {
+            border-left: none;
         }
     }
 
-    > tbody > tr > th {
-        border-right: 1px solid @dark-border;
-        background: none;
-
-        &:last-child {
-            border-right: 0;
-        }
+    td {
+        padding: 0.2em 0.4em;
     }
 
     ul {
         margin: 0;
         padding: 0;
         list-style: none;
+    }
+
+    tr.subh {
+        td, th {
+            font-size: 95%;
+            background: data-uri('../images/layout/table-header-2.gif') repeat-x 0 50%;
+            font-weight: bold;
+            border-top: solid 1px @dark-border;
+            border-bottom: solid 1px @dark-border;
+        }
+    }
+
+    tbody th {
+        border-right: 1px solid @dark-border;
+        background: none;
+
+        &:last-child {
+            border-right: 0;
+        }
     }
 
     /* Striping */
@@ -579,15 +577,6 @@ table.details table.tbl th {
     padding: 0.2em 0.4em;
     text-align: left;
     width: auto;
-}
-
-table.small-details {
-    font-size: 11px;
-
-    > tbody > tr > th:first-child {
-        text-align: right;
-        vertical-align: top;
-    }
 }
 
 /* Paginator */
