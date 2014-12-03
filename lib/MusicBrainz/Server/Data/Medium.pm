@@ -290,6 +290,7 @@ sub reorder {
 sub load_related_info {
     my ($self, $user_id, @mediums) = @_;
 
+    $self->c->model('MediumFormat')->load(@mediums);
     $self->c->model('Release')->load(@mediums);
     $self->c->model('Track')->load_for_mediums(@mediums);
 
