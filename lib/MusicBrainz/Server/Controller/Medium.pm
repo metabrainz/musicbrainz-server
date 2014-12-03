@@ -13,10 +13,10 @@ sub base : Chained('/') PathPart('medium') CaptureArgs(1) {
     $c->stash->{medium} = $medium;
 }
 
-sub fragment : Chained('base') PathPart('fragment') {
+sub fragments : Chained('base') PathPart('fragments') {
     my ($self, $c) = @_;
 
-    $c->stash->{template} = 'components/tracklist-body.tt';
+    $c->stash->{template} = 'components/medium-fragments.tt';
 }
 
 __PACKAGE__->meta->make_immutable;

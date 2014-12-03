@@ -7,8 +7,10 @@
           [% FOR relationship IN link_type_group.value %]
             [% work = relationship.target %]
             <dt>[% add_colon(link_type_group.key) %]</dt>
-            <dd>[% link_work(work, 'show', work.name) %]</dd>
-            [% grouped_relationships(work) %]
+            <dd>
+              [% link_work(work, 'show', work.name) %]
+              [% grouped_relationships(work) %]
+            </dd>
           [% END %]
         [% ELSE %]
           <dt>[% add_colon(link_type_group.key) %]</dt>
@@ -54,7 +56,7 @@
   </tr>
 [%~ END ~%]
 
-[%~ MACRO medium_tracklist_body(medium) BLOCK ~%]
+[%~ MACRO medium_body(medium) BLOCK ~%]
   [% show_video = medium.includes_video; show_artists = medium.has_multiple_artists %]
   <tbody>
     <tr class="subh">
@@ -85,35 +87,6 @@
         [% medium_track_row(track, show_video, show_artists) %]
       [% END %]
     [% END %]
-
-    [% IF medium.combined_track_relationships.size %]
-      <tr class="subh bottom-credits">
-        <td colspan="6">[% l('Credits') %]</td>
-      </tr>
-      <tr class="bottom-credits">
-        <td colspan="6">
-          <table class="small-details">
-            [% FOR target_type_group=medium.combined_track_relationships.pairs %]
-              [%- FOR phrase_group IN target_type_group.value -%]
-                <tr>
-                  <th>[% add_colon(phrase_group.phrase) %]</th>
-                  <td>
-                    [% FOR item IN phrase_group.items %]
-                      <div class="track-rel">
-                        [% relationship_target_links(item.relationship) %]
-                        <span class="comment">
-                          ([% ln('track {tracks}', 'tracks {tracks}', item.track_count, { tracks => item.tracks }) %])
-                        </span>
-                      </div>
-                    [% END %]
-                  </td>
-                </tr>
-              [%- END -%]
-            [% END %]
-          </table>
-        </td>
-      </tr>
-    [% END %]
   </tbody>
 [%~ END ~%]
 
@@ -133,6 +106,31 @@
         </th>
       </tr>
     </thead>
-    [% medium_tracklist_body(medium) IF medium.tracks.size %]
+    [% medium_body(medium) IF medium.tracks.size %]
   </table>
+[%~ END ~%]
+
+[%~ MACRO medium_credits(medium) BLOCK ~%]
+  <div class="bottom-credits" data-position="[% medium.position %]">
+    <h3>[% medium.position_and_name %]</h3>
+    <table class="details">
+      [% FOR target_type_group=medium.combined_track_relationships.pairs %]
+        [%- FOR phrase_group IN target_type_group.value -%]
+          <tr>
+            <th>[% add_colon(phrase_group.phrase) %]</th>
+            <td>
+              [% FOR item IN phrase_group.items %]
+                <div class="track-rel">
+                  [% relationship_target_links(item.relationship) %]
+                  <span class="comment">
+                    ([% ln('track {tracks}', 'tracks {tracks}', item.track_count, { tracks => item.tracks }) %])
+                  </span>
+                </div>
+              [% END %]
+            </td>
+          </tr>
+        [%- END -%]
+      [% END %]
+    </table>
+  </div>
 [%~ END ~%]

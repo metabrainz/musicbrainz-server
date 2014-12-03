@@ -4,26 +4,21 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 $(function () {
+  var $bottomCredits = $('#bottom-credits');
   var bottomCreditsEnabled = $.cookie('bottom-credits') === '1';
 
-  function showBottomCredits($table) {
-    $table.find('div.ars').hide();
-    $table.find('tr.bottom-credits').show();
-  }
-
-  function showInlineCredits($table) {
-    $table.find('tr.bottom-credits').hide();
-    $table.find('div.ars').show();
-  }
-
   function switchToInlineCredits() {
-    showInlineCredits($('table.tbl'));
+    $('.bottom-credits').hide();
+    $('table.tbl div.ars').show();
+
     $toggle.text(MB.text.DisplayCreditsAtBottom);
     $.cookie('bottom-credits', '0', { path: '/', expires: 365 });
   }
 
   function switchToBottomCredits() {
-    showBottomCredits($('table.tbl'));
+    $('table.tbl div.ars').hide();
+    $('.bottom-credits').show();
+
     $toggle.text(MB.text.DisplayCreditsInline);
     $.cookie('bottom-credits', '1', { path: '/', expires: 365 });
   }
@@ -36,35 +31,54 @@ $(function () {
   bottomCreditsEnabled ? switchToBottomCredits() : switchToInlineCredits();
 
   $(document).on('click', '.expand-medium', function () {
-    var $table = $(this).parents("table:first");
-    var $tbody = $table.children("tbody");
-    var $triangle = $table.find(".expand-triangle");
+    var $table = $(this).parents('table:first');
+    var $tbody = $table.children('tbody');
+    var $triangle = $table.find('.expand-triangle');
 
     if ($tbody.length) {
       $tbody.toggle();
       $triangle.html($tbody.is(':visible') ? '&#x25BC' : '&#x25B6');
-
-    } else if (!$table.data('loading')) {
-      $table.data('loading', true);
-      $triangle.html('&#x25BC');
-
-      var $loading = $('<div>').addClass('loading-message').text(MB.text.Loading).insertAfter($table)
-      var mediumId = this.getAttribute('data-medium-id');
-
-      $.get('/medium/' + mediumId + '/fragment')
-        .always(function () {
-          $table.data('loading', false);
-          $loading.remove();
-        })
-        .done(function (fragment) {
-          $table.append(fragment);
-
-          bottomCreditsEnabled ? showBottomCredits($table) : showInlineCredits($table);
-        })
-        .fail(function () {
-          $("<div>").text(MB.text.FailedToLoadMedium).insertAfter($table);
-        });
+      return false;
     }
+
+    $triangle.html('&#x25BC');
+    $tbody = $('<tbody><tr><td></td></tr></tbody>').appendTo($table);
+
+    var $message = $('<div>')
+      .appendTo($tbody.find('td'))
+      .addClass('loading-message')
+      .text(MB.text.Loading);
+
+    var mediumId = this.getAttribute('data-medium-id');
+
+    $.get('/medium/' + mediumId + '/fragments')
+      .done(function (fragments) {
+        var $fragments = $($.parseHTML(fragments));
+
+        var $tracks = $fragments.filter('table').children('tbody');
+        var $credits = $fragments.filter('div').toggle(bottomCreditsEnabled);
+
+        $tracks.find('div.ars').toggle(!bottomCreditsEnabled);
+        $tbody.replaceWith($tracks);
+
+        var position = $credits.data('position');
+        var insertAfter;
+
+        $bottomCredits.find('.bottom-credits').each(function (index, other) {
+          var $other = $(other);
+
+          if (position > $other.data('position')) {
+            insertAfter = $other;
+          } else {
+            return false;
+          }
+        });
+
+        insertAfter ? $credits.insertAfter(insertAfter) : $bottomCredits.find('h2').after($credits);
+      })
+      .fail(function () {
+        $message.removeClass('loading-message').text(MB.text.FailedToLoadMedium);
+      });
 
     // Prevent browser from following link
     return false;

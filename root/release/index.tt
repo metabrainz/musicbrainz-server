@@ -36,15 +36,23 @@
       [% medium_with_tracklist(medium) %]
     [% END %]
 
-    <div id="release-relationships">
-      [%- INCLUDE "components/relationships.tt"
-            source=release
-            relationships_heading=l('Release Relationships') -%]
-    </div>
+    <div id="bottom-credits">
+      <h2>[% l('Credits') %]</h2>
 
-    <div id="release-group-relationships">
-      [%- INCLUDE "components/relationships.tt"
-            source=release.release_group
-            relationships_heading=l('Release Group Relationships') -%]
+      [% FOR medium IN release.all_mediums %]
+        [% IF medium.combined_track_relationships.size %]
+          [% medium_credits(medium) %]
+        [% END %]
+      [% END %]
+
+      <div id="release-relationships">
+        <h3>[% l('Release') %]</h3>
+        [%- INCLUDE "components/relationships.tt" source=release no_relationships_heading=1 -%]
+      </div>
+
+      <div id="release-group-relationships">
+        <h3>[% l('Release Group') %]</h3>
+        [%- INCLUDE "components/relationships.tt" source=release.release_group no_relationships_heading=1 -%]
+      </div>
     </div>
 [%- END -%]
