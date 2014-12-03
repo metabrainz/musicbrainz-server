@@ -188,22 +188,6 @@ sub combined_format_name
     return combined_medium_format_name(map { $_->l_format_name() || l('(unknown)') } @mediums );
 }
 
-sub has_multiple_artists {
-    my ($self) = @_;
-    foreach my $medium ($self->all_mediums) {
-        return 1 if $medium->has_multiple_artists;
-    }
-    return 0;
-}
-
-sub includes_video {
-    my ($self) = @_;
-    foreach my $medium ($self->all_mediums) {
-        return 1 if $medium->includes_video;
-    }
-    return 0;
-}
-
 has [qw( cover_art_url info_url amazon_asin amazon_store )] => (
     is => 'rw',
     isa => 'Str',
