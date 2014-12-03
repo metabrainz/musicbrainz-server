@@ -1,6 +1,10 @@
 [%- WRAPPER "label/layout.tt" title=l('Relationships') page='relationships' -%]
-    [% INCLUDE "components/relationships.tt" source=label
-        relationships=label.grouped_relationships('artist', 'url', 'label', 'place', 'area', 'series', 'instrument') %]
+    [% IF label.relationships.size %]
+        [% INCLUDE "components/relationships.tt" source=label
+            relationships=label.grouped_relationships('artist', 'url', 'label', 'place', 'area', 'series', 'instrument') %]
+    [%- ELSE -%]
+        <p>[% l('{link} has no relationships.', { link => link_entity(label) }) -%]</p>
+    [%- END -%]
 
     [%- INCLUDE "components/relationships-table.tt" heading=l("Appearances") entity=label -%]
 [%- END -%]

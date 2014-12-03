@@ -32,8 +32,6 @@
 
 [% IF relationships.size %]
   [% static_display(relationships) %]
-[%- ELSE -%]
-    <p>[% l('{link} has no relationships.', { link => link_entity(source) }) -%]</p>
 [%- END -%]
 
 [% IF source.related_works.size %]

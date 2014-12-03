@@ -6,10 +6,12 @@
 $(function () {
   var $bottomCredits = $('#bottom-credits');
   var bottomCreditsEnabled = $.cookie('bottom-credits') === '1';
+  var hasReleaseCredits = !!$('#release-relationships, #release-group-relationships').length;
 
   function switchToInlineCredits() {
     $('.bottom-credits').hide();
     $('table.tbl div.ars').show();
+    $bottomCredits.toggle(hasReleaseCredits);
 
     $toggle.text(MB.text.DisplayCreditsAtBottom);
     $.cookie('bottom-credits', '0', { path: '/', expires: 365 });
@@ -18,6 +20,7 @@ $(function () {
   function switchToBottomCredits() {
     $('table.tbl div.ars').hide();
     $('.bottom-credits').show();
+    $bottomCredits.show();
 
     $toggle.text(MB.text.DisplayCreditsInline);
     $.cookie('bottom-credits', '1', { path: '/', expires: 365 });

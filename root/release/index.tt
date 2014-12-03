@@ -45,14 +45,18 @@
         [% END %]
       [% END %]
 
-      <div id="release-relationships">
-        <h3>[% l('Release') %]</h3>
-        [%- INCLUDE "components/relationships.tt" source=release no_relationships_heading=1 -%]
-      </div>
+      [%- IF release.relationships.size -%]
+        <div id="release-relationships">
+          <h3>[% l('Release') %]</h3>
+          [%- INCLUDE "components/relationships.tt" source=release no_relationships_heading=1 -%]
+        </div>
+      [%- END -%]
 
-      <div id="release-group-relationships">
-        <h3>[% l('Release Group') %]</h3>
-        [%- INCLUDE "components/relationships.tt" source=release.release_group no_relationships_heading=1 -%]
-      </div>
+      [%- IF release.release_group.relationships.size -%]
+        <div id="release-group-relationships">
+          <h3>[% l('Release Group') %]</h3>
+          [%- INCLUDE "components/relationships.tt" source=release.release_group no_relationships_heading=1 -%]
+        </div>
+      [%- END -%]
     </div>
 [%- END -%]
