@@ -87,7 +87,7 @@ role
     {
         my ($self, $c, $id) = @_;
 
-        if (is_guid($id)) {
+        if (is_guid($id) && $c->model($model)->can('get_by_gid')) {
             return $c->model($model)->get_by_gid($id);
         } elsif (is_positive_integer($id)) {
             return $c->model($model)->get_by_id($id);
