@@ -3,6 +3,7 @@ use MooseX::Role::Parameterized -metaclass => 'MusicBrainz::Server::Controller::
 use MusicBrainz::Server::Data::Utils 'model_to_type';
 use MusicBrainz::Server::Validation qw( is_guid );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
+use Scalar::Util qw( looks_like_number );
 
 no if $] >= 5.018, warnings => "experimental::smartmatch";
 
@@ -89,8 +90,9 @@ role
 
         if (is_guid($id)) {
             return $c->model($model)->get_by_gid($id);
-        }
-        else {
+        } elsif (looks_like_number($id)) {
+            return $c->model($model)->get_by_id($id);
+        } else {
             # This will detach for us
             $self->invalid_mbid($c, $id);
         }
