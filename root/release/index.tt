@@ -33,7 +33,7 @@
     [%~ PROCESS 'components/medium.tt' ~%]
 
     [% FOR medium IN release.all_mediums %]
-      [% medium_with_tracklist(medium) %]
+      [% medium_table(medium) %]
     [% END %]
 
     <div id="bottom-credits">

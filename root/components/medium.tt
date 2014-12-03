@@ -90,7 +90,7 @@
   </tbody>
 [%~ END ~%]
 
-[%~ MACRO medium_with_tracklist(medium) BLOCK ~%]
+[%~ MACRO medium_table(medium) BLOCK ~%]
   <table class="tbl medium">
     <thead>
       <tr[% ' class="mp"' IF medium.edits_pending %]>
