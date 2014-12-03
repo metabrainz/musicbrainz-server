@@ -1,28 +1,28 @@
 [%~ MACRO grouped_relationships(source) BLOCK ~%]
-  [% FOR target_type_group=source.grouped_relationships.pairs %]
-    [% NEXT IF target_type_group.key == 'url' %]
+  [%- FOR target_type_group=source.grouped_relationships.pairs %]
+    [%- NEXT IF target_type_group.key == 'url' %]
     <dl class="ars">
-      [% FOR link_type_group=target_type_group.value.pairs %]
-        [% IF target_type_group.key == 'work' %]
-          [% FOR relationship IN link_type_group.value %]
-            [% work = relationship.target %]
+      [%- FOR link_type_group=target_type_group.value.pairs %]
+        [%- IF target_type_group.key == 'work' %]
+          [%- FOR relationship IN link_type_group.value %]
+            [%- work = relationship.target %]
             <dt>[% add_colon(link_type_group.key) %]</dt>
             <dd>
-              [% link_work(work, 'show', work.name) %]
-              [% grouped_relationships(work) %]
+              [%- link_work(work, 'show', work.name) %]
+              [%- grouped_relationships(work) %]
             </dd>
-          [% END %]
-        [% ELSE %]
+          [%- END %]
+        [%- ELSE %]
           <dt>[% add_colon(link_type_group.key) %]</dt>
-          [% links = [] %]
-          [% FOR relationship IN link_type_group.value %]
+          [%- links = [] %]
+          [%- FOR relationship IN link_type_group.value %]
             [% links.push(relationship_target_links(relationship)) %]
-          [% END %]
+          [%- END %]
           <dd>[% comma_list(links) %]</dd>
-        [% END %]
-      [% END %]
+        [%- END %]
+      [%- END %]
     </dl>
-  [% END %]
+  [%- END %]
 [%~ END ~%]
 
 [%~ MACRO medium_track_row(track, show_video, show_artists) BLOCK ~%]
