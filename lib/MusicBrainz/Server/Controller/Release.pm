@@ -35,7 +35,6 @@ use Scalar::Util qw( looks_like_number );
 use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash artist_credit_to_ref );
 use MusicBrainz::Server::Edit::Utils qw( calculate_recording_merges );
 
-use aliased 'MusicBrainz::Server::Entity::Work';
 use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
 
 # A duration lookup has to match within this many milliseconds
@@ -100,6 +99,21 @@ after 'load' => sub
     }
 };
 
+after show => sub {
+    my ($self, $c, @args) = @_;
+
+    if ($args[0] eq 'disc') {
+        my $position = $args[1];
+        my @mediums = $c->stash->{release}->all_mediums;
+        my $medium = $mediums[$position - 1] if looks_like_number($position);
+
+        if ($medium) {
+            my $user_id = $c->user->id if $c->user_exists;
+            $c->model('Medium')->load_related_info($user_id, $medium);
+        }
+    }
+};
+
 # Stuff that has the side bar and thus needs to display collection information
 after [qw( cover_art add_cover_art edit_cover_art reorder_cover_art
            show collections details discids tags )] => sub {
@@ -147,34 +161,18 @@ tags, tracklisting, release events, etc.
 
 =cut
 
-sub show : Chained('load') PathPart('')
-{
+sub show : Chained('load') PathPart('') {
     my ($self, $c) = @_;
 
     my $release = $c->stash->{release};
-
     my @mediums = $release->all_mediums;
-    $c->model('Track')->load_for_mediums(@mediums);
 
-    my @tracks = map { $_->all_tracks } @mediums;
-    my @recordings = $c->model('Recording')->load(@tracks);
-    $c->model('Recording')->load_meta(@recordings);
-    if ($c->user_exists) {
-        $c->model('Recording')->rating->load_user_ratings($c->user->id, @recordings);
+    if (@mediums < 10) {
+        my $user_id = $c->user->id if $c->user_exists;
+        $c->model('Medium')->load_related_info($user_id, @mediums);
     }
-    $c->model('ArtistCredit')->load($release, @tracks);
 
-    $c->model('Relationship')->load(@recordings);
-    $c->model('Relationship')->load(
-        grep { $_->isa(Work) } map { $_->target }
-            map { $_->all_relationships } @recordings);
-
-    $c->stash(
-        template      => 'release/index.tt',
-        show_artists  => $release->has_multiple_artists,
-        show_video  => $release->includes_video,
-        combined_rels => $release->combined_track_relationships,
-    );
+    $c->stash->{template} = 'release/index.tt';
 }
 
 =head2 show

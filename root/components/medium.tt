@@ -1,0 +1,138 @@
+[%~ MACRO grouped_relationships(source) BLOCK ~%]
+  [% FOR target_type_group=source.grouped_relationships.pairs %]
+    [% NEXT IF target_type_group.key == 'url' %]
+    <dl class="ars">
+      [% FOR link_type_group=target_type_group.value.pairs %]
+        [% IF target_type_group.key == 'work' %]
+          [% FOR relationship IN link_type_group.value %]
+            [% work = relationship.target %]
+            <dt>[% add_colon(link_type_group.key) %]</dt>
+            <dd>[% link_work(work, 'show', work.name) %]</dd>
+            [% grouped_relationships(work) %]
+          [% END %]
+        [% ELSE %]
+          <dt>[% add_colon(link_type_group.key) %]</dt>
+          [% links = [] %]
+          [% FOR relationship IN link_type_group.value %]
+            [% links.push(relationship_target_links(relationship)) %]
+          [% END %]
+          <dd>[% comma_list(links) %]</dd>
+        [% END %]
+      [% END %]
+    </dl>
+  [% END %]
+[%~ END ~%]
+
+[%~ MACRO medium_track_row(track, show_video, show_artists) BLOCK ~%]
+  <tr class="[% loop.parity %][% ' mp' IF track.edits_pending %]" id="[% track.gid %]">
+    <td class="pos t">
+      <a href="[% c.uri_for_action('/track/show', [track.gid]) %]">[% track.number %]</a>
+    </td>
+    [% IF show_video %]
+      [% IF track.recording.video %]
+        <td class="video c is-video" title="[% l('This recording is a video') %]"></td>
+      [% ELSE %]
+        <td class="video c"></td>
+      [% END %]
+    [% END %]
+    <td>
+      [%- link_recording(track.recording, 'show', track.name) -%]
+      <br/>
+      <div class="ars" style="display: none;">
+        [% grouped_relationships(track.recording) %]
+      </div>
+    </td>
+    [% IF show_artists %]
+      <td>
+        [% artist_credit(track.artist_credit) %]
+      </td>
+    [% END %]
+    <td class="rating c">
+      [% rating_stars(track.recording) %]
+    </td>
+    <td class="treleases">[% track.formatted_length %]</td>
+  </tr>
+[%~ END ~%]
+
+[%~ MACRO medium_tracklist_body(medium) BLOCK ~%]
+  [% show_video = medium.includes_video; show_artists = medium.has_multiple_artists %]
+  <tbody>
+    <tr class="subh">
+      <th class="pos t">[%~ l('#') ~%]</th>
+      [% IF show_video %]
+        <th class="video c"></th>
+      [% END %]
+      <th>[% l('Title') %]</th>
+      [% IF show_artists %]
+        <th>[% l('Artist') %]</th>
+      [% END %]
+      <th class="rating c">[% l('Rating') %]</th>
+      <th class="treleases">[% l('Length') %]</th>
+    </tr>
+
+    [% FOR track IN medium.audio_tracks %]
+      [% medium_track_row(track, show_video, show_artists) %]
+    [% END %]
+
+    [% IF medium.data_tracks.size %]
+      <tr class="subh">
+        <td colspan="6">
+          [% data_track_icon %]
+          [% l('Data Tracks') %]
+        </td>
+      </tr>
+      [% FOR track IN medium.data_tracks %]
+        [% medium_track_row(track, show_video, show_artists) %]
+      [% END %]
+    [% END %]
+
+    [% IF medium.combined_track_relationships.size %]
+      <tr class="subh bottom-credits">
+        <td colspan="6">[% l('Credits') %]</td>
+      </tr>
+      <tr class="bottom-credits">
+        <td colspan="6">
+          <table class="small-details">
+            [% FOR target_type_group=medium.combined_track_relationships.pairs %]
+              [%- FOR phrase_group IN target_type_group.value -%]
+                <tr>
+                  <th>[% add_colon(phrase_group.phrase) %]</th>
+                  <td>
+                    [% FOR item IN phrase_group.items %]
+                      <div class="track-rel">
+                        [% relationship_target_links(item.relationship) %]
+                        <span class="comment">
+                          ([% ln('track {tracks}', 'tracks {tracks}', item.track_count, { tracks => item.tracks }) %])
+                        </span>
+                      </div>
+                    [% END %]
+                  </td>
+                </tr>
+              [%- END -%]
+            [% END %]
+          </table>
+        </td>
+      </tr>
+    [% END %]
+  </tbody>
+[%~ END ~%]
+
+[%~ MACRO medium_with_tracklist(medium) BLOCK ~%]
+  <table class="tbl medium">
+    <thead>
+      <tr[% ' class="mp"' IF medium.edits_pending %]>
+        <th colspan="6">
+          <a class="expand-medium" id="disc[% medium.position %]" data-medium-id="[% medium.id %]"
+             href="[% c.uri_for_action('/release/show', [medium.release.gid]) _
+                      '/disc/' _ medium.position _ '#disc' _ medium.position %]">
+            <span class="expand-triangle">
+              [% medium.tracks.size ? '&#x25BC' : '&#x25B6' %]
+            </span>
+            [% medium.position_and_name %]
+          </a>
+        </th>
+      </tr>
+    </thead>
+    [% medium_tracklist_body(medium) IF medium.tracks.size %]
+  </table>
+[%~ END ~%]

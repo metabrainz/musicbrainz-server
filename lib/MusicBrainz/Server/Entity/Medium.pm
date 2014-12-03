@@ -1,7 +1,9 @@
 package MusicBrainz::Server::Entity::Medium;
+use List::UtilsBy qw( partition_by );
 use Moose;
 
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Translation qw( l );
 
 extends 'MusicBrainz::Server::Entity';
 with 'MusicBrainz::Server::Entity::Role::Editable';
@@ -10,6 +12,21 @@ has 'position' => (
     is => 'rw',
     isa => 'Int'
 );
+
+sub position_and_name {
+    my ($self) = @_;
+
+    my $format = $self->l_format_name;
+    my $position = $self->position;
+    my $name = $self->name;
+    my $params = { format => $format, position => $position, name => $name };
+
+    return (
+        $name
+        ? ($format ? l('{format} {position}: {name}', $params) : l('Medium {position}: {name}', $params))
+        : ($format ? l('{format} {position}', $params) : l('Medium {position}', $params))
+    );
+}
 
 has 'track_count' => (
     is => 'rw',
@@ -133,6 +150,16 @@ has 'cdtoc_track_count' => (
     isa => 'Int',
 );
 
+sub audio_tracks {
+    my ($self) = @_;
+    return [ grep { !$_->is_data_track } $self->all_tracks ];
+}
+
+sub data_tracks {
+    my ($self) = @_;
+    return [ grep { $_->is_data_track } $self->all_tracks ];
+}
+
 sub cdtoc_tracks {
     my ($self) = @_;
     return grep { $_->position > 0 && !$_->is_data_track } $self->all_tracks;
@@ -141,7 +168,7 @@ sub cdtoc_tracks {
 sub has_multiple_artists {
     my ($self) = @_;
     foreach my $track ($self->all_tracks) {
-        return 1 if $track->artist_credit_id != $self->artist_credit_id;
+        return 1 if $track->artist_credit_id != $self->release->artist_credit_id;
     }
     return 0;
 }
@@ -152,6 +179,114 @@ sub includes_video {
         return 1 if $track->recording->video;
     }
     return 0;
+}
+
+has 'combined_track_relationships' => (
+    is => 'ro',
+    builder => '_build_combined_track_relationships',
+    lazy => 1
+);
+
+sub _build_combined_track_relationships {
+    my ($self) = @_;
+
+    my (%combined, %keyed_relationships, %seen_recordings, %seen_works);
+
+    my $add_relationship = sub {
+        my ($track, $relationship) = @_;
+
+        return if $relationship->target_type eq 'url';
+
+        my $key = join(
+            "\0",
+            $relationship->target->gid,
+            $relationship->extra_phrase_attributes,
+            $relationship->link->formatted_date
+        );
+
+        # Doesn't matter which we store, as long as only the source differs.
+        $keyed_relationships{$key} = $relationship;
+
+        my $for_target_type = $combined{$relationship->target_type} //= {};
+        my $for_phrase = $for_target_type->{$relationship->phrase} //= {};
+
+        push @{ $for_phrase->{$key} //= [] }, $track;
+    };
+
+    for my $track ($self->all_tracks) {
+        next if exists $seen_recordings{$track->recording_id};
+
+        $seen_recordings{$track->recording_id} = 1;
+
+        for my $relationship ($track->recording->all_relationships) {
+            $add_relationship->($track, $relationship);
+
+            if ($relationship->link->type->entity1_type eq 'work') {
+                next if $seen_works{$relationship->target->id};
+
+                $seen_works{$relationship->target->id} = 1;
+
+                for my $relationship ($relationship->target->all_relationships) {
+                    $add_relationship->($track, $relationship);
+                }
+            }
+        }
+    }
+
+    while (my ($target_type, $target_type_group) = each %combined) {
+        my @sorted;
+
+        while (my ($phrase, $phrase_group) = each %$target_type_group) {
+            my @items;
+
+            while (my ($key, $tracks) = each %$phrase_group) {
+                push @items, {
+                    relationship => $keyed_relationships{$key},
+                    tracks => track_range(@$tracks),
+                    track_count => scalar @$tracks
+                };
+            }
+
+            push @sorted, {
+                phrase => $phrase,
+                items => [ sort { $a->{relationship} <=> $b->{relationship} } @items ]
+            };
+        }
+
+        $combined{$target_type} = [ sort { lc $a->{phrase} cmp lc $b->{phrase} } @sorted ];
+    }
+
+    return \%combined;
+}
+
+sub track_range {
+    my @tracks = @_;
+    my $range = [shift @tracks];
+    my @ranges = $range;
+
+    for my $track (@tracks) {
+        if ($track->position - $range->[-1]->position == 1) {
+            $range->[1] = $track;
+        } else {
+            $range = [$track];
+            push @ranges, $range;
+        }
+    }
+
+    @ranges = map {
+        @$_ == 1
+            ? $_->[0]->number
+            : l('{start_track}&#x2013;{end_track}',
+                { start_track => $_->[0]->number, end_track => $_->[1]->number })
+    } @ranges;
+
+    my $output = pop @ranges;
+
+    for (reverse @ranges) {
+        $output = l('{list_item}, {rest}', { list_item => $_, rest => $output });
+    }
+
+    return $output;
 }
 
 __PACKAGE__->meta->make_immutable;

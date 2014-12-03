@@ -1,0 +1,2 @@
+[% PROCESS 'components/medium.tt' %]
+[% medium_tracklist_body(medium) %]

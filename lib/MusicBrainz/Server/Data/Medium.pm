@@ -11,6 +11,7 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list
     query_to_list_limited
 );
+use aliased 'MusicBrainz::Server::Entity::Work';
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'medium' };
@@ -284,6 +285,23 @@ sub reorder {
           WHERE id IN (' . placeholders(@medium_ids) . ')',
         %ordering, @medium_ids
     )
+}
+
+sub load_related_info {
+    my ($self, $user_id, @mediums) = @_;
+
+    $self->c->model('Release')->load(@mediums);
+    $self->c->model('Track')->load_for_mediums(@mediums);
+
+    my @tracks = map { $_->all_tracks } @mediums;
+    $self->c->model('ArtistCredit')->load(@tracks);
+
+    my @recordings = $self->c->model('Recording')->load(@tracks);
+    $self->c->model('Recording')->load_meta(@recordings);
+    $self->c->model('Recording')->rating->load_user_ratings($user_id, @recordings) if $user_id;
+
+    $self->c->model('Relationship')->load_cardinal(@recordings);
+    $self->c->model('Relationship')->load_cardinal(grep { $_->isa(Work) } map { $_->target } map { $_->all_relationships } @recordings);
 }
 
 __PACKAGE__->meta->make_immutable;

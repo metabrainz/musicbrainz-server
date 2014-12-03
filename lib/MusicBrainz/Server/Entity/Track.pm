@@ -2,6 +2,7 @@ package MusicBrainz::Server::Entity::Track;
 
 use Moose;
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Track qw( format_track_length );
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Editable';
@@ -53,6 +54,10 @@ has 'length' => (
     isa => 'Maybe[Int]',
     clearer => 'clear_length'
 );
+
+sub formatted_length {
+    format_track_length(shift->length);
+}
 
 has 'artist_credit' => (
     is => 'rw',
