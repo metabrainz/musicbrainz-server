@@ -1,5 +1,4 @@
 package MusicBrainz::Server::Entity::Medium;
-use List::UtilsBy qw( partition_by );
 use Moose;
 
 use MusicBrainz::Server::Entity::Types;
