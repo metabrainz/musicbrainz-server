@@ -68,7 +68,6 @@
                 <h2 class="taggers">[% l('Tag Your Music') %]</h2>
                 <ul>
                     <li><a href="//picard.musicbrainz.org">[% l('MusicBrainz Picard') %]</a></li>
-                    <li><a href="[% doc_link('Jaikoz') %]">[% l('Jaikoz Tagger') %]</a></li>
                     <li><a href="[% doc_link('Magic_MP3_Tagger') %]">[% l('Magic MP3 Tagger') %]</a></li>
                     <li><a href="[% doc_link('Yate_Music_Tagger') %]">[% l('Yate Music Tagger') %]</a></li>
                     <li><a href="[% doc_link('SongKong_Tagger') %]">[% l('SongKong Tagger') %]</a></li>
