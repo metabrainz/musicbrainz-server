@@ -161,9 +161,6 @@
                 <a href="//picard.musicbrainz.org">[% l('MusicBrainz Picard') %]</a>
             </li>
             <li>
-                <a href="[% doc_link('Jaikoz') %]">[% l('Jaikoz Tagger') %]</a>
-            </li>
-            <li>
                 <a href="[% doc_link('Magic_MP3_Tagger') %]">[% l('Magic MP3 Tagger') %]</a>
             </li>
             <li>
