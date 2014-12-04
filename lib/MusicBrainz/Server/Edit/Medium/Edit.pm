@@ -135,6 +135,8 @@ sub initialize
     my $tracklist = delete $opts{tracklist};
     my $data;
 
+    $self->check_tracks_against_format($tracklist, $opts{format_id});
+
     # FIXME: really should receive an entity on preview too.
     if ($self->preview && !defined $entity)
     {
@@ -270,7 +272,8 @@ sub build_display_data
                             map {
                                 join('', $_->name, $_->join_phrase || '')
                             } $track->artist_credit->all_names
-                        )
+                        ),
+                        $track->is_data_track ? 1 : 0
                     );
                 }
             ) }
@@ -326,6 +329,10 @@ sub build_display_data
                 $new && ($new->id ? $old_recordings{$new->id} : $old_recording) != $new_recording;
             }
             @$tracklist_changes ];
+
+        $data->{data_track_changes} = any {
+            ($_->[1] ? $_->[1]->{is_data_track} : 0) != ($_->[2] ? $_->[2]->{is_data_track} : 0)
+        } @$tracklist_changes;
     }
 
     return $data;
@@ -353,13 +360,19 @@ sub accept {
 
     if ($data_new_tracklist) {
         my $medium = $self->c->model('Medium')->get_by_id($self->medium_id);
+        $self->c->model('MediumFormat')->load($medium);
         $self->c->model('Track')->load_for_mediums($medium);
         $self->c->model('ArtistCredit')->load($medium->all_tracks);
 
-        # Make sure we aren't using undef for any new recording IDs, as it will merge incorrectly
-        $_->{recording_id} //= 0 for @$data_new_tracklist;
+        # Make sure we aren't using undef for recording_id or is_data_track, as it will merge incorrectly
+        for (@$data_new_tracklist) {
+            $_->{recording_id} //= 0;
+            $_->{is_data_track} //= 0;
+        }
 
-        my (@merged_row_ids, @merged_numbers, @merged_names, @merged_recordings, @merged_lengths, @merged_artist_credits);
+        my (@merged_row_ids, @merged_numbers, @merged_names, @merged_recordings,
+            @merged_lengths, @merged_artist_credits, @merged_is_data_tracks);
+
         my $current_tracklist = tracks_to_hash($medium->tracks);
         try {
             for my $merge (
@@ -368,7 +381,8 @@ sub accept {
                 [ name => \@merged_names ],
                 [ recording_id => \@merged_recordings ],
                 [ length => \@merged_lengths ],
-                [ artist_credit => \@merged_artist_credits, \&hash_artist_credit ]
+                [ artist_credit => \@merged_artist_credits, \&hash_artist_credit ],
+                [ is_data_track => \@merged_is_data_tracks ]
             ) {
                 my ($property, $container, $key_generation) = @$merge;
                 push @$container, merge(
@@ -391,11 +405,26 @@ sub accept {
             @merged_numbers == @merged_names &&
             @merged_names == @merged_recordings &&
             @merged_recordings == @merged_lengths &&
-            @merged_lengths == @merged_artist_credits
+            @merged_lengths == @merged_artist_credits &&
+            @merged_artist_credits == @merged_is_data_tracks
         } 'Merged properties are all the same length';
 
         # Create the final merged tracklist
+
+        # Check for a pregap track. The medium must support disc ids, and the
+        # first track must have position 0.
         my $position = 1;
+
+        if ($medium->may_have_discids) {
+            my @new_tracks = @$data_new_tracklist;
+            if (@new_tracks) {
+                my $first_position = $new_tracks[0]->{position};
+                if (defined($first_position) && $first_position == 0) {
+                    $position = 0;
+                }
+            }
+        }
+
         my @final_tracklist;
         my $existing_recordings = $self->c->model('Recording')->get_by_ids(@merged_recordings);
         while (1) {
@@ -404,12 +433,14 @@ sub accept {
                         @merged_lengths &&
                         @merged_recordings &&
                         @merged_names &&
-                        @merged_numbers;
+                        @merged_numbers &&
+                        @merged_is_data_tracks;
 
             my $track_id = shift(@merged_row_ids);
             my $length = shift(@merged_lengths);
             my $number = shift(@merged_numbers);
             my $recording_id = shift(@merged_recordings);
+            my $is_data_track = shift(@merged_is_data_tracks);
 
             if (defined($recording_id) && $recording_id > 0 && !$existing_recordings->{$recording_id}) {
                 MusicBrainz::Server::Edit::Exceptions::FailedDependency
@@ -424,7 +455,8 @@ sub accept {
                 number => $number eq $UNDEF_MARKER ? undef : $number,
                 length => $length eq $UNDEF_MARKER ? undef : $length,
                 recording_id => $recording_id,
-                artist_credit => shift(@merged_artist_credits)
+                artist_credit => shift(@merged_artist_credits),
+                is_data_track => $is_data_track
             }
         }
 

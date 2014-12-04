@@ -25,10 +25,19 @@ dl.ars dt {
      links.join(', ');
    END -%]
 
+[% data_tracks_started = 0 %]
 [%- FOR track=tracks; recording = track.recording %]
+[% IF track.is_data_track && !data_tracks_started %]
+  [% data_tracks_started = 1 %]
+<tr class="subh">
+    <td colspan="6">
+      [% data_track_icon %]
+      [% l('Data Tracks') %]
+    </td>
+</tr>
+[% END %]
 [%# model tracks as blank nodes %]
-<tr class="[% loop.parity %][% ' mp' IF track.edits_pending %]"
-    id="[% track.gid %]">
+<tr class="[% loop.parity %][% ' mp' IF track.edits_pending %]" id="[% track.gid %]">
     <td class="pos t">
       <span style="display: none">[% track.position %]</span>
       [%- track.number -%]

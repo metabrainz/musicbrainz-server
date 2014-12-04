@@ -50,6 +50,15 @@ test('Guess type', function () {
                 'label', 'http://idiotsikker.bandcamp.com/',
                 MB.constants.LINK_TYPES.bandcamp.label
             ],
+            //Last.fm
+            [
+                'artist', 'http://www.last.fm/music/Bj%C3%B6rk',
+                MB.constants.LINK_TYPES.socialnetwork.artist
+            ],
+            [
+                'event', 'http://www.last.fm/event/3291943+Pori+jazz',
+                MB.constants.LINK_TYPES.socialnetwork.event
+            ],
             // WhoSampled
             [
                 'recording', 'http://www.whosampled.com/Just-to-Get-a-Rep/Gang-Starr/',
@@ -528,6 +537,19 @@ test('Guess type', function () {
             [
                 'release_group', 'http://www.metal-archives.com/albums/Corubo/Ypykuera/193860',
                 MB.constants.LINK_TYPES.otherdatabases.release_group
+            ],
+            // setlist.fm
+            [
+                'artist', 'http://www.setlist.fm/setlists/foo-fighters-bd6893a.html',
+                MB.constants.LINK_TYPES.setlistfm.artist
+            ],
+            [
+                'event', 'http://www.setlist.fm/setlist/foo-fighters/2014/house-of-blues-new-orleans-la-13cda5b1.html',
+                MB.constants.LINK_TYPES.setlistfm.event
+            ],
+            [
+                'place', 'http://www.setlist.fm/venue/house-of-blues-new-orleans-la-usa-23d61c9f.html',
+                MB.constants.LINK_TYPES.setlistfm.place
             ]
         ];
 
@@ -760,6 +782,11 @@ test('Cleanup', function () {
                 'http://www.facebook.com/pages/De_Tot_Cor/133207893384897/',
                 'https://www.facebook.com/pages/De_Tot_Cor/133207893384897',
                 'artist'
+            ],
+            [
+                'https://www.facebook.com/events/779218695457920/?ref=2&ref_dashboard_filter=past&sid_reminder=1385056373762424832',
+                'https://www.facebook.com/events/779218695457920',
+                'event'
             ],
                 // Google+
             [

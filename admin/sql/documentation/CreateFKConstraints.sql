@@ -13,6 +13,11 @@ ALTER TABLE l_area_artist_example
    FOREIGN KEY (id)
    REFERENCES musicbrainz.l_area_artist(id);
 
+ALTER TABLE l_area_event_example
+   ADD CONSTRAINT l_area_event_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_area_event(id);
+
 ALTER TABLE l_area_instrument_example
    ADD CONSTRAINT l_area_instrument_example_fk_id
    FOREIGN KEY (id)
@@ -63,6 +68,11 @@ ALTER TABLE l_artist_artist_example
    FOREIGN KEY (id)
    REFERENCES musicbrainz.l_artist_artist(id);
 
+ALTER TABLE l_artist_event_example
+   ADD CONSTRAINT l_artist_event_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_artist_event(id);
+
 ALTER TABLE l_artist_instrument_example
    ADD CONSTRAINT l_artist_instrument_example_fk_id
    FOREIGN KEY (id)
@@ -107,6 +117,51 @@ ALTER TABLE l_artist_work_example
    ADD CONSTRAINT l_artist_work_example_fk_id
    FOREIGN KEY (id)
    REFERENCES musicbrainz.l_artist_work(id);
+
+ALTER TABLE l_event_event_example
+   ADD CONSTRAINT l_event_event_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_event_event(id);
+
+ALTER TABLE l_event_instrument_example
+   ADD CONSTRAINT l_event_instrument_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_event_instrument(id);
+
+ALTER TABLE l_event_label_example
+   ADD CONSTRAINT l_event_label_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_event_label(id);
+
+ALTER TABLE l_event_place_example
+   ADD CONSTRAINT l_event_place_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_event_place(id);
+
+ALTER TABLE l_event_recording_example
+   ADD CONSTRAINT l_event_recording_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_event_recording(id);
+
+ALTER TABLE l_event_release_example
+   ADD CONSTRAINT l_event_release_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_event_release(id);
+
+ALTER TABLE l_event_release_group_example
+   ADD CONSTRAINT l_event_release_group_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_event_release_group(id);
+
+ALTER TABLE l_event_url_example
+   ADD CONSTRAINT l_event_url_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_event_url(id);
+
+ALTER TABLE l_event_work_example
+   ADD CONSTRAINT l_event_work_example_fk_id
+   FOREIGN KEY (id)
+   REFERENCES musicbrainz.l_event_work(id);
 
 ALTER TABLE l_instrument_instrument_example
    ADD CONSTRAINT l_instrument_instrument_example_fk_id

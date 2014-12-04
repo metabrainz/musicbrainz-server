@@ -18,17 +18,14 @@ sub serialize
     $body{name} = $entity->name;
     $body{editor} = $entity->editor->name;
 
-    if ($toplevel)
-    {
+    if ($toplevel) {
         $body{"release-count"} = count_of($entity, $inc, $stash, "releases");
         $body{releases} = list_of($entity, $inc, $stash, "releases");
     }
 
-    if ($entity->loaded_release_count)
-    {
-        $body{"release-count"} = number($entity->release_count);
+    if ($entity->loaded_entity_count) {
+        $body{"release-count"} = number($entity->entity_count);
     }
-
 
     return \%body;
 };

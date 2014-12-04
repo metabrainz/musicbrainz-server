@@ -141,7 +141,8 @@ sub release_toplevel
             $c->model('Collection')->find_all_by_release($release->id);
 
         $c->model('Editor')->load(@collections);
-        $c->model('Collection')->load_release_count(@collections);
+        $c->model('Collection')->load_entity_count(@collections);
+        $c->model('CollectionType')->load(@collections);
 
         $stash->store($release)->{collections} = \@collections;
     }

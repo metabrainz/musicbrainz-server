@@ -1,5 +1,4 @@
-
-[%- WRAPPER 'release/layout.tt' page='cover_art' -%]
+[%- WRAPPER 'release/layout.tt' page='cover_art' title=l('Cover Art') -%]
   <h2>[% l('Cover Art') %]</h2>
 
   [%- IF cover_art.size -%]

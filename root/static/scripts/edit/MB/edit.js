@@ -28,7 +28,7 @@
 
     function value(arg) { return typeof arg === "function" ? arg() : arg }
     function string(arg) { return _.str.clean(value(arg)) }
-    function number(arg) { return parseInt(value(arg), 10) || null }
+    function number(arg) { var num = parseInt(value(arg), 10); return isNaN(num) ? null : num }
     function array(arg, type) { return _.map(value(arg), type) }
     function nullableString(arg) { return string(arg) || null }
 
@@ -227,7 +227,8 @@
                 recording_gid:  nullableString(recording.gid),
                 position:       number(track.position),
                 number:         string(track.number),
-                length:         number(track.length)
+                length:         number(track.length),
+                is_data_track:  !!ko.unwrap(track.isDataTrack)
             };
         },
 

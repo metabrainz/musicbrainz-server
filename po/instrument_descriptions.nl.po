@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-10-30 01:10+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-10-30 17:23+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -488,7 +488,7 @@ msgstr "Een harde schijf die is ingesteld om in een patroon geluiden te maken."
 #. name:huqin
 #: DB:instrument/description:213
 msgid "Huqin is a Chinese family of bowed string instruments."
-msgstr "De huqin (胡琴; pinyin: húqín) is een familie van Chinese strijkinstrumenten."
+msgstr "De huqin (胡琴, pinyin: húqín) is een familie van Chinese strijkinstrumenten."
 
 #. name:taiko
 #: DB:instrument/description:378
@@ -859,7 +859,7 @@ msgid ""
 "instruments are known collectively as <a "
 "href=\"http://en.wikipedia.org/wiki/Guban_(instrument)\">guban</a> (Chinese:"
 " 鼓板, gǔbǎn)."
-msgstr "De bangu (Chinees: 板鼓; pinyin: bǎngǔ), ook bekend als danpigu (Chinees: 單皮鼓 of 单皮鼓, pinyin: dānpígǔ) is een Chinese lijsttrommel die met twee stokken van bamboe wordt bespeeld. (<a href=\"http://en.wikipedia.org/wiki/Bangu_(drum)\">Wikipedia</a>). Het wordt meestal samen met Chinese ban-kleppers (Chinees: 板, pinyin: bǎn) bespeeld. De combinatie van de twee instrumenten wordt guban (Chinees: 鼓板, pinyin: gǔbǎn) genoemd."
+msgstr "De bangu (Chinees: 板鼓, pinyin: bǎngǔ), ook bekend als danpigu (Chinees: 單皮鼓 of 单皮鼓, pinyin: dānpígǔ) is een Chinese lijsttrommel die met twee stokken van bamboe wordt bespeeld. (<a href=\"http://en.wikipedia.org/wiki/Bangu_(drum)\">Wikipedia</a>). Het wordt meestal samen met Chinese ban-kleppers (Chinees: 板, pinyin: bǎn) bespeeld. De combinatie van de twee instrumenten wordt guban (Chinees: 鼓板, pinyin: gǔbǎn) genoemd."
 
 #. name:banhu
 #: DB:instrument/description:221
@@ -1005,7 +1005,7 @@ msgstr "Een concertfluit is een dwarsfluit en het meest voorkomende soort fluit 
 msgid ""
 "The cornamuse is a double reed instrument from the Renaissance, similar to "
 "the crumhorn but with a closed bell."
-msgstr "De cornamuse is een dubbelrietinstrument uit de Renaissance. (<a href=\"http://en.wikipedia.org/wiki/Cornamuse\">Wikipedia</a>)"
+msgstr "De cornamuse is een dubbelrietinstrument uit de Renaissance."
 
 #. name:cornet
 #: DB:instrument/description:25
@@ -1065,7 +1065,7 @@ msgstr "De daluo (Chinees: 大鑼, pinyin: 大锣, dàluó) is een grote platte 
 msgid ""
 "The darbuka is an hourglass-shaped goblet drum from Greece, the Middle East "
 "and India."
-msgstr "Een darbuka (Arabisch: ‏دربكة;, ook wel daraboeka, derboeka of taramboeka genoemd) is een vaastrommel die vooral in de Balkan, in het Midden-Oosten en in Oost-Europa gebruikt wordt."
+msgstr "Een darbuka (Arabisch: ‏دربكة, ook wel daraboeka, derboeka of taramboeka genoemd) is een vaastrommel die vooral in de Balkan, in het Midden-Oosten en in Oost-Europa gebruikt wordt."
 
 #. name:daruan
 #: DB:instrument/description:546
@@ -1179,7 +1179,7 @@ msgstr "De erhu (Chinees: 二胡) is een Chinees strijkinstrument met twee snare
 msgid ""
 "The esraj is a bowed string instrument from Eastern and Central India, "
 "mostly used as an accompanying instrument"
-msgstr "De esraj (Bengaals: এস্রাজ; Hindi: इसराज) is een strijkinstrument uit Oost en Centraal India en wordt meestal gebruikt als begeleiding."
+msgstr "De esraj (Bengaals: এস্রাজ, Hindi: इसराज) is een strijkinstrument uit Oost en Centraal India en wordt meestal gebruikt als begeleiding."
 
 #. name:flûte d'amour
 #: DB:instrument/description:415
@@ -1253,7 +1253,7 @@ msgstr "De gralla is een traditionele Catalaans dubbelrietinstrument uit de fami
 msgid ""
 "The guan is a Chinese double reed wind instrument made from hardwood or "
 "bamboo."
-msgstr ""
+msgstr "De guan (Traditioneel Chinees: 管, Vereenvoudigd Chinees:管, pinyin: guǎn) is een Chinees dubbelrietinstrument gemaakt van hardhout of bamboe."
 
 #. name:guitalele
 #: DB:instrument/description:645
@@ -1281,7 +1281,7 @@ msgstr "De guqin (Chinees: 古琴, ook bekend als gǔqín, ku-ch’in, qin of ch
 msgid ""
 "The guzheng or zheng is a Chinese plucked zither, with 18 to 23 or more "
 "strings and movable bridges."
-msgstr "De guzheng (Chinees: 古箏; pinyin: gǔzhēng), ook wel zheng (Chinees: 箏, pinyin: zhēng) is een Chinese getokkelde citer met 18 tot 23 (meestal 21) snaren en beweegbare bruggen."
+msgstr "De guzheng (Chinees: 古箏, pinyin: gǔzhēng), ook wel zheng (Chinees: 箏, pinyin: zhēng) is een Chinese getokkelde citer met 18 tot 23 (meestal 21) snaren en beweegbare bruggen."
 
 #. name:haegeum
 #: DB:instrument/description:486

@@ -154,13 +154,6 @@ img.gravatar {
     padding-right: 1em;
 }
 
-#header-logo div.git-branch {
-    position: absolute;
-    top: 2px;
-    right: 18px;
-    color: @light-text;
-}
-
 #header-logo a {
     color: @text-white;
 }
@@ -258,18 +251,15 @@ img.gravatar {
 #page,
 #current-editing {
     margin-top: 1em;
-    padding: 1em 1em 1em 1em;
     padding: 16px;
-    background: #FFF url('../images/layout/page-bg.gif') repeat-y top right;
+    background: #FFF;
     overflow: visible;
     position: relative;
     border-radius: 6px;
-}
-
-#page.fullwidth,
-#page.homepage,
-#current-editing {
-    background-image: none;
+    display: table;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
 }
 
 #current-editing h2 {
@@ -324,18 +314,21 @@ div.warning img.warning {
     height: 32px;
 }
 
-#content {
-    margin-right: 250px;
+#content,
+#sidebar {
+    display: table-cell;
+    vertical-align: top;
+}
 
-    #page.fullwidth & {
-        margin-right: 0px;
-    }
+#content {
+    padding-right: 16px;
 }
 
 #sidebar {
-    float: right;
+    padding-left: 16px;
     width: 218px;
     font-size: 95%;
+    border-left: 1px solid @light-border;
 }
 
 #sidebar p {
@@ -473,7 +466,7 @@ table.tbl {
 
     th {
         font-size: 95%;
-        background: url('../images/layout/table-header.gif') repeat-x 0 50%;
+        background: data-uri('../images/layout/table-header.gif') repeat-x 0 50%;
         padding: 0.2em 0.4em;
         text-align: left;
         border-bottom: solid 1px @dark-border;
@@ -503,7 +496,7 @@ table.tbl {
     tr.subh {
         td, th {
             font-size: 95%;
-            background: url('../images/layout/table-header-2.gif') repeat-x 0 50%;
+            background: data-uri('../images/layout/table-header-2.gif') repeat-x 0 50%;
             font-weight: bold;
             border-top: solid 1px @dark-border;
             border-bottom: solid 1px @dark-border;
@@ -545,21 +538,26 @@ table.tbl {
         }
     }
 
+    .data-track.icon {
+        background: data-uri('../images/icons/page_white_cd.png');
+        cursor: help !important;
+    }
+
     /* Sortable table headers/images */
     thead tr .header {
         cursor: pointer;
     }
     thead tr .header .arrow {
-        background: url('../images/layout/bg.gif') no-repeat center right;
+        background: data-uri('../images/layout/bg.gif') no-repeat center right;
         display: inline-block;
         height: 9px;
         width: 21px;
     }
     thead tr .headerSortUp .arrow {
-        background-image: url('../images/layout/asc.gif');
+        background-image: data-uri('../images/layout/asc.gif');
     }
     thead tr .headerSortDown .arrow {
-        background-image: url('../images/layout/desc.gif');
+        background-image: data-uri('../images/layout/desc.gif');
     }
 }
 

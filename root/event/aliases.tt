@@ -1,0 +1,6 @@
+[%- WRAPPER "event/layout.tt" title=l('Aliases') page='aliases' -%]
+    [%- INCLUDE "components/aliases.tt" entity=event
+        delete_path='/event/delete_alias'
+        add_path='/event/add_alias'
+        edit_path='/event/edit_alias' -%]
+[%- END -%]

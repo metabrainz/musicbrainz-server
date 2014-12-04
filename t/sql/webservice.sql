@@ -35,6 +35,8 @@ INSERT INTO link_text_attribute_type (attribute_type) VALUES (788);
 INSERT INTO artist_type (id, name) VALUES (1, 'Person');
 INSERT INTO artist_type (id, name) VALUES (2, 'Group');
 
+INSERT INTO event_type (id, name) VALUES (1, 'Festival');
+
 INSERT INTO instrument_type (id, name) VALUES (1, 'Wind instrument');
 
 INSERT INTO gender (id, name) VALUES (2, 'Female');
@@ -313,6 +315,7 @@ INSERT INTO artist (begin_date_day, begin_date_month, begin_date_year, comment, 
 INSERT INTO artist (begin_date_day, begin_date_month, begin_date_year, comment, area, edits_pending, end_date_day, end_date_month, end_date_year, ended, gender, gid, id, last_updated, name, sort_name, type) VALUES (NULL, NULL, NULL, '', NULL, 0, NULL, NULL, NULL, '0', NULL, '05d83760-08b5-42bb-a8d7-00d80b3bf47c', 398598, NULL, 'Paul Allgood', 'Allgood, Paul', 1);
 INSERT INTO artist (begin_date_day, begin_date_month, begin_date_year, comment, area, edits_pending, end_date_day, end_date_month, end_date_year, ended, gender, gid, id, last_updated, name, sort_name, type) VALUES (NULL, NULL, NULL, 'UK dubstep artist Greg Sanders', NULL, 0, NULL, NULL, NULL, '0', NULL, '472bc127-8861-45e8-bc9e-31e8dd32de7a', 427385, '2009-12-30 20:10:06.209461+00', 'Distance', 'Distance', 1);
 INSERT INTO artist (begin_date_day, begin_date_month, begin_date_year, comment, area, edits_pending, end_date_day, end_date_month, end_date_year, ended, gender, gid, id, last_updated, name, sort_name, type) VALUES (NULL, NULL, 1989, '', NULL, 0, NULL, NULL, NULL, '0', NULL, '1946a82a-f927-40c2-8235-38d64f50d043', 242, NULL, 'The Chemical Brothers', 'Chemical Brothers, The', 2);
+INSERT INTO artist (begin_date_day, begin_date_month, begin_date_year, comment, area, edits_pending, end_date_day, end_date_month, end_date_year, ended, gender, gid, id, last_updated, name, sort_name, type) VALUES (NULL, NULL, 1988, '', 222, 0, NULL, NULL, NULL, '0', NULL, '38c5cdab-5d6d-43d1-85b0-dac41bde186e', 305, '2011-10-10 15:41:33.909553-05', 'Blind Melon', 'Blind Melon', 2);
 
 UPDATE artist_meta SET rating_count = NULL, rating = NULL WHERE id = 265420;
 UPDATE artist_meta SET rating_count = 2, rating = 70 WHERE id = 11545;
@@ -400,6 +403,7 @@ INSERT INTO artist_credit (id, artist_count, created, name, ref_count) VALUES (3
 INSERT INTO artist_credit (id, artist_count, created, name, ref_count) VALUES (427385, 1, '2011-01-18 16:24:02.551922+00', 'Distance', 293);
 INSERT INTO artist_credit (id, artist_count, created, name, ref_count) VALUES (781759, 2, '2011-01-18 16:24:02.551922+00', 'Chris.Su & SKC', 22);
 INSERT INTO artist_credit (id, artist_count, created, name, ref_count) VALUES (792488, 2, '2011-01-18 16:24:02.551922+00', 'm-flo♥BoA', 21);
+INSERT INTO artist_credit (id, artist_count, created, name, ref_count) VALUES (305, 1, '2011-05-16 11:32:11.963929-05', 'Blind Melon', 1148);
 
 INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES (242, 242, '', 'The Chemical Brothers', 0);
 INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES (388, 388, '', 'Led Zeppelin', 0);
@@ -424,6 +428,15 @@ INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, positi
 INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES (100300, 781759, '', 'SKC', 1);
 INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES (135345, 792488, '♥', 'm-flo', 0);
 INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES (9496, 792488, '', 'BoA', 1);
+INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES (305, 305, '', 'Blind Melon', 0);
+
+-- Events
+INSERT INTO event (id, gid, name, type) VALUES (7, 'eb668bdc-a928-49a1-beb7-8e37db2a5b65', 'Cool Festival', 1);
+INSERT INTO event (begin_date_day, begin_date_month, begin_date_year, cancelled, comment, edits_pending, end_date_day, end_date_month, end_date_year, ended, gid, id, last_updated, name, time, type) VALUES (12, 5, 2014, '1', 'A Comment', 0, 13, 5, 2014, '1', '166359d1-5a63-4033-945c-a6707844fb19', 8, '2014-08-01 22:16:44.339332+00', 'Sadly Cancelled Festival', '20:00', 1);
+
+INSERT INTO event_alias (id, event, name, sort_name) VALUES
+    (1, 7, 'El Festival Cool', 'Festival Cool, El'),
+    (2, 7, 'Warm Festival', 'Warm Festival');
 
 -- Instruments
 
@@ -455,6 +468,7 @@ INSERT INTO release_group (artist_credit, comment, edits_pending, gid, id, last_
 INSERT INTO release_group (artist_credit, comment, edits_pending, gid, id, last_updated, name, type) VALUES (199821, '', 0, 'a8c946f5-8d26-3534-bab7-37c57eebbc1c', 284354, '2009-05-24 20:47:00.490177+00', '[non-album tracks]', NULL);
 INSERT INTO release_group (artist_credit, comment, edits_pending, gid, id, last_updated, name, type) VALUES (398438, '', 0, 'cde61708-3be3-31ad-ba61-06af6af59565', 703316, '2009-05-24 20:47:00.490177+00', 'Exogamy', 1);
 INSERT INTO release_group (artist_credit, comment, edits_pending, gid, id, last_updated, name, type) VALUES (398598, '', 0, '04ba5879-e3ac-3cba-8a69-ee7da8ad8c4c', 772397, '2009-05-24 20:47:00.490177+00', 'An Inextricable Tale Audiobook', 6);
+INSERT INTO release_group (artist_credit, comment, edits_pending, gid, id, last_updated, name, type) VALUES (305, '', 0, '9dba763e-7cff-36b3-af88-b755f237a4c7', 61258, '2009-05-24 15:47:00.490177-05', 'Soup', 1);
 
 UPDATE release_group_meta SET first_release_date_month = 7, rating_count = NULL, first_release_date_year = 2001, release_count = 2, first_release_date_day = 4, rating = NULL WHERE id = 377462;
 UPDATE release_group_meta SET first_release_date_month = 9, rating_count = NULL, first_release_date_year = 1999, release_count = 3, first_release_date_day = 13, rating = NULL WHERE id = 155364;
@@ -646,6 +660,9 @@ INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_upda
 INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name) VALUES (265420, '', 0, '162630d9-36d2-4a8d-ade1-1c77440b34e7', 4223059, NULL, 296026, 'サマーれげぇ!レインボー');
 INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name) VALUES (265420, '', 0, '487cac92-eed5-4efa-8563-c9a818079b9a', 4223060, NULL, 213106, 'HELLO! また会おうね (7人祭 version)');
 INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name) VALUES (265420, '', 0, 'eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e', 4223061, NULL, 292800, 'サマーれげぇ!レインボー (instrumental)');
+INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name) VALUES (305, '', 0, 'c43ee188-0049-4eec-ba2e-0385c5edd2db', 449989, NULL, 211133, 'Hello Goodbye / Galaxie');
+INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name) VALUES (305, '', 0, 'c830c239-3f91-4485-9577-4b86f92ad725', 449990, NULL, 240400, '2 X 4');
+INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name) VALUES (305, '', 0, 'c0beb80b-4185-4328-8761-b9e45a5d0ac6', 14488617, NULL, 128000, 'Hello Goodbye [hidden track]');
 
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 4223059;
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 4223060;
@@ -886,6 +903,7 @@ INSERT INTO release (status, release_group, edits_pending, packaging, id, qualit
 INSERT INTO release (status, release_group, edits_pending, packaging, id, quality, last_updated, script, language, name, artist_credit, barcode, comment, gid) VALUES (1, 87135, 0, NULL, 672077, -1, '2010-04-03 15:11:01.630562+00', 28, 120, 'Live at the Regal', 22492, '015775154827', '', '686852e7-de39-3316-adb0-6c4400d60838');
 INSERT INTO release (status, release_group, edits_pending, packaging, id, quality, last_updated, script, language, name, artist_credit, barcode, comment, gid) VALUES (1, 703316, 0, NULL, 375273, -1, NULL, 28, 120, 'Exogamy', 398438, '844395014422', '', '980e0f65-930e-4743-95d3-602665c25c15');
 INSERT INTO release (status, release_group, edits_pending, packaging, id, quality, last_updated, script, language, name, artist_credit, barcode, comment, gid) VALUES (1, 772397, 0, NULL, 459740, -1, NULL, 28, 120, 'An Inextricable Tale Audiobook', 398598, '634479663338', '', '4ccb3e54-caab-4ad4-94a6-a598e0e52eec');
+INSERT INTO release (status, release_group, edits_pending, packaging, id, quality, last_updated, script, language, name, artist_credit, barcode, comment, gid) VALUES (1, 61258, 0, NULL, 1247355, -1, NULL, 28, 120, 'Soup', 305, '0208311348266', '', 'ec0d0122-b559-4aa1-a017-7068814aae57');
 
 UPDATE release_meta SET amazon_asin = 'B00005LA6G', date_added = '2005-07-09 06:10:18.57297+00', info_url = 'http://www.amazon.co.jp/gp/product/B00005LA6G', cover_art_presence = 'absent', amazon_store = NULL WHERE id = 49161;
 UPDATE release_meta SET amazon_asin = 'B00005LA6G', date_added = '2006-03-18 07:45:41.990026+00', info_url = 'http://www.amazon.co.jp/gp/product/B00005LA6G', cover_art_presence = 'absent', amazon_store = NULL WHERE id = 123054;
@@ -1041,6 +1059,7 @@ INSERT INTO medium (edits_pending, format, id, last_updated, name, position, rel
 INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 672077, '2011-01-18 15:21:33.71184+00', NULL, 1, 672077, 10);
 INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 375273, '2011-01-18 15:21:33.71184+00', NULL, 1, 375273, 9);
 INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 459740, '2011-01-18 15:21:33.71184+00', NULL, 1, 459740, 15);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 1279200, '2013-01-25 14:09:41.827297-06', NULL, 1, 1247355, 3);
 
 -- Tracks
 
@@ -1484,6 +1503,9 @@ INSERT INTO track (artist_credit, edits_pending, gid, id, last_updated, length, 
 INSERT INTO track (artist_credit, edits_pending, gid, id, last_updated, length, medium, name, number, position, recording) VALUES (427385, 0, 'aaa81c88-2b48-3247-ad63-61ec4d423c5c', '59', '2011-01-18 15:56:00.408782+00', 209826, 467794, 'Headstrung', '2', 2, 8692018);
 INSERT INTO track (artist_credit, edits_pending, gid, id, last_updated, length, medium, name, number, position, recording) VALUES (427385, 0, 'a4066707-1f29-30d9-80c6-3b6d12f3f6e6', '60', '2011-01-18 15:56:00.408782+00', 291773, 467794, 'Misfit', '3', 3, 8692019);
 INSERT INTO track (artist_credit, edits_pending, gid, id, last_updated, length, medium, name, number, position, recording) VALUES (427385, 0, '75bbcd04-b648-3dd0-bad4-a84d38cc20da', '61', '2011-01-18 15:56:00.408782+00', 350120, 467794, 'Present Day', '4', 4, 8692020);
+INSERT INTO track (artist_credit, edits_pending, gid, id, last_updated, length, medium, name, number, position, recording) VALUES (305, 0, '1a0ba71b-fb23-3931-a426-cd204a82a90e', '14059814', '2013-01-25 14:09:41.036045-06', 128000, 1279200, 'Hello Goodbye [hidden track]', '0', 0, 14488617);
+INSERT INTO track (artist_credit, edits_pending, gid, id, last_updated, length, medium, name, number, position, recording) VALUES (305, 0, '7b84af2d-96b3-3c50-a667-e7d10e8b000d', '14059815', '2013-01-25 14:09:41.036045-06', 211133, 1279200, 'Galaxie', '1', 1, 449989);
+INSERT INTO track (artist_credit, edits_pending, gid, id, last_updated, length, medium, name, number, position, recording) VALUES (305, 0, 'e9f7ca98-ba9d-3276-97a4-26475c9f4527', '14059816', '2013-01-25 14:09:41.036045-06', 240400, 1279200, '2 X 4', '2', 2, 449990);
 
 -- Labels
 

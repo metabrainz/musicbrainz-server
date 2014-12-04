@@ -28,6 +28,12 @@
             <li><a href="[% c.uri_for_action('/report/show', 'AnnotationsArtists') %]">[% l('Artists with annotations') %]</a></li>
         </ul>
 
+        <h2>[% l('Events') %]</h2>
+
+        <ul>
+            <li><a href="[% c.uri_for_action('/report/show', 'DuplicateEvents') %]">[% l('Possibly duplicate events') %]</a></li>
+        </ul>
+
         <h2>[% l('Labels') %]</h2>
 
         <ul>
@@ -45,6 +51,7 @@
             <li><a href="[% c.uri_for_action('/report/show', 'DiscogsLinksWithMultipleReleaseGroups') %]">[% l('Discogs URLs linked to multiple release groups') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'DuplicateRelationshipsReleaseGroups') %]">[% l('Release groups with possible duplicate relationships') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'DeprecatedRelationshipReleaseGroups') %]">[% l('Release Groups with deprecated relationships') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'DuplicateReleaseGroups') %]">[% l('Possible duplicate release groups') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'AnnotationsReleaseGroups') %]">[% l('Release groups with annotations') %]</a></li>
         </ul>
 

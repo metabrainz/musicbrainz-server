@@ -27,8 +27,10 @@ $mech->default_header("Accept" => "application/xml");
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
 INSERT INTO editor (id, name, password, ha1) VALUES (1, 'new_editor', '{CLEARTEXT}password', 'e1dd8fee8ee728b0ddc8027d3a3db478');
-INSERT INTO editor_collection (id, gid, editor, name, public)
-    VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 1, 'my collection', FALSE);
+INSERT INTO editor_collection_type (id, name, entity_type, parent, child_order)
+    VALUES (1, 'Release', 'release', NULL, 1);
+INSERT INTO editor_collection (id, gid, editor, name, public, type)
+    VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 1, 'my collection', FALSE, 1);
 EOSQL
 
 my $collection = $c->model('Collection')->get_first_collection(1);
@@ -70,4 +72,3 @@ subtest 'Remove releases from collection' => sub {
 };
 
 1;
-

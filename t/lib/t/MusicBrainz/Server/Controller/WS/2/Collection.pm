@@ -19,8 +19,10 @@ test "collection lookup" => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
     MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
 INSERT INTO editor (id, name, password, ha1) VALUES (1, 'new_editor', '{CLEARTEXT}password', 'e1dd8fee8ee728b0ddc8027d3a3db478');
-INSERT INTO editor_collection (id, gid, editor, name, public)
-    VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 1, 'my collection', FALSE);
+INSERT INTO editor_collection_type (id, name, entity_type, parent, child_order)
+    VALUES (1, 'Release', 'release', NULL, 1);
+INSERT INTO editor_collection (id, gid, editor, name, public, type)
+    VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 1, 'my collection', FALSE, 1);
 INSERT INTO editor_collection_release (collection, release) VALUES (1, 123054);
 EOSQL
 
@@ -28,7 +30,7 @@ EOSQL
         '/collection/f34c079d-374e-4436-9448-da92dedef3ce/releases/' =>
         '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-  <collection id="f34c079d-374e-4436-9448-da92dedef3ce">
+  <collection type="Release" id="f34c079d-374e-4436-9448-da92dedef3ce">
     <name>my collection</name>
     <editor>new_editor</editor>
     <release-list count="1">
@@ -63,4 +65,3 @@ EOSQL
 };
 
 1;
-

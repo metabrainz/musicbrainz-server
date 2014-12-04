@@ -100,6 +100,14 @@
     [% END %]
 [%- END -%]
 
+[%- MACRO form_row_time(r, field_name, label) BLOCK -%]
+    [% WRAPPER form_row %]
+      [% r.label(field_name, label || r.form.field(field_name).label) %]
+      [% r.text(field_name, { size => 5, class => "time", placeholder => l("HH:MM") })  %]
+      [% field_errors(r.form, field_name) %]
+    [% END %]
+[%- END -%]
+
 [%- MACRO form_row_textarea(r, field_name, label) BLOCK -%]
     [% WRAPPER form_row %]
       [% r.label(field_name, label || r.form.field(field_name).label) %]
@@ -124,10 +132,11 @@
     </div>
 [%- END -%]
 
-[%- MACRO form_row_select(r, field_name, label, class) BLOCK -%]
+[%- MACRO form_row_select(r, field_name, label, class, attributes) BLOCK -%]
+    [% attributes = attributes || {}; attributes.class = class %]
     [% WRAPPER form_row %]
       [% r.label(field_name, label || r.form.field(field_name).label, { class => class }) %]
-      [% r.select(field_name, { class => class }) -%]
+      [% r.select(field_name, attributes) -%]
       [% field_errors(r.form, field_name) %]
     [% END %]
 [%- END -%]

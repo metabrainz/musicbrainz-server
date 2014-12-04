@@ -2,6 +2,11 @@
 [% WRAPPER 'layout.tt' title=l('CD stub “{title}” by {artist}',
                                { title => cdstubtoc.cdstub.title,
                                  artist => cdstubtoc.cdstub.artist || l('Various Artists') }) %]
+  <div id="content">
+    [% INCLUDE 'cdstub/header.tt' %]
+    [% content %]
+  </div>
+
   [%- IF !full_width -%]
     [% WRAPPER 'layout/sidebar.tt' %]
         [% WRAPPER 'layout/sidebar/properties.tt' %]
@@ -36,9 +41,4 @@
         </ul>
     [% END %]
   [%- END -%]
-
-  <div id="content">
-    [% INCLUDE 'cdstub/header.tt' %]
-    [% content %]
-  </div>
 [% END %]
