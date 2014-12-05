@@ -135,7 +135,7 @@ has 'cdtoc_track_count' => (
 
 sub cdtoc_tracks {
     my ($self) = @_;
-    return grep { $_->position > 0 && !$_->is_data_track } $self->all_tracks;
+    return [ grep { $_->position > 0 && !$_->is_data_track } $self->all_tracks ];
 }
 
 __PACKAGE__->meta->make_immutable;
