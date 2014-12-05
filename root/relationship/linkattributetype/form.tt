@@ -5,7 +5,7 @@
 
     [% WRAPPER form_row %]
         [% r.label('child_order', l('Child order:')) %]
-        [% r.number('child_order', { size => 5 }) %]
+        [% r.number('child_order') %]
         [% form_field_errors(form, 'child_order') %]
     [% END %]
 
