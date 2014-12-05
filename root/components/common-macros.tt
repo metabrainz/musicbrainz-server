@@ -938,7 +938,7 @@ END -%]
 
 [%~ MACRO release_dates(release_events) BLOCK;
     IF release_events.size;
-        '<ul class="links">';
+        '<ul class="links dates">';
         FOR event=release_events;
           IF !event.date.is_empty;
             '<li>' _ event.date.format _ '</li>';
