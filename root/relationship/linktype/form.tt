@@ -67,7 +67,7 @@
                            data-bind="attr: { for: examplePrefix($index(), 'name') }">
                         [%- l('Name:') -%]
                     </label>
-                    <input data-bind="attr: { name: examplePrefix($index(), 'name') }, value: name" />
+                    <input type="text" data-bind="attr: { name: examplePrefix($index(), 'name') }, value: name" />
                     <button data-bind="click: removeExample">
                         [% l('Remove Example') %]
                     </button>
@@ -75,8 +75,7 @@
 
                 [% WRAPPER form_row %]
                 <div class="no-label" data-bind="with: relationship">
-                    <input data-bind="attr: { name: examplePrefix($index(), 'relationship.id') }, value: id"
-                           type="hidden" />
+                    <input type="hidden" data-bind="attr: { name: examplePrefix($index(), 'relationship.id') }, value: id" />
 
                     <a data-bind="text: source.name, attr: { href: '[% c.uri_for("/${link_type.entity0_type}/") %]' + source.mbid }"></a>
                     <span data-bind="html: phrase"></span>
@@ -97,7 +96,7 @@
         <h3>[% l('Add a New Example') %]</h3>
         [% WRAPPER form_row %]
             <label>[% l('Name:') %]</label>
-            <input data-bind="value: currentExample.name" />
+            <input type="text" data-bind="value: currentExample.name" />
         [% END %]
 
         [%- WRAPPER form_row -%]

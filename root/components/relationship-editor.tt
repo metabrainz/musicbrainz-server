@@ -188,7 +188,7 @@
     <!-- ko if: attribute.freeText -->
     <label>
       <!-- ko text: MB.i18n.expand(MB.text.AddColon, { variable: attribute.l_name }) --><!-- /ko -->
-      <input data-bind="textAttribute: { relationship: relationship, typeGID: attribute.gid }
+      <input type="text" data-bind="textAttribute: { relationship: relationship, typeGID: attribute.gid }
                         attr: { placeholder: attribute.l_name }" />
     </label>
     <!-- /ko -->

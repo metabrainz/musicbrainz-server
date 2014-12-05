@@ -524,12 +524,12 @@ MB.CoverArt.add_cover_art = function (gid) {
             upvm.files_to_upload.remove(ko.dataFor(this));
         });
 
-        $(document).on('click', 'input.file-up', function (event) {
+        $(document).on('click', 'button.file-up', function (event) {
             event.preventDefault();
             upvm.moveFile(ko.dataFor(this), -1);
         });
 
-        $(document).on('click', 'input.file-down', function (event) {
+        $(document).on('click', 'button.file-down', function (event) {
             event.preventDefault();
             upvm.moveFile(ko.dataFor(this), 1);
         });
