@@ -461,7 +461,7 @@ MB.constants.CLEANUPS = {
     socialnetwork: {
         match: [
             new RegExp("^(https?://)?([^/]+\\.)?facebook\\.com/", "i"),
-            new RegExp("^(https?://)?([^/]+\\.)?(last\\.fm|lastfm\\.(com\\.br|com\\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/(music|label|venue|user|group|event)/", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?(last\\.fm|lastfm\\.(com\\.br|com\\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/(music|label|venue|user|group|event|festival)/", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?reverbnation\\.com/", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?plus\\.google\\.com/", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?vk\\.com/", "i"),
@@ -483,6 +483,7 @@ MB.constants.CLEANUPS = {
                 } else {
                     url = url.replace(/(facebook\.com\/.*)\/$/, "$1");
                 }
+                url = url.replace(/\/event\.php\?eid=/, "/events/");
             }
             url = url.replace(/^(https?:\/\/)?((www|cn|m)\.)?(last\.fm|lastfm\.(com\.br|com\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/, "http://www.last.fm");
             url = url.replace(/^http:\/\/www\.last\.fm\/music\/([^?]+).*/, "http://www.last.fm/music/$1");
@@ -577,7 +578,10 @@ MB.constants.CLEANUPS = {
     },
     songkick: {
         match: [ new RegExp("^(https?://)?([^/]+\\.)?songkick\\.com","i") ],
-        type: MB.constants.LINK_TYPES.songkick
+        type: MB.constants.LINK_TYPES.songkick,
+        clean: function (url) {
+            return url.replace(/^http:\/\//, "https://");
+        }
     },
     setlistfm: {
         match: [ new RegExp("^(https?://)?([^/]+\\.)?setlist\\.fm","i") ],
@@ -881,7 +885,7 @@ MB.Control.URLCleanup = function (options) {
         return url.match(/songkick\.com\/concerts\//) != null;
     }
     validationRules[ MB.constants.LINK_TYPES.songkick.place ] = function (url) {
-        return url.match(/songkick\.com\/venues\//) != null;
+        return url.match(/songkick\.com\/(venues|festivals)\//) != null;
     }
 
     // allow only setlist.fm pages with the setlist.fm rel
