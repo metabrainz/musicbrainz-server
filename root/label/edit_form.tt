@@ -28,7 +28,7 @@
 
       <fieldset>
         <legend>[% l('Label Details') %]</legend>
-        [%- form_row_text_long(r, 'name', l('Name:')) -%]
+        [%- form_row_name_with_guesscase(r) -%]
         [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
         [%- form_row_select(r, 'type_id', l('Type:')) -%]
         [% WRAPPER form_row %]
@@ -74,12 +74,13 @@
   </div>
 
   <div class="documentation">
-    [%- guesscase_bubble(1) -%]
     [%- area_bubble() -%]
     [%- external_link_bubble() -%]
   </div>
 
 </form>
+
+[%- guesscase_options() -%]
 
 <script type="text/javascript">//<![CDATA[
   (function () {

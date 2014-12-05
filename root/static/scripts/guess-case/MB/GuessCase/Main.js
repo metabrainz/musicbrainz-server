@@ -57,7 +57,7 @@
         self.f.init(); // init flags object
     };
 
-    function guess(handlerName, method, modeName) {
+    function guess(handlerName, method) {
         var handler;
 
         /**
@@ -68,11 +68,6 @@
          **/
         return function (is) {
             gc.init();
-
-            if (modeName) {
-                var previousMode = self.mode;
-                self.mode = MB.GuessCase.Mode[modeName];
-            }
 
             handler = handler || MB.GuessCase.Handler[handlerName]();
 
@@ -87,10 +82,6 @@
                 var os = handler[method].apply(handler, arguments);
             }
 
-            if (modeName) {
-                self.mode = previousMode;
-            }
-
             return os;
         };
     }
@@ -101,14 +92,13 @@
     };
 
     MB.GuessCase.artist = {
-        guess: guess("Artist", "process", "Artist"),
-        sortname: guess("Artist", "guessSortName", "Artist")
+        guess: guess("Artist", "process"),
+        sortname: guess("Artist", "guessSortName")
     };
 
     MB.GuessCase.label = {
-        // This probably shouldn't be using the "Artist" mode, but it always has been.
-        guess: guess("Label", "process", "Artist"),
-        sortname: guess("Label", "guessSortName", "Artist")
+        guess: guess("Label", "process"),
+        sortname: guess("Label", "guessSortName")
     };
 
     MB.GuessCase.place = {
@@ -137,6 +127,13 @@
     // Series doesn't have it's own handler, and just uses the work handler
     // because additional behavior isn't needed.
     MB.GuessCase.series = MB.GuessCase.work;
+
+    // lol
+    MB.GuessCase.instrument = {
+        guess: function (string) {
+            return string.toLowerCase();
+        }
+    };
 
     /* FIXME: ugly hack, need to get rid of using a global 'gc' everywhere. */
     window.gc = self;

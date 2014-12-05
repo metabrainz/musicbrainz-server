@@ -28,8 +28,8 @@
 
       <fieldset>
         <legend>[% l('Artist Details') %]</legend>
-        [%- form_row_text_long(r, 'name', l('Name:')) -%]
-        [%- form_row_text_long(r, 'sort_name', l('Sort name:')) -%]
+        [%- form_row_name_with_guesscase(r) -%]
+        [%- form_row_sortname_with_guesscase(r) -%]
         [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
         [%- form_row_select(r, 'type_id', l('Type:')) -%]
         [%- form_row_select(r, 'gender_id', l('Gender:')) -%]
@@ -109,13 +109,13 @@
   </div>
 
   <div class="documentation">
-    [%- guesscase_bubble(1) -%]
-    [%- sortname_bubble() -%]
     [%- area_bubble() -%]
     [%- external_link_bubble() -%]
   </div>
 
 </form>
+
+[%- guesscase_options() -%]
 
 <script type="text/javascript">//<![CDATA[
   (function () {

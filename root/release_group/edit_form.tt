@@ -11,7 +11,7 @@
   <div class="half-width">
     <fieldset>
       <legend>[% l('Release Group Details') %]</legend>
-      [%- form_row_text_long(r, 'name', l('Name:')) -%]
+      [%- form_row_name_with_guesscase(r) -%]
       [%- form_row_artist_credit(form) -%]
       [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
       [%- form_row_select(r, 'primary_type_id', l('Primary Type:')) -%]
@@ -32,11 +32,12 @@
 
   <div class="documentation">
     [%- artist_credit_table() -%]
-    [%- guesscase_bubble() -%]
     [%- external_link_bubble() -%]
   </div>
 
 </form>
+
+[%- guesscase_options() -%]
 
 <script type="text/javascript">//<![CDATA[
   (function () {

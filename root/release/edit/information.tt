@@ -7,7 +7,17 @@
       <tr>
         <td><label for="title" class="required">[% l('Title:') %]</label></td>
         <td colspan="2">
-          <input id="title" type="text" size="47" required="required" data-bind="value: name, controlsBubble: $root.guessCaseBubble" />
+          <table>
+            <tr>
+              <td style="padding: 0">
+                <input id="name" type="text" size="47" required="required" data-bind="value: name" />
+              </td>
+              <td style="padding: 0; text-align: right; width: 42px">
+                <button type="button" class="guesscase-title icon" title="[% l('Guess case') %]"></button>
+                <button type="button" class="guesscase-options icon" title="[% l('Guess case options') %]"></button>
+              </td>
+            </tr>
+          </table>
         </td>
       </tr>
 
@@ -237,8 +247,6 @@
 </div>
 
 <div class="documentation" data-bind="with: rootField.release">
-  [%- guesscase_bubble(0, '$root.guessCaseBubble', '_.bind($root.guessCaseReleaseName, $root)') -%]
-
   [%- artist_credit_table() -%]
 
   <div class="bubble" data-bind="bubble: $root.releaseGroupBubble">
