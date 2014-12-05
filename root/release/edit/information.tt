@@ -7,7 +7,7 @@
       <tr>
         <td><label for="title" class="required">[% l('Title:') %]</label></td>
         <td colspan="2">
-          <input id="title" type="text" size="47" data-bind="value: name, controlsBubble: $root.guessCaseBubble" />
+          <input id="title" type="text" size="47" required="required" data-bind="value: name, controlsBubble: $root.guessCaseBubble" />
         </td>
       </tr>
 
@@ -38,6 +38,7 @@
         <td class="release-artist">
           <span class="autocomplete">
             <input id="release-artist" type="text"
+              required="required"
               data-bind="
                 autocomplete: {
                   entity: 'artist',
@@ -183,7 +184,7 @@
       <tr>
         <td><label for="barcode">[% l('Barcode:') %]</label></td>
         <td colspan="4">
-          <input id="barcode" type="text" data-bind="value: barcode.value, valueUpdate: 'input', disable: barcode.none, controlsBubble: $root.barcodeBubble" />
+          <input id="barcode" type="text" pattern="[0-9]*" data-bind="value: barcode.value, valueUpdate: 'input', disable: barcode.none, controlsBubble: $root.barcodeBubble" />
         </td>
       </tr>
 

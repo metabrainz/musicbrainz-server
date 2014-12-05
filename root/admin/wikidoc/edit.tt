@@ -15,7 +15,7 @@
                 <span>[% current_version %]</span>
             </div>
 
-            [% form_row_text(r, 'version', l('New version:')) %]
+            [% form_row_text(r, 'version', l('New version:'), { pattern => "[0-9]*" }) %]
 
             <div class="row no-label">
                 [% form_submit(l('Update')) %]

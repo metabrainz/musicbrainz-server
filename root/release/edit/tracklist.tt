@@ -82,7 +82,7 @@
     </tr>
     <tr>
       <td><label for="import-track-count">[% l('Track count:') %]</label></td>
-      <td><input id="import-track-count" type="text" data-bind="value: trackCount, valueUpdate: 'afterkeydown'" data-keydown="keydownEvent" /></td>
+      <td><input id="import-track-count" type="number" data-bind="value: trackCount, valueUpdate: 'afterkeydown'" data-keydown="keydownEvent" /></td>
       <td class="buttons">
         <button type="button" data-click="buttonClicked" data-bind="enable: releaseName() || artistName() || trackCount() || searching(), text: searching() ? '[% l('Cancel') | js %]' : '[% l('Search') | js %]'"></button>
       </td>
@@ -417,7 +417,7 @@
         </div>
 
         <div class="icon add-tracks" data-bind="if: !hasToc() || hasDataTracks()">
-          [% l('Add {num} track(s)', num => '<input type="text" maxlength="2" placeholder="1" data-bind="value: addTrackCount" />') %]
+          [% l('Add {num} track(s)', num => '<input type="number" maxlength="2" placeholder="1" data-bind="value: addTrackCount" />') %]
           <button type="button" class="icon add-item" title="[% l('Add track(s)') %]" data-click="addNewTracks"></button>
         </div>
       </div>

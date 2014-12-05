@@ -71,18 +71,31 @@
     </div>
 [%- END -%]
 
-[%- MACRO form_row_text(r, field_name, label) BLOCK -%]
+[%- MACRO form_row_text(r, field_name, label, attrs) BLOCK -%]
+    [% attrs = attrs ? attrs : {} %]
     [% WRAPPER form_row %]
       [% r.label(field_name, label || r.form.field(field_name).label) %]
-      [% r.text(field_name) %]
+      [% r.text(field_name, attrs) %]
       [% field_errors(r.form, field_name) %]
     [% END %]
 [%- END -%]
 
 [%- MACRO form_row_text_long(r, field_name, label) BLOCK -%]
+    [% form_row_text(r, field_name, label, { size => 47 }) %]
+[%- END -%]
+
+[%- MACRO form_row_email_long(r, field_name, label) BLOCK -%]
     [% WRAPPER form_row %]
       [% r.label(field_name, label || r.form.field(field_name).label) %]
-      [% r.text(field_name, { size => 47 })  %]
+      [% r.email(field_name, { size => 47 })  %]
+      [% field_errors(r.form, field_name) %]
+    [% END %]
+[%- END -%]
+
+[%- MACRO form_row_url_long(r, field_name, label) BLOCK -%]
+    [% WRAPPER form_row %]
+      [% r.label(field_name, label || r.form.field(field_name).label) %]
+      [% r.url(field_name, { size => 47 })  %]
       [% field_errors(r.form, field_name) %]
     [% END %]
 [%- END -%]
@@ -179,7 +192,7 @@
     [%- WRAPPER form_row -%]
         <label for="[% id %]" class="required">[% l('Artist:') %]</label>
         <span class="autocomplete">
-          <input id="[% id %]" type="text" class="artist-credit-input" data-bind="autocomplete: { entity: 'artist', artistCredit: $data }" data-hidden-inputs="[% 1 IF form %]" data-form="[% form.name IF form.html_prefix %]" data-artist="[% html_escape(form.field('artist_credit').json) IF form %]" />
+          <input id="[% id %]" type="text" required="required" class="artist-credit-input" data-bind="autocomplete: { entity: 'artist', artistCredit: $data }" data-hidden-inputs="[% 1 IF form %]" data-form="[% form.name IF form.html_prefix %]" data-artist="[% html_escape(form.field('artist_credit').json) IF form %]" />
           <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
         </span>
         <button type="button" class="styled-button" id="open-ac" data-bind="controlsBubble: $root.artistBubble">[% l('Edit') | html_entity %]</button>
@@ -415,7 +428,7 @@
                   visible: showTypeSelection()"></select>
       </td>
       <td>
-        <input type="text"
+        <input type="url"
           class="value with-remove"
           data-bind="
             value: url,

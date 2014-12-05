@@ -44,7 +44,7 @@
         [% END %]
         [% WRAPPER form_row %]
             [%- r.label('label_code', l('Label code:')) %]
-            LC- [% r.text('label_code', size => 5, class => "label-code") -%]
+            LC- [% r.text('label_code', size => 5, class => "label-code", pattern => "[0-9]*") -%]
             [%- field_errors(form, 'label_code') -%]
         [% END %]
         [%- form_row_text_list(r, 'ipi_codes', l('IPI codes:'), l('IPI code')) -%]

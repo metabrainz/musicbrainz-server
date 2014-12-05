@@ -126,7 +126,10 @@ div.form-row-add.nolabel { margin-left: @form-label-width + @form-margin; }
     border-bottom: 12px solid transparent;
 }
 
-.bubble div.row input[type=text] {
+.bubble div.row input[type=text],
+.bubble div.row input[type=email],
+.bubble div.row input[type=number],
+.bubble div.row input[type=url] {
     width: @form-bubble-input-width;
     font-size: 1em;
 }
@@ -215,7 +218,7 @@ table.row-form {
 
     label { display: inline-block; text-align: right; }
 
-    input[type=text], select, span.autocomplete {
+    input[type=text], input[type=email], input[type=number], input[type=url], select, span.autocomplete {
         width: 100% !important;
     }
 
@@ -517,7 +520,7 @@ div.remove-item {
 
     td.errors ul { margin: 0; }
 
-    input[type=text] { width: 100%; }
+    input[type=text], input[type=email], input[type=number], input[type=url] { width: 100%; }
 }
 
 #external-links-editor span.favicon {
