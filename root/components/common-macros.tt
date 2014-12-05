@@ -325,6 +325,8 @@ END -%]
                 '<span class="flag flag-' _ flag _ '">' _ content _ '</span>';
             CASE 'info_link';  # add. parameter: infolink
                 content _ ' [<a href="' _ infolink _ '">' _ l('info') _ '</a>]';
+            CASE 'show_dates';
+                dates ? content _ bracketed(dates) : content;
             CASE 'avatar'; # add. parameter: avatar
                 '<img src="' _ avatar _ '" height="' _ image_size _ '" width="' _ image_size _ '" class="gravatar" alt="" />' _ content;
         END;
@@ -359,6 +361,11 @@ END -%]
         flag = entity.iso_3166_1.0;
     END;
 
+    IF type == 'event' AND content == '';
+        options.unshift('show_dates');
+        dates = entity.formatted_date;
+    END;
+
     IF type == 'url' AND content == '';
         mod_content = INCLUDE _unescaped_display_url url=entity;
         options.unshift('info_link');
@@ -366,7 +373,7 @@ END -%]
         link = entity.href_url;
     END;
 
-    INCLUDE _wrap_text options=options content=mod_content link=link hover=hover flag=flag infolink=infolink;
+    INCLUDE _wrap_text options=options content=mod_content link=link hover=hover flag=flag infolink=infolink dates=dates;
 END -%]
 
 [%~ BLOCK _link_other_entity;
