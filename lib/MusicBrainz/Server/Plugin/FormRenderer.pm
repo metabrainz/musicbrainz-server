@@ -52,7 +52,9 @@ sub _render_input
 {
     my ($self, $field, $type, %attrs) = @_;
     return unless ref $field;
-    $attrs{required} = "required" if $field->required;
+    if ($field->required && $type !~ /^hidden|image|submit|reset|button$/) {
+        $attrs{required} = "required";
+    }
     my $class = delete $attrs{class} || '';
     return $self->h->input({
             type => $type,
