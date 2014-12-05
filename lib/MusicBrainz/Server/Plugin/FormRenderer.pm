@@ -267,9 +267,9 @@ sub date
     my $field = $self->_lookup_field($field_name) or return;
     return $self->h->span({ class => 'partial-date' }, [
         join('-',
-             $self->text($field->field('year'),  { maxlength => 4, placeholder => l('YYYY'), size => 4, pattern => '[0-9]*' }),
-             $self->text($field->field('month'), { maxlength => 2, placeholder => l('MM'), size => 2, pattern => '[0-9]*' }),
-             $self->text($field->field('day'),   { maxlength => 2, placeholder => l('DD'), size => 2, pattern => '[0-9]*' }))
+             $self->text($field->field('year'),  { maxlength => 4, placeholder => l('YYYY'), size => 4 }),
+             $self->text($field->field('month'), { maxlength => 2, placeholder => l('MM'), size => 2 }),
+             $self->text($field->field('day'),   { maxlength => 2, placeholder => l('DD'), size => 2 }))
     ]);
 }
 

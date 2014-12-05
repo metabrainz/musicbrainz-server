@@ -77,9 +77,9 @@
   <tr>
     <td class="section" data-bind="text: label"></td>
     <td class="partial-date">
-      <input data-bind="value: date.year, valueUpdate: 'afterkeydown'" maxlength="4" placeholder="[% l('YYYY') %]" pattern="[0-9]*" size="4" />-<!--
-      --><input data-bind="value: date.month, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="[% l('MM') %]" pattern="[0-9]*" size="2" />-<!--
-      --><input data-bind="value: date.day, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="[% l('DD') %]" pattern="[0-9]*" size="2" />
+      <input data-bind="value: date.year, valueUpdate: 'afterkeydown'" maxlength="4" placeholder="[% l('YYYY') %]" size="4" />-<!--
+      --><input data-bind="value: date.month, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="[% l('MM') %]" size="2" />-<!--
+      --><input data-bind="value: date.day, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="[% l('DD') %]" size="2" />
       <div class="error" data-bind="text: $parent.dateError(date)"></div>
     </td>
   </tr>
