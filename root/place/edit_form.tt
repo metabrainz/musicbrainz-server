@@ -136,6 +136,7 @@
                 marker.setLatLng(L.latLng(data.coordinates.latitude, data.coordinates.longitude));
 
                 map.panTo(L.latLng(data.coordinates.latitude, data.coordinates.longitude));
+                map.setZoom(16);
             }).error(function () {
                 $("input[name=edit-place\\.coordinates]").addClass("error");
                 $(".coordinates-errors").css("display", "block");
