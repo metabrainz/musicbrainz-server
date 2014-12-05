@@ -217,7 +217,7 @@ sub _serialize_collection
     my %attrs;
     $attrs{id} = $collection->gid;
     $attrs{type} = $collection->type->name if ($collection->type);
-    $attrs{entity_type} = $collection->type->entity_type if ($collection->type);
+    $attrs{"entity-type"} = $collection->type->entity_type if ($collection->type);
 
     my @collection;
     push @collection, $gen->name($collection->name);
