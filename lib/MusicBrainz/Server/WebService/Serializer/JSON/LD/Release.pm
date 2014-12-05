@@ -14,6 +14,9 @@ around serialize => sub {
     my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
 
     $ret->{'@type'} = 'MusicRelease';
+
+    $ret->{releaseOf} = serialize_entity($entity->release_group, $inc, $stash);
+
     if ($entity->all_events) {
         $ret->{hasReleaseRegion} = [
             map { release_event($_, $inc, $stash) } $entity->all_events
@@ -38,6 +41,7 @@ around serialize => sub {
         $ret->{image} = list_or_single(map { artwork($_) } @{ $stash->store($entity)->{cover_art} });
     }
 
+    # XXX: updating for split pages?
     if ($entity->all_mediums &&
         ($entity->all_mediums)[0]->all_tracks &&
         (($entity->all_mediums)[0]->all_tracks)[0]->recording) {
@@ -50,6 +54,8 @@ around serialize => sub {
         }
         $ret->{track} = \@tracks;
     }
+
+    $ret->{gtin14} = $entity->barcode->code if $entity->barcode;
 
     return $ret;
 };
