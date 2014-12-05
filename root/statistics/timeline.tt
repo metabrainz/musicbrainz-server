@@ -71,7 +71,7 @@
             c.model('FileCache').template_signature('statistics/view_js.tt'),
             'statistics/view.js') -%]"></script>
 
-[% script_manifest('statistics.js.manifest') %]
+[% script_manifest('statistics.js') %]
 
 <script type="text/javascript">//<![CDATA[
 $(function () {
