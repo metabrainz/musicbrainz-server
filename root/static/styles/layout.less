@@ -426,8 +426,6 @@ div.warning img.warning {
 /*
 ** Misc
 */
-.clear { clear: both; }
-
 .c, table.tbl .c { text-align: center; }
 
 .noborder { border: none !important; }
@@ -620,24 +618,13 @@ table.details table.tbl th {
 
 /* Browse Entity pages */
 .browse-entities {
-    margin-top: 1em;
-}
+    -moz-column-count: 2; /* Firefox 9+ */
+    -webkit-column-count: 2; /* Chrome, Opera 15+, Safari 3+ */
+    column-count: 2; /* IE 10+, Opera 11-12 */
 
-.browse-entities ol {
-    margin: 0;
-}
-
-.browse {
-    margin-top: 0.5em;
-}
-
-.browse td {
-    text-align: center;
-    padding: 2px;
-}
-
-.browse td.char {
-    width: 0.7em;
+    ol {
+        margin: 0;
+    }
 }
 
 /* Entity details & edit details */
@@ -738,28 +725,6 @@ dl.properties dt {
 
 table.properties th {
     text-align: right;
-}
-
-/* CSS columns (instead of using tables) */
-div.columns-2 div.column {
-    float: left;
-    width: 50%;
-    min-width: 300px;
-}
-div.columns-3 div.column {
-    float: left;
-    width: 33.3%;
-    min-width: 200px;
-}
-div.columns-4 div.column {
-    float: left;
-    width: 25%;
-    min-width: 150px;
-}
-div.columns-5 div.column {
-    float: left;
-    width: 20%;
-    min-width: 120px;
 }
 
 .nagpanel {
