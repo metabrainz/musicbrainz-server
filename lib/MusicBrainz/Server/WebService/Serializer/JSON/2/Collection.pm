@@ -18,7 +18,7 @@ sub serialize
     $body{name} = $entity->name;
     $body{editor} = $entity->editor->name;
     $body{type} = $entity->type ? $entity->type->name : JSON::null;
-    $body{entity_type} = $entity->type ? $entity->type->entity_type : JSON::null;
+    $body{"entity-type"} = $entity->type ? $entity->type->entity_type : JSON::null;
 
     if ($toplevel) {
         $body{"release-count"} = count_of($entity, $inc, $stash, "releases");
