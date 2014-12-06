@@ -347,7 +347,7 @@
       </p>
 
       <p class="error field-error" style="padding: 1em" data-bind="showErrorWhenTabIsSwitched: hasInvalidPregapLength">
-        <!-- ko text: MB.text.InvalidPregapLength --><!-- /ko -->
+        [% l('None of the attached disc IDs can fit a pregap track of the given length.') %]
       </p>
 
       <table class="medium tbl">
