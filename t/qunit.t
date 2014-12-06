@@ -10,9 +10,6 @@ my $phantomjs = scalar @phantomjs ? $phantomjs[0] :
      $ENV{HOME}.'/opt/phantomjs/bin/phantomjs');
 
 $root = "$Bin/../root";
-$testroot = "$root/static/scripts/tests";
-$testrunner = "$root/static/lib/qunit-tap/sample/js/run_qunit.js";
-$testsuite = "$testroot/all.html";
 
 sub generate_text_strings {
     my $input = read_file("$root/scripts/text_strings.tt");
@@ -39,5 +36,5 @@ if (! -x $phantomjs)
 }
 else {
     generate_text_strings();
-    exec($phantomjs, $testrunner, $testsuite);
+    exec($phantomjs, "$root/static/build/tests.js");
 }

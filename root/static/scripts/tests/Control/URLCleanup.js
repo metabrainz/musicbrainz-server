@@ -1,6 +1,11 @@
-module('URL Cleanup');
+// This file is part of MusicBrainz, the open internet music database.
+// Copyright (C) 2014 MetaBrainz Foundation
+// Licensed under the GPL version 2, or (at your option) any later version:
+// http://www.gnu.org/licenses/gpl-2.0.txt
 
-test('Guess type', function () {
+var test = require('tape');
+
+test('Guess type', function (t) {
     var control = MB.Control.URLCleanup();
     var tests = [
             // Wikipedia
@@ -554,11 +559,13 @@ test('Guess type', function () {
         ];
 
     $.each(tests, function (i, test) {
-        QUnit.equal(control.guessType(test[0], test[1]), test[2], test[1] + " (" + test[0] + ")");
+        t.equal(control.guessType(test[0], test[1]), test[2], test[1] + " (" + test[0] + ")");
     });
+
+    t.end();
 });
 
-test('Cleanup', function () {
+test('Cleanup', function (t) {
     var control = MB.Control.URLCleanup(),
         tests = [
             [
@@ -1168,6 +1175,8 @@ test('Cleanup', function () {
         ];
 
     $.each(tests, function (i, test) {
-        QUnit.equal(control.cleanUrl(test[2], test[0]), test[1], test[0] + (test[2] ? " (" + test[2] + ")": "") + " -> " + test[1]);
+        t.equal(control.cleanUrl(test[2], test[0]), test[1], test[0] + (test[2] ? " (" + test[2] + ")": "") + " -> " + test[1]);
     });
+
+    t.end();
 });

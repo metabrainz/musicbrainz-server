@@ -3,49 +3,56 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-releaseEditor.test.module("release editor bubbles", releaseEditor.test.setupReleaseEdit);
+var test = require('tape');
+var common = require('./common.js');
 
+function trackBubbleTest(name, callback) {
+    test(name, function (t) {
+        var release = common.setupReleaseEdit();
+        var ac = release.mediums()[0].tracks()[0].artistCredit;
 
-function setupTrackACBubble(self) {
-    var ac = self.release.mediums()[0].tracks()[0].artistCredit;
-    self.bubble = releaseEditor.trackArtistBubble;
+        var bubble = MB.releaseEditor.trackArtistBubble;
+        var $bubble = $("<div>").addClass("bubble").append("<input>");
+        var $button = $("<button>");
+        var $fixture = $('<div>').appendTo('body').append($bubble, $button);
 
-    self.$bubble = $("<div>").addClass("bubble").append("<input>");
-    self.$button = $("<button>");
+        ko.applyBindingsToNode($bubble[0], { bubble: bubble }, ac);
+        ko.applyBindingsToNode($button[0], { controlsBubble: bubble }, ac);
 
-    $("#qunit-fixture").append(self.$bubble, self.$button);
+        callback(t, bubble, $button);
 
-    ko.applyBindingsToNode(self.$bubble[0], { bubble: self.bubble }, ac);
-    ko.applyBindingsToNode(self.$button[0], { controlsBubble: self.bubble }, ac);
+        $fixture.remove();
+    });
 }
 
+trackBubbleTest("clicking outside of a track AC bubble closes it", function (t, bubble, $button) {
+    t.plan(3);
 
-test("clicking outside of a track AC bubble closes it", function () {
-    setupTrackACBubble(this);
+    t.ok(!bubble.visible(), "bubble is not visible");
 
-    ok(!this.bubble.visible(), "bubble is not visible");
-
-    this.$button.click();
-    ok(this.bubble.visible(), "bubble is visible after clicking button");
+    $button.click();
+    t.ok(bubble.visible(), "bubble is visible after clicking button");
 
     $("body").click();
-    ok(!this.bubble.visible(), "bubble is hidden after clicking outside of it");
+    t.ok(!bubble.visible(), "bubble is hidden after clicking outside of it");
 });
 
-
-test("creating a new artist from the track AC bubble should not close it (MBS-7251)", function () {
-    setupTrackACBubble(this);
+trackBubbleTest("creating a new artist from the track AC bubble should not close it (MBS-7251)", function (t, bubble, $button) {
+    t.plan(3);
 
     // Open the track AC bubble.
-    this.$button.click();
+    $button.click();
 
     // Simulate an add-entity dialog opening.
-    var $dialog = $("<div>").appendTo("#qunit-fixture").dialog();
-    ok(this.bubble.visible(), "bubble is visible after dialog opens above it");
+    var $fixture = $('<div>').appendTo('body');
+    var $dialog = $("<div>").appendTo($fixture).dialog();
+    t.ok(bubble.visible(), "bubble is visible after dialog opens above it");
 
     $dialog.parent().find("button.ui-dialog-titlebar-close").click();
-    ok(this.bubble.visible(), "bubble is visible after dialog is closed");
+    t.ok(bubble.visible(), "bubble is visible after dialog is closed");
 
-    this.$button.click();
-    ok(!this.bubble.visible(), "bubble is hidden after clicking the button again");
+    $button.click();
+    t.ok(!bubble.visible(), "bubble is hidden after clicking the button again");
+
+    $fixture.remove();
 });

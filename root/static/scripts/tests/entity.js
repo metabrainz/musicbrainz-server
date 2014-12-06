@@ -3,28 +3,30 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-module("MB.entity");
+var test = require('tape');
 
+test("CoreEntity", function (t) {
+    t.plan(2);
 
-test("CoreEntity", function () {
     var source = MB.entity({ gid: 123, entityType: "recording", name: "a recording" }),
         target = MB.entity({ gid: 456, entityType: "artist", name: "foo", sortName: "bar" });
 
-    equal(
+    t.equal(
         source.html(),
         '<a href="/recording/123"><bdi>a recording</bdi></a>',
         "recording link"
     );
 
-    equal(
+    t.equal(
         target.html({ "target": "_blank" }),
         '<a href="/artist/456" target="_blank" title="bar"><bdi>foo</bdi></a>',
         "artist link"
     );
 });
 
+test("ArtistCredit", function (t) {
+    t.plan(4);
 
-test("ArtistCredit", function () {
     var data = [
         [ { artist: { gid: 1, name: "a" }, joinPhrase: "/" } ],
         [ { artist: { gid: 1, name: "a" }, name: "b", joinPhrase: "/" } ],
@@ -37,9 +39,9 @@ test("ArtistCredit", function () {
         new MB.entity.ArtistCredit(data[2])
     ];
 
-    ok(!acs[0].isEqual(acs[1]), JSON.stringify(data[0]) + " !== " + JSON.stringify(data[1]));
-    ok(!acs[0].isEqual(acs[2]), JSON.stringify(data[0]) + " !== " + JSON.stringify(data[2]));
-    ok( acs[2].isEqual(acs[2]), JSON.stringify(data[2]) + " === " + JSON.stringify(data[2]));
+    t.ok(!acs[0].isEqual(acs[1]), JSON.stringify(data[0]) + " !== " + JSON.stringify(data[1]));
+    t.ok(!acs[0].isEqual(acs[2]), JSON.stringify(data[0]) + " !== " + JSON.stringify(data[2]));
+    t.ok( acs[2].isEqual(acs[2]), JSON.stringify(data[2]) + " === " + JSON.stringify(data[2]));
 
     // test artist credit rendering
     var ac = [
@@ -64,7 +66,7 @@ test("ArtistCredit", function () {
         }
     ];
 
-    equal(new MB.entity.ArtistCredit(ac).html(),
+    t.equal(new MB.entity.ArtistCredit(ac).html(),
         '<span class="name-variation">' +
         '<a href="/artist/7f9a3245-df19-4681-8314-4a4c1281dc74" ' +
         'title="Sheridan, Tony"><bdi>tony sheridan</bdi></a></span> &amp; ' +
