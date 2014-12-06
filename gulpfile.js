@@ -130,7 +130,7 @@ function buildScripts(watch) {
         createBundle("jed-" + lang + ".js", watch, function (b) {
             b.require(jedWrapper, { expose: 'jed-wrapper' });
         }).done(function () {
-            //fs.unlinkSync(jedWrapper);
+            fs.unlinkSync(jedWrapper);
         });
     });
 
