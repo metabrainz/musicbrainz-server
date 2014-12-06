@@ -64,6 +64,7 @@ license:     BSD
 version:     v2.2
 author:      Paul Johnston
 url:         http://pajhome.org.uk/crypt/md5/jshash-2.2.zip
+note:        Modifications were made to add browserify support; see git log.
 
 -- flot/jquery.flot.* --
 
