@@ -31,3 +31,4 @@ require("./common/MB/utility.js");
 require("./common/multiselect.js");
 require("./common/ratings.js");
 require("./common/tagger.js");
+require("./common/coverart.js");
