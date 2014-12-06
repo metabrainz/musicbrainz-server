@@ -1,4 +1,6 @@
-require("../lib/filesize.js/lib/filesize.js");
+var filesize = require("../lib/filesize.js/lib/filesize.js");
+window.filesize = filesize;
+
 require("../lib/json/json2.js");
 
 var sha1 = require("../lib/sha1/sha1.js");
