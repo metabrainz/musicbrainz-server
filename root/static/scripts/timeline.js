@@ -15,7 +15,7 @@ $(function () {
             e.jsDate = Date.parse(e.date);
             return e;
         });
-        $(window).hashchange();
+        $(window).trigger('hashchange');
     }, 'json');
 
     // Called whenever plot is reset
@@ -34,7 +34,7 @@ $(function () {
                            MB.Timeline.datasets[datasetId].data = data;
                            rateData(datasetId);
                            $this_control.removeClass('loading').find('input').prop('disabled', false);
-                           $(window).hashchange();
+                           $(window).trigger('hashchange');
                    }});
                 } else if (MB.Timeline.datasets[datasetId].data) {
                     alldata.push(MB.Timeline.datasets[datasetId]);
@@ -307,7 +307,7 @@ $(function () {
     function check(elem, checked) {
         elem.children('input:checkbox').prop('checked', checked).change();
     }
-    $(window).hashchange(function () {
+    $(window).on('hashchange', function () {
             var hash = location.hash.replace( /^#/, '' );
             var queries = hash.split('+');
 
@@ -481,7 +481,7 @@ $(function () {
         newHash = location.hash;
 
         // Trigger actually graphing things
-        $(window).hashchange();
+        $(window).trigger('hashchange');
 
         // Resize the graph when the window size changes
         $(window).on("resize", _.debounce(function () {
