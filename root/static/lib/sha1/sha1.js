@@ -330,3 +330,4 @@ function bit_rol(num, cnt)
 }
 
 exports.hex_sha1 = hex_sha1;
+exports.rstr_sha1 = rstr_sha1;
