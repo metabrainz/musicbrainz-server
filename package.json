@@ -33,7 +33,6 @@
     "jquery.flot": "./root/static/lib/flot/jquery.flot.js",
     "jquery.flot.musicbrainzEvents": "./root/static/scripts/jquery.flot.musicbrainz_events.js",
     "jquery.flot.selection": "./root/static/lib/flot/jquery.flot.selection.js",
-    "jquery.hashchange": "./root/static/lib/jquery/jquery.ba-hashchange.js",
     "jquery.tablesorter": "./root/static/lib/jquery/jquery.tablesorter.js",
     "jquery.ui": "./root/static/lib/jquery.ui/ui/jquery-ui.custom.js",
     "knockout": "./root/static/lib/knockout/knockout-latest.debug.js",
