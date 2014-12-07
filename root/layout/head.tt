@@ -42,7 +42,7 @@
       <script type="text/javascript">
         var _gaq = _gaq || [];
         _gaq.push(['_setAccount', '[% google_analytics_code %]']);
-        _gaq.push(['_setCustomVar', 1, 'User is logged in', '[% c.user_exists ? 'Yes' : 'No' %]'], 2);
+        _gaq.push(['_setCustomVar', 1, 'User is logged in', '[% c.user_exists ? 'Yes' : 'No' %]', 2]);
         _gaq.push(['_trackPageview']);
 
         (function () {
