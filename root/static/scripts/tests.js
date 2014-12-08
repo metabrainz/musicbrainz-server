@@ -2,8 +2,12 @@ var test = require('tape');
 
 var hadError = false;
 var errorCount = 0;
+var rowCount = 0;
+var timeout = null;
 
 function createRow(row) {
+    ++rowCount;
+
     var rowNode = document.createElement('div');
     rowNode.appendChild(document.createTextNode(row));
 
@@ -39,10 +43,23 @@ test.createStream().on('data', function (row) {
 
     console.log(row);
     loggerNode.appendChild(createRow(row));
+
+    if (typeof phantom !== 'undefined') {
+        var lastKnownRow = rowCount;
+
+        clearTimeout(timeout);
+
+        timeout = setTimeout(function () {
+            if (rowCount === lastKnownRow) {
+                phantom.exit(1);
+            }
+        }, 3000);
+    }
 });
 
 if (typeof phantom !== 'undefined') {
     test.createStream().on('end', function () {
+        clearTimeout(timeout);
         phantom.exit(errorCount > 0 ? 1 : 0);
     });
 }
