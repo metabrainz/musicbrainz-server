@@ -297,8 +297,11 @@ sub get_by_iso_3166_3 {
 
 sub _get_by_iso {
     my ($self, $table, @codes) = @_;
-    my $query = "SELECT * FROM (SELECT " . $self->_columns .
-        " FROM " . $self->_table . ") q WHERE ${table} && ?";
+
+    my $query = "SELECT " . $self->_columns .
+                " FROM " . $self->_table .
+                " JOIN ${table} c ON c.area = area.id" .
+                " WHERE c.code = any(?)";
 
     my %ret = map { $_ => undef } @codes;
     for my $row (@{ $self->sql->select_list_of_hashes($query, \@codes) }) {
