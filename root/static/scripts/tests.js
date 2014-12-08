@@ -1,4 +1,53 @@
-require('./common.js')
+var test = require('tape');
+
+var hadError = false;
+var errorCount = 0;
+
+function createRow(row) {
+    var rowNode = document.createElement('div');
+    rowNode.appendChild(document.createTextNode(row));
+
+    if (/^# /.test(row)) {
+        hadError = false;
+        rowNode.style.backgroundColor = '#222';
+        rowNode.style.color = '#DDD';
+        return rowNode;
+    }
+
+    if (/^ok /.test(row)) {
+        hadError = false;
+        rowNode.style.backgroundColor = '#8F8';
+        return rowNode;
+    }
+
+    if (hadError || /^not ok /.test(row)) {
+        if (!hadError) {
+            hadError = true;
+            ++errorCount;
+        }
+        rowNode.style.backgroundColor = '#F88';
+    }
+
+    return rowNode;
+}
+
+var loggerNode = document.createElement('div');
+document.body.appendChild(loggerNode);
+
+test.createStream().on('data', function (row) {
+    row = row.replace(/\n$/, '');
+
+    console.log(row);
+    loggerNode.appendChild(createRow(row));
+});
+
+if (typeof phantom !== 'undefined') {
+    test.createStream().on('end', function () {
+        phantom.exit(errorCount > 0 ? 1 : 0);
+    });
+}
+
+require('./common.js');
 require('./edit.js');
 require('./guess-case.js');
 require('./release-editor.js');
