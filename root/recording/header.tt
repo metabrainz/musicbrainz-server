@@ -2,7 +2,7 @@
     [%- IF c.try_get_session('tport') -%]
         [%- tagger_icon(recording) -%]
     [%- END -%]
-    <h1>[% link_recording(recording) %] [% disambiguation(recording) %]</h1>
+    <h1>[% link_entity(recording) %]</h1>
     <p class="subheader">
         <span class="prefix">~</span>
             [%- IF recording.video -%]

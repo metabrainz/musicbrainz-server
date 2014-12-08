@@ -47,7 +47,7 @@ dl.ars dt {
     [%- END -%]
     <td>
       [%- IF recording.gid -%]
-        [%- link_recording(recording, 'show', track.name) -%]
+        [%- link_entity(recording, 'show', track.name) -%]
       [%- ELSE -%]
         [%- html_escape(track.name) -%]
       [%- END -%]

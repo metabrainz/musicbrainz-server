@@ -48,8 +48,7 @@
                 </td>
                 [% END %]
                 <td>
-                  [% link_release(release) %]
-                  [% disambiguation(release) %]
+                  [%~ link_entity(release) ~%]
                 </td>
                 <td>[% html_escape(release.combined_format_name) or "-" %]</td>
                 <td>[% release.combined_track_count or "-" %]</td>

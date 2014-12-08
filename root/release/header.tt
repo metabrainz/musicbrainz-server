@@ -2,7 +2,7 @@
 [%- IF c.try_get_session('tport') -%]
     [%- tagger_icon(release) -%]
 [%- END -%]
-<h1>[%- link_release(release) %] [% disambiguation(release) -%]</h1>
+<h1>[% link_entity(release) %]</h1>
 <p class="subheader">
     <span class="prefix">~</span>
         [% l('Release by {artist}', {artist = artist_credit(release.artist_credit)})%]
