@@ -1,7 +1,11 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::LD::Artist;
 use Moose;
-use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_entity );
+use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_entity list_or_single );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
+
+use MusicBrainz::Server::Constants qw( $INSTRUMENT_ROOT_ID $VOCAL_ROOT_ID );
+use MusicBrainz::Server::Data::Utils qw( non_empty );
+use List::MoreUtils qw( uniq );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
@@ -57,7 +61,26 @@ sub member_relationship {
         $ret->{endDate} = $date->format if ($is_new || ($ret->{endDate} && PartialDate->new($ret->{endDate}) < $date));
     }
 
-    # TODO: roles
+    # XXX: role names are instruments (or, where available, credits), not
+    # things like 'bassist' or 'keyboardist', since we don't have that
+    # information.
+    my @roles;
+    if (ref $ret->{roleName} eq 'ARRAY') {
+        @roles = @{ $ret->{roleName} };
+    } else {
+        push(@roles, $ret->{roleName}) if $ret->{roleName};
+    }
+    for my $attr ($relationship->link->all_attributes) {
+        my $root = $attr->type->root ? $attr->type->root->id : $attr->type->root_id;
+        if ($root == $INSTRUMENT_ROOT_ID || $root == $VOCAL_ROOT_ID) {
+            if (non_empty($attr->credited_as)) {
+                push(@roles, $attr->credited_as);
+            } else {
+                push(@roles, $attr->type->name);
+            }
+        }
+    }
+    $ret->{roleName} = list_or_single(uniq(@roles));
     return $ret;
 }
 __PACKAGE__->meta->make_immutable;
