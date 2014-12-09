@@ -513,7 +513,7 @@ sub create
 
     $self->c->sql->update_row('edit', $post_insert_update, { id => $edit_id });
 
-    $edit->adjust_edit_pending(+1);
+    $edit->adjust_edit_pending(+1) unless $edit->auto_edit;
 
     my $ents = $edit->related_entities;
     while (my ($type, $ids) = each %$ents) {
@@ -766,7 +766,7 @@ sub _close
     my $status = &$close_sub($edit);
     my $query = "UPDATE edit SET status = ?, close_time = NOW() WHERE id = ?";
     $self->c->sql->do($query, $status, $edit->id);
-    $edit->adjust_edit_pending(-1);
+    $edit->adjust_edit_pending(-1) unless $edit->auto_edit;
     $edit->status($status);
     $self->c->model('Editor')->credit($edit->editor_id, $status, %opts);
 }
