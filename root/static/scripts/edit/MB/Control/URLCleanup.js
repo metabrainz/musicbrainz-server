@@ -203,6 +203,9 @@ MB.constants.LINK_TYPES = {
         event: "027fce0c-c621-4fd1-b728-1678ae08f280",
         place: "751e8fb1-ed8d-4a94-b71b-a38065054f5d"
     },
+    geonames: {
+        area: 713
+    },
     imslp: {
         artist: "8147b6a2-ad14-4ce7-8f0a-697f9a31f68f"
     }
@@ -234,6 +237,13 @@ MB.constants.CLEANUPS = {
             if ((m = url.match(/^(http:\/\/www\.discogs\.com\/(?:artist|label))\/(.+)/)) != null)
                 url = m[1] + "/" + encodeURIComponent(decodeURIComponent(m[2].replace(/\+/g, "%20"))).replace(/%20/g, "+");
             return url;
+        }
+    },
+    geonames: {
+        match: [ new RegExp("^https?:\/\/([a-z]+\.)?geonames.org\/([0-9]+)\/.*$", "i") ],
+        type: MB.constants.LINK_TYPES.geonames,
+        clean: function(url) {
+            return url.replace(/^https?:\/\/([a-z]+\.)?geonames.org\/([0-9]+)\/.*$/, 'http://sws.geonames.org/$2/');
         }
     },
     imdb: {
@@ -343,10 +353,17 @@ MB.constants.CLEANUPS = {
             new RegExp("^(https?://)?([^/]+\\.)?beatport\\.com", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?junodownload\\.com", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?audiojelly\\.com", "i"),
+            new RegExp("^(https?://)?play\\.google\\.com/store/music/", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?e-onkyo\\.com", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?ototoy\\.jp", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?hd-music\\.info", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?(7digital\\.com|zdigital\\.com\\.au)", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?itunes\\.apple\\.com/", "i")
         ],
         type: MB.constants.LINK_TYPES.downloadpurchase,
         clean: function (url) {
+            // Google Play
+            url = url.replace(/^https?:\/\/play\.google\.com\/store\/music\/(artist|album)(?:\/[^?]*)?\?id=([^&#]+)(?:[&#].*)?$/, "https://play.google.com/store/music/$1?id=$2");
             // iTunes cleanup
             return url.replace(/^https?:\/\/itunes\.apple\.com\/([a-z]{2}\/)?(artist|album|music-video|preorder)\/(?:[^?#\/]+\/)?(id[0-9]+)(?:\?.*)?$/, "https://itunes.apple.com/$1$2/$3");
         }
@@ -464,6 +481,7 @@ MB.constants.CLEANUPS = {
             new RegExp("^(https?://)?([^/]+\\.)?(last\\.fm|lastfm\\.(com\\.br|com\\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/(music|label|venue|user|group|event|festival)/", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?reverbnation\\.com/", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?plus\\.google\\.com/", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?vine\\.co/", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?vk\\.com/", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?twitter\\.com/", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?instagram\\.com/", "i")
@@ -489,6 +507,7 @@ MB.constants.CLEANUPS = {
             url = url.replace(/^http:\/\/www\.last\.fm\/music\/([^?]+).*/, "http://www.last.fm/music/$1");
             url = url.replace(/^(?:https?:\/\/)?plus\.google\.com\/(?:u\/[0-9]\/)?([0-9]+)(\/.*)?$/, "https://plus.google.com/$1");
             url = url.replace(/^(?:https?:\/\/)?(?:(?:www|mobile)\.)?twitter\.com(?:\/#!)?\/@?([^\/]+)\/?$/, "https://twitter.com/$1");
+            url = url.replace(/^(?:https?:\/\/)?(?:(?:www|m)\.)?reverbnation\.com(?:\/#!)?\//, "http://www.reverbnation.com/");
             return url;
         }
     },
@@ -496,7 +515,7 @@ MB.constants.CLEANUPS = {
         match: [ new RegExp("^(https?://)?([^/]+\\.)?soundcloud\\.com","i") ],
         type: MB.constants.LINK_TYPES.soundcloud,
         clean: function (url) {
-            return url.replace(/^(https?:\/\/)?(www\.)?soundcloud\.com(\/#!)?/, "https://soundcloud.com");
+            return url.replace(/^(https?:\/\/)?((www|m)\.)?soundcloud\.com(\/#!)?/, "https://soundcloud.com");
         }
     },
     blog: {
@@ -513,8 +532,11 @@ MB.constants.CLEANUPS = {
             return url;
         }
     },
-    spotify: {
-        match: [ new RegExp("^(https?://)?([^/]+\\.)?(spotify\\.com)", "i") ],
+    streaming: {
+        match: [
+            new RegExp("^(https?://)?([^/]+\\.)?(deezer\\.com)", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?(spotify\\.com)", "i")
+        ],
         type: MB.constants.LINK_TYPES.streamingmusic,
         clean: function (url) {
             url = url.replace(/^https?:\/\/embed\.spotify\.com\/\?uri=spotify:([a-z]+):([a-zA-Z0-9_-]+)$/, "http://open.spotify.com/$1/$2");

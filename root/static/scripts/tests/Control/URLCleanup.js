@@ -264,6 +264,18 @@ test('Guess type', function () {
                 'recording', 'https://embed.spotify.com/?uri=spotify:track:7gwRSZ0EmGWa697ZrE58GA',
                 MB.constants.LINK_TYPES.streamingmusic.recording
             ],
+            [
+                'artist', 'http://www.deezer.com/artist/243332',
+                MB.constants.LINK_TYPES.streamingmusic.artist
+            ],
+            [
+                'release', 'http://www.deezer.com/album/497382',
+                MB.constants.LINK_TYPES.streamingmusic.release
+            ],
+            [
+                'recording', 'http://www.deezer.com/track/3437226',
+                MB.constants.LINK_TYPES.streamingmusic.recording
+            ],
             // Lyrics
             [
                 'release', 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
@@ -318,6 +330,34 @@ test('Guess type', function () {
             ],
             // Other download stores
             [
+                'artist', 'https://play.google.com/store/music/artist/Daylight?id=Ab34l5k2zbtfv2uwitbfwrwyufy',
+                MB.constants.LINK_TYPES.downloadpurchase.artist
+            ],
+            [
+                'release', 'https://play.google.com/store/music/album/Disasterpeace_The_Floor_is_Jelly_Original_Soundtra?id=Bxpxunylzxqoqiiostyvocjtuu4',
+                MB.constants.LINK_TYPES.downloadpurchase.release
+            ],
+            [
+                'artist', 'http://www.7digital.com/artist/the-impatient-sisters',
+                MB.constants.LINK_TYPES.downloadpurchase.artist
+            ],
+            [
+                'release', 'http://www.7digital.com/artist/el-p/release/cancer-4-cure-1',
+                MB.constants.LINK_TYPES.downloadpurchase.release
+            ],
+            [
+                'artist', 'http://es.7digital.com/artist/the-impatient-sisters',
+                MB.constants.LINK_TYPES.downloadpurchase.artist
+            ],
+            [
+                'release', 'http://fr-ca.7digital.com/artist/the-impatient-sisters',
+                MB.constants.LINK_TYPES.downloadpurchase.release
+            ],
+            [
+                'artist', 'http://www.zdigital.com.au/artist/the-impatient-sisters',
+                MB.constants.LINK_TYPES.downloadpurchase.artist
+            ],
+            [
                 'release', 'http://www.beatport.com/release/summertime-sadness-cedric-gervais-remix/1029002',
                 MB.constants.LINK_TYPES.downloadpurchase.release
             ],
@@ -327,6 +367,18 @@ test('Guess type', function () {
             ],
             [
                 'release', 'http://www.audiojelly.com/releases/turn-up-the-sound/242895',
+                MB.constants.LINK_TYPES.downloadpurchase.release
+            ],
+            [
+                'release', 'http://hd-music.info/album.cgi/913',
+                MB.constants.LINK_TYPES.downloadpurchase.release
+            ],
+            [
+                'release', 'http://ototoy.jp/_/default/p/45622',
+                MB.constants.LINK_TYPES.downloadpurchase.release
+            ],
+            [
+                'release', 'http://www.e-onkyo.com/music/album/vpcd81809/',
                 MB.constants.LINK_TYPES.downloadpurchase.release
             ],
             // Allmusic
@@ -430,6 +482,10 @@ test('Guess type', function () {
             // VK
             [
                 'artist', 'http://vk.com/tin_sontsya',
+                MB.constants.LINK_TYPES.socialnetwork.artist
+            ],
+            [
+                'artist', 'https://vine.co/destorm',
                 MB.constants.LINK_TYPES.socialnetwork.artist
             ],
             // Generasia
@@ -537,6 +593,10 @@ test('Guess type', function () {
             [
                 'release_group', 'http://www.metal-archives.com/albums/Corubo/Ypykuera/193860',
                 MB.constants.LINK_TYPES.otherdatabases.release_group
+            ],
+            [
+                'area', 'http://www.geonames.org/6255147/asia.html',
+                MB.constants.LINK_TYPES.geonames.area
             ],
             // setlist.fm
             [
@@ -647,6 +707,31 @@ test('Cleanup', function () {
                 'http://soundcloud.com/alec_empire',
                 'https://soundcloud.com/alec_empire',
                 'artist'
+            ],
+            [ // mobile subdomain should be removed
+                'http://m.soundcloud.com/octobersveryown',
+                'https://soundcloud.com/octobersveryown',
+                'artist'
+            ],
+            [ // #! should be removed
+                'http://www.reverbnation.com/#!/benwebbmusic',
+                'http://www.reverbnation.com/benwebbmusic',
+                'artist'
+            ],
+            [ // scheme should be http
+                'https://www.reverbnation.com/littlesparrow',
+                'http://www.reverbnation.com/littlesparrow',
+                'artist'
+            ],
+            [ // www should be included
+                'http://reverbnation.com/negator',
+                'http://www.reverbnation.com/negator',
+                'artist'
+            ],
+            [ // mobile subdomain should be www
+                'http://m.reverbnation.com/venue/602562',
+                'http://www.reverbnation.com/venue/602562',
+                'event'
             ],
             // Discogs
             [
@@ -940,6 +1025,27 @@ test('Cleanup', function () {
                 'release'
             ],
             [
+                'https://play.google.com/store/music/artist/Daylight?id=Ab34l5k2zbtfv2uwitbfwrwyufy',
+                'https://play.google.com/store/music/artist?id=Ab34l5k2zbtfv2uwitbfwrwyufy',
+                'artist'
+            ],
+            [
+                'https://play.google.com/store/music/album/Disasterpeace_The_Floor_is_Jelly_Original_Soundtra?id=Bxpxunylzxqoqiiostyvocjtuu4',
+                'https://play.google.com/store/music/album?id=Bxpxunylzxqoqiiostyvocjtuu4',
+                'release'
+            ],
+
+            [ // scheme should be https
+                'http://play.google.com/store/music/artist?id=Aathd3z2apf2hbln4wgkrthmhqu',
+                'https://play.google.com/store/music/artist?id=Aathd3z2apf2hbln4wgkrthmhqu',
+                'artist'
+            ],
+            [ // other parameters should be removed
+                'https://play.google.com/store/music/artist/Julia_Haltigan_The_Hooligans?id=Avnwgjjbdf6la5zvdjf62k4jylq&hl=en',
+                'https://play.google.com/store/music/artist?id=Avnwgjjbdf6la5zvdjf62k4jylq',
+                'artist'
+            ],
+            [
                 'https://pt.wikisource.org/wiki/A_Portuguesa',
                 'http://pt.wikisource.org/wiki/A_Portuguesa',
                 'work'
@@ -1148,6 +1254,11 @@ test('Cleanup', function () {
             [
                 'http://commons.wikimedia.org/wiki/Main_Page#mediaviewer/File:Origanum_vulgare_-_harilik_pune.jpg',
                 'https://commons.wikimedia.org/wiki/File:Origanum_vulgare_-_harilik_pune.jpg'
+            ],
+            [
+                'http://www.geonames.org/6255147/asia.html',
+                'http://sws.geonames.org/6255147/',
+                'area'
             ],
             // Genius
             [
