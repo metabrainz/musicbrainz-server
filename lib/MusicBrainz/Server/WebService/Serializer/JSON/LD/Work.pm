@@ -15,7 +15,7 @@ around serialize => sub {
     $ret->{'@type'} = 'MusicComposition';
 
     if ($entity->all_iswcs) {
-       $ret->{'iswc'} = list_or_single(map { $_->iswc } $entity->all_iswcs);
+       $ret->{'iswcCode'} = list_or_single(map { $_->iswc } $entity->all_iswcs);
     }
 
     return $ret;
