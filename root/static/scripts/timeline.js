@@ -529,4 +529,6 @@ $(window).on('hashchange', function () {
     MB.Timeline.TimelineViewModel.hash(hash);
 });
 
-ko.applyBindings(MB.Timeline.TimelineViewModel);
+$(function () {
+    ko.applyBindings(MB.Timeline.TimelineViewModel);
+});
