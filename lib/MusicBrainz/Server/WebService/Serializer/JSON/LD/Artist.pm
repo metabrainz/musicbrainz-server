@@ -9,13 +9,13 @@ with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::LifeSpan' =>
     { begin_properties => sub { return shift->type->name eq 'Person' ? qw( foundingDate birthDate ) : qw( foundingDate ) },
       end_properties   => sub { return shift->type->name eq 'Person' ? qw( dissolutionDate deathDate ) : qw( dissolutionDate ) } };
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Aliases';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Area' => { include_birth_death => sub { return shift->type->name eq 'Person' } };
+with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Area' => { include_birth_death => sub { my $artist = shift; return $artist->type && $artist->type->name eq 'Person' } };
 
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
     my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
 
-    $ret->{'@type'} = $entity->type->name eq 'Person' ? ['Person', 'MusicGroup'] : 'MusicGroup';
+    $ret->{'@type'} = ($entity->type && $entity->type->name eq 'Person') ? ['Person', 'MusicGroup'] : 'MusicGroup';
     $ret->{groupOrigin} = serialize_entity($entity->begin_area, $inc, $stash) if $entity->begin_area;
 
     return $ret;
