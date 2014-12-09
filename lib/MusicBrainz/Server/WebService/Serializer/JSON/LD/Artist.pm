@@ -6,8 +6,8 @@ extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Name';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::LifeSpan' =>
-    { begin_properties => sub { return shift->type->name eq 'Person' ? qw( foundingDate birthDate ) : qw( foundingDate ) },
-      end_properties   => sub { return shift->type->name eq 'Person' ? qw( dissolutionDate deathDate ) : qw( dissolutionDate ) } };
+    { begin_properties => sub { my $artist = shift; return ($artist->type && $artist->type->name eq 'Person') ? qw( foundingDate birthDate ) : qw( foundingDate ) },
+      end_properties   => sub { my $artist = shift; return ($artist->type && $artist->type->name eq 'Person')  ? qw( dissolutionDate deathDate ) : qw( dissolutionDate ) } };
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Aliases';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Area' => { include_birth_death => sub { my $artist = shift; return $artist->type && $artist->type->name eq 'Person' } };
 
