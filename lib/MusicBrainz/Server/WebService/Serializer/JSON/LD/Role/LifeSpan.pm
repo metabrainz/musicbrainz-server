@@ -32,18 +32,20 @@ role {
         #
         # There may be a better way to do this, but I'm not really sure what
         # exactly it is.
-        if ($entity->begin_date && $entity->begin_date->defined_run) {
-            my @run = $entity->begin_date->defined_run;
-            my $date = PartialDate->new(year => $run[0], month => $run[1], day => $run[2]);
-            for my $property ($begin_properties->($entity)) {
-                $ret->{$property} = $date->format;
+        if ($toplevel) {
+            if ($entity->begin_date && $entity->begin_date->defined_run) {
+                my @run = $entity->begin_date->defined_run;
+                my $date = PartialDate->new(year => $run[0], month => $run[1], day => $run[2]);
+                for my $property ($begin_properties->($entity)) {
+                    $ret->{$property} = $date->format;
+                }
             }
-        }
-        if ($entity->end_date && $entity->end_date->defined_run) {
-            my @run = $entity->end_date->defined_run;
-            my $date = PartialDate->new(year => $run[0], month => $run[1], day => $run[2]);
-            for my $property ($end_properties->($entity)) {
-                $ret->{$property} = $date->format;
+            if ($entity->end_date && $entity->end_date->defined_run) {
+                my @run = $entity->end_date->defined_run;
+                my $date = PartialDate->new(year => $run[0], month => $run[1], day => $run[2]);
+                for my $property ($end_properties->($entity)) {
+                    $ret->{$property} = $date->format;
+                }
             }
         }
 

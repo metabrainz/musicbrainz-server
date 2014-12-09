@@ -1,6 +1,7 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::LD::Artist;
 use Moose;
 use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_entity );
+use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
@@ -15,12 +16,36 @@ around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
     my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
 
-    $ret->{'@type'} = ($entity->type && $entity->type->name eq 'Person') ? ['Person', 'MusicGroup'] : 'MusicGroup';
-    $ret->{groupOrigin} = serialize_entity($entity->begin_area, $inc, $stash) if $entity->begin_area;
+    if ($toplevel) {
+        $ret->{'@type'} = ($entity->type && $entity->type->name eq 'Person') ? ['Person', 'MusicGroup'] : 'MusicGroup';
+        $ret->{groupOrigin} = serialize_entity($entity->begin_area, $inc, $stash) if $entity->begin_area;
+
+        my @members = grep { $_->direction == 2 } @{ $entity->relationships_by_link_type_names('member of band') };
+        if (@members) {
+            $ret->{'member'} = [map { member_relationship($_, $inc, $stash) } @members]
+        }
+    }
 
     return $ret;
 };
 
+sub member_relationship {
+    my ($relationship, $inc, $stash) = @_;
+    my $ret = { member => serialize_entity($relationship->target, $inc, $stash) };
+
+    if ($relationship->link->begin_date && $relationship->link->begin_date->defined_run) {
+        my @run = $relationship->link->begin_date->defined_run;
+        my $date = PartialDate->new(year => $run[0], month => $run[1], day => $run[2]);
+        $ret->{startDate} = $date->format;
+    }
+    if ($relationship->link->end_date && $relationship->link->end_date->defined_run) {
+        my @run = $relationship->link->end_date->defined_run;
+        my $date = PartialDate->new(year => $run[0], month => $run[1], day => $run[2]);
+        $ret->{endDate} = $date->format;
+    }
+    # TODO: roles
+    return $ret;
+}
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
