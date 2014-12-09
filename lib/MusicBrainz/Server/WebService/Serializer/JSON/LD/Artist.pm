@@ -32,6 +32,12 @@ around serialize => sub {
             }
             $ret->{member} = [ values %seen_members ];
         }
+
+        if ($stash->store($entity)->{release_groups}) {
+            my $items = $stash->store($entity)->{release_groups}{items};
+            my @rgs = map { serialize_entity($_, $inc, $stash) } @$items;
+            $ret->{album} = list_or_single(@rgs);
+        }
     }
 
     return $ret;
