@@ -259,6 +259,16 @@ sub reject
     }
 }
 
+sub allow_auto_edit {
+    my ($self) = @_;
+
+    if ($self->data->{type0} eq "recording" && $self->data->{type1} eq "work") {
+        return 1;
+    }
+
+    return 0;
+}
+
 before restore => sub {
     my ($self, $data) = @_;
     $data->{link_type}{long_link_phrase} =

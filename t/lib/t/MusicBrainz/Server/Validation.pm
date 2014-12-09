@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Validation;
 use Test::Routine;
 use Test::More;
 use Test::Warn;
+use utf8;
 
 use MusicBrainz::Server::Validation qw( is_positive_integer is_guid trim_in_place is_valid_url is_valid_isrc format_isrc is_valid_discid is_freedb_id is_valid_iswc format_iswc is_valid_ipi format_ipi is_valid_isni format_isni encode_entities normalise_strings is_valid_barcode is_valid_ean );
 
@@ -149,6 +150,45 @@ test 'Test normalise_strings' => sub {
     is($alice, 'alice');
     is($alice2, 'alice');
     is($bob, 'bob');
+
+    is(normalise_strings('"'), "'", 'Double quote to single quote');
+
+    is(normalise_strings('`'), "'", 'U+0060 GRAVE ACCENT');
+    is(normalise_strings('´'), "'", 'U+00B4 ACUTE ACCENT');
+    is(normalise_strings('«'), "'", 'U+00AB LEFT-POINTING DOUBLE ANGLE QUOTATION MARK');
+    is(normalise_strings('»'), "'", 'U+00BB RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK');
+    is(normalise_strings('ʻ'), "'", 'U+02BB MODIFIER LETTER TURNED COMMA');
+    is(normalise_strings('׳'), "'", 'U+05F3 HEBREW PUNCTUATION GERESH');
+    is(normalise_strings('״'), "'", 'U+05F4 HEBREW PUNCTUATION GERSHAYIM');
+    is(normalise_strings('‘'), "'", 'U+2018 LEFT SINGLE QUOTATION MARK');
+    is(normalise_strings('’'), "'", 'U+2019 RIGHT SINGLE QUOTATION MARK');
+    is(normalise_strings('‚'), "'", 'U+201A SINGLE LOW-9 QUOTATION MARK');
+    is(normalise_strings('‛'), "'", 'U+201B SINGLE HIGH-REVERSED-9 QUOTATION MARK');
+    is(normalise_strings('“'), "'", 'U+201C LEFT DOUBLE QUOTATION MARK');
+    is(normalise_strings('”'), "'", 'U+201D RIGHT DOUBLE QUOTATION MARK');
+    is(normalise_strings('„'), "'", 'U+201E DOUBLE LOW-9 QUOTATION MARK');
+    is(normalise_strings('‟'), "'", 'U+201F DOUBLE HIGH-REVERSED-9 QUOTAITON MARK');
+    is(normalise_strings('′'), "'", 'U+2032 PRIME');
+    is(normalise_strings('″'), "'", 'U+2033 DOUBLE PRIME');
+    is(normalise_strings('‹'), "'", 'U+2039 SINGLE LEFT-POINTING ANGLE QUOTATION MARK');
+    is(normalise_strings('›'), "'", 'U+203A SINGLE RIGHT-POINTING ANGLE QUOTATION MARK');
+
+    is(normalise_strings('־'), '-', 'U+05BE HEBREW PUNCTUATION MAQAF');
+    is(normalise_strings('‐'), '-', 'U+2010 HYPHEN');
+    is(normalise_strings('‒'), '-', 'U+2012 FIGURE DASH');
+    is(normalise_strings('–'), '-', 'U+2013 EN DASH');
+    is(normalise_strings('−'), '-', 'U+2212 MINUS SIGN');
+
+    is(normalise_strings('ı'), 'i', 'U+0131 LATIN SMALL LETTER DOTLESS I -> i');
+
+    is(normalise_strings('ABCDE'), 'abcde', 'ASCII lc');
+    is(normalise_strings('ÀÉÎÕÜ'), 'aeiou', 'Latin-1 lc/unaccent');
+    is(normalise_strings('ĀĖİŐŮ'), 'aeiou', 'Latin-A lc/unaccent');
+    is(normalise_strings('ǍƠȘȚǙ'), 'aostu', 'Latin-B lc/unaccent');
+    is(normalise_strings('ẨẸỊỖṤṸẂỶẔ'), 'aeiosuwyz', 'Latin Additional lc/unaccent');
+    is(normalise_strings('！＄０５ＡＺｂｙ'), '!$05azby', 'Fullwidth Latin to ASCII');
+    is(normalise_strings('｡｢･ｱﾝ'), '。「・アン', 'Halfwidth Katakana/punctuation to fullwidth');
+
 };
 
 1;

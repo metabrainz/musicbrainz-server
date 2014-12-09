@@ -13,8 +13,8 @@
   <!-- ko if: relationship().editsPending -->
     <p class="msg warning">
       [% l('Warning: This relationship has pending edits.
-            <a target="_blank" data-bind="attr: { href: relationship().openEdits() }">Click here</a>
-            to view these edits and make sure they do not conflict with your own.') %]
+            {show|Click here} to view these edits and make sure they do not conflict with your own.',
+           { show => { 'data-bind' => 'attr: { href: relationship().openEdits() }', target => '_blank' } }) %]
     </p>
   <!-- /ko -->
   <table>
@@ -43,7 +43,7 @@
     </td>
     <td>
       <span class="autocomplete">
-        <img class="search" src="../../../static/images/icons/search.png" />
+        <img class="search" src="../../../static/images/icons/search.png" alt="[% l('Search') %]"/>
         <input class="name" type="text" data-bind="relationshipEditorAutocomplete: $data" />
       </span>
       <div class="error" data-bind="text: targetEntityError()"></div>
@@ -156,7 +156,7 @@
           <div class="instrument-selection-credit">
             <span class="autocomplete">
               <input data-bind="autocomplete: { entity: 'instrument', currentSelection: $rawData }" />
-              <img class="search" src="/static/images/icons/search.png" />
+              <img class="search" src="/static/images/icons/search.png" alt="[% l('Search') %]" />
             </span>
             <!-- ko with: $rawData.linkAttribute -->
               <input type="text" class="attribute-credit" placeholder="[% l('credited as') %]" data-bind="value: credit" />
@@ -188,7 +188,7 @@
     <!-- ko if: attribute.freeText -->
     <label>
       <!-- ko text: MB.i18n.expand(MB.text.AddColon, { variable: attribute.l_name }) --><!-- /ko -->
-      <input data-bind="textAttribute: { relationship: relationship, typeGID: attribute.gid }
+      <input type="text" data-bind="textAttribute: { relationship: relationship, typeGID: attribute.gid }
                         attr: { placeholder: attribute.l_name }" />
     </label>
     <!-- /ko -->

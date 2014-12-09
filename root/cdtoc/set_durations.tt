@@ -9,19 +9,16 @@
 
   <h2>[% l('Medium') %]</h2>
   <table class="tbl"><tbody>
-  [%- INCLUDE 'medium/tracklist.tt' medium=medium show_artists=1 hide_rating=1 -%]
+  [%- INCLUDE 'medium/tracklist.tt' tracks=medium.tracks show_artists=1 hide_rating=1 -%]
   </tbody></table>
 
   <h2>[% l('Changes') %]</h2>
-  [%- track_duration_changes([1 .. medium.all_tracks.size], medium.all_tracks, cdtoc.track_details, 'length', 'length_time') -%]
+  [%- track_duration_changes([1 .. medium.cdtoc_tracks.size], medium.cdtoc_tracks, cdtoc.track_details, 'length', 'length_time') -%]
 
   <p>
-    [% l('The medium you are altering is part of the following release:') %]
+    [%~ l('The medium you are altering is part of the following release: {release}',
+          { release => descriptive_link(medium.release) }) ~%]
   </p>
-  <ul>
-    <li>[% l('{release} by {artist}', { release => link_entity(medium.release),
-                                        artist => artist_credit(medium.release.artist_credit) }) %]</li>
-  </ul>
 
   <form method="post">
   [% INCLUDE 'forms/edit-note.tt' %]

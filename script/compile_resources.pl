@@ -3,4 +3,4 @@ use strict;
 use warnings;
 use FindBin '$Bin';
 
-system "$Bin/../node_modules/.bin/gulp";
+system "$Bin/../node_modules/.bin/gulp " . join " ", @ARGV;

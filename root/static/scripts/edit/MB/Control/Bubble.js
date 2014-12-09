@@ -151,23 +151,11 @@ MB.Control.ArtistCreditBubbleBase = {
             names.push({});
         }
 
-        if (MB.hasLocalStorage) {
-            localStorage.copiedArtistCredit = JSON.stringify(names);
-        } else {
-            MB.copiedArtistCredit = JSON.stringify(names);
-        }
+        MB.localStorage("copiedArtistCredit", JSON.stringify(names));
     },
 
     pasteArtistCredit: function () {
-        var copiedArtistCredit;
-
-        if (MB.hasLocalStorage) {
-            copiedArtistCredit = localStorage.copiedArtistCredit;
-        } else {
-            copiedArtistCredit = MB.copiedArtistCredit;
-        }
-
-        var names = JSON.parse(copiedArtistCredit || "[{}]");
+        var names = JSON.parse(MB.localStorage("copiedArtistCredit") || "[{}]");
         this.target().setNames(names);
     }
 };
@@ -371,4 +359,6 @@ MB.Control.initializeBubble = function (bubble, control, vm, canBeShown) {
 
     ko.applyBindingsToNode($(bubble)[0], { bubble: bubbleDoc }, vm);
     ko.applyBindingsToNode($(control)[0], { controlsBubble: bubbleDoc }, vm);
+
+    return bubbleDoc;
 };

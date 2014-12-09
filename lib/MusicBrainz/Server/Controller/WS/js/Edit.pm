@@ -22,21 +22,20 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_EDIT
     $EDIT_RELATIONSHIP_DELETE
     $EDIT_WORK_CREATE
-    $AUTO_EDITOR_FLAG
+    $UNTRUSTED_FLAG
 );
 use MusicBrainz::Server::Data::Utils qw(
     type_to_model
     model_to_type
     partial_date_to_hash
     split_relationship_by_attributes
+    sanitize
     trim
-    remove_invalid_characters
-    collapse_whitespace
     non_empty
 );
 use MusicBrainz::Server::Edit::Utils qw( boolean_from_json );
 use MusicBrainz::Server::Translation qw( l );
-use MusicBrainz::Server::Validation qw( is_guid is_valid_url );
+use MusicBrainz::Server::Validation qw( is_guid is_valid_url is_valid_partial_date );
 use Readonly;
 use Scalar::Util qw( looks_like_number );
 use Try::Tiny;
@@ -185,7 +184,7 @@ sub process_artist_credits {
 
         for my $name (@names) {
             if (my $join_phrase = $name->{join_phrase}) {
-                $join_phrase = collapse_whitespace(remove_invalid_characters($join_phrase));
+                $join_phrase = sanitize($join_phrase);
                 $join_phrase =~ s/\s+$// if $i == $#names;
                 $name->{join_phrase} = $join_phrase;
             }
@@ -252,6 +251,7 @@ sub process_medium {
 
         my $ac = $track->{artist_credit};
         $track->{artist_credit} = ArtistCredit->from_array($ac->{names}) if $ac;
+        $track->{is_data_track} = boolean_from_json($track->{is_data_track});
 
         return Track->new(%$track);
     };
@@ -268,6 +268,15 @@ sub process_relationship {
     $data->{begin_date} = delete $data->{beginDate} // {};
     $data->{end_date} = delete $data->{endDate} // {};
     $data->{ended} = boolean_from_json($data->{ended});
+
+    for my $date ("begin_date", "end_date") {
+        my ($year, $month, $day) = ($data->{$date}{year}, $data->{$date}{month}, $data->{$date}{day});
+        die "invalid $date: $year-$month-$day" unless is_valid_partial_date($year, $month, $day);
+
+        for (qw( year month day )) {
+            delete $data->{$date}{$_} unless non_empty($data->{$date}{$_});
+        }
+    }
 
     $data->{attributes} = [
         map {
@@ -332,6 +341,8 @@ sub process_edits {
     my $relationships_to_load = {};
     my @link_types_to_load;
     my @props_to_load;
+    my @loaded_relationships;
+    my @non_existent_entities;
 
     for my $edit (@$edits) {
         my $edit_type = $edit->{edit_type};
@@ -356,8 +367,6 @@ sub process_edits {
         }
     }
 
-    my @loaded_relationships;
-
     while (my ($types, $edits) = each %$relationships_to_load) {
         my ($type0, $type1) = split /-/, $types;
 
@@ -369,7 +378,9 @@ sub process_edits {
         $c->model('Link')->load(@relationships);
 
         while (my ($id, $edit) = each %$edits) {
-            $edit->{relationship} = $relationships_by_id->{$id};
+            unless ($edit->{relationship} = $relationships_by_id->{$id}) {
+                push @non_existent_entities, { type => 'relationship', id => $id };
+            }
         }
 
         push @loaded_relationships, @relationships;
@@ -445,8 +456,6 @@ sub process_edits {
         ( map { $_ => $c->model($_)->get_by_gids(@{ $gids_to_load->{$_} }) } keys %$gids_to_load ),
     );
 
-    my @non_existent_entities;
-
     for (@props_to_load) {
         my ($id, $model, $setter) = @$_;
 
@@ -473,8 +482,8 @@ sub create_edits {
 
     my $privs = $c->user->privileges;
 
-    if ($c->user->is_auto_editor && !$data->{asAutoEditor}) {
-        $privs &= ~$AUTO_EDITOR_FLAG;
+    if ($data->{makeVotable}) {
+        $privs |= $UNTRUSTED_FLAG;
     }
 
     try {
@@ -508,9 +517,9 @@ sub create_edits {
             }
 
             $edit = $c->model('Edit')->$action(
+                %$opts,
                 editor_id => $c->user->id,
                 privileges => $privs,
-                %$opts
             );
         }
         catch {

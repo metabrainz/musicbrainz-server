@@ -7,47 +7,32 @@ with 't::Edit';
 with 't::Context';
 
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_MOVE_DISCID );
-use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 BEGIN { use MusicBrainz::Server::Edit::Medium::MoveDiscID }
 
 test all => sub {
+    my $test = shift;
+    my $c = $test->c;
 
-my $test = shift;
-my $c = $test->c;
-
-MusicBrainz::Server::Test->prepare_test_database($c, '+cdtoc');
-MusicBrainz::Server::Test->prepare_test_database($c, <<'SQL');
-    SET client_min_messages TO warning;
-    TRUNCATE artist CASCADE;
-    DELETE FROM medium_cdtoc WHERE id = 2;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+cdtoc');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<'SQL');
+        SET client_min_messages TO warning;
+        TRUNCATE artist CASCADE;
+        DELETE FROM medium_cdtoc WHERE id = 2;
 SQL
 
-my ($new_medium, $medium_cdtoc) = reload_data($c);
+    my ($new_medium, $medium_cdtoc) = reload_data($c);
 
-my $edit = create_edit($c, $new_medium, $medium_cdtoc);
-($new_medium, $medium_cdtoc) = reload_data($c);
+    is($medium_cdtoc->medium_id, 1);
+    is($medium_cdtoc->edits_pending, 0);
+    is($medium_cdtoc->medium->release->edits_pending, 0);
 
-ok($edit->is_open);
-is($medium_cdtoc->medium_id, 1);
-is($medium_cdtoc->edits_pending, 1);
-is($medium_cdtoc->medium->release->edits_pending, 1);
+    my $edit = create_edit($c, $new_medium, $medium_cdtoc);
+    ($new_medium, $medium_cdtoc) = reload_data($c);
 
-reject_edit($c, $edit);
-($new_medium, $medium_cdtoc) = reload_data($c);
-
-is($medium_cdtoc->medium_id, 1);
-is($medium_cdtoc->edits_pending, 0);
-is($medium_cdtoc->medium->release->edits_pending, 0);
-
-$edit = create_edit($c, $new_medium, $medium_cdtoc);
-accept_edit($c, $edit);
-($new_medium, $medium_cdtoc) = reload_data($c);
-
-is($medium_cdtoc->medium_id, 2);
-is($medium_cdtoc->edits_pending, 0);
-is($medium_cdtoc->medium->release->edits_pending, 0);
-
+    is($medium_cdtoc->medium_id, 2);
+    is($medium_cdtoc->edits_pending, 0);
+    is($medium_cdtoc->medium->release->edits_pending, 0);
 };
 
 test 'Cannot move to non-existant medium' => sub {
@@ -83,7 +68,6 @@ EOSQL
             new_medium => $medium,
             medium_cdtoc => $medium_cdtoc,
         );
-        accept_edit($c, $edit);
     }, 'MusicBrainz::Server::Edit::Exceptions::NoChanges';
 
     $medium_cdtoc = $c->model('MediumCDTOC')->get_by_id(1);

@@ -8,6 +8,7 @@ use MusicBrainz::Server::Entity::Types;
 use List::Util qw( first );
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
+with 'MusicBrainz::Server::Entity::Role::Taggable';
 with 'MusicBrainz::Server::Entity::Role::Linkable';
 with 'MusicBrainz::Server::Entity::Role::Annotation';
 with 'MusicBrainz::Server::Entity::Role::LastUpdate';
@@ -55,14 +56,29 @@ has 'parent_country' => (
     isa => 'Maybe[Area]',
 );
 
+has 'parent_country_depth' => (
+    is => 'rw',
+    isa => 'Maybe[Int]',
+);
+
 has 'parent_subdivision' => (
     is => 'rw',
     isa => 'Maybe[Area]',
 );
 
+has 'parent_subdivision_depth' => (
+    is => 'rw',
+    isa => 'Maybe[Int]',
+);
+
 has 'parent_city' => (
     is => 'rw',
     isa => 'Maybe[Area]',
+);
+
+has 'parent_city_depth' => (
+    is => 'rw',
+    isa => 'Maybe[Int]',
 );
 
 has 'iso_3166_1' => (

@@ -110,6 +110,13 @@ sub series : Local
     $self->_browse($c, 'Series');
 }
 
+sub event : Local
+{
+    my ($self, $c) = @_;
+
+    $self->_browse($c, 'Event');
+}
+
 no Moose;
 1;
 

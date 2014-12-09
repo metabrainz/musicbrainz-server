@@ -28,29 +28,6 @@ MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
 MB.GuessCase.Handler.Artist = function () {
     var self = MB.GuessCase.Handler.Base();
 
-    // ----------------------------------------------------------------------------
-    // member functions
-    // ---------------------------------------------------------------------------
-
-    /**
-     * Guess the artist name given in string is, and
-     * returns the guessed name.
-     *
-     * @param   is      the inputstring
-     * @returns os      the processed string
-     **/
-    self.process = function (is) {
-        is = gc.mode.preProcessCommons(is);
-        var w = gc.i.splitWordsAndPunctuation(is);
-        gc.o.init();
-        gc.i.init(is, w);
-        while (!gc.i.isIndexAtEnd()) {
-            self.processWord();
-        }
-        var os = gc.o.getOutput();
-        return gc.mode.runPostProcess(os);
-    };
-
     /**
      * Checks special cases of artists
      * - empty, unknown -> [unknown]
@@ -226,6 +203,20 @@ MB.GuessCase.Handler.Artist = function () {
                 return gc.u.trim(_.compact(names).join(" ") + (append || ""));
             }
         });
+    };
+
+    var baseProcess = self.process;
+
+    self.process = function (is) {
+        var isLowerCaseWord = gc.mode.isLowerCaseWord;
+
+        gc.mode.isLowerCaseWord = function (w) {
+            return w === 'the' ? false : isLowerCaseWord.call(gc.mode, w);
+        };
+
+        var os = baseProcess.call(self, is);
+        gc.mode.isLowerCaseWord = isLowerCaseWord;
+        return os;
     };
 
     return self;

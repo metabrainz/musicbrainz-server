@@ -103,6 +103,13 @@ msgstr ""
 msgid "A five-string banjo is a banjo with five strings."
 msgstr ""
 
+#. name:flute 
+#: DB:instrument/description:13
+msgid ""
+"A flute is an aerophone or reedless wind instrument that produces its sound "
+"from the flow of air across an opening."
+msgstr ""
+
 #. name:four-string banjo 
 #: DB:instrument/description:656
 msgid "A four-string banjo is a banjo with four strings."
@@ -385,11 +392,6 @@ msgid ""
 "Ching are a pair of small hand cymbals used in Thai and Cambodian music."
 msgstr ""
 
-#. name:conch 
-#: DB:instrument/description:156
-msgid "Conch shell"
-msgstr ""
-
 #. name:crumhorn 
 #: DB:instrument/description:348
 msgid "Crumhorn used in the 14th to 17th centuries in Europe"
@@ -597,13 +599,6 @@ msgstr ""
 msgid "Oboe d'amore / Oboe d'amour (mezzo-soprano)"
 msgstr ""
 
-#. name:other flutes 
-#: DB:instrument/description:195
-msgid ""
-"Other flutes. If you can't find an instrument, please request it at http://"
-"wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree"
-msgstr ""
-
 #. name:other instruments 
 #: DB:instrument/description:141
 msgid ""
@@ -773,6 +768,13 @@ msgstr ""
 msgid ""
 "The Saraswati veena is an Indian plucked stringed instrument used in "
 "Carnatic music."
+msgstr ""
+
+#. name:Schwyzerörgeli 
+#: DB:instrument/description:679
+msgid ""
+"The Schwyzerörgeli is a type of diatonic button accordion used in Swiss folk "
+"music."
 msgstr ""
 
 #. name:Stroh violin 
@@ -1233,6 +1235,13 @@ msgid ""
 "family."
 msgstr ""
 
+#. name:guan 
+#: DB:instrument/description:683
+msgid ""
+"The guan is a Chinese double reed wind instrument made from hardwood or "
+"bamboo."
+msgstr ""
+
 #. name:guitalele 
 #: DB:instrument/description:645
 msgid ""
@@ -1271,6 +1280,13 @@ msgstr ""
 msgid ""
 "The harmonica or blues harp is a type of mouth organ commonly found in "
 "blues, American folk, jazz, country and rock and roll music."
+msgstr ""
+
+#. name:harp guitar 
+#: DB:instrument/description:681
+msgid ""
+"The harp guitar is a guitar-based string instrument with any number of "
+"additional unstopped strings which can accommodate individual plucking."
 msgstr ""
 
 #. name:harp 
@@ -2233,6 +2249,13 @@ msgid ""
 "The ōtsuzumi is an hourglass-shaped Japanese drum, larger than the kotsuzumi."
 msgstr ""
 
+#. name:šargija 
+#: DB:instrument/description:680
+msgid ""
+"The šargija is a long necked plucked lute used in the folk music of the "
+"Balkans."
+msgstr ""
+
 #. name:żafżafa 
 #: DB:instrument/description:589
 msgid ""
@@ -2345,6 +2368,11 @@ msgstr ""
 #. name:Disk Drive 
 #: DB:instrument/description:602
 msgid "as using drives for producing music, harddrives, floppy, cd or other."
+msgstr ""
+
+#. name:conch 
+#: DB:instrument/description:156
+msgid "conch shell"
 msgstr ""
 
 #. name:bombarde 

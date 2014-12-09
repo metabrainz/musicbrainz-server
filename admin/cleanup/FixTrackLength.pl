@@ -103,7 +103,7 @@ for my $medium (@mediums)
     $c->model('CDTOC')->load(@cdtocs);
 
     @cdtocs = map { $_->cdtoc }
-        grep { $medium_by_id{$_->medium_id}->track_count == $_->cdtoc->track_count }
+        grep { $medium_by_id{$_->medium_id}->cdtoc_track_count == $_->cdtoc->track_count }
             @cdtocs;
     my @tracks = $medium->all_tracks;
 
@@ -253,12 +253,13 @@ for my $medium (@mediums)
                 my @new_tracklist = map {
                     Track->new(
                         id => $_->id,
-                        length => int($average_toc[$_->position - 1]),
+                        length => ($_->position > 0 && !$_->is_data_track ? int($average_toc[$_->position - 1]) : $_->length),
                         number => $_->number,
                         name => $_->name,
                         artist_credit => $_->artist_credit,
                         recording_id => $_->recording_id,
-                        position => $_->position
+                        position => $_->position,
+                        is_data_track => $_->is_data_track
                     )
                 } @tracks;
 

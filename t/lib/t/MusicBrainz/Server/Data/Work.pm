@@ -87,10 +87,9 @@ $work = $work_data->insert({
         comment => 'Drum & bass track',
     });
 
-isa_ok($work, 'MusicBrainz::Server::Entity::Work');
-ok($work->id > 1);
+ok($work->{id} > 1);
 
-$work = $work_data->get_by_id($work->id);
+$work = $work_data->get_by_id($work->{id});
 is($work->name, 'Traits');
 is($work->comment, 'Drum & bass track');
 is($work->type_id, 1);
@@ -307,22 +306,22 @@ EOSQL
     my $b = $work_data->insert({ name => 'Tru Beat' });
 
     $work_data->set_attributes(
-        $a->id,
+        $a->{id},
         { attribute_type_id => 1, attribute_value_id => 1 },
         { attribute_type_id => 2, attribute_text => 'Free Text' }
     );
 
     $work_data->set_attributes(
-        $b->id,
+        $b->{id},
         { attribute_type_id => 1, attribute_value_id => 1 },
         { attribute_type_id => 1, attribute_value_id => 2 },
         { attribute_type_id => 3, attribute_value_id => 3 },
         { attribute_type_id => 2, attribute_text => 'Free Text' }
     );
 
-    $work_data->merge($a->id, $b->id);
+    $work_data->merge($a->{id}, $b->{id});
 
-    my $final_work = $work_data->get_by_gid($a->gid);
+    my $final_work = $work_data->get_by_gid($a->{gid});
     $test->c->model('WorkAttribute')->load_for_works($final_work);
 
     cmp_deeply(
@@ -361,11 +360,11 @@ EOSQL
     my $a = $work_data->insert({ name => 'Foo' });
 
     $work_data->set_attributes(
-        $a->id,
+        $a->{id},
         { attribute_type_id => 1, attribute_value_id => 1 },
     );
 
-    ok !exception { $work_data->delete($a->id); }
+    ok !exception { $work_data->delete($a->{id}); }
 };
 
 1;

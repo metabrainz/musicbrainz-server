@@ -1,22 +1,22 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::LD::Release;
 use Moose;
 use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_entity list_or_single artwork );
-use MusicBrainz::Server::Track qw( format_iso_duration );
 use List::AllUtils qw( uniq );
 use List::UtilsBy qw( uniq_by );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Name';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Length';
 
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
     my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
 
     $ret->{'@type'} = 'MusicRelease';
-    if ($entity->length) {
-        $ret->{duration} = format_iso_duration($entity->length);
-    }
+
+    $ret->{releaseOf} = serialize_entity($entity->release_group, $inc, $stash);
+
     if ($entity->all_events) {
         $ret->{hasReleaseRegion} = [
             map { release_event($_, $inc, $stash) } $entity->all_events
@@ -40,6 +40,22 @@ around serialize => sub {
     if ($stash->store($entity)->{cover_art}) {
         $ret->{image} = list_or_single(map { artwork($_) } @{ $stash->store($entity)->{cover_art} });
     }
+
+    # XXX: updating for split pages?
+    if ($entity->all_mediums &&
+        ($entity->all_mediums)[0]->all_tracks &&
+        (($entity->all_mediums)[0]->all_tracks)[0]->recording) {
+        my @tracks;
+        for my $medium ($entity->all_mediums) {
+            for my $track ($medium->all_tracks) {
+                $stash->store($track->recording)->{trackNumber} = $track->number;
+                push(@tracks, serialize_entity($track->recording, $inc, $stash));
+            }
+        }
+        $ret->{track} = \@tracks;
+    }
+
+    $ret->{gtin14} = $entity->barcode->code if $entity->barcode;
 
     return $ret;
 };

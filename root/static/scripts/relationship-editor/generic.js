@@ -15,7 +15,7 @@
 
         after$init: function () {
             this.editNote = ko.observable("");
-            this.asAutoEditor = ko.observable(true);
+            this.makeVotable = ko.observable(false);
 
             this.submissionLoading = ko.observable(false);
             this.submissionError = ko.observable("");
@@ -73,7 +73,7 @@
 
             var data = {
                 editNote: this.editNote(),
-                asAutoEditor: this.asAutoEditor(),
+                makeVotable: this.makeVotable(),
                 edits: edits
             };
 
@@ -299,6 +299,6 @@
         }
     };
 
-    $(document).on("submit", "form", _.once(RE.prepareSubmission));
+    $(document).on("submit", "#page form:not(#relationship-editor-form)", _.once(RE.prepareSubmission));
 
 }(MB.relationshipEditor = MB.relationshipEditor || {}));

@@ -59,17 +59,17 @@ $track = $track_data->insert({
     medium_id => 1,
     recording_id => 2,
     name => 'Test track!',
-    artist_credit => 1,
+    artist_credit_id => 1,
     length => 500,
     position => 8,
     number => 8
 });
 
 
-ok(defined $track, "Track instance returned by insert");
-ok($track->id > 0);
+ok(defined $track, "Track information returned by insert");
+ok($track->{id} > 0);
 
-$track = $track_data->get_by_id($track->id);
+$track = $track_data->get_by_id($track->{id});
 is($track->position, 8);
 is($track->medium_id, 1);
 is($track->artist_credit_id, 1);

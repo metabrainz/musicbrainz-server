@@ -369,6 +369,7 @@
 
             var entityTypes = [this.source.entityType, newType].sort().join("-");
             data.linkTypeID = defaultLinkType({ children: MB.typeInfo[entityTypes] });
+            data.attributes = [];
 
             var newRelationship = this.viewModel.getRelationship(data, this.source);
 
@@ -393,8 +394,7 @@
             } else if (typeInfo.deprecated) {
                 return MB.text.RelationshipTypeDeprecated;
             } else if (this.source.entityType === "url") {
-                var linkType = typeInfo.id;
-                var checker = MB.editURLCleanup.validationRules[linkType];
+                var checker = MB.editURLCleanup.validationRules[typeInfo.gid];
 
                 if (checker && !checker(this.source.name())) {
                     return MB.text.URLNotAllowed;
@@ -593,7 +593,7 @@
                 return MB.edit.workCreate(editData);
             });
 
-            MB.edit.create({ editNote: "", asAutoEditor: true, edits: edits })
+            MB.edit.create({ editNote: "", makeVotable: false, edits: edits })
                 .done(function (data) {
                     var works = _.pluck(data.edits, "entity");
 

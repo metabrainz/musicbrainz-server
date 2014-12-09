@@ -12,8 +12,6 @@
 [% END %]
 
 [%- WRAPPER "place/layout.tt" page='index' -%]
-    [%- INCLUDE 'place/annotation.tt' summary=1 -%]
-
     [% IF eligible_for_cleanup %]
       <p class="cleanup">
           [% l('This place has no relationships and will be removed
@@ -21,6 +19,8 @@
                 please add more data to this place.') %]
       </p>
     [% END %]
+
+    [%- INCLUDE 'annotation/summary.tt' -%]
 
     [%- show_wikipedia_extract() -%]
 

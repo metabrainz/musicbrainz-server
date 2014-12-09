@@ -61,6 +61,7 @@ sub add_alias : Chained('load') PathPart('add-alias') Edit
     my $type = $self->{entity_name};
     my $entity = $c->stash->{ $type };
     my $alias_model = $c->model( $self->{model} )->alias;
+    $c->stash( template => 'entity/alias/add.tt' );
     $self->edit_action($c,
         form => 'Alias',
         form_args => {
@@ -85,6 +86,7 @@ sub delete_alias : Chained('alias') PathPart('delete') Edit
     my ($self, $c) = @_;
     my $alias = $c->stash->{alias};
     my $edit = $c->model('Edit')->find_creation_edit($model_to_edit_type{add}->{ $self->{model} }, $alias->id, id_field => 'alias_id');
+    $c->stash( template => 'entity/alias/delete.tt' );
     cancel_or_action($c, $edit, $self->_aliases_url($c), sub {
         $self->edit_action($c,
             form => 'Confirm',
@@ -106,6 +108,7 @@ sub edit_alias : Chained('alias') PathPart('edit') Edit
     my $type = $self->{entity_name};
     my $entity = $c->stash->{ $type };
     my $alias_model = $c->model( $self->{model} )->alias;
+    $c->stash( template => 'entity/alias/edit.tt' );
     $self->edit_action($c,
         form => 'Alias',
         form_args => {

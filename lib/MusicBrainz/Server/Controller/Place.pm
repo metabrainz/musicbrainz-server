@@ -7,9 +7,10 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
     model           => 'Place',
     relationships   => {
         cardinal    => ['edit'],
-        subset => {
+        default     => ['url'],
+        subset      => {
             show => [qw( area artist label place url work series instrument )],
-            performances => [qw( release release_group recording work )],
+            performances => [qw( release release_group recording work url )],
         }
     },
 };
@@ -84,6 +85,23 @@ sub show : PathPart('') Chained('load') {
     my ($self, $c) = @_;
 
     $c->stash(template => 'place/index.tt');
+}
+
+=head2 events
+
+Shows all events of a place.
+
+=cut
+
+sub events : Chained('load')
+{
+    my ($self, $c) = @_;
+    my $events = $self->_load_paged($c, sub {
+        $c->model('Event')->find_by_place($c->stash->{place}->id, shift, shift);
+    });
+    $c->model('Event')->load_related_info(@$events);
+    $c->model('Event')->rating->load_user_ratings($c->user->id, @$events) if $c->user_exists;
+    $c->stash( events => $events );
 }
 
 =head2 performances

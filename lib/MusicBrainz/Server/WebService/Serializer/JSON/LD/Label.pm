@@ -7,13 +7,13 @@ with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Name';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::LifeSpan';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Aliases';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Area';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Area' => { property => 'foundingLocation' };
 
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
     my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
 
-    $ret->{'@type'} = 'Organization';
+    $ret->{'@type'} = 'MusicLabel';
 
     return $ret;
 };

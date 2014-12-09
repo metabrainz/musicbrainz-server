@@ -27,7 +27,9 @@ with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::CommonsImage';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
-    endpoints => {show => {}, aliases => {copy_stash => ['aliases']}}
+    endpoints => {show => {copy_stash => [{from => 'release_groups_jsonld', to => 'release_groups'}]},
+                  relationships => {},
+                  aliases => {copy_stash => ['aliases']}}
 };
 
 use Data::Page;
@@ -212,6 +214,7 @@ sub show : PathPart('') Chained('load')
             $_->video
         } @$recordings),
         release_groups => $release_groups,
+        release_groups_jsonld => {items => $release_groups},
         show_artists => scalar grep {
             $_->artist_credit->name ne $artist->name
         } @$release_groups,
@@ -248,15 +251,13 @@ sub relationships : Chained('load') PathPart('relationships') {}
 
 =head2 works
 
-Shows all works of an artist. For various artists, the results would be
-browsable (not just paginated)
+Shows all works of an artist.
 
 =cut
 
 sub works : Chained('load')
 {
     my ($self, $c) = @_;
-    my $artist = $c->stash->{artist};
     my $works = $self->_load_paged($c, sub {
         $c->model('Work')->find_by_artist($c->stash->{artist}->id, shift, shift);
     });
@@ -267,8 +268,7 @@ sub works : Chained('load')
 
 =head2 recordings
 
-Shows all recordings of an artist. For various artists, the results would be
-browsable (not just paginated)
+Shows all recordings of an artist. 
 
 =cut
 
@@ -321,6 +321,25 @@ sub recordings : Chained('load')
             $_->video
         } @$recordings),
     );
+}
+
+=head2 events
+
+Shows all events of an artist. 
+
+=cut
+
+sub events : Chained('load')
+{
+    my ($self, $c) = @_;
+    my $events = $self->_load_paged($c, sub {
+        $c->model('Event')->find_by_artist($c->stash->{artist}->id, shift, shift);
+    });
+    $c->model('Event')->load_related_info(@$events);
+    $c->model('Event')->load_areas(@$events);
+    $c->model('Event')->rating->load_user_ratings($c->user->id, @$events) if $c->user_exists;
+
+    $c->stash( events => $events );
 }
 
 =head2 releases

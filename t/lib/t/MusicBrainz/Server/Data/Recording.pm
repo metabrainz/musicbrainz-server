@@ -40,12 +40,12 @@ is ( $rec->length, undef );
 is ( $rec->edits_pending, 0 );
 
 my ($recs, $hits) = $rec_data->find_by_artist(1, 100, 0);
-is( $hits, 16 );
-is( scalar(@$recs), 16 );
+is( $hits, 17 );
+is( scalar(@$recs), 17 );
 is( $recs->[0]->name, "A Coral Room" );
 is( $recs->[1]->name, "Aerial" );
 is( $recs->[14]->name, "The Painter's Link" );
-is( $recs->[15]->name, "π" );
+is( $recs->[15]->name, "[pregap]" );
 
 my $annotation = $rec_data->annotation->get_latest(1);
 is ( $annotation->text, "Annotation" );
@@ -75,10 +75,9 @@ $rec = $rec_data->insert({
         artist_credit => 1,
         comment => 'Drum & bass track',
     });
-isa_ok($rec, 'MusicBrainz::Server::Entity::Recording');
-ok($rec->id > 16);
+ok($rec->{id} > 16);
 
-$rec = $rec_data->get_by_id($rec->id);
+$rec = $rec_data->get_by_id($rec->{id});
 is($rec->name, 'Traits');
 is($rec->artist_credit_id, 1);
 is($rec->comment, 'Drum & bass track');

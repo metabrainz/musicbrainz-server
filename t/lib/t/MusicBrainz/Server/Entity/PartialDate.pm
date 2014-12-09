@@ -57,38 +57,38 @@ my ($a, $b);
 
 $a = Date->new( year => 2000 );
 $b = Date->new( year => 2001 );
-ok($a < $b);
-ok($b > $a);
+ok($a < $b, "given only year, earlier sorts first");
+ok($b > $a, "given only year, later sorts second");
 
 $a = Date->new( year => 2000, month => 1 );
 $b = Date->new( year => 2000, month => 5 );
-ok($a < $b);
-ok($b > $a);
+ok($a < $b, "given year and month, earlier sorts first");
+ok($b > $a, "given year and month, later sorts second");
 
 $a = Date->new( year => 2000, month => 1, day => 1 );
 $b = Date->new( year => 2000, month => 1, day => 20 );
-ok($a < $b);
-ok($b > $a);
+ok($a < $b, "given full date, earlier sorts first");
+ok($b > $a, "given full date, later sorts second");
 
 $a = Date->new( year => 2000, month => 1, day => 1 );
 $b = Date->new( year => 2000, month => 1, day => 1 );
-ok(!($a < $b));
-ok(!($b < $a));
+ok(!($a < $b), "given full date, same date sorts the same");
+ok(!($b < $a), "given full date, same date sorts the same");
 
 $a = Date->new( month => 1, day => 1 );
 $b = Date->new( year => 2000, month => 1, day => 1 );
-ok($a < $b);
-ok($b > $a);
+ok($a < $b, "missing year date sorts before full date");
+ok($b > $a, "full date sorts after missing year date");
 
 $a = Date->new( month => 1, day => 1 );
 $b = Date->new( month => 1, day => 1 );
-ok(!($a < $b));
-ok(!($b < $a));
+ok(!($a < $b), "missing year date, otherwise equal, sorts the same");
+ok(!($b < $a), "missing year date, otherwise equal, sorts the same");
 
 $a = Date->new( year => 0 );
 $b = Date->new( year => 2000 );
-ok($a < $b);
-ok($b > $a);
+ok($a < $b, "year 0 sorts before 2000");
+ok($b > $a, "year 2000 sorts after 0");
 
 $a = Date->new( year => 0 );
 $b = Date->new( year => -1 );
@@ -100,6 +100,12 @@ $b = Date->new( year => -1, month => 2 );
 
 ok($b > $a);
 ok($a < $b);
+
+$a = Date->new( year => 1994, month => 2, day => 29 );
+$b = Date->new( year => 1994 );
+
+ok($a < $b, "invalid dates sort before valid ones");
+ok($b > $a, "valid dates sort after invalid ones");
 
 ok(Date->new('')->is_empty);
 

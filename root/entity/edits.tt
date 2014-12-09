@@ -1,4 +1,4 @@
-[%~ SET ent_type = entity_type(entity);
+[%~ SET ent_type = get_entity_type(entity);
     SET type_for_css = ent_type;
     SET type_for_css = 'rg' IF ent_type == 'release_group';
 
@@ -24,5 +24,5 @@
             <span class="prefix">~</span> [% subheading %]
         </p>
     </div>
-    [% INCLUDE 'edit/list.tt' %]
+    [% INCLUDE 'edit/list.tt' guess_search=1 %]
 [% END %]

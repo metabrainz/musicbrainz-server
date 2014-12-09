@@ -28,9 +28,11 @@ MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
 MB.GuessCase.Handler.Track = function () {
     var self = MB.GuessCase.Handler.Base();
 
-    // ----------------------------------------------------------------------------
-    // member functions
-    // ---------------------------------------------------------------------------
+    self.removeBonusInfo = function (is) {
+        return is
+            .replace(/[\(\[]?bonus(\s+track)?s?\s*[\)\]]?$/i, "")
+            .replace(/[\(\[]?retail(\s+version)?\s*[\)\]]?$/i, "");
+    };
 
     /**
      * Guess the trackname given in string is, and
@@ -39,21 +41,14 @@ MB.GuessCase.Handler.Track = function () {
      * @param    is        the inputstring
      * @returns os        the processed string
      **/
-    self.process = function (is) {
-        is = gc.mode.stripInformationToOmit(is);
-        is = gc.mode.preProcessCommons(is);
-        is = gc.mode.preProcessTitles(is);
-        var words = gc.i.splitWordsAndPunctuation(is);
-        words = gc.mode.prepExtraTitleInfo(words);
-        gc.o.init();
-        gc.i.init(is, words);
-        while (!gc.i.isIndexAtEnd()) {
-            self.processWord();
-        }
-        var os = gc.o.getOutput();
-        os = gc.mode.runPostProcess(os);
-        os = gc.mode.runFinalChecks(os);
-        return os;
+
+    self.process = _.wrap(self.process, function (process, os) {
+        return gc.mode.fixVinylSizes(process(os));
+    });
+
+    self.getWordsForProcessing = function (is) {
+        is = gc.mode.preProcessTitles(self.removeBonusInfo(is));
+        return gc.mode.prepExtraTitleInfo(gc.i.splitWordsAndPunctuation(is));
     };
 
     /**

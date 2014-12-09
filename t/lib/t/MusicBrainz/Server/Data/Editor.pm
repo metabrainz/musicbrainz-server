@@ -371,8 +371,11 @@ INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES
 
 INSERT INTO edit (id, editor, type, status, data, expire_time) VALUES (1, 1, 1, 1, '', now());
 
-INSERT INTO editor_collection (id, gid, editor, name)
-  VALUES (1, 'dd448d65-d7c5-4eef-8e13-12e1bfdacdc6', 1, 'Stuff');
+INSERT INTO editor_collection_type (id, name, entity_type, parent, child_order)
+  VALUES (1, 'Release', 'release', NULL, 1);
+
+INSERT INTO editor_collection (id, gid, editor, name, type)
+  VALUES (1, 'dd448d65-d7c5-4eef-8e13-12e1bfdacdc6', 1, 'Stuff', 1);
 
 INSERT INTO editor_subscribe_artist (id, editor, artist, last_edit_sent) VALUES
   (1, 1, 1, 1);

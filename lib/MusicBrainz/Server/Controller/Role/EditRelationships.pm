@@ -145,6 +145,10 @@ role {
         my $entity_map = load_entities($c, ref_to_type($source), @field_values);
         my %reordered_relationships;
 
+        my $link_attribute_types = $c->model('LinkAttributeType')->get_by_gids(
+            map { $_->{type}{gid} } map { @{ $_->{attributes} // [] } } @field_values
+        );
+
         for my $field (@field_values) {
             my %args;
             my $link_type = $field->{link_type};
@@ -155,7 +159,14 @@ role {
                 $args{ended} = $period->{ended} if $period->{ended};
             }
 
-            $args{attributes} = $field->{attributes} if $field->{attributes};
+            if (my $attributes = $field->{attributes}) {
+                for (@$attributes) {
+                    my $type = $link_attribute_types->{$_->{type}{gid}};
+                    $_->{type} = $type->to_json_hash if $type;
+                }
+                $args{attributes} = [ grep { $_->{type}{id} } @$attributes ];
+            }
+
             $args{ended} ||= 0;
 
             my $relationship;

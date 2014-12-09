@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-09-07 17:55+0000\n"
-"Last-Translator: Timo Martikainen <email address hidden>\n"
+"PO-Revision-Date: 2014-11-19 22:04+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,7 +27,7 @@ msgstr "Uusi AJAX-pohjainen kansitaiteen lähetysohjelma on julkaistu. Se helpot
 
 #: DB:statistics.statistic_event/description:2006-08-15
 msgid "A rift in the MusicBrainz community leads to a Great Dispute."
-msgstr ""
+msgstr "Välirikko MusicBrainz-yhteisössä johtaa Suureen väittelyyn."
 
 #: DB:statistics.statistic_event/description:2003-01-21
 msgid ""
@@ -373,11 +373,11 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2008-09-23
 msgid "Oliver Charles becomes employee #1 of MetaBrainz Foundation."
-msgstr ""
+msgstr "Oliver Charlesista tulee MetaBrainz Foundationin ensimmäinen työntekijä."
 
 #: DB:statistics.statistic_event/description:2010-06-18
 msgid "Oliver Charles begins working for MusicBrainz full-time."
-msgstr ""
+msgstr "Oliver Charles alkaa työskennellä täyspäiväisesti MusicBrainzille."
 
 #: DB:statistics.statistic_event/title:2010-06-18
 msgid "Oliver Charles joins MusicBrainz full-time"
@@ -432,7 +432,7 @@ msgid "TRM collisions"
 msgstr ""
 
 #: DB:statistics.statistic_event/title:2007-10-17
-#: ../root/statistics/view_js.tt:183
+#: ../root/statistics/view_js.tt:184
 msgid "Tags"
 msgstr "Luokitukset"
 
@@ -507,24 +507,24 @@ msgstr "/päivä"
 msgid "100%"
 msgstr "100%"
 
-#: ../root/statistics/index.tt:892
+#: ../root/statistics/index.tt:924
 msgctxt "vote"
 msgid "Abstain"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:80
+#: ../root/statistics/view_js.tt:81
 msgid "Abstentions"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:86
+#: ../root/statistics/view_js.tt:87
 msgid "Active Editors"
 msgstr "Aktiiviset editorit"
 
-#: ../root/statistics/view_js.tt:88
+#: ../root/statistics/view_js.tt:89
 msgid "Active Users"
 msgstr "Aktiiviset editorit"
 
-#: ../root/statistics/view_js.tt:87
+#: ../root/statistics/view_js.tt:88
 msgid "Active Voters"
 msgstr "Aktiiviset äänestäjät"
 
@@ -532,23 +532,23 @@ msgstr "Aktiiviset äänestäjät"
 msgid "Add/remove lines:"
 msgstr "Lisää/poista rivit:"
 
-#: ../root/statistics/view_js.tt:67
+#: ../root/statistics/view_js.tt:68
 msgid "All edits that have been applied"
 msgstr "Kaikki muokkaukset, jotka on hyväksytty"
 
-#: ../root/statistics/view_js.tt:71
+#: ../root/statistics/view_js.tt:72
 msgid "All edits that have failed by being voted down"
 msgstr "Kaikki muokkaukset, jotka on äänestetty kumoon"
 
-#: ../root/statistics/view_js.tt:69
+#: ../root/statistics/view_js.tt:70
 msgid "All edits that have failed dependency checks"
 msgstr "Kaikki muokkaukset, joiden riippuvuuksien tarkistus epäonnistui"
 
-#: ../root/statistics/view_js.tt:70
+#: ../root/statistics/view_js.tt:71
 msgid "All edits that have failed prerequisite checks"
 msgstr "Kaikki muokkaukset, joiden ennakkotarkistus epäonnistui"
 
-#: ../root/statistics/view_js.tt:68
+#: ../root/statistics/view_js.tt:69
 msgid "All edits that have hit an error"
 msgstr "Kaikki muokkaukset, joihin virhe on vaikuttanut"
 
@@ -556,28 +556,32 @@ msgstr "Kaikki muokkaukset, joihin virhe on vaikuttanut"
 msgid "All other available languages and scripts have 0 releases and works."
 msgstr "Kaikilla muilla käytettävissä olevilla kielillä ja merkistöillä 0 julkaisua ja teosta."
 
-#: ../root/statistics/index.tt:324
+#: ../root/statistics/index.tt:328
 msgid "Amazon:"
 msgstr "Amazon:"
 
-#: ../root/statistics/view_js.tt:67
+#: ../root/statistics/view_js.tt:68
 msgid "Applied edits"
 msgstr "Hyväksytyt muokkaukset"
 
-#: ../root/statistics/index.tt:810
+#: ../root/statistics/index.tt:842
 msgid "Applied:"
 msgstr "Hyväksytty:"
 
-#: ../root/statistics/index.tt:874
+#: ../root/statistics/index.tt:906
 msgctxt "vote"
 msgid "Approve"
 msgstr ""
 
-#: ../root/statistics/index.tt:573 ../root/statistics/view_js.tt:55
+#: ../root/statistics/view_js.tt:186
+msgid "Area Tags (raw)"
+msgstr ""
+
+#: ../root/statistics/index.tt:577 ../root/statistics/view_js.tt:55
 msgid "Areas"
 msgstr "Alueet"
 
-#: ../root/statistics/index.tt:52 ../root/statistics/index.tt:580
+#: ../root/statistics/index.tt:52 ../root/statistics/index.tt:584
 msgid "Areas:"
 msgstr "Alueet:"
 
@@ -585,27 +589,27 @@ msgstr "Alueet:"
 msgid "Artist Countries"
 msgstr "Artistien maat"
 
-#: ../root/statistics/view_js.tt:132
+#: ../root/statistics/view_js.tt:133
 msgid "Artist Credits"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:142
+#: ../root/statistics/view_js.tt:143
 msgid "Artist IPIs"
 msgstr "Artistien IPI-koodit"
 
-#: ../root/statistics/view_js.tt:145
+#: ../root/statistics/view_js.tt:146
 msgid "Artist ISNIs"
 msgstr "Artistin ISNI-koodit"
 
-#: ../root/statistics/view_js.tt:171
+#: ../root/statistics/view_js.tt:172
 msgid "Artist Ratings"
 msgstr "Artistien arvostelut"
 
-#: ../root/statistics/view_js.tt:177
+#: ../root/statistics/view_js.tt:178
 msgid "Artist Ratings (raw)"
 msgstr "Artistien arvostelut (käsittelemätön)"
 
-#: ../root/statistics/view_js.tt:185
+#: ../root/statistics/view_js.tt:187
 msgid "Artist Tags (raw)"
 msgstr "Artistien luokitukset (käsittelemätön)"
 
@@ -613,88 +617,88 @@ msgstr "Artistien luokitukset (käsittelemätön)"
 msgid "Artist Types and Genders"
 msgstr "Artistin tyypit ja sukupuolet"
 
-#: ../root/statistics/countries.tt:27 ../root/statistics/index.tt:138
-#: ../root/statistics/index.tt:142 ../root/statistics/view_js.tt:48
+#: ../root/statistics/countries.tt:27 ../root/statistics/index.tt:142
+#: ../root/statistics/index.tt:146 ../root/statistics/view_js.tt:48
 msgid "Artists"
 msgstr "Artistit"
 
-#: ../root/statistics/view_js.tt:129
+#: ../root/statistics/view_js.tt:130
 msgid "Artists in ACs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:130
+#: ../root/statistics/view_js.tt:131
 msgid "Artists not in ACs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:129
+#: ../root/statistics/view_js.tt:130
 msgid "Artists with at least one artist credit appearance"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:118
+#: ../root/statistics/view_js.tt:119
 msgid "Artists with gender set to female"
 msgstr "Artisteja joiden sukupuolena nainen"
 
-#: ../root/statistics/view_js.tt:117
+#: ../root/statistics/view_js.tt:118
 msgid "Artists with gender set to male"
 msgstr "Artisteja joiden sukupuolena mies"
 
-#: ../root/statistics/view_js.tt:119
+#: ../root/statistics/view_js.tt:120
 msgid "Artists with gender set to other"
 msgstr "Artisteja joiden sukupuoleksi valittu muu"
 
-#: ../root/statistics/view_js.tt:116
+#: ../root/statistics/view_js.tt:117
 msgid "Artists with gender unset (non-group artists)"
 msgstr "Artisteja joiden sukupuolta ei ole valittu (muut kuin ryhmät)"
 
-#: ../root/statistics/view_js.tt:130
+#: ../root/statistics/view_js.tt:131
 msgid "Artists with no appearances in artist credits"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:90
+#: ../root/statistics/view_js.tt:91
 msgid "Artists with no country set"
 msgstr "Artisteja ilman asetettua maata"
 
-#: ../root/statistics/view_js.tt:124
+#: ../root/statistics/view_js.tt:125
 msgid "Artists with type set to character"
 msgstr "Artistit joiden tyyppinä kuvitteellinen hahmo"
 
-#: ../root/statistics/view_js.tt:126
+#: ../root/statistics/view_js.tt:127
 msgid "Artists with type set to choir"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:122
+#: ../root/statistics/view_js.tt:123
 msgid "Artists with type set to group"
 msgstr "Artisteja joiden tyyppinä ryhmä"
 
-#: ../root/statistics/view_js.tt:125
+#: ../root/statistics/view_js.tt:126
 msgid "Artists with type set to orchestra"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:123
+#: ../root/statistics/view_js.tt:124
 msgid "Artists with type set to other"
 msgstr "Artisteja joiden tyyppinä muu"
 
-#: ../root/statistics/view_js.tt:121
+#: ../root/statistics/view_js.tt:122
 msgid "Artists with type set to person"
 msgstr "Artisteja joiden tyyppinä henkilö"
 
-#: ../root/statistics/view_js.tt:127
+#: ../root/statistics/view_js.tt:128
 msgid "Artists with type unset"
 msgstr "Artisteja joiden tyyppiä ei määritelty"
 
-#: ../root/statistics/index.tt:16 ../root/statistics/index.tt:145
+#: ../root/statistics/index.tt:16 ../root/statistics/index.tt:149
 msgid "Artists:"
 msgstr "Artistit:"
 
-#: ../root/statistics/index.tt:549
+#: ../root/statistics/index.tt:553
 msgid "Attributes"
 msgstr "Ominaisuudet"
 
-#: ../root/statistics/view_js.tt:133
+#: ../root/statistics/view_js.tt:134
 msgid "Barcodes"
 msgstr "Viivakoodit"
 
-#: ../root/statistics/index.tt:124
+#: ../root/statistics/index.tt:128
 msgid "Barcodes:"
 msgstr "Viivakoodit:"
 
@@ -722,35 +726,35 @@ msgstr "Julkaisunryhmän tyypin mukaisesti"
 msgid "By Release Status"
 msgstr "Julkaisun tilan mukaisesti"
 
-#: ../root/statistics/index.tt:318
+#: ../root/statistics/index.tt:322
 msgid "CAA:"
 msgstr "CAA:"
 
-#: ../root/statistics/index.tt:83
+#: ../root/statistics/index.tt:87
 msgid "CD Stubs (all time / current):"
 msgstr "CD-tyngät (kaikki / nykyiset):"
 
-#: ../root/statistics/view_js.tt:137
+#: ../root/statistics/view_js.tt:138
 msgid "CDStub tracks"
 msgstr "CD-tynkien kappaleita"
 
-#: ../root/statistics/view_js.tt:135
+#: ../root/statistics/view_js.tt:136
 msgid "CDStubs (all)"
 msgstr "CD-tyngät (kaikki)"
 
-#: ../root/statistics/view_js.tt:136
+#: ../root/statistics/view_js.tt:137
 msgid "CDStubs (submitted)"
 msgstr "CD-tyngät (lähetetyt)"
 
-#: ../root/statistics/view_js.tt:66
+#: ../root/statistics/view_js.tt:67
 msgid "Cancelled edits"
 msgstr "Peruutetut muokkaukset:"
 
-#: ../root/statistics/index.tt:840
+#: ../root/statistics/index.tt:872
 msgid "Cancelled:"
 msgstr "Peruutettu:"
 
-#: ../root/statistics/view_js.tt:124
+#: ../root/statistics/view_js.tt:125
 msgid "Characters"
 msgstr "Kuvitteelliset hahmot"
 
@@ -758,7 +762,7 @@ msgstr "Kuvitteelliset hahmot"
 msgid "Check boxes above"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:126
+#: ../root/statistics/view_js.tt:127
 msgid "Choirs"
 msgstr "Kuorot"
 
@@ -774,223 +778,235 @@ msgstr "Säätimet"
 msgid "Core Entities"
 msgstr "Keskeisimmät entiteetit"
 
-#: ../root/statistics/view_js.tt:84
+#: ../root/statistics/view_js.tt:85
 msgid "Count of active editors"
 msgstr "Kaikkien aktiivisten käyttäjien määrä"
 
-#: ../root/statistics/view_js.tt:88
+#: ../root/statistics/view_js.tt:89
 msgid "Count of active editors (editing or voting) during the last week"
 msgstr "Aktiivisia käyttäjiä (muokkaajia tai äänestäjiä) viikon aikana"
 
-#: ../root/statistics/view_js.tt:80
+#: ../root/statistics/view_js.tt:81
 msgid "Count of all Abstain votes"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:132
+#: ../root/statistics/view_js.tt:186
+msgid "Count of all Area Tags (raw)"
+msgstr ""
+
+#: ../root/statistics/view_js.tt:133
 msgid "Count of all Artist Credits"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:171
+#: ../root/statistics/view_js.tt:172
 msgid "Count of all Artist Ratings"
 msgstr "Kaikkien artistien arvostelujen määrä"
 
-#: ../root/statistics/view_js.tt:177
+#: ../root/statistics/view_js.tt:178
 msgid "Count of all Artist Ratings (raw)"
 msgstr "Kaikkien artistien arvostelujen määrä (käsittelemätön) "
 
-#: ../root/statistics/view_js.tt:185
+#: ../root/statistics/view_js.tt:187
 msgid "Count of all Artist Tags (raw)"
 msgstr "Kaikkien artistien luokittelujen määrä (käsittelemätön)"
 
-#: ../root/statistics/view_js.tt:133
+#: ../root/statistics/view_js.tt:134
 msgid "Count of all Barcodes"
 msgstr "Kaikkien viivakoodien määrä"
 
-#: ../root/statistics/view_js.tt:137
+#: ../root/statistics/view_js.tt:138
 msgid "Count of all CDStub tracks"
 msgstr "Kaikkien CD-tynkien kappaleiden määrä"
 
-#: ../root/statistics/view_js.tt:135
+#: ../root/statistics/view_js.tt:136
 msgid "Count of all CDStubs"
 msgstr "Kaikkien CD-tynkien määrä"
 
-#: ../root/statistics/view_js.tt:136
+#: ../root/statistics/view_js.tt:137
 msgid "Count of all CDStubs ever submitted"
 msgstr "Kaikkien koskaan lisättyjen CD-tynkien määrä"
 
-#: ../root/statistics/view_js.tt:138
+#: ../root/statistics/view_js.tt:139
 msgid "Count of all Disc IDs"
 msgstr "Kaikkien levyn tunnisteiden määrä"
 
-#: ../root/statistics/view_js.tt:141
+#: ../root/statistics/view_js.tt:142
 msgid "Count of all IPIs"
 msgstr "Kaikkien IPI-koodien määrä"
 
-#: ../root/statistics/view_js.tt:142
+#: ../root/statistics/view_js.tt:143
 msgid "Count of all IPIs for Artists"
 msgstr "Kaikkeni artistien IPI-koodien määrä"
 
-#: ../root/statistics/view_js.tt:143
+#: ../root/statistics/view_js.tt:144
 msgid "Count of all IPIs for Labels"
 msgstr "Kaikkien levymerkkien IPI-koodien määrä"
 
-#: ../root/statistics/view_js.tt:144
+#: ../root/statistics/view_js.tt:145
 msgid "Count of all ISNIs"
 msgstr "Kaikkien ISNI-koodia määrä"
 
-#: ../root/statistics/view_js.tt:145
+#: ../root/statistics/view_js.tt:146
 msgid "Count of all ISNIs for Artists"
 msgstr "Kaikkien artistien ISNI-koodien määrä"
 
-#: ../root/statistics/view_js.tt:146
+#: ../root/statistics/view_js.tt:147
 msgid "Count of all ISNIs for Labels"
 msgstr "Kaikkien levymerkkien ISNI-koodien määrä"
 
-#: ../root/statistics/view_js.tt:147 ../root/statistics/view_js.tt:148
+#: ../root/statistics/view_js.tt:148 ../root/statistics/view_js.tt:149
 msgid "Count of all ISRCs"
 msgstr "Kaikkien ISRC-koodien määrä"
 
-#: ../root/statistics/view_js.tt:149 ../root/statistics/view_js.tt:150
+#: ../root/statistics/view_js.tt:150 ../root/statistics/view_js.tt:151
 msgid "Count of all ISWCs"
 msgstr "Kaikkien ISWC-koodien määrä"
 
-#: ../root/statistics/view_js.tt:172
+#: ../root/statistics/view_js.tt:188
+msgid "Count of all Instrument Tags (raw)"
+msgstr ""
+
+#: ../root/statistics/view_js.tt:173
 msgid "Count of all Label Ratings"
 msgstr "Kaikkien levymerkkien arvostelujen määrä"
 
-#: ../root/statistics/view_js.tt:178
+#: ../root/statistics/view_js.tt:179
 msgid "Count of all Label Ratings (raw)"
 msgstr "Kaikkien levymerkkien arvostelujen määrä (käsittelemätön)"
 
-#: ../root/statistics/view_js.tt:186
+#: ../root/statistics/view_js.tt:189
 msgid "Count of all Label Tags (raw)"
 msgstr "Kaikkien levymerkkien luokittelujen määrä (käsittelemätön)"
 
-#: ../root/statistics/view_js.tt:153
+#: ../root/statistics/view_js.tt:154
 msgid "Count of all Mediums with Disc IDs"
 msgstr "Kaikkien tallenteiden, joilla levyn tunniste määrä"
 
-#: ../root/statistics/view_js.tt:158
+#: ../root/statistics/view_js.tt:159
 msgid "Count of all Mediums with {n} Disc IDs"
 msgstr "Kaikkien tallenteiden, joilla {n} levyn tunnistetta määrä"
 
-#: ../root/statistics/view_js.tt:79
+#: ../root/statistics/view_js.tt:80
 msgid "Count of all No votes"
 msgstr "Kaikkien Ei äänien määrä"
 
-#: ../root/statistics/view_js.tt:170
+#: ../root/statistics/view_js.tt:171
 msgid "Count of all Ratings"
 msgstr "Kaikkien arvostelujen määrä"
 
-#: ../root/statistics/view_js.tt:176
+#: ../root/statistics/view_js.tt:177
 msgid "Count of all Ratings (raw)"
 msgstr "Kaikkien arvostelujen määrä (käsittelemätön)"
 
-#: ../root/statistics/view_js.tt:173
+#: ../root/statistics/view_js.tt:174
 msgid "Count of all Recording Ratings"
 msgstr "Kaikkien äänitteiden arvostelujen määrä"
 
-#: ../root/statistics/view_js.tt:179
+#: ../root/statistics/view_js.tt:180
 msgid "Count of all Recording Ratings (raw)"
 msgstr "Kaikkien äänitteiden arvostelujen määrä (käsittelemätön)"
 
-#: ../root/statistics/view_js.tt:187
+#: ../root/statistics/view_js.tt:190
 msgid "Count of all Recording Tags (raw)"
 msgstr "Kaikkien äänitteiden luokittelujen määrä (käsittelemätön)"
 
-#: ../root/statistics/view_js.tt:154
+#: ../root/statistics/view_js.tt:155
 msgid "Count of all Recordings with ISRCs"
 msgstr "Kaikkien äänitteiden, joilla on ISRC-tunnuksia määrä"
 
-#: ../root/statistics/view_js.tt:159
+#: ../root/statistics/view_js.tt:160
 msgid "Count of all Recordings with {n} Releases"
 msgstr "Kaikkien äänitteiden, jotka liittyy {n} julkaisuun määrä"
 
-#: ../root/statistics/view_js.tt:192
+#: ../root/statistics/view_js.tt:196
 msgid "Count of all Relationships"
 msgstr "Kaikkien yhteyksien määrä"
 
-#: ../root/statistics/view_js.tt:174
+#: ../root/statistics/view_js.tt:175
 msgid "Count of all Release Group Ratings"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:180
+#: ../root/statistics/view_js.tt:181
 msgid "Count of all Release Group Ratings (raw)"
 msgstr "Kaikkien julkaisuryhmien arvostelujen määrä (käsittelemätön)"
 
-#: ../root/statistics/view_js.tt:189
+#: ../root/statistics/view_js.tt:192
 msgid "Count of all Release Group Tags (raw)"
 msgstr "Kaikkien julkaisuryhmien luokittelujen määrä (käsittelemätön)"
 
-#: ../root/statistics/view_js.tt:160
+#: ../root/statistics/view_js.tt:161
 msgid "Count of all Release Groups with {n} Releases"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:188
+#: ../root/statistics/view_js.tt:191
 msgid "Count of all Release Tags (raw)"
 msgstr "Kaikkien julkaisujen luokittelujen määrä (käsittelemätön)"
 
-#: ../root/statistics/view_js.tt:164
+#: ../root/statistics/view_js.tt:165
 msgid "Count of all Releases at Default Data Quality"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:167
+#: ../root/statistics/view_js.tt:168
 msgid "Count of all Releases at High Data Quality"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:168
+#: ../root/statistics/view_js.tt:169
 msgid "Count of all Releases at Low Data Quality"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:166
+#: ../root/statistics/view_js.tt:167
 msgid "Count of all Releases at Normal Data Quality"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:165
+#: ../root/statistics/view_js.tt:166
 msgid "Count of all Releases at Unknown Data Quality"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:140
+#: ../root/statistics/view_js.tt:141
 msgid "Count of all Releases by Various Artists"
 msgstr "Kaikkien eri esittäjien julkaisujen määrä"
 
-#: ../root/statistics/view_js.tt:139
+#: ../root/statistics/view_js.tt:140
 msgid "Count of all Releases not V.A."
 msgstr "Kaikkien julkaisujen, jotka eivät ole eri artistien, määrä"
 
-#: ../root/statistics/view_js.tt:152
+#: ../root/statistics/view_js.tt:153
 msgid "Count of all Releases with Disc IDs"
 msgstr "Kaikkien julkaisujen, joilla levyn tunniste, määrä"
 
-#: ../root/statistics/view_js.tt:157
+#: ../root/statistics/view_js.tt:158
 msgid "Count of all Releases with {n} Disc IDs"
 msgstr "Kaikkien julkaisujen, joilla {n} levyn tunnistetta määrä"
 
-#: ../root/statistics/view_js.tt:183
+#: ../root/statistics/view_js.tt:193
+msgid "Count of all Series Tags (raw)"
+msgstr ""
+
+#: ../root/statistics/view_js.tt:184
 msgid "Count of all Tags"
 msgstr "Kaikki luokituksien määrä"
 
-#: ../root/statistics/view_js.tt:184
+#: ../root/statistics/view_js.tt:185
 msgid "Count of all Tags (raw)"
 msgstr "Kaikkien luokituksien määrä (käsittelemätön)"
 
-#: ../root/statistics/view_js.tt:134
+#: ../root/statistics/view_js.tt:135
 msgid "Count of all Tracks"
 msgstr "Kaikkien kappaleiden määrä"
 
-#: ../root/statistics/view_js.tt:175
+#: ../root/statistics/view_js.tt:176
 msgid "Count of all Work Ratings"
 msgstr "Kaikkien teoksien arvostelujen määrä"
 
-#: ../root/statistics/view_js.tt:181
+#: ../root/statistics/view_js.tt:182
 msgid "Count of all Work Ratings (raw)"
 msgstr "Kaikkien teoksien arvostelujen määrä (käsittelemätön)"
 
-#: ../root/statistics/view_js.tt:190
+#: ../root/statistics/view_js.tt:194
 msgid "Count of all Work Tags (raw)"
 msgstr "Kaikkien teoksien luokittelujen määrä (käsittelemätön)"
 
-#: ../root/statistics/view_js.tt:78
+#: ../root/statistics/view_js.tt:79
 msgid "Count of all Yes votes"
 msgstr "Kaikkien Kyllä äänien määrä"
 
@@ -1002,13 +1018,17 @@ msgstr "Kaikkien alueiden määrä"
 msgid "Count of all artists"
 msgstr "Kaikkien artistien määrä"
 
-#: ../root/statistics/view_js.tt:82
+#: ../root/statistics/view_js.tt:83
 msgid "Count of all editors"
 msgstr "Kaikkien käyttäjien määrä"
 
-#: ../root/statistics/view_js.tt:60
+#: ../root/statistics/view_js.tt:61
 msgid "Count of all edits"
 msgstr "Kaikkien muokkausten määrä"
+
+#: ../root/statistics/view_js.tt:59
+msgid "Count of all events"
+msgstr ""
 
 #: ../root/statistics/view_js.tt:58
 msgid "Count of all instruments"
@@ -1042,7 +1062,7 @@ msgstr "Kaikkien julkaisujen määrä"
 msgid "Count of all series"
 msgstr "Kaikkien sarjojen määrä"
 
-#: ../root/statistics/view_js.tt:74
+#: ../root/statistics/view_js.tt:75
 msgid "Count of all votes"
 msgstr "Kaikkien äänien määrä"
 
@@ -1050,39 +1070,39 @@ msgstr "Kaikkien äänien määrä"
 msgid "Count of all works"
 msgstr "Kaikkien teoksien määrä"
 
-#: ../root/statistics/view_js.tt:85
+#: ../root/statistics/view_js.tt:86
 msgid "Count of deleted editors"
 msgstr "Kaikkien poistettujen käyttäjien määrä"
 
-#: ../root/statistics/view_js.tt:86
+#: ../root/statistics/view_js.tt:87
 msgid "Count of editors who have submitted edits during the last 7 days"
 msgstr "Käyttäjien, jotka muokanneet viimeisen 7 päivän aikana määrä"
 
-#: ../root/statistics/view_js.tt:87
+#: ../root/statistics/view_js.tt:88
 msgid "Count of editors who have voted on during the last 7 days"
 msgstr "Käyttäjien, jotka äänestäneet viimeisen 7 päivän aikana määrä"
 
-#: ../root/statistics/view_js.tt:62
+#: ../root/statistics/view_js.tt:63
 msgid "Count of edits per day"
 msgstr "Muokkauksia päivässä yhteensä"
 
-#: ../root/statistics/view_js.tt:63
+#: ../root/statistics/view_js.tt:64
 msgid "Count of edits per week"
 msgstr "Muokkauksia viikossa yhteensä"
 
-#: ../root/statistics/view_js.tt:83
+#: ../root/statistics/view_js.tt:84
 msgid "Count of non-deleted editors"
 msgstr "Kaikkien ei poistettujen käyttäjien määrä"
 
-#: ../root/statistics/view_js.tt:61
+#: ../root/statistics/view_js.tt:62
 msgid "Count of open edits"
 msgstr "Avointen muokkausten määrä"
 
-#: ../root/statistics/view_js.tt:75
+#: ../root/statistics/view_js.tt:76
 msgid "Count of votes per day"
 msgstr "Ääniä päivässä yhteensä"
 
-#: ../root/statistics/view_js.tt:76
+#: ../root/statistics/view_js.tt:77
 msgid "Count of votes per week"
 msgstr "Ääniä viikossa yhteensä"
 
@@ -1099,15 +1119,15 @@ msgstr "Maa"
 msgid "Cover Art"
 msgstr "Kansitaide"
 
-#: ../root/statistics/index.tt:309
+#: ../root/statistics/index.tt:313
 msgid "Cover Art Sources"
 msgstr "Kansitaiteiden lähteet"
 
-#: ../root/statistics/index.tt:343
+#: ../root/statistics/index.tt:347
 msgid "Data Quality"
 msgstr "Tiedon laatu"
 
-#: ../root/statistics/layout.tt:24 ../root/statistics/layout.tt:38
+#: ../root/statistics/layout.tt:24 ../root/statistics/layout.tt:35
 msgid "Database Statistics"
 msgstr "Tietokannat tilastot"
 
@@ -1115,19 +1135,19 @@ msgstr "Tietokannat tilastot"
 msgid "Database Statistics - {title}"
 msgstr "Tietokannat tilastot - {title}"
 
-#: ../root/statistics/view_js.tt:164
+#: ../root/statistics/view_js.tt:165
 msgid "Default Data Quality"
 msgstr "Normaali tiedon laatu"
 
-#: ../root/statistics/index.tt:358
+#: ../root/statistics/index.tt:362
 msgid "Default Data Quality:"
 msgstr "Normaali tiedon laatu:"
 
-#: ../root/statistics/index.tt:385 ../root/statistics/view_js.tt:138
+#: ../root/statistics/index.tt:389 ../root/statistics/view_js.tt:139
 msgid "Disc IDs"
 msgstr "Levyn tunnisteet"
 
-#: ../root/statistics/index.tt:120 ../root/statistics/index.tt:388
+#: ../root/statistics/index.tt:124 ../root/statistics/index.tt:392
 msgid "Disc IDs:"
 msgstr "Levyn tunnisteet:"
 
@@ -1144,114 +1164,122 @@ msgid "Editor"
 msgstr "Muokkaaja"
 
 #: ../root/statistics/editors.tt:2 ../root/statistics/editors.tt:35
-#: ../root/statistics/index.tt:683 ../root/statistics/layout.tt:5
+#: ../root/statistics/index.tt:715 ../root/statistics/layout.tt:5
 msgid "Editors"
 msgstr "Käyttäjät"
 
-#: ../root/statistics/view_js.tt:82
+#: ../root/statistics/view_js.tt:83
 msgid "Editors (all)"
 msgstr "Käyttäjät (kaikki)"
 
-#: ../root/statistics/view_js.tt:85
+#: ../root/statistics/view_js.tt:86
 msgid "Editors (deleted)"
 msgstr "Käyttäjät (poistetut)"
 
-#: ../root/statistics/index.tt:788
+#: ../root/statistics/index.tt:820
 msgid "Editors (deleted):"
 msgstr "Käyttäjät (poistetut):"
 
-#: ../root/statistics/view_js.tt:84
+#: ../root/statistics/view_js.tt:85
 msgid "Editors (valid & active ever)"
 msgstr "Käyttäjät (voimassa oleva & aktiivinen joskus)"
 
-#: ../root/statistics/index.tt:73
+#: ../root/statistics/index.tt:77
 msgid "Editors (valid / deleted):"
 msgstr "Käyttäjät (voimassa olevat / poistetut):"
 
-#: ../root/statistics/view_js.tt:83
+#: ../root/statistics/view_js.tt:84
 msgid "Editors (valid)"
 msgstr "Käyttäjät (voimassa olevat)"
 
-#: ../root/statistics/index.tt:686
+#: ../root/statistics/index.tt:718
 msgid "Editors (valid):"
 msgstr "Käyttäjät (voimassa olevat):"
 
-#: ../root/statistics/index.tt:679
+#: ../root/statistics/index.tt:711
 msgid "Editors, Edits, and Votes"
 msgstr "Käyttäjät, muokkaukset ja äänet"
 
 #: ../root/statistics/edits.tt:2 ../root/statistics/edits.tt:9
-#: ../root/statistics/index.tt:795 ../root/statistics/layout.tt:5
-#: ../root/statistics/view_js.tt:60
+#: ../root/statistics/index.tt:827 ../root/statistics/layout.tt:5
+#: ../root/statistics/view_js.tt:61
 msgid "Edits"
 msgstr "Muokkaukset"
 
-#: ../root/statistics/view_js.tt:65
+#: ../root/statistics/view_js.tt:66
 msgid "Edits about to be cancelled"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:62
+#: ../root/statistics/view_js.tt:63
 msgid "Edits per day"
 msgstr "Muokkauksia päivässä"
 
-#: ../root/statistics/view_js.tt:63
+#: ../root/statistics/view_js.tt:64
 msgid "Edits per week"
 msgstr "Muokkauksia viikossa"
 
-#: ../root/statistics/edits.tt:18 ../root/statistics/index.tt:798
-#: ../root/statistics/index.tt:845
+#: ../root/statistics/edits.tt:18 ../root/statistics/index.tt:830
+#: ../root/statistics/index.tt:877
 msgid "Edits:"
 msgstr "Muokkaukset:"
 
-#: ../root/statistics/view_js.tt:68
+#: ../root/statistics/view_js.tt:69
 msgid "Error edits"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:72
+#: ../root/statistics/view_js.tt:73
 msgid "Evalnochange Edits"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:72
+#: ../root/statistics/view_js.tt:73
 msgid "Evalnochange edits"
+msgstr ""
+
+#: ../root/statistics/index.tt:683 ../root/statistics/view_js.tt:59
+msgid "Events"
+msgstr ""
+
+#: ../root/statistics/index.tt:68 ../root/statistics/index.tt:690
+msgid "Events:"
 msgstr ""
 
 #: ../root/statistics/timeline.tt:59
 msgid "Exact Values (items vs. day)"
-msgstr "Tarkat arvot (kohdetta verrattuna päivään)"
+msgstr "Tarkat arvot (kohdetta suhteessa päivään)"
 
 #: ../root/statistics/relationships.tt:31
 msgid "Exclusive"
 msgstr "Suppea"
 
-#: ../root/statistics/index.tt:822
+#: ../root/statistics/index.tt:854
 msgid "Failed (dependency):"
 msgstr "Epäonnistunut (riippuvuus):"
 
-#: ../root/statistics/index.tt:834
+#: ../root/statistics/index.tt:866
 msgid "Failed (internal error):"
 msgstr "Epäonnistunut (sisäinen virhe):"
 
-#: ../root/statistics/index.tt:828
+#: ../root/statistics/index.tt:860
 msgid "Failed (prerequisite):"
 msgstr "Epäonnistunut (edellytys):"
 
-#: ../root/statistics/view_js.tt:69
+#: ../root/statistics/view_js.tt:70
 msgid "Failed edits (dependency)"
 msgstr "Epäonnistuneet muokkaukset (riippuvuus)"
 
-#: ../root/statistics/view_js.tt:70
+#: ../root/statistics/view_js.tt:71
 msgid "Failed edits (prerequisite)"
 msgstr "Epäonnistuneet muokkaukset (edellyt)"
 
-#: ../root/statistics/view_js.tt:71
+#: ../root/statistics/view_js.tt:72
 msgid "Failed edits (voted down)"
 msgstr "Epäonnistuneet muokkaukseet (äänestetty kumoon)"
 
-#: ../root/statistics/view_js.tt:118
+#: ../root/statistics/view_js.tt:119
 msgid "Female Artists"
 msgstr "Naisartisteja"
 
-#: ../root/statistics/index.tt:216
+#: ../root/statistics/index.tt:220
 msgid "Female:"
 msgstr "Nainen:"
 
@@ -1269,15 +1297,15 @@ msgstr "Tallenteen muoto"
 msgid "Formats"
 msgstr "Tallennusformaatit"
 
-#: ../root/statistics/view_js.tt:122
+#: ../root/statistics/view_js.tt:123
 msgid "Groups"
 msgstr "Ryhmät"
 
-#: ../root/statistics/view_js.tt:167
+#: ../root/statistics/view_js.tt:168
 msgid "High Data Quality"
 msgstr "Korkea tiedon laatu"
 
-#: ../root/statistics/index.tt:352
+#: ../root/statistics/index.tt:356
 msgid "High Data Quality:"
 msgstr "Korkea tiedon laatu:"
 
@@ -1285,47 +1313,47 @@ msgstr "Korkea tiedon laatu:"
 msgid "Hover and click on vertical lines"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:141
+#: ../root/statistics/view_js.tt:142
 msgid "IPIs"
 msgstr "IPI-koodit"
 
-#: ../root/statistics/index.tt:128
+#: ../root/statistics/index.tt:132
 msgid "IPIs:"
 msgstr "IPI-koodit:"
 
-#: ../root/statistics/view_js.tt:144
+#: ../root/statistics/view_js.tt:145
 msgid "ISNIs"
 msgstr "ISNI-koodit"
 
-#: ../root/statistics/index.tt:132
+#: ../root/statistics/index.tt:136
 msgid "ISNIs:"
 msgstr "ISNI-koodit:"
 
-#: ../root/statistics/view_js.tt:147
+#: ../root/statistics/view_js.tt:148
 msgid "ISRCs"
 msgstr "ISRC-koodit"
 
-#: ../root/statistics/index.tt:112
+#: ../root/statistics/index.tt:116
 msgid "ISRCs (all / unique):"
 msgstr "ISRC-koodia (kaikki / uniikit)"
 
-#: ../root/statistics/view_js.tt:148
+#: ../root/statistics/view_js.tt:149
 msgid "ISRCs (all)"
 msgstr "ISRC-koodit (kaikki)"
 
-#: ../root/statistics/view_js.tt:149
+#: ../root/statistics/view_js.tt:150
 msgid "ISWCs"
 msgstr "ISWC-koodit"
 
-#: ../root/statistics/index.tt:116
+#: ../root/statistics/index.tt:120
 msgid "ISWCs (all / unique):"
 msgstr "ISWC-koodit (kaikki / uniikit):"
 
-#: ../root/statistics/view_js.tt:150
+#: ../root/statistics/view_js.tt:151
 msgid "ISWCs (all)"
 msgstr "ISWC-koodit (kaikki)"
 
-#: ../root/statistics/index.tt:105
+#: ../root/statistics/index.tt:109
 msgid "Identifiers"
 msgstr "Tunnisteet"
 
@@ -1333,11 +1361,15 @@ msgstr "Tunnisteet"
 msgid "Inclusive"
 msgstr "Laaja"
 
-#: ../root/statistics/index.tt:651 ../root/statistics/view_js.tt:58
+#: ../root/statistics/view_js.tt:188
+msgid "Instrument Tags (raw)"
+msgstr ""
+
+#: ../root/statistics/index.tt:655 ../root/statistics/view_js.tt:58
 msgid "Instruments"
 msgstr "Soittimet"
 
-#: ../root/statistics/index.tt:64 ../root/statistics/index.tt:658
+#: ../root/statistics/index.tt:64 ../root/statistics/index.tt:662
 msgid "Instruments:"
 msgstr "Soittimet:"
 
@@ -1345,23 +1377,23 @@ msgstr "Soittimet:"
 msgid "Label Countries"
 msgstr "Levymerkkien maat"
 
-#: ../root/statistics/view_js.tt:143
+#: ../root/statistics/view_js.tt:144
 msgid "Label IPIs"
 msgstr "Levymerkkien IPI-koodit"
 
-#: ../root/statistics/view_js.tt:146
+#: ../root/statistics/view_js.tt:147
 msgid "Label ISNIs"
 msgstr "Levymerkin ISNI-koodit"
 
-#: ../root/statistics/view_js.tt:172
+#: ../root/statistics/view_js.tt:173
 msgid "Label Ratings"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:178
+#: ../root/statistics/view_js.tt:179
 msgid "Label Ratings (raw)"
 msgstr "Levymerkkien arvostelut (käsittelemätön)"
 
-#: ../root/statistics/view_js.tt:186
+#: ../root/statistics/view_js.tt:189
 msgid "Label Tags (raw)"
 msgstr "Levymerkkien luokitukset (käsittelemätön)"
 
@@ -1369,7 +1401,7 @@ msgstr "Levymerkkien luokitukset (käsittelemätön)"
 msgid "Labels"
 msgstr "Levymerkit"
 
-#: ../root/statistics/view_js.tt:91
+#: ../root/statistics/view_js.tt:92
 msgid "Labels with no country set"
 msgstr "Levymerkit ilman määritettyä maata"
 
@@ -1393,7 +1425,7 @@ msgstr "Kielet ja merkistöt"
 msgid "Languages/Scripts"
 msgstr "Kielet/merkistöt"
 
-#: ../root/statistics/index.tt:851 ../root/statistics/index.tt:903
+#: ../root/statistics/index.tt:883 ../root/statistics/index.tt:935
 msgid "Last 7 days:"
 msgstr "Viimeiset 7 päivää:"
 
@@ -1409,23 +1441,23 @@ msgstr "Päivitetty viimeksi: {date}"
 msgid "Legend"
 msgstr "Selite"
 
-#: ../root/statistics/view_js.tt:168
+#: ../root/statistics/view_js.tt:169
 msgid "Low Data Quality"
 msgstr "Alhainen tiedon laatu"
 
-#: ../root/statistics/index.tt:378
+#: ../root/statistics/index.tt:382
 msgid "Low Data Quality:"
 msgstr "Alhainen tiedon laatu:"
 
-#: ../root/statistics/index.tt:108
+#: ../root/statistics/index.tt:112
 msgid "MBIDs:"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:117
+#: ../root/statistics/view_js.tt:118
 msgid "Male Artists"
 msgstr "Miesartisteja:"
 
-#: ../root/statistics/index.tt:210
+#: ../root/statistics/index.tt:214
 msgid "Male:"
 msgstr "Mies:"
 
@@ -1433,35 +1465,35 @@ msgstr "Mies:"
 msgid "Mediums"
 msgstr "Tallenteet"
 
-#: ../root/statistics/view_js.tt:158
+#: ../root/statistics/view_js.tt:159
 msgid "Mediums with 1 Disc ID"
 msgid_plural "Mediums with {n} Disc IDs"
 msgstr[0] "Tallenteet, joissa {n} levyn tunnistetta"
 msgstr[1] "Tallenteet, joissa {n} levyn tunnistetta"
 
-#: ../root/statistics/view_js.tt:153
+#: ../root/statistics/view_js.tt:154
 msgid "Mediums with Disc IDs"
 msgstr "Tallenteet, joissa ei levyn tunnistetta"
 
-#: ../root/statistics/index.tt:438
+#: ../root/statistics/index.tt:442
 msgid "Mediums with at least one disc ID:"
 msgstr "Tallenteet, joissa ainakin yksi levyn tunniste:"
 
-#: ../root/statistics/index.tt:432
+#: ../root/statistics/index.tt:436
 msgid "Mediums with no disc IDs:"
 msgstr "Tallenteet, joissa ei levyn tunnistetta:"
 
-#: ../root/statistics/view_js.tt:110
+#: ../root/statistics/view_js.tt:111
 msgid "Mediums with no format set"
 msgstr "Tallenteet, joille ei ole asetettu tallennusformaattia"
 
-#: ../root/statistics/index.tt:28 ../root/statistics/index.tt:426
+#: ../root/statistics/index.tt:28 ../root/statistics/index.tt:430
 msgid "Mediums:"
 msgstr "Tallenteet:"
 
 #: ../root/statistics/editors.tt:36
 msgid "Most active editors in the past week"
-msgstr "Aktivisimmat muokkaajat viikon ajalta"
+msgstr "Aktiivisimmat muokkaajat viikon ajalta"
 
 #: ../root/statistics/editors.tt:42
 msgid "Most active voters in the past week"
@@ -1475,16 +1507,16 @@ msgstr "MusicBrainzin tapahtumia"
 msgid "MusicBrainz Events:"
 msgstr "MusicBrainzin tapahtumia:"
 
-#: ../root/statistics/index.tt:886
+#: ../root/statistics/index.tt:918
 msgctxt "vote"
 msgid "No"
-msgstr ""
+msgstr "Ei"
 
 #: ../root/statistics/no_statistics.tt:2
 msgid "No Statistics"
 msgstr "Ei tilastoja"
 
-#: ../root/statistics/view_js.tt:79
+#: ../root/statistics/view_js.tt:80
 msgid "No Votes"
 msgstr "Ei-äänet"
 
@@ -1501,11 +1533,11 @@ msgstr ""
 msgid "No format"
 msgstr "Ei formaattia"
 
-#: ../root/statistics/index.tt:336
+#: ../root/statistics/index.tt:340
 msgid "No front cover art:"
 msgstr "Ei kansitaidetta:"
 
-#: ../root/statistics/index.tt:302
+#: ../root/statistics/index.tt:306
 msgid "No packaging set"
 msgstr "Ei pakkausta asetettu"
 
@@ -1517,7 +1549,7 @@ msgstr ""
 msgid "No status"
 msgstr "Ei tilaa"
 
-#: ../root/statistics/index.tt:278
+#: ../root/statistics/index.tt:282
 msgid "No status set"
 msgstr "Ei tilaa asetettu"
 
@@ -1525,25 +1557,25 @@ msgstr "Ei tilaa asetettu"
 msgid "No type"
 msgstr "Ei tyyppiä"
 
-#: ../root/statistics/index.tt:204
+#: ../root/statistics/index.tt:208
 msgid "Non-group artists:"
 msgstr "Artistit, jotka eivät ole ryhmiä:"
 
-#: ../root/statistics/index.tt:539 ../root/statistics/index.tt:566
-#: ../root/statistics/index.tt:594 ../root/statistics/index.tt:622
-#: ../root/statistics/index.tt:672
+#: ../root/statistics/index.tt:543 ../root/statistics/index.tt:570
+#: ../root/statistics/index.tt:598 ../root/statistics/index.tt:626
+#: ../root/statistics/index.tt:676 ../root/statistics/index.tt:704
 msgid "None"
 msgstr "Ei mitään"
 
-#: ../root/statistics/view_js.tt:166
+#: ../root/statistics/view_js.tt:167
 msgid "Normal Data Quality"
 msgstr "Normaali tiedon laatu"
 
-#: ../root/statistics/index.tt:365
+#: ../root/statistics/index.tt:369
 msgid "Normal Data Quality:"
 msgstr "Normaali tiedon laatu:"
 
-#: ../root/statistics/view_js.tt:61
+#: ../root/statistics/view_js.tt:62
 msgid "Open Edits"
 msgstr "Avoimet muokkaukset"
 
@@ -1551,11 +1583,11 @@ msgstr "Avoimet muokkaukset"
 msgid "Open and applied edits in past week"
 msgstr "Avoimet ja hyväksytyt muokkauset viikon ajalta"
 
-#: ../root/statistics/index.tt:804
+#: ../root/statistics/index.tt:836
 msgid "Open:"
 msgstr "Avoin:"
 
-#: ../root/statistics/view_js.tt:125
+#: ../root/statistics/view_js.tt:126
 msgid "Orchestras"
 msgstr "Orkesterit"
 
@@ -1563,19 +1595,19 @@ msgstr "Orkesterit"
 msgid "Other"
 msgstr "Muut"
 
-#: ../root/statistics/index.tt:70
+#: ../root/statistics/index.tt:74
 msgid "Other Entities"
 msgstr "Muut entiteetit"
 
-#: ../root/statistics/index.tt:222
+#: ../root/statistics/index.tt:226
 msgid "Other gender:"
 msgstr "Muu sukupuoli:"
 
-#: ../root/statistics/view_js.tt:119
+#: ../root/statistics/view_js.tt:120
 msgid "Other-gender Artists"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:123
+#: ../root/statistics/view_js.tt:124
 msgid "Other-type Artists"
 msgstr ""
 
@@ -1585,15 +1617,15 @@ msgstr "Yleiskatsaus"
 
 #: ../root/statistics/coverart.tt:145
 msgid "Per release"
-msgstr ""
+msgstr "Per julkaisu"
 
-#: ../root/statistics/view_js.tt:121
+#: ../root/statistics/view_js.tt:122
 msgid "Persons"
 msgstr "Henkilöt"
 
-#: ../root/statistics/view_js.tt:199
+#: ../root/statistics/view_js.tt:203
 msgid "Pieces of Cover Art"
-msgstr "Kappaletta kansitaidetta"
+msgstr "Kansitaidetta yhteensä"
 
 #: ../root/statistics/coverart.tt:120
 msgid "Pieces of cover art"
@@ -1603,15 +1635,15 @@ msgstr "Kappaletta kansitaidetta"
 msgid "Pieces of cover art:"
 msgstr "Kappaletta kansitaidetta"
 
-#: ../root/statistics/index.tt:601 ../root/statistics/view_js.tt:56
+#: ../root/statistics/index.tt:605 ../root/statistics/view_js.tt:56
 msgid "Places"
 msgstr "Paikat"
 
-#: ../root/statistics/index.tt:56 ../root/statistics/index.tt:608
+#: ../root/statistics/index.tt:56 ../root/statistics/index.tt:612
 msgid "Places:"
 msgstr "Paikat:"
 
-#: ../root/statistics/index.tt:465
+#: ../root/statistics/index.tt:469
 msgid "Primary Types"
 msgstr "Ensisijaiset tyypit"
 
@@ -1629,15 +1661,15 @@ msgstr ""
 msgid "Rate of Change Graph"
 msgstr "Muutosnopeuksien kuvaaja"
 
-#: ../root/statistics/view_js.tt:170
+#: ../root/statistics/view_js.tt:171
 msgid "Ratings"
 msgstr "Arvostelut"
 
-#: ../root/statistics/index.tt:95
+#: ../root/statistics/index.tt:99
 msgid "Ratings (raw / aggregated):"
 msgstr "Arvostelut (käsittelemättömät / koostetut):"
 
-#: ../root/statistics/view_js.tt:176
+#: ../root/statistics/view_js.tt:177
 msgid "Ratings (raw)"
 msgstr "Arvostelut (käsittelemätön)"
 
@@ -1645,44 +1677,44 @@ msgstr "Arvostelut (käsittelemätön)"
 msgid "Ratings and Tags"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:173
+#: ../root/statistics/view_js.tt:174
 msgid "Recording Ratings"
 msgstr "Äänitteiden arvostelut"
 
-#: ../root/statistics/view_js.tt:179
+#: ../root/statistics/view_js.tt:180
 msgid "Recording Ratings (raw)"
 msgstr "Äänitteiden arvostelut (käsittelemätön)"
 
-#: ../root/statistics/view_js.tt:187
+#: ../root/statistics/view_js.tt:190
 msgid "Recording Tags (raw)"
 msgstr "Äänitteiden luokittelut (käsittelemätön)"
 
-#: ../root/statistics/index.tt:499 ../root/statistics/index.tt:503
+#: ../root/statistics/index.tt:503 ../root/statistics/index.tt:507
 #: ../root/statistics/view_js.tt:49
 msgid "Recordings"
 msgstr "Äänitteet"
 
-#: ../root/statistics/view_js.tt:159
+#: ../root/statistics/view_js.tt:160
 msgid "Recordings with 1 Release"
 msgid_plural "Recordings with {n} Releases"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/statistics/view_js.tt:154
+#: ../root/statistics/view_js.tt:155
 msgid "Recordings with ISRCs"
 msgstr ""
 
-#: ../root/statistics/index.tt:32 ../root/statistics/index.tt:506
+#: ../root/statistics/index.tt:32 ../root/statistics/index.tt:510
 msgid "Recordings:"
 msgstr "Äänitteet"
 
 #: ../root/statistics/layout.tt:5 ../root/statistics/relationships.tt:15
 #: ../root/statistics/relationships.tt:22 ../root/statistics/view_js.tt:34
-#: ../root/statistics/view_js.tt:192
+#: ../root/statistics/view_js.tt:196
 msgid "Relationships"
 msgstr "Yhteydet"
 
-#: ../root/statistics/index.tt:79 ../root/statistics/relationships.tt:34
+#: ../root/statistics/index.tt:83 ../root/statistics/relationships.tt:34
 msgid "Relationships:"
 msgstr "Yhteydet:"
 
@@ -1694,30 +1726,30 @@ msgstr "Julkaisumaat"
 msgid "Release Data Quality"
 msgstr "Julkaisun tiedon laatu"
 
-#: ../root/statistics/view_js.tt:174
+#: ../root/statistics/view_js.tt:175
 msgid "Release Group Ratings"
 msgstr "Julkaisuryhmän arvostelut"
 
-#: ../root/statistics/view_js.tt:180
+#: ../root/statistics/view_js.tt:181
 msgid "Release Group Ratings (raw)"
 msgstr "Julkaisuryhmien arvostelut (käsittelemätön)"
 
-#: ../root/statistics/view_js.tt:189
+#: ../root/statistics/view_js.tt:192
 msgid "Release Group Tags (raw)"
 msgstr "Julkaisuryhmien luokittelut (käsittelemätön)"
 
-#: ../root/statistics/index.tt:461 ../root/statistics/view_js.tt:53
+#: ../root/statistics/index.tt:465 ../root/statistics/view_js.tt:53
 msgid "Release Groups"
 msgstr "Julkaisuryhmät"
 
-#: ../root/statistics/view_js.tt:160
+#: ../root/statistics/view_js.tt:161
 msgid "Release Groups with 1 Release"
 msgid_plural "Release Groups with {n} Releases"
 msgstr[0] "Julkaisuryhmät joissa {n} julkaisu"
 msgstr[1] "Julkaisuryhmät joissa {n} julkaisua"
 
-#: ../root/statistics/index.tt:20 ../root/statistics/index.tt:468
-#: ../root/statistics/index.tt:484
+#: ../root/statistics/index.tt:20 ../root/statistics/index.tt:472
+#: ../root/statistics/index.tt:488
 msgid "Release Groups:"
 msgstr "Julkaisuryhmät:"
 
@@ -1725,7 +1757,7 @@ msgstr "Julkaisuryhmät:"
 msgid "Release Languages"
 msgstr "Julkaisukielet"
 
-#: ../root/statistics/index.tt:285
+#: ../root/statistics/index.tt:289
 msgid "Release Packaging"
 msgstr "Julkaisun paukkaus"
 
@@ -1733,11 +1765,11 @@ msgstr "Julkaisun paukkaus"
 msgid "Release Scripts"
 msgstr "Julkaisumerkistöt"
 
-#: ../root/statistics/index.tt:261
+#: ../root/statistics/index.tt:265
 msgid "Release Status"
 msgstr "Julkaisun tila"
 
-#: ../root/statistics/view_js.tt:188
+#: ../root/statistics/view_js.tt:191
 msgid "Release Tags (raw)"
 msgstr "Julkaisujen luokitukset (käsittelemätön)"
 
@@ -1754,55 +1786,55 @@ msgid "Release/Medium Formats"
 msgstr "Julkaisu- ja tallenneformaatit"
 
 #: ../root/statistics/countries.tt:28 ../root/statistics/coverart.tt:35
-#: ../root/statistics/formats.tt:26 ../root/statistics/index.tt:239
+#: ../root/statistics/formats.tt:26 ../root/statistics/index.tt:243
 #: ../root/statistics/languages_scripts.tt:33
 #: ../root/statistics/languages_scripts.tt:54 ../root/statistics/view_js.tt:52
 msgid "Releases"
 msgstr "Julkaisut"
 
-#: ../root/statistics/view_js.tt:140
+#: ../root/statistics/view_js.tt:141
 msgid "Releases (VA)"
 msgstr "Julkaisut (eri esittäjiä)"
 
-#: ../root/statistics/view_js.tt:139
+#: ../root/statistics/view_js.tt:140
 msgid "Releases not VA"
 msgstr "Julkaisut (ei eri esittäjiä)"
 
-#: ../root/statistics/view_js.tt:157
+#: ../root/statistics/view_js.tt:158
 msgid "Releases with 1 Disc ID"
 msgid_plural "Releases with {n} Disc IDs"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/statistics/view_js.tt:202 ../root/statistics/view_js.tt:204
+#: ../root/statistics/view_js.tt:206 ../root/statistics/view_js.tt:208
 msgid "Releases with Amazon Cover Art"
-msgstr ""
+msgstr "Julkaisut, joille löytää kansitaide Amazonista"
 
-#: ../root/statistics/view_js.tt:203
+#: ../root/statistics/view_js.tt:207
 msgid "Releases with CAA Cover Art"
-msgstr ""
+msgstr "Kansitaiteelliset julkaisut"
 
-#: ../root/statistics/view_js.tt:200
+#: ../root/statistics/view_js.tt:204
 msgid "Releases with Cover Art"
 msgstr "Julkaisut, joissa kansitaidetta"
 
-#: ../root/statistics/view_js.tt:204
+#: ../root/statistics/view_js.tt:208
 msgid "Releases with Cover Art from Relationships"
-msgstr ""
+msgstr "Julkaisut, joilta löydyy kansitaide-yhteyksiä"
 
-#: ../root/statistics/view_js.tt:152
+#: ../root/statistics/view_js.tt:153
 msgid "Releases with Disc IDs"
 msgstr "Julkaisuja, joilla Disc ID"
 
-#: ../root/statistics/view_js.tt:205
+#: ../root/statistics/view_js.tt:209
 msgid "Releases with No Cover Art"
 msgstr "Julkaisut joilla ei kansitaidetta"
 
-#: ../root/statistics/view_js.tt:109
+#: ../root/statistics/view_js.tt:110
 msgid "Releases with a no-format medium"
-msgstr ""
+msgstr "Julkaisut, joiden formaatti on tuntematon"
 
-#: ../root/statistics/index.tt:405
+#: ../root/statistics/index.tt:409
 msgid "Releases with at least one disc ID:"
 msgstr "Julkaisut, joissa ainakin yksi levyn tunniste:"
 
@@ -1812,36 +1844,36 @@ msgstr "Julkaisut, joissa ainakin yksi levyn tunniste:"
 msgid "Releases with cover art:"
 msgstr "Julkaisut, joissa kansitaidetta:"
 
-#: ../root/statistics/view_js.tt:92
+#: ../root/statistics/view_js.tt:93
 msgid "Releases with no country set"
 msgstr "Julkaisut, joissa maata ei valittu"
 
-#: ../root/statistics/index.tt:399
+#: ../root/statistics/index.tt:403
 msgid "Releases with no disc IDs:"
 msgstr "Julkaisut, joissa ei ole levyn tunnistetta:"
 
-#: ../root/statistics/view_js.tt:104
+#: ../root/statistics/view_js.tt:105
 msgid "Releases with no language set"
 msgstr "Julkaisut, joissa ei ole kieltä asetttuna"
 
-#: ../root/statistics/view_js.tt:99
+#: ../root/statistics/view_js.tt:100
 msgid "Releases with no script set"
 msgstr "Julkaisut, joissa ei ole merkistöä asetettuna"
 
-#: ../root/statistics/index.tt:235
+#: ../root/statistics/index.tt:239
 msgid "Releases, Data Quality, and Disc IDs"
 msgstr "Julkaisut, tiedon laatu ja levyjen tunnisteet"
 
-#: ../root/statistics/index.tt:24 ../root/statistics/index.tt:242
-#: ../root/statistics/index.tt:264 ../root/statistics/index.tt:288
-#: ../root/statistics/index.tt:312 ../root/statistics/index.tt:346
-#: ../root/statistics/index.tt:393
+#: ../root/statistics/index.tt:24 ../root/statistics/index.tt:246
+#: ../root/statistics/index.tt:268 ../root/statistics/index.tt:292
+#: ../root/statistics/index.tt:316 ../root/statistics/index.tt:350
+#: ../root/statistics/index.tt:397
 msgid "Releases:"
 msgstr "Julkaisut:"
 
 #: ../root/statistics/timeline.tt:50
 msgid "Reset:"
-msgstr ""
+msgstr "Palaa alkutilaan: "
 
 #: ../root/statistics/languages_scripts.tt:53
 msgid "Script"
@@ -1851,16 +1883,20 @@ msgstr "Merkistö"
 msgid "Scripts"
 msgstr "Merkistöt"
 
-#: ../root/statistics/index.tt:481
+#: ../root/statistics/index.tt:485
 msgid "Secondary Types"
 msgstr "Toissijaiset tyypit"
 
-#: ../root/statistics/index.tt:629 ../root/statistics/view_js.tt:57
+#: ../root/statistics/index.tt:633 ../root/statistics/view_js.tt:57
 msgctxt "plural"
 msgid "Series"
 msgstr "Sarjat"
 
-#: ../root/statistics/index.tt:60 ../root/statistics/index.tt:636
+#: ../root/statistics/view_js.tt:193
+msgid "Series Tags (raw)"
+msgstr ""
+
+#: ../root/statistics/index.tt:60 ../root/statistics/index.tt:640
 msgctxt "plural"
 msgid "Series:"
 msgstr "Sarjat:"
@@ -1871,19 +1907,19 @@ msgid ""
 "administrator for this server, you should run "
 "<code>./admin/CollectStats.pl</code> or import <code>mbdump-"
 "stats.tar.bz2</code>."
-msgstr ""
+msgstr "Tälle palvelimelle ei ole vielä kerätty statistiikkoja. Jos olet palvelimen ylläpitäjä, sinun tulee joko ajaa <code>./admin/CollectStats.pl</code> tai tuoda <code>mbdump-stats.tar.bz2</code>."
 
-#: ../root/statistics/index.tt:87
+#: ../root/statistics/index.tt:91
 msgid "Tags (raw / aggregated):"
 msgstr "Luokitukset (käsittelemättömät / koostetut):"
 
-#: ../root/statistics/view_js.tt:184
+#: ../root/statistics/view_js.tt:185
 msgid "Tags (raw)"
 msgstr "Luokitukset (käsittelemätön)"
 
 #: ../root/statistics/editors.tt:16
 msgid "There is no data to display here."
-msgstr ""
+msgstr "Ei näytettävissä olevaa tietoa. "
 
 #: ../root/statistics/layout.tt:5
 msgid "Timeline"
@@ -1893,7 +1929,7 @@ msgstr "Aikajana"
 msgid "Timeline Graph"
 msgstr "Aikajana"
 
-#: ../root/statistics/view_js.tt:65
+#: ../root/statistics/view_js.tt:66
 msgid "To-be-cancelled edits"
 msgstr ""
 
@@ -1918,7 +1954,7 @@ msgstr "Yhteensä hyväksyttyjä muokkauksia"
 msgid "Total votes"
 msgstr "Yhteensä ääniä"
 
-#: ../root/statistics/view_js.tt:134
+#: ../root/statistics/view_js.tt:135
 msgid "Tracks"
 msgstr "Kappaleet"
 
@@ -1926,13 +1962,13 @@ msgstr "Kappaleet"
 msgid "Tracks:"
 msgstr "Kappaleet:"
 
-#: ../root/statistics/index.tt:522 ../root/statistics/index.tt:577
-#: ../root/statistics/index.tt:605 ../root/statistics/index.tt:633
-#: ../root/statistics/index.tt:655
+#: ../root/statistics/index.tt:526 ../root/statistics/index.tt:581
+#: ../root/statistics/index.tt:609 ../root/statistics/index.tt:637
+#: ../root/statistics/index.tt:659 ../root/statistics/index.tt:687
 msgid "Types"
 msgstr "Tyypit"
 
-#: ../root/statistics/index.tt:330
+#: ../root/statistics/index.tt:334
 msgid "URL Relationships:"
 msgstr "URL yhteydet:"
 
@@ -1940,16 +1976,16 @@ msgstr "URL yhteydet:"
 msgid "URLs:"
 msgstr "URL-osoitteet:"
 
-#: ../root/statistics/countries.tt:9 ../root/statistics/view_js.tt:90
-#: ../root/statistics/view_js.tt:91 ../root/statistics/view_js.tt:92
+#: ../root/statistics/countries.tt:9 ../root/statistics/view_js.tt:91
+#: ../root/statistics/view_js.tt:92 ../root/statistics/view_js.tt:93
 msgid "Unknown Country"
 msgstr "Tuntematon maa"
 
-#: ../root/statistics/view_js.tt:165
+#: ../root/statistics/view_js.tt:166
 msgid "Unknown Data Quality"
 msgstr "Tuntematon tiedon laatu"
 
-#: ../root/statistics/index.tt:372
+#: ../root/statistics/index.tt:376
 msgid "Unknown Data Quality:"
 msgstr "Tuntematon tiedon laatu:"
 
@@ -1957,19 +1993,19 @@ msgstr "Tuntematon tiedon laatu:"
 msgid "Unknown Format"
 msgstr "Tuntematon formaatti"
 
-#: ../root/statistics/view_js.tt:110
+#: ../root/statistics/view_js.tt:111
 msgid "Unknown Format (medium)"
 msgstr "Tuntematon formaatti (media)"
 
-#: ../root/statistics/view_js.tt:109
+#: ../root/statistics/view_js.tt:110
 msgid "Unknown Format (release)"
 msgstr "Tuntematon formaatti (julkaisu)"
 
-#: ../root/statistics/view_js.tt:104
+#: ../root/statistics/view_js.tt:105
 msgid "Unknown Language"
 msgstr "Tuntematon kieli"
 
-#: ../root/statistics/view_js.tt:99
+#: ../root/statistics/view_js.tt:100
 msgid "Unknown Script"
 msgstr "Tuntematon merkistö"
 
@@ -1981,19 +2017,19 @@ msgstr "Tuntematon kieli"
 msgid "Unknown script"
 msgstr "Tuntematon merkistö"
 
-#: ../root/statistics/view_js.tt:116
+#: ../root/statistics/view_js.tt:117
 msgid "Unknown-gender Artists"
 msgstr "Tuntematon sukupuoli artistit"
 
-#: ../root/statistics/view_js.tt:127
+#: ../root/statistics/view_js.tt:128
 msgid "Unknown-type Artists"
 msgstr "Tuntematon tyyppi artistit"
 
-#: ../root/statistics/index.tt:511
+#: ../root/statistics/index.tt:515
 msgid "Videos:"
 msgstr "Videoita:"
 
-#: ../root/statistics/index.tt:816
+#: ../root/statistics/index.tt:848
 msgid "Voted down:"
 msgstr "Äänestetty kumoon:"
 
@@ -2005,7 +2041,7 @@ msgstr "Äänestäjä"
 msgid "Voters"
 msgstr "Äänestäjät"
 
-#: ../root/statistics/index.tt:865 ../root/statistics/view_js.tt:74
+#: ../root/statistics/index.tt:897 ../root/statistics/view_js.tt:75
 msgid "Votes"
 msgstr "Annetut äänet"
 
@@ -2013,58 +2049,58 @@ msgstr "Annetut äänet"
 msgid "Votes in past week"
 msgstr "Ääniä viikon aikana"
 
-#: ../root/statistics/view_js.tt:75
+#: ../root/statistics/view_js.tt:76
 msgid "Votes per day"
 msgstr "Päiväkohtaiset äänet"
 
-#: ../root/statistics/view_js.tt:76
+#: ../root/statistics/view_js.tt:77
 msgid "Votes per week"
 msgstr "Viikkokohtaiset äänet"
 
-#: ../root/statistics/index.tt:868 ../root/statistics/index.tt:897
+#: ../root/statistics/index.tt:900 ../root/statistics/index.tt:929
 msgid "Votes:"
 msgstr "Äänet:"
 
-#: ../root/statistics/view_js.tt:175
+#: ../root/statistics/view_js.tt:176
 msgid "Work Ratings"
 msgstr "Teosten arvostelut"
 
-#: ../root/statistics/view_js.tt:181
+#: ../root/statistics/view_js.tt:182
 msgid "Work Ratings (raw)"
 msgstr "Teoksien arvostelut (käsittelemätön)"
 
-#: ../root/statistics/view_js.tt:190
+#: ../root/statistics/view_js.tt:194
 msgid "Work Tags (raw)"
 msgstr "Teoksien arvostelut (käsittelemätön)"
 
-#: ../root/statistics/index.tt:518 ../root/statistics/languages_scripts.tt:34
+#: ../root/statistics/index.tt:522 ../root/statistics/languages_scripts.tt:34
 #: ../root/statistics/view_js.tt:50
 msgid "Works"
 msgstr "Teokset"
 
-#: ../root/statistics/index.tt:44 ../root/statistics/index.tt:525
-#: ../root/statistics/index.tt:552
+#: ../root/statistics/index.tt:44 ../root/statistics/index.tt:529
+#: ../root/statistics/index.tt:556
 msgid "Works:"
 msgstr "Teokset:"
 
-#: ../root/statistics/index.tt:880
+#: ../root/statistics/index.tt:912
 msgctxt "vote"
 msgid "Yes"
-msgstr ""
+msgstr "Kyllä"
 
-#: ../root/statistics/view_js.tt:78
+#: ../root/statistics/view_js.tt:79
 msgid "Yes Votes"
 msgstr "Kyllä-äänet"
 
-#: ../root/statistics/index.tt:858 ../root/statistics/index.tt:910
+#: ../root/statistics/index.tt:890 ../root/statistics/index.tt:942
 msgid "Yesterday:"
 msgstr "Eilinen:"
 
 #: ../root/statistics/timeline.tt:49
 msgid "Zoom:"
-msgstr ""
+msgstr "Suurenna:"
 
-#: ../root/statistics/index.tt:692
+#: ../root/statistics/index.tt:724
 msgid "active ever:"
 msgstr "aktiivisia joskus:"
 
@@ -2072,19 +2108,19 @@ msgstr "aktiivisia joskus:"
 msgid "automatically inferred:"
 msgstr "automaattisesti päätelty:"
 
-#: ../root/statistics/index.tt:254
+#: ../root/statistics/index.tt:258
 msgid "by a single artist:"
 msgstr "yhdeltä artistilta:"
 
-#: ../root/statistics/index.tt:248
+#: ../root/statistics/index.tt:252
 msgid "by various artists:"
 msgstr "eri artisteilta:"
 
-#: ../root/statistics/index.tt:783
+#: ../root/statistics/index.tt:815
 msgid "inactive:"
 msgstr "passiivinen:"
 
-#: ../root/statistics/view_js.tt:196
+#: ../root/statistics/view_js.tt:200
 msgid "l_{first}_{second} Relationships"
 msgstr "l_{first}_{second} yhteydet"
 
@@ -2092,79 +2128,79 @@ msgstr "l_{first}_{second} yhteydet"
 msgid "manually selected:"
 msgstr "käsin valittu:"
 
-#: ../root/statistics/index.tt:175
+#: ../root/statistics/index.tt:179
 msgid "of type Character:"
 msgstr "jotka kuvitteellisia hahmoja:"
 
-#: ../root/statistics/index.tt:169
+#: ../root/statistics/index.tt:173
 msgid "of type Choir:"
 msgstr "tyyppiä kuoro: "
 
-#: ../root/statistics/index.tt:157
+#: ../root/statistics/index.tt:161
 msgid "of type Group:"
 msgstr "jotka ryhmiä:"
 
-#: ../root/statistics/index.tt:163
+#: ../root/statistics/index.tt:167
 msgid "of type Orchestra:"
 msgstr "tyyppiä orkesteri:"
 
-#: ../root/statistics/index.tt:181
+#: ../root/statistics/index.tt:185
 msgid "of type Other:"
 msgstr "jotka muita:"
 
-#: ../root/statistics/index.tt:151
+#: ../root/statistics/index.tt:155
 msgid "of type Person:"
 msgstr "jotka henkilöitä:"
 
-#: ../root/statistics/index.tt:777
+#: ../root/statistics/index.tt:809
 msgid "validated email only:"
 msgstr "jotka ovat vain vahvistaneet sähköposti-osoitteen:"
 
-#: ../root/statistics/index.tt:722
+#: ../root/statistics/index.tt:754
 msgid "who edit:"
 msgstr "jotka muokkaavat:"
 
-#: ../root/statistics/index.tt:699
+#: ../root/statistics/index.tt:731
 msgid "who edited and/or voted in the last 7 days:"
-msgstr "jotka muokaaneet ja/tai äänestäneet viimeisen 7 päivän aikana:"
+msgstr "jotka muokanneet ja/tai äänestäneet viimeisen 7 päivän aikana:"
 
-#: ../root/statistics/index.tt:707
+#: ../root/statistics/index.tt:739
 msgid "who edited in the last 7 days:"
 msgstr "jotka muokanneet viimeisen 7 päivän aikana:"
 
-#: ../root/statistics/index.tt:771
+#: ../root/statistics/index.tt:803
 msgid "who have registered applications:"
 msgstr "joilla on rekisteröity sovellus:"
 
-#: ../root/statistics/index.tt:736
+#: ../root/statistics/index.tt:768
 msgid "who leave edit notes:"
 msgstr "jotka jättävät muokkausmerkintöjä:"
 
-#: ../root/statistics/index.tt:764
+#: ../root/statistics/index.tt:796
 msgid "who use collections:"
-msgstr "jotka käyttävät kokoelmaa:"
+msgstr "jotka käyttävät kokoelmia:"
 
-#: ../root/statistics/index.tt:750
+#: ../root/statistics/index.tt:782
 msgid "who use ratings:"
 msgstr "jotka arvostelevat:"
 
-#: ../root/statistics/index.tt:757
+#: ../root/statistics/index.tt:789
 msgid "who use subscriptions:"
 msgstr "jotka seuraavat:"
 
-#: ../root/statistics/index.tt:743
+#: ../root/statistics/index.tt:775
 msgid "who use tags:"
 msgstr "jotka luokittelevat:"
 
-#: ../root/statistics/index.tt:729
+#: ../root/statistics/index.tt:761
 msgid "who vote:"
 msgstr "jotka äänestävät:"
 
-#: ../root/statistics/index.tt:715
+#: ../root/statistics/index.tt:747
 msgid "who voted in the last 7 days:"
 msgstr "jotka äänestäneet viimeisen 7 päivän aikana:"
 
-#: ../root/statistics/index.tt:421 ../root/statistics/index.tt:454
+#: ../root/statistics/index.tt:425 ../root/statistics/index.tt:458
 msgid "with 10 or more disc IDs:"
 msgstr "joissa 10 tai enemmän levyn tunnistetta:"
 
@@ -2172,23 +2208,23 @@ msgstr "joissa 10 tai enemmän levyn tunnistetta:"
 msgid "with 30 or more pieces of cover art:"
 msgstr "joissa 30 tai enemmän kappaletta kansitaidetta:"
 
-#: ../root/statistics/index.tt:193
+#: ../root/statistics/index.tt:197
 msgid "with appearances in artist credits:"
 msgstr ""
 
-#: ../root/statistics/index.tt:199
+#: ../root/statistics/index.tt:203
 msgid "with no appearances in artist credits:"
 msgstr ""
 
-#: ../root/statistics/index.tt:228
+#: ../root/statistics/index.tt:232
 msgid "with no gender set:"
 msgstr "ei sukupuolta asetettu:"
 
-#: ../root/statistics/index.tt:187
+#: ../root/statistics/index.tt:191
 msgid "with no type set:"
 msgstr "ei tyyppiä asetettu:"
 
-#: ../root/statistics/index.tt:413 ../root/statistics/index.tt:446
+#: ../root/statistics/index.tt:417 ../root/statistics/index.tt:450
 msgid "with {num} disc ID:"
 msgid_plural "with {num} disc IDs:"
 msgstr[0] "joissa {num} levyn tunniste:"
@@ -2200,27 +2236,27 @@ msgid_plural "with {num} pieces of cover art:"
 msgstr[0] "joissa {num} kappale kansitaidetta:"
 msgstr[1] "joissa {num} kappaletta kansitaidetta:"
 
-#: ../root/statistics/view_js.tt:94
+#: ../root/statistics/view_js.tt:95
 msgid "{country} artists"
 msgstr "{country} artistit"
 
-#: ../root/statistics/view_js.tt:95
+#: ../root/statistics/view_js.tt:96
 msgid "{country} labels"
 msgstr "{country} levymerkit"
 
-#: ../root/statistics/view_js.tt:96
+#: ../root/statistics/view_js.tt:97
 msgid "{country} releases"
 msgstr "{country} julkaisut"
 
-#: ../root/statistics/view_js.tt:106
+#: ../root/statistics/view_js.tt:107
 msgid "{language} releases"
 msgstr "{language} julkaisut"
 
-#: ../root/statistics/view_js.tt:113
+#: ../root/statistics/view_js.tt:114
 msgid "{name} mediums"
 msgstr "{name} tallenteet"
 
-#: ../root/statistics/view_js.tt:112
+#: ../root/statistics/view_js.tt:113
 msgid "{name} releases"
 msgstr "{name} julkaisut"
 
@@ -2230,51 +2266,52 @@ msgstr "{name} julkaisut"
 #: ../root/statistics/coverart.tt:141 ../root/statistics/coverart.tt:157
 #: ../root/statistics/coverart.tt:164 ../root/statistics/edits.tt:29
 #: ../root/statistics/formats.tt:7 ../root/statistics/formats.tt:9
-#: ../root/statistics/index.tt:153 ../root/statistics/index.tt:159
-#: ../root/statistics/index.tt:165 ../root/statistics/index.tt:171
-#: ../root/statistics/index.tt:177 ../root/statistics/index.tt:183
-#: ../root/statistics/index.tt:189 ../root/statistics/index.tt:195
-#: ../root/statistics/index.tt:201 ../root/statistics/index.tt:212
-#: ../root/statistics/index.tt:218 ../root/statistics/index.tt:224
-#: ../root/statistics/index.tt:230 ../root/statistics/index.tt:250
-#: ../root/statistics/index.tt:256 ../root/statistics/index.tt:273
-#: ../root/statistics/index.tt:280 ../root/statistics/index.tt:297
-#: ../root/statistics/index.tt:304 ../root/statistics/index.tt:320
-#: ../root/statistics/index.tt:326 ../root/statistics/index.tt:332
-#: ../root/statistics/index.tt:338 ../root/statistics/index.tt:354
-#: ../root/statistics/index.tt:360 ../root/statistics/index.tt:367
-#: ../root/statistics/index.tt:374 ../root/statistics/index.tt:380
-#: ../root/statistics/index.tt:401 ../root/statistics/index.tt:407
-#: ../root/statistics/index.tt:415 ../root/statistics/index.tt:423
-#: ../root/statistics/index.tt:434 ../root/statistics/index.tt:440
-#: ../root/statistics/index.tt:448 ../root/statistics/index.tt:456
-#: ../root/statistics/index.tt:477 ../root/statistics/index.tt:493
-#: ../root/statistics/index.tt:513 ../root/statistics/index.tt:534
-#: ../root/statistics/index.tt:541 ../root/statistics/index.tt:561
-#: ../root/statistics/index.tt:568 ../root/statistics/index.tt:589
-#: ../root/statistics/index.tt:596 ../root/statistics/index.tt:617
-#: ../root/statistics/index.tt:624 ../root/statistics/index.tt:645
-#: ../root/statistics/index.tt:667 ../root/statistics/index.tt:674
-#: ../root/statistics/index.tt:694 ../root/statistics/index.tt:701
-#: ../root/statistics/index.tt:709 ../root/statistics/index.tt:717
-#: ../root/statistics/index.tt:724 ../root/statistics/index.tt:731
-#: ../root/statistics/index.tt:738 ../root/statistics/index.tt:745
-#: ../root/statistics/index.tt:752 ../root/statistics/index.tt:759
-#: ../root/statistics/index.tt:766 ../root/statistics/index.tt:773
-#: ../root/statistics/index.tt:779 ../root/statistics/index.tt:785
-#: ../root/statistics/index.tt:806 ../root/statistics/index.tt:812
-#: ../root/statistics/index.tt:818 ../root/statistics/index.tt:824
-#: ../root/statistics/index.tt:830 ../root/statistics/index.tt:836
-#: ../root/statistics/index.tt:842 ../root/statistics/index.tt:853
-#: ../root/statistics/index.tt:860 ../root/statistics/index.tt:876
-#: ../root/statistics/index.tt:882 ../root/statistics/index.tt:888
-#: ../root/statistics/index.tt:894 ../root/statistics/index.tt:905
-#: ../root/statistics/index.tt:912 ../root/statistics/relationships.tt:8
+#: ../root/statistics/index.tt:157 ../root/statistics/index.tt:163
+#: ../root/statistics/index.tt:169 ../root/statistics/index.tt:175
+#: ../root/statistics/index.tt:181 ../root/statistics/index.tt:187
+#: ../root/statistics/index.tt:193 ../root/statistics/index.tt:199
+#: ../root/statistics/index.tt:205 ../root/statistics/index.tt:216
+#: ../root/statistics/index.tt:222 ../root/statistics/index.tt:228
+#: ../root/statistics/index.tt:234 ../root/statistics/index.tt:254
+#: ../root/statistics/index.tt:260 ../root/statistics/index.tt:277
+#: ../root/statistics/index.tt:284 ../root/statistics/index.tt:301
+#: ../root/statistics/index.tt:308 ../root/statistics/index.tt:324
+#: ../root/statistics/index.tt:330 ../root/statistics/index.tt:336
+#: ../root/statistics/index.tt:342 ../root/statistics/index.tt:358
+#: ../root/statistics/index.tt:364 ../root/statistics/index.tt:371
+#: ../root/statistics/index.tt:378 ../root/statistics/index.tt:384
+#: ../root/statistics/index.tt:405 ../root/statistics/index.tt:411
+#: ../root/statistics/index.tt:419 ../root/statistics/index.tt:427
+#: ../root/statistics/index.tt:438 ../root/statistics/index.tt:444
+#: ../root/statistics/index.tt:452 ../root/statistics/index.tt:460
+#: ../root/statistics/index.tt:481 ../root/statistics/index.tt:497
+#: ../root/statistics/index.tt:517 ../root/statistics/index.tt:538
+#: ../root/statistics/index.tt:545 ../root/statistics/index.tt:565
+#: ../root/statistics/index.tt:572 ../root/statistics/index.tt:593
+#: ../root/statistics/index.tt:600 ../root/statistics/index.tt:621
+#: ../root/statistics/index.tt:628 ../root/statistics/index.tt:649
+#: ../root/statistics/index.tt:671 ../root/statistics/index.tt:678
+#: ../root/statistics/index.tt:699 ../root/statistics/index.tt:706
+#: ../root/statistics/index.tt:726 ../root/statistics/index.tt:733
+#: ../root/statistics/index.tt:741 ../root/statistics/index.tt:749
+#: ../root/statistics/index.tt:756 ../root/statistics/index.tt:763
+#: ../root/statistics/index.tt:770 ../root/statistics/index.tt:777
+#: ../root/statistics/index.tt:784 ../root/statistics/index.tt:791
+#: ../root/statistics/index.tt:798 ../root/statistics/index.tt:805
+#: ../root/statistics/index.tt:811 ../root/statistics/index.tt:817
+#: ../root/statistics/index.tt:838 ../root/statistics/index.tt:844
+#: ../root/statistics/index.tt:850 ../root/statistics/index.tt:856
+#: ../root/statistics/index.tt:862 ../root/statistics/index.tt:868
+#: ../root/statistics/index.tt:874 ../root/statistics/index.tt:885
+#: ../root/statistics/index.tt:892 ../root/statistics/index.tt:908
+#: ../root/statistics/index.tt:914 ../root/statistics/index.tt:920
+#: ../root/statistics/index.tt:926 ../root/statistics/index.tt:937
+#: ../root/statistics/index.tt:944 ../root/statistics/relationships.tt:8
 #: ../root/statistics/relationships.tt:50
 msgid "{n}%"
 msgstr "{n}%"
 
-#: ../root/statistics/view_js.tt:101
+#: ../root/statistics/view_js.tt:102
 msgid "{script} releases"
 msgstr "{script} julkaisut"
 

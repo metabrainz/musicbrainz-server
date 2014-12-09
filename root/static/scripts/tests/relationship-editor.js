@@ -800,3 +800,52 @@ test("relationships for entities not editable under the viewModel are ignored (M
     equal(newRelationship, null);
     equal(artist.relationships().length, 0);
 });
+
+
+test("attributes are cleared when the target type is changed (MBS-7875)", function () {
+    setupGenericRelationshipEditor(this, {
+        sourceData: {
+            entityType: "recording",
+            name: "Love Me Do",
+            gid: "1f518811-7cf9-4bdc-a656-0958e130f312",
+            relationships: [
+                {
+                    linkTypeID: 44,
+                    direction: "backward",
+                    target: {
+                        entityType: "artist",
+                        name: "Ringo Starr",
+                        gid: "300c4c73-33ac-4255-9d57-4e32627f5e13"
+                    },
+                    linkOrder: 0,
+                    attributes: ids2attrs([333]),
+                    verbosePhrase: "performed {additional} {guest} {solo} {instrument:%|instruments} on"
+                }
+            ]
+        },
+        formName: "edit-recording"
+    });
+
+    var relationship = this.vm.source.relationships()[0];
+    equal(relationship.attributes().length, 1);
+
+    var dialog = this.RE.UI.EditDialog({
+        relationship: relationship,
+        source: this.vm.source,
+        viewModel: this.vm
+    });
+
+    dialog.targetType("work");
+
+    relationship.entities([
+        this.vm.source,
+        MB.entity({
+            gid: "3d2be76e-8193-307e-bca5-71f9c734c0f0",
+            name: "Love Me Do"
+        }, "work")
+    ]);
+
+    dialog.accept();
+    relationship = dialog.relationship();
+    equal(relationship.attributes().length, 0, "invalid attributes removed");
+});

@@ -64,6 +64,7 @@ license:     BSD
 version:     v2.2
 author:      Paul Johnston
 url:         http://pajhome.org.uk/crypt/md5/jshash-2.2.zip
+note:        Modifications were made to add browserify support; see git log.
 
 -- flot/jquery.flot.* --
 
@@ -72,14 +73,6 @@ license:     MIT
 version:     v0.7
 author:      IOLA and Ole Laursen
 url:         http://code.google.com/p/flot/
-
--- jquery/jquery.ba-hashchange.js --
-
-library:     jquery hashchange
-license:     MIT/GPL
-version:     v1.3
-author:      "Cowboy" Ben Alman
-url:         http://benalman.com/projects/jquery-hashchange-plugin/
 
 -- flot/canvas.text.js --
 library:     canvas-text

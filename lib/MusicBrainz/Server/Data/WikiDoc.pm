@@ -32,14 +32,14 @@ sub _fix_html_links
     my $href = $node->attr('href') || "";
 
     # Remove broken links & links to images in the wiki
-    if ($href =~ m,^https?://$wiki_server/(File|Image):, || $class =~ m/new/)
+    if ($href =~ m,^(?:https?:)?//$wiki_server/(File|Image):, || $class =~ m/new/)
     {
         $node->replace_with($node->content_list);
     }
     # if this is not a link to the wikidocs server, don't mess with it.
-    elsif ($href =~ m,^https?://$wiki_server,)
+    elsif ($href =~ m,^(?:https?:)?//$wiki_server,)
     {
-        $href =~ s,^https?://$wiki_server/?,/doc/,;
+        $href =~ s,^(?:https?:)?//$wiki_server/?,/doc/,;
         $node->attr('href', $href);
     }
     elsif ($href =~ m,^$WIKI_IMAGE_PREFIX,) {
@@ -145,7 +145,7 @@ sub _load_page
         return undef;
     }
 
-    if ($content =~ /<span class="redirectText"><a href="https?:\/\/.*?\/(.*?)"/) {
+    if ($content =~ /<span class="redirectText"><a href="(?:https?:)?\/\/.*?\/(.*?)"/) {
         return MusicBrainz::Server::Entity::WikiDocPage->new({ canonical => uri_unescape($1) });
     }
 

@@ -3,11 +3,12 @@ package Module::AutoInstall;
 
 use strict;
 use Cwd                 ();
+use File::Spec          ();
 use ExtUtils::MakeMaker ();
 
 use vars qw{$VERSION};
 BEGIN {
-        $VERSION = '1.03';
+	$VERSION = '1.12';
 }
 
 # special map on pre-defined feature sets
@@ -17,18 +18,25 @@ my %FeatureMap = (
 );
 
 # various lexical flags
-my ( @Missing, @Existing,  %DisabledTests, $UnderCPAN,     $HasCPANPLUS );
+my ( @Missing, @Existing,  %DisabledTests, $UnderCPAN, $InstallDepsTarget, $HasCPANPLUS );
 my (
-    $Config, $CheckOnly, $SkipInstall, $AcceptDefault, $TestOnly, $AllDeps
+    $Config, $CheckOnly, $SkipInstall, $AcceptDefault, $TestOnly, $AllDeps,
+    $UpgradeDeps
 );
-my ( $PostambleActions, $PostambleUsed );
+my ( $PostambleActions, $PostambleActionsNoTest, $PostambleActionsUpgradeDeps,
+    $PostambleActionsUpgradeDepsNoTest, $PostambleActionsListDeps,
+    $PostambleActionsListAllDeps, $PostambleUsed, $NoTest);
 
 # See if it's a testing or non-interactive session
-_accept_default( $ENV{AUTOMATED_TESTING} or ! -t STDIN );
+_accept_default( $ENV{AUTOMATED_TESTING} or ! -t STDIN ); 
 _init();
 
 sub _accept_default {
     $AcceptDefault = shift;
+}
+
+sub _installdeps_target {
+    $InstallDepsTarget = shift;
 }
 
 sub missing_modules {
@@ -63,6 +71,11 @@ sub _init {
             __PACKAGE__->install( $Config, @Missing = split( /,/, $1 ) );
             exit 0;
         }
+	elsif ( $arg =~ /^--upgradedeps=(.*)$/ ) {
+	    $UpgradeDeps = 1;
+	    __PACKAGE__->install( $Config, @Missing = split( /,/, $1 ) );
+	    exit 0;
+	}
         elsif ( $arg =~ /^--default(?:deps)?$/ ) {
             $AcceptDefault = 1;
         }
@@ -102,7 +115,7 @@ sub import {
     print "*** $class version " . $class->VERSION . "\n";
     print "*** Checking for Perl dependencies...\n";
 
-    my $cwd = Cwd::cwd();
+    my $cwd = Cwd::getcwd();
 
     $Config = [];
 
@@ -125,7 +138,7 @@ sub import {
     # check entirely since we don't want to have to load (and configure)
     # an old CPAN just for a cosmetic message
 
-    $UnderCPAN = _check_lock(1) unless $SkipInstall;
+    $UnderCPAN = _check_lock(1) unless $SkipInstall || $InstallDepsTarget;
 
     while ( my ( $feature, $modules ) = splice( @args, 0, 2 ) ) {
         my ( @required, @tests, @skiptests );
@@ -153,7 +166,7 @@ sub import {
         $modules = [ %{$modules} ] if UNIVERSAL::isa( $modules, 'HASH' );
 
         unshift @$modules, -default => &{ shift(@$modules) }
-          if ( ref( $modules->[0] ) eq 'CODE' );    # XXX: bugward combatability
+          if ( ref( $modules->[0] ) eq 'CODE' );    # XXX: bugward compatibility
 
         while ( my ( $mod, $arg ) = splice( @$modules, 0, 2 ) ) {
             if ( $mod =~ m/^-(\w+)$/ ) {
@@ -175,7 +188,7 @@ sub import {
             }
 
             # XXX: check for conflicts and uninstalls(!) them.
-            my $cur = _load($mod);
+            my $cur = _version_of($mod);
             if (_version_cmp ($cur, $arg) >= 0)
             {
                 print "loaded. ($cur" . ( $arg ? " >= $arg" : '' ) . ")\n";
@@ -207,6 +220,7 @@ sub import {
                 $CheckOnly
                 or ($mandatory and $UnderCPAN)
                 or $AllDeps
+                or $InstallDepsTarget
                 or _prompt(
                     qq{==> Auto-install the }
                       . ( @required / 2 )
@@ -237,10 +251,17 @@ sub import {
         }
     }
 
-    if ( @Missing and not( $CheckOnly or $UnderCPAN ) ) {
+    if ( @Missing and not( $CheckOnly or $UnderCPAN) ) {
         require Config;
-        print
-"*** Dependencies will be installed the next time you type '$Config::Config{make}'.\n";
+        my $make = $Config::Config{make};
+        if ($InstallDepsTarget) {
+            print
+"*** To install dependencies type '$make installdeps' or '$make installdeps_notest'.\n";
+        }
+        else {
+            print
+"*** Dependencies will be installed the next time you type '$make'.\n";
+        }
 
         # make an educated guess of whether we'll need root permission.
         print "    (You may need to do that as the 'root' user.)\n"
@@ -253,6 +274,8 @@ sub import {
     # import to main::
     no strict 'refs';
     *{'main::WriteMakefile'} = \&Write if caller(0) eq 'main';
+
+    return (@Existing, @Missing);
 }
 
 sub _running_under {
@@ -268,6 +291,10 @@ END_MESSAGE
 # if we are, then we simply let it taking care of our dependencies
 sub _check_lock {
     return unless @Missing or @_;
+
+    if ($ENV{PERL5_CPANM_IS_RUNNING}) {
+        return _running_under('cpanminus');
+    }
 
     my $cpan_env = $ENV{PERL5_CPAN_IS_RUNNING};
 
@@ -318,17 +345,26 @@ sub install {
     my $i;    # used below to strip leading '-' from config keys
     my @config = ( map { s/^-// if ++$i; $_ } @{ +shift } );
 
-    my ( @modules, @installed );
-    while ( my ( $pkg, $ver ) = splice( @_, 0, 2 ) ) {
+	my ( @modules, @installed, @modules_to_upgrade );
+	while (my ($pkg, $ver) = splice(@_, 0, 2)) {
 
-        # grep out those already installed
-        if ( _version_cmp( _load($pkg), $ver ) >= 0 ) {
-            push @installed, $pkg;
-        }
-        else {
-            push @modules, $pkg, $ver;
-        }
-    }
+		# grep out those already installed
+		if (_version_cmp(_version_of($pkg), $ver) >= 0) {
+			push @installed, $pkg;
+			if ($UpgradeDeps) {
+				push @modules_to_upgrade, $pkg, $ver;
+			}
+		}
+		else {
+			push @modules, $pkg, $ver;
+		}
+	}
+
+	if ($UpgradeDeps) {
+		push @modules, @modules_to_upgrade;
+		@installed          = ();
+		@modules_to_upgrade = ();
+	}
 
     return @installed unless @modules;  # nothing to do
     return @installed if _check_lock(); # defer to the CPAN shell
@@ -361,7 +397,7 @@ sub install {
 
     # see if we have successfully installed them
     while ( my ( $pkg, $ver ) = splice( @modules, 0, 2 ) ) {
-        if ( _version_cmp( _load($pkg), $ver ) >= 0 ) {
+        if ( _version_cmp( _version_of($pkg), $ver ) >= 0 ) {
             push @installed, $pkg;
         }
         elsif ( $args{do_once} and open( FAILED, '>> .#autoinstall.failed' ) ) {
@@ -401,7 +437,7 @@ sub _install_cpanplus {
     $conf->set_conf( makeflags => $makeflags );
     $conf->set_conf( prereqs   => 1 );
 
-
+    
 
     while ( my ( $key, $val ) = splice( @config, 0, 2 ) ) {
         $conf->set_conf( $key, $val );
@@ -448,24 +484,29 @@ sub _install_cpanplus {
 }
 
 sub _cpanplus_config {
-        my @config = ();
-        while ( @_ ) {
-                my ($key, $value) = (shift(), shift());
-                if ( $key eq 'prerequisites_policy' ) {
-                        if ( $value eq 'follow' ) {
-                                $value = CPANPLUS::Internals::Constants::PREREQ_INSTALL();
-                        } elsif ( $value eq 'ask' ) {
-                                $value = CPANPLUS::Internals::Constants::PREREQ_ASK();
-                        } elsif ( $value eq 'ignore' ) {
-                                $value = CPANPLUS::Internals::Constants::PREREQ_IGNORE();
-                        } else {
-                                die "*** Cannot convert option $key = '$value' to CPANPLUS version.\n";
-                        }
-                } else {
-                        die "*** Cannot convert option $key to CPANPLUS version.\n";
-                }
-        }
-        return @config;
+	my @config = ();
+	while ( @_ ) {
+		my ($key, $value) = (shift(), shift());
+		if ( $key eq 'prerequisites_policy' ) {
+			if ( $value eq 'follow' ) {
+				$value = CPANPLUS::Internals::Constants::PREREQ_INSTALL();
+			} elsif ( $value eq 'ask' ) {
+				$value = CPANPLUS::Internals::Constants::PREREQ_ASK();
+			} elsif ( $value eq 'ignore' ) {
+				$value = CPANPLUS::Internals::Constants::PREREQ_IGNORE();
+			} else {
+				die "*** Cannot convert option $key = '$value' to CPANPLUS version.\n";
+			}
+			push @config, 'prereqs', $value;
+		} elsif ( $key eq 'force' ) {
+		    push @config, $key, $value;
+		} elsif ( $key eq 'notest' ) {
+		    push @config, 'skiptest', $value;
+		} else {
+			die "*** Cannot convert option $key to CPANPLUS version.\n";
+		}
+	}
+	return @config;
 }
 
 sub _install_cpan {
@@ -495,8 +536,12 @@ sub _install_cpan {
     # set additional options
     while ( my ( $opt, $arg ) = splice( @config, 0, 2 ) ) {
         ( $args{$opt} = $arg, next )
-          if $opt =~ /^force$/;    # pseudo-option
+          if $opt =~ /^(?:force|notest)$/;    # pseudo-option
         $CPAN::Config->{$opt} = $arg;
+    }
+
+    if ($args{notest} && (not CPAN::Shell->can('notest'))) {
+	die "Your version of CPAN is too old to support the 'notest' pragma";
     }
 
     local $CPAN::Config->{prerequisites_policy} = 'follow';
@@ -517,8 +562,16 @@ sub _install_cpan {
                 delete $INC{$inc};
             }
 
-            my $rv = $args{force} ? CPAN::Shell->force( install => $pkg )
-                                  : CPAN::Shell->install($pkg);
+            my $rv = do {
+		if ($args{force}) {
+		    CPAN::Shell->force( install => $pkg )
+		} elsif ($args{notest}) {
+		    CPAN::Shell->notest( install => $pkg )
+		} else {
+		    CPAN::Shell->install($pkg)
+		}
+	    };
+
             $rv ||= eval {
                 $CPAN::META->instance( 'CPAN::Distribution', $obj->cpan_file, )
                   ->{install}
@@ -562,7 +615,7 @@ sub _under_cpan {
     require Cwd;
     require File::Spec;
 
-    my $cwd  = File::Spec->canonpath( Cwd::cwd() );
+    my $cwd  = File::Spec->canonpath( Cwd::getcwd() );
     my $cpan = File::Spec->canonpath( $CPAN::Config->{cpan_home} );
 
     return ( index( $cwd, $cpan ) > -1 );
@@ -573,7 +626,7 @@ sub _update_to {
     my $ver   = shift;
 
     return
-      if _version_cmp( _load($class), $ver ) >= 0;  # no need to upgrade
+      if _version_cmp( _version_of($class), $ver ) >= 0;  # no need to upgrade
 
     if (
         _prompt( "==> A newer version of $class ($ver) is required. Install?",
@@ -658,14 +711,28 @@ sub _can_write {
 
 # load a module and return the version it reports
 sub _load {
-    my $mod  = pop;    # class/instance doesn't matter
+    my $mod  = pop; # method/function doesn't matter
     my $file = $mod;
-
     $file =~ s|::|/|g;
     $file .= '.pm';
-
     local $@;
     return eval { require $file; $mod->VERSION } || ( $@ ? undef: 0 );
+}
+
+# report version without loading a module
+sub _version_of {
+    my $mod = pop; # method/function doesn't matter
+    my $file = $mod;
+    $file =~ s|::|/|g;
+    $file .= '.pm';
+    foreach my $dir ( @INC ) {
+        next if ref $dir;
+        my $path = File::Spec->catfile($dir, $file);
+        next unless -e $path;
+        require ExtUtils::MM_Unix;
+        return ExtUtils::MM_Unix->parse_version($path);
+    }
+    return undef;
 }
 
 # Load CPAN.pm and it's configuration
@@ -689,7 +756,7 @@ sub _load_cpan {
         # Newer versions of CPAN have a HandleConfig module
         CPAN::HandleConfig->load;
     } else {
-        # Older versions had the load method in Config directly
+    	# Older versions had the load method in Config directly
         CPAN::Config->load;
     }
 }
@@ -706,7 +773,7 @@ sub _version_cmp {
     # check for version numbers that are not in decimal format
     if ( ref($cur) or ref($min) or $cur =~ /v|\..*\./ or $min =~ /v|\..*\./ ) {
         if ( ( $version::VERSION or defined( _load('version') )) and
-             version->can('new')
+             version->can('new') 
             ) {
 
             # use version.pm if it is installed.
@@ -761,6 +828,35 @@ sub _make_args {
         : "\$(NOECHO) \$(NOOP)"
     );
 
+    my $deps_list = join( ',', @Missing, @Existing );
+
+    $PostambleActionsUpgradeDeps =
+        "\$(PERL) $0 --config=$config --upgradedeps=$deps_list";
+
+    my $config_notest =
+      join( ',', (UNIVERSAL::isa( $Config, 'HASH' ) ? %{$Config} : @{$Config}),
+	  'notest', 1 )
+      if $Config;
+
+    $PostambleActionsNoTest = (
+        ($missing and not $UnderCPAN)
+        ? "\$(PERL) $0 --config=$config_notest --installdeps=$missing"
+        : "\$(NOECHO) \$(NOOP)"
+    );
+
+    $PostambleActionsUpgradeDepsNoTest =
+        "\$(PERL) $0 --config=$config_notest --upgradedeps=$deps_list";
+
+    $PostambleActionsListDeps =
+        '@$(PERL) -le "print for @ARGV" '
+            . join(' ', map $Missing[$_], grep $_ % 2 == 0, 0..$#Missing);
+
+    my @all = (@Missing, @Existing);
+
+    $PostambleActionsListAllDeps =
+        '@$(PERL) -le "print for @ARGV" '
+            . join(' ', map $all[$_], grep $_ % 2 == 0, 0..$#all);
+
     return %args;
 }
 
@@ -795,11 +891,15 @@ sub Write {
 
 sub postamble {
     $PostambleUsed = 1;
+    my $fragment;
 
-    return <<"END_MAKE";
+    $fragment .= <<"AUTO_INSTALL" if !$InstallDepsTarget;
 
 config :: installdeps
 \t\$(NOECHO) \$(NOOP)
+AUTO_INSTALL
+
+    $fragment .= <<"END_MAKE";
 
 checkdeps ::
 \t\$(PERL) $0 --checkdeps
@@ -807,12 +907,28 @@ checkdeps ::
 installdeps ::
 \t$PostambleActions
 
+installdeps_notest ::
+\t$PostambleActionsNoTest
+
+upgradedeps ::
+\t$PostambleActionsUpgradeDeps
+
+upgradedeps_notest ::
+\t$PostambleActionsUpgradeDepsNoTest
+
+listdeps ::
+\t$PostambleActionsListDeps
+
+listalldeps ::
+\t$PostambleActionsListAllDeps
+
 END_MAKE
 
+    return $fragment;
 }
 
 1;
 
 __END__
 
-#line 1069
+#line 1197

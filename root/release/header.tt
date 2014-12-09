@@ -12,4 +12,5 @@
 </p>
 </div>
 
-[%- INCLUDE 'release/tabs.tt' -%]
+[%~ edit_tab = ['edit', simple_link(c.uri_for_action('/release_editor/edit', [ release.gid ]), l('Edit')) ] ~%]
+[% INCLUDE 'components/entity-tabs.tt' edit_tab=edit_tab %]

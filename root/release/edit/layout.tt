@@ -68,13 +68,18 @@
     </div>
   </div>
 
-  [% script_manifest('guess-case.js.manifest') %]
-  [% script_manifest('edit.js.manifest') %]
-  [% script_manifest('release-editor.js.manifest') %]
+  [%- guesscase_options() -%]
+
+  [% script_manifest('guess-case.js') %]
+  [% script_manifest('edit.js') %]
+  [% script_manifest('release-editor.js') %]
+
   [% PROCESS 'components/relationship-editor.tt' %]
 
   <script>
     MB.relationshipEditor.exportTypeInfo([% type_info %], [% attr_info %]);
+
+    MB.formatsWithDiscIDs = [% discid_formats %];
 
     MB.releaseEditor.init({
     [%- IF release.gid %]

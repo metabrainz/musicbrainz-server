@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-09-03 14:25+0000\n"
+"PO-Revision-Date: 2014-10-30 10:08+0000\n"
 "Last-Translator: yahoe.001\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -157,6 +157,10 @@ msgstr "Piano électrique Rhodes"
 #: DB:instrument/name:476
 msgid "Saraswati veena"
 msgstr "Sarasvati vînâ"
+
+#: DB:instrument/name:679
+msgid "Schwyzerörgeli"
+msgstr "Accordéon schwyzois"
 
 #: DB:instrument/name:427
 msgid "Scottish smallpipes"
@@ -918,6 +922,10 @@ msgstr "violoncelle électrique"
 msgid "electric fretless guitar"
 msgstr "guitare électrique fretless"
 
+#: DB:instrument/name:682
+msgid "electric grand piano"
+msgstr "piano à queue électrique"
+
 #: DB:instrument/name:55
 msgid "electric guitar"
 msgstr "guitare électrique"
@@ -1138,6 +1146,10 @@ msgstr "piano à queue"
 msgid "great bass recorder / c-bass recorder"
 msgstr "flûte à bec grande basse"
 
+#: DB:instrument/name:683
+msgid "guan"
+msgstr "guan"
+
 #: DB:instrument/name:230
 msgid "gudok"
 msgstr "gudok"
@@ -1218,6 +1230,10 @@ msgstr "harmonium"
 msgid "harp"
 msgstr "harpe"
 
+#: DB:instrument/name:681
+msgid "harp guitar"
+msgstr "guitare-harpe"
+
 #: DB:instrument/name:131
 msgid "harpsichord"
 msgstr "clavecin"
@@ -1229,6 +1245,10 @@ msgstr "heckelphone"
 #: DB:instrument/name:579
 msgid "heike biwa"
 msgstr "heike biwa"
+
+#: DB:instrument/name:678
+msgid "helicon"
+msgstr "hélicon"
 
 #: DB:instrument/name:454
 msgid "hi-hat"
@@ -1689,10 +1709,6 @@ msgstr "orpharion"
 #: DB:instrument/name:588
 msgid "other drums"
 msgstr "autres tambours"
-
-#: DB:instrument/name:195
-msgid "other flutes"
-msgstr "autres flûtes"
 
 #: DB:instrument/name:141
 msgid "other instruments"
@@ -2707,6 +2723,10 @@ msgstr "đại cô/tiểu cô"
 #: DB:instrument/name:558
 msgid "ōtsuzumi"
 msgstr "ōtsuzumi"
+
+#: DB:instrument/name:680
+msgid "šargija"
+msgstr "šargija"
 
 #: DB:instrument/name:589
 msgid "żafżafa"

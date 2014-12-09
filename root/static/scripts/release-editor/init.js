@@ -16,6 +16,15 @@ MB.releaseEditor.init = function (options) {
 
     $.extend(this, _.pick(options, "action", "returnTo", "redirectURI"));
 
+    // Setup guess case buttons for the title field. Do this every time the
+    // release changes, since the old fields get removed and the events no
+    // longer exist.
+    this.utils.withRelease(function (release) {
+        _.defer(function () {
+            MB.Control.initialize_guess_case("release");
+        });
+    });
+
     // Allow pressing enter to advance to the next tab. The listener is added
     // to the document and not #release-editor so that other events can call
     // preventDefault if necessary.
@@ -176,7 +185,7 @@ MB.releaseEditor.init = function (options) {
     // Fancy!
 
     $(function () {
-        $pageContent.fadeIn("fast", function () { $("#title").focus() });
+        $pageContent.fadeIn("fast", function () { $("#name").focus() });
     });
 };
 

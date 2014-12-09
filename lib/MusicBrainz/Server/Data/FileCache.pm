@@ -1,5 +1,5 @@
 package MusicBrainz::Server::Data::FileCache;
-use Moose;
+use MooseX::Singleton;
 use namespace::autoclean -also => [qw( _expand )];
 
 use DBDefs;
@@ -11,9 +11,21 @@ use IO::All;
 use JSON qw( decode_json );
 use List::MoreUtils qw( uniq );
 use Path::Class qw( dir file );
-use MooseX::Types::Moose qw( Str );
+use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::Structured qw( Map );
 use Try::Tiny;
+
+has manifest_mtime => (
+    isa => Int,
+    is => 'rw',
+    default => sub { 0 }
+);
+
+has manifest_last_checked => (
+    isa => Int,
+    is => 'rw',
+    default => sub { 0 }
+);
 
 has manifest_signatures => (
     isa => Map[Str, Str],
@@ -32,10 +44,21 @@ has file_signatures => (
 sub manifest_signature {
     my ($self, $manifest) = @_;
 
-    $manifest =~ s/\.manifest$//;
+    my $instance = $self->instance;
+    my $time = time();
+    my $ttl = DBDefs->STAT_TTL // 0;
 
-    unless (exists $self->manifest_signatures->{$manifest}) {
-        $self->manifest_signatures(decode_json(read_file(DBDefs->STATIC_FILES_DIR . "/build/rev-manifest.json")));
+    if (($time - $instance->manifest_last_checked) > $ttl) {
+        $instance->manifest_last_checked($time);
+
+        my $path = DBDefs->STATIC_FILES_DIR . "/build/rev-manifest.json";
+        my @stat = stat($path);
+        my $mtime = $stat[9];
+
+        if ($mtime > $instance->manifest_mtime) {
+            $instance->manifest_mtime($mtime);
+            $instance->manifest_signatures(decode_json(read_file($path)));
+        }
     }
 
     return $self->manifest_signatures->{$manifest};
@@ -43,18 +66,20 @@ sub manifest_signature {
 
 sub template_signature {
     my ($self, $template) = @_;
+    my $instance = $self->instance;
     my $signature_key = 'template' . $template;
-    unless (exists $self->file_signatures->{$signature_key}) {
-        $self->file_signatures->{$signature_key} = file_md5_hex(DBDefs->MB_SERVER_ROOT . "/root/" . $template);
+    unless (exists $instance->file_signatures->{$signature_key}) {
+        $instance->file_signatures->{$signature_key} = file_md5_hex(DBDefs->MB_SERVER_ROOT . "/root/" . $template);
     }
 
-    return $self->file_signatures->{$signature_key};
+    return $instance->file_signatures->{$signature_key};
 }
 
 sub pofile_signature {
     my ($self, $domain, $language) = @_;
+    my $instance = $self->instance;
     my $signature_key = 'pofile' . $domain . $language;
-    unless (exists $self->file_signatures->{$signature_key}) {
+    unless (exists $instance->file_signatures->{$signature_key}) {
         # First try the language as given, then fall back to the language without a country code.
         my $hash = try {
             file_md5_hex(_pofile_path($domain, $language));
@@ -63,10 +88,10 @@ sub pofile_signature {
             file_md5_hex(_pofile_path($domain, $language));
         };
 
-        $self->file_signatures->{$signature_key} = $hash;
+        $instance->file_signatures->{$signature_key} = $hash;
     }
 
-    return $self->file_signatures->{$signature_key};
+    return $instance->file_signatures->{$signature_key};
 }
 
 sub _pofile_path
@@ -85,23 +110,6 @@ sub _expand {
     else {
         return $path =~ /\.$type$/ ? (file($path)->absolute) : ();
     }
-}
-
-sub manifest_files {
-    my ($self, $manifest, $type) = @_;
-
-    my $relative_to = DBDefs->STATIC_FILES_DIR;
-
-    return
-        # Convert paths back to relative paths of the manifest directory
-        map  { file($_)->relative($relative_to) }
-
-        # Expand directories to files
-        map  { _expand("$relative_to/$_", $type) }
-
-        # Ignore blank lines/comments in the manifest
-        grep { !/^(#.*|\s*)$/ }
-            io("$relative_to/$manifest")->chomp->slurp;
 }
 
 __PACKAGE__->meta->make_immutable;

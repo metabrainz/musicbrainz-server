@@ -46,11 +46,6 @@
             releaseLabel.release.labels.remove(releaseLabel);
         },
 
-        guessCaseReleaseName: function () {
-            var release = releaseEditor.rootField.release();
-            release.name(MB.GuessCase.release.guess(release.name.peek()));
-        },
-
         // Tracklist tab
 
         moveMediumUp: function (medium) {
@@ -88,6 +83,7 @@
             var position = medium.position();
 
             mediums.remove(medium);
+            medium.removed = true;
             mediums = mediums.peek();
 
             for (var i = index; medium = mediums[i]; i++) {
@@ -113,27 +109,20 @@
             }
         },
 
-        moveTrackUp: function (track, event, keepFocus) {
+        moveTrackUp: function (track, event) {
             var previous = track.previous();
-            if (!previous) return false;
 
-            var tracks = track.medium.tracks.peek();
-            var index = _.indexOf(tracks, track);
-            var oldNumber = track.number.peek();
-
-            track.position(index);
-            track.number(previous.number.peek());
-
-            previous.position(index + 1);
-            previous.number(oldNumber);
-
-            tracks[index] = previous;
-            tracks[index - 1] = track;
-            track.medium.tracks.notifySubscribers(tracks);
-
-            if (keepFocus !== false) {
-                MB.utility.deferFocus("button.track-up", "#" + track.elementID);
+            if (track.isDataTrack() && (!previous || !previous.isDataTrack())) {
+                track.isDataTrack(false);
+            } else {
+                // can't move pregap tracks
+                if (!previous || previous.position() == 0) {
+                    return false;
+                }
+                this.swapTracks(track, previous, track.medium);
             }
+
+            MB.utility.deferFocus("button.track-up", "#" + track.elementID);
 
             // If the medium had a TOC attached, it's no longer valid.
             track.medium.toc(null);
@@ -142,11 +131,50 @@
         },
 
         moveTrackDown: function (track) {
-            var nextTrack = track.next();
+            var next = track.next();
 
-            if (nextTrack && this.moveTrackUp(nextTrack, null, false)) {
-                MB.utility.deferFocus("button.track-down", "#" + track.elementID);
+            if (!next || track.position() == 0) {
+                return false;
             }
+
+            if (next && next.isDataTrack() && !track.isDataTrack()) {
+                track.isDataTrack(true);
+            } else {
+                this.swapTracks(track, next, track.medium);
+            }
+
+            MB.utility.deferFocus("button.track-down", "#" + track.elementID);
+
+            // If the medium had a TOC attached, it's no longer valid.
+            track.medium.toc(null);
+
+            return true
+        },
+
+        swapTracks: function (track1, track2, medium) {
+            var tracks = medium.tracks,
+                underlyingTracks = tracks.peek(),
+                offset = medium.hasPregap() ? 0 : 1,
+                // Use _.indexOf instead of .position()
+                // http://tickets.musicbrainz.org/browse/MBS-7227
+                position1 = _.indexOf(underlyingTracks, track1) + offset,
+                position2 = _.indexOf(underlyingTracks, track2) + offset,
+                number1 = track1.number(),
+                number2 = track2.number(),
+                dataTrack1 = track1.isDataTrack(),
+                dataTrack2 = track2.isDataTrack();
+
+            track1.position(position2);
+            track1.number(number2);
+            track1.isDataTrack(dataTrack2);
+
+            track2.position(position1);
+            track2.number(number1);
+            track2.isDataTrack(dataTrack1);
+
+            underlyingTracks[position1 - 1] = track2;
+            underlyingTracks[position2 - 1] = track1;
+            tracks.notifySubscribers(underlyingTracks);
         },
 
         removeTrack: function (track) {
@@ -191,9 +219,11 @@
         openTrackParser: function (medium) { this.trackParserDialog.open(medium) },
 
         resetTrackNumbers: function (medium) {
+            var offset = medium.hasPregap() ? 0 : 1;
+
             _.each(medium.tracks(), function (track, i) {
-                track.position(i + 1);
-                track.number(i + 1);
+                track.position(i + offset);
+                track.number(i + offset);
             });
         },
 
@@ -215,25 +245,13 @@
         },
 
         addNewTracks: function (medium) {
-            var tracks = medium.tracks;
-            var trackCount = tracks.peek().length;
             var releaseAC = medium.release.artistCredit;
             var defaultAC = releaseAC.isVariousArtists() ? null : releaseAC.toJSON();
             var addTrackCount = parseInt(medium.addTrackCount(), 10) || 1;
 
-            var newTracks = _(addTrackCount).times(function (i) {
-                var position = trackCount + i + 1;
-
-                var args = {
-                    position: position,
-                    number: position,
-                    artistCredit: defaultAC
-                };
-
-                return releaseEditor.fields.Track(args, medium);
-            }).value();
-
-            tracks.push.apply(tracks, newTracks);
+            _.times(addTrackCount, function () {
+                medium.pushTrack({ artistCredit: defaultAC });
+            });
         },
 
         // Recordings tab
@@ -246,9 +264,8 @@
 
         inferTrackDurationsFromRecordings: ko.observable(false),
 
-        copyTrackChangesToRecordings: ko.observable(false).publishOn(
-            "updateRecordings", true
-        )
+        copyTrackTitlesToRecordings: ko.observable(false).publishOn("updateRecordingTitles", true),
+        copyTrackArtistsToRecordings: ko.observable(false).publishOn("updateRecordingArtists", true)
     });
 
 }(MB.releaseEditor = MB.releaseEditor || {}));

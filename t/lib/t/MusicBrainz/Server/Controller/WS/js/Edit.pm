@@ -174,7 +174,7 @@ test 'previewing/creating/editing a release group and release' => sub {
     @edits = capture_edits {
         post_json($mech, '/ws/js/edit/create', encode_json({
             edits => $release_edits,
-            asAutoEditor => 0,
+            makeVotable => 0,
         }));
     } $c;
 
@@ -188,7 +188,7 @@ test 'previewing/creating/editing a release group and release' => sub {
         post_json($mech, '/ws/js/edit/create', encode_json({
             edits => $release_edits,
             editNote => 'foo',
-            asAutoEditor => 0,
+            makeVotable => 0,
         }));
     } $c;
 
@@ -334,7 +334,7 @@ test 'previewing/creating/editing a release group and release' => sub {
     @edits = capture_edits {
         post_json($mech, '/ws/js/edit/create', encode_json({
             edits => $medium_edits,
-            asAutoEditor => 0,
+            makeVotable => 0,
         }));
     } $c;
 
@@ -438,7 +438,7 @@ test 'previewing/creating/editing a release group and release' => sub {
     @edits = capture_edits {
         post_json($mech, '/ws/js/edit/create', encode_json({
             edits => $medium_edits,
-            asAutoEditor => 0,
+            makeVotable => 0,
         }));
     } $c;
 
@@ -462,6 +462,7 @@ test 'previewing/creating/editing a release group and release' => sub {
                     position => 1,
                     id => 109,
                     artist_credit => $cleaned_artist_credit,
+                    is_data_track => 0
                 },
                 {
                     length => 2138333,
@@ -471,6 +472,7 @@ test 'previewing/creating/editing a release group and release' => sub {
                     position => 2,
                     id => 110,
                     artist_credit => $cleaned_artist_credit,
+                    is_data_track => 0
                 },
                 {
                     length => 333826,
@@ -480,6 +482,7 @@ test 'previewing/creating/editing a release group and release' => sub {
                     position => 3,
                     id => 111,
                     artist_credit => $cleaned_artist_credit,
+                    is_data_track => 0
                 }
             ]
         },
@@ -513,7 +516,7 @@ test 'previewing/creating/editing a release group and release' => sub {
     @edits = capture_edits {
         post_json($mech, '/ws/js/edit/create', encode_json({
             edits => $release_label_edits,
-            asAutoEditor => 0,
+            makeVotable => 0,
         }));
     } $c;
 
@@ -607,6 +610,43 @@ test 'adding a relationship' => sub {
         %edit_data,
         attributes => [$additional_attribute, $crazy_guitar]
     });
+};
+
+test 'adding a relationship with an invalid date' => sub {
+    my $test = shift;
+    my ($c, $mech) = ($test->c, $test->mech);
+
+    prepare_test_database($c);
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+    my $edit_data = [ {
+        edit_type   => $EDIT_RELATIONSHIP_CREATE,
+        linkTypeID  => 1,
+        attributes  => [],
+        entities    => [
+            {
+                gid         => '745c079d-374e-4436-9448-da92dedef3ce',
+                entityType  => 'artist',
+            },
+            {
+                gid         => '54b9d183-7dab-42ba-94a3-7388a66604b8',
+                entityType  => 'recording',
+            }
+        ],
+        beginDate   => { year => 1994, month => 2, day => 29 },
+        endDate     => { year => 1999, month => 2, day => undef },
+    } ];
+
+    my @edits = capture_edits {
+        post_json($mech, '/ws/js/edit/create', encode_json({ edits => $edit_data }));
+    } $c;
+
+    ok(scalar(@edits) == 0, 'relationship for invalid date is not created');
+
+    my $response = from_json($mech->content);
+    like($response->{error}, qr/^invalid begin_date/, 'error is returned for invalid begin date');
 };
 
 
@@ -961,6 +1001,50 @@ test 'Edits are rejected without a confirmed email address' => sub {
 
     my $response = from_json($mech->content);
     is($response->{error}, 'a confirmed email address is required', 'error is returned for unconfirmed email');
+};
+
+
+test 'Duplicate relationships are ignored' => sub {
+    my $test = shift;
+    my ($c, $mech) = ($test->c, $test->mech);
+
+    prepare_test_database($c);
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+    my $edit_data = [ {
+        edit_type   => $EDIT_RELATIONSHIP_CREATE,
+        linkTypeID  => 1,
+        attributes  => [
+            { type => { gid => 'c3273296-91ba-453d-94e4-2fb6e958568e' }, credit => 'crazy guitar' },
+        ],
+        entities    => [
+            {
+                gid         => '745c079d-374e-4436-9448-da92dedef3ce',
+                entityType  => 'artist',
+            },
+            {
+                gid         => '54b9d183-7dab-42ba-94a3-7388a66604b8',
+                entityType  => 'recording',
+            }
+        ],
+        beginDate   => { year => 1999, month => 1, day => 1 },
+        endDate     => { year => 1999, month => 2, day => undef },
+    } ];
+
+    my @edits = capture_edits {
+        post_json($mech, '/ws/js/edit/create', encode_json({ edits => $edit_data }));
+    } $c;
+
+    is(scalar(@edits), 1);
+    isa_ok($edits[0], 'MusicBrainz::Server::Edit::Relationship::Create');
+
+    @edits = capture_edits {
+        post_json($mech, '/ws/js/edit/create', encode_json({ edits => $edit_data }));
+    } $c;
+
+    is(scalar(@edits), 0);
 };
 
 1;

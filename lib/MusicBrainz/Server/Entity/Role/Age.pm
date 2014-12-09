@@ -1,38 +1,11 @@
 package MusicBrainz::Server::Entity::Role::Age;
 use Moose::Role;
 use MusicBrainz::Server::Entity::Types;
-use MusicBrainz::Server::Entity::PartialDate;
 use Date::Calc qw(N_Delta_YMD Today);
 use DateTime;
 use List::AllUtils qw( any first_index min pairwise );
 
-has 'begin_date' => (
-    is => 'rw',
-    isa => 'PartialDate',
-    lazy => 1,
-    default => sub { MusicBrainz::Server::Entity::PartialDate->new() },
-);
-
-has 'end_date' => (
-    is => 'rw',
-    isa => 'PartialDate',
-    lazy => 1,
-    default => sub { MusicBrainz::Server::Entity::PartialDate->new() },
-);
-
-has 'ended' => (
-    is => 'rw',
-    isa => 'Bool',
-);
-
-sub period {
-    my $self = shift;
-    return {
-        begin_date => $self->begin_date,
-        end_date => $self->end_date,
-        ended => $self->ended
-    };
-}
+with 'MusicBrainz::Server::Entity::Role::DatePeriod';
 
 sub _YMD
 {
@@ -107,8 +80,6 @@ sub age
 
     return ($y, $m, $d);
 }
-
-
 
 no Moose::Role;
 1;

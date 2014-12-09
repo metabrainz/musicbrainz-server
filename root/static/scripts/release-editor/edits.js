@@ -110,8 +110,6 @@
         },
 
         medium: function (release) {
-            var newMediumsIDs = newMediums().pluck("id").compact().value();
-            var newOrder = [];
             var edits = [];
             var inferTrackDurations = releaseEditor.inferTrackDurationsFromRecordings();
 
@@ -121,7 +119,9 @@
             // page). tmpPositions stores any positions we use to avoid
             // conflicts between oldPositions/newPositions.
 
-            var oldPositions = _.pluck(release.mediums.original(), "position");
+            var oldPositions = _.map(release.mediums.original(), function (m) {
+                return m.original().position;
+            });
             var newPositions = newMediums().invoke("position").value();
             var tmpPositions = [];
 
@@ -131,23 +131,24 @@
 
                 _.each(medium.tracks(), function (track, i) {
                     var trackData = newMediumData.tracklist[i];
-                    var newRecording = track.recording();
 
-                    if (newRecording) {
-                        newRecording = MB.edit.fields.recording(newRecording);
+                    if (track.hasExistingRecording()) {
+                        var newRecording = MB.edit.fields.recording(track.recording());
 
                         if (inferTrackDurations) {
                             trackData.length = newRecording.length || trackData.length;
                         }
 
-                        if (track.updateRecording() && track.differsFromRecording()) {
-                            _.extend(newRecording, {
-                                name:           trackData.name,
-                                artist_credit:  trackData.artist_credit,
-                                length:         trackData.length
-                            });
+                        var oldRecording = track.recording.savedEditData;
 
-                            var oldRecording = track.recording.savedEditData;
+                        if (oldRecording) {
+                            if (track.updateRecordingTitle()) {
+                                newRecording.name = trackData.name;
+                            }
+
+                            if (track.updateRecordingArtist()) {
+                                newRecording.artist_credit = trackData.artist_credit;
+                            }
 
                             if (!_.isEqual(newRecording, oldRecording)) {
                                 edits.push(MB.edit.recordingEdit(newRecording, oldRecording));
@@ -167,8 +168,7 @@
                         newNoPosition.to_edit = medium.id;
                         edits.push(MB.edit.mediumEdit(newNoPosition, oldNoPosition));
                     }
-                }
-                else if (medium.hasTracks()) {
+                } else if (medium.hasTracks()) {
                     // With regards to the medium position, make sure that:
                     //
                     //  (1) The position doesn't conflict with an existing
@@ -226,10 +226,11 @@
                 }
             });
 
-            _(release.mediums.original()).pluck("id").difference(newMediumsIDs)
-                .each(function (id) {
-                    edits.push(MB.edit.mediumDelete({ medium: id }));
-                });
+            _.each(release.mediums.original(), function (m) {
+                if (m.id && m.removed) {
+                    edits.push(MB.edit.mediumDelete({ medium: m.id }));
+                }
+            });
 
             return edits;
         },
@@ -237,6 +238,13 @@
         mediumReorder: function (release) {
             var edits = [];
             var newOrder = [];
+            var removedMediums = {};
+
+            _.each(release.mediums.original(), function (medium) {
+                if (medium.id && medium.removed) {
+                    removedMediums[medium.original().position] = medium;
+                }
+            });
 
             newMediums().each(function (medium) {
                 var newPosition = medium.position();
@@ -246,6 +254,17 @@
                 );
 
                 if (oldPosition !== newPosition) {
+                    // A removed medium is already in the position we want, so
+                    // make sure we swap with it to avoid conflicts.
+                    var removedMedium;
+                    if (removedMedium = removedMediums[newPosition]) {
+                        newOrder.push({
+                            medium_id:  removedMedium.id,
+                            "old":      newPosition,
+                            "new":      oldPosition
+                        });
+                    }
+
                     newOrder.push({
                         medium_id:  medium.id,
                         "old":      oldPosition,
@@ -408,7 +427,7 @@
         var root = releaseEditor.rootField;
 
         var args = {
-            asAutoEditor: root.asAutoEditor(),
+            makeVotable: root.makeVotable(),
             editNote: root.editNote()
         };
 

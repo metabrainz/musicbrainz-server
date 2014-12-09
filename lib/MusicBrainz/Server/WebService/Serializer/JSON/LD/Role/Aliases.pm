@@ -14,7 +14,7 @@ around serialize => sub {
     my $opts = $stash->store($entity);
 
     my @aliases;
-    for my $alias (grep { $_->type_id != $entity_search_hint_type } @{ $opts->{aliases} // [] })
+    for my $alias (grep { ($_->type_id // 0) != $entity_search_hint_type } @{ $opts->{aliases} // [] })
     {
         push @aliases, $alias->name;
     }

@@ -32,7 +32,8 @@ role
     my %extra = @_;
 
     my $model = $params->model;
-    my $entity_name = $params->entity_name || model_to_type($model);
+    my $entity_type = model_to_type($model);
+    my $entity_name = $params->entity_name || $entity_type;
 
     requires 'not_found', 'invalid_mbid';
 
@@ -52,7 +53,8 @@ role
 
         $c->detach('not_found') unless defined $entity;
 
-        my $entity_properties = $ENTITIES{ model_to_type($model) };
+        # defaulting to something non-undef silences a warning
+        my $entity_properties = $ENTITIES{ $entity_type // 0 };
 
         if (exists $entity_properties->{mbid} && $entity_properties->{mbid}{relatable}) {
             my $action = $c->action->name;
@@ -76,7 +78,7 @@ role
             if $entity_name && !$c->stash->{$entity_name};
 
         # Second is useful to roles or other places that need introspection
-        $c->stash( entity => $entity );
+        $c->stash( entity => $entity, entity_type => $entity_type );
 
         $c->stash( entity_properties => $entity_properties );
     };

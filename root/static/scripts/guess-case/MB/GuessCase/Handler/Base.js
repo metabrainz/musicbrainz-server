@@ -62,7 +62,7 @@ MB.GuessCase.Handler.Base = function () {
      * Returns true if the number corresponds to a special case.
      **/
     self.isSpecialCase = function (num) {
-    return (num != self.NOT_A_SPECIALCASE);
+        return (num != self.NOT_A_SPECIALCASE);
     };
 
     /**
@@ -97,6 +97,17 @@ MB.GuessCase.Handler.Base = function () {
             default:
                 return is;
         }
+    };
+
+    self.getWordsForProcessing = gc.i.splitWordsAndPunctuation;
+
+    self.process = function (is) {
+        gc.o.init();
+        gc.i.init(is, self.getWordsForProcessing(is));
+        while (!gc.i.isIndexAtEnd()) {
+            self.processWord();
+        }
+        return gc.mode.runPostProcess(gc.o.getOutput());
     };
 
     /**
@@ -155,6 +166,15 @@ MB.GuessCase.Handler.Base = function () {
      * Delegate function for Artist/Release/Track specific handlers
      **/
     self.doWord = function () {};
+
+    self.doNormalWord = function () {
+        gc.o.appendSpaceIfNeeded();
+        gc.i.capitalizeCurrentWord();
+        gc.o.appendCurrentWord();
+        gc.f.resetContext();
+        gc.f.forceCaps = false;
+        gc.f.spaceNextWord = true;
+    };
 
     /**
      * Deal with whitespace (\t)

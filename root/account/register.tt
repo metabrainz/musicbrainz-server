@@ -28,7 +28,7 @@
         </div>
         [% form_row_password(r, 'password', l('Password:')) %]
         [% form_row_password(r, 'confirm_password', l('Confirm password:')) %]
-        [% form_row_text_long(r, 'email', l('Email:')) %]
+        [% form_row_email_long(r, 'email', l('Email:')) %]
         <div class="row no-label">
             <span class="input-note">[% l('You must provide a working email address if you wish to contribute to the database.') %]</span>
         </div>

@@ -13,7 +13,7 @@ use Sub::Exporter -setup => {
             sub { UnformatTrackLength(shift) }
         },
         format_iso_duration => sub {
-            sub { FormatTrackLength(shift, print_formats => {hms => "PT%dH%02dM%02dS", ms => "PT0H%02dM%02dS"}) }
+            sub { FormatTrackLength(shift, print_formats => {hms => "PT%dH%02dM%02dS", ms => "PT%02dM%02dS"}) }
         },
     ]
 };

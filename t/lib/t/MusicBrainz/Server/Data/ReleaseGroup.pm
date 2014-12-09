@@ -82,11 +82,10 @@ $rg = $rg_data->insert({
     });
 
 ok(defined $rg);
-isa_ok($rg, 'MusicBrainz::Server::Entity::ReleaseGroup');
-ok($rg->id > 1);
-ok($rg->gid);
+ok($rg->{id} > 1);
+ok($rg->{gid});
 
-$rg = $rg_data->get_by_id($rg->id);
+$rg = $rg_data->get_by_id($rg->{id});
 is($rg->name, 'My Demons');
 is($rg->primary_type_id, 1);
 is($rg->comment, 'Dubstep album');

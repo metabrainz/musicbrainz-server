@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-09-07 18:06+0000\n"
-"Last-Translator: Timo Martikainen <email address hidden>\n"
+"PO-Revision-Date: 2014-10-30 01:10+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,7 +37,7 @@ msgstr "Turkkilainen versio tamburiinista / duffista, tehty eläimen nahasta ja 
 msgid ""
 "A barrel organ is a mechanical musical instrument typically operated by a "
 "person turning a crank which turns a barrel which has music encoded onto it."
-msgstr ""
+msgstr "Posetiivi on mekaaninen urkusoitin, jota tavallisesti soitetaan kiertämällä kampea. Kampeen liittyy soittorasiamainen sylinteri, johon musiikki on koodattu."
 
 #. name:bass synthesizer
 #: DB:instrument/description:456
@@ -49,7 +49,7 @@ msgstr "Bassosyntetisaattorilla luodaan bassotaajuuksisia ääniä."
 msgid ""
 "A bell tree is a percussion instrument, consisting of vertically nested "
 "inverted metal bowls."
-msgstr ""
+msgstr "Lyömäsöitin joka koostuu pystysuoraan upotetuista metallisista kulhoista jotka ovat väärinpäin. "
 
 #. name:bullroarer
 #: DB:instrument/description:153
@@ -108,17 +108,24 @@ msgstr ""
 msgid ""
 "A fife is a small, high-pitched, transverse flute that is similar to the "
 "piccolo, but louder and shriller due to its narrower bore."
-msgstr ""
+msgstr "Pieni korkeaääninen sivusta puhallettava piccolon kaltainen huilu, mutta voimakkaampi ja kimeä-äänisempi johtuen sen kapeammasta halkaisijasta. "
 
 #. name:five-string banjo
 #: DB:instrument/description:523
 msgid "A five-string banjo is a banjo with five strings."
+msgstr "Banjo joka on viisikielinen. "
+
+#. name:flute
+#: DB:instrument/description:13
+msgid ""
+"A flute is an aerophone or reedless wind instrument that produces its sound "
+"from the flow of air across an opening."
 msgstr ""
 
 #. name:four-string banjo
 #: DB:instrument/description:656
 msgid "A four-string banjo is a banjo with four strings."
-msgstr ""
+msgstr "Banjo joka on nelikielinen. "
 
 #. name:gong bass drum
 #: DB:instrument/description:639
@@ -173,7 +180,7 @@ msgstr ""
 msgid ""
 "A mouth organ is a generic term for free reed aerophone with one or more air"
 " chambers fitted with a free reed."
-msgstr ""
+msgstr "Suu-urut on yleisnimitys vapaalehdykkäsoittimille, joissa on yksi tai useampia ilmakammioita, kussakin oma vapaalehdykkänsä."
 
 #. name:musical saw
 #: DB:instrument/description:145
@@ -186,12 +193,12 @@ msgstr ""
 #: DB:instrument/description:504
 msgid ""
 "A piano whose strings are bowed, using nylon filament or other materials"
-msgstr ""
+msgstr "Piano jonka kieliä soitetaan jousella käyttäen nylon säiettä tai muuta materiaalia. "
 
 #. name:orpharion
 #: DB:instrument/description:519
 msgid "A plucked instrument from the Renaissance."
-msgstr ""
+msgstr "Näppäilemällä soitettava soitin renessanssin ajalta. "
 
 #. name:prepared piano
 #: DB:instrument/description:481
@@ -241,7 +248,7 @@ msgstr ""
 msgid ""
 "A tenor violin is an instrument with a range between those of the cello and "
 "the viola."
-msgstr ""
+msgstr "Instrumentti jonka ääniala on sellon ja alttoviulun väliltä. "
 
 #. name:tom-tom
 #: DB:instrument/description:462
@@ -253,12 +260,12 @@ msgstr ""
 #. name:marxophone
 #: DB:instrument/description:442
 msgid "A type of fretless zither."
-msgstr ""
+msgstr "Nauhattoman sitran tyyppi. "
 
 #. name:typewriter
 #: DB:instrument/description:526
 msgid "A typewriter, used for percussion (either keys or bells)"
-msgstr ""
+msgstr "Kirjoituskone, jota käytetetään lyömäsoittimena (näppäimet tai kello)."
 
 #. name:baroque trumpet
 #: DB:instrument/description:521
@@ -305,7 +312,7 @@ msgstr ""
 msgid ""
 "An Indian version of the jew's harp, played as a percussion instrument in "
 "Carnatic music and Rajastani folk music."
-msgstr ""
+msgstr "Intialainen version munni-/juutalaisharpusta, käytetään lyömäsoittimena karnaattisessa musiikissa ja rajasthanilaisessa kansanmusiikissa. "
 
 #. name:Irish harp / clàrsach
 #: DB:instrument/description:355
@@ -341,7 +348,7 @@ msgstr ""
 #. name:bandura
 #: DB:instrument/description:393
 msgid "Bandura, Ukrainian 14th century lute"
-msgstr ""
+msgstr "Bandura, ukrainalainen luuttusoitin 1300-luvulta"
 
 #. name:bandura
 #: DB:instrument/description:394
@@ -398,11 +405,6 @@ msgid ""
 "Ching are a pair of small hand cymbals used in Thai and Cambodian music."
 msgstr ""
 
-#. name:conch
-#: DB:instrument/description:156
-msgid "Conch shell"
-msgstr ""
-
 #. name:crumhorn
 #: DB:instrument/description:348
 msgid "Crumhorn used in the 14th to 17th centuries in Europe"
@@ -411,17 +413,17 @@ msgstr ""
 #. name:davul
 #: DB:instrument/description:411
 msgid "Davul, turkish drum"
-msgstr ""
+msgstr "Turkkilainen rumpu. "
 
 #. name:dobro
 #: DB:instrument/description:184
 msgid "Dobro, resonator guitar"
-msgstr ""
+msgstr "Eräänlainen resonaattorikitara. "
 
 #. name:dhol
 #: DB:instrument/description:535
 msgid "Double headed drum from India."
-msgstr ""
+msgstr "Kaksikalvoinen intialainen rumpu."
 
 #. name:dunun
 #: DB:instrument/description:659
@@ -433,7 +435,7 @@ msgstr ""
 msgid ""
 "EWI (an acronym for electric wind instrument) is the name of Akai's wind "
 "controller."
-msgstr ""
+msgstr "Puhaltamalla ohjattava Akain valmistama syntetisaattori."
 
 #. name:effects
 #: DB:instrument/description:677
@@ -451,7 +453,7 @@ msgstr ""
 #: DB:instrument/description:604
 msgid ""
 "Floppy Drives configured to produce tones while reading, software is used."
-msgstr ""
+msgstr "Levykeasema joka on ohjelmallisesti saatu tuottamaan ääntä levyä lukemalla."
 
 #. name:gankogui
 #: DB:instrument/description:383
@@ -486,7 +488,7 @@ msgstr ""
 #. name:Harddisk
 #: DB:instrument/description:603
 msgid "Harddisk configured to produce tones in pattern."
-msgstr ""
+msgstr "Kiintolevy, joka on konfiguroitu tuottamaan ääniä tietyn mallin mukaisesti. "
 
 #. name:huqin
 #: DB:instrument/description:213
@@ -496,7 +498,7 @@ msgstr ""
 #. name:taiko
 #: DB:instrument/description:378
 msgid "Japanese traditional drum beaten with sticks called bachi."
-msgstr ""
+msgstr "Perinteinen japanilainen rumpu jota soitetaan bachi-nimisillä kapuloilla. "
 
 #. name:kanklės
 #: DB:instrument/description:422
@@ -506,7 +508,7 @@ msgstr ""
 #. name:kantele
 #: DB:instrument/description:424
 msgid "Kantele, Finnish traditional plucked string"
-msgstr ""
+msgstr "Perinteinen suomalainen näppäilemällä soitettava kielisoitin. "
 
 #. name:kanun
 #: DB:instrument/description:288
@@ -603,19 +605,12 @@ msgstr ""
 #. name:oboe
 #: DB:instrument/description:8
 msgid "Oboe (soprano)"
-msgstr ""
+msgstr "Oboe (soprano). "
 
 #. name:oboe d'amore
 #: DB:instrument/description:473
 msgid "Oboe d'amore / Oboe d'amour (mezzo-soprano)"
-msgstr ""
-
-#. name:other flutes
-#: DB:instrument/description:195
-msgid ""
-"Other flutes. If you can't find an instrument, please request it at "
-"http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree"
-msgstr "Muut huilut. Jos et löydä tiettyä soitinta, voit anoa sitä lisättäväksi osoitteessa http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree (englanniksi) "
+msgstr "oboe d'amore (mezzo-soprano). "
 
 #. name:other instruments
 #: DB:instrument/description:141
@@ -648,7 +643,7 @@ msgstr ""
 #. name:body percussion
 #: DB:instrument/description:500
 msgid "Percussion performed by parts of the body."
-msgstr ""
+msgstr "Lyömäsoittimet hyödyntäen kehonosia. "
 
 #. name:foot percussion
 #: DB:instrument/description:478
@@ -758,7 +753,7 @@ msgstr "Es-klarinetti kuuluu klarinettisoitinten perheeseen."
 #. name:Lyricon
 #: DB:instrument/description:561
 msgid "The Lyricon is an electronic wind instrument."
-msgstr ""
+msgstr "Sähköinen puhallinsoitin. Puhallinsyntetisaattori. "
 
 #. name:Paraguayan harp
 #: DB:instrument/description:664
@@ -788,6 +783,13 @@ msgid ""
 "Carnatic music."
 msgstr ""
 
+#. name:Schwyzerörgeli
+#: DB:instrument/description:679
+msgid ""
+"The Schwyzerörgeli is a type of diatonic button accordion used in Swiss folk"
+" music."
+msgstr ""
+
 #. name:Stroh violin
 #: DB:instrument/description:451
 msgid ""
@@ -800,7 +802,7 @@ msgstr ""
 msgid ""
 "The Vienna horn is a type of musical horn used primarily in Vienna, Austria,"
 " for playing orchestral or classical music."
-msgstr ""
+msgstr "Wienintorvi on torvi joka käytetään pääasiassa Wienissä, Itävallassa, orkesteri tai klassisen musiikin soittamiseen. "
 
 #. name:Vietnamese guitar
 #: DB:instrument/description:322
@@ -874,14 +876,14 @@ msgstr ""
 #. name:banjitar
 #: DB:instrument/description:396
 msgid "The banjitar is a six-string banjo with the neck of a guitar."
-msgstr ""
+msgstr "Kuusikielinen banjo, jolla on kitaran kaula. "
 
 #. name:bansuri
 #: DB:instrument/description:190
 msgid ""
 "The bansuri is a transverse alto flute, which is the North Indian "
 "counterpart to the venu."
-msgstr ""
+msgstr "Sivustapuhallettava alttohuilu, joka on pohjois-intialainen vastine venu-soittimelle. "
 
 #. name:baryton
 #: DB:instrument/description:605
@@ -890,7 +892,7 @@ msgid ""
 "with instruments of the viol family, distinguished by an extra set of "
 "plucked strings. It was in regular use in Europe up until the end of the "
 "18th century."
-msgstr ""
+msgstr "Jousisoitin joka on joiltakin piirteiltään viulusoitinten kaltainen, mutta erottuu niistä ylimääräisillä näppäillen soitettavilla kielillä. Euroopassa se oli yleisessä käytössä 1700-luvun loppuun saakka. "
 
 #. name:bass saxophone
 #: DB:instrument/description:444
@@ -928,12 +930,12 @@ msgstr ""
 msgid ""
 "The buk is a Korean drum. While buk is a generic term for drum, it normally "
 "refers to a shallow barrel-shaped drum with a wooden body."
-msgstr ""
+msgstr "Korealainen rumpu. Buk on geneerinen termi rummulle, mutta sillä normaalista tarkoitetaan tynnyrinmuotoista puurunkoista rumpua. "
 
 #. name:bulbul tarang
 #: DB:instrument/description:528
 msgid "The bulbul tarang is a string instrument from India and Pakistan."
-msgstr ""
+msgstr "Jousisoitin Intiasta ja Pakistanista. "
 
 #. name:buzuq
 #: DB:instrument/description:655
@@ -1251,6 +1253,13 @@ msgid ""
 "family."
 msgstr ""
 
+#. name:guan
+#: DB:instrument/description:683
+msgid ""
+"The guan is a Chinese double reed wind instrument made from hardwood or "
+"bamboo."
+msgstr ""
+
 #. name:guitalele
 #: DB:instrument/description:645
 msgid ""
@@ -1289,6 +1298,13 @@ msgstr ""
 msgid ""
 "The harmonica or blues harp is a type of mouth organ commonly found in "
 "blues, American folk, jazz, country and rock and roll music."
+msgstr ""
+
+#. name:harp guitar
+#: DB:instrument/description:681
+msgid ""
+"The harp guitar is a guitar-based string instrument with any number of "
+"additional unstopped strings which can accommodate individual plucking."
 msgstr ""
 
 #. name:harp
@@ -1653,7 +1669,7 @@ msgstr ""
 msgid ""
 "The pipa is a four-stringed plucked Chinese instrument with a pear-shaped "
 "body."
-msgstr ""
+msgstr "Nelikielinen näppäiltävä kiinalainen soitin, jonka koppa on päärynänmuotoinen. Tunnetaan myös nimellä kiinalainen luuttu. "
 
 #. name:piri
 #: DB:instrument/description:499
@@ -1695,14 +1711,14 @@ msgstr ""
 msgid ""
 "The ranat ek is a Thai xylophone which consists of 21 wooden bars suspended "
 "by cords over a boat-shaped trough resonator and struck by two mallets."
-msgstr ""
+msgstr "Thaimaalainen ksylofoni jonka 21 puukapulaa levittäytyvät laivan-muotoisen resonaattorin ylle. Soitetaan kahdella nuijalla. "
 
 #. name:ranat kaeo
 #: DB:instrument/description:665
 msgid ""
 "The ranat kaeo is a Thai instrument similar to a xylophone consisting of "
 "glass bars of varying lengths."
-msgstr ""
+msgstr "Thaimaalainen ksylofonin kaltainen soitin jonka kapulat/kielet ovat lasia. "
 
 #. name:ranat thum
 #: DB:instrument/description:620
@@ -1710,7 +1726,7 @@ msgid ""
 "The ranat thum is a xylophone from Thailand consisting of 18 wooden bars "
 "suspended by cords over a boat-shaped trough resonator. It is similar to the"
 " ranat ek but lower in pitch."
-msgstr ""
+msgstr "Thaimaalainen ksylofoni jonka 18 puukapulaa levittäytyvät laivan-muotoisen resonaattorin ylle. Vastaavanlainen mutta matalaäänisempi kuin ranat ek. "
 
 #. name:riq
 #: DB:instrument/description:329
@@ -2003,7 +2019,7 @@ msgstr ""
 #. name:tenor trombone
 #: DB:instrument/description:662
 msgid "The tenor trombone is a trombone pitched in B♭."
-msgstr ""
+msgstr "Pasuuna joka on B♭-vireinen. "
 
 #. name:thavil
 #: DB:instrument/description:480
@@ -2096,7 +2112,7 @@ msgstr ""
 msgid ""
 "The viola caipira (or simply viola) is a steel-string guitar from Brazil "
 "which has ten strings in five courses."
-msgstr ""
+msgstr "Teräskielinen brasilialainen kitara, jossa on kymmenen kieltä viitenä ryhmittymänä. "
 
 #. name:violino piccolo
 #: DB:instrument/description:661
@@ -2116,7 +2132,7 @@ msgstr ""
 #. name:xiao
 #: DB:instrument/description:484
 msgid "The xiao is a Chinese end-blown flute."
-msgstr ""
+msgstr "Kiinalainen päästäpuhallettava huilu."
 
 #. name:xiaoluo
 #: DB:instrument/description:550
@@ -2129,7 +2145,7 @@ msgstr ""
 #: DB:instrument/description:651
 msgid ""
 "The xun is a vessel flute from China which has a blowing hole at the top."
-msgstr ""
+msgstr "Kiinalainen astiahuilu jonka puhallusaukko löytyy yläpuolelta. "
 
 #. name:yangqin
 #: DB:instrument/description:254
@@ -2255,6 +2271,13 @@ msgid ""
 "kotsuzumi."
 msgstr ""
 
+#. name:šargija
+#: DB:instrument/description:680
+msgid ""
+"The šargija is a long necked plucked lute used in the folk music of the "
+"Balkans."
+msgstr ""
+
 #. name:żafżafa
 #: DB:instrument/description:589
 msgid ""
@@ -2284,7 +2307,7 @@ msgstr ""
 #. name:theatre organ
 #: DB:instrument/description:347
 msgid "Theatre organ, such as the Wurlitzer"
-msgstr ""
+msgstr "Teatteriurut, kuten Wurlitzer. "
 
 #. name:timpani
 #: DB:instrument/description:167
@@ -2321,7 +2344,7 @@ msgstr ""
 #. name:natural horn
 #: DB:instrument/description:522
 msgid "Valveless ancestor of the modern (French) horn."
-msgstr ""
+msgstr "Venttiilitön nykyaikaisen käyrätorven edeltäjä."
 
 #. name:não bạt / chập chõa
 #: DB:instrument/description:272
@@ -2368,6 +2391,11 @@ msgstr ""
 #. name:Disk Drive
 #: DB:instrument/description:602
 msgid "as using drives for producing music, harddrives, floppy, cd or other."
+msgstr "Levyasemat joita käytetään tuottamaan musiikkia, kuten kiintolevyt, levykeasemat, cd-asemat ja muut. "
+
+#. name:conch
+#: DB:instrument/description:156
+msgid "conch shell"
 msgstr ""
 
 #. name:bombarde

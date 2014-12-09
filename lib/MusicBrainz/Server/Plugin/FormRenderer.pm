@@ -52,6 +52,9 @@ sub _render_input
 {
     my ($self, $field, $type, %attrs) = @_;
     return unless ref $field;
+    if ($field->required && $type !~ /^hidden|image|submit|reset|button$/) {
+        $attrs{required} = "required";
+    }
     my $class = delete $attrs{class} || '';
     return $self->h->input({
             type => $type,
@@ -68,6 +71,24 @@ sub text
     my ($self, $field_name, $attrs) = @_;
     my $field = $self->_lookup_field($field_name) or return;
     return $self->_render_input($field, 'text', %$attrs);
+}
+
+sub email {
+    my ($self, $field_name, $attrs) = @_;
+    my $field = $self->_lookup_field($field_name) or return;
+    return $self->_render_input($field, 'email', %$attrs);
+}
+
+sub url {
+    my ($self, $field_name, $attrs) = @_;
+    my $field = $self->_lookup_field($field_name) or return;
+    return $self->_render_input($field, 'url', %$attrs);
+}
+
+sub number {
+    my ($self, $field_name, $attrs) = @_;
+    my $field = $self->_lookup_field($field_name) or return;
+    return $self->_render_input($field, 'number', %$attrs);
 }
 
 sub hidden

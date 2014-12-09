@@ -443,6 +443,14 @@ MB.Timeline.TimelineLine = aclass({
                     bindingContext.$data.zoomArray([null, null, null, null])
                 }
             });
+
+            // Resize the graph when the window size changes
+            $(window).on("resize", _.debounce(function () {
+                var plot = $(element).data('plot');
+                plot.resize();
+                plot.setupGrid();
+                plot.draw();
+            }, 100));
         },
         update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
             var graph = ko.unwrap(valueAccessor());
@@ -516,7 +524,7 @@ MB.Timeline.TimelineLine = aclass({
     };
 })();
 
-$(window).hashchange(function () {
+$(window).on('hashchange', function () {
     var hash = location.hash.replace(/^#/, '');
     MB.Timeline.TimelineViewModel.hash(hash);
 });

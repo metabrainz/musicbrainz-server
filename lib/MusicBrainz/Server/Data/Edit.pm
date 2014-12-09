@@ -20,6 +20,7 @@ use MusicBrainz::Server::Constants qw(
     $UNTRUSTED_FLAG
     $VOTE_APPROVE
     $EDIT_MINIMUM_RESPONSE_PERIOD
+    $EDIT_COUNT_LIMIT
     $QUALITY_UNKNOWN_MAPPED
     $EDITOR_MODBOT
     entities_with );
@@ -146,7 +147,7 @@ sub find
 
     my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table;
     $query .= ' WHERE ' . join ' AND ', map { "($_)" } @pred if @pred;
-    $query .= ' ORDER BY id DESC OFFSET ? LIMIT 500';
+    $query .= ' ORDER BY id DESC OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
 
     return query_to_list_limited($self->c->sql, $offset, $limit, sub {
             return $self->_new_from_row(shift);
@@ -161,15 +162,22 @@ sub find_by_collection
 
     $status_cond = ' AND status = ' . $status if defined($status);
 
-    my $query = 'SELECT DISTINCT ' . $self->_columns . ' FROM ' . $self->_table .
-                ' JOIN edit_release er ON edit.id = er.edit
-                  JOIN editor_collection_release ecr ON er.release = ecr.release
-                  WHERE collection = ? ' . $status_cond . '
-                  ORDER BY edit.id DESC OFFSET ? LIMIT 500';
+    my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table . '
+                  WHERE edit.id IN (SELECT er.edit
+                                      FROM edit_release er JOIN editor_collection_release ecr
+                                           ON er.release = ecr.release
+                                     WHERE ecr.collection = ?
+                                    UNION
+                                    SELECT ee.edit
+                                      FROM edit_event ee JOIN editor_collection_event ece
+                                           ON ee.event = ece.event
+                                     WHERE ece.collection = ?)
+                  ' . $status_cond . '
+                  ORDER BY edit.id DESC OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
 
     return query_to_list_limited($self->c->sql, $offset, $limit, sub {
             return $self->_new_from_row(shift);
-        }, $query, $collection_id, $offset);
+        }, $query, $collection_id, $collection_id, $offset);
 }
 
 sub find_for_subscription
@@ -190,16 +198,23 @@ sub find_for_subscription
     elsif ($subscription->isa(CollectionSubscription)) {
         return () if (!$subscription->available);
 
-        my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
-                    ' JOIN edit_release er ON edit.id = er.edit
-                      JOIN editor_collection_release ecr ON er.release = ecr.release
-                      WHERE collection = ? AND edit.id > ? AND status IN (?, ?)';
+        my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table . '
+                      WHERE edit.id IN (SELECT er.edit
+                                          FROM edit_release er JOIN editor_collection_release ecr
+                                               ON er.release = ecr.release
+                                         WHERE ecr.collection = ?
+                                        UNION
+                                        SELECT ee.edit
+                                          FROM edit_event ee JOIN editor_collection_event ece
+                                               ON ee.event = ece.event
+                                         WHERE ece.collection = ?)
+                       AND id > ? AND status IN (?, ?)';
 
         return query_to_list(
             $self->c->sql,
             sub { $self->_new_from_row(shift) },
-            $query, $subscription->target_id, $subscription->last_edit_sent,
-            $STATUS_OPEN, $STATUS_APPLIED
+            $query,  $subscription->target_id, $subscription->target_id,
+            $subscription->last_edit_sent, $STATUS_OPEN, $STATUS_APPLIED
         );
     }
     elsif ($subscription->does(ActiveSubscription)) {
@@ -227,8 +242,8 @@ sub find_by_voter
            FROM ' . $self->_table . '
            JOIN vote ON vote.edit = edit.id
           WHERE vote.editor = ? AND vote.superseded = FALSE
-       ORDER BY id DESC
-         OFFSET ? LIMIT 500';
+       ORDER BY vote_time DESC
+         OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
 
     return query_to_list_limited(
         $self->sql, $offset, $limit,
@@ -250,8 +265,8 @@ sub find_open_for_editor
                    AND vote.editor = ?
                    AND vote.superseded = FALSE
                 )
-       ORDER BY open_time ASC
-         OFFSET ? LIMIT 500';
+       ORDER BY id ASC
+         OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
 
     return query_to_list_limited(
         $self->sql, $offset, $limit,
@@ -294,11 +309,18 @@ SELECT * FROM edit, (
     JOIN editor_subscribe_label esl ON esl.label = el.label
     WHERE el.status = ? AND esl.editor = ?
     UNION
-    SELECT edit FROM edit_release er
-    RIGHT JOIN editor_collection_release ec ON er.release = ec.release
-    JOIN editor_subscribe_collection esc ON esc.collection = ec.collection
-    JOIN edit ON er.edit = edit.id
-    WHERE edit.status = ? AND esc.editor = ? AND esc.available
+    SELECT edit FROM
+      (SELECT edit, esc.editor FROM edit_release er
+        JOIN editor_collection_release ecr ON er.release = ecr.release
+        JOIN editor_subscribe_collection esc ON esc.collection = ecr.collection
+        WHERE esc.available
+      UNION
+      SELECT edit, esc.editor FROM edit_event ee
+        JOIN editor_collection_event ece ON ee.event = ece.event
+        JOIN editor_subscribe_collection esc ON esc.collection = ece.collection
+        WHERE esc.available) ce
+      JOIN edit ON ce.edit = edit.id
+    WHERE edit.status = ? AND ce.editor = ?
     UNION
     SELECT edit FROM edit_series es
     JOIN editor_subscribe_series ess ON ess.series = es.series
@@ -313,8 +335,8 @@ AND NOT EXISTS (
     WHERE vote.edit = edit.id
     AND vote.editor = ?
 )
-ORDER BY open_time ASC
-OFFSET ?";
+ORDER BY id ASC
+OFFSET ? LIMIT $EDIT_COUNT_LIMIT";
 
     return query_to_list_limited(
         $self->sql, $offset, $limit,
@@ -332,32 +354,25 @@ OFFSET ?";
 sub subscribed_editor_edits {
     my ($self, $editor_id, $limit, $offset) = @_;
 
-    my @editor_ids = @{
-        $self->c->sql->select_single_column_array(
-            'SELECT subscribed_editor FROM editor_subscribe_editor
-              WHERE editor = ?',
-            $editor_id)
-    } or return;
-
     my $query =
         'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
         ' WHERE status = ?
-            AND editor IN (' . placeholders(@editor_ids) . ')
+            AND editor IN (SELECT subscribed_editor FROM editor_subscribe_editor WHERE editor = ?)
             AND NOT EXISTS (
                 SELECT TRUE FROM vote
                  WHERE vote.edit = edit.id
                    AND vote.editor = ?
                    AND vote.superseded = FALSE
                 )
-       ORDER BY open_time ASC
-         OFFSET ?';
+       ORDER BY id ASC
+         OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
 
     return query_to_list_limited(
         $self->sql, $offset, $limit,
         sub {
             return $self->_new_from_row(shift);
         },
-        $query, $STATUS_OPEN, @editor_ids, $editor_id, $offset);
+        $query, $STATUS_OPEN, $editor_id, $editor_id, $offset);
 }
 
 sub merge_entities

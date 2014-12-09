@@ -131,12 +131,12 @@
                  ['BETWEEN', l('is between') ] ], field_contents) %]
 
   <span style="display:none" class="arg">
-    <input type="text" name="args.0" size="10" value="[% html_escape(field_contents.argument(0)) %]" />
+    <input type="number" name="args.0" size="10" value="[% html_escape(field_contents.argument(0)) %]" />
   </span>
 
   <span style="display:none" class="arg">
     &#x2013;
-    <input type="text" name="args.1" size="10" value="[% html_escape(field_contents.argument(1)) %]" />
+    <input type="number" name="args.1" size="10" value="[% html_escape(field_contents.argument(1)) %]" />
   </span>
 [% END %]
 
@@ -148,12 +148,12 @@
                  ['BETWEEN', l('is between') ] ], field_contents) %]
 
   <span style="display:none" class="arg">
-    <input type="text" name="args.0" size="6" value="[% html_escape(field_contents.argument(0)) %]" />
+    <input type="number" name="args.0" size="6" value="[% html_escape(field_contents.argument(0)) %]" />
   </span>
 
   <span style="display:none" class="arg">
     &#x2013;
-    <input type="text" name="args.1" size="6" value="[% html_escape(field_contents.argument(1)) %]" />
+    <input type="number" name="args.1" size="6" value="[% html_escape(field_contents.argument(1)) %]" />
   </span>
 [% END %]
 
@@ -229,7 +229,7 @@
                  [ '!=', l('is not') ] ], field_contents) %]
 
   <span class="autocomplete [% autocomplete_name %]">
-      <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+      <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
       <input type="text" class="name" name="name" value="[% html_escape(field_contents.name) %]" style="width: 170px;" />
       <input type="hidden" class="gid" />
       <input type="hidden" class="id" name="args.0" value="[% html_escape(field_contents.argument(0)) %]" />
@@ -261,7 +261,7 @@
                ], field_contents) %]
 
   <span class="arg autocomplete [% field | replace('_', '-') %]">
-      <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+      <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
       <input type="text" class="name" name="name" value="[% html_escape(field_contents.name) %]" style="width: 170px;" />
       <input type="hidden" class="gid" />
       <input type="hidden" class="id" name="args.0" value="[% html_escape(field_contents.argument(0)) %]"  />

@@ -65,7 +65,7 @@
             <input type="checkbox" data-bind="checked: enabled, disable: loading, attr: {id: 'graph-control-checker' + name }" />
             <div class="graph-color-swatch" data-bind="style: { backgroundColor: color }"></div>
             <span data-bind="text: label"></span>
-        </div> 
+        </div>
     </div>
 </script>
 [%~ PROCESS "statistics/macros-footer.tt" ~%]
@@ -79,7 +79,7 @@
             c.model('FileCache').template_signature('statistics/view_js.tt'),
             'statistics/view.js') -%]"></script>
 
-[%~ script_manifest('statistics.js.manifest') ~%]
+[%~ script_manifest('statistics.js') ~%]
 
 <script type="text/javascript">
     MB.Timeline.TimelineViewModel.addLines([

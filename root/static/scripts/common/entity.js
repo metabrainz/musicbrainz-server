@@ -105,7 +105,7 @@
             "<% } %>><bdi><%- data.name %></bdi></a><% if (data.comment) { %> " +
             "<span class=\"comment\">(<%- data.comment %>)</span><% } %>" +
             "<% if (data.video) { %> <span class=\"comment\">" +
-            "(<%- data.video %>)</span><% } %>" +
+            "(<%- data.videoString %>)</span><% } %>" +
             "<% if (data.editsPending) { %></span><% } %>",
             null,
             {variable: "data"}
@@ -153,6 +153,8 @@
 
     MB.entity.Artist = aclass(MB.entity.CoreEntity, { entityType: "artist" });
 
+    MB.entity.Event = aclass(MB.entity.CoreEntity, { entityType: "event" });
+
     MB.entity.Instrument = aclass(MB.entity.CoreEntity, { entityType: "instrument" });
 
     MB.entity.Label = aclass(MB.entity.CoreEntity, { entityType: "label" });
@@ -182,10 +184,7 @@
 
         around$html: function (supr, params) {
             params = params || {};
-
-            if (this.video) {
-                params.video = MB.text.Video;
-            }
+            params.videoString = MB.text.Video;
             return supr(params);
         },
 
@@ -460,6 +459,7 @@
 
     var coreEntityMapping = {
         artist:        MB.entity.Artist,
+        event:         MB.entity.Event,
         instrument:    MB.entity.Instrument,
         label:         MB.entity.Label,
         area:          MB.entity.Area,

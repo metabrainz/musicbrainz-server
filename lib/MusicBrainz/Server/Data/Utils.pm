@@ -28,6 +28,7 @@ use Scalar::Util 'blessed';
 use Sql;
 use Storable;
 use Text::Trim qw();
+use Unicode::Normalize qw( NFC );
 
 our @EXPORT_OK = qw(
     add_partial_date_to_row
@@ -35,7 +36,6 @@ our @EXPORT_OK = qw(
     artist_credit_to_ref
     check_data
     check_in_use
-    collapse_whitespace
     copy_escape
     coordinates_to_hash
     defined_hash
@@ -62,7 +62,7 @@ our @EXPORT_OK = qw(
     query_to_list_limited
     ref_to_type
     remove_equal
-    remove_invalid_characters
+    sanitize
     take_while
     trim
     type_to_model
@@ -316,7 +316,6 @@ sub add_coordinates_to_row
         undef;
 }
 
-
 sub collapse_whitespace {
     my $t = shift;
 
@@ -329,15 +328,52 @@ sub collapse_whitespace {
     return $t;
 }
 
+sub sanitize {
+    my $t = shift;
+
+    $t = NFC($t);
+    $t = remove_invalid_characters($t);
+    $t = remove_direction_marks($t);
+    $t = collapse_whitespace($t);
+
+    return $t;
+}
+
 sub trim {
     my $t = shift;
 
-    $t = remove_invalid_characters($t);
+    $t = sanitize($t);
 
     # Remove leading and trailing space
     $t = Text::Trim::trim($t);
 
-    return collapse_whitespace($t);
+    return $t;
+}
+
+sub remove_direction_marks {
+    my $t = shift;
+
+    # Remove LRM/RLM between strong characters
+    #   (start/end of string are treated like strong characters, too)
+    $t =~ s {
+                 (
+                     \A | [\p{Bidi_Class=Left_To_Right}\p{Bidi_Class=Right_To_Left}\p{Bidi_Class=Arabic_Letter}]
+                 )
+                 [\x{200E}\x{200F}]+
+                 (?= # look-ahead, so that the character is not consumed and can match on the next iteration
+                     \z | [\p{Bidi_Class=Left_To_Right}\p{Bidi_Class=Right_To_Left}\p{Bidi_Class=Arabic_Letter}]
+                 )
+            } {$1}gx;
+
+    # Remove LRM/RLM from strings without RTL characters
+    my $stripped = $t; $stripped =~ s/[\x{200E}\x{200F}]//g;
+    unless ($stripped =~ /[\p{Bidi_Class=Right_To_Left}\p{Bidi_Class=Arabic_Letter}]/)
+        # The test must be done on $stripped because RLM is in Right_To_Left itself.
+    {
+        return $stripped;
+    } else {
+        return $t;
+    }
 }
 
 sub remove_invalid_characters {

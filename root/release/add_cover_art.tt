@@ -1,5 +1,5 @@
 [%- WRAPPER "release/layout.tt" title=lp('Add Cover Art', 'header') page='add_cover_art' -%]
-  [%- script_manifest('edit.js.manifest') -%]
+  [%- script_manifest('edit.js') -%]
 
   <script type="text/javascript">//<![CDATA[
     MB.cover_art_types_json = [% cover_art_types_json %];
@@ -7,9 +7,16 @@
 
   <h2>[%- lp('Add Cover Art', 'header') -%]</h2>
 
-  <noscript>
-    <p>[% l('This page requires JavaScript.') %]</p>
-  </noscript>
+  [%~ javascript_required() ~%]
+
+  <div style="display:none">[% warning(l('The Cover Art Archive is currently experiencing difficulties. Adding images for this release is unlikely to work at the moment.'), 'caa-warning') %]</div>
+  <script type="text/javascript">
+    $.getJSON("//s3.us.archive.org/?check_limit=1&accesskey=[% access_key %]&bucket=mbid-[% entity.gid %]", function (data) {
+        if (data.over_limit == 1) {
+            $(".caa-warning").parent().toggle();
+        }
+    });
+  </script>
 
   <form id="add-cover-art" class="cover-art" action="[% c.req.uri %]" method="post" >
     [%- USE r = FormRenderer(form) -%]
@@ -34,10 +41,10 @@
         <tr>
           <td class="uploader-preview-column">
               <img class="uploader-preview-image" data-bind="attr: {src: data_uri()}, visible: data_uri() != ''" />
-              <input type="button" class="icon file-up"
-                     title="[% l('Move file up') %]" style="float: right;" />
-              <input type="button" class="icon file-down"
-                     title="[% l('Move file down') %]" style="clear: right; float: right;" />
+              <button type="button" class="icon file-up"
+                     title="[% l('Move file up') %]" style="float: right;"></button>
+              <button type="button" class="icon file-down"
+                     title="[% l('Move file down') %]" style="clear: right; float: right"></button>
           </td>
           <td>
             <div class="status" style="float: right; width: 264px;">
@@ -83,7 +90,7 @@
             </div>
             <div class="cover-art-types-help row" data-bind="visible: status() == 'waiting'">
               <label>&nbsp;</label>
-              <p>[%- l('Please see the <a href="{doc}" target="_blank">Cover Art Types</a> documentation for a description of these types.', {doc => doc_link('Cover_Art/Types')}) -%]</p>
+              <p>[%- l('Please see the {doc|Cover Art Types} documentation for a description of these types.', { doc => { href => doc_link('Cover_Art/Types'), target => '_blank' } }) -%]</p>
             </div>
             <div class="comment row" data-bind="visible: status() == 'waiting'">
               <label>[%- l('Comment:') -%]</label>
@@ -136,7 +143,7 @@
     <div style="clear: left;"> </div>
 
     [%- INCLUDE 'forms/edit-note.tt' -%]
-    [%- as_auto_editor() -%]
+    [%- make_votable() -%]
     <div class="row no-label buttons">
         <button id="add-cover-art-submit" type="submit" disabled="disabled"
                 class="submit positive">[% l('Enter edit') %]</button>

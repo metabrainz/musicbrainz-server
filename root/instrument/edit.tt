@@ -1,3 +1,0 @@
-[%- WRAPPER 'instrument/layout.tt' title=l('Edit Instrument') full_width=1 page='edit' -%]
-   [%- INCLUDE 'instrument/edit_form.tt' -%]
-[%- END -%]

@@ -19,11 +19,9 @@ our @EXPORT_OK = qw(
 #        Collection
 #        Instrument
 #        Medium
-#        Recording
 #        Relationship
 #        Series
 #        URL
-#        Work
 
 my %serializers =
     map {
@@ -35,8 +33,10 @@ my %serializers =
         Artist
         Label
         Place
+        Recording
         Release
         ReleaseGroup
+        Work
     );
 
 sub serializer

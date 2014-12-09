@@ -5,7 +5,6 @@
 /admin/apache/startup.pl
 /root/robots.txt
 /blib
-/inc
 /lib/DBDefs.pm
 /Makefile
 /META.yml
