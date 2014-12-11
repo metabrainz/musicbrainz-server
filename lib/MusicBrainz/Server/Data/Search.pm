@@ -646,11 +646,7 @@ sub schema_fixup
         }
     }
 
-    # BUG? On occasion an artist-credit object hash shows up nested inside an artist-credit array
-    # for a recording search: recording[]>releases[]>media[]>track[]>artist-credit{}>artist-credit[]
-    if (defined $data->{'artist_credit'} &&
-        ref($data->{'artist_credit'}) eq 'ARRAY')
-    {
+    if (defined $data->{'artist_credit'}) {
         my @credits;
         foreach my $namecredit (@{$data->{"artist_credit"}})
         {
@@ -818,16 +814,10 @@ sub external_search
             undef;
 
         # Use types as provided by jsonnew format
-        $xmltype =~ s/annotation/annotations/;
-        $xmltype =~ s/area/areas/;
-        $xmltype =~ s/cdstub/cdstubs/;
-        $xmltype =~ s/editor/editors/;
+        if ($type ~~ [qw(area artist event instrument label place recording release release-group work annotation cdstub editor)]) {
+            $xmltype .= "s";
+        }
         $xmltype =~ s/freedb/freedb-discs/;
-        $xmltype =~ s/instrument/instruments/;
-        $xmltype =~ s/label/labels/;
-        $xmltype =~ s/place/places/;
-        $xmltype =~ s/release$/releases/;
-        $xmltype =~ s/release-group/release-groups/;
 
         foreach my $t (@{$data->{$xmltype}})
         {
