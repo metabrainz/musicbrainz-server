@@ -28,7 +28,7 @@ around serialize => sub {
         $ret->{byArtist} = list_or_single(map { serialize_entity($_->artist, $inc, $stash) } @{ $entity->artist_credit->names });
     }
 
-    if (release_type($entity->primary_type)) {
+    if ($entity->primary_type && release_type($entity->primary_type)) {
         $ret->{hasAlbumReleaseType} = release_type($entity->primary_type);
     }
 
