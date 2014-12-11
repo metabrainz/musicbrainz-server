@@ -22,6 +22,10 @@ around serialize => sub {
         $ret->{albumRelease} = list_or_single(@releases);
     }
 
+    if ($entity->artist_credit && scalar $entity->artist_credit->names) {
+        $ret->{byArtist} = list_or_single(map { serialize_entity($_->artist, $inc, $stash) } @{ $entity->artist_credit->names });
+    }
+
     return $ret;
 };
 
