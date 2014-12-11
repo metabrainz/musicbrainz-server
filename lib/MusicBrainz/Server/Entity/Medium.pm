@@ -122,6 +122,22 @@ sub length {
     }
 }
 
+has 'has_pregap' => (
+    is => 'rw',
+    isa => 'Bool',
+);
+
+# If the medium has pregap/data tracks, they're excluded from this count.
+has 'cdtoc_track_count' => (
+    is => 'rw',
+    isa => 'Int',
+);
+
+sub cdtoc_tracks {
+    my ($self) = @_;
+    return [ grep { $_->position > 0 && !$_->is_data_track } $self->all_tracks ];
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

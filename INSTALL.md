@@ -30,7 +30,7 @@ Prerequisites
     PostgreSQL is required, along with its development libraries. To install
     using packages run the following, replacing 9.x with the latest version.
 
-        sudo apt-get install postgresql-9.x postgresql-server-dev-9.x postgresql-contrib-9.x
+        sudo apt-get install postgresql-9.x postgresql-server-dev-9.x postgresql-contrib-9.x postgresql-plperl-9.x
 
     Alternatively, you may compile PostgreSQL from source, but then make sure to
     also compile the cube extension found in contrib/cube. The database import
@@ -66,8 +66,31 @@ Prerequisites
     in lib/DBDefs.pm.  The defaults should be fine if you don't use
     your redis install for anything else.
 
+7.  Node.js
 
-7.  Standard Development Tools
+    Node.js is required to build (and optionally minify) our JavaScript and CSS.
+    If you plan on accessing musicbrainz-server inside a web browser, you should
+    install Node. Do this by running:
+
+        sudo apt-get install nodejs
+
+    Node dependencies are managed using `npm`, which comes installed with the
+    nodejs package. To install these dependencies, run the following inside the
+    musicbrainz-server/ checkout:
+
+        npm install
+
+    Node dependencies are installed under ./node_modules.
+
+    We use Gulp as our JavaScript/CSS build system. This will be installed after
+    running the above. Calling `gulp` on its own will build everything necessary
+    to access the server in a web browser. It can be invoked by:
+
+        ./node_modules/.bin/gulp
+
+    If you'd like, you can add ./node_modules/.bin to your $PATH.
+
+8.  Standard Development Tools
 
     In order to install some of the required Perl and Postgresql modules, you'll
     need a C compiler and make. You can install a basic set of development tools
@@ -128,7 +151,7 @@ Server configuration
 
     If you chose RT_SLAVE, please ensure that there is a configuration for
     both READONLY and READWRITE, or the server will not function correctly.
-    (Both can be configured the same in a simple setup).
+    (Both can be configured the same in a simple setup.)
 
 
 Installing Perl dependencies
@@ -160,18 +183,28 @@ Below outlines how to setup MusicBrainz server with local::lib.
 
         echo 'eval $( perl -Mlocal::lib )' >> ~/.bashrc
 
-    Next either close and open your shell again, or you can run:
+    Next, to reload your configuration, either close and open your shell again,
+    or run:
 
         source ~/.bashrc
 
-    To reload your configuration.
-
 2.  Install dependencies
 
-    To install the dependencies for MusicBrainz server, first make sure you are
+    First install one module as a system package (it is used by a database
+    function):
+
+        sudo apt-get install libjson-xs-perl
+
+    To install the other dependencies for MusicBrainz Server, make sure you are
     in the MusicBrainz source code directory and run the following:
 
         cpanm --installdeps --notest .
+
+    (Do not overlook the dot at the end of that command.) This may install an
+    incompatible version of MooseX::Role::Parameterized; to downgrade to a
+    suitable version, run:
+
+        cpanm SARTAK/MooseX-Role-Parameterized-1.02.tar.gz
 
 
 Creating the database
@@ -201,21 +234,11 @@ Creating the database
         sudo make install
         cd ..
 
-    Note: If you are using Ubuntu 11.10, the collate extension currently does
-    not work with gcc 4.6 and needs to be built with an older version such as
-    gcc 4.4. To do this, run the following:
-
-        sudo apt-get install gcc-4.4
-        cd postgresql-musicbrainz-collate
-        CC=gcc-4.4 make -e
-        sudo make install
-        cd ..
-
 
 2.  Setup PostgreSQL authentication
 
     For normal operation, the server only needs to connect from one or two OS
-    users (whoever your web server / crontabs run as), to one database (the
+    users (whoever your web server/crontabs run as), to one database (the
     MusicBrainz Database), as one PostgreSQL user. The PostgreSQL database name
     and user name are given in DBDefs.pm (look for the `READWRITE` key).  For
     example, if you run your web server and crontabs as "www-user", the
@@ -234,6 +257,9 @@ Creating the database
 
         local   all    all    trust
 
+    Note that a running PostgreSQL will pick up changes to configuration files
+    only when being told so via a `HUP` signal.
+
 
 3.  Create the database
 
@@ -251,6 +277,8 @@ Creating the database
 
         Our database dumps are provided twice a week and can be downloaded from
         ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/
+        or the European mirror server at
+        ftp://eu.ftp.musicbrainz.org/MusicBrainz/data/fullexport/
 
         To get going, you need at least the mbdump.tar.bz2,
         mbdump-editor.tar.bz2 and mbdump-derived.tar.bz2 archives, but you can
@@ -298,12 +326,12 @@ server. Just run:
 
     plackup -Ilib -r
 
-Visiting http://your.machines.ip.address:5000 should now present you with
+Visiting http://your.machines.ip.address:5000/ should now present you with
 your own running instance of the MusicBrainz Server.
 
 If you'd like a more permanent setup,
-[the plackup documentation](https://metacpan.org/module/plackup) may prove
-useful in setting up a server such as nginx, using FastCGI.
+[the plackup documentation](https://metacpan.org/pod/plackup) may prove useful
+in setting up a server such as nginx, using FastCGI.
 
 Translations
 ------------
@@ -357,13 +385,13 @@ If you intend to run a server with translations, there are a few steps to follow
    * el => 'GR'
    * sl => 'SI' (this one is there in 1.20, but needs amendment)
 
+
 Troubleshooting
 ---------------
 
-If you have any difficulties, please feel free to contact ocharles or warp
-in #musicbrainz-devel on irc.freenode.net, or email the developer mailing
-list at musicbrainz-devel [at] lists.musicbrainz.org.
+If you have any difficulties, feel free to ask in #musicbrainz-devel on
+irc.freenode.net, or email the [developer mailing list](http://lists.musicbrainz.org/mailman/listinfo/musicbrainz-devel).
 
-Please report any issues on our [bug tracker](http://tickets.musicbrainz.org).
+Please report any issues on our [bug tracker](http://tickets.musicbrainz.org/).
 
 Good luck, and happy hacking!

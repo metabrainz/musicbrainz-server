@@ -13,8 +13,8 @@
   <!-- ko if: relationship().editsPending -->
     <p class="msg warning">
       [% l('Warning: This relationship has pending edits.
-            <a target="_blank" data-bind="attr: { href: relationship().openEdits() }">Click here</a>
-            to view these edits and make sure they do not conflict with your own.') %]
+            {show|Click here} to view these edits and make sure they do not conflict with your own.',
+           { show => { 'data-bind' => 'attr: { href: relationship().openEdits() }', target => '_blank' } }) %]
     </p>
   <!-- /ko -->
   <table>
@@ -43,7 +43,7 @@
     </td>
     <td>
       <span class="autocomplete">
-        <img class="search" src="../../../static/images/icons/search.png" />
+        <img class="search" src="../../../static/images/icons/search.png" alt="[% l('Search') %]"/>
         <input class="name" type="text" data-bind="relationshipEditorAutocomplete: $data" />
       </span>
       <div class="error" data-bind="text: targetEntityError()"></div>
@@ -116,15 +116,15 @@
       <td class="error" data-bind="text: $data"></td>
     </tr>
     <!-- /ko -->
+    <tr>
+      <td colspan="2">
+        <label>
+          <input type="checkbox" data-bind="checked: relationship().period.ended" />
+          [% l('This relationship has ended.') %]
+        </label>
+      </td>
+    </tr>
   <!-- /ko -->
-  <tr>
-    <td colspan="2">
-      <label>
-        <input type="checkbox" data-bind="checked: relationship().period.ended" />
-        [% l('This relationship has ended.') %]
-      </label>
-    </td>
-  </tr>
 </script>
 
 <script type="text/html" id="template.extra-attributes-and-dates">
@@ -142,21 +142,25 @@
 </script>
 
 <script type="text/html" id="template.edit-attribute">
-  <div>
+  <div class="attribute-container">
     <!-- ko ifnot: attribute.children || attribute.freeText -->
     <label>
-      <input type="checkbox" data-bind="checked: relationship.attributeValue(attribute.id)" />
+      <input type="checkbox" data-bind="checked: relationship.attributes, checkedValue: relationship.getAttribute(attribute.gid)" />
       <!-- ko text: attribute.l_name --><!-- /ko -->
     </label>
     <!-- /ko -->
     <!-- ko if: attribute.id == 14 -->
+      <!-- ko text: MB.i18n.expand(MB.text.AddColon, { variable: attribute.l_name }) --><!-- /ko -->
       <div data-bind="instrumentSelect: relationship">
         <!-- ko foreach: instruments -->
-          <div>
-            <span class="autocomplete" style="width: auto;">
+          <div class="instrument-selection-credit">
+            <span class="autocomplete">
               <input data-bind="autocomplete: { entity: 'instrument', currentSelection: $rawData }" />
-              <img class="search" src="/static/images/icons/search.png" />
+              <img class="search" src="/static/images/icons/search.png" alt="[% l('Search') %]" />
             </span>
+            <!-- ko with: $rawData.linkAttribute -->
+              <input type="text" class="attribute-credit" placeholder="[% l('credited as') %]" data-bind="value: credit" />
+            <!-- /ko -->
             <!-- ko if: $parent.instruments().length > 1 -->
               <button class="icon remove-item" data-bind="click: _.partial($parent.removeItem, $rawData)"></button>
             <!-- /ko -->
@@ -168,23 +172,23 @@
       </div>
     <!-- /ko -->
     <!-- ko if: attribute.children && max !== 1 && attribute.id != 14 -->
-      <!-- ko text: attribute.l_name --><!-- /ko -->
+      <!-- ko text: MB.i18n.expand(MB.text.AddColon, { variable: attribute.l_name }) --><!-- /ko -->
       <div class="multiselect" data-bind="
               component: {
                 name: 'multiselect',
                 params: {
-                  options: MB.forms.buildOptionsTree(attribute, 'l_name', 'id'),
+                  options: MB.forms.buildOptionsTree(attribute, 'l_name', 'gid'),
                   placeholder: attribute.id == 14 ? MB.text.FocusInstrument :
                                attribute.id == 3  ? MB.text.FocusVocal : '',
-                  valueObservable: relationship.attributeValue(attribute.id)
+                  relationship: relationship,
+                  attribute: attribute
                 }
               }"></div>
     <!-- /ko -->
     <!-- ko if: attribute.freeText -->
     <label>
       <!-- ko text: MB.i18n.expand(MB.text.AddColon, { variable: attribute.l_name }) --><!-- /ko -->
-      <input data-bind="value: relationship.attributeValue(attribute.id),
-                        valueUpdate: 'afterkeydown',
+      <input type="text" data-bind="textAttribute: { relationship: relationship, typeGID: attribute.gid }
                         attr: { placeholder: attribute.l_name }" />
     </label>
     <!-- /ko -->
@@ -196,8 +200,13 @@
 </script>
 
 <script type="text/html" id="template.multiselect">
-  <div class="items" data-bind="foreach: selectedOptions">
-    <a href="#" data-bind="html: '&#215; ' + _.escape(data.l_name)"></a>
+  <div class="items" data-bind="foreach: selectedAttributes">
+    <div>
+      <a href="#" data-bind="html: '&#215; ' + _.escape(type.l_name)"></a>
+      <!-- ko if: type.creditable -->
+        <input type="text" class="attribute-credit" placeholder="[% l('credited as') %]" data-bind="value: credit" />
+      <!-- /ko -->
+    </div>
   </div>
   <input class="multiselect-input" type="text" data-bind="value: term, valueUpdate: 'afterkeydown', attr: { placeholder: placeholder }, hasFocus: inputHasFocus" />
   <div class="menu" data-bind="visible: menuVisibleWithOptions()"></div>

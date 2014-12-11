@@ -6,6 +6,7 @@
 (function (RE) {
 
     var UI = RE.UI = RE.UI || {};
+    var fields = RE.fields = RE.fields || {};
 
 
     ko.bindingHandlers.relationshipEditorAutocomplete = (function () {
@@ -30,6 +31,10 @@
                         entity: dialog.targetType(),
 
                         setEntity: function (type) {
+                            if (dialog.disableTypeSelection) {
+                                return false;
+                            }
+
                             var possible = dialog.targetTypeOptions();
 
                             if (!_.find(possible, { value: type })) {
@@ -70,22 +75,44 @@
 
         init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
             var relationship = valueAccessor();
+            var instruments = ko.observableArray([]);
 
-            var initialData = _.map(ko.unwrap(relationship.attributeValue(14)), function (id) {
-                return ko.observable(MB.entity(MB.attrInfoByID[id], "instrument"));
-            });
+            function addInstrument(instrument, linkAttribute) {
+                var observable = ko.observable(instrument);
 
-            var instruments = ko.observableArray(initialData);
+                observable.linkAttribute = ko.observable(linkAttribute);
+                instruments.push(observable);
+
+                observable.subscribe(function (instrument) {
+                    var gid = instrument.gid;
+                    if (gid) {
+                        observable.linkAttribute(relationship.addAttribute(gid));
+                    } else {
+                        relationship.attributes.remove(observable.linkAttribute.peek());
+                        observable.linkAttribute(null);
+                    }
+                });
+            }
 
             function focusLastInput() {
                 $(element).find(".ui-autocomplete-input:last").focus();
+            }
+
+            _.each(relationship.attributes.peek(), function (attribute) {
+                if (attribute.type.rootID == 14) {
+                    addInstrument(MB.entity(attribute.type, "instrument"), attribute);
+                }
+            });
+
+            if (!instruments.peek().length) {
+                addInstrument(MB.entity.Instrument({}));
             }
 
             var vm = {
                 instruments: instruments,
 
                 addItem: function () {
-                    instruments.push(ko.observable(MB.entity.Instrument({})));
+                    addInstrument(MB.entity.Instrument({}));
                     focusLastInput();
                 },
 
@@ -93,6 +120,7 @@
                     var index = instruments.indexOf(item);
 
                     instruments.remove(item);
+                    relationship.attributes.remove(item.linkAttribute.peek());
 
                     index = index === instruments().length ? index - 1 : index;
                     var $nextButton = $(element).find("button.remove-item:eq(" + index + ")");
@@ -104,23 +132,6 @@
                     }
                 }
             };
-
-            if (!initialData.length) vm.addItem();
-
-            function getID(observable) {
-                var gid = observable().gid
-
-                return gid && MB.attrInfoByID[gid].id;
-            }
-
-            ko.computed({
-                read: function () {
-                    relationship.attributeValue(
-                        14, _(instruments()).map(getID).compact().sortBy().value()
-                    );
-                },
-                disposeWhenNodeIsRemoved: element
-            });
 
             var childBindingContext = bindingContext.createChildContext(vm);
             ko.applyBindingsToDescendants(childBindingContext, element);
@@ -358,6 +369,7 @@
 
             var entityTypes = [this.source.entityType, newType].sort().join("-");
             data.linkTypeID = defaultLinkType({ children: MB.typeInfo[entityTypes] });
+            data.attributes = [];
 
             var newRelationship = this.viewModel.getRelationship(data, this.source);
 
@@ -382,8 +394,7 @@
             } else if (typeInfo.deprecated) {
                 return MB.text.RelationshipTypeDeprecated;
             } else if (this.source.entityType === "url") {
-                var linkType = typeInfo.id;
-                var checker = MB.editURLCleanup.validationRules[linkType];
+                var checker = MB.editURLCleanup.validationRules[typeInfo.gid];
 
                 if (checker && !checker(this.source.name())) {
                     return MB.text.URLNotAllowed;
@@ -403,8 +414,8 @@
             }
 
             if (target.entityType === "series" &&
-                    target.type.entityType !== this.source.entityType) {
-                return MB.text.IncorrectEntityForSeries[target.type.entityType];
+                    target.type().entityType !== this.source.entityType) {
+                return MB.text.IncorrectEntityForSeries[target.type().entityType];
             }
 
             return "";
@@ -443,6 +454,30 @@
         }
     });
 
+    function addRelationships(source, relationships) {
+        var linkType = relationships[0].linkTypeInfo();
+
+        for (var i = 0, len = relationships.length; i < len; i++) {
+            relationship = relationships[i];
+
+            if (source.mergeRelationship(relationship)) {
+                continue;
+            }
+
+            if (linkType.orderableDirection) {
+                var maxLinkOrder = -Infinity,
+                    sourceRelationships = source.relationships();
+
+                for (var i = 0, r; r = sourceRelationships[i]; i++) {
+                    if (r.linkTypeID.peek() === linkType.id) {
+                        maxLinkOrder = Math.max(maxLinkOrder, r.linkOrder.peek() || 0);
+                    }
+                }
+                relationship.linkOrder(_.isFinite(maxLinkOrder) ? (maxLinkOrder + 1) : 1);
+            }
+            relationship.show();
+        }
+    }
 
     UI.AddDialog = aclass(Dialog, {
 
@@ -450,21 +485,7 @@
         disableTypeSelection: false,
 
         augment$accept: function () {
-            var source = this.source;
-            var relationship = this.relationship();
-
-            if (!source.mergeRelationship(relationship)) {
-                var linkType = relationship.linkTypeInfo();
-
-                if (linkType.orderableDirection) {
-                    var maxLinkOrder = _(source.relationships())
-                        .filter(function (r) { return r.linkTypeID() === linkType.id })
-                        .invoke("linkOrder").max().value();
-
-                    relationship.linkOrder(_.isFinite(maxLinkOrder) ? (maxLinkOrder + 1) : 1);
-                }
-                relationship.show();
-            }
+            addRelationships(this.source, splitByCreditableAttributes(this.relationship()));
         },
 
         before$close: function (cancel) {
@@ -490,7 +511,14 @@
         },
 
         augment$accept: function () {
-            this.editing.fromJS(this.relationship().editData());
+            var relationships = splitByCreditableAttributes(this.relationship()),
+                relationship = relationships.shift();
+
+            this.editing.fromJS(relationship.editData());
+
+            if (relationships.length) {
+                addRelationships(this.source, relationships);
+            }
         },
 
         before$close: function (cancel) {
@@ -530,11 +558,7 @@
                 model = _.clone(model);
 
                 if (!callback || callback(model)) {
-                    var newRelationship = vm.getRelationship(model, source);
-
-                    if (!source.mergeRelationship(newRelationship)) {
-                        newRelationship.show();
-                    }
+                    addRelationships(source, splitByCreditableAttributes(vm.getRelationship(model, source)));
                 }
             });
         }
@@ -569,7 +593,7 @@
                 return MB.edit.workCreate(editData);
             });
 
-            MB.edit.create({ editNote: "", asAutoEditor: true, edits: edits })
+            MB.edit.create({ editNote: "", makeVotable: false, edits: edits })
                 .done(function (data) {
                     var works = _.pluck(data.edits, "entity");
 
@@ -601,6 +625,40 @@
                 return id;
             }
         }
-    };
+    }
+
+    function isCreditable(attribute) {
+        return attribute.type.creditable;
+    }
+
+    function linkAttributeTypeID(attribute) {
+        return attribute.type.id;
+    }
+
+    function splitByCreditableAttributes(relationship) {
+        var attributes = relationship.attributes(),
+            creditable = _.filter(attributes, isCreditable),
+            relationships = [relationship];
+
+        if (!creditable.length) {
+            return relationships;
+        }
+
+        var notCreditable = _.reject(attributes, isCreditable);
+
+        function split(attribute) {
+            var newRelationship = relationship.clone();
+            newRelationship.setAttributes(notCreditable.concat([attribute]));
+            relationships.push(newRelationship);
+        }
+
+        _(creditable).groupBy(linkAttributeTypeID).each(function (attributes) {
+            var extra = _.rest(attributes);
+            relationship.attributes.removeAll(extra);
+            _.each(extra, split);
+        });
+
+        return relationships;
+    }
 
 }(MB.relationshipEditor = MB.relationshipEditor || {}));

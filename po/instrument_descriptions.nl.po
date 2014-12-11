@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-08-08 21:17+0000\n"
+"PO-Revision-Date: 2014-10-30 17:23+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -109,6 +109,13 @@ msgstr "De pijperfluit is een kleine dwarsfluit, vergelijkbaar met de piccolo, m
 #: DB:instrument/description:523
 msgid "A five-string banjo is a banjo with five strings."
 msgstr "Een vijfsnarige banjo is een banjo met vijf snaren."
+
+#. name:flute
+#: DB:instrument/description:13
+msgid ""
+"A flute is an aerophone or reedless wind instrument that produces its sound "
+"from the flow of air across an opening."
+msgstr "Een fluit is een aerofoon zonder riet die geluid produceert door lucht langs een opening te laten blazen."
 
 #. name:four-string banjo
 #: DB:instrument/description:656
@@ -219,7 +226,7 @@ msgid ""
 "of an instrument."
 msgstr "Een talkbox of jappiotube is een apparaat waarmee geluidseffecten kunnen worden opgewekt, door het geluid van een instrument via een slang in de mond van de speler te brengen."
 
-#. name:tar (drum)
+#. name:tar
 #: DB:instrument/description:607
 msgid ""
 "A tar is a single-headed frame drum from North Africa and the Middle East."
@@ -393,11 +400,6 @@ msgid ""
 "Ching are a pair of small hand cymbals used in Thai and Cambodian music."
 msgstr "Ching zijn een paar kleine handbekkens die worden gebruikt bij muziek uit Thailand en Cambodja."
 
-#. name:conch
-#: DB:instrument/description:156
-msgid "Conch shell"
-msgstr "Schelp van een weekdier waarop geblazen wordt."
-
 #. name:crumhorn
 #: DB:instrument/description:348
 msgid "Crumhorn used in the 14th to 17th centuries in Europe"
@@ -428,7 +430,14 @@ msgstr "Doundoun (ook wel doun, dundun, doudoun of djundjun genoemd) is een fami
 msgid ""
 "EWI (an acronym for electric wind instrument) is the name of Akai's wind "
 "controller."
-msgstr "EWI is een afkorting voor Electric Wind Instrument en is de naam van Akai's blaas-synthesizer."
+msgstr "EWI is een afkorting voor Electric Wind Instrument en is de naam van Akai’s blaas-synthesizer."
+
+#. name:effects
+#: DB:instrument/description:677
+msgid ""
+"Effects refers to devices which enable a musician to modify the sound of an "
+"instrument."
+msgstr "Effecten staat voor apparaten die door een artiest worden gebruikt om het geluid van een instrument te bewerken."
 
 #. name:electric fretless guitar
 #: DB:instrument/description:538
@@ -479,7 +488,7 @@ msgstr "Een harde schijf die is ingesteld om in een patroon geluiden te maken."
 #. name:huqin
 #: DB:instrument/description:213
 msgid "Huqin is a Chinese family of bowed string instruments."
-msgstr "De huqin (胡琴; pinyin: húqín) is een familie van Chinese strijkinstrumenten."
+msgstr "De huqin (胡琴, pinyin: húqín) is een familie van Chinese strijkinstrumenten."
 
 #. name:taiko
 #: DB:instrument/description:378
@@ -596,14 +605,7 @@ msgstr "Een dubbelrietinstrument met een conisch geboorde buis met een licht tre
 #. name:oboe d'amore
 #: DB:instrument/description:473
 msgid "Oboe d'amore / Oboe d'amour (mezzo-soprano)"
-msgstr "Oboe d'amore / Liefdeshobo (mezzo-sopraan)."
-
-#. name:other flutes
-#: DB:instrument/description:195
-msgid ""
-"Other flutes. If you can't find an instrument, please request it at "
-"http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree"
-msgstr "Overige fluiten. Als u een instrument niet kan vinden, kunt u er een verzoek voor indienen op http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree"
+msgstr "Oboe d’amore / Liefdeshobo (mezzo-sopraan)."
 
 #. name:other instruments
 #: DB:instrument/description:141
@@ -663,7 +665,7 @@ msgstr "Phách zijn houten stokjes die op een klein stuk bamboe of een houten bl
 #. name:pi
 #: DB:instrument/description:667
 msgid "Pi is a family of quadruple reed oboes from Thailand."
-msgstr "Pi (Thai: ปี่) is een familie van hobo's uit Thailand met vier rieten."
+msgstr "Pi (Thai: ปี่) is een familie van hobo’s uit Thailand met vier rieten."
 
 #. name:pí thiu
 #: DB:instrument/description:339
@@ -776,6 +778,13 @@ msgid ""
 "Carnatic music."
 msgstr "De saraswati veena (ook wel saraswati vina) is een Indiaas tokkelinstrument dat gebruikt wordt in Carnatische muziek."
 
+#. name:Schwyzerörgeli
+#: DB:instrument/description:679
+msgid ""
+"The Schwyzerörgeli is a type of diatonic button accordion used in Swiss folk"
+" music."
+msgstr "Een Schwyzerörgeli is een soort diatonische knopaccordeon die gebruikt wordt voor Zwitserse volksmuziek."
+
 #. name:Stroh violin
 #: DB:instrument/description:451
 msgid ""
@@ -850,7 +859,7 @@ msgid ""
 "instruments are known collectively as <a "
 "href=\"http://en.wikipedia.org/wiki/Guban_(instrument)\">guban</a> (Chinese:"
 " 鼓板, gǔbǎn)."
-msgstr "De bangu (Chinees: 板鼓; pinyin: bǎngǔ), ook bekend als danpigu (Chinees: 單皮鼓 of 单皮鼓, pinyin: dānpígǔ) is een Chinese lijsttrommel die met twee stokken van bamboe wordt bespeeld. (<a href=\"http://en.wikipedia.org/wiki/Bangu_(drum)\">Wikipedia</a>). Het wordt meestal samen met Chinese ban-kleppers (Chinees: 板, pinyin: bǎn) bespeeld. De combinatie van de twee instrumenten wordt guban (Chinees: 鼓板, pinyin: gǔbǎn) genoemd."
+msgstr "De bangu (Chinees: 板鼓, pinyin: bǎngǔ), ook bekend als danpigu (Chinees: 單皮鼓 of 单皮鼓, pinyin: dānpígǔ) is een Chinese lijsttrommel die met twee stokken van bamboe wordt bespeeld. (<a href=\"http://en.wikipedia.org/wiki/Bangu_(drum)\">Wikipedia</a>). Het wordt meestal samen met Chinese ban-kleppers (Chinees: 板, pinyin: bǎn) bespeeld. De combinatie van de twee instrumenten wordt guban (Chinees: 鼓板, pinyin: gǔbǎn) genoemd."
 
 #. name:banhu
 #: DB:instrument/description:221
@@ -996,7 +1005,7 @@ msgstr "Een concertfluit is een dwarsfluit en het meest voorkomende soort fluit 
 msgid ""
 "The cornamuse is a double reed instrument from the Renaissance, similar to "
 "the crumhorn but with a closed bell."
-msgstr "De cornamuse is een dubbelrietinstrument uit de Renaissance. (<a href=\"http://en.wikipedia.org/wiki/Cornamuse\">Wikipedia</a>)"
+msgstr "De cornamuse is een dubbelrietinstrument uit de Renaissance."
 
 #. name:cornet
 #: DB:instrument/description:25
@@ -1056,7 +1065,7 @@ msgstr "De daluo (Chinees: 大鑼, pinyin: 大锣, dàluó) is een grote platte 
 msgid ""
 "The darbuka is an hourglass-shaped goblet drum from Greece, the Middle East "
 "and India."
-msgstr "Een darbuka (Arabisch: ‏دربكة;, ook wel daraboeka, derboeka of taramboeka genoemd) is een vaastrommel die vooral in de Balkan, in het Midden-Oosten en in Oost-Europa gebruikt wordt."
+msgstr "Een darbuka (Arabisch: ‏دربكة, ook wel daraboeka, derboeka of taramboeka genoemd) is een vaastrommel die vooral in de Balkan, in het Midden-Oosten en in Oost-Europa gebruikt wordt."
 
 #. name:daruan
 #: DB:instrument/description:546
@@ -1170,12 +1179,12 @@ msgstr "De erhu (Chinees: 二胡) is een Chinees strijkinstrument met twee snare
 msgid ""
 "The esraj is a bowed string instrument from Eastern and Central India, "
 "mostly used as an accompanying instrument"
-msgstr "De esraj (Bengaals: এস্রাজ; Hindi: इसराज) is een strijkinstrument uit Oost en Centraal India en wordt meestal gebruikt als begeleiding."
+msgstr "De esraj (Bengaals: এস্রাজ, Hindi: इसराज) is een strijkinstrument uit Oost en Centraal India en wordt meestal gebruikt als begeleiding."
 
 #. name:flûte d'amour
 #: DB:instrument/description:415
 msgid "The flûte d'amour is the mezzo-soprano instrument of the flute family."
-msgstr "Een flûte d'amour is een dwarsfluit die qua grootte tussen de concertfluit en de altfluit in zit."
+msgstr "Een flûte d’amour is een dwarsfluit die qua grootte tussen de concertfluit en de altfluit in zit."
 
 #. name:fourth flute
 #: DB:instrument/description:570
@@ -1222,7 +1231,7 @@ msgstr "De gehu (Chinees: 革胡, pinyin: géhú) is een Chinees strijkinstrumen
 msgid ""
 "The geomungo is a traditional Korean zither, based on the Chinese guqin, "
 "which typically has 6 strings."
-msgstr "Ook wel komungo of kŏmun'go of hyeongeum (letterlijk \"zwarte citer\", ook gespeld als hyongum of hyŏn'gŭm) is een traditionele Koreaanse citer met zes snaren en 16 fretten."
+msgstr "Ook wel komungo of kŏmun’go of hyeongeum (letterlijk ‘zwarte citer’, ook gespeld als hyongum of hyŏn’gŭm) is een traditionele Koreaanse citer met zes snaren en 16 fretten."
 
 #. name:glass harmonica
 #: DB:instrument/description:285
@@ -1238,6 +1247,13 @@ msgid ""
 "The gralla is a traditional Catalan double reed instrument in the oboe "
 "family."
 msgstr "De gralla is een traditionele Catalaans dubbelrietinstrument uit de familie van de hobo. Het instrument is ook bekend als xirimita."
+
+#. name:guan
+#: DB:instrument/description:683
+msgid ""
+"The guan is a Chinese double reed wind instrument made from hardwood or "
+"bamboo."
+msgstr "De guan (Traditioneel Chinees: 管, Vereenvoudigd Chinees:管, pinyin: guǎn) is een Chinees dubbelrietinstrument gemaakt van hardhout of bamboe."
 
 #. name:guitalele
 #: DB:instrument/description:645
@@ -1258,14 +1274,14 @@ msgstr "Een gubri (Arabisch: الكمبري) of sintir (Arabisch: سنتير) is
 msgid ""
 "The guqin is a plucked seven-string Chinese musical instrument of the zither"
 " family."
-msgstr "De guqin (Chinees: 古琴, ook bekend als gǔqín, ku-ch'in, qin of ch'in) is een Chinese citer met zeven snaren."
+msgstr "De guqin (Chinees: 古琴, ook bekend als gǔqín, ku-ch’in, qin of ch’in) is een Chinese citer met zeven snaren."
 
 #. name:guzheng
 #: DB:instrument/description:452
 msgid ""
 "The guzheng or zheng is a Chinese plucked zither, with 18 to 23 or more "
 "strings and movable bridges."
-msgstr "De guzheng (Chinees: 古箏; pinyin: gǔzhēng), ook wel zheng (Chinees: 箏, pinyin: zhēng) is een Chinese getokkelde citer met 18 tot 23 (meestal 21) snaren en beweegbare bruggen."
+msgstr "De guzheng (Chinees: 古箏, pinyin: gǔzhēng), ook wel zheng (Chinees: 箏, pinyin: zhēng) is een Chinese getokkelde citer met 18 tot 23 (meestal 21) snaren en beweegbare bruggen."
 
 #. name:haegeum
 #: DB:instrument/description:486
@@ -1277,7 +1293,14 @@ msgstr "Een haegeum is een traditioneel Koreaans snaarinstrument."
 msgid ""
 "The harmonica or blues harp is a type of mouth organ commonly found in "
 "blues, American folk, jazz, country and rock and roll music."
-msgstr "Een mondharmonica is een soort mondorgel en wordt veel gebruikt in de blues, Amerikaanse volksmuziek, jazz, country en rock 'n roll."
+msgstr "Een mondharmonica is een soort mondorgel en wordt veel gebruikt in de blues, Amerikaanse volksmuziek, jazz, country en rock ’n roll."
+
+#. name:harp guitar
+#: DB:instrument/description:681
+msgid ""
+"The harp guitar is a guitar-based string instrument with any number of "
+"additional unstopped strings which can accommodate individual plucking."
+msgstr "Een harpgitaar is een gitaar met een aantal toegevoegde snaren die net als een harp bespeeld kunnen worden."
 
 #. name:harp
 #: DB:instrument/description:58
@@ -1324,7 +1347,7 @@ msgstr "De jing is een grote gong die wordt gebruikt bij traditionele Koreaanse 
 msgid ""
 "The jing'erhu is a Chinese bowed string instrument, similar to the erhu, so "
 "named because is played in Beijing opera."
-msgstr "De jing'erhu (Chinees: 京二胡, pinyin: jīng'èrhú) is een Chinees strijkinstrument, vergelijkbaar met de erhu."
+msgstr "De jing’erhu (Chinees: 京二胡, pinyin: jīng’èrhú) is een Chinees strijkinstrument, vergelijkbaar met de erhu."
 
 #. name:jinghu
 #: DB:instrument/description:214
@@ -1341,7 +1364,7 @@ msgid ""
 "number of different sized bamboo tubes laid horizontally which are played by"
 " the musician clapping their slightly cupped hands in front of the tubes in "
 "order to push air into the tubes."
-msgstr "De k'lông pút (ook geschreven als klom put, klon put of klong put) is een instrument uit de centrale hooglanden van Vietnam en word bespeeld door etnische groepen zoals de Xơ Đăng en de Bahnar. Het bestaat uit een aantal liggende bamboebuizen van verschillende formaat die worden bespeeld door muzikanten die hun licht gebogen handen voor de buizen klappen om lucht door de buizen te stuwen."
+msgstr "De k’lông pút (ook geschreven als klom put, klon put of klong put) is een instrument uit de centrale hooglanden van Vietnam en word bespeeld door etnische groepen zoals de Xơ Đăng en de Bahnar. Het bestaat uit een aantal liggende bamboebuizen van verschillende formaat die worden bespeeld door muzikanten die hun licht gebogen handen voor de buizen klappen om lucht door de buizen te stuwen."
 
 #. name:kamancheh
 #: DB:instrument/description:503
@@ -1415,7 +1438,7 @@ msgstr "Een khong wong yai (Thai: ฆ้องวงใหญ่) is een cirkel 
 msgid ""
 "The khèn Mèo is a mouth organ used by the Hmong people. It has bamboo pipes "
 "(typically six) which each have a free reed."
-msgstr "De khèn Mèo is een mondorgel dat gebruikt wordt door de Hmong. Het heeft (meestal zes) buizen van bamboe en elk daarvan heeft een vrij riet. Andere namen voor het instrument zijn kềnh H'Mông en qeej."
+msgstr "De khèn Mèo is een mondorgel dat gebruikt wordt door de Hmong. Het heeft (meestal zes) buizen van bamboe en elk daarvan heeft een vrij riet. Andere namen voor het instrument zijn kềnh H’Mông en qeej."
 
 #. name:kkwaenggwari
 #: DB:instrument/description:498
@@ -1504,7 +1527,7 @@ msgstr "De kōauau is een kleine fluit van de Maori zonder bek van tien tot twin
 msgid ""
 "The lasso d'amore, whirly tube or corrugaphone is a corrugated plastic tube "
 "which is spun in a circle."
-msgstr "Een lasso d'amore is een geribbelde plastic buis die wordt rondgezwaaid om geluid te maken."
+msgstr "Een lasso d’amore is een geribbelde plastic buis die wordt rondgezwaaid om geluid te maken."
 
 #. name:launeddas
 #: DB:instrument/description:518
@@ -1583,7 +1606,7 @@ msgstr "De nohkan (Japans: 能管, nōkan) is een hoog klinkende bamboedwarsflui
 msgid ""
 "The nose flute is a flute played by the nose commonly found in countries in "
 "and around the Pacific."
-msgstr "De neusfluit of „nose flute“ (niet te verwarren met het neusfluitje of „nose whistle“) is een fluit die met de neus wordt bespeeld en vooral wordt gebruikt in de landen in en ronde de Stille Oceaan."
+msgstr "De neusfluit of ‘nose flute’ (niet te verwarren met het neusfluitje of ‘nose whistle’) is een fluit die met de neus wordt bespeeld en vooral wordt gebruikt in de landen in en ronde de Stille Oceaan."
 
 #. name:nose whistle
 #: DB:instrument/description:594
@@ -1592,7 +1615,7 @@ msgid ""
 "played with the nose. The stream of air is directed over an edge in the "
 "instrument and the frequency of the notes produced is controlled by the "
 "volume of air."
-msgstr "Het neusfluitje of „nose whistle“ (niet te verwarren met de neusfluit of „nose flute“), ook wel bekend onder de merknaam Humanatone, is een simpel instrument dat met de neus wordt bespeeld. Een luchtstroom wordt over een rand in het instrument geblazen en de frequentie van de gespeelde noten wordt bepaald door het luchtvolume."
+msgstr "Het neusfluitje of ‘nose whistle’ (niet te verwarren met de neusfluit of ‘nose flute’), ook wel bekend onder de merknaam Humanatone, is een simpel instrument dat met de neus wordt bespeeld. Een luchtstroom wordt over een rand in het instrument geblazen en de frequentie van de gespeelde noten wordt bepaald door het luchtvolume."
 
 #. name:oboe da caccia
 #: DB:instrument/description:572
@@ -1649,7 +1672,7 @@ msgid ""
 "The piri is a Korean double reed instrument made of bamboo, used in both the"
 " folk and classical (court) music of Korea. Related to the Chinese guan and "
 "Japanese hichiriki."
-msgstr "De piri (Koreaans: 피리, ook we pi'ri gespeld) is een Koreaans dubbelrietinstrument van bamboe, dat zowel in de volksmuziek als de klassieke muziek van Korea wordt gebruikt. Het is familie van de Chinese guan en de Japanse hichiriki."
+msgstr "De piri (Koreaans: 피리, ook we pi’ri gespeld) is een Koreaans dubbelrietinstrument van bamboe, dat zowel in de volksmuziek als de klassieke muziek van Korea wordt gebruikt. Het is familie van de Chinese guan en de Japanse hichiriki."
 
 #. name:post horn
 #: DB:instrument/description:626
@@ -1936,7 +1959,7 @@ msgstr "De sênh tiền is een Vietnamees instrument bestaande uit een combinati
 msgid ""
 "The t'rưng is a bamboo xylophone from the central highlands of Vietnam which"
 " is played by ethnic groups such as the Bahnar and the Ê Đê."
-msgstr "De t'rưng (t'rung) is een xylofoon van bamboe uit de centrale hooglanden van Vietnam en wordt bespeeld door etnische groepen zoals de Bahnar en de Ê Đê."
+msgstr "De t’rưng (t’rung) is een xylofoon van bamboe uit de centrale hooglanden van Vietnam en wordt bespeeld door etnische groepen zoals de Bahnar en de Ê Đê."
 
 #. name:tack piano
 #: DB:instrument/description:636
@@ -1973,7 +1996,7 @@ msgstr "De talharpa is een viersnarige lier die met strijkstok wordt bespeeld en
 msgid "The taphon is a traditional barrel drum from Thailand."
 msgstr "Een taphon (Thai: ตะโพน) is een traditionele vattrommel uit Thailand."
 
-#. name:tar (lute)
+#. name:tar
 #: DB:instrument/description:467
 msgid ""
 "The tar is a long-necked, waisted lute found in Azerbaijan, Iran, Armenia, "
@@ -2148,7 +2171,7 @@ msgstr "De yehu (Chinees: 椰胡, pinyin: yēhú) is een Chinees strijkinstrumen
 #. name:yueqin
 #: DB:instrument/description:240
 msgid "The yueqin is a Chinese \"moon-shaped\" plucked lute."
-msgstr "Een yueqin (Chinees: 月琴, pinyin: yuèqín) is een Chinese getokkelde luit met een „maanvormige\" klankkast. Vanwege de vorm wordt het instrument ook wel een maangitaar genoemd."
+msgstr "Een yueqin (Chinees: 月琴, pinyin: yuèqín) is een Chinese getokkelde luit met een ‘maanvormige’ klankkast. Vanwege de vorm wordt het instrument ook wel een maangitaar genoemd."
 
 #. name:zarb
 #: DB:instrument/description:328
@@ -2176,7 +2199,7 @@ msgid ""
 "href=\"https://en.wikipedia.org/wiki/Gourd_mouth_organ\">gourd mouth "
 "organ</a> used by minority ethnic groups in the central highlands of "
 "Vietnam."
-msgstr "De đing năm, ook bekend als ku puốt, m'boắt of m'buốt, is een <a href=\"https://en.wikipedia.org/wiki/Gourd_mouth_organ\">kalebas mondorgel</a> dat wordt gebruikt door minderheden in de centrale hooglanden van Vietnam."
+msgstr "De đing năm, ook bekend als ku puốt, m’boắt of m’buốt, is een <a href=\"https://en.wikipedia.org/wiki/Gourd_mouth_organ\">kalebas mondorgel</a> dat wordt gebruikt door minderheden in de centrale hooglanden van Vietnam."
 
 #. name:đàn bầu
 #: DB:instrument/description:251
@@ -2211,7 +2234,7 @@ msgid ""
 "instruments. A dulcimer with thirty-six strings, struck with two small "
 "rubber-clad dubs. It has many counterparts in various countries, such as the"
 " \"santoor\" in India and also the \"cimbalon\" in Hungary."
-msgstr "De đàn tam thập lục is een relatief recent geïmporteerde toevoeging aan de Vietnamese instrumenten. Een dulcimer met 36 snaren, aangeslagen met twee kleine met rubber beklede plectra. Het heeft vele tegenhangers in verschillende landen, zoals de „santoor\" in India en ook de „cimbalon\" in Hongarije."
+msgstr "De đàn tam thập lục is een relatief recent geïmporteerde toevoeging aan de Vietnamese instrumenten. Een dulcimer met 36 snaren, aangeslagen met twee kleine met rubber beklede plectra. Het heeft vele tegenhangers in verschillende landen, zoals de ‘santoor’ in India en ook de ‘cimbalon’ in Hongarije."
 
 #. name:đàn tranh
 #: DB:instrument/description:250
@@ -2242,6 +2265,13 @@ msgid ""
 "The ōtsuzumi is an hourglass-shaped Japanese drum, larger than the "
 "kotsuzumi."
 msgstr "De ōtsuzumi (Japans: 大鼓) is een zandlopervormige Japanse trommel, groter dan de kotsuzumi."
+
+#. name:šargija
+#: DB:instrument/description:680
+msgid ""
+"The šargija is a long necked plucked lute used in the folk music of the "
+"Balkans."
+msgstr "Een šargija is een getokkelde luit met een lange nek die gebruikt wordt voor volksmuziek uit de Balkan."
 
 #. name:żafżafa
 #: DB:instrument/description:589
@@ -2357,6 +2387,11 @@ msgstr "Een jug is een lege kruik (meestal gemaakt van glas of keramiek) die met
 #: DB:instrument/description:602
 msgid "as using drives for producing music, harddrives, floppy, cd or other."
 msgstr "het gebruik van schijfstations van computers om muziek te maken."
+
+#. name:conch
+#: DB:instrument/description:156
+msgid "conch shell"
+msgstr "Een schelp van een weekdier waarop geblazen wordt."
 
 #. name:bombarde
 #: DB:instrument/description:431

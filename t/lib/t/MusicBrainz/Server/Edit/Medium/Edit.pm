@@ -87,9 +87,9 @@ test 'Unused tracks are correctly deleted after tracklist changes' => sub {
         $c, $medium,
         [
          Track->new(name => 'CONCRETE JUNGLE', position => 1, number => "A1",
-                    artist_credit => $new_artist_credit, recording_id => 1),
+                    artist_credit => $new_artist_credit, recording_id => 1, is_data_track => 0),
          Track->new(name => 'THUNDER TORNADO', position => 2, number => "A2",
-                    artist_credit => $new_artist_credit, recording_id => 1),
+                    artist_credit => $new_artist_credit, recording_id => 1, is_data_track => 0),
         ]);
 
     accept_edit($c, $edit1);
@@ -119,9 +119,9 @@ test 'Unused tracks are correctly deleted after tracklist changes' => sub {
         [
          Track->new(name => 'CONCRETE JUNGLE (CONCRETE MAN STAGE)',
                     id => $concrete_jungle_id, position => 1, number => "A1",
-                    artist_credit => $new_artist_credit, recording_id => 1),
+                    artist_credit => $new_artist_credit, recording_id => 1, is_data_track => 0),
          Track->new(name => 'PLUG ELECTRIC', position => 2, number => "A2",
-                    artist_credit => $new_artist_credit, recording_id => 1),
+                    artist_credit => $new_artist_credit, recording_id => 1, is_data_track => 0),
         ]);
 
     accept_edit($c, $edit2);
@@ -168,7 +168,8 @@ test 'Edits are rejected if they conflict' => sub {
                         )
                     )]),
             recording_id => 1,
-            position => 1
+            position => 1,
+            is_data_track => 0
         )
     ]);
     my $edit2 = create_edit($c, $medium, [
@@ -184,7 +185,8 @@ test 'Edits are rejected if they conflict' => sub {
                         )
                     )]),
             recording_id => 1,
-            position => 1
+            position => 1,
+            is_data_track => 0
         )
     ]);
 
@@ -248,7 +250,8 @@ test 'Accept/failure conditions regarding links' => sub {
                                 )
                             )]),
                     position => 1,
-                    length => undef
+                    length => undef,
+                    is_data_track => 0
                 )
             ]
         );
@@ -321,12 +324,12 @@ test 'Accept/failure conditions regarding links' => sub {
             to_edit   => $medium,
             tracklist => [
                 $track->meta->clone_object($track,
-                    recording_id => $merge_me->id
+                    recording_id => $merge_me->{id}
                 )
             ]
         );
 
-        $c->model('Recording')->merge($merge_target->id, $merge_me->id);
+        $c->model('Recording')->merge($merge_target->{id}, $merge_me->{id});
 
         isa_ok exception { $edit->accept }, 'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
     };
@@ -359,8 +362,9 @@ test 'Accept/failure conditions regarding links' => sub {
                                 )
                             )]),
                     position => 2,
-                    recording_id => $new_rec->id,
-                    length => undef
+                    recording_id => $new_rec->{id},
+                    length => undef,
+                    is_data_track => 0
                 )
             ]
         );
@@ -396,7 +400,7 @@ test 'Accept/failure conditions regarding links' => sub {
             name => 'New recording'
         });
 
-        $c->model('Recording')->merge($recording->id, $new_rec->id);
+        $c->model('Recording')->merge($recording->{id}, $new_rec->{id});
 
         $edit->accept;
 
@@ -440,7 +444,8 @@ test 'Auto-editing edit medium' => sub {
                                     )
                                 )]),
                         position => 1,
-                        length => undef
+                        length => undef,
+                        is_data_track => 0
                     )
                 ]
             )
@@ -483,6 +488,44 @@ test 'Can build display data for removed mediums' => sub {
     ok !exception { $edit->build_display_data };
 };
 
+test 'Pregap tracks can be added' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_medium');
+
+    my $medium = $c->model('Medium')->get_by_id(1);
+
+    my $ac = ArtistCredit->new(
+        names => [
+            ArtistCreditName->new(
+                name => 'Warp Industries',
+                artist => Artist->new(
+                    id => 2,
+                    name => 'Artist',
+                ))]);
+
+    my $edit = create_edit($c, $medium, [
+        Track->new(
+            name => 'Pregap',
+            artist_credit => $ac,
+            recording_id => 2,
+            position => 0,
+            number => 0
+        )
+    ]);
+
+    $edit->accept;
+
+    $medium = $c->model('Medium')->get_by_id(1);
+    $c->model('Track')->load_for_mediums($medium);
+    my @tracks = $medium->all_tracks;
+
+    ok(@tracks == 1);
+    is($tracks[0]->position, 0);
+    ok(!$tracks[0]->is_data_track); # MBS-7988
+};
+
 sub create_edit {
     my ($c, $medium, $tracklist) = @_;
 
@@ -500,7 +543,8 @@ sub create_edit {
                     )]),
             recording_id => 1,
             position => 1,
-            number => 1
+            number => 1,
+            is_data_track => 0
         )
     ];
 

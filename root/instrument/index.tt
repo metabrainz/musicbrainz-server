@@ -12,7 +12,7 @@
     <p>[%- instrument.l_description -%]</p>
     [%- END -%]
 
-    [%- INCLUDE 'instrument/annotation.tt' summary=1 -%]
+    [%- INCLUDE 'annotation/summary.tt' -%]
 
     [%- show_wikipedia_extract() -%]
 

@@ -4,7 +4,13 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model       => 'Artist',
+    model           => 'Artist',
+    relationships   => {
+        all         => ['relationships'],
+        cardinal    => ['edit'],
+        subset      => { split => ['artist'] },
+        default     => ['url']
+    },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
@@ -13,7 +19,6 @@ with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::IPI';
 with 'MusicBrainz::Server::Controller::Role::ISNI';
-with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::Rating';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::Subscribe';
@@ -21,6 +26,11 @@ with 'MusicBrainz::Server::Controller::Role::Cleanup';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::CommonsImage';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
+with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
+    endpoints => {show => {copy_stash => [{from => 'release_groups_jsonld', to => 'release_groups'}]},
+                  relationships => {},
+                  aliases => {copy_stash => ['aliases']}}
+};
 
 use Data::Page;
 use HTTP::Status qw( :constants );
@@ -204,6 +214,7 @@ sub show : PathPart('') Chained('load')
             $_->video
         } @$recordings),
         release_groups => $release_groups,
+        release_groups_jsonld => {items => $release_groups},
         show_artists => scalar grep {
             $_->artist_credit->name ne $artist->name
         } @$release_groups,
@@ -236,17 +247,17 @@ sub show : PathPart('') Chained('load')
     $c->stash(other_identities => \@other_identities);
 }
 
+sub relationships : Chained('load') PathPart('relationships') {}
+
 =head2 works
 
-Shows all works of an artist. For various artists, the results would be
-browsable (not just paginated)
+Shows all works of an artist.
 
 =cut
 
 sub works : Chained('load')
 {
     my ($self, $c) = @_;
-    my $artist = $c->stash->{artist};
     my $works = $self->_load_paged($c, sub {
         $c->model('Work')->find_by_artist($c->stash->{artist}->id, shift, shift);
     });
@@ -257,8 +268,7 @@ sub works : Chained('load')
 
 =head2 recordings
 
-Shows all recordings of an artist. For various artists, the results would be
-browsable (not just paginated)
+Shows all recordings of an artist. 
 
 =cut
 
@@ -311,6 +321,25 @@ sub recordings : Chained('load')
             $_->video
         } @$recordings),
     );
+}
+
+=head2 events
+
+Shows all events of an artist. 
+
+=cut
+
+sub events : Chained('load')
+{
+    my ($self, $c) = @_;
+    my $events = $self->_load_paged($c, sub {
+        $c->model('Event')->find_by_artist($c->stash->{artist}->id, shift, shift);
+    });
+    $c->model('Event')->load_related_info(@$events);
+    $c->model('Event')->load_areas(@$events);
+    $c->model('Event')->rating->load_user_ratings($c->user->id, @$events) if $c->user_exists;
+
+    $c->stash( events => $events );
 }
 
 =head2 releases
@@ -449,12 +478,6 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
     }
 };
 
-before edit => sub {
-    my ($self, $c) = @_;
-
-    $c->model('Relationship')->load($c->stash->{artist});
-};
-
 =head2 add_release
 
 Add a new release to this artist.
@@ -569,7 +592,6 @@ sub stop_watching : Chained('load') RequireAuth {
 sub split : Chained('load') Edit {
     my ($self, $c) = @_;
     my $artist = $c->stash->{artist};
-    $c->model('Relationship')->load($artist);
 
     if (!can_split($artist)) {
         $c->stash( template => 'artist/cannot_split.tt' );

@@ -2,6 +2,7 @@
     [%- has_rated = 0 -%]
     [% FOREACH type IN [
         [l("Artist ratings"), "artist"],
+        [l("Event ratings"), "event"],
         [l("Label ratings"), "label"],
         [l("Release group ratings"), "release_group"],
         [l("Recording ratings"), "recording"],

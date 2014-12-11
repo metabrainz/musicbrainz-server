@@ -1,5 +1,5 @@
-[% script_manifest('guess-case.js.manifest') %]
-[% script_manifest('edit.js.manifest') %]
+[% script_manifest('guess-case.js') %]
+[% script_manifest('edit.js') %]
 
 <p>[%- l('For more information, check the {doc_doc|documentation}.', {doc_doc => doc_link('Place')}) -%]</p>
 
@@ -30,7 +30,7 @@
 
       <fieldset>
         <legend>[% l('Place Details') %]</legend>
-        [%- form_row_text_long(r, 'name', l('Name:')) -%]
+        [%- form_row_name_with_guesscase(r) -%]
         [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
         [%- form_row_select(r, 'type_id', l('Type:')) -%]
         [%- form_row_text_long(r, 'address', l('Address:')) -%]
@@ -38,7 +38,7 @@
           [% area_field = form.field('area.name') %]
           <label for="id-edit-place.area.name">[% l('Area:') %]</label>
           <span class="area autocomplete">
-            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
             [% r.hidden(form.field('area').field('gid'), class => 'gid') %]
             [% r.hidden('area_id', class => 'id') %]
             [% r.text(area_field, class => 'name') %]
@@ -46,6 +46,7 @@
           [% field_errors(r.form, 'area.name') %]
         [% END %]
         [%- form_row_text_long(r, 'coordinates', l('Coordinates')) -%]
+        <ul class="errors coordinates-errors" style="display:none"><li>[% l('These coordinates could not be parsed.') %]</li></ul>
       </fieldset>
 
       <fieldset>
@@ -71,18 +72,79 @@
   </div>
 
   <div class="documentation">
-    [%- guesscase_bubble(1) -%]
     [%- area_bubble() -%]
+
+    <div class="bubble" id="coordinates-bubble">
+        <p>[% l('Enter coordinates manually or drag the marker to get coordinates from the map.') %]</p>
+        [%~ INCLUDE 'components/map-large.tt' entity=place editing=1 ~%]
+    </div>
+
     [%- external_link_bubble() -%]
   </div>
 
 </form>
+
+[%- guesscase_options() -%]
 
 <script type="text/javascript">//<![CDATA[
   (function () {
     MB.Control.initialize_guess_case("place", "id-edit-place");
 
     MB.Control.Area("span.area.autocomplete");
+
+    var bubble = MB.Control.initializeBubble("#coordinates-bubble", "input[name=edit-place\\.coordinates]");
+
+    // The map is hidden by default, which means it can't position itself correctly.
+    // This tells it to update its position once it's visible.
+    bubble.after("show", _.once(function () { map.invalidateSize() }));
+
+    map.on('click', function (e) {
+        if (map.getZoom() > 11) {
+            marker.setLatLng(e.latlng);
+            update_coordinates(e.latlng);
+        } else {
+            // If the map is zoomed too far out, marker placement would be wildly inaccurate, so just zoom in.
+            map.setView(e.latlng);
+            map.zoomIn(2);
+        }
+    });
+
+    marker.on('dragend', function (e) {
+        var latlng = marker.getLatLng().wrap();
+        update_coordinates(latlng)
+    });
+
+    function update_coordinates(latlng) {
+        $("#id-edit-place\\.coordinates").val(latlng.lat + ", " + latlng.lng);
+        $("#id-edit-place\\.coordinates").trigger('input');
+    }
+
+    $("input[name=edit-place\\.coordinates]").on('input', function () {
+        var coordinates = $("input[name=edit-place\\.coordinates]").val();
+        if (coordinates == "") {
+            $(".coordinates-errors").css("display", "none");
+            $("input[name=edit-place\\.coordinates]").removeClass("error");
+            $("input[name=edit-place\\.coordinates]").css("background-color", "transparent");
+            $(".edit-place .submit").prop('disabled', false);
+        } else {
+            var url = "/ws/js/parse-coordinates?coordinates=" + encodeURIComponent(coordinates);
+            $.getJSON(url, function (data) {
+                $(".coordinates-errors").css("display", "none");
+                $("input[name=edit-place\\.coordinates]").removeClass("error");
+                $("input[name=edit-place\\.coordinates]").addClass("success");
+                $(".edit-place .submit").prop('disabled', false);
+
+                marker.setLatLng(L.latLng(data.coordinates.latitude, data.coordinates.longitude));
+
+                map.panTo(L.latLng(data.coordinates.latitude, data.coordinates.longitude));
+                map.setZoom(16);
+            }).error(function () {
+                $("input[name=edit-place\\.coordinates]").addClass("error");
+                $(".coordinates-errors").css("display", "block");
+                $(".edit-place .submit").prop('disabled', true);
+            });
+        };
+    });
 
     MB.utility.setDefaultAction("form.edit-place", "button.submit.positive");
   }());

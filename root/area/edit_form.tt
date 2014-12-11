@@ -1,5 +1,5 @@
-[% script_manifest('guess-case.js.manifest') %]
-[% script_manifest('edit.js.manifest') %]
+[% script_manifest('guess-case.js') %]
+[% script_manifest('edit.js') %]
 
 <form action="[% c.req.uri %]" method="post" class="edit-area">
   [%- USE r = FormRenderer(form) -%]
@@ -7,7 +7,7 @@
   <div class="half-width">
     <fieldset>
       <legend>[%- l('Area Details') -%]</legend>
-      [%- form_row_text_long(r, 'name', l('Name:')) -%]
+      [%- form_row_name_with_guesscase(r) -%]
       [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
       [%- form_row_select(r, 'type_id', l('Type:')) -%]
       [%- form_row_text_list(r, 'iso_3166_1', l('ISO 3166-1:'), l('ISO 3166-1')) -%]
@@ -38,11 +38,12 @@
   </div>
 
   <div class="documentation">
-    [%- guesscase_bubble(1) -%]
     [%- external_link_bubble() -%]
   </div>
 
 </form>
+
+[%- guesscase_options() -%]
 
 <script type="text/javascript">//<![CDATA[
   (function () {

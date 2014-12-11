@@ -52,6 +52,7 @@ __PACKAGE__->config(
             'format_distance' => \&MusicBrainz::Server::Filters::format_distance,
             'format_wikitext' => \&MusicBrainz::Server::Filters::format_wikitext,
             'format_editnote' => \&MusicBrainz::Server::Filters::format_editnote,
+            'format_setlist' => \&MusicBrainz::Server::Filters::format_setlist,
             'uri_decode' => \&MusicBrainz::Server::Filters::uri_decode,
             'language' => \&MusicBrainz::Server::Filters::language,
             'locale' => \&MusicBrainz::Server::Filters::locale,
@@ -264,18 +265,11 @@ sub set_language_cookie {
     $c->res->cookies->{lang} = { 'value' => $lang, 'path' => '/', 'expires' => time()+31536000 };
 }
 
-sub _handle_param_unicode_decoding {
-    my ( $self, $value ) = @_;
-    my $enc = $self->encoding;
-    return try {
-        Encode::is_utf8( $value ) ?
-            $value
-        : $enc->decode( $value, $Catalyst::Plugin::Unicode::Encoding::CHECK );
-    }
-    catch {
-        $self->res->body('Sorry, but your request could not be decoded. Please ensure your request is encoded as utf-8 and try again.');
-        $self->res->status(400);
-    };
+sub handle_unicode_encoding_exception {
+    my $self = shift;
+
+    $self->res->body('Sorry, but your request could not be decoded. Please ensure your request is encoded as UTF-8 and try again.');
+    $self->res->status(400);
 }
 
 # Set and unset translation language

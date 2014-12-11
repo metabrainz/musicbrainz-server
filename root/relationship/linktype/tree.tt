@@ -35,9 +35,9 @@
     </li>
 [% END %]
 
-[% WRAPPER "layout.tt" title=l("{type0}-{type1} Relationship Types", { type0 => format_entity_type_name(type0), type1 => format_entity_type_name(type1) }) full_width=1 %]
+[% WRAPPER "layout.tt" title=l("{type0}-{type1} Relationship Types", { type0 => format_entity_type_name(type0), type1 => format_entity_type_name(type1) }) full_width=1 no_icons=1 %]
     <div id="content">
-        [% script_manifest('edit.js.manifest') %]
+        [% script_manifest('edit.js') %]
 
         [%- INCLUDE 'relationship/header.tt' %]
 

@@ -20,7 +20,7 @@
 [% END %]
 
 [%- WRAPPER 'release/layout.tt' page='index' -%]
-    [%- INCLUDE 'release/annotation.tt' summary=1 -%]
+    [%- INCLUDE 'annotation/summary.tt' -%]
 
     <h2 class="tracklist">[% l('Tracklist') %]</h2>
     <style>
@@ -29,7 +29,7 @@
 
     <script type="text/html" id="relationship-group">
       <dt><span data-bind="html: key"></span>:</dt>
-      <dd data-bind="html: _.map(value, function (v) { return v.target.html() }).join(', ')">
+      <dd data-bind="html: _.map(value, MB.Release.relationshipLink).join(', ')">
       </dd>
     </script>
 
@@ -67,95 +67,110 @@
               <!-- [% medium_in_release(release, medium) %] -->
             </td>
           </tr>
-          <!-- ko foreach: tracks -->
-          <tr data-bind="css: { even: ($index() + 1) % 2 == 0, mp: editsPending > 0 }, attr: { id: gid }">
-              <td class="pos t">
-                <!-- ko text: number --><!-- /ko -->
-              </td>
-              <!-- ko if: $root.showVideo -->
-                <td class="video c" data-bind="css: { 'is-video': recording.video }, attr: { title: (recording.video ? '[% l("This recording is a video") | js %]': '')}"></td>
-              <!-- /ko -->
-              <td>
-                <span data-bind="html: $data.html()"></span>
-
-                <!-- ko with: recording -->
-                  <br/>
-                  <div class="ars" style="display: none;" data-bind="foreachKv: groupedRelationships">
-                    <dl class="ars">
-                      <!-- ko if: key == 'work' -->
-                        <!-- ko foreachKv: value -->
-                          <!-- ko foreach: value -->
-                            <dt><span data-bind="html: $parent.key"></span>:</dt>
-                            <dd>
-                              <span data-bind="html: target.html()"></span>
-                              <!-- ko foreachKv: groupedSubRelationships -->
-                                <!-- ko if: key == 'artist' -->
-                                  <dl class="ars">
-                                    <!-- ko foreachKv: value -->
-                                      <!-- ko template: { name: 'relationship-group' } -->
-                                      <!-- /ko -->
-                                    <!-- /ko -->
-                                  </dl>
-                                <!-- /ko -->
-                              <!-- /ko -->
-                            </dd>
-                          <!-- /ko -->
-                        <!-- /ko -->
-                      <!-- /ko -->
-
-                      <!-- ko if: key != 'work' -->
-                        <!-- ko foreachKv: value -->
-                          <!-- ko template: { name: 'relationship-group' } -->
-                          <!-- /ko -->
-                        <!-- /ko -->
-                      <!-- /ko -->
-                    </dl>
-                  </div>
-                <!-- /ko -->
-              </td>
-              <!-- ko if: $root.showArtists -->
-              <td data-bind="html: artistCredit.html()"></td>
-              <!-- /ko -->
-              [% UNLESS hide_rating %]
-                <td class="rating c" data-bind="with: recording">
-                  <span class="inline-rating">
-                    <span class="star-rating small-star">
-                      <!-- ko if: userRating !== null -->
-                      <span class="current-user-rating"
-                            data-bind="style: { width: userRating + '%' }, text: MB.utility.percentOf(userRating, 5)"></span>
-                      <!-- /ko -->
-
-                      <!-- ko if: userRating === null && rating !== null -->
-                      <span class="current-rating"
-                            data-bind="style: { width: rating + '%' }, text: MB.utility.percentOf(rating, 5)"></span>
-                      <!-- /ko -->
-
-                      [%- IF c.user_exists -%]
-                        [%- FOR rating IN [ 1 .. 5 ] -%]
-                          <!-- ko if: userRating == [% rating * 20 %] -->
-                          <a class="stars-[% rating %] remove-rating"
-                             title="[% rating_tooltip(0) %]"
-                             data-bind="attr: { href: '/rating/rate?entity_type=recording&entity_id=' + id + '&rating=0' }, text: [% rating %]"></a>
-                          <!-- /ko -->
-
-                          <!-- ko if: userRating != [% rating * 20 %] -->
-                          <a class="stars-[% rating %] set-rating"
-                             title="[% rating_tooltip(rating) %]"
-                             data-bind="attr: { href: '/rating/rate?entity_type=recording&rating=[% rating * 20 %]&entity_id=' + id }, text: [% rating %]"></a>
-                          <!-- /ko -->
-                        [%- END -%]
-                      [%- END -%]
-                    </span>
-                  </span>
+          <!-- ko foreach: audioTracks -->
+            <!-- ko template: "template.release-page-track" --><!-- /ko -->
+          <!-- /ko -->
+          <!-- ko if: dataTracks.length -->
+            <tr class="subh">
+                <td colspan="6">
+                  [% data_track_icon %]
+                  [% l('Data Tracks') %]
                 </td>
-              [% END %]
-              <td class="treleases" data-bind="text: formattedLength || '?:??'">
-              </td>
             </tr>
+            <!-- ko foreach: dataTracks -->
+              <!-- ko template: "template.release-page-track" --><!-- /ko -->
+            <!-- /ko -->
           <!-- /ko -->
         <!-- /ko -->
       </tbody>
     </table>
+
+    <script type="text/html" id="template.release-page-track">
+      <tr data-bind="css: { even: ($index() + 1) % 2 == 0, mp: editsPending > 0 }, attr: { id: gid }">
+        <td class="pos t">
+          <a data-bind="text: number, attr: { href: '/track/' + gid }"></a>
+        </td>
+        <!-- ko if: $root.showVideo -->
+          <td class="video c" data-bind="css: { 'is-video': recording.video }, attr: { title: (recording.video ? '[% l("This recording is a video") | js %]': '')}"></td>
+        <!-- /ko -->
+        <td>
+          <span data-bind="html: $data.html()"></span>
+
+          <!-- ko with: recording -->
+            <br/>
+            <div class="ars" style="display: none;" data-bind="foreachKv: groupedRelationships">
+              <dl class="ars">
+                <!-- ko if: key == 'work' -->
+                  <!-- ko foreachKv: value -->
+                    <!-- ko foreach: value -->
+                      <dt><span data-bind="html: $parent.key"></span>:</dt>
+                      <dd>
+                        <span data-bind="html: MB.Release.relationshipLink($data)"></span>
+                        <!-- ko foreachKv: groupedSubRelationships -->
+                          <!-- ko if: key == 'artist' -->
+                            <dl class="ars">
+                              <!-- ko foreachKv: value -->
+                                <!-- ko template: { name: 'relationship-group' } -->
+                                <!-- /ko -->
+                              <!-- /ko -->
+                            </dl>
+                          <!-- /ko -->
+                        <!-- /ko -->
+                      </dd>
+                    <!-- /ko -->
+                  <!-- /ko -->
+                <!-- /ko -->
+
+                <!-- ko if: key != 'work' -->
+                  <!-- ko foreachKv: value -->
+                    <!-- ko template: { name: 'relationship-group' } -->
+                    <!-- /ko -->
+                  <!-- /ko -->
+                <!-- /ko -->
+              </dl>
+            </div>
+          <!-- /ko -->
+        </td>
+        <!-- ko if: $root.showArtists -->
+        <td data-bind="html: artistCredit.html()"></td>
+        <!-- /ko -->
+        [% UNLESS hide_rating %]
+          <td class="rating c" data-bind="with: recording">
+            <span class="inline-rating">
+              <span class="star-rating">
+                <!-- ko if: userRating !== null -->
+                <span class="current-user-rating"
+                      data-bind="style: { width: userRating + '%' }, text: MB.utility.percentOf(userRating, 5)"></span>
+                <!-- /ko -->
+
+                <!-- ko if: userRating === null && rating !== null -->
+                <span class="current-rating"
+                      data-bind="style: { width: rating + '%' }, text: MB.utility.percentOf(rating, 5)"></span>
+                <!-- /ko -->
+
+                [%- IF c.user_exists -%]
+                  [%- FOR rating IN [ 1 .. 5 ] -%]
+                    <!-- ko if: userRating == [% rating * 20 %] -->
+                    <a class="stars-[% rating %] remove-rating"
+                       title="[% rating_tooltip(0) %]"
+                       data-bind="attr: { href: '/rating/rate?entity_type=recording&entity_id=' + id + '&rating=0' }, text: [% rating %]"></a>
+                    <!-- /ko -->
+
+                    <!-- ko if: userRating != [% rating * 20 %] -->
+                    <a class="stars-[% rating %] set-rating"
+                       title="[% rating_tooltip(rating) %]"
+                       data-bind="attr: { href: '/rating/rate?entity_type=recording&rating=[% rating * 20 %]&entity_id=' + id }, text: [% rating %]"></a>
+                    <!-- /ko -->
+                  [%- END -%]
+                [%- END -%]
+              </span>
+            </span>
+          </td>
+        [% END %]
+        <td class="treleases" data-bind="text: formattedLength || '?:??'">
+        </td>
+      </tr>
+    </script>
 
     <script>
       MB.Release.init(
@@ -167,10 +182,12 @@
                 target => {
                     gid => $target->gid,
                     entityType => $rel->target_type,
+                    editsPending => $target->edits_pending,
                     name => $target->name,
                     sortName => $target->can('sort_name') ? $target->sort_name : undef,
                     comment => $target->can('comment') ? $target->comment : ''
                 },
+                editsPending => $rel->edits_pending,
                 phrase => $rel->phrase
             );
         };
@@ -195,6 +212,7 @@
                                     artist => {
                                         gid => $_->artist->gid,
                                         id => $_->artist->id,
+                                        editsPending => $_->artist->edits_pending,
                                         sortName => $_->artist->sort_name,
                                         name => $_->artist->name,
                                         comment => $_->artist->comment
@@ -219,7 +237,8 @@
                                 editsPending => $_->recording->edits_pending,
                                 video =>
                                     $_->recording->video ? JSON::true : JSON::false
-                            }
+                            },
+                            isDataTrack => $_->is_data_track ? JSON::true : JSON::false
                         }, $_->all_tracks
                     ],
                     position => $_->position,
@@ -234,6 +253,7 @@
                     artist => {
                         gid => $_->artist->gid,
                         id => $_->artist->id,
+                        editsPending => $_->artist->edits_pending,
                         sortName => $_->artist->sort_name,
                         name => $_->artist->name
                     }

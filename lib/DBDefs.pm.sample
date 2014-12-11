@@ -92,7 +92,7 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
 # replication_control.current_schema_sequence.
 # This is required, there is no default in order to prevent it changing without
 # manual intervention.
-sub DB_SCHEMA_SEQUENCE { 20 }
+sub DB_SCHEMA_SEQUENCE { 21 }
 
 # What type of server is this?
 # * RT_MASTER - This is a master replication server.  Changes are allowed, and
@@ -288,21 +288,6 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 # Just like the memcached server settings, there is NO SECURITY built into the
 # ratelimit protocol, so be careful about enabling it.
 # sub RATELIMIT_SERVER { undef }
-
-################################################################################
-# Minify settings
-################################################################################
-
-# The following two values determine how scripts and styles are minified. By
-# default, a dummy minifier is used:
-# sub MINIFY_DUMMY { shift; my %args = @_; return $args{input}; }
-# sub MINIFY_SCRIPTS { return \&MINIFY_DUMMY; }
-# sub MINIFY_STYLES { return \&MINIFY_DUMMY; }
-
-# If you wish to minify either javascript or css, uncomment the following lines
-# and install the neccesary CPAN packages.
-# sub MINIFY_SCRIPTS { use Javascript::Closure; return \&Javascript::Closure::minify }
-# sub MINIFY_STYLES { use CSS::Minifier; return \&CSS::Minifier::minify }
 
 ################################################################################
 # Sessions (advanced)

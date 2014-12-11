@@ -52,7 +52,7 @@ sub _delete_from_cache
 
     return unless grep { defined } @ids;
 
-    my @keys = map { $self->_id_cache_prefix . ':' . $_ } grep { defined } uniq(@ids);
+    my @keys = map { $self->_id_cache_prefix . ':' . $_ } uniq grep { defined } @ids;
     my $cache = $self->c->cache($self->_id_cache_prefix);
     my $method = @keys > 1 ? 'delete_multi' : 'delete';
     $cache->$method(@keys);

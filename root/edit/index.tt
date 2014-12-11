@@ -1,10 +1,4 @@
 [%- WRAPPER 'layout.tt' title=l('Edit #{id}', { id => edit.id }) -%]
-  [%- IF !full_width -%]
-    [% WRAPPER 'layout/sidebar.tt' %]
-      [%- INCLUDE "edit/info.tt" -%]
-    [% END %]
-  [%- END -%]
-
     <div id="content">
 
         [% INCLUDE 'edit/edit_header.tt' %]
@@ -39,7 +33,7 @@
                 <tr class="[% 'superseded' IF vote.superseded %][% 'first' IF edit.votes.size == 1 %]">
                     <th>[% link_entity(vote.editor) %]</th>
                     <td class="vote">
-                        [% l(vote.vote_name) %]
+                        [% lp(vote.vote_name, 'vote') %]
                         <span class="date">[% UserDate.format(vote.vote_time) %]</span>
                     </td>
                 </tr>
@@ -80,5 +74,11 @@
             [%- END -%]
         </form>
     </div>
+
+  [%- IF !full_width -%]
+    [% WRAPPER 'layout/sidebar.tt' %]
+      [%- INCLUDE "edit/info.tt" -%]
+    [% END %]
+  [%- END -%]
 [%- END -%]
 

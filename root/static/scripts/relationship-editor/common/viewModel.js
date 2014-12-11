@@ -30,7 +30,7 @@
         });
 
         _.each(MB.attrInfoByID, function (attr) {
-            attr.root = MB.attrInfoByID[attr.root_id];
+            attr.root = MB.attrInfoByID[attr.rootID];
         });
     };
 
@@ -54,7 +54,7 @@
             if (options.sourceData) {
                 source.parseRelationships(options.sourceData.relationships, this);
 
-                if (window.sessionStorage && sessionStorage.submittedRelationships) {
+                if (MB.hasSessionStorage && sessionStorage.submittedRelationships) {
                     if (MB.formWasPosted) {
                         _.each(JSON.parse(sessionStorage.submittedRelationships), function (data) {
                             var relationship = self.getRelationship(data, source);

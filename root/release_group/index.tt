@@ -1,6 +1,4 @@
 [%- WRAPPER 'release_group/layout.tt' page='index' %]
-    [%- INCLUDE 'release_group/annotation.tt' summary=1 -%]
-
     [% IF eligible_for_cleanup %]
       <p class="cleanup">
           [% l('This release group has no relationships or releases associated,
@@ -8,6 +6,8 @@
                 is not intended, please add more data to this release group.') %]
       </p>
     [% END %]
+
+    [%- INCLUDE 'annotation/summary.tt' -%]
 
     [%- show_wikipedia_extract() -%]
 

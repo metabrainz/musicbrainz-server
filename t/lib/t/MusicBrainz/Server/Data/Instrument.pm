@@ -3,7 +3,7 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 use Test::Fatal;
-use Test::Deep qw( cmp_set );
+use Test::Deep qw( cmp_set cmp_bag );
 
 use MusicBrainz::Server::Data::Instrument;
 
@@ -59,10 +59,9 @@ test 'Create, update, delete instruments' => sub {
             comment => 'Instrument comment',
             type_id => 1,
         });
-    isa_ok($instrument, 'MusicBrainz::Server::Entity::Instrument');
-    ok($instrument->id > 4);
+    ok($instrument->{id} > 4);
 
-    $instrument = $instrument_data->get_by_id($instrument->id);
+    $instrument = $instrument_data->get_by_id($instrument->{id});
     is($instrument->name, 'New Instrument', 'newly-created instrument is correct');
     is($instrument->type_id, 1, 'newly-created instrument is correct');
     is($instrument->comment, 'Instrument comment', 'newly-created instrument is correct');
@@ -100,20 +99,49 @@ test 'Create, update, delete instruments' => sub {
 
 test 'Merge instruments' => sub {
     my $test = shift;
+    my $c = $test->c;
 
-    MusicBrainz::Server::Test->prepare_test_database($test->c, '+data_instrument');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+data_instrument');
 
-    my $instrument_data = $test->c->model('Instrument');
+    my $instrument_data = $c->model('Instrument');
     $instrument_data->merge(3 => (4) );
 
     my $instrument = $instrument_data->get_by_id(4);
     ok(!defined $instrument);
-    is($test->c->sql->select_single_value('SELECT id from link_attribute_type where gid = ?', "945c079d-374e-4436-9448-da92dedef3cf"),
+    is($c->sql->select_single_value('SELECT id from link_attribute_type where gid = ?', "945c079d-374e-4436-9448-da92dedef3cf"),
        undef, "No link_attribute_type exists for merged-away instrument");
 
     $instrument = $instrument_data->get_by_id(3);
     ok(defined $instrument);
     is($instrument->name, 'Test Instrument');
-    ok($test->c->sql->select_single_value('SELECT id from link_attribute_type where gid = ?', $instrument->gid),
+    ok($c->sql->select_single_value('SELECT id from link_attribute_type where gid = ?', $instrument->gid),
        "Still have a link_attribute_type row for merged-into instrument");
+
+    my $recording = $c->model('Recording')->get_by_id(1);
+    $c->model('Relationship')->load($recording);
+    my $attributes = $recording->relationships->[0]->link->attributes;
+
+    cmp_bag(
+        [
+            {
+                type_gid => $attributes->[0]->type->gid,
+                credited_as => $attributes->[0]->credited_as
+            },
+            {
+                type_gid => $attributes->[1]->type->gid,
+                credited_as => $attributes->[1]->credited_as
+            }
+        ],
+        [
+            {
+                type_gid => '745c079d-374e-4436-9448-da92dedef3ce',
+                credited_as => 'blah instrument'
+            },
+            # Test that other attribute on the link didn't change.
+            {
+                type_gid => 'a56d18ae-485f-5547-a559-eba3efef04d0',
+                credited_as => 'stupid instrument'
+            }
+        ]
+    );
 }

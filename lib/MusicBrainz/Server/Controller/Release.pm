@@ -5,14 +5,18 @@ use MusicBrainz::Server::Track;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
-    entity_name => 'release',
-    model       => 'Release',
+    entity_name     => 'release',
+    model           => 'Release',
+    relationships   => { all => ['show'], cardinal => ['edit_relationships'], default => ['url'] },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Tag';
+with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
+    endpoints => {show => {}, cover_art => {copy_stash => ['cover_art']}}
+};
 
 use List::Util qw( first );
 use List::MoreUtils qw( part uniq );
@@ -107,7 +111,7 @@ after [qw( cover_art add_cover_art edit_cover_art reorder_cover_art
     my %containment;
     if ($c->user_exists) {
         # Make a list of collections and whether this release is contained in them
-        @collections = $c->model('Collection')->find_all_by_editor($c->user->id);
+        @collections = $c->model('Collection')->find_all_by_editor($c->user->id, 1, 'release');
         foreach my $collection (@collections) {
             $containment{$collection->id} = 1
                 if ($c->model('Collection')->check_release($collection->id, $release->id));
@@ -162,7 +166,6 @@ sub show : Chained('load') PathPart('')
 
     $c->model('Relationship')->load(@recordings);
     $c->model('Relationship')->load(
-        $release,
         grep { $_->isa(Work) } map { $_->target }
             map { $_->all_relationships } @recordings);
 
@@ -367,6 +370,7 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit
         index_url => DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $entity->gid . "/",
         images => \@artwork,
         mime_types => \@mime_types,
+        access_key => DBDefs->COVER_ART_ARCHIVE_ACCESS_KEY,
         cover_art_types_json => $json->encode(
             [ map {
                 { name => $_->name, l_name => $_->l_name, id => $_->id }
@@ -720,7 +724,7 @@ sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit {
     $c->model('ArtistCredit')->load($release);
     $c->model('ReleaseGroup')->load($release);
     $c->model('ReleaseGroup')->load_meta($release->release_group);
-    $c->model('Relationship')->load($release, $release->release_group);
+    $c->model('Relationship')->load_cardinal($release->release_group);
 
     my $json = JSON->new;
     my @link_type_tree = $c->model('LinkType')->get_full_tree;

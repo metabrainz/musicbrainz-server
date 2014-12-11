@@ -1,6 +1,4 @@
 [%- WRAPPER "series/layout.tt" page='index' -%]
-    [%- INCLUDE 'series/annotation.tt' summary=1 -%]
-
     [% IF eligible_for_cleanup %]
       <p class="cleanup">
           [% l('This series has no relationships and will be removed
@@ -9,10 +7,19 @@
       </p>
     [% END %]
 
+    [%- INCLUDE 'annotation/summary.tt' -%]
+
     [%- show_wikipedia_extract() -%]
 
     [%-
-      IF series.type.entity_type == 'recording';
+      IF series.type.entity_type == 'event';
+        '<h2>' _ l('Event') _ '</h2>';
+        IF entities.size;
+          INCLUDE 'components/events-list.tt'
+                  events=entities no_checkboxes=1 no_type=1
+          WRAPPER 'components/with-pager.tt';
+        END;
+      ELSIF series.type.entity_type == 'recording';
         '<h2>' _ l('Recordings') _ '</h2>';
         IF entities.size;
           INCLUDE 'components/recordings-list.tt'
@@ -22,7 +29,7 @@
       ELSIF series.type.entity_type == 'release';
         '<h2>' _ l('Releases') _ '</h2>';
         IF entities.size;
-          INCLUDE 'release_group/releases-list.tt'
+          INCLUDE 'components/releases-list.tt'
                   releases=entities no_checkboxes=1 show_artists=1
           WRAPPER 'components/with-pager.tt';
         END;

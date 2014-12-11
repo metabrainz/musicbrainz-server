@@ -1,0 +1,3 @@
+[%- INCLUDE 'tag/entity-list.tt' page='instrument',
+    no_entities_text=l('No instruments with this tag were found.')
+    heading=ln('{num} instrument found', '{num} instruments found', pager.total_entries, { num => add_commas(pager.total_entries) }) -%]

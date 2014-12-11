@@ -8,6 +8,7 @@
         [% form_row_checkbox(r, 'wiki_transcluder', l('Transclusion editor')) %]
         [% form_row_checkbox(r, 'link_editor', l('Relationship editor')) %]
         [% form_row_checkbox(r, 'location_editor', l('Location editor')) %]
+        [% form_row_checkbox(r, 'banner_editor', l('Banner message editor')) %]
 
         <h2>[%- l('Technical flags') -%]</h2>
         [% form_row_checkbox(r, 'bot', l('Bot')) %]
@@ -30,8 +31,8 @@
         [% END %]
 
     <h2>[%- l('Edit profile') -%]</h2>
-    [% form_row_text_long(t, 'email', l('Email:')) %]
-    [% form_row_text_long(t, 'website', l('Website:')) %]
+    [% form_row_email_long(t, 'email', l('Email:')) %]
+    [% form_row_url_long(t, 'website', l('Website:')) %]
     [% WRAPPER form_row %]
         [% t.label('biography', l('Bio:')) %]
         [% t.textarea('biography', { cols => 80, rows => 5 }) %]

@@ -1,4 +1,0 @@
-[%- WRAPPER 'place/layout.tt' title=l('Edit Place Alias') full_width=1 -%]
-    <h2>[% l('Edit place alias') %]</h2>
-    [%- INCLUDE 'alias/edit_form.tt' search_hint_type_id=2 entity_type_name='place' -%]
-[%- END -%]

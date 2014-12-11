@@ -24,6 +24,8 @@ use MusicBrainz::Server::Constants qw(
     $WIKI_TRANSCLUSION_FLAG
     $RELATIONSHIP_EDITOR_FLAG
     $LOCATION_EDITOR_FLAG
+    $BANNER_EDITOR_FLAG
+    $ACCOUNT_ADMIN_FLAG
     entities_with
 );
 
@@ -293,21 +295,25 @@ sub collections : Chained('load') PathPart('collections')
 
     my $show_private = $c->stash->{viewing_own_profile};
 
-    my $collections = $self->_load_paged($c, sub {
-        my ($collections, $hits) = $c->model('Collection')->find_by_editor($user->id, $show_private, shift, shift);
-        return ($collections, $hits);
-    });
-    $c->model('Collection')->load_release_count(@$collections);
+    my @release_collections = $c->model('Collection')->find_all_by_editor($user->id, $show_private, 'release');
+    my @event_collections = $c->model('Collection')->find_all_by_editor($user->id, $show_private, 'event');
+
+    $c->model('Collection')->load_entity_count(@release_collections, @event_collections);
+    $c->model('CollectionType')->load(@release_collections, @event_collections);
 
     if ($c->user_exists) {
-        for my $collection (@$collections) {
+        for my $collection (@release_collections) {
+            $collection->{'subscribed'} = $c->model('Collection')->subscription->check_subscription($c->user->id, $collection->id);
+        }
+        for my $collection (@event_collections) {
             $collection->{'subscribed'} = $c->model('Collection')->subscription->check_subscription($c->user->id, $collection->id);
         }
     }
 
     $c->stash(
         user => $user,
-        collections => $collections,
+        release_collections => \@release_collections,
+        event_collections => \@event_collections,
     );
 }
 
@@ -422,6 +428,7 @@ sub tag : Chained('load') PathPart('tag') Args(1)
     my $tag = $c->model('Tag')->get_by_name($tag_name);
     my %tags = ();
     my $tag_in_use = 0;
+    my @entities_with_tags = sort { $a <=> $b } entities_with('tags');
 
     # Determine whether this tag exists in the database
     if ($tag) {
@@ -429,7 +436,7 @@ sub tag : Chained('load') PathPart('tag') Args(1)
             $_ => [ $c->model(type_to_model($_))
                         ->tags->find_editor_entities($user->id, $tag->id)
                     ]
-        } entities_with('tags');
+        } @entities_with_tags;
 
         foreach my $entity_tags (values %tags) {
             $tag_in_use = 1 if @$entity_tags;
@@ -440,10 +447,10 @@ sub tag : Chained('load') PathPart('tag') Args(1)
     $c->stash(
         tag_name => $tag_name,
         tags => \%tags,
-        tag_in_use => $tag_in_use
+        tag_in_use => $tag_in_use,
+        entities_with_tags => \@entities_with_tags
     );
 }
-
 
 sub privileged : Path('/privileged')
 {
@@ -454,12 +461,16 @@ sub privileged : Path('/privileged')
     my @transclusion_editors = $c->model('Editor')->find_by_privileges($WIKI_TRANSCLUSION_FLAG);
     my @relationship_editors = $c->model('Editor')->find_by_privileges($RELATIONSHIP_EDITOR_FLAG);
     my @location_editors = $c->model('Editor')->find_by_privileges($LOCATION_EDITOR_FLAG);
+    my @banner_editors = $c->model('Editor')->find_by_privileges($BANNER_EDITOR_FLAG);
+    my @account_admins = $c->model('Editor')->find_by_privileges($ACCOUNT_ADMIN_FLAG);
 
     $c->model('Editor')->load_preferences(@bots);
     $c->model('Editor')->load_preferences(@auto_editors);
     $c->model('Editor')->load_preferences(@transclusion_editors);
     $c->model('Editor')->load_preferences(@relationship_editors);
     $c->model('Editor')->load_preferences(@location_editors);
+    $c->model('Editor')->load_preferences(@banner_editors);
+    $c->model('Editor')->load_preferences(@account_admins);
 
     $c->stash(
         bots => [ @bots ],
@@ -467,6 +478,8 @@ sub privileged : Path('/privileged')
         transclusion_editors => [ @transclusion_editors ],
         relationship_editors => [ @relationship_editors ],
         location_editors => [ @location_editors ],
+        banner_editors => [ @banner_editors ],
+        account_admins => [ @account_admins ],
         template => 'user/privileged.tt',
     );
 }

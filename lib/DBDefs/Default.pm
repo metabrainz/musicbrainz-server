@@ -95,6 +95,9 @@ sub WEB_SERVER                { "localhost:5000" }
 # Relevant only if SSL redirects are enabled
 sub WEB_SERVER_SSL            { "localhost" }
 sub LUCENE_SERVER             { "search.musicbrainz.org" }
+# Whether to use x-accel-redirect for webservice searches,
+# using /internal/search as the internal redirect
+sub LUCENE_X_ACCEL_REDIRECT   { 0 }
 # Used, for example, to have emails sent from the beta server list the
 # main server
 sub WEB_SERVER_USED_IN_EMAIL  { my $self = shift; $self->WEB_SERVER }
@@ -246,21 +249,6 @@ sub CACHE_MANAGER_OPTIONS {
 # Just like the memcached server settings, there is NO SECURITY built into the
 # ratelimit protocol, so be careful about enabling it.
 sub RATELIMIT_SERVER { undef }
-
-################################################################################
-# Minify settings
-################################################################################
-
-# The following two values determine how scripts and styles are minified. By
-# default, a dummy minifier is used:
-sub MINIFY_DUMMY { shift; my %args = @_; return $args{input}; }
-sub MINIFY_SCRIPTS { return \&MINIFY_DUMMY; }
-sub MINIFY_STYLES { return \&MINIFY_DUMMY; }
-
-# If you wish to minify either javascript or css, uncomment the following lines
-# and install the neccesary CPAN packages.
-# sub MINIFY_SCRIPTS { use Javascript::Closure; return \&Javascript::Closure::minify }
-# sub MINIFY_STYLES { use CSS::Minifier; return \&CSS::Minifier::minify }
 
 ################################################################################
 # Sessions (advanced)

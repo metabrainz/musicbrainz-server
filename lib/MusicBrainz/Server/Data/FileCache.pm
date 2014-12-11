@@ -1,21 +1,35 @@
 package MusicBrainz::Server::Data::FileCache;
-use Moose;
+use MooseX::Singleton;
 use namespace::autoclean -also => [qw( _expand )];
 
 use DBDefs;
 use Digest::MD5 qw( md5_hex );
 use Digest::MD5::File qw( file_md5_hex );
 use File::Find;
+use File::Slurp qw( read_file );
 use IO::All;
+use JSON qw( decode_json );
 use List::MoreUtils qw( uniq );
 use Path::Class qw( dir file );
-use MooseX::Types::Moose qw( Str );
+use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::Structured qw( Map );
 use Try::Tiny;
 
+has manifest_mtime => (
+    isa => Int,
+    is => 'rw',
+    default => sub { 0 }
+);
+
+has manifest_last_checked => (
+    isa => Int,
+    is => 'rw',
+    default => sub { 0 }
+);
+
 has manifest_signatures => (
     isa => Map[Str, Str],
-    is => 'ro',
+    is => 'rw',
     traits => [ 'Hash' ],
     default => sub { {} }
 );
@@ -28,14 +42,23 @@ has file_signatures => (
 );
 
 sub manifest_signature {
-    my ($self, $manifest, $type) = @_;
-    unless (exists $self->manifest_signatures->{$manifest}) {
-        my $signature = md5_hex(join ',', map {
-            join(':', file($_)->basename, file_md5_hex($_));
-        } map { DBDefs->STATIC_FILES_DIR . "/$_" }
-            $self->manifest_files($manifest, $type));
+    my ($self, $manifest) = @_;
 
-        $self->manifest_signatures->{$manifest} = $signature;
+    my $instance = $self->instance;
+    my $time = time();
+    my $ttl = DBDefs->STAT_TTL // 0;
+
+    if (($time - $instance->manifest_last_checked) > $ttl) {
+        $instance->manifest_last_checked($time);
+
+        my $path = DBDefs->STATIC_FILES_DIR . "/build/rev-manifest.json";
+        my @stat = stat($path);
+        my $mtime = $stat[9];
+
+        if ($mtime > $instance->manifest_mtime) {
+            $instance->manifest_mtime($mtime);
+            $instance->manifest_signatures(decode_json(read_file($path)));
+        }
     }
 
     return $self->manifest_signatures->{$manifest};
@@ -43,18 +66,20 @@ sub manifest_signature {
 
 sub template_signature {
     my ($self, $template) = @_;
+    my $instance = $self->instance;
     my $signature_key = 'template' . $template;
-    unless (exists $self->file_signatures->{$signature_key}) {
-        $self->file_signatures->{$signature_key} = file_md5_hex(DBDefs->MB_SERVER_ROOT . "/root/" . $template);
+    unless (exists $instance->file_signatures->{$signature_key}) {
+        $instance->file_signatures->{$signature_key} = file_md5_hex(DBDefs->MB_SERVER_ROOT . "/root/" . $template);
     }
 
-    return $self->file_signatures->{$signature_key};
+    return $instance->file_signatures->{$signature_key};
 }
 
 sub pofile_signature {
     my ($self, $domain, $language) = @_;
+    my $instance = $self->instance;
     my $signature_key = 'pofile' . $domain . $language;
-    unless (exists $self->file_signatures->{$signature_key}) {
+    unless (exists $instance->file_signatures->{$signature_key}) {
         # First try the language as given, then fall back to the language without a country code.
         my $hash = try {
             file_md5_hex(_pofile_path($domain, $language));
@@ -63,10 +88,10 @@ sub pofile_signature {
             file_md5_hex(_pofile_path($domain, $language));
         };
 
-        $self->file_signatures->{$signature_key} = $hash;
+        $instance->file_signatures->{$signature_key} = $hash;
     }
 
-    return $self->file_signatures->{$signature_key};
+    return $instance->file_signatures->{$signature_key};
 }
 
 sub _pofile_path
@@ -85,74 +110,6 @@ sub _expand {
     else {
         return $path =~ /\.$type$/ ? (file($path)->absolute) : ();
     }
-}
-
-sub manifest_files {
-    my ($self, $manifest, $type) = @_;
-
-    my $relative_to = DBDefs->STATIC_FILES_DIR;
-
-    return
-        # Convert paths back to relative paths of the manifest directory
-        map  { file($_)->relative($relative_to) }
-
-        # Expand directories to files
-        map  { _expand("$relative_to/$_", $type) }
-
-        # Ignore blank lines/comments in the manifest
-        grep { !/^(#.*|\s*)$/ }
-            io("$relative_to/$manifest")->chomp->slurp;
-}
-
-sub squash {
-    my ($self, $minifier, $manifest, $type, $prefix) = @_;
-    my $hash = $self->manifest_signature($manifest, $type);
-    my $filename = DBDefs->STATIC_FILES_DIR . "/$prefix$hash.$type";
-
-    if (!-f $filename) {
-        my $input = join("\n",
-            map { io($_)->all }
-                 map { DBDefs->STATIC_FILES_DIR . "/$_" }
-                    $self->manifest_files($manifest, $type));
-
-        printf STDERR "Compiling $manifest...";
-        try {
-            my $output = $minifier->(input => $input);
-            if ($output =~ /^\s+$/) {
-                die "Empty file generated. Perhaps a trailing comma in a .js file?";
-            }
-            $output > io($filename);
-            printf STDERR "OK\n";
-        } catch {
-            my $err = $_;
-            printf STDERR "FAIL\n";
-            printf STDERR "Error: $err\n";
-            printf STDERR "Deleting $prefix$hash.$type.\n";
-            system("rm -f $filename");
-        }
-    } else {
-        printf STDERR "$manifest already compiled.\n";
-    }
-}
-
-sub compile_javascript_manifest {
-    my ($self, $manifest) = @_;
-    return $self->squash(DBDefs->MINIFY_SCRIPTS, $manifest, 'js', '');
-}
-
-sub compile_css_manifest {
-    my ($self, $manifest) = @_;
-    my $less_manifest = $manifest;
-    $less_manifest =~ s/\.css\.manifest/\.less/;
-    if (-f $less_manifest) {
-        my $css = $less_manifest;
-        $css =~ s/\.less$/\.css/;
-        printf STDERR "Compiling $less_manifest to $css...\n";
-
-        my $lessc = DBDefs->MB_SERVER_ROOT . '/node_modules/.bin/lessc';
-        system "$lessc -x -rp='/static/' -ru $less_manifest $css"
-    }
-    return $self->squash(DBDefs->MINIFY_STYLES, $manifest, 'css', 'styles/');
 }
 
 __PACKAGE__->meta->make_immutable;

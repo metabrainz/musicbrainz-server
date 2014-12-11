@@ -61,9 +61,8 @@ test all => sub {
         ipi_codes => [ '00407982340' ],
         isni_codes => [ '0000000106750994' ],
         end_date => { year => 2000, month => 05 }
-                                 });
-    isa_ok($label, 'MusicBrainz::Server::Entity::Label');
-    ok($label->id > 1);
+    });
+    ok($label->{id} > 1);
 
 
     # ---
@@ -79,9 +78,9 @@ test all => sub {
     isa_ok($found->{'RAM Records'}->[0], 'MusicBrainz::Server::Entity::Label');
     ok(!defined $found->{'Not there'}, 'Non existent label was not found');
 
-    ok(!$test->c->model('Label')->in_use($label->id));
+    ok(!$test->c->model('Label')->in_use($label->{id}));
 
-    $label = $label_data->get_by_id($label->id);
+    $label = $label_data->get_by_id($label->{id});
     is($label->name, 'RAM Records', "name");
     is($label->type_id, 1, "type id");
     is($label->area_id, 221, "area id");

@@ -12,8 +12,6 @@
 [% END %]
 
 [%- WRAPPER "place/layout.tt" page='index' -%]
-    [%- INCLUDE 'place/annotation.tt' summary=1 -%]
-
     [% IF eligible_for_cleanup %]
       <p class="cleanup">
           [% l('This place has no relationships and will be removed
@@ -22,8 +20,9 @@
       </p>
     [% END %]
 
+    [%- INCLUDE 'annotation/summary.tt' -%]
+
     [%- show_wikipedia_extract() -%]
 
-    [% INCLUDE "components/relationships.tt" source=place
-        relationships=place.grouped_relationships('area', 'artist', 'label', 'place', 'url', 'work', 'series', 'instrument') %]
+    [% INCLUDE "components/relationships.tt" source=place %]
 [% END %]

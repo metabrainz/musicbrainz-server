@@ -160,6 +160,10 @@ sub direct : Private
             $c->model('SeriesType')->load(@entities);
             $c->model('SeriesOrderingType')->load(@entities);
         }
+        when ('event') {
+            $c->model('Event')->load_related_info(@entities);
+            $c->model('Event')->load_areas(@entities);
+        }
     }
 
     if ($type =~ /(recording|release|release_group)/)

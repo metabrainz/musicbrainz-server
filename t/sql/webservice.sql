@@ -26,6 +26,7 @@ INSERT INTO iso_3166_1 (area, code) VALUES ( 13, 'AU'), ( 81, 'DE'), (107, 'JP')
 
 INSERT INTO link_attribute_type (id, root, gid, name, description) VALUES
     (14, 14, '0abd7f04-5e28-425b-956f-94789d9bcbe2', 'instrument', 'This attribute describes the possible instruments that can be captured as part of a performance.'),
+    (229, 14, '63021302-86cd-4aee-80df-2270d54f4978', 'guitar', ''),
     (788, 788, 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a', 'number', 'This attribute indicates the number of a work in a series.');
 
 INSERT INTO link_text_attribute_type (attribute_type) VALUES (788);
@@ -33,6 +34,8 @@ INSERT INTO link_text_attribute_type (attribute_type) VALUES (788);
 -- Types, statuses, etc.
 INSERT INTO artist_type (id, name) VALUES (1, 'Person');
 INSERT INTO artist_type (id, name) VALUES (2, 'Group');
+
+INSERT INTO event_type (id, name) VALUES (1, 'Festival');
 
 INSERT INTO instrument_type (id, name) VALUES (1, 'Wind instrument');
 
@@ -312,6 +315,7 @@ INSERT INTO artist (begin_date_day, begin_date_month, begin_date_year, comment, 
 INSERT INTO artist (begin_date_day, begin_date_month, begin_date_year, comment, area, edits_pending, end_date_day, end_date_month, end_date_year, ended, gender, gid, id, last_updated, name, sort_name, type) VALUES (NULL, NULL, NULL, '', NULL, 0, NULL, NULL, NULL, '0', NULL, '05d83760-08b5-42bb-a8d7-00d80b3bf47c', 398598, NULL, 'Paul Allgood', 'Allgood, Paul', 1);
 INSERT INTO artist (begin_date_day, begin_date_month, begin_date_year, comment, area, edits_pending, end_date_day, end_date_month, end_date_year, ended, gender, gid, id, last_updated, name, sort_name, type) VALUES (NULL, NULL, NULL, 'UK dubstep artist Greg Sanders', NULL, 0, NULL, NULL, NULL, '0', NULL, '472bc127-8861-45e8-bc9e-31e8dd32de7a', 427385, '2009-12-30 20:10:06.209461+00', 'Distance', 'Distance', 1);
 INSERT INTO artist (begin_date_day, begin_date_month, begin_date_year, comment, area, edits_pending, end_date_day, end_date_month, end_date_year, ended, gender, gid, id, last_updated, name, sort_name, type) VALUES (NULL, NULL, 1989, '', NULL, 0, NULL, NULL, NULL, '0', NULL, '1946a82a-f927-40c2-8235-38d64f50d043', 242, NULL, 'The Chemical Brothers', 'Chemical Brothers, The', 2);
+INSERT INTO artist (begin_date_day, begin_date_month, begin_date_year, comment, area, edits_pending, end_date_day, end_date_month, end_date_year, ended, gender, gid, id, last_updated, name, sort_name, type) VALUES (NULL, NULL, 1988, '', 222, 0, NULL, NULL, NULL, '0', NULL, '38c5cdab-5d6d-43d1-85b0-dac41bde186e', 305, '2011-10-10 15:41:33.909553-05', 'Blind Melon', 'Blind Melon', 2);
 
 UPDATE artist_meta SET rating_count = NULL, rating = NULL WHERE id = 265420;
 UPDATE artist_meta SET rating_count = 2, rating = 70 WHERE id = 11545;
@@ -399,6 +403,7 @@ INSERT INTO artist_credit (id, artist_count, created, name, ref_count) VALUES (3
 INSERT INTO artist_credit (id, artist_count, created, name, ref_count) VALUES (427385, 1, '2011-01-18 16:24:02.551922+00', 'Distance', 293);
 INSERT INTO artist_credit (id, artist_count, created, name, ref_count) VALUES (781759, 2, '2011-01-18 16:24:02.551922+00', 'Chris.Su & SKC', 22);
 INSERT INTO artist_credit (id, artist_count, created, name, ref_count) VALUES (792488, 2, '2011-01-18 16:24:02.551922+00', 'm-flo♥BoA', 21);
+INSERT INTO artist_credit (id, artist_count, created, name, ref_count) VALUES (305, 1, '2011-05-16 11:32:11.963929-05', 'Blind Melon', 1148);
 
 INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES (242, 242, '', 'The Chemical Brothers', 0);
 INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES (388, 388, '', 'Led Zeppelin', 0);
@@ -423,6 +428,15 @@ INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, positi
 INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES (100300, 781759, '', 'SKC', 1);
 INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES (135345, 792488, '♥', 'm-flo', 0);
 INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES (9496, 792488, '', 'BoA', 1);
+INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES (305, 305, '', 'Blind Melon', 0);
+
+-- Events
+INSERT INTO event (id, gid, name, type) VALUES (7, 'eb668bdc-a928-49a1-beb7-8e37db2a5b65', 'Cool Festival', 1);
+INSERT INTO event (begin_date_day, begin_date_month, begin_date_year, cancelled, comment, edits_pending, end_date_day, end_date_month, end_date_year, ended, gid, id, last_updated, name, time, type) VALUES (12, 5, 2014, '1', 'A Comment', 0, 13, 5, 2014, '1', '166359d1-5a63-4033-945c-a6707844fb19', 8, '2014-08-01 22:16:44.339332+00', 'Sadly Cancelled Festival', '20:00', 1);
+
+INSERT INTO event_alias (id, event, name, sort_name) VALUES
+    (1, 7, 'El Festival Cool', 'Festival Cool, El'),
+    (2, 7, 'Warm Festival', 'Warm Festival');
 
 -- Instruments
 
@@ -454,6 +468,7 @@ INSERT INTO release_group (artist_credit, comment, edits_pending, gid, id, last_
 INSERT INTO release_group (artist_credit, comment, edits_pending, gid, id, last_updated, name, type) VALUES (199821, '', 0, 'a8c946f5-8d26-3534-bab7-37c57eebbc1c', 284354, '2009-05-24 20:47:00.490177+00', '[non-album tracks]', NULL);
 INSERT INTO release_group (artist_credit, comment, edits_pending, gid, id, last_updated, name, type) VALUES (398438, '', 0, 'cde61708-3be3-31ad-ba61-06af6af59565', 703316, '2009-05-24 20:47:00.490177+00', 'Exogamy', 1);
 INSERT INTO release_group (artist_credit, comment, edits_pending, gid, id, last_updated, name, type) VALUES (398598, '', 0, '04ba5879-e3ac-3cba-8a69-ee7da8ad8c4c', 772397, '2009-05-24 20:47:00.490177+00', 'An Inextricable Tale Audiobook', 6);
+INSERT INTO release_group (artist_credit, comment, edits_pending, gid, id, last_updated, name, type) VALUES (305, '', 0, '9dba763e-7cff-36b3-af88-b755f237a4c7', 61258, '2009-05-24 15:47:00.490177-05', 'Soup', 1);
 
 UPDATE release_group_meta SET first_release_date_month = 7, rating_count = NULL, first_release_date_year = 2001, release_count = 2, first_release_date_day = 4, rating = NULL WHERE id = 377462;
 UPDATE release_group_meta SET first_release_date_month = 9, rating_count = NULL, first_release_date_year = 1999, release_count = 3, first_release_date_day = 13, rating = NULL WHERE id = 155364;
@@ -645,6 +660,9 @@ INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_upda
 INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name) VALUES (265420, '', 0, '162630d9-36d2-4a8d-ade1-1c77440b34e7', 4223059, NULL, 296026, 'サマーれげぇ!レインボー');
 INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name) VALUES (265420, '', 0, '487cac92-eed5-4efa-8563-c9a818079b9a', 4223060, NULL, 213106, 'HELLO! また会おうね (7人祭 version)');
 INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name) VALUES (265420, '', 0, 'eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e', 4223061, NULL, 292800, 'サマーれげぇ!レインボー (instrumental)');
+INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name) VALUES (305, '', 0, 'c43ee188-0049-4eec-ba2e-0385c5edd2db', 449989, NULL, 211133, 'Hello Goodbye / Galaxie');
+INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name) VALUES (305, '', 0, 'c830c239-3f91-4485-9577-4b86f92ad725', 449990, NULL, 240400, '2 X 4');
+INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name) VALUES (305, '', 0, 'c0beb80b-4185-4328-8761-b9e45a5d0ac6', 14488617, NULL, 128000, 'Hello Goodbye [hidden track]');
 
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 4223059;
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 4223060;
@@ -885,6 +903,7 @@ INSERT INTO release (status, release_group, edits_pending, packaging, id, qualit
 INSERT INTO release (status, release_group, edits_pending, packaging, id, quality, last_updated, script, language, name, artist_credit, barcode, comment, gid) VALUES (1, 87135, 0, NULL, 672077, -1, '2010-04-03 15:11:01.630562+00', 28, 120, 'Live at the Regal', 22492, '015775154827', '', '686852e7-de39-3316-adb0-6c4400d60838');
 INSERT INTO release (status, release_group, edits_pending, packaging, id, quality, last_updated, script, language, name, artist_credit, barcode, comment, gid) VALUES (1, 703316, 0, NULL, 375273, -1, NULL, 28, 120, 'Exogamy', 398438, '844395014422', '', '980e0f65-930e-4743-95d3-602665c25c15');
 INSERT INTO release (status, release_group, edits_pending, packaging, id, quality, last_updated, script, language, name, artist_credit, barcode, comment, gid) VALUES (1, 772397, 0, NULL, 459740, -1, NULL, 28, 120, 'An Inextricable Tale Audiobook', 398598, '634479663338', '', '4ccb3e54-caab-4ad4-94a6-a598e0e52eec');
+INSERT INTO release (status, release_group, edits_pending, packaging, id, quality, last_updated, script, language, name, artist_credit, barcode, comment, gid) VALUES (1, 61258, 0, NULL, 1247355, -1, NULL, 28, 120, 'Soup', 305, '0208311348266', '', 'ec0d0122-b559-4aa1-a017-7068814aae57');
 
 UPDATE release_meta SET amazon_asin = 'B00005LA6G', date_added = '2005-07-09 06:10:18.57297+00', info_url = 'http://www.amazon.co.jp/gp/product/B00005LA6G', cover_art_presence = 'absent', amazon_store = NULL WHERE id = 49161;
 UPDATE release_meta SET amazon_asin = 'B00005LA6G', date_added = '2006-03-18 07:45:41.990026+00', info_url = 'http://www.amazon.co.jp/gp/product/B00005LA6G', cover_art_presence = 'absent', amazon_store = NULL WHERE id = 123054;
@@ -1040,6 +1059,7 @@ INSERT INTO medium (edits_pending, format, id, last_updated, name, position, rel
 INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 672077, '2011-01-18 15:21:33.71184+00', NULL, 1, 672077, 10);
 INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 375273, '2011-01-18 15:21:33.71184+00', NULL, 1, 375273, 9);
 INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 459740, '2011-01-18 15:21:33.71184+00', NULL, 1, 459740, 15);
+INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 1279200, '2013-01-25 14:09:41.827297-06', NULL, 1, 1247355, 3);
 
 -- Tracks
 
@@ -1483,6 +1503,9 @@ INSERT INTO track (artist_credit, edits_pending, gid, id, last_updated, length, 
 INSERT INTO track (artist_credit, edits_pending, gid, id, last_updated, length, medium, name, number, position, recording) VALUES (427385, 0, 'aaa81c88-2b48-3247-ad63-61ec4d423c5c', '59', '2011-01-18 15:56:00.408782+00', 209826, 467794, 'Headstrung', '2', 2, 8692018);
 INSERT INTO track (artist_credit, edits_pending, gid, id, last_updated, length, medium, name, number, position, recording) VALUES (427385, 0, 'a4066707-1f29-30d9-80c6-3b6d12f3f6e6', '60', '2011-01-18 15:56:00.408782+00', 291773, 467794, 'Misfit', '3', 3, 8692019);
 INSERT INTO track (artist_credit, edits_pending, gid, id, last_updated, length, medium, name, number, position, recording) VALUES (427385, 0, '75bbcd04-b648-3dd0-bad4-a84d38cc20da', '61', '2011-01-18 15:56:00.408782+00', 350120, 467794, 'Present Day', '4', 4, 8692020);
+INSERT INTO track (artist_credit, edits_pending, gid, id, last_updated, length, medium, name, number, position, recording) VALUES (305, 0, '1a0ba71b-fb23-3931-a426-cd204a82a90e', '14059814', '2013-01-25 14:09:41.036045-06', 128000, 1279200, 'Hello Goodbye [hidden track]', '0', 0, 14488617);
+INSERT INTO track (artist_credit, edits_pending, gid, id, last_updated, length, medium, name, number, position, recording) VALUES (305, 0, '7b84af2d-96b3-3c50-a667-e7d10e8b000d', '14059815', '2013-01-25 14:09:41.036045-06', 211133, 1279200, 'Galaxie', '1', 1, 449989);
+INSERT INTO track (artist_credit, edits_pending, gid, id, last_updated, length, medium, name, number, position, recording) VALUES (305, 0, 'e9f7ca98-ba9d-3276-97a4-26475c9f4527', '14059816', '2013-01-25 14:09:41.036045-06', 240400, 1279200, '2 X 4', '2', 2, 449990);
 
 -- Labels
 
@@ -2520,14 +2543,14 @@ INSERT INTO cover_art_archive.cover_art_type (id, type_id) VALUES ('1031598329',
 INSERT INTO link_type (child_order, description, entity_type0, entity_type1, gid, id, last_updated, link_phrase, name, parent, priority, reverse_link_phrase, long_link_phrase) VALUES (0, '', 'artist', 'artist', '92859e2a-f2e5-45fa-a680-3f62ba0beccc', 121, '2011-01-18 15:31:00.495651+00', 'musical relationship ', 'musical relationships', NULL, 0, 'musical relationship', 'musical relationships');
 INSERT INTO link_type (child_order, description, entity_type0, entity_type1, gid, id, last_updated, link_phrase, name, parent, priority, reverse_link_phrase, long_link_phrase) VALUES (0, 'Indicates a membership in a band/orchestra. Use this for groups that exist over some period of time and possibly have a name. Do not use this for short time projects or cooperations of two artists on a few tracks or one album. Use the cooperation type for such cases. (<a href="http://musicbrainz.org/doc/Member_Of_Band_Relationship_Type">Details</a>)', 'artist', 'artist', '5be4c609-9afa-4ea0-910b-12ffb71e3821', 111, '2011-01-18 15:31:00.495651+00', '{additional} {founder:founding} member of', 'member of band', 121, 0, '{additional} {founder:founding} members', 'member of band');
 INSERT INTO link_type (child_order, description, entity_type0, entity_type1, gid, id, last_updated, link_phrase, name, parent, priority, reverse_link_phrase, long_link_phrase) VALUES (0, 'Indicates a collaboration between two artist or among several artists. Use this for projects, single albums, or even tracks where some artists worked together, but did not form a lasting group. For groups you should use the membership type. (<a href="http://musicbrainz.org/doc/Collaboration_Relationship_Type">Details</a>)', 'artist', 'artist', '75c09861-6857-4ec0-9729-84eefde7fc86', 110, '2011-01-18 15:31:00.495651+00', '{additional} {minor} collaborator on', 'collaboration', 121, 0, '{additional} {minor} collaborators', 'collaboration');
-INSERT INTO link_type (child_order, description, entity_type0, entity_type1, gid, id, last_updated, link_phrase, name, parent, priority, reverse_link_phrase, long_link_phrase) VALUES (0, '', 'artist', 'recording', 'f8673e29-02a5-47b7-af61-dd4519328dd0', 147, '2011-01-18 15:31:00.495651+00', 'performance', 'performance ', NULL, 0, 'performance ', 'performance ');
+INSERT INTO link_type (child_order, description, entity_type0, entity_type1, gid, id, last_updated, link_phrase, name, parent, priority, reverse_link_phrase, long_link_phrase) VALUES (0, '', 'artist', 'recording', 'f8673e29-02a5-47b7-af61-dd4519328dd0', 147, '2011-01-18 15:31:00.495651+00', 'performance', 'performance', NULL, 0, 'performance', 'performance');
 INSERT INTO link_type (child_order, description, entity_type0, entity_type1, gid, id, last_updated, link_phrase, name, parent, priority, reverse_link_phrase, long_link_phrase) VALUES (0, 'Indicates an artist that performed on this work. (<a href="http://musicbrainz.org/doc/Performer_Relationship_Type">Details</a>)', 'artist', 'recording', '628a9658-f54c-4142-b0c0-95f031b544da', 165, '2011-01-18 15:31:00.495651+00', '{additional:additionally} {guest} performed', 'performer', 147, 0, '{additional} {guest} performer', 'performer');
 INSERT INTO link_type (child_order, description, entity_type0, entity_type1, gid, id, last_updated, link_phrase, name, parent, priority, reverse_link_phrase, long_link_phrase) VALUES (1, 'Indicates an artist performed in a particular voice on this work. (<a href="http://musicbrainz.org/doc/Performer_Relationship_Type">Details</a>)', 'artist', 'recording', '0fdbe3c6-7700-4a31-ae54-b53f06ae1cfa', 158, '2011-01-18 15:31:00.495651+00', '{additional} {guest} {vocal} vocals', 'vocal', 165, 0, '{additional} {guest} {vocal} vocals', 'vocal');
 INSERT INTO link_type (child_order, description, entity_type0, entity_type1, gid, id, last_updated, link_phrase, name, parent, priority, reverse_link_phrase, long_link_phrase) VALUES (3, '', 'artist', 'recording', 'b367fae0-c4b0-48b9-a40c-f3ae4c02cffc', 150, '2011-01-18 15:31:00.495651+00', 'production ', 'production ', NULL, 0, 'production', 'production ');
 INSERT INTO link_type (child_order, description, entity_type0, entity_type1, gid, id, last_updated, link_phrase, name, parent, priority, reverse_link_phrase, long_link_phrase) VALUES (0, 'Indicates the producer, co-producer, executive producer or co-executive producer for this work. (<a href="http://musicbrainz.org/doc/Producer_Relationship_Type">Details</a>)', 'artist', 'recording', '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0', 149, '2011-01-18 15:31:00.495651+00', '{additional:additionally} {assistant} {associate} {co:co-}{executive:executive }produced', 'producer', 150, 0, '{additional} {assistant} {associate} {co:co-}{executive:executive }producer', 'producer');
 INSERT INTO link_type (child_order, description, entity_type0, entity_type1, gid, id, last_updated, link_phrase, name, parent, priority, reverse_link_phrase, long_link_phrase) VALUES (1, 'Indicates the engineer for this work. (<a href="http://musicbrainz.org/doc/Engineer_Relationship_Type">Details</a>)', 'artist', 'recording', '5dcc52af-7064-4051-8d62-7d80f4c3c907', 145, '2011-01-18 15:31:00.495651+00', '{additional:additionally} {assistant} {associate} {co:co-}{executive:executive }engineered', 'engineer', 150, 0, '{additional} {assistant} {associate} {co:co-}{executive:executive }engineer', 'engineer');
 INSERT INTO link_type (child_order, description, entity_type0, entity_type1, gid, id, last_updated, link_phrase, name, parent, priority, reverse_link_phrase, long_link_phrase) VALUES (5, 'This relationship links a track or a release to the person who did programming of electronic instruments. (<a href="http://musicbrainz.org/doc/Programming_Relationship_Type">Details</a>)', 'artist', 'recording', '36c50022-44e0-488d-994b-33f11d20301e', 139, '2011-01-18 15:31:00.495651+00', '{additional} {assistant} {associate} {instrument} programming', 'programming', 145, 0, '{additional} {assistant} {associate} {instrument} programming', 'programming');
-INSERT INTO link_type (child_order, description, entity_type0, entity_type1, gid, id, last_updated, link_phrase, name, parent, priority, reverse_link_phrase, long_link_phrase) VALUES (0, '', 'artist', 'release', '8db9d0b7-ca39-43a6-8c72-9a47f811229e', 38, '2011-01-18 15:31:00.495651+00', 'performance', 'performance ', NULL, 0, 'performance ', 'performance ');
+INSERT INTO link_type (child_order, description, entity_type0, entity_type1, gid, id, last_updated, link_phrase, name, parent, priority, reverse_link_phrase, long_link_phrase) VALUES (0, '', 'artist', 'release', '8db9d0b7-ca39-43a6-8c72-9a47f811229e', 38, '2011-01-18 15:31:00.495651+00', 'performance', 'performance', NULL, 0, 'performance', 'performance');
 INSERT INTO link_type (child_order, description, entity_type0, entity_type1, gid, id, last_updated, link_phrase, name, parent, priority, reverse_link_phrase, long_link_phrase) VALUES (0, 'Indicates an artist that performed on this work. (<a href="http://musicbrainz.org/doc/Performer_Relationship_Type">Details</a>)', 'artist', 'release', '888a2320-52e4-4fe8-a8a0-7a4c8dfde167', 55, '2011-01-18 15:31:00.495651+00', '{additional:additionally} {guest} performed', 'performer', 38, 0, '{additional} {guest} performer', 'performer');
 INSERT INTO link_type (child_order, description, entity_type0, entity_type1, gid, id, last_updated, link_phrase, name, parent, priority, reverse_link_phrase, long_link_phrase) VALUES (1, 'Indicates an artist performed in a particular voice on this work. (<a href="http://musicbrainz.org/doc/Performer_Relationship_Type">Details</a>)', 'artist', 'release', 'eb10f8a0-0f4c-4dce-aa47-87bcb2bc42f3', 64, '2011-01-18 15:31:00.495651+00', '{additional} {guest} {vocal} vocals', 'vocal', 55, 0, '{additional} {guest} {vocal} vocals', 'vocal');
 INSERT INTO link_type (child_order, description, entity_type0, entity_type1, gid, id, last_updated, link_phrase, name, parent, priority, reverse_link_phrase, long_link_phrase) VALUES (3, '', 'artist', 'release', '3172a175-7c9d-44ce-a8b7-9a9187b33762', 58, '2011-01-18 15:31:00.495651+00', 'production', 'production ', NULL, 0, 'production ', 'production ');
@@ -2606,10 +2629,14 @@ INSERT INTO link_type_attribute_type (attribute_type, last_updated, link_type, m
 INSERT INTO link_type_attribute_type (attribute_type, last_updated, link_type, max, min) VALUES (3, '2011-01-18 15:31:00.495651+00', 64, NULL, 0);
 INSERT INTO link_type_attribute_type (attribute_type, last_updated, link_type, max, min) VALUES (194, '2011-01-18 15:31:00.495651+00', 64, 1, 0);
 INSERT INTO link_type_attribute_type (attribute_type, last_updated, link_type, max, min) VALUES (477, '2011-01-18 15:31:00.495651+00', 4, 1, 0);
+INSERT INTO link_type_attribute_type (attribute_type, last_updated, link_type, max, min) VALUES (14, '2011-01-18 15:31:00.495651+00', 147, NULL, 0);
+
+INSERT INTO link_creditable_attribute_type (attribute_type) VALUES (229);
 
 INSERT INTO link (attribute_count, begin_date_day, begin_date_month, begin_date_year, created, end_date_day, end_date_month, end_date_year, ended, id, link_type) VALUES (0, NULL, NULL, NULL, '2011-01-18 15:31:00.495651+00', NULL, NULL, NULL, '0', 6101, 111);
 INSERT INTO link (attribute_count, begin_date_day, begin_date_month, begin_date_year, created, end_date_day, end_date_month, end_date_year, ended, id, link_type) VALUES (0, NULL, NULL, NULL, '2011-01-18 15:31:00.495651+00', NULL, NULL, NULL, '0', 6103, 110);
 INSERT INTO link (attribute_count, begin_date_day, begin_date_month, begin_date_year, created, end_date_day, end_date_month, end_date_year, ended, id, link_type) VALUES (1, NULL, NULL, NULL, '2011-01-18 15:31:00.495651+00', NULL, NULL, NULL, '0', 12351, 158);
+INSERT INTO link (attribute_count, begin_date_day, begin_date_month, begin_date_year, created, end_date_day, end_date_month, end_date_year, ended, id, link_type) VALUES (1, NULL, NULL, NULL, '2011-01-18 15:31:00.495651+00', NULL, NULL, NULL, '0', 12282, 147);
 INSERT INTO link (attribute_count, begin_date_day, begin_date_month, begin_date_year, created, end_date_day, end_date_month, end_date_year, ended, id, link_type) VALUES (0, NULL, NULL, NULL, '2011-01-18 15:31:00.495651+00', NULL, NULL, NULL, '0', 12281, 149);
 INSERT INTO link (attribute_count, begin_date_day, begin_date_month, begin_date_year, created, end_date_day, end_date_month, end_date_year, ended, id, link_type) VALUES (0, NULL, NULL, NULL, '2011-01-18 15:31:00.495651+00', NULL, NULL, NULL, '0', 12810, 139);
 INSERT INTO link (attribute_count, begin_date_day, begin_date_month, begin_date_year, created, end_date_day, end_date_month, end_date_year, ended, id, link_type) VALUES (1, NULL, NULL, 2007, '2011-01-18 15:31:00.495651+00', NULL, NULL, NULL, '0', 1956, 64);
@@ -2668,6 +2695,9 @@ INSERT INTO link (attribute_count, begin_date_day, begin_date_month, begin_date_
 INSERT INTO link_attribute (attribute_type, created, link) VALUES (194, '2011-01-18 15:31:00.495651+00', 12351);
 INSERT INTO link_attribute (attribute_type, created, link) VALUES (4, '2011-01-18 15:31:00.495651+00', 1956);
 INSERT INTO link_attribute (attribute_type, created, link) VALUES (477, '2011-01-18 15:31:00.495651+00', 4);
+INSERT INTO link_attribute (attribute_type, created, link) VALUES (229, '2011-01-18 15:31:00.495651+00', 12282);
+
+INSERT INTO link_attribute_credit (link, attribute_type, credited_as) VALUES (12282, 229, 'crazy guitar');
 
 INSERT INTO l_artist_artist (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 398598, 398438, 45799, '2011-01-18 15:31:00.495651+00', 6101);
 INSERT INTO l_artist_artist (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 100300, 180273, 4168, '2011-01-18 15:31:00.495651+00', 6103);
@@ -2692,6 +2722,7 @@ INSERT INTO l_artist_recording (edits_pending, entity0, entity1, id, last_update
 INSERT INTO l_artist_recording (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 11545, 1542689, 515105, '2011-01-18 15:56:00.408782+00', 12281);
 INSERT INTO l_artist_recording (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 11545, 1542690, 515106, '2011-01-18 15:56:00.408782+00', 12281);
 INSERT INTO l_artist_recording (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 11545, 1542691, 515107, '2011-01-18 15:56:00.408782+00', 12281);
+INSERT INTO l_artist_recording (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 283833, 2726274, 515108, '2011-01-18 15:56:00.408782+00', 12282);
 
 INSERT INTO l_artist_release (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 398598, 459740, 79005, '2011-01-18 15:52:02.917556+00', 1956);
 INSERT INTO l_artist_release (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 11545, 24752, 219815, '2011-01-18 15:52:02.917556+00', 34);

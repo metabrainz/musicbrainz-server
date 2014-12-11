@@ -1,4 +1,9 @@
 [%~ WRAPPER "layout.tt" title=title ? label.name _ " - ${title}" : label.name canonical_url=replace_gid(entity.gid) ~%]
+    <div id="content">
+        [%~ INCLUDE "label/header.tt" ~%]
+        [%~ content ~%]
+    </div>
+
     [%~ IF !full_width ~%]
         [%~ edit_links_add_entity = [] ~%]
         [%~ edit_links_add_entity.push({ url => c.uri_for_action('/release_editor/add', { label = label.gid }), text => l('Add release') }) ~%]
@@ -40,7 +45,7 @@
 
                 [%~ FOR isni_code IN label.isni_codes ~%]
                     [%~ INCLUDE 'layout/sidebar/property.tt' label=l('ISNI code:')
-                         content=link_isni(isni_code.isni) class="isni-code" ~%]
+                         content=link_isni(isni_code) class="isni-code" ~%]
                 [%~ END ~%]
 
                 [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Label code:')
@@ -54,9 +59,4 @@
             [%~ END ~%]
         [%~ END ~%]
     [%~ END ~%]
-
-    <div id="content">
-        [%~ INCLUDE "label/header.tt" ~%]
-        [%~ content ~%]
-    </div>
 [%~ END ~%]

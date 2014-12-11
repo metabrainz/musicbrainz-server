@@ -1,6 +1,6 @@
 [%- typename = relationship_type.name | ucfirst -%]
 [%- title = l("Relationship Type") _ " / " _ typename -%]
-[%- WRAPPER 'layout.tt' full_width=1 title=title -%]
+[%- WRAPPER 'layout.tt' full_width=1 title=title no_icons=1 -%]
     <h1 class="hierarchy-links"><a href="[% c.uri_for_action('/relationship/linktype/index') %]">[% l('Relationship Types') %]</a>
     / <a href="/relationships/[%- relationship_type.entity0_type -%]-[%- relationship_type.entity1_type -%]">[% l('{entity0}-{entity1}',
     { entity0 => format_entity_type_name(relationship_type.entity0_type), entity1 => format_entity_type_name(relationship_type.entity1_type) }) -%]</a>
@@ -24,7 +24,7 @@
     [%- IF relationship_type.description -%]
     <h2>[%- l('Description') -%]</h2>
     <p>
-        [%- relationship_type.description -%]
+        [%- relationship_type.l_description -%]
     </p>
     <p>
         [%- IF c.user.is_relationship_editor -%]
@@ -39,9 +39,9 @@
     <h2>[%- l('Link phrases') -%]</h2>
     <p>
     <ul>
-        <li><strong>[% l('Forward link phrase:') %]</strong> [%- relationship_type.link_phrase | html -%]</li>
-        <li><strong>[% l('Reverse link phrase:') %]</strong> [%- relationship_type.reverse_link_phrase | html -%]</li>
-        <li><strong>[% l('Long link phrase:') %]</strong> [%- relationship_type.long_link_phrase | html -%]</li>
+        <li><strong>[% l('Forward link phrase:') %]</strong> [%- relationship_type.l_link_phrase | html -%]</li>
+        <li><strong>[% l('Reverse link phrase:') %]</strong> [%- relationship_type.l_reverse_link_phrase | html -%]</li>
+        <li><strong>[% l('Long link phrase:') %]</strong> [%- relationship_type.l_long_link_phrase | html -%]</li>
     </ul>
     </p>
 
@@ -53,8 +53,8 @@
             [%- l('The following attributes can be used with this relationship type:') -%]
             [%- IF relationship_type.attributes.size -%]
                 [%- FOR attr=relationship_type.attributes -%]
-                    <h3>[% l(attr.type.name) %]</h3>
-                    <p>[%- l(attr.type.description) -%]</p>
+                    <h3>[% attr.type.l_name %]</h3>
+                    <p>[%- attr.type.l_description -%]</p>
                 [%- END -%]
             [%- END -%]
             [%- IF relationship_type.has_dates -%]

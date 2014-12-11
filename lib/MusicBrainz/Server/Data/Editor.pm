@@ -10,12 +10,11 @@ use Authen::Passphrase::RejectAll;
 use DateTime;
 use Digest::MD5 qw( md5_hex );
 use Encode;
-use Math::Random::Secure qw();
 use MusicBrainz::Server::Constants qw( $STATUS_DELETED $STATUS_OPEN entities_with );
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Editor;
 use MusicBrainz::Server::Data::Utils qw(
-    generate_gid
+    generate_token
     hash_to_row
     load_subobjects
     placeholders
@@ -321,6 +320,7 @@ sub update_privileges
                 + $values->{location_editor}  * $LOCATION_EDITOR_FLAG
                 + $values->{no_nag}           * $DONT_NAG_FLAG
                 + $values->{wiki_transcluder} * $WIKI_TRANSCLUSION_FLAG
+                + $values->{banner_editor}    * $BANNER_EDITOR_FLAG
                 + $values->{mbid_submitter}   * $MBID_SUBMITTER_FLAG
                 + $values->{account_admin}    * $ACCOUNT_ADMIN_FLAG;
 
@@ -642,8 +642,7 @@ sub allocate_remember_me_token {
             lc $user_name
         )
     ) {
-        # Generate a 128-bit token. irand is 32-bit.
-        my $token = join('', map { '' . Math::Random::Secure::irand() } (0 .. 3));
+        my $token = generate_token();
 
         my $key = "$normalized_name|$token";
         $self->redis->add($key, 1);

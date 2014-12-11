@@ -1,0 +1,99 @@
+<table class="tbl">
+  <thead>
+    <tr>
+      [%~ IF c.user_exists AND !no_checkboxes ~%]
+        <th>
+          <input type="checkbox" />
+        </th>
+      [%~ END ~%]
+
+      [%~ IF series_item_numbers ~%]
+        <th style="width: 1em">[%~ l('#') ~%]</th>
+      [%~ END ~%]
+      <th>[%~ sortable ? sortable_table_header('name', l('Event')) : l('Event') ~%]</th>
+      [%~ UNLESS no_type ~%]
+        <th>[%~ sortable ? sortable_table_header('type', l('Type')) : l('Type') ~%]</th>
+      [%~ END ~%]
+      [%~ UNLESS no_artists ~%]
+        <th>[%~ l('Artists') ~%]</th>
+      [%~ END ~%]
+      [%~ IF artist_roles ~%]
+        <th>[%~ l('Role') ~%]</th>
+      [%~ END ~%]
+      [%~ UNLESS no_location ~%]
+        <th>[%~ l('Location') ~%]</th>
+      [%~ END ~%]
+      <th>[%~ sortable ? sortable_table_header('date', l('Date')) : l('Date') ~%]</th>
+      <th>[%~ l('Time') ~%]</th>
+      [%~ UNLESS no_ratings ~%]
+        <th>[%~ l('Rating') ~%]</th>
+      [%~ END ~%]
+    </tr>
+  </thead>
+  <tbody>
+    [%~ FOR event IN events ~%]
+    <tr class="[% loop.parity %]">
+      [%~ IF c.user_exists AND !no_checkboxes ~%]
+      <td>
+        <input type="checkbox" name="add-to-merge" value="[%~ event.id ~%]" />
+      </td>
+      [%~ END ~%]
+      [%~ IF series_item_numbers ~%]
+      <td style="width: 1em">
+        [%~ event_id=event.id; series_item_numbers.$event_id ~%]
+      </td>
+      [%~ END ~%]
+      <td>
+        [%~ descriptive_link(event) ~%]
+      </td>
+      [%~ UNLESS no_type ~%]
+        <td>
+          [%~ event.l_type_name ~%]
+        </td>
+      [%~ END ~%]
+      [%~ UNLESS no_artists ~%]
+        <td>
+          <ul>
+            [%~ FOR rel_artist=event.performers ~%]
+              <li>
+                [%~ l('{artist} ({roles})', { artist => link_artist(rel_artist.entity),
+                     roles  => rel_artist.roles.join(', ') }) ~%]
+              </li>
+            [%~ END ~%]
+          </ul>
+        </td>
+      [%~ END ~%]
+      [%~ IF artist_roles ~%]
+        <td>
+          [%~ FOR rel_artist=event.performers ~%]
+            [%~ IF rel_artist.entity.id == artist.id ~%]
+              [%~ rel_artist.roles.join(', ') ~%]
+            [%~ END ~%]
+          [%~ END ~%]
+        </td>
+      [%~ END ~%]
+      [%~ UNLESS no_location ~%]
+        <td>
+          <ul>
+            [%~ FOR rel_place=event.places ~%]
+              <li>
+                [%~ descriptive_link(rel_place.entity) ~%]
+              </li>
+            [%~ END ~%]
+            [%~ FOR rel_area=event.areas ~%]
+              <li>
+                [%~ descriptive_link(rel_area.entity) ~%]
+              </li>
+            [%~ END ~%]
+          </ul>
+        </td>
+      [%~ END ~%]
+      <td>[% event.formatted_date %]</td>
+      <td>[%~ event.formatted_time ~%]</td>
+      [%~ UNLESS no_ratings ~%]
+        <td>[%~ rating_stars(event) ~%]</td>
+      [%~ END ~%]
+    </tr>
+    [%~ END ~%]
+  </tbody>
+</table>

@@ -1,4 +1,0 @@
-[%- WRAPPER 'artist/layout.tt' title=l('Remove Artist Alias') full_width=1 -%]
-    <h2>[% l('Remove artist alias') %]</h2>
-    [% INCLUDE 'alias/delete.tt' %]
-[%- END -%]

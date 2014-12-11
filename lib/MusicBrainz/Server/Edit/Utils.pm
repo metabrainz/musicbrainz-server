@@ -5,7 +5,7 @@ use 5.10.0;
 
 use List::MoreUtils qw( minmax uniq );
 use MusicBrainz::Server::Constants qw( :edit_status :vote $AUTO_EDITOR_FLAG );
-use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref collapse_whitespace coordinates_to_hash trim partial_date_to_hash );
+use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref coordinates_to_hash sanitize trim partial_date_to_hash );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
@@ -30,6 +30,7 @@ our @EXPORT_OK = qw(
     clean_submitted_artist_credits
     coordinate_closure
     date_closure
+    time_closure
     edit_status_name
     hash_artist_credit
     hash_artist_credit_without_join_phrases
@@ -39,6 +40,7 @@ our @EXPORT_OK = qw(
     merge_coordinates
     merge_partial_date
     merge_set
+    merge_time
     merge_value
     normalize_date_period
     load_artist_credit_definitions
@@ -84,6 +86,15 @@ sub coordinate_closure
     return sub {
         my $a = shift;
         return coordinates_to_hash($a->$attr);
+    };
+}
+
+sub time_closure
+{
+    my $attr = shift;
+    return sub {
+        my $a = shift;
+        return $a->$attr ? $a->$attr->strftime('%H:%M') : undef;
     };
 }
 
@@ -197,7 +208,7 @@ sub clean_submitted_artist_credits
 
             # Set to empty string if join_phrase is undef.
             $part->{join_phrase} //= '';
-            $part->{join_phrase} = collapse_whitespace($part->{join_phrase});
+            $part->{join_phrase} = sanitize($part->{join_phrase});
 
             # Remove trailing whitespace from a trailing join phrase.
             $part->{join_phrase} =~ s/\s+$// if $_ == $#names;
@@ -365,22 +376,6 @@ sub merge_coordinates {
     );
 }
 
-=method merge_list
-
-Merge any list of strings.
-
-=cut
-
-sub merge_list {
-    my ($name, $ancestor, $current, $new) = @_;
-
-    return (
-        [ PartialDate->new($ancestor->{$name})->format, $ancestor->{$name} ],
-        [ $current->$name->format, partial_date_to_hash($current->$name) ],
-        [ PartialDate->new($new->{$name})->format, $new->{$name} ],
-    );
-}
-
 =method merge_barcode
 
 Merge barcodes, using the formatted representation as the hash key.
@@ -394,6 +389,16 @@ sub merge_barcode {
         [ Barcode->new($ancestor->{barcode})->format, $ancestor->{barcode} ],
         [ $current->barcode->format, $current->barcode->code ],
         [ Barcode->new($new->{barcode})->format, $new->{barcode} ],
+    );
+}
+
+sub merge_time {
+    my ($name, $ancestor, $current, $new) = @_;
+
+    return (
+        [ defined $ancestor->{$name} ? $ancestor->{$name} : undef, $ancestor->{$name} ],
+        [ defined $current->$name ? $current->$name->strftime('%H:%M') : undef, $current->$name ],
+        [ defined $new->{$name} ? $new->{$name} : undef, $new->{$name} ],
     );
 }
 

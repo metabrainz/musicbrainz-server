@@ -15,6 +15,7 @@ use MusicBrainz::Server::Entity::Area;
 use MusicBrainz::Server::Entity::AreaType;
 use MusicBrainz::Server::Entity::ArtistType;
 use MusicBrainz::Server::Entity::Barcode;
+use MusicBrainz::Server::Entity::Event;
 use MusicBrainz::Server::Entity::Gender;
 use MusicBrainz::Server::Entity::ISRC;
 use MusicBrainz::Server::Entity::ISWC;
@@ -47,6 +48,7 @@ use MusicBrainz::Server::Entity::WorkType;
 use MusicBrainz::Server::Exceptions;
 use MusicBrainz::Server::Data::Artist;
 use MusicBrainz::Server::Data::Area;
+use MusicBrainz::Server::Data::Event;
 use MusicBrainz::Server::Data::Instrument;
 use MusicBrainz::Server::Data::Label;
 use MusicBrainz::Server::Data::Recording;
@@ -132,7 +134,7 @@ sub search
 
         $hard_search_limit = $offset * 2;
     }
-    elsif ($type eq "recording" || $type eq "release" || $type eq "release_group") {
+    elsif ($type ~~ [qw(recording release release_group)]) {
         my $extra_columns = "";
         $extra_columns .= 'entity.type AS primary_type_id,'
             if ($type eq 'release_group');
@@ -153,7 +155,7 @@ sub search
 
         if ($type eq 'release' && $where && exists $where->{track_count}) {
             $join_sql .= ' JOIN medium ON medium.release = entity.id';
-            $where_sql = 'WHERE medium.track_count = ?';
+            $where_sql = 'WHERE track_count_matches_cdtoc(medium, ?)';
             push @where_args, $where->{track_count};
         }
         elsif ($type eq 'recording') {
@@ -194,7 +196,7 @@ sub search
         $hard_search_limit = int($offset * 1.2);
     }
 
-    elsif ($type eq "label" || $type eq "work" || $type eq "place" || $type eq "area" || $type eq "instrument" || $type eq "series") {
+    elsif ($type ~~ [qw(area event instrument label place series work)]) {
         my $where_deleted = "WHERE entity.id != ?";
         if ($type eq "label") {
             $deleted_entity = $DLABEL_ID;
@@ -210,6 +212,8 @@ sub search
         $extra_columns .= 'iso_3166_1s.codes AS iso_3166_1, iso_3166_2s.codes AS iso_3166_2, iso_3166_3s.codes AS iso_3166_3,' if $type eq 'area';
         $extra_columns .= 'entity.label_code, entity.area,' if $type eq 'label';
         $extra_columns .= 'entity.ordering_type,' if $type eq 'series';
+        $extra_columns .= 'entity.time, entity.cancelled, entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
+                entity.end_date_year, entity.end_date_month, entity.end_date_day, entity.ended,' if $type eq 'event';
 
         my $extra_groupby_columns = $extra_columns;
         $extra_groupby_columns =~ s/[^ ,]+ AS //g;
@@ -382,7 +386,7 @@ sub schema_fixup
     {
         $data->{coordinates} = MusicBrainz::Server::Entity::Coordinates->new( $data->{coordinates} );
     }
-    if (($type eq 'artist' || $type eq 'label' || $type eq 'area' || $type eq 'place') && defined $data->{'life-span'})
+    if (($type ~~ [qw(artist event label area place)]) && defined $data->{'life-span'})
     {
         $data->{begin_date} = MusicBrainz::Server::Entity::PartialDate->new($data->{'life-span'}->{begin})
             if (defined $data->{'life-span'}->{begin});

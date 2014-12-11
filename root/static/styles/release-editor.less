@@ -1,5 +1,3 @@
-@import "colors.less";
-
 #release-editor {
 
 /* __________________________________
@@ -35,8 +33,9 @@ fieldset {
     }
 }
 
-.warning, .notice { border-radius: 6px; }
+.warning { border-radius: 6px; }
 .error-tab { background: @negative-light-bg; }
+.page-error { .error; padding: 1em 0.5em; }
 
 /* __________________________________
 
@@ -70,10 +69,6 @@ fieldset.advanced-disc {
     &.expanded div.icon { display: block; }
 
     button {
-        &.guesscase-track, &.guesscase-medium {
-            background-image: data-uri('../images/icons/guesscase.png');
-        }
-
         &.collapse-disc {
             background-image: data-uri('../images/icons/collapse.png');
         }
@@ -104,7 +99,7 @@ fieldset.advanced-disc {
         text-align: left;
     }
 
-    td {
+    tr.track td {
         background: @text-white;
         border: 1px dotted @very-light-border;
         padding: 0 5px;
@@ -179,7 +174,7 @@ table.advanced-format {
 
         input {
             position: relative;
-            width: 2em;
+            width: 3em;
             border: 1px solid @medium-border;
             text-align: right;
         }
@@ -203,7 +198,7 @@ table.advanced-format {
             RECORDINGS TAB
    __________________________________ */
 
-div.changes div.notice { margin: 1em auto; }
+div.changes div.warning { margin: 1em auto; }
 
 #recordings {
     div.half-width { width: 580px; }

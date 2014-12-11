@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-08-07 20:43+0000\n"
+"PO-Revision-Date: 2014-10-30 01:10+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -108,6 +108,13 @@ msgstr ""
 #. name:five-string banjo
 #: DB:instrument/description:523
 msgid "A five-string banjo is a banjo with five strings."
+msgstr "Bandžo! Viie keelega!"
+
+#. name:flute
+#: DB:instrument/description:13
+msgid ""
+"A flute is an aerophone or reedless wind instrument that produces its sound "
+"from the flow of air across an opening."
 msgstr ""
 
 #. name:four-string banjo
@@ -219,7 +226,7 @@ msgid ""
 "of an instrument."
 msgstr ""
 
-#. name:tar (drum)
+#. name:tar
 #: DB:instrument/description:607
 msgid ""
 "A tar is a single-headed frame drum from North Africa and the Middle East."
@@ -248,7 +255,7 @@ msgstr ""
 #. name:marxophone
 #: DB:instrument/description:442
 msgid "A type of fretless zither."
-msgstr ""
+msgstr "teatud astmetraatideta (krihvideta) tsitter"
 
 #. name:typewriter
 #: DB:instrument/description:526
@@ -346,7 +353,7 @@ msgstr ""
 #. name:bass guitar
 #: DB:instrument/description:207
 msgid "Bass (modern, typically electrical, but not always)"
-msgstr ""
+msgstr "kaasaegne, tüüpiliselt elektriline, aga mitte alati"
 
 #. name:bass
 #: DB:instrument/description:47
@@ -393,20 +400,15 @@ msgid ""
 "Ching are a pair of small hand cymbals used in Thai and Cambodian music."
 msgstr ""
 
-#. name:conch
-#: DB:instrument/description:156
-msgid "Conch shell"
-msgstr ""
-
 #. name:crumhorn
 #: DB:instrument/description:348
 msgid "Crumhorn used in the 14th to 17th centuries in Europe"
-msgstr ""
+msgstr "kasutati 14.–17. sajandil Euroopas"
 
 #. name:davul
 #: DB:instrument/description:411
 msgid "Davul, turkish drum"
-msgstr ""
+msgstr "türgi trumm"
 
 #. name:dobro
 #: DB:instrument/description:184
@@ -430,6 +432,13 @@ msgid ""
 "controller."
 msgstr ""
 
+#. name:effects
+#: DB:instrument/description:677
+msgid ""
+"Effects refers to devices which enable a musician to modify the sound of an "
+"instrument."
+msgstr ""
+
 #. name:electric fretless guitar
 #: DB:instrument/description:538
 msgid "Electric guitar without frets."
@@ -449,7 +458,7 @@ msgstr ""
 #. name:German harp
 #: DB:instrument/description:356
 msgid "German/Bohemian harp"
-msgstr "ehk saksa harf"
+msgstr "böömi ehk saksa harf"
 
 #. name:ghatam
 #: DB:instrument/description:331
@@ -489,17 +498,17 @@ msgstr ""
 #. name:kanklės
 #: DB:instrument/description:422
 msgid "Kanklės, Lithuanian plucked string"
-msgstr ""
+msgstr "leedu näppekeelpill"
 
 #. name:kantele
 #: DB:instrument/description:424
 msgid "Kantele, Finnish traditional plucked string"
-msgstr ""
+msgstr "eesti kannel või soome <em>kantele</em>, traditsiooniline näppekeelpill"
 
 #. name:kanun
 #: DB:instrument/description:288
 msgid "Kanun, Arabic plucked strings"
-msgstr ""
+msgstr "araabia näppekeelpill"
 
 #. name:keyed brass instruments
 #: DB:instrument/description:154
@@ -549,7 +558,7 @@ msgstr ""
 #. name:madal
 #: DB:instrument/description:186
 msgid "Madal, hand drum originating from Nepal"
-msgstr ""
+msgstr "Nepalist pärit käsitrumm"
 
 #. name:maddale
 #: DB:instrument/description:537
@@ -561,7 +570,7 @@ msgstr ""
 #. name:Mexican vihuela
 #: DB:instrument/description:92
 msgid "Mexican vihuela, used by mariachi bands"
-msgstr ""
+msgstr "kasutusel <em>mariachi</em>-bändides"
 
 #. name:mirliton
 #: DB:instrument/description:591
@@ -574,7 +583,7 @@ msgstr ""
 #. name:nai
 #: DB:instrument/description:297
 msgid "Nai, Romanian Panflute"
-msgstr ""
+msgstr "rumeenia paaniflööt"
 
 #. name:natural brass instruments
 #: DB:instrument/description:35
@@ -586,24 +595,17 @@ msgstr ""
 #. name:Northumbrian pipes
 #: DB:instrument/description:358
 msgid "Northumbrian (small)pipes"
-msgstr ""
+msgstr "Northumbria (väike) torupill"
 
 #. name:oboe
 #: DB:instrument/description:8
 msgid "Oboe (soprano)"
-msgstr ""
+msgstr "sopran"
 
 #. name:oboe d'amore
 #: DB:instrument/description:473
 msgid "Oboe d'amore / Oboe d'amour (mezzo-soprano)"
-msgstr ""
-
-#. name:other flutes
-#: DB:instrument/description:195
-msgid ""
-"Other flutes. If you can't find an instrument, please request it at "
-"http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree"
-msgstr "kui sa ei leia soovitud flööti, siis küsi seda lehel <a href=\"http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree\">http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree</a>"
+msgstr "ehk oboe d’amour (metsosopran)"
 
 #. name:other instruments
 #: DB:instrument/description:141
@@ -678,17 +680,17 @@ msgstr ""
 #. name:santoor
 #: DB:instrument/description:286
 msgid "Santoor, Indian dulcimer"
-msgstr ""
+msgstr "india dultsimer"
 
 #. name:santur
 #: DB:instrument/description:255
 msgid "Santur, Middle Eastern"
-msgstr ""
+msgstr "Lähis-Idast"
 
 #. name:shawm
 #: DB:instrument/description:408
 msgid "Shawm, Medieval and Renaissance instrument, predecessor to the oboe"
-msgstr ""
+msgstr "keskajal ja renessansis kasutatud pill, oboe eelkäija"
 
 #. name:slide brass instruments
 #: DB:instrument/description:202
@@ -746,7 +748,7 @@ msgstr ""
 #. name:Lyricon
 #: DB:instrument/description:561
 msgid "The Lyricon is an electronic wind instrument."
-msgstr ""
+msgstr "elektrooniline õhkpill"
 
 #. name:Paraguayan harp
 #: DB:instrument/description:664
@@ -774,6 +776,13 @@ msgstr ""
 msgid ""
 "The Saraswati veena is an Indian plucked stringed instrument used in "
 "Carnatic music."
+msgstr ""
+
+#. name:Schwyzerörgeli
+#: DB:instrument/description:679
+msgid ""
+"The Schwyzerörgeli is a type of diatonic button accordion used in Swiss folk"
+" music."
 msgstr ""
 
 #. name:Stroh violin
@@ -956,7 +965,7 @@ msgstr ""
 msgid ""
 "The chalumeau is a single-reed woodwind instrument of the late baroque and "
 "early classical era."
-msgstr ""
+msgstr "hilisbaroki ja varaklassitsismi ühekordse lesthuulikuga puupuhkpill"
 
 #. name:chande
 #: DB:instrument/description:536
@@ -968,7 +977,7 @@ msgstr ""
 #. name:charango
 #: DB:instrument/description:466
 msgid "The charango is a small South American lute."
-msgstr ""
+msgstr "väike Lõuna-Ameerika lauto"
 
 #. name:chau gong
 #: DB:instrument/description:640
@@ -1239,6 +1248,13 @@ msgid ""
 "family."
 msgstr ""
 
+#. name:guan
+#: DB:instrument/description:683
+msgid ""
+"The guan is a Chinese double reed wind instrument made from hardwood or "
+"bamboo."
+msgstr ""
+
 #. name:guitalele
 #: DB:instrument/description:645
 msgid ""
@@ -1277,6 +1293,13 @@ msgstr ""
 msgid ""
 "The harmonica or blues harp is a type of mouth organ commonly found in "
 "blues, American folk, jazz, country and rock and roll music."
+msgstr ""
+
+#. name:harp guitar
+#: DB:instrument/description:681
+msgid ""
+"The harp guitar is a guitar-based string instrument with any number of "
+"additional unstopped strings which can accommodate individual plucking."
 msgstr ""
 
 #. name:harp
@@ -1973,7 +1996,7 @@ msgstr ""
 msgid "The taphon is a traditional barrel drum from Thailand."
 msgstr ""
 
-#. name:tar (lute)
+#. name:tar
 #: DB:instrument/description:467
 msgid ""
 "The tar is a long-necked, waisted lute found in Azerbaijan, Iran, Armenia, "
@@ -2181,7 +2204,7 @@ msgstr ""
 #. name:đàn bầu
 #: DB:instrument/description:251
 msgid "The đàn bầu is a one-stringed Vietnamese zither."
-msgstr ""
+msgstr "vietnami ühekeelne tsitter"
 
 #. name:đàn nguyệt
 #: DB:instrument/description:242
@@ -2202,7 +2225,7 @@ msgstr ""
 #. name:đàn tam
 #: DB:instrument/description:337
 msgid "The đàn tam is a three-stringed fretless lute from Vietnam."
-msgstr ""
+msgstr "vietnami kolmekeelne astmetraatideta lauto"
 
 #. name:đàn tam thập lục
 #: DB:instrument/description:257
@@ -2241,6 +2264,13 @@ msgstr ""
 msgid ""
 "The ōtsuzumi is an hourglass-shaped Japanese drum, larger than the "
 "kotsuzumi."
+msgstr ""
+
+#. name:šargija
+#: DB:instrument/description:680
+msgid ""
+"The šargija is a long necked plucked lute used in the folk music of the "
+"Balkans."
 msgstr ""
 
 #. name:żafżafa
@@ -2309,7 +2339,7 @@ msgstr ""
 #. name:natural horn
 #: DB:instrument/description:522
 msgid "Valveless ancestor of the modern (French) horn."
-msgstr ""
+msgstr "kaasaegse metsasarve ventiilideta esivanem"
 
 #. name:não bạt / chập chõa
 #: DB:instrument/description:272
@@ -2351,11 +2381,16 @@ msgstr ""
 #: DB:instrument/description:505
 msgid ""
 "an empty jug (usually made of glass or stoneware) played with the mouth"
-msgstr ""
+msgstr "tühi kann (valmistatud tavaliselt klaasist või savist), mida mängitakse suuga"
 
 #. name:Disk Drive
 #: DB:instrument/description:602
 msgid "as using drives for producing music, harddrives, floppy, cd or other."
+msgstr ""
+
+#. name:conch
+#: DB:instrument/description:156
+msgid "conch shell"
 msgstr ""
 
 #. name:bombarde
@@ -2371,7 +2406,7 @@ msgstr ""
 #. name:dholak
 #: DB:instrument/description:382
 msgid "dholak, classical North Indian hand drum"
-msgstr ""
+msgstr "klassikaline Põhja-India käsitrumm"
 
 #. name:đing buốt
 #: DB:instrument/description:306

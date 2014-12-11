@@ -435,6 +435,29 @@ ws_test 'recording lookup with work-level relationships',
 </metadata>
 ';
 
+ws_test 'recording lookup with instrument credit',
+    '/recording/0982e813-a279-482c-8057-285d07372fb9?inc=artist-rels' =>
+    '<?xml version="1.0"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <recording id="0982e813-a279-482c-8057-285d07372fb9">
+        <title>Orange Wedge</title>
+        <length>186826</length>
+        <relation-list target-type="artist">
+            <relation type-id="f8673e29-02a5-47b7-af61-dd4519328dd0" type="performance">
+                <target>97fa3f6e-557c-4227-bc0e-95a7f9f3285d</target>
+                <direction>backward</direction>
+                <attribute-list>
+                    <attribute credited-as="crazy guitar">guitar</attribute>
+                </attribute-list>
+                <artist id="97fa3f6e-557c-4227-bc0e-95a7f9f3285d">
+                    <name>BAGDAD CAFE THE trench town</name>
+                    <sort-name>BAGDAD CAFE THE trench town</sort-name>
+                </artist>
+            </relation>
+        </relation-list>
+    </recording>
+</metadata>
+';
 
 };
 

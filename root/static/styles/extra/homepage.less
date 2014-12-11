@@ -1,82 +1,47 @@
-@import "../colors.less";
+#page.homepage #maincontent {
+    display: table;
+    width: 100%;
 
-.homepage #content {
-    margin-right: 460px;
+    .sidebar {
+        display: table-cell;
+        vertical-align: top;
+        font-size: 95%;
+        padding-left: 1em;
+        width: 218px;
+
+        ul {
+            padding-left: 85px;
+            min-height: 65px;
+        }
+    }
 }
 
 #triple {
-    clear: both;
-    margin-top: 20px;
-    overflow: auto;
+    display: table;
+    width: 100%;
 
-    .triple-column {
-        float: left;
-        margin: 0 1%;
+    .feature-column {
+        display: table-cell;
+        vertical-align: top;
+        padding-left: 2em;
         width: 32%;
+
+        p {
+            padding-left: 70px;
+            min-height: 65px;
+        }
+
+        &:first-child {
+            padding-left: 0;
+        }
     }
-
-    .first-column {
-        margin-left: 0;
-    }
-
-    .last-column {
-        margin-right: 0;
-    }
-}
-
-.triple-column img {
-    float:left;
-    margin: 10px 0 0 2px;
-}
-
-.triple-column p {
-    margin-left: 70px;
-    margin-bottom: 0;
-}
-
-.triple-column ul {
-    margin-top: 10px;
-    margin-left: 60px;
 }
 
 .feature-column h2 {
-    color: @text-white;
-    background-color: @musicbrainz-purple;
-    padding: 5px 0 5px 7px;
+    color: @text-purple;
+    padding: 5px 0 5px 0;
     margin: 0;
-    border-bottom: 4px solid @musicbrainz-orange;
-}
-
-.sidebar .triple-column {
-    height: 110px;
-    margin-bottom: 10px;
-}
-
-.sidebar .triple-column img {
-    margin: 10px 0 0 10px;
-}
-
-.sidebar .triple-column h2 {
-    color: @text-black;
-    background-color: @musicbrainz-orange;
-    border-bottom: 4px solid @musicbrainz-purple;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    -moz-border-radius-topleft: 10px;
-    -moz-border-radius-topright: 10px;
-    -webkit-border-top-left-radius: 10px;
-    -webkit-border-top-right-radius: 10px;
-}
-
-.sidebar #blog-feed {
-    float: right;
-    width: 209px;
-    height: auto;
-}
-
-.sidebar #information {
-    float: right;
-    height: auto;
+    border-bottom: 2px solid @musicbrainz-orange;
 }
 
 .linkbar {
@@ -84,3 +49,24 @@
     font-weight: bold;
     margin-top: 15px;
 }
+
+#taggers ul {
+    background: url(/static/images/logos/musicbrainz-picard.png) no-repeat top left;
+}
+
+#quick-start ul {
+    background: url(/static/images/layout/quick-start.png) no-repeat top left;
+}
+
+#community p {
+    background: url(/static/images/layout/community.png) no-repeat top left;
+}
+
+#products p {
+    background: url(/static/images/layout/download.png) no-repeat top left;
+}
+
+#developers p {
+    background: url(/static/images/layout/developer.png) no-repeat top left;
+}
+

@@ -14,8 +14,6 @@
 [% END %]
 
 [%- WRAPPER "label/layout.tt" page='index' -%]
-    [%- INCLUDE 'label/annotation.tt' summary=1 -%]
-
     [% IF eligible_for_cleanup %]
       <p class="cleanup">
           [% l('This label has no relationships or releases and will be removed
@@ -24,13 +22,15 @@
       </p>
     [% END %]
 
+    [%- INCLUDE 'annotation/summary.tt' -%]
+
     [%- show_wikipedia_extract() -%]
 
     <h2 class="releases">[% l('Releases') %]</h2>
     [%- IF releases.size -%]
       <form action="[% c.uri_for_action('/release/merge_queue') %]"
             method="post">
-        [%- INCLUDE 'release_group/releases-list.tt' show_artists=1 filter_label=label WRAPPER 'components/with-pager.tt' -%]
+        [%- INCLUDE 'components/releases-list.tt' show_artists=1 filter_label=label WRAPPER 'components/with-pager.tt' -%]
         [% form_submit(l('Add selected releases for merging')) WRAPPER form_row IF c.user_exists %]
       </form>
     [%- ELSE -%]

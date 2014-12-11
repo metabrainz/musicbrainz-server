@@ -19,13 +19,17 @@
     </ul>
 
     <!-- ko if: seedErrors -->
-      <div class="error" style="padding: 1em 0.5em">
+      <div class="page-error">
         [% l('The data you’ve seeded contained the following errors:') %]
         <ul data-bind="foreach: seedErrors">
           <li data-bind="text: $data"></li>
         </ul>
         [% l('Review the {url|documentation} on release editor seeding and make sure your data is formatted correctly.', { url => doc_link('Development/Release_Editor_Seeding') }) %]
       </div>
+    <!-- /ko -->
+
+    <!-- ko if: loadError -->
+      <div class="page-error" data-bind="text: MB.i18n.expand(MB.text.ErrorLoadingRelease, { error: loadError() })"></div>
     <!-- /ko -->
 
     <div id="information">
@@ -64,13 +68,18 @@
     </div>
   </div>
 
-  [% script_manifest('guess-case.js.manifest') %]
-  [% script_manifest('edit.js.manifest') %]
-  [% script_manifest('release-editor.js.manifest') %]
+  [%- guesscase_options() -%]
+
+  [% script_manifest('guess-case.js') %]
+  [% script_manifest('edit.js') %]
+  [% script_manifest('release-editor.js') %]
+
   [% PROCESS 'components/relationship-editor.tt' %]
 
   <script>
     MB.relationshipEditor.exportTypeInfo([% type_info %], [% attr_info %]);
+
+    MB.formatsWithDiscIDs = [% discid_formats %];
 
     MB.releaseEditor.init({
     [%- IF release.gid %]

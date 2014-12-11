@@ -20,6 +20,10 @@ END -%]
 [%- END -%]
 [%~ MACRO yesno(b) BLOCK; b ? l('Yes') : l('No'); END ~%]
 
+[%~ MACRO isolate_text(text) BLOCK;
+    INCLUDE _wrap_text options=['isolate', 'escape'] content=text;
+END ~%]
+
 [%~ MACRO wiki_history_link(server, id, version) BLOCK -%]
 //[%- server -%]/[%- id -%]?oldid=[%- version -%]
 [%- END -%]
@@ -75,26 +79,17 @@ END; -%]
 
 [%- USE JavaScript -%]
 [%~ MACRO display_artwork_image(artwork, fallback, message) BLOCK -%]
-    [%- IF no_javascript -%]
+    <noscript>
         <img src="[% artwork.small_thumbnail %]" />
-    [%- ELSE -%]
-        <img[% IF artwork_hover(artwork) %] title="[% artwork_hover(artwork) %]"[% END %] />
-        <script>
-          $('img').last().bind('error', function (event) {
-         [%- IF fallback -%]
-              if ($(this).attr("src") === "[% artwork.small_thumbnail %]") {
-                  $(this).attr("src", "[% fallback %]");
-              } else {
-         [%- END -%]
-                  $(this).closest('a').replaceWith('<em>
-                  [%~ message ? message : l('Image not available yet, please try again in a few minutes.') | js ~%]
-                  <\/em>');
-         [%- IF fallback -%]
-              }
-         [%- END -%]
-          }).attr("src", "[% artwork.small_thumbnail %]");
-        </script>
-    [%- END -%]
+    </noscript>
+
+    <span class="cover-art-image"
+        data-small-thumbnail="[% artwork.small_thumbnail %]"
+        data-large-thumbnail="[% artwork.large_thumbnail %]"
+        data-fallback="[% fallback %]"
+        data-title="[% artwork_hover(artwork) | html %]"
+        data-message="[% message ? message : l('Image not available yet, please try again in a few minutes.') | html %]"
+    ></span>
 [% END %]
 
 [%~ MACRO display_artwork(artwork, fallback, message, rel) BLOCK -%]
@@ -150,6 +145,10 @@ END -%]
             l('artists');
         CASE 'area';
             l('areas');
+        CASE 'event';
+            l('events');
+        CASE 'instrument';
+            l('instruments');
         CASE 'label';
             l('labels');
         CASE 'place';
@@ -173,6 +172,9 @@ END -%]
     END -%]
 
 [%~ MACRO disambiguation(entity) BLOCK -%]
+    [%- IF entity.isa('MusicBrainz::Server::Entity::Event') -%]
+        [%- cancelled(entity) -%]
+    [%- END -%]
     [%- IF entity.comment -%]
         [%- ' <span class="comment">(<bdi>' _ html_escape("${entity.comment}") _ '</bdi>)</span>' -%]
     [%- END -%]
@@ -192,6 +194,14 @@ END -%]
                 [%- l("historical") -%]
             [%- END -%]
         [%- -%]</bdi>)</span>
+    [%- END -%]
+[%- END -%]
+
+[%~ MACRO cancelled(entity) BLOCK -%]
+    [%- IF entity.cancelled -%]
+        <span class="cancelled">(<bdi>
+            [%~ l("cancelled") ~%]
+            </bdi>)</span>
     [%- END -%]
 [%- END -%]
 
@@ -234,6 +244,7 @@ END -%]
       ELSIF entity.isa('MusicBrainz::Server::Entity::Area'); link_area(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Collection'); link_collection(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Work'); link_work(entity, action, text);
+      ELSIF entity.isa('MusicBrainz::Server::Entity::Event'); link_event(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Instrument'); link_instrument(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Label'); link_label(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Place'); link_place(entity, action, text);
@@ -268,19 +279,21 @@ END -%]
     IF entity.artist_credit.defined;
         l('{entity} by {artist}', { entity => link_entity(entity),
                                     artist => artist_credit(entity.artist_credit) });
-    ELSIF entity_type(entity) == 'place' && entity.area.defined;
+    ELSIF get_entity_type(entity) == 'place' && entity.area.defined;
         l('{place} in {area}', { place => link_entity(entity),
                                  area => link_area_with_containment(entity.area) });
-    ELSIF entity_type(entity) == 'area' && entity.gid;
+    ELSIF get_entity_type(entity) == 'area' && entity.gid;
         link_area_with_containment(entity);
     ELSE;
         link_entity(entity);
     END; -%]
 
-[%~ MACRO entity_type(entity) BLOCK;
+[%~ MACRO get_entity_type(entity) BLOCK;
     IF entity.isa('MusicBrainz::Server::Entity::Artist'); "artist";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Area'); "area";
+    ELSIF entity.isa('MusicBrainz::Server::Entity::Collection'); "collection";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Work'); "work";
+    ELSIF entity.isa('MusicBrainz::Server::Entity::Event'); "event";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Instrument'); "instrument";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Label'); "label";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Place'); "place";
@@ -292,7 +305,7 @@ END -%]
     END;
 END -%]
 
-[%~ BLOCK _generic_link;
+[%~ BLOCK _wrap_text;
     FOR option = options.reverse;
         content = SWITCH option;
             CASE 'isolate';
@@ -312,8 +325,10 @@ END -%]
                 '<span class="flag flag-' _ flag _ '">' _ content _ '</span>';
             CASE 'info_link';  # add. parameter: infolink
                 content _ ' [<a href="' _ infolink _ '">' _ l('info') _ '</a>]';
+            CASE 'show_dates';
+                dates ? content _ bracketed(dates) : content;
             CASE 'avatar'; # add. parameter: avatar
-                '<img src="' _ avatar _ '" class="gravatar" />' _ content;
+                '<img src="' _ avatar _ '" height="' _ image_size _ '" width="' _ image_size _ '" class="gravatar" alt="" />' _ content;
         END;
     END;
     content;
@@ -332,12 +347,23 @@ END -%]
         mod_content = default_content.defined ? default_content : entity.name;
     END;
 
-    options.unshift('name_variation') IF namevar AND action == 'show' AND content != '' AND content != entity.name;
+    IF namevar AND action == 'show' AND content != ''
+            AND (noescape ? content.remove('</?span\b[^>]*>') : content) != entity.name;
+        options.unshift('name_variation');
+        hover = hover != '' ? l('{name} – {additional_info}', { name => html_escape(entity.name), additional_info => hover })
+                            : html_escape(entity.name);
+    END;
+
     options.unshift('edits_pending') IF entity.edits_pending AND action == 'show';
 
     IF action == 'show' AND entity.iso_3166_1.0;
         options.unshift('flagclass');
         flag = entity.iso_3166_1.0;
+    END;
+
+    IF type == 'event' AND content == '';
+        options.unshift('show_dates');
+        dates = entity.formatted_date;
     END;
 
     IF type == 'url' AND content == '';
@@ -347,7 +373,7 @@ END -%]
         link = entity.href_url;
     END;
 
-    INCLUDE _generic_link options=options content=mod_content link=link hover=hover flag=flag infolink=infolink;
+    INCLUDE _wrap_text options=options content=mod_content link=link hover=hover flag=flag infolink=infolink dates=dates;
 END -%]
 
 [%~ BLOCK _link_other_entity;
@@ -365,7 +391,7 @@ END -%]
     options.unshift('link');
     options.unshift('edits_pending') IF edits_pending AND action == 'show';
 
-    INCLUDE _generic_link options=options content=mod_content link=link avatar=avatar;
+    INCLUDE _wrap_text options=options content=mod_content link=link avatar=avatar image_size=image_size;
 END -%]
 
 [%~ MACRO link_work(work, action, text) BLOCK;
@@ -392,14 +418,19 @@ END -%]
 
 [%~ MACRO link_area_containment(area) BLOCK;
     areas = [];
-    IF area.parent_city; areas.push(link_area(area.parent_city)); END;
-    IF area.parent_subdivision; areas.push(link_area(area.parent_subdivision)); END;
-    IF area.parent_country; areas.push(link_area(area.parent_country)); END;
-    comma_only_list(areas);
+    IF area.parent_city; areas.push({link => link_area(area.parent_city), depth => area.parent_city_depth}); END;
+    IF area.parent_subdivision; areas.push({link => link_area(area.parent_subdivision), depth => area.parent_subdivision_depth}); END;
+    IF area.parent_country; areas.push({link => link_area(area.parent_country), depth => area.parent_country_depth}); END;
+    areas = areas.nsort('depth');
+    link_areas = [];
+    FOR area=areas;
+      link_areas.push(area.link);
+    END;
+    comma_only_list(link_areas);
 END -%]
 
 [%~ MACRO link_area_with_containment(area, action, text) BLOCK;
-    link_area(area, action, text);
+    link_entity(area, action, text);
     IF link_area_containment(area); ', ' _ link_area_containment(area); END;
 END -%]
 
@@ -411,6 +442,10 @@ END -%]
     INCLUDE _link_mbid_entity entity=collection type='collection' action=action content=text;
 END -%]
 
+[%~ MACRO link_event(event, action, text) BLOCK;
+    INCLUDE _link_mbid_entity entity=event type='event' action=action content=text;
+END -%]
+
 [%~ MACRO link_release(release, action, text) BLOCK;
     INCLUDE _link_mbid_entity entity=release type='release' action=action content=text;
 END -%]
@@ -420,8 +455,7 @@ END -%]
 END -%]
 
 [%~ MACRO link_recording(recording, action, text, no_escape) BLOCK;
-    SET hover = html_escape(recording.name) IF text != recording.name AND action == 'show';
-    INCLUDE _link_mbid_entity entity=recording type='recording' action=action content=text hover=hover namevar=1 noescape=no_escape;
+    INCLUDE _link_mbid_entity entity=recording type='recording' action=action content=text namevar=1 noescape=no_escape;
 END -%]
 
 [%~ MACRO link_series(series, action, text) BLOCK;
@@ -462,11 +496,11 @@ END -%]
     DEFAULT action = 'profile';
     DEFAULT size = 12;
     IF editor.preferences.show_gravatar;
-      image_url = gravatar(editor.email) _ '&amp;s=' _ size;
+      image_url = gravatar(editor.email) _ '&amp;s=' _ size*2;
     ELSE;
-      image_url = '//gravatar.com/avatar/placeholder?d=mm&amp;s=' _ size;
+      image_url = '//gravatar.com/avatar/placeholder?d=mm&amp;s=' _ size*2;
     END;
-    INCLUDE _link_other_entity content=text action=action type='user' default_content=editor.name avatar=image_url;
+    INCLUDE _link_other_entity content=text action=action type='user' default_content=editor.name avatar=image_url image_size=size;
 END -%]
 
 [%~ MACRO editor_type_info(editor) BLOCK; -%]
@@ -489,7 +523,7 @@ END -%]
 END -%]
 
 [%~ MACRO simple_link(url, text) BLOCK;
-    INCLUDE _generic_link options=['link'] content=text link=url;
+    INCLUDE _wrap_text options=['link'] content=text link=url;
 END -%]
 
 [%~ MACRO request_login(text) BLOCK;
@@ -501,12 +535,12 @@ END -%]
         [% USE date %]
         <a href="http://127.0.0.1:[% c.session.tport %]/openalbum?id=[% entity.gid %]&t=[% date.now %]"
             class="tagger-icon" title="[% l('Open in tagger') %]">
-            <img src="[% c.uri_for('/static/images/icons/mblookup-tagger.png') %]" alt="Tagger">
+            <img src="[% c.uri_for('/static/images/icons/mblookup-tagger.png') %]" alt="[% l('Tagger') %]">
         </a>
     [%- ELSIF entity.isa('MusicBrainz::Server::Entity::Recording') -%]
         <a href="http://127.0.0.1:[% c.session.tport %]/opennat?id=[% entity.gid %]"
             class="tagger-icon" title="[% l('Open in tagger') %]">
-            <img src="[% c.uri_for('/static/images/icons/mblookup-tagger.png') %]" alt="Tagger">
+            <img src="[% c.uri_for('/static/images/icons/mblookup-tagger.png') %]" alt="[% l('Tagger') %]">
         </a>
     [%- END -%]
 [%- END -%]
@@ -535,16 +569,15 @@ END -%]
     comma_only_list(out);
 END -%]
 
-[%~ MACRO sortble_table_header(name, label) BLOCK -%]
-    <th>
-        <a href="[% c.req.uri_with( order => order == name ? '-' _ name : name ) %]">[% label %]</a>
-        [%- IF order == name %]&#xa0;&#9652;[% ELSIF order == '-' _ name %]&#xa0;&#9662;[% END %]
-    </th>
+[%~ MACRO sortable_table_header(name, label) BLOCK -%]
+    <a href="[% c.req.uri_with( order => order == name ? '-' _ name : name ) %]">[% label %]</a>
+    [%- IF order == name %]&#xa0;&#9652;[% ELSIF order == '-' _ name %]&#xa0;&#9662;[% END %]
 [%- END -%]
 
 [%~ MACRO entity_label(type) BLOCK;
     IF type == 'artist'; l('Artist:');
     ELSIF type == 'area'; l('Area:');
+    ELSIF type == 'event'; l('Event:');
     ELSIF type == 'instrument'; l('Instrument:');
     ELSIF type == 'label'; l('Label:');
     ELSIF type == 'place'; l('Place:');
@@ -560,6 +593,8 @@ END -%]
 [%~ MACRO format_entity_type_name(type_name) BLOCK -%]
     [%- IF    type_name == 'artist'; l('Artist');
         ELSIF type_name == 'area'; l('Area');
+        ELSIF type_name == 'event'; l('Event');
+        ELSIF type_name == 'collection'; l('Collection');
         ELSIF type_name == 'instrument'; l('Instrument');
         ELSIF type_name == 'place'; l('Place');
         ELSIF type_name == 'release'; l('Release');
@@ -569,6 +604,23 @@ END -%]
         ELSIF type_name == 'work'; l('Work');
         ELSIF type_name == 'label'; l('Label');
         ELSIF type_name == 'url'; l('URL');
+    END -%]
+[%- END -%]
+
+[%~ MACRO format_plural_entity_type_name(type_name) BLOCK -%]
+    [%- IF    type_name == 'artist'; l('Artists');
+        ELSIF type_name == 'area'; l('Areas');
+        ELSIF type_name == 'event'; l('Events');
+        ELSIF type_name == 'collection'; l('Collections');
+        ELSIF type_name == 'instrument'; l('Instruments');
+        ELSIF type_name == 'place'; l('Places');
+        ELSIF type_name == 'release'; l('Releases');
+        ELSIF type_name == 'recording'; l('Recordings');
+        ELSIF type_name == 'release_group'; l('Release Groups');
+        ELSIF type_name == 'series'; lp('Series', 'plural');
+        ELSIF type_name == 'work'; l('Works');
+        ELSIF type_name == 'label'; l('Labels');
+        ELSIF type_name == 'url'; l('URLs');
     END -%]
 [%- END -%]
 
@@ -639,7 +691,7 @@ END -%]
 [%~ MACRO display_relationship(relationship, phrase_field) BLOCK; -%]
   [%- phrase_field = phrase_field || 'phrase';
     extra_attributes_field = "extra_${phrase_field}_attributes";
-    IF relationship.edits_pending; '<span class="mp">'; END;
+    IF relationship.edits_pending; '<span class="mp mp-rel">'; END;
     relationship.${ phrase_field };
     ' ';
     descriptive_link(relationship.target);
@@ -724,33 +776,26 @@ END -%]
    </div>
 [%- END -%]
 
-[%~ MACRO notice(message) BLOCK -%]
-   <div class="notice">
-     <p>[% l('<strong>Note</strong>:') %] [% message %]</p>
-   </div>
-[%- END -%]
+[%~ MACRO javascript_required BLOCK ~%]
+    <noscript>
+     [%~ warning( l("Javascript is required for this page to work properly."), "nojavascript" ) ~%]
+    </noscript>
+[%~ END ~%]
 
 [%~ MACRO wiki_link(server, id) BLOCK -%]
 //[%- server -%]/[%- id -%]
 [%- END -%]
 
 [%~ MACRO script_manifest(manifest) BLOCK ~%]
-  [%~ IF server_details.developement_server -%]
-    [%~ USE date ~%]
-    [%~ FOR file IN c.model('FileCache').manifest_files(manifest, 'js'); ~%]
-        <script type="text/javascript" src="[% c.uri_for("/static/") %][%- file -%]"></script>
-    [%~ END ~%]
-  [%~ ELSE ~%]
-    <script src="[% c.uri_for("/static/") %][% c.model('FileCache').manifest_signature(manifest, 'js') %].js"></script>
-  [%~ END ~%]
+  <script src="[% c.uri_for("/static/build/") %][% c.model('FileCache').manifest_signature(manifest) %]"></script>
 [%~ END ~%]
 
 [%~ MACRO css_manifest(manifest) BLOCK ~%]
   [%~ IF server_details.developement_server ~%]
     [%~ USE date -%]
-    <link rel="stylesheet/less" type="text/css" href="[% c.uri_for("/static/") %][%- manifest -%].less" />
+    <link rel="stylesheet/less" type="text/css" href="[% c.uri_for("/static/") %][%- manifest.replace('\.css', '.less') -%]" />
   [%~ ELSE ~%]
-    <link rel="stylesheet" type="text/css" href="[% c.uri_for('/static/styles/') %][% c.model('FileCache').manifest_signature(manifest _ '.css.manifest', 'css') %].css" />
+    <link rel="stylesheet" type="text/css" href="[% c.uri_for('/static/build/') %][% c.model('FileCache').manifest_signature(manifest) %]" />
   [%~ END ~%]
 [%~ END ~%]
 
@@ -778,7 +823,7 @@ END -%]
 [%- END -%]
 
 [%~ MACRO filter_button BLOCK -%]
-  <div style="float:right;margin-top:1.5em;"><a class="filter-button"><img src="[% c.uri_for('/static/images/icons/filter.png') %]" /></a> <a class="filter-button" href="#">[% l("Filter") %]</a></div>
+  <div style="float:right;margin-top:1.5em;"><a class="filter-button"><img src="[% c.uri_for('/static/images/icons/filter.png') %]" alt="" /></a> <a class="filter-button" href="#">[% l("Filter") %]</a></div>
 [%- END -%]
 
 [%~ MACRO wikidoc_search_box BLOCK -%]
@@ -861,7 +906,7 @@ END -%]
 [%- END -%]
 
 [%~ MACRO relationship_target_links(rel) BLOCK -%]
-  <span[% IF rel.edits_pending %] class="mp"[% END %]>
+  <span[% IF rel.edits_pending %] class="mp mp-rel"[% END %]>
   [% IF rel.target.artist_credit AND
         rel.target.artist_credit.name == hide_ac %]
       [% link_entity(rel.target) %]
@@ -887,7 +932,7 @@ END -%]
 
 [%~ MACRO release_dates(release_events) BLOCK;
     IF release_events.size;
-        '<ul class="links">';
+        '<ul class="links nowrap">';
         FOR event=release_events;
           IF !event.date.is_empty;
             '<li>' _ event.date.format _ '</li>';
@@ -921,8 +966,8 @@ END -%]
     END -%]
 
 [%~ MACRO link_isni(isni) BLOCK -%]
-    <a href="http://isni-url.oclc.nl/isni/[% isni %]">
-        [%- format_isni(isni) -%]
+    <a href="[% isni.url %]">
+        [%- format_isni(isni.isni) -%]
     </a>
 [%- END -%]
 
@@ -961,4 +1006,8 @@ END -%]
 [%~ USE Canonicalize ~%]
 [%~ MACRO replace_gid(new_gid) BLOCK ~%]
   [%~ Canonicalize.replace_gid(c, new_gid) ~%]
+[%~ END ~%]
+
+[%~ MACRO data_track_icon BLOCK ~%]
+  <div class="data-track icon img" title="[% l('This track is a data track.') %]"></div>
 [%~ END ~%]

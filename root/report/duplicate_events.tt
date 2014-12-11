@@ -1,0 +1,17 @@
+[%~ WRAPPER 'layout.tt' title=l('Possible duplicate events') full_width=1 ~%]
+
+<h1>[%~ l('Possible duplicate events') ~%]</h1>
+
+<ul>
+    <li>[%~ l("This report lists events happening at the same place on the same date.
+            If they're duplicates (for example, if there are separate events for headliner
+            and supporting artist) please merge them.", {
+            url => doc_link('Style/Release_Group') }) ~%]</li>
+    <li>[%~ l('Total events found: {count}', { count => pager.total_entries }) ~%]</li>
+    <li>[%~ l('Generated on {date}', { date => UserDate.format(generated) }) ~%]</li>
+    [%~ INCLUDE 'report/filter_link.tt' ~%]
+</ul>
+
+[%~ INCLUDE 'report/event_list.tt' ~%]
+
+[%~ END ~%]

@@ -98,6 +98,11 @@
                             <a href="[% c.uri_for_action('/admin/wikidoc/index') %]">[% l('Transclude WikiDocs') %]</a>
                         </li>
                     [% END %]
+                    [% IF c.user.is_banner_editor %]
+                        <li>
+                            <a href="[% c.uri_for_action('/admin/edit_banner') %]">[% l('Edit Banner Message') %]</a>
+                        </li>
+                    [% END %]
                 </ul>
             </li>
         [% END %]
@@ -153,7 +158,7 @@
         <a href="[% doc_link('Products') %]">[%  l('Products') %]</a>
         <ul>
             <li>
-                <a href="[% doc_link('MusicBrainz_Picard') %]">[% l('MusicBrainz Picard') %]</a>
+                <a href="//picard.musicbrainz.org">[% l('MusicBrainz Picard') %]</a>
             </li>
             <li>
                 <a href="[% doc_link('Jaikoz') %]">[% l('Jaikoz Tagger') %]</a>
@@ -163,9 +168,6 @@
             </li>
             <li>
                 <a href="[% doc_link('Yate_Music_Tagger') %]">[% l('Yate Music Tagger') %]</a>
-            </li>
-            <li>
-                <a href="[% doc_link('SongKong_Tagger') %]">[% l('SongKong Tagger') %]</a>
             </li>
             <li class="separator">
                 <a href="[% doc_link('MusicBrainz_for_Android') %]">[% l('MusicBrainz for Android') %]</a>
@@ -237,6 +239,9 @@
                 <li>
                     <a href="[% c.uri_for_action('/series/create') %]">[% lp('Add Series', 'button/menu') %]</a>
                 </li>
+                <li>
+                    <a href="[% c.uri_for_action('/event/create') %]">[% lp('Add Event', 'button/menu') %]</a>
+                </li>
                 <li class="separator">
                     <a href="[% c.uri_for('/edit/open') %]">[% l('Vote on Edits') %]</a>
                 </li>
@@ -276,7 +281,7 @@
         <a href="[% doc_link('Contact_Us') %]">[% l('Contact Us') %]</a>
         <ul>
             <li>
-                <a href="[% doc_link('Mailing_Lists') %]">[% l('Mailing Lists') %]</a>
+                <a href="[% doc_link('Communication/Mailing_Lists') %]">[% l('Mailing Lists') %]</a>
             </li>
             <li>
                 <a href="http://forums.musicbrainz.org" class="internal">

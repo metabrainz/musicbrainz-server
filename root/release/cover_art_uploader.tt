@@ -1,7 +1,7 @@
 <html>
   <head>
-    [%- css_manifest('common') -%]
-    [%- script_manifest('common.js.manifest') -%]
+    [%- css_manifest('common.css') -%]
+    [%- script_manifest('common.js') -%]
     <style type="text/css">
       body { min-width: 200px; width: auto; background: #fff; padding: 0; margin: 0; }
       form { margin-top: 1em; }

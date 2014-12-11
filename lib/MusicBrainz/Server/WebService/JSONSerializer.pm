@@ -4,7 +4,7 @@ use Moose;
 use JSON;
 use List::MoreUtils qw( any );
 use List::UtilsBy 'sort_by';
-use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash );
+use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash non_empty );
 use MusicBrainz::Server::WebService::WebServiceInc;
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of number serializer serialize_entity );
 
@@ -52,6 +52,7 @@ sub release_group_list { shift->entity_list(@_, "release-group", "release-groups
 sub work_list          { shift->entity_list(@_, "work", "works") };
 sub area_list          { shift->entity_list(@_, "area", "areas") };
 sub place_list         { shift->entity_list(@_, "place", "places") };
+sub event_list         { shift->entity_list(@_, "event", "events") };
 
 sub serialize_release
 {
@@ -86,17 +87,21 @@ sub serialize_relationship {
     my $out = {
         id              => $relationship->id,
         linkTypeID      => $link->type_id,
-        attributes      => [ sort map { $_->id } $link->all_attributes ],
+        attributes      => [
+            map +{
+                type => {
+                    gid => $_->type->gid,
+                },
+                non_empty($_->credited_as) ? (credit => $_->credited_as) : (),
+                non_empty($_->text_value) ? (textValue => $_->text_value) : (),
+            }, $link->all_attributes
+        ],
         ended           => $link->ended ? \1 : \0,
         target          => $self->$entity( $_->target ),
         editsPending    => $relationship->edits_pending ? \1 : \0,
         verbosePhrase   => $relationship->verbose_phrase,
         linkOrder       => $relationship->link_order,
     };
-
-    if (any { $_->free_text } $link->all_attributes) {
-        $out->{attributeTextValues} = $link->attribute_text_values;
-    }
 
     $out->{beginDate} = $link->begin_date->is_empty ? undef : partial_date_to_hash($link->begin_date);
     $out->{endDate} = $link->end_date->is_empty ? undef : partial_date_to_hash($link->end_date);
@@ -258,7 +263,7 @@ sub _medium
         name      => $medium->name,
         format    => $medium->l_format_name,
         formatID  => $medium->format_id,
-        cdtocs    => scalar($medium->all_cdtocs),
+        cdtocs    => [ map { $_->cdtoc->toc } $medium->all_cdtocs ],
     };
 
     if ($inc_recordings) {
@@ -289,7 +294,8 @@ sub _track
         position      => $track->position,
         number        => $track->number,
         length        => $track->length,
-        artistCredit  => $self->_artist_credit( $track->artist_credit )
+        artistCredit  => $self->_artist_credit( $track->artist_credit ),
+        isDataTrack   => $track->is_data_track ? \1 : \0,
     };
 
     if ($track->recording) {
@@ -629,6 +635,47 @@ sub _instrument {
         comment => $instrument->comment,
         description => $instrument->l_description,
         $instrument->type ? (typeName => $instrument->type->name) : (),
+    };
+}
+
+sub autocomplete_event
+{
+    my ($self, $results, $pager) = @_;
+
+    my $output = _with_primary_alias(
+        $results,
+        sub {
+            my $result = shift;
+
+            my $out = $self->_event( $result->{entity} );
+            $out->{related_entities} = $result->{related_entities};
+
+            return $out;
+        }
+    );
+
+    push @$output, {
+        pages => $pager->last_page,
+        current => $pager->current_page
+    } if $pager;
+
+    return encode_json($output);
+}
+
+sub _event {
+    my ($self, $event) = @_;
+
+    return {
+        entityType => "event",
+        name    => $event->name,
+        id      => $event->id,
+        gid     => $event->gid,
+        typeID  => $event->type_id,
+        comment => $event->comment,
+        $event->type ? (typeName => $event->type->name) : (),
+        begin_date => $event->begin_date->format,
+        end_date   => $event->end_date->format,
+        time       => $event->formatted_time,
     };
 }
 

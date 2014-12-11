@@ -49,21 +49,26 @@ require Exporter;
         is_valid_ean
         is_valid_isrc
         format_isrc
+        is_valid_time
+        is_valid_setlist
         is_valid_iso_3166_1
         is_valid_iso_3166_2
         is_valid_iso_3166_3
+        is_valid_partial_date
         encode_entities
         normalise_strings
         is_nat
+        validate_coordinates
     )
 }
 
 use strict;
 use Carp qw( carp cluck croak );
-use Date::Calc qw( check_date Delta_YMD );
+use Date::Calc qw( check_date );
 use Encode qw( decode encode );
 use Scalar::Util qw( looks_like_number );
 use Text::Unaccent qw( unac_string_utf16 );
+use utf8;
 
 sub unaccent_utf16 ($)
 {
@@ -216,6 +221,18 @@ sub is_valid_isrc
     return $isrc =~ /^[A-Z]{2}[A-Z0-9]{3}[0-9]{7}$/;
 }
 
+sub is_valid_time
+{
+    my $time = shift;
+    return $time =~ /^([01][0-9]|2[0-3]):[0-5][0-9]$/;
+}
+
+sub is_valid_setlist
+{
+    my $setlist = shift;
+    my @invalid_lines = grep { $_ !~ /^([@#*] |\s*$)/ } split('\r\n', $setlist); return @invalid_lines ? 0 : 1;
+}
+
 sub is_valid_iso_3166_1
 {
     my $iso_3166_1 = shift;
@@ -232,6 +249,18 @@ sub is_valid_iso_3166_3
 {
     my $iso_3166_3 = shift;
     return $iso_3166_3 =~ /^[A-Z]{4}$/;
+}
+
+sub is_valid_partial_date
+{
+    my ($year, $month, $day) = @_;
+
+    # anything partial cannot be checked, and is therefore considered valid.
+    return 1 unless (defined $year && $month && $day);
+
+    return 1 if check_date($year, $month, $day);
+
+    return 0;
 }
 
 ################################################################################
@@ -256,8 +285,15 @@ sub encode_entities
 sub normalise_strings
 {
     my @r = map {
+        my $t = $_;
+
+        # Using lc() on U+0130 LATIN CAPITAL LETTER I WITH DOT ABOVE turns it into U+0069 LATIN SMALL LETTER I
+        # and U+0307 COMBINING DOT ABOVE which causes problems later, so remove that before using lc().
+        # U+0131 LATIN SMALL LETTER DOTLESS I is not handled by the unaccent code, so replace that too while we're at it.
+        $t =~ tr/\x{0130}\x{0131}/i/;
+
         # Normalise to lower case
-        my $t = lc $_;
+        $t = lc $t;
 
         # Remove leading and trailing space
         $t =~ s/\A\s+//;
@@ -266,9 +302,17 @@ sub normalise_strings
         # Compress whitespace
         $t =~ s/\s+/ /g;
 
-        # So-called smart quotes; in reality, a backtick and an acute accent.
-        # Also double-quotes and angled double quotes.
-        $t =~ tr/\x{0060}\x{00B4}"\x{00AB}\x{00BB}/'/;
+        # Quotation marks and apostrophes
+        # 0060 grave accent, 00B4 acute accent, 00AB <<, 00BB >>, 02BB modifier letter turned comma (for Hawaiian)
+        # 05F3 hebrew geresh, 05F4 hebrew gershayim
+        # 2018 left single quote, 2019 right single quote, 201A low-9 single quote, 201B high-reversed-9 single quote
+        # 201C left double quote, 201D right double quote, 201E low-9 double quote, 201F high-reversed-9 double quote
+        # 2032 prime, 2033 double prime, 2039 <, 203A >
+        $t =~ tr/"\x{0060}\x{00B4}\x{00AB}\x{00BB}\x{02BB}\x{05F3}\x{05F4}\x{2018}-\x{201F}\x{2032}\x{2033}\x{2039}\x{203A}/'/;
+
+        # Dashes
+        # 05BE Hebrew maqaf, 2010 hyphen, 2012 figure dash, 2013 en-dash, 2212 minus
+        $t =~ tr/\x{05BE}\x{2010}\x{2012}\x{2013}\x{2212}/-/;
 
         # Unaccent what's left
         decode("utf-16", unaccent_utf16(encode("utf-16", $t)));
@@ -280,6 +324,83 @@ sub normalise_strings
 sub is_nat {
     my $n = shift;
     return looks_like_number($n) && int($n) == $n && $n >= 0;
+}
+
+sub degree {
+    my ($degrees, $dir) = @_;
+    return dms($degrees, 0, 0, $dir);
+}
+
+sub dms {
+    my ($degrees, $minutes, $seconds, $dir) = @_;
+    $degrees =~ s/,/./;
+    $minutes =~ s/,/./;
+    $seconds =~ s/,/./;
+
+    return
+        sprintf("%.6f", ((0+$degrees) + ((0+$minutes) * 60 + (0+$seconds)) / 3600) * direction($dir))
+        + 0; # remove trailing zeroes (MBS-7438)
+}
+
+my %DIRECTIONS = ( n => 1, s => -1, e => 1, w => -1 );
+sub direction { $DIRECTIONS{lc(shift() // '')} // 1 }
+
+sub swap {
+    my ($direction_lat, $direction_long, $lat, $long) = @_;
+
+    $direction_lat //= 'n';
+    $direction_long //= 'e';
+
+    # We expect lat/long, but can support long/lat
+    if (lc $direction_lat eq 'e' || lc $direction_lat eq 'w' ||
+        lc $direction_long eq 'n' || lc $direction_long eq 's') {
+        return ($long, $lat);
+    }
+    else {
+        return ($lat, $long);
+    }
+}
+
+sub validate_coordinates {
+    my $coordinates = shift;
+
+    if ($coordinates =~ /^\s*$/) {
+        return undef;
+    }
+
+    my $separators = '\s?,?\s?';
+    my $number_part = q{\d+(?:[\.,]\d+|)};
+
+    $coordinates =~ tr/　．０-９/ .0-9/; # replace fullwidth characters with normal ASCII
+    $coordinates =~ s/(北|南)緯\s*(${number_part})度\s*(${number_part})分\s*(${number_part})秒${separators}(東|西)経\s*(${number_part})度\s*(${number_part})分\s*(${number_part})秒/$2° $3' $4" $1, $6° $7' $8" $5/;
+    $coordinates =~ tr/北南東西/NSEW/; # replace CJK direction characters
+
+    my $degree_markers = q{°d};
+    my $minute_markers = q{′'};
+    my $second_markers = q{"″};
+
+    my $decimalPart = '([+\-]?'.$number_part.')\s?['. $degree_markers .']?\s?([NSEW]?)';
+    if ($coordinates =~ /^${decimalPart}${separators}${decimalPart}$/i) {
+        my ($lat, $long) = swap($2, $4, degree($1, $2), degree($3, $4));
+        return {
+            latitude => $lat,
+            longitude => $long
+        };
+    }
+
+    my $dmsPart = '(?:([+\-]?'.$number_part.')[:'.$degree_markers.']\s?' .
+                  '('.$number_part.')[:'.$minute_markers.']\s?' .
+                  '(?:('.$number_part.')['.$second_markers.']?)?\s?([NSEW]?))';
+    if ($coordinates =~ /^${dmsPart}${separators}${dmsPart}$/i) {
+        my ($lat, $long) = swap($4, $8, dms($1, $2, $3 // 0, $4), dms($5, $6, $7 // 0, $8));
+
+        return {
+            latitude  => $lat,
+            longitude => $long
+        };
+    }
+
+    return undef;
 }
 
 1;

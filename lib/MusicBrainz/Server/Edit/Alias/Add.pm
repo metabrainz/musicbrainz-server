@@ -18,6 +18,7 @@ role {
     my $entity_id = "${entity_type}_id";
 
     with "MusicBrainz::Server::Edit::$model";
+    with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
     has data => (
         is => 'rw',

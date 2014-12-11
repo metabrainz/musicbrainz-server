@@ -103,6 +103,7 @@
         Entity: {
             area:            "[% l('Area') | js %]",
             artist:          "[% l('Artist') | js %]",
+            event:           "[% l('Event') | js %]",
             instrument:      "[% l('Instrument') | js %]",
             label:           "[% l('Label') | js %]",
             place:           "[% l('Place') | js %]",
@@ -128,6 +129,7 @@
         RelationshipTypeDeprecated: '[% l('This relationship type is deprecated and should not be used.') %]',
         AddANewEntity: {
             artist:          "[% l('Add a new artist') | js %]",
+            event:           "[% l('Add a new event') | js %]",
             label:           "[% l('Add a new label') | js %]",
             place:           "[% l('Add a new place') | js %]",
             recording:       "[% l('Add a new recording') | js %]",
@@ -143,6 +145,7 @@
         SelectURLType: '[% l('Please select a link type for the URL you’ve entered.') | js %]',
         SelectedReleaseGroup: '[% l('You selected {releasegroup}.') | js %]',
         SelectedLabel: '[% l('You selected {label}.') | js %]',
+        NeedsLabel: '[% l('You haven’t selected a label for “{name}”.') | js %]',
         Tracklist: '[% l('Tracklist') | js %]',
         DiscNumber: '[% l('Disc {num}') | js %]',
         DiscNumberTitle: '[% l('Disc {num}: {title}') | js %]',
@@ -164,6 +167,7 @@
         AddAnotherEntity: {
             area:            "[% l('Add another area') | js %]",
             artist:          "[% l('Add another artist') | js %]",
+            event:           "[% l('Add another event') | js %]",
             instrument:      "[% l('Add another instrument') | js %]",
             label:           "[% l('Add another label') | js %]",
             place:           "[% l('Add another place') | js %]",
@@ -174,6 +178,7 @@
             work:            "[% l('Add another work') | js %]"
         },
         AttributeTextValue: '[% l('{attribute}: {value}') | js %]',
+        AttributeCredit: '[% l('{attribute} [{credited_as}]') | js %]',
         OrderedRelationship: '[% l('{num}. {relationship}') | js %]',
         IncorrectEntityForSeries: {
             recording: '[% l('The series you’ve selected is for recordings.') | js %]',
@@ -182,6 +187,9 @@
             work: '[% l('The series you’ve selected is for works.') | js %]'
         },
         InlineSearchFailed: '[% l('An error occurred while searching. Click here to try again.') | js %]',
-        ClearRecentItems: '[% l('Clear recent items') | js %]'
+        ClearRecentItems: '[% l('Clear recent items') | js %]',
+        ErrorLoadingRelease: '[% l('Error loading release: {error}') | js %]',
+        InvalidPregapLength: '[% l('None of the attached disc IDs can fit a pregap track of the given length.') | js %]',
+        GuessCaseOptions: '[% l('Guess Case Options') | js %]'
     });
 })(MB);

@@ -64,6 +64,21 @@ has 'free_text' => (
     isa => 'Bool',
 );
 
+has 'creditable' => (
+    is => 'rw',
+    isa => 'Bool',
+);
+
+sub to_json_hash {
+    my ($self) = @_;
+    +{
+        $self->root ? (root => $self->root->to_json_hash) : (),
+        id => $self->id,
+        gid => $self->gid,
+        name => $self->name
+    };
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

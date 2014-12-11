@@ -1,11 +1,3 @@
-[%- info_links = [
-    ['index', link_recording(recording, 'show', l('Releases'))],
-    ['tags', link_recording(recording, 'tags', l('Tags'))],
-    ['fingerprints', link_recording(recording, 'fingerprints', l('Fingerprints'))],
-    ['details', link_recording(recording, 'details', l('Details'))],
-    ['edit', link_recording(recording, 'edit', l('Edit'))],
-] -%]
-
 <div class="recordingheader">
     [%- IF c.try_get_session('tport') -%]
         [%- tagger_icon(recording) -%]
@@ -21,4 +13,4 @@
     </p>
 </div>
 
-[% INCLUDE 'components/tabs.tt' list=info_links %]
+[% INCLUDE 'components/entity-tabs.tt' edit_tab='default' %]

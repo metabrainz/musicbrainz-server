@@ -2,7 +2,7 @@ package t::MusicBrainz::Server::Data::Release;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
-use Test::Deep qw( cmp_bag );
+use Test::Deep qw( cmp_bag cmp_deeply );
 use Test::Memory::Cycle;
 use Test::Magpie qw( mock when inspect verify );
 
@@ -278,6 +278,22 @@ test 'preserve cover_art_presence on merge' => sub {
     is($darkened_result->cover_art_presence, 'darkened');
 };
 
+test 'preserve track MBIDs on merge' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+release');
+
+    $c->model('Release')->merge(
+        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
+        new_id => 8,
+        old_ids => [ 9 ]
+    );
+
+    my $redirects = $c->sql->select_list_of_hashes('SELECT gid, new_id from track_gid_redirect');
+
+    cmp_deeply($redirects, [{'gid'=> 'a833f5c7-dd13-40ba-bb5b-dc4e35d2bb90', 'new_id' => 4}], 'gid redirect for deleted track exists');
+};
+
 test all => sub {
 
 my $test = shift;
@@ -372,7 +388,7 @@ $release = $release_data->insert({
     ]
 });
 
-$release = $release_data->get_by_id($release->id);
+$release = $release_data->get_by_id($release->{id});
 ok(defined $release, 'get release by id');
 is($release->name, 'Protection', 'release is called "Protection"');
 is($release->artist_credit_id, 1);

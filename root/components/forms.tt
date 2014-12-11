@@ -4,25 +4,21 @@
     </span>
 [%~ END -%]
 
-[%- MACRO as_auto_editor(ko) BLOCK -%]
-  [%- IF c.user.is_auto_editor -%]
+[%- MACRO make_votable(ko) BLOCK -%]
     <div class="row no-label">
       <div class="auto-editor">
         [% IF ko %]
           <label>
-            <input type="checkbox" data-bind="checked: asAutoEditor" />
-            [% l('Enable {autoed|auto-editor} privileges for this edit.', { autoed => { href => doc_link('Auto-Editor'), target => '_blank' } }) -%]
+            <input type="checkbox" data-bind="checked: makeVotable" />
+            [% l('Make all edits votable.') -%]
           </label>
         [% ELSE %]
           [%- USE r = FormRenderer(form) -%]
-          [%- r.checkbox('as_auto_editor') -%]
-          [%- r.label('as_auto_editor',
-                     l('Enable {autoed|auto-editor} privileges for this edit.',
-                      { autoed = doc_link('Auto-Editor') }), inline => 1) -%]
+          [%- r.checkbox('make_votable') -%]
+          [%- r.label('make_votable', l('Make all edits votable.'), inline => 1) -%]
         [% END %]
       </div>
     </div>
-  [%- END -%]
 [%- END -%]
 
 [%- MACRO edit_note(hide_help, ko) BLOCK -%]
@@ -46,7 +42,7 @@
 [%- END -%]
 
 [%- MACRO enter_edit(extra) BLOCK -%]
-    [%- as_auto_editor() -%]
+    [%- make_votable() -%]
     <div class="row no-label buttons">
         <button type="submit" class="submit positive">[% l('Enter edit') %]</button>
         [% extra %]
@@ -75,18 +71,39 @@
     </div>
 [%- END -%]
 
-[%- MACRO form_row_text(r, field_name, label) BLOCK -%]
+[%- MACRO form_row_text(r, field_name, label, attrs) BLOCK -%]
+    [% attrs = attrs ? attrs : {} %]
     [% WRAPPER form_row %]
       [% r.label(field_name, label || r.form.field(field_name).label) %]
-      [% r.text(field_name) %]
+      [% r.text(field_name, attrs) %]
       [% field_errors(r.form, field_name) %]
     [% END %]
 [%- END -%]
 
 [%- MACRO form_row_text_long(r, field_name, label) BLOCK -%]
+    [% form_row_text(r, field_name, label, { size => 47 }) %]
+[%- END -%]
+
+[%- MACRO form_row_email_long(r, field_name, label) BLOCK -%]
     [% WRAPPER form_row %]
       [% r.label(field_name, label || r.form.field(field_name).label) %]
-      [% r.text(field_name, { size => 47 })  %]
+      [% r.email(field_name, { size => 47 })  %]
+      [% field_errors(r.form, field_name) %]
+    [% END %]
+[%- END -%]
+
+[%- MACRO form_row_url_long(r, field_name, label) BLOCK -%]
+    [% WRAPPER form_row %]
+      [% r.label(field_name, label || r.form.field(field_name).label) %]
+      [% r.url(field_name, { size => 47 })  %]
+      [% field_errors(r.form, field_name) %]
+    [% END %]
+[%- END -%]
+
+[%- MACRO form_row_time(r, field_name, label) BLOCK -%]
+    [% WRAPPER form_row %]
+      [% r.label(field_name, label || r.form.field(field_name).label) %]
+      [% r.text(field_name, { size => 5, class => "time", placeholder => l("HH:MM") })  %]
       [% field_errors(r.form, field_name) %]
     [% END %]
 [%- END -%]
@@ -115,10 +132,11 @@
     </div>
 [%- END -%]
 
-[%- MACRO form_row_select(r, field_name, label, class) BLOCK -%]
+[%- MACRO form_row_select(r, field_name, label, class, attributes) BLOCK -%]
+    [% attributes = attributes || {}; attributes.class = class %]
     [% WRAPPER form_row %]
       [% r.label(field_name, label || r.form.field(field_name).label, { class => class }) %]
-      [% r.select(field_name, { class => class }) -%]
+      [% r.select(field_name, attributes) -%]
       [% field_errors(r.form, field_name) %]
     [% END %]
 [%- END -%]
@@ -129,14 +147,14 @@
       <div class="form-row-text-list">
           <div style="display: none;"
                class="text-list-row [%- r.form.field(field_name).html_name _ "-template" -%]">
-              <input type="text" value="" name="" class="value with-remove" />
+              <input type="text" value="" name="" class="value with-button" />
               <button type="button" class="nobutton icon remove">
                 <div class="remove-item icon img" title="[% l('Remove {item}', item => item_name) %]"></div>
               </button>
           </div>
           [% FOR value=r.form.field(field_name).value -%]
           <div class="text-list-row">
-              <input type="text" value="[% value %]" name="[% r.form.field(field_name).html_name %].[% loop.index() %]" class="value with-remove" />
+              <input type="text" value="[% value %]" name="[% r.form.field(field_name).html_name %].[% loop.index() %]" class="value with-button" />
               <button type="button" class="nobutton remove">
               <div class="remove-item icon img" title="[% l('Remove {item}', item => item_name) %]"></div>
               </button>
@@ -174,8 +192,8 @@
     [%- WRAPPER form_row -%]
         <label for="[% id %]" class="required">[% l('Artist:') %]</label>
         <span class="autocomplete">
-          <input id="[% id %]" type="text" class="artist-credit-input" data-bind="autocomplete: { entity: 'artist', artistCredit: $data }" data-hidden-inputs="[% 1 IF form %]" data-form="[% form.name IF form.html_prefix %]" data-artist="[% html_escape(form.field('artist_credit').json) IF form %]" />
-          <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+          <input id="[% id %]" type="text" required="required" class="artist-credit-input" data-bind="autocomplete: { entity: 'artist', artistCredit: $data }" data-hidden-inputs="[% 1 IF form %]" data-form="[% form.name IF form.html_prefix %]" data-artist="[% html_escape(form.field('artist_credit').json) IF form %]" />
+          <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
         </span>
         <button type="button" class="styled-button" id="open-ac" data-bind="controlsBubble: $root.artistBubble">[% l('Edit') | html_entity %]</button>
         [%- IF form -%]
@@ -191,11 +209,31 @@
     [% END %]
 [%- END -%]
 
+[%- MACRO form_row_name_with_guesscase(r, options) BLOCK -%]
+  [% WRAPPER form_row %]
+    [% r.label('name', options.label || l('Name:')) %]
+    [% r.text('name', { class => 'with-guesscase' }) %]
+    <button type="button" class="guesscase-title icon" title="[% l('Guess case') %]"></button>
+    <button type="button" class="guesscase-options icon" title="[% l('Guess case options') %]"></button>
+    [% field_errors(r.form, 'name') %]
+  [% END %]
+[%- END -%]
+
+[%- MACRO form_row_sortname_with_guesscase(r) BLOCK -%]
+  [% WRAPPER form_row %]
+    [% r.label('sort_name', l('Sort name:')) %]
+    [% r.text('sort_name', { class => 'with-guesscase' }) %]
+    <button type="button" class="guesscase-sortname icon" title="[% l('Guess sort name') %]"></button>
+    <button type="button" class="sortname-copy icon" title="[% l('Copy name') %]"></button>
+    [% field_errors(r.form, 'sort_name') %]
+  [% END %]
+[%- END -%]
+
 [%- MACRO guesscase(show_icon) BLOCK -%]
   <fieldset class="guesscase">
     <legend>[% lp('Guess case', 'header') %]</legend>
     [% IF show_icon %]
-      <img src="[% c.uri_for("/static/images/icons/guesscase.32x32.png") %]" style="float: left; margin: 1em;" />
+      <img src="[% c.uri_for("/static/images/icons/guesscase.32x32.png") %]" style="float: left; margin: 1em;" alt="" />
     [% END %]
     <div style="float: right; margin: 10px;" class="buttons">
       <button type="button" data-bind="click: guessCase">[% lp('Guess case', 'button/menu') %]</button>
@@ -220,59 +258,31 @@
   </fieldset>
 [%- END -%]
 
-[%- MACRO guesscase_bubble(hide_mode, bubble_name, gc_callback) BLOCK -%]
-    <div class="bubble" id="guess-case-bubble" data-bind="bubble: [% bubble_name %]">
-      <!-- ko guessCase: [% gc_callback || 'function () { target().guessCase.apply(target(), arguments) }' %] -->
-      <p>
-        [%- (l('Please use the Guess Case button to fix common style errors.')) -%]
-      </p>
-      <div class="buttons">
-        <button type="button" data-bind="click: guessCase">[% lp('Guess case', 'button/menu') %]</button>
-      </div>
-      <div class="guesscase-options">
-        <table>
-          <tr>
-            <td>
-            [%- UNLESS hide_mode -%]
-              <select data-bind="value: modeName">
-                <option value="English">[% l('English') %]</option>
-                <option value="Sentence">[% l('Sentence') %]</option>
-                <option value="French">[% l('French') %]</option>
-              </select>
-              <br />
-              <label>
-                <input type="checkbox" data-bind="checked: keepUpperCase" />
-                [% l('Keep all-uppercase words uppercased') %]
-              </label>
-              <br />
-              <label>
-                <input type="checkbox" data-bind="checked: upperCaseRoman" />
-                [% l('Uppercase roman numerals') %]
-              </label>
-            [%- END -%]
-            </td>
-            <td>
-            [%- UNLESS hide_mode -%]
-              <span data-bind="html: help"></span>
-            [%- END -%]
-            </td>
-          </tr>
-        </table>
-      </div>
-    <!-- /ko -->
-    </div>
-[%- END -%]
-
-[%- MACRO sortname_bubble BLOCK -%]
-    <div class="bubble" id="sortname-bubble">
-      <p>
-        [%- (l('Please use the Sort Name button to guess the sort name.')) -%]
-      </p>
-      <div class="buttons">
-        <a href="#sortname">[% l('Sort Name') %]</a>
-        <a href="#copy">[% l('Copy') %]</a>
-      </div>
-    </div>
+[%- MACRO guesscase_options BLOCK -%]
+  <table id="guesscase-options">
+    <tr>
+      <td>
+        <select data-bind="value: modeName">
+          <option value="English">[% l('English') %]</option>
+          <option value="Sentence">[% l('Sentence') %]</option>
+          <option value="French">[% l('French') %]</option>
+        </select>
+        <br />
+        <label>
+          <input type="checkbox" data-bind="checked: keepUpperCase" />
+          [% l('Keep all-uppercase words uppercased') %]
+        </label>
+        <br />
+        <label>
+          <input type="checkbox" data-bind="checked: upperCaseRoman" />
+          [% l('Uppercase roman numerals') %]
+        </label>
+      </td>
+      <td>
+        <span data-bind="html: help"></span>
+      </td>
+    </tr>
+  </table>
 [%- END -%]
 
 [%- MACRO iswc_bubble(work) BLOCK -%]
@@ -321,7 +331,7 @@
 [%- MACRO artist_credit_table BLOCK -%]
   <div class="bubble" id="artist-credit-bubble" data-bind="bubble: $root.artistBubble">
     <p>
-      [%- l('Use the following fields to enter collaborations, see the <a href="{url}">Artist Credit</a> documentation for more information.', url => c.uri_for('/doc/Artist_Credit')) -%]
+      [%- l('Use the following fields to enter collaborations, see the {ac|Artist Credit} documentation for more information.', { ac => doc_link('Artist_Credit') }) -%]
     </p>
 
     <p>[% l('Preview:') %] <span data-bind="html: target() ? target().html() : ''"></span></p>
@@ -336,11 +346,11 @@
         <td>
           <span class="artist autocomplete">
             <input type="text" class="name" data-bind="withLabel: 'ac-artist-search', autocomplete: { entity: 'artist', currentSelection: artist }, css: { 'various-artists': isVariousArtists() }"/>
-            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
           </span>
         </td>
         <td>
-          <input type="button" class="icon remove-artist-credit" title="[% l('Remove Artist Credit') %]" data-bind="click: $parents[1].removeArtistCreditName.bind($parents[1])" />
+          <button type="button" class="icon remove-artist-credit" title="[% l('Remove Artist Credit') %]" data-bind="click: $parents[1].removeArtistCreditName.bind($parents[1])"></button>
         </td>
       </tr>
       <tr>
@@ -410,8 +420,8 @@
                   visible: showTypeSelection()"></select>
       </td>
       <td>
-        <input type="text"
-          class="value with-remove"
+        <input type="url"
+          class="value with-button"
           data-bind="
             value: url,
             valueUpdate: 'input',

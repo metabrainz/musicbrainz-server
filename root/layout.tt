@@ -1,5 +1,6 @@
 [% set_header() %]
-    [%- INCLUDE 'layout/head.tt' -%]
+    [%- DEFAULT no_icons = homepage -%]
+    [%- INCLUDE 'layout/head.tt' no_icons=no_icons -%]
     <body>
         [%- IF c.debug -%][%- INCLUDE 'debug/stats.tt' -%][%- END ~%]
 
@@ -15,14 +16,6 @@
                         [% form_submit(l('Search'), 'inline') %]
                     </form>
                 </div>
-                [% IF server_details.git.branch ~%]
-                  <div class="git-branch">
-                    [%~ l('Running: <span class="tooltip" title="{msg}">{branch} ({sha})</span>',
-                         { branch => server_details.git.branch,
-                           msg => html_escape(server_details.git.msg),
-                           sha => server_details.git.sha}) ~%]
-                  </div>
-                [%~ END %]
             </div>
             <div id="header-menu">
                 <div>
@@ -95,6 +88,13 @@
                 [%- IF server_details.beta_redirect %] |
                 <a href="[% c.uri_for('/set-beta-preference') %]" class="internal">[% server_details.is_beta ? l('Stop using beta site') : l('Use beta site') %]</a>
                 [%- END -%]
+                [% IF server_details.git.branch ~%]
+                <br/>
+                    [%~ l('Running: <span class="tooltip" title="{msg}">{branch} ({sha})</span>',
+                         { branch => server_details.git.branch,
+                           msg => html_escape(server_details.git.msg),
+                           sha => server_details.git.sha }) ~%]
+                [%~ END %]
                 [%- IF last_replication_date -%]
                 <br />
                 [% l('Last replication packet received at {datetime}',

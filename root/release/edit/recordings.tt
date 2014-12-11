@@ -1,5 +1,5 @@
 <div class="changes" data-bind="with: rootField.release">
-  <div class="notice field-error" data-bind="showErrorRightAway: needsRecordings">
+  <div class="warning field-error" data-bind="showErrorRightAway: needsRecordings">
     <p><strong>[% l('Note:') %]</strong> [%- l('All tracks require an associated recording. Click “Edit” to select a recording for each track. Choose “Add a new recording” if an appropriate one doesn’t exist yet.') -%]</p>
 
     <p data-bind="ifnot: _.isEmpty(tracksWithUnsetPreviousRecordings())">
@@ -68,12 +68,17 @@
             </td>
           </tr>
 
-          <tr data-bind="if: differsFromRecording(), css: { even: position() % 2 === 0 }">
+          <tr data-bind="if: titleDiffersFromRecording() || artistDiffersFromRecording(), css: { even: position() % 2 === 0 }">
             <td></td>
             <td colspan="5" class="checkbox">
-              <label>
-                <input type="checkbox" data-bind="checked: updateRecording, disable: $root.copyTrackChangesToRecordings" />
-                [% l('Also update the recording with track changes') %]
+              <label data-bind="if: titleDiffersFromRecording()">
+                <input type="checkbox" data-bind="checked: updateRecordingTitle, disable: $root.copyTrackTitlesToRecordings" />
+                [% l('Update the recording title to match the track title.') %]
+              </label>
+              <br />
+              <label data-bind="if: artistDiffersFromRecording()">
+                <input type="checkbox" data-bind="checked: updateRecordingArtist, disable: $root.copyTrackArtistsToRecordings" />
+                [% l('Update the recording artist credit to match the track artist credit.') %]
               </label>
             </td>
           </tr>
@@ -117,8 +122,14 @@
       </p>
       <p>
         <label>
-          <input type="checkbox" data-bind="checked: $root.copyTrackChangesToRecordings" />
-          [% l('Copy all track changes to associated recordings.') %]
+          <input type="checkbox" data-bind="checked: $root.copyTrackTitlesToRecordings" />
+          [% l('Copy all track titles to associated recordings.') %]
+        </label>
+      </p>
+      <p>
+        <label>
+          <input type="checkbox" data-bind="checked: $root.copyTrackArtistsToRecordings" />
+          [% l('Copy all track artist credits to associated recordings.') %]
         </label>
       </p>
     </fieldset>
@@ -134,7 +145,7 @@
       <p data-bind="with: target">
         [% l('Search:') %]
         <span class="autocomplete">
-          <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+          <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
           <input type="text" class="name" data-bind="autocomplete: { entity: 'recording', currentSelection: recording, lookupHook: $root.recordingAssociation.autocompleteHook($data) }" />
         </span>
       </p>

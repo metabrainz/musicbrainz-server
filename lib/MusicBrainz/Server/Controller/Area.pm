@@ -4,15 +4,20 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model       => 'Area',
+    model           => 'Area',
+    relationships   => { all => ['show'], cardinal => ['edit'], default => ['url'] },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Alias';
 with 'MusicBrainz::Server::Controller::Role::Details';
+with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
+with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
+    endpoints => {show => {}, aliases => {copy_stash => ['aliases']}}
+};
 
 use Data::Page;
 use HTTP::Status qw( :constants );
@@ -53,15 +58,13 @@ Extends loading by fetching any extra data required in the area header.
 
 =cut
 
-after 'load' => sub
-{
+after 'load' => sub {
     my ($self, $c) = @_;
 
     my $area = $c->stash->{area};
 
     $c->model('AreaType')->load($area);
     $c->model('Area')->load_containment($area);
-    $c->model('Relationship')->load($area);
 };
 
 =head2 show
@@ -86,7 +89,6 @@ Shows artists for an area.
 sub artists : Chained('load')
 {
     my ($self, $c) = @_;
-    my $area = $c->stash->{area};
     my $artists = $self->_load_paged($c, sub {
         $c->model('Artist')->find_by_area($c->stash->{area}->id, shift, shift);
     });
@@ -107,7 +109,6 @@ Shows labels for an area.
 sub labels : Chained('load')
 {
     my ($self, $c) = @_;
-    my $area = $c->stash->{area};
     my $labels = $self->_load_paged($c, sub {
         $c->model('Label')->find_by_area($c->stash->{area}->id, shift, shift);
     });
@@ -128,7 +129,6 @@ sub releases : Chained('load')
 {
     my  ($self, $c) = @_;
 
-    my $area = $c->stash->{area};
     my $releases = $self->_load_paged($c, sub {
             $c->model('Release')->find_by_country($c->stash->{area}->id, shift, shift);
         });
@@ -154,7 +154,6 @@ Shows places for an area.
 sub places : Chained('load')
 {
     my ($self, $c) = @_;
-    my $area = $c->stash->{area};
     my $places = $self->_load_paged($c, sub {
         $c->model('Place')->find_by_area($c->stash->{area}->id, shift, shift);
     });

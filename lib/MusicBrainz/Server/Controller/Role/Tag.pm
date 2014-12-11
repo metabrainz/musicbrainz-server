@@ -42,6 +42,7 @@ sub tags : Chained('load') PathPart('tags')
     $c->stash(
         tags => $tags,
         user_tags => \@user_tags,
+        template => 'entity/tags.tt',
     );
 
     my @user_tag_names = map { $_->tag->name } @user_tags;
@@ -63,6 +64,7 @@ sub tag_async : Chained('load') PathPart('ajax/tag') DenyWhenReadonly
 {
     my ($self, $c) = @_;
 
+    $c->res->headers->header('X-Robots-Tag' => 'noindex');
     if (!$c->user_exists) {
         $c->res->status(401);
         $c->res->body('{}');

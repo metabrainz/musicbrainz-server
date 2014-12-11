@@ -1,5 +1,5 @@
 [%- WRAPPER 'layout.tt' full_width=1 title=l('Edit Relationships: {release}', {release => release.name}) -%]
-    [% script_manifest('edit.js.manifest') %]
+    [% script_manifest('edit.js') %]
 
     [% PROCESS 'components/relationship-editor.tt' %]
 
@@ -95,13 +95,13 @@
         <p id="errors-msg" class="warning" data-bind="html: submissionError"></p>
       <!-- /ko -->
 
-      <form>
+      <form id="relationship-editor-form">
         <fieldset class="editnote">
           <legend>[%- l('Edit Note') -%]</legend>
           [% edit_note(0, 1) %]
         </fieldset>
 
-        [% as_auto_editor(1) %]
+        [% make_votable(1) %]
 
         <div class="row no-label buttons">
           <button type="submit" class="submit positive" data-bind="click: submit, disable: submissionLoading">[% l('Enter edit') %]</button>

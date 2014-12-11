@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-08-07 20:42+0000\n"
+"PO-Revision-Date: 2014-10-30 01:10+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -154,6 +154,10 @@ msgstr "Rhodes-klaver"
 #: DB:instrument/name:476
 msgid "Saraswati veena"
 msgstr "sarasvati vina"
+
+#: DB:instrument/name:679
+msgid "Schwyzerörgeli"
+msgstr ""
 
 #: DB:instrument/name:427
 msgid "Scottish smallpipes"
@@ -809,7 +813,7 @@ msgstr "dilruba"
 
 #: DB:instrument/name:317
 msgid "ding tac ta"
-msgstr ""
+msgstr "ding tac ta"
 
 #: DB:instrument/name:220
 msgid "diyingehu"
@@ -895,6 +899,10 @@ msgstr "dúxiánqín"
 msgid "ebow"
 msgstr "e-bow"
 
+#: DB:instrument/name:677
+msgid "effects"
+msgstr "efektid"
+
 #: DB:instrument/name:643
 msgid "ektara"
 msgstr ""
@@ -910,6 +918,10 @@ msgstr "elektritšello"
 #: DB:instrument/name:538
 msgid "electric fretless guitar"
 msgstr "astmetraatideta (krihvideta) elektrikitarr"
+
+#: DB:instrument/name:682
+msgid "electric grand piano"
+msgstr ""
 
 #: DB:instrument/name:55
 msgid "electric guitar"
@@ -937,7 +949,7 @@ msgstr "elektrikontrabass"
 
 #: DB:instrument/name:648
 msgid "electric viola"
-msgstr ""
+msgstr "elektrivioola"
 
 #: DB:instrument/name:212
 msgid "electric violin"
@@ -1025,7 +1037,7 @@ msgstr "pianoforte"
 
 #: DB:instrument/name:656
 msgid "four-string banjo"
-msgstr ""
+msgstr "4-keelne bandžo"
 
 #: DB:instrument/name:570
 msgid "fourth flute"
@@ -1069,7 +1081,7 @@ msgstr "gankogui"
 
 #: DB:instrument/name:644
 msgid "ganzá"
-msgstr ""
+msgstr "ganzá"
 
 #: DB:instrument/name:216
 msgid "gaohu"
@@ -1130,6 +1142,10 @@ msgstr "tiibklaver"
 #: DB:instrument/name:294
 msgid "great bass recorder / c-bass recorder"
 msgstr "suur bassplokkflööt"
+
+#: DB:instrument/name:683
+msgid "guan"
+msgstr ""
 
 #: DB:instrument/name:230
 msgid "gudok"
@@ -1211,6 +1227,10 @@ msgstr "harmoonium"
 msgid "harp"
 msgstr "harf"
 
+#: DB:instrument/name:681
+msgid "harp guitar"
+msgstr ""
+
 #: DB:instrument/name:131
 msgid "harpsichord"
 msgstr "klavessiin"
@@ -1222,6 +1242,10 @@ msgstr "hekelfon (baritonoboe)"
 #: DB:instrument/name:579
 msgid "heike biwa"
 msgstr "heike biwa"
+
+#: DB:instrument/name:678
+msgid "helicon"
+msgstr ""
 
 #: DB:instrument/name:454
 msgid "hi-hat"
@@ -1683,10 +1707,6 @@ msgstr "orpharion"
 msgid "other drums"
 msgstr "muud trummid"
 
-#: DB:instrument/name:195
-msgid "other flutes"
-msgstr "muud flöödid"
-
 #: DB:instrument/name:141
 msgid "other instruments"
 msgstr "muud pillid"
@@ -1813,7 +1833,7 @@ msgstr "ranat ek"
 
 #: DB:instrument/name:665
 msgid "ranat kaeo"
-msgstr ""
+msgstr "ranat kaeo"
 
 #: DB:instrument/name:620
 msgid "ranat thum"
@@ -2173,7 +2193,7 @@ msgstr ""
 
 #: DB:instrument/name:641
 msgid "taepyeongso"
-msgstr ""
+msgstr "taepyeongso"
 
 #: DB:instrument/name:378
 msgid "taiko"
@@ -2231,13 +2251,15 @@ msgstr "lint"
 msgid "taphon"
 msgstr ""
 
-#: DB:instrument/name:607
-msgid "tar (drum)"
-msgstr "tar (trumm)"
-
 #: DB:instrument/name:467
-msgid "tar (lute)"
-msgstr "tar (lauto)"
+msgctxt "lute"
+msgid "tar"
+msgstr "tar"
+
+#: DB:instrument/name:607
+msgctxt "drum"
+msgid "tar"
+msgstr "tar"
 
 #: DB:instrument/name:440
 msgid "taragot"
@@ -2369,7 +2391,7 @@ msgstr "tromboon"
 
 #: DB:instrument/name:663
 msgid "tromboon"
-msgstr ""
+msgstr "trombott"
 
 #: DB:instrument/name:33
 msgid "trumpet"
@@ -2597,7 +2619,7 @@ msgstr "xiǎoluó"
 
 #: DB:instrument/name:651
 msgid "xun"
-msgstr ""
+msgstr "xūn"
 
 #: DB:instrument/name:170
 msgid "xylophone"
@@ -2698,6 +2720,10 @@ msgstr "đại cô/tiểu cô"
 #: DB:instrument/name:558
 msgid "ōtsuzumi"
 msgstr "ōtsuzumi"
+
+#: DB:instrument/name:680
+msgid "šargija"
+msgstr ""
 
 #: DB:instrument/name:589
 msgid "żafżafa"

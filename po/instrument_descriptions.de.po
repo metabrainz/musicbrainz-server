@@ -1,12 +1,13 @@
 # 
 # Translators:
+# Ettore Atalan <email address hidden>, 2014
 # lorenzpressler <email address hidden>, 2012
 # S.Brandt <email address hidden>, 2014
 # Shepard, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-08-07 20:42+0000\n"
+"PO-Revision-Date: 2014-10-30 01:10+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -108,6 +109,13 @@ msgstr ""
 #. name:five-string banjo
 #: DB:instrument/description:523
 msgid "A five-string banjo is a banjo with five strings."
+msgstr ""
+
+#. name:flute
+#: DB:instrument/description:13
+msgid ""
+"A flute is an aerophone or reedless wind instrument that produces its sound "
+"from the flow of air across an opening."
 msgstr ""
 
 #. name:four-string banjo
@@ -219,7 +227,7 @@ msgid ""
 "of an instrument."
 msgstr ""
 
-#. name:tar (drum)
+#. name:tar
 #: DB:instrument/description:607
 msgid ""
 "A tar is a single-headed frame drum from North Africa and the Middle East."
@@ -305,7 +313,7 @@ msgstr ""
 #. name:Irish harp / clàrsach
 #: DB:instrument/description:355
 msgid "An Irish/Scottish harp."
-msgstr ""
+msgstr "Eine irisch/schottische Harfe."
 
 #. name:archtop guitar
 #: DB:instrument/description:654
@@ -393,11 +401,6 @@ msgid ""
 "Ching are a pair of small hand cymbals used in Thai and Cambodian music."
 msgstr ""
 
-#. name:conch
-#: DB:instrument/description:156
-msgid "Conch shell"
-msgstr ""
-
 #. name:crumhorn
 #: DB:instrument/description:348
 msgid "Crumhorn used in the 14th to 17th centuries in Europe"
@@ -428,6 +431,13 @@ msgstr ""
 msgid ""
 "EWI (an acronym for electric wind instrument) is the name of Akai's wind "
 "controller."
+msgstr ""
+
+#. name:effects
+#: DB:instrument/description:677
+msgid ""
+"Effects refers to devices which enable a musician to modify the sound of an "
+"instrument."
 msgstr ""
 
 #. name:electric fretless guitar
@@ -598,13 +608,6 @@ msgstr ""
 msgid "Oboe d'amore / Oboe d'amour (mezzo-soprano)"
 msgstr ""
 
-#. name:other flutes
-#: DB:instrument/description:195
-msgid ""
-"Other flutes. If you can't find an instrument, please request it at "
-"http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree"
-msgstr ""
-
 #. name:other instruments
 #: DB:instrument/description:141
 msgid ""
@@ -683,7 +686,7 @@ msgstr ""
 #. name:santur
 #: DB:instrument/description:255
 msgid "Santur, Middle Eastern"
-msgstr ""
+msgstr "Santur, Mittlerer Osten"
 
 #. name:shawm
 #: DB:instrument/description:408
@@ -774,6 +777,13 @@ msgstr ""
 msgid ""
 "The Saraswati veena is an Indian plucked stringed instrument used in "
 "Carnatic music."
+msgstr ""
+
+#. name:Schwyzerörgeli
+#: DB:instrument/description:679
+msgid ""
+"The Schwyzerörgeli is a type of diatonic button accordion used in Swiss folk"
+" music."
 msgstr ""
 
 #. name:Stroh violin
@@ -1239,6 +1249,13 @@ msgid ""
 "family."
 msgstr ""
 
+#. name:guan
+#: DB:instrument/description:683
+msgid ""
+"The guan is a Chinese double reed wind instrument made from hardwood or "
+"bamboo."
+msgstr ""
+
 #. name:guitalele
 #: DB:instrument/description:645
 msgid ""
@@ -1277,6 +1294,13 @@ msgstr ""
 msgid ""
 "The harmonica or blues harp is a type of mouth organ commonly found in "
 "blues, American folk, jazz, country and rock and roll music."
+msgstr ""
+
+#. name:harp guitar
+#: DB:instrument/description:681
+msgid ""
+"The harp guitar is a guitar-based string instrument with any number of "
+"additional unstopped strings which can accommodate individual plucking."
 msgstr ""
 
 #. name:harp
@@ -1973,7 +1997,7 @@ msgstr ""
 msgid "The taphon is a traditional barrel drum from Thailand."
 msgstr ""
 
-#. name:tar (lute)
+#. name:tar
 #: DB:instrument/description:467
 msgid ""
 "The tar is a long-necked, waisted lute found in Azerbaijan, Iran, Armenia, "
@@ -2243,6 +2267,13 @@ msgid ""
 "kotsuzumi."
 msgstr ""
 
+#. name:šargija
+#: DB:instrument/description:680
+msgid ""
+"The šargija is a long necked plucked lute used in the folk music of the "
+"Balkans."
+msgstr ""
+
 #. name:żafżafa
 #: DB:instrument/description:589
 msgid ""
@@ -2358,6 +2389,11 @@ msgstr ""
 msgid "as using drives for producing music, harddrives, floppy, cd or other."
 msgstr ""
 
+#. name:conch
+#: DB:instrument/description:156
+msgid "conch shell"
+msgstr ""
+
 #. name:bombarde
 #: DB:instrument/description:431
 msgid "conical bore double-reed musical instrument from Brittany"
@@ -2408,4 +2444,4 @@ msgstr ""
 #. name:đại cô/tiểu cô
 #: DB:instrument/description:266
 msgid "variously sized drums"
-msgstr ""
+msgstr "unterschiedlich große Trommeln"

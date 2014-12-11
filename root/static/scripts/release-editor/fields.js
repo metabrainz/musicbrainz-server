@@ -25,6 +25,7 @@
 
             $.extend(this, _.pick(data, "id", "gid"));
 
+            data.name = data.name || "";
             this.name = ko.observable(data.name);
             this.name.original = data.name;
             this.name.subscribe(this.nameChanged, this);
@@ -44,7 +45,9 @@
             this.formattedLength = ko.observable(MB.utility.formatTrackLength(data.length));
             this.position = ko.observable(data.position);
             this.number = ko.observable(data.number);
-            this.updateRecording = ko.observable(false).subscribeTo("updateRecordings", true);
+            this.isDataTrack = ko.observable(!!data.isDataTrack);
+            this.updateRecordingTitle = ko.observable(false).subscribeTo("updateRecordingTitles", true);
+            this.updateRecordingArtist = ko.observable(false).subscribeTo("updateRecordingArtists", true);
             this.hasNewRecording = ko.observable(true);
 
             this.recordingValue = ko.observable(
@@ -115,7 +118,31 @@
                     this.formattedLength(length);
                 }
             }
-            this.length(MB.utility.unformatTrackLength(length));
+
+            var oldLength = this.length();
+            var newLength = MB.utility.unformatTrackLength(length);
+            this.length(newLength);
+
+            // If the length being changed is for a pregap track and the medium
+            // has cdtocs attached, make sure the new length doesn't exceed the
+            // maximum possible allowed by any of the tocs.
+
+            var $lengthInput = $("input.track-length", "#track-row-" + this.uniqueID);
+            $lengthInput.attr("title", "");
+
+            var hasTooltip = !!$lengthInput.data("ui-tooltip");
+
+            if (this.medium.hasInvalidPregapLength()) {
+                $lengthInput.attr("title", MB.text.InvalidPregapLength);
+
+                if (!hasTooltip) {
+                    $lengthInput.tooltip();
+                }
+
+                $lengthInput.tooltip("open");
+            } else if (hasTooltip) {
+                $lengthInput.tooltip("close").tooltip("destroy");
+            }
         },
 
         previous: function () {
@@ -132,16 +159,18 @@
             return index < tracks.length - 1 ? tracks[index + 1] : null;
         },
 
-        differsFromRecording: function () {
-            var recording = this.recording();
-            var name = this.name();
+        titleDiffersFromRecording: function () {
+            return this.name() !== this.recording().name;
+        },
 
-            if (!recording.gid || !name) return false;
+        artistDiffersFromRecording: function () {
+            var artistCredit = this.recording().artistCredit;
 
-            var sameName = name === recording.name;
-            var sameArtist = this.artistCredit.isEqual(recording.artistCredit);
+            if (!artistCredit) {
+                return false;
+            }
 
-            return !(sameName && sameArtist);
+            return !this.artistCredit.isEqual(artistCredit);
         },
 
         hasExistingRecording: function () {
@@ -204,11 +233,56 @@
             this.position = ko.observable(data.position || 1);
             this.formatID = ko.observable(data.formatID);
 
-            this.tracks = ko.observableArray(
-                utils.mapChild(this, data.tracks, fields.Track)
-            );
+            var tracks = data.tracks;
+            this.tracks = ko.observableArray(utils.mapChild(this, tracks, fields.Track));
 
             var self = this;
+
+            var hasPregap = ko.computed(function () {
+                var tracks = self.tracks();
+                return tracks.length > 0 && tracks[0].position() == 0;
+            });
+
+            this.hasPregap = ko.computed({
+                read: hasPregap,
+                write: function (newValue) {
+                    var oldValue = hasPregap();
+
+                    if (oldValue && !newValue) {
+                        self.tracks.shift();
+                    } else if (newValue && !oldValue) {
+                        self.tracks.unshift(fields.Track({ position: 0, number: 0 }, self));
+                    }
+                }
+            });
+
+            this.audioTracks = this.tracks.reject("isDataTrack");
+            this.dataTracks = this.tracks.filter("isDataTrack");
+
+            var hasDataTracks = ko.computed(function () {
+                return self.dataTracks().length > 0;
+            });
+
+            this.hasDataTracks = ko.computed({
+                read: hasDataTracks,
+                write: function (newValue) {
+                    var oldValue = hasDataTracks();
+
+                    if (oldValue && !newValue) {
+                        var dataTracks = self.dataTracks();
+
+                        if (self.hasToc()) {
+                            self.tracks.removeAll(dataTracks);
+                        } else {
+                            while (dataTracks.length) {
+                                dataTracks[0].isDataTrack(false);
+                            }
+                        }
+                    } else if (newValue && !oldValue) {
+                        self.pushTrack({ isDataTrack: true });
+                    }
+                }
+            });
 
             this.needsRecordings = this.tracks.any("needsRecording");
             this.hasTrackInfo = this.tracks.all("hasNameAndArtist");
@@ -221,12 +295,15 @@
             // there's no ID to load tracks from.
             var loaded = !!(this.tracks().length || !(this.id || this.originalID));
 
-            this.cdtocs = data.cdtocs || 0;
+            if (data.cdtocs) {
+                this.cdtocs = data.cdtocs;
+            }
+
             this.toc = ko.observable(data.toc || null);
             this.toc.subscribe(this.tocChanged, this);
 
             this.hasInvalidFormat = ko.computed(function () {
-                return self.id && self.hasToc() && !self.canHaveDiscID();
+                return !self.canHaveDiscID() && (self.hasExistingTocs() || hasPregap() || hasDataTracks());
             });
 
             this.loaded = ko.observable(loaded);
@@ -242,8 +319,30 @@
             });
         },
 
+        pushTrack: function (data) {
+            data = data || {};
+
+            if (data.position === undefined) {
+                data.position = this.tracks().length + (this.hasPregap() ? 0 : 1);
+            }
+
+            if (data.number === undefined) {
+                data.number = data.position;
+            }
+
+            if (this.hasDataTracks()) {
+                data.isDataTrack = true;
+            }
+
+            this.tracks.push(fields.Track(data, this));
+        },
+
+        hasExistingTocs: function () {
+            return !!(this.id && this.cdtocs && this.cdtocs.length);
+        },
+
         hasToc: function () {
-            return !!this.cdtocs || (this.toc() ? true : false);
+            return this.hasExistingTocs() || (this.toc() ? true : false);
         },
 
         tocChanged: function (toc) {
@@ -251,27 +350,66 @@
 
             toc = toc.split(/\s+/);
 
+            var tocTrackCount = toc.length - 3;
             var tracks = this.tracks();
-            var trackCount = toc.length - 3;
+            var tocTracks = _.reject(tracks, function (t) { return t.position() == 0 || t.isDataTrack() });
+            var trackCount = tocTracks.length;
+            var pregapOffset = this.hasPregap() ? 0 : 1;
 
-            if (tracks.length > trackCount) {
-                this.tracks(_.first(tracks, trackCount));
-            }
-            else if (tracks.length < trackCount) {
+            var wasConsecutivelyNumbered = _.all(tracks, function (t, index) {
+                return t.number() == (index + pregapOffset);
+            });
+
+            if (trackCount > tocTrackCount) {
+                tocTracks = tocTracks.slice(0, tocTrackCount);
+
+            } else if (trackCount < tocTrackCount) {
                 var self = this;
 
-                _.times(trackCount - tracks.length, function () {
-                    self.tracks.push(fields.Track({ position: tracks.length }, self));
+                _.times(tocTrackCount - trackCount, function () {
+                    tocTracks.push(fields.Track({}, self));
                 });
             }
 
-            _(tracks).first(trackCount).each(function (track, index) {
+            this.tracks(
+                Array.prototype.concat(
+                    this.hasPregap() ? tracks[0] : [],
+                    tocTracks,
+                    this.dataTracks()
+                )
+            );
+
+            _.each(tocTracks, function (track, index) {
                 track.formattedLength(
                     MB.utility.formatTrackLength(
                         ((toc[index + 4] || toc[2]) - toc[index + 3]) / 75 * 1000
                     )
                 );
             });
+
+            _.each(this.tracks(), function (track, index) {
+                track.position(pregapOffset + index);
+
+                if (wasConsecutivelyNumbered) {
+                    track.number(pregapOffset + index);
+                }
+            });
+        },
+
+        hasInvalidPregapLength: function () {
+            if (!this.hasPregap() || !this.hasToc()) {
+                return;
+            }
+
+            var maxLength = -Infinity;
+            var cdtocs = (this.cdtocs || []).concat(this.toc() || []);
+
+            _.each(cdtocs, function (toc) {
+                toc = toc.split(/\s+/);
+                maxLength = Math.max(maxLength, toc[3] / 75 * 1000);
+            });
+
+            return this.tracks()[0].length() > maxLength;
         },
 
         collapsedChanged: function (collapsed) {
@@ -297,7 +435,10 @@
         tracksLoaded: function (data) {
             var tracks = data.tracks;
 
-            this.tracks(utils.mapChild(this, data.tracks, fields.Track));
+            var pp = this.id ? // no ID means this medium is being reused
+                fields.Track :
+                function (track, parent) { return fields.Track(_.omit(track, 'id'), parent); };
+            this.tracks(utils.mapChild(this, data.tracks, pp));
 
             if (this.release.seededTocs) {
                 var toc = this.release.seededTocs[this.position()];
@@ -344,27 +485,10 @@
             return MB.text.Tracklist;
         },
 
-        formatsWithDiscIDs: [
-            1,  // CD
-            3,  // SACD
-            4,  // DualDisc
-            13, // Other
-            25, // HDCD
-            33, // CD-R
-            34, // 8cm CD
-            35, // Blu-spec CD
-            36, // SHM-CD
-            37, // HQCD
-            38, // Hybrid SACD
-            39, // CD+G
-            40, // 8cm CD+G
-            41  // CDV
-        ],
-
         canHaveDiscID: function () {
             var formatID = parseInt(this.formatID(), 10);
 
-            return !formatID || _.contains(this.formatsWithDiscIDs, formatID);
+            return !formatID || _.contains(MB.formatsWithDiscIDs, formatID);
         }
     });
 
@@ -436,7 +560,7 @@
 
             this.needsLabel = ko.computed(function () {
                 var label = self.label() || {};
-                return Boolean(label.name && !label.gid && !self.catalogNumber());
+                return !!(label.name && !label.gid);
             });
         },
 
@@ -594,7 +718,8 @@
                 utils.mapChild(this, data.mediums, fields.Medium)
             );
 
-            this.mediums.original = ko.observable(this.existingMediumData());
+            this.mediums.original = ko.observableArray([]);
+            this.mediums.original(this.existingMediumData());
             this.original = ko.observable(MB.edit.fields.release(this));
 
             this.loadedMediums = this.mediums.filter("loaded");
@@ -605,6 +730,7 @@
             this.needsMediums = errorField(function () { return !self.mediums().length });
             this.needsTracks = errorField(this.mediums.any("needsTracks"));
             this.needsTrackInfo = errorField(function () { return !self.hasTrackInfo() });
+            this.hasInvalidPregapLength = errorField(this.mediums.any("hasInvalidPregapLength"));
 
             // Ensure there's at least one event, label, and medium to edit.
 
@@ -654,9 +780,15 @@
         },
 
         existingMediumData: function () {
-            return _.transform(this.mediums(), function (result, medium) {
+            // This function should return the mediums on the release as they
+            // hopefully exist in the DB, so including ones removed from the
+            // page (as long as they have an id, i.e. were attached before).
+
+            var mediums = _.union(this.mediums(), this.mediums.original());
+
+            return _.transform(mediums, function (result, medium) {
                 if (medium.id) {
-                    result.push({ id: medium.id, position: medium.position() });
+                    result.push(medium);
                 }
             });
         }
@@ -665,7 +797,7 @@
 
     fields.Root = aclass(function () {
         this.release = ko.observable().syncWith("releaseField", true, true);
-        this.asAutoEditor = ko.observable(true);
+        this.makeVotable = ko.observable(false);
         this.editNote = ko.observable("");
     });
 
@@ -673,12 +805,12 @@
     ko.bindingHandlers.disableBecauseDiscIDs = {
 
         update: function (element, valueAccessor, allBindings, viewModel) {
-            var hasDiscID = viewModel.medium.hasToc();
+            var disabled = ko.unwrap(valueAccessor()) && viewModel.medium.hasToc();
 
             $(element)
-                .prop("disabled", hasDiscID)
-                .toggleClass("disabled-hint", hasDiscID)
-                .attr("title", hasDiscID ? MB.text.DoNotChangeTracks : "");
+                .prop("disabled", disabled)
+                .toggleClass("disabled-hint", disabled)
+                .attr("title", disabled ? MB.text.DoNotChangeTracks : "");
         }
     };
 

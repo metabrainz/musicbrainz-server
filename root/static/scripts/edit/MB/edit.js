@@ -28,7 +28,7 @@
 
     function value(arg) { return typeof arg === "function" ? arg() : arg }
     function string(arg) { return _.str.clean(value(arg)) }
-    function number(arg) { return parseInt(value(arg), 10) || null }
+    function number(arg) { var num = parseInt(value(arg), 10); return isNaN(num) ? null : num }
     function array(arg, type) { return _.map(value(arg), type) }
     function nullableString(arg) { return string(arg) || null }
 
@@ -121,12 +121,23 @@
                 entities:   array(relationship.entities, this.relationshipEntity)
             };
 
-            data.attributes = _.map(_.result(relationship, "attributes"), Number);
+            data.attributes = _(ko.unwrap(relationship.attributes)).map(function (attribute) {
+                var output = {
+                    type: {
+                        gid: string(attribute.type.gid)
+                    }
+                }, credit, textValue;
 
-            var textAttrs = relationship.attributeTextValues();
-            if (!_.isEmpty(textAttrs)) {
-                data.attributeTextValues = textAttrs;
-            }
+                if (credit = string(attribute.credit)) {
+                    output.credit = credit;
+                }
+
+                if (textValue = string(attribute.textValue)) {
+                    output.textValue = textValue;
+                }
+
+                return output;
+            }).sortBy(function (a) { return a.type.id }).value();
 
             if (_.isNumber(data.linkTypeID)) {
                 if (MB.typeInfoByID[data.linkTypeID].orderableDirection !== 0) {
@@ -216,7 +227,8 @@
                 recording_gid:  nullableString(recording.gid),
                 position:       number(track.position),
                 number:         string(track.number),
-                length:         number(track.length)
+                length:         number(track.length),
+                is_data_track:  !!ko.unwrap(track.isDataTrack)
             };
         },
 

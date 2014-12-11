@@ -105,7 +105,7 @@
             "<% } %>><bdi><%- data.name %></bdi></a><% if (data.comment) { %> " +
             "<span class=\"comment\">(<%- data.comment %>)</span><% } %>" +
             "<% if (data.video) { %> <span class=\"comment\">" +
-            "(<%- data.video %>)</span><% } %>" +
+            "(<%- data.videoString %>)</span><% } %>" +
             "<% if (data.editsPending) { %></span><% } %>",
             null,
             {variable: "data"}
@@ -153,6 +153,8 @@
 
     MB.entity.Artist = aclass(MB.entity.CoreEntity, { entityType: "artist" });
 
+    MB.entity.Event = aclass(MB.entity.CoreEntity, { entityType: "event" });
+
     MB.entity.Instrument = aclass(MB.entity.CoreEntity, { entityType: "instrument" });
 
     MB.entity.Label = aclass(MB.entity.CoreEntity, { entityType: "label" });
@@ -182,10 +184,7 @@
 
         around$html: function (supr, params) {
             params = params || {};
-
-            if (this.video) {
-                params.video = MB.text.Video;
-            }
+            params.videoString = MB.text.Video;
             return supr(params);
         },
 
@@ -228,6 +227,14 @@
 
             return _.filter(this.displayableRelationships(viewModel)(), function (r) {
                 return r.linkTypeID() === linkTypeID;
+            });
+        },
+
+        around$toJSON: function (supr) {
+            return _.assign(supr(), {
+                type: this.type(),
+                typeID: this.typeID,
+                orderingTypeID: this.orderingTypeID
             });
         }
     });
@@ -287,11 +294,13 @@
     MB.entity.ArtistCreditName = aclass(Entity, {
 
         template: _.template(
+            "<% if (data.editsPending > 0) print('<span class=\"mp\">'); %>" +
             "<% if (data.nameVariation) print('<span class=\"name-variation\">'); %>" +
             "<a href=\"/artist/<%- data.gid %>\"" +
             "<% if (data.target) print(' target=\"_blank\"'); %>" +
             " title=\"<%- data.title %>\"><bdi><%- data.name %></bdi></a>" +
             "<% if (data.nameVariation) print('</span>'); %>" +
+            "<% if (data.editsPending > 0) print('</span>'); %>" +
             "<%- data.join %>",
             null,
             {variable: "data"}
@@ -362,6 +371,7 @@
                         title: title,
                         name:  name,
                         join:  ko.unwrap(this.joinPhrase),
+                        editsPending: artist.editsPending,
                         nameVariation: name !== artist.name
                     }
                 )
@@ -449,6 +459,7 @@
 
     var coreEntityMapping = {
         artist:        MB.entity.Artist,
+        event:         MB.entity.Event,
         instrument:    MB.entity.Instrument,
         label:         MB.entity.Label,
         area:          MB.entity.Area,

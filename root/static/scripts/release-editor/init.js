@@ -6,7 +6,8 @@
 MB.releaseEditor = _.extend(MB.releaseEditor || {}, {
 
     activeTabID: ko.observable("#information"),
-    activeTabIndex: ko.observable(0)
+    activeTabIndex: ko.observable(0),
+    loadError: ko.observable("")
 });
 
 
@@ -14,6 +15,15 @@ MB.releaseEditor.init = function (options) {
     var self = this;
 
     $.extend(this, _.pick(options, "action", "returnTo", "redirectURI"));
+
+    // Setup guess case buttons for the title field. Do this every time the
+    // release changes, since the old fields get removed and the events no
+    // longer exist.
+    this.utils.withRelease(function (release) {
+        _.defer(function () {
+            MB.Control.initialize_guess_case("release");
+        });
+    });
 
     // Allow pressing enter to advance to the next tab. The listener is added
     // to the document and not #release-editor so that other events can call
@@ -175,7 +185,7 @@ MB.releaseEditor.init = function (options) {
     // Fancy!
 
     $(function () {
-        $pageContent.fadeIn("fast", function () { $("#title").focus() });
+        $pageContent.fadeIn("fast", function () { $("#name").focus() });
     });
 };
 
@@ -186,11 +196,25 @@ MB.releaseEditor.loadRelease = function (gid, callback) {
         data: { inc: "annotation+release-events+labels+media+rels" }
     };
 
-    return MB.utility.request(args, this).done(callback || this.releaseLoaded);
+    return MB.utility.request(args, this)
+            .done(callback || this.releaseLoaded)
+            .fail(function (jqXHR, status, error) {
+                error = jqXHR.status + " (" + error + ")"
+
+                // If there wasn't an ISE, the response should parse as JSON.
+                try {
+                    error += ": " + JSON.parse(jqXHR.responseText).error;
+                } catch (e) {};
+
+                this.loadError(error);
+            });
+
 };
 
 
 MB.releaseEditor.releaseLoaded = function (data) {
+    this.loadError("");
+
     var seed = this.seededReleaseData;
     delete this.seededReleaseData;
 

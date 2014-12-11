@@ -33,7 +33,7 @@ MB.releaseEditor.trackParser = {
         var options = ko.toJS(this.options);
         var lines = _.reject(_.str.lines(str), _.str.isBlank);
 
-        var currentPosition = 0;
+        var currentPosition = (medium && medium.hasPregap()) ? -1 : 0;
         var currentTracks;
         var matchedTracks = {};
         var dataTrackPairs = [];
@@ -107,7 +107,7 @@ MB.releaseEditor.trackParser = {
             var matchedTrackAC = matchedTrack && matchedTrack.artistCredit;
 
             // See if we can re-use the AC from the matched track or the release.
-            var matchedAC = _.find([ releaseAC, matchedTrackAC ],
+            var matchedAC = _.find([ matchedTrackAC, releaseAC ],
                 function (ac) {
                     if (!ac || ac.isVariousArtists()) return false;
 
@@ -158,16 +158,31 @@ MB.releaseEditor.trackParser = {
         });
 
         // Force the number of tracks if there's a CDTOC.
-        currentTracks = medium && medium.tracks.peek();
-        var currentTrackCount = currentTracks && currentTracks.length;
+        if (medium) {
+            currentTracks = medium.tracks.peek();
 
-        if (hasTocs && newTracks.length < currentTrackCount) {
-            var difference = currentTrackCount - newTracks.length;
+            var currentTrackCount = currentTracks.length,
+                dataTracksEnded = false;
 
-            while (difference-- > 0) {
-                newTracks.push(MB.releaseEditor.fields.Track({
-                    length: currentTracks[currentTrackCount - difference - 1].length.peek()
-                }, medium));
+            if (hasTocs && newTracks.length < currentTrackCount) {
+                var difference = currentTrackCount - newTracks.length;
+
+                while (difference-- > 0) {
+                    newTracks.push(MB.releaseEditor.fields.Track({
+                        length: currentTracks[currentTrackCount - difference - 1].length.peek()
+                    }, medium));
+                }
+            }
+
+            if (medium.hasDataTracks()) {
+                // Data tracks must be contiguous at the end of the medium.
+                _.each(newTracks.concat().reverse(), function (track) {
+                    if (dataTracksEnded) {
+                        track.isDataTrack(false);
+                    } else if (!track.isDataTrack()) {
+                        dataTracksEnded = true;
+                    }
+                });
             }
         }
 

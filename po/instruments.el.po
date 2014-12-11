@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-08-07 20:42+0000\n"
+"PO-Revision-Date: 2014-10-30 01:10+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -153,6 +153,10 @@ msgstr "Πιάνο Rhodes"
 
 #: DB:instrument/name:476
 msgid "Saraswati veena"
+msgstr ""
+
+#: DB:instrument/name:679
+msgid "Schwyzerörgeli"
 msgstr ""
 
 #: DB:instrument/name:427
@@ -895,6 +899,10 @@ msgstr ""
 msgid "ebow"
 msgstr ""
 
+#: DB:instrument/name:677
+msgid "effects"
+msgstr ""
+
 #: DB:instrument/name:643
 msgid "ektara"
 msgstr ""
@@ -910,6 +918,10 @@ msgstr "ηλεκτρικό τσέλο"
 #: DB:instrument/name:538
 msgid "electric fretless guitar"
 msgstr "ηλεκτρική άταστη κιθάρα"
+
+#: DB:instrument/name:682
+msgid "electric grand piano"
+msgstr ""
 
 #: DB:instrument/name:55
 msgid "electric guitar"
@@ -1131,6 +1143,10 @@ msgstr "γκραν πιάνο"
 msgid "great bass recorder / c-bass recorder"
 msgstr ""
 
+#: DB:instrument/name:683
+msgid "guan"
+msgstr ""
+
 #: DB:instrument/name:230
 msgid "gudok"
 msgstr ""
@@ -1211,6 +1227,10 @@ msgstr "αρμόνιο"
 msgid "harp"
 msgstr "άρπα"
 
+#: DB:instrument/name:681
+msgid "harp guitar"
+msgstr ""
+
 #: DB:instrument/name:131
 msgid "harpsichord"
 msgstr "τσέμπαλο"
@@ -1221,6 +1241,10 @@ msgstr ""
 
 #: DB:instrument/name:579
 msgid "heike biwa"
+msgstr ""
+
+#: DB:instrument/name:678
+msgid "helicon"
 msgstr ""
 
 #: DB:instrument/name:454
@@ -1682,10 +1706,6 @@ msgstr ""
 #: DB:instrument/name:588
 msgid "other drums"
 msgstr "άλλα τύμπανα"
-
-#: DB:instrument/name:195
-msgid "other flutes"
-msgstr "άλλα φλάουτα"
 
 #: DB:instrument/name:141
 msgid "other instruments"
@@ -2231,13 +2251,15 @@ msgstr ""
 msgid "taphon"
 msgstr ""
 
-#: DB:instrument/name:607
-msgid "tar (drum)"
+#: DB:instrument/name:467
+msgctxt "lute"
+msgid "tar"
 msgstr ""
 
-#: DB:instrument/name:467
-msgid "tar (lute)"
-msgstr "ταρ (λαούτο)"
+#: DB:instrument/name:607
+msgctxt "drum"
+msgid "tar"
+msgstr ""
 
 #: DB:instrument/name:440
 msgid "taragot"
@@ -2697,6 +2719,10 @@ msgstr ""
 
 #: DB:instrument/name:558
 msgid "ōtsuzumi"
+msgstr ""
+
+#: DB:instrument/name:680
+msgid "šargija"
 msgstr ""
 
 #: DB:instrument/name:589

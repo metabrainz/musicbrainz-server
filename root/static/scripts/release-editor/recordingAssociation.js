@@ -98,7 +98,7 @@
         utils.search("recording", query, 100, offset)
             .done(function (data) {
                 results.push.apply(
-                    results, _.map(data.recording, cleanRecordingData)
+                    results, _.map(data.recordings, cleanRecordingData)
                 );
 
                 var countSoFar = data.offset + 100;
@@ -199,7 +199,7 @@
         track._recordingRequest = utils.search("recording", query)
             .done(function (data) {
                 var recordings = matchAgainstRecordings(
-                    track, _.map(data.recording, cleanRecordingData)
+                    track, _.map(data.recordings, cleanRecordingData)
                 );
 
                 setSuggestedRecordings(track, recordings || []);
@@ -232,7 +232,7 @@
 
             newArgs.success = function (data) {
                 // Emulate the /ws/js response format.
-                var newData = _.map(data.recording, cleanRecordingData);
+                var newData = _.map(data.recordings, cleanRecordingData);
 
                 newData.push({
                     current: (data.offset / 10) + 1,

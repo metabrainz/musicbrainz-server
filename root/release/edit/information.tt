@@ -7,7 +7,15 @@
       <tr>
         <td><label for="title" class="required">[% l('Title:') %]</label></td>
         <td colspan="2">
-          <input id="title" type="text" size="47" data-bind="value: name, controlsBubble: $root.guessCaseBubble" />
+          <table>
+            <tr>
+              <td colspan="2" style="padding: 0">
+                <input id="name" class="with-guesscase" type="text" size="47" required="required" data-bind="value: name" />
+                <button type="button" class="guesscase-title icon" title="[% l('Guess case') %]"></button>
+                <button type="button" class="guesscase-options icon" title="[% l('Guess case options') %]"></button>
+              </td>
+            </tr>
+          </table>
         </td>
       </tr>
 
@@ -26,7 +34,7 @@
                 },
                 controlsBubble: $root.releaseGroupBubble"
             />
-            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
           </span>
         </td>
       </tr>
@@ -38,6 +46,7 @@
         <td class="release-artist">
           <span class="autocomplete">
             <input id="release-artist" type="text"
+              required="required"
               data-bind="
                 autocomplete: {
                   entity: 'artist',
@@ -47,7 +56,7 @@
               data-form="[% form.name IF form.html_prefix %]"
               data-artist="[% html_escape(form.field('artist_credit').json) IF form %]"
             />
-            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
           </span>
         </td>
         <td>
@@ -70,7 +79,7 @@
         <td><label>[% l('Type:') %]</label></td>
         <td colspan="2">
           [% l('To edit types, please {edit_page|edit the release group}.',
-                edit_page => c.uri_for_action('/release_group/edit', [ release.release_group.gid ])) %]
+                edit_page => { href => c.uri_for_action('/release_group/edit', [ release.release_group.gid ]), target => '_blank' }) %]
         </td>
       </tr>
       [% END %]
@@ -121,7 +130,7 @@
         [% table_cells_select('country', l('Country:'), 1,
             "value: countryID, withLabel: 'country'", countries) %]
         <td>
-          <button type="button" class="icon remove-item" title="[% l('Remove Event') %]" data-click="removeReleaseEvent"></button>
+          <button type="button" class="icon remove-item" title="[% l('Remove Release Event') %]" data-click="removeReleaseEvent"></button>
         </td>
       </tr>
 
@@ -132,8 +141,8 @@
       <tr>
         <td></td>
         <td colspan="4" class="add-item">
-          <button class="with-label add-item" title="[% lp('Add Event', 'button/menu') %]" data-click="addReleaseEvent">
-            [% lp('Add Event', 'button/menu') %]
+          <button class="with-label add-item" title="[% lp('Add Release Event', 'button/menu') %]" data-click="addReleaseEvent">
+            [% lp('Add Release Event', 'button/menu') %]
           </button>
         </td>
       </tr>
@@ -152,7 +161,7 @@
                 },
                 controlsBubble: $root.labelBubble"
             />
-            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
           </span>
         </td>
         <td><label>[% l('Cat. No:') %]</label></td>
@@ -164,7 +173,11 @@
         </td>
       </tr>
 
-      [% table_row_error(4, 'showErrorWhenTabIsSwitched: needsLabel', l('You must select an existing label.')) %]
+      [% table_row_error(
+           4, 'showErrorWhenTabIsSwitched: needsLabel',
+           '<!-- ko text: MB.i18n.expand(MB.text.NeedsLabel, { name: label().name }) --><!-- /ko -->'
+         )
+      %]
     <!-- /ko -->
 
       <tr>
@@ -179,7 +192,7 @@
       <tr>
         <td><label for="barcode">[% l('Barcode:') %]</label></td>
         <td colspan="4">
-          <input id="barcode" type="text" data-bind="value: barcode.value, valueUpdate: 'input', disable: barcode.none, controlsBubble: $root.barcodeBubble" />
+          <input id="barcode" type="text" pattern="[0-9]*" data-bind="value: barcode.value, valueUpdate: 'input', disable: barcode.none, controlsBubble: $root.barcodeBubble" />
         </td>
       </tr>
 
@@ -232,8 +245,6 @@
 </div>
 
 <div class="documentation" data-bind="with: rootField.release">
-  [%- guesscase_bubble(0, '$root.guessCaseBubble', '_.bind($root.guessCaseReleaseName, $root)') -%]
-
   [%- artist_credit_table() -%]
 
   <div class="bubble" data-bind="bubble: $root.releaseGroupBubble">
@@ -253,7 +264,7 @@
 
   <div class="bubble" data-bind="bubble: $root.labelBubble">
     <!-- ko with: target() && target().label() -->
-      <!-- ko if: gid -->
+      <!-- ko if: $data.gid -->
         <p data-bind="html: MB.i18n.expand(MB.text.SelectedLabel, { label: html({ target: '_blank' }) })"></p>
       <!-- /ko -->
     <!-- /ko -->
@@ -269,8 +280,8 @@
 
   <div class="bubble" data-bind="bubble: $root.packagingBubble">
     <p>
-      [% l('Review the <a href="{url}" target="_blank">list of packaging types</a> for help.',
-           { url => doc_link('Release/Packaging') }) %]
+      [% l('Review the {packaging|list of packaging types} for help.',
+           { packaging => { href => doc_link('Release/Packaging'), target => '_blank' } }) %]
     </p>
   </div>
 

@@ -161,10 +161,9 @@ $place = $place_data->insert({
         end_date => { year => 1999, month => 3, day => 4 },
         coordinates => { latitude => 0.1, longitude => 0.2 },
     });
-isa_ok($place, 'MusicBrainz::Server::Entity::Place');
-ok($place->id > 2);
+ok($place->{id} > 2);
 
-$place = $place_data->get_by_id($place->id);
+$place = $place_data->get_by_id($place->{id});
 is($place->name, 'New Place');
 is($place->address, 'An Address');
 is($place->begin_date->year, 2000);

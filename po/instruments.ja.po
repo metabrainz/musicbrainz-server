@@ -1,5 +1,6 @@
 # 
 # Translators:
+# nikki, 2014
 # nikki2 <email address hidden>, 2012
 # Nozomu Kurasawa <email address hidden>, 2013
 # Osamu Takahashi, 2014
@@ -7,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-08-07 20:42+0000\n"
+"PO-Revision-Date: 2014-10-30 01:10+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +23,7 @@ msgstr "12弦ギター"
 
 #: DB:instrument/name:516
 msgid "17-string koto"
-msgstr "十七絃箏"
+msgstr "十七絃"
 
 #: DB:instrument/name:66
 msgid "Appalachian dulcimer"
@@ -155,6 +156,10 @@ msgstr "ローズ・ピアノ"
 #: DB:instrument/name:476
 msgid "Saraswati veena"
 msgstr "サラスヴァティー・ヴィーナ"
+
+#: DB:instrument/name:679
+msgid "Schwyzerörgeli"
+msgstr ""
 
 #: DB:instrument/name:427
 msgid "Scottish smallpipes"
@@ -896,6 +901,10 @@ msgstr ""
 msgid "ebow"
 msgstr ""
 
+#: DB:instrument/name:677
+msgid "effects"
+msgstr ""
+
 #: DB:instrument/name:643
 msgid "ektara"
 msgstr ""
@@ -910,6 +919,10 @@ msgstr "エレクトリック・チェロ"
 
 #: DB:instrument/name:538
 msgid "electric fretless guitar"
+msgstr ""
+
+#: DB:instrument/name:682
+msgid "electric grand piano"
 msgstr ""
 
 #: DB:instrument/name:55
@@ -1132,6 +1145,10 @@ msgstr "グランドピアノ"
 msgid "great bass recorder / c-bass recorder"
 msgstr "グレートバス・リコーダー"
 
+#: DB:instrument/name:683
+msgid "guan"
+msgstr ""
+
 #: DB:instrument/name:230
 msgid "gudok"
 msgstr ""
@@ -1212,6 +1229,10 @@ msgstr "ハーモニウム"
 msgid "harp"
 msgstr "ハープ"
 
+#: DB:instrument/name:681
+msgid "harp guitar"
+msgstr ""
+
 #: DB:instrument/name:131
 msgid "harpsichord"
 msgstr "チェンバロ"
@@ -1222,6 +1243,10 @@ msgstr "ヘッケルフォーン"
 
 #: DB:instrument/name:579
 msgid "heike biwa"
+msgstr ""
+
+#: DB:instrument/name:678
+msgid "helicon"
 msgstr ""
 
 #: DB:instrument/name:454
@@ -1683,10 +1708,6 @@ msgstr ""
 #: DB:instrument/name:588
 msgid "other drums"
 msgstr ""
-
-#: DB:instrument/name:195
-msgid "other flutes"
-msgstr "その他の笛"
 
 #: DB:instrument/name:141
 msgid "other instruments"
@@ -2232,13 +2253,15 @@ msgstr ""
 msgid "taphon"
 msgstr ""
 
-#: DB:instrument/name:607
-msgid "tar (drum)"
+#: DB:instrument/name:467
+msgctxt "lute"
+msgid "tar"
 msgstr ""
 
-#: DB:instrument/name:467
-msgid "tar (lute)"
-msgstr "タール（弦楽器）"
+#: DB:instrument/name:607
+msgctxt "drum"
+msgid "tar"
+msgstr ""
 
 #: DB:instrument/name:440
 msgid "taragot"
@@ -2698,6 +2721,10 @@ msgstr ""
 
 #: DB:instrument/name:558
 msgid "ōtsuzumi"
+msgstr ""
+
+#: DB:instrument/name:680
+msgid "šargija"
 msgstr ""
 
 #: DB:instrument/name:589

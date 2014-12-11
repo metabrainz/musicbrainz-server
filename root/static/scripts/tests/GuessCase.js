@@ -166,11 +166,11 @@ test('Work', function () {
     ];
 
     $.each(tests, function (idx, test) {
-        var gc = MB.GuessCase.work.gc;
+        var gc = window.gc;
 
         gc.CFG_UC_ROMANNUMERALS = test.roman;
         gc.CFG_UC_UPPERCASED = test.keepuppercase;
-        gc.mode = MB.GuessCase.Mode[test.mode]();
+        gc.mode = MB.GuessCase.Mode[test.mode];
 
         result = MB.GuessCase.work.guess(test.input);
         equal(result, test.expected, test.input);
@@ -255,11 +255,6 @@ test('BugFixes', function () {
             bug: "MBS-3013", mode: "English"
         },
         {
-            input: 'Testing 7 in, 10in, 12" vinyl sizes in mix titles',
-            expected: 'Testing 7 In, 10", 12" Vinyl Sizes in Mix Titles',
-            bug: "MBS-3032", mode: "English"
-        },
-        {
             input: "I’ll do something - Johnny’s great band",
             expected: "I’ll Do Something - Johnny’s Great Band",
             bug: "MBS-2923", mode: "English"
@@ -306,10 +301,38 @@ test('BugFixes', function () {
     ];
 
     $.each(tests, function (idx, test) {
-        MB.GuessCase.work.gc.mode = MB.GuessCase.Mode[test.mode]();
+        window.gc.mode = MB.GuessCase.Mode[test.mode];
 
         result = MB.GuessCase.work.guess(test.input);
         equal(result, test.expected, test.bug + ', ' + test.input);
     });
 
+});
+
+test("vinyl numbers are fixed", function () {
+    window.gc.mode = MB.GuessCase.Mode.English;
+
+    var tests = [
+        {
+            // MBS-3032
+            input: 'Testing 7 in, 10in, 12" vinyl sizes in mix titles',
+            expected: 'Testing 7 In, 10", 12" Vinyl Sizes in Mix Titles'
+        },
+        {
+            input: "Fine Day (Mike Koglin 12' mix)",
+            expected: "Fine Day (Mike Koglin 12\" mix)"
+        },
+        {
+            input: "Where Love Lives (12\"Classic mix)",
+            expected: "Where Love Lives (12\" Classic mix)"
+        },
+        {
+            input: "7's 10's 12's",
+            expected: "7's 10's 12's"
+        }
+    ];
+
+    _.each(tests, function (test) {
+        equal(MB.GuessCase.track.guess(test.input), test.expected);
+    });
 });
