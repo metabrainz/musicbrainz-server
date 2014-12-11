@@ -32,7 +32,7 @@ around serialize => sub {
         $ret->{hasAlbumReleaseType} = release_type($entity->primary_type);
     }
 
-    my @production_types = uniq map { production_type($_) } grep defined $entity->all_secondary_types;
+    my @production_types = uniq map { production_type($_) } grep defined, $entity->all_secondary_types;
     if (scalar $entity->all_secondary_types == 0) {
 	# XXX: We don't have a way to explicitly track studio album, so we'll
 	# assume that studio albums are those without any secondary types.
