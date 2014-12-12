@@ -11,6 +11,8 @@
     RE.ReleaseViewModel = aclass(RE.GenericEntityViewModel, {
 
         after$init: function (options) {
+            MB.releaseRelationshipEditor = this;
+
             var self = this;
 
             this.checkboxes = {
@@ -35,8 +37,10 @@
                 }
             };
 
+            this.source = MB.entity(options.sourceData);
+
             this.source.releaseGroup.parseRelationships(
-                options.sourceData.releaseGroup.relationships, this
+                options.sourceData.releaseGroup.relationships
             );
 
             this.source.mediums = ko.observableArray([]);
@@ -94,13 +98,12 @@
         },
 
         releaseLoaded: function (data) {
-            var self = this;
             var release = this.source;
 
             release.mediums(_.map(data.mediums, function (mediumData) {
                 _.each(mediumData.tracks, function (trackData) {
                     MB.entity(trackData.recording).parseRelationships(
-                        trackData.recording.relationships, self
+                        trackData.recording.relationships
                     );
                 });
                 return MB.entity.Medium(mediumData, release);

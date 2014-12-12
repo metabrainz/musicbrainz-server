@@ -231,7 +231,7 @@
     </script>
 
     <script type="text/html" id="template.link.phrase"><!--
-      --><span class="link-phrase" data-bind="text: linkPhrase($parent), relationshipStyling: true" data-click="openEditDialog"></span><!--
+      --><span class="link-phrase" data-bind="text: linkPhrase($parent), relationshipStyling: $data" data-click="openEditDialog"></span><!--
     --></script>
 
     <script type="text/html" id="template.relationship.performance">

@@ -86,8 +86,8 @@ function setupGenericRelationshipEditor(self, options) {
 
     $("#qunit-fixture").append($inputs);
 
-    self.vm = self.RE.GenericEntityViewModel(options);
-    MB.sourceRelationshipEditor = self.vm;
+    MB.initRelationshipEditors(options);
+    self.vm = MB.sourceRelationshipEditor;
 }
 
 
@@ -120,6 +120,8 @@ module("relationship editor", {
 
         MB.entityCache = {};
         MB.sourceRelationshipEditor = null;
+        MB.sourceExternalLinksEditor = null;
+        MB.releaseRelationshipEditor = null;
         delete sessionStorage.submittedRelationships;
     }
 });
@@ -495,9 +497,7 @@ test("backwardness of submitted relationships is preserved (MBS-7636)", function
     // Pretend the form was posted.
     MB.formWasPosted = true;
 
-    this.vm = this.RE.GenericEntityViewModel({
-        sourceData: source
-    });
+    setupGenericRelationshipEditor(this, { sourceData: source });
 
     MB.formWasPosted = false;
 

@@ -59,6 +59,7 @@
         data-bind="options: linkTypeOptions(relationship().entityTypes),
                    optionsValue: 'value',
                    optionsText: 'text',
+                   optionsCaption: '',
                    optionsAfterRender: MB.forms.setDisabledOption,
                    value: relationship().linkTypeID"></select>
       <!-- ko if: /^(\w+)-\1$/.test(relationship().entityTypes) -->

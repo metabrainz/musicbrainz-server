@@ -14,6 +14,8 @@
         fieldName: "rel",
 
         after$init: function () {
+            MB.sourceRelationshipEditor = this;
+
             this.editNote = ko.observable("");
             this.makeVotable = ko.observable(false);
 
@@ -45,7 +47,7 @@
                 if (alreadyAdded[relationship.uniqueID]) {
                     return;
                 }
-                if (!self.containsRelationship(relationship, source)) {
+                if (self !== relationship.parent) {
                     return;
                 }
                 alreadyAdded[relationship.uniqueID] = true;
@@ -106,7 +108,7 @@
         },
 
         openAddDialog: function (source, event) {
-            var targetType = this.allowedRelations[source.entityType][0];
+            var targetType = MB.allowedRelations[source.entityType][0];
 
             UI.AddDialog({
                 source: source,
@@ -161,8 +163,8 @@
 
     ko.bindingHandlers.relationshipStyling = {
 
-        update: function (element) {
-            var relationship = arguments[3];
+        update: function (element, valueAccessor) {
+            var relationship = ko.unwrap(valueAccessor());
             var added = relationship.added();
 
             $(element)

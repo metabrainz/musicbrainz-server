@@ -46,16 +46,15 @@ module("external links editor", {
         };
 
         this.viewModel = MB.Control.externalLinks.applyBindings({
-            sourceData: { entityType: "artist", relationships: [] },
+            source: MB.entity({ entityType: "artist", relationships: [] }),
             formName: "edit-artist"
         });
-
-        MB.sourceExternalLinksEditor = this.viewModel;
 
         this.RE = MB.relationshipEditor;
     },
 
     teardown: function () {
+        MB.entityCache = {};
         MB.sourceExternalLinksEditor = null;
     }
 });

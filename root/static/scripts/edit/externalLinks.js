@@ -185,26 +185,10 @@
         fieldName: "url",
 
         after$init: function () {
-            var self = this, source = this.source;
+            MB.sourceExternalLinksEditor = this;
 
-            // Terribly get seeded URLs
-
-            if (!MB.formWasPosted) {
-                var urlField = new RegExp("(?:\\?|&)edit-" + source.entityType + "\\.url\\.([0-9]+)\\.(text|link_type_id)=([^&]+)", "g"),
-                    urls = {}, match;
-
-                while (match = urlField.exec(window.location.search)) {
-                    (urls[match[1]] = urls[match[1]] || {})[match[2]] = decodeURIComponent(match[3]);
-                }
-
-                _.each(urls, function (data) {
-                    data = {
-                        target: { name: data.text || "", entityType: "url" },
-                        linkTypeID: MB.typeInfoByID[data.link_type_id] ? data.link_type_id : null
-                    };
-                    self.getRelationship(data, source).show();
-                });
-            }
+            var self = this;
+            var source = this.source;
 
             this.links = this.source.displayableRelationships(this);
             this.nonRemovedLinks = this.links.reject("removed");
@@ -242,10 +226,6 @@
             });
         },
 
-        typesAreAccepted: function (sourceType, targetType) {
-            return sourceType === this.source.entityType && targetType === "url";
-        },
-
         _sortedRelationships: _.identity
     });
 
@@ -267,7 +247,6 @@
     };
 
 }(MB.Control.externalLinks = MB.Control.externalLinks || {}));
-
 
 // Applies MB.Control.URLCleanup to an element containing a <select>
 // (for the link type) and a <input type="url"> (for the URL).

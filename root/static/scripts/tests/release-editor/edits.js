@@ -3,9 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-releaseEditor.test.module("add-release edits", function () {
-    MB.formatsWithDiscIDs = [1];
+MB.formatsWithDiscIDs = [1];
 
+releaseEditor.test.module("add-release edits", function () {
     var data = $.extend(true, {}, releaseEditor.test.testRelease);
     var medium = data.mediums[0];
 
@@ -488,7 +488,6 @@ test("relationshipCreate edit for external link is generated for existing releas
 
 
 test("relationshipEdit edit for external link is generated for existing release", function () {
-    MB.typeInfo = {};
     MB.faviconClasses = {};
 
     var release = this.release;
