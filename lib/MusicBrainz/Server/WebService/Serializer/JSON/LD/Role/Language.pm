@@ -1,29 +1,18 @@
-package MusicBrainz::Server::WebService::Serializer::JSON::LD::Work;
-use Moose;
-
-use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( list_or_single );
-
-extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Name';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Aliases';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Language';
+package MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Language;
+use Moose::Role;
 
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
     my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
 
-    $ret->{'@type'} = 'MusicComposition';
-
-    if ($entity->all_iswcs) {
-       $ret->{'iswcCode'} = list_or_single(map { $_->iswc } $entity->all_iswcs);
+    if ($entity->language) {
+        $ret->{inLanguage} = $entity->language->bcp47;
     }
 
     return $ret;
 };
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
+no Moose::Role;
 1;
 
 =head1 COPYRIGHT
