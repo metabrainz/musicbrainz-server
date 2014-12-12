@@ -1,12 +1,16 @@
 body {
-    padding: 0 10px;
+    padding: 0;
     margin: 0;
     background-color: @very-light-bg;
     color: @text-black;
     font-family: 'Bitstream Vera Sans', Verdana, Arial, sans-serif;
     font-size: 12px;
-    min-width: 780px;
+    min-width: @min-width;
     margin: auto;
+
+    @media @wide {
+        padding: 0 10px;
+    }
 }
 
 a {
@@ -176,8 +180,11 @@ img.gravatar {
     font-size: 95%;
     font-weight: bold;
     z-index: 9;
-    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;
+
+    @media @wide {
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+    }
 }
 
 #header-menu div {
@@ -255,11 +262,14 @@ img.gravatar {
     background: #FFF;
     overflow: visible;
     position: relative;
-    border-radius: 6px;
     display: table;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     width: 100%;
+
+    @media @wide {
+        border-radius: 6px;
+    }
 }
 
 #current-editing h2 {
@@ -277,7 +287,10 @@ img.gravatar {
     border: 0;
     color: @text-orange;
     position: relative;
-    border-radius: 6px;
+
+    @media @wide {
+        border-radius: 6px;
+    }
 
     p {
         margin: 0;
