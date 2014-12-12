@@ -573,14 +573,23 @@ table.details table.tbl th {
 }
 
 /* Paginator */
-.pageselector {
+nav .pagination {
+    display: table;
+    border-collapse: collapse;
+
+    li {
+        display: table-cell;
+        border: solid 1px @light-border;
+    }
+
     a, span {
-        font-size: 90%;
-        padding: 0.05em 0.4em;
+        display: block;
+        padding: 0.25em 0.55em;
+        min-width: 1em; /* ensure that even single digits are a reasonable size */
+        text-align: center;
     }
 
     a {
-        border: solid 1px @text-black;
         text-decoration: none;
         background-color: #FFF;
         color: @text-black;
@@ -590,20 +599,15 @@ table.details table.tbl th {
         }
 
         &.sel {
-            background-color: @musicbrainz-orange;
+            background-color: @musicbrainz-purple;
+            color: @text-white;
             font-weight: bold;
         }
     }
 
     span {
-        border: solid 1px @dark-border;
         background-color: @very-light-bg;
         color: @dark-text;
-    }
-
-    em {
-        font-style: normal;
-        margin-left: 0.5em;
     }
 
     + .tbl {
