@@ -110,7 +110,7 @@
         },
 
         openAddDialog: function (source, event) {
-            var targetType = MB.allowedRelations[source.entityType][0];
+            var targetType = _.without(MB.allowedRelations[source.entityType], 'url')[0];
 
             UI.AddDialog({
                 source: source,

@@ -36,10 +36,6 @@
             var type0 = types[0];
             var type1 = types[1];
 
-            if (type0 === 'url' || type1 === 'url') {
-                return;
-            }
-
             if (typesAreRestricted(type0, type1)) {
                 return;
             }
