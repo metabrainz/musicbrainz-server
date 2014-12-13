@@ -8,10 +8,16 @@
     var UI = RE.UI = RE.UI || {};
 
 
-    RE.ReleaseViewModel = aclass(RE.GenericEntityViewModel, {
+    RE.ReleaseViewModel = aclass(RE.ViewModel, {
 
         after$init: function (options) {
             MB.releaseRelationshipEditor = this;
+
+            this.editNote = ko.observable("");
+            this.makeVotable = ko.observable(false);
+
+            this.submissionLoading = ko.observable(false);
+            this.submissionError = ko.observable("");
 
             var self = this;
 
@@ -66,7 +72,7 @@
             };
         },
 
-        after$getEdits: function (addChanged) {
+        getEdits: function (addChanged) {
             var self = this;
 
             _.each(this.source.mediums(), function (medium) {
@@ -91,6 +97,75 @@
             _.each(rg.relationships(), function (r) {
                 addChanged(r, rg);
             });
+        },
+
+        submit: function (data, event) {
+            event.preventDefault();
+
+            var self = this;
+            var edits = [];
+            var alreadyAdded = {};
+
+            this.submissionLoading(true);
+
+            function addChanged(relationship, source) {
+                if (alreadyAdded[relationship.uniqueID]) {
+                    return;
+                }
+                if (self !== relationship.parent) {
+                    return;
+                }
+                alreadyAdded[relationship.uniqueID] = true;
+
+                var editData = relationship.editData();
+
+                if (relationship.added()) {
+                    edits.push(MB.edit.relationshipCreate(editData));
+                }
+                else if (relationship.edited()) {
+                    edits.push(MB.edit.relationshipEdit(editData, relationship.original));
+                }
+                else if (relationship.removed()) {
+                    edits.push(MB.edit.relationshipDelete(editData));
+                }
+            }
+
+            this.getEdits(addChanged);
+
+            if (edits.length == 0) {
+                this.submissionLoading(false);
+                this.submissionError(MB.text.NoChanges);
+                return;
+            }
+
+            var data = {
+                editNote: this.editNote(),
+                makeVotable: this.makeVotable(),
+                edits: edits
+            };
+
+            var beforeUnload = window.onbeforeunload;
+            if (beforeUnload) window.onbeforeunload = undefined;
+
+            MB.edit.create(data, this)
+                .always(function () {
+                    this.submissionLoading(false);
+                })
+                .done(this.submissionDone)
+                .fail(function (jqXHR) {
+                    try {
+                        var response = JSON.parse(jqXHR.responseText);
+                        var message = _.isObject(response.error) ?
+                                        response.error.message : response.error;
+
+                        this.submissionError(message);
+                    }
+                    catch (e) {
+                        this.submissionError(jqXHR.responseText);
+                    }
+
+                    if (beforeUnload) window.onbeforeunload = beforeUnload;
+                });
         },
 
         submissionDone: function () {

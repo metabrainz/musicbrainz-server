@@ -9,104 +9,16 @@
 
 
     RE.GenericEntityViewModel = aclass(RE.ViewModel, {
-
-        activeDialog: ko.observable(),
         fieldName: "rel",
 
         after$init: function () {
             MB.sourceRelationshipEditor = this;
-
-            this.editNote = ko.observable("");
-            this.makeVotable = ko.observable(false);
-
-            this.submissionLoading = ko.observable(false);
-            this.submissionError = ko.observable("");
 
             var source = this.source;
 
             this.incompleteRelationships = source.displayableRelationships(this).any(function (r) {
                 return !r.linkTypeID() || !r.target(source).gid;
             });
-        },
-
-        getEdits: function (addChanged) {
-            var source = this.source;
-            _.each(source.relationships(), function (r) {
-                addChanged(r, source);
-            });
-        },
-
-        submit: function (data, event) {
-            event.preventDefault();
-
-            var self = this;
-            var edits = [];
-            var alreadyAdded = {};
-
-            this.submissionLoading(true);
-
-            function addChanged(relationship, source) {
-                if (alreadyAdded[relationship.uniqueID]) {
-                    return;
-                }
-                if (self !== relationship.parent) {
-                    return;
-                }
-                alreadyAdded[relationship.uniqueID] = true;
-
-                var editData = relationship.editData();
-
-                if (relationship.added()) {
-                    edits.push(MB.edit.relationshipCreate(editData));
-                }
-                else if (relationship.edited()) {
-                    edits.push(MB.edit.relationshipEdit(editData, relationship.original));
-                }
-                else if (relationship.removed()) {
-                    edits.push(MB.edit.relationshipDelete(editData));
-                }
-            }
-
-            this.getEdits(addChanged);
-
-            if (edits.length == 0) {
-                this.submissionLoading(false);
-                this.submissionError(MB.text.NoChanges);
-                return;
-            }
-
-            var data = {
-                editNote: this.editNote(),
-                makeVotable: this.makeVotable(),
-                edits: edits
-            };
-
-            var beforeUnload = window.onbeforeunload;
-            if (beforeUnload) window.onbeforeunload = undefined;
-
-            MB.edit.create(data, this)
-                .always(function () {
-                    this.submissionLoading(false);
-                })
-                .done(this.submissionDone)
-                .fail(function (jqXHR) {
-                    try {
-                        var response = JSON.parse(jqXHR.responseText);
-                        var message = _.isObject(response.error) ?
-                                        response.error.message : response.error;
-
-                        this.submissionError(message);
-                    }
-                    catch (e) {
-                        this.submissionError(jqXHR.responseText);
-                    }
-
-                    if (beforeUnload) window.onbeforeunload = beforeUnload;
-                });
-        },
-
-        submissionDone: function () {
-            window.location.reload();
         },
 
         openAddDialog: function (source, event) {
@@ -129,36 +41,16 @@
             }
         },
 
-        removeRelationship: function (relationship) {
-            if (relationship.added()) {
-                relationship.remove();
-            } else if (relationship.removed()) {
-                relationship.removed(false);
-            } else {
-                if (relationship.edited()) {
-                    relationship.fromJS(relationship.original);
-                }
-                relationship.removed(true);
-            }
-        },
-
-        _sortedRelationships: function (relationships, source) {
-            var self = this, sorted;
-
-            sorted = relationships.sortBy(function (relationship) {
-                return relationship.lowerCaseTargetName(source);
-            }).sortBy("linkOrder");
-
+        around$_sortedRelationships: function (supr, relationships, source) {
             if (source.entityType === "series") {
-                sorted = sorted.sortBy(function (relationship) {
+                return supr(relationships, source).sortBy(function (relationship) {
                     if (+source.orderingTypeID() === MB.constants.SERIES_ORDERING_TYPE_AUTOMATIC) {
                         return relationship.paddedSeriesNumber();
                     }
                     return "";
                 });
             }
-
-            return sorted;
+            return supr(relationships, source);
         }
     });
 

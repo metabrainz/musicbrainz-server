@@ -56,6 +56,7 @@
     RE.ViewModel = aclass({
 
         relationshipClass: RE.fields.Relationship,
+        activeDialog: ko.observable(),
 
         init: function (options) {
             this.source = options.source;
@@ -69,6 +70,25 @@
 
         getRelationship: function (data, source) {
             return MB.getRelationship(data, source);
+        },
+
+        removeRelationship: function (relationship) {
+            if (relationship.added()) {
+                relationship.remove();
+            } else if (relationship.removed()) {
+                relationship.removed(false);
+            } else {
+                if (relationship.edited()) {
+                    relationship.fromJS(relationship.original);
+                }
+                relationship.removed(true);
+            }
+        },
+
+        _sortedRelationships: function (relationships, source) {
+            return relationships
+                .sortBy(function (r) { return r.lowerCaseTargetName(source) })
+                .sortBy("linkOrder");
         }
     });
 
