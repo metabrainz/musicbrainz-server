@@ -192,12 +192,6 @@
             }).sortBy("linkOrder").sortBy(function (relationship) {
                 return relationship.lowerCasePhrase(source);
             });
-        },
-
-        _acceptedTypes: ["release", "release_group", "recording", "work"],
-
-        typesAreAccepted: function (sourceType, targetType) {
-            return targetType !== "url" && _.contains(this._acceptedTypes, sourceType);
         }
     });
 

@@ -21,10 +21,8 @@
 
             this.submissionLoading = ko.observable(false);
             this.submissionError = ko.observable("");
-        },
 
-        typesAreAccepted: function (sourceType, targetType) {
-            return sourceType === this.source.entityType && targetType !== "url";
+
         },
 
         getEdits: function (addChanged) {
