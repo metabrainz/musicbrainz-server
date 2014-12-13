@@ -22,7 +22,11 @@
             this.submissionLoading = ko.observable(false);
             this.submissionError = ko.observable("");
 
+            var source = this.source;
 
+            this.incompleteRelationships = source.displayableRelationships(this).any(function (r) {
+                return !r.linkTypeID() || !r.target(source).gid;
+            });
         },
 
         getEdits: function (addChanged) {

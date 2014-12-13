@@ -8,6 +8,12 @@
     </button>
   </legend>
 
+  <!-- ko if: $root.incompleteRelationships -->
+    <p class="error">
+      [% l('You must select a relationship type and target entity for every relationship.') %]
+    </p>
+  <!-- /ko -->
+
   <table class="details row-form" style="width: 100%;">
     <tbody data-bind="loop: { items: groupedRelationships($root), id: 'key', elements: relationshipElements }">
       <tr>
