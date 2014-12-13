@@ -1,9 +1,5 @@
 [% PROCESS 'components/relationship-editor.tt' %]
 
-[% MACRO add_relationship_button BLOCK %]
-
-[% END %]
-
 <fieldset id="relationship-editor" data-bind="with: source, delegatedHandler: 'click'">
   <legend>
     [% l('Relationships') %]
