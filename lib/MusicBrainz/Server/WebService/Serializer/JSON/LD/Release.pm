@@ -8,6 +8,8 @@ extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Name';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Length';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Language';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Producer';
 
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
