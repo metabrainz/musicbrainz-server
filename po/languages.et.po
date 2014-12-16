@@ -583,7 +583,7 @@ msgstr "duala"
 msgid "Dutch"
 msgstr "hollandi"
 
-#. frequency:0 iso_code_3:dum
+#. frequency:1 iso_code_3:dum
 #: DB:language/name:112
 msgid "Dutch, Middle (ca.1050-1350)"
 msgstr "keskhollandi (u 1050–1350)"

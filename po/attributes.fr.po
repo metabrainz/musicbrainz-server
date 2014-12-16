@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-11-24 01:52+0000\n"
+"PO-Revision-Date: 2014-12-16 07:54+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -36,6 +36,11 @@ msgstr "Vinyle 10\""
 msgctxt "medium_format"
 msgid "12\" Vinyl"
 msgstr "Vinyle 12\""
+
+#: DB:medium_format/name:49
+msgctxt "medium_format"
+msgid "3.5\" Floppy Disk"
+msgstr ""
 
 #: DB:medium_format/name:29
 msgctxt "medium_format"
@@ -71,7 +76,7 @@ msgid ""
 "A masterclass or clinic is an event where an artist meets with a small to "
 "medium-sized audience and instructs them individually and/or takes questions"
 " intended to improve the audience members' playing skills."
-msgstr ""
+msgstr "Un cours de maître ou atelier est un événement durant lequel un artiste rencontre un groupe de petite ou moyenne taille pour un enseignement ou pour répondre à des questions afin d'en améliorer la technique de jeu."
 
 #: DB:work_attribute_type_allowed_value/value:29
 msgctxt "work_attribute_type_allowed_value"
@@ -514,6 +519,11 @@ msgctxt "area_type"
 msgid "Country"
 msgstr "Pays"
 
+#: DB:area_type/name:7
+msgctxt "area_type"
+msgid "County"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:67
 msgctxt "work_attribute_type_allowed_value"
 msgid "Cārukēśi"
@@ -572,7 +582,7 @@ msgstr "DJ-mix"
 #: DB:medium_format/name:44
 msgctxt "medium_format"
 msgid "DTS CD"
-msgstr ""
+msgstr "CD DTS"
 
 #: DB:medium_format/name:2
 msgctxt "medium_format"
@@ -588,6 +598,11 @@ msgstr "DVD-Audio"
 msgctxt "medium_format"
 msgid "DVD-Video"
 msgstr "DVD-Vidéo"
+
+#: DB:medium_format/name:47
+msgctxt "medium_format"
+msgid "DVDplus"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:73
 msgctxt "work_attribute_type_allowed_value"
@@ -743,6 +758,11 @@ msgstr "Mi♯ mineur"
 msgctxt "release_group_primary_type"
 msgid "EP"
 msgstr "EP"
+
+#: DB:medium_format/name:50
+msgctxt "medium_format"
+msgid "Edison Diamond Disc"
+msgstr ""
 
 #: DB:instrument_type/name:4
 msgctxt "instrument_type"
@@ -1470,7 +1490,7 @@ msgstr "Messe"
 #: DB:event_type/name:5
 msgctxt "event_type"
 msgid "Masterclass/Clinic"
-msgstr ""
+msgstr "Cours de maître/atelier"
 
 #: DB:editor_collection_type/name:6
 msgctxt "collection_type"
@@ -1561,6 +1581,11 @@ msgstr "Mukhāri"
 msgctxt "area_type"
 msgid "Municipality"
 msgstr "Municipalité"
+
+#: DB:medium_format/name:46
+msgctxt "medium_format"
+msgid "Music Card"
+msgstr ""
 
 #: DB:work_attribute_type/name:12
 msgctxt "work_attribute_type"
@@ -1780,7 +1805,7 @@ msgstr "Ouverture"
 #: DB:editor_collection_type/name:2
 msgctxt "collection_type"
 msgid "Owned music"
-msgstr ""
+msgstr "Musique possédée"
 
 #: DB:work_attribute_type_allowed_value/value:203
 msgctxt "work_attribute_type_allowed_value"
@@ -1816,6 +1841,11 @@ msgstr "Rouleau de piano pneumatique"
 msgctxt "alias_type"
 msgid "Place name"
 msgstr "Nom du lieu"
+
+#: DB:medium_format/name:45
+msgctxt "medium_format"
+msgid "Playbutton"
+msgstr ""
 
 #: DB:work_type/name:21
 msgctxt "work_type"
@@ -1960,7 +1990,7 @@ msgstr "Rudrapriya"
 #: DB:series_type/name:9
 msgctxt "series_type"
 msgid "Run"
-msgstr ""
+msgstr "Série"
 
 #: DB:work_attribute_type/name:4
 msgctxt "work_attribute_type"
@@ -2367,11 +2397,6 @@ msgctxt "place_type"
 msgid "Venue"
 msgstr "Salle"
 
-#: DB:medium_format/name:32
-msgctxt "medium_format"
-msgid "Videotape"
-msgstr "Vidéocassette"
-
 #: DB:work_attribute_type_allowed_value/value:273
 msgctxt "work_attribute_type_allowed_value"
 msgid "Vijayanagari"
@@ -2391,6 +2416,11 @@ msgstr "Vijayaśrī"
 msgctxt "medium_format"
 msgid "Vinyl"
 msgstr "Vinyle"
+
+#: DB:medium_format/name:48
+msgctxt "medium_format"
+msgid "VinylDisc"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:259
 msgctxt "work_attribute_type_allowed_value"
