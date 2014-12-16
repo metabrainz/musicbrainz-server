@@ -1,5 +1,5 @@
-[% script_manifest('guess-case.js.manifest') %]
-[% script_manifest('edit.js.manifest') %]
+[% script_manifest('guess-case.js') %]
+[% script_manifest('edit.js') %]
 
 <p>[%- l('For more information, check the {doc_doc|documentation} and {doc_styleguide|style guidelines}.', {doc_doc => doc_link('Series'), doc_styleguide => doc_link('Style/Series')}) -%]</p>
 
@@ -28,7 +28,7 @@
 
       <fieldset>
         <legend>[% l('Series Details') %]</legend>
-        [%- form_row_text_long(r, 'name', l('Name:')) -%]
+        [%- form_row_name_with_guesscase(r) -%]
         [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
         [%- form_row_select(r, 'type_id', l('Type:')) -%]
         [%- form_row_select(r, 'ordering_type_id', l('Ordering Type:')) -%]
@@ -47,7 +47,6 @@
   </div>
 
   <div class="documentation">
-    [%- guesscase_bubble(1) -%]
     [%- external_link_bubble() -%]
 
     <div class="bubble" id="series-type-bubble" data-bind="bubble: typeBubble">
@@ -60,6 +59,8 @@
   </div>
 
 </form>
+
+[%- guesscase_options() -%]
 
 <script>//<![CDATA[
 $(function () {

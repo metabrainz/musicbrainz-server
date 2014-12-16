@@ -169,9 +169,6 @@
             <li>
                 <a href="[% doc_link('Yate_Music_Tagger') %]">[% l('Yate Music Tagger') %]</a>
             </li>
-            <li>
-                <a href="[% doc_link('SongKong_Tagger') %]">[% l('SongKong Tagger') %]</a>
-            </li>
             <li class="separator">
                 <a href="[% doc_link('MusicBrainz_for_Android') %]">[% l('MusicBrainz for Android') %]</a>
             </li>

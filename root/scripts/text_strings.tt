@@ -190,6 +190,7 @@
         ClearRecentItems: '[% l('Clear recent items') | js %]',
         ErrorLoadingRelease: '[% l('Error loading release: {error}') | js %]',
         InvalidPregapLength: '[% l('None of the attached disc IDs can fit a pregap track of the given length.') | js %]',
+        GuessCaseOptions: '[% l('Guess Case Options') | js %]',
         FailedToLoadMedium: '[% l('Failed to load the medium.') | js %]',
         DisplayCreditsAtBottom: '[% l('Display Credits at Bottom') | js %]',
         DisplayCreditsInline: '[% l('Display Credits Inline') | js %]'

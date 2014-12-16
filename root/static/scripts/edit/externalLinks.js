@@ -270,13 +270,13 @@
 
 
 // Applies MB.Control.URLCleanup to an element containing a <select>
-// (for the link type) and a <input type="text"> (for the URL).
+// (for the link type) and a <input type="url"> (for the URL).
 
 ko.bindingHandlers.urlCleanup = {
 
     init: function (element, valueAccessor, allBindings, viewModel) {
         var $element = $(element);
-        var $textInput = $element.find("input[type=text]");
+        var $textInput = $element.find("input[type=url]");
 
         var cleanup = MB.Control.URLCleanup({
             sourceType:         valueAccessor(),

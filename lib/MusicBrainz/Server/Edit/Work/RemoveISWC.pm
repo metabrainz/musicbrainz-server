@@ -11,7 +11,6 @@ use aliased 'MusicBrainz::Server::Entity::ISWC';
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Work';
-with 'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
 
 sub edit_name { N_l('Remove ISWC') }
 sub edit_kind { 'remove' }

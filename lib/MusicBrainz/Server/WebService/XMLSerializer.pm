@@ -217,6 +217,7 @@ sub _serialize_collection
     my %attrs;
     $attrs{id} = $collection->gid;
     $attrs{type} = $collection->type->name if ($collection->type);
+    $attrs{"entity-type"} = $collection->type->entity_type if ($collection->type);
 
     my @collection;
     push @collection, $gen->name($collection->name);
@@ -620,7 +621,7 @@ sub _serialize_tracks
     }
 
     my @list;
-    foreach my $track ($medium->cdtoc_tracks) {
+    foreach my $track (@{ $medium->cdtoc_tracks }) {
         $min = $track->position if $track->position < $min;
         $self->_serialize_track(\@list, $gen, $track, $inc, $stash);
     }

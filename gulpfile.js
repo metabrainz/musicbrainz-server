@@ -1,15 +1,14 @@
-var concat          = require("gulp-concat"),
+var browserify      = require("browserify"),
     extend          = require("extend"),
     fs              = require("fs"),
-    glob            = require("glob"),
     gulp            = require("gulp"),
+    less            = require("gulp-less"),
     rev             = require("gulp-rev"),
-    sourcemaps      = require("gulp-sourcemaps"),
+    source          = require("vinyl-source-stream"),
+    streamify       = require("gulp-streamify"),
     through2        = require("through2"),
+    Q               = require("q"),
 
-    commentOrEmpty  = /^(\s*$|#)/,
-    trailingSlash   = /\/$/,
-    manifestName    = /^([a-z\-]+)\.(js|css)\.manifest$/,
     revManifestPath = "./root/static/build/rev-manifest.json",
     revManifest     = {};
 
@@ -17,94 +16,128 @@ if (fs.existsSync(revManifestPath)) {
     revManifest = JSON.parse(fs.readFileSync(revManifestPath));
 }
 
-function buildManifest(fileType, compile, options) {
-    return through2.obj(function (chunk, encoding, callback) {
-        var globs = [], lines = chunk.contents.toString("utf8").split("\n");
+function writeManifest() {
+    fs.writeFileSync(revManifestPath, JSON.stringify(revManifest));
+}
 
-        lines.forEach(function (line) {
-            if (!commentOrEmpty.test(line)) {
-                line = "./root/static/" + line;
+function writeResource(stream) {
+    var deferred = Q.defer();
 
-                if (trailingSlash.test(line)) {
-                    globs.push(line + "**/*." + fileType);
-                } else {
-                    globs.push(line);
-                }
-            }
+    stream
+        .pipe(streamify(rev()))
+        .pipe(gulp.dest("./root/static/build/"))
+        .pipe(rev.manifest())
+        .pipe(through2.obj(function (chunk, encoding, callback) {
+            extend(revManifest, JSON.parse(chunk.contents));
+            callback();
+        }))
+        .on("finish", function () {
+            deferred.resolve();
         });
 
-        gulp.src(globs)
-            .pipe(sourcemaps.init())
-            .pipe(concat(chunk.relative.replace(manifestName, "$1.$2")))
-            .pipe(compile(options))
-            .on("error", console.log)
-            .pipe(rev())
-            .pipe(sourcemaps.write("./"))
-            .pipe(gulp.dest("./root/static/build/"))
-            .pipe(rev.manifest())
-            .pipe(through2.obj(function (chunk, encoding, callback) {
-                extend(revManifest, JSON.parse(chunk.contents));
+    return deferred.promise;
+}
 
-                fs.writeFileSync(revManifestPath, JSON.stringify(revManifest));
-
-                callback();
+function buildStyles() {
+    return writeResource(
+        gulp.src("./root/static/*.less")
+            .pipe(less({
+                rootpath: "/static/",
+                cleancss: true,
+                relativeUrls: true
             }))
-            .on("finish", function () {
-                callback();
-            });
+    );
+}
+
+function createBundle(resourceName, watch, callback) {
+    var b = browserify("./root/static/scripts/" + resourceName, {
+        cache: {},
+        packageCache: {},
+        fullPaths: watch ? true : false,
+        debug: !!process.env.SOURCEMAPS
     });
+
+    if (callback) {
+        callback(b);
+    }
+
+    if (process.env.UGLIFY) {
+        b.transform("uglifyify", {
+            // See https://github.com/substack/node-browserify#btransformtr-opts
+            global: true,
+
+            // Uglify options
+            preserveComments: "some",
+            output: { max_line_len: 256 }
+        });
+    }
+
+    function build() {
+        return writeResource(
+            b.bundle()
+            .on("error", console.log)
+            .pipe(source(resourceName))
+        );
+    }
+
+    if (watch) {
+        b = require("watchify")(b);
+
+        function _build() {
+            console.log("building " + resourceName);
+            build().done(writeManifest);
+        }
+
+        _build();
+        b.on("update", _build);
+    }
+
+    return build();
+}
+
+function buildScripts(watch) {
+    return Q.all([
+        createBundle("common.js", watch, function (b) {
+            // Needed by knockout-* plugins in edit.js
+            b.require('./root/static/lib/knockout/knockout-latest.debug.js', { expose: 'knockout' });
+        }),
+        createBundle("edit.js", watch, function (b) {
+            b.external('./root/static/lib/knockout/knockout-latest.debug.js');
+        }),
+        createBundle("guess-case.js", watch),
+        createBundle("release-editor.js", watch),
+        createBundle("statistics.js", watch)
+    ]);
 }
 
 gulp.task("styles", function () {
-    return gulp.src("./root/static/*.css.manifest")
-        .pipe(
-            buildManifest(
-                "less",
-                require("gulp-less"),
-                {
-                    rootpath: "/static/",
-                    cleancss: true,
-                    relativeUrls: true
-                }
-            )
-        );
+    return buildStyles().done(writeManifest);
 });
 
 gulp.task("scripts", function () {
-    return gulp.src("./root/static/*.js.manifest")
-        .pipe(
-            buildManifest(
-                "js",
-                require("gulp-uglify"),
-                {
-                    preserveComments: "some",
-                    output: { max_line_len: 256 }
-                }
-            )
-        );
+    return buildScripts(false).done(writeManifest);
+});
+
+gulp.task("watch", function () {
+    function _buildStyles() {
+        console.log("building all styles");
+        buildStyles().done(writeManifest);
+    }
+
+    _buildStyles();
+    gulp.watch("./root/static/**/*.less", _buildStyles);
+
+    buildScripts(true);
 });
 
 gulp.task("clean", function () {
-    var fileRegex = /^([a-z\-]+)-[a-f0-9]+\.(js|css)$/,
-        existingFiles = fs.readdirSync("./root/static/build/");
+    var fileRegex = /^([a-z\-]+)-[a-f0-9]+\.(js|css)$/;
 
-    existingFiles.forEach(function (file) {
+    fs.readdirSync("./root/static/build/").forEach(function (file) {
         if (fileRegex.test(file) && revManifest[file.replace(fileRegex, "$1.$2")] !== file) {
             fs.unlinkSync("./root/static/build/" + file);
-
-            if (existingFiles.indexOf(file + ".map") >= 0) {
-                fs.unlinkSync("./root/static/build/" + file + ".map");
-            }
         }
     });
-
-    Object.keys(revManifest).forEach(function (key) {
-        if (!fs.existsSync("./root/static/" + key + ".manifest")) {
-            delete existingFiles[key];
-        }
-    });
-
-    fs.writeFileSync(revManifestPath, JSON.stringify(revManifest));
 });
 
 gulp.task("jshint", function () {

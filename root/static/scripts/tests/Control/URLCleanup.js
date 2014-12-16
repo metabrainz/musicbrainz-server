@@ -788,6 +788,32 @@ test('Cleanup', function () {
                 'https://www.facebook.com/events/779218695457920',
                 'event'
             ],
+            [
+                'https://www.facebook.com/event.php?eid=129606980393356',
+                'https://www.facebook.com/events/129606980393356',
+                'event'
+            ],
+            [
+                'http://www.lastfm.de/event/671822+Ruhrpott+rodeo+at+Flugplatz+Schwarze+Heide+on+27+June+2008',
+                'http://www.last.fm/event/671822+Ruhrpott+rodeo+at+Flugplatz+Schwarze+Heide+on+27+June+2008',
+                'event'
+            ],
+            [
+                'http://www.lastfm.de/festival/297838+Death+Feast+2008',
+                'http://www.last.fm/festival/297838+Death+Feast+2008',
+                'event'
+            ],
+            [
+                'http://www.songkick.com/venues/1141041-flugplatz-schwarze-heide',
+                'https://www.songkick.com/venues/1141041-flugplatz-schwarze-heide',
+                'event'
+            ],
+            [
+                'http://www.songkick.com/festivals/74586-ruhrpott-rodeo/id/19803209-ruhrpott-rodeo-festival-2014',
+                'https://www.songkick.com/festivals/74586-ruhrpott-rodeo/id/19803209-ruhrpott-rodeo-festival-2014',
+                'event'
+            ],
+
                 // Google+
             [
                 'http://plus.google.com/u/0/101821796946045393834/about',

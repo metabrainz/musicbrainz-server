@@ -161,7 +161,7 @@ sub data_tracks {
 
 sub cdtoc_tracks {
     my ($self) = @_;
-    return grep { $_->position > 0 && !$_->is_data_track } $self->all_tracks;
+    return [ grep { $_->position > 0 && !$_->is_data_track } $self->all_tracks ];
 }
 
 sub has_multiple_artists {

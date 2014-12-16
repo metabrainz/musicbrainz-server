@@ -1,5 +1,5 @@
-[% script_manifest('guess-case.js.manifest') %]
-[% script_manifest('edit.js.manifest') %]
+[% script_manifest('guess-case.js') %]
+[% script_manifest('edit.js') %]
 
 <p>[%- l('For more information, check the {doc_doc|documentation}.', {doc_doc => doc_link('Place')}) -%]</p>
 
@@ -30,7 +30,7 @@
 
       <fieldset>
         <legend>[% l('Place Details') %]</legend>
-        [%- form_row_text_long(r, 'name', l('Name:')) -%]
+        [%- form_row_name_with_guesscase(r) -%]
         [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
         [%- form_row_select(r, 'type_id', l('Type:')) -%]
         [%- form_row_text_long(r, 'address', l('Address:')) -%]
@@ -72,7 +72,6 @@
   </div>
 
   <div class="documentation">
-    [%- guesscase_bubble(1) -%]
     [%- area_bubble() -%]
 
     <div class="bubble" id="coordinates-bubble">
@@ -84,6 +83,8 @@
   </div>
 
 </form>
+
+[%- guesscase_options() -%]
 
 <script type="text/javascript">//<![CDATA[
   (function () {
@@ -136,6 +137,7 @@
                 marker.setLatLng(L.latLng(data.coordinates.latitude, data.coordinates.longitude));
 
                 map.panTo(L.latLng(data.coordinates.latitude, data.coordinates.longitude));
+                map.setZoom(16);
             }).error(function () {
                 $("input[name=edit-place\\.coordinates]").addClass("error");
                 $(".coordinates-errors").css("display", "block");

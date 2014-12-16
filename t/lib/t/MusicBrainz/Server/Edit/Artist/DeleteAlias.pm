@@ -73,7 +73,7 @@ is(@$alias_set, 1);
 
 };
 
-test 'Not an auto-edit for auto-editors' => sub {
+test 'Not an auto-edit without auto-editors privileges' => sub {
     my $test = shift;
     my $c = $test->c;
 
@@ -81,10 +81,7 @@ test 'Not an auto-edit for auto-editors' => sub {
 
     my $alias = $c->model('Artist')->alias->get_by_id(1);
 
-    my $edit = _create_edit(
-        $c, $alias,
-        privileges => $AUTO_EDITOR_FLAG
-    );
+    my $edit = _create_edit($c, $alias);
 
     ok($edit->is_open);
 };

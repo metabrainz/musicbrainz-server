@@ -40,6 +40,12 @@ has 'frequency' => (
     isa => 'Int'
 );
 
+sub bcp47 {
+    my ($self) = @_;
+    return $self->iso_code_1 if $self->iso_code_1;
+    return $self->iso_code_3;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

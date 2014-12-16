@@ -37,7 +37,7 @@ sub serialize
     }
 
     my @list;
-    foreach my $track_entity ($entity->cdtoc_tracks) {
+    foreach my $track_entity (@{ $entity->cdtoc_tracks }) {
         push @list, $self->serialize_track($track_entity, $inc, $stash);
     }
 

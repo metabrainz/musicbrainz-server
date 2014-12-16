@@ -7,7 +7,7 @@
     <form action="[% c.req.uri | html %]" method="post">
         [% form_row_text(r, 'name', l('Name:')) %]
         [% IF application.is_server %]
-        [% form_row_text_long(r, 'oauth_redirect_uri', l('Callback URL:')) %]
+        [% form_row_url_long(r, 'oauth_redirect_uri', l('Callback URL:')) %]
         [% END %]
         <input type="hidden" name="application.oauth_type" value="[% application.oauth_type %]" />
 

@@ -1,5 +1,5 @@
-[% script_manifest('guess-case.js.manifest') %]
-[% script_manifest('edit.js.manifest') %]
+[% script_manifest('guess-case.js') %]
+[% script_manifest('edit.js') %]
 
 <p>[%- l('For more information, check the {doc_doc|documentation} and {doc_styleguide|style guidelines}.', {doc_doc => doc_link('Label'), doc_styleguide => doc_link('Style/Label')}) -%]</p>
 
@@ -28,7 +28,7 @@
 
       <fieldset>
         <legend>[% l('Label Details') %]</legend>
-        [%- form_row_text_long(r, 'name', l('Name:')) -%]
+        [%- form_row_name_with_guesscase(r) -%]
         [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
         [%- form_row_select(r, 'type_id', l('Type:')) -%]
         [% WRAPPER form_row %]
@@ -44,7 +44,7 @@
         [% END %]
         [% WRAPPER form_row %]
             [%- r.label('label_code', l('Label code:')) %]
-            LC- [% r.text('label_code', size => 5, class => "label-code") -%]
+            LC- [% r.text('label_code', size => 5, class => "label-code", pattern => "[0-9]*") -%]
             [%- field_errors(form, 'label_code') -%]
         [% END %]
         [%- form_row_text_list(r, 'ipi_codes', l('IPI codes:'), l('IPI code')) -%]
@@ -74,12 +74,13 @@
   </div>
 
   <div class="documentation">
-    [%- guesscase_bubble(1) -%]
     [%- area_bubble() -%]
     [%- external_link_bubble() -%]
   </div>
 
 </form>
+
+[%- guesscase_options() -%]
 
 <script type="text/javascript">//<![CDATA[
   (function () {

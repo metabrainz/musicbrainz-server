@@ -27,7 +27,9 @@ with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::CommonsImage';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
-    endpoints => {show => {}, aliases => {copy_stash => ['aliases']}}
+    endpoints => {show => {copy_stash => [{from => 'release_groups_jsonld', to => 'release_groups'}]},
+                  relationships => {},
+                  aliases => {copy_stash => ['aliases']}}
 };
 
 use Data::Page;
@@ -212,6 +214,7 @@ sub show : PathPart('') Chained('load')
             $_->video
         } @$recordings),
         release_groups => $release_groups,
+        release_groups_jsonld => {items => $release_groups},
         show_artists => scalar grep {
             $_->artist_credit->name ne $artist->name
         } @$release_groups,

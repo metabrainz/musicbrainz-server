@@ -82,7 +82,7 @@
     </tr>
     <tr>
       <td><label for="import-track-count">[% l('Track count:') %]</label></td>
-      <td><input id="import-track-count" type="text" data-bind="value: trackCount, valueUpdate: 'afterkeydown'" data-keydown="keydownEvent" /></td>
+      <td><input id="import-track-count" type="number" data-bind="value: trackCount, valueUpdate: 'afterkeydown'" data-keydown="keydownEvent" /></td>
       <td class="buttons">
         <button type="button" data-click="buttonClicked" data-bind="enable: releaseName() || artistName() || trackCount() || searching(), text: searching() ? '[% l('Cancel') | js %]' : '[% l('Search') | js %]'"></button>
       </td>
@@ -211,7 +211,7 @@
     </td>
 
     <td class="icon">
-      <button type="button" class="icon guesscase-track" title="[% l('Guess case track') %]" data-click="guessCaseTrackName"></button>
+      <button type="button" class="icon guesscase-title" title="[% l('Guess case track') %]" data-click="guessCaseTrackName"></button>
       <!-- ko ifnot: medium.hasToc() -->
       <button type="button" class="icon remove-item" title="[% l('Remove track') %]" data-click="removeTrack"></button>
       <!-- /ko -->
@@ -303,7 +303,7 @@
           <!-- ko if: release.mediums().length > 1 || name() -->
             <label data-bind="attr: { for: 'disc-title-' + uniqueID }">[% l('Disc title:') %]</label>
             <input type="text" data-bind="value: name, attr: { id: 'disc-title-' + uniqueID }" />
-            <button type="button" class="icon guesscase-medium" title="[% l('Guess case disc title') %]" data-click="guessCaseMediumName"></button>
+            <button type="button" class="icon guesscase-title" title="[% l('Guess case disc title') %]" data-click="guessCaseMediumName"></button>
           <!-- /ko -->
         </td>
 
@@ -417,7 +417,7 @@
         </div>
 
         <div class="icon add-tracks" data-bind="if: !hasToc() || hasDataTracks()">
-          [% l('Add {num} track(s)', num => '<input type="text" maxlength="2" placeholder="1" data-bind="value: addTrackCount" />') %]
+          [% l('Add {num} track(s)', num => '<input type="number" maxlength="2" placeholder="1" data-bind="value: addTrackCount" />') %]
           <button type="button" class="icon add-item" title="[% l('Add track(s)') %]" data-click="addNewTracks"></button>
         </div>
       </div>

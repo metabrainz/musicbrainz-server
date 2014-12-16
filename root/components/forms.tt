@@ -71,18 +71,31 @@
     </div>
 [%- END -%]
 
-[%- MACRO form_row_text(r, field_name, label) BLOCK -%]
+[%- MACRO form_row_text(r, field_name, label, attrs) BLOCK -%]
+    [% attrs = attrs ? attrs : {} %]
     [% WRAPPER form_row %]
       [% r.label(field_name, label || r.form.field(field_name).label) %]
-      [% r.text(field_name) %]
+      [% r.text(field_name, attrs) %]
       [% field_errors(r.form, field_name) %]
     [% END %]
 [%- END -%]
 
 [%- MACRO form_row_text_long(r, field_name, label) BLOCK -%]
+    [% form_row_text(r, field_name, label, { size => 47 }) %]
+[%- END -%]
+
+[%- MACRO form_row_email_long(r, field_name, label) BLOCK -%]
     [% WRAPPER form_row %]
       [% r.label(field_name, label || r.form.field(field_name).label) %]
-      [% r.text(field_name, { size => 47 })  %]
+      [% r.email(field_name, { size => 47 })  %]
+      [% field_errors(r.form, field_name) %]
+    [% END %]
+[%- END -%]
+
+[%- MACRO form_row_url_long(r, field_name, label) BLOCK -%]
+    [% WRAPPER form_row %]
+      [% r.label(field_name, label || r.form.field(field_name).label) %]
+      [% r.url(field_name, { size => 47 })  %]
       [% field_errors(r.form, field_name) %]
     [% END %]
 [%- END -%]
@@ -134,14 +147,14 @@
       <div class="form-row-text-list">
           <div style="display: none;"
                class="text-list-row [%- r.form.field(field_name).html_name _ "-template" -%]">
-              <input type="text" value="" name="" class="value with-remove" />
+              <input type="text" value="" name="" class="value with-button" />
               <button type="button" class="nobutton icon remove">
                 <div class="remove-item icon img" title="[% l('Remove {item}', item => item_name) %]"></div>
               </button>
           </div>
           [% FOR value=r.form.field(field_name).value -%]
           <div class="text-list-row">
-              <input type="text" value="[% value %]" name="[% r.form.field(field_name).html_name %].[% loop.index() %]" class="value with-remove" />
+              <input type="text" value="[% value %]" name="[% r.form.field(field_name).html_name %].[% loop.index() %]" class="value with-button" />
               <button type="button" class="nobutton remove">
               <div class="remove-item icon img" title="[% l('Remove {item}', item => item_name) %]"></div>
               </button>
@@ -179,7 +192,7 @@
     [%- WRAPPER form_row -%]
         <label for="[% id %]" class="required">[% l('Artist:') %]</label>
         <span class="autocomplete">
-          <input id="[% id %]" type="text" class="artist-credit-input" data-bind="autocomplete: { entity: 'artist', artistCredit: $data }" data-hidden-inputs="[% 1 IF form %]" data-form="[% form.name IF form.html_prefix %]" data-artist="[% html_escape(form.field('artist_credit').json) IF form %]" />
+          <input id="[% id %]" type="text" required="required" class="artist-credit-input" data-bind="autocomplete: { entity: 'artist', artistCredit: $data }" data-hidden-inputs="[% 1 IF form %]" data-form="[% form.name IF form.html_prefix %]" data-artist="[% html_escape(form.field('artist_credit').json) IF form %]" />
           <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
         </span>
         <button type="button" class="styled-button" id="open-ac" data-bind="controlsBubble: $root.artistBubble">[% l('Edit') | html_entity %]</button>
@@ -194,6 +207,26 @@
       <label>[%- IF label -%][%- label -%][%- ELSE -%]&#xa0;[%- END -%]</label>
       <p>[%- message -%]</p>
     [% END %]
+[%- END -%]
+
+[%- MACRO form_row_name_with_guesscase(r, options) BLOCK -%]
+  [% WRAPPER form_row %]
+    [% r.label('name', options.label || l('Name:')) %]
+    [% r.text('name', { class => 'with-guesscase' }) %]
+    <button type="button" class="guesscase-title icon" title="[% l('Guess case') %]"></button>
+    <button type="button" class="guesscase-options icon" title="[% l('Guess case options') %]"></button>
+    [% field_errors(r.form, 'name') %]
+  [% END %]
+[%- END -%]
+
+[%- MACRO form_row_sortname_with_guesscase(r) BLOCK -%]
+  [% WRAPPER form_row %]
+    [% r.label('sort_name', l('Sort name:')) %]
+    [% r.text('sort_name', { class => 'with-guesscase' }) %]
+    <button type="button" class="guesscase-sortname icon" title="[% l('Guess sort name') %]"></button>
+    <button type="button" class="sortname-copy icon" title="[% l('Copy name') %]"></button>
+    [% field_errors(r.form, 'sort_name') %]
+  [% END %]
 [%- END -%]
 
 [%- MACRO guesscase(show_icon) BLOCK -%]
@@ -225,59 +258,31 @@
   </fieldset>
 [%- END -%]
 
-[%- MACRO guesscase_bubble(hide_mode, bubble_name, gc_callback) BLOCK -%]
-    <div class="bubble" id="guess-case-bubble" data-bind="bubble: [% bubble_name %]">
-      <!-- ko guessCase: [% gc_callback || 'function () { target().guessCase.apply(target(), arguments) }' %] -->
-      <p>
-        [%- (l('Please use the Guess Case button to fix common style errors.')) -%]
-      </p>
-      <div class="buttons">
-        <button type="button" data-bind="click: guessCase">[% lp('Guess case', 'button/menu') %]</button>
-      </div>
-      <div class="guesscase-options">
-        <table>
-          <tr>
-            <td>
-            [%- UNLESS hide_mode -%]
-              <select data-bind="value: modeName">
-                <option value="English">[% l('English') %]</option>
-                <option value="Sentence">[% l('Sentence') %]</option>
-                <option value="French">[% l('French') %]</option>
-              </select>
-              <br />
-              <label>
-                <input type="checkbox" data-bind="checked: keepUpperCase" />
-                [% l('Keep all-uppercase words uppercased') %]
-              </label>
-              <br />
-              <label>
-                <input type="checkbox" data-bind="checked: upperCaseRoman" />
-                [% l('Uppercase roman numerals') %]
-              </label>
-            [%- END -%]
-            </td>
-            <td>
-            [%- UNLESS hide_mode -%]
-              <span data-bind="html: help"></span>
-            [%- END -%]
-            </td>
-          </tr>
-        </table>
-      </div>
-    <!-- /ko -->
-    </div>
-[%- END -%]
-
-[%- MACRO sortname_bubble BLOCK -%]
-    <div class="bubble" id="sortname-bubble">
-      <p>
-        [%- (l('Please use the Sort Name button to guess the sort name.')) -%]
-      </p>
-      <div class="buttons">
-        <a href="#sortname">[% l('Sort Name') %]</a>
-        <a href="#copy">[% l('Copy') %]</a>
-      </div>
-    </div>
+[%- MACRO guesscase_options BLOCK -%]
+  <table id="guesscase-options">
+    <tr>
+      <td>
+        <select data-bind="value: modeName">
+          <option value="English">[% l('English') %]</option>
+          <option value="Sentence">[% l('Sentence') %]</option>
+          <option value="French">[% l('French') %]</option>
+        </select>
+        <br />
+        <label>
+          <input type="checkbox" data-bind="checked: keepUpperCase" />
+          [% l('Keep all-uppercase words uppercased') %]
+        </label>
+        <br />
+        <label>
+          <input type="checkbox" data-bind="checked: upperCaseRoman" />
+          [% l('Uppercase roman numerals') %]
+        </label>
+      </td>
+      <td>
+        <span data-bind="html: help"></span>
+      </td>
+    </tr>
+  </table>
 [%- END -%]
 
 [%- MACRO iswc_bubble(work) BLOCK -%]
@@ -345,7 +350,7 @@
           </span>
         </td>
         <td>
-          <input type="button" class="icon remove-artist-credit" title="[% l('Remove Artist Credit') %]" data-bind="click: $parents[1].removeArtistCreditName.bind($parents[1])" />
+          <button type="button" class="icon remove-artist-credit" title="[% l('Remove Artist Credit') %]" data-bind="click: $parents[1].removeArtistCreditName.bind($parents[1])"></button>
         </td>
       </tr>
       <tr>
@@ -415,8 +420,8 @@
                   visible: showTypeSelection()"></select>
       </td>
       <td>
-        <input type="text"
-          class="value with-remove"
+        <input type="url"
+          class="value with-button"
           data-bind="
             value: url,
             valueUpdate: 'input',

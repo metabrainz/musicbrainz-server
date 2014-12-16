@@ -209,7 +209,7 @@ sub set_lengths_to_cdtoc
 
     my @recording_ids;
     my @info = @{ $cdtoc->track_details };
-    my @medium_tracks = $medium->cdtoc_tracks;
+    my @medium_tracks = @{ $medium->cdtoc_tracks };
 
     for my $i (0..$#info) {
         my $track = $medium_tracks[$i];
@@ -303,6 +303,8 @@ sub load_related_info {
 
     $self->c->model('Relationship')->load_cardinal(@recordings);
     $self->c->model('Relationship')->load_cardinal(grep { $_->isa(Work) } map { $_->target } map { $_->all_relationships } @recordings);
+
+    $self->c->model('ISRC')->load_for_recordings(@recordings);
 }
 
 __PACKAGE__->meta->make_immutable;

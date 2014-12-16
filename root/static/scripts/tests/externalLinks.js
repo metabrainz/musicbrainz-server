@@ -21,7 +21,7 @@ module("external links editor", {
                   </select>\
                 </td>\
                 <td>\
-                  <input type="text" data-bind="value: url" />\
+                  <input type="url" data-bind="value: url" />\
                   <!-- ko with: error() -->\
                     <div class="errors" data-bind="text: $data"></div>\
                   <!-- /ko -->\
