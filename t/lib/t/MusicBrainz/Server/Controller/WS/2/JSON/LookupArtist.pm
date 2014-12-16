@@ -54,6 +54,7 @@ test 'basic artist lookup' => sub {
             },
             type => "Person",
             ipis => [],
+            gender => JSON::null,
         });
 };
 
@@ -82,6 +83,7 @@ test 'basic artist lookup, inc=annotation' => sub {
                 ended => JSON::false,
             },
             ipis => [],
+            gender => JSON::null,
         });
 };
 
@@ -114,6 +116,7 @@ test 'basic artist lookup, inc=aliases' => sub {
                 { name => "보아", "sort-name" => "보아", locale => JSON::null, primary => JSON::null, type => JSON::null },
                 ],
             ipis => [],
+            gender => JSON::null,
         });
 
 };
@@ -216,6 +219,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     ended => JSON::false,
                 }],
             ipis => [],
+            gender => JSON::null,
         });
 
 };
@@ -290,6 +294,7 @@ test 'artist lookup with releases' => sub {
                 }
                 ],
             ipis => [],
+            gender => JSON::null,
         });
 };
 
@@ -340,6 +345,7 @@ test 'artist lookup with pseudo-releases' => sub {
                 }
                 ],
             ipis => [],
+            gender => JSON::null,
         });
 };
 
@@ -436,6 +442,7 @@ test 'artist lookup with releases and discids' => sub {
                     }],
                 }],
             ipis => [],
+            gender => JSON::null,
         });
 };
 
@@ -521,6 +528,7 @@ test 'artist lookup with recordings and artist credits' => sub {
                 },
             ],
             ipis => [],
+            gender => JSON::null,
         });
 };
 
@@ -556,6 +564,7 @@ test 'artist lookup with release groups' => sub {
                 }
             ],
             ipis => [],
+            gender => JSON::null,
         });
 };
 
@@ -606,6 +615,7 @@ test 'single artist release lookup' => sub {
                 }
             ],
             ipis => [],
+            gender => JSON::null,
         });
 };
 
@@ -656,6 +666,7 @@ test 'various artists release lookup' => sub {
                 }
             ],
             ipis => [],
+            gender => JSON::null,
         });
 };
 
@@ -692,6 +703,7 @@ test 'artist lookup with works (using l_artist_work)' => sub {
                 }
             ],
             ipis => [],
+            gender => JSON::null,
         });
 };
 
@@ -853,6 +865,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     type => JSON::null,
                 }],
             ipis => [],
+            gender => JSON::null,
         });
 };
 
@@ -905,6 +918,7 @@ test 'artist lookup with artist relations' => sub {
                 }
             ],
             ipis => [],
+            gender => 'Female',
         });
 };
 
