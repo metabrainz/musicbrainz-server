@@ -199,7 +199,7 @@ function addRelationshipsFromQueryString(source) {
 
     _.each(fields.rels, function (rel) {
         var typeInfo = MB.typeInfoByID[rel.type];
-        var targetIsUUID = v4_uuid_regex.test(rel.target);
+        var targetIsUUID = uuidRegex.test(rel.target);
 
         if (!typeInfo && !targetIsUUID) {
             // We need at least a link type or target gid
@@ -255,7 +255,7 @@ function addRelationshipsFromQueryString(source) {
     });
 }
 
-var v4_uuid_regex = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
+var uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[345][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
 
 var dateRegex = /(?:-|([0-9]{4}))(?:-(?:-|(0[1-9]|1[0-2]))(?:-(?:-|([0-2][1-9]|3[0-1])))?)?/;
 
