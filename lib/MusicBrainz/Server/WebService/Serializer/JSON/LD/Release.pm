@@ -44,18 +44,24 @@ around serialize => sub {
             $ret->{image} = list_or_single(map { artwork($_) } @{ $stash->store($entity)->{cover_art} });
         }
 
-        # XXX: updating for split pages?
-        if ($entity->all_mediums &&
-            ($entity->all_mediums)[0]->all_tracks &&
-            (($entity->all_mediums)[0]->all_tracks)[0]->recording) {
+        if ($entity->all_mediums) {
+            my $use_medium = 0;
+            if (scalar $entity->all_mediums > 1) {
+                $use_medium = 1;
+            }
             my @tracks;
             for my $medium ($entity->all_mediums) {
-                for my $track ($medium->all_tracks) {
-                    $stash->store($track->recording)->{trackNumber} = $track->number;
-                    push(@tracks, serialize_entity($track->recording, $inc, $stash));
+                if ($medium->all_tracks) {
+                    for my $track ($medium->all_tracks) {
+                        if ($track->recording) {
+                            # XXX: should track->number be integrated somehow on multi-medium releases?
+                            $stash->store($track->recording)->{trackNumber} = $use_medium ? join('.', $medium->position, $track->position) : $track->number;
+                            push(@tracks, serialize_entity($track->recording, $inc, $stash));
+                        }
+                    }
                 }
             }
-            $ret->{track} = \@tracks;
+            $ret->{track} = \@tracks if @tracks;
         }
 
         $ret->{gtin14} = $entity->barcode->code if $entity->barcode;
