@@ -5,6 +5,12 @@ use JSON qw( encode_json );
 use List::MoreUtils qw( any );
 use Moose;
 use MusicBrainz::Server::Constants qw(
+    $EDIT_AREA_CREATE
+    $EDIT_AREA_EDIT
+    $EDIT_AREA_DELETE
+    $EDIT_INSTRUMENT_CREATE
+    $EDIT_INSTRUMENT_EDIT
+    $EDIT_INSTRUMENT_DELETE
     $EDIT_RELEASE_CREATE
     $EDIT_RELEASE_EDIT
     $EDIT_RELEASE_ADDRELEASELABEL
@@ -49,6 +55,26 @@ no if $] >= 5.018, warnings => "experimental::smartmatch";
 
 Readonly our $ERROR_NOT_LOGGED_IN => 1;
 Readonly our $ERROR_NON_EXISTENT_ENTITIES => 2;
+
+our $ALLOWED_EDIT_TYPES = [
+    $EDIT_RELEASE_CREATE,
+    $EDIT_RELEASE_EDIT,
+    $EDIT_RELEASE_ADDRELEASELABEL,
+    $EDIT_RELEASE_ADD_ANNOTATION,
+    $EDIT_RELEASE_DELETERELEASELABEL,
+    $EDIT_RELEASE_EDITRELEASELABEL,
+    $EDIT_RELEASEGROUP_CREATE,
+    $EDIT_MEDIUM_CREATE,
+    $EDIT_MEDIUM_EDIT,
+    $EDIT_MEDIUM_DELETE,
+    $EDIT_MEDIUM_ADD_DISCID,
+    $EDIT_RECORDING_EDIT,
+    $EDIT_RELEASE_REORDER_MEDIUMS,
+    $EDIT_RELATIONSHIP_CREATE,
+    $EDIT_RELATIONSHIP_EDIT,
+    $EDIT_RELATIONSHIP_DELETE,
+    $EDIT_WORK_CREATE,
+];
 
 our $TT = Template->new(
     INCLUDE_PATH => catdir(DBDefs->MB_SERVER_ROOT, 'root'),
@@ -349,7 +375,6 @@ sub process_edits {
         my $edit_type = $edit->{edit_type};
 
         if ($edit_type ~~ [$EDIT_RELATIONSHIP_CREATE, $EDIT_RELATIONSHIP_EDIT, $EDIT_RELATIONSHIP_DELETE]) {
-            die 'missing linkTypeID' unless $edit->{linkTypeID};
             push @link_types_to_load, $edit->{linkTypeID};
             push @relationship_edits, $edit;
         }
@@ -360,15 +385,23 @@ sub process_edits {
     for my $edit (@relationship_edits) {
         my $link_type = $link_types->{$edit->{linkTypeID}};
 
-        die "unknown linkTypeID: " . $edit->{linkTypeID} unless $link_type;
+        $c->forward('/ws/js/detach_with_error', ['unknown linkTypeID: ' . $edit->{linkTypeID}])
+            unless $link_type;
+
+        my $type0 = $link_type->entity0_type;
+        my $type1 = $link_type->entity1_type;
+
+        unless ($c->model('Relationship')->editor_can_edit($c->user, $type0, $type1)) {
+            $c->forward(
+                '/ws/js/detach_with_error',
+                ["changing $type0-$type1 relationships is forbidden", 403]
+            );
+        }
 
         $edit->{link_type} = $link_type;
 
         if ($edit->{edit_type} ~~ [$EDIT_RELATIONSHIP_EDIT, $EDIT_RELATIONSHIP_DELETE]) {
-            my $id = $edit->{id} or die 'missing relationship id';
-
-            my $type0 = $link_type->entity0_type;
-            my $type1 = $link_type->entity1_type;
+            my $id = $edit->{id} or $c->forward('/ws/js/detach_with_error', ['missing relationship id']);
 
             # Only one edit per relationship is supported.
             ($relationships_to_load->{"$type0-$type1"} //= {})->{$id} = $edit;
@@ -405,7 +438,7 @@ sub process_edits {
         } elsif (!defined($id) && $previewing) {
             return;
         } else {
-            die "unknown $model id: $id";
+            $c->forward('/ws/js/detach_with_error', ["unknown $model id: $id"]);
         }
 
         push @props_to_load, [$id, $model, $setter];
@@ -430,10 +463,14 @@ sub process_edits {
         }
     }
 
-    for my $edit (@new_edits) {
-        my $processor = $data_processors->{$edit->{edit_type}};
-        $processor->($c, $loader, $edit, $previewing) if $processor;
-    }
+    try {
+        for my $edit (@new_edits) {
+            my $processor = $data_processors->{$edit->{edit_type}};
+            $processor->($c, $loader, $edit, $previewing) if $processor;
+        }
+    } catch {
+        $c->forward('/ws/js/detach_with_error', [$_]);
+    };
 
     my %loaded_entities = (
         ( map { $_ => $c->model($_)->get_by_ids(@{ $ids_to_load->{$_} }) } keys %$ids_to_load ),
@@ -452,10 +489,10 @@ sub process_edits {
     }
 
     if (@non_existent_entities) {
-        die {
+        $c->forward('/ws/js/detach_with_error', [{
             errorCode => $ERROR_NON_EXISTENT_ENTITIES,
             entities => \@non_existent_entities
-        };
+        }]);
     }
 
     return \@new_edits;
@@ -470,11 +507,7 @@ sub create_edits {
         $privs |= $UNTRUSTED_FLAG;
     }
 
-    try {
-        $data->{edits} = process_edits($c, $data->{edits}, $previewing);
-    } catch {
-        $c->forward('/ws/js/detach_with_error', [$_]);
-    };
+    $data->{edits} = process_edits($c, $data->{edits}, $previewing);
 
     my $action = $previewing ? 'preview' : 'create';
 
@@ -541,15 +574,28 @@ sub create : Chained('edit') PathPart('create') Edit {
 sub submit_edits {
     my ($self, $c, $data) = @_;
 
-    my @edit_data = @{ $data->{edits} };
-    my @edit_types = map { $_->{edit_type} } @edit_data;
+    for my $edit (@{ $data->{edits} // [] }) {
+        my $edit_type = $edit->{edit_type};
 
-    if (any { !defined($_) } @edit_types) {
-        $c->forward('/ws/js/detach_with_error', ['edit_type required']);
-    }
+        unless (defined $edit_type) {
+            $c->forward('/ws/js/detach_with_error', ['edit_type required']);
+        }
 
-    if (!$data->{editNote} && any { $_ == $EDIT_RELEASE_CREATE } @edit_types) {
-        $c->forward('/ws/js/detach_with_error', ['editNote required']);
+        if ($edit_type == $EDIT_RELEASE_CREATE && !$data->{editNote}) {
+            $c->forward('/ws/js/detach_with_error', ['editNote required']);
+        }
+
+        if ($edit_type ~~ [$EDIT_AREA_CREATE, $EDIT_AREA_EDIT, $EDIT_AREA_DELETE] && !$c->user->is_location_editor) {
+            $c->forward('/ws/js/detach_with_error', ['only location editors can edit areas', 403]);
+        }
+
+        if ($edit_type ~~ [$EDIT_INSTRUMENT_CREATE, $EDIT_INSTRUMENT_EDIT, $EDIT_INSTRUMENT_DELETE] && !$c->user->is_location_editor) {
+            $c->forward('/ws/js/detach_with_error', ['only relationship editors can edit instruments', 403]);
+        }
+
+        unless ($edit_type ~~ $ALLOWED_EDIT_TYPES) {
+            $c->forward('/ws/js/detach_with_error', ["edit_type $edit_type is not supported"]);
+        }
     }
 
     my @edits;

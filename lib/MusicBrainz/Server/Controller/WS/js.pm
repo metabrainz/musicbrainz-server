@@ -351,11 +351,11 @@ sub error : Chained('root') PathPart('error') {
 }
 
 sub detach_with_error : Private {
-    my ($self, $c, $error) = @_;
+    my ($self, $c, $error, $status) = @_;
 
     $c->res->content_type('application/json; charset=utf-8');
     $c->res->body(encode_json({ error => $error }));
-    $c->res->status(400);
+    $c->res->status($status // 400);
     $c->detach;
 }
 

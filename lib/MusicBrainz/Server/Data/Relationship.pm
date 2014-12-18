@@ -591,8 +591,7 @@ Returns true if the editor is allowed to edit a $type0-$type1 rel
 
 =cut
 
-sub editor_can_edit
-{
+sub editor_can_edit {
     my ($self, $editor, $type0, $type1) = @_;
 
     return 0 unless $editor;

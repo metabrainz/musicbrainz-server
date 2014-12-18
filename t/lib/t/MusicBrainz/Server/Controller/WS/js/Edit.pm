@@ -19,7 +19,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_EDIT
     $EDIT_RELATIONSHIP_DELETE
 );
-use MusicBrainz::Server::Test qw( capture_edits );
+use MusicBrainz::Server::Test qw( capture_edits post_json );
 use Test::More;
 use Test::Deep qw( bag cmp_deeply ignore );
 use Test::Routine;
@@ -57,17 +57,6 @@ sub prepare_test_database {
         ALTER SEQUENCE track_id_seq RESTART 100;
         ALTER SEQUENCE l_artist_recording_id_seq RESTART 100;
     });
-}
-
-sub post_json {
-    my ($mech, $uri, $json) = @_;
-
-    my $req = HTTP::Request->new('POST', $uri);
-
-    $req->header('Content-Type' => 'application/json');
-    $req->content($json);
-
-    return $mech->request($req);
 }
 
 test 'previewing/creating/editing a release group and release' => sub {

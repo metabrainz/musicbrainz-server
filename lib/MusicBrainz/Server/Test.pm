@@ -33,7 +33,7 @@ use Sub::Exporter -setup => {
         qw(
             accept_edit reject_edit xml_ok schema_validator xml_post
             compare_body html_ok test_xpath_html commandline_override
-            capture_edits
+            capture_edits post_json
         ),
         ws_test => \&_build_ws_test,
         ws_test_json => \&_build_ws_test_json,
@@ -488,6 +488,17 @@ sub commandline_override
     GetOptions("tests=s" => \$test_re);
 
     return grep { $_ =~ /$test_re/ } @default_tests;
+}
+
+sub post_json {
+    my ($mech, $uri, $json) = @_;
+
+    my $req = HTTP::Request->new('POST', $uri);
+
+    $req->header('Content-Type' => 'application/json');
+    $req->content($json);
+
+    return $mech->request($req);
 }
 
 1;
