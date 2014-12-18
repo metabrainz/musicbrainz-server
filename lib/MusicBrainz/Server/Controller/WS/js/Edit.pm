@@ -329,7 +329,8 @@ sub process_relationship {
 
         if ($entity_data) {
             my $name = $entity_data->{name};
-            my $model = type_to_model($entity_data->{entityType});
+            my $entity_type_prop = "${prop}_type";
+            my $model = type_to_model($data->{link_type}->$entity_type_prop);
 
             if ($model eq 'URL') {
                 my $url = URI->new($name)->canonical;
