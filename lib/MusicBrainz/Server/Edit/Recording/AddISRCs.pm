@@ -3,6 +3,7 @@ use Moose;
 use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( ArrayRef Str Int );
 use List::MoreUtils qw( uniq );
+use List::AllUtils qw( any );
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_ISRCS );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Translation qw( N_l );
@@ -92,13 +93,19 @@ sub build_display_data
 sub accept
 {
     my $self = shift;
-    $self->c->model('ISRC')->insert(
-        map +{
+    my $recordings = $self->c->model('Recording')->get_by_ids(map { $_->{recording}{id} } @{ $self->data->{isrcs} });
+    $self->c->model('ISRC')->load_for_recordings(values %{ $recordings });
+
+    my @new_isrcs = grep {
+           my $data = $_;
+           !any { $_->isrc eq $data->{isrc} } $recordings->{$data->{recording_id}}->all_isrcs
+        } map +{
             recording_id => $_->{recording}{id},
             isrc => $_->{isrc},
             source => $_->{source}
-        }, @{ $self->data->{isrcs} }
-    );
+        }, @{ $self->data->{isrcs} };
+
+    $self->c->model('ISRC')->insert(@new_isrcs) if @new_isrcs;
 }
 
 no Moose;
