@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-14 23:57-0600\n"
+"POT-Creation-Date: 2014-12-18 14:30-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,8 +43,8 @@ msgstr ""
 msgid "Slow? Switch back to indexed search."
 msgstr ""
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:581
-#: ../root/static/scripts/common/entity.js:185
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:584
+#: ../root/static/scripts/common/entity.js:187
 msgid "video"
 msgstr ""
 
@@ -65,128 +65,128 @@ msgctxt "tag"
 msgid "(none)"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/i18n.js:61
+#: ../root/static/scripts/common/MB/i18n.js:78
 msgid "{almost_last_list_item} and {last_list_item}"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/i18n.js:70
+#: ../root/static/scripts/common/MB/i18n.js:87
 msgid "{list_item}, {rest}"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/i18n.js:88
+#: ../root/static/scripts/common/MB/i18n.js:105
 msgid "{variable}:"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/i18n.js:94
+#: ../root/static/scripts/common/MB/i18n.js:111
 msgid "Area"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/i18n.js:95
+#: ../root/static/scripts/common/MB/i18n.js:112
 msgid "Artist"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/i18n.js:96
+#: ../root/static/scripts/common/MB/i18n.js:113
 msgid "Instrument"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/i18n.js:97
+#: ../root/static/scripts/common/MB/i18n.js:114
 msgid "Label"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/i18n.js:98
+#: ../root/static/scripts/common/MB/i18n.js:115
 msgid "Place"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/i18n.js:99
+#: ../root/static/scripts/common/MB/i18n.js:116
 msgid "Recording"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/i18n.js:100
+#: ../root/static/scripts/common/MB/i18n.js:117
 msgid "Release"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/i18n.js:101
+#: ../root/static/scripts/common/MB/i18n.js:118
 msgid "Release group"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/i18n.js:102
+#: ../root/static/scripts/common/MB/i18n.js:119
 msgctxt "singular"
 msgid "Series"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/i18n.js:103
+#: ../root/static/scripts/common/MB/i18n.js:120
 msgid "URL"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/i18n.js:104
+#: ../root/static/scripts/common/MB/i18n.js:121
 msgid "Work"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/i18n.js:108
+#: ../root/static/scripts/common/MB/i18n.js:125
 msgid "Add a new artist"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/i18n.js:109
+#: ../root/static/scripts/common/MB/i18n.js:126
 msgid "Add a new label"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/i18n.js:110
+#: ../root/static/scripts/common/MB/i18n.js:127
 msgid "Add a new place"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/i18n.js:111
+#: ../root/static/scripts/common/MB/i18n.js:128
 msgid "Add a new recording"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/i18n.js:112
+#: ../root/static/scripts/common/MB/i18n.js:129
 msgid "Add a new release group"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/i18n.js:113
+#: ../root/static/scripts/common/MB/i18n.js:130
 msgid "Add a new series"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/i18n.js:114
+#: ../root/static/scripts/common/MB/i18n.js:131
 msgid "Add a new work"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/i18n.js:118
+#: ../root/static/scripts/common/MB/i18n.js:135
 msgid "Add another area"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/i18n.js:119
+#: ../root/static/scripts/common/MB/i18n.js:136
 msgid "Add another artist"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/i18n.js:120
+#: ../root/static/scripts/common/MB/i18n.js:137
 msgid "Add another instrument"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/i18n.js:121
+#: ../root/static/scripts/common/MB/i18n.js:138
 msgid "Add another label"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/i18n.js:122
+#: ../root/static/scripts/common/MB/i18n.js:139
 msgid "Add another place"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/i18n.js:123
+#: ../root/static/scripts/common/MB/i18n.js:140
 msgid "Add another recording"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/i18n.js:124
+#: ../root/static/scripts/common/MB/i18n.js:141
 msgid "Add another release"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/i18n.js:125
+#: ../root/static/scripts/common/MB/i18n.js:142
 msgid "Add another release group"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/i18n.js:126
+#: ../root/static/scripts/common/MB/i18n.js:143
 msgid "Add another series"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/i18n.js:127
+#: ../root/static/scripts/common/MB/i18n.js:144
 msgid "Add another work"
 msgstr ""
 
@@ -208,24 +208,6 @@ msgstr ""
 
 #: ../root/static/scripts/common/dialogs.js:7
 msgid "Loading..."
-msgstr ""
-
-#: ../root/static/scripts/common/entity.js:447
-msgid "{medium_format} {position}: {title}"
-msgstr ""
-
-#: ../root/static/scripts/common/entity.js:447
-#: ../root/static/scripts/release-editor/fields.js:341
-msgid "Medium {position}: {title}"
-msgstr ""
-
-#: ../root/static/scripts/common/entity.js:449
-msgid "{medium_format} {position}"
-msgstr ""
-
-#: ../root/static/scripts/common/entity.js:449
-#: ../root/static/scripts/release-editor/fields.js:347
-msgid "Medium {position}"
 msgstr ""
 
 #: ../root/static/scripts/common/ratings.js:8
@@ -299,8 +281,8 @@ msgid "Dissolved in:"
 msgstr ""
 
 #: ../root/static/scripts/edit/confirmNavigationFallback.js:32
-#: ../root/static/scripts/relationship-editor/release.js:51
-#: ../root/static/scripts/release-editor/init.js:152
+#: ../root/static/scripts/relationship-editor/release.js:53
+#: ../root/static/scripts/release-editor/init.js:161
 msgid "All of your changes will be lost if you leave this page."
 msgstr ""
 
@@ -313,39 +295,43 @@ msgstr ""
 msgid "{description} ({url|more documentation})"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:154
-#: ../root/static/scripts/relationship-editor/common/dialog.js:418
+#: ../root/static/scripts/edit/externalLinks.js:155
+#: ../root/static/scripts/relationship-editor/common/dialog.js:417
 msgid "Required field."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:156
+#: ../root/static/scripts/edit/externalLinks.js:157
 msgid "Enter a valid url e.g. \"http://google.com/\""
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:165
+#: ../root/static/scripts/edit/externalLinks.js:166
 #: ../root/static/scripts/relationship-editor/common/dialog.js:401
 msgid "This relationship type is deprecated and should not be used."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:167
-#: ../root/static/scripts/relationship-editor/common/dialog.js:407
+#: ../root/static/scripts/edit/externalLinks.js:168
+#: ../root/static/scripts/relationship-editor/common/dialog.js:406
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
 "formatted."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:174
+#: ../root/static/scripts/edit/externalLinks.js:175
 msgid "This relationship already exists."
 msgstr ""
 
-#: ../root/static/scripts/guess-case/MB/GuessCase/Mode/Base.js:378
+#: ../root/static/scripts/guess-case/MB/Control/GuessCase.js:27
+msgid "Guess Case Options"
+msgstr ""
+
+#: ../root/static/scripts/guess-case/MB/GuessCase/Mode/Base.js:370
 msgid ""
 "This mode capitalises almost all words, with some words (mainly articles and "
 "short prepositions) lowercased. Some words may need to be manually "
 "capitalised to follow the {url|English capitalisation guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/guess-case/MB/GuessCase/Mode/Base.js:389
+#: ../root/static/scripts/guess-case/MB/GuessCase/Mode/Base.js:382
 msgid ""
 "This mode capitalises titles as sentence mode, but also inserts spaces "
 "before semicolons, colons, exclamation marks and question marks, and inside "
@@ -353,7 +339,7 @@ msgid ""
 "{url|French capitalisation guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/guess-case/MB/GuessCase/Mode/Base.js:406
+#: ../root/static/scripts/guess-case/MB/GuessCase/Mode/Base.js:400
 msgid ""
 "This mode capitalises the first word of a sentence, most other words are "
 "lowercased. Some words, often proper nouns, may need to be manually fixed "
@@ -386,15 +372,15 @@ msgid ""
 "selected relationship type is only used for grouping subtypes."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:420
+#: ../root/static/scripts/relationship-editor/common/dialog.js:419
 msgid "Entities in a relationship cannot be the same."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:433
+#: ../root/static/scripts/relationship-editor/common/dialog.js:432
 msgid "The date you've entered is not valid."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:444
+#: ../root/static/scripts/relationship-editor/common/dialog.js:443
 msgid "The end date cannot preceed the begin date."
 msgstr ""
 
@@ -414,19 +400,19 @@ msgstr ""
 msgid "You haven’t made any changes!"
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/release.js:21
+#: ../root/static/scripts/relationship-editor/release.js:22
 msgid "{n} recording selected"
 msgid_plural "{n} recordings selected"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/static/scripts/relationship-editor/release.js:25
+#: ../root/static/scripts/relationship-editor/release.js:27
 msgid "{n} work selected"
 msgid_plural "{n} works selected"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/static/scripts/release-editor/actions.js:208
+#: ../root/static/scripts/release-editor/actions.js:238
 msgid ""
 "This tracklist has artist credits with information that will be lost if you "
 "swap artist credits with track titles. This cannot be undone. Do you wish to "
@@ -441,29 +427,42 @@ msgstr ""
 msgid "Add Disc"
 msgstr ""
 
-#: ../root/static/scripts/release-editor/fields.js:349
+#: ../root/static/scripts/release-editor/fields.js:136
+msgid ""
+"None of the attached disc IDs can fit a pregap track of the given length."
+msgstr ""
+
+#: ../root/static/scripts/release-editor/fields.js:475
+msgid "Medium {position}: {title}"
+msgstr ""
+
+#: ../root/static/scripts/release-editor/fields.js:481
+msgid "Medium {position}"
+msgstr ""
+
+#: ../root/static/scripts/release-editor/fields.js:483
 msgid "Tracklist"
 msgstr ""
 
-#: ../root/static/scripts/release-editor/fields.js:686
+#: ../root/static/scripts/release-editor/fields.js:811
 msgid ""
 "This medium has one or more discids which prevent this information from "
 "being changed."
 msgstr ""
 
-#: ../root/static/scripts/release-editor/init.js:128
+#: ../root/static/scripts/release-editor/init.js:137
 msgid "{name} - Add Release"
 msgstr ""
 
-#: ../root/static/scripts/release-editor/init.js:129
+#: ../root/static/scripts/release-editor/init.js:138
 msgid "Add Release"
 msgstr ""
 
-#: ../root/static/scripts/release-editor/init.js:133
+#: ../root/static/scripts/release-editor/init.js:142
 msgid "{name} - Edit Release"
 msgstr ""
 
-#: ../root/static/scripts/release-editor/init.js:134
+#: ../root/static/scripts/release-editor/init.js:143
 msgid "Edit Release"
 msgstr ""
 
