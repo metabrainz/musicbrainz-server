@@ -45,10 +45,10 @@ use aliased 'MusicBrainz::Server::Entity::Track';
 use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
+no if $] >= 5.018, warnings => "experimental::smartmatch";
 
 Readonly our $ERROR_NOT_LOGGED_IN => 1;
 Readonly our $ERROR_NON_EXISTENT_ENTITIES => 2;
-
 
 our $TT = Template->new(
     INCLUDE_PATH => catdir(DBDefs->MB_SERVER_ROOT, 'root'),
@@ -343,27 +343,35 @@ sub process_edits {
     my @props_to_load;
     my @loaded_relationships;
     my @non_existent_entities;
+    my @relationship_edits;
 
     for my $edit (@$edits) {
         my $edit_type = $edit->{edit_type};
 
-        if ($edit_type == $EDIT_RELATIONSHIP_CREATE) {
+        if ($edit_type ~~ [$EDIT_RELATIONSHIP_CREATE, $EDIT_RELATIONSHIP_EDIT, $EDIT_RELATIONSHIP_DELETE]) {
             die 'missing linkTypeID' unless $edit->{linkTypeID};
-
-            push @link_types_to_load, $edit;
+            push @link_types_to_load, $edit->{linkTypeID};
+            push @relationship_edits, $edit;
         }
+    }
 
-        if ($edit_type == $EDIT_RELATIONSHIP_EDIT ||
-            $edit_type == $EDIT_RELATIONSHIP_DELETE) {
+    my $link_types = $c->model('LinkType')->get_by_ids(@link_types_to_load);
 
-            my $type0 = $edit->{entities}->[0]->{entityType} or die 'missing entityType';
-            my $type1 = $edit->{entities}->[1]->{entityType} or die 'missing entityType';
+    for my $edit (@relationship_edits) {
+        my $link_type = $link_types->{$edit->{linkTypeID}};
+
+        die "unknown linkTypeID: " . $edit->{linkTypeID} unless $link_type;
+
+        $edit->{link_type} = $link_type;
+
+        if ($edit->{edit_type} ~~ [$EDIT_RELATIONSHIP_EDIT, $EDIT_RELATIONSHIP_DELETE]) {
             my $id = $edit->{id} or die 'missing relationship id';
 
-            # Only one edit per relationship is supported.
-            ($relationships_to_load->{"$type0-$type1"} //= {})->{ $id } = $edit;
+            my $type0 = $link_type->entity0_type;
+            my $type1 = $link_type->entity1_type;
 
-            push @link_types_to_load, $edit if $edit->{linkTypeID};
+            # Only one edit per relationship is supported.
+            ($relationships_to_load->{"$type0-$type1"} //= {})->{$id} = $edit;
         }
     }
 
@@ -374,41 +382,17 @@ sub process_edits {
            $type0, $type1, keys %$edits
         );
 
-        my @relationships = values %$relationships_by_id;
-        $c->model('Link')->load(@relationships);
-
         while (my ($id, $edit) = each %$edits) {
             unless ($edit->{relationship} = $relationships_by_id->{$id}) {
                 push @non_existent_entities, { type => 'relationship', id => $id };
             }
         }
 
-        push @loaded_relationships, @relationships;
+        push @loaded_relationships, values %$relationships_by_id;
     }
 
-    my $link_types = $c->model('LinkType')->get_by_ids(
-        ( map { $_->{linkTypeID} } @link_types_to_load ),
-        ( map { $_->link->type_id } @loaded_relationships ),
-    );
-
-    $_->{link_type} = $link_types->{ $_->{linkTypeID} } for @link_types_to_load;
-    $_->link->type($link_types->{ $_->link->type_id }) for @loaded_relationships;
-
-    for my $edit (@link_types_to_load) {
-        my $link_type = $edit->{link_type};
-
-        die "unknown linkTypeID: " . $edit->{linkTypeID} unless $link_type;
-
-        my $type0 = $edit->{entities}->[0]->{entityType};
-        my $type1 = $edit->{entities}->[1]->{entityType};
-
-        if ($type0 ne $link_type->entity0_type || $type1 ne $link_type->entity1_type) {
-            my $link_type_id = $link_type->id;
-
-            die "linkTypeID $link_type_id is not for $type0-$type1 relationships";
-        }
-    }
-
+    $c->model('Link')->load(@loaded_relationships);
+    $c->model('LinkType')->load(map { $_->link } @loaded_relationships);
     $c->model('Relationship')->load_entities(@loaded_relationships);
 
     my $loader = sub {
