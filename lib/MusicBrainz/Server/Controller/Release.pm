@@ -99,7 +99,7 @@ after 'load' => sub
     }
 };
 
-after show => sub {
+before show => sub {
     my ($self, $c, @args) = @_;
 
     if ($args[0] eq 'disc') {
