@@ -548,8 +548,9 @@ test("relationshipDelete edit for external link is generated for existing releas
             "name": "http://www.discogs.com/release/1369894"
           }
         ],
-        "hash": "9d7f27c130d713ebe7ecfed7a58a1645f13bac42",
-        "id": 123
+        "hash": "06b3b80df94eb75cdb26b98afda49431b0d42db8",
+        "id": 123,
+        "linkTypeID": 76
       }
     ]);
 });
