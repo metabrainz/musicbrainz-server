@@ -137,6 +137,15 @@
                 json.artistCredit = this.artistCredit.toJSON();
             }
             return json;
+        },
+
+        canTakeName: function (name) {
+            name = _.str.clean(name);
+            return name && name !== ko.unwrap(this.name);
+        },
+
+        canTakeArtist: function (ac) {
+            return ac.isComplete() && !this.artistCredit.isEqual(ac);
         }
     });
 

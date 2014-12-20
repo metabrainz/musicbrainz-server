@@ -26,18 +26,29 @@
 
         releaseGroup: function (release) {
             var releaseGroup = release.releaseGroup();
-            var releaseGroupName = _.str.clean(releaseGroup.name);
             var releaseName = _.str.clean(release.name());
+            var releaseAC = release.artistCredit;
             var editData = MB.edit.fields.releaseGroup(releaseGroup);
 
             if (releaseGroup.gid) {
-                if (releaseEditor.copyTitleToReleaseGroup() && releaseName && releaseName !== releaseGroupName) {
+                var dataChanged = false;
+
+                if (releaseEditor.copyTitleToReleaseGroup() && releaseGroup.canTakeName(releaseName)) {
                     editData.name = releaseName;
+                    dataChanged = true;
+                }
+
+                if (releaseEditor.copyArtistToReleaseGroup() && releaseGroup.canTakeArtist(releaseAC)) {
+                    editData.artist_credit = MB.edit.fields.artistCredit(releaseAC);
+                    dataChanged = true;
+                }
+
+                if (dataChanged) {
                     return [MB.edit.releaseGroupEdit(editData)];
                 }
             } else if (releaseEditor.action === "add") {
-                editData.name = releaseGroupName || releaseName;
-                editData.artist_credit = MB.edit.fields.artistCredit(release.artistCredit);
+                editData.name = _.str.clean(releaseGroup.name) || releaseName;
+                editData.artist_credit = MB.edit.fields.artistCredit(releaseAC);
                 return [MB.edit.releaseGroupCreate(editData)];
             }
 

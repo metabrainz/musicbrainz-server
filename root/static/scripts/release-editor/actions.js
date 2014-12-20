@@ -31,6 +31,7 @@
         // Information tab
 
         copyTitleToReleaseGroup: ko.observable(false),
+        copyArtistToReleaseGroup: ko.observable(false),
 
         addReleaseEvent: function (release) {
             release.events.push(this.fields.ReleaseEvent({}, release));

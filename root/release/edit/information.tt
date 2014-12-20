@@ -21,40 +21,6 @@
 
       [% table_row_error(2, 'showErrorWhenTabIsSwitched: needsName', l('A release title is required.')) %]
 
-      <!-- ko with: releaseGroup -->
-        <!-- ko if: $data.gid && $parent.name() !== $data.name -->
-          <tr>
-            <td></td>
-            <td colspan="2">
-              <label>
-                <input type="checkbox" data-bind="checked: $root.copyTitleToReleaseGroup" />
-                [% l('Copy the release title to the release group') %]
-              </label>
-            </td>
-          </tr>
-        <!-- /ko -->
-      <!-- /ko -->
-
-      <tr>
-        <td><label for="release-group">[% l('Release Group:') %]</label></td>
-        <td colspan="2">
-          <span class="autocomplete">
-            <input id="release-group" type="text"
-              data-bind="
-                autocomplete: {
-                  entity: 'release-group',
-                  currentSelection: releaseGroup,
-                  entityConstructor: $root.fields.ReleaseGroup
-                },
-                controlsBubble: $root.releaseGroupBubble"
-            />
-            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
-          </span>
-        </td>
-      </tr>
-
-      [% table_row_error(2, 'showErrorWhenTabIsSwitched: needsReleaseGroup', l('You must select an existing release group.')) %]
-
       <tr data-bind="with: artistCredit">
         <td><label for="release-artist" class="required">[% l('Artist:') %]</label></td>
         <td class="release-artist">
@@ -79,6 +45,61 @@
       </tr>
 
       [% table_row_error(2, 'showErrorWhenTabIsSwitched: needsArtistCredit', l('You haven‘t entered a complete artist credit.')) %]
+
+      <tr>
+        <td><label for="release-group">[% l('Release Group:') %]</label></td>
+        <td colspan="2">
+          <span class="autocomplete">
+            <input id="release-group" type="text"
+              data-bind="
+                autocomplete: {
+                  entity: 'release-group',
+                  currentSelection: releaseGroup,
+                  entityConstructor: $root.fields.ReleaseGroup
+                },
+                controlsBubble: $root.releaseGroupBubble"
+            />
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" alt="[% l('Search') %]" />
+          </span>
+        </td>
+      </tr>
+
+      [% table_row_error(2, 'showErrorWhenTabIsSwitched: needsReleaseGroup', l('You must select an existing release group.')) %]
+
+      <!-- ko with: releaseGroup -->
+        <!-- ko if: $data.gid -->
+          <!-- ko if: canTakeName($parent.name()) -->
+            <tr>
+              <td></td>
+              <td colspan="2">
+                <div class="checkbox">
+                  <div>
+                    <input type="checkbox" id="copy-title-to-rg" data-bind="checked: $root.copyTitleToReleaseGroup" />
+                    <label class="inline" for="copy-title-to-rg">
+                      [% l('Copy the release title to the release group') %]
+                    </label>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          <!-- /ko -->
+          <!-- ko if: canTakeArtist($parent.artistCredit) -->
+            <tr>
+              <td></td>
+              <td colspan="2">
+                <div class="checkbox">
+                  <div>
+                    <input type="checkbox" id="copy-ac-to-rg" data-bind="checked: $root.copyArtistToReleaseGroup" />
+                    <label class="inline" for="copy-ac-to-rg">
+                      [% l('Copy the release artist credit to the release group') %]
+                    </label>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          <!-- /ko -->
+        <!-- /ko -->
+      <!-- /ko -->
 
       [% IF NOT release.gid %]
         <!-- ko with: releaseGroup -->
