@@ -26,16 +26,22 @@
 
         releaseGroup: function (release) {
             var releaseGroup = release.releaseGroup();
-            var name = _.str.clean(releaseGroup.name) || _.str.clean(release.name());
-
-            if (releaseGroup.id || !name) return [];
-
+            var releaseGroupName = _.str.clean(releaseGroup.name);
+            var releaseName = _.str.clean(release.name());
             var editData = MB.edit.fields.releaseGroup(releaseGroup);
 
-            editData.name = name;
-            editData.artist_credit = MB.edit.fields.artistCredit(release.artistCredit);
+            if (releaseGroup.gid) {
+                if (releaseEditor.copyTitleToReleaseGroup() && releaseName && releaseName !== releaseGroupName) {
+                    editData.name = releaseName;
+                    return [MB.edit.releaseGroupEdit(editData)];
+                }
+            } else if (releaseEditor.action === "add") {
+                editData.name = releaseGroupName || releaseName;
+                editData.artist_credit = MB.edit.fields.artistCredit(release.artistCredit);
+                return [MB.edit.releaseGroupCreate(editData)];
+            }
 
-            return [ MB.edit.releaseGroupCreate(editData) ];
+            return [];
         },
 
         release: function (release) {
@@ -342,7 +348,7 @@
             var root = releaseEditor.rootField;
 
             return Array.prototype.concat(
-                releaseEditor.action === "add" ? releaseEditor.edits.releaseGroup(release) : [],
+                releaseEditor.edits.releaseGroup(release),
                 releaseEditor.edits.release(release),
                 releaseEditor.edits.releaseLabel(release),
                 releaseEditor.edits.medium(release),
@@ -494,9 +500,11 @@
             edits: releaseEditor.edits.releaseGroup,
 
             callback: function (release, edits) {
-                release.releaseGroup(
-                    releaseEditor.fields.ReleaseGroup(edits[0].entity)
-                );
+                var edit = edits[0];
+
+                if (edit.edit_type == MB.edit.TYPES.EDIT_RELEASEGROUP_CREATE) {
+                    release.releaseGroup(releaseEditor.fields.ReleaseGroup(edits[0].entity));
+                }
             }
         },
         {

@@ -21,6 +21,20 @@
 
       [% table_row_error(2, 'showErrorWhenTabIsSwitched: needsName', l('A release title is required.')) %]
 
+      <!-- ko with: releaseGroup -->
+        <!-- ko if: $data.gid && $parent.name() !== $data.name -->
+          <tr>
+            <td></td>
+            <td colspan="2">
+              <label>
+                <input type="checkbox" data-bind="checked: $root.copyTitleToReleaseGroup" />
+                [% l('Copy the release title to the release group') %]
+              </label>
+            </td>
+          </tr>
+        <!-- /ko -->
+      <!-- /ko -->
+
       <tr>
         <td><label for="release-group">[% l('Release Group:') %]</label></td>
         <td colspan="2">

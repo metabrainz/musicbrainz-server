@@ -30,6 +30,8 @@
 
         // Information tab
 
+        copyTitleToReleaseGroup: ko.observable(false),
+
         addReleaseEvent: function (release) {
             release.events.push(this.fields.ReleaseEvent({}, release));
         },

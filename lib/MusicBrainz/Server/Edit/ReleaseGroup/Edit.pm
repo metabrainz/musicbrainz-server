@@ -16,6 +16,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     merge_artist_credit
     merge_value
     verify_artist_credits
+    hash_artist_credit
 );
 use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Validation qw( normalise_strings );
@@ -32,6 +33,7 @@ extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities';
 with 'MusicBrainz::Server::Edit::ReleaseGroup';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
+with 'MusicBrainz::Server::Edit::Role::Preview';
 
 sub edit_type { $EDIT_RELEASEGROUP_EDIT }
 sub edit_name { N_l("Edit release group") }
@@ -151,9 +153,15 @@ around initialize => sub
     my $orig = shift;
     my ($self, %opts) = @_;
     my $release_group = $opts{to_edit} or return;
-    if (exists $opts{artist_credit} && !$release_group->artist_credit) {
-        $self->c->model('ArtistCredit')->load($release_group);
+
+    if (exists $opts{artist_credit}) {
+        if (!$release_group->artist_credit) {
+            $self->c->model('ArtistCredit')->load($release_group);
+        }
+        my $current_artist_credit = artist_credit_to_ref($release_group->artist_credit);
+        delete $opts{artist_credit} if hash_artist_credit($current_artist_credit) eq hash_artist_credit($opts{artist_credit});
     }
+
     $opts{type_id} = delete $opts{primary_type_id};
 
     $opts{secondary_type_ids} = [
