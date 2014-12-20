@@ -435,7 +435,7 @@ CREATE UNIQUE INDEX tag_idx_name ON tag (name);
 CREATE UNIQUE INDEX track_idx_gid ON track (gid);
 
 CREATE INDEX track_idx_recording ON track (recording);
-CREATE INDEX track_idx_medium ON track (medium, position);
+CREATE UNIQUE INDEX track_idx_uniq_medium_position ON track (medium, position);
 CREATE INDEX track_idx_name ON track (name);
 CREATE INDEX track_idx_artist_credit ON track (artist_credit);
 
