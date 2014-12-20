@@ -3,11 +3,15 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-module("external links editor", {
+var test = require('tape');
 
-    setup: function () {
+MB.faviconClasses = { "wikipedia.org": "wikipedia" };
 
-        $("#qunit-fixture").append($.parseHTML('\
+function externalLinksTest(name, callback) {
+    test(name, function (t) {
+        var $fixture = $('<div>').appendTo('body');
+
+        $fixture.append($.parseHTML('\
             <table id="external-links-editor">\
             <tbody data-bind="loop: { items: nonRemovedLinks, id: \'uniqueID\' }">\
               <tr data-bind="urlCleanup: \'artist\'">\
@@ -33,57 +37,57 @@ module("external links editor", {
             <div id="relationship-editor"></div>\
         '));
 
-        MB.faviconClasses = { "wikipedia.org": "wikipedia" };
-
-        this.addURL = function (name) {
-            var source = this.viewModel.source;
+        function addURL(name) {
+            var source = viewModel.source;
             var target = MB.entity.URL({ name: name });
-            var url = this.viewModel.getRelationship({ target: target }, source);
+            var url = viewModel.getRelationship({ target: target }, source);
 
             source.relationships.push(url);
 
             return url;
         };
 
-        this.viewModel = MB.Control.externalLinks.applyBindings({
+        var viewModel = MB.Control.externalLinks.applyBindings({
             sourceData: { entityType: "artist", relationships: [] },
             formName: "edit-artist"
         });
 
-        MB.sourceExternalLinksEditor = this.viewModel;
+        MB.sourceExternalLinksEditor = viewModel;
 
-        this.RE = MB.relationshipEditor;
-    },
+        callback(t, viewModel, addURL);
 
-    teardown: function () {
-        MB.sourceExternalLinksEditor = null;
-    }
+        $fixture.remove();
+        delete MB.sourceExternalLinksEditor;
+    });
+}
+
+externalLinksTest("automatic link type detection for URL", function (t, viewModel, addURL) {
+    t.plan(5);
+
+    var url = addURL("http://en.wikipedia.org/wiki/No_Age");
+
+    t.ok(url.matchesType(), "wikipedia page is detected");
+    t.equal(url.faviconClass(), "wikipedia-favicon", "wikipedia favicon is used");
+    t.equal(url.linkPhrase(viewModel.source), "Wikipedia", "wikipedia label is used");
+    t.equal(url.linkTypeID(), 179, "internal link type is set to 179");
+    t.equal(+url.cleanup.typeControl.val(), 179, "option with value 179 is selected");
 });
 
+externalLinksTest("invalid URL detection", function (t, viewModel, addURL) {
+    t.plan(2);
 
-test("automatic link type detection for URL", function () {
-    var url = this.addURL("http://en.wikipedia.org/wiki/No_Age");
+    var url = addURL("foo");
 
-    ok(url.matchesType(), "wikipedia page is detected");
-    equal(url.faviconClass(), "wikipedia-favicon", "wikipedia favicon is used");
-    equal(url.linkPhrase(this.viewModel.source), "Wikipedia", "wikipedia label is used");
-    equal(url.linkTypeID(), 179, "internal link type is set to 179");
-    equal(url.cleanup.typeControl.val(), 179, "option with value 179 is selected");
-});
-
-
-test("invalid URL detection", function () {
-    var url = this.addURL("foo");
-
-    ok(!!url.error(), "error is shown for invalid URL");
+    t.ok(!!url.error(), "error is shown for invalid URL");
 
     url.cleanup.urlControl.val("http://en.wikipedia.org/wiki/No_Age").change();
-    ok(!url.error(), "error is removed after valid URL is entered");
+    t.ok(!url.error(), "error is removed after valid URL is entered");
 });
 
+externalLinksTest("deprecated link type detection", function (t, viewModel, addURL) {
+    t.plan(2);
 
-test("deprecated link type detection", function () {
-    var url = this.addURL("http://musicmoz.org/Bands_and_Artists/B/Beatles,_The/");
+    var url = addURL("http://musicmoz.org/Bands_and_Artists/B/Beatles,_The/");
 
     MB.typeInfoByID[181] = {
         deprecated: true,
@@ -93,24 +97,25 @@ test("deprecated link type detection", function () {
 
     url.cleanup.typeControl.val(181).change();
 
-    ok(!!url.error(), "error is shown for deprecated link type");
+    t.ok(!!url.error(), "error is shown for deprecated link type");
 
     url.cleanup.typeControl.val(188).change();
-    ok(!url.error(), "error is removed after valid link type is selected");
+    t.ok(!url.error(), "error is removed after valid link type is selected");
 });
 
+externalLinksTest("hidden input data for form submission", function (t, viewModel, addedURL) {
+    t.plan(12);
 
-test("hidden input data for form submission", function () {
-    var source = this.viewModel.source;
+    var source = viewModel.source;
     var $re = $("#relationship-editor");
 
-    var existingURL = this.viewModel.getRelationship({
+    var existingURL = viewModel.getRelationship({
         id: 1,
         target: MB.entity.URL({ name: "http://en.wikipedia.org/wiki/Deerhunter" }),
         linkTypeID: 179
     }, source);
 
-    var addedURL = this.viewModel.getRelationship({
+    var addedURL = viewModel.getRelationship({
         target: MB.entity.URL({ name: "http://rateyourmusic.com/artist/deerhunter" }),
         linkTypeID: 188
     }, source);
@@ -122,26 +127,26 @@ test("hidden input data for form submission", function () {
     addedURL.cleanup.urlControl.change();
     addedURL.cleanup.typeControl.change();
 
-    this.RE.prepareSubmission();
-    equal($re.find("input[name=edit-artist\\.url\\.0\\.relationship_id]").val(), "1");
-    equal($re.find("input[name=edit-artist\\.url\\.0\\.text]").val(), "http://en.wikipedia.org/wiki/Deerhunter");
-    equal($re.find("input[name=edit-artist\\.url\\.0\\.link_type_id]").val(), "179");
-    equal($re.find("input[name=edit-artist\\.url\\.1\\.text]").val(), "http://rateyourmusic.com/artist/deerhunter");
-    equal($re.find("input[name=edit-artist\\.url\\.1\\.link_type_id]").val(), "188");
+    MB.relationshipEditor.prepareSubmission();
+    t.equal($re.find("input[name=edit-artist\\.url\\.0\\.relationship_id]").val(), "1");
+    t.equal($re.find("input[name=edit-artist\\.url\\.0\\.text]").val(), "http://en.wikipedia.org/wiki/Deerhunter");
+    t.equal($re.find("input[name=edit-artist\\.url\\.0\\.link_type_id]").val(), "179");
+    t.equal($re.find("input[name=edit-artist\\.url\\.1\\.text]").val(), "http://rateyourmusic.com/artist/deerhunter");
+    t.equal($re.find("input[name=edit-artist\\.url\\.1\\.link_type_id]").val(), "188");
 
     existingURL.cleanup.urlControl.val("http://en.wikipedia.org/wiki/dEErHuNtER").change();
     addedURL.remove();
 
-    this.RE.prepareSubmission();
-    equal($re.find("input[name=edit-artist\\.url\\.0\\.relationship_id]").val(), "1");
-    equal($re.find("input[name=edit-artist\\.url\\.0\\.text]").val(), "http://en.wikipedia.org/wiki/dEErHuNtER");
-    equal($re.find("input[name=edit-artist\\.url\\.0\\.link_type_id]").val(), "179");
+    MB.relationshipEditor.prepareSubmission();
+    t.equal($re.find("input[name=edit-artist\\.url\\.0\\.relationship_id]").val(), "1");
+    t.equal($re.find("input[name=edit-artist\\.url\\.0\\.text]").val(), "http://en.wikipedia.org/wiki/dEErHuNtER");
+    t.equal($re.find("input[name=edit-artist\\.url\\.0\\.link_type_id]").val(), "179");
 
     existingURL.removed(true);
 
-    this.RE.prepareSubmission();
-    equal($re.find("input[name=edit-artist\\.url\\.0\\.relationship_id]").val(), "1");
-    equal($re.find("input[name=edit-artist\\.url\\.0\\.removed]").val(), "1");
-    equal($re.find("input[name=edit-artist\\.url\\.0\\.text]").val(), "http://en.wikipedia.org/wiki/dEErHuNtER");
-    equal($re.find("input[name=edit-artist\\.url\\.0\\.link_type_id]").val(), "179");
+    MB.relationshipEditor.prepareSubmission();
+    t.equal($re.find("input[name=edit-artist\\.url\\.0\\.relationship_id]").val(), "1");
+    t.equal($re.find("input[name=edit-artist\\.url\\.0\\.removed]").val(), "1");
+    t.equal($re.find("input[name=edit-artist\\.url\\.0\\.text]").val(), "http://en.wikipedia.org/wiki/dEErHuNtER");
+    t.equal($re.find("input[name=edit-artist\\.url\\.0\\.link_type_id]").val(), "179");
 });

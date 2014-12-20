@@ -49,7 +49,7 @@ function buildStyles() {
     );
 }
 
-function createBundle(resourceName, watch, callback) {
+function runBrowserify(resourceName, watch, callback) {
     var b = browserify("./root/static/scripts/" + resourceName, {
         cache: {},
         packageCache: {},
@@ -60,6 +60,16 @@ function createBundle(resourceName, watch, callback) {
     if (callback) {
         callback(b);
     }
+
+    return b;
+}
+
+function bundleScripts(b, resourceName) {
+    return b.bundle().on("error", console.log).pipe(source(resourceName));
+}
+
+function createBundle(resourceName, watch, callback) {
+    var b = runBrowserify(resourceName, watch, callback);
 
     if (process.env.UGLIFY) {
         b.transform("uglifyify", {
@@ -73,11 +83,7 @@ function createBundle(resourceName, watch, callback) {
     }
 
     function build() {
-        return writeResource(
-            b.bundle()
-            .on("error", console.log)
-            .pipe(source(resourceName))
-        );
+        return writeResource(bundleScripts(b, resourceName));
     }
 
     if (watch) {
@@ -106,7 +112,10 @@ function buildScripts(watch) {
         }),
         createBundle("guess-case.js", watch),
         createBundle("release-editor.js", watch),
-        createBundle("statistics.js", watch)
+        createBundle("statistics.js", watch),
+
+        bundleScripts(runBrowserify('tests.js', watch), 'tests.js')
+            .pipe(gulp.dest("./root/static/build/"))
     ]);
 }
 
