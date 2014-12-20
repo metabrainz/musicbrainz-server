@@ -8,7 +8,6 @@ use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_EDIT );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
 use MusicBrainz::Server::Edit::Utils qw(
-    clean_submitted_artist_credits
     changed_relations
     changed_display_data
     load_artist_credit_definitions
@@ -27,6 +26,7 @@ no if $] >= 5.018, warnings => "experimental::smartmatch";
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Recording';
+with 'MusicBrainz::Server::Edit::Role::EditArtistCredit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
 
@@ -146,15 +146,9 @@ around 'initialize' => sub
 {
     my ($orig, $self, %opts) = @_;
     my $recording = $opts{to_edit} or return;
-    if (exists $opts{artist_credit} && !$recording->artist_credit) {
-        $self->c->model('ArtistCredit')->load($recording);
-    }
 
     delete $opts{length} if exists $opts{length} &&
         $self->c->model('Recording')->usage_count($recording->id);
-
-    $opts{artist_credit} = clean_submitted_artist_credits($opts{artist_credit})
-        if exists($opts{artist_credit});
 
     $opts{video} = boolean_from_json($opts{video}) if exists $opts{video};
 
