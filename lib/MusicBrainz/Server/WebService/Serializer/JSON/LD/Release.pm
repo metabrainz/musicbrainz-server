@@ -8,47 +8,65 @@ extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Name';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Length';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Language';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Producer';
 
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
     my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
 
     $ret->{'@type'} = 'MusicRelease';
-    if ($entity->all_events) {
-        $ret->{hasReleaseRegion} = [
-            map { release_event($_, $inc, $stash) } $entity->all_events
-        ];
-    }
-    if ($entity->all_labels) {
-        my @catalog_numbers = uniq grep { defined } map { $_->catalog_number } $entity->all_labels;
-        if (@catalog_numbers) {
-            $ret->{catalogNumber} = list_or_single(@catalog_numbers);
-        }
-        my @labels = map { serialize_entity($_, $inc, $stash) } uniq_by { $_->gid } grep { defined } map { $_->label } $entity->all_labels;
-        if (@labels) {
-            $ret->{recordLabel} = list_or_single(@labels);
-        }
-    }
-    my @medium_formats = uniq map { medium_format($_->format) } grep { defined $_->format } $entity->all_mediums;
-    if (@medium_formats) {
-        $ret->{hasReleaseFormat} = list_or_single(@medium_formats);
-    }
 
-    if ($stash->store($entity)->{cover_art}) {
-        $ret->{image} = list_or_single(map { artwork($_) } @{ $stash->store($entity)->{cover_art} });
-    }
+    $ret->{releaseOf} = serialize_entity($entity->release_group, $inc, $stash);
 
-    if ($entity->all_mediums &&
-        ($entity->all_mediums)[0]->all_tracks &&
-        (($entity->all_mediums)[0]->all_tracks)[0]->recording) {
-        my @tracks;
-        for my $medium ($entity->all_mediums) {
-            for my $track ($medium->all_tracks) {
-                $stash->store($track->recording)->{trackNumber} = $track->number;
-                push(@tracks, serialize_entity($track->recording, $inc, $stash));
+    if ($toplevel) {
+        if ($entity->all_events) {
+            $ret->{hasReleaseRegion} = [
+                map { release_event($_, $inc, $stash) } $entity->all_events
+            ];
+        }
+        if ($entity->all_labels) {
+            my @catalog_numbers = uniq grep { defined } map { $_->catalog_number } $entity->all_labels;
+            if (@catalog_numbers) {
+                $ret->{catalogNumber} = list_or_single(@catalog_numbers);
+            }
+            my @labels = map { serialize_entity($_, $inc, $stash) } uniq_by { $_->gid } grep { defined } map { $_->label } $entity->all_labels;
+            if (@labels) {
+                $ret->{recordLabel} = list_or_single(@labels);
             }
         }
-        $ret->{track} = \@tracks;
+        my @medium_formats = uniq map { medium_format($_->format) } grep { defined $_->format } $entity->all_mediums;
+        if (@medium_formats) {
+            $ret->{hasReleaseFormat} = list_or_single(@medium_formats);
+        }
+
+        if ($stash->store($entity)->{cover_art}) {
+            $ret->{image} = list_or_single(map { artwork($_) } @{ $stash->store($entity)->{cover_art} });
+        }
+
+        if ($entity->all_mediums) {
+            my $use_medium = 0;
+            if (scalar $entity->all_mediums > 1) {
+                $use_medium = 1;
+            }
+            my @tracks;
+            for my $medium ($entity->all_mediums) {
+                if ($medium->all_tracks) {
+                    for my $track ($medium->all_tracks) {
+                        if ($track->recording) {
+                            # XXX: should track->number be integrated somehow on multi-medium releases?
+                            $stash->store($track->recording)->{trackNumber} = $use_medium ? join('.', $medium->position, $track->position) : $track->number;
+                            push(@tracks, serialize_entity($track->recording, $inc, $stash));
+                        }
+                    }
+                }
+            }
+            $ret->{track} = \@tracks if @tracks;
+        }
+
+        $ret->{gtin14} = $entity->barcode->code if $entity->barcode;
+
+        $ret->{creditedTo} = $entity->artist_credit->name if $entity->artist_credit;
     }
 
     return $ret;

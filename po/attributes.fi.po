@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-11-24 01:52+0000\n"
+"PO-Revision-Date: 2014-12-16 07:54+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +32,11 @@ msgstr "10\" Vinyyli"
 msgctxt "medium_format"
 msgid "12\" Vinyl"
 msgstr "12\" Vinyyli"
+
+#: DB:medium_format/name:49
+msgctxt "medium_format"
+msgid "3.5\" Floppy Disk"
+msgstr ""
 
 #: DB:medium_format/name:29
 msgctxt "medium_format"
@@ -510,6 +515,11 @@ msgctxt "area_type"
 msgid "Country"
 msgstr "Maa"
 
+#: DB:area_type/name:7
+msgctxt "area_type"
+msgid "County"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:67
 msgctxt "work_attribute_type_allowed_value"
 msgid "Cārukēśi"
@@ -584,6 +594,11 @@ msgstr "DVD-Audio"
 msgctxt "medium_format"
 msgid "DVD-Video"
 msgstr "DVD-Video"
+
+#: DB:medium_format/name:47
+msgctxt "medium_format"
+msgid "DVDplus"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:73
 msgctxt "work_attribute_type_allowed_value"
@@ -739,6 +754,11 @@ msgstr "eis-molli"
 msgctxt "release_group_primary_type"
 msgid "EP"
 msgstr "EP"
+
+#: DB:medium_format/name:50
+msgctxt "medium_format"
+msgid "Edison Diamond Disc"
+msgstr ""
 
 #: DB:instrument_type/name:4
 msgctxt "instrument_type"
@@ -1558,6 +1578,11 @@ msgctxt "area_type"
 msgid "Municipality"
 msgstr "Hallinnollinen alue"
 
+#: DB:medium_format/name:46
+msgctxt "medium_format"
+msgid "Music Card"
+msgstr ""
+
 #: DB:work_attribute_type/name:12
 msgctxt "work_attribute_type"
 msgid "MÜST ID"
@@ -1812,6 +1837,11 @@ msgstr "Pianorulla"
 msgctxt "alias_type"
 msgid "Place name"
 msgstr "Paikannimi"
+
+#: DB:medium_format/name:45
+msgctxt "medium_format"
+msgid "Playbutton"
+msgstr ""
 
 #: DB:work_type/name:21
 msgctxt "work_type"
@@ -2363,11 +2393,6 @@ msgctxt "place_type"
 msgid "Venue"
 msgstr "Tapahtumapaikka"
 
-#: DB:medium_format/name:32
-msgctxt "medium_format"
-msgid "Videotape"
-msgstr "Videokasetti"
-
 #: DB:work_attribute_type_allowed_value/value:273
 msgctxt "work_attribute_type_allowed_value"
 msgid "Vijayanagari"
@@ -2387,6 +2412,11 @@ msgstr "Vijayaśrī"
 msgctxt "medium_format"
 msgid "Vinyl"
 msgstr "Vinyyli"
+
+#: DB:medium_format/name:48
+msgctxt "medium_format"
+msgid "VinylDisc"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:259
 msgctxt "work_attribute_type_allowed_value"

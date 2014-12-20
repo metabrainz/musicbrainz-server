@@ -1,4 +1,4 @@
-@form-half-width: 520px;
+@form-half-width: 540px;
 @form-margin: 12px;
 @form-label-width: 150px;
 @form-input-width: @form-half-width - @form-label-width - (@form-margin * 3);
@@ -364,6 +364,10 @@ div.half-width fieldset select.short {
 }
 
 div.half-width fieldset {
+    input.with-button, select.with-button {
+        width: @form-input-width - @form-icon-size - 2;
+    }
+
     input.with-guesscase {
         width: @form-input-width - (@form-icon-size * 2) - 6 !important;
     }

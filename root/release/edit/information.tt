@@ -130,7 +130,7 @@
         [% table_cells_select('country', l('Country:'), 1,
             "value: countryID, withLabel: 'country'", countries) %]
         <td>
-          <button type="button" class="icon remove-item" title="[% l('Remove Event') %]" data-click="removeReleaseEvent"></button>
+          <button type="button" class="icon remove-item" title="[% l('Remove Release Event') %]" data-click="removeReleaseEvent"></button>
         </td>
       </tr>
 
@@ -141,8 +141,8 @@
       <tr>
         <td></td>
         <td colspan="4" class="add-item">
-          <button class="with-label add-item" title="[% lp('Add Event', 'button/menu') %]" data-click="addReleaseEvent">
-            [% lp('Add Event', 'button/menu') %]
+          <button class="with-label add-item" title="[% lp('Add Release Event', 'button/menu') %]" data-click="addReleaseEvent">
+            [% lp('Add Release Event', 'button/menu') %]
           </button>
         </td>
       </tr>

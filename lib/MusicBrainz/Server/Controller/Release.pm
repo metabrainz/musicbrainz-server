@@ -162,6 +162,7 @@ sub show : Chained('load') PathPart('')
     if ($c->user_exists) {
         $c->model('Recording')->rating->load_user_ratings($c->user->id, @recordings);
     }
+    $c->model('ISRC')->load_for_recordings(@recordings);
     $c->model('ArtistCredit')->load($release, @tracks);
 
     $c->model('Relationship')->load(@recordings);

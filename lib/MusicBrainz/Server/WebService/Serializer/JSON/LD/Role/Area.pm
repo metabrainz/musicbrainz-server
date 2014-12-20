@@ -9,9 +9,16 @@ parameter 'property' => (
     default => sub { 'location' }
 );
 
+parameter 'include_birth_death' => (
+    isa => 'CodeRef',
+    required => 0,
+    default => sub { sub { 0 } }
+);
+
 role {
     my $params = shift;
     my $property = $params->property;
+    my $include = $params->include_birth_death;
 
     requires 'serialize';
     around serialize => sub {
@@ -19,6 +26,10 @@ role {
         my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
 
         $ret->{$property} = serialize_entity($entity->area, $inc, $stash) if $entity->area;
+        if ($include->($entity)) {
+            $ret->{birthPlace} = serialize_entity($entity->begin_area, $inc, $stash) if $entity->can('begin_area') && $entity->begin_area;
+            $ret->{deathPlace} = serialize_entity($entity->end_area, $inc, $stash) if $entity->can('end_area') && $entity->end_area;
+        }
 
         return $ret;
     };

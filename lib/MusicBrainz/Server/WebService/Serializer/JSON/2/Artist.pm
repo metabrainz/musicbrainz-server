@@ -25,6 +25,7 @@ sub serialize
     if ($toplevel)
     {
         $body{type} = $entity->type_name;
+        $body{gender} = $entity->gender_name;
 
         $body{country} = $entity->area && $entity->area->country_code
             ? $entity->area->country_code : JSON::null;

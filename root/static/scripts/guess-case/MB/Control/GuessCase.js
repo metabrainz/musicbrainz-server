@@ -30,8 +30,12 @@ MB.Control.initialize_guess_case = function (type, formPrefix) {
 
     var guess = MB.GuessCase[type];
 
+    function setVal($input, value) {
+        $input.val(value).trigger('change');
+    }
+
     $name.parent()
-        .find("button.guesscase-title").on("click", function () { $name.val(guess.guess($name.val())) })
+        .find("button.guesscase-title").on("click", function () { setVal($name, guess.guess($name.val())) })
         .end()
         .find("button.guesscase-options").on("click", function () { $options.dialog("open") });
 
@@ -46,10 +50,12 @@ MB.Control.initialize_guess_case = function (type, formPrefix) {
                 args.push($artistType.val() != 2 /* person */);
             }
 
-            $sortname.val(guess.sortname.apply(guess, args));
+            setVal($sortname, guess.sortname.apply(guess, args));
         })
         .end()
-        .find("button.sortname-copy").on("click", function () { $sortname.val($name.val()) });
+        .find("button.sortname-copy").on("click", function () {
+            setVal($sortname, $name.val());
+        });
 };
 
 ko.bindingHandlers.guessCase = {
