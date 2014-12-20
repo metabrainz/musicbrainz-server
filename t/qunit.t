@@ -1,4 +1,5 @@
 use Test::More;
+use Encode;
 use Env::Path;
 use File::Slurp qw( read_file );
 use FindBin qw( $Bin );
@@ -36,5 +37,9 @@ if (! -x $phantomjs)
 }
 else {
     generate_text_strings();
-    exec($phantomjs, "$root/static/build/tests.js");
+
+    # TAP::Harness::JUnit expects output to be UTF-8 encoded:
+    # https://github.com/jlavallee/tap-harness-junit/blob/master/lib/TAP/Harness/JUnit.pm#L365
+    print encode('UTF-8', qx{ $phantomjs $root/static/build/tests.js });
+    exit $?;
 }
