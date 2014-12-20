@@ -10,12 +10,9 @@ my $phantomjs = scalar @phantomjs ? $phantomjs[0] :
      $ENV{HOME}.'/opt/phantomjs/bin/phantomjs');
 
 $root = "$Bin/../root";
-$testroot = "$root/static/scripts/tests";
-$testrunner = "$root/static/lib/qunit-tap/sample/js/run_qunit.js";
-$testsuite = "$testroot/all.html";
 
 if (! -x $phantomjs) {
     plan skip_all => "phantomjs not found, please set MUSICBRAINZ_PHANTOMJS or install phantomjs to the default location";
 } else {
-    exec($phantomjs, $testrunner, $testsuite);
+    exec($phantomjs, "$root/static/build/tests.js");
 }

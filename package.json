@@ -25,7 +25,8 @@
   },
   "devDependencies": {
     "gulp-jshint": ">= 1.8.4",
-    "watchify": "^2.2.1"
+    "watchify": "^2.2.1",
+    "tape": "^3.0.3"
   },
   "private": true,
   "browser": {

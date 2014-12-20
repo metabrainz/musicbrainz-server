@@ -3,25 +3,34 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-releaseEditor.test.module("add-release edits", function () {
-    MB.formatsWithDiscIDs = [1];
+var test = require('tape');
+var common = require('./common.js');
 
-    var data = $.extend(true, {}, releaseEditor.test.testRelease);
-    var medium = data.mediums[0];
+var releaseEditor = MB.releaseEditor;
+MB.formatsWithDiscIDs = [1];
 
-    medium.originalID = medium.id;
+function addReleaseTest(name, callback) {
+    test(name, function (t) {
+        var data = $.extend(true, {}, common.testRelease);
+        var medium = data.mediums[0];
 
-    delete medium.id;
-    delete data.labels[0].id;
-    delete data.labels[1].id;
+        medium.originalID = medium.id;
 
-    releaseEditor.test.setupReleaseAdd(data);
-});
+        delete medium.id;
+        delete data.labels[0].id;
+        delete data.labels[1].id;
 
+        callback(t, common.setupReleaseAdd(data));
 
-test("releaseCreate edit is generated for new release", function () {
+        MB.entityCache = {};
+        releaseEditor.validation.errorFields([]);
+    });
+}
 
-    deepEqual(releaseEditor.edits.release(this.release), [
+addReleaseTest("releaseCreate edit is generated for new release", function (t, release) {
+    t.plan(1);
+
+    t.deepEqual(releaseEditor.edits.release(release), [
         {
           artist_credit: {
             names: [
@@ -50,10 +59,10 @@ test("releaseCreate edit is generated for new release", function () {
     ]);
 });
 
+addReleaseTest("releaseAddAnnotation edit is generated for new release", function (t, release) {
+    t.plan(1);
 
-test("releaseAddAnnotation edit is generated for new release", function () {
-
-    deepEqual(releaseEditor.edits.annotation(this.release), [
+    t.deepEqual(releaseEditor.edits.annotation(release), [
         {
             edit_type: 35,
             entity: null,
@@ -63,10 +72,10 @@ test("releaseAddAnnotation edit is generated for new release", function () {
     ]);
 });
 
+addReleaseTest("releaseAddReleaseLabel edits are generated for new release", function (t, release) {
+    t.plan(1);
 
-test("releaseAddReleaseLabel edits are generated for new release", function () {
-
-    deepEqual(releaseEditor.edits.releaseLabel(this.release), [
+    t.deepEqual(releaseEditor.edits.releaseLabel(release), [
         {
             catalog_number: "WPC6-10044",
             edit_type: 34,
@@ -84,21 +93,22 @@ test("releaseAddReleaseLabel edits are generated for new release", function () {
     ]);
 });
 
+addReleaseTest("recordingEdit edits are generated for new release", function (t, release) {
+    t.plan(1);
 
-test("recordingEdit edits are generated for new release", function () {
     releaseEditor.copyTrackTitlesToRecordings(true);
 
-    var track = this.release.mediums()[0].tracks()[0];
+    var track = release.mediums()[0].tracks()[0];
 
     track.name("[unicode suckz!]");
     track.length(722093);
 
-    var edits = _.filter(releaseEditor.edits.medium(this.release),
+    var edits = _.filter(releaseEditor.edits.medium(release),
         function (edit) {
             return edit.edit_type === MB.edit.TYPES.EDIT_RECORDING_EDIT;
         });
 
-    deepEqual(edits, [
+    t.deepEqual(edits, [
       {
         to_edit: "f66857fb-bb59-444e-97dc-62c73e5eddae",
         name: "[unicode suckz!]",
@@ -126,32 +136,33 @@ test("recordingEdit edits are generated for new release", function () {
     releaseEditor.copyTrackTitlesToRecordings(false);
 });
 
+addReleaseTest("recordingEdit edits are generated for new mediums (MBS-7271)", function (t, release) {
+    t.plan(1);
 
-test("recordingEdit edits are generated for new mediums (MBS-7271)", function () {
     releaseEditor.copyTrackTitlesToRecordings(true);
     releaseEditor.copyTrackArtistsToRecordings(true);
 
     var trackData = {
         name: "foo",
-        artistCredit: releaseEditor.test.testArtistCredit
+        artistCredit: common.testArtistCredit
     };
 
-    this.release.mediums.push(
+    release.mediums.push(
         releaseEditor.fields.Medium({ tracks: [ trackData ] })
     );
 
-    var track = this.release.mediums()[1].tracks()[0];
+    var track = release.mediums()[1].tracks()[0];
     var recordingData = _.extend({ gid: "80f797aa-2077-435d-85e2-c22e31a654f4" }, trackData);
 
     track.recording(MB.entity.Recording(recordingData));
     track.name("foobar");
 
-    var edits = _.filter(releaseEditor.edits.medium(this.release),
+    var edits = _.filter(releaseEditor.edits.medium(release),
         function (edit) {
             return edit.edit_type === MB.edit.TYPES.EDIT_RECORDING_EDIT;
         });
 
-    deepEqual(edits, [
+    t.deepEqual(edits, [
       {
         "artist_credit": {
           "names": [
@@ -180,14 +191,14 @@ test("recordingEdit edits are generated for new mediums (MBS-7271)", function ()
     releaseEditor.copyTrackArtistsToRecordings(false);
 });
 
+addReleaseTest("mediumCreate edits are generated for new release", function (t, release) {
+    t.plan(1);
 
-test("mediumCreate edits are generated for new release", function () {
-
-    this.release.mediums.push(
-      releaseEditor.fields.Medium(_.omit(releaseEditor.test.testMedium, "id"))
+    release.mediums.push(
+      releaseEditor.fields.Medium(_.omit(common.testMedium, "id"))
     );
 
-    deepEqual(releaseEditor.edits.medium(this.release), [
+    t.deepEqual(releaseEditor.edits.medium(release), [
       {
         "edit_type": 51,
         "format_id": 1,
@@ -275,16 +286,17 @@ test("mediumCreate edits are generated for new release", function () {
     ]);
 });
 
+addReleaseTest("mediumAddDiscID edits are generated for new release", function (t, release) {
+    t.plan(1);
 
-test("mediumAddDiscID edits are generated for new release", function () {
-    var mediums = this.release.mediums,
+    var mediums = release.mediums,
         medium = mediums()[0];
 
     medium.toc("1 5 146225 150 16102 49660 76357 111535");
 
     mediums.notifySubscribers(mediums());
 
-    deepEqual(releaseEditor.edits.discID(this.release), [
+    t.deepEqual(releaseEditor.edits.discID(release), [
       {
         medium_id: undefined,
         cdtoc: "1 5 146225 150 16102 49660 76357 111535",
@@ -297,35 +309,40 @@ test("mediumAddDiscID edits are generated for new release", function () {
     ]);
 });
 
+test("releaseReorderMediums edits are not generated for new releases", function (t) {
+    t.plan(1);
 
-test("releaseReorderMediums edits are not generated for new releases", function () {
-    this.release = releaseEditor.fields.Release({
+    var release = releaseEditor.fields.Release({
         mediums: [
             { position: 1, tracks: [ { name: "foo" } ] },
             { position: 2, tracks: [ { name: "bar" } ] },
         ]
     });
 
-    releaseEditor.rootField.release(this.release);
+    releaseEditor.rootField.release(release);
 
-    releaseEditor.test.createMediums(this.release);
+    common.createMediums(release);
 
-    equal(releaseEditor.edits.mediumReorder(this.release).length, 0);
+    t.equal(releaseEditor.edits.mediumReorder(release).length, 0);
 });
 
+test("MBS-7453: release group edits strip whitespace from name", function (t) {
+    t.plan(1);
 
-test("MBS-7453: release group edits strip whitespace from name", function () {
     var release = releaseEditor.fields.Release({ name: "  Foo  oo " });
 
-    equal(releaseEditor.edits.releaseGroup(release)[0].name, "Foo oo");
+    t.equal(releaseEditor.edits.releaseGroup(release)[0].name, "Foo oo");
 });
 
+function editReleaseTest(name, callback) {
+    test(name, function (t) {
+        callback(t, common.setupReleaseEdit());
+        releaseEditor.validation.errorFields([]);
+    });
+}
 
-releaseEditor.test.module("edit-release edits", releaseEditor.test.setupReleaseEdit);
-
-
-test("releaseEdit edit is generated for existing release", function () {
-    var release = this.release;
+editReleaseTest("releaseEdit edit is generated for existing release", function (t, release) {
+    t.plan(1);
 
     release.name("blah bluh bleh");
     release.barcode.value("3832563900471");
@@ -334,7 +351,7 @@ test("releaseEdit edit is generated for existing release", function () {
     release.scriptID(789);
     release.statusID(123);
 
-    deepEqual(releaseEditor.edits.release(release), [
+    t.deepEqual(releaseEditor.edits.release(release), [
       {
         name: "blah bluh bleh",
         barcode: "3832563900471",
@@ -349,11 +366,12 @@ test("releaseEdit edit is generated for existing release", function () {
     ]);
 });
 
+editReleaseTest("releaseAddAnnotation edit is generated for existing release", function (t, release) {
+    t.plan(1);
 
-test("releaseAddAnnotation edit is generated for existing release", function () {
-    this.release.annotation("foooooo");
+    release.annotation("foooooo");
 
-    deepEqual(releaseEditor.edits.annotation(this.release), [
+    t.deepEqual(releaseEditor.edits.annotation(release), [
       {
         entity: "868cc741-e3bc-31bc-9dac-756e35c8f152",
         text: "foooooo",
@@ -363,11 +381,12 @@ test("releaseAddAnnotation edit is generated for existing release", function () 
     ]);
 });
 
+editReleaseTest("releaseDeleteReleaseLabel edit is generated for existing release", function (t, release) {
+    t.plan(1);
 
-test("releaseDeleteReleaseLabel edit is generated for existing release", function () {
-    this.release.labels.remove(this.release.labels()[0]);
+    release.labels.remove(release.labels()[0]);
 
-    deepEqual(releaseEditor.edits.releaseLabel(this.release), [
+    t.deepEqual(releaseEditor.edits.releaseLabel(release), [
       {
         "edit_type": 36,
         "hash": "b6cf0e5b82d3ab32124df85bc5e824e612d1237a",
@@ -376,14 +395,14 @@ test("releaseDeleteReleaseLabel edit is generated for existing release", functio
     ]);
 });
 
+editReleaseTest("releaseDeleteReleaseLabel edit is generated when label/catalog number fields are cleared (MBS-7287)", function (t, release) {
+    t.plan(1);
 
-test("releaseDeleteReleaseLabel edit is generated when label/catalog number fields are cleared (MBS-7287)", function () {
-    var releaseLabel = this.release.labels()[0];
-
+    var releaseLabel = release.labels()[0];
     releaseLabel.label(MB.entity.Label({}));
     releaseLabel.catalogNumber("");
 
-    deepEqual(releaseEditor.edits.releaseLabel(this.release), [
+    t.deepEqual(releaseEditor.edits.releaseLabel(release), [
       {
         "edit_type": 36,
         "hash": "b6cf0e5b82d3ab32124df85bc5e824e612d1237a",
@@ -392,12 +411,13 @@ test("releaseDeleteReleaseLabel edit is generated when label/catalog number fiel
     ]);
 });
 
+editReleaseTest("releaseEditReleaseLabel edits are generated for existing release", function (t, release) {
+    t.plan(1);
 
-test("releaseEditReleaseLabel edits are generated for existing release", function () {
-    this.release.labels()[0].catalogNumber("WPC6-10046");
-    this.release.labels()[1].label(null);
+    release.labels()[0].catalogNumber("WPC6-10046");
+    release.labels()[1].label(null);
 
-    deepEqual(releaseEditor.edits.releaseLabel(this.release), [
+    t.deepEqual(releaseEditor.edits.releaseLabel(release), [
       {
         release_label: 27903,
         label: 30265,
@@ -415,14 +435,14 @@ test("releaseEditReleaseLabel edits are generated for existing release", functio
     ]);
 });
 
+editReleaseTest("mediumEdit edit is generated for existing release", function (t, release) {
+    t.plan(1);
 
-test("mediumEdit edit is generated for existing release", function () {
-    var medium = this.release.mediums()[0];
-
+    var medium = release.mediums()[0];
     medium.name("foooooooo");
     medium.formatID(1234);
 
-    deepEqual(releaseEditor.edits.medium(this.release), [
+    t.deepEqual(releaseEditor.edits.medium(release), [
       {
         edit_type: 52,
         name: "foooooooo",
@@ -433,11 +453,12 @@ test("mediumEdit edit is generated for existing release", function () {
     ]);
 });
 
+editReleaseTest("mediumDelete edit is generated for existing release", function (t, release) {
+    t.plan(1);
 
-test("mediumDelete edit is generated for existing release", function () {
-    releaseEditor.removeMedium(this.release.mediums()[0]);
+    releaseEditor.removeMedium(release.mediums()[0]);
 
-    deepEqual(releaseEditor.edits.medium(this.release), [
+    t.deepEqual(releaseEditor.edits.medium(release), [
       {
         edit_type: 53,
         medium: 249113,
@@ -445,7 +466,6 @@ test("mediumDelete edit is generated for existing release", function () {
       }
     ]);
 });
-
 
 var testURLRelationship = {
     target: {
@@ -456,16 +476,16 @@ var testURLRelationship = {
     id: 123
 };
 
+editReleaseTest("relationshipCreate edit for external link is generated for existing release", function (t, release) {
+    t.plan(1);
 
-test("relationshipCreate edit for external link is generated for existing release", function () {
-    var release = this.release;
     var newRelationshipData = _.omit(testURLRelationship, "id");
 
     release.relationships.push(
         release.externalLinks.getRelationship(newRelationshipData, release)
     );
 
-    deepEqual(releaseEditor.edits.externalLinks(release), [
+    t.deepEqual(releaseEditor.edits.externalLinks(release), [
       {
         "attributes": [],
         "edit_type": 90,
@@ -486,13 +506,14 @@ test("relationshipCreate edit for external link is generated for existing releas
     ]);
 });
 
+editReleaseTest("relationshipEdit edit for external link is generated for existing release", function (t, release) {
+    t.plan(1);
 
-test("relationshipEdit edit for external link is generated for existing release", function () {
     MB.typeInfo = {};
     MB.faviconClasses = {};
 
-    var release = this.release;
-    var vm = this.release.externalLinks;
+    var release = release;
+    var vm = release.externalLinks;
 
     release.relationships([vm.getRelationship(testURLRelationship, release)]);
 
@@ -501,7 +522,7 @@ test("relationshipEdit edit for external link is generated for existing release"
     link.linkTypeID(77);
     link.url("http://www.amazon.co.jp/gp/product/B00003IQQD");
 
-    deepEqual(releaseEditor.edits.externalLinks(this.release), [
+    t.deepEqual(releaseEditor.edits.externalLinks(release), [
       {
         "beginDate": null,
         "edit_type": 91,
@@ -525,15 +546,15 @@ test("relationshipEdit edit for external link is generated for existing release"
     ]);
 });
 
+editReleaseTest("relationshipDelete edit for external link is generated for existing release", function (t, release) {
+    t.plan(1);
 
-test("relationshipDelete edit for external link is generated for existing release", function () {
-    var release = this.release;
     var vm = release.externalLinks;
 
     release.relationships([vm.getRelationship(testURLRelationship, release)]);
     vm.links()[0].remove();
 
-    deepEqual(releaseEditor.edits.externalLinks(release), [
+    t.deepEqual(releaseEditor.edits.externalLinks(release), [
       {
         "attributes": [],
         "edit_type": 92,
@@ -554,10 +575,10 @@ test("relationshipDelete edit for external link is generated for existing releas
     ]);
 });
 
+editReleaseTest("edits are not generated for external links that duplicate existing removed ones", function (t, release) {
+    t.plan(5);
 
-test("edits are not generated for external links that duplicate existing removed ones", function () {
     var newURL = { name: "http://www.discogs.com/release/13698944", entityType: "url" };
-    var release = this.release;
     var vm = release.externalLinks;
 
     var existingRelationship1 = vm.getRelationship(testURLRelationship, release);
@@ -572,22 +593,23 @@ test("edits are not generated for external links that duplicate existing removed
     existingRelationship1.remove();
     release.relationships.push(addedDuplicate);
 
-    equal(releaseEditor.edits.externalLinks(release).length, 1);
-    equal(releaseEditor.validation.errorsExist(), true);
+    t.equal(releaseEditor.edits.externalLinks(release).length, 1);
+    t.equal(releaseEditor.validation.errorsExist(), true);
 
     addedDuplicate.remove();
 
-    equal(releaseEditor.validation.errorsExist(), false);
+    t.equal(releaseEditor.validation.errorsExist(), false);
 
     existingRelationship2.url(existingRelationship1.url());
 
-    equal(releaseEditor.edits.externalLinks(release).length, 1);
-    equal(releaseEditor.validation.errorsExist(), true);
+    t.equal(releaseEditor.edits.externalLinks(release).length, 1);
+    t.equal(releaseEditor.validation.errorsExist(), true);
 });
 
+test("mediumEdit and releaseReorderMediums edits are generated for non-loaded mediums", function (t) {
+    t.plan(6);
 
-test("mediumEdit and releaseReorderMediums edits are generated for non-loaded mediums", function () {
-    this.release = releaseEditor.fields.Release({
+    var release = releaseEditor.fields.Release({
         gid: "f4c552ab-515e-42df-a9ee-a370867d29d1",
         mediums: [
             { id: 123, name: "foo", position: 1 },
@@ -595,18 +617,18 @@ test("mediumEdit and releaseReorderMediums edits are generated for non-loaded me
         ]
     });
 
-    releaseEditor.rootField.release(this.release);
+    releaseEditor.rootField.release(release);
 
-    var medium1 = this.release.mediums()[0];
-    var medium2 = this.release.mediums()[1];
+    var medium1 = release.mediums()[0];
+    var medium2 = release.mediums()[1];
 
-    ok(!medium1.loaded(), "medium 1 is not loaded");
-    ok(!medium2.loaded(), "medium 2 is not loaded");
+    t.ok(!medium1.loaded(), "medium 1 is not loaded");
+    t.ok(!medium2.loaded(), "medium 2 is not loaded");
 
     releaseEditor.moveMediumDown(medium1);
 
-    equal(medium1.position(), 2, "medium 1 now has position 2");
-    equal(medium2.position(), 1, "medium 2 now has position 1");
+    t.equal(medium1.position(), 2, "medium 1 now has position 2");
+    t.equal(medium2.position(), 1, "medium 2 now has position 1");
 
     medium1.name("foo!");
     medium1.formatID(1);
@@ -614,7 +636,7 @@ test("mediumEdit and releaseReorderMediums edits are generated for non-loaded me
     medium2.name("bar!");
     medium2.formatID(2);
 
-    deepEqual(releaseEditor.edits.medium(this.release), [
+    t.deepEqual(releaseEditor.edits.medium(release), [
       {
         "edit_type": 52,
         "format_id": 2,
@@ -631,7 +653,7 @@ test("mediumEdit and releaseReorderMediums edits are generated for non-loaded me
       }
     ]);
 
-    deepEqual(releaseEditor.edits.mediumReorder(this.release), [
+    t.deepEqual(releaseEditor.edits.mediumReorder(release), [
       {
         "edit_type": 313,
         "hash": "fe6d272bd48a354f1f42e1ca0816397d7754d0ff",
@@ -652,9 +674,10 @@ test("mediumEdit and releaseReorderMediums edits are generated for non-loaded me
     ]);
 });
 
+test("mediumCreate edits are not given conflicting positions", function (t) {
+    t.plan(2);
 
-test("mediumCreate edits are not given conflicting positions", function () {
-    this.release = releaseEditor.fields.Release({
+    var release = releaseEditor.fields.Release({
         gid: "f4c552ab-515e-42df-a9ee-a370867d29d1",
         mediums: [
             { id: 123, position: 1 },
@@ -662,9 +685,9 @@ test("mediumCreate edits are not given conflicting positions", function () {
         ]
     });
 
-    releaseEditor.rootField.release(this.release);
+    releaseEditor.rootField.release(release);
 
-    var mediums = this.release.mediums;
+    var mediums = release.mediums;
     var medium1 = mediums()[0];
     var medium3 = mediums()[1];
 
@@ -686,14 +709,14 @@ test("mediumCreate edits are not given conflicting positions", function () {
     mediums.push(newMedium1, newMedium2);
 
     var mediumCreateEdits = _.map(
-        releaseEditor.edits.medium(this.release),
+        releaseEditor.edits.medium(release),
         function (edit) {
             // Don't care about this.
             return _.omit(edit, "tracklist");
         }
     );
 
-    deepEqual(mediumCreateEdits, [
+    t.deepEqual(mediumCreateEdits, [
       {
         "edit_type": MB.edit.TYPES.EDIT_MEDIUM_CREATE,
         "position": 4,
@@ -710,9 +733,9 @@ test("mediumCreate edits are not given conflicting positions", function () {
       }
     ]);
 
-    releaseEditor.test.createMediums(this.release);
+    common.createMediums(release);
 
-    deepEqual(releaseEditor.edits.mediumReorder(this.release), [
+    t.deepEqual(releaseEditor.edits.mediumReorder(release), [
       {
         "edit_type": MB.edit.TYPES.EDIT_RELEASE_REORDER_MEDIUMS,
         "hash": "175c1aabc49c94c5edb79fd11cca04a31f0f85ad",
@@ -733,24 +756,25 @@ test("mediumCreate edits are not given conflicting positions", function () {
     ]);
 });
 
+test("mediumCreate positions don't conflict with removed mediums (MBS-7952)", function (t) {
+    t.plan(1);
 
-test("mediumCreate positions don't conflict with removed mediums (MBS-7952)", function () {
-    this.release = releaseEditor.fields.Release({
+    var release = releaseEditor.fields.Release({
         gid: "f4c552ab-515e-42df-a9ee-a370867d29d1",
         mediums: [{ id: 123, position: 1 }]
     });
 
-    releaseEditor.rootField.release(this.release);
+    releaseEditor.rootField.release(release);
 
-    var mediums = this.release.mediums;
+    var mediums = release.mediums;
     var newMedium = releaseEditor.fields.Medium({ position: 2 });
 
     newMedium.tracks.push(releaseEditor.fields.Track({}, newMedium));
     mediums.push(newMedium);
     releaseEditor.removeMedium(mediums()[0]);
-    releaseEditor.test.createMediums(this.release);
+    common.createMediums(release);
 
-    deepEqual(releaseEditor.edits.mediumReorder(this.release), [
+    t.deepEqual(releaseEditor.edits.mediumReorder(release), [
       {
         "edit_type": MB.edit.TYPES.EDIT_RELEASE_REORDER_MEDIUMS,
         "hash": "6a2634d88b570aef5d0dd8521c7166b4a40ec042",
@@ -771,9 +795,10 @@ test("mediumCreate positions don't conflict with removed mediums (MBS-7952)", fu
     ]);
 });
 
+test("releaseDeleteReleaseLabel edits are not generated for non-existent release labels (MBS-7455)", function (t) {
+    t.plan(1);
 
-test("releaseDeleteReleaseLabel edits are not generated for non-existent release labels (MBS-7455)", function () {
-    var release = this.release = releaseEditor.fields.Release({
+    var release = releaseEditor.fields.Release({
         gid: "f4c552ab-515e-42df-a9ee-a370867d29d1",
         labels: [
             { id: 123, label: null, catalogNumber: "foo123" },
@@ -800,5 +825,5 @@ test("releaseDeleteReleaseLabel edits are not generated for non-existent release
 
     edits = submission.edits(release);
 
-    deepEqual(edits, []);
+    t.deepEqual(edits, []);
 });

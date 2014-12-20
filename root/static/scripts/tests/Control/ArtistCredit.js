@@ -1,3 +1,10 @@
+// This file is part of MusicBrainz, the open internet music database.
+// Copyright (C) 2014 MetaBrainz Foundation
+// Licensed under the GPL version 2, or (at your option) any later version:
+// http://www.gnu.org/licenses/gpl-2.0.txt
+
+var test = require('tape');
+
 MB.testArtistCreditData = [
     [
         {
@@ -36,26 +43,22 @@ MB.testArtistCreditData = [
     ]
 ];
 
-module("Artist Credit", {
-    setup: function () {
-        this.artistCredits = _.map(MB.testArtistCreditData, function (data) {
-            return MB.Control.ArtistCredit({
-                initialData: data,
-                hiddenInputs: true,
-                formName: "form"
-            });
+test("Hidden inputs", function (t) {
+    t.plan(6);
+
+    var artistCredits = _.map(MB.testArtistCreditData, function (data) {
+        return MB.Control.ArtistCredit({
+            initialData: data,
+            hiddenInputs: true,
+            formName: "form"
         });
-    }
-});
+    });
 
-test("Hidden inputs", function () {
-    var artistCredits = this.artistCredits;
+    t.equal(artistCredits[0].isComplex(), false, "david bowie is not complex");
+    t.equal(artistCredits[1].isComplex(), true, "david robert jones is complex");
+    t.equal(artistCredits[2].isComplex(), true, "david bowie & bing crosby is complex");
 
-    QUnit.equal(artistCredits[0].isComplex(), false, "david bowie is not complex");
-    QUnit.equal(artistCredits[1].isComplex(), true, "david robert jones is complex");
-    QUnit.equal(artistCredits[2].isComplex(), true, "david bowie & bing crosby is complex");
-
-    QUnit.deepEqual(artistCredits[0].hiddenInputs(), [
+    t.deepEqual(artistCredits[0].hiddenInputs(), [
         { name: "form.artist_credit.names.0.name", value: "david bowie" },
         { name: "form.artist_credit.names.0.join_phrase", value: "" },
         { name: "form.artist_credit.names.0.artist.name", value: "david bowie" },
@@ -63,7 +66,7 @@ test("Hidden inputs", function () {
     ],
     "hidden inputs are generated correctly for david bowie");
 
-    QUnit.deepEqual(artistCredits[1].hiddenInputs(), [
+    t.deepEqual(artistCredits[1].hiddenInputs(), [
         { name: "form.artist_credit.names.0.name", value: "david robert jones" },
         { name: "form.artist_credit.names.0.join_phrase", value: "" },
         { name: "form.artist_credit.names.0.artist.name", value: "david bowie" },
@@ -71,7 +74,7 @@ test("Hidden inputs", function () {
     ],
     "hidden inputs are generated correctly for david robert jones");
 
-    QUnit.deepEqual(artistCredits[2].hiddenInputs(), [
+    t.deepEqual(artistCredits[2].hiddenInputs(), [
         { name: "form.artist_credit.names.0.name", value: "david bowie" },
         { name: "form.artist_credit.names.0.join_phrase", value: " & " },
         { name: "form.artist_credit.names.0.artist.name", value: "david bowie" },
