@@ -15,7 +15,7 @@
         if (data.over_limit == 1) {
             $(".caa-warning").parent().toggle();
         }
-    });
+    }).fail(function () { $(".caa-warning").parent().toggle(); });
   //]]</script>
 
   <form id="add-cover-art" class="cover-art" action="[% c.req.uri %]" method="post" >
