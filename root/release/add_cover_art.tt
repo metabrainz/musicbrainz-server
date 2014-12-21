@@ -10,13 +10,13 @@
   [%~ javascript_required() ~%]
 
   <div style="display:none">[% warning(l('The Cover Art Archive is currently experiencing difficulties. Adding images for this release is unlikely to work at the moment.'), 'caa-warning') %]</div>
-  <script type="text/javascript">
+  <script type="text/javascript">//<![CDATA[
     $.getJSON("//s3.us.archive.org/?check_limit=1&accesskey=[% access_key %]&bucket=mbid-[% entity.gid %]", function (data) {
         if (data.over_limit == 1) {
             $(".caa-warning").parent().toggle();
         }
     });
-  </script>
+  //]]</script>
 
   <form id="add-cover-art" class="cover-art" action="[% c.req.uri %]" method="post" >
     [%- USE r = FormRenderer(form) -%]
