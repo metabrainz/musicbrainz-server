@@ -106,7 +106,7 @@ function createBundle(resourceName, watch, callback) {
 function buildScripts(watch) {
     var promises = [];
 
-    var languages = (process.env.LANGUAGES || "").split(",").filter(function (lang) {
+    var languages = (process.env.MB_LANGUAGES || "").split(",").filter(function (lang) {
         return lang && lang !== 'en';
     });
 
