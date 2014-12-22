@@ -31,15 +31,15 @@ MB.Control.ArtistEdit = function () {
     self.$gender = $('#id-edit-artist\\.gender_id');
     self.old_gender = self.$gender.val();
 
-    self.changeDateText = function (text) {
-        self.$begin.text(text[0]);
-        self.$end.text(text[1]);
-        self.$ended.text(text[2]);
+    self.changeDateText = function (begin, end, ended) {
+        self.$begin.text(begin);
+        self.$end.text(end);
+        self.$ended.text(ended);
     };
 
-    self.changeAreaText = function (text) {
-        self.$beginarea.text(text[0]);
-        self.$endarea.text(text[1]);
+    self.changeAreaText = function (begin, end) {
+        self.$beginarea.text(begin);
+        self.$endarea.text(end);
     };
 
     /* Sets the label descriptions depending upon the artist type:
@@ -54,22 +54,22 @@ MB.Control.ArtistEdit = function () {
         switch (self.$type.val()) {
             default:
             case '0':
-                self.changeDateText(MB.text.ArtistDate.Unknown);
-                self.changeAreaText(MB.text.ArtistArea.Unknown);
+                self.changeDateText(MB.i18n.l("Began:"), MB.i18n.l("Ended:"), MB.i18n.l("This artist has ended."));
+                self.changeAreaText(MB.i18n.l("Begin area:"), MB.i18n.l("End area:"));
                 self.enableGender();
                 break;
 
             case '1':
-                self.changeDateText(MB.text.ArtistDate.Person);
-                self.changeAreaText(MB.text.ArtistArea.Person);
+                self.changeDateText(MB.i18n.l("Born:"), MB.i18n.l("Died:"), MB.i18n.l("This person is deceased."));
+                self.changeAreaText(MB.i18n.l("Born in:"), MB.i18n.l("Died in:"));
                 self.enableGender();
                 break;
 
             case '2':
             case '5':
             case '6':
-                self.changeDateText(MB.text.ArtistDate.Founded);
-                self.changeAreaText(MB.text.ArtistArea.Founded);
+                self.changeDateText(MB.i18n.l("Founded:"), MB.i18n.l("Dissolved:"), MB.i18n.l("This group has dissolved."));
+                self.changeAreaText(MB.i18n.l("Founded in:"), MB.i18n.l("Dissolved in:"));
                 self.disableGender();
                 break;
         }

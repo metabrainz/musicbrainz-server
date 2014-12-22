@@ -134,30 +134,43 @@
         var barcode = field.barcode();
         if (!barcode || field.confirmed()) return;
 
-        var text = MB.text.Barcode;
+        var checkDigitText = MB.i18n.l("The check digit is {checkdigit}.");
+        var doubleCheckText = MB.i18n.l("Please double-check the barcode on the release.");
 
         if (barcode.length === 11) {
             field.error(
-                text.NoCheckdigitUPC + " " +
-                MB.i18n.expand(text.CheckDigit, { checkdigit: field.checkDigit("0" + barcode) })
+                MB.i18n.l("The barcode you entered looks like a UPC code with the check digit missing.") +
+                " " +
+                MB.i18n.expand(checkDigitText, { checkdigit: field.checkDigit("0" + barcode) })
             );
         } else if (barcode.length === 12) {
             if (field.validateCheckDigit("0" + barcode)) {
-                field.message(text.ValidUPC);
+                field.message(MB.i18n.l("The barcode you entered is a valid UPC code."));
             } else {
                 field.error(
-                    text.InvalidUPC + " " + text.DoubleCheck + " " +
-                    MB.i18n.expand(text.CheckDigit, { checkdigit: field.checkDigit(barcode) })
+                    MB.i18n.l("The barcode you entered is either an invalid UPC code, or an EAN code with the check digit missing.") +
+                    " " +
+                    doubleCheckText +
+                    " " +
+                    MB.i18n.expand(checkDigitText, { checkdigit: field.checkDigit(barcode) })
                 );
             }
         } else if (barcode.length === 13) {
             if (field.validateCheckDigit(barcode)) {
-                field.message(text.ValidEAN);
+                field.message(MB.i18n.l("The barcode you entered is a valid EAN code."));
             } else {
-                field.error(text.InvalidEAN + " " + text.DoubleCheck);
+                field.error(
+                    MB.i18n.l("The barcode you entered is not a valid EAN code.") +
+                    " " +
+                    doubleCheckText
+                );
             }
         } else {
-            field.error(text.Invalid + " " + text.DoubleCheck);
+            field.error(
+                MB.i18n.l("The barcode you entered is not a valid UPC or EAN code.") +
+                " " +
+                doubleCheckText
+            );
         }
     });
 

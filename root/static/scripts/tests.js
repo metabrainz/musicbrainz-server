@@ -77,7 +77,6 @@ MB.edit.create = function (data, context) {
   return $.Deferred().resolveWith(context, [{ edits: [] }, data]);
 };
 
-require('../tests/text.js');
 require('./tests/typeInfo.js');
 
 require('./tests/autocomplete.js');

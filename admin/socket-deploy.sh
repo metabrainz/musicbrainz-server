@@ -12,6 +12,7 @@ git pull --ff-only
 CURRENT=$(pgrep -U `whoami` -f perl-fcgi-pm)
 
 eval $(perl -Mlocal::lib)
+eval $(admin/ShowDBDefs)
 
 echo `date` : "Checking dependencies (if this fails on libintl-perl, don't worry)"
 cpanm --notest --installdeps .

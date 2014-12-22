@@ -5,6 +5,29 @@
 
 (function (i18n) {
 
+    var jed = MB_LANGUAGE == 'en' ? new (require('jed'))({}) : require('jed-' + MB_LANGUAGE);
+    var slice = Array.prototype.slice;
+
+    function wrapGettext(method) {
+        return function () {
+            var args = slice.call(arguments, 0);
+            var expandArgs = args[args.length - 1];
+
+            if (expandArgs && typeof expandArgs === "object") {
+                args.pop();
+            } else {
+                expandArgs = null;
+            }
+
+            var string = jed[method].apply(jed, args);
+            return expandArgs ? i18n.expand(string, expandArgs) : string;
+        };
+    }
+
+    i18n.l = wrapGettext("gettext");
+    i18n.ln = wrapGettext("ngettext");
+    i18n.lp = wrapGettext("pgettext");
+
     // From https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions
     var regExpChars = /([.*+?^=!:${}()|\[\]\/\\])/g;
 
@@ -52,7 +75,7 @@
             return items[0] || "";
         }
 
-        var output = i18n.expand(MB.text.LastTwoListItems, {
+        var output = i18n.l("{almost_last_list_item} and {last_list_item}", {
             last_list_item: items[count - 1],
             almost_last_list_item: items[count - 2]
         });
@@ -61,10 +84,7 @@
         count -= 2;
 
         for (var i = 0; i < count; i++) {
-            output = i18n.expand(MB.text.ListItemCommaRest, {
-                list_item: items[i],
-                rest: output
-            });
+            output = i18n.l("{list_item}, {rest}", { list_item: items[i], rest: output });
         }
 
         return output;
@@ -80,5 +100,48 @@
         var collator = new Intl.Collator(lang, collatorOptions);
         i18n.compare = function (a, b) { return collator.compare(a, b) };
     }
+
+    i18n.addColon = function (variable) {
+        return i18n.l("{variable}:", { variable: variable });
+    };
+
+    i18n.strings = {};
+
+    i18n.strings.entityName = {
+        area:           i18n.l("Area"),
+        artist:         i18n.l("Artist"),
+        instrument:     i18n.l("Instrument"),
+        label:          i18n.l("Label"),
+        place:          i18n.l("Place"),
+        recording:      i18n.l("Recording"),
+        release:        i18n.l("Release"),
+        release_group:  i18n.l("Release group"),
+        series:         i18n.lp("Series", "singular"),
+        url:            i18n.l("URL"),
+        work:           i18n.l("Work")
+    };
+
+    i18n.strings.addANewEntity = {
+        artist:         i18n.l("Add a new artist"),
+        label:          i18n.l("Add a new label"),
+        place:          i18n.l("Add a new place"),
+        recording:      i18n.l("Add a new recording"),
+        release_group:  i18n.l("Add a new release group"),
+        series:         i18n.l("Add a new series"),
+        work:           i18n.l("Add a new work")
+    };
+
+    i18n.strings.addAnotherEntity = {
+        area:           i18n.l("Add another area"),
+        artist:         i18n.l("Add another artist"),
+        instrument:     i18n.l("Add another instrument"),
+        label:          i18n.l("Add another label"),
+        place:          i18n.l("Add another place"),
+        recording:      i18n.l("Add another recording"),
+        release:        i18n.l("Add another release"),
+        release_group:  i18n.l("Add another release group"),
+        series:         i18n.l("Add another series"),
+        work:           i18n.l("Add another work")
+    };
 
 }(MB.i18n = {}));

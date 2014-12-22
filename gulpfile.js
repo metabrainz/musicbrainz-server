@@ -3,7 +3,9 @@ var browserify      = require("browserify"),
     fs              = require("fs"),
     gulp            = require("gulp"),
     less            = require("gulp-less"),
+    po2json         = require("po2json"),
     rev             = require("gulp-rev"),
+    shell           = require("shelljs"),
     source          = require("vinyl-source-stream"),
     streamify       = require("gulp-streamify"),
     through2        = require("through2"),
@@ -102,8 +104,43 @@ function createBundle(resourceName, watch, callback) {
 }
 
 function buildScripts(watch) {
+    var promises = [];
+
+    var languages = (process.env.MB_LANGUAGES || "").split(",").filter(function (lang) {
+        return lang && lang !== 'en';
+    });
+
+    languages.forEach(function (lang) {
+        var srcPo = "./po/mb_server." + lang + ".po";
+        var tmpPo = "./po/javascript." + lang + ".po";
+
+        // Create a temporary .po file containing only the strings used by root/static/scripts.
+        shell.exec("msgcat --more-than=1 --use-first -o " + tmpPo + " " + srcPo + " ./po/javascript.pot");
+
+        var jedOptions = po2json.parseFileSync(tmpPo, { format: "jed" });
+        fs.unlinkSync(tmpPo);
+
+        var jedWrapper = './root/static/scripts/jed-' + lang + '.js';
+
+        fs.writeFileSync(
+            jedWrapper,
+            'var Jed = require("jed");\n' +
+            'module.exports = new Jed(' + JSON.stringify(jedOptions) + ');\n'
+        );
+
+        createBundle("jed-" + lang + ".js", watch, function (b) {
+            b.require(jedWrapper, { expose: 'jed-' + lang });
+        }).done(function () {
+            fs.unlinkSync(jedWrapper);
+        });
+    });
+
     return Q.all([
         createBundle("common.js", watch, function (b) {
+            languages.forEach(function (lang) {
+                b.external('jed-' + lang);
+            });
+
             // Needed by knockout-* plugins in edit.js
             b.require('./root/static/lib/knockout/knockout-latest.debug.js', { expose: 'knockout' });
         }),
