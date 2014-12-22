@@ -103,6 +103,12 @@ function createBundle(resourceName, watch, callback) {
     return build();
 }
 
+function langToPosix(lang) {
+    return lang.replace(/^([a-zA-Z]+)-([a-zA-Z]+)$/, function (match, l, c) {
+        return l + '_' + c.toUpperCase()
+    });
+}
+
 function buildScripts(watch) {
     var promises = [];
 
@@ -111,7 +117,7 @@ function buildScripts(watch) {
     });
 
     languages.forEach(function (lang) {
-        var srcPo = "./po/mb_server." + lang + ".po";
+        var srcPo = "./po/mb_server." + langToPosix(lang) + ".po";
         var tmpPo = "./po/javascript." + lang + ".po";
 
         // Create a temporary .po file containing only the strings used by root/static/scripts.
