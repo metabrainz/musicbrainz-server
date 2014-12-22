@@ -362,10 +362,9 @@ around dispatch => sub {
     if (defined($max_request_time) && $max_request_time > 0) {
         my $context = $c->model('MB')->context;
 
-        if ($context->connector->conn->connected) {
-            $context->sql->do("SET statement_timeout = " .
-                                  ($max_request_time * 1000));
-        }
+        $context->sql->auto_commit;
+        $context->sql->do("SET statement_timeout = " .
+                              ($max_request_time * 1000));
 
         alarm($max_request_time);
         POSIX::sigaction(
