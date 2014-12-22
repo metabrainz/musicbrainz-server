@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::Edit;
 use Moose;
+use Try::Tiny;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
@@ -208,9 +209,21 @@ sub search : Path('/search/edits') RequireAuth
     $c->stash( query => $query );
 
     if ($query->valid) {
-        my $edits = $self->_load_paged($c, sub {
-            return $c->model('Edit')->run_query($query, shift, shift);
-        });
+        my $edits;
+        my $timed_out = 0;
+
+        try {
+            $edits = $self->_load_paged($c, sub {
+                return $c->model('Edit')->run_query($query, shift, shift);
+            });
+        } catch {
+            if ($c->model('MB')->context->sql->is_timeout($_)) { $timed_out = 1; }
+            else { die $_; }
+        };
+        if ($timed_out) {
+            $c->stash( timed_out => 1 );
+            return;
+        }
 
         $c->stash(
             edits => $edits, # stash early in case an ISE occurs
