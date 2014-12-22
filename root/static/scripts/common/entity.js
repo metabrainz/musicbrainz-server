@@ -336,7 +336,11 @@
         },
 
         isEqual: function (other) {
-            return _.isEqual(ko.unwrap(this.artist), ko.unwrap(other.artist)) &&
+            var hasArtist1 = this.hasArtist();
+            var hasArtist2 = other.hasArtist();
+
+            return (hasArtist1 === hasArtist2) &&
+                   (!hasArtist1 || ko.unwrap(this.artist).gid === ko.unwrap(other.artist).gid) &&
                    ko.unwrap(this.name) === ko.unwrap(other.name) &&
                    ko.unwrap(this.joinPhrase) === ko.unwrap(other.joinPhrase);
         },
