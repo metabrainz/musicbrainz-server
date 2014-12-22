@@ -105,27 +105,22 @@ function createBundle(resourceName, watch, callback) {
 
 function buildScripts(watch) {
     var promises = [];
-    var languages = (process.env.LANGUAGES || "").split(",").filter(Boolean);
 
-    if (!languages.length) {
-        languages.push("en");
-    }
+    var languages = (process.env.LANGUAGES || "").split(",").filter(function (lang) {
+        return lang && lang !== 'en';
+    });
 
     languages.forEach(function (lang) {
-        var srcPo;
-        var tmpPo;
-        var jedWrapper = "./root/static/scripts/jed-" + lang + ".js";
-        var jedOptions = {};
+        var srcPo = "./po/mb_server." + lang + ".po";
+        var tmpPo = "./po/javascript." + lang + ".po";
 
-        if (lang !== "en") {
-            srcPo = "./po/mb_server." + lang + ".po";
-            tmpPo = "./po/javascript." + lang + ".po";
+        // Create a temporary .po file containing only the strings used by root/static/scripts.
+        shell.exec("msgcat --more-than=1 --use-first -o " + tmpPo + " " + srcPo + " ./po/javascript.pot");
 
-            // Create a temporary .po file containing only the strings used by root/static/scripts.
-            shell.exec("msgcat --more-than=1 --use-first -o " + tmpPo + " " + srcPo + " ./po/javascript.pot");
-            jedOptions = po2json.parseFileSync(tmpPo, { format: "jed" });
-            fs.unlinkSync(tmpPo);
-        }
+        var jedOptions = po2json.parseFileSync(tmpPo, { format: "jed" });
+        fs.unlinkSync(tmpPo);
+
+        var jedWrapper = './root/static/scripts/jed-' + lang + '.js';
 
         fs.writeFileSync(
             jedWrapper,
@@ -134,7 +129,7 @@ function buildScripts(watch) {
         );
 
         createBundle("jed-" + lang + ".js", watch, function (b) {
-            b.require(jedWrapper, { expose: 'jed-wrapper' });
+            b.require(jedWrapper, { expose: 'jed-' + lang });
         }).done(function () {
             fs.unlinkSync(jedWrapper);
         });
@@ -142,7 +137,9 @@ function buildScripts(watch) {
 
     return Q.all([
         createBundle("common.js", watch, function (b) {
-            b.external("jed-wrapper");
+            languages.forEach(function (lang) {
+                b.external('jed-' + lang);
+            });
 
             // Needed by knockout-* plugins in edit.js
             b.require('./root/static/lib/knockout/knockout-latest.debug.js', { expose: 'knockout' });

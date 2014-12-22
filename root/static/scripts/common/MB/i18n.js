@@ -5,7 +5,7 @@
 
 (function (i18n) {
 
-    var jed = require("jed-wrapper");
+    var jed = MB_LANGUAGE == 'en' ? new (require('jed'))({}) : require('jed-' + MB_LANGUAGE);
     var slice = Array.prototype.slice;
 
     function wrapGettext(method) {
