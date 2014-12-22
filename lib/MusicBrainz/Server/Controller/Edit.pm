@@ -208,7 +208,7 @@ sub search : Path('/search/edits') RequireAuth
     my $query = MusicBrainz::Server::EditSearch::Query->new_from_user_input($c->req->query_params, $c->user->id);
     $c->stash( query => $query );
 
-    if ($query->valid) {
+    if ($query->valid && !$c->req->query_params->{'form_only'}) {
         my $edits;
         my $timed_out = 0;
 
