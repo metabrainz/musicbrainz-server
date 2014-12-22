@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-18 14:30-0600\n"
+"POT-Creation-Date: 2014-12-22 14:51-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -74,8 +74,9 @@ msgstr ""
 #: ../root/edit/details/edit_medium.tt:229
 #: ../root/edit/details/historic/add_release.tt:49 ../root/freedb/show.tt:10
 #: ../root/freedb/show.tt:61 ../root/recording/index.tt:10
+#: ../root/release/edit_relationships.tt:47
 #: ../root/release/edit/tracklist.tt:137 ../root/release/edit/tracklist.tt:357
-#: ../root/release/edit_relationships.tt:47 ../root/release/index.tt:39
+#: ../root/release/index.tt:39
 msgid "#"
 msgstr ""
 
@@ -1209,11 +1210,11 @@ msgstr ""
 #: ../root/freedb/show.tt:63 ../root/isrc/index.tt:17
 #: ../root/otherlookup/results-release.tt:11
 #: ../root/release/edit/tracklist.tt:139 ../root/release/edit/tracklist.tt:359
-#: ../root/release/index.tt:55 ../root/release/lookup.tt:10
-#: ../root/release/merge.tt:14 ../root/release_group/merge.tt:13
-#: ../root/report/artist_list.tt:7 ../root/report/artist_url_list.tt:6
+#: ../root/release_group/merge.tt:13 ../root/release/index.tt:55
+#: ../root/release/lookup.tt:10 ../root/release/merge.tt:14
+#: ../root/report/artist_list.tt:7
 #: ../root/report/artists_with_multiple_occurances_in_artist_credits.tt:17
-#: ../root/report/bad_amazon_urls.tt:19
+#: ../root/report/artist_url_list.tt:6 ../root/report/bad_amazon_urls.tt:19
 #: ../root/report/cat_no_looks_like_asin.tt:20
 #: ../root/report/duplicate_artists.tt:25
 #: ../root/report/isrc_with_many_recordings.tt:24
@@ -1303,7 +1304,7 @@ msgstr ""
 msgid "Artist name:"
 msgstr ""
 
-#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
+#: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:2
 msgid "Artist ratings"
 msgstr ""
 
@@ -1314,14 +1315,15 @@ msgstr ""
 #: ../root/cdstub/edit_form.tt:6 ../root/cdstub/import.tt:7
 #: ../root/cdtoc/attach_filter_artist.tt:8 ../root/cdtoc/lookup.tt:61
 #: ../root/components/common-macros.tt:577 ../root/components/forms.tt:193
-#: ../root/edit/details/add_artist.tt:3 ../root/edit/details/add_release.tt:15
+#: ../root/edit/details/add_artist.tt:3
 #: ../root/edit/details/add_release_group.tt:15
+#: ../root/edit/details/add_release.tt:15
 #: ../root/edit/details/add_standalone_recording.tt:15
 #: ../root/edit/details/edit_artist.tt:5
 #: ../root/edit/details/edit_recording.tt:33
-#: ../root/edit/details/edit_release.tt:15
 #: ../root/edit/details/edit_release_artist.tt:9
 #: ../root/edit/details/edit_release_group.tt:30
+#: ../root/edit/details/edit_release.tt:15
 #: ../root/edit/details/historic/add_release.tt:19
 #: ../root/edit/details/historic/add_track_kv.tt:20
 #: ../root/edit/details/historic/change_artist_quality.tt:3
@@ -1574,9 +1576,8 @@ msgstr ""
 #: ../root/edit/details/historic/add_release.tt:79
 #: ../root/edit/details/merge_releases.tt:26
 #: ../root/otherlookup/results-release.tt:18
-#: ../root/release/edit/duplicates.tt:17 ../root/release/merge.tt:21
-#: ../root/release_group/index.tt:30
-#: ../root/search/lib/inline-results-release.tt:17
+#: ../root/release/edit/duplicates.tt:17 ../root/release_group/index.tt:30
+#: ../root/release/merge.tt:21 ../root/search/lib/inline-results-release.tt:17
 msgid "Barcode"
 msgstr ""
 
@@ -1584,8 +1585,8 @@ msgstr ""
 #: ../root/edit/details/add_release.tt:67
 #: ../root/edit/details/edit_barcodes.tt:17
 #: ../root/edit/details/edit_barcodes.tt:21
-#: ../root/edit/details/edit_release.tt:74
-#: ../root/edit/details/edit_release_label.tt:53 ../root/otherlookup/form.tt:3
+#: ../root/edit/details/edit_release_label.tt:53
+#: ../root/edit/details/edit_release.tt:74 ../root/otherlookup/form.tt:3
 #: ../root/release/edit/information.tt:193 ../root/release/index.tt:17
 #: ../root/release/layout.tt:43
 msgid "Barcode:"
@@ -1901,8 +1902,8 @@ msgstr ""
 #: ../root/instrument/merge.tt:36 ../root/label/merge.tt:49
 #: ../root/layout/merge-helper.tt:34 ../root/place/merge.tt:48
 #: ../root/recording/merge.tt:26 ../root/release/edit/layout.tt:58
-#: ../root/release/edit/tracklist.tt:87 ../root/release/merge.tt:127
-#: ../root/release_group/merge.tt:44 ../root/series/merge.tt:37
+#: ../root/release/edit/tracklist.tt:87 ../root/release_group/merge.tt:44
+#: ../root/release/merge.tt:127 ../root/series/merge.tt:37
 #: ../root/work/merge.tt:67
 msgid "Cancel"
 msgstr ""
@@ -1987,9 +1988,8 @@ msgstr ""
 #: ../root/components/releases-list.tt:21
 #: ../root/edit/details/merge_releases.tt:25
 #: ../root/otherlookup/results-release.tt:17 ../root/recording/index.tt:18
-#: ../root/release/edit/duplicates.tt:16 ../root/release/merge.tt:20
-#: ../root/release_group/index.tt:29
-#: ../root/search/lib/inline-results-release.tt:16
+#: ../root/release/edit/duplicates.tt:16 ../root/release_group/index.tt:29
+#: ../root/release/merge.tt:20 ../root/search/lib/inline-results-release.tt:16
 msgid "Catalog#"
 msgstr ""
 
@@ -2215,9 +2215,8 @@ msgstr ""
 #: ../root/edit/details/historic/add_release.tt:76
 #: ../root/edit/details/merge_releases.tt:23
 #: ../root/otherlookup/results-release.tt:15 ../root/recording/index.tt:16
-#: ../root/release/edit/duplicates.tt:14 ../root/release/merge.tt:18
-#: ../root/release_group/index.tt:27
-#: ../root/search/lib/inline-results-release.tt:14
+#: ../root/release/edit/duplicates.tt:14 ../root/release_group/index.tt:27
+#: ../root/release/merge.tt:18 ../root/search/lib/inline-results-release.tt:14
 msgid "Country"
 msgstr ""
 
@@ -2329,8 +2328,8 @@ msgstr ""
 #: ../root/edit/details/historic/add_release.tt:75
 #: ../root/edit/details/merge_releases.tt:22 ../root/elections/show.tt:118
 #: ../root/otherlookup/results-release.tt:14 ../root/recording/index.tt:15
-#: ../root/release/edit/duplicates.tt:13 ../root/release/lookup.tt:11
-#: ../root/release/merge.tt:17 ../root/release_group/index.tt:26
+#: ../root/release/edit/duplicates.tt:13 ../root/release_group/index.tt:26
+#: ../root/release/lookup.tt:11 ../root/release/merge.tt:17
 #: ../root/report/event_list.tt:11
 #: ../root/search/lib/inline-results-release.tt:13
 #: ../root/search/results-event.tt:12
@@ -2460,8 +2459,8 @@ msgstr ""
 #: ../root/edit/details/add_event.tt:16
 #: ../root/edit/details/add_instrument.tt:16
 #: ../root/edit/details/add_label.tt:23 ../root/edit/details/add_place.tt:16
-#: ../root/edit/details/add_release.tt:32
 #: ../root/edit/details/add_release_group.tt:21
+#: ../root/edit/details/add_release.tt:32
 #: ../root/edit/details/add_series.tt:16
 #: ../root/edit/details/add_standalone_recording.tt:21
 #: ../root/edit/details/add_work.tt:16 ../root/edit/details/edit_area.tt:21
@@ -2470,8 +2469,8 @@ msgstr ""
 #: ../root/edit/details/edit_instrument.tt:14
 #: ../root/edit/details/edit_label.tt:19 ../root/edit/details/edit_place.tt:14
 #: ../root/edit/details/edit_recording.tt:17
-#: ../root/edit/details/edit_release.tt:25
 #: ../root/edit/details/edit_release_group.tt:15
+#: ../root/edit/details/edit_release.tt:25
 #: ../root/edit/details/edit_series.tt:14 ../root/edit/details/edit_work.tt:15
 #: ../root/event/edit_form.tt:14 ../root/instrument/edit_form.tt:11
 #: ../root/label/edit_form.tt:32 ../root/place/edit_form.tt:34
@@ -2503,9 +2502,8 @@ msgstr ""
 #: ../root/edit/details/historic/remove_disc_id.tt:14
 #: ../root/edit/details/move_disc_id.tt:3
 #: ../root/edit/details/remove_disc_id.tt:9
-#: ../root/edit/details/set_track_lengths.tt:16
 #: ../root/edit/details/set_track_lengths_from_discid.tt:16
-#: ../root/otherlookup/form.tt:3
+#: ../root/edit/details/set_track_lengths.tt:16 ../root/otherlookup/form.tt:3
 msgid "Disc ID:"
 msgstr ""
 
@@ -2704,8 +2702,8 @@ msgstr ""
 msgid "Edit Note"
 msgstr ""
 
-#: ../root/account/edit.tt:1 ../root/account/edit.tt:4
 #: ../root/account/edit_ok.tt:1 ../root/account/edit_ok.tt:3
+#: ../root/account/edit.tt:1 ../root/account/edit.tt:4
 #: ../root/layout/menu.tt:34
 msgid "Edit Profile"
 msgstr ""
@@ -2728,8 +2726,8 @@ msgstr ""
 msgid "Edit Relationships: {release}"
 msgstr ""
 
-#: ../root/doc/edit_type.tt:28 ../root/doc/edit_types.tt:1
-#: ../root/doc/edit_types.tt:3 ../root/edit/info.tt:67
+#: ../root/doc/edit_types.tt:1 ../root/doc/edit_types.tt:3
+#: ../root/doc/edit_type.tt:28 ../root/edit/info.tt:67
 #: ../root/layout/menu.tt:270
 msgid "Edit Types"
 msgstr ""
@@ -3073,13 +3071,13 @@ msgstr ""
 msgid "Event information"
 msgstr ""
 
-#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
+#: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:2
 msgid "Event ratings"
 msgstr ""
 
-#: ../root/components/common-macros.tt:577 ../root/edit/details/add_event.tt:3
+#: ../root/components/common-macros.tt:577
 #: ../root/edit/details/add_event_annotation.tt:3
-#: ../root/edit/details/edit_event.tt:5
+#: ../root/edit/details/add_event.tt:3 ../root/edit/details/edit_event.tt:5
 msgid "Event:"
 msgstr ""
 
@@ -3264,8 +3262,8 @@ msgstr ""
 #: ../root/edit/details/historic/add_release.tt:80
 #: ../root/edit/details/merge_releases.tt:20
 #: ../root/otherlookup/results-release.tt:12
-#: ../root/release/edit/duplicates.tt:11 ../root/release/lookup.tt:12
-#: ../root/release/merge.tt:15 ../root/release_group/index.tt:24
+#: ../root/release/edit/duplicates.tt:11 ../root/release_group/index.tt:24
+#: ../root/release/lookup.tt:12 ../root/release/merge.tt:15
 #: ../root/search/lib/inline-results-release.tt:11
 msgid "Format"
 msgstr ""
@@ -3278,7 +3276,7 @@ msgstr ""
 msgid "Format:"
 msgstr ""
 
-#: ../root/layout.tt:85 ../root/layout/menu.tt:288
+#: ../root/layout/menu.tt:288 ../root/layout.tt:85
 msgid "Forums"
 msgstr ""
 
@@ -3470,17 +3468,17 @@ msgstr ""
 #: ../root/report/releases_to_convert.tt:12
 #: ../root/report/releases_with_coverart_links.tt:8
 #: ../root/report/releases_with_download_relationships.tt:10
-#: ../root/report/releases_with_unlikely_language_script.tt:10
 #: ../root/report/releases_without_language.tt:11
 #: ../root/report/releases_without_script.tt:10
+#: ../root/report/releases_with_unlikely_language_script.tt:10
 #: ../root/report/separate_discs.tt:10
 #: ../root/report/set_in_different_rg.tt:14
 #: ../root/report/single_medium_releases_with_medium_titles.tt:10
 #: ../root/report/some_formats_unset.tt:10
 #: ../root/report/superfluous_data_tracks.tt:10
 #: ../root/report/tracks_named_with_sequence.tt:11
-#: ../root/report/tracks_with_sequence_issues.tt:10
 #: ../root/report/tracks_without_times.tt:8
+#: ../root/report/tracks_with_sequence_issues.tt:10
 #: ../root/report/unlinked_pseudo_releases.tt:8
 msgid "Generated on {date}"
 msgstr ""
@@ -3964,8 +3962,8 @@ msgstr ""
 #: ../root/edit/details/merge_releases.tt:24 ../root/edit/search_macros.tt:307
 #: ../root/label/header.tt:4 ../root/label/merge.tt:12
 #: ../root/otherlookup/results-release.tt:16 ../root/recording/index.tt:17
-#: ../root/release/edit/duplicates.tt:15 ../root/release/merge.tt:19
-#: ../root/release_group/index.tt:28 ../root/report/label_list.tt:7
+#: ../root/release/edit/duplicates.tt:15 ../root/release_group/index.tt:28
+#: ../root/release/merge.tt:19 ../root/report/label_list.tt:7
 #: ../root/report/label_url_list.tt:6
 #: ../root/search/lib/inline-results-release.tt:15
 #: ../lib/MusicBrainz/Server/Edit/Label.pm:7
@@ -4020,7 +4018,7 @@ msgstr ""
 msgid "Label information"
 msgstr ""
 
-#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
+#: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:2
 msgid "Label ratings"
 msgstr ""
 
@@ -4307,13 +4305,13 @@ msgstr ""
 msgid "Lookup count:"
 msgstr ""
 
-#: ../root/account/lost_password.tt:1 ../root/account/lost_password.tt:3
-#: ../root/account/lost_password_sent.tt:1
+#: ../root/account/lost_password_sent.tt:1 ../root/account/lost_password.tt:1
+#: ../root/account/lost_password.tt:3
 msgid "Lost Password"
 msgstr ""
 
-#: ../root/account/lost_username.tt:1 ../root/account/lost_username.tt:3
-#: ../root/account/lost_username_sent.tt:1
+#: ../root/account/lost_username_sent.tt:1 ../root/account/lost_username.tt:1
+#: ../root/account/lost_username.tt:3
 msgid "Lost Username"
 msgstr ""
 
@@ -4729,8 +4727,8 @@ msgstr ""
 #: ../root/edit/details/add_place.tt:10
 #: ../root/edit/details/add_relationship_attribute.tt:3
 #: ../root/edit/details/add_relationship_type.tt:3
-#: ../root/edit/details/add_release.tt:10
 #: ../root/edit/details/add_release_group.tt:10
+#: ../root/edit/details/add_release.tt:10
 #: ../root/edit/details/add_series.tt:10
 #: ../root/edit/details/add_standalone_recording.tt:10
 #: ../root/edit/details/add_work.tt:10 ../root/edit/details/edit_area.tt:11
@@ -4741,8 +4739,8 @@ msgstr ""
 #: ../root/edit/details/edit_recording.tt:12
 #: ../root/edit/details/edit_relationship_attribute.tt:4
 #: ../root/edit/details/edit_relationship_type.tt:11
-#: ../root/edit/details/edit_release.tt:9
 #: ../root/edit/details/edit_release_group.tt:11
+#: ../root/edit/details/edit_release.tt:9
 #: ../root/edit/details/edit_series.tt:9 ../root/edit/details/edit_work.tt:11
 #: ../root/edit/details/historic/add_release.tt:14
 #: ../root/edit/details/historic/add_track_kv.tt:14
@@ -5649,8 +5647,8 @@ msgstr ""
 msgid "Possibly duplicate events"
 msgstr ""
 
-#: ../root/account/preferences.tt:2 ../root/account/preferences.tt:4
 #: ../root/account/preferences_ok.tt:1 ../root/account/preferences_ok.tt:3
+#: ../root/account/preferences.tt:2 ../root/account/preferences.tt:4
 #: ../root/layout/menu.tt:40
 msgid "Preferences"
 msgstr ""
@@ -5759,8 +5757,8 @@ msgstr[1] ""
 #: ../root/components/recordings-list.tt:32
 #: ../root/components/release_groups-list.tt:17
 #: ../root/components/releases-list.tt:24 ../root/components/works-list.tt:20
-#: ../root/layout/sidebar/sidebar-rating.tt:1 ../root/release/index.tt:57
-#: ../root/release_group/merge.tt:16
+#: ../root/layout/sidebar/sidebar-rating.tt:1
+#: ../root/release_group/merge.tt:16 ../root/release/index.tt:57
 msgid "Rating"
 msgstr ""
 
@@ -5828,7 +5826,7 @@ msgstr ""
 msgid "Recording information"
 msgstr ""
 
-#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
+#: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:2
 msgid "Recording ratings"
 msgstr ""
 
@@ -6046,8 +6044,8 @@ msgstr ""
 #: ../root/components/releases-list.tt:10
 #: ../root/edit/details/edit_release_events.tt:4
 #: ../root/edit/details/merge_releases.tt:18 ../root/edit/search_macros.tt:307
-#: ../root/release/edit/duplicates.tt:10 ../root/release/lookup.tt:9
-#: ../root/release/merge.tt:13 ../root/release_group/index.tt:23
+#: ../root/release/edit/duplicates.tt:10 ../root/release_group/index.tt:23
+#: ../root/release/lookup.tt:9 ../root/release/merge.tt:13
 #: ../root/report/bad_amazon_urls.tt:20
 #: ../root/report/cat_no_looks_like_asin.tt:19
 #: ../root/report/release_list.tt:7 ../root/report/release_url_list.tt:6
@@ -6098,8 +6096,8 @@ msgid "Release Group Relationships"
 msgstr ""
 
 #: ../root/edit/details/add_release_group.tt:3
-#: ../root/edit/details/edit_release.tt:21
 #: ../root/edit/details/edit_release_group.tt:5
+#: ../root/edit/details/edit_release.tt:21
 #: ../root/release/edit/information.tt:25
 msgid "Release Group:"
 msgstr ""
@@ -6193,7 +6191,7 @@ msgstr ""
 msgid "Release group rating"
 msgstr ""
 
-#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
+#: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:2
 msgid "Release group ratings"
 msgstr ""
 
@@ -6246,14 +6244,15 @@ msgstr ""
 
 #: ../root/cdtoc/lookup.tt:71 ../root/components/common-macros.tt:577
 #: ../root/edit/details/add_cover_art.tt:5
-#: ../root/edit/details/add_medium.tt:5 ../root/edit/details/add_release.tt:3
+#: ../root/edit/details/add_medium.tt:5
 #: ../root/edit/details/add_release_label.tt:4
+#: ../root/edit/details/add_release.tt:3
 #: ../root/edit/details/change_release_quality.tt:3
 #: ../root/edit/details/edit_barcodes.tt:12
 #: ../root/edit/details/edit_cover_art.tt:5
-#: ../root/edit/details/edit_release.tt:5
 #: ../root/edit/details/edit_release_artist.tt:3
 #: ../root/edit/details/edit_release_label.tt:5
+#: ../root/edit/details/edit_release.tt:5
 #: ../root/edit/details/historic/move_release_to_rg.tt:3
 #: ../root/edit/details/remove_cover_art.tt:5
 #: ../root/edit/details/remove_release_label.tt:3
@@ -6432,11 +6431,11 @@ msgstr ""
 #: ../root/edit/details/historic/mac_to_sac.tt:3
 #: ../root/edit/details/historic/move_release.tt:3
 #: ../root/edit/details/historic/remove_disc_id.tt:3
-#: ../root/edit/details/historic/remove_release.tt:2
 #: ../root/edit/details/historic/remove_releases.tt:3
+#: ../root/edit/details/historic/remove_release.tt:2
 #: ../root/edit/details/historic/remove_track.tt:3
-#: ../root/edit/details/set_track_lengths.tt:5
 #: ../root/edit/details/set_track_lengths_from_discid.tt:5
+#: ../root/edit/details/set_track_lengths.tt:5
 msgid "Releases:"
 msgstr ""
 
@@ -6633,12 +6632,12 @@ msgstr ""
 msgid "Requires:"
 msgstr ""
 
-#: ../root/account/lost_password.tt:17 ../root/account/reset_password.tt:1
-#: ../root/account/reset_password.tt:3 ../root/account/reset_password.tt:14
+#: ../root/account/lost_password.tt:17
 #: ../root/account/reset_password_error.tt:1
 #: ../root/account/reset_password_error.tt:3
 #: ../root/account/reset_password_ok.tt:1
-#: ../root/account/reset_password_ok.tt:3
+#: ../root/account/reset_password_ok.tt:3 ../root/account/reset_password.tt:1
+#: ../root/account/reset_password.tt:3 ../root/account/reset_password.tt:14
 msgid "Reset Password"
 msgstr ""
 
@@ -6737,8 +6736,8 @@ msgstr ""
 #: ../root/components/relationship-editor.tt:161
 #: ../root/components/search.tt:11 ../root/edit/search_macros.tt:105
 #: ../root/edit/search_macros.tt:232 ../root/edit/search_macros.tt:264
-#: ../root/label/edit_form.tt:38 ../root/layout.tt:16
-#: ../root/layout/menu.tt:196 ../root/otherlookup/form.tt:20
+#: ../root/label/edit_form.tt:38 ../root/layout/menu.tt:196
+#: ../root/layout.tt:16 ../root/otherlookup/form.tt:20
 #: ../root/place/edit_form.tt:41 ../root/relationship/linktype/form.tt:109
 #: ../root/release/edit/information.tt:37
 #: ../root/release/edit/information.tt:59
@@ -6773,8 +6772,8 @@ msgstr ""
 msgid "Search by release"
 msgstr ""
 
-#: ../root/edit/search.tt:2 ../root/edit/search.tt:4
 #: ../root/edit/search_results.tt:3 ../root/edit/search_results.tt:5
+#: ../root/edit/search.tt:2 ../root/edit/search.tt:4
 msgid "Search for Edits"
 msgstr ""
 
@@ -9119,9 +9118,9 @@ msgstr ""
 #: ../root/report/releases_to_convert.tt:11
 #: ../root/report/releases_with_coverart_links.tt:7
 #: ../root/report/releases_with_download_relationships.tt:8
-#: ../root/report/releases_with_unlikely_language_script.tt:8
 #: ../root/report/releases_without_language.tt:10
 #: ../root/report/releases_without_script.tt:9
+#: ../root/report/releases_with_unlikely_language_script.tt:8
 #: ../root/report/separate_discs.tt:9
 #: ../root/report/single_medium_releases_with_medium_titles.tt:9
 #: ../root/report/some_formats_unset.tt:9
@@ -9132,8 +9131,8 @@ msgstr ""
 #: ../root/report/mediums_with_sequence_issues.tt:7
 #: ../root/report/superfluous_data_tracks.tt:9
 #: ../root/report/tracks_named_with_sequence.tt:10
-#: ../root/report/tracks_with_sequence_issues.tt:9
 #: ../root/report/tracks_without_times.tt:7
+#: ../root/report/tracks_with_sequence_issues.tt:9
 msgid "Total releases: {count}"
 msgstr ""
 
@@ -9185,8 +9184,8 @@ msgstr ""
 msgid "Track length:"
 msgstr ""
 
-#: ../root/edit/details/set_track_lengths.tt:34
 #: ../root/edit/details/set_track_lengths_from_discid.tt:20
+#: ../root/edit/details/set_track_lengths.tt:34
 msgid "Track lengths:"
 msgstr ""
 
@@ -9221,9 +9220,8 @@ msgstr ""
 #: ../root/components/releases-list.tt:15
 #: ../root/edit/details/merge_releases.tt:21
 #: ../root/otherlookup/results-release.tt:13 ../root/release/discids.tt:9
-#: ../root/release/edit/duplicates.tt:12 ../root/release/merge.tt:16
-#: ../root/release_group/index.tt:25
-#: ../root/search/lib/inline-results-release.tt:12
+#: ../root/release/edit/duplicates.tt:12 ../root/release_group/index.tt:25
+#: ../root/release/merge.tt:16 ../root/search/lib/inline-results-release.tt:12
 #: ../root/search/results-cdstub.tt:10 ../root/search/results-freedb.tt:14
 msgid "Tracks"
 msgstr ""
@@ -9284,7 +9282,7 @@ msgstr ""
 #: ../root/event/merge.tt:13 ../root/instrument/merge.tt:12
 #: ../root/iswc/index.tt:19 ../root/label/merge.tt:13
 #: ../root/otherlookup/results-release.tt:20 ../root/place/merge.tt:12
-#: ../root/release/lookup.tt:13 ../root/release_group/merge.tt:14
+#: ../root/release_group/merge.tt:14 ../root/release/lookup.tt:13
 #: ../root/report/artist_list.tt:8
 #: ../root/report/artists_with_multiple_occurances_in_artist_credits.tt:18
 #: ../root/report/duplicate_artists.tt:27 ../root/report/event_list.tt:8
@@ -9327,8 +9325,8 @@ msgstr ""
 #: ../root/place/edit_form.tt:35 ../root/place/index.tt:4
 #: ../root/place/layout.tt:13 ../root/release/add_cover_art.tt:81
 #: ../root/release/cover_art_fields.tt:3
-#: ../root/release/edit/information.tt:79 ../root/release/index.tt:4
-#: ../root/release/layout.tt:53 ../root/release_group/layout.tt:29
+#: ../root/release/edit/information.tt:79 ../root/release_group/layout.tt:29
+#: ../root/release/index.tt:4 ../root/release/layout.tt:53
 #: ../root/search/form.tt:5 ../root/series/edit_form.tt:33
 #: ../root/series/layout.tt:11 ../root/work/edit_form.tt:15
 #: ../root/work/layout.tt:16
@@ -9918,7 +9916,7 @@ msgstr ""
 msgid "Work information"
 msgstr ""
 
-#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
+#: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:2
 msgid "Work ratings"
 msgstr ""
 
