@@ -58,7 +58,7 @@ sub show : PathPart('') Chained('load')
     $c->stash->{template} = 'work/index.tt';
 }
 
-after qw( show aliases tags details ) => sub {
+before qw( show aliases tags details ) => sub {
     my ($self, $c) = @_;
     my $work = $c->stash->{work};
     $c->model('WorkType')->load($work);

@@ -1,4 +1,5 @@
 use Test::More;
+use Encode;
 use Env::Path;
 use File::Slurp qw( read_file );
 use FindBin qw( $Bin );
@@ -10,9 +11,6 @@ my $phantomjs = scalar @phantomjs ? $phantomjs[0] :
      $ENV{HOME}.'/opt/phantomjs/bin/phantomjs');
 
 $root = "$Bin/../root";
-$testroot = "$root/static/scripts/tests";
-$testrunner = "$root/static/lib/qunit-tap/sample/js/run_qunit.js";
-$testsuite = "$testroot/all.html";
 
 sub generate_text_strings {
     my $input = read_file("$root/scripts/text_strings.tt");
@@ -39,5 +37,9 @@ if (! -x $phantomjs)
 }
 else {
     generate_text_strings();
-    exec($phantomjs, $testrunner, $testsuite);
+
+    # TAP::Harness::JUnit expects output to be UTF-8 encoded:
+    # https://github.com/jlavallee/tap-harness-junit/blob/master/lib/TAP/Harness/JUnit.pm#L365
+    print encode('UTF-8', qx{ $phantomjs $root/static/build/tests.js });
+    exit $?;
 }

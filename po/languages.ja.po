@@ -587,7 +587,7 @@ msgstr "デゥアラ語"
 msgid "Dutch"
 msgstr "オランダ語"
 
-#. frequency:0 iso_code_3:dum
+#. frequency:1 iso_code_3:dum
 #: DB:language/name:112
 msgid "Dutch, Middle (ca.1050-1350)"
 msgstr "中世オランダ語（1050年頃 - 1350年頃）"

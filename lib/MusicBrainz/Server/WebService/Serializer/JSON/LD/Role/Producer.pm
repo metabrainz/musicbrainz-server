@@ -1,32 +1,20 @@
-package MusicBrainz::Server::WebService::Serializer::JSON::LD::Recording;
-use Moose;
-use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( list_or_single );
-
-extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Name';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Length';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Producer';
+package MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::Producer;
+use Moose::Role;
+use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_entity list_or_single );
 
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
     my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
 
-    $ret->{'@type'} = 'MusicRecording';
-
-    if ($stash->store($entity)->{trackNumber}) {
-        $ret->{trackNumber} = $stash->store($entity)->{trackNumber};
-    }
-
-    if ($entity->all_isrcs) {
-       $ret->{'isrc'} = list_or_single(map { $_->isrc } $entity->all_isrcs);
+    my @producers = @{ $entity->relationships_by_link_type_names('producer') };
+    if (@producers) {
+        $ret->{producer} = list_or_single(map { serialize_entity($_->target, $inc, $stash) } @producers);
     }
 
     return $ret;
 };
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
+no Moose::Role;
 1;
 
 =head1 COPYRIGHT

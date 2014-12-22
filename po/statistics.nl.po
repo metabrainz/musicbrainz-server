@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-11-19 22:12+0000\n"
+"PO-Revision-Date: 2014-12-06 13:27+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -861,7 +861,7 @@ msgstr "Totaal aantal ISWC’s"
 
 #: ../root/statistics/view_js.tt:188
 msgid "Count of all Instrument Tags (raw)"
-msgstr ""
+msgstr "Aantal etiketten van instrumenten (totaal)"
 
 #: ../root/statistics/view_js.tt:173
 msgid "Count of all Label Ratings"
@@ -977,7 +977,7 @@ msgstr "Totaal aantal uitgaves met {n} disc-id’s"
 
 #: ../root/statistics/view_js.tt:193
 msgid "Count of all Series Tags (raw)"
-msgstr ""
+msgstr "Aantal etiketten van series (totaal)"
 
 #: ../root/statistics/view_js.tt:184
 msgid "Count of all Tags"
@@ -1360,7 +1360,7 @@ msgstr "Inclusief"
 
 #: ../root/statistics/view_js.tt:188
 msgid "Instrument Tags (raw)"
-msgstr ""
+msgstr "Etiketten van instrumenten (totaal)"
 
 #: ../root/statistics/index.tt:655 ../root/statistics/view_js.tt:58
 msgid "Instruments"
@@ -1891,7 +1891,7 @@ msgstr "Series"
 
 #: ../root/statistics/view_js.tt:193
 msgid "Series Tags (raw)"
-msgstr ""
+msgstr "Etiketten van series (totaal)"
 
 #: ../root/statistics/index.tt:60 ../root/statistics/index.tt:640
 msgctxt "plural"

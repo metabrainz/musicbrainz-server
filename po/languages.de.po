@@ -591,7 +591,7 @@ msgstr "Duala-Sprachen"
 msgid "Dutch"
 msgstr "Niederländisch"
 
-#. frequency:0 iso_code_3:dum
+#. frequency:1 iso_code_3:dum
 #: DB:language/name:112
 msgid "Dutch, Middle (ca.1050-1350)"
 msgstr "Mittelniederländisch (ca. 1050-1350)"
