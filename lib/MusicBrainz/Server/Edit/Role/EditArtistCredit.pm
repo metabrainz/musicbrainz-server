@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::Role::EditArtistCredit;
 
+use Data::Compare;
 use Moose::Role;
 use MusicBrainz::Server::Data::Utils qw(
     artist_credit_to_ref
@@ -21,7 +22,7 @@ around initialize => sub {
         my $new_artist_credit = clean_submitted_artist_credits($opts{artist_credit});
 
         $opts{artist_credit} = $new_artist_credit;
-        delete $opts{artist_credit} if hash_artist_credit($old_artist_credit) eq hash_artist_credit($new_artist_credit);
+        delete $opts{artist_credit} if Compare($old_artist_credit, $new_artist_credit);
     }
 
     $self->$orig(%opts);
