@@ -270,11 +270,6 @@ MB.utility.parseDate = (function () {
     };
 }());
 
-MB.utility.filesize = function (size) {
-    /* 1 decimal place.  false disables bit sizes. */
-    return filesize(size, 1, false);
-};
-
 MB.utility.percentOf = function (x, y) {
     return x * y / 100;
 };

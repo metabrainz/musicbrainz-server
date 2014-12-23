@@ -1,4 +1,4 @@
-var filesize = require("../lib/filesize.js/lib/filesize.js");
+var filesize = require("filesize");
 window.filesize = filesize;
 
 require("../lib/json/json2.js");
