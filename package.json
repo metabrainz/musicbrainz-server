@@ -15,6 +15,7 @@
     "gulp-rev": "^2.0.1",
     "gulp-streamify": "^0.0.5",
     "jed": "1.1.0",
+    "jquery": "1.9.1",
     "less": ">=1.4.0",
     "po2json": "^0.3.2",
     "q": "^1.1.1",
@@ -31,7 +32,7 @@
   "private": true,
   "browser": {
     "aclass": "./root/static/lib/aclass/aclass.js",
-    "jquery": "./root/static/lib/jquery/jquery.js",
+    "jquery": "jquery/jquery.js",
     "jquery.browser": "./root/static/lib/jquery/jquery.browser.js",
     "jquery.cookie": "./root/static/lib/jquery/jquery.cookie.js",
     "jquery.flot": "./root/static/lib/flot/jquery.flot.js",
