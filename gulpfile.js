@@ -148,10 +148,10 @@ function buildScripts(watch) {
             });
 
             // Needed by knockout-* plugins in edit.js
-            b.require('./root/static/lib/knockout/knockout-latest.debug.js', { expose: 'knockout' });
+            b.require('knockout', { expose: 'knockout' });
         }),
         createBundle("edit.js", watch, function (b) {
-            b.external('./root/static/lib/knockout/knockout-latest.debug.js');
+            b.external('knockout');
         }),
         createBundle("guess-case.js", watch),
         createBundle("release-editor.js", watch),
