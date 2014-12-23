@@ -1,3 +1,4 @@
+[% USE JavaScript %]
 <div class="half-width" data-bind="with: rootField.release">
   <fieldset>
     <legend>[% l('Release information') %]</legend>
@@ -173,9 +174,10 @@
         </td>
       </tr>
 
+      [% err_str = BLOCK ~%][%~ l('You haven’t selected a label for “{name}”.') | js ~%][%~ END ~%]
       [% table_row_error(
            4, 'showErrorWhenTabIsSwitched: needsLabel',
-           '<!-- ko text: MB.i18n.expand(\'' _ l('You haven’t selected a label for “{name}”.') _ '\', { name: label().name }) --><!-- /ko -->'
+           '<!-- ko text: MB.i18n.expand(\'' _ err_str _ '\', { name: label().name }) --><!-- /ko -->'
          )
       %]
     <!-- /ko -->
