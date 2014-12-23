@@ -68,9 +68,6 @@ sub submit_edits {
         for my $i (0, 1) {
             my $entity = $rel->{entity}->[$i];
 
-            $entity->{entityType} = delete $entity->{type}
-                or detach_with_error($c, "Missing field: entity.$i.type");
-
             if (my $url = delete $entity->{url}) {
                 $entity->{name} = $url;
             }
