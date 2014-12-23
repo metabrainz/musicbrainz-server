@@ -71,6 +71,8 @@ window.addEventListener('error', function (event) {
     phantom.exit(1);
 });
 
+window.MB_LANGUAGE = 'en';
+
 require('./common.js');
 require('./edit.js');
 require('./guess-case.js');
