@@ -697,7 +697,22 @@ sub _serialize_disc
         $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $stash, $toplevel);
     }
 
+    $self->_serialize_disc_offsets(\@list, $gen, $cdtoc, $inc, $stash);
+
     push @$data, $gen->disc({ id => $cdtoc->discid }, @list);
+}
+
+sub _serialize_disc_offsets
+{
+    my ($self, $data, $gen, $cdtoc, $inc, $stash) = @_;
+
+    my @list;
+    foreach my $track (0 .. ($cdtoc->track_count - 1)) {
+	push @list, $gen->offset($cdtoc->track_offset->[$track]);
+    }
+
+    my %attr = ( count => $cdtoc->track_count );
+    push @$data, $gen->offset_list(\%attr, @list);
 }
 
 sub _serialize_cdstub
