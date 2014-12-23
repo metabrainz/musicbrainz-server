@@ -585,27 +585,6 @@ sub lock_and_do {
     }, $self->c->sql);
 }
 
-=method editor_can_edit
-
-Returns true if the editor is allowed to edit a $type0-$type1 rel
-
-=cut
-
-sub editor_can_edit {
-    my ($self, $editor, $type0, $type1) = @_;
-
-    return 0 unless $editor;
-
-    my $type = join "_", sort($type0, $type1);
-    if ($type ~~ [qw(area_area area_url)]) {
-        return $editor->is_location_editor;
-    } elsif ($type ~~ [qw(area_instrument instrument_instrument instrument_url)]) {
-        return $editor->is_relationship_editor;
-    } else {
-        return 1;
-    }
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

@@ -38,8 +38,8 @@ sub try_and_edit {
         $params{link_type}->entity0_type,
         $params{link_type}->entity1_type,
         sub {
-            $edit = $self->_try_and_insert_edit(
-                $c, $form, $EDIT_RELATIONSHIP_EDIT, %params
+            $edit = $self->_insert_edit(
+                $c, $form, edit_type => $EDIT_RELATIONSHIP_EDIT, %params
             );
         }
     );
@@ -72,8 +72,8 @@ sub try_and_insert {
         $params{link_type}->entity1_type,
         sub {
             @edits = map {
-                $self->_try_and_insert_edit(
-                    $c, $form, $EDIT_RELATIONSHIP_CREATE, %$_
+                $self->_insert_edit(
+                    $c, $form, edit_type => $EDIT_RELATIONSHIP_CREATE, %$_
                 )
             } @relationships
         }
@@ -118,26 +118,6 @@ sub reorder_relationships {
         }
     );
     return $edit;
-}
-
-sub _try_and_insert_edit {
-    my ($self, $c, $form, $edit_type, %params) = @_;
-
-    my $link_type = $params{link_type};
-
-    return undef if $c->model('Relationship')->exists(
-        $link_type->entity0_type,
-        $link_type->entity1_type, {
-        link_type_id => $link_type->id,
-        begin_date   => $params{begin_date},
-        end_date     => $params{end_date},
-        ended        => $params{ended},
-        attributes   => $params{attributes},
-        entity0_id   => $params{entity0}->id,
-        entity1_id   => $params{entity1}->id,
-    });
-
-    return $self->_insert_edit($c, $form, edit_type => $edit_type, %params);
 }
 
 1;

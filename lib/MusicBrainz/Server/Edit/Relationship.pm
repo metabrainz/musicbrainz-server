@@ -92,4 +92,17 @@ sub serialize_link_attributes {
     } @attributes ];
 }
 
+sub editor_may_edit_types {
+    my ($self, $type0, $type1) = @_;
+
+    my $types = join "_", sort($type0, $type1);
+    if ($types ~~ [qw(area_area area_url)]) {
+        return $self->editor->is_location_editor;
+    } elsif ($types ~~ [qw(area_instrument instrument_instrument instrument_url)]) {
+        return $self->editor->is_relationship_editor;
+    } else {
+        return 1;
+    }
+}
+
 1;

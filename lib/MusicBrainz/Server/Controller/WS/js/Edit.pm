@@ -5,12 +5,6 @@ use JSON qw( encode_json );
 use List::MoreUtils qw( any );
 use Moose;
 use MusicBrainz::Server::Constants qw(
-    $EDIT_AREA_CREATE
-    $EDIT_AREA_EDIT
-    $EDIT_AREA_DELETE
-    $EDIT_INSTRUMENT_CREATE
-    $EDIT_INSTRUMENT_EDIT
-    $EDIT_INSTRUMENT_DELETE
     $EDIT_RELEASE_CREATE
     $EDIT_RELEASE_EDIT
     $EDIT_RELEASE_ADDRELEASELABEL
@@ -386,23 +380,15 @@ sub process_edits {
     for my $edit (@relationship_edits) {
         my $link_type = $link_types->{$edit->{linkTypeID}};
 
-        $c->forward('/ws/js/detach_with_error', ['unknown linkTypeID: ' . $edit->{linkTypeID}])
-            unless $link_type;
-
-        my $type0 = $link_type->entity0_type;
-        my $type1 = $link_type->entity1_type;
-
-        unless ($c->model('Relationship')->editor_can_edit($c->user, $type0, $type1)) {
-            $c->forward(
-                '/ws/js/detach_with_error',
-                ["changing $type0-$type1 relationships is forbidden", 403]
-            );
-        }
+        $c->forward('/ws/js/detach_with_error', ['unknown linkTypeID: ' . $edit->{linkTypeID}]) unless $link_type;
 
         $edit->{link_type} = $link_type;
 
         if ($edit->{edit_type} ~~ [$EDIT_RELATIONSHIP_EDIT, $EDIT_RELATIONSHIP_DELETE]) {
             my $id = $edit->{id} or $c->forward('/ws/js/detach_with_error', ['missing relationship id']);
+
+            my $type0 = $link_type->entity0_type;
+            my $type1 = $link_type->entity1_type;
 
             # Only one edit per relationship is supported.
             ($relationships_to_load->{"$type0-$type1"} //= {})->{$id} = $edit;
@@ -517,31 +503,15 @@ sub create_edits {
         my $edit;
 
         try {
-            if ($opts->{edit_type} == $EDIT_RELATIONSHIP_CREATE) {
-                my $link_type = $opts->{link_type};
-
-                MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
-                    if $c->model('Relationship')->exists(
-                        $link_type->entity0_type, $link_type->entity1_type, {
-                            link_type_id => $link_type->id,
-                            entity0_id => $opts->{entity0}->id,
-                            entity1_id => $opts->{entity1}->id,
-                            begin_date => $opts->{begin_date},
-                            end_date => $opts->{end_date},
-                            ended => $opts->{ended},
-                            attributes => $opts->{attributes},
-                        }
-                    );
-            }
-
             $edit = $c->model('Edit')->$action(
                 %$opts,
                 editor_id => $c->user->id,
                 privileges => $privs,
             );
-        }
-        catch {
-            unless (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::NoChanges') {
+        } catch {
+            if (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::Forbidden') {
+                $c->forward('/ws/js/detach_with_error', ['editor is forbidden to enter this edit', 403]);
+            } elsif (ref($_) ne 'MusicBrainz::Server::Edit::Exceptions::NoChanges') {
                 $c->forward('/ws/js/critical_error', [$_, { error => $_ }, 400]);
             }
         };
@@ -584,14 +554,6 @@ sub submit_edits {
 
         if ($edit_type == $EDIT_RELEASE_CREATE && !$data->{editNote}) {
             $c->forward('/ws/js/detach_with_error', ['editNote required']);
-        }
-
-        if ($edit_type ~~ [$EDIT_AREA_CREATE, $EDIT_AREA_EDIT, $EDIT_AREA_DELETE] && !$c->user->is_location_editor) {
-            $c->forward('/ws/js/detach_with_error', ['only location editors can edit areas', 403]);
-        }
-
-        if ($edit_type ~~ [$EDIT_INSTRUMENT_CREATE, $EDIT_INSTRUMENT_EDIT, $EDIT_INSTRUMENT_DELETE] && !$c->user->is_location_editor) {
-            $c->forward('/ws/js/detach_with_error', ['only relationship editors can edit instruments', 403]);
         }
 
         unless ($edit_type ~~ $ALLOWED_EDIT_TYPES) {

@@ -101,6 +101,19 @@ sub initialize
     delete $opts{begin_date} unless any { defined($_) } values %{ $opts{begin_date} };
     delete $opts{end_date} unless any { defined($_) } values %{ $opts{end_date} };
 
+    MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
+        if $self->c->model('Relationship')->exists(
+            $lt->entity0_type,
+            $lt->entity1_type, {
+            link_type_id => $lt->id,
+            begin_date   => $opts{begin_date},
+            end_date     => $opts{end_date},
+            ended        => $opts{ended},
+            attributes   => $opts{attributes},
+            entity0_id   => $e0->id,
+            entity1_id   => $e1->id,
+        });
+
     $self->data({ %opts, edit_version => 2 });
 }
 
@@ -277,6 +290,13 @@ before restore => sub {
 
     $self->restore_int_attributes($data) unless defined $data->{edit_version};
 };
+
+sub editor_may_edit {
+    my ($self, $opts) = @_;
+
+    my $lt = $opts->{link_type};
+    return $self->editor_may_edit_types($lt->entity0_type, $lt->entity1_type);
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

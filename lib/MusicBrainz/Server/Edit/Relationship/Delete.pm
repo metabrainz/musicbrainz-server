@@ -269,6 +269,13 @@ before restore => sub {
     }
 };
 
+sub editor_may_edit {
+    my ($self, $opts) = @_;
+
+    my $lt = $opts->{relationship}->link->type;
+    return $self->editor_may_edit_types($lt->entity0_type, $lt->entity1_type);
+}
+
 __PACKAGE__->meta->make_immutable;
 
 no Moose;

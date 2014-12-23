@@ -43,7 +43,7 @@ sub forbidden_edit {
             post_json($test->mech, '/ws/js/edit/create', encode_json({ edits => [$edit] }));
         } $test->c;
 
-        is($test->mech->status, 403);
+        like($test->mech->status, qr/^40[03]$/);
         is(scalar(@edits), 0);
     };
 }
