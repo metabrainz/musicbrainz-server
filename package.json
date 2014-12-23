@@ -19,6 +19,7 @@
     "jquery": "1.9.1",
     "knockout": "3.2.0",
     "knockout-delegatedEvents": "rniemeyer/knockout-delegatedEvents#v0.1.3",
+    "knockout-postbox": "rniemeyer/knockout-postbox#v0.4.2",
     "less": ">=1.4.0",
     "po2json": "^0.3.2",
     "q": "^1.1.1",
@@ -45,7 +46,7 @@
     "jquery.ui": "./root/static/lib/jquery.ui/ui/jquery-ui.custom.js",
     "knockout-arrayTransforms": "./root/static/lib/knockout/knockout-arrayTransforms.js",
     "knockout-delegatedEvents": "knockout-delegatedEvents/build/knockout-delegatedEvents.js",
-    "knockout-postbox": "./root/static/lib/knockout/knockout-postbox.js",
+    "knockout-postbox": "knockout-postbox/build/knockout-postbox.js",
     "leaflet": "./root/static/lib/leaflet/leaflet-src.js",
     "lodash": "./root/static/lib/lodash/lodash.compat.js",
     "underscore.string": "./root/static/lib/underscore.string/underscore.string.js"
