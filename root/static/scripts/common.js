@@ -16,7 +16,6 @@ require("./common/annotation.js");
 require("./common/artworkViewer.js");
 require("./common/dialogs.js");
 require("./common/entity.js");
-require("./common/errors.js");
 require("./common/MB/Control/Autocomplete.js");
 require("./common/MB/Control/EditList.js");
 require("./common/MB/Control/EditSummary.js");
@@ -32,3 +31,7 @@ require("./common/multiselect.js");
 require("./common/ratings.js");
 require("./common/tagger.js");
 require("./common/coverart.js");
+
+if (typeof phantom === 'undefined') {
+    require("./common/errors.js");
+}
