@@ -121,7 +121,7 @@ function buildScripts(watch) {
         var tmpPo = "./po/javascript." + lang + ".po";
 
         // Create a temporary .po file containing only the strings used by root/static/scripts.
-        shell.exec("msgcat --more-than=1 --use-first -o " + tmpPo + " " + srcPo + " ./po/javascript.pot");
+        shell.exec("msggrep -N '../root/static/scripts/**/*.js' " + srcPo + " -o " + tmpPo);
 
         var jedOptions = po2json.parseFileSync(tmpPo, { format: "jed" });
         fs.unlinkSync(tmpPo);
@@ -143,6 +143,8 @@ function buildScripts(watch) {
 
     return Q.all([
         createBundle("common.js", watch, function (b) {
+            b.external('jed');
+
             languages.forEach(function (lang) {
                 b.external('jed-' + lang);
             });
