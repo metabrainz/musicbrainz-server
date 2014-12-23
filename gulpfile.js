@@ -3,7 +3,9 @@ var browserify      = require("browserify"),
     fs              = require("fs"),
     gulp            = require("gulp"),
     less            = require("gulp-less"),
+    po2json         = require("po2json"),
     rev             = require("gulp-rev"),
+    shell           = require("shelljs"),
     source          = require("vinyl-source-stream"),
     streamify       = require("gulp-streamify"),
     through2        = require("through2"),
@@ -49,7 +51,7 @@ function buildStyles() {
     );
 }
 
-function createBundle(resourceName, watch, callback) {
+function runBrowserify(resourceName, watch, callback) {
     var b = browserify("./root/static/scripts/" + resourceName, {
         cache: {},
         packageCache: {},
@@ -60,6 +62,16 @@ function createBundle(resourceName, watch, callback) {
     if (callback) {
         callback(b);
     }
+
+    return b;
+}
+
+function bundleScripts(b, resourceName) {
+    return b.bundle().on("error", console.log).pipe(source(resourceName));
+}
+
+function createBundle(resourceName, watch, callback) {
+    var b = runBrowserify(resourceName, watch, callback);
 
     if (process.env.UGLIFY) {
         b.transform("uglifyify", {
@@ -73,11 +85,7 @@ function createBundle(resourceName, watch, callback) {
     }
 
     function build() {
-        return writeResource(
-            b.bundle()
-            .on("error", console.log)
-            .pipe(source(resourceName))
-        );
+        return writeResource(bundleScripts(b, resourceName));
     }
 
     if (watch) {
@@ -95,9 +103,50 @@ function createBundle(resourceName, watch, callback) {
     return build();
 }
 
+function langToPosix(lang) {
+    return lang.replace(/^([a-zA-Z]+)-([a-zA-Z]+)$/, function (match, l, c) {
+        return l + '_' + c.toUpperCase()
+    });
+}
+
 function buildScripts(watch) {
+    var promises = [];
+
+    var languages = (process.env.MB_LANGUAGES || "").split(",").filter(function (lang) {
+        return lang && lang !== 'en';
+    });
+
+    languages.forEach(function (lang) {
+        var srcPo = "./po/mb_server." + langToPosix(lang) + ".po";
+        var tmpPo = "./po/javascript." + lang + ".po";
+
+        // Create a temporary .po file containing only the strings used by root/static/scripts.
+        shell.exec("msggrep -N '../root/static/scripts/**/*.js' " + srcPo + " -o " + tmpPo);
+
+        var jedOptions = po2json.parseFileSync(tmpPo, { format: "jed" });
+        fs.unlinkSync(tmpPo);
+
+        var jedWrapper = './root/static/scripts/jed-' + lang + '.js';
+
+        fs.writeFileSync(
+            jedWrapper,
+            'module.exports = ' + JSON.stringify(jedOptions) + ';\n'
+        );
+
+        createBundle("jed-" + lang + ".js", watch, function (b) {
+            b.external('jed');
+            b.require(jedWrapper, { expose: 'jed-' + lang });
+        }).done(function () {
+            fs.unlinkSync(jedWrapper);
+        });
+    });
+
     return Q.all([
         createBundle("common.js", watch, function (b) {
+            languages.forEach(function (lang) {
+                b.external('jed-' + lang);
+            });
+
             // Needed by knockout-* plugins in edit.js
             b.require('./root/static/lib/knockout/knockout-latest.debug.js', { expose: 'knockout' });
         }),
@@ -106,7 +155,10 @@ function buildScripts(watch) {
         }),
         createBundle("guess-case.js", watch),
         createBundle("release-editor.js", watch),
-        createBundle("statistics.js", watch)
+        createBundle("statistics.js", watch),
+
+        bundleScripts(runBrowserify('tests.js', watch), 'tests.js')
+            .pipe(gulp.dest("./root/static/build/"))
     ]);
 }
 

@@ -1,4 +1,5 @@
 [%- USE u = Utils -%]
+[%- USE JavaScript -%]
 [%- PROCESS 'components/rating-macros.tt' -%]
 [%-# This next could use localization for alternating comma/period use per locale -%]
 [%~ MACRO add_commas(n) GET n.chunk(-3).join(',') -%]
@@ -6,6 +7,7 @@
 [%~ MACRO url_escape(url) BLOCK; url | url; END -%]
 [%~ MACRO html_escape(url) BLOCK; url | html; END -%]
 [%~ MACRO bracketed(text) BLOCK; l(' ({text})', { text => text }); END -%]
+[%~ MACRO js_escape(text) BLOCK; text | js; END ~%]
 [%~ MACRO display_url(url) BLOCK; PROCESS _unescaped_display_url | html; END -%]
 [%~ BLOCK _unescaped_display_url;
     IF url.pretty_name; url.pretty_name;

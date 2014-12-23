@@ -1,3 +1,14 @@
+// This file is part of MusicBrainz, the open internet music database.
+// Copyright (C) 2014 MetaBrainz Foundation
+// Licensed under the GPL version 2, or (at your option) any later version:
+// http://www.gnu.org/licenses/gpl-2.0.txt
+
+var test = require('tape');
+
+var fakeGID0 = "a0ba91b0-c564-4eec-be2e-9ff071a47b59";
+var fakeGID1 = "acb75d59-b0dc-4105-bad6-81ac8c66da4d";
+var fakeGID2 = "c4804cb2-bf33-4394-bb5f-3fac972fa7a5";
+
 var testRelease = {
     entityType: "release",
     relationships: {},
@@ -64,74 +75,68 @@ var testRelease = {
     }
 };
 
-
 function id2attr(id) { return { type: MB.attrInfoByID[id] } }
+
 function ids2attrs(ids) { return _.map(ids, id2attr) }
 
-function setupReleaseRelationshipEditor(self) {
-    self.vm = self.RE.ReleaseViewModel({
+function setupReleaseRelationshipEditor() {
+    var vm = MB.relationshipEditor.ReleaseViewModel({
         sourceData: _.omit(testRelease, "mediums")
     });
 
-    self.vm.releaseLoaded(testRelease);
+    vm.releaseLoaded(testRelease);
+    return vm;
 }
 
-function setupGenericRelationshipEditor(self, options) {
-    var $inputs = $("<div>").attr("id", "relationship-editor");
-
-    self.formData = function () {
-        var inputsArray = _.toArray($inputs.find("input[type=hidden]"));
-        return _.transform(inputsArray, function (result, input) { result[input.name] = input.value }, {});
-    };
-
-    $("#qunit-fixture").append($inputs);
-
-    self.vm = self.RE.GenericEntityViewModel(options);
-    MB.sourceRelationshipEditor = self.vm;
+function setupGenericRelationshipEditor(options) {
+    var vm = MB.relationshipEditor.GenericEntityViewModel(options);
+    MB.sourceRelationshipEditor = vm;
+    return vm;
 }
 
+function formData() {
+    var inputsArray = _.toArray($("input[type=hidden]"));
+    return _.transform(inputsArray, function (result, input) { result[input.name] = input.value }, {});
+};
 
-module("relationship editor", {
-
-    setup: function () {
-        $("#qunit-fixture").append('<div id="content"></div><div id="dialog"></div>');
-
-        this.fakeGID0 = "a0ba91b0-c564-4eec-be2e-9ff071a47b59";
-        this.fakeGID1 = "acb75d59-b0dc-4105-bad6-81ac8c66da4d";
-        this.fakeGID2 = "c4804cb2-bf33-4394-bb5f-3fac972fa7a5";
+function relationshipEditorTest(name, callback) {
+    test(name, function (t) {
+        var $fixture =
+            $('<div>')
+                .attr('id', 'relationship-editor')
+                .append('<div id="content"></div><div id="dialog"></div></div>')
+                .appendTo('body');
 
         // _.defer makes its target functions asynchronous. It is redefined
         // here to call its target right away, so that we don't have to deal
         // with writing async tests.
-
-        this.__defer = _.defer;
+        var _defer = _.defer;
 
         _.defer = function (func) {
             func.apply(null, _.toArray(arguments).slice(1));
         }
 
-        this.RE = MB.relationshipEditor;
-    },
+        callback(t);
 
-    teardown: function () {
-        _.defer = this.__defer;
-
-        this.vm = null;
+        _.defer = _defer;
 
         MB.entityCache = {};
-        MB.sourceRelationshipEditor = null;
+        delete MB.sourceRelationshipEditor;
         delete sessionStorage.submittedRelationships;
-    }
-});
 
+        $fixture.remove();
+    });
+}
 
-test("link phrase interpolation", function () {
-    setupReleaseRelationshipEditor(this);
+relationshipEditorTest("link phrase interpolation", function (t) {
+    t.plan(6);
+
+    var vm = setupReleaseRelationshipEditor();
 
     var source = MB.entity({ entityType: "recording" });
     var target = MB.entity({ entityType: "artist" });
 
-    var relationship = this.vm.getRelationship({
+    var relationship = vm.getRelationship({
         target: target,
         linkTypeID: 148
     }, source);
@@ -177,28 +182,29 @@ test("link phrase interpolation", function () {
 
         var result = relationship.phraseAndExtraAttributes();
 
-        equal(
+        t.equal(
             result[entities.indexOf(source)],
             test.expected,
             [test.linkTypeID, JSON.stringify(_(test.attributes).pluck("type").pluck("id").value())].join(", ")
         );
 
         if (test.expectedExtra) {
-            equal(result[2], test.expectedExtra);
+            t.equal(result[2], test.expectedExtra);
         }
     });
 
     relationship.remove();
 });
 
+relationshipEditorTest("merging duplicate relationships", function (t) {
+    t.plan(6);
 
-test("merging duplicate relationships", function () {
-    setupReleaseRelationshipEditor(this);
+    var vm = setupReleaseRelationshipEditor();
 
     var source = MB.entity({ entityType: "recording", name: "foo" });
     var target = MB.entity({ entityType: "artist", name: "bar" });
 
-    var relationship = this.vm.getRelationship({
+    var relationship = vm.getRelationship({
         target: target,
         linkTypeID: 148,
         attributes: ids2attrs([123, 194, 277]),
@@ -207,7 +213,7 @@ test("merging duplicate relationships", function () {
         ended: false
     }, source);
 
-    var duplicateRelationship = this.vm.getRelationship({
+    var duplicateRelationship = vm.getRelationship({
         target: target,
         linkTypeID: 148,
         attributes: ids2attrs([123, 194, 277]),
@@ -219,15 +225,15 @@ test("merging duplicate relationships", function () {
     relationship.show();
     duplicateRelationship.show();
 
-    ok(source.mergeRelationship(duplicateRelationship), "relationships were merged");
+    t.ok(source.mergeRelationship(duplicateRelationship), "relationships were merged");
 
-    deepEqual(
+    t.deepEqual(
         _(relationship.attributes()).pluck("type").pluck("id").value(),
         [123, 194, 277],
         "attributes are the same"
     );
 
-    deepEqual(
+    t.deepEqual(
         ko.toJS(relationship.period),
         {
             beginDate: { year: 2001, month: null, day: null },
@@ -237,12 +243,12 @@ test("merging duplicate relationships", function () {
         "date period is merged correctly"
     );
 
-    equal(source.relationships.indexOf(duplicateRelationship), -1,
+    t.equal(source.relationships.indexOf(duplicateRelationship), -1,
           "source does not have duplicate relationship");
 
-    ok(duplicateRelationship.removed(), "`removed` is true for duplicate");
+    t.ok(duplicateRelationship.removed(), "`removed` is true for duplicate");
 
-    var notDuplicateRelationship = this.vm.getRelationship({
+    var notDuplicateRelationship = vm.getRelationship({
         target: target,
         linkTypeID: 148,
         beginDate: { year: 2003 },
@@ -251,7 +257,7 @@ test("merging duplicate relationships", function () {
 
     notDuplicateRelationship.show();
 
-    ok(!source.mergeRelationship(notDuplicateRelationship),
+    t.ok(!source.mergeRelationship(notDuplicateRelationship),
        "relationship with different date is not merged");
 
     relationship.remove();
@@ -259,11 +265,10 @@ test("merging duplicate relationships", function () {
     notDuplicateRelationship.remove();
 });
 
+relationshipEditorTest("dialog backwardness", function (t) {
+    t.plan(8);
 
-test("dialog backwardness", function () {
-    setupReleaseRelationshipEditor(this);
-
-    var self = this;
+    var vm = setupReleaseRelationshipEditor();
 
     var release = MB.entity({ entityType: "release" });
     var recording0 = MB.entity({ entityType: "recording" });
@@ -314,46 +319,48 @@ test("dialog backwardness", function () {
     ];
 
     _.each(tests, function (test) {
-        var options = _.assign({ viewModel: self.vm }, test.input);
-        var dialog = self.RE.UI.AddDialog(options);
+        var options = _.assign({ viewModel: vm }, test.input);
+        var dialog = MB.relationshipEditor.UI.AddDialog(options);
 
-        equal(dialog.backward(), test.expected.backward)
-        deepEqual(dialog.relationship().entities(), test.expected.entities);
+        t.equal(dialog.backward(), test.expected.backward)
+        t.deepEqual(dialog.relationship().entities(), test.expected.entities);
 
         dialog.close();
     });
 });
 
+relationshipEditorTest("AddDialog", function (t) {
+    t.plan(1);
 
-test("AddDialog", function () {
-    setupReleaseRelationshipEditor(this);
+    var vm = setupReleaseRelationshipEditor();
 
-    var source = this.vm.source.mediums()[0].tracks[0].recording;
-    var target = MB.entity({ entityType: "artist", gid: this.fakeGID0 });
+    var source = vm.source.mediums()[0].tracks[0].recording;
+    var target = MB.entity({ entityType: "artist", gid: fakeGID0 });
 
-    var dialog = this.RE.UI.AddDialog({ source: source, target: target, viewModel: this.vm });
+    var dialog = MB.relationshipEditor.UI.AddDialog({ source: source, target: target, viewModel: vm });
     var relationship = dialog.relationship();
 
     relationship.linkTypeID(148);
     relationship.setAttributes(ids2attrs([229]));
     dialog.accept();
 
-    equal(source.relationships()[0], relationship, "relationship is added");
+    t.equal(source.relationships()[0], relationship, "relationship is added");
 
     relationship.remove();
 });
 
+relationshipEditorTest("BatchRelationshipDialog", function (t) {
+    t.plan(6);
 
-test("BatchRelationshipDialog", function () {
-    setupReleaseRelationshipEditor(this);
+    var vm = setupReleaseRelationshipEditor();
 
-    var target = MB.entity({ entityType: "artist", gid: this.fakeGID0 });
-    var recordings = _.pluck(this.vm.source.mediums()[0].tracks, "recording");
+    var target = MB.entity({ entityType: "artist", gid: fakeGID0 });
+    var recordings = _.pluck(vm.source.mediums()[0].tracks, "recording");
 
-    var dialog = this.RE.UI.BatchRelationshipDialog({
+    var dialog = MB.relationshipEditor.UI.BatchRelationshipDialog({
         sources: recordings,
         target: target,
-        viewModel: this.vm
+        viewModel: vm
     });
 
     var relationship = dialog.relationship();
@@ -366,73 +373,73 @@ test("BatchRelationshipDialog", function () {
 
     relationships = recordings[0].relationships();
     attributes = relationships[0].attributes();
-    equal(relationships[0].entities()[0], target, "recording 0 has relationship with correct target");
-    equal(attributes.length, 1, "recording 0 has 1 attribute");
-    equal(attributes[0].type.id, 1, "recording 0 has relationship with additional attribute");
+    t.equal(relationships[0].entities()[0], target, "recording 0 has relationship with correct target");
+    t.equal(attributes.length, 1, "recording 0 has 1 attribute");
+    t.equal(attributes[0].type.id, 1, "recording 0 has relationship with additional attribute");
 
     relationships = recordings[1].relationships();
     attributes = relationships[0].attributes();
-    equal(relationships[0].entities()[0], target, "recording 1 has relationship with correct target");
-    equal(attributes.length, 1, "recording 1 has 1 attribute");
-    equal(attributes[0].type.id, 1, "recording 1 has relationship with additional attribute");
+    t.equal(relationships[0].entities()[0], target, "recording 1 has relationship with correct target");
+    t.equal(attributes.length, 1, "recording 1 has 1 attribute");
+    t.equal(attributes[0].type.id, 1, "recording 1 has relationship with additional attribute");
 });
 
+relationshipEditorTest("BatchCreateWorksDialog", function (t) {
+    t.plan(2);
 
-test("BatchCreateWorksDialog", function () {
-    setupReleaseRelationshipEditor(this);
+    var vm = setupReleaseRelationshipEditor();
 
-    var recordings = _.pluck(this.vm.source.mediums()[0].tracks, "recording");
+    var recordings = _.pluck(vm.source.mediums()[0].tracks, "recording");
 
-    var dialog = this.RE.UI.BatchCreateWorksDialog({
-        sources: recordings, viewModel: this.vm
+    var dialog = MB.relationshipEditor.UI.BatchCreateWorksDialog({
+        sources: recordings, viewModel: vm
     });
 
     // Mock edit submission.
     var _MB_edit_create = MB.edit.create;
-    var self = this;
 
     MB.edit.create = function () {
         return $.Deferred().resolve({
             edits: [
-                { entity: { name: "WorkFoo", gid: self.fakeGID0, entityType: "work" } },
-                { entity: { name: "WorkBar", gid: self.fakeGID1, entityType: "work" } }
+                { entity: { name: "WorkFoo", gid: fakeGID0, entityType: "work" } },
+                { entity: { name: "WorkBar", gid: fakeGID1, entityType: "work" } }
             ]
         });
     }
 
     dialog.accept();
 
-    deepEqual(recordings[0].relationships()[0].entities(), [
-        recordings[0], MB.entity({ gid: this.fakeGID0 }, "work")
+    t.deepEqual(recordings[0].relationships()[0].entities(), [
+        recordings[0], MB.entity({ gid: fakeGID0 }, "work")
     ]);
 
-    deepEqual(recordings[1].relationships()[0].entities(), [
-        recordings[1], MB.entity({ gid: this.fakeGID1 }, "work")
+    t.deepEqual(recordings[1].relationships()[0].entities(), [
+        recordings[1], MB.entity({ gid: fakeGID1 }, "work")
     ]);
 
     MB.edit.create = _MB_edit_create;
 });
 
+relationshipEditorTest("canceling an edit dialog reverts the changes", function (t) {
+    t.plan(4);
 
-test("canceling an edit dialog reverts the changes", function () {
-    setupReleaseRelationshipEditor(this);
+    var vm = setupReleaseRelationshipEditor();
+    var source = vm.source.mediums()[0].tracks[0].recording;
+    var target = MB.entity({ entityType: "artist", name: "foo", gid: fakeGID0 });
 
-    var source = this.vm.source.mediums()[0].tracks[0].recording;
-    var target = MB.entity({ entityType: "artist", name: "foo", gid: this.fakeGID0 });
-
-    var relationship = this.vm.getRelationship({
+    var relationship = vm.getRelationship({
         target: target,
         linkTypeID: 148,
         attributes: [],
     }, source);
 
-    var dialog = this.RE.UI.EditDialog({
+    var dialog = MB.relationshipEditor.UI.EditDialog({
         relationship: relationship,
         source: source,
-        viewModel: this.vm
+        viewModel: vm
     });
 
-    var newTarget = MB.entity({ entityType: "artist", name: "bar", gid: this.fakeGID1 });
+    var newTarget = MB.entity({ entityType: "artist", name: "bar", gid: fakeGID1 });
     var dialogRelationship = dialog.relationship();
 
     dialogRelationship.entities([newTarget, source]);
@@ -443,43 +450,44 @@ test("canceling an edit dialog reverts the changes", function () {
     // cancel should revert the change
     dialog.close(true /* cancel */);
 
-    deepEqual(relationship.entities(), [target, source], "entities changed back");
-    deepEqual(relationship.attributes(), [], "attributes changed back");
-    equal(relationship.period.beginDate.year(), null, "beginDate changed back");
-    equal(relationship.period.endDate.year(), null, "endDate changed back");
+    t.deepEqual(relationship.entities(), [target, source], "entities changed back");
+    t.deepEqual(relationship.attributes(), [], "attributes changed back");
+    t.equal(relationship.period.beginDate.year(), null, "beginDate changed back");
+    t.equal(relationship.period.endDate.year(), null, "endDate changed back");
 });
 
+relationshipEditorTest("MBS-5389: added recording-recording relationship appears under both recordings", function (t) {
+    t.plan(2);
 
-test("MBS-5389: added recording-recording relationship appears under both recordings", function () {
-    setupReleaseRelationshipEditor(this);
-
-    var tracks = this.vm.source.mediums()[0].tracks;
+    var vm = setupReleaseRelationshipEditor();
+    var tracks = vm.source.mediums()[0].tracks;
 
     var recording0 = tracks[0].recording;
     var recording1 = tracks[1].recording;
 
-    var dialog = this.RE.UI.AddDialog({ source: recording1, target: recording0, viewModel: this.vm });
+    var dialog = MB.relationshipEditor.UI.AddDialog({ source: recording1, target: recording0, viewModel: vm });
 
     var relationship = dialog.relationship();
     relationship.linkTypeID(231);
 
     dialog.accept();
 
-    equal(recording0.relationships()[0], relationship, "relationship added to recording 0");
-    equal(recording1.relationships()[0], relationship, "relationship added to recording 1");
+    t.equal(recording0.relationships()[0], relationship, "relationship added to recording 0");
+    t.equal(recording1.relationships()[0], relationship, "relationship added to recording 1");
 
     relationship.remove();
 });
 
+relationshipEditorTest("backwardness of submitted relationships is preserved (MBS-7636)", function (t) {
+    t.plan(2);
 
-test("backwardness of submitted relationships is preserved (MBS-7636)", function () {
     var source = {
             entityType: "recording",
-            gid: this.fakeGID0
+            gid: fakeGID0
         },
         target = {
             entityType: "recording",
-            gid: this.fakeGID1
+            gid: fakeGID1
         };
 
     sessionStorage.submittedRelationships = JSON.stringify([
@@ -495,38 +503,38 @@ test("backwardness of submitted relationships is preserved (MBS-7636)", function
     // Pretend the form was posted.
     MB.formWasPosted = true;
 
-    this.vm = this.RE.GenericEntityViewModel({
+    var vm = MB.relationshipEditor.GenericEntityViewModel({
         sourceData: source
     });
 
     MB.formWasPosted = false;
 
-    var entities = this.vm.source.relationships()[0].entities();
-    equal(entities[0].gid, this.fakeGID1);
-    equal(entities[1].gid, this.fakeGID0);
+    var entities = vm.source.relationships()[0].entities();
+    t.equal(entities[0].gid, fakeGID1);
+    t.equal(entities[1].gid, fakeGID0);
 });
 
+relationshipEditorTest("edit submission request is entered for release (MBS-7740, MBS-7746)", function (t) {
+    t.plan(1);
 
-test("edit submission request is entered for release (MBS-7740, MBS-7746)", function () {
-    setupReleaseRelationshipEditor(this);
+    var vm = setupReleaseRelationshipEditor();
+    var recording = vm.source.mediums()[0].tracks[0].recording;
 
-    var recording = this.vm.source.mediums()[0].tracks[0].recording;
-
-    var relationship1 = this.vm.getRelationship({
+    var relationship1 = vm.getRelationship({
         target: {
             id: 102938,
             entityType: "release",
-            gid: this.fakeGID2
+            gid: fakeGID2
         },
         linkTypeID: 69,
         attributes: []
     }, recording);
 
-    var relationship2 = this.vm.getRelationship({
+    var relationship2 = vm.getRelationship({
         target: {
             id: 839201,
             entityType: "work",
-            gid: this.fakeGID1
+            gid: fakeGID1
         },
         linkTypeID: 278,
         attributes: []
@@ -535,8 +543,8 @@ test("edit submission request is entered for release (MBS-7740, MBS-7746)", func
     relationship1.show();
     relationship2.show();
 
-    this.vm.submissionDone = function (data, submitted) {
-        deepEqual(submitted.edits, [
+    vm.submissionDone = function (data, submitted) {
+        t.deepEqual(submitted.edits, [
             {
                 "edit_type": 90,
                 "linkTypeID": 69,
@@ -582,12 +590,13 @@ test("edit submission request is entered for release (MBS-7740, MBS-7746)", func
         ]);
     };
 
-    this.vm.submit(null, $.Event());
+    vm.submit(null, $.Event());
 });
 
+relationshipEditorTest("hidden input fields are generated for non-release forms", function (t) {
+    t.plan(1);
 
-test("hidden input fields are generated for non-release forms", function () {
-    setupGenericRelationshipEditor(this, {
+    var vm = setupGenericRelationshipEditor({
         sourceData: {
             entityType: "artist",
             name: "The Beatles",
@@ -630,7 +639,7 @@ test("hidden input fields are generated for non-release forms", function () {
         formName: "edit-artist"
     });
 
-    var newRelationship = this.vm.getRelationship({
+    var newRelationship = vm.getRelationship({
         linkTypeID: 103,
         direction: "backward",
         ended: true,
@@ -644,11 +653,11 @@ test("hidden input fields are generated for non-release forms", function () {
         },
         attributes: ids2attrs([229, 4]),
         verbosePhrase: "is/was a member of"
-    }, this.vm.source);
+    }, vm.source);
 
     newRelationship.show();
 
-    var relationships = this.vm.source.relationships();
+    var relationships = vm.source.relationships();
     relationships[0].period.beginDate.month(7);
     relationships[0].period.beginDate.year(1957);
     relationships[0].period.endDate.day(10);
@@ -657,9 +666,9 @@ test("hidden input fields are generated for non-release forms", function () {
     relationships[0].attributes([]);
     relationships[1].removed(true);
 
-    this.RE.prepareSubmission();
+    MB.relationshipEditor.prepareSubmission();
 
-    deepEqual(this.formData(), {
+    t.deepEqual(formData(), {
         "edit-artist.rel.0.relationship_id": "131689",
         "edit-artist.rel.0.target": "ba550d0e-adac-4864-b88b-407cab5e76af",
         "edit-artist.rel.0.period.begin_date.year": "1957",
@@ -687,9 +696,10 @@ test("hidden input fields are generated for non-release forms", function () {
     });
 });
 
+relationshipEditorTest("link orders are submitted for new, orderable relationships (MBS-7775)", function (t) {
+    t.plan(1);
 
-test("link orders are submitted for new, orderable relationships (MBS-7775)", function () {
-    setupGenericRelationshipEditor(this, {
+    var vm = setupGenericRelationshipEditor({
         sourceData: {
             entityType: "series",
             name: "「神のみぞ知るセカイ」キャラクターCD",
@@ -699,7 +709,7 @@ test("link orders are submitted for new, orderable relationships (MBS-7775)", fu
         formName: "edit-series"
     });
 
-    var newRelationship1 = this.vm.getRelationship({
+    var newRelationship1 = vm.getRelationship({
         linkTypeID: 742,
         direction: "backward",
         target: {
@@ -710,9 +720,9 @@ test("link orders are submitted for new, orderable relationships (MBS-7775)", fu
         linkOrder: 1,
         attributes: ids2attrs([788]),
         verbosePhrase: "is a part of"
-    }, this.vm.source);
+    }, vm.source);
 
-    var newRelationship2 = this.vm.getRelationship({
+    var newRelationship2 = vm.getRelationship({
         linkTypeID: 742,
         direction: "backward",
         target: {
@@ -723,9 +733,9 @@ test("link orders are submitted for new, orderable relationships (MBS-7775)", fu
         linkOrder: 2,
         attributes: ids2attrs([788]),
         verbosePhrase: "is a part of"
-    }, this.vm.source);
+    }, vm.source);
 
-    var newRelationship3 = this.vm.getRelationship({
+    var newRelationship3 = vm.getRelationship({
         linkTypeID: 742,
         direction: "backward",
         target: {
@@ -736,7 +746,7 @@ test("link orders are submitted for new, orderable relationships (MBS-7775)", fu
         linkOrder: 3,
         attributes: ids2attrs([788]),
         verbosePhrase: "is a part of"
-    }, this.vm.source);
+    }, vm.source);
 
     newRelationship1.attributes()[0].textValue("20101110");
     newRelationship2.attributes()[0].textValue("1");
@@ -746,9 +756,9 @@ test("link orders are submitted for new, orderable relationships (MBS-7775)", fu
     newRelationship2.show();
     newRelationship3.show();
 
-    this.RE.prepareSubmission();
+    MB.relationshipEditor.prepareSubmission();
 
-    deepEqual(this.formData(), {
+    t.deepEqual(formData(), {
         "edit-series.rel.0.attributes.0.type.gid": "a59c5830-5ec7-38fe-9a21-c7ea54f6650a",
         "edit-series.rel.0.attributes.0.text_value": "20101110",
         "edit-series.rel.0.backward": "1",
@@ -770,9 +780,10 @@ test("link orders are submitted for new, orderable relationships (MBS-7775)", fu
     });
 });
 
+relationshipEditorTest("relationships for entities not editable under the viewModel are ignored (MBS-7782)", function (t) {
+    t.plan(2);
 
-test("relationships for entities not editable under the viewModel are ignored (MBS-7782)", function () {
-    setupGenericRelationshipEditor(this, {
+    var vm = setupGenericRelationshipEditor({
         sourceData: {
             entityType: "series",
             name: "「神のみぞ知るセカイ」キャラクターCD",
@@ -785,10 +796,10 @@ test("relationships for entities not editable under the viewModel are ignored (M
     var artist = MB.entity({
         entityType: "artist",
         name: "Foo",
-        gid: this.fakeGID0
+        gid: fakeGID0
     });
 
-    var newRelationship = this.vm.getRelationship({
+    var newRelationship = vm.getRelationship({
         linkTypeID: 65,
         target: {
             entityType: "release_group",
@@ -797,13 +808,14 @@ test("relationships for entities not editable under the viewModel are ignored (M
         }
     }, artist);
 
-    equal(newRelationship, null);
-    equal(artist.relationships().length, 0);
+    t.equal(newRelationship, null);
+    t.equal(artist.relationships().length, 0);
 });
 
+relationshipEditorTest("attributes are cleared when the target type is changed (MBS-7875)", function (t) {
+    t.plan(2);
 
-test("attributes are cleared when the target type is changed (MBS-7875)", function () {
-    setupGenericRelationshipEditor(this, {
+    var vm = setupGenericRelationshipEditor({
         sourceData: {
             entityType: "recording",
             name: "Love Me Do",
@@ -826,19 +838,19 @@ test("attributes are cleared when the target type is changed (MBS-7875)", functi
         formName: "edit-recording"
     });
 
-    var relationship = this.vm.source.relationships()[0];
-    equal(relationship.attributes().length, 1);
+    var relationship = vm.source.relationships()[0];
+    t.equal(relationship.attributes().length, 1);
 
-    var dialog = this.RE.UI.EditDialog({
+    var dialog = MB.relationshipEditor.UI.EditDialog({
         relationship: relationship,
-        source: this.vm.source,
-        viewModel: this.vm
+        source: vm.source,
+        viewModel: vm
     });
 
     dialog.targetType("work");
 
     relationship.entities([
-        this.vm.source,
+        vm.source,
         MB.entity({
             gid: "3d2be76e-8193-307e-bca5-71f9c734c0f0",
             name: "Love Me Do"
@@ -847,5 +859,5 @@ test("attributes are cleared when the target type is changed (MBS-7875)", functi
 
     dialog.accept();
     relationship = dialog.relationship();
-    equal(relationship.attributes().length, 0, "invalid attributes removed");
+    t.equal(relationship.attributes().length, 0, "invalid attributes removed");
 });

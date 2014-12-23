@@ -4,10 +4,11 @@ BEGIN { extends 'Catalyst::Controller'; }
 
 use Carp;
 use Data::Page;
+use List::MoreUtils qw( first_index );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Constants qw( $UNTRUSTED_FLAG $EDIT_COUNT_LIMIT );
 use MusicBrainz::Server::Translation qw( l ln );
-use MusicBrainz::Server::Validation;
+use MusicBrainz::Server::Validation qw( is_positive_integer );
 use Try::Tiny;
 
 __PACKAGE__->config(
@@ -248,8 +249,8 @@ sub _load_paged
     my ($self, $c, $loader, %opts) = @_;
 
     my $prefix = $opts{prefix} || '';
-    my $page = $c->request->query_params->{$prefix . "page"} || 1;
-    $page = 1 if $page < 1;
+    my $page = $c->request->query_params->{$prefix . "page"};
+    $page = 1 unless is_positive_integer($page);
 
     my $LIMIT = $opts{limit} || $self->{paging_limit};
 
@@ -260,10 +261,11 @@ sub _load_paged
     {
         my $page = $self->_search_final_page($loader, $LIMIT, $page);
         my $uri = $c->request->uri;
-        my %params = $uri->query_form;
+        my @params = $uri->query_form; # key-value list with duplicate keys
 
-        $params{$prefix . "page"} = $page;
-        $uri->query_form(\%params);
+        my $page_idx = first_index { $_ eq $prefix . 'page' } @params;
+        $params[$page_idx + 1] = $page;
+        $uri->query_form(\@params);
 
         $c->response->redirect($uri);
         $c->detach;
