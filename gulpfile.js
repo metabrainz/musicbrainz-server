@@ -130,11 +130,11 @@ function buildScripts(watch) {
 
         fs.writeFileSync(
             jedWrapper,
-            'var Jed = require("jed");\n' +
-            'module.exports = new Jed(' + JSON.stringify(jedOptions) + ');\n'
+            'module.exports = ' + JSON.stringify(jedOptions) + ';\n'
         );
 
         createBundle("jed-" + lang + ".js", watch, function (b) {
+            b.external('jed');
             b.require(jedWrapper, { expose: 'jed-' + lang });
         }).done(function () {
             fs.unlinkSync(jedWrapper);
@@ -143,8 +143,6 @@ function buildScripts(watch) {
 
     return Q.all([
         createBundle("common.js", watch, function (b) {
-            b.external('jed');
-
             languages.forEach(function (lang) {
                 b.external('jed-' + lang);
             });
