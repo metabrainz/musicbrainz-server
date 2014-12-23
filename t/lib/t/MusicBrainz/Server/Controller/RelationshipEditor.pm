@@ -295,7 +295,6 @@ test 'mismatched link types are rejected' => sub {
     } $c;
 
     ok(!defined $edit);
-    $mech->content_contains('linkTypeID 3 is not for artist-recording relationships');
 };
 
 

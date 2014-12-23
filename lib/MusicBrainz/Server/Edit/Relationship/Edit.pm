@@ -313,6 +313,10 @@ sub initialize
     my $type0 = $link->type->entity0_type;
     my $type1 = $link->type->entity1_type;
 
+    unless ($relationship->entity0 && $relationship->entity1) {
+        $self->c->model('Relationship')->load_entities($relationship);
+    }
+
     my $new_entity0 = $opts{entity0} // $relationship->entity0;
     my $new_entity1 = $opts{entity1} // $relationship->entity1;
     my $new_link_type = $opts{link_type} // $link->type;
@@ -322,10 +326,6 @@ sub initialize
     $self->check_attributes($new_link_type, $new_attributes);
 
     delete $opts{link_order}; # Not supported by this edit type.
-
-    unless ($relationship->entity0 && $relationship->entity1) {
-        $self->c->model('Relationship')->load_entities($relationship);
-    }
 
     $opts{entity0} = {
         id => $opts{entity0}->id,
