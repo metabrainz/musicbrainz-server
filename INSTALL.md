@@ -72,7 +72,10 @@ Prerequisites
     If you plan on accessing musicbrainz-server inside a web browser, you should
     install Node. Do this by running:
 
-        sudo apt-get install nodejs
+        sudo apt-get install nodejs nodejs-legacy
+
+    The latter package is only necessary where it exists, so a warning about the
+    package not being found is not a problem.
 
     Node dependencies are managed using `npm`, which comes installed with the
     nodejs package. To install these dependencies, run the following inside the
