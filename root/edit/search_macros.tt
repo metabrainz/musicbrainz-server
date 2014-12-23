@@ -117,7 +117,7 @@
   <select name="operator" class="operator">
     [% FOR operator=operators %]
     <option
-       [% 'selected="selected"' IF field_contents.operator == operator.0 %]
+       [%~ ' selected="selected"' IF field_contents.operator == operator.0 =%]
        value="[% html_escape(operator.0) %]">[% html_escape(operator.1) %]</option>
     [% END %]
   </select>
@@ -331,9 +331,9 @@
                    [ 'release_country', l('Release Country') ]
                    [ 'link_type', l('Relationship Type') ],
                    [ 'editor_flag', l('Editor Flag') ],
-                   ] %]
+                   ] -%]
     <option
-       [% 'selected="selected"' IF field_contents.field_name == field.0 %]
+       [%~ ' selected="selected"' IF field_contents.field_name == field.0 =%]
        value="[% html_escape(field.0) %]">[% html_escape(field.1) %]</option>
     [% END %]
   </select>
