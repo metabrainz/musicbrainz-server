@@ -108,7 +108,7 @@ url:         https://github.com/rniemeyer/knockout-postbox
 
 library:     Underscore.string
 license:     MIT
-version:     2.3.0
+version:     2.4.0
 author:      Esa-Matti Suuronen
 url:         http://epeli.github.com/underscore.string
 

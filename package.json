@@ -29,6 +29,7 @@
     "shelljs": "^0.3.0",
     "through2": "^0.6.1",
     "uglifyify": "^2.6.0",
+    "underscore.string": "2.4.0",
     "vinyl-source-stream": "^1.0.0"
   },
   "devDependencies": {
@@ -48,7 +49,6 @@
     "jquery.ui": "./root/static/lib/jquery.ui/ui/jquery-ui.custom.js",
     "knockout-delegatedEvents": "knockout-delegatedEvents/build/knockout-delegatedEvents.js",
     "knockout-postbox": "knockout-postbox/build/knockout-postbox.js",
-    "leaflet": "./root/static/lib/leaflet/leaflet-src.js",
-    "underscore.string": "./root/static/lib/underscore.string/underscore.string.js"
+    "leaflet": "./root/static/lib/leaflet/leaflet-src.js"
   }
 }
