@@ -164,6 +164,6 @@ url:        http://leafletjs.com/
 
 library:    knockout-arrayTransforms
 license:    MIT (X11)
-version:    0.5.1
+version:    0.5.3
 author:     Michael Wiencek
 url:        https://github.com/mwiencek/knockout-arrayTransforms
