@@ -23,6 +23,7 @@
     "knockout-delegatedEvents": "rniemeyer/knockout-delegatedEvents#v0.1.3",
     "knockout-postbox": "rniemeyer/knockout-postbox#v0.4.2",
     "less": ">=1.4.0",
+    "lodash": "2.4.1",
     "po2json": "^0.3.2",
     "q": "^1.1.1",
     "shelljs": "^0.3.0",
@@ -48,7 +49,6 @@
     "knockout-delegatedEvents": "knockout-delegatedEvents/build/knockout-delegatedEvents.js",
     "knockout-postbox": "knockout-postbox/build/knockout-postbox.js",
     "leaflet": "./root/static/lib/leaflet/leaflet-src.js",
-    "lodash": "./root/static/lib/lodash/lodash.compat.js",
     "underscore.string": "./root/static/lib/underscore.string/underscore.string.js"
   }
 }
