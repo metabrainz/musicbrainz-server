@@ -140,7 +140,7 @@ url:         https://github.com/cloudhead/less.js
 
 library:     aclass
 license:     MIT
-version:     0.5.0
+version:     0.5.1
 author:      Michael Wiencek
 url:         https://github.com/mwiencek/aclass
 
