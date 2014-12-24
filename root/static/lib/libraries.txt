@@ -109,7 +109,7 @@ url:         http://epeli.github.com/underscore.string
 
 library:     jquery-browser-plugin
 license:     MIT
-version:     0.0.6
+version:     0.0.7
 author:      Gabriel Cebrian. Initial implementation by the jQuery Team
 url:         https://github.com/gabceb/jquery-browser-plugin
 
