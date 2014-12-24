@@ -26,13 +26,6 @@ note:        The version included here was created by selecting only
              root/static/styles/jquery-ui, with some modifications (see
              .orig file there).
 
--- json/json2.js --
-
-library:     json2
-license:     Public Domain
-author:      Douglas Crockford
-url:         http://www.json.org/json2.js
-
 -- filesize.js --
 
 library:     filesize.js
