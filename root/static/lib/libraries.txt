@@ -1,9 +1,8 @@
-
 -- jquery/jquery.js --
 
 library:     jQuery
 license:     MIT
-version:     1.9.1
+version:     1.11.2
 author:      jQuery Foundation and other contributors
              (https://github.com/jquery/jquery/blob/master/AUTHORS.txt)
 url:         http://jquery.com
