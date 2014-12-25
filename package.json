@@ -19,6 +19,7 @@
     "jed": "1.1.0",
     "jquery": "1.11.2",
     "jquery.browser": "gabceb/jquery-browser-plugin#e4a01fd",
+    "jquery.cookie": "1.4.1",
     "knockout": "3.2.0",
     "knockout-arraytransforms": "0.5.3",
     "knockout-delegatedEvents": "rniemeyer/knockout-delegatedEvents#v0.1.3",
@@ -40,7 +41,6 @@
   },
   "private": true,
   "browser": {
-    "jquery.cookie": "./root/static/lib/jquery/jquery.cookie.js",
     "jquery.flot": "./root/static/lib/flot/jquery.flot.js",
     "jquery.flot.musicbrainzEvents": "./root/static/scripts/jquery.flot.musicbrainz_events.js",
     "jquery.flot.selection": "./root/static/lib/flot/jquery.flot.selection.js",

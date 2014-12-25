@@ -117,7 +117,7 @@ url:         https://github.com/gabceb/jquery-browser-plugin
 
 library:     jquery.cookie
 license:     MIT
-version:     1.3.1
+version:     1.4.1
 author:      Klaus Hartl
 url:         https://github.com/carhartl/jquery-cookie
 
