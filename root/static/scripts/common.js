@@ -3,8 +3,8 @@ window.ko = require("knockout");
 window.L = require("leaflet");
 window._ = require("lodash");
 window._.str = require("underscore.string");
+window.$ = window.jQuery = require("jquery");
 
-require("jquery");
 require("jquery.browser");
 require("jquery.tablesorter");
 require("jquery.cookie");
