@@ -35,9 +35,9 @@ Prerequisites
         sudo apt-get install postgresql-9.x postgresql-server-dev-9.x postgresql-contrib-9.x postgresql-plperl-9.x
 
     Alternatively, you may compile PostgreSQL from source, but then make sure to
-    also compile the cube extension found in contrib/cube. The database import
-    script will take care of installing that extension into the database when it
-    creates the database for you.
+    also compile the cube and earthdistance extensions found in the contrib
+    directory. The database import script will take care of installing those
+    extensions into the database when it creates the database for you.
 
 4.  Git
 

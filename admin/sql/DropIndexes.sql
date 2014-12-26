@@ -303,6 +303,7 @@ DROP INDEX place_alias_idx_place;
 DROP INDEX place_alias_idx_primary;
 DROP INDEX place_alias_type_idx_gid;
 DROP INDEX place_idx_area;
+DROP INDEX place_idx_geo;
 DROP INDEX place_idx_gid;
 DROP INDEX place_idx_name;
 DROP INDEX place_tag_idx_tag;
