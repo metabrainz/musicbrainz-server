@@ -27,7 +27,9 @@ with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::CommonsImage';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
-    endpoints => {show => {copy_stash => [{from => 'release_groups_jsonld', to => 'release_groups'}]},
+    endpoints => {show => {copy_stash => [{from => 'release_groups_jsonld', to => 'release_groups'},
+                                          {from => 'recordings_jsonld', to => 'recordings'}]},
+                  recordings => {copy_stash => [{from => 'recordings_jsonld', to => 'recordings'}]},
                   relationships => {},
                   aliases => {copy_stash => ['aliases']}}
 };
@@ -210,6 +212,7 @@ sub show : PathPart('') Chained('load')
     $c->model('ReleaseGroupType')->load(@$release_groups);
     $c->stash(
         recordings => $recordings,
+        recordings_jsonld => {items => $recordings},
         show_video => scalar(grep {
             $_->video
         } @$recordings),
@@ -314,6 +317,7 @@ sub recordings : Chained('load')
 
     $c->stash(
         recordings => $recordings,
+        recordings_jsonld => {items => $recordings},
         show_artists => scalar(grep {
             $_->artist_credit->name ne $artist->name
         } @$recordings),

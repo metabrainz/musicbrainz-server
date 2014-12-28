@@ -36,7 +36,13 @@ around serialize => sub {
         if ($stash->store($entity)->{release_groups}) {
             my $items = $stash->store($entity)->{release_groups}{items};
             my @rgs = map { serialize_entity($_, $inc, $stash) } @$items;
-            $ret->{album} = list_or_single(@rgs);
+            $ret->{album} = list_or_single(@rgs) if @rgs;
+        }
+
+        if ($stash->store($entity)->{recordings}) {
+            my $items = $stash->store($entity)->{recordings}{items};
+            my @recordings = map { serialize_entity($_, $inc, $stash) } @$items;
+            $ret->{track} = list_or_single(@recordings) if @recordings;
         }
     }
 
