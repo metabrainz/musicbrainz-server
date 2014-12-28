@@ -5,14 +5,14 @@
   <td class="t">[% loop.count %]</td>
   [% IF type == 'lang' %]
     <td>[% entity.entity.l_name || l('Unknown language') %]</td>
-    <td class="t">
+    <td class="t" data-sort-value="[% entity.releases %]">
       [%- link_searchable_property(type, entity.entity.iso_code_3 || 'unknown', 'release', add_commas(entity.releases)) -%]</td>
-    <td class="t">
+    <td class="t" data-sort-value="[% entity.works %]">
       [%- link_searchable_property(type, entity.entity.iso_code_3 || 'unknown', 'work', add_commas(entity.works)) -%]</td>
-    <td class="t">[% add_commas(entity.total) %]</td>
+    <td class="t" data-sort-value="[% entity.total %]">[% add_commas(entity.total) %]</td>
   [% ELSIF type == 'script' %]
     <td>[% entity.entity.l_name || l('Unknown script') %]</td>
-    <td class="t">
+    <td class="t" data-sort-value="[% entity.count %]">
       [%- link_searchable_property(type, entity.entity.iso_code || 'unknown', 'release', add_commas(entity.count)) -%]</td>
   [% END %]
 </tr>
@@ -28,11 +28,11 @@
   <table class="tbl" id="languages-table">
     <thead>
       <tr>
-        <th class="pos">[% l('Rank') %]</th>
-        <th>[% l('Language') %]<div class="arrow"></div></th>
-        <th>[% l('Releases') %]<div class="arrow"></div></th>
-        <th>[% l('Works') %]<div class="arrow"></div></th>
-        <th>[% l('Total') %]<div class="arrow"></div></th>
+        <th class="pos no-sort">[% l('Rank') %]</th>
+        <th>[% l('Language') %]</th>
+        <th>[% l('Releases') %]</th>
+        <th>[% l('Works') %]</th>
+        <th>[% l('Total') %]</th>
       </tr>
     </thead>
     <tbody>
@@ -49,9 +49,9 @@
   <table class="tbl" id="scripts-table">
     <thead>
       <tr>
-        <th class="pos">[% l('Rank') %]</th>
-        <th>[% l('Script') %]<div class="arrow"></div></th>
-        <th>[% l('Releases') %]<div class="arrow"></div></th>
+        <th class="pos no-sort">[% l('Rank') %]</th>
+        <th>[% l('Script') %]</th>
+        <th>[% l('Releases') %]</th>
       </tr>
     </thead>
     <tbody>
@@ -65,16 +65,9 @@
 [%- PROCESS "statistics/macros-footer.tt" -%]
 
 <script type="text/javascript">//<![CDATA[
-  MB.Control.Tablesorter($('#languages-table'), {
-      widgets: [ 'indexFirstColumn', 'evenRowClasses' ],
-      headers: { 0: {sorter: false}, 2: { sorter: 'fancyNumber' }, 3: { sorter: 'fancyNumber' }, 4: { sorter: 'fancyNumber' } },
-      sortList: [ [4,1], [1,0] ] // order by descending number of entities, then name
-    });
-  MB.Control.Tablesorter($('#scripts-table'), {
-      widgets: [ 'indexFirstColumn', 'evenRowClasses' ],
-      headers: { 0: {sorter: false}, 2: { sorter: 'fancyNumber' } },
-      sortList: [ [2,1], [1,0] ] // order by descending number of entities, then name
-    });
+  // order by descending number of entities, then name
+  $('#languages-table').statisticsTable().sortByColumns([[1, true], [4, false]]);
+  $('#scripts-table').statisticsTable().sortByColumns([[1, true], [2, false]]);
 //]]></script>
 
 [% END %]

@@ -64,14 +64,6 @@ version:     1.10
 author:      Bitstream, Inc.
 url:         http://www-old.gnome.org/fonts/
 
--- jquery/jquery.tablesorter.js --
-
-library:     jquery tablesorter
-license:     MIT/GPL
-version:     v2.0.5b
-author:      Christian Bach
-url:         http://tablesorter.com
-
 -- knockout/knockout-latest.debug.js --
 
 library:     Knockout

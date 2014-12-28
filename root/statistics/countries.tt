@@ -8,10 +8,11 @@
     [%- ELSE -%]
     <td>[% l('Unknown Country') %]</td>
     [%- END -%]
-    <td class="t">[% link_entity(country.entity, 'artists', add_commas(country.artist_count)) %]</td>
-    <td class="t">[% link_entity(country.entity, 'releases', add_commas(country.release_count)) %]</td>
-    <td class="t">[% link_entity(country.entity, 'labels', add_commas(country.label_count)) %]</td>
-    <td class="t">[% add_commas(country.artist_count + country.release_count + country.label_count) %]</td>
+    <td class="t" data-sort-value="[% country.artist_count %]">[% link_entity(country.entity, 'artists', add_commas(country.artist_count)) %]</td>
+    <td class="t" data-sort-value="[% country.release_count %]">[% link_entity(country.entity, 'releases', add_commas(country.release_count)) %]</td>
+    <td class="t" data-sort-value="[% country.label_count %]">[% link_entity(country.entity, 'labels', add_commas(country.label_count)) %]</td>
+    [% total_count = country.artist_count + country.release_count + country.label_count %]
+    <td class="t" data-sort-value="[% total_count %]">[% add_commas(total_count) %]</td>
 </tr>
 [%- END -%]
 
@@ -22,12 +23,12 @@
 <table class="tbl">
 <thead>
 <tr>
-<th class="pos">[% l('Rank') %]</th>
-<th>[% l('Country') %]<div class="arrow"></div></th>
-<th>[% l('Artists') %]<div class="arrow"></div></th>
-<th>[% l('Releases') %]<div class="arrow"></div></th>
-<th>[% l('Labels') %]<div class="arrow"></div></th>
-<th>[% l('Total') %]<div class="arrow"></div></th>
+<th class="pos no-sort">[% l('Rank') %]</th>
+<th>[% l('Country') %]</th>
+<th>[% l('Artists') %]</th>
+<th>[% l('Releases') %]</th>
+<th>[% l('Labels') %]</th>
+<th>[% l('Total') %]</th>
 </tr>
 </thead>
 <tbody>
@@ -39,11 +40,8 @@
 [%- PROCESS "statistics/macros-footer.tt" -%]
 
 <script type="text/javascript">//<![CDATA[
-  MB.Control.Tablesorter($('table.tbl'), {
-      widgets: [ 'indexFirstColumn', 'evenRowClasses' ],
-      headers: { 0: {sorter: false}, 2: { sorter: 'fancyNumber' }, 3: { sorter: 'fancyNumber' }, 4: { sorter: 'fancyNumber' }, 5: { sorter: 'fancyNumber' } },
-      sortList: [ [5,1], [1,0] ] // order by descending number of entities, then name
-     });
+  // order by descending number of entities, then name
+  $('table.tbl').statisticsTable().sortByColumns([[1, true], [5, false]]);
 //]]></script>
 
 [% END %]
