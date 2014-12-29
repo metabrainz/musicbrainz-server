@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-11-24 01:52+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-12-17 00:39+0000\n"
+"Last-Translator: salorock <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,6 +27,11 @@ msgstr "Vinile 10\""
 msgctxt "medium_format"
 msgid "12\" Vinyl"
 msgstr "Vinile 12\""
+
+#: DB:medium_format/name:49
+msgctxt "medium_format"
+msgid "3.5\" Floppy Disk"
+msgstr "Floppy disk 3,5\""
 
 #: DB:medium_format/name:29
 msgctxt "medium_format"
@@ -62,7 +67,7 @@ msgid ""
 "A masterclass or clinic is an event where an artist meets with a small to "
 "medium-sized audience and instructs them individually and/or takes questions"
 " intended to improve the audience members' playing skills."
-msgstr ""
+msgstr "Una master class o clinic è un evento durante il quale un artista incontra un pubblico medio-piccolo e fornisce spiegazioni individuali e/o risponde a domande al fine di migliorare le capacità di esecuzione musicale dei membri del pubblico."
 
 #: DB:work_attribute_type_allowed_value/value:29
 msgctxt "work_attribute_type_allowed_value"
@@ -505,6 +510,11 @@ msgctxt "area_type"
 msgid "Country"
 msgstr "Paese"
 
+#: DB:area_type/name:7
+msgctxt "area_type"
+msgid "County"
+msgstr "Contea"
+
 #: DB:work_attribute_type_allowed_value/value:67
 msgctxt "work_attribute_type_allowed_value"
 msgid "Cārukēśi"
@@ -563,7 +573,7 @@ msgstr "DJ mix"
 #: DB:medium_format/name:44
 msgctxt "medium_format"
 msgid "DTS CD"
-msgstr ""
+msgstr "CD DTS"
 
 #: DB:medium_format/name:2
 msgctxt "medium_format"
@@ -579,6 +589,11 @@ msgstr "DVD-Audio"
 msgctxt "medium_format"
 msgid "DVD-Video"
 msgstr "DVD-Video"
+
+#: DB:medium_format/name:47
+msgctxt "medium_format"
+msgid "DVDplus"
+msgstr "DVDplus"
 
 #: DB:work_attribute_type_allowed_value/value:73
 msgctxt "work_attribute_type_allowed_value"
@@ -734,6 +749,11 @@ msgstr "Mi diesis minore"
 msgctxt "release_group_primary_type"
 msgid "EP"
 msgstr "EP"
+
+#: DB:medium_format/name:50
+msgctxt "medium_format"
+msgid "Edison Diamond Disc"
+msgstr "Edison Diamond Disc"
 
 #: DB:instrument_type/name:4
 msgctxt "instrument_type"
@@ -1461,7 +1481,7 @@ msgstr "Messa"
 #: DB:event_type/name:5
 msgctxt "event_type"
 msgid "Masterclass/Clinic"
-msgstr ""
+msgstr "Master class/Clinic"
 
 #: DB:editor_collection_type/name:6
 msgctxt "collection_type"
@@ -1552,6 +1572,11 @@ msgstr "Mukhāri"
 msgctxt "area_type"
 msgid "Municipality"
 msgstr "Comune"
+
+#: DB:medium_format/name:46
+msgctxt "medium_format"
+msgid "Music Card"
+msgstr "Music Card"
 
 #: DB:work_attribute_type/name:12
 msgctxt "work_attribute_type"
@@ -1807,6 +1832,11 @@ msgstr "Rullo per pianola"
 msgctxt "alias_type"
 msgid "Place name"
 msgstr "Nome luogo"
+
+#: DB:medium_format/name:45
+msgctxt "medium_format"
+msgid "Playbutton"
+msgstr "Playbutton"
 
 #: DB:work_type/name:21
 msgctxt "work_type"
@@ -2358,11 +2388,6 @@ msgctxt "place_type"
 msgid "Venue"
 msgstr "Locale"
 
-#: DB:medium_format/name:32
-msgctxt "medium_format"
-msgid "Videotape"
-msgstr "Videocassetta"
-
 #: DB:work_attribute_type_allowed_value/value:273
 msgctxt "work_attribute_type_allowed_value"
 msgid "Vijayanagari"
@@ -2382,6 +2407,11 @@ msgstr "Vijayaśrī"
 msgctxt "medium_format"
 msgid "Vinyl"
 msgstr "Vinile"
+
+#: DB:medium_format/name:48
+msgctxt "medium_format"
+msgid "VinylDisc"
+msgstr "VinylDisc"
 
 #: DB:work_attribute_type_allowed_value/value:259
 msgctxt "work_attribute_type_allowed_value"

@@ -175,7 +175,7 @@
 
       [% table_row_error(
            4, 'showErrorWhenTabIsSwitched: needsLabel',
-           '<!-- ko text: MB.i18n.expand(MB.text.NeedsLabel, { name: label().name }) --><!-- /ko -->'
+           '<!-- ko text: MB.i18n.expand(\'' _ js_escape(l('You haven’t selected a label for “{name}”.')) _ '\', { name: label().name }) --><!-- /ko -->'
          )
       %]
     <!-- /ko -->
@@ -249,7 +249,7 @@
 
   <div class="bubble" data-bind="bubble: $root.releaseGroupBubble">
     <!-- ko with: target() && target().releaseGroup -->
-      <p data-bind="html: MB.i18n.expand(MB.text.SelectedReleaseGroup, { releasegroup: html({ target: '_blank' }) })"></p>
+      <p data-bind="html: MB.i18n.expand('[% l('You selected {releasegroup}.') | js %]', { releasegroup: html({ target: '_blank' }) })"></p>
     <!-- /ko -->
   </div>
 
@@ -265,7 +265,7 @@
   <div class="bubble" data-bind="bubble: $root.labelBubble">
     <!-- ko with: target() && target().label() -->
       <!-- ko if: $data.gid -->
-        <p data-bind="html: MB.i18n.expand(MB.text.SelectedLabel, { label: html({ target: '_blank' }) })"></p>
+        <p data-bind="html: MB.i18n.expand('[% l('You selected {label}.') | js %]', { label: html({ target: '_blank' }) })"></p>
       <!-- /ko -->
     <!-- /ko -->
     <!-- ko if: target() && catNoLooksLikeASIN(target().catalogNumber()) -->

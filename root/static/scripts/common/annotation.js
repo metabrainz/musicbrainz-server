@@ -16,7 +16,7 @@ $(function () {
             $annotation.toggleClass("annotation-collapsed", !expand)
                        .toggleClass("annotation-collapse", expand);
 
-            $button.text(expand ? MB.text.ShowLess : MB.text.ShowMore);
+            $button.text(expand ? MB.i18n.l("Show less...") : MB.i18n.l("Show more..."));
             return false;
         };
 

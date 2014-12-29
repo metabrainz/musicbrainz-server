@@ -44,5 +44,5 @@ my $export = { map { $_->name => $_ } Class::MOP::Class->initialize('DBDefs')->g
 my %exclude = map { $_ => 1 }
     qw( COVER_ART_ARCHIVE_UPLOAD_PREFIXER DOES );
 
-printf "export %s=%s\n", $_, shell_quote($export->{$_}->body->('DBDefs') || '')
+printf "export %s=%s\n", $_, shell_quote(join(',', $export->{$_}->body->('DBDefs')) || '')
     for (grep { !exists $exclude{$_} } grep { /^[A-Z]+(_[A-Z]+)*$/ } keys %$export)

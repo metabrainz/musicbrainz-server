@@ -184,7 +184,7 @@
 
         around$html: function (supr, params) {
             params = params || {};
-            params.videoString = MB.text.Video;
+            params.videoString = MB.i18n.l("video");
             return supr(params);
         },
 
@@ -336,7 +336,11 @@
         },
 
         isEqual: function (other) {
-            return _.isEqual(ko.unwrap(this.artist), ko.unwrap(other.artist)) &&
+            var hasArtist1 = this.hasArtist();
+            var hasArtist2 = other.hasArtist();
+
+            return (hasArtist1 === hasArtist2) &&
+                   (!hasArtist1 || ko.unwrap(this.artist).gid === ko.unwrap(other.artist).gid) &&
                    ko.unwrap(this.name) === ko.unwrap(other.name) &&
                    ko.unwrap(this.joinPhrase) === ko.unwrap(other.joinPhrase);
         },
@@ -444,12 +448,18 @@
         after$init: function (data) {
             this.tracks = _.map(data.tracks, MB.entity.Track);
 
-            this.positionName = "";
-            this.positionName += (this.format || MB.text.Medium) + " " + this.position;
-
+            var positionName;
             if (this.name) {
-                this.positionName += ": " + this.name;
+                positionName = this.format ? "{medium_format} {position}: {title}" : "Medium {position}: {title}";
+            } else {
+                positionName = this.format ? "{medium_format} {position}" : "Medium {position}";
             }
+
+            this.positionName = MB.i18n.l(positionName, {
+                medium_format: this.format,
+                position: this.position,
+                title: this.name
+            });
         }
     });
 

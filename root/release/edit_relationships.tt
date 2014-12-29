@@ -18,12 +18,6 @@
 
       <h2>[% l('Track Relationships') %]</h2>
 
-      [%# These are here to make sure the strings get added to the message catalog.
-          The strings are later obtained via /ws/js/plurals. %]
-
-      <!-- [% ln('{n} recording selected', '{n} recordings selected', 0) %]
-           [% ln('{n} work selected', '{n} works selected', 0) %] -->
-
       <table id="batch-tools" data-bind="with: checkboxes">
         <tr>
           <td>

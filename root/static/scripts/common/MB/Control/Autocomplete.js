@@ -59,7 +59,7 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
                 success: $.proxy(this._lookupSuccess, this, response),
                 error: function () {
                     response([{
-                        label: MB.text.InlineSearchFailed,
+                        label: MB.i18n.l("An error occurred while searching. Click here to try again."),
                         action: _.bind(self._searchAgain, self)
                     }]);
                 }
@@ -160,7 +160,7 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
                 self.term = "";
 
                 recent.push({
-                    label: MB.text.ClearRecentItems,
+                    label: MB.i18n.l("Clear recent items"),
                     action: function () {
                         self.recentEntities([]);
                         self.clear();
@@ -381,30 +381,30 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
 
         if (results.length === 0) {
             results.push({
-                label: "(" + MB.text.NoResults + ")",
+                label: "(" + MB.i18n.l("No results") + ")",
                 action: _.bind(this.close, this)
             });
         }
 
         if (this.currentPage < this.totalPages) {
             results.push({
-                label: MB.text.ShowMore,
+                label: MB.i18n.l("Show more..."),
                 action: _.bind(this._showMore, this)
             });
         }
 
         results.push({
-            label: this.indexedSearch ? MB.text.SwitchToDirectSearch :
-                                        MB.text.SwitchToIndexedSearch,
+            label: this.indexedSearch ? MB.i18n.l("Not found? Try again with direct search.") :
+                                        MB.i18n.l("Slow? Switch back to indexed search."),
             action: _.bind(this._searchAgain, this, true)
         });
 
         var allowCreation = window === window.top,
             entity = this.entity.replace("-", "_");
 
-        if (allowCreation && MB.text.AddANewEntity[entity]) {
+        if (allowCreation && MB.i18n.strings.addANewEntity[entity]) {
             results.push({
-                label: MB.text.AddANewEntity[entity],
+                label: MB.i18n.strings.addANewEntity[entity],
                 action: function () {
                     $("<div>").appendTo("body").createEntityDialog({
                         name: self._value(),
@@ -581,7 +581,7 @@ MB.Control.autocomplete_formatters = {
         {
             a.append(
                 $('<span class="autocomplete-video"></span>')
-                    .text("(" + MB.text.Video + ")")
+                    .text("(" + MB.i18n.l("video") + ")")
             );
         }
 
