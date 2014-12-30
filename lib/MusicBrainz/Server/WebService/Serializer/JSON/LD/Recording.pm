@@ -1,6 +1,6 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::LD::Recording;
 use Moose;
-use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( list_or_single );
+use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( list_or_single serialize_entity );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
@@ -20,6 +20,11 @@ around serialize => sub {
 
     if ($entity->all_isrcs) {
        $ret->{'isrc'} = list_or_single(map { $_->isrc } $entity->all_isrcs);
+    }
+
+    my @works = @{ $entity->relationships_by_link_type_names('performance') };
+    if (@works) {
+        $ret->{recordingOf} = list_or_single(map { serialize_entity($_->target, $inc, $stash) } @works);
     }
 
     return $ret;
