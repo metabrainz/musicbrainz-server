@@ -1,5 +1,5 @@
 <div class="instrumentheader">
-    <h1>[% link_instrument(instrument) %] [% disambiguation(instrument) %]</h1>
+    <h1>[% link_entity(instrument) %]</h1>
     <p class="subheader">
         <span class="prefix">~</span>
             [% html_escape(instrument.l_type_name) or l('Instrument') %]
@@ -7,7 +7,7 @@
 </div>
 
 [%~ IF c.user.is_relationship_editor;
-    edit_tab = ['edit', link_instrument(instrument, 'edit', l('Edit'))];
+    edit_tab = ['edit', link_entity(instrument, 'edit', l('Edit'))];
 END ~%]
 
 [% INCLUDE 'components/entity-tabs.tt' edit_tab=edit_tab %]

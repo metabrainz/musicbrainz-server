@@ -1,5 +1,5 @@
 <div class="labelheader">
-    <h1>[%- link_label(label) %] [% disambiguation(label) -%]</h1>
+    <h1>[% link_entity(label) %]</h1>
     <p class="subheader">
         <span class="prefix">~</span> [%- l('Label') -%]
     </p>

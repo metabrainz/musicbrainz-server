@@ -91,7 +91,7 @@
                 <li>[%~ l("You have no attendance lists!") ~%]</li>
             [%~ END ~%]
                 <li><a href="[%~ c.uri_for_action("/collection/create", { event => event.id }) ~%]">[%~ l('Add to a new list') ~%]</a></li>
-                <li>[%~ link_event(event, 'attendance', ln('Found in {num} attendance list', 'Found in {num} attendance lists',
+                <li>[%~ link_entity(event, 'attendance', ln('Found in {num} attendance list', 'Found in {num} attendance lists',
                                                                all_collections.size, { num => all_collections.size }) ) ~%]</li>
             </ul>
         [%~ ELSE ~%]
@@ -123,7 +123,7 @@
                 <li>[%~ l("You have no collections!") ~%]</li>
             [%~ END ~%]
                 <li><a href="[%~ c.uri_for_action("/collection/create", { release => release.id }) ~%]">[%~ l('Add to a new collection') ~%]</a></li>
-                <li>[%~ link_release(release, 'collections', ln('Found in {num} user collection', 'Found in {num} user collections',
+                <li>[%~ link_entity(release, 'collections', ln('Found in {num} user collection', 'Found in {num} user collections',
                                                                all_collections.size, { num => all_collections.size }) ) ~%]</li>
             </ul>
         [%~ END ~%]
