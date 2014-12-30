@@ -77,7 +77,6 @@ $(function () {
 
         $field.find('.arg').hide();
         $field.find('.arg:lt(' + cardinality + ')').show();
-        $field.find('.arg:first :input:first').focus();
     });
 
     function prefixedInputName($element) {
