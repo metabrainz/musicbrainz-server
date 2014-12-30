@@ -35,6 +35,11 @@ around serialize => sub {
             $ret->{lyricist} = list_or_single(map { serialize_entity($_->target, $inc, $stash) } @lyricists);
         }
 
+        my @publishers = @{ $entity->relationships_by_link_type_names('publishing') };
+        if (@publishers) {
+            $ret->{publisher} = list_or_single(map { serialize_entity($_->target, $inc, $stash) } @publishers);
+        }
+
         my @subworks = grep { $_->direction == 1 } @{ $entity->relationships_by_link_type_names('parts') };
         if (@subworks) {
             $ret->{includedComposition} = list_or_single(map { serialize_entity($_->target, $inc, $stash) } @subworks);
