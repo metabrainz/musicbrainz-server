@@ -189,6 +189,8 @@ sub delete
         $recording_query, @track_ids
     );
 
+    $self->remove_gid_redirects(@track_ids);
+
     my $query = 'DELETE FROM track ' .
         'WHERE id IN (' . placeholders(@track_ids) . ') RETURNING medium';
 
