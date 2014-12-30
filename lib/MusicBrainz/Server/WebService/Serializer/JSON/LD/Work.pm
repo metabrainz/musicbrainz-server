@@ -1,7 +1,7 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::LD::Work;
 use Moose;
 
-use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( list_or_single );
+use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( list_or_single serialize_entity );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
@@ -17,6 +17,38 @@ around serialize => sub {
 
     if ($entity->all_iswcs) {
        $ret->{'iswcCode'} = list_or_single(map { $_->iswc } $entity->all_iswcs);
+    }
+
+    if ($toplevel) {
+        my @recordings = @{ $entity->relationships_by_link_type_names('performance') };
+        if (@recordings) {
+            $ret->{recordedAs} = list_or_single(map { serialize_entity($_->target, $inc, $stash) } @recordings);
+        }
+
+        my @composers =  @{ $entity->relationships_by_link_type_names('composer') };
+        if (@composers) {
+            $ret->{composer} = list_or_single(map { serialize_entity($_->target, $inc, $stash) } @composers);
+        }
+
+        my @lyricists =  @{ $entity->relationships_by_link_type_names('lyricist') };
+        if (@lyricists) {
+            $ret->{lyricist} = list_or_single(map { serialize_entity($_->target, $inc, $stash) } @lyricists);
+        }
+
+        my @publishers = @{ $entity->relationships_by_link_type_names('publishing') };
+        if (@publishers) {
+            $ret->{publisher} = list_or_single(map { serialize_entity($_->target, $inc, $stash) } @publishers);
+        }
+
+        my @subworks = grep { $_->direction == 1 } @{ $entity->relationships_by_link_type_names('parts') };
+        if (@subworks) {
+            $ret->{includedComposition} = list_or_single(map { serialize_entity($_->target, $inc, $stash) } @subworks);
+        }
+
+        my @arrangements = grep { $_->direction == 1 } @{ $entity->relationships_by_link_type_names('arrangement') };
+        if (@arrangements) {
+            $ret->{musicArrangement} = list_or_single(map { serialize_entity($_->target, $inc, $stash) } @arrangements);
+        }
     }
 
     return $ret;
