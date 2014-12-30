@@ -7,6 +7,7 @@
 
     var TYPES = edit.TYPES = {
         EDIT_RELEASEGROUP_CREATE:                   20,
+        EDIT_RELEASEGROUP_EDIT:                     21,
         EDIT_RELEASE_CREATE:                        31,
         EDIT_RELEASE_EDIT:                          32,
         EDIT_RELEASE_ADDRELEASELABEL:               34,
@@ -199,6 +200,7 @@
 
         releaseGroup: function (rg) {
             return {
+                gid:                string(rg.gid),
                 primary_type_id:    number(rg.typeID),
                 name:               string(rg.name),
                 artist_credit:      fields.artistCredit(rg.artistCredit),
@@ -275,6 +277,11 @@
                 delete args.secondary_type_ids;
             }
         }
+    );
+
+
+    edit.releaseGroupEdit = editConstructor(
+        TYPES.EDIT_RELEASEGROUP_EDIT
     );
 
 
