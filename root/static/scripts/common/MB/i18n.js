@@ -26,7 +26,12 @@
 
     i18n.l = wrapGettext("gettext");
     i18n.ln = wrapGettext("ngettext");
-    i18n.lp = wrapGettext("pgettext");
+    var __pgettext = wrapGettext("pgettext");
+
+    i18n.lp = function () {
+        // Swap order of context, msgid.
+        return __pgettext.call(null, arguments[1], arguments[0], arguments[2]);
+    };
 
     // From https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions
     var regExpChars = /([.*+?^=!:${}()|\[\]\/\\])/g;
