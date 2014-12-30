@@ -115,6 +115,7 @@
     i18n.strings.entityName = {
         area:           i18n.l("Area"),
         artist:         i18n.l("Artist"),
+        event:          i18n.l("Event"),
         instrument:     i18n.l("Instrument"),
         label:          i18n.l("Label"),
         place:          i18n.l("Place"),
@@ -128,6 +129,7 @@
 
     i18n.strings.addANewEntity = {
         artist:         i18n.l("Add a new artist"),
+        event:          i18n.l("Add a new event"),
         label:          i18n.l("Add a new label"),
         place:          i18n.l("Add a new place"),
         recording:      i18n.l("Add a new recording"),
@@ -139,6 +141,7 @@
     i18n.strings.addAnotherEntity = {
         area:           i18n.l("Add another area"),
         artist:         i18n.l("Add another artist"),
+        event:          i18n.l("Add another event"),
         instrument:     i18n.l("Add another instrument"),
         label:          i18n.l("Add another label"),
         place:          i18n.l("Add another place"),
