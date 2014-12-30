@@ -273,6 +273,8 @@
         TYPES.EDIT_RELEASEGROUP_CREATE,
 
         function (args) {
+            delete args.gid;
+
             if (!_.any(args.secondary_type_ids)) {
                 delete args.secondary_type_ids;
             }
