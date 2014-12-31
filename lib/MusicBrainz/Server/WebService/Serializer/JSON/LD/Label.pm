@@ -1,6 +1,6 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::LD::Label;
 use Moose;
-use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_entity );
+use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( serialize_entity list_or_single format_date );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::LD';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::GID';
@@ -15,8 +15,34 @@ around serialize => sub {
 
     $ret->{'@type'} = 'MusicLabel';
 
+    if ($toplevel) {
+        my @artists = @{ $entity->relationships_by_link_type_names('recording contract') };
+        if (@artists) {
+            $ret->{artistSigned} = list_or_single(map { artist_signed($_, $inc, $stash) } @artists);
+        }
+    }
+
     return $ret;
 };
+
+sub artist_signed {
+    my ($relationship, $inc, $stash) = @_;
+
+    my $ret = {
+        '@type' => 'Role',
+        artistSigned => serialize_entity($relationship->target),
+    };
+
+    if (my $begin_date = format_date($relationship->link->begin_date)) {
+        $ret->{startDate} = $begin_date;
+    }
+
+    if (my $end_date = format_date($relationship->link->end_date)) {
+        $ret->{endDate} = $end_date;
+    }
+
+    return $ret;
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
