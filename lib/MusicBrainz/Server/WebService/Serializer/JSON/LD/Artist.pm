@@ -28,7 +28,7 @@ around serialize => sub {
         if (@members) {
             my %seen_members;
             for my $member (@members) {
-                $seen_members{$member->target->gid} = member_relationship($member, $inc, $stash, $seen_members{$member->target->gid}); 
+                $seen_members{$member->target->gid} = member_relationship($member, $inc, $stash, $seen_members{$member->target->gid});
             }
             $ret->{member} = [ values %seen_members ];
         }
