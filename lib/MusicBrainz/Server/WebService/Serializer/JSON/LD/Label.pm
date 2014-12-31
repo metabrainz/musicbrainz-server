@@ -20,6 +20,12 @@ around serialize => sub {
         if (@artists) {
             $ret->{artistSigned} = list_or_single(map { artist_signed($_, $inc, $stash) } @artists);
         }
+
+        if ($stash->store($entity)->{releases}) {
+            my $items = $stash->store($entity)->{releases}{items};
+            my @releases = map { serialize_entity($_, $inc, $stash) } @$items;
+            $ret->{releasePublished} = list_or_single(@releases) if @releases;
+        }
     }
 
     return $ret;
