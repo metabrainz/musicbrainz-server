@@ -30,7 +30,7 @@ sub artist_signed {
 
     my $ret = {
         '@type' => 'Role',
-        artistSigned => serialize_entity($relationship->target),
+        artistSigned => serialize_entity($relationship->target, $inc, $stash),
     };
 
     if (my $begin_date = format_date($relationship->link->begin_date)) {
