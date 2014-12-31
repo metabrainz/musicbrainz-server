@@ -20,15 +20,16 @@ around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
     my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
 
+    $ret->{'@type'} = ($entity->type && $entity->type->name eq 'Person') ? ['Person', 'MusicGroup'] : 'MusicGroup';
+
     if ($toplevel) {
-        $ret->{'@type'} = ($entity->type && $entity->type->name eq 'Person') ? ['Person', 'MusicGroup'] : 'MusicGroup';
         $ret->{groupOrigin} = serialize_entity($entity->begin_area, $inc, $stash) if $entity->begin_area;
 
         my @members = grep { $_->direction == 2 } @{ $entity->relationships_by_link_type_names('member of band') };
         if (@members) {
             my %seen_members;
             for my $member (@members) {
-                $seen_members{$member->target->gid} = member_relationship($member, $inc, $stash, $seen_members{$member->target->gid}); 
+                $seen_members{$member->target->gid} = member_relationship($member, $inc, $stash, $seen_members{$member->target->gid});
             }
             $ret->{member} = [ values %seen_members ];
         }

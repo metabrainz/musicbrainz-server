@@ -1,6 +1,7 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::LifeSpan;
 use MooseX::Role::Parameterized;
 use DateTime::Format::ISO8601;
+use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( format_date );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
 parameter 'begin_properties' => (
@@ -33,18 +34,14 @@ role {
         # There may be a better way to do this, but I'm not really sure what
         # exactly it is.
         if ($toplevel) {
-            if ($entity->begin_date && $entity->begin_date->defined_run) {
-                my @run = $entity->begin_date->defined_run;
-                my $date = PartialDate->new(year => $run[0], month => $run[1], day => $run[2]);
+            if (my $begin_date = format_date($entity->begin_date)) {
                 for my $property ($begin_properties->($entity)) {
-                    $ret->{$property} = $date->format;
+                    $ret->{$property} = $begin_date;
                 }
             }
-            if ($entity->end_date && $entity->end_date->defined_run) {
-                my @run = $entity->end_date->defined_run;
-                my $date = PartialDate->new(year => $run[0], month => $run[1], day => $run[2]);
-                for my $property ($end_properties->($entity)) {
-                    $ret->{$property} = $date->format;
+            if (my $end_date = format_date($entity->end_date)) {
+                for my $property ($begin_properties->($entity)) {
+                    $ret->{$property} = $end_date;
                 }
             }
         }
