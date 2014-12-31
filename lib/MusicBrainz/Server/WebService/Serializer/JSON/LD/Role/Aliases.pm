@@ -7,6 +7,7 @@ use List::AllUtils qw( uniq );
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
     my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
+    return $ret unless $toplevel;
 
     my $entity_type = ref_to_type($entity);
     my $entity_search_hint_type = $ENTITIES{$entity_type}{aliases}{search_hint_type};
