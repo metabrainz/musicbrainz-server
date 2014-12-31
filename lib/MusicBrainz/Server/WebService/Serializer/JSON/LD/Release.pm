@@ -17,7 +17,7 @@ around serialize => sub {
 
     $ret->{'@type'} = 'MusicRelease';
 
-    $ret->{releaseOf} = serialize_entity($entity->release_group, $inc, $stash);
+    $ret->{releaseOf} = serialize_entity($entity->release_group, $inc, $stash) if $entity->release_group;
 
     if ($toplevel) {
         if ($entity->all_events) {
