@@ -88,7 +88,7 @@ sub enter_votes : Local RequireAuth DenyWhenReadonly
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         my @submissions = @{ $form->field('vote')->value };
         $c->model('Edit')->insert_votes_and_notes(
-            $c->user->id,
+            $c->user,
             votes => [ grep { defined($_->{vote}) } @submissions ],
             notes => [ grep { defined($_->{edit_note}) } @submissions ]
         );
@@ -127,7 +127,7 @@ sub approve : Chained('load') RequireAuth(auto_editor) DenyWhenReadonly
                 };
             }
 
-            $c->model('Edit')->approve($edit, $c->user->id);
+            $c->model('Edit')->approve($edit, $c->user);
             $c->response->redirect(
                 $c->req->query_params->{returnto} || $c->uri_for_action('/edit/show', [ $edit->id ]));
         }

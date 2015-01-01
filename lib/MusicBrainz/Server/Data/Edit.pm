@@ -663,10 +663,10 @@ sub default_includes {
 # Runs its own transaction
 sub approve
 {
-    my ($self, $edit, $editor_id) = @_;
+    my ($self, $edit, $editor) = @_;
 
     $self->c->model('Vote')->enter_votes(
-        $editor_id,
+        $editor,
         {
             vote    => $VOTE_APPROVE,
             edit_id => $edit->id
@@ -788,7 +788,7 @@ sub _close
 }
 
 sub insert_votes_and_notes {
-    my ($self, $user_id, %data) = @_;
+    my ($self, $editor, %data) = @_;
     my @votes = @{ $data{votes} || [] };
     my @notes = @{ $data{notes} || [] };
 
@@ -796,12 +796,12 @@ sub insert_votes_and_notes {
     @votes = grep { $_->{vote} != $VOTE_APPROVE } @votes;
 
     Sql::run_in_transaction(sub {
-        $self->c->model('Vote')->enter_votes($user_id, @votes);
+        $self->c->model('Vote')->enter_votes($editor, @votes);
         for my $note (@notes) {
             $self->c->model('EditNote')->add_note(
                 $note->{edit_id},
                 {
-                    editor_id => $user_id,
+                    editor_id => $editor->id,
                     text => $note->{edit_note},
                 });
         }

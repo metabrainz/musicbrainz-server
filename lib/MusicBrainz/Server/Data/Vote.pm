@@ -43,7 +43,7 @@ sub _column_mapping
 
 sub enter_votes
 {
-    my ($self, $editor_id, @votes) = @_;
+    my ($self, $editor, @votes) = @_;
     return unless @votes;
 
     # Filter any invalid votes
@@ -64,10 +64,12 @@ sub enter_votes
         # Filter out self-votes
         @votes = grep {
             $_->{vote} == $VOTE_APPROVE ||
-            $editor_id != $edits->{ $_->{edit_id} }->editor_id
+            $editor->id != $edits->{ $_->{edit_id} }->editor_id
         } @votes;
 
         return unless @votes;
+
+        my $editor_id = $editor->id;
 
         # Also filter duplicate votes
         my $current_votes = $self->sql->select_list_of_hashes(
@@ -134,7 +136,7 @@ sub enter_votes
 
             for my $edit_id (@email_extend_edit_ids) {
                 my $edit = $edits->{ $edit_id };
-                my $voter = $editors->{ $editor_id  };
+                my $voter = $editors->{ $editor_id };
                 my $editor = $editors->{ $edit->editor_id };
                 $email->send_first_no_vote(edit_id => $edit_id, voter => $voter, editor => $editor )
                     if $editor->preferences->email_on_no_vote;
