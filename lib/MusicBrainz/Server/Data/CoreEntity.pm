@@ -3,7 +3,7 @@ package MusicBrainz::Server::Data::CoreEntity;
 use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Constants qw( %ENTITIES );
-use MusicBrainz::Server::Data::Utils qw( generate_gid placeholders query_to_list query_to_list_limited );
+use MusicBrainz::Server::Data::Utils qw( generate_gid placeholders query_to_list query_to_list_limited object_to_ids );
 use MusicBrainz::Server::Validation qw( is_guid );
 use Sql;
 
@@ -169,6 +169,22 @@ sub find_by_names
     }
 
     return %mapped;
+}
+
+sub load_gid_redirects {
+    my ($self, @entities) = @_;
+    my $table = $self->_gid_redirect_table;
+
+    my %entities_by_id = object_to_ids(@entities);
+
+    my $query = "SELECT new_id, array_agg(gid) AS gid_redirects FROM $table WHERE new_id = any(?) GROUP BY new_id";
+    my $results = $self->c->sql->select_list_of_hashes($query, [map { $_->id } @entities]);
+
+    for my $row (@$results) {
+        for my $entity (@{ $entities_by_id{$row->{new_id}} }) {
+            $entity->gid_redirects($row->{gid_redirects});
+        }
+    }
 }
 
 sub remove_gid_redirects

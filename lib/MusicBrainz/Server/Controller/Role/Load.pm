@@ -88,7 +88,9 @@ role
         my ($self, $c, $id) = @_;
 
         if (is_guid($id)) {
-            return $c->model($model)->get_by_gid($id);
+            my $entity = $c->model($model)->get_by_gid($id);
+            $c->model($model)->load_gid_redirects($entity) if $entity;
+            return $entity;
         }
         else {
             # This will detach for us

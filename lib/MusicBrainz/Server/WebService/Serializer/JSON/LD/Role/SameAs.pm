@@ -1,6 +1,9 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::LD::Role::SameAs;
 use Moose::Role;
 
+use MusicBrainz::Server::Constants qw( %ENTITIES );
+use MusicBrainz::Server::Data::Utils qw( ref_to_type );
+use DBDefs;
 use MusicBrainz::Server::WebService::Serializer::JSON::LD::Utils qw( list_or_single );
 
 around serialize => sub {
@@ -14,6 +17,13 @@ around serialize => sub {
  
     if ($entity->can('all_isni_codes') && $entity->all_isni_codes) {
         push(@urls, map { $_->url } $entity->all_isni_codes);
+    }
+
+    my $entity_type = ref_to_type($entity);
+    my $entity_url = $ENTITIES{$entity_type}{url} // $entity_type;
+
+    if ($toplevel && $entity->can('all_gid_redirects') && $entity->all_gid_redirects) {
+        push(@urls, map { DBDefs->CANONICAL_SERVER . '/' . $entity_url . '/' . $_ } $entity->all_gid_redirects);
     }
 
     if (@urls) {
