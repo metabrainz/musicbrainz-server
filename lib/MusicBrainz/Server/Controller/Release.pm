@@ -159,6 +159,7 @@ sub show : Chained('load') PathPart('')
     my @tracks = map { $_->all_tracks } @mediums;
     my @recordings = $c->model('Recording')->load(@tracks);
     $c->model('Recording')->load_meta(@recordings);
+    $c->model('Recording')->load_gid_redirects(@recordings);
     if ($c->user_exists) {
         $c->model('Recording')->rating->load_user_ratings($c->user->id, @recordings);
     }
