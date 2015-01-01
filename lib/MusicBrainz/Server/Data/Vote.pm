@@ -2,7 +2,8 @@ package MusicBrainz::Server::Data::Vote;
 use Moose;
 use namespace::autoclean;
 
-use List::Util qw( sum );
+use List::Util qw( any sum );
+use Carp qw( confess );
 use MusicBrainz::Server::Data::Utils qw(
     map_query
     placeholders
@@ -44,27 +45,26 @@ sub _column_mapping
 sub enter_votes
 {
     my ($self, $editor, @votes) = @_;
-    return unless @votes;
 
     # Filter any invalid votes
     @votes = grep { VoteOption->check($_->{vote}) } @votes;
+
+    return unless @votes;
 
     my $query;
     Sql::run_in_transaction(sub {
         $self->sql->do('LOCK vote IN SHARE ROW EXCLUSIVE MODE');
 
-        # Filter votes on edits that are open
+        # Deal with votes on closed or own edits, by limited users, etc.
         my @edit_ids = map { $_->{edit_id} } @votes;
         my $edits = $self->c->model('Edit')->get_by_ids(@edit_ids);
+        @votes = grep { defined $edits->{ $_->{edit_id} } } @votes;
+        if (any { $_->{vote} == $VOTE_APPROVE && !$edits->{ $_->{edit_id} }->editor_may_approve($editor) } @votes) {
+            # not sufficient to filter the vote because the actual approval is happening elsewhere
+            confess "Unauthorized editor " . $editor->id . " tried to approve edit #" . $_->{edit_id};
+        }
         @votes = grep {
-            my $edit = $edits->{ $_->{edit_id} };
-            defined $edit && $edit->is_open
-        } @votes;
-
-        # Filter out self-votes
-        @votes = grep {
-            $_->{vote} == $VOTE_APPROVE ||
-            $editor->id != $edits->{ $_->{edit_id} }->editor_id
+            $_->{vote} == $VOTE_APPROVE || $edits->{ $_->{edit_id} }->editor_may_vote($editor)
         } @votes;
 
         return unless @votes;
