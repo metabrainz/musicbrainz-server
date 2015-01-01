@@ -49,12 +49,12 @@ role
     {
         my ($self, $c, @args) = @_;
 
-        my $entity = $self->_load($c, @args);
+        # defaulting to something non-undef silences a warning
+        my $entity_properties = $ENTITIES{ $entity_type // 0 };
+        my $entity = $self->_load($c, $entity_properties, @args);
 
         $c->detach('not_found') unless defined $entity;
 
-        # defaulting to something non-undef silences a warning
-        my $entity_properties = $ENTITIES{ $entity_type // 0 };
 
         if (exists $entity_properties->{mbid} && $entity_properties->{mbid}{relatable}) {
             my $action = $c->action->name;
@@ -85,11 +85,11 @@ role
 
     method _load => sub
     {
-        my ($self, $c, $id) = @_;
+        my ($self, $c, $entity_properties, $id) = @_;
 
         if (is_guid($id)) {
             my $entity = $c->model($model)->get_by_gid($id);
-            $c->model($model)->load_gid_redirects($entity) if $entity;
+            $c->model($model)->load_gid_redirects($entity) if $entity && exists $entity_properties->{mbid} && $entity_properties->{mbid}{multiple};
             return $entity;
         }
         else {
