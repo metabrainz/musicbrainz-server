@@ -121,7 +121,7 @@
 
     $("input[name=edit-place\\.coordinates]").on('input', function () {
         var coordinates = $("input[name=edit-place\\.coordinates]").val();
-        if (coordinates == "") {
+        if (_.str.isBlank(coordinates)) {
             $(".coordinates-errors").css("display", "none");
             $("input[name=edit-place\\.coordinates]").removeClass("error");
             $("input[name=edit-place\\.coordinates]").css("background-color", "transparent");
