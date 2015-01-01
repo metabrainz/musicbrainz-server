@@ -14,7 +14,7 @@ around serialize => sub {
     if (@{ $entity->relationships_by_type('url') }) {
         push(@urls, grep { defined } map { sameas_url($_) } @{ $entity->relationships_by_type('url') });
     }
- 
+
     if ($entity->can('all_isni_codes') && $entity->all_isni_codes) {
         push(@urls, map { $_->url } $entity->all_isni_codes);
     }
@@ -22,7 +22,7 @@ around serialize => sub {
     my $entity_type = ref_to_type($entity);
     my $entity_url = $ENTITIES{$entity_type}{url} // $entity_type;
 
-    if ($toplevel && $entity->can('all_gid_redirects') && $entity->all_gid_redirects) {
+    if ($entity->can('all_gid_redirects') && $entity->all_gid_redirects) {
         push(@urls, map { DBDefs->CANONICAL_SERVER . '/' . $entity_url . '/' . $_ } $entity->all_gid_redirects);
     }
 
