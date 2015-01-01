@@ -792,6 +792,9 @@ sub insert_votes_and_notes {
     my @votes = @{ $data{votes} || [] };
     my @notes = @{ $data{notes} || [] };
 
+    # Filter out approvals, they can only be entered via the approve method
+    @votes = grep { $_->{vote} != $VOTE_APPROVE } @votes;
+
     Sql::run_in_transaction(sub {
         $self->c->model('Vote')->enter_votes($user_id, @votes);
         for my $note (@notes) {
