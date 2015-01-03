@@ -1,8 +1,7 @@
 [% MACRO attach_list_row(release, show_artists) BLOCK %]
   <tr[% ' class="even"' IF zebra % 2 == 0 %]>
     <td colspan="2">
-      [% link_release(release) %]
-      [% disambiguation(release) %]
+      [%~ link_entity(release) ~%]
     </td>
     [% IF show_artists %]
       <td>[% artist_credit(release.artist_credit) %]</td>

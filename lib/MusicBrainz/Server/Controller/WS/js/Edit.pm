@@ -12,6 +12,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_DELETERELEASELABEL
     $EDIT_RELEASE_EDITRELEASELABEL
     $EDIT_RELEASEGROUP_CREATE
+    $EDIT_RELEASEGROUP_EDIT
     $EDIT_MEDIUM_CREATE
     $EDIT_MEDIUM_EDIT
     $EDIT_MEDIUM_DELETE
@@ -149,6 +150,15 @@ our $data_processors = {
     },
 
     $EDIT_RELEASEGROUP_CREATE => \&process_entity,
+
+    $EDIT_RELEASEGROUP_EDIT => sub {
+        my ($c, $loader, $data) = @_;
+
+        process_entity($c, $loader, $data);
+
+        $data->{to_edit} = delete $data->{gid};
+        load_entity_prop($loader, $data, 'to_edit', 'ReleaseGroup');
+    },
 
     $EDIT_WORK_CREATE => \&process_entity,
 };
@@ -606,7 +616,7 @@ sub submit_edits {
         my $response;
 
         if (defined $edit) {
-            $response = { message => "OK" };
+            $response = { edit_type => $edit->edit_type, message => "OK" };
 
             if ($edit->isa('MusicBrainz::Server::Edit::Generic::Create') &&
                 !$edit->isa('MusicBrainz::Server::Edit::Relationship::Create')) {
