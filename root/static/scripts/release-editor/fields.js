@@ -7,7 +7,7 @@
 
     var fields = releaseEditor.fields = releaseEditor.fields || {};
     var utils = releaseEditor.utils;
-    var validation = releaseEditor.validation = releaseEditor.validation || {};
+    var validation = require('../edit/validation.js');
 
 
     fields.ArtistCredit = aclass(MB.Control.ArtistCredit, {
