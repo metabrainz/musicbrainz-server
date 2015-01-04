@@ -1,9 +1,5 @@
 [%- PROCESS "statistics/macros-header.tt" -%]
 
-[% BLOCK layout_head %]
-  [%- css_manifest('statistics.css') -%]
-[% END %]
-
 [%- MACRO entry(entity, type) BLOCK -%]
 <tr class="[% loop.parity %]">
   <td class="t">[% loop.count %]</td>
