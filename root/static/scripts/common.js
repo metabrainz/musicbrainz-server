@@ -9,8 +9,6 @@ require("jquery.browser");
 require("jquery.cookie");
 require("jquery.ui");
 
-require("./table-sorter.js");
-
 require("./common/MB.js");
 require("./common/MB/i18n.js");
 require("./common/annotation.js");

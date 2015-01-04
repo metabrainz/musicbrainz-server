@@ -461,9 +461,12 @@ table.tbl {
     border-top: solid 1px @dark-border;
     border-bottom: solid 1px @dark-border;
 
+    thead {
+        background: data-uri('../images/layout/table-header.gif') repeat-x 0 50%;
+    }
+
     th {
         font-size: 95%;
-        background: data-uri('../images/layout/table-header.gif') repeat-x 0 50%;
         padding: 0.2em 0.4em;
         text-align: left;
         border-bottom: solid 1px @dark-border;
@@ -538,23 +541,6 @@ table.tbl {
     .data-track.icon {
         background: data-uri('../images/icons/page_white_cd.png');
         cursor: help !important;
-    }
-
-    /* Sortable table headers/images */
-    thead tr .header {
-        cursor: pointer;
-    }
-    thead tr .header .arrow {
-        background: data-uri('../images/layout/bg.gif') no-repeat center right;
-        display: inline-block;
-        height: 9px;
-        width: 21px;
-    }
-    thead tr .headerSortUp .arrow {
-        background-image: data-uri('../images/layout/asc.gif');
-    }
-    thead tr .headerSortDown .arrow {
-        background-image: data-uri('../images/layout/desc.gif');
     }
 }
 

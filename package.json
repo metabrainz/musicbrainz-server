@@ -29,6 +29,7 @@
     "po2json": "^0.3.2",
     "q": "^1.1.1",
     "shelljs": "^0.3.0",
+    "tablesorter": "mwiencek/tablesorter#15b2a78",
     "through2": "^0.6.1",
     "uglifyify": "^2.6.0",
     "underscore.string": "2.4.0",
