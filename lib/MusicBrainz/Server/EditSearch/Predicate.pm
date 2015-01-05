@@ -1,6 +1,8 @@
 package MusicBrainz::Server::EditSearch::Predicate;
 use Moose::Role;
 
+use Carp qw( croak );
+
 use MooseX::Types::Moose qw( Any ArrayRef Str );
 use MusicBrainz::Server::EditSearch::Exceptions;
 use MusicBrainz::Server::Translation qw( l );
@@ -59,7 +61,7 @@ sub transform_user_input {
 sub cross_validate { }
 
 sub new_from_input {
-    my ($class, $field_name, $input) = @_;
+    my ($class, $field_name, $input, $user_id) = @_;
 
     my $op = $input->{operator};
     MusicBrainz::Server::EditSearch::Exceptions::UnsupportOperator->throw(
@@ -70,6 +72,10 @@ sub new_from_input {
     my @args = grep { defined } (ref($input->{args}) ? @{ $input->{args} } : $input->{args});
     @args = splice(@args, 0, $cardinality)
         if defined $cardinality;
+
+    if (defined $input->{user_id}) {
+        $input->{user_id} == $user_id or croak "User tried to feign a different identity";
+    }
 
     return $class->new(
         %{ $input },

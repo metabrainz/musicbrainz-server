@@ -204,7 +204,7 @@ sub search : Path('/search/edits') RequireAuth
     );
     return unless %{ $c->req->query_params };
 
-    my $query = MusicBrainz::Server::EditSearch::Query->new_from_user_input($c->req->query_params);
+    my $query = MusicBrainz::Server::EditSearch::Query->new_from_user_input($c->req->query_params, $c->user->id);
     $c->stash( query => $query );
 
     if ($query->valid) {
