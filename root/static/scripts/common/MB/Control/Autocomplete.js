@@ -90,6 +90,8 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         this.$search = this.element
             .closest("span.autocomplete").find("img.search");
 
+        this.element.attr("placeholder",  MB.i18n.l("Type to search, or paste an MBID"));
+
         var self = this;
 
         // The following callbacks are triggered by jQuery UI. They're defined
