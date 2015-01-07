@@ -45,8 +45,10 @@ function buildStyles() {
         gulp.src("./root/static/*.less")
             .pipe(less({
                 rootpath: "/static/",
-                cleancss: true,
-                relativeUrls: true
+                relativeUrls: true,
+                plugins: [
+                    new (require('less-plugin-clean-css'))
+                ]
             }))
     );
 }
