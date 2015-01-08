@@ -14,6 +14,6 @@
 
 [% MACRO see_reviews_link(rg) BLOCK %]
   <a href="[% rg.see_reviews_href | html %]" target="_blank">
-    [% ln('See {count} review on CritiqueBrainz…', 'See all {count} reviews on CritiqueBrainz…', rg.review_count, { count => rg.review_count }) %]
+    [% ln('See {count} review on CritiqueBrainz…', 'See {count} reviews on CritiqueBrainz…', rg.review_count, { count => rg.review_count }) %]
   </a>
 [% END %]
