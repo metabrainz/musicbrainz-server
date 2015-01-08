@@ -49,12 +49,7 @@ sub load_display_reviews {
 sub _get_review {
     my ($self, $url) = @_;
 
-    my $lwp = LWP::UserAgent->new;
-    $lwp->env_proxy;
-    $lwp->timeout(2);
-    $lwp->agent(DBDefs->LWP_USER_AGENT);
-
-    my $response = $lwp->get($url) or return;
+    my $response = $self->c->lwp->get($url) or return;
     $response->is_success or return;
 
     return decode_json($response->content);
