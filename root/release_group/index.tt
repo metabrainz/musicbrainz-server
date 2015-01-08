@@ -73,4 +73,50 @@
         <p>[% l('No releases found.') -%]</p>
     [%- END -%]
     [%- INCLUDE "components/relationships.tt" source=rg -%]
+
+    <h2>[% l('CritiqueBrainz Reviews') %]</h2>
+
+    [% MACRO review_display(review, title) BLOCK %]
+      <h3>
+        <a href="[% review.href | html %]">[% title | html %]</a>
+      </h3>
+      <p class="review-metadata">
+        [%- l('Published by {author} on {date}', {
+              author => '<a href="' _ html_escape(review.author.href) _ '">' _ html_escape(review.author.name) _ '</a>',
+              date => UserDate.format(review.created)
+            })
+        -%]
+      </p>
+      <p class="review-extract">
+        [% review.extract %]
+      </p>
+    [% END %]
+
+    <div id="critiquebrainz-reviews">
+      [% IF rg.most_recent_review %]
+        <p>
+          [% review_display(rg.most_recent_review, l('Most Recent Review')) %]
+        </p>
+      [% END %]
+      [% IF rg.most_popular_review && rg.most_popular_review.id != rg.most_recent_review.id %]
+        <p>
+          [% review_display(rg.most_popular_review, l('Most Popular Review')) %]
+        </p>
+      [% END %]
+      [% IF rg.review_count == 0 %]
+        <p>[% l('No one has reviewed this release group yet.') | html %]</p>
+      [% END %]
+    </div>
+
+    <p>
+      [% IF rg.review_count > 0 %]
+        <a href="[% rg.see_reviews_href | html %]">
+          [% ln('See {count} review on CritiqueBrainz &#187;', 'See all {count} reviews on CritiqueBrainz &#187;', rg.review_count, { count => rg.review_count }) %]
+        </a>
+        <br />
+      [% END %]
+      <a href="[% rg.write_review_href | html %]">
+        [% l('Write your own review &#187;') %]
+      </a>
+    </p>
 [%- END -%]

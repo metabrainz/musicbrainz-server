@@ -66,6 +66,7 @@ sub show : Chained('load') PathPart('') {
     $c->model('ReleaseLabel')->load(@$releases);
     $c->model('Label')->load(map { $_->all_labels } @$releases);
     $c->model('ReleaseStatus')->load(@$releases);
+    $c->model('CritiqueBrainz')->load_review_extracts($rg);
 
     $c->stash(
         template => 'release_group/index.tt',

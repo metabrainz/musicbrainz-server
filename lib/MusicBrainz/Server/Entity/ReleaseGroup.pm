@@ -2,6 +2,7 @@ package MusicBrainz::Server::Entity::ReleaseGroup;
 
 use Moose;
 
+use DBDefs;
 use List::AllUtils qw( any );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
@@ -88,6 +89,31 @@ has 'cover_art' => (
 
 # Cannot set cover art if none of the associated releases has cover art.
 sub can_set_cover_art { return shift->has_cover_art; }
+
+has 'review_count' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
+has 'most_recent_review' => (
+    is => 'rw',
+    isa => 'Maybe[MusicBrainz::Server::Entity::CritiqueBrainz::Review]'
+);
+
+has 'most_popular_review' => (
+    is => 'rw',
+    isa => 'Maybe[MusicBrainz::Server::Entity::CritiqueBrainz::Review]'
+);
+
+sub see_reviews_href {
+    my ($self) = @_;
+    return DBDefs->CRITIQUEBRAINZ_SERVER . '/release-group/' . $self->gid;
+}
+
+sub write_review_href {
+    my ($self) = @_;
+    return DBDefs->CRITIQUEBRAINZ_SERVER . '/review/write?release_group=' . $self->gid;
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
