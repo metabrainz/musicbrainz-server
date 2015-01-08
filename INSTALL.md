@@ -305,6 +305,10 @@ Creating the database
         may leave it off. Remember to change the paths to your mbdump*.tar.bz2
         files, if they are not in /tmp/dumps/.
 
+        By default, the archives will be extracted into the `/tmp` directory as
+        an intermediate step. You may specify a different location with the
+        `--tmp-dir` option.
+
 
     NOTE: on a fresh postgresql install you may see the following error:
 
