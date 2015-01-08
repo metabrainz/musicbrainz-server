@@ -108,13 +108,13 @@
 
     <p>
       [% IF rg.review_count > 0 %]
-        <a href="[% rg.see_reviews_href | html %]">
-          [% ln('See {count} review on CritiqueBrainz &#187;', 'See all {count} reviews on CritiqueBrainz &#187;', rg.review_count, { count => rg.review_count }) %]
+        <a href="[% rg.see_reviews_href | html %]" target="_blank">
+          [% ln('See {count} review on CritiqueBrainz…', 'See all {count} reviews on CritiqueBrainz…', rg.review_count, { count => rg.review_count }) %]
         </a>
         <br />
       [% END %]
-      <a href="[% rg.write_review_href | html %]">
-        [% l('Write your own review &#187;') %]
+      <a href="[% rg.write_review_href | html %]" target="_blank">
+        [% l('Write your own review…') %]
       </a>
     </p>
 [%- END -%]
