@@ -703,13 +703,13 @@ sub fixup_rg {
             );
     }
 
-    if ($release_group->{'secondary-type-list'}) {
+    if ($release_group->{'secondary-types'}) {
         $rg_args->{secondary_types} = [
             map {
                 MusicBrainz::Server::Entity::ReleaseGroupSecondaryType->new(
                     name => $_
                 )
-            } @{ $release_group->{'secondary-type-list'}{'secondary-type'} }
+            } @{ $release_group->{'secondary-types'} }
         ]
     }
 
