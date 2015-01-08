@@ -81,7 +81,7 @@
       <p class="review-metadata">
         [%- l('Published by {author} on {date}', {
               author => '<a href="' _ html_escape(review.author.href) _ '">' _ html_escape(review.author.name) _ '</a>',
-              date => UserDate.format(review.created)
+              date => UserDate.format(review.created, date_only=1)
             })
         -%]
       </p>
