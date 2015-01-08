@@ -3,7 +3,8 @@ Installing MusicBrainz Server
 
 The easiest method of installing a local MusicBrainz Server may be to download the
 [pre-configured virtual machine](http://musicbrainz.org/doc/MusicBrainz_Server/Setup),
-if there is a current image available.
+if there is a current image available. In case you only need a replicated
+database, you should consider using [mbslave](https://bitbucket.org/lalinsky/mbslave).
 
 If you want to manually set up MusicBrainz Server from source, read on!
 
