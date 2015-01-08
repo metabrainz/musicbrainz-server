@@ -18,10 +18,9 @@ sub load_review_extracts {
     my ($self, $release_group) = @_;
 
     my $url = URI->new(DBDefs->CRITIQUEBRAINZ_SERVER . '/ws/1/review/');
-    my $gid = $release_group->gid;
 
     my %params = (
-        release_group => $gid,
+        release_group => $release_group->gid,
         offset => 0,
         limit => 1,
         sort => 'created'
@@ -29,7 +28,7 @@ sub load_review_extracts {
 
     $url->query_form(%params);
 
-    my $content = $self->_get_review("$gid:most-recent", $url->as_string);
+    my $content = $self->_get_review($url->as_string);
     return unless $content;
 
     $release_group->review_count($content->{count});
@@ -39,7 +38,7 @@ sub load_review_extracts {
         $params{sort} = 'rating';
         $url->query_form(%params);
 
-        $content = $self->_get_review("$gid:most-popular", $url->as_string);
+        $content = $self->_get_review($url->as_string);
         return unless $content;
 
         $release_group->most_popular_review(_parse_review(@{ $content->{reviews} // [] }));
@@ -47,33 +46,17 @@ sub load_review_extracts {
 }
 
 sub _get_review {
-    my ($self, $cache_suffix, $url) = @_;
-
-    my $cache = $self->c->cache;
-    my $cache_key = "cb:$cache_suffix";
-    my $last_modified = $cache->get("$cache_key:last-modified");
+    my ($self, $url) = @_;
 
     my $lwp = LWP::UserAgent->new;
     $lwp->env_proxy;
     $lwp->timeout(2);
     $lwp->agent(DBDefs->LWP_USER_AGENT);
-    $lwp->default_header('If-Modified-Since' => $last_modified) if $last_modified;
 
     my $response = $lwp->get($url) or return;
     $response->is_success or return;
 
-    my $content;
-    if ($response->code == 304) {
-        $content = $cache->get($cache_key);
-    } else {
-        $content = $response->content;
-        $cache->set($cache_key, $content);
-
-        $last_modified = $response->header('Last-Modified');
-        $cache->set("$cache_key:last-modified", $last_modified) if $last_modified;
-    }
-
-    return decode_json($content);
+    return decode_json($response->content);
 }
 
 sub _parse_review {
