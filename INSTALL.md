@@ -77,21 +77,6 @@ Prerequisites
     The latter package is only necessary where it exists, so a warning about the
     package not being found is not a problem.
 
-    Node dependencies are managed using `npm`. To install these dependencies, run
-    the following inside the musicbrainz-server/ checkout:
-
-        npm install
-
-    Node dependencies are installed under ./node_modules.
-
-    We use Gulp as our JavaScript/CSS build system. This will be installed after
-    running the above. Calling `gulp` on its own will build everything necessary
-    to access the server in a web browser. It can be invoked by:
-
-        ./node_modules/.bin/gulp
-
-    If you'd like, you can add ./node_modules/.bin to your $PATH.
-
 8.  Standard Development Tools
 
     In order to install some of the required Perl and Postgresql modules, you'll
@@ -207,6 +192,25 @@ Below outlines how to setup MusicBrainz server with local::lib.
     suitable version, run:
 
         cpanm SARTAK/MooseX-Role-Parameterized-1.02.tar.gz
+
+
+Installing Node.js dependencies
+-------------------------------
+
+    Node dependencies are managed using `npm`. To install these dependencies, run
+    the following inside the musicbrainz-server/ checkout:
+
+        npm install
+
+    Node dependencies are installed under ./node_modules.
+
+    We use Gulp as our JavaScript/CSS build system. This will be installed after
+    running the above. Calling `gulp` on its own will build everything necessary
+    to access the server in a web browser. It can be invoked by:
+
+        ./node_modules/.bin/gulp
+
+    If you'd like, you can add ./node_modules/.bin to your $PATH.
 
 
 Creating the database
