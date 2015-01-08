@@ -1,8 +1,8 @@
 package MusicBrainz::Server::Data::CritiqueBrainz;
 
 use Moose;
-use DateTime::Format::Natural;
 use DBDefs;
+use HTTP::Date qw( str2time );
 use JSON;
 use LWP::UserAgent;
 use Text::Markdown qw( markdown );
@@ -67,7 +67,7 @@ sub _parse_review {
 
     return Review->new(
         id => $data->{id},
-        created => DateTime::Format::Natural->new->parse_datetime($data->{created}),
+        created => DateTime->from_epoch(epoch => str2time($data->{created})),
         body => markdown($data->{text}),
         author => User->new(id => $data->{user}{id}, name => $data->{user}{display_name})
     );

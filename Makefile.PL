@@ -57,6 +57,7 @@ requires 'Hash::Merge'                                => '0.12';
 requires 'HTML::FormHandler'                          => '0.40016';
 requires 'HTML::Tiny'                                 => '1.05';
 requires 'HTML::TreeBuilder::XPath'                   => '0.14';
+requires 'HTTP::Date'                                 => '6.0';
 requires 'IO::All'                                    => '0.44';
 requires 'JSON'                                       => '2.59';
 requires 'JSON::XS'                                   => '2.32';
