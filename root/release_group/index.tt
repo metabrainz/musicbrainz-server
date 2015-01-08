@@ -77,9 +77,7 @@
     <h2>[% l('CritiqueBrainz Reviews') %]</h2>
 
     [% MACRO review_display(review, title) BLOCK %]
-      <h3>
-        <a href="[% review.href | html %]">[% title | html %]</a>
-      </h3>
+      <h3>[% title | html %]</h3>
       <p class="review-metadata">
         [%- l('Published by {author} on {date}', {
               author => '<a href="' _ html_escape(review.author.href) _ '">' _ html_escape(review.author.name) _ '</a>',
