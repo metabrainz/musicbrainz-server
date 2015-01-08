@@ -64,39 +64,12 @@ sub _parse_review {
 
     return undef unless $data;
 
-    my $review = Review->new(
+    return Review->new(
         id => $data->{id},
         created => DateTime::Format::Natural->new->parse_datetime($data->{created}),
         extract => encode_entities($data->{text}),
         author => User->new(id => $data->{user}{id}, name => $data->{user}{display_name})
     );
-
-    # Elide long reviews to 500 characters, but if the total length is <= 750,
-    # show the whole thing. This means the miniumum length of text to get cut off
-    # is 250 chars, and there won't be situations where just one sentence or a
-    # few words are missing.
-    my $extract = $data->{text};
-
-    if (length($extract) > 750) {
-        my @words = split(/(?<=[\s\p{Punctuation}])/, $extract);
-        my $i = 0;
-
-        $extract = $words[$i++];
-        return substr($extract, 0, 500) if length($extract) > 500;
-
-        while ($i < @words && length($extract . $words[$i]) <= 500) {
-            $extract .= $words[$i++];
-        }
-
-        $review->extract(
-            l("{review}&#8230; {url|Read more &#187;}", {
-                review => encode_entities(trim($extract)),
-                url => $review->href
-            })
-        );
-    }
-
-    return $review;
 }
 
 __PACKAGE__->meta->make_immutable;

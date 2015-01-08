@@ -15,7 +15,7 @@ has created => (
 );
 
 has extract => (
-    is => 'rw',
+    is => 'ro',
     isa => 'Str'
 );
 

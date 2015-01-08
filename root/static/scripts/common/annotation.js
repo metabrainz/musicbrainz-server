@@ -4,26 +4,32 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 $(function () {
-    $(".annotation-collapse").each(function () {
-        var $annotation = $(this);
+    _.each(['annotation', 'review'], function (className) {
+        $('.' + className + '-collapse').each(function () {
+            var $container = $(this);
 
-        if ($annotation.height() <= 100) {
-            return;
-        }
-        var toggleAnnotation = function () {
-            var expand = $annotation.hasClass("annotation-collapsed");
+            if ($container.height() <= 100) {
+                return;
+            }
 
-            $annotation.toggleClass("annotation-collapsed", !expand)
-                       .toggleClass("annotation-collapse", expand);
+            var toggleContainer = function () {
+                var expand = $container.hasClass(className + "-collapsed");
 
-            $button.text(expand ? MB.i18n.l("Show less...") : MB.i18n.l("Show more..."));
-            return false;
-        };
+                $container
+                    .toggleClass(className + "-collapsed", !expand)
+                    .toggleClass(className + "-collapse", expand);
 
-        var $button = $("<a>").attr("href", "#").addClass("annotation-toggle")
-                .click(toggleAnnotation);
+                $button.text(expand ? MB.i18n.l("Show less...") : MB.i18n.l("Show more..."));
+                return false;
+            };
 
-        toggleAnnotation();
-        $annotation.after($("<p>").append($button));
+            var $button = $("<a>")
+                .attr("href", "#")
+                .addClass(className + "-toggle")
+                .click(toggleContainer);
+
+            toggleContainer();
+            $container.after($("<p>").append($button));
+        });
     });
 });
