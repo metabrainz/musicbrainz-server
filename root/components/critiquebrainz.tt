@@ -1,0 +1,19 @@
+[% MACRO critiquebrainz_review(review, title) BLOCK %]
+  <h3>[% title | html %]</h3>
+  <p class="review-metadata">
+    [%- l('Published by {author} on {date}', {
+          author => '<a href="' _ html_escape(review.author.href) _ '">' _ html_escape(review.author.name) _ '</a>',
+          date => UserDate.format(review.created, date_only=1)
+        })
+    -%]
+  </p>
+  <div class="review-body review-collapse">
+    [% review.body %]
+  </div>
+[% END %]
+
+[% MACRO see_reviews_link(rg) BLOCK %]
+  <a href="[% rg.see_reviews_href | html %]" target="_blank">
+    [% ln('See {count} review on CritiqueBrainz…', 'See all {count} reviews on CritiqueBrainz…', rg.review_count, { count => rg.review_count }) %]
+  </a>
+[% END %]

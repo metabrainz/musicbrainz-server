@@ -76,29 +76,17 @@
 
     <h2>[% l('CritiqueBrainz Reviews') %]</h2>
 
-    [% MACRO review_display(review, title) BLOCK %]
-      <h3>[% title | html %]</h3>
-      <p class="review-metadata">
-        [%- l('Published by {author} on {date}', {
-              author => '<a href="' _ html_escape(review.author.href) _ '">' _ html_escape(review.author.name) _ '</a>',
-              date => UserDate.format(review.created, date_only=1)
-            })
-        -%]
-      </p>
-      <div class="review-body review-collapse">
-        [% review.body %]
-      </div>
-    [% END %]
+    [%- PROCESS 'components/critiquebrainz.tt' -%]
 
     <div id="critiquebrainz-reviews">
       [% IF rg.most_recent_review %]
         <p>
-          [% review_display(rg.most_recent_review, l('Most Recent Review')) %]
+          [% critiquebrainz_review(rg.most_recent_review, l('Most Recent Review')) %]
         </p>
       [% END %]
       [% IF rg.most_popular_review && rg.most_popular_review.id != rg.most_recent_review.id %]
         <p>
-          [% review_display(rg.most_popular_review, l('Most Popular Review')) %]
+          [% critiquebrainz_review(rg.most_popular_review, l('Most Popular Review')) %]
         </p>
       [% END %]
       [% IF rg.review_count == 0 %]
@@ -108,9 +96,7 @@
 
     <p>
       [% IF rg.review_count > 0 %]
-        <a href="[% rg.see_reviews_href | html %]" target="_blank">
-          [% ln('See {count} review on CritiqueBrainz…', 'See all {count} reviews on CritiqueBrainz…', rg.review_count, { count => rg.review_count }) %]
-        </a>
+        [%- see_reviews_link(rg) -%]
         <br />
       [% END %]
       <a href="[% rg.write_review_href | html %]" target="_blank">
