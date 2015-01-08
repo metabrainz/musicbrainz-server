@@ -4,7 +4,7 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 $(function () {
-    _.each(['annotation', 'review'], function (className) {
+    _.each(['annotation', 'review', 'wikipedia-extract'], function (className) {
         $('.' + className + '-collapse').each(function () {
             var $container = $(this);
 

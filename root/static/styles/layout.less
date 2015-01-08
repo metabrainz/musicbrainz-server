@@ -825,17 +825,17 @@ div.artwork { position: relative; width: 250px; }
     display: block;
 }
 
-.annotation-body, .review-body {
+.annotation-body, .review-body, .wikipedia-extract-body {
     position: relative;
     overflow: auto;
 }
 
-.annotation-collapsed, .review-collapsed {
+.annotation-collapsed, .review-collapsed, .wikipedia-extract-collapsed {
     max-height: 100px;
     overflow: hidden;
 }
 
-.annotation-collapsed:after, .review-collapsed:after {
+.annotation-collapsed:after, .review-collapsed:after, .wikipedia-extract-collapsed:after {
     display: block;
     position: absolute;
     bottom: 0;
@@ -851,7 +851,7 @@ div.artwork { position: relative; width: 250px; }
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
 }
 
-.annotation-collapse {
+.annotation-collapse, .review-collapse, .wikipedia-extract-collapse {
     max-height: none;
 }
 
