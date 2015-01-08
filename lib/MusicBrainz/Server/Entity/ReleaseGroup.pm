@@ -97,12 +97,12 @@ has 'review_count' => (
 
 has 'most_recent_review' => (
     is => 'rw',
-    isa => 'Maybe[MusicBrainz::Server::Entity::CritiqueBrainz::Review]'
+    isa => 'Maybe[CritiqueBrainz::Review]'
 );
 
 has 'most_popular_review' => (
     is => 'rw',
-    isa => 'Maybe[MusicBrainz::Server::Entity::CritiqueBrainz::Review]'
+    isa => 'Maybe[CritiqueBrainz::Review]'
 );
 
 sub see_reviews_href {
