@@ -158,7 +158,7 @@ Below outlines how to setup MusicBrainz server with local::lib.
 
         sudo apt-get install libxml2-dev libpq-dev libexpat1-dev libdb-dev libicu-dev liblocal-lib-perl cpanminus
 
-3.  Enable local::lib
+2.  Enable local::lib
 
     local::lib requires a few environment variables are set. The easiest way to
     do this is via .bashrc, assuming you use bash as your shell. Simply run the
@@ -171,7 +171,7 @@ Below outlines how to setup MusicBrainz server with local::lib.
 
         source ~/.bashrc
 
-2.  Install dependencies
+3.  Install dependencies
 
     First install one module as a system package (it is used by a database
     function):
