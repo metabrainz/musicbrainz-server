@@ -87,9 +87,9 @@
             })
         -%]
       </p>
-      <p class="review-extract review-body review-collapse">
-        [% review.extract %]
-      </p>
+      <div class="review-body review-collapse">
+        [% review.body %]
+      </div>
     [% END %]
 
     <div id="critiquebrainz-reviews">

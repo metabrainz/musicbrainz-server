@@ -95,6 +95,7 @@ requires 'Sys::Hostname';
 requires 'Template::Plugin::Class'                    => '0.13';
 requires 'Template::Plugin::JavaScript'               => '0.02';
 requires 'Template::Plugin::JSON::Escape'             => '0.02';
+requires 'Text::Markdown'                             => '1.000026';
 requires 'Text::WikiFormat'                           => '0.81';
 requires 'Text::Unaccent'                             => '1.08';
 requires 'Text::Trim'                                 => '1.02';

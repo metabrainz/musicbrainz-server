@@ -5,6 +5,7 @@ use DateTime::Format::Natural;
 use DBDefs;
 use JSON;
 use LWP::UserAgent;
+use Text::Markdown qw( markdown );
 use Text::Trim qw( trim );
 use URI;
 use MusicBrainz::Server::Translation qw( l );
@@ -14,7 +15,7 @@ use aliased 'MusicBrainz::Server::Entity::CritiqueBrainz::User';
 
 with 'MusicBrainz::Server::Data::Role::Context';
 
-sub load_review_extracts {
+sub load_display_reviews {
     my ($self, $release_group) = @_;
 
     my $url = URI->new(DBDefs->CRITIQUEBRAINZ_SERVER . '/ws/1/review/');
@@ -67,7 +68,7 @@ sub _parse_review {
     return Review->new(
         id => $data->{id},
         created => DateTime::Format::Natural->new->parse_datetime($data->{created}),
-        extract => encode_entities($data->{text}),
+        body => markdown($data->{text}),
         author => User->new(id => $data->{user}{id}, name => $data->{user}{display_name})
     );
 }

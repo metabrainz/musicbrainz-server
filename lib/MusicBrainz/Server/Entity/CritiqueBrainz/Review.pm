@@ -14,7 +14,7 @@ has created => (
     isa => 'DateTime'
 );
 
-has extract => (
+has body => (
     is => 'ro',
     isa => 'Str'
 );
