@@ -1,8 +1,9 @@
 Installing MusicBrainz Server
 =============================
 
-The easiest method of installing a local MusicBrainz Server is to download the
-[pre-configured virtual machine](http://musicbrainz.org/doc/MusicBrainz_Server/Setup).
+The easiest method of installing a local MusicBrainz Server may be to download the
+[pre-configured virtual machine](http://musicbrainz.org/doc/MusicBrainz_Server/Setup),
+if there is a current image available.
 
 If you want to manually set up MusicBrainz Server from source, read on!
 
