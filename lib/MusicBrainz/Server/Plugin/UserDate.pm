@@ -38,7 +38,7 @@ sub format {
 
     if ($opts && $opts->{date_only}) {
         $format =~ s/%c/%x/;
-        $format =~ s/%H:%M//;
+        $format =~ s/%H:%M(:%S)?//;
         $format =~ s/%Z//;
         $format =~ s/,\s*$//;
         $format = trim($format);
