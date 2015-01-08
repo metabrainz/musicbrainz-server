@@ -79,28 +79,24 @@
     [%- PROCESS 'components/critiquebrainz.tt' -%]
 
     <div id="critiquebrainz-reviews">
-      [% IF rg.most_recent_review %]
-        <p>
-          [% critiquebrainz_review(rg.most_recent_review, l('Most Recent Review')) %]
-        </p>
-      [% END %]
-      [% IF rg.most_popular_review && rg.most_popular_review.id != rg.most_recent_review.id %]
-        <p>
-          [% critiquebrainz_review(rg.most_popular_review, l('Most Popular Review')) %]
-        </p>
-      [% END %]
-      [% IF rg.review_count == 0 %]
+      [%~ IF rg.most_recent_review ~%]
+        [% critiquebrainz_review(rg.most_recent_review, l('Most Recent Review')) %]
+      [%~ END ~%]
+      [%~ IF rg.most_popular_review && rg.most_popular_review.id != rg.most_recent_review.id ~%]
+        [% critiquebrainz_review(rg.most_popular_review, l('Most Popular Review')) %]
+      [%~ END ~%]
+      [%~ IF rg.review_count == 0 ~%]
         <p>[% l('No one has reviewed this release group yet.') | html %]</p>
-      [% END %]
+      [%~ END ~%]
     </div>
 
     <p>
-      [% IF rg.review_count > 0 %]
+      [%~ IF rg.review_count > 0 ~%]
         [%- see_reviews_link(rg) -%]
         <br />
-      [% END %]
+      [%~ END ~%]
       <a href="[% rg.write_review_href | html %]" target="_blank">
-        [% l('Write your own review…') %]
+        [%~ l('Write your own review…') ~%]
       </a>
     </p>
 [%- END -%]
