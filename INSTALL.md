@@ -136,10 +136,6 @@ Server configuration
         replication packets to be applied on slaves. For more details, see
         INSTALL-MASTER.md
 
-    If you chose RT_SLAVE, please ensure that there is a configuration for
-    both READONLY and READWRITE, or the server will not function correctly.
-    (Both can be configured the same in a simple setup.)
-
 
 Installing Perl dependencies
 ----------------------------
