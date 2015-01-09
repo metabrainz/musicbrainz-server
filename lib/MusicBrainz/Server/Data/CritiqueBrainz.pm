@@ -4,7 +4,6 @@ use Moose;
 use DBDefs;
 use HTTP::Date qw( str2time );
 use JSON;
-use LWP::UserAgent;
 use Text::Markdown qw( markdown );
 use Text::Trim qw( trim );
 use URI;

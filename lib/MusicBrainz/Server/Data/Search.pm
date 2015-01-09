@@ -759,17 +759,11 @@ sub external_search
                                  $adv ? 'false' : 'true',
                                  );
 
-    if (DBDefs->_RUNNING_TESTS)
-    {
+    if (DBDefs->_RUNNING_TESTS) {
         $ua = MusicBrainz::Server::Test::mock_search_server($type);
+    } else {
+        $ua = $self->c->lwp unless defined $ua;
     }
-    else
-    {
-        $ua = LWP::UserAgent->new if (!defined $ua);
-    }
-
-    $ua->timeout(5);
-    $ua->env_proxy;
 
     # Dispatch the search request.
     my $response = get_chunked_with_retry($ua, $search_url);
@@ -1054,12 +1048,8 @@ sub xml_search
                                  $offset,
                                  $limit,);
 
-    my $ua = LWP::UserAgent->new;
-    $ua->timeout(5);
-    $ua->env_proxy;
-
     # Dispatch the search request.
-    my $response = $ua->get($search_url);
+    my $response = $self->c->lwp->get($search_url);
     unless ($response->is_success)
     {
         die $response;
