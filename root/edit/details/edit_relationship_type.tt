@@ -101,6 +101,7 @@
                          html_escape(edit.data.new.documentation));
      END %]
 
+  [% IF edit.display_data.examples.old OR edit.display_data.examples.new %]
   <tr>
     <th>[% l('Examples:') %]</th>
     <td class="old">
@@ -128,4 +129,5 @@
       </ul>
     </td>
   </tr>
+  [% END %]
 </table>
