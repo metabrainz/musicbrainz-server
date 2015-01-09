@@ -863,6 +863,7 @@ END -%]
             $.get('[% wikipedia_extract_url %]',
                   function (data) {
                       $('#wikipedia-insertion-point').replaceWith(data);
+                      MB.makeCollapsible('wikipedia-extract');
                   },
                   'html');
         //]]></script>

@@ -3,33 +3,37 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-$(function () {
-    _.each(['annotation', 'review', 'wikipedia-extract'], function (className) {
-        $('.' + className + '-collapse').each(function () {
-            var $container = $(this);
+function makeCollapsible(className) {
+    $('.' + className + '-collapse').each(function () {
+        var $container = $(this);
 
-            if ($container.height() <= 100) {
-                return;
-            }
+        if ($container.height() <= 100) {
+            return;
+        }
 
-            var toggleContainer = function () {
-                var expand = $container.hasClass(className + "-collapsed");
+        var toggleContainer = function () {
+            var expand = $container.hasClass(className + "-collapsed");
 
-                $container
-                    .toggleClass(className + "-collapsed", !expand)
-                    .toggleClass(className + "-collapse", expand);
+            $container
+                .toggleClass(className + "-collapsed", !expand)
+                .toggleClass(className + "-collapse", expand);
 
-                $button.text(expand ? MB.i18n.l("Show less...") : MB.i18n.l("Show more..."));
-                return false;
-            };
+            $button.text(expand ? MB.i18n.l("Show less...") : MB.i18n.l("Show more..."));
+            return false;
+        };
 
-            var $button = $("<a>")
-                .attr("href", "#")
-                .addClass(className + "-toggle")
-                .click(toggleContainer);
+        var $button = $("<a>")
+            .attr("href", "#")
+            .addClass(className + "-toggle")
+            .click(toggleContainer);
 
-            toggleContainer();
-            $container.after($("<p>").append($button));
-        });
+        toggleContainer();
+        $container.after($("<p>").append($button));
     });
+}
+
+$(function () {
+    _.each(['annotation', 'review', 'wikipedia-extract'], makeCollapsible);
 });
+
+MB.makeCollapsible = makeCollapsible;
