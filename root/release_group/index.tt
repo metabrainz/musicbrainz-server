@@ -80,10 +80,10 @@
 
     <div id="critiquebrainz-reviews">
       [%~ IF rg.most_recent_review ~%]
-        [% critiquebrainz_review(rg.most_recent_review, l('Most Recent Review')) %]
+        [% critiquebrainz_review(rg.most_recent_review, l('Most Recent')) %]
       [%~ END ~%]
       [%~ IF rg.most_popular_review && rg.most_popular_review.id != rg.most_recent_review.id ~%]
-        [% critiquebrainz_review(rg.most_popular_review, l('Most Popular Review')) %]
+        [% critiquebrainz_review(rg.most_popular_review, l('Most Popular')) %]
       [%~ END ~%]
       [%~ IF rg.review_count == 0 ~%]
         <p>[% l('No one has reviewed this release group yet.') | html %]</p>
