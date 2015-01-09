@@ -91,9 +91,8 @@
             [%~ IF release.release_group.review_count ~%]
                 <h2>[% l('Release group reviews') %]</h2>
                 [%- PROCESS 'components/critiquebrainz.tt' -%]
-                [%- see_reviews_link(release.release_group) -%]
+                [%~ critiquebrainz_links(release.release_group) ~%]
             [%~ END ~%]
         [%~ END ~%]
     [%~ END ~%]
 [%~ END ~%]
-

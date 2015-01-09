@@ -78,6 +78,10 @@
 
     [%- PROCESS 'components/critiquebrainz.tt' -%]
 
+    <p>
+      [%~ critiquebrainz_links(rg) ~%]
+    </p>
+
     <div id="critiquebrainz-reviews">
       [%~ IF rg.most_recent_review ~%]
         [% critiquebrainz_review(rg.most_recent_review, l('Most Recent')) %]
@@ -89,14 +93,4 @@
         <p>[% l('No one has reviewed this release group yet.') | html %]</p>
       [%~ END ~%]
     </div>
-
-    <p>
-      [%~ IF rg.review_count > 0 ~%]
-        [%- see_reviews_link(rg) -%]
-        <br />
-      [%~ END ~%]
-      <a href="[% rg.write_review_href | html %]" target="_blank">
-        [%~ l('Write your own review…') ~%]
-      </a>
-    </p>
 [%- END -%]
