@@ -10,7 +10,8 @@ sub edit_field_names {
     qw( parent_id child_order name link_phrase reverse_link_phrase
         long_link_phrase description priority attributes documentation
         is_deprecated has_dates entity0_cardinality entity1_cardinality
-  ) }
+        orderable_direction )
+}
 
 has '+name' => ( default => 'linktype' );
 
@@ -107,6 +108,11 @@ has_field 'entity0_cardinality' => (
 has_field 'entity1_cardinality' => (
     type => '+MusicBrainz::Server::Form::Field::Integer',
     required => 1,
+    default => 0
+);
+
+has_field orderable_direction => (
+    type => '+MusicBrainz::Server::Form::Field::Integer',
     default => 0
 );
 

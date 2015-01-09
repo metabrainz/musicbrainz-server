@@ -1005,6 +1005,13 @@ END -%]
   END %] ([% cardinality %])
 [%~ END ~%]
 
+[%~ MACRO orderable_direction_name(direction) BLOCK ~%]
+  [%~ IF direction == 0; l('None');
+      ELSIF direction == 1; l('Forward');
+      ELSIF direction == 2; l('Backward');
+  END %] ([% direction %])
+[%~ END ~%]
+
 [%~ USE Canonicalize ~%]
 [%~ MACRO replace_gid(new_gid) BLOCK ~%]
   [%~ Canonicalize.replace_gid(c, new_gid) ~%]
