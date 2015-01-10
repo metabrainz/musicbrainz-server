@@ -113,7 +113,9 @@ has_field 'entity1_cardinality' => (
 
 has_field orderable_direction => (
     type => '+MusicBrainz::Server::Form::Field::Integer',
-    default => 0
+    default => 0,
+    range_start => 0,
+    range_end => 2
 );
 
 sub options_parent_id
