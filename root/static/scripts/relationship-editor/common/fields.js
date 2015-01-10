@@ -375,12 +375,29 @@
             return true;
         },
 
+        _moveEntity: function (offset) {
+            var vm = this.parent;
+            var relationships = vm.source.getRelationshipGroup(this.linkTypeID(), vm);
+            var index = _.indexOf(relationships, this);
+            var newIndex = index + offset;
+
+            if (newIndex >= 0 && newIndex <= relationships.length - 1) {
+                var other = relationships[newIndex];
+                relationships[newIndex] = this;
+                relationships[index] = other;
+
+                _.each(relationships, function (r, i) {
+                    r.linkOrder(i + 1);
+                });
+            }
+        },
+
         moveEntityUp: function () {
-            this.linkOrder(Math.max(this.linkOrder() - 1, 0));
+            this._moveEntity(-1);
         },
 
         moveEntityDown: function () {
-            this.linkOrder(this.linkOrder() + 1);
+            this._moveEntity(1);
         },
 
         showLinkOrder: function (source) {

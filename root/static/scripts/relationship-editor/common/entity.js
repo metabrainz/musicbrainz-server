@@ -113,9 +113,19 @@
         },
 
         getRelationshipGroup: function (linkTypeID, viewModel) {
-            return _(this.groupedRelationships(viewModel))
-                .values().where({ linkTypeID: +linkTypeID })
-                .invoke("relationships").flatten().value();
+            // Returns all relationships of the given linkTypeID. Used in
+            // fields.js to recalculate link orders when an item is moved.
+            // Since displayableRelationships is used, it should be in the
+            // same order as it appears in the UI.
+            //
+            // FIXME: This is correct, but kinda dangerous because it doesn't
+            // correspond with the way relationships are actually grouped on-
+            // screen (by link phrase). A boolean attribute could cause the
+            // reordering UI to get fragmented, for example.
+
+            return _.filter(this.displayableRelationships(viewModel)(), function (r) {
+                return r.linkTypeID() == linkTypeID;
+            });
         }
     });
 
