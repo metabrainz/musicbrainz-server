@@ -10,6 +10,7 @@ use Readonly;
 use Data::Page;
 use URI::Escape qw( uri_escape_utf8 );
 use List::UtilsBy qw( partition_by );
+use List::AllUtils qw( any );
 use MusicBrainz::Server::Entity::Annotation;
 use MusicBrainz::Server::Entity::Area;
 use MusicBrainz::Server::Entity::AreaType;
@@ -621,6 +622,7 @@ sub schema_fixup
                 entity1 => $entity,
                 link => MusicBrainz::Server::Entity::Link->new(
                     type => MusicBrainz::Server::Entity::LinkType->new(
+                        entity1_type => $entity_type,
                         name => $rel->{type}
                     )
                 )
@@ -669,8 +671,11 @@ sub schema_fixup
                     my @relationships = @{ $relationship_map{$_} };
                     {
                         entity => $relationships[0]->entity1,
-                            roles  => [ map { $_->link->type->name } @relationships ]
+                            roles  => [ map { $_->link->type->name } grep { $_->link->type->entity1_type eq 'artist' } @relationships ]
                         }
+                } grep {
+                    my @relationships = @{ $relationship_map{$_} };
+                    any { $_->link->type->entity1_type eq 'artist' } @relationships;
                 } keys %relationship_map
             ];
         }
