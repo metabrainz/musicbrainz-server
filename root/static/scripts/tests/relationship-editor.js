@@ -812,29 +812,31 @@ relationshipEditorTest("relationships for entities not editable under the viewMo
     t.equal(artist.relationships().length, 0);
 });
 
+var loveMeDo = {
+    entityType: "recording",
+    name: "Love Me Do",
+    gid: "1f518811-7cf9-4bdc-a656-0958e130f312",
+    relationships: [
+        {
+            linkTypeID: 44,
+            direction: "backward",
+            target: {
+                entityType: "artist",
+                name: "Ringo Starr",
+                gid: "300c4c73-33ac-4255-9d57-4e32627f5e13"
+            },
+            linkOrder: 0,
+            attributes: ids2attrs([333]),
+            verbosePhrase: "performed {additional} {guest} {solo} {instrument:%|instruments} on"
+        }
+    ]
+};
+
 relationshipEditorTest("attributes are cleared when the target type is changed (MBS-7875)", function (t) {
     t.plan(2);
 
     var vm = setupGenericRelationshipEditor({
-        sourceData: {
-            entityType: "recording",
-            name: "Love Me Do",
-            gid: "1f518811-7cf9-4bdc-a656-0958e130f312",
-            relationships: [
-                {
-                    linkTypeID: 44,
-                    direction: "backward",
-                    target: {
-                        entityType: "artist",
-                        name: "Ringo Starr",
-                        gid: "300c4c73-33ac-4255-9d57-4e32627f5e13"
-                    },
-                    linkOrder: 0,
-                    attributes: ids2attrs([333]),
-                    verbosePhrase: "performed {additional} {guest} {solo} {instrument:%|instruments} on"
-                }
-            ]
-        },
+        sourceData: _.cloneDeep(loveMeDo),
         formName: "edit-recording"
     });
 
@@ -860,4 +862,24 @@ relationshipEditorTest("attributes are cleared when the target type is changed (
     dialog.accept();
     relationship = dialog.relationship();
     t.equal(relationship.attributes().length, 0, "invalid attributes removed");
+});
+
+relationshipEditorTest('relationships with different link orders are not duplicates of each other', function (t) {
+    t.plan(1);
+
+    var sourceData = _.cloneDeep(loveMeDo);
+
+    var vm = setupGenericRelationshipEditor({
+        sourceData: sourceData,
+        formName: "edit-recording"
+    });
+
+    var relationship = vm.source.relationships()[0];
+
+    var newRelationship = vm.getRelationship(
+        _.assign(_.clone(sourceData.relationships[0]), { linkOrder: 1 }),
+        vm.source
+    );
+
+    t.ok(!newRelationship.isDuplicate(relationship));
 });

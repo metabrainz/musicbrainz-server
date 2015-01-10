@@ -410,6 +410,7 @@
             return (
                 this !== other &&
                 this.linkTypeID() == other.linkTypeID() &&
+                this.linkOrder() == other.linkOrder() &&
                 _.isEqual(this.entities(), other.entities()) &&
                 MB.utility.mergeDates(this.period.beginDate, other.period.beginDate) &&
                 MB.utility.mergeDates(this.period.endDate, other.period.endDate) &&
