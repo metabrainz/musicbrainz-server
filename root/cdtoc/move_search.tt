@@ -14,7 +14,7 @@
     [% WRAPPER form_row %]
       [% r.label('query', l('Release title:')) %]
       [% r.text('query') %]
-      [% form_submit(l('Search')) %]
+      [% form_submit(l('Search'), 'inline') %]
     [% END %]
   </form>
 
