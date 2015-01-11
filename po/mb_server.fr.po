@@ -23,13 +23,13 @@
 # nikki, 2013
 # Paul Tremberth <email address hidden>, 2013
 # Paul Tremberth <email address hidden>, 2013
-# yahoe.001, 2013-2014
+# yahoe.001, 2013-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-22 14:51-0700\n"
-"PO-Revision-Date: 2014-12-22 21:56+0000\n"
+"PO-Revision-Date: 2015-01-07 15:35+0000\n"
 "Last-Translator: yahoe.001\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -213,7 +213,7 @@ msgstr "(aucun)"
 #: ../root/static/scripts/common/MB/Control/TagEditor.js:43
 msgctxt "tag"
 msgid "(none)"
-msgstr "(aucun)"
+msgstr "(aucune)"
 
 #: ../root/edit/details/remove_cover_art.tt:15
 msgctxt "type"
@@ -4902,7 +4902,7 @@ msgstr "Aucun artiste de trouvé avec cette balise"
 
 #: ../root/release/layout.tt:32
 msgid "No cover art available."
-msgstr "Aucune Illustration de disponible."
+msgstr "Aucune Illustration disponible."
 
 #: ../root/edit/notes.tt:40
 msgid "No edit notes have been added."
@@ -4926,7 +4926,7 @@ msgstr "Aucun événement trouvé avec cette balise."
 
 #: ../root/release/layout.tt:32
 msgid "No front cover image available.<br/>{all|View all artwork}."
-msgstr "Aucune image de couverture de disponible.<br/>{all|Voir tous les éléments graphiques}. "
+msgstr "Aucune image de couverture disponible.<br/>{all|Voir tous les éléments graphiques}."
 
 #: ../root/tag/instrument.tt:1
 msgid "No instruments with this tag were found."
@@ -9764,7 +9764,7 @@ msgstr "Artistes surveillés"
 
 #: ../root/report/not_available.tt:6
 msgid "We are sorry, but data for this report is not available right now."
-msgstr "Nous sommes désolé, mais les données de ce rapport ne sont pas disponible pour l'instant."
+msgstr "Nous sommes désolé, mais les données de ce rapport ne sont pas disponibles pour l'instant."
 
 #: ../root/edit/details/macros.tt:106
 msgid "We are unable to display history for this cover art."
@@ -10767,8 +10767,8 @@ msgstr "voir toutes les évaluations"
 #: ../root/release/header.tt:10
 msgid "see all versions of this release, {count} available"
 msgid_plural "see all versions of this release, {count} available"
-msgstr[0] "Afficher toutes les versions de cette parution, {count} de disponible"
-msgstr[1] "Afficher toutes les versions de cette parution, {count} de disponible"
+msgstr[0] "Afficher toutes les versions de cette parution, {count} disponible"
+msgstr[1] "Afficher toutes les versions de cette parution, {count} disponibles"
 
 #: ../root/user/profile.tt:41
 msgid "send email"

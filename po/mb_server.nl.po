@@ -12,7 +12,7 @@
 # Ian McEwen <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013-2014
+# Maurits Meulenbelt <email address hidden>, 2013-2015
 # Nikolai Prokoschenko <email address hidden>, 2011
 # Nikolai Prokoschenko <email address hidden>, 2011
 # nikki, 2012
@@ -23,8 +23,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-22 14:51-0700\n"
-"PO-Revision-Date: 2014-12-22 21:53+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2015-01-07 10:37+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2197,7 +2197,7 @@ msgstr "Contact"
 
 #: ../root/components/wikipedia_extract.tt:4
 msgid "Continue reading at Wikipedia..."
-msgstr "Lees verder op Wikipedia…"
+msgstr "Lees verder op Wikipedia …"
 
 #: ../root/place/edit_form.tt:48
 msgid "Coordinates"
@@ -2250,7 +2250,7 @@ msgstr "Afbeelding(en)"
 msgid ""
 "Cover Art provided by the {caa|Cover Art Archive}. Hosted by {host|Digital "
 "West}. Sponsored by: {url1|Google}, {url2|OSUOSL} and {more|others...}. "
-msgstr "Afbeeldingen geleverd door de {caa|Cover Art Archive}. Gehost door {host|Digital West}. Gesponsord door: {url1|Google}, {url2|OSUOSL} en {more|anderen…}"
+msgstr "Afbeeldingen geleverd door de {caa|Cover Art Archive}. Gehost door {host|Digital West}. Gesponsord door: {url1|Google}, {url2|OSUOSL} en {more|anderen …}"
 
 #: ../root/release/layout.tt:26
 msgid "Cover art from {cover|Amazon}"
@@ -2329,7 +2329,7 @@ msgstr "Beleid voor gegevensverwijdering"
 #: ../root/medium/tracklist.tt:35 ../root/release/edit/tracklist.tt:372
 #: ../root/release/index.tt:77
 msgid "Data Tracks"
-msgstr ""
+msgstr "Datanummers"
 
 #: ../root/edit/data.tt:10
 msgid "Data:"
@@ -2956,7 +2956,7 @@ msgstr "Einddatum:"
 
 #: ../root/event/index.tt:9
 msgid "End:"
-msgstr ""
+msgstr "Einde"
 
 #: ../root/edit/details/add_alias.tt:52 ../root/edit/details/edit_alias.tt:64
 msgid "Ended"
@@ -4228,12 +4228,12 @@ msgstr "Aan het laden"
 
 #: ../root/release/edit/editnote.tt:15
 msgid "Loading edit previews..."
-msgstr "Aan het laden van voorvertoningen van de bewerkingen…"
+msgstr "Aan het laden van voorvertoningen van de bewerkingen …"
 
 #: ../root/release/edit_relationships.tt:73
 #: ../root/static/scripts/common/dialogs.js:7
 msgid "Loading..."
-msgstr "Aan het laden…"
+msgstr "Aan het laden …"
 
 #: ../root/components/aliases.tt:16 ../root/edit/details/add_alias.tt:23
 #: ../root/edit/details/edit_alias.tt:42
@@ -4306,7 +4306,7 @@ msgstr "Zoekt u hulp? Kijk bij onze {doc|documentatie} of {faq|FAQ}."
 
 #: ../root/release/edit/recordings.tt:158
 msgid "Looking for suggested recordings..."
-msgstr "Aan het zoeken naar voorgestelde opnames…"
+msgstr "Aan het zoeken naar voorgestelde opnames …"
 
 #: ../root/cdtoc/lookup.tt:1 ../root/cdtoc/lookup.tt:2
 msgid "Lookup CD"
@@ -5120,11 +5120,11 @@ msgstr "Stuur mij een e-mail bij nieuwe uitgaves van artiesten die ik volg"
 
 #: ../root/release/edit/recordings.tt:103
 msgid "Now loading recording associations..."
-msgstr "Bezig met het laden van koppelingen van opnames…"
+msgstr "Bezig met het laden van koppelingen van opnames …"
 
 #: ../root/release/edit/tracklist.tt:156 ../root/release/edit/tracklist.tt:326
 msgid "Now loading tracklist..."
-msgstr "Nummerlijst aan het laden…"
+msgstr "Nummerlijst aan het laden …"
 
 #: ../root/oauth2/authorize.tt:1 ../root/oauth2/oob.tt:1
 msgid "OAuth Authorization"
@@ -5276,7 +5276,7 @@ msgstr "Opties"
 
 #: ../root/cdtoc/lookup.tt:97
 msgid "Or..."
-msgstr "Of…"
+msgstr "Of …"
 
 #: ../root/components/series-list.tt:6 ../root/series/merge.tt:14
 msgid "Ordering Type"
@@ -6827,7 +6827,7 @@ msgstr "In de gegevensbank naar deze cd zoeken"
 
 #: ../root/components/common-macros.tt:833
 msgid "Search the documentation..."
-msgstr "Documentatie doorzoeken…"
+msgstr "Documentatie doorzoeken …"
 
 #: ../root/release/edit/recordings.tt:146
 msgid "Search:"
@@ -6835,7 +6835,7 @@ msgstr "Zoeken:"
 
 #: ../root/release/edit/tracklist.tt:106
 msgid "Searching..."
-msgstr "Zoeken…"
+msgstr "Zoeken …"
 
 #: ../root/elections/show.tt:69
 msgid "Second this candidate"
@@ -7444,7 +7444,7 @@ msgstr "Begindatum"
 
 #: ../root/event/index.tt:6
 msgid "Start:"
-msgstr ""
+msgstr "Aanvang:"
 
 #: ../root/layout/menu.tt:144 ../root/user/profile.tt:143
 msgid "Statistics"
@@ -7540,7 +7540,7 @@ msgstr "Stemmen & bewerkingsnotities indienen"
 #: ../root/release/edit_relationships.tt:105
 #: ../root/release/edit_relationships.tt:165
 msgid "Submitting edits..."
-msgstr "Aan het invoeren van bewerkingen…"
+msgstr "Aan het invoeren van bewerkingen …"
 
 #: ../root/collection/layout.tt:35
 #: ../root/layout/sidebar/shared-entity-sidebar.tt:65
@@ -8123,7 +8123,7 @@ msgstr[1] "Deze verandering beïnvloedt {num} relaties."
 
 #: ../root/release/edit/tracklist.tt:406
 msgid "This disc contains data tracks at the end ({info|more info})"
-msgstr ""
+msgstr "Dit medium bevat datanummers ({info|meer informatie})."
 
 #: ../root/release/edit/tracklist.tt:400
 msgid "This disc has a hidden pregap track before track 1 ({info|more info})"
@@ -8131,7 +8131,7 @@ msgstr "Dit medium heeft een verborgen pregapnummer voor nummer 1 ({info|meer in
 
 #: ../root/edit/details/edit_medium.tt:184
 msgid "This edit changes which tracks are data tracks."
-msgstr ""
+msgstr "Deze bewerking verandert welke nummers datanummers zijn."
 
 #: ../root/edit/details/merge_releases.tt:125
 msgid ""
@@ -8318,7 +8318,7 @@ msgstr "Dit soort medium kan geen disc-id hebben"
 msgid ""
 "This medium has a disc ID, pregap track, or data track, so you can only "
 "change the format to one that can have disc IDs."
-msgstr ""
+msgstr "Dit medium heeft een disc-id, pregapnummer of datanummer, dus u kunt het type alleen veranderen in een type medium dat dit ondersteunt."
 
 #: ../root/release/merge.tt:106
 msgid ""
@@ -8926,7 +8926,7 @@ msgstr "Deze tabel geeft een samenvatting van alle stemmen die door deze redacte
 
 #: ../root/components/common-macros.tt:1012
 msgid "This track is a data track."
-msgstr ""
+msgstr "Dit nummer is een datanummer."
 
 #: ../root/edit/details/edit_medium.tt:2
 msgid "This track's MBID will change when this edit is applied."
@@ -10528,7 +10528,7 @@ msgstr "kardinaliteit van object1:"
 
 #: ../root/components/common-macros.tt:140
 msgid "events"
-msgstr ""
+msgstr "evenementen"
 
 #: ../root/components/common-macros.tt:692 ../root/edit/details/macros.tt:38
 msgid "from {begin_date} until {end_date}"
@@ -10652,7 +10652,7 @@ msgstr "meer"
 #: ../root/layout/sidebar/sidebar-tags.tt:1
 #: ../root/layout/sidebar/sidebar-tags.tt:16
 msgid "more..."
-msgstr "meer…"
+msgstr "meer …"
 
 #: ../root/edit/search_macros.tt:19
 msgid "newest first"
@@ -11137,7 +11137,7 @@ msgstr "{num}. {relationship}"
 
 #: ../root/event/attendance.tt:10
 msgid "{owner} (in list {collection})"
-msgstr ""
+msgstr "{owner} (in de lijst {collection})"
 
 #: ../root/user/profile.tt:222 ../root/user/profile.tt:226
 msgid "{percentage}%"
@@ -12602,7 +12602,7 @@ msgstr "Recente objecten leegmaken"
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:391
 #: ../root/static/scripts/common/annotation.js:19
 msgid "Show more..."
-msgstr "Laat meer zien…"
+msgstr "Laat meer zien …"
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:397
 msgid "Not found? Try again with direct search."
@@ -12687,7 +12687,7 @@ msgstr "Nog een compositie toevoegen"
 
 #: ../root/static/scripts/common/annotation.js:19
 msgid "Show less..."
-msgstr "Laat minder zien…"
+msgstr "Laat minder zien …"
 
 #: ../root/static/scripts/common/artworkViewer.js:66
 msgid "Image {current} of {total}"
@@ -12821,11 +12821,11 @@ msgstr "Deze nummerlijst heeft vermeldingen met informatie die verloren gaat als
 
 #: ../root/static/scripts/release-editor/fields.js:475
 msgid "Medium {position}: {title}"
-msgstr ""
+msgstr "Medium {position}: {title}"
 
 #: ../root/static/scripts/release-editor/fields.js:481
 msgid "Medium {position}"
-msgstr ""
+msgstr "Medium {position}"
 
 #: ../root/static/scripts/release-editor/fields.js:811
 msgid ""
