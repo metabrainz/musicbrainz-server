@@ -60,7 +60,7 @@ sub _init_release_editor
         packagings      => select_options_tree($c, 'ReleasePackaging'),
         countries       => select_options($c, 'CountryArea'),
         formats         => select_options_tree($c, 'MediumFormat'),
-        type_info       => $json->encode(build_type_info($c, qr/release-url/, $url_link_types)),
+        type_info       => $json->encode(build_type_info($c, qr/release-url/, [$url_link_types], $attr_tree)),
         attr_info       => $json->encode(build_attr_info($attr_tree)),
         discid_formats  => $json->encode($discid_formats),
         %options

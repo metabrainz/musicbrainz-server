@@ -41,40 +41,12 @@ MB.forms = {
     },
 
     linkTypeOptions: function (root, backward) {
-        var textAttr = (backward ? "reversePhrase" : "phrase") + "Clean";
-        var attributeRegex = /\{(.*?)(?::(.*?))?\}/g;
-
-        function mapNameToID(result, info, id) {
-            result[info.attribute.name] = id;
-        }
-
-        function callback(data, option) {
-            if (data[textAttr]) return;
-
-            var phrase = backward ? data.reversePhrase : data.phrase;
-
-            if (!_.isEmpty(MB.attrInfo)) {
-                var attrIDs = _.transform(data.attributes, mapNameToID);
-
-                // remove {foo} {bar} junk, unless it's for a required attribute.
-                phrase = phrase.replace(attributeRegex, function (match, name, alt) {
-                    var id = attrIDs[name];
-
-                    if (data.attributes[id].min < 1) {
-                        return (alt ? alt.split("|")[1] : "") || "";
-                    }
-                    return match;
-                });
-            }
-
-            data[textAttr] = phrase;
-        }
+        var textAttr = (backward ? "simpleReversePhrase" : "simplePhrase");
+        var options = MB.forms.buildOptionsTree(root, textAttr, "id", null, sortFunc);
 
         function sortFunc(a, b) {
             return (a.childOrder - b.childOrder) || MB.i18n.compare(a[textAttr], b[textAttr]);
         }
-
-        var options = MB.forms.buildOptionsTree(root, textAttr, "id", callback, sortFunc);
 
         for (var i = 0, len = options.length, option; i < len; i++) {
             if ((option = options[i]) && !option.data.description) {

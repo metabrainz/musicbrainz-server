@@ -152,9 +152,12 @@ sub build_grouped_options
 }
 
 sub build_type_info {
-    my ($c, $types, @link_type_tree) = @_;
+    my ($c, $types, $link_type_trees, $attr_tree) = @_;
 
-    sub build_type {
+    my %root_attrs_by_name = map { $_->name => $_ } $attr_tree->all_children;
+    my $build_type;
+
+    $build_type = sub {
         my $root = shift;
 
         my %attrs = map {
@@ -168,7 +171,9 @@ sub build_type_info {
             id                  => $root->id,
             gid                 => $root->gid,
             phrase              => $root->l_link_phrase,
+            simplePhrase        => $root->l_link_phrase,
             reversePhrase       => $root->l_reverse_link_phrase,
+            simpleReversePhrase => $root->l_reverse_link_phrase,
             deprecated          => $root->is_deprecated ? \1 : \0,
             hasDates            => $root->has_dates ? \1 : \0,
             type0               => $root->entity0_type,
@@ -179,18 +184,37 @@ sub build_type_info {
             childOrder          => $root->child_order,
         };
 
+        my $replace_attr = sub {
+            my ($name, $alt, $match) = @_;
+
+            if ($attrs{$root_attrs_by_name{$name}->id}->{min} < 1) {
+                return (split(/\|/, $alt || ''))[1] || '';
+            }
+
+            return $match;
+        };
+
+        if (%attrs) {
+            $result->{attributes} = \%attrs;
+
+            # Remove {foo} {bar} junk, unless it's for a required attribute.
+            for my $prop (qw( simplePhrase simpleReversePhrase )) {
+                $result->{$prop} =~ s/\{(.*?)(?::(.*?))?\}/$replace_attr->($1, $2, $&)/ge;
+                $result->{$prop} = trim($result->{$prop});
+            }
+        }
+
         $result->{description} = $root->l_description if $root->description;
-        $result->{attributes} = \%attrs if %attrs;
-        $result->{children} = build_child_info($root, \&build_type) if $root->all_children;
+        $result->{children} = build_child_info($root, $build_type) if $root->all_children;
 
         return $result;
     };
 
     my %type_info;
-    for my $root (@link_type_tree) {
+    for my $root (@$link_type_trees) {
         my $type_key = join('-', $root->entity0_type, $root->entity1_type);
         next if $type_key !~ $types;
-        $type_info{ $type_key } = build_child_info($root, \&build_type);
+        $type_info{ $type_key } = build_child_info($root, $build_type);
     }
     return \%type_info;
 }
