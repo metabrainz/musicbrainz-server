@@ -112,12 +112,13 @@ function langToPosix(lang) {
 function buildScripts(watch) {
     var promises = [];
 
-    var languages = (process.env.MB_LANGUAGES || "").split(",").filter(function (lang) {
-        return lang && lang !== 'en';
-    });
+    var languages = (process.env.MB_LANGUAGES || "")
+        .split(",")
+        .filter(function (lang) { return lang && lang !== 'en' })
+        .map(langToPosix);
 
     languages.forEach(function (lang) {
-        var srcPo = "./po/mb_server." + langToPosix(lang) + ".po";
+        var srcPo = "./po/mb_server." + lang + ".po";
         var tmpPo = "./po/javascript." + lang + ".po";
 
         // Create a temporary .po file containing only the strings used by root/static/scripts.
