@@ -80,10 +80,16 @@
                 .groupBy(linkPhrase).sortBy("key").map(function (group) {
                     group.openAddDialog = openAddDialog;
 
-                    var typeInfo = group.values.peek()[0].linkTypeInfo();
-                    group.canBeOrdered = !!(typeInfo && typeInfo.orderableDirection > 0);
+                    var relationships = group.values.peek();
+                    var typeInfo = relationships[0].linkTypeInfo();
 
-                    if (group.canBeOrdered) {
+                    if (typeInfo && typeInfo.orderableDirection > 0) {
+                        group.canBeOrdered = group.values.all(function (r) {
+                            return r.entityCanBeReordered(r.target(self));
+                        });
+                    }
+
+                    if (ko.unwrap(group.canBeOrdered)) {
                         var hasOrdering = group.values.any(function (r) { return r.linkOrder() > 0 });
 
                         group.hasOrdering = ko.computed({

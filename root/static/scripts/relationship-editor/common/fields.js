@@ -409,10 +409,7 @@
         },
 
         showLinkOrder: function (source) {
-            return this.entityIsOrdered(this.target(source)) &&
-                    this.linkOrder() > 0 &&
-                    (source.entityType !== "series" ||
-                     +source.orderingTypeID() === MB.constants.SERIES_ORDERING_TYPE_MANUAL);
+            return this.linkOrder() > 0 && this.entityCanBeReordered(this.target(source));
         },
 
         isDuplicate: function (other) {
