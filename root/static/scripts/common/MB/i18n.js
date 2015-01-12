@@ -95,6 +95,22 @@
         return output;
     };
 
+    i18n.commaOnlyList = function (items) {
+        var output = '';
+
+        if (!items.length) {
+            return output;
+        }
+
+        output = i18n.l('{last_list_item}', { last_list_item: items.pop() });
+        items.reverse();
+
+        _.each(items.reverse(), function (item) {
+            output = i18n.l('{commas_only_list_item}, {rest}', { commas_only_list_item: item, rest: output });
+        });
+
+        return output;
+    };
 
     var lang = document.documentElement.lang || "en",
         collatorOptions = { numeric: true };
