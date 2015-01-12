@@ -35,8 +35,5 @@
 # Ignore installed translation files
 /lib/LocaleData/
 
-# Ignore generated text_strings.tt for QUnit tests.
-/root/static/tests/text.js
-
 # Ignore schema change catchup folder
 /catchup

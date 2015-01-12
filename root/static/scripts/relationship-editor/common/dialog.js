@@ -8,6 +8,12 @@
     var UI = RE.UI = RE.UI || {};
     var fields = RE.fields = RE.fields || {};
 
+    var incorrectEntityForSeries = {
+        recording:      MB.i18n.l("The series you’ve selected is for recordings."),
+        release:        MB.i18n.l("The series you’ve selected is for releases."),
+        release_group:  MB.i18n.l("The series you’ve selected is for release groups."),
+        work:           MB.i18n.l("The series you’ve selected is for works.")
+    };
 
     ko.bindingHandlers.relationshipEditorAutocomplete = (function () {
         var dialog;
@@ -283,7 +289,7 @@
             var description;
 
             if (typeInfo) {
-                description = MB.i18n.expand(MB.text.MoreDocumentation, {
+                description = MB.i18n.l("{description} ({url|more documentation})", {
                     description: typeInfo.description,
                     url: { href: "/relationship/" + typeInfo.gid, target: "_blank" }
                 });
@@ -336,7 +342,7 @@
             }
 
             var options = _.map(targetTypes, function (type) {
-                return { value: type, text: MB.text.Entity[type] };
+                return { value: type, text: MB.i18n.strings.entityName[type] };
             });
 
             options.sort(function (a, b) {
@@ -388,16 +394,16 @@
             var typeInfo = this.relationship().linkTypeInfo();
 
             if (!typeInfo) {
-                return MB.text.PleaseSelectARType;
+                return MB.i18n.l("Please select a relationship type.");
             } else if (!typeInfo.description) {
-                return MB.text.PleaseSelectARSubtype;
+                return MB.i18n.l("Please select a subtype of the currently selected relationship type. The selected relationship type is only used for grouping subtypes.");
             } else if (typeInfo.deprecated) {
-                return MB.text.RelationshipTypeDeprecated;
+                return MB.i18n.l("This relationship type is deprecated and should not be used.");
             } else if (this.source.entityType === "url") {
                 var checker = MB.editURLCleanup.validationRules[typeInfo.gid];
 
                 if (checker && !checker(this.source.name())) {
-                    return MB.text.URLNotAllowed;
+                    return MB.i18n.l("This URL is not allowed for the selected link type, or is incorrectly formatted.");
                 }
             }
 
@@ -408,14 +414,14 @@
             var target = this.relationship().target(this.source);
 
             if (!target.gid) {
-                return MB.text.RequiredField;
+                return MB.i18n.l("Required field.");
             } else if (this.source === target) {
-                return MB.text.DistinctEntities;
+                return MB.i18n.l("Entities in a relationship cannot be the same.");
             }
 
             if (target.entityType === "series" &&
                     target.type().entityType !== this.source.entityType) {
-                return MB.text.IncorrectEntityForSeries[target.type().entityType];
+                return incorrectEntityForSeries[target.type().entityType];
             }
 
             return "";
@@ -423,7 +429,7 @@
 
         dateError: function (date) {
             var valid = MB.utility.validDate(date.year(), date.month(), date.day());
-            return valid ? "" : MB.text.InvalidDate;
+            return valid ? "" : MB.i18n.l("The date you've entered is not valid.");
         },
 
         datePeriodError: function () {
@@ -434,7 +440,7 @@
 
             if (!this.dateError(a) && !this.dateError(b)) {
                 if (!MB.utility.validDatePeriod(ko.toJS(a), ko.toJS(b))) {
-                    return MB.text.InvalidEndDate;
+                    return MB.i18n.l("The end date cannot preceed the begin date.");
                 }
             }
 

@@ -5,7 +5,6 @@
 
 var releaseEditor = MB.releaseEditor;
 
-
 $.ajax = function () {
     var mockXHR = $.Deferred();
 
@@ -16,72 +15,47 @@ $.ajax = function () {
     return mockXHR;
 };
 
-
-releaseEditor.test = {
-
-    module: function (name, setup) {
-        module(name, {
-            setup: function () {
-                $("#qunit-fixture").append($("<div>").attr("id", "release-editor"));
-
-                if (setup) setup.call(this);
-
-                if (releaseEditor.rootField) {
-                    this.release = releaseEditor.rootField.release();
-                }
-            },
-
-            teardown: function () {
-                if (releaseEditor.rootField) {
-                    releaseEditor.rootField.release(null);
-                }
-
-                MB.entityCache = {};
-                releaseEditor.validation.errorFields([]);
-            }
-        });
-    },
-
-    setupReleaseAdd: function (data) {
-        releaseEditor.action = "add";
-        releaseEditor.rootField = releaseEditor.fields.Root();
-        releaseEditor.seed({ seed: data || {} });
-    },
-
-    setupReleaseEdit: function () {
-        releaseEditor.action = "edit";
-        releaseEditor.rootField = releaseEditor.fields.Root();
-        releaseEditor.rootField.release(releaseEditor.fields.Release(releaseEditor.test.testRelease));
-    },
-
-    trackParser: function (input, expected) {
-        var result = releaseEditor.trackParser.parse(input);
-
-        function getProps(track) {
-            return _.pick.apply(_, [track].concat(_.keys(expected[0])));
-        }
-
-        deepEqual(ko.toJS(_.map(result, getProps)), expected);
-    },
-
-    createMediums: function (release) {
-        var submission = _.find(releaseEditor.orderedEditSubmissions, {
-            edits: releaseEditor.edits.medium
-        });
-
-        // Simulate edit submission.
-        var createEdits = submission.edits(release);
-
-        var nextID = 666;
-
-        submission.callback(release, _.map(createEdits, function (data) {
-            return { entity: { id: nextID++, position: data.position } };
-        }));
-    }
+exports.setupReleaseAdd = function (data) {
+    releaseEditor.action = "add";
+    releaseEditor.rootField = releaseEditor.fields.Root();
+    releaseEditor.seed({ seed: data || {} });
+    return releaseEditor.rootField.release();
 };
 
+exports.setupReleaseEdit = function () {
+    releaseEditor.action = "edit";
+    releaseEditor.rootField = releaseEditor.fields.Root();
+    var release = releaseEditor.fields.Release(exports.testRelease);
+    releaseEditor.rootField.release(release);
+    return release;
+};
 
-releaseEditor.test.testArtistCredit = [
+exports.trackParser = function (t, input, expected) {
+    var result = releaseEditor.trackParser.parse(input);
+
+    function getProps(track) {
+        return _.pick.apply(_, [track].concat(_.keys(expected[0])));
+    }
+
+    t.deepEqual(ko.toJS(_.map(result, getProps)), expected);
+};
+
+exports.createMediums = function (release) {
+    var submission = _.find(releaseEditor.orderedEditSubmissions, {
+        edits: releaseEditor.edits.medium
+    });
+
+    // Simulate edit submission.
+    var createEdits = submission.edits(release);
+
+    var nextID = 666;
+
+    submission.callback(release, _.map(createEdits, function (data) {
+        return { entity: { id: nextID++, position: data.position } };
+    }));
+};
+
+exports.testArtistCredit = [
   {
     artist: {
       sortName: "Boredoms",
@@ -94,15 +68,14 @@ releaseEditor.test.testArtistCredit = [
   }
 ];
 
-
-releaseEditor.test.testRelease = {
+exports.testRelease = {
   releaseGroup: {
     typeName: null,
     name: "Vision Creation Newsun",
     artist: "Boredoms",
     typeID: 1,
     comment: "",
-    artistCredit: releaseEditor.test.testArtistCredit,
+    artistCredit: exports.testArtistCredit,
     id: 83146,
     secondaryTypeIDs: [],
     firstReleaseDate: "1999-10-27",
@@ -131,7 +104,7 @@ releaseEditor.test.testRelease = {
           name: "\u25cb",
           length: 822093,
           id: 564394,
-          artistCredit: releaseEditor.test.testArtistCredit,
+          artistCredit: exports.testArtistCredit,
           gid: "aaed3498-cb14-3c2b-8c08-ad03bf46ab61"
         },
         {
@@ -149,7 +122,7 @@ releaseEditor.test.testRelease = {
           name: "\u2606",
           length: 322933,
           id: 564395,
-          artistCredit: releaseEditor.test.testArtistCredit,
+          artistCredit: exports.testArtistCredit,
           gid: "cce78f39-a1a0-32d5-b921-091757f28586"
         }
       ],
@@ -167,7 +140,7 @@ releaseEditor.test.testRelease = {
   formats: "2\u00d7CD",
   packagingID: null,
   comment: "limited edition",
-  artistCredit: releaseEditor.test.testArtistCredit,
+  artistCredit: exports.testArtistCredit,
   id: 249113,
   labels: [
     {
@@ -196,8 +169,7 @@ releaseEditor.test.testRelease = {
   annotation: "foobar123"
 };
 
-
-releaseEditor.test.testMedium = {
+exports.testMedium = {
   tracks: [
     {
       number: "1",
@@ -214,7 +186,7 @@ releaseEditor.test.testMedium = {
       name: "\u2609",
       length: 92666,
       id: 892996,
-      artistCredit: releaseEditor.test.testArtistCredit,
+      artistCredit: exports.testArtistCredit,
       gid: "2e8e2c89-d2ac-3e78-b8b9-b09f3fcf8c98"
     }
   ],

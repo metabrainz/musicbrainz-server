@@ -3,10 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-module('Guess Case');
+var test = require('tape');
 
-
-test('Sortname', function () {
+test('Sortname', function (t) {
+    t.plan(6);
 
     var tests = [
         {
@@ -28,7 +28,7 @@ test('Sortname', function () {
 
     $.each(tests, function (idx, test) {
         var result = MB.GuessCase.artist.sortname(test.input, test.person);
-        equal(result, test.expected, test.input);
+        t.equal(result, test.expected, test.input);
     });
 
     tests = [
@@ -62,13 +62,12 @@ test('Sortname', function () {
 
     $.each(tests, function (idx, test) {
         var result = MB.GuessCase.label.sortname(test.input);
-        equal(result, test.expected, test.input);
+        t.equal(result, test.expected, test.input);
     });
-
 });
 
-
-test('Artist', function () {
+test('Artist', function (t) {
+    t.plan(8);
 
     var tests = [
         {
@@ -79,17 +78,16 @@ test('Artist', function () {
             input: 'the prodigy & tom morello',
             expected: 'The Prodigy & Tom Morello'
         },
-        {   input: ' ',         expected: '[unknown]'  },
-        {   input: 'n/a',       expected: '[unknown]'  },
-        {   input: 'NONE',      expected: '[unknown]'  },
-        {   input: 'unknown',   expected: '[unknown]'  },
-        {   input: 'No Artist', expected: '[unknown]'  },
+        { input: ' ',         expected: '[unknown]' },
+        { input: 'n/a',       expected: '[unknown]' },
+        { input: 'NONE',      expected: '[unknown]' },
+        { input: 'unknown',   expected: '[unknown]' },
+        { input: 'No Artist', expected: '[unknown]' },
         {
             input: "Peggy Sue And The Pirates",
             expected: "Peggy Sue and The Pirates",
             bug: "MBS-1370", mode: "Artist"
         }
-
     ];
 
     $.each(tests, function (idx, test) {
@@ -97,35 +95,33 @@ test('Artist', function () {
 
         var prefix = test.bug ? test.bug + ', ' : '';
 
-        equal(result, test.expected, prefix + test.input);
+        t.equal(result, test.expected, prefix + test.input);
     });
-
 });
 
-
-test('Label', function () {
+test('Label', function (t) {
+    t.plan(6);
 
     var tests = [
         {
             input: 'da! heard it records',
             expected: 'Da! Heard It Records'
         },
-        {   input: ' ',         expected: '[unknown]'  },
-        {   input: 'n/a',       expected: '[unknown]'  },
-        {   input: 'NONE',      expected: '[unknown]'  },
-        {   input: 'unknown',   expected: '[unknown]'  },
-        {   input: 'No Label',  expected: '[unknown]'  }
+        { input: ' ',         expected: '[unknown]' },
+        { input: 'n/a',       expected: '[unknown]' },
+        { input: 'NONE',      expected: '[unknown]' },
+        { input: 'unknown',   expected: '[unknown]' },
+        { input: 'No Label',  expected: '[unknown]' }
     ];
 
     $.each(tests, function (idx, test) {
         result = MB.GuessCase.label.guess(test.input);
-        equal(result, test.expected, test.input);
+        t.equal(result, test.expected, test.input);
     });
-
 });
 
-
-test('Work', function () {
+test('Work', function (t) {
+    t.plan(7);
 
     var tests = [
         {
@@ -173,13 +169,12 @@ test('Work', function () {
         gc.mode = MB.GuessCase.Mode[test.mode];
 
         result = MB.GuessCase.work.guess(test.input);
-        equal(result, test.expected, test.input);
+        t.equal(result, test.expected, test.input);
     });
-
 });
 
-
-test('BugFixes', function () {
+test('BugFixes', function (t) {
+    t.plan(18);
 
     var tests = [
         {
@@ -275,7 +270,6 @@ test('BugFixes', function () {
             bug: "MBS-1549", mode: "Sentence"
         }
 
-
         /* There is no fix for these yet.
         {
             input: "(Dance With the) Guitar Man",
@@ -304,12 +298,13 @@ test('BugFixes', function () {
         window.gc.mode = MB.GuessCase.Mode[test.mode];
 
         result = MB.GuessCase.work.guess(test.input);
-        equal(result, test.expected, test.bug + ', ' + test.input);
+        t.equal(result, test.expected, test.bug + ', ' + test.input);
     });
-
 });
 
-test("vinyl numbers are fixed", function () {
+test("vinyl numbers are fixed", function (t) {
+    t.plan(4);
+
     window.gc.mode = MB.GuessCase.Mode.English;
 
     var tests = [
@@ -333,6 +328,6 @@ test("vinyl numbers are fixed", function () {
     ];
 
     _.each(tests, function (test) {
-        equal(MB.GuessCase.track.guess(test.input), test.expected);
+        t.equal(MB.GuessCase.track.guess(test.input), test.expected);
     });
 });

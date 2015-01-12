@@ -3,21 +3,29 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-releaseEditor.test.module("track parser", function () {
+var test = require('tape');
+var common = require('./common.js');
 
-    releaseEditor.trackParser.options = {
-        hasTrackNumbers: true,
-        hasVinylNumbers: false,
-        hasTrackArtists: false,
-        useTrackNumbers: true,
-        useTrackArtists: true,
-        useTrackNames: true,
-        useTrackLengths: true,
-    };
-});
+var releaseEditor = MB.releaseEditor;
 
+function parserTest(name, callback) {
+    test(name, function (t) {
+        releaseEditor.trackParser.options = {
+            hasTrackNumbers: true,
+            hasVinylNumbers: false,
+            hasTrackArtists: false,
+            useTrackNumbers: true,
+            useTrackArtists: true,
+            useTrackNames: true,
+            useTrackLengths: true,
+        };
+        callback(t);
+    });
+}
 
-test("track numbers", function () {
+parserTest("track numbers", function (t) {
+    t.plan(1);
+
     releaseEditor.trackParser.options.hasVinylNumbers = true;
 
     var input = [
@@ -31,7 +39,7 @@ test("track numbers", function () {
     ]
     .join("\n");
 
-    releaseEditor.test.trackParser(input, [
+    common.trackParser(t, input, [
         { position: 1, number: "a1", name: "Kermis" },
         { position: 2, number: "a2", name: "Glitch" },
         { position: 3, number: "a3", name: "Afrik Slang" },
@@ -42,8 +50,8 @@ test("track numbers", function () {
     ]);
 });
 
-
-test("parsing track durations with trailing whitespace (MBS-1284)", function () {
+parserTest("parsing track durations with trailing whitespace (MBS-1284)", function (t) {
+    t.plan(1);
 
     var input = [
         "1. Forgotten Child    3:39    ",
@@ -53,7 +61,7 @@ test("parsing track durations with trailing whitespace (MBS-1284)", function () 
     ]
     .join("\n");
 
-    releaseEditor.test.trackParser(input, [
+    common.trackParser(t, input, [
         { position: 1, name: "Forgotten Child", formattedLength: "3:39" },
         { position: 2, name: "Dirty Looks",     formattedLength: "4:34" },
         { position: 3, name: "Private Life",    formattedLength: "3:29" },
@@ -61,22 +69,23 @@ test("parsing track durations with trailing whitespace (MBS-1284)", function () 
     ]);
 });
 
+parserTest("numbers at the end of track names being wrongly interpreted as durations (MBS-2511, MBS-2902)", function (t) {
+    t.plan(1);
 
-test("numbers at the end of track names being wrongly interpreted as durations (MBS-2511, MBS-2902)", function () {
     var input = [
         "1. Criminology 2.5",
         "2. Love On A .45"
     ]
     .join("\n");
 
-    releaseEditor.test.trackParser(input, [
+    common.trackParser(t, input, [
         { position: 1, name: "Criminology 2.5", formattedLength: "" },
         { position: 2, name: "Love On A .45", formattedLength: "" }
     ]);
 });
 
-
-test("ignoring lines that don't start with a number when the option is set (MBS-2540)", function () {
+parserTest("ignoring lines that don't start with a number when the option is set (MBS-2540)", function (t) {
+    t.plan(1);
 
     var input = "\
         1 Freeman Hardy & Willis Acid\n\n\
@@ -87,27 +96,28 @@ test("ignoring lines that don't start with a number when the option is set (MBS-
         4:51 \n\
     ";
 
-    releaseEditor.test.trackParser(input, [
+    common.trackParser(t, input, [
         { position: 1, name: "Freeman Hardy & Willis Acid", formattedLength: "" },
         { position: 2, name: "Orange Romeda", formattedLength: "" }
     ]);
 });
 
+parserTest("XX:XX:XX track times (MBS-3353)", function (t) {
+    t.plan(1);
 
-test("XX:XX:XX track times (MBS-3353)", function () {
     var input = "1. Love On A .45  05:22:31";
 
-    releaseEditor.test.trackParser(input, [
+    common.trackParser(t, input, [
         { position: 1, name: "Love On A .45", formattedLength: "5:22:31" }
     ]);
 });
 
+parserTest("internal track positions are updated appropriately after being reused", function (t) {
+    t.plan(2);
 
-test("internal track positions are updated appropriately after being reused", function () {
     var re = releaseEditor;
-
     re.rootField = re.fields.Root();
-    re.rootField.release(re.fields.Release(re.test.testRelease));
+    re.rootField.release(re.fields.Release(common.testRelease));
 
     var release = re.rootField.release();
     var medium = release.mediums()[0];
@@ -121,16 +131,16 @@ test("internal track positions are updated appropriately after being reused", fu
 
     var tracks = medium.tracks();
 
-    equal(tracks[0].position(), 1, "track 1 has position 1");
-    equal(tracks[1].position(), 2, "track 2 has position 2");
+    t.equal(tracks[0].position(), 1, "track 1 has position 1");
+    t.equal(tracks[1].position(), 2, "track 2 has position 2");
 });
 
+parserTest("MBS-7451: track parser can clear TOC track lengths", function (t) {
+    t.plan(1);
 
-test("MBS-7451: track parser can clear TOC track lengths", function () {
     var re = releaseEditor;
-
     re.rootField = re.fields.Root();
-    re.rootField.release(re.fields.Release(re.test.testRelease));
+    re.rootField.release(re.fields.Release(common.testRelease));
 
     var release = re.rootField.release();
     var medium = release.mediums()[0];
@@ -152,15 +162,17 @@ test("MBS-7451: track parser can clear TOC track lengths", function () {
 
     var tracks = medium.tracks();
 
-    deepEqual(
+    t.deepEqual(
         _.invoke(tracks, "length"),
         _.pluck(medium.original().tracklist, "length"),
         "track lengths are unchanged"
     );
 });
 
+parserTest("MBS-7456: Failing to parse artists does not break track autocompletes", function (t) {
+    // The issue described in the ticket throws an exception.
+    t.plan(0);
 
-test("MBS-7456: Failing to parse artists does not break track autocompletes", function () {
     var re = releaseEditor;
 
     re.trackParser.options.trackArtists = true;
@@ -188,13 +200,11 @@ test("MBS-7456: Failing to parse artists does not break track autocompletes", fu
 
     // Needs to be done twice so that it reuses the existing track.
     medium.tracks(re.trackParser.parse("1. bar", medium));
-
-    // The issue described in the ticket throws an exception.
-    expect(0);
 });
 
+parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3732)", function (t) {
+    t.plan(16);
 
-test("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3732)", function () {
     var re = releaseEditor;
     var trackParser = re.trackParser;
 
@@ -228,10 +238,10 @@ test("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3732)",
     medium.tracks(trackParser.parse("A1. FOO! - BAR! (2:55)", medium));
 
     var track = medium.tracks()[0];
-    equal(track.number(), "A1", "number was used");
-    equal(track.name(), "foo", "name was not used");
-    equal(track.artistCredit.text(), "bar", "artist was not used");
-    equal(track.formattedLength(), "3:00", "length was not used");
+    t.equal(track.number(), "A1", "number was used");
+    t.equal(track.name(), "foo", "name was not used");
+    t.equal(track.artistCredit.text(), "bar", "artist was not used");
+    t.equal(track.formattedLength(), "3:00", "length was not used");
 
     // Parse only titles
     trackParser.options.useTrackNumbers = false;
@@ -240,10 +250,10 @@ test("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3732)",
     medium.tracks(trackParser.parse("B1. FOO! - BAR! (2:55)", medium));
 
     track = medium.tracks()[0];
-    equal(track.number(), "A1", "number was not used");
-    equal(track.name(), "FOO!", "name was used");
-    equal(track.artistCredit.text(), "bar", "artist was not used");
-    equal(track.formattedLength(), "3:00", "length was not used");
+    t.equal(track.number(), "A1", "number was not used");
+    t.equal(track.name(), "FOO!", "name was used");
+    t.equal(track.artistCredit.text(), "bar", "artist was not used");
+    t.equal(track.formattedLength(), "3:00", "length was not used");
 
     // Parse only artists
     trackParser.options.useTrackNames = false;
@@ -252,10 +262,10 @@ test("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3732)",
     medium.tracks(trackParser.parse("B1. oof - BAR! (2:55)", medium));
 
     track = medium.tracks()[0];
-    equal(track.number(), "A1", "number was not used");
-    equal(track.name(), "FOO!", "name was not used");
-    equal(track.artistCredit.text(), "BAR!", "artist was used");
-    equal(track.formattedLength(), "3:00", "length was not used");
+    t.equal(track.number(), "A1", "number was not used");
+    t.equal(track.name(), "FOO!", "name was not used");
+    t.equal(track.artistCredit.text(), "BAR!", "artist was used");
+    t.equal(track.formattedLength(), "3:00", "length was not used");
 
     // Parse only lengths
     trackParser.options.useTrackArtists = false;
@@ -264,8 +274,8 @@ test("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3732)",
     medium.tracks(trackParser.parse("B1. oof - rab (2:55)", medium));
 
     track = medium.tracks()[0];
-    equal(track.number(), "A1", "number was not used");
-    equal(track.name(), "FOO!", "name was not used");
-    equal(track.artistCredit.text(), "BAR!", "artist was not used");
-    equal(track.formattedLength(), "2:55", "length was used");
+    t.equal(track.number(), "A1", "number was not used");
+    t.equal(track.name(), "FOO!", "name was not used");
+    t.equal(track.artistCredit.text(), "BAR!", "artist was not used");
+    t.equal(track.formattedLength(), "2:55", "length was used");
 });

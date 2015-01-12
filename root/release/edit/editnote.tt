@@ -7,7 +7,7 @@
 
   <!-- ko if: allEdits().length === 0 && !validation.errorsExist() && !submissionInProgress() -->
     <div class="warning">
-      <p data-bind="text: MB.text.NoChanges"></p>
+      <p>[% l('You haven’t made any changes!') %]</p>
     </div>
   <!-- /ko -->
 

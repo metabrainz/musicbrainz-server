@@ -26,8 +26,7 @@
                             [% 'checked="checked"' IF entity.id == form.field('target').value %] />
                     </td>
                     <td>
-                      [% link_release_group(entity) %]
-                      [% disambiguation(entity) %]
+                      [%~ link_entity(entity) ~%]
                     </td>
                     <td>[% artist_credit(entity.artist_credit) %]</td>
                     <td>[% entity.l_type_name %]</td>

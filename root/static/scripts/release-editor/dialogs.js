@@ -19,7 +19,7 @@
 
     releaseEditor.trackParserDialog = Dialog().extend({
         element: "#track-parser-dialog",
-        title: MB.text.TrackParser,
+        title: MB.i18n.l("Track Parser"),
 
         toBeParsed: ko.observable(""),
         result: ko.observable(null),
@@ -245,7 +245,7 @@
 
     var addDiscDialog = releaseEditor.addDiscDialog = Dialog().extend({
         element: "#add-disc-dialog",
-        title: MB.text.AddDisc,
+        title: MB.i18n.l("Add Disc"),
 
         trackParser: releaseEditor.trackParserDialog,
         mediumSearch: mediumSearchTab,

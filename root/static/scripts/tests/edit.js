@@ -3,17 +3,19 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-module("edit");
+var test = require('tape');
 
+test("missing track numbers should be empty strings, not null (MBS-7246)", function (t) {
+    t.plan(1);
 
-test("missing track numbers should be empty strings, not null (MBS-7246)", function () {
     var data = MB.edit.fields.track({});
 
-    equal(data.number, "", "number is empty string");
+    t.equal(data.number, "", "number is empty string");
 });
 
+test("loop binding keeps items in order when some are quickly removed and re-added (MBS-7751)", function (t) {
+    t.plan(3);
 
-test("loop binding keeps items in order when some are quickly removed and re-added (MBS-7751)", function () {
     var parentNode = document.createElement("div"),
         childNode = document.createElement("span");
 
@@ -32,7 +34,7 @@ test("loop binding keeps items in order when some are quickly removed and re-add
     vm.items([item1, item2, item3]);
 
     var childNodes = parentNode.childNodes;
-    equal(childNodes[0].textContent, "1");
-    equal(childNodes[1].textContent, "2");
-    equal(childNodes[2].textContent, "3");
+    t.equal(childNodes[0].textContent, "1");
+    t.equal(childNodes[1].textContent, "2");
+    t.equal(childNodes[2].textContent, "3");
 });

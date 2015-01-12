@@ -33,22 +33,6 @@ license:     Public Domain
 author:      Douglas Crockford
 url:         http://www.json.org/json2.js
 
--- qunit/ --
-
-library:     QUnit
-license:     MIT
-version:     v1.12.0
-authors:     Jörn Zaefferer, John Resig
-url:         http://qunitjs.com, http://github.com/jquery/qunit
-
--- qunit-tap/ --
-
-library:     QUnit-TAP
-license:     MIT/GPLv2
-version:     (commit 3faf29a93d1c060d8eaf5f4e104623d15cbb6f78)
-authors:     Takuto Wada
-url:         https://github.com/twada/qunit-tap
-
 -- filesize.js --
 
 library:     filesize.js

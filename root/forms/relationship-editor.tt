@@ -16,7 +16,7 @@
     <tbody data-bind="loop: { items: groupedRelationships($root), id: 'key', elements: relationshipElements }">
       <tr>
         <th>
-          <label data-bind="text: MB.i18n.expand(MB.text.AddColon, { variable: key })"></label>
+          <label data-bind="text: MB.i18n.addColon(key)"></label>
         </th>
         <td class="relationship-list" data-bind="loop: { items: values, id: 'uniqueID' }">
           <div>
@@ -27,7 +27,7 @@
               <button type="button" class="icon move-up" title="[% l('Move entity up') %]" data-click="moveEntityUp"></button>
             <!-- /ko -->
             <!-- ko if: showLinkOrder($parents[1]) -->
-              <span data-bind="html: MB.i18n.expand(MB.text.OrderedRelationship, { num: linkOrder(), relationship: target($parents[1]).html({ target: '_blank' }) }), relationshipStyling: true"></span>
+              <span data-bind="html: MB.i18n.expand('[% l('{num}. {relationship}') | js %]', { num: linkOrder(), relationship: target($parents[1]).html({ target: '_blank' }) }), relationshipStyling: true"></span>
             <!-- /ko -->
             <!-- ko ifnot: showLinkOrder($parents[1]) -->
               <span data-bind="html: target($parents[1]).html({ target: '_blank' }), relationshipStyling: true"></span>
@@ -42,7 +42,7 @@
       <tr>
         <td></td>
         <td data-bind="with: $parent">
-          <button type="button" class="add-item with-label" data-click="openAddDialog" data-bind="text: MB.text.AddAnotherEntity[$parent.values.peek()[0].target($data).entityType]"></button>
+          <button type="button" class="add-item with-label" data-click="openAddDialog" data-bind="text: MB.i18n.strings.addAnotherEntity[$parent.values.peek()[0].target($data).entityType]"></button>
         </td>
       </tr>
     </tbody>

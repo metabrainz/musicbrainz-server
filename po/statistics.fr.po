@@ -7,11 +7,11 @@
 # Laurent Monin <email address hidden>, 2014
 # Lotheric <email address hidden>, 2011
 # murdos <email address hidden>, 2011-2012
-# yahoe.001, 2013-2014
+# yahoe.001, 2013-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-11-20 14:02+0000\n"
+"PO-Revision-Date: 2015-01-07 15:23+0000\n"
 "Last-Translator: yahoe.001\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -1524,11 +1524,11 @@ msgstr "Pas de vote"
 #: ../root/statistics/coverart.tt:16 ../root/statistics/coverart.tt:40
 #: ../root/statistics/coverart.tt:123
 msgid "No coverart statistics available."
-msgstr "Aucune statistique d'illustration de disponible."
+msgstr "Aucune statistique d'illustration disponible."
 
 #: ../root/statistics/edits.tt:12
 msgid "No edit statistics available."
-msgstr "Aucune statistique de modification de disponible."
+msgstr "Aucune statistique de modification disponible."
 
 #: ../root/statistics/coverart.tt:88
 msgid "No format"
@@ -1544,7 +1544,7 @@ msgstr "Pas d'emballage de défini"
 
 #: ../root/statistics/relationships.tt:25
 msgid "No relationship statistics available."
-msgstr "Aucune statistique de relation de disponible."
+msgstr "Aucune statistique de relation disponible."
 
 #: ../root/statistics/coverart.tt:72
 msgid "No status"

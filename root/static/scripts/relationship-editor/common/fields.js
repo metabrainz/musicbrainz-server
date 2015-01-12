@@ -235,7 +235,7 @@
                 });
 
                 if (values.length < min) {
-                    return MB.text.AttributeRequired;
+                    return MB.i18n.l("This attribute is required.");
                 }
             }
 
@@ -257,7 +257,7 @@
                     value = _.str.clean(attribute.textValue());
 
                     if (value) {
-                        value = MB.i18n.expand(MB.text.AttributeTextValue, {
+                        value = MB.i18n.l("{attribute}: {value}", {
                             attribute: type.l_name, value: value
                         });
                     }
@@ -267,7 +267,7 @@
                     var credit = _.str.clean(attribute.credit());
 
                     if (credit) {
-                        value = MB.i18n.expand(MB.text.AttributeCredit, {
+                        value = MB.i18n.l("{attribute} [{credited_as}]", {
                             attribute: type.l_name, credited_as: credit
                         });
                     }

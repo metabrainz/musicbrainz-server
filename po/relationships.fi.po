@@ -1663,7 +1663,7 @@ msgid ""
 " user contributed database concerned with the stories behind the songs."
 msgstr ""
 
-#: DB:link_type/description:803 DB:link_type/description:746
+#: DB:link_type/description:746 DB:link_type/description:803
 #: DB:link_type/description:96 DB:link_type/description:82
 #: DB:link_type/description:306 DB:link_type/description:222
 #: DB:link_type/description:273 DB:link_type/description:188
@@ -2770,7 +2770,7 @@ msgstr "omaa logon"
 msgid "has a miscellaneous role on"
 msgstr "oma sekalaisen roolin "
 
-#: DB:link_type/long_link_phrase:803 DB:link_type/long_link_phrase:746
+#: DB:link_type/long_link_phrase:746 DB:link_type/long_link_phrase:803
 #: DB:link_type/long_link_phrase:96 DB:link_type/long_link_phrase:82
 #: DB:link_type/long_link_phrase:306 DB:link_type/long_link_phrase:222
 #: DB:link_type/long_link_phrase:188 DB:link_type/long_link_phrase:561
@@ -3487,13 +3487,13 @@ msgstr "orkestraatio"
 msgid "orchestrations"
 msgstr "orkestraatiot"
 
-#: DB:link_type/link_phrase:753 DB:link_type/link_phrase:803
-#: DB:link_type/link_phrase:746 DB:link_type/link_phrase:96
+#: DB:link_type/link_phrase:753 DB:link_type/link_phrase:746
+#: DB:link_type/link_phrase:803 DB:link_type/link_phrase:96
 #: DB:link_type/link_phrase:730 DB:link_type/link_phrase:82
 #: DB:link_type/link_phrase:306 DB:link_type/link_phrase:222
 #: DB:link_type/link_phrase:273 DB:link_type/link_phrase:188
 #: DB:link_type/link_phrase:561 DB:link_type/reverse_link_phrase:753
-#: DB:link_type/reverse_link_phrase:803 DB:link_type/reverse_link_phrase:746
+#: DB:link_type/reverse_link_phrase:746 DB:link_type/reverse_link_phrase:803
 #: DB:link_type/reverse_link_phrase:96 DB:link_type/reverse_link_phrase:730
 #: DB:link_type/reverse_link_phrase:82 DB:link_type/reverse_link_phrase:306
 #: DB:link_type/reverse_link_phrase:222 DB:link_type/reverse_link_phrase:273
@@ -3524,9 +3524,9 @@ msgstr "parodia"
 
 #: DB:link_type/link_phrase:802 DB:link_type/link_phrase:742
 #: DB:link_type/link_phrase:740 DB:link_type/link_phrase:741
-#: DB:link_type/reverse_link_phrase:739 DB:link_type/reverse_link_phrase:717
-#: DB:link_type/reverse_link_phrase:281 DB:link_type/reverse_link_phrase:356
-#: DB:link_type/reverse_link_phrase:818 DB:link_type/reverse_link_phrase:743
+#: DB:link_type/reverse_link_phrase:739 DB:link_type/reverse_link_phrase:818
+#: DB:link_type/reverse_link_phrase:717 DB:link_type/reverse_link_phrase:281
+#: DB:link_type/reverse_link_phrase:356 DB:link_type/reverse_link_phrase:743
 msgid "part of"
 msgstr "kuuluu osana"
 
@@ -3534,9 +3534,9 @@ msgstr "kuuluu osana"
 msgid "partial"
 msgstr "osittainen"
 
-#: DB:link_type/description:739 DB:link_type/link_phrase:717
-#: DB:link_type/link_phrase:281 DB:link_type/link_phrase:356
-#: DB:link_type/link_phrase:818
+#: DB:link_type/description:739 DB:link_type/link_phrase:818
+#: DB:link_type/link_phrase:717 DB:link_type/link_phrase:281
+#: DB:link_type/link_phrase:356
 msgid "parts"
 msgstr "osat"
 

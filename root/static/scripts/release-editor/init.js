@@ -134,13 +134,13 @@ MB.releaseEditor.init = function (options) {
 
         if (self.action === "add") {
             document.title = MB.i18n.expand(
-                name ? MB.text.AddReleaseTitle :
-                       MB.text.AddReleaseNoTitle, { name: name }
+                name ? MB.i18n.l("{name} - Add Release") :
+                       MB.i18n.l("Add Release"), { name: name }
             );
         } else {
             document.title = MB.i18n.expand(
-                name ? MB.text.EditReleaseTitle :
-                       MB.text.EditReleaseNoTitle, { name: name }
+                name ? MB.i18n.l("{name} - Edit Release") :
+                       MB.i18n.l("Edit Release"), { name: name }
             );
         }
     });
@@ -158,7 +158,7 @@ MB.releaseEditor.init = function (options) {
     if (window.onbeforeunload === null) {
         MB.releaseEditor.allEdits.subscribe(function (edits) {
             window.onbeforeunload =
-                edits.length ? _.constant(MB.text.ConfirmNavigation) : null;
+                edits.length ? _.constant(MB.i18n.l("All of your changes will be lost if you leave this page.")) : null;
         });
     }
 

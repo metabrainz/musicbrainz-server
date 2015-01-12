@@ -13,7 +13,7 @@ $(function () {
     $('table.tbl div.ars').show();
     $bottomCredits.toggle(hasReleaseCredits);
 
-    $toggle.text(MB.text.DisplayCreditsAtBottom);
+    $toggle.text(MB.i18n.l('Display Credits at Bottom'));
     $.cookie('bottom-credits', '0', { path: '/', expires: 365 });
   }
 
@@ -22,7 +22,7 @@ $(function () {
     $('.bottom-credits').show();
     $bottomCredits.show();
 
-    $toggle.text(MB.text.DisplayCreditsInline);
+    $toggle.text(MB.i18n.l('Display Credits Inline'));
     $.cookie('bottom-credits', '1', { path: '/', expires: 365 });
   }
 
@@ -50,7 +50,7 @@ $(function () {
     var $message = $('<div>')
       .appendTo($tbody.find('td'))
       .addClass('loading-message')
-      .text(MB.text.Loading);
+      .text(MB.i18n.l('Loading...'));
 
     var mediumId = this.getAttribute('data-medium-id');
 
@@ -80,7 +80,7 @@ $(function () {
         insertAfter ? $credits.insertAfter(insertAfter) : $bottomCredits.find('h2').after($credits);
       })
       .fail(function () {
-        $message.removeClass('loading-message').text(MB.text.FailedToLoadMedium);
+        $message.removeClass('loading-message').text(MB.i18n.l('Failed to load the medium.'));
       });
 
     // Prevent browser from following link

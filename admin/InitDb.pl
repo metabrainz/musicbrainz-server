@@ -429,7 +429,8 @@ Options are:
   -c --clean             Prepare a ready to use empty database
      --[no]echo          When running the various SQL scripts, echo the commands
                          as they are run
-  -q, --quiet            Don't show the output of any SQL scripts
+  -t --tmp-dir DIR       Use DIR for temporary storage
+  -q --quiet             Don't show the output of any SQL scripts
   -h --help              This help
   --with-pending=PATH    For use only if this is a master replication server
                          (DBDefs->REPLICATION_TYPE==RT_MASTER).  PATH specifies
@@ -452,7 +453,7 @@ without errors, the database will be ready to use. Or it *should* at least.
 Since all non-option arguments are passed directly to MBImport.pl, you can
 pass additional options to that script by using "--".  For example:
 
-  InitDb.pl --createdb --echo --import -- --tmp-dir=/var/tmp *.tar.bz2
+  InitDb.pl --createdb --echo --import -- --skip-editor *.tar.bz2
 
 EOF
 }

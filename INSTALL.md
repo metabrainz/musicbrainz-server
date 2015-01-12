@@ -1,8 +1,10 @@
 Installing MusicBrainz Server
 =============================
 
-The easiest method of installing a local MusicBrainz Server is to download the
-[pre-configured virtual machine](http://musicbrainz.org/doc/MusicBrainz_Server/Setup).
+The easiest method of installing a local MusicBrainz Server may be to download the
+[pre-configured virtual machine](http://musicbrainz.org/doc/MusicBrainz_Server/Setup),
+if there is a current image available. In case you only need a replicated
+database, you should consider using [mbslave](https://bitbucket.org/lalinsky/mbslave).
 
 If you want to manually set up MusicBrainz Server from source, read on!
 
@@ -70,25 +72,12 @@ Prerequisites
 
     Node.js is required to build (and optionally minify) our JavaScript and CSS.
     If you plan on accessing musicbrainz-server inside a web browser, you should
-    install Node. Do this by running:
+    install Node and its package manager, npm. Do this by running:
 
-        sudo apt-get install nodejs
+        sudo apt-get install nodejs npm nodejs-legacy
 
-    Node dependencies are managed using `npm`, which comes installed with the
-    nodejs package. To install these dependencies, run the following inside the
-    musicbrainz-server/ checkout:
-
-        npm install
-
-    Node dependencies are installed under ./node_modules.
-
-    We use Gulp as our JavaScript/CSS build system. This will be installed after
-    running the above. Calling `gulp` on its own will build everything necessary
-    to access the server in a web browser. It can be invoked by:
-
-        ./node_modules/.bin/gulp
-
-    If you'd like, you can add ./node_modules/.bin to your $PATH.
+    The latter package is only necessary where it exists, so a warning about the
+    package not being found is not a problem.
 
 8.  Standard Development Tools
 
@@ -149,10 +138,6 @@ Server configuration
         replication packets to be applied on slaves. For more details, see
         INSTALL-MASTER.md
 
-    If you chose RT_SLAVE, please ensure that there is a configuration for
-    both READONLY and READWRITE, or the server will not function correctly.
-    (Both can be configured the same in a simple setup.)
-
 
 Installing Perl dependencies
 ----------------------------
@@ -175,7 +160,7 @@ Below outlines how to setup MusicBrainz server with local::lib.
 
         sudo apt-get install libxml2-dev libpq-dev libexpat1-dev libdb-dev libicu-dev liblocal-lib-perl cpanminus
 
-3.  Enable local::lib
+2.  Enable local::lib
 
     local::lib requires a few environment variables are set. The easiest way to
     do this is via .bashrc, assuming you use bash as your shell. Simply run the
@@ -188,7 +173,7 @@ Below outlines how to setup MusicBrainz server with local::lib.
 
         source ~/.bashrc
 
-2.  Install dependencies
+3.  Install dependencies
 
     First install one module as a system package (it is used by a database
     function):
@@ -205,6 +190,25 @@ Below outlines how to setup MusicBrainz server with local::lib.
     suitable version, run:
 
         cpanm SARTAK/MooseX-Role-Parameterized-1.02.tar.gz
+
+
+Installing Node.js dependencies
+-------------------------------
+
+    Node dependencies are managed using `npm`. To install these dependencies, run
+    the following inside the musicbrainz-server/ checkout:
+
+        npm install
+
+    Node dependencies are installed under ./node_modules.
+
+    We use Gulp as our JavaScript/CSS build system. This will be installed after
+    running the above. Calling `gulp` on its own will build everything necessary
+    to access the server in a web browser. It can be invoked by:
+
+        ./node_modules/.bin/gulp
+
+    If you'd like, you can add ./node_modules/.bin to your $PATH.
 
 
 Creating the database
@@ -302,6 +306,10 @@ Creating the database
         `--echo` just gives us a bit more feedback in case this goes wrong, you
         may leave it off. Remember to change the paths to your mbdump*.tar.bz2
         files, if they are not in /tmp/dumps/.
+
+        By default, the archives will be extracted into the `/tmp` directory as
+        an intermediate step. You may specify a different location with the
+        `--tmp-dir` option.
 
 
     NOTE: on a fresh postgresql install you may see the following error:

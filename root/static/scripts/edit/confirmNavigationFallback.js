@@ -29,7 +29,7 @@ MB.confirmNavigationFallback = function () {
                 type = (node.type || "").toLowerCase(),
                 prevent = !((tag == "input" && (type == "text" || type == "password")) || tag == "textarea");
 
-            if (prevent && !confirm(MB.text.ConfirmNavigation)) {
+            if (prevent && !confirm(MB.i18n.l("All of your changes will be lost if you leave this page."))) {
                 prevented = true;
                 return false;
             }

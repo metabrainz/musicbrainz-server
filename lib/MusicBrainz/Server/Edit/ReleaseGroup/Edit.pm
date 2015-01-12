@@ -32,6 +32,8 @@ extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities';
 with 'MusicBrainz::Server::Edit::ReleaseGroup';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
+with 'MusicBrainz::Server::Edit::Role::EditArtistCredit';
+with 'MusicBrainz::Server::Edit::Role::Preview';
 
 sub edit_type { $EDIT_RELEASEGROUP_EDIT }
 sub edit_name { N_l("Edit release group") }
@@ -151,9 +153,7 @@ around initialize => sub
     my $orig = shift;
     my ($self, %opts) = @_;
     my $release_group = $opts{to_edit} or return;
-    if (exists $opts{artist_credit} && !$release_group->artist_credit) {
-        $self->c->model('ArtistCredit')->load($release_group);
-    }
+
     $opts{type_id} = delete $opts{primary_type_id};
 
     $opts{secondary_type_ids} = [

@@ -67,7 +67,7 @@
 
             if (edits.length == 0) {
                 this.submissionLoading(false);
-                this.submissionError(MB.text.NoChanges);
+                this.submissionError(MB.i18n.l("You haven’t made any changes!"));
                 return;
             }
 

@@ -138,7 +138,7 @@
             <td>
               [%~ data_track_icon IF track.is_data_track %]
               [% IF track.recording.gid;
-                   link_recording(track.recording, 'show', track.name);
+                   link_entity(track.recording, 'show', track.name);
                  ELSE;
                    html_escape(track.name);
                  END %]
@@ -162,7 +162,7 @@
             <td>
               [%~ data_track_icon IF track.is_data_track %]
               [% IF track.recording.gid;
-                   link_recording(track.recording, 'show', track.name);
+                   link_entity(track.recording, 'show', track.name);
                  ELSE;
                    html_escape(track.name);
                  END %]

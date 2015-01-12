@@ -14,24 +14,17 @@
             var self = this;
 
             this.checkboxes = {
-                recordingStrings: ko.observable([]),
-                workStrings: ko.observable([]),
-
                 recordingCount: ko.observable(0),
                 workCount: ko.observable(0),
 
                 recordingMessage: function () {
-                    var strings = this.recordingStrings();
-                    var msg = strings[Math.min(strings.length - 1, this.recordingCount())];
-
-                    return msg ? "(" + msg + ")" : "";
+                    var n = this.recordingCount();
+                    return "(" + MB.i18n.ln("{n} recording selected", "{n} recordings selected", n, { n: n }) + ")";
                 },
 
                 workMessage: function () {
-                    var strings = this.workStrings();
-                    var msg = strings[Math.min(strings.length - 1, this.workCount())];
-
-                    return msg ? "(" + msg + ")" : "";
+                    var n = this.workCount();
+                    return "(" + MB.i18n.ln("{n} work selected", "{n} works selected", n, { n: n }) + ")";
                 }
             };
 
@@ -57,7 +50,7 @@
                     .filter(".rel-edit:eq(0), .rel-add:eq(0), .rel-remove:eq(0)");
 
                 if ($changes.length) {
-                    return MB.text.ConfirmNavigation;
+                    return MB.i18n.l("All of your changes will be lost if you leave this page.");
                 }
             };
         },
@@ -214,23 +207,9 @@
 
 
     function initCheckboxes(checkboxes, trackCount) {
-
         var medium_recording_selector = "input.medium-recordings";
         var medium_work_selector = "input.medium-works";
         var $tracklist = $("#tracklist tbody");
-
-        // get translated strings for the checkboxes
-        function getPlurals(singular, plural, max, name) {
-
-            var url = "/ws/js/plurals?singular=" + encodeURIComponent(singular) +
-                      "&plural=" + encodeURIComponent(plural) + "&max=" + max;
-
-            $.getJSON(url, function (data) {
-                checkboxes[name](data.strings);
-            });
-        }
-        getPlurals("{n} recording selected", "{n} recordings selected", trackCount, "recordingStrings");
-        getPlurals("{n} work selected", "{n} works selected", Math.max(10, Math.min(trackCount * 2, 100)), "workStrings");
 
         function count($inputs) {
             return _.uniq($inputs, ko.dataFor).length;

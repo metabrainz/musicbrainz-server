@@ -29,7 +29,7 @@
 
 <script type="text/html" id="template.dialog-source-entity">
   <tr>
-    <td class="section" data-bind="text: MB.text.Entity[source.entityType] + ':'"></td>
+    <td class="section" data-bind="text: MB.i18n.addColon(MB.i18n.strings.entityName[source.entityType])"></td>
     <td>
       <span data-bind="html: source.html({ 'target': '_blank' })"></span>
     </td>
@@ -62,7 +62,9 @@
                    optionsAfterRender: MB.forms.setDisabledOption,
                    value: relationship().linkTypeID"></select>
       <!-- ko if: /^(\w+)-\1$/.test(relationship().entityTypes) -->
-      <button type="button" class="styled-button change-direction" data-bind="click: changeDirection, text: MB.text.ChangeDirection"></button>
+      <button type="button" class="styled-button change-direction" data-bind="click: changeDirection">
+        [% l('Change direction') %]
+      </button>
       <!-- /ko -->
       (<a href="#" data-bind="click: toggleLinkTypeHelp">[% l('help') %]</a>)
       <div class="error" data-bind="text: linkTypeError()"></div>
@@ -150,7 +152,7 @@
     </label>
     <!-- /ko -->
     <!-- ko if: attribute.id == 14 -->
-      <!-- ko text: MB.i18n.expand(MB.text.AddColon, { variable: attribute.l_name }) --><!-- /ko -->
+      <!-- ko text: MB.i18n.addColon(attribute.l_name) --><!-- /ko -->
       <div data-bind="instrumentSelect: relationship">
         <!-- ko foreach: instruments -->
           <div class="instrument-selection-credit">
@@ -172,14 +174,14 @@
       </div>
     <!-- /ko -->
     <!-- ko if: attribute.children && max !== 1 && attribute.id != 14 -->
-      <!-- ko text: MB.i18n.expand(MB.text.AddColon, { variable: attribute.l_name }) --><!-- /ko -->
+      <!-- ko text: MB.i18n.addColon(attribute.l_name) --><!-- /ko -->
       <div class="multiselect" data-bind="
               component: {
                 name: 'multiselect',
                 params: {
                   options: MB.forms.buildOptionsTree(attribute, 'l_name', 'gid'),
-                  placeholder: attribute.id == 14 ? MB.text.FocusInstrument :
-                               attribute.id == 3  ? MB.text.FocusVocal : '',
+                  placeholder: attribute.id == 14 ? '[% l('Click here to choose an instrument') | js %]' :
+                               attribute.id == 3  ? '[% l('Click here to choose a vocal') | js %]' : '',
                   relationship: relationship,
                   attribute: attribute
                 }
@@ -187,9 +189,9 @@
     <!-- /ko -->
     <!-- ko if: attribute.freeText -->
     <label>
-      <!-- ko text: MB.i18n.expand(MB.text.AddColon, { variable: attribute.l_name }) --><!-- /ko -->
+      <!-- ko text: MB.i18n.addColon(attribute.l_name) --><!-- /ko -->
       <input type="text" data-bind="textAttribute: { relationship: relationship, typeGID: attribute.gid }
-                        attr: { placeholder: attribute.l_name }" />
+                                    attr: { placeholder: attribute.l_name }" />
     </label>
     <!-- /ko -->
     <div class="error" data-bind="text: relationship.attributeError($data)"></div>
