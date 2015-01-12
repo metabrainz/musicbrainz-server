@@ -747,7 +747,7 @@ sub alias_query
 
 sub external_search
 {
-    my ($self, $type, $query, $limit, $page, $adv, $ua) = @_;
+    my ($self, $type, $query, $limit, $page, $adv) = @_;
 
     my $entity_model = $self->c->model( type_to_model($type) )->_entity_class;
     load_class($entity_model);
@@ -765,7 +765,7 @@ sub external_search
                                  );
 
 
-    $ua = LWP::UserAgent->new if (!defined $ua);
+    my $ua = LWP::UserAgent->new;
     $ua->timeout(5);
     $ua->env_proxy;
 

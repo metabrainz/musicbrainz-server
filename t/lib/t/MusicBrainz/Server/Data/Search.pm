@@ -159,8 +159,7 @@ is ($results->[1]->entity->name, 'Blues on Blonde on Blonde', 'longer phrase ran
 
 };
 
-sub load_data
-{
+sub load_data {
     my ($type, $c) = @_;
 
     ok(type_to_model($type), "$type has a model");
@@ -171,7 +170,6 @@ sub load_data
         25,      # items per page
         1,       # paging offset
         0,       # advanced search
-        MusicBrainz::Server::Test::mock_search_server($type)
     );
 }
 
