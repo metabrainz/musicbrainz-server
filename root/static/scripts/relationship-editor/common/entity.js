@@ -79,6 +79,7 @@
             return this.displayableRelationships(vm)
                 .groupBy(linkPhrase).sortBy("key").map(function (group) {
                     group.openAddDialog = openAddDialog;
+                    group.canBeOrdered = false;
 
                     var relationships = group.values.peek();
                     var typeInfo = relationships[0].linkTypeInfo();
