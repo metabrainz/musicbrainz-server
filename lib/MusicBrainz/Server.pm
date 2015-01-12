@@ -46,6 +46,10 @@ __PACKAGE__->config(
     default_view => 'Default',
     encoding => 'UTF-8',
     "View::Default" => {
+        expose_methods => [qw(
+            comma_list
+            comma_only_list
+        )],
         FILTERS => {
             'release_date' => \&MusicBrainz::Server::Filters::release_date,
             'format_length' => \&MusicBrainz::Server::Filters::format_length,
