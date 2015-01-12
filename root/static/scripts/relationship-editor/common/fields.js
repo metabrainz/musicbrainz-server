@@ -245,11 +245,24 @@
         _phraseRegex: /\{(.*?)(?::(.*?))?\}/g,
 
         _phraseAndExtraAttributes: function () {
-            var attributes = this.attributes();
-            var attributesByName = {};
+            var typeInfo = this.linkTypeInfo();
 
-            for (var i = 0, len = attributes.length; i < len; i++) {
-                var attribute = attributes[i];
+            if (!typeInfo) {
+                return ['', '', ''];
+            }
+
+            var phrase = typeInfo.phrase;
+            var reversePhrase = typeInfo.reversePhrase;
+
+            if (typeInfo.orderableDirection > 0) {
+                phrase = typeInfo.simplePhrase;
+                reversePhrase = typeInfo.simpleReversePhrase;
+            }
+
+            var attributesByName = {};
+            var usedAttributes = [];
+
+            _.each(this.attributes(), function (attribute) {
                 var type = attribute.type;
                 var value = type.l_name;
 
@@ -277,14 +290,12 @@
                     var rootName = type.root.name;
                     (attributesByName[rootName] = attributesByName[rootName] || []).push(value);
                 }
-            }
-
-            var extraAttributes = _.clone(attributesByName);
+            });
 
             function interpolate(match, name, alts) {
-                var values = attributesByName[name] || [];
-                delete extraAttributes[name];
+                usedAttributes.push(name);
 
+                var values = attributesByName[name] || [];
                 var replacement = MB.i18n.commaList(values)
 
                 if (alts && (alts = alts.split("|"))) {
@@ -294,13 +305,10 @@
                 return replacement;
             }
 
-            var typeInfo = this.linkTypeInfo();
-            var regex = this._phraseRegex;
-
             return [
-                typeInfo ? _.str.clean(typeInfo.phrase.replace(regex, interpolate)) : "",
-                typeInfo ? _.str.clean(typeInfo.reversePhrase.replace(regex, interpolate)) : "",
-                MB.i18n.commaList(_.flatten(_.values(extraAttributes)))
+                _.str.clean(phrase.replace(this._phraseRegex, interpolate)),
+                _.str.clean(reversePhrase.replace(this._phraseRegex, interpolate)),
+                MB.i18n.commaOnlyList(_.flatten(_.values(_.omit(attributesByName, usedAttributes))))
             ];
         },
 
