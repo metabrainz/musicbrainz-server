@@ -29,7 +29,7 @@
         [% edit_note(0, 1) %]
 
         <p class="error field-error" data-bind="showErrorRightAway: missingEditNote">
-          [% l('You must provide an edit note when adding a release. Even just a URL or something like “CD in hand” helps!') %]
+          [% l('You must provide an edit note when adding a release.') %]
         </p>
 
         [% make_votable(1) %]
