@@ -3,13 +3,13 @@
 # nikki, 2013
 # nikki2 <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013-2014
+# Maurits Meulenbelt <email address hidden>, 2013-2015
 # Nikolai Prokoschenko <email address hidden>, 2011
 # nikki, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-12-21 12:11+0000\n"
+"PO-Revision-Date: 2015-01-06 22:34+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -4193,7 +4193,7 @@ msgstr "remixte {additional:aanvullend}"
 
 #: DB:link_type/reverse_link_phrase:69 DB:link_type/reverse_link_phrase:231
 msgid "{additional:additionally} sampled by"
-msgstr "{additional:aanvullend} gesampled door"
+msgstr "{additional:aanvullend} gesampled in"
 
 #: DB:link_type/link_phrase:54 DB:link_type/link_phrase:167
 #: DB:link_type/long_link_phrase:54 DB:link_type/long_link_phrase:167

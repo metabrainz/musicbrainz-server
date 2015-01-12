@@ -119,9 +119,14 @@
         $("#id-edit-place\\.coordinates").trigger('input');
     }
 
+    var coordinates_request;
     var coordinatesError = MB.validation.errorField(ko.observable(false));
 
     $("input[name=edit-place\\.coordinates]").on('input', function () {
+        if (coordinates_request) {
+            coordinates_request.abort();
+            coordinates_request = null;
+        }
         var coordinates = $("input[name=edit-place\\.coordinates]").val();
         if (coordinates == "") {
             $(".coordinates-errors").css("display", "none");
@@ -130,7 +135,7 @@
             coordinatesError(false);
         } else {
             var url = "/ws/js/parse-coordinates?coordinates=" + encodeURIComponent(coordinates);
-            $.getJSON(url, function (data) {
+            coordinates_request = $.getJSON(url, function (data) {
                 $(".coordinates-errors").css("display", "none");
                 $("input[name=edit-place\\.coordinates]").removeClass("error");
                 $("input[name=edit-place\\.coordinates]").addClass("success");
@@ -140,7 +145,9 @@
 
                 map.panTo(L.latLng(data.coordinates.latitude, data.coordinates.longitude));
                 map.setZoom(16);
-            }).error(function () {
+            }).fail(function (jqxhr, text_status, error_thrown) {
+                if (text_status === 'abort') { return; }
+
                 $("input[name=edit-place\\.coordinates]").addClass("error");
                 $(".coordinates-errors").css("display", "block");
                 coordinatesError(true);
