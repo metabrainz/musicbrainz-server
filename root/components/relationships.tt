@@ -12,7 +12,7 @@
               <th>[% relationship.key %]:</th>
               <td>
                   [% FOR rel IN relationship.value %]
-                      [% IF relationship.value.length > 1 && rel.link_order && rel.entity_is_orderable(rel.target) %]
+                      [% IF relationship.value.size > 1 && rel.link_order && rel.entity_is_orderable(rel.target) %]
                         [% l('{num}. {relationship}', { num => rel.link_order, relationship => relationship_target_links(rel) }) %]
                       [% ELSE %]
                         [% relationship_target_links(rel) %]
