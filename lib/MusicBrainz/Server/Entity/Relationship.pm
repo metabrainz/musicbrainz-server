@@ -206,10 +206,16 @@ sub _interpolate {
         }
     }
     my %extra_attrs = %attrs;
+    my $type_is_orderable = $self->link->type->orderable_direction > 0;
+
+    # Ordered relationships in a series should all share the same link phrase,
+    # even if their attributes differ, so that they remain grouped together
+    # in the relationships display.
+    %attrs = () if $type_is_orderable;
 
     my $replace_attrs = sub {
         my ($name, $alt) = @_;
-        delete $extra_attrs{$name};
+        delete $extra_attrs{$name} unless $type_is_orderable;
         if (!$alt) {
             return '' unless exists $attrs{$name};
             return comma_list(@{ $attrs{$name} });
