@@ -22,7 +22,6 @@ sub edit_kind { 'other' }
 
 has '+data' => (
     isa => Dict[
-        tracklist_id => Nullable[Int],
         medium_id => Nullable[Int],
         cdtoc => Dict[
             id => Int,
@@ -91,7 +90,6 @@ sub initialize {
     my $cdtoc = $self->c->model('CDTOC')->get_by_id($cdtoc_id);
 
     $self->data({
-        tracklist_id => undef,
         medium_id => $medium_id,
         cdtoc => {
             id => $cdtoc_id,
@@ -123,6 +121,11 @@ sub accept {
     $self->c->model('Medium')->set_lengths_to_cdtoc(
         $medium_id, $self->data->{cdtoc}{id});
 }
+
+before restore => sub {
+    my ($self, $data) = @_;
+    delete $data->{tracklist_id};
+};
 
 __PACKAGE__->meta->make_immutable;
 1;
