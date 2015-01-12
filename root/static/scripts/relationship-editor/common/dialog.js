@@ -460,29 +460,32 @@
         }
     });
 
-    function addRelationships(source, relationships) {
-        var linkType = relationships[0].linkTypeInfo();
-
-        for (var i = 0, len = relationships.length; i < len; i++) {
-            relationship = relationships[i];
-
+    function addRelationships(relationships, source, viewModel) {
+        _.each(relationships, function (relationship) {
             if (source.mergeRelationship(relationship)) {
-                continue;
+                return;
             }
 
-            if (linkType.orderableDirection) {
-                var maxLinkOrder = -Infinity,
-                    sourceRelationships = source.relationships();
+            var typeInfo = relationship.linkTypeInfo();
 
-                for (var i = 0, r; r = sourceRelationships[i]; i++) {
-                    if (r.linkTypeID.peek() === linkType.id) {
-                        maxLinkOrder = Math.max(maxLinkOrder, r.linkOrder.peek() || 0);
-                    }
+            if (typeInfo.orderableDirection) {
+                var group = source.getRelationshipGroup(typeInfo.id, viewModel);
+                var maxLinkOrder = -Infinity;
+
+                _.each(group, function (other) {
+                    maxLinkOrder = Math.max(maxLinkOrder, other.linkOrder.peek() || 0);
+                });
+
+                if (maxLinkOrder === 0 || !_.isFinite(maxLinkOrder)) {
+                    // Leave unordered relationships unordered.
+                    relationship.linkOrder(0);
+                } else {
+                    relationship.linkOrder(maxLinkOrder + 1);
                 }
-                relationship.linkOrder(_.isFinite(maxLinkOrder) ? (maxLinkOrder + 1) : 1);
             }
+
             relationship.show();
-        }
+        });
     }
 
     UI.AddDialog = aclass(Dialog, {
@@ -491,7 +494,7 @@
         disableTypeSelection: false,
 
         augment$accept: function () {
-            addRelationships(this.source, splitByCreditableAttributes(this.relationship()));
+            addRelationships(splitByCreditableAttributes(this.relationship()), this.source, this.viewModel);
         },
 
         before$close: function (cancel) {
@@ -523,7 +526,7 @@
             this.editing.fromJS(relationship.editData());
 
             if (relationships.length) {
-                addRelationships(this.source, relationships);
+                addRelationships(relationships, this.source, this.viewModel);
             }
         },
 
@@ -564,7 +567,7 @@
                 model = _.clone(model);
 
                 if (!callback || callback(model)) {
-                    addRelationships(source, splitByCreditableAttributes(vm.getRelationship(model, source)));
+                    addRelationships(splitByCreditableAttributes(vm.getRelationship(model, source)), source, vm);
                 }
             });
         }
