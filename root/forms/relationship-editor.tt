@@ -45,7 +45,7 @@
           <td>
             <label style="padding: 6px;">
               <input type="checkbox" data-bind="checked: hasOrdering" />
-              [%= l('The relationships have a specific ordering') ~%]
+              [%= l('These relationships have a specific ordering') ~%]
             </label>
           </td>
         </tr>
