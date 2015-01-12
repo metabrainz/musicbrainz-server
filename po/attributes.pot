@@ -1822,6 +1822,11 @@ msgctxt "alias_type"
 msgid "Place name"
 msgstr ""
 
+#: DB:work_type/name:28
+msgctxt "work_type"
+msgid "Play"
+msgstr ""
+
 #: DB:medium_format/name:45
 msgctxt "medium_format"
 msgid "Playbutton"

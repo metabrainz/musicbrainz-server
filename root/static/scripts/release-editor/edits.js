@@ -26,16 +26,33 @@
 
         releaseGroup: function (release) {
             var releaseGroup = release.releaseGroup();
-            var name = _.str.clean(releaseGroup.name) || _.str.clean(release.name());
-
-            if (releaseGroup.id || !name) return [];
-
+            var releaseName = _.str.clean(release.name());
+            var releaseAC = release.artistCredit;
             var editData = MB.edit.fields.releaseGroup(releaseGroup);
 
-            editData.name = name;
-            editData.artist_credit = MB.edit.fields.artistCredit(release.artistCredit);
+            if (releaseGroup.gid) {
+                var dataChanged = false;
 
-            return [ MB.edit.releaseGroupCreate(editData) ];
+                if (releaseEditor.copyTitleToReleaseGroup() && releaseGroup.canTakeName(releaseName)) {
+                    editData.name = releaseName;
+                    dataChanged = true;
+                }
+
+                if (releaseEditor.copyArtistToReleaseGroup() && releaseGroup.canTakeArtist(releaseAC)) {
+                    editData.artist_credit = MB.edit.fields.artistCredit(releaseAC);
+                    dataChanged = true;
+                }
+
+                if (dataChanged) {
+                    return [MB.edit.releaseGroupEdit(editData)];
+                }
+            } else if (releaseEditor.action === "add") {
+                editData.name = _.str.clean(releaseGroup.name) || releaseName;
+                editData.artist_credit = MB.edit.fields.artistCredit(releaseAC);
+                return [MB.edit.releaseGroupCreate(editData)];
+            }
+
+            return [];
         },
 
         release: function (release) {
@@ -342,7 +359,7 @@
             var root = releaseEditor.rootField;
 
             return Array.prototype.concat(
-                releaseEditor.action === "add" ? releaseEditor.edits.releaseGroup(release) : [],
+                releaseEditor.edits.releaseGroup(release),
                 releaseEditor.edits.release(release),
                 releaseEditor.edits.releaseLabel(release),
                 releaseEditor.edits.medium(release),
@@ -494,9 +511,11 @@
             edits: releaseEditor.edits.releaseGroup,
 
             callback: function (release, edits) {
-                release.releaseGroup(
-                    releaseEditor.fields.ReleaseGroup(edits[0].entity)
-                );
+                var edit = edits[0];
+
+                if (edit.edit_type == MB.edit.TYPES.EDIT_RELEASEGROUP_CREATE) {
+                    release.releaseGroup(releaseEditor.fields.ReleaseGroup(edits[0].entity));
+                }
             }
         },
         {

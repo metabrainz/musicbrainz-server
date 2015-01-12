@@ -5,13 +5,14 @@
 # Ettore Atalan <email address hidden>, 2014
 # Johannes Dewender <email address hidden>, 2014
 # nikki, 2013
+# Philipp Wolfer <email address hidden>, 2015
 # S.Brandt <email address hidden>, 2014
 # Shepard, 2013-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-12-16 07:54+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2015-01-08 11:26+0000\n"
+"Last-Translator: Philipp Wolfer <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1659,7 +1660,7 @@ msgid ""
 " user contributed database concerned with the stories behind the songs."
 msgstr ""
 
-#: DB:link_type/description:803 DB:link_type/description:746
+#: DB:link_type/description:746 DB:link_type/description:803
 #: DB:link_type/description:96 DB:link_type/description:82
 #: DB:link_type/description:306 DB:link_type/description:222
 #: DB:link_type/description:273 DB:link_type/description:188
@@ -2430,7 +2431,7 @@ msgstr "Countertenorgesang"
 
 #: DB:link_attribute_type/name:567
 msgid "cover"
-msgstr "Cover"
+msgstr "cover"
 
 #: DB:link_type/link_phrase:78
 msgid "cover art"
@@ -2766,7 +2767,7 @@ msgstr "hat ein Logo unter"
 msgid "has a miscellaneous role on"
 msgstr "hat sonstige Rolle auf"
 
-#: DB:link_type/long_link_phrase:803 DB:link_type/long_link_phrase:746
+#: DB:link_type/long_link_phrase:746 DB:link_type/long_link_phrase:803
 #: DB:link_type/long_link_phrase:96 DB:link_type/long_link_phrase:82
 #: DB:link_type/long_link_phrase:306 DB:link_type/long_link_phrase:222
 #: DB:link_type/long_link_phrase:188 DB:link_type/long_link_phrase:561
@@ -3483,13 +3484,13 @@ msgstr "Orchestrierung von"
 msgid "orchestrations"
 msgstr "Orchestrierungen"
 
-#: DB:link_type/link_phrase:753 DB:link_type/link_phrase:803
-#: DB:link_type/link_phrase:746 DB:link_type/link_phrase:96
+#: DB:link_type/link_phrase:753 DB:link_type/link_phrase:746
+#: DB:link_type/link_phrase:803 DB:link_type/link_phrase:96
 #: DB:link_type/link_phrase:730 DB:link_type/link_phrase:82
 #: DB:link_type/link_phrase:306 DB:link_type/link_phrase:222
 #: DB:link_type/link_phrase:273 DB:link_type/link_phrase:188
 #: DB:link_type/link_phrase:561 DB:link_type/reverse_link_phrase:753
-#: DB:link_type/reverse_link_phrase:803 DB:link_type/reverse_link_phrase:746
+#: DB:link_type/reverse_link_phrase:746 DB:link_type/reverse_link_phrase:803
 #: DB:link_type/reverse_link_phrase:96 DB:link_type/reverse_link_phrase:730
 #: DB:link_type/reverse_link_phrase:82 DB:link_type/reverse_link_phrase:306
 #: DB:link_type/reverse_link_phrase:222 DB:link_type/reverse_link_phrase:273
@@ -3520,9 +3521,9 @@ msgstr "Parodie"
 
 #: DB:link_type/link_phrase:802 DB:link_type/link_phrase:742
 #: DB:link_type/link_phrase:740 DB:link_type/link_phrase:741
-#: DB:link_type/reverse_link_phrase:739 DB:link_type/reverse_link_phrase:717
-#: DB:link_type/reverse_link_phrase:281 DB:link_type/reverse_link_phrase:356
-#: DB:link_type/reverse_link_phrase:818 DB:link_type/reverse_link_phrase:743
+#: DB:link_type/reverse_link_phrase:739 DB:link_type/reverse_link_phrase:818
+#: DB:link_type/reverse_link_phrase:717 DB:link_type/reverse_link_phrase:281
+#: DB:link_type/reverse_link_phrase:356 DB:link_type/reverse_link_phrase:743
 msgid "part of"
 msgstr "Teil von"
 
@@ -3530,9 +3531,9 @@ msgstr "Teil von"
 msgid "partial"
 msgstr "teilweise"
 
-#: DB:link_type/description:739 DB:link_type/link_phrase:717
-#: DB:link_type/link_phrase:281 DB:link_type/link_phrase:356
-#: DB:link_type/link_phrase:818
+#: DB:link_type/description:739 DB:link_type/link_phrase:818
+#: DB:link_type/link_phrase:717 DB:link_type/link_phrase:281
+#: DB:link_type/link_phrase:356
 msgid "parts"
 msgstr "Teile"
 

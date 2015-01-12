@@ -12,32 +12,9 @@ my $phantomjs = scalar @phantomjs ? $phantomjs[0] :
 
 $root = "$Bin/../root";
 
-sub generate_text_strings {
-    my $input = read_file("$root/scripts/text_strings.tt");
-    my $output = "";
-
-    my $tt = Template->new(
-        INCLUDE_PATH    => "$root",
-        PLUGIN_BASE     => "MusicBrainz::Server::Plugin",
-        PRE_PROCESS     => [ "components/common-macros.tt" ],
-        ENCODING        => "UTF-8",
-    );
-
-    $tt->process(\$input, {}, \$output) or die $_;
-
-    open(my $fh, ">$root/static/tests/text.js");
-    binmode $fh, ":utf8";
-    print $fh $output;
-    close $fh;
-}
-
-if (! -x $phantomjs)
-{
+if (! -x $phantomjs) {
     plan skip_all => "phantomjs not found, please set MUSICBRAINZ_PHANTOMJS or install phantomjs to the default location";
-}
-else {
-    generate_text_strings();
-
+} else {
     # TAP::Harness::JUnit expects output to be UTF-8 encoded:
     # https://github.com/jlavallee/tap-harness-junit/blob/master/lib/TAP/Harness/JUnit.pm#L365
     print encode('UTF-8', qx{ $phantomjs $root/static/build/tests.js });

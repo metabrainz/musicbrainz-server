@@ -334,6 +334,39 @@ test("MBS-7453: release group edits strip whitespace from name", function (t) {
     t.equal(releaseEditor.edits.releaseGroup(release)[0].name, "Foo oo");
 });
 
+test("releaseGroupCreate edits", function (t) {
+    t.plan(1);
+
+    var release = releaseEditor.fields.Release({
+        name: "Chocolate Synthesizer",
+        artistCredit: common.testArtistCredit,
+        releaseGroup: { typeID: 1 }
+    });
+
+    t.deepEqual(releaseEditor.edits.releaseGroup(release), [
+      {
+        edit_type: 20,
+        name: "Chocolate Synthesizer",
+        comment: "",
+        primary_type_id: 1,
+        artist_credit: {
+          names: [
+            {
+              artist: {
+                name: "Boredoms",
+                id: 39282,
+                gid: "0798d15b-64e2-499f-9969-70167b1d8617"
+              },
+              name: "Boredoms",
+              join_phrase: null
+            }
+          ]
+        },
+        hash: "d59380a7e74fdc1c5706ecfe8d66a44316bba318"
+      }
+    ]);
+});
+
 function editReleaseTest(name, callback) {
     test(name, function (t) {
         callback(t, common.setupReleaseEdit());

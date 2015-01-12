@@ -48,8 +48,7 @@
                   <td class="video c[%- IF recording.video %] is-video[%- END -%]"[% IF recording.video %] title="[% l("This recording is a video") %]"[% END %]></td>
               [%- END -%]
               <td>
-                [% link_recording(recording) %]
-                [% disambiguation(recording) %]
+                [%~ link_entity(recording) ~%]
               </td>
               [%- IF show_artists -%]
                   <td>[% artist_credit(recording.artist_credit) %]</td>

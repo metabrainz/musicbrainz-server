@@ -64,6 +64,15 @@ if (typeof phantom !== 'undefined') {
     });
 }
 
+window.addEventListener('error', function (event) {
+    console.log(event.message);
+    console.log('File name: ' + event.filename);
+    console.log('Line number: ' + event.lineno);
+    phantom.exit(1);
+});
+
+window.MB_LANGUAGE = 'en';
+
 require('./common.js');
 require('./edit.js');
 require('./guess-case.js');
@@ -77,7 +86,6 @@ MB.edit.create = function (data, context) {
   return $.Deferred().resolveWith(context, [{ edits: [] }, data]);
 };
 
-require('../tests/text.js');
 require('./tests/typeInfo.js');
 
 require('./tests/autocomplete.js');

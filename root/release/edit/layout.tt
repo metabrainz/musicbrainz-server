@@ -29,7 +29,7 @@
     <!-- /ko -->
 
     <!-- ko if: loadError -->
-      <div class="page-error" data-bind="text: MB.i18n.expand(MB.text.ErrorLoadingRelease, { error: loadError() })"></div>
+      <div class="page-error" data-bind="text: MB.i18n.expand('[% l('Error loading release: {error}') | js %]', { error: loadError() })"></div>
     <!-- /ko -->
 
     <div id="information">

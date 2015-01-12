@@ -7,6 +7,8 @@
 
     var RE = MB.relationshipEditor;
 
+    var selectLinkTypeText = MB.i18n.l("Please select a link type for the URL you’ve entered.");
+
 
     externalLinks.Relationship = aclass(RE.fields.Relationship, {
 
@@ -37,7 +39,7 @@
             // this.error hasn't updated yet, and we need the latest value.
             var error = this._error();
 
-            if (this.cleanup && (!error || error === MB.text.SelectURLType)) {
+            if (this.cleanup && (!error || error === selectLinkTypeText)) {
                 var linkType = this.cleanup.guessType(this.cleanup.sourceType, value);
 
                 if (linkType) {
@@ -68,7 +70,7 @@
 
             if (typeInfo) {
                 this.linkTypeDescription(
-                    MB.i18n.expand(MB.text.MoreDocumentation, {
+                    MB.i18n.l("{description} ({url|more documentation})", {
                         description: typeInfo.description,
                         url: "/relationship/" + typeInfo.gid
                     })
@@ -150,27 +152,27 @@
             }
 
             if (!url) {
-                return MB.text.RequiredField;
+                return MB.i18n.l("Required field.");
             } else if (!MB.utility.isValidURL(url)) {
-                return MB.text.EnterAValidURL;
+                return MB.i18n.l("Enter a valid url e.g. \"http://google.com/\"");
             }
 
             var typeInfo = MB.typeInfoByID[linkType] || {};
             var checker = this.cleanup && this.cleanup.validationRules[typeInfo.gid];
 
             if (!linkType) {
-                return MB.text.SelectURLType;
+                return selectLinkTypeText;
             } else if (typeInfo.deprecated && !this.id) {
-                return MB.text.RelationshipTypeDeprecated;
+                return MB.i18n.l("This relationship type is deprecated and should not be used.");
             } else if (checker && !checker(url)) {
-                return MB.text.URLNotAllowed;
+                return MB.i18n.l("This URL is not allowed for the selected link type, or is incorrectly formatted.");
             }
 
             var otherLinks = this.parent.links();
 
             for (var i = 0, link; link = otherLinks[i++];) {
                 if (this.isDuplicate(link)) {
-                    return MB.text.RelationshipAlreadyExists;
+                    return MB.i18n.l("This relationship already exists.");
                 }
             }
 

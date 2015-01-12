@@ -95,7 +95,7 @@ function searchAndClick(t, $input, $menu, itemToClick, callback) {
 autocompleteTest("clicking on actions should not close the menu (MBS-6912)", function (t, $input, $menu) {
     t.plan(2);
 
-    var itemToClick = ":contains(" + MB.text.ShowMore + ")";
+    var itemToClick = ":contains(Show more...)";
 
     return searchAndClick(t, $input, $menu, itemToClick, function () {
         t.ok($menu.is(":visible"), "menu is still open after clicking show more");
@@ -105,7 +105,7 @@ autocompleteTest("clicking on actions should not close the menu (MBS-6912)", fun
 autocompleteTest("clicking on actions should not prevent the menu from ever closing (MBS-6978)", function (t, $input, $menu) {
     t.plan(2);
 
-    var itemToClick = ":contains(" + MB.text.ShowMore + ")";
+    var itemToClick = ":contains(Show more...)";
 
     return searchAndClick(t, $input, $menu, itemToClick, function () {
         blurAutocomplete($input);

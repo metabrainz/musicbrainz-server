@@ -366,13 +366,26 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
     };
 
     MB.GuessCase.Mode.English = $.extend({}, self, {
-        description: MB.text.GuessCaseDescriptionEnglish,
+        description: MB.i18n.l(
+            "This mode capitalises almost all words, with some words " +
+            "(mainly articles and short prepositions) lowercased. Some " +
+            "words may need to be manually capitalised to follow the " +
+            "{url|English capitalisation guidelines}.",
+            { url: "https://musicbrainz.org/doc/Style/Language/English" }
+        ),
 
         isSentenceCaps: function () { return false }
     });
 
     MB.GuessCase.Mode.French = $.extend({}, self, {
-        description: MB.text.GuessCaseDescriptionFrench,
+        description: MB.i18n.l(
+            "This mode capitalises titles as sentence mode, but also " +
+            "inserts spaces before semicolons, colons, exclamation marks " +
+            "and question marks, and inside guillemets. Some words may " +
+            "need to be manually capitalised to follow the {url|French " +
+            "capitalisation guidelines}.",
+            { url: "https://musicbrainz.org/doc/Style/Language/French" }
+        ),
 
         runPostProcess: function (is) {
             return self.runPostProcess(is)
@@ -383,6 +396,12 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
     });
 
     MB.GuessCase.Mode.Sentence = $.extend({}, self, {
-        description: MB.text.GuessCaseDescriptionSentence
+        description: MB.i18n.l(
+            "This mode capitalises the first word of a sentence, most " +
+            "other words are lowercased. Some words, often proper nouns, " +
+            "may need to be manually fixed according to the {url|relevant " +
+            "language guidelines}.",
+            { url: "https://musicbrainz.org/doc/Style/Language" }
+        )
     });
 }());
