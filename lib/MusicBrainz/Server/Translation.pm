@@ -246,6 +246,8 @@ sub comma_list {
 }
 
 sub comma_only_list {
+    return ($_[0] // '') if scalar(@_) <= 1;
+
     my ($last, @rest) = reverse(@_);
 
     my $output = l('{last_list_item}', { last_list_item => $last });
