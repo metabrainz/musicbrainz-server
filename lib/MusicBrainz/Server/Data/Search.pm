@@ -764,15 +764,8 @@ sub external_search
                                  $adv ? 'false' : 'true',
                                  );
 
-    if (DBDefs->_RUNNING_TESTS)
-    {
-        $ua = MusicBrainz::Server::Test::mock_search_server($type);
-    }
-    else
-    {
-        $ua = LWP::UserAgent->new if (!defined $ua);
-    }
 
+    $ua = LWP::UserAgent->new if (!defined $ua);
     $ua->timeout(5);
     $ua->env_proxy;
 
