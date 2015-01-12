@@ -4,7 +4,7 @@ use Moose;
 use Readonly;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Validation qw( trim_in_place );
-use MusicBrainz::Server::Translation qw( l comma_list );
+use MusicBrainz::Server::Translation qw( l comma_list comma_only_list );
 use MusicBrainz::Server::Data::Relationship;
 
 use overload '<=>' => \&_cmp, fallback => 1;
@@ -225,7 +225,7 @@ sub _interpolate {
     trim_in_place($phrase);
 
     my @extra_attrs = map { @$_ } values %extra_attrs;
-    return [ $phrase, comma_list(@extra_attrs) ];
+    return [ $phrase, comma_only_list(@extra_attrs) ];
 }
 
 sub _cmp {
