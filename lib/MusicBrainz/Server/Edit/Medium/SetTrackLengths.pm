@@ -124,9 +124,8 @@ sub accept {
     my $medium_id = $self->data->{medium_id};
     if (!$self->c->model('Medium')->get_by_id($medium_id)) {
         MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-            'The medium to set track times no longer exists. It may have '.
-            'been merged into another identical tracklist, or been changed '.
-            'since this edit was entered.'
+            'The medium to set track times for no longer exists. It may '.
+            'have been merged or removed since this edit was entered.'
         );
     }
 
