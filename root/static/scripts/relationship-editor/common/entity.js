@@ -79,6 +79,27 @@
             return this.displayableRelationships(vm)
                 .groupBy(linkPhrase).sortBy("key").map(function (group) {
                     group.openAddDialog = openAddDialog;
+
+                    var typeInfo = group.values.peek()[0].linkTypeInfo();
+                    group.canBeOrdered = !!(typeInfo && typeInfo.orderableDirection > 0);
+
+                    if (group.canBeOrdered) {
+                        var hasOrdering = group.values.any(function (r) { return r.linkOrder() > 0 });
+
+                        group.hasOrdering = ko.computed({
+                            read: hasOrdering,
+                            write: function (newValue) {
+                                var currentValue = hasOrdering.peek();
+
+                                if (currentValue && !newValue) {
+                                    _.each(group.values.slice(0), function (r) { r.linkOrder(0) });
+                                } else if (newValue && !currentValue) {
+                                    _.each(group.values.slice(0), function (r, i) { r.linkOrder(i + 1) });
+                                }
+                            }
+                        });
+                    }
+
                     return group;
                 });
         }),

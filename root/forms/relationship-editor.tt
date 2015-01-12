@@ -22,7 +22,7 @@
           <div>
             <button type="button" class="icon remove-item" data-click="removeRelationship"></button>
             <button type="button" class="icon edit-item" data-bind="disable: removed" data-click="openEditDialog"></button>
-            <!-- ko if: entityCanBeReordered(target($parents[1])) -->
+            <!-- ko if: entityCanBeReordered(target($parents[1])) && $parent.hasOrdering() -->
               <button type="button" class="icon move-down" title="[% l('Move entity down') %]" data-click="moveEntityDown"></button>
               <button type="button" class="icon move-up" title="[% l('Move entity up') %]" data-click="moveEntityUp"></button>
             <!-- /ko -->
@@ -39,6 +39,17 @@
           </div>
         </td>
       </tr>
+      <!-- ko if: canBeOrdered -->
+        <tr>
+          <td></td>
+          <td>
+            <label style="padding: 6px;">
+              <input type="checkbox" data-bind="checked: hasOrdering" />
+              [%= l('The relationships have a specific ordering') ~%]
+            </label>
+          </td>
+        </tr>
+      <!-- /ko -->
       <tr>
         <td></td>
         <td data-bind="with: $parent">
