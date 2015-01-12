@@ -9,6 +9,7 @@ use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
+use aliased 'MusicBrainz::Server::Entity::Medium';
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 extends 'MusicBrainz::Server::Edit';
@@ -48,25 +49,36 @@ sub release_ids {
 
 sub foreign_keys {
     my $self = shift;
+    my $medium_id = $self->data->{medium_id};
     return {
         Release => {
             map { $_ => [ 'ArtistCredit' ] } $self->release_ids
         },
-        CDTOC => [ $self->data->{cdtoc}{id} ]
+        CDTOC => [ $self->data->{cdtoc}{id} ],
+        $medium_id ? (Medium => { $medium_id => [ 'Release ArtistCredit', 'MediumFormat' ] } ) : (),
     }
 }
 
 sub build_display_data {
     my ($self, $loaded) = @_;
+
+    my @mediums;
+    my $medium_id = $self->data->{medium_id};
+
+    if ($medium_id && $loaded->{Medium}{$medium_id}) {
+        @mediums = ($loaded->{Medium}{$medium_id});
+        # Edits that have a medium_id can't affect multiple releases.
+    } else {
+        @mediums = map {
+            Medium->new( release => $loaded->{Release}{ $_->{id} } //
+                                    Release->new( name => $_->{name} ) )
+        } @{ $self->data->{affected_releases} };
+    }
+                  
     return {
         cdtoc => $loaded->{CDTOC}{ $self->data->{cdtoc}{id} }
             || CDTOC->new_from_toc( $self->data->{cdtoc}{toc} ),
-        releases => [
-            map {
-                $loaded->{Release}{ $_->{id} } ||
-                    Release->new( name => $_->{name} )
-            } @{ $self->data->{affected_releases} }
-        ],
+        mediums => \@mediums,
         length => {
             map { $_ => $self->data->{length}{$_} } qw( old new )
         }
