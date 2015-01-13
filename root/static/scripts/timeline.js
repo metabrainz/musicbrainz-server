@@ -138,15 +138,14 @@ MB.Timeline.TimelineViewModel = aclass({
             }
         });
 
-        // rateLimit to load asynchronously
-        MB.utility.debounce({
+        ko.computed({
             read: function () {
                 if (self.options.events() && !self.loadedEvents() && !self.loadingEvents()) {
                     self.loadEvents();
                 }
             },
             disposeWhen: self.loadedEvents
-        }, 1);
+        });
     },
 
     _getLocationHashSettings: function () {
