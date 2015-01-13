@@ -764,7 +764,6 @@ sub external_search
                                  $adv ? 'false' : 'true',
                                  );
 
-
     my $ua = LWP::UserAgent->new;
     $ua->timeout(5);
     $ua->env_proxy;
