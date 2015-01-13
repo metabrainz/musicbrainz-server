@@ -66,17 +66,15 @@ MB.Timeline.TimelineViewModel = aclass({
                 .flatten().value();
         }, 1000);
 
-        self.waitToGraph = MB.utility.debounce(function () {
-            if (_.chain(self.enabledCategories())
-                .map(function (category) { return category.hasLoadingLines() })
-                .find().value())
+        self.waitToGraph = ko.computed(function () {
+            if (_.any(self.enabledCategories(), function (c) { return c.hasLoadingLines() }))
                 return true;
 
             if (self.options.events() && !self.loadedEvents())
                 return true;
 
             return false;
-        }, 1000);
+        });
 
         self.rateZoomY = ko.computed(function () {
             var bounds = _.reduce(self.lines(), function (accum, line) {
