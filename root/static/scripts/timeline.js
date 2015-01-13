@@ -145,10 +145,13 @@ MB.Timeline.TimelineViewModel = aclass({
         }, 1000);
 
         // rateLimit to load asynchronously
-        MB.utility.debounce(function () {
-            if (self.options.events() && !self.loadedEvents() && !self.loadingEvents()) {
-                self.loadEvents();
-            }
+        MB.utility.debounce({
+            read: function () {
+                if (self.options.events() && !self.loadedEvents() && !self.loadingEvents()) {
+                    self.loadEvents();
+                }
+            },
+            disposeWhen: self.loadedEvents
         }, 1);
     },
 
