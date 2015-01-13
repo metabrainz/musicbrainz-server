@@ -1,7 +1,7 @@
 MB.Timeline = {};
 
 MB.Timeline.TimelineViewModel = aclass({
-    init: function() {
+    init: function (initialLines) {
         var self = this;
         self.categories = ko.observableArray([]);
         self.enabledCategories = ko.computed(function () {
@@ -101,48 +101,44 @@ MB.Timeline.TimelineViewModel = aclass({
             return bounds;
         });
 
-        self.hash = MB.utility.debounce({
-            read: function () {
-                var optionParts = [];
-                if (self.options.rate()) { optionParts.push('r') }
-                if (!self.options.events()) { optionParts.push('-v') }
-                if (self.zoomHashPart()) { optionParts.push(self.zoomHashPart()) }
-                var categoryParts = _.chain(self.categories())
-                    .filter(function (category) { return category.enabledByDefault !== category.enabled() })
-                    .map(function (category) { return (category.enabled() ? '' : '-') + category.hashIdentifier })
-                    .value().sort();
-                var lineParts = _.chain(self.categories())
-                    .filter(function (category) { return category.enabled() })
-                    .map(function (category) { return category.lines() })
-                    .flatten()
-                    .filter(function (line) { return line.enabledByDefault !== line.enabled() })
-                    .map(function (line) { return (line.enabled() ? '' : '-') + line.hashIdentifier })
-                    .value().sort();
-                return optionParts.concat(categoryParts, lineParts).join('+');
-            },
-            write: function (value) {
-                // XXX: reset to defaults when preference is not expressed
-                var parts = _.filter(value.split('+'));
-                _.forEach(parts, function (part) {
-                    var match;
-                    if (match = part.match(/^(-)?([rv])-?$/)) { // trailing - for backwards-compatibility
-                        var meth = match[2] === 'r' ? 'rate' : 'events';
-                        self.options[meth](!(match[1] === '-'));
-                    } else if (match = part.match(/^(-)?(c-.*)$/)) {
-                        var category = _.find(self.categories(), { hashIdentifier: match[2] });
-                        if (category) { category.enabled(!(match[1] === '-')) }
-                    } else if (match = part.match(/^g\/.*$/)) {
-                        self.zoomHashPart(part);
-                    } else {
-                        match = part.match(/^(-)?(.*)$/);
-                        var line = _.chain(self.categories())
-                            .map(function (category) { return category.lines() })
-                            .flatten().find({ hashIdentifier: match[2] }).value();
-                        if (line) { line.enabled(!(match[1] === '-')) }
-                    }
-                })
-            }
+        self.addLines(initialLines);
+        self._getLocationHashSettings();
+
+        self.hash = MB.utility.debounce(function () {
+            var optionParts = [];
+            if (self.options.rate()) { optionParts.push('r') }
+            if (!self.options.events()) { optionParts.push('-v') }
+            if (self.zoomHashPart()) { optionParts.push(self.zoomHashPart()) }
+            var categoryParts = _.chain(self.categories())
+                .filter(function (category) { return category.enabledByDefault !== category.enabled() })
+                .map(function (category) { return (category.enabled() ? '' : '-') + category.hashIdentifier })
+                .value().sort();
+            var lineParts = _.chain(self.categories())
+                .filter(function (category) { return category.enabled() })
+                .map(function (category) { return category.lines() })
+                .flatten()
+                .filter(function (line) { return line.enabledByDefault !== line.enabled() })
+                .map(function (line) { return (line.enabled() ? '' : '-') + line.hashIdentifier })
+                .value().sort();
+            return optionParts.concat(categoryParts, lineParts).join('+');
         }, 1000);
+
+        // Ignore hashchange events that are the result of the user fiddling
+        // with options. We only need to call _getLocationHashSettings again
+        // if it's directly changed in the address bar.
+        var ignoreHashChange = false;
+
+        self.hash.subscribe(function (newHash) {
+            ignoreHashChange = true;
+            window.location.hash = newHash;
+            ignoreHashChange = false;
+        });
+
+        $(window).on('hashchange', function () {
+            if (!ignoreHashChange) {
+                self._getLocationHashSettings();
+            }
+        });
 
         // rateLimit to load asynchronously
         MB.utility.debounce({
@@ -155,10 +151,36 @@ MB.Timeline.TimelineViewModel = aclass({
         }, 1);
     },
 
+    _getLocationHashSettings: function () {
+        // XXX: reset to defaults when preference is not expressed
+        var parts = _.filter(location.hash.replace(/^#/, '').split('+'));
+        var self = this;
+
+        _.forEach(parts, function (part) {
+            var match;
+            if (match = part.match(/^(-)?([rv])-?$/)) { // trailing - for backwards-compatibility
+                var meth = match[2] === 'r' ? 'rate' : 'events';
+                self.options[meth](!(match[1] === '-'));
+            } else if (match = part.match(/^(-)?(c-.*)$/)) {
+                var category = _.find(self.categories(), { hashIdentifier: match[2] });
+                if (category) { category.enabled(!(match[1] === '-')) }
+            } else if (match = part.match(/^g\/.*$/)) {
+                self.zoomHashPart(part);
+            } else {
+                match = part.match(/^(-)?(.*)$/);
+                var line = _.chain(self.categories())
+                    .map(function (category) { return category.lines() })
+                    .flatten().find({ hashIdentifier: match[2] }).value();
+                if (line) { line.enabled(!(match[1] === '-')) }
+            }
+        });
+    },
+
     addCategory: function(category) {
         this.categories.push(category);
         return category
     },
+
     addLine: function(name) {
         var newLine = MB.text.Timeline.Stat(name)
         var category = _.find(this.categories(), { name: newLine.Category });
@@ -170,18 +192,12 @@ MB.Timeline.TimelineViewModel = aclass({
 
         category.addLine(MB.Timeline.TimelineLine(name, newLine.Label, newLine.Color, !newLine.Hide));
     },
+
     addLines: function(names) {
         var self = this;
         _.forEach(names, function (name) { self.addLine(name) });
     },
-    setInitialHash: function() {
-        this.hash(location.hash.replace(/^#/, ""));
 
-        // Update location.hash whenever this.hash() changes.
-        this.hash.subscribe(function (hash) {
-            location.hash = hash;
-        });
-    },
     loadEvents: function () {
         var self = this;
         self.loadingEvents(true);
@@ -200,7 +216,7 @@ MB.Timeline.TimelineViewModel = aclass({
             self.loadingEvents(false);
         });
     }
-})();
+});
 
 MB.Timeline.TimelineCategory = aclass({
     init: function(name, label, enabledByDefault) {
@@ -516,12 +532,3 @@ MB.Timeline.TimelineLine = aclass({
         }
     };
 })();
-
-$(window).on('hashchange', function () {
-    var hash = location.hash.replace(/^#/, '');
-    MB.Timeline.TimelineViewModel.hash(hash);
-});
-
-$(function () {
-    ko.applyBindings(MB.Timeline.TimelineViewModel);
-});

@@ -82,12 +82,15 @@
 [%~ script_manifest('statistics.js') ~%]
 
 <script type="text/javascript">
-    MB.Timeline.TimelineViewModel.addLines([
+  $(function () {
+    ko.applyBindings(
+      MB.Timeline.TimelineViewModel([
         [%~ FOREACH dataset_key = stats ~%]
-            "[%- dataset_key -%]"[%~ IF NOT loop.last() ~%],[%~ END ~%]
+          "[%- dataset_key -%]"[%~ IF NOT loop.last() ~%],[%~ END ~%]
         [%~ END ~%]
-    ]);
-    MB.Timeline.TimelineViewModel.setInitialHash();
+      ])
+    );
+  });
 </script>
 
 [%~ END ~%]
