@@ -8,7 +8,7 @@ MB.Timeline.TimelineViewModel = aclass({
             return _.filter(self.categories(),
                 function (category) { return category.enabled() });
         });
-        self.events = ko.observableArray([]).extend({ rateLimit: { method: "notifyWhenChangesStop", timeout: 50 } });
+        self.events = MB.utility.debounce(ko.observableArray([]), 50);
         self.loadingEvents = ko.observable(false);
         self.loadedEvents = ko.observable(false);
         self.options = {
@@ -18,10 +18,10 @@ MB.Timeline.TimelineViewModel = aclass({
         // rateLimit so they'll all be updated before zoomHashPart is recalculated,
         // and to ensure graph doesn't need repeated redrawing
         self.zoom = {
-            xaxis: { min: ko.observable(null).extend({ rateLimit: { method: "notifyWhenChangesStop", timeout: 50 } }),
-                     max: ko.observable(null).extend({ rateLimit: { method: "notifyWhenChangesStop", timeout: 50 } }) },
-            yaxis: { min: ko.observable(null).extend({ rateLimit: { method: "notifyWhenChangesStop", timeout: 50 } }),
-                     max: ko.observable(null).extend({ rateLimit: { method: "notifyWhenChangesStop", timeout: 50 } }) }
+            xaxis: { min: MB.utility.debounce(ko.observable(null), 50),
+                     max: MB.utility.debounce(ko.observable(null), 50) },
+            yaxis: { min: MB.utility.debounce(ko.observable(null), 50),
+                     max: MB.utility.debounce(ko.observable(null), 50) }
         };
         self.zoomArray = ko.computed({
             read: function () {
@@ -60,14 +60,13 @@ MB.Timeline.TimelineViewModel = aclass({
             }
         });
         // rateLimit to ensure graph doesn't need frequent redrawing
-        self.lines = ko.computed(function () {
+        self.lines = MB.utility.debounce(function () {
             return _.chain(self.enabledCategories())
                 .map(function (category) { return category.enabledLines() })
                 .flatten().value();
-        }).extend({
-            rateLimit: { method: "notifyWhenChangesStop", timeout: 1000 }
-        });
-        self.waitToGraph = ko.computed(function () {
+        }, 1000);
+
+        self.waitToGraph = MB.utility.debounce(function () {
             if (_.chain(self.enabledCategories())
                 .map(function (category) { return category.hasLoadingLines() })
                 .find().value())
@@ -77,9 +76,7 @@ MB.Timeline.TimelineViewModel = aclass({
                 return true;
 
             return false;
-        }).extend({
-            rateLimit: { method: "notifyWhenChangesStop", timeout: 1000 }
-        });
+        }, 1000);
 
         self.rateZoomY = ko.computed(function () {
             var bounds = _.reduce(self.lines(), function (accum, line) {
@@ -104,7 +101,7 @@ MB.Timeline.TimelineViewModel = aclass({
             return bounds;
         });
 
-        self.hash = ko.computed({
+        self.hash = MB.utility.debounce({
             read: function () {
                 var optionParts = [];
                 if (self.options.rate()) { optionParts.push('r') }
@@ -145,18 +142,14 @@ MB.Timeline.TimelineViewModel = aclass({
                     }
                 })
             }
-        }).extend({
-            rateLimit: { method: "notifyWhenChangesStop", timeout: 1000 }
-        });
+        }, 1000);
 
         // rateLimit to load asynchronously
-        ko.computed(function () {
+        MB.utility.debounce(function () {
             if (self.options.events() && !self.loadedEvents() && !self.loadingEvents()) {
                 self.loadEvents();
             }
-        }).extend({
-            rateLimit: { method: "notifyWhenChangesStop", timeout: 1 }
-        });
+        }, 1);
     },
 
     addCategory: function(category) {
@@ -218,9 +211,8 @@ MB.Timeline.TimelineCategory = aclass({
         self.enabledByDefault = !!enabledByDefault;
         self.enabled = ko.observable(!!enabledByDefault);
         // rateLimit to improve reponsiveness of checkboxes
-        self.lines = ko.observableArray([]).extend({
-            rateLimit: { method: "notifyWhenChangesStop", timeout: 50 }
-        });
+        self.lines = MB.utility.debounce(ko.observableArray([]), 50);
+
         self.enabledLines = ko.computed(function () {
             return _.filter(self.lines(), function (line) { return line.enabled() && line.loaded() })
         });
@@ -234,11 +226,9 @@ MB.Timeline.TimelineCategory = aclass({
         });
 
         // rateLimit to load asynchronously
-        ko.computed(function () {
+        MB.utility.debounce(function () {
             _.forEach(self.needLoadingLines(), function (line) { line.loadData() });
-        }).extend({
-            rateLimit: { method: "notifyWhenChangesStop", timeout: 1 }
-        });
+        }, 1);
     },
     addLine: function(line) { this.lines.push(line); }
 });
