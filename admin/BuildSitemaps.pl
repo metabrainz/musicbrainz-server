@@ -287,6 +287,18 @@ sub build_suffix_info {
             extra_sql => {columns => "EXISTS ($select) AS has_non_url_rels"}
         };
     }
+    if ($entity_properties->{custom_tabs}) {
+        my %tabs = map { $_ => 1 } @{ $entity_properties->{custom_tabs} };
+        for my $tab (qw( events releases recordings works performances map discids )) {
+            # XXX: discids, performances should have extra sql for priority
+            # XXX: pagination, priority based on counts for paginated things
+            if ($tabs{$tab}) {
+                $suffix_info->{$tab} = {
+                    suffix => $tab
+                };
+            }
+        }
+    }
     return $suffix_info;
 }
 
