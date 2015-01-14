@@ -294,7 +294,8 @@ sub build_suffix_info {
             # XXX: pagination, priority based on counts for paginated things
             if ($tabs{$tab}) {
                 $suffix_info->{$tab} = {
-                    suffix => $tab
+                    suffix => $tab,
+                    priority => sub { return $SECONDARY_PAGE_PRIORITY }
                 };
             }
         }
