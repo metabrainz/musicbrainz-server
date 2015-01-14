@@ -249,7 +249,8 @@ SQL and priorities.
 sub build_suffix_info {
     my ($entity_type) = @_;
     my $entity_properties = $ENTITIES{$entity_type} // {};
-    my $suffix_info = {};
+    my $suffix_info = {base => {
+    }};
     if ($entity_properties->{aliases}) {
         $suffix_info->{aliases} = {
             suffix => 'aliases',
@@ -321,21 +322,20 @@ sub build_one_batch {
                 "ORDER BY ${entity_type}.id ASC";
     my $ids = $sql->select_list_of_hashes($query, $batch_info->{batches});
 
-    build_one_sitemap($entity_type, $minimum_batch_number, $index, $ids);
     for my $suffix (keys %$suffix_info) {
         my %opts = %{ $suffix_info->{$suffix} // {}};
-        build_one_sitemap($entity_type, $minimum_batch_number, $index, $ids, %opts);
+        build_one_suffix($entity_type, $minimum_batch_number, $index, $ids, %opts);
     }
 }
 
-=head2 build_one_sitemap
+=head2 build_one_suffix
 
-Called by C<build_one_batch> to build an individual sitemap given the necessary
-information to build the sitemap.
+Called by C<build_one_batch> to build an individual suffix's sitemaps given the
+necessary information to build the sitemap.
 
 =cut
 
-sub build_one_sitemap {
+sub build_one_suffix {
     my ($entity_type, $minimum_batch_number, $index, $ids, %opts) = @_;
     my $entity_properties = $ENTITIES{$entity_type} // {};
     my $filename = "sitemap-$entity_type-$minimum_batch_number";
@@ -407,7 +407,7 @@ sub ping_search_engines {
 
 =head2 hash_sitemap
 
-Used by C<build_one_sitemap> to determine if a sitemap has changed since the
+Used by C<build_one_suffix> to determine if a sitemap has changed since the
 previous build, for insertion to the sitemap index, by sorting consistenly,
 joining together applicable properties, and md5ing the URL contents of a
 sitemap. It's passed either a filename or an already-initialized C<$map>
