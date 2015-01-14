@@ -13,6 +13,7 @@ use MusicBrainz::Server::WebService::JSONLDSerializer;
 use MusicBrainz::Server::WebService::XMLSerializer;
 use Readonly;
 use Scalar::Util qw( looks_like_number );
+use List::UtilsBy qw( partition_by );
 use Try::Tiny;
 
 with 'MusicBrainz::Server::WebService::Format' =>
@@ -235,12 +236,9 @@ sub _tags
                         $type eq 'user_tags' ? $c->user->id : (),
                         map { $_->id } @$entities);
 
-        for (@tags)
-        {
-            my $opts = $stash->store($map{$_->entity_id}->[0]);
-
-            $opts->{$type} = [] unless $opts->{$type};
-            push @{ $opts->{$type} }, $_;
+        my %tags_by_entity = partition_by { $_->entity_id } @tags;
+        for my $id (keys %tags_by_entity) {
+            $stash->store($map{$id}->[0])->{$type} = $tags_by_entity{$id};
         }
     }
 }
