@@ -140,8 +140,8 @@ sub ImportTable
         open(LOAD, "<", $file) or die "open $file: $!";
 
         $sql->begin;
+        my $dbh = $sql->dbh; # issues a ping, must be done before COPY
         $sql->do("COPY $table FROM stdin");
-        my $dbh = $sql->dbh;
 
         $p->("", "");
 
