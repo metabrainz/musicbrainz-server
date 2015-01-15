@@ -58,7 +58,7 @@
                 });
         });
 
-        utils.debounce(utils.withRelease(function (release) {
+        MB.utility.debounce(utils.withRelease(function (release) {
             var name = release.name();
 
             // If a release group is selected, just show the releases from

@@ -200,6 +200,13 @@ msgstr ""
 msgid "Indicates a webpage where you can download an artist's work for free."
 msgstr ""
 
+#: DB:link_type/description:834
+msgid ""
+"Indicates an artist (generally a composer) this work was previously "
+"attributed to, but who is currently confirmed (or very strongly suspected) "
+"not to be the real author."
+msgstr ""
+
 #: DB:link_type/description:104
 msgid ""
 "Indicates an artist doing long-time instrumental or vocal support for "
@@ -454,6 +461,10 @@ msgstr ""
 msgid ""
 "Links a release to the area it was engineered in. Use only when the place is "
 "unknown!"
+msgstr ""
+
+#: DB:link_type/description:835
+msgid "Links a release to the area it was manufactured (\"made\") in."
 msgstr ""
 
 #: DB:link_type/description:756
@@ -1476,6 +1487,10 @@ msgstr ""
 msgid ""
 "This links a place to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
+msgstr ""
+
+#: DB:link_type/description:836
+msgid "This links a postponed event to the later rescheduled event."
 msgstr ""
 
 #: DB:link_type/description:302
@@ -2663,6 +2678,10 @@ msgstr ""
 msgid "had available releases"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:834
+msgid "had previous attribution"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:77
 msgid "has Amazon ASIN"
 msgstr ""
@@ -3295,6 +3314,14 @@ msgstr ""
 msgid "manufactured by"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:835
+msgid "manufactured in"
+msgstr ""
+
+#: DB:link_type/link_phrase:835
+msgid "manufacturing location for"
+msgstr ""
+
 #: DB:link_type/link_phrase:111 DB:link_type/reverse_link_phrase:111
 msgid "married"
 msgstr ""
@@ -3485,6 +3512,10 @@ msgstr ""
 msgid "orchestrations"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:836
+msgid "originally scheduled as"
+msgstr ""
+
 #: DB:link_type/link_phrase:753 DB:link_type/link_phrase:746
 #: DB:link_type/link_phrase:803 DB:link_type/link_phrase:96
 #: DB:link_type/link_phrase:730 DB:link_type/link_phrase:82
@@ -3609,8 +3640,16 @@ msgstr ""
 msgid "premieres hosted"
 msgstr ""
 
+#: DB:link_type/link_phrase:834
+msgid "previous attribution"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:1
 msgid "previous disc"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:834
+msgid "previously attributed to"
 msgstr ""
 
 #: DB:link_type/link_phrase:714
@@ -3822,6 +3861,10 @@ msgstr ""
 
 #: DB:link_type/link_phrase:202
 msgid "renamed into"
+msgstr ""
+
+#: DB:link_type/link_phrase:836
+msgid "rescheduled as"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:94
@@ -4082,6 +4125,10 @@ msgstr ""
 msgid "was renamed into"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:836
+msgid "was rescheduled as"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:759 DB:link_type/long_link_phrase:760
 msgid "was the concertmaster for"
 msgstr ""
@@ -4094,6 +4141,10 @@ msgstr ""
 #: DB:link_type/long_link_phrase:812 DB:link_type/long_link_phrase:813
 #: DB:link_type/long_link_phrase:814 DB:link_type/long_link_phrase:815
 msgid "was the engineering location for"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:835
+msgid "was the manufacturing location for"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:756 DB:link_type/long_link_phrase:697

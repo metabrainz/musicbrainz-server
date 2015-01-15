@@ -12,7 +12,7 @@
 
         [%- IF releases.size -%]
           <form action="[% c.req.uri %]" method="post">
-            [%- INCLUDE 'components/releases-list.tt' show_artists=1 show_ratings=1 no_checkboxes=(my_collection ? 0 : 1) sortable=1 WRAPPER 'components/with-pager.tt' -%]
+            [%- INCLUDE 'components/releases-list.tt' show_artists=1 show_ratings=1 checkboxes=(my_collection ? 'remove' : '') sortable=1 WRAPPER 'components/with-pager.tt' -%]
 
             <div class="row">[% form_submit(l('Remove selected releases from collection'))
                  IF my_collection %]</div>
@@ -27,7 +27,7 @@
         [%- IF events.size -%]
           <form action="[% c.req.uri %]" method="post">
 
-            [% INCLUDE 'components/events-list.tt' no_checkboxes=(my_collection ? 0 : 1) sortable=1 WRAPPER 'components/with-pager.tt' %]
+            [% INCLUDE 'components/events-list.tt' checkboxes=(my_collection ? 'remove' : '') sortable=1 WRAPPER 'components/with-pager.tt' %]
 
             <div class="row">[% form_submit(l('Remove selected events from collection'))
                  IF my_collection %]</div>

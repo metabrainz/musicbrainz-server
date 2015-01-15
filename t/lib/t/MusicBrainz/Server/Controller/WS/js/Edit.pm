@@ -198,19 +198,20 @@ test 'previewing/creating/editing a release group and release' => sub {
     $response = from_json($mech->content);
 
     cmp_deeply($response->{edits}->[0], {
-       entity => {
-           scriptID => 112,
-           name => 'Vision Creation Newsun',
-           statusID => 1,
-           barcode => '4943674011582',
-           packagingID => undef,
-           comment => 'limited edition',
-           entityType => 'release',
-           id => ignore(),
-           languageID => 486,
-           gid => ignore(),
-       },
-       message => 'OK'
+        edit_type => $EDIT_RELEASE_CREATE,
+        entity => {
+            scriptID => 112,
+            name => 'Vision Creation Newsun',
+            statusID => 1,
+            barcode => '4943674011582',
+            packagingID => undef,
+            comment => 'limited edition',
+            entityType => 'release',
+            id => ignore(),
+            languageID => 486,
+            gid => ignore(),
+        },
+        message => 'OK',
     }, 'ws response contains serialized release data');
 
     my $release_id = $response->{edits}->[0]->{entity}->{id};
@@ -354,6 +355,7 @@ test 'previewing/creating/editing a release group and release' => sub {
 
     cmp_deeply($response->{edits}, [
         {
+            edit_type => $EDIT_MEDIUM_CREATE,
             entity => {
                 position => 1,
                 id => $medium2_id - 1
@@ -361,6 +363,7 @@ test 'previewing/creating/editing a release group and release' => sub {
             message => 'OK',
         },
         {
+            edit_type => $EDIT_MEDIUM_CREATE,
             entity => {
                 position => 2,
                 id => $medium1_id + 1

@@ -388,6 +388,11 @@ msgstr ""
 msgid "Faroe Islands"
 msgstr ""
 
+#. iso.code:FM 
+#: DB:area JOIN iso_3166_1 iso on iso.area = area.id/area.name:139
+msgid "Federated States of Micronesia"
+msgstr ""
+
 #. iso.code:FJ 
 #: DB:area JOIN iso_3166_1 iso on iso.area = area.id/area.name:71
 msgid "Fiji"
@@ -733,11 +738,6 @@ msgstr ""
 msgid "Mexico"
 msgstr ""
 
-#. iso.code:FM 
-#: DB:area JOIN iso_3166_1 iso on iso.area = area.id/area.name:139
-msgid "Micronesia, Federated States of"
-msgstr ""
-
 #. iso.code:MD 
 #: DB:area JOIN iso_3166_1 iso on iso.area = area.id/area.name:140
 msgid "Moldova"
@@ -930,7 +930,7 @@ msgstr ""
 
 #. iso.code:RU 
 #: DB:area JOIN iso_3166_1 iso on iso.area = area.id/area.name:176
-msgid "Russian Federation"
+msgid "Russia"
 msgstr ""
 
 #. iso.code:RW 

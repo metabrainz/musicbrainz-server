@@ -31,6 +31,7 @@ use MusicBrainz::Server::Validation qw( normalise_strings );
 no if $] >= 5.018, warnings => "experimental::smartmatch";
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
+with 'MusicBrainz::Server::Edit::Role::EditArtistCredit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Release';
@@ -249,14 +250,6 @@ around 'initialize' => sub
     my $release = $opts{to_edit} or return;
 
     $self->check_event_countries($opts{events} // []);
-
-    if (exists $opts{artist_credit}) {
-        $opts{artist_credit} = clean_submitted_artist_credits($opts{artist_credit});
-    }
-
-    if (exists $opts{artist_credit} && !$release->artist_credit) {
-        $self->c->model('ArtistCredit')->load($release);
-    }
 
     $self->$orig(%opts);
 };

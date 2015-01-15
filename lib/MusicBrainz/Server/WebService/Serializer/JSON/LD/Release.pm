@@ -17,7 +17,7 @@ around serialize => sub {
 
     $ret->{'@type'} = 'MusicRelease';
 
-    $ret->{releaseOf} = serialize_entity($entity->release_group, $inc, $stash);
+    $ret->{releaseOf} = serialize_entity($entity->release_group, $inc, $stash) if $entity->release_group;
 
     if ($toplevel) {
         if ($entity->all_events) {
@@ -37,7 +37,7 @@ around serialize => sub {
         }
         my @medium_formats = uniq map { medium_format($_->format) } grep { defined $_->format } $entity->all_mediums;
         if (@medium_formats) {
-            $ret->{hasReleaseFormat} = list_or_single(@medium_formats);
+            $ret->{musicReleaseFormat} = list_or_single(@medium_formats);
         }
 
         if ($stash->store($entity)->{cover_art}) {
@@ -45,17 +45,12 @@ around serialize => sub {
         }
 
         if ($entity->all_mediums) {
-            my $use_medium = 0;
-            if (scalar $entity->all_mediums > 1) {
-                $use_medium = 1;
-            }
             my @tracks;
             for my $medium ($entity->all_mediums) {
                 if ($medium->all_tracks) {
                     for my $track ($medium->all_tracks) {
                         if ($track->recording) {
-                            # XXX: should track->number be integrated somehow on multi-medium releases?
-                            $stash->store($track->recording)->{trackNumber} = $use_medium ? join('.', $medium->position, $track->position) : $track->number;
+                            $stash->store($track->recording)->{trackNumber} = join('.', $medium->position, $track->position);
                             push(@tracks, serialize_entity($track->recording, $inc, $stash));
                         }
                     }

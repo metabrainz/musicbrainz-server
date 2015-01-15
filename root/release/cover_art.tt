@@ -49,9 +49,9 @@
   [%- IF c.user_exists -%]
     [%- IF release.may_have_cover_art -%]
     <div class="buttons ui-helper-clearfix">
-      [%- link_release(release, 'add_cover_art', lp('Add Cover Art', 'button/menu')) -%]
+      [%- link_entity(release, 'add_cover_art', lp('Add Cover Art', 'button/menu')) -%]
       [%- IF cover_art.size > 1 -%]
-        [%- link_release(release, 'reorder_cover_art', lp('Reorder Cover Art', 'button/menu')) -%]
+        [%- link_entity(release, 'reorder_cover_art', lp('Reorder Cover Art', 'button/menu')) -%]
       [%- END -%]
     </div>
     [%- ELSE -%]

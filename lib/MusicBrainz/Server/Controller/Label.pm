@@ -6,7 +6,12 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model           => 'Label',
     entity_name     => 'label',
-    relationships   => { all => ['relationships'], cardinal => ['edit'], default => ['url'] },
+    relationships   => {
+        all => ['relationships'],
+        cardinal => ['edit'],
+        default => ['url'],
+        subset => { show => ['artist', 'url'] }
+    },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
@@ -22,7 +27,8 @@ with 'MusicBrainz::Server::Controller::Role::Subscribe';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
-    endpoints => {show => {}, aliases => {copy_stash => ['aliases']}}
+    endpoints => {show => {copy_stash => [{from => 'releases_jsonld', to => 'releases'}]},
+                  aliases => {copy_stash => ['aliases']}}
 };
 
 use MusicBrainz::Server::Constants qw( $DLABEL_ID $EDIT_LABEL_CREATE $EDIT_LABEL_DELETE $EDIT_LABEL_EDIT $EDIT_LABEL_MERGE );
@@ -96,6 +102,7 @@ sub show : PathPart('') Chained('load')
     $c->stash(
         template => 'label/index.tt',
         releases => $releases,
+        releases_jsonld => {items => $releases},
     );
 }
 
