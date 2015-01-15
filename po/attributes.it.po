@@ -4,12 +4,12 @@
 # Gioele  <email address hidden>, 2012
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
-# salorock <email address hidden>, 2013-2014
+# salorock <email address hidden>, 2013-2015
 # salorock <email address hidden>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-12-17 00:39+0000\n"
+"PO-Revision-Date: 2015-01-14 01:08+0000\n"
 "Last-Translator: salorock <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -1832,6 +1832,11 @@ msgstr "Rullo per pianola"
 msgctxt "alias_type"
 msgid "Place name"
 msgstr "Nome luogo"
+
+#: DB:work_type/name:28
+msgctxt "work_type"
+msgid "Play"
+msgstr "Opera teatrale"
 
 #: DB:medium_format/name:45
 msgctxt "medium_format"
