@@ -595,7 +595,7 @@ ws_test 'release lookup, relation attributes',
     </release>
 </metadata>';
 
-ws_test 'release lookup, track artists have no tags',
+ws_test 'release lookup, related artists have no tags',
   '/release/4f5a6b97-a09b-4893-80d1-eae1f3bfa221?inc=artists+recordings+tags+artist-rels+recording-level-rels' =>
   '<?xml version="1.0" ?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
