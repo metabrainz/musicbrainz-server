@@ -2,7 +2,7 @@
   <thead>
     <tr>
       [%~ IF c.user_exists AND checkboxes ~%]
-        <th>
+        <th style="width: 1em">
           <input type="checkbox" />
         </th>
       [%~ END ~%]
