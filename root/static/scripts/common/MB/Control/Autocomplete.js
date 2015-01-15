@@ -61,6 +61,12 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
                     response([{
                         label: MB.i18n.l("An error occurred while searching. Click here to try again."),
                         action: _.bind(self._searchAgain, self)
+                    }, {
+                        label: self.indexedSearch ?
+                               MB.i18n.l("Try with direct search instead.") :
+                               MB.i18n.l("Try with indexed search instead."),
+                        action: _.bind(self._searchAgain, self, true)
+
                     }]);
                 }
             }));
@@ -89,6 +95,8 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         this.$input = this.element;
         this.$search = this.element
             .closest("span.autocomplete").find("img.search");
+
+        this.element.attr("placeholder",  MB.i18n.l("Type to search, or paste an MBID"));
 
         var self = this;
 

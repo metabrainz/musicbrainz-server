@@ -275,30 +275,6 @@ sub evaluate_template
     return $out;
 }
 
-sub mock_search_server
-{
-    my ($type) = @_;
-
-    $type =~ s/-/_/g;
-
-    local $/;
-    my $searchresults = "t/json/search_".lc($type).".json";
-    open(JSON, $searchresults) or die("Could not open $searchresults");
-    my $json = <JSON>;
-    close(JSON);
-
-    my $mock = mock_class 'LWP::UserAgent' => 'LWP::UserAgent::Mock';
-    my $mock_server = $mock->new_object;
-    $mock_server->mock_return(
-        'get' => sub {
-            HTTP::Response->new(200, undef, undef, $json);
-        }
-    );
-    $mock_server->mock_return(
-        'timeout' => sub { 5; }
-    );
-}
-
 sub old_edit_row
 {
     my ($self, %args) = @_;

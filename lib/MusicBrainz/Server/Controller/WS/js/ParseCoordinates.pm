@@ -3,6 +3,7 @@ use Moose;
 use JSON;
 use utf8;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js' }
+use MusicBrainz::Server::Data::Utils qw( trim );
 use MusicBrainz::Server::Validation qw( validate_coordinates );
 
 my $ws_defs = Data::OptList::mkopt([
@@ -22,6 +23,7 @@ sub parse_coordinates : Chained('root') PathPart('parse-coordinates') {
     my ($self, $c) = @_;
 
     my $input = $c->req->query_params->{coordinates};
+    $input = trim($input);
     my $coordinates = validate_coordinates($input);
     $c->detach('bad_req') unless $coordinates;
 

@@ -22,7 +22,7 @@ around serialize => sub {
     }
 
     if ($entity->all_isrcs) {
-       $ret->{'isrc'} = list_or_single(map { $_->isrc } $entity->all_isrcs);
+       $ret->{'isrcCode'} = list_or_single(map { $_->isrc } $entity->all_isrcs);
     }
 
     my @works = @{ $entity->relationships_by_link_type_names('performance') };
@@ -31,7 +31,7 @@ around serialize => sub {
     }
 
     # XXX: should this include conductors, chorus masters, etc.? What about engineers, remixers, photographers, etc.?
-    my @contributors = grep { $_->direction == 2 } @{ $entity->relationships_by_link_type_names('performance', 'performer', 'vocal', 'instrument', 'performing orchestra') };
+    my @contributors = grep { $_->direction == 2 } @{ $entity->relationships_by_link_type_names('performance', 'performer', 'vocal', 'instrument', 'performing orchestra', 'chorusmaster', 'conductor') };
     if (@contributors) {
         my %seen_contributors;
         for my $contributor (@contributors) {
@@ -73,6 +73,12 @@ sub contributor_relationship {
     }
     if ($relationship->link->type->name eq 'performing orchestra') {
         push(@roles, 'orchestra');
+    }
+    if ($relationship->link->type->name eq 'chorusmaster') {
+        push(@roles, 'chorusmaster');
+    }
+    if ($relationship->link->type->name eq 'conductor') {
+        push(@roles, 'conductor');
     }
     $ret->{roleName} = list_or_single(uniq(@roles)) if @roles;
     return $ret;

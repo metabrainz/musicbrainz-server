@@ -11,11 +11,11 @@
 # nikki, 2013
 # Paul Tremberth <email address hidden>, 2013
 # Paul Tremberth <email address hidden>, 2013
-# yahoe.001, 2013-2014
+# yahoe.001, 2013-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-12-16 16:10+0000\n"
+"PO-Revision-Date: 2015-01-11 14:58+0000\n"
 "Last-Translator: yahoe.001\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -78,7 +78,7 @@ msgstr "{medium} mixé par un DJ"
 
 #: DB:link_type/reverse_link_phrase:155
 msgid "DJ-mixer"
-msgstr "DJ-mixeur"
+msgstr "DJ-mixeur "
 
 #: DB:link_type/reverse_link_phrase:43
 msgid "DJ-mixer {medium}"
@@ -215,6 +215,13 @@ msgstr "Indique une page Web qui critique la parution (groupe de) en question."
 #: DB:link_type/description:177
 msgid "Indicates a webpage where you can download an artist's work for free."
 msgstr "Indique une page Web où vous pouvez télécharger l'œuvre d'un artiste gratuitement."
+
+#: DB:link_type/description:834
+msgid ""
+"Indicates an artist (generally a composer) this work was previously "
+"attributed to, but who is currently confirmed (or very strongly suspected) "
+"not to be the real author."
+msgstr "Indique un artiste (habituellement un compositeur) auquel cette œuvre été attribuée précédemment, mais qui est présentement confirmé (ou est très fortement suspecté) comme n'étant pas l'auteur réel."
 
 #: DB:link_type/description:104
 msgid ""
@@ -473,6 +480,10 @@ msgid ""
 " unknown!"
 msgstr "Relie une parution à la région où il a été techniquement conçu. À n'utiliser que si le lieu est inconnu !"
 
+#: DB:link_type/description:835
+msgid "Links a release to the area it was manufactured (\"made\") in."
+msgstr "Relie une parution à la région où elle a été fabriquée."
+
 #: DB:link_type/description:756
 msgid ""
 "Links a release to the area it was mastered in. Use only when the place is "
@@ -548,7 +559,7 @@ msgstr "Relie une parution à un événement où elle était disponible. Ceci es
 
 #: DB:link_type/description:823
 msgid "Links a series to another series that exists within it."
-msgstr "Relie une série à une autre série comprise dans elle-même."
+msgstr "Relie une série à une autre série comprise en elle-même."
 
 #: DB:link_type/description:798
 msgid "Links an event to (one of) its main performer(s)."
@@ -1085,7 +1096,7 @@ msgstr "Ceci indique qu'un artiste était officiellement engagé par un label à
 msgid ""
 "This indicates that an event is made up of multiple parts (e.g. a festival "
 "happening on multiple venues over the course of a few days)."
-msgstr "Ceci indique qu'un événement est formé de plusieurs parties (par ex. un festival se déroulant dans plusieurs lieux durant plusieurs jours)."
+msgstr "Ceci indique qu'un événement est formé de plusieurs parties (par ex. un festival se déroulant dans plusieurs lieux durant quelques jours)."
 
 #: DB:link_type/description:2
 msgid ""
@@ -1489,6 +1500,10 @@ msgid ""
 "site containing videos curated by it."
 msgstr "Ceci relie un label à une chaîne, liste de lecture ou page d'utilisateur sur un site de partage de vidéos contenant des vidéos que ce label organise."
 
+#: DB:link_type/description:836
+msgid "This links a postponed event to the later rescheduled event."
+msgstr "Ce lien relie un événement différé à l'événement reprogrammé ultérieurement."
+
 #: DB:link_type/description:302
 msgid "This links a recording to a license under which it is available."
 msgstr "Ceci relie un enregistrement à une licence sous laquelle il est disponible."
@@ -1745,7 +1760,7 @@ msgid ""
 "libraries. (<a "
 "href=\"//en.wikipedia.org/wiki/Virtual_International_Authority_File\">more "
 "information on Wikipedia</a>)"
-msgstr "Ceci dirige vers la page <a href=\"//viaf.org/\">VIAF</a>pour cet artiste. VIAF est un projet international de création d'un fichier d'autorité commun disponible aux bibliothèques du monde. Un fichier d'autorité est semblable à un MBID pour les bibliothèques. (<a href=\"//http://fr.wikipedia.org/wiki/Fichier_d%27autorit%C3%A9_international_virtuel\">Plus d'informations sur Wikipédia</a>)"
+msgstr "Ceci dirige vers la page <a href=\"//viaf.org/\">VIAF</a>pour cet artiste. VIAF est un projet international de création d'un fichier d'autorité commun offert aux bibliothèques du monde. Un fichier d'autorité est semblable à un MBID pour les bibliothèques. (<a href=\"//http://fr.wikipedia.org/wiki/Fichier_d%27autorit%C3%A9_international_virtuel\">Plus d'informations sur Wikipédia</a>)"
 
 #: DB:link_type/description:311
 msgid ""
@@ -1755,14 +1770,14 @@ msgid ""
 "libraries. (<a "
 "href=\"//en.wikipedia.org/wiki/Virtual_International_Authority_File\">more "
 "information on Wikipedia</a>)"
-msgstr "Ceci dirige vers la page <a href=\"//viaf.org/\">VIAF</a>pour ce label. VIAF est un projet international de création d'un fichier d'autorité commun disponible aux bibliothèques du monde. Un fichier d'autorité est semblable à un MBID pour les bibliothèques. (<a href=\"//http://fr.wikipedia.org/wiki/Fichier_d%27autorit%C3%A9_international_virtuel\">Plus d'informations sur Wikipédia</a>)"
+msgstr "Ceci dirige vers la page <a href=\"//viaf.org/\">VIAF</a>pour ce label. VIAF est un projet international de création d'un fichier d'autorité commun offert aux bibliothèques du monde. Un fichier d'autorité est semblable à un MBID pour les bibliothèques. (<a href=\"//http://fr.wikipedia.org/wiki/Fichier_d%27autorit%C3%A9_international_virtuel\">Plus d'informations sur Wikipédia</a>)"
 
 #: DB:link_type/description:312
 msgid ""
 "This points to the <a href=\"//viaf.org/\">VIAF</a> page for this work. VIAF is an international project to make a common authority file available to libraries across the world. An authority file is similar to an MBID for libraries. (<a href=\"//en.wikipedia.org/wiki/Virtual_International_Authority_File\">more information on Wikipedia</a>)\n"
 "<br/><br/>\n"
 "<strong>Note:</strong> Works in VIAF aren't very detailed. Only add links to MusicBrainz works if you're absolutely sure it's the same work."
-msgstr "Ceci dirige vers la page <a href=\"//viaf.org/\">VIAF</a>pour cette œuvre. VIAF est un projet international de création d'un fichier d'autorité commun disponible aux bibliothèques du monde. Un fichier d'autorité est semblable à un MBID pour les bibliothèques. (<a href=\"//http://fr.wikipedia.org/wiki/Fichier_d%27autorit%C3%A9_international_virtuel\">Plus d'informations sur Wikipédia</a>)\n<br/><br/>\n<strong>Note :</strong> Les œuvres ne sont pas très détaillées dans VIAF. N'ajouter des liens vers les œuvres MusicBrainz que si vous êtes absolument sûr que c'est la même œuvre."
+msgstr "Ceci dirige vers la page <a href=\"//viaf.org/\">VIAF</a>pour cette œuvre. VIAF est un projet international de création d'un fichier d'autorité commun offert aux bibliothèques du monde. Un fichier d'autorité est semblable à un MBID pour les bibliothèques. (<a href=\"//http://fr.wikipedia.org/wiki/Fichier_d%27autorit%C3%A9_international_virtuel\">Plus d'informations sur Wikipédia</a>)\n<br/><br/>\n<strong>Note :</strong> Les œuvres ne sont pas très détaillées dans VIAF. N'ajouter des liens vers les œuvres MusicBrainz que si vous êtes absolument sûr que c'est la même œuvre."
 
 #: DB:link_type/description:197
 msgid ""
@@ -1805,7 +1820,7 @@ msgstr "Cette relation indique que l'artiste est le détenteur des droits d'aute
 msgid ""
 "This relationship indicates the company that was the licensee of this "
 "release (that is, received a license for it from other company)."
-msgstr "Cette relation indique la compagnie détentrice de la licence pour cette parution (ayant reçu une licence pour cette parution d'une autre compagnie)."
+msgstr "Cette relation indique la compagnie détentrice de la licence pour cette parution (c.-à-d. ayant reçu une licence pour cette parution d'une autre compagnie)."
 
 #: DB:link_type/description:712
 msgid ""
@@ -1958,7 +1973,7 @@ msgid ""
 "This relationship type is <strong>deprecated</strong>! Please upload covers on the cover art tab for the release and/or add an ASIN relationship.\n"
 "\n"
 "Note about CD Baby: Many CD Baby releases are also available (usually with bigger covers) on Amazon.com."
-msgstr "Ce type de relation est <strong>obsolète</strong> ! Veuillez téléverser des couvertures sur l'onglet d'illustration de la parution et/ou ajouter une relation d'ASIN.\n\nNote sur CD Baby : de nombreuses parutions de CD Baby sont aussi disponibles (habituellement avec des couvertures plus grandes) sur Amazon.com."
+msgstr "Ce type de relation est <strong>obsolète</strong> ! Veuillez téléverser des couvertures sur l'onglet d'illustration de la parution et/ou ajouter une relation d'ASIN.\n\nNote sur CD Baby : de nombreuses parutions de CD Baby sont aussi présentes (habituellement avec des couvertures plus grandes) sur Amazon.com."
 
 #: DB:link_type/description:270
 msgid "This relationship type is <strong>deprecated</strong>."
@@ -2666,6 +2681,10 @@ msgstr "à eu un poste d'ingénieur"
 msgid "had available releases"
 msgstr "avait des parutions disponibles"
 
+#: DB:link_type/long_link_phrase:834
+msgid "had previous attribution"
+msgstr "avait une attribution précédente"
+
 #: DB:link_type/long_link_phrase:77
 msgid "has Amazon ASIN"
 msgstr "a un ASIN d'Amazon"
@@ -2931,7 +2950,7 @@ msgstr "a un/des frère(s) et sœur(s)"
 
 #: DB:link_type/long_link_phrase:823
 msgid "has subseries"
-msgstr "a des sous-séries"
+msgstr "a une sous-série"
 
 #: DB:link_type/long_link_phrase:736
 msgid "has subtype"
@@ -3242,7 +3261,7 @@ msgstr "sous licence de"
 
 #: DB:link_type/reverse_link_phrase:833
 msgid "licensed to"
-msgstr ""
+msgstr "licence accordée à"
 
 #: DB:link_type/link_phrase:833
 msgid "licensee for"
@@ -3297,6 +3316,14 @@ msgstr "fabriqué"
 #: DB:link_type/reverse_link_phrase:360
 msgid "manufactured by"
 msgstr "fabriqué par"
+
+#: DB:link_type/reverse_link_phrase:835
+msgid "manufactured in"
+msgstr "fabriqué à"
+
+#: DB:link_type/link_phrase:835
+msgid "manufacturing location for"
+msgstr "lieu de fabrication pour"
 
 #: DB:link_type/link_phrase:111 DB:link_type/reverse_link_phrase:111
 msgid "married"
@@ -3488,6 +3515,10 @@ msgstr "orchestration de"
 msgid "orchestrations"
 msgstr "orchestrations"
 
+#: DB:link_type/reverse_link_phrase:836
+msgid "originally scheduled as"
+msgstr "programmé originalement comme"
+
 #: DB:link_type/link_phrase:753 DB:link_type/link_phrase:746
 #: DB:link_type/link_phrase:803 DB:link_type/link_phrase:96
 #: DB:link_type/link_phrase:730 DB:link_type/link_phrase:82
@@ -3612,9 +3643,17 @@ msgstr "première à"
 msgid "premieres hosted"
 msgstr "premières présentées"
 
+#: DB:link_type/link_phrase:834
+msgid "previous attribution"
+msgstr "attribution précédente"
+
 #: DB:link_type/reverse_link_phrase:1
 msgid "previous disc"
 msgstr "disque précédent"
+
+#: DB:link_type/reverse_link_phrase:834
+msgid "previously attributed to"
+msgstr "attribué précédemment à"
 
 #: DB:link_type/link_phrase:714
 msgid "primary concert venue"
@@ -3826,6 +3865,10 @@ msgstr "renommé de"
 #: DB:link_type/link_phrase:202
 msgid "renamed into"
 msgstr "renommé"
+
+#: DB:link_type/link_phrase:836
+msgid "rescheduled as"
+msgstr "reprogrammé comme"
 
 #: DB:link_type/reverse_link_phrase:94
 msgid "review page for"
@@ -4085,6 +4128,10 @@ msgstr "est paru en soutien à"
 msgid "was renamed into"
 msgstr "a été renommé en"
 
+#: DB:link_type/long_link_phrase:836
+msgid "was rescheduled as"
+msgstr "a été reprogrammé comme"
+
 #: DB:link_type/long_link_phrase:759 DB:link_type/long_link_phrase:760
 msgid "was the concertmaster for"
 msgstr "était le premier violon pour"
@@ -4098,6 +4145,10 @@ msgstr "était le lieu de montage pour"
 #: DB:link_type/long_link_phrase:814 DB:link_type/long_link_phrase:815
 msgid "was the engineering location for"
 msgstr "était le lieu de conception technique pour"
+
+#: DB:link_type/long_link_phrase:835
+msgid "was the manufacturing location for"
+msgstr "était le lieu de fabrication de"
 
 #: DB:link_type/long_link_phrase:756 DB:link_type/long_link_phrase:697
 msgid "was the mastering location for"
@@ -4322,7 +4373,7 @@ msgstr "direction créative {additional:supplémentaire}"
 #: DB:link_type/link_phrase:19 DB:link_type/link_phrase:130
 #: DB:link_type/reverse_link_phrase:19 DB:link_type/reverse_link_phrase:130
 msgid "{additional} design/illustration"
-msgstr "conception/illustration {additional:supplémentaire}"
+msgstr "conception/illustration {additional:supplémentaire} "
 
 #: DB:link_type/link_phrase:27 DB:link_type/link_phrase:125
 #: DB:link_type/reverse_link_phrase:27 DB:link_type/reverse_link_phrase:125
@@ -4345,7 +4396,7 @@ msgstr "orchestrateur {additional:supplémentaire}"
 #: DB:link_type/link_phrase:123 DB:link_type/link_phrase:20
 #: DB:link_type/reverse_link_phrase:123 DB:link_type/reverse_link_phrase:20
 msgid "{additional} photography"
-msgstr "photographie {additional:supplémentaire}"
+msgstr "photographie {additional:supplémentaire} "
 
 #: DB:link_type/reverse_link_phrase:47 DB:link_type/reverse_link_phrase:153
 msgid "{additional} remixer"
@@ -4378,7 +4429,7 @@ msgstr "{co:co-}monteur {additional:supplémentaire} {assistant} {associate:asso
 #: DB:link_type/link_phrase:42 DB:link_type/link_phrase:136
 #: DB:link_type/reverse_link_phrase:42 DB:link_type/reverse_link_phrase:136
 msgid "{additional} {assistant} {associate} {co:co-}mastering"
-msgstr "{co:co-}matriçage {additional:supplémentaire} {assistant} {associate:associé}"
+msgstr "{co:co-}matriçage {additional:supplémentaire} {assistant} {associate:associé} "
 
 #: DB:link_type/reverse_link_phrase:143 DB:link_type/reverse_link_phrase:26
 msgid "{additional} {assistant} {associate} {co:co-}mixer"

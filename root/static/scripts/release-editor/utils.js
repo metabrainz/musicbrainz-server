@@ -27,13 +27,6 @@
     };
 
 
-    utils.debounce = function (computed, delay) {
-        return computed.extend({
-            rateLimit: { method: "notifyWhenChangesStop", timeout: delay || 500 }
-        });
-    };
-
-
     // Webservice helpers
 
     var specialLuceneChars = /([+\-&|!(){}[\]^"~*?:\\\/])/g;

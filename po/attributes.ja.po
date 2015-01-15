@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-12-16 07:54+0000\n"
+"PO-Revision-Date: 2015-01-11 07:05+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -1829,6 +1829,11 @@ msgstr "ピアノロール"
 #: DB:place_alias_type/name:1
 msgctxt "alias_type"
 msgid "Place name"
+msgstr ""
+
+#: DB:work_type/name:28
+msgctxt "work_type"
+msgid "Play"
 msgstr ""
 
 #: DB:medium_format/name:45
