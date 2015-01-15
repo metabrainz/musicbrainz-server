@@ -147,7 +147,7 @@ sub ImportTable
 
         while (<LOAD>)
         {
-                $dbh->func($_, "putline") or die;
+                $dbh->pg_putcopydata($_) or die;
 
                 ++$rows;
                 unless ($rows & 0xFFF)
@@ -157,8 +157,7 @@ sub ImportTable
                 }
         }
 
-        $dbh->func("\\.\n", "putline") or die;
-        $dbh->func("endcopy") or die;
+        $dbh->pg_putcopyend() or die;
 
         $interval = tv_interval($t1);
         $p->("\r", sprintf(" %.2f sec\n", $interval));
