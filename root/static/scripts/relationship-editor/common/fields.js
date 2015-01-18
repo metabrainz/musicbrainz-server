@@ -45,6 +45,27 @@
             this.attributes = ko.observableArray([]);
             this.setAttributes(data.attributes);
 
+            // XXX Sigh. This whole subscription shouldn't be necessary, because
+            // we already filter out invalid attributes in linkTypeIDChanged.
+            // But knockout's 'checked' binding is annoying and reverts any removals
+            // if it sees that the previous attributes are still checked (they
+            // haven't been removed from the template yet; that probably happens
+            // in a later subscription). That's why the _.defer is needed; we need
+            // to wait for it to idiotically add the attributes back. The proper
+            // solution would be to use a writable computed observable that filters
+            // out invalid values upon writing, but there's already a bunch of code
+            // that depends on 'attributes' being an observableArray.
+            var removingInvalidAttributes = false;
+            this.attributes.subscribe(function (newAttributes) {
+                _.defer(function () {
+                    if (!removingInvalidAttributes) {
+                        removingInvalidAttributes = true;
+                        self.attributes(validAttributes(self, newAttributes));
+                        removingInvalidAttributes = false;
+                    }
+                });
+            });
+
             this.linkOrder = ko.observable(data.linkOrder || 0);
             this.removed = ko.observable(!!data.removed);
             this.editsPending = Boolean(data.editsPending);
@@ -101,7 +122,7 @@
             for (var i = 0, len = attributes.length; i < len; i++) {
                 attribute = attributes[i];
 
-                if (!typeAttributes || !typeAttributes[attribute.type.id]) {
+                if (!typeAttributes || !typeAttributes[attribute.type.rootID]) {
                     this.attributes.remove(attribute);
                     --i;
                     --len;
@@ -208,7 +229,7 @@
         },
 
         setAttributes: function (attributes) {
-            this.attributes(_.map(attributes, function (data) {
+            this.attributes(_.map(validAttributes(this, attributes), function (data) {
                 return new fields.LinkAttribute(data);
             }));
         },
@@ -495,6 +516,22 @@
             if (!match) return false;
         }
         return true;
+    }
+
+    function validAttributes(relationship, attributes) {
+        var typeInfo = relationship.linkTypeInfo();
+
+        if (_.isEmpty(attributes) || _.isEmpty(typeInfo) || _.isEmpty(typeInfo.attributes)) {
+            return [];
+        } else {
+            return _.transform(attributes, function (accum, data) {
+                var attrInfo = MB.attrInfoByID[data.type.gid];
+
+                if (attrInfo && typeInfo.attributes[attrInfo.rootID]) {
+                    accum.push(data);
+                }
+            });
+        }
     }
 
 }(MB.relationshipEditor = MB.relationshipEditor || {}));

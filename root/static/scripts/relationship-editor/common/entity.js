@@ -68,12 +68,19 @@
                 var relationship = dialog.relationship();
                 relationship.linkTypeID(firstRelationship.linkTypeID());
 
-                var attributeLists = _.invoke(relationships, "attributes"),
-                    commonAttributes = _.reject(_.intersection.apply(_, attributeLists), isFreeText);
+                var attributeLists = _.invoke(relationships, "attributes");
 
-                relationship.attributes(commonAttributes);
+                var commonAttributes = _.map(
+                    _.reject(_.intersection.apply(_, attributeLists), isFreeText),
+                    function (attr) {
+                        return { type: { gid: attr.type.gid } };
+                    }
+                );
+
+                relationship.setAttributes(commonAttributes);
                 MB.utility.deferFocus("input.name", "#dialog");
                 dialog.open(event.target);
+                return dialog;
             }
 
             return this.displayableRelationships(vm)

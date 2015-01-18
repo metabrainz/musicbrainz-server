@@ -812,29 +812,31 @@ relationshipEditorTest("relationships for entities not editable under the viewMo
     t.equal(artist.relationships().length, 0);
 });
 
+var loveMeDo = {
+    entityType: "recording",
+    name: "Love Me Do",
+    gid: "1f518811-7cf9-4bdc-a656-0958e130f312",
+    relationships: [
+        {
+            linkTypeID: 44,
+            direction: "backward",
+            target: {
+                entityType: "artist",
+                name: "Ringo Starr",
+                gid: "300c4c73-33ac-4255-9d57-4e32627f5e13"
+            },
+            linkOrder: 0,
+            attributes: ids2attrs([333]),
+            verbosePhrase: "performed {additional} {guest} {solo} {instrument:%|instruments} on"
+        }
+    ]
+};
+
 relationshipEditorTest("attributes are cleared when the target type is changed (MBS-7875)", function (t) {
     t.plan(2);
 
     var vm = setupGenericRelationshipEditor({
-        sourceData: {
-            entityType: "recording",
-            name: "Love Me Do",
-            gid: "1f518811-7cf9-4bdc-a656-0958e130f312",
-            relationships: [
-                {
-                    linkTypeID: 44,
-                    direction: "backward",
-                    target: {
-                        entityType: "artist",
-                        name: "Ringo Starr",
-                        gid: "300c4c73-33ac-4255-9d57-4e32627f5e13"
-                    },
-                    linkOrder: 0,
-                    attributes: ids2attrs([333]),
-                    verbosePhrase: "performed {additional} {guest} {solo} {instrument:%|instruments} on"
-                }
-            ]
-        },
+        sourceData: loveMeDo,
         formName: "edit-recording"
     });
 
@@ -860,4 +862,24 @@ relationshipEditorTest("attributes are cleared when the target type is changed (
     dialog.accept();
     relationship = dialog.relationship();
     t.equal(relationship.attributes().length, 0, "invalid attributes removed");
+});
+
+relationshipEditorTest("invalid attributes can’t be set on a relationship (MBS-7983)", function (t) {
+    t.plan(2);
+
+    var vm = setupGenericRelationshipEditor({
+        sourceData: loveMeDo,
+        formName: "edit-recording"
+    });
+
+    var relationship = vm.source.relationships()[0];
+    t.equal(relationship.attributes().length, 1);
+
+    relationship.attributes.push(
+        new MB.relationshipEditor.fields.LinkAttribute(
+            { type: { gid: "ed11fcb1-5a18-4e1d-b12c-633ed19c8ee1" } }
+        )
+    );
+
+    t.equal(relationship.attributes().length, 1, "invalid attribute not added");
 });
