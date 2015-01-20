@@ -742,13 +742,13 @@ sub external_search
 
     $query = uri_escape_utf8($query);
     $type =~ s/release_group/release-group/;
-    my $search_url = sprintf("http://%s/ws/2/%s/?query=%s&offset=%s&max=%s&fmt=jsonnew&dismax=%s&web=1",
-                                 DBDefs->LUCENE_SERVER,
+    my $search_url = sprintf("http://%s/%s/select?q=%s&start=%s&rows=%s&wt=mbjson&defType=%s&fl=score",
+                                 DBDefs->SOLR_SERVER,
                                  $type,
                                  $query,
                                  $offset,
                                  $limit,
-                                 $adv ? 'false' : 'true',
+                                 $adv ? 'lucene' : 'dismax',
                                  );
 
     # Dispatch the search request.
