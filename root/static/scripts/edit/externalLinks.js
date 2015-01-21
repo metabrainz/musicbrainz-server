@@ -130,12 +130,20 @@ var ExternalLink = React.createClass({
 
   urlChanged: function (event) {
     var url = event.target.value;
+    var cleanup = this.props.cleanup;
+
+    // Allow adding spaces while typing, they'll be trimmed on blur
+    if (_.str.trim(url) !== _.str.trim(this.props.url)) {
+      if (url.match(/^\w+\./)) {
+          url = 'http://' + url;
+      }
+      url = cleanup.cleanUrl(cleanup.sourceType, url) || url;
+    }
 
     this.props.setLinkState({ url: url }, () => {
       var errorMessage = this.errorMessage();
 
       if (!errorMessage || errorMessage === selectLinkTypeText) {
-        var cleanup = this.props.cleanup;
         var type = cleanup.guessType(cleanup.sourceType, url);
 
         if (type) {
@@ -143,6 +151,15 @@ var ExternalLink = React.createClass({
         }
       }
     });
+  },
+
+  urlBlurred: function (event) {
+    var url = event.target.value;
+    var trimmed = _.str.trim(url);
+
+    if (url !== trimmed) {
+      this.props.setLinkState({ url: trimmed });
+    }
   },
 
   typeDescription: function () {
@@ -221,7 +238,7 @@ var ExternalLink = React.createClass({
           </select>
         </td>
         <td>
-          <input type="url" className="value with-button" value={props.url} onChange={this.urlChanged} />
+          <input type="url" className="value with-button" value={props.url} onChange={this.urlChanged} onBlur={this.urlBlurred} />
           {errorMessage && <div className="error field-error" data-visible="1">{errorMessage}</div>}
           {props.supportsVideoAttribute &&
             <div className="attribute-container">
