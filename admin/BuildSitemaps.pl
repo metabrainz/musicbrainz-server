@@ -19,14 +19,17 @@ use WWW::SitemapIndex::XML;
 use WWW::Sitemap::XML;
 use DateTime;
 use List::Util qw( min );
+use List::MoreUtils qw( natatime );
 use List::UtilsBy qw( sort_by );
 use File::Slurp qw( read_dir );
 use Digest::MD5 qw( md5_hex );
 use Readonly;
+use POSIX;
 
 # Constants
 Readonly my $EMPTY_PAGE_PRIORITY => 0.1;
 Readonly my $SECONDARY_PAGE_PRIORITY => 0.3;
+Readonly my $DEFAULT_PAGE_PRIORITY => 0.5;
 
 # Check options
 
@@ -319,25 +322,39 @@ sub build_suffix_info {
     }};
     if ($entity_type eq 'artist') {
         $suffix_info->{base}{extra_sql} = {
-            columns => "(SELECT count(rg) FROM tmp_sitemaps_artist_direct_rgs tsadr WHERE tsadr.artist = artist.id AND is_official) official_rg_count"
+            columns => "(SELECT count(rg) FROM tmp_sitemaps_artist_direct_rgs tsadr WHERE tsadr.artist = artist.id AND is_official) official_rg_count",
+            paginated => "official_rg_count"
         };
         $suffix_info->{all} = {
             extra_sql => {columns => "(SELECT count(rg) FROM tmp_sitemaps_artist_direct_rgs tsadr WHERE tsadr.artist = artist.id) all_rg_count"},
-            suffix => '?all=1',
+            paginated => "all_rg_count",
+            suffix => 'all=1',
             filename_suffix => 'all',
-            suffix_delimiter => ''
+            suffix_delimiter => '?'
         };
         $suffix_info->{va} = {
             extra_sql => {columns => "(SELECT count(rg) FROM tmp_sitemaps_artist_va_rgs tsavr WHERE tsavr.artist = artist.id AND is_official) official_va_rg_count"},
-            suffix => '?va=1',
+            paginated => "official_va_rg_count",
+            suffix => 'va=1',
             filename_suffix => 'va',
-            suffix_delimiter => ''
+            suffix_delimiter => '?',
+            priority => sub {
+                my (%opts) = @_;
+                return $SECONDARY_PAGE_PRIORITY if $opts{official_va_rg_count} > 0;
+                return $EMPTY_PAGE_PRIORITY;
+            }
         };
         $suffix_info->{all_va} = {
             extra_sql => {columns => "(SELECT count(rg) FROM tmp_sitemaps_artist_va_rgs tsavr WHERE tsavr.artist = artist.id) all_va_rg_count"},
-            suffix => '?va=1&all=1',
+            paginated => "all_va_rg_count",
+            suffix => 'va=1&all=1',
             filename_suffix => 'va-all',
-            suffix_delimiter => ''
+            suffix_delimiter => '?',
+            priority => sub {
+                my (%opts) = @_;
+                return $SECONDARY_PAGE_PRIORITY if $opts{all_va_rg_count} > 0;
+                return $EMPTY_PAGE_PRIORITY;
+            }
         };
     }
 
@@ -441,15 +458,72 @@ necessary information to build the sitemap.
 sub build_one_suffix {
     my ($entity_type, $minimum_batch_number, $index, $ids, %opts) = @_;
     my $entity_properties = $ENTITIES{$entity_type} // {};
-    my $filename = "sitemap-$entity_type-$minimum_batch_number";
+    my $entity_url = $entity_properties->{url} || $entity_type;
+
+    my $base_filename = "sitemap-$entity_type-$minimum_batch_number";
     if ($opts{suffix}) {
         my $filename_suffix = $opts{filename_suffix} // $opts{suffix};
-        $filename .= "-$filename_suffix";
+        $base_filename .= "-$filename_suffix";
     }
-    $filename .= $fCompress ? '.xml.gz' : '.xml';
+    my $ext = $fCompress ? '.xml.gz' : '.xml';
 
-    local $| = 1; # autoflush stdout
-    print localtime() . " Building $filename...";
+    my @base_urls;
+    my @paginated_urls;
+
+    my $create_opts = sub {
+        my ($url, $id_info) = @_;
+
+        # Default priority is 0.5, per spec.
+        my %add_opts = (loc => $url);
+        if ($opts{priority}) {
+            $add_opts{priority} = ref $opts{priority} eq 'CODE' ? $opts{priority}->(%$id_info) : $opts{priority};
+        }
+        return \%add_opts;
+    };
+
+    for my $id_info (@$ids) {
+        my $id = $id_info->{main_id};
+        my $url = $web_server . '/' . $entity_url . '/' . $id;
+        if ($opts{suffix}) {
+            my $suffix_delimiter = $opts{suffix_delimiter} // '/';
+            $url .= "$suffix_delimiter$opts{suffix}";
+        }
+        push(@base_urls, $create_opts->($url, $id_info));
+
+        if ($opts{paginated}) {
+            # 50 items per page, and the first page is covered by the base.
+            my $paginated_count = ceil($id_info->{$opts{paginated}} / 50) - 1;
+
+            if ($paginated_count > 1) {
+	        # Start from page 2, and add one to the count for the last page
+	        # (since the count was one less due to the exclusion of the first
+	        # page)
+                my @new_paginated_urls = map { $url . ($opts{suffix_delimiter} // '/' eq '?' ? '&' : '?') . "page=$_" } (2..$paginated_count+1);
+
+                # Expand these all to full specifications for build_one_sitemap.
+                push(@paginated_urls, map { $create_opts->($_, $id_info) } @new_paginated_urls);
+            }
+        }
+    }
+
+    my $filename = $base_filename . $ext;
+    build_one_sitemap($filename, $index, @base_urls);
+
+    if (@paginated_urls) {
+        my $iter = natatime 50000, @paginated_urls;
+        my $page_number = 1;
+        while (my @urls = $iter->()) {
+            my $paginated_filename = $base_filename . "-$page_number" . $ext;
+            build_one_sitemap($paginated_filename, $index, @urls);
+            $page_number++;
+        }
+    }
+}
+
+sub build_one_sitemap {
+    my ($filename, $index, @urls) = @_;
+
+    die "Too many URLs for one sitemap: $filename" if scalar @urls > 50000;
 
     my $local_filename = "$FindBin::Bin/../root/static/sitemaps/$filename";
     my $remote_filename = $web_server . '/' . $filename;
@@ -458,23 +532,11 @@ sub build_one_suffix {
     if (-f $local_filename) {
         $existing_md5 = hash_sitemap($local_filename);
     }
-
-    my $entity_url = $entity_properties->{url} || $entity_type;
-
+    local $| = 1; # autoflush stdout
+    print localtime() . " Building $filename...";
     my $map = WWW::Sitemap::XML->new();
-    for my $id_info (@$ids) {
-        my $id = $id_info->{main_id};
-        my $url = $web_server . '/' . $entity_url . '/' . $id;
-        if ($opts{suffix}) {
-            my $suffix_delimiter = $opts{suffix_delimiter} // '/';
-            $url .= "$suffix_delimiter$opts{suffix}";
-        }
-        # Default priority is 0.5, per spec.
-        my %add_opts = (loc => $url);
-        if ($opts{priority}) {
-            $add_opts{priority} = ref $opts{priority} eq 'CODE' ? $opts{priority}->(%$id_info) : $opts{priority};
-        }
-        $map->add(%add_opts);
+    for my $url (@urls) {
+        $map->add(%$url);
     }
     $map->write($local_filename);
     push @sitemap_files, $filename;
