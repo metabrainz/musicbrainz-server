@@ -272,7 +272,7 @@
 
   <fieldset class="information">
     <legend>[% l('External Links') %]</legend>
-    [% external_links_editor(0, 'release') %]
+    [% external_links_editor() %]
   </fieldset>
 </div>
 

@@ -63,7 +63,7 @@
 
       <fieldset>
         <legend>[% l('External Links') %]</legend>
-        [% external_links_editor(r.form, 'place') %]
+        [% external_links_editor() %]
       </fieldset>
 
       [% INCLUDE 'forms/edit-note.tt' %]
