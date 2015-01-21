@@ -131,15 +131,22 @@ if (-f $index_localname) {
 =item 5.
 
 Build sitemaps by looping over each entity type that's applicable and calling
-C<build_one_entity>. Runs in one transaction for data consistency.
+C<build_one_entity>. Runs in one repeatable-read transaction for data consistency.
+
+Temporary tables are created and filled first.
 
 =cut
 
+drop_temporary_tables($sql); # Drop first, just in case.
+create_temporary_tables($sql);
 $sql->begin;
+$sql->do("SET TRANSACTION READ ONLY, ISOLATION LEVEL REPEATABLE READ");
+fill_temporary_tables($sql);
 for my $entity_type (entities_with(['mbid', 'indexable']), 'cdtoc') {
     build_one_entity($entity_type, $index, $sql);
 }
 $sql->commit;
+drop_temporary_tables($sql);
 
 =pod
 
@@ -193,6 +200,65 @@ print localtime() . " Done\n";
 # --------------- END MAIN BODY ---------------
 
 =head1 FUNCTIONS
+
+=head2 create_temporary_tables, fill_temporary_tables, drop_temporary_tables
+
+These functions create, fill with data, and drop, respectively, the temporary
+tables used to assist in the process of creating sitemaps.
+
+=cut
+
+sub create_temporary_tables {
+    my ($sql) = @_;
+    $sql->begin;
+    $sql->do(
+        "CREATE TEMPORARY TABLE tmp_sitemaps_artist_direct_rgs
+             (artist INTEGER,
+              rg     INTEGER,
+              is_official BOOLEAN NOT NULL,
+
+              PRIMARY KEY (artist, rg))
+         ON COMMIT DELETE ROWS");
+    $sql->do(
+        "CREATE TEMPORARY TABLE tmp_sitemaps_artist_va_rgs
+             (artist INTEGER,
+              rg     INTEGER,
+              is_official BOOLEAN NOT NULL,
+
+              PRIMARY KEY (artist, rg))
+         ON COMMIT DELETE ROWS");
+    $sql->commit;
+}
+
+sub fill_temporary_tables {
+    my ($sql) = @_;
+    my $is_official = "(EXISTS (SELECT TRUE FROM release where release.release_group = release_group.id AND release.status = '1') OR NOT EXISTS (SELECT 1 FROM release WHERE release.release_group = release_group.id AND release.status IS NOT NULL))";
+
+    # Release groups that will appear on the non-VA listings, per artist
+    $sql->do("INSERT INTO tmp_sitemaps_artist_direct_rgs (artist, rg, is_official)
+                  SELECT DISTINCT ON (artist_credit_name.artist, release_group.id)
+                         artist_credit_name.artist, release_group.id, $is_official
+                    FROM release_group
+                    JOIN artist_credit_name ON release_group.artist_credit = artist_credit_name.artist_credit");
+    # Release groups that will appear on the VA listings, per artist. Uses the above temporary table to exclude non-VA appearances.
+    $sql->do("INSERT INTO tmp_sitemaps_artist_va_rgs (artist, rg, is_official)
+                  SELECT DISTINCT ON (artist_credit_name.artist, release_group.id)
+                         artist_credit_name.artist, release_group.id, $is_official
+                    FROM release_group
+                    JOIN release ON release.release_group = release_group.id
+                    JOIN medium ON medium.release = release.id
+                    JOIN track ON track.medium = medium.id
+                    JOIN artist_credit_name ON track.artist_credit = artist_credit_name.artist_credit
+                  EXCEPT SELECT artist, rg, is_official FROM tmp_sitemaps_artist_direct_rgs");
+}
+
+sub drop_temporary_tables {
+    my ($sql) = @_;
+    $sql->begin;
+    $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_artist_direct_rgs");
+    $sql->do("DROP TABLE IF EXISTS tmp_sitemaps_artist_va_rgs");
+    $sql->commit;
+}
 
 =head2 build_one_entity
 
@@ -251,6 +317,30 @@ sub build_suffix_info {
     my $entity_properties = $ENTITIES{$entity_type} // {};
     my $suffix_info = {base => {
     }};
+    if ($entity_type eq 'artist') {
+        $suffix_info->{base}{extra_sql} = {
+            columns => "(SELECT count(rg) FROM tmp_sitemaps_artist_direct_rgs tsadr WHERE tsadr.artist = artist.id AND is_official) official_rg_count"
+        };
+        $suffix_info->{all} = {
+            extra_sql => {columns => "(SELECT count(rg) FROM tmp_sitemaps_artist_direct_rgs tsadr WHERE tsadr.artist = artist.id) all_rg_count"},
+            suffix => '?all=1',
+            filename_suffix => 'all',
+            suffix_delimiter => ''
+        };
+        $suffix_info->{va} = {
+            extra_sql => {columns => "(SELECT count(rg) FROM tmp_sitemaps_artist_va_rgs tsavr WHERE tsavr.artist = artist.id AND is_official) official_va_rg_count"},
+            suffix => '?va=1',
+            filename_suffix => 'va',
+            suffix_delimiter => ''
+        };
+        $suffix_info->{all_va} = {
+            extra_sql => {columns => "(SELECT count(rg) FROM tmp_sitemaps_artist_va_rgs tsavr WHERE tsavr.artist = artist.id) all_va_rg_count"},
+            suffix => '?va=1&all=1',
+            filename_suffix => 'va-all',
+            suffix_delimiter => ''
+        };
+    }
+
     if ($entity_properties->{aliases}) {
         $suffix_info->{aliases} = {
             suffix => 'aliases',
@@ -353,7 +443,8 @@ sub build_one_suffix {
     my $entity_properties = $ENTITIES{$entity_type} // {};
     my $filename = "sitemap-$entity_type-$minimum_batch_number";
     if ($opts{suffix}) {
-        $filename .= "-$opts{suffix}";
+        my $filename_suffix = $opts{filename_suffix} // $opts{suffix};
+        $filename .= "-$filename_suffix";
     }
     $filename .= $fCompress ? '.xml.gz' : '.xml';
 
@@ -375,7 +466,8 @@ sub build_one_suffix {
         my $id = $id_info->{main_id};
         my $url = $web_server . '/' . $entity_url . '/' . $id;
         if ($opts{suffix}) {
-            $url .= "/$opts{suffix}";
+            my $suffix_delimiter = $opts{suffix_delimiter} // '/';
+            $url .= "$suffix_delimiter$opts{suffix}";
         }
         # Default priority is 0.5, per spec.
         my %add_opts = (loc => $url);
