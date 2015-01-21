@@ -637,8 +637,7 @@ relationshipEditorTest("hidden input fields are generated for non-release forms"
                     verbosePhrase: "is/was a member of"
                 }
             ]
-        },
-        formName: "edit-artist"
+        }
     });
 
     var newRelationship = vm.getRelationship({
@@ -668,7 +667,7 @@ relationshipEditorTest("hidden input fields are generated for non-release forms"
     relationships[0].attributes([]);
     relationships[1].removed(true);
 
-    MB.relationshipEditor.prepareSubmission();
+    MB.relationshipEditor.prepareSubmission('edit-artist');
 
     t.deepEqual(formData(), {
         "edit-artist.rel.0.relationship_id": "131689",
@@ -707,8 +706,7 @@ relationshipEditorTest("link orders are submitted for new, orderable relationshi
             name: "「神のみぞ知るセカイ」キャラクターCD",
             gid: "0fda0386-cd02-422a-9baa-54dc91ea4771",
             relationships: []
-        },
-        formName: "edit-series"
+        }
     });
 
     var newRelationship1 = vm.getRelationship({
@@ -758,7 +756,7 @@ relationshipEditorTest("link orders are submitted for new, orderable relationshi
     newRelationship2.show();
     newRelationship3.show();
 
-    MB.relationshipEditor.prepareSubmission();
+    MB.relationshipEditor.prepareSubmission('edit-series');
 
     t.deepEqual(formData(), {
         "edit-series.rel.0.attributes.0.type.gid": "a59c5830-5ec7-38fe-9a21-c7ea54f6650a",
@@ -791,8 +789,7 @@ relationshipEditorTest("relationships for entities not editable under the viewMo
             name: "「神のみぞ知るセカイ」キャラクターCD",
             gid: "0fda0386-cd02-422a-9baa-54dc91ea4771",
             relationships: []
-        },
-        formName: "edit-series"
+        }
     });
 
     var artist = MB.entity({
@@ -836,8 +833,7 @@ relationshipEditorTest("attributes are cleared when the target type is changed (
                     verbosePhrase: "performed {additional} {guest} {solo} {instrument:%|instruments} on"
                 }
             ]
-        },
-        formName: "edit-recording"
+        }
     });
 
     var relationship = vm.source.relationships()[0];

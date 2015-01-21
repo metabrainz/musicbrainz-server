@@ -13,8 +13,6 @@ MB.faviconClasses = { "wikipedia.org": "wikipedia" };
 
 function externalLinksTest(name, callback, initialLinks) {
     test(name, function (t) {
-        MB.formName = 'edit-artist';
-
         var mountPoint = document.createElement('div');
 
         MB.sourceExternalLinksEditor = externalLinks.createExternalLinksEditor({
@@ -87,7 +85,7 @@ externalLinksTest("hidden input data for form submission", function (t, $mountPo
 
     addURL('http://rateyourmusic.com/artist/deerhunter');
 
-    MB.relationshipEditor.prepareSubmission();
+    MB.relationshipEditor.prepareSubmission('edit-artist');
     t.equal($re.find("input[name=edit-artist\\.url\\.0\\.relationship_id]").val(), "1");
     t.equal($re.find("input[name=edit-artist\\.url\\.0\\.text]").val(), "http://en.wikipedia.org/wiki/Deerhunter");
     t.equal($re.find("input[name=edit-artist\\.url\\.0\\.link_type_id]").val(), "179");
@@ -101,14 +99,14 @@ externalLinksTest("hidden input data for form submission", function (t, $mountPo
 
     triggerClick(scryRenderedDOMComponentsWithTag(component, 'button')[1]);
 
-    MB.relationshipEditor.prepareSubmission();
+    MB.relationshipEditor.prepareSubmission('edit-artist');
     t.equal($re.find("input[name=edit-artist\\.url\\.0\\.relationship_id]").val(), "1");
     t.equal($re.find("input[name=edit-artist\\.url\\.0\\.text]").val(), "http://en.wikipedia.org/wiki/dEErHuNtER");
     t.equal($re.find("input[name=edit-artist\\.url\\.0\\.link_type_id]").val(), "179");
 
     triggerClick(scryRenderedDOMComponentsWithTag(component, 'button')[0]);
 
-    MB.relationshipEditor.prepareSubmission();
+    MB.relationshipEditor.prepareSubmission('edit-artist');
     t.equal($re.find("input[name=edit-artist\\.url\\.0\\.relationship_id]").val(), "1");
     t.equal($re.find("input[name=edit-artist\\.url\\.0\\.removed]").val(), "1");
     t.equal($re.find("input[name=edit-artist\\.url\\.0\\.text]").val(), "http://en.wikipedia.org/wiki/Deerhunter");

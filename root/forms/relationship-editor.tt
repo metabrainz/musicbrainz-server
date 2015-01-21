@@ -4,7 +4,7 @@
 
 [% END %]
 
-<fieldset id="relationship-editor" data-bind="with: source, delegatedHandler: 'click'">
+<fieldset id="relationship-editor" data-form-name="[% form.name | html %]" data-bind="with: source, delegatedHandler: 'click'">
   <legend>
     [% l('Relationships') %]
     <button type="button" class="add-item with-label" data-click="openAddDialog">
@@ -51,7 +51,6 @@
 
 <script>
   $(function () {
-    MB.formName = "[% form.name | js %]";
     MB.formWasPosted = [% c.form_posted ? 'true' : 'false' %];
     MB.relationshipEditor.exportTypeInfo([% type_info %], [% attr_info %]);
 
@@ -60,8 +59,7 @@
     MB.sourceEntity = MB.entity(sourceData);
 
     MB.sourceRelationshipEditor = MB.relationshipEditor.GenericEntityViewModel({
-      sourceData: sourceData,
-      formName: MB.formName
+      sourceData: sourceData
     });
 
     var externalLinksEditor = $('#external-links-editor-container')[0];
