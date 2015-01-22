@@ -32,6 +32,8 @@ has 'dry_run' => (
     isa => 'Bool',
     is => 'ro',
     default => 0,
+    traits => [ 'Getopt' ],
+    cmd_flag => 'dry-run',
 );
 
 has 'weekly' => (
