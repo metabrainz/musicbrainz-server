@@ -52,10 +52,28 @@ has edit_cache => (
     default => sub { {} },
     traits => [ 'Hash', 'NoGetopt' ],
     handles => {
+        cached => 'exists',
         cached_edits => 'get',
-        cache_edits => 'set'
+        cache_edits => 'set',
+        remove_from_cache => 'delete',
     }
 );
+
+has cache_usage => (
+    is => 'ro',
+    default => sub { {} },
+    traits => [ 'Hash', 'NoGetopt' ],
+    handles => {
+        used_again => 'delete',
+        not_reused_cache_items => 'keys',
+        reset_cache_usage => 'clear',
+    }
+);
+
+sub first_used {
+    my ($self, $key) = @_;
+    ${ $self->cache_usage }{$key} = 1;
+}
 
 sub _build_emailer {
     my $self = shift;
@@ -108,6 +126,9 @@ sub run {
 
             printf "\n" if $self->verbose;
         }
+
+        $self->remove_from_cache($self->not_reused_cache_items);
+        $self->reset_cache_usage;
     } while ($count == $BATCH_SIZE);
 
     return 0;
@@ -189,18 +210,22 @@ sub has_edits
 
 sub _edits_for_subscription {
     my ($self, $sub, $filter) = @_;
+
     my $cache_key = ref($sub) . ': ' .
         join(', ', $sub->target_id, $sub->last_edit_sent);
-    return grep { $filter ? $filter->($_) : 1 } @{
-        $self->cached_edits($cache_key) ||
-        do {
-            $self->cache_edits(
-                $cache_key => [
-                    $self->c->model('Edit')->find_for_subscription($sub)
-                ]
-            );
-        }
-    };
+
+    my @edits;
+    if ($self->cached($cache_key)) {
+        @edits = @{ $self->cached_edits($cache_key) };
+        $self->used_again($cache_key);
+    } else {
+        @edits = $self->c->model('Edit')->find_for_subscription($sub);
+        $self->cache_edits($cache_key => \@edits);
+        $self->first_used($cache_key);
+    }
+
+    return @edits unless $filter;
+    return grep { $filter->($_) } @edits;
 }
 
 1;
