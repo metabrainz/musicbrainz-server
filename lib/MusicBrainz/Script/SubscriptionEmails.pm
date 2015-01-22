@@ -92,6 +92,7 @@ sub run {
     do {
         my @editors = $self->c->model('Editor')->editors_with_subscriptions($seen, $BATCH_SIZE);
         $count = @editors;
+        printf "Starting batch with %d editors\n\n", $count if $self->verbose;
 
         while (my $editor = shift @editors) {
             $seen = $editor->id;
@@ -102,21 +103,22 @@ sub run {
             next if $period eq 'weekly' and !$self->weekly;
 
             unless ($period eq 'never') {
-
                 my @subscriptions = $self->c->model('EditorSubscriptions')
                     ->get_all_subscriptions($editor->id);
+                printf "... found %d subscriptions\n", scalar @subscriptions if $self->verbose;
+
 
                 if (my $data = $self->extract_subscription_data(@subscriptions)) {
-                    unless ($self->dry_run) {
-                        if ($editor->has_confirmed_email_address) {
+                    if ($editor->has_confirmed_email_address) {
+                        unless ($self->dry_run) {
                             printf "... sending email\n" if $self->verbose;
                             $self->emailer->send_subscriptions_digest(
                                 editor => $editor,
                                 %$data
                             );
-                        }
-                    }
-                }
+                        } else { printf "... not sending email (dry run)\n" if $self->verbose; }
+                    } else { printf "... no confirmed email address, not sending\n" if $self->verbose; }
+                } else { printf "... no current edits found\n" if $self->verbose; }
 
             }
 
@@ -129,10 +131,15 @@ sub run {
             printf "\n" if $self->verbose;
         }
 
+        if ($self->verbose) {
+            printf "End of batch: removing %d entities from the cache (out of %d)\n\n",
+                scalar $self->not_reused_cache_items, scalar keys %{ $self->edit_cache };
+        }
         $self->remove_from_cache($self->not_reused_cache_items);
         $self->reset_cache_usage;
     } while ($count == $BATCH_SIZE);
 
+    printf "Completed.\n" if $self->verbose;
     return 0;
 }
 
