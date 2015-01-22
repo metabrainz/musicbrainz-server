@@ -129,7 +129,6 @@ sub extract_subscription_data
 
             $self->load_subscription($sub);
 
-            $edits{ $sub->type } ||= [];
             push @{ $edits{ $sub->type } }, {
                 open => \@open,
                 applied => \@applied,
