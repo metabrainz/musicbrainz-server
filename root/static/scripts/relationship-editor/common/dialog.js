@@ -462,6 +462,7 @@
 
     function addRelationships(source, relationships) {
         var linkType = relationships[0].linkTypeInfo();
+        var relationship;
 
         for (var i = 0, len = relationships.length; i < len; i++) {
             relationship = relationships[i];

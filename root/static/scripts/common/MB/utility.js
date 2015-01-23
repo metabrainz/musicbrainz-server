@@ -42,8 +42,8 @@ MB.utility.fullWidthConverter = function (inputString) {
         return "";
     }
 
-    i = inputString.length;
-    newString = [];
+    var i = inputString.length;
+    var newString = [];
 
     do {
         newString.push(

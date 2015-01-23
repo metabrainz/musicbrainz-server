@@ -221,6 +221,7 @@ MB.constants.CLEANUPS = {
             url =  url.replace(/^http:\/\/wikipedia\.org\/(.+)$/, "http://en.wikipedia.org/$1");
             url =  url.replace(/\.wikipedia\.org\/w\/index\.php\?title=([^&]+).*/, ".wikipedia.org/wiki/$1");
             url =  url.replace(/(?:\.m)?\.wikipedia\.org\/[a-z-]+\/([^?]+)$/, ".wikipedia.org/wiki/$1");
+            var m;
             if ((m = url.match(/^(.*\.wikipedia\.org\/wiki\/)([^?#]+)(.*)$/)) != null)
                 url = m[1] + encodeURIComponent(decodeURIComponent(m[2])).replace(/%20/g, "_").replace(/%24/g, "$").replace(/%2C/g, ",").replace(/%2F/g, "/").replace(/%3A/g, ":").replace(/%3B/g, ";").replace(/%40/g, "@") + m[3];
             return url;
@@ -234,6 +235,7 @@ MB.constants.CLEANUPS = {
             url = url.replace(/^https?:\/\/([^.]+\.)?discogs\.com\/(.*\/(artist|release|master|label))?([^#?]*).*$/, "http://www.discogs.com/$3$4");
             url = url.replace(/^(http:\/\/www\.discogs\.com\/master)\/view\/([0-9]+)$/, "$1/$2");
             url = url.replace(/^(http:\/\/www\.discogs\.com\/(?:artist|label))\/([0-9]+)-[^+]*$/, "$1/$2"); // URLs containing Discogs IDs
+            var m;
             if ((m = url.match(/^(http:\/\/www\.discogs\.com\/(?:artist|label))\/(.+)/)) != null)
                 url = m[1] + "/" + encodeURIComponent(decodeURIComponent(m[2].replace(/\+/g, "%20"))).replace(/%20/g, "+");
             return url;
@@ -303,6 +305,7 @@ MB.constants.CLEANUPS = {
             // [1] "http://www.amazon.<tld>/gp/product/<ASIN>"
             // [2] "http://www.amazon.<tld>/exec/obidos/ASIN/<ASIN>"
             var tld = "", asin = "";
+            var m;
             if ((m = url.match(/(?:amazon|amzn)\.([a-z\.]+)\//)) != null) {
                 tld = m[1];
                 if (tld == "jp") tld = "co.jp";
@@ -342,6 +345,7 @@ MB.constants.CLEANUPS = {
     cdbaby: {
         match: [ new RegExp("^(https?://)?([^/]+\\.)?cdbaby\\.(com|name)","i") ],
         clean: function (url) {
+            var m;
             if ((m = url.match(/(?:https?:\/\/)?(?:www\.)?cdbaby\.com\/cd\/([^\/]+)(\/(from\/[^\/]+)?)?/)) != null)
                 url = "http://www.cdbaby.com/cd/" + m[1].toLowerCase();
             url = url.replace(/(?:https?:\/\/)?(?:www\.)?cdbaby\.com\/Images\/Album\/([a-z0-9]+)(?:_small)?\.jpg/, "http://www.cdbaby.com/cd/$1");

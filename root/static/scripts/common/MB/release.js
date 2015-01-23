@@ -80,7 +80,7 @@ MB.Release = (function (Release) {
     return newA;
   }
 
-  getViewModel = function (releaseData) {
+  var getViewModel = function (releaseData) {
     var model = MB.entity(releaseData, "release");
 
     _.each(model.mediums,
