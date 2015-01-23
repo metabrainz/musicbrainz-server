@@ -91,6 +91,7 @@ function setupReleaseRelationshipEditor() {
 function setupGenericRelationshipEditor(options) {
     var vm = MB.relationshipEditor.GenericEntityViewModel(options);
     MB.sourceRelationshipEditor = vm;
+    MB.sourceEntity = vm.source;
     return vm;
 }
 
@@ -122,6 +123,7 @@ function relationshipEditorTest(name, callback) {
 
         MB.entityCache = {};
         delete MB.sourceRelationshipEditor;
+        delete MB.sourceEntity;
         delete sessionStorage.submittedRelationships;
 
         $fixture.remove();
