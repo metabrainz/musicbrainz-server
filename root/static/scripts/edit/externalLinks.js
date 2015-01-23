@@ -283,6 +283,9 @@ var ExternalLink = React.createClass({
     $help.tooltip({
       items: 'div.icon.help',
       content: content,
+      open: function (event, ui) {
+        ui.tooltip.find('a').attr('target', '_blank');
+      },
       close: function (event, ui) {
         ui.tooltip.hover(
           function () {
