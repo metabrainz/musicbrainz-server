@@ -74,6 +74,8 @@ function createBundle(resourceName, watch, callback) {
     var b = runBrowserify(resourceName, watch, callback);
 
     if (process.env.UGLIFY) {
+        process.env.NODE_ENV = 'production';
+
         b.transform("uglifyify", {
             // See https://github.com/substack/node-browserify#btransformtr-opts
             global: true,
