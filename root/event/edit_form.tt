@@ -50,7 +50,6 @@
 
   <div class="documentation">
     [%- guesscase_bubble(1) -%]
-    [%- external_link_bubble() -%]
   </div>
 
 </form>

@@ -28,11 +28,6 @@
     [%- enter_edit() -%]
 
   </div>
-
-  <div class="documentation">
-    [%- external_link_bubble() -%]
-  </div>
-
 </form>
 
 [%- guesscase_options() -%]

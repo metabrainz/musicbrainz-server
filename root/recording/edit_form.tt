@@ -47,7 +47,6 @@
   <div class="documentation">
     [%- artist_credit_table() -%]
     [%- isrc_bubble(link_entity(recording)) -%]
-    [%- external_link_bubble() -%]
   </div>
 
 </form>

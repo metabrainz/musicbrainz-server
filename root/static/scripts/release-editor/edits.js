@@ -326,25 +326,28 @@
         externalLinks: function (release) {
             var edits = [];
 
-            _(release.externalLinks.links()).each(function (link) {
-                if (!link.linkTypeID() || !link.url() || link.error()) {
+            if (releaseEditor.hasInvalidLinks()) {
+                return edits;
+            }
+
+            var { oldLinks, newLinks, allLinks } = releaseEditor.externalLinksEditData();
+
+            _(allLinks).each(function (link) {
+                if (!link.type || !link.url) {
                     return;
                 }
 
-                var editData = link.editData();
+                var editData = MB.edit.fields.externalLinkRelationship(link, release);
 
-                if (link.removed()) {
+                if (!newLinks[link.relationship]) {
                     edits.push(MB.edit.relationshipDelete(editData));
-                }
-                else if (link.id) {
-                    // Update the release name in case it changed.
-                    link.original.entities[0].name = editData.entities[0].name;
+                } else if (oldLinks[link.relationship]) {
+                    var original = MB.edit.fields.externalLinkRelationship(oldLinks[link.relationship], release);
 
-                    if (!_.isEqual(editData, link.original)) {
-                        edits.push(MB.edit.relationshipEdit(editData, link.original));
+                    if (!_.isEqual(editData, original)) {
+                        edits.push(MB.edit.relationshipEdit(editData, original));
                     }
-                }
-                else {
+                } else {
                     edits.push(MB.edit.relationshipCreate(editData));
                 }
             });

@@ -78,8 +78,6 @@
         <p>[% l('Enter coordinates manually or drag the marker to get coordinates from the map.') %]</p>
         [%~ INCLUDE 'components/map-large.tt' entity=place editing=1 ~%]
     </div>
-
-    [%- external_link_bubble() -%]
   </div>
 
 </form>

@@ -152,14 +152,22 @@ function buildScripts(watch) {
             b.require('./root/static/lib/knockout/knockout-latest.debug.js', { expose: 'knockout' });
         }),
         createBundle("edit.js", watch, function (b) {
+            b.transform('reactify', { es6: true });
+            b.require('./root/static/scripts/edit/externalLinks.js', { expose: true });
             b.external('./root/static/lib/knockout/knockout-latest.debug.js');
         }),
         createBundle("guess-case.js", watch),
-        createBundle("release-editor.js", watch),
+        createBundle("release-editor.js", watch, function (b) {
+            b.external('./root/static/scripts/edit/externalLinks.js');
+        }),
         createBundle("statistics.js", watch),
 
-        bundleScripts(runBrowserify('tests.js', watch), 'tests.js')
-            .pipe(gulp.dest("./root/static/build/"))
+        bundleScripts(
+            runBrowserify('tests.js', watch, function (b) {
+                b.transform('reactify', { es6: true });
+            }),
+            'tests.js'
+        ).pipe(gulp.dest("./root/static/build/"))
     ]);
 }
 

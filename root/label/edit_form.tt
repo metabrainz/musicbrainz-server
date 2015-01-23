@@ -75,7 +75,6 @@
 
   <div class="documentation">
     [%- area_bubble() -%]
-    [%- external_link_bubble() -%]
   </div>
 
 </form>

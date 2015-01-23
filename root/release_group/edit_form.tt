@@ -32,7 +32,6 @@
 
   <div class="documentation">
     [%- artist_credit_table() -%]
-    [%- external_link_bubble() -%]
   </div>
 
 </form>

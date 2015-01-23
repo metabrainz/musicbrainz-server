@@ -1,299 +1,371 @@
 // This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2014 MetaBrainz Foundation
+// Copyright (C) 2015 MetaBrainz Foundation
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-(function (externalLinks) {
+var React = require('react');
 
-    var RE = MB.relationshipEditor;
+require('react/addons');
 
-    var selectLinkTypeText = MB.i18n.l("Please select a link type for the URL you’ve entered.");
+var l = MB.i18n.l;
+var selectLinkTypeText = l("Please select a link type for the URL you’ve entered.");
 
+// XXX internal state leaking
+exports.errorCount = 0;
 
-    externalLinks.Relationship = aclass(RE.fields.Relationship, {
+var ExternalLinksEditor = React.createClass({
+  mixins: [React.addons.PureRenderMixin],
 
-        before$init: function (data, source) {
-            this.linkTypeDescription = ko.observable("");
-            this.faviconClass = ko.observable("");
-            this.removeButtonFocused = ko.observable(false);
+  getInitialState: function () {
+    return { links: withOneEmptyLink(_.cloneDeep(this.props.initialLinks)) };
+  },
 
-            this.url = ko.observable(data.target.name);
-            this.url.subscribe(this.urlChanged, this);
+  removeLink: function (index) {
+    var nextIndex = index === this.state.links.length - 1 ? index - 1 : index;
 
-            this.error = ko.computed({
-                read: this._error,
-                owner: this,
-                deferEvaluation: true // needs linkTypeID, etc.
-            });
-        },
-
-        urlChanged: function (value) {
-            var entities = this.entities().slice(0);
-            var targetIndex = this.parent.source === entities[1] ? 0 : 1;
-
-            if (entities[targetIndex].name !== value) {
-                entities[targetIndex] = MB.entity({ name: value }, "url");
-                this.entities(entities);
-            }
-
-            // this.error hasn't updated yet, and we need the latest value.
-            var error = this._error();
-
-            if (this.cleanup && (!error || error === selectLinkTypeText)) {
-                var linkType = this.cleanup.guessType(this.cleanup.sourceType, value);
-
-                if (linkType) {
-                    this.linkTypeID(MB.typeInfoByID[linkType].id);
-
-                    // May have changed now that linkTypeID is set.
-                    error = this.error();
-                }
-            }
-
-            if (!error) {
-                var key, class_, classes = MB.faviconClasses;
-
-                for (key in classes) {
-                    if (value.indexOf(key) > 0) {
-                        this.faviconClass(classes[key] + "-favicon");
-                        return;
-                    }
-                }
-            }
-
-            this.faviconClass("");
-            this.parent.lastEditedLink = this;
-        },
-
-        after$linkTypeIDChanged: function (value) {
-            var typeInfo = MB.typeInfoByID[value];
-
-            if (typeInfo) {
-                this.linkTypeDescription(
-                    MB.i18n.l("{description} ({url|more documentation})", {
-                        description: typeInfo.description,
-                        url: "/relationship/" + typeInfo.gid
-                    })
-                );
-            } else {
-                this.linkTypeDescription("");
-            }
-            this.parent.lastEditedLink = this;
-        },
-
-        matchesType: function () {
-            var linkTypeID = this.linkTypeID();
-            var currentType = linkTypeID && MB.typeInfoByID[linkTypeID].gid;
-
-            var guessedType = this.cleanup.guessType(
-                this.parent.source.entityType, this.url()
-            );
-
-            return currentType === guessedType;
-        },
-
-        showTypeSelection: function () {
-            var hasError = !!this.error();
-            var hasMatch = this.matchesType();
-            var isEmpty = this.isEmpty();
-
-            return hasError || !(hasMatch || isEmpty);
-        },
-
-        remove: function () {
-            var linksArray = this.parent.nonRemovedOrEmptyLinks(),
-                index = linksArray.indexOf(this);
-
-            this.removed(true);
-
-            if (this.id) {
-                // The original data won't be used, but the new data could
-                // have errors that prevents everything from validating, so
-                // we have to revert it.
-                this.linkTypeID(this.original.linkTypeID);
-
-                this.entities(_.map(this.original.entities, function (data) {
-                    return MB.entity(data);
-                }));
-            } else {
-                // this.cleanup is undefined for tests that don't deal with
-                // markup (since it's set by the urlCleanup bindingHandler).
-                this.cleanup && this.cleanup.toggleEvents("off");
-                this.parent.source.relationships.remove(this);
-                this.errorObservable && this.errorObservable.dispose();
-            }
-
-            this.error.dispose();
-
-            var linkToFocus = linksArray[index + 1] || linksArray[index - 1];
-
-            if (linkToFocus) {
-                linkToFocus.removeButtonFocused(true);
-            } else {
-                $("#add-external-link").focus();
-            }
-        },
-
-        isEmpty: function () {
-            return !(this.linkTypeID() || this.url());
-        },
-
-        isOnlyLink: function () {
-            var links = this.parent.links();
-            return links.length === 1 && links[0] === this;
-        },
-
-        _error: function () {
-            var url = this.url();
-            var linkType = this.linkTypeID();
-
-            if (this.removed() || this.isEmpty()) {
-                return "";
-            }
-
-            if (!url) {
-                return MB.i18n.l("Required field.");
-            } else if (!MB.utility.isValidURL(url)) {
-                return MB.i18n.l("Enter a valid url e.g. \"http://google.com/\"");
-            }
-
-            var typeInfo = MB.typeInfoByID[linkType] || {};
-            var checker = this.cleanup && this.cleanup.validationRules[typeInfo.gid];
-
-            if (!linkType) {
-                return selectLinkTypeText;
-            } else if (typeInfo.deprecated && !this.id) {
-                return MB.i18n.l("This relationship type is deprecated and should not be used.");
-            } else if (checker && !checker(url)) {
-                return MB.i18n.l("This URL is not allowed for the selected link type, or is incorrectly formatted.");
-            }
-
-            var otherLinks = this.parent.links();
-
-            for (var i = 0, link; link = otherLinks[i++];) {
-                if (this.isDuplicate(link)) {
-                    return MB.i18n.l("This relationship already exists.");
-                }
-            }
-
-            return "";
-        }
+    this.setState({ links: mergeLinkState(this, index, null) }, () => {
+      $(this.getDOMNode()).find('tr:eq(' + nextIndex + ') :input:visible:first').focus();
     });
+  },
 
-
-    externalLinks.ViewModel = aclass(RE.ViewModel, {
-
-        relationshipClass: externalLinks.Relationship,
-        fieldName: "url",
-
-        after$init: function () {
-            var self = this, source = this.source;
-
-            // Terribly get seeded URLs
-
-            if (!MB.formWasPosted) {
-                var urlField = new RegExp("(?:\\?|&)edit-" + source.entityType + "\\.url\\.([0-9]+)\\.(text|link_type_id)=([^&]+)", "g"),
-                    urls = {}, match;
-
-                while (match = urlField.exec(window.location.search)) {
-                    (urls[match[1]] = urls[match[1]] || {})[match[2]] = decodeURIComponent(match[3]);
-                }
-
-                _.each(urls, function (data) {
-                    data = {
-                        target: { name: data.text || "", entityType: "url" },
-                        linkTypeID: MB.typeInfoByID[data.link_type_id] ? data.link_type_id : null
-                    };
-                    self.getRelationship(data, source).show();
-                });
-            }
-
-            this.links = this.source.displayableRelationships(this);
-            this.nonRemovedLinks = this.links.reject("removed");
-            this.emptyLinks = this.links.filter("isEmpty");
-            this.lastEditedLink = null;
-
-            this.nonRemovedOrEmptyLinks = this.links.reject(function (relationship) {
-                return relationship.removed() || relationship.isEmpty();
-            });
-
-            function ensureOneEmptyLinkExists(emptyLinks) {
-                var relationships = source.relationships;
-
-                if (!emptyLinks.length) {
-                    relationships.push(self.getRelationship({ target: MB.entity.URL({}) }, source));
-
-                } else if (emptyLinks.length > 1) {
-                    relationships.removeAll(_.without(emptyLinks, self.lastEditedLink));
-                }
-            }
-
-            this.emptyLinks.subscribe(ensureOneEmptyLinkExists);
-            ensureOneEmptyLinkExists([]);
-
-            this.bubbleDoc = MB.Control.BubbleDoc("Information").extend({
-                canBeShown: function (link) {
-                    var url = link.url();
-
-                    // Theoretically, if the URL isn't valid then the URLCleanup
-                    // should've set an error. However, this callback runs before
-                    // the URLCleanup code kicks in, so we need to check ourselves.
-                    return (url && MB.utility.isValidURL(url) && !link.error()) ||
-                            link.linkTypeDescription();
-                }
-            });
-        },
-
-        typesAreAccepted: function (sourceType, targetType) {
-            return sourceType === this.source.entityType && targetType === "url";
-        },
-
-        _sortedRelationships: _.identity
-    });
-
-
-    externalLinks.applyBindings = function (options) {
-        var containerNode = $("#external-links-editor")[0];
-        var bubbleNode = $("#external-link-bubble")[0];
-        var viewModel = this.ViewModel(options);
-
-        ko.applyBindingsToNode(containerNode, {
-            delegatedHandler: "click",
-            affectsBubble: viewModel.bubbleDoc
-        }, viewModel);
-
-        ko.applyBindings(viewModel, containerNode);
-        ko.applyBindingsToNode(bubbleNode, { bubble: viewModel.bubbleDoc }, viewModel);
-
-        return viewModel;
+  getEditData: function () {
+    var oldLinks = _.indexBy(this.props.initialLinks, 'relationship');
+    var newLinks = _.indexBy(this.state.links, 'relationship');
+    return {
+      oldLinks: oldLinks,
+      newLinks: newLinks,
+      allLinks: _.defaults(_.clone(newLinks), oldLinks)
     };
+  },
 
-}(MB.Control.externalLinks = MB.Control.externalLinks || {}));
+  getFormData: function (startingPrefix, startingIndex, pushInput) {
+    var index = 0;
+    var backward = this.props.cleanup.sourceType > 'url';
+    var { newLinks, allLinks } = this.getEditData();
 
+    _.each(allLinks, function (link, relationship) {
+      if (!link.type) {
+        return;
+      }
 
-// Applies MB.Control.URLCleanup to an element containing a <select>
-// (for the link type) and a <input type="url"> (for the URL).
+      var prefix = startingPrefix + '.' + (startingIndex + (index++));
 
-ko.bindingHandlers.urlCleanup = {
+      if (/^[0-9]+$/.test(relationship)) {
+        pushInput(prefix, 'relationship_id', relationship);
 
-    init: function (element, valueAccessor, allBindings, viewModel) {
-        var $element = $(element);
-        var $textInput = $element.find("input[type=url]");
+        if (!newLinks[relationship]) {
+          pushInput(prefix, 'removed', 1);
+        }
+      }
 
-        var cleanup = MB.Control.URLCleanup({
-            sourceType:         valueAccessor(),
-            typeControl:        $element.find("select"),
-            urlControl:         $textInput,
-            errorCallback:      _.bind(viewModel.error, viewModel),
-            typeInfoByID:       MB.typeInfoByID
-        });
+      pushInput(prefix, 'text', link.url);
 
-        viewModel.cleanup = cleanup;
-        viewModel.urlChanged(viewModel.url());
-        viewModel.linkTypeIDChanged(viewModel.linkTypeID());
+      if (link.video) {
+        pushInput(prefix + '.attributes.0', 'type.gid', VIDEO_ATTRIBUTE_GID);
+      }
 
-        // Force validation on any initial data in the fields, i.e. when seeding.
-        // The _.defer is because the knockout bindings haven't applied yet.
-        _.defer(function () { $textInput.change() });
+      if (backward) {
+        pushInput(prefix, 'backward', 1);
+      }
+
+      pushInput(prefix, 'link_type_id', link.type || '');
+    });
+  },
+
+  render: function () {
+    var $submit = $('#content button[type=submit]').prop('disabled', false);
+    exports.errorCount = 0;
+    return (
+      <table id="external-links-editor" className="row-form">
+        <tbody>
+          {_.map(this.state.links, (link, index) => {
+            return (
+              <ExternalLink
+                {...this.props}
+                key={link.relationship}
+                url={link.url}
+                type={link.type}
+                video={link.video}
+                supportsVideoAttribute={!!((MB.typeInfoByID[link.type] || {}).attributes || {})[MB.constants.VIDEO_ATTRIBUTE_ID]}
+                isOnlyLink={this.state.links.length === 1}
+                errorCallback={(hasError) => {
+                  if (hasError) {
+                    $submit.prop('disabled', true);
+                    ++exports.errorCount;
+                  }
+                }}
+                removeCallback={_.bind(this.removeLink, this, index)}
+                duplicateCallback={(target) =>
+                  _.any(this.props.initialLinks.concat(this.state.links), function (other) {
+                    return (
+                      link.relationship !== other.relationship &&
+                      link.url === other.url &&
+                      link.type === other.type
+                    );
+                  })
+                }
+                setLinkState={(linkState, callback) =>
+                  this.setState({ links: mergeLinkState(this, index, linkState) }, callback)
+                }
+              />
+            );
+          })}
+        </tbody>
+      </table>
+    );
+  }
+});
+
+var ExternalLink = React.createClass({
+  mixins: [React.addons.PureRenderMixin],
+
+  typeChanged: function (event) {
+    this.props.setLinkState({ type: +event.target.value || null }, () => {
+      var $select = this.updateTooltip();
+      if ($select.attr('data-tooltip')) {
+        $select.tooltip('open');
+      }
+    });
+  },
+
+  urlChanged: function (event) {
+    var url = event.target.value;
+
+    this.props.setLinkState({ url: url }, () => {
+      var errorMessage = this.errorMessage();
+
+      if (!errorMessage || errorMessage === selectLinkTypeText) {
+        var cleanup = this.props.cleanup;
+        var type = cleanup.guessType(cleanup.sourceType, url);
+
+        if (type) {
+          this.props.setLinkState({ type: MB.typeInfoByID[type].id });
+        }
+      }
+    });
+  },
+
+  typeDescription: function () {
+    var typeInfo = MB.typeInfoByID[this.props.type];
+
+    if (typeInfo) {
+      return l('{description} ({url|more documentation})', {
+        description: typeInfo.description,
+        url: '/relationship/' + typeInfo.gid
+      })
     }
+
+    return '';
+  },
+
+  errorMessage: function () {
+    var props = this.props;
+
+    if (isEmpty(props)) {
+      return '';
+    }
+
+    var url = props.url;
+    var type = props.type;
+
+    if (!url) {
+      return l('Required field.');
+    } else if (!MB.utility.isValidURL(url)) {
+      return l('Enter a valid url e.g. "http://google.com/"');
+    }
+
+    var typeInfo = MB.typeInfoByID[type] || {};
+    var checker = props.cleanup.validationRules[typeInfo.gid];
+
+    if (!type) {
+      return selectLinkTypeText;
+    } else if (typeInfo.deprecated && !this.id) {
+      return l('This relationship type is deprecated and should not be used.');
+    } else if (checker && !checker(url)) {
+      return l('This URL is not allowed for the selected link type, or is incorrectly formatted.');
+    }
+
+    if (props.duplicateCallback()) {
+      return l('This relationship already exists.');
+    }
+
+    return '';
+  },
+
+  render: function () {
+    var props = this.props;
+    var typeInfo = props.type && MB.typeInfoByID[props.type];
+    var matchesType = ((typeInfo && typeInfo.gid) === props.cleanup.guessType(props.cleanup.sourceType, props.url));
+
+    var errorMessage = this.errorMessage();
+    var showTypeSelection = !!errorMessage || !(matchesType || isEmpty(props));
+    var faviconClass = _.find(MB.faviconClasses, (value, key) => props.url.indexOf(key) > 0);
+
+    props.errorCallback(!!errorMessage);
+
+    return (
+      <tr>
+        <td>
+          {showTypeSelection ||
+            <label>
+              {matchesType && faviconClass && <span className={'favicon ' + faviconClass + '-favicon'}></span>}
+              {(typeInfo && typeInfo.phrase) || (props.isOnlyLink ? l('Add link:') : l('Add another link:'))}
+            </label>}
+          <select value={props.type}
+                  onChange={this.typeChanged}
+                  className="link-type"
+                  style={{display: showTypeSelection ? 'inline' : 'none'}}
+                  data-tooltip={this.typeDescription()}>
+            <option value=""></option>
+            {props.typeOptions}
+          </select>
+        </td>
+        <td>
+          <input type="url" className="value with-button" value={props.url} onChange={this.urlChanged} />
+          {errorMessage && <div className="error field-error" data-visible="1">{errorMessage}</div>}
+          {props.supportsVideoAttribute &&
+            <div className="attribute-container">
+              <label>
+                <input type="checkbox" checked={props.video} onChange={_.partial(props.setLinkState, { video: !props.video }, null)} /> {l('video')}
+              </label>
+            </div>}
+        </td>
+        <td>
+          {isEmpty(props) ||
+            <button type="button" className="nobutton remove" onClick={props.removeCallback}>
+              <div className="remove-item icon img" title={l('Remove Link')}></div>
+            </button>}
+        </td>
+      </tr>
+    );
+  },
+
+  componentDidMount: function () {
+    this.updateTooltip();
+  },
+
+  updateTooltip: function () {
+    var $select = $('select', this.getDOMNode());
+    var content = $select.attr('data-tooltip');
+
+    if ($select.data('ui-tooltip')) {
+      $select.tooltip('option', 'content', content)
+
+      if (!content) {
+        return $select.tooltip('close');
+      }
+    }
+
+    return $select.tooltip({
+      items: 'select',
+      content: content,
+      close: function (event, ui) {
+        ui.tooltip.hover(
+          function () {
+            $(this).stop(true).fadeTo(400, 1);
+          },
+          function () {
+            $(this).fadeOut("400", function () { $(this).remove() });
+          }
+        );
+      }
+    });
+  }
+});
+
+function isEmpty(link) {
+  return !(link.type || link.url);
+}
+
+function mergeLinkState(app, index, linkState) {
+  var links = app.state.links.concat();
+
+  if (linkState) {
+    _.assign(links[index], linkState);
+  } else {
+    links.splice(index, 1);
+  }
+
+  return withOneEmptyLink(links, index);
+}
+
+function withOneEmptyLink(links, dontRemove) {
+  var emptyCount = 0;
+
+  var canRemove = _.transform(links, function (accum, link, index) {
+    if (isEmpty(link)) {
+      ++emptyCount;
+      if (index !== dontRemove) {
+        accum.push(index);
+      }
+    }
+  });
+
+  if (emptyCount === 0) {
+    return links.concat({ url: '', type: null, relationship: _.uniqueId('new-') });
+  } else if (emptyCount > 1 && canRemove.length) {
+    links = links.concat();
+    links.splice(canRemove[0], 1);
+  }
+
+  return links;
+}
+
+function parseRelationships(relationships) {
+  return _.transform(relationships || [], function (accum, data) {
+    var target = data.target;
+
+    if (target.entityType === 'url') {
+      accum.push({
+        relationship: data.id,
+        url: target.name,
+        type: data.linkTypeID,
+        video: _.any(data.attributes, (attr) => attr.type.gid === MB.constants.VIDEO_ATTRIBUTE_GID)
+      });
+    }
+  });
+}
+
+MB.createExternalLinksEditor = function (options) {
+  var sourceData = options.sourceData;
+  var sourceType = sourceData.entityType;
+  var entityTypes = [sourceType, 'url'].sort().join('-');
+  var initialLinks = parseRelationships(sourceData.relationships);
+
+  // Terribly get seeded URLs
+  if (MB.formWasPosted) {
+    if (MB.hasSessionStorage && sessionStorage.submittedLinks) {
+      initialLinks = JSON.parse(sessionStorage.submittedLinks);
+    }
+  } else {
+    var urlField = new RegExp("(?:\\?|&)edit-" + sourceType + "\\.url\\.([0-9]+)\\.(text|link_type_id)=([^&]+)", "g");
+    var urls = {};
+    var match;
+
+    while (match = urlField.exec(window.location.search)) {
+      (urls[match[1]] = urls[match[1]] || {})[match[2]] = decodeURIComponent(match[3]);
+    }
+
+    _.each(urls, function (data) {
+      initialLinks.push({ url: data.text || "", type: data.link_type_id, relationship: _.uniqueId('new-') });
+    });
+  }
+
+  var typeOptions = (
+    MB.forms.linkTypeOptions({ children: MB.typeInfo[entityTypes] }, /^url-/.test(entityTypes))
+      .map((data) => <option value={data.value} disabled={data.disabled} key={data.value}>{data.text}</option>)
+  );
+
+  return React.render(
+    <ExternalLinksEditor
+      cleanup={MB.Control.URLCleanup({ sourceType: sourceData.entityType, typeInfoByID: MB.typeInfoByID })}
+      typeOptions={typeOptions}
+      initialLinks={initialLinks} />,
+    options.mountPoint
+  );
 };
+
+exports.ExternalLinksEditor = ExternalLinksEditor;
+exports.ExternalLink = ExternalLink;
+exports.parseRelationships = parseRelationships;
+exports.createExternalLinksEditor = MB.createExternalLinksEditor;

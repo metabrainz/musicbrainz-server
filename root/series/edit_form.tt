@@ -47,8 +47,6 @@
   </div>
 
   <div class="documentation">
-    [%- external_link_bubble() -%]
-
     <div class="bubble" id="series-type-bubble" data-bind="bubble: typeBubble">
       <p data-bind="text: target() &amp;&amp; target().type() ? target().type().description : ''"></p>
     </div>

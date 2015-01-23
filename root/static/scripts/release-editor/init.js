@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var externalLinks = require('../edit/externalLinks.js');
+
 MB.releaseEditor = _.extend(MB.releaseEditor || {}, {
 
     activeTabID: ko.observable("#information"),
@@ -222,6 +224,11 @@ MB.releaseEditor.releaseLoaded = function (data) {
         data.relationships = (data.relationships || []).concat(seed.relationships);
     }
 
+    // Setup the external links editor
+    _.defer(function () {
+        MB.releaseEditor.createExternalLinksEditor(data, $('#external-links-editor-container')[0]);
+    });
+
     var release = this.fields.Release(data);
 
     if (seed) this.seedRelease(release, seed);
@@ -229,6 +236,32 @@ MB.releaseEditor.releaseLoaded = function (data) {
     if (!seed || !seed.mediums) release.loadMedia();
 
     this.rootField.release(release);
+};
+
+
+MB.releaseEditor.createExternalLinksEditor = function (data, mountPoint) {
+    if (!mountPoint) {
+        // XXX undefined in some tape tests
+        return;
+    }
+
+    var self = this;
+
+    this.externalLinks = externalLinks.createExternalLinksEditor({
+        sourceData: data,
+        mountPoint: mountPoint
+    });
+
+    this.externalLinksEditData = ko.observable({});
+    this.hasInvalidLinks = this.validation.errorField(ko.observable(false));
+
+    // XXX
+    this.externalLinks.componentDidUpdate = function () {
+        self.externalLinksEditData(self.externalLinks.getEditData());
+        self.hasInvalidLinks(externalLinks.errorCount > 0);
+    };
+
+    return this.externalLinks;
 };
 
 

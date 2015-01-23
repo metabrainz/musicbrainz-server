@@ -51,21 +51,24 @@
 
 <script>
   $(function () {
+    MB.formName = "[% form.name | js %]";
     MB.formWasPosted = [% c.form_posted ? 'true' : 'false' %];
     MB.relationshipEditor.exportTypeInfo([% type_info %], [% attr_info %]);
 
     var sourceData = [% source_entity %];
     MB.sourceEntityGID = sourceData.gid = sourceData.gid || _.uniqueId("tmp-");
+    MB.sourceEntity = MB.entity(sourceData);
 
     MB.sourceRelationshipEditor = MB.relationshipEditor.GenericEntityViewModel({
       sourceData: sourceData,
-      formName: "[% form.name | js %]"
+      formName: MB.formName
     });
 
-    if ($("#external-links-editor").length) {
-      MB.sourceExternalLinksEditor = MB.Control.externalLinks.applyBindings({
+    var externalLinksEditor = $('#external-links-editor-container')[0];
+    if (externalLinksEditor) {
+      MB.sourceExternalLinksEditor = MB.createExternalLinksEditor({
         sourceData: sourceData,
-        formName: "[% form.name | js %]"
+        mountPoint: externalLinksEditor
       });
     }
 

@@ -743,15 +743,6 @@
             if (!this.mediums().length) {
                 this.mediums.push(fields.Medium({}, this));
             }
-
-            // Setup the external links editor
-
-            this.externalLinks = MB.Control.externalLinks.ViewModel({
-                source: this,
-                sourceData: data
-            });
-
-            this.hasInvalidLinks = errorField(this.externalLinks.links.any("error"));
         },
 
         loadMedia: function () {

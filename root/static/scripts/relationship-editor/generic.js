@@ -173,19 +173,10 @@
     };
 
 
-    function addHiddenInputs(vm) {
+    function addHiddenInputs(pushInput, vm) {
         var fieldPrefix = vm.formName + "." + vm.fieldName;
         var relationships = vm.source.relationshipsInViewModel(vm)();
-        var hiddenInputs = document.createDocumentFragment();
         var index = 0;
-
-        function pushInput(prefix, name, value) {
-            var input = document.createElement("input");
-            input.type = "hidden";
-            input.name = prefix + "." + name;
-            input.value = value;
-            hiddenInputs.appendChild(input);
-        }
 
         for (var i = 0, len = relationships.length; i < len; i++) {
             var relationship = relationships[i],
@@ -204,12 +195,7 @@
                 pushInput(prefix, "removed", 1);
             }
 
-            var target = relationship.target(vm.source);
-            if (target.entityType === "url") {
-                pushInput(prefix, "text", target.name);
-            } else {
-                pushInput(prefix, "target", target.gid);
-            }
+            pushInput(prefix, "target", relationship.target(vm.source).gid);
 
             _.each(editData.attributes, function (attribute, i) {
                 var attrPrefix = prefix + ".attributes." + i;
@@ -259,25 +245,30 @@
 
             index++;
         }
-
-        $("#relationship-editor").append(hiddenInputs);
     }
 
     RE.prepareSubmission = function () {
-        var submitted = [], vm, source;
+        var submitted = [];
+        var submittedLinks;
+        var vm;
+        var source = MB.sourceEntity;
+        var hiddenInputs = document.createDocumentFragment();
+        var fieldCount = 0;
+
+        function pushInput(prefix, name, value) {
+            var input = document.createElement("input");
+            input.type = "hidden";
+            input.name = prefix + "." + name;
+            input.value = value;
+            hiddenInputs.appendChild(input);
+            ++fieldCount;
+        }
 
         $("button[type=submit]").prop("disabled", true);
         $("input[type=hidden]", "#relationship-editor").remove();
 
         if (vm = MB.sourceRelationshipEditor) {
-            addHiddenInputs(vm);
-            source = vm.source;
-            submitted = submitted.concat(source.relationshipsInViewModel(vm)());
-        }
-
-        if (vm = MB.sourceExternalLinksEditor) {
-            addHiddenInputs(vm);
-            source = vm.source;
+            addHiddenInputs(pushInput, vm);
             submitted = submitted.concat(source.relationshipsInViewModel(vm)());
         }
 
@@ -297,6 +288,16 @@
                 })
             );
         }
+
+        if (vm = MB.sourceExternalLinksEditor) {
+            vm.getFormData(MB.formName + '.url', fieldCount, pushInput);
+
+            if (MB.hasSessionStorage && vm.state.links.length) {
+                sessionStorage.submittedLinks = JSON.stringify(vm.state.links);
+            }
+        }
+
+        $("#relationship-editor").append(hiddenInputs);
     };
 
     $(document).on("submit", "#page form:not(#relationship-editor-form)", _.once(RE.prepareSubmission));
