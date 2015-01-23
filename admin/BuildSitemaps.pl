@@ -235,24 +235,27 @@ sub create_temporary_tables {
 
 sub fill_temporary_tables {
     my ($sql) = @_;
-    my $is_official = "(EXISTS (SELECT TRUE FROM release where release.release_group = release_group.id AND release.status = '1') OR NOT EXISTS (SELECT 1 FROM release WHERE release.release_group = release_group.id AND release.status IS NOT NULL))";
+    my $is_official = "(EXISTS (SELECT TRUE FROM release where release.release_group = q.rg AND release.status = '1')
+                        OR NOT EXISTS (SELECT 1 FROM release WHERE release.release_group = q.rg AND release.status IS NOT NULL))";
 
     # Release groups that will appear on the non-VA listings, per artist
     $sql->do("INSERT INTO tmp_sitemaps_artist_direct_rgs (artist, rg, is_official)
-                  SELECT DISTINCT ON (artist_credit_name.artist, release_group.id)
-                         artist_credit_name.artist, release_group.id, $is_official
+                  SELECT artist, rg, $is_official FROM
+                  (SELECT DISTINCT artist_credit_name.artist AS artist, release_group.id AS rg
                     FROM release_group
-                    JOIN artist_credit_name ON release_group.artist_credit = artist_credit_name.artist_credit");
+                    JOIN artist_credit_name ON release_group.artist_credit = artist_credit_name.artist_credit) q");
+    $sql->do("ANALYZE tmp_sitemaps_artist_direct_rgs");
     # Release groups that will appear on the VA listings, per artist. Uses the above temporary table to exclude non-VA appearances.
     $sql->do("INSERT INTO tmp_sitemaps_artist_va_rgs (artist, rg, is_official)
-                  SELECT DISTINCT ON (artist_credit_name.artist, release_group.id)
-                         artist_credit_name.artist, release_group.id, $is_official
+                  SELECT artist, rg, $is_official FROM
+                  (SELECT DISTINCT artist_credit_name.artist AS artist, release_group.id AS rg
                     FROM release_group
                     JOIN release ON release.release_group = release_group.id
                     JOIN medium ON medium.release = release.id
                     JOIN track ON track.medium = medium.id
                     JOIN artist_credit_name ON track.artist_credit = artist_credit_name.artist_credit
-                  EXCEPT SELECT artist, rg, is_official FROM tmp_sitemaps_artist_direct_rgs");
+                   WHERE NOT EXISTS (SELECT TRUE FROM tmp_sitemaps_artist_direct_rgs WHERE artist = artist_credit_name.artist AND rg = release_group.id)) q");
+    $sql->do("ANALYZE tmp_sitemaps_artist_va_rgs");
 }
 
 sub drop_temporary_tables {
