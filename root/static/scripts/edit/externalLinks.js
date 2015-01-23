@@ -3,12 +3,20 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var Immutable = require('immutable');
 var React = require('react');
 
 require('react/addons');
 
 var l = MB.i18n.l;
 var selectLinkTypeText = l("Please select a link type for the URL you’ve entered.");
+
+var LinkState = Immutable.Record({
+  url: '',
+  type: null,
+  relationship: null,
+  video: false
+});
 
 // XXX internal state leaking
 exports.errorCount = 0;
@@ -17,20 +25,20 @@ var ExternalLinksEditor = React.createClass({
   mixins: [React.addons.PureRenderMixin],
 
   getInitialState: function () {
-    return { links: withOneEmptyLink(_.cloneDeep(this.props.initialLinks)) };
+    return { links: withOneEmptyLink(this.props.initialLinks) };
   },
 
   removeLink: function (index) {
-    var nextIndex = index === this.state.links.length - 1 ? index - 1 : index;
+    var nextIndex = index === this.state.links.size - 1 ? index - 1 : index;
 
-    this.setState({ links: mergeLinkState(this, index, null) }, () => {
+    this.setState({ links: this.state.links.remove(index) }, () => {
       $(this.getDOMNode()).find('tr:eq(' + nextIndex + ') :input:visible:first').focus();
     });
   },
 
   getEditData: function () {
-    var oldLinks = _.indexBy(this.props.initialLinks, 'relationship');
-    var newLinks = _.indexBy(this.state.links, 'relationship');
+    var oldLinks = _.indexBy(this.props.initialLinks.toJS(), 'relationship');
+    var newLinks = _.indexBy(this.state.links.toJS(), 'relationship');
     return {
       oldLinks: oldLinks,
       newLinks: newLinks,
@@ -78,7 +86,7 @@ var ExternalLinksEditor = React.createClass({
     return (
       <table id="external-links-editor" className="row-form">
         <tbody>
-          {_.map(this.state.links, (link, index) => {
+          {this.state.links.map((link, index) => {
             return (
               <ExternalLink
                 {...this.props}
@@ -87,7 +95,7 @@ var ExternalLinksEditor = React.createClass({
                 type={link.type}
                 video={link.video}
                 supportsVideoAttribute={!!((MB.typeInfoByID[link.type] || {}).attributes || {})[MB.constants.VIDEO_ATTRIBUTE_ID]}
-                isOnlyLink={this.state.links.length === 1}
+                isOnlyLink={this.state.links.size === 1}
                 errorCallback={(hasError) => {
                   if (hasError) {
                     $submit.prop('disabled', true);
@@ -96,7 +104,7 @@ var ExternalLinksEditor = React.createClass({
                 }}
                 removeCallback={_.bind(this.removeLink, this, index)}
                 duplicateCallback={(target) =>
-                  _.any(this.props.initialLinks.concat(this.state.links), function (other) {
+                  this.props.initialLinks.concat(this.state.links).some(function (other) {
                     return (
                       link.relationship !== other.relationship &&
                       link.url === other.url &&
@@ -105,11 +113,11 @@ var ExternalLinksEditor = React.createClass({
                   })
                 }
                 setLinkState={(linkState, callback) =>
-                  this.setState({ links: mergeLinkState(this, index, linkState) }, callback)
+                  this.setState({ links: withOneEmptyLink(this.state.links.mergeIn([index], linkState), index) }, callback)
                 }
               />
             );
-          })}
+          }).toArray()}
         </tbody>
       </table>
     );
@@ -240,7 +248,7 @@ var ExternalLink = React.createClass({
               </label>
             </div>}
         </td>
-        <td style={{'white-space': 'nowrap'}}>
+        <td style={{whiteSpace: 'nowrap'}}>
           {props.type && <div ref="help" className="img icon help" data-tooltip={this.typeDescription()}></div>}
           {isEmpty(props) ||
             <button type="button" className="nobutton remove" onClick={props.removeCallback}>
@@ -291,38 +299,26 @@ function isEmpty(link) {
   return !(link.type || link.url);
 }
 
-function mergeLinkState(app, index, linkState) {
-  var links = app.state.links.concat();
-
-  if (linkState) {
-    _.assign(links[index], linkState);
-  } else {
-    links.splice(index, 1);
-  }
-
-  return withOneEmptyLink(links, index);
-}
-
 function withOneEmptyLink(links, dontRemove) {
   var emptyCount = 0;
+  var canRemove = [];
 
-  var canRemove = _.transform(links, function (accum, link, index) {
+  links.forEach(function (link, index) {
     if (isEmpty(link)) {
       ++emptyCount;
       if (index !== dontRemove) {
-        accum.push(index);
+        canRemove.push(index);
       }
     }
   });
 
   if (emptyCount === 0) {
-    return links.concat({ url: '', type: null, relationship: _.uniqueId('new-') });
+    return links.push(new LinkState({ relationship: _.uniqueId('new-') }));
   } else if (emptyCount > 1 && canRemove.length) {
-    links = links.concat();
-    links.splice(canRemove[0], 1);
+    return links.remove(canRemove[0]);
+  } else {
+    return links;
   }
-
-  return links;
 }
 
 function parseRelationships(relationships) {
@@ -330,12 +326,12 @@ function parseRelationships(relationships) {
     var target = data.target;
 
     if (target.entityType === 'url') {
-      accum.push({
+      accum.push(new LinkState({
         relationship: data.id,
         url: target.name,
         type: data.linkTypeID,
         video: _.any(data.attributes, (attr) => attr.type.gid === MB.constants.VIDEO_ATTRIBUTE_GID)
-      });
+      }));
     }
   });
 }
@@ -361,7 +357,7 @@ MB.createExternalLinksEditor = function (options) {
     }
 
     _.each(urls, function (data) {
-      initialLinks.push({ url: data.text || "", type: data.link_type_id, relationship: _.uniqueId('new-') });
+      initialLinks.push(new LinkState({ url: data.text || "", type: data.link_type_id, relationship: _.uniqueId('new-') }));
     });
   }
 
@@ -374,7 +370,7 @@ MB.createExternalLinksEditor = function (options) {
     <ExternalLinksEditor
       cleanup={MB.Control.URLCleanup({ sourceType: sourceData.entityType, typeInfoByID: MB.typeInfoByID })}
       typeOptions={typeOptions}
-      initialLinks={initialLinks} />,
+      initialLinks={Immutable.List(initialLinks)} />,
     options.mountPoint
   );
 };
