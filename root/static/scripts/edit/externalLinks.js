@@ -121,10 +121,7 @@ var ExternalLink = React.createClass({
 
   typeChanged: function (event) {
     this.props.setLinkState({ type: +event.target.value || null }, () => {
-      var $select = this.updateTooltip();
-      if ($select.attr('data-tooltip')) {
-        $select.tooltip('open');
-      }
+      this.updateTooltip();
     });
   },
 
@@ -228,11 +225,7 @@ var ExternalLink = React.createClass({
               {matchesType && faviconClass && <span className={'favicon ' + faviconClass + '-favicon'}></span>}
               {(typeInfo && typeInfo.phrase) || (props.isOnlyLink ? l('Add link:') : l('Add another link:'))}
             </label>}
-          <select value={props.type}
-                  onChange={this.typeChanged}
-                  className="link-type"
-                  style={{display: showTypeSelection ? 'inline' : 'none'}}
-                  data-tooltip={this.typeDescription()}>
+          <select value={props.type} onChange={this.typeChanged} className="link-type" style={{display: showTypeSelection ? 'inline' : 'none'}}>
             <option value=""></option>
             {props.typeOptions}
           </select>
@@ -247,7 +240,8 @@ var ExternalLink = React.createClass({
               </label>
             </div>}
         </td>
-        <td>
+        <td style={{'white-space': 'nowrap'}}>
+          {props.type && <div ref="help" className="img icon help" data-tooltip={this.typeDescription()}></div>}
           {isEmpty(props) ||
             <button type="button" className="nobutton remove" onClick={props.removeCallback}>
               <div className="remove-item icon img" title={l('Remove Link')}></div>
@@ -262,19 +256,22 @@ var ExternalLink = React.createClass({
   },
 
   updateTooltip: function () {
-    var $select = $('select', this.getDOMNode());
-    var content = $select.attr('data-tooltip');
+    if (!this.refs.help) {
+      return;
+    }
+    var $help = $(this.refs.help.getDOMNode());
+    var content = $help.attr('data-tooltip');
 
-    if ($select.data('ui-tooltip')) {
-      $select.tooltip('option', 'content', content)
+    if ($help.data('ui-tooltip')) {
+      $help.tooltip('option', 'content', content)
 
       if (!content) {
-        return $select.tooltip('close');
+        return $help.tooltip('close');
       }
     }
 
-    return $select.tooltip({
-      items: 'select',
+    $help.tooltip({
+      items: 'div.icon.help',
       content: content,
       close: function (event, ui) {
         ui.tooltip.hover(

@@ -505,6 +505,11 @@ div.remove-item {
     background-image: data-uri('../images/icons/track-up.png');
 }
 
+.help {
+    background-image: data-uri('../images/icons/help.png');
+    cursor: help !important;
+}
+
 /*
   Artist credits
   ================================================
@@ -535,6 +540,13 @@ div.remove-item {
 /*
   External links editor
 */
+
+#external-links-editor {
+    td {
+        vertical-align: top;
+        padding-top: @form-margin / 2;
+    }
+}
 
 #external-links-editor, #work-attributes {
     width: 100%;
