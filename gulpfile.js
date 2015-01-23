@@ -74,8 +74,6 @@ function createBundle(resourceName, watch, callback) {
     var b = runBrowserify(resourceName, watch, callback);
 
     if (process.env.UGLIFY) {
-        process.env.NODE_ENV = 'production';
-
         b.transform("uglifyify", {
             // See https://github.com/substack/node-browserify#btransformtr-opts
             global: true,
@@ -112,6 +110,10 @@ function langToPosix(lang) {
 }
 
 function buildScripts(watch) {
+    if (process.env.UGLIFY) {
+        process.env.NODE_ENV = 'production';
+    }
+
     var promises = [];
 
     var languages = (process.env.MB_LANGUAGES || "")
@@ -163,14 +165,7 @@ function buildScripts(watch) {
             b.transform('reactify', { es6: true });
             b.external('./root/static/scripts/edit/externalLinks.js');
         }),
-        createBundle("statistics.js", watch),
-
-        bundleScripts(
-            runBrowserify('tests.js', watch, function (b) {
-                b.transform('reactify', { es6: true });
-            }),
-            'tests.js'
-        ).pipe(gulp.dest("./root/static/build/"))
+        createBundle("statistics.js", watch)
     ]);
 }
 
@@ -180,6 +175,17 @@ gulp.task("styles", function () {
 
 gulp.task("scripts", function () {
     return buildScripts(false).done(writeManifest);
+});
+
+gulp.task("tests", function () {
+    process.env.NODE_ENV = 'development';
+
+    return bundleScripts(
+        runBrowserify('tests.js', false, function (b) {
+            b.transform('reactify', { es6: true });
+        }),
+        'tests.js'
+    ).pipe(gulp.dest("./root/static/build/"));
 });
 
 gulp.task("watch", function () {
