@@ -292,8 +292,8 @@
         if (vm = MB.sourceExternalLinksEditor) {
             vm.getFormData(formName + '.url', fieldCount, pushInput);
 
-            if (MB.hasSessionStorage && vm.state.links.length) {
-                sessionStorage.submittedLinks = JSON.stringify(vm.state.links);
+            if (MB.hasSessionStorage && vm.state.links.size) {
+                sessionStorage.submittedLinks = JSON.stringify(vm.state.links.toJS());
             }
         }
 
