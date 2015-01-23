@@ -152,7 +152,9 @@ var ExternalLink = React.createClass({
         var type = cleanup.guessType(cleanup.sourceType, url);
 
         if (type) {
-          this.props.setLinkState({ type: MB.typeInfoByID[type].id });
+          this.props.setLinkState({ type: MB.typeInfoByID[type].id }, () => {
+            this.updateTooltip();
+          });
         }
       }
     });
