@@ -158,6 +158,7 @@ function buildScripts(watch) {
         }),
         createBundle("guess-case.js", watch),
         createBundle("release-editor.js", watch, function (b) {
+            b.transform('reactify', { es6: true });
             b.external('./root/static/scripts/edit/externalLinks.js');
         }),
         createBundle("statistics.js", watch),
