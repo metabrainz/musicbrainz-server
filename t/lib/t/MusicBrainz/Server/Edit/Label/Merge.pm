@@ -86,6 +86,33 @@ EOSQL
     is(@editors, 0, 'No editors subscribed to label #2 (now merged)');
 };
 
+test 'Duplicate release labels are merged' => sub {
+    my ($test) = @_;
+
+    my $c = $test->c;
+    my $release;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
+    $c->sql->do("INSERT INTO release_label (id, release, label, catalog_number) VALUES (2, 1, 2, 'ABC-123')");
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_LABEL_MERGE,
+        editor_id => 1,
+        old_entities => [ { id => 2, name => 'Label' } ],
+        new_entity => { id => 1, name => 'Label' },
+    );
+
+    $release = $c->model('Release')->get_by_id(1);
+    $c->model('ReleaseLabel')->load($release);
+    is($release->all_labels, 2, 'Two release labels before merge');
+
+    $edit->accept;
+
+    $release = $c->model('Release')->get_by_id(1);
+    $c->model('ReleaseLabel')->load($release);
+    is($release->all_labels, 1, 'One release label after merge');
+};
+
 sub create_edit {
     my $c = shift;
     return $c->model('Edit')->create(
