@@ -8,7 +8,10 @@ with 't::Context';
 
 BEGIN { use MusicBrainz::Server::Edit::Release::EditReleaseLabel }
 
-use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDITRELEASELABEL );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_RELEASE_EDITRELEASELABEL
+    $EDIT_RELEASE_ADDRELEASELABEL
+);
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 test all => sub {
@@ -148,6 +151,33 @@ test 'Editing a non-existant release label fails' => sub {
     isa_ok exception { $edit->accept }, 'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
 };
 
+test 'Prevents initializing an edit with a duplicate label/catalog number pair' => sub {
+    my ($test) = @_;
+
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
+
+    my $label = $c->model('Label')->get_by_id(1);
+
+    $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASE_ADDRELEASELABEL,
+        editor_id => 1,
+        release => $c->model('Release')->get_by_id(1),
+        label => $label,
+        catalog_number => 'ABC-456',
+    );
+
+    like exception {
+        $c->model('Edit')->create(
+            edit_type => $EDIT_RELEASE_EDITRELEASELABEL,
+            editor_id => 1,
+            release_label => $c->model('ReleaseLabel')->get_by_id(1),
+            label => $label,
+            catalog_number => 'ABC-456',
+        );
+    }, qr/The label and catalog number in this edit already exist on the release./;
+};
 
 sub create_edit {
     my ($c, $rl) = @_;
