@@ -553,6 +553,7 @@
             this.label = ko.observable(MB.entity(data.label || {}, "label"));
             this.catalogNumber = ko.observable(data.catalogNumber);
             this.release = release;
+            this.isDuplicate = ko.observable(false);
 
             var self = this;
 
@@ -696,7 +697,22 @@
                 _.map(this.labels.peek(), MB.edit.fields.releaseLabel)
             );
 
+            function releaseLabelKey(releaseLabel) {
+                return ((releaseLabel.label() || {}).id || '') + '\0' + _.str.clean(releaseLabel.catalogNumber());
+            }
+
+            function nonEmptyReleaseLabel(releaseLabel) {
+                return releaseLabelKey(releaseLabel) !== '\0';
+            }
+
+            ko.computed(function () {
+                _(self.labels()).groupBy(releaseLabelKey).each(function (labels) {
+                    _.invoke(labels, "isDuplicate", _.filter(labels, nonEmptyReleaseLabel).length > 1);
+                });
+            });
+
             this.needsLabels = errorField(this.labels.any("needsLabel"));
+            this.hasDuplicateLabels = errorField(this.labels.any("isDuplicate"));
 
             this.releaseGroup = ko.observable(
                 fields.ReleaseGroup(data.releaseGroup || {})
