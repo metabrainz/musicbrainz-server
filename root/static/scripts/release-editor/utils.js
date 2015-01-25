@@ -22,8 +22,16 @@
     };
 
 
+    utils.computedWith = function (callback, observable, defaultValue) {
+        return ko.computed(function () {
+            var result = observable();
+            return result ? callback(result) : defaultValue;
+        });
+    };
+
+
     utils.withRelease = function (read, defaultValue) {
-        return MB.utility.computedWith(read, releaseField, defaultValue);
+        return utils.computedWith(read, releaseField, defaultValue);
     };
 
 

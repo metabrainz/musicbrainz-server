@@ -321,14 +321,6 @@ MB.utility.deferFocus = function () {
     _.defer(function () { $.apply(null, selectorArguments).focus() });
 };
 
-MB.utility.computedWith = function (callback, observable, defaultValue) {
-    return ko.computed(function () {
-        var result = observable();
-
-        return result ? callback(result) : defaultValue;
-    });
-};
-
 MB.utility.debounce = function (value, delay) {
     if (!ko.isObservable(value)) {
         value = ko.computed(value);

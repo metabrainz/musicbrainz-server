@@ -36,7 +36,7 @@
         etiRegex = /(\([^)]+\) ?)*$/;
 
 
-    var releaseGroupField = MB.utility.computedWith(
+    var releaseGroupField = utils.computedWith(
         function (release) { return release.releaseGroup() }, releaseField
     );
 
