@@ -21,20 +21,6 @@ MB.utility.filesize = function (size) {
     return filesize(size, 1, false);
 };
 
-MB.utility.optionCookie = function (name, defaultValue) {
-    var existingValue = $.cookie(name);
-
-    var observable = ko.observable(
-        defaultValue ? existingValue !== "false" : existingValue === "true"
-    );
-
-    observable.subscribe(function (newValue) {
-        $.cookie(name, newValue, { path: "/", expires: 365 });
-    });
-
-    return observable;
-};
-
 MB.utility.deferFocus = function () {
     var selectorArguments = arguments;
     _.defer(function () { $.apply(null, selectorArguments).focus() });

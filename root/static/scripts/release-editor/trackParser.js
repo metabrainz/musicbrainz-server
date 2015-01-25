@@ -18,13 +18,13 @@ MB.releaseEditor.trackParser = {
     trackTime: /\(?((?:[0-9０-９]+[：，．':,.])?[0-9０-９\?]+[：，．':,.][0-5０-５\?][0-9０-９\?])\)?$/,
 
     options: {
-        hasTrackNumbers: MB.utility.optionCookie("trackparser_tracknumbers", true),
-        hasTrackArtists: MB.utility.optionCookie("trackparser_trackartists", true),
-        hasVinylNumbers: MB.utility.optionCookie("trackparser_vinylnumbers", true),
-        useTrackNumbers: MB.utility.optionCookie("trackparser_usetracknumbers", true),
-        useTrackNames: MB.utility.optionCookie("trackparser_usetracknames", true),
-        useTrackArtists: MB.utility.optionCookie("trackparser_usetrackartists", true),
-        useTrackLengths: MB.utility.optionCookie("trackparser_tracktimes", true)
+        hasTrackNumbers: optionCookie("trackparser_tracknumbers", true),
+        hasTrackArtists: optionCookie("trackparser_trackartists", true),
+        hasVinylNumbers: optionCookie("trackparser_vinylnumbers", true),
+        useTrackNumbers: optionCookie("trackparser_usetracknumbers", true),
+        useTrackNames: optionCookie("trackparser_usetracknames", true),
+        useTrackArtists: optionCookie("trackparser_usetrackartists", true),
+        useTrackLengths: optionCookie("trackparser_tracktimes", true)
     },
 
     parse: function (str, medium) {
@@ -320,6 +320,20 @@ MB.releaseEditor.trackParser = {
         }
     }
 };
+
+function optionCookie(name, defaultValue) {
+    var existingValue = $.cookie(name);
+
+    var observable = ko.observable(
+        defaultValue ? existingValue !== "false" : existingValue === "true"
+    );
+
+    observable.subscribe(function (newValue) {
+        $.cookie(name, newValue, { path: "/", expires: 365 });
+    });
+
+    return observable;
+}
 
 /* Convert fullwidth characters to standard halfwidth Latin. */
 function fullWidthConverter(inputString) {
