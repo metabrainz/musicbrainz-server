@@ -16,26 +16,6 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
-/* Convert fullwidth characters to standard halfwidth Latin. */
-MB.utility.fullWidthConverter = function (inputString) {
-    if (inputString === "") {
-        return "";
-    }
-
-    i = inputString.length;
-    newString = [];
-
-    do {
-        newString.push(
-            inputString[i-1].replace(/([\uFF01-\uFF5E])/g, function (str, p1) {
-                return String.fromCharCode(p1.charCodeAt(0) - 65248);
-            })
-        );
-    } while (--i);
-
-    return newString.reverse().join("");
-};
-
 MB.utility.isNullOrEmpty = function (o) { return (!o || o == ""); };
 MB.utility.is_latin = function (str) { return ! /[^\u0000-\u02ff\u1E00-\u1EFF\u2000-\u207F]/.test(str); };
 

@@ -6,11 +6,7 @@
 var test = require('tape');
 
 test('All', function (t) {
-    t.plan(21);
-
-    var input = "ＭｕｓｉｃＢｒａｉｎｚ！～２０１１";
-    var expected = "MusicBrainz!~2011";
-    t.equal(MB.utility.fullWidthConverter(input), expected, "fullWidthConverter (" + input + ")");
+    t.plan(20);
 
     var seconds = 1000;
     var minutes = 60 * seconds;

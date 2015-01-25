@@ -205,7 +205,7 @@ MB.releaseEditor.trackParser = {
 
         if (match !== null) {
             if (options.useTrackLengths && match[1] !== "?:??") {
-                data.formattedLength = MB.utility.fullWidthConverter(match[1]);
+                data.formattedLength = fullWidthConverter(match[1]);
                 data.length = MB.utility.unformatTrackLength(data.formattedLength);
             }
             // Remove the track time from the line.
@@ -220,7 +220,7 @@ MB.releaseEditor.trackParser = {
             if (match === null) return {};
 
             if (options.useTrackNumbers) {
-                data.number = MB.utility.fullWidthConverter(match[1]);
+                data.number = fullWidthConverter(match[1]);
 
                 if (/^\d+$/.test(data.number)) {
                     data.number = data.number.replace(/^0+(\d+)/, "$1");
@@ -320,3 +320,25 @@ MB.releaseEditor.trackParser = {
         }
     }
 };
+
+/* Convert fullwidth characters to standard halfwidth Latin. */
+function fullWidthConverter(inputString) {
+    if (inputString === "") {
+        return "";
+    }
+
+    i = inputString.length;
+    newString = [];
+
+    do {
+        newString.push(
+            inputString[i-1].replace(/([\uFF01-\uFF5E])/g, function (str, p1) {
+                return String.fromCharCode(p1.charCodeAt(0) - 65248);
+            })
+        );
+    } while (--i);
+
+    return newString.reverse().join("");
+}
+
+exports.fullWidthConverter = fullWidthConverter;

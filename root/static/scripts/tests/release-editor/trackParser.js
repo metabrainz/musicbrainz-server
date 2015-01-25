@@ -279,3 +279,13 @@ parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3
     t.equal(track.artistCredit.text(), "BAR!", "artist was not used");
     t.equal(track.formattedLength(), "2:55", "length was used");
 });
+
+parserTest("parsing fullwidth numbers", function (t) {
+    t.plan(1);
+
+    var input = "１ Ｆｏｏ ２：３４";
+
+    common.trackParser(t, input, [
+        { position: 1, name: "Ｆｏｏ", formattedLength: "2:34" }
+    ]);
+});
