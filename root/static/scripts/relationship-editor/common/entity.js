@@ -4,7 +4,7 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 var mergeDates = require('./mergeDates.js');
-var deferFocus = require('../edit/utility/deferFocus.js');
+var deferFocus = require('../../edit/utility/deferFocus.js');
 
 (function (RE) {
 
