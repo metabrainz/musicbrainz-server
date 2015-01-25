@@ -153,7 +153,7 @@
 
             if (!url) {
                 return MB.i18n.l("Required field.");
-            } else if (!MB.utility.isValidURL(url)) {
+            } else if (!isValidURL(url)) {
                 return MB.i18n.l("Enter a valid url e.g. \"http://google.com/\"");
             }
 
@@ -238,8 +238,7 @@
                     // Theoretically, if the URL isn't valid then the URLCleanup
                     // should've set an error. However, this callback runs before
                     // the URLCleanup code kicks in, so we need to check ourselves.
-                    return (url && MB.utility.isValidURL(url) && !link.error()) ||
-                            link.linkTypeDescription();
+                    return (url && isValidURL(url) && !link.error()) || link.linkTypeDescription();
                 }
             });
         },
@@ -297,3 +296,31 @@ ko.bindingHandlers.urlCleanup = {
         _.defer(function () { $textInput.change() });
     }
 };
+
+var protocolRegex = /^(https?|ftp):$/;
+var hostnameRegex = /^(([A-z\d]|[A-z\d][A-z\d\-]*[A-z\d])\.)*([A-z\d]|[A-z\d][A-z\d\-]*[A-z\d])$/;
+
+function isValidURL(url) {
+    var a = document.createElement("a");
+    a.href = url;
+
+    var hostname = a.hostname;
+
+    if (url.indexOf(hostname) < 0) {
+        return false;
+    }
+
+    if (!hostnameRegex.test(hostname)) {
+        return false;
+    }
+
+    if (hostname.indexOf(".") < 0) {
+        return false;
+    }
+
+    if (!protocolRegex.test(a.protocol)) {
+        return false;
+    }
+
+    return true;
+}
