@@ -360,20 +360,6 @@ MB.utility.isValidURL = (function () {
     };
 }());
 
-
-MB.utility.mergeDates = function (a, b) {
-    var ay = a.year(), am = a.month(), ad = a.day();
-    var by = b.year(), bm = b.month(), bd = b.day();
-
-    var yConflict = ay && by && ay !== by;
-    var mConflict = am && bm && am !== bm;
-    var dConflict = ad && bd && ad !== bd;
-
-    if (yConflict || mConflict || dConflict) return null;
-
-    return { year: ay || by, month: am || bm, day: ad || bd };
-};
-
 MB.utility.debounce = function (value, delay) {
     if (!ko.isObservable(value)) {
         value = ko.computed(value);

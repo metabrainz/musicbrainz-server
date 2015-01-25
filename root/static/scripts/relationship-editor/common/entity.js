@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var mergeDates = require('./mergeDates.js');
+
 (function (RE) {
 
     MB.entity.CoreEntity.extend({
@@ -95,13 +97,8 @@
                 if (rel !== other && rel.isDuplicate(other)) {
                     var obj = _.omit(rel.editData(), "id");
 
-                    obj.beginDate = MB.utility.mergeDates(
-                        rel.period.beginDate, other.period.beginDate
-                    );
-
-                    obj.endDate = MB.utility.mergeDates(
-                        rel.period.endDate, other.period.endDate
-                    );
+                    obj.beginDate = mergeDates(rel.period.beginDate, other.period.beginDate);
+                    obj.endDate = mergeDates(rel.period.endDate, other.period.endDate);
 
                     other.fromJS(obj);
                     rel.remove();

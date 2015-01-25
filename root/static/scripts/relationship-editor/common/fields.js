@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var mergeDates = require('./mergeDates.js');
+
 (function (RE) {
 
     var fields = RE.fields = RE.fields || {};
@@ -394,8 +396,8 @@
                 this !== other &&
                 this.linkTypeID() == other.linkTypeID() &&
                 _.isEqual(this.entities(), other.entities()) &&
-                MB.utility.mergeDates(this.period.beginDate, other.period.beginDate) &&
-                MB.utility.mergeDates(this.period.endDate, other.period.endDate) &&
+                mergeDates(this.period.beginDate, other.period.beginDate) &&
+                mergeDates(this.period.endDate, other.period.endDate) &&
                 attributesAreEqual(this.attributes(), other.attributes())
             );
         },
