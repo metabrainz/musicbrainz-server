@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var debounce = require('../common/utility/debounce.js');
+
 (function (releaseEditor) {
 
     var utils = releaseEditor.utils;
@@ -354,7 +356,7 @@
     };
 
 
-    releaseEditor.allEdits = MB.utility.debounce(
+    releaseEditor.allEdits = debounce(
         utils.withRelease(function (release) {
             var root = releaseEditor.rootField;
 
@@ -394,7 +396,7 @@
         }
         function isNewEdit(edit) { return previews[edit.hash] === undefined }
 
-        MB.utility.debounce(function () {
+        debounce(function () {
             var edits = releaseEditor.allEdits();
 
             if (releaseEditor.validation.errorsExist()) {

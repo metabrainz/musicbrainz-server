@@ -4,6 +4,7 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 var request = require('../common/utility/request.js');
+var debounce = require('../common/utility/debounce.js');
 
 (function (releaseEditor) {
 
@@ -60,7 +61,7 @@ var request = require('../common/utility/request.js');
                 });
         });
 
-        MB.utility.debounce(utils.withRelease(function (release) {
+        debounce(utils.withRelease(function (release) {
             var name = release.name();
 
             // If a release group is selected, just show the releases from

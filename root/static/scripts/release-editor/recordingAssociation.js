@@ -4,6 +4,7 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 var request = require('../common/utility/request.js');
+var debounce = require('../common/utility/debounce.js');
 
 (function (releaseEditor) {
 
@@ -59,7 +60,7 @@ var request = require('../common/utility/request.js');
     });
 
 
-    MB.utility.debounce(utils.withRelease(function (release) {
+    debounce(utils.withRelease(function (release) {
         var newIDs = _(release.mediums()).invoke("tracks").flatten()
                       .pluck("artistCredit").invoke("names").flatten()
                       .invoke("artist").pluck("id").uniq().compact().value();
@@ -388,7 +389,7 @@ var request = require('../common/utility/request.js');
 
 
     recordingAssociation.track = function (track) {
-        MB.utility.debounce(function () { watchTrackForChanges(track) });
+        debounce(function () { watchTrackForChanges(track) });
     };
 
 }(MB.releaseEditor = MB.releaseEditor || {}));
