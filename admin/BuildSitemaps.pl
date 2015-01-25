@@ -497,7 +497,8 @@ sub build_one_suffix {
             # 50 items per page, and the first page is covered by the base.
             my $paginated_count = ceil($id_info->{$opts{paginated}} / 50) - 1;
 
-            if ($paginated_count > 1) {
+            # Since we exclude page 1 above, this is for anything above 0.
+            if ($paginated_count > 0) {
 	        # Start from page 2, and add one to the count for the last page
 	        # (since the count was one less due to the exclusion of the first
 	        # page)
