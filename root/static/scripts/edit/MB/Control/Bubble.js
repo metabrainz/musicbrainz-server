@@ -2,6 +2,8 @@
 // Copyright (C) 2013 MetaBrainz Foundation
 // Released under the GPLv2 license: http://www.gnu.org/licenses/gpl-2.0.txt
 
+var deferFocus = require('../../utility/deferFocus.js');
+
 MB.Control.BubbleBase = aclass({
 
     // Organized by group, where only one bubble from each group can be
@@ -34,7 +36,7 @@ MB.Control.BubbleBase = aclass({
         var $bubble = this.$bubble;
 
         if (stealFocus !== false && $(control).is(":button")) {
-            MB.utility.deferFocus(":input:first", $bubble);
+            deferFocus(":input:first", $bubble);
         }
 
         var activeBubble = this.activeBubbles[this.group];

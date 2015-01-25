@@ -16,11 +16,6 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
-MB.utility.deferFocus = function () {
-    var selectorArguments = arguments;
-    _.defer(function () { $.apply(null, selectorArguments).focus() });
-};
-
 MB.utility.debounce = function (value, delay) {
     if (!ko.isObservable(value)) {
         value = ko.computed(value);

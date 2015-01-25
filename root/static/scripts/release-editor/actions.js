@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var deferFocus = require('../edit/utility/deferFocus.js');
+
 (function (releaseEditor) {
 
     _.extend(releaseEditor, {
@@ -125,7 +127,7 @@
                 this.swapTracks(track, previous, track.medium);
             }
 
-            MB.utility.deferFocus("button.track-up", "#" + track.elementID);
+            deferFocus("button.track-up", "#" + track.elementID);
 
             // If the medium had a TOC attached, it's no longer valid.
             track.medium.toc(null);
@@ -146,7 +148,7 @@
                 this.swapTracks(track, next, track.medium);
             }
 
-            MB.utility.deferFocus("button.track-down", "#" + track.elementID);
+            deferFocus("button.track-down", "#" + track.elementID);
 
             // If the medium had a TOC attached, it's no longer valid.
             track.medium.toc(null);
@@ -199,9 +201,9 @@
             }
 
             if (focus) {
-                MB.utility.deferFocus("button.remove-item", "#" + focus.elementID);
+                deferFocus("button.remove-item", "#" + focus.elementID);
             } else {
-                MB.utility.deferFocus(".add-tracks button.add-item", $medium);
+                deferFocus(".add-tracks button.add-item", $medium);
             }
 
             medium.toc(null);

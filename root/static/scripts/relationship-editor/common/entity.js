@@ -4,6 +4,7 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 var mergeDates = require('./mergeDates.js');
+var deferFocus = require('../edit/utility/deferFocus.js');
 
 (function (RE) {
 
@@ -74,7 +75,7 @@ var mergeDates = require('./mergeDates.js');
                     commonAttributes = _.reject(_.intersection.apply(_, attributeLists), isFreeText);
 
                 relationship.attributes(commonAttributes);
-                MB.utility.deferFocus("input.name", "#dialog");
+                deferFocus("input.name", "#dialog");
                 dialog.open(event.target);
             }
 
