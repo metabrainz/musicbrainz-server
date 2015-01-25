@@ -326,8 +326,8 @@ sub build_suffix_info {
     if ($entity_type eq 'artist') {
         $suffix_info->{base}{extra_sql} = {
             columns => "(SELECT count(rg) FROM tmp_sitemaps_artist_direct_rgs tsadr WHERE tsadr.artist = artist.id AND is_official) official_rg_count",
-            paginated => "official_rg_count"
         };
+        $suffix_info->{base}{paginated} = "official_rg_count";
         $suffix_info->{all} = {
             extra_sql => {columns => "(SELECT count(rg) FROM tmp_sitemaps_artist_direct_rgs tsadr WHERE tsadr.artist = artist.id) all_rg_count"},
             paginated => "all_rg_count",
