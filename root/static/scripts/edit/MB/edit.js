@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var request = require('../../common/utility/request.js');
+
 (function (edit) {
 
     var TYPES = edit.TYPES = {
@@ -422,7 +424,7 @@
         return function (data, context) {
             data.edits = _.map(data.edits, omitHash);
 
-            return MB.utility.request({
+            return request({
                 type: "POST",
                 url: endpoint,
                 data: JSON.stringify(data),

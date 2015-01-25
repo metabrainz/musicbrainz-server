@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var request = require('../common/utility/request.js');
+
 MB.releaseEditor = _.extend(MB.releaseEditor || {}, {
 
     activeTabID: ko.observable("#information"),
@@ -196,7 +198,7 @@ MB.releaseEditor.loadRelease = function (gid, callback) {
         data: { inc: "annotation+release-events+labels+media+rels" }
     };
 
-    return MB.utility.request(args, this)
+    return request(args, this)
             .done(callback || this.releaseLoaded)
             .fail(function (jqXHR, status, error) {
                 error = jqXHR.status + " (" + error + ")"

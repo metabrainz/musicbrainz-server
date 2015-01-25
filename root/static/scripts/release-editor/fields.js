@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var request = require('../common/utility/request.js');
+
 (function (releaseEditor) {
 
     var fields = releaseEditor.fields = releaseEditor.fields || {};
@@ -429,7 +431,7 @@
                 data: { inc: "recordings" }
             };
 
-            MB.utility.request(args, this).done(this.tracksLoaded);
+            request(args, this).done(this.tracksLoaded);
         },
 
         tracksLoaded: function (data) {

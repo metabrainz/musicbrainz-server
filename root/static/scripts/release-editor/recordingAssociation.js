@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var request = require('../common/utility/request.js');
+
 (function (releaseEditor) {
 
     var recordingAssociation = releaseEditor.recordingAssociation = {};
@@ -81,7 +83,7 @@
                 data: $.param({ artists: newIDs }, true /* traditional */)
             };
 
-            MB.utility.request(requestArgs).done(function (data) {
+            request(requestArgs).done(function (data) {
                 recentRecordings = data.recordings;
             });
         }

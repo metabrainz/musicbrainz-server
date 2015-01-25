@@ -4,6 +4,7 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 var mergeDates = require('./mergeDates.js');
+var request = require('../../common/utility/request.js');
 
 (function (RE) {
 
@@ -174,7 +175,7 @@ var mergeDates = require('./mergeDates.js');
 
                 var args = { url: "/ws/js/entity/" + entity1.gid + "?inc=rels" };
 
-                MB.utility.request(args, this).done(function (data) {
+                request(args, this).done(function (data) {
                     entity1.parseRelationships(data.relationships, this.parent);
                 });
             }

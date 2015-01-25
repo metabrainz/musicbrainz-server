@@ -8,6 +8,7 @@
 // Original version Copyright (C) 2010 Nick Galbreath, and released under
 // the MIT license: http://opensource.org/licenses/MIT
 
+var request = require('../common/utility/request.js');
 
 (function (releaseEditor) {
 
@@ -65,7 +66,7 @@
 
         if (offset !== undefined) requestArgs.data.offset = offset;
 
-        return MB.utility.request(requestArgs);
+        return request(requestArgs);
     };
 
 

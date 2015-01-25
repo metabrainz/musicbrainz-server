@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var request = require('../common/utility/request.js');
+
 (function (RE) {
 
     var UI = RE.UI = RE.UI || {};
@@ -39,7 +41,7 @@
 
             this.loadingRelease(true);
             var url = "/ws/js/release/" + this.source.gid + "?inc=rels+media+recordings";
-            MB.utility.request({ url: url }, this)
+            request({ url: url }, this)
                 .done(this.releaseLoaded)
                 .always(function () {
                     self.loadingRelease(false);

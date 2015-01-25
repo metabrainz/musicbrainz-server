@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var request = require('../common/utility/request.js');
+
 (function (releaseEditor) {
 
     var Dialog = aclass({
@@ -72,7 +74,7 @@
                 this.loading(true);
                 this.error("");
 
-                MB.utility.request({
+                request({
                     url: this.tab.tracksRequestURL(this),
                     data: this.tab.tracksRequestData
                 }, this)
@@ -139,7 +141,7 @@
                 page: pageJump ? this.currentPage() + pageJump : 1
             };
 
-            this._jqXHR = MB.utility.request({ url: this.endpoint, data: data }, this)
+            this._jqXHR = request({ url: this.endpoint, data: data }, this)
                 .done(this.requestDone)
                 .fail(function (jqXHR, textStatus) {
                     if (textStatus !== "abort") {

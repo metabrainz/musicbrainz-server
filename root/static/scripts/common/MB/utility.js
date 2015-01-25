@@ -237,61 +237,6 @@ MB.utility.optionCookie = function (name, defaultValue) {
     return observable;
 };
 
-MB.utility.request = (function () {
-    var nextAvailableTime = new Date().getTime(),
-        prevDeferred = null,
-        timeout = 1000;
-
-    function makeRequest(args, context, deferred) {
-        deferred.jqXHR = $.ajax(_.extend({ dataType: "json" }, args))
-            .done(function () { deferred.resolveWith(context, arguments) })
-            .fail(function () { deferred.rejectWith(context, arguments) });
-
-        deferred.jqXHR.sentData = args.data;
-    }
-
-    return function (args, context) {
-        var deferred = $.Deferred(),
-            now = new Date().getTime();
-
-        if (nextAvailableTime - now <= 0) {
-            makeRequest(args, context, deferred);
-
-            // nextAvailableTime is in the past.
-            nextAvailableTime = now + timeout;
-        } else {
-            var later = function () {
-                if (!deferred.aborted && !deferred.complete) {
-                    makeRequest(args, context, deferred);
-
-                } else if (deferred.next) {
-                    deferred.next();
-                }
-                deferred.complete = true;
-            };
-
-            prevDeferred && (prevDeferred.next = later);
-            prevDeferred = deferred;
-
-            _.delay(later, nextAvailableTime - now);
-
-            // nextAvailableTime is in the future.
-            nextAvailableTime += timeout;
-        }
-
-        var promise = deferred.promise();
-
-        promise.abort = function () {
-            if (deferred.jqXHR) {
-                deferred.jqXHR.abort();
-            } else {
-                deferred.aborted = true;
-            }
-        };
-        return promise;
-    }
-}());
-
 MB.utility.formatDate = function (date) {
     var y = ko.unwrap(date.year);
     var m = ko.unwrap(date.month);
