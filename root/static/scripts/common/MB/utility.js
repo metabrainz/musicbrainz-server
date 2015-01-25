@@ -16,11 +16,6 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
-MB.utility.filesize = function (size) {
-    /* 1 decimal place.  false disables bit sizes. */
-    return filesize(size, 1, false);
-};
-
 MB.utility.deferFocus = function () {
     var selectorArguments = arguments;
     _.defer(function () { $.apply(null, selectorArguments).focus() });

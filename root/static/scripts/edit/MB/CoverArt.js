@@ -323,7 +323,8 @@ MB.CoverArt.FileUpload = function (file) {
     var statuses = MB.CoverArt.upload_status_enum;
 
     self.name = file.name;
-    self.size = MB.utility.filesize(file.size);
+    /* 1 decimal place. false disables bit sizes. */
+    self.size = filesize(file.size, 1, false);
     self.comment = ko.observable("");
     self.types = MB.CoverArt.cover_art_types();
     self.data = file;
