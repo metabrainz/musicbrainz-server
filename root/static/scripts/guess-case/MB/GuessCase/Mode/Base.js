@@ -296,12 +296,10 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
     self.runFixes = function (is, list) {
         var replace_match = function (matcher, is) {
             // get reference to first set of parentheses
-            var a = matcher[1];
-            a = (MB.utility.isNullOrEmpty(a) ? "" : a);
+            var a = matcher[1] || '';
 
             // get reference to last set of parentheses
-            var b = matcher[matcher.length-1];
-            b = (MB.utility.isNullOrEmpty(b) ? "" : b);
+            var b = matcher[matcher.length-1] || '';
 
             // compile replace string
             var rs = [a,fix.replace,b].join("");

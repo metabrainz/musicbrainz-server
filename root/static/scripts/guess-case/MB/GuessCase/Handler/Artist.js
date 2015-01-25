@@ -125,7 +125,7 @@ MB.GuessCase.Handler.Artist = function () {
      **/
     self.guessSortName = function (is, person) {
         return self.sortCompoundName(is, function (artist) {
-            if (!MB.utility.isNullOrEmpty(artist)) {
+            if (artist) {
                 artist = gc.u.trim(artist);
                 var append = "";
 
@@ -186,7 +186,7 @@ MB.GuessCase.Handler.Artist = function () {
                                 names[i+1] = names[i] + " " + names[i+1];
                             // handle St. because it belongs
                             // to the lastname
-                            } else if (!MB.utility.isNullOrEmpty(names[i])) {
+                            } else if (names[i]) {
                                 reOrderedNames[i+1] = names[i];
                             }
                         }

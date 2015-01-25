@@ -230,20 +230,15 @@ MB.GuessCase.Utils = function () {
             t["<"] = ">"; t[">"] = "<";
             self.bracketPairs = t;
         }
-        var cb = self.bracketPairs[w];
-        if (MB.utility.isNullOrEmpty(cb)) {
-            return "";
-        }
-        return cb;
+        return self.bracketPairs[w] || '';
     }; // parenthesis
 
     /**
      * Trim leading, trailing and running-line whitespace from the given string
      **/
     self.trim = function (is) {
-        if (MB.utility.isNullOrEmpty(is)) {
-            is = "";
-        } else if (typeof is != 'string') {
+        is = is || '';
+        if (typeof is != 'string') {
             is = "";
         }
         return (is.replace(/^\s\s*/,"").replace(/\s\s*$/,"").replace(/([\(\[])\s+/,"$1").replace(/\s+([\)\]])/,"$1").replace(/\s\s*/g," "));
@@ -263,7 +258,7 @@ MB.GuessCase.Utils = function () {
     self.titleString = function (is, forceCaps) {
         forceCaps = (forceCaps != null ? forceCaps : gc.f.forceCaps);
 
-        if (MB.utility.isNullOrEmpty(is)) {
+        if (!is) {
             return "";
         }
 
