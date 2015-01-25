@@ -551,7 +551,7 @@ MB.Control.autocomplete_formatters = {
             comment.push(item.primaryAlias);
         }
 
-        if (item.sortName && !MB.utility.is_latin(item.name) && item.sortName != item.name)
+        if (item.sortName && !isLatin(item.name) && item.sortName != item.name)
         {
             comment.push(item.sortName);
         }
@@ -928,3 +928,7 @@ ko.bindingHandlers.autocomplete = {
         }
     }
 };
+
+function isLatin(str) {
+    return !/[^\u0000-\u02ff\u1E00-\u1EFF\u2000-\u207F]/.test(str);
+}
