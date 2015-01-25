@@ -90,6 +90,16 @@ sub remove_entities_from_collection
               $collection_id, @ids);
 }
 
+sub check_entity
+{
+    my ($self, $type, $collection_id, $id) = @_;
+
+    return $self->sql->select_single_value("
+        SELECT 1 FROM editor_collection_" . $type . "
+        WHERE collection = ? AND " . $type . " = ?",
+        $collection_id, $id) ? 1 : 0;
+}
+
 sub add_releases_to_collection
 {
     my ($self, $collection_id, @ids) = @_;
@@ -104,12 +114,8 @@ sub remove_releases_from_collection
 
 sub check_release
 {
-    my ($self, $collection_id, $release_id) = @_;
-
-    return $self->sql->select_single_value("
-        SELECT 1 FROM editor_collection_release
-        WHERE collection = ? AND release = ?",
-        $collection_id, $release_id) ? 1 : 0;
+    my ($self, $collection_id, $id) = @_;
+    return $self->check_entity("release", $collection_id, $id);
 }
 
 sub merge_releases
@@ -158,12 +164,8 @@ sub remove_events_from_collection
 
 sub check_event
 {
-    my ($self, $collection_id, $event_id) = @_;
-
-    return $self->sql->select_single_value("
-        SELECT 1 FROM editor_collection_event
-        WHERE collection = ? AND event = ?",
-        $collection_id, $event_id) ? 1 : 0;
+    my ($self, $collection_id, $id) = @_;
+    return $self->check_entity("event", $collection_id, $id);
 }
 
 sub merge_events
