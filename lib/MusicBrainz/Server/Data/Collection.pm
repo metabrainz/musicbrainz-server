@@ -60,23 +60,29 @@ sub find_by_subscribed_editor
         $query, $editor_id, $offset || 0);
 }
 
-sub add_releases_to_collection
+sub add_entities_to_collection
 {
-    my ($self, $collection_id, @release_ids) = @_;
-    return unless @release_ids;
+    my ($self, $type, $collection_id, @ids) = @_;
+    return unless @ids;
 
     $self->sql->auto_commit;
 
-    my @collection_ids = ($collection_id) x @release_ids;
+    my @collection_ids = ($collection_id) x @ids;
     $self->sql->do("
-        INSERT INTO editor_collection_release (collection, release)
-           SELECT DISTINCT add.collection, add.release
-             FROM (VALUES " . join(', ', ("(?::integer, ?::integer)") x @release_ids) . ") add (collection, release)
+        INSERT INTO editor_collection_" . $type . " (collection, " . $type . ")
+           SELECT DISTINCT add.collection, add." . $type . "
+             FROM (VALUES " . join(', ', ("(?::integer, ?::integer)") x @ids) . ") add (collection, " . $type . ")
             WHERE NOT EXISTS (
-              SELECT TRUE FROM editor_collection_release
-              WHERE collection = add.collection AND release = add.release
+              SELECT TRUE FROM editor_collection_" . $type . "
+              WHERE collection = add.collection AND " . $type . " = add." . $type . "
               LIMIT 1
-            )", zip @collection_ids, @release_ids);
+            )", zip @collection_ids, @ids);
+}
+
+sub add_releases_to_collection
+{
+    my ($self, $collection_id, @ids) = @_;
+    $self->add_entities_to_collection("release", $collection_id, @ids);
 }
 
 sub remove_releases_from_collection
@@ -134,21 +140,8 @@ sub delete_releases
 
 sub add_events_to_collection
 {
-    my ($self, $collection_id, @event_ids) = @_;
-    return unless @event_ids;
-
-    $self->sql->auto_commit;
-
-    my @collection_ids = ($collection_id) x @event_ids;
-    $self->sql->do("
-        INSERT INTO editor_collection_event (collection, event)
-           SELECT DISTINCT add.collection, add.event
-             FROM (VALUES " . join(', ', ("(?::integer, ?::integer)") x @event_ids) . ") add (collection, event)
-            WHERE NOT EXISTS (
-              SELECT TRUE FROM editor_collection_event
-              WHERE collection = add.collection AND event = add.event
-              LIMIT 1
-            )", zip @collection_ids, @event_ids);
+    my ($self, $collection_id, @ids) = @_;
+    $self->add_entities_to_collection("event", $collection_id, @ids);
 }
 
 sub remove_events_from_collection
