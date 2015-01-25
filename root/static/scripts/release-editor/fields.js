@@ -122,7 +122,7 @@ var request = require('../common/utility/request.js');
             }
 
             var oldLength = this.length();
-            var newLength = MB.utility.unformatTrackLength(length);
+            var newLength = utils.unformatTrackLength(length);
             this.length(newLength);
 
             // If the length being changed is for a pregap track and the medium

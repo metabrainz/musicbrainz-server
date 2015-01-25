@@ -52,31 +52,6 @@ MB.utility.formatTrackLength = function (duration)
     return ret;
 };
 
-
-MB.utility.unformatTrackLength = function (duration)
-{
-    if (!duration) {
-        return null;
-    }
-
-    if (duration.slice(-2) == 'ms')
-    {
-        return parseInt(duration, 10);
-    }
-
-    var parts = duration.replace(/[:\.]/, ':').split(':');
-    if (parts[0] == '?' || parts[0] == '??' || duration === '')
-    {
-        return null;
-    }
-
-    var seconds = parseInt(parts.pop(), 10);
-    var minutes = parseInt(parts.pop() || 0, 10) * 60;
-    var hours = parseInt(parts.pop() || 0, 10) * 3600;
-
-    return (hours + minutes + seconds) * 1000;
-};
-
 /* This takes a list of asynchronous functions (i.e. functions which
    return a jquery promise) and runs them in sequence.  It in turn
    returns a promise which is only resolved when all promises in the

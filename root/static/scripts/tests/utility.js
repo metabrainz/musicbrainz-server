@@ -6,7 +6,7 @@
 var test = require('tape');
 
 test('All', function (t) {
-    t.plan(20);
+    t.plan(13);
 
     var seconds = 1000;
     var minutes = 60 * seconds;
@@ -18,14 +18,6 @@ test('All', function (t) {
     t.equal(MB.utility.formatTrackLength(59 * minutes), '59:00', 'formatTrackLength');
     t.equal(MB.utility.formatTrackLength(60 * minutes), '1:00:00', 'formatTrackLength');
     t.equal(MB.utility.formatTrackLength(14 * hours + 15 * minutes + 16 * seconds), '14:15:16', 'formatTrackLength');
-
-    t.equal(MB.utility.unformatTrackLength('?:??'), null, 'MBS-5086: unformatTrackLength(?:??) should be null');
-    t.equal(MB.utility.unformatTrackLength('23 ms'), 23, 'unformatTrackLength');
-    t.equal(MB.utility.unformatTrackLength('00:23'), 23 * seconds, 'unformatTrackLength');
-    t.equal(MB.utility.unformatTrackLength(':57'), 57 * seconds, 'MBS-3352: Handle the case of ":57"');
-    t.equal(MB.utility.unformatTrackLength('59:00'), 59 * minutes, 'unformatTrackLength');
-    t.equal(MB.utility.unformatTrackLength('01:00:00'), 60 * minutes, 'unformatTrackLength');
-    t.equal(MB.utility.unformatTrackLength('14:15:16'), 14 * hours + 15 * minutes + 16 * seconds, 'unformatTrackLength');
 
     var parseDateTests = [
         { date: "", expected: { year: null, month: null, day: null} },

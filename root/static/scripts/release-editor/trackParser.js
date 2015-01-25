@@ -206,7 +206,7 @@ MB.releaseEditor.trackParser = {
         if (match !== null) {
             if (options.useTrackLengths && match[1] !== "?:??") {
                 data.formattedLength = fullWidthConverter(match[1]);
-                data.length = MB.utility.unformatTrackLength(data.formattedLength);
+                data.length = MB.releaseEditor.utils.unformatTrackLength(data.formattedLength);
             }
             // Remove the track time from the line.
             line = line.slice(0, -match[0].length);
