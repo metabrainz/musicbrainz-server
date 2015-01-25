@@ -48,7 +48,5 @@
 <script type="text/javascript">//<![CDATA[
   (function () {
     MB.Control.initialize_guess_case("area", "id-edit-area");
-
-    MB.utility.setDefaultAction("form.edit-area", "button.submit.positive");
   }());
 //]]></script>

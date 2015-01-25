@@ -87,7 +87,5 @@
     MB.Control.initialize_guess_case("label", "id-edit-label");
 
     MB.Control.Area("span.area.autocomplete");
-
-    MB.utility.setDefaultAction("form.edit-label", "button.submit.positive");
   }());
 //]]></script>

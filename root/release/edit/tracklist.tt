@@ -203,7 +203,7 @@
     </td>
 
     <td class="credits-button buttons" data-bind="with: artistCredit">
-      <button data-bind="controlsBubble: $root.trackArtistBubble">[% l('Edit') | html_entity %]</button>
+      <button type="button" data-bind="controlsBubble: $root.trackArtistBubble">[% l('Edit') | html_entity %]</button>
     </td>
 
     <td class="length">
@@ -409,9 +409,9 @@
         <!-- /ko -->
 
         <div class="buttons">
-          <button data-click="openTrackParser">[% l('Track Parser') %]</button>
-          <button data-click="resetTrackNumbers">[%- l('Reset track numbers') -%]</button>
-          <button data-click="swapTitlesWithArtists">[%- l('Swap track titles with artist credits') -%]</button>
+          <button type="button" data-click="openTrackParser">[% l('Track Parser') %]</button>
+          <button type="button" data-click="resetTrackNumbers">[%- l('Reset track numbers') -%]</button>
+          <button type="button" data-click="swapTitlesWithArtists">[%- l('Swap track titles with artist credits') -%]</button>
         </div>
 
         <div class="icon add-tracks" data-bind="if: !hasToc() || hasDataTracks()">

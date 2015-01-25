@@ -58,7 +58,5 @@
 <script type="text/javascript">//<![CDATA[
   (function () {
     MB.Control.initialize_guess_case("event", "id-edit-event");
-
-    MB.utility.setDefaultAction("form.edit-event", "button.submit.positive");
   }());
 //]]></script>

@@ -116,7 +116,6 @@ $(function () {
   ko.applyBindings(series, $("#ordering-type-bubble")[0]);
 
   MB.Control.initialize_guess_case("series", "id-edit-series");
-  MB.utility.setDefaultAction("form.edit-series", "button.submit.positive");
 
   $orderingType.on("change", function () {
     series.orderingTypeID(+this.value);

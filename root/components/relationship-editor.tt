@@ -164,11 +164,11 @@
               <input type="text" class="attribute-credit" placeholder="[% l('credited as') %]" data-bind="value: credit" />
             <!-- /ko -->
             <!-- ko if: $parent.instruments().length > 1 -->
-              <button class="icon remove-item" data-bind="click: _.partial($parent.removeItem, $rawData)"></button>
+              <button type="button" class="icon remove-item" data-bind="click: _.partial($parent.removeItem, $rawData)"></button>
             <!-- /ko -->
           </div>
         <!-- /ko -->
-        <button class="styled-button" style="padding: 3px;" data-bind="click: addItem">
+        <button type="button" class="styled-button" style="padding: 3px;" data-bind="click: addItem">
           [% l('Add another instrument') | html %]
         </button>
       </div>
