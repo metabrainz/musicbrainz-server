@@ -4,6 +4,7 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 var request = require('../common/utility/request.js');
+var formatTrackLength = require('../common/utility/formatTrackLength.js');
 
 (function (releaseEditor) {
 
@@ -100,7 +101,7 @@ var request = require('../common/utility/request.js');
             track.id = null;
             track.position = track.position || (index + 1);
             track.number = track.position;
-            track.formattedLength = MB.utility.formatTrackLength(track.length);
+            track.formattedLength = formatTrackLength(track.length);
 
             if (track.artistCredit) {
                 track.artist = MB.entity.ArtistCredit(track.artistCredit).text();

@@ -4,6 +4,7 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 var request = require('../common/utility/request.js');
+var formatTrackLength = require('../common/utility/formatTrackLength.js');
 
 (function (releaseEditor) {
 
@@ -44,7 +45,7 @@ var request = require('../common/utility/request.js');
             this.artistCredit = fields.ArtistCredit(data.artistCredit);
             this.artistCredit.track = this;
 
-            this.formattedLength = ko.observable(MB.utility.formatTrackLength(data.length));
+            this.formattedLength = ko.observable(formatTrackLength(data.length));
             this.position = ko.observable(data.position);
             this.number = ko.observable(data.number);
             this.isDataTrack = ko.observable(!!data.isDataTrack);
@@ -383,7 +384,7 @@ var request = require('../common/utility/request.js');
 
             _.each(tocTracks, function (track, index) {
                 track.formattedLength(
-                    MB.utility.formatTrackLength(
+                    formatTrackLength(
                         ((toc[index + 4] || toc[2]) - toc[index + 3]) / 75 * 1000
                     )
                 );

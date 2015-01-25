@@ -18,6 +18,8 @@
 
 */
 
+var formatTrackLength = require('../../utility/formatTrackLength.js');
+
 $.widget("ui.autocomplete", $.ui.autocomplete, {
 
     mbidRegex: /[a-f\d]{8}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{12}/,
@@ -576,7 +578,7 @@ MB.Control.autocomplete_formatters = {
         if (item.length)
         {
             a.prepend('<span class="autocomplete-length">' +
-                MB.utility.formatTrackLength(item.length) + '</span>');
+                formatTrackLength(item.length) + '</span>');
         }
 
         if (item.comment)

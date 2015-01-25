@@ -16,42 +16,6 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
-MB.utility.formatTrackLength = function (duration)
-{
-    if (!duration)
-    {
-        return '';
-    }
-
-    if (duration < 1000)
-    {
-        return duration + ' ms';
-    }
-
-    var seconds = Math.round(duration / 1000.0);
-
-    var one_minute = 60;
-    var one_hour = 60 * one_minute;
-
-    var hours = Math.floor(seconds / one_hour);
-    seconds = seconds % one_hour;
-
-    var minutes = Math.floor(seconds / one_minute);
-    seconds = seconds % one_minute;
-
-    var ret = '';
-    ret = ('00' + seconds).slice(-2);
-
-    if (hours > 0) {
-        ret = hours + ':' + ('00' + minutes).slice(-2) + ':' + ret;
-    }
-    else {
-        ret = minutes + ':' + ret;
-    }
-
-    return ret;
-};
-
 function empty(value) {
     return value === null || value === undefined || value === "";
 }
