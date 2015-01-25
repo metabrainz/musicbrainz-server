@@ -82,7 +82,7 @@ ok($coll_data->check_release(1, 3), 'No exception occured when re-adding release
 
 
 my @releases = $coll_data->find_all_by_release(3);
-is(scalar(@releases), 1);
+is(scalar(@releases), 1, 'One collection contains release #3');
 ok((grep { $_->id == 1 } @releases), 'found collection by release');
 
 ok(!$coll_data->check_event(3, 1), 'Event #1 is not in collection #3');
