@@ -179,6 +179,39 @@ test 'Prevents initializing an edit with a duplicate label/catalog number pair' 
     }, qr/The label and catalog number in this edit already exist on the release./;
 };
 
+test 'Prevents applying an edit with a duplicate label/catalog number pair' => sub {
+    my ($test) = @_;
+
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
+
+    my $label = $c->model('Label')->get_by_id(1);
+
+    my $edit_edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASE_EDITRELEASELABEL,
+        editor_id => 1,
+        release_label => $c->model('ReleaseLabel')->get_by_id(1),
+        label => $label,
+        catalog_number => 'ABC-456',
+    );
+
+    # Another edit adds the same release label before the first edit is applied.
+    my $add_edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASE_ADDRELEASELABEL,
+        editor_id => 1,
+        release => $c->model('Release')->get_by_id(1),
+        label => $label,
+        catalog_number => 'ABC-456',
+    );
+
+    $add_edit->accept;
+
+    like exception {
+        $edit_edit->accept;
+    }, qr/The label and catalog number in this edit already exist on the release./;
+};
+
 sub create_edit {
     my ($c, $rl) = @_;
     return _create_edit(

@@ -232,6 +232,15 @@ sub accept
         );
     }
 
+    my $release = $self->c->model('Release')->get_by_id($self->data->{release}{id});
+    $self->c->model('ReleaseLabel')->load($release);
+
+    my ($old, $new) = ($self->data->{old}, $self->data->{new});
+    my $new_label = exists($new->{label}) ? $new->{label} : $old->{label};
+    my $new_catalog_number = exists($new->{catalog_number}) ? $new->{catalog_number} : $old->{catalog_number};
+
+    $self->throw_if_release_label_is_duplicate($release, $new_label ? $new_label->{id} : undef, $new_catalog_number);
+
     my %args = %{ $self->merge_changes };
     $args{label_id} = delete $args{label}
         if exists $args{label};
