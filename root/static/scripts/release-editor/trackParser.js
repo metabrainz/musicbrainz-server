@@ -313,7 +313,7 @@ MB.releaseEditor.trackParser = {
     matchDataWithTrack: function (data, track) {
         if (!track) return;
 
-        var similarity = MB.utility.similarity(data.name, track.name.peek());
+        var similarity = MB.releaseEditor.utils.similarity(data.name, track.name.peek());
 
         if (similarity >= MB.constants.MIN_NAME_SIMILARITY) {
             return { similarity: similarity, track: track, data: data };

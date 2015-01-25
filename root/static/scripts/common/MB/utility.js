@@ -21,27 +21,6 @@ MB.utility.filesize = function (size) {
     return filesize(size, 1, false);
 };
 
-// Compares two names, considers them equivalent if there are only case
-// changes, changes in punctuation and/or changes in whitespace between
-// the two strings.
-
-MB.utility.similarity = (function () {
-    var punctuation = /[!"#$%&'()*+,\-.>\/:;<=>?¿@[\\\]^_`{|}~⁓〜\u2000-\u206F\s]/g;
-
-    function clean(str) {
-        return (str || "").replace(punctuation, "").toLowerCase();
-    }
-
-    return function (a, b) {
-        // If a track title is all punctuation, we'll end up with an empty
-        // string, so just fall back to the original for comparison.
-        a = clean(a) || a || "";
-        b = clean(b) || b || "";
-
-        return 1 - (_.str.levenshtein(a, b) / (a.length + b.length));
-    };
-}());
-
 MB.utility.optionCookie = function (name, defaultValue) {
     var existingValue = $.cookie(name);
 
