@@ -21,10 +21,6 @@ MB.utility.filesize = function (size) {
     return filesize(size, 1, false);
 };
 
-MB.utility.percentOf = function (x, y) {
-    return x * y / 100;
-};
-
 // Compares two names, considers them equivalent if there are only case
 // changes, changes in punctuation and/or changes in whitespace between
 // the two strings.

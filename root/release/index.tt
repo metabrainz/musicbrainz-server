@@ -140,12 +140,12 @@
               <span class="star-rating">
                 <!-- ko if: userRating !== null -->
                 <span class="current-user-rating"
-                      data-bind="style: { width: userRating + '%' }, text: MB.utility.percentOf(userRating, 5)"></span>
+                      data-bind="style: { width: userRating + '%' }, text: userRating * 5 / 100"></span>
                 <!-- /ko -->
 
                 <!-- ko if: userRating === null && rating !== null -->
                 <span class="current-rating"
-                      data-bind="style: { width: rating + '%' }, text: MB.utility.percentOf(rating, 5)"></span>
+                      data-bind="style: { width: rating + '%' }, text: rating * 5 / 100"></span>
                 <!-- /ko -->
 
                 [%- IF c.user_exists -%]
