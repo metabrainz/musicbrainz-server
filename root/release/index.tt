@@ -266,7 +266,11 @@
 
     <script type="text/javascript">
     $(function () {
-        MB.utility.rememberCheckbox("#bottom-credits", "bottom-credits");
+        $('#bottom-credits')
+            .prop('checked', $.cookie('bottom-credits') === '1')
+            .on('change', function () {
+                $.cookie('bottom-credits', this.checked ? '1' : '0', { path: '/', expires: 365 });
+            });
 
         var $bottom_tables = $("table.details").not($("table.details", "#release-group-relationships"));
         var $inline_ars = $("table.tbl div.ars");

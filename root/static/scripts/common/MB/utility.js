@@ -16,26 +16,6 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
-/* Remember the state of a checkbox, using a persistent cookie. */
-MB.utility.rememberCheckbox = function (id, name) {
-
-    /* only change the checkbox if the cookie is set, otherwise use the default
-       value from the html. */
-    if ($.cookie(name) === "1")
-    {
-        $(id).prop('checked', true);
-    }
-    else if ($.cookie(name) === "0")
-    {
-        $(id).prop('checked', false);
-    }
-
-    $(id).bind('change.mb', function () {
-        $.cookie(name, $(id).is(':checked') ? "1" : "0", { path: '/', expires: 365 });
-    });
-
-};
-
 MB.utility.formatTrackLength = function (duration)
 {
     if (!duration)
