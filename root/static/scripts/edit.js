@@ -11,6 +11,7 @@ require("knockout-arrayTransforms");
 require("knockout-delegatedEvents");
 require("knockout-postbox");
 
+require("./relationship-editor/common/multiselect.js");
 require("./relationship-editor/common/fields.js");
 require("./relationship-editor/common/viewModel.js");
 require("./relationship-editor/common/entity.js");
