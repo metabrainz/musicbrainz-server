@@ -79,6 +79,17 @@ sub add_entities_to_collection
             )", zip @collection_ids, @ids);
 }
 
+sub remove_entities_from_collection
+{
+    my ($self, $type, $collection_id, @ids) = @_;
+    return unless @ids;
+
+    $self->sql->auto_commit;
+    $self->sql->do("DELETE FROM editor_collection_" . $type . "
+              WHERE collection = ? AND " . $type . " IN (" . placeholders(@ids) . ")",
+              $collection_id, @ids);
+}
+
 sub add_releases_to_collection
 {
     my ($self, $collection_id, @ids) = @_;
@@ -87,13 +98,8 @@ sub add_releases_to_collection
 
 sub remove_releases_from_collection
 {
-    my ($self, $collection_id, @release_ids) = @_;
-    return unless @release_ids;
-
-    $self->sql->auto_commit;
-    $self->sql->do("DELETE FROM editor_collection_release
-              WHERE collection = ? AND release IN (" . placeholders(@release_ids) . ")",
-              $collection_id, @release_ids);
+    my ($self, $collection_id, @ids) = @_;
+    $self->remove_entities_from_collection("release", $collection_id, @ids);
 }
 
 sub check_release
@@ -146,13 +152,8 @@ sub add_events_to_collection
 
 sub remove_events_from_collection
 {
-    my ($self, $collection_id, @event_ids) = @_;
-    return unless @event_ids;
-
-    $self->sql->auto_commit;
-    $self->sql->do("DELETE FROM editor_collection_event
-              WHERE collection = ? AND event IN (" . placeholders(@event_ids) . ")",
-              $collection_id, @event_ids);
+    my ($self, $collection_id, @ids) = @_;
+    $self->remove_entities_from_collection("event", $collection_id, @ids);
 }
 
 sub check_event
