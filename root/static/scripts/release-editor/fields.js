@@ -5,6 +5,7 @@
 
 var request = require('../common/utility/request.js');
 var formatTrackLength = require('../common/utility/formatTrackLength.js');
+var dates = require('../edit/utility/dates.js');
 
 (function (releaseEditor) {
 
@@ -508,7 +509,7 @@ var formatTrackLength = require('../common/utility/formatTrackLength.js');
     fields.ReleaseEvent = aclass({
 
         init: function (data, release) {
-            var date = MB.utility.parseDate(data.date || "");
+            var date = dates.parseDate(data.date || "");
 
             this.date = {
                 year:   ko.observable(date.year),
@@ -524,7 +525,7 @@ var formatTrackLength = require('../common/utility/formatTrackLength.js');
 
             this.hasInvalidDate = ko.computed(function () {
                 var date = self.unwrapDate();
-                return !MB.utility.validDate(date.year, date.month, date.day);
+                return !dates.isDateValid(date.year, date.month, date.day);
             });
         },
 

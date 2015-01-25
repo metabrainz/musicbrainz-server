@@ -5,6 +5,7 @@
 
 var mergeDates = require('./mergeDates.js');
 var request = require('../../common/utility/request.js');
+var dates = require('../../edit/utility/dates.js');
 
 (function (RE) {
 
@@ -66,6 +67,10 @@ var request = require('../../common/utility/request.js');
 
             // By default, show all existing relationships on the page.
             if (this.id) this.show();
+        },
+
+        formatDatePeriod: function () {
+            return dates.formatDatePeriod(this.period);
         },
 
         fromJS: function (data) {

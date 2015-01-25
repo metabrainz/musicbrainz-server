@@ -16,81 +16,6 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
-function empty(value) {
-    return value === null || value === undefined || value === "";
-}
-
-MB.utility.validDate = (function () {
-    var daysInMonth = {
-        "true":  [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
-        "false": [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-    };
-
-    function empty(value) {
-        return value === null || value === undefined || value === "";
-    }
-
-    var numberRegex = /^[0-9]+$/;
-
-    function parseNumber(num) {
-        return numberRegex.test(num) ? parseInt(num, 10) : NaN;
-    }
-
-    return function (y, m, d) {
-        y = empty(y) ? null : parseNumber(y);
-        m = empty(m) ? null : parseNumber(m);
-        d = empty(d) ? null : parseNumber(d);
-
-        // We couldn't parse one of the fields as a number.
-        if (isNaN(y) || isNaN(m) || isNaN(d)) return false;
-
-        // The year is a number less than 1.
-        if (y !== null && y < 1) return false;
-
-        // The month is a number less than 1 or greater than 12.
-        if (m !== null && (m < 1 || m > 12)) return false;
-
-        // The day is empty. There's no further validation we can do.
-        if (d === null) return true;
-
-        var isLeapYear = y % 400 ? (y % 100 ? !(y % 4) : false) : true;
-
-        // Invalid number of days based on the year.
-        if (d < 1 || d > 31 || d > daysInMonth[isLeapYear.toString()][m]) return false;
-
-        // The date is assumed to be valid.
-        return true;
-    };
-}());
-
-MB.utility.validDatePeriod = function (a, b) {
-    var y1 = a.year, m1 = a.month, d1 = a.day;
-    var y2 = b.year, m2 = b.month, d2 = b.day;
-
-    if (!MB.utility.validDate(y1, m1, d1) || !MB.utility.validDate(y2, m2, d2)) {
-        return false;
-    }
-
-    if (!y1 || !y2 || +y1 < +y2) return true; else if (+y2 < +y1) return false;
-    if (!m1 || !m2 || +m1 < +m2) return true; else if (+m2 < +m1) return false;
-    if (!d1 || !d2 || +d1 < +d2) return true; else if (+d2 < +d1) return false;
-
-    return true;
-};
-
-MB.utility.parseDate = (function () {
-    var dateRegex = /^(\d{4}|\?{4})(?:-(\d{2}|\?{2})(?:-(\d{2}|\?{2}))?)?$/;
-
-    return function (str) {
-        var match = str.match(dateRegex) || [];
-        return {
-            year:  parseInt(match[1], 10) || null,
-            month: parseInt(match[2], 10) || null,
-            day:   parseInt(match[3], 10) || null
-        };
-    };
-}());
-
 MB.utility.filesize = function (size) {
     /* 1 decimal place.  false disables bit sizes. */
     return filesize(size, 1, false);
@@ -133,30 +58,6 @@ MB.utility.optionCookie = function (name, defaultValue) {
     });
 
     return observable;
-};
-
-MB.utility.formatDate = function (date) {
-    var y = ko.unwrap(date.year);
-    var m = ko.unwrap(date.month);
-    var d = ko.unwrap(date.day);
-
-    return (
-        (!empty(y) ? ( y < 0 ? "-" + _.str.pad(-y, 3, "0") : _.str.pad(y, 4, "0"))
-                   : (m || d ? "????" : "")) +
-        (m ? "-" + _.str.pad(m, 2, "0") : (d ? "-??" : "")) +
-        (d ? "-" + _.str.pad(d, 2, "0") : "")
-    );
-};
-
-MB.utility.formatDatePeriod = function (period) {
-    var beginDate = MB.utility.formatDate(period.beginDate);
-    var endDate = MB.utility.formatDate(period.endDate);
-    var ended = ko.unwrap(period.ended);
-
-    if (!beginDate && !endDate) return "";
-    if (beginDate === endDate) return beginDate;
-
-    return beginDate + " \u2013 " + (endDate || (ended ? "????" : ""));
 };
 
 MB.utility.deferFocus = function () {

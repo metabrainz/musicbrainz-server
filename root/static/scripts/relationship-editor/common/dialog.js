@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var dates = require('../../edit/utility/dates.js');
+
 (function (RE) {
 
     var UI = RE.UI = RE.UI || {};
@@ -428,7 +430,7 @@
         },
 
         dateError: function (date) {
-            var valid = MB.utility.validDate(date.year(), date.month(), date.day());
+            var valid = dates.isDateValid(date.year(), date.month(), date.day());
             return valid ? "" : MB.i18n.l("The date you've entered is not valid.");
         },
 
@@ -439,7 +441,7 @@
             var b = period.endDate;
 
             if (!this.dateError(a) && !this.dateError(b)) {
-                if (!MB.utility.validDatePeriod(ko.toJS(a), ko.toJS(b))) {
+                if (!dates.isDatePeriodValid(ko.toJS(a), ko.toJS(b))) {
                     return MB.i18n.l("The end date cannot preceed the begin date.");
                 }
             }

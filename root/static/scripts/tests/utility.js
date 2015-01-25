@@ -5,8 +5,9 @@
 
 var test = require('tape');
 var formatTrackLength = require('../common/utility/formatTrackLength.js');
+var dates = require('../edit/utility/dates.js');
 
-test('All', function (t) {
+test('parseDate', function (t) {
     t.plan(7);
 
     var parseDateTests = [
@@ -20,7 +21,7 @@ test('All', function (t) {
     ];
 
     $.each(parseDateTests, function (i, test) {
-        var result = MB.utility.parseDate(test.date);
+        var result = dates.parseDate(test.date);
         t.deepEqual(result, test.expected, test.date);
     });
 });
@@ -53,17 +54,17 @@ test('filesize.js wrapper', function (t) {
 test("formatDate", function (t) {
     t.plan(11);
 
-    t.equal(MB.utility.formatDate({}), "");
-    t.equal(MB.utility.formatDate({ year: 0 }), "0000");
-    t.equal(MB.utility.formatDate({ year: 1999 }), "1999");
-    t.equal(MB.utility.formatDate({ year: 1999, month: 1 }), "1999-01");
-    t.equal(MB.utility.formatDate({ year: 1999, month: 1, day: 1 }), "1999-01-01");
-    t.equal(MB.utility.formatDate({ year: 1999, day: 1 }), "1999-??-01");
-    t.equal(MB.utility.formatDate({ month: 1 }), "????-01");
-    t.equal(MB.utility.formatDate({ month: 1, day: 1 }), "????-01-01");
-    t.equal(MB.utility.formatDate({ day: 1 }), "????-??-01");
-    t.equal(MB.utility.formatDate({ year: 0, month: 1, day: 1 }), "0000-01-01");
-    t.equal(MB.utility.formatDate({ year: -1, month: 1, day: 1 }), "-001-01-01");
+    t.equal(dates.formatDate({}), "");
+    t.equal(dates.formatDate({ year: 0 }), "0000");
+    t.equal(dates.formatDate({ year: 1999 }), "1999");
+    t.equal(dates.formatDate({ year: 1999, month: 1 }), "1999-01");
+    t.equal(dates.formatDate({ year: 1999, month: 1, day: 1 }), "1999-01-01");
+    t.equal(dates.formatDate({ year: 1999, day: 1 }), "1999-??-01");
+    t.equal(dates.formatDate({ month: 1 }), "????-01");
+    t.equal(dates.formatDate({ month: 1, day: 1 }), "????-01-01");
+    t.equal(dates.formatDate({ day: 1 }), "????-??-01");
+    t.equal(dates.formatDate({ year: 0, month: 1, day: 1 }), "0000-01-01");
+    t.equal(dates.formatDate({ year: -1, month: 1, day: 1 }), "-001-01-01");
 });
 
 test("formatDatePeriod", function (t) {
@@ -72,34 +73,34 @@ test("formatDatePeriod", function (t) {
     var a = { year: 1999 };
     var b = { year: 2000 };
 
-    t.equal(MB.utility.formatDatePeriod({ beginDate: a, endDate: a, ended: false }), "1999");
-    t.equal(MB.utility.formatDatePeriod({ beginDate: a, endDate: a, ended: true }), "1999");
+    t.equal(dates.formatDatePeriod({ beginDate: a, endDate: a, ended: false }), "1999");
+    t.equal(dates.formatDatePeriod({ beginDate: a, endDate: a, ended: true }), "1999");
 
-    t.equal(MB.utility.formatDatePeriod({ beginDate: a, endDate: b, ended: false }), "1999 \u2013 2000");
-    t.equal(MB.utility.formatDatePeriod({ beginDate: a, endDate: b, ended: true }), "1999 \u2013 2000");
+    t.equal(dates.formatDatePeriod({ beginDate: a, endDate: b, ended: false }), "1999 \u2013 2000");
+    t.equal(dates.formatDatePeriod({ beginDate: a, endDate: b, ended: true }), "1999 \u2013 2000");
 
-    t.equal(MB.utility.formatDatePeriod({ beginDate: {}, endDate: b, ended: false }), " \u2013 2000");
-    t.equal(MB.utility.formatDatePeriod({ beginDate: {}, endDate: b, ended: true }), " \u2013 2000");
+    t.equal(dates.formatDatePeriod({ beginDate: {}, endDate: b, ended: false }), " \u2013 2000");
+    t.equal(dates.formatDatePeriod({ beginDate: {}, endDate: b, ended: true }), " \u2013 2000");
 
-    t.equal(MB.utility.formatDatePeriod({ beginDate: a, endDate: {}, ended: false }), "1999 \u2013 ");
-    t.equal(MB.utility.formatDatePeriod({ beginDate: a, endDate: {}, ended: true }), "1999 \u2013 ????");
+    t.equal(dates.formatDatePeriod({ beginDate: a, endDate: {}, ended: false }), "1999 \u2013 ");
+    t.equal(dates.formatDatePeriod({ beginDate: a, endDate: {}, ended: true }), "1999 \u2013 ????");
 });
 
 test("validDate", function (t) {
     t.plan(12);
 
-    t.equal(MB.utility.validDate("", "", ""), true, "all empty strings are valid");
-    t.equal(MB.utility.validDate(undefined, undefined, undefined), true, "all undefined values are valid");
-    t.equal(MB.utility.validDate(null, null, null), true, "all null values are valid");
-    t.equal(MB.utility.validDate(2000), true, "just a year is valid");
-    t.equal(MB.utility.validDate("", 10), true, "just a month is valid");
-    t.equal(MB.utility.validDate("", "", 29), true, "just a day is valid");
-    t.equal(MB.utility.validDate(0), false, "the year 0 is invalid");
-    t.equal(MB.utility.validDate("", 13), false, "months > 12 are invalid");
-    t.equal(MB.utility.validDate("", "", 32), false, "days > 31 are invalid");
-    t.equal(MB.utility.validDate(2001, 2, 29), false, "2001-02-29 is invalid");
-    t.equal(MB.utility.validDate("2000f"), false, "letters are invalid");
-    t.equal(MB.utility.validDate(1960, 2, 29), true, "leap years are handled correctly (MBS-5663)");
+    t.equal(dates.isDateValid("", "", ""), true, "all empty strings are valid");
+    t.equal(dates.isDateValid(undefined, undefined, undefined), true, "all undefined values are valid");
+    t.equal(dates.isDateValid(null, null, null), true, "all null values are valid");
+    t.equal(dates.isDateValid(2000), true, "just a year is valid");
+    t.equal(dates.isDateValid("", 10), true, "just a month is valid");
+    t.equal(dates.isDateValid("", "", 29), true, "just a day is valid");
+    t.equal(dates.isDateValid(0), false, "the year 0 is invalid");
+    t.equal(dates.isDateValid("", 13), false, "months > 12 are invalid");
+    t.equal(dates.isDateValid("", "", 32), false, "days > 31 are invalid");
+    t.equal(dates.isDateValid(2001, 2, 29), false, "2001-02-29 is invalid");
+    t.equal(dates.isDateValid("2000f"), false, "letters are invalid");
+    t.equal(dates.isDateValid(1960, 2, 29), true, "leap years are handled correctly (MBS-5663)");
 });
 
 test("validDatePeriod", function (t) {
@@ -149,6 +150,6 @@ test("validDatePeriod", function (t) {
     ];
 
     _.each(tests, function (test) {
-        t.equal(MB.utility.validDatePeriod(test.a, test.b), test.expected);
+        t.equal(dates.isDatePeriodValid(test.a, test.b), test.expected);
     });
 });
