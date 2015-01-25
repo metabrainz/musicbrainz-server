@@ -16,26 +16,6 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
-MB.utility.keys = function (obj) {
-    if (null === obj) {
-        return [];
-    }
-    else if (Object.keys) {
-        return Object.keys(obj);
-    }
-    else {
-        var ret = [];
-        for (var key in obj) {
-            if (obj.hasOwnProperty(key))
-            {
-                ret.push(key);
-            }
-        }
-
-        return ret;
-    }
-};
-
 /* Convert fullwidth characters to standard halfwidth Latin. */
 MB.utility.fullWidthConverter = function (inputString) {
     if (inputString === "") {
@@ -58,8 +38,6 @@ MB.utility.fullWidthConverter = function (inputString) {
 
 MB.utility.isNullOrEmpty = function (o) { return (!o || o == ""); };
 MB.utility.is_latin = function (str) { return ! /[^\u0000-\u02ff\u1E00-\u1EFF\u2000-\u207F]/.test(str); };
-
-MB.utility.clone = function (input) { return jQuery.extend(true, {}, input); }
 
 /* Remember the state of a checkbox, using a persistent cookie. */
 MB.utility.rememberCheckbox = function (id, name) {
