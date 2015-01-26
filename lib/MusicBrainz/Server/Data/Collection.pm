@@ -100,6 +100,30 @@ sub check_entity
         $collection_id, $id) ? 1 : 0;
 }
 
+sub merge_entities
+{
+    my ($self, $type, $new_id, @old_ids) = @_;
+
+    my @ids = ($new_id, @old_ids);
+
+    # Remove duplicate joins (ie, rows with entity from @old_ids and pointing to
+    # a collection that already contains $new_id)
+    $self->sql->do(
+        "DELETE FROM editor_collection_" . $type . "
+               WHERE " . $type . " IN (" . placeholders(@ids) . ")
+                 AND (collection, " . $type . ") NOT IN (
+                     SELECT DISTINCT ON (collection) collection, " . $type . "
+                       FROM editor_collection_" . $type . "
+                      WHERE " . $type . " IN (" . placeholders(@ids) . ")
+                 )",
+        @ids, @ids);
+
+    # Move all remaining joins to the new release
+    $self->sql->do("UPDATE editor_collection_" . $type . " SET " . $type . " = ?
+              WHERE " . $type . " IN (".placeholders(@ids).")",
+              $new_id, @ids);
+}
+
 sub add_releases_to_collection
 {
     my ($self, $collection_id, @ids) = @_;
@@ -121,25 +145,7 @@ sub check_release
 sub merge_releases
 {
     my ($self, $new_id, @old_ids) = @_;
-
-    my @ids = ($new_id, @old_ids);
-
-    # Remove duplicate joins (ie, rows with release from @old_ids and pointing to
-    # a collection that already contains $new_id)
-    $self->sql->do(
-        "DELETE FROM editor_collection_release
-               WHERE release IN (" . placeholders(@ids) . ")
-                 AND (collection, release) NOT IN (
-                     SELECT DISTINCT ON (collection) collection, release
-                       FROM editor_collection_release
-                      WHERE release IN (" . placeholders(@ids) . ")
-                 )",
-        @ids, @ids);
-
-    # Move all remaining joins to the new release
-    $self->sql->do("UPDATE editor_collection_release SET release = ?
-              WHERE release IN (".placeholders(@ids).")",
-              $new_id, @ids);
+    $self->merge_entities("release", $new_id, @old_ids);
 }
 
 sub delete_releases
@@ -171,25 +177,7 @@ sub check_event
 sub merge_events
 {
     my ($self, $new_id, @old_ids) = @_;
-
-    my @ids = ($new_id, @old_ids);
-
-    # Remove duplicate joins (ie, rows with event from @old_ids and pointing to
-    # a collection that already contains $new_id)
-    $self->sql->do(
-        "DELETE FROM editor_collection_event
-               WHERE event IN (" . placeholders(@ids) . ")
-                 AND (collection, event) NOT IN (
-                     SELECT DISTINCT ON (collection) collection, event
-                       FROM editor_collection_event
-                      WHERE event IN (" . placeholders(@ids) . ")
-                 )",
-        @ids, @ids);
-
-    # Move all remaining joins to the new event
-    $self->sql->do("UPDATE editor_collection_event SET event = ?
-              WHERE event IN (".placeholders(@ids).")",
-              $new_id, @ids);
+    $self->merge_entities("event", $new_id, @old_ids);
 }
 
 sub delete_events
