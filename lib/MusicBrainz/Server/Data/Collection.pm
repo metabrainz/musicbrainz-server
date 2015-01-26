@@ -13,6 +13,7 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list_limited
 );
 use List::MoreUtils qw( zip );
+use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Subscription' => {
@@ -271,10 +272,12 @@ sub load_entity_count {
     return unless @collections;
     my %collection_map = map { $_->id => $_ } grep { defined } @collections;
     my $query =
-        'SELECT id,
-              (coalesce((SELECT count(release) FROM editor_collection_release WHERE collection = col.id), 0) +
-               coalesce((SELECT count(event) FROM editor_collection_event WHERE collection = col.id), 0))
-           FROM (
+        'SELECT id, (' . join(' + ', map {
+          'coalesce((SELECT count(' . $_ . ')
+           FROM editor_collection_' . $_ . '
+           WHERE collection = col.id), 0)'
+        } entities_with('collections')) . '
+           ) FROM (
               VALUES '. join(', ', ("(?::integer)") x keys %collection_map) .'
                 ) col (id)';
 
@@ -308,13 +311,11 @@ sub delete
 
     $self->sql->begin;
 
-    # Remove all events associated with the collection(s)
-    $self->sql->do('DELETE FROM editor_collection_event
+    # Remove all entities associated with the collection(s)
+    map {
+      $self->sql->do('DELETE FROM editor_collection_' . $_ . '
                     WHERE collection IN (' . placeholders(@collection_ids) . ')', @collection_ids);
-
-    # Remove all releases associated with the collection(s)
-    $self->sql->do('DELETE FROM editor_collection_release
-                    WHERE collection IN (' . placeholders(@collection_ids) . ')', @collection_ids);
+    } entities_with('collections');
 
     # Remove collection(s)
     $self->sql->do('DELETE FROM editor_collection
