@@ -4,6 +4,7 @@
         [% INCLUDE "components/relationships.tt" source=artist
             relationships=artist.grouped_relationships('artist', 'url', 'label', 'place', 'area', 'series', 'instrument') %]
     [%- ELSE -%]
+        <h2 class="relationships">[% l("Relationships") %]</h2>
         <p>[% l('{link} has no relationships.', { link => link_entity(artist) }) -%]</p>
     [%- END -%]
 

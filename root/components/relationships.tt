@@ -26,11 +26,10 @@
   [% END %]
 [% END %]
 
-[% UNLESS no_relationships_heading %]
-  <h2 class="relationships">[% l("Relationships") %]</h2>
-[% END %]
-
 [% IF relationships.size %]
+  [% UNLESS no_relationships_heading %]
+    <h2 class="relationships">[% l("Relationships") %]</h2>
+  [% END %]
   [% static_display(relationships) %]
 [%- END -%]
 
