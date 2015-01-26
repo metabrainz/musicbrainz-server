@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var i18n = require('./i18n.js');
+
 $(function () {
     $(".annotation-collapse").each(function () {
         var $annotation = $(this);
@@ -16,7 +18,7 @@ $(function () {
             $annotation.toggleClass("annotation-collapsed", !expand)
                        .toggleClass("annotation-collapse", expand);
 
-            $button.text(expand ? MB.i18n.l("Show less...") : MB.i18n.l("Show more..."));
+            $button.text(expand ? i18n.l("Show less...") : i18n.l("Show more..."));
             return false;
         };
 

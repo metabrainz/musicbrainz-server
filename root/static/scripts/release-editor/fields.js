@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var i18n = require('../common/i18n.js');
+
 (function (releaseEditor) {
 
     var fields = releaseEditor.fields = releaseEditor.fields || {};
@@ -133,7 +135,7 @@
             var hasTooltip = !!$lengthInput.data("ui-tooltip");
 
             if (this.medium.hasInvalidPregapLength()) {
-                $lengthInput.attr("title", MB.i18n.l('None of the attached disc IDs can fit a pregap track of the given length.'));
+                $lengthInput.attr("title", i18n.l('None of the attached disc IDs can fit a pregap track of the given length.'));
 
                 if (!hasTooltip) {
                     $lengthInput.tooltip();
@@ -472,15 +474,15 @@
 
             if (name) {
                 if (multidisc) {
-                    return MB.i18n.l("Medium {position}: {title}", { position: position, title: name });
+                    return i18n.l("Medium {position}: {title}", { position: position, title: name });
                 }
                 return name;
 
             }
             else if (multidisc) {
-                return MB.i18n.l("Medium {position}", { position: position });
+                return i18n.l("Medium {position}", { position: position });
             }
-            return MB.i18n.l("Tracklist");
+            return i18n.l("Tracklist");
         },
 
         canHaveDiscID: function () {
@@ -808,7 +810,7 @@
             $(element)
                 .prop("disabled", disabled)
                 .toggleClass("disabled-hint", disabled)
-                .attr("title", disabled ? MB.i18n.l("This medium has one or more discids which prevent this information from being changed.") : "");
+                .attr("title", disabled ? i18n.l("This medium has one or more discids which prevent this information from being changed.") : "");
         }
     };
 

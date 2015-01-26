@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var i18n = require('../../common/i18n.js');
+
 (function (RE) {
 
     var fields = RE.fields = RE.fields || {};
@@ -235,7 +237,7 @@
                 });
 
                 if (values.length < min) {
-                    return MB.i18n.l("This attribute is required.");
+                    return i18n.l("This attribute is required.");
                 }
             }
 
@@ -257,7 +259,7 @@
                     value = _.str.clean(attribute.textValue());
 
                     if (value) {
-                        value = MB.i18n.l("{attribute}: {value}", {
+                        value = i18n.l("{attribute}: {value}", {
                             attribute: type.l_name, value: value
                         });
                     }
@@ -267,7 +269,7 @@
                     var credit = _.str.clean(attribute.credit());
 
                     if (credit) {
-                        value = MB.i18n.l("{attribute} [{credited_as}]", {
+                        value = i18n.l("{attribute} [{credited_as}]", {
                             attribute: type.l_name, credited_as: credit
                         });
                     }
@@ -285,7 +287,7 @@
                 var values = attributesByName[name] || [];
                 delete extraAttributes[name];
 
-                var replacement = MB.i18n.commaList(values)
+                var replacement = i18n.commaList(values)
 
                 if (alts && (alts = alts.split("|"))) {
                     replacement = values.length ? alts[0].replace(/%/g, replacement) : alts[1] || "";
@@ -300,7 +302,7 @@
             return [
                 typeInfo ? _.str.clean(typeInfo.phrase.replace(regex, interpolate)) : "",
                 typeInfo ? _.str.clean(typeInfo.reversePhrase.replace(regex, interpolate)) : "",
-                MB.i18n.commaList(_.flatten(_.values(extraAttributes)))
+                i18n.commaList(_.flatten(_.values(extraAttributes)))
             ];
         },
 

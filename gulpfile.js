@@ -150,12 +150,18 @@ function buildScripts(watch) {
 
             // Needed by knockout-* plugins in edit.js
             b.require('./root/static/lib/knockout/knockout-latest.debug.js', { expose: 'knockout' });
+            b.require('./root/static/scripts/common/i18n.js', { expose: true });
         }),
         createBundle("edit.js", watch, function (b) {
             b.external('./root/static/lib/knockout/knockout-latest.debug.js');
+            b.external('./root/static/scripts/common/i18n.js');
         }),
-        createBundle("guess-case.js", watch),
-        createBundle("release-editor.js", watch),
+        createBundle("guess-case.js", watch, function (b) {
+            b.external('./root/static/scripts/common/i18n.js');
+        }),
+        createBundle("release-editor.js", watch, function (b) {
+            b.external('./root/static/scripts/common/i18n.js');
+        }),
         createBundle("statistics.js", watch),
 
         bundleScripts(runBrowserify('tests.js', watch), 'tests.js')

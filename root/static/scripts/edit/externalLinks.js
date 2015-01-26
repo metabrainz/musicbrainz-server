@@ -3,11 +3,13 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var i18n = require('../common/i18n.js');
+
 (function (externalLinks) {
 
     var RE = MB.relationshipEditor;
 
-    var selectLinkTypeText = MB.i18n.l("Please select a link type for the URL you’ve entered.");
+    var selectLinkTypeText = i18n.l("Please select a link type for the URL you’ve entered.");
 
 
     externalLinks.Relationship = aclass(RE.fields.Relationship, {
@@ -70,7 +72,7 @@
 
             if (typeInfo) {
                 this.linkTypeDescription(
-                    MB.i18n.l("{description} ({url|more documentation})", {
+                    i18n.l("{description} ({url|more documentation})", {
                         description: typeInfo.description,
                         url: "/relationship/" + typeInfo.gid
                     })
@@ -152,9 +154,9 @@
             }
 
             if (!url) {
-                return MB.i18n.l("Required field.");
+                return i18n.l("Required field.");
             } else if (!MB.utility.isValidURL(url)) {
-                return MB.i18n.l("Enter a valid url e.g. \"http://google.com/\"");
+                return i18n.l("Enter a valid url e.g. \"http://google.com/\"");
             }
 
             var typeInfo = MB.typeInfoByID[linkType] || {};
@@ -163,16 +165,16 @@
             if (!linkType) {
                 return selectLinkTypeText;
             } else if (typeInfo.deprecated && !this.id) {
-                return MB.i18n.l("This relationship type is deprecated and should not be used.");
+                return i18n.l("This relationship type is deprecated and should not be used.");
             } else if (checker && !checker(url)) {
-                return MB.i18n.l("This URL is not allowed for the selected link type, or is incorrectly formatted.");
+                return i18n.l("This URL is not allowed for the selected link type, or is incorrectly formatted.");
             }
 
             var otherLinks = this.parent.links();
 
             for (var i = 0, link; link = otherLinks[i++];) {
                 if (this.isDuplicate(link)) {
-                    return MB.i18n.l("This relationship already exists.");
+                    return i18n.l("This relationship already exists.");
                 }
             }
 

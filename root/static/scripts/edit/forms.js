@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var i18n = require('../common/i18n.js');
+
 MB.forms = {
 
     buildOptionsTree: function (root, textAttr, valueAttr, callback, sortFunc) {
@@ -71,7 +73,7 @@ MB.forms = {
         }
 
         function sortFunc(a, b) {
-            return (a.childOrder - b.childOrder) || MB.i18n.compare(a[textAttr], b[textAttr]);
+            return (a.childOrder - b.childOrder) || i18n.compare(a[textAttr], b[textAttr]);
         }
 
         var options = MB.forms.buildOptionsTree(root, textAttr, "id", callback, sortFunc);

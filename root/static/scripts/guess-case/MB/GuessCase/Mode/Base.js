@@ -1,23 +1,10 @@
-/*
-   This file is part of MusicBrainz, the open internet music database.
-   Copyright (c) 2005 Stefan Kestenholz (keschte)
-   Copyright (C) 2010-2011 MetaBrainz Foundation
+// This file is part of MusicBrainz, the open internet music database.
+// Copyright (C) 2005 Stefan Kestenholz (keschte)
+// Copyright (C) 2015 MetaBrainz Foundation
+// Licensed under the GPL version 2, or (at your option) any later version:
+// http://www.gnu.org/licenses/gpl-2.0.txt
 
-   This program is free software; you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2 of the License, or
-   (at your option) any later version.
-
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-
-*/
+var i18n = require('../../../../common/i18n.js');
 
 MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
 MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
@@ -366,7 +353,7 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
     };
 
     MB.GuessCase.Mode.English = $.extend({}, self, {
-        description: MB.i18n.l(
+        description: i18n.l(
             "This mode capitalises almost all words, with some words " +
             "(mainly articles and short prepositions) lowercased. Some " +
             "words may need to be manually capitalised to follow the " +
@@ -378,7 +365,7 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
     });
 
     MB.GuessCase.Mode.French = $.extend({}, self, {
-        description: MB.i18n.l(
+        description: i18n.l(
             "This mode capitalises titles as sentence mode, but also " +
             "inserts spaces before semicolons, colons, exclamation marks " +
             "and question marks, and inside guillemets. Some words may " +
@@ -396,7 +383,7 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
     });
 
     MB.GuessCase.Mode.Sentence = $.extend({}, self, {
-        description: MB.i18n.l(
+        description: i18n.l(
             "This mode capitalises the first word of a sentence, most " +
             "other words are lowercased. Some words, often proper nouns, " +
             "may need to be manually fixed according to the {url|relevant " +

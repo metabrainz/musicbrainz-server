@@ -32,7 +32,10 @@ window.MB = {
     constants: {},
 
     // Holds data where localStorage isn't supported
-    store: {}
+    store: {},
+
+    // Deprecated reference needed by knockout templates
+    i18n: require('./i18n.js')
 };
 
 MB.constants.VARTIST_GID = '89ad4ac3-39f7-470e-963a-56509c546377';
