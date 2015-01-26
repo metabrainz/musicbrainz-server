@@ -40,7 +40,7 @@ INSERT INTO editor_collection (id, gid, editor, name, public, description, type)
            (3, 'f34c079d-374e-4436-9448-da92dedef3c9', 1, 'event_collection1', FALSE, '', 2),
            (4, '24375a7a-a4bd-11e4-a92c-3b5e54a633eb', 1, 'event_collection2', FALSE, '', 2);
 
-SELECT setval('editor_collection_id_seq', (SELECT MAX(id) FROM editor_collection));;
+SELECT setval('editor_collection_id_seq', (SELECT MAX(id) FROM editor_collection));
 
 INSERT INTO editor_collection_release (collection, release)
     VALUES (1, 1), (1, 3), (2, 2), (2, 4);
