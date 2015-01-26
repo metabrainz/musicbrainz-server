@@ -23,6 +23,11 @@ has 'to' => (
     default => sub { shift->editor->email }
 );
 
+has 'collator' => (
+    is => 'ro',
+    required => 1,
+);
+
 with 'MusicBrainz::Server::Email::Role';
 
 sub subject { 'Edits for your subscriptions' }
@@ -60,30 +65,30 @@ sub text {
 
     push @sections, $self->edits_for_type(
         'Changes for your subscribed artists',
-        [ sort_by { $_->{subscription}->artist->sort_name } @{ $self->edits->{artist} } ],
+        [ sort_by { $self->collator->getSortKey($_->{subscription}->artist->sort_name) } @{ $self->edits->{artist} } ],
         'artist'
     ) if exists $self->edits->{artist};
 
     push @sections, $self->edits_for_type(
         'Changes for your subscribed collections',
-        [ sort_by { $_->{subscription}->collection->name } @{ $self->edits->{collection} } ],
+        [ sort_by { $self->collator->getSortKey($_->{subscription}->collection->name) } @{ $self->edits->{collection} } ],
         'collection'
     ) if exists $self->edits->{collection};
 
     push @sections, $self->edits_for_type(
         'Changes for your subscribed labels',
-        [ sort_by { $_->{subscription}->label->name } @{ $self->edits->{label} } ],
+        [ sort_by { $self->collator->getSortKey($_->{subscription}->label->name) } @{ $self->edits->{label} } ],
         'label'
     ) if exists $self->edits->{label};
 
     push @sections, $self->edits_for_type(
         'Changes for your subscribed series',
-        [ sort_by { $_->{subscription}->series->name } @{ $self->edits->{series} } ],
+        [ sort_by { $self->collator->getSortKey($_->{subscription}->series->name) } @{ $self->edits->{series} } ],
         'series'
     ) if exists $self->edits->{series};
 
     push @sections, $self->edits_for_editors(
-        sort_by { $_->{subscription}->subscribed_editor->name } @{ $self->edits->{editor} }
+        sort_by { $self->collator->getSortKey($_->{subscription}->subscribed_editor->name) } @{ $self->edits->{editor} }
     ) if exists $self->edits->{editor};
 
     return join("\n\n", @sections);
