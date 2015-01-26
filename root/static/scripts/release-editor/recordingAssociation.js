@@ -57,7 +57,7 @@
     });
 
 
-    utils.debounce(utils.withRelease(function (release) {
+    MB.utility.debounce(utils.withRelease(function (release) {
         var newIDs = _(release.mediums()).invoke("tracks").flatten()
                       .pluck("artistCredit").invoke("names").flatten()
                       .invoke("artist").pluck("id").uniq().compact().value();
@@ -386,7 +386,7 @@
 
 
     recordingAssociation.track = function (track) {
-        utils.debounce(ko.computed(function () { watchTrackForChanges(track) }));
+        MB.utility.debounce(function () { watchTrackForChanges(track) });
     };
 
 }(MB.releaseEditor = MB.releaseEditor || {}));

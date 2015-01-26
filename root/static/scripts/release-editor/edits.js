@@ -354,7 +354,7 @@
     };
 
 
-    releaseEditor.allEdits = utils.debounce(
+    releaseEditor.allEdits = MB.utility.debounce(
         utils.withRelease(function (release) {
             var root = releaseEditor.rootField;
 
@@ -394,7 +394,7 @@
         }
         function isNewEdit(edit) { return previews[edit.hash] === undefined }
 
-        utils.debounce(ko.computed(function () {
+        MB.utility.debounce(function () {
             var edits = releaseEditor.allEdits();
 
             if (releaseEditor.validation.errorsExist()) {
@@ -432,7 +432,7 @@
                     releaseEditor.loadingEditPreviews(false);
                     previewRequest = null;
                 });
-        }), 100);
+        }, 100);
     };
 
 

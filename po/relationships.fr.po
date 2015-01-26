@@ -15,7 +15,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-01-07 15:34+0000\n"
+"PO-Revision-Date: 2015-01-11 14:58+0000\n"
 "Last-Translator: yahoe.001\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -215,6 +215,13 @@ msgstr "Indique une page Web qui critique la parution (groupe de) en question."
 #: DB:link_type/description:177
 msgid "Indicates a webpage where you can download an artist's work for free."
 msgstr "Indique une page Web où vous pouvez télécharger l'œuvre d'un artiste gratuitement."
+
+#: DB:link_type/description:834
+msgid ""
+"Indicates an artist (generally a composer) this work was previously "
+"attributed to, but who is currently confirmed (or very strongly suspected) "
+"not to be the real author."
+msgstr "Indique un artiste (habituellement un compositeur) auquel cette œuvre été attribuée précédemment, mais qui est présentement confirmé (ou est très fortement suspecté) comme n'étant pas l'auteur réel."
 
 #: DB:link_type/description:104
 msgid ""
@@ -472,6 +479,10 @@ msgid ""
 "Links a release to the area it was engineered in. Use only when the place is"
 " unknown!"
 msgstr "Relie une parution à la région où il a été techniquement conçu. À n'utiliser que si le lieu est inconnu !"
+
+#: DB:link_type/description:835
+msgid "Links a release to the area it was manufactured (\"made\") in."
+msgstr "Relie une parution à la région où elle a été fabriquée."
 
 #: DB:link_type/description:756
 msgid ""
@@ -1488,6 +1499,10 @@ msgid ""
 "This links a place to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
 msgstr "Ceci relie un label à une chaîne, liste de lecture ou page d'utilisateur sur un site de partage de vidéos contenant des vidéos que ce label organise."
+
+#: DB:link_type/description:836
+msgid "This links a postponed event to the later rescheduled event."
+msgstr "Ce lien relie un événement différé à l'événement reprogrammé ultérieurement."
 
 #: DB:link_type/description:302
 msgid "This links a recording to a license under which it is available."
@@ -2666,6 +2681,10 @@ msgstr "à eu un poste d'ingénieur"
 msgid "had available releases"
 msgstr "avait des parutions disponibles"
 
+#: DB:link_type/long_link_phrase:834
+msgid "had previous attribution"
+msgstr "avait une attribution précédente"
+
 #: DB:link_type/long_link_phrase:77
 msgid "has Amazon ASIN"
 msgstr "a un ASIN d'Amazon"
@@ -3298,6 +3317,14 @@ msgstr "fabriqué"
 msgid "manufactured by"
 msgstr "fabriqué par"
 
+#: DB:link_type/reverse_link_phrase:835
+msgid "manufactured in"
+msgstr "fabriqué à"
+
+#: DB:link_type/link_phrase:835
+msgid "manufacturing location for"
+msgstr "lieu de fabrication pour"
+
 #: DB:link_type/link_phrase:111 DB:link_type/reverse_link_phrase:111
 msgid "married"
 msgstr "marié/mariée"
@@ -3488,6 +3515,10 @@ msgstr "orchestration de"
 msgid "orchestrations"
 msgstr "orchestrations"
 
+#: DB:link_type/reverse_link_phrase:836
+msgid "originally scheduled as"
+msgstr "programmé originalement comme"
+
 #: DB:link_type/link_phrase:753 DB:link_type/link_phrase:746
 #: DB:link_type/link_phrase:803 DB:link_type/link_phrase:96
 #: DB:link_type/link_phrase:730 DB:link_type/link_phrase:82
@@ -3612,9 +3643,17 @@ msgstr "première à"
 msgid "premieres hosted"
 msgstr "premières présentées"
 
+#: DB:link_type/link_phrase:834
+msgid "previous attribution"
+msgstr "attribution précédente"
+
 #: DB:link_type/reverse_link_phrase:1
 msgid "previous disc"
 msgstr "disque précédent"
+
+#: DB:link_type/reverse_link_phrase:834
+msgid "previously attributed to"
+msgstr "attribué précédemment à"
 
 #: DB:link_type/link_phrase:714
 msgid "primary concert venue"
@@ -3826,6 +3865,10 @@ msgstr "renommé de"
 #: DB:link_type/link_phrase:202
 msgid "renamed into"
 msgstr "renommé"
+
+#: DB:link_type/link_phrase:836
+msgid "rescheduled as"
+msgstr "reprogrammé comme"
 
 #: DB:link_type/reverse_link_phrase:94
 msgid "review page for"
@@ -4085,6 +4128,10 @@ msgstr "est paru en soutien à"
 msgid "was renamed into"
 msgstr "a été renommé en"
 
+#: DB:link_type/long_link_phrase:836
+msgid "was rescheduled as"
+msgstr "a été reprogrammé comme"
+
 #: DB:link_type/long_link_phrase:759 DB:link_type/long_link_phrase:760
 msgid "was the concertmaster for"
 msgstr "était le premier violon pour"
@@ -4098,6 +4145,10 @@ msgstr "était le lieu de montage pour"
 #: DB:link_type/long_link_phrase:814 DB:link_type/long_link_phrase:815
 msgid "was the engineering location for"
 msgstr "était le lieu de conception technique pour"
+
+#: DB:link_type/long_link_phrase:835
+msgid "was the manufacturing location for"
+msgstr "était le lieu de fabrication de"
 
 #: DB:link_type/long_link_phrase:756 DB:link_type/long_link_phrase:697
 msgid "was the mastering location for"

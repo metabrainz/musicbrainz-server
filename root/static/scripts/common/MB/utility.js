@@ -450,3 +450,12 @@ MB.utility.mergeDates = function (a, b) {
 
     return { year: ay || by, month: am || bm, day: ad || bd };
 };
+
+MB.utility.debounce = function (value, delay) {
+    if (!ko.isObservable(value)) {
+        value = ko.computed(value);
+    }
+    return value.extend({
+        rateLimit: { method: "notifyWhenChangesStop", timeout: delay || 500 }
+    });
+};

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-12-16 07:54+0000\n"
+"PO-Revision-Date: 2015-01-11 07:05+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -1827,6 +1827,11 @@ msgstr "klaverirull"
 msgctxt "alias_type"
 msgid "Place name"
 msgstr "kohanimi"
+
+#: DB:work_type/name:28
+msgctxt "work_type"
+msgid "Play"
+msgstr ""
 
 #: DB:medium_format/name:45
 msgctxt "medium_format"

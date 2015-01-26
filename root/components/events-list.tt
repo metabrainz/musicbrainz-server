@@ -1,8 +1,8 @@
 <table class="tbl">
   <thead>
     <tr>
-      [%~ IF c.user_exists AND !no_checkboxes ~%]
-        <th>
+      [%~ IF c.user_exists AND checkboxes ~%]
+        <th style="width: 1em">
           <input type="checkbox" />
         </th>
       [%~ END ~%]
@@ -33,9 +33,9 @@
   <tbody>
     [%~ FOR event IN events ~%]
     <tr class="[% loop.parity %]">
-      [%~ IF c.user_exists AND !no_checkboxes ~%]
+      [%~ IF c.user_exists AND checkboxes ~%]
       <td>
-        <input type="checkbox" name="add-to-merge" value="[%~ event.id ~%]" />
+        <input type="checkbox" name="[% checkboxes %]" value="[%~ event.id ~%]" />
       </td>
       [%~ END ~%]
       [%~ IF series_item_numbers ~%]

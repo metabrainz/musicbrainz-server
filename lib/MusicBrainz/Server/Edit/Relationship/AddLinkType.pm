@@ -8,6 +8,7 @@ use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Relationship';
+with 'MusicBrainz::Server::Edit::Role::Insert';
 with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_name { N_l('Add relationship type') }
@@ -52,14 +53,18 @@ sub foreign_keys {
     }
 }
 
-has entity_id => (
-    isa => 'Int',
-    is => 'rw'
-);
-
-sub accept {
+sub insert {
     my $self = shift;
-    $self->entity_id($self->c->model('LinkType')->insert($self->data)->id);
+
+    my $entity = $self->c->model('LinkType')->insert($self->data);
+    $self->entity_id($entity->id);
+    $self->entity_gid($entity->gid);
+}
+
+sub reject {
+    MusicBrainz::Server::Edit::Exceptions::MustApply->throw(
+        'Edits of this type cannot be rejected'
+    );
 }
 
 sub build_display_data {
