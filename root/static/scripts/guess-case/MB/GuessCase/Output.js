@@ -19,6 +19,8 @@
 
 */
 
+var utils = require('../../utils.js');
+
 MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
 
 /**
@@ -156,12 +158,12 @@ MB.GuessCase.Output = function () {
             // check that last word is NOT an acronym.
             if (w.match(/^\w\..*/) == null) {
                 // some words that were manipulated might have space padding
-                var probe = gc.u.trim(w.toLowerCase());
+                var probe = utils.trim(w.toLowerCase());
 
                 // If inside brackets, do nothing.
                 if (!overrideCaps &&
                     gc.f.isInsideBrackets() &&
-                    gc.u.isLowerCaseBracketWord(probe)) {
+                    utils.isLowerCaseBracketWord(probe)) {
 
                     // If it is an UPPERCASE word,do nothing.
                 } else if (!overrideCaps && gc.mode.isUpperCaseWord(probe)) {
@@ -169,11 +171,11 @@ MB.GuessCase.Output = function () {
                 } else {
                     // rewind pos pointer on input
                     var bef = gc.i.getPos(), pos = bef-1;
-                    while (pos >= 0 && gc.u.trim(gc.i.getWordAtIndex(pos).toLowerCase()) != probe) {
+                    while (pos >= 0 && utils.trim(gc.i.getWordAtIndex(pos).toLowerCase()) != probe) {
                         pos--;
                     }
                     gc.i.setPos(pos);
-                    o = gc.u.titleString(w, overrideCaps);
+                    o = utils.titleString(w, overrideCaps);
                     // restore pos pointer on input
                     gc.i.setPos(bef);
                     if (w != o) {
@@ -204,7 +206,7 @@ MB.GuessCase.Output = function () {
         self.capitalizeLastWord();
 
         self.closeOpenBrackets();
-        return gc.u.trim(self._w.join(""));
+        return utils.trim(self._w.join(""));
     };
 
     /**

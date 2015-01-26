@@ -19,6 +19,8 @@
 
 */
 
+var utils = require('../../../utils.js');
+
 MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
 MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
 
@@ -126,7 +128,7 @@ MB.GuessCase.Handler.Artist = function () {
     self.guessSortName = function (is, person) {
         return self.sortCompoundName(is, function (artist) {
             if (!MB.utility.isNullOrEmpty(artist)) {
-                artist = gc.u.trim(artist);
+                artist = utils.trim(artist);
                 var append = "";
 
                 // strip Jr./Sr. from the string, and append at the end.
@@ -200,7 +202,7 @@ MB.GuessCase.Handler.Artist = function () {
                     }
                 }
 
-                return gc.u.trim(_.compact(names).join(" ") + (append || ""));
+                return utils.trim(_.compact(names).join(" ") + (append || ""));
             }
         });
     };

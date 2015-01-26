@@ -35,7 +35,6 @@
     // ----------------------------------------------------------------------------
     // member variables
     // ----------------------------------------------------------------------------
-    self.u = MB.GuessCase.Utils();
     self.f = MB.GuessCase.Flags();
     self.i = MB.GuessCase.Input();
     self.o = MB.GuessCase.Output();

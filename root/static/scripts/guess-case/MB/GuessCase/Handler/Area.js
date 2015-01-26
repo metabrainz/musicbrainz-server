@@ -18,6 +18,8 @@
 
 */
 
+var utils = require('../../../utils.js');
+
 MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
 MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
 
@@ -63,7 +65,7 @@ MB.GuessCase.Handler.Area = function () {
      * Guesses the sortname for areas
      **/
     self.guessSortName = function (is) {
-        return gc.u.trim(is);
+        return utils.trim(is);
     };
 
     return self;
