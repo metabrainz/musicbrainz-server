@@ -150,13 +150,29 @@ function buildScripts(watch) {
 
             // Needed by knockout-* plugins in edit.js
             b.require('./root/static/lib/knockout/knockout-latest.debug.js', { expose: 'knockout' });
+
+            b.require('./root/static/scripts/common/utility/debounce.js', { expose: true });
+            b.require('./root/static/scripts/common/utility/formatTrackLength.js', { expose: true });
+            b.require('./root/static/scripts/common/utility/request.js', { expose: true });
         }),
         createBundle("edit.js", watch, function (b) {
             b.external('./root/static/lib/knockout/knockout-latest.debug.js');
+            b.external('./root/static/scripts/common/utility/request.js');
+
+            b.require('./root/static/scripts/edit/utility/dates.js', { expose: true });
+            b.require('./root/static/scripts/edit/utility/deferFocus.js', { expose: true });
         }),
         createBundle("guess-case.js", watch),
-        createBundle("release-editor.js", watch),
-        createBundle("statistics.js", watch),
+        createBundle("release-editor.js", watch, function (b) {
+            b.external('./root/static/scripts/common/utility/debounce.js');
+            b.external('./root/static/scripts/common/utility/formatTrackLength.js');
+            b.external('./root/static/scripts/common/utility/request.js');
+            b.external('./root/static/scripts/edit/utility/dates.js');
+            b.external('./root/static/scripts/edit/utility/deferFocus.js');
+        }),
+        createBundle("statistics.js", watch, function (b) {
+            b.external('./root/static/scripts/common/utility/debounce.js');
+        }),
 
         bundleScripts(runBrowserify('tests.js', watch), 'tests.js')
             .pipe(gulp.dest("./root/static/build/"))
