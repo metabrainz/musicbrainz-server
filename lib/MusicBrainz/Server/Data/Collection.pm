@@ -219,14 +219,14 @@ sub find_all_by_editor
         $query, $id);
 }
 
-sub find_all_by_event
+sub find_all_by_entity
 {
-    my ($self, $id) = @_;
+    my ($self, $type, $id) = @_;
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
-                    JOIN editor_collection_event ce
+                    JOIN editor_collection_" . $type . " ce
                         ON editor_collection.id = ce.collection
-                 WHERE ce.event = ? ";
+                 WHERE ce." . $type . " = ? ";
 
     $query .= "ORDER BY musicbrainz_collate(name)";
     return query_to_list(
@@ -234,19 +234,16 @@ sub find_all_by_event
         $query, $id);
 }
 
+sub find_all_by_event
+{
+    my ($self, $id) = @_;
+    return $self->find_all_by_entity('event', $id);
+}
+
 sub find_all_by_release
 {
     my ($self, $id) = @_;
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
-                    JOIN editor_collection_release cr
-                        ON editor_collection.id = cr.collection
-                 WHERE cr.release = ? ";
-
-    $query .= "ORDER BY musicbrainz_collate(name)";
-    return query_to_list(
-        $self->c->sql, sub { $self->_new_from_row(@_) },
-        $query, $id);
+    return $self->find_all_by_entity('release', $id);
 }
 
 sub load
