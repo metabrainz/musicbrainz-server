@@ -64,20 +64,22 @@ $(function () {
         $tracks.find('div.ars').toggle(!bottomCreditsEnabled);
         $tbody.replaceWith($tracks);
 
-        var position = $credits.data('position');
-        var insertAfter;
+        if ($credits.find('table.details').children().length) {
+          var position = $credits.data('position');
+          var insertAfter;
 
-        $bottomCredits.find('.bottom-credits').each(function (index, other) {
-          var $other = $(other);
+          $bottomCredits.find('.bottom-credits').each(function (index, other) {
+            var $other = $(other);
 
-          if (position > $other.data('position')) {
-            insertAfter = $other;
-          } else {
-            return false;
-          }
-        });
+            if (position > $other.data('position')) {
+              insertAfter = $other;
+            } else {
+              return false;
+            }
+          });
 
-        insertAfter ? $credits.insertAfter(insertAfter) : $bottomCredits.find('h2').after($credits);
+          insertAfter ? $credits.insertAfter(insertAfter) : $bottomCredits.find('h2').after($credits);
+        }
       })
       .fail(function () {
         $message.removeClass('loading-message').text(MB.i18n.l('Failed to load the medium.'));
