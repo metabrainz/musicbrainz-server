@@ -124,6 +124,14 @@ sub merge_entities
               $new_id, @ids);
 }
 
+sub delete_entities
+{
+    my ($self, $type, @ids) = @_;
+
+    $self->sql->do("DELETE FROM editor_collection_" . $type . "
+              WHERE " . $type . " IN (".placeholders(@ids).")", @ids);
+}
+
 sub add_releases_to_collection
 {
     my ($self, $collection_id, @ids) = @_;
@@ -151,9 +159,7 @@ sub merge_releases
 sub delete_releases
 {
     my ($self, @ids) = @_;
-
-    $self->sql->do("DELETE FROM editor_collection_release
-              WHERE release IN (".placeholders(@ids).")", @ids);
+    $self->delete_entities("release", @ids);
 }
 
 sub add_events_to_collection
@@ -183,9 +189,7 @@ sub merge_events
 sub delete_events
 {
     my ($self, @ids) = @_;
-
-    $self->sql->do("DELETE FROM editor_collection_event
-              WHERE event IN (".placeholders(@ids).")", @ids);
+    $self->delete_entities("event", @ids);
 }
 
 sub get_first_collection
