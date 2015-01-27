@@ -60,10 +60,6 @@
                   yesno(edit.display_data.ended.new),
                   '-') %]
 
-  [% display_diff(l('IPI code:'),
-                  html_escape(edit.display_data.ipi_code.old),
-                  html_escape(edit.display_data.ipi_code.new)) %]
-
   [% display_diff(l('IPI codes:'),
                   comma_only_list(edit.display_data.ipi_codes.old),
                   comma_only_list(edit.display_data.ipi_codes.new),
