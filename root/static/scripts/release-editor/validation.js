@@ -132,7 +132,9 @@
         field.message("");
 
         var barcode = field.barcode();
-        if (!barcode || field.confirmed()) return;
+        if (!barcode || barcode === field.original || field.confirmed()) {
+            return;
+        }
 
         var checkDigitText = MB.i18n.l("The check digit is {checkdigit}.");
         var doubleCheckText = MB.i18n.l("Please double-check the barcode on the release.");
