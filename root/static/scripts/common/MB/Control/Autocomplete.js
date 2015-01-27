@@ -303,8 +303,8 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
 
     // Overrides $.ui.autocomplete.prototype._searchTimeout
     _searchTimeout: function (event) {
-        var oldTerm = this.term;
-        var newTerm = this._value();
+        var oldTerm = _.str.clean(this.term);
+        var newTerm = _.str.clean(this._value());
         var mbidMatch = newTerm.match(this.mbidRegex);
 
         if (mbidMatch === null) {
