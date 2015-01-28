@@ -615,6 +615,30 @@ test('Guess type', function (t) {
             [
                 'place', 'http://www.setlist.fm/venue/house-of-blues-new-orleans-la-usa-23d61c9f.html',
                 MB.constants.LINK_TYPES.setlistfm.place
+            ],
+            [
+                'release', 'http://mainlynorfolk.info/martin.carthy/records/themoraloftheelephant.html',
+                MB.constants.LINK_TYPES.otherdatabases.release
+            ],
+            [
+                'artist', 'http://tedcrane.com/DanceDB/DisplayIdent.com?key=DONNA_HUNT',
+                MB.constants.LINK_TYPES.otherdatabases.artist
+            ],
+            [
+                'artist', 'http://www.bibliotekapiosenki.pl/Trzetrzelewska_Barbara',
+                MB.constants.LINK_TYPES.otherdatabases.artist
+            ],
+            [
+                'artist', 'http://www.qim.com/artistes/biographie.asp?artistid=47',
+                MB.constants.LINK_TYPES.otherdatabases.artist
+            ],
+            [
+                'artist', 'http://www.thedancegypsy.com/performerList.php?musician=George+Marshall',
+                MB.constants.LINK_TYPES.otherdatabases.artist
+            ],
+            [
+                'release', 'https://www.finna.fi/Record/viola.163990',
+                MB.constants.LINK_TYPES.otherdatabases.release
             ]
         ];
 

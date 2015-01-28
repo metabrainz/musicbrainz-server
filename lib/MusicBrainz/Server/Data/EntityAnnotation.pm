@@ -135,7 +135,10 @@ sub merge
     };
 
     if (keys %entity_to_annotation > 1) {
-        my $new_text = join("\n\n-------\n\n", grep { $_ ne "" } values %entity_to_annotation);
+        my $new_text = join("\n\n-------\n\n",
+                            grep { $_ ne "" }
+                            map { $entity_to_annotation{$_} // "" }
+                            @ids);
         if ($new_text ne '') {
             $self->c->model('Edit')->create(
                 edit_type => $ENTITIES{$type}{annotations}{edit_type},
