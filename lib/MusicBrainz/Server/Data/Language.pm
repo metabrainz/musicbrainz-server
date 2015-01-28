@@ -23,6 +23,18 @@ sub _columns
            'iso_code_1, name, frequency';
 }
 
+sub _column_mapping {
+    return {
+        id              => 'id',
+        name            => 'name',
+        iso_code_1      => 'iso_code_1',
+        iso_code_2b     => 'iso_code_2b',
+        iso_code_2t     => 'iso_code_2t',
+        iso_code_3      => 'iso_code_3',
+        frequency       => 'frequency',
+    };
+}
+
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::Language';
@@ -56,19 +68,6 @@ sub in_use {
     return $self->sql->select_single_value(
         'SELECT 1 FROM release WHERE language = ? UNION SELECT 1 FROM work WHERE language = ? UNION SELECT 1 FROM editor_language WHERE language = ? LIMIT 1',
         $id, $id, $id);
-}
-
-sub _hash_to_row {
-    my ($self, $values) = @_;
-
-    return hash_to_row($values, {
-        name            => 'name',
-        iso_code_1      => 'iso_code_1',
-        iso_code_2b     => 'iso_code_2b',
-        iso_code_2t     => 'iso_code_2t',
-        iso_code_3      => 'iso_code_3',
-        frequency       => 'frequency',
-    });
 }
 
 __PACKAGE__->meta->make_immutable;

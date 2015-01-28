@@ -21,6 +21,16 @@ sub _columns
     return 'id, iso_code, iso_number, name, frequency';
 }
 
+sub _column_mapping {
+    return {
+        id          => 'id',
+        name        => 'name',
+        iso_code    => 'iso_code',
+        iso_number  => 'iso_number',
+        frequency   => 'frequency',
+    };
+}
+
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::Script';
@@ -43,17 +53,6 @@ sub in_use {
     return $self->sql->select_single_value(
         'SELECT 1 FROM release WHERE script = ? LIMIT 1',
         $id);
-}
-
-sub _hash_to_row {
-    my ($self, $values) = @_;
-
-    return hash_to_row($values, {
-        name          => 'name',
-        iso_code      => 'iso_code',
-        iso_number    => 'iso_number',
-        frequency     => 'frequency',
-    });
 }
 
 __PACKAGE__->meta->make_immutable;

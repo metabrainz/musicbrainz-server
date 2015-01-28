@@ -21,6 +21,18 @@ sub _columns
     return 'id, name, year, parent AS parent_id, child_order, has_discids, description';
 }
 
+sub _column_mapping {
+    return {
+        id              => 'id',
+        parent_id       => 'parent',
+        child_order     => 'child_order',
+        name            => 'name',
+        description     => 'description',
+        year            => 'year',
+        has_discids     => 'has_discids',
+    };
+}
+
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::MediumFormat';
@@ -46,19 +58,6 @@ sub in_use {
     return $self->sql->select_single_value(
         'SELECT 1 FROM medium WHERE format = ? LIMIT 1',
         $id);
-}
-
-sub _hash_to_row {
-    my ($self, $values) = @_;
-
-    return hash_to_row($values, {
-        parent          => 'parent_id',
-        child_order     => 'child_order',
-        name            => 'name',
-        description     => 'description',
-        year            => 'year',
-        has_discids     => 'has_discids',
-    });
 }
 
 __PACKAGE__->meta->make_immutable;

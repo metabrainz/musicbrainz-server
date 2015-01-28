@@ -1,44 +1,21 @@
 package MusicBrainz::Server::Data::Role::Attribute;
 use Moose::Role;
 use namespace::autoclean;
-use MusicBrainz::Server::Data::Utils qw( hash_to_row );
 
-sub insert { }
-around insert => sub {
-    my ($orig, $self, $values) = @_;
+with 'MusicBrainz::Server::Data::Role::InsertUpdateDelete';
 
-    my $row = $self->_hash_to_row($values);
-    $row->{id} = $self->sql->select_single_value("SELECT nextval('".$self->_table."_id_seq')");
-    $self->sql->insert_row($self->_table, $row);
-    return $self->_entity_class->new( id => $row->{id} );
-};
+sub _columns {
+    return 'id, name, parent AS parent_id, child_order, description';
+}
 
-sub update { }
-around update => sub {
-    my ($orig, $self, $id, $values) = @_;
-
-    my $row = $self->_hash_to_row($values);
-    if (%$row) {
-        $self->sql->update_row($self->_table, $row, { id => $id });
-    }
-};
-
-sub delete { }
-around delete => sub {
-    my ($orig, $self, $id) = @_;
-
-    $self->sql->do('DELETE FROM '.$self->_table.' WHERE id = ?', $id);
-};
-
-sub _hash_to_row {
-    my ($self, $values) = @_;
-
-    return hash_to_row($values, {
-        parent          => 'parent_id',
-        child_order     => 'child_order',
+sub _column_mapping {
+    return {
+        id              => 'id',
         name            => 'name',
+        parent_id       => 'parent',
+        child_order     => 'child_order',
         description     => 'description',
-    });
+    };
 }
 
 no Moose;

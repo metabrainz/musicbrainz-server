@@ -12,10 +12,6 @@ sub _table {
     return 'series_ordering_type';
 }
 
-sub _columns {
-    return 'id, name, parent AS parent_id, child_order, description';
-}
-
 sub _entity_class {
     return 'MusicBrainz::Server::Entity::SeriesOrderingType';
 }

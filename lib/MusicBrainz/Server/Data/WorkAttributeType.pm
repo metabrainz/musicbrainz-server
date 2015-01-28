@@ -52,18 +52,6 @@ sub in_use {
         $id);
 }
 
-sub _hash_to_row {
-    my ($self, $values) = @_;
-
-    return hash_to_row($values, {
-        parent          => 'parent_id',
-        child_order     => 'child_order',
-        name            => 'name',
-        description     => 'description',
-        free_text       => 'free_text',
-    });
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
