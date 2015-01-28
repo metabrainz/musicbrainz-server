@@ -212,6 +212,8 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   "Controller::Label::tag_async",
   "Controller::Label::tags",
   "Controller::Label::wikipedia_extract",
+  "Controller::Medium::base",
+  "Controller::Medium::fragments",
   "Controller::OAuth2::authorize",
   "Controller::OAuth2::oob",
   "Controller::OAuth2::token",
