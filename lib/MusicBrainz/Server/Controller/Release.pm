@@ -102,7 +102,7 @@ after 'load' => sub
 before show => sub {
     my ($self, $c, @args) = @_;
 
-    if ($args[0] eq 'disc') {
+    if (@args && $args[0] eq 'disc') {
         my $position = $args[1];
         my @mediums = $c->stash->{release}->all_mediums;
 
