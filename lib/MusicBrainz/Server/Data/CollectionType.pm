@@ -19,6 +19,17 @@ sub _columns {
     return 'id, name, entity_type, parent, child_order, description';
 }
 
+sub _column_mapping {
+    return {
+        id              => 'id',
+        name            => 'name',
+        entity_type     => 'entity_type',
+        parent_id       => 'parent',
+        child_order     => 'child_order',
+        description     => 'description',
+    };
+}
+
 sub _entity_class {
     return 'MusicBrainz::Server::Entity::CollectionType';
 }
