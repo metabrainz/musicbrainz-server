@@ -28,13 +28,13 @@ my @models = qw(
 );
 # Missing: Alias types, WorkAttributeTypeAllowedValue
 
-sub index : Path('/admin/attributes') Args(0) {
+sub index : Path('/admin/attributes') Args(0) RequireAuth(account_admin) {
     my ($self, $c) = @_;
 
     $c->stash->{models} = \@models;
 }
 
-sub attribute_base : Chained('/') PathPart('admin/attributes') CaptureArgs(1) {
+sub attribute_base : Chained('/') PathPart('admin/attributes') CaptureArgs(1) RequireAuth(account_admin) {
     my ($self, $c, $model) = @_;
 
     $c->detach('/error_404') unless $model ~~ @models;
@@ -42,7 +42,7 @@ sub attribute_base : Chained('/') PathPart('admin/attributes') CaptureArgs(1) {
     $c->stash->{model} = $model;
 }
 
-sub attribute_index : Chained('attribute_base') PathPart('') {
+sub attribute_index : Chained('attribute_base') PathPart('') RequireAuth(account_admin) {
     my ($self, $c) = @_;
     my $model = $c->stash->{model};
     my @attr = $c->model($model)->get_all();
