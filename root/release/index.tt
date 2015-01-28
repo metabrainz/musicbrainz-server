@@ -31,7 +31,7 @@
       <table class="tbl medium">
         <thead>
           <tr[% ' class="mp"' IF medium.edits_pending %]>
-            <th colspan="6">
+            <th colspan="[% 4 + (medium.includes_video ? 1 : 0) + (medium.has_multiple_artists ? 1 : 0) %]">
               <a class="expand-medium" id="disc[% medium.position %]" data-medium-id="[% medium.id %]"
                  href="[% c.uri_for_action('/release/show', [medium.release.gid]) _
                           '/disc/' _ medium.position _ '#disc' _ medium.position %]">
