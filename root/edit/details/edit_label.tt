@@ -49,10 +49,6 @@
                          edit.display_data.area.old ? descriptive_link(edit.display_data.area.old): '',
                          edit.display_data.area.new ? descriptive_link(edit.display_data.area.new): '') %]
 
-  [% display_diff(l('IPI code:'),
-                  edit.display_data.ipi_code.old,
-                  edit.display_data.ipi_code.new) %]
-
   [% display_diff(l('IPI codes:'),
                   comma_only_list(edit.display_data.ipi_codes.old),
                   comma_only_list(edit.display_data.ipi_codes.new),

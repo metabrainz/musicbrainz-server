@@ -23,10 +23,19 @@ test 'Viewing your own collections' => sub {
     $mech->get_ok('/user/editor1/collections');
     my $tx = test_xpath_html($mech->content);
 
-    $tx->is('count(//div[@id="page"]//table//th)',
-            6, 'your collection list has 6 cols');
+    $tx->is('count(//div[@id="page"]//table)',
+            2, 'two collection lists are present');
 
-    $tx->is('//div[@id="page"]//table/tbody/tr[1]/td[3]',
+    $tx->is('count(//div[@id="page"]//table[1]//th)',
+            6, 'release collection list has 6 cols');
+
+    $tx->is('count(//div[@id="page"]//table[2]//th)',
+            6, 'event collection list has 6 cols');
+
+    $tx->is('//div[@id="page"]//table[1]/tbody/tr[1]/td[3]',
+            2, 'number of releases is correct');
+
+    $tx->is('//div[@id="page"]//table[2]/tbody/tr[1]/td[3]',
             2, 'number of releases is correct');
 };
 

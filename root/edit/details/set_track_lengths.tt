@@ -2,13 +2,12 @@
 
 <table class="details set-track-lengths">
   <tr>
-    <th>[% l('Releases:') %]</th>
+    <th>[% l('Mediums:') %]</th>
     <td colspan="2">
       <ul>
-        [% FOR release=edit.display_data.releases %]
-          <li>[% descriptive_link(release) %]
-          </li>
-        [% END %]
+        [%- FOR medium=edit.display_data.mediums -%]
+          <li>[% medium_link(medium) %]</li>
+        [%- END -%]
       </ul>
     </td>
   </tr>
