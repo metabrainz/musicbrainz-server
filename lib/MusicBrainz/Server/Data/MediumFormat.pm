@@ -18,7 +18,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, name, year, parent AS parent_id, child_order, has_discids, description';
+    return 'id, name, year, parent, child_order, has_discids, description';
 }
 
 sub _column_mapping {
