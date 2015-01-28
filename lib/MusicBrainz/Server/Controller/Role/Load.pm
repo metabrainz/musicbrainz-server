@@ -53,8 +53,6 @@ role
 
         my $entity = $self->_load($c, @args);
 
-        $c->detach('not_found') unless defined $entity;
-
         if (exists $entity_properties->{mbid} && $entity_properties->{mbid}{relatable}) {
             my $action = $c->action->name;
             my $relationships = $params->relationships;
@@ -87,7 +85,9 @@ role
         my ($self, $c, $id) = @_;
 
         my $entity;
-        if (is_guid($id) && $c->model($model)->can('get_by_gid')) {
+        my $id_is_guid = is_guid($id) && $c->model($model)->can('get_by_gid');
+
+        if ($id_is_guid) {
             $entity = $c->model($model)->get_by_gid($id);
         } elsif (is_positive_integer($id)) {
             $entity = $c->model($model)->get_by_id($id);
@@ -96,6 +96,10 @@ role
         if ($entity) {
             $c->model($model)->load_gid_redirects($entity) if exists $entity_properties->{mbid} && $entity_properties->{mbid}{multiple};
             return $entity;
+        }
+
+        if ($id_is_guid) {
+            $c->detach('not_found');
         } else {
             # This will detach for us
             $self->invalid_mbid($c, $id);
