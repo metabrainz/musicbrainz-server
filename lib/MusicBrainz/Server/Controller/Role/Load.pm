@@ -53,6 +53,8 @@ role
 
         my $entity = $self->_load($c, @args);
 
+        $c->detach('not_found') unless defined $entity;
+
         if (exists $entity_properties->{mbid} && $entity_properties->{mbid}{relatable}) {
             my $action = $c->action->name;
             my $relationships = $params->relationships;
@@ -98,12 +100,12 @@ role
             return $entity;
         }
 
-        if ($id_is_guid) {
-            $c->detach('not_found');
-        } else {
+        if (!$id_is_guid) {
             # This will detach for us
             $self->invalid_mbid($c, $id);
         }
+
+        return undef;
     };
 };
 
