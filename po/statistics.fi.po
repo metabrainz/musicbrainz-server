@@ -528,7 +528,7 @@ msgstr "Aktiiviset editorit"
 msgid "Active Voters"
 msgstr "Aktiiviset äänestäjät"
 
-#: ../root/statistics/timeline.tt:51
+#: ../root/statistics/timeline.tt:45
 msgid "Add/remove lines:"
 msgstr "Lisää/poista rivit:"
 
@@ -758,7 +758,7 @@ msgstr "Peruutettu:"
 msgid "Characters"
 msgstr "Kuvitteelliset hahmot"
 
-#: ../root/statistics/timeline.tt:51
+#: ../root/statistics/timeline.tt:45
 msgid "Check boxes above"
 msgstr ""
 
@@ -766,11 +766,11 @@ msgstr ""
 msgid "Choirs"
 msgstr "Kuorot"
 
-#: ../root/statistics/timeline.tt:50
+#: ../root/statistics/timeline.tt:44
 msgid "Click to deselect"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:47
+#: ../root/statistics/timeline.tt:41
 msgid "Controls"
 msgstr "Säätimet"
 
@@ -1151,7 +1151,7 @@ msgstr "Levyn tunnisteet"
 msgid "Disc IDs:"
 msgstr "Levyn tunnisteet:"
 
-#: ../root/statistics/timeline.tt:49
+#: ../root/statistics/timeline.tt:43
 msgid "Draw a rectangle on either graph"
 msgstr ""
 
@@ -1243,7 +1243,7 @@ msgstr ""
 msgid "Events:"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:59
+#: ../root/statistics/timeline.tt:53
 msgid "Exact Values (items vs. day)"
 msgstr "Tarkat arvot (kohdetta suhteessa päivään)"
 
@@ -1309,7 +1309,7 @@ msgstr "Korkea tiedon laatu"
 msgid "High Data Quality:"
 msgstr "Korkea tiedon laatu:"
 
-#: ../root/statistics/timeline.tt:52
+#: ../root/statistics/timeline.tt:46
 msgid "Hover and click on vertical lines"
 msgstr ""
 
@@ -1437,7 +1437,7 @@ msgstr "Viimeiset 7 päivää:"
 msgid "Last updated: {date}"
 msgstr "Päivitetty viimeksi: {date}"
 
-#: ../root/statistics/timeline.tt:36
+#: ../root/statistics/timeline.tt:29
 msgid "Legend"
 msgstr "Selite"
 
@@ -1499,11 +1499,11 @@ msgstr "Aktiivisimmat muokkaajat viikon ajalta"
 msgid "Most active voters in the past week"
 msgstr "Aktiivisimmat äänestäjät viikon ajalta"
 
-#: ../root/statistics/timeline.tt:40
+#: ../root/statistics/timeline.tt:33
 msgid "MusicBrainz Events"
 msgstr "MusicBrainzin tapahtumia"
 
-#: ../root/statistics/timeline.tt:52
+#: ../root/statistics/timeline.tt:46
 msgid "MusicBrainz Events:"
 msgstr "MusicBrainzin tapahtumia:"
 
@@ -1653,11 +1653,11 @@ msgstr "Ensisijaiset tyypit"
 msgid "Rank"
 msgstr "Sijoitus"
 
-#: ../root/statistics/timeline.tt:61
+#: ../root/statistics/timeline.tt:55
 msgid "Rate of Change (average items/day vs. day)"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:44
+#: ../root/statistics/timeline.tt:37
 msgid "Rate of Change Graph"
 msgstr "Muutosnopeuksien kuvaaja"
 
@@ -1871,7 +1871,7 @@ msgstr "Julkaisut, tiedon laatu ja levyjen tunnisteet"
 msgid "Releases:"
 msgstr "Julkaisut:"
 
-#: ../root/statistics/timeline.tt:50
+#: ../root/statistics/timeline.tt:44
 msgid "Reset:"
 msgstr "Palaa alkutilaan: "
 
@@ -1925,7 +1925,7 @@ msgstr "Ei näytettävissä olevaa tietoa. "
 msgid "Timeline"
 msgstr "Aikajana"
 
-#: ../root/statistics/timeline.tt:58
+#: ../root/statistics/timeline.tt:52
 msgid "Timeline Graph"
 msgstr "Aikajana"
 
@@ -2096,7 +2096,7 @@ msgstr "Kyllä-äänet"
 msgid "Yesterday:"
 msgstr "Eilinen:"
 
-#: ../root/statistics/timeline.tt:49
+#: ../root/statistics/timeline.tt:43
 msgid "Zoom:"
 msgstr "Suurenna:"
 

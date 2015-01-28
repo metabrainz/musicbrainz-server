@@ -11,6 +11,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_MEDIUM_MOVE_DISCID
     $EDIT_SET_TRACK_LENGTHS
     $EDITOR_MODBOT
+    %ENTITIES
 );
 use MusicBrainz::Server::Entity::CDTOC;
 use MusicBrainz::Server::Translation qw( l ln );
@@ -83,7 +84,10 @@ sub remove : Local Edit
     $c->stash(
         medium_cdtoc => $cdtoc,
         medium       => $medium,
-        release      => $release
+        release      => $release,
+        # These added so the entity tabs will appear properly
+        entity       => $release,
+        entity_properties => $ENTITIES{release}
     );
 
     $self->edit_action($c,

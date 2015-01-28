@@ -93,7 +93,7 @@ sub allow_auto_edit {
     return 1 unless scalar(@$items);
 
     # Changing the ordering type is not allowed if there are items.
-    return 0 if ($self->data->{old}{ordering_type_id} // 0) != ($self->data->{new}{ordering_type_id} // 0);
+    return 0 if $self->_changes_ordering_type;
 
     # Changing name is allowed if the change only affects
     # small things like case etc.
@@ -110,6 +110,19 @@ sub allow_auto_edit {
     return 1;
 }
 
+after insert => sub {
+    my ($self) = @_;
+
+    # prevent auto-editors from changing the ordering type as an auto-edit
+    $self->auto_edit(0) if $self->_changes_ordering_type;
+};
+
+around can_approve => sub {
+    my ($orig, $self, @args) = @_;
+    return 0 if $self->_changes_ordering_type;
+    return $self->$orig(@args);
+};
+
 sub current_instance {
     my $self = shift;
     $self->c->model('Series')->get_by_id($self->entity_id),
@@ -118,6 +131,11 @@ sub current_instance {
 sub _edit_hash {
     my ($self, $data) = @_;
     return $self->merge_changes;
+}
+
+sub _changes_ordering_type {
+    my $self = shift;
+    return ($self->data->{old}{ordering_type_id} // 0) != ($self->data->{new}{ordering_type_id} // 0);
 }
 
 __PACKAGE__->meta->make_immutable;

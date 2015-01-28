@@ -7,11 +7,11 @@
 # Laurent Monin <email address hidden>, 2014
 # murdos <email address hidden>, 2011-2012
 # Paul Tremberth <email address hidden>, 2013
-# yahoe.001, 2014
+# yahoe.001, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-01-13 04:54+0000\n"
+"PO-Revision-Date: 2015-01-11 15:00+0000\n"
 "Last-Translator: yahoe.001\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -400,6 +400,11 @@ msgstr "Îles Malouines"
 msgid "Faroe Islands"
 msgstr "Féroé, Îles"
 
+#. iso.code:FM
+#: DBarea JOIN iso_3166_1 iso on iso.area = area.id/area.name:139
+msgid "Federated States of Micronesia"
+msgstr "États fédérés de Micronésie"
+
 #. iso.code:FJ
 #: DBarea JOIN iso_3166_1 iso on iso.area = area.id/area.name:71
 msgid "Fiji"
@@ -745,11 +750,6 @@ msgstr "Mayotte"
 msgid "Mexico"
 msgstr "Mexique"
 
-#. iso.code:FM
-#: DBarea JOIN iso_3166_1 iso on iso.area = area.id/area.name:139
-msgid "Micronesia, Federated States of"
-msgstr "Micronésie, États fédérés de"
-
 #. iso.code:MD
 #: DBarea JOIN iso_3166_1 iso on iso.area = area.id/area.name:140
 msgid "Moldova"
@@ -942,8 +942,8 @@ msgstr "Roumanie"
 
 #. iso.code:RU
 #: DBarea JOIN iso_3166_1 iso on iso.area = area.id/area.name:176
-msgid "Russian Federation"
-msgstr "Russie, Fédération de"
+msgid "Russia"
+msgstr "Russie"
 
 #. iso.code:RW
 #: DBarea JOIN iso_3166_1 iso on iso.area = area.id/area.name:177

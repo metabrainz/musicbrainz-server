@@ -105,7 +105,7 @@
             <p class="right">
                 [% l('Cover Art provided by the {caa|Cover Art Archive}. Hosted by {host|Digital West}. Sponsored by: {url1|Google},
                       {url2|OSUOSL} and {more|others...}. ',
-                    { host => '//www.digitalwest.net/',
+                    { host => 'https://www.digitalwest.com/',
                       url1 => 'https://www.google.com/',
                       url2 => '//osuosl.org/',
                       more => 'http://metabrainz.org/doc/Sponsors',

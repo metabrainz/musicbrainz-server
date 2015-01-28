@@ -517,7 +517,7 @@ msgstr ""
 msgid "Active Voters"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:51
+#: ../root/statistics/timeline.tt:45
 msgid "Add/remove lines:"
 msgstr ""
 
@@ -747,7 +747,7 @@ msgstr ""
 msgid "Characters"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:51
+#: ../root/statistics/timeline.tt:45
 msgid "Check boxes above"
 msgstr ""
 
@@ -755,11 +755,11 @@ msgstr ""
 msgid "Choirs"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:50
+#: ../root/statistics/timeline.tt:44
 msgid "Click to deselect"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:47
+#: ../root/statistics/timeline.tt:41
 msgid "Controls"
 msgstr ""
 
@@ -1140,7 +1140,7 @@ msgstr ""
 msgid "Disc IDs:"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:49
+#: ../root/statistics/timeline.tt:43
 msgid "Draw a rectangle on either graph"
 msgstr ""
 
@@ -1232,7 +1232,7 @@ msgstr ""
 msgid "Events:"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:59
+#: ../root/statistics/timeline.tt:53
 msgid "Exact Values (items vs. day)"
 msgstr ""
 
@@ -1298,7 +1298,7 @@ msgstr ""
 msgid "High Data Quality:"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:52
+#: ../root/statistics/timeline.tt:46
 msgid "Hover and click on vertical lines"
 msgstr ""
 
@@ -1426,7 +1426,7 @@ msgstr ""
 msgid "Last updated: {date}"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:36
+#: ../root/statistics/timeline.tt:29
 msgid "Legend"
 msgstr ""
 
@@ -1488,11 +1488,11 @@ msgstr ""
 msgid "Most active voters in the past week"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:40
+#: ../root/statistics/timeline.tt:33
 msgid "MusicBrainz Events"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:52
+#: ../root/statistics/timeline.tt:46
 msgid "MusicBrainz Events:"
 msgstr ""
 
@@ -1642,11 +1642,11 @@ msgstr ""
 msgid "Rank"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:61
+#: ../root/statistics/timeline.tt:55
 msgid "Rate of Change (average items/day vs. day)"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:44
+#: ../root/statistics/timeline.tt:37
 msgid "Rate of Change Graph"
 msgstr ""
 
@@ -1860,7 +1860,7 @@ msgstr ""
 msgid "Releases:"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:50
+#: ../root/statistics/timeline.tt:44
 msgid "Reset:"
 msgstr ""
 
@@ -1913,7 +1913,7 @@ msgstr ""
 msgid "Timeline"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:58
+#: ../root/statistics/timeline.tt:52
 msgid "Timeline Graph"
 msgstr ""
 
@@ -2084,7 +2084,7 @@ msgstr ""
 msgid "Yesterday:"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:49
+#: ../root/statistics/timeline.tt:43
 msgid "Zoom:"
 msgstr ""
 

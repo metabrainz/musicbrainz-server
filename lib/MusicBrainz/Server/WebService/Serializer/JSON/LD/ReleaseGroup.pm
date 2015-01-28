@@ -30,16 +30,16 @@ around serialize => sub {
     $ret->{creditedTo} = $entity->artist_credit->name if $entity->artist_credit;
 
     if ($entity->primary_type && release_type($entity->primary_type)) {
-        $ret->{hasAlbumReleaseType} = release_type($entity->primary_type);
+        $ret->{albumReleaseType} = release_type($entity->primary_type);
     }
 
-    my @production_types = uniq map { production_type($_) } grep defined, $entity->all_secondary_types;
+    my @production_types = uniq grep { defined } map { production_type($_) } grep { defined } $entity->all_secondary_types;
     if (scalar $entity->all_secondary_types == 0) {
 	# XXX: We don't have a way to explicitly track studio album, so we'll
 	# assume that studio albums are those without any secondary types.
-        $ret->{hasAlbumProductionType} = 'http://schema.org/StudioAlbum';
+        $ret->{albumProductionType} = 'http://schema.org/StudioAlbum';
     } elsif (@production_types) {
-        $ret->{hasAlbumProductionType} = list_or_single(@production_types);
+        $ret->{albumProductionType} = list_or_single(@production_types);
     }
 
     return $ret;

@@ -36,6 +36,7 @@ with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Medium';
 
+use aliased 'MusicBrainz::Server::Entity::Medium';
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub edit_type { $EDIT_MEDIUM_EDIT }
@@ -196,7 +197,7 @@ sub foreign_keys {
     my $self = shift;
     my %fk = (
         Release => { $self->data->{release}{id} => [ 'ArtistCredit' ] },
-        Medium => { $self->data->{entity_id} => [ 'Release', 'MediumFormat' ] }
+        Medium => { $self->data->{entity_id} => [ 'Release ArtistCredit', 'MediumFormat' ] },
     );
 
     $fk{MediumFormat} = {};
@@ -223,16 +224,12 @@ sub build_display_data
     my ($self, $loaded) = @_;
 
     my $data = { };
-    if ($self->data->{release})
-    {
-        my $release = $data->{release} = $loaded->{Release}{ $self->data->{release}{id} }
-            || Release->new( name => $self->data->{release}{name} );
 
-        $data->{medium} = $loaded->{Medium}{ $self->data->{entity_id} };
+    my $release = $loaded->{Release}{ $self->data->{release}{id} } //
+                  Release->new( name => $self->data->{release}{name} );
 
-        # If deleted, $data->{medium} will be undefined.
-        $data->{medium}->release($release) if defined $data->{medium};
-    }
+    $data->{medium} = $loaded->{Medium}{ $self->data->{entity_id} } //
+                      Medium->new( release => $release );
 
     if (exists $self->data->{new}{format_id}) {
         $data->{format} = {
