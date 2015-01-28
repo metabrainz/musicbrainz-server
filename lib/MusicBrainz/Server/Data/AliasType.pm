@@ -8,7 +8,6 @@ use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::SelectAll';
 with 'MusicBrainz::Server::Data::Role::OptionsTree';
-#with 'MusicBrainz::Server::Data::Role::Attribute';
 
 has [qw( table type )] => (
     isa      => 'Str',
@@ -20,7 +19,7 @@ sub _table { shift->table }
 
 sub _columns
 {
-    return 'id, name, parent, child_order, description';
+    return 'id, name, parent AS parent_id, child_order, description';
 }
 
 sub _entity_class
