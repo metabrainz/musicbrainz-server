@@ -40,11 +40,11 @@ $(function () {
 
     if ($tbody.length) {
       $tbody.toggle();
-      $triangle.html($tbody.is(':visible') ? '&#x25BC' : '&#x25B6');
+      $triangle.html($tbody.is(':visible') ? '&#x25BC;' : '&#x25B6;');
       return false;
     }
 
-    $triangle.html('&#x25BC');
+    $triangle.html('&#x25BC;');
     $tbody = $('<tbody><tr><td></td></tr></tbody>').appendTo($table);
 
     var $message = $('<div>')
