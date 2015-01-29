@@ -412,6 +412,11 @@ ws_test 'release lookup with discids and puids',
                 <disc-list count="1">
                     <disc id="W01Qvrvwkaz2Cm.IQm55_RHoRxs-">
                         <sectors>60295</sectors>
+                        <offset-list count="3">
+                            <offset position="1">150</offset>
+                            <offset position="2">22352</offset>
+                            <offset position="3">38335</offset>
+                        </offset-list>
                     </disc>
                 </disc-list>
                 <track-list count="3" offset="0">
