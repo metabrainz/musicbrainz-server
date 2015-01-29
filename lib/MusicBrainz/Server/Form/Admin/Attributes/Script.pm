@@ -1,29 +1,35 @@
-package MusicBrainz::Server::Data::SeriesOrderingType;
-use Moose;
-use namespace::autoclean;
-use MusicBrainz::Server::Data::Utils qw( load_subobjects );
+package MusicBrainz::Server::Form::Admin::Attributes::Script;
 
-extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'series_ordering_type' };
-with 'MusicBrainz::Server::Data::Role::SelectAll';
-with 'MusicBrainz::Server::Data::Role::OptionsTree';
-with 'MusicBrainz::Server::Data::Role::Attribute';
+use HTML::FormHandler::Moose;
 
-sub _table {
-    return 'series_ordering_type';
-}
+extends 'MusicBrainz::Server::Form';
+with 'MusicBrainz::Server::Form::Role::Edit';
 
-sub _entity_class {
-    return 'MusicBrainz::Server::Entity::SeriesOrderingType';
-}
+sub edit_field_names { qw( iso_code iso_number name frequency ) }
 
-sub load {
-    my ($self, @objs) = @_;
-    load_subobjects($self, 'ordering_type', @objs);
-}
+has '+name' => ( default => 'attr' );
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
+has_field 'name' => (
+    type      => 'Text',
+    required  => 1,
+    maxlength => 255
+);
+
+has_field 'iso_code' => (
+    type => 'Text',
+    required  => 1,
+    maxlength => 4,
+);
+
+has_field 'iso_number' => (
+    type => 'Text',
+    maxlength => 3,
+);
+
+has_field 'frequency' => (
+    type => '+MusicBrainz::Server::Form::Field::Integer',
+);
+
 1;
 
 =head1 COPYRIGHT
