@@ -723,7 +723,7 @@
             this.loadedMediums = this.mediums.filter("loaded");
             this.hasTrackInfo = this.loadedMediums.all("hasTrackInfo");
             this.hasTracks = this.mediums.any("hasTracks");
-            this.hasUnknownTracklist = ko.observable(false);
+            this.hasUnknownTracklist = ko.observable(!this.mediums().length && releaseEditor.action === "edit");
             this.needsRecordings = errorField(this.mediums.any("needsRecordings"));
             this.hasInvalidFormats = errorField(this.mediums.any("hasInvalidFormat"));
             this.needsMediums = errorField(function () { return !(self.mediums().length || self.hasUnknownTracklist()) });
@@ -741,7 +741,7 @@
                 this.labels.push(fields.ReleaseLabel({}, this));
             }
 
-            if (!this.mediums().length) {
+            if (!this.mediums().length && !this.hasUnknownTracklist()) {
                 this.mediums.push(fields.Medium({}, this));
             }
 
