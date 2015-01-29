@@ -264,11 +264,20 @@
 </div>
 
 <div data-bind="with: rootField.release, affectsBubble: trackArtistBubble">
-  <!-- ko ifnot: mediums().length -->
-    <p>[% l('Click on the "Add Disc" button below to start adding tracks. If the tracklist of the release you’re adding is unknown for some reason, you can leave things empty.') %]</p>
+  <p class="error field-error" data-bind="showErrorRightAway: needsMediums">
+    [%~ l('Add a medium by clicking “Add Disc” below, or tick the box confirming the tracklist is unknown.') ~%]
+  </p>
+
+  <!-- ko if: !mediums().length -->
+    <p>
+      <label>
+        <input type="checkbox" data-bind="checked: hasUnknownTracklist" />
+        [% l('The tracklist for this release is currently unknown.') %]
+      </label>
+    </p>
   <!-- /ko -->
 
-  <!-- ko if: mediums().length && mediums().length === loadedMediums().length &&
+  <!-- ko if: !needsMediums() && mediums().length === loadedMediums().length &&
               _(mediums()).invoke("toc").filter().size() < _($data.seededTocs).values().size() -->
     <div class="warning">
       <p>

@@ -723,13 +723,15 @@
             this.loadedMediums = this.mediums.filter("loaded");
             this.hasTrackInfo = this.loadedMediums.all("hasTrackInfo");
             this.hasTracks = this.mediums.any("hasTracks");
+            this.hasUnknownTracklist = ko.observable(false);
             this.needsRecordings = errorField(this.mediums.any("needsRecordings"));
             this.hasInvalidFormats = errorField(this.mediums.any("hasInvalidFormat"));
+            this.needsMediums = errorField(function () { return !(self.mediums().length || self.hasUnknownTracklist()) });
             this.needsTracks = errorField(this.mediums.any("needsTracks"));
             this.needsTrackInfo = errorField(function () { return !self.hasTrackInfo() });
             this.hasInvalidPregapLength = errorField(this.mediums.any("hasInvalidPregapLength"));
 
-            // Ensure there's at least one event and label to edit.
+            // Ensure there's at least one event, label, and medium to edit.
 
             if (!this.events().length) {
                 this.events.push(fields.ReleaseEvent({}, this));
@@ -737,6 +739,10 @@
 
             if (!this.labels().length) {
                 this.labels.push(fields.ReleaseLabel({}, this));
+            }
+
+            if (!this.mediums().length) {
+                this.mediums.push(fields.Medium({}, this));
             }
 
             // Setup the external links editor

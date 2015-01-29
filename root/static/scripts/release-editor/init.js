@@ -241,17 +241,14 @@ MB.releaseEditor.autoOpenTheAddDiscDialog = function (release) {
         var dialogIsOpen = (addDiscUI && addDiscUI.isOpen()) ||
                             (trackParserUI && trackParserUI.isOpen());
 
-        var mediums = release.mediums();
-        if (!dialogIsOpen &&
-                _.all(mediums, function (m) { return !m.hasTracks() }) &&
-                !_.any(mediums, function (m) { return m.loading() })) {
+        if (!dialogIsOpen && release.hasOneEmptyMedium() &&
+                            !release.mediums()[0].loading()) {
             this.addDiscDialog.open();
         }
     } else if (addDiscUI) {
         addDiscUI.close();
     }
 };
-
 
 MB.releaseEditor.allowsSubmission = function () {
     return (
