@@ -241,8 +241,10 @@ MB.releaseEditor.autoOpenTheAddDiscDialog = function (release) {
         var dialogIsOpen = (addDiscUI && addDiscUI.isOpen()) ||
                             (trackParserUI && trackParserUI.isOpen());
 
-        if (!dialogIsOpen && release.hasOneEmptyMedium() &&
-                            !release.mediums()[0].loading()) {
+        var mediums = release.mediums();
+        if (!dialogIsOpen &&
+                _.all(mediums, function (m) { return !m.hasTracks() }) &&
+                !_.any(mediums, function (m) { return m.loading() })) {
             this.addDiscDialog.open();
         }
     } else if (addDiscUI) {

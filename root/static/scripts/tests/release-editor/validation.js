@@ -33,7 +33,6 @@ validationTest("non-loaded mediums validate, even though they have no tracks (MB
     t.ok(!medium.needsTracks(), "medium doesn't require tracks");
     t.ok(!medium.needsTrackInfo(), "medium doesn't require track info");
     t.ok(!medium.needsRecordings(), "medium doesn't require recordings");
-    t.ok(!release.needsMediums(), "release doesn't need mediums");
     t.ok(!release.needsTracks(), "release doesn't need tracks");
     t.ok(!release.needsTrackInfo(), "release doesn't need track info");
     t.ok(!release.needsRecordings(), "release doesn't need recordings");

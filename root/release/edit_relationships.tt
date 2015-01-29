@@ -16,6 +16,7 @@
 
       <p>[% l('To use the batch tools, select some recordings or works using the checkboxes.') %]</p>
 
+      <!-- ko if: source.mediums.length -->
       <h2>[% l('Track Relationships') %]</h2>
 
       <table id="batch-tools" data-bind="with: checkboxes">
@@ -68,6 +69,7 @@
           <!-- ko template: {name: 'template.track', foreach: tracks} --><!-- /ko -->
         </tbody>
       </table>
+      <!-- /ko -->
 
       <p data-bind="if: loadingRelease">
         <span class="loading-message">[% l('Loading...') %]</span>

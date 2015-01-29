@@ -264,15 +264,11 @@
 </div>
 
 <div data-bind="with: rootField.release, affectsBubble: trackArtistBubble">
-  <!-- ko if: needsMediums() -->
-    <p>[% l('You haven\'t added any media yet. Click on the "Add Disc" button below to add one.') %]</p>
+  <!-- ko ifnot: mediums().length -->
+    <p>[% l('Click on the "Add Disc" button below to start adding tracks. If the tracklist of the release you’re adding is unknown for some reason, you can leave things empty.') %]</p>
   <!-- /ko -->
 
-  <p class="error field-error" data-bind="showErrorWhenTabIsSwitched: needsMediums">
-    [%~ l('A release must contain at least one medium.') ~%]
-  </p>
-
-  <!-- ko if: !needsMediums() && mediums().length === loadedMediums().length &&
+  <!-- ko if: mediums().length && mediums().length === loadedMediums().length &&
               _(mediums()).invoke("toc").filter().size() < _($data.seededTocs).values().size() -->
     <div class="warning">
       <p>
