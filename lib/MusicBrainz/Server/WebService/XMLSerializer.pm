@@ -708,11 +708,10 @@ sub _serialize_disc_offsets
 
     my @list;
     foreach my $track (0 .. ($cdtoc->track_count - 1)) {
-	push @list, $gen->offset($cdtoc->track_offset->[$track]);
+        push @list, $gen->offset({ position => $track + 1 }, $cdtoc->track_offset->[$track]);
     }
 
-    my %attr = ( count => $cdtoc->track_count );
-    push @$data, $gen->offset_list(\%attr, @list);
+    push @$data, $gen->offset_list({ count => $cdtoc->track_count }, @list);
 }
 
 sub _serialize_cdstub
