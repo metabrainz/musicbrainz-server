@@ -692,12 +692,11 @@ sub _serialize_disc
     my @list;
     push @list, $gen->sectors($cdtoc->leadout_offset);
 
-    if ($toplevel)
-    {
+    $self->_serialize_disc_offsets(\@list, $gen, $cdtoc, $inc, $stash);
+
+    if ($toplevel) {
         $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $stash, $toplevel);
     }
-
-    $self->_serialize_disc_offsets(\@list, $gen, $cdtoc, $inc, $stash);
 
     push @$data, $gen->disc({ id => $cdtoc->discid }, @list);
 }
