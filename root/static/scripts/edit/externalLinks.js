@@ -227,15 +227,17 @@ var ExternalLink = React.createClass({
     return (
       <tr>
         <td>
-          {showTypeSelection ||
-            <label>
-              {matchesType && faviconClass && <span className={'favicon ' + faviconClass + '-favicon'}></span>}
-              {(typeInfo && typeInfo.phrase) || (props.isOnlyLink ? l('Add link:') : l('Add another link:'))}
-            </label>}
-          <select value={props.type} onChange={this.typeChanged} className="link-type" style={{display: showTypeSelection ? 'inline' : 'none'}}>
-            <option value=""></option>
-            {props.typeOptions}
-          </select>
+          {/* If the URL matches its type or is just empty, display either a
+              favicon or a prompt for a new link as appropriate. */
+           showTypeSelection
+            ? <select value={props.type} onChange={this.typeChanged} className="link-type">
+                <option value=""></option>
+                {props.typeOptions}
+              </select>
+            : <label>
+                {matchesType && faviconClass && <span className={'favicon ' + faviconClass + '-favicon'}></span>}
+                {(typeInfo && typeInfo.phrase) || (props.isOnlyLink ? l('Add link:') : l('Add another link:'))}
+              </label>}
         </td>
         <td>
           <input type="url" className="value with-button" value={props.url} onChange={this.urlChanged} onBlur={this.urlBlurred} />
