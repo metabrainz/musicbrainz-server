@@ -84,7 +84,7 @@ var ExternalLinksEditor = React.createClass({
     return (
       <table id="external-links-editor" className="row-form">
         <tbody>
-          {this.state.links.map((link, index) => {
+          {this.state.links.toArray().map((link, index) => {
             return (
               <ExternalLink
                 {...this.props}
@@ -114,7 +114,7 @@ var ExternalLinksEditor = React.createClass({
                 }
               />
             );
-          }).toArray()}
+          })}
         </tbody>
       </table>
     );
