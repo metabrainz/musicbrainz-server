@@ -376,11 +376,11 @@ MB.createExternalLinksEditor = function (options) {
       initialLinks = JSON.parse(sessionStorage.submittedLinks);
     }
   } else {
-    var urlField = new RegExp("(?:\\?|&)edit-" + sourceType + "\\.url\\.([0-9]+)\\.(text|link_type_id)=([^&]+)", "g");
+    var seededLinkRegex = new RegExp("(?:\\?|&)edit-" + sourceType + "\\.url\\.([0-9]+)\\.(text|link_type_id)=([^&]+)", "g");
     var urls = {};
     var match;
 
-    while (match = urlField.exec(window.location.search)) {
+    while (match = seededLinkRegex.exec(window.location.search)) {
       (urls[match[1]] = urls[match[1]] || {})[match[2]] = decodeURIComponent(match[3]);
     }
 
