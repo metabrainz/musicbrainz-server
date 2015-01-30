@@ -8,6 +8,8 @@ var React = require('react');
 
 require('react/addons');
 
+var validation = require('./validation.js');
+
 var l = MB.i18n.l;
 var selectLinkTypeText = l("Please select a link type for the URL you’ve entered.");
 
@@ -17,9 +19,6 @@ var LinkState = Immutable.Record({
   relationship: null,
   video: false
 });
-
-// XXX internal state leaking
-exports.errorCount = 0;
 
 var ExternalLinksEditor = React.createClass({
   mixins: [React.addons.PureRenderMixin],
@@ -81,8 +80,7 @@ var ExternalLinksEditor = React.createClass({
   },
 
   render: function () {
-    var $submit = $('#content button[type=submit]').prop('disabled', false);
-    exports.errorCount = 0;
+    this.props.errorObservable(false);
     return (
       <table id="external-links-editor" className="row-form">
         <tbody>
@@ -98,8 +96,7 @@ var ExternalLinksEditor = React.createClass({
                 isOnlyLink={this.state.links.size === 1}
                 errorCallback={(hasError) => {
                   if (hasError) {
-                    $submit.prop('disabled', true);
-                    ++exports.errorCount;
+                    this.props.errorObservable(true);
                   }
                 }}
                 removeCallback={_.bind(this.removeLink, this, index)}
@@ -371,11 +368,14 @@ MB.createExternalLinksEditor = function (options) {
       .map((data) => <option value={data.value} disabled={data.disabled} key={data.value}>{data.text}</option>)
   );
 
+  var errorObservable = validation.errorField(ko.observable(false));
+
   return React.render(
     <ExternalLinksEditor
       cleanup={MB.Control.URLCleanup({ sourceType: sourceData.entityType, typeInfoByID: MB.typeInfoByID })}
       typeOptions={typeOptions}
-      initialLinks={Immutable.List(initialLinks)} />,
+      initialLinks={Immutable.List(initialLinks)}
+      errorObservable={errorObservable} />,
     options.mountPoint
   );
 };

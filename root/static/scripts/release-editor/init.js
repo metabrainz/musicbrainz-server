@@ -254,12 +254,11 @@ MB.releaseEditor.createExternalLinksEditor = function (data, mountPoint) {
     });
 
     this.externalLinksEditData = ko.observable({});
-    this.hasInvalidLinks = validation.errorField(ko.observable(false));
+    this.hasInvalidLinks = this.externalLinks.errorObservable;
 
     // XXX
     this.externalLinks.componentDidUpdate = function () {
         self.externalLinksEditData(self.externalLinks.getEditData());
-        self.hasInvalidLinks(externalLinks.errorCount > 0);
     };
 
     return this.externalLinks;
