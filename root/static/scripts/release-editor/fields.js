@@ -121,7 +121,18 @@
 
             var oldLength = this.length();
             var newLength = MB.utility.unformatTrackLength(length);
+
+            if (_.isNaN(newLength)) {
+                this.formattedLength('');
+                return;
+            }
+
             this.length(newLength);
+
+            var newFormattedLength = MB.utility.formatTrackLength(newLength);
+            if (length !== newFormattedLength) {
+                this.formattedLength(newFormattedLength);
+            }
 
             // If the length being changed is for a pregap track and the medium
             // has cdtocs attached, make sure the new length doesn't exceed the
