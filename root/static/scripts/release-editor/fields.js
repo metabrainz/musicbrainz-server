@@ -584,6 +584,7 @@
         weights: [1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3],
 
         init: function (data) {
+            this.original = data;
             this.barcode = ko.observable(data);
             this.message = ko.observable("");
             this.confirmed = ko.observable(false);
