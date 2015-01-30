@@ -305,21 +305,21 @@ function isEmpty(link) {
 
 function withOneEmptyLink(links, dontRemove) {
   var emptyCount = 0;
-  var canRemove = [];
+  var canRemove = {};
 
   links.forEach(function (link, index) {
     if (isEmpty(link)) {
       ++emptyCount;
       if (index !== dontRemove) {
-        canRemove.push(index);
+        canRemove[index] = true;
       }
     }
   });
 
   if (emptyCount === 0) {
     return links.push(new LinkState({ relationship: _.uniqueId('new-') }));
-  } else if (emptyCount > 1 && canRemove.length) {
-    return links.remove(canRemove[0]);
+  } else if (emptyCount > 1 && _.size(canRemove)) {
+    return links.filter((link, index) => !canRemove[index]);
   } else {
     return links;
   }
