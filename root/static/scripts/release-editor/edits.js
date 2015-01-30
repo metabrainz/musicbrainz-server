@@ -6,6 +6,7 @@
 (function (releaseEditor) {
 
     var utils = releaseEditor.utils;
+    var validation = require('../edit/validation.js');
     var releaseField = ko.observable().subscribeTo("releaseField", true);
 
 
@@ -397,7 +398,7 @@
         MB.utility.debounce(function () {
             var edits = releaseEditor.allEdits();
 
-            if (releaseEditor.validation.errorsExist()) {
+            if (validation.errorsExist()) {
                 refreshPreviews([]);
                 return;
             }
@@ -422,7 +423,7 @@
                     // Make sure edits haven't changed while request was pending
                     if (edits === releaseEditor.allEdits()) {
                         // and that errors haven't occurred.
-                        if (releaseEditor.validation.errorsExist()) {
+                        if (validation.errorsExist()) {
                             edits = [];
                         }
                         refreshPreviews(edits);

@@ -7,26 +7,10 @@
 
     var validation = releaseEditor.validation = releaseEditor.validation || {};
     var utils = releaseEditor.utils;
-
-
     var releaseField = ko.observable().subscribeTo("releaseField", true);
-    var errorFields = validation.errorFields = ko.observableArray([]);
 
-
-    validation.errorField = function (func) {
-        var observable = ko.isObservable(func) ? func : ko.computed(func);
-        errorFields.push(observable);
-        return observable;
-    };
-
-    validation.errorsExist = ko.computed(function () {
-        var fields = errorFields();
-        for (var i = 0, len = fields.length; i < len; i++) {
-            if (fields[i]()) return true;
-        }
-        return false;
-    });
-
+    // Allow for access in ko templates
+    validation.errorsExist = require('../edit/validation.js').errorsExist;
 
     function markTabWithErrors($panel) {
         // Don't mark the edit note tab, because it's the last one and only
