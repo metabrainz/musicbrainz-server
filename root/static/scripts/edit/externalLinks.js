@@ -5,6 +5,7 @@
 
 var Immutable = require('immutable');
 var React = require('react');
+var PropTypes = React.PropTypes;
 
 require('react/addons');
 
@@ -22,6 +23,17 @@ var LinkState = Immutable.Record({
 
 var ExternalLinksEditor = React.createClass({
   mixins: [React.addons.PureRenderMixin],
+
+  propTypes: {
+    cleanup: PropTypes.object.isRequired,
+    typeOptions: PropTypes.arrayOf(PropTypes.element).isRequired,
+    initialLinks: PropTypes.instanceOf(Immutable.List).isRequired,
+    errorObservable: function (props) {
+      if (propName === 'errorObservable' && !ko.isObservable(props[propName])) {
+        return new Error('errorObservable should be an observable');
+      }
+    }
+  },
 
   getInitialState: function () {
     return { links: withOneEmptyLink(this.props.initialLinks) };
@@ -123,6 +135,18 @@ var ExternalLinksEditor = React.createClass({
 
 var ExternalLink = React.createClass({
   mixins: [React.addons.PureRenderMixin],
+
+  propTypes: {
+    url: PropTypes.string.isRequired,
+    type: PropTypes.oneOfType([PropTypes.number,PropTypes.oneOf([null])]).isRequired,
+    video: PropTypes.bool.isRequired,
+    supportsVideoAttribute: PropTypes.bool.isRequired,
+    isOnlyLink: PropTypes.bool.isRequired,
+    errorCallback: PropTypes.func.isRequired,
+    removeCallback: PropTypes.func.isRequired,
+    duplicateCallback: PropTypes.func.isRequired,
+    setLinkState: PropTypes.func.isRequired
+  },
 
   typeChanged: function (event) {
     this.props.setLinkState({ type: +event.target.value || null }, () => {
