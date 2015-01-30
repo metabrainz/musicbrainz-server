@@ -133,12 +133,39 @@ var ExternalLinksEditor = React.createClass({
   }
 });
 
+var linkTypePropType = PropTypes.oneOfType([PropTypes.number,PropTypes.oneOf([null])]).isRequired;
+
+var LinkTypeSelect = React.createClass({
+
+  propTypes: {
+    type: linkTypePropType,
+
+    setLinkState: PropTypes.func.isRequired,
+    updateTooltip: PropTypes.func.isRequired
+  },
+
+  typeChanged: function (event) {
+    this.props.setLinkState({ type: +event.target.value || null }, () => {
+      this.props.updateTooltip();
+    });
+  },
+
+  render: function () {
+    return (
+      <select value={this.props.type} onChange={this.typeChanged} className="link-type">
+        <option value=""></option>
+        {this.props.children}
+      </select>
+    );
+  }
+});
+
 var ExternalLink = React.createClass({
   mixins: [React.addons.PureRenderMixin],
 
   propTypes: {
     url: PropTypes.string.isRequired,
-    type: PropTypes.oneOfType([PropTypes.number,PropTypes.oneOf([null])]).isRequired,
+    type: linkTypePropType,
     video: PropTypes.bool.isRequired,
     supportsVideoAttribute: PropTypes.bool.isRequired,
     isOnlyLink: PropTypes.bool.isRequired,
@@ -146,12 +173,6 @@ var ExternalLink = React.createClass({
     removeCallback: PropTypes.func.isRequired,
     duplicateCallback: PropTypes.func.isRequired,
     setLinkState: PropTypes.func.isRequired
-  },
-
-  typeChanged: function (event) {
-    this.props.setLinkState({ type: +event.target.value || null }, () => {
-      this.updateTooltip();
-    });
   },
 
   urlChanged: function (event) {
@@ -254,10 +275,9 @@ var ExternalLink = React.createClass({
           {/* If the URL matches its type or is just empty, display either a
               favicon or a prompt for a new link as appropriate. */
            showTypeSelection
-            ? <select value={props.type} onChange={this.typeChanged} className="link-type">
-                <option value=""></option>
+            ? <LinkTypeSelect type={props.type} setLinkState={props.setLinkState} updateTooltip={this.updateTooltip}>
                 {props.typeOptions}
-              </select>
+              </LinkTypeSelect>
             : <label>
                 {matchesType && faviconClass && <span className={'favicon ' + faviconClass + '-favicon'}></span>}
                 {(typeInfo && typeInfo.phrase) || (props.isOnlyLink ? l('Add link:') : l('Add another link:'))}
