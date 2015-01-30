@@ -1,0 +1,71 @@
+<form action="[% c.req.uri %]" method="post">
+    [%- USE r = FormRenderer(form) -%]
+
+    [% IF model == "Language" %]
+        [% form_row_text(r, 'name', add_colon(l('Name'))) %]
+        [% form_row_text(r, 'iso_code_1', add_colon(l('ISO 639-1'))) %]
+        [% form_row_text(r, 'iso_code_2b', add_colon(l('ISO 639-2/B'))) %]
+        [% form_row_text(r, 'iso_code_2t', add_colon(l('ISO 639-2/T'))) %]
+        [% form_row_text(r, 'iso_code_3', add_colon(l('ISO 639-3'))) %]
+        [% form_row_text(r, 'frequency', add_colon(l('Frequency'))) %]
+        <p>
+            [% l('Frequency notes:') %]
+            <ul>
+                <li>[% l('2: Shown in the commonly used section') %]</li>
+                <li>[% l('1: Shown in the "other" section') %]</li>
+                <li>[% l('0: Hidden, always used for sign languages and languages with no ISO 639-3 code, used by default until requested for ancient languages and languages only in ISO 639-3') %]</li>
+            </ul>
+        </p>
+
+
+    [% ELSIF model == "Script" %]
+        [% form_row_text(r, 'name', add_colon(l('Name'))) %]
+        [% form_row_text(r, 'iso_code', add_colon(l('ISO code'))) %]
+        [% form_row_text(r, 'iso_number', add_colon(l('ISO number'))) %]
+        [% form_row_text(r, 'frequency', add_colon(l('Frequency'))) %]
+        <p>
+            [% l('Frequency notes:') %]
+            <ul>
+                <li>[% l('4: Shown in the commonly used section') %]</li>
+                <li>[% l('3: Shown in the "other" section, used for scripts which are likely to get some usage') %]</li>
+                <li>[% l('2: Shown in the "other" section, used for scripts in Unicode which are unlikely to be used') %]</li>
+                <li>[% l('1: Hidden, used for scripts not in Unicode') %]</li>
+            </ul>
+        </p>
+
+    [% ELSE %]
+        [% form_row_select(r, 'parent_id', add_colon(l('Parent'))) %]
+
+        [% WRAPPER form_row %]
+            [% r.label('child_order', add_colon(l('Child order'))) %]
+            [% r.text('child_order', { size => 5 }) %]
+            [% form_field_errors(form, 'child_order') %]
+        [% END %]
+
+        [% form_row_text(r, 'name', add_colon(l('Name'))) %]
+
+        [% WRAPPER form_row %]
+            [% r.label('description', add_colon(l('Description'))) %]
+            [% r.textarea('description', { cols => 80, rows => 6 }) %]
+            [% form_field_errors(form, 'description') %]
+        [% END %]
+
+        [%~ IF model == "MediumFormat" ~%]
+            [% WRAPPER form_row %]
+                [% r.label('year', add_colon(l('Year'))) %]
+                [% r.text('year', { size => 5 }) %]
+                [% form_field_errors(form, 'year') %]
+            [% END %]
+
+            [% form_row_checkbox(r, 'has_discids', l('This format can have disc IDs')) %]
+        [%~ END ~%]
+
+        [%~ IF model == "WorkAttributeType" ~%]
+            [% form_row_checkbox(r, 'free_text', l('This is a free text work attribute')) %]
+        [%~ END ~%]
+    [% END %]
+
+    <div class="row no-label">
+        [% form_submit(l('Save')) %]
+    </div>
+</form>

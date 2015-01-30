@@ -5,6 +5,8 @@
 
 var test = require('tape');
 var common = require('./common.js');
+var validation = require('../../edit/validation.js');
+
 var React = require('react/addons');
 var scryRenderedDOMComponentsWithTag = React.addons.TestUtils.scryRenderedDOMComponentsWithTag;
 var { triggerChange, triggerClick, addURL } = require('../external-links-editor/utils.js');
@@ -26,7 +28,7 @@ function addReleaseTest(name, callback) {
         callback(t, common.setupReleaseAdd(data));
 
         MB.entityCache = {};
-        releaseEditor.validation.errorFields([]);
+        validation.errorFields([]);
     });
 }
 
@@ -373,7 +375,7 @@ test("releaseGroupCreate edits", function (t) {
 function editReleaseTest(name, callback) {
     test(name, function (t) {
         callback(t, common.setupReleaseEdit());
-        releaseEditor.validation.errorFields([]);
+        validation.errorFields([]);
     });
 }
 
@@ -640,7 +642,7 @@ editReleaseTest("edits are not generated for external links that duplicate exist
 
     // No edits are generated, because there are errors.
     t.equal(releaseEditor.edits.externalLinks(release).length, 0);
-    t.equal(releaseEditor.validation.errorsExist(), true);
+    t.equal(validation.errorsExist(), true);
 
     // Remove duplicate
     triggerClick(scryRenderedDOMComponentsWithTag(component, 'button')[1]);
@@ -666,7 +668,7 @@ editReleaseTest("edits are not generated for external links that duplicate exist
       }
     ]);
 
-    t.equal(releaseEditor.validation.errorsExist(), false);
+    t.equal(validation.errorsExist(), false);
 
     // Duplicate the first URL again by editing the other existing URL
     triggerChange(
@@ -675,7 +677,7 @@ editReleaseTest("edits are not generated for external links that duplicate exist
     );
 
     t.equal(releaseEditor.edits.externalLinks(release).length, 0);
-    t.equal(releaseEditor.validation.errorsExist(), true);
+    t.equal(validation.errorsExist(), true);
 });
 
 test("mediumEdit and releaseReorderMediums edits are generated for non-loaded mediums", function (t) {

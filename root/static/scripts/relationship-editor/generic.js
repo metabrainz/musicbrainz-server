@@ -264,7 +264,7 @@
             ++fieldCount;
         }
 
-        $("button[type=submit]").prop("disabled", true);
+        $("#page form button[type=submit]").prop("disabled", true);
         $("input[type=hidden]", "#relationship-editor").remove();
 
         if (vm = MB.sourceRelationshipEditor) {

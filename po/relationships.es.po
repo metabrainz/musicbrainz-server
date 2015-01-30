@@ -1,6 +1,6 @@
 # 
 # Translators:
-# Adolfo Jayme Barrientos <email address hidden>, 2014
+# Adolfo Jayme Barrientos, 2014
 # Alexander Dupuy <email address hidden>, 2012
 # gr0uch0mars <email address hidden>, 2011
 # Héctor Arroyo <email address hidden>, 2012
@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-01-11 07:05+0000\n"
+"PO-Revision-Date: 2015-01-30 11:27+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -1100,7 +1100,7 @@ msgstr ""
 msgid ""
 "This indicates that one release is identical to another release, but that "
 "the release title and track titles have been either translated (into another"
-" language) or transliterated (into another script).​"
+" language) or transliterated (into another script)."
 msgstr ""
 
 #: DB:link_type/description:25 DB:link_type/description:129

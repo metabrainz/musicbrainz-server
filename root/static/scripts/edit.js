@@ -22,6 +22,7 @@ require("./edit/common.js");
 require("./edit/confirmNavigationFallback.js");
 require("./edit/ExampleRelationships.js");
 require("./edit/forms.js");
+require("./edit/validation.js");
 require("./edit/externalLinks.js");
 require("./edit/MB/Control/Area.js");
 require("./edit/MB/Control/ArtistCredit.js");

@@ -38,7 +38,7 @@ role
         my $self = shift;
         my $key = $self->_id_cache_prefix . ":all";
 
-        my $cache = $self->c->cache;
+        my $cache = $self->c->cache($self->_id_cache_prefix);
         my $all = $cache->get($key);
 
         return @$all if $all;

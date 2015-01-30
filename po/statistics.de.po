@@ -532,7 +532,7 @@ msgstr "Aktive Benutzer"
 msgid "Active Voters"
 msgstr "Aktive Abstimmer"
 
-#: ../root/statistics/timeline.tt:45
+#: ../root/statistics/timeline.tt:48
 msgid "Add/remove lines:"
 msgstr "Zeilen hinzufügen/entfernen:"
 
@@ -762,7 +762,7 @@ msgstr "Abgebrochen:"
 msgid "Characters"
 msgstr "Figuren"
 
-#: ../root/statistics/timeline.tt:45
+#: ../root/statistics/timeline.tt:48
 msgid "Check boxes above"
 msgstr "Kästchen oben markieren"
 
@@ -770,11 +770,11 @@ msgstr "Kästchen oben markieren"
 msgid "Choirs"
 msgstr "Chöre"
 
-#: ../root/statistics/timeline.tt:44
+#: ../root/statistics/timeline.tt:47
 msgid "Click to deselect"
 msgstr "Klicke zum Auswählen"
 
-#: ../root/statistics/timeline.tt:41
+#: ../root/statistics/timeline.tt:44
 msgid "Controls"
 msgstr "Steuerelemente"
 
@@ -1155,7 +1155,7 @@ msgstr "Disc-IDs"
 msgid "Disc IDs:"
 msgstr "Disc-IDs:"
 
-#: ../root/statistics/timeline.tt:43
+#: ../root/statistics/timeline.tt:46
 msgid "Draw a rectangle on either graph"
 msgstr "Zeichne ein Rechteck auf einem der Graphen"
 
@@ -1247,7 +1247,7 @@ msgstr "Veranstaltungen"
 msgid "Events:"
 msgstr "Veranstaltungen:"
 
-#: ../root/statistics/timeline.tt:53
+#: ../root/statistics/timeline.tt:56
 msgid "Exact Values (items vs. day)"
 msgstr "Genaue Werte (Einträge vs. Tag)"
 
@@ -1313,7 +1313,7 @@ msgstr "Hohe Datenqualität"
 msgid "High Data Quality:"
 msgstr "Hohe Datenqualität:"
 
-#: ../root/statistics/timeline.tt:46
+#: ../root/statistics/timeline.tt:49
 msgid "Hover and click on vertical lines"
 msgstr "Über vertikale Linien bewegen und klicken"
 
@@ -1441,7 +1441,7 @@ msgstr "Letzte 7 Tage:"
 msgid "Last updated: {date}"
 msgstr "Zuletzt aktualisiert: {date}"
 
-#: ../root/statistics/timeline.tt:29
+#: ../root/statistics/timeline.tt:32
 msgid "Legend"
 msgstr "Legende"
 
@@ -1503,11 +1503,11 @@ msgstr "Aktivste Bearbeiter in der letzten Woche"
 msgid "Most active voters in the past week"
 msgstr "Aktivste Abstimmer in der letzten Woche"
 
-#: ../root/statistics/timeline.tt:33
+#: ../root/statistics/timeline.tt:36
 msgid "MusicBrainz Events"
 msgstr "MusicBrainz-Ereignisse"
 
-#: ../root/statistics/timeline.tt:46
+#: ../root/statistics/timeline.tt:49
 msgid "MusicBrainz Events:"
 msgstr "MusicBrainz-Ereignisse:"
 
@@ -1657,11 +1657,11 @@ msgstr "Primäre Typen"
 msgid "Rank"
 msgstr "Rang"
 
-#: ../root/statistics/timeline.tt:55
+#: ../root/statistics/timeline.tt:58
 msgid "Rate of Change (average items/day vs. day)"
 msgstr "Änderungsrate (durchschnittliche Elemente/Tag vs. Tag)"
 
-#: ../root/statistics/timeline.tt:37
+#: ../root/statistics/timeline.tt:40
 msgid "Rate of Change Graph"
 msgstr "Diagramm der Veränderungsrate"
 
@@ -1875,7 +1875,7 @@ msgstr "Veröffentlichungen, Datenqualität und Disc-IDs"
 msgid "Releases:"
 msgstr "Veröffentlichungen:"
 
-#: ../root/statistics/timeline.tt:44
+#: ../root/statistics/timeline.tt:47
 msgid "Reset:"
 msgstr "Zurücksetzen:"
 
@@ -1929,7 +1929,7 @@ msgstr "Es gibt keine Daten, die hier angezeigt werden können."
 msgid "Timeline"
 msgstr "Zeitleiste"
 
-#: ../root/statistics/timeline.tt:52
+#: ../root/statistics/timeline.tt:55
 msgid "Timeline Graph"
 msgstr "Zeitleistendiagramm"
 
@@ -2100,7 +2100,7 @@ msgstr "Ja-Stimmen"
 msgid "Yesterday:"
 msgstr "Gestern:"
 
-#: ../root/statistics/timeline.tt:43
+#: ../root/statistics/timeline.tt:46
 msgid "Zoom:"
 msgstr "Zoom:"
 
