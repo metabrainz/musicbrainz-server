@@ -6,6 +6,7 @@
 var Immutable = require('immutable');
 var React = require('react');
 var PropTypes = React.PropTypes;
+var HelpIcon = require('./components/HelpIcon.js');
 
 require('react/addons');
 
@@ -133,21 +134,15 @@ var ExternalLinksEditor = React.createClass({
   }
 });
 
-var linkTypePropType = PropTypes.oneOfType([PropTypes.number,PropTypes.oneOf([null])]).isRequired;
-
 var LinkTypeSelect = React.createClass({
 
   propTypes: {
-    type: linkTypePropType,
-
-    setLinkState: PropTypes.func.isRequired,
-    updateTooltip: PropTypes.func.isRequired
+    type: PropTypes.number,
+    setLinkState: PropTypes.func.isRequired
   },
 
   typeChanged: function (event) {
-    this.props.setLinkState({ type: +event.target.value || null }, () => {
-      this.props.updateTooltip();
-    });
+    this.props.setLinkState({ type: +event.target.value || null });
   },
 
   render: function () {
@@ -165,7 +160,7 @@ var ExternalLink = React.createClass({
 
   propTypes: {
     url: PropTypes.string.isRequired,
-    type: linkTypePropType,
+    type: PropTypes.number,
     video: PropTypes.bool.isRequired,
     supportsVideoAttribute: PropTypes.bool.isRequired,
     isOnlyLink: PropTypes.bool.isRequired,
@@ -194,9 +189,7 @@ var ExternalLink = React.createClass({
         var type = cleanup.guessType(cleanup.sourceType, url);
 
         if (type) {
-          this.props.setLinkState({ type: MB.typeInfoByID[type].id }, () => {
-            this.updateTooltip();
-          });
+          this.props.setLinkState({ type: MB.typeInfoByID[type].id });
         }
       }
     });
@@ -275,9 +268,7 @@ var ExternalLink = React.createClass({
           {/* If the URL matches its type or is just empty, display either a
               favicon or a prompt for a new link as appropriate. */
            showTypeSelection
-            ? <LinkTypeSelect type={props.type} setLinkState={props.setLinkState} updateTooltip={this.updateTooltip}>
-                {props.typeOptions}
-              </LinkTypeSelect>
+            ? <LinkTypeSelect type={props.type} setLinkState={props.setLinkState}>{props.typeOptions}</LinkTypeSelect>
             : <label>
                 {matchesType && faviconClass && <span className={'favicon ' + faviconClass + '-favicon'}></span>}
                 {(typeInfo && typeInfo.phrase) || (props.isOnlyLink ? l('Add link:') : l('Add another link:'))}
@@ -293,8 +284,8 @@ var ExternalLink = React.createClass({
               </label>
             </div>}
         </td>
-        <td style={{whiteSpace: 'nowrap'}}>
-          {props.type && <div ref="help" className="img icon help" data-tooltip={this.typeDescription()}></div>}
+        <td style={{minWidth: '34px'}}>
+          {props.type && <HelpIcon html={this.typeDescription()} />}
           {isEmpty(props) ||
             <button type="button" className="nobutton remove" onClick={props.removeCallback}>
               <div className="remove-item icon img" title={l('Remove Link')}></div>
@@ -302,44 +293,6 @@ var ExternalLink = React.createClass({
         </td>
       </tr>
     );
-  },
-
-  componentDidMount: function () {
-    this.updateTooltip();
-  },
-
-  updateTooltip: function () {
-    if (!this.refs.help) {
-      return;
-    }
-    var $help = $(this.refs.help.getDOMNode());
-    var content = $help.attr('data-tooltip');
-
-    if ($help.data('ui-tooltip')) {
-      $help.tooltip('option', 'content', content)
-
-      if (!content) {
-        return $help.tooltip('close');
-      }
-    }
-
-    $help.tooltip({
-      items: 'div.icon.help',
-      content: content,
-      open: function (event, ui) {
-        ui.tooltip.find('a').attr('target', '_blank');
-      },
-      close: function (event, ui) {
-        ui.tooltip.hover(
-          function () {
-            $(this).stop(true).fadeTo(400, 1);
-          },
-          function () {
-            $(this).fadeOut("400", function () { $(this).remove() });
-          }
-        );
-      }
-    });
   }
 });
 
