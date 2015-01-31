@@ -89,7 +89,7 @@ END; -%]
         data-small-thumbnail="[% artwork.small_thumbnail %]"
         data-large-thumbnail="[% artwork.large_thumbnail %]"
         data-fallback="[% fallback %]"
-        data-title="[% artwork_hover(artwork) | html %]"
+        data-title="[% artwork_hover(artwork) %]"
         data-message="[% message ? message : l('Image not available yet, please try again in a few minutes.') | html %]"
     ></span>
 [% END %]

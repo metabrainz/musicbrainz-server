@@ -15,8 +15,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-01-11 14:58+0000\n"
-"Last-Translator: yahoe.001\n"
+"PO-Revision-Date: 2015-01-30 11:27+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -555,7 +555,7 @@ msgid ""
 "Links a release with an event where it was available. This is intended for "
 "event-exclusive releases and/or releases available at events before the "
 "official launch date, not for every release in the merchandise stall."
-msgstr "Relie une parution à un événement où elle était disponible. Ceci est pour les parutions exclusives à un événement et/où les parutions disponibles à des événements avant la date officielle de lancement, pas pour toutes les parutions présentées sur l'étal des marchandises."
+msgstr "Relie une parution à un événement où elle était offerte. Ceci est pour les parutions exclusives à un événement et/où les parutions disponibles à des événements avant la date officielle de lancement, pas pour toutes les parutions présentées sur l'étal des marchandises."
 
 #: DB:link_type/description:823
 msgid "Links a series to another series that exists within it."
@@ -1102,8 +1102,8 @@ msgstr "Ceci indique qu'un événement est formé de plusieurs parties (par ex. 
 msgid ""
 "This indicates that one release is identical to another release, but that "
 "the release title and track titles have been either translated (into another"
-" language) or transliterated (into another script).​"
-msgstr "Ceci indique qu'une parution est identique à une autre, mais que le tire de la parution et les titres des pistes ont soit été traduits (dans une autre langue) au translittérés (dans un autre système d'écriture)."
+" language) or transliterated (into another script)."
+msgstr ""
 
 #: DB:link_type/description:25 DB:link_type/description:129
 msgid ""
@@ -1373,19 +1373,19 @@ msgstr "Ceci est utilisé pour relier un artiste à sa page sur un site de rése
 
 #: DB:link_type/description:180
 msgid "This is used to link the Discogs page for this artist."
-msgstr "Ceci est utilisé pour relié la page Discogs de cet artiste."
+msgstr "Ceci est utilisé pour relier la page Discogs de cet artiste."
 
 #: DB:link_type/description:217
 msgid "This is used to link the Discogs page for this label."
-msgstr "Ceci est utilisé pour relié la page Discogs de ce label."
+msgstr "Ceci est utilisé pour relier la page Discogs de ce label."
 
 #: DB:link_type/description:90
 msgid "This is used to link the Discogs page for this release group."
-msgstr "Ceci est utilisé pour relié la page Discogs de ce groupe de parution."
+msgstr "Ceci est utilisé pour relier la page Discogs de ce groupe de parution."
 
 #: DB:link_type/description:76
 msgid "This is used to link the Discogs page for this release."
-msgstr "Ceci est utilisé pour relié la page Discogs de cette parution."
+msgstr "Ceci est utilisé pour relier la page Discogs de cette parution."
 
 #: DB:link_type/description:176
 msgid ""
@@ -1506,7 +1506,7 @@ msgstr "Ce lien relie un événement différé à l'événement reprogrammé ult
 
 #: DB:link_type/description:302
 msgid "This links a recording to a license under which it is available."
-msgstr "Ceci relie un enregistrement à une licence sous laquelle il est disponible."
+msgstr "Ceci relie un enregistrement à une licence sous laquelle il est offert."
 
 #: DB:link_type/description:255
 msgid ""
@@ -1545,7 +1545,7 @@ msgstr "Ceci relie un groupe de parution à un artiste pour indiquer que c'est u
 
 #: DB:link_type/description:301
 msgid "This links a release to a license under which it is available."
-msgstr "Ceci relie une parution  à une licence sous laquelle elle est disponible."
+msgstr "Ceci relie une parution  à une licence sous laquelle elle est offerte."
 
 #: DB:link_type/description:75
 msgid ""
@@ -1860,7 +1860,7 @@ msgid ""
 "specific information is available. If possible, the more specific composer, "
 "lyricist and/or librettist types should be used, rather than this "
 "relationship type."
-msgstr "Cette relation est utilisée pour relier une parution à l'artiste responsable de l'écriture de la musique et/ou des mots (paroles, livret, etc.) quand plus aucune information spécifique n'est disponible. Si possible, les types plus spécifiques de compositeur, parolier et/ou librettiste devraient être utilisés plutôt que ce type de relation. "
+msgstr "Cette relation est utilisée pour relier une parution à l'artiste responsable de l'écriture de la musique et/ou des mots (paroles, livret, etc.) quand plus aucune information spécifique n'est proposée. Si possible, les types plus spécifiques de compositeur, parolier et/ou librettiste devraient être utilisés plutôt que ce type de relation. "
 
 #: DB:link_type/description:167
 msgid ""
@@ -1869,7 +1869,7 @@ msgid ""
 "specific information is available. If possible, the more specific composer, "
 "lyricist and/or librettist types should be used, rather than this "
 "relationship type."
-msgstr "Cette relation est utilisée pour relier une œuvre à l'artiste responsable de l'écriture de la musique et/ou des mots (paroles, livret, etc.) quand plus aucune information spécifique n'est disponible. Si possible, les types plus spécifiques de compositeur, parolier et/ou librettiste devraient être utilisés plutôt que ce type de relation."
+msgstr "Cette relation est utilisée pour relier une œuvre à l'artiste responsable de l'écriture de la musique et/ou des mots (paroles, livret, etc.) quand plus aucune information spécifique n'est proposée. Si possible, les types plus spécifiques de compositeur, parolier et/ou librettiste devraient être utilisés plutôt que ce type de relation."
 
 #: DB:link_type/description:729
 msgid ""
@@ -2254,11 +2254,11 @@ msgstr "{EP:EP|simples} associés"
 
 #: DB:link_type/reverse_link_phrase:795
 msgid "available at"
-msgstr "disponible à"
+msgstr "proposé sur"
 
 #: DB:link_type/link_phrase:795
 msgid "available releases"
-msgstr "parutions disponibles"
+msgstr "parutions proposées"
 
 #: DB:link_attribute_type/description:12 DB:link_attribute_type/name:12
 msgid "background vocals"
@@ -2679,7 +2679,7 @@ msgstr "à eu un poste d'ingénieur"
 
 #: DB:link_type/long_link_phrase:795
 msgid "had available releases"
-msgstr "avait des parutions disponibles"
+msgstr "avait des parutions proposées"
 
 #: DB:link_type/long_link_phrase:834
 msgid "had previous attribution"
@@ -2902,7 +2902,7 @@ msgstr "son histoire est présentée par"
 
 #: DB:link_type/long_link_phrase:93 DB:link_type/long_link_phrase:197
 msgid "has lyrics available at"
-msgstr "a des paroles disponibles à"
+msgstr "a des paroles proposées sur"
 
 #: DB:link_type/long_link_phrase:316
 msgid "has orchestration"

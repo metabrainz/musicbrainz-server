@@ -1,0 +1,31 @@
+[% WRAPPER "layout.tt" full_width=1 title=(model ? model : l('Script')) -%]
+
+<h1><a href="[% c.uri_for_action('/admin/attributes/index') %]">[% l('Attributes') %]</a> / [% l('Script') %]</h1>
+
+<table class="tbl">
+<thead>
+    <tr>
+    <th>[% l('ID') %]</th>
+    <th>[% l('Name') %]</th>
+    <th>[% l('ISO code') %]</th>
+    <th>[% l('ISO number') %]</th>
+    <th>[% l('Frequency') %]</th>
+    <th>[% l('Actions') %]</th>
+    </tr>
+</thead>
+
+[% FOR attr IN attributes.sort('name').reverse().sort('frequency').reverse() %]
+    <tr class="[% loop.parity %]">
+    <td>[% attr.id %]</td>
+    <td>[% attr.name %]</td>
+    <td>[% attr.iso_code %]</td>
+    <td>[% attr.iso_number %]</td>
+    <td>[% attr.frequency %]</td>
+    <td><a href="[% c.uri_for_action('/admin/attributes/edit', [ model, attr.id ]) %]">[% l('Edit') %]</a> | <a href="[% c.uri_for_action('/admin/attributes/delete', [ model, attr.id ]) %]">[% l('Remove') %]</a></td>
+    </tr>
+[% END %]
+</table>
+
+<p><span class="buttons"><a href="[% c.uri_for_action('/admin/attributes/create', [ model ]) %]">[% l('Add new attribute') %]</a></span></p>
+
+[%- END -%]

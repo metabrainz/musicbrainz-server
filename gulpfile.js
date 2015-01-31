@@ -156,10 +156,14 @@ function buildScripts(watch) {
             b.require('knockout', { expose: 'knockout' });
         }),
         createBundle("edit.js", watch, function (b) {
+            b.require('./root/static/scripts/edit/validation.js', { expose: true });
+
             b.external('knockout');
         }),
         createBundle("guess-case.js", watch),
-        createBundle("release-editor.js", watch),
+        createBundle("release-editor.js", watch, function (b) {
+            b.external('./root/static/scripts/edit/validation.js');
+        }),
         createBundle("statistics.js", watch, function (b) {
             b.external('jquery');
         }),

@@ -522,7 +522,7 @@ msgstr "Aktiivsed kasutajad"
 msgid "Active Voters"
 msgstr "Aktiivsed hääletajad"
 
-#: ../root/statistics/timeline.tt:45
+#: ../root/statistics/timeline.tt:48
 msgid "Add/remove lines:"
 msgstr "Joonte lisamine/eemaldamine:"
 
@@ -752,7 +752,7 @@ msgstr "Tühistatud:"
 msgid "Characters"
 msgstr "Tegelaskujud"
 
-#: ../root/statistics/timeline.tt:45
+#: ../root/statistics/timeline.tt:48
 msgid "Check boxes above"
 msgstr "Vali ülalolevaid märkeruute"
 
@@ -760,11 +760,11 @@ msgstr "Vali ülalolevaid märkeruute"
 msgid "Choirs"
 msgstr "Koorid"
 
-#: ../root/statistics/timeline.tt:44
+#: ../root/statistics/timeline.tt:47
 msgid "Click to deselect"
 msgstr "Klõpsa valiku eemaldamiseks"
 
-#: ../root/statistics/timeline.tt:41
+#: ../root/statistics/timeline.tt:44
 msgid "Controls"
 msgstr "Juhtimine"
 
@@ -1145,7 +1145,7 @@ msgstr "Plaadi-ID-d"
 msgid "Disc IDs:"
 msgstr "Plaadi-ID-sid:"
 
-#: ../root/statistics/timeline.tt:43
+#: ../root/statistics/timeline.tt:46
 msgid "Draw a rectangle on either graph"
 msgstr "Joonista ristkülik emmal-kummal graafikul"
 
@@ -1237,7 +1237,7 @@ msgstr ""
 msgid "Events:"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:53
+#: ../root/statistics/timeline.tt:56
 msgid "Exact Values (items vs. day)"
 msgstr "Täpsed väärtused (elementide arv vastaval päeval)"
 
@@ -1303,7 +1303,7 @@ msgstr "Kõrge andmekvaliteet"
 msgid "High Data Quality:"
 msgstr "Kõrge andmekvaliteediga:"
 
-#: ../root/statistics/timeline.tt:46
+#: ../root/statistics/timeline.tt:49
 msgid "Hover and click on vertical lines"
 msgstr "Vii kursor püstjoonele ja klõpsa"
 
@@ -1431,7 +1431,7 @@ msgstr "Viimase 7 päeva jooksul:"
 msgid "Last updated: {date}"
 msgstr "Viimati uuendatud: {date}"
 
-#: ../root/statistics/timeline.tt:29
+#: ../root/statistics/timeline.tt:32
 msgid "Legend"
 msgstr "Legend"
 
@@ -1493,11 +1493,11 @@ msgstr "Nädala jooksul kõige aktiivsemad toimetajad"
 msgid "Most active voters in the past week"
 msgstr "Nädala jooksul kõige aktiivsemad hääletajad"
 
-#: ../root/statistics/timeline.tt:33
+#: ../root/statistics/timeline.tt:36
 msgid "MusicBrainz Events"
 msgstr "MusicBrainzi sündmused"
 
-#: ../root/statistics/timeline.tt:46
+#: ../root/statistics/timeline.tt:49
 msgid "MusicBrainz Events:"
 msgstr "MusicBrainzi sündmused:"
 
@@ -1647,11 +1647,11 @@ msgstr "Põhitüübid"
 msgid "Rank"
 msgstr "Koht"
 
-#: ../root/statistics/timeline.tt:55
+#: ../root/statistics/timeline.tt:58
 msgid "Rate of Change (average items/day vs. day)"
 msgstr "Muutumiskiirus (keskmine elementide arvu muutus vastaval päeval)"
 
-#: ../root/statistics/timeline.tt:37
+#: ../root/statistics/timeline.tt:40
 msgid "Rate of Change Graph"
 msgstr "Muutumiskiiruse graafik"
 
@@ -1865,7 +1865,7 @@ msgstr "Väljalasked, andmekvaliteet ja plaadi-ID-d"
 msgid "Releases:"
 msgstr "Väljalaskeid:"
 
-#: ../root/statistics/timeline.tt:44
+#: ../root/statistics/timeline.tt:47
 msgid "Reset:"
 msgstr "Lähtestamine:"
 
@@ -1919,7 +1919,7 @@ msgstr "Pole andmeid, mida siin näidata."
 msgid "Timeline"
 msgstr "Ajatelg"
 
-#: ../root/statistics/timeline.tt:52
+#: ../root/statistics/timeline.tt:55
 msgid "Timeline Graph"
 msgstr "Ajatelg"
 
@@ -2090,7 +2090,7 @@ msgstr ""
 msgid "Yesterday:"
 msgstr "Eile:"
 
-#: ../root/statistics/timeline.tt:43
+#: ../root/statistics/timeline.tt:46
 msgid "Zoom:"
 msgstr "Suurendamine:"
 
