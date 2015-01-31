@@ -60,21 +60,28 @@ externalLinksTest("invalid URL detection", function (t, $mountPoint, component, 
 externalLinksTest("deprecated link type detection", function (t, $mountPoint, component, addURL) {
     t.plan(2);
 
-    addURL("http://musicmoz.org/Bands_and_Artists/B/Beatles,_The/");
+    addURL("http://www.example.com/");
 
-    MB.typeInfoByID[181] = {
+    MB.typeInfoByID[666] = {
         deprecated: true,
-        phrase: "MusicMoz",
-        reversePhrase: "MusicMoz"
+        phrase: "Example",
+        reversePhrase: "Example"
     };
 
     var selectComponent = scryRenderedDOMComponentsWithTag(component, 'select')[0];
-    triggerChange(selectComponent, 181);
+    triggerChange(selectComponent, 666);
 
     contains(t, $mountPoint, ':contains(This relationship type is deprecated)', 'error is shown for deprecated link type');
 
+    triggerChange(
+        scryRenderedDOMComponentsWithTag(component, 'input')[0],
+        'http://musicmoz.org/Bands_and_Artists/B/Beatles,_The/'
+    );
+
     triggerChange(selectComponent, 188);
-    not_contains(t, $mountPoint, ':contains(This relationship type is deprecated)', 'error is removed after valid link type is selected');
+
+    not_contains(t, $mountPoint, ':contains(This relationship type is deprecated)', 'error is removed after valid URL and type are entered');
+    delete MB.typeInfoByID[666];
 });
 
 externalLinksTest("hidden input data for form submission", function (t, $mountPoint, component, addURL) {
