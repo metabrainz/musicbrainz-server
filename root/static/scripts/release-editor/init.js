@@ -254,7 +254,7 @@ MB.releaseEditor.createExternalLinksEditor = function (data, mountPoint) {
     });
 
     this.externalLinksEditData = ko.observable({});
-    this.hasInvalidLinks = this.externalLinks.errorObservable;
+    this.hasInvalidLinks = this.externalLinks.props.errorObservable;
 
     // XXX Since there's no notion of observable data in React, we need to
     // override componentDidUpdate to watch for changes to the external links.
