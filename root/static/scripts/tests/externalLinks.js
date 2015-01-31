@@ -35,7 +35,7 @@ function not_contains(t, $mountPoint, selector, description) {
 }
 
 externalLinksTest("automatic link type detection for URL", function (t, $mountPoint, component, addURL) {
-    t.plan(3);
+    t.plan(2);
 
     addURL("http://en.wikipedia.org/wiki/No_Age");
 
