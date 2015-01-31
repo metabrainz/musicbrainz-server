@@ -9,7 +9,7 @@ var validation = require('../../edit/validation.js');
 
 var React = require('react/addons');
 var scryRenderedDOMComponentsWithTag = React.addons.TestUtils.scryRenderedDOMComponentsWithTag;
-var { triggerChange, triggerClick, addURL } = require('../external-links-editor/utils.js');
+var { triggerChange, addURL } = require('../external-links-editor/utils.js');
 
 var releaseEditor = MB.releaseEditor;
 MB.formatsWithDiscIDs = [1];
@@ -592,7 +592,8 @@ editReleaseTest("relationshipDelete edit for external link is generated for exis
         document.createElement('div')
     );
 
-    triggerClick(React.addons.TestUtils.findRenderedDOMComponentWithTag(component, 'button'));
+    // Click remove button
+    $(component.getDOMNode()).find('button').click();
 
     t.deepEqual(releaseEditor.edits.externalLinks(release), [
       {
@@ -634,8 +635,10 @@ editReleaseTest("edits are not generated for external links that duplicate exist
         document.createElement('div')
     );
 
+    var $mountPoint = $(component.getDOMNode());
+
     // Remove first URL
-    triggerClick(scryRenderedDOMComponentsWithTag(component, 'button')[0]);
+    $mountPoint.find('button:eq(0)').click();
 
     // Add a duplicate of the first URL
     addURL(component, 'http://www.discogs.com/release/1369894');
@@ -645,7 +648,7 @@ editReleaseTest("edits are not generated for external links that duplicate exist
     t.equal(validation.errorsExist(), true);
 
     // Remove duplicate
-    triggerClick(scryRenderedDOMComponentsWithTag(component, 'button')[1]);
+    $mountPoint.find('button:eq(1)').click();
 
     // There's one edit to remove the first URL.
     t.deepEqual(releaseEditor.edits.externalLinks(release), [

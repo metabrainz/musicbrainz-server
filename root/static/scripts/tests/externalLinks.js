@@ -7,7 +7,7 @@ var test = require('tape');
 var externalLinks = require('../edit/externalLinks.js');
 var React = require('react/addons');
 var scryRenderedDOMComponentsWithTag = React.addons.TestUtils.scryRenderedDOMComponentsWithTag;
-var { triggerChange, triggerClick, addURL } = require('./external-links-editor/utils.js');
+var { triggerChange, addURL } = require('./external-links-editor/utils.js');
 
 MB.faviconClasses = { "wikipedia.org": "wikipedia" };
 
@@ -103,14 +103,14 @@ externalLinksTest("hidden input data for form submission", function (t, $mountPo
         'http://en.wikipedia.org/wiki/dEErHuNtER'
     );
 
-    triggerClick(scryRenderedDOMComponentsWithTag(component, 'button')[1]);
+    $mountPoint.find('button:eq(1)').click();
 
     MB.relationshipEditor.prepareSubmission('edit-artist');
     t.equal($re.find("input[name=edit-artist\\.url\\.0\\.relationship_id]").val(), "1");
     t.equal($re.find("input[name=edit-artist\\.url\\.0\\.text]").val(), "http://en.wikipedia.org/wiki/dEErHuNtER");
     t.equal($re.find("input[name=edit-artist\\.url\\.0\\.link_type_id]").val(), "179");
 
-    triggerClick(scryRenderedDOMComponentsWithTag(component, 'button')[0]);
+    $mountPoint.find('button:eq(0)').click();
 
     MB.relationshipEditor.prepareSubmission('edit-artist');
     t.equal($re.find("input[name=edit-artist\\.url\\.0\\.relationship_id]").val(), "1");
