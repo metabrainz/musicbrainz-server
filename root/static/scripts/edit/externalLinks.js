@@ -123,6 +123,7 @@ var ExternalLinksEditor = React.createClass({
                     );
                   })
                 }
+                getLinkState={() => this.state.links.get(index)}
                 setLinkState={(linkState, callback) =>
                   this.setState({ links: withOneEmptyLink(this.state.links.mergeIn([index], linkState), index) }, callback)
                 }
@@ -156,6 +157,51 @@ var LinkTypeSelect = React.createClass({
   }
 });
 
+var URLInput = React.createClass({
+  mixins: [React.addons.PureRenderMixin],
+
+  propTypes: {
+    url: PropTypes.string.isRequired,
+    cleanup: PropTypes.object.isRequired,
+    callback: PropTypes.func.isRequired
+  },
+
+  handleChange: function (event) {
+    var url = event.target.value;
+    var cleanup = this.props.cleanup;
+
+    // Allow adding spaces while typing, they'll be trimmed on blur
+    if (_.str.trim(url) !== _.str.trim(this.props.url)) {
+      if (url.match(/^\w+\./)) {
+          url = 'http://' + url;
+      }
+      // FIXME: why does cleanup.cleanUrl need to be passed its own cleanup.sourceType???
+      url = cleanup.cleanUrl(cleanup.sourceType, url) || url;
+    }
+
+    this.props.callback(url);
+  },
+
+  handleBlur: function (event) {
+    var url = event.target.value;
+    var trimmed = _.str.trim(url);
+
+    if (url !== trimmed) {
+      this.props.callback(trimmed);
+    }
+  },
+
+  render: function () {
+    return (
+      <input type="url"
+             className="value with-button"
+             value={this.props.url}
+             onChange={this.handleChange}
+             onBlur={this.handleBlur} />
+    );
+  }
+});
+
 var ExternalLink = React.createClass({
   mixins: [React.addons.PureRenderMixin],
 
@@ -169,40 +215,6 @@ var ExternalLink = React.createClass({
     removeCallback: PropTypes.func.isRequired,
     duplicateCallback: PropTypes.func.isRequired,
     setLinkState: PropTypes.func.isRequired
-  },
-
-  urlChanged: function (event) {
-    var url = event.target.value;
-    var cleanup = this.props.cleanup;
-
-    // Allow adding spaces while typing, they'll be trimmed on blur
-    if (_.str.trim(url) !== _.str.trim(this.props.url)) {
-      if (url.match(/^\w+\./)) {
-          url = 'http://' + url;
-      }
-      url = cleanup.cleanUrl(cleanup.sourceType, url) || url;
-    }
-
-    this.props.setLinkState({ url: url }, () => {
-      var errorMessage = this.errorMessage();
-
-      if (!errorMessage || errorMessage === selectLinkTypeText) {
-        var type = cleanup.guessType(cleanup.sourceType, url);
-
-        if (type) {
-          this.props.setLinkState({ type: MB.typeInfoByID[type].id });
-        }
-      }
-    });
-  },
-
-  urlBlurred: function (event) {
-    var url = event.target.value;
-    var trimmed = _.str.trim(url);
-
-    if (url !== trimmed) {
-      this.props.setLinkState({ url: trimmed });
-    }
   },
 
   typeDescription: function () {
@@ -276,7 +288,22 @@ var ExternalLink = React.createClass({
               </label>}
         </td>
         <td>
-          <input type="url" className="value with-button" value={props.url} onChange={this.urlChanged} onBlur={this.urlBlurred} />
+          <URLInput
+            url={props.url}
+            cleanup={props.cleanup}
+            callback={(url) => {
+              this.props.setLinkState({ url: url }, () => {
+                var errorMessage = this.errorMessage();
+
+                if (!errorMessage || errorMessage === selectLinkTypeText) {
+                  var type = props.cleanup.guessType(props.cleanup.sourceType, url);
+
+                  if (type && type !== this.props.getLinkState().type) {
+                    this.props.setLinkState({ type: MB.typeInfoByID[type].id });
+                  }
+                }
+              });
+            }} />
           {errorMessage && <div className="error field-error" data-visible="1">{errorMessage}</div>}
           {props.supportsVideoAttribute &&
             <div className="attribute-container">
