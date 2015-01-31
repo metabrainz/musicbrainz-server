@@ -262,6 +262,22 @@ var ExternalLink = React.createClass({
     return '';
   },
 
+  urlDidChange: function (url) {
+    var errorMessage = this.errorMessage();
+
+    if (!errorMessage || errorMessage === selectLinkTypeText) {
+      var type = this.props.cleanup.guessType(this.props.cleanup.sourceType, url);
+
+      if (type) {
+        var typeID = MB.typeInfoByID[type].id;
+
+        if (typeID !== this.props.getLinkState().type) {
+          this.props.setLinkState({ type: typeID });
+        }
+      }
+    }
+  },
+
   render: function () {
     var props = this.props;
     var typeInfo = props.type && MB.typeInfoByID[props.type];
@@ -287,22 +303,9 @@ var ExternalLink = React.createClass({
               </label>}
         </td>
         <td>
-          <URLInput
-            url={props.url}
-            cleanup={props.cleanup}
-            onChange={(url) => {
-              this.props.setLinkState({ url: url }, () => {
-                var errorMessage = this.errorMessage();
-
-                if (!errorMessage || errorMessage === selectLinkTypeText) {
-                  var type = props.cleanup.guessType(props.cleanup.sourceType, url);
-
-                  if (type && type !== this.props.getLinkState().type) {
-                    this.props.setLinkState({ type: MB.typeInfoByID[type].id });
-                  }
-                }
-              });
-            }} />
+          <URLInput url={props.url}
+                    cleanup={props.cleanup}
+                    onChange={url => this.props.setLinkState({ url: url }, () => this.urlDidChange(url))} />
           {errorMessage && <div className="error field-error" data-visible="1">{errorMessage}</div>}
           {supportsVideoAttribute &&
             <div className="attribute-container">
