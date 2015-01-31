@@ -101,18 +101,12 @@ var ExternalLinksEditor = React.createClass({
           {this.state.links.toArray().map((link, index) => {
             return (
               <ExternalLink
-                {...this.props}
                 key={link.relationship}
                 url={link.url}
                 type={link.type}
                 video={link.video}
-                supportsVideoAttribute={!!((MB.typeInfoByID[link.type] || {}).attributes || {})[MB.constants.VIDEO_ATTRIBUTE_ID]}
                 isOnlyLink={this.state.links.size === 1}
-                errorCallback={(hasError) => {
-                  if (hasError) {
-                    this.props.errorObservable(true);
-                  }
-                }}
+                errorCallback={hasError => hasError && this.props.errorObservable(true)}
                 removeCallback={_.bind(this.removeLink, this, index)}
                 duplicateCallback={(target) =>
                   this.props.initialLinks.concat(this.state.links).some(function (other) {
@@ -127,6 +121,8 @@ var ExternalLinksEditor = React.createClass({
                 setLinkState={(linkState, callback) =>
                   this.setState({ links: withOneEmptyLink(this.state.links.mergeIn([index], linkState), index) }, callback)
                 }
+                cleanup={this.props.cleanup}
+                typeOptions={this.props.typeOptions}
               />
             );
           })}
@@ -209,12 +205,14 @@ var ExternalLink = React.createClass({
     url: PropTypes.string.isRequired,
     type: PropTypes.number,
     video: PropTypes.bool.isRequired,
-    supportsVideoAttribute: PropTypes.bool.isRequired,
     isOnlyLink: PropTypes.bool.isRequired,
     errorCallback: PropTypes.func.isRequired,
     removeCallback: PropTypes.func.isRequired,
     duplicateCallback: PropTypes.func.isRequired,
-    setLinkState: PropTypes.func.isRequired
+    getLinkState: PropTypes.func.isRequired,
+    setLinkState: PropTypes.func.isRequired,
+    cleanup: PropTypes.object.isRequired,
+    typeOptions: PropTypes.arrayOf(PropTypes.element).isRequired
   },
 
   typeDescription: function () {
@@ -268,6 +266,7 @@ var ExternalLink = React.createClass({
     var props = this.props;
     var typeInfo = props.type && MB.typeInfoByID[props.type];
     var matchesType = ((typeInfo && typeInfo.gid) === props.cleanup.guessType(props.cleanup.sourceType, props.url));
+    var supportsVideoAttribute= !!((MB.typeInfoByID[props.type] || {}).attributes || {})[MB.constants.VIDEO_ATTRIBUTE_ID];
 
     var errorMessage = this.errorMessage();
     var showTypeSelection = !!errorMessage || !(matchesType || isEmpty(props));
@@ -305,7 +304,7 @@ var ExternalLink = React.createClass({
               });
             }} />
           {errorMessage && <div className="error field-error" data-visible="1">{errorMessage}</div>}
-          {props.supportsVideoAttribute &&
+          {supportsVideoAttribute &&
             <div className="attribute-container">
               <label>
                 <input type="checkbox" checked={props.video} onChange={_.partial(props.setLinkState, { video: !props.video }, null)} /> {l('video')}
