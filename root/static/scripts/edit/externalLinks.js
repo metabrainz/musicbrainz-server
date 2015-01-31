@@ -7,6 +7,7 @@ var Immutable = require('immutable');
 var React = require('react');
 var PropTypes = React.PropTypes;
 var HelpIcon = require('./components/HelpIcon.js');
+var RemoveButton = require('./components/RemoveButton.js');
 
 require('react/addons');
 
@@ -286,10 +287,7 @@ var ExternalLink = React.createClass({
         </td>
         <td style={{minWidth: '34px'}}>
           {props.type && <HelpIcon html={this.typeDescription()} />}
-          {isEmpty(props) ||
-            <button type="button" className="nobutton remove" onClick={props.removeCallback}>
-              <div className="remove-item icon img" title={l('Remove Link')}></div>
-            </button>}
+          {isEmpty(props) || <RemoveButton title={l('Remove Link')} callback={props.removeCallback} />}
         </td>
       </tr>
     );
