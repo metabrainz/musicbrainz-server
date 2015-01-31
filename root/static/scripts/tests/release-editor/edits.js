@@ -9,7 +9,7 @@ var validation = require('../../edit/validation.js');
 
 var React = require('react/addons');
 var scryRenderedDOMComponentsWithTag = React.addons.TestUtils.scryRenderedDOMComponentsWithTag;
-var { triggerChange, addURL } = require('../external-links-editor/utils.js');
+var { triggerChange, triggerClick, addURL } = require('../external-links-editor/utils.js');
 
 var releaseEditor = MB.releaseEditor;
 MB.formatsWithDiscIDs = [1];
@@ -556,12 +556,12 @@ editReleaseTest("relationshipEdit edit for external link is generated for existi
         document.createElement('div')
     );
 
-    triggerChange(scryRenderedDOMComponentsWithTag(component, 'select')[0], 77);
-
     triggerChange(
         scryRenderedDOMComponentsWithTag(component, 'input')[0],
         'http://www.amazon.co.jp/gp/product/B00003IQQD'
     );
+
+    triggerChange(scryRenderedDOMComponentsWithTag(component, 'select')[0], 77);
 
     t.deepEqual(releaseEditor.edits.externalLinks(release), [
       {
@@ -593,7 +593,7 @@ editReleaseTest("relationshipDelete edit for external link is generated for exis
     );
 
     // Click remove button
-    $(component.getDOMNode()).find('button').click();
+    triggerClick($(component.getDOMNode()).find('button')[0]);
 
     t.deepEqual(releaseEditor.edits.externalLinks(release), [
       {
@@ -638,7 +638,7 @@ editReleaseTest("edits are not generated for external links that duplicate exist
     var $mountPoint = $(component.getDOMNode());
 
     // Remove first URL
-    $mountPoint.find('button:eq(0)').click();
+    triggerClick($mountPoint.find('button:eq(0)')[0]);
 
     // Add a duplicate of the first URL
     addURL(component, 'http://www.discogs.com/release/1369894');
@@ -648,7 +648,7 @@ editReleaseTest("edits are not generated for external links that duplicate exist
     t.equal(validation.errorsExist(), true);
 
     // Remove duplicate
-    $mountPoint.find('button:eq(1)').click();
+    triggerClick($mountPoint.find('button:eq(1)')[0]);
 
     // There's one edit to remove the first URL.
     t.deepEqual(releaseEditor.edits.externalLinks(release), [
@@ -675,7 +675,7 @@ editReleaseTest("edits are not generated for external links that duplicate exist
 
     // Duplicate the first URL again by editing the other existing URL
     triggerChange(
-        scryRenderedDOMComponentsWithTag(component, 'input')[0],
+        $mountPoint.find('input:eq(0)')[0],
         'http://www.discogs.com/release/1369894'
     );
 
