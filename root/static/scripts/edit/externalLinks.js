@@ -28,7 +28,7 @@ var ExternalLinksEditor = React.createClass({
     cleanup: PropTypes.object.isRequired,
     typeOptions: PropTypes.arrayOf(PropTypes.element).isRequired,
     initialLinks: PropTypes.instanceOf(Immutable.List).isRequired,
-    errorObservable: function (props) {
+    errorObservable: function (props, propName) {
       if (propName === 'errorObservable' && !ko.isObservable(props[propName])) {
         return new Error('errorObservable should be an observable');
       }
