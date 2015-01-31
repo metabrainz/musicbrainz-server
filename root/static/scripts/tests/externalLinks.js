@@ -41,7 +41,6 @@ externalLinksTest("automatic link type detection for URL", function (t, $mountPo
 
     contains(t, $mountPoint, '.wikipedia-favicon', 'wikipedia favicon is used');
     contains(t, $mountPoint, ':contains(Wikipedia)', 'wikipedia label is used');
-    contains(t, $mountPoint, ':selected[value=179]', 'option with value 179 is selected');
 });
 
 externalLinksTest("invalid URL detection", function (t, $mountPoint, component, addURL) {
