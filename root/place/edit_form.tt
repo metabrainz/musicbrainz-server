@@ -120,6 +120,8 @@
     }
 
     var coordinates_request;
+    var coordinatesError = MB.validation.errorField(ko.observable(false));
+
     $("input[name=edit-place\\.coordinates]").on('input', function () {
         if (coordinates_request) {
             coordinates_request.abort();
@@ -130,14 +132,14 @@
             $(".coordinates-errors").css("display", "none");
             $("input[name=edit-place\\.coordinates]").removeClass("error");
             $("input[name=edit-place\\.coordinates]").css("background-color", "transparent");
-            $(".edit-place .submit").prop('disabled', false);
+            coordinatesError(false);
         } else {
             var url = "/ws/js/parse-coordinates?coordinates=" + encodeURIComponent(coordinates);
             coordinates_request = $.getJSON(url, function (data) {
                 $(".coordinates-errors").css("display", "none");
                 $("input[name=edit-place\\.coordinates]").removeClass("error");
                 $("input[name=edit-place\\.coordinates]").addClass("success");
-                $(".edit-place .submit").prop('disabled', false);
+                coordinatesError(false);
 
                 marker.setLatLng(L.latLng(data.coordinates.latitude, data.coordinates.longitude));
 
@@ -148,7 +150,7 @@
 
                 $("input[name=edit-place\\.coordinates]").addClass("error");
                 $(".coordinates-errors").css("display", "block");
-                $(".edit-place .submit").prop('disabled', true);
+                coordinatesError(true);
             });
         };
     });

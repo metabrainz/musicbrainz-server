@@ -1207,7 +1207,7 @@ msgstr "コンゴ語"
 msgid "Konkani"
 msgstr "コンカニー語"
 
-#. frequency:1 iso_code_3:kor
+#. frequency:2 iso_code_3:kor
 #: DB:language/name:224
 msgid "Korean"
 msgstr "韓国語"
@@ -1652,7 +1652,7 @@ msgstr "古ノルド語"
 msgid "North American Indian languages"
 msgstr "北米インディアン諸語"
 
-#. frequency:2 iso_code_3:nor
+#. frequency:1 iso_code_3:nor
 #: DB:language/name:309
 msgid "Norwegian"
 msgstr "ノルウェー語"

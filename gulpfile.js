@@ -156,6 +156,8 @@ function buildScripts(watch) {
             b.require('./root/static/scripts/common/utility/request.js', { expose: true });
         }),
         createBundle("edit.js", watch, function (b) {
+            b.require('./root/static/scripts/edit/validation.js', { expose: true });
+
             b.external('./root/static/lib/knockout/knockout-latest.debug.js');
             b.external('./root/static/scripts/common/utility/request.js');
 
@@ -167,6 +169,7 @@ function buildScripts(watch) {
             b.external('./root/static/scripts/common/utility/debounce.js');
             b.external('./root/static/scripts/common/utility/formatTrackLength.js');
             b.external('./root/static/scripts/common/utility/request.js');
+            b.external('./root/static/scripts/edit/validation.js');
             b.external('./root/static/scripts/edit/utility/dates.js');
             b.external('./root/static/scripts/edit/utility/deferFocus.js');
         }),

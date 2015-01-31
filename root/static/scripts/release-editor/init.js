@@ -4,6 +4,7 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 var request = require('../common/utility/request.js');
+var validation = require('../edit/validation.js');
 
 MB.releaseEditor = _.extend(MB.releaseEditor || {}, {
 
@@ -256,7 +257,7 @@ MB.releaseEditor.autoOpenTheAddDiscDialog = function (release) {
 MB.releaseEditor.allowsSubmission = function () {
     return (
         !this.submissionInProgress() &&
-        !this.validation.errorsExist() &&
+        !validation.errorsExist() &&
         (this.action === "edit" || this.rootField.editNote()) &&
         this.allEdits().length > 0
     );
