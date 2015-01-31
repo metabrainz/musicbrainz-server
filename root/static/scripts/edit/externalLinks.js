@@ -159,7 +159,7 @@ var URLInput = React.createClass({
   propTypes: {
     url: PropTypes.string.isRequired,
     cleanup: PropTypes.object.isRequired,
-    callback: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired
   },
 
   handleChange: function (event) {
@@ -175,7 +175,7 @@ var URLInput = React.createClass({
       url = cleanup.cleanUrl(cleanup.sourceType, url) || url;
     }
 
-    this.props.callback(url);
+    this.props.onChange(url);
   },
 
   handleBlur: function (event) {
@@ -183,7 +183,7 @@ var URLInput = React.createClass({
     var trimmed = _.str.trim(url);
 
     if (url !== trimmed) {
-      this.props.callback(trimmed);
+      this.props.onChange(trimmed);
     }
   },
 
@@ -290,7 +290,7 @@ var ExternalLink = React.createClass({
           <URLInput
             url={props.url}
             cleanup={props.cleanup}
-            callback={(url) => {
+            onChange={(url) => {
               this.props.setLinkState({ url: url }, () => {
                 var errorMessage = this.errorMessage();
 
