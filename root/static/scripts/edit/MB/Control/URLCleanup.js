@@ -19,6 +19,8 @@
 
 */
 
+var validation = require('../../validation.js');
+
 MB.constants.LINK_TYPES = {
     wikipedia: {
         area: "9228621d-9720-35c3-ad3f-327d789464ec",
@@ -656,7 +658,13 @@ MB.constants.CLEANUPS = {
             new RegExp("^(https?://)?(www\\.)?stage48\\.net/wiki/index.php", "i"),
             new RegExp("^(https?://)?(www22\\.)?big\\.or\\.jp", "i"),
             new RegExp("^(https?://)?(www\\.)?japanesemetal\\.gooside\\.com", "i"),
-            new RegExp("^(https?://)?(www\\.)?d-nb\\.info", "i")
+            new RegExp("^(https?://)?(www\\.)?d-nb\\.info", "i"),
+            new RegExp("^(https?://)?(www\\.)?qim\\.com", "i"),
+            new RegExp("^(https?://)?(www\\.)?mainlynorfolk\\.info", "i"),
+            new RegExp("^(https?://)?(www\\.)?tedcrane\\.com", "i"),
+            new RegExp("^(https?://)?(www\\.)?thedancegypsy\\.com", "i"),
+            new RegExp("^(https?://)?(www\\.)?bibliotekapiosenki\\.pl", "i"),
+            new RegExp("^(https?://)?(www\\.)?finna\\.fi", "i")
         ],
         type: MB.constants.LINK_TYPES.otherdatabases,
         clean: function (url) {
@@ -709,11 +717,10 @@ MB.Control.URLCleanup = function (options) {
     self.typeControl = $(options.typeControl);
     self.urlControl = $(options.urlControl);
     self.sourceType = options.sourceType;
-    self.errorCallback = options.errorCallback || function () { return ""; };
 
-    ko.computed(function () {
-        $("button[type=submit]").prop("disabled", !!self.errorCallback());
-    });
+    if (options.errorCallback) {
+        validation.errorField(options.errorCallback);
+    }
 
     var validationRules = self.validationRules = {};
     // "has lyrics at" is only allowed for certain lyrics sites
@@ -1011,12 +1018,6 @@ MB.Control.URLCleanup = function (options) {
         // Allow adding spaces while typing; they'll be trimmed later onblur.
         if (_.str.trim(url) !== clean) {
             self.urlControl.val(clean);
-        }
-
-        var hasError = self.errorCallback();
-
-        if (event.type === "submit" && hasError) {
-            event.preventDefault();
         }
     };
 

@@ -1,9 +1,7 @@
 use Test::More;
 use Encode;
 use Env::Path;
-use File::Slurp qw( read_file );
 use FindBin qw( $Bin );
-use MusicBrainz::Server;
 
 my @phantomjs = Env::Path->PATH->Whence('phantomjs');
 my $phantomjs = scalar @phantomjs ? $phantomjs[0] :

@@ -5,7 +5,10 @@
       h2#graph-toggle-header {
           margin-bottom: -10px;
       }
-      #overview {
+      #overview, #graph-container, #rate-of-change-graph {
+          width: 100%;
+      }
+      canvas {
           width: 100%;
       }
       #overview { height: 150px; }

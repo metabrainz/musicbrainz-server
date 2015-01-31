@@ -9,7 +9,7 @@ var i18n = require('../common/i18n.js');
 
     var fields = releaseEditor.fields = releaseEditor.fields || {};
     var utils = releaseEditor.utils;
-    var validation = releaseEditor.validation = releaseEditor.validation || {};
+    var validation = require('../edit/validation.js');
 
 
     fields.ArtistCredit = aclass(MB.Control.ArtistCredit, {
@@ -123,7 +123,18 @@ var i18n = require('../common/i18n.js');
 
             var oldLength = this.length();
             var newLength = MB.utility.unformatTrackLength(length);
+
+            if (_.isNaN(newLength)) {
+                this.formattedLength('');
+                return;
+            }
+
             this.length(newLength);
+
+            var newFormattedLength = MB.utility.formatTrackLength(newLength);
+            if (length !== newFormattedLength) {
+                this.formattedLength(newFormattedLength);
+            }
 
             // If the length being changed is for a pregap track and the medium
             // has cdtocs attached, make sure the new length doesn't exceed the
@@ -575,6 +586,7 @@ var i18n = require('../common/i18n.js');
         weights: [1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3],
 
         init: function (data) {
+            this.original = data;
             this.barcode = ko.observable(data);
             this.message = ko.observable("");
             this.confirmed = ko.observable(false);

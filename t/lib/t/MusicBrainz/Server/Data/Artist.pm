@@ -120,11 +120,12 @@ $annotation = $artist_data->annotation->get_latest(3);
 ok(!defined $annotation);
 
 $annotation = $artist_data->annotation->get_latest(4);
-like ( $annotation->text, qr/Test annotation 2/ );
-
 
 like($annotation->text, qr/Test annotation 1/, 'has annotation 1');
 like($annotation->text, qr/Test annotation 2/, 'has annotation 2');
+
+like($annotation->text, qr/annotation 2.*annotation 1/s,
+     'annotation from merge target is first (MBS-3452)');
 
 # Deleting annotations
 $artist_data->annotation->delete(4);

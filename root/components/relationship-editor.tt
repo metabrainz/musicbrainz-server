@@ -195,7 +195,7 @@
     </label>
     <!-- /ko -->
     <div class="error" data-bind="text: relationship.attributeError($data)"></div>
-    <!-- ko if: $root.showAttributesHelp -->
+    <!-- ko if: $parents[1].showAttributesHelp -->
       <div class="ar-descr" data-bind="html: attribute.description"></div>
     <!-- /ko -->
   </div>

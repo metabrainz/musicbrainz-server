@@ -256,15 +256,21 @@ var i18n = require('../../common/i18n.js');
             var self = this;
 
             // Firefox needs a small delay in order to allow for the change
-            // event to trigger on <select> menus.
+            // event to trigger on <select> menus, and Opera 12.0* needs it
+            // triggered explicitly, so do that first.
 
-            _.defer(function () {
-                if (event.keyCode === 13 && /^input|select$/.test(nodeName) && !self.hasErrors()) {
-                    self.accept();
-                } else if (event.keyCode === 27 && nodeName !== "select") {
-                    self.close();
+            if (event.keyCode === 13 && /^input|select$/.test(nodeName)) {
+                $(event.target).trigger('change');
+
+                if (!this.hasErrors()) {
+                    // Opera 12.0* also has a bug where the pencil icon is
+                    // clicked if the dialog is closed too fast, which makes
+                    // it immediately reopen, hence the added delay here.
+                    _.defer(function () { self.accept() });
                 }
-            });
+            } else if (event.keyCode === 27 && nodeName !== "select") {
+                this.close();
+            }
 
             return true;
         },

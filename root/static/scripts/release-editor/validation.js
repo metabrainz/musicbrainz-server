@@ -9,26 +9,10 @@ var i18n = require('../common/i18n.js');
 
     var validation = releaseEditor.validation = releaseEditor.validation || {};
     var utils = releaseEditor.utils;
-
-
     var releaseField = ko.observable().subscribeTo("releaseField", true);
-    var errorFields = validation.errorFields = ko.observableArray([]);
 
-
-    validation.errorField = function (func) {
-        var observable = ko.isObservable(func) ? func : ko.computed(func);
-        errorFields.push(observable);
-        return observable;
-    };
-
-    validation.errorsExist = ko.computed(function () {
-        var fields = errorFields();
-        for (var i = 0, len = fields.length; i < len; i++) {
-            if (fields[i]()) return true;
-        }
-        return false;
-    });
-
+    // Allow for access in ko templates
+    validation.errorsExist = require('../edit/validation.js').errorsExist;
 
     function markTabWithErrors($panel) {
         // Don't mark the edit note tab, because it's the last one and only
@@ -134,7 +118,9 @@ var i18n = require('../common/i18n.js');
         field.message("");
 
         var barcode = field.barcode();
-        if (!barcode || field.confirmed()) return;
+        if (!barcode || barcode === field.original || field.confirmed()) {
+            return;
+        }
 
         var checkDigitText = i18n.l("The check digit is {checkdigit}.");
         var doubleCheckText = i18n.l("Please double-check the barcode on the release.");

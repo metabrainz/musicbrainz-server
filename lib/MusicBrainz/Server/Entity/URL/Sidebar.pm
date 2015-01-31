@@ -60,6 +60,12 @@ use constant FAVICON_CLASSES => {
     'finnmusic.net'             => 'finnmusic',
     'fono.fi'                   => 'fonofi',
     'stage48.net'               => 'stage48',
+    'tedcrane.com/DanceDB'      => 'dancedb',
+    'finna.fi'                  => 'finna',
+    'mainlynorfolk.info'        => 'mainlynorfolk',
+    'bibliotekapiosenki.pl'     => 'piosenki',
+    'qim.com'                   => 'quebecinfomusique',
+    'thedancegypsy.com'         => 'thedancegypsy',
 };
 
 our @EXPORT_OK = qw( FAVICON_CLASSES );

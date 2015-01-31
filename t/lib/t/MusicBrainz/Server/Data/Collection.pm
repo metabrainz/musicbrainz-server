@@ -82,8 +82,33 @@ ok($coll_data->check_release(1, 3), 'No exception occured when re-adding release
 
 
 my @releases = $coll_data->find_all_by_release(3);
-is(scalar(@releases), 1);
+is(scalar(@releases), 1, 'One collection contains release #3');
 ok((grep { $_->id == 1 } @releases), 'found collection by release');
+
+ok(!$coll_data->check_event(3, 1), 'Event #1 is not in collection #3');
+$coll_data->add_events_to_collection(3, 1);
+ok($coll_data->check_event(3, 1), 'Now event #1 is in collection #3');
+
+$sql->begin;
+$coll_data->merge_events(2, 3);
+$sql->commit;
+
+ok(!$coll_data->check_event(4, 3), 'Event #3 has been merged and is no longer in collection #4');
+ok($coll_data->check_event(3, 2), 'Event #2 is still in collection #3');
+ok($coll_data->check_event(4, 2), 'Event #2 is now in collection #4');
+
+my @events = $coll_data->find_all_by_event(2);
+is(scalar(@events), 2, 'Two collections contain event #2');
+ok((grep { $_->id == 4 } @events), 'Collection #4 is one of the ones containing event #2');
+ok((grep { $_->id == 3 } @events), 'Collection #3 is one of the ones containing event #2');
+
+$coll_data->remove_events_from_collection(3, (1,2));
+ok(!$coll_data->check_event(3, 1), 'Event #1 is out of collection #3 again');
+ok(!$coll_data->check_event(3, 2), 'Neither is event #2 in collection #3 anymore');
+
+ok($coll_data->check_event(3, 4), 'Event #4 in collection #3.');
+$coll_data->delete_events(4);
+ok(!$coll_data->check_event(3, 4), 'Now Event #4 is not in collection #3.');
 
 };
 

@@ -1085,7 +1085,7 @@ msgstr ""
 msgid ""
 "This indicates that one release is identical to another release, but that "
 "the release title and track titles have been either translated (into another "
-"language) or transliterated (into another script).​"
+"language) or transliterated (into another script)."
 msgstr ""
 
 #: DB:link_type/description:25 DB:link_type/description:129

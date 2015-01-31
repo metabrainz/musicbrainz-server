@@ -153,6 +153,8 @@ function buildScripts(watch) {
             b.require('./root/static/scripts/common/i18n.js', { expose: true });
         }),
         createBundle("edit.js", watch, function (b) {
+            b.require('./root/static/scripts/edit/validation.js', { expose: true });
+
             b.external('./root/static/lib/knockout/knockout-latest.debug.js');
             b.external('./root/static/scripts/common/i18n.js');
         }),
@@ -161,6 +163,7 @@ function buildScripts(watch) {
         }),
         createBundle("release-editor.js", watch, function (b) {
             b.external('./root/static/scripts/common/i18n.js');
+            b.external('./root/static/scripts/edit/validation.js');
         }),
         createBundle("statistics.js", watch),
 
