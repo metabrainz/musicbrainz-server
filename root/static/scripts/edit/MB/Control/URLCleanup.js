@@ -969,6 +969,8 @@ MB.Control.URLCleanup = function (options) {
     validationRules[ MB.constants.LINK_TYPES.otherdatabases.work ] = validateOtherDatabases
     validationRules[ MB.constants.LINK_TYPES.otherdatabases.recording ] = validateOtherDatabases
     validationRules[ MB.constants.LINK_TYPES.otherdatabases.place ] = validateOtherDatabases;
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.event ] = validateOtherDatabases;
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.series ] = validateOtherDatabases;
 
     var validateFacebook = function (url) {
         if (url.match(/facebook.com\/pages\//)) {
