@@ -104,6 +104,10 @@ test('Guess type', function (t) {
                 'artist', 'http://thesession.org/recordings/artists/2836',
                 MB.constants.LINK_TYPES.otherdatabases.artist
             ],
+            [
+                'event', 'http://thesession.org/events/3811',
+                MB.constants.LINK_TYPES.otherdatabases.event
+            ],
             // Wikimedia Commons
             [
                 'artist', 'http://commons.wikimedia.org/wiki/File:NIN2008.jpg',
@@ -841,9 +845,9 @@ test('Cleanup', function (t) {
                 'release_group'
             ],
             [
-                'thesession.org/recordings/1488#comment283364',
-                'http://thesession.org/recordings/1488',
-                'release_group'
+                'thesession.org/events/3811#comment748363',
+                'http://thesession.org/events/3811',
+                'event'
             ],
             [
                 'http://thesession.org/recordings/4740/edit',
