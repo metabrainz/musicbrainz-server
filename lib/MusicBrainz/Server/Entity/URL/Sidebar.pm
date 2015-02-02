@@ -21,6 +21,7 @@ use constant FAVICON_CLASSES => {
     'soundcloud.com'            => 'soundcloud',
     'ibdb.com'                  => 'ibdb',
     'imslp.org'                 => 'imslp',
+    'instagram.com'             => 'instagram',
     'ester.ee'                  => 'ESTER',
     'worldcat.org'              => 'worldcat',
     '45cat.com'                 => 'fortyfivecat',
