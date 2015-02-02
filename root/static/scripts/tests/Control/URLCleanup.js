@@ -219,8 +219,20 @@ test('Guess type', function (t) {
             ],
             // Trove
             [
+                'artist', 'http://nla.gov.au/nla.party-548358',
+                MB.constants.LINK_TYPES.otherdatabases.artist
+            ],
+            [
                 'release', 'http://nla.gov.au/anbd.bib-an11701020',
                 MB.constants.LINK_TYPES.otherdatabases.release
+            ],
+            [
+                'release_group', 'http://trove.nla.gov.au/work/9438679',
+                MB.constants.LINK_TYPES.otherdatabases.release_group
+            ],
+            [
+                'label', 'http://nla.gov.au/nla.party-1448035',
+                MB.constants.LINK_TYPES.otherdatabases.label
             ],
             // Instagram
             [
@@ -1310,6 +1322,27 @@ test('Cleanup', function (t) {
                 'http://rock.genius.com/The-beatles-she-loves-you-lyrics',
                 'http://rock.genius.com/The-beatles-she-loves-you-lyrics',
                 'work'
+            ],
+            // Trove
+            [
+                'http://trove.nla.gov.au/people/1448035?c=people',
+                'http://nla.gov.au/nla.party-1448035',
+                'label'
+            ],
+            [
+                'https://nla.gov.au/nla.party-548358/',
+                'http://nla.gov.au/nla.party-548358',
+                'artist'
+            ],
+            [
+                'trove.nla.gov.au/work/9438679',
+                'http://trove.nla.gov.au/work/9438679',
+                'release_group'
+            ],
+            [
+                'http://nla.gov.au/anbd.bib-an11701020#',
+                'http://nla.gov.au/anbd.bib-an11701020',
+                'release_group'
             ],
         ];
 
