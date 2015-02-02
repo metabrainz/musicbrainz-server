@@ -58,11 +58,11 @@ test('Guess type', function (t) {
             //Last.fm
             [
                 'artist', 'http://www.last.fm/music/Bj%C3%B6rk',
-                MB.constants.LINK_TYPES.socialnetwork.artist
+                MB.constants.LINK_TYPES.lastfm.artist
             ],
             [
                 'event', 'http://www.last.fm/event/3291943+Pori+jazz',
-                MB.constants.LINK_TYPES.socialnetwork.event
+                MB.constants.LINK_TYPES.lastfm.event
             ],
             // WhoSampled
             [
