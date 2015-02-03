@@ -173,7 +173,8 @@ MB.constants.LINK_TYPES = {
         release: "c74dee45-3c85-41e9-a804-92ab1c654446",
         release_group: "38320e40-9f4a-3ae7-8cb2-3f3c9c5d856d",
         series: "8a08d0f5-c7c4-4572-9d22-cee92693d820",
-        work: "190ea031-4355-405d-a43e-53eb4c5c4ada"
+        work: "190ea031-4355-405d-a43e-53eb4c5c4ada",
+        event: "1e06fb0b-831d-49cf-abfd-52acb5b56e05"
     },
     viaf: {
         artist: "e8571dcc-35d4-4e91-a577-a3382fd84460",
@@ -687,7 +688,9 @@ MB.constants.CLEANUPS = {
             //Standardising ESTER to their default parameters
             url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ester\.ee\/record=([^~]+)(?:.*)?$/, "http://www.ester.ee/record=$1~S1*est");
             //Standardising Trove
-            url = url.replace(/^(?:https?:\/\/)?trove.nla.gov.au\/work\/([^\/?]+)(?:\?.*)?$/, "http://trove.nla.gov.au/work/$1");
+            url = url.replace(/^(?:https?:\/\/)?trove\.nla\.gov\.au\/work\/([^\/?#]+)(?:.*)?$/, "http://trove.nla.gov.au/work/$1");
+            url = url.replace(/^(?:https?:\/\/)?trove\.nla\.gov\.au\/people\/([^\/?#]+)(?:.*)?$/, "http://nla.gov.au/nla.party-$1");
+            url = url.replace(/^(?:https?:\/\/)?nla\.gov\.au\/(nla\.party-|anbd\.bib-an)([^\/?#]+)(?:.*)?$/, "http://nla.gov.au/$1$2");
             //Standardising Rockens Danmarkskort
             url = url.replace(/^(?:https?:\/\/)?(?:www\.)?rockensdanmarkskort\.dk\/steder\/(.*)+$/, "http://www.rockensdanmarkskort.dk/steder/$1");
             //Standardising RIC
@@ -697,7 +700,7 @@ MB.constants.CLEANUPS = {
             //Standardising DHHU
             url = url.replace(/^(?:https?:\/\/)?(www\.)?dhhu\.dk\/w\/(.*)+$/, "http://www.dhhu.dk/w/$2");
             //Standardising The Session
-            url = url.replace(/^(?:https?:\/\/)?(?:www\.)?thesession\.org\/(tunes|recordings(?:\/artists)?)(?:\/.*)?\/([0-9]+)(?:.*)?$/, "http://thesession.org/$1/$2");
+            url = url.replace(/^(?:https?:\/\/)?(?:www\.)?thesession\.org\/(tunes|events|recordings(?:\/artists)?)(?:\/.*)?\/([0-9]+)(?:.*)?$/, "http://thesession.org/$1/$2");
             //Standardising Open Library
             url = url.replace(/^(?:https?:\/\/)?(www\.)?openlibrary\.org\/(authors|books|works)\/(OL[0-9]+[AMW]\/)(.*)*$/, "http://openlibrary.org/$2/$3");
             //Standardising Anime News Network
@@ -980,6 +983,8 @@ MB.Control.URLCleanup = function (options) {
     validationRules[ MB.constants.LINK_TYPES.otherdatabases.work ] = validateOtherDatabases
     validationRules[ MB.constants.LINK_TYPES.otherdatabases.recording ] = validateOtherDatabases
     validationRules[ MB.constants.LINK_TYPES.otherdatabases.place ] = validateOtherDatabases;
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.event ] = validateOtherDatabases;
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.series ] = validateOtherDatabases;
 
     var validateFacebook = function (url) {
         if (url.match(/facebook.com\/pages\//)) {
