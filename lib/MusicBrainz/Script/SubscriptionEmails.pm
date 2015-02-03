@@ -5,6 +5,7 @@ use namespace::autoclean;
 use Readonly;
 use Moose::Util qw( does_role );
 use MusicBrainz::Server::Constants qw( :edit_status );
+use MusicBrainz::Server::Translation qw( get_collator );
 
 use aliased 'MusicBrainz::Server::Email';
 use aliased 'MusicBrainz::Server::Entity::Subscription::Artist' => 'ArtistSubscription';
@@ -86,6 +87,9 @@ sub run {
     my ($self, @args) = @_;
     die "Usage error ($0 takes no arguments)" if @args;
 
+    my $collator = get_collator('root');
+        # plain UCA without language-specific tailoring
+
     my $max = $self->c->model('Edit')->get_max_id;
     my $seen = 0;
     my $count;
@@ -114,6 +118,7 @@ sub run {
                             printf "... sending email\n" if $self->verbose;
                             $self->emailer->send_subscriptions_digest(
                                 editor => $editor,
+                                collator => $collator,
                                 %$data
                             );
                         } else { printf "... not sending email (dry run)\n" if $self->verbose; }

@@ -85,6 +85,7 @@ test 'Sending edits' => sub {
 
         ok(%args, 'sends an email to aCiD2');
         delete $args{editor};
+        delete $args{collator};
         is_deeply(\%args, {
             edits => {
                 artist => [{
