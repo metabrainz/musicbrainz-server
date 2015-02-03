@@ -2,6 +2,7 @@ package MusicBrainz::Script::SubscriptionEmails;
 use Moose;
 use namespace::autoclean;
 
+use Readonly;
 use Moose::Util qw( does_role );
 use MusicBrainz::Server::Constants qw( :edit_status );
 
@@ -19,6 +20,8 @@ with 'MooseX::Runnable';
 with 'MooseX::Getopt';
 with 'MusicBrainz::Script::Role::Context';
 
+Readonly our $BATCH_SIZE => 1000;
+
 has 'verbose' => (
     isa => 'Bool',
     is => 'ro',
@@ -29,6 +32,8 @@ has 'dry_run' => (
     isa => 'Bool',
     is => 'ro',
     default => 0,
+    traits => [ 'Getopt' ],
+    cmd_flag => 'dry-run',
 );
 
 has 'weekly' => (
@@ -49,10 +54,28 @@ has edit_cache => (
     default => sub { {} },
     traits => [ 'Hash', 'NoGetopt' ],
     handles => {
+        cached => 'exists',
         cached_edits => 'get',
-        cache_edits => 'set'
+        cache_edits => 'set',
+        remove_from_cache => 'delete',
     }
 );
+
+has cache_usage => (
+    is => 'ro',
+    default => sub { {} },
+    traits => [ 'Hash', 'NoGetopt' ],
+    handles => {
+        used_again => 'delete',
+        not_reused_cache_items => 'keys',
+        reset_cache_usage => 'clear',
+    }
+);
+
+sub first_used {
+    my ($self, $key) = @_;
+    ${ $self->cache_usage }{$key} = 1;
+}
 
 sub _build_emailer {
     my $self = shift;
@@ -64,43 +87,59 @@ sub run {
     die "Usage error ($0 takes no arguments)" if @args;
 
     my $max = $self->c->model('Edit')->get_max_id;
-    my @editors = $self->c->model('Editor')->editors_with_subscriptions();
+    my $seen = 0;
+    my $count;
+    do {
+        my @editors = $self->c->model('Editor')->editors_with_subscriptions($seen, $BATCH_SIZE);
+        $count = @editors;
+        printf "Starting batch with %d editors\n\n", $count if $self->verbose;
 
-    for my $editor (@editors) {
-        my $period = $editor->preferences->subscriptions_email_period;
-        printf "Processing subscriptions for '%s' (%s)\n", $editor->name, $period
-            if $self->verbose;
+        while (my $editor = shift @editors) {
+            $seen = $editor->id;
+            my $period = $editor->preferences->subscriptions_email_period;
+            printf "Processing subscriptions for '%s' (%s)\n", $editor->name, $period
+                if $self->verbose;
 
-        next if $period eq 'weekly' and !$self->weekly;
+            next if $period eq 'weekly' and !$self->weekly;
 
-        unless ($period eq 'never') {
+            unless ($period eq 'never') {
+                my @subscriptions = $self->c->model('EditorSubscriptions')
+                    ->get_all_subscriptions($editor->id);
+                printf "... found %d subscriptions\n", scalar @subscriptions if $self->verbose;
 
-            my @subscriptions = $self->c->model('EditorSubscriptions')
-                ->get_all_subscriptions($editor->id);
 
-            if (my $data = $self->extract_subscription_data(@subscriptions)) {
-                unless ($self->dry_run) {
+                if (my $data = $self->extract_subscription_data(@subscriptions)) {
                     if ($editor->has_confirmed_email_address) {
-                        printf "... sending email\n" if $self->verbose;
-                        $self->emailer->send_subscriptions_digest(
-                            editor => $editor,
-                            %$data
-                        );
-                    }
-                }
+                        unless ($self->dry_run) {
+                            printf "... sending email\n" if $self->verbose;
+                            $self->emailer->send_subscriptions_digest(
+                                editor => $editor,
+                                %$data
+                            );
+                        } else { printf "... not sending email (dry run)\n" if $self->verbose; }
+                    } else { printf "... no confirmed email address, not sending\n" if $self->verbose; }
+                } else { printf "... no current edits found\n" if $self->verbose; }
+
             }
 
+            unless ($self->dry_run) {
+                printf "... updating subscriptions\n" if $self->verbose;
+                $self->c->model('EditorSubscriptions')
+                    ->update_subscriptions($max, $editor->id);
+            }
+
+            printf "\n" if $self->verbose;
         }
 
-        unless ($self->dry_run) {
-            printf "... updating subscriptions\n" if $self->verbose;
-            $self->c->model('EditorSubscriptions')
-                ->update_subscriptions($max, $editor->id);
+        if ($self->verbose) {
+            printf "End of batch: removing %d entities from the cache (out of %d)\n\n",
+                scalar $self->not_reused_cache_items, scalar keys %{ $self->edit_cache };
         }
+        $self->remove_from_cache($self->not_reused_cache_items);
+        $self->reset_cache_usage;
+    } while ($count == $BATCH_SIZE);
 
-        printf "\n" if $self->verbose;
-    }
-
+    printf "Completed.\n" if $self->verbose;
     return 0;
 }
 
@@ -129,7 +168,6 @@ sub extract_subscription_data
 
             $self->load_subscription($sub);
 
-            $edits{ $sub->type } ||= [];
             push @{ $edits{ $sub->type } }, {
                 open => \@open,
                 applied => \@applied,
@@ -181,18 +219,22 @@ sub has_edits
 
 sub _edits_for_subscription {
     my ($self, $sub, $filter) = @_;
+
     my $cache_key = ref($sub) . ': ' .
         join(', ', $sub->target_id, $sub->last_edit_sent);
-    return grep { $filter ? $filter->($_) : 1 } @{
-        $self->cached_edits($cache_key) ||
-        do {
-            $self->cache_edits(
-                $cache_key => [
-                    $self->c->model('Edit')->find_for_subscription($sub)
-                ]
-            );
-        }
-    };
+
+    my @edits;
+    if ($self->cached($cache_key)) {
+        @edits = @{ $self->cached_edits($cache_key) };
+        $self->used_again($cache_key);
+    } else {
+        @edits = $self->c->model('Edit')->find_for_subscription($sub);
+        $self->cache_edits($cache_key => \@edits);
+        $self->first_used($cache_key);
+    }
+
+    return @edits unless $filter;
+    return grep { $filter->($_) } @edits;
 }
 
 1;
