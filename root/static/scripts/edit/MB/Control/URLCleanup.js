@@ -206,10 +206,16 @@ MB.constants.LINK_TYPES = {
         place: "751e8fb1-ed8d-4a94-b71b-a38065054f5d"
     },
     geonames: {
-        area: 713
+        area: "c52f14c0-e9ac-4a8a-8f7a-c47328de168f"
     },
     imslp: {
         artist: "8147b6a2-ad14-4ce7-8f0a-697f9a31f68f"
+    },
+    lastfm: {
+        artist: "08db8098-c0df-4b78-82c3-c8697b4bba7f",
+        label: "e3390a1d-3083-4bc9-9295-aff9da18612c",
+        place: "c3ddb53d-a7df-4486-8cc7-c1b7baec994e",
+        event: "fd86b01d-c8f7-4f0a-a077-81855a9cfeef"
     }
 };
 
@@ -480,7 +486,6 @@ MB.constants.CLEANUPS = {
     socialnetwork: {
         match: [
             new RegExp("^(https?://)?([^/]+\\.)?facebook\\.com/", "i"),
-            new RegExp("^(https?://)?([^/]+\\.)?(last\\.fm|lastfm\\.(com\\.br|com\\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/(music|label|venue|user|group|event|festival)/", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?reverbnation\\.com/", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?plus\\.google\\.com/", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?vine\\.co/", "i"),
@@ -505,8 +510,6 @@ MB.constants.CLEANUPS = {
                 }
                 url = url.replace(/\/event\.php\?eid=/, "/events/");
             }
-            url = url.replace(/^(https?:\/\/)?((www|cn|m)\.)?(last\.fm|lastfm\.(com\.br|com\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/, "http://www.last.fm");
-            url = url.replace(/^http:\/\/www\.last\.fm\/music\/([^?]+).*/, "http://www.last.fm/music/$1");
             url = url.replace(/^(?:https?:\/\/)?plus\.google\.com\/(?:u\/[0-9]\/)?([0-9]+)(\/.*)?$/, "https://plus.google.com/$1");
             url = url.replace(/^(?:https?:\/\/)?(?:(?:www|mobile)\.)?twitter\.com(?:\/#!)?\/@?([^\/]+)\/?$/, "https://twitter.com/$1");
             url = url.replace(/^(?:https?:\/\/)?(?:(?:www|m)\.)?reverbnation\.com(?:\/#!)?\//, "http://www.reverbnation.com/");
@@ -614,6 +617,15 @@ MB.constants.CLEANUPS = {
     imslp: {
         match: [ new RegExp("^(https?://)?(www\\.)?imslp\\.org/", "i") ],
         type: MB.constants.LINK_TYPES.imslp
+    },
+    lastfm: {
+        match: [ new RegExp("^(https?://)?([^/]+\\.)?(last\\.fm|lastfm\\.(com\\.br|com\\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/(music|label|venue|user|group|event|festival)/", "i") ],
+        type: MB.constants.LINK_TYPES.lastfm,
+        clean: function (url) {
+            url = url.replace(/^(https?:\/\/)?((www|cn|m)\.)?(last\.fm|lastfm\.(com\.br|com\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/, "http://www.last.fm");
+            url = url.replace(/^http:\/\/www\.last\.fm\/music\/([^?]+).*/, "http://www.last.fm/music/$1");
+            return url;
+        }
     },
     otherdatabases: {
         match: [
