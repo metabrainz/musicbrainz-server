@@ -39,7 +39,14 @@ sub _build_conn
     my $conn = DBIx::Connector->new($dsn, $db->username, $db->password, {
         pg_enable_utf8    => 1,
         pg_server_prepare => 0, # XXX Still necessary?
-        HandleError       => sub { my ($msg, $h) = @_; die $h->state . ' ' . $msg },
+        HandleError       => sub {
+            my ($msg, $h) = @_;
+            my $state = $h->state;
+            my $exception = 'MusicBrainz::Server::Exceptions::DatabaseError';
+            $exception .= '::StatementTimedOut'
+                if $state eq '57014';
+            $exception->throw( sqlstate => $state, message => $msg );
+        },
         RaiseError        => 0,
         PrintError        => 0,
     });

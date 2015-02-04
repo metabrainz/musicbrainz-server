@@ -396,11 +396,23 @@ around 'finalize_error' => sub {
     my @args = @_;
 
     $c->with_translations(sub {
+        my $errors = $c->error;
+
+        my $timed_out = 0;
+        $timed_out = 1
+            if scalar @$errors == 1 && blessed $errors->[0]
+                && $errors->[0]->does('MusicBrainz::Server::Exceptions::Role::Timeout');
+
+        # don't send mail about timeouts (ErrorCatcher will log instead)
+        local $MusicBrainz::ErrorCatcherEmailWrapper::suppress = 1
+            if $timed_out;
+
         $c->$orig(@args);
 
         if (!$c->debug && scalar @{ $c->error }) {
-            $c->stash->{errors} = $c->error;
-            $c->stash->{template} = 'main/500.tt';
+            $c->stash->{errors} = $errors;
+            $c->stash->{template} = $timed_out ?
+                'main/timeout.tt' : 'main/500.tt';
             $c->stash->{stack_trace} = $c->_stacktrace;
             try { $c->stash->{hostname} = hostname; } catch {};
             $c->clear_errors;
@@ -411,6 +423,8 @@ around 'finalize_error' => sub {
                 $c->res->{body} = 'clear';
                 $c->view('Default')->process($c);
                 $c->res->{body} = encode('utf-8', $c->res->{body});
+                $c->res->{status} = 503
+                    if $timed_out;
             }
         }
     });
