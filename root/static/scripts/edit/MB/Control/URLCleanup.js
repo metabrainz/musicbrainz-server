@@ -43,11 +43,11 @@ MB.constants.LINK_TYPES = {
         artist: "94c8b0cc-4477-4106-932c-da60e63de61c",
         label: "dfd36bc7-0c06-49fa-8b79-96978778c716",
         place: "815bc5ca-c2fb-4dc6-a89b-9150888b0d4d",
-        release_group: "85b0a010-3237-47c7-8476-6fcefd4761af"
-    },
-    imdbsamples: {
+        // recording and release are the "samples from" version of the IMDb rel
+        recording: "dad34b86-5a1a-4628-acf5-a48ccb0785f2",
         release: "7387c5a2-9abe-4515-b667-9eb5ed4dd4ce",
-        recording: "dad34b86-5a1a-4628-acf5-a48ccb0785f2"
+        release_group: "85b0a010-3237-47c7-8476-6fcefd4761af",
+        work: "e5c75559-4dda-452e-a900-ae375935164c"
     },
     myspace: {
         artist: "bac47923-ecde-4b59-822e-d08f0cd10156",
@@ -249,13 +249,6 @@ MB.constants.CLEANUPS = {
     imdb: {
         match: [ new RegExp("^(https?://)?([^/]+\\.)?imdb\\.","i") ],
         type: MB.constants.LINK_TYPES.imdb,
-        clean: function (url) {
-            return url.replace(/^https?:\/\/([^.]+\.)?imdb\.(com|de|it|es|fr|pt)\/([a-z]+\/[a-z0-9]+)(\/.*)*$/, "http://www.imdb.com/$3/");
-        }
-    },
-    imdbsamples: {
-        match: [ new RegExp("^(https?://)?([^/]+\\.)?imdb\\.","i") ],
-        type: MB.constants.LINK_TYPES.imdbsamples,
         clean: function (url) {
             return url.replace(/^https?:\/\/([^.]+\.)?imdb\.(com|de|it|es|fr|pt)\/([a-z]+\/[a-z0-9]+)(\/.*)*$/, "http://www.imdb.com/$3/");
         }
