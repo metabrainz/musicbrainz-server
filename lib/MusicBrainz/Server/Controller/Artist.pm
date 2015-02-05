@@ -8,7 +8,7 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
     relationships   => {
         all         => ['relationships'],
         cardinal    => ['edit'],
-        subset      => { split => ['artist'] },
+        subset      => { split => ['artist'], show => ['artist', 'url'] },
         default     => ['url']
     },
 };
@@ -115,7 +115,7 @@ after 'load' => sub
             $c->user->id, $artist->id);
     }
 
-    $c->model('ArtistType')->load($artist);
+    $c->model('ArtistType')->load($artist, map { $_->target } @{ $artist->relationships_by_type('artist') });
     $c->model('Gender')->load($artist);
     $c->model('Area')->load($artist);
     $c->model('Area')->load_containment($artist->area, $artist->begin_area, $artist->end_area);
@@ -209,6 +209,7 @@ sub show : PathPart('') Chained('load')
     }
 
     $c->model('ArtistCredit')->load(@$release_groups);
+    $c->model('ArtistType')->load(map { map { $_->artist } $_->artist_credit->all_names} @$release_groups);
     $c->model('ReleaseGroupType')->load(@$release_groups);
     $c->stash(
         recordings => $recordings,
@@ -224,7 +225,6 @@ sub show : PathPart('') Chained('load')
     );
 
     my $coll = $c->get_collator();
-    $c->model('Relationship')->load_subset(['artist'], $artist);
     my ($legal_name) = map { $_->target }
                        grep { $_->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD }
                        grep { $_->link->type->gid eq 'dd9886f2-1dfe-4270-97db-283f6839a666' } @{ $artist->relationships };
