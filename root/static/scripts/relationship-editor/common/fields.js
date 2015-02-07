@@ -44,6 +44,13 @@
 
             this.attributes = ko.observableArray([]);
             this.setAttributes(data.attributes);
+            this.attributes.original = {};
+
+            if (data.id) {
+                _.each(this.attributes.peek(), function (attribute) {
+                    self.attributes.original[attribute.type.gid] = attribute.toJS();
+                });
+            }
 
             this.linkOrder = ko.observable(data.linkOrder || 0);
             this.removed = ko.observable(!!data.removed);
@@ -264,7 +271,7 @@
                 }
 
                 if (type.creditable) {
-                    var credit = _.str.clean(attribute.credit());
+                    var credit = _.str.clean(attribute.creditedAs());
 
                     if (credit) {
                         value = MB.i18n.l("{attribute} [{credited_as}]", {
@@ -428,11 +435,11 @@
         var type = this.type = MB.attrInfoByID[data.type.gid];
 
         if (type.creditable) {
-            this.credit = ko.observable(ko.unwrap(data.credit) || "");
+            this.creditedAs = ko.observable(ko.unwrap(data.credited_as) || "");
         }
 
         if (type.freeText) {
-            this.textValue = ko.observable(ko.unwrap(data.textValue) || "");
+            this.textValue = ko.observable(ko.unwrap(data.text_value) || "");
         }
     };
 
@@ -440,12 +447,27 @@
         var type = this.type;
 
         if (type.creditable) {
-            return type.gid + "\0" + _.str.clean(this.credit());
+            return type.gid + "\0" + _.str.clean(this.creditedAs());
         }
         if (type.freeText) {
             return type.gid + "\0" + _.str.clean(this.textValue());
         }
         return type.gid;
+    };
+
+    fields.LinkAttribute.prototype.toJS = function () {
+        var type = this.type;
+        var output = { type: { gid: type.gid } };
+
+        if (type.creditable) {
+            output.credited_as = _.str.clean(this.creditedAs());
+        }
+
+        if (type.freeText) {
+            output.text_value = _.str.clean(this.textValue());
+        }
+
+        return output;
     };
 
     ko.bindingHandlers.textAttribute = {

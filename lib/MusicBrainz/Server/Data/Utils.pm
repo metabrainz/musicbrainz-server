@@ -15,6 +15,7 @@ use MIME::Base64 qw( encode_base64url );
 use Digest::SHA qw( sha1_base64 );
 use Encode qw( decode encode );
 use List::MoreUtils qw( natatime zip );
+use List::UtilsBy qw( sort_by );
 use MusicBrainz::Server::Constants qw(
     $DARTIST_ID
     $VARTIST_ID
@@ -600,7 +601,11 @@ sub take_while (&@) {
 sub split_relationship_by_attributes {
     my ($attributes_by_gid, $data) = @_;
 
-    my @attributes = @{ $data->{attributes} // [] };
+    # Make output order deterministic.
+    my @attributes = sort_by {
+        $attributes_by_gid->{$_->{type}{gid}}->id
+    } @{ $data->{attributes} // [] };
+
     my (@to_split, @others, @new_data);
 
     for (@attributes) {

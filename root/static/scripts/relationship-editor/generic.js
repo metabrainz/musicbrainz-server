@@ -216,12 +216,16 @@
 
                 pushInput(attrPrefix, "type.gid", attribute.type.gid);
 
-                if (attribute.credit) {
-                    pushInput(attrPrefix, "credited_as", attribute.credit);
+                if (attribute.credited_as) {
+                    pushInput(attrPrefix, "credited_as", attribute.credited_as);
                 }
 
-                if (attribute.textValue) {
-                    pushInput(attrPrefix, "text_value", attribute.textValue);
+                if (attribute.text_value) {
+                    pushInput(attrPrefix, "text_value", attribute.text_value);
+                }
+
+                if (attribute.removed) {
+                    pushInput(attrPrefix, "removed", 1);
                 }
             });
 

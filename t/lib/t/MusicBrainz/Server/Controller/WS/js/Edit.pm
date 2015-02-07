@@ -54,8 +54,9 @@ sub prepare_test_database {
         INSERT INTO link_type (id, name, gid, link_phrase, long_link_phrase, reverse_link_phrase, entity_type0, entity_type1, description)
         VALUES (3, 'wikipedia', 'fcd58926-4243-40bb-a2e5-c7464b3ce577', 'wikipedia', 'wikipedia', 'wikipedia', 'artist', 'url', '-');
 
-        ALTER SEQUENCE track_id_seq RESTART 100;
-        ALTER SEQUENCE l_artist_recording_id_seq RESTART 100;
+        SELECT setval('track_id_seq', (SELECT MAX(id) FROM track));
+        SELECT setval('l_artist_recording_id_seq', (SELECT MAX(id) FROM l_artist_recording));
+        SELECT setval('editor_id_seq', (SELECT MAX(id) FROM editor));
     });
 }
 
@@ -463,7 +464,7 @@ test 'previewing/creating/editing a release group and release' => sub {
                     name => '~☉~',
                     recording_id => 27,
                     position => 1,
-                    id => 109,
+                    id => 45,
                     artist_credit => $cleaned_artist_credit,
                     is_data_track => 0
                 },
@@ -473,7 +474,7 @@ test 'previewing/creating/editing a release group and release' => sub {
                     name => '[hourglass!]',
                     recording_id => 28,
                     position => 2,
-                    id => 110,
+                    id => 46,
                     artist_credit => $cleaned_artist_credit,
                     is_data_track => 0
                 },
@@ -483,7 +484,7 @@ test 'previewing/creating/editing a release group and release' => sub {
                     name => '~◌~',
                     recording_id => 29,
                     position => 3,
-                    id => 111,
+                    id => 47,
                     artist_credit => $cleaned_artist_credit,
                     is_data_track => 0
                 }
@@ -562,7 +563,7 @@ test 'adding a relationship' => sub {
         attributes  => [
             { type => { gid => '36990974-4f29-4ea1-b562-3838fa9b8832' } },
             { type => { gid => '4f7bb10f-396c-466a-8221-8e93f5e454f9' } },
-            { type => { gid => 'c3273296-91ba-453d-94e4-2fb6e958568e' }, credit => 'crazy guitar' },
+            { type => { gid => 'c3273296-91ba-453d-94e4-2fb6e958568e' }, credited_as => 'crazy guitar' },
         ],
         entities    => [
             {
@@ -669,7 +670,7 @@ test 'editing a relationship' => sub {
         attributes  => [
             { type => { gid => '36990974-4f29-4ea1-b562-3838fa9b8832' } },
             { type => { gid => '4f7bb10f-396c-466a-8221-8e93f5e454f9' } },
-            { type => { gid => 'c3273296-91ba-453d-94e4-2fb6e958568e' }, credit => 'crazy guitar' },
+            { type => { gid => 'c3273296-91ba-453d-94e4-2fb6e958568e' }, credited_as => 'crazy guitar' },
         ],
         entities    => [
             {
@@ -1020,7 +1021,7 @@ test 'Duplicate relationships are ignored' => sub {
         edit_type   => $EDIT_RELATIONSHIP_CREATE,
         linkTypeID  => 1,
         attributes  => [
-            { type => { gid => 'c3273296-91ba-453d-94e4-2fb6e958568e' }, credit => 'crazy guitar' },
+            { type => { gid => 'c3273296-91ba-453d-94e4-2fb6e958568e' }, credited_as => 'crazy guitar' },
         ],
         entities    => [
             {

@@ -346,4 +346,36 @@ test 'Can submit URL relationships using actual URLs, not gids' => sub {
     is($edits[1]->data->{link_type}{id}, 3);
 };
 
+test 'Can clear all attributes from a relationship' => sub {
+    my $test = shift;
+    my ($c, $mech) = ($test->c, $test->mech);
+
+    MusicBrainz::Server::Test->prepare_test_database($c);
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+    my ($edit) = capture_edits {
+        $mech->post("/relationship-editor", {
+                'rel-editor.rels.0.id' => '1',
+                'rel-editor.rels.0.link_type' => '1',
+                'rel-editor.rels.0.action' => 'edit',
+                'rel-editor.rels.0.attributes.0.type.gid' => '36990974-4f29-4ea1-b562-3838fa9b8832',
+                'rel-editor.rels.0.attributes.0.removed' => '1',
+                'rel-editor.rels.0.attributes.1.type.gid' => '4f7bb10f-396c-466a-8221-8e93f5e454f9',
+                'rel-editor.rels.0.attributes.1.removed' => '1',
+                'rel-editor.rels.0.attributes.2.type.gid' => 'c3273296-91ba-453d-94e4-2fb6e958568e',
+                'rel-editor.rels.0.attributes.2.removed' => '1',
+                'rel-editor.rels.0.entity.0.gid' => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7',
+                'rel-editor.rels.0.entity.0.type' => 'artist',
+                'rel-editor.rels.0.entity.1.gid' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
+                'rel-editor.rels.0.entity.1.type' => 'recording',
+            }
+        );
+    } $c;
+
+    isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Edit');
+    cmp_deeply($edit->data->{new}{attributes}, []);
+};
+
 1;

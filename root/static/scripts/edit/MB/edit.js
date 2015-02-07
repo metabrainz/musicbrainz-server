@@ -122,23 +122,24 @@
                 entities:   array(relationship.entities, this.relationshipEntity)
             };
 
-            data.attributes = _(ko.unwrap(relationship.attributes)).map(function (attribute) {
-                var output = {
-                    type: {
-                        gid: string(attribute.type.gid)
-                    }
-                }, credit, textValue;
+            var originalAttributes = relationship.attributes.original;
+            var newAttributes = {};
 
-                if (credit = string(attribute.credit)) {
-                    output.credit = credit;
+            data.attributes = _(ko.unwrap(relationship.attributes)).transform(function (result, attribute) {
+                var gid = attribute.type.gid;
+                var hash = attribute.toJS();
+                newAttributes[gid] = hash;
+
+                if (!originalAttributes[gid] || !_.isEqual(originalAttributes[gid], hash)) {
+                    result.push(hash);
                 }
+            }, []).sortBy(function (a) { return a.type.id }).value();
 
-                if (textValue = string(attribute.textValue)) {
-                    output.textValue = textValue;
+            _.each(originalAttributes, function (value, gid) {
+                if (!newAttributes[gid]) {
+                    data.attributes.push({ type: { gid: gid }, removed: true });
                 }
-
-                return output;
-            }).sortBy(function (a) { return a.type.id }).value();
+            });
 
             if (_.isNumber(data.linkTypeID)) {
                 if (MB.typeInfoByID[data.linkTypeID].orderableDirection !== 0) {
