@@ -259,13 +259,17 @@ MB.utility.validDatePeriod = function (a, b) {
 
 MB.utility.parseDate = (function () {
     var dateRegex = /^(\d{4}|\?{4})(?:-(\d{2}|\?{2})(?:-(\d{2}|\?{2}))?)?$/;
+    function parseDatePart(str) {
+        var n = parseInt(str, 10);
+        return isNaN(n) ? null : n;
+    };
 
     return function (str) {
         var match = str.match(dateRegex) || [];
         return {
-            year:  parseInt(match[1], 10) || null,
-            month: parseInt(match[2], 10) || null,
-            day:   parseInt(match[3], 10) || null
+            year:  parseDatePart(match[1]),
+            month: parseDatePart(match[2]),
+            day:   parseDatePart(match[3])
         };
     };
 }());

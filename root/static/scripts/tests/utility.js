@@ -6,7 +6,7 @@
 var test = require('tape');
 
 test('All', function (t) {
-    t.plan(21);
+    t.plan(22);
 
     var input = "ＭｕｓｉｃＢｒａｉｎｚ！～２０１１";
     var expected = "MusicBrainz!~2011";
@@ -33,6 +33,7 @@ test('All', function (t) {
 
     var parseDateTests = [
         { date: "", expected: { year: null, month: null, day: null} },
+        { date: "0000", expected: { year: 0, month: null, day: null} },
         { date: "1999-01-02", expected: { year: 1999, month: 1, day: 2 } },
         { date: "1999-01", expected: { year: 1999, month: 1, day: null } },
         { date: "1999", expected: { year: 1999, month: null, day: null } },
