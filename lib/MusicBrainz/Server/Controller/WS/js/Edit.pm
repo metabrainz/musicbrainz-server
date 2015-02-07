@@ -292,7 +292,7 @@ sub process_partial_date {
         delete $date->{$_} unless non_empty($date->{$_});
     }
 
-    my ($year, $month, $day) = ($date->{year}, $date->{month}, $date->{day});
+    my ($year, $month, $day) = @$date{'year', 'month', 'day'};
     die "invalid date: $year-$month-$day" unless is_valid_partial_date($year, $month, $day);
 }
 
