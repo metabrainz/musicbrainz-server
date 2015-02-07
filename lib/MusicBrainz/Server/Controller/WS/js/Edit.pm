@@ -67,12 +67,18 @@ sub load_entity_prop {
 
 our $data_processors = {
 
-    $EDIT_RELEASE_CREATE => \&process_entity,
+    $EDIT_RELEASE_CREATE => sub {
+        my ($c, $loader, $data) = @_;
+
+        process_entity($c, $loader, $data);
+        process_release_events($data->{events});
+    },
 
     $EDIT_RELEASE_EDIT => sub {
         my ($c, $loader, $data) = @_;
 
         process_entity($c, $loader, $data);
+        process_release_events($data->{events});
         load_entity_prop($loader, $data, 'to_edit', 'Release');
     },
 
@@ -183,6 +189,16 @@ sub process_release_label {
     trim_string($data, 'catalog_number');
 }
 
+sub process_release_events {
+    my ($events) = @_;
+
+    return unless $events && @$events;
+
+    for my $event (@$events) {
+        process_partial_date($event->{date}) if $event->{date};
+    }
+}
+
 sub process_artist_credits {
     my ($c, $loader, @artist_credits) = @_;
 
@@ -269,6 +285,17 @@ sub process_medium {
     $data->{tracklist} = [ map { $process_track->($_) } @tracks ];
 }
 
+sub process_partial_date {
+    my ($date) = @_;
+
+    for (qw( year month day )) {
+        delete $date->{$_} unless non_empty($date->{$_});
+    }
+
+    my ($year, $month, $day) = ($date->{year}, $date->{month}, $date->{day});
+    die "invalid date: $year-$month-$day" unless is_valid_partial_date($year, $month, $day);
+}
+
 sub process_relationship {
     my ($c, $loader, $data, $previewing) = @_;
 
@@ -280,12 +307,7 @@ sub process_relationship {
     $data->{ended} = boolean_from_json($data->{ended});
 
     for my $date ("begin_date", "end_date") {
-        for (qw( year month day )) {
-            delete $data->{$date}{$_} unless non_empty($data->{$date}{$_});
-        }
-
-        my ($year, $month, $day) = ($data->{$date}{year}, $data->{$date}{month}, $data->{$date}{day});
-        die "invalid $date: $year-$month-$day" unless is_valid_partial_date($year, $month, $day);
+        process_partial_date($data->{$date});
     }
 
     $data->{attributes} = [

@@ -649,7 +649,7 @@ test 'adding a relationship with an invalid date' => sub {
     ok(scalar(@edits) == 0, 'relationship for invalid date is not created');
 
     my $response = from_json($mech->content);
-    like($response->{error}, qr/^invalid begin_date/, 'error is returned for invalid begin date');
+    like($response->{error}, qr/^invalid date/, 'error is returned for invalid begin date');
 };
 
 
@@ -1048,6 +1048,70 @@ test 'Duplicate relationships are ignored' => sub {
     } $c;
 
     is(scalar(@edits), 0);
+};
+
+test 'Invalid release event dates are rejected' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c = $test->c;
+
+    my $response;
+    my @edits;
+
+    prepare_test_database($c);
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+    my $artist_credit = {
+        names => [
+            {
+                artist => { id => 39282, name => "Boredoms" },
+                name => "Boredoms",
+                join_phrase => "",
+            }
+        ]
+    };
+
+    my $release_edits = [
+        {
+            edit_type => $EDIT_RELEASE_CREATE,
+            name => 'Vision  Creation  Newsun',
+            release_group_id => undef,
+            artist_credit => $artist_credit,
+            events => [
+                { date => { year => '0000', month => '0', day => '0' } }
+            ]
+        }
+    ];
+
+    my $release_group_edits = [
+        {
+            edit_type => $EDIT_RELEASEGROUP_CREATE,
+            name => 'Vision  Creation  Newsun',
+            artist_credit => $artist_credit,
+        }
+    ];
+
+    @edits = capture_edits {
+        post_json($mech, '/ws/js/edit/create', encode_json({ edits => $release_group_edits }));
+    } $c;
+
+    $response = from_json($mech->content);
+    $release_edits->[0]->{release_group_id} = $response->{edits}->[0]->{entity}->{id};
+
+    @edits = capture_edits {
+        post_json($mech, '/ws/js/edit/create', encode_json({
+            edits => $release_edits,
+            editNote => 'foo',
+            makeVotable => 0,
+        }));
+    } $c;
+
+    ok(scalar(@edits) == 0, 'release with invalid event date is not created');
+
+    $response = from_json($mech->content);
+    like($response->{error}, qr/^invalid date: 0000-0-0/, 'error is returned for invalid release event date');
 };
 
 1;
