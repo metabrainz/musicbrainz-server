@@ -13,16 +13,20 @@ function autocompleteTest(name, callback) {
         ko.applyBindingsToNode($input[0], { autocomplete: { entity: "artist" } });
         var $menu = $input.autocomplete("widget");
 
-        callback(t, $input, $menu).done(function () {
-            $input.autocomplete("destroy");
-            $fixture.add('.ui-widget').remove();
-        });
+        callback(t, $input, $menu);
+
+        $input.autocomplete("destroy");
+        $fixture.add('.ui-widget').remove();
     });
 }
 
 $.ui.menu.prototype.delay = 0;
 
 $.ui.autocomplete.prototype.options.delay = 0;
+
+$.Widget.prototype._delay = function (handler) {
+    return (typeof handler === "string" ? this[handler] : handler).call(this);
+};
 
 $.ui.autocomplete.prototype.options.source = function (request, response) {
     var data = [
@@ -48,7 +52,7 @@ function blurAutocomplete($input) {
     }
 }
 
-function clickOnMenuItem($input, $menu, itemToClick, deferred, callback) {
+function clickOnMenuItem($input, $menu, itemToClick) {
     var $item = $menu.find(".ui-menu-item" + itemToClick).find("a");
 
     $item.mouseenter();
@@ -60,70 +64,40 @@ function clickOnMenuItem($input, $menu, itemToClick, deferred, callback) {
         blurAutocomplete($input);
     }
 
-    _.defer(function () {
-        $item.mouseup().click();
-
-        _.defer(function () {
-            var next = callback();
-            if (next) {
-                next.done(function () {
-                    deferred.resolve();
-                });
-            } else {
-                deferred.resolve();
-            }
-        });
-    });
+    $item.mouseup().click();
 }
 
-function searchAndClick(t, $input, $menu, itemToClick, callback) {
-    var deferred = $.Deferred();
+function searchAndClick(t, $input, $menu, itemToClick) {
+    $input.val("Foo").keydown().focus();
 
-    $input.val("Foo").keydown();
+    t.ok($menu.is(":visible"), "menu is open after search");
 
-    _.delay(function () {
-        $input.focus();
-
-        t.ok($menu.is(":visible"), "menu is open after search");
-
-        clickOnMenuItem($input, $menu, itemToClick, deferred, callback);
-    }, 100);
-
-    return deferred;
+    clickOnMenuItem($input, $menu, itemToClick);
 }
 
 autocompleteTest("clicking on actions should not close the menu (MBS-6912)", function (t, $input, $menu) {
     t.plan(2);
 
-    var itemToClick = ":contains(Show more...)";
+    searchAndClick(t, $input, $menu, ':contains(Show more...)');
 
-    return searchAndClick(t, $input, $menu, itemToClick, function () {
-        t.ok($menu.is(":visible"), "menu is still open after clicking show more");
-    });
+    t.ok($menu.is(":visible"), "menu is still open after clicking show more");
 });
 
 autocompleteTest("clicking on actions should not prevent the menu from ever closing (MBS-6978)", function (t, $input, $menu) {
     t.plan(2);
 
-    var itemToClick = ":contains(Show more...)";
+    searchAndClick(t, $input, $menu, ':contains(Show more...)');
 
-    return searchAndClick(t, $input, $menu, itemToClick, function () {
-        blurAutocomplete($input);
+    blurAutocomplete($input);
 
-        _.defer(function () {
-            t.ok($menu.is(":hidden"), "menu is hidden after blurring the autocomplete");
-        });
-    });
+    t.ok($menu.is(":hidden"), "menu is hidden after blurring the autocomplete");
 });
 
 autocompleteTest("multiple searches should not prevent clicks on the menu (MBS-7080)", function (t, $input, $menu) {
     t.plan(3);
 
-    var itemToClick = ":eq(0)";
+    searchAndClick(t, $input, $menu, ':eq(0)');
+    searchAndClick(t, $input, $menu, ':eq(0)');
 
-    return searchAndClick(t, $input, $menu, itemToClick, function () {
-        return searchAndClick(t, $input, $menu, itemToClick, function () {
-            t.ok($menu.is(":hidden"), "menu is hidden after selecting item");
-        });
-    });
+    t.ok($menu.is(":hidden"), "menu is hidden after selecting item");
 });
