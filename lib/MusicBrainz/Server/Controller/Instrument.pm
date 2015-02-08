@@ -10,6 +10,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_INSTRUMENT_DELETE
 );
 use MusicBrainz::Server::Translation qw( l );
+use List::UtilsBy qw( sort_by );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model           => 'Instrument',
@@ -135,6 +136,27 @@ for my $method (qw( create edit merge merge_queue delete add_alias edit_alias de
         }
     };
 };
+
+sub list : Path('/instruments') Args(0) {
+    my ($self, $c) = @_;
+
+    my ($instruments, $total) = $c->model('Instrument')->fetch_all;
+    my $coll = $c->get_collator();
+    my @sorted = sort_by { $coll->getSortKey($_->l_name) } @$instruments;
+
+    my @types = $c->model('InstrumentType')->get_all();
+
+    my $entities = {};
+    for my $i (@sorted) {
+        my $type = $i->{type_id} || "unknown";
+        push @{ $entities->{$type} }, $i;
+    }
+
+    $c->stash(
+        entities => $entities,
+        types => \@types,
+    );
+}
 
 1;
 
