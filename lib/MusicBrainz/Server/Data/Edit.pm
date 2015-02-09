@@ -162,7 +162,7 @@ sub find_by_collection
 
     $status_cond = ' AND status = ' . $status if defined($status);
 
-    my $query = 'SELECT DISTINCT ' . $self->_columns . ' FROM ' . $self->_table . '
+    my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table . '
                   WHERE edit.id IN (SELECT er.edit
                                       FROM edit_release er JOIN editor_collection_release ecr
                                            ON er.release = ecr.release
@@ -173,7 +173,20 @@ sub find_by_collection
                                            ON ee.event = ece.event
                                      WHERE ece.collection = ?)
                   ' . $status_cond . '
-                  ORDER BY edit.id DESC OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
+                  ORDER BY edit.id DESC, edit.editor
+                  OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
+        # XXX Postgres massively misestimates the selectivity of the "edit.id IN (...)"
+        # clause, using its default value of 0.5 (i.e. every other row in the edit
+        # table is expected to match), even though the row estimate for the subquery is
+        # largely correct and would provide a (far lower) upper bound on the possible
+        # number of matched rows in the outer query. The bogus row estimate tempts the
+        # query planner into using a merge join between the subquery and the edit
+        # table that for small collections (less than 500 edits) requires a scan over
+        # the whole index on edit.id; in reality, a nested loop join is far faster.
+        # The redundant secondary sort on edit.editor eliminates (in the view of the
+        # planner) one advantage of the merge join, namely that it returns the rows
+        # in the final order already, and thereby tricks the planner into preferring
+        # the nested loop join.
 
     return query_to_list_limited($self->c->sql, $offset, $limit, sub {
             return $self->_new_from_row(shift);
