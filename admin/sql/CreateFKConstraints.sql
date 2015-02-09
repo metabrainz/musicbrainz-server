@@ -2231,6 +2231,21 @@ ALTER TABLE recording
    FOREIGN KEY (artist_credit)
    REFERENCES artist_credit(id);
 
+ALTER TABLE recording_alias
+   ADD CONSTRAINT recording_alias_fk_recording
+   FOREIGN KEY (recording)
+   REFERENCES recording(id);
+
+ALTER TABLE recording_alias
+   ADD CONSTRAINT recording_alias_fk_type
+   FOREIGN KEY (type)
+   REFERENCES recording_alias_type(id);
+
+ALTER TABLE recording_alias_type
+   ADD CONSTRAINT recording_alias_type_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES recording_alias_type(id);
+
 ALTER TABLE recording_annotation
    ADD CONSTRAINT recording_annotation_fk_recording
    FOREIGN KEY (recording)
@@ -2317,6 +2332,21 @@ ALTER TABLE release
    FOREIGN KEY (script)
    REFERENCES script(id);
 
+ALTER TABLE release_alias
+   ADD CONSTRAINT release_alias_fk_release
+   FOREIGN KEY (release)
+   REFERENCES release(id);
+
+ALTER TABLE release_alias
+   ADD CONSTRAINT release_alias_fk_type
+   FOREIGN KEY (type)
+   REFERENCES release_alias_type(id);
+
+ALTER TABLE release_alias_type
+   ADD CONSTRAINT release_alias_type_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES release_alias_type(id);
+
 ALTER TABLE release_annotation
    ADD CONSTRAINT release_annotation_fk_release
    FOREIGN KEY (release)
@@ -2357,6 +2387,21 @@ ALTER TABLE release_group
    ADD CONSTRAINT release_group_fk_type
    FOREIGN KEY (type)
    REFERENCES release_group_primary_type(id);
+
+ALTER TABLE release_group_alias
+   ADD CONSTRAINT release_group_alias_fk_release_group
+   FOREIGN KEY (release_group)
+   REFERENCES release_group(id);
+
+ALTER TABLE release_group_alias
+   ADD CONSTRAINT release_group_alias_fk_type
+   FOREIGN KEY (type)
+   REFERENCES release_group_alias_type(id);
+
+ALTER TABLE release_group_alias_type
+   ADD CONSTRAINT release_group_alias_type_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES release_group_alias_type(id);
 
 ALTER TABLE release_group_annotation
    ADD CONSTRAINT release_group_annotation_fk_release_group

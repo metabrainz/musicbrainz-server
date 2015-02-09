@@ -627,6 +627,14 @@ CREATE TRIGGER "reptg_recording"
 AFTER INSERT OR DELETE OR UPDATE ON "recording"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
+CREATE TRIGGER "reptg_recording_alias"
+AFTER INSERT OR DELETE OR UPDATE ON "recording_alias"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_recording_alias_type"
+AFTER INSERT OR DELETE OR UPDATE ON "recording_alias_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_recording_annotation"
 AFTER INSERT OR DELETE OR UPDATE ON "recording_annotation"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
@@ -647,6 +655,14 @@ CREATE TRIGGER "reptg_release"
 AFTER INSERT OR DELETE OR UPDATE ON "release"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
+CREATE TRIGGER "reptg_release_alias"
+AFTER INSERT OR DELETE OR UPDATE ON "release_alias"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_release_alias_type"
+AFTER INSERT OR DELETE OR UPDATE ON "release_alias_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_release_annotation"
 AFTER INSERT OR DELETE OR UPDATE ON "release_annotation"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
@@ -662,6 +678,14 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 CREATE TRIGGER "reptg_release_group"
 AFTER INSERT OR DELETE OR UPDATE ON "release_group"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_release_group_alias"
+AFTER INSERT OR DELETE OR UPDATE ON "release_group_alias"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_release_group_alias_type"
+AFTER INSERT OR DELETE OR UPDATE ON "release_group_alias_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_release_group_annotation"
 AFTER INSERT OR DELETE OR UPDATE ON "release_group_annotation"
