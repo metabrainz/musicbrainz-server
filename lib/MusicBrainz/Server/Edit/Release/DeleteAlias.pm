@@ -49,6 +49,8 @@ around 'build_display_data' => sub {
     return $data;
 };
 
+sub release_ids {}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

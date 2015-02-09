@@ -12,6 +12,8 @@ with 'MusicBrainz::Server::Edit::Alias::Add' => {
     edit_type => $EDIT_RELEASE_ADD_ALIAS,
 };
 
+sub release_ids {}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

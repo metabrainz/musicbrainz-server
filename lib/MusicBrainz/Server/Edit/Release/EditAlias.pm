@@ -24,6 +24,8 @@ sub adjust_edit_pending {
 
 sub release_id { shift->data->{entity}{id} }
 
+sub release_ids {}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

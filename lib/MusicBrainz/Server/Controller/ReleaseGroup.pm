@@ -17,6 +17,7 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
     relationships   => { all => ['show'], cardinal => ['edit'], default => ['url'] },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
+with 'MusicBrainz::Server::Controller::Role::Alias';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::Rating';

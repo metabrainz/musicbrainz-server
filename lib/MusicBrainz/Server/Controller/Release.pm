@@ -10,6 +10,7 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
     relationships   => { all => ['show'], cardinal => ['edit_relationships'], default => ['url'] },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
+with 'MusicBrainz::Server::Controller::Role::Alias';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';

@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Edit::ReleaseGroup::DeleteAlias;
 use Moose;
 
-use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_GROUP_DELETE_ALIAS );
+use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_DELETE_ALIAS );
 use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit::Alias::Delete';
@@ -13,7 +13,7 @@ sub _alias_model { shift->c->model('ReleaseGroup')->alias }
 
 sub edit_name { N_l('Remove release group alias') }
 sub edit_kind { 'remove' }
-sub edit_type { $EDIT_RELEASE_GROUP_DELETE_ALIAS }
+sub edit_type { $EDIT_RELEASEGROUP_DELETE_ALIAS }
 
 sub _build_related_entities { { release_group => [ shift->release_group_id ] } }
 
