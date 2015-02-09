@@ -87,7 +87,7 @@ sub serialize_relationship {
     my $out = {
         id              => $relationship->id,
         linkTypeID      => $link->type_id,
-        attributes      => [map { $_->to_json_hash } $link->all_attributes],
+        attributes      => [map +{ (%{ $_->to_json_hash }, type => { gid => $_->type->gid }) }, $link->all_attributes],
         ended           => $link->ended ? \1 : \0,
         target          => $self->$entity( $_->target ),
         editsPending    => $relationship->edits_pending ? \1 : \0,
