@@ -2,7 +2,6 @@ package MusicBrainz::Server::Edit::Relationship::Create;
 use Moose;
 
 use List::AllUtils qw( any );
-use List::UtilsBy qw( sort_by );
 use MusicBrainz::Server::Edit::Types qw( LinkAttributesArray PartialDateHash Nullable NullableOnPreview );
 use MusicBrainz::Server::Translation qw( N_l );
 
