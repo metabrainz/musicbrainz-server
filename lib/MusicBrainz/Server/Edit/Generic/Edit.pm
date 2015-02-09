@@ -118,7 +118,7 @@ override allow_auto_edit => sub {
                 and !PartialDate->new_from_row($self->data->{old}{$field})->is_empty;
         }
         return 0 if exists $self->data->{old}{ended}
-            and $self->data->{old}{ended} != $self->data->{new}{ended};
+            and $self->data->{old}{ended};
     }
 
     if ($props->{type}) {
