@@ -419,6 +419,7 @@ sub linked_recordings
     }
 
     $self->_tags_and_ratings($c, 'Recording', $recordings, $stash);
+    $self->_aliases($c, 'Recording', $recordings, $stash);
 }
 
 sub linked_releases
@@ -459,6 +460,7 @@ sub linked_releases
     }
 
     $self->_tags($c, 'Release', $releases, $stash);
+    $self->_aliases($c, 'Release', $releases, $stash);
 }
 
 sub linked_release_groups
@@ -473,6 +475,7 @@ sub linked_release_groups
     }
 
     $self->_tags_and_ratings($c, 'ReleaseGroup', $release_groups, $stash);
+    $self->_aliases($c, 'ReleaseGroup', $release_groups, $stash);
 }
 
 sub linked_works
