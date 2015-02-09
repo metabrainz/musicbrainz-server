@@ -7,7 +7,12 @@ use MooseX::Types::Moose qw( Int );
 use MooseX::Types::Structured qw( Dict );
 
 use MusicBrainz::Server::Edit::Exceptions;
+use MusicBrainz::Server::Constants qw( %ENTITIES );
+use MusicBrainz::Server::Data::Utils qw( model_to_type );
+use MusicBrainz::Server::Validation qw( normalise_strings );
 use Try::Tiny;
+
+use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 requires 'change_fields', '_edit_model', '_conflicting_entity_path';
@@ -89,6 +94,50 @@ override 'accept' => sub
             die $_;
         }
     };
+};
+
+override allow_auto_edit => sub {
+    my ($self) = @_;
+    my $props = $ENTITIES{ model_to_type($self->_edit_model) };
+
+    # Changing name, sortname or disambiguation is an auto-edit if the
+    # change only affects small things like case etc.
+    my ($old_name, $new_name) = normalise_strings(
+        $self->data->{old}{name}, $self->data->{new}{name});
+    return 0 if $old_name ne $new_name;
+
+    if ($props->{sort_name}) {
+        my ($old_sort_name, $new_sort_name) = normalise_strings(
+            $self->data->{old}{sort_name}, $self->data->{new}{sort_name});
+        return 0 if $old_sort_name ne $new_sort_name;
+    }
+
+    if ($props->{disambiguation}) {
+        my ($old_comment, $new_comment) = normalise_strings(
+            $self->data->{old}{comment}, $self->data->{new}{comment});
+        return 0 if $old_comment ne $new_comment;
+    }
+
+    # Adding a date is automatic if there was no date yet.
+    if ($props->{date_period}) {
+        return 0 if exists $self->data->{old}{begin_date}
+            and PartialDate->new_from_row($self->data->{old}{begin_date})->format ne '';
+        return 0 if exists $self->data->{old}{end_date}
+            and PartialDate->new_from_row($self->data->{old}{end_date})->format ne '';
+        return 0 if exists $self->data->{old}{ended}
+            and $self->data->{old}{ended} != $self->data->{new}{ended};
+    }
+
+    if ($props->{type}) {
+        return 0 if exists $self->data->{old}{type_id}
+            and ($self->data->{old}{type_id} // 0) != 0;
+    }
+
+    if ($props->{artist_credits}) {
+        return 0 if exists $self->data->{new}{artist_credit};
+    }
+
+    return 1;
 };
 
 sub _conflicting_entity_path { die 'Undefined' };

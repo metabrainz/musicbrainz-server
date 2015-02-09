@@ -26,7 +26,6 @@ use MusicBrainz::Server::Edit::Utils qw(
 );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Translation qw( N_l );
-use MusicBrainz::Server::Validation qw( normalise_strings );
 
 no if $] >= 5.018, warnings => "experimental::smartmatch";
 
@@ -323,17 +322,8 @@ before accept => sub {
     }
 };
 
-sub allow_auto_edit
-{
-    my $self = shift;
-
-    my ($old_name, $new_name) = normalise_strings($self->data->{old}{name},
-                                                  $self->data->{new}{name});
-    return 0 if $old_name ne $new_name;
-
-    my ($old_comment, $new_comment) = normalise_strings(
-        $self->data->{old}{comment}, $self->data->{new}{comment});
-    return 0 if $old_comment ne $new_comment;
+around allow_auto_edit => sub {
+    my ($orig, $self, @args) = @_;
 
     return 0 if defined $self->data->{old}{packaging_id};
     return 0 if defined $self->data->{old}{status_id};
@@ -344,10 +334,9 @@ sub allow_auto_edit
     return 0 if defined $self->data->{old}{events};
 
     return 0 if exists $self->data->{old}{release_group_id};
-    return 0 if exists $self->data->{new}{artist_credit};
 
-    return 1;
-}
+    return $self->$orig(@args);
+};
 
 sub restore {
     my ($self, $data) = @_;
