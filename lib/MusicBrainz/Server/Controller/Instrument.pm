@@ -140,9 +140,9 @@ for my $method (qw( create edit merge merge_queue delete add_alias edit_alias de
 sub list : Path('/instruments') Args(0) {
     my ($self, $c) = @_;
 
-    my ($instruments, $total) = $c->model('Instrument')->fetch_all;
+    my @instruments = $c->model('Instrument')->get_all;
     my $coll = $c->get_collator();
-    my @sorted = sort_by { $coll->getSortKey($_->l_name) } @$instruments;
+    my @sorted = sort_by { $coll->getSortKey($_->l_name) } @instruments;
 
     my @types = $c->model('InstrumentType')->get_all();
 

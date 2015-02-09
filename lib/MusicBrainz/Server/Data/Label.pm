@@ -38,7 +38,6 @@ with 'MusicBrainz::Server::Data::Role::Subscription' => {
     active_class => 'MusicBrainz::Server::Entity::Subscription::Label',
     deleted_class => 'MusicBrainz::Server::Entity::Subscription::DeletedLabel'
 };
-with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'label' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::Area';
