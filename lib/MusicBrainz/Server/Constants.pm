@@ -451,6 +451,12 @@ Readonly our %ENTITIES => (
         merging => 1,
         model      => 'Recording',
         annotations => { edit_type => $EDIT_RECORDING_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_RECORDING_ADD_ALIAS,
+            edit_edit_type => $EDIT_RECORDING_EDIT_ALIAS,
+            delete_edit_type => $EDIT_RECORDING_DELETE_ALIAS,
+            search_hint_type => 2
+        },
         ratings    => 1,
         tags       => 1,
         artist_credits => 1,
@@ -464,6 +470,12 @@ Readonly our %ENTITIES => (
         merging => 1,
         model      => 'Release',
         annotations => { edit_type => $EDIT_RELEASE_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_RELEASE_ADD_ALIAS,
+            edit_edit_type => $EDIT_RELEASE_EDIT_ALIAS,
+            delete_edit_type => $EDIT_RELEASE_DELETE_ALIAS,
+            search_hint_type => 2
+        },
         tags       => 1,
         artist_credits => 1,
         removal     => { manual => 1 },
@@ -478,6 +490,12 @@ Readonly our %ENTITIES => (
         type => { complex => 1 },
         url        => 'release-group',
         annotations => { edit_type => $EDIT_RELEASEGROUP_ADD_ANNOTATION },
+        aliases     => {
+            add_edit_type => $EDIT_RELEASE_GROUP_ADD_ALIAS,
+            edit_edit_type => $EDIT_RELEASE_GROUP_EDIT_ALIAS,
+            delete_edit_type => $EDIT_RELEASE_GROUP_DELETE_ALIAS,
+            search_hint_type => 2
+        },
         ratings    => 1,
         tags       => 1,
         artist_credits => 1,
@@ -819,15 +837,21 @@ Readonly our @FULL_TABLE_LIST => qw(
     place_tag
     place_type
     recording
+    recording_alias
+    recording_alias_type
     recording_annotation
     recording_gid_redirect
     recording_meta
     recording_tag
     release
+    release_alias
+    release_alias_type
     release_annotation
     release_country
     release_gid_redirect
     release_group
+    release_group_alias
+    release_group_alias_type
     release_group_annotation
     release_group_gid_redirect
     release_group_meta
