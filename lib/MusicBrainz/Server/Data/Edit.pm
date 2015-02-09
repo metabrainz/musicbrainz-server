@@ -162,7 +162,7 @@ sub find_by_collection
 
     $status_cond = ' AND status = ' . $status if defined($status);
 
-    my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table . '
+    my $query = 'SELECT DISTINCT ' . $self->_columns . ' FROM ' . $self->_table . '
                   WHERE edit.id IN (SELECT er.edit
                                       FROM edit_release er JOIN editor_collection_release ecr
                                            ON er.release = ecr.release

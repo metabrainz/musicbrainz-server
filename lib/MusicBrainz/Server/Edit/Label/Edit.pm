@@ -43,7 +43,6 @@ sub change_fields
         label_code => Nullable[Int],
         area_id    => Nullable[Int],
         comment    => Nullable[Str],
-        ipi_code   => Nullable[Str],
         ipi_codes  => Optional[ArrayRef[Str]],
         isni_codes  => Optional[ArrayRef[Str]],
         begin_date => Nullable[PartialDateHash],
@@ -88,7 +87,6 @@ sub build_display_data
         type       => [ qw( type_id LabelType ) ],
         label_code => 'label_code',
         comment    => 'comment',
-        ipi_code   => 'ipi_code',
         area       => [ qw( area_id Area ) ],
         ended      => 'ended'
     );
@@ -178,11 +176,6 @@ sub allow_auto_edit
     return 0 if exists $self->data->{old}{ended}
         and $self->data->{old}{ended} != $self->data->{new}{ended};
 
-    if ($self->data->{old}{ipi_code}) {
-        my ($old_ipi, $new_ipi) = normalise_strings($self->data->{old}{ipi_code},
-                                                    $self->data->{new}{ipi_code});
-        return 0 if $new_ipi ne $old_ipi;
-    }
     return 0 if $self->data->{new}{ipi_codes};
 
     return 0 if $self->data->{new}{isni_codes};
@@ -230,6 +223,9 @@ sub restore {
     for my $side (qw( old new )) {
         $data->{$side}{area_id} = delete $data->{$side}{country_id}
             if exists $data->{$side}{country_id};
+
+        $data->{$side}{ipi_codes} = [ delete $data->{$side}{ipi_code} // () ]
+            if exists $data->{$side}{ipi_code};
     }
 
     $self->data($data);

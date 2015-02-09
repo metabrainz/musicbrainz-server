@@ -195,6 +195,17 @@ ws_test 'artist lookup with releases and discids',
                         <disc-list count="1">
                             <disc id="93K4ogyxWlv522XF0BG8fZOuay4-">
                                 <sectors>215137</sectors>
+                                <offset-list count="9">
+                                    <offset position="1">150</offset>
+                                    <offset position="2">23303</offset>
+                                    <offset position="3">48850</offset>
+                                    <offset position="4">73305</offset>
+                                    <offset position="5">98815</offset>
+                                    <offset position="6">125348</offset>
+                                    <offset position="7">147548</offset>
+                                    <offset position="8">172225</offset>
+                                    <offset position="9">194409</offset>
+                                </offset-list>
                             </disc>
                         </disc-list>
                         <track-list count="9" />
@@ -204,6 +215,17 @@ ws_test 'artist lookup with releases and discids',
                         <disc-list count="1">
                             <disc id="VnL0A7ksXznBxvZ94H3Z61EZY3k-">
                                 <sectors>208393</sectors>
+                                <offset-list count="9">
+                                    <offset position="1">150</offset>
+                                    <offset position="2">26801</offset>
+                                    <offset position="3">42538</offset>
+                                    <offset position="4">64421</offset>
+                                    <offset position="5">90680</offset>
+                                    <offset position="6">114510</offset>
+                                    <offset position="7">138939</offset>
+                                    <offset position="8">164009</offset>
+                                    <offset position="9">186929</offset>
+                                </offset-list>
                             </disc>
                         </disc-list>
                         <track-list count="9" />
@@ -239,6 +261,20 @@ ws_test 'artist lookup with releases and discids',
                         <disc-list count="1">
                             <disc id="75S7Yp3IiqPVREQhjAjMXPhwz0Y-">
                                 <sectors>281289</sectors>
+                                <offset-list count="12">
+                                    <offset position="1">150</offset>
+                                    <offset position="2">27852</offset>
+                                    <offset position="3">49751</offset>
+                                    <offset position="4">75876</offset>
+                                    <offset position="5">99845</offset>
+                                    <offset position="6">120876</offset>
+                                    <offset position="7">140765</offset>
+                                    <offset position="8">165856</offset>
+                                    <offset position="9">188422</offset>
+                                    <offset position="10">211757</offset>
+                                    <offset position="11">232229</offset>
+                                    <offset position="12">255810</offset>
+                                </offset-list>
                             </disc>
                         </disc-list>
                         <track-list count="12" />

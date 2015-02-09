@@ -21,6 +21,18 @@ test 'direct disc id lookup' => sub {
     '/discid/IeldkVfIh1wep_M8CMuDvA0nQ7Q-' => encode_json(
         {
             id => "IeldkVfIh1wep_M8CMuDvA0nQ7Q-",
+            'offset-count' => 9,
+            offsets => [
+              150,
+              6614,
+              32287,
+              54041,
+              61236,
+              88129,
+              92729,
+              115276,
+              153877
+            ],
             sectors => 189343,
             releases => [
                 {
@@ -44,6 +56,18 @@ test 'direct disc id lookup' => sub {
                             discs => [
                                 {
                                     id => "IeldkVfIh1wep_M8CMuDvA0nQ7Q-",
+                                    'offset-count' => 9,
+                                    offsets => [
+                                      150,
+                                      6614,
+                                      32287,
+                                      54041,
+                                      61236,
+                                      88129,
+                                      92729,
+                                      115276,
+                                      153877
+                                    ],
                                     sectors => 189343,
                                 }
                             ]
@@ -148,6 +172,18 @@ test 'lookup via toc' => sub {
                             discs => [
                                 {
                                     id => "IeldkVfIh1wep_M8CMuDvA0nQ7Q-",
+                                    'offset-count' => 9,
+                                    offsets => [
+                                      150,
+                                      6614,
+                                      32287,
+                                      54041,
+                                      61236,
+                                      88129,
+                                      92729,
+                                      115276,
+                                      153877
+                                    ],
                                     sectors => 189343,
                                 }
                             ]
