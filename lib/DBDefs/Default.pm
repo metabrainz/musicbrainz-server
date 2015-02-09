@@ -367,6 +367,7 @@ sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { "//coverartarchive.org" };
 sub GOOGLE_ANALYTICS_CODE { '' }
 
 sub MAPBOX_MAP_ID { 'musicbrainz.iplg7e52' }
+sub MAPBOX_ACCESS_TOKEN { '' }
 
 # Disallow OAuth2 requests over plain HTTP
 sub OAUTH2_ENFORCE_TLS { my $self = shift; !$self->DB_STAGING_SERVER }
