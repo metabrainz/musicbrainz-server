@@ -110,6 +110,9 @@ Readonly our $EDIT_RELEASEGROUP_SET_COVER_ART => 22;
 Readonly our $EDIT_RELEASEGROUP_DELETE => 23;
 Readonly our $EDIT_RELEASEGROUP_MERGE => 24;
 Readonly our $EDIT_RELEASEGROUP_ADD_ANNOTATION => 25;
+Readonly our $EDIT_RELEASEGROUP_ADD_ALIAS => 26;
+Readonly our $EDIT_RELEASEGROUP_DELETE_ALIAS => 27;
+Readonly our $EDIT_RELEASEGROUP_EDIT_ALIAS => 28;
 
 Readonly our $EDIT_RELEASE_CREATE => 31;
 Readonly our $EDIT_RELEASE_EDIT => 32;
@@ -128,6 +131,9 @@ Readonly our $EDIT_RELEASE_ADD_COVER_ART => 314;
 Readonly our $EDIT_RELEASE_REMOVE_COVER_ART => 315;
 Readonly our $EDIT_RELEASE_EDIT_COVER_ART => 316;
 Readonly our $EDIT_RELEASE_REORDER_COVER_ART => 317;
+Readonly our $EDIT_RELEASE_ADD_ALIAS => 318;
+Readonly our $EDIT_RELEASE_DELETE_ALIAS => 319;
+Readonly our $EDIT_RELEASE_EDIT_ALIAS => 320;
 
 Readonly our $EDIT_WORK_CREATE => 41;
 Readonly our $EDIT_WORK_EDIT => 42;
@@ -165,6 +171,9 @@ Readonly our $EDIT_RECORDING_ADD_ANNOTATION => 75;
 Readonly our $EDIT_RECORDING_ADD_ISRCS => 76;
 Readonly our $EDIT_RECORDING_ADD_PUIDS => 77;
 Readonly our $EDIT_RECORDING_REMOVE_ISRC => 78;
+Readonly our $EDIT_RECORDING_ADD_ALIAS => 711;
+Readonly our $EDIT_RECORDING_DELETE_ALIAS => 712;
+Readonly our $EDIT_RECORDING_EDIT_ALIAS => 713;
 
 Readonly our $EDIT_AREA_CREATE => 81;
 Readonly our $EDIT_AREA_EDIT => 82;
@@ -491,9 +500,9 @@ Readonly our %ENTITIES => (
         url        => 'release-group',
         annotations => { edit_type => $EDIT_RELEASEGROUP_ADD_ANNOTATION },
         aliases     => {
-            add_edit_type => $EDIT_RELEASE_GROUP_ADD_ALIAS,
-            edit_edit_type => $EDIT_RELEASE_GROUP_EDIT_ALIAS,
-            delete_edit_type => $EDIT_RELEASE_GROUP_DELETE_ALIAS,
+            add_edit_type => $EDIT_RELEASEGROUP_ADD_ALIAS,
+            edit_edit_type => $EDIT_RELEASEGROUP_EDIT_ALIAS,
+            delete_edit_type => $EDIT_RELEASEGROUP_DELETE_ALIAS,
             search_hint_type => 2
         },
         ratings    => 1,
