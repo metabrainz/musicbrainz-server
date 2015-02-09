@@ -29,6 +29,7 @@ with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::Browse';
+with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'release_group' };
 
 sub _type { 'release_group' }
 

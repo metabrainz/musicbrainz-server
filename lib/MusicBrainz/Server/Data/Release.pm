@@ -34,6 +34,7 @@ with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'release' };
 with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'release' };
+with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'release' };
 
 use Readonly;
 Readonly our $MERGE_APPEND => 1;
