@@ -17,7 +17,7 @@ use MusicBrainz::Server::Validation qw( encode_entities );
 with 'MusicBrainz::Server::Role::Translation' => { domain => 'mb_server' };
 
 use Sub::Exporter -setup => {
-    exports => [qw( l lp ln N_l N_ln N_lp )],
+    exports => [qw( l lp ln N_l N_ln N_lp get_collator )],
     groups => {
         default => [qw( l lp ln N_l N_ln N_lp )]
     }

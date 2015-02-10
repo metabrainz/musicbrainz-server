@@ -26,12 +26,11 @@
   [% END %]
 [% END %]
 
-<h2 class="relationships">[% relationships_heading OR l("Relationships") %]</h2>
-
 [% IF relationships.size %]
+  [% UNLESS no_relationships_heading %]
+    <h2 class="relationships">[% l("Relationships") %]</h2>
+  [% END %]
   [% static_display(relationships) %]
-[%- ELSE -%]
-    <p>[% l('{link} has no relationships.', { link => link_entity(source) }) -%]</p>
 [%- END -%]
 
 [% IF source.related_works.size %]

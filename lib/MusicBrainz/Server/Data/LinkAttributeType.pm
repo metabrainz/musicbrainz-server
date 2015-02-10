@@ -159,7 +159,7 @@ sub in_use
 {
     my ($self, $id) = @_;
     return $self->sql->select_single_value(
-        'SELECT 1 FROM link_attribute WHERE link_attribute.attribute_type = ?',
+        'SELECT 1 FROM link_attribute WHERE link_attribute.attribute_type = ? LIMIT 1',
         $id);
 }
 

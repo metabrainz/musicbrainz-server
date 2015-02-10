@@ -177,9 +177,16 @@ is($editors[1], 0, "new_editor has not subscribed to anyone");
 is($editors[1], 0, "alice has no subscribers");
 
 subtest 'Find editors with subscriptions' => sub {
-    my @editors = $editor_data->editors_with_subscriptions;
+    my @editors = $editor_data->editors_with_subscriptions(0, 1000);
     is(@editors => 1, 'found 1 editor');
     is($editors[0]->id => 2, 'is editor #2');
+
+    @editors = $editor_data->editors_with_subscriptions(1, 1000);
+    is(@editors => 1, 'found 1 editor');
+    is($editors[0]->id => 2, 'is editor #2');
+
+    @editors = $editor_data->editors_with_subscriptions(2, 1000);
+    is(@editors => 0, 'found no editor');
 };
 
 };

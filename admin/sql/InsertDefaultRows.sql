@@ -20,6 +20,11 @@ INSERT INTO replication_control VALUES (
     NULL
 );
 
+INSERT INTO release_group_primary_type VALUES (1, 'Album', null, 1, null);
+INSERT INTO release_group_primary_type VALUES (2, 'Single', null, 2, null);
+
+INSERT INTO release_status VALUES (1, 'Official', null, 1, null);
+
 COMMIT;
 
 -- vi: set ts=4 sw=4 et :

@@ -13,6 +13,7 @@ use MusicBrainz::Server::WebService::JSONLDSerializer;
 use MusicBrainz::Server::WebService::XMLSerializer;
 use Readonly;
 use Scalar::Util qw( looks_like_number );
+use List::UtilsBy qw( partition_by );
 use Try::Tiny;
 
 with 'MusicBrainz::Server::WebService::Format' =>
@@ -227,30 +228,17 @@ sub _tags
     my %map = object_to_ids(@$entities);
     my $model = $c->model($modelname);
 
-    if ($c->stash->{inc}->tags)
-    {
-        my @tags = $model->tags->find_tags_for_entities(map { $_->id } @$entities);
+    my @todo = grep { $c->stash->{inc}->$_ } qw( tags user_tags );
 
-        for (@tags)
-        {
-            my $opts = $stash->store($map{$_->entity_id}->[0]);
+    for my $type (@todo) {
+        my $find_method = 'find_' . $type . '_for_entities';
+        my @tags = $model->tags->$find_method(
+                        $type eq 'user_tags' ? $c->user->id : (),
+                        map { $_->id } @$entities);
 
-            $opts->{tags} = [] unless $opts->{tags};
-            push @{ $opts->{tags} }, $_;
-        }
-    }
-
-    if ($c->stash->{inc}->user_tags)
-    {
-        my @tags = $model->tags->find_user_tags_for_entities(
-            $c->user->id, map { $_->id } @$entities);
-
-        for (@tags)
-        {
-            my $opts = $stash->store($map{$_->entity_id}->[0]);
-
-            $opts->{user_tags} = [] unless $opts->{user_tags};
-            push @{ $opts->{user_tags} }, $_;
+        my %tags_by_entity = partition_by { $_->entity_id } @tags;
+        for my $id (keys %tags_by_entity) {
+            $stash->store($map{$id}->[0])->{$type} = $tags_by_entity{$id};
         }
     }
 }
