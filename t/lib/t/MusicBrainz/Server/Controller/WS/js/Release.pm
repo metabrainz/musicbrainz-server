@@ -26,6 +26,9 @@ test all => sub {
 
     my $data = $json->decode($mech->content);
 
+    is_deeply($data->{releaseGroup}{typeID}, 2, "release group primary type is loaded");
+    is_deeply($data->{releaseGroup}{secondaryTypeIDs}, [1], "release group secondary types are loaded");
+
     is($data->{mediums}->[0]->{position}, 1, "first disc has position 1");
 
     my $rels = $data->{mediums}->[0]->{tracks}->[0]->{recording}->{relationships};

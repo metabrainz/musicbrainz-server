@@ -490,6 +490,7 @@ UPDATE release_group_meta SET first_release_date_month = 4, rating_count = 1, fi
 UPDATE release_group_meta SET first_release_date_month = 11, rating_count = NULL, first_release_date_year = 2007, release_count = 1, first_release_date_day = 8, rating = NULL WHERE id = 772397;
 
 INSERT INTO release_group_secondary_type_join (created, release_group, secondary_type) VALUES ('2013-04-02 17:42:38.063723+00', 761939, 1);
+INSERT INTO release_group_secondary_type_join (created, release_group, secondary_type) VALUES ('2015-02-10 17:04:51.254038+00', 403214, 1);
 
 -- Recordings
 
