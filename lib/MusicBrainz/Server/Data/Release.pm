@@ -944,6 +944,7 @@ sub merge
     my @old_ids = @{ $opts{old_ids} };
     my $merge_strategy = $opts{merge_strategy} || $MERGE_APPEND;
 
+    $self->alias->merge($new_id, @old_ids);
     $self->annotation->merge($new_id, @old_ids);
     $self->c->model('Collection')->merge_releases($new_id, @old_ids);
     $self->c->model('ReleaseLabel')->merge_releases($new_id, @old_ids);
