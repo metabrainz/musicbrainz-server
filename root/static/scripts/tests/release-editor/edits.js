@@ -100,9 +100,7 @@ addReleaseTest("recordingEdit edits are generated for new release", function (t,
     releaseEditor.copyTrackTitlesToRecordings(true);
 
     var track = release.mediums()[0].tracks()[0];
-
     track.name("[unicode suckz!]");
-    track.length(722093);
 
     var edits = _.filter(releaseEditor.edits.medium(release),
         function (edit) {
@@ -113,24 +111,8 @@ addReleaseTest("recordingEdit edits are generated for new release", function (t,
       {
         to_edit: "f66857fb-bb59-444e-97dc-62c73e5eddae",
         name: "[unicode suckz!]",
-        artist_credit: {
-          names:[
-            {
-              artist: {
-                name: "Boredoms",
-                id: 39282,
-                gid: "0798d15b-64e2-499f-9969-70167b1d8617"
-              },
-              name: "Boredoms",
-              join_phrase: null
-            }
-          ]
-        },
-        length: 822093,
-        comment: "",
-        video: false,
         edit_type: 72,
-        hash: "e14c68fb875cf1169b1c1a6ffd2a31de09ee8534"
+        hash: "df8db83fde0f411573f00da610a34cb3208bc333"
       }
     ]);
 
@@ -165,26 +147,10 @@ addReleaseTest("recordingEdit edits are generated for new mediums (MBS-7271)", f
 
     t.deepEqual(edits, [
       {
-        "artist_credit": {
-          "names": [
-            {
-              "artist": {
-                "gid": "0798d15b-64e2-499f-9969-70167b1d8617",
-                "id": 39282,
-                "name": "Boredoms"
-              },
-              "join_phrase": null,
-              "name": "Boredoms"
-            }
-          ]
-        },
-        "comment": "",
         "edit_type": 72,
-        "hash": "bd8f7990396214d3dede21b6064ded7d35f90930",
-        "length": null,
+        "hash": "a596f1eaa0a460011396fc3251db1ce2bb74d06d",
         "name": "foobar",
         "to_edit": "80f797aa-2077-435d-85e2-c22e31a654f4",
-        "video": false
       }
     ]);
 
@@ -638,6 +604,22 @@ editReleaseTest("edits are not generated for external links that duplicate exist
 
     t.equal(releaseEditor.edits.externalLinks(release).length, 1);
     t.equal(validation.errorsExist(), true);
+});
+
+editReleaseTest("releaseGroupEdit edits should not include unchanged fields (MBS-8212)", function (t, release) {
+    t.plan(1);
+
+    releaseEditor.copyTitleToReleaseGroup(true);
+    release.name('Blah');
+
+    t.deepEqual(releaseEditor.edits.releaseGroup(release), [
+        {
+          "edit_type" : 21,
+          "gid" : "1c205925-2cfe-35c0-81de-d7ef17df9658",
+          "hash" : "6b8e1d79cb7a109986781e453bd954558cb6bf19",
+          "name" : "Blah"
+        }
+    ]);
 });
 
 test("mediumEdit and releaseReorderMediums edits are generated for non-loaded mediums", function (t) {
