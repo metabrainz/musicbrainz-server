@@ -71,8 +71,6 @@ INSERT INTO work (id, gid, name, type) VALUES
     (1, '745c079d-374e-4436-9448-da92dedef3ce', 'Dancing Queen', 1);
 INSERT INTO iswc (work, iswc) VALUES (1, 'T-000.000.001-0');
 
-INSERT INTO release_status (id, name) VALUES (2, 'Promotional');
-
 INSERT INTO release_packaging (id, name) VALUES (1, 'Jewel Case');
 INSERT INTO release_packaging (id, name) VALUES (2, 'Digipak');
 

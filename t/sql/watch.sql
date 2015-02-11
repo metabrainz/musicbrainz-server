@@ -5,9 +5,6 @@ INSERT INTO artist (id, gid, name, sort_name)
            (2, '16062b24-e317-4fcf-a898-81c3ac025fb6', 'Break', 'Break'),
            (3, 'd4d73e91-751c-4faf-be60-3fc169bab517', 'Tosca', 'Tosca');
 
-INSERT INTO release_status (id, name)
-    VALUES (3, 'Bootleg');
-
 INSERT INTO editor (id, name, password, ha1) VALUES (1, 'acid2', '{CLEARTEXT}xxx', '7d9d2d8a17d6a0aa928c409efdd2884c'), (2, 'rob', '{CLEARTEXT}XXX', '2cebfa4cc482ec4b55eb226b52000a61');
 
 INSERT INTO editor_watch_artist (editor, artist)

@@ -11,10 +11,5 @@ INSERT INTO release_group (id, gid, name, artist_credit)
     VALUES (1, '018acbc0-803c-11de-8a39-0800200c9a66', 'Release Name', 1),
            (2, 'ddc18390-8041-11de-8a39-0800200c9a66', 'Release Name', 1);
 
-INSERT INTO release_group_secondary_type (id, name) VALUES (1, 'DJ-Mix');
-INSERT INTO release_group_secondary_type (id, name) VALUES (2, 'Live');
-INSERT INTO release_group_secondary_type (id, name) VALUES (3, 'Demo');
-
 INSERT INTO release_group_secondary_type_join (release_group, secondary_type)
-       VALUES (1, 1), (1, 3), (2, 1), (2, 2);
-
+    VALUES (1, 8), (1, 10), (2, 8), (2, 6);
