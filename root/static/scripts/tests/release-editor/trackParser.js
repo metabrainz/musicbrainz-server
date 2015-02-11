@@ -200,6 +200,7 @@ parserTest("MBS-7456: Failing to parse artists does not break track autocomplete
 
     // Needs to be done twice so that it reuses the existing track.
     medium.tracks(re.trackParser.parse("1. bar", medium));
+    t.end();
 });
 
 parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3732)", function (t) {
@@ -278,4 +279,78 @@ parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3
     t.equal(track.name(), "FOO!", "name was not used");
     t.equal(track.artistCredit.text(), "BAR!", "artist was not used");
     t.equal(track.formattedLength(), "2:55", "length was used");
+});
+
+parserTest("Does not lose previous recordings (MBS-7719)", function (t) {
+    t.plan(7);
+
+    var trackParser = releaseEditor.trackParser;
+
+    releaseEditor.trackParser.options = {
+        hasTrackNumbers: true,
+        hasVinylNumbers: false,
+        hasTrackArtists: false,
+        useTrackNumbers: true,
+        useTrackArtists: false,
+        useTrackNames: true,
+        useTrackLengths: false,
+    };
+
+    releaseEditor.rootField = releaseEditor.fields.Root();
+
+    var release = releaseEditor.fields.Release({
+        mediums: [
+            {
+                tracks: [
+                    {
+                        name: 'Old Track 1',
+                        recording: {
+                            gid: 'adbd01f7-7d69-43cc-95b5-d3a163be44ef',
+                            name: 'Old Recording 1'
+                        }
+                    },
+                    {
+                        name: 'Old Track 2',
+                        recording: {
+                            gid: '81a5d436-d16f-4bff-8be6-5fd29c1ce0fc',
+                            name: 'Old Recording 2'
+                        }
+                    },
+                    {
+                        name: 'This Track Will Be Moved',
+                        recording: {
+                            gid: '843910ac-4c11-4c3f-9a8a-1056d161dd2f',
+                            name: 'Old Recording 3'
+                        }
+                    }
+                ]
+            }
+        ]
+    });
+
+    releaseEditor.rootField.release(release);
+    var medium = release.mediums()[0];
+    var oldRecordings = _(medium.tracks()).invoke('recording').value();
+
+    medium.tracks(
+        trackParser.parse(
+            "1. Completely Different Title\n" +
+            "2. This Track Will Be Moved\n" +
+            "3. Another Completely Different Title",
+            medium
+        )
+    );
+    var newRecordings = _(medium.tracks()).invoke('recording').value();
+
+    t.notEqual(oldRecordings[0], newRecordings[0], 'first recording is different');
+    t.notEqual(oldRecordings[1], newRecordings[1], 'second recording is different');
+    t.equal(oldRecordings[2], newRecordings[1], 'third recording is reused from second track');
+    t.equal(release.tracksWithUnsetPreviousRecordings().length, 1, 'there’s 1 previous recording available');
+
+    releaseEditor.reuseUnsetPreviousRecordings(release);
+    newRecordings = _(medium.tracks()).invoke('recording').value();
+
+    t.equal(oldRecordings[0], newRecordings[0], 'previous first recording is reused');
+    t.notEqual(oldRecordings[1], newRecordings[1], 'second recording is still different');
+    t.equal(oldRecordings[2], newRecordings[1], 'third recording is still reused from second track');
 });

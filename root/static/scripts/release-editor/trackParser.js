@@ -35,6 +35,7 @@ MB.releaseEditor.trackParser = {
 
         var currentPosition = (medium && medium.hasPregap()) ? -1 : 0;
         var currentTracks;
+        var previousTracks;
         var matchedTracks = {};
         var dataTrackPairs = [];
         var hasTocs;
@@ -43,6 +44,7 @@ MB.releaseEditor.trackParser = {
         // Mediums aren't passed in for unit tests.
         if (medium) {
             currentTracks = medium.tracks.peek().slice(0);
+            previousTracks = currentTracks.slice(0);
             hasTocs = medium.hasToc();
             releaseAC = medium.release.artistCredit;
         }
@@ -184,6 +186,28 @@ MB.releaseEditor.trackParser = {
                     }
                 });
             }
+        }
+
+        // MBS-7719: make sure the "Reuse previous recordings" button is
+        // available for new tracks by saving any unset recordings onto the
+        // new track instances.
+        if (previousTracks) {
+            _.each(newTracks, function (track, index) {
+                var previousTrack = previousTracks[index];
+
+                // Don't save the recording that was at this position if the
+                // *track* that was at this position was moved/reused.
+                if (previousTrack && !matchedTracks[previousTrack.uniqueID]) {
+                    var previousRecording = previousTrack.recording.peek();
+                    if (previousRecording && previousRecording.gid) {
+                        var currentRecording = track.recording.peek();
+                        if (currentRecording !== previousRecording) {
+                            track.recording.saved = previousRecording;
+                            track.hasNewRecording(false);
+                        }
+                    }
+                }
+            });
         }
 
         return newTracks;
