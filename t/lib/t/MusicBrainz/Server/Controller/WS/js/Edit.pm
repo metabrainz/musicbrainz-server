@@ -12,6 +12,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_EDIT
     $EDIT_RELEASE_ADDRELEASELABEL
     $EDIT_RELEASEGROUP_CREATE
+    $EDIT_RELEASEGROUP_EDIT
     $EDIT_MEDIUM_CREATE
     $EDIT_MEDIUM_EDIT
     $EDIT_MEDIUM_DELETE
@@ -1048,6 +1049,68 @@ test 'Duplicate relationships are ignored' => sub {
     } $c;
 
     is(scalar(@edits), 0);
+};
+
+test 'Release group types are loaded before creating edits (MBS-8212)' => sub {
+    my $test = shift;
+    my ($c, $mech) = ($test->c, $test->mech);
+
+    my $editor_id = $c->model('Editor')->insert({
+        name => 'new_editor',
+        password => 'password'
+    });
+
+    $c->model('Editor')->update_email($editor_id, 'noreply@example.com');
+
+    my $artist = $c->model('Artist')->insert({
+        name => 'Test',
+        sort_name => 'Test'
+    });
+
+    my $artist_credit_id = $c->model('ArtistCredit')->find_or_insert({
+        names => [
+            {
+                name => 'Test',
+                artist => { id => $artist->{id} },
+                join_phrase => ''
+            }
+        ]
+    });
+
+    my $release_group = $c->model('ReleaseGroup')->insert({
+        name => 'Test',
+        primary_type_id => 1,
+        secondary_type_ids => [1],
+        artist_credit => $artist_credit_id
+    });
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+    my $edit_data = [
+        {
+            edit_type => $EDIT_RELEASEGROUP_EDIT,
+            gid => $release_group->{gid},
+            name => 'test?',
+            # Should be a no-op.
+            primary_type_id => 1,
+            secondary_type_ids => [1]
+        }
+    ];
+
+    my ($edit) = capture_edits {
+        post_json($mech, '/ws/js/edit/create', encode_json({ edits => $edit_data }));
+    } $c;
+
+    cmp_deeply($edit->data, {
+        new => { name => 'test?' },
+        old => { name => 'Test' },
+        entity => {
+            name => 'Test',
+            id => ignore(),
+            gid => ignore()
+        }
+    });
 };
 
 1;

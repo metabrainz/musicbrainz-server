@@ -154,6 +154,8 @@ around initialize => sub
     my ($self, %opts) = @_;
     my $release_group = $opts{to_edit} or return;
 
+    $self->c->model('ReleaseGroupType')->load($release_group);
+
     $opts{type_id} = delete $opts{primary_type_id};
 
     $opts{secondary_type_ids} = [
