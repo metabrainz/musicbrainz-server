@@ -96,6 +96,9 @@ after 'load' => sub
         $c->model('Medium')->load_for_releases($release);
         $c->model('MediumFormat')->load($release->all_mediums);
         $c->model('Release')->load_release_events($release);
+
+        # Only needed by pages showing the sidebar
+        $c->model('CritiqueBrainz')->load_display_reviews($release->release_group);
     }
 };
 
