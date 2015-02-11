@@ -42,7 +42,7 @@ sub alter_edit_pending {
 sub foreign_keys {
     my ($self) = @_;
     return {
-        ISWC => [ $self->data->{iswc}{id} ],
+        ISWC => { $self->data->{iswc}{id} => [ 'Work' ] },
         Work => { $self->data->{work}{id} => [ 'ArtistCredit'] }
     }
 }
@@ -51,12 +51,11 @@ sub build_display_data {
     my ($self, $loaded) = @_;
 
     my $iswc = $loaded->{ISWC}{ $self->data->{iswc}{id} } ||
-        ISWC->new( iswc => $self->data->{iswc}{iswc} );
-
-    my $work = $loaded->{Work}{ $self->data->{work}{id} } ||
-        Work->new( name => $self->data->{work}{name} );
-
-    $iswc->work($work);
+        ISWC->new(
+            iswc => $self->data->{iswc}{iswc},
+            work => $loaded->{Work}{ $self->data->{work}{id} } //
+                    Work->new( name => $self->data->{work}{name} ),
+        );
 
     return { iswc => $iswc };
 }
