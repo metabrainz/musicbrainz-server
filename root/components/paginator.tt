@@ -16,7 +16,7 @@
         <li><a href="[% c.req.uri_with( page => pager.first_page ) | html %]">[% pager.first_page %]</a></li>
     [%- END -%]
     [%- IF start > (pager.first_page + 1) %]
-        <li><span>[% l('...') %]</span></li>
+        <li><span>[% l('…') %]</span></li>
     [%- END ~%]
 
     [%~ FOR page IN [ start .. end ] -%]
@@ -28,7 +28,7 @@
     [%- END ~%]
 
     [%~ IF end < (pager.last_page - 1) %]
-        <li><span>[% l('...') %]</span></li>
+        <li><span>[% l('…') %]</span></li>
     [%- END ~%]
 
     [%~ IF end < pager.last_page %]
@@ -36,7 +36,7 @@
     [%- END ~%]
 
     [%~ IF guess_search %]
-        <li><span>[% l('...') %]</span></li>
+        <li><span>[% l('…') %]</span></li>
     [%- END -%]
 
     <li class="separator" />
