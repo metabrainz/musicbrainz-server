@@ -474,8 +474,7 @@ UPDATE release_group_meta SET first_release_date_month = NULL, rating_count = NU
 UPDATE release_group_meta SET first_release_date_month = 4, rating_count = 1, first_release_date_year = 2008, release_count = 1, first_release_date_day = 29, rating = 80 WHERE id = 703316;
 UPDATE release_group_meta SET first_release_date_month = 11, rating_count = NULL, first_release_date_year = 2007, release_count = 1, first_release_date_day = 8, rating = NULL WHERE id = 772397;
 
-INSERT INTO release_group_secondary_type_join (release_group, secondary_type) VALUES (761939, 1);
-INSERT INTO release_group_secondary_type_join (release_group, secondary_type) VALUES (403214, 1);
+INSERT INTO release_group_secondary_type_join (release_group, secondary_type) VALUES (761939, 7);
 INSERT INTO release_group_secondary_type_join (release_group, secondary_type) VALUES (772397, 3);
 INSERT INTO release_group_secondary_type_join (release_group, secondary_type) VALUES (87135, 6);
 

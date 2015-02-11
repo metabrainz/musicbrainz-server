@@ -26,9 +26,6 @@ test all => sub {
 
     my $data = $json->decode($mech->content);
 
-    is_deeply($data->{releaseGroup}{typeID}, 2, "release group primary type is loaded");
-    is_deeply($data->{releaseGroup}{secondaryTypeIDs}, [1], "release group secondary types are loaded");
-
     is($data->{mediums}->[0]->{position}, 1, "first disc has position 1");
 
     my $rels = $data->{mediums}->[0]->{tracks}->[0]->{recording}->{relationships};
@@ -63,6 +60,23 @@ test all => sub {
 
     is_deeply($data->{mediums}->[0]->{tracks}->[1]->{recording}->{relationships},
                [], "No relationships on second track");
+};
+
+test 'Release group types are serialized (MBS-8212)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+
+    my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
+    $mech->default_header("Accept" => "application/json");
+    $mech->get_ok('/ws/js/release/3b3d130a-87a8-4a47-b9fb-920f2530d134', 'fetching release');
+
+    my $json = JSON::Any->new(utf8 => 1);
+    my $data = $json->decode($mech->content);
+
+    is($data->{releaseGroup}{typeID}, 1, "release group primary type is loaded");
+    is_deeply($data->{releaseGroup}{secondaryTypeIDs}, [7], "release group secondary types are loaded");
 };
 
 1;
