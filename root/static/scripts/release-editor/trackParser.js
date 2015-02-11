@@ -35,7 +35,7 @@ MB.releaseEditor.trackParser = {
 
         var currentPosition = (medium && medium.hasPregap()) ? -1 : 0;
         var currentTracks;
-        var previousTracks;
+        var previousTracks = [];
         var matchedTracks = {};
         var dataTrackPairs = [];
         var hasTocs;
@@ -104,12 +104,15 @@ MB.releaseEditor.trackParser = {
                 }
             });
 
-        var newTracks = _.map(newTracksData, function (data) {
+        var newTracks = _.map(newTracksData, function (data, index) {
             var matchedTrack = data.matchedTrack;
+            var previousTrack = previousTracks[index];
             var matchedTrackAC = matchedTrack && matchedTrack.artistCredit;
+            var previousTrackAC = previousTrack && previousTrack.artistCredit;
 
-            // See if we can re-use the AC from the matched track or the release.
-            var matchedAC = _.find([ matchedTrackAC, releaseAC ],
+            // See if we can re-use the AC from the matched track, the previous
+            // track at this position, or the release.
+            var matchedAC = _.find([ matchedTrackAC, previousTrackAC, releaseAC ],
                 function (ac) {
                     if (!ac || ac.isVariousArtists()) return false;
 
@@ -191,7 +194,7 @@ MB.releaseEditor.trackParser = {
         // MBS-7719: make sure the "Reuse previous recordings" button is
         // available for new tracks by saving any unset recordings onto the
         // new track instances.
-        if (previousTracks) {
+        if (previousTracks && previousTracks.length) {
             _.each(newTracks, function (track, index) {
                 delete track.previousTrackAtThisPosition;
 
