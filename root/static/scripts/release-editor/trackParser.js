@@ -217,6 +217,7 @@ MB.releaseEditor.trackParser = {
                     // Save track ids, too.
                     if (previousTrack.gid) {
                         track.previousTrackAtThisPosition = {
+                            index: index,
                             id: previousTrack.id,
                             gid: previousTrack.gid
                         };

@@ -268,7 +268,7 @@
         reuseUnsetPreviousRecordings: function (release) {
             _.each(release.tracksWithUnsetPreviousRecordings(), function (track) {
                 var previous = track.previousTrackAtThisPosition;
-                if (previous) {
+                if (previous && previous.index === (track.position.peek() - 1)) {
                     track.id = previous.id;
                     track.gid = previous.gid;
                     delete track.previousTrackAtThisPosition;
