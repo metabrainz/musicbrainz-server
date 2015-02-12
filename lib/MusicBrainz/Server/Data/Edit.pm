@@ -413,31 +413,43 @@ sub merge_entities
               WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
 }
 
-sub preview
-{
-    my ($self, %opts) = @_;
+sub _create_instance {
+    my ($self, $previewing, %opts) = @_;
 
     my $type = delete $opts{edit_type} or croak "edit_type required";
-    my $editor_id = delete $opts{editor_id} or croak "editor_id required";
-    my $privs = delete $opts{privileges} || 0;
+    my $editor = delete $opts{editor};
+    my $editor_id = delete $opts{editor_id};
+
+    if ($editor_id && !$editor) {
+        $editor = $self->c->model('Editor')->get_by_id($editor_id);
+    }
+
+    croak "editor required" unless $editor;
+
     my $class = MusicBrainz::Server::EditRegistry->class_from_type($type)
         or confess "Could not lookup edit type for $type";
 
-    unless ($class->does('MusicBrainz::Server::Edit::Role::Preview'))
-    {
+    if ($previewing && !$class->does('MusicBrainz::Server::Edit::Role::Preview')) {
         warn "FIXME: $class does not support previewing.\n";
         return undef;
     }
 
-    my $edit = $class->new( editor_id => $editor_id, c => $self->c, preview => 1 );
+    my $edit = $class->new(
+        c => $self->c,
+        editor_id => $editor->id,
+        editor => $editor,
+        preview => $previewing
+    );
+
+    MusicBrainz::Server::Edit::Exceptions::Forbidden->throw
+        unless ($editor->id == $EDITOR_MODBOT || $edit->editor_may_edit(\%opts));
+
     try {
         $edit->initialize(%opts);
-    }
-    catch {
+    } catch {
         if (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::NoChanges') {
             confess $_;
-        }
-        else {
+        } else {
             croak join "\n\n", "Could not create $class edit", Dumper(\%opts), $_;
         }
     };
@@ -445,28 +457,19 @@ sub preview
     return $edit;
 }
 
-sub create
-{
+sub preview {
     my ($self, %opts) = @_;
 
-    my $type = delete $opts{edit_type} or croak "edit_type required";
-    my $editor_id = delete $opts{editor_id} or croak "editor_id required";
-    my $privs = delete $opts{privileges} || 0;
-    my $class = MusicBrainz::Server::EditRegistry->class_from_type($type)
-        or confess "Could not lookup edit type for $type";
+    delete $opts{privileges};
+    return $self->_create_instance(1, %opts);
+}
 
-    my $edit = $class->new( editor_id => $editor_id, c => $self->c );
-    try {
-        $edit->initialize(%opts);
-    }
-    catch {
-        if (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::NoChanges') {
-            confess $_;
-        }
-        else {
-            croak join "\n\n", "Could not create $class edit", Dumper(\%opts), $_;
-        }
-    };
+sub create {
+    my ($self, %opts) = @_;
+
+    my $privs = delete $opts{privileges} || 0;
+
+    my $edit = $self->_create_instance(0, %opts);
 
     my $quality = $edit->determine_quality // $QUALITY_UNKNOWN_MAPPED;
     my $conditions = $edit->edit_conditions;
@@ -488,7 +491,7 @@ sub create
 
     # ModBot can override the rules sometimes
     $edit->auto_edit(1)
-        if ($editor_id == $EDITOR_MODBOT && $edit->modbot_auto_edit);
+        if ($edit->editor_id == $EDITOR_MODBOT && $edit->modbot_auto_edit);
 
     # Save quality level
     $edit->quality($quality);

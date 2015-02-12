@@ -388,8 +388,7 @@
 
 
     edit.relationshipDelete = editConstructor(
-        TYPES.EDIT_RELATIONSHIP_DELETE,
-        function (args) { delete args.linkTypeID }
+        TYPES.EDIT_RELATIONSHIP_DELETE
     );
 
 

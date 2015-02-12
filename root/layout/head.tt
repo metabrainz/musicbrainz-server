@@ -47,8 +47,4 @@
         })();
       </script>
     [%- END -%]
-    [%- IF server_details.developement_server -%]
-        <script>less = { relativeUrls: true, rootpath: "[% c.uri_for('/static/') %]" }</script>
-        <script src="[% c.uri_for('/static/lib/less/less-1.4.0.js') %]"></script>
-    [%- END %]
 </head>

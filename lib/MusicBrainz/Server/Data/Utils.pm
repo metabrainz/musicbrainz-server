@@ -35,7 +35,6 @@ our @EXPORT_OK = qw(
     add_coordinates_to_row
     artist_credit_to_ref
     check_data
-    check_in_use
     copy_escape
     coordinates_to_hash
     defined_hash
@@ -175,16 +174,6 @@ sub load_meta
         my $obj = $id_to_obj{$row->{id}};
         $builder->($obj, $row);
     }
-}
-
-sub check_in_use
-{
-    my ($sql, %queries) = @_;
-
-    my @queries = keys %queries;
-    my $query = join ' UNION ', map { "SELECT 1 FROM $_" } @queries;
-    return 1 if $sql->select_single_value($query, map { @{$queries{$_}} } @queries );
-    return;
 }
 
 sub partial_date_to_hash
