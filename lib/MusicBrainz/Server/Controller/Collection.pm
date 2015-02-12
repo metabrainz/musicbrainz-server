@@ -185,6 +185,8 @@ sub open_edits : Chained('load') PathPart RequireAuth
 sub _list_edits {
     my ($self, $c, $status) = @_;
 
+    $self->own_collection($c) if !$c->stash->{collection}->public;
+
     my $edits  = $self->_load_paged($c, sub {
         my ($limit, $offset) = @_;
         $c->model('Edit')->find_by_collection($c->stash->{collection}->id, $limit, $offset, $status);

@@ -58,11 +58,11 @@ test('Guess type', function (t) {
             //Last.fm
             [
                 'artist', 'http://www.last.fm/music/Bj%C3%B6rk',
-                MB.constants.LINK_TYPES.socialnetwork.artist
+                MB.constants.LINK_TYPES.lastfm.artist
             ],
             [
                 'event', 'http://www.last.fm/event/3291943+Pori+jazz',
-                MB.constants.LINK_TYPES.socialnetwork.event
+                MB.constants.LINK_TYPES.lastfm.event
             ],
             // WhoSampled
             [
@@ -103,6 +103,10 @@ test('Guess type', function (t) {
             [
                 'artist', 'http://thesession.org/recordings/artists/2836',
                 MB.constants.LINK_TYPES.otherdatabases.artist
+            ],
+            [
+                'event', 'http://thesession.org/events/3811',
+                MB.constants.LINK_TYPES.otherdatabases.event
             ],
             // Wikimedia Commons
             [
@@ -215,8 +219,20 @@ test('Guess type', function (t) {
             ],
             // Trove
             [
+                'artist', 'http://nla.gov.au/nla.party-548358',
+                MB.constants.LINK_TYPES.otherdatabases.artist
+            ],
+            [
                 'release', 'http://nla.gov.au/anbd.bib-an11701020',
                 MB.constants.LINK_TYPES.otherdatabases.release
+            ],
+            [
+                'release_group', 'http://trove.nla.gov.au/work/9438679',
+                MB.constants.LINK_TYPES.otherdatabases.release_group
+            ],
+            [
+                'label', 'http://nla.gov.au/nla.party-1448035',
+                MB.constants.LINK_TYPES.otherdatabases.label
             ],
             // Instagram
             [
@@ -841,9 +857,9 @@ test('Cleanup', function (t) {
                 'release_group'
             ],
             [
-                'thesession.org/recordings/1488#comment283364',
-                'http://thesession.org/recordings/1488',
-                'release_group'
+                'thesession.org/events/3811#comment748363',
+                'http://thesession.org/events/3811',
+                'event'
             ],
             [
                 'http://thesession.org/recordings/4740/edit',
@@ -1306,6 +1322,27 @@ test('Cleanup', function (t) {
                 'http://rock.genius.com/The-beatles-she-loves-you-lyrics',
                 'http://rock.genius.com/The-beatles-she-loves-you-lyrics',
                 'work'
+            ],
+            // Trove
+            [
+                'http://trove.nla.gov.au/people/1448035?c=people',
+                'http://nla.gov.au/nla.party-1448035',
+                'label'
+            ],
+            [
+                'https://nla.gov.au/nla.party-548358/',
+                'http://nla.gov.au/nla.party-548358',
+                'artist'
+            ],
+            [
+                'trove.nla.gov.au/work/9438679',
+                'http://trove.nla.gov.au/work/9438679',
+                'release_group'
+            ],
+            [
+                'http://nla.gov.au/anbd.bib-an11701020#',
+                'http://nla.gov.au/anbd.bib-an11701020',
+                'release_group'
             ],
         ];
 

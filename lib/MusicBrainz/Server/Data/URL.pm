@@ -48,6 +48,7 @@ my %URL_SPECIALIZATIONS = (
     'IOBDb'               => qr{^https?://(?:www.)?lortel.org/}i,
     'IMVDb'               => qr{^https?://(?:www.)?imvdb.com/}i,
     'InternetArchive'     => qr{^https?://(?:www.)?archive.org/details/}i,
+    'Instagram'           => qr{^https?://(?:www.)?instagram.com/}i,
     'iTunes'              => qr{^https?://itunes.apple.com/}i,
     'ISRCTW'              => qr{^https?://(?:www.)?isrc.ncl.edu.tw/}i,
     'Jamendo'             => qr{^https?://(?:www.)?jamendo.com/}i,

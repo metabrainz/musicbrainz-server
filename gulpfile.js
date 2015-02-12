@@ -45,8 +45,10 @@ function buildStyles() {
         gulp.src("./root/static/*.less")
             .pipe(less({
                 rootpath: "/static/",
-                cleancss: true,
-                relativeUrls: true
+                relativeUrls: true,
+                plugins: [
+                    new (require('less-plugin-clean-css'))
+                ]
             }))
     );
 }
@@ -152,8 +154,10 @@ function buildScripts(watch) {
                 b.external('jed-' + lang);
             });
 
+            b.require('jquery', { expose: 'jquery' });
+
             // Needed by knockout-* plugins in edit.js
-            b.require('./root/static/lib/knockout/knockout-latest.debug.js', { expose: 'knockout' });
+            b.require('knockout', { expose: 'knockout' });
         }),
         createBundle("edit.js", watch, function (b) {
             b.transform('reactify', { es6: true });
@@ -161,7 +165,7 @@ function buildScripts(watch) {
             b.require('./root/static/scripts/edit/validation.js', { expose: true });
             b.require('./root/static/scripts/edit/externalLinks.js', { expose: true });
 
-            b.external('./root/static/lib/knockout/knockout-latest.debug.js');
+            b.external('knockout');
         }),
         createBundle("guess-case.js", watch),
         createBundle("release-editor.js", watch, function (b) {
@@ -170,7 +174,10 @@ function buildScripts(watch) {
             b.external('./root/static/scripts/edit/validation.js');
             b.external('./root/static/scripts/edit/externalLinks.js');
         }),
-        createBundle("statistics.js", watch)
+        createBundle("statistics.js", watch, function (b) {
+            b.external('jquery');
+        }),
+        createBundle('timeline.js')
     ]);
 }
 

@@ -134,6 +134,7 @@ sub merge
         )
     };
 
+    my $modbot = $self->c->model('Editor')->get_by_id($EDITOR_MODBOT);
     if (keys %entity_to_annotation > 1) {
         my $new_text = join("\n\n-------\n\n",
                             grep { $_ ne "" }
@@ -142,7 +143,7 @@ sub merge
         if ($new_text ne '') {
             $self->c->model('Edit')->create(
                 edit_type => $ENTITIES{$type}{annotations}{edit_type},
-                editor_id => $EDITOR_MODBOT,
+                editor => $modbot,
                 entity => $self->c->model(type_to_model($type))->get_by_id($new_id),
                 text => $new_text,
                 changelog => "Result of $type merge"

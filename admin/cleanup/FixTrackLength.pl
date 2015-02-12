@@ -94,6 +94,8 @@ my @mediums = values %medium_by_id;
 $c->model('Track')->load_for_mediums(@mediums);
 $c->model('ArtistCredit')->load(map { $_->all_tracks } @mediums);
 
+my $modbot = $c->model('Editor')->get_by_id($EDITOR_MODBOT);
+
 for my $medium (@mediums)
 {
     printf "%s : Fixing medium #%d\n", scalar(localtime), $medium->id
@@ -162,7 +164,7 @@ for my $medium (@mediums)
                 unless ($dry_run) {
                     Sql::run_in_transaction(sub {
                         my $edit = $c->model('Edit')->create(
-                            editor_id => $EDITOR_MODBOT,
+                            editor => $modbot,
                             privileges => $AUTO_EDITOR_FLAG,
                             edit_type => $EDIT_SET_TRACK_LENGTHS,
                             medium_id => $medium->id,
@@ -267,7 +269,7 @@ for my $medium (@mediums)
                     Sql::run_in_transaction(sub {
                         my $edit = $c->model('Edit')->create(
                             edit_type => $EDIT_MEDIUM_EDIT,
-                            editor_id => $EDITOR_MODBOT,
+                            editor => $modbot,
                             privileges => $AUTO_EDITOR_FLAG,
                             to_edit => $medium,
                             tracklist => \@new_tracklist

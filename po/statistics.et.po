@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-11-19 22:04+0000\n"
+"PO-Revision-Date: 2015-02-03 07:45+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -461,9 +461,9 @@ msgstr "Avalikustati otsingufunktsioonid ja veebiteenuse täiendused."
 
 #: DB:statistics.statistic_event/description:2005-10-23
 msgid ""
-"Top menu navigation improved, duplicate artists, album edit all, track time editing features\n"
-"\treleased."
-msgstr "Parandati põhimenüüd, avalikustati duplikaatartistide, kogu albumi toimetamise ja\nlugude kestuse toimetamise funktsioonid."
+"Top menu navigation improved, duplicate artists, album edit all, track time "
+"editing features released."
+msgstr ""
 
 #: DB:statistics.statistic_event/title:2007-12-07
 msgid "Track times set from DiscIDs"

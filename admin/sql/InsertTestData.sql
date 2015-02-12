@@ -349,4 +349,6 @@ ALTER SEQUENCE link_attribute_type_id_seq RESTART 5;
 
 ALTER SEQUENCE l_artist_recording_id_seq RESTART 4;
 
+SELECT setval('editor_id_seq', (SELECT MAX(id) FROM editor));
+
 SET client_min_messages TO 'NOTICE';

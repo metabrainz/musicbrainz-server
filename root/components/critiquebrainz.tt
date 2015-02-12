@@ -1,0 +1,24 @@
+[% MACRO critiquebrainz_review(review, title) BLOCK %]
+  <h3>[% title | html %]</h3>
+  <p class="review-metadata">
+    [%- l('{review_link|Review} by {author} on {date}', {
+          review_link => review.href,
+          author => '<a href="' _ html_escape(review.author.href) _ '">' _ html_escape(review.author.name) _ '</a>',
+          date => UserDate.format(review.created, date_only=1)
+        })
+    -%]
+  </p>
+  <div class="review-body review-collapse">
+    [% review.body %]
+  </div>
+[% END %]
+
+[% MACRO critiquebrainz_links(rg) BLOCK %]
+  [%~ ln(
+        'There’s {reviews_link|{review_count} review} on CritiqueBrainz. You can also {write_link|write your own}.',
+        'There are {reviews_link|{review_count} reviews} on CritiqueBrainz. You can also {write_link|write your own}.',
+        rg.review_count,
+        { reviews_link => rg.see_reviews_href, review_count => rg.review_count, write_link => rg. write_review_href }
+      )
+  ~%]
+[% END %]

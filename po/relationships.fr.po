@@ -15,7 +15,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-01-30 11:27+0000\n"
+"PO-Revision-Date: 2015-02-03 07:45+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -1103,7 +1103,7 @@ msgid ""
 "This indicates that one release is identical to another release, but that "
 "the release title and track titles have been either translated (into another"
 " language) or transliterated (into another script)."
-msgstr ""
+msgstr "Ceci indique qu'une parution est identique à une autre, mais que le tire de la parution et les titres des pistes ont soit été traduits (dans une autre langue) au translittérés (dans un autre système d'écriture)."
 
 #: DB:link_type/description:25 DB:link_type/description:129
 msgid ""
@@ -2041,10 +2041,20 @@ msgid ""
 " to cataloguing the music of video games and anime."
 msgstr "Ce type de relation relie un label à sa page correspondante sur <a href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb est un projet communautaire dédié au catalogage de la musique de jeux vidéo et d'animes."
 
+#: DB:link_type/description:838
+msgid ""
+"This relationship type links a label to its corresponding page at last.fm"
+msgstr ""
+
 #: DB:link_type/description:787
 msgid ""
 "This relationship type links a place to its corresponding page at Songkick."
 msgstr "Ce type de relation relie un lieu à sa page correspondante sur Songkick."
+
+#: DB:link_type/description:837
+msgid ""
+"This relationship type links a place to its corresponding page at last.fm"
+msgstr ""
 
 #: DB:link_type/description:817
 msgid ""
@@ -2070,6 +2080,11 @@ msgid ""
 "This relationship type links an artist to its corresponding page at "
 "Songkick."
 msgstr "Ce type de relation relie un artiste à sa page correspondante sur Songkick."
+
+#: DB:link_type/description:840
+msgid ""
+"This relationship type links an artist to its corresponding page at last.fm"
+msgstr ""
 
 #: DB:link_type/description:816
 msgid ""
@@ -2104,6 +2119,11 @@ msgstr "Ce type de relation relie un événement à sa page correspondante sur <
 msgid ""
 "This relationship type links an event to its corresponding page at Songkick."
 msgstr "Ce type de relation relie un événement à sa page correspondante sur Songkick."
+
+#: DB:link_type/description:839
+msgid ""
+"This relationship type links an event to its corresponding page at last.fm"
+msgstr ""
 
 #: DB:link_type/description:811
 msgid ""
@@ -2781,6 +2801,11 @@ msgstr "a une page de fan à"
 msgid "has a karaoke version"
 msgstr "à une version karaoké"
 
+#: DB:link_type/long_link_phrase:837 DB:link_type/long_link_phrase:840
+#: DB:link_type/long_link_phrase:838 DB:link_type/long_link_phrase:839
+msgid "has a last.fm page at"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:213
 msgid "has a logo at"
 msgstr "à un logo à"
@@ -3213,6 +3238,16 @@ msgstr "version karaoké de"
 #: DB:link_type/link_phrase:226
 msgid "karaoke versions"
 msgstr "versions karaoké"
+
+#: DB:link_type/link_phrase:837 DB:link_type/link_phrase:840
+#: DB:link_type/link_phrase:838 DB:link_type/link_phrase:839
+msgid "last.fm"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:837 DB:link_type/reverse_link_phrase:840
+#: DB:link_type/reverse_link_phrase:838 DB:link_type/reverse_link_phrase:839
+msgid "last.fm page for"
+msgstr ""
 
 #: DB:link_type/link_phrase:238
 msgid "later releases"
