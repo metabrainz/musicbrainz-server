@@ -59,8 +59,11 @@ sub _build_formatted_date {
         return l('&#x2013; {enddate}', { enddate => $end_date->format });
     }
     if ($end_date->is_empty) {
-        return l('{begindate} &#x2013;' . ($ended ? ' ????' : ''),
-            { begindate => $begin_date->format });
+        return $ended ?
+            l('{begindate} &#x2013; ????',
+              { begindate => $begin_date->format }) :
+            l('{begindate} &#x2013;',
+              { begindate => $begin_date->format });
     }
     return '';
 }
