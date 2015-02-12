@@ -4,7 +4,6 @@ use MooseX::Singleton;
 use Cwd qw(abs_path);
 use DBDefs;
 use DateTime::Locale;
-use Encode;
 use I18N::LangTags ();
 use I18N::LangTags::Detect;
 use List::UtilsBy qw( sort_by );
@@ -209,8 +208,6 @@ sub _expand
             return "{$var|$text}";
         }
     };
-
-    $string = decode('utf-8', $string);
 
     my $result = '';
     my $remainder = $string;
