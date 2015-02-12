@@ -6,6 +6,8 @@ use namespace::autoclean;
 
 use MusicBrainz::Server::Translation 'l';
 
+no if $] >= 5.018, warnings => "experimental::smartmatch";
+
 sub edit_category { l('Relationship') }
 
 sub check_attributes {
