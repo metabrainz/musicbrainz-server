@@ -457,7 +457,7 @@ msgstr ""
 #: DB:statistics.statistic_event/description:2005-10-23
 msgid ""
 "Top menu navigation improved, duplicate artists, album edit all, track time "
-"editing features\n\treleased."
+"editing features released."
 msgstr ""
 
 #: DB:statistics.statistic_event/title:2007-12-07

@@ -397,9 +397,6 @@ var request = require('../../common/utility/request.js');
     edit.relationshipEdit = editConstructor(
         TYPES.EDIT_RELATIONSHIP_EDIT,
         function (args, orig) {
-            if (_.isEqual(args.linkTypeID, orig.linkTypeID)) {
-                delete args.linkTypeID;
-            }
             if (_.isEqual(args.attributes, orig.attributes)) {
                 delete args.attributes;
             }
@@ -408,8 +405,7 @@ var request = require('../../common/utility/request.js');
 
 
     edit.relationshipDelete = editConstructor(
-        TYPES.EDIT_RELATIONSHIP_DELETE,
-        function (args) { delete args.linkTypeID }
+        TYPES.EDIT_RELATIONSHIP_DELETE
     );
 
 

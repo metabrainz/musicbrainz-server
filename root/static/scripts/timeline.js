@@ -1,5 +1,9 @@
 var debounce = require('./common/utility/debounce.js');
 
+require("jquery.flot");
+require("jquery.flot.musicbrainzEvents");
+require("jquery.flot.selection");
+
 MB.Timeline = {};
 
 MB.Timeline.TimelineViewModel = aclass({

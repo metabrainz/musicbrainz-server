@@ -23,6 +23,9 @@ INSERT INTO label (id, gid, name, area)
   VALUES (5, 'c5655a7c-bba0-46aa-a8fd-db707d47aa5c', 'Artist', 13);
 EOSQL
 
+    my $editor = $c->model('Editor')->get_by_id(1);
+    $c->model('Editor')->update_privileges($editor, { location_editor => 1 });
+
     my $edit = $c->model('Edit')->create(
         edit_type => $EDIT_AREA_MERGE,
         editor_id => 1,
@@ -52,6 +55,9 @@ VALUES (1, 'a2d13b15-4002-4d04-8a08-b9a9a7fbe9ad', 'Release', 1, 1);
 INSERT INTO release_country (release, country) VALUES (1, 13);
 EOSQL
 
+    my $editor = $c->model('Editor')->get_by_id(1);
+    $c->model('Editor')->update_privileges($editor, { location_editor => 1 });
+
     my $edit = $c->model('Edit')->create(
         edit_type => $EDIT_AREA_MERGE,
         editor_id => 1,
@@ -63,4 +69,3 @@ EOSQL
 };
 
 1;
-

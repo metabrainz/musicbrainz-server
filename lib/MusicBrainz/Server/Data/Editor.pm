@@ -446,9 +446,8 @@ sub donation_check
     return { nag => $nag, days => $days };
 }
 
-sub editors_with_subscriptions
-{
-    my ($self) = @_;
+sub editors_with_subscriptions {
+    my ($self, $after, $limit) = @_;
 
     my @tables = (entities_with('subscriptions',
                                 take => sub { return "editor_subscribe_" . (shift) }),
@@ -460,7 +459,10 @@ sub editors_with_subscriptions
               LEFT JOIN editor_preference ep
                      ON ep.editor = editor.id AND
                         ep.name = 'subscriptions_email_period'
-                  WHERE editor.id IN ($ids)";
+                  WHERE editor.id > ?
+                    AND editor.id IN ($ids)
+               ORDER BY editor.id ASC
+                  LIMIT ?";
 
     return query_to_list(
         $self->c->sql, sub {
@@ -469,7 +471,8 @@ sub editors_with_subscriptions
                 if defined $_[0]->{prefs_value};
             return $editor;
         },
-        $query);
+        $query,
+        $after, $limit);
 }
 
 sub delete {

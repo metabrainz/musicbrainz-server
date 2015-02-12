@@ -255,98 +255,95 @@ ko.bindingHandlers.affectsBubble = {
 };
 
 
-$(function () {
+// Handle click and focus events that might cause a bubble to be shown or
+// hidden. This event could be attached individually in controlsBubble, but
+// since there can be a lot of bubble controls on the page, event
+// delegation is better for performance.
 
-    // Handle click and focus events that might cause a bubble to be shown or
-    // hidden. This event could be attached individually in controlsBubble, but
-    // since there can be a lot of bubble controls on the page, event
-    // delegation is better for performance.
+function bubbleControlHandler(event) {
+    var control = event.target;
+    var bubble = control.bubbleDoc;
 
-    function bubbleControlHandler(event) {
-        var control = event.target;
-        var bubble = control.bubbleDoc;
+    if (!bubble) {
+        // If the user clicked outside of the active bubble, hide it.
+        var $active = $("div.bubble:visible:eq(0)");
 
-        if (!bubble) {
-            // If the user clicked outside of the active bubble, hide it.
-            var $active = $("div.bubble:visible:eq(0)");
+        if ($active.length && !$active.has(control).length) {
+            bubble = $active[0].bubbleDoc;
 
-            if ($active.length && !$active.has(control).length) {
-                bubble = $active[0].bubbleDoc;
+            if (bubble.closeWhenFocusIsLost &&
+                !event.isDefaultPrevented() &&
 
-                if (bubble.closeWhenFocusIsLost &&
-                    !event.isDefaultPrevented() &&
+                // Close unless focus was moved to a dialog above this
+                // one, i.e. when adding a new entity.
+                !$(event.target).parents(".ui-dialog").length) {
 
-                    // Close unless focus was moved to a dialog above this
-                    // one, i.e. when adding a new entity.
-                    !$(event.target).parents(".ui-dialog").length) {
-
-                    bubble.hide(false);
-                }
-            }
-            return;
-        }
-
-        var isButton = $(control).is(":button");
-        var buttonClicked = isButton && event.type === "click";
-        var inputFocused = !isButton && event.type === "focusin";
-        var viewModel = ko.dataFor(control);
-
-        // If this is false, the bubble should already be hidden. See the
-        // computed in controlsBubble.
-        if (bubble.canBeShown(viewModel)) {
-            var wasOpen = bubble.visible() && bubble.targetIs(viewModel);
-
-            if (buttonClicked && wasOpen) {
-                bubble.hide();
-
-            } else if (inputFocused || (buttonClicked && !wasOpen)) {
-                bubble.show(control);
+                bubble.hide(false);
             }
         }
-        // Prevent the default action from occuring.
-        return false;
+        return;
     }
 
+    var isButton = $(control).is(":button");
+    var buttonClicked = isButton && event.type === "click";
+    var inputFocused = !isButton && event.type === "focusin";
+    var viewModel = ko.dataFor(control);
 
-    // Pressing enter should close the bubble or perform a custom action (i.e.
-    // going to the next track). Pressing escape should always close it.
+    // If this is false, the bubble should already be hidden. See the
+    // computed in controlsBubble.
+    if (bubble.canBeShown(viewModel)) {
+        var wasOpen = bubble.visible() && bubble.targetIs(viewModel);
 
-    function bubbleKeydownHandler(event) {
-        if (event.isDefaultPrevented()) {
-            return;
-        }
+        if (buttonClicked && wasOpen) {
+            bubble.hide();
 
-        var $target = $(event.target);
-        var $bubble = $target.parents("div.bubble");
-
-        var pressedEsc = event.which === 27;
-        var pressedEnter = event.which === 13;
-
-        if (pressedEsc || (pressedEnter && $target.is(":not(:button)"))) {
-            event.preventDefault();
-
-            // This causes any "value" binding on the input to update its
-            // associated observable. e.g. if the user types something in a
-            // join phrase field and hits esc., the join phrase in the view
-            // model should update. This should run before the code below,
-            // because the view model for the bubble may change.
-            $target.trigger("change");
-
-            var bubbleDoc = $bubble[0].bubbleDoc;
-
-            if (pressedEsc) {
-                bubbleDoc.hide();
-            }
-            else if (pressedEnter) {
-                bubbleDoc.submit();
-            }
+        } else if (inputFocused || (buttonClicked && !wasOpen)) {
+            bubble.show(control);
         }
     }
+    // Prevent the default action from occuring.
+    return false;
+}
 
-    $("body")
-        .on("click focusin", bubbleControlHandler)
-        .on("keydown", "div.bubble :input", bubbleKeydownHandler);
-});
+
+// Pressing enter should close the bubble or perform a custom action (i.e.
+// going to the next track). Pressing escape should always close it.
+
+function bubbleKeydownHandler(event) {
+    if (event.isDefaultPrevented()) {
+        return;
+    }
+
+    var $target = $(event.target);
+    var $bubble = $target.parents("div.bubble");
+
+    var pressedEsc = event.which === 27;
+    var pressedEnter = event.which === 13;
+
+    if (pressedEsc || (pressedEnter && $target.is(":not(:button)"))) {
+        event.preventDefault();
+
+        // This causes any "value" binding on the input to update its
+        // associated observable. e.g. if the user types something in a
+        // join phrase field and hits esc., the join phrase in the view
+        // model should update. This should run before the code below,
+        // because the view model for the bubble may change.
+        $target.trigger("change");
+
+        var bubbleDoc = $bubble[0].bubbleDoc;
+
+        if (pressedEsc) {
+            bubbleDoc.hide();
+        }
+        else if (pressedEnter) {
+            bubbleDoc.submit();
+        }
+    }
+}
+
+$("body")
+    .on("click focusin", bubbleControlHandler)
+    .on("keydown", "div.bubble :input", bubbleKeydownHandler);
 
 
 // Helper function for use outside the release editor.

@@ -301,7 +301,7 @@ sub release_submit : Private
         try {
             $c->model('MB')->with_transaction(sub {
                 $c->model('Edit')->create(
-                    editor_id => $c->user->id,
+                    editor => $c->user,
                     privileges => $c->user->privileges,
                     edit_type => $EDIT_RELEASE_EDIT_BARCODES,
                     submissions => [ map +{

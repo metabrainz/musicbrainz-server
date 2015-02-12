@@ -29,7 +29,6 @@ with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'event' }
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'event' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'event' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'event' };
-with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'event' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 
@@ -45,8 +44,6 @@ sub _columns
            'event.end_date_month, event.end_date_day, event.ended, ' .
            'event.comment, event.last_updated';
 }
-
-sub browse_column { 'name' }
 
 sub _id_column
 {

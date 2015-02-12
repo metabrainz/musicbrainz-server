@@ -173,7 +173,8 @@ MB.constants.LINK_TYPES = {
         release: "c74dee45-3c85-41e9-a804-92ab1c654446",
         release_group: "38320e40-9f4a-3ae7-8cb2-3f3c9c5d856d",
         series: "8a08d0f5-c7c4-4572-9d22-cee92693d820",
-        work: "190ea031-4355-405d-a43e-53eb4c5c4ada"
+        work: "190ea031-4355-405d-a43e-53eb4c5c4ada",
+        event: "1e06fb0b-831d-49cf-abfd-52acb5b56e05"
     },
     viaf: {
         artist: "e8571dcc-35d4-4e91-a577-a3382fd84460",
@@ -206,10 +207,19 @@ MB.constants.LINK_TYPES = {
         place: "751e8fb1-ed8d-4a94-b71b-a38065054f5d"
     },
     geonames: {
-        area: 713
+        area: "c52f14c0-e9ac-4a8a-8f7a-c47328de168f"
     },
     imslp: {
         artist: "8147b6a2-ad14-4ce7-8f0a-697f9a31f68f"
+    },
+    lastfm: {
+        artist: "08db8098-c0df-4b78-82c3-c8697b4bba7f",
+        label: "e3390a1d-3083-4bc9-9295-aff9da18612c",
+        place: "c3ddb53d-a7df-4486-8cc7-c1b7baec994e",
+        event: "fd86b01d-c8f7-4f0a-a077-81855a9cfeef"
+    },
+    onlinecommunity: {
+        artist: "35b3a50f-bf0e-4309-a3b4-58eeed8cee6a"
     }
 };
 
@@ -480,7 +490,7 @@ MB.constants.CLEANUPS = {
     socialnetwork: {
         match: [
             new RegExp("^(https?://)?([^/]+\\.)?facebook\\.com/", "i"),
-            new RegExp("^(https?://)?([^/]+\\.)?(last\\.fm|lastfm\\.(com\\.br|com\\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/(music|label|venue|user|group|event|festival)/", "i"),
+            new RegExp("^(https?://)?([^/]+\\.)?(last\\.fm|lastfm\\.(com\\.br|com\\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/user/", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?reverbnation\\.com/", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?plus\\.google\\.com/", "i"),
             new RegExp("^(https?://)?([^/]+\\.)?vine\\.co/", "i"),
@@ -505,11 +515,10 @@ MB.constants.CLEANUPS = {
                 }
                 url = url.replace(/\/event\.php\?eid=/, "/events/");
             }
-            url = url.replace(/^(https?:\/\/)?((www|cn|m)\.)?(last\.fm|lastfm\.(com\.br|com\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/, "http://www.last.fm");
-            url = url.replace(/^http:\/\/www\.last\.fm\/music\/([^?]+).*/, "http://www.last.fm/music/$1");
             url = url.replace(/^(?:https?:\/\/)?plus\.google\.com\/(?:u\/[0-9]\/)?([0-9]+)(\/.*)?$/, "https://plus.google.com/$1");
             url = url.replace(/^(?:https?:\/\/)?(?:(?:www|mobile)\.)?twitter\.com(?:\/#!)?\/@?([^\/]+)\/?$/, "https://twitter.com/$1");
             url = url.replace(/^(?:https?:\/\/)?(?:(?:www|m)\.)?reverbnation\.com(?:\/#!)?\//, "http://www.reverbnation.com/");
+            url = url.replace(/^(https?:\/\/)?((www|cn|m)\.)?(last\.fm|lastfm\.(com\.br|com\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/, "http://www.last.fm");
             return url;
         }
     },
@@ -615,6 +624,23 @@ MB.constants.CLEANUPS = {
         match: [ new RegExp("^(https?://)?(www\\.)?imslp\\.org/", "i") ],
         type: MB.constants.LINK_TYPES.imslp
     },
+    lastfm: {
+        match: [ new RegExp("^(https?://)?([^/]+\\.)?(last\\.fm|lastfm\\.(com\\.br|com\\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/(music|label|venue|event|festival)/", "i") ],
+        type: MB.constants.LINK_TYPES.lastfm,
+        clean: function (url) {
+            url = url.replace(/^(https?:\/\/)?((www|cn|m)\.)?(last\.fm|lastfm\.(com\.br|com\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/, "http://www.last.fm");
+            url = url.replace(/^http:\/\/www\.last\.fm\/music\/([^?]+).*/, "http://www.last.fm/music/$1");
+            return url;
+        }
+    },
+    onlinecommunity: {
+        match: [ new RegExp("^(https?://)?([^/]+\\.)?(last\\.fm|lastfm\\.(com\\.br|com\\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/group/", "i") ],
+        type: MB.constants.LINK_TYPES.onlinecommunity,
+        clean: function (url) {
+            url = url.replace(/^(https?:\/\/)?((www|cn|m)\.)?(last\.fm|lastfm\.(com\.br|com\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/, "http://www.last.fm");
+            return url;
+        }
+    },
     otherdatabases: {
         match: [
             new RegExp("^(https?://)?(www\\.)?rateyourmusic\\.com/", "i"),
@@ -675,7 +701,9 @@ MB.constants.CLEANUPS = {
             //Standardising ESTER to their default parameters
             url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ester\.ee\/record=([^~]+)(?:.*)?$/, "http://www.ester.ee/record=$1~S1*est");
             //Standardising Trove
-            url = url.replace(/^(?:https?:\/\/)?trove.nla.gov.au\/work\/([^\/?]+)(?:\?.*)?$/, "http://trove.nla.gov.au/work/$1");
+            url = url.replace(/^(?:https?:\/\/)?trove\.nla\.gov\.au\/work\/([^\/?#]+)(?:.*)?$/, "http://trove.nla.gov.au/work/$1");
+            url = url.replace(/^(?:https?:\/\/)?trove\.nla\.gov\.au\/people\/([^\/?#]+)(?:.*)?$/, "http://nla.gov.au/nla.party-$1");
+            url = url.replace(/^(?:https?:\/\/)?nla\.gov\.au\/(nla\.party-|anbd\.bib-an)([^\/?#]+)(?:.*)?$/, "http://nla.gov.au/$1$2");
             //Standardising Rockens Danmarkskort
             url = url.replace(/^(?:https?:\/\/)?(?:www\.)?rockensdanmarkskort\.dk\/steder\/(.*)+$/, "http://www.rockensdanmarkskort.dk/steder/$1");
             //Standardising RIC
@@ -685,7 +713,7 @@ MB.constants.CLEANUPS = {
             //Standardising DHHU
             url = url.replace(/^(?:https?:\/\/)?(www\.)?dhhu\.dk\/w\/(.*)+$/, "http://www.dhhu.dk/w/$2");
             //Standardising The Session
-            url = url.replace(/^(?:https?:\/\/)?(?:www\.)?thesession\.org\/(tunes|recordings(?:\/artists)?)(?:\/.*)?\/([0-9]+)(?:.*)?$/, "http://thesession.org/$1/$2");
+            url = url.replace(/^(?:https?:\/\/)?(?:www\.)?thesession\.org\/(tunes|events|recordings(?:\/artists)?)(?:\/.*)?\/([0-9]+)(?:.*)?$/, "http://thesession.org/$1/$2");
             //Standardising Open Library
             url = url.replace(/^(?:https?:\/\/)?(www\.)?openlibrary\.org\/(authors|books|works)\/(OL[0-9]+[AMW]\/)(.*)*$/, "http://openlibrary.org/$2/$3");
             //Standardising Anime News Network
@@ -968,6 +996,8 @@ MB.Control.URLCleanup = function (options) {
     validationRules[ MB.constants.LINK_TYPES.otherdatabases.work ] = validateOtherDatabases
     validationRules[ MB.constants.LINK_TYPES.otherdatabases.recording ] = validateOtherDatabases
     validationRules[ MB.constants.LINK_TYPES.otherdatabases.place ] = validateOtherDatabases;
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.event ] = validateOtherDatabases;
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.series ] = validateOtherDatabases;
 
     var validateFacebook = function (url) {
         if (url.match(/facebook.com\/pages\//)) {

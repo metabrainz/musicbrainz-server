@@ -21,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-30 04:25-0700\n"
-"PO-Revision-Date: 2015-01-30 11:27+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"POT-Creation-Date: 2015-02-03 00:42-0700\n"
+"PO-Revision-Date: 2015-02-01 11:25+0000\n"
+"Last-Translator: salorock <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -266,7 +266,7 @@ msgid ""
 "0: Hidden, always used for sign languages and languages with no ISO 639-3 "
 "code, used by default until requested for ancient languages and languages "
 "only in ISO 639-3"
-msgstr ""
+msgstr "0: Nascosto, utilizzato sempre per lingue dei segni e lingue senza un codice ISO 639-3, utilizzato di default fino a una richiesta per lingue antiche e lingue presenti solo in ISO 639-3"
 
 #: ../root/edit/info.tt:54
 msgid "1 vote"
@@ -280,11 +280,11 @@ msgstr "100%"
 
 #: ../root/admin/attributes/form.tt:32
 msgid "1: Hidden, used for scripts not in Unicode"
-msgstr ""
+msgstr "1: Nascosto, utilizzato per script non in Unicode"
 
 #: ../root/admin/attributes/form.tt:15
 msgid "1: Shown in the \"other\" section"
-msgstr ""
+msgstr "1: Mostrato nella sezione \"altro\""
 
 #: ../root/elections/show.tt:19
 msgid "1st seconder:"
@@ -298,11 +298,11 @@ msgstr "250px"
 msgid ""
 "2: Shown in the \"other\" section, used for scripts in Unicode which are "
 "unlikely to be used"
-msgstr ""
+msgstr "2: Mostrato nella sezione \"altro\", utilizzato per script in Unicode difficilmente utilizzati"
 
 #: ../root/admin/attributes/form.tt:14
 msgid "2: Shown in the commonly used section"
-msgstr ""
+msgstr "2: Mostrato nella sezione \"utilizzati di frequente\""
 
 #: ../root/elections/show.tt:23
 msgid "2nd seconder:"
@@ -312,11 +312,11 @@ msgstr "2º sostenitore:"
 msgid ""
 "3: Shown in the \"other\" section, used for scripts which are likely to get "
 "some usage"
-msgstr ""
+msgstr "3: Mostrato nella sezione \"altro\", utilizzato per script che hanno qualche probabilità di essere selezionati"
 
 #: ../root/admin/attributes/form.tt:29
 msgid "4: Shown in the commonly used section"
-msgstr ""
+msgstr "4: Mostrato nella sezione \"utilizzati di frequente\""
 
 #: ../root/components/common-macros.tt:109
 msgid "500px"
@@ -749,7 +749,7 @@ msgstr "Aggiungi collegamento:"
 #: ../root/admin/attributes/language.tt:33
 #: ../root/admin/attributes/script.tt:29
 msgid "Add new attribute"
-msgstr ""
+msgstr "Aggiungi nuovo attributo"
 
 #: ../root/artist/layout.tt:13
 msgid "Add recording"
@@ -1187,7 +1187,7 @@ msgstr "Sei sicuro di voler rimuovere il tipo di relazione <strong>{link_type}</
 
 #: ../root/admin/attributes/delete.tt:6
 msgid "Are you sure you wish to remove the <strong>{name}</strong> attribute?"
-msgstr ""
+msgstr "Sei sicuro di voler rimuovere l'attributo <strong>{name}</strong>?"
 
 #: ../root/area/delete.tt:5
 msgid "Are you sure you wish to remove the area {area} from MusicBrainz?"
@@ -2016,7 +2016,7 @@ msgstr "Impossibile aggiungere copertina"
 
 #: ../root/admin/attributes/in_use.tt:1 ../root/admin/attributes/in_use.tt:2
 msgid "Cannot Remove Attribute"
-msgstr ""
+msgstr "Impossibile rimuovere l'attributo"
 
 #: ../root/artist/special_purpose.tt:1
 msgid "Cannot edit"
@@ -2095,7 +2095,7 @@ msgstr "Cambiamenti"
 
 #: ../root/admin/attributes/form.tt:40 ../root/admin/attributes/index.tt:20
 msgid "Child order"
-msgstr ""
+msgstr "Ordine dei figli"
 
 #: ../root/doc/relationship_type.tt:32
 #: ../root/edit/details/add_relationship_attribute.tt:11
@@ -2366,7 +2366,7 @@ msgstr "Creazione della modifica in corso..."
 
 #: ../root/release/index.tt:51
 msgid "Credits"
-msgstr ""
+msgstr "Accreditamenti"
 
 #: ../root/admin/wikidoc/edit.tt:14
 msgid "Current version:"
@@ -2598,7 +2598,7 @@ msgstr "ID disco"
 
 #: ../root/admin/attributes/index.tt:25
 msgid "Disc IDs allowed"
-msgstr ""
+msgstr "ID disco permessi"
 
 #: ../root/report/superfluous_data_tracks.tt:1
 msgid "Disc IDs with superfluous data tracks"
@@ -2764,11 +2764,11 @@ msgstr "Modifica accreditamento dell'artista"
 
 #: ../root/admin/attributes/edit.tt:1 ../root/admin/attributes/edit.tt:3
 msgid "Edit Attribute"
-msgstr ""
+msgstr "Modifica attributo"
 
 #: ../root/admin/index.tt:20 ../root/layout/menu.tt:108
 msgid "Edit Attributes"
-msgstr ""
+msgstr "Modifica attributi"
 
 #: ../root/admin/edit_banner.tt:1 ../root/admin/edit_banner.tt:3
 #: ../root/admin/index.tt:17 ../root/layout/menu.tt:103
@@ -3087,7 +3087,7 @@ msgstr "Entità non trovata"
 
 #: ../root/admin/attributes/index.tt:29
 msgid "Entity type"
-msgstr ""
+msgstr "Tipo di entità"
 
 #: ../root/edit/details/edit_relationship_type.tt:6
 msgid "Entity types:"
@@ -3451,7 +3451,7 @@ msgstr "Fondato:"
 
 #: ../root/admin/attributes/index.tt:33
 msgid "Free text"
-msgstr ""
+msgstr "Testo libero"
 
 #: ../root/freedb/not_found.tt:1 ../root/freedb/not_found.tt:2
 msgid "FreeDB Entry Not Found"
@@ -3485,11 +3485,11 @@ msgstr "Francese"
 #: ../root/admin/attributes/language.tt:14
 #: ../root/admin/attributes/script.tt:12
 msgid "Frequency"
-msgstr ""
+msgstr "Frequenza"
 
 #: ../root/admin/attributes/form.tt:12 ../root/admin/attributes/form.tt:27
 msgid "Frequency notes:"
-msgstr ""
+msgstr "Note di frequenza:"
 
 #: ../root/edit/details/historic/move_disc_id.tt:8
 #: ../root/edit/details/move_disc_id.tt:8
@@ -3737,27 +3737,27 @@ msgstr "ISO 3166-3:"
 
 #: ../root/admin/attributes/form.tt:6 ../root/admin/attributes/language.tt:10
 msgid "ISO 639-1"
-msgstr ""
+msgstr "ISO 639-1"
 
 #: ../root/admin/attributes/form.tt:7 ../root/admin/attributes/language.tt:11
 msgid "ISO 639-2/B"
-msgstr ""
+msgstr "ISO 639-2/B"
 
 #: ../root/admin/attributes/form.tt:8 ../root/admin/attributes/language.tt:12
 msgid "ISO 639-2/T"
-msgstr ""
+msgstr "ISO 639-2/T"
 
 #: ../root/admin/attributes/form.tt:9 ../root/admin/attributes/language.tt:13
 msgid "ISO 639-3"
-msgstr ""
+msgstr "ISO 639-3"
 
 #: ../root/admin/attributes/form.tt:23 ../root/admin/attributes/script.tt:10
 msgid "ISO code"
-msgstr ""
+msgstr "Codice ISO"
 
 #: ../root/admin/attributes/form.tt:24 ../root/admin/attributes/script.tt:11
 msgid "ISO number"
-msgstr ""
+msgstr "Numero ISO"
 
 #: ../root/recording/edit_form.tt:32
 #: ../root/report/isrc_with_many_recordings.tt:23
@@ -4905,7 +4905,7 @@ msgstr "Nuovo accreditamento dell'artista"
 
 #: ../root/admin/attributes/create.tt:1 ../root/admin/attributes/create.tt:3
 msgid "New Attribute"
-msgstr ""
+msgstr "Nuovo attributo"
 
 #: ../root/release/add_cover_art.tt:127
 msgid "New Image Goes Here"
@@ -5495,7 +5495,7 @@ msgstr "Padre"
 
 #: ../root/admin/attributes/index.tt:21
 msgid "Parent ID"
-msgstr ""
+msgstr "ID padre"
 
 #: ../root/edit/details/add_relationship_attribute.tt:15
 #: ../root/edit/details/edit_relationship_attribute.tt:14
@@ -6621,7 +6621,7 @@ msgstr "Rimuovi accreditamento dell'artista"
 
 #: ../root/admin/attributes/delete.tt:1 ../root/admin/attributes/delete.tt:3
 msgid "Remove Attribute"
-msgstr ""
+msgstr "Rimuovi attributo"
 
 #: ../root/release/remove_cover_art.tt:1 ../root/release/remove_cover_art.tt:2
 msgid "Remove Cover Art"
@@ -6868,7 +6868,7 @@ msgstr "Punteggio"
 
 #: ../root/admin/attributes/script.tt:1 ../root/admin/attributes/script.tt:3
 msgid "Script"
-msgstr ""
+msgstr "Script"
 
 #: ../root/edit/details/add_release.tt:53
 #: ../root/edit/details/edit_release.tt:37
@@ -8375,7 +8375,7 @@ msgstr "Questo modulo ti permette di dividere {artist} in artisti separati. Quan
 
 #: ../root/admin/attributes/form.tt:60
 msgid "This format can have disc IDs"
-msgstr ""
+msgstr "Questo formato può avere ID disco"
 
 #: ../root/instrument/delete.tt:15
 msgid ""
@@ -8411,7 +8411,7 @@ msgstr "Questo è un server di sviluppo; tutte le password sono state reimpostat
 
 #: ../root/admin/attributes/form.tt:64
 msgid "This is a free text work attribute"
-msgstr ""
+msgstr "Questo è un attributo dell'opera di testo libero"
 
 #: ../root/artist/aliases.tt:10
 msgid ""
@@ -10344,7 +10344,7 @@ msgstr "Non puoi aggiungere una bozza CD se hai effettuato l'accesso a MusicBrai
 
 #: ../root/admin/attributes/in_use.tt:3
 msgid "You cannot remove the attribute \"{name}\" because it is still in use."
-msgstr ""
+msgstr "Non puoi rimuovere l'attributo \"{name}\" perché è ancora in uso."
 
 #: ../root/relationship/linkattributetype/in_use.tt:3
 msgid ""
@@ -11139,11 +11139,11 @@ msgstr "{mbid|<abbr title=\"Identificatore di MusicBrainz\">MBID</abbr>}:"
 
 #: ../root/components/common-macros.tt:810
 msgid "{medium_format} {position} on {release}"
-msgstr ""
+msgstr "{medium_format} {position} di {release}"
 
 #: ../root/components/common-macros.tt:810
 msgid "{medium_format} {position}: {medium_name} on {release}"
-msgstr ""
+msgstr "{medium_format} {position}: {medium_name} di {release}"
 
 #: ../root/components/common-macros.tt:339
 msgid "{name} – {additional_info}"
@@ -12369,17 +12369,17 @@ msgstr "{attribute}: {value}"
 #: ../lib/MusicBrainz/Server/Entity/Medium.pm:25
 #, perl-brace-format
 msgid "{format} {position}: {name}"
-msgstr ""
+msgstr "{format} {position}: {name}"
 
 #: ../lib/MusicBrainz/Server/Entity/Medium.pm:25
 #, perl-brace-format
 msgid "Medium {position}: {name}"
-msgstr ""
+msgstr "Supporto {position}: {name}"
 
 #: ../lib/MusicBrainz/Server/Entity/Medium.pm:26
 #, perl-brace-format
 msgid "{format} {position}"
-msgstr ""
+msgstr "{format} {position}"
 
 #: ../lib/MusicBrainz/Server/Entity/Medium.pm:26
 #: ../root/static/scripts/release-editor/fields.js:492
@@ -12390,7 +12390,7 @@ msgstr "Supporto {position}"
 #: ../lib/MusicBrainz/Server/Entity/Medium.pm:278
 #, perl-brace-format
 msgid "{start_track}&#x2013;{end_track}"
-msgstr ""
+msgstr "{start_track}&#x2013;{end_track}"
 
 #: ../lib/MusicBrainz/Server/Entity/Relationship.pm:185
 msgid ", "
@@ -12904,7 +12904,7 @@ msgstr "Visualizza gli accreditamenti in linea"
 
 #: ../root/static/scripts/common/MB/release.js:85
 msgid "Failed to load the medium."
-msgstr ""
+msgstr "Non è stato possibile caricare il supporto."
 
 #: ../root/static/scripts/common/annotation.js:19
 msgid "Show less..."
