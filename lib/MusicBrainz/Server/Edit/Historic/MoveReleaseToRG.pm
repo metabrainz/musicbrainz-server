@@ -92,43 +92,4 @@ sub build_display_data
     }
 }
 
-sub initialize
-{
-    my ($self, %opts) = @_;
-
-    my $release = $opts{release} or die 'No release object';
-    my $release_group = $opts{new_release_group} or die 'No new release group';
-
-    $self->data({
-        release => {
-            id => $release->id,
-            name => $release->name
-        },
-        old_release_group => {
-            id => $release->release_group_id,
-            name => $release->release_group->name
-        },
-        new_release_group => {
-            id => $release_group->id,
-            name => $release_group->name
-        }
-    });
-}
-
-sub accept
-{
-    my $self = shift;
-    my $target = $self->c->model('ReleaseGroup')->get_by_id($self->data->{new_release_group}{id})
-        or MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-            'The destination release group no longer exists'
-        );
-
-    $self->c->model('Release')->update($self->data->{release}{id}, {
-        release_group_id => $target->id
-    });
-    unless ($self->c->model('ReleaseGroup')->in_use($self->data->{old_release_group}{id})) {
-        $self->c->model('ReleaseGroup')->delete($self->data->{old_release_group}{id});
-    }
-}
-
 1;

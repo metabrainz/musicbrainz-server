@@ -1,0 +1,51 @@
+@import "styles/colors.less";
+
+h2#graph-toggle-header {
+    margin-bottom: -10px;
+}
+
+#overview, #graph-container, #rate-of-change-graph {
+    width: 100%;
+}
+
+canvas {
+    width: 100%;
+}
+
+#overview { height: 150px; }
+
+#graph-container, #rate-of-change-graph { height: 400px; }
+
+.graph-control input { margin-bottom: 0px; display: inline-block; }
+
+.graph-color-swatch {
+    width: 14px; height: 10px;
+    overflow: hidden;
+    border: 2px solid @medium-border;
+    margin: 0px 4px; display: inline-block;
+}
+
+h2.toggler, h2.collapse-top-margin { margin-top: 0px; }
+
+.graph-control { padding-left: 16px; }
+
+.graph-control.loading {
+    background: data-uri('images/icons/loading.gif') no-repeat;
+}
+
+.tablesorter-default .tablesorter-header {
+    background-image: data-uri('images/layout/unsorted.gif');
+    background-position: center right;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    white-space: normal;
+    padding: 4px 20px 4px 4px;
+}
+
+.tablesorter-default thead .tablesorter-headerAsc {
+    background-image: data-uri('images/layout/asc.gif');
+}
+
+.tablesorter-default thead .tablesorter-headerDesc {
+    background-image: data-uri('images/layout/desc.gif');
+}

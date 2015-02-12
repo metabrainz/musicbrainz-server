@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+var validation = require('../edit/validation.js');
+
 MB.releaseEditor = _.extend(MB.releaseEditor || {}, {
 
     activeTabID: ko.observable("#information"),
@@ -253,7 +255,7 @@ MB.releaseEditor.autoOpenTheAddDiscDialog = function (release) {
 MB.releaseEditor.allowsSubmission = function () {
     return (
         !this.submissionInProgress() &&
-        !this.validation.errorsExist() &&
+        !validation.errorsExist() &&
         (this.action === "edit" || this.rootField.editNote()) &&
         this.allEdits().length > 0
     );

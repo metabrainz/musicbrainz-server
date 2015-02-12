@@ -64,6 +64,9 @@ subtest 'Test edit acception' => sub {
 sub _create_edit {
     my $c = shift;
     my $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
+    $c->model('Link')->load($rel);
+    $c->model('LinkType')->load($rel->link);
+
     return $c->model('Edit')->create(
         edit_type => $EDIT_RELATIONSHIP_DELETE,
         editor_id => 1,

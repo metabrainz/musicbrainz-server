@@ -161,6 +161,8 @@ sub editor_may_add_note
         ($editor->id == $self->editor_id || !$editor->is_limited);
 }
 
+sub editor_may_edit { 1 }
+
 # Subclasses should reimplement this, if they want different edit conditions.
 #
 # Fields:
