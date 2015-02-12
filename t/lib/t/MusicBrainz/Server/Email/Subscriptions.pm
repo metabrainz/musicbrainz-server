@@ -7,6 +7,8 @@ use Test::More;
 use MusicBrainz::Server::Test;
 use MusicBrainz::Server::Email;
 
+use MusicBrainz::Server::Translation qw( get_collator );
+
 use DBDefs;
 use aliased 'MusicBrainz::Server::Entity::Collection';
 use aliased 'MusicBrainz::Server::Entity::CollectionSubscription';
@@ -41,6 +43,7 @@ test all => sub {
 
     my $email = Email->new(
         editor => $editor,
+        collator => get_collator('root'),
         edits => \%edits,
         deletes => [$deleted_coll]
         );

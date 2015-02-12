@@ -1085,7 +1085,7 @@ msgstr ""
 msgid ""
 "This indicates that one release is identical to another release, but that "
 "the release title and track titles have been either translated (into another "
-"language) or transliterated (into another script).​"
+"language) or transliterated (into another script)."
 msgstr ""
 
 #: DB:link_type/description:25 DB:link_type/description:129
@@ -2040,9 +2040,19 @@ msgid ""
 "cataloguing the music of video games and anime."
 msgstr ""
 
+#: DB:link_type/description:838
+msgid ""
+"This relationship type links a label to its corresponding page at last.fm"
+msgstr ""
+
 #: DB:link_type/description:787
 msgid ""
 "This relationship type links a place to its corresponding page at Songkick."
+msgstr ""
+
+#: DB:link_type/description:837
+msgid ""
+"This relationship type links a place to its corresponding page at last.fm"
 msgstr ""
 
 #: DB:link_type/description:817
@@ -2067,6 +2077,11 @@ msgstr ""
 #: DB:link_type/description:785
 msgid ""
 "This relationship type links an artist to its corresponding page at Songkick."
+msgstr ""
+
+#: DB:link_type/description:840
+msgid ""
+"This relationship type links an artist to its corresponding page at last.fm"
 msgstr ""
 
 #: DB:link_type/description:816
@@ -2101,6 +2116,11 @@ msgstr ""
 #: DB:link_type/description:786
 msgid ""
 "This relationship type links an event to its corresponding page at Songkick."
+msgstr ""
+
+#: DB:link_type/description:839
+msgid ""
+"This relationship type links an event to its corresponding page at last.fm"
 msgstr ""
 
 #: DB:link_type/description:811
@@ -2778,6 +2798,11 @@ msgstr ""
 msgid "has a karaoke version"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:837 DB:link_type/long_link_phrase:840
+#: DB:link_type/long_link_phrase:838 DB:link_type/long_link_phrase:839
+msgid "has a last.fm page at"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:213
 msgid "has a logo at"
 msgstr ""
@@ -3209,6 +3234,16 @@ msgstr ""
 
 #: DB:link_type/link_phrase:226
 msgid "karaoke versions"
+msgstr ""
+
+#: DB:link_type/link_phrase:837 DB:link_type/link_phrase:840
+#: DB:link_type/link_phrase:838 DB:link_type/link_phrase:839
+msgid "last.fm"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:837 DB:link_type/reverse_link_phrase:840
+#: DB:link_type/reverse_link_phrase:838 DB:link_type/reverse_link_phrase:839
+msgid "last.fm page for"
 msgstr ""
 
 #: DB:link_type/link_phrase:238

@@ -388,14 +388,48 @@ test 'artist lookup with releases and discids' => sub {
                             title => JSON::null,
                             format => "CD",
                             position => 1,
-                            discs => [ { id => "93K4ogyxWlv522XF0BG8fZOuay4-", sectors => 215137 } ],
+                            discs => [
+                                {
+                                    id => "93K4ogyxWlv522XF0BG8fZOuay4-",
+                                    'offset-count' => 9,
+                                    offsets => [
+                                        150,
+                                        23303,
+                                        48850,
+                                        73305,
+                                        98815,
+                                        125348,
+                                        147548,
+                                        172225,
+                                        194409
+                                    ],
+                                    sectors => 215137
+                                }
+                            ],
                             "track-count" => 9,
                         },
                         {
                             title => "Chestplate Singles",
                             format => "CD",
                             position => 2,
-                            discs => [ { id => "VnL0A7ksXznBxvZ94H3Z61EZY3k-", sectors => 208393 } ],
+                            discs => [
+                                {
+                                    id => "VnL0A7ksXznBxvZ94H3Z61EZY3k-",
+                                    'offset-count' => 9,
+                                    offsets => [
+                                        150,
+                                        26801,
+                                        42538,
+                                        64421,
+                                        90680,
+                                        114510,
+                                        138939,
+                                        164009,
+                                        186929
+                                    ],
+                                    sectors => 208393
+                                }
+                            ],
                             "track-count" => 9,
                         }],
                     "release-events" => [{
@@ -426,7 +460,27 @@ test 'artist lookup with releases and discids' => sub {
                             title => JSON::null,
                             format => "CD",
                             position => 1,
-                            discs => [ { id => "75S7Yp3IiqPVREQhjAjMXPhwz0Y-", sectors => 281289 } ],
+                            discs => [
+                                {
+                                    id => "75S7Yp3IiqPVREQhjAjMXPhwz0Y-",
+                                    'offset-count' => 12,
+                                    offsets => [
+                                        150,
+                                        27852,
+                                        49751,
+                                        75876,
+                                        99845,
+                                        120876,
+                                        140765,
+                                        165856,
+                                        188422,
+                                        211757,
+                                        232229,
+                                        255810
+                                    ],
+                                    sectors => 281289
+                                }
+                            ],
                             "track-count" => 12,
                         }],
                     "release-events" => [{

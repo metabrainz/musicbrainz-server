@@ -78,8 +78,6 @@ test all => sub {
     isa_ok($found->{'RAM Records'}->[0], 'MusicBrainz::Server::Entity::Label');
     ok(!defined $found->{'Not there'}, 'Non existent label was not found');
 
-    ok(!$test->c->model('Label')->in_use($label->{id}));
-
     $label = $label_data->get_by_id($label->{id});
     is($label->name, 'RAM Records', "name");
     is($label->type_id, 1, "type id");

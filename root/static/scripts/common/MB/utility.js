@@ -193,10 +193,6 @@ MB.utility.validDate = (function () {
         "false": [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     };
 
-    function empty(value) {
-        return value === null || value === undefined || value === "";
-    }
-
     var numberRegex = /^[0-9]+$/;
 
     function parseNumber(num) {
@@ -257,11 +253,6 @@ MB.utility.parseDate = (function () {
         };
     };
 }());
-
-MB.utility.filesize = function (size) {
-    /* 1 decimal place.  false disables bit sizes. */
-    return filesize(size, 1, false);
-};
 
 MB.utility.percentOf = function (x, y) {
     return x * y / 100;

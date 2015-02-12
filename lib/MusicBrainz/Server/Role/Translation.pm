@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Role::Translation;
 use MooseX::Role::Parameterized;
 use Locale::Messages qw( dgettext dpgettext dngettext );
+use Encode;
 
 parameter domain => ( required => 1, isa => 'Str' );
 
@@ -33,7 +34,7 @@ role {
 
         $msgid =~ s/\r*\n\s*/ /xmsg if defined($msgid);
 
-        return $self->_expand(dgettext($params->domain => $msgid), %vars) if $msgid;
+        return $self->_expand(decode('utf-8', dgettext($params->domain => $msgid)), %vars) if $msgid;
     };
 
     method 'pgettext' => sub
@@ -46,7 +47,7 @@ role {
 
         $msgid =~ s/\r*\n\s*/ /xmsg if defined($msgid);
 
-        return $self->_expand(dpgettext($params->domain => $msgctxt, $msgid), %vars) if $msgid;
+        return $self->_expand(decode('utf-8', dpgettext($params->domain => $msgctxt, $msgid)), %vars) if $msgid;
     };
 
     method 'ngettext' => sub
@@ -59,6 +60,6 @@ role {
 
         $msgid =~ s/\r*\n\s*/ /xmsg if defined($msgid);
 
-        return $self->_expand(dngettext($params->domain => $msgid, $msgid_plural, $n), %vars);
+        return $self->_expand(decode('utf-8', dngettext($params->domain => $msgid, $msgid_plural, $n)), %vars);
     };
 };

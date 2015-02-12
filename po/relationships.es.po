@@ -1,6 +1,6 @@
 # 
 # Translators:
-# Adolfo Jayme Barrientos <email address hidden>, 2014
+# Adolfo Jayme Barrientos, 2014
 # Alexander Dupuy <email address hidden>, 2012
 # gr0uch0mars <email address hidden>, 2011
 # Héctor Arroyo <email address hidden>, 2012
@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-01-11 07:05+0000\n"
+"PO-Revision-Date: 2015-02-03 07:45+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -1100,7 +1100,7 @@ msgstr ""
 msgid ""
 "This indicates that one release is identical to another release, but that "
 "the release title and track titles have been either translated (into another"
-" language) or transliterated (into another script).​"
+" language) or transliterated (into another script)."
 msgstr ""
 
 #: DB:link_type/description:25 DB:link_type/description:129
@@ -2039,9 +2039,19 @@ msgid ""
 " to cataloguing the music of video games and anime."
 msgstr ""
 
+#: DB:link_type/description:838
+msgid ""
+"This relationship type links a label to its corresponding page at last.fm"
+msgstr ""
+
 #: DB:link_type/description:787
 msgid ""
 "This relationship type links a place to its corresponding page at Songkick."
+msgstr ""
+
+#: DB:link_type/description:837
+msgid ""
+"This relationship type links a place to its corresponding page at last.fm"
 msgstr ""
 
 #: DB:link_type/description:817
@@ -2067,6 +2077,11 @@ msgstr ""
 msgid ""
 "This relationship type links an artist to its corresponding page at "
 "Songkick."
+msgstr ""
+
+#: DB:link_type/description:840
+msgid ""
+"This relationship type links an artist to its corresponding page at last.fm"
 msgstr ""
 
 #: DB:link_type/description:816
@@ -2101,6 +2116,11 @@ msgstr ""
 #: DB:link_type/description:786
 msgid ""
 "This relationship type links an event to its corresponding page at Songkick."
+msgstr ""
+
+#: DB:link_type/description:839
+msgid ""
+"This relationship type links an event to its corresponding page at last.fm"
 msgstr ""
 
 #: DB:link_type/description:811
@@ -2779,6 +2799,11 @@ msgstr ""
 msgid "has a karaoke version"
 msgstr "tiene la versión para karaoke"
 
+#: DB:link_type/long_link_phrase:837 DB:link_type/long_link_phrase:840
+#: DB:link_type/long_link_phrase:838 DB:link_type/long_link_phrase:839
+msgid "has a last.fm page at"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:213
 msgid "has a logo at"
 msgstr "tiene un logo en"
@@ -3211,6 +3236,16 @@ msgstr "versión para karaoke de"
 #: DB:link_type/link_phrase:226
 msgid "karaoke versions"
 msgstr "versiones para karaoke"
+
+#: DB:link_type/link_phrase:837 DB:link_type/link_phrase:840
+#: DB:link_type/link_phrase:838 DB:link_type/link_phrase:839
+msgid "last.fm"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:837 DB:link_type/reverse_link_phrase:840
+#: DB:link_type/reverse_link_phrase:838 DB:link_type/reverse_link_phrase:839
+msgid "last.fm page for"
+msgstr ""
 
 #: DB:link_type/link_phrase:238
 msgid "later releases"

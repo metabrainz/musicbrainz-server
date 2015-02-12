@@ -5,6 +5,7 @@
 
 var test = require('tape');
 var common = require('./common.js');
+var validation = require('../../edit/validation.js');
 
 var releaseEditor = MB.releaseEditor;
 MB.formatsWithDiscIDs = [1];
@@ -23,7 +24,7 @@ function addReleaseTest(name, callback) {
         callback(t, common.setupReleaseAdd(data));
 
         MB.entityCache = {};
-        releaseEditor.validation.errorFields([]);
+        validation.errorFields([]);
     });
 }
 
@@ -370,7 +371,7 @@ test("releaseGroupCreate edits", function (t) {
 function editReleaseTest(name, callback) {
     test(name, function (t) {
         callback(t, common.setupReleaseEdit());
-        releaseEditor.validation.errorFields([]);
+        validation.errorFields([]);
     });
 }
 
@@ -602,8 +603,9 @@ editReleaseTest("relationshipDelete edit for external link is generated for exis
             "name": "http://www.discogs.com/release/1369894"
           }
         ],
-        "hash": "9d7f27c130d713ebe7ecfed7a58a1645f13bac42",
-        "id": 123
+        "hash": "06b3b80df94eb75cdb26b98afda49431b0d42db8",
+        "id": 123,
+        "linkTypeID": 76
       }
     ]);
 });
@@ -627,16 +629,16 @@ editReleaseTest("edits are not generated for external links that duplicate exist
     release.relationships.push(addedDuplicate);
 
     t.equal(releaseEditor.edits.externalLinks(release).length, 1);
-    t.equal(releaseEditor.validation.errorsExist(), true);
+    t.equal(validation.errorsExist(), true);
 
     addedDuplicate.remove();
 
-    t.equal(releaseEditor.validation.errorsExist(), false);
+    t.equal(validation.errorsExist(), false);
 
     existingRelationship2.url(existingRelationship1.url());
 
     t.equal(releaseEditor.edits.externalLinks(release).length, 1);
-    t.equal(releaseEditor.validation.errorsExist(), true);
+    t.equal(validation.errorsExist(), true);
 });
 
 test("mediumEdit and releaseReorderMediums edits are generated for non-loaded mediums", function (t) {

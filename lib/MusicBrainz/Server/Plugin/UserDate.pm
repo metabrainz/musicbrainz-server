@@ -2,6 +2,7 @@ package MusicBrainz::Server::Plugin::UserDate;
 
 use strict;
 use warnings;
+use Text::Trim qw( trim );
 
 use base 'Template::Plugin';
 
@@ -17,7 +18,7 @@ sub new {
 }
 
 sub format {
-    my ($self, $dt) = @_;
+    my ($self, $dt, $opts) = @_;
 
     return unless $dt;
 
@@ -33,6 +34,14 @@ sub format {
 
     if ($self->locale) {
         $dt->set_locale($self->locale);
+    }
+
+    if ($opts && $opts->{date_only}) {
+        $format =~ s/%c/%x/;
+        $format =~ s/%H:%M(:%S)?//;
+        $format =~ s/%Z//;
+        $format =~ s/,\s*$//;
+        $format = trim($format);
     }
 
     return $dt->strftime($format);

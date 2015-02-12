@@ -10,7 +10,17 @@ sub serialize
     my %body;
 
     $body{id} = $entity->discid;
+    $body{"offset-count"} = number($entity->track_count);
     $body{sectors} = number($entity->leadout_offset);
+
+    my @list;
+    foreach my $track (0 .. ($entity->track_count - 1)) {
+        push @list, number($entity->track_offset->[$track]);
+    }
+
+    if (scalar @list) {
+        $body{offsets} = \@list;
+    }
 
     if ($toplevel)
     {
