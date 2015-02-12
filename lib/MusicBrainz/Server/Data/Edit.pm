@@ -441,7 +441,8 @@ sub _create_instance {
         preview => $previewing
     );
 
-    MusicBrainz::Server::Edit::Exceptions::Forbidden->throw unless $edit->editor_may_edit(\%opts);
+    MusicBrainz::Server::Edit::Exceptions::Forbidden->throw
+        unless ($editor->id == $EDITOR_MODBOT || $edit->editor_may_edit(\%opts));
 
     try {
         $edit->initialize(%opts);
