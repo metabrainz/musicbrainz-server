@@ -107,7 +107,7 @@ sub approve : Chained('load') RequireAuth(auto_editor) DenyWhenReadonly
         my $edit = $c->model('Edit')->get_by_id_and_lock($c->stash->{edit}->id);
         $c->model('Vote')->load_for_edits($edit);
 
-        if (!$edit->can_approve($c->user)) {
+        if (!$edit->editor_may_approve($c->user)) {
             $c->stash( template => 'edit/cannot_approve.tt' );
             return;
         }
@@ -138,7 +138,7 @@ sub cancel : Chained('load') RequireAuth DenyWhenReadonly
 {
     my ($self, $c) = @_;
     my $edit = $c->stash->{edit};
-    if (!$edit->can_cancel($c->user)) {
+    if (!$edit->editor_may_cancel($c->user)) {
         $c->stash( template => 'edit/cannot_cancel.tt' );
         $c->detach;
     }

@@ -117,7 +117,7 @@ after insert => sub {
     $self->auto_edit(0) if $self->_changes_ordering_type;
 };
 
-around can_approve => sub {
+around editor_may_approve => sub {
     my ($orig, $self, @args) = @_;
     return 0 if $self->_changes_ordering_type;
     return $self->$orig(@args);
