@@ -383,7 +383,7 @@
 
     edit.relationshipEdit = editConstructor(
         TYPES.EDIT_RELATIONSHIP_EDIT,
-        _.partialRight(removeEqual, ['id'])
+        _.partialRight(removeEqual, ['id', 'linkTypeID'])
     );
 
 
