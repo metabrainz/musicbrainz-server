@@ -46,10 +46,30 @@ use aliased 'MusicBrainz::Server::Entity::Track';
 use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
+no if $] >= 5.018, warnings => "experimental::smartmatch";
 
 Readonly our $ERROR_NOT_LOGGED_IN => 1;
 Readonly our $ERROR_NON_EXISTENT_ENTITIES => 2;
 
+our $ALLOWED_EDIT_TYPES = [
+    $EDIT_RELEASE_CREATE,
+    $EDIT_RELEASE_EDIT,
+    $EDIT_RELEASE_ADDRELEASELABEL,
+    $EDIT_RELEASE_ADD_ANNOTATION,
+    $EDIT_RELEASE_DELETERELEASELABEL,
+    $EDIT_RELEASE_EDITRELEASELABEL,
+    $EDIT_RELEASEGROUP_CREATE,
+    $EDIT_MEDIUM_CREATE,
+    $EDIT_MEDIUM_EDIT,
+    $EDIT_MEDIUM_DELETE,
+    $EDIT_MEDIUM_ADD_DISCID,
+    $EDIT_RECORDING_EDIT,
+    $EDIT_RELEASE_REORDER_MEDIUMS,
+    $EDIT_RELATIONSHIP_CREATE,
+    $EDIT_RELATIONSHIP_EDIT,
+    $EDIT_RELATIONSHIP_DELETE,
+    $EDIT_WORK_CREATE,
+];
 
 our $TT = Template->new(
     INCLUDE_PATH => catdir(DBDefs->MB_SERVER_ROOT, 'root'),
@@ -313,7 +333,8 @@ sub process_relationship {
 
         if ($entity_data) {
             my $name = $entity_data->{name};
-            my $model = type_to_model($entity_data->{entityType});
+            my $entity_type_prop = "${prop}_type";
+            my $model = type_to_model($data->{link_type}->$entity_type_prop);
 
             if ($model eq 'URL') {
                 my $url = URI->new($name)->canonical;
@@ -353,27 +374,34 @@ sub process_edits {
     my @props_to_load;
     my @loaded_relationships;
     my @non_existent_entities;
+    my @relationship_edits;
 
     for my $edit (@$edits) {
         my $edit_type = $edit->{edit_type};
 
-        if ($edit_type == $EDIT_RELATIONSHIP_CREATE) {
-            die 'missing linkTypeID' unless $edit->{linkTypeID};
-
-            push @link_types_to_load, $edit;
+        if ($edit_type ~~ [$EDIT_RELATIONSHIP_CREATE, $EDIT_RELATIONSHIP_EDIT, $EDIT_RELATIONSHIP_DELETE]) {
+            push @link_types_to_load, $edit->{linkTypeID};
+            push @relationship_edits, $edit;
         }
+    }
 
-        if ($edit_type == $EDIT_RELATIONSHIP_EDIT ||
-            $edit_type == $EDIT_RELATIONSHIP_DELETE) {
+    my $link_types = $c->model('LinkType')->get_by_ids(@link_types_to_load);
 
-            my $type0 = $edit->{entities}->[0]->{entityType} or die 'missing entityType';
-            my $type1 = $edit->{entities}->[1]->{entityType} or die 'missing entityType';
-            my $id = $edit->{id} or die 'missing relationship id';
+    for my $edit (@relationship_edits) {
+        my $link_type = $link_types->{$edit->{linkTypeID}};
+
+        $c->forward('/ws/js/detach_with_error', ['unknown linkTypeID: ' . $edit->{linkTypeID}]) unless $link_type;
+
+        $edit->{link_type} = $link_type;
+
+        if ($edit->{edit_type} ~~ [$EDIT_RELATIONSHIP_EDIT, $EDIT_RELATIONSHIP_DELETE]) {
+            my $id = $edit->{id} or $c->forward('/ws/js/detach_with_error', ['missing relationship id']);
+
+            my $type0 = $link_type->entity0_type;
+            my $type1 = $link_type->entity1_type;
 
             # Only one edit per relationship is supported.
-            ($relationships_to_load->{"$type0-$type1"} //= {})->{ $id } = $edit;
-
-            push @link_types_to_load, $edit if $edit->{linkTypeID};
+            ($relationships_to_load->{"$type0-$type1"} //= {})->{$id} = $edit;
         }
     }
 
@@ -384,41 +412,17 @@ sub process_edits {
            $type0, $type1, keys %$edits
         );
 
-        my @relationships = values %$relationships_by_id;
-        $c->model('Link')->load(@relationships);
-
         while (my ($id, $edit) = each %$edits) {
             unless ($edit->{relationship} = $relationships_by_id->{$id}) {
                 push @non_existent_entities, { type => 'relationship', id => $id };
             }
         }
 
-        push @loaded_relationships, @relationships;
+        push @loaded_relationships, values %$relationships_by_id;
     }
 
-    my $link_types = $c->model('LinkType')->get_by_ids(
-        ( map { $_->{linkTypeID} } @link_types_to_load ),
-        ( map { $_->link->type_id } @loaded_relationships ),
-    );
-
-    $_->{link_type} = $link_types->{ $_->{linkTypeID} } for @link_types_to_load;
-    $_->link->type($link_types->{ $_->link->type_id }) for @loaded_relationships;
-
-    for my $edit (@link_types_to_load) {
-        my $link_type = $edit->{link_type};
-
-        die "unknown linkTypeID: " . $edit->{linkTypeID} unless $link_type;
-
-        my $type0 = $edit->{entities}->[0]->{entityType};
-        my $type1 = $edit->{entities}->[1]->{entityType};
-
-        if ($type0 ne $link_type->entity0_type || $type1 ne $link_type->entity1_type) {
-            my $link_type_id = $link_type->id;
-
-            die "linkTypeID $link_type_id is not for $type0-$type1 relationships";
-        }
-    }
-
+    $c->model('Link')->load(@loaded_relationships);
+    $c->model('LinkType')->load(map { $_->link } @loaded_relationships);
     $c->model('Relationship')->load_entities(@loaded_relationships);
 
     my $loader = sub {
@@ -431,7 +435,7 @@ sub process_edits {
         } elsif (!defined($id) && $previewing) {
             return;
         } else {
-            die "unknown $model id: $id";
+            $c->forward('/ws/js/detach_with_error', ["unknown $model id: $id"]);
         }
 
         push @props_to_load, [$id, $model, $setter];
@@ -456,10 +460,14 @@ sub process_edits {
         }
     }
 
-    for my $edit (@new_edits) {
-        my $processor = $data_processors->{$edit->{edit_type}};
-        $processor->($c, $loader, $edit, $previewing) if $processor;
-    }
+    try {
+        for my $edit (@new_edits) {
+            my $processor = $data_processors->{$edit->{edit_type}};
+            $processor->($c, $loader, $edit, $previewing) if $processor;
+        }
+    } catch {
+        $c->forward('/ws/js/detach_with_error', [$_]);
+    };
 
     my %loaded_entities = (
         ( map { $_ => $c->model($_)->get_by_ids(@{ $ids_to_load->{$_} }) } keys %$ids_to_load ),
@@ -478,10 +486,10 @@ sub process_edits {
     }
 
     if (@non_existent_entities) {
-        die {
+        $c->forward('/ws/js/detach_with_error', [{
             errorCode => $ERROR_NON_EXISTENT_ENTITIES,
             entities => \@non_existent_entities
-        };
+        }]);
     }
 
     return \@new_edits;
@@ -496,11 +504,7 @@ sub create_edits {
         $privs |= $UNTRUSTED_FLAG;
     }
 
-    try {
-        $data->{edits} = process_edits($c, $data->{edits}, $previewing);
-    } catch {
-        $c->forward('/ws/js/detach_with_error', [$_]);
-    };
+    $data->{edits} = process_edits($c, $data->{edits}, $previewing);
 
     my $action = $previewing ? 'preview' : 'create';
 
@@ -509,31 +513,15 @@ sub create_edits {
         my $edit;
 
         try {
-            if ($opts->{edit_type} == $EDIT_RELATIONSHIP_CREATE) {
-                my $link_type = $opts->{link_type};
-
-                MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
-                    if $c->model('Relationship')->exists(
-                        $link_type->entity0_type, $link_type->entity1_type, {
-                            link_type_id => $link_type->id,
-                            entity0_id => $opts->{entity0}->id,
-                            entity1_id => $opts->{entity1}->id,
-                            begin_date => $opts->{begin_date},
-                            end_date => $opts->{end_date},
-                            ended => $opts->{ended},
-                            attributes => $opts->{attributes},
-                        }
-                    );
-            }
-
             $edit = $c->model('Edit')->$action(
                 %$opts,
-                editor_id => $c->user->id,
+                editor => $c->user,
                 privileges => $privs,
             );
-        }
-        catch {
-            unless (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::NoChanges') {
+        } catch {
+            if (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::Forbidden') {
+                $c->forward('/ws/js/detach_with_error', ['editor is forbidden to enter this edit', 403]);
+            } elsif (ref($_) ne 'MusicBrainz::Server::Edit::Exceptions::NoChanges') {
                 $c->forward('/ws/js/critical_error', [$_, { error => $_ }, 400]);
             }
         };
@@ -567,15 +555,20 @@ sub create : Chained('edit') PathPart('create') Edit {
 sub submit_edits {
     my ($self, $c, $data) = @_;
 
-    my @edit_data = @{ $data->{edits} };
-    my @edit_types = map { $_->{edit_type} } @edit_data;
+    for my $edit (@{ $data->{edits} // [] }) {
+        my $edit_type = $edit->{edit_type};
 
-    if (any { !defined($_) } @edit_types) {
-        $c->forward('/ws/js/detach_with_error', ['edit_type required']);
-    }
+        unless (defined $edit_type) {
+            $c->forward('/ws/js/detach_with_error', ['edit_type required']);
+        }
 
-    if (!$data->{editNote} && any { $_ == $EDIT_RELEASE_CREATE } @edit_types) {
-        $c->forward('/ws/js/detach_with_error', ['editNote required']);
+        if ($edit_type == $EDIT_RELEASE_CREATE && !$data->{editNote}) {
+            $c->forward('/ws/js/detach_with_error', ['editNote required']);
+        }
+
+        unless ($edit_type ~~ $ALLOWED_EDIT_TYPES) {
+            $c->forward('/ws/js/detach_with_error', ["edit_type $edit_type is not supported"]);
+        }
     }
 
     my @edits;

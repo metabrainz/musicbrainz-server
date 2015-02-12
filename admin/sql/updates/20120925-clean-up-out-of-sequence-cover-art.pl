@@ -6,6 +6,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REMOVE_COVER_ART $EDITOR_MO
 use MusicBrainz::Server::Context;
 
 my $c = MusicBrainz::Server::Context->create_script_context;
+my $modbot = $c->model('Editor')->get_by_id($EDITOR_MODBOT);
 
 for my $row (@{
     $c->sql->select_list_of_hashes(
@@ -22,7 +23,7 @@ for my $row (@{
         if ($artwork && $release) {
             my $edit = $c->model('Edit')->create(
                 edit_type => $EDIT_RELEASE_REMOVE_COVER_ART,
-                editor_id => $EDITOR_MODBOT,
+                editor => $modbot,
 
                 release => $release,
                 to_delete => $artwork

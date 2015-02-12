@@ -19,7 +19,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_EDIT
     $EDIT_RELATIONSHIP_DELETE
 );
-use MusicBrainz::Server::Test qw( capture_edits );
+use MusicBrainz::Server::Test qw( capture_edits post_json );
 use Test::More;
 use Test::Deep qw( bag cmp_deeply ignore );
 use Test::Routine;
@@ -57,17 +57,6 @@ sub prepare_test_database {
         ALTER SEQUENCE track_id_seq RESTART 100;
         ALTER SEQUENCE l_artist_recording_id_seq RESTART 100;
     });
-}
-
-sub post_json {
-    my ($mech, $uri, $json) = @_;
-
-    my $req = HTTP::Request->new('POST', $uri);
-
-    $req->header('Content-Type' => 'application/json');
-    $req->content($json);
-
-    return $mech->request($req);
 }
 
 test 'previewing/creating/editing a release group and release' => sub {
@@ -564,15 +553,9 @@ test 'adding a relationship' => sub {
             { type => { gid => '4f7bb10f-396c-466a-8221-8e93f5e454f9' } },
             { type => { gid => 'c3273296-91ba-453d-94e4-2fb6e958568e' }, credit => 'crazy guitar' },
         ],
-        entities    => [
-            {
-                gid         => '745c079d-374e-4436-9448-da92dedef3ce',
-                entityType  => 'artist',
-            },
-            {
-                gid         => '54b9d183-7dab-42ba-94a3-7388a66604b8',
-                entityType  => 'recording',
-            }
+        entities => [
+            { gid => '745c079d-374e-4436-9448-da92dedef3ce' },
+            { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' }
         ],
         beginDate   => { year => 1999, month => 1, day => 1 },
         endDate     => { year => 1999, month => 2, day => undef },
@@ -628,15 +611,9 @@ test 'adding a relationship with an invalid date' => sub {
         edit_type   => $EDIT_RELATIONSHIP_CREATE,
         linkTypeID  => 1,
         attributes  => [],
-        entities    => [
-            {
-                gid         => '745c079d-374e-4436-9448-da92dedef3ce',
-                entityType  => 'artist',
-            },
-            {
-                gid         => '54b9d183-7dab-42ba-94a3-7388a66604b8',
-                entityType  => 'recording',
-            }
+        entities => [
+            { gid => '745c079d-374e-4436-9448-da92dedef3ce' },
+            { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' }
         ],
         beginDate   => { year => 1994, month => 2, day => 29 },
         endDate     => { year => 1999, month => 2, day => undef },
@@ -671,15 +648,9 @@ test 'editing a relationship' => sub {
             { type => { gid => '4f7bb10f-396c-466a-8221-8e93f5e454f9' } },
             { type => { gid => 'c3273296-91ba-453d-94e4-2fb6e958568e' }, credit => 'crazy guitar' },
         ],
-        entities    => [
-            {
-                gid         => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7',
-                entityType  => 'artist',
-            },
-            {
-                gid         => '54b9d183-7dab-42ba-94a3-7388a66604b8',
-                entityType  => 'recording',
-            }
+        entities => [
+            { gid => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7' },
+            { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' }
         ],
         beginDate   => { year => 1999, month => 1, day => 1 },
         endDate     => { year => 2009, month => 9, day => 9 },
@@ -742,15 +713,9 @@ test 'editing a relationship with an unchanged attribute' => sub {
         edit_type   => $EDIT_RELATIONSHIP_EDIT,
         id          => 1,
         linkTypeID  => 1,
-        entities    => [
-            {
-                gid         => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7',
-                entityType  => 'artist',
-            },
-            {
-                gid         => '54b9d183-7dab-42ba-94a3-7388a66604b8',
-                entityType  => 'recording',
-            }
+        entities => [
+            { gid => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7' },
+            { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' }
         ],
         beginDate   => { year => 1999, month => 1, day => 1 },
         endDate     => { year => 2009, month => 9, day => 9 },
@@ -811,15 +776,9 @@ test 'removing an attribute from a relationship' => sub {
         edit_type   => $EDIT_RELATIONSHIP_EDIT,
         id          => 1,
         linkTypeID  => 1,
-        entities    => [
-            {
-                gid         => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7',
-                entityType  => 'artist',
-            },
-            {
-                gid         => '54b9d183-7dab-42ba-94a3-7388a66604b8',
-                entityType  => 'recording',
-            }
+        entities => [
+            { gid => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7' },
+            { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' }
         ],
         attributes  => [],
         beginDate   => { year => undef, month => undef, day => undef },
@@ -877,15 +836,9 @@ test 'removing a relationship' => sub {
         edit_type   => $EDIT_RELATIONSHIP_DELETE,
         id          => 1,
         linkTypeID  => 1,
-        entities    => [
-            {
-                gid         => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7',
-                entityType  => 'artist',
-            },
-            {
-                gid         => '54b9d183-7dab-42ba-94a3-7388a66604b8',
-                entityType  => 'recording',
-            }
+        entities => [
+            { gid => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7' },
+            { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' }
         ],
     } ];
 
@@ -914,15 +867,9 @@ test 'MBS-7464: URLs are validated/canonicalized' => sub {
     my $invalid_url = [ {
         edit_type   => $EDIT_RELATIONSHIP_CREATE,
         linkTypeID  => 3,
-        entities    => [
-            {
-                entityType  => 'artist',
-                gid         => '0798d15b-64e2-499f-9969-70167b1d8617',
-            },
-            {
-                entityType  => 'url',
-                name        => 'HAHAHA',
-            }
+        entities => [
+            { gid => '0798d15b-64e2-499f-9969-70167b1d8617' },
+            { name => 'HAHAHA' }
         ],
     } ];
 
@@ -938,15 +885,9 @@ test 'MBS-7464: URLs are validated/canonicalized' => sub {
     my $unsupported_protocol = [ {
         edit_type   => $EDIT_RELATIONSHIP_CREATE,
         linkTypeID  => 3,
-        entities    => [
-            {
-                entityType  => 'artist',
-                gid         => '0798d15b-64e2-499f-9969-70167b1d8617',
-            },
-            {
-                entityType  => 'url',
-                name        => 'gopher://example.com/',
-            }
+        entities => [
+            { gid => '0798d15b-64e2-499f-9969-70167b1d8617' },
+            { name => 'gopher://example.com/' }
         ],
     } ];
 
@@ -962,15 +903,9 @@ test 'MBS-7464: URLs are validated/canonicalized' => sub {
     my $non_canonical_url = [ {
         edit_type   => $EDIT_RELATIONSHIP_CREATE,
         linkTypeID  => 3,
-        entities    => [
-            {
-                entityType  => 'artist',
-                gid         => '0798d15b-64e2-499f-9969-70167b1d8617',
-            },
-            {
-                entityType  => 'url',
-                name        => 'http://en.Wikipedia.org:80/wiki/Boredoms',
-            }
+        entities => [
+            { gid => '0798d15b-64e2-499f-9969-70167b1d8617' },
+            { name => 'http://en.Wikipedia.org:80/wiki/Boredoms' }
         ],
     } ];
 
@@ -1022,15 +957,9 @@ test 'Duplicate relationships are ignored' => sub {
         attributes  => [
             { type => { gid => 'c3273296-91ba-453d-94e4-2fb6e958568e' }, credit => 'crazy guitar' },
         ],
-        entities    => [
-            {
-                gid         => '745c079d-374e-4436-9448-da92dedef3ce',
-                entityType  => 'artist',
-            },
-            {
-                gid         => '54b9d183-7dab-42ba-94a3-7388a66604b8',
-                entityType  => 'recording',
-            }
+        entities => [
+            { gid => '745c079d-374e-4436-9448-da92dedef3ce' },
+            { gid => '54b9d183-7dab-42ba-94a3-7388a66604b8' }
         ],
         beginDate   => { year => 1999, month => 1, day => 1 },
         endDate     => { year => 1999, month => 2, day => undef },
