@@ -47,16 +47,6 @@ test('All', function (t) {
     });
 });
 
-test('filesize.js wrapper', function (t) {
-    t.plan(5);
-
-    t.equal(MB.utility.filesize(857372), "837.3KB");
-    t.equal(MB.utility.filesize(1235783), "1.2MB");
-    t.equal(MB.utility.filesize(7440138), "7.1MB");
-    t.equal(MB.utility.filesize(2379302), "2.3MB");
-    t.equal(MB.utility.filesize(159985050), "152.5MB");
-});
-
 test("formatDate", function (t) {
     t.plan(11);
 

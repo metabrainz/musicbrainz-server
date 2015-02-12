@@ -6,10 +6,6 @@
       body { min-width: 200px; width: auto; background: #fff; padding: 0; margin: 0; }
       form { margin-top: 1em; }
     </style>
-    [%- IF server_details.developement_server -%]
-        <script>less = { relativeUrls: true, rootpath: "[% c.uri_for('/static/') %]" }</script>
-        <script src="[% c.uri_for('/static/lib/less/less-1.4.0.js') %]"></script>
-    [%- END -%]
   </head>
   <body>
     <form id="add-cover-art" action="[% form_action %]" method="post" enctype="multipart/form-data">
