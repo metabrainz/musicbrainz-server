@@ -404,7 +404,14 @@ sub _create_instance {
     my ($self, $previewing, %opts) = @_;
 
     my $type = delete $opts{edit_type} or croak "edit_type required";
-    my $editor_id = delete $opts{editor_id} or croak "editor_id required";
+    my $editor = delete $opts{editor};
+    my $editor_id = delete $opts{editor_id};
+
+    if ($editor_id && !$editor) {
+        $editor = $self->c->model('Editor')->get_by_id($editor_id);
+    }
+
+    croak "editor required" unless $editor;
 
     my $class = MusicBrainz::Server::EditRegistry->class_from_type($type)
         or confess "Could not lookup edit type for $type";
@@ -416,8 +423,8 @@ sub _create_instance {
 
     my $edit = $class->new(
         c => $self->c,
-        editor_id => $editor_id,
-        editor => $self->c->model('Editor')->get_by_id($editor_id),
+        editor_id => $editor->id,
+        editor => $editor,
         preview => $previewing
     );
 

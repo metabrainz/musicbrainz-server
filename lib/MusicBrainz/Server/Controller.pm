@@ -87,7 +87,7 @@ sub _insert_edit {
     my $edit;
     try {
         $edit = $c->model('Edit')->create(
-            editor_id => $c->user->id,
+            editor => $c->user,
             privileges => $privs,
             %opts
         );

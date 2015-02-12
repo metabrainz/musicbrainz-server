@@ -456,7 +456,7 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
                         next if $ac == $old_ac;
                         my $ac_edit = $c->model('Edit')->create(
                             edit_type     => $EDIT_ARTIST_EDITCREDIT,
-                            editor_id     => $c->user->id,
+                            editor        => $c->user,
                             to_edit       => $old_ac,
                             artist_credit => $ac,
                         );
@@ -627,7 +627,7 @@ sub split : Chained('load') Edit {
             ) {
                 my $rem = $c->model('Edit')->create(
                     edit_type    => $EDIT_RELATIONSHIP_DELETE,
-                    editor_id    => $c->user->id,
+                    editor       => $c->user,
                     type0        => 'artist',
                     type1        => 'artist',
                     relationship => $relationship
