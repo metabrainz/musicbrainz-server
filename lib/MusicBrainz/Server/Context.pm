@@ -44,8 +44,7 @@ has lwp => (
         my $lwp = LWP::UserAgent->new;
         $lwp->env_proxy;
         $lwp->timeout(5);
-        # Space at end causes LWP to append the default libwww-perl/X.X bits
-        $lwp->agent('musicbrainz-server/'. DBDefs->DB_SCHEMA_SEQUENCE .' ('. DBDefs->WEB_SERVER .') ');
+        $lwp->agent(DBDefs->LWP_USER_AGENT);
         return $lwp;
     }
 );

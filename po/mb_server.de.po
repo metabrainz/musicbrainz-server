@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# nikki, 2013-2014
+# nikki, 2013-2015
 # nikki2 <email address hidden>, 2012
 # nikki2 <email address hidden>, 2012
 # Daniel Schury <email address hidden>, 2011
@@ -40,9 +40,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-30 04:25-0700\n"
-"PO-Revision-Date: 2015-01-30 11:27+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"POT-Creation-Date: 2015-02-03 00:42-0700\n"
+"PO-Revision-Date: 2015-02-01 11:22+0000\n"
+"Last-Translator: nikki\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3106,7 +3106,7 @@ msgstr "Objekt nicht gefunden"
 
 #: ../root/admin/attributes/index.tt:29
 msgid "Entity type"
-msgstr ""
+msgstr "Objekttyp"
 
 #: ../root/edit/details/edit_relationship_type.tt:6
 msgid "Entity types:"
@@ -3756,19 +3756,19 @@ msgstr "ISO 3166-3:"
 
 #: ../root/admin/attributes/form.tt:6 ../root/admin/attributes/language.tt:10
 msgid "ISO 639-1"
-msgstr ""
+msgstr "ISO 639-1"
 
 #: ../root/admin/attributes/form.tt:7 ../root/admin/attributes/language.tt:11
 msgid "ISO 639-2/B"
-msgstr ""
+msgstr "ISO 639-2/B"
 
 #: ../root/admin/attributes/form.tt:8 ../root/admin/attributes/language.tt:12
 msgid "ISO 639-2/T"
-msgstr ""
+msgstr "ISO 639-2/T"
 
 #: ../root/admin/attributes/form.tt:9 ../root/admin/attributes/language.tt:13
 msgid "ISO 639-3"
-msgstr ""
+msgstr "ISO 639-3"
 
 #: ../root/admin/attributes/form.tt:23 ../root/admin/attributes/script.tt:10
 msgid "ISO code"
@@ -6887,7 +6887,7 @@ msgstr "Relevanz"
 
 #: ../root/admin/attributes/script.tt:1 ../root/admin/attributes/script.tt:3
 msgid "Script"
-msgstr ""
+msgstr "Schrift"
 
 #: ../root/edit/details/add_release.tt:53
 #: ../root/edit/details/edit_release.tt:37
@@ -9060,7 +9060,7 @@ msgid ""
 " the translation/transliteration relationship to an original version. This "
 "could be because the original version is missing, or just that the release "
 "status is set wrong."
-msgstr "Dieser Report zeigt Veröffentlichungen mit dem Status Pseudo-Veröffentlichung, die nicht mittels einer Übersetzung-/Transliteration-Beziehung mit der Originalversion verbunden sind. Der grund könnte sein, dass die Originalversion noch fehlt, oder auch einfach nur, dass der Veröffentlichungsstatus falsch gesetzt wurde."
+msgstr "Dieser Report zeigt Veröffentlichungen mit dem Status Pseudo-Veröffentlichung, die nicht mittels einer Übersetzung-/Transliteration-Beziehung mit der Originalversion verbunden sind. Der Grund könnte sein, dass die Originalversion noch fehlt, oder auch einfach nur, dass der Veröffentlichungsstatus falsch gesetzt wurde."
 
 #: ../root/release/merge.tt:107
 msgid ""
@@ -12388,17 +12388,17 @@ msgstr "{attribute}: {value}"
 #: ../lib/MusicBrainz/Server/Entity/Medium.pm:25
 #, perl-brace-format
 msgid "{format} {position}: {name}"
-msgstr ""
+msgstr "{format} {position}: {name}"
 
 #: ../lib/MusicBrainz/Server/Entity/Medium.pm:25
 #, perl-brace-format
 msgid "Medium {position}: {name}"
-msgstr ""
+msgstr "Medium {position}: {name}"
 
 #: ../lib/MusicBrainz/Server/Entity/Medium.pm:26
 #, perl-brace-format
 msgid "{format} {position}"
-msgstr ""
+msgstr "{format} {position}"
 
 #: ../lib/MusicBrainz/Server/Entity/Medium.pm:26
 #: ../root/static/scripts/release-editor/fields.js:492
@@ -12409,7 +12409,7 @@ msgstr "Medium {position}"
 #: ../lib/MusicBrainz/Server/Entity/Medium.pm:278
 #, perl-brace-format
 msgid "{start_track}&#x2013;{end_track}"
-msgstr ""
+msgstr "{start_track}&#x2013;{end_track}"
 
 #: ../lib/MusicBrainz/Server/Entity/Relationship.pm:185
 msgid ", "
@@ -12851,7 +12851,7 @@ msgstr "Einen neuen Künstler hinzufügen"
 
 #: ../root/static/scripts/common/MB/i18n.js:132
 msgid "Add a new event"
-msgstr ""
+msgstr "Eine neue Veranstaltung hinzufügen"
 
 #: ../root/static/scripts/common/MB/i18n.js:133
 msgid "Add a new label"
@@ -12883,7 +12883,7 @@ msgstr "Noch einen Künstler hinzufügen"
 
 #: ../root/static/scripts/common/MB/i18n.js:144
 msgid "Add another event"
-msgstr ""
+msgstr "Noch eine Veranstaltung hinzufügen"
 
 #: ../root/static/scripts/common/MB/i18n.js:146
 msgid "Add another label"

@@ -85,6 +85,7 @@ test 'Sending edits' => sub {
 
         ok(%args, 'sends an email to aCiD2');
         delete $args{editor};
+        delete $args{collator};
         is_deeply(\%args, {
             edits => {
                 artist => [{
@@ -267,6 +268,6 @@ sub mock_subscriptions
             ->then_return(@$edits);
     }
 
-    when($c->model('Editor'))->editors_with_subscriptions
+    when($c->model('Editor'))->editors_with_subscriptions(0, anything)
         ->then_return( @{ $args{editors} } );
 }

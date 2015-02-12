@@ -45,8 +45,10 @@ function buildStyles() {
         gulp.src("./root/static/*.less")
             .pipe(less({
                 rootpath: "/static/",
-                cleancss: true,
-                relativeUrls: true
+                relativeUrls: true,
+                plugins: [
+                    new (require('less-plugin-clean-css'))
+                ]
             }))
     );
 }
@@ -148,14 +150,16 @@ function buildScripts(watch) {
                 b.external('jed-' + lang);
             });
 
+            b.require('jquery', { expose: 'jquery' });
+
             // Needed by knockout-* plugins in edit.js
-            b.require('./root/static/lib/knockout/knockout-latest.debug.js', { expose: 'knockout' });
+            b.require('knockout', { expose: 'knockout' });
             b.require('./root/static/scripts/common/i18n.js', { expose: true });
         }),
         createBundle("edit.js", watch, function (b) {
             b.require('./root/static/scripts/edit/validation.js', { expose: true });
 
-            b.external('./root/static/lib/knockout/knockout-latest.debug.js');
+            b.external('knockout');
             b.external('./root/static/scripts/common/i18n.js');
         }),
         createBundle("guess-case.js", watch, function (b) {
@@ -165,10 +169,14 @@ function buildScripts(watch) {
             b.external('./root/static/scripts/common/i18n.js');
             b.external('./root/static/scripts/edit/validation.js');
         }),
-        createBundle("statistics.js", watch),
+        createBundle("statistics.js", watch, function (b) {
+            b.external('jquery');
+        }),
 
         bundleScripts(runBrowserify('tests.js', watch), 'tests.js')
-            .pipe(gulp.dest("./root/static/build/"))
+            .pipe(gulp.dest("./root/static/build/")),
+
+        createBundle('timeline.js')
     ]);
 }
 

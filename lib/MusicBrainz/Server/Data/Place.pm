@@ -28,7 +28,6 @@ with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'place' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'place' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'place' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'place' };
-with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'place' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::Area';
@@ -41,8 +40,6 @@ sub _columns
            'place.coordinates[1] as coordinates_y, place.edits_pending, place.begin_date_year, place.begin_date_month, place.begin_date_day, ' .
            'place.end_date_year, place.end_date_month, place.end_date_day, place.ended, place.comment, place.last_updated';
 }
-
-sub browse_column { 'name' }
 
 sub _id_column
 {
