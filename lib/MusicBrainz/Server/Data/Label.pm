@@ -9,7 +9,6 @@ use MusicBrainz::Server::Entity::Label;
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
-    check_in_use
     hash_to_row
     load_subobjects
     merge_table_attributes
@@ -167,25 +166,6 @@ sub update
     $self->sql->update_row('label', $row, { id => $label_id }) if %$row;
 
     return 1;
-}
-
-sub in_use
-{
-    my ($self, $label_id) = @_;
-
-    return check_in_use($self->sql,
-        'release_label         WHERE label = ?'   => [ $label_id ],
-        'l_area_label          WHERE entity1 = ?' => [ $label_id ],
-        'l_artist_label        WHERE entity1 = ?' => [ $label_id ],
-        'l_instrument_label    WHERE entity1 = ?' => [ $label_id ],
-        'l_label_place         WHERE entity0 = ?' => [ $label_id ],
-        'l_label_recording     WHERE entity0 = ?' => [ $label_id ],
-        'l_label_release       WHERE entity0 = ?' => [ $label_id ],
-        'l_label_release_group WHERE entity0 = ?' => [ $label_id ],
-        'l_label_url           WHERE entity0 = ?' => [ $label_id ],
-        'l_label_work          WHERE entity0 = ?' => [ $label_id ],
-        'l_label_label         WHERE entity0 = ? OR entity1 = ?'=> [ $label_id, $label_id ],
-    );
 }
 
 sub can_delete
