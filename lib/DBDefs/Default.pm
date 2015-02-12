@@ -45,6 +45,9 @@ sub MB_SERVER_ROOT {
 # Where static files are located
 sub STATIC_FILES_DIR { my $self = shift; $self->MB_SERVER_ROOT . '/root/static' }
 
+# Location of CA certificates, used by LWP::UserAgent.
+sub HTTPS_CA_DIR { '' }
+
 ################################################################################
 # The Database
 ################################################################################

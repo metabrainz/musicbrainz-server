@@ -45,6 +45,10 @@ has lwp => (
         $lwp->env_proxy;
         $lwp->timeout(5);
         $lwp->agent(DBDefs->LWP_USER_AGENT);
+        $lwp->ssl_opts(
+            verify_hostname => 1,
+            DBDefs->HTTPS_CA_DIR ? (SSL_ca_path => DBDefs->HTTPS_CA_DIR) : ()
+        );
         return $lwp;
     }
 );
