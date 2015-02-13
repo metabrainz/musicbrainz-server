@@ -13,12 +13,17 @@
   </div>
 [% END %]
 
-[% MACRO critiquebrainz_links(rg) BLOCK %]
-  [%~ ln(
-        'There’s {reviews_link|{review_count} review} on CritiqueBrainz. You can also {write_link|write your own}.',
-        'There are {reviews_link|{review_count} reviews} on CritiqueBrainz. You can also {write_link|write your own}.',
-        rg.review_count,
-        { reviews_link => rg.see_reviews_href, review_count => rg.review_count, write_link => rg. write_review_href }
-      )
-  ~%]
-[% END %]
+[%~ MACRO critiquebrainz_links(rg) BLOCK;
+  IF rg.review_count == 0;
+    l('No one has reviewed this release group yet. Be the first to {write_link|write one}.', {
+      write_link => rg. write_review_href
+    });
+  ELSE;
+    ln(
+      'There’s {reviews_link|{review_count} review} on CritiqueBrainz. You can also {write_link|write your own}.',
+      'There are {reviews_link|{review_count} reviews} on CritiqueBrainz. You can also {write_link|write your own}.',
+      rg.review_count,
+      { reviews_link => rg.see_reviews_href, review_count => rg.review_count, write_link => rg. write_review_href }
+    );
+  END;
+END ~%]
