@@ -102,28 +102,21 @@ override allow_auto_edit => sub {
 
     # Changing name, sortname or disambiguation is an auto-edit if the
     # change only affects small things like case etc.
-    my ($old_name, $new_name) = normalise_strings(
-        $self->data->{old}{name}, $self->data->{new}{name});
-    return 0 if $old_name ne $new_name;
-
-    if ($props->{sort_name}) {
-        my ($old_sort_name, $new_sort_name) = normalise_strings(
-            $self->data->{old}{sort_name}, $self->data->{new}{sort_name});
-        return 0 if $old_sort_name ne $new_sort_name;
-    }
-
-    if ($props->{disambiguation}) {
-        my ($old_comment, $new_comment) = normalise_strings(
-            $self->data->{old}{comment}, $self->data->{new}{comment});
-        return 0 if $old_comment ne $new_comment;
+    my @text_fields = ('name');
+    push @text_fields, 'sort_name' if $props->{sort_name};
+    push @text_fields, 'comment' if $props->{disambiguation};
+    for my $field (@text_fields) {
+        my ($old, $new) = normalise_strings(
+            $self->data->{old}{$field}, $self->data->{new}{$field});
+        return 0 if $old ne $new;
     }
 
     # Adding a date is automatic if there was no date yet.
     if ($props->{date_period}) {
-        return 0 if exists $self->data->{old}{begin_date}
-            and !PartialDate->new_from_row($self->data->{old}{begin_date})->is_empty;
-        return 0 if exists $self->data->{old}{end_date}
-            and !PartialDate->new_from_row($self->data->{old}{end_date})->is_empty;
+        for my $field (qw( begin_date end_date )) {
+            return 0 if exists $self->data->{old}{$field}
+                and !PartialDate->new_from_row($self->data->{old}{$field})->is_empty;
+        }
         return 0 if exists $self->data->{old}{ended}
             and $self->data->{old}{ended} != $self->data->{new}{ended};
     }
