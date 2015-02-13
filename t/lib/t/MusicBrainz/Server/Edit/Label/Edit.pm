@@ -189,6 +189,59 @@ test 'Editing two labels into a conflict fails gracefully' => sub {
         'Error message contains the URL of the conflict';
 };
 
+test 'Adding/removing an end date' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    my @common_edit_data = (
+        edit_type  => $EDIT_LABEL_EDIT,
+        editor_id  => 1,
+        ipi_codes  => [ '00284373936' ],
+        isni_codes => [ '1422458635730476' ],
+    );
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_label_delete');
+
+    subtest 'Adding an end date is an auto-edit (MBS-5108)' => sub {
+        my $edit = $c->model('Edit')->create(
+            @common_edit_data,
+            to_edit  => $c->model('Label')->get_by_id(2),
+            end_date => { year => 2015, month => 1, day => 2 },
+            ended    => 1,
+        );
+
+        ok(!$edit->is_open);
+        is($c->model('Label')->get_by_id(2)->end_date->format, '2015-01-02');
+    };
+
+    subtest 'Removing an end date is not an auto-edit' => sub {
+        my $edit = $c->model('Edit')->create(
+            @common_edit_data,
+            to_edit  => $c->model('Label')->get_by_id(2),
+            end_date => { year => undef, month => undef, day => undef },
+            ended    => 1,
+        );
+
+        ok($edit->is_open);
+        ok(!$c->model('Label')->get_by_id(2)->end_date->is_empty);
+        $edit->accept;
+        ok($c->model('Label')->get_by_id(2)->end_date->is_empty);
+    };
+
+    subtest 'Removing the ended flag is not an auto-edit' => sub {
+        my $edit = $c->model('Edit')->create(
+            @common_edit_data,
+            to_edit  => $c->model('Label')->get_by_id(2),
+            ended    => 0,
+        );
+
+        ok($edit->is_open);
+        ok($c->model('Label')->get_by_id(2)->ended);
+        $edit->accept;
+        ok(!$c->model('Label')->get_by_id(2)->ended);
+    };
+};
+
 sub create_full_edit {
     my ($c, $label) = @_;
     return $c->model('Edit')->create(
