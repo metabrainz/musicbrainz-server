@@ -379,6 +379,19 @@ EOSQL
     is($artist->end_date->day, 12);
 };
 
+test 'Merging "ended" flag' => sub {
+    my $c = shift->c;
+    $c->sql->do(<<'EOSQL');
+INSERT INTO artist (id, gid, name, sort_name, ended) VALUES
+  (3, 'ac653796-bca1-4d2e-a92a-4ce5ef2efb0b', 'The Artist', 'Artist, The', FALSE),
+  (4, '0db63477-bc98-4aac-a76a-28d78971a07c', 'An Artist', 'Artist, An', TRUE);
+EOSQL
+
+    $c->model('Artist')->merge(3, [4]);
+    my $artist = $c->model('Artist')->get_by_id(3);
+    ok($artist->ended, 'merge result retains "ended" flag (MBS-6763)');
+};
+
 test 'Merging attributes for VA' => sub {
     my $c = shift->c;
     MusicBrainz::Server::Test->prepare_test_database($c, '+special-purpose');
