@@ -121,9 +121,9 @@ override allow_auto_edit => sub {
     # Adding a date is automatic if there was no date yet.
     if ($props->{date_period}) {
         return 0 if exists $self->data->{old}{begin_date}
-            and PartialDate->new_from_row($self->data->{old}{begin_date})->format ne '';
+            and !PartialDate->new_from_row($self->data->{old}{begin_date})->is_empty;
         return 0 if exists $self->data->{old}{end_date}
-            and PartialDate->new_from_row($self->data->{old}{end_date})->format ne '';
+            and !PartialDate->new_from_row($self->data->{old}{end_date})->is_empty;
         return 0 if exists $self->data->{old}{ended}
             and $self->data->{old}{ended} != $self->data->{new}{ended};
     }
