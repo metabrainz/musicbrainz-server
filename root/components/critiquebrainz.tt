@@ -15,7 +15,7 @@
 
 [%~ MACRO critiquebrainz_links(rg) BLOCK;
   IF rg.review_count == 0;
-    l('No one has reviewed this release group yet. Be the first to {write_link|write one}.', {
+    l('No one has reviewed this release group yet. Be the first to {write_link|write a review}.', {
       write_link => rg. write_review_href
     });
   ELSE;
