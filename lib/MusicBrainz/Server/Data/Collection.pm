@@ -124,66 +124,6 @@ sub delete_entities {
               WHERE $type IN (".placeholders(@ids).")", @ids);
 }
 
-sub add_releases_to_collection
-{
-    my ($self, $collection_id, @ids) = @_;
-    $self->add_entities_to_collection("release", $collection_id, @ids);
-}
-
-sub remove_releases_from_collection
-{
-    my ($self, $collection_id, @ids) = @_;
-    $self->remove_entities_from_collection("release", $collection_id, @ids);
-}
-
-sub check_release
-{
-    my ($self, $collection_id, $id) = @_;
-    return $self->contains_entity("release", $collection_id, $id);
-}
-
-sub merge_releases
-{
-    my ($self, $new_id, @old_ids) = @_;
-    $self->merge_entities("release", $new_id, @old_ids);
-}
-
-sub delete_releases
-{
-    my ($self, @ids) = @_;
-    $self->delete_entities("release", @ids);
-}
-
-sub add_events_to_collection
-{
-    my ($self, $collection_id, @ids) = @_;
-    $self->add_entities_to_collection("event", $collection_id, @ids);
-}
-
-sub remove_events_from_collection
-{
-    my ($self, $collection_id, @ids) = @_;
-    $self->remove_entities_from_collection("event", $collection_id, @ids);
-}
-
-sub check_event
-{
-    my ($self, $collection_id, $id) = @_;
-    return $self->contains_entity("event", $collection_id, $id);
-}
-
-sub merge_events
-{
-    my ($self, $new_id, @old_ids) = @_;
-    $self->merge_entities("event", $new_id, @old_ids);
-}
-
-sub delete_events
-{
-    my ($self, @ids) = @_;
-    $self->delete_entities("event", @ids);
-}
-
 sub get_first_collection {
     my ($self, $editor_id) = @_;
     my $query = 'SELECT id FROM ' . $self->_table . ' WHERE editor = ? ORDER BY id ASC LIMIT 1';
@@ -221,18 +161,6 @@ sub find_all_by_entity {
     return query_to_list(
         $self->c->sql, sub { $self->_new_from_row(@_) },
         $query, $id);
-}
-
-sub find_all_by_event
-{
-    my ($self, $id) = @_;
-    return $self->find_all_by_entity('event', $id);
-}
-
-sub find_all_by_release
-{
-    my ($self, $id) = @_;
-    return $self->find_all_by_entity('release', $id);
 }
 
 sub load {
