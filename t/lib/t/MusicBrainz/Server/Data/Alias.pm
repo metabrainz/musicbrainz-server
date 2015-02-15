@@ -234,10 +234,10 @@ INSERT INTO artist_alias (artist, name, sort_name) VALUES (1, 'Old name', 'Old n
 EOSQL
 
     my $check_alias = sub {
-        $c->model('Artist')->alias->exists({
-            name => shift, locale => undef, type_id => undef, not_id => undef, entity => shift
-        })
-    };
+        $c->model('Artist')->alias->exists
+          ({name => shift, locale => undef, type_id => undef,
+            not_id => undef, entity => shift})
+      };
 
     ok($check_alias->('Old name', 1), 'Old name aliased to artist #1');
     ok(!$check_alias->('Foo name', 1), 'Foo name NOT aliased to artist #1');
