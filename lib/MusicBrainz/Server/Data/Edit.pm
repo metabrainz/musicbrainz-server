@@ -167,11 +167,11 @@ sub find_by_collection
                     "SELECT edit_$_.edit
                     FROM edit_$_ JOIN editor_collection_$_
                      ON edit_$_.$_ = editor_collection_$_.$_
-                     WHERE editor_collection_$_.collection = \$1"
+                     WHERE editor_collection_$_.collection = ?"
                   } entities_with('collections')) . ')
                   ' . $status_cond . '
                   ORDER BY edit.id DESC, edit.editor
-                  OFFSET $2 LIMIT ' . $EDIT_COUNT_LIMIT;
+                  OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
         # XXX Postgres massively misestimates the selectivity of the "edit.id IN (...)"
         # clause, using its default value of 0.5 (i.e. every other row in the edit
         # table is expected to match), even though the row estimate for the subquery is
@@ -187,7 +187,7 @@ sub find_by_collection
 
     return query_to_list_limited($self->c->sql, $offset, $limit, sub {
             return $self->_new_from_row(shift);
-        }, $query, $collection_id, $offset);
+        }, $query, ($collection_id) x entities_with('collections'), $offset);
 }
 
 sub find_for_subscription
