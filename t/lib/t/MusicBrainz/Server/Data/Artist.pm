@@ -115,7 +115,7 @@ like ( $annotation->text, qr/Test annotation 1/ );
 
 
 # Merging annotations
-$artist_data->annotation->merge(4, 3);
+$artist_data->annotation->merge(4, 5, 3, 6);
 $annotation = $artist_data->annotation->get_latest(3);
 ok(!defined $annotation);
 
@@ -123,9 +123,13 @@ $annotation = $artist_data->annotation->get_latest(4);
 
 like($annotation->text, qr/Test annotation 1/, 'has annotation 1');
 like($annotation->text, qr/Test annotation 2/, 'has annotation 2');
+like($annotation->text, qr/Duplicate annotation/, 'has third annotation');
 
 like($annotation->text, qr/annotation 2.*annotation 1/s,
      'annotation from merge target is first (MBS-3452)');
+
+unlike($annotation->text, qr/Duplicate annotation.*Duplicate annotation/s,
+       'duplicate annotation appears only once (MBS-6164)');
 
 # Deleting annotations
 $artist_data->annotation->delete(4);
