@@ -655,6 +655,19 @@ test('Guess type', function (t) {
             [
                 'release', 'https://www.finna.fi/Record/viola.163990',
                 MB.constants.LINK_TYPES.otherdatabases.release
+            ],
+            // ClassicalArchives.com
+            [
+                'artist', 'http://www.classicalarchives.com/composer/2806.html',
+                MB.constants.LINK_TYPES.otherdatabases.artist
+            ],
+            [
+                'release', 'http://www.classicalarchives.com/album/menlo-201409.html',
+                MB.constants.LINK_TYPES.otherdatabases.release
+            ],
+            [
+                'work', 'http://www.classicalarchives.com/work/1119282.html',
+                MB.constants.LINK_TYPES.otherdatabases.work
             ]
         ];
 
@@ -1343,6 +1356,22 @@ test('Cleanup', function (t) {
                 'http://nla.gov.au/anbd.bib-an11701020#',
                 'http://nla.gov.au/anbd.bib-an11701020',
                 'release_group'
+            ],
+            // ClassicalArchives.com
+            [
+                'www.classicalarchives.com/composer/2806.html#tvf=tracks&tv=albums',
+                'http://www.classicalarchives.com/composer/2806.html',
+                'artist'
+            ],
+            [
+                'http://classicalarchives.com/album/menlo-201409.html?test',
+                'http://www.classicalarchives.com/album/menlo-201409.html',
+                'release'
+            ],
+            [
+                'https://www.classicalarchives.com/work/1119282.html',
+                'http://www.classicalarchives.com/work/1119282.html',
+                'work'
             ],
         ];
 
