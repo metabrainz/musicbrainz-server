@@ -23,11 +23,7 @@ test all => sub {
     my $rec_data = MusicBrainz::Server::Data::Recording->new(c => $test->c);
     my ($recs, $hits) = $rec_data->find_by_artist(4, 100, 0);
 
-    foreach (0..20)
-    {
-        is($expected[$_], $recs->[$_]->name);
-    }
-
+    is($expected[$_], $recs->[$_]->name, "Expected recording name \#$_") for (0..20)
 };
 
 1;
