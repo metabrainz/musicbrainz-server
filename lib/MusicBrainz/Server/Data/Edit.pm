@@ -164,10 +164,10 @@ sub find_by_collection
 
     my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table . '
                   WHERE edit.id IN (' . join(' UNION ', map {
-                    "SELECT edit_${_}.edit
-                    FROM edit_${_} JOIN editor_collection_${_}
-                     ON edit_${_}.${_} = editor_collection_${_}.${_}
-                     WHERE editor_collection_${_}.collection = \$1"
+                    "SELECT edit_$_.edit
+                    FROM edit_$_ JOIN editor_collection_$_
+                     ON edit_$_.$_ = editor_collection_$_.$_
+                     WHERE editor_collection_$_.collection = \$1"
                   } entities_with('collections')) . ')
                   ' . $status_cond . '
                   ORDER BY edit.id DESC, edit.editor
