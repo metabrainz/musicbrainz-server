@@ -6,9 +6,8 @@ use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use MusicBrainz::Server::Constants qw( entities_with );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::WebService::XML::XPath;
-use MusicBrainz::Server::Validation qw( is_guid );
+use MusicBrainz::Server::Validation qw( is_guid is_integer );
 use Readonly;
-use Scalar::Util qw( looks_like_number );
 
 my $ws_defs = Data::OptList::mkopt([
      rating => {
@@ -56,7 +55,7 @@ sub rating_submit : Private
 
         my $rating = $xp->find('mb:user-rating', $node)->string_value;
         $self->_error($c, "Rating should be an integer between 0 and 100")
-            unless looks_like_number($rating) && $rating >= 0 && $rating <= 100;
+            unless is_integer($rating) && $rating >= 0 && $rating <= 100;
 
         # postpone any updates until we've made some effort to parse the whole
         # body and report possible errors in it.
