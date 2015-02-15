@@ -14,7 +14,7 @@ test('Guess type', function (t) {
                 MB.constants.LINK_TYPES.amazon.release
             ],
             [
-                'release', 'http://www.amazon.in/dp/B006H1JVW4',
+                'release', 'http://www.amazon.in/gp/product/B006H1JVW4',
                 MB.constants.LINK_TYPES.amazon.release
             ],
             // Wikipedia
@@ -677,11 +677,11 @@ test('Guess type', function (t) {
             // CDJapan.co.jp
             [
                 'artist', 'http://www.cdjapan.co.jp/person/76324',
-                MB.constants.LINK_TYPES.otherdatabases.artist
+                MB.constants.LINK_TYPES.mailorder.artist
             ],
             [
                 'release', 'http://www.cdjapan.co.jp/product/COCC-72267',
-                MB.constants.LINK_TYPES.otherdatabases.release
+                MB.constants.LINK_TYPES.mailorder.release
             ]
         ];
 
@@ -707,7 +707,7 @@ test('Cleanup', function (t) {
             ],
             [
                 'http://www.amazon.in/dp/B006H1JVW4',
-                'http://www.amazon.in/dp/B006H1JVW4',
+                'http://www.amazon.in/gp/product/B006H1JVW4',
                 'release'
             ],
             // %E2%80%8E cleanup
