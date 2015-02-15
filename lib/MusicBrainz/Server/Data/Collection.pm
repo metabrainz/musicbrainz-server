@@ -24,18 +24,15 @@ with 'MusicBrainz::Server::Data::Role::Subscription' => {
 
 sub _type { 'collection' }
 
-sub _columns
-{
+sub _columns {
     return 'editor_collection.id, editor_collection.gid, editor_collection.editor, editor_collection.name, public, editor_collection.description, editor_collection.type';
 }
 
-sub _id_column
-{
+sub _id_column {
     return 'id';
 }
 
-sub _column_mapping
-{
+sub _column_mapping {
     return {
         id => 'id',
         gid => 'gid',
@@ -47,8 +44,7 @@ sub _column_mapping
     };
 }
 
-sub find_by_subscribed_editor
-{
+sub find_by_subscribed_editor {
     my ($self, $editor_id, $limit, $offset) = @_;
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
@@ -61,8 +57,7 @@ sub find_by_subscribed_editor
         $query, $editor_id, $offset || 0);
 }
 
-sub add_entities_to_collection
-{
+sub add_entities_to_collection {
     my ($self, $type, $collection_id, @ids) = @_;
     return unless @ids;
 
@@ -70,39 +65,36 @@ sub add_entities_to_collection
 
     my @collection_ids = ($collection_id) x @ids;
     $self->sql->do("
-        INSERT INTO editor_collection_" . $type . " (collection, " . $type . ")
-           SELECT DISTINCT add.collection, add." . $type . "
-             FROM (VALUES " . join(', ', ("(?::integer, ?::integer)") x @ids) . ") add (collection, " . $type . ")
+        INSERT INTO editor_collection_$type (collection, $type)
+           SELECT DISTINCT add.collection, add.$type
+             FROM (VALUES " . join(', ', ("(?::integer, ?::integer)") x @ids) . ") add (collection, $type)
             WHERE NOT EXISTS (
-              SELECT TRUE FROM editor_collection_" . $type . "
-              WHERE collection = add.collection AND " . $type . " = add." . $type . "
+              SELECT TRUE FROM editor_collection_$type
+              WHERE collection = add.collection AND $type = add.$type
               LIMIT 1
             )", zip @collection_ids, @ids);
 }
 
-sub remove_entities_from_collection
-{
+sub remove_entities_from_collection {
     my ($self, $type, $collection_id, @ids) = @_;
     return unless @ids;
 
     $self->sql->auto_commit;
-    $self->sql->do("DELETE FROM editor_collection_" . $type . "
-              WHERE collection = ? AND " . $type . " IN (" . placeholders(@ids) . ")",
+    $self->sql->do("DELETE FROM editor_collection_$type
+              WHERE collection = ? AND $type IN (" . placeholders(@ids) . ")",
               $collection_id, @ids);
 }
 
-sub check_entity
-{
+sub check_entity {
     my ($self, $type, $collection_id, $id) = @_;
 
     return $self->sql->select_single_value("
-        SELECT 1 FROM editor_collection_" . $type . "
-        WHERE collection = ? AND " . $type . " = ?",
+        SELECT 1 FROM editor_collection_$type
+        WHERE collection = ? AND $type = ?",
         $collection_id, $id) ? 1 : 0;
 }
 
-sub merge_entities
-{
+sub merge_entities {
     my ($self, $type, $new_id, @old_ids) = @_;
 
     my @ids = ($new_id, @old_ids);
@@ -110,27 +102,26 @@ sub merge_entities
     # Remove duplicate joins (ie, rows with entity from @old_ids and pointing to
     # a collection that already contains $new_id)
     $self->sql->do(
-        "DELETE FROM editor_collection_" . $type . "
-               WHERE " . $type . " IN (" . placeholders(@ids) . ")
-                 AND (collection, " . $type . ") NOT IN (
-                     SELECT DISTINCT ON (collection) collection, " . $type . "
-                       FROM editor_collection_" . $type . "
-                      WHERE " . $type . " IN (" . placeholders(@ids) . ")
+        "DELETE FROM editor_collection_$type
+               WHERE $type IN (" . placeholders(@ids) . ")
+                 AND (collection, $type) NOT IN (
+                     SELECT DISTINCT ON (collection) collection, $type
+                       FROM editor_collection_$type
+                      WHERE $type IN (" . placeholders(@ids) . ")
                  )",
         @ids, @ids);
 
     # Move all remaining joins to the new release
-    $self->sql->do("UPDATE editor_collection_" . $type . " SET " . $type . " = ?
-              WHERE " . $type . " IN (".placeholders(@ids).")",
+    $self->sql->do("UPDATE editor_collection_$type SET $type = ?
+              WHERE $type IN (".placeholders(@ids).")",
               $new_id, @ids);
 }
 
-sub delete_entities
-{
+sub delete_entities {
     my ($self, $type, @ids) = @_;
 
-    $self->sql->do("DELETE FROM editor_collection_" . $type . "
-              WHERE " . $type . " IN (".placeholders(@ids).")", @ids);
+    $self->sql->do("DELETE FROM editor_collection_$type
+              WHERE $type IN (".placeholders(@ids).")", @ids);
 }
 
 sub add_releases_to_collection
@@ -193,15 +184,13 @@ sub delete_events
     $self->delete_entities("event", @ids);
 }
 
-sub get_first_collection
-{
+sub get_first_collection {
     my ($self, $editor_id) = @_;
     my $query = 'SELECT id FROM ' . $self->_table . ' WHERE editor = ? ORDER BY id ASC LIMIT 1';
     return $self->sql->select_single_value($query, $editor_id);
 }
 
-sub find_all_by_editor
-{
+sub find_all_by_editor {
     my ($self, $id, $show_private, $entity_type) = @_;
     my $extra_conditions = (defined $entity_type) ? "AND ct.entity_type = '$entity_type'" : "";
     if (!$show_private) {
@@ -220,14 +209,13 @@ sub find_all_by_editor
         $query, $id);
 }
 
-sub find_all_by_entity
-{
+sub find_all_by_entity {
     my ($self, $type, $id) = @_;
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
-                    JOIN editor_collection_" . $type . " ce
+                    JOIN editor_collection_$type ce
                         ON editor_collection.id = ce.collection
-                 WHERE ce." . $type . " = ? ";
+                 WHERE ce.$type = ? ";
 
     $query .= "ORDER BY musicbrainz_collate(name)";
     return query_to_list(
@@ -247,8 +235,7 @@ sub find_all_by_release
     return $self->find_all_by_entity('release', $id);
 }
 
-sub load
-{
+sub load {
     my ($self, @objs) = @_;
     load_subobjects($self, 'collection', @objs);
 }
@@ -287,8 +274,7 @@ sub load_entity_count {
     }
 }
 
-sub update
-{
+sub update {
     my ($self, $collection_id, $update) = @_;
     croak '$collection_id must be present and > 0' unless $collection_id > 0;
     my $row = $self->_hash_to_row($update);
@@ -304,8 +290,7 @@ sub update
     $self->sql->update_row('editor_collection', $row, { id => $collection_id });
 }
 
-sub delete
-{
+sub delete {
     my ($self, @collection_ids) = @_;
     return unless @collection_ids;
 
@@ -336,8 +321,7 @@ sub delete_editor {
     );
 }
 
-sub _hash_to_row
-{
+sub _hash_to_row {
     my ($self, $values) = @_;
 
     my %row = (
