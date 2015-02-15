@@ -17,103 +17,104 @@ BEGIN {
 with 't::Context';
 
 sub verify_artist_alias {
-  my ($alias, $name, $id, $locale) = @_;
-  is($alias->name, $name, "alias name: $name");
-  is($alias->artist_id, $id, "artist id: $id");
-  is($alias->locale, $locale, "locale");
+    my ($alias, $name, $id, $locale) = @_;
+    is($alias->name, $name, "alias name: $name");
+    is($alias->artist_id, $id, "artist id: $id");
+    is($alias->locale, $locale, "locale");
 }
+
 test all => sub {
 
-  my $test = shift;
+    my $test = shift;
 
-  MusicBrainz::Server::Test->prepare_test_database($test->c, '+artistalias');
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+artistalias');
 
-  $test->c->sql->begin;
+    $test->c->sql->begin;
 
-  # Artist data should do the alias role
-  my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $test->c);
-  does_ok($artist_data, 'MusicBrainz::Server::Data::Role::Alias');
-  does_ok($artist_data->alias, 'MusicBrainz::Server::Data::Role::Editable');
+    # Artist data should do the alias role
+    my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $test->c);
+    does_ok($artist_data, 'MusicBrainz::Server::Data::Role::Alias');
+    does_ok($artist_data->alias, 'MusicBrainz::Server::Data::Role::Editable');
 
-# Make sure we can load specific aliases
-  my $alias = $artist_data->alias->get_by_id(1);
-  ok(defined $alias, 'returns an object');
-  isa_ok($alias, 'MusicBrainz::Server::Entity::ArtistAlias', 'not an artist alias');
-  verify_artist_alias($alias, 'Alias 1', 1, undef);
+    # Make sure we can load specific aliases
+    my $alias = $artist_data->alias->get_by_id(1);
+    ok(defined $alias, 'returns an object');
+    isa_ok($alias, 'MusicBrainz::Server::Entity::ArtistAlias', 'not an artist alias');
+    verify_artist_alias($alias, 'Alias 1', 1, undef);
 
-  # Loading the artist from an alias
-  $artist_data->load($alias);
-  ok(defined $alias->artist, 'didn\'t load artist');
-  isa_ok($alias->artist, 'MusicBrainz::Server::Entity::Artist', 'not an artist object');
-  is($alias->artist->id, $alias->artist_id, 'loaded artist id');
+    # Loading the artist from an alias
+    $artist_data->load($alias);
+    ok(defined $alias->artist, 'didn\'t load artist');
+    isa_ok($alias->artist, 'MusicBrainz::Server::Entity::Artist', 'not an artist object');
+    is($alias->artist->id, $alias->artist_id, 'loaded artist id');
 
-  # Find all aliases for an artist
-  my $alias_set = $artist_data->alias->find_by_entity_id(1);
-  is(scalar @$alias_set, 2, "Expected number of aliases");
-  verify_artist_alias($alias_set->[0], 'Alias 2', 1, 'en_GB');
-  verify_artist_alias($alias_set->[1], 'Alias 1', 1, undef);
+    # Find all aliases for an artist
+    my $alias_set = $artist_data->alias->find_by_entity_id(1);
+    is(scalar @$alias_set, 2, "Expected number of aliases");
+    verify_artist_alias($alias_set->[0], 'Alias 2', 1, 'en_GB');
+    verify_artist_alias($alias_set->[1], 'Alias 1', 1, undef);
 
-  # Attempt finding aliases for an artist with no aliases
-  $alias_set = $artist_data->alias->find_by_entity_id(2);
-  is(scalar @$alias_set, 0, "Expected lack of aliases found");
+    # Attempt finding aliases for an artist with no aliases
+    $alias_set = $artist_data->alias->find_by_entity_id(2);
+    is(scalar @$alias_set, 0, "Expected lack of aliases found");
 
-  # Make sure we can check if an entity has aliases for a given locale
-  ok($artist_data->alias->has_locale(1, 'en_GB'), 'artist #1 has en_GB locale');
+    # Make sure we can check if an entity has aliases for a given locale
+    ok($artist_data->alias->has_locale(1, 'en_GB'), 'artist #1 has en_GB locale');
 
-  # Test merging aliases together
-  $artist_data->alias->merge(1, 2);
+    # Test merging aliases together
+    $artist_data->alias->merge(1, 2);
 
-  $alias_set = $artist_data->alias->find_by_entity_id(1);
-  is(scalar @$alias_set, 3, "Expected number of aliases");
-  is($alias_set->[0]->name, 'Alias 2', 'Original alias #1');
-  is($alias_set->[1]->name, 'Alias 1', 'Original alias #2');
-  is($alias_set->[2]->name, 'Empty Artist', 'has the old artist as an alias');
+    $alias_set = $artist_data->alias->find_by_entity_id(1);
+    is(scalar @$alias_set, 3, "Expected number of aliases");
+    is($alias_set->[0]->name, 'Alias 2', 'Original alias #1');
+    is($alias_set->[1]->name, 'Alias 1', 'Original alias #2');
+    is($alias_set->[2]->name, 'Empty Artist', 'has the old artist as an alias');
 
-  $alias_set = $artist_data->alias->find_by_entity_id(2);
-  is(scalar @$alias_set, 0, 'Merged artist has no aliases');
+    $alias_set = $artist_data->alias->find_by_entity_id(2);
+    is(scalar @$alias_set, 0, 'Merged artist has no aliases');
 
-  # Test merging aliases with identical names
-  $artist_data->alias->merge(1, 3);
+    # Test merging aliases with identical names
+    $artist_data->alias->merge(1, 3);
 
-  $alias_set = $artist_data->alias->find_by_entity_id(1);
-  is(scalar @$alias_set, 4, "Expected number of aliases");
-  verify_artist_alias($alias_set->[0], 'Alias 2', 1, 'en_GB');
-  verify_artist_alias($alias_set->[1], 'Alias 1', 1, undef);
-  verify_artist_alias($alias_set->[2], 'Alias 2', 1, undef);
-  verify_artist_alias($alias_set->[3], 'Empty Artist', 1, undef);
+    $alias_set = $artist_data->alias->find_by_entity_id(1);
+    is(scalar @$alias_set, 4, "Expected number of aliases");
+    verify_artist_alias($alias_set->[0], 'Alias 2', 1, 'en_GB');
+    verify_artist_alias($alias_set->[1], 'Alias 1', 1, undef);
+    verify_artist_alias($alias_set->[2], 'Alias 2', 1, undef);
+    verify_artist_alias($alias_set->[3], 'Empty Artist', 1, undef);
 
-  $alias_set = $artist_data->alias->find_by_entity_id(3);
-  is(scalar @$alias_set, 0, 'Merged artist has no aliases');
+    $alias_set = $artist_data->alias->find_by_entity_id(3);
+    is(scalar @$alias_set, 0, 'Merged artist has no aliases');
 
-  # Test deleting aliases
-  $artist_data->alias->delete_entities(1);
-  $alias_set = $artist_data->alias->find_by_entity_id(1);
-  is(scalar @$alias_set, 0, 'Artist #1 now has no aliases');
+    # Test deleting aliases
+    $artist_data->alias->delete_entities(1);
+    $alias_set = $artist_data->alias->find_by_entity_id(1);
+    is(scalar @$alias_set, 0, 'Artist #1 now has no aliases');
 
-  # Test inserting new aliases
-  $artist_data->alias->insert({
-                               artist_id => 1,
-                               name => 'New alias',
-                               sort_name => 'New sort name',
-                               locale => 'en_AU',
-                               primary_for_locale => 0,
-                               ended => 0
-                              });
+    # Test inserting new aliases
+    $artist_data->alias->insert({
+                                 artist_id => 1,
+                                 name => 'New alias',
+                                 sort_name => 'New sort name',
+                                 locale => 'en_AU',
+                                 primary_for_locale => 0,
+                                 ended => 0
+                                });
 
-  $alias_set = $artist_data->alias->find_by_entity_id(1);
-  is(scalar @$alias_set, 1, "Artist #1 has a single newly inserted alias");
-  verify_artist_alias($alias_set->[0], 'New alias', 1, 'en_AU');
-  is($alias_set->[0]->sort_name, 'New sort name', "sort_name");
-  is($alias_set->[0]->primary_for_locale, 0, "primary_for_locale");
+    $alias_set = $artist_data->alias->find_by_entity_id(1);
+    is(scalar @$alias_set, 1, "Artist #1 has a single newly inserted alias");
+    verify_artist_alias($alias_set->[0], 'New alias', 1, 'en_AU');
+    is($alias_set->[0]->sort_name, 'New sort name', "sort_name");
+    is($alias_set->[0]->primary_for_locale, 0, "primary_for_locale");
 
-  $test->c->sql->commit;
+    $test->c->sql->commit;
 
-  # Make sure other data types support aliases
-  my $label_data = MusicBrainz::Server::Data::Label->new(c => $test->c);
-  does_ok($label_data, 'MusicBrainz::Server::Data::Role::Alias');
+    # Make sure other data types support aliases
+    my $label_data = MusicBrainz::Server::Data::Label->new(c => $test->c);
+    does_ok($label_data, 'MusicBrainz::Server::Data::Role::Alias');
 
-  my $work_data = MusicBrainz::Server::Data::Work->new(c => $test->c);
-  does_ok($work_data, 'MusicBrainz::Server::Data::Role::Alias');
+    my $work_data = MusicBrainz::Server::Data::Work->new(c => $test->c);
+    does_ok($work_data, 'MusicBrainz::Server::Data::Role::Alias');
 
 };
 
