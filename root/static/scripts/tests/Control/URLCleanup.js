@@ -8,6 +8,15 @@ var test = require('tape');
 test('Guess type', function (t) {
     var control = MB.Control.URLCleanup();
     var tests = [
+            // Amazon
+            [
+                'release', 'http://www.amazon.co.uk/gp/product/B00005JIWP',
+                MB.constants.LINK_TYPES.amazon.release
+            ],
+            [
+                'release', 'http://www.amazon.in/dp/B006H1JVW4',
+                MB.constants.LINK_TYPES.amazon.release
+            ],
             // Wikipedia
             [
                 'artist', 'http://en.wikipedia.org/wiki/Source_Direct_%28band%29',
@@ -171,10 +180,6 @@ test('Guess type', function (t) {
             [
                 'artist', 'http://www.purevolume.com/withbloodcomescleansing',
                 MB.constants.LINK_TYPES.purevolume.artist
-            ],
-            [
-                'release', 'http://www.amazon.co.uk/gp/product/B00005JIWP',
-                MB.constants.LINK_TYPES.amazon.release
             ],
             // Recochoku
             [
@@ -698,6 +703,11 @@ test('Cleanup', function (t) {
             [
                 'http://www.amazon.co.jp/dp/tracks/B000Y3JG8U#disc_1',
                 'http://www.amazon.co.jp/gp/product/B000Y3JG8U',
+                'release'
+            ],
+            [
+                'http://www.amazon.in/dp/B006H1JVW4',
+                'http://www.amazon.in/dp/B006H1JVW4',
                 'release'
             ],
             // %E2%80%8E cleanup
