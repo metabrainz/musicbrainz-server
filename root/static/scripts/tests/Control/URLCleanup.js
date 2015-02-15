@@ -17,6 +17,10 @@ test('Guess type', function (t) {
                 'release', 'http://www.amazon.in/gp/product/B006H1JVW4',
                 MB.constants.LINK_TYPES.amazon.release
             ],
+            [
+                'release', 'http://www.amazon.com.br/gp/product/B00T8E47G2',
+                MB.constants.LINK_TYPES.amazon.release
+            ],
             // Wikipedia
             [
                 'artist', 'http://en.wikipedia.org/wiki/Source_Direct_%28band%29',
@@ -708,6 +712,11 @@ test('Cleanup', function (t) {
             [
                 'http://www.amazon.in/dp/B006H1JVW4',
                 'http://www.amazon.in/gp/product/B006H1JVW4',
+                'release'
+            ],
+            [
+                'http://amazon.com.br/dp/B00T8E47G2',
+                'http://www.amazon.com.br/gp/product/B00T8E47G2',
                 'release'
             ],
             // %E2%80%8E cleanup
