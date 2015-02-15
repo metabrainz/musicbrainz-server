@@ -163,18 +163,15 @@ sub find_by_collection
     $status_cond = ' AND status = ' . $status if defined($status);
 
     my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table . '
-                  WHERE edit.id IN (SELECT er.edit
-                                      FROM edit_release er JOIN editor_collection_release ecr
-                                           ON er.release = ecr.release
-                                     WHERE ecr.collection = ?
-                                    UNION
-                                    SELECT ee.edit
-                                      FROM edit_event ee JOIN editor_collection_event ece
-                                           ON ee.event = ece.event
-                                     WHERE ece.collection = ?)
+                  WHERE edit.id IN (' . join(' UNION ', map {
+                    "SELECT edit_${_}.edit
+                    FROM edit_${_} JOIN editor_collection_${_}
+                     ON edit_${_}.${_} = editor_collection_${_}.${_}
+                     WHERE editor_collection_${_}.collection = \$1"
+                  } entities_with('collections')) . ')
                   ' . $status_cond . '
                   ORDER BY edit.id DESC, edit.editor
-                  OFFSET ? LIMIT ' . $EDIT_COUNT_LIMIT;
+                  OFFSET $2 LIMIT ' . $EDIT_COUNT_LIMIT;
         # XXX Postgres massively misestimates the selectivity of the "edit.id IN (...)"
         # clause, using its default value of 0.5 (i.e. every other row in the edit
         # table is expected to match), even though the row estimate for the subquery is
@@ -190,7 +187,7 @@ sub find_by_collection
 
     return query_to_list_limited($self->c->sql, $offset, $limit, sub {
             return $self->_new_from_row(shift);
-        }, $query, $collection_id, $collection_id, $offset);
+        }, $query, $collection_id, $offset);
 }
 
 sub find_for_subscription
