@@ -85,7 +85,7 @@ sub remove_entities_from_collection {
               $collection_id, @ids);
 }
 
-sub check_entity {
+sub contains_entity {
     my ($self, $type, $collection_id, $id) = @_;
 
     return $self->sql->select_single_value("
@@ -139,7 +139,7 @@ sub remove_releases_from_collection
 sub check_release
 {
     my ($self, $collection_id, $id) = @_;
-    return $self->check_entity("release", $collection_id, $id);
+    return $self->contains_entity("release", $collection_id, $id);
 }
 
 sub merge_releases
@@ -169,7 +169,7 @@ sub remove_events_from_collection
 sub check_event
 {
     my ($self, $collection_id, $id) = @_;
-    return $self->check_entity("event", $collection_id, $id);
+    return $self->contains_entity("event", $collection_id, $id);
 }
 
 sub merge_events
@@ -259,11 +259,9 @@ sub load_entity_count {
     return unless @collections;
     my %collection_map = map { $_->id => $_ } grep { defined } @collections;
     my $query =
-        'SELECT id, (' . join(' + ', map {
-          'coalesce((SELECT count(' . $_ . ')
-           FROM editor_collection_' . $_ . '
-           WHERE collection = col.id), 0)'
-        } entities_with('collections')) . '
+      'SELECT id, (' . join(' + ', map {"coalesce((SELECT count($_)
+           FROM editor_collection_$_ WHERE collection = col.id), 0)"
+       } entities_with('collections')) . '
            ) FROM (
               VALUES '. join(', ', ("(?::integer)") x keys %collection_map) .'
                 ) col (id)';
@@ -298,8 +296,8 @@ sub delete {
 
     # Remove all entities associated with the collection(s)
     map {
-      $self->sql->do('DELETE FROM editor_collection_' . $_ . '
-                    WHERE collection IN (' . placeholders(@collection_ids) . ')', @collection_ids);
+        $self->sql->do("DELETE FROM editor_collection_$_
+            WHERE collection IN (" . placeholders(@collection_ids) . ')', @collection_ids);
     } entities_with('collections');
 
     # Remove collection(s)
