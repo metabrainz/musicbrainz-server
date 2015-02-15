@@ -668,6 +668,15 @@ test('Guess type', function (t) {
             [
                 'work', 'http://www.classicalarchives.com/work/1119282.html',
                 MB.constants.LINK_TYPES.otherdatabases.work
+            ],
+            // CDJapan.co.jp
+            [
+                'artist', 'http://www.cdjapan.co.jp/person/76324',
+                MB.constants.LINK_TYPES.otherdatabases.artist
+            ],
+            [
+                'release', 'http://www.cdjapan.co.jp/product/COCC-72267',
+                MB.constants.LINK_TYPES.otherdatabases.release
             ]
         ];
 
@@ -1372,6 +1381,17 @@ test('Cleanup', function (t) {
                 'https://www.classicalarchives.com/work/1119282.html',
                 'http://www.classicalarchives.com/work/1119282.html',
                 'work'
+            ],
+            // CDJapan.co.jp
+            [
+                'www.cdjapan.co.jp/person/76324#test',
+                'http://www.cdjapan.co.jp/person/76324',
+                'artist'
+            ],
+            [
+                'https://cdjapan.co.jp/product/COCC-72267?test',
+                'http://www.cdjapan.co.jp/product/COCC-72267',
+                'release'
             ],
         ];
 

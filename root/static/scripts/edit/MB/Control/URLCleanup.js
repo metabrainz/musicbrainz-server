@@ -459,6 +459,14 @@ MB.constants.CLEANUPS = {
         ],
         type: MB.constants.LINK_TYPES.discographyentry
     },
+    cdjapan: {
+        match: [ new RegExp("^(https?://)?(www\\.)?cdjapan\\.co\\.jp/(product|person)/)", "i") ],
+        type: MB.constants.LINK_TYPES.mailorder,
+        clean: function (url) {
+            url = url.replace(/^(?:https?:\/\/)?(?:www\.)?cdjapan\.co\.jp\/(person|product)\/([^\/?#]+)(?:.*)?$/, "http://www.cdjapan.co.jp/$1/$2");
+            return url;
+        }
+    },
     ozonru: {
         match: [ new RegExp("^(https?://)?(www\\.)?ozon\\.ru/context/detail/id/", "i") ],
         type: MB.constants.LINK_TYPES.mailorder
