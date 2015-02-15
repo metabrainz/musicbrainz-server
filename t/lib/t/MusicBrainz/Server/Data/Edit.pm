@@ -4,6 +4,7 @@ use Test::Moose;
 use Test::More;
 use Test::Fatal;
 use Clone qw( clone );
+use List::MoreUtils qw( pairwise );
 
 BEGIN { use MusicBrainz::Server::Data::Edit };
 
@@ -74,7 +75,7 @@ test 'Test locks on edits' => sub {
     $sql2->begin;
     $sql2->select_single_row_array('SELECT * FROM edit WHERE id = 12345 FOR UPDATE');
 
-    like exception { $edit_data->get_by_id_and_lock(12345) }, qr/could not obtain lock/;
+    like exception { $edit_data->get_by_id_and_lock(12345) }, qr/could not obtain lock/, 'Lock found';
 
     # Release the lock
     $sql2->rollback;
@@ -91,58 +92,37 @@ my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
 my $sql = $test->c->sql;
 
 # Find all edits
-my ($edits, $hits) = $edit_data->find({}, 10, 0);
-is($hits, 5);
-is(scalar @$edits, 5, "Found all edits");
+my ($edits, $hits);
 
-# Check we get the edits in descending ID order
-is($edits->[$_]->id, 5 - $_) for (0..4);
+sub check_edits {
+  my ($find_hash, $expected_edit_ids, $prefix, $edit_data) = @_;
+  my ($edits, $hits) = $edit_data->find($find_hash, 10, 0);
+  is($hits, scalar @$expected_edit_ids, "Found expected number for ${prefix} edits");
+  is(scalar @$edits, scalar @$expected_edit_ids, "Found expected size of ${prefix} edits array");
+  pairwise { is($a->id, $b, "Found ${prefix} edit #".$a->id) } @$edits, @$expected_edit_ids;
+}
+
+check_edits({}, [5, 4, 3, 2, 1], "every", $edit_data);
 
 # Find edits with a certain status
-($edits, $hits) = $edit_data->find({ status => $STATUS_OPEN }, 10, 0);
-is($hits, 4);
-is(scalar @$edits, 4, "Found all open edits");
-is($edits->[0]->id, 5);
-is($edits->[1]->id, 3);
-is($edits->[2]->id, 2);
-is($edits->[3]->id, 1);
+check_edits({ status => $STATUS_OPEN }, [5, 3, 2, 1], "open", $edit_data);
 
 # Find edits by a specific editor
-($edits, $hits) = $edit_data->find({ editor => 1 }, 10, 0);
-is($hits, 2);
-is(scalar @$edits, 2, "Found edits by a specific editor");
-is($edits->[0]->id, 3);
-is($edits->[1]->id, 1);
+check_edits({ editor => 1 }, [3, 1], "editor-1", $edit_data);
 
 # Find edits by a specific editor with a certain status
-($edits, $hits) = $edit_data->find({ editor => 1, status => $STATUS_OPEN }, 10, 0);
-is($hits, 2);
-is(scalar @$edits, 2, "Found all open edits by a specific editor");
-is($edits->[0]->id, 3);
-is($edits->[1]->id, 1);
+check_edits({ editor => 1, status => $STATUS_OPEN }, [3, 1], "open-editor-1", $edit_data);
 
 # Find edits with 0 results
-($edits, $hits) = $edit_data->find({ editor => 122 }, 10, 0);
-is($hits, 0);
-is(scalar @$edits, 0, "Found no edits for a specific editor");
+check_edits({ editor => 122 }, [], "none-found", $edit_data);
 
 # Find edits by a certain artist
-($edits, $hits) = $edit_data->find({ artist => 1 }, 10, 0);
-is($hits, 2);
-is(scalar @$edits, 2, "Found edits by a certain artist");
-is($edits->[0]->id, 4);
-is($edits->[1]->id, 1);
+check_edits({ artist => 1 }, [4,1], "artist-1", $edit_data);
 
-($edits, $hits) = $edit_data->find({ artist => 1, status => $STATUS_APPLIED }, 10, 0);
-is($hits, 1);
-is(scalar @$edits, 1, "Found applied edits by a certain artist");
-is($edits->[0]->id, 4);
+check_edits({ status => $STATUS_APPLIED, artist => 1 }, [4], "applied-artist-1", $edit_data);
 
 # Find edits over multiple entities
-($edits, $hits) = $edit_data->find({ artist => [1,2] }, 10, 0);
-is($hits, 1);
-is(scalar @$edits, 1, "Found edits over multiple entities");
-is($edits->[0]->id, 4);
+check_edits({ status => $STATUS_APPLIED, artist => [1,2] }, [4], "artists-1-and-2", $edit_data);
 
 # Test accepting edits
 my $edit = $edit_data->get_by_id(1);
@@ -176,11 +156,11 @@ $edit = $edit_data->get_by_id_and_lock(5);
 $edit_data->approve($edit, $editor1);
 
 $edit = $edit_data->get_by_id(5);
-is($edit->status, $STATUS_APPLIED);
+is($edit->status, $STATUS_APPLIED, "Edit applied");
 
 $test->c->model('Vote')->load_for_edits($edit);
-is($edit->votes->[0]->vote, $VOTE_APPROVE);
-is($edit->votes->[0]->editor_id, 1);
+is($edit->votes->[0]->vote, $VOTE_APPROVE, "First vote is approval");
+is($edit->votes->[0]->editor_id, 1, "First vote by editor-1");
 
 # Test canceling
 $edit = $edit_data->get_by_id(2);
@@ -191,7 +171,7 @@ $edit_data->cancel($edit);
 my $editor_cancelled = $test->c->model('Editor')->get_by_id($edit->editor_id);
 
 $edit = $edit_data->get_by_id(2);
-is($edit->status, $STATUS_DELETED);
+is($edit->status, $STATUS_DELETED, "Edit canceled");
 
 is ($editor_cancelled->$_, $editor->$_,
     "$_ has not changed")
@@ -259,8 +239,8 @@ test 'Accepting auto-edits should credit editor auto-edits column' => sub {
     );
 
     $editor = $c->model('Editor')->get_by_id(1);
-    is $editor->accepted_auto_edits, $old_ae_count + 1;
-    is $editor->accepted_edits, $old_e_count;
+    is $editor->accepted_auto_edits, $old_ae_count + 1, "One more accepted auto-edit";
+    is $editor->accepted_edits, $old_e_count, "Same number of accepted edits";
 };
 
 test 'default_includes function' => sub {
