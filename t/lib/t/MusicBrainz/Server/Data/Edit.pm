@@ -83,6 +83,18 @@ test 'Test locks on edits' => sub {
     $foreign_connection->dbh->do('DELETE FROM editor WHERE id = 50');
 };
 
+sub are_edits_as_expected {
+  my ($expected_edit_ids, $prefix, $edits, $hits) = @_;
+  is($hits, scalar @$expected_edit_ids, "Found expected number for ${prefix} edits");
+  is(scalar @$edits, scalar @$expected_edit_ids, "Found expected size of ${prefix} edits array");
+  pairwise { is($a->id, $b, "Found ${prefix} edit #".$a->id) } @$edits, @$expected_edit_ids;
+}
+
+sub check_edits {
+  my ($find_hash, $expected_edit_ids, $prefix, $edit_data) = @_;
+  are_edits_as_expected($expected_edit_ids, $prefix, $edit_data->find($find_hash, 10, 0));
+}
+
 test all => sub {
 
 my $test = shift;
@@ -92,16 +104,6 @@ my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
 my $sql = $test->c->sql;
 
 # Find all edits
-my ($edits, $hits);
-
-sub check_edits {
-  my ($find_hash, $expected_edit_ids, $prefix, $edit_data) = @_;
-  my ($edits, $hits) = $edit_data->find($find_hash, 10, 0);
-  is($hits, scalar @$expected_edit_ids, "Found expected number for ${prefix} edits");
-  is(scalar @$edits, scalar @$expected_edit_ids, "Found expected size of ${prefix} edits array");
-  pairwise { is($a->id, $b, "Found ${prefix} edit #".$a->id) } @$edits, @$expected_edit_ids;
-}
-
 check_edits({}, [5, 4, 3, 2, 1], "every", $edit_data);
 
 # Find edits with a certain status
@@ -177,6 +179,16 @@ is ($editor_cancelled->$_, $editor->$_,
     "$_ has not changed")
     for qw( accepted_edits rejected_edits failed_edits accepted_auto_edits );
 
+};
+
+test 'Collections' => sub {
+  my $test = shift;
+
+  MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+collection');
+  my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
+
+  #Find edits by collection
+  are_edits_as_expected([3], "collection", $edit_data->find_by_collection(1, 10, 0));
 };
 
 test 'Find edits by subscription' => sub {
