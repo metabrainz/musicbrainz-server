@@ -1413,7 +1413,7 @@ test('Cleanup', function (t) {
                 'https://weibo.com/mchotdog2010?test',
                 'http://weibo.com/mchotdog2010',
                 'label'
-            ],
+            ]
         ];
 
     $.each(tests, function (i, test) {
