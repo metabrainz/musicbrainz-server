@@ -305,7 +305,7 @@ MB.constants.CLEANUPS = {
         }
     },
     amazon: {
-        match: [ new RegExp("^(https?://)?([^/]+\\.)?(amazon\\.(com|ca|co\\.uk|fr|at|de|it|co\\.jp|jp|cn|es|in)|amzn\\.com)","i") ],
+        match: [ new RegExp("^(https?://)?([^/]+\\.)?(amazon\\.(com|ca|co\\.uk|fr|at|de|it|co\\.jp|jp|cn|es|in|com\\.br)|amzn\\.com)","i") ],
         type: MB.constants.LINK_TYPES.amazon,
         clean: function (url) {
             // determine tld, asin from url, and build standard format [1],
@@ -899,7 +899,7 @@ MB.Control.URLCleanup = function (options) {
 
     // allow only Amazon pages with the Amazon rel
     validationRules[ MB.constants.LINK_TYPES.amazon.release ] = function (url) {
-        return url.match(/amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn|es|in)\//) != null;
+        return url.match(/amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn|es|in|com\.br)\//) != null;
     }
 
     // allow only IMDb pages with the IMDb rels
