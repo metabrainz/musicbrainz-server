@@ -1393,6 +1393,17 @@ test('Cleanup', function (t) {
                 'http://www.cdjapan.co.jp/product/COCC-72267',
                 'release'
             ],
+            // CDJapan.co.jp
+            [
+                'www.weibo.com/mchotdog2010#test',
+                'http://weibo.com/mchotdog2010',
+                'artist'
+            ],
+            [
+                'https://weibo.com/mchotdog2010?test',
+                'http://weibo.com/mchotdog2010',
+                'label'
+            ],
         ];
 
     $.each(tests, function (i, test) {
