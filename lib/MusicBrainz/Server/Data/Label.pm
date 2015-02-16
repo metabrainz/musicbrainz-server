@@ -12,7 +12,7 @@ use MusicBrainz::Server::Data::Utils qw(
     hash_to_row
     load_subobjects
     merge_table_attributes
-    merge_partial_date
+    merge_date_period
     placeholders
     query_to_list
     query_to_list_limited
@@ -218,11 +218,10 @@ sub _merge_impl
     merge_partial_date(
         $self->sql => (
             table => 'label',
-            field => $_,
             old_ids => \@old_ids,
             new_id => $new_id
         )
-    ) for qw( begin_date end_date );
+    );
 
     $self->_delete_and_redirect_gids('label', $new_id, @old_ids);
 
