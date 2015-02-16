@@ -215,7 +215,7 @@ sub _merge_impl
         )
     );
 
-    merge_partial_date(
+    merge_date_period(
         $self->sql => (
             table => 'label',
             old_ids => \@old_ids,
