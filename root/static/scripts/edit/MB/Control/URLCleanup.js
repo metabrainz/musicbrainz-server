@@ -905,10 +905,10 @@ MB.Control.URLCleanup = function (options) {
     validationRules[ MB.constants.LINK_TYPES.imdb.release_group ] = function (url) {
         return url.match(/imdb\.com\/title/) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.imdbsamples.recording ] = function (url) {
+    validationRules[ MB.constants.LINK_TYPES.imdb.recording ] = function (url) {
         return url.match(/imdb\.com\//) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.imdbsamples.release ] = function (url) {
+    validationRules[ MB.constants.LINK_TYPES.imdb.release ] = function (url) {
         return url.match(/imdb\.com\//) != null;
     }
 
