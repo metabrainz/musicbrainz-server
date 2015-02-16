@@ -30,6 +30,7 @@ require Exporter;
     our @ISA = qw( Exporter );
     our @EXPORT_OK = qw(
         unaccent_utf16
+        is_integer
         is_positive_integer
         is_guid
         trim_in_place
