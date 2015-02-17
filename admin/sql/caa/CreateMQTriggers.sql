@@ -114,7 +114,7 @@ CREATE OR REPLACE FUNCTION delete_release() RETURNS trigger AS $$
         JOIN cover_art_archive.image_type ON image_type.mime_type = cover_art.mime_type
         WHERE release = OLD.id;
 
-        PERFORM amqp.publish('cover-art-archive', 'delete',
+        PERFORM amqp.publish(1, 'cover-art-archive', 'delete',
             ('index.json' || E'\n' || OLD.gid)::text)
         FROM musicbrainz.release
         WHERE release.id = OLD.id;
